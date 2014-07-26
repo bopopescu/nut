@@ -1,11 +1,4 @@
-class Entity(BaseModel):
-
-    (freeze, hide, show) = range(0, 3)
-    ENTITY_STATUS_CHOICES = [
-        (freeze, _("freeze")),
-        (hide, _("hide")),
-        (show, _("show")),
-    ]
+Entity 数据结构:
 
     entity_hash = models.CharField(max_length=32, unique=True, db_index=True)
     # creator_id = models.IntegerField(default=None, null=True, db_index=True)
@@ -22,4 +15,4 @@ class Entity(BaseModel):
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
     # novus_time = models.DateTimeField(db_index=True)
-    weight = models.IntegerField(choices=ENTITY_STATUS_CHOICES,default=0)
+    weight = models.IntegerField(choices=ENTITY_STATUS_CHOICES,default=0) （新版本， 改为 status）
