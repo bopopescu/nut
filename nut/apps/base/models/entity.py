@@ -13,12 +13,12 @@ class Entity(BaseModel):
     ]
 
     entity_hash = models.CharField(max_length=32, unique=True, db_index=True)
-    creator_id = models.IntegerField(default=None, null=True, db_index=True)
+    # creator_id = models.IntegerField(default=None, null=True, db_index=True)
     # category = models.ForeignKey(Category)
     # neo_category = models.ForeignKey(Neo_Category)
-    brand = models.CharField(max_length=256, null=False, default='')
-    title = models.CharField(max_length=256, null=False, default='')
-    intro = models.TextField(null=False, default='')
+    brand = models.CharField(max_length=256, default='')
+    title = models.CharField(max_length=256, default='')
+    intro = models.TextField(default='')
     price = models.DecimalField(max_digits=20, decimal_places=2, default=0, db_index=True)
     # like_count = models.IntegerField(default=0, db_index=True)
     mark = models.IntegerField(default=0, db_index=True)
@@ -26,9 +26,9 @@ class Entity(BaseModel):
     detail_images = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
-    novus_time = models.DateTimeField(db_index=True)
-    weight = models.IntegerField(default=0, db_index=True)
-    rank_score = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=0)
+    # novus_time = models.DateTimeField(db_index=True)
+    weight = models.IntegerField(choices=ENTITY_STATUS_CHOICES,default=0)
+    # rank_score = models.IntegerField( default=0)
 
     # objects = EntityManager()
 
@@ -48,7 +48,7 @@ class Entity(BaseModel):
         return self.entity_like_set.count()
 
     class Meta:
-        ordering = ['-created_time']
+        ordering = ['-updated_time']
 
     def get_absolute_url(self):
         return "/detail/%s" % self.entity_hash
