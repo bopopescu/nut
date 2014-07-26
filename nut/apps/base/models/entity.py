@@ -27,7 +27,7 @@ class Entity(BaseModel):
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
     # novus_time = models.DateTimeField(db_index=True)
-    weight = models.IntegerField(choices=ENTITY_STATUS_CHOICES,default=0)
+    status = models.IntegerField(choices=ENTITY_STATUS_CHOICES,default=0)
     # rank_score = models.IntegerField( default=0)
 
     # objects = EntityManager()
