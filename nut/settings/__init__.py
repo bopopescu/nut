@@ -1,3 +1,3 @@
-from settings import *
+from dev_jiaxin import *
 
 __author__ = 'edison7500'
