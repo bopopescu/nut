@@ -1,15 +1,13 @@
-nut
-===
+# 果库
 
-guoku-web-v4
-
-base django-1.6.5
-
-use django-storage for guoku
+![guoku icon](http://tp4.sinaimg.cn/2179686555/50/5657509044/1)
 
 
-前端框架
-===
-bootstrap-3.2.
+## 概览
+**果库网站 V4**
 
-jQuery-1.11.1
+### 开源包
+*django-1.6.5*
+
+### 自有包
+*django-storage*
