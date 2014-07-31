@@ -19,7 +19,7 @@ class BaseModel(models.Model):
         return d
 
 
-class User_Profile(models.Model):
+class User_Profile(BaseModel):
     Man = u'M'
     Woman = u'F'
     Other = u'O'
@@ -41,6 +41,7 @@ class User_Profile(models.Model):
 
     def __unicode__(self):
         return self.nickname
+
 
 class Entity(BaseModel):
 
@@ -84,7 +85,20 @@ class Entity(BaseModel):
     def __unicode__(self):
         return self.title
 
-class Entity_Like(models.Model):
+
+class BuyLink(BaseModel):
+    entity = models.ForeignKey(Entity, related_name='buylinks')
+    origin_source = models.CharField(max_length=255)
+    link = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=20, decimal_places=2, default=0)
+    volume = models.IntegerField(default=0)
+    rank = models.IntegerField(default=0)
+
+    def __unicode__(self):
+        return self.link
+
+
+class EntityLike(models.Model):
     entity = models.ForeignKey(Entity, related_name='likes')
     user = models.ForeignKey(User, related_name='likes')
     created_time = models.DateTimeField(auto_now_add = True, db_index=True)
