@@ -6,8 +6,16 @@
 ## 概览
 **果库网站 V4**
 
-### 开源包
+### 系统环境
+Ubuntu Python2.7 MySQL Nginx redis
+
+### 后端框架
 *django-1.6.5*
 
-### 自有包
-*django-storage*
+### 前端框架
+*bootstrap-3.2.0*
+
+*jQuery-1.11.1*
+
+### 安装包
+*django-storage （果库开发）*
