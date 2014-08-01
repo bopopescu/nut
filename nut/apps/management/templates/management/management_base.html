@@ -46,13 +46,13 @@
                 {% block sidebar %}
                     <ul class="nav nav-sidebar">
                         {% url 'management_dashboard' as management_dashboard_url %}
-                        <li {% if management_dashboard_url in request.path %}class="active"{% endif %}>
+                        <li {% if management_dashboard_url == request.path %}class="active"{% endif %}>
                             <a href="{{ management_dashboard_url }}">{% trans 'dashboard' %}</a>
                         </li>
                     </ul>
                     <ul class="nav nav-sidebar">
                         {% url 'management_entity_list' as management_entity_list_url %}
-                        <li {% if management_entity_list_url in request.path %}class="active"{% endif %}>
+                        <li {% if management_entity_list_url == request.path %}class="active"{% endif %}>
                             <a href="{{ management_entity_list_url }}">{% trans 'entity' %}</a>
                         </li>
                         <li><a href="#">{% trans 'category' %}</a></li>
