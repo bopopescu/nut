@@ -35,4 +35,4 @@
 * *django-debug-toolbar* [相关文档](http://django-debug-toolbar.readthedocs.org/en/1.2/installation.html#quick-setup)
 
 ### Emial
-<job@guoku.com> <jiaxin@guoku.com>
+ <jiaxin@guoku.com>

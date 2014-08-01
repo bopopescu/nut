@@ -43,7 +43,19 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
-                {% block sidebar %}{% endblock %}
+                {% block sidebar %}
+                    <ul class="nav nav-sidebar">
+                        {% url 'management_dashboard' as management_dashboard_url %}
+                        <li {% if management_dashboard_url in request.path %}class="active"{% endif %}><a href="{{ management_dashboard_url }}">{% trans 'dashboard' %}</a></li>
+                    </ul>
+                    <ul class="nav nav-sidebar">
+                        {% url 'management_entity_list' as management_entity_list_url %}
+                        <li {% if management_entity_list_url in request.path %}class="active"{% endif %}>
+                            <a href="{{ management_entity_list_url }}">{% trans 'entity' %}</a>
+                        </li>
+                        <li><a href="#">{% trans 'category' %}</a></li>
+                    </ul>
+                {% endblock %}
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 {% block content %}{% endblock %}
