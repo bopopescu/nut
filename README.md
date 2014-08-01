@@ -12,7 +12,7 @@
 5. redis
 
 ### 后端框架
-1. *django-1.6.5*
+1. *django-1.6.5* [相关文档](https://docs.djangoproject.com/en/1.6/)
 
 ### 前端框架
 1. *bootstrap-3.2.0*
