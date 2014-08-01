@@ -5,26 +5,34 @@
 **果库网站 V4**
 
 ### 系统环境
-1. Ubuntu 
-2. Python2.7 
-3. MySQL 
-4. Nginx 
-5. redis
+* Ubuntu 
+* Python2.7 
+* MySQL 
+* Nginx 
+* Redis
+
+### 快速安装
+ ```
+ virtualenv guoku-v4
+ source /path/to/guoku-v4/bin/active
+ pip install -r requirements.txt
+ ```
+
 
 ### 后端框架
-1. *django-1.6.5* [相关文档](https://docs.djangoproject.com/en/1.6/)
+* *django-1.6.5* [相关文档](https://docs.djangoproject.com/en/1.6/)
 
 ### 前端框架
-1. *bootstrap-3.2.0*
-2. *jQuery-1.11.1*
+* *bootstrap-3.2.0*
+* *jQuery-1.11.1*
 
 ### 安装包
-1. *django-storage （果库开发）*
-2. *MySQL-python*
-3. *django-debug-toolbar*
+* *django-storage （果库开发）*
+* *MySQL-python*
+* *django-debug-toolbar*
 
 ### Debug 工具
-1. *django-debug-toolbar* [相关文档](http://django-debug-toolbar.readthedocs.org/en/1.2/installation.html#quick-setup)
+* *django-debug-toolbar* [相关文档](http://django-debug-toolbar.readthedocs.org/en/1.2/installation.html#quick-setup)
 
 ### Emial
 <job@guoku.com> <jiaxin@guoku.com>
