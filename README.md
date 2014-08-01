@@ -19,8 +19,9 @@
 2. *jQuery-1.11.1*
 
 ### 安装包
-*django-storage （果库开发）*
+1. *django-storage （果库开发）*
+2. *MySQL-python*
 
 
 ### Emial
-<job@guoku.com>
+<job@guoku.com> <jiaxin@guoku.com>
