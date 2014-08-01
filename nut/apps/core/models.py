@@ -52,6 +52,7 @@ class Entity(BaseModel):
         (show, _("show")),
     ]
 
+    user = models.ForeignKey(User, related_name='entity')
     entity_hash = models.CharField(max_length=32, unique=True, db_index=True)
     # creator_id = models.IntegerField(default=None, null=True, db_index=True)
     # category = models.ForeignKey(Category)
