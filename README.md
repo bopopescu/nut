@@ -27,7 +27,7 @@
 * *jQuery-1.11.1*
 
 ### 安装包
-* *django-storage （果库开发）*
+* *django-storage （果库开发）*  [https://github.com/guoku/django-storages.git](https://github.com/guoku/django-storages.git)
 * *MySQL-python*
 * *django-debug-toolbar*
 
