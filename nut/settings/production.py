@@ -6,6 +6,21 @@ TIME_ZONE = 'Asia/Shanghai'
 
 USE_TZ = False
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'test',
+        'USER': 'qinzhoukan',
+        'PASSWORD': 'qinzhoukan1@#',
+        'HOST': '10.0.2.90',
+        'PORT': '',
+        'OPTIONS': {
+            'use_unicode':'utf-8',
+            'init_command':'SET storage_engine=INNODB',
+        }
+    },
+}
+
 
 LOCALE_PATHS = (
     os.path.join(os.path.dirname(__file__), '../conf/locale'),
@@ -42,7 +57,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
+    # 'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 

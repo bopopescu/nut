@@ -52,7 +52,7 @@ class Entity(BaseModel):
         (show, _("show")),
     ]
 
-    user = models.ForeignKey(User, related_name='entity')
+    user = models.ForeignKey(User, related_name='entity', null=True)
     entity_hash = models.CharField(max_length=32, unique=True, db_index=True)
     # creator_id = models.IntegerField(default=None, null=True, db_index=True)
     # category = models.ForeignKey(Category)
@@ -68,7 +68,7 @@ class Entity(BaseModel):
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
     # novus_time = models.DateTimeField(db_index=True)
-    status = models.IntegerField(choices=ENTITY_STATUS_CHOICES,default=0)
+    status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=0)
     # rank_score = models.IntegerField( default=0)
 
     # objects = EntityManager()
