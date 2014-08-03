@@ -77,6 +77,11 @@ class Entity(BaseModel):
     def like_count(self):
         return self.likes.count()
 
+    @property
+    def chief_image_url(self):
+        return self.chief_image
+
+
     class Meta:
         ordering = ['-updated_time']
 
