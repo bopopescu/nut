@@ -5,7 +5,7 @@ from django.conf import settings
 
 urlpatterns = patterns('',
 
-    url(r'management/', include('apps.management.urls')),
+    url(r'management', include('apps.management.urls')),
     # url(r'^', include('apps.web.urls')),
 )
 

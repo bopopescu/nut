@@ -89,6 +89,7 @@ class Entity(BaseModel):
 
 class BuyLink(BaseModel):
     entity = models.ForeignKey(Entity, related_name='buylinks')
+    origin_id = models.CharField(max_length=100)
     origin_source = models.CharField(max_length=255)
     link = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=20, decimal_places=2, default=0)
@@ -108,6 +109,56 @@ class EntityLike(models.Model):
         ordering = ['-created_time']
         unique_together = ('entity', 'user')
 
+class Note(models.Model):
+    user = models.ForeignKey(User, related_name='note')
+    entity = models.ForeignKey(Entity, related_name="notes")
+    note = models.TextField(null = True)
+    score = models.IntegerField(db_index = True, default = 0)
+    figure = models.CharField(max_length = 256, null = False, default = '')
+    post_time = models.DateTimeField(null = True, db_index = True)
+    updated_time = models.DateTimeField(auto_now = True, db_index = True)
+
+    class Meta:
+        ordering = ['-post_time']
+        unique_together = ('entity', 'user')
+
+    def __unicode__(self):
+        return self.note
+
+
+class User_Follow(models.Model):
+    follower = models.ForeignKey(User, related_name = "followings")
+    followee = models.ForeignKey(User, related_name = "fans")
+    followed_time = models.DateTimeField(auto_now_add = True, db_index = True)
+
+    class Meta:
+        ordering = ['-followed_time']
+        unique_together = ("follower", "followee")
+
+class Sina_Token(models.Model):
+    user = models.OneToOneField(User, related_name='weibo')
+    sina_id = models.CharField(max_length = 64, null = True, db_index = True)
+    screen_name = models.CharField(max_length = 64, null = True, db_index = True)
+    access_token = models.CharField(max_length = 255, null = True, db_index = True)
+    create_time = models.DateTimeField(auto_now_add = True)
+    expires_in = models.PositiveIntegerField(default = 0)
+    updated_time = models.DateTimeField(auto_now = True, null = True)
+
+    def __unicode__(self):
+        return self.screen_name
+
+class Taobao_Token(models.Model):
+    user = models.OneToOneField(User, related_name='taobao')
+    taobao_id = models.CharField(max_length = 64, null = True, db_index = True)
+    screen_name = models.CharField(max_length = 64, null = True, db_index = True)
+    access_token = models.CharField(max_length = 255, null = True, db_index = True)
+    refresh_token = models.CharField(max_length = 255, null = True, db_index = True)
+    create_time = models.DateTimeField(auto_now_add = True)
+    expires_in = models.PositiveIntegerField(default = 0)
+    re_expires_in = models.PositiveIntegerField(default = 0)
+    updated_time = models.DateTimeField(auto_now = True, null = True)
+
+    def __unicode__(self):
+        return self.screen_name
 
 __author__ = 'edison7500'
-
