@@ -13,16 +13,18 @@
                     <th>{% trans 'brand' %}</th>
                     <th>{% trans 'title' %}</th>
                     <th>{% trans 'price' %}</th>
+                    <th>{% trans 'operation' %}</th>
                 </tr>
             </thead>
             <tbody>
                 {% for entity in entities %}
                     <tr>
-                        <th>{{ entity.id }}</th>
-                        <th><img src="{{ entity.chief_image }}"></th>
-                        <th>{{ entity.brand }}</th>
-                        <th>{{ entity.title }}</th>
-                        <th>{{ entity.price }}</th>
+                        <td>{{ entity.id }}</td>
+                        <td><img src="{{ entity.chief_image }}"></td>
+                        <td>{{ entity.brand }}</td>
+                        <td>{{ entity.title }}</td>
+                        <td>{{ entity.price }}</td>
+                        <td><a class="btn btn-default" href="">{% trans 'edit' %}</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

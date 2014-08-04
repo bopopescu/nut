@@ -23,8 +23,8 @@
 * *django-1.6.5* [相关文档](https://docs.djangoproject.com/en/1.6/)
 
 ### 前端框架
-* *bootstrap-3.2.0*
-* *jQuery-1.11.1*
+* *bootstrap-3.2.0* [相关文档](http://getbootstrap.com/)
+* *jQuery-1.11.1*	[相关文档](http://jquery.com/)
 
 ### 安装包
 * *django-storage （果库开发）*  [https://github.com/guoku/django-storages.git](https://github.com/guoku/django-storages.git)
