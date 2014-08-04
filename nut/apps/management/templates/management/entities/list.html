@@ -24,7 +24,7 @@
                         <td>{{ entity.brand }}</td>
                         <td>{{ entity.title }}</td>
                         <td>{{ entity.price }}</td>
-                        <td><a class="btn btn-default" href="">{% trans 'edit' %}</a></td>
+                        <td><a class="btn btn-default" href="{% url 'management_entity_edit' entity.pk %}">{% trans 'edit' %}</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
