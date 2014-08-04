@@ -11,7 +11,7 @@ def list(request, template = 'management/entities/list.html'):
     page = request.GET.get('page', 1)
     entity_list  = Entity.objects.all()
 
-    paginator = Paginator(entity_list, 20)
+    paginator = Paginator(entity_list, 3)
 
     try:
         entities = paginator.page(page)
@@ -27,10 +27,22 @@ def list(request, template = 'management/entities/list.html'):
                             context_instance = RequestContext(request))
 
 
-def detail(request, entity_id,  template='management/entities/detail.html'):
+def edit(request, entity_id,  template='management/entities/edit.html'):
+
+    if request.method == "POST":
+
+        pass
+
+    try:
+        entity = Entity.objects.get(pk = entity_id)
+    except Entity.DoesNotExist:
+        raise Http404
+
 
     return render_to_response(template,
-                        {},
+                        {
+                            'entity': entity,
+                        },
                         context_instance = RequestContext(request))
 
 
