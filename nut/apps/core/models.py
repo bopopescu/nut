@@ -39,6 +39,11 @@ class User_Profile(BaseModel):
     avatar = models.CharField(max_length=255)
     email_verified = models.BooleanField(default = False)
 
+
+    @property
+    def like_count(self):
+        return self.likes.count()
+
     def __unicode__(self):
         return self.nickname
 
@@ -92,7 +97,7 @@ class Entity(BaseModel):
         return self.title
 
 
-class BuyLink(BaseModel):
+class Buy_Link(BaseModel):
     entity = models.ForeignKey(Entity, related_name='buylinks')
     origin_id = models.CharField(max_length=100)
     origin_source = models.CharField(max_length=255)
@@ -105,7 +110,7 @@ class BuyLink(BaseModel):
         return self.link
 
 
-class EntityLike(models.Model):
+class Entity_Like(models.Model):
     entity = models.ForeignKey(Entity, related_name='likes')
     user = models.ForeignKey(User, related_name='likes')
     created_time = models.DateTimeField(auto_now_add = True, db_index=True)
@@ -118,8 +123,8 @@ class Note(models.Model):
     user = models.ForeignKey(User, related_name='note')
     entity = models.ForeignKey(Entity, related_name="notes")
     note = models.TextField(null = True)
-    score = models.IntegerField(db_index = True, default = 0)
-    figure = models.CharField(max_length = 256, null = False, default = '')
+    # score = models.IntegerField(db_index = True, default = 0)
+    # figure = models.CharField(max_length = 256, null = False, default = '')
     post_time = models.DateTimeField(null = True, db_index = True)
     updated_time = models.DateTimeField(auto_now = True, db_index = True)
 
