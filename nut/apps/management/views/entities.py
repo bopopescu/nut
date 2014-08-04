@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 
 from apps.core.models import Entity
-
+from apps.core.forms.entity import EntityFrom
 
 def list(request, template = 'management/entities/list.html'):
 
@@ -38,10 +38,15 @@ def edit(request, entity_id,  template='management/entities/edit.html'):
     except Entity.DoesNotExist:
         raise Http404
 
-
+    _forms = EntityFrom(
+        initial={
+            'id':entity.pk,
+        }
+    )
     return render_to_response(template,
                         {
                             'entity': entity,
+                            'forms':_forms,
                         },
                         context_instance = RequestContext(request))
 
