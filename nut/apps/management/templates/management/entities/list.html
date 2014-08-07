@@ -12,7 +12,9 @@
                     <th>{% trans 'image' %}</th>
                     <th>{% trans 'brand' %}</th>
                     <th>{% trans 'title' %}</th>
+                    <th>{% trans 'created_time' %}</th>
                     <th>{% trans 'price' %}</th>
+                    <th>{% trans 'status' %}</th>
                     <th>{% trans 'operation' %}</th>
                 </tr>
             </thead>
@@ -23,7 +25,9 @@
                         <td><img src="{{ entity.chief_image }}"></td>
                         <td>{{ entity.brand }}</td>
                         <td>{{ entity.title }}</td>
+                        <td>{{ entity.created_time|date:'Y-m-d' }}</td>
                         <td>{{ entity.price }}</td>
+                        <td>{{ entity.get_status_display }}</td>
                         <td><a class="btn btn-default" href="{% url 'management_entity_edit' entity.pk %}">{% trans 'edit' %}</a></td>
                     </tr>
                 {% endfor %}
