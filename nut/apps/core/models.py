@@ -21,7 +21,7 @@ class BaseModel(models.Model):
             d[attr] = "%s" % getattr(self, attr)
         return d
 
-class GKUser(AbstractBaseUser):
+class GKUser(AbstractBaseUser, BaseModel):
     email = models.EmailField(max_length=255, unique=True)
     is_active = models.BooleanField(_('active'), default=True)
     is_admin = models.BooleanField(default=False)
