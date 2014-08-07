@@ -71,7 +71,6 @@ class User_Profile(BaseModel):
     avatar = models.CharField(max_length=255)
     email_verified = models.BooleanField(default = False)
 
-
     def __unicode__(self):
         return self.nickname
 
