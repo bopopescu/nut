@@ -11,7 +11,7 @@ def list(request, template = 'management/entities/list.html'):
     page = request.GET.get('page', 1)
     entity_list  = Entity.objects.all()
 
-    paginator = Paginator(entity_list, 3)
+    paginator = Paginator(entity_list, 30)
 
     try:
         entities = paginator.page(page)
