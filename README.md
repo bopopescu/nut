@@ -30,7 +30,7 @@
 * *django-storage （果库开发）*  [https://github.com/guoku/django-storages.git](https://github.com/guoku/django-storages.git)
 * *MySQL-python*
 * *django-debug-toolbar*
-* *urllib3* [相关文档](http://urllib3.readthedocs.org/en/latest/) 
+* *Wand* [相关文档](http://docs.wand-py.org/en/0.3.7/)
 
 ### Debug 工具
 * *django-debug-toolbar* [相关文档](http://django-debug-toolbar.readthedocs.org/en/1.2/installation.html#quick-setup)

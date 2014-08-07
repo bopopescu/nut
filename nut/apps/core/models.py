@@ -62,7 +62,7 @@ class User_Profile(BaseModel):
     )
 
     user = models.OneToOneField(GKUser, related_name='profile')
-    nickname = models.CharField(max_length = 64, db_index = True, unique = True)
+    nickname = models.CharField(max_length = 64, db_index = True)
     location = models.CharField(max_length = 32, null = True, default = _('beijing'))
     city = models.CharField(max_length = 32, null = True, default = _('chaoyang'))
     gender = models.CharField(max_length = 2, choices = GENDER_CHOICES, default = Other)
@@ -77,16 +77,15 @@ class User_Profile(BaseModel):
 
 class Entity(BaseModel):
 
-    (freeze, hide, show) = range(0, 3)
+    (freeze, new, selection) = (-1, 0, 1)
     ENTITY_STATUS_CHOICES = [
         (freeze, _("freeze")),
-        (hide, _("hide")),
-        (show, _("show")),
+        (new, _("new")),
+        (selection, _("selection")),
     ]
 
     user = models.ForeignKey(GKUser, related_name='entity', null=True)
     entity_hash = models.CharField(max_length=32, unique=True, db_index=True)
-    # creator_id = models.IntegerField(default=None, null=True, db_index=True)
     # category = models.ForeignKey(Category)
     # neo_category = models.ForeignKey(Neo_Category)
     brand = models.CharField(max_length=256, default='')
@@ -110,12 +109,16 @@ class Entity(BaseModel):
         return self.likes.count()
 
     @property
+    def note_count(self):
+        return self.notes.count()
+
+    @property
     def chief_image_url(self):
         return self.chief_image
 
 
     class Meta:
-        ordering = ['-updated_time']
+        ordering = ['-created_time']
 
     def get_absolute_url(self):
         return "/detail/%s" % self.entity_hash
