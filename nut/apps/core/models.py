@@ -46,6 +46,11 @@ class GKUser(AbstractBaseUser):
     def is_verified(self):
         return self.profile.email_verified
 
+    @property
+    def likes(self):
+
+        return self.likes.count()
+
 class User_Profile(BaseModel):
     Man = u'M'
     Woman = u'F'
@@ -66,10 +71,6 @@ class User_Profile(BaseModel):
     avatar = models.CharField(max_length=255)
     email_verified = models.BooleanField(default = False)
 
-
-    @property
-    def like_count(self):
-        return self.likes.count()
 
     def __unicode__(self):
         return self.nickname
