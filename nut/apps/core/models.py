@@ -1,7 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 # from ..models.base import BaseModel
+
+from apps.core.manager.account import GKUserManager
 
 
 class BaseModel(models.Model):
@@ -18,6 +21,30 @@ class BaseModel(models.Model):
             d[attr] = "%s" % getattr(self, attr)
         return d
 
+class GKUser(AbstractBaseUser):
+    email = models.EmailField(max_length=255, unique=True)
+    is_active = models.BooleanField(_('active'), default=True)
+    is_admin = models.BooleanField(default=False)
+    date_joined = models.DateTimeField(_('date joined'), default=timezone.now())
+
+    objects = GKUserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    class Meta:
+        ordering = ['date_joined']
+
+    def __unicode__(self):
+        return self.email
+
+    @property
+    def is_staff(self):
+        return self.is_admin
+
+    @property
+    def is_verified(self):
+        return self.profile.email_verified
 
 class User_Profile(BaseModel):
     Man = u'M'
@@ -29,7 +56,7 @@ class User_Profile(BaseModel):
         (Other,  _('other')),
     )
 
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(GKUser, related_name='profile')
     nickname = models.CharField(max_length = 64, db_index = True, unique = True)
     location = models.CharField(max_length = 32, null = True, default = _('beijing'))
     city = models.CharField(max_length = 32, null = True, default = _('chaoyang'))
@@ -57,7 +84,7 @@ class Entity(BaseModel):
         (show, _("show")),
     ]
 
-    user = models.ForeignKey(User, related_name='entity', null=True)
+    user = models.ForeignKey(GKUser, related_name='entity', null=True)
     entity_hash = models.CharField(max_length=32, unique=True, db_index=True)
     # creator_id = models.IntegerField(default=None, null=True, db_index=True)
     # category = models.ForeignKey(Category)
@@ -112,7 +139,7 @@ class Buy_Link(BaseModel):
 
 class Entity_Like(models.Model):
     entity = models.ForeignKey(Entity, related_name='likes')
-    user = models.ForeignKey(User, related_name='likes')
+    user = models.ForeignKey(GKUser, related_name='likes')
     created_time = models.DateTimeField(auto_now_add = True, db_index=True)
 
     class Meta:
@@ -120,7 +147,7 @@ class Entity_Like(models.Model):
         unique_together = ('entity', 'user')
 
 class Note(models.Model):
-    user = models.ForeignKey(User, related_name='note')
+    user = models.ForeignKey(GKUser, related_name='note')
     entity = models.ForeignKey(Entity, related_name="notes")
     note = models.TextField(null = True)
     # score = models.IntegerField(db_index = True, default = 0)
@@ -137,8 +164,8 @@ class Note(models.Model):
 
 
 class User_Follow(models.Model):
-    follower = models.ForeignKey(User, related_name = "followings")
-    followee = models.ForeignKey(User, related_name = "fans")
+    follower = models.ForeignKey(GKUser, related_name = "followings")
+    followee = models.ForeignKey(GKUser, related_name = "fans")
     followed_time = models.DateTimeField(auto_now_add = True, db_index = True)
 
     class Meta:
@@ -146,7 +173,7 @@ class User_Follow(models.Model):
         unique_together = ("follower", "followee")
 
 class Sina_Token(models.Model):
-    user = models.OneToOneField(User, related_name='weibo')
+    user = models.OneToOneField(GKUser, related_name='weibo')
     sina_id = models.CharField(max_length = 64, null = True, db_index = True)
     screen_name = models.CharField(max_length = 64, null = True, db_index = True)
     access_token = models.CharField(max_length = 255, null = True, db_index = True)
@@ -158,7 +185,7 @@ class Sina_Token(models.Model):
         return self.screen_name
 
 class Taobao_Token(models.Model):
-    user = models.OneToOneField(User, related_name='taobao')
+    user = models.OneToOneField(GKUser, related_name='taobao')
     taobao_id = models.CharField(max_length = 64, null = True, db_index = True)
     screen_name = models.CharField(max_length = 64, null = True, db_index = True)
     access_token = models.CharField(max_length = 255, null = True, db_index = True)
