@@ -2,9 +2,13 @@ from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
+from django.utils.log import getLogger
 
 from apps.core.models import Entity
 from apps.core.forms.entity import EntityFrom
+
+log = getLogger('django')
+
 
 def list(request, template = 'management/entities/list.html'):
 
@@ -19,10 +23,11 @@ def list(request, template = 'management/entities/list.html'):
         entities = paginator.page(1)
     except EmptyPage:
         raise Http404
-
+    # log.info(paginator.page_range)
     return render_to_response(template,
                             {
                                 'entities': entities,
+                                'page_range': paginator.page_range[int(page) - 1: 9 + int(page)],
                             },
                             context_instance = RequestContext(request))
 
