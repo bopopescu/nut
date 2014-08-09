@@ -35,7 +35,7 @@
         </table>
     </div>
     <div class="row">
-        <ul class="pagination">
+        <ul class="pagination pagination-lg">
             {% if entities.has_previous %}
                 <li><a href="{% url 'management_entity_list' %}?page={{ entities.previous_page_number }}">&laquo;</a></li>
             {% endif %}

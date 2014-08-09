@@ -75,6 +75,32 @@ class User_Profile(BaseModel):
         return self.nickname
 
 
+
+class Category_Group(BaseModel):
+    title = models.CharField(max_length = 128, db_index = True)
+    status = models.BooleanField(default = True, db_index = True)
+
+    class Meta:
+        ordering = ['id']
+
+    def __unicode__(self):
+        return self.title
+
+class Category(BaseModel):
+    group = models.ForeignKey(Category_Group)
+    title = models.CharField(max_length = 128, db_index = True, unique = True)
+    image_store_hash = models.CharField(max_length = 64, db_index = True, null = True, default = None)
+    status = models.BooleanField(default = True, db_index = True)
+
+    class Meta:
+        ordering = ['id']
+
+    def get_absolute_url(self):
+        return "/c/%s" % self.id
+
+    def __unicode__(self):
+        return self.title
+
 class Entity(BaseModel):
 
     (freeze, new, selection) = (-1, 0, 1)
@@ -86,8 +112,7 @@ class Entity(BaseModel):
 
     user = models.ForeignKey(GKUser, related_name='entity', null=True)
     entity_hash = models.CharField(max_length=32, unique=True, db_index=True)
-    # category = models.ForeignKey(Category)
-    # neo_category = models.ForeignKey(Neo_Category)
+    category = models.ForeignKey(Category)
     brand = models.CharField(max_length=256, default='')
     title = models.CharField(max_length=256, default='')
     intro = models.TextField(default='')
