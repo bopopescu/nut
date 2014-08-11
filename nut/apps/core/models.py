@@ -48,7 +48,6 @@ class GKUser(AbstractBaseUser, BaseModel):
 
     @property
     def likes(self):
-
         return self.likes.count()
 
 class User_Profile(BaseModel):
@@ -74,7 +73,9 @@ class User_Profile(BaseModel):
     def __unicode__(self):
         return self.nickname
 
-
+    @property
+    def avatar_url(self):
+        return "%s%s" % ('http://imgcdn.guoku.com/', self.avatar)
 
 class Category(BaseModel):
     title = models.CharField(max_length = 128, db_index = True)
