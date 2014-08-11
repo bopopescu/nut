@@ -58,7 +58,8 @@
                         <li><a href="#">{% trans 'category' %}</a></li>
                     </ul>
                     <ul class="nav nav-sidebar">
-                        <li><a href="#">{% trans 'user' %}</a></li>
+                        {% url 'management_user_list' as management_user_list_url %}
+                        <li {% if management_user_list_url == request.path %}class="active"{% endif %}><a href="{{ management_user_list_url }}">{% trans 'user' %}</a></li>
                     </ul>
                 {% endblock %}
             </div>
