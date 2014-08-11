@@ -26,4 +26,18 @@ def list(request, template="management/users/list.html"):
                             },
                             context_instance = RequestContext(request))
 
+
+def edit(request, user_id, template="management/users/edit.html"):
+
+    try:
+        user = GKUser.objects.get(pk = user_id)
+    except GKUser.DoesNotExist:
+        raise Http404
+
+    return render_to_response(template,
+                                {
+                                    'user':user,
+                                },
+                              context_instance = RequestContext(request))
+
 __author__ = 'edison'
