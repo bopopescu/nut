@@ -11,6 +11,8 @@
                     <th>{% trans 'avatar' %}</th>
                     <th>{% trans 'email' %}</th>
                     <th>{% trans 'nickname' %}</th>
+                    <th>{% trans 'gender' %}</th>
+                    <th>{% trans 'is_admin' %}</th>
                     <th>{% trans 'operation' %}</th>
                 </tr>
             </thead>
@@ -21,7 +23,9 @@
                         <td><img src="{{ user.profile.avatar_url }}" width="50" height="50"></td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.profile.nickname }}</td>
-                        <td><a class="btn btn-default" href="#">{% trans 'edit' %}</a></td>
+                        <td>{{ user.profile.get_gender_display }}</td>
+                        <td>{{ user.is_staff|yesno }}</td>
+                        <td><a class="btn btn-default" href="{% url 'management_user_edit' user.pk %}">{% trans 'edit' %}</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
