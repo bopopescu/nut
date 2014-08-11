@@ -76,7 +76,7 @@ class User_Profile(BaseModel):
 
 
 
-class Category_Group(BaseModel):
+class Category(BaseModel):
     title = models.CharField(max_length = 128, db_index = True)
     status = models.BooleanField(default = True, db_index = True)
 
@@ -86,10 +86,10 @@ class Category_Group(BaseModel):
     def __unicode__(self):
         return self.title
 
-class Category(BaseModel):
-    group = models.ForeignKey(Category_Group)
-    title = models.CharField(max_length = 128, db_index = True, unique = True)
-    image_store_hash = models.CharField(max_length = 64, db_index = True, null = True, default = None)
+class Sub_Category(BaseModel):
+    group = models.ForeignKey(Category)
+    title = models.CharField(max_length = 128, db_index = True)
+    icon = models.CharField(max_length = 64, db_index = True, null = True, default = None)
     status = models.BooleanField(default = True, db_index = True)
 
     class Meta:
@@ -112,7 +112,7 @@ class Entity(BaseModel):
 
     user = models.ForeignKey(GKUser, related_name='entity', null=True)
     entity_hash = models.CharField(max_length=32, unique=True, db_index=True)
-    category = models.ForeignKey(Category)
+    category = models.ForeignKey(Sub_Category, related_name='category', db_index=True)
     brand = models.CharField(max_length=256, default='')
     title = models.CharField(max_length=256, default='')
     intro = models.TextField(default='')
