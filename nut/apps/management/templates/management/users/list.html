@@ -1,1 +1,30 @@
 {% extends 'management/management_base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <h2 class="sub-header">{% trans 'user' %}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>{% trans 'avatar' %}</th>
+                    <th>{% trans 'email' %}</th>
+                    <th>{% trans 'nickname' %}</th>
+                    <th>{% trans 'operation' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.pk }}</td>
+                        <td><img src="{{ user.profile.avatar_url }}" width="50" height="50"></td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.profile.nickname }}</td>
+                        <td><a class="btn btn-default" href="#">{% trans 'edit' %}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
