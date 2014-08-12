@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 class EntityFrom(forms.Form):
     id = forms.CharField(label=_('user_id'),
-                         widget=forms.NumberInput(attrs={'class':'form-control', 'disabled':''}),
+                         widget=forms.NumberInput(attrs={'class':'form-control', 'readonly':''}),
                          help_text=_(''))
     brand = forms.CharField(label=_('brand'),
                             widget=forms.TextInput(attrs={'class':'form-control'}),
