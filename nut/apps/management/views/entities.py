@@ -41,15 +41,16 @@ def edit(request, entity_id,  template='management/entities/edit.html'):
 
 
     if request.method == "POST":
-
-        pass
-
+        _forms = EntityFrom(request.POST)
 
 
 
     _forms = EntityFrom(
         initial={
             'id':entity.pk,
+            'brand':entity.brand,
+            'title':entity.title,
+            'price':entity.price,
         }
     )
     return render_to_response(template,
