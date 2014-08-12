@@ -43,6 +43,8 @@ def edit(request, entity_id,  template='management/entities/edit.html'):
     if request.method == "POST":
         _forms = EntityFrom(request.POST)
 
+        if _forms.is_valid():
+            pass
 
 
     _forms = EntityFrom(
