@@ -3,12 +3,14 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.utils.log import getLogger
+from django.conf import settings
 
 from apps.core.extend.list_field import ListObjectField
 from apps.core.manager.account import GKUserManager
 
 
 log = getLogger('django')
+image_host = getattr(settings, 'IMAGE_HOST', None)
 
 class BaseModel(models.Model):
 
@@ -79,7 +81,7 @@ class User_Profile(BaseModel):
 
     @property
     def avatar_url(self):
-        return "%s%s" % ('http://imgcdn.guoku.com/', self.avatar)
+        return "%s%s" % (image_host, self.avatar)
 
 
 class Banner(BaseModel):
@@ -88,7 +90,7 @@ class Banner(BaseModel):
     image = models.CharField(max_length = 64, null = False)
     created_time = models.DateTimeField(auto_now_add = True, editable=False, db_index = True)
     updated_time = models.DateTimeField(auto_now = True, editable=False, db_index = True)
-    weight = models.IntegerField(default = 0, db_index = True)
+    # weight = models.IntegerField( default = 0, db_index = True)
 
     class Meta:
         ordering = ['-created_time']
@@ -123,8 +125,9 @@ class Sub_Category(BaseModel):
 
 class Entity(BaseModel):
 
-    (freeze, new, selection) = (-1, 0, 1)
+    (remove, freeze, new, selection) = (-2, -1, 0, 1)
     ENTITY_STATUS_CHOICES = [
+        (remove, _("remove")),
         (freeze, _("freeze")),
         (new, _("new")),
         (selection, _("selection")),
@@ -150,8 +153,9 @@ class Entity(BaseModel):
 
     @property
     def chief_image(self):
-        # log.info("images, %s" % self.images)
-        return self.images[0]
+        log.info("images, %s" % self.images)
+        # return self.images[0]
+        return ''
 
     @property
     def detail_images(self):
