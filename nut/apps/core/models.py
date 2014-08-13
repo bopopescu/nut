@@ -102,6 +102,11 @@ class Banner(BaseModel):
         return _url
 
 
+class Show_Banner(BaseModel):
+    banner = models.ForeignKey(Banner, related_name='show')
+    created_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+    
+
 class Category(BaseModel):
     title = models.CharField(max_length = 128, db_index = True)
     status = models.BooleanField(default = True, db_index = True)
