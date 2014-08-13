@@ -127,7 +127,6 @@ class Entity(BaseModel):
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
     status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=0)
-
     # objects = EntityManager()
 
     @property
