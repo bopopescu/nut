@@ -95,6 +95,12 @@ class Banner(BaseModel):
     class Meta:
         ordering = ['-created_time']
 
+    @property
+    def url(self):
+        if 'http://' in self.key:
+            return self.key
+        _url = "guoku://%s/%s" % (self.content_type, self.key)
+        return _url
 
 
 class Banner(BaseModel):
@@ -166,14 +172,9 @@ class Entity(BaseModel):
 
     @property
     def chief_image(self):
-<<<<<<< HEAD
         log.info("images, %s" % self.images)
         # return self.images[0]
         return ''
-=======
-        # log.info("images, %s" % self.images)
-        return self.images[0]
->>>>>>> db80187d3eadc9de1819406e620f0382115edabe
 
     @property
     def detail_images(self):
