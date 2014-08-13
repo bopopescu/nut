@@ -82,3 +82,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'core.GKUser'
+
+IMAGE_HOST = 'http://imgcdn.guoku.com/'
