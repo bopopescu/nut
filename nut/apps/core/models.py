@@ -96,6 +96,19 @@ class Banner(BaseModel):
         ordering = ['-created_time']
 
 
+
+class Banner(BaseModel):
+    content_type = models.CharField(max_length = 64, null = False)
+    key = models.CharField(max_length = 1024)
+    image = models.CharField(max_length = 64, null = False)
+    created_time = models.DateTimeField(auto_now_add = True, editable=False, db_index = True)
+    updated_time = models.DateTimeField(auto_now = True, editable=False, db_index = True)
+    weight = models.IntegerField(default = 0, db_index = True)
+
+    class Meta:
+        ordering = ['-created_time']
+
+
 class Category(BaseModel):
     title = models.CharField(max_length = 128, db_index = True)
     status = models.BooleanField(default = True, db_index = True)
@@ -153,9 +166,14 @@ class Entity(BaseModel):
 
     @property
     def chief_image(self):
+<<<<<<< HEAD
         log.info("images, %s" % self.images)
         # return self.images[0]
         return ''
+=======
+        # log.info("images, %s" % self.images)
+        return self.images[0]
+>>>>>>> db80187d3eadc9de1819406e620f0382115edabe
 
     @property
     def detail_images(self):
