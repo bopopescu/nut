@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 # from ..models.base import BaseModel
 
+from apps.core.extend.list_field import ListObjectField
 from apps.core.manager.account import GKUserManager
 
 
@@ -120,7 +121,7 @@ class Entity(BaseModel):
     price = models.DecimalField(max_digits=20, decimal_places=2, default=0, db_index=True)
     # like_count = models.IntegerField(default=0, db_index=True)
     mark = models.IntegerField(default=0, db_index=True)
-    images = models.TextField()
+    images = ListObjectField()
     # chief_image = models.CharField(max_length=64)
     # detail_images = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
@@ -130,6 +131,14 @@ class Entity(BaseModel):
     # rank_score = models.IntegerField( default=0)
 
     # objects = EntityManager()
+
+    @property
+    def chief_image(self):
+        return self.images[0]
+
+    @property
+    def detail_images(self):
+        return self.images
 
     @property
     def like_count(self):
