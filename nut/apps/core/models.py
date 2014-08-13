@@ -53,6 +53,7 @@ class GKUser(AbstractBaseUser, BaseModel):
     def likes(self):
         return self.likes.count()
 
+
 class User_Profile(BaseModel):
     Man = u'M'
     Woman = u'F'
@@ -80,6 +81,19 @@ class User_Profile(BaseModel):
     def avatar_url(self):
         return "%s%s" % ('http://imgcdn.guoku.com/', self.avatar)
 
+
+class Banner(BaseModel):
+    content_type = models.CharField(max_length = 64, null = False)
+    key = models.CharField(max_length = 1024)
+    image = models.CharField(max_length = 64, null = False)
+    created_time = models.DateTimeField(auto_now_add = True, editable=False, db_index = True)
+    updated_time = models.DateTimeField(auto_now = True, editable=False, db_index = True)
+    weight = models.IntegerField(default = 0, db_index = True)
+
+    class Meta:
+        ordering = ['-created_time']
+
+
 class Category(BaseModel):
     title = models.CharField(max_length = 128, db_index = True)
     status = models.BooleanField(default = True, db_index = True)
@@ -89,6 +103,7 @@ class Category(BaseModel):
 
     def __unicode__(self):
         return self.title
+
 
 class Sub_Category(BaseModel):
     group = models.ForeignKey(Category)
@@ -104,6 +119,7 @@ class Sub_Category(BaseModel):
 
     def __unicode__(self):
         return self.title
+
 
 class Entity(BaseModel):
 
@@ -126,7 +142,7 @@ class Entity(BaseModel):
     images = ListObjectField()
     # chief_image = models.CharField(max_length=64)
     # detail_images = models.TextField()
-    rate = models.DecimalField(max_digits=3, detail_images=2, default=1.0)
+    rate = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
     status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=0)
@@ -134,7 +150,7 @@ class Entity(BaseModel):
 
     @property
     def chief_image(self):
-        log.info("images, %s" % self.images)
+        # log.info("images, %s" % self.images)
         return self.images[0]
 
     @property
@@ -181,6 +197,7 @@ class Entity_Like(models.Model):
         ordering = ['-created_time']
         unique_together = ('entity', 'user')
 
+
 class Note(models.Model):
     user = models.ForeignKey(GKUser, related_name='note')
     entity = models.ForeignKey(Entity, related_name="notes")
@@ -207,6 +224,7 @@ class User_Follow(models.Model):
         ordering = ['-followed_time']
         unique_together = ("follower", "followee")
 
+
 class Sina_Token(models.Model):
     user = models.OneToOneField(GKUser, related_name='weibo')
     sina_id = models.CharField(max_length = 64, null = True, db_index = True)
@@ -218,6 +236,7 @@ class Sina_Token(models.Model):
 
     def __unicode__(self):
         return self.screen_name
+
 
 class Taobao_Token(models.Model):
     user = models.OneToOneField(GKUser, related_name='taobao')
