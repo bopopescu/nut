@@ -90,7 +90,6 @@ class Banner(BaseModel):
     image = models.CharField(max_length = 64, null = False)
     created_time = models.DateTimeField(auto_now_add = True, editable=False, db_index = True)
     updated_time = models.DateTimeField(auto_now = True, editable=False, db_index = True)
-    # weight = models.IntegerField( default = 0, db_index = True)
 
     class Meta:
         ordering = ['-created_time']
