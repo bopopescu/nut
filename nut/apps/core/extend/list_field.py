@@ -69,5 +69,4 @@ class ListObjectField(models.Field):
             return super(ListObjectField, self).get_db_prep_lookup(lookup_type, value, None)
 
 
-
 __author__ = 'edison7500'
