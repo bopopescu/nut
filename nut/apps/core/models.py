@@ -2,11 +2,13 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-# from ..models.base import BaseModel
+from django.utils.log import getLogger
 
 from apps.core.extend.list_field import ListObjectField
 from apps.core.manager.account import GKUserManager
 
+
+log = getLogger('django')
 
 class BaseModel(models.Model):
 
@@ -124,6 +126,7 @@ class Entity(BaseModel):
     images = ListObjectField()
     # chief_image = models.CharField(max_length=64)
     # detail_images = models.TextField()
+    rate = models.DecimalField(max_digits=3, detail_images=2, default=1.0)
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
     status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=0)
@@ -131,6 +134,7 @@ class Entity(BaseModel):
 
     @property
     def chief_image(self):
+        log.info("images, %s" % self.images)
         return self.images[0]
 
     @property
