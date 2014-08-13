@@ -58,7 +58,7 @@ def edit(request, entity_id,  template='management/entities/edit.html'):
     return render_to_response(template,
                         {
                             'entity': entity,
-                            'forms':_forms,
+                            'forms': _forms,
                         },
                         context_instance = RequestContext(request))
 
