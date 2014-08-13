@@ -1,2 +1,29 @@
 {% extends 'management/management_base.html' %}
+{% load i18n %}
 
+{% block content %}
+    <h1 class="page-header">{% trans 'banner' %}</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>{% trans 'image' %}</th>
+                    <th>{% trans 'url' %}</th>
+                    <th>{% trans 'operation' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for banner in banners %}
+                    <tr>
+                        <td>{{ banner.pk }}</td>
+                        <td><img src="{{ banner.image }}"></td>
+                        <td>{{ banner.url }}</td>
+                        <td><a class="btn btn-default" href="#">{% trans 'edit' %}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
