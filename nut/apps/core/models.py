@@ -126,7 +126,6 @@ class Entity(BaseModel):
     # detail_images = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
-    # novus_time = models.DateTimeField(db_index=True)
     status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=0)
 
     # objects = EntityManager()
@@ -146,11 +145,6 @@ class Entity(BaseModel):
     @property
     def note_count(self):
         return self.notes.count()
-
-    @property
-    def chief_image_url(self):
-        return self.chief_image
-
 
     class Meta:
         ordering = ['-created_time']
