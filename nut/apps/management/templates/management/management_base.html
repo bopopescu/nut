@@ -51,6 +51,8 @@
                         </li>
                     </ul>
                     <ul class="nav nav-sidebar">
+                        {% url 'management_banner_list' as management_banner_list_url %}
+                        <li {% if management_banner_list_url == request.path %} class="active" {% endif %}><a href="{{ management_banner_list_url }}">{% trans 'banner' %}</a></li>
                         {% url 'management_entity_list' as management_entity_list_url %}
                         <li {% if management_entity_list_url == request.path %}class="active"{% endif %}>
                             <a href="{{ management_entity_list_url }}">{% trans 'entity' %}</a>
