@@ -18,7 +18,7 @@
                 {% for banner in banners %}
                     <tr>
                         <td>{{ banner.pk }}</td>
-                        <td><img class="img-polaroid" style="max-height:150px;max-width:150px;" src="{{ banner.image }}"></td>
+                        <td><img class="img-polaroid" style="max-height:150px;max-width:150px;" src="{{ banner.image_url }}"></td>
                         <td>{{ banner.url }}</td>
                         <td><a class="btn btn-default" href="#">{% trans 'edit' %}</a></td>
                     </tr>
