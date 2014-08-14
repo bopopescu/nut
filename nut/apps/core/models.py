@@ -101,6 +101,10 @@ class Banner(BaseModel):
         _url = "guoku://%s/%s" % (self.content_type, self.key)
         return _url
 
+    @property
+    def image_url(self):
+        return "%s%s" % (image_host, self.image)
+
 
 class Show_Banner(BaseModel):
     banner = models.ForeignKey(Banner, related_name='show')
@@ -150,13 +154,10 @@ class Entity(BaseModel):
     brand = models.CharField(max_length=256, default='')
     title = models.CharField(max_length=256, default='')
     intro = models.TextField(default='')
+    rate = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
     price = models.DecimalField(max_digits=20, decimal_places=2, default=0, db_index=True)
-    # like_count = models.IntegerField(default=0, db_index=True)
     mark = models.IntegerField(default=0, db_index=True)
     images = ListObjectField()
-    # chief_image = models.CharField(max_length=64)
-    # detail_images = models.TextField()
-    rate = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
     status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=0)
