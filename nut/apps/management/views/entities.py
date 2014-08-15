@@ -12,8 +12,12 @@ log = getLogger('django')
 
 def list(request, template = 'management/entities/list.html'):
 
+    status = request.GET.get('status', None)
     page = request.GET.get('page', 1)
-    entity_list  = Entity.objects.all()
+    if status is None:
+        entity_list  = Entity.objects.all()
+    else:
+        entity_list = Entity.objects.filter(status = int(status))
 
     paginator = Paginator(entity_list, 30)
 
@@ -28,6 +32,7 @@ def list(request, template = 'management/entities/list.html'):
                             {
                                 'entities': entities,
                                 'page_range': paginator.page_range[int(page) - 1: 9 + int(page)],
+                                'status': status,
                             },
                             context_instance = RequestContext(request))
 

@@ -6,11 +6,15 @@
     <h1 class="page-header">{% trans 'entity' %}</h1>
 {#    <h2 class="sub-header">{% trans 'all' %}</h2>#}
     <div class="row">
-        <div class="col-md-3">{% trans 'all' %}</div>
-        <div class="col-md-3">{% trans 'selection' %}</div>
-        <div class="col-md-3">{% trans 'new' %}</div>
+        <ul class="nav nav-pills" role="tablist">
+            <li class="active"><a href="{% url 'management_entity_list' %}">{% trans 'all' %}</a></li>
+            <li><a href="{% url 'management_entity_list' %}?status=1">{% trans 'selection' %}</a></li>
+            <li><a href="{% url 'management_entity_list' %}?status=0">{% trans 'new' %}</a></li>
+            <li><a href="{% url 'management_entity_list' %}?status=-1">{% trans 'freeze' %}</a></li>
+            <li><a href="{% url 'management_entity_list' %}?status=-2">{% trans 'remove' %}</a></li>
+        </ul>
     </div>
-    <h2 class="sub-header">{% trans 'all' %}</h2>
+{#    <h2 class="sub-header">{% trans 'all' %}</h2>#}
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
