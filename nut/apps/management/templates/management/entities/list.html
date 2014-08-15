@@ -5,6 +5,12 @@
 {% block content %}
     <h1 class="page-header">{% trans 'entity' %}</h1>
 {#    <h2 class="sub-header">{% trans 'all' %}</h2>#}
+    <div class="row">
+        <div class="col-md-3">{% trans 'all' %}</div>
+        <div class="col-md-3">{% trans 'selection' %}</div>
+        <div class="col-md-3">{% trans 'new' %}</div>
+    </div>
+    <h2 class="sub-header">{% trans 'all' %}</h2>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
