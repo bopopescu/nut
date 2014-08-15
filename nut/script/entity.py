@@ -34,7 +34,7 @@ db=MySQLdb.connect(host='10.0.2.90',
                    cursorclass=MySQLdb.cursors.DictCursor)
 cursor = db.cursor()
 
-cursor.execute("SELECT id, chief_image, detail_images FROM base_entity limit 10000")
+cursor.execute("SELECT id, chief_image, detail_images FROM base_entity")
 for row in cursor.fetchall():
     print row['id']
     images = []

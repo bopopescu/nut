@@ -163,11 +163,15 @@ class Entity(BaseModel):
     status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=0)
     # objects = EntityManager()
 
+    class Meta:
+        ordering = ['-created_time']
+
     @property
     def chief_image(self):
-        log.info("images, %s" % self.images)
-        return self.images[0]
-        # return ''
+        # log.info("images, %s" % self.images)
+        if len(self.images) > 0:
+            return self.images[0]
+        return
 
     @property
     def detail_images(self):
@@ -180,9 +184,6 @@ class Entity(BaseModel):
     @property
     def note_count(self):
         return self.notes.count()
-
-    # class Meta:
-    #     ordering = ['-created_time']
 
     def get_absolute_url(self):
         return "/detail/%s" % self.entity_hash
