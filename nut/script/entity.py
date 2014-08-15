@@ -1,5 +1,5 @@
 import os, sys
-sys.path.append('/Users/edison/PycharmProjects/nut/nut')
+sys.path.append('/Users/edison7500/PycharmProjects/nut/nut')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
 
 from pymongo import MongoClient
@@ -27,16 +27,19 @@ def get_image_from_mongo(image_key):
 import MySQLdb
 import MySQLdb.cursors
 
-db=MySQLdb.connect(host='10.0.2.90',
+db = MySQLdb.connect(host='10.0.2.90',
                    user='qinzhoukan',
                    passwd='qinzhoukan1@#',
                    db='guoku',
                    cursorclass=MySQLdb.cursors.DictCursor)
 cursor = db.cursor()
 
-cursor.execute("SELECT id, chief_image, detail_images FROM base_entity")
+cursor.execute("SELECT id, chief_image, detail_images ORDER BY id  DESC FROM base_entity")
 for row in cursor.fetchall():
     print row['id']
+    if len(row['chief_image']) == 0:
+        continue
+
     images = []
     try:
         image = get_image_from_mongo(row['chief_image'])
