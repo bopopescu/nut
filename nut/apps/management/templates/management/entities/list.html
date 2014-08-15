@@ -24,7 +24,7 @@
                 {% for entity in entities %}
                     <tr>
                         <td>{{ entity.id }}</td>
-                        <td><img src="{{ entity.chief_image }}"></td>
+                        <td><img class="img-polaroid" src="{{ entity.chief_image }}" style="max-height:128px;max-width:128px;"></td>
                         <td>{{ entity.brand }}</td>
                         <td>{{ entity.title }}</td>
                         <td><a href="#">{{ entity.category }}</a></td>
