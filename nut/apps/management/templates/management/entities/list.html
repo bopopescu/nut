@@ -7,11 +7,12 @@
 {#    <h2 class="sub-header">{% trans 'all' %}</h2>#}
     <div class="row">
         <ul class="nav nav-pills" role="tablist">
-            <li class="active"><a href="{% url 'management_entity_list' %}">{% trans 'all' %}</a></li>
-            <li><a href="{% url 'management_entity_list' %}?status=1">{% trans 'selection' %}</a></li>
-            <li><a href="{% url 'management_entity_list' %}?status=0">{% trans 'new' %}</a></li>
-            <li><a href="{% url 'management_entity_list' %}?status=-1">{% trans 'freeze' %}</a></li>
-            <li><a href="{% url 'management_entity_list' %}?status=-2">{% trans 'remove' %}</a></li>
+{#        {{ status }}#}
+            <li {% ifequal status None %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}">{% trans 'all' %}</a></li>
+            <li {% ifequal status '1' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=1">{% trans 'selection' %}</a></li>
+            <li {% ifequal status '0' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=0">{% trans 'new' %}</a></li>
+            <li {% ifequal status '-1' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=-1">{% trans 'freeze' %}</a></li>
+            <li {% ifequal status '-2' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=-2">{% trans 'remove' %}</a></li>
         </ul>
     </div>
 {#    <h2 class="sub-header">{% trans 'all' %}</h2>#}
@@ -34,7 +35,7 @@
                 {% for entity in entities %}
                     <tr>
                         <td>{{ entity.id }}</td>
-                        <td><img class="img-polaroid" src="{{ entity.chief_image }}" style="max-height:128px;max-width:128px;"></td>
+                        <td><img class="img-thumbnail img-responsive" src="{{ entity.chief_image }}" style="max-height:128px;max-width:128px;"></td>
                         <td>{{ entity.brand }}</td>
                         <td>{{ entity.title }}</td>
                         <td><a href="#">{{ entity.category }}</a></td>
@@ -50,14 +51,15 @@
     <div class="row">
         <ul class="pagination pagination-lg">
             {% if entities.has_previous %}
-                <li><a href="{% url 'management_entity_list' %}?page={{ entities.previous_page_number }}">&laquo;</a></li>
+                <li><a href="{% url 'management_entity_list' %}?status={{ status }}&page={{ entities.previous_page_number }}">&laquo;</a></li>
             {% endif %}
             {% for num in page_range %}
-                <li {% ifequal num entities.number %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?page={{ num }}">{{ num }} <span class="sr-only">(current)</span></a></li>
+                <li {% ifequal num entities.number %}class="active"{% endifequal %}>
+                    <a href="{% url 'management_entity_list' %}?status={{ status }}&page={{ num }}">{{ num }} <span class="sr-only">(current)</span></a>
+                </li>
             {% endfor %}
-{#            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>#}
             {% if entities.has_next %}
-                <li><a href="{% url 'management_entity_list' %}?page={{ entities.next_page_number }}">&raquo;</a></li>
+                <li><a href="{% url 'management_entity_list' %}?status={{ status }}page={{ entities.next_page_number }}">&raquo;</a></li>
             {% endif %}
         </ul>
     </div>

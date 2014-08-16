@@ -3,9 +3,17 @@
 
 {% block content %}
     <h1 class="page-header">{{ entity.title }}</h1>
-
+    <div class="row placeholders">
+        {% for image in entity.images %}
+            <div class="col-xs-6 col-sm-3 placeholders">
+                <img class="img-responsive img-thumbnail" alt="200x200" src="{{ image }}" style="max-height:310px;max-width:310px;">
+            </div>
+        {% endfor %}
+    </div>
     <div class="row">
-        <form class="well form-horizontal" method="post">{% csrf_token %}
+        <form class="well form-horizontal" method="post">
+            {{ forms.errors }}
+            {% csrf_token %}
             <fieldset>
             {% for field in forms %}
                 <div class="form-group">

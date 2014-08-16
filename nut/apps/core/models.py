@@ -142,10 +142,10 @@ class Entity(BaseModel):
 
     (remove, freeze, new, selection) = (-2, -1, 0, 1)
     ENTITY_STATUS_CHOICES = [
-        (remove, _("remove")),
-        (freeze, _("freeze")),
-        (new, _("new")),
         (selection, _("selection")),
+        (new, _("new")),
+        (freeze, _("freeze")),
+        (remove, _("remove")),
     ]
 
     user = models.ForeignKey(GKUser, related_name='entity', null=True)
