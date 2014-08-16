@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.utils.log import getLogger
 
 from apps.core.models import Entity
-from apps.core.forms.entity import EntityFrom
+from apps.core.forms.entity import EntityForm
 
 log = getLogger('django')
 
@@ -45,21 +45,25 @@ def edit(request, entity_id,  template='management/entities/edit.html'):
         raise Http404
 
 
+
     if request.method == "POST":
-        _forms = EntityFrom(request.POST)
+        _forms = EntityForm(request.POST)
 
         if _forms.is_valid():
-            pass
+            _forms.save()
 
-
-    _forms = EntityFrom(
+    else:
+        _forms = EntityForm(
         initial={
             'id':entity.pk,
+            'creator':entity.user.profile.nickname,
             'brand':entity.brand,
             'title':entity.title,
             'price':entity.price,
+            'status': entity.status,
         }
     )
+
     return render_to_response(template,
                         {
                             'entity': entity,
