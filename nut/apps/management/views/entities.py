@@ -45,18 +45,7 @@ def edit(request, entity_id,  template='management/entities/edit.html'):
     except Entity.DoesNotExist:
         raise Http404
 
-    if request.method == "POST":
-        _forms = EntityForm(request.POST)
-        _update = 1
-
-        if _forms.is_valid():
-            _forms.save()
-            _update = 0
-
-    else:
-        log.info(entity.category)
-        _forms = EntityForm(
-        initial={
+    data = {
             'id':entity.pk,
             'creator':entity.user.profile.nickname,
             'brand':entity.brand,
@@ -66,6 +55,19 @@ def edit(request, entity_id,  template='management/entities/edit.html'):
             'category': entity.category.group_id,
             'sub_category': entity.category_id,
         }
+
+    if request.method == "POST":
+        _forms = EntityForm(request.POST, initial=data)
+        _update = 1
+
+        if  _forms.is_valid():
+            _forms.save()
+            _update = 0
+
+    else:
+        log.info(entity.category)
+        _forms = EntityForm(
+        initial=data
     )
 
     return render_to_response(template,

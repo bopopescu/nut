@@ -60,16 +60,16 @@ class EntityForm(forms.Form):
                                                   choices=Entity.ENTITY_STATUS_CHOICES,
                                                   widget=forms.Select(attrs={'class':'form-control'}),
                                                   help_text=_(''))
-        log.info(args)
-        data = kwargs.get('initial')
-        # sub_category_choices = ()
-        if data:
-            group_id = data['category']
-        else:
+        # log.info(args)
+        if len(args):
             group_id = args[0]['category']
+        else:
+
+            data = kwargs.get('initial')
+            group_id = data['category']
 
 
-        #     log.info(sub_category.id)
+        log.info("id %s" % group_id)
 
         sub_category_choices = get_sub_category_choices(group_id)
 
