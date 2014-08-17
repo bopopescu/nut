@@ -29,12 +29,9 @@
                     <strong>{{ k }}</strong>
                     {{ v.as_text  }}
                 {% endfor %}
-{#                <strong>{% trans 'success' %}</strong>#}
-{#                entity update success#}
             </div>
         {% endif %}
         <form class="well form-horizontal" method="post">
-{#            {{ forms.errors }}#}
             {% csrf_token %}
             <fieldset>
             {% for field in forms %}
