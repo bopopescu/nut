@@ -54,6 +54,7 @@ def edit(request, entity_id,  template='management/entities/edit.html'):
             _update = 0
 
     else:
+        log.info(entity.category)
         _forms = EntityForm(
         initial={
             'id':entity.pk,
@@ -62,6 +63,8 @@ def edit(request, entity_id,  template='management/entities/edit.html'):
             'title':entity.title,
             'price':entity.price,
             'status': entity.status,
+            'category': entity.category.group_id,
+            'sub_category': entity.category_id,
         }
     )
 

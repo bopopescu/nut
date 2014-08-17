@@ -4,7 +4,23 @@ from django.utils.log import getLogger
 
 log = getLogger('django')
 
-from apps.core.models import Entity
+from apps.core.models import Entity, Sub_Category, Category
+
+
+def get_sub_category_choices(group_id):
+    # log.info(sub_category_list)
+    # for row in sub_category_list:
+    #     log.info("%s %s" % (row.id, row.title))
+    sub_category_list = Sub_Category.objects.filter(group = group_id)
+    res = map(lambda x: (x.id, x.title) , sub_category_list)
+    return res
+
+
+def get_category_choices():
+
+    category_list = Category.objects.all()
+    res = map(lambda x : (x.id, x.title), category_list)
+    return res
 
 
 class EntityForm(forms.Form):
@@ -44,9 +60,29 @@ class EntityForm(forms.Form):
                                                   choices=Entity.ENTITY_STATUS_CHOICES,
                                                   widget=forms.Select(attrs={'class':'form-control'}),
                                                   help_text=_(''))
+        log.info(args)
+        data = kwargs.get('initial')
+        # sub_category_choices = ()
+        if data:
+            group_id = data['category']
+        else:
+            group_id = args[0]['category']
+
+
+        #     log.info(sub_category.id)
+
+        sub_category_choices = get_sub_category_choices(group_id)
+
+        self.fields['category'] = forms.ChoiceField(label=_('category'),
+                                                    widget=forms.Select(attrs={'class':'form-control'}),
+                                                    choices=get_category_choices(),
+                                                    help_text=_('')
+                                                    )
         self.fields['sub_category'] = forms.ChoiceField(label=_('sub_category'),
+                                                        choices=sub_category_choices,
                                                         widget=forms.Select(attrs={'class':'form-control'}),
                                                         help_text=_(''))
+        # log.info(self.fields)
 
     def clean(self):
         cleaned_data = super(EntityForm, self).clean()
@@ -59,7 +95,8 @@ class EntityForm(forms.Form):
         title = self.cleaned_data['title']
         price = self.cleaned_data['price']
         status = self.cleaned_data['status']
-        # log.info("id %s", id)
+        sub_category = self.cleaned_data.get('sub_category')
+        # log.info("id %s", status)
         try:
             entity = Entity.objects.get(pk = id)
         except Entity.DoesNotExist:
@@ -69,6 +106,7 @@ class EntityForm(forms.Form):
         entity.title = title
         entity.price = price
         entity.status = status
+        entity.category_id = sub_category
         entity.save()
 
 __author__ = 'edison7500'
