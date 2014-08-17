@@ -39,18 +39,19 @@ def list(request, template = 'management/entities/list.html'):
 
 def edit(request, entity_id,  template='management/entities/edit.html'):
 
+    _update = None
     try:
         entity = Entity.objects.get(pk = entity_id)
     except Entity.DoesNotExist:
         raise Http404
 
-
-
     if request.method == "POST":
         _forms = EntityForm(request.POST)
+        _update = 1
 
         if _forms.is_valid():
             _forms.save()
+            _update = 0
 
     else:
         _forms = EntityForm(
@@ -68,6 +69,7 @@ def edit(request, entity_id,  template='management/entities/edit.html'):
                         {
                             'entity': entity,
                             'forms': _forms,
+                            'update': _update,
                         },
                         context_instance = RequestContext(request))
 
