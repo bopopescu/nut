@@ -12,6 +12,9 @@ class GKUserQuerySet(models.query.QuerySet):
     def deactive(self):
         return self.filter(is_active=False)
 
+    def admin(self):
+        return self.filter(is_admin=True)
+
 
 class GKUserManager(BaseUserManager):
 
@@ -23,6 +26,9 @@ class GKUserManager(BaseUserManager):
 
     def deactive(self):
         return self.get_query_set().deactive()
+
+    def admin(self):
+        return self.get_query_set().admin()
 
     def _create_user(self, email, password, is_active, is_admin, **extra_fields):
         now = timezone.now()

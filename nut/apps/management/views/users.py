@@ -10,7 +10,15 @@ from apps.core.forms.user import UserForm
 def list(request, template="management/users/list.html"):
 
     page = request.GET.get('page', 1)
-    user_list = GKUser.objects.all()
+    active = request.GET.get('active', None)
+    admin = request.GET.get('admin', None)
+
+    if active:
+        user_list = GKUser.objects.active()
+    elif admin:
+        user_list = GKUser.objects.admin()
+    else:
+        user_list = GKUser.objects.all()
 
     paginator = Paginator(user_list, 30)
 
@@ -24,6 +32,8 @@ def list(request, template="management/users/list.html"):
     return render_to_response(template,
                             {
                                 'users':users,
+                                'active':active,
+                                'admin':admin,
                             },
                             context_instance = RequestContext(request))
 

@@ -2,7 +2,14 @@
 {% load i18n %}
 
 {% block content %}
-    <h2 class="sub-header">{% trans 'user' %}</h2>
+    <h1 class="page-header">{% trans 'user' %}</h1>
+    <div class="row">
+        <ul class="nav nav-pills" role="tablist">
+            <li {% if admin == None and active == None %}class="active" {% endif %}><a href="{% url 'management_user_list' %}">{% trans 'all' %}</a></li>
+            <li {% if active %}class="active" {% endif %}><a href="{% url 'management_user_list' %}?active=1">{% trans 'active' %}</a></li>
+            <li {% if admin %}class="active" {% endif %}><a href="{% url 'management_user_list' %}?admin=1">{% trans 'admin' %}</a></li>
+        </ul>
+    </div>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
