@@ -50,6 +50,7 @@ def edit(request, user_id, template="management/users/edit.html"):
         'email':user.email,
         'nickname': user.profile.nickname,
         'is_active':user.is_active,
+        'is_admin':user.is_admin,
         'gender': user.profile.gender,
         'bio': user.profile.bio,
         'website': user.profile.website,

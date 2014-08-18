@@ -109,4 +109,6 @@ class EntityForm(forms.Form):
         entity.category_id = sub_category
         entity.save()
 
+        return entity
+
 __author__ = 'edison7500'

@@ -36,21 +36,25 @@ class UserForm(forms.Form):
                                help_text=_(''))
     bio = forms.CharField(label=_('bio'),
                           widget=forms.Textarea(attrs={'class':'form-control'}),
+                          required=False,
                           help_text=_(''))
     website = forms.URLField(label=_('website'),
                              widget=forms.TextInput(attrs={'class':'form-control'}),
+                             required=False,
                              help_text=_(''))
     def save(self):
         _user_id = self.cleaned_data['user_id']
         # user = GKUser.objects.get(pk = _user_id)
         user = get_user_model()._default_manager.get(pk = _user_id)
-        # log.info(user)
+        # log.info("admin %s" % self.cleaned_data['is_admin'])
         user.is_active = self.cleaned_data['is_active']
         user.is_admin = self.cleaned_data['is_admin']
-        user.profile = self.cleaned_data['nickname']
+        user.profile.nickname = self.cleaned_data['nickname']
         user.profile.gender = self.cleaned_data['gender']
         user.profile.website = self.cleaned_data['website']
         user.profile.save()
         user.save()
+
+        return user
 
 __author__ = 'edison'
