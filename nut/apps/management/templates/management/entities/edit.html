@@ -5,7 +5,7 @@
     <h1 class="page-header">{{ entity.title }}</h1>
     <div class="row placeholders">
         {% for image in entity.images %}
-            <div class="col-xs-6 col-sm-3 placeholders">
+            <div class="col-xs-6 col-sm-3 placeholder">
                 <img class="img-responsive img-thumbnail" alt="240x240" src="{{ image }}" style="max-height:240px;max-width:240px;">
             </div>
         {% endfor %}
