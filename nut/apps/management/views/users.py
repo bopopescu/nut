@@ -4,6 +4,7 @@ from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 
 from apps.core.models import GKUser
+from apps.core.forms.user import UserForm
 
 
 def list(request, template="management/users/list.html"):
@@ -34,9 +35,25 @@ def edit(request, user_id, template="management/users/edit.html"):
     except GKUser.DoesNotExist:
         raise Http404
 
+    data = {
+        'user_id':user.pk,
+        'email':user.email,
+        'nickname': user.profile.nickname,
+        'is_active':user.is_active,
+    }
+
+    if request.method == 'POST':
+        _forms = UserForm(request.POST, initial=data)
+        if _forms.is_valid():
+            _forms.save()
+
+    else:
+        _forms = UserForm(initial=data)
+
     return render_to_response(template,
                                 {
                                     'user':user,
+                                    'forms':_forms,
                                 },
                               context_instance = RequestContext(request))
 
