@@ -49,6 +49,7 @@ class UserForm(forms.Form):
         user.is_admin = self.cleaned_data['is_admin']
         user.profile = self.cleaned_data['nickname']
         user.profile.gender = self.cleaned_data['gender']
+        user.profile.website = self.cleaned_data['website']
         user.profile.save()
         user.save()
 
