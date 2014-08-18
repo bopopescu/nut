@@ -3,9 +3,14 @@
 
 {% block content %}
     <h1 class="page-header">{{ user.profile.nickname }}</h1>
-       <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholders">
+       <div class="row placeholders well">
+            <div class="col-xs-6 col-sm-4 placeholder">
                 <img class="img-responsive img-thumbnail" alt="180x180" src="{{ user.profile.avatar_url }}" style="max-height:180px;max-width:180px;">
+            </div>
+            <div class="col-xs-6 col-sm-4 placeholder">
+                <span class="label label-default">添加 {{ user.create_entity_count }}</span>
+                <span class="label label-default">喜欢</span>
+                <span class="label label-default">点评</span>
             </div>
         </div>
     <div class="row">
