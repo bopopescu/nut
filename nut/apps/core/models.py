@@ -55,6 +55,10 @@ class GKUser(AbstractBaseUser, BaseModel):
     def likes(self):
         return self.likes.count()
 
+    @property
+    def create_entity_count(self):
+        return self.entity.count()
+
 
 class User_Profile(BaseModel):
     Man = u'M'
