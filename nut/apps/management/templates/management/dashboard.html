@@ -8,13 +8,14 @@
 
 {% block content %}
     <h1 class="page-header">Dashboard</h1>
-    <div class="row placeholders">
-        {% for show_banner in show_banners %}
-        <div class="col-xs-6 col-sm-3 placeholders">
-            <img class="img-responsive img-thumbnail" alt="200x200" data-src="holder.js/200x200/auto/sky"  src="{{ show_banner.banner.image_url }}">
-        </div>
-        {% endfor %}
-    </div>
+    {% include 'management/banner/show_banners.html' with show_banners=show_banners %}
+{#    <div class="row placeholders">#}
+{#        {% for show_banner in show_banners %}#}
+{#        <div class="col-xs-6 col-sm-3 placeholders">#}
+{#            <img class="img-responsive img-thumbnail" alt="200x200" data-src="holder.js/200x200/auto/sky"  src="{{ show_banner.banner.image_url }}">#}
+{#        </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
     <h2 class="sub-header">{% trans 'selection' %}</h2>
 
     {% include "management/entities/table.html" with entities=selection_entities %}
