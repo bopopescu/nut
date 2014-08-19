@@ -59,6 +59,11 @@ class GKUser(AbstractBaseUser, BaseModel):
     def create_entity_count(self):
         return self.entity.count()
 
+    def set_admin(self):
+        self.is_admin = True
+        self.save()
+
+
 
 class User_Profile(BaseModel):
     Man = u'M'

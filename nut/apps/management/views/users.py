@@ -13,8 +13,10 @@ def list(request, template="management/users/list.html"):
     active = request.GET.get('active', None)
     admin = request.GET.get('admin', None)
 
-    if active:
+    if active == '1':
         user_list = GKUser.objects.active()
+    elif active == '0':
+        user_list = GKUser.objects.deactive()
     elif admin:
         user_list = GKUser.objects.admin()
     else:
