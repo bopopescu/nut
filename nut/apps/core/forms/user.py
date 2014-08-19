@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.utils.log import getLogger
 
+
 log = getLogger('django')
 
 
@@ -50,6 +51,13 @@ class UserForm(forms.Form):
                              widget=forms.TextInput(attrs={'class':'form-control'}),
                              required=False,
                              help_text=_(''))
+
+    def __init__(self, request=None, *args, **kwargs):
+        self.request = request
+        self.user_cache = None
+        super(UserForm, self).__init__(*args, **kwargs)
+
+
     def save(self):
         _user_id = self.cleaned_data['user_id']
         # user = GKUser.objects.get(pk = _user_id)
