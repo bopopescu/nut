@@ -22,14 +22,22 @@ class UserForm(forms.Form):
     nickname = forms.CharField(label=_('nickname'),
                                widget=forms.TextInput(attrs={'class':'form-control'}),
                                help_text=_(''))
-    is_active = forms.ChoiceField(label=_('active'),
-                                    choices=YES_OR_NO,
-                                    widget=forms.Select(attrs={'class':'form-control'}),
-                                    help_text=_(''))
-    is_admin = forms.ChoiceField(label=_('admin'),
-                                 choices=YES_OR_NO,
-                                 widget=forms.Select(attrs={'class':'form-control'}),
-                                 help_text=_(''))
+    is_active = forms.BooleanField(label=_('active'),
+                                   widget=forms.RadioSelect(choices=YES_OR_NO),
+                                   required=False,
+                                   help_text=_(''))
+    # is_active = forms.ChoiceField(label=_('active'),
+    #                                 choices=YES_OR_NO,
+    #                                 widget=forms.Select(attrs={'class':'form-control'}),
+    #                                 help_text=_(''))
+    is_admin = forms.BooleanField(label=_('admin'),
+                                   widget=forms.RadioSelect(choices=YES_OR_NO),
+                                   required=False,
+                                   help_text=_(''),)
+    # is_admin = forms.ChoiceField(label=_('admin'),
+    #                              choices=YES_OR_NO,
+    #                              widget=forms.Select(attrs={'class':'form-control'}),
+    #                              help_text=_(''))
     gender = forms.ChoiceField(label=_('gender'),
                                 choices=User_Profile.GENDER_CHOICES,
                                 widget=forms.Select(attrs={'class':'form-control'}),
@@ -46,7 +54,6 @@ class UserForm(forms.Form):
         _user_id = self.cleaned_data['user_id']
         # user = GKUser.objects.get(pk = _user_id)
         user = get_user_model()._default_manager.get(pk = _user_id)
-        # log.info("admin %s" % self.cleaned_data['is_admin'])
         user.is_active = self.cleaned_data['is_active']
         user.is_admin = self.cleaned_data['is_admin']
         user.profile.nickname = self.cleaned_data['nickname']
