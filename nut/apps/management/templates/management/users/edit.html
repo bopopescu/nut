@@ -13,8 +13,9 @@
                 <span class="label label-default">点评</span>
             </div>
         </div>
+    {% if forms.errors %}
     <div class="row">
-            <div class="alert alert-danger alert-dismissable" role="alert">
+        <div class="alert alert-danger alert-dismissable" role="alert">
                 <button type="button" class="close" data-dismiss="alert">
                     <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                 </button>
@@ -22,18 +23,22 @@
                     <strong>{{ k }}</strong>
                     {{ v.as_text  }}
                 {% endfor %}
-            </div>
+        </div>
     </div>
+    {% endif %}
     <div class="row">
         <form class="well form-horizontal" method="post">
             {% csrf_token %}
             <fieldset>
             {% for field in forms %}
-{#                {% ifequal field.html_name 'is_active' %}#}
-{#                     <div class="checkbox">#}
-{#                        {{ field }}#}
-{#                     </div>#}
-{#                {% else %}#}
+                {% if field.html_name == 'is_active' or field.html_name == 'is_admin' %}
+                     <div class="checkbox">
+                        <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                        <div class="col-sm-10">
+                            {{ field }}
+                        </div>
+                     </div>
+                {% else %}
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
@@ -41,7 +46,7 @@
                         {{ field }}
                     </div>
                 </div>
-{#                {% endifequal %}#}
+                {% endif %}
             {% endfor %}
             </fieldset>
             <div class="form-group">
