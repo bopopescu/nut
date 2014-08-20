@@ -10,10 +10,31 @@ from apps.core.models import Note
 log = getLogger('django')
 
 
-def list(request, template=''):
+def list(request, template='management/notes/list.html'):
 
-    return render_to_response(
+    status = request.GET.get('status', None)
+    page = request.GET.get('page', 1)
 
-    )
+    if status is None:
+        note_list = Note.objects.all()
+    else:
+        note_list = Note.objects.filter(status = int(status))
+
+    paginator = Paginator(note_list, 30)
+
+    try:
+        notes = paginator.page(page)
+    except InvalidPage:
+        notes = paginator.page(1)
+    except EmptyPage:
+        raise Http404
+
+
+
+    return render_to_response(template,
+                                {
+                                    'notes': notes,
+                                },
+                                context_instance = RequestContext(request))
 
 __author__ = 'edison'
