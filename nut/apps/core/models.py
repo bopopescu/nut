@@ -181,11 +181,13 @@ class Entity(BaseModel):
         # log.info("images, %s" % self.images)
         if len(self.images) > 0:
             return self.images[0]
-        return
+
 
     @property
     def detail_images(self):
-        return self.images
+        if len(self.images) > 1:
+            return self.images[1:]
+        return []
 
     @property
     def like_count(self):
