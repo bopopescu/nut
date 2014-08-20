@@ -14,6 +14,11 @@ class UserForm(forms.Form):
         (True, _('yes')),
         (False, _('no')),
     )
+
+    error_messages = {
+        'duplicate_email' : _('A user with that email already exists.'),
+    }
+
     user_id = forms.CharField(label=_('user_id'),
                               widget=forms.TextInput(attrs={'class':'form-control', 'readonly':''}),
                               help_text=_(''))
@@ -52,24 +57,47 @@ class UserForm(forms.Form):
                              required=False,
                              help_text=_(''))
 
-    def __init__(self, request=None, *args, **kwargs):
-        self.request = request
+    def __init__(self, *args, **kwargs):
+        # self.request = request
         self.user_cache = None
         super(UserForm, self).__init__(*args, **kwargs)
 
+    def clean_user_id(self):
+        _user_id = self.cleaned_data.get('user_id')
+        self.user_cache = get_user_model()._default_manager.get(pk = _user_id)
+
+        return _user_id
+
+    def clean_email(self):
+
+        _email = self.cleaned_data.get('email')
+        if self.user_cache.email == _email:
+            return _email
+
+        try:
+            get_user_model()._default_manager.get(email = _email)
+        except get_user_model().DoesNotExist:
+            return _email
+        raise forms.ValidationError(
+            self.error_messages['duplicate_email'],
+            code= 'duplicate_email',
+        )
+        # return self.cleaned_data
+
 
     def save(self):
-        _user_id = self.cleaned_data['user_id']
-        # user = GKUser.objects.get(pk = _user_id)
-        user = get_user_model()._default_manager.get(pk = _user_id)
-        user.is_active = self.cleaned_data['is_active']
-        user.is_admin = self.cleaned_data['is_admin']
-        user.profile.nickname = self.cleaned_data['nickname']
-        user.profile.gender = self.cleaned_data['gender']
-        user.profile.website = self.cleaned_data['website']
-        user.profile.save()
-        user.save()
 
-        return user
+        # user = GKUser.objects.get(pk = _user_id)
+        # user = get_user_model()._default_manager.get(pk = _user_id)
+        self.user_cache.is_active = self.cleaned_data.get('is_active')
+        self.user_cache.is_admin = self.cleaned_data.get('is_admin')
+        self.user_cache.email = self.clean_email()
+        self.user_cache.profile.nickname = self.cleaned_data['nickname']
+        self.user_cache.profile.gender = self.cleaned_data['gender']
+        self.user_cache.profile.website = self.cleaned_data['website']
+        self.user_cache.profile.save()
+        self.user_cache.save()
+
+        return self.user_cache
 
 __author__ = 'edison'
