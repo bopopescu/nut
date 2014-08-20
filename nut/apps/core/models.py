@@ -233,6 +233,7 @@ class Note(models.Model):
     # figure = models.CharField(max_length = 256, null = False, default = '')
     post_time = models.DateTimeField(null = True, db_index = True)
     updated_time = models.DateTimeField(auto_now = True, db_index = True)
+    is_selection = models.BooleanField(_('selection'), default=False)
 
     class Meta:
         ordering = ['-post_time']
