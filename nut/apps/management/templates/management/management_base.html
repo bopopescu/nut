@@ -62,7 +62,8 @@
                             <a href="{{ management_entity_list_url }}">{% trans 'entity' %}</a>
                         </li>
 
-                        <li><a href="{% url 'management_note_list' %}">{% trans 'note' %}</a></li>
+                        {% url 'management_note_list' as management_note_list_url %}
+                        <li {% if management_note_list_url in request.path %}class="active" {% endif %}><a href="{% url 'management_note_list' %}">{% trans 'note' %}</a></li>
                     </ul>
                     <ul class="nav nav-sidebar">
                         <li><a href="#">{% trans 'category' %}</a></li>
