@@ -33,7 +33,7 @@ class EntityForm(forms.Form):
         (selection, _("selection")),
 )
 
-    id = forms.CharField(label=_('entity_id'),
+    id = forms.IntegerField(label=_('entity_id'),
                          widget=forms.NumberInput(attrs={'class':'form-control', 'readonly':''}),
                          help_text=_(''))
     creator = forms.CharField(label=_('creator'),

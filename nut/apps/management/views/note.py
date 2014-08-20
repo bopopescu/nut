@@ -44,8 +44,16 @@ def edit(request, note_id, template='management/notes/edit.html'):
     except Note.DoesNotExist:
         raise  Http404
 
+    data = {
+        'note_id':note.pk,
+        'creator': note.user.profile.nickname,
+        'content': note.note,
+        'status': note.status,
+    }
 
-    _forms = NoteForm()
+    _forms = NoteForm(
+        initial=data
+    )
 
     return render_to_response(template,
                                 {
