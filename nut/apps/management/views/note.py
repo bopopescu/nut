@@ -34,6 +34,7 @@ def list(request, template='management/notes/list.html'):
     return render_to_response(template,
                                 {
                                     'notes': notes,
+                                    'status': status,
                                 },
                                 context_instance = RequestContext(request))
 
