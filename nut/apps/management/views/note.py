@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.utils.log import getLogger
 
 from apps.core.models import Note
-# from apps.core.forms.entity import EntityForm
+from apps.core.forms.note import NoteForm
 
 log = getLogger('django')
 
@@ -29,13 +29,28 @@ def list(request, template='management/notes/list.html'):
     except EmptyPage:
         raise Http404
 
-
-
     return render_to_response(template,
                                 {
                                     'notes': notes,
                                     'status': status,
                                 },
                                 context_instance = RequestContext(request))
+
+
+def edit(request, note_id, template='management/notes/edit.html'):
+
+    try:
+        note = Note.objects.get(pk = note_id)
+    except Note.DoesNotExist:
+        raise  Http404
+
+
+    _forms = NoteForm()
+
+    return render_to_response(template,
+                                {
+                                    'forms': _forms,
+                                },
+                              context_instance = RequestContext(request))
 
 __author__ = 'edison'
