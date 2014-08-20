@@ -169,7 +169,7 @@ class Entity(BaseModel):
     images = ListObjectField()
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
-    status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=0)
+    status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=new)
 
     objects = EntityManager()
 
@@ -226,14 +226,19 @@ class Entity_Like(models.Model):
 
 
 class Note(models.Model):
+
+    (remove, normal, top) = ( -1, 0, 1)
+    NOTE_STATUS_CHOICES = [
+        (top, _("top")),
+        (normal, _("normal")),
+        (remove, _("remove")),
+    ]
     user = models.ForeignKey(GKUser, related_name='note')
     entity = models.ForeignKey(Entity, related_name="notes")
     note = models.TextField(null = True)
-    # score = models.IntegerField(db_index = True, default = 0)
-    # figure = models.CharField(max_length = 256, null = False, default = '')
     post_time = models.DateTimeField(null = True, db_index = True)
     updated_time = models.DateTimeField(auto_now = True, db_index = True)
-    is_selection = models.BooleanField(_('selection'), default=False)
+    status = models.IntegerField(choices=NOTE_STATUS_CHOICES, default=normal)
 
     class Meta:
         ordering = ['-post_time']

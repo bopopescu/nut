@@ -2,10 +2,13 @@ from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
+from django.utils.log import getLogger
 
 from apps.core.models import GKUser
 from apps.core.forms.user import UserForm
 
+
+log = getLogger('django')
 
 def list(request, template="management/users/list.html"):
 
@@ -60,6 +63,7 @@ def edit(request, user_id, template="management/users/edit.html"):
 
     if request.method == 'POST':
         _forms = UserForm(request.POST, initial=data)
+        # log.info('change %s', _forms.has_changed())
         if _forms.is_valid():
             _forms.save()
 
