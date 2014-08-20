@@ -8,6 +8,7 @@ urlpatterns = patterns(
     url(r'^entity/', include('apps.management.urls.entities')),
     url(r'^user/', include('apps.management.urls.users')),
     url(r'^banner/', include('apps.management.urls.banner')),
+    url(r'^note/', include('apps.management.urls.note')),
 )
 
 __author__ = 'edison7500'

@@ -244,10 +244,16 @@ class Note(models.Model):
 
     class Meta:
         ordering = ['-post_time']
-        unique_together = ('entity', 'user')
+        # unique_together = ('entity', 'user')
 
     def __unicode__(self):
         return self.note
+
+    @property
+    def is_top(self):
+        if self.status == self.top:
+            return True
+        return False
 
 
 class User_Follow(models.Model):
