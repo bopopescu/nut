@@ -157,6 +157,12 @@ class Entity(BaseModel):
         (remove, _("remove")),
     ]
 
+    NO_SELECTION_ENTITY_STATUS_CHOICES = [
+        (new, _("new")),
+        (freeze, _("freeze")),
+        (remove, _("remove")),
+    ]
+
     user = models.ForeignKey(GKUser, related_name='entity', null=True)
     entity_hash = models.CharField(max_length=32, unique=True, db_index=True)
     category = models.ForeignKey(Sub_Category, related_name='category', db_index=True)
@@ -182,7 +188,6 @@ class Entity(BaseModel):
         if len(self.images) > 0:
             return self.images[0]
 
-
     @property
     def detail_images(self):
         if len(self.images) > 1:
@@ -196,7 +201,6 @@ class Entity(BaseModel):
     @property
     def note_count(self):
         return self.notes.count()
-
 
     @property
     def has_top_note(self):

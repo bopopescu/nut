@@ -64,6 +64,11 @@ class EntityForm(forms.Form):
                                                   choices=Entity.ENTITY_STATUS_CHOICES,
                                                   widget=forms.Select(attrs={'class':'form-control'}),
                                                   help_text=_(''))
+        else:
+            self.fields['status'] = forms.ChoiceField(label=_('status'),
+                                                  choices=Entity.NO_SELECTION_ENTITY_STATUS_CHOICES,
+                                                  widget=forms.Select(attrs={'class':'form-control',}),
+                                                  help_text=_(''))
         # log.info(args)
         if len(args):
             group_id = args[0]['category']

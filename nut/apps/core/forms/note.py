@@ -32,7 +32,6 @@ class NoteForm(forms.Form):
                                                   widget=forms.Select(attrs={'class':'form-control'}),
                                                   help_text=_(''))
 
-
     def save(self):
         pass
 
