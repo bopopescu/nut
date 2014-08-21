@@ -3,22 +3,35 @@
 
 {% block content %}
     <h1 class="page-header">{% trans 'entity note' %}</h1>
-
+    <div class="row placeholders">
+        <div class="col-xs-6 col-sm-3 placeholder">
+            <img class="img-responsive img-thumbnail" alt="240x240" src="{{ entity.chief_image }}" style="max-height:240px;max-width:240px;">
+        </div>
+    </div>
+    <h2 class="sub-header">{{ entity.title }}</h2>
     <div class="row">
         <form class="well form-horizontal" method="post">
             {% csrf_token %}
             <fieldset>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">{% trans 'entity_id' %}</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">
+                                <a href="{% url 'management_entity_edit' entity.pk %}">{{ entity.pk }}</a>
+                            </p>
+                        </div>
+                </div>
             {% for field in forms %}
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-5">
                         {{ field }}
                     </div>
                 </div>
             {% endfor %}
             </fieldset>
             <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
+                <div class="col-sm-offset-2 col-sm-5">
                     <button type="submit" class="btn btn-primary btn-lg">{% trans 'update' %}</button>
                 </div>
             </div>

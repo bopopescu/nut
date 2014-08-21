@@ -2,6 +2,8 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.log import getLogger
 
+from apps.core.models import Note
+
 log = getLogger('django')
 
 
@@ -22,5 +24,16 @@ class NoteForm(forms.Form):
     post_time = forms.DateTimeField(label=_('post_time'),
                                     widget=forms.DateTimeInput(attrs={'class':'form-control'}),
                                     help_text=_(''))
+
+    def __init__(self, *args, **kwargs):
+        super(NoteForm, self).__init__(*args, **kwargs)
+        self.fields['status'] = forms.ChoiceField(label=_('status'),
+                                                  choices=Note.NOTE_STATUS_CHOICES,
+                                                  widget=forms.Select(attrs={'class':'form-control'}),
+                                                  help_text=_(''))
+
+
+    def save(self):
+        pass
 
 __author__ = 'edison'
