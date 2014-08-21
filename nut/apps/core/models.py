@@ -27,6 +27,8 @@ class BaseModel(models.Model):
         return d
 
 class GKUser(AbstractBaseUser, BaseModel):
+    (remove, blocked, active) = (-1, 0, 1)
+
     email = models.EmailField(max_length=255, unique=True)
     is_active = models.BooleanField(_('active'), default=True)
     is_admin = models.BooleanField(default=False)
@@ -249,7 +251,7 @@ class Note(models.Model):
     user = models.ForeignKey(GKUser, related_name='note')
     entity = models.ForeignKey(Entity, related_name="notes")
     note = models.TextField(null = True)
-    post_time = models.DateTimeField(null = True, db_index = True)
+    post_time = models.DateTimeField(auto_created=True, editable=False, db_index = True)
     updated_time = models.DateTimeField(auto_now = True, db_index = True)
     status = models.IntegerField(choices=NOTE_STATUS_CHOICES, default=normal)
 

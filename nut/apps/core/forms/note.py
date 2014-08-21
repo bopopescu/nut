@@ -22,8 +22,12 @@ class NoteForm(forms.Form):
                               help_text=_(''))
 
     post_time = forms.DateTimeField(label=_('post_time'),
-                                    widget=forms.DateTimeInput(attrs={'class':'form-control'}),
+                                    widget=forms.DateTimeInput(attrs={'class':'form-control', 'readonly':''}),
                                     help_text=_(''))
+
+    updated_time = forms.DateTimeField(label=_('updated time'),
+                                       widget=forms.DateTimeInput(attrs={'class':'form-control'}),
+                                       help_text=_(''))
 
     def __init__(self, *args, **kwargs):
         super(NoteForm, self).__init__(*args, **kwargs)
