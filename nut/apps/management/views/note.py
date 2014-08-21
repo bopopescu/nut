@@ -50,6 +50,8 @@ def edit(request, note_id, template='management/notes/edit.html'):
         'creator': note.user.profile.nickname,
         'content': note.note,
         'status': note.status,
+        'post_time': note.post_time,
+        'updated_time': note.updated_time,
     }
 
     if request.method == "POST":
