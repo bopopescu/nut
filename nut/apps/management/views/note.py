@@ -43,6 +43,7 @@ def edit(request, note_id, template='management/notes/edit.html'):
         note = Note.objects.get(pk = note_id)
     except Note.DoesNotExist:
         raise  Http404
+    _entity = note.entity
 
     data = {
         'note_id':note.pk,
@@ -51,6 +52,11 @@ def edit(request, note_id, template='management/notes/edit.html'):
         'status': note.status,
     }
 
+    if request.method == "POST":
+        _forms = NoteForm(request.POST, initial=data)
+        if _forms.is_valid():
+            _forms.save()
+
     _forms = NoteForm(
         initial=data
     )
@@ -58,6 +64,7 @@ def edit(request, note_id, template='management/notes/edit.html'):
     return render_to_response(template,
                                 {
                                     'forms': _forms,
+                                    'entity': _entity,
                                 },
                               context_instance = RequestContext(request))
 
