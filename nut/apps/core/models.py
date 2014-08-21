@@ -197,6 +197,13 @@ class Entity(BaseModel):
     def note_count(self):
         return self.notes.count()
 
+
+    @property
+    def is_top_note(self):
+        if self.notes.filter(status = 1):
+            return True
+        return False
+
     def get_absolute_url(self):
         return "/detail/%s" % self.entity_hash
 
