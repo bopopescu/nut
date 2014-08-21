@@ -10,7 +10,7 @@
             <div class="col-xs-6 col-sm-4 placeholder">
                 <span class="label label-default">添加 {{ user.create_entity_count }}</span>
                 <span class="label label-default">喜欢</span>
-                <span class="label label-default">点评</span>
+                <span class="label label-default">点评 {{ user.post_note_count }}</span>
             </div>
         </div>
     {% if forms.errors %}

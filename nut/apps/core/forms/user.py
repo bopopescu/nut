@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.utils.log import getLogger
 
 
+
 log = getLogger('django')
 
 
@@ -28,8 +29,10 @@ class UserForm(forms.Form):
     nickname = forms.CharField(label=_('nickname'),
                                widget=forms.TextInput(attrs={'class':'form-control'}),
                                help_text=_(''))
-    is_active = forms.BooleanField(label=_('active'),
-                                   widget=forms.RadioSelect(choices=YES_OR_NO),
+
+    is_active = forms.ChoiceField(label=_('active'),
+                                  choices=get_user_model().USER_STATUS_CHOICES,
+                                   widget=forms.Select(attrs={'class':'form-control'}),
                                    required=False,
                                    help_text=_(''))
     # is_active = forms.ChoiceField(label=_('active'),

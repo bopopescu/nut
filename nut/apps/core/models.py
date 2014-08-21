@@ -28,9 +28,14 @@ class BaseModel(models.Model):
 
 class GKUser(AbstractBaseUser, BaseModel):
     (remove, blocked, active) = (-1, 0, 1)
-
+    USER_STATUS_CHOICES = [
+        (active, _("active")),
+        (blocked, _("blocked")),
+        (remove, _("remove")),
+    ]
     email = models.EmailField(max_length=255, unique=True)
-    is_active = models.BooleanField(_('active'), default=True)
+    # is_active = models.BooleanField(_('active'), default=True)
+    is_active = models.IntegerField(choices=USER_STATUS_CHOICES, default=active)
     is_admin = models.BooleanField(default=False)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now())
 
@@ -60,6 +65,10 @@ class GKUser(AbstractBaseUser, BaseModel):
     @property
     def create_entity_count(self):
         return self.entity.count()
+
+    @property
+    def post_note_count(self):
+        return self.note.count()
 
     def set_admin(self):
         self.is_admin = True

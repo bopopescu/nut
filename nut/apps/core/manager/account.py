@@ -7,10 +7,13 @@ from django.utils.translation import ugettext_lazy as _
 
 class GKUserQuerySet(models.query.QuerySet):
     def active(self):
-        return self.filter(is_active=True)
+        return self.filter(is_active=1)
+
+    def blocked(self):
+        return self.filter(is_active=0)
 
     def deactive(self):
-        return self.filter(is_active=False)
+        return self.filter(is_active=-1)
 
     def admin(self):
         return self.filter(is_admin=True)
@@ -23,6 +26,9 @@ class GKUserManager(BaseUserManager):
 
     def active(self):
         return self.get_query_set().active()
+
+    def blocked(self):
+        return self.get_query_set().blocked()
 
     def deactive(self):
         return self.get_query_set().deactive()

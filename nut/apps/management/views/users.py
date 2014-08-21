@@ -19,6 +19,8 @@ def list(request, template="management/users/list.html"):
     if active == '1':
         user_list = GKUser.objects.active()
     elif active == '0':
+        user_list = GKUser.objects.blocked()
+    elif active == '-1':
         user_list = GKUser.objects.deactive()
     elif admin:
         user_list = GKUser.objects.admin()
