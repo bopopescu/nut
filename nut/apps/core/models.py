@@ -199,7 +199,7 @@ class Entity(BaseModel):
 
 
     @property
-    def is_top_note(self):
+    def has_top_note(self):
         if self.notes.filter(status = 1):
             return True
         return False

@@ -31,7 +31,7 @@
             {% csrf_token %}
             <fieldset>
             {% for field in forms %}
-                {% if field.html_name == 'is_active' or field.html_name == 'is_admin' %}
+                {% if field.html_name == 'is_admin' %}
                      <div class="checkbox">
                         <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
                         <div class="col-sm-10">

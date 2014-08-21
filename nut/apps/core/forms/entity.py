@@ -54,9 +54,13 @@ class EntityForm(forms.Form):
                                widget=forms.NumberInput(attrs={'class':'form-control'}),
                                help_text=_(''))
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, entity, *args, **kwargs):
         super(EntityForm, self).__init__(*args, **kwargs)
-        self.fields['status'] = forms.ChoiceField(label=_('status'),
+
+        self.entity = entity
+
+        if self.entity.has_top_note:
+            self.fields['status'] = forms.ChoiceField(label=_('status'),
                                                   choices=Entity.ENTITY_STATUS_CHOICES,
                                                   widget=forms.Select(attrs={'class':'form-control'}),
                                                   help_text=_(''))
@@ -69,7 +73,7 @@ class EntityForm(forms.Form):
             group_id = data['category']
 
 
-        log.info("id %s" % group_id)
+        # log.info("id %s" % group_id)
 
         sub_category_choices = get_sub_category_choices(group_id)
 
@@ -90,25 +94,26 @@ class EntityForm(forms.Form):
 
     def save(self):
 
-        id = self.cleaned_data['id']
-        brand = self.cleaned_data['brand']
-        title = self.cleaned_data['title']
-        price = self.cleaned_data['price']
-        status = self.cleaned_data['status']
+        # id = self.cleaned_data['id']
+        brand = self.cleaned_data.get('brand')
+        title = self.cleaned_data.get('title')
+        price = self.cleaned_data.get('price')
+        status = self.cleaned_data.get('status')
         sub_category = self.cleaned_data.get('sub_category')
         # log.info("id %s", status)
-        try:
-            entity = Entity.objects.get(pk = id)
-        except Entity.DoesNotExist:
-            raise
+        # try:
+        #     entity = Entity.objects.get(pk = id)
+        # except Entity.DoesNotExist:
+        #     raise
 
-        entity.brand = brand
-        entity.title = title
-        entity.price = price
-        entity.status = status
-        entity.category_id = sub_category
-        entity.save()
+        self.entity.brand = brand
+        self.entity.title = title
+        self.entity.price = price
+        if status:
+            self.entity.status = status
+        self.entity.category_id = sub_category
+        self.entity.save()
 
-        return entity
+        return self.entity
 
 __author__ = 'edison7500'

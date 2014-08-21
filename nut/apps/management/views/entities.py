@@ -57,18 +57,23 @@ def edit(request, entity_id,  template='management/entities/edit.html'):
         }
 
     if request.method == "POST":
-        _forms = EntityForm(request.POST, initial=data)
+        _forms = EntityForm(
+            entity,
+            request.POST,
+            initial=data
+        )
         _update = 1
 
-        if  _forms.is_valid():
+        if _forms.is_valid():
             _forms.save()
             _update = 0
 
     else:
         log.info(entity.category)
         _forms = EntityForm(
-        initial=data
-    )
+            entity = entity,
+            initial=data
+        )
 
     return render_to_response(template,
                         {
