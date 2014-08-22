@@ -278,6 +278,23 @@ class Note(models.Model):
         return False
 
 
+class Note_Comment(models.Model):
+    note = models.ForeignKey(Note, related_name='note')
+    creator = models.ForeignKey(GKUser, related_name='note_comment')
+    content = models.TextField(null = False)
+    replied_comment = models.IntegerField(default = None, null = True, db_index = True)
+    replied_user = models.ForeignKey(GKUser, null = True, db_index = True)
+    post_time = models.DateTimeField(auto_now = True, db_index = True)
+    # updated_time = models.DateTimeField(auto_now = True, db_index = True)
+
+    class Meta:
+        ordering = ['-created_time']
+
+
+    def __unicode__(self):
+        return self.content
+
+
 class User_Follow(models.Model):
     follower = models.ForeignKey(GKUser, related_name = "followings")
     followee = models.ForeignKey(GKUser, related_name = "fans")
