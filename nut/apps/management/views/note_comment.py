@@ -10,7 +10,14 @@ log = getLogger('django')
 
 def list(request, note_id, template='management/notes/comment/list.html'):
 
-    return render_to_response()
+    note_comment_list = Note_Comment.objects.filter(note_id = note_id)
+
+    return render_to_response(
+                        template,
+                        {
+                            'note_comments': note_comment_list,
+                        },
+                        context_instance = RequestContext(request))
 
 
 __author__ = 'edison'

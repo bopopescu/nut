@@ -6,9 +6,9 @@ urlpatterns = patterns(
     url(r'^(?P<note_id>\d+)/edit/$', 'edit', name='management_note_edit'),
 )
 
-urlpatterns = patterns(
+urlpatterns += patterns(
     'apps.management.views.note_comment',
-    url(r'^comment/(?P<note_id>\d+)/$', '', name='management_note_comment_list'),
+    url(r'^comment/(?P<note_id>\d+)/$', 'list', name='management_note_comment_list'),
 )
 
 

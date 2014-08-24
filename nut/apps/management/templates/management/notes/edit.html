@@ -10,7 +10,7 @@
     </div>
     <div class="row">
         <ul class="nav nav-pills" role="tablist">
-            <li><a href="">评论（{{ note.comment_count }}）</a></li>
+            <li><a href="{% url 'management_note_comment_list' note.pk %}">评论（{{ note.comment_count }}）</a></li>
         </ul>
     </div>
     <h2 class="sub-header">{{ entity.title }}</h2>
