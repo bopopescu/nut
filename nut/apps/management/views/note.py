@@ -67,6 +67,7 @@ def edit(request, note_id, template='management/notes/edit.html'):
                                 {
                                     'forms': _forms,
                                     'entity': _entity,
+                                    'note': note,
                                 },
                               context_instance = RequestContext(request))
 
