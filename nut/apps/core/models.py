@@ -129,6 +129,9 @@ class Banner(BaseModel):
 class Show_Banner(BaseModel):
     banner = models.ForeignKey(Banner, related_name='show')
     created_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+
+    class Meta:
+        ordering = ['id']
     
 
 class Category(BaseModel):
@@ -276,6 +279,10 @@ class Note(models.Model):
         if self.status == self.top:
             return True
         return False
+
+    @property
+    def comment_count(self):
+        return self.comments.count()
 
 
 class Note_Comment(models.Model):

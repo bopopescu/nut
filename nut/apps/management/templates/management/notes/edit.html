@@ -8,6 +8,11 @@
             <img class="img-responsive img-thumbnail" alt="240x240" src="{{ entity.chief_image }}" style="max-height:240px;max-width:240px;">
         </div>
     </div>
+    <div class="row">
+        <ul class="nav nav-pills" role="tablist">
+            <li><a href="">评论（{{ note.comment_count }}）</a></li>
+        </ul>
+    </div>
     <h2 class="sub-header">{{ entity.title }}</h2>
     <div class="row">
         <form class="well form-horizontal" method="post">
