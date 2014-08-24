@@ -5,18 +5,26 @@
 {% block content %}
     <h1 class="page-header">{% trans 'note_comment' %}</h1>
     <div class="row">
-        <table class="table-responsive">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>{% trans 'user' %}</th>
-                    <th>{% trans 'content' %}</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for comment in note_comments %}
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{% trans 'user' %}</th>
+                        <th>{% trans 'content' %}</th>
+                        <th>{% trans 'post_time' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for comment in note_comments %}
+                        <tr>
+                            <td>{{ comment.pk }}</td>
+                            <td>{{ comment.user }}</td>
+                            <td>{{ comment.content }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}
