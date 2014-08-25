@@ -22,7 +22,7 @@
                     <tr>
                         <td>{{ comment.id }}</td>
                         <td><a href="{% url 'management_note_edit' comment.note.pk %}">{{ comment.note }}</a></td>
-                        <td>{{ comment.user.profile.nickname }}</td>
+                        <td><a href="{% url 'management_user_edit' comment.user.pk %}">{{ comment.user.profile.nickname }}</a></td>
                         <td>{{ comment.content }}</td>
                         <td>{{ comment.post_time|date:'Y-m-d' }}</td>
                         <td><a class="btn btn-default" href="#">{% trans 'edit' %}</a></td>
