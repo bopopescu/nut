@@ -1,11 +1,12 @@
 from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.core.paginator import Paginator, EmptyPage, InvalidPage
+# from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.utils.log import getLogger
 
 from apps.core.models import Entity
 from apps.core.forms.entity import EntityForm
+from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 
 log = getLogger('django')
 
@@ -19,7 +20,7 @@ def list(request, template = 'management/entities/list.html'):
     else:
         entity_list = Entity.objects.filter(status = int(status))
 
-    paginator = Paginator(entity_list, 30)
+    paginator = ExtentPaginator(entity_list, 30)
 
     try:
         entities = paginator.page(page)
