@@ -118,5 +118,10 @@ class AvatarForm(forms.Form):
     avatar = forms.FileField()
 
 
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super(AvatarForm, self).__init__(*args, **kwargs)
+
+
 
 __author__ = 'edison'
