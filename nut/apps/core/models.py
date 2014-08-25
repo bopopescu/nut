@@ -70,6 +70,10 @@ class GKUser(AbstractBaseUser, BaseModel):
     def post_note_count(self):
         return self.note.count()
 
+    @property
+    def post_note_comment_count(self):
+        return self.note_comment.count()
+
     def set_admin(self):
         self.is_admin = True
         self.save()

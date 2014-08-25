@@ -9,6 +9,7 @@
         </div>
         <div class="col-xs-6 col-sm-4 placeholder">
             <a href="{% url 'management_user_reset_password' user.pk %}" class="btn btn-primary">{% trans 'reset password' %}</a>
+            <a href="{% url 'management_user_upload_avatar' user.pk %}" class="btn btn-primary">{% trans 'upload avatar' %}</a>
 {#                <span class="label label-default">添加 {{ user.create_entity_count }}</span>#}
 {#                <span class="label label-default">喜欢</span>#}
 {#                <span class="label label-default">点评 {{ user.post_note_count }}</span>#}

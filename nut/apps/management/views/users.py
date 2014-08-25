@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.utils.log import getLogger
 
 from apps.core.models import GKUser
-from apps.core.forms.user import UserForm, GuokuSetPasswordForm
+from apps.core.forms.user import UserForm, GuokuSetPasswordForm, AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 
 
@@ -106,12 +106,19 @@ def reset_password(request, user_id, template='management/users/reset_password.h
     )
 
 
-def upload_avatar(request, user_id, template=''):
+def upload_avatar(request, user_id, template='management/users/upload_avatar.html'):
+
+    try:
+        _user = GKUser.objects.get(pk = user_id)
+    except GKUser.DoesNotExist:
+        raise Http404
+
+    _forms = AvatarForm(user=_user)
 
     return render_to_response(
         template,
         {
-
+            'user': _user,
         },
         context_instance = RequestContext(request)
     )
