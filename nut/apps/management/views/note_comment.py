@@ -9,7 +9,7 @@ from apps.core.models import Note_Comment
 log = getLogger('django')
 
 
-def list(request, template=''):
+def list(request, template='management/comment/list.html'):
 
     comment_list = Note_Comment.objects.all()
 
