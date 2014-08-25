@@ -113,6 +113,10 @@ class GuokuSetPasswordForm(SetPasswordForm):
                                        help_text=_(''))
 
 
+class AvatarForm(forms.Form):
+
+    avatar = forms.FileField()
+
 
 
 __author__ = 'edison'
