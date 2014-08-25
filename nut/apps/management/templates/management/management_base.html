@@ -63,7 +63,14 @@
                         </li>
 
                         {% url 'management_note_list' as management_note_list_url %}
-                        <li {% if management_note_list_url in request.path %}class="active" {% endif %}><a href="{% url 'management_note_list' %}">{% trans 'note' %}</a></li>
+                        <li {% if management_note_list_url in request.path %}class="active" {% endif %}>
+                            <a href="{{ management_note_list_url }}">{% trans 'note' %}</a>
+                        </li>
+
+                        {% url 'management_comment_list' as management_comment_list_url %}
+                        <li {% if management_comment_list_url in request.path %}class="active"{% endif %}>
+                            <a href="{{ management_comment_list_url }}">{% trans 'comment' %}</a>
+                        </li>
                     </ul>
                     <ul class="nav nav-sidebar">
                         <li><a href="#">{% trans 'category' %}</a></li>
