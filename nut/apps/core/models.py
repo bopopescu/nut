@@ -302,6 +302,23 @@ class Note_Comment(models.Model):
         return self.content
 
 
+class Tag(models.Model):
+    tag = models.CharField(max_length = 128, null = False, unique = True, db_index = True)
+    tag_hash = models.CharField(max_length = 32, unique = True, db_index = True)
+    status = models.IntegerField(default = 0, db_index = True)
+    creator = models.ForeignKey(GKUser)
+    created_time = models.DateTimeField(auto_now_add = True, db_index=True)
+    updated_time = models.DateTimeField(auto_now = True, db_index = True)
+
+
+    def get_absolute_url(self):
+
+        return "/t/%s" % self.tag_hash
+
+    class Meta:
+        ordering = ['-created_time']
+
+
 class User_Follow(models.Model):
     follower = models.ForeignKey(GKUser, related_name = "followings")
     followee = models.ForeignKey(GKUser, related_name = "fans")
