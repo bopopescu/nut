@@ -1,12 +1,12 @@
 from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.core.paginator import Paginator, EmptyPage, InvalidPage
+# from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.utils.log import getLogger
 
 from apps.core.models import GKUser
 from apps.core.forms.user import UserForm
-
+from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 
 log = getLogger('django')
 
@@ -27,7 +27,7 @@ def list(request, template="management/users/list.html"):
     else:
         user_list = GKUser.objects.all()
 
-    paginator = Paginator(user_list, 30)
+    paginator = ExtentPaginator(user_list, 30)
 
     try:
         users = paginator.page(page)
