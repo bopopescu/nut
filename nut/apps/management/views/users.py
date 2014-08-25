@@ -89,14 +89,29 @@ def reset_password(request, user_id, template='management/users/reset_password.h
     except GKUser.DoesNotExist:
         raise Http404
 
-
-    _forms = GuokuSetPasswordForm(user=_user)
+    if request.method == "POST":
+        _forms = GuokuSetPasswordForm(_user, request.POST)
+        if _forms.is_valid():
+            _forms.save()
+    else:
+        _forms = GuokuSetPasswordForm(user=_user)
 
     return render_to_response(
         template,
         {
             'user': _user,
             'forms': _forms,
+        },
+        context_instance = RequestContext(request)
+    )
+
+
+def upload_avatar(request, user_id, template=''):
+
+    return render_to_response(
+        template,
+        {
+
         },
         context_instance = RequestContext(request)
     )
