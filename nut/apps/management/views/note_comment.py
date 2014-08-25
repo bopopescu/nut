@@ -8,7 +8,20 @@ from apps.core.models import Note_Comment
 
 log = getLogger('django')
 
-def list(request, note_id, template='management/notes/comment/list.html'):
+
+def list(request, template=''):
+
+    comment_list = Note_Comment.objects.all()
+
+    return render_to_response(
+        template,
+        {
+
+        },
+        context_instance = RequestContext(request)
+    )
+
+def note_list(request, note_id, template='management/notes/comment/list.html'):
 
     note_comment_list = Note_Comment.objects.filter(note_id = note_id)
 
