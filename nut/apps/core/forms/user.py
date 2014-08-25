@@ -2,13 +2,13 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.utils.log import getLogger
-
-
+from django.contrib.auth.forms import SetPasswordForm
 
 log = getLogger('django')
 
 
 from apps.core.models import User_Profile
+
 
 class UserForm(forms.Form):
     YES_OR_NO = (
@@ -102,5 +102,17 @@ class UserForm(forms.Form):
         self.user_cache.save()
 
         return self.user_cache
+
+
+class GuokuSetPasswordForm(SetPasswordForm):
+    new_password1 = forms.CharField(label=_('New password'),
+                                      widget=forms.PasswordInput(attrs={'class':'form-control'}),
+                                      help_text=_(''))
+    new_password2 = forms.CharField(label=_('New password confirmation'),
+                                       widget=forms.PasswordInput(attrs={'class':'form-control'}),
+                                       help_text=_(''))
+
+
+
 
 __author__ = 'edison'
