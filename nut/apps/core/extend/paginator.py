@@ -21,8 +21,9 @@ class ExtentPaginator(Paginator):
 
 
     def page(self, number):
-        self.page_num = number
+        self.page_num = self.validate_number(number)
         return super(ExtentPaginator, self).page(number)
+
 
     def _page_range_ext(self):
         num_count = 2 * self.range_num + 1

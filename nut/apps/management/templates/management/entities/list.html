@@ -18,33 +18,34 @@
 {#    <h2 class="sub-header">{% trans 'all' %}</h2>#}
     {% include "management/entities/table.html" with entities=entities %}
 
-    <div class="row">
-        <ul class="pagination pagination-lg">
-            {% if status %}
-                {% if entities.has_previous %}
-                    <li><a href="{% url 'management_entity_list' %}?status={{ status }}&page={{ entities.previous_page_number }}">&laquo;</a></li>
-                {% endif %}
-                {% for num in page_range %}
-                    <li {% ifequal num entities.number %}class="active"{% endifequal %}>
-                        <a href="{% url 'management_entity_list' %}?status={{ status }}&page={{ num }}">{{ num }} <span class="sr-only">(current)</span></a>
-                    </li>
-                {% endfor %}
-                {% if entities.has_next %}
-                    <li><a href="{% url 'management_entity_list' %}?status={{ status }}page={{ entities.next_page_number }}">&raquo;</a></li>
-                {% endif %}
-            {% else %}
-                {% if entities.has_previous %}
-                    <li><a href="{% url 'management_entity_list' %}?page={{ entities.previous_page_number }}">&laquo;</a></li>
-                {% endif %}
-                {% for num in page_range %}
-                    <li {% ifequal num entities.number %}class="active"{% endifequal %}>
-                        <a href="{% url 'management_entity_list' %}?page={{ num }}">{{ num }} <span class="sr-only">(current)</span></a>
-                    </li>
-                {% endfor %}
-                {% if entities.has_next %}
-                    <li><a href="{% url 'management_entity_list' %}?page={{ entities.next_page_number }}">&raquo;</a></li>
-                {% endif %}
-            {% endif %}
-        </ul>
-    </div>
+    {% include "management/paginator.html" with objects=entities url=request.path %}
+{#    <div class="row">#}
+{#        <ul class="pagination pagination-lg">#}
+{#            {% if status %}#}
+{#                {% if entities.has_previous %}#}
+{#                    <li><a href="{% url 'management_entity_list' %}?status={{ status }}&page={{ entities.previous_page_number }}">&laquo;</a></li>#}
+{#                {% endif %}#}
+{#                {% for num in page_range %}#}
+{#                    <li {% ifequal num entities.number %}class="active"{% endifequal %}>#}
+{#                        <a href="{% url 'management_entity_list' %}?status={{ status }}&page={{ num }}">{{ num }} <span class="sr-only">(current)</span></a>#}
+{#                    </li>#}
+{#                {% endfor %}#}
+{#                {% if entities.has_next %}#}
+{#                    <li><a href="{% url 'management_entity_list' %}?status={{ status }}page={{ entities.next_page_number }}">&raquo;</a></li>#}
+{#                {% endif %}#}
+{#            {% else %}#}
+{#                {% if entities.has_previous %}#}
+{#                    <li><a href="{% url 'management_entity_list' %}?page={{ entities.previous_page_number }}">&laquo;</a></li>#}
+{#                {% endif %}#}
+{#                {% for num in page_range %}#}
+{#                    <li {% ifequal num entities.number %}class="active"{% endifequal %}>#}
+{#                        <a href="{% url 'management_entity_list' %}?page={{ num }}">{{ num }} <span class="sr-only">(current)</span></a>#}
+{#                    </li>#}
+{#                {% endfor %}#}
+{#                {% if entities.has_next %}#}
+{#                    <li><a href="{% url 'management_entity_list' %}?page={{ entities.next_page_number }}">&raquo;</a></li>#}
+{#                {% endif %}#}
+{#            {% endif %}#}
+{#        </ul>#}
+{#    </div>#}
 {% endblock %}

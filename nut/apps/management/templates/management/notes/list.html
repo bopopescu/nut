@@ -45,4 +45,5 @@
     </div>
     </div>
 
+    {% include "management/paginator.html" with objects=notes url=request.path %}
 {% endblock %}

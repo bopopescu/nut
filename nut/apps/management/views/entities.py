@@ -32,7 +32,7 @@ def list(request, template = 'management/entities/list.html'):
     return render_to_response(template,
                             {
                                 'entities': entities,
-                                'page_range': paginator.page_range[int(page) - 1: 9 + int(page)],
+                                'page_range': paginator.page_range_ext,
                                 'status': status,
                             },
                             context_instance = RequestContext(request))
