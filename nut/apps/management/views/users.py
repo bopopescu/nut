@@ -113,12 +113,18 @@ def upload_avatar(request, user_id, template='management/users/upload_avatar.htm
     except GKUser.DoesNotExist:
         raise Http404
 
-    _forms = AvatarForm(user=_user)
+    if request.method == 'POST':
+        _forms = AvatarForm(_user, request.POST, request.FILES)
+        if _forms.is_valid():
+            _forms.save()
+    else:
+        _forms = AvatarForm(user=_user)
 
     return render_to_response(
         template,
         {
             'user': _user,
+            'forms': _forms,
         },
         context_instance = RequestContext(request)
     )

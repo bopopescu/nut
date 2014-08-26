@@ -30,9 +30,13 @@
     {% endif %}
     <div class="row">
         <ul class="nav nav-pills" role="tablist">
-            <li><a href="">添加 {{ user.create_entity_count }}</a></li>
-            <li><a href="">喜欢</a></li>
-            <li><a href="">点评 {{ user.post_note_count }}</a></li>
+            <li role="presentation">
+                <a href="">添加<span class="badge">{{ user.create_entity_count }}</span></a>
+            </li>
+            <li role="presentation"><a href="">喜欢</a></li>
+            <li role="presentation">
+                <a href="">点评 <span class="badge">{{ user.post_note_count }}</span></a>
+            </li>
         </ul>
     </div>
     <div class="row">

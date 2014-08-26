@@ -1,4 +1,5 @@
 {% extends 'management/management_base.html' %}
+{% load i18n %}
 
 {% block content %}
     <h1 class="page-header">{{ user.profile.nickname }}</h1>
@@ -9,12 +10,24 @@
     </div>
 
     <div class="row">
-        <form method="post">
+        <form class="well form-horizontal" method="post">
             {% csrf_token %}
             <fieldset>
-
-
+                {% for field in forms %}
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                        <div class="col-sm-5">
+                            {{ field }}
+                        </div>
+                    </div>
+                {% endfor %}
             </fieldset>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary btn-lg">{% trans 'update' %}</button>
+                </div>
+            </div>
         </form>
     </div>
 {% endblock %}
