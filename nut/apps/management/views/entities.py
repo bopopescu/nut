@@ -1,6 +1,7 @@
 from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+# from django.views.generic.list import ListView
 # from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.utils.log import getLogger
 
@@ -10,6 +11,12 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 
 log = getLogger('django')
 
+
+# class EntityListView(ListView):
+#     model = Entity
+#     template_name = 'management/entities/list.html'
+#     context_object_name = "entities"
+#     paginate_by = 30
 
 def list(request, template = 'management/entities/list.html'):
 
@@ -32,7 +39,7 @@ def list(request, template = 'management/entities/list.html'):
     return render_to_response(template,
                             {
                                 'entities': entities,
-                                'page_range': paginator.page_range_ext,
+                                # 'page_range': paginator.page_range_ext,
                                 'status': status,
                             },
                             context_instance = RequestContext(request))
