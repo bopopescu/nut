@@ -115,7 +115,9 @@ class GuokuSetPasswordForm(SetPasswordForm):
 
 class AvatarForm(forms.Form):
 
-    avatar = forms.FileField()
+    avatar = forms.FileField(label=_('avatar'),
+                             widget=forms.FileInput(attrs={'type':'file'}),
+                             help_text=_(''))
 
 
     def __init__(self, user, *args, **kwargs):
