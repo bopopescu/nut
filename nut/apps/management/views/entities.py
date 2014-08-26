@@ -11,12 +11,18 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 
 log = getLogger('django')
 
-
+#
 # class EntityListView(ListView):
 #     model = Entity
 #     template_name = 'management/entities/list.html'
 #     context_object_name = "entities"
 #     paginate_by = 30
+#     http_method_names = [u'get',]
+#
+#     def get_queryset(self):
+#         page = self.request.GET.get('page', 1)
+#         status = self.request.GET.get('status', None)
+
 
 def list(request, template = 'management/entities/list.html'):
 
