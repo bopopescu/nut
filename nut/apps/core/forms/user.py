@@ -115,14 +115,20 @@ class GuokuSetPasswordForm(SetPasswordForm):
 
 class AvatarForm(forms.Form):
 
-    avatar = forms.FileField(label=_('avatar'),
-                             widget=forms.FileInput(attrs={'type':'file'}),
-                             help_text=_(''))
+    avatar_file = forms.ImageField(
+                        required=False,
+                        label='Select an Image',
+                        help_text=_('max. 2 megabytes'))
 
 
-    def __init__(self, user, *args, **kwargs):
-        self.user = user
+    def __init__(self, *args, **kwargs):
+        self.user = None
         super(AvatarForm, self).__init__(*args, **kwargs)
+
+    def save(self, user):
+        self.user = user
+        _avatar_file = self.cleaned_data.get('avatar_file')
+        log.info(_avatar_file)
 
 
 

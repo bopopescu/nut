@@ -114,11 +114,15 @@ def upload_avatar(request, user_id, template='management/users/upload_avatar.htm
         raise Http404
 
     if request.method == 'POST':
-        _forms = AvatarForm(_user, request.POST, request.FILES)
+
+        _forms = AvatarForm(request.POST, request.FILES)
+        
+
         if _forms.is_valid():
-            _forms.save()
+            _forms.save(user=_user)
+
     else:
-        _forms = AvatarForm(user=_user)
+        _forms = AvatarForm()
 
     return render_to_response(
         template,
