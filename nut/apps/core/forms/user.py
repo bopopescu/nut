@@ -5,12 +5,17 @@ from django.utils.log import getLogger
 from django.contrib.auth.forms import SetPasswordForm
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
+from django.conf import settings
 
 log = getLogger('django')
 
 
 from apps.core.models import User_Profile
 from apps.core.utils.image import HandleImage
+
+
+avatar_path = getattr(settings, 'Avatar_Image_Path', 'avatar/')
+avatar_size = getattr(settings, 'Avatar_Image_Size', [50, 180])
 
 class UserForm(forms.Form):
     YES_OR_NO = (
@@ -132,10 +137,16 @@ class AvatarForm(forms.Form):
         _avatar_file = self.cleaned_data.get('avatar_file')
         # log.info(_avatar_file)
         _image = HandleImage(image_file= _avatar_file)
-        file_path = "%s.jpg" % _image.name
 
-        log.info(file_path)
 
+        for size in avatar_size:
+            file_path = avatar_path + "%s.jpg_%sx%s.jpg" % (_image.name, size, size)
+            default_storage.save(file_path, ContentFile(_image.resize(size, size)))
+        # log.info(file_path)
+
+        self.user.profile.avatar = avatar_path + "%s.jpg_180x180.jpg" % _image.name
+
+        self.user.profile.save()
 
 
 __author__ = 'edison'

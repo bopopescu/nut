@@ -25,7 +25,7 @@ class HandleImage(object):
 
 
     def resize(self, w, h):
-        _img = WandImage(blod = self.image_data)
+        _img = WandImage(blob= self._image_data)
 
         if (w /  h > _img.width / _img.height):
             _width = round(h * _img.width / _img.height)
