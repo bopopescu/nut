@@ -20,6 +20,7 @@ class HandleImage(object):
 
     @property
     def name(self):
+        self._name = md5(self.image_data).hexdigest()
         return self._name
 
 

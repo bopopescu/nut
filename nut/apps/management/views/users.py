@@ -115,14 +115,13 @@ def upload_avatar(request, user_id, template='management/users/upload_avatar.htm
 
     if request.method == 'POST':
 
-        _forms = AvatarForm(request.POST, request.FILES)
-        
+        _forms = AvatarForm(_user, request.POST, request.FILES)
 
         if _forms.is_valid():
-            _forms.save(user=_user)
+            _forms.save()
 
     else:
-        _forms = AvatarForm()
+        _forms = AvatarForm(_user)
 
     return render_to_response(
         template,

@@ -3,12 +3,14 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.utils.log import getLogger
 from django.contrib.auth.forms import SetPasswordForm
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 
 log = getLogger('django')
 
 
 from apps.core.models import User_Profile
-
+from apps.core.utils.image import HandleImage
 
 class UserForm(forms.Form):
     YES_OR_NO = (
@@ -121,14 +123,18 @@ class AvatarForm(forms.Form):
                         help_text=_('max. 2 megabytes'))
 
 
-    def __init__(self, *args, **kwargs):
-        self.user = None
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
         super(AvatarForm, self).__init__(*args, **kwargs)
 
-    def save(self, user):
-        self.user = user
+    def save(self):
+        # self.user = user
         _avatar_file = self.cleaned_data.get('avatar_file')
-        log.info(_avatar_file)
+        # log.info(_avatar_file)
+        _image = HandleImage(image_file= _avatar_file)
+        file_path = "%s.jpg" % _image.name
+
+        log.info(file_path)
 
 
 
