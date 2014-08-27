@@ -8,7 +8,9 @@
             <img class="img-responsive img-thumbnail" alt="180x180" src="{{ user.profile.avatar_url }}" style="max-height:180px;max-width:180px;">
         </div>
     </div>
-
+    <div class="row">
+        {{ forms.errors }}
+    </div>
     <div class="row">
         <form class="well form-horizontal" method="post">
             {% csrf_token %}
