@@ -137,9 +137,10 @@ class AvatarForm(forms.Form):
         # log.info(_avatar_file)
         _image = HandleImage(image_file= _avatar_file)
 
-
+        _image.crop_square()
         for size in avatar_size:
             file_path = avatar_path + "%s.jpg_%sx%s.jpg" % (_image.name, size, size)
+
             default_storage.save(file_path, ContentFile(_image.resize(size, size)))
         # log.info(file_path)
 
