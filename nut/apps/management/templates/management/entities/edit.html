@@ -19,6 +19,7 @@
                 有置顶点评
         </div>
     {% endif %}
+
     <div class="row">
         {% if update == 0 %}
             <div class="alert alert-success alert-dismissable" role="alert">
@@ -40,6 +41,10 @@
                 {% endfor %}
             </div>
         {% endif %}
+    </div>
+
+    <div class="row">
+
         <form class="well form-horizontal" method="post">
             {% csrf_token %}
             <fieldset>

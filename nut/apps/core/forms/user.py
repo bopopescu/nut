@@ -123,7 +123,6 @@ class GuokuSetPasswordForm(SetPasswordForm):
 class AvatarForm(forms.Form):
 
     avatar_file = forms.ImageField(
-                        required=False,
                         label='Select an Image',
                         help_text=_('max. 2 megabytes'))
 
