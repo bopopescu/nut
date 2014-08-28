@@ -9,6 +9,12 @@ class CreateBannerForm(forms.Form):
     key = forms.CharField(label=_('key'),
                           widget=forms.TextInput(attrs={'class':'form-control'}),
                           help_text=_(''))
-    banner_image = forms.ImageField()
+    banner_image = forms.ImageField(widget=forms.FileInput(attrs={'class':'controls'}))
+
+
+    def save(self):
+        banner_image = self.cleaned_data['banner_image']
+
+        log.info(banner_image)
 
 __author__ = 'edison'
