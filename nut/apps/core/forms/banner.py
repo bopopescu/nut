@@ -28,10 +28,10 @@ class CreateBannerForm(forms.Form):
 class EditBannerForm(forms.Form):
     content_type = forms.ChoiceField(label=_('content_type'),
                                     choices=Banner.CONTENT_TYPE_CHOICES,
-                                   widget=forms.Select(attrs={'class':'form-control'}),
+                                   widget=forms.Select(attrs={'class':'form-control', 'disabled':''}),
                                    help_text=_(''))
     key = forms.CharField(label=_('key'),
-                          widget=forms.TextInput(attrs={'class':'form-control'}),
+                          widget=forms.TextInput(attrs={'class':'form-control', 'readonly':''}),
                           help_text=_(''))
     banner_image = forms.ImageField(widget=forms.FileInput(attrs={'class':'controls'}))
 

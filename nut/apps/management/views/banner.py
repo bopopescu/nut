@@ -5,7 +5,7 @@ from django.template import RequestContext
 
 from apps.core.models import Banner, Show_Banner
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
-from apps.core.forms.banner import CreateBannerForm
+from apps.core.forms.banner import CreateBannerForm, EditBannerForm
 
 def list(request, template="management/banner/list.html"):
 
@@ -49,5 +49,35 @@ def create(request, template='management/banner/create.html'):
                         'forms': _forms,
                     },
                     context_instance = RequestContext(request) )
+
+def edit(request, banner_id, template='management/banner/edit.html'):
+
+    try:
+        _banner = Banner.objects.get(pk = banner_id)
+    except Banner.DoesNotExist:
+        raise Http404
+
+    data = {
+        'content_type': _banner.content_type,
+        'key': _banner.key,
+    }
+
+    if request.method == "POST":
+        _forms = EditBannerForm(_banner, request.POST, request.FILES)
+
+    else:
+        _forms = EditBannerForm(_banner, data=data)
+
+
+    return render_to_response(
+        template,
+        {
+            'banner': _banner,
+            'forms': _forms,
+        },
+        context_instance = RequestContext(request)
+    )
+
+
 
 __author__ = 'edison'
