@@ -107,6 +107,14 @@ class User_Profile(BaseModel):
     def avatar_url(self):
         return "%s%s" % (image_host, self.avatar)
 
+    # @property
+    # def avatar_url_large(self):
+    #     return "%s_180x180.jpg" % self.avatar
+
+    # @property
+    # def avatar_url_small(self):
+    #     return "%s_50x50.jpg" % image_host, self.avatar
+
 
 class Banner(BaseModel):
     CONTENT_TYPE_CHOICES = (
