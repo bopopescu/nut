@@ -38,8 +38,10 @@ def create(request, template='management/banner/create.html'):
 
     if request.method == "POST":
         _forms = CreateBannerForm(request.POST, request.FILES)
-
-    _forms = CreateBannerForm()
+        if _forms.is_valid():
+            _forms.save()
+    else:
+        _forms = CreateBannerForm()
 
     return render_to_response(
                     template,
