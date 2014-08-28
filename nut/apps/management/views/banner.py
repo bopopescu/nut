@@ -5,6 +5,7 @@ from django.template import RequestContext
 
 from apps.core.models import Banner, Show_Banner
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
+from apps.core.forms.banner import CreateBannerForm
 
 def list(request, template="management/banner/list.html"):
 
@@ -35,6 +36,16 @@ def list(request, template="management/banner/list.html"):
 def create(request, template='management/banner/create.html'):
 
 
-    return render_to_response()
+    if request.method == "POST":
+        _forms = CreateBannerForm(request.POST, request.FILES)
+
+    _forms = CreateBannerForm()
+
+    return render_to_response(
+                    template,
+                    {
+                        'forms': _forms,
+                    },
+                    context_instance = RequestContext(request) )
 
 __author__ = 'edison'
