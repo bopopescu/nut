@@ -31,4 +31,10 @@ def list(request, template="management/banner/list.html"):
                     context_instance = RequestContext(request)
                 )
 
+
+def create(request, template='management/banner/create.html'):
+
+
+    return render_to_response()
+
 __author__ = 'edison'
