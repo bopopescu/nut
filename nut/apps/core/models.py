@@ -109,7 +109,15 @@ class User_Profile(BaseModel):
 
 
 class Banner(BaseModel):
-    content_type = models.CharField(max_length = 64, null = False)
+    CONTENT_TYPE_CHOICES = (
+        (u'entity', _('entity')),
+        (u'category', _('category')),
+        (u'user', _('user')),
+        (u'user_tag', _('user_tag')),
+        (u'outlink', _('outlink')),
+    )
+
+    content_type = models.CharField(max_length = 64, choices=CONTENT_TYPE_CHOICES)
     key = models.CharField(max_length = 1024)
     image = models.CharField(max_length = 64, null = False)
     created_time = models.DateTimeField(auto_now_add = True, editable=False, db_index = True)
