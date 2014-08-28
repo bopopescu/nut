@@ -6,6 +6,13 @@
 
     {% include 'management/banner/show_banners.html' with show_banners=show_banners %}
 
+
+    <div class="row">
+        <ul class="nav nav-pills" role="tablist">
+            <li><a class="btn btn-primary" href="#">{% trans 'add' %}</a></li>
+        </ul>
+    </div>
+
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
