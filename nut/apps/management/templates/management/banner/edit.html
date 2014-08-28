@@ -1,5 +1,31 @@
 {% extends 'management/management_base.html' %}
+{% load i18n %}
 
 {% block content %}
+    <h1 class="page-header"></h1>
+    <div class="row placeholders">
+        <div class="col-xs-6 col-sm-3 placeholders">
+            <img class="img-responsive img-thumbnail" alt="200x200" data-src="holder.js/200x200/auto/sky"  src="{{ banner.image_url }}">
+        </div>
+    </div>
 
+    <div class="row">
+        <form class="well form-horizontal" method="post">
+            <fieldset>
+                {% for field in forms %}
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                        <div class="col-sm-5">
+                            {{ field }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </fieldset>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary btn-lg">{% trans 'update' %}</button>
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock %}

@@ -128,8 +128,13 @@ class Banner(BaseModel):
 
     @property
     def url(self):
-        if 'http://' in self.key:
+        if 'outlink' == self.content_type:
             return self.key
+        elif 'user_tag' == self.content_type:
+            type, key = self.key.split(':')
+            _url = "guoku://%s/tag/%s/" % (type, key)
+            return _url
+
         _url = "guoku://%s/%s" % (self.content_type, self.key)
         return _url
 
