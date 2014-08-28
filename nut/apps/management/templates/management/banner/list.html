@@ -28,4 +28,6 @@
             </tbody>
         </table>
     </div>
+
+    {% include "management/paginator.html" with objects=banners url=request.path %}
 {% endblock %}

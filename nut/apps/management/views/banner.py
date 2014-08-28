@@ -1,9 +1,10 @@
 from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.core.paginator import Paginator, EmptyPage, InvalidPage
+# from django.core.paginator import Paginator, EmptyPage, InvalidPage
 
 from apps.core.models import Banner, Show_Banner
+from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 
 def list(request, template="management/banner/list.html"):
 
@@ -12,7 +13,7 @@ def list(request, template="management/banner/list.html"):
     show_banners = Show_Banner.objects.all()[0:4]
 
     banner_list = Banner.objects.all()
-    paginator = Paginator(banner_list, 30)
+    paginator = ExtentPaginator(banner_list, 30)
 
     try:
         banners = paginator.page(page)
