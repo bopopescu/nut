@@ -64,7 +64,7 @@ class GKUser(AbstractBaseUser, BaseModel):
 
     @property
     def create_entity_count(self):
-        return self.entity.count()
+        return self.entities.count()
 
     @property
     def post_note_count(self):
@@ -202,7 +202,7 @@ class Entity(BaseModel):
         (remove, _("remove")),
     ]
 
-    user = models.ForeignKey(GKUser, related_name='entity', null=True)
+    user = models.ForeignKey(GKUser, related_name='entities', null=True)
     entity_hash = models.CharField(max_length=32, unique=True, db_index=True)
     category = models.ForeignKey(Sub_Category, related_name='category', db_index=True)
     brand = models.CharField(max_length=256, default='')
