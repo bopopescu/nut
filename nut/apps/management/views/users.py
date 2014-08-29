@@ -165,4 +165,16 @@ def post(request, user_id, template='management/users/post.html'):
         context_instance = RequestContext(request)
     )
 
+
+def notes(request, user_id, template='management/users/notes.html'):
+
+
+    return render_to_response(
+        template,
+        {
+
+        },
+        context_instance = RequestContext(request)
+    )
+
 __author__ = 'edison'
