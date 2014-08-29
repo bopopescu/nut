@@ -168,11 +168,28 @@ def post(request, user_id, template='management/users/post.html'):
 
 def notes(request, user_id, template='management/users/notes.html'):
 
+    page = request.GET.get('page', 1)
+
+    try:
+        _user = GKUser.objects.get(pk = user_id)
+    except GKUser.DoesNotExist:
+        raise Http404
+
+    _note_list = _user.note.all()
+
+    paginator = ExtentPaginator(_note_list, 30)
+    try:
+        _notes = paginator.page(page)
+    except InvalidPage:
+        _notes = paginator.page(1)
+    except EmptyPage:
+        raise Http404
 
     return render_to_response(
         template,
         {
-
+            'user': _user,
+            'notes': _notes,
         },
         context_instance = RequestContext(request)
     )

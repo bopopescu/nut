@@ -35,10 +35,11 @@
             </li>
             <li role="presentation"><a href="">喜欢</a></li>
             <li role="presentation">
-                <a href="">点评 <span class="badge">{{ user.post_note_count }}</span></a>
+                <a href="{% url 'management_user_notes' user.pk %}">点评 <span class="badge">{{ user.post_note_count }}</span></a>
             </li>
         </ul>
     </div>
+
     <div class="row">
         <form class="well form-horizontal" method="post">
             {% csrf_token %}
