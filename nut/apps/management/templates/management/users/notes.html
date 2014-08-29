@@ -1,7 +1,20 @@
 {% extends 'management/management_base.html' %}
+{% load i18n %}
 
 {% block content %}
-    <h1 class="page-header"></h1>
+    <h1 class="page-header">{{ user.profile.nickname }}</h1>
 
-    
+   <div class="row">
+        <ul class="nav nav-pills" role="tablist">
+{#        {{ status }}#}
+            <li {% ifequal status None %}class="active"{% endifequal %}><a href="{% url 'management_note_list' %}">{% trans 'all' %}</a></li>
+            <li {% ifequal status '1' %}class="active"{% endifequal %}><a href="{% url 'management_note_list' %}?status=1">{% trans 'top' %}</a></li>
+            <li {% ifequal status '0' %}class="active"{% endifequal %}><a href="{% url 'management_note_list' %}?status=0">{% trans 'normal' %}</a></li>
+            <li {% ifequal status '-1' %}class="active"{% endifequal %}><a href="{% url 'management_note_list' %}?status=-1">{% trans 'remove' %}</a></li>
+        </ul>
+    </div>
+
+    {% include 'management/notes/table.html' with notes=notes %}
+
+    {% include "management/paginator.html" with objects=notes url=request.path %}
 {% endblock %}
