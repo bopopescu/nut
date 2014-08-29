@@ -31,7 +31,7 @@
     <div class="row">
         <ul class="nav nav-pills" role="tablist">
             <li role="presentation">
-                <a href="">添加<span class="badge">{{ user.create_entity_count }}</span></a>
+                <a href="{% url 'management_user_post' user.pk %}">添加 <span class="badge">{{ user.create_entity_count }}</span></a>
             </li>
             <li role="presentation"><a href="">喜欢</a></li>
             <li role="presentation">

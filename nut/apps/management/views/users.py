@@ -132,4 +132,37 @@ def upload_avatar(request, user_id, template='management/users/upload_avatar.htm
         context_instance = RequestContext(request)
     )
 
+
+def post(request, user_id, template='management/users/post.html'):
+
+    status = request.GET.get('status', None)
+    page = request.GET.get('page', 1)
+
+    try:
+        _user = GKUser.objects.get(pk = user_id)
+    except GKUser.DoesNotExist:
+        raise Http404
+
+    _entity_list = _user.entities.all()
+
+    paginator = ExtentPaginator(_entity_list, 30)
+
+
+    try:
+        _entities = paginator.page(page)
+    except InvalidPage:
+        _entities = paginator.page(1)
+    except EmptyPage:
+        raise  Http404
+
+    return render_to_response(
+        template,
+        {
+            'user': _user,
+            'entities': _entities,
+            'status': status,
+        },
+        context_instance = RequestContext(request)
+    )
+
 __author__ = 'edison'
