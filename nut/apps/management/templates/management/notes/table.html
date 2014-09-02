@@ -1,12 +1,12 @@
 {% load i18n %}
 
 <div class="row">
-        <div class="table-responsive">
+    <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>image</th>
+                    <th>{% trans 'image' %}</th>
                     <th>{% trans 'creator' %}</th>
                     <th>{% trans 'content' %}</th>
                     <th>{% trans 'post_time' %}</th>
@@ -28,5 +28,5 @@
                 {% endfor %}
             </tbody>
         </table>
-        </div>
+    </div>
 </div>
