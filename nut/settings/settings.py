@@ -89,3 +89,10 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'core.GKUser'
 
 IMAGE_HOST = 'http://imgcdn.guoku.com/'
+
+
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+IMAGE_SIZE = [128, 310, 640]
+
+Avatar_Image_Path = 'avatar/'
+Avatar_Image_Size = [180, 50]
