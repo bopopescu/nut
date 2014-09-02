@@ -84,6 +84,12 @@ LOCALE_PATHS = (
     os.path.join(os.path.dirname(__file__), '../conf/locale'),
 )
 
+STATICFILES_DIRS = (
+    os.path.join(os.getcwd(), 'static'),
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+)
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
