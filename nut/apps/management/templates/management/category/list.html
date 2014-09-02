@@ -1,0 +1,41 @@
+{% extends 'management/management_base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <h1 class="page-header">{% trans 'category' %}</h1>
+
+    <div class="row">
+        <ul class="nav nav-pills" role="tablist">
+            {% for category in categories %}
+                <li><a href="#">{{ category }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{% trans 'icon' %}</th>
+                        <th>{% trans 'name' %}</th>
+                        <th>{% trans 'status' %}</th>
+                        <th>{% trans 'operation' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sub_category in sub_categories %}
+                        <tr>
+                            <td>{{ sub_category.pk }}</td>
+                            <td>{{ sub_category.icon }}</td>
+                            <td>{{ sub_category.title }}</td>
+                            <td>{{ sub_category.status|yesno }}</td>
+                            <td><a class="btn btn-default" href="#">{% trans 'edit' %}</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

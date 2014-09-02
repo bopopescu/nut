@@ -73,7 +73,8 @@
                         </li>
                     </ul>
                     <ul class="nav nav-sidebar">
-                        <li><a href="#">{% trans 'category' %}</a></li>
+                    {% url 'management_category_list' as management_category_list_url %}
+                        <li {% if management_category_list_url in request.path %}class="active" {% endif %}><a href="{{ management_category_list_url }}">{% trans 'category' %}</a></li>
 
                         {% url 'management_tag_list' as management_tag_list_url %}
                         <li {% if management_tag_list_url in request.path %}class="active" {% endif %}>
