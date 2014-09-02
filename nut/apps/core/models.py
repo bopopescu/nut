@@ -331,17 +331,17 @@ class Tag(models.Model):
     tag = models.CharField(max_length = 128, null = False, unique = True, db_index = True)
     tag_hash = models.CharField(max_length = 32, unique = True, db_index = True)
     status = models.IntegerField(default = 0, db_index = True)
-    creator = models.ForeignKey(GKUser)
+    creator = models.ForeignKey(GKUser, related_name='tags')
+    entity = models.ForeignKey(Entity, related_name='tags')
     created_time = models.DateTimeField(auto_now_add = True, db_index=True)
     updated_time = models.DateTimeField(auto_now = True, db_index = True)
 
-
-    def get_absolute_url(self):
-
-        return "/t/%s" % self.tag_hash
-
     class Meta:
         ordering = ['-created_time']
+        unique_together = ('entity', 'creator', 'tag')
+
+    def get_absolute_url(self):
+        return "/t/%s" % self.tag_hash
 
 
 class User_Follow(models.Model):
