@@ -12,7 +12,8 @@
                     <tr>
                         <th>#</th>
                         <th>{% trans 'name' %}</th>
-                        
+                        <th>{% trans 'creator' %}</th>
+                        <th>{% trans 'operation' %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -20,6 +21,8 @@
                         <tr>
                             <td>{{ tag.pk }}</td>
                             <td>{{ tag.tag }}</td>
+                            <td>{{ tag.creator.profile.nickname }}</td>
+                            <td><a class="btn btn-default" href="#">{% trans 'edit' %}</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
