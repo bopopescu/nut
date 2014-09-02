@@ -10,6 +10,7 @@ urlpatterns = patterns(
     url(r'^banner/', include('apps.management.urls.banner')),
     url(r'^note/', include('apps.management.urls.note')),
     url(r'^comment/', include('apps.management.urls.comments')),
+    url(r'^t/', include('apps.management.urls.tags')),
 )
 
 __author__ = 'edison7500'
