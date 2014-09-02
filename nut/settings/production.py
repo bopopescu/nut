@@ -53,19 +53,20 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
 )
 
-INSTALLED_APPS = (
-    # 'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    # 'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+INSTALLED_APPS += (
     'gunicorn',
-
-    'apps.core',
-    'apps.management',
-    'apps.web',
-    'apps.mobile',
+    # # 'django.contrib.admin',
+    # 'django.contrib.auth',
+    # 'django.contrib.contenttypes',
+    # # 'django.contrib.sessions',
+    # 'django.contrib.messages',
+    # 'django.contrib.staticfiles',
+    # 'gunicorn',
+    #
+    # 'apps.core',
+    # 'apps.management',
+    # 'apps.web',
+    # 'apps.mobile',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
