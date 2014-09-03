@@ -28,7 +28,7 @@
                     {% for sub_category in sub_categories %}
                         <tr>
                             <td>{{ sub_category.pk }}</td>
-                            <td>{{ sub_category.icon }}</td>
+                            <td><img src="{{ sub_category.icon_large_url }}"></td>
                             <td>{{ sub_category.title }}</td>
                             <td>{{ sub_category.status|yesno }}</td>
                             <td><a class="btn btn-default" href="#">{% trans 'edit' %}</a></td>
