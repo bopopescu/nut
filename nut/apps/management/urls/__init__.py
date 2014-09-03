@@ -10,7 +10,7 @@ urlpatterns = patterns(
     url(r'^banner/', include('apps.management.urls.banner')),
     url(r'^note/', include('apps.management.urls.note')),
     url(r'^comment/', include('apps.management.urls.comments')),
-    url(r'^c/', include('apps.management.urls.category')),
+    url(r'^category/', include('apps.management.urls.category')),
     url(r'^t/', include('apps.management.urls.tags')),
 )
 
