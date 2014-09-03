@@ -38,4 +38,6 @@
             </table>
         </div>
     </div>
+
+    {% include "management/paginator.html" with objects=sub_categories url=request.path %}
 {% endblock %}
