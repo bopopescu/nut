@@ -35,5 +35,31 @@
 ### Debug 工具
 * *django-debug-toolbar* [相关文档](http://django-debug-toolbar.readthedocs.org/en/1.2/installation.html#quick-setup)
 
+### 部署到服务器
+* deploy 目录结构
+
+```
+deploy/
+├── config.ini
+├── guoku.pass
+├── reload_server.py
+├── update_online_code.sh
+└── upload_code.py
+```
+
+* *config.ini* 配置文件
+* *guoku.pass* 密码文件
+* *reload_server.py* 重启服务
+* *upload_code.py* 上传代码
+* *update_online_code.sh* 更新代码 并且重启服务 
+
+
+```
+pip install fabric
+cd deploy/
+sh update_online_code.sh
+```
+
+
 ### Emial
  <jiaxin@guoku.com>
