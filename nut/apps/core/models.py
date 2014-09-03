@@ -179,6 +179,14 @@ class Sub_Category(BaseModel):
     class Meta:
         ordering = ['id']
 
+    @property
+    def icon_large_url(self):
+        return "http://imgcdn.guoku.com/category/large/%s" % self.icon
+
+    @property
+    def icon_small_url(self):
+        return "http://imgcdn.guoku.com/category/small/%s" % self.icon
+
     def get_absolute_url(self):
         return "/c/%s" % self.id
 
