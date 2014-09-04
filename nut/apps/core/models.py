@@ -152,22 +152,28 @@ class Banner(BaseModel):
 
     @property
     def has_show_banner(self):
-        if self.show.count() > 0:
+        # if self.show.count() > 0:
+        #     return True
+        # return False
+        try:
+            self.show
             return True
-        return False
+        except Show_Banner.DoesNotExist:
+            return False
+
 
     @property
     def position(self):
         try:
-            show = self.show.get(banner = self.id)
+            # show = self.show.get(banner = self.id)
             # log.info(self.show.pk)
-            return show.pk
+            return self.show.pk
         except Show_Banner.DoesNotExist:
             return 0
 
 
 class Show_Banner(BaseModel):
-    banner = models.ForeignKey(Banner, related_name='show')
+    banner = models.OneToOneField(Banner, related_name='show')
     created_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
 
     class Meta:
