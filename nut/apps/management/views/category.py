@@ -27,6 +27,7 @@ def list(request, category_id=1, template='management/category/list.html'):
     return render_to_response(
         template,
         {
+            'current_category_id': int(category_id),
             'categories': categories,
             'sub_categories': sub_categories,
         },

@@ -1,10 +1,17 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 from django.utils.log import getLogger
 
 log = getLogger('django')
 
+from apps.core.utils.image import HandleImage
 from apps.core.models import Banner, Show_Banner
+
+from django.conf import settings
+
+image_path = getattr(settings, 'MOGILEFS_MEDIA_URL', 'images/')
 
 class BaseBannerForm(forms.Form):
 
@@ -65,15 +72,29 @@ class CreateBannerForm(BaseBannerForm):
 
 
     def save(self):
-        banner_image = self.cleaned_data['banner_image']
+        content_type = self.cleaned_data.get('content_type')
+        key = self.cleaned_data.get('key')
+        banner_image = self.cleaned_data.get('banner_image')
         position = self.clean_position()
 
-        log.info(banner_image)
+        # log.info(banner_image)
+        _image = HandleImage(banner_image)
+        file_path = "%s%s.jpg" % (image_path, _image.name)
+        default_storage.save(file_path, ContentFile(_image.image_data))
+
+        banner = Banner.objects.create(
+            content_type = content_type,
+            image = file_path,
+            key = key,
+            position = position,
+        )
 
         if position > 0:
             show = Show_Banner.objects.get(pk = position)
-            # show.banner =
+            show.banner = banner
             show.save()
+
+        return banner
 
 class EditBannerForm(BaseBannerForm):
     # content_type = forms.ChoiceField(label=_('content_type'),
@@ -108,8 +129,16 @@ class EditBannerForm(BaseBannerForm):
                                                   help_text=_(''))
 
     def save(self):
-        banner_image = self.cleaned_data['banner_image']
+        banner_image = self.cleaned_data.get('banner_image')
         position = self.clean_position()
+
+        if banner_image:
+            _image = HandleImage(banner_image)
+            file_path = "%s%s.jpg" % (image_path, _image.name)
+            default_storage.save(file_path, ContentFile(_image.image_data))
+            self.banner.image = file_path
+            self.banner.save()
+
         if position > 0 and self.banner.position == 0:
             show = Show_Banner.objects.get(pk= position)
             show.banner = self.banner

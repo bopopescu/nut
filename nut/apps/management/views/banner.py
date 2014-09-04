@@ -1,6 +1,8 @@
 from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 # from django.core.paginator import Paginator, EmptyPage, InvalidPage
 
 from apps.core.models import Banner, Show_Banner
@@ -35,11 +37,11 @@ def list(request, template="management/banner/list.html"):
 
 def create(request, template='management/banner/create.html'):
 
-
     if request.method == "POST":
         _forms = CreateBannerForm(request.POST, request.FILES)
         if _forms.is_valid():
-            _forms.save()
+            banner =  _forms.save()
+            return HttpResponseRedirect(reverse('management_banner_edit', args=[banner.id]))
     else:
         _forms = CreateBannerForm()
 
@@ -49,6 +51,7 @@ def create(request, template='management/banner/create.html'):
                         'forms': _forms,
                     },
                     context_instance = RequestContext(request) )
+
 
 def edit(request, banner_id, template='management/banner/edit.html'):
 
