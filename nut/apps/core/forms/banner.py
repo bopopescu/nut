@@ -23,6 +23,10 @@ class BaseBannerForm(forms.Form):
                                                   widget=forms.Select(attrs={'class':'form-control',}),
                                                   help_text=_(''))
 
+    def clean_position(self):
+        _position = self.cleaned_data.get('position')
+        return int(_position)
+
 
 class CreateBannerForm(BaseBannerForm):
 
@@ -62,9 +66,14 @@ class CreateBannerForm(BaseBannerForm):
 
     def save(self):
         banner_image = self.cleaned_data['banner_image']
+        position = self.clean_position()
 
         log.info(banner_image)
 
+        if position > 0:
+            show = Show_Banner.objects.get(pk = position)
+            # show.banner =
+            show.save()
 
 class EditBannerForm(BaseBannerForm):
     # content_type = forms.ChoiceField(label=_('content_type'),
@@ -97,10 +106,6 @@ class EditBannerForm(BaseBannerForm):
                                                   choices=BANNER_POSITION_CHOICES,
                                                   widget=forms.Select(attrs={'class':'form-control',}),
                                                   help_text=_(''))
-
-    def clean_position(self):
-        _position = self.cleaned_data.get('position')
-        return int(_position)
 
     def save(self):
         banner_image = self.cleaned_data['banner_image']
