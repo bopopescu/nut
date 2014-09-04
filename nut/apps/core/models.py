@@ -150,6 +150,12 @@ class Banner(BaseModel):
     def image_url(self):
         return "%s%s" % (image_host, self.image)
 
+    @property
+    def has_show_banner(self):
+        if self.show.count() > 0:
+            return True
+        return False
+
 
 class Show_Banner(BaseModel):
     banner = models.ForeignKey(Banner, related_name='show')
@@ -293,6 +299,7 @@ class Note(models.Model):
         (normal, _("normal")),
         (remove, _("remove")),
     ]
+
     user = models.ForeignKey(GKUser, related_name='note')
     entity = models.ForeignKey(Entity, related_name="notes")
     note = models.TextField(null = True)
