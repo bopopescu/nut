@@ -6,8 +6,11 @@
 
     <div class="row">
         <ul class="nav nav-pills" role="tablist">
+            {{ current_category_id }}
             {% for category in categories %}
-                <li><a href="#">{{ category }}</a></li>
+                <li {% if current_category_id == category.pk %}class="active"{% endif %}>
+                    <a href="{% url 'management_category_list' category.pk %}">{{ category }}</a>
+                </li>
             {% endfor %}
         </ul>
     </div>
