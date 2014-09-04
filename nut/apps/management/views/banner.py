@@ -65,7 +65,8 @@ def edit(request, banner_id, template='management/banner/edit.html'):
 
     if request.method == "POST":
         _forms = EditBannerForm(_banner, request.POST, request.FILES)
-
+        if _forms.is_valid():
+            _forms.save()
     else:
         _forms = EditBannerForm(_banner, data=data)
 
