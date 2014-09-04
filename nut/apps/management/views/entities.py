@@ -89,13 +89,25 @@ def edit(request, entity_id,  template='management/entities/edit.html'):
             initial=data
         )
 
-    return render_to_response(template,
-                        {
-                            'entity': entity,
-                            'forms': _forms,
-                            'update': _update,
-                        },
-                        context_instance = RequestContext(request))
+    return render_to_response(
+        template,
+        {
+            'entity': entity,
+            'forms': _forms,
+            'update': _update,
+        },
+        context_instance = RequestContext(request)
+    )
 
+
+def create(request, template=''):
+
+    return render_to_response(
+        template,
+        {
+
+        },
+        context_instance = RequestContext(request)
+    )
 
 __author__ = 'edison7500'
