@@ -4,20 +4,27 @@ from django.utils.log import getLogger
 
 log = getLogger('django')
 
-from apps.core.models import Banner
+from apps.core.models import Banner, Show_Banner
 
 
 class CreateBannerForm(forms.Form):
 
 
-    content_type = forms.ChoiceField(label=_('content_type'),
+    content_type = forms.ChoiceField(
+                                    label=_('content_type'),
                                     choices=Banner.CONTENT_TYPE_CHOICES,
-                                   widget=forms.Select(attrs={'class':'form-control'}),
-                                   help_text=_(''))
+                                    widget=forms.Select(attrs={'class':'form-control'}),
+                                    help_text=_(''),
+                                )
     key = forms.CharField(label=_('key'),
                           widget=forms.TextInput(attrs={'class':'form-control'}),
                           help_text=_(''))
-    banner_image = forms.ImageField(widget=forms.FileInput(attrs={'class':'controls'}))
+    banner_image = forms.ImageField(
+                        label=_('banner image'),
+                        widget=forms.FileInput(attrs={'class':'controls'}),
+                        required=False,
+                        help_text=_(''),
+                    )
 
 
     def __init__(self, *args, **kwargs):
@@ -56,7 +63,17 @@ class EditBannerForm(CreateBannerForm):
         self.banner = banner
         super(EditBannerForm, self).__init__(*args, **kwargs)
 
+    def clean_position(self):
+        _position = self.cleaned_data.get('position')
+        return int(_position)
+
     def save(self):
-        pass
+        banner_image = self.cleaned_data['banner_image']
+        position = self.clean_position()
+        if position > 0:
+            show = Show_Banner.objects.get(pk= position)
+            show.banner = self.banner
+            show.save()
+
 
 __author__ = 'edison'
