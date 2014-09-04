@@ -31,7 +31,7 @@ class EntityForm(forms.Form):
         (freeze, _("freeze")),
         (new, _("new")),
         (selection, _("selection")),
-)
+    )
 
     id = forms.IntegerField(label=_('entity_id'),
                          widget=forms.NumberInput(attrs={'class':'form-control', 'readonly':''}),

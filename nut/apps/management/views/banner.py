@@ -60,6 +60,7 @@ def edit(request, banner_id, template='management/banner/edit.html'):
     data = {
         'content_type': _banner.content_type,
         'key': _banner.key,
+        'position':_banner.position,
     }
 
     if request.method == "POST":

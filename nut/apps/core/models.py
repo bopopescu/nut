@@ -156,6 +156,11 @@ class Banner(BaseModel):
             return True
         return False
 
+    @property
+    def position(self):
+        show = self.show.get(banner = self.id)
+        # log.info(self.show.pk)
+        return show.pk
 
 class Show_Banner(BaseModel):
     banner = models.ForeignKey(Banner, related_name='show')
