@@ -9,6 +9,16 @@
         </div>
     </div>
 
+    {% if banner.has_show_banner %}
+        <div class="alert alert-info alert-dismissable" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <strong>{% trans 'note' %}!!!</strong>
+                此 Banner 在顶部显示
+        </div>
+    {% endif %}
+
     <div class="row">
         <form class="well form-horizontal" method="post">
             <fieldset>
