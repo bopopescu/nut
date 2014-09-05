@@ -14,7 +14,7 @@ class JSONResponse(HttpResponse):
 
 class SuccessJsonResponse(JSONResponse):
 
-    def __init__(self, data):
+    def __init__(self, data = None):
         super(SuccessJsonResponse, self).__init__(data, 200)
 
 
@@ -22,5 +22,5 @@ class ErrorJsonResponse(JSONResponse):
     def __init__(self, data, status):
         super(ErrorJsonResponse, self).__init__(data, status)
 
-        
+
 __author__ = 'edison'
