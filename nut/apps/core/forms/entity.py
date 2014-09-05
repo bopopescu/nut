@@ -109,11 +109,7 @@ class EntityForm(forms.Form):
         price = self.cleaned_data.get('price')
         status = self.cleaned_data.get('status')
         sub_category = self.cleaned_data.get('sub_category')
-        # log.info("id %s", status)
-        # try:
-        #     entity = Entity.objects.get(pk = id)
-        # except Entity.DoesNotExist:
-        #     raise
+
 
         self.entity.brand = brand
         self.entity.title = title
@@ -124,5 +120,6 @@ class EntityForm(forms.Form):
         self.entity.save()
 
         return self.entity
+
 
 __author__ = 'edison7500'
