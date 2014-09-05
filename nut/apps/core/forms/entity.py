@@ -1,11 +1,18 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 from django.utils.log import getLogger
 
 log = getLogger('django')
 
 from apps.core.models import Entity, Sub_Category, Category
+from apps.core.utils.image import HandleImage
 
+from django.conf import settings
+
+image_sizes = getattr(settings, 'IMAGE_SIZE', None)
+image_path = getattr(settings, 'MOGILEFS_MEDIA_URL', 'images/')
 
 def get_sub_category_choices(group_id):
     sub_category_list = Sub_Category.objects.filter(group = group_id)
@@ -120,6 +127,41 @@ class EntityForm(forms.Form):
         self.entity.save()
 
         return self.entity
+
+
+class EntityImageForm(forms.Form):
+
+    image = forms.ImageField(
+        label=_('image'),
+        widget=forms.FileField(),
+        help_text=_(''),
+    )
+
+    def __init__(self, entity, *args, **kwargs):
+        super(EntityImageForm, self).__init__(*args, **kwargs)
+        self.entity = entity
+
+    def save(self):
+        image = self.cleaned_data.get('image')
+
+        entity_image = HandleImage(image)
+        image_name = image_path + "%s.jpg" % entity_image.name
+        default_storage.save(image_name, ContentFile(entity_image.image_data))
+        images = self.entity.images
+        images.append(image_name)
+        self.entity.images = images
+        self.entity.save()
+
+
+        for size in image_sizes:
+            file_path = image_path + "%s.jpg_%sx%s.jpg" % (entity_image.name, size, size)
+            default_storage.save(file_path, ContentFile(entity_image.resize(size, size)))
+
+
+        # image_name = image_path + "%s.jpg" % entity_image.name
+
+
+        # self.entity.save()
 
 
 __author__ = 'edison7500'

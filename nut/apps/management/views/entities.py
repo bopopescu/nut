@@ -112,10 +112,17 @@ def create(request, template=''):
     )
 
 
-def upload_image(request):
+def upload_image(request, entity_id, template=''):
 
 
-    return
+
+    return render_to_response(
+        template,
+        {
+
+        },
+        context_instance = RequestContext(request)
+    )
 
 
 from django.views.decorators.csrf import csrf_exempt
