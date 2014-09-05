@@ -8,6 +8,7 @@ from django.utils.log import getLogger
 from apps.core.models import Entity
 from apps.core.forms.entity import EntityForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
+from apps.core.utils.http import SuccessJsonResponse
 
 log = getLogger('django')
 
@@ -134,7 +135,7 @@ def delete_image(request, entity_id):
             raise Http404
 
 
-        return
+        return SuccessJsonResponse()
 
     return HttpResponseNotAllowed
 
