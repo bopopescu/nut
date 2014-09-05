@@ -56,13 +56,14 @@ def edit(request, note_id, template='management/notes/edit.html'):
     }
 
     if request.method == "POST":
-        _forms = NoteForm(request.POST, initial=data)
+        _forms = NoteForm(note, request.POST, initial=data)
         if _forms.is_valid():
             _forms.save()
-
-    _forms = NoteForm(
-        initial=data
-    )
+    else:
+        _forms = NoteForm(
+            note=note,
+            initial=data
+        )
 
     return render_to_response(template,
                                 {
