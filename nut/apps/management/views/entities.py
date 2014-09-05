@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseNotAllowed
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 # from django.views.generic.list import ListView
@@ -51,7 +51,7 @@ def list(request, template = 'management/entities/list.html'):
                             context_instance = RequestContext(request))
 
 
-def edit(request, entity_id,  template='management/entities/edit.html'):
+def edit(request, entity_id, template='management/entities/edit.html'):
 
     _update = None
     try:
@@ -109,5 +109,33 @@ def create(request, template=''):
         },
         context_instance = RequestContext(request)
     )
+
+
+def upload_image(request):
+
+
+    return
+
+
+from django.views.decorators.csrf import csrf_exempt
+@csrf_exempt
+def delete_image(request, entity_id):
+
+    if request.method == 'POST':
+        _image = request.POST.get('image', None)
+
+        try:
+            _entity = Entity.objects.get(pk = entity_id)
+            images = _entity.images
+            _entity.images = images.remove(_image)
+            _entity.save()
+
+        except Entity.DoesNotExist:
+            raise Http404
+
+
+        return
+
+    return HttpResponseNotAllowed
 
 __author__ = 'edison7500'
