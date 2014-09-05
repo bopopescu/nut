@@ -5,7 +5,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.log import getLogger
 from django.conf import settings
 
-from apps.core.extend.list_field import ListObjectField
+# from apps.core.extend.list_field import ListObjectField
+from apps.core.extend.fields.listfield import ListObjectField
 from apps.core.manager.account import GKUserManager
 from apps.core.manager.entity import EntityManager
 
