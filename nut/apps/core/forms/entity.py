@@ -8,9 +8,6 @@ from apps.core.models import Entity, Sub_Category, Category
 
 
 def get_sub_category_choices(group_id):
-    # log.info(sub_category_list)
-    # for row in sub_category_list:
-    #     log.info("%s %s" % (row.id, row.title))
     sub_category_list = Sub_Category.objects.filter(group = group_id)
     res = map(lambda x: (x.id, x.title) , sub_category_list)
     return res
@@ -49,10 +46,17 @@ class EntityForm(forms.Form):
     # intro = forms.CharField(label=_('intro'), widget=forms.Textarea(attrs={'class':'form-control'}),
     #                         required=False,
     #                         help_text=_(''))
-    price = forms.DecimalField(max_digits=20, decimal_places=2,
-                               label=_('price'),
-                               widget=forms.NumberInput(attrs={'class':'form-control'}),
-                               help_text=_(''))
+    price = forms.DecimalField(
+        max_digits=20, decimal_places=2,
+        label=_('price'),
+        widget=forms.NumberInput(attrs={'class':'form-control'}),
+        help_text=_(''),
+    )
+    # note = forms.CharField(
+    #     label= _('note'),
+    #     widget=forms.Textarea(attrs={'class':'form-control'}),
+    #     help_text=_(''),
+    # )
 
     def __init__(self, entity, *args, **kwargs):
         super(EntityForm, self).__init__(*args, **kwargs)

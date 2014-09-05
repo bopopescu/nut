@@ -29,14 +29,31 @@ class NoteForm(forms.Form):
                                        widget=forms.DateTimeInput(attrs={'class':'form-control'}),
                                        help_text=_(''))
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, note, *args, **kwargs):
         super(NoteForm, self).__init__(*args, **kwargs)
+        self.note = note
         self.fields['status'] = forms.ChoiceField(label=_('status'),
                                                   choices=Note.NOTE_STATUS_CHOICES,
                                                   widget=forms.Select(attrs={'class':'form-control'}),
                                                   help_text=_(''))
 
     def save(self):
-        pass
+        _content = self.cleaned_data.get('content')
+        _status = self.cleaned_data.get('status')
+        self.note.note = _content
+        self.note.status = _status
+        self.note.save()
+
+
+# class CreateNoteForm(forms.Form):
+#     content = forms.CharField(
+#         label=_('creator'),
+#         widget=forms.Textarea(attrs={'class':'form-control' }),
+#         help_text=_(''),
+#     )
+
+
+
+
 
 __author__ = 'edison'
