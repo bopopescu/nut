@@ -16,21 +16,23 @@ from apps.core.models import Buy_Link
 entities = Entity.objects.all()
 
 for row in entities:
-    # print row.pk
+    print row.pk
     buy_link =  collection.find_one({'entity_id':row.pk})
-    # print buy_link['price']
+    # print buy_link
     # print buy_link['entity_id']
     # print buy_link['taobao_id']
     # print buy_link['source']
-    taobao_id = buy_link.get('taobao_id', None)
-    if taobao_id:
-        link = 'http://item.%s.com/item.htm?id=%s' %  (buy_link.get('source', None), buy_link.get('taobao_id', None))
-        host = "%s.com" % buy_link['source']
-        print link, host
-    else:
-        continue
-
     if buy_link:
+
+        taobao_id = buy_link.get('taobao_id', None)
+        if taobao_id:
+            link = 'http://item.%s.com/item.htm?id=%s' %  (buy_link.get('source', None), buy_link.get('taobao_id', None))
+            host = "%s.com" % buy_link['source']
+            print link, host
+        else:
+            continue
+
+
         Buy_Link.objects.create(
             entity_id = row.pk,
             origin_id = buy_link['taobao_id'],
