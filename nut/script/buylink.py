@@ -22,9 +22,13 @@ for row in entities:
     # print buy_link['entity_id']
     # print buy_link['taobao_id']
     # print buy_link['source']
-    link = 'http://item.%s.com/item.htm?id=%s' %  (buy_link['source'], buy_link['taobao_id'])
-    host = "%s.com" % buy_link['source']
-    print link, host
+    taobao_id = buy_link.get('taobao_id', None)
+    if taobao_id:
+        link = 'http://item.%s.com/item.htm?id=%s' %  (buy_link.get('source', None), buy_link.get('taobao_id', None))
+        host = "%s.com" % buy_link['source']
+        print link, host
+    else:
+        continue
 
     if buy_link:
         Buy_Link.objects.create(
