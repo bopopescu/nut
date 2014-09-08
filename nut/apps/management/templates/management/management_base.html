@@ -10,7 +10,8 @@
     <title>{% block  title %}管理后台{% endblock %}</title>
 
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
-{#    <link href="http://bootswatch.com/cosmo/bootstrap.min.css" rel="stylesheet">#}
+    <link href="{% static 'thirdparty/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'thirdparty/font-awesome/css/font-awesome.css' %}" rel="stylesheet">
     <link href="{% static 'css/management/main.css' %}" rel="stylesheet">
 </head>
 <body>
@@ -43,52 +44,52 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
+            <div class="col-sm-3 col-md-2 col-lg-1 sidebar">
                 {% block sidebar %}
                     <ul class="nav nav-sidebar">
                         {% url 'management_dashboard' as management_dashboard_url %}
                         <li {% if management_dashboard_url == request.path %}class="active"{% endif %}>
-                            <a href="{{ management_dashboard_url }}">{% trans 'dashboard' %}</a>
+                            <a href="{{ management_dashboard_url }}"><i class="fa fa-dashboard"></i> {% trans 'dashboard' %}</a>
                         </li>
                     </ul>
                     <ul class="nav nav-sidebar">
                         {% url 'management_banner_list' as management_banner_list_url %}
                         <li {% if management_banner_list_url in request.path %} class="active" {% endif %}>
-                            <a href="{{ management_banner_list_url }}">{% trans 'banner' %}</a>
+                            <a href="{{ management_banner_list_url }}"><i class="fa fa-photo"></i> {% trans 'banner' %}</a>
                         </li>
 
                         {% url 'management_entity_list' as management_entity_list_url %}
                         <li {% if management_entity_list_url in request.path %}class="active"{% endif %}>
-                            <a href="{{ management_entity_list_url }}">{% trans 'entity' %}</a>
+                            <a href="{{ management_entity_list_url }}"><i class="fa fa-gift"></i> {% trans 'entity' %}</a>
                         </li>
 
                         {% url 'management_note_list' as management_note_list_url %}
                         <li {% if management_note_list_url in request.path %}class="active" {% endif %}>
-                            <a href="{{ management_note_list_url }}">{% trans 'note' %}</a>
+                            <a href="{{ management_note_list_url }}"><i class="fa fa-pencil"></i> {% trans 'note' %}</a>
                         </li>
 
                         {% url 'management_comment_list' as management_comment_list_url %}
                         <li {% if management_comment_list_url in request.path %}class="active"{% endif %}>
-                            <a href="{{ management_comment_list_url }}">{% trans 'comment' %}</a>
+                            <a href="{{ management_comment_list_url }}"><i class="fa fa-comment-o"></i> {% trans 'comment' %}</a>
                         </li>
                     </ul>
                     <ul class="nav nav-sidebar">
                     {% url 'management_category_list' as management_category_list_url %}
 {#                    {{ request.path }}#}
-                        <li {% if management_category_list_url in request.path %}class="active" {% endif %}><a href="{{ management_category_list_url }}">{% trans 'category' %}</a></li>
+                        <li {% if management_category_list_url in request.path %}class="active" {% endif %}><a href="{{ management_category_list_url }}"><i class="fa fa-sitemap"></i> {% trans 'category' %}</a></li>
 
                         {% url 'management_tag_list' as management_tag_list_url %}
                         <li {% if management_tag_list_url in request.path %}class="active" {% endif %}>
-                            <a href="{{ management_tag_list_url }}">{% trans 'tag' %}</a>
+                            <a href="{{ management_tag_list_url }}"><i class="fa fa-tag"></i> {% trans 'tag' %}</a>
                         </li>
                     </ul>
                     <ul class="nav nav-sidebar">
                         {% url 'management_user_list' as management_user_list_url %}
-                        <li {% if management_user_list_url in request.path %}class="active"{% endif %}><a href="{{ management_user_list_url }}">{% trans 'user' %}</a></li>
+                        <li {% if management_user_list_url in request.path %}class="active"{% endif %}><a href="{{ management_user_list_url }}"><i class="fa fa-user"></i> {% trans 'user' %}</a></li>
                     </ul>
                 {% endblock %}
             </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-11 col-lg-offset-1 main">
                 {% block content %}{% endblock %}
             </div>
         </div>
@@ -99,6 +100,7 @@
     {% block js %}
         <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
         <script src="{% static 'js/bootstrap.js' %}"></script>
+        <script src="{% static 'thirdparty/chart/chart.min.js' %}"></script>
     {% endblock %}
 </body>
 </html>
