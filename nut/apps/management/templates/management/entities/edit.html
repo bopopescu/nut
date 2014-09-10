@@ -14,6 +14,7 @@
         {% endfor %}
     </div>
     {% if entity.has_top_note %}
+    <div class="row">
         <div class="alert alert-info alert-dismissable" role="alert">
                 <button type="button" class="close" data-dismiss="alert">
                     <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
@@ -21,7 +22,12 @@
                 <strong>{% trans 'note' %}!!!</strong>
                 有置顶点评
         </div>
+    </div>
     {% endif %}
+
+    <div class="row">
+        <button class="btn btn-primary btn-lg">{% trans 'add note' %}</button>
+    </div>
 
     <div class="row">
         {% if update == 0 %}
