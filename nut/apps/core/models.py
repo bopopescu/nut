@@ -28,8 +28,9 @@ class BaseModel(models.Model):
         return d
 
 class GKUser(AbstractBaseUser, BaseModel):
-    (remove, blocked, active) = (-1, 0, 1)
+    (remove, blocked, active, editor) = (-1, 0, 1, 2)
     USER_STATUS_CHOICES = [
+        (editor, _("editor")),
         (active, _("active")),
         (blocked, _("blocked")),
         (remove, _("remove")),

@@ -3,9 +3,15 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.log import getLogger
 
 from apps.core.models import Note
+from apps.core.models import GKUser
 
 log = getLogger('django')
 
+
+def get_admin_user_choices():
+    user_list = GKUser.objects.editor_or_admin()
+    res = map(lambda x: (x.pk, x.profile.nickname), user_list)
+    return res
 
 class NoteForm(forms.Form):
 
@@ -52,8 +58,20 @@ class CreateNoteForm(forms.Form):
         help_text=_(''),
     )
 
+    def __init__(self, *args, **kwargs):
+        super(CreateNoteForm, self).__init__(*args, **kwargs)
 
+        user_choices = get_admin_user_choices()
+        self.fields['user'] = forms.ChoiceField(
+            label=_('user'),
+            choices=user_choices,
+            widget=forms.Select(attrs={'class':'form-control'}),
+            help_text=_(''),
+        )
 
+    def save(self):
+
+        pass
 
 
 __author__ = 'edison'
