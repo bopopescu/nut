@@ -37,7 +37,7 @@ class UserForm(forms.Form):
                                widget=forms.TextInput(attrs={'class':'form-control'}),
                                help_text=_(''))
 
-    is_active = forms.ChoiceField(label=_('active'),
+    is_active = forms.ChoiceField(label=_('user group'),
                                   choices=get_user_model().USER_STATUS_CHOICES,
                                    widget=forms.Select(attrs={'class':'form-control'}),
                                    required=False,

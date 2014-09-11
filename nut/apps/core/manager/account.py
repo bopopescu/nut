@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import BaseUserManager
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
@@ -6,6 +7,12 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class GKUserQuerySet(models.query.QuerySet):
+    def editor(self):
+        return self.filter(is_active=2)
+
+    def editor_or_admin(self):
+        return self.filter(Q(is_admin=1)| Q(is_active=2))
+
     def active(self):
         return self.filter(is_active=1)
 
@@ -24,6 +31,9 @@ class GKUserManager(BaseUserManager):
     def get_query_set(self):
         return GKUserQuerySet(self.model, using = self._db)
 
+    def editor(self):
+        return self.get_query_set().editor()
+
     def active(self):
         return self.get_query_set().active()
 
@@ -35,6 +45,9 @@ class GKUserManager(BaseUserManager):
 
     def admin(self):
         return self.get_query_set().admin()
+
+    def editor_or_admin(self):
+        return self.get_query_set().editor_or_admin()
 
     def _create_user(self, email, password, is_active, is_admin, **extra_fields):
         now = timezone.now()

@@ -17,7 +17,9 @@ def list(request, template="management/users/list.html"):
     active = request.GET.get('active', None)
     admin = request.GET.get('admin', None)
 
-    if active == '1':
+    if active == '2':
+        user_list = GKUser.objects.editor()
+    elif active == '1':
         user_list = GKUser.objects.active()
     elif active == '0':
         user_list = GKUser.objects.blocked()
