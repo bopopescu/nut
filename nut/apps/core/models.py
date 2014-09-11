@@ -286,7 +286,7 @@ class Entity(BaseModel):
 
 
 class Buy_Link(BaseModel):
-    entity = models.ForeignKey(Entity, related_name='buylinks')
+    entity = models.ForeignKey(Entity, related_name='buy_links')
     origin_id = models.CharField(max_length=100)
     origin_source = models.CharField(max_length=255)
     link = models.CharField(max_length=255)

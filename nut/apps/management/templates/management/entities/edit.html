@@ -55,7 +55,17 @@
     </div>
 
     <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">{% trans 'buy links' %}</div>
+            <ul class="list-group">
+                {% for buy_link in entity.buy_links.all %}
+                     <li class="list-group-item"><a href="{{ buy_link }}">{{ buy_link }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 
+    <div class="row">
         <form class="well form-horizontal" method="post">
             {% csrf_token %}
             <fieldset>
