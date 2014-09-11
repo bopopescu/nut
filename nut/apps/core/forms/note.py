@@ -45,12 +45,12 @@ class NoteForm(forms.Form):
         self.note.save()
 
 
-# class CreateNoteForm(forms.Form):
-#     content = forms.CharField(
-#         label=_('creator'),
-#         widget=forms.Textarea(attrs={'class':'form-control' }),
-#         help_text=_(''),
-#     )
+class CreateNoteForm(forms.Form):
+    content = forms.CharField(
+        label=_('content'),
+        widget=forms.Textarea(attrs={'class':'form-control' }),
+        help_text=_(''),
+    )
 
 
 
