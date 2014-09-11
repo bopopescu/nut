@@ -9,7 +9,7 @@
 </div>
 
 <div class="modal-body">
-    <form class="form-horizontal" method="post">
+    <form class="form-horizontal" method="post" action="{% url 'management_note_create' %}">
         {% csrf_token %}
         <fieldset>
         {% for field in forms %}
