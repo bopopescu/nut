@@ -25,8 +25,10 @@
     </div>
     {% endif %}
 
-    <div class="row">
-        <button class="btn btn-primary btn-lg">{% trans 'add note' %}</button>
+    <div class="row" style="padding-bottom: 24px;">
+        <a href="{% url 'management_note_create' %}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#EntityNoteModal">{% trans 'add note' %}</a>
+{#        <button class="btn btn-primary btn-lg" data-target="#myModal" data-toggle="modal"> Launch demo modal </button>#}
+{#</div>#}
     </div>
 
     <div class="row">
@@ -72,5 +74,11 @@
                 </div>
             </div>
         </form>
+    </div>
+
+    <div id="EntityNoteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="EntityNoteModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content"></div>
+        </div>
     </div>
 {% endblock %}

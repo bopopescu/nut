@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.utils.log import getLogger
 
 from apps.core.models import Note
-from apps.core.forms.note import NoteForm
+from apps.core.forms.note import NoteForm, CreateNoteForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 
 log = getLogger('django')
@@ -72,5 +72,26 @@ def edit(request, note_id, template='management/notes/edit.html'):
                                     'note': note,
                                 },
                               context_instance = RequestContext(request))
+
+
+def create(request, template="management/notes/ajax_note_create.html"):
+    template = template
+
+    if request.is_ajax():
+        template = "management/notes/ajax_note_create.html"
+
+    if request.method == "POST":
+        _froms = CreateNoteForm(request.POST)
+
+    else:
+        _froms = CreateNoteForm()
+
+    return render_to_response(
+        template,
+        {
+            'forms': _froms,
+        },
+        context_instance = RequestContext(request)
+    )
 
 __author__ = 'edison'
