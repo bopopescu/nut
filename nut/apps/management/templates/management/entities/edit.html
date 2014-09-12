@@ -8,11 +8,11 @@
         {% for index, image in entity.images|enumerate_list %}
             <div class="col-xs-6 col-sm-3 placeholder">
                 <img id="image-{{ index }}" class="img-responsive img-thumbnail" alt="240x240" src="{{ image }}" >
-                {% if index != 0 %}
+{#                {% if index != 0 %}#}
                 <span class="text-muted">
                     <a  href="{% url 'management_remove_entity_image' entity.id %}">{% trans 'remove' %}</a>
                 </span>
-                {% endif %}
+{#                {% endif %}#}
             </div>
         {% endfor %}
     </div>

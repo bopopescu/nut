@@ -14,4 +14,9 @@ urlpatterns = patterns(
     url(r'^t/', include('apps.management.urls.tags')),
 )
 
+urlpatterns += patterns(
+    'apps.management.views.account',
+    url(r'^login/$', 'sign_in', name='management_sign_in'),
+)
+
 __author__ = 'edison7500'
