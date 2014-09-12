@@ -1,15 +1,18 @@
 {% extends 'management/management_base.html' %}
 {% load i18n %}
+{% load guoku %}
 
 {% block content %}
     <h1 class="page-header">{{ entity.title }}</h1>
     <div class="row placeholders">
-        {% for image in entity.images %}
+        {% for index, image in entity.images|enumerate_list %}
             <div class="col-xs-6 col-sm-3 placeholder">
-                <img class="img-responsive img-thumbnail" alt="240x240" src="{{ image }}" >
+                <img id="image-{{ index }}" class="img-responsive img-thumbnail" alt="240x240" src="{{ image }}" >
+                {% if index != 0 %}
                 <span class="text-muted">
                     <a  href="{% url 'management_remove_entity_image' entity.id %}">{% trans 'remove' %}</a>
                 </span>
+                {% endif %}
             </div>
         {% endfor %}
     </div>
@@ -27,8 +30,6 @@
 
     <div class="row" style="padding-bottom: 24px;">
         <a href="{% url 'management_note_create' %}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#EntityNoteModal">{% trans 'add note' %}</a>
-{#        <button class="btn btn-primary btn-lg" data-target="#myModal" data-toggle="modal"> Launch demo modal </button>#}
-{#</div>#}
     </div>
 
     <div class="row">

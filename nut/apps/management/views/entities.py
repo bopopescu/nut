@@ -129,13 +129,15 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def delete_image(request, entity_id):
 
+
+
     if request.method == 'POST':
-        _image = request.POST.get('image', None)
+        _index = request.POST.get('index', None)
 
         try:
             _entity = Entity.objects.get(pk = entity_id)
             images = _entity.images
-            _entity.images = images.remove(_image)
+            _entity.images = images.pop(_index)
             _entity.save()
 
         except Entity.DoesNotExist:
