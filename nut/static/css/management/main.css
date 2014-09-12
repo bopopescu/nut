@@ -1,5 +1,12 @@
+@-moz-document url-prefix() {
+    fieldset {
+        display: table-cell;
+    }
+}
+
 body {
     padding: 50px;
+    font-family: "Helvetica Neue",Helvetica,Microsoft Yahei,Hiragino Sans GB,WenQuanYi Micro Hei,sans-serif;
 }
 
 .sub-header {

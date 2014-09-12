@@ -5,7 +5,7 @@
 {% block content %}
     <h1 class="page-header">{% trans 'entity' %}</h1>
 {#    <h2 class="sub-header">{% trans 'all' %}</h2>#}
-    <div class="row">
+    <div class="row" style="padding-bottom: 24px;">
         <ul class="nav nav-pills" role="tablist">
 {#        {{ status }}#}
             <li {% ifequal status None %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}">{% trans 'all' %}</a></li>
