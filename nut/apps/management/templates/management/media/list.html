@@ -1,0 +1,35 @@
+{% extends 'management/management_base.html' %}
+{% load i18n %}
+
+
+{% block content %}
+    <h1 class="page-header">{% trans 'media' %}</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>{% trans 'image' %}</th>
+                    <th>{% trans 'content type' %}</th>
+                    <th>{% trans 'operation' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for medium in media %}
+                    <tr>
+                        <td>{{ medium.pk }}</td>
+                        <td><img class="img-polaroid" style="max-height:150px;max-width:150px;" src="{{ medium.image_url }}"></td>
+                        <td>{{ medium.content_type }}</td>
+                        <td>
+
+                        </td>
+{#                        <td><a class="btn btn-default" href="{% url 'management_banner_edit' banner.pk %}">{% trans 'edit' %}</a></td>#}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% include "management/paginator.html" with objects=media url=request.path %}
+{% endblock %}

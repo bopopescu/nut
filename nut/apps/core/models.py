@@ -428,8 +428,8 @@ class Article(models.Model):
 
 
 class Media(models.Model):
-    filepath = models.URLField()
-    content = models.CharField(max_length=30)
+    file_path = models.URLField()
+    content_type = models.CharField(max_length=30)
     upload_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True, editable=False)
 
 

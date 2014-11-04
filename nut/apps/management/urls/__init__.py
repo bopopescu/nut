@@ -12,7 +12,9 @@ urlpatterns = patterns(
     url(r'^comment/', include('apps.management.urls.comments')),
     url(r'^category/', include('apps.management.urls.category')),
     url(r'^t/', include('apps.management.urls.tags')),
+
     url(r'^article/', include('apps.management.urls.article')),
+    url(r'^media/', include('apps.management.urls.media')),
 )
 
 urlpatterns += patterns(
