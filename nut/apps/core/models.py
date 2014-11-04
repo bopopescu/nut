@@ -417,4 +417,22 @@ class Taobao_Token(models.Model):
     def __unicode__(self):
         return self.screen_name
 
+
+class Article(models.Model):
+
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    publish = models.BooleanField(default=False)
+    created_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True, editable=False)
+    updated_datetime = models.DateTimeField(auto_now=True, db_index=True, null=True, editable=False)
+
+
+class Media(models.Model):
+    filepath = models.URLField()
+    content = models.CharField(max_length=30)
+    upload_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True, editable=False)
+
+
+
+
 __author__ = 'edison7500'
