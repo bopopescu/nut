@@ -78,7 +78,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+# USE_TZ = True
 
 LOCALE_PATHS = (
     os.path.join(os.path.dirname(__file__), '../conf/locale'),
@@ -107,7 +107,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.i18n',
     'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
+    # 'django.core.context_processors.debug',
     'django.core.context_processors.static',
 )
 
