@@ -1,12 +1,12 @@
 {% extends 'management/management_base.html' %}
 {% load i18n staticfiles %}
 
+
 {% block css %}
     <link href="{% static 'summernote/summernote.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-
     <div class="row">
         <form class="well form-horizontal" method="post">
         {% csrf_token %}

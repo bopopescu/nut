@@ -432,7 +432,9 @@ class Media(models.Model):
     content_type = models.CharField(max_length=30)
     upload_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True, editable=False)
 
-
+    @property
+    def file_url(self):
+        return "%s%s" % (image_host, self.file_path)
 
 
 __author__ = 'edison7500'

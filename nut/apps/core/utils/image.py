@@ -76,7 +76,7 @@ class HandleImage(object):
             pass
         # else:
 
-        filename =  self.name + '.jpg'
+        filename =  image_path + self.name + '.jpg'
         filename = default_storage.save(filename, ContentFile(self.image_data))
         return filename
 
