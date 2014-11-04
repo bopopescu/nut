@@ -77,7 +77,10 @@
                             <a href="{{ management_comment_list_url }}"><i class="fa fa-comment-o"></i> {% trans 'comment' %}</a>
                         </li>
 
-{#                        {% url 'management_' %}#}
+                        {% url 'management_media_list' as management_meida_list_url %}
+                        <li {% if management_meida_list_url in request.path %}class="active"{% endif %}>
+                            <a href="{{ management_media_list_url }}">{% trans 'media' %}</a>
+                        </li>
                     </ul>
                     <ul class="nav nav-sidebar">
                     {% url 'management_category_list' as management_category_list_url %}

@@ -1,5 +1,11 @@
 from wand.image import  Image as WandImage
 from hashlib import md5
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+
+from django.conf import settings
+
+image_path = getattr(settings, 'MOGILEFS_MEDIA_URL', 'images/')
 
 
 class HandleImage(object):
@@ -65,6 +71,14 @@ class HandleImage(object):
         # _img.resize(_width, _height)
         # return _img.make_blob()
 
+    def save(self, resize=False):
+        if resize:
+            pass
+        # else:
+
+        filename =  self.name + '.jpg'
+        filename = default_storage.save(filename, ContentFile(self.image_data))
+        return filename
 
 
 __author__ = 'edison'
