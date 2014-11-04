@@ -3,10 +3,16 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.log import getLogger
 
 
+from apps.core.models import Article
+
 log = getLogger('django')
 
 
 class BaseArticleForms(forms.Form):
+    YES_OR_NO = (
+        (False, _('no')),
+        (True, _('yes')),
+    )
 
     title = forms.CharField(
         label=_('title'),
@@ -20,20 +26,48 @@ class BaseArticleForms(forms.Form):
         help_text=_(''),
     )
 
+    is_publish = forms.ChoiceField(
+        label=_('publish'),
+        choices=YES_OR_NO,
+        widget=forms.Select(attrs={'class':'form-control'}),
+        help_text=_(''),
+    )
 
 class CreateArticleForms(BaseArticleForms):
 
     def save(self):
-        pass
+        title = self.cleaned_data.get('title')
+        content = self.cleaned_data.get('content')
+
+        article = Article.objects.create(
+            title = title,
+            content = content,
+        )
+
+        return article
+
 
 
 class EditArticleForms(BaseArticleForms):
 
 
+    def __init__(self, article, *args, **kwargs):
+        self.article = article
+        super(EditArticleForms, self).__init__(*args, **kwargs)
+
 
     def save(self):
+        title = self.cleaned_data.get('title')
+        content = self.cleaned_data.get('content')
+        is_publish = self.cleaned_data.get('is_publish')
 
-        pass
+
+        self.article.title = title
+        self.article.content = content
+        self.article.publish = is_publish
+        self.article.save()
+
+        return self.article
 
 
 

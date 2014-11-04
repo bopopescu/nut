@@ -19,8 +19,9 @@
                 {% for medium in media %}
                     <tr>
                         <td>{{ medium.pk }}</td>
-                        <td><img class="img-polaroid" style="max-height:150px;max-width:150px;" src="{{ medium.image_url }}"></td>
+                        <td><img class="img-polaroid img-responsive" style="max-height:150px;max-width:150px;" src="{{ medium.file_url }}"></td>
                         <td>{{ medium.content_type }}</td>
+{#                        <td></td>#}
                         <td>
 
                         </td>

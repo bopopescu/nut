@@ -1,0 +1,38 @@
+{% extends 'management/management_base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <h1 class="page-header">{% trans 'article' %}</h1>
+
+    <div class="row">
+        <ul class="nav nav-pills" role="tablist">
+            <li><a class="btn btn-primary" target="_blank" href="{% url 'management_article_create' %}">{% trans 'add' %}</a></li>
+        </ul>
+    </div>
+
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>{% trans 'title' %}</th>
+                    <th>{% trans 'is publish' %}</th>
+                    <th>{% trans 'operation' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in articles %}
+                    <tr>
+                        <td>{{ row.pk }}</td>
+                        <td>{{ row.title }}</td>
+                        <td>{{ row.publish }}</td>
+                        <td>
+                            <a class="btn btn-default" href="{% url 'management_article_edit' row.pk %}">{% trans 'edit' %}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

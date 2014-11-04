@@ -13,7 +13,6 @@ def list(request, template="management/media/list.html"):
     _page = request.GET.get('page', 1)
     medium_list = Media.objects.all()
 
-
     paginator = ExtentPaginator(medium_list, 30)
 
     try:
@@ -31,19 +30,23 @@ def list(request, template="management/media/list.html"):
         context_instance = RequestContext(request)
     )
 
+
+def delete(request):
+    pass
+
 @csrf_exempt
 def upload_image(request):
 
     if request.method == "POST":
         file =  request.FILES.get('file')
         image = HandleImage(file)
-        image.save()
+        filename = image.save()
 
         media =  Media.objects.create(
-            file_path = '',
+            file_path = filename,
             content_type = 'image/jpeg',
         )
-        return HttpResponse()
+        return HttpResponse(media.file_url)
     else:
         return HttpResponseBadRequest()
 
