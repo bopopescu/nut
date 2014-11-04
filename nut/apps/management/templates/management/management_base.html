@@ -15,6 +15,8 @@
     <link href="{% static 'thirdparty/font-awesome/css/font-awesome.css' %}" rel="stylesheet">
 {#    <link href="{% static 'css/management/rwd-table.min.css' %}" rel="stylesheet">#}
     <link href="{% static 'css/management/main.css' %}" rel="stylesheet">
+
+    {% block css %}{% endblock %}
 </head>
 <body>
     {% block navbar %}
@@ -22,7 +24,7 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button class="navbar-toggle collapsed" data-target=".navbar-collapse" data-toggle="collapse" type="button">
-                        <span class="sr-only">Toggle navigation</span>
+                        <span class="sr-only">导航条</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -74,6 +76,8 @@
                         <li {% if management_comment_list_url in request.path %}class="active"{% endif %}>
                             <a href="{{ management_comment_list_url }}"><i class="fa fa-comment-o"></i> {% trans 'comment' %}</a>
                         </li>
+
+{#                        {% url 'management_' %}#}
                     </ul>
                     <ul class="nav nav-sidebar">
                     {% url 'management_category_list' as management_category_list_url %}
@@ -98,12 +102,11 @@
     </div>
 {% endblock %}
 
+    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'thirdparty/chart/chart.min.js' %}"></script>
+    <script src="{% static 'js/management/main.js' %}"></script>
 
-    {% block js %}
-        <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
-        <script src="{% static 'js/bootstrap.min.js' %}"></script>
-        <script src="{% static 'thirdparty/chart/chart.min.js' %}"></script>
-        <script src="{% static 'js/management/main.js' %}"></script>
-    {% endblock %}
+    {% block js %}{% endblock %}
 </body>
 </html>
