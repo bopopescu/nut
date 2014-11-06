@@ -36,5 +36,8 @@ class EntityViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
+    # @list_route()
+    # def selecte
+
 
 __author__ = 'edison7500'
