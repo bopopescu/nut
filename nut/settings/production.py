@@ -27,6 +27,8 @@ INSTALLED_APPS += (
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+SESSION_ENGINE = 'django.contrib.sessions.backends.file'
+SESSION_FILE_PATH = '/tmp/django'
 
 MOGILEFS_DOMAIN = 'prod'
 MOGILEFS_TRACKERS = ['10.0.2.50:7001']
