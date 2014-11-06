@@ -2,11 +2,12 @@ from apps.core.models import GKUser, User_Profile
 from rest_framework import serializers
 
 
-class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
+class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User_Profile
         fields = ('nickname', 'location', 'city', 'gender', 'bio', 'website', 'avatar', 'email_verified',)
+
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     like_count = serializers.IntegerField(source='like_count', read_only=True)
