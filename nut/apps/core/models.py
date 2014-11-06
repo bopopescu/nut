@@ -61,7 +61,7 @@ class GKUser(AbstractBaseUser, BaseModel):
         return self.profile.email_verified
 
     @property
-    def likes(self):
+    def like_count(self):
         return self.likes.count()
 
     @property
