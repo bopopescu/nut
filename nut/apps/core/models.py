@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.utils.log import getLogger
@@ -27,7 +27,7 @@ class BaseModel(models.Model):
             d[attr] = "%s" % getattr(self, attr)
         return d
 
-class GKUser(AbstractBaseUser, BaseModel):
+class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     (remove, blocked, active, editor) = (-1, 0, 1, 2)
     USER_STATUS_CHOICES = [
         (editor, _("editor")),
