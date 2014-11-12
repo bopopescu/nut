@@ -1,14 +1,20 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+
+urlpatterns = staticfiles_urlpatterns()
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns += patterns('',
 
     url(r'management/', include('apps.management.urls')),
+    url(r'^api/', include('apps.api.urls')),
+
     # url(r'^', include('apps.web.urls')),
 
-    url(r'^api/', include('apps.api.urls')),
+
 )
 
 
