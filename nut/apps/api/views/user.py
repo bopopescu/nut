@@ -13,6 +13,7 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAdminUser,)
 
 
+
     @list_route(permission_classes=[permissions.IsAuthenticatedOrReadOnly])
     def active(self, request):
         recent_users = GKUser.objects.filter(is_active=GKUser.active)
