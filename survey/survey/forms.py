@@ -13,8 +13,8 @@ class HorizontalRadioRenderer(forms.RadioSelect.renderer):
 
 class ResponseForm(models.ModelForm):
 	class Meta:
-		model = Response	
-		fields = ('interviewer', 'interviewee', 'conditions', 'comments')
+		model = Response
+		fields = ('interviewer', 'interviewee', )
 
 	def __init__(self, *args, **kwargs):
 		# expects a survey object to be passed in initially
