@@ -14,6 +14,7 @@ class Survey(models.Model):
 		else:
 			return None
 
+
 class Category(models.Model):
 	name = models.CharField(max_length=400)
 	survey = models.ForeignKey(Survey)
@@ -26,6 +27,7 @@ def validate_list(value):
 	values = value.split(',')
 	if len(values) < 2:
 		raise ValidationError("The selected field requires an associated list of choices. Choices must contain more than one item.")
+
 
 class Question(models.Model):
 	TEXT = 'text'
