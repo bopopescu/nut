@@ -2,17 +2,20 @@
 {% load survey_extras %}
 
 {% block body %}
-
-<h1>Welcome to {{survey.name|title}}</h1>
-<div class="survey-description">
-	{{survey.description|safe}}
+<div class="row">
+    <h1>{{survey.name|title}}</h1>
+    <div class="survey-description">
+	    {{survey.description|safe}}
+    </div>
 </div>
 
-<div>
-	<form action="/survey/{{survey.id}}/" method="post">{% csrf_token %}
 
-		<h3 class="collapsible" id="response_metadata">Response Metadata<span></span></h3>
-		<div class="category-container">
+
+<div class="row">
+<div>
+	<form class="form-horizontal" action="/survey/{{survey.id}}/" method="post">{% csrf_token %}
+
+
 
 		<div class="field-wrapper question-required">
 			{{ response_form.interviewer.errors }}
@@ -23,32 +26,32 @@
 			</div>
 		</div>
 
-		<div class="field-wrapper question-required">
-			{{ response_form.interviewee.errors }}
-			<span class="asterix"> * </span>{{ response_form.interviewee.label_tag }}
-			<span class="form-help-text">{{ response_form.interviewee.help_text}}</span>
-			<div class="form-field-body">
-				{{ response_form.interviewee }}
-			</div>
-		</div>
+{#		<div class="field-wrapper question-required">#}
+{#			{{ response_form.interviewee.errors }}#}
+{#			<span class="asterix"> * </span>{{ response_form.interviewee.label_tag }}#}
+{#			<span class="form-help-text">{{ response_form.interviewee.help_text}}</span>#}
+{#			<div class="form-field-body">#}
+{#				{{ response_form.interviewee }}#}
+{#			</div>#}
+{#		</div>#}
 
-		<div class="field-wrapper">
-			{{ response_form.conditions.errors }}
-			{{ response_form.conditions.label_tag }}
-			<span class="form-help-text">{{ response_form.conditions.help_text}}</span>
-			<div class="form-field-body">
-				{{ response_form.conditions }}
-			</div>
-		</div>
-
-		<div class="field-wrapper">
-			{{ response_form.comments.errors }}
-			{{ response_form.comments.label_tag }}
-			<span class="form-help-text">{{ response_form.comments.help_text}}</span>
-			<div class="form-field-body">
-				{{ response_form.comments }}
-			</div>
-		</div>
+{#		<div class="field-wrapper">#}
+{#			{{ response_form.conditions.errors }}#}
+{#			{{ response_form.conditions.label_tag }}#}
+{#			<span class="form-help-text">{{ response_form.conditions.help_text}}</span>#}
+{#			<div class="form-field-body">#}
+{#				{{ response_form.conditions }}#}
+{#			</div>#}
+{#		</div>#}
+{##}
+{#		<div class="field-wrapper">#}
+{#			{{ response_form.comments.errors }}#}
+{#			{{ response_form.comments.label_tag }}#}
+{#			<span class="form-help-text">{{ response_form.comments.help_text}}</span>#}
+{#			<div class="form-field-body">#}
+{#				{{ response_form.comments }}#}
+{#			</div>#}
+{#		</div>#}
 	</div>
 
 		<ol class="survey-questions">
@@ -83,7 +86,7 @@
 	</form>
 
 </div>
-
+</div>
 {% endblock %}
 
 {% block extrajs %}
