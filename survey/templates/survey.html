@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load survey_extras %}
+{% load survey_extras i18n %}
 
 {% block body %}
 <div class="row">
@@ -12,19 +12,29 @@
 
 
 <div class="row">
-<div>
-	<form class="form-horizontal" action="/survey/{{survey.id}}/" method="post">{% csrf_token %}
+
+{#    <div>#}
+	    <form class="form-horizontal" action="/survey/{{survey.id}}/" method="post">{% csrf_token %}
+
+            <fieldset>
+                <div class="form-group">
+                    {{ response_form.interviewer.errors }}
+                    <label class="control-label col-sm-3">{{ response_form.interviewer.label_tag }}</label>
+                    <div class="col-sm-9">
+                        {{ response_form.interviewer }}
+                    </div>
+                </div>
 
 
 
-		<div class="field-wrapper question-required">
-			{{ response_form.interviewer.errors }}
-			<span class="asterix"> * </span>{{ response_form.interviewer.label_tag }}
-			<span class="form-help-text">{{ response_form.interviewer.help_text}}</span>
-			<div class="form-field-body">
-				{{ response_form.interviewer }}
-			</div>
-		</div>
+{#		<div class="field-wrapper question-required">#}
+{#			{{ response_form.interviewer.errors }}#}
+{#			<span class="asterix"> * </span>{{ response_form.interviewer.label_tag }}#}
+{#			<span class="form-help-text">{{ response_form.interviewer.help_text}}</span>#}
+{#			<div class="form-field-body">#}
+{#				{{ response_form.interviewer }}#}
+{#			</div>#}
+{#		</div>#}
 
 {#		<div class="field-wrapper question-required">#}
 {#			{{ response_form.interviewee.errors }}#}
@@ -52,49 +62,69 @@
 {#				{{ response_form.comments }}#}
 {#			</div>#}
 {#		</div>#}
-	</div>
+{#	</div>#}
 
-		<ol class="survey-questions">
+
 		{% for category in categories %}
-			<h3 class="collapsible">{{category|title}} Questions<span></span></h3>
-			<div class="category-container">
+			<h3 class="collapsible">{{category|title}}</h3>
+{#			<div class="category-container">#}
+            <ol >
 			{% for field in response_form %}
+{#                <li>#}
+                <div class="form-group">
 				{% if field.field.widget.attrs.category == category %}
-					<li class="q-item" value="{% counter %}">
+{#					<li class="q-item" value="{% counter %}">#}
+                    <li>
 					{% if field.field.required %} 
-					<div class="field-wrapper question-required"> 
+{#					<div class="field-wrapper question-required">#}
 						{{ field.errors }}
-						<span class="asterix"> * </span><label class="label-inline">{{ field.label }}</label>
+						<label class="checkbox-inline">{{ field.label }}</label>
 					{% else %} 
-					<div class="field-wrapper"> 
+{#					<div class="field-wrapper">#}
 						{{ field.errors }}
-						<label class="label-inline">{{ field.label }}</label>
+						<label class="checkbox-inline">{{ field.label }}</label>
 					{% endif %}
 						<span class="form-help-text">{{ field.help_text}}</span>
-						<div class="form-field-body">
-							{{ field }}
-						</div>
-					</div>
-					</li>
+{#						<div class="form-field-body">#}
+{#                    {{ field.field.widget|klass }}#}
+                        {% if field.field.widget|klass == 'RadioSelect' %}
+                            <div class="radio">
+                        {% elif field.field.widget|klass == 'CheckboxSelectMultiple' %}
+                            <div class="checkbox">
+                        {% elif field.field.widget|klass == 'Select' %}
+                            <div class="col-sm-12">
+                        {% else %}
+						    <div>
+						{% endif %}
+								{{ field }}
+						    </div>
+                    </li>
+{#					</div>#}
+{#					</li>#}
 				{% endif %}
+                </div>
+{#                </li>#}
 			{% endfor %}
-			</div>
+            </ol>
+{#			</div>#}
 		{% endfor %}
-		</ol>
 
-		<div class="submit-button"><input type="submit" value="I'm done!"></div>
+        </fieldset>
+{#		<div class="submit-button"><input type="submit" value="I'm done!"></div>#}
+
+        <button class="btn btn-primary btn-lg">{% trans 'done' %}</button>
 	</form>
 
 </div>
-</div>
+
 {% endblock %}
 
-{% block extrajs %}
-	<script src="/media/js/jquery.collapsible.js"></script>	
-	<script type="text/javascript">
-		$(document).ready(function() {
-			//collapsible management
-			$('.collapsible').collapsible({defaultOpen: 'response_metadata'});
-		});
-	</script>
-{% endblock %}
+{#{% block extrajs %}#}
+{#	<script src="/media/js/jquery.collapsible.js"></script>	#}
+{#	<script type="text/javascript">#}
+{#		$(document).ready(function() {#}
+{#			//collapsible management#}
+{#			$('.collapsible').collapsible({defaultOpen: 'response_metadata'});#}
+{#		});#}
+{#	</script>#}
+{#{% endblock %}#}
