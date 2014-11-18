@@ -128,6 +128,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'survey',
+
+    'gunicorn',
 )
 
 support_email = "survey@coliving.org"

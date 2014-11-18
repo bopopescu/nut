@@ -14,3 +14,9 @@ class CounterNode(template.Node):
 @register.tag
 def counter(parser, token):
   return CounterNode()
+
+
+@register.filter('klass')
+def klass(ob):
+    print ob.__class__.__name__
+    return ob.__class__.__name__

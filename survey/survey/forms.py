@@ -15,6 +15,9 @@ class ResponseForm(models.ModelForm):
 	class Meta:
 		model = Response
 		fields = ('interviewer', 'interviewee', )
+		widgets = {
+            'interviewer': forms.TextInput(attrs={'class':'form-control'})
+        }
 
 	def __init__(self, *args, **kwargs):
 		# expects a survey object to be passed in initially
@@ -29,11 +32,11 @@ class ResponseForm(models.ModelForm):
 		for q in survey.questions():
 			if q.question_type == Question.TEXT:
 				self.fields["question_%d" % q.pk] = forms.CharField(label=q.text, 
-					widget=forms.Textarea)
+					widget=forms.Textarea(attrs={'class':'form-control'}))
 			elif q.question_type == Question.RADIO:
 				question_choices = q.get_choices()
 				self.fields["question_%d" % q.pk] = forms.ChoiceField(label=q.text, 
-					widget=forms.RadioSelect(renderer=HorizontalRadioRenderer), 
+					widget=forms.RadioSelect(renderer=HorizontalRadioRenderer, attrs={'type':'radio'}),
 					choices = question_choices)
 			elif q.question_type == Question.SELECT:
 				question_choices = q.get_choices()
@@ -41,7 +44,7 @@ class ResponseForm(models.ModelForm):
 				# explicitly select one of the options
 				question_choices = tuple([('', '-------------')]) + question_choices
 				self.fields["question_%d" % q.pk] = forms.ChoiceField(label=q.text, 
-					widget=forms.Select, choices = question_choices)
+					widget=forms.Select(attrs={'class':'form-control'}), choices = question_choices)
 			elif q.question_type == Question.SELECT_MULTIPLE:
 				question_choices = q.get_choices()
 				self.fields["question_%d" % q.pk] = forms.MultipleChoiceField(label=q.text, 
@@ -52,7 +55,7 @@ class ResponseForm(models.ModelForm):
 			# if the field is required, give it a corresponding css class.
 			if q.required:
 				self.fields["question_%d" % q.pk].required = True
-				self.fields["question_%d" % q.pk].widget.attrs["class"] = "required"
+				# self.fields["question_%d" % q.pk].widget.attrs["class"] = "required"
 			else:
 				self.fields["question_%d" % q.pk].required = False
 				
