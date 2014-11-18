@@ -89,15 +89,30 @@
 {#                    {{ field.field.widget|klass }}#}
                         {% if field.field.widget|klass == 'RadioSelect' %}
                             <div class="radio">
+                                {{ field }}
+                            </div>
                         {% elif field.field.widget|klass == 'CheckboxSelectMultiple' %}
                             <div class="checkbox">
+                                {% for radio in field %}
+                                    <label class="checkbox-inline">
+                                        {{ radio.tag }}
+                                        {{ radio.choice_label }}
+{#                                    {{ radio.tag }}#}
+                                    </label>
+{#                                    {{ radio }}#}
+                                {% endfor %}
+                            </div>
                         {% elif field.field.widget|klass == 'Select' %}
                             <div class="col-sm-12">
+                                {{ field }}
+                            </div>
                         {% else %}
 						    <div>
-						{% endif %}
-								{{ field }}
+                                {{ field }}
 						    </div>
+						{% endif %}
+{#								{{ field }}#}
+{#						    </div>#}
                     </li>
 {#					</div>#}
 {#					</li>#}
