@@ -18,21 +18,27 @@
 
             <fieldset>
                 <div class="form-group">
-                    {{ response_form.interviewer.errors }}
-                    <label class="control-label col-sm-3">{{ response_form.interviewer.label_tag }}</label>
-                    <div class="col-sm-9">
-                        {{ response_form.interviewer }}
+                    {{ response_form.username.errors }}
+                    <label class="control-label col-sm-2">{{ response_form.username.label_tag }}</label>
+                    <div class="col-sm-10">
+                        {{ response_form.username }}
                     </div>
                 </div>
 
-
+                <div class="form-group">
+                    {{ response_form.email.errors }}
+                    <label class="control-label col-sm-2">{{ response_form.email.label_tag }}</label>
+                    <div class="col-sm-10">
+                        {{ response_form.email }}
+                    </div>
+                </div>
 
 {#		<div class="field-wrapper question-required">#}
 {#			{{ response_form.interviewer.errors }}#}
-{#			<span class="asterix"> * </span>{{ response_form.interviewer.label_tag }}#}
+{#			{{ response_form.email.label_tag }}#}
 {#			<span class="form-help-text">{{ response_form.interviewer.help_text}}</span>#}
 {#			<div class="form-field-body">#}
-{#				{{ response_form.interviewer }}#}
+{#				{{ response_form.email }}#}
 {#			</div>#}
 {#		</div>#}
 
@@ -71,8 +77,10 @@
             <ol >
 			{% for field in response_form %}
 {#                <li>#}
-                <div class="form-group">
+
+{#                {{ field.field.widget.attrs.category  }}#}
 				{% if field.field.widget.attrs.category == category %}
+                    <div class="form-group">
 {#					<li class="q-item" value="{% counter %}">#}
                     <li>
 					{% if field.field.required %} 
@@ -114,10 +122,10 @@
 {#								{{ field }}#}
 {#						    </div>#}
                     </li>
-{#					</div>#}
+					</div>
 {#					</li>#}
 				{% endif %}
-                </div>
+{#                </div>#}
 {#                </li>#}
 			{% endfor %}
             </ol>
