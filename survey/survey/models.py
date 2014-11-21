@@ -82,14 +82,14 @@ class Response(models.Model):
     updated = models.DateTimeField(auto_now=True)
     survey = models.ForeignKey(Survey)
     username = models.CharField(_('username'), max_length=400)
-    email = models.CharField(_('email'), max_length= 255)
+    email = models.EmailField(_('email'), max_length= 255)
     # interviewee = models.CharField('Name of Interviewee', max_length=400, null=True)
     # conditions = models.TextField('Conditions during interview', blank=True, null=True)
     # comments = models.TextField('Any additional Comments', blank=True, null=True)
-    interview_uuid = models.CharField("Interview unique identifier", max_length=36)
+    user_uuid = models.CharField("user unique identifier", max_length=36)
 
     def __unicode__(self):
-        return ("response %s" % self.interview_uuid)
+        return ("response %s" % self.user_uuid)
 
 class AnswerBase(models.Model):
     question = models.ForeignKey(Question)

@@ -26,6 +26,9 @@ DATABASES = {
     }
 }
 
+SESSION_ENGINE       = 'django.contrib.sessions.backends.file'
+SESSION_FILE_PATH   = '/tmp/'
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -121,6 +124,7 @@ TEMPLATE_DIRS = (
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.formtools',
     # 'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
@@ -132,7 +136,7 @@ INSTALLED_APPS = (
     'gunicorn',
 )
 
-support_email = "survey@coliving.org"
+support_email = "hi@guoku.com"
 
 
 # A sample logging configuration. The only tangible logging
@@ -142,24 +146,48 @@ support_email = "survey@coliving.org"
 # more details on how to customize your logging configuration.
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
     },
     'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
+        'null': {
+            'level': 'DEBUG',
+            'class': 'django.utils.log.NullHandler',
+        },
+        'console':{
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+        'file': {
+          'level': 'INFO',
+          'class': 'logging.FileHandler',
+          'formatter': 'verbose',
+          'filename': '/tmp/django.log',
+          'mode': 'a',
+        },
     },
     'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
+        'dev': {
+            'handlers': ['console'],
             'propagate': True,
+            'level': 'INFO',
         },
+        'production' : {
+            'handlers': ['file'],
+            'level':'ERROR',
+            'propagate': False,
+        },
+        # 'django.request': {
+        #     'handlers': ['file', 'console'],
+        #     'level': 'ERROR',
+        #     'propagate': False,
+        # },
     }
 }

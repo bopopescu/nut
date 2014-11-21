@@ -4,7 +4,9 @@ from survey.models import Question, Category, Survey, Response, AnswerText, Answ
 from django.utils.safestring import mark_safe
 import uuid
 
-# blatantly stolen from 
+# from django.contrib.formtools.wizard.views import SessionWizardView
+
+# blatantly stolen from
 # http://stackoverflow.com/questions/5935546/align-radio-buttons-horizontally-in-django-forms?rq=1
 class HorizontalRadioRenderer(forms.RadioSelect.renderer):
   def render(self):
@@ -119,4 +121,4 @@ class ResponseForm(models.ModelForm):
 
 
 
-
+# class ResponseWizard(SessionWizardView):
