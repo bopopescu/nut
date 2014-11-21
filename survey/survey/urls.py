@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     url(r'^survey/$', 'survey.views.Index', name='home'),
     url(r'^survey/confirm/(?P<uuid>\w+)/$', 'survey.views.Confirm', name='confirmation'),
 
-    url(r'^survey/(?P<id>\d+)/$', 'survey.views.SurveyDetail', name='survey_detail'),
+    # url(r'^survey/(?P<id>\d+)/$', 'survey.views.SurveyDetail', name='survey_detail'),
 
     url(r'^privacy/$', 'survey.views.privacy', name='privacy_statement'),
 
@@ -23,6 +23,16 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^survey/admin/', include(admin.site.urls)),
+)
+
+
+from survey.views import SurveyWizard
+from survey.forms import ResponseWizardFrom
+SurveyForm = [ResponseWizardFrom]
+
+urlpatterns += patterns(
+    'survey.views',
+    url(r'^survey/(?P<sid>\d+)/$', SurveyWizard.as_view(SurveyForm), name='surveies'),
 )
 
 # media url hackery. le sigh. 

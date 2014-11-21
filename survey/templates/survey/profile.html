@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% load survey_extras i18n %}
+
+{% block wrapper %}
+{{ wizard.form.media }}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <h2>{{survey.name|title}}</h2>
+        <div class="survey-description">
+	        {{survey.description|safe}}
+        </div>
+    </div>
+
+    <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
+
+    <div class="row">
+        <form class="form-horizontal" action="" method="post">{% csrf_token %}
+
+            {{ wizard.management_form }}
+            <fieldset>
+            {% if wizard.form.forms %}
+
+                {{ wizard.form.management_form }}
+                    {% for form in wizard.form.forms %}
+                        <div class="form-group">
+                            {{ form }}
+{#                            <label class="control-label col-sm-2">{{ field.label_tag }}</label>#}
+                        </div>
+                    {% endfor %}
+            {% else %}
+                {% for field in wizard.form %}
+                    {% if field.field.widget.attrs.category != category %}
+                    <div class="form-group">
+                        {{ field.errors }}
+                         <label class="control-label col-sm-2">{{ field.label_tag }}</label>
+                         <div class="col-sm-5">
+                             {{ field }}
+                         </div>
+                        <span class="help-block">{{ field.help_text }}</span>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+                <hr />
+                <h3>{{ category }}</h3>
+{#                <hr />#}
+                <ol>
+                {% for field in wizard.form %}
+
+                    {% if field.field.widget.attrs.category == category %}
+
+
+                        <div class="form-group">
+                            <li>
+                                <label class="checkbox-inline">{{ field.label }}</label>
+                            </li>
+                        </div>
+
+                        {% if field.field.widget|klass == 'RadioSelect' %}
+                            <div class="radio">
+                                {{ field }}
+                            </div>
+                        {% elif field.field.widget|klass == 'CheckboxSelectMultiple' %}
+                            <div class="checkbox">
+                                {% for radio in field %}
+                                    <label class="checkbox-inline">
+                                        {{ radio.tag }}
+                                        {{ radio.choice_label }}
+{#                                    {{ radio.tag }}#}
+                                    </label>
+{#                                    {{ radio }}#}
+                                {% endfor %}
+                            </div>
+                        {% elif field.field.widget|klass == 'Select' %}
+                            <div class="col-sm-12">
+                                {{ field }}
+                            </div>
+                        {% else %}
+						    <div>
+                                {{ field }}
+						    </div>
+						{% endif %}
+
+
+
+                    {% endif %}
+                {% endfor %}
+                </ol>
+            {% endif %}
+            </fieldset>
+
+            {% if wizard.steps.prev %}
+
+            {% else %}
+                <button type="submit" class="btn btn-primary btn-lg">{% trans 'next' %}</button>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}
