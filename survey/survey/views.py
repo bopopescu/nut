@@ -32,7 +32,7 @@ def SurveyDetail(request, id):
         form = ResponseForm(request.POST, survey=survey)
         if form.is_valid():
             response = form.save()
-            return HttpResponseRedirect("/confirm/%s" % response.interview_uuid)
+            return HttpResponseRedirect("/confirm/%s" % response.user_uuid)
     else:
         form = ResponseForm(survey=survey)
         print form
