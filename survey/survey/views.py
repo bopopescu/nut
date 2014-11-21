@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.core import urlresolvers
+from django.core.urlresolvers import reverse
+# from django.core import urlresolvers
 from django.contrib import messages
 import datetime
 import settings
@@ -32,7 +33,8 @@ def SurveyDetail(request, id):
         form = ResponseForm(request.POST, survey=survey)
         if form.is_valid():
             response = form.save()
-            return HttpResponseRedirect("/confirm/%s" % response.user_uuid)
+            # return HttpResponseRedirect("/confirm/%s" % response.user_uuid)
+            return HttpResponseRedirect(reverse('confirmation', args=[response.user_uuid]))
     else:
         form = ResponseForm(survey=survey)
         print form
