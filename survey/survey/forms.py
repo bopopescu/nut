@@ -120,5 +120,71 @@ class ResponseForm(models.ModelForm):
 
 
 
+class ResponseWizardFrom(forms.ModelForm):
 
+    class Meta:
+        model = Response
+        fields = ('username', 'email', )
+        widgets = {
+            'username': forms.TextInput(attrs={'class':'form-control'}),
+            'email': forms.TextInput(attrs={'class':'form-control'})
+        }
+        help_texts = {
+            'username': 'test',
+            'email': 'test',
+        }
+
+
+    def __init__(self, *args, **kwargs):
+        print kwargs
+        self.survey = kwargs.pop('survey')
+        self.cid = kwargs.pop('cid')
+        super(ResponseWizardFrom, self).__init__(*args, **kwargs)
+        self.uuid = uuid.uuid4().hex
+
+        data = kwargs.get('data')
+        # for q in self.survey.questions():
+        for q in self.survey.question_set.filter(category_id = self.cid):
+            if q.question_type == Question.TEXT:
+                self.fields["question_%d" % q.pk] = forms.CharField(label=q.text,
+                    widget=forms.Textarea(attrs={'class':'form-control'}))
+            elif q.question_type == Question.RADIO:
+                question_choices = q.get_choices()
+                self.fields["question_%d" % q.pk] = forms.ChoiceField(label=q.text,
+                    widget=forms.RadioSelect(renderer=HorizontalRadioRenderer, attrs={'type':'radio'}),
+                    choices = question_choices)
+            elif q.question_type == Question.SELECT:
+                question_choices = q.get_choices()
+                # add an empty option at the top so that the user has to
+                # explicitly select one of the options
+                question_choices = tuple([('', '-------------')]) + question_choices
+                self.fields["question_%d" % q.pk] = forms.ChoiceField(label=q.text,
+                    widget=forms.Select(attrs={'class':'form-control'}), choices = question_choices)
+            elif q.question_type == Question.SELECT_MULTIPLE:
+                question_choices = q.get_choices()
+                self.fields["question_%d" % q.pk] = forms.MultipleChoiceField(label=q.text,
+                    widget=forms.CheckboxSelectMultiple, choices = question_choices)
+            elif q.question_type == Question.INTEGER:
+                self.fields["question_%d" % q.pk] = forms.IntegerField(label=q.text)
+
+            # if the field is required, give it a corresponding css class.
+            if q.required:
+                self.fields["question_%d" % q.pk].required = True
+                # self.fields["question_%d" % q.pk].widget.attrs["class"] = "required"
+            else:
+                self.fields["question_%d" % q.pk].required = False
+
+
+            if q.category:
+                classes = self.fields["question_%d" % q.pk].widget.attrs.get("class")
+                if classes:
+                    self.fields["question_%d" % q.pk].widget.attrs["class"] = classes + (" cat_%s" % q.category.name)
+                else:
+                    self.fields["question_%d" % q.pk].widget.attrs["class"] = (" cat_%s" % q.category.name)
+                self.fields["question_%d" % q.pk].widget.attrs["category"] = q.category.name
+
+
+            # initialize the form field with values from a POST request, if any.
+            if data:
+                self.fields["question_%d" % q.pk].initial = data.get('question_%d' % q.pk)
 # class ResponseWizard(SessionWizardView):
