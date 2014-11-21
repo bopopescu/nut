@@ -82,7 +82,7 @@ class ResponseForm(models.ModelForm):
         # save the response object
         response = super(ResponseForm, self).save(commit=False)
         response.survey = self.survey
-        response.interview_uuid = self.uuid
+        response.user_uuid = self.uuid
         response.save()
 
         # create an answer object for each question and associate it with this
