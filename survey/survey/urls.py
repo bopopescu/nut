@@ -27,12 +27,12 @@ urlpatterns = patterns('',
 
 
 from survey.views import SurveyWizard
-from survey.forms import ResponseWizardFrom
-SurveyForm = [ResponseWizardFrom, ResponseWizardFrom]
+from survey.forms import ResponseWizardFrom, ResponseWithOutUsernameWizardFrom
+SurveyForms = [ResponseWizardFrom, ResponseWithOutUsernameWizardFrom, ResponseWithOutUsernameWizardFrom]
 
 urlpatterns += patterns(
     'survey.views',
-    url(r'^survey/(?P<sid>\d+)/$', SurveyWizard.as_view(SurveyForm), name='surveies'),
+    url(r'^survey/(?P<sid>\d+)/$', SurveyWizard.as_view(SurveyForms), name='surveies'),
 )
 
 # media url hackery. le sigh. 
