@@ -58,6 +58,7 @@ SURVEY_TEMPLATES = [
     # 'profile': 'survey/profile.html',
     "survey/life.html",
     "survey/consume.html",
+    "survey/production.html",
     # ''
 ]
 
@@ -94,5 +95,16 @@ class SurveyWizard(SessionWizardView):
         # return render_to_response('done.html', {
         #     'form_data': [form.cleaned_data for form in form_list],
         # })
+        # log.info(form_list)
+        form = form_list[0]
+        response = form.save()
+        # for form in form_list:
+        #     response = form.save()
+        for index, form in enumerate(form_list):
+            # log.info(index)
+            if index == 0:
+                continue
+            form.save(response)
+                # response = form.save()
 
         return HttpResponseRedirect(reverse('confirmation', args=[response.user_uuid]))
