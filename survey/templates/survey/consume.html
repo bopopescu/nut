@@ -10,7 +10,9 @@
 <div class="row">
     <form class="form-horizontal" action="" method="post">{% csrf_token %}
         {{ wizard.management_form }}
+
         <h3>{{ category }}</h3>
+
         <fieldset>
             <ol>
                 {% for field in wizard.form %}
@@ -53,4 +55,4 @@
         </div>
     </form>
 </div>
-{% endblock %}]
+{% endblock %}

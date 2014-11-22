@@ -33,13 +33,19 @@
             {% else %}
                 {% for field in wizard.form %}
                     {% if field.field.widget.attrs.category != category %}
-                    <div class="form-group">
-                        {{ field.errors }}
+                    <div class="form-group {% if field.errors %}has-error{% endif %}">
+{#                        {{ field.errors }}#}
                          <label class="control-label col-sm-2">{{ field.label_tag }}</label>
                          <div class="col-sm-5">
                              {{ field }}
                          </div>
-                        <span class="help-block">{{ field.help_text }}</span>
+                        {% if field.errors %}
+                            {% for error in field.errors %}
+                            <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <span class="help-block">{{ field.help_text }}</span>
+                        {% endif %}
                     </div>
                     {% endif %}
                 {% endfor %}
@@ -51,13 +57,9 @@
 
                     {% if field.field.widget.attrs.category == category %}
 
-
-                        <div class="form-group">
-                            <li>
-                                <label class="checkbox-inline">{{ field.label }}</label>
-                            </li>
-                        </div>
-
+                    <li>
+                        <div class="form-group {% if field.errors %}has-error{% endif %}">
+                            <label class="checkbox-inline">{{ field.label }}</label>
                         {% if field.field.widget|klass == 'RadioSelect' %}
                             <div class="radio">
                                 {{ field }}
@@ -83,8 +85,8 @@
 						    </div>
 						{% endif %}
 
-
-
+                        </div>
+                    </li>
                     {% endif %}
                 {% endfor %}
                 </ol>
