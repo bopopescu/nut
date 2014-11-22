@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load i18n survey_extras %}
+
+
+{% block body %}
+<div class="row">
+    <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
+</div>
+
+<div class="row">
+    <form class="form-horizontal" action="" method="post">{% csrf_token %}
+        {{ wizard.management_form }}
+
+        <h3>{{ category }}</h3>
+
+        <fieldset>
+            <ol>
+                {% for field in wizard.form %}
+                    <li>
+                        <div class="form-group {% if field.errors %}has-error{% endif %}">
+                            <label class="checkbox-inline">{{ field.label }}</label>
+                        {% if field.field.widget|klass == 'RadioSelect' %}
+                            <div class="radio">
+                                {{ field }}
+                            </div>
+                        {% elif field.field.widget|klass == 'CheckboxSelectMultiple' %}
+                            <div class="checkbox">
+                                {% for radio in field %}
+                                    <label class="checkbox-inline">
+                                        {{ radio.tag }}
+                                        {{ radio.choice_label }}
+{#                                    {{ radio.tag }}#}
+                                    </label>
+{#                                    {{ radio }}#}
+                                {% endfor %}
+                            </div>
+                        {% elif field.field.widget|klass == 'Select' %}
+                            <div class="col-sm-12">
+                                {{ field }}
+                            </div>
+                        {% else %}
+						    <div>
+                                {{ field }}
+						    </div>
+						{% endif %}
+
+                        </div>
+                    </li>
+                {% endfor %}
+            </ol>
+        </fieldset>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-large">{% trans 'next' %}</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
