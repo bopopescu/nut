@@ -28,7 +28,7 @@ urlpatterns = patterns('',
 
 from survey.views import SurveyWizard
 from survey.forms import ResponseWizardFrom
-SurveyForm = [ResponseWizardFrom]
+SurveyForm = [ResponseWizardFrom, ResponseWizardFrom]
 
 urlpatterns += patterns(
     'survey.views',

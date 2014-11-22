@@ -11,8 +11,10 @@ from django.contrib.formtools.wizard.views import SessionWizardView
 
 from models import Question, Survey, Category
 from forms import ResponseForm
+from django.contrib.formtools.wizard.forms import ManagementForm
 from django import forms
-
+from django.forms import formsets, ValidationError
+from django.utils.translation import ugettext as _
 from django.utils.log import getLogger
 
 log = getLogger('dev')
@@ -54,7 +56,7 @@ def privacy(request):
 SURVEY_TEMPLATES = [
     "survey/profile.html",
     # 'profile': 'survey/profile.html',
-    # 'life': 'survey/life.html',
+    "survey/life.html",
     # ''
 ]
 
@@ -68,20 +70,62 @@ class SurveyWizard(SessionWizardView):
     # def get_form_instance(self, step):
     #     log.info(self.initial_dict)
 
-    def get(self, request, sid, *args, **kwargs):
-        self.storage.reset()
-        self.storage.current_step = self.steps.first
-        self.survey = Survey.objects.get(pk=sid)
-        category_items = Category.objects.filter(survey=self.survey)
+    # def get(self, request, sid, *args, **kwargs):
+    #     self.storage.reset()
+    #     self.storage.current_step = self.steps.first
+    #     self.survey = Survey.objects.get(pk=sid)
+    #     category_items = Category.objects.filter(survey=self.survey)
+    #
+    #     categories = [c.name for c in category_items]
+    #
+    #     return self.render(self.get_form(), survey = self.survey, category = categories[int(self.steps.current)])
 
-        categories = [c.name for c in category_items]
+    # def post(self, *args, **kwargs):
+    #     # log.info(kwargs)
+    #     sid = kwargs.pop('sid')
+    #     wizard_goto_step = self.request.POST.get('wizard_goto_step', None)
+    #     if wizard_goto_step and wizard_goto_step in self.get_form_list():
+    #         return self.render_goto_step(wizard_goto_step)
+    #
+    #     management_form = ManagementForm(self.request.POST, prefix=self.prefix)
+    #     if not management_form.is_valid():
+    #         raise ValidationError(
+    #             _('ManagementForm data is missing or has been tampered.'),
+    #             code='missing_management_form',
+    #         )
+    #
+    #     form_current_step = management_form.cleaned_data['current_step']
+    #     if (form_current_step != self.steps.current and
+    #             self.storage.current_step is not None):
+    #         # form refreshed, change current step
+    #         self.storage.current_step = form_current_step
+    #
+    #     # get the form for the current step
+    #     self.survey = Survey.objects.get(pk=sid)
+    #     category_items = Category.objects.filter(survey=self.survey)
+    #
+    #     categories = [c.name for c in category_items]
+    #
+    #     form = self.get_form(data=self.request.POST, files=self.request.FILES)
+    #
+    #     return HttpResponse("OK")
 
-        return self.render(self.get_form(), survey = self.survey, category = categories[int(self.steps.current)])
+    def get_form_kwargs(self, step=None):
+        self.survey = Survey.objects.get(pk=1)
+        # self.survey = Survey.objects.get(pk=sid)
+        # category_items = Category.objects.filter(survey=self.survey)
+        step = self.steps.current
+        cid = int(step) + 1
+        # categories = [c.name for c in category_items]
+        return {
+            'survey':self.survey,
+            'cid': cid,
+        }
 
     def get_form(self, step=None, data=None, files=None):
         step = self.steps.current
         kwargs = self.get_form_kwargs(step)
-        # survey = Survey.objects.get(pk=1)
+        # self.survey = Survey.objects.get(pk=1)
         cid = int(step) + 1
 
         # self.survey.question_set.filter(category_id=cid)
@@ -90,8 +134,8 @@ class SurveyWizard(SessionWizardView):
             'files': files,
             'prefix': self.get_form_prefix(step, self.form_list[step]),
             'initial': self.get_form_initial(step),
-            'survey':self.survey,
-            'cid': cid,
+            # 'survey':self.survey,
+            # 'cid': cid,
             # 'category': self.survey.question_set.filter(category=1),
         })
 
@@ -109,14 +153,16 @@ class SurveyWizard(SessionWizardView):
         # return super(SurveyWizard, self).get_form(step, data, files)
 
     def get_template_names(self):
-        # log.info(self.steps)
-        return [SURVEY_TEMPLATES[0]]
+        log.info(self.steps.current)
+        step = int(self.steps.current)
+        return [SURVEY_TEMPLATES[step]]
 
     def render(self, form=None, **kwargs):
         form = form or self.get_form()
-
+        category_items = Category.objects.filter(survey=self.survey)
+        categories = [c.name for c in category_items]
         # log.info(form)
-        context = self.get_context_data(form=form, **kwargs)
+        context = self.get_context_data(form=form,  category = categories[int(self.steps.current)], **kwargs)
         return self.render_to_response(context)
 
     def done(self, form_list, **kwargs):
