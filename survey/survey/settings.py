@@ -72,7 +72,8 @@ STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
+STATIC_URL = "http://static.guoku.com/static/v3/"
 
 # Additional locations of static files
 STATICFILES_DIRS = (
