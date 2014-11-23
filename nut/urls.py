@@ -12,9 +12,10 @@ urlpatterns += patterns('',
     url(r'management/', include('apps.management.urls')),
     url(r'^api/', include('apps.api.urls')),
 
+    # url(r'^$', 'apps.web.views.main.index', name='web_index'),
     # url(r'^', include('apps.web.urls')),
-
-
+    # url(r'^selection/')
+    url(r'^', include('apps.web.urls')),
 )
 
 
