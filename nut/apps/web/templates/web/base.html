@@ -28,8 +28,8 @@ window.location.href = url;</script><![endif]-->
     <meta content="果库,Guoku" property="og:title">
     <link rel="apple-touch-icon-precomposed" href="{% static 'images/touch-icon-precomposed.png' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'thirdpart/css/font-awesome.min.css' %}">
-{#    <link rel="stylesheet" type="text/css" href="{% static 'css/site.css' %}">#}
+    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/web/site.css' %}">
     {% block css %}{% endblock %}
 <!-- Respond.js proxy on external server -->
     <!--[if lt IE 9]>
@@ -74,31 +74,31 @@ window.location.href = url;</script><![endif]-->
                         <a href="{{ web_popular_url }}">{% trans 'popular' %}</a>
                     </li>
 
-                    {% url 'web_kind' as web_kind_url %}
+{#                    {% url 'web_kind' as web_kind_url %}#}
 {#                    {{ web_kind_url  }}#}
-                    <li {% if web_kind_url in request.path %}class="active"{% endif %}>
-                        <a href="{{ web_kind_url }}">品类</a>
-                    </li>
+{#                    <li {% if web_kind_url in request.path %}class="active"{% endif %}>#}
+{#                        <a href="{{ web_kind_url }}">品类</a>#}
+{#                    </li>#}
 
-                    {% url 'web_event_home' as web_event_home_url %}
+{#                    {% url 'web_event_home' as web_event_home_url %}#}
 {#                {{ web_event_home_url }}#}
-                    <li {% if web_event_home_url in request.path %}class="active" {% endif %}>
-                        <a href="{{ web_event_home_url }}">专题</a>
-                    </li>
+{#                    <li {% if web_event_home_url in request.path %}class="active" {% endif %}>#}
+{#                        <a href="{{ web_event_home_url }}">专题</a>#}
+{#                    </li>#}
                 </ul>
 
-                {% url 'web_login' as web_login_url %}
-                {% url 'web_register' as web_register_url %}
-                {% if web_login_url not in request.path and web_register_url not in request.path %}
-                    <ul class="nav navbar-nav navbar-right">
-                        {% if request.user.is_authenticated  %}
-                            {% include 'account/partial/auth.html' with user_context=request.user %}
-                        {% else %}
-                            <li><a href="{% url 'web_login' %}?next={{ request.path }}" data-toggle="modal" data-target="#SignInModal">{% trans 'sign in' %}</a></li>
-                            <li><a href="{% url 'web_register' %}">{% trans 'sign up' %}</a></li>
-                        {% endif %}
-                    </ul>
-                {% endif %}
+{#                {% url 'web_login' as web_login_url %}#}
+{#                {% url 'web_register' as web_register_url %}#}
+{#                {% if web_login_url not in request.path and web_register_url not in request.path %}#}
+{#                    <ul class="nav navbar-nav navbar-right">#}
+{#                        {% if request.user.is_authenticated  %}#}
+{#                            {% include 'account/partial/auth.html' with user_context=request.user %}#}
+{#                        {% else %}#}
+{#                            <li><a href="{% url 'web_login' %}?next={{ request.path }}" data-toggle="modal" data-target="#SignInModal">{% trans 'sign in' %}</a></li>#}
+{#                            <li><a href="{% url 'web_register' %}">{% trans 'sign up' %}</a></li>#}
+{#                        {% endif %}#}
+{#                    </ul>#}
+{#                {% endif %}#}
 
                 <form class="navbar-form navbar-right" action="{% url 'web_search' %}" method="get" role="form">
                     <div class="input-group search">
