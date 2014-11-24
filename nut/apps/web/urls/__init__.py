@@ -22,4 +22,11 @@ urlpatterns += patterns(
     url(r'^agreement$', Agreement.as_view(), name='web_agreement'),
 )
 
+
+# entity
+urlpatterns += patterns(
+    'apps.web.views.entity',
+    url(r'^entity', include('apps.web.urls.entity')),
+)
+
 __author__ = 'edison7500'
