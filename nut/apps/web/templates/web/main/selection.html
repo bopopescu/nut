@@ -1,1 +1,14 @@
 {% extends 'web/base.html' %}
+{% load i18n %}
+
+
+{% block title %}{% block subtitle %}{% trans "selection" %}{% endblock %}{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row" id="selection">
+            {% include "web/main/partial/selection_item_list.html" with entities=entities %}
+        </div>
+    </div>
+{% endblock %}

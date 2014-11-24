@@ -1,7 +1,11 @@
 from django.shortcuts import render_to_response
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.views.generic import TemplateView
+from django.views.decorators.http import require_http_methods, require_GET
+from django.template import RequestContext
 
+from apps.core.models import Entity
+from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 
 def index(request):
 
@@ -9,15 +13,27 @@ def index(request):
     return HttpResponse("OK")
 
 
+@require_GET
 def selection(request, template='web/main/selection.html'):
+
+    entity_list = Entity.objects.filter(status= Entity.selection)
+    _page = request.GET.get('p', 1)
+
+    paginator = ExtentPaginator(entity_list, 30)
+    try:
+        entities = paginator.page(_page)
+    except PageNotAnInteger:
+        entities = paginator.page(1)
+    except EmptyPage:
+        raise  Http404
 
 
     return render_to_response(
         template,
         {
-
+            'entities': entities,
         },
-
+        context_instance = RequestContext(request),
     )
 
 
@@ -42,6 +58,9 @@ def search(request, template="web/main/search.html"):
         },
 
     )
+
+
+
 
 class AboutView(TemplateView):
     template_name = "web/about.html"
