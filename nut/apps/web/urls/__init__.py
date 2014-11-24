@@ -12,6 +12,12 @@ urlpatterns = patterns(
     url(r'^search/$', 'main.search', name='web_search'),
 )
 
+#account
+urlpatterns += patterns(
+    'apps.web.views.account',
+    url(r'login/$', 'login', name='web_login'),
+
+)
 
 # static page
 urlpatterns += patterns(

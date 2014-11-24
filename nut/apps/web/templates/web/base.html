@@ -57,9 +57,9 @@ window.location.href = url;</script><![endif]-->
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/selected/">
-                    <img alt="guoku" src="{% static 'images/logo2.png' %}" width="53" height="30">
-                    <img src="{% static 'images/wap_logo.png' %}" style="height:30px;padding-left:5px;">
+                <a class="navbar-brand" href="{% url 'web_selection' %}">
+                    <img alt="{% trans 'guoku' %}" src="{% static 'images/logo2.png' %}" width="53" height="30">
+{#                    <img src="{% static 'images/wap_logo.png' %}" style="height:30px;padding-left:5px;">#}
                 </a>
             </div>
             <div class="navbar-collapse collapse">
@@ -87,17 +87,17 @@ window.location.href = url;</script><![endif]-->
 {#                    </li>#}
                 </ul>
 
-{#                {% url 'web_login' as web_login_url %}#}
+                {% url 'web_login' as web_login_url %}
 {#                {% url 'web_register' as web_register_url %}#}
 {#                {% if web_login_url not in request.path and web_register_url not in request.path %}#}
-{#                    <ul class="nav navbar-nav navbar-right">#}
+                    <ul class="nav navbar-nav navbar-right">
 {#                        {% if request.user.is_authenticated  %}#}
 {#                            {% include 'account/partial/auth.html' with user_context=request.user %}#}
 {#                        {% else %}#}
-{#                            <li><a href="{% url 'web_login' %}?next={{ request.path }}" data-toggle="modal" data-target="#SignInModal">{% trans 'sign in' %}</a></li>#}
+                            <li><a href="{% url 'web_login' %}?next={{ request.path }}" data-toggle="modal" data-target="#SignInModal">{% trans 'sign in' %}</a></li>
 {#                            <li><a href="{% url 'web_register' %}">{% trans 'sign up' %}</a></li>#}
 {#                        {% endif %}#}
-{#                    </ul>#}
+                    </ul>
 {#                {% endif %}#}
 
                 <form class="navbar-form navbar-right" action="{% url 'web_search' %}" method="get" role="form">
