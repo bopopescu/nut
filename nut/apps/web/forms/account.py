@@ -1,6 +1,8 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate
+
 
 class UserSignInForm(forms.Form):
 
@@ -40,10 +42,24 @@ class UserSignInForm(forms.Form):
         email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password')
 
+        if email and password:
+            self.user_cache = authenticate(username=email,
+                                           password=password)
+
+
+
 
 
     def login(self):
 
         pass
+
+    def get_user_id(self):
+        if self.user_cache:
+            return self.user_cache.id
+        return None
+
+    def get_user(self):
+        return self.user_cache
 
 __author__ = 'edison'
