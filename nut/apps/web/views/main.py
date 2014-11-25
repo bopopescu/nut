@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponse, Http404
-from django.views.generic import TemplateView
+
 from django.views.decorators.http import require_http_methods, require_GET
 from django.template import RequestContext
 
@@ -60,19 +60,14 @@ def search(request, template="web/main/search.html"):
     )
 
 
+def category(request, template="web/main/category.html"):
+
+    return render_to_response(
+        template,
+
+    )
 
 
-class AboutView(TemplateView):
-    template_name = "web/about.html"
-
-class Agreement(TemplateView):
-    template_name = "web/agreement.html"
-
-class JobsView(TemplateView):
-    template_name = "web/jobs.html"
-
-class FaqView(TemplateView):
-    template_name = "web/base_faq.html"
 
 __author__ = 'edison'
 

@@ -1,5 +1,5 @@
 from django.conf.urls import url, include, patterns
-from apps.web.views.main import AboutView, JobsView, Agreement
+from apps.web.views import AboutView, JobsView, Agreement
 
 
 urlpatterns = patterns(
