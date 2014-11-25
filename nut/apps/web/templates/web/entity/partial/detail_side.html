@@ -1,0 +1,131 @@
+{#{% load entity user %}#}
+
+<div class="panel panel-default hidden-print hidden-xs">
+    <div class="panel-body">
+        {% if taobao_id %}
+            <a class="btn btn-primary btn-buy" href="http://item.taobao.com/item.htm?id={{ taobao_id }}" target="_blank" biz-itemid="{{ taobao_id }}" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity_context.title }}-taobao'])">
+                <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity_context.price }}</span>
+            </a>
+        {% else %}
+            <a class="btn btn-primary btn-buy" href="http://item.jd.com/{{ jd_id }}.html" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity_context.title }}-jd'])">
+                <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity_context.price }}</span>
+            </a>
+        {% endif %}
+    </div>
+
+{% if entity_context.detail_images|length > 0 %}
+    <div class="panel-body detail-img">
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <div class="thumbnail">
+                    <div class="img-box">
+                        <a href="javascript:;">
+                            <img class="img-responsive" src="{{ entity.chief_image }}">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            {% for img in entity_context.detail_images %}
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <div class="thumbnail">
+                    <div class="img-box">
+                        <a href="javascript:;">
+                            <img class="img-responsive" src="{{ img }}">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+    </div>
+{% endif %}
+
+    <div class="panel-body" style="padding-bottom: 0px;border-top: 1px solid #f1f1f1;">{{ entity_context.like_count }}人喜爱</div>
+    <div class="panel-body like-user-list">
+        {% for liker, date in liker_list %}
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <div class="thumbnail">
+{#                    <a href="{% url 'web_user_likes' liker %}" target="_blank">{% show_avater liker  %}</a>#}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="list-group">
+        <div class="list-group-item detail-category">
+{#            <a href="{% url 'web_category' entity.category_id  %}">{{ entity.category }}</a>#}
+        </div>
+
+        {% if tag_list|length > 0 %}
+            <div class="list-group-item detail-tag">
+                <h4>该商品的标签</h4>
+                {% for tag in tag_list %}
+                   <p> <a href="{% url "web_tag_detail" tag.tag_hash %}">＃{{ tag.tag }}</a></p>
+                {% endfor %}
+            </div>
+
+        {% endif %}
+
+        {% if is_staff %}
+            <div class="list-group-item detail-edit">
+                <a href="{% url 'management_edit_entity' entity_context.entity_id %}" target=_blank><i class="fa fa-pencil-square-o fa-lg"></i>&nbsp; 编辑商品</a>
+            </div>
+        {% endif %}
+
+        <div class="list-group-item detail-share">
+            <a href="javascript:;"><i class="fa fa-weibo fa-lg"></i>&nbsp; 分享到微博</a>
+        </div>
+        <div class="list-group-item detail-download">
+            <h5 class="list-group-item-heading">下载果库客户端</h5>
+            <a href="/download/ios/" target="_blank">iPhone</a> /
+            <a href="/download/ios/" target="_blank">iPad</a> /
+            <a href="/download/ios/" target="_blank">Android</a>
+       </div>
+    </div>
+
+
+</div>
+{#            </div>#}
+
+{#            <p class="category">#}
+{#                <a href="{% url 'web_category' entity_context.category_id  %}">{{ entity_context.category_id|trans_category }}</a>#}
+{#            </p>#}
+{##}
+{#            {% if tag_list|length > 0 %}#}
+{#                <div class="tag">#}
+{#                    <h3>该商品的标签</h3>#}
+{#                    <div>#}
+{#                        {% for tag in tag_list %}#}
+{#                            <a href="{% url "web_tag_detail" tag.tag_hash %}" target="_blank">＃{{ tag.tag }}</a>#}
+{#                        {% endfor %}#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endif %}#}
+{#            #}
+{#            #}
+{#            {% if is_staff %}#}
+{#                <div class="tag">#}
+{#                    <a href="{% url 'management_edit_entity' entity_context.entity_id %}" target=_blank>编辑商品</a>#}
+{#                </div>#}
+{#            {% endif %}#}
+{##}
+{#            <div class="share">#}
+{#                <a href="javascript:;"><span class="weibo_icon"></span>分享到微博</a>#}
+{#            </div>#}
+{#        #}
+{#            <div class="download">#}
+{#                <h3>下载果库客户端</h3>#}
+{#                <div>#}
+{#                    <a href="/download/ios/" target="_blank">iPhone</a> /#}
+{#                    <a href="/download/ios/" target="_blank">iPad</a> /#}
+{#                    <a href="http://app.guoku.com/download/android/guoku-release.apk" target="_blank">Android</a>#}
+{#                </div>#}
+{#            </div>#}
+{#            {% if enable_guoku_plus and activity_id%}#}
+{#                <div>#}
+{#                    <h3>获取果库价优惠码</h3>#}
+{#                    <form action="{%url 'web_get_guokuplus_token' %}" method="POST">#}
+{#                        <input type="hidden" name="activity_id" value="{{activity_id}}"/>#}
+{#                        <input type="submit" value="获取"/>#}
+{#                    </form>#}
+{#                </div>#}
+{#            {% endif %}#}
+{#        </div>#}
