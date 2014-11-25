@@ -88,17 +88,17 @@ window.location.href = url;</script><![endif]-->
                 </ul>
 
                 {% url 'web_login' as web_login_url %}
-{#                {% url 'web_register' as web_register_url %}#}
-{#                {% if web_login_url not in request.path and web_register_url not in request.path %}#}
+                {% url 'web_register' as web_register_url %}
+                {% if web_login_url not in request.path and web_register_url not in request.path %}
                     <ul class="nav navbar-nav navbar-right">
                         {% if request.user.is_authenticated  %}
                             {% include 'web/account/partial/auth.html' with user_context=request.user %}
                         {% else %}
-                            <li><a href="{% url 'web_login' %}?next={{ request.path }}" data-toggle="modal" data-target="#SignInModal">{% trans 'sign in' %}</a></li>
-{#                            <li><a href="{% url 'web_register' %}">{% trans 'sign up' %}</a></li>#}
+                            <li><a href="{{ web_login_url }}?next={{ request.path }}" data-toggle="modal" data-target="#SignInModal">{% trans 'sign in' %}</a></li>
+                            <li><a href="{{ web_register_url }}">{% trans 'sign up' %}</a></li>
                         {% endif %}
                     </ul>
-{#                {% endif %}#}
+                {% endif %}
 
                 <form class="navbar-form navbar-right" action="{% url 'web_search' %}" method="get" role="form">
                     <div class="input-group search">
@@ -109,7 +109,7 @@ window.location.href = url;</script><![endif]-->
 
                 {% if web_login_url not in request.path and web_register_url not in request.path %}
                 <ul class="nav navbar-nav navbar-right hidden-sm hidden-xs">
-                    <li><a href="{% url 'web_new_entity' %}"><i class="fa fa-plus" style="padding-right:40px;font-size:18px;"></i></a></li>
+{#                    <li><a href="{% url 'web_new_entity' %}"><i class="fa fa-plus" style="padding-right:40px;font-size:18px;"></i></a></li>#}
                 </ul>
                 {% endif %}
             </div>

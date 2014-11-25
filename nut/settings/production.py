@@ -77,7 +77,7 @@ LOGGING = {
             'level': 'INFO',
         },
         'django.request': {
-            'handlers': ['file', 'console'],
+            'handlers': ['file',],
             'level': 'ERROR',
             'propagate': False,
         },
