@@ -19,4 +19,6 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
     )
 
 
+
+
 __author__ = 'edison'
