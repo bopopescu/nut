@@ -8,6 +8,10 @@ from apps.web.forms.account import UserSignInForm
 
 def login(request, template='web/account/login.html'):
 
+    redirect_url = reverse('web_selection')
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(redirect_url)
+
     if request.is_ajax():
         template = 'web/account/partial/ajax_login.html'
 
@@ -16,8 +20,8 @@ def login(request, template='web/account/login.html'):
         _forms = UserSignInForm(request=request, data=request.POST)
         if _forms.is_valid():
             _forms.login()
-
-            return HttpResponseRedirect(reverse('web_selection'))
+            next_url = _forms.get_next_url()
+            return HttpResponseRedirect(next_url)
     else:
         _forms = UserSignInForm(request)
 
@@ -25,6 +29,18 @@ def login(request, template='web/account/login.html'):
         template,
         {
             'forms': _forms,
+        },
+        context_instance = RequestContext(request)
+    )
+
+
+def register(request, template='web/account/register.html'):
+
+
+    return  render_to_response(
+        template,
+        {
+
         },
         context_instance = RequestContext(request)
     )

@@ -16,7 +16,9 @@ urlpatterns = patterns(
 urlpatterns += patterns(
     'apps.web.views.account',
     url(r'^login/$', 'login', name='web_login'),
+    url(r'^register/$', 'register', name='web_register'),
     url(r'^logout', 'logout', name='web_logout'),
+
 )
 
 # static page

@@ -3,6 +3,13 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
+from django.core.urlresolvers import reverse
+
+
+from django.utils.log import getLogger
+log = getLogger('django')
+
+
 
 class UserSignInForm(forms.Form):
 
@@ -47,6 +54,7 @@ class UserSignInForm(forms.Form):
     def clean(self):
         email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password')
+        self.next_url = self.cleaned_data.get('next')
 
         if email and password:
             self.user_cache = authenticate(username=email,
@@ -71,6 +79,12 @@ class UserSignInForm(forms.Form):
         auth_login(self.request, self.user_cache)
         # pass
 
+    def get_next_url(self):
+
+        if self.next_url:
+            return self.next_url
+        return reverse('web_selection')
+
     def get_user_id(self):
         if self.user_cache:
             return self.user_cache.id
@@ -78,5 +92,7 @@ class UserSignInForm(forms.Form):
 
     def get_user(self):
         return self.user_cache
+
+
 
 __author__ = 'edison'
