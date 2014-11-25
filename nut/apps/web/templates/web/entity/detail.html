@@ -29,6 +29,56 @@
                 </ol>
             </div>
         </div>
+
+
+        <div class="row">
+            <div class="col-sm-8 col-md-8" id="detail" itemscope itemtype="http://data-vocabulary.org/Product">
+                <div class="thumbnail entity-detail">
+                    <a>
+                        <img itemprop="image"  src="{{ entity.chief_image }}" alt="{{ entity_context.title }}">
+                    </a>
+
+
+
+                    <div class="caption" style="border:0">
+                        <h4 class="entity-title">{% if entity.brand|length != 0 %}
+                            <span itemprop="brand">{{ entity.brand }}</span> - {% endif %}<span itemprop>{{ entity.title }}</span>
+                        </h4>
+{#                        <div class="col-sm-6">#}
+
+{#                            {% if is_user_already_like %}#}
+{#                                <a class="btn btn-like-detail" href="{% url 'web_like_entity' entity_context.entity_id '1' %}" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ selection.entity_context.title }}']);">#}
+{#                                <i class="fa fa-heart fa-lg"></i>#}
+{#                                &nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity_context.like_count }}</span>#}
+{#                                </a>#}
+{#                            {% else %}#}
+{#                                <a class="btn btn-like-detail" href="{% url 'web_like_entity' entity_context.entity_id '1' %}" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ selection.entity_context.title }}']);">#}
+{#                                <i class="fa fa-heart-o fa-lg"></i>#}
+{#                                &nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity_context.like_count }}</span>#}
+{#                                </a>#}
+{#                            {% endif %}#}
+
+
+{#                        </div>#}
+                        <div class="hidden-sm hidden-md hidden-lg pull-right">
+                            {% if taobao_id %}
+                                <a id="buy-btn-mobile" class="btn btn-primary" href="http://item.taobao.com/item.htm?id={{ taobao_id }}" target="_blank" biz-itemid="{{ taobao_id }}" _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity_context.title }}-taobao'])">
+                                    <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity_context.price }}</span>
+                                </a>
+                            {% else %}
+                                <a id="buy-btn-mobile" class="btn btn-primary" href="http://item.jd.com/{{ jd_id }}.html" target="_blank"  _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity_context.title }}-jd'])">
+                                    <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity_context.price }}</span>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4" itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
+                {% include "web/entity/partial/detail_side.html" %}
+            </div>
+        </div>
     </div>
 {% endblock %}
 
