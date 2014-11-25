@@ -4,10 +4,13 @@
 
 {% block body %}
 <div class="row">
-    <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
+    <div class="col-md-12">
+        <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
+    </div>
 </div>
 
 <div class="row">
+    <div class="col-md-12">
     <form class="form-horizontal" action="" method="post">{% csrf_token %}
         {{ wizard.management_form }}
 
@@ -18,7 +21,7 @@
                 {% for field in wizard.form %}
                     <li>
                         <div class="form-group {% if field.errors %}has-error{% endif %}">
-                            <label class="checkbox-inline">{{ field.label }}</label>
+                            <label>{{ field.label }}</label>
                         {% if field.field.widget|klass == 'RadioSelect' %}
                             <div class="radio">
                                 {{ field }}
@@ -29,9 +32,7 @@
                                     <label class="checkbox-inline">
                                         {{ radio.tag }}
                                         {{ radio.choice_label }}
-{#                                    {{ radio.tag }}#}
                                     </label>
-{#                                    {{ radio }}#}
                                 {% endfor %}
                             </div>
                         {% elif field.field.widget|klass == 'Select' %}
@@ -43,7 +44,6 @@
                                 {{ field }}
 						    </div>
 						{% endif %}
-
                         </div>
                     </li>
                 {% endfor %}
@@ -51,8 +51,9 @@
         </fieldset>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-large">{% trans 'next' %}</button>
+            <button type="submit" class="btn btn-primary btn-lg" style="border:none;border-radius:0px;background-color:#343434;color:#fff;">{% trans 'next' %}</button>
         </div>
     </form>
+    </div>
 </div>
 {% endblock %}
