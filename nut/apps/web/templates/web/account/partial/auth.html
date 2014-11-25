@@ -1,0 +1,20 @@
+{% load i18n %}
+{#<li>#}
+{#    <a href="#"><i class="fa fa-plus fa-lg" style="color:#fff;"></i></a>#}
+{#</li>#}
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 10px;">
+        <img class="img-responsive img-circle" style="display:inline-block;height:30px;width:30px;"src="{{ user.profile.avatar_url }}" width="30" height="30">
+        <i class="fa fa-caret-down" style="padding-left:10px;font-size:20px;vertical-align: middle;color:#999;"></i>
+    </a>
+    <ul class="dropdown-menu" role="menu">
+        {% if user.is_staff %}
+            <li><a href="{% url 'management_dashboard' %}" target="_blank"><i class="fa fa-pencil-square-o fa-lg"></i>&nbsp; 管理</a></li>
+            <li class="divider"></li>
+        {% endif %}
+{#        <li><a href="{% url 'web_user_index' user.pk %}"><i class="fa fa-user fa-lg"></i>&nbsp; {% trans "my guoku" %}</a></li>#}
+{#        <li><a href="{% url 'web_message' %}"><i class="fa fa-volume-up fa-lg"></i>&nbsp; 消息</a></li>#}
+{#        <li><a href="{% url 'web_setting' %}"><i class="fa fa-cog fa-lg"></i>&nbsp; {% trans "settings" %}</a></li>#}
+        <li><a href="{% url 'web_logout' %}"><i class="fa fa-power-off fa-lg"></i>&nbsp; {% trans "sign out" %}</a></li>
+    </ul>
+</li>

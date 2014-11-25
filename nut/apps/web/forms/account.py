@@ -2,9 +2,15 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
-
+from django.contrib.auth import login as auth_login
 
 class UserSignInForm(forms.Form):
+
+    error_messages = {
+        'invalid_login': _('email or password wrong'),
+        'password_error': _('password error'),
+        'no_cookies': _('no cookies'),
+    }
 
     next = forms.CharField(required=False, widget=forms.HiddenInput())
 
@@ -46,13 +52,24 @@ class UserSignInForm(forms.Form):
             self.user_cache = authenticate(username=email,
                                            password=password)
 
+            if self.user_cache is None:
+                raise forms.ValidationError(
+                    self.error_messages['invalid_login']
+                )
+        elif not self.user_cache.is_active:
+            raise
 
 
+    def check_for_test_cookie(self):
+        if self.request and not self.request.session.test_cookie_worked():
+            raise forms.ValidationError(
+                self.error_messages['no_cookies']
+            )
 
 
     def login(self):
-
-        pass
+        auth_login(self.request, self.user_cache)
+        # pass
 
     def get_user_id(self):
         if self.user_cache:
