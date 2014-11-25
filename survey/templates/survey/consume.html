@@ -17,7 +17,7 @@
             <ol>
                 {% for field in wizard.form %}
                     <li>
-                        <label>{{ field.label }}</label>
+                        <label>{{ forloop.counter }}  {{ field.label }}</label>
                         <div class="form-group {% if field.errors %}has-error{% endif %}">
                         {% if field.field.widget|klass == 'RadioSelect' %}
                             <div class="radio">
