@@ -36,6 +36,7 @@ urlpatterns += patterns(
     'apps.web.views.entity',
     url(r'^entity/', include('apps.web.urls.entity')),
     url(r'^category/', include('apps.web.urls.category')),
+    url(r'^account/', include('apps.web.urls.account')),
 )
 
 __author__ = 'edison7500'
