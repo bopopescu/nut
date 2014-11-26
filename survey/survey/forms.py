@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from django import forms
 from django.forms import models
 from survey.models import Question, Category, Survey, Response, AnswerText, AnswerRadio, AnswerSelect, AnswerInteger, AnswerSelectMultiple
@@ -126,12 +128,12 @@ class ResponseWizardFrom(forms.ModelForm):
         model = Response
         fields = ('username', 'email', )
         widgets = {
-            'username': forms.TextInput(attrs={'class':'form-control'}),
-            'email': forms.TextInput(attrs={'class':'form-control'})
+            'username': forms.TextInput(attrs={'class':'form-control', 'placeholder':u'发炎君'}),
+            'email': forms.TextInput(attrs={'class':'form-control', 'placeholder':'hi@guoku.com'})
         }
         help_texts = {
-            'username': 'test',
-            'email': 'test',
+            'username': u'发炎君',
+            'email': u'hi@guoku.com',
         }
 
 

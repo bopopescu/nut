@@ -7,97 +7,97 @@
 {% endblock %}
 
 {% block body %}
+
     <div class="row">
-        <h2>{{survey.name|title}}</h2>
-        <div class="survey-description">
-	        {{survey.description|safe}}
+        <div class="col-md-12">
+            <h2>{{survey.name|title}}</h2>
+            <div class="survey-description">
+    	        {{survey.description|safe}}
+            </div>
         </div>
     </div>
 
     <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
 
     <div class="row">
-        <form class="form-horizontal" action="" method="post">{% csrf_token %}
+        <div class="col-md-12">
+            <form class="form-horizontal" action="" method="post">{% csrf_token %}
 
-            {{ wizard.management_form }}
-            <fieldset>
-            {% if wizard.form.forms %}
+                {{ wizard.management_form }}
+                <fieldset>
+                {% if wizard.form.forms %}
 
-                {{ wizard.form.management_form }}
-                    {% for form in wizard.form.forms %}
-                        <div class="form-group">
-                            {{ form }}
-{#                            <label class="control-label col-sm-2">{{ field.label_tag }}</label>#}
-                        </div>
-                    {% endfor %}
-            {% else %}
-                {% for field in wizard.form %}
-                    {% if field.field.widget.attrs.category != category %}
-                    <div class="form-group {% if field.errors %}has-error{% endif %}">
-{#                        {{ field.errors }}#}
-                         <label class="control-label col-sm-2">{{ field.label_tag }}</label>
-                         <div class="col-sm-5">
-                             {{ field }}
-                         </div>
-                        {% if field.errors %}
-                            {% for error in field.errors %}
-                            <span class="help-block">{{ error }}</span>
-                            {% endfor %}
-                        {% else %}
-                            <span class="help-block">{{ field.help_text }}</span>
-                        {% endif %}
-                    </div>
-                    {% endif %}
-                {% endfor %}
-                <hr />
-                <h3>{{ category }}</h3>
-{#                <hr />#}
-                <ol>
-                {% for field in wizard.form %}
-
-                    {% if field.field.widget.attrs.category == category %}
-
-                    <li>
+                    {{ wizard.form.management_form }}
+                        {% for form in wizard.form.forms %}
+                            <div class="form-group">
+                                {{ form }}
+                            </div>
+                        {% endfor %}
+                {% else %}
+                    {% for field in wizard.form %}
+                        {% if field.field.widget.attrs.category != category %}
                         <div class="form-group {% if field.errors %}has-error{% endif %}">
-                            <label class="checkbox-inline">{{ field.label }}</label>
-                        {% if field.field.widget|klass == 'RadioSelect' %}
-                            <div class="radio">
-                                {{ field }}
-                            </div>
-                        {% elif field.field.widget|klass == 'CheckboxSelectMultiple' %}
-                            <div class="checkbox">
-                                {% for radio in field %}
-                                    <label class="checkbox-inline">
-                                        {{ radio.tag }}
-                                        {{ radio.choice_label }}
-{#                                    {{ radio.tag }}#}
-                                    </label>
-{#                                    {{ radio }}#}
+                             <label class="control-label col-sm-2">{{ field.label_tag }}</label>
+                             <div class="col-sm-5">
+                                 {{ field }}
+                             </div>
+                            {% if field.errors %}
+                                {% for error in field.errors %}
+                                <span class="help-block">{{ error }}</span>
                                 {% endfor %}
-                            </div>
-                        {% elif field.field.widget|klass == 'Select' %}
-                            <div class="col-sm-12">
-                                {{ field }}
-                            </div>
-                        {% else %}
-						    <div>
-                                {{ field }}
-						    </div>
-						{% endif %}
-
+                            {% else %}
+                                <span class="help-block">(如：{{ field.help_text }})</span>
+                            {% endif %}
                         </div>
-                    </li>
-                    {% endif %}
-                {% endfor %}
-                </ol>
-            {% endif %}
-            </fieldset>
+                        {% endif %}
+                    {% endfor %}
+                    <hr />
+                    <h5 style="font-size:24px;font-weight:600;">{{ category }}</h5>
+                    <ol>
+                    {% for field in wizard.form %}
 
-            {% if wizard.steps.prev %}
+                        {% if field.field.widget.attrs.category == category %}
 
-            {% else %}
-                <button type="submit" class="btn btn-primary btn-lg">{% trans 'next' %}</button>
-            {% endif %}
-        </form>
+                        <li>
+                            <div class="form-group {% if field.errors %}has-error{% endif %}">
+                                <label>{{ forloop.counter}}. {{ field.label }}</label>
+                            {% if field.field.widget|klass == 'RadioSelect' %}
+                                <div class="radio">
+                                    {{ field }}
+                                </div>
+                            {% elif field.field.widget|klass == 'CheckboxSelectMultiple' %}
+                                <div class="checkbox">
+                                    {% for radio in field %}
+                                        <label class="checkbox-inline">
+                                            {{ radio.tag }}
+                                            {{ radio.choice_label }}
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                            {% elif field.field.widget|klass == 'Select' %}
+                                <div class="col-sm-12">
+                                    {{ field }}
+                                </div>
+                            {% else %}
+    						    <div>
+                                    {{ field }}
+    						    </div>
+    						{% endif %}
+
+                            </div>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                    </ol>
+                {% endif %}
+                </fieldset>
+
+                {% if wizard.steps.prev %}
+
+                {% else %}
+                    <button type="submit" class="btn btn-primary btn-lg" style="border:none;border-radius:0px;background-color:#343434;color:#fff;">{% trans 'next' %}</button>
+                {% endif %}
+            </form>
+        </div>
     </div>
 {% endblock %}
