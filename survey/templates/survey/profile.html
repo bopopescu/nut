@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load survey_extras i18n %}
+{% load survey_extras i18n static %}
 
 {% block wrapper %}
 {{ wizard.form.media }}
@@ -10,7 +10,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <img class="img-responsive" src="/media/img/header.jpg">
+            <img class="img-responsive" src="{% static '/media/img/header.jpg' %}">
             <h2>{{survey.name|title}}</h2>
             <div class="survey-description">
     	        {{survey.description|safe}}
