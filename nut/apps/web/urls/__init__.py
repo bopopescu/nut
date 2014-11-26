@@ -34,7 +34,8 @@ urlpatterns += patterns(
 # entity
 urlpatterns += patterns(
     'apps.web.views.entity',
-    url(r'^entity', include('apps.web.urls.entity')),
+    url(r'^entity/', include('apps.web.urls.entity')),
+    url(r'^category/', include('apps.web.urls.category')),
 )
 
 __author__ = 'edison7500'

@@ -74,11 +74,10 @@ window.location.href = url;</script><![endif]-->
                         <a href="{{ web_popular_url }}">{% trans 'popular' %}</a>
                     </li>
 
-{#                    {% url 'web_kind' as web_kind_url %}#}
-{#                    {{ web_kind_url  }}#}
-{#                    <li {% if web_kind_url in request.path %}class="active"{% endif %}>#}
-{#                        <a href="{{ web_kind_url }}">品类</a>#}
-{#                    </li>#}
+                    {% url 'web_category_list' as web_category_list_url %}
+                    <li {% if web_category_list_url in request.path %}class="active"{% endif %}>
+                        <a href="{{ web_category_list_url }}">品类</a>
+                    </li>
 
 {#                    {% url 'web_event_home' as web_event_home_url %}#}
 {#                {{ web_event_home_url }}#}
