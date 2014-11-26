@@ -1,7 +1,6 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponse, Http404
-
-from django.views.decorators.http import require_http_methods, require_GET
+from django.views.decorators.http import require_GET
 from django.template import RequestContext
 
 from apps.core.models import Entity
