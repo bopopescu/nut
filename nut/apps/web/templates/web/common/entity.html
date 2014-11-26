@@ -1,0 +1,25 @@
+{% load i18n %}
+{#{% load entity %}#}
+
+<div class="col-xs-6 col-sm-3">
+    <div class="thumbnail">
+        <div class="img-box">
+            <a href="{% url 'web_entity_detail' entity.entity_hash %}">
+                <img class="img-responsive" alt="{{ entity.title }}" src="{{ entity.chief_image }}" width='240' height='240'>
+            </a>
+        </div>
+        <div class="caption">
+
+{#            <a class="btn btn-like" href="{% url 'web_like_entity' entity.id '1' %}" target="_blank">#}
+{#                {% if entity_context.is_user_already_like %}#}
+{#                    <i class="fa fa-heart fa-lg"></i>#}
+{#                {% else %}#}
+{#                    <i class="fa fa-heart-o fa-lg"></i>#}
+{#                {% endif %}#}
+{#                {% trans 'likes' %} <span class="like-count">{{ entity_context.like_count }}</span>#}
+{#            </a>#}
+{#            </div>#}
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,20 @@
+{% extends 'web/base.html' %}
+
+{% block title %}品类 － {{ sub_category.title }}{% endblock %}
+{% block keyword %}{{ sub_category.title }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="category-header">
+                    <p>{{ sub_category.title }}</p>
+                </div>
+            </div>
+            {% for entity in entities %}
+{#                {{ entity }}#}
+                {% include 'web/common/entity.html' with entity=entity %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

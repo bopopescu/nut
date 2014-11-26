@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n static %}
 
 
 {% block body %}
@@ -8,7 +9,7 @@
     	<div>
 	    	
 	    </div>
-	    <h3><img style="width:60px;height:60px;" src="http://static.guoku.com/media/img/icon.png"><span style="margin-left:20px;">2014 年度调查问卷</span></h3>
+	    <h3><img style="width:60px;height:60px;" src="{% static '/media/img/icon.png' %}"><span style="margin-left:20px;">2014 年度调查问卷</span></h3>
 	    <hr>
 	    <div style="text-align:left;">
 	    	<br>
