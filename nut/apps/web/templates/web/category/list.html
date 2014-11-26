@@ -22,7 +22,11 @@
                         {% if sub.status != 0 %}
                         <div class="col-xs-4 col-sm-3 col-md-2">
                             <div class="thumbnail category">
-                                {{ sub }}
+{#                                {{ sub }}#}
+                                <a href="#">
+                                    <img class="img-responsive" alt="{{ sub.title }}" src="{{ sub.icon_large_url }}"  width="40" height="40">
+                                    <p>{{ sub.title }}</p>
+                                </a>
                             </div>
                         </div>
                         {% endif %}
