@@ -6,6 +6,11 @@ from django.template import RequestContext
 from apps.core.models import Category, Sub_Category,  Entity
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 
+
+from django.utils.log import getLogger
+log = getLogger('django')
+
+
 @require_GET
 def list(request, template='web/category/list.html'):
 
@@ -24,7 +29,7 @@ def list(request, template='web/category/list.html'):
 def detail(request, cid, template='web/category/detail.html'):
     _cid = cid
     _page = request.GET.get('page', 1)
-    _entity_list = Entity.objects.filter(status= Entity.selection, category=_cid)
+    _entity_list = Entity.objects.filter(status=Entity.selection, category=_cid)
     _sub_category = Sub_Category.objects.get(pk = _cid)
 
     paginator = ExtentPaginator(_entity_list, 30)
