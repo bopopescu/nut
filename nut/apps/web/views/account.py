@@ -30,7 +30,7 @@ def login(request, template='web/account/login.html'):
         {
             'forms': _forms,
         },
-        context_instance = RequestContext(request)
+        context_instance = RequestContext(request),
     )
 
 
@@ -42,7 +42,7 @@ def register(request, template='web/account/register.html'):
         {
 
         },
-        context_instance = RequestContext(request)
+        context_instance = RequestContext(request),
     )
 
 
@@ -51,5 +51,17 @@ def logout(request):
     request.session.set_expiry(0)
     next_url = request.META.get('HTTP_REFERER', reverse('web_selection'))
     return HttpResponseRedirect(next_url)
+
+
+def forget_password(request, template='web/account/forget_password.html'):
+
+
+    return render_to_response(
+        template,
+        {
+
+        },
+        context_instance = RequestContext(request),
+    )
 
 __author__ = 'edison'
