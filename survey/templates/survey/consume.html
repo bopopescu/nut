@@ -17,8 +17,8 @@
             <ol>
                 {% for field in wizard.form %}
                     <li>
+                        <label>{{ forloop.counter }}  {{ field.label }}</label>
                         <div class="form-group {% if field.errors %}has-error{% endif %}">
-                            <label class="checkbox-inline">{{ field.label }}</label>
                         {% if field.field.widget|klass == 'RadioSelect' %}
                             <div class="radio">
                                 {{ field }}
@@ -29,9 +29,7 @@
                                     <label class="checkbox-inline">
                                         {{ radio.tag }}
                                         {{ radio.choice_label }}
-{#                                    {{ radio.tag }}#}
                                     </label>
-{#                                    {{ radio }}#}
                                 {% endfor %}
                             </div>
                         {% elif field.field.widget|klass == 'Select' %}
@@ -51,7 +49,7 @@
         </fieldset>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-large">{% trans 'next' %}</button>
+            <button type="submit" class="btn btn-primary btn-lg" style="border:none;border-radius:0px;background-color:#343434;color:#fff;">{% trans 'next' %}</button>
         </div>
     </form>
 </div>
