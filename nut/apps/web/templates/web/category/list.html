@@ -1,0 +1,42 @@
+{% extends 'web/base.html' %}
+
+{% block title %}品类{% endblock %}
+{% block keyword %}果库品类,分类检索,生活日常,收纳洗晒,家庭清洁,室内装饰,家具,家电,烹饪厨具,个人养护,外出旅行,文具,图书,食品,餐具水具,品质生活,消费指南{% endblock %}
+{% block description %}果库品类，按照品类细分商品，寻找好物不再盲目。{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-xs-12" >
+                {% for category in categories %}
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h5>{{ category.title }}</h5>
+                        </div>
+                    </div>
+{#                {% endfor %}#}
+
+                <div class="row category-list">
+{#                {% for category in categories %}#}
+                    {% for sub in category.sub_categories.all %}
+                        {% if sub.status != 0 %}
+                        <div class="col-xs-4 col-sm-3 col-md-2">
+                            <div class="thumbnail category">
+                                {{ sub }}
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row hidden-xs">
+            <div class="col-sm-offset-12">
+                <a class="btn-top" href="javascript:;"  title="回到顶部" target="_self"><i class="fa fa-angle-up fa-lg"></i></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
