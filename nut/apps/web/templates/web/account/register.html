@@ -1,0 +1,54 @@
+{% extends 'web/base.html' %}
+{% load i18n staticfiles %}
+
+{% block title %}{% trans "sign up" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-offset-4">
+            <p><strong>注册帐号</strong> | 已有帐号？<a class="btn btn-link" href="{% url 'web_login' %}">请登录</a></p>
+            <p>第{{ wizard.steps.step1 }}步，共{{ wizard.steps.count }}步</p>
+
+        </div>
+        <form class="form-horizontal" role="form" method="post" >
+            {% csrf_token %}
+            {{ wizard.management_form }}
+            <fieldset>
+                {% for field in wizard.form %}
+                    {% if field.name != "agree_tos" %}
+                    <div class="form-group {% if field.errors %}has-error{% endif %}">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            {{ field }}
+                        </div>
+                        {% for error in field.errors %}
+                            <span class="help-block col-sm-2" style="background-color: #ffffcc; border: 1px solid #ccc;">{{ error|escape }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                        <div class="checkbox">
+                            <label class="col-sm-2 col-sm-offset-4">
+                                {{ field }}同意果库
+                            </label>
+
+                            <small class="col-sm-2"><a href="{% url 'web_agreement' %}">使用协议</a></small>
+                            {% if wizard.form.agree_tos.errors %}
+                                <span>
+                                {% for error in wizard.form.agree_tos.errors %}{{ error|escape }}{% endfor %}
+                                </span>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                {% endfor %}
+            </fieldset>
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans 'next' %}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
