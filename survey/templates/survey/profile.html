@@ -15,7 +15,12 @@
             <div class="survey-description">
     	        {{survey.description|safe}}
             </div>
-            <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
+            <p>问卷完成程度 1/4 </p>
+            <div class="progress">
+              <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 25%">
+                <span class="sr-only">80% Complete (danger)</span>
+              </div>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -94,7 +99,7 @@
                 {% if wizard.steps.prev %}
 
                 {% else %}
-                    <button type="submit" class="btn btn-primary btn-lg" style="border:none;border-radius:0px;background-color:#343434;color:#fff;">{% trans 'next' %}</button>
+                    <button type="submit" class="btn btn-primary btn-lg" style="border:none;border-radius:0px;background-color:#343434;color:#fff;">下一步</button>
                 {% endif %}
             </form>
         </div>

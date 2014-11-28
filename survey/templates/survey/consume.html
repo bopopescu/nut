@@ -6,54 +6,61 @@
 <div class="row">
     <div class="col-md-12">
         <img class="img-responsive" src="/media/img/header.jpg">
-        <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
+        <p>问卷完成程度 4/4 </p>
+            <div class="progress">
+              <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                <span class="sr-only">80% Complete (danger)</span>
+              </div>
+            </div>
     </div>
 </div>
 
 <div class="row">
-    <form class="form-horizontal" action="" method="post">{% csrf_token %}
-        {{ wizard.management_form }}
+    <div class="col-md-12">
+        <form class="form-horizontal" action="" method="post">{% csrf_token %}
+            {{ wizard.management_form }}
 
-        <h3>{{ category }}</h3>
+            <h3>{{ category }}</h3>
 
-        <fieldset>
-            <ol>
-                {% for field in wizard.form %}
-                    <li>
-                        <label>{{ forloop.counter }}  {{ field.label }}</label>
-                        <div class="form-group {% if field.errors %}has-error{% endif %}">
-                        {% if field.field.widget|klass == 'RadioSelect' %}
-                            <div class="radio">
-                                {{ field }}
+            <fieldset>
+                <ol>
+                    {% for field in wizard.form %}
+                        <li>
+                            <label>{{ forloop.counter }}. {{ field.label }}</label>
+                            <div class="form-group {% if field.errors %}has-error{% endif %}">
+                            {% if field.field.widget|klass == 'RadioSelect' %}
+                                <div class="radio">
+                                    {{ field }}
+                                </div>
+                            {% elif field.field.widget|klass == 'CheckboxSelectMultiple' %}
+                                <div class="checkbox">
+                                    {% for radio in field %}
+                                        <label class="checkbox-inline">
+                                            {{ radio.tag }}
+                                            {{ radio.choice_label }}
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                            {% elif field.field.widget|klass == 'Select' %}
+                                <div class="col-sm-12">
+                                    {{ field }}
+                                </div>
+                            {% else %}
+        					    <div>
+                                    {{ field }}
+        					    </div>
+        					{% endif %}
+
                             </div>
-                        {% elif field.field.widget|klass == 'CheckboxSelectMultiple' %}
-                            <div class="checkbox">
-                                {% for radio in field %}
-                                    <label class="checkbox-inline">
-                                        {{ radio.tag }}
-                                        {{ radio.choice_label }}
-                                    </label>
-                                {% endfor %}
-                            </div>
-                        {% elif field.field.widget|klass == 'Select' %}
-                            <div class="col-sm-12">
-                                {{ field }}
-                            </div>
-                        {% else %}
-						    <div>
-                                {{ field }}
-						    </div>
-						{% endif %}
+                        </li>
+                    {% endfor %}
+                </ol>
+            </fieldset>
 
-                        </div>
-                    </li>
-                {% endfor %}
-            </ol>
-        </fieldset>
-
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-lg" style="border:none;border-radius:0px;background-color:#343434;color:#fff;">{% trans 'next' %}</button>
-        </div>
-    </form>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg" style="border:none;border-radius:0px;background-color:#343434;color:#fff;">完成</button>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}
