@@ -38,24 +38,24 @@
                             </div>
                         {% endfor %}
                 {% else %}
-                    {% for field in wizard.form %}
-                        {% if field.field.widget.attrs.category != category %}
-                        <div class="form-group {% if field.errors %}has-error{% endif %}">
-                             <label class="control-label col-sm-2">{{ field.label_tag }}</label>
-                             <div class="col-sm-5">
-                                 {{ field }}
-                             </div>
-                            {% if field.errors %}
-                                {% for error in field.errors %}
-                                <span class="help-block">{{ error }}</span>
-                                {% endfor %}
-                            {% else %}
-                                <span class="help-block">(如：{{ field.help_text }})</span>
-                            {% endif %}
-                        </div>
-                        {% endif %}
-                    {% endfor %}
-                    <hr />
+{#                    {% for field in wizard.form %}#}
+{#                        {% if field.field.widget.attrs.category != category %}#}
+{#                        <div class="form-group {% if field.errors %}has-error{% endif %}">#}
+{#                             <label class="control-label col-sm-2">{{ field.label_tag }}</label>#}
+{#                             <div class="col-sm-5">#}
+{#                                 {{ field }}#}
+{#                             </div>#}
+{#                            {% if field.errors %}#}
+{#                                {% for error in field.errors %}#}
+{#                                <span class="help-block">{{ error }}</span>#}
+{#                                {% endfor %}#}
+{#                            {% else %}#}
+{#                                <span class="help-block">(如：{{ field.help_text }})</span>#}
+{#                            {% endif %}#}
+{#                        </div>#}
+{#                        {% endif %}#}
+{#                    {% endfor %}#}
+{#                    <hr />#}
                     <h5 style="font-size:24px;font-weight:600;">{{ category }}</h5>
                     <ol>
                     {% for field in wizard.form %}
