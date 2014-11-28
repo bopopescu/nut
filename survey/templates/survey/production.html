@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-{% load i18n survey_extras %}
+{% load i18n static survey_extras %}
 
 
 {% block body %}
 <div class="row">
     <div class="col-md-12">
-        <img class="img-responsive" src="/media/img/header.jpg">
+        <img class="img-responsive" src="{% static '/media/img/header.jpg' %}">
     </div>
 </div>
 
@@ -13,11 +13,11 @@
     <div class="col-md-12">
         <form class="form-horizontal" action="" method="post">{% csrf_token %}
             {{ wizard.management_form }}
-
             <h3>{{ category }}</h3>
-            <hr>
+            <hr />
             <fieldset>
                     {% for field in wizard.form %}
+                        {% if field.field.widget.attrs.category == category %}
                             <div class="{% if field.errors %}has-error{% endif %}">
                                 <label>{{ field.label }}</label>
                             {% if field.field.widget|klass == 'RadioSelect' %}
@@ -43,7 +43,25 @@
     						    </div>
     						{% endif %}
                             </div>
+                        {% endif %}
                     {% endfor %}
+
+                {% for field in wizard.form %}
+                    {% if field.field.widget.attrs.category != category %}
+                        <div class="form-group {% if field.errors %}has-error{% endif %}">
+                            <label class="control-label col-sm-2">{{ field.label_tag }}</label>
+                            <div class="col-sm-5">
+                                {{ field }}
+                            </div>
+                            {% if field.errors %}
+                                {% for error in field.errors %}<span class="help-block">{{ error }}</span>{% endfor %}
+                            {% else %}
+                                <span class="help-block">(如：{{ field.help_text }})</span>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            <fieldset>
             <div>
                 <button type="submit" class="btn btn-primary btn-lg" style="border:none;border-radius:0px;background-color:#343434;color:#fff;margin-top:40px;">完成</button>
             </div>
