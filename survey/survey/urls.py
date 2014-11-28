@@ -28,10 +28,10 @@ urlpatterns = patterns('',
 
 from survey.views import SurveyWizard
 from survey.forms import ResponseWizardFrom, ResponseWithOutUsernameWizardFrom
-SurveyForms = [ResponseWizardFrom,
+SurveyForms = [ResponseWithOutUsernameWizardFrom,
                ResponseWithOutUsernameWizardFrom,
                ResponseWithOutUsernameWizardFrom,
-               ResponseWithOutUsernameWizardFrom]
+               ResponseWizardFrom]
 
 urlpatterns += patterns(
     'survey.views',
