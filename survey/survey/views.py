@@ -96,13 +96,13 @@ class SurveyWizard(SessionWizardView):
         #     'form_data': [form.cleaned_data for form in form_list],
         # })
         # log.info(form_list)
-        form = form_list[0]
+        form = form_list[3]
         response = form.save()
         # for form in form_list:
         #     response = form.save()
         for index, form in enumerate(form_list):
             # log.info(index)
-            if index == 0:
+            if index == 3:
                 continue
             form.save(response)
                 # response = form.save()
