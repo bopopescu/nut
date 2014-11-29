@@ -32,7 +32,7 @@
                             </div>
                         {% endfor %}
                 {% else %}
-                    <h5 style="font-size:24px;font-weight:600;">{{ category }}</h5>
+                    <h5 style="font-size:24px;font-weight:600;"><span class="label label-default">1/4</span> {{ category }} </h5>
                     <hr>
                     {% for field in wizard.form %}
                         {% if field.field.widget.attrs.category == category %}
