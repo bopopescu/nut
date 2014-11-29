@@ -190,6 +190,7 @@ class ResponseWizardFrom(forms.ModelForm):
             if data:
                 self.fields["question_%d" % q.pk].initial = data.get('question_%d' % q.pk)
 
+
     def save(self, commit=True):
         # save the response object
         response = super(ResponseWizardFrom, self).save(commit=False)
@@ -312,9 +313,9 @@ class ResponseWithOutUsernameWizardFrom(forms.Form):
                 elif q.question_type == Question.INTEGER:
                     a = AnswerInteger(question = q)
                     a.body = field_value
-                print "creating answer to question %d of type %s" % (q_id, a.question.question_type)
-                print a.question.text
-                print 'answer value:'
-                print field_value
+                # print "creating answer to question %d of type %s" % (q_id, a.question.question_type)
+                # print a.question.text
+                # print 'answer value:'
+                # print field_value
                 a.response = response
                 a.save()
