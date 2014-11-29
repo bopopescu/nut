@@ -191,6 +191,17 @@ class ResponseWizardFrom(forms.ModelForm):
                 self.fields["question_%d" % q.pk].initial = data.get('question_%d' % q.pk)
 
 
+    def clean_email(self):
+        _email = self.cleaned_data.get('email')
+        try:
+            Response.objects.get(email = _email)
+            raise forms.ValidationError(
+                u'你使用邮箱已经填写过一次了',
+            )
+        except Response.DoesNotExist:
+            return _email
+
+
     def save(self, commit=True):
         # save the response object
         response = super(ResponseWizardFrom, self).save(commit=False)
