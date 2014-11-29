@@ -6,24 +6,36 @@
     	<div style="display:none;">
 	    	Thanks! Your confirmation code is {{uuid}}. Use this to refer to your response. In case you have any questions, contact {{ email }}
 	    </div>
-	    <h3 style="margin-top:100px;"><span>THANKS</span></h3>
+	    <h1 style="margin-top:100px;"><span>THANKS</span></h1>
 	    <div style="text-align:left;text-indent:2em;">
 	    	<div style="padding-left:30px;">
 		    	<br>
 		    	<p>感谢您对「果库 2014 年度用户调查」的参与和支持！活动结束后，果库将随机抽取 50 位奉上精美礼品一份。</p>
 		    	<p>若你不小心中奖了，我们将通过微博私信或邮件的方式联系到您。</p>
 				<p>点击「分享」按钮，邀请更多小伙伴来参与调查，赢取更多礼品回家！</p>
-				<br>
+			</div>
+				<div style="text-align:center;">
+				    <a href="http://service.weibo.com/share/share.php?url=http://guoku.com/survey/&type=3&count=0&appkey=1459383851&title=果库2014问卷调查&pic=http://static.guoku.com/media/img/icon.png&ralateUid=2179686555"><img style="width:60px;height:60px;margin:20px;" src="{% static '/media/img/weibo.jpg' %}"></a>
+				  	<a href="#" data-toggle="modal" data-target="#wechatShareModal"><img style="width:60px;height:60px;margin:20px;" src="{% static '/media/img/wechat.jpg' %}"></a>
+				  	<!-- Modal -->
+					<div class="modal fade" id="wechatShareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+					        <h4 class="modal-title" id="myModalLabel">扫描二维码分享到微信</h4>
+					      </div>
+					      <div class="modal-body">
+					        <img style="width:100px;height:100px;margin:20px;" src="{% static '/media/img/qrcode.png' %}">
+					      </div>
+					    </div>
+					  </div>
+					</div>
+				</div>
 				<p style="text-align:right;">果库 敬上</p>
 				<p style="text-align:right;">2014年12月</p>
 	    	</div>
 	    </div>
-	    <div>
-	    	<br>
-	    	<br>
-		    <a href="#"><img style="width:60px;height:60px;margin:20px;" src="{% static '/media/img/weibo.jpg' %}"></a>
-		  	<a href="#"><img style="width:60px;height:60px;margin:20px;" src="{% static '/media/img/wechat.jpg' %}"></a>
-		</div>
     </div>
 </div>
 {% endblock %}
