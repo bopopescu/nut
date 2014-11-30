@@ -1,16 +1,33 @@
 {% extends 'base.html' %}
 {% load survey_extras i18n static %}
 {% block body %}
+  <div class="row">
+        <div class="col-md-12">
+            <div style="height: 100px;background: #fffde8;">
+                <div class="row">
+                    <div class="col-sm-9 hidden-xs">
+                        <h3 class="" style="font-size:20px;padding-left: 20px;padding-top:20px;">果库 2014 年度用户调查</h3>
+                    </div>
+                    <div class="col-xs-6 hidden-sm hidden-md hidden-lg">
+                        <h3 class="" style="font-size:20px;padding-left: 20px;padding-top: 5px;">果库 2014 <br>年度用户调查</h3>
+                    </div>
+                    <div class="col-sm-3 col-xs-6" style="text-align:right;">
+                        <img class="" style="height: 100px;" src="{% static '/media/img/header-question.png' %}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <div class="row">
     <div class="col-md-12" style="text-align:center;">
     	<div style="display:none;">
 	    	Thanks! Your confirmation code is {{uuid}}. Use this to refer to your response. In case you have any questions, contact {{ email }}
 	    </div>
-	    <h1 style="margin-top:100px;"><span>THANKS</span></h1>
+	    <h1><span>THANKS</span></h1>
 	    <div style="text-align:left;text-indent:2em;">
 	    	<div style="padding-left:30px;">
 		    	<br>
-		    	<p>感谢您对「果库 2014 年度用户调查」的参与和支持！活动结束后，果库将随机抽取 50 位奉上精美礼品一份。</p>
+		    	<p>感谢您对「果库 2014 年度用户调查」的参与和支持！活动结束后，果库将随机抽取 30 位奉上精美礼品一份。</p>
 		    	<p>若你不小心中奖了，我们将通过微博私信或邮件的方式联系到您。</p>
 				<p>点击「分享」按钮，邀请更多小伙伴来参与调查，赢取更多礼品回家！</p>
 			</div>
@@ -33,7 +50,7 @@
 					</div>
 				</div>
 				<p style="text-align:right;">果库 敬上</p>
-				<p style="text-align:right;">2014年12月</p>
+				<p style="text-align:right;">2014 年 12 月</p>
 	    </div>
     </div>
 </div>
