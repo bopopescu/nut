@@ -28,40 +28,40 @@
             <h3><span class="label label-default">4/4</span> {{ category }} </h3>
             <hr />
             <fieldset>
-                    {% for field in wizard.form %}
-                        {% if field.field.widget.attrs.category == category %}
-                            <div class="{% if field.errors %}has-error{% endif %}">
-                                <label>{{ field.label }}</label>
-                            {% if field.field.widget|klass == 'RadioSelect' %}
-                                <div class="radio">
-                                    {{ field }}
-                                </div>
-                            {% elif field.field.widget|klass == 'CheckboxSelectMultiple' %}
-                                <div class="checkbox">
-                                    {% for radio in field %}
-                                        <label class="checkbox-inline">
-                                            {{ radio.tag }}
-                                            {{ radio.choice_label }}
-                                        </label>
-                                    {% endfor %}
-                                </div>
-                            {% elif field.field.widget|klass == 'Select' %}
-                                <div class="col-sm-12">
-                                    {{ field }}
-                                </div>
-                            {% else %}
-    						    <div>
-                                    {{ field }}
-    						    </div>
-    						{% endif %}
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+{#                    {% for field in wizard.form %}#}
+{#                        {% if field.field.widget.attrs.category == category %}#}
+{#                            <div class="{% if field.errors %}has-error{% endif %}">#}
+{#                                <label>{{ field.label }}</label>#}
+{#                            {% if field.field.widget|klass == 'RadioSelect' %}#}
+{#                                <div class="radio">#}
+{#                                    {{ field }}#}
+{#                                </div>#}
+{#                            {% elif field.field.widget|klass == 'CheckboxSelectMultiple' %}#}
+{#                                <div class="checkbox">#}
+{#                                    {% for radio in field %}#}
+{#                                        <label class="checkbox-inline">#}
+{#                                            {{ radio.tag }}#}
+{#                                            {{ radio.choice_label }}#}
+{#                                        </label>#}
+{#                                    {% endfor %}#}
+{#                                </div>#}
+{#                            {% elif field.field.widget|klass == 'Select' %}#}
+{#                                <div class="col-sm-12">#}
+{#                                    {{ field }}#}
+{#                                </div>#}
+{#                            {% else %}#}
+{#    						    <div>#}
+{#                                    {{ field }}#}
+{#    						    </div>#}
+{#    						{% endif %}#}
+{#                            </div>#}
+{#                        {% endif %}#}
+{#                    {% endfor %}#}
                 <div class="row">
                     <div class="col-xs-12 col-md-8">
                         <div style="margin-top:20px;padding:20px;border: 1px solid #ddd;">
                         {% for field in wizard.form %}
-                            {% if field.field.widget.attrs.category != category %}
+{#                            {% if field.field.widget.attrs.category == category %}#}
                             <div>
                                 <div class="{% if field.errors %}has-error{% endif %}">
                                     <label class="control-label">{{ field.label_tag }}</label>
@@ -75,7 +75,7 @@
                                     {% endif %}
                                 </div>
                             </div>
-                            {% endif %}
+{#                            {% endif %}#}
                         {% endfor %}
                         </div>
                     </div>
