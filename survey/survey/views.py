@@ -66,12 +66,13 @@ class SurveyWizard(SessionWizardView):
 
 
     def get_form_kwargs(self, step=None):
-        self.survey = Survey.objects.get(pk=1)
-        # self.survey = Survey.objects.get(pk=sid)
-        # category_items = Category.objects.filter(survey=self.survey)
-        # step = self.steps.current
-        cid = int(step) + 1
+        self.survey = Survey.objects.get(pk=2)
+        # log.info(self.survey)
+        category_items = Category.objects.filter(survey=self.survey)
+        categories = [c.id for c in category_items]
+        # cid = int(step) + 1
         # categories = [c.name for c in category_items]
+        cid = categories[int(step)]
         return {
             'survey':self.survey,
             'cid': cid,
@@ -79,15 +80,18 @@ class SurveyWizard(SessionWizardView):
 
 
     def get_template_names(self):
-        # log.info(self.steps.current)
+        # log.info("template %s" % self.steps.current)
         step = int(self.steps.current)
+        # log.info("template %s" % SURVEY_TEMPLATES[step])
         return [SURVEY_TEMPLATES[step]]
 
+
     def render(self, form=None, **kwargs):
-        form = form or self.get_form()
+
         category_items = Category.objects.filter(survey=self.survey)
         categories = [c.name for c in category_items]
-        # log.info(form)
+        form = form or self.get_form()
+
         context = self.get_context_data(form=form,  category = categories[int(self.steps.current)], **kwargs)
         return self.render_to_response(context)
 

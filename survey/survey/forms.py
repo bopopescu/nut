@@ -250,7 +250,7 @@ class ResponseWithOutUsernameWizardFrom(forms.Form):
 
 
     def __init__(self, *args, **kwargs):
-        print kwargs
+        # print kwargs
         self.survey = kwargs.pop('survey')
         self.cid = kwargs.pop('cid')
         super(ResponseWithOutUsernameWizardFrom, self).__init__(*args, **kwargs)
