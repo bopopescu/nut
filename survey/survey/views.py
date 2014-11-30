@@ -94,8 +94,12 @@ class SurveyWizard(SessionWizardView):
         category_items = Category.objects.filter(survey=self.survey)
         categories = [c.name for c in category_items]
         form = form or self.get_form()
+        try:
+            category = categories[int(self.steps.current)]
+        except IndexError:
+            category = None
 
-        context = self.get_context_data(form=form,  category = categories[int(self.steps.current)], **kwargs)
+        context = self.get_context_data(form=form,  category = category, **kwargs)
         return self.render_to_response(context)
 
     def done(self, form_list, **kwargs):
