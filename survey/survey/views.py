@@ -72,7 +72,10 @@ class SurveyWizard(SessionWizardView):
         categories = [c.id for c in category_items]
         # cid = int(step) + 1
         # categories = [c.name for c in category_items]
-        cid = categories[int(step)]
+        try:
+            cid = categories[int(step)]
+        except IndexError:
+            cid = 0
         return {
             'survey':self.survey,
             'cid': cid,
