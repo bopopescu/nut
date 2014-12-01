@@ -135,7 +135,7 @@ class ResponseWizardFrom(forms.ModelForm):
             'email': forms.TextInput(attrs={'class':'form-control', 'placeholder':'邮箱'}),
         }
         help_texts = {
-            'username': u'发炎君',
+            'username': u'果库',
             'email': u'hi@guoku.com',
         }
 
