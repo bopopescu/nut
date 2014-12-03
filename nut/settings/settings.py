@@ -130,6 +130,12 @@ REST_FRAMEWORK = {
     'PAGINATE_BY_PARAM': 'size',
 }
 
+# mail
+EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+MAILGUN_ACCESS_KEY = 'key-7n8gut3y8rpk1u-0edgmgaj7vs50gig8'
+MAILGUN_SERVER_NAME = 'post.guoku.com'
+EMAIL_SUBJECT_PREFIX = '[guoku]'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
