@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import PasswordResetForm
 
-from apps.web.forms.account import UserSignInForm
+from apps.web.forms.account import UserSignInForm, UserPasswordResetForm
 
 
 def login(request, template='web/account/login.html'):
@@ -58,12 +58,12 @@ def logout(request):
 def forget_password(request, template='web/account/forget_password.html'):
 
     if request.method == 'POST':
-        _forms = PasswordResetForm(request.POST)
+        _forms = UserPasswordResetForm(request.POST)
         if _forms.is_valid():
             _forms.save(domain_override='guoku.com')
 
     else:
-        _forms = PasswordResetForm()
+        _forms = UserPasswordResetForm()
 
 
     return render_to_response(

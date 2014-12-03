@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-
+    # 'rest_framework.authtoken',
     'apps.core',
     'apps.management',
     'apps.web',
@@ -123,6 +123,9 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
         'rest_framework.permissions.AllowAny',
     ],
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
+    #     'rest_framework.'
+    # ],
     'PAGINATE_BY': 10,
     'PAGINATE_BY_PARAM': 'size',
 }

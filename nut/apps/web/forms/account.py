@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.core.urlresolvers import reverse
 
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.tokens import default_token_generator
 
 from django.utils.log import getLogger
 log = getLogger('django')
@@ -92,6 +94,29 @@ class UserSignInForm(forms.Form):
 
     def get_user(self):
         return self.user_cache
+
+
+
+class UserPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(label=_("Email"),
+                             max_length=254,
+                             widget=forms.TextInput(attrs={'class':'form-control'}),
+                             help_text=_('please register email'))
+
+    def __init__(self, *args, **kwargs):
+        super(UserPasswordResetForm, self).__init__(*args, **kwargs)
+        # UserModel = get_user_model()
+
+    def clean_email(self):
+        _email = self.cleaned_data.get('email')
+        UserModel = get_user_model()
+        try:
+            UserModel._default_manager.get(email=_email)
+        except:
+            raise forms.ValidationError(
+                _('email is not exist')
+            )
+        return _email
 
 
 
