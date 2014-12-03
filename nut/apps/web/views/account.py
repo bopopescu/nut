@@ -60,8 +60,11 @@ def forget_password(request, template='web/account/forget_password.html'):
     if request.method == 'POST':
         _forms = UserPasswordResetForm(request.POST)
         if _forms.is_valid():
-            _forms.save(domain_override='guoku.com')
-
+            _forms.save(domain_override='guoku.com',
+                        subject_template_name='web/mail/forget_password_subject.txt',
+                        email_template_name='web/mail/forget_password.html',
+                        from_email='hi@guoku.com')
+            print "send mail ok"
     else:
         _forms = UserPasswordResetForm()
 
