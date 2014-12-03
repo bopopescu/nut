@@ -14,7 +14,11 @@ urlpatterns = patterns(
             'set_password_form': UserSetPasswordForm,
         },
         name='web_password_reset_confirm'),
-    url(r'^password/reset/complete/$', password_reset_complete, name='web_password_rest_complete')
+    url(r'^password/reset/complete/$', password_reset_complete,
+        {
+            'template_name':'web/account/password_rest_complete.html',
+        },
+        name='web_password_rest_complete')
 )
 
 __author__ = 'edison7500'
