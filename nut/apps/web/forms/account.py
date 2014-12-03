@@ -5,8 +5,8 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.core.urlresolvers import reverse
 
-from django.contrib.auth.forms import PasswordResetForm
-from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
+# from django.contrib.auth.tokens import default_token_generator
 
 from django.utils.log import getLogger
 log = getLogger('django')
@@ -118,6 +118,18 @@ class UserPasswordResetForm(PasswordResetForm):
             )
         return _email
 
+
+class UserSetPasswordForm(SetPasswordForm):
+    new_password1 = forms.CharField(label=_("New password"),
+                                    widget=forms.PasswordInput(attrs={'class':'form-control'}),
+                                    help_text=_('New password'))
+    new_password2 = forms.CharField(label=_("New password confirmation"),
+                                    widget=forms.PasswordInput(attrs={'class':'form-control'}),
+                                    help_text=_('New password confirmation'))
+
+    def __init__(self, user, *args, **kwargs):
+
+        super(UserSetPasswordForm, self).__init__(user, *args, **kwargs)
 
 
 __author__ = 'edison'
