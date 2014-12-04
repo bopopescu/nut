@@ -6,7 +6,7 @@ from django.contrib.auth import login as auth_login
 from django.core.urlresolvers import reverse
 
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
-from apps.core.models import GKUser
+from apps.core.models import GKUser, User_Profile
 # from django.contrib.auth.tokens import default_token_generator
 
 from django.utils.log import getLogger
@@ -100,6 +100,7 @@ class UserSignInForm(forms.Form):
 class UserSignUpForm(forms.Form):
 
     error_messages = {
+        'duplicate_nickname': _("A user with that nickname already exists."),
         'duplicate_email': _("A user with that email already exists."),
         'password_mismatch': _("The two password fields didn't match."),
     }
@@ -135,9 +136,15 @@ class UserSignUpForm(forms.Form):
 
     def clean_nickname(self):
         _nickname = self.cleaned_data.get('nickname')
-
-
-
+        print _nickname
+        try:
+            User_Profile.objects.get(nickname = _nickname)
+        except User_Profile.DoesNotExist:
+            return _nickname
+        raise forms.ValidationError(
+            self.error_messages['duplicate_nickname'],
+            code='duplicate_nickname',
+        )
 
     def clean_email(self):
         _email = self.cleaned_data.get('email')
