@@ -10,7 +10,18 @@
         <div class="row">
             <h2 class="col-sm-offset-4">完成注册</h2>
             <hr />
+        </div>
 
+        <div class="row">
+            <div class="col-sm-offset-5 col-sm-7">
+                <div class="thumbnails" style="margin-bottom: 20px">
+                    <img class="img-responsive img-circle"  src="http://imgcdn.guoku.com/avatar/large_241170_637c2ee4729634de9fc848f9754c263b.png">
+                </div>
+            </div>
+{#            <hr />#}
+        </div>
+
+        <div class="row">
             <form class="form-horizontal" method="post" enctype="multipart/form-data">
             {% csrf_token %}
                 {{ wizard.management_form }}
