@@ -12,13 +12,22 @@ urlpatterns = patterns(
     url(r'^search/$', 'main.search', name='web_search'),
 )
 
+
+from apps.web.views.account import RegisterWizard
+from apps.web.forms.account import UserSignUpForm
+
+RegisterForms = [
+    ('register', UserSignUpForm),
+    ('register-bio', UserSignUpForm),
+]
+
 #account
 urlpatterns += patterns(
     'apps.web.views.account',
     url(r'^login/$', 'login', name='web_login'),
-    url(r'^register/$', 'register', name='web_register'),
+    # url(r'^register/$', 'register', name='web_register'),
     url(r'^logout', 'logout', name='web_logout'),
-
+    url(r'register/$', RegisterWizard.as_view(RegisterForms), name='web_register'),
 )
 
 # static page

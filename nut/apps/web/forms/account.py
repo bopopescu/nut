@@ -111,16 +111,24 @@ class UserSignUpForm(forms.Form):
 
     password = forms.CharField(
         label=_('password'),
-        widget=forms.PasswordInput(attrs={'class':'form-control'}),
+        widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':_('password')}),
         help_text=_('')
     )
     confirm_password = forms.CharField(
         label=_('confirm password'),
-        widget=forms.PasswordInput(attrs={'class':'form-control'}),
+        widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':_('confirm passsword')}),
         help_text=_(''),
     )
 
+    def __init__(self, *args, **kwargs):
+        super(UserSignUpForm, self).__init__(*args, **kwargs)
 
+
+    # def clean_email(self):
+    #     _email = self.cleaned_email.get('email')
+    #     UserModel = get_user_model()
+    #     try:
+    #         UserModel.
 # forget password
 class UserPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(label=_("Email"),

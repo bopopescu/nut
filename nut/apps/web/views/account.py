@@ -19,6 +19,12 @@ class RegisterWizard(SessionWizardView):
     def get_template_names(self):
         return [REGISTER_TEMPLATES[self.steps.current]]
 
+    def render(self, form=None, **kwargs):
+        if self.request.user.is_authenticated():
+            next_url = self.request.META.get('HTTP_REFERER', reverse("web_selection"))
+            return HttpResponseRedirect(next_url)
+        return super(RegisterWizard, self).render(form, **kwargs)
+
     def done(self, form_list, **kwargs):
 
         return HttpResponseRedirect(reverse('selection'))
