@@ -169,6 +169,37 @@ class UserSignUpForm(forms.Form):
         return _confirm_password
 
 
+class UserSignUpBioForm(forms.Form):
+
+    avatar = forms.FileField()
+
+    bio = forms.CharField(
+        label=_('bio'),
+        widget=forms.Textarea(attrs={'class':'form-control'}),
+        help_text=_(''),
+        required=False,
+    )
+    gender = forms.ChoiceField(
+        widget = forms.RadioSelect(),
+        choices=User_Profile.GENDER_CHOICES,
+        label=_('gender'),
+        help_text=_(''),
+        required=False
+    )
+    location = forms.CharField(
+        widget=forms.Select(attrs={"name" : "location", "class" : "form-control location"}),
+        label=_('location'),
+        required=False
+    )
+    city = forms.CharField(
+        widget=forms.Select(attrs={'name' : 'city', 'class' : 'form-control city'}),
+        label=_('city'),
+        required=False
+    )
+
+
+
+
 # forget password
 class UserPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(label=_("Email"),
