@@ -5,24 +5,20 @@
 {% block body %}
 <div class="row">
     <div class="col-md-12">
-        <div style="height: 100px;background: #fffde8;">
+        <div class="header">
             <div class="row">
-                <div class="col-sm-9 hidden-xs">
-                    <h3 class="" style="font-size:20px;padding-left: 20px;padding-top:20px;">果库 2014 年度用户调查</h3>
+                <div class="col-sm-6 col-xs-6">
+                    <h3>果库 2014 <br>年度用户调查</h3>
                 </div>
-                <div class="col-xs-7 hidden-sm hidden-md hidden-lg">
-                    <h3 class="" style="font-size:20px;padding-left: 20px;padding-top: 5px;">果库 2014 <br>年度用户调查</h3>
-                </div>
-                <div class="col-sm-3 col-xs-5" style="text-align:right;">
+                <div class="col-sm-6 col-xs-6" style="text-align:right;">
                     <div style="overflow:hidden;">
-                    <img class="" style="height: 100px;" src="{% static '/media/img/header-question.png' %}">
+                    <img src="{% static '/media/img/header-question.png' %}">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-12">
         <form class="form-horizontal" action="" method="post">{% csrf_token %}
