@@ -158,6 +158,15 @@ class UserSignUpForm(forms.Form):
                code='duplicate_email',
             )
 
+    def clean_confirm_password(self):
+        _password = self.cleaned_data.get('password')
+        _confirm_password = self.cleaned_data.get('confirm_password')
+        if _password and _confirm_password and _password != _confirm_password:
+            raise forms.ValidationError(
+                self.error_messages['password_mismatch'],
+                code='password_mismatch',
+            )
+        return _confirm_password
 
 
 # forget password
