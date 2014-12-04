@@ -23,16 +23,18 @@
 	    	Thanks! Your confirmation code is {{uuid}}. Use this to refer to your response. In case you have any questions, contact {{ email }}
 	    </div>
 	    <h1><span>THANKS</span></h1>
+	    <hr>
 	    <div style="text-align:left;text-indent:2em;">
-	    	<div style="padding-left:30px;">
+	    	<div style="padding:0px 20px;">
 		    	<br>
-		    	<p>感谢您对「果库 2014 年度用户调查」的参与和支持！活动结束后，果库将随机抽取 30 位奉上精美礼品一份。</p>
-		    	<p>若你不小心中奖了，我们将通过微博私信或邮件的方式联系到您。</p>
-				<p>点击「分享」按钮，邀请更多小伙伴来参与调查，赢取更多礼品回家！</p>
+		    	<p>特别感谢您的参与和支持！</p>
+		    	<p>果库将随机抽取 30 位小伙伴奉上精美礼包，于 12 月 21 日截止日后陆续通过微博私信与邮件通知大家。</p>
+				<p>点击「分享」按钮，邀请更多小伙伴参与，赢取更多礼包回家！</p>
 			</div>
 				<div style="text-align:center;">
-				    <a href="http://service.weibo.com/share/share.php?url=http://guoku.com/survey/&type=3&count=0&appkey=1459383851&title=参与果库 2014 年度用户调查，赢取年终礼品回家！&pic=http://static.guoku.com/media/img/weibo_share.jpg&ralateUid=2179686555"><img style="width:60px;height:60px;margin:20px;" src="{% static '/media/img/weibo.jpg' %}"></a>
-				  	<a href="#" data-toggle="modal" data-target="#wechatShareModal"><img style="width:60px;height:60px;margin:20px;" src="{% static '/media/img/wechat.jpg' %}"></a>
+				    <a class="btn btn-default btn-weibo" href="http://service.weibo.com/share/share.php?url=http://guoku.com/survey/&type=3&count=0&appkey=1459383851&title=参与果库 2014 年度用户调查，赢取年终礼品回家！&pic=http://static.guoku.com/media/img/weibo_share.jpg&ralateUid=2179686555" style="margin-right:20px;" target="_blank"><img src="{% static '/media/img/icon_weibo.png' %}"><span>分享到微博</span></a>
+
+				  	<a class="btn btn-default btn-wechat" href="#" data-toggle="modal" data-target="#wechatShareModal" style="margin-left:20px;"><img src="{% static '/media/img/icon_wechat.png' %}"><span>分享到微信</span></a>
 				  	<!-- Modal -->
 					<div class="modal fade" id="wechatShareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					  <div class="modal-dialog">
@@ -48,8 +50,6 @@
 					  </div>
 					</div>
 				</div>
-				<p style="text-align:right;">果库 敬上</p>
-				<p style="text-align:right;">2014 年 12 月</p>
 	    </div>
     </div>
 </div>

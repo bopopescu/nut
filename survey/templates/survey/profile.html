@@ -38,7 +38,10 @@
                             </div>
                         {% endfor %}
                 {% else %}
-                    <h3><span class="label label-default">1/4</span> {{ category }} </h3>
+                    <div class="category">
+                        <span class="label label-default">1/4</span>
+                        <h3> {{ category }} </h3>
+                    </div>
                     <hr>
                     {% for field in wizard.form %}
                         {% if field.field.widget.attrs.category == category %}
@@ -73,7 +76,7 @@
                 </fieldset>
 
                 <div>
-                    <button type="submit" class="btn btn-primary" style=""><span>下一步</span><img src="{% static '/media/img/next.png' %}"></button>
+                    <button type="submit" class="btn btn-primary btn-next" style=""><span>下一步</span><img src="{% static '/media/img/next.png' %}"></button>
                 </div>
             </form>
         </div>
