@@ -8,6 +8,10 @@ from django.core.files.storage import default_storage
 
 from apps.web.forms.account import UserSignInForm, UserPasswordResetForm
 
+from django.utils.log import getLogger
+log = getLogger('django')
+
+
 
 REGISTER_TEMPLATES = {
     'register' : 'web/account/register.html',
@@ -26,8 +30,12 @@ class RegisterWizard(SessionWizardView):
         return super(RegisterWizard, self).render(form, **kwargs)
 
     def done(self, form_list, **kwargs):
+        signup_form = form_list[0]
+        user = signup_form.save()
+        bio_form = form_list[1]
+        # log.info(signup_form)
 
-        return HttpResponseRedirect(reverse('selection'))
+        return HttpResponseRedirect(reverse('web_selection'))
 
 
 def login(request, template='web/account/login.html'):

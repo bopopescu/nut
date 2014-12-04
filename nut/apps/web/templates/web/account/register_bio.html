@@ -15,12 +15,12 @@
         <div class="row">
             <div class="col-sm-offset-5 col-sm-7">
                 <div class="thumbnails" style="margin-bottom: 20px">
-                    <img class="img-responsive img-circle"  src="http://imgcdn.guoku.com/avatar/large_241170_637c2ee4729634de9fc848f9754c263b.png">
+                    <img class="img-responsive img-circle"  src="http://imgcdn.guoku.com/avatar/large_241170_637c2ee4729634de9fc848f9754c263b.png" width="50" height="50">
                 </div>
             </div>
 {#            <hr />#}
         </div>
-
+        {{ forms.errors }}
         <div class="row">
             <form class="form-horizontal" method="post" enctype="multipart/form-data">
             {% csrf_token %}
