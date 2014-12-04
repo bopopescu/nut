@@ -2,10 +2,18 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib.formtools.wizard.views import SessionWizardView
 from django.contrib.auth import logout as auth_logout
 
 
 from apps.web.forms.account import UserSignInForm, UserPasswordResetForm
+
+
+class RegisterWizard(SessionWizardView):
+
+    def done(self, form_list, **kwargs):
+
+        return HttpResponseRedirect(reverse('selection'))
 
 
 def login(request, template='web/account/login.html'):
@@ -36,16 +44,16 @@ def login(request, template='web/account/login.html'):
     )
 
 
-def register(request, template='web/account/register.html'):
-
-
-    return  render_to_response(
-        template,
-        {
-
-        },
-        context_instance = RequestContext(request),
-    )
+# def register(request, template='web/account/register.html'):
+#
+#
+#     return  render_to_response(
+#         template,
+#         {
+#
+#         },
+#         context_instance = RequestContext(request),
+#     )
 
 
 def logout(request):
