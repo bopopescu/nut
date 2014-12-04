@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth import logout as auth_logout
-# from django.contrib.auth.forms import PasswordResetForm
+
 
 from apps.web.forms.account import UserSignInForm, UserPasswordResetForm
 
