@@ -6,6 +6,7 @@ from django.contrib.auth import login as auth_login
 from django.core.urlresolvers import reverse
 
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
+from apps.core.models import GKUser
 # from django.contrib.auth.tokens import default_token_generator
 
 from django.utils.log import getLogger
@@ -97,6 +98,12 @@ class UserSignInForm(forms.Form):
 
 
 class UserSignUpForm(forms.Form):
+
+    error_messages = {
+        'duplicate_email': _("A user with that email already exists."),
+        'password_mismatch': _("The two password fields didn't match."),
+    }
+
     nickname = forms.CharField(
         label=_('nickname'),
         widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'nickname'}),
@@ -111,11 +118,13 @@ class UserSignUpForm(forms.Form):
 
     password = forms.CharField(
         label=_('password'),
+        min_length=8,
         widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':_('password')}),
         help_text=_('')
     )
     confirm_password = forms.CharField(
         label=_('confirm password'),
+        min_length=8,
         widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':_('confirm passsword')}),
         help_text=_(''),
     )
@@ -124,17 +133,23 @@ class UserSignUpForm(forms.Form):
         super(UserSignUpForm, self).__init__(*args, **kwargs)
 
 
+    def clean_nickname(self):
+        _nickname = self.cleaned_data.get('nickname')
+
+
+
+
     def clean_email(self):
         _email = self.cleaned_data.get('email')
-        UserModel = get_user_model()
+        # UserModel = get_user_model()
         try:
-            UserModel._default_manager.get(email=_email)
-        except:
-            raise forms.ValidationError(
-                _('email is already register'),
+            GKUser.objects.get(email=_email)
+        except GKUser.DoesNotExist:
+            return _email
+        raise forms.ValidationError(
+               self.error_messages['duplicate_email'],
+               code='duplicate_email',
             )
-
-        return _email
 
 
 
