@@ -124,11 +124,20 @@ class UserSignUpForm(forms.Form):
         super(UserSignUpForm, self).__init__(*args, **kwargs)
 
 
-    # def clean_email(self):
-    #     _email = self.cleaned_email.get('email')
-    #     UserModel = get_user_model()
-    #     try:
-    #         UserModel.
+    def clean_email(self):
+        _email = self.cleaned_data.get('email')
+        UserModel = get_user_model()
+        try:
+            UserModel._default_manager.get(email=_email)
+        except:
+            raise forms.ValidationError(
+                _('email is already register'),
+            )
+
+        return _email
+
+
+
 # forget password
 class UserPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(label=_("Email"),
