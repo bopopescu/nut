@@ -96,7 +96,32 @@ class UserSignInForm(forms.Form):
         return self.user_cache
 
 
+class UserSignUpForm(forms.Form):
+    nickname = forms.CharField(
+        label=_('nickname'),
+        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'nickname'}),
+        help_text=_(''),
+    )
 
+    email = forms.EmailField(
+        label=_('email'),
+        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'hi@guoku.com'}),
+        help_text=_(''),
+    )
+
+    password = forms.CharField(
+        label=_('password'),
+        widget=forms.PasswordInput(attrs={'class':'form-control'}),
+        help_text=_('')
+    )
+    confirm_password = forms.CharField(
+        label=_('confirm password'),
+        widget=forms.PasswordInput(attrs={'class':'form-control'}),
+        help_text=_(''),
+    )
+
+
+# forget password
 class UserPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(label=_("Email"),
                              max_length=254,
