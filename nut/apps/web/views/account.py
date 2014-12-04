@@ -9,7 +9,15 @@ from django.contrib.auth import logout as auth_logout
 from apps.web.forms.account import UserSignInForm, UserPasswordResetForm
 
 
+REGISTER_TEMPLATES = {
+    'register' : 'web/account/register.html',
+    'register-bio' : 'web/account/register_bio.html',
+}
+
 class RegisterWizard(SessionWizardView):
+
+    def get_template_names(self):
+        return [REGISTER_TEMPLATES[self.steps.current]]
 
     def done(self, form_list, **kwargs):
 
