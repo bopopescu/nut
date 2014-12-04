@@ -162,7 +162,7 @@ msgstr ""
 
 #: apps/core/forms/article.py:30
 msgid "publish"
-msgstr ""
+msgstr "发布"
 
 #: apps/core/forms/banner.py:22
 msgid "none"
