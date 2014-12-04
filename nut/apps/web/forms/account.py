@@ -130,6 +130,8 @@ class UserSignUpForm(forms.Form):
         help_text=_(''),
     )
 
+    agree_tos = forms.BooleanField(widget=forms.CheckboxInput(attrs={'checked' : 'checked'}), initial=True)
+
     def __init__(self, *args, **kwargs):
         super(UserSignUpForm, self).__init__(*args, **kwargs)
 
@@ -168,6 +170,24 @@ class UserSignUpForm(forms.Form):
             )
         return _confirm_password
 
+    def save(self):
+        _nickname = self.cleaned_data.get('nickname')
+        _email = self.cleaned_data.get('email')
+        _confirm_password = self.cleaned_data.get('confirm_password')
+
+        _user = GKUser.objects.create_user(
+            email=_email,
+            password = _confirm_password,
+            is_active=True,
+        )
+
+        User_Profile.objects.create(
+            user = _user,
+            nickname = _nickname,
+
+        )
+        return _user
+
 
 class UserSignUpBioForm(forms.Form):
 
@@ -175,7 +195,7 @@ class UserSignUpBioForm(forms.Form):
 
     bio = forms.CharField(
         label=_('bio'),
-        widget=forms.Textarea(attrs={'class':'form-control'}),
+        widget=forms.Textarea(attrs={'class':'form-control', 'rows':'4', 'style':'resize: none;'}),
         help_text=_(''),
         required=False,
     )
@@ -184,7 +204,8 @@ class UserSignUpBioForm(forms.Form):
         choices=User_Profile.GENDER_CHOICES,
         label=_('gender'),
         help_text=_(''),
-        required=False
+        required=False,
+        initial=User_Profile.Man,
     )
     location = forms.CharField(
         widget=forms.Select(attrs={"name" : "location", "class" : "form-control location"}),
@@ -197,7 +218,13 @@ class UserSignUpBioForm(forms.Form):
         required=False
     )
 
+    def save(self, user):
+        _bio = self.cleaned_data.get('bio')
 
+        self.user = user
+        self.user.profile.bio = _bio
+
+        self.user.profile.save()
 
 
 # forget password
