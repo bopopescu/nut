@@ -14,11 +14,11 @@ urlpatterns = patterns(
 
 
 from apps.web.views.account import RegisterWizard
-from apps.web.forms.account import UserSignUpForm
+from apps.web.forms.account import UserSignUpForm, UserSignUpBioForm
 
 RegisterForms = [
     ('register', UserSignUpForm),
-    ('register-bio', UserSignUpForm),
+    ('register-bio', UserSignUpBioForm),
 ]
 
 #account

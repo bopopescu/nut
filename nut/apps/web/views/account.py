@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.formtools.wizard.views import SessionWizardView
 from django.contrib.auth import logout as auth_logout
-
+from django.core.files.storage import default_storage
 
 from apps.web.forms.account import UserSignInForm, UserPasswordResetForm
 
@@ -15,7 +15,7 @@ REGISTER_TEMPLATES = {
 }
 
 class RegisterWizard(SessionWizardView):
-
+    file_storage = default_storage
     def get_template_names(self):
         return [REGISTER_TEMPLATES[self.steps.current]]
 
