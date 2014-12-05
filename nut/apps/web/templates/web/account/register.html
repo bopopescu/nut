@@ -22,9 +22,13 @@
                         <div class="col-sm-4 col-sm-offset-4">
                             {{ field }}
                         </div>
-                        {% for error in field.errors %}
+                        {% if field.errors %}
+                            {% for error in field.errors %}
                             <span class="help-block col-sm-2" style="background-color: #ffffcc; border: 1px solid #ccc;">{{ error|escape }}</span>
-                        {% endfor %}
+                            {% endfor %}
+                        {% else %}
+                            <span class="help-block">{{ field.help_text }}</span>
+                        {% endif %}
                     </div>
                     {% else %}
                         <div class="checkbox">

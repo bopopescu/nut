@@ -105,29 +105,31 @@ class UserSignUpForm(forms.Form):
         'password_mismatch': _("The two password fields didn't match."),
     }
 
-    nickname = forms.CharField(
+    nickname = forms.RegexField(
         label=_('nickname'),
+        regex=r"^[\w+-]+$",
         widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'nickname'}),
-        help_text=_(''),
+        help_text=_("Required. 30 characters or fewer. Letters, digits and "
+                      "@/./+/-/_ only."),
     )
 
     email = forms.EmailField(
         label=_('email'),
         widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'hi@guoku.com'}),
-        help_text=_(''),
+        help_text=_('Required.'),
     )
 
     password = forms.CharField(
         label=_('password'),
         min_length=8,
         widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':_('password')}),
-        help_text=_('')
+        help_text=_('Required')
     )
     confirm_password = forms.CharField(
         label=_('confirm password'),
         min_length=8,
         widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':_('confirm passsword')}),
-        help_text=_(''),
+        help_text=_("Enter the same password as above, for verification."),
     )
 
     agree_tos = forms.BooleanField(widget=forms.CheckboxInput(attrs={'checked' : 'checked'}), initial=True)
