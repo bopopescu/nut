@@ -105,6 +105,15 @@ msgstr ""
 msgid "selection"
 msgstr "精选"
 
+msgid "popular"
+msgstr "热门"
+
+msgid "sign in"
+msgstr "登录"
+
+msgid "sign up"
+msgstr "注册"
+
 #: apps/core/models.py:225 apps/core/models.py:231
 #: apps/core/forms/entity.py:36
 #: apps/management/templates/management/entities/list.html:13

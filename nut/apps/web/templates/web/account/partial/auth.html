@@ -14,7 +14,7 @@
         {% endif %}
 {#        <li><a href="{% url 'web_user_index' user.pk %}"><i class="fa fa-user fa-lg"></i>&nbsp; {% trans "my guoku" %}</a></li>#}
 {#        <li><a href="{% url 'web_message' %}"><i class="fa fa-volume-up fa-lg"></i>&nbsp; 消息</a></li>#}
-{#        <li><a href="{% url 'web_setting' %}"><i class="fa fa-cog fa-lg"></i>&nbsp; {% trans "settings" %}</a></li>#}
+        <li><a href="{% url 'web_user_settings' %}"><i class="fa fa-cog fa-lg"></i>&nbsp; {% trans "settings" %}</a></li>
         <li><a href="{% url 'web_logout' %}"><i class="fa fa-power-off fa-lg"></i>&nbsp; {% trans "sign out" %}</a></li>
     </ul>
 </li>
