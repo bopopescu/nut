@@ -4,15 +4,20 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.core.urlresolvers import reverse
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from apps.core.models import GKUser, User_Profile
+from apps.core.utils.image import HandleImage
 # from django.contrib.auth.tokens import default_token_generator
 
+
 from django.utils.log import getLogger
+from django.conf import settings
+
 log = getLogger('django')
-
-
+avatar_path = getattr(settings, 'Avatar_Image_Path', 'avatar/')
 
 class UserSignInForm(forms.Form):
 
@@ -163,9 +168,9 @@ class UserSignUpForm(forms.Form):
             )
 
     def clean_confirm_password(self):
-        _password = self.cleaned_data.get('password')
+        self.password = self.cleaned_data.get('password')
         _confirm_password = self.cleaned_data.get('confirm_password')
-        if _password and _confirm_password and _password != _confirm_password:
+        if self.password and _confirm_password and self.password != _confirm_password:
             raise forms.ValidationError(
                 self.error_messages['password_mismatch'],
                 code='password_mismatch',
@@ -190,10 +195,18 @@ class UserSignUpForm(forms.Form):
         )
         return _user
 
+    def login(self, request, user):
+        _user = authenticate(username=user.email, password=self.password)
+        auth_login(request, _user)
+
+
 
 class UserSignUpBioForm(forms.Form):
 
-    avatar = forms.FileField()
+    avatar = forms.FileField(
+        label=_('avatar'),
+        required=False,
+    )
 
     bio = forms.CharField(
         label=_('bio'),
@@ -221,11 +234,29 @@ class UserSignUpBioForm(forms.Form):
     )
 
     def save(self, user):
+        _avatar_file = self.cleaned_data.get('avatar')
         _bio = self.cleaned_data.get('bio')
+        _gender = self.cleaned_data.get('gender')
+        _location = self.cleaned_data.get('location')
+        _city = self.cleaned_data.get('city')
+
+        # log.info(_avatar)
+        if _avatar_file:
+            _image = HandleImage(image_file= _avatar_file)
+            _image.crop_square()
+            file_path = avatar_path + "%s.jpg" % (_image.name)
+            default_storage.save(file_path, ContentFile(_image.resize(180, 180)))
+
+            avatar = avatar_path + "%s.jpg" % _image.name
+        else:
+            avatar = 'avatar/large_241170_637c2ee4729634de9fc848f9754c263b.png'
 
         self.user = user
+        self.user.profile.avatar = avatar
         self.user.profile.bio = _bio
-
+        self.user.profile.gender = _gender
+        self.user.profile.location = _location
+        self.user.profile.city = _city
         self.user.profile.save()
 
 

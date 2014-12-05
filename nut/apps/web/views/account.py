@@ -33,8 +33,12 @@ class RegisterWizard(SessionWizardView):
         signup_form = form_list[0]
         user = signup_form.save()
         bio_form = form_list[1]
+        bio_form.save(user = user)
         # log.info(signup_form)
 
+        # log.info(user.pk)
+
+        signup_form.login(self.request, user)
         return HttpResponseRedirect(reverse('web_selection'))
 
 
