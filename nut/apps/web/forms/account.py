@@ -23,6 +23,7 @@ class UserSignInForm(forms.Form):
 
     error_messages = {
         'invalid_login': _('email or password wrong'),
+        'inactive': _("This account is inactive."),
         'password_error': _('password error'),
         'no_cookies': _('no cookies'),
     }
@@ -72,8 +73,11 @@ class UserSignInForm(forms.Form):
                 raise forms.ValidationError(
                     self.error_messages['invalid_login']
                 )
-        elif not self.user_cache.is_active:
-            raise
+            elif not self.user_cache.is_active:
+                raise forms.ValidationError(
+                    self.error_messages['inactive'],
+                    code='inactive',
+                )
 
 
     def check_for_test_cookie(self):

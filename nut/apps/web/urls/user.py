@@ -3,7 +3,7 @@ from django.conf.urls import url, patterns
 
 urlpatterns = patterns(
     'apps.web.views.user',
-    # url()
+    url(r'settings/$', 'settings', name='web_user_settings'),
 )
 
 
