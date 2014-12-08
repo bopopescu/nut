@@ -69,6 +69,12 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="col-xs-offset-1 col-xs-3 col-sm-offset-3 col-sm-2 control-label" for="{{ profile_form.website.id_for_label }}">{{ profile_form.website.label }}</label>
+                        <div class="col-xs-8 col-sm-4">
+                            {{ profile_form.website }}
+                        </div>
+                    </div>
                 </fieldset>
                 <div class="form-group">
                     <div class="col-xs-offset-4 col-xs-4 col-sm-4 col-sm-offset-5">
@@ -109,7 +115,7 @@
     <script src="{% static 'js/web/jquery.ui.widget.js' %}"></script>
     <script src="{% static 'js/web/jquery.iframe-transport.js' %}"></script>
     <script src="{% static 'js/web/jquery.fileupload.js' %}"></script>
-{#    <script src="{% static 'js/account.js' %}"></script>#}
+    <script src="{% static 'js/web/account.js' %}"></script>
     <script>
 $(function () {
     $('#fileupload').fileupload({
