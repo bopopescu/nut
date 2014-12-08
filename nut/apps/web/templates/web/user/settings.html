@@ -3,10 +3,40 @@
 
 {% block title %}{% trans 'settings' %}{% endblock %}
 
-{% block content %}
-    <div class="container">
-        <div class="row">
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/web/jquery.fileupload.css' %}">
+{% endblock %}
 
+{% block content %}
+    <div class="container" id="settings">
+        <div class="row">
+            <h2 class="col-xs-offset-4 col-sm-offset-4">{% trans 'account settings' %}</h2>
+            <hr />
+        </div>
+
+        <div class="row">
+{#            {{ user.avatar_url }}#}
+            {% include 'web/user/partial/avatar_upload.html' with user_context=user %}
         </div>
     </div>
+{% endblock %}
+
+{% block script %}
+{#    <script src="https://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>#}
+    <script src="{% static 'js/web/jquery.ui.widget.js' %}"></script>
+    <script src="{% static 'js/web/jquery.iframe-transport.js' %}"></script>
+    <script src="{% static 'js/web/jquery.fileupload.js' %}"></script>
+{#    <script src="{% static 'js/account.js' %}"></script>#}
+    <script>
+$(function () {
+    $('#fileupload').fileupload({
+{#        dataType: 'json',#}
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo(document.body);
+            });
+        }
+    });
+});
+</script>
 {% endblock %}
