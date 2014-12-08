@@ -49,9 +49,12 @@ class UserSettingsForm(forms.Form):
 
     def save(self):
         _nickname = self.cleaned_data.get('nickname', None)
+        _location = self.cleaned_data.get('location', None)
+        _city = self.cleaned_data.get('city', None)
 
         self.user_cache.profile.nickname = _nickname
-
+        self.user_cache.profile.location = _location
+        self.user_cache.profile.city = _city
         self.user_cache.profile.save()
 
 __author__ = 'edison'
