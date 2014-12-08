@@ -78,28 +78,28 @@
             </form>
         </div>
 
-        <div class="row">
-            <h3 class="col-xs-offset-4 col-sm-offset-4">更改密码</h3>
-            <hr />
-            <form method="POST" action="" class="form-horizontal">
-                {% csrf_token %}
-                <fieldset>
-                    {% for field in password_form %}
-                        <div class="form-group">
-                            <label class="col-xs-offset-1 col-xs-3 col-sm-offset-3 col-sm-2 control-label" for="{{ field.id_for_label }}" >{{ field.label }}:</label>
-                            <div class="col-xs-8 col-sm-4">
-                                {{ field }}
-                            </div>
-                        </div>
-                    {% endfor %}
-                </fieldset>
-                <div class="form-group">
-                    <div class="col-xs-offset-4 col-xs-4 col-sm-4 col-sm-offset-5">
-                        <button type="submit" class="btn btn-primary">修改密码</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+{#        <div class="row">#}
+{#            <h3 class="col-xs-offset-4 col-sm-offset-4">更改密码</h3>#}
+{#            <hr />#}
+{#            <form method="POST" action="" class="form-horizontal">#}
+{#                {% csrf_token %}#}
+{#                <fieldset>#}
+{#                    {% for field in password_form %}#}
+{#                        <div class="form-group">#}
+{#                            <label class="col-xs-offset-1 col-xs-3 col-sm-offset-3 col-sm-2 control-label" for="{{ field.id_for_label }}" >{{ field.label }}:</label>#}
+{#                            <div class="col-xs-8 col-sm-4">#}
+{#                                {{ field }}#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{#                </fieldset>#}
+{#                <div class="form-group">#}
+{#                    <div class="col-xs-offset-4 col-xs-4 col-sm-4 col-sm-offset-5">#}
+{#                        <button type="submit" class="btn btn-primary">修改密码</button>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </form>#}
+{#        </div>#}
 
     </div>
 {% endblock %}
