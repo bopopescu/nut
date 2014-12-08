@@ -126,7 +126,7 @@ class ResponseWizardFrom(forms.ModelForm):
 
     class Meta:
         model = Response
-        fields = ('username', 'email', )
+        fields = ('username', u'电子邮件', )
         labels = {
             'username': u'微博昵称',
         }
