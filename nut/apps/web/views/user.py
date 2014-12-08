@@ -4,6 +4,9 @@ from django.template import RequestContext
 from django.contrib.auth.forms import PasswordChangeForm
 from apps.web.forms.user import UserSettingsForm
 
+from django.utils.log import getLogger
+
+log = getLogger('django')
 
 
 def settings(request, template="web/user/settings.html"):
@@ -11,17 +14,26 @@ def settings(request, template="web/user/settings.html"):
 
     if request.method == 'POST':
         _profile_form = UserSettingsForm(request.POST, user=_user)
-        _password_form = PasswordChangeForm(request.POST, user=_user)
+        # _password_form = PasswordChangeForm(request.POST, user=_user)
     else:
-        _profile_form = UserSettingsForm(user=_user)
-        _password_form = PasswordChangeForm(user=_user)
+        data = {
+            'nickname': _user.profile.nickname,
+            'email': _user.email,
+            'bio': _user.profile.bio,
+            'location': _user.profile.location,
+            'city': _user.profile.city,
+            'gender': _user.profile.gender,
+        }
+        # log.info(data['city'])
+        _profile_form = UserSettingsForm(user=_user, initial=data)
+        # _password_form = PasswordChangeForm(user=_user)
 
     return render_to_response(
         template,
         {
             'user':_user,
             'profile_form':_profile_form,
-            'password_form':_password_form,
+            # 'password_form':_password_form,
         },
         context_instance = RequestContext(request),
     )
