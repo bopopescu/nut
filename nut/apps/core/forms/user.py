@@ -56,10 +56,11 @@ class UserForm(forms.Form):
     #                              help_text=_(''))
     gender = forms.ChoiceField(label=_('gender'),
                                 choices=User_Profile.GENDER_CHOICES,
-                                widget=forms.Select(attrs={'class':'form-control'}),
-                               help_text=_(''))
+                                # widget=forms.Select(attrs={'class':'form-control'}),
+                                widget=forms.RadioSelect(),
+                                help_text=_(''))
     bio = forms.CharField(label=_('bio'),
-                          widget=forms.Textarea(attrs={'class':'form-control'}),
+                          widget=forms.Textarea(attrs={'class':'form-control','rows':'4', 'style':'resize:none;'}),
                           required=False,
                           help_text=_(''))
     website = forms.URLField(label=_('website'),
