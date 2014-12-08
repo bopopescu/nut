@@ -13,7 +13,9 @@ def settings(request, template="web/user/settings.html"):
     _user = request.user
 
     if request.method == 'POST':
-        _profile_form = UserSettingsForm(request.POST, user=_user)
+        _profile_form = UserSettingsForm(_user, request.POST)
+        if _profile_form.is_valid():
+            _profile_form.save()
         # _password_form = PasswordChangeForm(request.POST, user=_user)
     else:
         data = {
@@ -23,6 +25,7 @@ def settings(request, template="web/user/settings.html"):
             'location': _user.profile.location,
             'city': _user.profile.city,
             'gender': _user.profile.gender,
+            'website': _user.profile.website,
         }
         # log.info(data['city'])
         _profile_form = UserSettingsForm(user=_user, initial=data)
