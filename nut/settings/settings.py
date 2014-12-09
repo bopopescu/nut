@@ -39,6 +39,8 @@ INSTALLED_APPS = (
     'django.contrib.formtools',
     'rest_framework',
     # 'rest_framework.authtoken',
+    'haystack',
+
     'apps.core',
     'apps.management',
     'apps.web',
@@ -152,3 +154,15 @@ IMAGE_SIZE = [128, 310, 640]
 
 Avatar_Image_Path = 'avatar/'
 Avatar_Image_Size = [180, 50]
+
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    }
+}
+HAYSTACK_DEFAULT_OPERATOR = 'OR'
+
+
+# WHOOSH_INDEX = 'indexdir'
