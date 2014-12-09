@@ -119,11 +119,13 @@
     <script>
 $(function () {
     $('#fileupload').fileupload({
-{#        dataType: 'json',#}
+        dataType: 'json',
+        disableImageResize: /Android(?!.*Chrome)|Opera/.test(window.navigator && navigator.userAgent),
+        imageMaxWidth: 800,
+        imageMaxHeight: 800,
+        imageCrop: true, // Force cropped images
         done: function (e, data) {
-            $.each(data.result.files, function (index, file) {
-                $('<p/>').text(file.name).appendTo(document.body);
-            });
+            $('#user-avatar').attr('src', data.result.avatar_url);
         }
     });
 });
