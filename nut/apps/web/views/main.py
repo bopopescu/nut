@@ -47,16 +47,16 @@ def popular(request, template='web/main/popular.html'):
 
     )
 
-def search(request, template="web/main/search.html"):
-
-
-    return render_to_response(
-        template,
-        {
-
-        },
-
-    )
+# def search(request, template="web/main/search.html"):
+#
+#
+#     return render_to_response(
+#         template,
+#         {
+#
+#         },
+#
+#     )
 
 
 def category(request, template="web/main/category.html"):
