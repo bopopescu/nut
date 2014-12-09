@@ -3,8 +3,9 @@ from apps.core.models import Entity
 
 
 class EntityIndex(indexes.SearchIndex, indexes.Indexable):
-    title = indexes.CharField(document=True, use_template=True)
-    
+    text = indexes.CharField(document=True, use_template=True)
+    user = indexes.CharField(model_attr='user')
+    created_time = indexes.DateTimeField(model_attr='created_time')
 
 
     def get_model(self):
