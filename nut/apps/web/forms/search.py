@@ -1,5 +1,9 @@
 from django import forms
 from haystack.forms import SearchForm
+from django.utils.log import getLogger
+
+log = getLogger('django')
+
 
 class EntitySearchForm(SearchForm):
     start_date = forms.DateField(required=False)
@@ -7,7 +11,6 @@ class EntitySearchForm(SearchForm):
 
     def search(self):
         sqs = super(EntitySearchForm, self).search()
-
         if not self.is_valid():
             return self.no_query_found()
 

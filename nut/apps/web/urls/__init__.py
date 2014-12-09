@@ -1,6 +1,6 @@
 from django.conf.urls import url, include, patterns
 from apps.web.views import AboutView, JobsView, Agreement
-from apps.web.views.search import EntitySearchView
+
 
 urlpatterns = patterns(
     'apps.web.views',
@@ -9,7 +9,7 @@ urlpatterns = patterns(
 
     url(r'^selection/$', 'main.selection', name='web_selection'),
     url(r'^popular/$', 'main.popular', name='web_popular'),
-    url(r'^search/$', EntitySearchView(), name='web_search'),
+    url(r'^search/$', 'main.search', name='web_search'),
 )
 
 
