@@ -5,6 +5,8 @@ from django.template import RequestContext
 
 from apps.core.models import Entity
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
+from apps.web.forms.search import EntitySearchForm
+
 
 def index(request):
 
@@ -47,16 +49,18 @@ def popular(request, template='web/main/popular.html'):
 
     )
 
-# def search(request, template="web/main/search.html"):
-#
-#
-#     return render_to_response(
-#         template,
-#         {
-#
-#         },
-#
-#     )
+def search(request, template="web/main/search.html"):
+
+    form = EntitySearchForm(request.GET)
+    results = form.search()
+
+    return render_to_response(
+        template,
+        {
+
+        },
+
+    )
 
 
 def category(request, template="web/main/category.html"):
