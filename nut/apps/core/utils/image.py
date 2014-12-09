@@ -71,9 +71,12 @@ class HandleImage(object):
         # _img.resize(_width, _height)
         # return _img.make_blob()
 
-    def save(self, resize=False):
+    def save(self, resize=False, square=False):
         if resize:
             pass
+
+        if square:
+            self.crop_square()
         # else:
 
         filename =  image_path + self.name + '.jpg'
