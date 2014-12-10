@@ -47,10 +47,10 @@
 {#                        <div class="col-sm-6">#}
 
 {#                            {% if is_user_already_like %}#}
-{#                                <a class="btn btn-like-detail" href="{% url 'web_like_entity' entity_context.entity_id '1' %}" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ selection.entity_context.title }}']);">#}
-{#                                <i class="fa fa-heart fa-lg"></i>#}
-{#                                &nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>#}
-{#                                </a>#}
+                                <a class="btn btn-like-detail" href="javascript:;" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ selection.entity_context.title }}']);">
+                                <i class="fa fa-heart fa-lg"></i>
+                                &nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>
+                                </a>
 {#                            {% else %}#}
 {#                                <a class="btn btn-like-detail" href="{% url 'web_like_entity' entity_context.entity_id '1' %}" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ selection.entity_context.title }}']);">#}
 {#                                <i class="fa fa-heart-o fa-lg"></i>#}
@@ -72,11 +72,37 @@
                             {% endif %}
                         </div>
                     </div>
+
+                    {% if entity.has_top_note %}
+                    <div class="row selection-note">
+                        <div class="media">
+                            <a class="pull-left"  href="#" target="_blank" >
+                                <img class="media-object img-circle" src="{{ entity.top_note.user.profile.avatar_url }}" alt="{{ entity.top_note.user.profile.nickname }}" width="50" height="50">
+                            </a>
+                            <div class="media-body note-content">
+                                <p class="media-heading">
+                                    <a href="#">{{ entity.top_note.user.profile.nickname }}</a>
+                                    &nbsp; {% if entity.top_note.user.profile.bio %}<small class="bio">{{ entity.top_note.user.profile.bio }}</small>{% endif %}
+                                </p>
+                                <div class="note-text">
+                                    <p class="with-tag content" >{{ entity.top_note.note|escape }}</p>
+                                    <p>
+                                        <a href="javascript:;" class="poke{% if selection_note.poke_button_target_status == "0" %} active {% endif %}" data-note="{{ entity.top_note.id }}" data-target-status="{{ selection_note.poke_button_target_status }}"><i class="fa fa-thumbs-o-up fa-lg"></i>&nbsp;
+{#                                        {% if selection_note.note_context.poke_count > 0 %}#}
+{#                                            <span>{{ selection_note.note_context.poke_count }}</span>#}
+{#                                        {% endif %}#}
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
+{#                {% include "web/entity/partial/detail_note.html" %}#}
             </div>
 
             <div class="col-sm-4" itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
-
                 {% include "web/entity/partial/detail_side.html" %}
             </div>
         </div>
