@@ -26,11 +26,23 @@
 * *bootstrap-3.2.0* [相关文档](http://getbootstrap.com/)
 * *jQuery-1.11.1*	[相关文档](http://jquery.com/)
 
+
+### 搜索引擎
+* *whoohe-2.5.6* [相关文档](https://pythonhosted.org/Whoosh/index.html)
+
+
 ### 安装包
 * *django-storage （果库开发）*  [https://github.com/guoku/django-storages.git](https://github.com/guoku/django-storages.git)
 * *MySQL-python*
 * *django-debug-toolbar*
 * *Wand* [相关文档](http://docs.wand-py.org/en/0.3.7/)
+
+### 分词
+* "结巴"中文分词 [相关文档](https://github.com/fxsjy/jieba)
+```
+pip install jieba
+```
+
 
 ### Debug 工具
 * *django-debug-toolbar* [相关文档](http://django-debug-toolbar.readthedocs.org/en/1.2/installation.html#quick-setup)

@@ -126,9 +126,10 @@ class ResponseWizardFrom(forms.ModelForm):
 
     class Meta:
         model = Response
-        fields = ('username', 'email', )
+        fields = ('username', u'email', )
         labels = {
             'username': u'微博昵称',
+            'email': u'电子邮箱',
         }
         widgets = {
             'username': forms.TextInput(attrs={'class':'form-control', 'placeholder':u'果库'}),

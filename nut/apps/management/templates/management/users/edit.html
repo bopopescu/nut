@@ -52,6 +52,16 @@
                             {{ field }}
                         </div>
                      </div>
+                {% elif field.html_name == 'gender' %}
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label" for="{{ field.id_for_label  }}">{{ field.label  }}</label>
+                        <div class="col-xs-8 col-sm-4">
+{#                            {{ profile_form.gender }}#}
+                            {% for radio in field %}
+                            <label class="checkbox-inline">{{ radio.choice_label }} {{ radio.tag }}&nbsp; </label>
+                            {% endfor %}
+                        </div>
+                    </div>
                 {% else %}
 
                 <div class="form-group">

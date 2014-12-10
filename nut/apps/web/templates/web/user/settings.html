@@ -3,10 +3,131 @@
 
 {% block title %}{% trans 'settings' %}{% endblock %}
 
-{% block content %}
-    <div class="container">
-        <div class="row">
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/web/jquery.fileupload.css' %}">
+{% endblock %}
 
+{% block content %}
+    <div class="container" id="settings">
+        <div class="row">
+            <h2 class="col-xs-offset-4 col-sm-offset-4">{% trans 'account settings' %}</h2>
+            <hr />
         </div>
+
+        <div class="row">
+{#            {{ user.avatar_url }}#}
+            {% include 'web/user/partial/avatar_upload.html' with user_context=user %}
+        </div>
+
+
+        <div class="row">
+            <h3 class="col-xs-offset-4 col-sm-offset-4">个人资料</h3>
+            <hr />
+            <form method="post" action="{% url 'web_user_settings' %}" class="form-horizontal">
+                {% csrf_token %}
+                <fieldset>
+                    <div class="form-group">
+                        <label class="col-xs-offset-1 col-xs-3 col-sm-offset-3 col-sm-2 control-label" for="{{ profile_form.nickname.id_for_label }}">{{ profile_form.nickname.label }}</label>
+                        <div class="col-xs-8 col-sm-4">
+                             {{ profile_form.nickname }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-offset-1 col-xs-3 col-sm-offset-3 col-sm-2 control-label" for="{{ profile_form.email.id_for_label }}">{{ profile_form.email.label }}</label>
+                        <div class="col-xs-8 col-sm-4">
+                            {{ profile_form.email }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-offset-1 col-xs-3 col-sm-offset-3 col-sm-2 control-label" for="{{ profile_form.bio.id_for_label }}">{{ profile_form.bio.label }}</label>
+                        <div class="col-xs-8 col-sm-4">
+                            {{ profile_form.bio }}
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="display: none;">
+                        <p id="default_location_value">{{ profile_form.location.value }}</p>
+                        <p id="default_city_value">{{ profile_form.city.value }}</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-offset-1 col-xs-3 col-sm-offset-3 col-sm-2 control-label" for="{{ profile_form.location.id_for_label }}" >{{ profile_form.location.label }}</label>
+                        <div class="col-xs-4 col-sm-2">
+                            {{ profile_form.location }}
+                        </div>
+                        <div class="col-xs-4 col-sm-2">
+                            {{ profile_form.city }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-offset-1 col-xs-3 col-sm-offset-3 col-sm-2 control-label" for="{{ profile_form.gender.id_for_label  }}">{{ profile_form.gender.label  }}</label>
+                        <div class="col-xs-8 col-sm-4">
+{#                            {{ profile_form.gender }}#}
+                            {% for radio in profile_form.gender %}
+                            <label class="checkbox-inline">{{ radio.choice_label }} {{ radio.tag }}&nbsp; </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-offset-1 col-xs-3 col-sm-offset-3 col-sm-2 control-label" for="{{ profile_form.website.id_for_label }}">{{ profile_form.website.label }}</label>
+                        <div class="col-xs-8 col-sm-4">
+                            {{ profile_form.website }}
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    <div class="col-xs-offset-4 col-xs-4 col-sm-4 col-sm-offset-5">
+                        <button type="submit" class="btn btn-primary">{% trans "update profile" %}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+{#        <div class="row">#}
+{#            <h3 class="col-xs-offset-4 col-sm-offset-4">更改密码</h3>#}
+{#            <hr />#}
+{#            <form method="POST" action="" class="form-horizontal">#}
+{#                {% csrf_token %}#}
+{#                <fieldset>#}
+{#                    {% for field in password_form %}#}
+{#                        <div class="form-group">#}
+{#                            <label class="col-xs-offset-1 col-xs-3 col-sm-offset-3 col-sm-2 control-label" for="{{ field.id_for_label }}" >{{ field.label }}:</label>#}
+{#                            <div class="col-xs-8 col-sm-4">#}
+{#                                {{ field }}#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{#                </fieldset>#}
+{#                <div class="form-group">#}
+{#                    <div class="col-xs-offset-4 col-xs-4 col-sm-4 col-sm-offset-5">#}
+{#                        <button type="submit" class="btn btn-primary">修改密码</button>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </form>#}
+{#        </div>#}
+
     </div>
+{% endblock %}
+
+{% block script %}
+{#    <script src="https://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>#}
+    <script src="{% static 'js/web/jquery.ui.widget.js' %}"></script>
+    <script src="{% static 'js/web/jquery.iframe-transport.js' %}"></script>
+    <script src="{% static 'js/web/jquery.fileupload.js' %}"></script>
+    <script src="{% static 'js/web/account.js' %}"></script>
+    <script>
+$(function () {
+    $('#fileupload').fileupload({
+        dataType: 'json',
+        disableImageResize: /Android(?!.*Chrome)|Opera/.test(window.navigator && navigator.userAgent),
+        imageMaxWidth: 800,
+        imageMaxHeight: 800,
+        imageCrop: true, // Force cropped images
+        done: function (e, data) {
+            $('#user-avatar').attr('src', data.result.avatar_url);
+        }
+    });
+});
+</script>
 {% endblock %}
