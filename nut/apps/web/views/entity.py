@@ -1,7 +1,10 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from apps.core.models import Entity
 
+from apps.core.models import Entity
+from django.utils.log import getLogger
+
+log = getLogger('django')
 
 
 def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
@@ -9,6 +12,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
 
     _entity = Entity.objects.get(entity_hash = _entity_hash)
 
+    log.info(_entity.category)
 
     return render_to_response(
         templates,

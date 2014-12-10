@@ -4,11 +4,11 @@
     <div class="panel-body">
         {% if taobao_id %}
             <a class="btn btn-primary btn-buy" href="http://item.taobao.com/item.htm?id={{ taobao_id }}" target="_blank" biz-itemid="{{ taobao_id }}" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity_context.title }}-taobao'])">
-                <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity_context.price }}</span>
+                <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity.price }}</span>
             </a>
         {% else %}
             <a class="btn btn-primary btn-buy" href="http://item.jd.com/{{ jd_id }}.html" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity_context.title }}-jd'])">
-                <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity_context.price }}</span>
+                <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity.price }}</span>
             </a>
         {% endif %}
     </div>
@@ -19,18 +19,18 @@
                 <div class="thumbnail">
                     <div class="img-box">
                         <a href="javascript:;">
-                            <img class="img-responsive" src="{{ entity.chief_image }}">
+                            <img class="img-responsive" src="{{ entity.chief_image }}" width="64" height="64">
                         </a>
                     </div>
                 </div>
             </div>
 
-            {% for img in entity_context.detail_images %}
+            {% for img in entity.detail_images %}
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="thumbnail">
                     <div class="img-box">
                         <a href="javascript:;">
-                            <img class="img-responsive" src="{{ img }}">
+                            <img class="img-responsive" src="{{ img }}" width="64" height="64">
                         </a>
                     </div>
                 </div>
@@ -64,9 +64,9 @@
 
         {% endif %}
 
-        {% if is_staff %}
+        {% if request.user.is_staff %}
             <div class="list-group-item detail-edit">
-                <a href="{% url 'management_edit_entity' entity_context.entity_id %}" target=_blank><i class="fa fa-pencil-square-o fa-lg"></i>&nbsp; 编辑商品</a>
+                <a href="{% url 'management_entity_edit' entity.id %}" target=_blank><i class="fa fa-pencil-square-o fa-lg"></i>&nbsp; 编辑商品</a>
             </div>
         {% endif %}
 
