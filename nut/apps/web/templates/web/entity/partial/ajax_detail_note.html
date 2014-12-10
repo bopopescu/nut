@@ -1,0 +1,50 @@
+{% load common %}
+
+<div class="media common-note-item">
+    <div class="line"></div>
+    <a class="pull-left" href="#" target="_blank" >
+        <img class="media-object img-circle" src="{{ note.user.profile.avatar_url }}" alt="{{ note.user.profile.nickname }}" width='50' height='50'>
+    </a>
+    <div class="media-body note-content">
+        <a href="#">
+            <p class="media-heading">{{ note.user.profile.nickname }}&nbsp; {% if note.user.profile.bio %}<small>{{ note.user.profile.bio }}</small>{% endif %}</p>
+        </a>
+        <div class="note-text">
+            <p class="with-tag content" >{{ note.note|escape }}</p>
+                {% if note.user == request.user %}
+                    <form class="form-horizontal update-note-form" action="#" method="POST" style="display: none;">
+                        <fieldset>
+                            <textarea class="form-control" name="note_text" rows="4" style="resize: none;">{{ note_context.content }}</textarea>
+                        </fieldset>
+                        <div class="control-group" style="margin-bottom:10px;">
+                            <div class="col-sm-offset-9">
+                                <button class="btn btn-default btn-cancel" style="margin-right:10px;" type="button">取消</button>
+                                <button class="btn btn-primary btn-post" type="submit">修改</button>
+                            </div>
+                        </div>
+                    </form>
+                {% endif %}
+
+            <p>
+                <a href="javascript:;" class="poke{%if poke_button_target_status == '0'%} active {% endif %}" data-note="{{ note_context.note_id }}" data-target-status="{{ poke_button_target_status }}"><i class="fa fa-thumbs-o-up fa-lg"></i>&nbsp;
+                    {% if note_context.poke_count > 0 %}
+                        <span>{{ note_context.poke_count }}</span>
+                    {% endif %}
+                </a>
+                    <a href="javascript:;" class="add-comment" data-note="{{ note.pk }}"><i class="fa fa-comment-o fa-lg"></i>&nbsp;
+                    {% if note.comment_count > 0 %}
+                        <span style="color: #ccc">{{ note.comment_count }}</span>
+                    {% endif %}
+                    {% if note.user == request.user %}
+                        <a class="update-note"><i class="fa fa-pencil-square-o fa-lg"></i></a>
+                    {% endif %}
+                    </a>
+
+                    <span  class="pull-right create-time">{{ note.post_time|format_time }}</span>
+                    {% if note.user == request.user %}
+                        <span class="pull-right my-note">你的点评</span>
+                    {% endif %}
+            </p>
+        </div>
+    </div>
+</div>

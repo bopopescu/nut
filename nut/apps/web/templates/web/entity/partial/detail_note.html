@@ -1,10 +1,9 @@
-{#<div class="row">#}
-{#    <div class="media">#}
-{#        <a class="pull-left"  href="{% url 'web_user_likes' selection_note.creator_context.user_id %}" target="_blank" >#}
-{#            <img class="media-object img-circle" src="{{ selection_note.creator_context.avatar_small }}" alt="{{ selection_note.creator_context.nickname }}">#}
-{#        </a>#}
-{#        <div class="media-body note-content">#}
-{##}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
+{#{% load web_common %}#}
+
+{% spaceless %}
+<div class="row common-note-list" itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
+    {% for note in notes.normal %}
+        {% include 'web/entity/partial/ajax_detail_note.html' with note=note  %}
+    {% endfor %}
+</div>
+{% endspaceless %}

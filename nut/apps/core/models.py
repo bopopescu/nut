@@ -10,6 +10,7 @@ from django.conf import settings
 from apps.core.extend.fields.listfield import ListObjectField
 from apps.core.manager.account import GKUserManager
 from apps.core.manager.entity import EntityManager
+from apps.core.manager.note import NoteManager
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -333,6 +334,9 @@ class Note(models.Model):
     post_time = models.DateTimeField(auto_created=True, editable=False, db_index = True)
     updated_time = models.DateTimeField(auto_now_add=True, db_index=True)
     status = models.IntegerField(choices=NOTE_STATUS_CHOICES, default=normal)
+
+    objects = NoteManager()
+
 
     class Meta:
         ordering = ['-post_time']
