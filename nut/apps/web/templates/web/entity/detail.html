@@ -1,5 +1,6 @@
 {% extends 'web/base.html' %}
 {% load i18n staticfiles %}
+{% load common %}
 
 {% block title %}
     {% if entity.brand|length != 0 %}{% block subtitle %}{{ entity.brand }} - {% endblock %}{% endif %}{{ entity.title }}
@@ -92,7 +93,12 @@
 {#                                            <span>{{ selection_note.note_context.poke_count }}</span>#}
 {#                                        {% endif %}#}
                                         </a>
+
+                                        <span class="pull-right create-time">{{ entity.top_note.post_time|format_time }}</span>
+                                        <i class="fa fa-star fa-lg pull-right" style="margin: 5px 5px 0 0;"></i>
                                     </p>
+
+
                                 </div>
                             </div>
                         </div>
