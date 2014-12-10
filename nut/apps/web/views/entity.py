@@ -39,6 +39,7 @@ def entity_note_comment(request, nid, template='web/entity/note/comment_list.htm
     _t = loader.get_template(template)
     _c = RequestContext(request, {
         'comment_list': _comment_list,
+        'note_id': nid,
         # 'note_context': _note_context,
     })
     _data = _t.render(_c)
