@@ -623,7 +623,7 @@
                     comments.slideToggle('fast');
                 } else {
 
-                    var url = '/note/' + $(this).attr('data-note') + '/comment/';
+                    var url = '/detail/note/' + $(this).attr('data-note') + '/comment/';
 //                    console.log(url);
                     $.ajax({
                         url: url,

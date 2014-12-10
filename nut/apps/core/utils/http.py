@@ -3,11 +3,11 @@ from django.http import HttpResponse
 import json
 
 class JSONResponse(HttpResponse):
-    def __init__(self, data, status):
+    def __init__(self, data, status=200, content_type='application/json; charset=utf8'):
         _content = json.dumps(data, indent = 2, ensure_ascii = False)
         super(JSONResponse, self).__init__(
             content = _content,
-            content_type = 'application/json; charset=utf8',
+            content_type = content_type,
             status = status
         )
 

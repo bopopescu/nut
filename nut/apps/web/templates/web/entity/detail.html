@@ -93,10 +93,10 @@
 {#                                            <span>{{ selection_note.note_context.poke_count }}</span>#}
 {#                                        {% endif %}#}
                                         </a>
-                                        <a href="javascript:;" class="add-comment" data-note="{{ selection_note.note_context.note_id }}"><i class="fa fa-comment-o fa-lg"></i>&nbsp;
-{#                                        {% if selection_note.note_context.comment_count > 0 %}#}
-{#                                            <span>{{ selection_note.note_context.comment_count }}</span>#}
-{#                                        {% endif %}#}
+                                        <a href="javascript:;" class="add-comment" data-note="{{ entity.top_note.id }}"><i class="fa fa-comment-o fa-lg"></i>&nbsp;
+                                        {% if entity.note.comment_count > 0 %}
+                                            <span>{{ selection_note.note_context.comment_count }}</span>
+                                        {% endif %}
                                         </a>
                                         {% if entity.top_note.user == request.user %}
                                             <a class="update-note"><i class="fa fa-pencil-square-o fa-lg"></i></a>

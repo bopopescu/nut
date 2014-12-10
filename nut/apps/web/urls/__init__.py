@@ -43,7 +43,7 @@ urlpatterns += patterns(
 # entity
 urlpatterns += patterns(
     'apps.web.views',
-    url(r'^entity/', include('apps.web.urls.entity')),
+    url(r'^detail/', include('apps.web.urls.entity')),
     url(r'^category/', include('apps.web.urls.category')),
     url(r'^account/', include('apps.web.urls.account')),
     url(r'^user/', include('apps.web.urls.user')),
