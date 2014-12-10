@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 from django.utils.log import getLogger
 from django.conf import settings
 
@@ -444,6 +445,157 @@ class Media(models.Model):
     @property
     def file_url(self):
         return "%s%s" % (image_host, self.file_path)
+
+#event
+
+
+# event banner
+class Event(models.Model):
+    title = models.CharField(max_length=30, null=False, default='')
+    tag = models.CharField(max_length=30, null=False, default='')
+    slug = models.CharField(max_length=100, null=False, db_index=True, unique=True)
+    status = models.BooleanField(default=False)
+    created_datetime = models.DateTimeField(auto_now=True, db_index=True)
+
+    class Meta:
+        ordering = ['-created_datetime']
+
+    def __unicode__(self):
+        return self.slug
+
+    @property
+    def has_banner(self):
+        count = self.banner.filter(position__gt = 0).count()
+        if count > 0:
+            return True
+        return False
+
+    @property
+    def banners(self):
+        count = self.banner.count()
+        return count
+
+    @property
+    def has_recommendation(self):
+        count = self.recommendation.filter(position__gt = 0).count()
+        if count > 0 :
+            return True
+        return False
+
+    @property
+    def recommendations(self):
+        count = self.recommendation.count()
+        return count
+
+    @property
+    def tag_url(self):
+        return reverse('web_tag_detail', args=[self.tag])
+
+    @property
+    def slug_url(self):
+        return reverse('web_event', args=[self.slug])
+
+
+class Event_Banner(models.Model):
+    (item, shop) = (0, 1)
+    BANNER_TYPE__CHOICES = [
+        (item, _("item")),
+        (shop, _("shop")),
+    ]
+
+    image = models.CharField(max_length=255, null=False)
+    banner_type = models.IntegerField(choices=BANNER_TYPE__CHOICES, default=item)
+    user_id = models.CharField(max_length=30, null=True)
+    link = models.CharField(max_length=255, null=True)
+    created_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+    updated_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+
+    class Meta:
+        ordering = ['-created_time']
+
+    @property
+    def image_url(self):
+        return "%s%s" % (image_host, self.image)
+
+    @property
+    def position(self):
+        try:
+            return self.show.position
+        except Show_Event_Banner.DoesNotExist:
+            return 0
+
+    @property
+    def has_show_banner(self):
+        try:
+            self.show
+            return True
+        except Show_Event_Banner.DoesNotExist:
+            return False
+
+    @property
+    def event(self):
+        try:
+            return self.show.event
+        except Show_Event_Banner.DoesNotExist, Event.DoesNotExist:
+            return None
+
+
+class Show_Event_Banner(models.Model):
+    banner = models.OneToOneField(Event_Banner, related_name='show')
+    event = models.ForeignKey(Event, related_name='banner', null=True)
+    position = models.IntegerField(default=0)
+    created_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+
+    class Meta:
+        ordering = ['position']
+
+# editor recommendation
+
+class Editor_Recommendation(models.Model):
+    image = models.CharField(max_length=255, null=False)
+    link = models.CharField(max_length=255, null=False)
+    created_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+    updated_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+
+    class Meta:
+        ordering = ['-created_time']
+
+    @property
+    def image_url(self):
+        return "%s%s" % (image_host, self.image)
+
+    @property
+    def position(self):
+        try:
+            return self.show.position
+        except Show_Editor_Recommendation.DoesNotExist:
+            return 0
+
+    @property
+    def has_show_banner(self):
+        try:
+            self.show
+            return True
+        except Show_Editor_Recommendation.DoesNotExist:
+            return False
+
+    @property
+    def event(self):
+        try:
+            return self.show.event
+        except Show_Editor_Recommendation.DoesNotExist, Event.DoesNotExist:
+            return  None
+
+
+class Show_Editor_Recommendation(models.Model):
+    recommendation = models.OneToOneField(Editor_Recommendation, related_name='show', unique=False)
+    event = models.ForeignKey(Event, related_name='recommendation', null=True)
+    position = models.IntegerField(default=0)
+    created_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+
+    class Meta:
+        ordering = ['-position']
+
 
 
 __author__ = 'edison7500'

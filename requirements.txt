@@ -8,3 +8,4 @@ gunicorn==18.0
 sqlparse==0.1.11
 urllib3==1.9
 wsgiref==0.1.2
+Whoosh==2.5.6

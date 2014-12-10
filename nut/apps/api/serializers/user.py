@@ -10,9 +10,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    like_count = serializers.IntegerField(source='like_count', read_only=True)
-    is_verified = serializers.BooleanField(source='is_verified', read_only=True)
-    create_entity_count = serializers.IntegerField(source='create_entity_count', read_only=True)
+    like_count = serializers.IntegerField(read_only=True)
+    is_verified = serializers.BooleanField(read_only=True)
+    create_entity_count = serializers.IntegerField(read_only=True)
     # user_profile = serializers.HyperlinkedModelSerializer(source='UserProfileSerializer')
     profile = UserProfileSerializer()
 
@@ -20,5 +20,17 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = GKUser
         fields = ('url', 'email', 'like_count', 'profile', 'is_verified', 'create_entity_count')
         # depth = 1
+
+
+class AvatarSerializer(serializers.Serializer):
+    avatar = serializers.FileField(required=True)
+
+    def __init__(self, user, *args, **kwargs):
+        self.user_cache = user
+        super(AvatarSerializer, self).__init__(*args, **kwargs)
+
+
+    def save(self, **kwargs):
+        _avarar = self.validated_data.get('avarat')
 
 __author__ = 'edison7500'
