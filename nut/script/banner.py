@@ -1,5 +1,5 @@
 import os, sys
-sys.path.append('/Users/edison/PycharmProjects/nut/nut')
+sys.path.append('~/PycharmProjects/nut/nut')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
 
 from pymongo import MongoClient
