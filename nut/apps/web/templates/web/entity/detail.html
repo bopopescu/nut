@@ -93,19 +93,25 @@
 {#                                            <span>{{ selection_note.note_context.poke_count }}</span>#}
 {#                                        {% endif %}#}
                                         </a>
-
+                                        <a href="javascript:;" class="add-comment" data-note="{{ selection_note.note_context.note_id }}"><i class="fa fa-comment-o fa-lg"></i>&nbsp;
+{#                                        {% if selection_note.note_context.comment_count > 0 %}#}
+{#                                            <span>{{ selection_note.note_context.comment_count }}</span>#}
+{#                                        {% endif %}#}
+                                        </a>
+                                        {% if entity.top_note.user == request.user %}
+                                            <a class="update-note"><i class="fa fa-pencil-square-o fa-lg"></i></a>
+                                        {% endif %}
                                         <span class="pull-right create-time">{{ entity.top_note.post_time|format_time }}</span>
                                         <i class="fa fa-star fa-lg pull-right" style="margin: 5px 5px 0 0;"></i>
                                     </p>
-
-
                                 </div>
                             </div>
                         </div>
                     </div>
                     {% endif %}
+
+                    {% include "web/entity/partial/detail_note.html" with notes=entity.notes %}
                 </div>
-{#                {% include "web/entity/partial/detail_note.html" %}#}
             </div>
 
             <div class="col-sm-4" itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
