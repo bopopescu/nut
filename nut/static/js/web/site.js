@@ -522,12 +522,12 @@
 
         commentAction: function(comment) {
             var form = comment.find('form');
-            var commentText = form.find('input');
+            var commentText = form.find('.comment-content');
             var replyToUser = '';
             var replyToComment = '';
-
+//            console.log(commentText);
             comment.find('.btn-cancel').on('click', function() {
-//                console.log(comment);
+
                 comment.slideToggle('fast');
                 commentText.val('');
             });
