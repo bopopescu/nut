@@ -4,6 +4,7 @@ from django.template import loader
 
 from apps.core.utils.http import JSONResponse
 from apps.core.models import Entity, Note, Note_Comment
+from apps.web.forms.comment import CommentForm
 from django.utils.log import getLogger
 
 log = getLogger('django')
@@ -33,6 +34,12 @@ def entity_note_comment(request, nid, template='web/entity/note/comment_list.htm
         _user = request.user
 
 
+    if request.method == "POST":
+
+        return
+    else:
+        _forms = CommentForm()
+
     _comment_list = Note_Comment.objects.filter(note_id= nid)
 
     log.info(_comment_list)
@@ -40,6 +47,7 @@ def entity_note_comment(request, nid, template='web/entity/note/comment_list.htm
     _c = RequestContext(request, {
         'comment_list': _comment_list,
         'note_id': nid,
+        'forms': _forms
         # 'note_context': _note_context,
     })
     _data = _t.render(_c)
