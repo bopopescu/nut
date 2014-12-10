@@ -49,12 +49,12 @@
 {#                            {% if is_user_already_like %}#}
 {#                                <a class="btn btn-like-detail" href="{% url 'web_like_entity' entity_context.entity_id '1' %}" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ selection.entity_context.title }}']);">#}
 {#                                <i class="fa fa-heart fa-lg"></i>#}
-{#                                &nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity_context.like_count }}</span>#}
+{#                                &nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>#}
 {#                                </a>#}
 {#                            {% else %}#}
 {#                                <a class="btn btn-like-detail" href="{% url 'web_like_entity' entity_context.entity_id '1' %}" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ selection.entity_context.title }}']);">#}
 {#                                <i class="fa fa-heart-o fa-lg"></i>#}
-{#                                &nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity_context.like_count }}</span>#}
+{#                                &nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>#}
 {#                                </a>#}
 {#                            {% endif %}#}
 
@@ -63,11 +63,11 @@
                         <div class="hidden-sm hidden-md hidden-lg pull-right">
                             {% if taobao_id %}
                                 <a id="buy-btn-mobile" class="btn btn-primary" href="http://item.taobao.com/item.htm?id={{ taobao_id }}" target="_blank" biz-itemid="{{ taobao_id }}" _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity_context.title }}-taobao'])">
-                                    <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity_context.price }}</span>
+                                    <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity.price }}</span>
                                 </a>
                             {% else %}
                                 <a id="buy-btn-mobile" class="btn btn-primary" href="http://item.jd.com/{{ jd_id }}.html" target="_blank"  _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity_context.title }}-jd'])">
-                                    <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity_context.price }}</span>
+                                    <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity.price }}</span>
                                 </a>
                             {% endif %}
                         </div>
@@ -76,6 +76,7 @@
             </div>
 
             <div class="col-sm-4" itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
+
                 {% include "web/entity/partial/detail_side.html" %}
             </div>
         </div>
