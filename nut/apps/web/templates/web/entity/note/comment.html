@@ -6,9 +6,9 @@
         <div class="media-body">
             <p class="media-heading ">
                 <span class="nickname">{{ comment.user.profile.nickname }}</span>
-                {% if request.user.id == comment_context.creator_id or request.user.id == note_context.creator_id %}
-                    <a href="{% url 'web.views.note.delete_comment' comment_context.note_id comment_context.comment_id %}" class="close" style="margin-right: 40px">&times;</a>
-            {% endif %}
+                {% if request.user == comment.user %}
+                    <a href="javascript:;" class="close" data-comment="{{ comment.id }}" style="margin-right: 40px">&times;</a>
+                {% endif %}
             </p>
             <p class="with-tag comment-content" data-creator="{{ comment.user_id }}" data-comment="{{ comment.id }}" style="color: #999;">
                 {% if comment.reply_to_user_id != None %}回复{{ comment.reply_to_user_nickname }}:{% endif %}{{ comment.content }}

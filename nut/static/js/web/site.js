@@ -577,9 +577,18 @@ $.ajaxSetup({
                 });
 
                 commentItem.find('.close').on('click', function (e) {
-                    $.post(this.href, function (data) {
-                        if (parseInt(data) === 1) {
-                            commentItem.remove();
+                    var comment_id = $(this).attr('data-comment');
+                    var url = '/detail/note/comment/' + comment_id + '/delete/';
+                    console.log(comment_id);
+                    $.ajax({
+                        url:url,
+                        type: 'post',
+                        dataType:'json',
+                        success: function(data){
+                            console.log(data);
+                            if (data.status === 1) {
+                                commentItem.remove();
+                            }
                         }
                     });
 
