@@ -2,6 +2,7 @@ from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template import loader
+from django.contrib.auth.decorators import login_required
 
 from apps.core.utils.http import JSONResponse
 from apps.core.models import Entity,Entity_Like, Note, Note_Comment
@@ -39,7 +40,6 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
         },
         context_instance = RequestContext(request),
     )
-
 
 
 def entity_note_comment(request, nid, template='web/entity/note/comment_list.html'):
@@ -97,6 +97,17 @@ def entity_note_comment(request, nid, template='web/entity/note/comment_list.htm
         },
         content_type='text/html; charset=utf-8',
     )
+
+@login_required
+def entity_like(request):
+
+
+    return
+
+@login_required
+def entity_unlike(request):
+
+    return
 
 
 __author__ = 'edison'
