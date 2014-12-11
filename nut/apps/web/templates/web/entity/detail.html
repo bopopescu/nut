@@ -48,15 +48,14 @@
 {#                        <div class="col-sm-6">#}
 
 {#                            {% if is_user_already_like %}#}
-                                <a class="btn btn-like-detail" href="javascript:;" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ selection.entity_context.title }}']);">
-                                <i class="fa fa-heart fa-lg"></i>
-                                &nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>
-                                </a>
-{#                            {% else %}#}
-{#                                <a class="btn btn-like-detail" href="{% url 'web_like_entity' entity_context.entity_id '1' %}" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ selection.entity_context.title }}']);">#}
-{#                                <i class="fa fa-heart-o fa-lg"></i>#}
+{#                                <a class="btn btn-like-detail" href="javascript:;" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ selection.entity_context.title }}']);">#}
+{#                                <i class="fa fa-heart fa-lg"></i>#}
 {#                                &nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>#}
 {#                                </a>#}
+{#                            {% else %}#}
+                                <a class="btn btn-like-detail" href="javascript:;" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ selection.entity_context.title }}']);">
+                                    <i class="fa fa-heart-o fa-lg"></i>&nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>
+                                </a>
 {#                            {% endif %}#}
 
 
