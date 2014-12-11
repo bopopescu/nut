@@ -116,9 +116,12 @@ def entity_note_comment_delete(request, comment_id):
 def entity_like(request, eid):
     if request.is_ajax():
         _user = request.user
+        Entity_Like.objects.create(
+            user = _user,
+            entity_id = eid,
+        )
 
-
-        # return JSONResponse()
+        return JSONResponse(data={'status':1})
 
     return HttpResponseNotAllowed
 
@@ -126,6 +129,12 @@ def entity_like(request, eid):
 def entity_unlike(request, eid):
     if request.is_ajax():
         _user = request.user
+        try:
+            el = Entity_Like.objects.get(entity_id = eid, user = _user)
+            el.delete()
+            return JSONResponse(data={'status':1})
+        except Entity_Like.DoesNotExist:
+            raise Http404
         # return JSONResponse()
 
     return HttpResponseNotAllowed
