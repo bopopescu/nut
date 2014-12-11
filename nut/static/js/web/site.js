@@ -606,9 +606,9 @@ $.ajaxSetup({
                 if (text.length > 0) {
                     var url = form[0].action;
                     var data = {
-                        comment_text: text,
-                        reply_to_user_id: replyToUser,
-                        reply_to_comment_id: replyToComment
+                        'content': text,
+                        'reply_to_user_id': replyToUser,
+                        'reply_to_comment_id': replyToComment
                     };
 
                     $.ajax({
