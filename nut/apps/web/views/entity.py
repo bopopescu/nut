@@ -43,9 +43,24 @@ def entity_note_comment(request, nid, template='web/entity/note/comment_list.htm
         _forms = CommentForm(note=note, user=_user,  data=request.POST)
         if _forms.is_valid():
             # log.info("ok ok ok ok")
-            _forms.save()
-            return
-        log.info(_forms.errors)
+
+            comment = _forms.save()
+            template = 'web/entity/note/comment.html'
+
+            _t = loader.get_template(template)
+            _c = RequestContext(request, {
+                'comment': comment,
+            })
+
+            _data = _t.render(_c)
+
+            return JSONResponse(
+                data={
+                    'data': _data,
+                },
+                content_type='text/html; charset=utf-8',
+            )
+         # log.info(_forms.errors)
         # return
     else:
         _forms = CommentForm()
