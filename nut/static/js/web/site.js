@@ -75,20 +75,24 @@ $.ajaxSetup({
             object.find('.btn-like, .btn-like-detail').on('click', function (e) {
                 var like = $(this);
                 var counter = like.find('.like-count');
-                var url = $(this).attr("href");
+                var entity_id = $(this).attr("data-entity");
                 var heart = like.find("i");
-                var status = 0;
+//                var status = 0;
+                var url ;
                 if (heart.hasClass("fa-heart-o")) {
-                    status = 1;
+                    url = "/detail/" + entity_id + '/like/';
+                } else {
+                    url = "/detail/" + entity_id + '/unlike/';
                 }
-                url = url.replace(/\/[01]\//,"/"+status+"/");
+//                url = url.replace(/\/[01]\//,"/"+status+"/");
 //                console.log(url);
                 $.ajax({
                     url: url,
                     type: 'POST',
+                    jsonType:'json',
                     success: function(data) {
                         var count = parseInt(counter.text());
-                        var result = parseInt(data);
+                        var result = parseInt(data.status);
                         if (result === 1) {
                             counter.text(" "+(count + 1));
                             heart.removeClass('fa-heart-o');
@@ -579,13 +583,13 @@ $.ajaxSetup({
                 commentItem.find('.close').on('click', function (e) {
                     var comment_id = $(this).attr('data-comment');
                     var url = '/detail/note/comment/' + comment_id + '/delete/';
-                    console.log(comment_id);
+//                    console.log(comment_id);
                     $.ajax({
                         url:url,
                         type: 'post',
                         dataType:'json',
                         success: function(data){
-                            console.log(data);
+//                            console.log(data);
                             if (data.status === 1) {
                                 commentItem.remove();
                             }
