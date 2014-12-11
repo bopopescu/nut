@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseNotAllowed
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template import loader
@@ -98,16 +98,37 @@ def entity_note_comment(request, nid, template='web/entity/note/comment_list.htm
         content_type='text/html; charset=utf-8',
     )
 
-@login_required
-def entity_like(request):
-
-
-    return
 
 @login_required
-def entity_unlike(request):
+def entity_note_comment_delete(request, comment_id):
+    if request.is_ajax():
+        _user = request.user
+        try:
+            comment = Note_Comment.objects.get(user=_user, pk = comment_id)
+            comment.delete()
+            return JSONResponse(data={'status':1})
+        except:
+            raise Http404
 
-    return
+    return HttpResponseNotAllowed
+
+@login_required
+def entity_like(request, eid):
+    if request.is_ajax():
+        _user = request.user
+
+
+        # return JSONResponse()
+
+    return HttpResponseNotAllowed
+
+@login_required
+def entity_unlike(request, eid):
+    if request.is_ajax():
+        _user = request.user
+        # return JSONResponse()
+
+    return HttpResponseNotAllowed
 
 
 __author__ = 'edison'
