@@ -2,7 +2,7 @@
 <div class="note-comment-list" style="display: none; border: 1px solid #eee;padding: 10px;">
 {% spaceless %}
 {% for comment in comment_list %}
-{#    {% include 'web/entity/note/comment.html' with creator_context=comment.creator_context comment_context=comment.comment_context %}#}
+    {% include 'web/entity/note/comment.html'  %}
 {% endfor %}
 {% endspaceless %}
 
