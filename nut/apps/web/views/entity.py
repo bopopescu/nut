@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template import loader
@@ -35,8 +36,17 @@ def entity_note_comment(request, nid, template='web/entity/note/comment_list.htm
 
 
     if request.method == "POST":
-
-        return
+        try:
+            note = Note.objects.get(pk = nid)
+        except Note.DoesNotExist:
+            raise Http404
+        _forms = CommentForm(note=note, user=_user,  data=request.POST)
+        if _forms.is_valid():
+            # log.info("ok ok ok ok")
+            _forms.save()
+            return
+        log.info(_forms.errors)
+        # return
     else:
         _forms = CommentForm()
 
