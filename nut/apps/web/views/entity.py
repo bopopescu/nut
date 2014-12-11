@@ -132,7 +132,7 @@ def entity_unlike(request, eid):
         try:
             el = Entity_Like.objects.get(entity_id = eid, user = _user)
             el.delete()
-            return JSONResponse(data={'status':1})
+            return JSONResponse(data={'status':0})
         except Entity_Like.DoesNotExist:
             raise Http404
         # return JSONResponse()
