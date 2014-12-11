@@ -1,17 +1,17 @@
 
     <div class="media">
-        <a class="pull-left" href="{% url 'web.views.user.user_index' creator_context.user_id %}">
-            <img class="media-object  img-circle" src="{{ creator_context.avatar_small }}">
+        <a class="pull-left" href="#">
+            <img class="media-object  img-circle" src="{{ comment.user.profile.avatar_url }}" width="50" height="50">
         </a>
         <div class="media-body">
             <p class="media-heading ">
-                <span class="nickname">{{ creator_context.nickname }}</span>
+                <span class="nickname">{{ comment.user.profile.nickname }}</span>
                 {% if request.user.id == comment_context.creator_id or request.user.id == note_context.creator_id %}
                     <a href="{% url 'web.views.note.delete_comment' comment_context.note_id comment_context.comment_id %}" class="close" style="margin-right: 40px">&times;</a>
             {% endif %}
             </p>
-            <p class="with-tag comment-content" data-creator="{{ creator_context.user_id }}" data-comment="{{ comment_context.comment_id }}" style="color: #999;">
-                {% if comment_context.reply_to_user_id != None %}回复{{ comment_context.reply_to_user_nickname }}:{% endif %}{{ comment_context.content }}
+            <p class="with-tag comment-content" data-creator="{{ comment.user_id }}" data-comment="{{ comment.id }}" style="color: #999;">
+                {% if comment.reply_to_user_id != None %}回复{{ comment.reply_to_user_nickname }}:{% endif %}{{ comment.content }}
                 <a  href="javascript:;" class="reply pull-right" style="margin-right: 40px">回复</a>
             </p>
         </div>
