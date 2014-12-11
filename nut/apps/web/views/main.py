@@ -3,10 +3,12 @@ from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.views.decorators.http import require_GET
 from django.template import RequestContext
 
-from apps.core.models import Entity
+from apps.core.models import Entity, Entity_Like
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.web.forms.search import EntitySearchForm
+from django.utils.log import getLogger
 
+log = getLogger('django')
 
 def index(request):
 
@@ -28,11 +30,17 @@ def selection(request, template='web/main/selection.html'):
     except EmptyPage:
         raise  Http404
 
+    e = entities.object_list
+    log.info(e)
+    el = Entity_Like.objects.filter(entity__in=list(e), user=request.user).values_list('entity_id', flat=True)
+
+    log.info(el)
 
     return render_to_response(
         template,
         {
             'entities': entities,
+            'user_entity_likes': el,
         },
         context_instance = RequestContext(request),
     )

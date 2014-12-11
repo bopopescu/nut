@@ -15,13 +15,13 @@
                             <p class="note">{{ entity.top_note|truncatechars:70 }}</p>
                         </div>
                         <div style="white-space:nowrap;overflow:hidden;">
-{#                            {% if selection.is_user_already_like %}#}
-{#                                <a class="btn btn-like pull-left" href="javascript:;" target="_blank" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ selection.entity_context.title }}']);">#}
-{#                                <i class="fa fa-heart fa-lg"></i>#}
-{#                            {% else %}#}
-                                <a class="btn btn-like pull-left" href="javascript:;" target="_blank" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ selection.entity_context.title }}']);">
+                            {% if entity.id in user_entity_likes %}
+                                <a class="btn btn-like pull-left" href="javascript:;" data-entity="{{ entity.id }}" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
+                                <i class="fa fa-heart fa-lg"></i>
+                            {% else %}
+                                <a class="btn btn-like pull-left" href="javascript:;" data-entity="{{ entity.id }}" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
                                 <i class="fa fa-heart-o fa-lg"></i>
-{#                            {% endif %}#}
+                            {% endif %}
                                     {% trans 'likes' %} <span class="like-count">{{ entity.like_count }}</span>
                                 </a>
                                 <a class="btn btn-user pull-right" href="#">
