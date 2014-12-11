@@ -55,6 +55,10 @@ class Question(models.Model):
     choices = models.TextField(blank=True, null=True,
         help_text='if the question type is "radio," "select," or "select multiple" provide a comma-separated list of options for this question .')
 
+    class Meta:
+        ordering = ['id']
+
+
     def save(self, *args, **kwargs):
         if (self.question_type == Question.RADIO or self.question_type == Question.SELECT
             or self.question_type == Question.SELECT_MULTIPLE):
