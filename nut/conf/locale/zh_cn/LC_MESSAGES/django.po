@@ -21,6 +21,9 @@ msgstr ""
 msgid "guoku"
 msgstr "果库"
 
+msgid "likes"
+msgstr "喜欢"
+
 #: apps/core/models.py:33
 #: apps/management/templates/management/users/list.html:9
 msgid "editor"
@@ -141,11 +144,11 @@ msgstr ""
 #: apps/core/forms/account.py:8 apps/core/forms/user.py:33
 #: apps/management/templates/management/users/list.html:22
 msgid "email"
-msgstr ""
+msgstr "邮件"
 
 #: apps/core/forms/account.py:12
 msgid "password"
-msgstr ""
+msgstr "密码"
 
 #: apps/core/forms/article.py:13 apps/core/forms/user.py:23
 msgid "no"
@@ -276,7 +279,7 @@ msgstr ""
 #: apps/core/forms/user.py:36
 #: apps/management/templates/management/users/list.html:23
 msgid "nickname"
-msgstr ""
+msgstr "昵称"
 
 #: apps/core/forms/user.py:40
 msgid "user group"
@@ -298,7 +301,7 @@ msgstr "简介"
 
 #: apps/core/forms/user.py:65
 msgid "website"
-msgstr ""
+msgstr "网址"
 
 #: apps/core/forms/user.py:115
 msgid "New password"

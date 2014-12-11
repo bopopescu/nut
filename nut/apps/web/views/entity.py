@@ -4,17 +4,30 @@ from django.template import RequestContext
 from django.template import loader
 
 from apps.core.utils.http import JSONResponse
-from apps.core.models import Entity, Note, Note_Comment
+from apps.core.models import Entity,Entity_Like, Note, Note_Comment
 from apps.web.forms.comment import CommentForm
 from django.utils.log import getLogger
 
 log = getLogger('django')
 
 
+
 def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
     _entity_hash = entity_hash
 
+    _user = None
+    if request.user.is_authenticated():
+        _user = request.user
+    like_status = 0
+
+
     _entity = Entity.objects.get(entity_hash = _entity_hash)
+
+    try:
+        _entity.likes.get(user = _user)
+        like_status = 1
+    except Entity_Like.DoesNotExist:
+        pass
 
     log.info(_entity.category)
 
@@ -22,6 +35,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
         templates,
         {
             'entity': _entity,
+            'like_status': like_status,
         },
         context_instance = RequestContext(request),
     )
