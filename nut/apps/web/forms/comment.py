@@ -9,7 +9,7 @@ log = getLogger('django')
 class CommentForm(forms.Form):
     content = forms.CharField(
         label=_('content'),
-        widget=forms.TextInput(attrs={'class':'form-control'}),
+        widget=forms.TextInput(attrs={'class':'form-control comment-content'}),
         help_text=_(''),
     )
 
