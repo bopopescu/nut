@@ -94,8 +94,8 @@
 {#                                        {% endif %}#}
                                         </a>
                                         <a href="javascript:;" class="add-comment" data-note="{{ entity.top_note.id }}"><i class="fa fa-comment-o fa-lg"></i>&nbsp;
-                                        {% if entity.note.comment_count > 0 %}
-                                            <span>{{ selection_note.note_context.comment_count }}</span>
+                                        {% if entity.top_note.comment_count > 0 %}
+                                            <span>{{ entity.top_note.comment_count }}</span>
                                         {% endif %}
                                         </a>
                                         {% if entity.top_note.user == request.user %}

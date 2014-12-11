@@ -619,12 +619,12 @@ $.ajaxSetup({
 //                            console.log(result);
                             try {
                                 result = $.parseJSON(result);
-                                var status = parseInt(result.status);
-                                if (status === 1) {
-                                    var $html = $(result.data);
-                                    reply($html);
-                                    $html.insertBefore(form);
-                                }
+//                                var status = parseInt(result.status);
+//                                if (status === 1) {
+                                var $html = $(result.data);
+                                reply($html);
+                                $html.insertBefore(form);
+//                                }
                                 commentText.val('');
                             } catch (err) {
                                 var html = $(result);
