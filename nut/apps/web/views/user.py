@@ -52,6 +52,7 @@ def upload_avatar(request):
         # log.info(request.FILES)
         _file_obj = request.FILES.get('avatar_img')
         _image = HandleImage(_file_obj)
+        _image.resize(300, 300)
         avatar_file_name  = _image.save(square=True)
         _user.profile.avatar = avatar_file_name
         _user.profile.save()
