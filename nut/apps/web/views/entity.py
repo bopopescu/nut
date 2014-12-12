@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template import loader
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.utils.http import JSONResponse
 from apps.core.models import Entity,Entity_Like, Note, Note_Comment
@@ -112,7 +113,9 @@ def entity_note_comment_delete(request, comment_id):
 
     return HttpResponseNotAllowed
 
+
 @login_required
+@csrf_exempt
 def entity_like(request, eid):
     if request.is_ajax():
         _user = request.user
@@ -125,7 +128,9 @@ def entity_like(request, eid):
 
     return HttpResponseNotAllowed
 
+
 @login_required
+@csrf_exempt
 def entity_unlike(request, eid):
     if request.is_ajax():
         _user = request.user

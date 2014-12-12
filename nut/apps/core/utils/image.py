@@ -43,8 +43,8 @@ class HandleImage(object):
         _height = int(_height)
 
         _img.resize(_width, _height)
-        return _img.make_blob()
-
+        self._image_data =  _img.make_blob()
+        return self.image_data
 
     def crop_square(self):
         _img = WandImage(blob = self._image_data)
