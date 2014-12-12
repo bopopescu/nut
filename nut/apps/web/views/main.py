@@ -30,9 +30,12 @@ def selection(request, template='web/main/selection.html'):
     except EmptyPage:
         raise  Http404
 
-    e = entities.object_list
-    log.info(e)
-    el = Entity_Like.objects.filter(entity__in=list(e), user=request.user).values_list('entity_id', flat=True)
+
+    el = list()
+    if request.user.is_authenticated():
+        e = entities.object_list
+        # log.info(e)
+        el = Entity_Like.objects.filter(entity__in=list(e), user=request.user).values_list('entity_id', flat=True)
 
     log.info(el)
 
