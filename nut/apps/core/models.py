@@ -9,7 +9,7 @@ from django.conf import settings
 # from apps.core.extend.list_field import ListObjectField
 from apps.core.extend.fields.listfield import ListObjectField
 from apps.core.manager.account import GKUserManager
-from apps.core.manager.entity import EntityManager
+from apps.core.manager.entity import EntityManager, EntityLikeManager
 from apps.core.manager.note import NoteManager
 
 log = getLogger('django')
@@ -313,6 +313,8 @@ class Entity_Like(models.Model):
     entity = models.ForeignKey(Entity, related_name='likes')
     user = models.ForeignKey(GKUser, related_name='likes')
     created_time = models.DateTimeField(auto_now_add = True, db_index=True)
+
+    objects = EntityLikeManager()
 
     class Meta:
         ordering = ['-created_time']
