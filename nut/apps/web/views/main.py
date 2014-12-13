@@ -82,16 +82,16 @@ def search(request, template="web/main/search.html"):
         {
 
         },
-
+        context_instance = RequestContext(request),
     )
 
 
-def category(request, template="web/main/category.html"):
-
-    return render_to_response(
-        template,
-
-    )
+# def category(request, template="web/main/category.html"):
+#
+#     return render_to_response(
+#         template,
+#
+#     )
 
 
 

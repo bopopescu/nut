@@ -110,11 +110,35 @@
 
                     {% include "web/entity/partial/detail_note.html" with notes=entity.notes %}
                 </div>
+                {% if request.user.is_authenticated  %}
+                    {% if not user_post_note %}
+                    <div class="row" style="background-color: #fbfbfb; margin: 0;">
+                        <div class="media" style="padding: 15px">
+                            <div class="pull-left">
+                                <img class="media-object img-circle" src="{{ user.profile.avatar_url }}" alt="{{ user.profile.nickname }}" width="50" height="">
+                            </div>
+                            <div class="media-body post-note">
+                                <form class="form-horizontal" action="#" method="POST" role="form">
+                                    <fieldset>
+                                        <textarea class="form-control" name="note_text" style="resize: none;" placeholder="写点评 ＃贴标签"></textarea>
+                                    </fieldset>
+                                    <div class="action pull-right" style="margin-top:10px;">
+                                        <button class="btn btn-default btn-cancel" style="margin-right:10px;" type="button">取消</button>
+                                        <button class="btn btn-primary btn-post" type="submit">点评</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endif %}
             </div>
 
             <div class="col-sm-4" itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
                 {% include "web/entity/partial/detail_side.html" %}
             </div>
+
+
         </div>
     </div>
 {% endblock %}
