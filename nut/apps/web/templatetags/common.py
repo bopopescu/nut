@@ -31,5 +31,17 @@ def format_time(value):
 
 register.filter(format_time)
 
+def selection_previous_paginator(value):
+    if value % 3 == 0:
+        value -= 2
+    return value
+register.filter(selection_previous_paginator)
+
+def selection_next_paginator(value):
+    if value % 3 == 2:
+        value += 2
+
+    return value
+register.filter(selection_next_paginator)
 
 __author__ = 'edison7500'

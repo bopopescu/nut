@@ -16,5 +16,9 @@
                 <a class="btn-top" href="javascript:;"  title="回到顶部" target="_self"><i class="fa fa-angle-up fa-lg"></i></a>
             </div>
         </div>
+
+        {% if paginator %}
+            {% include "web/main/partial/selection_paginator.html" with objects=entities paginator=paginator url=request.url %}
+        {% endif %}
     </div>
 {% endblock %}
