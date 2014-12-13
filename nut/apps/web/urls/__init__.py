@@ -12,6 +12,11 @@ urlpatterns = patterns(
     url(r'^search/$', 'main.search', name='web_search'),
 )
 
+urlpatterns += patterns(
+    'apps.web.views.entity',
+    url(r'^detail/(?P<entity_hash>\w+)/$', 'entity_detail', name='web_entity_detail'),
+)
+
 
 from apps.web.views.account import RegisterWizard
 from apps.web.forms.account import UserSignUpForm, UserSignUpBioForm
@@ -43,7 +48,7 @@ urlpatterns += patterns(
 # entity
 urlpatterns += patterns(
     'apps.web.views',
-    url(r'^detail/', include('apps.web.urls.entity')),
+    url(r'^entity/', include('apps.web.urls.entity')),
     url(r'^category/', include('apps.web.urls.category')),
     url(r'^account/', include('apps.web.urls.account')),
     url(r'^user/', include('apps.web.urls.user')),

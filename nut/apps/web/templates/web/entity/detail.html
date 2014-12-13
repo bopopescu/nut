@@ -118,9 +118,13 @@
                                 <img class="media-object img-circle" src="{{ user.profile.avatar_url }}" alt="{{ user.profile.nickname }}" width="50" height="">
                             </div>
                             <div class="media-body post-note">
-                                <form class="form-horizontal" action="#" method="POST" role="form">
+                                <form class="form-horizontal" action="{% url 'web_entity_post_note' entity.pk %}" method="POST" role="form">
+                                    {% csrf_token %}
                                     <fieldset>
-                                        <textarea class="form-control" name="note_text" style="resize: none;" placeholder="写点评 ＃贴标签"></textarea>
+                                        {% for field in note_forms %}
+                                            {{ field }}
+                                        {% endfor %}
+{#                                        <textarea class="form-control" name="note_text" style="resize: none;" placeholder="写点评 ＃贴标签"></textarea>#}
                                     </fieldset>
                                     <div class="action pull-right" style="margin-top:10px;">
                                         <button class="btn btn-default btn-cancel" style="margin-right:10px;" type="button">取消</button>
