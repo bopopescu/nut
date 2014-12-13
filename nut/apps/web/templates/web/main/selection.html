@@ -7,8 +7,14 @@
 
 {% block content %}
     <div class="container">
-        <div class="row" id="selection">
+        <div class="row" id="selection" data-refresh="{{ refresh_datetime }}">
             {% include "web/main/partial/selection_item_list.html" with entities=entities %}
+        </div>
+
+        <div class="row hidden-xs">
+            <div class="col-sm-offset-12">
+                <a class="btn-top" href="javascript:;"  title="回到顶部" target="_self"><i class="fa fa-angle-up fa-lg"></i></a>
+            </div>
         </div>
     </div>
 {% endblock %}
