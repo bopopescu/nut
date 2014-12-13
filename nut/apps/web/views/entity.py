@@ -77,10 +77,22 @@ def entity_post_note(request, eid, template='web/entity/partial/ajax_detail_note
                 content_type='text/html; charset=utf-8',
             )
 
-    else:
-        raise HttpResponseNotAllowed
+    # else:
+    raise HttpResponseNotAllowed
 
 
+@login_required
+def entity_update_note(request, nid):
+    if request.method == "POST":
+        _user = request.user
+        _forms = NoteForm(request.POST, user=_user, nid=nid)
+        if _forms.is_valid():
+            note = _forms.update()
+
+            return
+
+    # else:
+    return HttpResponseNotAllowed
 
 @login_required
 def entity_note_comment(request, nid, template='web/entity/note/comment_list.html'):
