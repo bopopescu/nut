@@ -13,8 +13,12 @@
             <p class="with-tag content" >{{ note.note|escape }}</p>
                 {% if note.user == request.user %}
                     <form class="form-horizontal update-note-form" action="#" method="POST" style="display: none;">
+                        {% csrf_token %}
                         <fieldset>
-                            <textarea class="form-control" name="note_text" rows="4" style="resize: none;">{{ note_context.content }}</textarea>
+{#                            <textarea class="form-control" name="note_text" rows="4" style="resize: none;">{{ note_context.content }}</textarea>#}
+                            {% for field in note_forms %}
+                                {{ field }}
+                            {% endfor %}
                         </fieldset>
                         <div class="control-group" style="margin-bottom:10px;">
                             <div class="col-sm-offset-9">

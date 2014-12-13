@@ -58,12 +58,24 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
 @login_required
 def entity_post_note(request, eid, template='web/entity/partial/ajax_detail_note.html'):
     if request.method == 'POST':
+        _user = request.user
+        _eid = eid
 
-        _forms = NoteForm(request.POST)
+        _forms = NoteForm(request.POST, user=_user, eid=_eid)
         if _forms.is_valid():
             note = _forms.save()
-
-            return
+            _t = loader.get_template(template)
+            _c = RequestContext(request, {
+                'note': note,
+            })
+            _data = _t.render(_c)
+            return JSONResponse(
+                data= {
+                    'status':1,
+                    'data':_data,
+                },
+                content_type='text/html; charset=utf-8',
+            )
 
     else:
         raise HttpResponseNotAllowed
