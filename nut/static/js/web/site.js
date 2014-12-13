@@ -467,6 +467,7 @@ $.ajaxSetup({
                     $textarea[0].value = '';
                     $textarea.focus();
                 } else {
+                    console.log($form.serialize());
                     $.post(this.action, $form.serialize(), function (result){
                         result = $.parseJSON(result);
                         var status = parseInt(result.status);
