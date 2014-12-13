@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from apps.core.utils.http import JSONResponse
 from apps.core.models import Entity,Entity_Like, Note, Note_Comment
 from apps.web.forms.comment import CommentForm
+from apps.web.forms.note import NoteForm
 from django.utils.log import getLogger
 
 log = getLogger('django')
@@ -18,13 +19,13 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
     _entity_hash = entity_hash
 
     _user = None
+    _note_forms = None
     if request.user.is_authenticated():
         _user = request.user
-    like_status = 0
-
+        _note_forms = NoteForm()
 
     _entity = Entity.objects.get(entity_hash = _entity_hash)
-    # log.info(_entity.notes.filter())
+
     _user_post_note = True
     try:
         _entity.notes.get(user=_user)
@@ -33,6 +34,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
         _user_post_note = False
 
 
+    like_status = 0
     try:
         _entity.likes.get(user = _user)
         like_status = 1
@@ -47,16 +49,24 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
             'entity': _entity,
             'like_status': like_status,
             'user':_user,
-            'user_post_note':_user_post_note
+            'user_post_note':_user_post_note,
+            'note_forms':_note_forms,
         },
         context_instance = RequestContext(request),
     )
 
 @login_required
-def entity_post_note(request):
+def entity_post_note(request, eid, template='web/entity/partial/ajax_detail_note.html'):
+    if request.method == 'POST':
 
+        _forms = NoteForm(request.POST)
+        if _forms.is_valid():
+            note = _forms.save()
 
-    return
+            return
+
+    else:
+        raise HttpResponseNotAllowed
 
 
 

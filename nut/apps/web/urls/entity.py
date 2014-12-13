@@ -3,7 +3,7 @@ from django.conf.urls import url, patterns
 
 urlpatterns = patterns(
     'apps.web.views.entity',
-    url(r'^(?P<entity_hash>\w+)/$', 'entity_detail', name='web_entity_detail'),
+    url(r'^note/(?P<eid>\d+)/$', 'entity_post_note', name='web_entity_post_note'),
     url(r'^note/(?P<nid>\d+)/comment/$', 'entity_note_comment', name='web_entity_note_comment'),
     url(r'^note/comment/(?P<comment_id>\d+)/delete/$', 'entity_note_comment_delete', name='web_entity_note_comment_delete'),
     # url(r'^note/(?P<nid>\d+)/comment/$')
