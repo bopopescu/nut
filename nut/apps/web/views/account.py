@@ -44,7 +44,11 @@ class RegisterWizard(SessionWizardView):
 
 def login(request, template='web/account/login.html'):
 
-    redirect_url = reverse('web_selection')
+    redirect_url = request.META.get('HTTP_REFERER')
+    log.info("url %s" % redirect_url)
+    if redirect_url is None:
+        redirect_url = reverse('web_selection')
+
     if request.user.is_authenticated():
         return HttpResponseRedirect(redirect_url)
 
@@ -59,7 +63,9 @@ def login(request, template='web/account/login.html'):
             next_url = _forms.get_next_url()
             return HttpResponseRedirect(next_url)
     else:
-        _forms = UserSignInForm(request)
+        _forms = UserSignInForm(request, initial={
+            'next':redirect_url
+        })
 
     return render_to_response(
         template,
