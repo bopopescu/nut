@@ -85,6 +85,23 @@
                                 </p>
                                 <div class="note-text">
                                     <p class="with-tag content" >{{ entity.top_note.note|escape }}</p>
+                                        {% if note.user == request.user %}
+                                            <form class="form-horizontal update-note-form" action="{% url 'web_update_entity_note' note.pk %}" method="POST" style="display: none;">
+                                            {% csrf_token %}
+                                                <fieldset>
+{#                            <textarea class="form-control" name="note_text" rows="4" style="resize: none;">{{ note_context.content }}</textarea>#}
+                                                    {% for field in note_forms %}
+                                                        {{ field }}
+                                                    {% endfor %}
+                                                </fieldset>
+                                                <div class="control-group" style="margin-bottom:10px;">
+                                                    <div class="col-sm-offset-9">
+                                                        <button class="btn btn-default btn-cancel" style="margin-right:10px;" type="button">取消</button>
+                                                        <button class="btn btn-primary btn-post" type="submit">修改</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        {% endif %}
                                     <p>
                                         <a href="javascript:;" class="poke{% if selection_note.poke_button_target_status == "0" %} active {% endif %}" data-note="{{ entity.top_note.id }}" data-target-status="{{ selection_note.poke_button_target_status }}"><i class="fa fa-thumbs-o-up fa-lg"></i>&nbsp;
 {#                                        {% if selection_note.note_context.poke_count > 0 %}#}
