@@ -74,6 +74,7 @@ def selection(request, template='web/main/selection.html'):
             'entities': entities,
             'user_entity_likes': el,
             'refresh_datetime':_refresh_datetime,
+            'paginator':paginator,
         },
         context_instance = RequestContext(request),
     )
