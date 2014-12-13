@@ -31,6 +31,7 @@ class NoteForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.entity_id = kwargs.pop('eid', None)
         self.user = kwargs.pop('user', None)
+        self.note_id = kwargs.pop('nid', Note)
         super(NoteForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
@@ -41,6 +42,20 @@ class NoteForm(forms.ModelForm):
             user = self.user,
             entity_id = self.entity_id,
         )
+
+        # note = Note.objects.get_or_create(entity_id = self.entity_id, user=self.user)
+        # note.note = _note
+        # note.save()
+        return note
+
+
+    def update(self):
+        _note = self.cleaned_data.get('note')
+
+        note = Note.objects.get(pk=self.note_id, user=self.user)
+        note.note = _note
+        note.save()
+
         return note
     #     _content = self.cleaned_data.get('content')
     #     log.info(_content)
