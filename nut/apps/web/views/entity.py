@@ -1,4 +1,5 @@
-from django.http import Http404, HttpResponseNotAllowed
+from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template import loader
@@ -94,15 +95,19 @@ def entity_update_note(request, nid):
     # else:
     return HttpResponseNotAllowed
 
-@login_required
+# @login_required
 def entity_note_comment(request, nid, template='web/entity/note/comment_list.html'):
 
     _user = None
-    if request.user.is_authenticated():
-        _user = request.user
+
 
 
     if request.method == "POST":
+        if request.user.is_authenticated():
+            _user = request.user
+        else:
+            return HttpResponseRedirect(reverse('web_login'))
+
         try:
             note = Note.objects.get(pk = nid)
         except Note.DoesNotExist:
