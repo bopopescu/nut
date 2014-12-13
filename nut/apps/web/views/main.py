@@ -2,13 +2,18 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.views.decorators.http import require_GET
 from django.template import RequestContext
+from django.template import loader
 
 from apps.core.models import Entity, Entity_Like
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.web.forms.search import EntitySearchForm
+from apps.core.utils.http import JSONResponse
 from django.utils.log import getLogger
 
 log = getLogger('django')
+
+from datetime import datetime
+
 
 def index(request):
 
@@ -19,9 +24,13 @@ def index(request):
 @require_GET
 def selection(request, template='web/main/selection.html'):
 
-    entity_list = Entity.objects.filter(status= Entity.selection)
-    _page = request.GET.get('p', 1)
 
+    _page = request.GET.get('p', 1)
+    _refresh_datetime = request.GET.get('t', None)
+    if _refresh_datetime is None:
+        _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    entity_list = Entity.objects.filter(status=Entity.selection, updated_time__lt=_refresh_datetime)
     paginator = ExtentPaginator(entity_list, 30)
     try:
         entities = paginator.page(_page)
@@ -39,11 +48,32 @@ def selection(request, template='web/main/selection.html'):
 
     log.info(el)
 
+    if request.is_ajax():
+        template = 'web/main/partial/selection_item_list.html'
+        _t = loader.get_template(template)
+        _c = RequestContext(
+            request,
+            {
+                'entities': entities,
+                'user_entity_likes': el,
+            }
+        )
+        _data = _t.render(_c)
+        return JSONResponse(
+            data={
+                'data': _data,
+                'status': 1,
+            },
+            content_type='text/html; charset=utf-8',
+        )
+
+    # refresh_datetime = datetime.now()
     return render_to_response(
         template,
         {
             'entities': entities,
             'user_entity_likes': el,
+            'refresh_datetime':_refresh_datetime,
         },
         context_instance = RequestContext(request),
     )

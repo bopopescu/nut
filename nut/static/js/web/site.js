@@ -354,7 +354,8 @@ $.ajaxSetup({
                         }
 
                         var last_entity = $selection.find('.entity-selection:last');
-                        var time = last_entity.find(".timestr").attr("name");
+//                        var time = last_entity.find(".timestr").attr("name");
+                        var time = $selection.attr('data-refresh');
                         var data = {
                             'p': p+counter,
                             't':time
@@ -369,11 +370,12 @@ $.ajaxSetup({
                             url: url,
                             type: "GET",
                             data: data,
+                            dataType:'json',
                             success: function(data) {
-                                result =  $.parseJSON(data);
-                                var status = parseInt(result.status);
-                                if (status === 1) {
-                                    var $html = $(result.data);
+//                                result =  $.parseJSON(data);
+//                                var status = parseInt(result.status);
+                                if (data.status === 1) {
+                                    var $html = $(data.data);
 //                                    $html.each(function () {
 //                                        util.showEntityTitle($(this));
 //                                    });

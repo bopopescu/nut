@@ -124,6 +124,7 @@ def entity_note_comment(request, nid, template='web/entity/note/comment_list.htm
             return JSONResponse(
                 data={
                     'data': _data,
+                    'status' : '1',
                 },
                 content_type='text/html; charset=utf-8',
             )
