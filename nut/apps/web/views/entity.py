@@ -24,6 +24,14 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
 
 
     _entity = Entity.objects.get(entity_hash = _entity_hash)
+    # log.info(_entity.notes.filter())
+    _user_post_note = True
+    try:
+        _entity.notes.get(user=_user)
+
+    except Note.DoesNotExist:
+        _user_post_note = False
+
 
     try:
         _entity.likes.get(user = _user)
@@ -38,11 +46,21 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
         {
             'entity': _entity,
             'like_status': like_status,
+            'user':_user,
+            'user_post_note':_user_post_note
         },
         context_instance = RequestContext(request),
     )
 
+@login_required
+def entity_post_note(request):
 
+
+    return
+
+
+
+@login_required
 def entity_note_comment(request, nid, template='web/entity/note/comment_list.html'):
 
     _user = None
