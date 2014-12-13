@@ -333,24 +333,25 @@ $.ajaxSetup({
                         var p = 1; var c = 0;
                         if (aQuery.length > 1) {
                             var param = aQuery[1].split('&');
-                            var param_p; var param_c;
+                            var param_p;
 //                            console.log(param);
                             if (param.length > 1) {
-                                param_c = param[0].split('=');
-                                c = parseInt(param_c[1]);
-                                param_p = param[1].split('=');
+//                                param_c = param[0].split('=');
+//                                c = parseInt(param_c[1]);
+                                param_p = param[0].split('=');
                                 p = parseInt(param_p[1]);
-                            } else {
-
-                                param_c = param[0].split('=');
-//                                console.log(p);
-                                if (param_c[0] == 'c') {
-                                    c = parseInt(param_c[1]);
-                                } else {
-
-                                    p = parseInt(param_c[1]);
-                                }
                             }
+//                            else {
+//
+//                                param_c = param[0].split('=');
+////                                console.log(p);
+//                                if (param_c[0] == 'c') {
+//                                    c = parseInt(param_c[1]);
+//                                } else {
+//
+//                                    p = parseInt(param_c[1]);
+//                                }
+//                            }
                         }
 
                         var last_entity = $selection.find('.entity-selection:last');
