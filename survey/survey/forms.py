@@ -132,7 +132,7 @@ class ResponseWizardFrom(forms.ModelForm):
             'email': u'电子邮箱',
         }
         widgets = {
-            'username': forms.TextInput(attrs={'class':'form-control', 'placeholder':u'果库'}),
+            'username': forms.TextInput(attrs={'class':'form-control', 'placeholder':u'昵称'}),
             'email': forms.TextInput(attrs={'class':'form-control', 'placeholder':'邮箱'}),
         }
         help_texts = {
