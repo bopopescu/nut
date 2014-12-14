@@ -17,10 +17,14 @@ from apps.core.models import Entity
 
 def get_image_from_mongo(image_key):
     image =  collection.find_one({'_id':ObjectId(image_key)})
+    url = None
     try:
         url =  image['origin_url']
     except KeyError:
-        url = "%s%s" % (image_host, image['store_hash'])
+        hash_value = image.get('store_hash', None)
+        if hash:
+            url = "%s%s" % (image_host, hash_value)
+
     return url
 
 # e = Entity.objects.all()
@@ -49,11 +53,16 @@ for row in cursor.fetchall():
         detail_images = row['detail_images']
         if len(detail_images) > 0:
             detail_images = detail_images.split('#')
-        # print detail_images
+            # print detail_images
 
 
             for i in detail_images:
+                if len(i) == 0:
+                    continue
+                print i
                 image = get_image_from_mongo(i)
+                if image is None:
+                    continue
                 images.append(image)
             print images
 

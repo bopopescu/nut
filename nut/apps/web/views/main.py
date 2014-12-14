@@ -29,7 +29,7 @@ def selection(request, template='web/main/selection.html'):
     _refresh_datetime = request.GET.get('t', None)
     if _refresh_datetime is None:
         _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
+    log.info(_refresh_datetime)
     entity_list = Entity.objects.filter(status=Entity.selection, updated_time__lt=_refresh_datetime)
     paginator = ExtentPaginator(entity_list, 30)
     try:
