@@ -23,7 +23,7 @@ def get_image_from_mongo(image_key):
     except KeyError:
         hash_value = image.get('store_hash', None)
         if hash:
-            url = "%s%s" % (image_host, hash_value)
+            url = "%s/img/%s.jpg" % (image_host, hash_value)
 
     return url
 
