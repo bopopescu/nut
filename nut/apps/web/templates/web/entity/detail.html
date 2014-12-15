@@ -35,11 +35,9 @@
         <div class="row">
             <div class="col-sm-8 col-md-8" itemscope itemtype="http://data-vocabulary.org/Product">
                 <div class="thumbnail entity-detail">
-                    <a>
-                        <img itemprop="image" src="{{ entity.chief_image }}" alt="{{ entity_context.title }}" width="640" height="640">
+                    <a id="buy-btn-img" href="http://item.taobao.com/item.htm?id={{ taobao_id }}" target="_blank" biz-itemid="{{ taobao_id }}" _hover-ignore="1">
+                        <img itemprop="image" src="{{ entity.chief_image }}" alt="{{ entity_context.title }}" class="img-responsive" width="640" height="640">
                     </a>
-
-
 
                     <div class="caption" style="border:0">
                         <h4 class="entity-title">{% if entity.brand|length != 0 %}
