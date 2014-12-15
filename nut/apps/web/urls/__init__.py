@@ -55,4 +55,9 @@ urlpatterns += patterns(
     # url(r'^event/', include('apps.web.urls.event')),
 )
 
+urlpatterns += patterns(
+    'apps.images',
+    url(r'^images/', include('apps.images.urls')),
+)
+
 __author__ = 'edison7500'
