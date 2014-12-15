@@ -112,14 +112,18 @@ def create(request, template=''):
     )
 
 
-def upload_image(request, entity_id, template=''):
+def image(request, entity_id, template='management/entities/upload_image.html'):
 
+    try:
+        _entity = Entity.objects.get(pk=entity_id)
+    except Entity.DoesNotExist:
+        raise Http404
 
 
     return render_to_response(
         template,
         {
-
+            'entity': _entity,
         },
         context_instance = RequestContext(request)
     )
