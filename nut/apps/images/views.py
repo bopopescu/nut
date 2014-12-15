@@ -1,9 +1,9 @@
 from django.http import HttpResponse
 
 
-def images(request):
 
+def images(request, size, file_name):
 
-    return HttpResponse()
+    return HttpResponse
 
 __author__ = 'edison'

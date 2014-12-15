@@ -1,9 +1,10 @@
 from django.conf.urls import url, patterns
 
-
 urlpatterns = patterns(
-    'apps.web.views.images',
-    # url(r'image')
+    'apps.images.views',
+
 )
+
+
 
 __author__ = 'edison'
