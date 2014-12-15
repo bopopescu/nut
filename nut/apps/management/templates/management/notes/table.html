@@ -22,7 +22,13 @@
                         <td>{{ note.user.profile.nickname }}</td>
                         <td>{{ note.note }}</td>
                         <td>{{ note.post_time|date:'Y-m-d' }}</td>
-                        <td>{{ note.get_status_display }}</td>
+                        <td>
+                            {% if note.status == 1 %}
+                                <span class="label label-info">{{ note.get_status_display }}</span>
+                            {% else %}
+                                <span class="label label-default">{{ note.get_status_display }}</span>
+                            {% endif %}
+                        </td>
                         <td><a class="btn btn-default" href="{% url 'management_note_edit' note.pk %}">{% trans 'edit' %}</a></td>
                     </tr>
                 {% endfor %}

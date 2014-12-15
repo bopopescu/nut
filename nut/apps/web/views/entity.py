@@ -173,7 +173,7 @@ def entity_note_comment_delete(request, comment_id):
 
 
 @login_required
-# @csrf_exempt
+@csrf_exempt
 def entity_like(request, eid):
     if request.is_ajax():
         _user = request.user
@@ -188,7 +188,7 @@ def entity_like(request, eid):
 
 
 @login_required
-# @csrf_exempt
+@csrf_exempt
 def entity_unlike(request, eid):
     if request.is_ajax():
         _user = request.user
