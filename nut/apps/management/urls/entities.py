@@ -6,7 +6,9 @@ urlpatterns = patterns(
     # url(r'^$', EntityListView.as_view(), name='management_entity_list'),
     url(r'^$', 'list', name='management_entity_list'),
     url(r'^(?P<entity_id>\d+)/edit/$', 'edit', name='management_entity_edit'),
+
     url(r'^image/(?P<entity_id>\d+)/remove/$', 'delete_image', name='management_remove_entity_image'),
+    url(r'^image/(?P<entity_id>\d+)/$', 'image', name='management_entity_image'),
 )
 
 __author__ = 'edison7500'
