@@ -4,13 +4,14 @@
 
 {% block content %}
     <h1 class="page-header">{{ entity.title }}</h1>
-    <div class="row placeholders">
+    <div class="row placeholders" id="images">
         {% for index, image in entity.images|enumerate_list %}
             <div class="col-xs-6 col-sm-3 placeholder">
-                <img id="image-{{ index }}" class="img-responsive img-thumbnail" alt="240x240" src="{{ image }}" >
+                <img class="img-responsive img-thumbnail" alt="240x240" src="{{ image }}" >
 {#                {% if index != 0 %}#}
                 <span class="text-muted">
-                    <a  href="{% url 'management_remove_entity_image' entity.id %}">{% trans 'remove' %}</a>
+{#                    <a class="btn btn-link" href="{% url 'management_remove_entity_image' entity.id %}">{% trans 'remove' %}</a>#}
+                    <a class="btn btn-link" href="{% url 'management_remove_entity_image' entity.id %}" data-image="{{ image }}">{% trans 'remove' %}</a>
                 </span>
 {#                {% endif %}#}
             </div>

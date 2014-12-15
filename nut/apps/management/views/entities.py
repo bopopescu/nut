@@ -4,9 +4,10 @@ from django.template import RequestContext
 # from django.views.generic.list import ListView
 # from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.utils.log import getLogger
+from django.core.files.storage import default_storage
 
 from apps.core.models import Entity
-from apps.core.forms.entity import EntityForm
+from apps.core.forms.entity import EntityForm, EntityImageForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 from apps.core.utils.http import SuccessJsonResponse
 
@@ -119,11 +120,18 @@ def image(request, entity_id, template='management/entities/upload_image.html'):
     except Entity.DoesNotExist:
         raise Http404
 
+    if request.method == "POST":
+        _forms = EntityImageForm(entity=_entity, data=request.POST, files=request.FILES)
+        if _forms.is_valid():
+            _forms.save()
+    else:
+        _forms = EntityImageForm(entity=_entity)
 
     return render_to_response(
         template,
         {
             'entity': _entity,
+            'forms': _forms,
         },
         context_instance = RequestContext(request)
     )
@@ -133,22 +141,22 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def delete_image(request, entity_id):
 
-
-
     if request.method == 'POST':
         _index = request.POST.get('index', None)
-
+        log.info(_index)
         try:
-            _entity = Entity.objects.get(pk = entity_id)
+            _entity = Entity.objects.get(pk=entity_id)
             images = _entity.images
-            _entity.images = images.pop(_index)
+            log.info(images)
+            images.remove(_index)
+            _entity.images = images
             _entity.save()
-
         except Entity.DoesNotExist:
             raise Http404
 
-
-        return SuccessJsonResponse()
+        image_name = _index.replace('http://imgcdn.guoku.com/', '')
+        status = default_storage.delete(image_name)
+        return SuccessJsonResponse(data={'status': status})
 
     return HttpResponseNotAllowed
 
