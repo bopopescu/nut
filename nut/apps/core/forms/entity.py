@@ -82,6 +82,17 @@ class EntityForm(forms.Form):
                                                   choices=Entity.NO_SELECTION_ENTITY_STATUS_CHOICES,
                                                   widget=forms.Select(attrs={'class':'form-control',}),
                                                   help_text=_(''))
+
+        if len(self.entity.images) > 1:
+            position_list = list()
+            for position in xrange(len(self.entity.images)):
+                position_list.append((position, str(position)))
+                position_choices = tuple(position_list)
+                self.fields['position'] = forms.ChoiceField(label=_('position'),
+                            choices=position_choices,
+                            widget=forms.Select(attrs={'class':'form-control',}),
+                            initial=0,
+                            help_text=_(''))
         # log.info(args)
         if len(args):
             group_id = args[0]['category']
@@ -118,7 +129,13 @@ class EntityForm(forms.Form):
         price = self.cleaned_data.get('price')
         status = self.cleaned_data.get('status')
         sub_category = self.cleaned_data.get('sub_category')
+        position = self.cleaned_data.get('position')
 
+        images = self.entity.images
+        a = images[int(position)]
+        b = images[0]
+        images[int(position)] = b
+        images[0] = a
 
         self.entity.brand = brand
         self.entity.title = title
@@ -126,6 +143,7 @@ class EntityForm(forms.Form):
         if status:
             self.entity.status = status
         self.entity.category_id = sub_category
+        self.entity.images = images
         self.entity.save()
 
         return self.entity

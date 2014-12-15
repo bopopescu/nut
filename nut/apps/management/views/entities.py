@@ -154,8 +154,10 @@ def delete_image(request, entity_id):
         except Entity.DoesNotExist:
             raise Http404
 
-        image_name = _index.replace('http://imgcdn.guoku.com/', '')
-        status = default_storage.delete(image_name)
+        status = True
+        if 'http://imgcdn.guoku.com/' in _index:
+            image_name = _index.replace('http://imgcdn.guoku.com/', '')
+            status = default_storage.delete(image_name)
         return SuccessJsonResponse(data={'status': status})
 
     return HttpResponseNotAllowed
