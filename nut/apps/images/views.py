@@ -10,9 +10,12 @@ log = getLogger('django')
 
 
 def images(request, file_name, size=None):
-    # log.info(size)
+    # log.info(request.get_full_path())
     # size = request.GET.get('s', None)
-    image_name = 'images/' + file_name
+    path = request.get_full_path()
+    path = path.split('/')
+    log.info(path)
+    image_name = "%s/%s" % (path[1], path[-1])
 
     f = default_storage.open(image_name)
     # log.info(f.read())

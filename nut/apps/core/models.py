@@ -29,6 +29,7 @@ class BaseModel(models.Model):
             d[attr] = "%s" % getattr(self, attr)
         return d
 
+
 class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     (remove, blocked, active, editor) = (-1, 0, 1, 2)
     USER_STATUS_CHOICES = [
@@ -123,6 +124,7 @@ class User_Follow(models.Model):
     follower = models.ForeignKey(GKUser, related_name = "follower")
     followee = models.ForeignKey(GKUser, related_name = "followee")
     followed_time = models.DateTimeField(auto_now_add = True, db_index = True)
+
     class Meta:
         app_label = 'base'
         ordering = ['-followed_time']
