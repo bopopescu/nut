@@ -119,6 +119,15 @@ class User_Profile(BaseModel):
     # def avatar_url_small(self):
     #     return "%s_50x50.jpg" % image_host, self.avatar
 
+class User_Follow(models.Model):
+    follower = models.ForeignKey(GKUser, related_name = "follower")
+    followee = models.ForeignKey(GKUser, related_name = "followee")
+    followed_time = models.DateTimeField(auto_now_add = True, db_index = True)
+    class Meta:
+        app_label = 'base'
+        ordering = ['-followed_time']
+        unique_together = ("follower", "followee")
+
 
 class Banner(BaseModel):
     CONTENT_TYPE_CHOICES = (
