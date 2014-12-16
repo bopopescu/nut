@@ -58,6 +58,7 @@ urlpatterns += patterns(
 urlpatterns += patterns(
     'apps.images',
     url(r'^images/', include('apps.images.urls')),
+    url(r'^img/', include('apps.images.urls')),
 )
 
 __author__ = 'edison7500'
