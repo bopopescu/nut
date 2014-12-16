@@ -339,7 +339,6 @@ class Note(models.Model):
 
     objects = NoteManager()
 
-
     class Meta:
         ordering = ['-status','-post_time']
         # unique_together = ('entity', 'user')
