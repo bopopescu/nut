@@ -362,8 +362,8 @@ class Note_Comment(models.Model):
     note = models.ForeignKey(Note, related_name='comments')
     user = models.ForeignKey(GKUser, related_name='note_comment')
     content = models.TextField(null = False)
-    # replied_comment = models.IntegerField(default=None, null=True)
-    # replied_user = models.ForeignKey(GKUser, null=True)
+    replied_comment_id = models.IntegerField(default=None, null=True)
+    replied_user_id = models.IntegerField(default=None, null=True)
     post_time = models.DateTimeField(auto_now = True, db_index = True)
     # updated_time = models.DateTimeField(auto_now = True, db_index = True)
 
