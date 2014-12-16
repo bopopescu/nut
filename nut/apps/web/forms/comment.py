@@ -23,13 +23,20 @@ class CommentForm(forms.Form):
     def save(self):
 
         _content = self.cleaned_data.get('content')
-        log.info("ok ok ok %s" % _content)
+        # log.info("ok ok ok %s" % _content)
+        _reply_to_comment_id = self.data.get('reply_to_comment_id')
+        _reply_to_user_id = self.data.get('reply_to_user_id')
         comment = Note_Comment.objects.create(
             note = self.note,
             user = self.user_cache,
             content = _content,
         )
-
+        log.info("user %s" % _reply_to_user_id)
+        if _reply_to_comment_id and _reply_to_user_id:
+            comment.replied_comment_id = _reply_to_comment_id
+            comment.replied_user_id = _reply_to_user_id
+            comment.save()
+        # log.info(self.data.get('reply_to_comment_id'))
         return comment
 
 

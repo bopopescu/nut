@@ -100,8 +100,6 @@ def entity_note_comment(request, nid, template='web/entity/note/comment_list.htm
 
     _user = None
 
-
-
     if request.method == "POST":
         if request.user.is_authenticated():
             _user = request.user
@@ -112,7 +110,7 @@ def entity_note_comment(request, nid, template='web/entity/note/comment_list.htm
             note = Note.objects.get(pk = nid)
         except Note.DoesNotExist:
             raise Http404
-        _forms = CommentForm(note=note, user=_user,  data=request.POST)
+        _forms = CommentForm(note=note, user=_user, data=request.POST)
         if _forms.is_valid():
             # log.info("ok ok ok ok")
 
