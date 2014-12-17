@@ -10,10 +10,13 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 path = lambda *a: os.path.join(ROOT, *a)
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('guoku', 'hi@guoku.com'),
 )
 
 MANAGERS = ADMINS
+
+ALLOWED_HOSTS = ['*']
+
 
 DATABASES = {
     'default': {
@@ -26,7 +29,7 @@ DATABASES = {
     }
 }
 
-SESSION_ENGINE       = 'django.contrib.sessions.backends.file'
+SESSION_ENGINE      = 'django.contrib.sessions.backends.file'
 SESSION_FILE_PATH   = '/tmp/'
 
 # Local time zone for this installation. Choices can be found here:
@@ -131,7 +134,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'django.contrib.admindocs',
+    # 'django.contrib.admindocs',
 
     'survey',
     'gunicorn',
