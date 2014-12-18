@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load notifications_tags %}
 {#<li>#}
 {#    <a href="#"><i class="fa fa-plus fa-lg" style="color:#fff;"></i></a>#}
 {#</li>#}
@@ -13,7 +14,8 @@
             <li class="divider"></li>
         {% endif %}
 {#        <li><a href="{% url 'web_user_index' user.pk %}"><i class="fa fa-user fa-lg"></i>&nbsp; {% trans "my guoku" %}</a></li>#}
-{#        <li><a href="{% url 'web_message' %}"><i class="fa fa-volume-up fa-lg"></i>&nbsp; 消息</a></li>#}
+        {% notifications_unread as unread_count %}
+        <li><a href="#"><i class="fa fa-volume-up fa-lg"></i>&nbsp; 消息 {% if unread_count > 0 %}<span class="label label-info">{{ unread_count }}</span>{% endif %}</a></li>
         <li><a href="{% url 'web_user_settings' %}"><i class="fa fa-cog fa-lg"></i>&nbsp; {% trans "settings" %}</a></li>
         <li><a href="{% url 'web_logout' %}"><i class="fa fa-power-off fa-lg"></i>&nbsp; {% trans "sign out" %}</a></li>
     </ul>

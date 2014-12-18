@@ -45,7 +45,7 @@ INSTALLED_APPS = (
     # 'rest_framework.authtoken',
     'haystack',
 
-    'notifications',
+    'apps.notifications',
 
     'apps.core',
     'apps.management',
