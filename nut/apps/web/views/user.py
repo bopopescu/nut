@@ -101,4 +101,57 @@ def post_note(request, user_id, template="web/user/post_note.html"):
     )
 
 
+def fans(request, user_id, template="web/user/fans.html"):
+
+    page = request.GET.get('page', 1)
+
+    _user = get_user_model()._default_manager.get(pk=user_id)
+
+    fans_list = _user.fans.all()
+
+    paginator = ExtentPaginator(fans_list, 20)
+
+    try:
+        _fans = paginator.page(page)
+    except PageNotAnInteger:
+        _fans = paginator.page(1)
+    except EmptyPage:
+        raise Http404
+
+    return render_to_response(
+        template,
+        {
+            'user':_user,
+            'fans':_fans,
+        },
+        context_instance = RequestContext(request),
+    )
+
+
+def following(request, user_id, templates="web/user/following.html"):
+
+    page = request.GET.get('page', 1)
+
+    _user = get_user_model()._default_manager.get(pk=user_id)
+
+    followings_list = _user.followings.all()
+
+    paginator = ExtentPaginator(followings_list, 20)
+
+    try:
+        _followings = paginator.page(page)
+    except PageNotAnInteger:
+        _followings = paginator.page(1)
+    except EmptyPage:
+        raise Http404
+
+    return render_to_response(
+        templates,
+        {
+            'user':_user,
+            'followings':_followings,
+        },
+        context_instance = RequestContext(request),
+    )
+
 __author__ = 'edison'

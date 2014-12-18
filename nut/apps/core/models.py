@@ -83,6 +83,13 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         self.is_admin = True
         self.save()
 
+    @property
+    def following_count(self):
+        return self.followings.count()
+
+    @property
+    def fans_count(self):
+        return self.fans.count()
 
 
 class User_Profile(BaseModel):
@@ -112,23 +119,16 @@ class User_Profile(BaseModel):
     def avatar_url(self):
         return "%s%s" % (image_host, self.avatar)
 
-    # @property
-    # def avatar_url_large(self):
-    #     return "%s_180x180.jpg" % self.avatar
-
-    # @property
-    # def avatar_url_small(self):
-    #     return "%s_50x50.jpg" % image_host, self.avatar
 
 class User_Follow(models.Model):
-    follower = models.ForeignKey(GKUser, related_name = "follower")
-    followee = models.ForeignKey(GKUser, related_name = "followee")
+    follower = models.ForeignKey(GKUser, related_name = "followings")
+    followee = models.ForeignKey(GKUser, related_name = "fans")
     followed_time = models.DateTimeField(auto_now_add = True, db_index = True)
 
     class Meta:
-        app_label = 'base'
         ordering = ['-followed_time']
         unique_together = ("follower", "followee")
+
 
 
 class Banner(BaseModel):
@@ -404,16 +404,6 @@ class Tag(models.Model):
 
     def get_absolute_url(self):
         return "/t/%s" % self.tag_hash
-
-
-class User_Follow(models.Model):
-    follower = models.ForeignKey(GKUser, related_name = "followings")
-    followee = models.ForeignKey(GKUser, related_name = "fans")
-    followed_time = models.DateTimeField(auto_now_add = True, db_index = True)
-
-    class Meta:
-        ordering = ['-followed_time']
-        unique_together = ("follower", "followee")
 
 
 class Sina_Token(models.Model):
