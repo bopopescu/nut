@@ -1,17 +1,23 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.contrib.auth.forms import PasswordChangeForm
+# from django.contrib.auth.forms import PasswordChangeForm
+from django.http import HttpResponseNotAllowed, Http404
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 
 from apps.web.forms.user import UserSettingsForm
 from apps.core.utils.http import JSONResponse
 from apps.core.utils.image import HandleImage
+from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
+from apps.core.models import Entity
 
 from django.utils.log import getLogger
 
 log = getLogger('django')
 
 
+@login_required
 def settings(request, template="web/user/settings.html"):
     _user = request.user
 
@@ -45,6 +51,7 @@ def settings(request, template="web/user/settings.html"):
     )
 
 
+@login_required
 @csrf_exempt
 def upload_avatar(request):
     _user = request.user
@@ -57,8 +64,41 @@ def upload_avatar(request):
         _user.profile.avatar = avatar_file_name
         _user.profile.save()
         log.info(_user.profile.avatar_url)
-        return  JSONResponse(status=200, data={'avatar_url':_user.profile.avatar_url})
+        return JSONResponse(status=200, data={'avatar_url':_user.profile.avatar_url})
 
-    return
+    return HttpResponseNotAllowed
+
+
+
+def post_note(request, user_id, template="web/user/post_note.html"):
+
+    page = request.GET.get('page', 1)
+
+    _user = get_user_model()._default_manager.get(pk=user_id)
+
+    # log.info(_user.note_count)
+    note_list = _user.note.all().values_list('entity_id', flat=True)
+    # log.info(note_list)
+    paginator = ExtentPaginator(note_list, 20)
+
+    try:
+        notes = paginator.page(page)
+    except PageNotAnInteger:
+        notes = paginator.page(1)
+    except EmptyPage:
+        raise Http404
+
+    log.info(notes.object_list)
+    _entities = Entity.objects.filter(id__in=list(notes.object_list))
+
+    return render_to_response(
+        template,
+        {
+            'user':_user,
+            'entities': _entities,
+        },
+        context_instance = RequestContext(request),
+    )
+
 
 __author__ = 'edison'
