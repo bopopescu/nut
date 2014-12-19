@@ -173,3 +173,11 @@ HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
 
 # WHOOSH_INDEX = 'indexdir'
+
+
+
+# celery
+# from __future__ import absolute_import
+
+BROKER_URL = 'redis://10.0.2.95:6379/10'
+CELERY_ACCEPT_CONTENT = ['json']
