@@ -1,4 +1,4 @@
-{#{% load entity user %}#}
+{% load guoku %}
 
 <div class="panel panel-default hidden-print hidden-xs">
     <div class="panel-body">
@@ -19,7 +19,7 @@
                 <div class="thumbnail">
                     <div class="img-box">
                         <a href="javascript:;">
-                            <img class="img-responsive" src="{{ entity.chief_image }}" width="64" height="64">
+                            <img class="img-responsive" src="{{ entity.chief_image|resize:'64' }}" width="64" height="64">
                         </a>
                     </div>
                 </div>

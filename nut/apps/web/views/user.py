@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-# from django.contrib.auth.forms import PasswordChangeForm
-from django.http import HttpResponseNotAllowed, Http404
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseNotAllowed, Http404, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
@@ -67,6 +67,24 @@ def upload_avatar(request):
         return JSONResponse(status=200, data={'avatar_url':_user.profile.avatar_url})
 
     return HttpResponseNotAllowed
+
+
+def index(request, user_id):
+
+
+    return HttpResponseRedirect(reverse('web_user_entity_like', args=[user_id,]))
+
+
+def entity_like(request, user_id, template="web/user/like.html"):
+
+
+    return render_to_response(
+        template,
+        {
+
+        },
+        context_instance = RequestContext(request),
+    )
 
 
 
