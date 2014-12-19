@@ -83,9 +83,9 @@ window.location.href = url;</script><![endif]-->
 
 {#                    {% url 'web_event_home' as web_event_home_url %}#}
 {#                {{ web_event_home_url }}#}
-{#                    <li {% if web_event_home_url in request.path %}class="active" {% endif %}>#}
-{#                        <a href="{{ web_event_home_url }}">专题</a>#}
-{#                    </li>#}
+                    <li {% if web_event_home_url in request.path %}class="active" {% endif %}>
+                        <a href="{{ web_event_home_url }}">专题</a>
+                    </li>
                 </ul>
 
                 {% url 'web_login' as web_login_url %}
