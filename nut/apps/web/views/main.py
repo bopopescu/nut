@@ -10,6 +10,9 @@ from apps.web.forms.search import EntitySearchForm
 from apps.core.utils.http import JSONResponse
 from django.utils.log import getLogger
 
+
+from apps.notifications import notify
+
 log = getLogger('django')
 
 from datetime import datetime
@@ -42,6 +45,8 @@ def selection(request, template='web/main/selection.html'):
 
     el = list()
     if request.user.is_authenticated():
+        # notify.send(request.user, recipient=request.user, verb='you visitor selection page')
+
         e = entities.object_list
         # log.info(e)
         el = Entity_Like.objects.filter(entity__in=list(e), user=request.user).values_list('entity_id', flat=True)
