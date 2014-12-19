@@ -41,8 +41,9 @@ class HandleImage(object):
 
         _width = int(_width)
         _height = int(_height)
-
-        _img.resize(_width, _height)
+        _img.sample(_width, _height)
+        # _img.resize(_width, _height)
+        # _img.transform("%sx%s" % (_width, _height), "200%")
         self._image_data =  _img.make_blob()
         return self.image_data
 

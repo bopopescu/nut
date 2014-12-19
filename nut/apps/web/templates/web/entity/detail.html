@@ -1,6 +1,6 @@
 {% extends 'web/base.html' %}
 {% load i18n staticfiles %}
-{% load common %}
+{% load common guoku %}
 
 {% block title %}
     {% if entity.brand|length != 0 %}{% block subtitle %}{{ entity.brand }} - {% endblock %}{% endif %}{{ entity.title }}
@@ -36,7 +36,7 @@
             <div class="col-sm-8 col-md-8" itemscope itemtype="http://data-vocabulary.org/Product">
                 <div class="thumbnail entity-detail">
                     <a id="buy-btn-img" href="http://item.taobao.com/item.htm?id={{ taobao_id }}" target="_blank" biz-itemid="{{ taobao_id }}" _hover-ignore="1">
-                        <img itemprop="image" src="{{ entity.chief_image }}" alt="{{ entity_context.title }}" class="img-responsive" width="640" height="640">
+                        <img itemprop="image" src="{{ entity.chief_image|resize:'640' }}" alt="{{ entity_context.title }}" class="img-responsive" width="640" height="640">
                     </a>
 
                     <div class="caption" style="border:0">

@@ -269,7 +269,10 @@ class Entity(BaseModel):
     def chief_image(self):
         # log.info("images, %s" % self.images)
         if len(self.images) > 0:
-            return self.images[0]
+            if 'http' in self.images[0]:
+                return self.images[0]
+            else:
+                return "%s%s" % (image_host, self.images[0])
 
     @property
     def detail_images(self):

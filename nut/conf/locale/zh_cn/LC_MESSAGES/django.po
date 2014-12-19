@@ -24,6 +24,10 @@ msgstr "果库"
 msgid "likes"
 msgstr "喜欢"
 
+msgid "my guoku"
+msgstr "我的果库"
+
+
 #: apps/core/models.py:33
 #: apps/management/templates/management/users/list.html:9
 msgid "editor"
@@ -116,6 +120,9 @@ msgstr "登录"
 
 msgid "sign up"
 msgstr "注册"
+
+msgid "sign out"
+msgstr "退出"
 
 #: apps/core/models.py:225 apps/core/models.py:231
 #: apps/core/forms/entity.py:36
