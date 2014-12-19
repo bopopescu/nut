@@ -19,8 +19,6 @@ if getattr(settings, 'USE_TZ'):
         pass
 
 
-<<<<<<< HEAD
-=======
 class NotificationQuerySet(models.query.QuerySet):
 
     def unread(self):
@@ -44,7 +42,6 @@ class NotificationQuerySet(models.query.QuerySet):
         qs.update(unread=True)
 
 
->>>>>>> 054ef8f7c117715a3495440eb49ec650e56e2f3d
 class Notification(models.Model):
     LEVELS = Choices('success', 'info', 'warning', 'error')
     level = models.CharField(choices=LEVELS, default='info', max_length=20)
