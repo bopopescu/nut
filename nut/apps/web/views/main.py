@@ -6,7 +6,7 @@ from django.template import loader
 
 from apps.core.models import Entity, Entity_Like
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
-from apps.web.forms.search import EntitySearchForm
+# from apps.web.forms.search import EntitySearchForm
 from apps.core.utils.http import JSONResponse
 from django.utils.log import getLogger
 

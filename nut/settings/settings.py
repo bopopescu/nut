@@ -43,7 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.formtools',
     'rest_framework',
     # 'rest_framework.authtoken',
-    'haystack',
+    # 'haystack',
     'djcelery',
     'apps.notifications',
 
@@ -157,10 +157,10 @@ IMAGE_HOST = 'http://imgcdn.guoku.com/'
 
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-IMAGE_SIZE = [128, 310, 640]
+# IMAGE_SIZE = [128, 310, 640]
 
 Avatar_Image_Path = 'avatar/'
-Avatar_Image_Size = [180, 50]
+# Avatar_Image_Size = [180, 50]
 
 
 HAYSTACK_CONNECTIONS = {
@@ -183,3 +183,4 @@ HAYSTACK_DEFAULT_OPERATOR = 'OR'
 BROKER_URL = 'redis://10.0.2.95:6379/10'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
