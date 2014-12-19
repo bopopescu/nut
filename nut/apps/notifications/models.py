@@ -15,6 +15,7 @@ if getattr(settings, 'USE_TZ'):
     except ImportError:
         pass
 
+
 class Notification(models.Model):
     LEVELS = Choices('success', 'info', 'warning', 'error')
     level = models.CharField(choices=LEVELS, default='info', max_length=20)
