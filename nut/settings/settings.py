@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'apps.management',
     'apps.web',
     'apps.mobile',
+    'apps.images',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -181,3 +182,4 @@ HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
 BROKER_URL = 'redis://10.0.2.95:6379/10'
 CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'

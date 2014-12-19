@@ -11,5 +11,10 @@ class DebugTask(Task):
         return self.run(*args, **kwargs)
 
 
+class BaseTask(Task):
+    abstract = True
+    compression = 'gzip'
+    send_error_emails = True
+    default_retry_delay = 20
 
 __author__ = 'edison'
