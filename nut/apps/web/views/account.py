@@ -76,18 +76,6 @@ def login(request, template='web/account/login.html'):
     )
 
 
-# def register(request, template='web/account/register.html'):
-#
-#
-#     return  render_to_response(
-#         template,
-#         {
-#
-#         },
-#         context_instance = RequestContext(request),
-#     )
-
-
 def logout(request):
     auth_logout(request)
     request.session.set_expiry(0)
