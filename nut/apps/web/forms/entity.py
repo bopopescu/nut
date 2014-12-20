@@ -1,10 +1,14 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.log import getLogger
+
+from apps.core.models import Entity
 from apps.core.utils.fetch.taobao import TaoBao
 
 from urlparse import urlparse
 import re
+from datetime import datetime
+from hashlib import md5
 
 log = getLogger('django')
 
@@ -19,6 +23,18 @@ def parse_taobao_id_from_url(url):
         if len(tokens) >= 2 and (tokens[0] == "id" or tokens[0] == "item_id"):
             return tokens[1]
     return None
+
+
+def cal_entity_hash(hash_string):
+    _hash = None
+    while True:
+        _hash = md5((hash_string + unicode(datetime.now())).encode('utf-8')).hexdigest()[0:8]
+        try:
+            Entity.objects.get(entity_hash = _hash)
+        except Entity.DoesNotExist:
+            break
+    return _hash
+
 
 
 class EntityURLFrom(forms.Form):
@@ -73,8 +89,11 @@ class EntityURLFrom(forms.Form):
 
 class CreateEntityForm(forms.Form):
 
-    taobao_id = forms.IntegerField(
+    taobao_id = forms.CharField(
         widget=forms.TextInput()
+    )
+    cid = forms.IntegerField(
+        widget=forms.TextInput(),
     )
     shop_nick = forms.CharField(
         widget=forms.TextInput()
@@ -89,16 +108,56 @@ class CreateEntityForm(forms.Form):
         widget=forms.TextInput(),
         required=False,
     )
+    price = forms.FloatField(
+        widget=forms.TextInput(),
+    )
+    chief_image_url = forms.URLField(
+        widget=forms.URLInput(),
+    )
     note_text = forms.CharField(
         widget=forms.Textarea(),
     )
+
 
     def __init__(self, request, *args, **kwargs):
         self.request = request
         super(CreateEntityForm, self).__init__(*args, **kwargs)
 
 
+    def save(self):
 
+        _taobao_id = self.cleaned_data.get('taobao_id')
+        _shop_nick = self.cleaned_data.get('shop_nick')
+        _brand = self.cleaned_data.get('brand')
+        _title = self.cleaned_data.get('taobao_title')
+        _cid = self.cleaned_data.get('cid', 300)
+        _price = self.cleaned_data.get('price')
+        _chief_image_url = self.cleaned_data.get('chief_image_url')
+        _images = self.data.getlist('thumb_images')
+
+        # log.info(_chief_image_url)
+        _entity_hash = cal_entity_hash(_taobao_id+_title+_shop_nick)
+
+        if _chief_image_url in _images:
+            _images.remove(_chief_image_url)
+
+        _images.insert(0, _chief_image_url)
+
+        log.info("images %s" % len(_images))
+
+        entity = Entity(
+            user_id=self.request.user.id,
+            entity_hash= _entity_hash,
+            category_id = 300,
+            brand=_brand,
+            title=_title,
+            price=_price,
+            images=_images,
+        )
+
+        log.info(entity.images)
+        entity.save()
+        return entity
 
 
 

@@ -55,6 +55,7 @@
                     <div class="media-body">
 {#                        <h4 class="media-heading"></h4>#}
                         <form class="form-horizontal" action="{% url 'web_entity_create' %}" method="POST" style="padding-top: 20px;">
+                            {% csrf_token %}
                             <fieldset>
                             <div class="form-group">
                                 <div class="col-sm-offset-1 col-sm-10">
