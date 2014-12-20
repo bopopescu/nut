@@ -1,3 +1,5 @@
+#encoding=utf8
+
 from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
@@ -10,8 +12,8 @@ from apps.core.utils.http import JSONResponse
 from apps.core.models import Entity,Entity_Like, Note, Note_Comment
 from apps.web.forms.comment import CommentForm
 from apps.web.forms.note import NoteForm
-
-from apps.core.tasks.entity import like_task
+from apps.web.forms.entity import EntityURLFrom
+# from apps.core.tasks.entity import like_task
 
 from django.utils.log import getLogger
 
@@ -209,5 +211,36 @@ def entity_unlike(request, eid):
 
     return HttpResponseNotAllowed
 
+
+@login_required
+def entity_create(request, template="web/entity/new.html"):
+
+    _url_froms = EntityURLFrom(request)
+
+    return render_to_response(
+        template,
+        {
+            'url_forms':_url_froms
+        },
+        context_instance = RequestContext(request),
+    )
+
+@login_required
+def entity_load(request):
+
+    if request.method == "POST":
+        _forms = EntityURLFrom(request=request, data=request.POST)
+        if _forms.is_valid():
+            _item_info = _forms.load()
+
+            # log.info(_item_info)
+            _res = {
+                'status': 'SUCCESS',
+                'data': _item_info,
+            }
+
+            return JSONResponse(data=_res)
+
+    raise HttpResponseNotAllowed
 
 __author__ = 'edison'
