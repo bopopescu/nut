@@ -1,5 +1,5 @@
 from celery.utils.log import get_task_logger
-from celery import Task, task
+from celery import Task
 
 logger = get_task_logger(__name__)
 
@@ -16,5 +16,9 @@ class BaseTask(Task):
     compression = 'gzip'
     send_error_emails = True
     default_retry_delay = 20
+
+
+
+# from apps.core.tasks.entity import like_task
 
 __author__ = 'edison'
