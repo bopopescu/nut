@@ -259,7 +259,7 @@ $.ajaxSetup({
         },
 
         changeChiefImage : function(object) {
-            console.log(object);
+//            console.log(object);
             var image = object.find(".thumbnail");
 
 
