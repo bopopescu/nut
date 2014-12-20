@@ -219,8 +219,9 @@ def entity_create(request, template="web/entity/new.html"):
     if request.method == 'POST':
         _forms = CreateEntityForm(request=request, data=request.POST)
         if _forms.is_valid():
-            _forms.save()
+            entity = _forms.save()
 
+        return
     else:
         _url_froms = EntityURLFrom(request)
 
