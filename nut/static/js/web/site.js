@@ -177,7 +177,7 @@ $.ajaxSetup({
                             entityExist.slideUp();
 
 //                            console.log(data.data.user_context);
-                            addEntityNote.find("a img").attr("src", data.data.user_context.avatar_small);
+                            addEntityNote.find("a img").attr("src", data.data.user_avatar);
 //                            addEntityNote.find('.media-heading').html(data.data.user_context.nickname);
                             if (data.data.taobao_id == undefined) {
 
@@ -228,7 +228,8 @@ $.ajaxSetup({
                                 '<input type="hidden" name="chief_image_url" value="'+data.data.chief_image_url+'">' +
                                 '<input type="hidden" name="cid" value="'+data.data.cid+'">' +
                                 '<input type="hidden" name="selected_category_id" value="'+data.data.selected_category_id+'">' +
-                                '<input name="user_id" type="hidden" value="'+data.data.user_context.user_id+'">').appendTo($(".add-entity-note form"));
+                                '<input name="user_id" type="hidden" value="'+data.data.user_id+'">').appendTo($(".add-entity-note form")
+                            );
                             addEntity.slideDown();
                             addEntityNote.slideDown();
                         }
