@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.utils.log import getLogger
 
 from apps.images.tasks import resize
@@ -19,6 +19,12 @@ def images(request, file_name, size=None):
 
     result = resize.apply_async((image_name, size), expires=60)
     image_data = result.get()
-    return HttpResponse(image_data, content_type='image/jpeg')
+
+    if image_data:
+        return HttpResponse(image_data, content_type='image/jpeg')
+    raise Http404
+
+
+
 
 __author__ = 'edison'

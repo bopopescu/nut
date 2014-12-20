@@ -1,5 +1,9 @@
 from settings import *
 
+# DEBUG = False
+# TEMPLATE_DEBUG = DEBUG
+
+
 LANGUAGE_CODE = 'zh-cn'
 
 TIME_ZONE = 'Asia/Shanghai'
@@ -20,7 +24,6 @@ DATABASES = {
         }
     },
 }
-
 
 INSTALLED_APPS += (
     'gunicorn',

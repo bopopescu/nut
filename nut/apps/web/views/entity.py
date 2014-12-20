@@ -10,6 +10,9 @@ from apps.core.utils.http import JSONResponse
 from apps.core.models import Entity,Entity_Like, Note, Note_Comment
 from apps.web.forms.comment import CommentForm
 from apps.web.forms.note import NoteForm
+
+from apps.core.tasks.entity import like_task
+
 from django.utils.log import getLogger
 
 log = getLogger('django')
@@ -175,12 +178,18 @@ def entity_note_comment_delete(request, comment_id):
 def entity_like(request, eid):
     if request.is_ajax():
         _user = request.user
-        Entity_Like.objects.create(
-            user = _user,
-            entity_id = eid,
-        )
+        try:
+            el = Entity_Like.objects.create(
+                user = _user,
+                entity_id = eid,
+            )
+            return JSONResponse(data={'status':1})
+        except Exception, e:
+            log.error("ERROR: %s", e.message)
+            # pass
+        # result = like_task.apply_async((_user.id, eid), expires=5)
+        # if result.get():
 
-        return JSONResponse(data={'status':1})
 
     return HttpResponseNotAllowed
 
