@@ -12,7 +12,7 @@ from apps.core.utils.http import JSONResponse
 from apps.core.models import Entity,Entity_Like, Note, Note_Comment
 from apps.web.forms.comment import CommentForm
 from apps.web.forms.note import NoteForm
-from apps.web.forms.entity import EntityURLFrom
+from apps.web.forms.entity import EntityURLFrom, CreateEntityForm
 # from apps.core.tasks.entity import like_task
 
 from django.utils.log import getLogger
@@ -215,15 +215,22 @@ def entity_unlike(request, eid):
 @login_required
 def entity_create(request, template="web/entity/new.html"):
 
-    _url_froms = EntityURLFrom(request)
 
-    return render_to_response(
-        template,
-        {
-            'url_forms':_url_froms
-        },
-        context_instance = RequestContext(request),
-    )
+    if request.method == 'POST':
+        _forms = CreateEntityForm(request=request, data=request.POST)
+        if _forms.is_valid():
+            _forms.save()
+
+    else:
+        _url_froms = EntityURLFrom(request)
+
+        return render_to_response(
+            template,
+            {
+                'url_forms':_url_froms
+            },
+            context_instance = RequestContext(request),
+        )
 
 @login_required
 def entity_load(request):
