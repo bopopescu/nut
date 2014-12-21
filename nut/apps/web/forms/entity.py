@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.log import getLogger
 
-from apps.core.models import Entity, Taobao_Item_Category_Mapping
+from apps.core.models import Entity, Taobao_Item_Category_Mapping, Note, Buy_Link
 from apps.core.utils.fetch.taobao import TaoBao
 
 from urlparse import urlparse
@@ -95,6 +95,9 @@ class CreateEntityForm(forms.Form):
     cid = forms.IntegerField(
         widget=forms.TextInput(),
     )
+    cand_url = forms.URLField(
+        widget=forms.URLInput(),
+    )
     shop_nick = forms.CharField(
         widget=forms.TextInput()
     )
@@ -135,6 +138,9 @@ class CreateEntityForm(forms.Form):
         _chief_image_url = self.cleaned_data.get('chief_image_url')
         _images = self.data.getlist('thumb_images')
 
+        _note_text = self.cleaned_data.get('note_text')
+        _cand_url = self.cleaned_data.get('cand_url')
+
         # log.info(_chief_image_url)
         _entity_hash = cal_entity_hash(_taobao_id+_title+_shop_nick)
 
@@ -162,6 +168,24 @@ class CreateEntityForm(forms.Form):
 
         log.info(entity.images)
         entity.save()
+
+
+        Note.objects.create(
+            user_id = self.request.user.id,
+            entity = entity,
+            note = _note_text,
+        )
+
+        _hostname = urlparse(_cand_url).hostname
+        Buy_Link.objects.create(
+            entity = entity,
+            origin_id = _taobao_id,
+            origin_source = _hostname,
+            link = "http://item.taobao.com/item.htm?id=%s" % _taobao_id,
+            price = _price,
+        )
+
+
         return entity
 
 
