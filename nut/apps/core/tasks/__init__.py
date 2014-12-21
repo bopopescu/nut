@@ -19,6 +19,6 @@ class BaseTask(Task):
 
 
 
-# from apps.core.tasks.entity import like_task
+from apps.core.tasks.entity import fetch_image
 
 __author__ = 'edison'
