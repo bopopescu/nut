@@ -229,6 +229,11 @@ class Sub_Category(BaseModel):
     def __unicode__(self):
         return self.title
 
+class Taobao_Item_Category_Mapping(models.Model):
+    taobao_category_id = models.IntegerField(db_index = True, unique = True)
+    parent_id = models.IntegerField(default = 0)
+    title = models.CharField(max_length = 256)
+    guoku_category = models.ForeignKey(Sub_Category)
 
 class Entity(BaseModel):
 
@@ -604,6 +609,7 @@ class Show_Editor_Recommendation(models.Model):
 
     class Meta:
         ordering = ['-position']
+
 
 
 
