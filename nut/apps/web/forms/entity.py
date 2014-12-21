@@ -4,6 +4,7 @@ from django.utils.log import getLogger
 
 from apps.core.models import Entity, Taobao_Item_Category_Mapping, Note, Buy_Link
 from apps.core.utils.fetch.taobao import TaoBao
+from apps.core.tasks.entity import fetch_image
 
 from urlparse import urlparse
 import re
@@ -82,6 +83,7 @@ class EntityURLFrom(forms.Form):
                     'price': res['price'],
                     'chief_image_url' : res['imgs'][0],
                     'thumb_images': res["imgs"],
+                    # 'selected_category_id':
                 }
             return _data
 
@@ -141,13 +143,15 @@ class CreateEntityForm(forms.Form):
         _note_text = self.cleaned_data.get('note_text')
         _cand_url = self.cleaned_data.get('cand_url')
 
-        # log.info(_chief_image_url)
+        log.info("category %s" % _cid)
         _entity_hash = cal_entity_hash(_taobao_id+_title+_shop_nick)
 
+        category_id = 300
         try:
             cate = Taobao_Item_Category_Mapping.objects.get(taobao_category_id = _cid)
+            category_id = cate.neo_category_id
         except Taobao_Item_Category_Mapping.DoesNotExist:
-            cate = None
+            pass
 
         if _chief_image_url in _images:
             _images.remove(_chief_image_url)
@@ -159,7 +163,7 @@ class CreateEntityForm(forms.Form):
         entity = Entity(
             user_id=self.request.user.id,
             entity_hash= _entity_hash,
-            category = cate.guoku_category,
+            category_id = category_id,
             brand=_brand,
             title=_title,
             price=_price,
@@ -167,8 +171,10 @@ class CreateEntityForm(forms.Form):
         )
 
         log.info(entity.images)
-        entity.save()
 
+        entity.save()
+        # log.info(entity.images)
+        fetch_image.delay(entity.images, entity.id)
 
         Note.objects.create(
             user_id = self.request.user.id,
