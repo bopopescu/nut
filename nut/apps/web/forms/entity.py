@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.log import getLogger
 
-from apps.core.models import Entity
+from apps.core.models import Entity, Taobao_Item_Category_Mapping
 from apps.core.utils.fetch.taobao import TaoBao
 
 from urlparse import urlparse
@@ -138,17 +138,22 @@ class CreateEntityForm(forms.Form):
         # log.info(_chief_image_url)
         _entity_hash = cal_entity_hash(_taobao_id+_title+_shop_nick)
 
+        try:
+            cate = Taobao_Item_Category_Mapping.objects.get(taobao_category_id = _cid)
+        except Taobao_Item_Category_Mapping.DoesNotExist:
+            cate = None
+
         if _chief_image_url in _images:
             _images.remove(_chief_image_url)
 
         _images.insert(0, _chief_image_url)
 
-        log.info("images %s" % len(_images))
+        log.info("category %s" % _cid)
 
         entity = Entity(
             user_id=self.request.user.id,
             entity_hash= _entity_hash,
-            category_id = 300,
+            category = cate.guoku_category,
             brand=_brand,
             title=_title,
             price=_price,
