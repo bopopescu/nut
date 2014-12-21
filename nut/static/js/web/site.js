@@ -228,6 +228,7 @@ $.ajaxSetup({
                                 '<input type="hidden" name="chief_image_url" value="'+data.data.chief_image_url+'">' +
                                 '<input type="hidden" name="cid" value="'+data.data.cid+'">' +
                                 '<input type="hidden" name="selected_category_id" value="'+data.data.selected_category_id+'">' +
+                                '<input type="hidden" name="cand_url" value="'+data.data.cand_url+'">' +
                                 '<input name="user_id" type="hidden" value="'+data.data.user_id+'">').appendTo($(".add-entity-note form")
                             );
                             addEntity.slideDown();
