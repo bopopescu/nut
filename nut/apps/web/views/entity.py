@@ -241,11 +241,18 @@ def entity_load(request):
             _item_info = _forms.load()
 
             # log.info(_item_info)
-            _res = {
-                'status': 'SUCCESS',
-                'data': _item_info,
-            }
 
+
+            if _item_info.has_key('entity_hash'):
+                _res = {
+                    'status' : 'EXIST',
+                    'data': _item_info,
+                }
+            else:
+                _res = {
+                    'status': 'SUCCESS',
+                    'data': _item_info,
+                }
             return JSONResponse(data=_res)
 
     raise HttpResponseNotAllowed

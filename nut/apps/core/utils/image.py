@@ -9,6 +9,7 @@ image_path = getattr(settings, 'MOGILEFS_MEDIA_URL', 'images/')
 
 
 class HandleImage(object):
+    path = image_path
 
     def __init__(self, image_file):
         if hasattr(image_file, 'chunks'):
@@ -72,16 +73,19 @@ class HandleImage(object):
         # _img.resize(_width, _height)
         # return _img.make_blob()
 
-    def save(self, resize=False, square=False):
+    def save(self, path = None, resize=False, square=False):
         if resize:
             pass
 
         if square:
             self.crop_square()
         # else:
+        if path:
+            self.path = path
 
-        filename =  image_path + self.name + '.jpg'
-        filename = default_storage.save(filename, ContentFile(self.image_data))
+        filename = self.path + self.name + '.jpg'
+        if not default_storage.exists(filename):
+            filename = default_storage.save(filename, ContentFile(self.image_data))
         return filename
 
 
