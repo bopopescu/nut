@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="row">
+        <table class="table-responsive table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>用户名</th>
+                    <th>邮箱</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in res %}
+                    <tr>
+                        <td>{{ row.id }}</td>
+                        <td>{{ row.username }}</td>
+                        <td>{{ row.email }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

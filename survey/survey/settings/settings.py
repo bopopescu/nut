@@ -138,6 +138,7 @@ INSTALLED_APPS = (
 
     'survey',
     'gunicorn',
+    'import_export',
 )
 
 support_email = "hi@guoku.com"

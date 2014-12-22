@@ -3,6 +3,16 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
+
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+
+class ResponseResource(resources.ModelResource):
+
+    class Meta:
+        model = Response
+
+
 class QuestionInline(admin.TabularInline):
     model = Question
     ordering = ('category',)
@@ -35,7 +45,8 @@ class AnswerSelectMultipleInline(AnswerBaseInline):
 class AnswerIntegerInline(AnswerBaseInline):
     model= AnswerInteger
 
-class ResponseAdmin(admin.ModelAdmin):
+class ResponseAdmin(ImportExportModelAdmin):
+    resource_class = ResponseResource
     list_display = ('user_uuid', 'username', 'email', 'created')
     inlines = [AnswerTextInline, AnswerRadioInline, AnswerSelectInline, AnswerSelectMultipleInline, AnswerIntegerInline]
     # specifies the order as well as which fields to act on
@@ -46,3 +57,5 @@ class ResponseAdmin(admin.ModelAdmin):
 admin.site.register(Survey, SurveyAdmin)
 
 admin.site.register(Response, ResponseAdmin)
+
+
