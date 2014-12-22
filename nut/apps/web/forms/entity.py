@@ -66,6 +66,9 @@ class EntityURLFrom(forms.Form):
             try:
                 buy_link = Buy_Link.objects.get(origin_id=_taobao_id)
                 log.info(buy_link.entity)
+                _data = {
+                    'entity_hash': buy_link.entity.entity_hash,
+                }
             except Buy_Link.DoesNotExist:
                 # log.info("OKOKOKO")
                 t = TaoBao(_taobao_id)

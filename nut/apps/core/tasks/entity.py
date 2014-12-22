@@ -22,15 +22,18 @@ def fetch_image(images, entity_id, *args, **kwargs):
         # print f.read()
 
         image = HandleImage(f)
+        image_name = image.save()
+        image_list.append("%s%s" % (image_host, image_name))
         # print image.image_data
         # image.name
-        image_name = image_path + "%s.jpg" % image.name
-        if default_storage.exists(image_name):
-            image_name = image_host + image_name
-            image_list.append(image_name)
-        else:
-            image_name = image_host + default_storage.save(image_name, ContentFile(image.image_data))
-            image_list.append(image_name)
+        # image_name = image_path + "%s.jpg" % image.name
+        # if default_storage.exists(image_name):
+        #     image_name = image_host + image_name
+        #     image_list.append(image_name)
+        # else:
+        #     image_name = image_host + default_storage.save(image_name, ContentFile(image.image_data))
+        #     image_list.append(image_name)
+
 
     try:
         entity = Entity.objects.get(pk = entity_id)
