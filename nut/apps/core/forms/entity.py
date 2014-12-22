@@ -165,7 +165,11 @@ class EntityImageForm(forms.Form):
 
         entity_image = HandleImage(image)
         image_name = image_path + "%s.jpg" % entity_image.name
-        image_name = image_host + default_storage.save(image_name, ContentFile(entity_image.image_data))
+
+        if default_storage.exists(image_name):
+            image_name = image_host + image_name
+        else:
+            image_name = image_host + default_storage.save(image_name, ContentFile(entity_image.image_data))
         images = self.entity.images
         images.append(image_name)
         self.entity.images = images
