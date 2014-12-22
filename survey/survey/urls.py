@@ -36,6 +36,7 @@ SurveyForms = [ResponseWithOutUsernameWizardFrom,
 urlpatterns += patterns(
     'survey.views',
     url(r'^survey/(?P<sid>\d+)/$', SurveyWizard.as_view(SurveyForms), name='surveies'),
+    url(r'survey/export/$', 'export', name='export'),
 )
 
 # media url hackery. le sigh. 

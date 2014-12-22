@@ -5,17 +5,17 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 # from django.core import urlresolvers
-from django.contrib import messages
+# from django.contrib import messages
 import datetime
 import settings
 from django.contrib.formtools.wizard.views import SessionWizardView
 
-from models import Question, Survey, Category
+from models import Question, Survey, Category, Response
 from forms import ResponseForm
-from django.contrib.formtools.wizard.forms import ManagementForm
-from django import forms
-from django.forms import formsets, ValidationError
-from django.utils.translation import ugettext as _
+# from django.contrib.formtools.wizard.forms import ManagementForm
+# from django import forms
+# from django.forms import formsets, ValidationError
+# from django.utils.translation import ugettext as _
 from django.utils.log import getLogger
 
 log = getLogger('dev')
@@ -120,3 +120,27 @@ class SurveyWizard(SessionWizardView):
                 # response = form.save()
 
         return HttpResponseRedirect(reverse('confirmation', args=[response.user_uuid]))
+
+
+from django.contrib.auth.decorators import login_required
+# import csv
+
+@login_required
+def export(request, template='export.html'):
+
+    # response = HttpResponse(content_type='text/csv')
+    # response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
+    #
+    res = Response.objects.filter(survey_id=2)
+    # writer = csv.writer(response)
+    #
+    # for row in res:
+    #     writer.writerow([row.username, row.email])
+
+    return render_to_response(
+        template,
+        {
+            'res': res,
+        },
+        context_instance = RequestContext(request),
+    )

@@ -96,7 +96,7 @@ def post_note(request, user_id, template="web/user/post_note.html"):
 
     # log.info(_user.note_count)
     note_list = _user.note.all().values_list('entity_id', flat=True)
-    # log.info(note_list)
+    log.info(note_list)
     paginator = ExtentPaginator(note_list, 20)
 
     try:
