@@ -8,7 +8,6 @@
                     <th>#</th>
                     <th>用户名</th>
                     <th>邮箱</th>
-                    <th>tt</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,9 +16,9 @@
                         <td>{{ row.id }}</td>
                         <td>{{ row.username }}</td>
                         <td>{{ row.email }}</td>
-                        {% for a in row.answerbase_set.all %}
-                            <td>{{ a.answerradio }}</td>
-                        {% endfor %}
+{#                        {% for a in row.answerbase_set.all %}#}
+{#                            <td>{{ a.answerradio }}</td>#}
+{#                        {% endfor %}#}
                     </tr>
                 {% endfor %}
             </tbody>
