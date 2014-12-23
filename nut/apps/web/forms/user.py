@@ -44,7 +44,7 @@ class UserSettingsForm(forms.Form):
                           required=False,
                           help_text=_(''))
     website = forms.URLField(label=_('website'),
-                             widget=forms.TextInput(attrs={'class':'form-control'}),
+                             widget=forms.URLInput(attrs={'class':'form-control'}),
                              required=False,
                              help_text=_(''))
 
