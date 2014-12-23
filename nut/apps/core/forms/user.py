@@ -14,8 +14,6 @@ from apps.core.models import User_Profile
 from apps.core.utils.image import HandleImage
 
 
-avatar_path = getattr(settings, 'Avatar_Image_Path', 'avatar/')
-avatar_size = getattr(settings, 'Avatar_Image_Size', [50, 180])
 
 class UserForm(forms.Form):
     YES_OR_NO = (
@@ -151,14 +149,9 @@ class AvatarForm(forms.Form):
         # log.info(_avatar_file)
         _image = HandleImage(image_file= _avatar_file)
 
-        _image.crop_square()
-        # for size in avatar_size:
-        file_path = avatar_path + "%s.jpg" % (_image.name)
+        avatar_path_name = _image.avatar_save()
 
-        default_storage.save(file_path, ContentFile(_image.resize(180, 180)))
-        # log.info(file_path)
-
-        self.user.profile.avatar = avatar_path + "%s.jpg" % _image.name
+        self.user.profile.avatar = avatar_path_name
 
         self.user.profile.save()
 
