@@ -7,6 +7,9 @@ from django.conf import settings
 
 image_path = getattr(settings, 'MOGILEFS_MEDIA_URL', 'images/')
 
+avatar_path = getattr(settings, 'Avatar_Image_Path', 'avatar/')
+# avatar_size = getattr(settings, 'Avatar_Image_Size', [50, 180])
+
 
 class HandleImage(object):
     path = image_path
@@ -74,14 +77,25 @@ class HandleImage(object):
         # return _img.make_blob()
 
     def save(self, path = None, resize=False, square=False):
-        if resize:
-            pass
 
         if square:
             self.crop_square()
+
         # else:
         if path:
             self.path = path
+
+        filename = self.path + self.name + '.jpg'
+        if not default_storage.exists(filename):
+            filename = default_storage.save(filename, ContentFile(self.image_data))
+        return filename
+
+
+    def avatar_save(self):
+        self.path = avatar_path
+
+        self.crop_square()
+        self.resize(300, 300)
 
         filename = self.path + self.name + '.jpg'
         if not default_storage.exists(filename):
