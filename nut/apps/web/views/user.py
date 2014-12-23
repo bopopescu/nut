@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 
 from apps.web.forms.user import UserSettingsForm
 from apps.core.utils.http import JSONResponse
-from apps.core.utils.image import HandleImage
+# from apps.core.utils.image import HandleImage
 from apps.core.forms.user import AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.models import Entity
