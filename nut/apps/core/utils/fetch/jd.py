@@ -13,6 +13,9 @@ class JD():
         self.html = self.fetch_html()
         self.soup = BeautifulSoup(self.html, from_encoding="gb18030")
 
+        self.price_json = self.fetch_price()
+        # self.price_link = "http://p.3.cn/prices/get?skuid=J_%d&type=1&area=1_72_4137&callback=cnp" % self.item_id
+
     def fetch_html(self):
         try:
             f = urllib2.urlopen('http://item.jd.com/%s.html' % self.item_id)
@@ -21,6 +24,14 @@ class JD():
 
         self._headers = f.headers
         return f.read()
+
+    def fetch_price(self):
+        price_link = "http://p.3.cn/prices/get?skuid=J_%s&type=1&area=1_72_4137&callback=cnp" % self.item_id
+        resp = urllib2.urlopen(price_link)
+        data = resp.read()
+        data = data[5:-4]
+        # pj = json.loads(data)
+        return json.loads(data)
 
     @property
     def title(self):
@@ -39,6 +50,29 @@ class JD():
         return self._brand
 
     @property
+    def cid(self):
+        cattag = self.soup.select("html body div.w div.breadcrumb span a")[1]
+        catlink = cattag.attrs['href']
+        catstr = re.findall(r'\d+',catlink)
+        category = [int(x) for x in catstr]
+        # print category
+        return category[-1]
+
+    @property
+    def shop_link(self):
+        tmp = re.findall(r'店铺.*>(.+)</a>', self.html)
+        shop_link = ""
+        if len(tmp)>0:
+            nick = tmp[0]
+            link = re.findall(r'店铺.* href="(.+)">', self.html)[0]
+            shop_link = link[:-16]
+        else:
+            nick="京东"
+            shop_link = "http://jd.com"
+
+        return shop_link
+
+    @property
     def imgs(self):
         imgtags = self.soup.select("html body div.w div#product-intro \
                 div#preview div#spec-list div.spec-items ul li img")
@@ -49,6 +83,18 @@ class JD():
             src = src.replace('com/n5','com/n1')
             imgs.append(src)
         return imgs
+
+    @property
+    def price(self):
+
+        return float(self.price_json['p'])
+#         price_link = "http://p.3.cn/prices/get?skuid=J_%d&type=1&area=1_72_4137&callback=cnp"%itemid
+#         resp = urllib2.urlopen(price_link)
+#         data = resp.read()
+#         data = data[5:-4]
+#         pj = json.loads(data)
+#         price = float(pj['p'])
+
 
 # class JDExtractor:
 #

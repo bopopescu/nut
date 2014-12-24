@@ -83,16 +83,16 @@ class EntityURLFrom(forms.Form):
                     'jd_id': _jd_id,
                     'brand': j.brand,
                     'jd_title': j.title,
-
-                    # 'cid': res['cid'],
+                    'cid': j.cid,
                     # 'taobao_title': res['desc'],
                     # 'shop_nick': res['nick'],
-                    # 'shop_link': res['shop_link'],
-                    # 'price': res['price'],
+                    'shop_link': j.shop_link,
+                    'price': j.price,
                     'chief_image_url' : j.imgs[0],
                     'thumb_images': j.imgs,
                     # 'selected_category_id':
                 }
+                print _data
             # pass
             # return jd_info(self.request, _link)
 
