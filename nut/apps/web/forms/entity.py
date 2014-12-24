@@ -143,9 +143,9 @@ class CreateEntityForm(forms.Form):
     cid = forms.IntegerField(
         widget=forms.TextInput(),
     )
-    cand_url = forms.URLField(
-        widget=forms.URLInput(),
-    )
+    # cand_url = forms.URLField(
+    #     widget=forms.URLInput(),
+    # )
     shop_nick = forms.CharField(
         widget=forms.TextInput()
     )
@@ -185,7 +185,7 @@ class CreateEntityForm(forms.Form):
         _images = self.data.getlist('thumb_images')
 
         _note_text = self.cleaned_data.get('note_text')
-        _cand_url = self.cleaned_data.get('cand_url')
+        # _cand_url = self.cleaned_data.get('cand_url')
 
         log.info("category %s" % _cid)
         _entity_hash = cal_entity_hash(_taobao_id+_title+_shop_nick)
