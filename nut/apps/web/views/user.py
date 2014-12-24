@@ -81,11 +81,12 @@ def index(request, user_id):
 
 def entity_like(request, user_id, template="web/user/like.html"):
 
+    _user = get_user_model()._default_manager.get(pk=user_id)
 
     return render_to_response(
         template,
         {
-
+            'user':_user,
         },
         context_instance = RequestContext(request),
     )
