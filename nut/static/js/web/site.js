@@ -179,12 +179,17 @@ $.ajaxSetup({
 //                            console.log(data.data.user_context);
                             addEntityNote.find("a img").attr("src", data.data.user_avatar);
 //                            addEntityNote.find('.media-heading').html(data.data.user_context.nickname);
+                            var title;
                             if (data.data.taobao_id == undefined) {
-
+                                title = $.trim(data.data.jd_title);
+                                var brand = $.trim(data.data.brand);
+                                addEntity.find(".title").text(title);
+                                addEntity.find("input[name=title]").val(title);
+                                addEntity.find("input[name=brand]").val(brand);
                             } else {
                                 $(".detail_title span:eq(1)").text(data.data.taobao_title);
 //                                $(".detail_title_input").val(data.data.taobao_title);
-                                var title = $.trim(data.data.taobao_title);
+                                title = $.trim(data.data.taobao_title);
                                 addEntity.find(".title").text(title);
                                 addEntity.find("input[name=title]").val(title);
                             }

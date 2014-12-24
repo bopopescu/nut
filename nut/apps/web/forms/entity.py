@@ -4,6 +4,7 @@ from django.utils.log import getLogger
 
 from apps.core.models import Entity, Taobao_Item_Category_Mapping, Note, Buy_Link
 from apps.core.utils.fetch.taobao import TaoBao
+from apps.core.utils.fetch.jd import JD
 from apps.core.tasks.entity import fetch_image
 
 from urlparse import urlparse
@@ -64,16 +65,34 @@ class EntityURLFrom(forms.Form):
 
         if re.search(r"\b(jd|360buy)\.com$", _hostname) != None:
             _jd_id = parse_jd_id_from_url(_link)
-            log.info(_jd_id)
+            # log.info(_jd_id)
             try:
                 buy_link = Buy_Link.objects.get(origin_id=_jd_id)
                 _data = {
                     'entity_hash': buy_link.entity.entity_hash,
                 }
             except Buy_Link.DoesNotExist:
-                pass
+                j = JD(_jd_id)
 
+                # print "OKOKOKOKOKO"
+                log.info(j.brand)
+                _data = {
+                    'user_id': self.request.user.id,
+                    'user_avatar': self.request.user.profile.avatar_url,
+                    'cand_url': _link,
+                    'jd_id': _jd_id,
+                    'brand': j.brand,
+                    'jd_title': j.title,
 
+                    # 'cid': res['cid'],
+                    # 'taobao_title': res['desc'],
+                    # 'shop_nick': res['nick'],
+                    # 'shop_link': res['shop_link'],
+                    # 'price': res['price'],
+                    'chief_image_url' : j.imgs[0],
+                    'thumb_images': j.imgs,
+                    # 'selected_category_id':
+                }
             # pass
             # return jd_info(self.request, _link)
 
