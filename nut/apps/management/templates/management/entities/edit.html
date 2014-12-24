@@ -7,7 +7,7 @@
     <div class="row placeholders" id="images">
         {% for index, image in entity.images|enumerate_list %}
             <div class="col-xs-6 col-sm-3 placeholder">
-                <img class="img-responsive img-thumbnail" alt="240x240" src="{{ image|resize:'240' }}" width="240" height="240">
+                <img class="img-responsive img-thumbnail" alt="{{ entity.title }}" src="{{ image|resize:'240' }}" width="240" height="240">
 {#                {% if index != 0 %}#}
                 <span class="text-muted">
 {#                    <a class="btn btn-link" href="{% url 'management_remove_entity_image' entity.id %}">{% trans 'remove' %}</a>#}
@@ -32,6 +32,7 @@
     <div class="row" style="padding-bottom: 24px;">
         <a href="{% url 'management_note_create' %}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#EntityNoteModal">{% trans 'add note' %}</a>
         <a href="{% url 'management_entity_image' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'upload image' %}</a>
+        <a href="#" class="btn btn-primary btn-lg" target="_blank">{% trans 'add buy link' %}</a>
     </div>
 
     <div class="row">

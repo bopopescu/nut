@@ -456,6 +456,9 @@ msgstr "删除"
 msgid "add note"
 msgstr "添加点评"
 
+msgid "upload image"
+msgstr "上传图片"
+
 #: apps/management/templates/management/entities/edit.html:41
 msgid "success"
 msgstr "成功"
