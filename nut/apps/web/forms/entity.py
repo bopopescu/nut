@@ -25,6 +25,12 @@ def parse_taobao_id_from_url(url):
             return tokens[1]
     return None
 
+def parse_jd_id_from_url(url):
+    ids = re.findall(r'\d+',url)
+    if len(ids) > 0:
+        return ids[0]
+    else:
+        return None
 
 def cal_entity_hash(hash_string):
     _hash = None
@@ -54,15 +60,27 @@ class EntityURLFrom(forms.Form):
         _hostname = urlparse(_link).hostname
 
         log.info(_hostname)
+        _data = dict()
 
         if re.search(r"\b(jd|360buy)\.com$", _hostname) != None:
-            pass
+            _jd_id = parse_jd_id_from_url(_link)
+            log.info(_jd_id)
+            try:
+                buy_link = Buy_Link.objects.get(origin_id=_jd_id)
+                _data = {
+                    'entity_hash': buy_link.entity.entity_hash,
+                }
+            except Buy_Link.DoesNotExist:
+                pass
+
+
+            # pass
             # return jd_info(self.request, _link)
 
         if re.search(r"\b(tmall|taobao|95095)\.(com|hk)$", _hostname) is not None:
             _taobao_id = parse_taobao_id_from_url(_link)
             # log.info(_taobao_id)
-            _data = dict()
+
             try:
                 buy_link = Buy_Link.objects.get(origin_id=_taobao_id)
                 log.info(buy_link.entity)
@@ -88,7 +106,8 @@ class EntityURLFrom(forms.Form):
                     'thumb_images': res["imgs"],
                     # 'selected_category_id':
                 }
-            return _data
+
+        return _data
 
 
 
