@@ -133,7 +133,12 @@ class EntityURLFrom(forms.Form):
 class CreateEntityForm(forms.Form):
 
     taobao_id = forms.CharField(
-        widget=forms.TextInput()
+        widget=forms.TextInput(),
+        required=False,
+    )
+    jd_id = forms.CharField(
+        widget=forms.TextInput(),
+        required=False,
     )
     cid = forms.IntegerField(
         widget=forms.TextInput(),
@@ -147,7 +152,7 @@ class CreateEntityForm(forms.Form):
     shop_link = forms.URLField(
         widget=forms.URLInput()
     )
-    taobao_title = forms.CharField(
+    title = forms.CharField(
         widget=forms.TextInput()
     )
     brand = forms.CharField(
@@ -164,18 +169,16 @@ class CreateEntityForm(forms.Form):
         widget=forms.Textarea(),
     )
 
-
     def __init__(self, request, *args, **kwargs):
         self.request = request
         super(CreateEntityForm, self).__init__(*args, **kwargs)
 
-
     def save(self):
-
         _taobao_id = self.cleaned_data.get('taobao_id')
+        _jd_id = self.cleaned_data.get('jd_id')
         _shop_nick = self.cleaned_data.get('shop_nick')
         _brand = self.cleaned_data.get('brand')
-        _title = self.cleaned_data.get('taobao_title')
+        _title = self.cleaned_data.get('title')
         _cid = self.cleaned_data.get('cid', None)
         _price = self.cleaned_data.get('price')
         _chief_image_url = self.cleaned_data.get('chief_image_url')
@@ -223,15 +226,25 @@ class CreateEntityForm(forms.Form):
             note = _note_text,
         )
 
-        _hostname = urlparse(_cand_url).hostname
-        Buy_Link.objects.create(
-            entity = entity,
-            origin_id = _taobao_id,
-            cid = _cid,
-            origin_source = "taobao.com",
-            link = "http://item.taobao.com/item.htm?id=%s" % _taobao_id,
-            price = _price,
-        )
+        # _hostname = urlparse(_cand_url).hostname
+        if _taobao_id:
+            Buy_Link.objects.create(
+                entity = entity,
+                origin_id = _taobao_id,
+                cid = _cid,
+                origin_source = "taobao.com",
+                link = "http://item.taobao.com/item.htm?id=%s" % _taobao_id,
+                price = _price,
+            )
+        else:
+            Buy_Link.objects.create(
+                entity = entity,
+                origin_id = _jd_id,
+                cid = _cid,
+                origin_source = "jd.com",
+                link = "http://item.jd.com/%s.html" % _jd_id,
+                price = _price,
+            )
 
 
         return entity

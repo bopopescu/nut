@@ -164,6 +164,9 @@ $.ajaxSetup({
             form.on('submit', function(e) {
                 var entity_url = form.find("input[name='cand_url']").val();
 //                console.log(this.action);
+                addEntity.find(".title").text("");
+                addEntity.find("input[name=title]").val("");
+
                 $.ajax({
                     type: 'post',
                     url: this.action,
@@ -219,12 +222,12 @@ $.ajaxSetup({
                             createNewEntity.changeChiefImage(imageThumbails);
 
                             if(data.data.taobao_id == undefined){
-                                $('<input type="hidden" name="jd_id" value="'+data.data.jd_id+'">' +
-                                    '<input type="hidden" name="jd_title" value="'+data.data.jd_title+'">').appendTo($(".add-entity-note form"));
-                                $(".detail_taobao_brand").val(data.data.brand);
+                                $('<input type="hidden" name="jd_id" value="'+data.data.jd_id+'">').appendTo($(".add-entity-note form"));
+//                                    '<input type="hidden" name="jd_title" value="'+data.data.jd_title+'">').appendTo($(".add-entity-note form"));
+//                                $(".detail_taobao_brand").val(data.data.brand);
                             } else {
-                                $('<input type="hidden" name="taobao_id" value="'+data.data.taobao_id+'">' +
-                                    '<input type="hidden" name="taobao_title" value="'+data.data.taobao_title+'">').appendTo($(".add-entity-note form"));
+                                $('<input type="hidden" name="taobao_id" value="'+data.data.taobao_id+'">' ).appendTo($(".add-entity-note form"));
+//                                    '<input type="hidden" name="taobao_title" value="'+data.data.taobao_title+'">').appendTo($(".add-entity-note form"));
                             }
                             $('<input type="hidden" name="shop_link" value="'+data.data.shop_link+'">' +
                                 '<input type="hidden" name="shop_nick" value="'+data.data.shop_nick+'">' +
