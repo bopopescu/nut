@@ -82,7 +82,7 @@ class EntityURLFrom(forms.Form):
             # log.info(_taobao_id)
 
             try:
-                buy_link = Buy_Link.objects.get(origin_id=_taobao_id)
+                buy_link = Buy_Link.objects.get(origin_id=_taobao_id, origin_source="taobao.com",)
                 log.info(buy_link.entity)
                 _data = {
                     'entity_hash': buy_link.entity.entity_hash,
@@ -157,7 +157,7 @@ class CreateEntityForm(forms.Form):
         _shop_nick = self.cleaned_data.get('shop_nick')
         _brand = self.cleaned_data.get('brand')
         _title = self.cleaned_data.get('taobao_title')
-        _cid = self.cleaned_data.get('cid', 300)
+        _cid = self.cleaned_data.get('cid', None)
         _price = self.cleaned_data.get('price')
         _chief_image_url = self.cleaned_data.get('chief_image_url')
         _images = self.data.getlist('thumb_images')
@@ -169,11 +169,11 @@ class CreateEntityForm(forms.Form):
         _entity_hash = cal_entity_hash(_taobao_id+_title+_shop_nick)
 
         category_id = 300
-        try:
-            cate = Taobao_Item_Category_Mapping.objects.get(taobao_category_id = _cid)
-            category_id = cate.neo_category_id
-        except Taobao_Item_Category_Mapping.DoesNotExist:
-            pass
+        # try:
+        #     cate = Taobao_Item_Category_Mapping.objects.get(taobao_category_id = _cid)
+        #     category_id = cate.neo_category_id
+        # except Taobao_Item_Category_Mapping.DoesNotExist:
+        #     pass
 
         if _chief_image_url in _images:
             _images.remove(_chief_image_url)
@@ -208,7 +208,8 @@ class CreateEntityForm(forms.Form):
         Buy_Link.objects.create(
             entity = entity,
             origin_id = _taobao_id,
-            origin_source = _hostname,
+            cid = _cid,
+            origin_source = "taobao.com",
             link = "http://item.taobao.com/item.htm?id=%s" % _taobao_id,
             price = _price,
         )

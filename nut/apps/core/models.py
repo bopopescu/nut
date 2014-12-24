@@ -319,6 +319,7 @@ class Buy_Link(BaseModel):
     entity = models.ForeignKey(Entity, related_name='buy_links')
     origin_id = models.CharField(max_length=100)
     origin_source = models.CharField(max_length=255)
+    cid = models.CharField(max_length=255, null=True)
     link = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=20, decimal_places=2, default=0)
     volume = models.IntegerField(default=0)
