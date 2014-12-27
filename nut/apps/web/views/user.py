@@ -11,7 +11,7 @@ from apps.core.utils.http import JSONResponse
 # from apps.core.utils.image import HandleImage
 from apps.core.forms.user import AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
-from apps.core.models import Entity
+from apps.core.models import Entity, Entity_Like
 
 from django.utils.log import getLogger
 
@@ -81,12 +81,29 @@ def index(request, user_id):
 
 def entity_like(request, user_id, template="web/user/like.html"):
 
+    _page = request.GET.get('page', 1)
     _user = get_user_model()._default_manager.get(pk=user_id)
 
+    entity_like_list = Entity_Like.objects.filter(user=_user).values_list('entity_id', flat=True)
+
+    paginator = ExtentPaginator(entity_like_list, 20)
+
+    try:
+        el = paginator.page(_page)
+    except PageNotAnInteger:
+        el = paginator.page(1)
+    except EmptyPage:
+        raise  Http404
+
+    # log.info(el.object_list)
+
+    _entities = Entity.objects.filter(pk__in=list(el.object_list))
+    log.info(_entities.query)
     return render_to_response(
         template,
         {
             'user':_user,
+            'entities':_entities,
         },
         context_instance = RequestContext(request),
     )

@@ -1,1 +1,22 @@
 {% extends 'web/user/user_base.html' %}
+{% load guoku %}
+
+
+{% block list %}
+    <div class="row">
+        {% for entity in entities %}
+            <div class="col-xs-6 col-sm-3">
+                <div class="thumbnail">
+                    <div class="img-box">
+                        <a href="{% url 'web_entity_detail' entity.entity_hash %}">
+                            <img class="img-responsive" alt="{{ entity.title }}" src="{{ entity.chief_image|resize:'240' }}" width="240" height="240">
+                        </a>
+                    </div>
+{#                    <div class="caption">#}
+{#                        {% trans 'likes' %} <span class="like-count">{{ note.entity_context.like_count }}</span>#}
+{#                    </div>#}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
