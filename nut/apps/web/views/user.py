@@ -61,13 +61,6 @@ def upload_avatar(request):
         _forms = AvatarForm(_user, request.POST, request.FILES)
         if _forms.is_valid():
             _forms.save()
-        # _file_obj = request.FILES.get('avatar_img')
-        # _image = HandleImage(_file_obj)
-        # # _image.resize(300, 300)
-        # avatar_file_name  = _image.avatar_save()
-        # _user.profile.avatar = avatar_file_name
-        # _user.profile.save()
-        # log.info(_user.profile.avatar_url)
             return JSONResponse(status=200, data={'avatar_url':_user.profile.avatar_url})
         log.info(_forms.errors)
     return HttpResponseNotAllowed
