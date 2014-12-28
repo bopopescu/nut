@@ -14,9 +14,14 @@ log = getLogger('django')
 def images(request, file_name, size=None):
     path = request.get_full_path()
     path = path.split('/')
-    log.info(path)
-    image_name = "%s/%s" % (path[1], path[-1])
+    # log.info(path)
 
+    if "/large/" in path:
+        image_name = "%s/%s/%s" % (path[1], path[3],path[-1])
+    else:
+        image_name = "%s/%s" % (path[1], path[-1])
+
+    log.info(image_name)
     result = resize.apply_async((image_name, size), expires=60)
     image_data = result.get()
 
