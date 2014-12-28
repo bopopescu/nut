@@ -59,7 +59,7 @@ class GKUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, password=None, is_active=True, **extra_fields):
+    def create_user(self, email, password=None, is_active=1, **extra_fields):
 
         is_admin = extra_fields.pop("is_admin", False)
         return self._create_user(email, password, is_active, is_admin, **extra_fields)
