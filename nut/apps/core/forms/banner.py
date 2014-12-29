@@ -90,9 +90,15 @@ class CreateBannerForm(BaseBannerForm):
         )
 
         if position > 0:
-            show = Show_Banner.objects.get(pk = position)
-            show.banner = banner
-            show.save()
+            try:
+                show = Show_Banner.objects.get(pk = position)
+                show.banner = banner
+                show.save()
+            except Show_Banner.DoesNotExist:
+                Show_Banner.objects.create(
+                    id = position,
+                    banner = banner,
+                )
 
         return banner
 
@@ -140,9 +146,15 @@ class EditBannerForm(BaseBannerForm):
             self.banner.save()
 
         if position > 0 and self.banner.position == 0:
-            show = Show_Banner.objects.get(pk= position)
-            show.banner = self.banner
-            show.save()
+            try:
+                show = Show_Banner.objects.get(pk= position)
+                show.banner = self.banner
+                show.save()
+            except Show_Banner.DoesNotExist:
+                Show_Banner.objects.create(
+                    id = position,
+                    banner = self.banner,
+                )
         elif self.banner.position != position:
             show = Show_Banner.objects.get(pk = position)
             tmp_show = Show_Banner.objects.get(pk = self.banner.position)

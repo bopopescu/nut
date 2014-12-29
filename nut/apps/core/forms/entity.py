@@ -192,12 +192,10 @@ class EntityImageForm(forms.Form):
         # self.entity.save()
 
 class BuyLinkForm(forms.Form):
-    # (taobao, jd, ) = xrange(2)
-    # ENTITY_STATUS_CHOICES = (
-    #     (taobao, _("taobao")),
-    #     (jd, _("jd")),
-    # )
-    #
+    YES_OR_NO = (
+        (True, _('yes')),
+        (False, _('no')),
+    )
     #
     # origin_id = forms.IntegerField(
     #     label=_('origin_id'),
@@ -216,6 +214,14 @@ class BuyLinkForm(forms.Form):
         help_text=_(''),
     )
 
+    default = forms.ChoiceField(
+        label=_('default'),
+        choices=YES_OR_NO,
+        widget=forms.Select(attrs={'class':'form-control'}),
+        initial=False,
+        help_text=_(''),
+    )
+
     def __init__(self, entity, *args, **kwargs):
         self.entity_cache = entity
         self.b = None
@@ -228,7 +234,13 @@ class BuyLinkForm(forms.Form):
 
     def save(self):
         _link = self.cleaned_data.get('link')
+        _default = self.cleaned_data.get('default')
+        _default = bool(_default)
+        # log.info(type(bool(_default)))
         _hostname = urlparse(_link).hostname
+
+        if _default:
+            Buy_Link.objects.filter(entity=self.entity_cache).update(default=False)
 
         if re.search(r"\b(tmall|taobao|95095)\.(com|hk)$", _hostname) is not None:
             _taobao_id = parse_taobao_id_from_url(_link)
@@ -252,6 +264,7 @@ class BuyLinkForm(forms.Form):
                     origin_source = "taobao.com",
                     link = "http://item.taobao.com/item.htm?id=%s" % _taobao_id,
                     price=t.price,
+                    default=_default,
                 )
                 self.b.save()
 
@@ -268,6 +281,7 @@ class BuyLinkForm(forms.Form):
                     origin_source = "jd.com",
                     link="http://item.jd.com/%s.html" % _jd_id,
                     price=j.price,
+                    default=_default,
                 )
                 self.b.save()
 
