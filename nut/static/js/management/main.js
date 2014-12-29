@@ -6,7 +6,7 @@
 
     var entity = {
         removeImage: function() {
-            console.log("OKOKO");
+//            console.log("OKOKO");
             $('#images').find('.btn').on('click', function(){
 //                console.log(this);
                 var image = $(this);
@@ -26,8 +26,16 @@
         }
     };
 
+    var note = {
+        post: function () {
+            var form = $('#EntityNoteModal');
+            console.log(form);
+        }
+    };
+
     (function init() {
 //        console.log($.find());
         entity.removeImage();
+        note.post();
     })();
 })(jQuery, document, window);

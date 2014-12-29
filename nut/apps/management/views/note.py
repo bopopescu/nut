@@ -1,10 +1,11 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.core.urlresolvers import reverse
 # from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.utils.log import getLogger
 
-from apps.core.models import Note
+from apps.core.models import Note, Entity
 from apps.core.forms.note import NoteForm, CreateNoteForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 
@@ -74,22 +75,31 @@ def edit(request, note_id, template='management/notes/edit.html'):
                               context_instance = RequestContext(request))
 
 
-def create(request, template="management/notes/ajax_note_create.html"):
+def create(request, entity_id, template="management/notes/ajax_note_create.html"):
     template = template
+    log.info(entity_id)
+    try:
+        _entity = Entity.objects.get(pk=entity_id)
+    except Entity.DoesNotExist:
+        raise Http404
 
+    log.info(_entity)
     if request.is_ajax():
         template = "management/notes/ajax_note_create.html"
 
     if request.method == "POST":
-        _froms = CreateNoteForm(request.POST)
-
+        _forms = CreateNoteForm(entity=_entity, data=request.POST)
+        if _forms.is_valid():
+            _forms.save()
+            return HttpResponseRedirect(reverse('management_entity_edit', args=[entity_id]))
     else:
-        _froms = CreateNoteForm()
+        _forms = CreateNoteForm(entity=_entity)
 
     return render_to_response(
         template,
         {
-            'forms': _froms,
+            'entity': _entity,
+            'forms': _forms,
         },
         context_instance = RequestContext(request)
     )

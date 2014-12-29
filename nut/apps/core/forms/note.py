@@ -52,13 +52,26 @@ class NoteForm(forms.Form):
 
 
 class CreateNoteForm(forms.Form):
+    YES_OR_NO = (
+        (True, _('yes')),
+        (False, _('no')),
+    )
+
     content = forms.CharField(
         label=_('content'),
         widget=forms.Textarea(attrs={'class':'form-control' }),
         help_text=_(''),
     )
 
-    def __init__(self, *args, **kwargs):
+    is_top = forms.ChoiceField(
+        label=_('is_top'),
+        choices=YES_OR_NO,
+        widget=forms.Select(attrs={'class':'form-control'}),
+        help_text=_(''),
+        initial=False,
+    )
+    def __init__(self, entity, *args, **kwargs):
+        self.entity_cache = entity
         super(CreateNoteForm, self).__init__(*args, **kwargs)
 
         user_choices = get_admin_user_choices()
@@ -71,7 +84,36 @@ class CreateNoteForm(forms.Form):
 
     def save(self):
 
-        pass
+        _content = self.cleaned_data.get('content')
+        _user_id = self.cleaned_data.get('user')
+        _is_top = self.cleaned_data.get('is_top')
+        _is_top = bool(_is_top)
+
+        log.info(_user_id)
+        # if _is_top:
+        #     pass
+        try:
+            user = GKUser.objects.get(pk = _user_id)
+        except GKUser.DoesNotExist:
+            raise
+
+
+        try:
+            note = Note.objects.get(user=user, entity=self.entity_cache)
+            note.note = _content
+            note.status = _is_top
+            note.save()
+        except Note.DoesNotExist:
+            note = Note(
+                entity = self.entity_cache,
+                user = user,
+                note = _content,
+                status = _is_top,
+            )
+            note.save()
+        # log.info(_content)
+
+        return note
 
 
 __author__ = 'edison'

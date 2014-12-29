@@ -9,7 +9,7 @@ from django.core.files.storage import default_storage
 
 from apps.core.models import Entity, Buy_Link
 from apps.core.forms.entity import EntityForm, EntityImageForm, BuyLinkForm
-from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
+from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.utils.http import SuccessJsonResponse
 
 log = getLogger('django')
@@ -40,7 +40,7 @@ def list(request, template = 'management/entities/list.html'):
 
     try:
         entities = paginator.page(page)
-    except InvalidPage:
+    except PageNotAnInteger:
         entities = paginator.page(1)
     except EmptyPage:
         raise Http404
