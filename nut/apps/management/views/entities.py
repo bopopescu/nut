@@ -6,8 +6,8 @@ from django.template import RequestContext
 from django.utils.log import getLogger
 from django.core.files.storage import default_storage
 
-from apps.core.models import Entity
-from apps.core.forms.entity import EntityForm, EntityImageForm
+from apps.core.models import Entity, Buy_Link
+from apps.core.forms.entity import EntityForm, EntityImageForm, BuyLinkForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 from apps.core.utils.http import SuccessJsonResponse
 
@@ -113,6 +113,34 @@ def create(request, template=''):
     )
 
 
+def buy_link(request, entity_id, template='management/entities/buy_link.html'):
+
+    # _buy_link_list = Buy_Link.objects.filter(entity_id = entity_id)
+    try:
+        _entity = Entity.objects.get(pk=entity_id)
+    except Entity.DoesNotExist:
+        raise Http404
+
+    if request.method == 'POST':
+        _forms = BuyLinkForm(entity=_entity, data=request.POST)
+        if _forms.is_valid():
+            _forms.save()
+            return
+    else:
+        _forms = BuyLinkForm(entity=_entity)
+
+    return render_to_response(
+        template,
+        {
+            'entity':_entity,
+            'forms':_forms,
+            # 'buy_link_list': _buy_link_list,
+        },
+        context_instance = RequestContext(request)
+    )
+
+
+
 def image(request, entity_id, template='management/entities/upload_image.html'):
 
     try:
@@ -161,5 +189,7 @@ def delete_image(request, entity_id):
         return SuccessJsonResponse(data={'status': status})
 
     return HttpResponseNotAllowed
+
+
 
 __author__ = 'edison7500'
