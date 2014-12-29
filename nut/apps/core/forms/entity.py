@@ -186,5 +186,44 @@ class EntityImageForm(forms.Form):
 
         # self.entity.save()
 
+class BuyLinkForm(forms.Form):
+    # (taobao, jd, ) = xrange(2)
+    # ENTITY_STATUS_CHOICES = (
+    #     (taobao, _("taobao")),
+    #     (jd, _("jd")),
+    # )
+    #
+    #
+    # origin_id = forms.IntegerField(
+    #     label=_('origin_id'),
+    #     widget=forms.TextInput(attrs={'class':'form-control'}),
+    #     help_text=_('')
+    # )
+
+    # price = forms.FloatField(
+    #     label=_('price'),
+    #     widget=forms.TextInput(attrs={'class':'form-control'}),
+    #     help_text=_('')
+    # )
+    link = forms.URLField(
+        label=_('link'),
+        widget=forms.URLInput(attrs={'class':'form-control'}),
+        help_text=_(''),
+    )
+
+    def __init__(self, entity, *args, **kwargs):
+        self.entity_cache = entity
+        super(BuyLinkForm, self).__init__(*args, **kwargs)
+
+        # self.field['source'] = forms.ChoiceField(
+        #     label=_('source'),
+        #     widget=forms.Select(attrs={'class':'form-control'})
+        # )
+
+    def save(self):
+        _link = self.cleaned_data.get('link')
+
+        log.info(_link)
+        return
 
 __author__ = 'edison7500'

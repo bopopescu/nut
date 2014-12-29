@@ -5,6 +5,7 @@ from django.utils.log import getLogger
 from apps.core.models import Entity, Taobao_Item_Category_Mapping, Note, Buy_Link
 from apps.core.utils.fetch.taobao import TaoBao
 from apps.core.utils.fetch.jd import JD
+from apps.core.utils.fetch import parse_jd_id_from_url, parse_taobao_id_from_url
 from apps.core.tasks.entity import fetch_image
 
 from urlparse import urlparse
@@ -15,23 +16,23 @@ from hashlib import md5
 log = getLogger('django')
 
 
-from apps.core.models import Buy_Link
+# from apps.core.models import Buy_Link
 
 
-def parse_taobao_id_from_url(url):
-    params = url.split("?")[1]
-    for param in params.split("&"):
-        tokens = param.split("=")
-        if len(tokens) >= 2 and (tokens[0] == "id" or tokens[0] == "item_id"):
-            return tokens[1]
-    return None
-
-def parse_jd_id_from_url(url):
-    ids = re.findall(r'\d+',url)
-    if len(ids) > 0:
-        return ids[0]
-    else:
-        return None
+# def parse_taobao_id_from_url(url):
+#     params = url.split("?")[1]
+#     for param in params.split("&"):
+#         tokens = param.split("=")
+#         if len(tokens) >= 2 and (tokens[0] == "id" or tokens[0] == "item_id"):
+#             return tokens[1]
+#     return None
+#
+# def parse_jd_id_from_url(url):
+#     ids = re.findall(r'\d+',url)
+#     if len(ids) > 0:
+#         return ids[0]
+#     else:
+#         return None
 
 def cal_entity_hash(hash_string):
     _hash = None
