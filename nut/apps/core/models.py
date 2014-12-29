@@ -324,6 +324,11 @@ class Buy_Link(BaseModel):
     price = models.DecimalField(max_digits=20, decimal_places=2, default=0)
     volume = models.IntegerField(default=0)
     rank = models.IntegerField(default=0)
+    default = models.BooleanField(default=False)
+
+
+    class Meta:
+        ordering = ['-default']
 
     def __unicode__(self):
         return self.link
