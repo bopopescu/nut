@@ -68,7 +68,7 @@ class EntityURLFrom(forms.Form):
             _jd_id = parse_jd_id_from_url(_link)
             # log.info(_jd_id)
             try:
-                buy_link = Buy_Link.objects.get(origin_id=_jd_id)
+                buy_link = Buy_Link.objects.get(origin_id=_jd_id, origin_source="jd.com",)
                 _data = {
                     'entity_hash': buy_link.entity.entity_hash,
                 }
@@ -93,7 +93,7 @@ class EntityURLFrom(forms.Form):
                     'thumb_images': j.imgs,
                     # 'selected_category_id':
                 }
-                print _data
+                # print _data
             # pass
             # return jd_info(self.request, _link)
 

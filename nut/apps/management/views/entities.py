@@ -1,6 +1,7 @@
-from django.http import Http404, HttpResponseNotAllowed
+from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.core.urlresolvers import reverse
 # from django.views.generic.list import ListView
 # from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.utils.log import getLogger
@@ -125,7 +126,7 @@ def buy_link(request, entity_id, template='management/entities/buy_link.html'):
         _forms = BuyLinkForm(entity=_entity, data=request.POST)
         if _forms.is_valid():
             _forms.save()
-            return
+            return HttpResponseRedirect(reverse('management_entity_edit', args=[entity_id]))
     else:
         _forms = BuyLinkForm(entity=_entity)
 

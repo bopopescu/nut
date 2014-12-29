@@ -6,10 +6,15 @@ from django.utils.log import getLogger
 
 log = getLogger('django')
 
-from apps.core.models import Entity, Sub_Category, Category
+from apps.core.models import Entity, Sub_Category, Category, Buy_Link
 from apps.core.utils.image import HandleImage
+from apps.core.utils.fetch import parse_taobao_id_from_url, parse_jd_id_from_url
+from apps.core.utils.fetch.taobao import TaoBao
+from apps.core.utils.fetch.jd import JD
 
 from django.conf import settings
+from urlparse import urlparse
+import re
 
 # image_sizes = getattr(settings, 'IMAGE_SIZE', None)
 image_path = getattr(settings, 'MOGILEFS_MEDIA_URL', 'images/')
@@ -213,6 +218,7 @@ class BuyLinkForm(forms.Form):
 
     def __init__(self, entity, *args, **kwargs):
         self.entity_cache = entity
+        self.b = None
         super(BuyLinkForm, self).__init__(*args, **kwargs)
 
         # self.field['source'] = forms.ChoiceField(
@@ -222,8 +228,49 @@ class BuyLinkForm(forms.Form):
 
     def save(self):
         _link = self.cleaned_data.get('link')
+        _hostname = urlparse(_link).hostname
 
-        log.info(_link)
-        return
+        if re.search(r"\b(tmall|taobao|95095)\.(com|hk)$", _hostname) is not None:
+            _taobao_id = parse_taobao_id_from_url(_link)
+        # log.info(_link)
+
+            try:
+                self.b = Buy_Link.objects.get(origin_id=_taobao_id, origin_source="taobao.com",)
+                # log.info(buy_link.entity)
+                # _data = {
+                #     'entity_hash': buy_link.entity.entity_hash,
+                # }
+            except Buy_Link.DoesNotExist:
+                t = TaoBao(_taobao_id)
+                # log.info(t.res())
+                # res = t.res()
+                # log.info(res)
+                self.b = Buy_Link(
+                    entity = self.entity_cache,
+                    origin_id = _taobao_id,
+                    cid=t.cid,
+                    origin_source = "taobao.com",
+                    link = "http://item.taobao.com/item.htm?id=%s" % _taobao_id,
+                    price=t.price,
+                )
+                self.b.save()
+
+        if re.search(r"\b(jd|360buy)\.com$", _hostname) != None:
+            _jd_id = parse_jd_id_from_url(_link)
+            try:
+                self.b = Buy_Link.objects.get(origin_id=_jd_id, origin_source="jd.com",)
+            except Buy_Link.DoesNotExist:
+                j = JD(_jd_id)
+                self.b = Buy_Link(
+                    entity = self.entity_cache,
+                    origin_id = _jd_id,
+                    cid=j.cid,
+                    origin_source = "jd.com",
+                    link="http://item.jd.com/%s.html" % _jd_id,
+                    price=j.price,
+                )
+                self.b.save()
+
+        return self.b
 
 __author__ = 'edison7500'
