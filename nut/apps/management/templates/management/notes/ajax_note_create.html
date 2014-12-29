@@ -9,7 +9,7 @@
 </div>
 
 <div class="modal-body">
-    <form class="form-horizontal" method="post" action="{% url 'management_note_create' %}">
+    <form class="form-horizontal" method="post" action="{% url 'management_note_create' entity.pk %}">
         {% csrf_token %}
         <fieldset>
         {% for field in forms %}
@@ -22,10 +22,15 @@
 {#            {{ field }}#}
         {% endfor %}
         </fieldset>
+        <div class="form-group">
+            <div class="col-sm-offset-3">
+                <button class="btn btn-default" data-dismiss="modal" type="button">{% trans 'close' %}</button>
+                <button class="btn btn-primary" type="submit">{% trans 'send' %}</button>
+            </div>
+        </div>
     </form>
 </div>
 
-<div class="modal-footer">
-    <button class="btn btn-default" data-dismiss="modal" type="button">{% trans 'close' %}</button>
-    <button class="btn btn-primary" type="button">{% trans 'send' %}</button>
-</div>
+{#<div class="modal-footer">#}
+{##}
+{#</div>#}

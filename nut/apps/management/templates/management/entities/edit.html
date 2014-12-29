@@ -30,7 +30,7 @@
     {% endif %}
 
     <div class="row" style="padding-bottom: 24px;">
-        <a href="{% url 'management_note_create' %}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#EntityNoteModal">{% trans 'add note' %}</a>
+        <a href="{% url 'management_note_create' entity.pk %}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#EntityNoteModal">{% trans 'add note' %}</a>
         <a href="{% url 'management_entity_image' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'upload image' %}</a>
         <a href="{% url 'management_entity_buy_link' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'add buy link' %}</a>
     </div>
