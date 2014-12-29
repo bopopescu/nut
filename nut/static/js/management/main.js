@@ -26,16 +26,16 @@
         }
     };
 
-    var note = {
-        post: function () {
-            var form = $('#EntityNoteModal');
-            console.log(form);
-        }
-    };
+//    var note = {
+//        post: function () {
+//            var form = $('#EntityNoteModal');
+//            console.log(form);
+//        }
+//    };
 
     (function init() {
 //        console.log($.find());
         entity.removeImage();
-        note.post();
+//        note.post();
     })();
 })(jQuery, document, window);
