@@ -2,11 +2,11 @@
 
 <div class="media common-note-item">
     <div class="line"></div>
-    <a class="pull-left" href="#" target="_blank" >
+    <a class="pull-left" href="{% url 'web_user_index' note.user.pk %}" target="_blank" >
         <img class="media-object img-circle" src="{{ note.user.profile.avatar_url }}" alt="{{ note.user.profile.nickname }}" width='50' height='50'>
     </a>
     <div class="media-body note-content">
-        <a href="#">
+        <a href="{% url 'web_user_index' note.user.pk %}" target="_blank">
             <p class="media-heading">{{ note.user.profile.nickname }}&nbsp; {% if note.user.profile.bio %}<small>{{ note.user.profile.bio }}</small>{% endif %}</p>
         </a>
         <div class="note-text">

@@ -52,7 +52,7 @@ class GKUserManager(BaseUserManager):
     def _create_user(self, email, password, is_active, is_admin, **extra_fields):
         now = timezone.now()
         if not email:
-            raise ValueError(_('please given cellphone number'))
+            raise ValueError(_('please given email'))
 
         user = self.model(email=email, is_active=is_active, is_admin=is_admin, date_joined=now)
         user.set_password(password)
