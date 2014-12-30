@@ -76,7 +76,27 @@ def edit(request, article_id, template="management/article/edit.html"):
     return render_to_response(
         template,
         {
+            "article": article,
             "forms": _forms,
+        },
+        context_instance = RequestContext(request)
+    )
+
+
+def preview(request, article_id, template="management/article/preview.html"):
+
+    try:
+        article = Article.objects.get(pk=article_id)
+    except Article.DoesNotExist:
+        raise Http404
+
+
+
+
+    return render_to_response(
+        template,
+        {
+            'article':article,
         },
         context_instance = RequestContext(request)
     )
