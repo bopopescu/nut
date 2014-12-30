@@ -45,13 +45,15 @@ def list(request, template = 'management/entities/list.html'):
     except EmptyPage:
         raise Http404
     # log.info(paginator.page_range)
-    return render_to_response(template,
-                            {
-                                'entities': entities,
+    return render_to_response(
+        template,
+        {
+            'entities': entities,
                                 # 'page_range': paginator.page_range_ext,
-                                'status': status,
-                            },
-                            context_instance = RequestContext(request))
+            'status': status,
+        },
+        context_instance = RequestContext(request)
+    )
 
 
 def edit(request, entity_id, template='management/entities/edit.html'):
