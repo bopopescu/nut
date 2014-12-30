@@ -11,6 +11,8 @@ from apps.core.extend.fields.listfield import ListObjectField
 from apps.core.manager.account import GKUserManager
 from apps.core.manager.entity import EntityManager, EntityLikeManager
 from apps.core.manager.note import NoteManager
+from djangosphinx.models import SphinxSearch
+
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -91,6 +93,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def fans_count(self):
         return self.fans.count()
 
+    search = SphinxSearch(
+        index = 'users',
+        mode = 'SPH_MATCH_ALL',
+        rankmode = 'SPH_RANK_NONE',
+    )
 
 class User_Profile(BaseModel):
     Man = u'M'

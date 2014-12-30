@@ -7,6 +7,7 @@ from django.template import loader
 from apps.core.models import Entity, Entity_Like
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 # from apps.web.forms.search import EntitySearchForm
+from apps.web.forms.search import SearchForm
 from apps.core.utils.http import JSONResponse
 from django.utils.log import getLogger
 
@@ -110,16 +111,22 @@ def popular(request, template='web/main/popular.html'):
 
 def search(request, template="web/main/search.html"):
 
-    form = EntitySearchForm(request.GET)
-    results = form.search()
 
-    return render_to_response(
-        template,
-        {
+    if request.method == 'GET':
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            results = form.search()
+            log.info("result %s" % results.count())
+            for row in results:
+                print row.id
 
-        },
-        context_instance = RequestContext(request),
-    )
+        return render_to_response(
+            template,
+            {
+                'keyword':form.get_keyword()
+            },
+            context_instance = RequestContext(request),
+        )
 
 
 # def category(request, template="web/main/category.html"):

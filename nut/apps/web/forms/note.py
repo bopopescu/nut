@@ -50,7 +50,7 @@ class NoteForm(forms.ModelForm):
 
 
     def update(self):
-        _note = self.cleaned_data.get('note')
+        _note = self.cleaned_datacleaned_data.get('note')
 
         note = Note.objects.get(pk=self.note_id, user=self.user)
         note.note = _note

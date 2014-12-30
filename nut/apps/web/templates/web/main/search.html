@@ -1,1 +1,30 @@
 {% extends 'web/base.html' %}
+
+{% block title %}搜索 - {{ keyword }}{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row search-header">
+            <h2><span>「{{ keyword }}」</span>的搜索结果</h2>
+        </div>
+        <nav class="navbar navbar-search navbar-static-top" role="navigation">
+            <div class="container">
+{#                <div class="navbar-collapse collapse">#}
+                    <ul class="nav navbar-nav">
+                        <li class="active ">
+                            <a href="{% url 'web_search' %}?q={{ keyword }}&g=e">商品 <strong>{{ entity_result_count }}</strong></a>
+                        </li>
+                        <li class="">
+                            <a href="{% url 'web_search' %}?q={{ keyword }}&g=u">用户 <strong>{{ user_result_count }}</strong></a>
+                        </li>
+                        <li class="">
+                            <a href="{% url 'web_search' %}?q={{ keyword }}&g=t">标签 <strong>{{tag_result_count}}</strong></a>
+                        </li>
+                    </ul>
+{#                </div>#}
+            </div>
+        </nav>
+    </div>
+
+{% endblock %}

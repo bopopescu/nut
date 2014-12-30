@@ -46,7 +46,16 @@
             focus: true,
             onImageUpload: function(file, editor, welEditable) {
                 sendFile(file, editor, welEditable);
-            }
+            },
+            toolbar:[
+                ['style',['style','bold','italic','underline','clear']],
+                ['fontface',['fontname']],
+                ['textsize',['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['insert', ['picture','link','video','table']]
+            ]
         });
         function sendFile(file, editor, welEditable) {
             data = new FormData();
