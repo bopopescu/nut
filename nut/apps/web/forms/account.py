@@ -42,7 +42,6 @@ class UserSignInForm(forms.Form):
 
     )
 
-
     def __init__(self, request, *args, **kwargs):
 
         self.request = request
@@ -79,13 +78,11 @@ class UserSignInForm(forms.Form):
                     code='inactive',
                 )
 
-
     def check_for_test_cookie(self):
         if self.request and not self.request.session.test_cookie_worked():
             raise forms.ValidationError(
                 self.error_messages['no_cookies']
             )
-
 
     def login(self):
         auth_login(self.request, self.user_cache)

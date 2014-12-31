@@ -12,19 +12,40 @@
             <div class="container">
 {#                <div class="navbar-collapse collapse">#}
                     <ul class="nav navbar-nav">
-                        <li class="active ">
-                            <a href="{% url 'web_search' %}?q={{ keyword }}&g=e">商品 <strong>{{ entity_result_count }}</strong></a>
-                        </li>
-                        <li class="">
-                            <a href="{% url 'web_search' %}?q={{ keyword }}&g=u">用户 <strong>{{ user_result_count }}</strong></a>
-                        </li>
-                        <li class="">
-                            <a href="{% url 'web_search' %}?q={{ keyword }}&g=t">标签 <strong>{{tag_result_count}}</strong></a>
-                        </li>
+                        {% for row in results %}
+                            <li class="">
+                                <a href="{% url 'web_search' %}?q={{ keyword }}&t={{ row.type }}">{{ row.name }}&nbsp;<strong>{{ row.res.count }}</strong></a>
+                            </li>
+                        {% endfor %}
+{#                        <li class="active">#}
+{#                            <a href="{% url 'web_search' %}?q={{ keyword }}&t=e">商品 <strong>{{ entity_result_count }}</strong></a>#}
+{#                        </li>#}
+{#                        <li class="">#}
+{#                            <a href="{% url 'web_search' %}?q={{ keyword }}&t=u">用户 <strong>{{ user_result_count }}</strong></a>#}
+{#                        </li>#}
+{#                        <li class="">#}
+{#                            <a href="{% url 'web_search' %}?q={{ keyword }}&t=t">标签 <strong>{{tag_result_count}}</strong></a>#}
+{#                        </li>#}
                     </ul>
 {#                </div>#}
             </div>
         </nav>
+
+        <div class="row">
+{#        {{ type }}#}
+{#            {% if type == 'e' %}#}
+{#                {% for row in results  %}#}
+{#                    {{ row.res }}#}
+            {% for row in results %}
+
+                {% if row.type == "e" %}
+                    {% for entity in row.res %}
+                        {% include 'web/main/partial/entity.html' with entity=entity %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+{#            {% endif %}#}
+        </div>
     </div>
 
 {% endblock %}
