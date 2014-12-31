@@ -321,6 +321,18 @@ class Entity(BaseModel):
     def __unicode__(self):
         return self.title
 
+    search = SphinxSearch(
+        index = 'entities',
+        weights={
+            'title': 20,
+            'brand': 10,
+            # 'intro': 5,
+        },
+        mode = 'SPH_MATCH_ALL',
+        rankmode = 'SPH_RANK_NONE',
+    )
+
+
 
 class Buy_Link(BaseModel):
     entity = models.ForeignKey(Entity, related_name='buy_links')

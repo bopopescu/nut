@@ -228,7 +228,7 @@ msgstr ""
 #: apps/management/templates/management/notes/table.html:10
 #: apps/management/templates/management/tags/list.html:15
 msgid "creator"
-msgstr ""
+msgstr "创建者"
 
 #: apps/core/forms/entity.py:46
 #: apps/management/templates/management/entities/table.html:10
@@ -330,7 +330,7 @@ msgstr ""
 #: apps/management/templates/management/management_base.html:36
 #: apps/management/templates/management/management_base.html:56
 msgid "dashboard"
-msgstr ""
+msgstr "工作台"
 
 #: apps/management/templates/management/management_base.html:37
 msgid "settings"
