@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 # from haystack.forms import SearchForm
 from django.utils.log import getLogger
-from apps.core.models import GKUser
+from apps.core.models import GKUser, Entity
 
 #
 log = getLogger('django')
@@ -23,10 +23,20 @@ class SearchForm(forms.Form):
         # pass
         # _keyword = self.cleaned_data.get('q')
         sqs = list()
-        if _type == 'u':
-            res = GKUser.search.query(_keyword)
-            sqs.append(res)
+        # if _type == 'u':
+        res = Entity.search.query(_keyword)
+        sqs.append({
+            'name':_('entity'),
+            'res': res,
+        })
 
+        res = GKUser.search.query(_keyword)
+        sqs.append({
+            'name': _('user'),
+            'res': res,
+        })
+
+        log.info(sqs)
         return sqs
 
     def get_keyword(self):
