@@ -33,6 +33,7 @@ def list(request, template="management/article/list.html"):
         context_instance = RequestContext(request)
     )
 
+
 def create(request, template="management/article/create.html"):
 
     if request.method == "POST":
