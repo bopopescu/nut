@@ -33,15 +33,18 @@
 
         <div class="row">
 {#        {{ type }}#}
-            {% if type == 'e' %}
-                {% for row in results  %}
+{#            {% if type == 'e' %}#}
+{#                {% for row in results  %}#}
 {#                    {{ row.res }}#}
+            {% for row in results %}
+
+                {% if type == row.type %}
                     {% for entity in row.res %}
                         {% include 'web/main/partial/entity.html' with entity=entity %}
-{#                        {{ entity }}#}
                     {% endfor %}
-                {% endfor %}
-            {% endif %}
+                {% endif %}
+            {% endfor %}
+{#            {% endif %}#}
         </div>
     </div>
 
