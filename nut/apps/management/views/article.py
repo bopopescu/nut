@@ -1,6 +1,7 @@
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.core.urlresolvers import reverse
 from django.utils.log import getLogger
 
 from apps.core.forms.article import CreateArticleForms, EditArticleForms
@@ -37,8 +38,9 @@ def create(request, template="management/article/create.html"):
     if request.method == "POST":
         _forms = CreateArticleForms(request.POST, request.FILES)
         if _forms.is_valid():
-            _forms.save()
-            return HttpResponse("OK")
+            article = _forms.save()
+            # return HttpResponse("OK")
+            return HttpResponseRedirect(reverse('management_article_edit', args=[article.pk]))
     else:
         _forms = CreateArticleForms()
 
