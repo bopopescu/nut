@@ -24,17 +24,19 @@ class SearchForm(forms.Form):
         # _keyword = self.cleaned_data.get('q')
         sqs = list()
         # if _type == 'u':
-        res = Entity.search.query(_keyword)
+        e_res = Entity.search.query(_keyword)
         sqs.append({
             'name':_('entity'),
-            'res': res,
+            'type': 'e',
+            'res': e_res,
         })
 
-        res = GKUser.search.query(_keyword)
-        sqs.append({
-            'name': _('user'),
-            'res': res,
-        })
+        # u_res = GKUser.search.query(_keyword)
+        # sqs.append({
+        #     'name': _('user'),
+        #     'type': 'u',
+        #     'res': u_res,
+        # })
 
         log.info(sqs)
         return sqs
@@ -46,7 +48,9 @@ class SearchForm(forms.Form):
 
     def get_search_type(self):
         # self.type = self.cleaned_data.get('t')
-        self.type = self.cleaned_data.get('t', 'e')
+        self.type = self.cleaned_data.get('t')
+        if self.type is None:
+            self.type = 'e'
 
         return self.type
 

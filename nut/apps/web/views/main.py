@@ -119,7 +119,7 @@ def search(request, template="web/main/search.html"):
             # log.info("result %s" % results.count())
             # for row in results:
             #     print row.id
-
+            log.info("type %s" % form.get_search_type())
             return render_to_response(
                 template,
                 {
