@@ -13,13 +13,13 @@
 {#                <div class="navbar-collapse collapse">#}
                     <ul class="nav navbar-nav">
                         <li class="active ">
-                            <a href="{% url 'web_search' %}?q={{ keyword }}&g=e">商品 <strong>{{ entity_result_count }}</strong></a>
+                            <a href="{% url 'web_search' %}?q={{ keyword }}&t=e">商品 <strong>{{ entity_result_count }}</strong></a>
                         </li>
                         <li class="">
-                            <a href="{% url 'web_search' %}?q={{ keyword }}&g=u">用户 <strong>{{ user_result_count }}</strong></a>
+                            <a href="{% url 'web_search' %}?q={{ keyword }}&t=u">用户 <strong>{{ user_result_count }}</strong></a>
                         </li>
                         <li class="">
-                            <a href="{% url 'web_search' %}?q={{ keyword }}&g=t">标签 <strong>{{tag_result_count}}</strong></a>
+                            <a href="{% url 'web_search' %}?q={{ keyword }}&t=t">标签 <strong>{{tag_result_count}}</strong></a>
                         </li>
                     </ul>
 {#                </div>#}

@@ -6,22 +6,7 @@ from apps.core.models import GKUser
 
 #
 log = getLogger('django')
-#
-#
-# class EntitySearchForm(SearchForm):
-#     start_date = forms.DateField(required=False)
-#     end_date = forms.DateField(required=False)
-#
-#     def search(self):
-#         sqs = super(EntitySearchForm, self).search()
-#         if not self.is_valid():
-#             return self.no_query_found()
-#
-#         # if self.cleaned_data['start_date']:
-#         #     sqs = sqs.filter(created_time__gte=self.cleaned_data['sta'])
-#
-#         return sqs
-#
+
 
 class SearchForm(forms.Form):
     q = forms.CharField(required=False, label=_('Search'),
@@ -32,11 +17,16 @@ class SearchForm(forms.Form):
     
     def search(self):
         _keyword = self.get_keyword()
+        _type = self.cleaned_data.get('t')
         # log.info(self.cleaned_data.get('q'))
         # log.info("OKOKOKO")
         # pass
         # _keyword = self.cleaned_data.get('q')
-        sqs = GKUser.search.query(_keyword)
+        sqs = list()
+        if _type == 'u':
+            res = GKUser.search.query(_keyword)
+            sqs.append(res)
+
         return sqs
 
     def get_keyword(self):
