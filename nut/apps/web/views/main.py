@@ -116,16 +116,16 @@ def search(request, template="web/main/search.html"):
         form = SearchForm(request.GET)
         if form.is_valid():
             results = form.search()
-            log.info("result %s" % results.count())
-            for row in results:
-                print row.id
+            # log.info("result %s" % results.count())
+            # for row in results:
+            #     print row.id
 
         return render_to_response(
             template,
             {
                 'keyword':form.get_keyword()
             },
-            context_instance = RequestContext(request),
+            context_instance=RequestContext(request),
         )
 
 
