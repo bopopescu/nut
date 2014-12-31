@@ -1,6 +1,6 @@
 {% extends 'web/base.html' %}
-{% load i18n static %}
-{#{% load guoku %}#}
+{% load i18n %}
+{% load guoku %}
 
 
 {% block title %}{% trans 'popular' %}{% endblock %}
@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row">
             {% for entity in entities %}
-                {% include 'web/main/partial/entity.html' with entity=entity %}
+                {% include 'web/main/partial/entity.html' with entity=entity%}
 {#                <div class="col-xs-6 col-sm-3">#}
 {#                    <div class="thumbnail">#}
 {#                        <div class="img-box">#}

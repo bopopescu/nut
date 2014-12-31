@@ -14,7 +14,7 @@
                     <ul class="nav navbar-nav">
                         {% for row in results %}
                             <li class="">
-                                <a href="{% url 'web_search' %}">{{ row.name }}&nbsp;<strong>{{ row.res.count }}</strong></a>
+                                <a href="{% url 'web_search' %}?q={{ keyword }}&t={{ row.type }}">{{ row.name }}&nbsp;<strong>{{ row.res.count }}</strong></a>
                             </li>
                         {% endfor %}
 {#                        <li class="active">#}
@@ -32,7 +32,16 @@
         </nav>
 
         <div class="row">
-
+{#        {{ type }}#}
+            {% if type == 'e' %}
+                {% for row in results  %}
+{#                    {{ row.res }}#}
+                    {% for entity in row.res %}
+                        {% include 'web/main/partial/entity.html' with entity=entity %}
+{#                        {{ entity }}#}
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 
