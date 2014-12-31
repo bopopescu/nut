@@ -29,7 +29,7 @@ class SearchForm(forms.Form):
 
     t = forms.CharField(required=False, label=_('type'),
                         widget=forms.TextInput())
-    
+
     def search(self):
         _keyword = self.get_keyword()
         # log.info(self.cleaned_data.get('q'))
