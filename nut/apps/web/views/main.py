@@ -125,6 +125,7 @@ def search(request, template="web/main/search.html"):
                 {
                     'keyword': form.get_keyword(),
                     'results': _results,
+                    'type': form.get_search_type(),
                 },
                 context_instance=RequestContext(request),
             )

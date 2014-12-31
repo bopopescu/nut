@@ -17,7 +17,7 @@ class SearchForm(forms.Form):
     
     def search(self):
         _keyword = self.get_keyword()
-        _type = self.cleaned_data.get('t')
+        # _type = self.cleaned_data.get('t')
         # log.info(self.cleaned_data.get('q'))
         # log.info("OKOKOKO")
         # pass
@@ -43,5 +43,11 @@ class SearchForm(forms.Form):
         self.keyword = self.cleaned_data.get('q')
 
         return self.keyword
+
+    def get_search_type(self):
+        # self.type = self.cleaned_data.get('t')
+        self.type = self.cleaned_data.get('t', 'e')
+
+        return self.type
 
 __author__ = 'edison'
