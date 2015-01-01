@@ -113,13 +113,14 @@ def search(request, template="web/main/search.html"):
 
 
     if request.method == 'GET':
+        _type = request.GET.get('t', 'e')
         form = SearchForm(request.GET)
         if form.is_valid():
             _results = form.search()
             # log.info("result %s" % results.count())
             # for row in results:
             #     print row.id
-            log.info("type %s" % form.get_search_type())
+            # log.info("type %s" % form.get_search_type())
             return render_to_response(
                 template,
                 {
