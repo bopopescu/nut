@@ -129,6 +129,7 @@ def post_note(request, user_id, template="web/user/post_note.html"):
         {
             'user':_user,
             'entities': _entities,
+            'notes':notes,
         },
         context_instance = RequestContext(request),
     )
