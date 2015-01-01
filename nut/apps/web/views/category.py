@@ -32,7 +32,7 @@ def detail(request, cid, template='web/category/detail.html'):
     _entity_list = Entity.objects.filter(status=Entity.selection, category=_cid)
     _sub_category = Sub_Category.objects.get(pk = _cid)
 
-    paginator = ExtentPaginator(_entity_list, 30)
+    paginator = ExtentPaginator(_entity_list, 24)
     try:
         _entities = paginator.page(_page)
     except PageNotAnInteger:
