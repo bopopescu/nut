@@ -81,7 +81,7 @@ msgstr "朝阳"
 #: apps/management/templates/management/management_base.html:67
 #: apps/management/templates/management/entities/list.html:6
 msgid "entity"
-msgstr ""
+msgstr "商品"
 
 #: apps/core/models.py:124 apps/core/forms/entity.py:96
 #: apps/management/templates/management/management_base.html:96
