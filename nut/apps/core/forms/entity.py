@@ -372,6 +372,7 @@ class CreateEntityForm(forms.Form):
             label=_('note'),
             widget=forms.Textarea(attrs={'class':'form-control'}),
             help_text=_(''),
+            required=False,
         )
 
     def save(self):
