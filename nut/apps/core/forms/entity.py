@@ -323,11 +323,11 @@ class CreateEntityForm(forms.Form):
         help_text=_(''),
     )
 
-    content = forms.CharField(
-        label=_('note'),
-        widget=forms.Textarea(attrs={'class':'form-control'}),
-        help_text=_(''),
-    )
+    # content = forms.CharField(
+    #     label=_('note'),
+    #     widget=forms.Textarea(attrs={'class':'form-control'}),
+    #     help_text=_(''),
+    # )
 
     def __init__(self, request, *args, **kwargs):
         self.request = request
@@ -355,6 +355,11 @@ class CreateEntityForm(forms.Form):
                                                         widget=forms.Select(attrs={'class':'form-control'}),
                                                         help_text=_(''))
 
+        self.fields['content'] = forms.CharField(
+            label=_('note'),
+            widget=forms.Textarea(attrs={'class':'form-control'}),
+            help_text=_(''),
+        )
 
     def save(self):
 
