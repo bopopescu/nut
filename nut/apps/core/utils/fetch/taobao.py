@@ -29,7 +29,7 @@ class TaoBao():
         if len(self.soup.findAll("body")) == 0:
             # print "OKOKOKO"
             self.html = self.fetch_html_ny()
-            print self.html
+            # print self.html
             self.soup = BeautifulSoup(self.html)
             # print self.soup
 

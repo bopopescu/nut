@@ -252,6 +252,4 @@ class CreateEntityForm(forms.Form):
 
 
 
-
-
 __author__ = 'edison7500'
