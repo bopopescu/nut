@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.utils.http import JSONResponse
-from apps.core.models import Entity,Entity_Like, Note, Note_Comment
+from apps.core.models import Entity, Entity_Like, Note, Note_Comment
 from apps.web.forms.comment import CommentForm
 from apps.web.forms.note import NoteForm
 from apps.web.forms.entity import EntityURLFrom, CreateEntityForm
@@ -257,5 +257,6 @@ def entity_load(request):
             return JSONResponse(data=_res)
 
     raise HttpResponseNotAllowed
+
 
 __author__ = 'edison'

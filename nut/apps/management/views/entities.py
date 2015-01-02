@@ -1,4 +1,4 @@
-from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect
+from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
@@ -8,7 +8,7 @@ from django.utils.log import getLogger
 from django.core.files.storage import default_storage
 
 from apps.core.models import Entity, Buy_Link
-from apps.core.forms.entity import EntityForm, EntityImageForm, BuyLinkForm, LinkForm
+from apps.core.forms.entity import EntityForm, EntityImageForm, BuyLinkForm, CreateEntityForm, load_entity_info
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.utils.http import SuccessJsonResponse
 
@@ -107,10 +107,24 @@ def edit(request, entity_id, template='management/entities/edit.html'):
 
 def create(request, template='management/entities/new.html'):
 
+
+
     if request.method == "POST":
-        _forms = LinkForm(request.POST)
+        _forms = CreateEntityForm(request=request, data=request.POST)
+        # _forms = EntityURLFrom(request=request, data=request.POST)
+        # if _forms.is_valid():
+        #     res = _forms.load()
+        #     log.info(res)
+        #     return HttpResponse("OK")
     else:
-        _forms = LinkForm()
+        _url = request.GET.get('url')
+
+        if _url is None:
+            raise Http404
+        # print(_url)
+        res = load_entity_info(_url)
+        log.info(res)
+        _forms = CreateEntityForm(request=request, initial=res)
 
     return render_to_response(
         template,
