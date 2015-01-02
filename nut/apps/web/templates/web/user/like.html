@@ -19,4 +19,6 @@
             </div>
         {% endfor %}
     </div>
+
+    {% include 'web/main/partial/paginator.html' with objects=el url=request.path %}
 {% endblock %}

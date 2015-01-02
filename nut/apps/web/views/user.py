@@ -97,6 +97,7 @@ def entity_like(request, user_id, template="web/user/like.html"):
         {
             'user':_user,
             'entities':_entities,
+            'el':el,
         },
         context_instance = RequestContext(request),
     )
