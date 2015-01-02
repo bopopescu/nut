@@ -2,9 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
-from django.utils.log import getLogger
 
-log = getLogger('django')
 
 from apps.core.models import Entity, Sub_Category, Category, Buy_Link, Note
 from apps.core.utils.image import HandleImage
@@ -12,6 +10,8 @@ from apps.core.utils.fetch import parse_taobao_id_from_url, parse_jd_id_from_url
 from apps.core.utils.fetch.taobao import TaoBao
 from apps.core.utils.fetch.jd import JD
 from apps.core.tasks.entity import fetch_image
+from apps.core.forms import get_admin_user_choices
+
 
 from django.conf import settings
 from urlparse import urlparse
@@ -20,6 +20,10 @@ from hashlib import md5
 from datetime import datetime
 
 
+
+from django.utils.log import getLogger
+
+log = getLogger('django')
 # image_sizes = getattr(settings, 'IMAGE_SIZE', None)
 image_path = getattr(settings, 'MOGILEFS_MEDIA_URL', 'images/')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -367,12 +371,19 @@ class CreateEntityForm(forms.Form):
                                                         widget=forms.Select(attrs={'class':'form-control'}),
                                                         help_text=_(''))
 
-
         self.fields['content'] = forms.CharField(
             label=_('note'),
             widget=forms.Textarea(attrs={'class':'form-control'}),
             help_text=_(''),
             required=False,
+        )
+
+        user_choices = get_admin_user_choices()
+        self.fields['user'] = forms.ChoiceField(
+            label=_('user'),
+            choices=user_choices,
+            widget=forms.Select(attrs={'class':'form-control'}),
+            help_text=_(''),
         )
 
     def save(self):
