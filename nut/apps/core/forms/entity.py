@@ -190,6 +190,19 @@ class EntityImageForm(forms.Form):
 
 
         # self.entity.save()
+class LinkForm(forms.Form):
+
+    link = forms.URLField(
+        label=_('link'),
+        widget=forms.URLInput(attrs={'class':'form-control'}),
+        help_text=_('')
+    )
+
+
+    def save(self):
+
+        return
+
 
 class BuyLinkForm(forms.Form):
     YES_OR_NO = (

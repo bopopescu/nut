@@ -8,7 +8,7 @@ from django.utils.log import getLogger
 from django.core.files.storage import default_storage
 
 from apps.core.models import Entity, Buy_Link
-from apps.core.forms.entity import EntityForm, EntityImageForm, BuyLinkForm
+from apps.core.forms.entity import EntityForm, EntityImageForm, BuyLinkForm, LinkForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.utils.http import SuccessJsonResponse
 
@@ -105,16 +105,32 @@ def edit(request, entity_id, template='management/entities/edit.html'):
     )
 
 
-def create(request, template=''):
+def create(request, template='management/entities/new.html'):
+
+    if request.method == "POST":
+        _forms = LinkForm(request.POST)
+    else:
+        _forms = LinkForm()
 
     return render_to_response(
         template,
         {
-
+            'forms': _forms,
         },
         context_instance = RequestContext(request)
     )
 
+
+# def add_link(request, template=""):
+#
+#
+#     return render_to_response(
+#         template,
+#         {
+#
+#         },
+#
+#     )
 
 def buy_link(request, entity_id, template='management/entities/buy_link.html'):
 
