@@ -335,13 +335,25 @@ class CreateEntityForm(forms.Form):
 
         if len(args):
             group_id = args[0]['category']
+            img_count = len(args[0]['thumb_images'])
+            # images = args[0]['thumb_images']
         else:
 
             data = kwargs.get('initial')
             group_id = data['cid']
-
+            img_count = len(data['thumb_images'])
 
         # log.info("id %s" % group_id)
+
+
+        img_choices = map(lambda x:(x, x+1), xrange(img_count))
+
+        self.fields['main_image'] = forms.ChoiceField(
+            label=_('select image'),
+            choices=img_choices,
+            widget=forms.Select(attrs={'class':'form-control'}),
+            help_text=_(''),
+        )
 
         sub_category_choices = get_sub_category_choices(group_id)
 
@@ -354,6 +366,7 @@ class CreateEntityForm(forms.Form):
                                                         choices=sub_category_choices,
                                                         widget=forms.Select(attrs={'class':'form-control'}),
                                                         help_text=_(''))
+
 
         self.fields['content'] = forms.CharField(
             label=_('note'),
