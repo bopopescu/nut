@@ -1,9 +1,17 @@
 {% extends 'management/management_base.html' %}
 {% load i18n %}
+{% load guoku %}
 
 
 {% block content %}
     <div class="container">
+        <div class="row placeholders" id="images">
+            {% for image in res.thumb_images %}
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <img class="img-responsive img-thumbnail" alt="{{ res.title }}" src="{{ image|resize:'240' }}" width="240" height="240">
+                </div>
+            {% endfor %}
+        </div>
         <div class="row">
             <form class="form-horizontal well" action="" method="post">
             {% csrf_token %}
