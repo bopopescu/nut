@@ -129,6 +129,7 @@ def create(request, template='management/entities/new.html'):
     return render_to_response(
         template,
         {
+            'res': res,
             'forms': _forms,
         },
         context_instance = RequestContext(request)

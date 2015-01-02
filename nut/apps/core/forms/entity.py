@@ -531,7 +531,7 @@ def load_entity_info(url):
                     # 'shop_nick': res['nick'],
                     'shop_link': j.shop_link,
                     'price': j.price,
-                    'chief_image_url' : j.imgs[0],
+                    # 'chief_image_url' : j.imgs[0],
                     'thumb_images': j.imgs,
                     # 'selected_category_id':
                 }
@@ -565,7 +565,7 @@ def load_entity_info(url):
                     'shop_nick': t.nick,
                     'shop_link': t.shoplink,
                     'price': t.price,
-                    'chief_image_url' : t.images[0],
+                    # 'chief_image_url' : t.images[0],
                     'thumb_images': t.images,
                     # 'selected_category_id':
                 }
