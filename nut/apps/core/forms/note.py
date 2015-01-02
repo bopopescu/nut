@@ -4,14 +4,15 @@ from django.utils.log import getLogger
 
 from apps.core.models import Note
 from apps.core.models import GKUser
+from apps.core.forms import get_admin_user_choices
 
 log = getLogger('django')
 
 
-def get_admin_user_choices():
-    user_list = GKUser.objects.editor_or_admin()
-    res = map(lambda x: (x.pk, x.profile.nickname), user_list)
-    return res
+# def get_admin_user_choices():
+#     user_list = GKUser.objects.editor_or_admin()
+#     res = map(lambda x: (x.pk, x.profile.nickname), user_list)
+#     return res
 
 class NoteForm(forms.Form):
 
