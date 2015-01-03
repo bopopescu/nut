@@ -368,8 +368,7 @@ class CreateEntityForm(forms.Form):
                                                     widget=forms.Select(attrs={'class':'form-control'}),
                                                     choices=get_category_choices(),
                                                     help_text=_(''),
-                                                    required=False,
-                                                    )
+                                    )
         self.fields['sub_category'] = forms.ChoiceField(label=_('sub_category'),
                                                         choices=sub_category_choices,
                                                         widget=forms.Select(attrs={'class':'form-control'}),
@@ -445,7 +444,7 @@ def load_entity_info(url):
                 j = JD(_jd_id)
 
                 # print "OKOKOKOKOKO"
-                # log.info(j.brand)
+                log.info("category id %s" % j.cid)
                 _data = {
                     # 'user_id': self.request.user.id,
                     # 'user_avatar': self.request.user.profile.avatar_url,
@@ -456,8 +455,8 @@ def load_entity_info(url):
                     'title': j.title,
                     'cid': j.cid,
                     # 'taobao_title': res['desc'],
-                    # 'shop_nick': j.ni,
                     'shop_link': j.shop_link,
+                    'shop_nick': j.nick,
                     'price': j.price,
                     # 'chief_image_url' : j.imgs[0],
                     'thumb_images': j.imgs,
