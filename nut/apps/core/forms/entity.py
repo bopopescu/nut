@@ -403,6 +403,12 @@ class CreateEntityForm(forms.Form):
         # log.info(self.initial['shop_nick'])
         _entity_hash = cal_entity_hash(_origin_id + _title + self.initial['shop_nick'].decode('utf8'))
         log.info("main image %s" % _main_image)
+        images = self.initial['thumb_images']
+        tmp = images.pop(int(_main_image))
+
+        log.info("image %s", tmp)
+        log.info(images)
+
         entity = Entity(
             entity_hash = _entity_hash,
             user = self.request.user,
@@ -410,7 +416,7 @@ class CreateEntityForm(forms.Form):
             title = _title,
             price = _price,
             category_id = _sub_category,
-            images = self.initial['thumb_images'],
+            images = images,
         )
 
         return entity
