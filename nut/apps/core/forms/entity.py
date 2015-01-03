@@ -319,6 +319,7 @@ class CreateEntityForm(forms.Form):
     brand = forms.CharField(
         label=_('brand'),
         widget=forms.TextInput(attrs={'class':'form-control'}),
+        required=False,
     )
 
     price = forms.FloatField(
@@ -343,9 +344,9 @@ class CreateEntityForm(forms.Form):
         #     # images = args[0]['thumb_images']
         # else:
 
-        data = kwargs.get('initial')
-        group_id = data['cid']
-        img_count = len(data['thumb_images'])
+        self.data = kwargs.get('initial')
+        group_id = self.data['cid']
+        img_count = len(self.data['thumb_images'])
 
         # log.info("id %s" % group_id)
 
@@ -387,128 +388,27 @@ class CreateEntityForm(forms.Form):
         )
 
     def save(self):
+        _origin_id = self.cleaned_data.get('origin_id')
+        _origin_source = self.cleaned_data.get('origin_source')
+        _title = self.cleaned_data.get('title')
+        _brand = self.cleaned_data.get('brand')
+        _price = self.cleaned_date.get('price')
+        _sub_category = self.cleaned_date.get('sub_category')
 
+        _user = self.cleaned_date.get('user')
 
-        return
-# class CreateEntityForm(forms.Form):
-#
-#     taobao_id = forms.CharField(
-#         widget=forms.TextInput(),
-#         required=False,
-#     )
-#     jd_id = forms.CharField(
-#         widget=forms.TextInput(),
-#         required=False,
-#     )
-#     cid = forms.IntegerField(
-#         widget=forms.TextInput(),
-#     )
-#     # cand_url = forms.URLField(
-#     #     widget=forms.URLInput(),
-#     # )
-#     shop_nick = forms.CharField(
-#         widget=forms.TextInput()
-#     )
-#     shop_link = forms.URLField(
-#         widget=forms.URLInput()
-#     )
-#     title = forms.CharField(
-#         widget=forms.TextInput()
-#     )
-#     brand = forms.CharField(
-#         widget=forms.TextInput(),
-#         required=False,
-#     )
-#     price = forms.FloatField(
-#         widget=forms.TextInput(),
-#     )
-#     chief_image_url = forms.URLField(
-#         widget=forms.URLInput(),
-#     )
-#     note_text = forms.CharField(
-#         widget=forms.Textarea(),
-#     )
-#
-#     def __init__(self, request, *args, **kwargs):
-#         self.request = request
-#         super(CreateEntityForm, self).__init__(*args, **kwargs)
-#
-#     def save(self):
-#         _taobao_id = self.cleaned_data.get('taobao_id')
-#         _jd_id = self.cleaned_data.get('jd_id')
-#         _shop_nick = self.cleaned_data.get('shop_nick')
-#         _brand = self.cleaned_data.get('brand')
-#         _title = self.cleaned_data.get('title')
-#         _cid = self.cleaned_data.get('cid', None)
-#         _price = self.cleaned_data.get('price')
-#         _chief_image_url = self.cleaned_data.get('chief_image_url')
-#         _images = self.data.getlist('thumb_images')
-#
-#         _note_text = self.cleaned_data.get('note_text')
-#         # _cand_url = self.cleaned_data.get('cand_url')
-#
-#         log.info("category %s" % _cid)
-#         _entity_hash = cal_entity_hash(_taobao_id+_title+_shop_nick)
-#
-#         category_id = 300
-#         # try:
-#         #     cate = Taobao_Item_Category_Mapping.objects.get(taobao_category_id = _cid)
-#         #     category_id = cate.neo_category_id
-#         # except Taobao_Item_Category_Mapping.DoesNotExist:
-#         #     pass
-#
-#         if _chief_image_url in _images:
-#             _images.remove(_chief_image_url)
-#
-#         _images.insert(0, _chief_image_url)
-#
-#         log.info("category %s" % _cid)
-#
-#         entity = Entity(
-#             user_id=self.request.user.id,
-#             entity_hash= _entity_hash,
-#             category_id = category_id,
-#             brand=_brand,
-#             title=_title,
-#             price=_price,
-#             images=_images,
-#         )
-#
-#         log.info(entity.images)
-#
-#         entity.save()
-#         # log.info(entity.images)
-#         fetch_image.delay(entity.images, entity.id)
-#
-#         Note.objects.create(
-#             user_id = self.request.user.id,
-#             entity = entity,
-#             note = _note_text,
-#         )
-#
-#         # _hostname = urlparse(_cand_url).hostname
-#         if _taobao_id:
-#             Buy_Link.objects.create(
-#                 entity = entity,
-#                 origin_id = _taobao_id,
-#                 cid = _cid,
-#                 origin_source = "taobao.com",
-#                 link = "http://item.taobao.com/item.htm?id=%s" % _taobao_id,
-#                 price = _price,
-#             )
-#         else:
-#             Buy_Link.objects.create(
-#                 entity = entity,
-#                 origin_id = _jd_id,
-#                 cid = _cid,
-#                 origin_source = "jd.com",
-#                 link = "http://item.jd.com/%s.html" % _jd_id,
-#                 price = _price,
-#             )
-#
-#
-#         return entity
+        _entity_hash = cal_entity_hash(_origin_id + _title + self.data['shop_nick'])
 
+        entity = Entity(
+            entity_hash = _entity_hash,
+            user = self.request.user,
+            brand = _brand,
+            title = _title,
+            price = _price,
+            category = _sub_category,
+        )
+
+        return entity
 
 
 def load_entity_info(url):

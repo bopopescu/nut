@@ -118,10 +118,11 @@ def create(request, template='management/entities/new.html'):
     if request.method == "POST":
         _forms = CreateEntityForm(request=request, data=request.POST, initial=res)
         # _forms = EntityURLFrom(request=request, data=request.POST)
-        # if _forms.is_valid():
+        if _forms.is_valid():
         #     res = _forms.load()
         #     log.info(res)
-        #     return HttpResponse("OK")
+            entity = _forms.save()
+            return HttpResponse("OK")
     else:
 
         # log.info(res)
