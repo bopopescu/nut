@@ -79,16 +79,16 @@ class JD():
     @property
     def shop_link(self):
         tmp = re.findall(r'店铺.*>(.+)</a>', self.html)
-        shop_link = ""
+        # _shop_link = ""
         if len(tmp)>0:
-            nick = tmp[0]
+            self.nick = tmp[0]
             link = re.findall(r'店铺.* href="(.+)">', self.html)[0]
-            shop_link = link[:-16]
+            _shop_link = link[:-16]
         else:
-            nick="京东"
-            shop_link = "http://jd.com"
+            self.nick="京东"
+            _shop_link = "http://jd.com"
 
-        return shop_link
+        return _shop_link
 
     @property
     def imgs(self):
