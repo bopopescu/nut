@@ -397,17 +397,21 @@ class CreateEntityForm(forms.Form):
         _brand = self.cleaned_data.get('brand')
         _price = self.cleaned_data.get('price')
         _sub_category = self.cleaned_data.get('sub_category')
-        _main_image = self.cleaned_data.get('main_image')
+        _main_image = int(self.cleaned_data.get('main_image'))
 
         _user = self.cleaned_data.get('user')
         # log.info(self.initial['shop_nick'])
         _entity_hash = cal_entity_hash(_origin_id + _title + self.initial['shop_nick'].decode('utf8'))
         log.info("main image %s" % _main_image)
-        images = self.initial['thumb_images']
-        tmp = images.pop(int(_main_image))
 
-        log.info("image %s", tmp)
-        log.info(images)
+        images = self.initial['thumb_images']
+        if _main_image != 0:
+            images = self.initial['thumb_images']
+            tmp = images.pop(int(_main_image))
+            images.insert(0, tmp)
+            log.info(images)
+        # log.info("image %s", tmp)
+        # log.info(images)
 
         entity = Entity(
             entity_hash = _entity_hash,
