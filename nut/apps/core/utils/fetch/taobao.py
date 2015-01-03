@@ -6,6 +6,9 @@ from bs4 import BeautifulSoup
 import re
 from urlparse import parse_qs, urlparse
 from urllib import unquote
+from hashlib import md5
+from django.core.cache import cache
+
 from django.utils.log import getLogger
 
 
@@ -119,13 +122,25 @@ class TaoBao():
         return None
 
     def fetch_html(self):
+        url = 'http://item.taobao.com/item.htm?id=%s' % self.item_id
+        key = md5(url).hexdigest()
+
+        res = cache.get(key)
+        if res:
+            self._headers = res['header']
+            return res['body']
+
         try:
-            f = self.opener.open('http://item.taobao.com/item.htm?id=%s' % self.item_id)
+            f = self.opener.open(url)
         except Exception, e:
+            log.error(e.message)
             raise
 
         self._headers = f.headers
-        return f.read()
+
+        res = f.read()
+        cache.set(key, {'body':res, 'header':self._headers})
+        return res
 
     def fetch_html_ny(self):
         try:
