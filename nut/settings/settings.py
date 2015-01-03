@@ -78,6 +78,25 @@ DATABASES = {
     }
 }
 
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": [
+            "redis://10.0.2.95:6379/1",
+            "redis://10.0.2.95:6379/2",
+        ],
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.ShardClient",
+            "PICKLE_VERSION": -1,
+            "SOCKET_TIMEOUT": 5,  # in seconds
+            "COMPRESS_MIN_LEN": 10,
+            "CONNECTION_POOL_KWARGS": {"max_connections": 1024}
+        }
+    }
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 

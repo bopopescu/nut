@@ -337,15 +337,15 @@ class CreateEntityForm(forms.Form):
         self.request = request
         super(CreateEntityForm, self).__init__(*args, **kwargs)
 
-        if len(args):
-            group_id = args[0]['category']
-            img_count = len(args[0]['thumb_images'])
-            # images = args[0]['thumb_images']
-        else:
+        # if len(args):
+        #     group_id = args[0]['category']
+        #     img_count = len(args[0]['thumb_images'])
+        #     # images = args[0]['thumb_images']
+        # else:
 
-            data = kwargs.get('initial')
-            group_id = data['cid']
-            img_count = len(data['thumb_images'])
+        data = kwargs.get('initial')
+        group_id = data['cid']
+        img_count = len(data['thumb_images'])
 
         # log.info("id %s" % group_id)
 
@@ -530,7 +530,7 @@ def load_entity_info(url):
                 j = JD(_jd_id)
 
                 # print "OKOKOKOKOKO"
-                log.info(j.brand)
+                # log.info(j.brand)
                 _data = {
                     # 'user_id': self.request.user.id,
                     # 'user_avatar': self.request.user.profile.avatar_url,
@@ -563,7 +563,7 @@ def load_entity_info(url):
                     'entity_hash': buy_link.entity.entity_hash,
                 }
             except Buy_Link.DoesNotExist:
-                log.info("OKOKOKO")
+                # log.info("OKOKOKO")
                 t = TaoBao(_taobao_id)
                 # log.info(t.res())
                 # res = t.res()

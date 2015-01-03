@@ -107,23 +107,24 @@ def edit(request, entity_id, template='management/entities/edit.html'):
 
 def create(request, template='management/entities/new.html'):
 
+    # res = dict()
+    _url = request.GET.get('url')
 
+    if _url is None:
+        raise Http404
+        # print(_url)
+    res = load_entity_info(_url)
 
     if request.method == "POST":
-        _forms = CreateEntityForm(request=request, data=request.POST)
+        _forms = CreateEntityForm(request=request, data=request.POST, initial=res)
         # _forms = EntityURLFrom(request=request, data=request.POST)
         # if _forms.is_valid():
         #     res = _forms.load()
         #     log.info(res)
         #     return HttpResponse("OK")
     else:
-        _url = request.GET.get('url')
 
-        if _url is None:
-            raise Http404
-        # print(_url)
-        res = load_entity_info(_url)
-        log.info(res)
+        # log.info(res)
         _forms = CreateEntityForm(request=request, initial=res)
 
     return render_to_response(
