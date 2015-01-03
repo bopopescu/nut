@@ -365,7 +365,8 @@ class CreateEntityForm(forms.Form):
         self.fields['category'] = forms.ChoiceField(label=_('category'),
                                                     widget=forms.Select(attrs={'class':'form-control'}),
                                                     choices=get_category_choices(),
-                                                    help_text=_('')
+                                                    help_text=_(''),
+                                                    required=False,
                                                     )
         self.fields['sub_category'] = forms.ChoiceField(label=_('sub_category'),
                                                         choices=sub_category_choices,
@@ -392,13 +393,14 @@ class CreateEntityForm(forms.Form):
         _origin_source = self.cleaned_data.get('origin_source')
         _title = self.cleaned_data.get('title')
         _brand = self.cleaned_data.get('brand')
-        _price = self.cleaned_date.get('price')
-        _sub_category = self.cleaned_date.get('sub_category')
+        _price = self.cleaned_data.get('price')
+        _sub_category = self.cleaned_data.get('sub_category')
+        _main_image = self.cleaned_data.get('main_image')
 
         _user = self.cleaned_date.get('user')
 
         _entity_hash = cal_entity_hash(_origin_id + _title + self.data['shop_nick'])
-
+        log.info("main image %s" % _main_image)
         entity = Entity(
             entity_hash = _entity_hash,
             user = self.request.user,
@@ -406,6 +408,7 @@ class CreateEntityForm(forms.Form):
             title = _title,
             price = _price,
             category = _sub_category,
+            images = self.data['thumb_images'],
         )
 
         return entity
