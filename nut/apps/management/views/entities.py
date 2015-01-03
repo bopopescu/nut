@@ -114,7 +114,7 @@ def create(request, template='management/entities/new.html'):
         raise Http404
         # print(_url)
     res = load_entity_info(_url)
-
+    log.info(res)
     if request.method == "POST":
         log.info(request.POST)
         _forms = CreateEntityForm(request=request, data=request.POST, initial=res)

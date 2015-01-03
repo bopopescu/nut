@@ -1,3 +1,5 @@
+#encoding=utf8
+
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.core.files.storage import default_storage
@@ -344,9 +346,9 @@ class CreateEntityForm(forms.Form):
         #     # images = args[0]['thumb_images']
         # else:
 
-        self.data = kwargs.get('initial')
-        group_id = self.data['cid']
-        img_count = len(self.data['thumb_images'])
+        self.initial = kwargs.get('initial')
+        group_id = self.initial['cid']
+        img_count = len(self.initial['thumb_images'])
 
         # log.info("id %s" % group_id)
 
@@ -397,9 +399,9 @@ class CreateEntityForm(forms.Form):
         _sub_category = self.cleaned_data.get('sub_category')
         _main_image = self.cleaned_data.get('main_image')
 
-        _user = self.cleaned_date.get('user')
-
-        _entity_hash = cal_entity_hash(_origin_id + _title + self.data['shop_nick'])
+        _user = self.cleaned_data.get('user')
+        # log.info(self.initial['shop_nick'])
+        _entity_hash = cal_entity_hash(_origin_id + _title + self.initial['shop_nick'].decode('utf8'))
         log.info("main image %s" % _main_image)
         entity = Entity(
             entity_hash = _entity_hash,
@@ -407,8 +409,8 @@ class CreateEntityForm(forms.Form):
             brand = _brand,
             title = _title,
             price = _price,
-            category = _sub_category,
-            images = self.data['thumb_images'],
+            category_id = _sub_category,
+            images = self.initial['thumb_images'],
         )
 
         return entity
@@ -444,7 +446,7 @@ def load_entity_info(url):
                     'title': j.title,
                     'cid': j.cid,
                     # 'taobao_title': res['desc'],
-                    # 'shop_nick': res['nick'],
+                    # 'shop_nick': j.ni,
                     'shop_link': j.shop_link,
                     'price': j.price,
                     # 'chief_image_url' : j.imgs[0],
