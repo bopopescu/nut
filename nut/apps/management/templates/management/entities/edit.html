@@ -64,9 +64,8 @@
             <ul class="list-group">
                 {% for buy_link in entity.buy_links.all %}
                     <li class="list-group-item"><a href="{{ buy_link }}" target="_blank">{{ buy_link }}</a>
-                        <a class="btn btn-link">{% trans 'edit' %}</a>
+                        <a class="pull-right" href="{% url 'management_edit_entity_buy_link' buy_link.pk %}" target="_blank">&nbsp;{% trans 'edit' %}</a>
                         <span class="label label-primary pull-right">{{ buy_link.default }}</span>
-
                     </li>
                 {% endfor %}
             </ul>

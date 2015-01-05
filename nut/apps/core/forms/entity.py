@@ -292,6 +292,40 @@ class BuyLinkForm(forms.Form):
         return self.b
 
 
+class EditBuyLinkForm(forms.ModelForm):
+    # YES_OR_NO = (
+    #     (True, _('yes')),
+    #     (False, _('no')),
+    # )
+    #
+    # link = forms.URLField(
+    #     label=_('link'),
+    #     widget=forms.URLInput(attrs={'class':'form-control'}),
+    #     help_text=_(''),
+    # )
+    #
+    # default = forms.ChoiceField(
+    #     label=_('default'),
+    #     choices=YES_OR_NO,
+    #     widget=forms.Select(attrs={'class':'form-control'}),
+    #     initial=False,
+    #     help_text=_(''),
+    # )
+
+    # class __Meta__:
+    class Meta:
+        model = Buy_Link
+        fields = ('link', u'default', )
+
+
+    def __init__(self, buy_link, *args, **kwargs):
+        self.buy_link = buy_link
+        super(EditBuyLinkForm, self).__init__(*args, **kwargs)
+
+    # def save(self):
+    #     pass
+
+
 class CreateEntityForm(forms.Form):
 
     origin_id = forms.CharField(
