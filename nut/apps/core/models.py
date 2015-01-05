@@ -333,7 +333,6 @@ class Entity(BaseModel):
     )
 
 
-
 class Buy_Link(BaseModel):
     entity = models.ForeignKey(Entity, related_name='buy_links')
     origin_id = models.CharField(max_length=100)
