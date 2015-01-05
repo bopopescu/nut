@@ -40,6 +40,7 @@ def get_sub_category_choices(group_id):
 def get_category_choices():
 
     category_list = Category.objects.all()
+    # log.info(category_list)
     res = map(lambda x : (x.id, x.title), category_list)
     return res
 
@@ -99,11 +100,12 @@ class EntityForm(forms.Form):
                                                   help_text=_(''))
 
         if len(self.entity.images) > 1:
-            position_list = list()
-            for position in xrange(len(self.entity.images)):
-                position_list.append((position, str(position)))
-                position_choices = tuple(position_list)
-                self.fields['position'] = forms.ChoiceField(label=_('position'),
+            # position_list = list()
+            # for position in xrange(len(self.entity.images)):
+            #     position_list.append((position, str(position)))
+            #     position_choices = tuple(position_list)
+            position_choices = map(lambda x: (x, x+1), range(len(self.entity.images)))
+            self.fields['position'] = forms.ChoiceField(label=_('position'),
                             choices=position_choices,
                             widget=forms.Select(attrs={'class':'form-control',}),
                             initial=0,
@@ -440,6 +442,7 @@ class CreateEntityForm(forms.Form):
                 origin_source = _origin_source,
                 link = "http://item.taobao.com/item.htm?id=%s" % _origin_id,
                 price = _price,
+                status = True,
             )
         else:
             Buy_Link.objects.create(
@@ -449,6 +452,7 @@ class CreateEntityForm(forms.Form):
                 origin_source = _origin_source,
                 link = "http://item.jd.com/%s.html" % _origin_id,
                 price = _price,
+                status = True,
             )
         return entity
 
