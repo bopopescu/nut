@@ -123,7 +123,7 @@ def create(request, template='management/entities/new.html'):
         #     res = _forms.load()
         #     log.info(res)
             entity = _forms.save()
-            return HttpResponse("OK")
+            return HttpResponseRedirect(reverse('management_entity_edit', args=[entity.pk]))
     else:
 
         # log.info(res)
