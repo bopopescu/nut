@@ -8,7 +8,7 @@ from django.utils.log import getLogger
 from django.core.files.storage import default_storage
 
 from apps.core.models import Entity, Buy_Link
-from apps.core.forms.entity import EntityForm, EntityImageForm, BuyLinkForm, CreateEntityForm, load_entity_info
+from apps.core.forms.entity import EntityForm, EntityImageForm, BuyLinkForm, EditBuyLinkForm, CreateEntityForm, load_entity_info
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.utils.http import SuccessJsonResponse
 
@@ -189,6 +189,30 @@ def buy_link(request, entity_id, template='management/entities/buy_link.html'):
         context_instance = RequestContext(request)
     )
 
+
+def edit_buy_link(request, bid, template='management/entities/edit_buy_link.html'):
+
+    try:
+        # _entity = Entity.objects.get(pk=entity_id)
+        b = Buy_Link.objects.get(pk=bid)
+    except Buy_Link.DoesNotExist:
+        raise Http404
+
+    if request.method == 'POST':
+        _forms = EditBuyLinkForm(buy_link=b, data=request.POST)
+    else:
+        _forms = EditBuyLinkForm(buy_link=b)
+        # _forms = EditBuyLinkForm(entity=_entity)
+
+
+    return render_to_response(
+        template,
+        {
+            'entity':b.entity,
+            'forms':_forms,
+        },
+        context_instance = RequestContext(request)
+    )
 
 
 def image(request, entity_id, template='management/entities/upload_image.html'):
