@@ -397,8 +397,8 @@ class CreateEntityForm(forms.Form):
         _price = self.cleaned_data.get('price')
         _sub_category = self.cleaned_data.get('sub_category')
         _main_image = int(self.cleaned_data.get('main_image'))
-
-        _user = self.cleaned_data.get('user')
+        _note_text = self.cleaned_data.get('content')
+        _user_id = self.cleaned_data.get('user')
         # log.info(self.initial['shop_nick'])
         _entity_hash = cal_entity_hash(_origin_id + _title + self.initial['shop_nick'].decode('utf8'))
         log.info("main image %s" % _main_image)
@@ -422,6 +422,34 @@ class CreateEntityForm(forms.Form):
             images = images,
         )
 
+        entity.save()
+        fetch_image.delay(entity.images, entity.id)
+
+        if _note_text:
+            Note.objects.create(
+                user_id= _user_id,
+                entity= entity,
+                note= _note_text,
+            )
+
+        if "taobao" in _origin_source:
+            Buy_Link.objects.create(
+                entity = entity,
+                origin_id = _origin_id,
+                cid = self.initial['cid'],
+                origin_source = _origin_source,
+                link = "http://item.taobao.com/item.htm?id=%s" % _origin_id,
+                price = _price,
+            )
+        else:
+            Buy_Link.objects.create(
+                entity = entity,
+                origin_id = _origin_id,
+                cid = self.initial['cid'],
+                origin_source = _origin_source,
+                link = "http://item.jd.com/%s.html" % _origin_id,
+                price = _price,
+            )
         return entity
 
 
