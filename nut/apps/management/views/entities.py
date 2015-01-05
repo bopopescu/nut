@@ -114,7 +114,20 @@ def create(request, template='management/entities/new.html'):
         raise Http404
         # print(_url)
     res = load_entity_info(_url)
-    log.info(res)
+
+    if res.has_key('entity_id'):
+        return HttpResponseRedirect(reverse('management_entity_edit', args=[res['entity_id']]))
+    # log.info(res)
+    # try:
+    #     b = Buy_Link.objects.get(
+    #         origin_id=res['origin_id'],
+    #         origin_source=res['origin_source'],
+    #     )
+    #
+    #     return HttpResponseRedirect(reverse('management_entity_edit', args=[b.entity_id]))
+    # except Buy_Link.DoesNotExist:
+    #     pass
+
     if request.method == "POST":
         # log.info(request.POST)
         _forms = CreateEntityForm(request=request, data=request.POST, initial=res)

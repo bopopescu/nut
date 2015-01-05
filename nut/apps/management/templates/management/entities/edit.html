@@ -63,7 +63,11 @@
             <div class="panel-heading">{% trans 'buy links' %}</div>
             <ul class="list-group">
                 {% for buy_link in entity.buy_links.all %}
-                    <li class="list-group-item"><a href="{{ buy_link }}" target="_blank">{{ buy_link }}</a><span class="label label-primary pull-right">{{ buy_link.default }}</span></li>
+                    <li class="list-group-item"><a href="{{ buy_link }}" target="_blank">{{ buy_link }}</a>
+                        <a class="btn btn-link">{% trans 'edit' %}</a>
+                        <span class="label label-primary pull-right">{{ buy_link.default }}</span>
+
+                    </li>
                 {% endfor %}
             </ul>
         </div>

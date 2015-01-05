@@ -193,15 +193,7 @@ class EntityImageForm(forms.Form):
         self.entity.save()
 
 
-        # for size in image_sizes:
-        #     file_path = image_path + "%s.jpg_%sx%s.jpg" % (entity_image.name, size, size)
-        #     default_storage.save(file_path, ContentFile(entity_image.resize(size, size)))
 
-
-        # image_name = image_path + "%s.jpg" % entity_image.name
-
-
-        # self.entity.save()
 
 class BuyLinkForm(forms.Form):
     YES_OR_NO = (
@@ -470,7 +462,7 @@ def load_entity_info(url):
             try:
                 buy_link = Buy_Link.objects.get(origin_id=_jd_id, origin_source="jd.com",)
                 _data = {
-                    'entity_hash': buy_link.entity.entity_hash,
+                    'entity_id': buy_link.entity.id,
                 }
             except Buy_Link.DoesNotExist:
                 j = JD(_jd_id)
@@ -506,7 +498,7 @@ def load_entity_info(url):
                 buy_link = Buy_Link.objects.get(origin_id=_taobao_id, origin_source="taobao.com",)
                 log.info(buy_link.entity)
                 _data = {
-                    'entity_hash': buy_link.entity.entity_hash,
+                    'entity_id': buy_link.entity.id,
                 }
             except Buy_Link.DoesNotExist:
                 # log.info("OKOKOKO")
