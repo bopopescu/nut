@@ -10,7 +10,7 @@ from django.core.files.storage import default_storage
 from apps.core.models import Entity, Buy_Link
 from apps.core.forms.entity import EntityForm, EntityImageForm, BuyLinkForm, CreateEntityForm, load_entity_info
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
-from apps.core.utils.http import SuccessJsonResponse
+from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 
 log = getLogger('django')
 
@@ -117,16 +117,6 @@ def create(request, template='management/entities/new.html'):
 
     if res.has_key('entity_id'):
         return HttpResponseRedirect(reverse('management_entity_edit', args=[res['entity_id']]))
-    # log.info(res)
-    # try:
-    #     b = Buy_Link.objects.get(
-    #         origin_id=res['origin_id'],
-    #         origin_source=res['origin_source'],
-    #     )
-    #
-    #     return HttpResponseRedirect(reverse('management_entity_edit', args=[b.entity_id]))
-    # except Buy_Link.DoesNotExist:
-    #     pass
 
     if request.method == "POST":
         # log.info(request.POST)
@@ -151,17 +141,6 @@ def create(request, template='management/entities/new.html'):
         context_instance = RequestContext(request)
     )
 
-
-# def add_link(request, template=""):
-#
-#
-#     return render_to_response(
-#         template,
-#         {
-#
-#         },
-#
-#     )
 
 def buy_link(request, entity_id, template='management/entities/buy_link.html'):
 
@@ -189,6 +168,17 @@ def buy_link(request, entity_id, template='management/entities/buy_link.html'):
         context_instance = RequestContext(request)
     )
 
+
+def remove_buy_link(request, bid):
+    try:
+        b = Buy_Link.objects.get(pk=bid)
+    except Buy_Link.DoesNotExist:
+        return ErrorJsonResponse(status=404)
+
+    if b.default:
+        return ErrorJsonResponse(status=403)
+    b.delete()
+    return SuccessJsonResponse()
 
 # def edit_buy_link(request, bid, template='management/entities/edit_buy_link.html'):
 #
