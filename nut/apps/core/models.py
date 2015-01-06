@@ -224,10 +224,18 @@ class Sub_Category(BaseModel):
 
     @property
     def icon_large_url(self):
+        if "images" in self.icon:
+            path = self.icon.split("/")
+            # log.info("path %s "%path)
+            return "http://imgcdn.guoku.com/%s/200/%s" % tuple(path)
         return "http://imgcdn.guoku.com/category/large/%s" % self.icon
 
     @property
     def icon_small_url(self):
+        if "images" in self.icon:
+            path = self.icon.split("/")
+            # log.info("path %s "%path)
+            return "http://imgcdn.guoku.com/%s/100/%s" % tuple(path)
         return "http://imgcdn.guoku.com/category/small/%s" % self.icon
 
     def get_absolute_url(self):
