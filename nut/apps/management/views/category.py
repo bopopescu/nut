@@ -16,17 +16,7 @@ def list(request, template='management/category/list.html'):
 
     categories = Category.objects.all().order_by('-id')
 
-    # category = Category.objects.get(pk = category_id)
-    # sub_category_list = category.sub_categories.all()
-
     paginator = ExtentPaginator(categories, 30)
-
-    # try:
-    #     sub_categories = paginator.page(page)
-    # except PageNotAnInteger:
-    #     sub_categories = paginator.page(1)
-    # except EmptyPage:
-    #      raise Http404
     try:
         category_list = paginator.page(page)
     except PageNotAnInteger:
@@ -44,6 +34,20 @@ def list(request, template='management/category/list.html'):
         },
         context_instance = RequestContext(request)
     )
+
+def sub_category_list(request, cid, template="management/category/sub_category_list.html"):
+
+
+
+
+    return render_to_response(
+        template,
+        {
+
+        },
+        context_instance = RequestContext(request)
+    )
+
 
 def create(request, template="management/category/create.html"):
 
