@@ -21,6 +21,13 @@ class CategoryForm(forms.Form):
     )
 
 
+class CreateCategoryForm(CategoryForm):
+
+    def save(self):
+
+        _title = self.cleaned_data.get('title')
+
+
 class EditCategoryForm(CategoryForm):
 
     def __init__(self, category, *args, **kwargs):
@@ -31,7 +38,7 @@ class EditCategoryForm(CategoryForm):
     def save(self):
 
         _title = self.cleaned_data.get('title')
-        _status = self.cleaned_date.get('status')
+        _status = self.cleaned_data.get('status')
         _status = bool(_status)
 
 

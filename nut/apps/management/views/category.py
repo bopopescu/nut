@@ -1,10 +1,12 @@
 from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.utils.translation import ugettext_lazy as _
 
 from apps.core.models import Category
-from apps.core.forms.category import EditCategoryForm
+from apps.core.forms.category import CreateCategoryForm, EditCategoryForm
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
+
 
 def list(request, template='management/category/list.html'):
     #
@@ -42,6 +44,25 @@ def list(request, template='management/category/list.html'):
         context_instance = RequestContext(request)
     )
 
+def create(request, template="management/category/create.html"):
+
+    if request.method == "POST":
+        _forms = CreateCategoryForm(request.POST)
+        if _forms.is_valid():
+            _forms.save()
+    else:
+        _forms = CreateCategoryForm()
+
+    return render_to_response(
+        template,
+        {
+            "forms":_forms,
+            "button": _('add')
+        },
+        context_instance = RequestContext(request)
+    )
+
+
 
 def edit(request, cid, template="management/category/edit.html"):
 
@@ -54,7 +75,7 @@ def edit(request, cid, template="management/category/edit.html"):
         _forms = EditCategoryForm(category=category, data=request.POST)
         if _forms.is_valid():
             _forms.save()
-            return 
+            return
     else:
         _forms = EditCategoryForm(
             category=category,
