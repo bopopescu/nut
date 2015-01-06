@@ -59,6 +59,8 @@ def sub_category_list(request, cid, template="management/category/sub_category_l
 
 def sub_category_edit(request, scid, template="management/category/sub_category_edit.html"):
 
+    _update = False
+
     try:
         sub_category = Sub_Category.objects.get(pk = scid)
     except Sub_Category.DoesNotExist:
@@ -68,6 +70,7 @@ def sub_category_edit(request, scid, template="management/category/sub_category_
         _forms = EditSubCategoryForm(sub_category=sub_category, data=request.POST, files=request.FILES)
         if _forms.is_valid():
             _forms.save()
+            _update = True
             # return HttpResponseRedirect()
     else:
         _forms = EditSubCategoryForm(
@@ -82,7 +85,9 @@ def sub_category_edit(request, scid, template="management/category/sub_category_
     return render_to_response(
         template,
         {
+            'sub_category':sub_category,
             'forms':_forms,
+            'update': _update,
             'button':_('update'),
         },
         context_instance = RequestContext(request)
