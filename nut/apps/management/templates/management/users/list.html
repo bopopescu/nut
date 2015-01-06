@@ -22,7 +22,7 @@
                     <th>{% trans 'email' %}</th>
                     <th>{% trans 'nickname' %}</th>
                     <th>{% trans 'gender' %}</th>
-                    <th>{% trans 'is_admin' %}</th>
+{#                    <th>{% trans 'is_admin' %}</th>#}
                     <th>{% trans 'operation' %}</th>
                 </tr>
             </thead>
@@ -34,7 +34,7 @@
                         <td>{{ user.email }}</td>
                         <td>{{ user.profile.nickname }}</td>
                         <td>{{ user.profile.get_gender_display }}</td>
-                        <td>{{ user.is_staff|yesno }}</td>
+{#                        <td>{{ user.is_staff|yesno }}</td>#}
                         <td>
                             <a class="btn btn-primary" href="#">{% trans 'post message' %}</a>
                             <a class="btn btn-default" href="{% url 'management_user_edit' user.pk %}" target="_blank">{% trans 'edit' %}</a>

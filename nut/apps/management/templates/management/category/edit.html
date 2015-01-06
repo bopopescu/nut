@@ -1,0 +1,22 @@
+{% extends 'management/management_base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <div class="row">
+        <form class="form-horizontal well" action="" method="post">
+            <fieldset>
+                {% for field in forms %}
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ field.label }}</label>
+                        <div class="col-sm-5">
+                            {{ field }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </fieldset>
+            <div class="form-group">
+                <button class="col-sm-offset-2 btn btn-primary" type="submit">{% trans 'update' %}</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
