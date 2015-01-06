@@ -197,8 +197,8 @@ class EntityImageForm(forms.Form):
 
 class BuyLinkForm(forms.Form):
     YES_OR_NO = (
-        (True, _('yes')),
-        (False, _('no')),
+        (1, _('yes')),
+        (0, _('no')),
     )
     #
     # origin_id = forms.IntegerField(
@@ -239,7 +239,7 @@ class BuyLinkForm(forms.Form):
     def save(self):
         _link = self.cleaned_data.get('link')
         _default = self.cleaned_data.get('default')
-        _default = bool(_default)
+        _default = int(_default)
         # log.info(type(bool(_default)))
         _hostname = urlparse(_link).hostname
 

@@ -1,4 +1,5 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
@@ -13,7 +14,7 @@ def list(request, template='management/category/list.html'):
     # c = request.GET.get('c', '1')
     page = request.GET.get('page', 1)
 
-    categories = Category.objects.all()
+    categories = Category.objects.all().order_by('-id')
 
     # category = Category.objects.get(pk = category_id)
     # sub_category_list = category.sub_categories.all()
@@ -74,8 +75,8 @@ def edit(request, cid, template="management/category/edit.html"):
     if request.method == "POST":
         _forms = EditCategoryForm(category=category, data=request.POST)
         if _forms.is_valid():
-            _forms.save()
-            return
+            category = _forms.save()
+            return HttpResponseRedirect(reverse('management_category_list'))
     else:
         _forms = EditCategoryForm(
             category=category,
@@ -89,6 +90,7 @@ def edit(request, cid, template="management/category/edit.html"):
         template,
         {
             'forms':_forms,
+            'button': _('update'),
         },
         context_instance = RequestContext(request)
     )
