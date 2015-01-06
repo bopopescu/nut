@@ -21,7 +21,7 @@ class SuccessJsonResponse(JSONResponse):
 
 
 class ErrorJsonResponse(JSONResponse):
-    def __init__(self, data, status):
+    def __init__(self, status, data = None):
         super(ErrorJsonResponse, self).__init__(data, status)
 
 
