@@ -1,7 +1,15 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+
 from apps.core.models import Category, Sub_Category
 from apps.core.forms import get_category_choices
+from apps.core.utils.image import HandleImage
+
+from django.utils.log import getLogger
+from django.conf import settings
+
+log = getLogger('django')
+image_path = getattr(settings, 'MOGILEFS_MEDIA_URL', 'images/')
 
 
 YES_OR_NO = (
@@ -30,7 +38,12 @@ class CreateCategoryForm(CategoryForm):
         _title = self.cleaned_data.get('title')
         _status = self.cleaned_data.get('status')
         _status = int(_status)
-
+        category = Category(
+            title = _title,
+            status = _status,
+        )
+        category.save()
+        return category
 
 
 
@@ -75,6 +88,10 @@ class SubCategoryForm(forms.Form):
         widget=forms.Select(attrs={'class':'form-control'}),
     )
 
+    icon = forms.ImageField(
+        label=_('Select an Image'),
+        required=False,
+    )
 
 class EditSubCategoryForm(SubCategoryForm):
 
@@ -86,8 +103,17 @@ class EditSubCategoryForm(SubCategoryForm):
     def save(self):
         _title = self.cleaned_data.get('title')
         _category = self.cleaned_data.get('category')
+        _icon = self.cleaned_data.get('icon')
+
         _status = self.cleaned_data.get('status')
         _status = int(_status)
+
+
+        if _icon:
+            log.info("icon %s" % _icon)
+            image_file = HandleImage(_icon)
+            icon_file = image_file.save(path=image_path)
+            self.sub_category.icon = icon_file
 
         self.sub_category.title = _title
         self.sub_category.group_id = _category

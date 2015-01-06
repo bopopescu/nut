@@ -65,7 +65,10 @@ def sub_category_edit(request, scid, template="management/category/sub_category_
         raise Http404
 
     if request.method == 'POST':
-        _forms = EditSubCategoryForm(sub_category=sub_category, data=request.POST)
+        _forms = EditSubCategoryForm(sub_category=sub_category, data=request.POST, files=request.FILES)
+        if _forms.is_valid():
+            _forms.save()
+            # return HttpResponseRedirect()
     else:
         _forms = EditSubCategoryForm(
             sub_category=sub_category,
@@ -80,6 +83,7 @@ def sub_category_edit(request, scid, template="management/category/sub_category_
         template,
         {
             'forms':_forms,
+            'button':_('update'),
         },
         context_instance = RequestContext(request)
     )
