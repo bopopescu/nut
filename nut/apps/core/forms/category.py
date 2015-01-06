@@ -5,8 +5,8 @@ from apps.core.models import Category, Sub_Category
 
 class CategoryForm(forms.Form):
     YES_OR_NO = (
-        (True, _('yes')),
-        (False, _('no')),
+        (1, _('yes')),
+        (0, _('no')),
     )
 
     title = forms.CharField(
@@ -39,9 +39,15 @@ class EditCategoryForm(CategoryForm):
 
         _title = self.cleaned_data.get('title')
         _status = self.cleaned_data.get('status')
-        _status = bool(_status)
 
+        _status = int(_status)
+        # print _status
 
+        self.category_cache.title = _title
+        self.category_cache.status = _status
+        self.category_cache.save()
+
+        return self.category_cache
 
 
 
