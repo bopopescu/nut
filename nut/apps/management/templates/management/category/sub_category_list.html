@@ -22,7 +22,7 @@
                             <td>{{ sub_category.title }}</td>
                             <td>{{ sub_category.status|yesno }}</td>
                             <td>
-{#                                <a class="btn btn-default" href="{% url 'management_category_edit' category.pk %}" target="_blank">{% trans 'edit' %}</a>#}
+                                <a class="btn btn-default" href="{% url 'management_sub_category_edit' sub_category.pk %}" target="_blank">{% trans 'edit' %}</a>
 {#                                <a class="btn btn-primary" href="{% url 'management_sub_category_list' category.pk %}" target="_blank">{% trans 'detail' %}</a>#}
                             </td>
                         </tr>
@@ -31,4 +31,6 @@
             </table>
         </div>
     </div>
+
+    {% include "management/paginator.html" with objects=category_list url=request.path %}
 {% endblock %}

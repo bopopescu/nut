@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 
 from apps.core.models import Category, Sub_Category
-from apps.core.forms.category import CreateCategoryForm, EditCategoryForm
+from apps.core.forms.category import CreateCategoryForm, EditCategoryForm, EditSubCategoryForm
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 
 
@@ -57,6 +57,32 @@ def sub_category_list(request, cid, template="management/category/sub_category_l
         context_instance = RequestContext(request)
     )
 
+def sub_category_edit(request, scid, template="management/category/sub_category_edit.html"):
+
+    try:
+        sub_category = Sub_Category.objects.get(pk = scid)
+    except Sub_Category.DoesNotExist:
+        raise Http404
+
+    if request.method == 'POST':
+        _forms = EditSubCategoryForm(sub_category=sub_category, data=request.POST)
+    else:
+        _forms = EditSubCategoryForm(
+            sub_category=sub_category,
+            initial={
+                'category':sub_category.group_id,
+                'title':sub_category.title,
+                'status':sub_category.status,
+            }
+        )
+
+    return render_to_response(
+        template,
+        {
+            'forms':_forms,
+        },
+        context_instance = RequestContext(request)
+    )
 
 def create(request, template="management/category/create.html"):
 
