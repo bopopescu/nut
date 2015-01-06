@@ -35,7 +35,10 @@
                         <td>{{ user.profile.nickname }}</td>
                         <td>{{ user.profile.get_gender_display }}</td>
                         <td>{{ user.is_staff|yesno }}</td>
-                        <td><a class="btn btn-default" href="{% url 'management_user_edit' user.pk %}">{% trans 'edit' %}</a></td>
+                        <td>
+                            <a class="btn btn-primary" href="#">{% trans 'post message' %}</a>
+                            <a class="btn btn-default" href="{% url 'management_user_edit' user.pk %}" target="_blank">{% trans 'edit' %}</a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
