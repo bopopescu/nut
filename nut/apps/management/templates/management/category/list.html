@@ -27,9 +27,12 @@
                         <tr>
                             <td>{{ category.pk }}</td>
 {#                            <td><img src="{{ sub_category.icon_large_url }}"></td>#}
-                            <td>{{ category.title }}</td>
+                            <td><a href="{% url 'management_sub_category_list' category.pk %}">{{ category.title }}</a></td>
                             <td>{{ category.status|yesno }}</td>
-                            <td><a class="btn btn-default" href="{% url 'management_category_edit' category.pk %}" target="_blank">{% trans 'edit' %}</a></td>
+                            <td>
+                                <a class="btn btn-default" href="{% url 'management_category_edit' category.pk %}" target="_blank">{% trans 'edit' %}</a>
+                                <a class="btn btn-primary" href="{% url 'management_sub_category_list' category.pk %}" target="_blank">{% trans 'detail' %}</a>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
