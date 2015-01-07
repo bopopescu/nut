@@ -3,6 +3,13 @@
 
 {% block content %}
     <h1 class="page-header">{{ category }}</h1>
+
+    <div class="row">
+        <ul class="nav nav-pills" role="tablist">
+            <li><a class="btn btn-primary" href="{% url 'management_sub_categoy_create' category.pk %}" target="_blank">{% trans 'add' %}</a></li>
+        </ul>
+    </div>
+
     <div class="row">
         <div class="table-responsive">
             <table class="table table-striped">

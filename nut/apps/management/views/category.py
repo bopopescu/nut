@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 
 from apps.core.models import Category, Sub_Category
-from apps.core.forms.category import CreateCategoryForm, EditCategoryForm, EditSubCategoryForm
+from apps.core.forms.category import CreateCategoryForm, EditCategoryForm, CreateSubCategoryForm, EditSubCategoryForm
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 
 
@@ -38,7 +38,11 @@ def list(request, template='management/category/list.html'):
 def sub_category_list(request, cid, template="management/category/sub_category_list.html"):
 
     _page = request.GET.get('page', 1)
-    category = Category.objects.get(pk = cid)
+    try:
+        category = Category.objects.get(pk = cid)
+    except Category.DoesNotExist:
+        raise Http404
+
     sub_categories = Sub_Category.objects.filter(group_id = cid)
 
     paginator = ExtentPaginator(sub_categories, 30)
@@ -58,6 +62,33 @@ def sub_category_list(request, cid, template="management/category/sub_category_l
         },
         context_instance = RequestContext(request)
     )
+
+
+def sub_category_create(request, cid, template="management/category/sub_category_create.html"):
+    try:
+        category = Category.objects.get(pk = cid)
+    except Category.DoesNotExist:
+        raise Http404
+
+
+    if request.method == "POST":
+        _forms = CreateSubCategoryForm(request.POST, request.FILES)
+        if _forms.is_valid():
+            _forms.save()
+    else:
+        _forms = CreateSubCategoryForm(initial={
+            'category':category.pk,
+        })
+
+    return render_to_response(
+        template,
+        {
+            'forms': _forms,
+            'button': _('add'),
+        },
+        context_instance = RequestContext(request)
+    )
+
 
 def sub_category_edit(request, scid, template="management/category/sub_category_edit.html"):
 
@@ -95,6 +126,7 @@ def sub_category_edit(request, scid, template="management/category/sub_category_
         context_instance = RequestContext(request)
     )
 
+
 def create(request, template="management/category/create.html"):
 
     if request.method == "POST":
@@ -112,7 +144,6 @@ def create(request, template="management/category/create.html"):
         },
         context_instance = RequestContext(request)
     )
-
 
 
 def edit(request, cid, template="management/category/edit.html"):

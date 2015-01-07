@@ -93,6 +93,33 @@ class SubCategoryForm(forms.Form):
         required=False,
     )
 
+
+class CreateSubCategoryForm(SubCategoryForm):
+
+
+    def save(self):
+        _title = self.cleaned_data.get('title')
+        _category = self.cleaned_data.get('category')
+        _icon = self.cleaned_data.get('icon')
+
+        _status = self.cleaned_data.get('status')
+        _status = int(_status)
+
+        sub_category = Sub_Category(
+            title = _title,
+            group_id = _category,
+            status = _status,
+        )
+
+        if _icon:
+            image_file = HandleImage(_icon)
+            icon_file = image_file.save(path=image_path)
+            sub_category.icon = icon_file
+
+        sub_category.save()
+        return sub_category
+
+
 class EditSubCategoryForm(SubCategoryForm):
 
     def __init__(self, sub_category, *args, **kwargs):
