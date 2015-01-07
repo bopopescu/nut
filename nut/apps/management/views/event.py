@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 
 from apps.core.models import Event
+from apps.core.forms.event import EditEventForm, CreateEventForm
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from django.utils.log import getLogger
 

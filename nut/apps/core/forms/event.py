@@ -3,13 +3,12 @@ from django.utils.translation import gettext_lazy as _
 from apps.core.models import Event, Tag
 
 
-
-
 class BaseEventForm(forms.Form):
     YES_OR_NO = (
         (0, _('no')),
         (1, _('yes')),
     )
+
     title = forms.CharField(
         label=_('title'),
         widget=forms.TextInput(attrs={'class':'form-control'}),
