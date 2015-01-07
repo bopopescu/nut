@@ -211,7 +211,7 @@ SPHINX_PORT = 3312
 
 
 # taobao
-APP_HOST = "http://www.guoku.com"
+APP_HOST = "http://test.guoku.com"
 TAOBAO_APP_KEY = '12313170'
 TAOBAO_APP_SECRET = '90797bd8d5859aac971f8cc9d4e51105'
 TAOBAO_OAUTH_URL = 'https://oauth.taobao.com/authorize'
@@ -224,7 +224,9 @@ TAOBAO_APP_INFO = {
     "web_app_secret" : "df91464ae934bacca326450f8ade67f7"
 }
 
+
 # weibo
-SINA_APP_KEY = '1459383851'
-SINA_APP_SECRET = 'bfb2e43c3fa636f102b304c485fa2110'
+SINA_APP_KEY = '2830558576'
+SINA_APP_SECRET = 'a4861c4ea9facd833eb5d828794a2fb2'
 SINA_BACK_URL = APP_HOST + '/sina/auth'
+# TAOBAO_BACK_URL = APP_HOST + "/taobao/auth"
