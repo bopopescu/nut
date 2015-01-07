@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.formtools.wizard.views import SessionWizardView
 from django.contrib.auth import logout as auth_logout
 from django.core.files.storage import default_storage
+from django.views.decorators.http import require_GET
 
 from apps.web.forms.account import UserSignInForm, UserPasswordResetForm
 
@@ -104,5 +105,16 @@ def forget_password(request, template='web/account/forget_password.html'):
         },
         context_instance = RequestContext(request),
     )
+
+
+@require_GET
+def login_by_sina(request):
+    request.session['auth_source'] = "login"
+    # next_url = request.GET.get('next', None)
+    next_url = request.META.get('HTTP_REFERER')
+    if next_url:
+        request.session['auth_next_url'] = next_url
+    return HttpResponseRedirect(sina_utils.get_login_url())
+
 
 __author__ = 'edison'

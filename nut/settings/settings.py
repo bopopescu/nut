@@ -208,3 +208,23 @@ CELERY_RESULT_SERIALIZER = 'json'
 SPHINX_API_VERSION = 0x116
 SPHINX_SERVER = '10.0.2.50'
 SPHINX_PORT = 3312
+
+
+# taobao
+APP_HOST = "http://www.guoku.com"
+TAOBAO_APP_KEY = '12313170'
+TAOBAO_APP_SECRET = '90797bd8d5859aac971f8cc9d4e51105'
+TAOBAO_OAUTH_URL = 'https://oauth.taobao.com/authorize'
+TAOBAO_OAUTH_LOGOFF = 'https://oauth.taobao.com/logoff'
+TAOBAO_BACK_URL = APP_HOST + "/taobao/auth"
+TAOBAO_APP_INFO = {
+    "default_app_key" : "12313170",
+    "default_app_secret" : "90797bd8d5859aac971f8cc9d4e51105",
+    "web_app_key" : "21419640",
+    "web_app_secret" : "df91464ae934bacca326450f8ade67f7"
+}
+
+# weibo
+SINA_APP_KEY = '1459383851'
+SINA_APP_SECRET = 'bfb2e43c3fa636f102b304c485fa2110'
+SINA_BACK_URL = APP_HOST + '/sina/auth'

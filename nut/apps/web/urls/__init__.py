@@ -33,6 +33,8 @@ urlpatterns += patterns(
     # url(r'^register/$', 'register', name='web_register'),
     url(r'^logout', 'logout', name='web_logout'),
     url(r'register/$', RegisterWizard.as_view(RegisterForms), name='web_register'),
+
+    url(r'^sina/login$', 'login_by_sina', name="web_login_by_sina"),
 )
 
 # static page
