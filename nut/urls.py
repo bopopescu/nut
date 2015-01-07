@@ -9,7 +9,8 @@ urlpatterns = staticfiles_urlpatterns()
 
 urlpatterns += patterns('',
 
-    url(r'management/', include('apps.management.urls')),
+    url(r'^management/', include('apps.management.urls')),
+    url(r'^mobile/v3/', include('apps.mobile.urls')),
     url(r'^api/', include('apps.api.urls')),
 
     # url(r'^$', 'apps.web.views.main.index', name='web_index'),
