@@ -1,0 +1,7 @@
+{% extends "management/management_base.html" %}
+
+{% block content %}
+    <div class="row">
+        {% include 'management/lib/forms.html' with forms=forms url=request.path %}
+    </div>
+{% endblock %}
