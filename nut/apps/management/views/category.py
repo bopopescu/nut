@@ -38,6 +38,7 @@ def list(request, template='management/category/list.html'):
 def sub_category_list(request, cid, template="management/category/sub_category_list.html"):
 
     _page = request.GET.get('page', 1)
+    category = Category.objects.get(pk = cid)
     sub_categories = Sub_Category.objects.filter(group_id = cid)
 
     paginator = ExtentPaginator(sub_categories, 30)
@@ -52,6 +53,7 @@ def sub_category_list(request, cid, template="management/category/sub_category_l
     return render_to_response(
         template,
         {
+            'category': category,
             'category_list': category_list,
         },
         context_instance = RequestContext(request)
