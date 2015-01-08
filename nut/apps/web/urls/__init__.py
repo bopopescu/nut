@@ -1,12 +1,13 @@
 from django.conf.urls import url, include, patterns
+from django.views.generic import RedirectView
 from apps.web.views import AboutView, JobsView, Agreement
 
 
 urlpatterns = patterns(
     'apps.web.views',
 
-    url(r'^$', 'main.index', name='web_index'),
-
+    # url(r'^$', 'main.index', name='web_index'),
+    url(r'^$', RedirectView.as_view(url='/selection/')),
     url(r'^selection/$', 'main.selection', name='web_selection'),
     url(r'^popular/$', 'main.popular', name='web_popular'),
     url(r'^search/$', 'main.search', name='web_search'),
@@ -34,7 +35,8 @@ urlpatterns += patterns(
     url(r'^logout', 'logout', name='web_logout'),
     url(r'register/$', RegisterWizard.as_view(RegisterForms), name='web_register'),
 
-    url(r'^sina/login$', 'login_by_sina', name="web_login_by_sina"),
+    url(r'^sina/login/$', 'weibo.login_by_sina', name="web_login_by_sina"),
+    url(r'^sina/auth/$', 'weibo.auth_by_sina', name="web_auth_by_sina"),
 )
 
 # static page
