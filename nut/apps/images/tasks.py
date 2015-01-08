@@ -6,7 +6,7 @@ from django.core.files.storage import default_storage
 
 @task(base=BaseTask)
 def resize(image_name, size=None, **kwargs):
-
+    # print image_name
     f = default_storage.open(image_name)
 
     try:
