@@ -15,6 +15,7 @@ def get_sina_user_info(access_token, expires_in):
     sina_id = auth_client.get.account__get_uid()['uid']
     return auth_client.get.users__show(access_token = access_token, uid = sina_id)
 
+
 def get_sina_user_friends(sina_id, access_token, expires_in):
     auth_client = APIClient(APP_KEY, APP_SECRET, CALLBACK_URL)
     auth_client.set_access_token(access_token = access_token, expires_in = expires_in)
@@ -34,6 +35,7 @@ def get_sina_user_friends(sina_id, access_token, expires_in):
             break
     return friends
 
+
 def get_auth_data(code):
     auth_client = APIClient(APP_KEY, APP_SECRET, CALLBACK_URL)
     auth_record = auth_client.request_access_token(code)
@@ -51,6 +53,7 @@ def get_auth_data(code):
     sina_data['location'] = sina_user.location
     return sina_data
 
+
 def post_weibo(access_token, expires_in, text, pic=None):
     auth_client = APIClient(APP_KEY, APP_SECRET, CALLBACK_URL)
     auth_client.set_access_token(access_token, expires_in)
@@ -60,5 +63,10 @@ def post_weibo(access_token, expires_in, text, pic=None):
         auth_client.statuses.upload.post(status=text, pic=pic)
 
 
+# def unbind(access_token):
+#     if access_token is None:
+#         raise Exception('access token is None')
+#     client = APIClient(app_key=APP_KEY, app_secret=APP_SECRET, redirect_uri=CALLBACK_URL)
+#     return client.request_revoke(access_token)
 
 __author__ = 'edison7500'

@@ -1,6 +1,7 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.views.decorators.http import require_GET
+from django.contrib.auth.decorators import login_required
 
 from apps.core.models import Sina_Token
 # from apps.web.forms.account import UserSignInForm, UserPasswordResetForm
@@ -36,6 +37,21 @@ def auth_by_sina(request):
 
         login_without_password(request, weibo.user)
         return HttpResponseRedirect(next_url)
+
+
+@login_required
+def unbind(request):
+    next_url = request.META.get('HTTP_REFERER', None)
+    if next_url is None:
+        raise Http404
+
+    try:
+        token = Sina_Token.objects.get(user=request.user)
+    except Sina_Token.DoesNotExist:
+        raise Http404
+
+    token.delete()
+    return Http404(next_url)
 
 
 __author__ = 'edison'
