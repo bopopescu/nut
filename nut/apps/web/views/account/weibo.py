@@ -42,11 +42,7 @@ def auth_by_sina(request):
             return HttpResponseRedirect(next_url)
 
         except Sina_Token.DoesNotExist:
-            # raise
-
             is_bind = request.session.get('is_bind', None)
-
-
             if request.user.is_authenticated() and is_bind:
                 # del request.session['next_url']
                 del request.session['is_bind']
@@ -58,7 +54,8 @@ def auth_by_sina(request):
                     expires_in = _sina_data['expires_in'],
                 )
                 return HttpResponseRedirect(next_url)
-
+            else:
+                pass
         # if weibo.user_id:
 
 
@@ -66,7 +63,7 @@ def auth_by_sina(request):
 @login_required
 def bind(request):
     next_url = request.META.get('HTTP_REFERER', None)
-    next_url = reverse('web_selection')
+    # next_url = reverse('web_selection')
     if next_url:
         log.info(next_url)
         request.session['next_url'] = next_url
@@ -80,9 +77,8 @@ def bind(request):
 @login_required
 def unbind(request):
     next_url = request.META.get('HTTP_REFERER', None)
-    # if next_url is None:
-    #     raise Http404
-
+    if next_url is None:
+        raise Http404
     try:
         token = Sina_Token.objects.get(user=request.user)
     except Sina_Token.DoesNotExist:
