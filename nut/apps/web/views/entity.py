@@ -35,14 +35,13 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
     _user_post_note = True
     try:
         _entity.notes.get(user=_user)
-
     except Note.DoesNotExist:
         _user_post_note = False
 
 
     like_status = 0
     try:
-        _entity.likes.get(user = _user)
+        _entity.likes.get(user=_user)
         like_status = 1
     except Entity_Like.DoesNotExist:
         pass
@@ -54,7 +53,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
         {
             'entity': _entity,
             'like_status': like_status,
-            'user':_user,
+            # 'user':_user,
             'user_post_note':_user_post_note,
             'note_forms':_note_forms,
         },
