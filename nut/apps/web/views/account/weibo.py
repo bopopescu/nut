@@ -5,7 +5,7 @@ from django.views.decorators.http import require_GET
 from apps.core.models import Sina_Token
 # from apps.web.forms.account import UserSignInForm, UserPasswordResetForm
 from apps.web.lib.account import sina
-
+from apps.web.lib.account.utils import login_without_password
 from django.utils.log import getLogger
 
 log = getLogger('django')
@@ -34,7 +34,8 @@ def auth_by_sina(request):
         except Sina_Token.DoesNotExist:
             raise
 
+        login_without_password(request, weibo.user)
+        return HttpResponseRedirect(next_url)
 
-        log.info(weibo.user)
 
 __author__ = 'edison'
