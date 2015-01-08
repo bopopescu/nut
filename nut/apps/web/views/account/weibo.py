@@ -37,7 +37,7 @@ def auth_by_sina(request):
 
         log.info(_sina_data)
         try:
-            weibo = Sina_Token.objects.get(sina_id = _sina_data['sina_id'], user=request.user)
+            weibo = Sina_Token.objects.get(sina_id = _sina_data['sina_id'])
             weibo.access_token = _sina_data['access_token']
             weibo.expires_in = _sina_data['expires_in']
             weibo.screen_name = _sina_data['screen_name']
