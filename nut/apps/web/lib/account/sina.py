@@ -54,13 +54,13 @@ def get_auth_data(code):
     return sina_data
 
 
-def post_weibo(access_token, expires_in, text, pic=None):
-    auth_client = APIClient(APP_KEY, APP_SECRET, CALLBACK_URL)
-    auth_client.set_access_token(access_token, expires_in)
-    if pic == None:
-        auth_client.statuses.update.post(status=text)
-    else:
-        auth_client.statuses.upload.post(status=text, pic=pic)
+# def post_weibo(access_token, expires_in, text, pic=None):
+#     auth_client = APIClient(APP_KEY, APP_SECRET, CALLBACK_URL)
+#     auth_client.set_access_token(access_token, expires_in)
+#     if pic == None:
+#         auth_client.statuses.update.post(status=text)
+#     else:
+#         auth_client.statuses.upload.post(status=text, pic=pic)
 
 
 # def unbind(access_token):
