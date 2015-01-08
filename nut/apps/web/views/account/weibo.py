@@ -39,6 +39,20 @@ def auth_by_sina(request):
         return HttpResponseRedirect(next_url)
 
 
+@require_GET
+@login_required
+def bind(request):
+    next_url = request.META.get('HTTP_REFERER', None)
+    if next_url:
+        log.info(next_url)
+        request.session['next_url'] = next_url
+        request.session['is_bind'] = True
+    else:
+        raise Http404
+    return HttpResponseRedirect(sina.get_login_url())
+
+
+@require_GET
 @login_required
 def unbind(request):
     next_url = request.META.get('HTTP_REFERER', None)

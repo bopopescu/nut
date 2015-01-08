@@ -37,7 +37,8 @@ urlpatterns += patterns(
 
     url(r'^sina/login/$', 'weibo.login_by_sina', name="web_login_by_sina"),
     url(r'^sina/auth/$', 'weibo.auth_by_sina', name="web_auth_by_sina"),
-    url(r'sina/unbind/$', 'weibo.unbind', name='web_unbind_weibo'),
+    url(r'^sina/bind/$', 'weibo.bind', name='web_bind_by_weibo'),
+    url(r'^sina/unbind/$', 'weibo.unbind', name='web_unbind_weibo'),
 )
 
 # static page
