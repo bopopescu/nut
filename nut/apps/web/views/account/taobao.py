@@ -45,4 +45,14 @@ def auth_by_taobao(request):
     return
 
 
+
+def bind(request):
+
+    return
+
+
+def unbind(request):
+
+    return
+
 __author__ = 'edison'
