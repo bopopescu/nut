@@ -19,7 +19,7 @@ def login_by_sina(request):
     next_url = request.META.get('HTTP_REFERER', reverse('web_selection'))
     if 'login' in next_url:
         next_url = reverse('web_selection')
-    log.info(next_url)
+    # log.info(next_url)
     if next_url:
         request.session['next_url'] = next_url
     return HttpResponseRedirect(sina.get_login_url())
@@ -34,33 +34,39 @@ def auth_by_sina(request):
         next_url = request.session.get('next_url', reverse("web_selection"))
         del request.session['next_url']
 
-        try:
-            weibo = Sina_Token.objects.get(sina_id = _sina_data['sina_id'])
-        except Sina_Token.DoesNotExist:
-            raise
 
         log.info(_sina_data)
-
-        is_bind = request.session.get('is_bind', None)
-        if request.user.is_authenticated() and is_bind:
-            del request.session['next_url']
-            del request.session['is_bind']
-            Sina_Token.objects.create(
-                user = request.user,
-                sina_id =  _sina_data['sina_id'],
-            )
-            return HttpResponseRedirect(next_url)
-
-        if weibo.user_id:
+        try:
+            weibo = Sina_Token.objects.get(sina_id = _sina_data['sina_id'], user=request.user)
             login_without_password(request, weibo.user)
-
             return HttpResponseRedirect(next_url)
+
+        except Sina_Token.DoesNotExist:
+            # raise
+
+            is_bind = request.session.get('is_bind', None)
+
+
+            if request.user.is_authenticated() and is_bind:
+                # del request.session['next_url']
+                del request.session['is_bind']
+                Sina_Token.objects.create(
+                    user = request.user,
+                    sina_id = _sina_data['sina_id'],
+                    screen_name = _sina_data['screen_name'],
+                    access_token = _sina_data['access_token'],
+                    expires_in = _sina_data['expires_in'],
+                )
+                return HttpResponseRedirect(next_url)
+
+        # if weibo.user_id:
 
 
 @require_GET
 @login_required
 def bind(request):
-    next_url = request.META.get('HTTP_REFERER', reverse('web_selection'))
+    next_url = request.META.get('HTTP_REFERER', None)
+    next_url = reverse('web_selection')
     if next_url:
         log.info(next_url)
         request.session['next_url'] = next_url
@@ -83,7 +89,7 @@ def unbind(request):
         raise Http404
 
     token.delete()
-    return Http404(next_url)
+    return HttpResponseRedirect(next_url)
 
 
 __author__ = 'edison'
