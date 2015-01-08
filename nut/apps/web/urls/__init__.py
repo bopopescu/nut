@@ -38,10 +38,12 @@ urlpatterns += patterns(
     url(r'^sina/login/$', 'weibo.login_by_sina', name="web_login_by_sina"),
     url(r'^sina/auth/$', 'weibo.auth_by_sina', name="web_auth_by_sina"),
     url(r'^sina/bind/$', 'weibo.bind', name='web_bind_by_weibo'),
-    url(r'^sina/unbind/$', 'weibo.unbind', name='web_unbind_weibo'),
+    url(r'^sina/unbind/$', 'weibo.unbind', name='web_unbind_by_weibo'),
 
     url(r'^taobao/login/$', 'taobao.login_by_taobao', name='web_login_by_taobao'),
     url(r'^taobao/auth/$', 'taobao.auth_by_taobao', name='web_auth_by_taobao'),
+    url(r'^taobao/bind/$', 'taobao.bind', name='web_bind_by_taobao'),
+    url(r'^taobao/unbind/$', 'taobao.unbind', name='web_unbind_by_taobao'),
 )
 
 # static page
