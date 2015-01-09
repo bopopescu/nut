@@ -3,7 +3,7 @@ import urllib2
 
 from apps.core.utils.image import HandleImage
 from apps.core.tasks import BaseTask
-from apps.core.models import User_Profile
+from apps.core.models import User_Profile, Sina_Token, Taobao_Token
 
 
 from django.conf import settings
@@ -15,7 +15,6 @@ image_host = getattr(settings, 'IMAGE_HOST', None)
 
 @task(base=BaseTask)
 def fetch_avatar(avatar_url, user_id, *args, **kwargs):
-
 
     try:
         profile = User_Profile.objects.get(user_id = user_id)
@@ -29,5 +28,39 @@ def fetch_avatar(avatar_url, user_id, *args, **kwargs):
     avatar_file = image.avatar_save(resize=False)
     profile.avatar = avatar_file
     profile.save()
+
+
+@task(base=BaseTask)
+def update_token(*args, **kwargs):
+
+    _user_id = kwargs.pop('user_id')
+    _weibo_id = kwargs.pop('weibo_id')
+    _taobao_id = kwargs.pop('taobao_id')
+    _screen_name = kwargs.pop('screen_name')
+    _access_token = kwargs.pop('access_token')
+    _expires_in = kwargs.pop('expires_in')
+
+    if _weibo_id:
+        token = Sina_Token(
+            user_id = _user_id,
+            sina_id = _weibo_id,
+        )
+        token.screen_name = _screen_name
+        token.access_token = _access_token
+        token.expires_in = _expires_in
+        # token.save()
+    else:
+        token = Taobao_Token(
+            user_id = _user_id,
+            taobao_id = _taobao_id,
+        )
+        token.taobao_id = _taobao_id
+        token.screen_name = _screen_name
+        token.access_token = _access_token
+        token.expires_in = _expires_in
+
+    token.save()
+
+    return token
 
 __author__ = 'edison'
