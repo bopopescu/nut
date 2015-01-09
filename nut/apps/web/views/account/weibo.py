@@ -79,10 +79,9 @@ def bind(request):
         log.info(next_url)
         request.session['next_url'] = next_url
         request.session['is_bind'] = True
-    else:
-        raise Http404
-    return HttpResponseRedirect(sina.get_login_url())
+        return HttpResponseRedirect(sina.get_login_url())
 
+    raise Http404
 
 @require_GET
 @login_required

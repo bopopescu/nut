@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 
 from apps.web.lib.account.taobao import get_login_url, get_auth_data
@@ -47,12 +47,28 @@ def auth_by_taobao(request):
 
 
 def bind(request):
+    next_url = request.META.get('HTTP_REFERER', None)
 
-    return
-
+    if next_url:
+        request.session['next_url'] = next_url
+        request.session['is_bind'] = True
+        return HttpResponseRedirect(get_login_url())
+    raise Http404
 
 def unbind(request):
+    # _user_inst = User(request.user.id)
+    # _user_inst.unbind_taobao()
+    next_url = request.META.get('HTTP_REFERER', None)
+    if next_url is None:
+        raise Http404
 
-    return
+    try:
+        token = Taobao_Token.objects.get(user = request.user)
+    except Taobao_Token.DoesNotExist:
+        raise Http404
+    token.delete()
+
+    # redirect_url = request.GET.get("next", reverse("web_selection"))
+    return HttpResponseRedirect(next_url)
 
 __author__ = 'edison'
