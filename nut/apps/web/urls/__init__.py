@@ -33,7 +33,7 @@ urlpatterns += patterns(
     url(r'^login/$', 'login', name='web_login'),
     # url(r'^register/$', 'register', name='web_register'),
     url(r'^logout', 'logout', name='web_logout'),
-    url(r'register/$', RegisterWizard.as_view(RegisterForms), name='web_register'),
+    url(r'^register/$', RegisterWizard.as_view(RegisterForms), name='web_register'),
 
     url(r'^sina/login/$', 'weibo.login_by_sina', name="web_login_by_sina"),
     url(r'^sina/auth/$', 'weibo.auth_by_sina', name="web_auth_by_sina"),

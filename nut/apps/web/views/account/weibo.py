@@ -59,7 +59,14 @@ def auth_by_sina(request):
                 )
                 return HttpResponseRedirect(next_url)
             else:
-                pass
+                log.info(_sina_data)
+                request.session['weibo_id'] = _sina_data['sina_id']
+                request.session['avatar'] = _sina_data['avatar_large']
+                request.session['screen_name'] = _sina_data['screen_name']
+                request.session['access_token'] = _sina_data['access_token']
+                request.session['expires_in'] = _sina_data['expires_in']
+
+                return HttpResponseRedirect(reverse('web_register_from_three_part'))
         # if weibo.user_id:
 
 
