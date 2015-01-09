@@ -2,19 +2,13 @@ from django.http import HttpResponse, Http404
 from django.utils.log import getLogger
 
 from apps.images.tasks import resize
-# from wand.image import  Image as WandImage
-# from django.core.files.storage import default_storage
-# from apps.core.utils.image import HandleImage
 
-# from django.utils.
 
 log = getLogger('django')
 
 
 def images(request, file_name, size=None):
     path = request.get_full_path()
-
-
 
     if "/large/" in path or "small" in path:
         path = path.split('/')
