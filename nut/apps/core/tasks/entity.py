@@ -2,8 +2,8 @@ from celery.task import task
 from apps.core.tasks import BaseTask
 
 import urllib2
-from django.core.files.storage import default_storage
-from django.core.files.base import ContentFile
+# from django.core.files.storage import default_storage
+# from django.core.files.base import ContentFile
 from apps.core.utils.image import HandleImage
 from apps.core.models import Entity
 
@@ -24,15 +24,6 @@ def fetch_image(images, entity_id, *args, **kwargs):
         image = HandleImage(f)
         image_name = image.save()
         image_list.append("%s%s" % (image_host, image_name))
-        # print image.image_data
-        # image.name
-        # image_name = image_path + "%s.jpg" % image.name
-        # if default_storage.exists(image_name):
-        #     image_name = image_host + image_name
-        #     image_list.append(image_name)
-        # else:
-        #     image_name = image_host + default_storage.save(image_name, ContentFile(image.image_data))
-        #     image_list.append(image_name)
 
 
     try:

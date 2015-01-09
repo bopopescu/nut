@@ -91,11 +91,12 @@ class HandleImage(object):
         return filename
 
 
-    def avatar_save(self):
+    def avatar_save(self, resize=True):
         self.path = avatar_path
 
         self.crop_square()
-        self.resize(300, 300)
+        if resize:
+            self.resize(300, 300)
 
         filename = self.path + self.name + '.jpg'
         if not default_storage.exists(filename):
