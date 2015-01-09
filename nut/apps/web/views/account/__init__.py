@@ -115,6 +115,7 @@ def register_from_three_part(request, template="web/account/three-part-register.
 
     if request.method == "POST":
         _forms = UserSignUpForm(request.POST)
+        _avatar = request.session.get('avatar')
         if _forms.is_valid():
 
             return
@@ -122,6 +123,7 @@ def register_from_three_part(request, template="web/account/three-part-register.
         screen_name = request.session.get('screen_name', None)
         # _taobao_id = request.session.get('taobao_id', None)
         if screen_name:
+            _avatar = request.session.get('avatar')
         #     log.info("weibo id %s" % _weibo_id)
         #     pass
         # elif _taobao_id:
@@ -134,11 +136,12 @@ def register_from_three_part(request, template="web/account/three-part-register.
                 'nickname': screen_name
             })
         else:
-            raise 
+            raise
 
     return render_to_response(
         template,
         {
+            "avatar": _avatar,
             "forms": _forms,
         },
         context_instance = RequestContext(request),
