@@ -9,6 +9,7 @@ from django.core.files.storage import default_storage
 
 # from apps.core.models import Sina_Token
 from apps.web.forms.account import UserSignInForm, UserPasswordResetForm, UserSignUpForm
+from celery import group
 from apps.core.tasks.account import fetch_avatar, update_token
 # from apps.web.lib.account import sina
 
@@ -127,15 +128,19 @@ def register_from_three_part(request, template="web/account/three-part-register.
         if _forms.is_valid():
             user = _forms.save()
 
-            fetch_avatar(avatar_url=_avatar, user_id=user.pk)
-            update_token(
+            res = group([
+                fetch_avatar.s(avatar_url=_avatar, user_id=user.pk),
+                update_token.s(
                         user_id = user.pk,
                         weibo_id = _weibo_id,
                         taobao_id = _taobao_id,
                         screen_name=_screen_name,
                         access_token=_access_token,
                         expires_in=_expires_in,
-                    )
+                    ),
+            ])
+            res.delay()
+
             _forms.login(request, user)
             return HttpResponseRedirect(reverse('web_selection'))
     else:
