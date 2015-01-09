@@ -275,6 +275,9 @@ msgstr ""
 msgid "updated time"
 msgstr "更新时间"
 
+msgid "update profile"
+msgstr "更新资料"
+
 #: apps/core/forms/user.py:27
 msgid "A user with that email already exists."
 msgstr ""
