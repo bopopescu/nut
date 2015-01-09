@@ -84,6 +84,39 @@
             </form>
         </div>
 
+        <div class="row">
+            <h3 class="col-xs-offset-4 col-sm-offset-4">{% trans 'social account' %}</h3>
+            <hr />
+        </div>
+
+        <div class="row">
+            <label class="col-xs-4 col-sm-offset-4 col-sm-2 control-label">新浪微博</label>
+            {% if user.weibo.screen_name %}
+                <p class="col-xs-4 col-sm-2">@{{ user.weibo.screen_name }}</p>
+                <div class="col-xs-4 col-sm-2">
+                    <a href="{%url 'web_unbind_by_weibo' %}">取消绑定</a>
+                </div>
+            {% else %}
+                <div class="col-xs-offset-4 col-xs-4 col-sm-offset-2 col-sm-2">
+                    <a href="{% url 'web_bind_by_weibo' %}">绑定微博</a>
+                </div>
+            {% endif %}
+        </div>
+
+         <div class="row">
+            <label class="col-xs-4 col-sm-offset-4 col-sm-2 control-label">淘宝网</label>
+            {% if user.taobao.screen_name %}
+                <p class="col-xs-4 col-sm-2">@{{ user.taobao.screen_name }}</p>
+                <div class="col-xs-4 col-sm-2">
+                   <a href="{%url 'web_unbind_by_taobao' %}">取消绑定</a>
+                </div>
+            {% else %}
+                <div class="col-xs-offset-4 col-xs-4 col-sm-offset-2 col-sm-2">
+                    <a class="active" href="{%url 'web_bind_by_taobao' %}">绑定淘宝网</a>
+                </div>
+            {% endif %}
+        </div>
+
 {#        <div class="row">#}
 {#            <h3 class="col-xs-offset-4 col-sm-offset-4">更改密码</h3>#}
 {#            <hr />#}
