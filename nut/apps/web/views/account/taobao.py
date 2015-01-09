@@ -40,9 +40,26 @@ def auth_by_taobao(request):
             login_without_password(request, taobao.user)
             return HttpResponseRedirect(next_url)
         except Taobao_Token.DoesNotExist:
-            pass
-
-    return
+            is_bind = request.session.get('is_bind', None)
+            if request.user.is_authenticated() and is_bind:
+                del request.session['is_bind']
+                Taobao_Token.objects.create(
+                    user = request.user,
+                    taobao_id = _taobao_data['taobao_id'],
+                    screen_name = _taobao_data['screen_name'],
+                    access_token = _taobao_data['access_token'],
+                    expires_in = _taobao_data['expires_in'],
+                )
+                return HttpResponseRedirect(next_url)
+            else:
+                log.info(_taobao_data)
+                request.session['weibo_id'] = _taobao_data['taobao_id']
+                request.session['avatar'] = _taobao_data['avatar_large']
+                request.session['screen_name'] = _taobao_data['screen_name']
+                request.session['access_token'] = _taobao_data['access_token']
+                request.session['expires_in'] = _taobao_data['expires_in']
+                return HttpResponseRedirect(reverse('web_register_from_three_part'))
+    # return
 
 
 
