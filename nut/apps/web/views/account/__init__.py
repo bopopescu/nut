@@ -8,7 +8,7 @@ from django.core.files.storage import default_storage
 from django.views.decorators.http import require_GET
 
 from apps.core.models import Sina_Token
-from apps.web.forms.account import UserSignInForm, UserPasswordResetForm
+from apps.web.forms.account import UserSignInForm, UserPasswordResetForm, UserSignUpForm
 from apps.web.lib.account import sina
 
 from django.utils.log import getLogger
@@ -105,7 +105,47 @@ def forget_password(request, template='web/account/forget_password.html'):
         {
             'forms': _forms,
         },
+
+    )
+
+# from three part
+
+# @require_GET
+def register_from_three_part(request, template="web/account/three-part-register.html"):
+
+    if request.method == "POST":
+        _forms = UserSignUpForm(request.POST)
+        if _forms.is_valid():
+
+            return
+    else:
+        screen_name = request.session.get('screen_name', None)
+        # _taobao_id = request.session.get('taobao_id', None)
+        if screen_name:
+        #     log.info("weibo id %s" % _weibo_id)
+        #     pass
+        # elif _taobao_id:
+        #     pass
+        #
+        # else:
+        #     pass
+
+            _forms = UserSignUpForm(initial={
+                'nickname': screen_name
+            })
+        else:
+            raise 
+
+    return render_to_response(
+        template,
+        {
+            "forms": _forms,
+        },
         context_instance = RequestContext(request),
     )
+
+
+
+
 
 __author__ = 'edison'
