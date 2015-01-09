@@ -5,11 +5,12 @@ from django.core.urlresolvers import reverse
 from django.contrib.formtools.wizard.views import SessionWizardView
 from django.contrib.auth import logout as auth_logout
 from django.core.files.storage import default_storage
-from django.views.decorators.http import require_GET
+# from django.views.decorators.http import require_GET
 
-from apps.core.models import Sina_Token
+# from apps.core.models import Sina_Token
 from apps.web.forms.account import UserSignInForm, UserPasswordResetForm, UserSignUpForm
-from apps.web.lib.account import sina
+from apps.core.tasks.account import fetch_avatar, update_token
+# from apps.web.lib.account import sina
 
 from django.utils.log import getLogger
 log = getLogger('django')
@@ -116,9 +117,27 @@ def register_from_three_part(request, template="web/account/three-part-register.
     if request.method == "POST":
         _forms = UserSignUpForm(request.POST)
         _avatar = request.session.get('avatar')
+        _weibo_id = request.session.get('weibo_id')
+        _taobao_id = request.session.get('taovao_id')
+        _screen_name = request.session.get('screen_name')
+        _access_token = request.session.get('access_token')
+        _expires_in = request.session.get('expires_in')
+
+
         if _forms.is_valid():
-            # _forms.save()
-            return HttpResponseRedirect(reverse('web_selections'))
+            user = _forms.save()
+
+            fetch_avatar(avatar_url=_avatar, user_id=user.pk)
+            update_token(
+                        user_id = user.pk,
+                        weibo_id = _weibo_id,
+                        taobao_id = _taobao_id,
+                        screen_name=_screen_name,
+                        access_token=_access_token,
+                        expires_in=_expires_in,
+                    )
+            _forms.login(request, user)
+            return HttpResponseRedirect(reverse('web_selection'))
     else:
         screen_name = request.session.get('screen_name', None)
         # _taobao_id = request.session.get('taobao_id', None)
