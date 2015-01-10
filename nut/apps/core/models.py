@@ -443,7 +443,7 @@ class Tag(models.Model):
 
 
 class Entity_Tag(models.Model):
-    entity = models.ForeignKey(Entity)
+    entity = models.ForeignKey(Entity, related_name='tags')
     user = models.ForeignKey(GKUser)
     tag = models.ForeignKey(Tag)
     # tag_text = models.CharField(max_length = 128, null = False, db_index = True)

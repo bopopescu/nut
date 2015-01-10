@@ -64,6 +64,7 @@ urlpatterns += patterns(
     url(r'^account/', include('apps.web.urls.account')),
     url(r'^user/', include('apps.web.urls.user')),
     url(r'^event/', include('apps.web.urls.event')),
+    url(r'^t/', include('apps.web.urls.tag')),
     # url(r'^event/', include('apps.web.urls.event')),
 )
 

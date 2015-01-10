@@ -56,11 +56,11 @@
             <a href="{% url 'web_category_detail' entity.category_id  %}">{{ entity.category }}</a>
         </div>
 
-        {% if tag_list|length > 0 %}
+        {% if entity.tags.all|length > 0 %}
             <div class="list-group-item detail-tag">
                 <h4>该商品的标签</h4>
-                {% for tag in tag_list %}
-                   <p> <a href="{% url "web_tag_detail" tag.tag_hash %}">＃{{ tag.tag }}</a></p>
+                {% for tag in entity.tags.all %}
+{#                   <p> <a href="{% url "web_tag_detail" tag.tag_hash %}">＃{{ tag.tag }}</a></p>#}
                 {% endfor %}
             </div>
 
