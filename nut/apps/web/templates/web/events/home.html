@@ -21,7 +21,7 @@
                 <ul class="nav nav-pills nav-home" role="tablist">
                     <li>专题</li>
                     <li>｜</li>
-                    <li>{{ event.tag }}</li>
+                    <li>{{ tag_text }}</li>
                 </ul>
             </div>
         </div>
@@ -96,7 +96,7 @@
         </div>
 
         <div class="row" id="event">
-{#            {% include "main/partial/selection_item_list.html" with selection_list=selection_list %}#}
+            {% include "web/main/partial/selection_item_list.html" with entities=entity_list %}
         </div>
         <div class="row hidden-xs">
             <div class="col-sm-offset-12">
