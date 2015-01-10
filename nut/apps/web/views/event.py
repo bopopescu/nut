@@ -55,12 +55,12 @@ def event(request, slug, template='web/events/home'):
         _request_user_like_entity_set = []
 
     # log.info(event.tag)
-    _entity_id_list = Tag.objects.filter(tag_hash=event.tag).values_list('entity_id', flat=True)
-    log.info(_entity_id_list)
+    # _entity_id_list = Tag.objects.filter(tag_hash=event.tag).values_list('entity_id', flat=True)
+    # log.info(_entity_id_list)
     # _entity_id_list = Tag.find_tag_entity(event.tag) # 双十一标签 hash
     # log.info(_entity_id_list)
-    entities = Entity.objects.filter(id__in=_entity_id_list, status=Entity.selection)
-    log.info(entities)
+    # entities = Entity.objects.filter(id__in=_entity_id_list, status=Entity.selection)
+    # log.info(entities)
     # _page_num = request.GET.get('p', 1)
     # _paginator = Paginator(_page_num, 24, len(_entity_id_list))
 
