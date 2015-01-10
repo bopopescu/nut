@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta
 
 from apps.core.models import Show_Event_Banner, Show_Editor_Recommendation, Event
-from apps.core.models import Tag
+from apps.core.models import Tag, Entity, Entity_Like
 
 # from base.models import NoteSelection, Show_Event_Banner, Show_Editor_Recommendation, Event
 # from base.note import Note

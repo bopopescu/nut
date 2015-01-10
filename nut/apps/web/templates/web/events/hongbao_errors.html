@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+
+
+{% block title %}出错啦{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+        	<div class="col-md-12" style="text-align:center;">
+	            {% if hongbao %}
+	            	<img class="img-responsive" src="{% static 'images/event/line.png' %}" style="display:inline-block;">
+	               	<h2>领取失败</h2>
+	                <img src="{{ hongbao.qrcode }}">
+	                <h4>今天你已经领过了，就是这个码</h4>
+	                <h5 style="margin:0px;">1212万能盛典消费者参见</h5>
+	                <p><a href="http://www.taobao.com/go/market/2014/1212/rules.php" target="_blank" style="color:red;">http://www.taobao.com/go/market/2014/1212/rules.php</a></p>
+	            {% else %}
+	                <img class="img-responsive" src="{% static 'images/event/1212-error-later.jpg' %}" width="600" height="420" style="display:inline-block;">
+	            {% endif %}
+	        </div>
+        </div>
+    </div>
+{% endblock %}
