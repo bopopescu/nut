@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.models import Show_Event_Banner, Show_Editor_Recommendation, Event
-from apps.core.models import Tag, Entity, Entity_Like
+from apps.core.models import Tag, Entity, Entity_Like, Entity_Tag
 from apps.core.utils.http import JSONResponse
 from datetime import datetime
 
@@ -38,6 +38,7 @@ def home(request):
 
 @require_http_methods(['GET'])
 def event(request, slug, template='web/events/home'):
+    _page_num = request.GET.get('p', 1)
     _slug = slug
     try:
         event = Event.objects.get(slug = _slug)
@@ -55,16 +56,24 @@ def event(request, slug, template='web/events/home'):
         _request_user_like_entity_set = []
 
     # log.info(event.tag)
-    # _entity_id_list = Tag.objects.filter(tag_hash=event.tag).values_list('entity_id', flat=True)
+    tag = Tag.objects.get(tag_hash=event.tag)
+    _entity_id_list = Entity_Tag.objects.filter(tag=tag).values_list('entity_id', flat=True)
     # log.info(_entity_id_list)
     # _entity_id_list = Tag.find_tag_entity(event.tag) # 双十一标签 hash
     # log.info(_entity_id_list)
-    # entities = Entity.objects.filter(id__in=_entity_id_list, status=Entity.selection)
+    entities = Entity.objects.filter(id__in=_entity_id_list, status=Entity.selection)
     # log.info(entities)
     # _page_num = request.GET.get('p', 1)
     # _paginator = Paginator(_page_num, 24, len(_entity_id_list))
 
+    _paginator = ExtentPaginator(entities, 30)
 
+    try:
+        _entity_list = _paginator.page(_page_num)
+    except PageNotAnInteger:
+        _entity_list = _paginator.page(1)
+    except EmptyPage:
+        raise Http404
     # _entities = []
     # for _entity_id in _entity_id_list[_paginator.offset : _paginator.offset + _paginator.count_in_one_page]:
     #     try:
@@ -146,13 +155,14 @@ def event(request, slug, template='web/events/home'):
         template,
         {
             'event': event,
-            # 'tag_text': ,
+            'tag_text': tag.tag,
             'show_event_banners': _show_event_banners,
             'show_editor_recommendations': _show_editor_recommendations,
             # 'paginator': _paginator,
             # 'page_num' : _page_num,
                 # 'curr_category_id' : _category_id,
-            'user_context' : _request_user_context,
+            'user_context': _request_user_context,
+            'entity_list': _entity_list,
                 # 'category_list' : _old_category_list,
             # 'selection_list' : _selection_list,
             # "entities": _entities,
