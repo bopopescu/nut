@@ -3,7 +3,7 @@ from django.template import RequestContext
 
 
 
-def detail(request, hash, template=""):
+def detail(request, hash, template="web/tags/detail.html"):
 
 
     return render_to_response(
