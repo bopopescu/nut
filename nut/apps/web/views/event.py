@@ -118,6 +118,7 @@ def event(request, slug, template='web/events/home'):
     # log.info(_selection_list)
 
     _show_event_banners = Show_Event_Banner.objects.filter(event=event, position__gt=0)
+
     _show_editor_recommendations = Show_Editor_Recommendation.objects.filter(event=event, position__gt=0)
 
     if request.is_ajax():
