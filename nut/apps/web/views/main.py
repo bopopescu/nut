@@ -18,11 +18,11 @@ log = getLogger('django')
 
 from datetime import datetime
 
-
-def index(request):
-
-
-    return HttpResponse("OK")
+#
+# def index(request):
+#
+#
+#     return HttpResponse("OK")
 
 
 @require_GET

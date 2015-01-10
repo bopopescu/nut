@@ -12,6 +12,7 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInte
 from apps.core.models import Show_Event_Banner, Show_Editor_Recommendation, Event
 from apps.core.models import Tag, Entity, Entity_Like
 from apps.core.utils.http import JSONResponse
+from datetime import datetime
 
 # from base.models import NoteSelection, Show_Event_Banner, Show_Editor_Recommendation, Event
 # from base.note import Note
@@ -46,7 +47,7 @@ def event(request, slug, template='web/events/home'):
 
     if request.user.is_authenticated():
         # _request_user_id = request.user.id
-        _request_user_context = User(request.user.id).read()
+        _request_user_context = request.user
         _request_user_like_entity_set = Entity.like_set_of_user(request.user.id)
     else:
         # _request_user_id = None
@@ -54,7 +55,7 @@ def event(request, slug, template='web/events/home'):
         _request_user_like_entity_set = []
 
     # log.info(event.tag)
-    _entity_id_list = Tag.objects.filter(tag_hash='1929877e').values_list('entity_id', flat=True)
+    _entity_id_list = Tag.objects.filter(tag_hash=event.tag).values_list('entity_id', flat=True)
     log.info(_entity_id_list)
     # _entity_id_list = Tag.find_tag_entity(event.tag) # 双十一标签 hash
     # log.info(_entity_id_list)

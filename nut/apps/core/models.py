@@ -430,17 +430,13 @@ class Tag(models.Model):
     tag_hash = models.CharField(max_length = 32, unique = True, db_index = True)
     status = models.IntegerField(default = 0, db_index = True)
     creator = models.ForeignKey(GKUser, related_name='tags')
-    entity = models.ForeignKey(Entity, related_name='tag')
+    # entity = models.ForeignKey(Entity, related_name='tag')
     created_time = models.DateTimeField(auto_now_add = True, db_index=True)
     updated_time = models.DateTimeField(auto_now = True, db_index = True)
 
     class Meta:
         ordering = ['-created_time']
         unique_together = ('entity', 'creator', 'tag')
-
-    # @property
-    # def entity_count(self):
-    #     self.entity
 
     def get_absolute_url(self):
         return "/t/%s" % self.tag_hash
