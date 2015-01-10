@@ -444,7 +444,7 @@ class Tag(models.Model):
 
 class Entity_Tag(models.Model):
     entity = models.ForeignKey(Entity)
-    # user = models.ForeignKey(User)
+    user = models.ForeignKey(GKUser)
     tag = models.ForeignKey(Tag)
     # tag_text = models.CharField(max_length = 128, null = False, db_index = True)
     # tag_hash = models.CharField(max_length = 32, db_index = True)
@@ -454,7 +454,7 @@ class Entity_Tag(models.Model):
 
     class Meta:
         ordering = ['-created_time']
-        unique_together = ('entity', 'tag')
+        unique_together = ('entity', 'user', 'tag')
 
 
     @property
