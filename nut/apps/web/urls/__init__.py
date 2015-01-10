@@ -63,6 +63,7 @@ urlpatterns += patterns(
     url(r'^category/', include('apps.web.urls.category')),
     url(r'^account/', include('apps.web.urls.account')),
     url(r'^user/', include('apps.web.urls.user')),
+    url(r'^event/', include('apps.web.urls.event')),
     # url(r'^event/', include('apps.web.urls.event')),
 )
 
