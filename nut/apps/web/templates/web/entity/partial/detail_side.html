@@ -60,7 +60,8 @@
             <div class="list-group-item detail-tag">
                 <h4>该商品的标签</h4>
                 {% for tag in entity.tags.all %}
-{#                   <p> <a href="{% url "web_tag_detail" tag.tag_hash %}">＃{{ tag.tag }}</a></p>#}
+                   <p> <a href="{% url "web_tag_detail" tag.hash %}">＃{{ tag.title }}</a></p>
+{#                    <p> <a href="#">＃{{ tag.title }}</a></p>#}
                 {% endfor %}
             </div>
 
