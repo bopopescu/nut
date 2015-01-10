@@ -137,18 +137,24 @@ def event(request, slug, template='web/events/home'):
             'msg' : '没有更多数据'
         }
 
-        if _selection_list:
-            _t = loader.get_template('main/partial/selection_item_list.html')
+        if _entity_list:
+            _t = loader.get_template('web/main/partial/selection_item_list.html')
             _c = RequestContext(request, {
-                'selection_list': _selection_list,
+                'entities': _entity_list,
             })
             _data = _t.render(_c)
 
-            _ret = {
-                'status' : '1',
-                'data' : _data
-            }
-        return JSONResponse(data=_ret)
+            # _ret = {
+            #     'status' : '1',
+            #     'data' : _data
+            # }
+            return JSONResponse(
+                    data={
+                        'status' : '1',
+                    'data' : _data
+                },
+                    content_type='text/html; charset=utf-8',
+            )
 
     log.info('tag text %s', event.tag)
     return render_to_response(
