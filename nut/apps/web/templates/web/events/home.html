@@ -1,6 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'web/base.html' %}
 {% load i18n static %}
-{% load web_common %}
+{% load common %}
 
 {% block title %}{{ event.title }}{% endblock %}
 {% block keyword %}果库专题,{{ event.title }},打折促销,福利优惠,抽奖免费送,淘宝网购物,淘宝网精选专辑{% endblock %}
@@ -21,7 +21,7 @@
                 <ul class="nav nav-pills nav-home" role="tablist">
                     <li>专题</li>
                     <li>｜</li>
-                    <li>{{ tag_text }}</li>
+                    <li>{{ event.tag }}</li>
                 </ul>
             </div>
         </div>
@@ -91,12 +91,12 @@
             <div class="col-md-12">
                 <p class="pull-left">精选商品</p>
 
-                <p class="pull-right">最新更新: {{ selection_list.0.note_context.post_time|format_time }}</p>
+{#                <p class="pull-right">最新更新: {{ selection_list.0.note_context.post_time|format_time }}</p>#}
             </div>
         </div>
 
         <div class="row" id="event">
-            {% include "main/partial/selection_item_list.html" with selection_list=selection_list %}
+{#            {% include "main/partial/selection_item_list.html" with selection_list=selection_list %}#}
         </div>
         <div class="row hidden-xs">
             <div class="col-sm-offset-12">
