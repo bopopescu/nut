@@ -2,7 +2,7 @@ from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from apps.core.models import Tag, Entity_Tag, Entity
+from apps.core.models import Tag, Entity_Tag, Entity, Entity_Like
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from django.utils.log import getLogger
 
@@ -31,12 +31,21 @@ def detail(request, hash, template="web/tags/detail.html"):
     except EmptyPage:
         raise Http404
 
+    el = list()
+    if request.user.is_authenticated():
+        e = _entities.object_list
+        el = Entity_Like.objects.filter(entity_id__in=list(e), user=request.user).values_list('entity_id', flat=True)
+    log.info(el)
+
+
+
 
     return render_to_response(
         template,
         {
             'tag': _tag,
             'entities':_entities,
+            'user_entity_likes': el,
         },
         context_instance = RequestContext(request),
     )
