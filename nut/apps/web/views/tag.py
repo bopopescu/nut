@@ -11,14 +11,14 @@ log = getLogger('django')
 
 def detail(request, hash, template="web/tags/detail.html"):
     try:
-        tag = Tag.objects.get(tag_hash = hash)
+        _tag = Tag.objects.get(tag_hash = hash)
     except Tag.DoesNotExist:
         raise Http404
 
     return render_to_response(
         template,
         {
-
+            'tag': _tag,
         },
         context_instance = RequestContext(request),
     )
