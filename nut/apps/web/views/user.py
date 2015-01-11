@@ -103,7 +103,6 @@ def entity_like(request, user_id, template="web/user/like.html"):
     )
 
 
-
 def post_note(request, user_id, template="web/user/post_note.html"):
 
     page = request.GET.get('page', 1)
@@ -122,8 +121,13 @@ def post_note(request, user_id, template="web/user/post_note.html"):
     except EmptyPage:
         raise Http404
 
-    log.info(notes.object_list)
+    # log.info(notes.object_list)
     _entities = Entity.objects.filter(id__in=list(notes.object_list))
+
+    el = list()
+    if request.user.is_authenticated():
+        # _user = request.user
+        el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(notes.object_list))
 
     return render_to_response(
         template,
@@ -131,9 +135,24 @@ def post_note(request, user_id, template="web/user/post_note.html"):
             'user':_user,
             'entities': _entities,
             'notes':notes,
+            'user_entity_likes': el,
         },
         context_instance = RequestContext(request),
     )
+
+
+def tag(request, user_id, template="web/user/tag.html"):
+
+    # _page =
+
+    return render_to_response(
+        template,
+        {
+
+        },
+        context_instance = RequestContext(request),
+    )
+
 
 
 def fans(request, user_id, template="web/user/fans.html"):

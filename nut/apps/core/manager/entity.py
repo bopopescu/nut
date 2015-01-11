@@ -18,12 +18,15 @@ class EntityManager(models.Manager):
 
 class EntityLikeQuerySet(models.query.QuerySet):
 
-
     def popular(self):
         dt = datetime.now()
         days = timedelta(days=7)
         popular_time = (dt - days).strftime("%Y-%m-%d") + ' 00:00'
         return self.filter(created_time__gt=popular_time).annotate(dcount=models.Count('entity')).values_list('entity_id', flat=True)
+
+    def user_like_list(self, user, entity_list):
+
+        return self.filter(entity_id__in=entity_list, user=user).values_list('entity_id', flat=True)
 
 
 class EntityLikeManager(models.Manager):
@@ -34,5 +37,10 @@ class EntityLikeManager(models.Manager):
 
     def popular(self):
         return self.get_query_set().popular()
+
+
+    def user_like_list(self, user, entity_list):
+
+        return self.get_query_set().user_like_list(user=user, entity_list=entity_list)
 
 __author__ = 'edison'
