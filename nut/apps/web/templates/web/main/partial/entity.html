@@ -1,8 +1,8 @@
 {% load i18n %}
 {% load guoku %}
 
-                <div class="col-xs-6 col-sm-3">
-                    <div class="thumbnail">
+<div class="col-xs-6 col-sm-3">
+    <div class="thumbnail">
                         <div class="img-box">
                             <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
                                 <img class="img-responsive" alt="{{ entity.title }}" src="{{ entity.chief_image|resize:'240' }}" width="240" height="240">
@@ -21,5 +21,5 @@
                                 </a>
                             {% endif %}
                         </div>
-                    </div>
-                </div>
+    </div>
+</div>
