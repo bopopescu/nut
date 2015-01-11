@@ -30,7 +30,7 @@
                 {% endif %}
 
             <p>
-                <a href="javascript:;" class="poke{%if poke_button_target_status == '0'%} active {% endif %}" data-note="{{ note.id }}" data-target-status="{{ poke_button_target_status }}"><i class="fa fa-thumbs-o-up fa-lg"></i>&nbsp;
+                <a href="javascript:;" class="poke{% if note.id in user_pokes %} active {% endif %}" data-note="{{ note.id }}"><i class="fa fa-thumbs-o-up fa-lg"></i>&nbsp;
                     {% if note.poke_count > 0 %}
                         <span>{{ note.poke_count }}</span>
                     {% endif %}

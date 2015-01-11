@@ -101,7 +101,7 @@
                                             </form>
                                         {% endif %}
                                     <p>
-                                        <a href="javascript:;" class="poke{% if selection_note.poke_button_target_status == "0" %} active {% endif %}" data-note="{{ entity.top_note.id }}" data-target-status="{{ selection_note.poke_button_target_status }}">
+                                        <a href="javascript:;" class="poke{% if entity.top_note.id in user_pokes %} active {% endif %}" data-note="{{ entity.top_note.id }}">
                                             <i class="fa fa-thumbs-o-up fa-lg"></i>&nbsp;
                                         {% if entity.top_note.poke_count > 0 %}
                                             <span>{{ entity.top_note.poke_count }}</span>
