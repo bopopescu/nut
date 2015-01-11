@@ -17,9 +17,10 @@ def detail(request, hash, template="web/tags/detail.html"):
 
     _page = request.GET.get('page', 1)
 
-    inner_qs = Entity_Tag.objects.filter(tag=_tag)
+    # inner_qs = Entity_Tag.objects.filter(tag=_tag)
     # log.info(e)
-    _entity_list = Entity.objects.filter(id__in=inner_qs)
+    inner_qs = Entity_Tag.objects.filter(tag=_tag).values_list('entity_id', flat=True)
+    _entity_list = Entity.objects.filter(id__in=inner_qs, status=Entity.selection)
     # log.info(entities)
     paginator = ExtentPaginator(_entity_list, 24)
 
