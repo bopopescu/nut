@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.utils.http import JSONResponse
-from apps.core.models import Entity, Entity_Like, Note, Note_Comment
+from apps.core.models import Entity, Entity_Like, Note, Note_Comment, Note_Poke
 from apps.web.forms.comment import CommentForm
 from apps.web.forms.note import NoteForm
 from apps.web.forms.entity import EntityURLFrom, CreateEntityForm
@@ -26,9 +26,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
 
     _user = None
     _note_forms = None
-    if request.user.is_authenticated():
-        _user = request.user
-        _note_forms = NoteForm()
+    _user_pokes = list()
 
     _entity = Entity.objects.get(entity_hash = _entity_hash)
 
@@ -38,6 +36,12 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
     except Note.DoesNotExist:
         _user_post_note = False
 
+    if request.user.is_authenticated():
+        _user = request.user
+        _note_forms = NoteForm()
+        n = _entity.notes.all().values_list('id', flat=True)
+        _user_pokes = Note_Poke.objects.filter(note_id__in=list(n), user=request.user).values_list('note_id', flat=True)
+        log.info(_user_pokes)
 
     like_status = 0
     try:
@@ -46,7 +50,10 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
     except Entity_Like.DoesNotExist:
         pass
 
-    log.info(_entity.category)
+    # log.info(_entity.category)
+
+    # _user_poke = list()
+
 
     return render_to_response(
         templates,
@@ -54,6 +61,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
             'entity': _entity,
             'like_status': like_status,
             # 'user':_user,
+            'user_pokes': _user_pokes,
             'user_post_note':_user_post_note,
             'note_forms':_note_forms,
         },
