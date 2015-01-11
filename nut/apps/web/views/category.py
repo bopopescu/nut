@@ -40,10 +40,10 @@ def detail(request, cid, template='web/category/detail.html'):
     except EmptyPage:
         raise Http404
 
-    el = list()
+    el = []
     if request.user.is_authenticated():
         e = _entities.object_list
-        el = Entity_Like.objects.filter(entity_id__in=list(e), user=request.user).values_list('entity_id', flat=True)
+        el = Entity_Like.objects.filter(entity_id__in=tuple(e), user=request.user).values_list('entity_id', flat=True)
 
     return render_to_response(
         template,
