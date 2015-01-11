@@ -3,7 +3,7 @@ from django.http import Http404
 from django.views.decorators.http import require_GET
 from django.template import RequestContext
 
-from apps.core.models import Category, Sub_Category,  Entity
+from apps.core.models import Category, Sub_Category, Entity, Entity_Like
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 
 
@@ -40,11 +40,17 @@ def detail(request, cid, template='web/category/detail.html'):
     except EmptyPage:
         raise Http404
 
+    el = list()
+    if request.user.is_authenticated():
+        e = _entities.object_list
+        el = Entity_Like.objects.filter(entity_id__in=list(e), user=request.user).values_list('entity_id', flat=True)
+
     return render_to_response(
         template,
         {
             'sub_category': _sub_category,
             'entities': _entities,
+            'user_entity_likes': el,
         },
         context_instance = RequestContext(request),
     )
