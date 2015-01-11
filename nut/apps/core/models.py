@@ -438,6 +438,9 @@ class Tag(models.Model):
         ordering = ['-created_time']
         unique_together = ('creator', 'tag')
 
+    def __unicode__(self):
+        return self.tag
+
     def get_absolute_url(self):
         return "/t/%s" % self.tag_hash
 
