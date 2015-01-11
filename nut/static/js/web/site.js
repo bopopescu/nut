@@ -33,7 +33,6 @@ $.ajaxSetup({
 
 ;(function ($, document, window) {
 
-
     var util = {
         modalSignIn: function(html) {
             var signModal = $('#SignInModal');
@@ -351,20 +350,9 @@ $.ajaxSetup({
                                 param_p = param[0].split('=');
                                 p = parseInt(param_p[1]);
                             }
-//                            else {
-//
-//                                param_c = param[0].split('=');
-////                                console.log(p);
-//                                if (param_c[0] == 'c') {
-//                                    c = parseInt(param_c[1]);
-//                                } else {
-//
-//                                    p = parseInt(param_c[1]);
-//                                }
-//                            }
                         }
 
-                        var last_entity = $selection.find('.entity-selection:last');
+//                        var last_entity = $selection.find('.entity-selection:last');
 //                        var time = last_entity.find(".timestr").attr("name");
                         var time = $selection.attr('data-refresh');
                         var data = {
@@ -712,15 +700,15 @@ $.ajaxSetup({
                 var counter = poke.find('span');
                 var url = '/note/' + note_id + '/poke/';
 //                console.log(url);
-                if(poke.attr("data-target-status") == 1){
-                    	poke.attr("data-target-status",0);
-//                    	poke.addClass('active');
-                        url+="1/";
-                }else{
-//                    	poke.removeClass('active');
-                    	poke.attr("data-target-status",1);
-                        url+="0/";
-                }
+//                if(poke.attr("data-target-status") == 1){
+//                    	poke.attr("data-target-status",0);
+////                    	poke.addClass('active');
+//                        url+="1/";
+//                }else{
+////                    	poke.removeClass('active');
+//                    	poke.attr("data-target-status",1);
+//                        url+="0/";
+//                }
 
                 $.ajax({
                     type:'post',

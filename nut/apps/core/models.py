@@ -431,7 +431,7 @@ class Note_Poke(models.Model):
 
     class Meta:
         ordering = ['-created_time']
-        unique_together = ('note', 'user_id')
+        unique_together = ('note', 'user')
 
 
 class Tag(models.Model):
