@@ -448,7 +448,7 @@ class Tag(models.Model):
 class Entity_Tag(models.Model):
     entity = models.ForeignKey(Entity, related_name='tags')
     user = models.ForeignKey(GKUser)
-    tag = models.ForeignKey(Tag)
+    tag = models.ForeignKey(Tag, related_name='entities')
     # tag_text = models.CharField(max_length = 128, null = False, db_index = True)
     # tag_hash = models.CharField(max_length = 32, db_index = True)
     # count = models.IntegerField(default = 0)
