@@ -39,11 +39,9 @@ def event(request, slug, template='web/events/home'):
         raise Http404
 
     tag = Tag.objects.get(tag_hash=event.tag)
-    _entity_id_list = Entity_Tag.objects.filter(tag=tag).values_list('entity_id', flat=True)
-    # log.info(_entity_id_list)
-    # _entity_id_list = Tag.find_tag_entity(event.tag) # 双十一标签 hash
-    # log.info(_entity_id_list)
-    _entity_list = Entity.objects.filter(id__in=_entity_id_list, status=Entity.selection)
+    inner_qs = Entity_Tag.objects.filter(tag=tag).values_list('entity_id', flat=True)
+
+    _entity_list = Entity.objects.filter(id__in=inner_qs, status=Entity.selection)
     # log.info(entities)
     # _page_num = request.GET.get('p', 1)
     # _paginator = Paginator(_page_num, 24, len(_entity_id_list))
