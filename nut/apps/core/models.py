@@ -407,6 +407,10 @@ class Note(models.Model):
     def comment_count(self):
         return self.comments.count()
 
+    @property
+    def poke_count(self):
+        return self.pokes.count()
+
 
 class Note_Comment(models.Model):
     note = models.ForeignKey(Note, related_name='comments')
@@ -425,7 +429,7 @@ class Note_Comment(models.Model):
         return self.content
 
 class Note_Poke(models.Model):
-    note = models.ForeignKey(Note)
+    note = models.ForeignKey(Note, related_name="pokes")
     user = models.ForeignKey(GKUser, related_name="poke")
     created_time = models.DateTimeField(auto_now_add = True, db_index = True)
 
