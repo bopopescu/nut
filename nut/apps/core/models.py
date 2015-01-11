@@ -424,6 +424,15 @@ class Note_Comment(models.Model):
     def __unicode__(self):
         return self.content
 
+class Note_Poke(models.Model):
+    note = models.ForeignKey(Note)
+    user = models.ForeignKey(GKUser, related_name="poke")
+    created_time = models.DateTimeField(auto_now_add = True, db_index = True)
+
+    class Meta:
+        ordering = ['-created_time']
+        unique_together = ('note', 'user_id')
+
 
 class Tag(models.Model):
     tag = models.CharField(max_length = 128, null = False, unique = True, db_index = True)
