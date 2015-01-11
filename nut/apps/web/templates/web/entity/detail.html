@@ -101,10 +101,11 @@
                                             </form>
                                         {% endif %}
                                     <p>
-                                        <a href="javascript:;" class="poke{% if selection_note.poke_button_target_status == "0" %} active {% endif %}" data-note="{{ entity.top_note.id }}" data-target-status="{{ selection_note.poke_button_target_status }}"><i class="fa fa-thumbs-o-up fa-lg"></i>&nbsp;
-{#                                        {% if selection_note.note_context.poke_count > 0 %}#}
-{#                                            <span>{{ selection_note.note_context.poke_count }}</span>#}
-{#                                        {% endif %}#}
+                                        <a href="javascript:;" class="poke{% if selection_note.poke_button_target_status == "0" %} active {% endif %}" data-note="{{ entity.top_note.id }}" data-target-status="{{ selection_note.poke_button_target_status }}">
+                                            <i class="fa fa-thumbs-o-up fa-lg"></i>&nbsp;
+                                        {% if entity.top_note.poke_count > 0 %}
+                                            <span>{{ entity.top_note.poke_count }}</span>
+                                        {% endif %}
                                         </a>
                                         <a href="javascript:;" class="add-comment" data-note="{{ entity.top_note.id }}"><i class="fa fa-comment-o fa-lg"></i>&nbsp;
                                         {% if entity.top_note.comment_count > 0 %}

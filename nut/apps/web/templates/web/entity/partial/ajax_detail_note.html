@@ -30,9 +30,9 @@
                 {% endif %}
 
             <p>
-                <a href="javascript:;" class="poke{%if poke_button_target_status == '0'%} active {% endif %}" data-note="{{ note_context.note_id }}" data-target-status="{{ poke_button_target_status }}"><i class="fa fa-thumbs-o-up fa-lg"></i>&nbsp;
-                    {% if note_context.poke_count > 0 %}
-                        <span>{{ note_context.poke_count }}</span>
+                <a href="javascript:;" class="poke{%if poke_button_target_status == '0'%} active {% endif %}" data-note="{{ note.id }}" data-target-status="{{ poke_button_target_status }}"><i class="fa fa-thumbs-o-up fa-lg"></i>&nbsp;
+                    {% if note.poke_count > 0 %}
+                        <span>{{ note.poke_count }}</span>
                     {% endif %}
                 </a>
                     <a href="javascript:;" class="add-comment" data-note="{{ note.pk }}"><i class="fa fa-comment-o fa-lg"></i>&nbsp;
