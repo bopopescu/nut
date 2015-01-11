@@ -457,6 +457,12 @@ class Tag(models.Model):
     def get_absolute_url(self):
         return "/t/%s" % self.tag_hash
 
+    search = SphinxSearch(
+        index = 'tags',
+        mode = 'SPH_MATCH_ALL',
+        rankmode = 'SPH_RANK_NONE',
+    )
+
 
 class Entity_Tag(models.Model):
     entity = models.ForeignKey(Entity, related_name='tags')
