@@ -538,10 +538,11 @@ $.ajaxSetup({
                 if (note_content_text.length > 0) {
                         $.ajax({
                             type: 'post',
+                            dataType:'json',
                             url: note_update_form[0].action,
                             data: $(this).serialize(),
                             success: function (data) {
-                                if (parseInt(data) === 1) {
+                                if (parseInt(data.result) === 1) {
                                     note_content.html(note_content_text);
                                     note_update_form.hide();
                                     note_content.show();

@@ -10,7 +10,6 @@ from apps.core.models import Note_Poke
 @login_required
 @csrf_exempt
 def poke(request, note_id):
-
     if request.is_ajax():
         _user = request.user
 

@@ -102,7 +102,7 @@ def entity_update_note(request, nid):
         if _forms.is_valid():
             note = _forms.update()
 
-            return
+            return JSONResponse(data={'result':'1'})
 
     # else:
     return HttpResponseNotAllowed
