@@ -82,22 +82,28 @@ def entity_like(request, user_id, template="web/user/like.html"):
     paginator = ExtentPaginator(entity_like_list, 20)
 
     try:
-        el = paginator.page(_page)
+        likes = paginator.page(_page)
     except PageNotAnInteger:
-        el = paginator.page(1)
+        likes = paginator.page(1)
     except EmptyPage:
         raise  Http404
 
     # log.info(el.object_list)
 
-    _entities = Entity.objects.filter(pk__in=list(el.object_list))
+    _entities = Entity.objects.filter(pk__in=list(likes.object_list))
     log.info(_entities.query)
+    el = list()
+    if request.user.is_authenticated():
+        el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(likes.object_list))
+
+
     return render_to_response(
         template,
         {
             'user':_user,
             'entities':_entities,
-            'el':el,
+            'el':likes,
+            'user_entity_likes':el,
         },
         context_instance = RequestContext(request),
     )
