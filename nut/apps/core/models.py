@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils.log import getLogger
+from django.db.models import Count
 from django.conf import settings
 
 # from apps.core.extend.list_field import ListObjectField
@@ -80,6 +81,12 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     @property
     def post_note_comment_count(self):
         return self.note_comment.count()
+
+    @property
+    def tags_count(self):
+        t = self.user_tags.values('tag').annotate(tcount=Count('tag'))
+        return len(t)
+
 
     def set_admin(self):
         self.is_admin = True
@@ -322,7 +329,6 @@ class Entity(BaseModel):
             return notes[0]
         return None
 
-
     def get_absolute_url(self):
         return "/detail/%s" % self.entity_hash
 
@@ -466,7 +472,7 @@ class Tag(models.Model):
 
 class Entity_Tag(models.Model):
     entity = models.ForeignKey(Entity, related_name='tags')
-    user = models.ForeignKey(GKUser)
+    user = models.ForeignKey(GKUser, related_name='user_tags')
     tag = models.ForeignKey(Tag, related_name='entities')
     # tag_text = models.CharField(max_length = 128, null = False, db_index = True)
     # tag_hash = models.CharField(max_length = 32, db_index = True)

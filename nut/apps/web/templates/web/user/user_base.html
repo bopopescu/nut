@@ -44,7 +44,7 @@
                             <a href="{{ web_user_notes_url }}">{% trans 'notes' %}&nbsp; <strong>{{ user.post_note_count }}</strong></a>
                         </li>
                         <li role="presentation" {% if web_user_tags_url in request.path %}class="active" {% endif %}>
-                            <a href="{{ web_user_tags_url }}">{% trans 'tags' %}&nbsp; <strong>{{ user.tag_count }}</strong></a>
+                            <a href="{{ web_user_tags_url }}">{% trans 'tags' %}&nbsp; <strong>{{ user.tags_count }}</strong></a>
                         </li>
                     </ul>
                     <ul class="nav nav-pills pull-right hidden-xs" role="tablist">
