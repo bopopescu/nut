@@ -699,23 +699,14 @@ $.ajaxSetup({
                 var note_id = poke.attr('data-note');
                 var counter = poke.find('span');
                 var url = '/note/' + note_id + '/poke/';
-//                console.log(url);
-//                if(poke.attr("data-target-status") == 1){
-//                    	poke.attr("data-target-status",0);
-////                    	poke.addClass('active');
-//                        url+="1/";
-//                }else{
-////                    	poke.removeClass('active');
-//                    	poke.attr("data-target-status",1);
-//                        url+="0/";
-//                }
 
                 $.ajax({
                     type:'post',
+                    dataType:'json',
                     url: url,
                     success: function (data){
                         var count = parseInt(counter.html()) || 0;
-                        var result = parseInt(data);
+                        var result = parseInt(data.result);
 
                         if (result === 1) {
                             count++;
