@@ -1,5 +1,7 @@
 from django.db import models
 from apps.core.models import GKUser
+from apps.mobile.manager.mobile_manager import SessionKeyManager, AppsManager
+
 
 class Apps(models.Model):
     user = models.ForeignKey(GKUser)
