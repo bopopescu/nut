@@ -153,11 +153,6 @@ def tag(request, user_id, template="web/user/tag.html"):
 
     tag_list = Entity_Tag.objects.user_tags(user_id)
 
-    # log.info(tag_list)
-    # for t in tag_list:
-    #     print t
-
-
     paginator = ExtentPaginator(tag_list, 12)
 
     try:
@@ -173,6 +168,7 @@ def tag(request, user_id, template="web/user/tag.html"):
         template,
         {
             'tags': _tags,
+            'user_id': user_id,
         },
         context_instance = RequestContext(request),
     )
