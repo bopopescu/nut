@@ -12,6 +12,7 @@ from apps.core.extend.fields.listfield import ListObjectField
 from apps.core.manager.account import GKUserManager
 from apps.core.manager.entity import EntityManager, EntityLikeManager
 from apps.core.manager.note import NoteManager
+from apps.core.manager.tag import EntityTagManager
 from djangosphinx.models import SphinxSearch
 
 
@@ -479,6 +480,8 @@ class Entity_Tag(models.Model):
     # count = models.IntegerField(default = 0)
     created_time = models.DateTimeField(auto_now_add = True, db_index = True)
     last_tagged_time = models.DateTimeField(db_index = True)
+
+    objects = EntityTagManager()
 
     class Meta:
         ordering = ['-created_time']

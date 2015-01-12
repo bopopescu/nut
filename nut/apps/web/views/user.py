@@ -11,7 +11,7 @@ from apps.core.utils.http import JSONResponse
 # from apps.core.utils.image import HandleImage
 from apps.core.forms.user import AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
-from apps.core.models import Entity, Entity_Like
+from apps.core.models import Entity, Entity_Like, Entity_Tag
 
 from django.utils.log import getLogger
 
@@ -149,15 +149,32 @@ def post_note(request, user_id, template="web/user/post_note.html"):
 
 def tag(request, user_id, template="web/user/tag.html"):
 
-    # _page =
+    _page = request.GET.get('page', 1)
+
+    tag_list = Entity_Tag.objects.user_tags(user_id)
+
+    # log.info(tag_list)
+
+    paginator = ExtentPaginator(tag_list, 12)
+
+    try:
+        _tags = paginator.page(_page)
+    except PageNotAnInteger:
+        _tags = paginator.page(1)
+    except EmptyPage:
+        raise Http404
+
+
 
     return render_to_response(
         template,
         {
-
+            'tags': _tags,
         },
         context_instance = RequestContext(request),
     )
+
+
 
 
 
