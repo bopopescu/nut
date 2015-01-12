@@ -1,4 +1,6 @@
 {% extends 'web/user/user_base.html' %}
+{% load tags %}
+
 
 {% block list %}
 <div class="row">
@@ -7,6 +9,9 @@
             <a  href="#">
                 <div class="thumbnail">
                     <p style="padding:10px;margin-bottom: 0;"><strong>#{{ tag.tag|truncatechars:'13' }}</strong></p>
+                    <div class="img-box">
+                        {% display_tags_entity tag.tag_id user_id %}
+                    </div>
                     <div class="caption">
                         <p><span>{{ tag.tcount }}</span>&nbsp; 件商品</p>
                     </div>
