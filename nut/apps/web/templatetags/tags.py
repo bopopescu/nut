@@ -12,7 +12,7 @@ def display_tags_entity(tag_id, user_id):
     _entities = Entity_Tag.objects.filter(tag_id = tag_id, user_id=user_id)
 
     return {
-        "entities":_entities
+        "entities":_entities[:4]
     }
 register.inclusion_tag("web/account/partial/tag_entities.html")(display_tags_entity)
 

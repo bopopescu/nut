@@ -20,4 +20,6 @@
         </div>
     {% endfor %}
 </div>
+
+{% include 'web/main/partial/paginator.html' with objects=tags url=request.path %}
 {% endblock %}
