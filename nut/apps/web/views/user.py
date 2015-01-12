@@ -151,8 +151,10 @@ def tag(request, user_id, template="web/user/tag.html"):
 
     _page = request.GET.get('page', 1)
 
+    # log.info(user_id)
     tag_list = Entity_Tag.objects.user_tags(user_id)
 
+    log.info(tag_list)
     paginator = ExtentPaginator(tag_list, 12)
 
     try:
@@ -161,8 +163,6 @@ def tag(request, user_id, template="web/user/tag.html"):
         _tags = paginator.page(1)
     except EmptyPage:
         raise Http404
-
-
 
     return render_to_response(
         template,
