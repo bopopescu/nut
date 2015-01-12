@@ -6,7 +6,7 @@
 <div class="row">
     {% for tag in tags %}
         <div class="col-xs-6 col-sm-3 col-md-3">
-            <a  href="#">
+            <a href="{% url 'web_user_tag_detail' user_id tag.tag_hash %}" target="_blank">
                 <div class="thumbnail">
                     <p style="padding:10px;margin-bottom: 0;"><strong>#{{ tag.tag|truncatechars:'13' }}</strong></p>
                     <div class="img-box">
