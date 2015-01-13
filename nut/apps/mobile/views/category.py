@@ -1,24 +1,31 @@
+from django.views.decorators.http import require_GET
+
 from apps.core.utils.http import SuccessJsonResponse
+from apps.core.models import Category, Sub_Category, Entity, Note
+from apps.mobile.lib.sign import check_sign
 
-from apps.core.models import Category, Sub_Category
 
 
+
+@require_GET
+@check_sign
 def list(request):
 
-    # categories = Category.objects.all()
     res = Category.objects.toDict()
-    # for category in categories:
-    #     res.append(
-    #         {
-    #             'group_id' : category.id,
-    #             'title' : category.title,
-    #             'status' : category.status,
-    #             'category_count': category.sub_category_count,
-    #         }
-    #     )
-
-
+    # res = []
     return SuccessJsonResponse(res)
 
+
+@require_GET
+@check_sign
+def category_stat(request, category_id):
+
+    res = dict()
+
+    res['entity_count'] = Entity.objects.filter(category_id=category_id, status__gte=0).count()
+    res['entity_note_count'] = Note.objects.filter(entity__category_id=category_id).count()
+    res['like_count'] = 0
+
+    return SuccessJsonResponse(res)
 
 __author__ = 'edison'

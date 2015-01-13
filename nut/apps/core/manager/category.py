@@ -11,12 +11,12 @@ class CategoryManager(models.Manager):
         res = []
         for c in self.all():
 
-            _context = []
+            _content = []
             for sc in c.sub_categories.filter(status__gte=0):
                 r = {
                         'category_id':sc.id,
                         'category_title':sc.title,
-                        'status':sc.status,
+                        'status':int(sc.status),
                         # 'category_icon_large':sc.icon_large_url,
                         # 'category_icon_small':sc.icon_small_url,
                 }
@@ -24,19 +24,15 @@ class CategoryManager(models.Manager):
                 if sc.icon is not  None:
                     r['category_icon_large'] = sc.icon_large_url
                     r['category_icon_small'] = sc.icon_small_url
-                _context.append(r)
-                
+                _content.append(r)
+
             res.append({
                 'group_id' : c.id,
-                'category_title' : c.title,
+                'title' : c.title,
                 'status' : c.status,
                 'category_count': c.sub_category_count,
-                'context': _context,
+                'content': _content,
             })
-                # res['context'].append(_context)
-                # res['context'] = {
-                #
-                # }
         return res
 
 __author__ = 'edison'
