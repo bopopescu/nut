@@ -220,6 +220,10 @@ class Category(BaseModel):
     def __unicode__(self):
         return self.title
 
+    @property
+    def sub_category_count(self):
+        return self.sub_categories.all().count()
+
 
 class Sub_Category(BaseModel):
     group = models.ForeignKey(Category, related_name='sub_categories')
