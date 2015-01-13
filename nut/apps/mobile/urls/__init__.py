@@ -9,6 +9,7 @@ urlpatterns = patterns(
 urlpatterns += patterns(
     'apps.mobile.views.entity',
     url(r'^entity/', include('apps.mobile.urls.entity')),
+    url(r'^category/', include('apps.mobile.urls.category')),
 )
 
 
