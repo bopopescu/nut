@@ -1,5 +1,6 @@
 from hashlib import md5
 from apps.core.utils.http import ErrorJsonResponse
+from apps.mobile.models import Apps
 # from http import ErrorJsonResponse
 # from mobile.models import Apps
 
