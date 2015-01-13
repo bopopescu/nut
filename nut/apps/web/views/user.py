@@ -67,8 +67,6 @@ def upload_avatar(request):
 
 
 def index(request, user_id):
-
-
     return HttpResponseRedirect(reverse('web_user_entity_like', args=[user_id,]))
 
 
