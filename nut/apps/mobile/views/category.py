@@ -1,9 +1,13 @@
 from django.views.decorators.http import require_GET
 
-from apps.core.utils.http import SuccessJsonResponse
+from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.models import Category, Sub_Category, Entity, Note
+from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.mobile.lib.sign import check_sign
 
+from django.utils.log import getLogger
+
+log = getLogger('django')
 
 
 
@@ -18,13 +22,47 @@ def list(request):
 
 @require_GET
 @check_sign
-def category_stat(request, category_id):
+def stat(request, category_id):
 
     res = dict()
 
     res['entity_count'] = Entity.objects.filter(category_id=category_id, status__gte=0).count()
     res['entity_note_count'] = Note.objects.filter(entity__category_id=category_id).count()
     res['like_count'] = 0
+
+    return SuccessJsonResponse(res)
+
+
+@require_GET
+@check_sign
+def entity(request, category_id):
+
+    _offset = int(request.GET.get('offset', '0')) + 1
+    _count = int(request.GET.get('count', '30'))
+
+    entity_list = Entity.objects.filter(category_id=category_id, status__gte=0)
+
+    paginator = ExtentPaginator(entity_list, _count)
+
+    try:
+        entities = paginator.page(_offset)
+    except PageNotAnInteger:
+        entities = paginator.page(1)
+    except EmptyPage:
+        return ErrorJsonResponse(status=404)
+
+    res = []
+    # log.info(entities.object_list)
+    for row in entities.object_list:
+        # log.info(row.toDict())
+
+        r = row.toDict()
+        r.pop('images', None)
+        r.pop('id', None)
+        res.append(
+            r
+        )
+
 
     return SuccessJsonResponse(res)
 

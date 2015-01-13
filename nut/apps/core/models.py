@@ -345,6 +345,13 @@ class Entity(BaseModel):
     def get_absolute_url(self):
         return "/detail/%s" % self.entity_hash
 
+    def toDict(self):
+        res = super(Entity, self).toDict()
+        res['chief_image'] = self.chief_image
+        res['detail_images'] = self.detail_images
+        res['entity_id'] = self.id
+        return res
+
     def __unicode__(self):
         return self.title
 
