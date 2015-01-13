@@ -13,6 +13,7 @@ from apps.core.manager.account import GKUserManager
 from apps.core.manager.entity import EntityManager, EntityLikeManager
 from apps.core.manager.note import NoteManager
 from apps.core.manager.tag import EntityTagManager
+from apps.core.manager.category import CategoryManager
 from djangosphinx.models import SphinxSearch
 
 
@@ -214,6 +215,7 @@ class Category(BaseModel):
     title = models.CharField(max_length = 128, db_index = True)
     status = models.BooleanField(default = True, db_index = True)
 
+    objects = CategoryManager()
     class Meta:
         ordering = ['id']
 
@@ -236,6 +238,9 @@ class Sub_Category(BaseModel):
 
     @property
     def icon_large_url(self):
+        if self.icon is None:
+            return None
+
         if "images" in self.icon:
             path = self.icon.split("/")
             # log.info("path %s "%path)
@@ -244,6 +249,9 @@ class Sub_Category(BaseModel):
 
     @property
     def icon_small_url(self):
+        if self.icon is None:
+            return None
+
         if "images" in self.icon:
             path = self.icon.split("/")
             # log.info("path %s "%path)
