@@ -367,7 +367,7 @@ class Entity(BaseModel):
         res['item_list'] = list()
         for b in self.buy_links.all():
             res['item_list'].append(
-                b.toDict()
+                b.v3_toDict()
             )
         return res
 
@@ -400,11 +400,18 @@ class Buy_Link(BaseModel):
     class Meta:
         ordering = ['-default']
 
-    def toDict(self):
-        res = super(Buy_Link, self).toDict()
+    # def toDict(self):
+    #     res = super(Buy_Link, self).toDict()
+    #     res.pop('link', None)
+    #     res['buy_link'] = "http://api.guoku.com%s?type=mobile" % reverse('mobile_visit_item', args=[self.origin_id])
+    #     return res
+
+    def v3_toDict(self):
+        res = self.toDict()
         res.pop('link', None)
         res['buy_link'] = "http://api.guoku.com%s?type=mobile" % reverse('mobile_visit_item', args=[self.origin_id])
         return res
+
 
     def __unicode__(self):
         return self.link
@@ -422,9 +429,9 @@ class Entity_Like(models.Model):
         unique_together = ('entity', 'user')
 
 
-class Note(models.Model):
+class Note(BaseModel):
 
-    (remove, normal, top) = ( -1, 0, 1)
+    (remove, normal, top) = (-1, 0, 1)
     NOTE_STATUS_CHOICES = [
         (top, _("top")),
         (normal, _("normal")),
@@ -443,6 +450,12 @@ class Note(models.Model):
     class Meta:
         ordering = ['-post_time']
         # unique_together = ('entity', 'user')
+
+    def v3_toDict(self):
+        res = self.toDict()
+
+        return res
+
 
     def __unicode__(self):
         return self.note

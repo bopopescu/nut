@@ -42,10 +42,15 @@ def detail(request, entity_id):
         return ErrorJsonResponse(status=404)
 
     res['entity'] = entity.v3_toDict()
-    # res['note_list'] =
+    res['note_list'] = []
 
-    notes = entity.notes.all()
-    log.info(notes)
+    # notes = entity.notes.all()
+    # log.info(notes)
+    for note in entity.notes.all():
+        res['note_list'].append(
+            note.v3_toDict()
+        )
+
     return SuccessJsonResponse(res)
 
 __author__ = 'edison'
