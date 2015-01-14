@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 
 from apps.mobile.lib.sign import check_sign
 from apps.core.utils.http import SuccessJsonResponse
-from apps.core.models import Show_Banner, Banner, Buy_Link, Entity
+from apps.core.models import Show_Banner, Banner, Buy_Link, Entity, Entity_Like
 from apps.core.utils.taobaoapi.utils import taobaoke_mobile_item_convert
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 
@@ -88,7 +88,24 @@ def selection(request):
         })
 
     # paginator = ExtentPaginator(entity_list)
+    return SuccessJsonResponse(res)
 
+@check_sign
+def popular(request):
+
+    _scale = request.GET.get('scale', 'daily')
+
+    popular = Entity_Like.objects.popular()
+    _entities = Entity.objects.filter(id__in=list(popular))
+
+    res = dict()
+    res['content'] = list()
+    res['scale'] = _scale
+    for e in _entities:
+        r = {
+            'entity': e.v3_toDict()
+        }
+        res['content'].append(r)
 
     return SuccessJsonResponse(res)
 
