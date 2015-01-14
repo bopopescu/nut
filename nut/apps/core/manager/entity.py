@@ -13,15 +13,12 @@ class EntityQuerySet(models.query.QuerySet):
     def new(self):
         return self.filter(status=0)
 
-    # def new_or_selection(self):
-        # return self.filter(status__gte=0)
-        # return self._new_or_selection()
-
     def new_or_selection(self, category_id):
         if category_id:
             return self.filter(category_id=category_id, status__gte=0)
         else:
             return self.filter(status__gte=0)
+
 
 class EntityManager(models.Manager):
 

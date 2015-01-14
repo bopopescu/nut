@@ -1,8 +1,15 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.mobile.lib.sign import check_sign
 from datetime import datetime
+import time
 
 from apps.core.models import Entity
+from django.utils.log import getLogger
+
+
+
+log = getLogger('django')
+
 
 @check_sign
 def list(request):
@@ -28,13 +35,17 @@ def list(request):
 @check_sign
 def detail(request, entity_id):
 
+    res = dict()
     try:
         entity = Entity.objects.get(pk=entity_id)
     except Entity.DoesNotExist:
         return ErrorJsonResponse(status=404)
-    res = entity.toDict()
-    res.pop('id', None)
-    res.pop('images', None)
+
+    res['entity'] = entity.v3_toDict()
+    # res['note_list'] =
+
+    notes = entity.notes.all()
+    log.info(notes)
     return SuccessJsonResponse(res)
 
 __author__ = 'edison'
