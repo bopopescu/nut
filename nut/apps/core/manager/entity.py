@@ -53,10 +53,8 @@ class EntityLikeManager(models.Manager):
     def get_query_set(self):
         return EntityLikeQuerySet(self.model, using=self._db)
 
-
     def popular(self):
         return self.get_query_set().popular()
-
 
     def user_like_list(self, user, entity_list):
 
