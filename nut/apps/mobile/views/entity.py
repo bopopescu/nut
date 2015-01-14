@@ -4,6 +4,7 @@ from datetime import datetime
 import time
 
 from apps.core.models import Entity
+from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from django.utils.log import getLogger
 
 
@@ -28,6 +29,22 @@ def list(request):
     _offset = int(request.GET.get('offset', '0'))
     _count = int(request.GET.get('count', '30'))
 
+    entity_list = Entity.objects.new()
+
+    paginator = ExtentPaginator(entity_list, _count)
+
+    try:
+        entities = paginator.page(_offset)
+    except PageNotAnInteger:
+        entities = paginator.page(1)
+    except EmptyPage:
+        return ErrorJsonResponse(status=404)
+    # res = list
+    res = []
+    for row in entities.object_list:
+        res.append(
+            row.v3_toDict()
+        )
 
     return SuccessJsonResponse()
 
