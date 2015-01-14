@@ -115,7 +115,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         res['user_id'] = self.id
         res['nickname'] = self.profile.nickname
         res['bio'] = self.profile.bio
+        res['gender'] = self.profile.gender
+        res['location'] = self.profile.location
         res['city'] = self.profile.city
+        res['avatar_large'] = self.profile.avatar_url
+        res['avatar_small'] = self.profile.avatar_url
         res['like_count'] = self.like_count
         res['entity_note_count'] = self.post_note_count
         return res
