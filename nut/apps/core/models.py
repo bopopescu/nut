@@ -16,6 +16,7 @@ from apps.core.manager.tag import EntityTagManager
 from apps.core.manager.category import CategoryManager
 from djangosphinx.models import SphinxSearch
 
+import time
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -354,6 +355,22 @@ class Entity(BaseModel):
         res['like_count'] = self.like_count
         return res
 
+    def v3_toDict(self):
+        res = self.toDict()
+        res.pop('id', None)
+        res.pop('images', None)
+        res.pop('user_id', None)
+        res['created_time'] = time.mktime(self.created_time.timetuple())
+        res['updated_time'] = time.mktime(self.created_time.timetuple())
+        res['creator_id'] = self.user_id
+
+        res['item_list'] = list()
+        for b in self.buy_links.all():
+            res['item_list'].append(
+                b.toDict()
+            )
+        return res
+
     def __unicode__(self):
         return self.title
 
@@ -380,9 +397,14 @@ class Buy_Link(BaseModel):
     rank = models.IntegerField(default=0)
     default = models.BooleanField(default=False)
 
-
     class Meta:
         ordering = ['-default']
+
+    def toDict(self):
+        res = super(Buy_Link, self).toDict()
+        res.pop('link', None)
+        res['buy_link'] = "http://api.guoku.com%s?type=mobile" % reverse('mobile_visit_item', args=[self.origin_id])
+        return res
 
     def __unicode__(self):
         return self.link

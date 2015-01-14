@@ -54,7 +54,6 @@ def entity(request, category_id):
 
     res = []
     for row in entities.object_list:
-        # log.info(row.toDict())
 
         r = row.toDict()
         r.pop('images', None)
