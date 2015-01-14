@@ -2,8 +2,9 @@ from django.http import HttpResponseRedirect
 
 from apps.mobile.lib.sign import check_sign
 from apps.core.utils.http import SuccessJsonResponse
-from apps.core.models import Show_Banner, Banner, Buy_Link
+from apps.core.models import Show_Banner, Banner, Buy_Link, Entity
 from apps.core.utils.taobaoapi.utils import taobaoke_mobile_item_convert
+from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 
 from django.utils.log import getLogger
 
@@ -65,6 +66,30 @@ def homepage(request):
 
     return SuccessJsonResponse(data=res)
 
+
+@check_sign
+def selection(request):
+
+    _timestamp = request.GET.get('timestamp', None)
+
+    entities = Entity.objects.selection()[0:30]
+    res = list()
+
+    for e in entities:
+        r = {
+            'entity':e.v3_toDict(),
+            'note':e.top_note.v3_toDict(),
+        }
+
+        res.append({
+            'content':r,
+            'type': "note_selection",
+        })
+
+    # paginator = ExtentPaginator(entity_list)
+
+
+    return SuccessJsonResponse(res)
 
 def visit_item(request, item_id):
     _ttid = request.GET.get("ttid", None)

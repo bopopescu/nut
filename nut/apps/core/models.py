@@ -117,11 +117,15 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         res['gender'] = self.profile.gender
         res['location'] = self.profile.location
         res['city'] = self.profile.city
+        res['website'] = self.profile.website
         res['avatar_large'] = self.profile.avatar_url
         res['avatar_small'] = self.profile.avatar_url
         res['like_count'] = self.like_count
         res['entity_note_count'] = self.post_note_count
+        res['tag_count'] = self.tags_count
         res['fan_count'] = self.fans_count
+        res['following_count'] = self.following_count
+
         return res
 
 
@@ -488,6 +492,8 @@ class Note(BaseModel):
     def v3_toDict(self):
         res = self.toDict()
         res.pop('note', None)
+        res.pop('id', None)
+        res['note_id'] = self.id
         res['content'] = self.note
         res['comment_count'] = self.comment_count
         res['poke_count'] = self.poke_count
