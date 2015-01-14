@@ -103,6 +103,24 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def fans_count(self):
         return self.fans.count()
 
+    def v3_toDict(self):
+        res = self.toDict()
+        res.pop('password', None)
+        res.pop('last_login', None)
+        res.pop('id', None)
+        res.pop('date_joined', None)
+        res.pop('is_admin', None)
+        res.pop('is_superuser', None)
+
+        res['user_id'] = self.id
+        res['nickname'] = self.profile.nickname
+        res['bio'] = self.profile.bio
+        res['city'] = self.profile.city
+        res['like_count'] = self.like_count
+        res['entity_note_count'] = self.post_note_count
+        return res
+
+
     search = SphinxSearch(
         index = 'users',
         mode = 'SPH_MATCH_ALL',
@@ -471,6 +489,8 @@ class Note(BaseModel):
         res['poke_count'] = self.poke_count
         res['created_time'] = time.mktime(self.post_time.timetuple())
         res['updated_time'] = time.mktime(self.updated_time.timetuple())
+
+        res['creator'] = self.user.v3_toDict()
         return res
 
 
