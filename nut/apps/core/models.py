@@ -489,6 +489,11 @@ class Note(BaseModel):
     def poke_count(self):
         return self.pokes.count()
 
+    @property
+    def post_timestamp(self):
+
+        return time.mktime(self.post_time.timetuple())
+
     def v3_toDict(self):
         res = self.toDict()
         res.pop('note', None)
@@ -782,7 +787,6 @@ class Show_Editor_Recommendation(models.Model):
 
     class Meta:
         ordering = ['-position']
-
 
 
 

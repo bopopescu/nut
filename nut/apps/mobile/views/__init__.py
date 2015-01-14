@@ -82,7 +82,8 @@ def selection(request):
         }
 
         res.append({
-            'content':r,
+            'content': r,
+            'post_time': e.top_note.post_timestamp,
             'type': "note_selection",
         })
 
