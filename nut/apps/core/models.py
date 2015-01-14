@@ -90,7 +90,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         t = self.user_tags.values('tag').annotate(tcount=Count('tag'))
         return len(t)
 
-
     def set_admin(self):
         self.is_admin = True
         self.save()
@@ -122,6 +121,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         res['avatar_small'] = self.profile.avatar_url
         res['like_count'] = self.like_count
         res['entity_note_count'] = self.post_note_count
+        res['fan_count'] = self.fans_count
         return res
 
 
