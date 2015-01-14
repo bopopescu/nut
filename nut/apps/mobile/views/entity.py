@@ -27,6 +27,7 @@ def list(request):
         _reverse = True
 
     _offset = int(request.GET.get('offset', '0'))
+    _offset = _offset / 30 + 1
     _count = int(request.GET.get('count', '30'))
 
     entity_list = Entity.objects.new()
@@ -46,7 +47,7 @@ def list(request):
             row.v3_toDict()
         )
 
-    return SuccessJsonResponse()
+    return SuccessJsonResponse(res)
 
 
 @check_sign
