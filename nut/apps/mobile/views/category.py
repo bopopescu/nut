@@ -37,11 +37,12 @@ def stat(request, category_id):
 @check_sign
 def entity(request, category_id):
 
-    _offset = int(request.GET.get('offset', '0')) + 1
+    _offset = int(request.GET.get('offset', '0'))
+    _offset = _offset / 30 + 1
     _count = int(request.GET.get('count', '30'))
 
-    entity_list = Entity.objects.filter(category_id=category_id, status__gte=0)
-
+    # entity_list = Entity.objects.filter(category_id=category_id, status__gte=0)
+    entity_list = Entity.objects.new_or_selection(category_id=category_id)
     paginator = ExtentPaginator(entity_list, _count)
 
     try:
@@ -52,7 +53,6 @@ def entity(request, category_id):
         return ErrorJsonResponse(status=404)
 
     res = []
-    # log.info(entities.object_list)
     for row in entities.object_list:
         # log.info(row.toDict())
 
@@ -62,8 +62,6 @@ def entity(request, category_id):
         res.append(
             r
         )
-
-
     return SuccessJsonResponse(res)
 
 __author__ = 'edison'

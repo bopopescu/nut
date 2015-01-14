@@ -350,6 +350,8 @@ class Entity(BaseModel):
         res['chief_image'] = self.chief_image
         res['detail_images'] = self.detail_images
         res['entity_id'] = self.id
+        res['note_count'] = self.note_count
+        res['like_count'] = self.like_count
         return res
 
     def __unicode__(self):

@@ -6,14 +6,36 @@ from datetime import datetime, timedelta
 
 
 class EntityQuerySet(models.query.QuerySet):
-    pass
 
+    def selection(self):
+        return self.filter(status=1)
+
+    def new(self):
+        return self.filter(status=0)
+
+    # def new_or_selection(self):
+        # return self.filter(status__gte=0)
+        # return self._new_or_selection()
+
+    def new_or_selection(self, category_id):
+        if category_id:
+            return self.filter(category_id=category_id, status__gte=0)
+        else:
+            return self.filter(status__gte=0)
 
 class EntityManager(models.Manager):
 
     def get_query_set(self):
         return EntityQuerySet(self.model, using = self._db)
 
+    def selection(self):
+        return self.get_query_set().selection()
+
+    def new(self):
+        return self.get_query_set().new()
+
+    def new_or_selection(self, category_id=None):
+        return self.get_query_set().new_or_selection(category_id)
 
 
 class EntityLikeQuerySet(models.query.QuerySet):
