@@ -361,7 +361,7 @@ class Entity(BaseModel):
         res.pop('images', None)
         res.pop('user_id', None)
         res['created_time'] = time.mktime(self.created_time.timetuple())
-        res['updated_time'] = time.mktime(self.created_time.timetuple())
+        res['updated_time'] = time.mktime(self.updated_time.timetuple())
         res['creator_id'] = self.user_id
 
         res['item_list'] = list()
@@ -400,11 +400,6 @@ class Buy_Link(BaseModel):
     class Meta:
         ordering = ['-default']
 
-    # def toDict(self):
-    #     res = super(Buy_Link, self).toDict()
-    #     res.pop('link', None)
-    #     res['buy_link'] = "http://api.guoku.com%s?type=mobile" % reverse('mobile_visit_item', args=[self.origin_id])
-    #     return res
 
     def v3_toDict(self):
         res = self.toDict()
@@ -451,12 +446,6 @@ class Note(BaseModel):
         ordering = ['-post_time']
         # unique_together = ('entity', 'user')
 
-    def v3_toDict(self):
-        res = self.toDict()
-
-        return res
-
-
     def __unicode__(self):
         return self.note
 
@@ -473,6 +462,16 @@ class Note(BaseModel):
     @property
     def poke_count(self):
         return self.pokes.count()
+
+    def v3_toDict(self):
+        res = self.toDict()
+        res.pop('note', None)
+        res['content'] = self.note
+        res['comment_count'] = self.comment_count
+        res['poke_count'] = self.poke_count
+        res['created_time'] = time.mktime(self.post_time.timetuple())
+        res['updated_time'] = time.mktime(self.updated_time.timetuple())
+        return res
 
 
 class Note_Comment(models.Model):
