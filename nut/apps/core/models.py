@@ -493,8 +493,12 @@ class Note(BaseModel):
         return self.pokes.count()
 
     @property
-    def post_timestamp(self):
+    def poke_list(self):
+        return self.pokes.all().values_list('user_id', flat=True)
 
+
+    @property
+    def post_timestamp(self):
         return time.mktime(self.post_time.timetuple())
 
     def v3_toDict(self):
@@ -507,8 +511,10 @@ class Note(BaseModel):
         res['poke_count'] = self.poke_count
         res['created_time'] = time.mktime(self.post_time.timetuple())
         res['updated_time'] = time.mktime(self.updated_time.timetuple())
-
         res['creator'] = self.user.v3_toDict()
+
+        res['poker_id_list'] = list(self.poke_list)
+        log.info(self.poke_list)
         return res
 
 
