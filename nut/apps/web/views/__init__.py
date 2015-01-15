@@ -13,5 +13,8 @@ class JobsView(TemplateView):
 class FaqView(TemplateView):
     template_name = "web/base_faq.html"
 
+class LinksView(TemplateView):
+    template_name = "web/links.html"
+
 
 __author__ = 'edison7500'

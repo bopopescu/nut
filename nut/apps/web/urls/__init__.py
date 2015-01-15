@@ -1,6 +1,6 @@
 from django.conf.urls import url, include, patterns
 from django.views.generic import RedirectView
-from apps.web.views import AboutView, JobsView, Agreement
+from apps.web.views import AboutView, JobsView, Agreement, LinksView
 
 
 urlpatterns = patterns(
@@ -52,7 +52,8 @@ urlpatterns += patterns(
 
     url(r'^about/$', AboutView.as_view(), name='web_about'),
     url(r'^jobs/$', JobsView.as_view(), name='web_jobs'),
-    url(r'^agreement$', Agreement.as_view(), name='web_agreement'),
+    url(r'^agreement/$', Agreement.as_view(), name='web_agreement'),
+    url(r'^links/$', LinksView.as_view(), name='web_links'),
 )
 
 
