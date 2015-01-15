@@ -75,9 +75,26 @@ def entity_note(request, category_id):
 
 
     res = []
-    
+
+    note_list = Note.objects.filter(entity__category_id=category_id)
+
+    paginator = ExtentPaginator(note_list, _count)
+
+    try:
+        notes = paginator.page(_offset)
+    except PageNotAnInteger:
+        notes = paginator.page(1)
+    except EmptyPage:
+        return ErrorJsonResponse(status=404)
+
+    for n in notes.object_list:
+        log.info(n)
+        res.append({
+            'note': n.v3_toDict(),
+        })
 
 
-    return SuccessJsonResponse()
+
+    return SuccessJsonResponse(res)
 
 __author__ = 'edison'
