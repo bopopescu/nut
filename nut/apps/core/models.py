@@ -415,6 +415,16 @@ class Entity(BaseModel):
     )
 
 
+class SelectionEntity(BaseModel):
+    entity = models.ForeignKey(Entity, related_name='selection')
+    pub_time = models.DateTimeField(auto_now=True, db_index=True)
+
+    class Meta:
+        ordering = ['-pub_time']
+
+    def __unicode__(self):
+        return self.entity.title
+
 class Buy_Link(BaseModel):
     entity = models.ForeignKey(Entity, related_name='buy_links')
     origin_id = models.CharField(max_length=100)
