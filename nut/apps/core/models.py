@@ -112,19 +112,22 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         res.pop('is_superuser', None)
 
         res['user_id'] = self.id
-        res['nickname'] = self.profile.nickname
-        res['bio'] = self.profile.bio
-        res['gender'] = self.profile.gender
-        res['location'] = self.profile.location
-        res['city'] = self.profile.city
-        res['website'] = self.profile.website
-        res['avatar_large'] = self.profile.avatar_url
-        res['avatar_small'] = self.profile.avatar_url
-        res['like_count'] = self.like_count
-        res['entity_note_count'] = self.post_note_count
-        res['tag_count'] = self.tags_count
-        res['fan_count'] = self.fans_count
-        res['following_count'] = self.following_count
+        try:
+            res['nickname'] = self.profile.nickname
+            res['bio'] = self.profile.bio
+            res['gender'] = self.profile.gender
+            res['location'] = self.profile.location
+            res['city'] = self.profile.city
+            res['website'] = self.profile.website
+            res['avatar_large'] = self.profile.avatar_url
+            res['avatar_small'] = self.profile.avatar_url
+            res['like_count'] = self.like_count
+            res['entity_note_count'] = self.post_note_count
+            res['tag_count'] = self.tags_count
+            res['fan_count'] = self.fans_count
+            res['following_count'] = self.following_count
+        except Exception, e:
+            log.error("Error: user id %s %s", (self.id,e.message))
 
         return res
 
