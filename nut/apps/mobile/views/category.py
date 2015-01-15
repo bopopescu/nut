@@ -63,4 +63,21 @@ def entity(request, category_id):
         )
     return SuccessJsonResponse(res)
 
+
+@require_GET
+@check_sign
+def entity_note(request, category_id):
+
+    _offset = int(request.GET.get('offset', '0'))
+    _count = int(request.GET.get('count', '30'))
+
+    _offset = _offset / _count + 1
+
+
+    res = []
+    
+
+
+    return SuccessJsonResponse()
+
 __author__ = 'edison'
