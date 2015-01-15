@@ -521,6 +521,5 @@ msgstr "头像"
 msgid "is_admin"
 msgstr ""
 
-
 msgid "next"
 msgstr "下一步"
