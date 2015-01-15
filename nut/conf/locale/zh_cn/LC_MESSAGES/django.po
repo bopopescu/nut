@@ -41,7 +41,7 @@ msgstr ""
 #: apps/core/models.py:35
 #: apps/management/templates/management/users/list.html:11
 msgid "blocked"
-msgstr ""
+msgstr "禁言"
 
 #: apps/core/models.py:36 apps/core/models.py:227 apps/core/models.py:233
 #: apps/core/models.py:317 apps/core/forms/entity.py:34
@@ -289,7 +289,7 @@ msgstr ""
 #: apps/core/forms/user.py:36
 #: apps/management/templates/management/users/list.html:23
 msgid "nickname"
-msgstr "昵称"
+msgstr "用户名"
 
 #: apps/core/forms/user.py:40
 msgid "user group"
@@ -520,3 +520,7 @@ msgstr "头像"
 #: apps/management/templates/management/users/list.html:25
 msgid "is_admin"
 msgstr ""
+
+
+msgid "next"
+msgstr "下一步"
