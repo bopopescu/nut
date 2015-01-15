@@ -88,9 +88,10 @@ def entity_note(request, category_id):
         return ErrorJsonResponse(status=404)
 
     for n in notes.object_list:
-        log.info(n)
+        # log.info(n)
         res.append({
             'note': n.v3_toDict(),
+            'entity': n.entity.v3_toDict(),
         })
 
 
