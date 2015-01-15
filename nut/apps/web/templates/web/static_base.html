@@ -1,0 +1,29 @@
+{% extends 'web/base.html' %}
+{% load i18n %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 sidebar">
+            {% url 'web_about' as web_about_url %}
+            {% url 'web_jobs' as web_jobs_url %}
+            {% url 'web_links' as web_links_url %}
+            {% url 'web_agreement' as web_agreement_url %}
+            {% url 'web_faq' as web_faq_url %}
+            {% block sidebar %}
+                <ul class="nav nav-sidebar">
+                    <li {% if web_about_url in request.path %}class="active" {% endif %}><a href="{{ web_about_url }}"><span>ABOUT {% trans 'about' %}</span></a></li>
+                    <li {% if web_faq_url in request.path %}class="active" {% endif %}><a href="{{ web_faq_url }}"><span>FAQ {% trans 'faq' %}</span></a></li>
+                    <li {% if web_jobs_url in request.path %}class="active" {% endif %}><a href="{{ web_jobs_url }}"><span>JOBS {% trans 'jobs' %}</span></a></li>
+                    <li {% if web_links_url in request.path %}class="active"{% endif %}><a href="{{ web_links_url }}"><span>LINKS {% trans 'links' %}</span></a></li>
+                    <li {% if web_agreement_url in request.path %}class="active"{% endif %}><a href="{% url 'web_agreement' %}"><span>AGREEMENT {% trans 'agreement' %}</span></a></li>
+                </ul>
+            {% endblock %}
+            </div>
+            <div class="col-sm-9 static-page">
+                {% block main %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
