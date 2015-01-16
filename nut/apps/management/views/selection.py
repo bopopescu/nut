@@ -38,4 +38,19 @@ def selection_list(request, template='management/selection/list.html'):
     )
 
 
+def edit_publish(request, sid, template="management/selection/edit_publish.html"):
+
+    try:
+        selection = Selection_Entity.objects.get(pk=sid)
+    except Selection_Entity.DoesNotExist:
+        raise Http404
+
+    return render_to_response(
+        template,
+        {
+
+        },
+        context_instance = RequestContext(request)
+    )
+
 __author__ = 'edison7500'
