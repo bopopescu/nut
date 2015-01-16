@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
-
+from datetime import datetime
 
 class SelectionForm(forms.Form):
     YES_OR_NO = (
@@ -11,7 +11,8 @@ class SelectionForm(forms.Form):
     pub_time = forms.DateTimeField(
         label=_('publish datetime'),
         widget=forms.DateTimeInput(attrs={'class':'form-control'}),
-        help_text=_('')
+        help_text=_(''),
+        initial=datetime.now()
     )
 
     is_published = forms.ChoiceField(
