@@ -6,7 +6,7 @@ import time
 from apps.core.models import Entity
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from django.utils.log import getLogger
-
+import random
 
 
 log = getLogger('django')
@@ -78,5 +78,23 @@ def detail(request, entity_id):
 #
 #     return SuccessJsonResponse()
 
+@check_sign
+def guess(request):
+
+    res = []
+
+    _category_id = request.GET.get('cid', None)
+    _count = int(request.GET.get('count', '5'))
+
+    entity_list = Entity.objects.new_or_selection(category_id=_category_id)[0:100]
+
+    entities = random.sample(entity_list, _count)
+
+    for entity in entities:
+        res.append( {
+            entity.v3_toDict()
+        })
+
+    return SuccessJsonResponse(res)
 
 __author__ = 'edison'
