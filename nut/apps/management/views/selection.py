@@ -41,6 +41,18 @@ def selection_list(request, template='management/selection/list.html'):
     )
 
 
+def pending(request, template="management/selection/pending.html"):
+
+
+    return render_to_response(
+        template,
+        {
+
+        },
+        context_instance = RequestContext(request)
+    )
+
+
 def edit_publish(request, sid, template="management/selection/edit_publish.html"):
     # return HttpResponse("OK")
     try:
