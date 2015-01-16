@@ -8,7 +8,7 @@
 {#    <h2 class="sub-header">{% trans 'all' %}</h2>#}
         <div class="row" style="padding-bottom: 24px;">
             <ul class="nav nav-pills" role="tablist">
-                <li><a href="#">{% trans 'published' %}</a></li>
+                <li><a href="{% url 'management_selection_list' %}">{% trans 'published' %}</a></li>
                 <li><a href="{% url 'management_selection_pending' %}">{% trans 'pending' %}</a></li>
             </ul>
         </div>
