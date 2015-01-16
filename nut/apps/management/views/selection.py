@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import Http404, HttpResponse
+from django.utils.translation import gettext_lazy as _
 
 from apps.core.models import Selection_Entity, Entity
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
@@ -55,7 +56,9 @@ def edit_publish(request, sid, template="management/selection/edit_publish.html"
     return render_to_response(
         template,
         {
-            'forms':_forms,
+            'selection': selection,
+            'forms': _forms,
+            'button': _('update'),
         },
         context_instance = RequestContext(request)
     )
