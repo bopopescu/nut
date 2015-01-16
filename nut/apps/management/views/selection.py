@@ -50,6 +50,9 @@ def edit_publish(request, sid, template="management/selection/edit_publish.html"
 
     if request.method == "POST":
         _forms = SelectionForm(selection=selection, data=request.POST)
+        if _forms.is_valid():
+            _forms.update()
+
     else:
         _forms = SelectionForm(selection=selection)
 
