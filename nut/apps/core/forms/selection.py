@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from datetime import datetime
 
+
 class SelectionForm(forms.Form):
     YES_OR_NO = (
         (1, _('yes')),
@@ -38,6 +39,31 @@ class SelectionForm(forms.Form):
         self.selection.save()
 
         return self.selection
+
+
+
+class SetPublishDatetimeForm(forms.Form):
+
+    interval_time = forms.IntegerField(
+        label=_('interval time'),
+        widget=forms.TextInput(attrs={'class':'form-control'}),
+        help_text=_('this value is minutes time'),
+        initial=5,
+    )
+
+    start_time = forms.DateTimeField(
+        label=_('start time'),
+        widget=forms.DateTimeInput(attrs={'class':'form-control'}),
+        help_text=_('set selection entity publish begin time'),
+        initial=datetime.now(),
+    )
+
+
+    def save(self):
+        _start_time = self.cleaned_data.get('start_time')
+        _interval_time = self.cleaned_data.get('interval_time')
+
+
 
 
 __author__ = 'edison7500'
