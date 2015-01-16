@@ -10,7 +10,7 @@ from django.conf import settings
 # from apps.core.extend.list_field import ListObjectField
 from apps.core.extend.fields.listfield import ListObjectField
 from apps.core.manager.account import GKUserManager
-from apps.core.manager.entity import EntityManager, EntityLikeManager
+from apps.core.manager.entity import EntityManager, EntityLikeManager, SelectionEntityManager
 from apps.core.manager.note import NoteManager
 from apps.core.manager.tag import EntityTagManager
 from apps.core.manager.category import CategoryManager
@@ -417,7 +417,10 @@ class Entity(BaseModel):
 
 class Selection_Entity(BaseModel):
     entity = models.OneToOneField(Entity)
+    is_published = models.BooleanField(default=False)
     pub_time = models.DateTimeField(null=True, db_index=True)
+
+    objects = SelectionEntityManager()
 
     class Meta:
         ordering = ['-pub_time']

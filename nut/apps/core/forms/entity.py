@@ -162,7 +162,8 @@ class EntityForm(forms.Form):
             if self.entity.status == Entity.selection:
                 selection = Selection_Entity(
                     entity = self.entity,
-                    pub_time = None,
+                    # pub_time = None,
+                    is_publiush=False,
                 )
                 # selection.entity = self.entity
                 selection.save()
