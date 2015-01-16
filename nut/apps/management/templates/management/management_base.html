@@ -57,6 +57,9 @@
                         </li>
                     </ul>
                     <ul class="nav nav-sidebar">
+                        <li {% if management_selection_url in request.path %} class="active" {% endif %}>
+                            <a href="{{ management_banner_list_url }}"><i class="fa fa-star"></i> {% trans 'selection' %}</a>
+                        </li>
                         {% url 'management_banner_list' as management_banner_list_url %}
                         <li {% if management_banner_list_url in request.path %} class="active" {% endif %}>
                             <a href="{{ management_banner_list_url }}"><i class="fa fa-photo"></i> {% trans 'banner' %}</a>
