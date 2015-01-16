@@ -6,7 +6,7 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 
 
-from apps.core.models import Entity, Sub_Category, Category, Buy_Link, Note
+from apps.core.models import Entity, Selection_Entity, Sub_Category, Category, Buy_Link, Note
 from apps.core.utils.image import HandleImage
 from apps.core.utils.fetch import parse_taobao_id_from_url, parse_jd_id_from_url
 from apps.core.utils.fetch.taobao import TaoBao
@@ -159,6 +159,13 @@ class EntityForm(forms.Form):
         self.entity.price = price
         if status:
             self.entity.status = status
+            if self.entity.status == Entity.selection:
+                selection = Selection_Entity(
+                    entity = self.entity
+                )
+                # selection.entity = self.entity
+                selection.save()
+
         self.entity.category_id = sub_category
         self.entity.images = images
         self.entity.save()
