@@ -1,11 +1,13 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import Http404, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.utils.translation import gettext_lazy as _
 
 from apps.core.models import Selection_Entity, Entity
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.core.forms.selection import SelectionForm, SetPublishDatetimeForm
+
 
 from django.utils.log import getLogger
 
@@ -128,6 +130,9 @@ def set_publish_datetime(request, template="management/selection/set_publish_dat
 
     if request.method == "POST":
         _forms = SetPublishDatetimeForm(request.POST)
+        if _forms.is_valid():
+            _forms.save()
+            return HttpResponseRedirect(reverse('management_selection_published'))
     else:
         _forms = SetPublishDatetimeForm()
 
