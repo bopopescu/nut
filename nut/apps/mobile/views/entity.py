@@ -89,11 +89,10 @@ def guess(request):
     entity_list = Entity.objects.new_or_selection(category_id=_category_id)[0:100]
 
     entities = random.sample(entity_list, _count)
-
+    # log.info(entities)
     for entity in entities:
-        res.append( {
-            entity.v3_toDict()
-        })
+        # log.info(entity.v3_toDict())
+        res.append(entity.v3_toDict())
 
     return SuccessJsonResponse(res)
 
