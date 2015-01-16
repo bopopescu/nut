@@ -65,9 +65,11 @@
                 {% for buy_link in entity.buy_links.all %}
                     <li class="list-group-item"><a href="{{ buy_link }}" target="_blank">{{ buy_link }}</a>
                         {% if not buy_link.default %}
-                        <a class="pull-right" href="javascript:;">&nbsp;{% trans 'remove' %}</a>
+                            <a class="pull-right" href="javascript:;">&nbsp;{% trans 'remove' %}</a>
+                            <span class="label label-danger pull-right">{{ buy_link.default }}</span>
+                        {% else %}
+                            <span class="label label-primary pull-right">{{ buy_link.default }}</span>
                         {% endif %}
-                        <span class="label label-primary pull-right">{{ buy_link.default }}</span>
                     </li>
                 {% endfor %}
             </ul>
