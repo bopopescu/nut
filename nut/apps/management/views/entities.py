@@ -182,7 +182,6 @@ def remove_buy_link(request, bid):
     return SuccessJsonResponse()
 
 
-
 def image(request, entity_id, template='management/entities/upload_image.html'):
 
     try:
@@ -205,7 +204,6 @@ def image(request, entity_id, template='management/entities/upload_image.html'):
         },
         context_instance = RequestContext(request)
     )
-
 
 
 @csrf_exempt
