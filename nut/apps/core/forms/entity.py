@@ -146,7 +146,7 @@ class EntityForm(forms.Form):
         price = self.cleaned_data.get('price')
         status = self.cleaned_data.get('status')
         sub_category = self.cleaned_data.get('sub_category')
-        position = self.cleaned_data.get('position')
+        position = self.cleaned_data.get('position', 0)
 
         images = self.entity.images
         a = images[int(position)]
@@ -161,7 +161,7 @@ class EntityForm(forms.Form):
 
         if status:
             self.entity.status = int(status)
-            log.info("status %s", type(self.entity.status))
+            # log.info("status %s", type(self.entity.status))
             # log.info("OKOKOKOKOKOKOKOOKOOKO")
             if self.entity.status == Entity.selection:
                 try:

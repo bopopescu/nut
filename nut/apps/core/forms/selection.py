@@ -1,6 +1,8 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from datetime import datetime
+from apps.core.tasks.selection import set_publish_time
+
 
 
 class SelectionForm(forms.Form):
@@ -44,11 +46,18 @@ class SelectionForm(forms.Form):
 
 class SetPublishDatetimeForm(forms.Form):
 
+    publish_number = forms.IntegerField(
+        label=_('publish number'),
+        widget=forms.TextInput(attrs={'class':'form-control'}),
+        help_text=_('default number'),
+        initial=91,
+    )
+
     interval_time = forms.IntegerField(
         label=_('interval time'),
         widget=forms.TextInput(attrs={'class':'form-control'}),
-        help_text=_('this value is minutes time'),
-        initial=5,
+        help_text=_('this value is second'),
+        initial=600,
     )
 
     start_time = forms.DateTimeField(
@@ -60,10 +69,13 @@ class SetPublishDatetimeForm(forms.Form):
 
 
     def save(self):
+        _publish_number = self.cleaned_data.get('publish_number')
         _start_time = self.cleaned_data.get('start_time')
         _interval_time = self.cleaned_data.get('interval_time')
 
-
+        set_publish_time(publish_number=_publish_number,
+                         start_time=_start_time,
+                         interval_time=_interval_time)
 
 
 __author__ = 'edison7500'
