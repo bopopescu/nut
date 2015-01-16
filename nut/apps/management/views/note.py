@@ -77,7 +77,7 @@ def edit(request, note_id, template='management/notes/edit.html'):
 
 def create(request, entity_id, template="management/notes/ajax_note_create.html"):
     template = template
-    log.info(entity_id)
+    # log.info(entity_id)
     try:
         _entity = Entity.objects.get(pk=entity_id)
     except Entity.DoesNotExist:

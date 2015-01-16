@@ -54,8 +54,8 @@ class NoteForm(forms.Form):
 
 class CreateNoteForm(forms.Form):
     YES_OR_NO = (
-        (True, _('yes')),
-        (False, _('no')),
+        (1, _('yes')),
+        (0, _('no')),
     )
 
     content = forms.CharField(
@@ -88,7 +88,7 @@ class CreateNoteForm(forms.Form):
         _content = self.cleaned_data.get('content')
         _user_id = self.cleaned_data.get('user')
         _is_top = self.cleaned_data.get('is_top')
-        _is_top = bool(_is_top)
+        _is_top = int(_is_top)
 
         log.info(_user_id)
         # if _is_top:
