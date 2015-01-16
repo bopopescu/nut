@@ -416,7 +416,7 @@ class Entity(BaseModel):
 
 
 class Selection_Entity(BaseModel):
-    entity = models.OneToOneField(Entity, related_name="selection")
+    entity = models.OneToOneField(Entity)
     pub_time = models.DateTimeField(auto_now=True, db_index=True)
 
     class Meta:
