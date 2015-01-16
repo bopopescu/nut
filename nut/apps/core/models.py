@@ -416,7 +416,7 @@ class Entity(BaseModel):
 
 
 class SelectionEntity(BaseModel):
-    entity = models.ForeignKey(Entity, related_name='selection')
+    entity = models.ForeignKey(Entity)
     pub_time = models.DateTimeField(auto_now=True, db_index=True)
 
     class Meta:
@@ -424,6 +424,7 @@ class SelectionEntity(BaseModel):
 
     def __unicode__(self):
         return self.entity.title
+
 
 class Buy_Link(BaseModel):
     entity = models.ForeignKey(Entity, related_name='buy_links')
