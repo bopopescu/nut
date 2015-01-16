@@ -15,7 +15,12 @@ class SelectionForm(forms.Form):
         super(SelectionForm, self).__init__(*args, **kwargs)
 
     def update(self):
-        pass
+        _pub_time = self.cleaned_data.get('pub_time')
+
+        self.selection.pub_time = _pub_time
+        self.selection.save()
+
+        return self.selection
 
 
 __author__ = 'edison7500'
