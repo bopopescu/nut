@@ -73,7 +73,7 @@ class SetPublishDatetimeForm(forms.Form):
         _start_time = self.cleaned_data.get('start_time')
         _interval_time = self.cleaned_data.get('interval_time')
 
-        set_publish_time(publish_number=_publish_number,
+        set_publish_time.delay(publish_number=_publish_number,
                          start_time=_start_time,
                          interval_time=_interval_time)
 
