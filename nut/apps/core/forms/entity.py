@@ -157,16 +157,31 @@ class EntityForm(forms.Form):
         self.entity.brand = brand
         self.entity.title = title
         self.entity.price = price
+
+
         if status:
-            self.entity.status = status
+            self.entity.status = int(status)
+            log.info("status %s", type(self.entity.status))
+            # log.info("OKOKOKOKOKOKOKOOKOOKO")
             if self.entity.status == Entity.selection:
-                selection = Selection_Entity(
-                    entity = self.entity,
-                    # pub_time = None,
-                    is_publiush=False,
-                )
-                # selection.entity = self.entity
-                selection.save()
+                try:
+                    selection = Selection_Entity.objects.get(entity = self.entity)
+                    selection.entity = self.entity
+                    selection.is_published = False
+                    selection.pub_time = datetime.now()
+                    selection.save()
+                except Selection_Entity.DoesNotExist:
+                    Selection_Entity.objects.create(
+                        entity = self.entity,
+                        is_published = False,
+                        pub_time = datetime.now()
+                    )
+            else:
+                try:
+                    selection = Selection_Entity.objects.get(entity = self.entity)
+                    selection.delete()
+                except Selection_Entity.DoesNotExist, e:
+                    log.info("INFO: entity id %s ,%s"% (self.entity.pk, e.message))
 
         self.entity.category_id = sub_category
         self.entity.images = images

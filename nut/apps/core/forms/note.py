@@ -69,7 +69,7 @@ class CreateNoteForm(forms.Form):
         choices=YES_OR_NO,
         widget=forms.Select(attrs={'class':'form-control'}),
         help_text=_(''),
-        initial=False,
+        initial=0,
     )
     def __init__(self, entity, *args, **kwargs):
         self.entity_cache = entity
