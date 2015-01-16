@@ -5,6 +5,7 @@ urlpatterns = patterns(
     'apps.management',
     url(r'^$', RedirectView.as_view(url = '/management/dashboard/')),
     url(r'^dashboard/$', 'views.dashboard', name='management_dashboard'),
+    url(r'^selection/$', include('apps.management.urls.selection')),
     url(r'^entity/', include('apps.management.urls.entities')),
     url(r'^user/', include('apps.management.urls.users')),
     url(r'^banner/', include('apps.management.urls.banner')),

@@ -72,12 +72,6 @@ def detail(request, entity_id):
     return SuccessJsonResponse(res)
 
 
-# @check_sign
-# def note(request):
-#
-#
-#     return SuccessJsonResponse()
-
 @check_sign
 def guess(request):
 
