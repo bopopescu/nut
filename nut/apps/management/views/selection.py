@@ -1,8 +1,10 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.http import Http404
+from django.http import Http404, HttpResponse
+
 from apps.core.models import Selection_Entity, Entity
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
+from apps.core.forms.selection import SelectionForm
 
 from django.utils.log import getLogger
 
@@ -39,16 +41,21 @@ def selection_list(request, template='management/selection/list.html'):
 
 
 def edit_publish(request, sid, template="management/selection/edit_publish.html"):
-
+    # return HttpResponse("OK")
     try:
         selection = Selection_Entity.objects.get(pk=sid)
     except Selection_Entity.DoesNotExist:
         raise Http404
 
+    if request.method == "POST":
+        _forms = SelectionForm(selection=selection, data=request.POST)
+    else:
+        _forms = SelectionForm(selection=selection)
+
     return render_to_response(
         template,
         {
-
+            'forms':_forms,
         },
         context_instance = RequestContext(request)
     )
