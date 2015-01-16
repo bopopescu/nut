@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 # from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.utils.log import getLogger
 from django.core.files.storage import default_storage
+from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.models import Entity, Buy_Link
 from apps.core.forms.entity import EntityForm, EntityImageForm, BuyLinkForm, CreateEntityForm, load_entity_info
@@ -168,7 +169,7 @@ def buy_link(request, entity_id, template='management/entities/buy_link.html'):
         context_instance = RequestContext(request)
     )
 
-
+@csrf_exempt
 def remove_buy_link(request, bid):
     try:
         b = Buy_Link.objects.get(pk=bid)
@@ -180,29 +181,6 @@ def remove_buy_link(request, bid):
     b.delete()
     return SuccessJsonResponse()
 
-# def edit_buy_link(request, bid, template='management/entities/edit_buy_link.html'):
-#
-#     try:
-#         # _entity = Entity.objects.get(pk=entity_id)
-#         b = Buy_Link.objects.get(pk=bid)
-#     except Buy_Link.DoesNotExist:
-#         raise Http404
-#
-#     if request.method == 'POST':
-#         _forms = EditBuyLinkForm(buy_link=b, data=request.POST)
-#     else:
-#         _forms = EditBuyLinkForm(buy_link=b)
-#         # _forms = EditBuyLinkForm(entity=_entity)
-#
-#
-#     return render_to_response(
-#         template,
-#         {
-#             'entity':b.entity,
-#             'forms':_forms,
-#         },
-#         context_instance = RequestContext(request)
-#     )
 
 
 def image(request, entity_id, template='management/entities/upload_image.html'):
@@ -229,7 +207,7 @@ def image(request, entity_id, template='management/entities/upload_image.html'):
     )
 
 
-from django.views.decorators.csrf import csrf_exempt
+
 @csrf_exempt
 def delete_image(request, entity_id):
 

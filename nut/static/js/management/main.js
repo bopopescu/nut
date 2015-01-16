@@ -23,7 +23,28 @@
                 });
                 return false;
             });
+        },
+
+        removeBuyLink: function() {
+            $('#buylinks').find('.btn-link').on('click', function(){
+                var buy_link = $(this);
+                //console.log(buy_link);
+
+                var index = buy_link.attr('data-index');
+                //console.log(index)
+                var url = "/management/entity/" + index + "/buy/link/remove/";
+                $.ajax({
+                    url:url,
+                    type: "POST",
+                    dataType: "json",
+                    success: function(data) {
+                        buy_link.parent().remove();
+                    }
+                });
+            });
+            return false;
         }
+
     };
 
 //    var note = {
@@ -36,6 +57,7 @@
     (function init() {
 //        console.log($.find());
         entity.removeImage();
+        entity.removeBuyLink();
 //        note.post();
     })();
 })(jQuery, document, window);
