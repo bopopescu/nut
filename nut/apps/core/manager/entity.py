@@ -60,4 +60,24 @@ class EntityLikeManager(models.Manager):
 
         return self.get_query_set().user_like_list(user=user, entity_list=entity_list)
 
+
+class SelectionEntityQuerySet(models.query.QuerySet):
+
+    def published(self):
+        return self.filter(is_published=True)
+
+    def pending(self):
+        return self.filter(is_published=False)
+
+class SelectionEntityManager(models.Manager):
+
+    def get_queryset(self):
+        return SelectionEntityQuerySet(self.model, using=self._db)
+
+    def published(self):
+        return self.get_queryset().published()
+
+    def pending(self):
+        return self.get_queryset().pending()
+
 __author__ = 'edison'

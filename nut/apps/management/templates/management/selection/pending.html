@@ -1,1 +1,20 @@
 {% extends 'management/management_base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <div class="row">
+        <h1 class="page-header">{% trans 'selection' %}</h1>
+{#    <h2 class="sub-header">{% trans 'all' %}</h2>#}
+        <div class="row" style="padding-bottom: 24px;">
+            <ul class="nav nav-pills" role="tablist">
+                <li><a href="{% url 'management_selection_list' %}">{% trans 'published' %}</a></li>
+                <li><a href="{% url 'management_selection_pending' %}">{% trans 'pending' %}</a></li>
+            </ul>
+        </div>
+    </div>
+
+    {% include "management/selection/table.html" with entities=entities %}
+
+    {% include "management/paginator.html" with objects=selections url=request.path %}
+
+{% endblock %}
