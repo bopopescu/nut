@@ -19,6 +19,12 @@ def detail(request, note_id):
         res['poker_list'].append(
             poker.user.v3_toDict()
         )
+
+    res['comment_list'] = []
+    for comment in note.comments.all():
+        res['comment_list'].append(comment.v3_toDict())
+
+
     return SuccessJsonResponse(res)
 
 

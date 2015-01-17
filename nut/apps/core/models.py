@@ -546,7 +546,7 @@ class Note(BaseModel):
         return res
 
 
-class Note_Comment(models.Model):
+class Note_Comment(BaseModel):
     note = models.ForeignKey(Note, related_name='comments')
     user = models.ForeignKey(GKUser, related_name='note_comment')
     content = models.TextField(null = False)
@@ -558,9 +558,15 @@ class Note_Comment(models.Model):
     class Meta:
         ordering = ['-post_time']
 
-
     def __unicode__(self):
         return self.content
+
+    def v3_toDict(self):
+        res = self.toDict()
+        res.pop('user_id', None)
+        res['creator'] = self.user.v3_toDict()
+        return res
+
 
 class Note_Poke(models.Model):
     note = models.ForeignKey(Note, related_name="pokes")
