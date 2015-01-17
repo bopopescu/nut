@@ -6,14 +6,15 @@ from apps.core.models import Note
 
 @check_sign
 def detail(request, note_id):
-
+    res = dict()
     try:
         note = Note.objects.get(pk=note_id)
     except Note.DoesNotExist:
         raise ErrorJsonResponse(status=404)
 
-    res = note.v3_toDict()
-
+    res['note'] = note.v3_toDict()
+    res['entity'] = note.entity.v3_toDict()
+    
     return SuccessJsonResponse(res)
 
 
