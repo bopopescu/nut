@@ -82,6 +82,7 @@ class SelectionEntityQuerySet(models.query.QuerySet):
     def pending(self):
         return self.filter(is_published=False)
 
+
 class SelectionEntityManager(models.Manager):
 
     def get_queryset(self):
