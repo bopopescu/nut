@@ -72,6 +72,46 @@ cd deploy/
 sh update_online_code.sh
 ```
 
+## Models 与 Cache 之间的关系
+
+＊ 以获取热门商品为例：
+
+利用 django models queryset 实现扩展的 SQL 查询。 Manager 方法来实现缓存。 以减少 models 层面的改动，而影响 views.
+
+```
+class EntityLikeQuerySet(models.query.QuerySet):
+
+    def popular(self):
+        dt = datetime.now()
+        days = timedelta(days=7)
+        popular_time = (dt - days).strftime("%Y-%m-%d") + ' 00:00'
+        return self.filter(created_time__gt=popular_time).annotate(dcount=models.Count('entity')).values_list('entity_id', flat=True)
+
+    def user_like_list(self, user, entity_list):
+
+        return self.filter(entity_id__in=entity_list, user=user).values_list('entity_id', flat=True)
+
+
+class EntityLikeManager(models.Manager):
+
+    def get_query_set(self):
+        return EntityLikeQuerySet(self.model, using=self._db)
+
+    def popular(self):
+        res = cache.get('entity_popular')
+        if res:
+            return res
+        res = self.get_query_set().popular()
+        cache.set('entity_popular', res, timeout=3600)
+        return res
+
+    def user_like_list(self, user, entity_list):
+
+        return self.get_query_set().user_like_list(user=user, entity_list=entity_list)
+```
+
+
+
 
 ### Emial
  <jiaxin@guoku.com>

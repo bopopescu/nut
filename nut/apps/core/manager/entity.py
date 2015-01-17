@@ -1,6 +1,7 @@
 from django.db import models
-from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+from django.core.cache import cache
+# from django.utils import timezone
+# from django.utils.translation import ugettext_lazy as _
 import random
 from datetime import datetime, timedelta
 
@@ -35,7 +36,8 @@ class EntityManager(models.Manager):
         return self.get_query_set().new_or_selection(category_id)
 
     def guess(self, category_id=None, count=5):
-        entity_list = self.new_or_selection(category_id=category_id)[0:100]
+        size = count * 50
+        entity_list = self.new_or_selection(category_id=category_id)[:size]
 
         entities = random.sample(entity_list, count)
         return entities
@@ -60,7 +62,12 @@ class EntityLikeManager(models.Manager):
         return EntityLikeQuerySet(self.model, using=self._db)
 
     def popular(self):
-        return self.get_query_set().popular()
+        res = cache.get('entity_popular')
+        if res:
+            return res
+        res = self.get_query_set().popular()
+        cache.set('entity_popular', res, timeout=3600)
+        return res
 
     def user_like_list(self, user, entity_list):
 
