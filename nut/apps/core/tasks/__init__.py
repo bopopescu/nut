@@ -20,5 +20,6 @@ class BaseTask(Task):
 
 
 from apps.core.tasks.entity import fetch_image
+from apps.core.tasks.selection import set_publish_time
 
 __author__ = 'edison'
