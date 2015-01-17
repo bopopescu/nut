@@ -64,7 +64,7 @@ def detail(request, entity_id):
 
     # notes = entity.notes.all()
     # log.info(notes)
-    for note in entity.notes.all():
+    for note in entity.notes.filter(status__gte=0):
         res['note_list'].append(
             note.v3_toDict()
         )
