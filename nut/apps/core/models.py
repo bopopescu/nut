@@ -457,13 +457,11 @@ class Buy_Link(BaseModel):
     class Meta:
         ordering = ['-default']
 
-
     def v3_toDict(self):
         res = self.toDict()
         res.pop('link', None)
         res['buy_link'] = "http://api.guoku.com%s?type=mobile" % reverse('mobile_visit_item', args=[self.origin_id])
         return res
-
 
     def __unicode__(self):
         return self.link
