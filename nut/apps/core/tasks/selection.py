@@ -19,21 +19,40 @@ def set_publish_time(*args, **kwargs):
     _start_time = datetime.strptime(_st, "%Y-%m-%d %H:%M:%S")
 
     pendings = Selection_Entity.objects.pending()
-
+    pendings = list(pendings)
     publish_lastest = Selection_Entity.objects.published().first()
 
+    i = 0
     while _publish_number:
-        i = 0
-        s = pendings[i]
+
+        try:
+            s = pendings[i]
+        except IndexError:
+            break
+        # log.info(publish_lastest)
+        if publish_lastest is None:
+            s.is_published = True
+            log.info(_start_time)
+            s.pub_time = _start_time
+            s.save()
+            publish_lastest = s
+            pendings.pop(i)
+            # continue
         log.info(publish_lastest)
-        if s.entity.category_id == publish_lastest.entity.category_id or s.entity.top_note.user_id == publish_lastest.entity.top_note.user_id:
+
+        if s.entity.category_id == publish_lastest.entity.category_id:
             i += 1
+            log.info("category %s %s", (s.entity.category_id, publish_lastest.entity.category_id))
             continue
         else:
             s.is_published = True
+            log.info(_start_time)
             s.pub_time = _start_time
             s.save()
+            publish_lastest = s
+            pendings.pop(i)
 
+        i = 0
         _start_time += timedelta(seconds=_interval_time)
         _publish_number -= 1
 
