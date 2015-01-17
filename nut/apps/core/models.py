@@ -564,7 +564,13 @@ class Note_Comment(BaseModel):
     def v3_toDict(self):
         res = self.toDict()
         res.pop('user_id', None)
+        res.pop('replied_user_id', None)
         res['creator'] = self.user.v3_toDict()
+        try:
+            replied_user = GKUser.objects.get(pk=self.replied_user_id)
+            res['replied_user'] = replied_user.v3_toDict()
+        except GKUser.DoesNotExist:
+            pass
         return res
 
 
