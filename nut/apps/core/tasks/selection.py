@@ -14,8 +14,9 @@ def set_publish_time(*args, **kwargs):
 
     _publish_number = kwargs.pop('publish_number', 1)
     _interval_time = kwargs.pop('interval_time', 600)
-    _start_time = kwargs.pop('start_time', datetime.now())
+    _st = kwargs.pop('start_time')
 
+    _start_time = datetime.strptime(_st, "%Y-%m-%d %H:%M:%S")
 
     pendings = Selection_Entity.objects.pending()
 
