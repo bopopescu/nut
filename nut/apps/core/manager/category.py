@@ -1,13 +1,26 @@
 from django.db import models
 from django.utils.log import getLogger
+
+# from apps.core.models import Entity_Like
 from django.core.cache import cache
 
+
 log = getLogger('django')
+
+class CategoryQuerySet(models.query.QuerySet):
+
+    def popular(self):
+        pass
+
 
 
 class CategoryManager(models.Manager):
 
+    def get_queryset(self):
+        return CategoryQuerySet(self.model, using=self._db)
+
     def toDict(self):
+
         res = []
         for c in self.all():
 
@@ -17,8 +30,6 @@ class CategoryManager(models.Manager):
                         'category_id':sc.id,
                         'category_title':sc.title,
                         'status':int(sc.status),
-                        # 'category_icon_large':sc.icon_large_url,
-                        # 'category_icon_small':sc.icon_small_url,
                 }
 
                 if sc.icon is not  None:
@@ -34,5 +45,8 @@ class CategoryManager(models.Manager):
                 'content': _content,
             })
         return res
+
+    def popular(self):
+        return self.get_queryset().popular()
 
 __author__ = 'edison'

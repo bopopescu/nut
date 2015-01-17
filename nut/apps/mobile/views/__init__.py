@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 
 from apps.mobile.lib.sign import check_sign
 from apps.core.utils.http import SuccessJsonResponse
-from apps.core.models import Show_Banner, Banner, Buy_Link, Entity, Entity_Like
+from apps.core.models import Show_Banner, Banner, Buy_Link, Entity, Entity_Like, Sub_Category
 from apps.core.utils.taobaoapi.utils import taobaoke_mobile_item_convert
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 
@@ -59,6 +59,20 @@ def homepage(request):
                 'img':banner.image_url
             }
         )
+
+    res['discover'] = []
+    from django.db.models import Count
+    el = Entity_Like.objects.popular()
+    category = Entity.objects.filter(pk__in=list(el)).annotate(dcount=Count('category')).values_list('category_id', flat=True)
+    # log.info(category)
+    # c = Sub_Category.objects.filter(pk__in=list(category))
+    # log.info(c.query)
+    for c in Sub_Category.objects.filter(pk__in=category, status=True):
+        res['discover'].append(
+            c.v3_toDict()
+        )
+    log.info(res['discover'])
+
 
     res['config'] = {}
     res['config']['taobao_ban_count'] = 2
