@@ -80,12 +80,9 @@ def guess(request):
     _category_id = request.GET.get('cid', None)
     _count = int(request.GET.get('count', '5'))
 
-    entity_list = Entity.objects.new_or_selection(category_id=_category_id)[0:100]
+    entities = Entity.objects.guess(category_id=_category_id, count=_count)
 
-    entities = random.sample(entity_list, _count)
-    # log.info(entities)
     for entity in entities:
-        # log.info(entity.v3_toDict())
         res.append(entity.v3_toDict())
 
     return SuccessJsonResponse(res)
