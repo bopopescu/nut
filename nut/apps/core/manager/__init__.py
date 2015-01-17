@@ -1,3 +1,7 @@
+from hashlib import md5
+
+
+
 def dictfetchall(cursor):
     desc = cursor.description
     return [

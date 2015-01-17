@@ -291,6 +291,20 @@ class Sub_Category(BaseModel):
     def get_absolute_url(self):
         return "/c/%s" % self.id
 
+
+    def v3_toDict(self):
+        res = dict()
+        # res = self.toDict()
+        # res.pop('status', None)
+        res['status'] = int(self.status)
+        res['group_id'] = self.group_id
+        res['category_icon_large'] = self.icon_large_url
+        res['category_icon_small'] = self.icon_small_url
+        res['category_id'] = self.pk
+        res['category_title'] = self.title
+        return res
+
+
     def __unicode__(self):
         return self.title
 
