@@ -64,14 +64,11 @@ def homepage(request):
     from django.db.models import Count
     el = Entity_Like.objects.popular()
     category = Entity.objects.filter(pk__in=list(el)).annotate(dcount=Count('category')).values_list('category_id', flat=True)
-    # log.info(category)
-    # c = Sub_Category.objects.filter(pk__in=list(category))
-    # log.info(c.query)
     for c in Sub_Category.objects.filter(pk__in=category, status=True):
         res['discover'].append(
             c.v3_toDict()
         )
-    log.info(res['discover'])
+    # log.info(res['discover'])
 
 
     res['config'] = {}
