@@ -14,7 +14,11 @@ def detail(request, note_id):
 
     res['note'] = note.v3_toDict()
     res['entity'] = note.entity.v3_toDict()
-    
+    res['poker_list'] = []
+    for poker in note.pokes.all():
+        res['poker_list'].append(
+            poker.user.v3_toDict()
+        )
     return SuccessJsonResponse(res)
 
 
