@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-# import random
+import random
 from datetime import datetime, timedelta
 
 
@@ -33,6 +33,12 @@ class EntityManager(models.Manager):
 
     def new_or_selection(self, category_id=None):
         return self.get_query_set().new_or_selection(category_id)
+
+    def guess(self, category_id=None, count=5):
+        entity_list = self.new_or_selection(category_id=category_id)[0:100]
+
+        entities = random.sample(entity_list, count)
+        return entities
 
 
 class EntityLikeQuerySet(models.query.QuerySet):
