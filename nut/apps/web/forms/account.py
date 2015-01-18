@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth import get_user_model
-from django.contrib.auth import authenticate
+# from django.contrib.auth import
+from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth import login as auth_login
 from django.core.urlresolvers import reverse
 from django.core.files.storage import default_storage
