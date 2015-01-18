@@ -26,6 +26,7 @@ class MobileUserSignInForm(GuoKuUserSignInForm):
     def clean(self):
         email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password')
+        self.api_key = self.cleaned_data.get('api_key')
         self.next_url = self.cleaned_data.get('next')
 
         if email and password:
@@ -45,11 +46,11 @@ class MobileUserSignInForm(GuoKuUserSignInForm):
 
 
     def get_session(self):
-        _api_key = self.cleaned_data.get('api_key')
+
         session = Session_Key.objects.generate_session(
             user_id=self.get_user_id(),
             email=self.user_cache.email,
-            api_key=_api_key,
+            api_key=self.api_key,
             username="guoku",
         )
         return session.session_key
