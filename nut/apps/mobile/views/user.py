@@ -43,13 +43,7 @@ def tag_list(request, user_id):
 
     res = {}
     res['user'] = _user.v3_toDict()
-    res['tags'] = Entity_Tag.objects.v3_user_tags(user=_user.pk)
-    # tags =
-    # for tag in _user.user_tags.all():
-    #     res['tags'].append(
-    #
-        # )
-    # log.info(tags)
+    res['tags'] = Entity_Tag.objects.user_tags(user=_user.pk)
     return SuccessJsonResponse(res)
 
 @check_sign
