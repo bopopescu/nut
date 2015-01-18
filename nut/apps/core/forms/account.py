@@ -68,6 +68,12 @@ class GuokuUserSignUpForm(forms.Form):
         widget=forms.TextInput()
     )
 
+    def __init__(self, request=None, *args, **kwargs):
+        self.request = request
+        self.user_cache = None
+
+        super(GuokuUserSignUpForm, self).__init__(*args, **kwargs)
+
     def clean_nickname(self):
         _nickname = self.cleaned_data.get('nickname')
         print _nickname
