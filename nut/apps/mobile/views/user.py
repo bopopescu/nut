@@ -32,4 +32,11 @@ def tag_detail(request, user_id, tag):
     return SuccessJsonResponse(res)
 
 
+@check_sign
+def entity_like(request, user_id):
+
+
+
+    return 
+
 __author__ = 'edison7500'
