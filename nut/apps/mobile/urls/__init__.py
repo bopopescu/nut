@@ -12,7 +12,8 @@ urlpatterns = patterns(
 urlpatterns += patterns(
     'apps.mobile.views.account',
     url(r'^login/$', 'login', name='mobile_login'),
-    url(r'^logout/$', 'logout', name='mobile_logout')
+    url(r'^logout/$', 'logout', name='mobile_logout'),
+    url(r'^apns/token/$', 'apns_token', name='mobile_apns_token'),
 )
 
 urlpatterns += patterns(

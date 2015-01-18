@@ -49,4 +49,12 @@ def logout(request):
     return ErrorJsonResponse(status=400)
 
 
+
+@csrf_exempt
+@check_sign
+def apns_token(request):
+
+    log.info(request.POST)
+    return SuccessJsonResponse()
+
 __author__ = 'edison7500'
