@@ -38,7 +38,7 @@ def set_publish_time(*args, **kwargs):
             publish_lastest = s
             pendings.pop(i)
             # continue
-        log.info(publish_lastest)
+        # log.info(publish_lastest)
 
         if s.entity.category_id == publish_lastest.entity.category_id:
             i += 1

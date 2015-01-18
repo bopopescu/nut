@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    {% include "management/selection/table.html" with entities=entities %}
+    {% include "management/selection/table.html" with entities=selections %}
 
     {% include "management/paginator.html" with objects=selections url=request.path %}
 

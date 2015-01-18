@@ -12,13 +12,20 @@
 {#    <h2 class="sub-header">{% trans 'all' %}</h2>#}
         <div class="row" style="padding-bottom: 24px;">
             <ul class="nav nav-pills" role="tablist">
-                <li><a href="{% url 'management_selection_list' %}">{% trans 'published' %}</a></li>
-                <li><a href="{% url 'management_selection_pending' %}">{% trans 'pending' %}</a></li>
+                {% url 'management_selection_published' as management_selection_published_url %}
+                {% url 'management_selection_pending' as management_selection_pending_url %}
+                <li {% if management_selection_published_url in request.path %}class="active"{% endif %}>
+                    <a href="{% url 'management_selection_list' %}">{% trans 'published' %}</a>
+                </li>
+
+                <li {% if management_selection_pending_url in request.path %}class="active"{% endif %}>
+                    <a href="{% url 'management_selection_pending' %}">{% trans 'pending' %}</a>
+                </li>
             </ul>
         </div>
     </div>
 
-    {% include "management/selection/table.html" with entities=entities %}
+    {% include "management/selection/table.html" with entities=selections %}
 
     {% include "management/paginator.html" with objects=selections url=request.path %}
 
