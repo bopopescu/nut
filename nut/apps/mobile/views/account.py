@@ -39,12 +39,13 @@ def register(request):
         _forms = MobileUserSignUpForm(request=request, data=request.POST)
         if _forms.is_valid():
             _user = _forms.save()
+            log.info(_user)
             res = {
                 'user':_user.v3_toDict(),
                 'session': _forms.get_session()
             }
             return SuccessJsonResponse(res)
-
+        log.info(_forms.error_messages)
     return ErrorJsonResponse(status=400)
 
 @csrf_exempt
