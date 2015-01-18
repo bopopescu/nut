@@ -247,7 +247,7 @@ class Category(BaseModel):
 
     objects = CategoryManager()
     class Meta:
-        ordering = ['id']
+        ordering = ['-id']
 
     def __unicode__(self):
         return self.title
@@ -264,7 +264,7 @@ class Sub_Category(BaseModel):
     status = models.BooleanField(default = True, db_index = True)
 
     class Meta:
-        ordering = ['id']
+        ordering = ['-id']
 
     @property
     def icon_large_url(self):

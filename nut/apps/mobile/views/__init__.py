@@ -120,6 +120,13 @@ def popular(request):
 
     return SuccessJsonResponse(res)
 
+
+@check_sign
+def unread(request):
+
+    res = []
+    return SuccessJsonResponse(res)
+
 def visit_item(request, item_id):
     _ttid = request.GET.get("ttid", None)
     _sid = request.GET.get("sid", None)

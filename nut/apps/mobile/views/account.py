@@ -33,6 +33,17 @@ def login(request):
 
 @csrf_exempt
 @check_sign
+def register(request):
+    if request.method == "POST":
+
+
+
+        return
+
+    return ErrorJsonResponse(status=400)
+
+@csrf_exempt
+@check_sign
 def logout(request):
     # _req_uri = request.get_full_path()
 
