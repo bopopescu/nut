@@ -89,8 +89,6 @@ class MobileUserSignUpForm(GuokuUserSignUpForm):
         return session.session_key
 
 
-
-
 class MobileUserSignOutForm(forms.Form):
 
     session = forms.CharField(

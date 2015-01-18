@@ -2,12 +2,13 @@ from django.http import HttpResponseRedirect
 
 from apps.mobile.lib.sign import check_sign
 from apps.core.utils.http import SuccessJsonResponse
-from apps.core.models import Show_Banner, Banner, Buy_Link, Entity, Entity_Like, Sub_Category
+from apps.core.models import Show_Banner, Banner, Buy_Link, Selection_Entity, Entity, Entity_Like, Sub_Category
 from apps.core.utils.taobaoapi.utils import taobaoke_mobile_item_convert
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
+from datetime import datetime
+
 
 from django.utils.log import getLogger
-
 log = getLogger('django')
 
 
@@ -81,20 +82,28 @@ def homepage(request):
 @check_sign
 def selection(request):
 
-    _timestamp = request.GET.get('timestamp', None)
+    # _timestamp = request.GET.get('timestamp', None)
+    _timestamp = request.GET.get('timestamp', datetime.now())
+    if _timestamp != None:
+        _timestamp = datetime.fromtimestamp(float(_timestamp))
+        # else:
+        #     _timestamp = datetime.now()
+    # entities = Entity.objects.selection()[0:30]
+    # res = list()
+    selections = Selection_Entity.objects.published().filter(pub_time__lte=_timestamp)
 
-    entities = Entity.objects.selection()[0:30]
     res = list()
 
-    for e in entities:
+    for selection in selections:
+        log.info(selection.entity_id)
         r = {
-            'entity':e.v3_toDict(),
-            'note':e.top_note.v3_toDict(),
+            'entity':selection.entity.v3_toDict(),
+            'note':selection.entity.top_note.v3_toDict(),
         }
 
         res.append({
             'content': r,
-            'post_time': e.top_note.post_timestamp,
+            'post_time': selection.entity.top_note.post_timestamp,
             'type': "note_selection",
         })
 
@@ -124,7 +133,10 @@ def popular(request):
 @check_sign
 def unread(request):
 
-    res = []
+    res = {
+        'unread_message_count': 0,
+        'unread_selection_count':0,
+    }
     return SuccessJsonResponse(res)
 
 def visit_item(request, item_id):

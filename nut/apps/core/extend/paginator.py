@@ -1,4 +1,4 @@
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage
 
 
 class InvalidPage(Exception):
@@ -9,8 +9,8 @@ class PageNotAnInteger(InvalidPage):
     pass
 
 
-class EmptyPage(InvalidPage):
-    pass
+# class EmptyPage(InvalidPage):
+#     pass
 
 
 class ExtentPaginator(Paginator):

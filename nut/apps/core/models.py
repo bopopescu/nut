@@ -540,7 +540,7 @@ class Note(BaseModel):
         res['creator'] = self.user.v3_toDict()
 
         res['poker_id_list'] = list(self.poke_list)
-        log.info(self.poke_list)
+        # log.info(self.poke_list)
         return res
 
 
