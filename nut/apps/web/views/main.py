@@ -4,7 +4,7 @@ from django.views.decorators.http import require_GET
 from django.template import RequestContext
 from django.template import loader
 
-from apps.core.models import Entity, Entity_Like
+from apps.core.models import Entity, Entity_Like, Selection_Entity
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 # from apps.web.forms.search import EntitySearchForm
 from apps.web.forms.search import SearchForm
@@ -33,30 +33,31 @@ def selection(request, template='web/main/selection.html'):
     _refresh_datetime = request.GET.get('t', None)
     if _refresh_datetime is None:
         _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    log.info(_refresh_datetime)
-    entity_list = Entity.objects.filter(status=Entity.selection, updated_time__lt=_refresh_datetime)
+    # log.info(_refresh_datetime)
+    entity_list = Selection_Entity.objects.published().filter(pub_time__lte=_refresh_datetime)
+    # entity_list = Entity.objects.
     paginator = ExtentPaginator(entity_list, 30)
     try:
-        entities = paginator.page(_page)
+        selections = paginator.page(_page)
     except PageNotAnInteger:
-        entities = paginator.page(1)
+        selections = paginator.page(1)
     except EmptyPage:
-        raise  Http404
+        raise Http404
 
     el = list()
     if request.user.is_authenticated():
         # notify.send(request.user, recipient=request.user, verb='you visitor selection page')
 
-        e = entities.object_list
+        e = selections.object_list
         el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(e))
 
     if request.is_ajax():
-        template = 'web/main/partial/selection_item_list.html'
+        template = 'web/main/partial/selection_ajax.html'
         _t = loader.get_template(template)
         _c = RequestContext(
             request,
             {
-                'entities': entities,
+                'selections': selections,
                 'user_entity_likes': el,
             }
         )
@@ -70,10 +71,11 @@ def selection(request, template='web/main/selection.html'):
         )
 
     # refresh_datetime = datetime.now()
+    log.info(_refresh_datetime)
     return render_to_response(
         template,
         {
-            'entities': entities,
+            'selections': selections,
             'user_entity_likes': el,
             'refresh_datetime':_refresh_datetime,
             'paginator':paginator,

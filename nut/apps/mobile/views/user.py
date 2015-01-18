@@ -19,9 +19,6 @@ def detail(request, user_id):
 
     _last_like = Entity_Like.objects.filter(user=_user).last()
     _last_note = Note.objects.filter(user=_user).last()
-    # log.info(last_like)
-    # log.info(last_note)
-
 
     res = dict()
     res['user'] = _user.v3_toDict()
