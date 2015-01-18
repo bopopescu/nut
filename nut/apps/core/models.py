@@ -632,6 +632,15 @@ class Entity_Tag(models.Model):
     @property
     def hash(self):
         return self.tag.tag_hash
+
+
+    # def v3_toDict(self):
+    #     res = {}
+    #     res['tag_hash'] = self.hash
+    #     res['tag'] = self.title
+    #
+    #
+    #     return res
     # def get_absolute_url(self):
     #     return "/t/%s" % self.tag_hash
     #

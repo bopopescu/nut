@@ -32,6 +32,26 @@ def detail(request, user_id):
 
     return SuccessJsonResponse(res)
 
+
+@check_sign
+def tag_list(request, user_id):
+
+    try:
+        _user = GKUser.objects.get(pk=user_id)
+    except GKUser.DoesNotExist:
+        return ErrorJsonResponse(status=404)
+
+    res = {}
+    res['user'] = _user.v3_toDict()
+    res['tags'] = Entity_Tag.objects.v3_user_tags(user=_user.pk)
+    # tags =
+    # for tag in _user.user_tags.all():
+    #     res['tags'].append(
+    #
+        # )
+    # log.info(tags)
+    return SuccessJsonResponse(res)
+
 @check_sign
 def tag_detail(request, user_id, tag):
 
