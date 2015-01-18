@@ -1,7 +1,7 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.mobile.forms.account import MobileUserSignInForm
+from apps.mobile.forms.account import MobileUserSignInForm, MobileUserSignOutForm
 from apps.mobile.lib.sign import check_sign
-from apps.mobile.models import Session_Key
+# from apps.mobile.models import Session_Key
 
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.log import getLogger
@@ -34,13 +34,19 @@ def login(request):
 @csrf_exempt
 @check_sign
 def logout(request):
-    _req_uri = request.get_full_path()
-    if request.method == "POST":
-        _session = request.POST.get('session', None)
-        _session_obj = Session_Key.objects.get(session_key = _session)
-        _session_obj.delete()
+    # _req_uri = request.get_full_path()
 
-        return SuccessJsonResponse({ 'success' : '1' })
+
+    if request.method == "POST":
+        # _session = request.POST.get('session', None)
+        # _session_obj = Session_Key.objects.get(session_key = _session)
+        # _session_obj.delete()
+        _forms = MobileUserSignOutForm(request.POST)
+        if _forms.is_valid():
+            res = _forms.logout()
+            return SuccessJsonResponse({ 'success': '1' })
+
+    return ErrorJsonResponse(status=400)
 
 
 __author__ = 'edison7500'

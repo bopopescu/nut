@@ -3,8 +3,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import login as auth_login
 
 
-
-
 class GuoKuUserSignInForm(forms.Form):
 
     error_messages = {
@@ -43,5 +41,7 @@ class GuoKuUserSignInForm(forms.Form):
 
     def get_user(self):
         return self.user_cache
+
+
 
 __author__ = 'edison'

@@ -43,8 +43,6 @@ class MobileUserSignInForm(GuoKuUserSignInForm):
                     code='inactive',
                 )
 
-
-
     def get_session(self):
 
         session = Session_Key.objects.generate_session(
@@ -54,12 +52,22 @@ class MobileUserSignInForm(GuoKuUserSignInForm):
             username="guoku",
         )
         return session.session_key
-    # def login(self):
-    #     pass
-    # def login(self):
-    #     # pass
-    #     _email = self.cleaned_data.get('email')
-    #     _password = self.cleaned_data.get('password')
-    #     _api_key = self.cleaned_data.get('api_key')
+
+
+class MobileUserSignOutForm(forms.Form):
+
+    session = forms.CharField(
+        widget=forms.TextInput()
+    )
+
+    def logout(self):
+        _session = self.cleaned_data.get('session')
+        try:
+            _session_obj = Session_Key.objects.get(session_key=_session)
+            _session_obj.delete()
+            return True
+        except Session_Key.DoesNotExist:
+            return False
+
 
 __author__ = 'edison7500'
