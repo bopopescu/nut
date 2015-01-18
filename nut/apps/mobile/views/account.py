@@ -17,11 +17,12 @@ def login(request):
         log.info(request.POST)
         if _forms.is_valid():
             _forms.login()
-            user = _forms.get_user()
+            _user = _forms.get_user()
 
-            res = dict()
-            res['user'] = user.v3_toDict()
-            res['session'] = _forms.get_session()
+            res = {
+                'user': _user.v3_toDict(),
+                'session': _forms.get_session()
+            }
             return SuccessJsonResponse(res)
     else:
         _forms = MobileUserSignInForm(request=request)
@@ -35,11 +36,14 @@ def login(request):
 @check_sign
 def register(request):
     if request.method == "POST":
-        _forms = MobileUserSignUpForm(data=request.POST)
+        _forms = MobileUserSignUpForm(request=request, data=request.POST)
         if _forms.is_valid():
-            _forms.save()
-
-        return
+            _user = _forms.save()
+            res = {
+                'user':_user.v3_toDict(),
+                'session': _forms.get_session()
+            }
+            return SuccessJsonResponse(res)
 
     return ErrorJsonResponse(status=400)
 
