@@ -63,6 +63,7 @@ class MobileUserSignUpForm(GuokuUserSignUpForm):
     )
 
     def save(self):
+        self.api_key = self.cleaned_data.get('api_key')
         self.user_cache = super(MobileUserSignUpForm, self).save()
 
         _avatar_file = self.cleaned_data.get('image')
@@ -74,7 +75,7 @@ class MobileUserSignUpForm(GuokuUserSignUpForm):
 
             self.user_cache.profile.save()
 
-            return self.user_cache
+        return self.user_cache
 
 
     def get_session(self):

@@ -37,9 +37,10 @@ def login(request):
 def register(request):
     if request.method == "POST":
         _forms = MobileUserSignUpForm(request=request, data=request.POST)
+        log.info(request.POST)
         if _forms.is_valid():
             _user = _forms.save()
-            log.info(_user)
+            log.info("user user %s" % _user)
             res = {
                 'user':_user.v3_toDict(),
                 'session': _forms.get_session()
@@ -47,7 +48,7 @@ def register(request):
             return SuccessJsonResponse(res)
         # log.info(_forms.errors)
         for error in _forms.errors:
-            log.info("error %s" % error)
+            # log.info("error %s" % error)
             return ErrorJsonResponse(status=409, data={
                 'type': error,
                 'message':'Error',
