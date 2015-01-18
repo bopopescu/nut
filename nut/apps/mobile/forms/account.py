@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model, authenticate
-from apps.core.forms.account import GuoKuUserSignInForm
+from apps.core.forms.account import GuoKuUserSignInForm, GuokuUserSignUpForm
 from apps.mobile.models import Session_Key
 
 
@@ -12,9 +12,6 @@ class MobileUserSignInForm(GuoKuUserSignInForm):
     )
 
     def __init__(self, request, *args, **kwargs):
-
-        # self.request = request
-        # self.user_cache = None
 
         super(MobileUserSignInForm, self).__init__(request, *args, **kwargs)
         UserModel = get_user_model()
@@ -52,6 +49,13 @@ class MobileUserSignInForm(GuoKuUserSignInForm):
             username="guoku",
         )
         return session.session_key
+
+
+class MobileUserSignUpForm(GuokuUserSignUpForm):
+
+
+    pass
+
 
 
 class MobileUserSignOutForm(forms.Form):

@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import login as auth_login
+from apps.core.models import GKUser, User_Profile
 
 
 class GuoKuUserSignInForm(forms.Form):
@@ -42,6 +43,72 @@ class GuoKuUserSignInForm(forms.Form):
     def get_user(self):
         return self.user_cache
 
+
+class GuokuUserSignUpForm(forms.Form):
+
+    error_messages = {
+        'duplicate_nickname': _("A user with that nickname already exists."),
+        'duplicate_email': _("A user with that email already exists."),
+        # 'password_mismatch': _("The two password fields didn't match."),
+    }
+
+    email = forms.EmailField(
+        label=_('email'),
+        widget=forms.TextInput(),
+    )
+
+    password = forms.CharField(
+        label=_('password'),
+        widget=forms.PasswordInput(),
+        min_length=8,
+        help_text=_('')
+    )
+
+    nickname = forms.CharField(
+        widget=forms.TextInput()
+    )
+
+    def clean_nickname(self):
+        _nickname = self.cleaned_data.get('nickname')
+        print _nickname
+        try:
+            User_Profile.objects.get(nickname = _nickname)
+        except User_Profile.DoesNotExist:
+            return _nickname
+        raise forms.ValidationError(
+            self.error_messages['duplicate_nickname'],
+            code='duplicate_nickname',
+        )
+
+    def clean_email(self):
+        _email = self.cleaned_data.get('email')
+        # UserModel = get_user_model()
+        try:
+            GKUser.objects.get(email=_email)
+        except GKUser.DoesNotExist:
+            return _email
+        raise forms.ValidationError(
+               self.error_messages['duplicate_email'],
+               code='duplicate_email',
+            )
+
+    def save(self):
+        _nickname = self.cleaned_data.get('nickname')
+        _email = self.cleaned_data.get('email')
+        _password = self.cleaned_data.get('password')
+
+        _user = GKUser.objects.create_user(
+            email=_email,
+            password = _password,
+            is_active=True,
+        )
+
+        User_Profile.objects.create(
+            user = _user,
+            nickname = _nickname,
+
+        )
+        return _user
 
 
 __author__ = 'edison'
