@@ -40,7 +40,7 @@ def set_publish_time(*args, **kwargs):
             # continue
         # log.info(publish_lastest)
 
-        if s.entity.category_id == publish_lastest.entity.category_id:
+        if s.entity.category.group_id == publish_lastest.entity.category.group_id:
             i += 1
             log.info("category %s %s", (s.entity.category_id, publish_lastest.entity.category_id))
             continue

@@ -51,12 +51,7 @@ def register(request):
 @check_sign
 def logout(request):
     # _req_uri = request.get_full_path()
-
-
     if request.method == "POST":
-        # _session = request.POST.get('session', None)
-        # _session_obj = Session_Key.objects.get(session_key = _session)
-        # _session_obj.delete()
         _forms = MobileUserSignOutForm(request.POST)
         if _forms.is_valid():
             res = _forms.logout()
