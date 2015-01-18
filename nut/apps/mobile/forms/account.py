@@ -53,8 +53,25 @@ class MobileUserSignInForm(GuoKuUserSignInForm):
 
 class MobileUserSignUpForm(GuokuUserSignUpForm):
 
+    api_key = forms.CharField(
+        widget=forms.TextInput(),
+    )
 
-    pass
+    image = forms.FileField(
+        widget=forms.FileInput(),
+        required=False,
+    )
+
+    def get_session(self):
+
+        session = Session_Key.objects.generate_session(
+            user_id=self.get_user_id(),
+            email=self.user_cache.email,
+            api_key=self.api_key,
+            username="guoku",
+        )
+        return session.session_key
+
 
 
 

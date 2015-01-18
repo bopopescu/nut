@@ -1,5 +1,5 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.mobile.forms.account import MobileUserSignInForm, MobileUserSignOutForm
+from apps.mobile.forms.account import MobileUserSignInForm, MobileUserSignUpForm, MobileUserSignOutForm
 from apps.mobile.lib.sign import check_sign
 # from apps.mobile.models import Session_Key
 
@@ -35,8 +35,9 @@ def login(request):
 @check_sign
 def register(request):
     if request.method == "POST":
-
-
+        _forms = MobileUserSignUpForm(data=request.POST)
+        if _forms.is_valid():
+            _forms.save()
 
         return
 
