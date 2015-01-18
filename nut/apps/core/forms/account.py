@@ -111,18 +111,18 @@ class GuokuUserSignUpForm(forms.Form):
         _email = self.cleaned_data.get('email')
         _password = self.cleaned_data.get('password')
 
-        _user = GKUser.objects.create_user(
+        self.user_cache = GKUser.objects.create_user(
             email=_email,
             password = _password,
             is_active=True,
         )
 
         User_Profile.objects.create(
-            user = _user,
+            user = self.user_cache,
             nickname = _nickname,
 
         )
-        return _user
+        return self.user_cache
 
 
 __author__ = 'edison'
