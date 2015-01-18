@@ -96,7 +96,9 @@
         </div>
 
         <div class="row" id="event">
-            {% include "web/main/partial/selection_item_list.html" with entities=entities %}
+            {% for entity in entities %}
+            {% include "web/main/partial/selection_item_list.html" with entity=entity %}
+            {% endfor %}
         </div>
         <div class="row hidden-xs">
             <div class="col-sm-offset-12">
