@@ -45,7 +45,14 @@ def register(request):
                 'session': _forms.get_session()
             }
             return SuccessJsonResponse(res)
-        log.info(_forms.error_messages)
+        # log.info(_forms.errors)
+        for error in _forms.errors:
+            log.info("error %s" % error)
+            return ErrorJsonResponse(status=409, data={
+                'type': error,
+                'message':'Error',
+            })
+
     return ErrorJsonResponse(status=400)
 
 @csrf_exempt
