@@ -14,39 +14,39 @@ from django.utils.log import getLogger
 log = getLogger('django')
 
 
-def selection_list(request, template='management/selection/list.html'):
-
-    _page = request.GET.get('page', 1)
-
-    s = Selection_Entity.objects.published().values_list('entity_id', flat=True)
-    # log.info(s.query)
-    paginator = ExtentPaginator(s, 30)
-
-    try:
-        selections = paginator.page(_page)
-    except PageNotAnInteger:
-        selections = paginator.page(1)
-    except EmptyPage:
-        raise Http404
-
-    # log.info(selections.object_list)
-    # innqs = selections.object_list
-    _entities = Entity.objects.filter(id__in=list(selections.object_list))
-
-    return render_to_response(
-        template,
-        {
-            'selections': selections,
-            'entities': _entities,
-        },
-        context_instance = RequestContext(request)
-    )
+# def selection_list(request, template='management/selection/list.html'):
+#
+#     _page = request.GET.get('page', 1)
+#
+#     s = Selection_Entity.objects.published().values_list('entity_id', flat=True)
+#     # log.info(s.query)
+#     paginator = ExtentPaginator(s, 30)
+#
+#     try:
+#         selections = paginator.page(_page)
+#     except PageNotAnInteger:
+#         selections = paginator.page(1)
+#     except EmptyPage:
+#         raise Http404
+#
+#     # log.info(selections.object_list)
+#     # innqs = selections.object_list
+#     _entities = Entity.objects.filter(id__in=list(selections.object_list))
+#
+#     return render_to_response(
+#         template,
+#         {
+#             'selections': selections,
+#             'entities': _entities,
+#         },
+#         context_instance = RequestContext(request)
+#     )
 
 
 def published(request, template="management/selection/list.html"):
     _page = request.GET.get('page', 1)
 
-    s = Selection_Entity.objects.published().values_list('entity_id', flat=True)
+    s = Selection_Entity.objects.published()
     # log.info(s.query)
     paginator = ExtentPaginator(s, 30)
 
@@ -59,13 +59,13 @@ def published(request, template="management/selection/list.html"):
 
     # log.info(selections.object_list)
     # innqs = selections.object_list
-    _entities = Entity.objects.filter(id__in=list(selections.object_list))
+    # _entities = Entity.objects.filter(id__in=list(selections.object_list))
 
     return render_to_response(
         template,
         {
             'selections': selections,
-            'entities': _entities,
+            # 'entities': _entities,
         },
         context_instance = RequestContext(request)
     )
@@ -74,7 +74,7 @@ def published(request, template="management/selection/list.html"):
 def pending(request, template="management/selection/list.html"):
 
     _page = request.GET.get('page', 1)
-    s = Selection_Entity.objects.pending().values_list('entity_id', flat=True)
+    s = Selection_Entity.objects.pending()
     # log.info(s.query)
     paginator = ExtentPaginator(s, 30)
 
@@ -85,13 +85,13 @@ def pending(request, template="management/selection/list.html"):
     except EmptyPage:
         raise Http404
 
-    _entities = Entity.objects.filter(id__in=list(selections.object_list))
+    # _entities = Entity.objects.filter(id__in=list(selections.object_list))
 
     return render_to_response(
         template,
         {
             'selections': selections,
-            'entities': _entities,
+            # 'entities': _entities,
         },
         context_instance = RequestContext(request)
     )
