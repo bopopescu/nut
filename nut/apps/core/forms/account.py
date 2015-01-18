@@ -98,6 +98,14 @@ class GuokuUserSignUpForm(forms.Form):
                code='duplicate_email',
             )
 
+    def get_user_id(self):
+        if self.user_cache:
+            return self.user_cache.id
+        return None
+
+    def get_user(self):
+        return self.user_cache
+
     def save(self):
         _nickname = self.cleaned_data.get('nickname')
         _email = self.cleaned_data.get('email')

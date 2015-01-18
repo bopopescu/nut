@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model, authenticate
 from apps.core.forms.account import GuoKuUserSignInForm, GuokuUserSignUpForm
 from apps.mobile.models import Session_Key
-
+from apps.core.utils.image import HandleImage
 
 
 class MobileUserSignInForm(GuoKuUserSignInForm):
@@ -61,6 +61,21 @@ class MobileUserSignUpForm(GuokuUserSignUpForm):
         widget=forms.FileInput(),
         required=False,
     )
+
+    def save(self):
+        self.user_cache = super(MobileUserSignUpForm, self).save()
+
+        _avatar_file = self.cleaned_data.get('image')
+        if _avatar_file:
+            _image = HandleImage(image_file= _avatar_file)
+            avatar_path_name = _image.avatar_save()
+
+            self.user_cache.profile.avatar = avatar_path_name
+
+            self.user_cache.profile.save()
+
+            return self.user_cache
+
 
     def get_session(self):
 
