@@ -101,14 +101,11 @@ def selection(request):
         el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(ids))
     except Session_Key.DoesNotExist, e:
         log.info(e.message)
-        el = []
+        el = None
     # log.info(el)
     res = list()
 
     for selection in selections:
-        # log.info(selection.entity_id)
-        # if selection.entity_id in el:
-        #     log.info("like like like ")
         r = {
             'entity':selection.entity.v3_toDict(user_like_list=el),
             'note':selection.entity.top_note.v3_toDict(),
@@ -127,16 +124,26 @@ def selection(request):
 def popular(request):
 
     _scale = request.GET.get('scale', 'daily')
+    _key = request.GET.get('session')
 
     popular = Entity_Like.objects.popular()
     _entities = Entity.objects.filter(id__in=list(popular))
+
+    try:
+        _session = Session_Key.objects.get(session_key=_key)
+        # log.info("session %s" % _session)
+        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=_entities)
+    except Session_Key.DoesNotExist, e:
+        log.info(e.message)
+        el = None
+
 
     res = dict()
     res['content'] = list()
     res['scale'] = _scale
     for e in _entities:
         r = {
-            'entity': e.v3_toDict()
+            'entity': e.v3_toDict(user_like_list=el)
         }
         res['content'].append(r)
 
