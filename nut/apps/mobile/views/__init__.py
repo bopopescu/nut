@@ -104,7 +104,7 @@ def selection(request):
 
     res = list()
 
-    for selection in selections:
+    for selection in selections.object_list:
         log.info(selection.entity_id)
         r = {
             'entity':selection.entity.v3_toDict(),
