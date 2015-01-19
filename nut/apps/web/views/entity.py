@@ -55,10 +55,6 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
 
     _guess_entities = Entity.objects.guess(category_id=_entity.category_id, count=4)
 
-    # log.info(_entity.category)
-
-    # _user_poke = list()
-
 
     return render_to_response(
         templates,
@@ -70,6 +66,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
             'user_post_note':_user_post_note,
             'note_forms':_note_forms,
             'guess_entities': _guess_entities,
+            'likers': _entity.likes.all()[0:20],
         },
         context_instance = RequestContext(request),
     )
