@@ -1,14 +1,17 @@
+from django.views.decorators.csrf import csrf_exempt
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.mobile.lib.sign import check_sign
-from datetime import datetime
-import time
-
 from apps.core.models import Entity
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
-from django.utils.log import getLogger
+from apps.core.models import Entity_Like
+from apps.mobile.models import Session_Key
+
+from datetime import datetime
+import time
 import random
 
 
+from django.utils.log import getLogger
 log = getLogger('django')
 
 
@@ -71,6 +74,31 @@ def detail(request, entity_id):
 
     return SuccessJsonResponse(res)
 
+
+@csrf_exempt
+@check_sign
+def like_action(request, entity_id, target_status):
+    if request.method == "POST":
+        _key = request.POST.get('session', None)
+        _session = Session_Key.objects.get(session_key=_key)
+        res = {
+            'entity_id': entity_id,
+        }
+
+        if target_status == "1":
+            el = Entity_Like(
+                user_id=_session.user_id,
+                entity_id=entity_id,
+            )
+            el.save()
+            res['like_already'] = 1
+        else:
+            el = Entity_Like.objects.get(user_id =_session.user_id, entity_id=entity_id)
+            el.delete()
+            res['like_already'] = 0
+        return SuccessJsonResponse(res)
+
+    return ErrorJsonResponse(status=400)
 
 @check_sign
 def guess(request):
