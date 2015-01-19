@@ -17,7 +17,7 @@ log = getLogger('django')
 
 
 @check_sign
-def list(request):
+def entity_list(request):
 
     _timestamp = request.GET.get('timestamp', None)
     if _timestamp != None:
@@ -34,6 +34,11 @@ def list(request):
     _offset = _offset / 30 + 1
     _count = int(request.GET.get('count', '30'))
 
+
+    _key = request.GET.get('session', None)
+    # log.info("session "_key)
+
+
     entity_list = Entity.objects.new()
 
     paginator = ExtentPaginator(entity_list, _count)
@@ -45,10 +50,18 @@ def list(request):
     except EmptyPage:
         return ErrorJsonResponse(status=404)
     # res = list
+
+    try:
+        _session = Session_Key.objects.get(session_key=_key)
+        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(entities.object_list))
+    except Session_Key.DoesNotExist, e:
+        log.info(e.message)
+        el = None
+
     res = []
     for row in entities.object_list:
         res.append(
-            row.v3_toDict()
+            row.v3_toDict(user_like_list=el)
         )
 
     return SuccessJsonResponse(res)
