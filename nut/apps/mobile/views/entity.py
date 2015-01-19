@@ -81,6 +81,12 @@ def detail(request, entity_id):
             note.v3_toDict()
         )
 
+    res['like_user_list'] = []
+    for liker in entity.likes.all():
+        res['like_user_list'].append(
+            liker.user.v3_toDict()
+        )
+
     return SuccessJsonResponse(res)
 
 
