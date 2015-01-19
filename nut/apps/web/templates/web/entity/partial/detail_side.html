@@ -41,12 +41,12 @@
     </div>
 {% endif %}
 
-    <div class="panel-body" style="padding-bottom: 0px;border-top: 1px solid #f1f1f1;">{{ entity.like_count }}&nbsp;人喜爱</div>
+    <div class="panel-body" style="padding-bottom: 0;border-top: 1px solid #f1f1f1;">{{ entity.like_count }}&nbsp;人喜爱</div>
     <div class="panel-body like-user-list">
-        {% for liker, date in liker_list %}
+        {% for liker in likers %}
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="thumbnail">
-{#                    <a href="{% url 'web_user_likes' liker %}" target="_blank">{% show_avater liker  %}</a>#}
+                    <a href="{% url 'web_user_index' liker.user_id %}" target="_blank"><img src="{{ liker.user.profile.avatar_url|resize:'50' }}" width="25" height="25"></a>
                 </div>
             </div>
         {% endfor %}
