@@ -201,10 +201,6 @@ def entity_like(request, eid):
             return JSONResponse(data={'status':1})
         except Exception, e:
             log.error("ERROR: %s", e.message)
-            # pass
-        # result = like_task.apply_async((_user.id, eid), expires=5)
-        # if result.get():
-
 
     return HttpResponseNotAllowed
 

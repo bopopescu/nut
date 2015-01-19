@@ -15,7 +15,7 @@
 
 ```
 insert into mobile_apps select * from guoku.mobile_apps;
-update mobile_apps set user_id = 1;;
+update mobile_apps set user_id = 1;
 ```
 
 ## Mobile Session Key
