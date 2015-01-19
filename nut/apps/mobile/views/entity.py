@@ -3,7 +3,8 @@ from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.mobile.lib.sign import check_sign
 from apps.core.models import Entity
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
-from apps.core.models import Entity_Like
+# from apps.core.models import Entity_Like
+from apps.core.tasks import like_task, unlike_task
 from apps.mobile.models import Session_Key
 
 from datetime import datetime
@@ -86,15 +87,17 @@ def like_action(request, entity_id, target_status):
         }
 
         if target_status == "1":
-            el = Entity_Like(
-                user_id=_session.user_id,
-                entity_id=entity_id,
-            )
-            el.save()
+            # el = Entity_Like(
+            #     user_id=_session.user_id,
+            #     entity_id=entity_id,
+            # )
+            # el.save()
+            like_task.delay(uid=_session.user_id, eid=entity_id)
             res['like_already'] = 1
         else:
-            el = Entity_Like.objects.get(user_id =_session.user_id, entity_id=entity_id)
-            el.delete()
+            unlike_task.delay(uid=_session.user_id, eid=entity_id)
+            # el = Entity_Like.objects.get(user_id =_session.user_id, entity_id=entity_id)
+            # el.delete()
             res['like_already'] = 0
         return SuccessJsonResponse(res)
 
