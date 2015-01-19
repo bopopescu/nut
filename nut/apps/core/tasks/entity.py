@@ -5,7 +5,7 @@ import urllib2
 # from django.core.files.storage import default_storage
 # from django.core.files.base import ContentFile
 from apps.core.utils.image import HandleImage
-from apps.core.models import Entity
+from apps.core.models import Entity, Entity_Like
 
 from django.conf import settings
 
@@ -33,18 +33,30 @@ def fetch_image(images, entity_id, *args, **kwargs):
     except Entity.DoesNotExist, e:
         pass
     # return
-# def like_task(uid, eid, **kwargs):
-#
-#     try:
-#         obj = Entity_Like.objects.create(
-#             user_id = uid,
-#             entity_id = eid,
-#         )
-#         return obj
-#     except Exception:
-#         pass
-#     # return status
 
+
+@task(base=BaseTask)
+def like_task(uid, eid, **kwargs):
+
+    try:
+        obj = Entity_Like.objects.create(
+            user_id = uid,
+            entity_id = eid,
+        )
+        return obj
+    except Exception:
+        return None
+    # return status
+
+
+@task(base=BaseTask)
+def unlike_task(uid, eid, **kwargs):
+    try:
+        obj = Entity_Like.objects.get(user_id=uid, entity_id=eid)
+        obj.delete()
+        return True
+    except Entity_Like.DoesNotExist:
+        return False
 
 __author__ = 'edison'
 
