@@ -63,7 +63,7 @@ def detail(request, entity_id):
         _session = Session_Key.objects.get(session_key=_key)
         el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=[entity_id])
     except Session_Key.DoesNotExist, e:
-        # log.info(e.message)
+        log.info(e.message)
         el = None
 
     res = dict()

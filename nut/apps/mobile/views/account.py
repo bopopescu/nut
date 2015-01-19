@@ -28,6 +28,12 @@ def login(request):
         _forms = MobileUserSignInForm(request=request)
 
     log.info(_forms.errors)
+    for error in _forms.errors:
+            # log.info("error %s" % error)
+        return ErrorJsonResponse(status=400, data={
+            'type': 'email',
+            'message': 'Error',
+        })
 
     return ErrorJsonResponse(status=400)
 
