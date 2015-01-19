@@ -1,7 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.mobile.lib.sign import check_sign
-from apps.core.models import Entity
+from apps.core.models import Entity, Entity_Like
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 # from apps.core.models import Entity_Like
 from apps.core.tasks import like_task, unlike_task
@@ -57,17 +57,25 @@ def list(request):
 @check_sign
 def detail(request, entity_id):
 
+    _key = request.GET.get('session', None)
+    # log.info("session "_key)
+    try:
+        _session = Session_Key.objects.get(session_key=_key)
+        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=[entity_id])
+    except Session_Key.DoesNotExist, e:
+        # log.info(e.message)
+        el = None
+
     res = dict()
     try:
         entity = Entity.objects.get(pk=entity_id)
     except Entity.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
-    res['entity'] = entity.v3_toDict()
-    res['note_list'] = []
 
-    # notes = entity.notes.all()
-    # log.info(notes)
+    log.info(el)
+    res['entity'] = entity.v3_toDict(user_like_list=el)
+    res['note_list'] = []
     for note in entity.notes.filter(status__gte=0):
         res['note_list'].append(
             note.v3_toDict()
@@ -81,23 +89,19 @@ def detail(request, entity_id):
 def like_action(request, entity_id, target_status):
     if request.method == "POST":
         _key = request.POST.get('session', None)
-        _session = Session_Key.objects.get(session_key=_key)
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
         res = {
             'entity_id': entity_id,
         }
 
         if target_status == "1":
-            # el = Entity_Like(
-            #     user_id=_session.user_id,
-            #     entity_id=entity_id,
-            # )
-            # el.save()
             like_task.delay(uid=_session.user_id, eid=entity_id)
             res['like_already'] = 1
         else:
             unlike_task.delay(uid=_session.user_id, eid=entity_id)
-            # el = Entity_Like.objects.get(user_id =_session.user_id, entity_id=entity_id)
-            # el.delete()
             res['like_already'] = 0
         return SuccessJsonResponse(res)
 

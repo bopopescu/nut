@@ -291,7 +291,6 @@ class Sub_Category(BaseModel):
     def get_absolute_url(self):
         return "/c/%s" % self.id
 
-
     def v3_toDict(self):
         res = dict()
         # res = self.toDict()
@@ -303,7 +302,6 @@ class Sub_Category(BaseModel):
         res['category_id'] = self.pk
         res['category_title'] = self.title
         return res
-
 
     def __unicode__(self):
         return self.title
@@ -398,7 +396,7 @@ class Entity(BaseModel):
         res['like_count'] = self.like_count
         return res
 
-    def v3_toDict(self):
+    def v3_toDict(self, user_like_list=None):
         res = self.toDict()
         res.pop('id', None)
         res.pop('images', None)
@@ -406,6 +404,9 @@ class Entity(BaseModel):
         res['created_time'] = time.mktime(self.created_time.timetuple())
         res['updated_time'] = time.mktime(self.updated_time.timetuple())
         res['creator_id'] = self.user_id
+        res['like_already'] = 0
+        if user_like_list and self.id in user_like_list:
+            res['like_already'] = 1
 
         res['item_list'] = list()
         for b in self.buy_links.all():
