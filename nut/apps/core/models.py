@@ -408,6 +408,8 @@ class Entity(BaseModel):
         if user_like_list and self.id in user_like_list:
             res['like_already'] = 1
 
+
+
         res['item_list'] = list()
         for b in self.buy_links.all():
             res['item_list'].append(

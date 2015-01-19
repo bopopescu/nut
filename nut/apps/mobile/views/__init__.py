@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 
 from apps.mobile.lib.sign import check_sign
-from apps.core.utils.http import SuccessJsonResponse
+from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.models import Show_Banner, Banner, Buy_Link, Selection_Entity, Entity, Entity_Like, Sub_Category
 from apps.core.utils.taobaoapi.utils import taobaoke_mobile_item_convert
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
@@ -90,7 +90,17 @@ def selection(request):
         #     _timestamp = datetime.now()
     # entities = Entity.objects.selection()[0:30]
     # res = list()
-    selections = Selection_Entity.objects.published().filter(pub_time__lte=_timestamp)
+    selection_list = Selection_Entity.objects.published().filter(pub_time__lte=_timestamp)
+
+
+    paginator = ExtentPaginator(selection_list, 30)
+    try:
+        selections = paginator.page(1)
+    except PageNotAnInteger:
+        selections = paginator.page(1)
+    except EmptyPage:
+        return ErrorJsonResponse(status=404)
+
 
     res = list()
 
