@@ -397,6 +397,8 @@ class Entity(BaseModel):
         return res
 
     def v3_toDict(self, user_like_list=None):
+
+        log.info(user_like_list)
         res = self.toDict()
         res.pop('id', None)
         res.pop('images', None)
