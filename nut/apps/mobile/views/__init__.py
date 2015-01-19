@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 
 from apps.mobile.lib.sign import check_sign
+from apps.mobile.models import Session_Key
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.models import Show_Banner, Banner, Buy_Link, Selection_Entity, Entity, Entity_Like, Sub_Category
 from apps.core.utils.taobaoapi.utils import taobaoke_mobile_item_convert
@@ -86,28 +87,30 @@ def selection(request):
     _timestamp = request.GET.get('timestamp', datetime.now())
     if _timestamp != None:
         _timestamp = datetime.fromtimestamp(float(_timestamp))
-        # else:
-        #     _timestamp = datetime.now()
-    # entities = Entity.objects.selection()[0:30]
-    # res = list()
-    selection_list = Selection_Entity.objects.published().filter(pub_time__lte=_timestamp)
+    _key = request.GET.get('session')
 
 
-    paginator = ExtentPaginator(selection_list, 30)
+    selections = Selection_Entity.objects.published().filter(pub_time__lte=_timestamp)[:30]
+    # log.info(selections.query)
+
+    ids = selections.values_list('entity_id', flat=True)
+    # log.info("count %s" % len(ids))
     try:
-        selections = paginator.page(1)
-    except PageNotAnInteger:
-        selections = paginator.page(1)
-    except EmptyPage:
-        return ErrorJsonResponse(status=404)
-
-
+        _session = Session_Key.objects.get(session_key=_key)
+        # log.info("session %s" % _session)
+        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(ids))
+    except Session_Key.DoesNotExist, e:
+        log.info(e.message)
+        el = []
+    # log.info(el)
     res = list()
 
-    for selection in selections.object_list:
-        log.info(selection.entity_id)
+    for selection in selections:
+        # log.info(selection.entity_id)
+        # if selection.entity_id in el:
+        #     log.info("like like like ")
         r = {
-            'entity':selection.entity.v3_toDict(),
+            'entity':selection.entity.v3_toDict(user_like_list=el),
             'note':selection.entity.top_note.v3_toDict(),
         }
 
@@ -148,6 +151,7 @@ def unread(request):
         'unread_selection_count':0,
     }
     return SuccessJsonResponse(res)
+
 
 def visit_item(request, item_id):
     _ttid = request.GET.get("ttid", None)
