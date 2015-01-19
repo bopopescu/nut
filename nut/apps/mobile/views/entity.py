@@ -82,7 +82,7 @@ def detail(request, entity_id):
         )
 
     res['like_user_list'] = []
-    for liker in entity.likes.all():
+    for liker in entity.likes.all()[0:10]:
         res['like_user_list'].append(
             liker.user.v3_toDict()
         )
