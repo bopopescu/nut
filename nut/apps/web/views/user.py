@@ -89,7 +89,7 @@ def entity_like(request, user_id, template="web/user/like.html"):
     # log.info(el.object_list)
 
     _entities = Entity.objects.filter(pk__in=list(likes.object_list))
-    log.info(_entities.query)
+    # log.info(_entities.query)
     el = list()
     if request.user.is_authenticated():
         el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(likes.object_list))

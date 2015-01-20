@@ -4,7 +4,7 @@ from apps.mobile.lib.sign import check_sign
 from apps.core.models import Entity, Note, Note_Poke
 from apps.core.tasks.note import post_note, depoke_note
 from apps.mobile.models import Session_Key
-from apps.mobile.forms.note import PostNoteForms
+from apps.mobile.forms.note import PostNoteForms, UpdateNoteForms
 
 from django.utils.log import getLogger
 
@@ -83,10 +83,33 @@ def post_note(request, entity_id):
 
         _forms = PostNoteForms(entity=entity, data=request.POST)
         if _forms.is_valid():
-            _forms.save()
-            return SuccessJsonResponse()
+            res = _forms.save()
+            return SuccessJsonResponse(res)
         return ErrorJsonResponse(status=403)
 
+    return ErrorJsonResponse(status=400)
+
+
+@csrf_exempt
+@check_sign
+def update_note(request, note_id):
+    if request.method == "POST":
+        _key = request.POST.get('session')
+        try:
+            _session = Session_Key.objects.get(session_key = _key)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
+
+        try:
+            note = Note.objects.get(pk=note_id, user=_session.user)
+        except Note.DoesNotExist:
+            return ErrorJsonResponse(status=404)
+
+        _forms = UpdateNoteForms(note=note)
+        if _forms.is_valid():
+            res = _forms.update()
+            return SuccessJsonResponse(res)
+        
     return ErrorJsonResponse(status=400)
 
 __author__ = 'edison7500'
