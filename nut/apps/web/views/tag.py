@@ -1,7 +1,7 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-
+from django.core.urlresolvers import reverse
 from apps.core.models import Tag, Entity_Tag, Entity, Entity_Like
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from django.utils.log import getLogger
@@ -37,9 +37,6 @@ def detail(request, hash, template="web/tags/detail.html"):
         el = Entity_Like.objects.filter(entity_id__in=list(e), user=request.user).values_list('entity_id', flat=True)
     log.info(el)
 
-
-
-
     return render_to_response(
         template,
         {
@@ -49,5 +46,16 @@ def detail(request, hash, template="web/tags/detail.html"):
         },
         context_instance = RequestContext(request),
     )
+
+
+def text_to_detail(request, tag_text):
+    log.info(tag_text)
+    try:
+        _tag = Tag.objects.get(tag = tag_text)
+    except Tag.DoesNotExist:
+        raise Http404
+
+    return HttpResponseRedirect(reverse('web_tag_detail', args=[_tag.tag_hash]))
+
 
 __author__ = 'edison'

@@ -68,6 +68,8 @@ urlpatterns += patterns(
     url(r'^u/', include('apps.web.urls.user')),
     url(r'^event/', include('apps.web.urls.event')),
     url(r'^t/', include('apps.web.urls.tag')),
+    url(r'^tag/(?P<tag_text>\w+)/$', 'tag.text_to_detail', name='web_tag_text',)
+    # url(r'^tag/', include('apps.web.urls.tag')),
     # url(r'^event/', include('apps.web.urls.event')),
 )
 
