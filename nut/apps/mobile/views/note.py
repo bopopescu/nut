@@ -1,9 +1,10 @@
 from django.views.decorators.csrf import csrf_exempt
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.mobile.lib.sign import check_sign
-from apps.core.models import Note, Note_Poke
-from apps.mobile.models import Session_Key
+from apps.core.models import Entity, Note, Note_Poke
 from apps.core.tasks.note import post_note, depoke_note
+from apps.mobile.models import Session_Key
+from apps.mobile.forms.note import PostNoteForms
 
 from django.utils.log import getLogger
 
@@ -65,6 +66,26 @@ def poke(request, note_id, target_status):
             res['poke_already'] = 0
         log.info(res)
         return SuccessJsonResponse(res)
+
+    return ErrorJsonResponse(status=400)
+
+
+@csrf_exempt
+@check_sign
+def post_note(request, entity_id):
+
+    if request.method == "POST":
+        # _key = request.POST.get('session')
+        try:
+            entity = Entity.objects.get(pk = entity_id)
+        except Entity.DoesNotExist:
+            return ErrorJsonResponse(status=404)
+
+        _forms = PostNoteForms(entity=entity, data=request.POST)
+        if _forms.is_valid():
+            _forms.save()
+            return SuccessJsonResponse()
+        return ErrorJsonResponse(status=403)
 
     return ErrorJsonResponse(status=400)
 
