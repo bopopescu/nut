@@ -121,7 +121,7 @@ class CreateNoteForm(forms.Form):
                 status = _is_top,
             )
             note.save()
-        # log.info(_content)
+        log.info(_content)
         t = TagParser(_content)
         t.create_tag(user_id=_user_id, entity_id=self.entity_cache.pk)
         return note
