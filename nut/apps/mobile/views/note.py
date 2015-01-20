@@ -2,9 +2,10 @@ from django.views.decorators.csrf import csrf_exempt
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.mobile.lib.sign import check_sign
 from apps.core.models import Entity, Note, Note_Poke
-from apps.core.tasks.note import post_note, depoke_note
+from apps.core.tasks.note import post_note_task, depoke_note_task
 from apps.mobile.models import Session_Key
 from apps.mobile.forms.note import PostNoteForms, UpdateNoteForms
+from apps.mobile.forms.comment import PostNoteCommentForm
 
 from django.utils.log import getLogger
 
@@ -59,10 +60,10 @@ def poke(request, note_id, target_status):
             return ErrorJsonResponse(status=403)
 
         if target_status == "1":
-            post_note.delay(uid=_session.user_id, nid=note_id)
+            post_note_task.delay(uid=_session.user_id, nid=note_id)
             res['poke_already'] = 1
         else:
-            depoke_note.delay(uid=_session.user_id, nid=note_id)
+            depoke_note_task.delay(uid=_session.user_id, nid=note_id)
             res['poke_already'] = 0
         log.info(res)
         return SuccessJsonResponse(res)
@@ -110,7 +111,28 @@ def update_note(request, note_id):
         if _forms.is_valid():
             res = _forms.update()
             return SuccessJsonResponse(res)
+    return ErrorJsonResponse(status=400)
+
+
+@csrf_exempt
+@check_sign
+def post_comment(request, note_id):
+
+    if request.method == "POST":
+        try:
+            note = Note.objects.get(pk = note_id)
+        except Note.DoesNotExist:
+            return ErrorJsonResponse(status=404)
+
+        _forms = PostNoteCommentForm(note=note, data=request.POST)
+        if _forms.is_valid():
+            res = _forms.save()
+            return SuccessJsonResponse(res)
+        return ErrorJsonResponse(status=403)
 
     return ErrorJsonResponse(status=400)
+
+
+
 
 __author__ = 'edison7500'

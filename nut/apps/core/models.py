@@ -574,6 +574,8 @@ class Note_Comment(BaseModel):
         res.pop('user_id', None)
         res.pop('replied_user_id', None)
         res['creator'] = self.user.v3_toDict()
+        # res['created_time'] = "%s" % self.post_time
+        res['created_time'] = time.mktime(self.post_time.timetuple())
         try:
             replied_user = GKUser.objects.get(pk=self.replied_user_id)
             res['replied_user'] = replied_user.v3_toDict()

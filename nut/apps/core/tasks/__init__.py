@@ -20,7 +20,7 @@ class BaseTask(Task):
 
 from apps.core.tasks.entity import fetch_image, like_task, unlike_task
 from apps.core.tasks.selection import set_publish_time
-from apps.core.tasks.note import post_note, depoke_note
+from apps.core.tasks.note import post_note_task, depoke_note_task
 
 
 __author__ = 'edison'
