@@ -43,6 +43,7 @@ def tag_list(request, user_id):
     res['tags'] = Entity_Tag.objects.user_tags(user=_user.pk)
     return SuccessJsonResponse(res)
 
+
 @check_sign
 def tag_detail(request, user_id, tag):
 
