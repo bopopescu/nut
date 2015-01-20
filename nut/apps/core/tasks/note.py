@@ -9,7 +9,6 @@ log = getLogger('django')
 
 @task(base=BaseTask)
 def post_note(uid, nid):
-
     try:
         Note_Poke.objects.get(user_id=uid, note_id=nid)
     except Note_Poke.DoesNotExist:
@@ -18,6 +17,7 @@ def post_note(uid, nid):
             note_id=nid,
         )
         np.save()
+    log.info("poke ok ok")
     # pass
 
 @task(base=BaseTask)
@@ -27,5 +27,6 @@ def depoke_note(uid, nid):
         np.delete()
     except Note_Poke.DoesNotExist, e:
         log.info("INFO: %s" % e.message)
+    log.info("depoke ok ok")
 
 __author__ = 'edison'

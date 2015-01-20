@@ -5,9 +5,16 @@ from apps.core.models import Note
 from apps.mobile.models import Session_Key
 from apps.core.tasks.note import post_note, depoke_note
 
+from django.utils.log import getLogger
+
+log = getLogger('django')
+
 
 @check_sign
 def detail(request, note_id):
+
+    _key = request.GET.get('session', None)
+
     res = dict()
     try:
         note = Note.objects.get(pk=note_id)
@@ -38,7 +45,7 @@ def poke(request, note_id, target_status):
         'note_id': int(note_id)
     }
     if request.method == "POST":
-        _key = request.GET.get('session', None)
+        _key = request.POST.get('session', None)
 
         try:
             _session = Session_Key.objects.get(session_key = _key)
@@ -46,12 +53,12 @@ def poke(request, note_id, target_status):
             return ErrorJsonResponse(status=403)
 
         if target_status == "1":
-            post_note(uid=_session.user_id, nid=note_id)
+            post_note.delay(uid=_session.user_id, nid=note_id)
             res['poke_already'] = 1
         else:
-            depoke_note(uid=_session.user_id, nid=note_id)
+            depoke_note.delay(uid=_session.user_id, nid=note_id)
             res['poke_already'] = 0
-
+        log.info(res)
         return SuccessJsonResponse(res)
 
     return ErrorJsonResponse(status=400)
