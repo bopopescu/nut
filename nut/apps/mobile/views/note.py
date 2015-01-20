@@ -1,7 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.mobile.lib.sign import check_sign
-from apps.core.models import Entity, Note, Note_Poke
+from apps.core.models import Entity, Note, Note_Poke, Note_Comment
 from apps.core.tasks.note import post_note_task, depoke_note_task
 from apps.mobile.models import Session_Key
 from apps.mobile.forms.note import PostNoteForms, UpdateNoteForms
@@ -133,6 +133,22 @@ def post_comment(request, note_id):
     return ErrorJsonResponse(status=400)
 
 
+@csrf_exempt
+@check_sign
+def del_comment(request, note_id, comment_id):
+    if request.method == "POST":
+        _key = request.POST.get('session')
+        try:
+            _session = Session_Key.objects.get(session_key = _key)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
 
+        try:
+            nc = Note_Comment.objects.get(user=_session.user, pk=comment_id)
+            nc.delete()
+            return SuccessJsonResponse(data={'delete_already':1})
+        except Note_Comment.DoesNotExist:
+            return ErrorJsonResponse(status=404)
+    return ErrorJsonResponse(status=400)
 
 __author__ = 'edison7500'
