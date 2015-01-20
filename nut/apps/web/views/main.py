@@ -48,10 +48,7 @@ def selection(request, template='web/main/selection.html'):
     if request.user.is_authenticated():
         # notify.send(request.user, recipient=request.user, verb='you visitor selection page')
         e = selections.object_list
-        # log.info())
         el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(e.values_list('entity_id', flat=True)))
-        # log.info(list(e))
-
 
     if request.is_ajax():
         template = 'web/main/partial/selection_ajax.html'
@@ -72,7 +69,6 @@ def selection(request, template='web/main/selection.html'):
             content_type='text/html; charset=utf-8',
         )
 
-    # refresh_datetime = datetime.now()
     log.info(_refresh_datetime)
     return render_to_response(
         template,
