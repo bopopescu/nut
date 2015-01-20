@@ -1,7 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.mobile.lib.sign import check_sign
-from apps.core.models import Entity, Entity_Like
+from apps.core.models import Entity, Entity_Like, Note_Poke
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 # from apps.core.models import Entity_Like
 from apps.core.tasks import like_task, unlike_task
@@ -73,25 +73,29 @@ def detail(request, entity_id):
     _key = request.GET.get('session', None)
     # log.info("session "_key)
     try:
-        _session = Session_Key.objects.get(session_key=_key)
-        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=[entity_id])
-    except Session_Key.DoesNotExist, e:
-        log.info(e.message)
-        el = None
-
-    res = dict()
-    try:
         entity = Entity.objects.get(pk=entity_id)
     except Entity.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
+    try:
+        _session = Session_Key.objects.get(session_key=_key)
+        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=[entity_id])
+        np = Note_Poke.objects.user_poke_list(user=_session.user,  note_list=list(entity.notes.values_list('id', flat=True)))
+        # np = Note_Poke.objects.filter(user=_session.user, note_id__in=list(entity.notes.values_list('id', flat=True))).values_list('note_id', flat=True)
+    except Session_Key.DoesNotExist, e:
+        log.info(e.message)
+        el = None
+        np = None
 
-    log.info(el)
+    # log.info(np)
+    # log.info(el)
+    res = dict()
+
     res['entity'] = entity.v3_toDict(user_like_list=el)
     res['note_list'] = []
     for note in entity.notes.filter(status__gte=0):
         res['note_list'].append(
-            note.v3_toDict()
+            note.v3_toDict(user_note_pokes=np)
         )
 
     res['like_user_list'] = []

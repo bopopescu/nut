@@ -1,4 +1,7 @@
 from django.db import models
+from django.utils.log import getLogger
+
+log = getLogger('django')
 
 
 class NoteQuerySet(models.query.QuerySet):
@@ -15,5 +18,19 @@ class NoteManager(models.Manager):
     def normal(self):
         return self.get_query_set().normal()
 
+
+class NotePokeQuerySet(models.query.QuerySet):
+
+    def user_poke_list(self, user, note_list):
+        return self.filter(user=user, note_id__in=note_list).values_list('note_id', flat=True)
+
+class NotePokeManager(models.Manager):
+
+    def get_queryset(self):
+        return NotePokeQuerySet(self.model, using=self._db)
+
+    def user_poke_list(self, user, note_list):
+        # log.info(note_list)
+        return  self.get_queryset().user_poke_list(user, note_list)
 
 __author__ = 'edison7500'

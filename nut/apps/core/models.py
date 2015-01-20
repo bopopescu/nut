@@ -11,7 +11,7 @@ from django.conf import settings
 from apps.core.extend.fields.listfield import ListObjectField
 from apps.core.manager.account import GKUserManager
 from apps.core.manager.entity import EntityManager, EntityLikeManager, SelectionEntityManager
-from apps.core.manager.note import NoteManager
+from apps.core.manager.note import NoteManager, NotePokeManager
 from apps.core.manager.tag import EntityTagManager
 from apps.core.manager.category import CategoryManager
 from djangosphinx.models import SphinxSearch
@@ -532,7 +532,7 @@ class Note(BaseModel):
     def post_timestamp(self):
         return time.mktime(self.post_time.timetuple())
 
-    def v3_toDict(self):
+    def v3_toDict(self, user_note_pokes=None):
         res = self.toDict()
         res.pop('note', None)
         res.pop('id', None)
@@ -545,7 +545,12 @@ class Note(BaseModel):
         res['creator'] = self.user.v3_toDict()
 
         res['poker_id_list'] = list(self.poke_list)
-        # log.info(self.poke_list)
+        # log.info(user_note_pokes)
+        res['poke_already'] = 0
+        if user_note_pokes and self.id in user_note_pokes:
+            res['poke_already'] = 1
+
+
         return res
 
 
@@ -581,6 +586,8 @@ class Note_Poke(models.Model):
     note = models.ForeignKey(Note, related_name="pokes")
     user = models.ForeignKey(GKUser, related_name="poke")
     created_time = models.DateTimeField(auto_now_add = True, db_index = True)
+
+    objects = NotePokeManager()
 
     class Meta:
         ordering = ['-created_time']

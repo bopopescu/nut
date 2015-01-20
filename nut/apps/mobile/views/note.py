@@ -1,7 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.mobile.lib.sign import check_sign
-from apps.core.models import Note
+from apps.core.models import Note, Note_Poke
 from apps.mobile.models import Session_Key
 from apps.core.tasks.note import post_note, depoke_note
 
@@ -14,6 +14,12 @@ log = getLogger('django')
 def detail(request, note_id):
 
     _key = request.GET.get('session', None)
+    try:
+        _session = Session_Key.objects.get(session_key = _key)
+        np = Note_Poke.objects.user_poke_list(user=_session.user, note_list=[note_id])
+    except Session_Key.DoesNotExist:
+        np = None
+
 
     res = dict()
     try:
@@ -21,7 +27,7 @@ def detail(request, note_id):
     except Note.DoesNotExist:
         raise ErrorJsonResponse(status=404)
 
-    res['note'] = note.v3_toDict()
+    res['note'] = note.v3_toDict(user_note_pokes=np)
     res['entity'] = note.entity.v3_toDict()
     res['poker_list'] = []
     for poker in note.pokes.all():
@@ -32,7 +38,6 @@ def detail(request, note_id):
     res['comment_list'] = []
     for comment in note.comments.all():
         res['comment_list'].append(comment.v3_toDict())
-
 
     return SuccessJsonResponse(res)
 
