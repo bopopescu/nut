@@ -105,11 +105,12 @@ def update_note(request, note_id):
         except Note.DoesNotExist:
             return ErrorJsonResponse(status=404)
 
-        _forms = UpdateNoteForms(note=note)
+        _forms = UpdateNoteForms(note=note, data=request.POST)
+        # log.info(request.POST)
         if _forms.is_valid():
             res = _forms.update()
             return SuccessJsonResponse(res)
-        
+
     return ErrorJsonResponse(status=400)
 
 __author__ = 'edison7500'
