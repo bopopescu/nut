@@ -1,7 +1,9 @@
 # coding=utf8
 from django import forms
-from apps.core.models import Note
+from apps.core.models import Note, Tag, Entity_Tag
 from apps.mobile.models import Session_Key
+from apps.core.utils.tag import TagParser
+from datetime import datetime
 
 from django.utils.log import getLogger
 
@@ -32,19 +34,30 @@ class PostNoteForms(forms.Form):
             )
         return _session.user_id
 
+
+    def clean_note(self):
+        _note_text = self.cleaned_data.get('note')
+        _note_text = _note_text.replace(u"＃", "#")
+        return _note_text
+
     def save(self):
         _note_text = self.cleaned_data.get('note')
         _user_id = self.cleaned_data.get('session')
 
-        # log.info("user id %s" % _user_id)
-        _note_text = _note_text.replace(u"＃", "#")
 
-        note = Note(
-            user_id = _user_id,
-            entity = self.entity_cache,
-        )
-        note.note = _note_text
-        note.save()
+        try:
+            note = Note.objects.get(user_id=_user_id, entity=self.entity_cache)
+        except Note.DoesNotExist:
+
+            note = Note(
+                user_id = _user_id,
+                entity = self.entity_cache,
+            )
+            note.note = _note_text
+            note.save()
+
+        t = TagParser(_note_text)
+        t.create_tag(user_id=_user_id, entity_id=self.entity_cache.pk)
 
         return note.v3_toDict()
 
@@ -59,13 +72,20 @@ class UpdateNoteForms(forms.Form):
         self.note_cache = note
         super(UpdateNoteForms, self).__init__(*args, **kwargs)
 
-    def update(self):
+    def clean_note(self):
         _note_text = self.cleaned_data.get('note')
         _note_text = _note_text.replace(u"＃", "#")
+        return _note_text
+
+    def update(self):
+        _note_text = self.cleaned_data.get('note')
+        # _note_text = _note_text.replace(u"＃", "#")
 
         # _user_id = self.cleaned_data.get('session')
         self.note_cache.note = _note_text
         self.note_cache.save()
+        t = TagParser(_note_text)
+        t.create_tag(user_id=self.note_cache.user_id, entity_id=self.note_cache.entity_id)
 
         return self.note_cache.v3_toDict()
 
