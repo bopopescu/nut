@@ -119,6 +119,7 @@ def update_note(request, note_id):
 def post_comment(request, note_id):
 
     if request.method == "POST":
+        log.info(request.POST)
         try:
             note = Note.objects.get(pk = note_id)
         except Note.DoesNotExist:
