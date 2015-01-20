@@ -189,19 +189,19 @@ msgstr ""
 
 #: apps/core/forms/banner.py:23 apps/core/forms/banner.py:121
 msgid "first"
-msgstr ""
+msgstr "第一"
 
 #: apps/core/forms/banner.py:24 apps/core/forms/banner.py:122
 msgid "second"
-msgstr ""
+msgstr "第二"
 
 #: apps/core/forms/banner.py:25 apps/core/forms/banner.py:123
 msgid "third"
-msgstr ""
+msgstr "第三"
 
 #: apps/core/forms/banner.py:26 apps/core/forms/banner.py:124
 msgid "fourth"
-msgstr ""
+msgstr "第四"
 
 #: apps/core/forms/banner.py:28 apps/core/forms/banner.py:126
 msgid "position"
@@ -520,6 +520,9 @@ msgstr "头像"
 #: apps/management/templates/management/users/list.html:25
 msgid "is_admin"
 msgstr ""
+
+msgid "remember me"
+msgstr "记住密码"
 
 msgid "next"
 msgstr "下一步"
