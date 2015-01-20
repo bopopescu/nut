@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.log import getLogger
 
 from apps.core.models import Note
-
+from apps.core.utils.tag import TagParser
 
 log = getLogger('django')
 
@@ -34,15 +34,26 @@ class NoteForm(forms.ModelForm):
         self.note_id = kwargs.pop('nid', Note)
         super(NoteForm, self).__init__(*args, **kwargs)
 
+    def clean_note(self):
+        _note_text = self.cleaned_data.get('note')
+        _note_text = _note_text.replace(u"＃", "#")
+        return _note_text
+
     def save(self, commit=True):
         # note = super(NoteForm, self).save(commit=commit)
         _note = self.cleaned_data.get('note')
-        note = Note.objects.create(
-            note=_note,
-            user = self.user,
-            entity_id = self.entity_id,
-        )
 
+
+        try:
+            note = Note.objects.get(user=self.user, entity_id=self.entity_id)
+        except Note.DoesNotExist:
+            note = Note.objects.create(
+                note=_note,
+                user = self.user,
+                entity_id = self.entity_id,
+            )
+        t = TagParser(_note)
+        t.create_tag(user_id=self.user.pk, entity_id=self.entity_id)
         # note = Note.objects.get_or_create(entity_id = self.entity_id, user=self.user)
         # note.note = _note
         # note.save()
@@ -55,7 +66,8 @@ class NoteForm(forms.ModelForm):
         note = Note.objects.get(pk=self.note_id, user=self.user)
         note.note = _note
         note.save()
-
+        t = TagParser(_note)
+        t.create_tag(user_id=self.user.pk, entity_id=self.entity_id)
         return note
     #     _content = self.cleaned_data.get('content')
     #     log.info(_content)
