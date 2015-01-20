@@ -1,3 +1,4 @@
+# coding=utf-8
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.log import getLogger
@@ -5,6 +6,7 @@ from django.utils.log import getLogger
 from apps.core.models import Note
 from apps.core.models import GKUser
 from apps.core.forms import get_admin_user_choices
+from apps.core.utils.tag import TagParser
 
 log = getLogger('django')
 
@@ -84,6 +86,12 @@ class CreateNoteForm(forms.Form):
             help_text=_(''),
         )
 
+
+    def clean_content(self):
+        _note_text = self.cleaned_data.get('note')
+        _note_text = _note_text.replace(u"＃", "#")
+        return _note_text
+
     def save(self):
 
         _content = self.cleaned_data.get('content')
@@ -114,7 +122,8 @@ class CreateNoteForm(forms.Form):
             )
             note.save()
         # log.info(_content)
-
+        t = TagParser(_content)
+        t.create_tag(user_id=_user_id, entity_id=self.entity_cache.pk)
         return note
 
 
