@@ -71,6 +71,7 @@ class CreateNoteForm(forms.Form):
         help_text=_(''),
         initial=0,
     )
+
     def __init__(self, entity, *args, **kwargs):
         self.entity_cache = entity
         super(CreateNoteForm, self).__init__(*args, **kwargs)
