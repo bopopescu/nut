@@ -14,6 +14,7 @@ urlpatterns = patterns(
 urlpatterns += patterns(
     'apps.mobile.views.note',
     url(r'^note/(?P<note_id>\d+)/$', 'detail', name='mobile_entity_note'),
+    url(r'^note/(?P<note_id>\d+)/poke/(?P<target_status>\d+)/$', 'poke', name='mobile_note_poke'),
 )
 
 
