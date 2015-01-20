@@ -1,3 +1,4 @@
+from django.views.decorators.csrf import csrf_exempt
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.mobile.lib.sign import check_sign
 from apps.core.models import Note
@@ -29,6 +30,7 @@ def detail(request, note_id):
     return SuccessJsonResponse(res)
 
 
+@csrf_exempt
 @check_sign
 def poke(request, note_id, target_status):
 
