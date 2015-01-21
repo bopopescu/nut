@@ -90,6 +90,18 @@ class UserForm(forms.Form):
 
         return _user_id
 
+    def clean_nickname(self):
+        _nickname = self.cleaned_data.get('nickname')
+        print _nickname
+        try:
+            User_Profile.objects.get(nickname = _nickname)
+        except User_Profile.DoesNotExist:
+            return _nickname
+        raise forms.ValidationError(
+            self.error_messages['duplicate_nickname'],
+            code='duplicate_nickname',
+        )
+
     def clean_email(self):
 
         _email = self.cleaned_data.get('email')

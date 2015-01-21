@@ -4,6 +4,7 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInte
 
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
+from apps.mobile.forms.user import MobileUserProfileForm
 
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.log import getLogger
@@ -21,8 +22,19 @@ def update(request):
 
     if request.method == "POST":
         log.info(request.POST)
-        log.info(request.FILES)
-        return
+        # log.info(request.FILES)
+        _key = request.POST.get('session', None)
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
+
+        _forms = MobileUserProfileForm(user=_session.user, data=request.POST, files=request.FILES)
+        if _forms.is_valid():
+            res = _forms.save()
+            return SuccessJsonResponse(res)
+
+
 
     return ErrorJsonResponse(status=400)
 
