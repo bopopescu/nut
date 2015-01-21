@@ -73,8 +73,7 @@ def tag_detail(request, user_id, tag):
         el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(tags.values_list('entity_id', flat=True)))
     except Session_Key.DoesNotExist:
         el = None
-    # log.info(tags)
-    # log.in
+
     res = dict()
     res['user'] = user.v3_toDict()
     res['entity_list'] = []
