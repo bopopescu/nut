@@ -47,7 +47,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
         _entity.notes.get(user=_user)
     except Note.DoesNotExist:
         _user_post_note = False
-        
+
     like_status = 0
     try:
         _entity.likes.get(user=_user)
