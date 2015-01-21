@@ -39,11 +39,38 @@ def stat(request, category_id):
     except Session_Key.DoesNotExist:
         res['like_count'] = 0
 
+    return SuccessJsonResponse(res)
 
 
 
+@require_GET
+@check_sign
+def user_like(request, category_id, user_id):
 
-    # res['like_count'] = 0
+    _key = request.GET.get('session')
+    _offset = int(request.GET.get('offset', '0'))
+    _count = int(request.GET.get('count', '30'))
+
+    _offset = _offset / _count + 1
+
+
+    innqs = Entity_Like.objects.filter(user_id=user_id).values_list('entity_id', flat=True)
+
+    entity_list = Entity.objects.filter(category_id=category_id, id__in=innqs)
+
+    paginator = ExtentPaginator(entity_list, _count)
+
+    try:
+        entities = paginator.page(_offset)
+    except PageNotAnInteger:
+        entities = paginator.page(1)
+    except EmptyPage:
+        return ErrorJsonResponse(status=404)
+
+
+    res = []
+    for entity in entities:
+        res.append(entity.v3_toDict(user_like_list=[entity.id]))
 
     return SuccessJsonResponse(res)
 
