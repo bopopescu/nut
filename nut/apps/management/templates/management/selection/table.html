@@ -35,9 +35,11 @@
                         <td>{{ selection.entity.price }}</td>
 {#                        <td>{{ entity.get_status_display }}</td>#}
                         <td>
-                            <a class="btn btn-default" href="{% url 'management_entity_edit' selection.entity.pk %}" target="_blank">{% trans 'edit' %}</a>
+                            <div class="btn-group">
+                                <a class="btn btn-default" href="{% url 'management_entity_edit' selection.entity.pk %}" target="_blank">{% trans 'edit' %}</a>
 {#                            <a class="btn btn-primary">{{ selection.entity.pk }}</a>#}
-                            <a class="btn btn-primary" href="{% url 'management_selection_edit_publish' selection.pk %}" target="_blank">{% trans 'edit datetime' %}</a>
+                                <a class="btn btn-primary" href="{% url 'management_selection_edit_publish' selection.pk %}" target="_blank">{% trans 'edit datetime' %}</a>
+                            </div>
                         </td>
                     </tr>
                 {% endfor %}
