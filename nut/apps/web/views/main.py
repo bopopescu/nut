@@ -108,7 +108,7 @@ def search(request, template="web/main/search.html"):
         form = SearchForm(request.GET)
         if form.is_valid():
             _results = form.search()
-            # log.info("result %s" % results.count())
+            # log.info("result %s" % _results.count())
             # for row in results:
             #     print row.id
             # log.info("type %s" % form.get_search_type())

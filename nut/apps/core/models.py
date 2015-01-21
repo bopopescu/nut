@@ -429,10 +429,11 @@ class Entity(BaseModel):
     search = SphinxSearch(
         index = 'entities',
         weights={
-            'title': 20,
-            'brand': 10,
+            'brand': 100,
+            'title': 50,
             # 'intro': 5,
         },
+        maxmatches = 5000,
         mode = 'SPH_MATCH_ALL',
         rankmode = 'SPH_RANK_NONE',
     )

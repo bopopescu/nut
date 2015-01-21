@@ -13,7 +13,7 @@
 {#                <div class="navbar-collapse collapse">#}
                     <ul class="nav navbar-nav">
                         {% for row in results %}
-                            <li class="">
+                            <li class="active">
                                 <a href="{% url 'web_search' %}?q={{ keyword }}&t={{ row.type }}">{{ row.name }}&nbsp;<strong>{{ row.res.count }}</strong></a>
                             </li>
                         {% endfor %}
