@@ -1,9 +1,10 @@
 from django.views.decorators.http import require_GET
 
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.models import Category, Sub_Category, Entity, Note
+from apps.core.models import Category, Sub_Category, Entity, Entity_Like,  Note
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.mobile.lib.sign import check_sign
+from apps.mobile.models import Session_Key
 
 from django.utils.log import getLogger
 
@@ -24,11 +25,25 @@ def list(request):
 @check_sign
 def stat(request, category_id):
 
+    _key = request.GET.get('session')
     res = dict()
-
-    res['entity_count'] = Entity.objects.filter(category_id=category_id, status__gte=0).count()
+    entities = Entity.objects.filter(category_id=category_id, status__gte=0)
+    res['entity_count'] = entities.count()
     res['entity_note_count'] = Note.objects.filter(entity__category_id=category_id).count()
-    res['like_count'] = 0
+
+    try:
+        _session = Session_Key.objects.get(session_key = _key)
+        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=entities.values_list('id', flat=True))
+        # Entity.objects.filter()
+        res['like_count'] = el.count()
+    except Session_Key.DoesNotExist:
+        res['like_count'] = 0
+
+
+
+
+
+    # res['like_count'] = 0
 
     return SuccessJsonResponse(res)
 
