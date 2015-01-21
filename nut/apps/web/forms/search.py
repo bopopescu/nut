@@ -49,6 +49,7 @@ class SearchForm(forms.Form):
     def get_search_type(self):
         # self.type = self.cleaned_data.get('t')
         self.type = self.cleaned_data.get('t')
+        log.info("type type %s" % self.type)
         if self.type is None:
             self.type = 'e'
         return self.type
