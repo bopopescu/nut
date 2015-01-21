@@ -21,6 +21,7 @@ def update(request):
 
     if request.method == "POST":
         log.info(request.POST)
+        log.info(request.FILES)
         return
 
     return ErrorJsonResponse(status=400)
