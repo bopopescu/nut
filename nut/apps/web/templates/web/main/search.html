@@ -17,15 +17,6 @@
                                 <a href="{% url 'web_search' %}?q={{ keyword }}&t={{ row.type }}">{{ row.name }}&nbsp;<strong>{{ row.res.count }}</strong></a>
                             </li>
                         {% endfor %}
-{#                        <li class="active">#}
-{#                            <a href="{% url 'web_search' %}?q={{ keyword }}&t=e">商品 <strong>{{ entity_result_count }}</strong></a>#}
-{#                        </li>#}
-{#                        <li class="">#}
-{#                            <a href="{% url 'web_search' %}?q={{ keyword }}&t=u">用户 <strong>{{ user_result_count }}</strong></a>#}
-{#                        </li>#}
-{#                        <li class="">#}
-{#                            <a href="{% url 'web_search' %}?q={{ keyword }}&t=t">标签 <strong>{{tag_result_count}}</strong></a>#}
-{#                        </li>#}
                     </ul>
 {#                </div>#}
             </div>
@@ -46,6 +37,10 @@
             {% endfor %}
 {#            {% endif %}#}
         </div>
-    </div>
 
+        {% include "web/main/partial/paginator.html" with objects=objects url=request.path keyword=keyword %}
+{#        {% if paginator %}#}
+{#            {% include "web/main/partial/selection_paginator.html" with objects=selections paginator=paginator url=request.url %}#}
+{#        {% endif %}#}
+    </div>
 {% endblock %}
