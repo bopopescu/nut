@@ -20,7 +20,7 @@ class MobileUserProfileForm(forms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(),
         required=False,
-        min_length=8,
+        min_length=6,
     )
 
     def __init__(self, user, *args, **kwargs):
@@ -64,17 +64,22 @@ class MobileUserProfileForm(forms.Form):
         _image = self.cleaned_data.get('image')
         _nickname = self.cleaned_data.get('nickname')
         _email = self.cleaned_data.get('email')
+        _password = self.cleaned_data.get('password')
         # print _nickname
         if _image:
             avatar_file = HandleImage(_image)
 
             self.user_cache.profile.avatar = avatar_file.avatar_save()
+
         if _nickname:
             self.user_cache.profile.nickname = _nickname
 
-
         if _email:
             self.user_cache.email = _email
+            self.user_cache.save()
+
+        if _password:
+            self.user_cache.set_password(_password)
             self.user_cache.save()
 
         self.user_cache.profile.save()
