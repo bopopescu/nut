@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import get_user_model
 from apps.core.models import User_Profile
 from apps.core.utils.image import HandleImage
 
@@ -28,8 +29,10 @@ class MobileUserProfileForm(forms.Form):
 
     def clean_nickname(self):
         _nickname = self.cleaned_data.get('nickname')
-        if _nickname:
+        if _nickname == self.user_cache.profile.nickname:
+            return _nickname
 
+        if _nickname:
             try:
                 User_Profile.objects.get(nickname = _nickname)
             except User_Profile.DoesNotExist:
@@ -39,7 +42,23 @@ class MobileUserProfileForm(forms.Form):
                 code='duplicate_nickname',
             )
 
-    # def clean_email(self):
+    def clean_email(self):
+        _email = self.cleaned_data.get('email')
+
+        if _email is None:
+            return None
+
+        if self.user_cache.email == _email:
+            return _email
+
+        try:
+            get_user_model()._default_manager.get(email = _email)
+        except get_user_model().DoesNotExist:
+            return _email
+        raise forms.ValidationError(
+            self.error_messages['duplicate_email'],
+            code= 'duplicate_email',
+        )
 
     def save(self):
         _image = self.cleaned_data.get('image')
@@ -52,6 +71,11 @@ class MobileUserProfileForm(forms.Form):
             self.user_cache.profile.avatar = avatar_file.avatar_save()
         if _nickname:
             self.user_cache.profile.nickname = _nickname
+
+
+        if _email:
+            self.user_cache.email = _email
+            self.user_cache.save()
 
         self.user_cache.profile.save()
         return self.user_cache.v3_toDict()
