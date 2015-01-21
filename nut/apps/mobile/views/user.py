@@ -5,12 +5,26 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInte
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 
+from django.views.decorators.csrf import csrf_exempt
 from django.utils.log import getLogger
 from datetime import datetime
 import time
 
 
 log = getLogger('django')
+
+
+@csrf_exempt
+@check_sign
+def update(request):
+
+
+    if request.method == "POST":
+        log.info(request.POST)
+        return
+
+    return ErrorJsonResponse(status=400)
+
 
 @check_sign
 def detail(request, user_id):
