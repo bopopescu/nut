@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib.auth import get_user_model, authenticate
 from apps.core.forms.account import GuoKuUserSignInForm, GuokuUserSignUpForm
+from apps.core.models import Sina_Token, Taobao_Token
 from apps.mobile.models import Session_Key
+
 from apps.core.utils.image import HandleImage
 
 
@@ -103,6 +105,109 @@ class MobileUserSignOutForm(forms.Form):
             return True
         except Session_Key.DoesNotExist:
             return False
+
+
+class MobileWeiboLoginForm(forms.Form):
+
+    sina_id = forms.CharField(
+        widget=forms.TextInput()
+    )
+
+    sina_token = forms.CharField(
+        widget=forms.TextInput()
+    )
+
+    screen_name = forms.CharField(
+        widget=forms.TextInput()
+    )
+
+    api_key = forms.CharField(
+        widget=forms.TextInput()
+    )
+
+    def clean_sina_id(self):
+        _weibo_id = self.cleaned_data.get('sina_id')
+
+        try:
+            weibo = Sina_Token.objects.get(sina_id = _weibo_id)
+            return weibo
+        except Sina_Token.DoesNotExist:
+            raise forms.ValidationError(
+                'token is not exist'
+            )
+
+    def login(self):
+        _weibo_token = self.cleaned_data.get('sina_token')
+        _screen_name = self.cleaned_data.get('screen_name')
+        _api_key = self.cleaned_data.get('api_key')
+
+        _weibo = self.cleaned_data.get('sina_id')
+
+        _weibo.access_token = _weibo_token
+        _weibo.screen_name = _screen_name
+        _weibo.save()
+
+        session = Session_Key.objects.generate_session(
+            user_id=_weibo.user_id,
+            email=_weibo.user.email,
+            api_key=_api_key,
+            username="guoku",
+        )
+
+        res = {
+            'user':_weibo.user.v3_toDict(),
+            'session':session.session_key,
+        }
+
+        return res
+
+
+class MobileTaobaoLogin(forms.Form):
+
+    taobao_id = forms.CharField(
+        widget=forms.TextInput()
+    )
+
+    taobao_token = forms.CharField(
+        widget=forms.TextInput()
+    )
+
+    api_key = forms.CharField(
+        widget=forms.TextInput()
+    )
+
+    def clean_taobao_id(self):
+        _taobao_id = self.cleaned_data.get('taobao_id')
+
+        try:
+            taobao = Taobao_Token.objects.get(taobao_id = _taobao_id)
+            return taobao
+        except Taobao_Token.DoesNotExist:
+            raise forms.ValidationError(
+                'token is note exist'
+            )
+
+    def login(self):
+        _taobao_token = self.cleaned_data.get('taobao_token')
+        _api_key = self.cleaned_data.get('api_key')
+
+        _taobao = self.cleaned_data.get('taobao_id')
+
+        _taobao.access_token = _taobao_token
+        _taobao.save()
+
+        session = Session_Key.objects.generate_session(
+            user_id=_taobao.user_id,
+            email=_taobao.user.email,
+            api_key=_api_key,
+            username="guoku",
+        )
+        res = {
+            'user':_taobao.user.v3_toDict(),
+            'session':session.session_key,
+        }
+
+        return res
 
 
 __author__ = 'edison7500'
