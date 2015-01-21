@@ -14,7 +14,7 @@ log = getLogger('django')
 
 @require_GET
 @check_sign
-def list(request):
+def category_list(request):
 
     res = Category.objects.toDict()
     # res = []
@@ -67,7 +67,6 @@ def user_like(request, category_id, user_id):
     except EmptyPage:
         return ErrorJsonResponse(status=404)
 
-
     res = []
     for entity in entities:
         res.append(entity.v3_toDict(user_like_list=[entity.id]))
@@ -82,10 +81,14 @@ def entity(request, category_id):
     _offset = int(request.GET.get('offset', '0'))
     _offset = _offset / 30 + 1
     _count = int(request.GET.get('count', '30'))
+    _key = request.GET.get('session')
 
     # entity_list = Entity.objects.filter(category_id=category_id, status__gte=0)
     entity_list = Entity.objects.new_or_selection(category_id=category_id)
     paginator = ExtentPaginator(entity_list, _count)
+
+
+
 
     try:
         entities = paginator.page(_offset)
@@ -94,10 +97,16 @@ def entity(request, category_id):
     except EmptyPage:
         return ErrorJsonResponse(status=404)
 
+    try:
+        _session = Session_Key.objects.get(session_key=_key)
+
+        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(entities.object_list.values_list('id', flat=True)))
+    except Session_Key.DoesNotExist:
+        el = None
+
     res = []
     for row in entities.object_list:
-
-        r = row.toDict()
+        r = row.v3_toDict(user_like_list=el)
         r.pop('images', None)
         r.pop('id', None)
         res.append(
