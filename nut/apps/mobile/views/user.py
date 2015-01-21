@@ -1,7 +1,9 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.mobile.lib.sign import check_sign
 from apps.core.models import Entity_Tag, GKUser, Entity_Like, Note
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
+
+from apps.mobile.lib.sign import check_sign
+from apps.mobile.models import Session_Key
 
 from django.utils.log import getLogger
 from datetime import datetime
@@ -38,6 +40,13 @@ def tag_list(request, user_id):
     except GKUser.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
+    # _key = request.GET.get('session')
+    #
+    # try:
+    #     _session = Session_Key.objects.get(session_key = _key)
+    # except Session_Key.DoesNotExist:
+    #     pass
+
     res = {}
     res['user'] = _user.v3_toDict()
     res['tags'] = Entity_Tag.objects.user_tags(user=_user.pk)
@@ -46,6 +55,10 @@ def tag_list(request, user_id):
 
 @check_sign
 def tag_detail(request, user_id, tag):
+    _key = request.GET.get('session')
+
+
+
 
     try:
         user = GKUser.objects.get(pk=user_id)
@@ -54,6 +67,12 @@ def tag_detail(request, user_id, tag):
 
     tags = Entity_Tag.objects.filter(user_id=user_id, tag__tag=tag)
 
+
+    try:
+        _session = Session_Key.objects.get(session_key = _key)
+        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(tags.values_list('entity_id', flat=True)))
+    except Session_Key.DoesNotExist:
+        el = None
     # log.info(tags)
     # log.in
     res = dict()
@@ -61,7 +80,7 @@ def tag_detail(request, user_id, tag):
     res['entity_list'] = []
     for row in tags:
         entity = row.entity
-        res['entity_list'].append(entity.v3_toDict())
+        res['entity_list'].append(entity.v3_toDict(user_like_list=el))
         # log.info(entity)
 
     log.info(res)
