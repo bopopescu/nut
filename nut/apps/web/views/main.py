@@ -110,11 +110,11 @@ def search(request, template="web/main/search.html"):
     if form.is_valid():
         _results = form.search()
             # log.info("result %s" % _results.count())
+        _objects = None
         for row in _results:
             log.info(row['type'])
 
             if _type == row['type']:
-
                 paginator = ExtentPaginator(row['res'], 20)
 
                 try:
@@ -131,7 +131,7 @@ def search(request, template="web/main/search.html"):
                 {
                     'keyword': form.get_keyword(),
                     'results': _results,
-                    'type': form.get_search_type(),
+                    'type': _type,
                     'objects': _objects
                 },
                 context_instance=RequestContext(request),
