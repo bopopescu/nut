@@ -10,7 +10,7 @@
 {% block content %}
     {% url 'web_user_entity_like' user.pk as web_user_likes_url %}
     {% url 'web_user_post_note' user.pk as web_user_notes_url %}
-{#    {% url 'web_user_tag' user.pk as web_user_tags_url %}#}
+    {% url 'web_user_tag' user.pk as web_user_tags_url %}
     {% url 'web_user_followings' user.pk as web_user_followings_url %}
     {% url 'web_user_fans' user.pk as web_user_fans_url %}
 
@@ -44,9 +44,9 @@
                         <li role="presentation" {% if web_user_notes_url in request.path %}class="active"{% endif %}>
                             <a href="{{ web_user_notes_url }}">{% trans 'notes' %}&nbsp; <strong>{{ user.post_note_count }}</strong></a>
                         </li>
-{#                        <li role="presentation" {% if web_user_tags_url in request.path %}class="active" {% endif %}>#}
-{#                            <a href="{{ web_user_tags_url }}">{% trans 'tags' %}&nbsp; <strong>{{ user.tags_count }}</strong></a>#}
-{#                        </li>#}
+                        <li role="presentation" {% if web_user_tags_url in request.path %}class="active" {% endif %}>
+                            <a href="{{ web_user_tags_url }}">{% trans 'tags' %}&nbsp; <strong>{{ user.tags_count }}</strong></a>
+                        </li>
                     </ul>
                     <ul class="nav nav-pills pull-right hidden-xs" role="tablist">
                         <li role="presentation" {% if web_user_followings_url in request.path %}class="active"{% endif %}>

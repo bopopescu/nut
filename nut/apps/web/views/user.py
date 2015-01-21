@@ -11,7 +11,7 @@ from apps.core.utils.http import JSONResponse
 # from apps.core.utils.image import HandleImage
 from apps.core.forms.user import AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
-from apps.core.models import Entity, Entity_Like, Entity_Tag
+from apps.core.models import Entity, Entity_Like, Tag, Entity_Tag
 
 from django.utils.log import getLogger
 
@@ -174,12 +174,36 @@ def tag(request, user_id, template="web/user/tag.html"):
 
 def user_tag_detail(request, user_id, tag_hash, template="web/user/tag_detail.html"):
 
-    tag_entities = Entity_Tag.objects.filter(user_id=user_id)
+    try:
+        _tag = Tag.objects.get(tag_hash=tag_hash)
+    except Tag.DoesNotExist:
+        raise Http404
+
+
+    # tag_entities = Entity_Tag.objects.filter(user_id=user_id)
+
+
+    _page = request.GET.get('page', 1)
+
+    # inner_qs = Entity_Tag.objects.filter(tag=_tag)
+    # log.info(e)
+    inner_qs = Entity_Tag.objects.filter(tag=_tag, user_id=user_id).values_list('entity_id', flat=True)
+    _entity_list = Entity.objects.filter(id__in=inner_qs, status=Entity.selection)
+    # log.info(entities)
+    paginator = ExtentPaginator(_entity_list, 24)
+
+    try:
+        _entities = paginator.page(_page)
+    except PageNotAnInteger:
+        _entities = paginator.page(1)
+    except EmptyPage:
+        raise Http404
 
     return render_to_response(
         template,
         {
-
+            'tag': _tag,
+            'entities': _entities,
         },
         context_instance = RequestContext(request),
     )

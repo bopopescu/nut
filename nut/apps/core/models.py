@@ -163,7 +163,12 @@ class User_Profile(BaseModel):
 
     @property
     def avatar_url(self):
-        return "%s%s" % (image_host, self.avatar)
+        if self.avatar:
+            return "%s%s" % (image_host, self.avatar)
+        else:
+            if self.gender == self.Woman:
+                return "%s%s" % (settings.STATIC_URL, 'images/woman.jpg')
+            return "%s%s" % (settings.STATIC_URL, 'images/man.jpg')
 
 
 class User_Follow(models.Model):
@@ -174,7 +179,6 @@ class User_Follow(models.Model):
     class Meta:
         ordering = ['-followed_time']
         unique_together = ("follower", "followee")
-
 
 
 class Banner(BaseModel):
