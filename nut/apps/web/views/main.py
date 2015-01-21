@@ -100,27 +100,42 @@ def popular(request, template='web/main/popular.html'):
         context_instance = RequestContext(request),
     )
 
+
+@require_GET
 def search(request, template="web/main/search.html"):
-
-
-    if request.method == 'GET':
-        _type = request.GET.get('t', 'e')
-        form = SearchForm(request.GET)
-        if form.is_valid():
-            _results = form.search()
+    # if request.method == 'GET':
+    _type = request.GET.get('t', 'e')
+    _page = request.GET.get('page', 1)
+    form = SearchForm(request.GET)
+    if form.is_valid():
+        _results = form.search()
             # log.info("result %s" % _results.count())
-            # for row in results:
+        for row in _results:
+            log.info(row['type'])
+
+            if _type == row['type']:
+
+                paginator = ExtentPaginator(row['res'], 20)
+
+                try:
+                    _objects = paginator.page(_page)
+                except PageNotAnInteger:
+                    _objects = paginator.page(1)
+                except EmptyPage:
+                    raise Http404
+
             #     print row.id
             # log.info("type %s" % form.get_search_type())
-            return render_to_response(
+        return render_to_response(
                 template,
                 {
                     'keyword': form.get_keyword(),
                     'results': _results,
                     'type': form.get_search_type(),
+                    'objects': _objects
                 },
                 context_instance=RequestContext(request),
-            )
+        )
 
 
 # def category(request, template="web/main/category.html"):

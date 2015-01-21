@@ -30,7 +30,7 @@ class SearchForm(forms.Form):
             'type': 'e',
             'res': res,
         })
-
+        # log.info(list(res))
         u_res = GKUser.search.query(_keyword)
         sqs.append({
             'name': _('user'),
@@ -38,7 +38,7 @@ class SearchForm(forms.Form):
             'res': u_res,
         })
 
-        log.info(sqs)
+        # log.info(sqs)
         return sqs
 
     def get_keyword(self):
@@ -51,7 +51,6 @@ class SearchForm(forms.Form):
         self.type = self.cleaned_data.get('t')
         if self.type is None:
             self.type = 'e'
-
         return self.type
 
 __author__ = 'edison'

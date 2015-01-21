@@ -136,6 +136,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         index = 'users',
         mode = 'SPH_MATCH_ALL',
         rankmode = 'SPH_RANK_NONE',
+
     )
 
 class User_Profile(BaseModel):
