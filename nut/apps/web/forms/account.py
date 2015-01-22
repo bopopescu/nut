@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 
-from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
+# from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from apps.core.models import GKUser, User_Profile
 from apps.core.utils.image import HandleImage
 # from django.contrib.auth.tokens import default_token_generator
@@ -201,7 +201,6 @@ class UserSignUpForm(forms.Form):
         auth_login(request, _user)
 
 
-
 class UserSignUpBioForm(forms.Form):
 
     avatar = forms.FileField(
@@ -262,39 +261,39 @@ class UserSignUpBioForm(forms.Form):
 
 
 # forget password
-class UserPasswordResetForm(PasswordResetForm):
-    email = forms.EmailField(label=_("Email"),
-                             max_length=254,
-                             widget=forms.TextInput(attrs={'class':'form-control'}),
-                             help_text=_('please register email'))
-
-    def __init__(self, *args, **kwargs):
-        super(UserPasswordResetForm, self).__init__(*args, **kwargs)
-        # UserModel = get_user_model()
-
-    def clean_email(self):
-        _email = self.cleaned_data.get('email')
-        UserModel = get_user_model()
-        try:
-            UserModel._default_manager.get(email=_email)
-        except:
-            raise forms.ValidationError(
-                _('email is not exist')
-            )
-        return _email
-
-
-class UserSetPasswordForm(SetPasswordForm):
-    new_password1 = forms.CharField(label=_("New password"),
-                                    widget=forms.PasswordInput(attrs={'class':'form-control'}),
-                                    help_text=_('New password'))
-    new_password2 = forms.CharField(label=_("New password confirmation"),
-                                    widget=forms.PasswordInput(attrs={'class':'form-control'}),
-                                    help_text=_('New password confirmation'))
-
-    def __init__(self, user, *args, **kwargs):
-
-        super(UserSetPasswordForm, self).__init__(user, *args, **kwargs)
+# class UserPasswordResetForm(PasswordResetForm):
+#     email = forms.EmailField(label=_("Email"),
+#                              max_length=254,
+#                              widget=forms.TextInput(attrs={'class':'form-control'}),
+#                              help_text=_('please register email'))
+#
+#     def __init__(self, *args, **kwargs):
+#         super(UserPasswordResetForm, self).__init__(*args, **kwargs)
+#         # UserModel = get_user_model()
+#
+#     def clean_email(self):
+#         _email = self.cleaned_data.get('email')
+#         UserModel = get_user_model()
+#         try:
+#             UserModel._default_manager.get(email=_email)
+#         except:
+#             raise forms.ValidationError(
+#                 _('email is not exist')
+#             )
+#         return _email
+#
+#
+# class UserSetPasswordForm(SetPasswordForm):
+#     new_password1 = forms.CharField(label=_("New password"),
+#                                     widget=forms.PasswordInput(attrs={'class':'form-control'}),
+#                                     help_text=_('New password'))
+#     new_password2 = forms.CharField(label=_("New password confirmation"),
+#                                     widget=forms.PasswordInput(attrs={'class':'form-control'}),
+#                                     help_text=_('New password confirmation'))
+#
+#     def __init__(self, user, *args, **kwargs):
+#
+#         super(UserSetPasswordForm, self).__init__(user, *args, **kwargs)
 
 
 __author__ = 'edison'

@@ -1,4 +1,6 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
+from apps.core.forms.account import UserPasswordResetForm
+
 from apps.mobile.forms.account import MobileUserSignInForm, MobileUserSignUpForm, MobileUserSignOutForm, \
     MobileWeiboLoginForm, MobileTaobaoLogin, MobileWeiboSignUpForm
 from apps.mobile.lib.sign import check_sign
@@ -99,7 +101,7 @@ def register_by_weibo(request):
     if request.method == "POST":
         _forms = MobileWeiboSignUpForm(request.POST, request.FILES)
         if _forms.is_valid():
-            pass
+            _user = _forms.save()
 
     return ErrorJsonResponse(status=400)
 
@@ -109,6 +111,28 @@ def register_by_weibo(request):
 def register_by_taobao(request):
 
 
+    return ErrorJsonResponse(status=400)
+
+
+@csrf_exempt
+@check_sign
+def forget_password(request):
+    # if request.method == "POST":
+    if request.method == 'POST':
+        _forms = UserPasswordResetForm(request.POST)
+        if _forms.is_valid():
+            _forms.save(domain_override='guoku.com',
+                        subject_template_name='web/mail/forget_password_subject.txt',
+                        email_template_name='web/mail/forget_password.html',
+                        from_email='hi@guoku.com')
+            return SuccessJsonResponse(data={ 'success' : '1' })
+        return ErrorJsonResponse(
+                data = {
+                    'type' : 'email',
+                    'message' : 'email does not exist',
+                },
+                status = 400
+            )
     return ErrorJsonResponse(status=400)
 
 

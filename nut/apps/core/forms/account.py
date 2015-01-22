@@ -2,6 +2,8 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import login as auth_login
 from apps.core.models import GKUser, User_Profile
+from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
+from django.contrib.auth import authenticate, get_user_model
 
 
 class GuoKuUserSignInForm(forms.Form):
@@ -124,5 +126,39 @@ class GuokuUserSignUpForm(forms.Form):
         )
         return self.user_cache
 
+
+class UserPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(label=_("Email"),
+                             max_length=254,
+                             widget=forms.TextInput(attrs={'class':'form-control'}),
+                             help_text=_('please register email'))
+
+    def __init__(self, *args, **kwargs):
+        super(UserPasswordResetForm, self).__init__(*args, **kwargs)
+        # UserModel = get_user_model()
+
+    def clean_email(self):
+        _email = self.cleaned_data.get('email')
+        UserModel = get_user_model()
+        try:
+            UserModel._default_manager.get(email=_email)
+        except:
+            raise forms.ValidationError(
+                _('email is not exist')
+            )
+        return _email
+
+
+class UserSetPasswordForm(SetPasswordForm):
+    new_password1 = forms.CharField(label=_("New password"),
+                                    widget=forms.PasswordInput(attrs={'class':'form-control'}),
+                                    help_text=_('New password'))
+    new_password2 = forms.CharField(label=_("New password confirmation"),
+                                    widget=forms.PasswordInput(attrs={'class':'form-control'}),
+                                    help_text=_('New password confirmation'))
+
+    def __init__(self, user, *args, **kwargs):
+
+        super(UserSetPasswordForm, self).__init__(user, *args, **kwargs)
 
 __author__ = 'edison'
