@@ -1,6 +1,6 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 
-from apps.mobile.forms.account import MobileTaobaoLogin
+from apps.mobile.forms.account import MobileTaobaoLoginForm, MobileTaobaoSignUpForm
 from apps.mobile.lib.sign import check_sign
 
 # from apps.mobile.models import Session_Key
@@ -16,7 +16,7 @@ log = getLogger('django')
 @check_sign
 def login_by_taobao(request):
     if request.method == "POST":
-        _forms = MobileTaobaoLogin(request.POST)
+        _forms = MobileTaobaoLoginForm(request.POST)
         if _forms.is_valid():
             res = _forms.login()
             return SuccessJsonResponse(res)
@@ -30,6 +30,22 @@ def login_by_taobao(request):
 @check_sign
 def register_by_taobao(request):
 
+    if request.method == "POST":
+        log.info(request.POST)
+        _forms = MobileTaobaoSignUpForm(data=request.POST, files=request.FILES)
+        if _forms.is_valid():
+            _user = _forms.save()
+            res = {
+                'user': _user,
+                'session': _forms.get_session()
+            }
+            return SuccessJsonResponse(res)
+        for error in _forms.errors:
+            # log.info("error %s" % error)
+            return ErrorJsonResponse(status=409, data={
+                'type': error,
+                'message':'Error',
+            })
 
     return ErrorJsonResponse(status=400)
 
