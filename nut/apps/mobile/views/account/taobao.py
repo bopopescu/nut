@@ -36,7 +36,7 @@ def register_by_taobao(request):
         if _forms.is_valid():
             _user = _forms.save()
             res = {
-                'user': _user,
+                'user': _user.v3_toDict(),
                 'session': _forms.get_session()
             }
             return SuccessJsonResponse(res)
