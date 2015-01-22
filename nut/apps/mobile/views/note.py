@@ -143,7 +143,7 @@ def del_comment(request, note_id, comment_id):
             _session = Session_Key.objects.get(session_key = _key)
         except Session_Key.DoesNotExist:
             return ErrorJsonResponse(status=403)
-
+        # log.info("comment id %s" % comment_id)
         try:
             nc = Note_Comment.objects.get(user=_session.user, pk=comment_id)
             nc.delete()

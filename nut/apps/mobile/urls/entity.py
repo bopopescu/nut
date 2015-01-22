@@ -21,7 +21,7 @@ urlpatterns += patterns(
 
 
     url(r'^note/(?P<note_id>\d+)/add/comment/$', 'post_comment', name='mobile_post_note_comment'),
-    url(r'^note/(?P<note_id>\d+)/comment/(?P<comment_id>\d+)/del/$', 'del_comment'),
+    url(r'^note/(?P<note_id>\d+)/comment/(?P<comment_id>\d+)/del/$', 'del_comment', name='mobile_note_comment_del'),
 )
 
 __author__ = 'edison'
