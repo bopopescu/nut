@@ -5,6 +5,10 @@ from django.core.cache import cache
 import random
 from datetime import datetime, timedelta
 
+from django.utils.log import getLogger
+
+log = getLogger('django')
+
 
 class EntityQuerySet(models.query.QuerySet):
 
@@ -93,5 +97,18 @@ class SelectionEntityManager(models.Manager):
 
     def pending(self):
         return self.get_queryset().pending()
+
+    def set_user_refresh_datetime(self, session):
+        log.info(datetime.now())
+        cache.set(session, datetime.now())
+
+    def get_user_unread(self, session):
+        refresh_datetime = cache.get(session)
+        # log.info(type( refresh_datetime ))
+        if refresh_datetime is None:
+            return 0
+
+        unread_count = self.published().filter(pub_time__range=(refresh_datetime, datetime.now() )).count()
+        return unread_count
 
 __author__ = 'edison'
