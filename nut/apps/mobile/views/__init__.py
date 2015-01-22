@@ -161,7 +161,7 @@ def unread(request):
         return ErrorJsonResponse(status=400)
 
     res = {
-        'unread_message_count': 0,
+        'unread_message_count': _session.user.notifications.read().count(),
         'unread_selection_count': Selection_Entity.objects.get_user_unread(session=_session.session_key),
     }
     return SuccessJsonResponse(res)
