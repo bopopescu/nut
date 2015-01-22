@@ -8,7 +8,8 @@ from django.core.files.storage import default_storage
 # from django.views.decorators.http import require_GET
 
 # from apps.core.models import Sina_Token
-from apps.web.forms.account import UserSignInForm, UserPasswordResetForm, UserSignUpForm
+from apps.core.forms.account import UserPasswordResetForm
+from apps.web.forms.account import UserSignInForm, UserSignUpForm
 from celery import group
 from apps.core.tasks.account import fetch_avatar, update_token
 # from apps.web.lib.account import sina
@@ -107,7 +108,7 @@ def forget_password(request, template='web/account/forget_password.html'):
         {
             'forms': _forms,
         },
-
+        context_instance = RequestContext(request),
     )
 
 # from three part

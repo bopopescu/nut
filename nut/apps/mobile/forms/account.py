@@ -95,6 +95,8 @@ class MobileUserSignUpForm(GuokuUserSignUpForm):
         return session.session_key
 
 
+
+
 class MobileUserSignOutForm(forms.Form):
 
     session = forms.CharField(
@@ -111,9 +113,7 @@ class MobileUserSignOutForm(forms.Form):
             return False
 
 
-
 class MobileWeiboSignUpForm(WeiboForm):
-
 
     email = forms.EmailField(
         widget=forms.EmailInput()
@@ -136,34 +136,6 @@ class MobileWeiboSignUpForm(WeiboForm):
         widget=forms.FileInput(),
         required=False,
     )
-
-    def save(self):
-        _avatar_file = self.cleaned_data.get('image')
-        if _avatar_file:
-            _image = HandleImage(image_file= _avatar_file)
-            avatar_path_name = _image.avatar_save()
-
-            self.user_cache.profile.avatar = avatar_path_name
-
-            self.user_cache.profile.save()
-
-    def get_session(self):
-
-        session = Session_Key.objects.generate_session(
-            user_id=self.get_user_id(),
-            email=self.user_cache.email,
-            api_key=self.api_key,
-            username="guoku",
-        )
-        return session.session_key
-    # def clean_nickname(self):
-    #     _nickname = self.cleaned_data.get('nickname')
-    #     try:
-    #         User_Profile.objects.get(nickname = _nickname)
-    #     except User_Profile.DoesNotExist:
-    #         raise forms.ValidationError(
-    #             'nickname is exist'
-    #         )
 
     def clean_nickname(self):
         _nickname = self.cleaned_data.get('nickname')
@@ -188,6 +160,44 @@ class MobileWeiboSignUpForm(WeiboForm):
                self.error_messages['duplicate_email'],
                code='duplicate_email',
             )
+
+    def save(self):
+        _nickname = self.cleaned_data.get('nickname')
+        _email = self.cleaned_data.get('email')
+        _password = self.cleaned_data.get('password')
+
+        self.user_cache = GKUser.objects.create_user(
+            email=_email,
+            password = _password,
+            is_active=True,
+        )
+
+        User_Profile.objects.create(
+            user = self.user_cache,
+            nickname = _nickname,
+
+        )
+
+        _avatar_file = self.cleaned_data.get('image')
+        if _avatar_file:
+            _image = HandleImage(image_file= _avatar_file)
+            avatar_path_name = _image.avatar_save()
+
+            self.user_cache.profile.avatar = avatar_path_name
+
+            self.user_cache.profile.save()
+
+        return self.user_cache
+
+    def get_session(self):
+
+        session = Session_Key.objects.generate_session(
+            user_id=self.get_user_id(),
+            email=self.user_cache.email,
+            api_key=self.api_key,
+            username="guoku",
+        )
+        return session.session_key
 
 
 class MobileWeiboLoginForm(WeiboForm):
