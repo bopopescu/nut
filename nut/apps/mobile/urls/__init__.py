@@ -21,7 +21,7 @@ urlpatterns += patterns(
     url(r'sina/login/$', 'weibo.login_by_weibo', name="mobile_login_by_weibo"),
     url(r'sina/register', 'weibo.register_by_weibo', name='mobile_register_by_weibo'),
     url(r'taobao/login/$', 'taobao.login_by_taobao', name='mobile_login_by_taobao'),
-
+    url(r'taobao/register/$', 'taobao.register_by_taobao', name='mobile_register_by_taobao')
 )
 
 urlpatterns += patterns(

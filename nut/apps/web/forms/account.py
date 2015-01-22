@@ -19,6 +19,7 @@ from django.conf import settings
 log = getLogger('django')
 avatar_path = getattr(settings, 'Avatar_Image_Path', 'avatar/')
 
+
 class UserSignInForm(forms.Form):
 
     error_messages = {
@@ -186,7 +187,7 @@ class UserSignUpForm(forms.Form):
         _user = GKUser.objects.create_user(
             email=_email,
             password = _confirm_password,
-            is_active=True,
+            is_active=GKUser.active,
         )
 
         User_Profile.objects.create(
