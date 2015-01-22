@@ -72,7 +72,7 @@ class UserSignInForm(forms.Form):
                 raise forms.ValidationError(
                     self.error_messages['invalid_login']
                 )
-            elif self.user_cache.is_active == 0:
+            elif self.user_cache.is_active != 0:
                 raise forms.ValidationError(
                     self.error_messages['inactive'],
                     code='inactive',

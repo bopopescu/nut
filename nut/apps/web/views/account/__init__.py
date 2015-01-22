@@ -97,17 +97,16 @@ def forget_password(request, template='web/account/forget_password.html'):
                         subject_template_name='web/mail/forget_password_subject.txt',
                         email_template_name='web/mail/forget_password.html',
                         from_email='hi@guoku.com')
-            print "send mail ok"
+            # print "send mail ok"
     else:
         _forms = UserPasswordResetForm()
-
 
     return render_to_response(
         template,
         {
             'forms': _forms,
         },
-
+        context_instance = RequestContext(request),
     )
 
 # from three part
