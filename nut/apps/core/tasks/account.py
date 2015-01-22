@@ -34,8 +34,8 @@ def fetch_avatar(avatar_url, user_id, *args, **kwargs):
 def update_token(*args, **kwargs):
 
     _user_id = kwargs.pop('user_id')
-    _weibo_id = kwargs.pop('weibo_id')
-    _taobao_id = kwargs.pop('taobao_id')
+    _weibo_id = kwargs.pop('weibo_id', None)
+    _taobao_id = kwargs.pop('taobao_id', None)
     _screen_name = kwargs.pop('screen_name')
     _access_token = kwargs.pop('access_token')
     _expires_in = kwargs.pop('expires_in')
