@@ -1,12 +1,16 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
+from apps.core.forms.account import UserPasswordResetForm
 from apps.mobile.forms.account import MobileUserSignInForm, MobileUserSignUpForm, MobileUserSignOutForm
 from apps.mobile.lib.sign import check_sign
+
 # from apps.mobile.models import Session_Key
 
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.log import getLogger
 
+
 log = getLogger('django')
+
 
 
 @csrf_exempt
@@ -42,8 +46,8 @@ def login(request):
 @check_sign
 def register(request):
     if request.method == "POST":
-        _forms = MobileUserSignUpForm(request=request, data=request.POST)
-        log.info(request.POST)
+        _forms = MobileUserSignUpForm(request=request, data=request.POST, files=request.FILES)
+        log.info(request.FILES)
         if _forms.is_valid():
             _user = _forms.save()
             log.info("user user %s" % _user)
@@ -62,6 +66,29 @@ def register(request):
 
     return ErrorJsonResponse(status=400)
 
+
+@csrf_exempt
+@check_sign
+def forget_password(request):
+    # if request.method == "POST":
+    if request.method == 'POST':
+        _forms = UserPasswordResetForm(request.POST)
+        if _forms.is_valid():
+            _forms.save(domain_override='guoku.com',
+                        subject_template_name='web/mail/forget_password_subject.txt',
+                        email_template_name='web/mail/forget_password.html',
+                        from_email='hi@guoku.com')
+            return SuccessJsonResponse(data={ 'success' : '1' })
+        return ErrorJsonResponse(
+                data = {
+                    'type' : 'email',
+                    'message' : 'email does not exist',
+                },
+                status = 400
+            )
+    return ErrorJsonResponse(status=400)
+
+
 @csrf_exempt
 @check_sign
 def logout(request):
@@ -76,6 +103,7 @@ def logout(request):
 
 
 
+
 @csrf_exempt
 @check_sign
 def apns_token(request):
@@ -83,4 +111,4 @@ def apns_token(request):
     log.info(request.POST)
     return SuccessJsonResponse()
 
-__author__ = 'edison7500'
+__author__ = 'edison'

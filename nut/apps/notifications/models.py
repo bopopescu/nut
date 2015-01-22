@@ -61,8 +61,8 @@ class Notification(models.Model):
     target = generic.GenericForeignKey('target_content_type', 'target_object_id')
 
     action_object_content_type = models.ForeignKey(ContentType, related_name='notify_action_object', blank=True, null=True)
-    action_object_id = models.CharField(max_length=255, blank=True, null=True)
-    action_object = generic.GenericForeignKey('action_content_type', 'action_object_id')
+    action_object_object_id = models.CharField(max_length=255, blank=True, null=True)
+    action_object = generic.GenericForeignKey('action_object_content_type', 'action_object_object_id')
 
     timestamp = models.DateTimeField(default=now)
 
@@ -73,7 +73,6 @@ class Notification(models.Model):
 
     class Meta:
         ordering = ['-timestamp']
-
 
     def __unicode__(self):
         ctx = {

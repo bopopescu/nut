@@ -1,7 +1,6 @@
 from django.conf.urls import url, patterns
 from django.contrib.auth.views import password_reset_confirm, password_reset_complete
-from apps.web.forms.account import UserSetPasswordForm, UserSignUpForm
-
+from apps.core.forms.account import UserSetPasswordForm
 
 
 urlpatterns = patterns(
