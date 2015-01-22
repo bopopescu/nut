@@ -15,7 +15,7 @@ def notifications_unread(context):
         return ''
 
     user = context['user']
-    log.info(user.notifications.read())
+    # log.info(user.notifications.read())
     if user.is_anonymous():
         return ''
     return user.notifications.unread().count()

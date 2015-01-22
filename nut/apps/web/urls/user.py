@@ -13,6 +13,9 @@ urlpatterns = patterns(
     url(r'^(?P<user_id>\d+)/tags/(?P<tag_hash>\w+)/$', 'user_tag_detail', name='web_user_tag_detail'),
     url(r'^(?P<user_id>\d+)/fans/$', 'fans', name='web_user_fans'),
     url(r'^(?P<user_id>\d+)/followings/$', 'following', name='web_user_followings'),
+
+    url(r'^(?P<user_id>\d+)/follow/$', 'follow_action', name='web_user_follow_action'),
+    url(r'^(?P<user_id>\d+)/unfollow/$', 'unfollow_action', name='web_user_unfollow_action'),
 )
 
 
