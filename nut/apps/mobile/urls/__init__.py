@@ -16,9 +16,11 @@ urlpatterns += patterns(
     url(r'register/$', 'register', name='mobile_register'),
     url(r'^logout/$', 'logout', name='mobile_logout'),
     url(r'^forget/password/$', 'forget_password', name='mobile_foreget_password'),
-    url(r'sina/login/$', 'login_by_weibo', name="mobile_login_by_weibo"),
-    url(r'taobao/login/$', 'login_by_taobao', name='mobile_login_by_taobao'),
     url(r'^apns/token/$', 'apns_token', name='mobile_apns_token'),
+    
+    url(r'sina/login/$', 'weibo.login_by_weibo', name="mobile_login_by_weibo"),
+    url(r'taobao/login/$', 'weibo.login_by_taobao', name='mobile_login_by_taobao'),
+
 )
 
 urlpatterns += patterns(
