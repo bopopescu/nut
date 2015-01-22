@@ -29,6 +29,7 @@ urlpatterns += patterns(
     url(r'^entity/', include('apps.mobile.urls.entity')),
     url(r'^category/', include('apps.mobile.urls.category')),
     url(r'^user/', include('apps.mobile.urls.user')),
+    url(r'^message/', include('apps.mobile.urls.message')),
 )
 
 

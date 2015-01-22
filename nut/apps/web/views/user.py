@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseNotAllowed, Http404, HttpResponseRedirect
+from django.http import HttpResponseNotAllowed, Http404, HttpResponseRedirect, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
@@ -11,7 +11,9 @@ from apps.core.utils.http import JSONResponse
 # from apps.core.utils.image import HandleImage
 from apps.core.forms.user import AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
-from apps.core.models import Entity, Entity_Like, Tag, Entity_Tag
+from apps.core.models import Entity, Entity_Like, Tag, Entity_Tag, User_Follow
+
+from apps.notifications import notify
 
 from django.utils.log import getLogger
 
@@ -66,6 +68,44 @@ def upload_avatar(request):
     return HttpResponseNotAllowed
 
 
+@login_required
+@csrf_exempt
+def follow_action(request, user_id):
+    _fans = request.user
+
+    try:
+        uf = User_Follow.objects.get(
+            follower = _fans,
+            followee_id = user_id,
+        )
+        raise Http404
+    except User_Follow.DoesNotExist, e:
+        uf = User_Follow(
+            follower = _fans,
+            followee_id = user_id,
+        )
+        uf.save()
+        notify.send(_fans, recipient=uf.followee, verb=u'has followed you', action_object=uf, target=uf.followee)
+    return HttpResponse(1)
+
+
+@login_required
+@csrf_exempt
+def unfollow_action(request, user_id):
+
+    _fans = request.user
+
+    try:
+        uf = User_Follow.objects.get(
+            follower = _fans,
+            followee_id = user_id,
+        )
+        uf.delete()
+    except User_Follow.DoesNotExist, e:
+        raise Http404
+    return HttpResponse(0)
+    # return
+
 def index(request, user_id):
     return HttpResponseRedirect(reverse('web_user_entity_like', args=[user_id,]))
 
@@ -93,7 +133,6 @@ def entity_like(request, user_id, template="web/user/like.html"):
     el = list()
     if request.user.is_authenticated():
         el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(likes.object_list))
-
 
     return render_to_response(
         template,
@@ -179,10 +218,6 @@ def user_tag_detail(request, user_id, tag_hash, template="web/user/tag_detail.ht
     except Tag.DoesNotExist:
         raise Http404
 
-
-    # tag_entities = Entity_Tag.objects.filter(user_id=user_id)
-
-
     _page = request.GET.get('page', 1)
 
     # inner_qs = Entity_Tag.objects.filter(tag=_tag)
@@ -207,7 +242,6 @@ def user_tag_detail(request, user_id, tag_hash, template="web/user/tag_detail.ht
         },
         context_instance = RequestContext(request),
     )
-
 
 
 def fans(request, user_id, template="web/user/fans.html"):
@@ -242,6 +276,7 @@ def following(request, user_id, templates="web/user/following.html"):
     page = request.GET.get('page', 1)
 
     _user = get_user_model()._default_manager.get(pk=user_id)
+    log.info(request.user.following_list)
 
     followings_list = _user.followings.all()
 

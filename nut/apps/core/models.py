@@ -550,7 +550,7 @@ class Note(BaseModel):
     def post_timestamp(self):
         return time.mktime(self.post_time.timetuple())
 
-    def v3_toDict(self, user_note_pokes=None):
+    def v3_toDict(self, user_note_pokes=None, has_entity=False):
         res = self.toDict()
         res.pop('note', None)
         res.pop('id', None)
@@ -568,6 +568,11 @@ class Note(BaseModel):
         if user_note_pokes and self.id in user_note_pokes:
             res['poke_already'] = 1
 
+        if has_entity:
+            res['brand'] = self.entity.brand
+            res['title'] = self.entity.title
+            res['chief_image'] = self.entity.chief_image
+            res['category_id'] = self.entity.category_id
 
         return res
 
