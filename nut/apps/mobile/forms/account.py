@@ -139,7 +139,7 @@ class MobileWeiboSignUpForm(WeiboForm):
 
     def clean_nickname(self):
         _nickname = self.cleaned_data.get('nickname')
-        print _nickname
+        # print _nickname
         try:
             User_Profile.objects.get(nickname = _nickname)
         except User_Profile.DoesNotExist:
@@ -165,6 +165,8 @@ class MobileWeiboSignUpForm(WeiboForm):
         _nickname = self.cleaned_data.get('nickname')
         _email = self.cleaned_data.get('email')
         _password = self.cleaned_data.get('password')
+
+
 
         self.user_cache = GKUser.objects.create_user(
             email=_email,
