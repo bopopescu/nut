@@ -6,7 +6,7 @@ from apps.core.models import Sina_Token, Taobao_Token,GKUser, User_Profile
 from apps.mobile.models import Session_Key
 
 from apps.core.utils.image import HandleImage
-
+from apps.core.tasks.account import fetch_avatar, update_token
 
 class MobileUserSignInForm(GuoKuUserSignInForm):
 
@@ -145,8 +145,7 @@ class MobileWeiboSignUpForm(WeiboForm):
         except User_Profile.DoesNotExist:
             return _nickname
         raise forms.ValidationError(
-            self.error_messages['duplicate_nickname'],
-            code='duplicate_nickname',
+            'duplicate_nickname'
         )
 
     def clean_email(self):
@@ -157,16 +156,19 @@ class MobileWeiboSignUpForm(WeiboForm):
         except GKUser.DoesNotExist:
             return _email
         raise forms.ValidationError(
-               self.error_messages['duplicate_email'],
-               code='duplicate_email',
+            'duplicate_email'
             )
 
     def save(self):
+        self.api_key = self.cleaned_data.get('api_key')
         _nickname = self.cleaned_data.get('nickname')
         _email = self.cleaned_data.get('email')
         _password = self.cleaned_data.get('password')
 
-
+        _weibo_id = self.cleaned_data.get('sina_id')
+        _weibo_token = self.cleaned_data.get('sina_token')
+        _screen_name = self.cleaned_data.get('screen_name')
+        # _api_key = self.cleaned_data.get('api_key')
 
         self.user_cache = GKUser.objects.create_user(
             email=_email,
@@ -188,13 +190,18 @@ class MobileWeiboSignUpForm(WeiboForm):
             self.user_cache.profile.avatar = avatar_path_name
 
             self.user_cache.profile.save()
+        update_token.delay(user_id=self.user_cache.id,
+                     weibo_id=_weibo_id,
+                     screen_name=_screen_name,
+                     access_token=_weibo_token,
+                     expires_in=7200)
 
         return self.user_cache
 
     def get_session(self):
 
         session = Session_Key.objects.generate_session(
-            user_id=self.get_user_id(),
+            user_id=self.user_cache.id,
             email=self.user_cache.email,
             api_key=self.api_key,
             username="guoku",

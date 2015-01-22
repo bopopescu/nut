@@ -13,13 +13,14 @@ urlpatterns = patterns(
 urlpatterns += patterns(
     'apps.mobile.views.account',
     url(r'^login/$', 'login', name='mobile_login'),
-    url(r'register/$', 'register', name='mobile_register'),
+    url(r'^register/$', 'register', name='mobile_register'),
     url(r'^logout/$', 'logout', name='mobile_logout'),
     url(r'^forget/password/$', 'forget_password', name='mobile_foreget_password'),
     url(r'^apns/token/$', 'apns_token', name='mobile_apns_token'),
-    
+
     url(r'sina/login/$', 'weibo.login_by_weibo', name="mobile_login_by_weibo"),
-    url(r'taobao/login/$', 'weibo.login_by_taobao', name='mobile_login_by_taobao'),
+    url(r'sina/register', 'weibo.register_by_weibo', name='mobile_register_by_weibo'),
+    url(r'taobao/login/$', 'taobao.login_by_taobao', name='mobile_login_by_taobao'),
 
 )
 
