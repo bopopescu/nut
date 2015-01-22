@@ -12,7 +12,7 @@ from apps.core.utils.http import JSONResponse
 from django.utils.log import getLogger
 
 
-from apps.notifications import notify
+# from apps.notifications import notify
 
 log = getLogger('django')
 
