@@ -2,19 +2,26 @@
 
 {% block list %}
     <div class="row">
-        {% for user in fans %}
+        {% for f in fans %}
             <div class="col-sm-12 col-xs-12 col-md-6">
                 <div class="thumbnail" style="padding: 10px;padding-top:20px;height: 100px;">
                     <div class="media">
-                        <a class="pull-left" href="#" target="_blank">
-                            <img class="media-object img-circle" src="{{ user.follower.profile.avatar_url }}" width="60" height="60" style="width:60px;height:60px;">
+                        <a class="pull-left" href="{% url 'web_user_entity_like' f.follower_id %}" target="_blank">
+                            <img class="media-object img-circle" src="{{ f.follower.profile.avatar_url }}" width="60" height="60" style="width:60px;height:60px;">
                         </a>
-{#                    </div>#}
+
+                    {% if f.follower_id in request.user.concren %}
+                        <a href="{% url 'web_user_follow_action' f.follower_id %}" class="follow is-fan btn btn-cancel pull-right"><i class="fa fa-exchange fa-lg" style="color: #ccc"></i>&nbsp; <b>取消关注</b></a>
+{#                        <a href="#" class="follow is-fan btn btn-primary pull-right"><i class="fa fa-plus fa-lg" style="color: #fff"></i>&nbsp; <b>关注</b></a>#}
+                    {% else %}
+                        <a href="{% url 'web_user_follow_action' f.follower_id %}" class="follow btn btn-primary pull-right"><i class="fa fa-plus fa-lg" style="color: #fff"></i>&nbsp; <b>关注</b></a>
+                    {% endif %}
+
                     <div class="media-body" style="padding-top:5px;">
-                        <h4 class="media-heading">{{ user.follower.profile.nickname }}</h4>
+                        <h4 class="media-heading">{{ f.follower.profile.nickname }}</h4>
                         <p>
-                            <span>{{ user.follower.fans_count }}</span>&nbsp;粉丝
-                            <span>{{ user.follower.following_count }}</span>&nbsp;关注
+                            <span>{{ f.follower.fans_count }}</span>&nbsp;粉丝
+                            <span>{{ f.follower.following_count }}</span>&nbsp;关注
                         </p>
                     </div>
                     </div>
@@ -22,4 +29,5 @@
             </div>
         {% endfor %}
     </div>
+    {% include 'web/main/partial/paginator.html' with objects=fans url=request.path %}
 {% endblock %}

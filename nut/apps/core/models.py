@@ -90,9 +90,17 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         t = self.user_tags.values('tag').annotate(tcount=Count('tag'))
         return len(t)
 
-    def set_admin(self):
-        self.is_admin = True
-        self.save()
+    @property
+    def following_list(self):
+        return self.followings.all().values_list('followee_id', flat=True)
+
+    @property
+    def fans_list(self):
+        return self.fans.all().values_list('follower_id', flat=True)
+
+    @property
+    def concren(self):
+        return  list(set(self.following_list) & set(self.fans_list))
 
     @property
     def following_count(self):
@@ -101,6 +109,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     @property
     def fans_count(self):
         return self.fans.count()
+
+    def set_admin(self):
+        self.is_admin = True
+        self.save()
 
     def v3_toDict(self):
         res = self.toDict()
@@ -538,7 +550,7 @@ class Note(BaseModel):
     def post_timestamp(self):
         return time.mktime(self.post_time.timetuple())
 
-    def v3_toDict(self, user_note_pokes=None):
+    def v3_toDict(self, user_note_pokes=None, has_entity=False):
         res = self.toDict()
         res.pop('note', None)
         res.pop('id', None)
@@ -556,6 +568,11 @@ class Note(BaseModel):
         if user_note_pokes and self.id in user_note_pokes:
             res['poke_already'] = 1
 
+        if has_entity:
+            res['brand'] = self.entity.brand
+            res['title'] = self.entity.title
+            res['chief_image'] = self.entity.chief_image
+            res['category_id'] = self.entity.category_id
 
         return res
 

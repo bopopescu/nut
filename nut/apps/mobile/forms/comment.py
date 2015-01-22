@@ -2,6 +2,7 @@ from django import forms
 from apps.mobile.models import Session_Key
 from apps.core.models import Note_Comment
 
+from apps.notifications import notify
 
 class PostNoteCommentForm(forms.Form):
     session = forms.CharField(
@@ -53,6 +54,7 @@ class PostNoteCommentForm(forms.Form):
             note_comment.replied_comment_id = _reply_to_comment
 
         note_comment.save()
+        notify.send(note_comment.user, recipient=self.note_cache.user, verb="replied", action_object=note_comment)
         return note_comment.v3_toDict()
 
 __author__ = 'edison'

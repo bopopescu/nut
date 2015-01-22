@@ -24,6 +24,12 @@ msgstr "果库"
 msgid "likes"
 msgstr "喜欢"
 
+msgid "notes"
+msgstr "点评"
+
+msgid "tags"
+msgstr "标签"
+
 msgid "my guoku"
 msgstr "我的果库"
 
