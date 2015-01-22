@@ -90,9 +90,17 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         t = self.user_tags.values('tag').annotate(tcount=Count('tag'))
         return len(t)
 
-    def set_admin(self):
-        self.is_admin = True
-        self.save()
+    @property
+    def following_list(self):
+        return self.followings.all().values_list('followee_id', flat=True)
+
+    @property
+    def fans_list(self):
+        return self.fans.all().values_list('follower_id', flat=True)
+
+    @property
+    def concren(self):
+        return  list(set(self.following_list) & set(self.fans_list))
 
     @property
     def following_count(self):
@@ -101,6 +109,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     @property
     def fans_count(self):
         return self.fans.count()
+
+    def set_admin(self):
+        self.is_admin = True
+        self.save()
 
     def v3_toDict(self):
         res = self.toDict()

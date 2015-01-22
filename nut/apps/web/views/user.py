@@ -218,7 +218,7 @@ def fans(request, user_id, template="web/user/fans.html"):
 
     fans_list = _user.fans.all()
 
-    paginator = ExtentPaginator(fans_list, 20)
+    paginator = ExtentPaginator(fans_list, 12)
 
     try:
         _fans = paginator.page(page)
@@ -245,7 +245,7 @@ def following(request, user_id, templates="web/user/following.html"):
 
     followings_list = _user.followings.all()
 
-    paginator = ExtentPaginator(followings_list, 20)
+    paginator = ExtentPaginator(followings_list, 12)
 
     try:
         _followings = paginator.page(page)

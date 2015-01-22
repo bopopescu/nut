@@ -2,19 +2,26 @@
 
 {% block list %}
     <div class="row">
-        {% for user in followings %}
+        {% for f in followings %}
             <div class="col-sm-12 col-xs-12 col-md-6">
                 <div class="thumbnail" style="padding: 10px;padding-top:20px;height: 100px;">
                     <div class="media">
                         <a class="pull-left" href="#" target="_blank">
-                            <img class="media-object img-circle" src="{{ user.followee.profile.avatar_url }}" width="60" height="60" style="width:60px;height:60px;">
+                            <img class="media-object img-circle" src="{{ f.followee.profile.avatar_url }}" width="60" height="60" style="width:60px;height:60px;">
                         </a>
-{#                    </div>#}
+
+                    {% if f.followee_id in user.concren %}
+                        <a href="#" class="follow is-fan btn btn-cancel pull-right"><i class="fa fa-exchange fa-lg" style="color: #ccc"></i>&nbsp; <b>取消关注</b></a>
+                    {% else %}
+                        <a href="#" class="follow btn btn-cancel pull-right"><i class="fa fa-check fa-lg" style="color: #ccc"></i>&nbsp; <b>取消关注</b></a>
+                    {% endif %}
+
+
                     <div class="media-body" style="padding-top:5px;">
-                        <h4 class="media-heading">{{ user.followee.profile.nickname }}</h4>
+                        <h4 class="media-heading">{{ f.followee.profile.nickname }}</h4>
                         <p>
-                            <span>{{ user.followee.fans_count }}</span>&nbsp;粉丝
-                            <span>{{ user.followee.following_count }}</span>&nbsp;关注
+                            <span>{{ f.followee.fans_count }}</span>&nbsp;粉丝
+                            <span>{{ f.followee.following_count }}</span>&nbsp;关注
                         </p>
                     </div>
                     </div>
@@ -22,4 +29,6 @@
             </div>
         {% endfor %}
     </div>
+
+    {% include 'web/main/partial/paginator.html' with objects=followings url=request.path %}
 {% endblock %}
