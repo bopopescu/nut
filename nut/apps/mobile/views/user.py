@@ -1,5 +1,5 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.models import Entity_Tag, GKUser, Entity_Like, Note
+from apps.core.models import Entity_Tag, GKUser, Entity_Like, Note, User_Follow
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 
 from apps.mobile.lib.sign import check_sign
@@ -18,8 +18,6 @@ log = getLogger('django')
 @csrf_exempt
 @check_sign
 def update(request):
-
-
     if request.method == "POST":
         log.info(request.POST)
         # log.info(request.FILES)
@@ -33,14 +31,20 @@ def update(request):
         if _forms.is_valid():
             res = _forms.save()
             return SuccessJsonResponse(res)
-
-
-
     return ErrorJsonResponse(status=400)
 
 
 @check_sign
 def detail(request, user_id):
+
+    _key = request.GET.get('session')
+
+    try:
+        _session = Session_Key.objects.get(session_key=_key)
+        visitor = _session.user
+    except Session_Key.DoesNotExist:
+        visitor = None
+
     try:
         _user = GKUser.objects.get(pk=user_id)
     except GKUser.DoesNotExist:
@@ -50,7 +54,7 @@ def detail(request, user_id):
     _last_note = Note.objects.filter(user=_user).last()
 
     res = dict()
-    res['user'] = _user.v3_toDict()
+    res['user'] = _user.v3_toDict(visitor)
     if _last_like:
         res['last_like'] = _last_like.entity.v3_toDict()
     if _last_note:
@@ -67,12 +71,6 @@ def tag_list(request, user_id):
     except GKUser.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
-    # _key = request.GET.get('session')
-    #
-    # try:
-    #     _session = Session_Key.objects.get(session_key = _key)
-    # except Session_Key.DoesNotExist:
-    #     pass
 
     res = {}
     res['user'] = _user.v3_toDict()
@@ -83,9 +81,6 @@ def tag_list(request, user_id):
 @check_sign
 def tag_detail(request, user_id, tag):
     _key = request.GET.get('session')
-
-
-
 
     try:
         user = GKUser.objects.get(pk=user_id)
@@ -201,6 +196,14 @@ def following_list(request, user_id):
 
     _offset = _offset / _count + 1
 
+    _key = request.GET.get('session')
+
+    try:
+        _session = Session_Key.objects.get(session_key=_key)
+        visitor = _session.user
+    except Session_Key.DoesNotExist:
+        visitor = None
+
     try:
         _user = GKUser.objects.get(pk = user_id)
     except GKUser.DoesNotExist:
@@ -220,7 +223,7 @@ def following_list(request, user_id):
     res = []
     for user in _followings.object_list:
         res.append(
-            user.followee.v3_toDict()
+            user.followee.v3_toDict(visitor=visitor)
         )
 
     return SuccessJsonResponse(res)
@@ -234,6 +237,12 @@ def fans_list(request, user_id):
 
     _offset = _offset / _count + 1
 
+    _key = request.GET.get('session')
+    try:
+        _session = Session_Key.objects.get(session_key=_key)
+        visitor = _session.user
+    except Session_Key.DoesNotExist:
+        visitor = None
     try:
         _user = GKUser.objects.get(pk = user_id)
     except GKUser.DoesNotExist:
@@ -253,25 +262,71 @@ def fans_list(request, user_id):
     res = []
     for user in _fans.object_list:
         res.append(
-            user.follower.v3_toDict()
+            user.follower.v3_toDict(visitor=visitor)
         )
     return SuccessJsonResponse(res)
 
 
 @csrf_exempt
 @check_sign
-def follow_action(request):
+def follow_action(request, user_id, target_status):
+
+    if request.method == "GET":
+        return ErrorJsonResponse(status=400)
+
+    log.info(request.POST)
+
+    _key = request.POST.get('session')
+
+    try:
+        _session = Session_Key.objects.get(session_key = _key)
+    except Session_Key.DoesNotExist:
+        return ErrorJsonResponse(status=400)
+
+    res = {
+        'user_id':user_id
+    }
+
+    if target_status == '1':
+        try:
+            uf = User_Follow.objects.get(
+                follower = _session.user,
+                followee_id = user_id,
+            )
+            return ErrorJsonResponse(status=400)
+        except User_Follow.DoesNotExist, e:
+            uf = User_Follow(
+                follower = _session.user,
+                followee_id = user_id,
+            )
+            uf.save()
+            log.info(_session.user.following_list)
+            if uf.followee_id in _session.user.fans_list:
+                res['relation'] = 3
+            else:
+                res['relation'] = 1
+    else:
+        try:
+            uf = User_Follow.objects.get(
+                follower = _session.user,
+                followee_id = user_id,
+            )
+            uf.delete()
+            # if user_id in _session.user.following_list:
+            res['relation'] = 0
+        except User_Follow.DoesNotExist, e:
+            return ErrorJsonResponse(status=400)
 
 
-    return SuccessJsonResponse()
+    return SuccessJsonResponse(res)
 
 
-@csrf_exempt
-@check_sign
-def unfollow_action(request):
-
-
-    return SuccessJsonResponse()
+# @csrf_exempt
+# @check_sign
+# def unfollow_action(request):
+#
+#
+#     return SuccessJsonResponse()
 
 
 __author__ = 'edison7500'

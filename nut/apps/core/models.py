@@ -117,7 +117,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         self.is_admin = True
         self.save()
 
-    def v3_toDict(self):
+    def v3_toDict(self, visitor=None):
         res = self.toDict()
         res.pop('password', None)
         res.pop('last_login', None)
@@ -144,6 +144,13 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         except Exception, e:
             log.error("Error: user id %s %s", (self.id,e.message))
 
+        if visitor:
+            if self.id in visitor.concren:
+                res['relation'] = 3
+            elif self.id in visitor.following_list:
+                res['relation'] = 1
+            elif self.id in visitor.fans_list:
+                res['relation'] = 2
         return res
 
 
