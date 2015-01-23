@@ -3,7 +3,10 @@ from django import forms
 from apps.core.models import Note, Tag, Entity_Tag
 from apps.mobile.models import Session_Key
 from apps.core.utils.tag import TagParser
+from apps.notifications import notify
 from datetime import datetime
+
+
 
 from django.utils.log import getLogger
 
@@ -44,18 +47,16 @@ class PostNoteForms(forms.Form):
         _note_text = self.cleaned_data.get('note')
         _user_id = self.cleaned_data.get('session')
 
-
         try:
             note = Note.objects.get(user_id=_user_id, entity=self.entity_cache)
         except Note.DoesNotExist:
-
             note = Note(
                 user_id = _user_id,
                 entity = self.entity_cache,
             )
             note.note = _note_text
             note.save()
-
+            notify.send(note.user, recipient=note.entity.user, action_object=note, verb='note entity', target=note.entity)
         t = TagParser(_note_text)
         t.create_tag(user_id=_user_id, entity_id=self.entity_cache.pk)
 

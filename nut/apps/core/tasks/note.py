@@ -19,6 +19,7 @@ def post_note_task(uid, nid):
         )
         np.save()
         notify.send(np.user, recipient=np.note.user, action_object=np, verb="poke note", target=np.note)
+        return {'result':'1'}
     # log.info("poke ok ok")
     # pass
 
@@ -27,6 +28,7 @@ def depoke_note_task(uid, nid):
     try:
         np = Note_Poke.objects.get(user_id=uid, note_id=nid)
         np.delete()
+        return {'result':'0'}
     except Note_Poke.DoesNotExist, e:
         log.info("INFO: %s" % e.message)
     # log.info("depoke ok ok")

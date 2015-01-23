@@ -4,6 +4,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.utils.http import JSONResponse
 from apps.core.models import Note_Poke
+from apps.notifications import notify
+# from apps.core.tasks.note import post_note_task, depoke_note_task
 
 
 
@@ -16,13 +18,14 @@ def poke(request, note_id):
         try:
             np = Note_Poke.objects.get(user=_user, note_id=note_id)
             np.delete()
-            return JSONResponse(data={'result':'0'})
+            # return JSONResponse(data={'result':'0'})
         except Note_Poke.DoesNotExist:
             np =  Note_Poke(
                 user=_user,
                 note_id=note_id,
             )
             np.save()
+            notify.send(np.user, recipient=np.note.user, action_object=np, verb="poke note", target=np.note)
         return JSONResponse(data={'result':'1'})
 
 
