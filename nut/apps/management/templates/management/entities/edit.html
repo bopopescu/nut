@@ -1,5 +1,5 @@
 {% extends 'management/management_base.html' %}
-{% load i18n %}
+{% load i18n static %}
 {% load guoku %}
 
 {% block content %}
@@ -137,4 +137,9 @@
             <div class="modal-content"></div>
         </div>
     </div>
+{##}
+{#    {% block js %}#}
+{#        <script src="{% static 'js/management/category.js' %}"></script>#}
+{#    {% endblock %}#}
+
 {% endblock %}

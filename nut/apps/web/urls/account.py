@@ -7,7 +7,8 @@ urlpatterns = patterns(
     'apps.web.views.account',
     url(r'^three-part/register/$', 'register_from_three_part', name='web_register_from_three_part'),
 
-    url(r'^forget-password/$', 'forget_password', name='web_forget_password'),
+    url(r'^forget/password/$', 'forget_password', name='web_forget_password'),
+    url(r'^send/mail/finished/$', 'send_mail_finished', name='web_send_mail_finished'),
     url(r'^password/reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$',
         password_reset_confirm,
         {

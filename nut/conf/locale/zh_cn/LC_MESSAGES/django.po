@@ -325,7 +325,7 @@ msgstr "新密码"
 
 #: apps/core/forms/user.py:118
 msgid "New password confirmation"
-msgstr ""
+msgstr "确认密码"
 
 #: apps/core/forms/user.py:127
 msgid "max. 2 megabytes"
@@ -407,7 +407,7 @@ msgstr "添加"
 
 #: apps/management/templates/management/article/list.html:20
 msgid "is publish"
-msgstr ""
+msgstr "已发布"
 
 #: apps/management/templates/management/article/list.html:21
 #: apps/management/templates/management/banner/list.html:23
@@ -537,5 +537,18 @@ msgstr "下一步"
 msgid "about"
 msgstr "关于"
 
+msgid "faq"
+msgstr "常见问题"
+
+msgid "jobs"
+msgstr "工作"
+
+msgid "links"
+msgstr "友情链接"
+
 msgid "agreement"
 msgstr "协议"
+
+
+msgid "email is not exist"
+msgstr "请输入真实邮箱"

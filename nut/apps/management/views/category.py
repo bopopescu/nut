@@ -1,4 +1,4 @@
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -7,11 +7,35 @@ from django.utils.translation import ugettext_lazy as _
 from apps.core.models import Category, Sub_Category
 from apps.core.forms.category import CreateCategoryForm, EditCategoryForm, CreateSubCategoryForm, EditSubCategoryForm
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
+from apps.core.utils.http import JSONResponse
+import json
 
+from django.utils.log import getLogger
+
+log = getLogger('django')
 
 def list(request, template='management/category/list.html'):
     #
     # c = request.GET.get('c', '1')
+    if request.is_ajax():
+
+        res = {}
+        # res[''] = {}
+        categories = Category.objects.all()
+
+        for c in categories:
+            res[c.title] = []
+            for s in c.sub_categories.all():
+                res[c.title].append(
+                    {
+                        'category_id': s.id,
+                        'category_title': s.title,
+                    }
+                )
+                # log.info(s)
+
+        return HttpResponse(json.dumps(res))
+
     page = request.GET.get('page', 1)
 
     categories = Category.objects.all().order_by('-id')
