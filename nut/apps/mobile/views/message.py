@@ -37,7 +37,6 @@ def message(request):
         log.info(row.action_object.__class__.__name__)
         # log.info(row.actor.profile.nickname)
         if isinstance(row.action_object, User_Follow):
-        #
             _context = {
                 'type' : 'user_follow',
                 'created_time' : time.mktime(row.timestamp.timetuple()),
@@ -72,7 +71,7 @@ def message(request):
                 'created_time' : time.mktime(row.timestamp.timetuple()),
                 'content' : {
                         'comment': row.action_object.v3_toDict(),
-                        'note': row.action_object.note.v3_toDict(has_entity=True),
+                        'note': row.target.v3_toDict(has_entity=True),
                         'comment_user':row.actor.v3_toDict(),
                     }
             }
