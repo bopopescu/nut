@@ -115,7 +115,7 @@ class UserSignUpForm(forms.Form):
     nickname = forms.RegexField(
         label=_('nickname'),
         regex=r"^[\w+-]+$",
-        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'nickname'}),
+        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':_('nickname')}),
         help_text=_("Required. 30 characters or fewer. Letters, digits and "
                       "@/./+/-/_ only."),
     )
@@ -133,9 +133,9 @@ class UserSignUpForm(forms.Form):
         help_text=_('Required')
     )
     confirm_password = forms.CharField(
-        label=_('confirm password'),
+        label=_('New password confirmation'),
         min_length=8,
-        widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':_('confirm passsword')}),
+        widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':_('New password confirmation')}),
         help_text=_("Enter the same password as above, for verification."),
     )
 

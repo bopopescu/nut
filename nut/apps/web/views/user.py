@@ -276,7 +276,7 @@ def following(request, user_id, templates="web/user/following.html"):
     page = request.GET.get('page', 1)
 
     _user = get_user_model()._default_manager.get(pk=user_id)
-    log.info(request.user.following_list)
+    # log.info(request.user.following_list)
 
     followings_list = _user.followings.all()
 

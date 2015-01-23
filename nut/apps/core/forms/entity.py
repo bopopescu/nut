@@ -113,24 +113,25 @@ class EntityForm(forms.Form):
         # log.info(args)
         if len(args):
             group_id = args[0]['category']
+            sub_category = 0
         else:
 
             data = kwargs.get('initial')
             group_id = data['category']
-
+            sub_category = data['sub_category']
 
         # log.info("id %s" % group_id)
 
         sub_category_choices = get_sub_category_choices(group_id)
 
         self.fields['category'] = forms.ChoiceField(label=_('category'),
-                                                    widget=forms.Select(attrs={'class':'form-control'}),
+                                                    widget=forms.Select(attrs={'class':'form-control', 'id':'category', 'data-init':sub_category}),
                                                     choices=get_category_choices(),
                                                     help_text=_('')
                                                     )
         self.fields['sub_category'] = forms.ChoiceField(label=_('sub_category'),
                                                         choices=sub_category_choices,
-                                                        widget=forms.Select(attrs={'class':'form-control'}),
+                                                        widget=forms.Select(attrs={'class':'form-control', 'id':'sub-category', 'data-init':sub_category}),
                                                         help_text=_(''))
         # log.info(self.fields)
 
