@@ -28,7 +28,6 @@ from datetime import datetime
 @require_GET
 def selection(request, template='web/main/selection.html'):
 
-
     _page = request.GET.get('p', 1)
     _refresh_datetime = request.GET.get('t', None)
     if _refresh_datetime is None:
