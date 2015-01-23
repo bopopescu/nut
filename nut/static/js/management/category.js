@@ -15,7 +15,7 @@
         var return_data = $.parseJSON(data);
         //new_data = return_data["new_category"];
         //old_data = return_data["old_category"];
-
+        //console.log(return_data);
         relatedOption(category_group, category, getNewOptions(return_data), init_category);
         //relatedOption(old_category_group, old_category, getOldOptions(old_data), old_init_category);
     });
@@ -83,10 +83,11 @@
     //}
 
     function relatedOption(select1, select2, options, init) {
+        //console.log(options);
         var l2_options = [];
         for (var i = 0; i < options.length; i++) {
             var l1_option = createOption(options[i].value, options[i].text);
-            l1_option.appendTo(select1);
+            //l1_option.appendTo(select1);
 
             var more_options = options[i].options;
             for (var j = 0; j < more_options.length; j++) {
@@ -111,12 +112,14 @@
             });
 
             var select_value = select1.val();
+            console.log(select_value);
             var more_options;
             for (var i = 0; i < options.length; i++) {
                 if (options[i].value == select_value) {
                     more_options = options[i].options;
                 }
             }
+            //console.log(options);
 
             for (var j = 0; j < more_options.length; j++) {
                 var option_level2 = createOption(more_options[j].value, more_options[j].text);
