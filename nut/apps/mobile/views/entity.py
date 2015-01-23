@@ -145,4 +145,14 @@ def guess(request):
 
     return SuccessJsonResponse(res)
 
+
+@check_sign
+def search(request):
+
+
+    return SuccessJsonResponse()
+
+
+
+
 __author__ = 'edison'
