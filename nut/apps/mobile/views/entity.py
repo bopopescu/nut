@@ -1,4 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_GET
+
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.mobile.lib.sign import check_sign
 from apps.core.models import Entity, Entity_Like, Note_Poke
@@ -6,7 +8,7 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInte
 # from apps.core.models import Entity_Like
 from apps.core.tasks import like_task, unlike_task
 from apps.mobile.models import Session_Key
-
+from apps.mobile.forms.search import EntitySearchForm
 from datetime import datetime
 import time
 import random
@@ -146,11 +148,81 @@ def guess(request):
     return SuccessJsonResponse(res)
 
 
+
+@require_GET
 @check_sign
 def search(request):
 
+    _type = request.GET.get('type', None)
 
-    return SuccessJsonResponse()
+    # _query_string = request.GET.get('q')
+    _offset = int(request.GET.get('offset', '0'))
+    _count = int(request.GET.get('count', '30'))
+
+    _offset = _offset / _count + 1
+
+    _key = request.GET.get('session', None)
+
+
+    try:
+        _session = Session_Key.objects.get(session_key=_key)
+        visitor = _session.user
+    except Session_Key.DoesNotExist:
+        visitor = None
+
+
+    _forms = EntitySearchForm(request.GET)
+
+    if _forms.is_valid():
+        results = _forms.search()
+        log.info(results.count())
+        res = {
+            'stat' : {
+                'all_count' : results.count(),
+                'like_count' : 0,
+            },
+            'entity_list' : []
+        }
+
+
+
+        el = None
+        if visitor:
+            _entity_id_list = map(lambda x : int(x._sphinx['id']), results)
+            el = Entity_Like.objects.user_like_list(user = visitor, entity_list=_entity_id_list)
+            log.info(el)
+
+        if _type == 'like':
+            like_entity_list = Entity.objects.filter(pk__in=el)
+            paginator = ExtentPaginator(like_entity_list, _count)
+            try:
+                entities = paginator.page(_offset)
+            except PageNotAnInteger:
+                entities = paginator.page(1)
+            except EmptyPage:
+                return ErrorJsonResponse(status=404)
+            for entity in entities:
+                res['entity_list'].append(
+                    entity.v3_toDict(user_like_list=el)
+                )
+                res['stat']['like_count'] = len(el)
+            return SuccessJsonResponse(res)
+
+        paginator = ExtentPaginator(results, _count)
+        try:
+            entities = paginator.page(_offset)
+        except PageNotAnInteger:
+            entities = paginator.page(1)
+        except EmptyPage:
+            return ErrorJsonResponse(status=404)
+        for entity in entities:
+            # log.info(entity)
+            res['entity_list'].append(
+                entity.v3_toDict(user_like_list=el)
+            )
+        res['stat']['like_count'] = len(el)
+        return SuccessJsonResponse(res)
+    return ErrorJsonResponse(status=400)
 
 
 
