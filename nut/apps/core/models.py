@@ -738,10 +738,6 @@ class Media(models.Model):
         return "%s%s" % (image_host, self.file_path)
 
 
-
-#event
-
-
 # event banner
 class Event(models.Model):
     title = models.CharField(max_length=30, null=False, default='')

@@ -192,4 +192,37 @@ def entity_note(request, user_id):
 
     return SuccessJsonResponse(res)
 
+
+@check_sign
+def following_list(request, user_id):
+
+    _offset = int(request.GET.get('offset', '0'))
+    _count = int(request.GET.get('count', '30'))
+
+    _offset = _offset / _count + 1
+
+    try:
+        _user = GKUser.objects.get(pk = user_id)
+    except GKUser.DoesNotExist:
+        return ErrorJsonResponse(status=404)
+
+    followings_list = _user.followings.all()
+
+    paginator = ExtentPaginator(followings_list, _count)
+
+    try:
+        _followings = paginator.page(_offset)
+    except PageNotAnInteger:
+        _followings = paginator.page(1)
+    except EmptyPage:
+        return ErrorJsonResponse(status=404)
+
+    res = []
+    for user in _followings.object_list:
+        res.append(
+            user.followee.v3_toDict()
+        )
+
+    return SuccessJsonResponse(res)
+
 __author__ = 'edison7500'

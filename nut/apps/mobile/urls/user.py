@@ -11,6 +11,8 @@ urlpatterns = patterns(
     url(r'^(?P<user_id>\d+)/entity/note/$', 'entity_note', name='mobile_user_entity_note'),
 
     url(r'^update/$', 'update', name='mobile_user_update'),
+
+    url(r'^(?P<user_id>\d+)/following/$', 'following_list', name='mobile_user_following')
 )
 
 
