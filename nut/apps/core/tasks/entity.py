@@ -35,16 +35,16 @@ def fetch_image(images, entity_id, *args, **kwargs):
 def like_task(uid, eid, **kwargs):
 
     try:
+        Entity_Like.objects.get(user_id=uid, entity_id=eid)
+        # print "OKOKOKOKOK"
+        # return obj
+    except Entity_Like.DoesNotExist, e:
         obj = Entity_Like.objects.create(
             user_id = uid,
             entity_id = eid,
         )
         notify.send(obj.user, recipient=obj.entity.user, action_object=obj, verb='like entity', target=obj.entity)
-        # print "OKOKOKOKOK"
-        # return obj
-    except Exception, e:
-        print e.message
-        return None
+        return obj
     # return status
 
 

@@ -554,6 +554,7 @@ class Note(BaseModel):
         res = self.toDict()
         res.pop('note', None)
         res.pop('id', None)
+        res.pop('status', None)
         res['note_id'] = self.id
         res['content'] = self.note
         res['comment_count'] = self.comment_count
@@ -561,7 +562,7 @@ class Note(BaseModel):
         res['created_time'] = time.mktime(self.post_time.timetuple())
         res['updated_time'] = time.mktime(self.updated_time.timetuple())
         res['creator'] = self.user.v3_toDict()
-
+        res['is_selected'] = self.status
         res['poker_id_list'] = list(self.poke_list)
         # log.info(user_note_pokes)
         res['poke_already'] = 0
