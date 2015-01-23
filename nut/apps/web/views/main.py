@@ -124,8 +124,6 @@ def search(request, template="web/main/search.html"):
                 except EmptyPage:
                     raise Http404
 
-            #     print row.id
-            # log.info("type %s" % form.get_search_type())
         return render_to_response(
                 template,
                 {
