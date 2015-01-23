@@ -24,9 +24,9 @@ def list(request, template='management/category/list.html'):
         categories = Category.objects.all()
 
         for c in categories:
-            res[c.title] = []
+            res[c.id] = []
             for s in c.sub_categories.all():
-                res[c.title].append(
+                res[c.id].append(
                     {
                         'category_id': s.id,
                         'category_title': s.title,

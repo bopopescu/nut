@@ -124,8 +124,6 @@ def create(request, template='management/entities/new.html'):
         _forms = CreateEntityForm(request=request, data=request.POST, initial=res)
         # _forms = EntityURLFrom(request=request, data=request.POST)
         if _forms.is_valid():
-        #     res = _forms.load()
-        #     log.info(res)
             entity = _forms.save()
             return HttpResponseRedirect(reverse('management_entity_edit', args=[entity.pk]))
     else:
