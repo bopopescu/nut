@@ -1,5 +1,6 @@
 from django import template
 from django.utils.log import getLogger
+import time
 
 register = template.Library()
 log = getLogger('django')
@@ -28,4 +29,12 @@ def resize(value, size=None):
             # return "%s" % (host, params[0], params[1])
     return value
 register.filter(resize)
+
+
+
+def timestamp(value):
+    # log.info(type(value))
+    return time.mktime(value.timetuple())
+register.filter('timestamp', timestamp)
+
 __author__ = 'edison'
