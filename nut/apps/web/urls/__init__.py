@@ -61,6 +61,7 @@ urlpatterns += patterns(
 # entity
 urlpatterns += patterns(
     'apps.web.views',
+    url(r'^message/', include('apps.web.urls.message')),
     url(r'^entity/', include('apps.web.urls.entity')),
     url(r'^note/', include('apps.web.urls.note')),
     url(r'^category/', include('apps.web.urls.category')),
@@ -68,7 +69,7 @@ urlpatterns += patterns(
     url(r'^u/', include('apps.web.urls.user')),
     url(r'^event/', include('apps.web.urls.event')),
     url(r'^t/', include('apps.web.urls.tag')),
-    url(r'^tag/(?P<tag_text>\w+)/$', 'tag.text_to_detail', name='web_tag_text',)
+    url(r'^tag/(?P<tag_text>\w+)/$', 'tag.text_to_detail', name='web_tag_text',),
 )
 
 urlpatterns += patterns(
