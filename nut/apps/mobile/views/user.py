@@ -225,4 +225,37 @@ def following_list(request, user_id):
 
     return SuccessJsonResponse(res)
 
+
+@check_sign
+def fans_list(request, user_id):
+
+    _offset = int(request.GET.get('offset', '0'))
+    _count = int(request.GET.get('count', '30'))
+
+    _offset = _offset / _count + 1
+
+    try:
+        _user = GKUser.objects.get(pk = user_id)
+    except GKUser.DoesNotExist:
+        return ErrorJsonResponse(status=404)
+
+    fans_list = _user.fans.all()
+    paginator = ExtentPaginator(fans_list, 12)
+
+    try:
+        _fans = paginator.page(_offset)
+    except PageNotAnInteger:
+        _fans = paginator.page(1)
+    except EmptyPage:
+        return ErrorJsonResponse(status=404)
+
+
+    res = []
+    for user in _fans.object_list:
+        res.append(
+            user.follower.v3_toDict()
+        )
+    return SuccessJsonResponse(res)
+
+
 __author__ = 'edison7500'

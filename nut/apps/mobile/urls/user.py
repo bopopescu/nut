@@ -12,7 +12,8 @@ urlpatterns = patterns(
 
     url(r'^update/$', 'update', name='mobile_user_update'),
 
-    url(r'^(?P<user_id>\d+)/following/$', 'following_list', name='mobile_user_following')
+    url(r'^(?P<user_id>\d+)/following/$', 'following_list', name='mobile_user_following'),
+    url(r'^(?P<user_id>\d+)/fan/$', 'fans_list', name='mobile_user_fans'),
 )
 
 
