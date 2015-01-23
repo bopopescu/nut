@@ -18,7 +18,7 @@ def post_note_task(uid, nid):
             note_id=nid,
         )
         np.save()
-        notify.send(np.user, recipient=np.note.user, action_object=np, verb="poke note", target=np.note)
+        # notify.send(np.user, recipient=np.note.user, action_object=np, verb="poke note", target=np.note)
         return {'result':'1'}
     # log.info("poke ok ok")
     # pass

@@ -56,7 +56,7 @@ class PostNoteForms(forms.Form):
             )
             note.note = _note_text
             note.save()
-            notify.send(note.user, recipient=note.entity.user, action_object=note, verb='post note', target=note.entity)
+            # notify.send(note.user, recipient=note.entity.user, action_object=note, verb='post note', target=note.entity)
         t = TagParser(_note_text)
         t.create_tag(user_id=_user_id, entity_id=self.entity_cache.pk)
 
