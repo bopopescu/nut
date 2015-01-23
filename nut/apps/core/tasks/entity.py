@@ -36,8 +36,6 @@ def like_task(uid, eid, **kwargs):
 
     try:
         Entity_Like.objects.get(user_id=uid, entity_id=eid)
-        # print "OKOKOKOKOK"
-        # return obj
     except Entity_Like.DoesNotExist, e:
         obj = Entity_Like.objects.create(
             user_id = uid,
