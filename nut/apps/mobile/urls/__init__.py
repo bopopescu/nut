@@ -30,6 +30,7 @@ urlpatterns += patterns(
     url(r'^category/', include('apps.mobile.urls.category')),
     url(r'^user/', include('apps.mobile.urls.user')),
     url(r'^message/', include('apps.mobile.urls.message')),
+    url(r'^feed/', include('apps.mobile.urls.feed')),
 )
 
 

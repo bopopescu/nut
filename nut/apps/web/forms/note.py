@@ -53,7 +53,7 @@ class NoteForm(forms.ModelForm):
                 user = self.user,
                 entity_id = self.entity_id,
             )
-            notify.send(note.user, recipient=note.entity.user, action_object=note, verb='note entity', target=note.entity)
+            notify.send(note.user, recipient=note.entity.user, action_object=note, verb='post note', target=note.entity)
         t = TagParser(_note)
         t.create_tag(user_id=self.user.pk, entity_id=self.entity_id)
         # note = Note.objects.get_or_create(entity_id = self.entity_id, user=self.user)
