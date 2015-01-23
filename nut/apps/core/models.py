@@ -14,6 +14,9 @@ from apps.core.manager.entity import EntityManager, EntityLikeManager, Selection
 from apps.core.manager.note import NoteManager, NotePokeManager
 from apps.core.manager.tag import EntityTagManager
 from apps.core.manager.category import CategoryManager
+
+from apps.notifications import notify
+
 from djangosphinx.models import SphinxSearch
 
 import time
@@ -151,6 +154,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     )
 
+
 class User_Profile(BaseModel):
     Man = u'M'
     Woman = u'F'
@@ -192,6 +196,10 @@ class User_Follow(models.Model):
     class Meta:
         ordering = ['-followed_time']
         unique_together = ("follower", "followee")
+
+    def save(self, *args, **kwargs):
+        super(User_Follow, self).save(*args, **kwargs)
+        notify.send(self.follower, recipient=self.followee, verb=u'has followed you', action_object=self, target=self.followee)
 
 
 class Banner(BaseModel):
@@ -465,6 +473,11 @@ class Selection_Entity(BaseModel):
     def __unicode__(self):
         return self.entity.title
 
+    def save(self, *args, **kwargs):
+        super(Selection_Entity, self).save(*args, **kwargs)
+        user = GKUser.objects.get(pk=2)
+        notify.send(user, recipient=self.entity.user, action_object=self, verb="set selection", target=self.entity)
+
 
 class Buy_Link(BaseModel):
     entity = models.ForeignKey(Entity, related_name='buy_links')
@@ -500,6 +513,10 @@ class Entity_Like(models.Model):
     class Meta:
         ordering = ['-created_time']
         unique_together = ('entity', 'user')
+
+    def save(self, *args, **kwargs):
+        super(Entity_Like, self).save(*args, **kwargs)
+        notify.send(self.user, recipient=self.entity.user, action_object=self, verb='like entity', target=self.entity)
 
 
 class Note(BaseModel):
@@ -550,6 +567,11 @@ class Note(BaseModel):
     def post_timestamp(self):
         return time.mktime(self.post_time.timetuple())
 
+    def save(self, *args, **kwargs):
+        super(Note, self).save(*args, **kwargs)
+        notify.send(self.user, recipient=self.entity.user, action_object=self, verb='post note', target=self.entity)
+
+
     def v3_toDict(self, user_note_pokes=None, has_entity=False):
         res = self.toDict()
         res.pop('note', None)
@@ -593,6 +615,10 @@ class Note_Comment(BaseModel):
     def __unicode__(self):
         return self.content
 
+    def save(self, *args, **kwargs):
+        super(Note_Comment, self).save(*args, **kwargs)
+        notify.send(self.user, recipient=self.note.user, verb="replied", action_object=self, target=self.note)
+
     def v3_toDict(self):
         res = self.toDict()
         res.pop('user_id', None)
@@ -620,6 +646,11 @@ class Note_Poke(models.Model):
     class Meta:
         ordering = ['-created_time']
         unique_together = ('note', 'user')
+
+    def save(self, *args, **kwargs):
+
+        super(Note_Poke, self).save(*args, **kwargs)
+        notify.send(self.user, recipient=self.note.user, action_object=self, verb="poke note", target=self.note)
 
 
 class Tag(models.Model):

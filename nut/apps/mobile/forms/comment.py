@@ -54,7 +54,7 @@ class PostNoteCommentForm(forms.Form):
             note_comment.replied_comment_id = _reply_to_comment
 
         note_comment.save()
-        notify.send(note_comment.user, recipient=self.note_cache.user, verb="replied", action_object=note_comment, target=self.note_cache)
+        # notify.send(note_comment.user, recipient=self.note_cache.user, verb="replied", action_object=note_comment, target=self.note_cache)
         return note_comment.v3_toDict()
 
 __author__ = 'edison'

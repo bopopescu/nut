@@ -85,7 +85,7 @@ def follow_action(request, user_id):
             followee_id = user_id,
         )
         uf.save()
-        notify.send(_fans, recipient=uf.followee, verb=u'has followed you', action_object=uf, target=uf.followee)
+        # notify.send(_fans, recipient=uf.followee, verb=u'has followed you', action_object=uf, target=uf.followee)
     return HttpResponse(1)
 
 
