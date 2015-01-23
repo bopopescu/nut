@@ -92,7 +92,7 @@ def message(request):
                 'created_time' : time.mktime(row.timestamp.timetuple()),
                 'content' : {
                     # 'note' : MobileNote(_message.note_id).read(_request_user_id),
-                    # 'note': row.target.top_note.v3_toDict(),
+                    'note': row.target.top_note.v3_toDict(),
                     'entity' : row.target.v3_toDict(),
                 }
             }
