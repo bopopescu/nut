@@ -1,5 +1,5 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.models import Entity_Like, User_Follow, Note_Comment
+from apps.core.models import Entity_Like, User_Follow, Note_Comment, Note_Poke
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 
@@ -44,6 +44,16 @@ def message(request):
                 'content': {
                     'follower' : row.actor.v3_toDict()
                 }
+            }
+            res.append(_context)
+        elif isinstance(row.action_object, Note_Poke):
+            _context = {
+                'type' : 'note_poke_message',
+                        'created_time' : time.mktime(row.timestamp.timetuple()),
+                        'content' : {
+                            'note' : row.target.v3_toDict(has_entity=True),
+                            'poker' : row.actor.v3_toDict(),
+                        }
             }
             res.append(_context)
         elif isinstance(row.action_object, Note_Comment):

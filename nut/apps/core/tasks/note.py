@@ -1,6 +1,7 @@
 from celery.task import task
 from apps.core.tasks import BaseTask
 from apps.core.models import Note_Poke
+from apps.notifications import notify
 
 from django.utils.log import getLogger
 
@@ -17,7 +18,8 @@ def post_note_task(uid, nid):
             note_id=nid,
         )
         np.save()
-    log.info("poke ok ok")
+        notify.send(np.user, recipient=np.note.user, action_object=np, verb="poke note", target=np.note)
+    # log.info("poke ok ok")
     # pass
 
 @task(base=BaseTask)
@@ -27,6 +29,6 @@ def depoke_note_task(uid, nid):
         np.delete()
     except Note_Poke.DoesNotExist, e:
         log.info("INFO: %s" % e.message)
-    log.info("depoke ok ok")
+    # log.info("depoke ok ok")
 
 __author__ = 'edison'
