@@ -258,4 +258,20 @@ def fans_list(request, user_id):
     return SuccessJsonResponse(res)
 
 
+@csrf_exempt
+@check_sign
+def follow_action(request):
+
+
+    return SuccessJsonResponse()
+
+
+@csrf_exempt
+@check_sign
+def unfollow_action(request):
+
+
+    return SuccessJsonResponse()
+
+
 __author__ = 'edison7500'
