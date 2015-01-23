@@ -6,6 +6,7 @@ import urllib2
 # from django.core.files.base import ContentFile
 from apps.core.utils.image import HandleImage
 from apps.core.models import Entity, Entity_Like
+from apps.notifications import notify
 
 from django.conf import settings
 
@@ -17,15 +18,10 @@ image_host = getattr(settings, 'IMAGE_HOST', None)
 def fetch_image(images, entity_id, *args, **kwargs):
     image_list = list()
     for image_url in images:
-        # print image_url
         f = urllib2.urlopen(image_url)
-        # print f.read()
-
         image = HandleImage(f)
         image_name = image.save()
         image_list.append("%s%s" % (image_host, image_name))
-
-
     try:
         entity = Entity.objects.get(pk = entity_id)
         entity.images = image_list
@@ -43,8 +39,11 @@ def like_task(uid, eid, **kwargs):
             user_id = uid,
             entity_id = eid,
         )
-        return obj
-    except Exception:
+        notify.send(obj.user, recipient=obj.entity.user, action_object=obj, verb='like entity', target=obj.entity)
+        # print "OKOKOKOKOK"
+        # return obj
+    except Exception, e:
+        print e.message
         return None
     # return status
 

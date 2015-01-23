@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.utils.http import JSONResponse
 from apps.core.models import Entity, Entity_Like, Note, Note_Comment, Note_Poke
+from apps.core.tasks.entity import like_task, unlike_task
 from apps.web.forms.comment import CommentForm
 from apps.web.forms.note import NoteForm
 from apps.web.forms.entity import EntityURLFrom, CreateEntityForm
@@ -193,10 +194,11 @@ def entity_like(request, eid):
     if request.is_ajax():
         _user = request.user
         try:
-            el = Entity_Like.objects.create(
-                user = _user,
-                entity_id = eid,
-            )
+            like_task.delay(uid=_user.id, eid=eid)
+            # el = Entity_Like.objects.create(
+            #     user = _user,
+            #     entity_id = eid,
+            # )
             return JSONResponse(data={'status':1})
         except Exception, e:
             log.error("ERROR: %s", e.message)
@@ -210,8 +212,9 @@ def entity_unlike(request, eid):
     if request.is_ajax():
         _user = request.user
         try:
-            el = Entity_Like.objects.get(entity_id = eid, user = _user)
-            el.delete()
+            # el = Entity_Like.objects.get(entity_id = eid, user = _user)
+            # el.delete()
+            unlike_task.delay(uid=_user.id, eid=eid)
             return JSONResponse(data={'status':0})
         except Entity_Like.DoesNotExist:
             raise Http404

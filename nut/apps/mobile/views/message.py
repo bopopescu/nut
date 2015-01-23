@@ -1,11 +1,13 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.models import User_Follow, Note_Comment
+from apps.core.models import Entity_Like, User_Follow, Note_Comment
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 
-from django.utils.log import getLogger
+
+from datetime import datetime
 import time
 
+from django.utils.log import getLogger
 log = getLogger('django')
 
 
@@ -13,16 +15,25 @@ log = getLogger('django')
 def message(request):
     _key = request.GET.get('session')
 
+    _timestamp = request.GET.get('timestamp', None)
+    if _timestamp != None:
+        _timestamp = datetime.fromtimestamp(float(_timestamp))
+    else:
+        _timestamp = datetime.now()
+
+    _count = int(request.GET.get('count', 10))
+
     try:
         _session = Session_Key.objects.get(session_key=_key)
     except Session_Key.DoesNotExist:
         return ErrorJsonResponse(status=403)
 
-    _messages = _session.user.notifications.read()
+    log.info(request.GET)
+    _messages = _session.user.notifications.filter(timestamp__lte=_timestamp)
 
     # log.info(_messages)
     res = []
-    for row in _messages:
+    for row in _messages[:_count]:
         log.info(row.action_object.__class__.__name__)
         # log.info(row.actor.profile.nickname)
         if isinstance(row.action_object, User_Follow):
@@ -46,6 +57,17 @@ def message(request):
                     }
             }
             res.append(_context)
+        elif isinstance(row.action_object, Entity_Like):
+            _context = {
+                'type' : 'entity_like_message',
+                'created_time' : time.mktime(row.timestamp.timetuple()),
+                'content' : {
+                    'liker' : row.actor.v3_toDict(),
+                    'entity' : row.target.v3_toDict(),
+                }
+            }
+            res.append(_context)
+    _session.user.notifications.mark_all_as_read()
     return SuccessJsonResponse(res)
 
 __author__ = 'edison'
