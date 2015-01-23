@@ -89,7 +89,7 @@ def selection(request):
         _timestamp = datetime.fromtimestamp(float(_timestamp))
     _key = request.GET.get('session')
 
-    selections = Selection_Entity.objects.published().filter(pub_time__lte=_timestamp)[:30]
+    selections = Selection_Entity.objects.published().filter(pub_time__lt=_timestamp)[:30]
 
     ids = selections.values_list('entity_id', flat=True)
     # log.info("count %s" % len(ids))
