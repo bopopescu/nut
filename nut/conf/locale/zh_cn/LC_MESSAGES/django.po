@@ -532,3 +532,10 @@ msgstr "记住密码"
 
 msgid "next"
 msgstr "下一步"
+
+
+msgid "about"
+msgstr "关于"
+
+msgid "agreement"
+msgstr "协议"

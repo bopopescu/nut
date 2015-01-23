@@ -31,23 +31,25 @@
                         {% endif %}
                     </div>
                     {% else %}
+{#                        <div class="form-group {% if field.errors %}has-error{% endif %}">#}
                         <div class="checkbox">
-                            <label class="col-sm-2 col-sm-offset-4">
-                                {{ field }}同意果库
+                            <label class="col-sm-4 col-sm-offset-4">
+                                {{ field }}我已阅读并同意&nbsp;<a class="pull-right" href="{% url 'web_agreement' %}">果库使用协议</a>
                             </label>
 
-                            <small class="col-sm-2"><a href="{% url 'web_agreement' %}">使用协议</a></small>
+{#                            使用协议</a>#}
                             {% if wizard.form.agree_tos.errors %}
                                 <span>
                                 {% for error in wizard.form.agree_tos.errors %}{{ error|escape }}{% endfor %}
                                 </span>
                             {% endif %}
                         </div>
+{#                        </div>#}
                     {% endif %}
 
                 {% endfor %}
             </fieldset>
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 20px;">
                 <div class="col-sm-4 col-sm-offset-4">
                     <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans 'next' %}</button>
                 </div>
