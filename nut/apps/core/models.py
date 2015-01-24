@@ -410,6 +410,11 @@ class Entity(BaseModel):
         return False
 
     @property
+    def default_buy_link(self):
+        buy_link = self.buy_links.filter(default=True).first()
+        return buy_link
+
+    @property
     def top_note(self):
         # try:
         notes = self.notes.filter(status=1)
@@ -430,8 +435,7 @@ class Entity(BaseModel):
         return res
 
     def v3_toDict(self, user_like_list=None):
-
-        log.info(user_like_list)
+        # log.info(user_like_list)
         res = self.toDict()
         res.pop('id', None)
         res.pop('images', None)
