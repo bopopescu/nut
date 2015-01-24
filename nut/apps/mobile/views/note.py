@@ -6,6 +6,7 @@ from apps.core.tasks.note import post_note_task, depoke_note_task
 from apps.mobile.models import Session_Key
 from apps.mobile.forms.note import PostNoteForms, UpdateNoteForms
 from apps.mobile.forms.comment import PostNoteCommentForm
+from apps.report.models import Report
 
 from django.utils.log import getLogger
 
@@ -151,5 +152,27 @@ def del_comment(request, note_id, comment_id):
         except Note_Comment.DoesNotExist:
             return ErrorJsonResponse(status=404)
     return ErrorJsonResponse(status=400)
+
+
+@csrf_exempt
+@check_sign
+def report(request, note_id):
+    _key = request.POST.get('session')
+    _comment = request.POST.get('comment', '')
+    try:
+        _session = Session_Key.objects.get(session_key=_key)
+    except Session_Key.DoesNotExist:
+        return ErrorJsonResponse(status=400)
+
+    try:
+        note = Note.objects.get(pk=note_id)
+    except Note.DoesNotExist:
+        return ErrorJsonResponse(status=400)
+
+    r = Report(reporter=_session.user, comment=_comment, content_object=note)
+    r.save()
+
+    return SuccessJsonResponse({ "status" : 1 })
+
 
 __author__ = 'edison7500'

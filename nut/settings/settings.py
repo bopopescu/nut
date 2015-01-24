@@ -45,13 +45,15 @@ INSTALLED_APPS = (
     # 'rest_framework.authtoken',
     # 'haystack',
     'djcelery',
-    'apps.notifications',
 
     'apps.core',
     'apps.management',
     'apps.web',
     'apps.mobile',
+
     'apps.images',
+    'apps.notifications',
+    'apps.report',
 )
 
 MIDDLEWARE_CLASSES = (

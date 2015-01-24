@@ -9,6 +9,7 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInte
 from apps.core.tasks import like_task, unlike_task
 from apps.mobile.models import Session_Key
 from apps.mobile.forms.search import EntitySearchForm
+from apps.report.models import Report
 from datetime import datetime
 import time
 import random
@@ -225,6 +226,23 @@ def search(request):
     return ErrorJsonResponse(status=400)
 
 
+@csrf_exempt
+@check_sign
+def report(request, entity_id):
+    _key = request.POST.get('session')
+    _comment = request.POST.get('comment', '')
+    try:
+        _session = Session_Key.objects.get(session_key=_key)
+    except Session_Key.DoesNotExist:
+        return ErrorJsonResponse(status=400)
 
+    try:
+        entity = Entity.objects.get(pk = entity_id)
+    except Entity.DoesNotExist:
+        return ErrorJsonResponse(status=404)
+
+    r = Report(reporter=_session.user, comment=_comment, content_object=entity)
+    r.save()
+    return SuccessJsonResponse({ "status" : 1 })
 
 __author__ = 'edison'
