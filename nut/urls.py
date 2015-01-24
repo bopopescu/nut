@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
+
 urlpatterns = staticfiles_urlpatterns()
 # from django.contrib import admin
 # admin.autodiscover()
@@ -31,6 +32,24 @@ urlpatterns += patterns('',
     # url(r'^', include('apps.web.urls')),
     # url(r'^selection/')
     url(r'^', include('apps.web.urls')),
+)
+
+
+
+from apps.web.sitemaps import UserSitemap, EntitySitemap, TagSitemap, CategorySitemap
+
+sitemaps = {
+    'user': UserSitemap,
+    'entity': EntitySitemap,
+    'tag': TagSitemap,
+    'category': CategorySitemap,
+}
+
+urlpatterns += patterns(
+    'django.contrib.sitemaps.views',
+    url(r'^sitemap\.xml$', 'index', {'sitemaps': sitemaps}),
+    url(r'^sitemap-(?P<section>.+)\.xml$', 'sitemap', {'sitemaps': sitemaps}),
+    # url(r'^feed/selection/$', SelectionFeeds()),
 )
 
 if settings.DEBUG:
