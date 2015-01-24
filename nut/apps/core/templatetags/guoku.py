@@ -31,6 +31,11 @@ def resize(value, size=None):
 register.filter(resize)
 
 
+def show_category(value):
+    title = value.split('-')
+    return title[0]
+register.filter(show_category)
+
 
 def timestamp(value):
     # log.info(type(value))
