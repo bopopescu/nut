@@ -13,9 +13,9 @@ USE_TZ = False
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test',
-        'USER': 'qinzhoukan',
-        'PASSWORD': 'qinzhoukan1@#',
+        'NAME': 'core',
+        'USER': 'guoku',
+        'PASSWORD': 'guoku!@#',
         'HOST': '10.0.2.90',
         'PORT': '',
         'OPTIONS': {
