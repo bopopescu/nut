@@ -41,7 +41,7 @@ def like_task(uid, eid, **kwargs):
             user_id = uid,
             entity_id = eid,
         )
-        notify.send(obj.user, recipient=obj.entity.user, action_object=obj, verb='like entity', target=obj.entity)
+        # notify.send(obj.user, recipient=obj.entity.user, action_object=obj, verb='like entity', target=obj.entity)
         return obj
     # return status
 
