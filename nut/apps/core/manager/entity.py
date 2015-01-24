@@ -57,7 +57,7 @@ class EntityLikeQuerySet(models.query.QuerySet):
         else:
             days = timedelta(days=1)
         popular_time = (dt - days).strftime("%Y-%m-%d") + ' 00:00'
-        return self.filter(created_time__gte=popular_time).annotate(dcount=models.Count('entity')).values_list('entity_id', flat=True)
+        return self.filter(created_time__gte=popular_time).values_list('entity', flat=True).annotate(dcount=models.Count('entity')).order_by('-dcount')[:200]
 
     def user_like_list(self, user, entity_list):
 

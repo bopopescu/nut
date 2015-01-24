@@ -10,7 +10,7 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInte
 from apps.web.forms.search import SearchForm
 from apps.core.utils.http import JSONResponse
 from django.utils.log import getLogger
-
+import random
 
 # from apps.notifications import notify
 
@@ -83,8 +83,10 @@ def selection(request, template='web/main/selection.html'):
 
 def popular(request, template='web/main/popular.html'):
 
-    popular = Entity_Like.objects.popular()
-    _entities = Entity.objects.filter(id__in=list(popular))
+    popular_list = Entity_Like.objects.popular()
+    # random.sample(popular_list, 60)
+    # _entities = Entity.objects.filter(id__in=list(popular_list))
+    _entities = Entity.objects.filter(id__in=random.sample(popular_list, 60))
 
     el = list()
     if request.user.is_authenticated():
