@@ -192,19 +192,37 @@ class EntityForm(forms.Form):
 
 
 class EntityImageForm(forms.Form):
+    YES_OR_NO = (
+        (1, _('yes')),
+        (0, _('no')),
+    )
 
     image = forms.ImageField(
         label='Select an Image',
-        help_text=_('max. 2 megabytes')
+        help_text=_('max. 2 megabytes'),
+        required=False,
+    )
+
+    is_chief = forms.ChoiceField(
+        label=_('chief image'),
+        choices=YES_OR_NO,
+        widget=forms.Select(attrs={'class':'form-control'}),
+        initial=0,
+        help_text=_('set entity cheif Image'),
     )
 
     def __init__(self, entity, *args, **kwargs):
         self.entity = entity
         super(EntityImageForm, self).__init__(*args, **kwargs)
 
+
+    def clean_is_chief(self):
+        _is_chief = self.cleaned_data.get('is_chief')
+        return int(_is_chief)
+
     def save(self):
         image = self.cleaned_data.get('image')
-
+        _is_chief = self.cleaned_data.get('is_chief')
         entity_image = HandleImage(image)
         image_name = image_path + "%s.jpg" % entity_image.name
 
@@ -213,7 +231,11 @@ class EntityImageForm(forms.Form):
         else:
             image_name = image_host + default_storage.save(image_name, ContentFile(entity_image.image_data))
         images = self.entity.images
-        images.append(image_name)
+
+        if _is_chief:
+            images.insert(0, image_name)
+        else:
+            images.append(image_name)
         self.entity.images = images
         self.entity.save()
 
