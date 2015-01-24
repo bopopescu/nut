@@ -36,8 +36,6 @@ class TaoBao():
             self.soup = BeautifulSoup(self.html)
             # print self.soup
 
-
-
     @property
     def headers(self):
         return self._headers
@@ -74,7 +72,6 @@ class TaoBao():
             pr = ptag[0].string
             ps = re.findall("\d+\.\d+",pr)
             return float(ps[0])
-
 
     @property
     def images(self):
@@ -157,7 +154,7 @@ class TaoBao():
 			"cid": self.cid,
 			"promprice" : self.price,
             "price": self.price,
-			"category" : "",
+			# "category" : "",
 			"imgs": self.images,
 			"count": 0,
 			"reviews": 0,

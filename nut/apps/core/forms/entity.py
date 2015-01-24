@@ -417,7 +417,7 @@ class CreateEntityForm(forms.Form):
         # else:
 
         self.initial = kwargs.get('initial')
-        group_id = self.initial['cid']
+        category_id = self.initial['category_id']
         img_count = len(self.initial['thumb_images'])
 
         # log.info("id %s" % group_id)
@@ -432,16 +432,19 @@ class CreateEntityForm(forms.Form):
             help_text=_(''),
         )
 
-        sub_category_choices = get_sub_category_choices(group_id)
+        cate = Sub_Category.objects.get(pk = category_id)
+        sub_category_choices = get_sub_category_choices(cate.group_id)
 
         self.fields['category'] = forms.ChoiceField(label=_('category'),
-                                                    widget=forms.Select(attrs={'class':'form-control', 'id':'category', 'data-init':1}),
+                                                    widget=forms.Select(attrs={'class':'form-control', 'id':'category', 'data-init':cate.group_id}),
                                                     choices=get_category_choices(),
+                                                    initial=cate.group_id,
                                                     help_text=_(''),
                                     )
         self.fields['sub_category'] = forms.ChoiceField(label=_('sub_category'),
                                                         choices=sub_category_choices,
-                                                        widget=forms.Select(attrs={'class':'form-control', 'id':'sub-category', 'data-init':1}),
+                                                        widget=forms.Select(attrs={'class':'form-control', 'id':'sub-category', 'data-init':category_id}),
+                                                        initial=category_id,
                                                         help_text=_(''))
 
         self.fields['content'] = forms.CharField(
@@ -572,7 +575,7 @@ def load_entity_info(url):
 
             try:
                 buy_link = Buy_Link.objects.get(origin_id=_taobao_id, origin_source="taobao.com",)
-                log.info(buy_link.entity)
+                # log.info(buy_link.entity)
                 _data = {
                     'entity_id': buy_link.entity.id,
                 }
