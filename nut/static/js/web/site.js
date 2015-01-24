@@ -156,27 +156,7 @@ $.ajaxSetup({
                         }
                     }
                 });
-//                $.post(this.href, function (data) {
-//                    var result = parseInt(data);
-////                    console.log(result);
-//                    if (result === 1) {
-//                        if($this.hasClass(".is-fan")){
-//                            $this.html('<i class="fa fa-check fa-lg"></i>&nbsp; 取消光柱');
-//                        }else {
-//                            $this.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关注');
-////                            $this.html('<span class="img_not_fun"></span><b>取消关注</b>');
-//                        }
-//                        $this.removeClass("btn-primary").addClass("btn-cancel");
-//                    } else if (result === 0) {
-//                        $this.html('<i class="fa fa-plus"></i>&nbsp; 关注');
-////                        $this.html('<span class="img_follow"></span><b>关注</b>');
-//                        $this.removeClass("btn-cancel").addClass("btn-primary");
-//                    } else {
-//                        var html = $(data);
-//                        util.modalSignIn(html);
-//                    }
-//                });
-                e.preventDefault();
+                //e.preventDefault();
             })
         },
 

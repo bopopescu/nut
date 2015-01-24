@@ -27,7 +27,7 @@
                     {% elif request.user.id in user.concren %}
                         <a class="follow is-fan btn btn-cancel pull-right" data-status="1" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关注</a>
                     {% elif request.user.id in user.fans_list %}
-                        <a class="follow btn btn-cancel pull-right" data-status="1" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; 取消关注</a>
+                        <a class="follow btn btn-cancel pull-right" data-status="1" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; 取消关注</a>
                     {% else %}
                         <a class="follow btn btn-primary pull-right" data-status="0" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; 关注</a>
                     {% endif %}
