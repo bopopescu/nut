@@ -1,0 +1,62 @@
+{#{% load i18n staticfiles %}#}
+{##}
+{#<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">#}
+{#<html style="overflow-x: hidden; overflow-y: scroll;" xmlns="http://www.w3.org/1999/xhtml">#}
+{#<head>#}
+{#    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">#}
+{#    <meta name="viewport" content="width=device-width">#}
+{#    <title>404 - 果库</title>#}
+{#    <link rel="icon" type="image/ico" href="{% static 'images/favicon.ico' %}">#}
+{#    <link rel="stylesheet" type="text/css" href="{% static 'styles/base.css' %}">#}
+{#</head>#}
+{##}
+{#<body>#}
+{#    <div id="header">#}
+{#        <div class="header-container">#}
+{#            <div class="title">#}
+{#                <h1 style="display: none"><a href="{% url 'web_selection' %}">{% trans "guoku" %}</a></h1>#}
+{#                <a href="{% url 'web_selection' %}" class="logo"><img src="{% static 'images/logo.png' %}"></a>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div id="wrapper">#}
+{#        <div id="main">#}
+{#            <div class="center">#}
+{#                <div class="img-404"></div>#}
+{#                <h2>404 - 该页面不存在</h2>#}
+{#                <p class="c999">The Master said: "Isn't it also great when friends visit from distant places?"</p>#}
+{#                <p class="c999 fs12"><i>-- 1:1, The Analects of Confucius, Translated by A. Charles Muller</i></p>#}
+{#                <br>#}
+{#                <p class="c999">子曰：有朋自远方来，不亦乐乎？</p>#}
+{#                <p class="c999">-- 《论语·学而》</p>#}
+{#                <br><br>#}
+{#                <p class="c333">返回 <a href="{% url 'web_selection' %}">首页</a>，或报告问题到 hi@guoku.com</p>#}
+{#            </div>#}
+{#        </div> #}
+{#    </div>#}
+{#</body>#}
+{#</html>#}
+{##}
+{% extends 'web/base.html' %}
+{% load i18n static %}
+
+{% block title %}找不到该网页{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-offset-3">
+                <img class="img-responsive" src="{% static 'images/404.png' %}">
+            </div>
+            <h3 class="col-sm-offset-4">404 - 该页面不存在</h3>
+
+            <p class="col-sm-offset-3">The Master said: "Isn't it also great when friends visit from distant places?"</p>
+            <p class="col-sm-offset-4" style="font-size: 12px"><i>-- 1:1, The Analects of Confucius, Translated by A. Charles Muller</i></p>
+            <br />
+            <p class="col-sm-offset-4">子曰：有朋自远方来，不亦乐乎？</p>
+            <p class="col-sm-offset-5">-- 《论语·学而》</p>
+            <br /><br />
+            <p class="col-sm-offset-4">返回 <a href="{% url 'web_selection' %}">首页</a>，或报告问题到 hi@guoku.com</p>
+        </div>
+    </div>
+{% endblock %}
