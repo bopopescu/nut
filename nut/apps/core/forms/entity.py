@@ -198,8 +198,14 @@ class EntityImageForm(forms.Form):
     )
 
     image = forms.ImageField(
-        label='Select an Image',
+        label=_('Select an Image'),
         help_text=_('max. 2 megabytes'),
+        required=False,
+    )
+
+    image_link = forms.CharField(
+        label=_('image link'),
+        widget=forms.TextInput(attrs={'class':'form-control'}),
         required=False,
     )
 
@@ -215,15 +221,37 @@ class EntityImageForm(forms.Form):
         self.entity = entity
         super(EntityImageForm, self).__init__(*args, **kwargs)
 
-
     def clean_is_chief(self):
         _is_chief = self.cleaned_data.get('is_chief')
         return int(_is_chief)
 
+    def clean_image_link(self):
+        _image_link = self.cleaned_data.get('image_link')
+        return _image_link.strip()
+    #
+    # def clean(self):
+    #     self.image_cache = self.cleaned_data.get('image')
+    #     self.image_link_cache = self.cleaned_data.get('image_link')
+    #
+    #     if self.image_cache and self.image_link_cache:
+    #         raise forms.ValidationError(
+    #             _('You must enter image or link')
+    #         )
+
+
     def save(self):
-        image = self.cleaned_data.get('image')
+        _image = self.cleaned_data.get('image')
+        _image_link = self.cleaned_data.get('image_link')
         _is_chief = self.cleaned_data.get('is_chief')
-        entity_image = HandleImage(image)
+
+        if _image:
+            entity_image = HandleImage(_image)
+        else:
+            import urllib2
+            f = urllib2.urlopen(_image_link)
+            entity_image = HandleImage(f)
+            # fetch_image.delay(entity.images, entity.id)
+
         image_name = image_path + "%s.jpg" % entity_image.name
 
         if default_storage.exists(image_name):

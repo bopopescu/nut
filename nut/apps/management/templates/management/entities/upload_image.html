@@ -1,21 +1,22 @@
 {% extends 'management/management_base.html' %}
 {% load i18n %}
-{% load guoku %}
+{#{% load guoku %}#}
 
 
 {% block content %}
     <h1 class="page-header">{{ entity.title }}</h1>
     <div class="row placeholders" id="images">
-        {% for index, image in entity.images|enumerate_list %}
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <img class="img-responsive img-thumbnail" alt="240x240" src="{{ image|resize:'240' }}" width="240" height="240">
+        {% include 'management/entities/partial/entity_images.html' with images=entity.images %}
+{#        {% for index, image in entity.images|enumerate_list %}#}
+{#            <div class="col-xs-6 col-sm-3 placeholder">#}
+{#                <img class="img-responsive img-thumbnail" alt="240x240" src="{{ image|resize:'600' }}" width="240" height="240">#}
 {#                {% if index != 0 %}#}
-                <span class="text-muted">
-                    <a href="{% url 'management_remove_entity_image' entity.id %}" data-image="{{ image }}">{% trans 'remove' %}</a>
-                </span>
+{#                <span class="text-muted">#}
+{#                    <a href="{% url 'management_remove_entity_image' entity.id %}" data-image="{{ image }}">{% trans 'remove' %}</a>#}
+{#                </span>#}
 {#                {% endif %}#}
-            </div>
-        {% endfor %}
+{#            </div>#}
+{#        {% endfor %}#}
     </div>
 
     <div class="row">
