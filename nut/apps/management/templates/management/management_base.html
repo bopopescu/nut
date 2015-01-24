@@ -61,6 +61,11 @@
                         <li {% if management_selection_url in request.path %} class="active" {% endif %}>
                             <a href="{{ management_selection_url }}"><i class="fa fa-star"></i> {% trans 'selection' %}</a>
                         </li>
+
+                        {% url 'management_event' as management_event_url %}
+                        <li {% if management_event_url in request.path %}class="active"{% endif %}>
+                            <a href="{{ management_event_url }}"><i class="fa fa-eye"></i>{% trans 'event' %}</a>
+                        </li>
                         {% url 'management_banner_list' as management_banner_list_url %}
                         <li {% if management_banner_list_url in request.path %} class="active" {% endif %}>
                             <a href="{{ management_banner_list_url }}"><i class="fa fa-photo"></i> {% trans 'banner' %}</a>

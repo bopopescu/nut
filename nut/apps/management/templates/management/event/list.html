@@ -1,0 +1,56 @@
+{% extends 'management/management_base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <div class="container">
+
+        <div class="row" style="margin-top: 20px;">
+            <ul class="nav nav-pills" role="tablist">
+                <li><a target="_blank" class="btn btn-primary" href="{% url 'management_event_create' %}">{% trans 'add' %}</a></li>
+            </ul>
+        </div>
+
+        <div class="row">
+            <div class="table-responsive" style="margin: 20px 0 20px 0;">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>{% trans 'tag' %}</th>
+                            <th>{% trans 'slug' %}</th>
+                            <th>{% trans 'status' %}</th>
+                            <th>{% trans 'has banner' %}</th>
+                            <th>{% trans 'banners' %}</th>
+                            <th>{% trans 'has recommendation' %}</th>
+                            <th>{% trans 'recommendations' %}</th>
+                            <th>{% trans 'operation' %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for event in events %}
+                            <tr>
+                                <td>{{ event.id }}</td>
+                                <td><a target="_blank" href="{{ event.tag_url }}">{{ event.tag }}</a></td>
+                                <td><a target="_blank" href="{{ event.slug_url }}">{{ event.slug }}</a></td>
+                                <td>{{ event.status }}</td>
+                                <td>{{ event.has_banner }}</td>
+                                <td>
+{#                                    <a href="{% url 'management_event_show_banner' event.pk %}" target="_blank">{{ event.banners }}</a>#}
+                                </td>
+                                <td>{{ event.has_recommendation }}</td>
+{#                                <td><a href="{% url 'management_event_show_recommendation' event.pk %}" target="_blank">{{ event.recommendations }}</a></td>#}
+                                <td>
+                                    <div class="btn-group">
+{#                                        <a href="#" class="btn btn-default" target="_blank" >{% trans 'preview' %}</a>#}
+                                        <a href="{% url 'management_event_edit' event.pk %}" class="btn btn-default" target="_blank" >{% trans 'edit' %}</a>
+                                        <a href="#" class="btn btn-danger">{% trans 'del' %}</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

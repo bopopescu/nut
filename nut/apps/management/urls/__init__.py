@@ -16,6 +16,11 @@ urlpatterns = patterns(
 
     url(r'^article/', include('apps.management.urls.article')),
     url(r'^media/', include('apps.management.urls.media')),
+
+
+    url(r'^event/', include('apps.management.urls.event')),
+    # url(r'^event-banner/', include('apps.management.urls.event_banner')),
+    # url(r'^recommend/', include('apps.management.urls.recommendation')),
 )
 
 urlpatterns += patterns(
