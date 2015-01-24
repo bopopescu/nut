@@ -14,6 +14,7 @@ from apps.core.manager.entity import EntityManager, EntityLikeManager, Selection
 from apps.core.manager.note import NoteManager, NotePokeManager
 from apps.core.manager.tag import EntityTagManager
 from apps.core.manager.category import CategoryManager
+# from apps.core.utils.tag import TagParser
 
 from apps.notifications import notify
 
@@ -577,7 +578,8 @@ class Note(BaseModel):
     def save(self, *args, **kwargs):
         super(Note, self).save(*args, **kwargs)
         notify.send(self.user, recipient=self.entity.user, action_object=self, verb='post note', target=self.entity)
-
+        # t = TagParser(self.note)
+        # t.create_tag(user_id=self.user.pk, entity_id=self.entity_id)
 
     def v3_toDict(self, user_note_pokes=None, has_entity=False):
         res = self.toDict()

@@ -47,7 +47,6 @@ $.ajaxSetup({
 
 //      初始化 tag
         initTag: function () {
-
             var array = $(".with-tag");
             for (var i=0; i<array.length; i++) {
                 var str = array.eq(i).html(array.eq(i).html().replace(/\<br[!>]*\>/g, "\n")).text();
@@ -115,29 +114,68 @@ $.ajaxSetup({
 
         follower :function () {
             $(".follow").on('click', function(e) {
-//                console.log($(this));
+                //console.log($(this));
                 var $this = $(this);
+                var uid = $this.attr('data-user-id');
+                var status = $this.attr('data-status');
 
-                $.post(this.href, function (data) {
-                    var result = parseInt(data);
-//                    console.log(result);
-                    if (result === 1) {
-                        if($this.hasClass(".is-fan")){
-                            $this.html('<i class="fa fa-check fa-lg"></i>&nbsp; 取消光柱');
-                        }else{
-                            $this.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关注');
+                var action_url = "/u/" + uid;
+
+                if(status == 1) {
+                    //console.log("OKOKOKOK");
+                    action_url +=  "/unfollow/";
+
+                } else {
+                    action_url +=  "/follow/";
+                }
+                console.log(action_url);
+                $.ajax({
+                    url: action_url,
+                    dataType:'json',
+                    method: 'post',
+                    success: function(data){
+                        //console.log(data);
+                        if (data.status == 1) {
+                            if($this.hasClass(".is-fan")){
+                                $this.html('<i class="fa fa-check fa-lg"></i>&nbsp; 取消光柱');
+                            } else {
+                                $this.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关注');
 //                            $this.html('<span class="img_not_fun"></span><b>取消关注</b>');
+                            }
+                            $this.attr('data-status', '1');
+
+                            $this.removeClass("btn-primary").addClass("btn-cancel");
+                        } else if (data.status == 0) {
+                            $this.html('<i class="fa fa-plus"></i>&nbsp; 关注');
+    //                        $this.html('<span class="img_follow"></span><b>关注</b>');
+                            $this.removeClass("btn-cancel").addClass("btn-primary");
+                            $this.attr('data-status', '0');
+                        } else {
+                            var html = $(data);
+                            util.modalSignIn(html);
                         }
-                        $this.removeClass("btn-primary").addClass("btn-cancel");
-                    } else if (result === 0) {
-                        $this.html('<i class="fa fa-plus"></i>&nbsp; 关注');
-//                        $this.html('<span class="img_follow"></span><b>关注</b>');
-                        $this.removeClass("btn-cancel").addClass("btn-primary");
-                    } else {
-                        var html = $(data);
-                        util.modalSignIn(html);
                     }
                 });
+//                $.post(this.href, function (data) {
+//                    var result = parseInt(data);
+////                    console.log(result);
+//                    if (result === 1) {
+//                        if($this.hasClass(".is-fan")){
+//                            $this.html('<i class="fa fa-check fa-lg"></i>&nbsp; 取消光柱');
+//                        }else {
+//                            $this.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关注');
+////                            $this.html('<span class="img_not_fun"></span><b>取消关注</b>');
+//                        }
+//                        $this.removeClass("btn-primary").addClass("btn-cancel");
+//                    } else if (result === 0) {
+//                        $this.html('<i class="fa fa-plus"></i>&nbsp; 关注');
+////                        $this.html('<span class="img_follow"></span><b>关注</b>');
+//                        $this.removeClass("btn-cancel").addClass("btn-primary");
+//                    } else {
+//                        var html = $(data);
+//                        util.modalSignIn(html);
+//                    }
+//                });
                 e.preventDefault();
             })
         },
@@ -468,7 +506,7 @@ $.ajaxSetup({
                     $textarea[0].value = '';
                     $textarea.focus();
                 } else {
-                    console.log($form.serialize());
+                    //console.log($form.serialize());
                     $.post(this.action, $form.serialize(), function (result){
                         result = $.parseJSON(result);
                         var status = parseInt(result.status);
@@ -476,6 +514,7 @@ $.ajaxSetup({
                             var $html = $(result.data);
                             detail.updateNote($html);
                             detail.clickComment($html);
+                            util.initTag();
 //                            console.log($html);
 //                            self.poke();
 //                            $('<div class="sep"></div>').appendTo($notes);
