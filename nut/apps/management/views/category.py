@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
-
+from django.contrib.auth.decorators import login_required
 from apps.core.models import Category, Sub_Category
 from apps.core.forms.category import CreateCategoryForm, EditCategoryForm, CreateSubCategoryForm, EditSubCategoryForm
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
@@ -14,6 +14,8 @@ from django.utils.log import getLogger
 
 log = getLogger('django')
 
+
+@login_required
 def list(request, template='management/category/list.html'):
     #
     # c = request.GET.get('c', '1')
@@ -33,8 +35,8 @@ def list(request, template='management/category/list.html'):
                     }
                 )
                 # log.info(s)
-
-        return HttpResponse(json.dumps(res))
+        return JSONResponse(res)
+        # return HttpResponse(json.dumps(res))
 
     page = request.GET.get('page', 1)
 
@@ -59,6 +61,8 @@ def list(request, template='management/category/list.html'):
         context_instance = RequestContext(request)
     )
 
+
+@login_required
 def sub_category_list(request, cid, template="management/category/sub_category_list.html"):
 
     _page = request.GET.get('page', 1)
