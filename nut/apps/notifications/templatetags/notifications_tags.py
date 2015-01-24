@@ -18,8 +18,10 @@ def notifications_unread(context):
     # log.info(user.notifications.read())
     # if user.is_anonymous():
     #     return ''
-    request = context['request']
-
+    try:
+        request = context['request']
+    except KeyError:
+        return ''
     _user = request.user
     # log.info(request.user)
     if _user.is_anonymous():

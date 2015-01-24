@@ -15,10 +15,10 @@ db = client.guoku
 collection = db.selection
 
 for row in collection.find():
-    print row['entity_id'], row['selected_time'].strftime("%Y-%m-%d %H:%M:%S")
+    print row['entity_id'], row['post_time'].strftime("%Y-%m-%d %H:%M:%S")
     s = Selection_Entity(
         entity_id = row['entity_id'],
-        pub_time = row['selected_time'].strftime("%Y-%m-%d %H:%M:%S"),
+        pub_time = row['post_time'].strftime("%Y-%m-%d %H:%M:%S"),
     )
     # s.is_published = True
     try:

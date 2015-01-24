@@ -14,7 +14,10 @@ register.filter(enumerate_list)
 def resize(value, size=None):
     host = 'http://imgcdn.guoku.com/'
     # host = 'http://h.guoku.com/'
-    log.info(value)
+    # log.info(value)
+    if value is None:
+        return value
+
     if size:
         if host in value:
             uri = value.replace(host, '')
