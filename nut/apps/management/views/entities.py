@@ -7,11 +7,14 @@ from django.core.urlresolvers import reverse
 from django.utils.log import getLogger
 from django.core.files.storage import default_storage
 from django.views.decorators.csrf import csrf_exempt
+from django.core.cache import cache
 
 from apps.core.models import Entity, Buy_Link
 from apps.core.forms.entity import EntityForm, EntityImageForm, BuyLinkForm, CreateEntityForm, load_entity_info
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
+
+from hashlib import md5
 
 log = getLogger('django')
 
@@ -128,7 +131,17 @@ def create(request, template='management/entities/new.html'):
             return HttpResponseRedirect(reverse('management_entity_edit', args=[entity.pk]))
     else:
 
-        # log.info(res)
+        log.info("category %s %s" % (res['cid'], res['origin_source']))
+        key_string = "%s%s" % (res['cid'], res['origin_source'])
+        # log.info(ke)
+        key = md5(key_string.encode('utf-8')).hexdigest()
+        category_id = cache.get(key)
+        # res.update('category_id', category_id)
+        if category_id:
+            res['category_id'] = category_id
+        else:
+            res['category_id'] = 300
+        log.info("%s %s" % (key, category_id))
         _forms = CreateEntityForm(request=request, initial=res)
 
     return render_to_response(
