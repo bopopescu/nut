@@ -513,7 +513,7 @@ class CreateEntityForm(forms.Form):
                 origin_source = _origin_source,
                 link = "http://item.taobao.com/item.htm?id=%s" % _origin_id,
                 price = _price,
-                status = True,
+                default = True,
             )
         else:
             Buy_Link.objects.create(
@@ -523,7 +523,7 @@ class CreateEntityForm(forms.Form):
                 origin_source = _origin_source,
                 link = "http://item.jd.com/%s.html" % _origin_id,
                 price = _price,
-                status = True,
+                default = True,
             )
         return entity
 

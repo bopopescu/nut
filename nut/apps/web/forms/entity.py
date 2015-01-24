@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.log import getLogger
+from django.core.cache import cache
 
 from apps.core.models import Entity, Taobao_Item_Category_Mapping, Note, Buy_Link
 from apps.core.utils.fetch.taobao import TaoBao
@@ -12,6 +13,7 @@ from urlparse import urlparse
 import re
 from datetime import datetime
 from hashlib import md5
+
 
 log = getLogger('django')
 
@@ -191,7 +193,16 @@ class CreateEntityForm(forms.Form):
         log.info("category %s" % _cid)
         _entity_hash = cal_entity_hash(_taobao_id+_title+_shop_nick)
 
-        category_id = 300
+        if _taobao_id:
+            key_string = "%s%s" % (_cid, "taobao.com")
+        else:
+            key_string = "%s%s" % (_cid, "jd.com")
+
+        key = md5(key_string.encode('utf-8')).hexdigest()
+
+        category_id = cache.get(key)
+        if category_id is None:
+            category_id = 300
         # try:
         #     cate = Taobao_Item_Category_Mapping.objects.get(taobao_category_id = _cid)
         #     category_id = cate.neo_category_id
@@ -236,6 +247,7 @@ class CreateEntityForm(forms.Form):
                 origin_source = "taobao.com",
                 link = "http://item.taobao.com/item.htm?id=%s" % _taobao_id,
                 price = _price,
+                default = True,
             )
         else:
             Buy_Link.objects.create(
@@ -245,6 +257,7 @@ class CreateEntityForm(forms.Form):
                 origin_source = "jd.com",
                 link = "http://item.jd.com/%s.html" % _jd_id,
                 price = _price,
+                default = True,
             )
 
 
