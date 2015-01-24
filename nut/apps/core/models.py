@@ -15,6 +15,7 @@ from apps.core.manager.note import NoteManager, NotePokeManager
 from apps.core.manager.tag import EntityTagManager
 from apps.core.manager.category import CategoryManager
 from djangosphinx.models import SphinxSearch
+from apps.notifications import notify
 
 import time
 
