@@ -141,8 +141,13 @@ def entity_like(request, user_id):
         return ErrorJsonResponse(status=404)
 
     for like in entities.object_list:
+        try:
+            e = like.entity.v3_toDict()
+        except Exception, e:
+            log.error("Error: %s" % e.message)
+            continue
         res['entity_list'].append(
-            like.entity.v3_toDict()
+            e
         )
 
     return SuccessJsonResponse(res)
