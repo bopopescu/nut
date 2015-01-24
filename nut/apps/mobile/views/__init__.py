@@ -9,6 +9,7 @@ from apps.core.utils.taobaoapi.utils import taobaoke_mobile_item_convert
 from datetime import datetime
 
 
+
 from django.utils.log import getLogger
 log = getLogger('django')
 
@@ -82,17 +83,59 @@ def homepage(request):
 
 @check_sign
 def selection(request):
-
+    log.info(request.GET)
     # _timestamp = request.GET.get('timestamp', None)
     _timestamp = request.GET.get('timestamp', datetime.now())
     if _timestamp != None:
         _timestamp = datetime.fromtimestamp(float(_timestamp))
     _key = request.GET.get('session')
 
-    selections = Selection_Entity.objects.published().filter(pub_time__lt=_timestamp)[:30]
 
+    _rcat = request.GET.get('rcat', None)
+    log.info("rcat %s" % _rcat)
+
+    if _rcat == '1':
+        innqs = Sub_Category.objects.map(group_id_list=[13, 15, 17])
+        selections = Selection_Entity.objects.published().filter(pub_time__lt=_timestamp, entity__category__in=innqs)[:30]
+    elif _rcat == '2':
+        # innqs = Sub_Category.objects.filter(group_id__in=[14, 16]).values_list('id', flat=True)
+        innqs = Sub_Category.objects.map(group_id_list=[14, 16])
+        selections = Selection_Entity.objects.published().filter(pub_time__lt=_timestamp, entity__category__in=innqs)[:30]
+    elif _rcat == '3':
+        innqs = Sub_Category.objects.map(group_id_list=[26, 28, 29, 30, 31, 32, 34, 35, 36])
+        selections = Selection_Entity.objects.published().filter(pub_time__lt=_timestamp, entity__category__in=innqs)[:30]
+    elif _rcat == '4':
+        innqs = Sub_Category.objects.map(group_id_list=[9, 18, 24])
+        selections = Selection_Entity.objects.published().filter(pub_time__lt=_timestamp, entity__category__in=innqs)[:30]
+    elif _rcat == '5':
+        innqs = Sub_Category.objects.map(group_id_list=[8, 33])
+        selections = Selection_Entity.objects.published().filter(pub_time__lt=_timestamp, entity__category__in=innqs)[:30]
+    elif _rcat == '6':
+        innqs = Sub_Category.objects.map(group_id_list=[21, 22])
+        selections = Selection_Entity.objects.published().filter(pub_time__lt=_timestamp, entity__category__in=innqs)[:30]
+    elif _rcat == '7':
+        innqs = Sub_Category.objects.map(group_id_list=[1, 2, 3, 4, 5, 6, 7, 41])
+        selections = Selection_Entity.objects.published().filter(pub_time__lt=_timestamp, entity__category__in=innqs)[:30]
+    elif _rcat == '8':
+        innqs = Sub_Category.objects.map(group_id_list=[19, 20])
+        selections = Selection_Entity.objects.published().filter(pub_time__lt=_timestamp, entity__category__in=innqs)[:30]
+    elif _rcat == '9':
+        innqs = Sub_Category.objects.map(group_id_list=[10, 11])
+        selections = Selection_Entity.objects.published().filter(pub_time__lt=_timestamp, entity__category__in=innqs)[:30]
+    elif _rcat == '10':
+        innqs = Sub_Category.objects.map(group_id_list=[12, 40])
+        selections = Selection_Entity.objects.published().filter(pub_time__lt=_timestamp, entity__category__in=innqs)[:30]
+    elif _rcat == '11':
+        innqs = Sub_Category.objects.map(group_id_list=[25, 38, 39])
+        selections = Selection_Entity.objects.published().filter(pub_time__lt=_timestamp, entity__category__in=innqs)[:30]
+    else:
+        selections = Selection_Entity.objects.published().filter(pub_time__lt=_timestamp)[:30]
     ids = selections.values_list('entity_id', flat=True)
-    # log.info("count %s" % len(ids))
+
+
+
+
+
     try:
         _session = Session_Key.objects.get(session_key=_key)
         # log.info("session %s" % _session)
@@ -128,7 +171,7 @@ def popular(request):
     _key = request.GET.get('session')
     log.info(_scale)
     popular = Entity_Like.objects.popular(_scale)
-    _entities = Entity.objects.filter(id__in=list(popular))
+    _entities = Entity.objects.filter(id__in=list(popular), status=Entity.selection)
 
     try:
         _session = Session_Key.objects.get(session_key=_key)

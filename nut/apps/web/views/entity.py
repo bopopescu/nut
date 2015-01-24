@@ -116,8 +116,7 @@ def entity_update_note(request, nid):
 # @login_required
 def entity_note_comment(request, nid, template='web/entity/note/comment_list.html'):
 
-    _user = None
-
+    # _user = None
     if request.method == "POST":
         if request.user.is_authenticated():
             _user = request.user
@@ -252,7 +251,7 @@ def entity_load(request):
         if _forms.is_valid():
             _item_info = _forms.load()
 
-            # log.info(_item_info)
+            log.info(_item_info)
 
 
             if _item_info.has_key('entity_hash'):

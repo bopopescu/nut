@@ -20,7 +20,7 @@ for row in collection.find():
         entity_id = row['entity_id'],
         pub_time = row['selected_time'].strftime("%Y-%m-%d %H:%M:%S"),
     )
-    s.is_published = True
+    # s.is_published = True
     try:
         s.save()
     except Exception, e:

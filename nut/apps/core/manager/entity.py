@@ -72,10 +72,6 @@ class EntityLikeManager(models.Manager):
     def popular(self, scale='weekly'):
         key = 'entity_popular_%s' % scale
         res = cache.get(key)
-        # if scale == 'weekly':
-        #     res = cache.get('entity_popular_weekly')
-        # else:
-        #     res = cache.get('entity_popular_daily')
         if res:
             return res
         res = self.get_query_set().popular(scale)

@@ -13,7 +13,7 @@ from apps.core.manager.account import GKUserManager
 from apps.core.manager.entity import EntityManager, EntityLikeManager, SelectionEntityManager
 from apps.core.manager.note import NoteManager, NotePokeManager
 from apps.core.manager.tag import EntityTagManager
-from apps.core.manager.category import CategoryManager
+from apps.core.manager.category import CategoryManager, SubCategoryManager
 # from apps.core.utils.tag import TagParser
 
 from apps.notifications import notify
@@ -294,6 +294,7 @@ class Sub_Category(BaseModel):
     title = models.CharField(max_length = 128, db_index = True)
     icon = models.CharField(max_length = 64, db_index = True, null = True, default = None)
     status = models.BooleanField(default = True, db_index = True)
+    objects = SubCategoryManager()
 
     class Meta:
         ordering = ['-id']
