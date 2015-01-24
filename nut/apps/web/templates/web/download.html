@@ -1,0 +1,62 @@
+{% extends "web/base.html" %}
+{% load i18n staticfiles %}
+
+{% block title %}
+    果库 iOS 客户端
+{#    <meta name="keywords" content="果库,Guoku,iOS,iPhone,iPad,app,下载">#}
+{% endblock %}
+
+{#{% block css %}#}
+{#    <link rel="stylesheet" type="text/css" href="{% static 'styles/base.css' %}">#}
+{#    <link rel="stylesheet" type="text/css" href="{% static 'styles/other.css' %}">#}
+{#{% endblock %}#}
+
+{% block content %}
+    <div class="container">
+        <div style="border:1px solid #eee;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img class="img-responsive" src="{% static 'images/download/11.png' %}" />
+                    <a class="btn btn-primary btn-download" target="_blank" href="http://itunes.apple.com/cn/app/id477652209?mt=8">iPhone 版</a>
+                    <a class="btn btn-primary btn-download" style="left: 160px" target="_blank" href="http://itunes.apple.com/cn/app/id450507565?mt=8">iPad 版</a>
+                    <a class="btn btn-primary btn-download" style="left: 300px" href="http://app.guoku.com/download/android/guoku-release.apk" target="_blank" bi="download_android" _hover-ignore="1" _orighref="http://app.guoku.com/download/android/guoku-release.apk" _tkworked="true">Android 版</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="row">
+                        <div style="margin: 50px"></div>
+                        <div class="col-sm-6" >
+                            <img src="{% static 'images/download/3.png' %}" style="height:250px;" />
+                        </div>
+                        <div class="col-sm-6">
+                            <h3 style="margin-top: 60px">每日精选</h3>
+                            <p>只收录最优质商品，最精彩点评，<br />轻松发现，省去筛选烦恼。</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <hr style="margin: 20px" />
+                        <div class="col-sm-6">
+                            <img src="{% static 'images/download/4.png' %}" style="height:250px;" />
+                        </div>
+                        <div class="col-sm-6">
+                            <h3 style="margin-top: 60px">全新发现</h3>
+                            <p>按照品类细分商品，寻找好物不再盲目，<br />关爱生活，更关心你。</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <hr style="margin: 20px" />
+                        <div class="col-sm-6">
+                             <img src="{% static 'images/download/5.png' %}" style="height:250px;"/>
+                        </div>
+                        <div class="col-sm-6">
+                            <h3 style="margin-top: 60px">话题标签</h3>
+                            <p>实用、有趣的个人化标签，晒出独特品位，<br />换一种方式去探索发现。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -61,8 +61,6 @@
                                 </a>
                             {% endif %}
 
-
-{#                        </div>#}
                         <div class="hidden-sm hidden-md hidden-lg pull-right">
                             {% if entity.default_buy_link.origin_source == "taobao.com" %}
                                 <a id="buy-btn-mobile" class="btn btn-primary" href="http://item.taobao.com/item.htm?id={{ entity.default_buy_link.origin_id }}" target="_blank" biz-itemid="{{ entity.default_buy_link.origin_id }}" _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity_context.title }}-taobao'])">
