@@ -17,6 +17,6 @@ for row in maping:
     key = md5(key_string.encode('utf-8')).hexdigest()
     print key
 
-    cache.set(key, row.category_id)
+    cache.set(key, row.category_id, timeout=7200)
 
 __author__ = 'edison'
