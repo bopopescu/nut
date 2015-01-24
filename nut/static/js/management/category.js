@@ -12,14 +12,20 @@
     //var old_init_category = old_category.attr("data-oldinit");
 
     $.get(url, function (data) {
-        var return_data = $.parseJSON(data);
+        //var return_data = $.parseJSON(data);
         //new_data = return_data["new_category"];
         //old_data = return_data["old_category"];
         //console.log(return_data);
-        relatedOption(category_group, category, getNewOptions(return_data), init_category);
+        relatedOption(category_group, category, getNewOptions(data), init_category);
         //relatedOption(old_category_group, old_category, getOldOptions(old_data), old_init_category);
     });
-
+    //$.ajax({
+    //    url: url,
+    //    dataType: 'json',
+    //    success: function(data){
+    //
+    //    }
+    //});
 
     function getNewOptions(data) {
         var options = [];
@@ -112,7 +118,7 @@
             });
 
             var select_value = select1.val();
-            console.log(select_value);
+            //console.log(select_value);
             var more_options;
             for (var i = 0; i < options.length; i++) {
                 if (options[i].value == select_value) {
