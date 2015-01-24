@@ -17,4 +17,21 @@ class LinksView(TemplateView):
     template_name = "web/links.html"
 
 
+class DownloadView(TemplateView):
+    template_name = "web/download.html"
+# def download_ios(request, template="download_ios.html"):
+#     if request.user.is_authenticated():
+#         _request_user_context = User(request.user.id).read()
+#     else:
+#         _request_user_context = None
+#
+#     return render_to_response(
+#         template,
+#         {
+#             'user_context' : _request_user_context,
+#         },
+#         context_instance = RequestContext(request)
+#     )
+
+
 __author__ = 'edison7500'
