@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 
 from apps.core.models import Show_Event_Banner, Event_Banner
-# from management.forms.event_banner import CreateEventBannerForms, EditEventBannerForms
+from apps.management.forms.event_banner import CreateEventBannerForms, EditEventBannerForms
 # from utils.authority import staff_only
 
 from django.utils.log import getLogger
