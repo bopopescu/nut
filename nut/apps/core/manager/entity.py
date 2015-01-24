@@ -49,11 +49,15 @@ class EntityManager(models.Manager):
 
 class EntityLikeQuerySet(models.query.QuerySet):
 
-    def popular(self):
+    def popular(self, scale):
         dt = datetime.now()
-        days = timedelta(days=7)
+
+        if scale == 'weekly':
+            days = timedelta(days=7)
+        else:
+            days = timedelta(days=1)
         popular_time = (dt - days).strftime("%Y-%m-%d") + ' 00:00'
-        return self.filter(created_time__gt=popular_time).annotate(dcount=models.Count('entity')).values_list('entity_id', flat=True)
+        return self.filter(created_time__gte=popular_time).annotate(dcount=models.Count('entity')).values_list('entity_id', flat=True)
 
     def user_like_list(self, user, entity_list):
 
@@ -65,12 +69,17 @@ class EntityLikeManager(models.Manager):
     def get_query_set(self):
         return EntityLikeQuerySet(self.model, using=self._db)
 
-    def popular(self):
-        res = cache.get('entity_popular')
+    def popular(self, scale='weekly'):
+        key = 'entity_popular_%s' % scale
+        res = cache.get(key)
+        # if scale == 'weekly':
+        #     res = cache.get('entity_popular_weekly')
+        # else:
+        #     res = cache.get('entity_popular_daily')
         if res:
             return res
-        res = self.get_query_set().popular()
-        cache.set('entity_popular', res, timeout=3600)
+        res = self.get_query_set().popular(scale)
+        cache.set(key, res, timeout=3600)
         return res
 
     def user_like_list(self, user, entity_list):

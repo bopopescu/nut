@@ -120,13 +120,14 @@ def selection(request):
     # paginator = ExtentPaginator(entity_list)
     return SuccessJsonResponse(res)
 
+
 @check_sign
 def popular(request):
 
     _scale = request.GET.get('scale', 'daily')
     _key = request.GET.get('session')
-
-    popular = Entity_Like.objects.popular()
+    log.info(_scale)
+    popular = Entity_Like.objects.popular(_scale)
     _entities = Entity.objects.filter(id__in=list(popular))
 
     try:
