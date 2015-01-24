@@ -238,7 +238,6 @@ class EntityImageForm(forms.Form):
     #             _('You must enter image or link')
     #         )
 
-
     def save(self):
         _image = self.cleaned_data.get('image')
         _image_link = self.cleaned_data.get('image_link')
