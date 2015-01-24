@@ -4,8 +4,8 @@ from django.utils.translation import gettext_lazy as _
 # from django.core.files.base import ContentFile
 from django.utils.log import getLogger
 
-from base.handle_image import HandleImage
-from base.models import Show_Event_Banner, Event_Banner, Event
+from apps.core.utils.image import HandleImage
+from apps.core.models import Show_Event_Banner, Event_Banner, Event
 
 log = getLogger('django')
 
