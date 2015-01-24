@@ -86,7 +86,7 @@ def follow_action(request, user_id):
         )
         uf.save()
         # notify.send(_fans, recipient=uf.followee, verb=u'has followed you', action_object=uf, target=uf.followee)
-    return HttpResponse(1)
+    return JSONResponse(data={'status':1})
 
 
 @login_required
@@ -103,7 +103,7 @@ def unfollow_action(request, user_id):
         uf.delete()
     except User_Follow.DoesNotExist, e:
         raise Http404
-    return HttpResponse(0)
+    return JSONResponse(data={'status':0})
     # return
 
 def index(request, user_id):

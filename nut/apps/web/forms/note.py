@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from apps.core.models import Note
 from apps.core.utils.tag import TagParser
-from apps.notifications import notify
+# from apps.notifications import notify
 
 from django.utils.log import getLogger
 log = getLogger('django')
@@ -53,12 +53,10 @@ class NoteForm(forms.ModelForm):
                 user = self.user,
                 entity_id = self.entity_id,
             )
-            # notify.send(note.user, recipient=note.entity.user, action_object=note, verb='post note', target=note.entity)
-        t = TagParser(_note)
+
+        t = TagParser(note.note)
         t.create_tag(user_id=self.user.pk, entity_id=self.entity_id)
-        # note = Note.objects.get_or_create(entity_id = self.entity_id, user=self.user)
-        # note.note = _note
-        # note.save()
+
         return note
 
 
