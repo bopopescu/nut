@@ -56,7 +56,7 @@ urlpatterns += patterns(
     url(r'^links/$', LinksView.as_view(), name='web_links'),
     url(r'^faq/$', FaqView.as_view(), name='web_faq'),
     url(r'^download/$', DownloadView.as_view(), name='web_download'),
-    url(r'^download/ios/$', 'download_ios')
+    url(r'^download/ios/$', 'download_ios'),
 
 )
 
