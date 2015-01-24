@@ -2,6 +2,7 @@ from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.log import getLogger
+from django.contrib.auth.decorators import login_required
 
 from apps.core.models import GKUser
 from apps.core.forms.user import UserForm, GuokuSetPasswordForm, AvatarForm
@@ -10,7 +11,7 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 
 log = getLogger('django')
 
-
+@login_required
 def list(request, template="management/users/list.html"):
 
     page = request.GET.get('page', 1)
@@ -48,6 +49,7 @@ def list(request, template="management/users/list.html"):
                             context_instance = RequestContext(request))
 
 
+@login_required
 def edit(request, user_id, template="management/users/edit.html"):
 
     try:
@@ -83,7 +85,7 @@ def edit(request, user_id, template="management/users/edit.html"):
                               context_instance = RequestContext(request))
 
 
-
+@login_required
 def reset_password(request, user_id, template='management/users/reset_password.html'):
 
     try:
@@ -108,6 +110,7 @@ def reset_password(request, user_id, template='management/users/reset_password.h
     )
 
 
+@login_required
 def upload_avatar(request, user_id, template='management/users/upload_avatar.html'):
 
     try:
@@ -135,6 +138,7 @@ def upload_avatar(request, user_id, template='management/users/upload_avatar.htm
     )
 
 
+@login_required
 def post(request, user_id, template='management/users/post.html'):
 
     status = request.GET.get('status', None)
@@ -168,6 +172,7 @@ def post(request, user_id, template='management/users/post.html'):
     )
 
 
+@login_required
 def notes(request, user_id, template='management/users/notes.html'):
 
     page = request.GET.get('page', 1)
