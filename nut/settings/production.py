@@ -90,4 +90,9 @@ LOGGING = {
     }
 }
 
+
+SINA_APP_KEY = '1459383851'
+SINA_APP_SECRET = 'bfb2e43c3fa636f102b304c485fa2110'
+SINA_BACK_URL = APP_HOST + '/sina/auth'
+
 __author__ = 'edison7500'

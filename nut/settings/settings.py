@@ -214,7 +214,7 @@ SPHINX_PORT = 3312
 
 
 # taobao
-APP_HOST = "http://test.guoku.com"
+APP_HOST = "http://www.guoku.com"
 TAOBAO_APP_KEY = '12313170'
 TAOBAO_APP_SECRET = '90797bd8d5859aac971f8cc9d4e51105'
 TAOBAO_OAUTH_URL = 'https://oauth.taobao.com/authorize'
