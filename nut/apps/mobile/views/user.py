@@ -112,7 +112,7 @@ def tag_detail(request, user_id, tag):
 
 @check_sign
 def entity_like(request, user_id):
-
+    # log.info(request.GET)
     try:
         _user = GKUser.objects.get(pk=user_id)
     except GKUser.DoesNotExist:
@@ -121,27 +121,32 @@ def entity_like(request, user_id):
     _timestamp = request.GET.get('timestamp', datetime.now())
     if _timestamp != None:
         _timestamp = datetime.fromtimestamp(float(_timestamp))
+    else:
+        _timestamp = datetime.now()
     _offset = int(request.GET.get('offset', '0'))
     _count = int(request.GET.get('count', '30'))
-
-    _offset = _offset / _count + 1
+    log.info(_timestamp)
+    # _offset = _offset / _count + 1
 
     res = {}
-    res['timestamp'] = time.mktime(_timestamp.timetuple())
+    # res['timestamp'] = time.mktime(_timestamp.timetuple())
     res['entity_list'] = []
 
-    entity_list = Entity_Like.objects.filter(user=_user, created_time__lte=datetime.now())
+    entities = Entity_Like.objects.filter(user=_user, created_time__lt=_timestamp)[:_count]
+    last = len(entities) -1
+    # log.info(time.mktime(entities[last].created_time))
+    res['timestamp'] = time.mktime(entities[last].created_time.timetuple())
+    # print entities[-1].created_time
+    # paginator = Paginator(entity_list, _count)
+    #
+    # try:
+    #     entities = paginator.page(_offset)
+    # # except PageNotAnInteger:
+    # #     entities = paginator.page(1)
+    # except EmptyPage:
+    #     return ErrorJsonResponse(status=404)
 
-    paginator = Paginator(entity_list, _count)
-
-    try:
-        entities = paginator.page(_offset)
-    # except PageNotAnInteger:
-    #     entities = paginator.page(1)
-    except EmptyPage:
-        return ErrorJsonResponse(status=404)
-
-    for like in entities.object_list:
+    for like in entities:
         try:
             e = like.entity.v3_toDict()
         except Exception, e:
