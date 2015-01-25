@@ -15,6 +15,13 @@ urlpatterns = patterns(
 
 urlpatterns += patterns(
     'apps.web.views.entity',
+    url(r'^m/detail/(?P<entity_hash>\w+)/$', 'wap_entity_detail', name='wap_detail'),
+    url(r'^weixin/present/(?P<entity_id>\d+)/$', 'wechat_entity_detail', name='wechat_detail'),
+    url(r'^tencent/detail/(?P<entity_hash>\w+)/$', 'tencent_entity_detail', name='tencent_detail'),
+)
+
+urlpatterns += patterns(
+    'apps.web.views.entity',
     url(r'^detail/(?P<entity_hash>\w+)/$', 'entity_detail', name='web_entity_detail'),
 )
 

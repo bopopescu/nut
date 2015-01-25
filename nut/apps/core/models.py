@@ -441,8 +441,10 @@ class Entity(BaseModel):
         res.pop('id', None)
         res.pop('images', None)
         res.pop('user_id', None)
+        res['entity_id'] = self.id
         res['created_time'] = time.mktime(self.created_time.timetuple())
         res['updated_time'] = time.mktime(self.created_time.timetuple())
+        res['novus_time'] = time.mktime(self.created_time.timetuple())
         res['creator_id'] = self.user_id
         res['like_already'] = 0
         if user_like_list and self.id in user_like_list:
