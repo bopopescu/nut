@@ -64,7 +64,7 @@
 
                         {% url 'management_event' as management_event_url %}
                         <li {% if management_event_url in request.path %}class="active"{% endif %}>
-                            <a href="{{ management_event_url }}"><i class="fa fa-eye"></i>{% trans 'event' %}</a>
+                            <a href="{{ management_event_url }}"><i class="fa fa-eye"></i>&nbsp;{% trans 'event' %}</a>
                         </li>
                         {% url 'management_banner_list' as management_banner_list_url %}
                         <li {% if management_banner_list_url in request.path %} class="active" {% endif %}>

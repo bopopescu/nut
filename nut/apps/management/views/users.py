@@ -7,11 +7,12 @@ from django.contrib.auth.decorators import login_required
 from apps.core.models import GKUser
 from apps.core.forms.user import UserForm, GuokuSetPasswordForm, AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
-
+from apps.management.decorators import admin_only
 
 log = getLogger('django')
 
 @login_required
+@admin_only
 def list(request, template="management/users/list.html"):
 
     page = request.GET.get('page', 1)
@@ -50,6 +51,7 @@ def list(request, template="management/users/list.html"):
 
 
 @login_required
+@admin_only
 def edit(request, user_id, template="management/users/edit.html"):
 
     try:
@@ -86,6 +88,7 @@ def edit(request, user_id, template="management/users/edit.html"):
 
 
 @login_required
+@admin_only
 def reset_password(request, user_id, template='management/users/reset_password.html'):
 
     try:
@@ -139,6 +142,7 @@ def upload_avatar(request, user_id, template='management/users/upload_avatar.htm
 
 
 @login_required
+@admin_only
 def post(request, user_id, template='management/users/post.html'):
 
     status = request.GET.get('status', None)
@@ -173,6 +177,7 @@ def post(request, user_id, template='management/users/post.html'):
 
 
 @login_required
+@admin_only
 def notes(request, user_id, template='management/users/notes.html'):
 
     page = request.GET.get('page', 1)
