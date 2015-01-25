@@ -6,7 +6,10 @@ from django.template import RequestContext
 from django.template import loader
 
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
+from apps.core.models import Entity_Like, Entity, Sub_Category
+from django.db.models import Count
 from apps.core.utils.http import JSONResponse
+
 from datetime import datetime
 
 
@@ -20,6 +23,12 @@ def messages(request, template='web/messages/message.html'):
         _timestamp = datetime.fromtimestamp(float(_timestamp))
     else:
         _timestamp = datetime.now()
+
+    el = Entity_Like.objects.popular()
+    cids = Entity.objects.filter(pk__in=list(el)).annotate(dcount=Count('category')).values_list('category_id', flat=True)
+
+    _categories = Sub_Category.objects.filter(id__in=list(cids))[:6]
+
     message_list = _user.notifications.filter(timestamp__lt=_timestamp)
 
     paginator = ExtentPaginator(message_list, 10)
@@ -52,7 +61,9 @@ def messages(request, template='web/messages/message.html'):
     return render_to_response(
         template,
         {
-            'messages': _messages
+            'messages': _messages,
+            'categories': _categories,
+            # 'category': category,
         },
         context_instance = RequestContext(request),
     )
