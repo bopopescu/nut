@@ -19,7 +19,7 @@
                 </li>
 
                 <li {% if management_selection_pending_url in request.path %}class="active"{% endif %}>
-                    <a href="{% url 'management_selection_pending' %}">{% trans 'pending' %}</a>
+                    <a href="{% url 'management_selection_pending' %}">{% trans 'pending' %}&nbsp;({{ pending_count }})</a>
                 </li>
             </ul>
         </div>

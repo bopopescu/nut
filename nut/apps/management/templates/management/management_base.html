@@ -35,7 +35,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">{% trans 'dashboard' %}</a></li>
                         <li><a href="#">{% trans 'settings' %}</a></li>
-                        <li><a href="javascript:window.open('http://h.guoku.com/management/entity/new/?url=' +encodeURIComponent(location.href), '_blank');">果库+</a></li>
+                        <li><a href="javascript:window.open('http://admin.guoku.com/management/entity/new/?url=' +encodeURIComponent(location.href), '_blank');">果库+</a></li>
                     </ul>
                     <form class="navbar-form navbar-right">
                         <input class="form-control" type="text" placeholder="{% trans "search" %}">
@@ -53,13 +53,13 @@
                     <ul class="nav nav-sidebar">
                         {% url 'management_dashboard' as management_dashboard_url %}
                         <li {% if management_dashboard_url == request.path %}class="active"{% endif %}>
-                            <a href="{{ management_dashboard_url }}"><i class="fa fa-dashboard"></i> {% trans 'dashboard' %}</a>
+                            <a href="{{ management_dashboard_url }}"><i class="fa fa-dashboard"></i>&nbsp;{% trans 'dashboard' %}</a>
                         </li>
                     </ul>
                     <ul class="nav nav-sidebar">
                         {% url 'management_selection_list' as management_selection_url %}
                         <li {% if management_selection_url in request.path %} class="active" {% endif %}>
-                            <a href="{{ management_selection_url }}"><i class="fa fa-star"></i> {% trans 'selection' %}</a>
+                            <a href="{{ management_selection_url }}"><i class="fa fa-star"></i>&nbsp;{% trans 'selection' %}</a>
                         </li>
 
                         {% url 'management_event' as management_event_url %}
