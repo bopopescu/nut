@@ -65,6 +65,7 @@ def published(request, template="management/selection/list.html"):
         template,
         {
             'selections': selections,
+            'pending_count': Selection_Entity.objects.pending().count()
             # 'entities': _entities,
         },
         context_instance = RequestContext(request)
@@ -91,6 +92,7 @@ def pending(request, template="management/selection/list.html"):
         template,
         {
             'selections': selections,
+            'pending_count': Selection_Entity.objects.pending().count()
             # 'entities': _entities,
         },
         context_instance = RequestContext(request)
