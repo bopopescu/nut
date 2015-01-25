@@ -225,7 +225,7 @@ class CreateEntityForm(forms.Form):
             price=_price,
             images=_images,
         )
-
+        entity.status = Entity.freeze
         log.info(entity.images)
 
         entity.save()

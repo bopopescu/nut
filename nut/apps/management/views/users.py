@@ -69,13 +69,13 @@ def edit(request, user_id, template="management/users/edit.html"):
     }
 
     if request.method == 'POST':
-        _forms = UserForm(request.POST, initial=data)
+        _forms = UserForm(user=user, data=request.POST, initial=data)
         # log.info('change %s', _forms.has_changed())
         if _forms.is_valid():
             _forms.save()
 
     else:
-        _forms = UserForm(initial=data)
+        _forms = UserForm(user=user, initial=data)
 
     return render_to_response(template,
                                 {

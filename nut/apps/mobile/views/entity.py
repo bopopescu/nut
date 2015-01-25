@@ -44,19 +44,7 @@ def entity_list(request):
 
     _key = request.GET.get('session', None)
     # log.info("session "_key)
-
-
     entities = Entity.objects.new().filter(created_time__lt=_timestamp)[:30]
-
-    # paginator = ExtentPaginator(entity_list, _count)
-
-    # try:
-    #     entities = paginator.page(_offset)
-    # except PageNotAnInteger:
-    #     entities = paginator.page(1)
-    # except EmptyPage:
-    #     return ErrorJsonResponse(status=404)
-    # res = list
 
     try:
         _session = Session_Key.objects.get(session_key=_key)
