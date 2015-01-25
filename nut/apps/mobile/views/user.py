@@ -1,12 +1,13 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.models import Entity_Tag, GKUser, Entity_Like, Note, User_Follow
-from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
+# from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 from apps.mobile.forms.user import MobileUserProfileForm
 
 from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator, EmptyPage
 from django.utils.log import getLogger
 from datetime import datetime
 import time
@@ -19,7 +20,7 @@ log = getLogger('django')
 @check_sign
 def update(request):
     if request.method == "POST":
-        log.info(request.POST)
+        # log.info(request.POST)
         # log.info(request.FILES)
         _key = request.POST.get('session', None)
         try:
@@ -131,12 +132,12 @@ def entity_like(request, user_id):
 
     entity_list = Entity_Like.objects.filter(user=_user, created_time__lte=datetime.now())
 
-    paginator = ExtentPaginator(entity_list, _count)
+    paginator = Paginator(entity_list, _count)
 
     try:
         entities = paginator.page(_offset)
-    except PageNotAnInteger:
-        entities = paginator.page(1)
+    # except PageNotAnInteger:
+    #     entities = paginator.page(1)
     except EmptyPage:
         return ErrorJsonResponse(status=404)
 
@@ -172,11 +173,11 @@ def entity_note(request, user_id):
 
     note_list = Note.objects.filter(user=_user, post_time__lte=_timestamp)
 
-    paginator = ExtentPaginator(note_list, _count)
+    paginator = Paginator(note_list, _count)
     try:
         notes = paginator.page(_offset)
-    except PageNotAnInteger:
-        notes = paginator.page(1)
+    # except PageNotAnInteger:
+    #     notes = paginator.page(1)
     except EmptyPage:
         return ErrorJsonResponse(status=404)
 
@@ -216,12 +217,12 @@ def following_list(request, user_id):
 
     followings_list = _user.followings.all()
 
-    paginator = ExtentPaginator(followings_list, _count)
+    paginator = Paginator(followings_list, _count)
 
     try:
         _followings = paginator.page(_offset)
-    except PageNotAnInteger:
-        _followings = paginator.page(1)
+    # except PageNotAnInteger:
+    #     _followings = paginator.page(1)
     except EmptyPage:
         return ErrorJsonResponse(status=404)
 
@@ -254,12 +255,12 @@ def fans_list(request, user_id):
         return ErrorJsonResponse(status=404)
 
     fans_list = _user.fans.all()
-    paginator = ExtentPaginator(fans_list, 12)
+    paginator = Paginator(fans_list, 12)
 
     try:
         _fans = paginator.page(_offset)
-    except PageNotAnInteger:
-        _fans = paginator.page(1)
+    # except PageNotAnInteger:
+    #     _fans = paginator.page(1)
     except EmptyPage:
         return ErrorJsonResponse(status=404)
 

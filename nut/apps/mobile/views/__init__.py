@@ -72,7 +72,7 @@ def homepage(request):
             c.v3_toDict()
         )
     # log.info(res['discover'])
-
+    res['hottag'] = []
 
     res['config'] = {}
     res['config']['taobao_ban_count'] = 2
