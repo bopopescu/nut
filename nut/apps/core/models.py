@@ -130,6 +130,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
         res['user_id'] = self.id
         res['is_censor'] = False
+
         try:
             res['nickname'] = self.profile.nickname
             res['bio'] = self.profile.bio
@@ -193,8 +194,10 @@ class User_Profile(BaseModel):
             return "%s%s" % (image_host, self.avatar)
         else:
             if self.gender == self.Woman:
-                return "%s%s" % (settings.STATIC_URL, 'images/woman.jpg')
-            return "%s%s" % (settings.STATIC_URL, 'images/man.jpg')
+                return "%s%s" % ('http://www.guoku.com/static/', 'images/woman.jpg')
+            return "%s%s" % ('http://www.guoku.com/static/', 'images/man.jpg')
+            #     return "%s%s" % (settings.STATIC_URL, 'images/woman.jpg')
+            # return "%s%s" % (settings.STATIC_URL, 'images/man.jpg')
 
 
 class User_Follow(models.Model):
@@ -446,6 +449,7 @@ class Entity(BaseModel):
         res.pop('rate', None)
         res['entity_id'] = self.id
         res['item_id_list'] = ['54c21867a2128a0711d970da']
+        # res['price'] = "%s" % int(self.price)
         res['weight'] = 0
         res['score_count'] = 0
         res['mark_value'] = 0
@@ -456,6 +460,7 @@ class Entity(BaseModel):
         res['creator_id'] = self.user_id
         res['old_root_category_id'] = 9
         res['old_category_id'] = 152
+        res['total_score'] = 0
         res['like_already'] = 0
         if user_like_list and self.id in user_like_list:
             res['like_already'] = 1
@@ -501,6 +506,9 @@ class Selection_Entity(BaseModel):
         user = GKUser.objects.get(pk=2)
         notify.send(user, recipient=self.entity.user, action_object=self, verb="set selection", target=self.entity)
 
+    @property
+    def publish_timestamp(self):
+        return time.mktime(self.pub_time.timetuple())
 
 class Buy_Link(BaseModel):
     entity = models.ForeignKey(Entity, related_name='buy_links')
@@ -520,6 +528,7 @@ class Buy_Link(BaseModel):
         res = self.toDict()
         res.pop('link', None)
         res['buy_link'] = "http://api.guoku.com%s?type=mobile" % reverse('mobile_visit_item', args=[self.origin_id])
+        res['price'] = int(self.price)
         return res
 
     def __unicode__(self):

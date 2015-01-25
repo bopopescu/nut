@@ -38,7 +38,7 @@ class CategoryManager(models.Manager):
             res.append({
                 'group_id' : c.id,
                 'title' : c.title,
-                'status' : c.status,
+                'status' : int(c.status),
                 'category_count': c.sub_category_count,
                 'content': _content,
             })
