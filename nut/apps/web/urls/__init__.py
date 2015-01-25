@@ -7,8 +7,11 @@ urlpatterns = patterns(
     'apps.web.views',
 
     # url(r'^$', 'main.index', name='web_index'),
-    url(r'^$', RedirectView.as_view(url='/selection/')),
-    url(r'^selection/$', 'main.selection', name='web_selection'),
+    url(r'^$', RedirectView.as_view(url='/selected/')),
+    url(r'^selection/$', RedirectView.as_view(url='/selected/')),
+    url(r'^selected/$', 'main.selection', name='web_selection'),
+    # url(r'^selected/$',  RedirectView.as_view(url='/selection/'),
+
     url(r'^popular/$', 'main.popular', name='web_popular'),
     url(r'^search/$', 'main.search', name='web_search'),
 )
