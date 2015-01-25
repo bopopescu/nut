@@ -294,6 +294,7 @@ class Sub_Category(BaseModel):
     title = models.CharField(max_length = 128, db_index = True)
     icon = models.CharField(max_length = 64, db_index = True, null = True, default = None)
     status = models.BooleanField(default = True, db_index = True)
+
     objects = SubCategoryManager()
 
     class Meta:
@@ -441,13 +442,11 @@ class Entity(BaseModel):
         res.pop('images', None)
         res.pop('user_id', None)
         res['created_time'] = time.mktime(self.created_time.timetuple())
-        res['updated_time'] = time.mktime(self.updated_time.timetuple())
+        res['updated_time'] = time.mktime(self.created_time.timetuple())
         res['creator_id'] = self.user_id
         res['like_already'] = 0
         if user_like_list and self.id in user_like_list:
             res['like_already'] = 1
-
-
 
         res['item_list'] = list()
         for b in self.buy_links.all():

@@ -8,6 +8,7 @@ from django.utils.log import getLogger
 from django.core.files.storage import default_storage
 from django.views.decorators.csrf import csrf_exempt
 from django.core.cache import cache
+from django.contrib.auth.decorators import login_required
 
 from apps.core.models import Entity, Buy_Link
 from apps.core.forms.entity import EntityForm, EntityImageForm, BuyLinkForm, CreateEntityForm, load_entity_info
@@ -30,7 +31,7 @@ log = getLogger('django')
 #         page = self.request.GET.get('page', 1)
 #         status = self.request.GET.get('status', None)
 
-
+@login_required
 def list(request, template = 'management/entities/list.html'):
 
     status = request.GET.get('status', None)
@@ -60,6 +61,7 @@ def list(request, template = 'management/entities/list.html'):
     )
 
 
+@login_required
 def edit(request, entity_id, template='management/entities/edit.html'):
 
     _update = None
@@ -109,6 +111,7 @@ def edit(request, entity_id, template='management/entities/edit.html'):
     )
 
 
+@login_required
 def create(request, template='management/entities/new.html'):
 
     # res = dict()
@@ -154,6 +157,7 @@ def create(request, template='management/entities/new.html'):
     )
 
 
+@login_required
 def buy_link(request, entity_id, template='management/entities/buy_link.html'):
 
     # _buy_link_list = Buy_Link.objects.filter(entity_id = entity_id)
@@ -181,6 +185,7 @@ def buy_link(request, entity_id, template='management/entities/buy_link.html'):
     )
 
 @csrf_exempt
+@login_required
 def remove_buy_link(request, bid):
     try:
         b = Buy_Link.objects.get(pk=bid)
@@ -193,6 +198,7 @@ def remove_buy_link(request, bid):
     return SuccessJsonResponse()
 
 
+@login_required
 def image(request, entity_id, template='management/entities/upload_image.html'):
 
     try:
@@ -218,6 +224,7 @@ def image(request, entity_id, template='management/entities/upload_image.html'):
 
 
 @csrf_exempt
+@login_required
 def delete_image(request, entity_id):
 
     if request.method == 'POST':

@@ -134,8 +134,6 @@ def selection(request):
 
 
 
-
-
     try:
         _session = Session_Key.objects.get(session_key=_key)
         # log.info("session %s" % _session)
