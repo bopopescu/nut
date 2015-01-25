@@ -1,3 +1,4 @@
+#coding=utf-8
 from django.http import HttpResponseRedirect
 
 from apps.mobile.lib.sign import check_sign
@@ -44,7 +45,6 @@ def decorate_taobao_url(url, ttid=None, sid=None, outer_code=None, sche=None):
     return url
 
 
-
 @check_sign
 def homepage(request):
 
@@ -77,7 +77,6 @@ def homepage(request):
     res['config'] = {}
     res['config']['taobao_ban_count'] = 2
     res['config']['url_ban_list'] = ['http://m.taobao.com/go/act/mobile/cloud-jump.html']
-
     return SuccessJsonResponse(data=res)
 
 
@@ -154,7 +153,7 @@ def selection(request):
 
         res.append({
             'content': r,
-            'post_time': selection.entity.top_note.post_timestamp,
+            'post_time': selection.publish_timestamp,
             'type': "note_selection",
         })
 

@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.cache import cache
+from django.contrib.auth import get_user_model
 # from django.utils import timezone
 # from django.utils.translation import ugettext_lazy as _
 import random
@@ -56,8 +57,10 @@ class EntityLikeQuerySet(models.query.QuerySet):
             days = timedelta(days=7)
         else:
             days = timedelta(days=1)
+
+        innqs = get_user_model()._default_manager.filter(is_active__gt=0).values_list('id', flat=True)
         popular_time = (dt - days).strftime("%Y-%m-%d") + ' 00:00'
-        return self.filter(created_time__gte=popular_time).values_list('entity', flat=True).annotate(dcount=models.Count('entity')).order_by('-dcount')[:200]
+        return self.filter(created_time__gte=popular_time, user_id__in=innqs).values_list('entity', flat=True).annotate(dcount=models.Count('entity')).order_by('-dcount')[:200]
 
     def user_like_list(self, user, entity_list):
 
