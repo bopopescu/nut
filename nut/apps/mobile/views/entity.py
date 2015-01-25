@@ -21,11 +21,15 @@ log = getLogger('django')
 
 @check_sign
 def entity_list(request):
-
+    log.info(request.GET)
     _timestamp = request.GET.get('timestamp', None)
     if _timestamp != None:
         _timestamp = datetime.fromtimestamp(float(_timestamp))
+    else:
+        _timestamp = datetime.now()
 
+
+    log.info("time %s"% _timestamp )
     _sort_by = request.GET.get('sort', 'novus_time')
     _reverse = request.GET.get('reverse', '0')
     if _reverse == '0':
@@ -42,27 +46,27 @@ def entity_list(request):
     # log.info("session "_key)
 
 
-    entity_list = Entity.objects.new()
+    entities = Entity.objects.new().filter(created_time__lt=_timestamp)[:30]
 
-    paginator = ExtentPaginator(entity_list, _count)
+    # paginator = ExtentPaginator(entity_list, _count)
 
-    try:
-        entities = paginator.page(_offset)
-    except PageNotAnInteger:
-        entities = paginator.page(1)
-    except EmptyPage:
-        return ErrorJsonResponse(status=404)
+    # try:
+    #     entities = paginator.page(_offset)
+    # except PageNotAnInteger:
+    #     entities = paginator.page(1)
+    # except EmptyPage:
+    #     return ErrorJsonResponse(status=404)
     # res = list
 
     try:
         _session = Session_Key.objects.get(session_key=_key)
-        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(entities.object_list))
+        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(entities))
     except Session_Key.DoesNotExist, e:
         log.info(e.message)
         el = None
 
     res = []
-    for row in entities.object_list:
+    for row in entities:
         res.append(
             row.v3_toDict(user_like_list=el)
         )

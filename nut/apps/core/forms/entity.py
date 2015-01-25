@@ -417,7 +417,7 @@ class CreateEntityForm(forms.Form):
         # else:
 
         self.initial = kwargs.get('initial')
-        category_id = self.initial['category_id']
+        category_id = self.initial.get('category_id', 300)
         img_count = len(self.initial['thumb_images'])
 
         # log.info("id %s" % group_id)
