@@ -441,8 +441,8 @@ class CreateEntityForm(forms.Form):
                                                     initial=cate.group_id,
                                                     help_text=_(''),
                                     )
-        self.fields['sub_category'] = forms.ChoiceField(label=_('sub_category'),
-                                                        choices=sub_category_choices,
+        self.fields['sub_category'] = forms.CharField(label=_('sub_category'),
+                                                        # choices=sub_category_choices,
                                                         widget=forms.Select(attrs={'class':'form-control', 'id':'sub-category', 'data-init':category_id}),
                                                         initial=category_id,
                                                         help_text=_(''))
