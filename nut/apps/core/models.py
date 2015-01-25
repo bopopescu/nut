@@ -455,6 +455,7 @@ class Entity(BaseModel):
         res['creator_id'] = self.user_id
         res['old_root_category_id'] = 9
         res['old_category_id'] = 152
+        res['total_score'] = 0
         res['like_already'] = 0
         if user_like_list and self.id in user_like_list:
             res['like_already'] = 1
