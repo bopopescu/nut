@@ -74,6 +74,23 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
         context_instance = RequestContext(request),
     )
 
+def wap_entity_detail(request, entity_hash, template='wap/detail.html'):
+    return HttpResponseRedirect(reverse('web_entity_detail', args=[entity_hash]))
+
+
+def wechat_entity_detail(request, entity_id, template='wap/detail.html'):
+
+    # _entity_id = int(entity_id)
+    try:
+        _entity = Entity.objects.get(pk = entity_id)
+    except Entity.DoesNotExist:
+        raise Http404
+    return HttpResponseRedirect(reverse('web_entity_detail', args=[_entity.entity_hash]))
+
+
+def tencent_entity_detail(request, entity_hash, template='tencent/detail.html'):
+    return HttpResponseRedirect(reverse('web_entity_detail', args=[entity_hash]))
+
 @login_required
 def entity_post_note(request, eid, template='web/entity/partial/ajax_detail_note.html'):
     if request.method == 'POST':
