@@ -505,6 +505,9 @@ class Selection_Entity(BaseModel):
         user = GKUser.objects.get(pk=2)
         notify.send(user, recipient=self.entity.user, action_object=self, verb="set selection", target=self.entity)
 
+    @property
+    def publish_timestamp(self):
+        return time.mktime(self.pub_time.timetuple())
 
 class Buy_Link(BaseModel):
     entity = models.ForeignKey(Entity, related_name='buy_links')

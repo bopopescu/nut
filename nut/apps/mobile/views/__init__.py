@@ -153,7 +153,7 @@ def selection(request):
 
         res.append({
             'content': r,
-            'post_time': selection.entity.top_note.post_timestamp,
+            'post_time': selection.publish_timestamp,
             'type': "note_selection",
         })
 

@@ -136,15 +136,6 @@ def entity_like(request, user_id):
     last = len(entities) -1
     # log.info(time.mktime(entities[last].created_time))
     res['timestamp'] = time.mktime(entities[last].created_time.timetuple())
-    # print entities[-1].created_time
-    # paginator = Paginator(entity_list, _count)
-    #
-    # try:
-    #     entities = paginator.page(_offset)
-    # # except PageNotAnInteger:
-    # #     entities = paginator.page(1)
-    # except EmptyPage:
-    #     return ErrorJsonResponse(status=404)
 
     for like in entities:
         try:
