@@ -89,7 +89,7 @@
                 <i class="fa fa-heart fa-2x media-object"></i>
             </div>
             <div class="media-body">
-                <p class="media-heading">你的商品被喜爱了</p>
+                <p class="media-heading"><a target="_blank" href="{% url 'web_user_entity_like' row.actor.id %}"><strong>{{ row.actor.profile.nickname }}</strong></a>&nbsp;喜爱了你添加的商品</p>
                 <p>
                     <a target="_blank" href="{% url 'web_entity_detail' row.target.entity_hash %}">
                         <img class="img-responsive message-image" src="{{ row.target.chief_image|resize:'240' }}" width="120" height="120">
