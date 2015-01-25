@@ -128,6 +128,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         res.pop('is_superuser', None)
 
         res['user_id'] = self.id
+        res['is_censor'] = False
         try:
             res['nickname'] = self.profile.nickname
             res['bio'] = self.profile.bio

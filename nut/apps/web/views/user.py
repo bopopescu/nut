@@ -187,6 +187,9 @@ def post_note(request, user_id, template="web/user/post_note.html"):
 def tag(request, user_id, template="web/user/tag.html"):
 
     _page = request.GET.get('page', 1)
+    _user = get_user_model()._default_manager.get(pk=user_id)
+    # try:
+
 
     # log.info(user_id)
     tag_list = Entity_Tag.objects.user_tags(user_id)
@@ -205,7 +208,7 @@ def tag(request, user_id, template="web/user/tag.html"):
         template,
         {
             'tags': _tags,
-            'user_id': user_id,
+            'user': _user,
         },
         context_instance = RequestContext(request),
     )
