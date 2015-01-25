@@ -2,10 +2,13 @@ from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
+from django.contrib.auth.decorators import  login_required
 
 from apps.core.models import Show_Banner, Entity
+from apps.management.decorators import staff_only
 
 
+@staff_only
 def dashboard(request, template='management/dashboard.html'):
 
     page = request.GET.get('page', 1)
