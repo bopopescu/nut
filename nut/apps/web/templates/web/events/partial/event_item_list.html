@@ -1,0 +1,38 @@
+{% load i18n %}
+{% load guoku %}
+{#{% load entity web_common %}#}
+
+{% for entity in entities %}
+    <div class="col-xs-12 col-sm-4 col-md-4">
+        <div class="thumbnail entity-selection">
+{#                        <span class="timestr" name="{{ entity.post_time|date:"Y-m-d H:i:s" }}"></span>#}
+                        <div class="img-box">
+                            <a  href="{% url 'web_entity_detail' entity.entity_hash %}">
+                                <img class="img-responsive" alt="{{ entity.title }}" src="{{ entity.chief_image|resize:'310' }}" width='310' height='310'>
+                            </a>
+                        </div>
+
+                        <div class="caption">
+                            <p class="note">{{ entity.top_note|truncatechars:70 }}</p>
+                        </div>
+                        <div style="white-space:nowrap;overflow:hidden;">
+                            {% if entity.id in user_entity_likes %}
+                                <a class="btn btn-like pull-left" href="javascript:;" data-entity="{{ entity.id }}" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
+                                <i class="fa fa-heart fa-lg"></i>
+                            {% else %}
+                                <a class="btn btn-like pull-left" href="javascript:;" data-entity="{{ entity.id }}" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
+                                <i class="fa fa-heart-o fa-lg"></i>
+                            {% endif %}
+                                    {% trans 'likes' %} <span class="like-count">{{ entity.like_count }}</span>
+                                </a>
+                                <a class="btn btn-user pull-right" href="{% if entity.top_note %}{% url 'web_user_index' entity.top_note.user_id %}{% else %}#{% endif %}" target="_blank">
+{#                                <a class="btn btn-user pull-right" href="{{ entity.top_note.user_id }}">#}
+                                    <p style="margin: 0;">
+{#                                        {{ entity.top_note.user_id }}#}
+                                        <img class="img-circle" src="{{ entity.top_note.user.profile.avatar_url }}" width="30" height="30" >&nbsp; {{ entity.top_note.user.profile.nickname|truncatechars:10 }}
+                                    </p>
+                                </a>
+                        </div>
+        </div>
+    </div>
+{% endfor %}

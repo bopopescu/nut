@@ -1,36 +1,32 @@
-{% extends 'web/base.html' %}
+{% extends 'management/management_base.html' %}
 {% load i18n %}
 
-{% block title %}{% trans 'forget password' %}{% endblock %}
+
 {% block content %}
     <div class="container">
         <div class="row">
-            <h1>重新设置密码</h1>
-            <hr />
-        </div>
-        <div class="row">
-            <form class="form-horizontal" method="post" action="{% url 'web_forget_password' %}">
-                {% csrf_token %}
+            <form class="form-horizontal well" action="" method="POST">
+            {% csrf_token %}
                 <fieldset>
+{#                    {{ forms }}#}
                     {% for field in forms %}
                         <div class="form-group {% if field.errors %}has-error{% endif %}">
-                            <label class="control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                            <div class="">
+                            <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                            <div class="col-sm-5">
                                 {{ field }}
                             </div>
                             {% if field.errors %}
                                 {% for error in field.errors %}
                                     <span class="help-block">{{ error }}</span>
                                 {% endfor %}
-                            {% else %}
-                                <span class="help-block">{{ field.help_text }}</span>
                             {% endif %}
                         </div>
                     {% endfor %}
-{#                    {{ forms }}#}
                 </fieldset>
                 <div class="form-group">
-                    <button type="submit" class="col-sm-offset-2 btn btn-primary btn-lg">发送邮件</button>
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary btn-lg">{% trans 'create' %}</button>
+                    </div>
                 </div>
             </form>
         </div>

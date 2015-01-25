@@ -9,12 +9,17 @@
                         <a class="pull-left" href="{% url 'web_user_entity_like' f.follower_id %}" target="_blank">
                             <img class="media-object img-circle" src="{{ f.follower.profile.avatar_url }}" width="60" height="60" style="width:60px;height:60px;">
                         </a>
-
-                    {% if f.follower_id in request.user.concren %}
-                        <a href="{% url 'web_user_follow_action' f.follower_id %}" class="follow is-fan btn btn-cancel pull-right"><i class="fa fa-exchange fa-lg" style="color: #ccc"></i>&nbsp; <b>取消关注</b></a>
+                    {% if f.follower_id == request.user.id %}
+                        <a href="#" class="btn btn-cancel pull-right disabled">&nbsp; <b>我自己</b></a>
+                    {% elif f.follower_id in request.user.concren %}
+                        <a data-status="1" data-user-id="{{ f.follower_id }}" href="javascript:;" class="follow is-fan btn btn-cancel pull-right"><i class="fa fa-exchange fa-lg" style="color: #ccc"></i>&nbsp; <b>取消关注</b></a>
 {#                        <a href="#" class="follow is-fan btn btn-primary pull-right"><i class="fa fa-plus fa-lg" style="color: #fff"></i>&nbsp; <b>关注</b></a>#}
+                    {% elif f.follower_id in request.user.following_list %}
+                        <a data-status="1" data-user-id="{{ f.followee_id }}" href="javascript:;" class="follow btn btn-cancel pull-right"><i class="fa fa-check fa-lg" style="color: #ccc"></i>&nbsp; <b>取消关注</b></a>
+                    {% elif f.follower_id in request.user.fans_list %}
+                        <a data-status="0" data-user-id="{{ f.followee_id }}" href="javascript:;" class="follow btn btn-primary pull-right"><i class="fa fa-plus fa-lg" style="color: #fff"></i>&nbsp; <b>关注</b></a>
                     {% else %}
-                        <a href="{% url 'web_user_follow_action' f.follower_id %}" class="follow btn btn-primary pull-right"><i class="fa fa-plus fa-lg" style="color: #fff"></i>&nbsp; <b>关注</b></a>
+                        <a data-status="0" data-user-id="{{ f.follower_id }}" href="javascript:;" class="follow btn btn-primary pull-right"><i class="fa fa-plus fa-lg" style="color: #fff"></i>&nbsp; <b>关注</b></a>
                     {% endif %}
 
                     <div class="media-body" style="padding-top:5px;">

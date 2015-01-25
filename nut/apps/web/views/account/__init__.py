@@ -89,7 +89,7 @@ def logout(request):
     return HttpResponseRedirect(next_url)
 
 
-def forget_password(request, template='web/account/forget_password.html'):
+def forget_password(request, template='web/account/restpassword/forget_password.html'):
 
     if request.method == 'POST':
         _forms = UserPasswordResetForm(request.POST)
@@ -99,6 +99,7 @@ def forget_password(request, template='web/account/forget_password.html'):
                         email_template_name='web/mail/forget_password.html',
                         from_email='hi@guoku.com')
             # print "send mail ok"
+            return HttpResponseRedirect(reverse('web_send_mail_finished'))
     else:
         _forms = UserPasswordResetForm()
 
@@ -110,6 +111,16 @@ def forget_password(request, template='web/account/forget_password.html'):
         context_instance = RequestContext(request),
     )
 
+def send_mail_finished(request, template="web/account/restpassword/send_mail_finished.html"):
+
+
+    return render_to_response(
+        template,
+        {
+
+        },
+        context_instance = RequestContext(request),
+    )
 # from three part
 
 # @require_GET

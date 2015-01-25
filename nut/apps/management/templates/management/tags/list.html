@@ -22,7 +22,7 @@
                             <td>{{ tag.pk }}</td>
                             <td>{{ tag.tag }}</td>
                             <td>{{ tag.creator.profile.nickname }}</td>
-                            <td><a class="btn btn-default" href="#">{% trans 'edit' %}</a></td>
+                            <td><a class="btn btn-default" href="{% url 'management_tag_edit' tag.pk %}">{% trans 'edit' %}</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>

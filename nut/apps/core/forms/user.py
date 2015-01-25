@@ -25,9 +25,9 @@ class UserForm(forms.Form):
         'duplicate_email' : _('A user with that email already exists.'),
     }
 
-    user_id = forms.CharField(label=_('user_id'),
-                              widget=forms.TextInput(attrs={'class':'form-control', 'readonly':''}),
-                              help_text=_(''))
+    # user_id = forms.CharField(label=_('user_id'),
+    #                           widget=forms.TextInput(attrs={'class':'form-control', 'readonly':''}),
+    #                           help_text=_(''))
     email = forms.EmailField(label=_('email'),
                              widget=forms.TextInput(attrs={'class':'form-control', 'type':'email'}),
                              help_text=_(''))
@@ -79,20 +79,23 @@ class UserForm(forms.Form):
                              required=False,
                              help_text=_(''))
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user, *args, **kwargs):
         # self.request = request
-        self.user_cache = None
+        self.user_cache = user
         super(UserForm, self).__init__(*args, **kwargs)
 
-    def clean_user_id(self):
-        _user_id = self.cleaned_data.get('user_id')
-        self.user_cache = get_user_model()._default_manager.get(pk = _user_id)
-
-        return _user_id
+    # def clean_user_id(self):
+    #     _user_id = self.cleaned_data.get('user_id')
+    #     self.user_cache = get_user_model()._default_manager.get(pk = _user_id)
+    #
+    #     return _user_id
 
     def clean_nickname(self):
         _nickname = self.cleaned_data.get('nickname')
-        print _nickname
+        # print _nickname
+        if self.user_cache.profile.nickname == _nickname:
+            return _nickname
+
         try:
             User_Profile.objects.get(nickname = _nickname)
         except User_Profile.DoesNotExist:

@@ -85,8 +85,8 @@ def follow_action(request, user_id):
             followee_id = user_id,
         )
         uf.save()
-        notify.send(_fans, recipient=uf.followee, verb=u'has followed you', action_object=uf, target=uf.followee)
-    return HttpResponse(1)
+        # notify.send(_fans, recipient=uf.followee, verb=u'has followed you', action_object=uf, target=uf.followee)
+    return JSONResponse(data={'status':1})
 
 
 @login_required
@@ -103,7 +103,7 @@ def unfollow_action(request, user_id):
         uf.delete()
     except User_Follow.DoesNotExist, e:
         raise Http404
-    return HttpResponse(0)
+    return JSONResponse(data={'status':0})
     # return
 
 def index(request, user_id):
@@ -276,7 +276,7 @@ def following(request, user_id, templates="web/user/following.html"):
     page = request.GET.get('page', 1)
 
     _user = get_user_model()._default_manager.get(pk=user_id)
-    log.info(request.user.following_list)
+    # log.info(request.user.following_list)
 
     followings_list = _user.followings.all()
 

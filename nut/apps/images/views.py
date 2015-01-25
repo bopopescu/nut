@@ -20,7 +20,7 @@ def images(request, file_name, size=None):
         image_name = "%s/%s" % (path[1], path[-1])
 
     log.info(image_name)
-    result = resize.apply_async((image_name, size), expires=60)
+    result = resize.apply_async((image_name, size), expires=5)
     image_data = result.get()
 
     if image_data:
@@ -28,6 +28,24 @@ def images(request, file_name, size=None):
     raise Http404
 
 
+
+def old_format_images(request, file_name, size=None):
+    _size = size.split('x')
+    path = request.get_full_path()
+
+    # log.info(_size)
+    path = path.split('_')
+    # log.info(path)
+    path = path[0].strip('/')
+    log.info(path)
+    image_name = path
+    result = resize.apply_async((image_name, _size[0]), expires=5)
+    image_data = result.get()
+
+    if image_data:
+        return HttpResponse(image_data, content_type='image/jpeg')
+    raise Http404
+    # return HttpResponse("OK")
 
 
 __author__ = 'edison'

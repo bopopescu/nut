@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block description %}
-    {{ entity.category }},
+{#    {{ entity.category }},#}
     {{ entity.category }},
     {{ entity.title }}
     {% if entity.intro|length > 0 %}
@@ -25,7 +25,7 @@
                     {% if selection_note %}
                         <li><a href="{% url 'web_selection' %}">{% trans 'selection' %}</a></li>
                     {% endif %}
-                    <li><a href="{% url 'web_category_detail' entity.category_id %}">{{ entity.category }}</a></li>
+                    <li><a href="{% url 'web_category_detail' entity.category_id %}">{{ entity.category.title|show_category }}</a></li>
                     <li class="active">{% if entity.brand|length != 0 %}{{ entity.brand }} - {% endif %}{{ entity.title }}</li>
                 </ol>
             </div>
@@ -35,9 +35,15 @@
         <div class="row">
             <div class="col-sm-8 col-md-8" itemscope itemtype="http://data-vocabulary.org/Product">
                 <div class="thumbnail entity-detail">
-                    <a id="buy-btn-img" href="http://item.taobao.com/item.htm?id={{ taobao_id }}" target="_blank" biz-itemid="{{ taobao_id }}" _hover-ignore="1">
-                        <img itemprop="image" src="{{ entity.chief_image|resize:'640' }}" alt="{{ entity_context.title }}" class="img-responsive" width="640" height="640">
-                    </a>
+                    {% if entity.default_buy_link.origin_source == "taobao.com" %}
+                        <a id="buy-btn-img" href="http://item.taobao.com/item.htm?id={{ entity.default_buy_link.origin_id }}" target="_blank" biz-itemid="{{ entity.default_buy_link.origin_id }}" _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity_context.title }}-taobao'])">
+                            <img itemprop="image" src="{{ entity.chief_image|resize:'640' }}" alt="{{ entity_context.title }}" class="img-responsive" width="640" height="640">
+                        </a>
+                    {% else %}
+                        <a id="buy-btn-img" href="http://item.jd.com/{{ entity.default_buy_link.origin_id }}.html" target="_blank"  _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity_context.title }}-jd'])">
+                            <img itemprop="image" src="{{ entity.chief_image|resize:'640' }}" alt="{{ entity_context.title }}" class="img-responsive" width="640" height="640">
+                        </a>
+                    {% endif %}
 
                     <div class="caption" style="border:0">
                         <h4 class="entity-title">{% if entity.brand|length != 0 %}
@@ -55,15 +61,13 @@
                                 </a>
                             {% endif %}
 
-
-{#                        </div>#}
                         <div class="hidden-sm hidden-md hidden-lg pull-right">
-                            {% if taobao_id %}
-                                <a id="buy-btn-mobile" class="btn btn-primary" href="http://item.taobao.com/item.htm?id={{ taobao_id }}" target="_blank" biz-itemid="{{ taobao_id }}" _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity_context.title }}-taobao'])">
+                            {% if entity.default_buy_link.origin_source == "taobao.com" %}
+                                <a id="buy-btn-mobile" class="btn btn-primary" href="http://item.taobao.com/item.htm?id={{ entity.default_buy_link.origin_id }}" target="_blank" biz-itemid="{{ entity.default_buy_link.origin_id }}" _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity_context.title }}-taobao'])">
                                     <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity.price }}</span>
                                 </a>
                             {% else %}
-                                <a id="buy-btn-mobile" class="btn btn-primary" href="http://item.jd.com/{{ jd_id }}.html" target="_blank"  _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity_context.title }}-jd'])">
+                                <a id="buy-btn-mobile" class="btn btn-primary" href="http://item.jd.com/{{ entity.default_buy_link.origin_id }}.html" target="_blank"  _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity_context.title }}-jd'])">
                                     <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity.price }}</span>
                                 </a>
                             {% endif %}

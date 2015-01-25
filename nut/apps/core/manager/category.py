@@ -3,7 +3,7 @@ from django.utils.log import getLogger
 
 # from apps.core.models import Entity_Like
 from django.core.cache import cache
-
+from hashlib import md5
 
 log = getLogger('django')
 
@@ -11,8 +11,6 @@ class CategoryQuerySet(models.query.QuerySet):
 
     def popular(self):
         pass
-
-
 
 class CategoryManager(models.Manager):
 
@@ -49,4 +47,26 @@ class CategoryManager(models.Manager):
     def popular(self):
         return self.get_queryset().popular()
 
+
+class SubCategoryQuerySet(models.query.QuerySet):
+
+    def map(self, group_id_list):
+        return self.filter(group_id__in=group_id_list).values_list('id', flat=True)
+
+
+class SubCategoryManager(models.Manager):
+
+    def get_queryset(self):
+        return SubCategoryQuerySet(self.model, using=self._db)
+
+    def map(self, group_id_list):
+        key_string = ''.join(str(s) for s in group_id_list)
+        key = md5(key_string.encode('utf-8')).hexdigest()
+        res = cache.get(key)
+        if res:
+            return res
+
+        res = self.get_queryset().map(group_id_list)
+        cache.set(key, res, timeout=81400)
+        return res
 __author__ = 'edison'

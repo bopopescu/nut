@@ -25,7 +25,7 @@ def poke(request, note_id):
                 note_id=note_id,
             )
             np.save()
-            notify.send(np.user, recipient=np.note.user, action_object=np, verb="poke note", target=np.note)
+            # notify.send(np.user, recipient=np.note.user, action_object=np, verb="poke note", target=np.note)
         return JSONResponse(data={'result':'1'})
 
 

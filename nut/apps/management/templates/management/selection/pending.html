@@ -11,7 +11,7 @@
         <div class="row" style="padding-bottom: 24px;">
             <ul class="nav nav-pills" role="tablist">
                 <li><a href="{% url 'management_selection_list' %}">{% trans 'published' %}</a></li>
-                <li><a href="{% url 'management_selection_pending' %}">{% trans 'pending' %}</a></li>
+                <li><a href="{% url 'management_selection_pending' %}">{% trans 'pending' %} ({{ pending_count }})</a></li>
             </ul>
         </div>
     </div>

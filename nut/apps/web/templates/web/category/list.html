@@ -1,4 +1,5 @@
 {% extends 'web/base.html' %}
+{% load guoku %}
 
 {% block title %}品类{% endblock %}
 {% block keyword %}果库品类,分类检索,生活日常,收纳洗晒,家庭清洁,室内装饰,家具,家电,烹饪厨具,个人养护,外出旅行,文具,图书,食品,餐具水具,品质生活,消费指南{% endblock %}
@@ -25,7 +26,7 @@
 {#                                {{ sub }}#}
                                 <a href="{% url 'web_category_detail' sub.id %}">
                                     <img class="img-responsive" alt="{{ sub.title }}" src="{{ sub.icon_large_url }}"  width="40" height="40">
-                                    <p>{{ sub.title }}</p>
+                                    <p>{{ sub.title|show_category }}</p>
                                 </a>
                             </div>
                         </div>
