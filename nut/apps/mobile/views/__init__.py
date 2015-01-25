@@ -7,7 +7,7 @@ from apps.core.models import Show_Banner, Banner, Buy_Link, Selection_Entity, En
 from apps.core.utils.taobaoapi.utils import taobaoke_mobile_item_convert
 # from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from datetime import datetime
-
+import random
 
 
 from django.utils.log import getLogger
@@ -168,8 +168,8 @@ def popular(request):
     _scale = request.GET.get('scale', 'daily')
     _key = request.GET.get('session')
     log.info(_scale)
-    popular = Entity_Like.objects.popular(_scale)
-    _entities = Entity.objects.filter(id__in=list(popular), status=Entity.selection)
+    popular_list = Entity_Like.objects.popular(_scale)
+    _entities = Entity.objects.filter(id__in=random.sample(popular_list, 60), status=Entity.selection)
 
     try:
         _session = Session_Key.objects.get(session_key=_key)

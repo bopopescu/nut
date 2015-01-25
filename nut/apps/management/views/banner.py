@@ -39,7 +39,8 @@ def list(request, template="management/banner/list.html"):
                     context_instance = RequestContext(request)
                 )
 
-
+@login_required
+@staff_only
 def create(request, template='management/banner/create.html'):
 
     if request.method == "POST":
@@ -58,6 +59,8 @@ def create(request, template='management/banner/create.html'):
                     context_instance = RequestContext(request) )
 
 
+@login_required
+@staff_only
 def edit(request, banner_id, template='management/banner/edit.html'):
 
     try:
