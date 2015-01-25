@@ -17,6 +17,20 @@ i {
 /*去掉苹果的默认UI来渲染按钮*/
 input[type="submit"], input[type="reset"], input[type="button"], button,textarea { -webkit-appearance: none; }
 
+.guoku-weixin{position:fixed;right:20px;top:300px;display: none;width: 136px;height: 183px;}
+@media (min-width: 1270px){
+        .guoku-weixin{display: block;}
+}
+a:focus{outline:none;}
+a {
+    text-decoration:none;
+}
+a:hover,a:focus,a:selected {
+    text-decoration:none;
+}
+img {
+    border:0;
+}
 /* 轮播 */
 .carousel-control.left {
   background-image:none;

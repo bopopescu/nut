@@ -13,7 +13,11 @@ from apps.core.manager.account import GKUserManager
 from apps.core.manager.entity import EntityManager, EntityLikeManager, SelectionEntityManager
 from apps.core.manager.note import NoteManager, NotePokeManager
 from apps.core.manager.tag import EntityTagManager
-from apps.core.manager.category import CategoryManager
+from apps.core.manager.category import CategoryManager, SubCategoryManager
+# from apps.core.utils.tag import TagParser
+
+from apps.notifications import notify
+
 from djangosphinx.models import SphinxSearch
 from apps.notifications import notify
 
@@ -115,7 +119,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         self.is_admin = True
         self.save()
 
-    def v3_toDict(self):
+    def v3_toDict(self, visitor=None):
         res = self.toDict()
         res.pop('password', None)
         res.pop('last_login', None)
@@ -142,6 +146,13 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         except Exception, e:
             log.error("Error: user id %s %s", (self.id,e.message))
 
+        if visitor:
+            if self.id in visitor.concren:
+                res['relation'] = 3
+            elif self.id in visitor.following_list:
+                res['relation'] = 1
+            elif self.id in visitor.fans_list:
+                res['relation'] = 2
         return res
 
 
@@ -149,8 +160,8 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         index = 'users',
         mode = 'SPH_MATCH_ALL',
         rankmode = 'SPH_RANK_NONE',
-
     )
+
 
 class User_Profile(BaseModel):
     Man = u'M'
@@ -193,6 +204,10 @@ class User_Follow(models.Model):
     class Meta:
         ordering = ['-followed_time']
         unique_together = ("follower", "followee")
+
+    def save(self, *args, **kwargs):
+        super(User_Follow, self).save(*args, **kwargs)
+        notify.send(self.follower, recipient=self.followee, verb=u'has followed you', action_object=self, target=self.followee)
 
 
 class Banner(BaseModel):
@@ -280,6 +295,8 @@ class Sub_Category(BaseModel):
     title = models.CharField(max_length = 128, db_index = True)
     icon = models.CharField(max_length = 64, db_index = True, null = True, default = None)
     status = models.BooleanField(default = True, db_index = True)
+
+    objects = SubCategoryManager()
 
     class Meta:
         ordering = ['-id']
@@ -395,6 +412,11 @@ class Entity(BaseModel):
         return False
 
     @property
+    def default_buy_link(self):
+        buy_link = self.buy_links.filter(default=True).first()
+        return buy_link
+
+    @property
     def top_note(self):
         # try:
         notes = self.notes.filter(status=1)
@@ -415,20 +437,27 @@ class Entity(BaseModel):
         return res
 
     def v3_toDict(self, user_like_list=None):
-
-        log.info(user_like_list)
+        # log.info(user_like_list)
         res = self.toDict()
         res.pop('id', None)
         res.pop('images', None)
         res.pop('user_id', None)
+        res.pop('rate', None)
+        res['entity_id'] = self.id
+        res['item_id_list'] = ['54c21867a2128a0711d970da']
+        res['weight'] = 0
+        res['score_count'] = 0
+        res['mark_value'] = 0
+        res['mark'] = "none"
         res['created_time'] = time.mktime(self.created_time.timetuple())
-        res['updated_time'] = time.mktime(self.updated_time.timetuple())
+        res['updated_time'] = time.mktime(self.created_time.timetuple())
+        res['novus_time'] = time.mktime(self.created_time.timetuple())
         res['creator_id'] = self.user_id
+        res['old_root_category_id'] = 9
+        res['old_category_id'] = 152
         res['like_already'] = 0
         if user_like_list and self.id in user_like_list:
             res['like_already'] = 1
-
-
 
         res['item_list'] = list()
         for b in self.buy_links.all():
@@ -466,6 +495,11 @@ class Selection_Entity(BaseModel):
     def __unicode__(self):
         return self.entity.title
 
+    def save(self, *args, **kwargs):
+        super(Selection_Entity, self).save(*args, **kwargs)
+        user = GKUser.objects.get(pk=2)
+        notify.send(user, recipient=self.entity.user, action_object=self, verb="set selection", target=self.entity)
+
 
 class Buy_Link(BaseModel):
     entity = models.ForeignKey(Entity, related_name='buy_links')
@@ -501,6 +535,10 @@ class Entity_Like(models.Model):
     class Meta:
         ordering = ['-created_time']
         unique_together = ('entity', 'user')
+
+    def save(self, *args, **kwargs):
+        super(Entity_Like, self).save(*args, **kwargs)
+        notify.send(self.user, recipient=self.entity.user, action_object=self, verb='like entity', target=self.entity)
 
 
 class Note(BaseModel):
@@ -551,6 +589,12 @@ class Note(BaseModel):
     def post_timestamp(self):
         return time.mktime(self.post_time.timetuple())
 
+    def save(self, *args, **kwargs):
+        super(Note, self).save(*args, **kwargs)
+        notify.send(self.user, recipient=self.entity.user, action_object=self, verb='post note', target=self.entity)
+        # t = TagParser(self.note)
+        # t.create_tag(user_id=self.user.pk, entity_id=self.entity_id)
+
     def v3_toDict(self, user_note_pokes=None, has_entity=False):
         res = self.toDict()
         res.pop('note', None)
@@ -594,6 +638,10 @@ class Note_Comment(BaseModel):
     def __unicode__(self):
         return self.content
 
+    def save(self, *args, **kwargs):
+        super(Note_Comment, self).save(*args, **kwargs)
+        notify.send(self.user, recipient=self.note.user, verb="replied", action_object=self, target=self.note)
+
     def v3_toDict(self):
         res = self.toDict()
         res.pop('user_id', None)
@@ -621,6 +669,11 @@ class Note_Poke(models.Model):
     class Meta:
         ordering = ['-created_time']
         unique_together = ('note', 'user')
+
+    def save(self, *args, **kwargs):
+
+        super(Note_Poke, self).save(*args, **kwargs)
+        notify.send(self.user, recipient=self.note.user, action_object=self, verb="poke note", target=self.note)
 
 
 class Tag(models.Model):

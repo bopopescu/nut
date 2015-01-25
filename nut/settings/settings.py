@@ -41,17 +41,20 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.formtools',
+    'django.contrib.sitemaps',
     'rest_framework',
     # 'rest_framework.authtoken',
     # 'haystack',
     'djcelery',
-    'apps.notifications',
 
     'apps.core',
     'apps.management',
     'apps.web',
     'apps.mobile',
+
     'apps.images',
+    'apps.notifications',
+    'apps.report',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -84,8 +87,8 @@ CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": [
-            "redis://10.0.2.95:6379/1",
-            "redis://10.0.2.95:6379/2",
+            "redis://10.0.2.46:6379/1",
+            "redis://10.0.2.47:6379/1",
         ],
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.ShardClient",
@@ -211,7 +214,7 @@ SPHINX_PORT = 3312
 
 
 # taobao
-APP_HOST = "http://test.guoku.com"
+APP_HOST = "http://www.guoku.com"
 TAOBAO_APP_KEY = '12313170'
 TAOBAO_APP_SECRET = '90797bd8d5859aac971f8cc9d4e51105'
 TAOBAO_OAUTH_URL = 'https://oauth.taobao.com/authorize'

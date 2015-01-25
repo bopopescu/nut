@@ -32,7 +32,7 @@ def auth_by_sina(request):
     if code:
         _sina_data = sina.get_auth_data(code)
         next_url = request.session.get('next_url', reverse("web_selection"))
-        del request.session['next_url']
+        # del request.session['next_url']
 
 
         log.info(_sina_data)

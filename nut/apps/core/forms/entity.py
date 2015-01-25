@@ -113,24 +113,25 @@ class EntityForm(forms.Form):
         # log.info(args)
         if len(args):
             group_id = args[0]['category']
+            sub_category = 0
         else:
 
             data = kwargs.get('initial')
             group_id = data['category']
-
+            sub_category = data['sub_category']
 
         # log.info("id %s" % group_id)
 
         sub_category_choices = get_sub_category_choices(group_id)
 
         self.fields['category'] = forms.ChoiceField(label=_('category'),
-                                                    widget=forms.Select(attrs={'class':'form-control'}),
+                                                    widget=forms.Select(attrs={'class':'form-control', 'id':'category', 'data-init':sub_category}),
                                                     choices=get_category_choices(),
                                                     help_text=_('')
                                                     )
         self.fields['sub_category'] = forms.ChoiceField(label=_('sub_category'),
                                                         choices=sub_category_choices,
-                                                        widget=forms.Select(attrs={'class':'form-control'}),
+                                                        widget=forms.Select(attrs={'class':'form-control', 'id':'sub-category', 'data-init':sub_category}),
                                                         help_text=_(''))
         # log.info(self.fields)
 
@@ -191,20 +192,65 @@ class EntityForm(forms.Form):
 
 
 class EntityImageForm(forms.Form):
+    YES_OR_NO = (
+        (1, _('yes')),
+        (0, _('no')),
+    )
 
     image = forms.ImageField(
-        label='Select an Image',
-        help_text=_('max. 2 megabytes')
+        label=_('Select an Image'),
+        help_text=_('max. 2 megabytes'),
+        required=False,
+    )
+
+    image_link = forms.CharField(
+        label=_('image link'),
+        widget=forms.TextInput(attrs={'class':'form-control'}),
+        required=False,
+    )
+
+    is_chief = forms.ChoiceField(
+        label=_('chief image'),
+        choices=YES_OR_NO,
+        widget=forms.Select(attrs={'class':'form-control'}),
+        initial=0,
+        help_text=_('set entity cheif Image'),
     )
 
     def __init__(self, entity, *args, **kwargs):
         self.entity = entity
         super(EntityImageForm, self).__init__(*args, **kwargs)
 
-    def save(self):
-        image = self.cleaned_data.get('image')
+    def clean_is_chief(self):
+        _is_chief = self.cleaned_data.get('is_chief')
+        return int(_is_chief)
 
-        entity_image = HandleImage(image)
+    def clean_image_link(self):
+        _image_link = self.cleaned_data.get('image_link')
+        return _image_link.strip()
+    #
+    # def clean(self):
+    #     self.image_cache = self.cleaned_data.get('image')
+    #     self.image_link_cache = self.cleaned_data.get('image_link')
+    #
+    #     if self.image_cache and self.image_link_cache:
+    #         raise forms.ValidationError(
+    #             _('You must enter image or link')
+    #         )
+
+    def save(self):
+        _image = self.cleaned_data.get('image')
+        _image_link = self.cleaned_data.get('image_link')
+        _is_chief = self.cleaned_data.get('is_chief')
+
+        if _image:
+            entity_image = HandleImage(_image)
+        else:
+            import urllib2
+            f = urllib2.urlopen(_image_link)
+            entity_image = HandleImage(f)
+            # fetch_image.delay(entity.images, entity.id)
+
         image_name = image_path + "%s.jpg" % entity_image.name
 
         if default_storage.exists(image_name):
@@ -212,7 +258,11 @@ class EntityImageForm(forms.Form):
         else:
             image_name = image_host + default_storage.save(image_name, ContentFile(entity_image.image_data))
         images = self.entity.images
-        images.append(image_name)
+
+        if _is_chief:
+            images.insert(0, image_name)
+        else:
+            images.append(image_name)
         self.entity.images = images
         self.entity.save()
 
@@ -367,7 +417,7 @@ class CreateEntityForm(forms.Form):
         # else:
 
         self.initial = kwargs.get('initial')
-        group_id = self.initial['cid']
+        category_id = self.initial.get('category_id', 300)
         img_count = len(self.initial['thumb_images'])
 
         # log.info("id %s" % group_id)
@@ -382,16 +432,19 @@ class CreateEntityForm(forms.Form):
             help_text=_(''),
         )
 
-        sub_category_choices = get_sub_category_choices(group_id)
+        cate = Sub_Category.objects.get(pk = category_id)
+        sub_category_choices = get_sub_category_choices(cate.group_id)
 
         self.fields['category'] = forms.ChoiceField(label=_('category'),
-                                                    widget=forms.Select(attrs={'class':'form-control'}),
+                                                    widget=forms.Select(attrs={'class':'form-control', 'id':'category', 'data-init':cate.group_id}),
                                                     choices=get_category_choices(),
+                                                    initial=cate.group_id,
                                                     help_text=_(''),
                                     )
-        self.fields['sub_category'] = forms.ChoiceField(label=_('sub_category'),
-                                                        choices=sub_category_choices,
-                                                        widget=forms.Select(attrs={'class':'form-control'}),
+        self.fields['sub_category'] = forms.CharField(label=_('sub_category'),
+                                                        # choices=sub_category_choices,
+                                                        widget=forms.Select(attrs={'class':'form-control', 'id':'sub-category', 'data-init':category_id}),
+                                                        initial=category_id,
                                                         help_text=_(''))
 
         self.fields['content'] = forms.CharField(
@@ -460,7 +513,7 @@ class CreateEntityForm(forms.Form):
                 origin_source = _origin_source,
                 link = "http://item.taobao.com/item.htm?id=%s" % _origin_id,
                 price = _price,
-                status = True,
+                default = True,
             )
         else:
             Buy_Link.objects.create(
@@ -470,7 +523,7 @@ class CreateEntityForm(forms.Form):
                 origin_source = _origin_source,
                 link = "http://item.jd.com/%s.html" % _origin_id,
                 price = _price,
-                status = True,
+                default = True,
             )
         return entity
 
@@ -522,7 +575,7 @@ def load_entity_info(url):
 
             try:
                 buy_link = Buy_Link.objects.get(origin_id=_taobao_id, origin_source="taobao.com",)
-                log.info(buy_link.entity)
+                # log.info(buy_link.entity)
                 _data = {
                     'entity_id': buy_link.entity.id,
                 }

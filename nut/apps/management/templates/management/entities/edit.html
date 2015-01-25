@@ -1,21 +1,27 @@
 {% extends 'management/management_base.html' %}
-{% load i18n %}
-{% load guoku %}
+{% load i18n static %}
+
 
 {% block content %}
     <h1 class="page-header">{{ entity.title }}</h1>
     <div class="row placeholders" id="images">
-        {% for index, image in entity.images|enumerate_list %}
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <img class="img-responsive img-thumbnail" alt="{{ entity.title }}" src="{{ image|resize:'240' }}" width="240" height="240">
+
+            {% include "management/entities/partial/entity_images.html" with images=entity.images %}
+{#            <div class="col-xs-6 col-sm-3">#}
+{#            <div class="thumbnail">#}
+{#                <img class="img-responsive img-thumbnail" alt="{{ entity.title }}" src="{{ image|resize:'480' }}" width="240" height="240">#}
 {#                {% if index != 0 %}#}
-                <span class="text-muted">
+{#                <div class="caption">#}
+{#                    <h3>{{ index|add:1 }}</h3>#}
+{#                <span class="text-muted">#}
 {#                    <a class="btn btn-link" href="{% url 'management_remove_entity_image' entity.id %}">{% trans 'remove' %}</a>#}
-                    <a class="btn btn-link" href="{% url 'management_remove_entity_image' entity.id %}" data-image="{{ image }}">{% trans 'remove' %}</a>
-                </span>
+{#                    <a class="btn btn-danger" href="{% url 'management_remove_entity_image' entity.id %}" data-image="{{ image }}">{% trans 'remove' %}</a>#}
+{#                </span>#}
+{#                </div>#}
 {#                {% endif %}#}
-            </div>
-        {% endfor %}
+{#            </div>#}
+{#            </div>#}
+{#        {% endfor %}#}
     </div>
     {% if entity.has_top_note %}
     <div class="row">
@@ -137,4 +143,9 @@
             <div class="modal-content"></div>
         </div>
     </div>
+{##}
+{#    {% block js %}#}
+{#        <script src="{% static 'js/management/category.js' %}"></script>#}
+{#    {% endblock %}#}
+
 {% endblock %}

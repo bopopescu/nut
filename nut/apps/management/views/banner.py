@@ -3,12 +3,17 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
 # from django.core.paginator import Paginator, EmptyPage, InvalidPage
 
 from apps.core.models import Banner, Show_Banner
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 from apps.core.forms.banner import CreateBannerForm, EditBannerForm
+from apps.management.decorators import staff_only
 
+
+@login_required
+@staff_only
 def list(request, template="management/banner/list.html"):
 
     page = request.GET.get('page', 1)

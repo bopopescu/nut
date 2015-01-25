@@ -10,7 +10,7 @@ urlpatterns = patterns(
     url(r'^(?P<entity_id>\d+)/like/(?P<target_status>\d+)/$', 'like_action', name='mobile_entity_like_action'),
 
     # url(r'^note/$', 'note', name='mobile_entity_note'),
-
+    url(r'^(?P<entity_id>\d+)/report/$', 'report', name='mobile_entity_report'),
 )
 
 urlpatterns += patterns(
@@ -22,6 +22,8 @@ urlpatterns += patterns(
 
     url(r'^note/(?P<note_id>\d+)/add/comment/$', 'post_comment', name='mobile_post_note_comment'),
     url(r'^note/(?P<note_id>\d+)/comment/(?P<comment_id>\d+)/del/$', 'del_comment', name='mobile_note_comment_del'),
+
+    url(r'^note/(?P<note_id>\d+)/report/$', 'report', name='mobile_entity_note_report'),
 )
 
 __author__ = 'edison'

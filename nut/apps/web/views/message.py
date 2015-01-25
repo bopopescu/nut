@@ -31,7 +31,7 @@ def messages(request, template='web/messages/message.html'):
     except EmptyPage:
         raise Http404
 
-
+    _user.notifications.mark_all_as_read()
     if request.is_ajax():
         res = {
             'status' : 0,

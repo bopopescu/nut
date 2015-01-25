@@ -42,7 +42,7 @@ def event(request, slug, template='web/events/home'):
     inner_qs = Entity_Tag.objects.filter(tag=tag).values_list('entity_id', flat=True)
 
     _entity_list = Entity.objects.filter(id__in=inner_qs, status=Entity.selection)
-    # log.info(entities)
+    log.info(_entity_list)
     # _page_num = request.GET.get('p', 1)
     # _paginator = Paginator(_page_num, 24, len(_entity_id_list))
 
@@ -73,7 +73,8 @@ def event(request, slug, template='web/events/home'):
         }
 
         if _entity_list:
-            _t = loader.get_template('web/main/partial/selection_item_list.html')
+            log.info(_entities)
+            _t = loader.get_template('web/events/partial/event_item_list.html')
             _c = RequestContext(request, {
                 'user_entity_likes': el,
                 'entities': _entities,

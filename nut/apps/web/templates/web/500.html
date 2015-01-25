@@ -1,0 +1,60 @@
+{#{% load i18n staticfiles %}#}
+{##}
+{#<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">#}
+{#<html style="overflow-x: hidden; overflow-y: scroll;" xmlns="http://www.w3.org/1999/xhtml">#}
+{#<head>#}
+{#    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">#}
+{#    <meta name="viewport" content="width=device-width">#}
+{#    <title>500 - 果库</title>#}
+{#    <link rel="icon" type="image/ico" href="{% static 'images/favicon.ico' %}">#}
+{#    <link rel="stylesheet" type="text/css" href="{% static 'styles/base.css' %}">#}
+{#</head>#}
+{##}
+{#<body>#}
+{#    <div id="header">#}
+{#        <div class="header-container">#}
+{#            <div class="title">#}
+{#                <h1 style="display: none"><a href="{% url 'web_selection' %}">{% trans "guoku" %}</a></h1>#}
+{#                <a href="{% url 'web_selection' %}" class="logo"><img src="{% static 'images/logo.png' %}"></a>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div id="wrapper">#}
+{#        <div id="main">#}
+{#            <div class="center">#}
+{#                <div class="img-500"></div>#}
+{#                <h2>服务器开小差了，稍后回来</h2>#}
+{#                <p class="c999">The Master said: “The Way is not practiced. I shall go ride a raft on the ocean<br>— and I imagine You would go with me.” </p>#}
+{#                <p class="c999 fs12"><i>-- 5:7, The Analects of Confucius, Translated by A. Charles Muller#}
+{#</i></p>#}
+{#                <br>#}
+{#                <p class="c999">子曰：“道不行，乘桴浮于海。从我者，其由与？”</p>#}
+{#                <p>-- 《论语·公冶长》</p>#}
+{#                <br><br>#}
+{#                <p class="c333">返回 <a href="{% url 'web_selection' %}">首页</a>，或报告问题到 hi@guoku.com</p>#}
+{#            </div>#}
+{#        </div> #}
+{#    </div>#}
+{#</body>#}
+{#</html>#}
+{% extends 'web/base.html' %}
+{% load i18n static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-offset-3">
+                <img class="img-responsive" src="{% static 'images/500.png' %}">
+            </div>
+            <h3 class="col-sm-offset-4">服务器开小差了，稍后回来</h3>
+            <br />
+            <p class="col-sm-offset-3">The Master said: “The Way is not practiced. I shall go ride a raft on the ocean</p>
+            <p class="col-sm-offset-4">— and I imagine You would go with me.” </p>
+            <br />
+            <p class="col-sm-offset-4">子曰：“道不行，乘桴浮于海。从我者，其由与？”</p>
+            <p class="col-sm-offset-5">-- 《论语·公冶长》</p>
+            <br /><br />
+            <p class="col-sm-offset-4">返回 <a href="{% url 'web_selection' %}">首页</a>，或报告问题到 hi@guoku.com</p>
+        </div>
+    </div>
+{% endblock %}

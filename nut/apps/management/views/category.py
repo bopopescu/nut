@@ -1,17 +1,43 @@
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
-
+from django.contrib.auth.decorators import login_required
 from apps.core.models import Category, Sub_Category
 from apps.core.forms.category import CreateCategoryForm, EditCategoryForm, CreateSubCategoryForm, EditSubCategoryForm
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
+from apps.core.utils.http import JSONResponse
+import json
+
+from django.utils.log import getLogger
+
+log = getLogger('django')
 
 
+@login_required
 def list(request, template='management/category/list.html'):
     #
     # c = request.GET.get('c', '1')
+    if request.is_ajax():
+
+        res = {}
+        # res[''] = {}
+        categories = Category.objects.all()
+
+        for c in categories:
+            res[c.id] = []
+            for s in c.sub_categories.all():
+                res[c.id].append(
+                    {
+                        'category_id': s.id,
+                        'category_title': s.title,
+                    }
+                )
+                # log.info(s)
+        return JSONResponse(res)
+        # return HttpResponse(json.dumps(res))
+
     page = request.GET.get('page', 1)
 
     categories = Category.objects.all().order_by('-id')
@@ -35,6 +61,8 @@ def list(request, template='management/category/list.html'):
         context_instance = RequestContext(request)
     )
 
+
+@login_required
 def sub_category_list(request, cid, template="management/category/sub_category_list.html"):
 
     _page = request.GET.get('page', 1)

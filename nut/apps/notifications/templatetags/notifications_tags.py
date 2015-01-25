@@ -11,11 +11,19 @@ log = getLogger('django')
 
 @register.assignment_tag(takes_context=True)
 def notifications_unread(context):
-    if 'user' not in context:
-        return ''
-
-    user = context['user']
+    # if 'user' not in context:
+    #     return ''
+    # log.info(context)
+    # user = context['user']
     # log.info(user.notifications.read())
-    if user.is_anonymous():
+    # if user.is_anonymous():
+    #     return ''
+    try:
+        request = context['request']
+    except KeyError:
         return ''
-    return user.notifications.unread().count()
+    _user = request.user
+    # log.info(request.user)
+    if _user.is_anonymous():
+        return ''
+    return _user.notifications.unread().count()

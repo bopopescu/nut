@@ -14,7 +14,10 @@ register.filter(enumerate_list)
 def resize(value, size=None):
     host = 'http://imgcdn.guoku.com/'
     # host = 'http://h.guoku.com/'
-    log.info(value)
+    # log.info(value)
+    if value is None:
+        return value
+
     if size:
         if host in value:
             uri = value.replace(host, '')
@@ -30,6 +33,11 @@ def resize(value, size=None):
     return value
 register.filter(resize)
 
+
+def show_category(value):
+    title = value.split('-')
+    return title[0]
+register.filter(show_category)
 
 
 def timestamp(value):

@@ -15,4 +15,5 @@ urlpatterns = patterns(
     url(r'^load/item/', 'entity_load', name='web_load_item_info')
 )
 
+
 __author__ = 'edison'

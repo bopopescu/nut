@@ -13,9 +13,9 @@ USE_TZ = False
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test',
-        'USER': 'qinzhoukan',
-        'PASSWORD': 'qinzhoukan1@#',
+        'NAME': 'core',
+        'USER': 'guoku',
+        'PASSWORD': 'guoku!@#',
         'HOST': '10.0.2.90',
         'PORT': '',
         'OPTIONS': {
@@ -89,5 +89,10 @@ LOGGING = {
         },
     }
 }
+
+
+SINA_APP_KEY = '1459383851'
+SINA_APP_SECRET = 'bfb2e43c3fa636f102b304c485fa2110'
+SINA_BACK_URL = APP_HOST + '/sina/auth'
 
 __author__ = 'edison7500'

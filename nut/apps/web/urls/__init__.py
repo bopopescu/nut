@@ -1,16 +1,26 @@
 from django.conf.urls import url, include, patterns
 from django.views.generic import RedirectView
-from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView
+from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, DownloadView
 
 
 urlpatterns = patterns(
     'apps.web.views',
 
     # url(r'^$', 'main.index', name='web_index'),
-    url(r'^$', RedirectView.as_view(url='/selection/')),
-    url(r'^selection/$', 'main.selection', name='web_selection'),
+    url(r'^$', RedirectView.as_view(url='/selected/')),
+    url(r'^selection/$', RedirectView.as_view(url='/selected/')),
+    url(r'^selected/$', 'main.selection', name='web_selection'),
+    # url(r'^selected/$',  RedirectView.as_view(url='/selection/'),
+
     url(r'^popular/$', 'main.popular', name='web_popular'),
     url(r'^search/$', 'main.search', name='web_search'),
+)
+
+urlpatterns += patterns(
+    'apps.web.views.entity',
+    url(r'^m/detail/(?P<entity_hash>\w+)/$', 'wap_entity_detail', name='wap_detail'),
+    url(r'^weixin/present/(?P<entity_id>\d+)/$', 'wechat_entity_detail', name='wechat_detail'),
+    url(r'^tencent/detail/(?P<entity_hash>\w+)/$', 'tencent_entity_detail', name='tencent_detail'),
 )
 
 urlpatterns += patterns(
@@ -48,13 +58,16 @@ urlpatterns += patterns(
 
 # static page
 urlpatterns += patterns(
-    'apps.web.views.main',
+    'apps.web.views',
 
     url(r'^about/$', AboutView.as_view(), name='web_about'),
     url(r'^jobs/$', JobsView.as_view(), name='web_jobs'),
     url(r'^agreement/$', Agreement.as_view(), name='web_agreement'),
     url(r'^links/$', LinksView.as_view(), name='web_links'),
     url(r'^faq/$', FaqView.as_view(), name='web_faq'),
+    url(r'^download/$', DownloadView.as_view(), name='web_download'),
+    url(r'^download/ios/$', 'download_ios'),
+
 )
 
 

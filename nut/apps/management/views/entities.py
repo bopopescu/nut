@@ -7,11 +7,15 @@ from django.core.urlresolvers import reverse
 from django.utils.log import getLogger
 from django.core.files.storage import default_storage
 from django.views.decorators.csrf import csrf_exempt
+from django.core.cache import cache
+from django.contrib.auth.decorators import login_required
 
 from apps.core.models import Entity, Buy_Link
 from apps.core.forms.entity import EntityForm, EntityImageForm, BuyLinkForm, CreateEntityForm, load_entity_info
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
+
+from hashlib import md5
 
 log = getLogger('django')
 
@@ -27,7 +31,7 @@ log = getLogger('django')
 #         page = self.request.GET.get('page', 1)
 #         status = self.request.GET.get('status', None)
 
-
+@login_required
 def list(request, template = 'management/entities/list.html'):
 
     status = request.GET.get('status', None)
@@ -57,6 +61,7 @@ def list(request, template = 'management/entities/list.html'):
     )
 
 
+@login_required
 def edit(request, entity_id, template='management/entities/edit.html'):
 
     _update = None
@@ -106,6 +111,7 @@ def edit(request, entity_id, template='management/entities/edit.html'):
     )
 
 
+@login_required
 def create(request, template='management/entities/new.html'):
 
     # res = dict()
@@ -124,13 +130,21 @@ def create(request, template='management/entities/new.html'):
         _forms = CreateEntityForm(request=request, data=request.POST, initial=res)
         # _forms = EntityURLFrom(request=request, data=request.POST)
         if _forms.is_valid():
-        #     res = _forms.load()
-        #     log.info(res)
             entity = _forms.save()
             return HttpResponseRedirect(reverse('management_entity_edit', args=[entity.pk]))
     else:
 
-        # log.info(res)
+        log.info("category %s %s" % (res['cid'], res['origin_source']))
+        key_string = "%s%s" % (res['cid'], res['origin_source'])
+        # log.info(ke)
+        key = md5(key_string.encode('utf-8')).hexdigest()
+        category_id = cache.get(key)
+        # res.update('category_id', category_id)
+        if category_id:
+            res['category_id'] = category_id
+        else:
+            res['category_id'] = 300
+        log.info("%s %s" % (key, category_id))
         _forms = CreateEntityForm(request=request, initial=res)
 
     return render_to_response(
@@ -143,6 +157,7 @@ def create(request, template='management/entities/new.html'):
     )
 
 
+@login_required
 def buy_link(request, entity_id, template='management/entities/buy_link.html'):
 
     # _buy_link_list = Buy_Link.objects.filter(entity_id = entity_id)
@@ -170,6 +185,7 @@ def buy_link(request, entity_id, template='management/entities/buy_link.html'):
     )
 
 @csrf_exempt
+@login_required
 def remove_buy_link(request, bid):
     try:
         b = Buy_Link.objects.get(pk=bid)
@@ -182,6 +198,7 @@ def remove_buy_link(request, bid):
     return SuccessJsonResponse()
 
 
+@login_required
 def image(request, entity_id, template='management/entities/upload_image.html'):
 
     try:
@@ -207,6 +224,7 @@ def image(request, entity_id, template='management/entities/upload_image.html'):
 
 
 @csrf_exempt
+@login_required
 def delete_image(request, entity_id):
 
     if request.method == 'POST':

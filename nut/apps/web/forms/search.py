@@ -31,12 +31,12 @@ class SearchForm(forms.Form):
             'res': res,
         })
         # log.info(list(res))
-        u_res = GKUser.search.query(_keyword)
-        sqs.append({
-            'name': _('user'),
-            'type': 'u',
-            'res': u_res,
-        })
+        # u_res = GKUser.search.query(_keyword)
+        # sqs.append({
+        #     'name': _('user'),
+        #     'type': 'u',
+        #     'res': u_res,
+        # })
 
         # log.info(sqs)
         return sqs
