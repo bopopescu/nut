@@ -32,7 +32,12 @@
                         <td>{{ entity.created_time|date:'Y-m-d' }}</td>
                         <td>{{ entity.price }}</td>
                         <td>{{ entity.get_status_display }}</td>
-                        <td><a class="btn btn-default" href="{% url 'management_entity_edit' entity.pk %}" target="_blank">{% trans 'edit' %}</a></td>
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-default" href="{% url 'management_entity_edit' entity.pk %}" target="_blank">{% trans 'edit' %}</a>
+                                <a class="btn btn-success" href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">{% trans 'go to' %}</a>
+                            </div>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
