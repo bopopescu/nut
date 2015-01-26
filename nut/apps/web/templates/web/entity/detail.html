@@ -130,8 +130,9 @@
 
                     {% include "web/entity/partial/detail_note.html" with notes=entity.notes %}
                 </div>
-                {% if request.user.is_authenticated  %}
-                    {% if not user_post_note %}
+{#            {{ request.user.is_blocked  }}#}
+                {% if request.user.is_authenticated and not request.user.is_blocked and not user_post_note %}
+{#                    {% if not user_post_note %}#}
                     <div class="row" style="background-color: #fbfbfb; margin: 0;">
                         <div class="media" style="padding: 15px">
                             <div class="pull-left">
@@ -154,7 +155,7 @@
                             </div>
                         </div>
                     </div>
-                    {% endif %}
+{#                    {% endif %}#}
                 {% endif %}
 
                <div class="row" style="margin-top: 20px">

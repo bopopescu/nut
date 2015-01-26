@@ -71,6 +71,12 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.is_admin
 
     @property
+    def is_blocked(self):
+        if self.is_active == GKUser.blocked or self.active == GKUser.remove:
+            return True
+        return False
+
+    @property
     def is_verified(self):
         return self.profile.email_verified
 
