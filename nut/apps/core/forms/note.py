@@ -88,8 +88,10 @@ class CreateNoteForm(forms.Form):
 
 
     def clean_content(self):
-        _note_text = self.cleaned_data.get('note')
-        _note_text = _note_text.replace(u"＃", "#")
+        _note_text = self.cleaned_data.get('content')
+        log.info(_note_text)
+        if _note_text:
+            _note_text = _note_text.replace(u"＃", "#")
         return _note_text
 
     def save(self):

@@ -22,7 +22,7 @@ msgid "guoku"
 msgstr "果库"
 
 msgid "likes"
-msgstr "喜欢"
+msgstr "喜爱"
 
 msgid "notes"
 msgstr "点评"
