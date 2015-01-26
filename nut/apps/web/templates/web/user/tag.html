@@ -6,11 +6,11 @@
 <div class="row">
     {% for tag in tags %}
         <div class="col-xs-6 col-sm-3 col-md-3">
-            <a href="{% url 'web_user_tag_detail' user_id tag.tag_hash %}" target="_blank">
+            <a href="{% url 'web_user_tag_detail' user.id tag.tag_hash %}" target="_blank">
                 <div class="thumbnail">
                     <p style="padding:10px;margin-bottom: 0;"><strong>#{{ tag.tag|truncatechars:'13' }}</strong></p>
                     <div class="img-box">
-                        {% display_tags_entity tag.tag_id user_id %}
+                        {% display_tags_entity tag.tag_id user.id %}
                     </div>
                     <div class="caption">
                         <p><span>{{ tag.entity_count }}</span>&nbsp; 件商品</p>
