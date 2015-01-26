@@ -172,6 +172,7 @@ EMAIL_SUBJECT_PREFIX = '[guoku]'
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/tmp/static/'
 
 AUTH_USER_MODEL = 'core.GKUser'
 
