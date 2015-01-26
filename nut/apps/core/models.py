@@ -607,7 +607,8 @@ class Note(BaseModel):
 
     def save(self, *args, **kwargs):
         super(Note, self).save(*args, **kwargs)
-        notify.send(self.user, recipient=self.entity.user, action_object=self, verb='post note', target=self.entity)
+        if self.user != self.entity.user:
+            notify.send(self.user, recipient=self.entity.user, action_object=self, verb='post note', target=self.entity)
         # t = TagParser(self.note)
         # t.create_tag(user_id=self.user.pk, entity_id=self.entity_id)
 

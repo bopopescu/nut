@@ -556,5 +556,8 @@ msgstr "请输入真实邮箱"
 msgid "account settings"
 msgstr "帐号设置"
 
+msgid "social account"
+msgstr "社区帐号"
+
 msgid "location"
 msgstr "所在地"
