@@ -13,10 +13,10 @@ log = getLogger('django')
 
 @login_required
 @admin_only
-def list(request, template="management/users/list.html"):
+def list(request, active=0, template="management/users/list.html"):
 
     page = request.GET.get('page', 1)
-    active = request.GET.get('active', None)
+    # active = request.GET.get('active', None)
     admin = request.GET.get('admin', None)
 
     if active == '2':
@@ -25,7 +25,7 @@ def list(request, template="management/users/list.html"):
         user_list = GKUser.objects.active()
     elif active == '0':
         user_list = GKUser.objects.blocked()
-    elif active == '-1':
+    elif active == '999':
         user_list = GKUser.objects.deactive()
     elif admin:
         user_list = GKUser.objects.admin()
