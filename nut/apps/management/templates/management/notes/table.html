@@ -22,7 +22,7 @@
                         <td>{{ note.id }}</td>
                         <td><img class="img-responsive img-thumbnail" src="{{ note.entity.chief_image|resize:'240' }}" style="max-height:128px;max-width:128px;"></td>
                         <td>{{ note.user.profile.nickname }}</td>
-                        <td width="400">{{ note.note|truncatechars:'30' }}</td>
+                        <td width="400">{{ note.note }}</td>
                         <td>{{ note.post_time|date:'Y-m-d H:i:s' }}</td>
                         <td>
                             {% if note.status == 1 %}

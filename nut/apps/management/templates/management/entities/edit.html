@@ -36,6 +36,7 @@
     {% endif %}
 
     <div class="row" style="padding-bottom: 24px;">
+        <a href="{% url 'web_entity_detail' entity.entity_hash %}" class="btn btn-success btn-lg" target="_blank">{% trans 'go to' %}</a>
         <a href="{% url 'management_note_create' entity.pk %}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#EntityNoteModal">{% trans 'add note' %}</a>
         <a href="{% url 'management_entity_image' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'upload image' %}</a>
         <a href="{% url 'management_entity_buy_link' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'add buy link' %}</a>
@@ -120,7 +121,7 @@
                 {% for note in entity.notes.all %}
                     <tr>
                         <td>{{ note.id }}</td>
-                        <td>{{ note.user.profile.nickname }}</td>
+                        <td><a href="{% url 'management_user_edit' note.user_id %}">{{ note.user.profile.nickname }}</a></td>
                         <td>{{ note.note }}</td>
                         <td>{{ note.post_time|date:'Y-m-d H:i:s' }}</td>
                         <td>
