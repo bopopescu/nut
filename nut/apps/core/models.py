@@ -19,6 +19,7 @@ from apps.core.manager.category import CategoryManager, SubCategoryManager
 from apps.notifications import notify
 
 from djangosphinx.models import SphinxSearch
+from apps.notifications import notify
 
 import time
 
