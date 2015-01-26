@@ -11,7 +11,7 @@ from django.db.models import Count
 from apps.core.utils.http import JSONResponse
 
 from datetime import datetime
-
+import random
 
 @require_GET
 @login_required
@@ -27,7 +27,7 @@ def messages(request, template='web/messages/message.html'):
     el = Entity_Like.objects.popular()
     cids = Entity.objects.filter(pk__in=list(el)).annotate(dcount=Count('category')).values_list('category_id', flat=True)
 
-    _categories = Sub_Category.objects.filter(id__in=list(cids))[:6]
+    _categories = Sub_Category.objects.filter(id__in=list(cids), status=True)
 
     message_list = _user.notifications.filter(timestamp__lt=_timestamp)
 
@@ -62,7 +62,7 @@ def messages(request, template='web/messages/message.html'):
         template,
         {
             'messages': _messages,
-            'categories': _categories,
+            'categories': random.sample(_categories, 6),
             # 'category': category,
         },
         context_instance = RequestContext(request),
