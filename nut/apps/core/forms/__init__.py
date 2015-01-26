@@ -2,7 +2,7 @@ from apps.core.models import GKUser, Category
 
 
 def get_admin_user_choices():
-    user_list = GKUser.objects.editor_or_admin()
+    user_list = GKUser.objects.editor()
     res = map(lambda x: (x.pk, x.profile.nickname), user_list)
     return res
 

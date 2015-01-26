@@ -374,13 +374,13 @@ class CreateEntityForm(forms.Form):
 
     origin_id = forms.CharField(
         label=_('origin id'),
-        widget=forms.TextInput(attrs={'class':'form-control'}),
+        widget=forms.TextInput(attrs={'class':'form-control', 'readonly':''}),
         help_text=_(''),
     )
 
     origin_source = forms.CharField(
         label=_('origin_source'),
-        widget=forms.TextInput(attrs={'class':'form-control'}),
+        widget=forms.TextInput(attrs={'class':'form-control', 'readonly':''}),
         help_text=_(''),
     )
 
@@ -435,7 +435,7 @@ class CreateEntityForm(forms.Form):
         )
 
         cate = Sub_Category.objects.get(pk = category_id)
-        sub_category_choices = get_sub_category_choices(cate.group_id)
+        # sub_category_choices = get_sub_category_choices(cate.group_id)
 
         self.fields['category'] = forms.ChoiceField(label=_('category'),
                                                     widget=forms.Select(attrs={'class':'form-control', 'id':'category', 'data-init':cate.group_id}),
@@ -456,6 +456,12 @@ class CreateEntityForm(forms.Form):
             required=False,
         )
 
+        self.fields['status'] = forms.ChoiceField(label=_('note status'),
+                                                  choices=Note.NOTE_STATUS_CHOICES,
+                                                  widget=forms.Select(attrs={'class':'form-control'}),
+                                                  initial=Note.normal,
+                                                  help_text=_(''))
+
         user_choices = get_admin_user_choices()
         self.fields['user'] = forms.ChoiceField(
             label=_('user'),
@@ -463,6 +469,10 @@ class CreateEntityForm(forms.Form):
             widget=forms.Select(attrs={'class':'form-control'}),
             help_text=_(''),
         )
+
+    # def clean_status(self):
+    #     _status = self.cleaned_data.get('status')
+    #     return int(_status)
 
     def save(self):
         _origin_id = self.cleaned_data.get('origin_id')
@@ -473,6 +483,7 @@ class CreateEntityForm(forms.Form):
         _sub_category = self.cleaned_data.get('sub_category')
         _main_image = int(self.cleaned_data.get('main_image'))
         _note_text = self.cleaned_data.get('content')
+        _status = self.cleaned_data.get('status')
         _user_id = self.cleaned_data.get('user')
         # log.info(self.initial['shop_nick'])
         _entity_hash = cal_entity_hash(_origin_id + _title + self.initial['shop_nick'].decode('utf8'))
@@ -505,6 +516,7 @@ class CreateEntityForm(forms.Form):
                 user_id= _user_id,
                 entity= entity,
                 note= _note_text,
+                status = _status,
             )
 
         if "taobao" in _origin_source:

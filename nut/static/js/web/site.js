@@ -466,7 +466,7 @@ $.ajaxSetup({
             var $note = $(".post-note");
             var $form = $note.find("form");
             var $textarea = $form.find("textarea");
-//            console.log($textarea.value);
+            //console.log($textarea.value);
 
             $textarea.on('focus', function(){
 //
@@ -529,10 +529,13 @@ $.ajaxSetup({
             var note_content = noteItem.find(".note-content .content");
             var note_update_form = noteItem.find(".update-note-form");
             var note_text = note_update_form.find('textarea');
+            //console.log(note_text);
             var origin_text = note_content.html();
+            //var htmltag = "<a href=\"\" target=\"_blank\">";
+            origin_text = origin_text.replace(/<(.|\n)+?>/gi, "");
             noteItem.find(".update-note").on('click', function() {
 //                var form = noteItem.find();
-//                console.log(note_update_form);
+                console.log(origin_text);
                 if (note_update_form.css('display') != 'block') {
                     note_content.hide();
                     note_update_form.show();
