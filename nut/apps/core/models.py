@@ -16,7 +16,7 @@ from apps.core.manager.tag import EntityTagManager
 from apps.core.manager.category import CategoryManager, SubCategoryManager
 # from apps.core.utils.tag import TagParser
 
-from apps.notifications import notify
+# from apps.notifications import notify
 
 from djangosphinx.models import SphinxSearch
 from apps.notifications import notify

@@ -55,6 +55,10 @@
                         <li {% if management_dashboard_url == request.path %}class="active"{% endif %}>
                             <a href="{{ management_dashboard_url }}"><i class="fa fa-dashboard"></i>&nbsp;{% trans 'dashboard' %}</a>
                         </li>
+                        {% url 'management_report_list' as management_report_list_url %}
+                        <li {% if management_report_list_url == request.path %}class="active"{% endif %}>
+                            <a href="{{ management_report_list_url }}"><i class="fa fa-eraser"></i>&nbsp;{% trans 'report' %}</a>
+                        </li>
                     </ul>
                     <ul class="nav nav-sidebar">
                         {% url 'management_selection_list' as management_selection_url %}

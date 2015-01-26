@@ -55,9 +55,9 @@ class EntityForm(forms.Form):
         (selection, _("selection")),
     )
 
-    id = forms.IntegerField(label=_('entity_id'),
-                         widget=forms.NumberInput(attrs={'class':'form-control', 'readonly':''}),
-                         help_text=_(''))
+    # id = forms.IntegerField(label=_('entity_id'),
+    #                      widget=forms.NumberInput(attrs={'class':'form-control', 'readonly':''}),
+                         # help_text=_(''))
     creator = forms.CharField(label=_('creator'),
                               widget=forms.TextInput(attrs={'class':'form-control', 'readonly':''}),
                               help_text=_(''))
@@ -139,6 +139,10 @@ class EntityForm(forms.Form):
         cleaned_data = super(EntityForm, self).clean()
         return cleaned_data
 
+
+
+class EditEntityForm(EntityForm):
+
     def save(self):
 
         # id = self.cleaned_data['id']
@@ -162,8 +166,6 @@ class EntityForm(forms.Form):
 
         if status:
             self.entity.status = int(status)
-            # log.info("status %s", type(self.entity.status))
-            # log.info("OKOKOKOKOKOKOKOOKOOKO")
             if self.entity.status == Entity.selection:
                 try:
                     selection = Selection_Entity.objects.get(entity = self.entity)

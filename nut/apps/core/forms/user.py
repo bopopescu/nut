@@ -69,7 +69,9 @@ class UserForm(forms.Form):
                                 choices=User_Profile.GENDER_CHOICES,
                                 # widget=forms.Select(attrs={'class':'form-control'}),
                                 widget=forms.RadioSelect(),
+                                initial=User_Profile.Other,
                                 help_text=_(''))
+
     bio = forms.CharField(label=_('bio'),
                           widget=forms.Textarea(attrs={'class':'form-control','rows':'4', 'style':'resize:none;'}),
                           required=False,

@@ -11,7 +11,7 @@ from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
 
 from apps.core.models import Entity, Buy_Link
-from apps.core.forms.entity import EntityForm, EntityImageForm, BuyLinkForm, CreateEntityForm, load_entity_info
+from apps.core.forms.entity import EditEntityForm, EntityImageForm, BuyLinkForm, CreateEntityForm, load_entity_info
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 
@@ -71,7 +71,7 @@ def edit(request, entity_id, template='management/entities/edit.html'):
         raise Http404
 
     data = {
-            'id':entity.pk,
+            # 'id':entity.pk,
             'creator':entity.user.profile.nickname,
             'brand':entity.brand,
             'title':entity.title,
@@ -82,7 +82,7 @@ def edit(request, entity_id, template='management/entities/edit.html'):
         }
 
     if request.method == "POST":
-        _forms = EntityForm(
+        _forms = EditEntityForm(
             entity,
             request.POST,
             initial=data
@@ -95,7 +95,7 @@ def edit(request, entity_id, template='management/entities/edit.html'):
 
     else:
         log.info(entity.category)
-        _forms = EntityForm(
+        _forms = EditEntityForm(
             entity = entity,
             initial=data
         )
