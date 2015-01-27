@@ -34,8 +34,6 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
     except Entity.DoesNotExist:
         raise Http404
 
-
-
     if request.user.is_authenticated():
         _user = request.user
         _note_forms = NoteForm()
