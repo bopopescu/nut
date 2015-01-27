@@ -554,7 +554,8 @@ class Entity_Like(models.Model):
 
     def save(self, *args, **kwargs):
         super(Entity_Like, self).save(*args, **kwargs)
-        notify.send(self.user, recipient=self.entity.user, action_object=self, verb='like entity', target=self.entity)
+        if self.user != self.entity.user or self.user.is_active >= self.user.blocked:
+            notify.send(self.user, recipient=self.entity.user, action_object=self, verb='like entity', target=self.entity)
 
 
 class Note(BaseModel):
@@ -607,7 +608,7 @@ class Note(BaseModel):
 
     def save(self, *args, **kwargs):
         super(Note, self).save(*args, **kwargs)
-        if self.user != self.entity.user:
+        if self.user != self.entity.user or self.user.is_active >= self.user.blocked:
             notify.send(self.user, recipient=self.entity.user, action_object=self, verb='post note', target=self.entity)
         # t = TagParser(self.note)
         # t.create_tag(user_id=self.user.pk, entity_id=self.entity_id)

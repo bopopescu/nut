@@ -47,17 +47,56 @@
 
     };
 
-//    var note = {
-//        post: function () {
-//            var form = $('#EntityNoteModal');
-//            console.log(form);
-//        }
-//    };
+    var dashboard = {
+        selectedChar: function() {
+            var chart = $('#selectionChart');
+
+            if (chart[0]){
+                var ctx = chart.get(0).getContext("2d");
+                $.ajax({
+                    url:"/management/dashboard/",
+                    type: "get",
+                    dataType: "json",
+                    success : function(res) {
+                        var labels = new Array();
+                        var d = new Array();
+                        $(res).each(function(index){
+                            //console.log(row.id)
+                            var val = res[index];
+                            //console.log(val.selected_total);
+                            labels.push(val.pub_date);
+                            d.push(parseInt(val.selected_total));
+                        });
+                        console.log(labels);
+                        console.log(d);
+                        var data = {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: "publish selection ",
+                                    fillColor: "rgba(151,187,205,0.2)",
+                                    strokeColor: "rgba(151,187,205,1)",
+                                    pointColor: "rgba(151,187,205,1)",
+                                    pointStrokeColor: "#fff",
+                                    pointHighlightFill: "#fff",
+                                    pointHighlightStroke: "rgba(220,220,220,1)",
+                                    data: d
+                                }
+                            ]
+                        };
+                        var myLineChart = new Chart(ctx).Line(data);
+                    }
+                })
+
+            }
+        }
+    };
 
     (function init() {
 //        console.log($.find());
         entity.removeImage();
         entity.removeBuyLink();
+        dashboard.selectedChar();
 //        note.post();
     })();
 })(jQuery, document, window);
