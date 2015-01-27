@@ -130,8 +130,19 @@
 
                     {% include "web/entity/partial/detail_note.html" with notes=entity.notes %}
                 </div>
-{#            {{ request.user.is_blocked  }}#}
-                {% if request.user.is_authenticated and not request.user.is_blocked and not user_post_note %}
+                {% if request.user.is_blocked %}
+                    <div class="row" style="background-color: #fbfbfb; margin: 0;">
+                        <div class="media" style="padding: 15px">
+                            <div class="pull-left">
+                                <i class="fa fa-exclamation-circle fa-5x"></i>
+                            </div>
+                            <div class="media-body post-note">
+                                <p>果库倡导友好、宽容和理性的对待不同的看法和意见，尊重他人。</p>
+                                <p>你的帐号因多次违规，已被禁言。可通过 hi@guoku.com 联系管理员</p>
+                            </div>
+                        </div>
+                    </div>
+                {% elif request.user.is_authenticated and  not user_post_note %}
 {#                    {% if not user_post_note %}#}
                     <div class="row" style="background-color: #fbfbfb; margin: 0;">
                         <div class="media" style="padding: 15px">
