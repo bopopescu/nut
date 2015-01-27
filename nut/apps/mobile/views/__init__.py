@@ -65,9 +65,11 @@ def homepage(request):
 
     res['discover'] = []
     from django.db.models import Count
-    el = Entity_Like.objects.popular()
+    el = Entity_Like.objects.popular(scale='weekly')
     category = Entity.objects.filter(pk__in=list(el)).annotate(dcount=Count('category')).values_list('category_id', flat=True)
-    for c in Sub_Category.objects.filter(pk__in=category, status=True):
+    sub_category = Sub_Category.objects.filter(pk__in=category, status=True)
+    log.info(sub_category)
+    for c in random.sample(sub_category, 12):
         res['discover'].append(
             c.v3_toDict()
         )
