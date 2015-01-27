@@ -5,14 +5,15 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.decorators.http import require_http_methods
 from django.template import loader
-from django.contrib.auth.decorators import login_required
-from datetime import datetime, timedelta
+from django.template.base import TemplateDoesNotExist
+# from django.contrib.auth.decorators import login_required
+# from datetime import datetime, timedelta
 
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.models import Show_Event_Banner, Show_Editor_Recommendation, Event
 from apps.core.models import Tag, Entity, Entity_Like, Entity_Tag
 from apps.core.utils.http import JSONResponse
-from datetime import datetime
+# from datetime import datetime
 
 
 
@@ -37,6 +38,11 @@ def event(request, slug, template='web/events/home'):
         template = template + '_%s.html' % _slug
     except Event.DoesNotExist:
         raise Http404
+
+    try:
+        loader.get_template(template)
+    except TemplateDoesNotExist:
+        template = "web/events/home.html"
 
     tag = Tag.objects.get(tag_hash=event.tag)
     inner_qs = Entity_Tag.objects.filter(tag=tag).values_list('entity_id', flat=True)

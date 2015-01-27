@@ -7,7 +7,7 @@ log = getLogger('django')
 class NoteQuerySet(models.query.QuerySet):
 
     def normal(self):
-        return self.filter(status=0)
+        return self.filter(status=0, user__is_active__gte=1)
 
 
 class NoteManager(models.Manager):
