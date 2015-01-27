@@ -12,9 +12,12 @@
     <h1 class="page-header">{% trans 'dashboard' %}</h1>
 
     {% include 'management/banner/show_banners.html' with show_banners=show_banners %}
+
     <div class="row">
         <strong>一周精选发布状况</strong>
-        <canvas id="selectionChart" class="col-sm-12" width="767" height="400"></canvas>
+{#        <div style="box-sizing: border-box;">#}
+        <canvas id="selectionChart"  width="767" height="400"></canvas>
+{#        </div>#}
     </div>
 {#    <h2 class="sub-header">{% trans 'selection' %}</h2>#}
 
