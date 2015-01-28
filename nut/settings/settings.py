@@ -51,7 +51,6 @@ INSTALLED_APPS = (
     'apps.management',
     'apps.web',
     'apps.mobile',
-
     'apps.images',
     'apps.notifications',
     'apps.report',
