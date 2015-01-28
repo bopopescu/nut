@@ -791,6 +791,7 @@ class Taobao_Token(models.Model):
 class Article(models.Model):
 
     title = models.CharField(max_length=255)
+    creator = models.ForeignKey(GKUser, related_name="articles")
     content = models.TextField()
     publish = models.BooleanField(default=False)
     created_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True, editable=False)
