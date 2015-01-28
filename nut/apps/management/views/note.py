@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.core.urlresolvers import reverse
 # from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.utils.log import getLogger
-
+from django.contrib.auth.decorators import login_required
 from apps.core.models import Note, Entity
 from apps.core.forms.note import NoteForm, CreateNoteForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
@@ -12,6 +12,7 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 log = getLogger('django')
 
 
+@login_required
 def list(request, template='management/notes/list.html'):
 
     status = request.GET.get('status', None)
@@ -39,6 +40,7 @@ def list(request, template='management/notes/list.html'):
                                 context_instance = RequestContext(request))
 
 
+@login_required
 def edit(request, note_id, template='management/notes/edit.html'):
 
     try:
@@ -75,6 +77,7 @@ def edit(request, note_id, template='management/notes/edit.html'):
                               context_instance = RequestContext(request))
 
 
+@login_required
 def create(request, entity_id, template="management/notes/ajax_note_create.html"):
     template = template
     # log.info(entity_id)
