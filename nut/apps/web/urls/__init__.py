@@ -74,7 +74,7 @@ urlpatterns += patterns(
 # entity
 urlpatterns += patterns(
     'apps.web.views',
-    url(r'^message/', include('apps.web.urls.message')),
+    url(r'^message/', include('apps.notifications.urls')),
     url(r'^entity/', include('apps.web.urls.entity')),
     url(r'^note/', include('apps.web.urls.note')),
     url(r'^category/', include('apps.web.urls.category')),
