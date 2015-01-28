@@ -151,6 +151,8 @@ def entity_like(request, user_id):
 
 @check_sign
 def entity_note(request, user_id):
+    log.info(request.GET)
+
     try:
         _user = GKUser.objects.get(pk=user_id)
     except GKUser.DoesNotExist:
@@ -165,26 +167,13 @@ def entity_note(request, user_id):
     if _timestamp != None:
         _timestamp = datetime.fromtimestamp(float(_timestamp))
 
-
-
-    note_list = Note.objects.filter(user=_user, post_time__lte=_timestamp)
-
-    paginator = Paginator(note_list, _count)
-    try:
-        notes = paginator.page(_offset)
-    # except PageNotAnInteger:
-    #     notes = paginator.page(1)
-    except EmptyPage:
-        return ErrorJsonResponse(status=404)
-
-
+    notes = Note.objects.filter(user=_user, post_time__lt=_timestamp)[:_count]
     res = []
-
-    for note in notes.object_list:
+    for note in notes:
         log.info(note)
         res.append({
-            'note':note.v3_toDict(),
-            'entity':note.entity.v3_toDict(),
+            'note': note.v3_toDict(),
+            'entity': note.entity.v3_toDict(),
         })
 
     return SuccessJsonResponse(res)
