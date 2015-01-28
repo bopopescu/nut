@@ -9,6 +9,9 @@ class NoteQuerySet(models.query.QuerySet):
     def normal(self):
         return self.filter(status=0, user__is_active__gte=1)
 
+    def top_or_normal(self):
+        return self.filter(status__gte=0, user__is_active__gte=1)
+
 
 class NoteManager(models.Manager):
 
@@ -17,6 +20,9 @@ class NoteManager(models.Manager):
 
     def normal(self):
         return self.get_query_set().normal()
+
+    def top_or_normal(self):
+        return self.get_query_set().top_or_normal()
 
 
 class NotePokeQuerySet(models.query.QuerySet):

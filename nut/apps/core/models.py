@@ -200,10 +200,10 @@ class User_Profile(BaseModel):
             return "%s%s" % (image_host, self.avatar)
         else:
             if self.gender == self.Woman:
-                return "%s%s" % ('http://www.guoku.com/static/', 'images/woman.jpg')
-            return "%s%s" % ('http://www.guoku.com/static/', 'images/man.jpg')
-            #     return "%s%s" % (settings.STATIC_URL, 'images/woman.jpg')
-            # return "%s%s" % (settings.STATIC_URL, 'images/man.jpg')
+                # return "%s%s" % ('http://www.guoku.com/static/', 'images/woman.jpg')
+            # return "%s%s" % ('http://www.guoku.com/static/', 'images/man.jpg')
+                return "%s%s" % (settings.STATIC_URL, 'images/woman.jpg')
+            return "%s%s" % (settings.STATIC_URL, 'images/man.jpg')
 
 
 class User_Follow(models.Model):
