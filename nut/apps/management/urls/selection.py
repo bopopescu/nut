@@ -11,6 +11,8 @@ urlpatterns = patterns(
     url(r'^publish/(?P<sid>\d+)/edit/$', 'edit_publish', name='management_selection_edit_publish'),
 
     url(r'set/publish/datetime/$', 'set_publish_datetime', name='management_set_publish_datetime'),
+
+    url(r'popular/$', 'popular', name='management_selection_popular'),
 )
 
 __author__ = 'edison7500'

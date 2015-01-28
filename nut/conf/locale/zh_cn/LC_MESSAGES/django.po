@@ -561,3 +561,9 @@ msgstr "社区帐号"
 
 msgid "location"
 msgstr "所在地"
+
+msgid "published"
+msgstr "发布"
+
+msgid "pending"
+msgstr "待发布"
