@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from apps.core.models import Selection_Entity, Entity_Like
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.core.forms.selection import SelectionForm, SetPublishDatetimeForm
-
+from datetime import datetime, timedelta
 
 from django.utils.log import getLogger
 
@@ -119,7 +119,14 @@ def set_publish_datetime(request, template="management/selection/set_publish_dat
 
 def popular(request, template="management/selection/popular.html"):
 
-    _entity_list = Entity_Like.objects.raw("select id, entity_id, count(*) as lcount from core_entity_like where created_time between '2015-01-16' and '2015-01-23' group by entity_id order by lcount desc")
+
+    days = timedelta(days=7)
+    now_string = datetime.now().strftime("%Y-%m-%d")
+    dt = datetime.now() - days
+
+
+    query = "select id, entity_id, count(*) as lcount from core_entity_like where created_time between '%s' and '%s' group by entity_id order by lcount desc" % (dt.strftime("%Y-%m-%d"), now_string)
+    _entity_list = Entity_Like.objects.raw(query)
 
     log.info(_entity_list.query)
     # for like in  entity_list:
