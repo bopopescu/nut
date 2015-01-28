@@ -153,6 +153,9 @@ def search(request):
     _offset = int(request.GET.get('offset', '0'))
     _count = int(request.GET.get('count', '30'))
 
+    if _offset > 0 and _offset < 30:
+        return ErrorJsonResponse(status=404)
+
     _offset = _offset / _count + 1
 
     _key = request.GET.get('session', None)
@@ -166,6 +169,8 @@ def search(request):
 
 
     _forms = EntitySearchForm(request.GET)
+
+    # log.info(request.GET)
 
     if _forms.is_valid():
         results = _forms.search()
