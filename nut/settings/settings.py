@@ -46,13 +46,14 @@ INSTALLED_APPS = (
     # 'rest_framework.authtoken',
     # 'haystack',
     'djcelery',
+    'notifications',
 
     'apps.core',
     'apps.management',
     'apps.web',
     'apps.mobile',
     'apps.images',
-    'apps.notifications',
+    # 'apps.notifications',
     'apps.report',
 )
 
