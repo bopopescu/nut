@@ -14,12 +14,17 @@
             <ul class="nav nav-pills" role="tablist">
                 {% url 'management_selection_published' as management_selection_published_url %}
                 {% url 'management_selection_pending' as management_selection_pending_url %}
+                {% url 'management_selection_popular' as management_selection_popular_url %}
                 <li {% if management_selection_published_url in request.path %}class="active"{% endif %}>
-                    <a href="{% url 'management_selection_list' %}">{% trans 'published' %}</a>
+                    <a href="{{ management_selection_published_url }}">{% trans 'published' %}</a>
                 </li>
 
                 <li {% if management_selection_pending_url in request.path %}class="active"{% endif %}>
-                    <a href="{% url 'management_selection_pending' %}">{% trans 'pending' %}&nbsp;({{ pending_count }})</a>
+                    <a href="{{ management_selection_pending_url }}">{% trans 'pending' %}&nbsp;({{ pending_count }})</a>
+                </li>
+
+                <li {% if management_selection_popular_url in request.path %}class="active"{% endif %}>
+                    <a href="{{ management_selection_popular_url }}">{% trans 'popular' %}</a>
                 </li>
             </ul>
         </div>
