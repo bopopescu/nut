@@ -652,9 +652,9 @@ class Note_Comment(BaseModel):
     def __unicode__(self):
         return self.content
 
-    def save(self, *args, **kwargs):
-        super(Note_Comment, self).save(*args, **kwargs)
-        notify.send(self.user, recipient=self.note.user, verb="replied", action_object=self, target=self.note)
+    # def save(self, *args, **kwargs):
+    #     super(Note_Comment, self).save(*args, **kwargs)
+    #     notify.send(self.user, recipient=self.note.user, verb="replied", action_object=self, target=self.note)
 
     def v3_toDict(self):
         res = self.toDict()
@@ -978,6 +978,14 @@ def user_post_note_notification(sender, instance, created, **kwargs):
 
 post_save.connect(user_post_note_notification, sender=Note, dispatch_uid="user_post_note_action_notification")
 
+
+def user_post_comment_notification(sender, instance, created, **kwargs):
+    log.info(created)
+    if issubclass(sender, Note_Comment):
+        log.info(instance.user)
+        notify.send(instance.user, recipient=instance.note.user, verb="replied", action_object=instance, target=instance.note)
+
+post_save.connect(user_post_comment_notification, sender=Note_Comment, dispatch_uid="user_post_comment_action_notification")
 
 
 __author__ = 'edison7500'
