@@ -203,8 +203,8 @@ class User_Profile(BaseModel):
             if self.gender == self.Woman:
                 # return "%s%s" % ('http://www.guoku.com/static/', 'images/woman.jpg')
             # return "%s%s" % ('http://www.guoku.com/static/', 'images/man.jpg')
-                return "%s%s" % (settings.STATIC_URL, 'images/woman.jpg')
-            return "%s%s" % (settings.STATIC_URL, 'images/man.jpg')
+                return "%s%s" % (settings.STATIC_URL, 'images/womanicon.jpg')
+            return "%s%s" % (settings.STATIC_URL, 'images/manicon.jpg')
 
 
 class User_Follow(models.Model):
