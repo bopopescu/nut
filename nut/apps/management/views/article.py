@@ -104,9 +104,6 @@ def preview(request, article_id, template="management/article/preview.html"):
     except Article.DoesNotExist:
         raise Http404
 
-
-
-
     return render_to_response(
         template,
         {
