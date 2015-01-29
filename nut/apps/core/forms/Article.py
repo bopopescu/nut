@@ -27,6 +27,7 @@ class BaseArticleForms(forms.Form):
         choices=Article.ARTICLE_STATUS_CHOICES,
         widget=forms.Select(attrs={'class':'form-control'}),
         help_text=_(''),
+        initial=Article.draft,
     )
 
     def cleaned_is_publish(self):
