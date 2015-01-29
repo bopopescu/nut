@@ -981,9 +981,16 @@ post_save.connect(user_post_note_notification, sender=Note, dispatch_uid="user_p
 
 def user_post_comment_notification(sender, instance, created, **kwargs):
     log.info(created)
-    if issubclass(sender, Note_Comment):
+    if issubclass(sender, Note_Comment) and created:
         log.info(instance.user)
-        notify.send(instance.user, recipient=instance.note.user, verb="replied", action_object=instance, target=instance.note)
+        notify.send(instance.user, recipient=instance.note.user, verb="replied note", action_object=instance, target=instance.note)
+        if (instance.replied_user_id):
+            try:
+                user = GKUser.objects.get(pk = instance.replied_user_id)
+                notify.send(instance.user, recipient=user, verb="replied comment", action_object=instance, target=instance)
+            except GKUser.DoesNotExist, e:
+                log.error("Error: %s" % e.message)
+        # log.info(instance.replied_user_id)
 
 post_save.connect(user_post_comment_notification, sender=Note_Comment, dispatch_uid="user_post_comment_action_notification")
 
