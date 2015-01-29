@@ -353,9 +353,9 @@ class Sub_Category(BaseModel):
         return self.title
 
 
-class Taobao_Item_Category_Mapping(models.Model):
-    taobao_category_id = models.IntegerField(db_index = True, unique = True)
-    neo_category_id = models.IntegerField(db_index = True)
+# class Taobao_Item_Category_Mapping(models.Model):
+#     taobao_category_id = models.IntegerField(db_index = True, unique = True)
+#     neo_category_id = models.IntegerField(db_index = True)
 
 
 class Entity(BaseModel):
@@ -785,16 +785,28 @@ class Taobao_Token(models.Model):
 
 
 class Article(models.Model):
+
+    (remove, draft, published, selection) = xrange(4)
+    ARTICLE_STATUS_CHOICES = [
+        (selection, _("selection")),
+        (published, _("published")),
+        (draft, _("draft")),
+        (remove, _("remove")),
+    ]
+
     creator = models.ForeignKey(GKUser, related_name="articles")
     title = models.CharField(max_length=255)
     content = models.TextField()
-    publish = models.BooleanField(default=False)
+    publish = models.IntegerField(choices=ARTICLE_STATUS_CHOICES, default=draft)
     created_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True, editable=False)
     updated_datetime = models.DateTimeField(auto_now=True, db_index=True, null=True, editable=False)
 
+    class Meta:
+        ordering = ["-updated_datetime"]
 
     def __unicode__(self):
         return self.title
+
 
 
 class Media(models.Model):
