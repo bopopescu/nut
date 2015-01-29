@@ -92,11 +92,22 @@
         }
     };
 
+    var comment = {
+        remove: function(){
+            var comment_list = $("#comment");
+            comment_list.find(".btn").on('click', function(){
+                console.log("OKOKOKO");
+            })
+        }
+    };
+
     (function init() {
 //        console.log($.find());
         entity.removeImage();
         entity.removeBuyLink();
         dashboard.selectedChar();
+
+        comment.remove();
 //        note.post();
     })();
 })(jQuery, document, window);
