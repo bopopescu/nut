@@ -1,5 +1,6 @@
 {% extends 'management/management_base.html' %}
 {% load i18n %}
+{% load guoku %}
 
 
 {% block content %}
@@ -19,11 +20,14 @@
                 {% for medium in media %}
                     <tr>
                         <td>{{ medium.pk }}</td>
-                        <td><img class="img-polaroid img-responsive" style="max-height:150px;max-width:150px;" src="{{ medium.file_url }}"></td>
+                        <td><img class="img-polaroid img-responsive" style="max-height:150px;max-width:150px;" src="{{ medium.file_url|resize:'240' }}" width="120" height="120"></td>
                         <td>{{ medium.content_type }}</td>
 {#                        <td></td>#}
                         <td>
-                            <a class="btn btn-default" href="#">{% trans 'copy link' %}</a>
+                            <div class="btn-group">
+                                <a class="btn btn-default" href="#">{% trans 'copy link' %}</a>
+                                <a class="btn btn-danger">{% trans 'delete' %}</a>
+                            </div>
                         </td>
 {#                        <td><a class="btn btn-default" href="{% url 'management_banner_edit' banner.pk %}">{% trans 'edit' %}</a></td>#}
                     </tr>

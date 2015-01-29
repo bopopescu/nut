@@ -9,10 +9,6 @@ log = getLogger('django')
 
 
 class BaseArticleForms(forms.Form):
-    YES_OR_NO = (
-        (False, _('no')),
-        (True, _('yes')),
-    )
 
     title = forms.CharField(
         label=_('title'),
@@ -28,10 +24,15 @@ class BaseArticleForms(forms.Form):
 
     is_publish = forms.ChoiceField(
         label=_('publish'),
-        choices=YES_OR_NO,
+        choices=Article.ARTICLE_STATUS_CHOICES,
         widget=forms.Select(attrs={'class':'form-control'}),
         help_text=_(''),
     )
+
+    def cleaned_is_publish(self):
+        _is_publish = self.cleaned_data.get('is_publish')
+        return int(_is_publish)
+
 
 class CreateArticleForms(BaseArticleForms):
 
