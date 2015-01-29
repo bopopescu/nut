@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.log import getLogger
 from django.core.cache import cache
 
-from apps.core.models import Entity, Taobao_Item_Category_Mapping, Note, Buy_Link
+from apps.core.models import Entity, Note, Buy_Link
 from apps.core.utils.fetch.taobao import TaoBao
 from apps.core.utils.fetch.jd import JD
 from apps.core.utils.fetch import parse_jd_id_from_url, parse_taobao_id_from_url
