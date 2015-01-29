@@ -30,6 +30,7 @@ class NotePokeQuerySet(models.query.QuerySet):
     def user_poke_list(self, user, note_list):
         return self.filter(user=user, note_id__in=note_list).values_list('note_id', flat=True)
 
+
 class NotePokeManager(models.Manager):
 
     def get_queryset(self):
@@ -38,5 +39,6 @@ class NotePokeManager(models.Manager):
     def user_poke_list(self, user, note_list):
         # log.info(note_list)
         return  self.get_queryset().user_poke_list(user, note_list)
+
 
 __author__ = 'edison7500'
