@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils.log import getLogger
 from django.db.models import Count
+from django.db.models.signals import post_save
 from django.conf import settings
 
 # from apps.core.extend.list_field import ListObjectField
@@ -552,11 +553,6 @@ class Entity_Like(models.Model):
         ordering = ['-created_time']
         unique_together = ('entity', 'user')
 
-    def save(self, *args, **kwargs):
-        super(Entity_Like, self).save(*args, **kwargs)
-        if self.user != self.entity.user or self.user.is_active >= self.user.blocked:
-            notify.send(self.user, recipient=self.entity.user, action_object=self, verb='like entity', target=self.entity)
-
 
 class Note(BaseModel):
 
@@ -606,10 +602,10 @@ class Note(BaseModel):
     def post_timestamp(self):
         return time.mktime(self.post_time.timetuple())
 
-    def save(self, *args, **kwargs):
-        super(Note, self).save(*args, **kwargs)
-        if self.user != self.entity.user or self.user.is_active >= self.user.blocked:
-            notify.send(self.user, recipient=self.entity.user, action_object=self, verb='post note', target=self.entity)
+    # def save(self, *args, **kwargs):
+    #     super(Note, self).save(*args, **kwargs)
+    #     if self.user != self.entity.user or self.user.is_active >= self.user.blocked:
+    #         notify.send(self.user, recipient=self.entity.user, action_object=self, verb='post note', target=self.entity)
         # t = TagParser(self.note)
         # t.create_tag(user_id=self.user.pk, entity_id=self.entity_id)
 
@@ -960,6 +956,27 @@ class Show_Editor_Recommendation(models.Model):
 
     class Meta:
         ordering = ['-position']
+
+
+def user_like_notification(sender, instance, created, **kwargs):
+    # log.info("OOKOKOKOKO")
+    # log.info(created)
+    if issubclass(sender, Entity_Like) and created:
+        log.info(instance.user)
+        if instance.user != instance.entity.user or instance.user.is_active >= instance.user.blocked:
+            notify.send(instance.user, recipient=instance.entity.user, action_object=instance, verb='like entity', target=instance.entity)
+
+post_save.connect(user_like_notification, sender=Entity_Like, dispatch_uid="user_like_action_notification")
+
+
+def user_post_note_notification(sender, instance, created, **kwargs):
+    log.info(created)
+    if issubclass(sender, Note) and created:
+        log.info(instance.user)
+        if instance.user != instance.entity.user or instance.user.is_active >= instance.user.blocked:
+            notify.send(instance.user, recipient=instance.entity.user, action_object=instance, verb='post note', target=instance.entity)
+
+post_save.connect(user_post_note_notification, sender=Note, dispatch_uid="user_post_note_action_notification")
 
 
 
