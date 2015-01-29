@@ -35,14 +35,22 @@ class BaseArticleForms(forms.Form):
 
 class CreateArticleForms(BaseArticleForms):
 
+
+    def __init__(self, user, *args, **kwargs):
+        self.user_cache = user
+        super(CreateArticleForms, self).__init__(*args, **kwargs)
+
+
     def save(self):
         title = self.cleaned_data.get('title')
         content = self.cleaned_data.get('content')
 
-        article = Article.objects.create(
+        article = Article(
             title = title,
             content = content,
         )
+        article.creator = self.user_cache
+        article.save()
 
         return article
 
