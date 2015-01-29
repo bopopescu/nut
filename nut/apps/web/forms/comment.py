@@ -38,7 +38,7 @@ class CommentForm(forms.Form):
             comment.replied_user_id = _reply_to_user_id
             comment.save()
         # log.info(self.data.get('reply_to_comment_id'))
-        notify.send(comment.user, recipient=self.note.user, verb="replied", action_object=comment, target=self.note)
+        # notify.send(comment.user, recipient=self.note.user, verb="replied", action_object=comment, target=self.note)
         return comment
 
 
