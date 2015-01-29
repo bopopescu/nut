@@ -46,6 +46,13 @@ class NoteForm(forms.Form):
                                                   widget=forms.Select(attrs={'class':'form-control'}),
                                                   help_text=_(''))
 
+    def clean_content(self):
+        _note_text = self.cleaned_data.get('content')
+        log.info(_note_text)
+        if _note_text:
+            _note_text = _note_text.replace(u"＃", "#")
+        return _note_text
+
     def save(self):
         _content = self.cleaned_data.get('content')
         _status = self.cleaned_data.get('status')
@@ -53,6 +60,8 @@ class NoteForm(forms.Form):
         self.note.status = _status
         self.note.save()
 
+        t = TagParser(_content)
+        t.create_tag(user_id=self.note.user_id, entity_id=self.note.entity_id)
 
 class CreateNoteForm(forms.Form):
     YES_OR_NO = (
