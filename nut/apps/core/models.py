@@ -789,13 +789,16 @@ class Taobao_Token(models.Model):
 
 
 class Article(models.Model):
-
-    title = models.CharField(max_length=255)
     creator = models.ForeignKey(GKUser, related_name="articles")
+    title = models.CharField(max_length=255)
     content = models.TextField()
     publish = models.BooleanField(default=False)
     created_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True, editable=False)
     updated_datetime = models.DateTimeField(auto_now=True, db_index=True, null=True, editable=False)
+
+
+    def __unicode__(self):
+        return self.title
 
 
 class Media(models.Model):
