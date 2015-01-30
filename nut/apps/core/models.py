@@ -565,6 +565,11 @@ class Entity_Like(models.Model):
     class Meta:
         ordering = ['-created_time']
         unique_together = ('entity', 'user')
+    #
+    # def save(self, *args, **kwargs):
+    #     super(Entity_Like, self).save(*args, **kwargs)
+    #     if self.user != self.entity.user or self.user.is_active >= self.user.blocked:
+    #         notify.send(self.user, recipient=self.entity.user, action_object=self, verb='like entity', target=self.entity)
 
 
 class Note(BaseModel):
@@ -985,11 +990,12 @@ class Show_Editor_Recommendation(models.Model):
 
 
 def user_like_notification(sender, instance, created, **kwargs):
-    log.info("OOKOKOKOKO")
+    # log.info("OOKOKOKOKO")
     # log.info(created)
     if issubclass(sender, Entity_Like) and created:
         log.info(instance.user)
-        if instance.user != instance.entity.user or instance.user.is_active >= instance.user.blocked:
+        log.info(instance.entity.user)
+        if instance.user != instance.entity.user and instance.user.is_active >= instance.user.blocked:
             notify.send(instance.user, recipient=instance.entity.user, action_object=instance, verb='like entity', target=instance.entity)
 
 post_save.connect(user_like_notification, sender=Entity_Like, dispatch_uid="user_like_action_notification")
