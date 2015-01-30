@@ -64,12 +64,12 @@ def homepage(request):
         )
 
     res['discover'] = []
-    from django.db.models import Count
-    el = Entity_Like.objects.popular(scale='weekly')
-    category = Entity.objects.filter(pk__in=list(el)).annotate(dcount=Count('category')).values_list('category_id', flat=True)
-    sub_category = Sub_Category.objects.filter(pk__in=category, status=True)
+    # from django.db.models import Count
+    # el = Entity_Like.objects.popular(scale='weekly')
+    # category = Entity.objects.filter(pk__in=list(el)).annotate(dcount=Count('category')).values_list('category_id', flat=True)
+    sub_category = Sub_Category.objects.popular_random(12)
     log.info(sub_category)
-    for c in random.sample(sub_category, 12):
+    for c in sub_category:
         res['discover'].append(
             c.v3_toDict()
         )
@@ -169,8 +169,8 @@ def popular(request):
     _scale = request.GET.get('scale', 'daily')
     _key = request.GET.get('session')
     log.info(_scale)
-    popular_list = Entity_Like.objects.popular(_scale)
-    _entities = Entity.objects.filter(id__in=random.sample(popular_list, 60), status=Entity.selection)
+    popular_list = Entity_Like.objects.popular_random(_scale)
+    _entities = Entity.objects.filter(id__in=popular_list, status=Entity.selection)
 
     try:
         _session = Session_Key.objects.get(session_key=_key)

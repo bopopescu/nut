@@ -1,9 +1,12 @@
 from django.db import models
+from django.db.models import Count
 from django.utils.log import getLogger
 
+from apps.core.manager import get_entity_model, get_entity_like_model
 # from apps.core.models import Entity_Like
 from django.core.cache import cache
 from hashlib import md5
+import random
 
 log = getLogger('django')
 
@@ -53,6 +56,11 @@ class SubCategoryQuerySet(models.query.QuerySet):
     def map(self, group_id_list):
         return self.filter(group_id__in=group_id_list).values_list('id', flat=True)
 
+    def popular(self):
+        popular_list = get_entity_like_model().objects.popular()
+        cids = get_entity_model().objects.filter(pk__in=popular_list).annotate(dcount=Count('category')).values_list('category_id', flat=True)
+        return self.filter(id__in=list(cids), status=True)
+
 
 class SubCategoryManager(models.Manager):
 
@@ -69,4 +77,11 @@ class SubCategoryManager(models.Manager):
         res = self.get_queryset().map(group_id_list)
         cache.set(key, res, timeout=81400)
         return res
+
+    def popular(self):
+        return self.get_queryset().popular()
+
+    def popular_random(self, total=11):
+        return random.sample(self.popular(), total)
+
 __author__ = 'edison'
