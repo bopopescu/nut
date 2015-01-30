@@ -108,16 +108,18 @@ class SelectionEntityManager(models.Manager):
 
     def set_user_refresh_datetime(self, session):
         log.info(datetime.now())
+        # _key = "%s_selection" % session
         cache.set(session, datetime.now())
 
     def get_user_unread(self, session):
+        # _key = "%s_selection" % session
         refresh_datetime = cache.get(session)
-        # log.info(type( refresh_datetime ))
+        log.info(type( refresh_datetime ))
         if refresh_datetime is None:
             return 0
 
         unread_count = self.published().filter(pub_time__range=(refresh_datetime, datetime.now())).count()
-        log.debug(unread_count.query)
+        # log.debug(unread_count.query)
         return unread_count
 
 __author__ = 'edison'

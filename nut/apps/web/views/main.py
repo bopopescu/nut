@@ -68,7 +68,7 @@ def selection(request, template='web/main/selection.html'):
             content_type='text/html; charset=utf-8',
         )
 
-    log.info(_refresh_datetime)
+    # log.info(_refresh_datetime)
     return render_to_response(
         template,
         {

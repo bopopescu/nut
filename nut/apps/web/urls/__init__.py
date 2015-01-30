@@ -1,7 +1,7 @@
 from django.conf.urls import url, include, patterns
 from django.views.generic import RedirectView
 from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, DownloadView
-
+from apps.web.views.discover import DiscoverView
 
 urlpatterns = patterns(
     'apps.web.views',
@@ -13,6 +13,7 @@ urlpatterns = patterns(
     # url(r'^selected/$',  RedirectView.as_view(url='/selection/'),
 
     url(r'^popular/$', 'main.popular', name='web_popular'),
+    url(r'^discover/$', DiscoverView.as_view(), name='web_discover'),
     url(r'^search/$', 'main.search', name='web_search'),
 )
 

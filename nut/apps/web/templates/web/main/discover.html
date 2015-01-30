@@ -1,0 +1,35 @@
+{% extends 'web/base.html' %}
+{% load i18n %}
+{% load guoku %}
+
+
+{% block title %}{% trans 'discover' %}{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+{#            <div class="col-md-10 col-xs-12" >#}
+            {% for category in categories %}
+                <div class="col-sm-2">
+                    <div class="thumbnail category">
+                        <a href="{% url 'web_category_detail' category.id %}">
+                                    <img class="img-responsive" alt="{{ category.title }}" src="{{ category.icon_large_url }}"  width="40" height="40">
+                                    <p>{{ category.title|show_category }}</p>
+                        </a>
+{#                    {{ category }}#}
+                    </div>
+                </div>
+            {% endfor %}
+{#            </div>#}
+        </div>
+
+
+        <div class="row">
+            {% for entity in entities %}
+                {% include 'web/main/partial/entity.html' with entity=entity%}
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
