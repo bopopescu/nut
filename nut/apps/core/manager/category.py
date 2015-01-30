@@ -75,13 +75,20 @@ class SubCategoryManager(models.Manager):
             return res
 
         res = self.get_queryset().map(group_id_list)
-        cache.set(key, res, timeout=81400)
+        cache.set(key, res, timeout=86400)
         return res
 
     def popular(self):
         return self.get_queryset().popular()
 
     def popular_random(self, total=11):
-        return random.sample(self.popular(), total)
+        key_string = "popular_category"
+        key = md5(key_string.encode('utf-8')).hexdigest()
+        res = cache.get(key)
+        if res:
+            return res
+        res = random.sample(self.popular(), total)
+        cache.set(key, res, timeout=3600)
+        return res
 
 __author__ = 'edison'

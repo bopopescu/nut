@@ -985,7 +985,7 @@ class Show_Editor_Recommendation(models.Model):
 
 
 def user_like_notification(sender, instance, created, **kwargs):
-    # log.info("OOKOKOKOKO")
+    log.info("OOKOKOKOKO")
     # log.info(created)
     if issubclass(sender, Entity_Like) and created:
         log.info(instance.user)
