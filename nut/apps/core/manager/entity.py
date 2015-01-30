@@ -116,7 +116,8 @@ class SelectionEntityManager(models.Manager):
         if refresh_datetime is None:
             return 0
 
-        unread_count = self.published().filter(pub_time__range=(refresh_datetime, datetime.now() )).count()
+        unread_count = self.published().filter(pub_time__range=(refresh_datetime, datetime.now())).count()
+        log.debug(unread_count.query)
         return unread_count
 
 __author__ = 'edison'
