@@ -11,8 +11,8 @@
 {#            {% for error in  %}#}
             <div class="alert alert-danger col-sm-offset-4 col-sm-4" role="alert" style="margin-top: 20px;">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-{#                <strong>error!</strong>&nbsp; 邮箱或密码错误#}
-                <strong>{% trans 'error' %}!</strong>{{ forms.errors }}
+                <strong>{% trans 'error' %}!</strong>&nbsp; 邮箱或密码错误
+{#                <strong>{% trans 'error' %}!</strong>{{ forms.errors }}#}
             </div>
 {#            {% endfor %}#}
         {% endif %}
