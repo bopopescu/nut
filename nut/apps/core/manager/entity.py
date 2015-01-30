@@ -8,7 +8,9 @@ from datetime import datetime, timedelta
 
 from django.utils.log import getLogger
 
+
 log = getLogger('django')
+
 
 
 class EntityQuerySet(models.query.QuerySet):
@@ -76,8 +78,20 @@ class EntityLikeManager(models.Manager):
         key = 'entity_popular_%s' % scale
         res = cache.get(key)
         if res:
-            return res
+            return list(res)
         res = self.get_query_set().popular(scale)
+        cache.set(key, res, timeout=86400)
+        return list(res)
+
+    def popular_random(self, scale='weekly'):
+        key = 'entity_popular_random_%s' % scale
+        # popular_list = self.popular()
+        res = cache.get(key)
+        log.info(res)
+        if res:
+            return res
+
+        res = random.sample(self.popular(scale), 60)
         cache.set(key, res, timeout=3600)
         return res
 
