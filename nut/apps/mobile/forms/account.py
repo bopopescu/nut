@@ -265,7 +265,8 @@ class MobileTaobaoSignUpForm(TaobaoForm):
     )
 
     nickname = forms.CharField(
-        widget=forms.TextInput()
+        widget=forms.TextInput(),
+        required=False,
     )
 
     api_key = forms.CharField(

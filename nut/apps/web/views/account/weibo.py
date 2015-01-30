@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.core.urlresolvers import reverse
 from django.views.decorators.http import require_GET
 from django.contrib.auth.decorators import login_required
@@ -67,6 +67,9 @@ def auth_by_sina(request):
                 request.session['expires_in'] = _sina_data['expires_in']
 
                 return HttpResponseRedirect(reverse('web_register_from_three_part'))
+    else:
+        log.error("%s", error_uri)
+        return HttpResponse("error")
         # if weibo.user_id:
 
 

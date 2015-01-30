@@ -11,7 +11,8 @@ class TaobaoForm(forms.Form):
     )
 
     screen_name = forms.CharField(
-        widget=forms.TextInput()
+        widget=forms.TextInput(),
+        required=False,
     )
 
 __author__ = 'edison'
