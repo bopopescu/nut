@@ -118,12 +118,15 @@ def entity_like(request, user_id):
     except GKUser.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
+    _key = request.GET.get('session')
+
+
     _timestamp = request.GET.get('timestamp', datetime.now())
     if _timestamp != None:
         _timestamp = datetime.fromtimestamp(float(_timestamp))
     else:
         _timestamp = datetime.now()
-    _offset = int(request.GET.get('offset', '0'))
+    # _offset = int(request.GET.get('offset', '0'))
     _count = int(request.GET.get('count', '30'))
     log.info(_timestamp)
     # _offset = _offset / _count + 1
@@ -137,9 +140,16 @@ def entity_like(request, user_id):
     # log.info(time.mktime(entities[last].created_time))
     res['timestamp'] = time.mktime(entities[last].created_time.timetuple())
 
+
+    try:
+        _session = Session_Key.objects.get(session_key=_key)
+        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(entities.values_list('entity_id', flat=True)))
+    except Session_Key.DoesNotExist:
+        el = None
+
     for like in entities:
         try:
-            e = like.entity.v3_toDict()
+            e = like.entity.v3_toDict(el)
         except Exception, e:
             log.error("Error: %s" % e.message)
             continue
@@ -148,6 +158,7 @@ def entity_like(request, user_id):
         )
 
     return SuccessJsonResponse(res)
+
 
 @check_sign
 def entity_note(request, user_id):
