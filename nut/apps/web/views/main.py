@@ -83,10 +83,10 @@ def selection(request, template='web/main/selection.html'):
 
 def popular(request, template='web/main/popular.html'):
 
-    popular_list = Entity_Like.objects.popular()
+    popular_list = Entity_Like.objects.popular_random()
     # random.sample(popular_list, 60)
     # _entities = Entity.objects.filter(id__in=list(popular_list))
-    _entities = Entity.objects.filter(id__in=random.sample(popular_list, 60))
+    _entities = Entity.objects.filter(id__in=popular_list)
     log.info("popular %s" % len(_entities))
     el = list()
     if request.user.is_authenticated():
