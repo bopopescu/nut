@@ -137,7 +137,6 @@ def entity_like(request, user_id):
 
     entities = Entity_Like.objects.filter(user=_user, created_time__lt=_timestamp)[:_count]
     last = len(entities) -1
-    # log.info(time.mktime(entities[last].created_time))
     res['timestamp'] = time.mktime(entities[last].created_time.timetuple())
 
 
