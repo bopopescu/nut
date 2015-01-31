@@ -826,6 +826,11 @@ class Article(models.Model):
     def __unicode__(self):
         return self.title
 
+    @property
+    def cover_url(self):
+        if self.cover:
+            return "http://imgcdn.guoku.com/%s" % self.cover
+        return "http://imgcdn.guoku.com/images/fe2db4b558ad6c5c0bd23ac32218abda.jpg"
 
 
 class Media(models.Model):
