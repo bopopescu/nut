@@ -66,29 +66,29 @@ def create(request, template="management/article/create.html"):
 def edit(request, article_id, template="management/article/edit.html"):
 
     try:
-        article = Article.objects.get(pk = article_id)
+        _article = Article.objects.get(pk = article_id)
     except Article.DoesNotExist, e:
         log.error("Error: %s", e.message)
         raise Http404
 
     data = {
-        "title": article.title,
-        "content": article.content,
-        "is_publish": article.publish,
+        "title": _article.title,
+        "content": _article.content,
+        "is_publish": _article.publish,
     }
 
     if request.method == "POST":
-        _forms = EditArticleForms(article, request.POST, request.FILES)
+        _forms = EditArticleForms(_article, request.POST, request.FILES)
         if _forms.is_valid():
             _forms.save()
 
     else:
-        _forms = EditArticleForms(article, data=data)
+        _forms = EditArticleForms(_article, data=data)
 
     return render_to_response(
         template,
         {
-            "article": article,
+            "article": _article,
             "forms": _forms,
         },
         context_instance = RequestContext(request)

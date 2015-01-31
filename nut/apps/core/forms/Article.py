@@ -2,8 +2,9 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.log import getLogger
 
-
 from apps.core.models import Article
+from apps.core.utils.image import HandleImage
+
 
 log = getLogger('django')
 
@@ -37,6 +38,11 @@ class BaseArticleForms(forms.Form):
 
 class CreateArticleForms(BaseArticleForms):
 
+    cover = forms.ImageField(
+        label=_('cover'),
+        widget=forms.FileInput(),
+        required=False,
+    )
 
     def __init__(self, user, *args, **kwargs):
         self.user_cache = user
@@ -44,14 +50,23 @@ class CreateArticleForms(BaseArticleForms):
 
 
     def save(self):
-        title = self.cleaned_data.get('title')
-        content = self.cleaned_data.get('content')
+        _title = self.cleaned_data.get('title')
+        _content = self.cleaned_data.get('content')
+        _is_publish = self.cleaned_data.get('is_publish')
+        _cover = self.cleaned_data.get('cover')
 
         article = Article(
-            title = title,
-            content = content,
+            title = _title,
+            content = _content,
         )
         article.creator = self.user_cache
+        article.publish = _is_publish
+        if _cover:
+            log.info(_cover)
+            _image = HandleImage(_cover)
+            article.cover = _image.save()
+            # pass
+
         article.save()
 
         return article
