@@ -121,6 +121,10 @@ msgstr "精选"
 msgid "popular"
 msgstr "热门"
 
+msgid "discover"
+msgstr "发现"
+
+
 msgid "sign in"
 msgstr "登录"
 
