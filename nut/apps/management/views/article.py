@@ -63,6 +63,12 @@ def create(request, template="management/article/create.html"):
 
 @login_required
 @staff_only
+def upload_cover(request):
+
+    return
+
+@login_required
+@staff_only
 def edit(request, article_id, template="management/article/edit.html"):
 
     try:
