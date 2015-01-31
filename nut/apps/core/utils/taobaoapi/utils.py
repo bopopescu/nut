@@ -29,19 +29,25 @@ def load_taobao_shop_info_from_api(shop_nick):
     return shop.get_shop_info(shop_nick)
 
 def taobaoke_mobile_item_convert(num_iid, outer_code = "", fields = None):
-    key_string = 'taobaoke_%s' % num_iid
+    key_string = 'guoku_taobaoke_%s' % num_iid
     key = md5(key_string.encode('utf-8')).hexdigest()
 
-    url = cache.get(key)
-    if url:
-        return url
-    request = TaobaokeMobileItem(APP_KEY, APP_SECRET)
-    res = request.convert_items(num_iid, outer_code)
-    log.info(res)
+    res = cache.get(key)
+    if res:
+        try:
+            return res['tbk_mobile_items_convert_response']['tbk_items']['tbk_item'][0]
+        except KeyError, e:
+            log.error("Error: %s" % e.message)
+            return None
+
+    else:
+        request = TaobaokeMobileItem(APP_KEY, APP_SECRET)
+        res = request.convert_items(num_iid, outer_code)
+        cache.set(key, res, timeout=86400)
 
     try:
         url = res['tbk_mobile_items_convert_response']['tbk_items']['tbk_item'][0]
-        cache.set(key, url, timeout=86400)
+        # cache.set(key, url, timeout=86400)
 
     except KeyError, e:
         log.error("Error: %s" % e.message)

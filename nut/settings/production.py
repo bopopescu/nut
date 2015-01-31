@@ -72,7 +72,7 @@ LOGGING = {
             'formatter': 'verbose'
         },
         'file': {
-          'level': 'INFO',
+          'level': 'ERROR',
           'class': 'logging.FileHandler',
           'formatter': 'verbose',
           'filename': '/tmp/django.log',
