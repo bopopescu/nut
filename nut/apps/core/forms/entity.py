@@ -230,15 +230,6 @@ class EntityImageForm(forms.Form):
     def clean_image_link(self):
         _image_link = self.cleaned_data.get('image_link')
         return _image_link.strip()
-    #
-    # def clean(self):
-    #     self.image_cache = self.cleaned_data.get('image')
-    #     self.image_link_cache = self.cleaned_data.get('image_link')
-    #
-    #     if self.image_cache and self.image_link_cache:
-    #         raise forms.ValidationError(
-    #             _('You must enter image or link')
-    #         )
 
     def save(self):
         _image = self.cleaned_data.get('image')
