@@ -37,7 +37,8 @@ class Report(models.Model):
 
 class Selection(BaseModel):
     selected_total = models.IntegerField(default=0)
-    pub_date = models.DateField(db_index=True, editable=False)
+    like_total = models.IntegerField(default=0)
+    pub_date = models.DateField(db_index=True, editable=False, unique=True)
 
     class Meta:
         ordering = ['pub_date']

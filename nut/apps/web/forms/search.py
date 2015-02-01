@@ -24,7 +24,7 @@ class SearchForm(forms.Form):
         # _keyword = self.cleaned_data.get('q')
         sqs = list()
         # if _type == 'u':
-        res = Entity.search.query(_keyword).order_by('-created_time')
+        res = Entity.search.query(_keyword).order_by('@weight', '-created_time')
         sqs.append({
             'name':_('entity'),
             'type': 'e',
