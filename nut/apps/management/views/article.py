@@ -3,12 +3,14 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.utils.log import getLogger
 
 
-from apps.core.forms.article import CreateArticleForms, EditArticleForms
+from apps.core.forms.article import CreateArticleForms, EditArticleForms, UploadCoverForms
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.core.models import Article
+from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.management.decorators import staff_only
 
 log = getLogger('django')
@@ -61,11 +63,24 @@ def create(request, template="management/article/create.html"):
     )
 
 
+@csrf_exempt
 @login_required
 @staff_only
-def upload_cover(request):
+def upload_cover(request, article_id):
+    try:
+        _article = Article.objects.get(pk = article_id)
+    except Article.DoesNotExist, e:
+        log.error("Error: %s", e.message)
+        raise Http404
 
-    return
+    if request.method == "POST":
+        _forms =UploadCoverForms(article=_article, data=request.POST, files=request.FILES)
+        if _forms.is_valid():
+            cover_url = _forms.save()
+            return SuccessJsonResponse(data={'cover_url':cover_url})
+        log.info(_forms.errors)
+    return ErrorJsonResponse(status=400)
+
 
 @login_required
 @staff_only

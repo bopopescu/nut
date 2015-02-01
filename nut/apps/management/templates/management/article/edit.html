@@ -12,6 +12,14 @@
         <div class="thumbnail">
             <img class="img-responsive" id='article-cover' src="{{ article.cover_url }}" width="" height="">
         </div>
+    <span class="btn btn-primary fileinput-button">
+{#        <label class="col-sm-4 control-label">点击选择图片</label>#}
+{#        <a href="javascript:;">点击选择图片</a><span></span>#}
+{#        <div class="col-sm-4">#}
+            <i class="fa fa-plus fa-lg"></i>&nbsp; <span>点击选择图片</span>
+            <input id="fileupload" type="file" multiple="" name="cover_file" data-url="{% url 'management_article_cover_upload' article.pk %}">
+{#        </div>#}
+    </span>
     </div>
     <div class="row">
         <form class="well form-horizontal" method="post">
@@ -82,4 +90,26 @@
         }
     });
     </script>
+{#{% block script %}#}
+{#    <script src="https://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>#}
+    <script src="{% static 'js/web/jquery.ui.widget.js' %}"></script>
+    <script src="{% static 'js/web/jquery.iframe-transport.js' %}"></script>
+    <script src="{% static 'js/web/jquery.fileupload.js' %}"></script>
+{#    <script src="{% static 'js/web/account.js' %}"></script>#}
+    <script>
+$(function () {
+    $('#fileupload').fileupload({
+        dataType: 'json',
+        disableImageResize: /Android(?!.*Chrome)|Opera/.test(window.navigator && navigator.userAgent),
+        imageMaxWidth: 757,
+        imageMaxHeight: 355,
+        imageCrop: true, // Force cropped images
+        done: function (e, data) {
+            console.log(data.result.cover_url);
+            $('#article-cover').attr('src', data.result.cover_url);
+        }
+    });
+});
+</script>
+{#{% endblock %}#}
 {% endblock %}

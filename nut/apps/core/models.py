@@ -499,7 +499,8 @@ class Entity(BaseModel):
         index = 'entities',
         weights={
             'brand': 100,
-            'title': 50,
+            'title': 80,
+            'note' : 10,
             # 'intro': 5,
         },
         maxmatches = 5000,
@@ -529,6 +530,7 @@ class Selection_Entity(BaseModel):
     @property
     def publish_timestamp(self):
         return time.mktime(self.pub_time.timetuple())
+
 
 class Buy_Link(BaseModel):
     entity = models.ForeignKey(Entity, related_name='buy_links')
@@ -830,7 +832,7 @@ class Article(models.Model):
     def cover_url(self):
         if self.cover:
             return "http://imgcdn.guoku.com/%s" % self.cover
-        return "http://imgcdn.guoku.com/images/fe2db4b558ad6c5c0bd23ac32218abda.jpg"
+        return "%s%s" % (settings.STATIC_URL, 'images/article/default_cover.jpg')
 
 
 class Media(models.Model):

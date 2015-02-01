@@ -65,7 +65,6 @@ class CreateArticleForms(BaseArticleForms):
             log.info(_cover)
             _image = HandleImage(_cover)
             article.cover = _image.save()
-            # pass
 
         article.save()
 
@@ -95,5 +94,23 @@ class EditArticleForms(BaseArticleForms):
         return self.article
 
 
+class UploadCoverForms(forms.Form):
+    cover_file = forms.ImageField(
+        widget=forms.FileInput()
+    )
+
+    def __init__(self, article, *args, **kwargs):
+        self.article_cache = article
+        super(UploadCoverForms, self).__init__(*args, **kwargs)
+
+    def save(self):
+        _cover = self.cleaned_data.get('cover_file')
+
+        _image = HandleImage(_cover)
+        filename = _image.save()
+        self.article_cache.cover = filename
+        self.article_cache.save()
+
+        return self.article_cache.cover_url
 
 __author__ = 'edison'
