@@ -10,6 +10,9 @@ from apps.report.models import Selection
 from apps.management.decorators import staff_only
 from datetime import datetime, timedelta
 
+from django.utils.log import getLogger
+
+log = getLogger('django')
 
 
 @login_required
@@ -23,7 +26,7 @@ def dashboard(request, template='management/dashboard.html'):
         res = []
         for row in s_report:
             res.append(row.toDict())
-
+        log.info(res)
         return SuccessJsonResponse(res)
 
 

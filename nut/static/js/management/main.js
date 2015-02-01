@@ -49,10 +49,12 @@
 
     var dashboard = {
         selectedChar: function() {
-            var chart = $('#selectionChart');
+            var selection_chart = $('#selectionChart');
+            var like_chart = $('#likeChart');
 
-            if (chart[0]){
-                var ctx = chart.get(0).getContext("2d");
+            if (selection_chart[0]){
+                var selection_ctx = selection_chart.get(0).getContext("2d");
+                var like_ctx = like_chart.get(0).getContext("2d");
                 $.ajax({
                     url:"/management/dashboard/",
                     type: "get",
@@ -60,15 +62,18 @@
                     success : function(res) {
                         var labels = new Array();
                         var d = new Array();
+                        var like_total = new Array();
                         $(res).each(function(index){
                             //console.log(row.id)
                             var val = res[index];
                             //console.log(val.selected_total);
                             labels.push(val.pub_date);
                             d.push(parseInt(val.selected_total));
+                            like_total.push(parseInt(val.like_total));
                         });
-                        console.log(labels);
-                        console.log(d);
+                        //console.log(labels);
+                        //console.log(d);
+                        //console.log(like_total);
                         var data = {
                             labels: labels,
                             datasets: [
@@ -84,10 +89,25 @@
                                 }
                             ]
                         };
-                        var myLineChart = new Chart(ctx).Line(data);
+                        var like_data = {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: "publish selection ",
+                                    fillColor: "rgba(151,187,205,0.2)",
+                                    strokeColor: "rgba(151,187,205,1)",
+                                    pointColor: "rgba(151,187,205,1)",
+                                    pointStrokeColor: "#fff",
+                                    pointHighlightFill: "#fff",
+                                    pointHighlightStroke: "rgba(220,220,220,1)",
+                                    data: like_total
+                                }
+                            ]
+                        };
+                        var selectionLineChart = new Chart(selection_ctx).Line(data);
+                        var likeBarChart = new Chart(like_ctx).Bar(like_data);
                     }
                 })
-
             }
         }
     };
