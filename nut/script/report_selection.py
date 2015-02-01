@@ -2,7 +2,7 @@ import os, sys
 sys.path.append('/data/www/nut')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
 
-from apps.core.models import Selection_Entity
+from apps.core.models import Selection_Entity, Entity_Like
 from apps.report.models import Selection
 from datetime import datetime, timedelta
 
@@ -14,9 +14,11 @@ b = dt - day
 date_string = dt.strftime("%Y-%m-%d")
 selection = Selection_Entity.objects.raw("select id, count(*) as count from core_selection_entity where is_published = 1 and pub_time BETWEEN '%s' and '%s'" % (b.strftime("%Y-%m-%d"), date_string))
 # selection = Selection_Entity.objects.raw("select id, count(*) as count from core_selection_entity where is_published = 1 and pub_time BETWEEN '2015-01-27' and '2015-01-28'" )
+el = Entity_Like.objects.filter(created_time__range=(b.strftime("%Y-%m-%d"), date_string))
 print selection.query
 s = Selection(
     selected_total = selection[0].count,
+    like_total = el.count(),
     pub_date = date_string,
 )
 s.save()

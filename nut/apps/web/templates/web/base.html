@@ -72,19 +72,19 @@ window.location.href = url;</script><![endif]-->
                         <a href="{{ web_selection_url }}">{% trans 'selection' %}</a>
                     </li>
 
-                    {% url 'web_discover' as web_discover_url %}
-                    <li {% if web_discover_url in request.path %}class="active"{% endif %}>
-                        <a href="{{ web_discover_url }}">{% trans 'discover' %}</a>
+{#                    {% url 'web_discover' as web_discover_url %}#}
+{#                    <li {% if web_discover_url in request.path %}class="active"{% endif %}>#}
+{#                        <a href="{{ web_discover_url }}">{% trans 'discover' %}</a>#}
+{#                    </li>#}
+                    {% url 'web_popular' as web_popular_url %}
+                    <li {% if web_popular_url in request.path %}class="active" {% endif %}>
+                        <a href="{{ web_popular_url }}">{% trans 'popular' %}</a>
                     </li>
-{#                    {% url 'web_popular' as web_popular_url %}#}
-{#                    <li {% if web_popular_url in request.path %}class="active" {% endif %}>#}
-{#                        <a href="{{ web_popular_url }}">{% trans 'popular' %}</a>#}
-{#                    </li>#}
-{##}
-{#                    {% url 'web_category_list' as web_category_list_url %}#}
-{#                    <li {% if web_category_list_url in request.path %}class="active"{% endif %}>#}
-{#                        <a href="{{ web_category_list_url }}">品类</a>#}
-{#                    </li>#}
+
+                    {% url 'web_category_list' as web_category_list_url %}
+                    <li {% if web_category_list_url in request.path %}class="active"{% endif %}>
+                        <a href="{{ web_category_list_url }}">品类</a>
+                    </li>
 
                     {% url 'web_event_home' as web_event_home_url %}
 {#                {{ web_event_home_url }}#}
