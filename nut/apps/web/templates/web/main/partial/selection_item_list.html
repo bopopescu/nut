@@ -5,7 +5,7 @@
 {#{% for entity in entities %}#}
     <div class="col-xs-12 col-sm-4 col-md-4">
         <div class="thumbnail entity-selection">
-{#                        <span class="timestr" name="{{ entity.post_time|date:"Y-m-d H:i:s" }}"></span>#}
+{#                        <span class="timestr" name="{{ entity.sekection_entity.pub_time|date:"Y-m-d H:i:s" }}"></span>#}
                         <div class="img-box">
                             <a  href="{% url 'web_entity_detail' entity.entity_hash %}">
                                 <img class="img-responsive" alt="{{ entity.title }}" src="{{ entity.chief_image|resize:'310' }}" width='310' height='310'>
