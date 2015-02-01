@@ -51,29 +51,29 @@
         selectedChar: function() {
             var selection_chart = $('#selectionChart');
             var like_chart = $('#likeChart');
+            var category_chart = $('#categoryChart');
 
             if (selection_chart[0]){
                 var selection_ctx = selection_chart.get(0).getContext("2d");
                 var like_ctx = like_chart.get(0).getContext("2d");
+                var category_ctx = category_chart.get(0).getContext("2d");
                 $.ajax({
                     url:"/management/dashboard/",
                     type: "get",
                     dataType: "json",
                     success : function(res) {
+                        //console.log(res);
                         var labels = new Array();
                         var d = new Array();
                         var like_total = new Array();
-                        $(res).each(function(index){
+                        $(res.selection).each(function(index){
                             //console.log(row.id)
-                            var val = res[index];
+                            var val = res.selection[index];
                             //console.log(val.selected_total);
                             labels.push(val.pub_date);
                             d.push(parseInt(val.selected_total));
                             like_total.push(parseInt(val.like_total));
                         });
-                        //console.log(labels);
-                        //console.log(d);
-                        //console.log(like_total);
                         var data = {
                             labels: labels,
                             datasets: [
@@ -106,6 +106,34 @@
                         };
                         var selectionLineChart = new Chart(selection_ctx).Line(data);
                         var likeBarChart = new Chart(like_ctx).Bar(like_data);
+
+                        var category_labels = new Array();
+                        var category_data = new Array();
+                        $(res.category).each(function(index){
+                            //console.log(row.id)
+                            var val = res.category[index];
+                            //console.log(val.selected_total);
+                            category_labels.push(val.label);
+                            category_data.push(parseInt(val.value));
+                            //like_total.push(parseInt(val.like_total));
+                        });
+
+                        var category_data_list = {
+                            labels: category_labels,
+                            datasets: [
+                                {
+                                    label: "publish selection ",
+                                    fillColor: "rgba(151,187,205,0.2)",
+                                    strokeColor: "rgba(151,187,205,1)",
+                                    pointColor: "rgba(151,187,205,1)",
+                                    pointStrokeColor: "#fff",
+                                    pointHighlightFill: "#fff",
+                                    pointHighlightStroke: "rgba(220,220,220,1)",
+                                    data: category_data
+                                }
+                            ]
+                        };
+                        var categoryPolarArea = new Chart(category_ctx).Bar(category_data_list);
                     }
                 })
             }
