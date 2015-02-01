@@ -996,6 +996,15 @@ class Show_Editor_Recommendation(models.Model):
         ordering = ['-position']
 
 
+
+def create_or_update_entity(sender, instance, created, **kwargs):
+
+    if issubclass(sender, Entity):
+        log.info(instance)
+
+post_save.connect(create_or_update_entity, sender=Entity, dispatch_uid="create_or_update_entity")
+
+
 def user_like_notification(sender, instance, created, **kwargs):
     # log.info("OOKOKOKOKO")
     # log.info(created)

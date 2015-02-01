@@ -260,8 +260,6 @@ class EntityImageForm(forms.Form):
         self.entity.save()
 
 
-
-
 class BuyLinkForm(forms.Form):
     YES_OR_NO = (
         (1, _('yes')),
