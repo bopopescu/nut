@@ -143,9 +143,9 @@ class EntityForm(forms.Form):
 
 class EditEntityForm(EntityForm):
 
-    def clean_status(self):
-        status = self.cleaned_data.get('status')
-        return int(status)
+    # def clean_status(self):
+    #     status = self.cleaned_data.get('status')
+    #     return int(status)
 
     def save(self):
         # id = self.cleaned_data['id']

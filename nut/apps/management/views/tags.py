@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import gettext_lazy as _
 
-from apps.core.models import Tag
+from apps.core.models import Tag, Entity_Tag
 from apps.core.forms.tags import EditTagForms
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 
@@ -51,6 +51,18 @@ def edit(request, tag_id, template='management/tags/edit.html'):
         {
             'forms': _forms,
             'button': _('update'),
+        },
+        context_instance = RequestContext(request)
+    )
+
+
+def entities(request, tag_id, templates="management/tags/entities.html"):
+
+
+    return render_to_response(
+        templates,
+        {
+
         },
         context_instance = RequestContext(request)
     )

@@ -131,7 +131,7 @@
                                 <span class="label label-default">{{ note.get_status_display }}</span>
                             {% endif %}
                         </td>
-                        <td><a class="btn btn-default" href="{% url 'management_note_edit' note.pk %}">{% trans 'edit' %}</a></td>
+                        <td><a class="btn btn-default" href="{% url 'management_note_edit' note.pk %}" target="_blank">{% trans 'edit' %}</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
