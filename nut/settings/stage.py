@@ -92,6 +92,9 @@ LOGGING = {
 }
 
 
+# IMAGE_HOST = 'http://image.guoku.com/'
+
+
 APP_HOST = "http://test.guoku.com"
 TAOBAO_APP_KEY = '12313170'
 TAOBAO_APP_SECRET = '90797bd8d5859aac971f8cc9d4e51105'

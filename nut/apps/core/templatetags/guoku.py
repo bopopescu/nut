@@ -1,9 +1,12 @@
 from django import template
 from django.utils.log import getLogger
+from django.conf import settings
 import time
 
 register = template.Library()
 log = getLogger('django')
+image_host = getattr(settings, 'IMAGE_HOST', None)
+
 
 
 def enumerate_list(value):
@@ -12,9 +15,9 @@ register.filter(enumerate_list)
 
 
 def resize(value, size=None):
-    host = 'http://imgcdn.guoku.com/'
-    # host = 'http://h.guoku.com/'
+    host = image_host
     # log.info(value)
+    # host = 'http://h.guoku.com/'
     if value is None:
         return value
 
@@ -30,6 +33,7 @@ def resize(value, size=None):
             log.info(uri_string)
             return host + uri_string
             # return "%s" % (host, params[0], params[1])
+    # log.info(value)
     return value
 register.filter(resize)
 

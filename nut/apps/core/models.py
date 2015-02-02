@@ -21,7 +21,7 @@ from apps.core.manager.category import CategoryManager, SubCategoryManager
 
 from djangosphinx.models import SphinxSearch
 from apps.notifications import notify
-
+from datetime import datetime
 import time
 
 log = getLogger('django')
@@ -408,11 +408,12 @@ class Entity(BaseModel):
 
     @property
     def chief_image(self):
-        # log.info("images, %s" % self.images)
+        # log.info("images, %s" % image_host)
         if len(self.images) > 0:
             if 'http' in self.images[0]:
                 return self.images[0]
             else:
+                log.info("%s%s" % (image_host, self.images[0]))
                 return "%s%s" % (image_host, self.images[0])
 
     @property
@@ -522,10 +523,10 @@ class Selection_Entity(BaseModel):
     def __unicode__(self):
         return self.entity.title
 
-    def save(self, *args, **kwargs):
-        super(Selection_Entity, self).save(*args, **kwargs)
-        user = GKUser.objects.get(pk=2)
-        notify.send(user, recipient=self.entity.user, action_object=self, verb="set selection", target=self.entity)
+    # def save(self, *args, **kwargs):
+    #     super(Selection_Entity, self).save(*args, **kwargs)
+    #     user = GKUser.objects.get(pk=2)
+    #     notify.send(user, recipient=self.entity.user, action_object=self, verb="set selection", target=self.entity)
 
     @property
     def publish_timestamp(self):
@@ -997,12 +998,42 @@ class Show_Editor_Recommendation(models.Model):
 
 
 
+# model post save
+
 def create_or_update_entity(sender, instance, created, **kwargs):
 
     if issubclass(sender, Entity):
-        log.info(instance)
-
+        # log.info(type(instance.status))
+        if int(instance.status) == Entity.selection:
+            log.info("status %s" % instance.status)
+            try:
+                selection = Selection_Entity.objects.get(entity = instance)
+                selection.entity = instance
+                selection.is_published = False
+                selection.pub_time = datetime.now()
+                selection.save()
+            except Selection_Entity.DoesNotExist:
+                Selection_Entity.objects.create(
+                    entity = instance,
+                    is_published = False,
+                    pub_time = datetime.now()
+                )
+        else:
+            try:
+                selection = Selection_Entity.objects.get(entity = instance)
+                selection.delete()
+            except Selection_Entity.DoesNotExist, e:
+                log.info("INFO: entity id %s ,%s"% (instance.pk, e.message))
 post_save.connect(create_or_update_entity, sender=Entity, dispatch_uid="create_or_update_entity")
+
+
+def entity_set_to_selectoin(sender, instance, created, **kwargs):
+        # def save(self, *args, **kwargs):
+        # super(Selection_Entity, self).save(*args, **kwargs)
+    if (sender, Selection_Entity) and created:
+        user = GKUser.objects.get(pk=2)
+        notify.send(user, recipient=instance.entity.user, action_object=instance, verb="set selection", target=instance.entity)
+post_save.connect(entity_set_to_selectoin, sender=Selection_Entity, dispatch_uid="entity_set_to_selection")
 
 
 def user_like_notification(sender, instance, created, **kwargs):

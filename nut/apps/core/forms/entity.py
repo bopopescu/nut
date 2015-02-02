@@ -143,9 +143,9 @@ class EntityForm(forms.Form):
 
 class EditEntityForm(EntityForm):
 
-    def clean_status(self):
-        status = self.cleaned_data.get('status')
-        return int(status)
+    # def clean_status(self):
+    #     status = self.cleaned_data.get('status')
+    #     return int(status)
 
     def save(self):
         # id = self.cleaned_data['id']
@@ -168,25 +168,25 @@ class EditEntityForm(EntityForm):
 
         if status:
             self.entity.status = status
-            if self.entity.status == Entity.selection:
-                try:
-                    selection = Selection_Entity.objects.get(entity = self.entity)
-                    selection.entity = self.entity
-                    selection.is_published = False
-                    selection.pub_time = datetime.now()
-                    selection.save()
-                except Selection_Entity.DoesNotExist:
-                    Selection_Entity.objects.create(
-                        entity = self.entity,
-                        is_published = False,
-                        pub_time = datetime.now()
-                    )
-            else:
-                try:
-                    selection = Selection_Entity.objects.get(entity = self.entity)
-                    selection.delete()
-                except Selection_Entity.DoesNotExist, e:
-                    log.info("INFO: entity id %s ,%s"% (self.entity.pk, e.message))
+            # if self.entity.status == Entity.selection:
+            #     try:
+            #         selection = Selection_Entity.objects.get(entity = self.entity)
+            #         selection.entity = self.entity
+            #         selection.is_published = False
+            #         selection.pub_time = datetime.now()
+            #         selection.save()
+            #     except Selection_Entity.DoesNotExist:
+            #         Selection_Entity.objects.create(
+            #             entity = self.entity,
+            #             is_published = False,
+            #             pub_time = datetime.now()
+            #         )
+            # else:
+            #     try:
+            #         selection = Selection_Entity.objects.get(entity = self.entity)
+            #         selection.delete()
+            #     except Selection_Entity.DoesNotExist, e:
+            #         log.info("INFO: entity id %s ,%s"% (self.entity.pk, e.message))
 
         self.entity.category_id = sub_category
         self.entity.images = images
@@ -501,6 +501,7 @@ class CreateEntityForm(forms.Form):
 
         entity.save()
         fetch_image.delay(entity.images, entity.id)
+        # fetch_image(entity.images, entity.id)
 
         if _note_text:
             Note.objects.create(
