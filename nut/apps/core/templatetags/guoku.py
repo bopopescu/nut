@@ -16,6 +16,7 @@ register.filter(enumerate_list)
 
 def resize(value, size=None):
     host = image_host
+    # log.info(value)
     # host = 'http://h.guoku.com/'
     if value is None:
         return value
@@ -32,7 +33,7 @@ def resize(value, size=None):
             log.info(uri_string)
             return host + uri_string
             # return "%s" % (host, params[0], params[1])
-    log.info(value)
+    # log.info(value)
     return value
 register.filter(resize)
 
