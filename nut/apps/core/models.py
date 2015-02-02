@@ -21,7 +21,7 @@ from apps.core.manager.category import CategoryManager, SubCategoryManager
 
 from djangosphinx.models import SphinxSearch
 from apps.notifications import notify
-
+from datetime import datetime
 import time
 
 log = getLogger('django')
@@ -997,10 +997,32 @@ class Show_Editor_Recommendation(models.Model):
 
 
 
+# model post save
+
 def create_or_update_entity(sender, instance, created, **kwargs):
 
     if issubclass(sender, Entity):
-        log.info(instance)
+        # log.info(instance)
+        if instance.status == Entity.selection:
+            # log.info(instance)
+            try:
+                selection = Selection_Entity.objects.get(entity = instance)
+                selection.entity = instance
+                selection.is_published = False
+                selection.pub_time = datetime.now()
+                selection.save()
+            except Selection_Entity.DoesNotExist:
+                Selection_Entity.objects.create(
+                    entity = instance,
+                    is_published = False,
+                    pub_time = datetime.now()
+                )
+        else:
+            try:
+                selection = Selection_Entity.objects.get(entity = instance)
+                selection.delete()
+            except Selection_Entity.DoesNotExist, e:
+                log.info("INFO: entity id %s ,%s"% (instance.pk, e.message))
 
 post_save.connect(create_or_update_entity, sender=Entity, dispatch_uid="create_or_update_entity")
 
