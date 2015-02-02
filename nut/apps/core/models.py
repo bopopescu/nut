@@ -413,6 +413,7 @@ class Entity(BaseModel):
             if 'http' in self.images[0]:
                 return self.images[0]
             else:
+                log.info("%s%s" % (image_host, self.images[0]))
                 return "%s%s" % (image_host, self.images[0])
 
     @property

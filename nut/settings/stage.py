@@ -92,7 +92,7 @@ LOGGING = {
 }
 
 
-IMAGE_HOST = 'http://image.guoku.com/'
+# IMAGE_HOST = 'http://image.guoku.com/'
 
 
 APP_HOST = "http://test.guoku.com"
