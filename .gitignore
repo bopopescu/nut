@@ -37,7 +37,7 @@ nosetests.xml
 coverage.xml
 
 # Translations
-*.mo
+#*.mo
 
 # Mr Developer
 .mr.developer.cfg

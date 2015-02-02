@@ -143,8 +143,11 @@ class EntityForm(forms.Form):
 
 class EditEntityForm(EntityForm):
 
-    def save(self):
+    def clean_status(self):
+        status = self.cleaned_data.get('status')
+        return int(status)
 
+    def save(self):
         # id = self.cleaned_data['id']
         brand = self.cleaned_data.get('brand')
         title = self.cleaned_data.get('title')
@@ -163,9 +166,8 @@ class EditEntityForm(EntityForm):
         self.entity.title = title
         self.entity.price = price
 
-
         if status:
-            self.entity.status = int(status)
+            self.entity.status = status
             if self.entity.status == Entity.selection:
                 try:
                     selection = Selection_Entity.objects.get(entity = self.entity)
@@ -258,8 +260,6 @@ class EntityImageForm(forms.Form):
             images.append(image_name)
         self.entity.images = images
         self.entity.save()
-
-
 
 
 class BuyLinkForm(forms.Form):
