@@ -4,12 +4,12 @@
     }
 }
 body, h1, .h1, h2, .h2, h3, .h3, h4, .h4, .lead {
-    font-family: "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+    font-family:"STXihei","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
 }
 body {
     padding-top: 100px;
-    color: #666;
-    /*font-family: "Helvetica Neue",Helvetica,Microsoft Yahei,Hiragino Sans GB,WenQuanYi Micro Hei,sans-serif;*/
+    color: #414243;
+    -webkit-font-smoothing:subpixel-antialiased;
 }
 i {
     color: #ccc;
@@ -90,7 +90,7 @@ a:focus {
 /* 最大宽度限制处理 */
 @media (min-width: 1200px){
     .container {
-        width: 970px;
+        width: 990px;
     }
 }
 
@@ -230,6 +230,44 @@ color: #bcbcbc;
     padding-top: 6px;
 }
 
+/* 精选结构 */
+.entity-selection.thumbnail
+{
+    border: none;
+    padding: 0px;
+    margin-bottom: 60px;
+}
+.entity-selection.thumbnail .img-box
+{
+    border: 1px solid #e6e6e6;
+}
+.entity-selection.thumbnail .caption {
+    padding: 0px;
+    border: none;
+}
+.entity-selection.thumbnail .caption .note{
+    padding: 0px;
+    margin-top: 16px;
+    margin-bottom: 21px;
+    line-height: 24px;
+    font-size: 16px;
+}
+.entity-selection.thumbnail .btn-like{
+    padding: 0px;
+    line-height: 16px;
+    font-size: 16px;
+    height: 16px;
+    color: #9d9e9f;
+}
+
+.entity-selection.thumbnail .posttime{
+    padding: 0px;
+    line-height: 16px;
+    font-size: 16px;
+    height: 16px;
+    color: #9d9e9f;
+}
+
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div
 {
@@ -249,17 +287,6 @@ color: #bcbcbc;
 {
     width:25px;
     height: 25px;
-}
-.caption {
-    border-top: 1px solid #eee;
-    margin-top: 5px;
-    margin-left: -5px;
-    margin-right: -5px;
-}
-
-.thumbnail .caption {
-    padding-bottom: 0px;
-    padding-top: 5px;
 }
 
 .entity-detail .caption {
@@ -290,12 +317,12 @@ color: #bcbcbc;
 
 @media (min-width: 768px){
     .caption .note {
-        height: 100px;
+        height: 120px;
     }
 }
 @media (min-width: 992px){
     .caption .note {
-        height: 80px;
+        height: 96px;
     }
 }
 
@@ -466,14 +493,14 @@ color: #bcbcbc;
 }
 
 .row {
-margin-right: -10px;
-margin-left: -10px;
+margin-right: -15px;
+margin-left: -15px;
 }
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
 position: relative;
 min-height: 1px;
-padding-right: 10px;
-padding-left: 10px;
+padding-right: 15px;
+padding-left: 15px;
 }
 /* 品类*/
 @media (min-width: 992px){
