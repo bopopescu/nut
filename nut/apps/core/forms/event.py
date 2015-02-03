@@ -53,6 +53,7 @@ class BaseEventForm(forms.Form):
         _status = self.cleaned_data.get('status')
         return int(_status)
 
+
 class CreateEventForm(BaseEventForm):
 
     def save(self):
@@ -74,7 +75,6 @@ class CreateEventForm(BaseEventForm):
         )
 
         return event
-
 
 
 class EditEventForm(BaseEventForm):
