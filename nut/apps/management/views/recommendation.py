@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 from apps.core.models import Show_Editor_Recommendation, Editor_Recommendation
 from apps.management.forms.editor_recommendation import CreateEditorRecommendForms, EditEditorRecommendForms
+from apps.management.decorators import staff_only
 # from utils.authority import staff_only
 
 from django.utils.log import getLogger
@@ -13,7 +14,7 @@ log = getLogger('django')
 
 
 @login_required
-# @staff_only
+@staff_only
 def list(request, template='management/recommendation/list.html'):
 
     _show_editor_recommendations = Show_Editor_Recommendation.objects.all()
@@ -29,7 +30,7 @@ def list(request, template='management/recommendation/list.html'):
 
 
 @login_required
-# @staff_only
+@staff_only
 def show_list(request, rid, template='management/recommendation/show_list.html'):
     _show_recommendations = Show_Editor_Recommendation.objects.filter(event_id = rid)
 
@@ -43,15 +44,15 @@ def show_list(request, rid, template='management/recommendation/show_list.html')
     )
 
 @login_required
-# @staff_only
+@staff_only
 def create(request, event_id = None, template='management/recommendation/create.html'):
     _event_id = event_id
 
     if request.method == "POST":
         _forms = CreateEditorRecommendForms(request.POST, request.FILES)
         if _forms.is_valid():
-            _event_banner = _forms.save()
-            return HttpResponseRedirect(reverse('management_event_banner_edit', args=[_event_banner.id]))
+            _recommendation = _forms.save()
+            return HttpResponseRedirect(reverse('management_recommend_edit', args=[_recommendation.id]))
     else:
         _forms = CreateEditorRecommendForms(
             initial={'event': _event_id},
@@ -66,7 +67,7 @@ def create(request, event_id = None, template='management/recommendation/create.
 
 
 @login_required
-# @staff_only
+@staff_only
 def edit(request, event_banner_id, template='management/recommendation/edit.html'):
 
     try:

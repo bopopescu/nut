@@ -96,7 +96,7 @@ class CreateEventBannerForms(BaseEventBannerForm):
     def save(self):
         link = self.cleaned_data.get('link')
         event_banner_image = self.cleaned_data.get('event_banner_image')
-        position = self.clean_position()
+        position = self.cleaned_data.get('position')
         banner_type = self.cleaned_data.get('banner_type')
         user_id = self.cleaned_data.get('user_id')
 
@@ -125,7 +125,7 @@ class CreateEventBannerForms(BaseEventBannerForm):
         #         Show_Event_Banner.objects.create(
         #             banner = _event_banner
         #         )
-        # return _event_banner
+        return _event_banner
 
 
 class EditEventBannerForms(BaseEventBannerForm):
