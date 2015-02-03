@@ -188,13 +188,9 @@ def tag(request, user_id, template="web/user/tag.html"):
 
     _page = request.GET.get('page', 1)
     _user = get_user_model()._default_manager.get(pk=user_id)
-    # try:
 
-
-    # log.info(user_id)
     tag_list = Entity_Tag.objects.user_tags(user_id)
 
-    # log.info(tag_list)
     paginator = ExtentPaginator(tag_list, 12)
 
     try:
