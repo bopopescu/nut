@@ -1003,14 +1003,14 @@ class Show_Editor_Recommendation(models.Model):
 def create_or_update_entity(sender, instance, created, **kwargs):
 
     if issubclass(sender, Entity):
-        # log.info(type(instance.status))
+        log.info(type(instance.status))
         if int(instance.status) == Entity.selection:
             log.info("status %s" % instance.status)
             try:
                 selection = Selection_Entity.objects.get(entity = instance)
                 selection.entity = instance
-                selection.is_published = False
-                selection.pub_time = datetime.now()
+                # selection.is_published = False
+                # selection.pub_time = datetime.now()
                 selection.save()
             except Selection_Entity.DoesNotExist:
                 Selection_Entity.objects.create(
