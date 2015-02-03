@@ -49,6 +49,8 @@ def activity(request):
 
     res = []
     for row in feeds.object_list:
+        if row.action_object is None:
+            continue
         res.append(
             {
                 'type': 'entity',
