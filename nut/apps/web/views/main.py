@@ -107,23 +107,22 @@ def search(request, template="web/main/search.html"):
     # if request.method == 'GET':
     _type = request.GET.get('t', 'e')
     _page = request.GET.get('page', 1)
+
     form = SearchForm(request.GET)
+
     if form.is_valid():
         _results = form.search()
-            # log.info("result %s" % _results.count())
-        _objects = None
+        # log.info("result %s" % _results)
         for row in _results:
-            log.info(row['type'])
+            log.info(row)
+        paginator = ExtentPaginator(_results, 20)
 
-            if _type == row['type']:
-                paginator = ExtentPaginator(row['res'], 20)
-
-                try:
-                    _objects = paginator.page(_page)
-                except PageNotAnInteger:
-                    _objects = paginator.page(1)
-                except EmptyPage:
-                    raise Http404
+        try:
+            _objects = paginator.page(_page)
+        except PageNotAnInteger:
+            _objects = paginator.page(1)
+        except EmptyPage:
+            raise Http404
 
         return render_to_response(
                 template,
@@ -131,7 +130,10 @@ def search(request, template="web/main/search.html"):
                     'keyword': form.get_keyword(),
                     'results': _results,
                     'type': _type,
-                    'objects': _objects
+                    'objects': _objects,
+                    'entity_count': form.get_entity_count(),
+                    'user_count': form.get_user_count(),
+                    'tag_count': form.get_tag_count()
                 },
                 context_instance=RequestContext(request),
         )
