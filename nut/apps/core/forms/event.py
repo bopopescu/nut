@@ -1,6 +1,9 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from apps.core.models import Event, Tag
+from django.utils.log import getLogger
+
+log = getLogger('django')
 
 
 class BaseEventForm(forms.Form):
@@ -46,6 +49,9 @@ class BaseEventForm(forms.Form):
             )
         return _tag
 
+    def clean_status(self):
+        _status = self.cleaned_data.get('status')
+        return int(_status)
 
 class CreateEventForm(BaseEventForm):
 
@@ -53,7 +59,9 @@ class CreateEventForm(BaseEventForm):
         _title = self.cleaned_data.get('title')
         _tag = self.cleaned_data.get('tag')
         _slug = self.cleaned_data.get('slug')
-        _status = self.cleaned_data.get('status', False)
+        _status = self.cleaned_data.get('status')
+
+        log.info(_status)
 
         if _status:
             Event.objects.all().update(status = False)
