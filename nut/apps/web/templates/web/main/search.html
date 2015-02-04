@@ -46,7 +46,7 @@
         </div>
 
         {% if objects %}
-            {% include "web/main/partial/paginator.html" with objects=objects url=request.path keyword=keyword %}
+            {% include "web/main/partial/search/paginator.html" with objects=objects type=type url=request.path keyword=keyword %}
         {% endif %}
 
     </div>

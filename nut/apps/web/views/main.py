@@ -113,8 +113,8 @@ def search(request, template="web/main/search.html"):
     if form.is_valid():
         _results = form.search()
         # log.info("result %s" % _results)
-        for row in _results:
-            log.info(row)
+        # for row in _results:
+        #     log.info(row)
         paginator = ExtentPaginator(_results, 20)
 
         try:
@@ -138,13 +138,6 @@ def search(request, template="web/main/search.html"):
                 context_instance=RequestContext(request),
         )
 
-
-# def category(request, template="web/main/category.html"):
-#
-#     return render_to_response(
-#         template,
-#
-#     )
 
 
 
