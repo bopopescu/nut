@@ -68,7 +68,7 @@ def detail(request, entity_id):
     _key = request.GET.get('session', None)
     # log.info("session "_key)
     try:
-        entity = Entity.objects.get(pk=entity_id)
+        entity = Entity.objects.get(pk=entity_id, status__gte=Entity.freeze)
     except Entity.DoesNotExist:
         return ErrorJsonResponse(status=404)
 

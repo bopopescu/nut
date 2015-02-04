@@ -29,7 +29,7 @@ def message(request):
         return ErrorJsonResponse(status=403)
 
     log.info(request.GET)
-    _messages = _session.user.notifications.filter(timestamp__lte=_timestamp)
+    _messages = _session.user.notifications.filter(timestamp__lt=_timestamp)
 
     # log.info(_messages)
     res = []
