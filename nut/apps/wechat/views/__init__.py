@@ -1,12 +1,16 @@
 from django.http import HttpResponse, Http404
+from django.utils.encoding import smart_str
 from django.core.exceptions import PermissionDenied
-from django.views.generic import View
+from django.views.generic import View,CreateView
+from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
-
+from django.utils.log import getLogger
+from xml.etree import ElementTree as ET
 import hashlib
 
 TOKEN = getattr(settings, 'WeChatToken', 'guokuinwechat')
 
+log = getLogger('django')
 
 class WeChatView(View):
     token = TOKEN
@@ -25,10 +29,32 @@ class WeChatView(View):
             return True
         return False
 
+    def parseMsgXml(self, rootElem):
+
+        msg = {}
+        if rootElem.tag == 'xml':
+            for child in rootElem:
+                msg[child.tag] = smart_str(child.text)
+        return msg
+
+
     def get(self, request):
         if self.validate(request):
             echostr = request.GET.get('echostr', None)
             return HttpResponse(echostr)
         raise PermissionDenied
+
+    def post(self, request):
+        # log.info(request)
+        rawStr = request.body
+        # log.info(rawStr)
+        if self.validate(request):
+            msg = self.parseMsgXml(ET.fromstring(rawStr))
+            log.info(msg)
+        return
+
+    @csrf_exempt
+    def dispatch(self, request, *args, **kwargs):
+        return super(WeChatView, self).dispatch(request, *args, **kwargs)
 
 __author__ = 'edison'
