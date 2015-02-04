@@ -5,6 +5,7 @@
     <div class="thumbnail">
         <p style="padding:10px;margin-bottom: 0px;"><strong>#{{ tag_context.tag|truncatechars:'13' }}</strong></p>
         <div class="img-box">
+{#            {{ tag_context.tag_id }}#}
             {% display_tags_entity tag_context.tag_id %}
 {#        {% for entity_context in tag_context.entity_list %}#}
 {#            <div class="col-xs-6 col-sm-6" style="padding:3px;">#}

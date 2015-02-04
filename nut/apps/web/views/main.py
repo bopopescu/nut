@@ -4,7 +4,7 @@ from django.views.decorators.http import require_GET
 from django.template import RequestContext
 from django.template import loader
 
-from apps.core.models import Entity, Entity_Like, Selection_Entity
+from apps.core.models import Entity, Entity_Like, Selection_Entity, Entity_Tag
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 # from apps.web.forms.search import EntitySearchForm
 from apps.web.forms.search import SearchForm
@@ -123,6 +123,16 @@ def search(request, template="web/main/search.html"):
             _objects = paginator.page(1)
         except EmptyPage:
             raise Http404
+
+        if _type == "t":
+            tag_id_list = list()
+            for row in _objects:
+                log.info(row.id)
+                tag_id_list.append(row.id)
+            _results = Entity_Tag.objects.tags(tag_id_list)
+            log.info(_results)
+            # _results = res
+                # log.info(row.id)
 
         return render_to_response(
                 template,
