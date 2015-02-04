@@ -30,7 +30,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
     _user_pokes = list()
 
     try:
-        _entity = Entity.objects.get(entity_hash = _entity_hash)
+        _entity = Entity.objects.get(entity_hash = _entity_hash, status__gte=Entity.freeze)
     except Entity.DoesNotExist:
         raise Http404
 
