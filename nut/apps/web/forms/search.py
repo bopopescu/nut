@@ -20,15 +20,6 @@ class SearchForm(forms.Form):
         _type = self.cleaned_data.get('t')
         if _type == "t":
             self.res = Tag.search.query(_keyword)
-            tag_id_list = list()
-            for row in self.res.all():
-                log.info(row.id)
-                tag_id_list.append(row.id)
-            log.info(tag_id_list)
-            res = Entity_Tag.objects.tags(tag_id_list)
-            # print res.query
-            return res
-
         elif _type == "u":
             self.res = GKUser.search.query(_keyword).order_by('@weight', '-date_joined')
         else:
