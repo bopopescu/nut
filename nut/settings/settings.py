@@ -53,6 +53,7 @@ INSTALLED_APPS = (
     'apps.web',
     'apps.mobile',
     'apps.images',
+    'apps.wechat',
     'apps.notifications',
     'apps.report',
 )

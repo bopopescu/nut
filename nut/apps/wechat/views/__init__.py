@@ -1,10 +1,13 @@
 from django.http import HttpResponse, Http404
+from django.shortcuts import render_to_response
 from django.utils.encoding import smart_str
 from django.core.exceptions import PermissionDenied
 from django.views.generic import View,CreateView
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from django.utils.log import getLogger
+from datetime import datetime
+import time
 from xml.etree import ElementTree as ET
 import hashlib
 
@@ -45,13 +48,22 @@ class WeChatView(View):
         raise PermissionDenied
 
     def post(self, request):
-        # log.info(request)
+        log.info(request.body)
         rawStr = request.body
         # log.info(rawStr)
         if self.validate(request):
             msg = self.parseMsgXml(ET.fromstring(rawStr))
             log.info(msg)
-        return
+            _timestamp = time.mktime(datetime.now().timetuple())
+
+            return render_to_response(
+                'wechat/reply.xml',
+                {
+                    'msg': msg,
+                    'timestamp': int(_timestamp),
+                },
+                mimetype="application/xml",
+            )
 
     @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
