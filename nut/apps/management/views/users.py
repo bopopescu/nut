@@ -206,7 +206,7 @@ def notes(request, user_id, template='management/users/notes.html'):
         {
             'user': _user,
             'notes': _notes,
-            'status': _status,
+            'status': _status
         },
         context_instance = RequestContext(request)
     )
