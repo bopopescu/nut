@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 # from haystack.forms import SearchForm
 from django.utils.log import getLogger
-from apps.core.models import GKUser, Entity, Tag
+from apps.core.models import GKUser, Entity, Tag, Entity_Tag
 
 #
 log = getLogger('django')
@@ -20,6 +20,15 @@ class SearchForm(forms.Form):
         _type = self.cleaned_data.get('t')
         if _type == "t":
             self.res = Tag.search.query(_keyword)
+            tag_id_list = list()
+            for row in self.res.all():
+                log.info(row.id)
+                tag_id_list.append(row.id)
+            log.info(tag_id_list)
+            res = Entity_Tag.objects.tags(tag_id_list)
+            # print res.query
+            return res
+
         elif _type == "u":
             self.res = GKUser.search.query(_keyword).order_by('@weight', '-date_joined')
         else:
@@ -33,15 +42,15 @@ class SearchForm(forms.Form):
         return self.keyword
 
     def get_entity_count(self):
-        res = Entity.search.query(self.keyword).order_by('@weight', '-created_time')
+        res = Entity.search.query(self.keyword)
         return res.count()
 
     def get_user_count(self):
-        res = GKUser.search.query(self.keyword).order_by('@weight', '-date_joined')
+        res = GKUser.search.query(self.keyword)
         return res.count()
 
     def get_tag_count(self):
-        res = Tag.search.query(self.keyword).order_by()
+        res = Tag.search.query(self.keyword)
         return res.count()
 
 __author__ = 'edison'
