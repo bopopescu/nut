@@ -11,6 +11,8 @@ import time
 from xml.etree import ElementTree as ET
 import hashlib
 
+from apps.wechat.models import Robots
+
 TOKEN = getattr(settings, 'WeChatToken', 'guokuinwechat')
 
 log = getLogger('django')
@@ -53,13 +55,16 @@ class WeChatView(View):
         # log.info(rawStr)
         if self.validate(request):
             msg = self.parseMsgXml(ET.fromstring(rawStr))
-            log.info(msg)
+            log.info(msg['Content'])
             _timestamp = time.mktime(datetime.now().timetuple())
+
+            _items = Robots.objects.filter(accept=msg['Content']).first()
 
             return render_to_response(
                 'wechat/reply.xml',
                 {
                     'msg': msg,
+                    'items': _items,
                     'timestamp': int(_timestamp),
                 },
                 mimetype="application/xml",

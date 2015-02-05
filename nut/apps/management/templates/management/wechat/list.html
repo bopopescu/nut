@@ -29,14 +29,18 @@
                     <tr>
                         <td>{{ object.pk }}</td>
 {#                        <td><img src="{{ user.profile.avatar_url }}" width="50" height="50"></td>#}
-{#                        <td>{{ user.email }}</td>#}
-{#                        <td>{{ user.profile.nickname }}</td>#}
+                        <td>{{ object.accept }}</td>
+                        <td>{{ object.get_type_display }}</td>
+                        <td>{{ object.content }}</td>
 {#                        <td>{{ user.profile.get_gender_display }}</td>#}
 {#                        <td>{{ user.is_staff|yesno }}</td>#}
-{#                        <td>#}
+                        <td>
+                            <div class="btn-group">
+                                <a href="#" class="btn btn-default" target="_blank">{% trans 'edit' %}</a>
+                            </div>
 {#                            <a class="btn btn-primary" href="#">{% trans 'post message' %}</a>#}
 {#                            <a class="btn btn-default" href="{% url 'management_user_edit' user.pk %}" target="_blank">{% trans 'edit' %}</a>#}
-{#                        </td>#}
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

@@ -2,6 +2,11 @@
     <ToUserName><![CDATA[{{ msg.FromUserName }}]]></ToUserName>
     <FromUserName><![CDATA[{{ msg.ToUserName }}]]></FromUserName>
     <CreateTime>{{ timestamp }}</CreateTime>
-    <MsgType><![CDATA[text]]></MsgType>
-    <Content><![CDATA[你好]]></Content>
+    {% if items %}
+        <MsgType><![CDATA[{{ items.get_type_display }}]]></MsgType>
+        <Content><![CDATA[{{ items.content }}]]></Content>
+    {% else %}
+        <MsgType><![CDATA[text]]></MsgType>
+        <Content><![CDATA[果库]]></Content>
+    {% endif %}
 </xml>
