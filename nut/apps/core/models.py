@@ -996,8 +996,6 @@ class Show_Editor_Recommendation(models.Model):
     class Meta:
         ordering = ['-position']
 
-
-
 # model post save
 
 def create_or_update_entity(sender, instance, created, **kwargs):

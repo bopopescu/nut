@@ -3,7 +3,7 @@ import urllib2
 from urllib import urlencode
 from apps.core.utils.taobaoapi.user import TaobaoUser
 from apps.core.utils.taobaoapi.utils import *
-
+import json
 
 
 TAOBAO_TOKEN_URL = 'https://oauth.taobao.com/token'

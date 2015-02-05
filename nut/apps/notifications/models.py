@@ -32,7 +32,6 @@ class NotificationQuerySet(models.query.QuerySet):
         qs = self.unread()
         if recipient:
             qs = qs.filter(recipient=recipient)
-
         qs.update(unread=False)
 
     def mark_all_as_unread(self, recipient=None):

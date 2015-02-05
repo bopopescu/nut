@@ -50,16 +50,16 @@ def homepage(request):
 
     res = dict()
 
-    innqs = Show_Banner.objects.all().values_list('banner_id', flat=True)
-    log.info(innqs)
-    banners = Banner.objects.filter(id__in=innqs)
-
+    # shows = Show_Banner.objects.all().values_list('banner_id', flat=True)
+    # log.info(innqs)
+    # banners = Banner.objects.filter(id__in=innqs)
+    shows = Show_Banner.objects.all()
     res['banner'] = []
-    for banner in banners:
+    for row in shows:
         res['banner'].append(
             {
-                'url':banner.url,
-                'img':banner.image_url
+                'url':row.banner.url,
+                'img':row.banner.image_url
             }
         )
 
