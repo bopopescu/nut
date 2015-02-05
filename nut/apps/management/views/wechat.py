@@ -1,5 +1,5 @@
 # from django.shortcuts import render_to_response
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic import CreateView
 from django.utils.log import getLogger
@@ -26,8 +26,7 @@ class MsgCreateView(CreateView):
     # model = Robots
     form_class = RobotsForm
     template_name = 'management/wechat/create.html'
-    success_url = reverse('management_wechat_robots')
-
+    success_url = reverse_lazy('management_wechat_robots')
 
     def get_form_kwargs(self):
         res = super(MsgCreateView, self).get_form_kwargs()
