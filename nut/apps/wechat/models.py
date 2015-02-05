@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 
+
 class Robots(models.Model):
     text, image, voice, video, music, news = range(6)
     TYPE_CHOICES = (
@@ -13,7 +14,7 @@ class Robots(models.Model):
         (news, _('news')),
     )
 
-    token = models.CharField(max_length=64)
+    # token = models.CharField(max_length=64)
     accept = models.CharField(max_length=255)
     type = models.IntegerField(choices=TYPE_CHOICES, default=text)
     content = models.TextField()
