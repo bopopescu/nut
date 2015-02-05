@@ -14,7 +14,7 @@ USE_TZ = False
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'core',
+        'NAME': 'test',
         'USER': 'guoku',
         'PASSWORD': 'guoku!@#',
         'HOST': '10.0.2.90',
@@ -46,7 +46,6 @@ DEFAULT_FILE_STORAGE = 'storages.backends.mogile.MogileFSStorage'
 
 Avatar_Image_Path = 'avatar/'
 # Avatar_Image_Size = [180, 50]
-
 
 LOGGING = {
     'version': 1,
@@ -117,5 +116,7 @@ SINA_BACK_URL = APP_HOST + '/sina/auth'
 # SINA_APP_KEY = '1459383851'
 # SINA_APP_SECRET = 'bfb2e43c3fa636f102b304c485fa2110'
 # SINA_BACK_URL = APP_HOST + '/sina/auth'
+
+# INTERNAL_IPS = ('0.0.0.0')
 
 __author__ = 'edison7500'

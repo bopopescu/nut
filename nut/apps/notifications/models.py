@@ -63,7 +63,7 @@ class Notification(models.Model):
     action_object_object_id = models.CharField(max_length=255, blank=True, null=True)
     action_object = generic.GenericForeignKey('action_object_content_type', 'action_object_object_id')
 
-    timestamp = models.DateTimeField(default=now)
+    timestamp = models.DateTimeField(default=now, db_index=True)
 
     public = models.BooleanField(default=True)
 
