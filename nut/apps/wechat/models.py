@@ -14,6 +14,7 @@ class Robots(models.Model):
     )
 
     token = models.CharField(max_length=64)
+    accept = models.CharField(max_length=255)
     type = models.IntegerField(choices=TYPE_CHOICES, default=text)
     content = models.TextField()
 

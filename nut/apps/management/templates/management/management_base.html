@@ -123,7 +123,7 @@
 
                     <ul class="nav nav-sidebar">
                         {% url 'management_wechat_robots' as management_wechat_robots_url %}
-                        <li {% if management_wechat_robots_url in request.path %}class="active"{% endif %}><a href="{{ management_wechat_robots_url }}"><i class="fa fa-user"></i> {% trans 'user' %}</a></li>
+                        <li {% if management_wechat_robots_url in request.path %}class="active"{% endif %}><a href="{{ management_wechat_robots_url }}"><i class="fa fa-weixin"></i> {% trans 'wechat robots' %}</a></li>
                     </ul>
                 {% endblock %}
             </div>
