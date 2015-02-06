@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.http import HttpResponse, Http404
 from django.shortcuts import render_to_response
 from django.utils.encoding import smart_str
@@ -56,16 +57,18 @@ class WeChatView(View):
         # log.info(rawStr)
         if self.validate(request):
             msg = self.parseMsgXml(ET.fromstring(rawStr))
-            log.info(msg['Content'])
+            # log.info(msg['Content'])
             _timestamp = time.mktime(datetime.now().timetuple())
-
+            log.info(_timestamp)
             # _items = Robots.objects.filter(accept__contains=msg['Content']).first()
-            _item = handle_reply(msg['Content'])
+            _items = handle_reply(msg['Content'])
+            log.info(_items[:5])
             return render_to_response(
                 'wechat/reply.xml',
                 {
                     'msg': msg,
-                    'item': _item,
+                    # 'item': _item,
+                    'items': _items[:5],
                     'timestamp': int(_timestamp),
                 },
                 mimetype="application/xml",

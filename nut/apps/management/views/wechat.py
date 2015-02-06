@@ -2,6 +2,7 @@
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic import CreateView
+from django.views.generic.edit import UpdateView
 from django.utils.log import getLogger
 
 from apps.wechat.models import Robots
@@ -37,5 +38,11 @@ class MsgCreateView(CreateView):
     #     return form_class()
         # log.info(form_class)
         # return super(MsgCreateView, self).get_form(form_class)
+
+class MsgEditView(UpdateView):
+
+    template_name = 'management/wechat/edit.html'
+
+
 
 __author__ = 'edison7500'
