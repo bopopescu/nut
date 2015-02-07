@@ -18,10 +18,10 @@
                 <item>
 {#                    <Title><![CDATA[test]]></Title>#}
 {#                    <Description><![CDATA[test test]]></Description>#}
-                    <Title><![CDATA[{{ row.title }}]]></Title>
+                    <Title><![CDATA[{{ row.brand }} - {{ row.title }}]]></Title>
                     <Description><![CDATA[{{ row.top_note }}]]></Description>
                     <PicUrl><![CDATA[{{ row.chief_image|resize:'240' }}]]></PicUrl>
-                    <Url><![CDATA[http://www.guoku.com/{% url 'web_entity_detail' row.entity_hash %}]]></Url>
+                    <Url><![CDATA[http://www.guoku.com{% url 'web_entity_detail' row.entity_hash %}]]></Url>
                 </item>
                 {% endfor %}
             </Articles>
