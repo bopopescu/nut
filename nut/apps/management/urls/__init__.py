@@ -22,7 +22,7 @@ urlpatterns = patterns(
     url(r'^recommend/', include('apps.management.urls.recommendation')),
 
     url(r'^report/', include('apps.management.urls.report')),
-    url(r'^wechat/', include('apps.management.urls.wechat')),
+    # url(r'^wechat/', include('apps.management.urls.wechat')),
 )
 
 urlpatterns += patterns(

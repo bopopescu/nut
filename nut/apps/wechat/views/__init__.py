@@ -12,7 +12,7 @@ import time
 from xml.etree import ElementTree as ET
 import hashlib
 
-from apps.wechat.models import Robots
+# from apps.wechat.models import Robots
 from apps.wechat.handle import handle_reply
 TOKEN = getattr(settings, 'WeChatToken', 'guokuinwechat')
 
