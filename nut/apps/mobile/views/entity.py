@@ -118,22 +118,22 @@ def like_action(request, entity_id, target_status):
         }
 
         if target_status == "1":
-            # like_task.delay(uid=_session.user_id, eid=entity_id)
-            try:
-                Entity_Like.objects.get(user_id=_session.user_id, entity_id=entity_id)
-            except Entity_Like.DoesNotExist:
-                Entity_Like.objects.create(
-                    user_id = _session.user_id,
-                    entity_id = entity_id
-                )
+            like_task.delay(uid=_session.user_id, eid=entity_id)
+            # try:
+            #     Entity_Like.objects.get(user_id=_session.user_id, entity_id=entity_id)
+            # except Entity_Like.DoesNotExist:
+            #     Entity_Like.objects.create(
+            #         user_id = _session.user_id,
+            #         entity_id = entity_id
+            #     )
             res['like_already'] = 1
         else:
-            try:
-                el = Entity_Like.objects.get(user_id=_session.user_id, entity_id=entity_id)
-                el.delete()
-            except Entity_Like.DoesNotExist, e:
-                log.info("info %s", e.message)
-            # unlike_task.delay(uid=_session.user_id, eid=entity_id)
+            # try:
+            #     el = Entity_Like.objects.get(user_id=_session.user_id, entity_id=entity_id)
+            #     el.delete()
+            # except Entity_Like.DoesNotExist, e:
+            #     log.info("info %s", e.message)
+            unlike_task.delay(uid=_session.user_id, eid=entity_id)
             res['like_already'] = 0
         return SuccessJsonResponse(res)
 
