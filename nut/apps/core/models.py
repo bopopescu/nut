@@ -500,7 +500,8 @@ class Entity(BaseModel):
         index = 'entities',
         weights={
             'brand': 100,
-            'title': 80,
+            'category': 80,
+            'title': 50,
             'note' : 10,
             # 'intro': 5,
         },

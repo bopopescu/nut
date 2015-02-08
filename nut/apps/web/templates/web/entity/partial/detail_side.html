@@ -76,11 +76,11 @@
         <div class="list-group-item detail-share">
             <a href="javascript:;"><i class="fa fa-weibo fa-lg"></i>&nbsp; 分享到微博</a>
         </div>
-        <div class="list-group-item">
-            {% url 'web_entity_detail' entity.entity_hash as web_entity_url %}
-            <img src="data:image/jpeg;base64, {{ web_entity_url|entity_qr }}">
+{#        <div class="list-group-item">#}
+{#            {% url 'web_entity_detail' entity.entity_hash as web_entity_url %}#}
+{#            <img src="data:image/jpeg;base64, {{ web_entity_url|entity_qr }}">#}
 {#            <a href="javascript:;" id="shareToWeChat"><i class="fa fa-wechat fa-lg"></i>&nbsp; 分享到朋友圈</a>#}
-        </div>
+{#        </div>#}
         <div class="list-group-item detail-download">
             <h5 class="list-group-item-heading">下载果库客户端</h5>
             <a href="/download/ios/" target="_blank">iPhone</a> /
