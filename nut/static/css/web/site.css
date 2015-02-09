@@ -321,10 +321,17 @@ a {
 }
 .like-user-list > div > .thumbnail >a> img
 {
+    border-radius: 12px;
     width:25px;
     height: 25px;
 }
 
+.entity-detail.thumbnail
+{
+    border: none;
+    padding: 0px;
+    margin-bottom: 60px;
+}
 .entity-detail .caption {
     border-top: 1px solid #eee;
     margin-top: 5px;
