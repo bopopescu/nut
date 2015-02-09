@@ -556,7 +556,7 @@ padding-left: 10px;
 .detail-category > a{
     color: #427ec0;
 }
-.detail-category > a:after{
+.detail-category .category:after{
     color: #414243;
     content: "／";
 }
