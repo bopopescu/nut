@@ -468,10 +468,11 @@ a {
 .btn-like-detail {
     display: inline-block;
     border-radius: 5px;
-    background-color: #fff;
+    background-color: #f7f7f7;
     /*border-color: #eee;*/
-    border: #eee solid 1px;
+    border: none;;
     color: #333;
+    padding: 10px 20px;
 }
 
 .btn-user:hover,

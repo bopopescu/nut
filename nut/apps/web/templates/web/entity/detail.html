@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-md-12">
                 <ol class="breadcrumb">
-                    <li class="active"><i class="fa fa-home fa-lg"></i></li>
+                    <li class="active"><i class="fa fa-home"></i></li>
                     {% if selection_note %}
                         <li><a href="{% url 'web_selection' %}">{% trans 'selection' %}</a></li>
                     {% endif %}
@@ -85,11 +85,11 @@
 
                             {% if like_status %}
                                 <a class="btn btn-like-detail" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
-                                  <i class="fa fa-heart fa-lg"></i>&nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>
+                                  <i class="fa fa-heart"></i>&nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>
                                 </a>
                             {% else %}
                                 <a class="btn btn-like-detail" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
-                                    <i class="fa fa-heart-o fa-lg"></i>&nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>
+                                    <i class="fa fa-heart-o"></i>&nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>
                                 </a>
                             {% endif %}
 
@@ -137,18 +137,18 @@
                                         {% endif %}
                                     <p>
                                         <a href="javascript:;" class="poke{% if entity.top_note.id in user_pokes %} active {% endif %}" data-note="{{ entity.top_note.id }}">
-                                            <i class="fa fa-thumbs-o-up fa-lg"></i>&nbsp;
+                                            <i class="fa fa-thumbs-o-up"></i>&nbsp;
                                         {% if entity.top_note.poke_count > 0 %}
                                             <span>{{ entity.top_note.poke_count }}</span>
                                         {% endif %}
                                         </a>
-                                        <a href="javascript:;" class="add-comment" data-note="{{ entity.top_note.id }}"><i class="fa fa-comment-o fa-lg"></i>&nbsp;
+                                        <a href="javascript:;" class="add-comment" data-note="{{ entity.top_note.id }}"><i class="fa fa-comment-o"></i>&nbsp;
                                         {% if entity.top_note.comment_count > 0 %}
                                             <span>{{ entity.top_note.comment_count }}</span>
                                         {% endif %}
                                         </a>
                                         {% if entity.top_note.user == request.user %}
-                                            <a class="update-note"><i class="fa fa-pencil-square-o fa-lg"></i></a>
+                                            <a class="update-note"><i class="fa fa-pencil-square-o"></i></a>
                                         {% endif %}
                                         <span class="pull-right create-time">{{ entity.top_note.post_time|format_time }}</span>
                                         <i class="fa fa-star fa-lg pull-right" style="margin: 5px 5px 0 0;"></i>
