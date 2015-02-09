@@ -15,44 +15,46 @@
         {% endfor %}
     </div>
 
-{% if entity_context.detail_images|length > 0 %}
-    <div class="panel-body detail-img">
-            <div class="col-xs-3 col-sm-3 col-md-3">
-                <div class="thumbnail">
-                    <div class="img-box">
-                        <a href="javascript:;">
-                            <img class="img-responsive" src="{{ entity.chief_image|resize:'64' }}" width="64" height="64">
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            {% for img in entity.detail_images %}
-            <div class="col-xs-3 col-sm-3 col-md-3">
-                <div class="thumbnail">
-                    <div class="img-box">
-                        <a href="javascript:;">
-                            <img class="img-responsive" src="{{ img }}" width="64" height="64">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-    </div>
-{% endif %}
+{#{% if entity_context.detail_images|length > 0 %}#}
+{#    <div class="panel-body detail-img">#}
+{#            <div class="col-xs-3 col-sm-3 col-md-3">#}
+{#                <div class="thumbnail">#}
+{#                    <div class="img-box">#}
+{#                        <a href="javascript:;">#}
+{#                            <img class="img-responsive" src="{{ entity.chief_image|resize:'64' }}" width="64" height="64">#}
+{#                        </a>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            {% for img in entity.detail_images %}#}
+{#            <div class="col-xs-3 col-sm-3 col-md-3">#}
+{#                <div class="thumbnail">#}
+{#                    <div class="img-box">#}
+{#                        <a href="javascript:;">#}
+{#                            <img class="img-responsive" src="{{ img }}" width="64" height="64">#}
+{#                        </a>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            {% endfor %}#}
+{#    </div>#}
+{#{% endif %}#}
 
     <div class="panel-body" style="padding-bottom: 0;border-top: 1px solid #f1f1f1;">{{ entity.like_count }}&nbsp;人喜爱</div>
     <div class="panel-body like-user-list">
         {% for liker in likers %}
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="thumbnail">
-                    <a href="{% url 'web_user_index' liker.user_id %}" target="_blank"><img class="img-circle" src="{{ liker.user.profile.avatar_url|resize:'50' }}" width="25" height="25"></a>
+                    <a href="{% url 'web_user_index' liker.user_id %}" target="_blank">
+                        <img  src="{{ liker.user.profile.avatar_url|resize:'50' }}" width="25" height="25">
+                    </a>
                 </div>
             </div>
         {% endfor %}
     </div>
     <div class="list-group">
-        <div class="list-group-item detail-category" style="font-size: 16px;">
+        <div class="list-group-item detail-category">
             <a class="category" href="#">{{ entity.category.group }}</a><a href="{% url 'web_category_detail' entity.category_id  %}">{{ entity.category }}</a>
         </div>
 
@@ -69,24 +71,23 @@
 
         {% if request.user.is_staff %}
             <div class="list-group-item detail-edit">
-                <a href="{% url 'management_entity_edit' entity.id %}" target=_blank><i class="fa fa-pencil-square-o fa-lg"></i>&nbsp; 编辑商品</a>
+                <a href="{% url 'management_entity_edit' entity.id %}" target=_blank><i class="fa fa-pencil-square-o fa-lg"></i>&nbsp;&nbsp;编辑商品</a>
             </div>
         {% endif %}
 
         <div class="list-group-item detail-share">
-            <a href="javascript:;"><i class="fa fa-weibo fa-lg"></i>&nbsp;分享到微博</a>
+            <a href="javascript:;"><i class="fa fa-weibo fa-lg"></i>&nbsp;&nbsp;分享到微博</a>
         </div>
 {#        <div class="list-group-item">#}
 {#            {% url 'web_entity_detail' entity.entity_hash as web_entity_url %}#}
 {#            <img src="data:image/jpeg;base64, {{ web_entity_url|entity_qr }}">#}
 {#            <a href="javascript:;" id="shareToWeChat"><i class="fa fa-wechat fa-lg"></i>&nbsp; 分享到朋友圈</a>#}
 {#        </div>#}
+        <div class="list-group-item detail-report">
+            <a href="#"><i class="fa fa-flag-o fa-lg"></i>&nbsp;&nbsp;举报</a>
+        </div>
         <div class="list-group-item detail-download">
-            <a href="/download/ios/" target="_blank"><i class="fa fa-download fa-lg"></i>&nbsp;下载</a>
-{#            <h5 class="list-group-item-heading">下载果库客户端</h5>#}
-{#            <a href="/download/ios/" target="_blank">iPhone</a> /#}
-{#            <a href="/download/ios/" target="_blank">iPad</a> /#}
-{#            <a href="/download/" target="_blank">Android</a>#}
+            <a href="/download/ios/" target="_blank"><i class="fa fa-download fa-lg"></i>&nbsp;&nbsp;下载</a>
        </div>
     </div>
 
