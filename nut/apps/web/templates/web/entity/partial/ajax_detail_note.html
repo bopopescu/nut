@@ -30,17 +30,17 @@
                 {% endif %}
 
             <p>
-                <a href="javascript:;" class="poke{% if note.id in user_pokes %} active {% endif %}" data-note="{{ note.id }}"><i class="fa fa-thumbs-o-up fa-lg"></i>&nbsp;
+                <a href="javascript:;" class="poke{% if note.id in user_pokes %} active {% endif %}" data-note="{{ note.id }}"><i class="fa fa-thumbs-o-up"></i>&nbsp;
                     {% if note.poke_count > 0 %}
                         <span>{{ note.poke_count }}</span>
                     {% endif %}
                 </a>
-                    <a href="javascript:;" class="add-comment" data-note="{{ note.pk }}"><i class="fa fa-comment-o fa-lg"></i>&nbsp;
+                    <a href="javascript:;" class="add-comment" data-note="{{ note.pk }}"><i class="fa fa-comment-o"></i>&nbsp;
                     {% if note.comment_count > 0 %}
                         <span style="color: #ccc">{{ note.comment_count }}</span>
                     {% endif %}
                     {% if note.user == request.user %}
-                        <a class="update-note"><i class="fa fa-pencil-square-o fa-lg"></i></a>
+                        <a class="update-note"><i class="fa fa-pencil-square-o"></i></a>
                     {% endif %}
                     </a>
 
