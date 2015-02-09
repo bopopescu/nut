@@ -153,7 +153,8 @@ def post_note(request, user_id, template="web/user/post_note.html"):
     _user = get_user_model()._default_manager.get(pk=user_id)
 
     # log.info(_user.note_count)
-    note_list = _user.note.all().values_list('entity_id', flat=True)
+    # note_list = _user.note.all().values_list('entity_id', flat=True)
+    note_list = _user.note.exclude(status=-1)
     log.info(note_list)
     paginator = ExtentPaginator(note_list, 20)
 
@@ -165,18 +166,18 @@ def post_note(request, user_id, template="web/user/post_note.html"):
         raise Http404
 
     # log.info(notes.object_list)
-    _entities = Entity.objects.filter(id__in=list(notes.object_list))
+    # _entities = Entity.objects.filter(id__in=list(notes.object_list))
 
     el = list()
     if request.user.is_authenticated():
         # _user = request.user
-        el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(notes.object_list))
+        el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(notes.object_list.values_list('entity_id', flat=True)))
 
     return render_to_response(
         template,
         {
             'user':_user,
-            'entities': _entities,
+            # 'entities': _entities,
             'notes':notes,
             'user_entity_likes': el,
         },
@@ -188,13 +189,9 @@ def tag(request, user_id, template="web/user/tag.html"):
 
     _page = request.GET.get('page', 1)
     _user = get_user_model()._default_manager.get(pk=user_id)
-    # try:
 
-
-    # log.info(user_id)
     tag_list = Entity_Tag.objects.user_tags(user_id)
 
-    # log.info(tag_list)
     paginator = ExtentPaginator(tag_list, 12)
 
     try:

@@ -252,7 +252,7 @@ def fans_list(request, user_id):
         return ErrorJsonResponse(status=404)
 
     fans_list = _user.fans.all()
-    paginator = Paginator(fans_list, 12)
+    paginator = Paginator(fans_list, 30)
 
     try:
         _fans = paginator.page(_offset)

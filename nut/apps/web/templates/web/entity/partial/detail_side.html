@@ -46,14 +46,16 @@
         {% for liker in likers %}
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="thumbnail">
-                    <a href="{% url 'web_user_index' liker.user_id %}" target="_blank"><img src="{{ liker.user.profile.avatar_url|resize:'50' }}" width="25" height="25"></a>
+                    <a href="{% url 'web_user_index' liker.user_id %}" target="_blank">
+                        <img  src="{{ liker.user.profile.avatar_url|resize:'50' }}" width="25" height="25">
+                    </a>
                 </div>
             </div>
         {% endfor %}
     </div>
     <div class="list-group">
         <div class="list-group-item detail-category">
-            <a href="{% url 'web_category_detail' entity.category_id  %}">{{ entity.category }}</a>
+            <a class="category" href="{% url 'web_category_group' entity.category.group_id %}">{{ entity.category.group }}</a><a href="{% url 'web_category_detail' entity.category_id  %}">{{ entity.category }}</a>
         </div>
 
         {% if entity.tags.all|length > 0 %}
@@ -69,66 +71,26 @@
 
         {% if request.user.is_staff %}
             <div class="list-group-item detail-edit">
-                <a href="{% url 'management_entity_edit' entity.id %}" target=_blank><i class="fa fa-pencil-square-o fa-lg"></i>&nbsp; 编辑商品</a>
+                <a href="{% url 'management_entity_edit' entity.id %}" target=_blank><i class="fa fa-pencil-square-o fa-lg"></i>&nbsp;&nbsp;编辑商品</a>
             </div>
         {% endif %}
 
         <div class="list-group-item detail-share">
-            <a href="javascript:;"><i class="fa fa-weibo fa-lg"></i>&nbsp; 分享到微博</a>
+            <a href="javascript:;"><i class="fa fa-weibo fa-lg"></i>&nbsp;&nbsp;分享到微博</a>
+        </div>
+{#        <div class="list-group-item">#}
+{#            {% url 'web_entity_detail' entity.entity_hash as web_entity_url %}#}
+{#            <img src="data:image/jpeg;base64, {{ web_entity_url|entity_qr }}">#}
+{#            <a href="javascript:;" id="shareToWeChat"><i class="fa fa-wechat fa-lg"></i>&nbsp; 分享到朋友圈</a>#}
+{#        </div>#}
+        <div class="list-group-item detail-report">
+            <a href="#"><i class="fa fa-flag-o fa-lg"></i>&nbsp;&nbsp;举报</a>
         </div>
         <div class="list-group-item detail-download">
-            <h5 class="list-group-item-heading">下载果库客户端</h5>
-            <a href="/download/ios/" target="_blank">iPhone</a> /
-            <a href="/download/ios/" target="_blank">iPad</a> /
-            <a href="/download/ios/" target="_blank">Android</a>
+            <a href="/download/ios/" target="_blank"><i class="fa fa-download fa-lg"></i>&nbsp;&nbsp;下载</a>
        </div>
     </div>
 
 
 </div>
-{#            </div>#}
 
-{#            <p class="category">#}
-{#                <a href="{% url 'web_category' entity_context.category_id  %}">{{ entity_context.category_id|trans_category }}</a>#}
-{#            </p>#}
-{##}
-{#            {% if tag_list|length > 0 %}#}
-{#                <div class="tag">#}
-{#                    <h3>该商品的标签</h3>#}
-{#                    <div>#}
-{#                        {% for tag in tag_list %}#}
-{#                            <a href="{% url "web_tag_detail" tag.tag_hash %}" target="_blank">＃{{ tag.tag }}</a>#}
-{#                        {% endfor %}#}
-{#                    </div>#}
-{#                </div>#}
-{#            {% endif %}#}
-{#            #}
-{#            #}
-{#            {% if is_staff %}#}
-{#                <div class="tag">#}
-{#                    <a href="{% url 'management_edit_entity' entity_context.entity_id %}" target=_blank>编辑商品</a>#}
-{#                </div>#}
-{#            {% endif %}#}
-{##}
-{#            <div class="share">#}
-{#                <a href="javascript:;"><span class="weibo_icon"></span>分享到微博</a>#}
-{#            </div>#}
-{#        #}
-{#            <div class="download">#}
-{#                <h3>下载果库客户端</h3>#}
-{#                <div>#}
-{#                    <a href="/download/ios/" target="_blank">iPhone</a> /#}
-{#                    <a href="/download/ios/" target="_blank">iPad</a> /#}
-{#                    <a href="http://app.guoku.com/download/android/guoku-release.apk" target="_blank">Android</a>#}
-{#                </div>#}
-{#            </div>#}
-{#            {% if enable_guoku_plus and activity_id%}#}
-{#                <div>#}
-{#                    <h3>获取果库价优惠码</h3>#}
-{#                    <form action="{%url 'web_get_guokuplus_token' %}" method="POST">#}
-{#                        <input type="hidden" name="activity_id" value="{{activity_id}}"/>#}
-{#                        <input type="submit" value="获取"/>#}
-{#                    </form>#}
-{#                </div>#}
-{#            {% endif %}#}
-{#        </div>#}

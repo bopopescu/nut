@@ -4,7 +4,7 @@ from django.views.decorators.http import require_GET
 from django.template import RequestContext
 from django.template import loader
 
-from apps.core.models import Entity, Entity_Like, Selection_Entity
+from apps.core.models import Entity, Entity_Like, Selection_Entity, Entity_Tag
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 # from apps.web.forms.search import EntitySearchForm
 from apps.web.forms.search import SearchForm
@@ -87,7 +87,7 @@ def popular(request, template='web/main/popular.html'):
     # random.sample(popular_list, 60)
     # _entities = Entity.objects.filter(id__in=list(popular_list))
     _entities = Entity.objects.filter(id__in=popular_list)
-    log.info("popular %s" % len(_entities))
+    # log.info("popular %s" % len(_entities))
     el = list()
     if request.user.is_authenticated():
         el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(_entities))
@@ -107,23 +107,32 @@ def search(request, template="web/main/search.html"):
     # if request.method == 'GET':
     _type = request.GET.get('t', 'e')
     _page = request.GET.get('page', 1)
+
     form = SearchForm(request.GET)
+
     if form.is_valid():
         _results = form.search()
-            # log.info("result %s" % _results.count())
-        _objects = None
-        for row in _results:
-            log.info(row['type'])
+        # log.info("result %s" % _results)
+        # for row in _results:
+        #     log.info(row)
+        paginator = ExtentPaginator(_results, 20)
 
-            if _type == row['type']:
-                paginator = ExtentPaginator(row['res'], 20)
+        try:
+            _objects = paginator.page(_page)
+        except PageNotAnInteger:
+            _objects = paginator.page(1)
+        except EmptyPage:
+            raise Http404
 
-                try:
-                    _objects = paginator.page(_page)
-                except PageNotAnInteger:
-                    _objects = paginator.page(1)
-                except EmptyPage:
-                    raise Http404
+        if _type == "t":
+            tag_id_list = list()
+            for row in _objects:
+                log.info(row.id)
+                tag_id_list.append(row.id)
+            _results = Entity_Tag.objects.tags(tag_id_list)
+            log.info(_results)
+            # _results = res
+                # log.info(row.id)
 
         return render_to_response(
                 template,
@@ -131,18 +140,14 @@ def search(request, template="web/main/search.html"):
                     'keyword': form.get_keyword(),
                     'results': _results,
                     'type': _type,
-                    'objects': _objects
+                    'objects': _objects,
+                    'entity_count': form.get_entity_count(),
+                    'user_count': form.get_user_count(),
+                    'tag_count': form.get_tag_count()
                 },
                 context_instance=RequestContext(request),
         )
 
-
-# def category(request, template="web/main/category.html"):
-#
-#     return render_to_response(
-#         template,
-#
-#     )
 
 
 

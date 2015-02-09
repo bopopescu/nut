@@ -1,7 +1,7 @@
 {% load user %}
 
     <div class="media">
-        <a class="pull-left" href="#">
+        <a class="pull-left" href="{% url 'web_user_index' comment.user.pk %}">
             <img class="media-object  img-circle" src="{{ comment.user.profile.avatar_url }}" width="50" height="50">
         </a>
         <div class="media-body">

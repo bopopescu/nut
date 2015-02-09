@@ -30,7 +30,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
     _user_pokes = list()
 
     try:
-        _entity = Entity.objects.get(entity_hash = _entity_hash)
+        _entity = Entity.objects.get(entity_hash = _entity_hash, status__gte=Entity.freeze)
     except Entity.DoesNotExist:
         raise Http404
 
@@ -209,12 +209,11 @@ def entity_like(request, eid):
     if request.is_ajax():
         _user = request.user
         try:
-            # like_task.apply_async([_user.id, eid], countdown=2)
-            # like_task.delay(uid=_user.id, eid=eid)
-            el = Entity_Like.objects.create(
-                user = _user,
-                entity_id = eid,
-            )
+            like_task.delay(uid=_user.id, eid=eid)
+            # el = Entity_Like.objects.create(
+            #     user = _user,
+            #     entity_id = eid,
+            # )
             return JSONResponse(data={'status':1})
         except Exception, e:
             log.error("ERROR: %s", e.message)
@@ -228,9 +227,9 @@ def entity_unlike(request, eid):
     if request.is_ajax():
         _user = request.user
         try:
-            el = Entity_Like.objects.get(entity_id = eid, user = _user)
-            el.delete()
-            # unlike_task.delay(uid=_user.id, eid=eid)
+            # el = Entity_Like.objects.get(entity_id = eid, user = _user)
+            # el.delete()
+            unlike_task.delay(uid=_user.id, eid=eid)
             return JSONResponse(data={'status':0})
         except Entity_Like.DoesNotExist:
             raise Http404

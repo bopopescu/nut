@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.formtools',
     'django.contrib.sitemaps',
+    'django.contrib.humanize',
     'rest_framework',
     # 'rest_framework.authtoken',
     # 'haystack',
@@ -53,6 +54,7 @@ INSTALLED_APPS = (
     'apps.web',
     'apps.mobile',
     'apps.images',
+    'apps.wechat',
     'apps.notifications',
     'apps.report',
 )
@@ -203,10 +205,25 @@ HAYSTACK_DEFAULT_OPERATOR = 'OR'
 # celery
 # from __future__ import absolute_import
 
-BROKER_URL = 'redis://10.0.2.95:6379/10'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
+# BROKER_URL = 'redis://10.0.2.95:6379/10'
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+
+CELERY_RESULT_BACKEND = "redis://10.0.2.95:6379/0"
+BROKER_TRANSPORT = "librabbitmq"
+BROKER_HOST = "10.0.2.95"
+BROKER_USER = "raspberry"
+BROKER_PASSWORD = "raspberry1@#"
+BROKER_VHOST = "raspberry"
+BROKER_POOL_LIMIT = 10
+CELERY_ACKS_LATE = True
+CELERYD_PREFETCH_MULTIPLIER = 1
+CELERY_DISABLE_RATE_LIMITS = True
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+
 
 
 SPHINX_API_VERSION = 0x116
@@ -234,3 +251,6 @@ SINA_APP_KEY = '2830558576'
 SINA_APP_SECRET = 'a4861c4ea9facd833eb5d828794a2fb2'
 SINA_BACK_URL = APP_HOST + '/sina/auth'
 # TAOBAO_BACK_URL = APP_HOST + "/taobao/auth"
+
+# wechat
+WeChatToken = 'guokuinwechat'

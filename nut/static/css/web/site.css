@@ -11,8 +11,8 @@ body {
     color: #414243;
     -webkit-font-smoothing:subpixel-antialiased;
 }
-i {
-    color: #ccc;
+.thumbnail .caption {
+    color: #414243;
 }
 /*去掉苹果的默认UI来渲染按钮*/
 input[type="submit"], input[type="reset"], input[type="button"], button,textarea { -webkit-appearance: none; }
@@ -54,7 +54,7 @@ img {
 }
 /* 喜欢按钮 */
 .fa-heart {
-    color: red;
+    color: #FF1F77;
 }
 /* 搜索 */
 .fa-search {
@@ -109,7 +109,14 @@ a {
     border-radius: 0;
     -webkit-box-shadow: inherit;
     box-shadow: inherit;
-    border: 1px solid #eee;
+    border: 1px solid #fff;
+    background-color: #fafafa;
+}
+
+.list-group-item {
+    border: 1px solid #fff;
+    background-color: #fafafa;
+    font-size: 16px;
 }
 
 .form-control {
@@ -134,24 +141,29 @@ a {
 }
 /* 导航栏选中状态处理 */
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
-    background-color: #565658;
-    background-color: rgba(68,68,72,0);
+    background-color: #333333;
+    /*background-color: rgba(68,68,72,0);
     background-color: initial;
+    */
 }
 .navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus {
-    background-color: #565658;
+    background-color: #333333;
+    /*
     background-color: rgba(68,68,72,0);
     background-color: initial;
+    */
 }
 
 .navbar-inverse {
-    background-color: #565658;
+    background-color: #333333;
+    /*
     background-color: rgba(68,68,72,.95);
     border: 0;
+    */
 }
 
 .navbar-inverse .navbar-nav>li>a {
-color: #bcbcbc;
+    color: #bcbcbc;
 }
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form{
     border-color: #303030;
@@ -196,7 +208,7 @@ color: #bcbcbc;
 .img-box{
     display:block;
     height:0;
-    padding-bottom:100%;
+    padding-bottom:99%;
     overflow:hidden;
     text-align: center;
     /*border-bottom: 1px solid #eeeddd;*/
@@ -254,18 +266,40 @@ color: #bcbcbc;
 }
 .entity-selection.thumbnail .btn-like{
     padding: 0px;
-    line-height: 16px;
-    font-size: 16px;
-    height: 16px;
+    line-height: 24px;
+    font-size: 14px;
+    height: 24px;
     color: #9d9e9f;
 }
 
 .entity-selection.thumbnail .posttime{
     padding: 0px;
-    line-height: 16px;
-    font-size: 16px;
-    height: 16px;
+    line-height: 24px;
+    font-size: 14px;
+    height: 24px;
     color: #9d9e9f;
+}
+/* 热门结构 */
+.entity-four.thumbnail
+{
+    border: none;
+    padding: 0px;
+    margin-bottom: 60px;
+}
+.entity-four.thumbnail .img-box
+{
+    border: 1px solid #e6e6e6;
+}
+.entity-four.thumbnail .btn-like{
+    padding: 0px;
+    line-height: 24px;
+    font-size: 14px;
+    height: 24px;
+    color: #9d9e9f;
+}
+.entity-four.thumbnail .caption {
+    padding: 0px;
+    border: none;
 }
 
 /* 商品详情页喜爱头像列表 */
@@ -552,6 +586,13 @@ padding-left: 15px;
     margin-bottom: 40px;
     /*font-size: 18px;*/
 }
+.note-text {
+    font-size: 16px;
+    color: #666666;
+}
+.note-text .post-time {
+    color: #9D9E9F;
+}
 .note-text .create-time{
     font-size: 12px;
     color: #999;
@@ -568,13 +609,17 @@ padding-left: 15px;
 /* 商品详情页分类 */
 
 .detail-category{
-    border: 1px solid #f1f1f1;
+    border: 1px solid #fff;
     background: #fbfbfb;
     padding: 10px 0 10px 15px;
 }
 
 .detail-category > a{
     color: #427ec0;
+}
+.detail-category .category:after{
+    color: #414243;
+    content: "／";
 }
 .detail-tag > h4{
     font-size: 16px;
@@ -593,13 +638,15 @@ padding-left: 15px;
     padding: 15px 0 15px 15px;
 }
 
+.detail-report {
+    padding: 15px 0 15px 15px;
+}
+
 .detail-download{
     padding: 15px 0 15px 15px;
 }
 
-.list-group-item {
-    border: 1px solid #f1f1f1;
-}
+
 .entity-detail {
     padding-bottom: 15px;
     margin-bottom: 0;

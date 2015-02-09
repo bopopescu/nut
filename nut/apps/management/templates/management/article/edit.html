@@ -12,14 +12,10 @@
         <div class="thumbnail">
             <img class="img-responsive" id='article-cover' src="{{ article.cover_url }}" width="" height="">
         </div>
-    <span class="btn btn-primary fileinput-button">
-{#        <label class="col-sm-4 control-label">点击选择图片</label>#}
-{#        <a href="javascript:;">点击选择图片</a><span></span>#}
-{#        <div class="col-sm-4">#}
+        <span class="btn btn-primary fileinput-button pull-right">
             <i class="fa fa-plus fa-lg"></i>&nbsp; <span>点击选择图片</span>
             <input id="fileupload" type="file" multiple="" name="cover_file" data-url="{% url 'management_article_cover_upload' article.pk %}">
-{#        </div>#}
-    </span>
+        </span>
     </div>
     <div class="row">
         <form class="well form-horizontal" method="post">

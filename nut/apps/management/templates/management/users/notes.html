@@ -13,10 +13,11 @@
    <div class="row">
         <ul class="nav nav-pills" role="tablist">
 {#        {{ status }}#}
-            <li {% ifequal status None %}class="active"{% endifequal %}><a href="{% url 'management_note_list' %}">{% trans 'all' %}</a></li>
-            <li {% ifequal status '1' %}class="active"{% endifequal %}><a href="{% url 'management_note_list' %}?status=1">{% trans 'top' %}</a></li>
-            <li {% ifequal status '0' %}class="active"{% endifequal %}><a href="{% url 'management_note_list' %}?status=0">{% trans 'normal' %}</a></li>
-            <li {% ifequal status '-1' %}class="active"{% endifequal %}><a href="{% url 'management_note_list' %}?status=-1">{% trans 'remove' %}</a></li>
+            {% url 'management_user_notes' user.id as management_user_notes_url %}
+            <li {% ifequal status None %}class="active"{% endifequal %}><a href="{{ management_user_notes_url }}">{% trans 'all' %}</a></li>
+            <li {% ifequal status '1' %}class="active"{% endifequal %}><a href="{{ management_user_notes_url }}?status=1">{% trans 'top' %}</a></li>
+            <li {% ifequal status '0' %}class="active"{% endifequal %}><a href="{{ management_user_notes_url }}?status=0">{% trans 'normal' %}</a></li>
+            <li {% ifequal status '-1' %}class="active"{% endifequal %}><a href="{{ management_user_notes_url }}?status=-1">{% trans 'remove' %}</a></li>
         </ul>
     </div>
 
