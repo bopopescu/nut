@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.formtools',
     'django.contrib.sitemaps',
+    'django.contrib.humanize',
     'rest_framework',
     # 'rest_framework.authtoken',
     # 'haystack',
