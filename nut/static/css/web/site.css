@@ -556,6 +556,10 @@ padding-left: 10px;
 .detail-category > a{
     color: #427ec0;
 }
+.detail-category > a:after{
+    color: #414243;
+    content: "／";
+}
 .detail-tag > h4{
     font-size: 16px;
     font-weight: 400;
