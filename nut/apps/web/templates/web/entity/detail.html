@@ -35,6 +35,38 @@
         <div class="row">
             <div class="col-sm-8 col-md-8" itemscope itemtype="http://data-vocabulary.org/Product">
                 <div class="thumbnail entity-detail">
+{#                <div id="carousel-guoku" class="carousel slide" data-ride="carousel" style="border:5px solid #eee; color;: #fff;">#}
+{#                    <ol class="carousel-indicators">#}
+{#                        {% for index, item in entity.images|enumerate_list %}#}
+{#                            <li data-target="#carousel-guoku" data-slide-to="{{ index }}" {% if 0 == index %}class="active"{% endif %}></li>#}
+{#                        {% endfor %}#}
+{#                    </ol>#}
+{#                    <div class="carousel-inner" role="listbox">#}
+{#                        {% for index, image in entity.images|enumerate_list %}#}
+{#                            <div class="item {% if 0 == index %}active{% endif %}">#}
+{#                            {% if entity.default_buy_link.origin_source == "taobao.com" %}#}
+{#                                <a id="buy-btn-img" href="http://item.taobao.com/item.htm?id={{ entity.default_buy_link.origin_id }}" target="_blank" biz-itemid="{{ entity.default_buy_link.origin_id }}" _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity_context.title }}-taobao'])">#}
+{#                                    <img itemprop="image" src="{{ image|resize:'640' }}" alt="{{ entity_context.title }}" class="img-responsive" width="640" height="640">#}
+{#                                </a>#}
+{#                            {% else %}#}
+{#                                <a id="buy-btn-img" href="http://item.jd.com/{{ entity.default_buy_link.origin_id }}.html" target="_blank"  _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity_context.title }}-jd'])">#}
+{#                                    <img itemprop="image" src="{{ image|resize:'640' }}" alt="{{ entity_context.title }}" class="img-responsive" width="640" height="640">#}
+{#                                </a>#}
+{#                            {% endif %}#}
+{#                            </div>#}
+{#                        {% endfor %}#}
+{#                    </div>#}
+{#                    {% if entity.images|length > 1 %}#}
+{#                    <a class="left carousel-control" href="#carousel-guoku" role="button" data-slide="prev">#}
+{#                        <span class="glyphicon glyphicon-chevron-left"></span>#}
+{#                        <span class="sr-only">Previous</span>#}
+{#                    </a>#}
+{#                    <a class="right carousel-control" href="#carousel-guoku" role="button" data-slide="next">#}
+{#                        <span class="glyphicon glyphicon-chevron-right"></span>#}
+{#                        <span class="sr-only">Next</span>#}
+{#                    </a>#}
+{#                    {% endif %}#}
+{#                </div>#}
                     {% if entity.default_buy_link.origin_source == "taobao.com" %}
                         <a id="buy-btn-img" href="http://item.taobao.com/item.htm?id={{ entity.default_buy_link.origin_id }}" target="_blank" biz-itemid="{{ entity.default_buy_link.origin_id }}" _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity_context.title }}-taobao'])">
                             <img itemprop="image" src="{{ entity.chief_image|resize:'640' }}" alt="{{ entity_context.title }}" class="img-responsive" width="640" height="640">

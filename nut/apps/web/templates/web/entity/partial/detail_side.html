@@ -15,31 +15,31 @@
         {% endfor %}
     </div>
 
-{#{% if entity_context.detail_images|length > 0 %}#}
-{#    <div class="panel-body detail-img">#}
-{#            <div class="col-xs-3 col-sm-3 col-md-3">#}
-{#                <div class="thumbnail">#}
-{#                    <div class="img-box">#}
-{#                        <a href="javascript:;">#}
-{#                            <img class="img-responsive" src="{{ entity.chief_image|resize:'64' }}" width="64" height="64">#}
-{#                        </a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{##}
-{#            {% for img in entity.detail_images %}#}
-{#            <div class="col-xs-3 col-sm-3 col-md-3">#}
-{#                <div class="thumbnail">#}
-{#                    <div class="img-box">#}
-{#                        <a href="javascript:;">#}
-{#                            <img class="img-responsive" src="{{ img }}" width="64" height="64">#}
-{#                        </a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#            {% endfor %}#}
-{#    </div>#}
-{#{% endif %}#}
+{% if entity_context.detail_images|length > 0 %}
+    <div class="panel-body detail-img">
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <div class="thumbnail">
+                    <div class="img-box">
+                        <a href="javascript:;">
+                            <img class="img-responsive" src="{{ entity.chief_image|resize:'64' }}" width="64" height="64">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            {% for img in entity.detail_images %}
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <div class="thumbnail">
+                    <div class="img-box">
+                        <a href="javascript:;">
+                            <img class="img-responsive" src="{{ img }}" width="64" height="64">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+    </div>
+{% endif %}
 
     <div class="panel-body" style="padding-bottom: 0;border-top: 1px solid #f1f1f1;">{{ entity.like_count }}&nbsp;人喜爱</div>
     <div class="panel-body like-user-list">
