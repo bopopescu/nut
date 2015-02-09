@@ -3,6 +3,7 @@ from django.http import Http404
 from django.views.decorators.http import require_GET
 from django.template import RequestContext
 from django.views.generic import ListView
+from django.views.generic.base import View, TemplateResponseMixin, ContextMixin
 from apps.core.models import Category, Sub_Category, Entity, Entity_Like
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 
@@ -21,13 +22,54 @@ class CategoryListView(ListView):
     context_object_name = "categories"
 
 
+# class CategroyGroupListView(TemplateResponseMixin, ContextMixin, View):
+#     http_method_names = ['get']
+#     template_name = 'web/category/detail.html'
+#
+#     def get(self, request, *args, **kwargs):
+#         # log.info(kwargs)
+#         gid = kwargs.pop('gid', None)
+#
+#         sub_categories = Sub_Category.objects.filter(group=gid).values_list('id', flat=True)
+#
+#         # log.info(sub_categories)
+#
+#         entity_list = Entity.objects.filter(category_id__in=list(sub_categories), status=Entity.selection)
+#
+#         log.info(entity_list)
+#
+#         context = {
+#             # 'entities':_entities,
+#             # 'user_entity_likes': el,
+#             # 'categories': _categories,
+#         }
+#         return self.render_to_response(context)
+
+
 class CategroyGroupListView(ListView):
     http_method_names = ['get']
     template_name = 'web/category/detail.html'
+    context_object_name = "entities"
+    # paginator_class = ExtentPaginator
+    page_kwarg = "page"
+    paginate_by = 28
 
-    def get(self, request, *args, **kwargs):
+    def get_queryset(self):
+        log.info(self.kwargs)
+        self.gid = self.kwargs.pop('gid', None)
+        sub_categories = Sub_Category.objects.filter(group=self.gid).values_list('id', flat=True)
+        entity_list = Entity.objects.filter(category_id__in=list(sub_categories), status=Entity.selection)
+        log.info(entity_list)
 
-        return super(CategroyGroupListView, self).get(request, *args, **kwargs)
+        return entity_list[:60]
+
+    def get_context_data(self, **kwargs):
+        context = super(CategroyGroupListView, self).get_context_data(**kwargs)
+        category = Category.objects.get(pk = self.gid)
+        context['sub_category'] = category
+        return context
+    #     self.con
+    #     return
 
 # @require_GET
 # def list(request, template='web/category/list.html'):
