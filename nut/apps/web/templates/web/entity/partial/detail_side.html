@@ -53,7 +53,7 @@
     </div>
     <div class="list-group">
         <div class="list-group-item detail-category" style="font-size: 16px;">
-            <a href="#">{{ entity.category.group }}</a><a href="{% url 'web_category_detail' entity.category_id  %}">{{ entity.category }}</a>
+            <a class="category" href="#">{{ entity.category.group }}</a><a href="{% url 'web_category_detail' entity.category_id  %}">{{ entity.category }}</a>
         </div>
 
         {% if entity.tags.all|length > 0 %}
