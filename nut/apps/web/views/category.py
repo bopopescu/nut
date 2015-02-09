@@ -26,6 +26,19 @@ def list(request, template='web/category/list.html'):
 
 
 @require_GET
+def group(request, cid, template="web/category/group.html"):
+
+
+
+    return render_to_response(
+        template,
+        {
+
+        },
+        context_instance = RequestContext(request),
+    )
+
+@require_GET
 def detail(request, cid, template='web/category/detail.html'):
     _cid = cid
     _page = request.GET.get('page', 1)

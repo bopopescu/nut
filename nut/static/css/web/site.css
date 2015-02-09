@@ -109,7 +109,14 @@ a {
     border-radius: 0;
     -webkit-box-shadow: inherit;
     box-shadow: inherit;
-    border: 1px solid #eee;
+    border: 1px solid #fff;
+    background-color: #fafafa;
+}
+
+.list-group-item {
+    border: 1px solid #fff;
+    background-color: #fafafa;
+    font-size: 16px;
 }
 
 .form-control {
@@ -548,7 +555,7 @@ padding-left: 10px;
 /* 商品详情页分类 */
 
 .detail-category{
-    border: 1px solid #f1f1f1;
+    border: 1px solid #fff;
     background: #fbfbfb;
     padding: 10px 0 10px 15px;
 }
@@ -577,13 +584,15 @@ padding-left: 10px;
     padding: 15px 0 15px 15px;
 }
 
+.detail-report {
+    padding: 15px 0 15px 15px;
+}
+
 .detail-download{
     padding: 15px 0 15px 15px;
 }
 
-.list-group-item {
-    border: 1px solid #f1f1f1;
-}
+
 .entity-detail {
     padding-bottom: 15px;
     margin-bottom: 0;
