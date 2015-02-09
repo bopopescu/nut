@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response
 from django.http import Http404
 from django.views.decorators.http import require_GET
 from django.template import RequestContext
-
+from django.views.generic import ListView
 from apps.core.models import Category, Sub_Category, Entity, Entity_Like
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 
@@ -11,18 +11,28 @@ from django.utils.log import getLogger
 log = getLogger('django')
 
 
-@require_GET
-def list(request, template='web/category/list.html'):
 
-    _categories = Category.objects.filter(status=True)
+class CategoryListView(ListView):
 
-    return render_to_response(
-        template,
-        {
-            'categories': _categories,
-        },
-        context_instance = RequestContext(request),
-    )
+    # model = Category
+    http_method_names = ['get']
+    queryset = Category.objects.filter(status=True)
+    template_name = "web/category/list.html"
+    context_object_name = "categories"
+
+
+# @require_GET
+# def list(request, template='web/category/list.html'):
+#
+#     _categories = Category.objects.filter(status=True)
+#
+#     return render_to_response(
+#         template,
+#         {
+#             'categories': _categories,
+#         },
+#         context_instance = RequestContext(request),
+#     )
 
 
 @require_GET
