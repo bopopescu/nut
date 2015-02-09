@@ -266,6 +266,7 @@ a {
 }
 .entity-selection.thumbnail .btn-like{
     padding: 0px;
+    padding-left: 3px;
     line-height: 24px;
     font-size: 14px;
     height: 24px;
@@ -299,6 +300,7 @@ a {
 }
 .entity-four.thumbnail .caption {
     padding: 0px;
+    margin-top: 12px;
     border: none;
 }
 
@@ -544,7 +546,7 @@ padding-left: 15px;
     .category-list  .col-sm-3 {width: 14%;}
 }
 
-.category{background: #f9f9f9;}
+.category{background: #fafafa;border: none;}
 .category >a{padding: 5px 5px 0px 5px;display: block;}
 .category >a > img{width: 32px;height: 32px;}
 .category >a > p{text-align: center;padding-top: 10px;color: #999;white-space: nowrap;overflow: hidden;font-size: 13px;margin: 0px -10px 10px -10px;}
