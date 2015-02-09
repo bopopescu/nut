@@ -55,12 +55,13 @@
     </div>
     <div class="list-group">
         <div class="list-group-item detail-category">
+            <p>品类</p>
             <a class="category" href="{% url 'web_category_group' entity.category.group_id %}">{{ entity.category.group }}</a><a href="{% url 'web_category_detail' entity.category_id  %}">{{ entity.category }}</a>
         </div>
 
         {% if entity.tags.all|length > 0 %}
             <div class="list-group-item detail-tag">
-                <h4>该商品的标签</h4>
+                <p>该商品的标签</p>
                 {% for tag in entity.tags.all %}
                    <p> <a href="{% url "web_tag_detail" tag.hash %}">＃{{ tag.title }}</a></p>
 {#                    <p> <a href="#">＃{{ tag.title }}</a></p>#}
@@ -71,23 +72,24 @@
 
         {% if request.user.is_staff %}
             <div class="list-group-item detail-edit">
-                <a href="{% url 'management_entity_edit' entity.id %}" target=_blank><i class="fa fa-pencil-square-o fa-lg"></i>&nbsp;&nbsp;编辑商品</a>
+                <a href="{% url 'management_entity_edit' entity.id %}" target=_blank><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;编辑商品</a>
             </div>
         {% endif %}
 
         <div class="list-group-item detail-share">
-            <a href="javascript:;"><i class="fa fa-weibo fa-lg"></i>&nbsp;&nbsp;分享到微博</a>
+            <p>分享</p>
+            <a href="javascript:;"><i class="fa fa-weibo"></i>&nbsp;&nbsp;分享到微博</a>
         </div>
 {#        <div class="list-group-item">#}
 {#            {% url 'web_entity_detail' entity.entity_hash as web_entity_url %}#}
 {#            <img src="data:image/jpeg;base64, {{ web_entity_url|entity_qr }}">#}
-{#            <a href="javascript:;" id="shareToWeChat"><i class="fa fa-wechat fa-lg"></i>&nbsp; 分享到朋友圈</a>#}
+{#            <a href="javascript:;" id="shareToWeChat"><i class="fa fa-wechat"></i>&nbsp; 分享到朋友圈</a>#}
 {#        </div>#}
         <div class="list-group-item detail-report">
-            <a href="#"><i class="fa fa-flag-o fa-lg"></i>&nbsp;&nbsp;举报</a>
+            <a href="#"><i class="fa fa-flag-o"></i>&nbsp;&nbsp;举报</a>
         </div>
         <div class="list-group-item detail-download">
-            <a href="/download/ios/" target="_blank"><i class="fa fa-download fa-lg"></i>&nbsp;&nbsp;下载</a>
+            <a href="/download/ios/" target="_blank"><i class="fa fa-download"></i>&nbsp;&nbsp;下载</a>
        </div>
     </div>
 
