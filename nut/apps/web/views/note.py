@@ -18,7 +18,7 @@ def poke(request, note_id):
         try:
             np = Note_Poke.objects.get(user=_user, note_id=note_id)
             np.delete()
-            # return JSONResponse(data={'result':'0'})
+            return JSONResponse(data={'result':'0'})
         except Note_Poke.DoesNotExist:
             np =  Note_Poke(
                 user=_user,
