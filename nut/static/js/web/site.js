@@ -420,8 +420,8 @@ $.ajaxSetup({
                 var $this = $(this);
                 $this.find('.detail-img img').on('mouseover', function () {
 //                    console.log(this);
-                    var re = /64/;
-                    var url_string = this.src.replace(re, '640');
+                    var re = /\/64\//;
+                    var url_string = this.src.replace(re, '/640/');
                     $this.find('.entity-detail img')[0].src = url_string;
                 });
             });
