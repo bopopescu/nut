@@ -1,10 +1,12 @@
 from django.views.generic import TemplateView
-from django.http import HttpResponsePermanentRedirect
+from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
 from django.views.defaults import server_error
 from django.views.defaults import page_not_found
+from django.utils.log import getLogger
 
+log = getLogger('django')
 
 def page_error(request):
     return server_error(request, template_name='web/500.html')
@@ -31,6 +33,17 @@ class LinksView(TemplateView):
 
 class DownloadView(TemplateView):
     template_name = "web/download.html"
+
+    def get(self, request, *args, **kwargs):
+        log.info(request.META['HTTP_USER_AGENT'])
+        if 'iPhone' in request.META['HTTP_USER_AGENT']:
+            return HttpResponseRedirect("http://itunes.apple.com/cn/app/id477652209?mt=8")
+        elif 'iPad' in request.META['HTTP_USER_AGENT']:
+            return HttpResponseRedirect("http://itunes.apple.com/cn/app/id450507565?mt=8")
+        elif 'Android' in request.META['HTTP_USER_AGENT']:
+            return HttpResponseRedirect("http://app.guoku.com/download/android/guoku-release.apk")
+        else:
+            return super(DownloadView, self).get(request, *args, **kwargs)
 
 
 def download_ios(request):

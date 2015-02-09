@@ -413,7 +413,7 @@ class Entity(BaseModel):
             if 'http' in self.images[0]:
                 return self.images[0]
             else:
-                log.info("%s%s" % (image_host, self.images[0]))
+                # log.info("%s%s" % (image_host, self.images[0]))
                 return "%s%s" % (image_host, self.images[0])
 
     @property
@@ -500,7 +500,8 @@ class Entity(BaseModel):
         index = 'entities',
         weights={
             'brand': 100,
-            'title': 80,
+            'category': 80,
+            'title': 50,
             'note' : 10,
             # 'intro': 5,
         },
@@ -996,21 +997,19 @@ class Show_Editor_Recommendation(models.Model):
     class Meta:
         ordering = ['-position']
 
-
-
 # model post save
 
 def create_or_update_entity(sender, instance, created, **kwargs):
 
     if issubclass(sender, Entity):
-        # log.info(type(instance.status))
+        log.info(type(instance.status))
         if int(instance.status) == Entity.selection:
             log.info("status %s" % instance.status)
             try:
                 selection = Selection_Entity.objects.get(entity = instance)
                 selection.entity = instance
-                selection.is_published = False
-                selection.pub_time = datetime.now()
+                # selection.is_published = False
+                # selection.pub_time = datetime.now()
                 selection.save()
             except Selection_Entity.DoesNotExist:
                 Selection_Entity.objects.create(

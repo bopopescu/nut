@@ -1,4 +1,5 @@
 {% extends 'web/base.html' %}
+{% load i18n %}
 
 {% block title %}搜索 - {{ keyword }}{% endblock %}
 
@@ -12,36 +13,40 @@
             <div class="container">
 {#                <div class="navbar-collapse collapse">#}
                     <ul class="nav navbar-nav">
-                        {% for row in results %}
-                            <li class="active">
-                                <a href="{% url 'web_search' %}?q={{ keyword }}&t={{ row.type }}">{{ row.name }}&nbsp;<strong>{{ row.res.count }}</strong></a>
+{#                        {% for row in results %}#}
+                            <li {% if type == 'e' %}class="active"{% endif %}>
+                                <a href="{% url 'web_search' %}?q={{ keyword }}&t=e">{% trans 'entity' %}&nbsp;<strong>{{ entity_count }}</strong></a>
                             </li>
-                        {% endfor %}
+                            <li {% if type == 'u' %}class="active"{% endif %}>
+                                <a href="{% url 'web_search' %}?q={{ keyword }}&t=u">{% trans 'user' %}&nbsp;<strong>{{ user_count }}</strong></a>
+                            </li>
+                            <li {% if type == 't' %}class="active"{% endif %}>
+                                <a href="{% url 'web_search' %}?q={{ keyword }}&t=t">{% trans 'tags' %}&nbsp;<strong>{{ tag_count }}</strong></a>
+                            </li>
+{#                        {% endfor %}#}
                     </ul>
 {#                </div>#}
             </div>
         </nav>
 
         <div class="row">
-            {% for row in results %}
-{#                {{ type }}#}
-                {% if row.type == type %}
-                    {% for entity in row.res %}
-                        {% include 'web/main/partial/entity.html' with entity=entity %}
-                    {% endfor %}
-{#                {% elif row.type == type %}#}
-{#                    {% for user in row.res %}#}
-{#                        {{ user }}#}
-{#                    {% endfor %}#}
-                {% endif %}
-
-
-            {% endfor %}
-{#            {% endif %}#}
+            {% if type == 'u' %}
+                {% for user in results %}
+                    {% include 'web/main/partial/user.html' with user_context=user %}
+                {% endfor %}
+            {% elif type == 't' %}
+                {% for tag in results %}
+                    {% include 'web/main/partial/tags.html' with tag_context=tag %}
+                {% endfor %}
+            {% else %}
+                {% for entity in results %}
+                    {% include 'web/main/partial/entity.html' with entity=entity %}
+                {% endfor %}
+            {% endif %}
         </div>
 
         {% if objects %}
-            {% include "web/main/partial/paginator.html" with objects=objects url=request.path keyword=keyword %}
+            {% include "web/main/partial/search/paginator.html" with objects=objects type=type url=request.path keyword=keyword %}
         {% endif %}
 
     </div>

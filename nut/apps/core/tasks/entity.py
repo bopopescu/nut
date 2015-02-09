@@ -1,12 +1,11 @@
 from celery.task import task
-from apps.core.tasks import BaseTask
+from apps.core.tasks import BaseTask, DebugTask
 
 import urllib2
 # from django.core.files.storage import default_storage
 # from django.core.files.base import ContentFile
 from apps.core.utils.image import HandleImage
 from apps.core.models import Entity, Entity_Like
-from apps.notifications import notify
 
 from django.conf import settings
 

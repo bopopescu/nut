@@ -8,7 +8,11 @@
 
 {% block content %}
     <div class="container">
+
         <div class="row">
+            <div class="col-sm-12">
+                <p>精选商品</p>
+            </div>
 {#            <div class="col-md-10 col-xs-12" >#}
             {% for category in categories %}
                 <div class="col-sm-2">
@@ -26,6 +30,9 @@
 
 
         <div class="row">
+            <div class="col-sm-12">
+                <p>热门商品</p>
+            </div>
             {% for entity in entities %}
                 {% include 'web/main/partial/entity.html' with entity=entity%}
             {% endfor %}

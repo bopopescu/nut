@@ -2,6 +2,9 @@ from django import template
 from django.utils.log import getLogger
 from django.conf import settings
 import time
+import qrcode
+import StringIO
+import base64
 
 register = template.Library()
 log = getLogger('django')
@@ -48,5 +51,27 @@ def timestamp(value):
     # log.info(type(value))
     return time.mktime(value.timetuple())
 register.filter('timestamp', timestamp)
+
+def entity_qr(value):
+    url = "%s%s" % ('http://h.guoku.com', value)
+    qr = qrcode.QRCode(
+        version=2,
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        box_size=2,
+        border=1,
+    )
+    qr.add_data(url)
+    img = qr.make_image()
+    # content = img.convert('RGBA').tostring("raw", "RGBA")
+    output = StringIO.StringIO()
+    #
+    img.save(output)
+    # # log.info(output.getvalue())
+    content = output.getvalue()
+    output.close()
+    # log.info(content)
+    # output.close()
+    return content.encode('base64').replace("\n", "")
+register.filter(entity_qr)
 
 __author__ = 'edison'

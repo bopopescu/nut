@@ -69,6 +69,7 @@ class CreateEditorRecommendForms(BaseRecommendationForm):
     def save(self):
         link = self.cleaned_data.get('link')
         editor_recommend_image = self.cleaned_data.get('editor_recommend_image')
+        event = self.cleaned_data.get('event')
         # position = self.clean_position()
         # log.info(event_banner_image)
         _image = HandleImage(editor_recommend_image)
@@ -81,6 +82,8 @@ class CreateEditorRecommendForms(BaseRecommendationForm):
             link = link,
             image = filename,
         )
+
+
         #
         # if position > 0:
         #     show_list = Show_Editor_Recommendation.objects.filter(event_id = event, position = position)
@@ -94,6 +97,18 @@ class CreateEditorRecommendForms(BaseRecommendationForm):
         #         Show_Editor_Recommendation.objects.create(
         #             recommendation =_recommendation
         #         )
+
+        if event:
+            try:
+                show = Show_Editor_Recommendation.objects.get(recommendation = _recommendation)
+                show.event_id = event
+                show.save()
+            except Show_Editor_Recommendation.DoesNotExist, e:
+                Show_Editor_Recommendation.objects.create(
+                    recommendation = _recommendation,
+                    event_id = event,
+                )
+
         return _recommendation
 
 

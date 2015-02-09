@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 # from haystack.forms import SearchForm
 from django.utils.log import getLogger
-from apps.core.models import GKUser, Entity
+from apps.core.models import GKUser, Entity, Tag, Entity_Tag
 
 #
 log = getLogger('django')
@@ -17,41 +17,31 @@ class SearchForm(forms.Form):
 
     def search(self):
         _keyword = self.get_keyword()
-        # _type = self.cleaned_data.get('t')
-        # log.info(self.cleaned_data.get('q'))
-        # log.info("OKOKOKO")
-        # pass
-        # _keyword = self.cleaned_data.get('q')
-        sqs = list()
-        # if _type == 'u':
-        res = Entity.search.query(_keyword).order_by('@weight', '-created_time')
-        sqs.append({
-            'name':_('entity'),
-            'type': 'e',
-            'res': res,
-        })
-        # log.info(list(res))
-        # u_res = GKUser.search.query(_keyword)
-        # sqs.append({
-        #     'name': _('user'),
-        #     'type': 'u',
-        #     'res': u_res,
-        # })
+        _type = self.cleaned_data.get('t')
+        if _type == "t":
+            self.res = Tag.search.query(_keyword)
+        elif _type == "u":
+            self.res = GKUser.search.query(_keyword).order_by('@weight', '-date_joined')
+        else:
+            self.res = Entity.search.query(_keyword).order_by('@weight', '-created_time')
+        return self.res
 
-        # log.info(sqs)
-        return sqs
 
     def get_keyword(self):
         self.keyword = self.cleaned_data.get('q')
 
         return self.keyword
 
-    def get_search_type(self):
-        # self.type = self.cleaned_data.get('t')
-        self.type = self.cleaned_data.get('t')
-        log.info("type type %s" % self.type)
-        if self.type is None:
-            self.type = 'e'
-        return self.type
+    def get_entity_count(self):
+        res = Entity.search.query(self.keyword)
+        return res.count()
+
+    def get_user_count(self):
+        res = GKUser.search.query(self.keyword)
+        return res.count()
+
+    def get_tag_count(self):
+        res = Tag.search.query(self.keyword)
+        return res.count()
 
 __author__ = 'edison'
