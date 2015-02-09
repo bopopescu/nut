@@ -21,6 +21,14 @@ class CategoryListView(ListView):
     context_object_name = "categories"
 
 
+class CategroyGroupListView(ListView):
+    http_method_names = ['get']
+    template_name = 'web/category/detail.html'
+
+    def get(self, request, *args, **kwargs):
+
+        return super(CategroyGroupListView, self).get(request, *args, **kwargs)
+
 # @require_GET
 # def list(request, template='web/category/list.html'):
 #
@@ -35,18 +43,20 @@ class CategoryListView(ListView):
 #     )
 
 
-@require_GET
-def group(request, cid, template="web/category/group.html"):
 
 
-
-    return render_to_response(
-        template,
-        {
-
-        },
-        context_instance = RequestContext(request),
-    )
+# @require_GET
+# def group(request, cid, template="web/category/group.html"):
+#
+#
+#
+#     return render_to_response(
+#         template,
+#         {
+#
+#         },
+#         context_instance = RequestContext(request),
+#     )
 
 @require_GET
 def detail(request, cid, template='web/category/detail.html'):
