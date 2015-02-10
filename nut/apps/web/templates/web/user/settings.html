@@ -62,9 +62,9 @@
                                 <label class="col-sm-2 control-label" for="{{ profile_form.gender.id_for_label  }}">{{ profile_form.gender.label  }}</label>
                                 <div class="col-sm-3">
                                     {{ profile_form.gender }}
-{#                                {% for radio in profile_form.gender %}#}
-{#                                    <label class="checkbox-inline">{{ radio.choice_label }} {{ radio.tag }}&nbsp; </label>#}
-{#                                {% endfor %}#}
+                                {% for radio in profile_form.gender %}
+                                    <label class="checkbox-inline">{{ radio.choice_label }} {{ radio.tag }}&nbsp; </label>
+                                {% endfor %}
                                 </div>
                             </div>
                          </fieldset>

@@ -42,7 +42,6 @@ def settings(request, template="web/user/settings.html"):
         # log.info(data['city'])
         _profile_form = UserSettingsForm(user=_user, initial=data)
         # _password_form = PasswordChangeForm(user=_user)
-
     return render_to_response(
         template,
         {
@@ -62,7 +61,6 @@ def change_password(request, template="web/user/change_password.html"):
         _form = UserChangePasswordForm(user=_user, data=request.POST)
         if _form.is_valid():
             _form.save()
-            # return
     else:
         _form = UserChangePasswordForm(user=_user)
 
