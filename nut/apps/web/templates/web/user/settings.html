@@ -26,19 +26,19 @@
                          <fieldset>
                              <div class="form-group">
                                 <label class="col-sm-2 control-label" for="{{ profile_form.nickname.id_for_label }}">{{ profile_form.nickname.label }}</label>
-                                <div class="col-xs-8 col-sm-4">
+                                <div class="col-xs-8 col-sm-6">
                                     {{ profile_form.nickname }}
                                 </div>
                              </div>
                              <div class="form-group">
                                 <label class="col-sm-2 control-label" for="{{ profile_form.email.id_for_label }}">{{ profile_form.email.label }}</label>
-                                <div class="col-xs-8 col-sm-4">
+                                <div class="col-xs-8 col-sm-6">
                                     {{ profile_form.email }}
                                 </div>
                              </div>
                              <div class="form-group">
                                 <label class="col-sm-2 control-label" for="{{ profile_form.bio.id_for_label }}">{{ profile_form.bio.label }}</label>
-                                <div class="col-xs-8 col-sm-4">
+                                <div class="col-xs-8 col-sm-6">
                                     {{ profile_form.bio }}
                                 </div>
                              </div>
@@ -50,17 +50,17 @@
 
                              <div class="form-group">
                                 <label class="col-sm-2 control-label" for="{{ profile_form.location.id_for_label }}" >{{ profile_form.location.label }}</label>
-                                <div class="col-xs-4 col-sm-2">
+                                <div class="col-xs-4 col-sm-3">
                                     {{ profile_form.location }}
                                 </div>
-                                <div class="col-xs-4 col-sm-2">
+                                <div class="col-xs-4 col-sm-3">
                                     {{ profile_form.city }}
                                 </div>
                              </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="{{ profile_form.gender.id_for_label  }}">{{ profile_form.gender.label  }}</label>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     {{ profile_form.gender }}
 {#                                {% for radio in profile_form.gender %}#}
 {#                                    <label class="checkbox-inline">{{ radio.choice_label }} {{ radio.tag }}&nbsp; </label>#}

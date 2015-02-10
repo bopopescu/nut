@@ -4,6 +4,7 @@ from django.conf.urls import url, patterns
 urlpatterns = patterns(
     'apps.web.views.user',
     url(r'^settings/$', 'settings', name='web_user_settings'),
+    url(r'^change/password/$', 'change_password', name='web_user_change_password'),
     url(r'^upload/avatar/$', 'upload_avatar', name='web_user_upload_avatar'),
 
     url(r'^(?P<user_id>\d+)/$', 'index', name='web_user_index' ),
