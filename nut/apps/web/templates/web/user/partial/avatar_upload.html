@@ -1,9 +1,9 @@
 {% load i18n %}
 {% load guoku %}
 
-<div class="col-xs-offset-4 col-sm-offset-5">
+<div class="col-sm-offset-2 col-sm-10">
     <div class="thumbnails">
-    <img class="img-responsive img-circle" id='user-avatar' src="{{ user_context.profile.avatar_url|resize:"120" }}" width="120" height="120">
+        <img class="img-responsive img-circle" id='user-avatar' src="{{ user_context.profile.avatar_url|resize:"120" }}" width="120" height="120">
     </div>
 {#<form class="form-horizontal clearfix" enctype="multipart/form-data"#}
 {#      action="{% url 'web.views.account.update_avatar' %}" method="POST">#}
@@ -14,7 +14,7 @@
 {#        <label class="col-sm-4 control-label">点击选择图片</label>#}
 {#        <a href="javascript:;">点击选择图片</a><span></span>#}
 {#        <div class="col-sm-4">#}
-            <i class="fa fa-plus fa-lg"></i>&nbsp; <span>点击选择图片</span>
+            <span>点击选择图片</span>
             <input id="fileupload" type="file" multiple="" name="avatar_file" data-url="{% url 'web_user_upload_avatar' %}">
 {#        </div>#}
     </span>

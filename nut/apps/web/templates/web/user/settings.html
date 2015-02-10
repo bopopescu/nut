@@ -10,136 +10,72 @@
 {% block content %}
     <div class="container" id="settings">
         <div class="row">
-            <h2 class="col-xs-offset-4 col-sm-offset-4">{% trans 'account settings' %}</h2>
-            <hr />
-        </div>
-
-        <div class="row">
-{#            {{ user.avatar_url }}#}
-            {% include 'web/user/partial/avatar_upload.html' with user_context=user %}
-        </div>
-
-
-        <div class="row">
-            <h3 class="col-xs-offset-4 col-sm-offset-4">个人资料</h3>
-            <hr />
-            <form method="post" action="{% url 'web_user_settings' %}" class="form-horizontal">
-                {% csrf_token %}
-                <fieldset>
-                    <div class="form-group">
-                        <label class="col-xs-offset-1 col-xs-3 col-sm-offset-3 col-sm-2 control-label" for="{{ profile_form.nickname.id_for_label }}">{{ profile_form.nickname.label }}</label>
-                        <div class="col-xs-8 col-sm-4">
-                             {{ profile_form.nickname }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-offset-1 col-xs-3 col-sm-offset-3 col-sm-2 control-label" for="{{ profile_form.email.id_for_label }}">{{ profile_form.email.label }}</label>
-                        <div class="col-xs-8 col-sm-4">
-                            {{ profile_form.email }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-offset-1 col-xs-3 col-sm-offset-3 col-sm-2 control-label" for="{{ profile_form.bio.id_for_label }}">{{ profile_form.bio.label }}</label>
-                        <div class="col-xs-8 col-sm-4">
-                            {{ profile_form.bio }}
-                        </div>
-                    </div>
-
-                    <div class="form-group" style="display: none;">
-                        <p id="default_location_value">{{ profile_form.location.value }}</p>
-                        <p id="default_city_value">{{ profile_form.city.value }}</p>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-xs-offset-1 col-xs-3 col-sm-offset-3 col-sm-2 control-label" for="{{ profile_form.location.id_for_label }}" >{{ profile_form.location.label }}</label>
-                        <div class="col-xs-4 col-sm-2">
-                            {{ profile_form.location }}
-                        </div>
-                        <div class="col-xs-4 col-sm-2">
-                            {{ profile_form.city }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-offset-1 col-xs-3 col-sm-offset-3 col-sm-2 control-label" for="{{ profile_form.gender.id_for_label  }}">{{ profile_form.gender.label  }}</label>
-                        <div class="col-xs-8 col-sm-4">
-{#                            {{ profile_form.gender }}#}
-                            {% for radio in profile_form.gender %}
-                            <label class="checkbox-inline">{{ radio.choice_label }} {{ radio.tag }}&nbsp; </label>
-                            {% endfor %}
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-xs-offset-1 col-xs-3 col-sm-offset-3 col-sm-2 control-label" for="{{ profile_form.website.id_for_label }}">{{ profile_form.website.label }}</label>
-                        <div class="col-xs-8 col-sm-4">
-                            {{ profile_form.website }}
-                        </div>
-                    </div>
-                </fieldset>
-                <div class="form-group">
-                    <div class="col-xs-offset-4 col-xs-4 col-sm-4 col-sm-offset-5">
-                        <button type="submit" class="btn btn-primary">{% trans "update profile" %}</button>
-                    </div>
+            <div class="col-sm-4">
+                {% include 'web/user/partial/settings_slide.html' %}
+            </div>
+            <div class="col-sm-8">
+                <h2>编辑个人资料</h2>
+                <div class="row">
+                    {% include 'web/user/partial/avatar_upload.html' with user_context=user %}
                 </div>
-            </form>
-        </div>
+                <br />
+                <div class="row">
+                     <form method="post" action="{% url 'web_user_settings' %}" class="form-horizontal">
+                         {% csrf_token %}
+                         <fieldset>
+                             <div class="form-group">
+                                <label class="col-sm-2 control-label" for="{{ profile_form.nickname.id_for_label }}">{{ profile_form.nickname.label }}</label>
+                                <div class="col-xs-8 col-sm-4">
+                                    {{ profile_form.nickname }}
+                                </div>
+                             </div>
+                             <div class="form-group">
+                                <label class="col-sm-2 control-label" for="{{ profile_form.email.id_for_label }}">{{ profile_form.email.label }}</label>
+                                <div class="col-xs-8 col-sm-4">
+                                    {{ profile_form.email }}
+                                </div>
+                             </div>
+                             <div class="form-group">
+                                <label class="col-sm-2 control-label" for="{{ profile_form.bio.id_for_label }}">{{ profile_form.bio.label }}</label>
+                                <div class="col-xs-8 col-sm-4">
+                                    {{ profile_form.bio }}
+                                </div>
+                             </div>
 
-        <div class="row">
-            <h3 class="col-xs-offset-4 col-sm-offset-4">{% trans 'social account' %}</h3>
-            <hr />
-        </div>
+                             <div class="form-group" style="display: none;">
+                                <p id="default_location_value">{{ profile_form.location.value }}</p>
+                                <p id="default_city_value">{{ profile_form.city.value }}</p>
+                             </div>
 
-        <div class="row">
-            <label class="col-xs-4 col-sm-offset-4 col-sm-2 control-label">新浪微博</label>
-            {% if user.weibo.screen_name %}
-                <p class="col-xs-4 col-sm-2">@{{ user.weibo.screen_name }}</p>
-                <div class="col-xs-4 col-sm-2">
-                    <a href="{%url 'web_unbind_by_weibo' %}">取消绑定</a>
+                             <div class="form-group">
+                                <label class="col-sm-2 control-label" for="{{ profile_form.location.id_for_label }}" >{{ profile_form.location.label }}</label>
+                                <div class="col-xs-4 col-sm-2">
+                                    {{ profile_form.location }}
+                                </div>
+                                <div class="col-xs-4 col-sm-2">
+                                    {{ profile_form.city }}
+                                </div>
+                             </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="{{ profile_form.gender.id_for_label  }}">{{ profile_form.gender.label  }}</label>
+                                <div class="col-sm-4">
+                                    {{ profile_form.gender }}
+{#                                {% for radio in profile_form.gender %}#}
+{#                                    <label class="checkbox-inline">{{ radio.choice_label }} {{ radio.tag }}&nbsp; </label>#}
+{#                                {% endfor %}#}
+                                </div>
+                            </div>
+                         </fieldset>
+                         <div class="form-group">
+                             <div class="col-sm-offset-2 col-sm-4">
+                                <button type="submit" class="btn btn-primary">{% trans "update profile" %}</button>
+                             </div>
+                         </div>
+                     </form>
                 </div>
-            {% else %}
-                <div class="col-xs-offset-4 col-xs-4 col-sm-offset-2 col-sm-2">
-                    <a href="{% url 'web_bind_by_weibo' %}">绑定微博</a>
-                </div>
-            {% endif %}
+            </div>
         </div>
-
-         <div class="row">
-            <label class="col-xs-4 col-sm-offset-4 col-sm-2 control-label">淘宝网</label>
-            {% if user.taobao.screen_name %}
-                <p class="col-xs-4 col-sm-2">@{{ user.taobao.screen_name }}</p>
-                <div class="col-xs-4 col-sm-2">
-                   <a href="{%url 'web_unbind_by_taobao' %}">取消绑定</a>
-                </div>
-            {% else %}
-                <div class="col-xs-offset-4 col-xs-4 col-sm-offset-2 col-sm-2">
-                    <a class="active" href="{%url 'web_bind_by_taobao' %}">绑定淘宝网</a>
-                </div>
-            {% endif %}
-        </div>
-
-{#        <div class="row">#}
-{#            <h3 class="col-xs-offset-4 col-sm-offset-4">更改密码</h3>#}
-{#            <hr />#}
-{#            <form method="POST" action="" class="form-horizontal">#}
-{#                {% csrf_token %}#}
-{#                <fieldset>#}
-{#                    {% for field in password_form %}#}
-{#                        <div class="form-group">#}
-{#                            <label class="col-xs-offset-1 col-xs-3 col-sm-offset-3 col-sm-2 control-label" for="{{ field.id_for_label }}" >{{ field.label }}:</label>#}
-{#                            <div class="col-xs-8 col-sm-4">#}
-{#                                {{ field }}#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    {% endfor %}#}
-{#                </fieldset>#}
-{#                <div class="form-group">#}
-{#                    <div class="col-xs-offset-4 col-xs-4 col-sm-4 col-sm-offset-5">#}
-{#                        <button type="submit" class="btn btn-primary">修改密码</button>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </form>#}
-{#        </div>#}
-
     </div>
 {% endblock %}
 
