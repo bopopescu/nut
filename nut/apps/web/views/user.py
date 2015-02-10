@@ -60,6 +60,9 @@ def change_password(request, template="web/user/change_password.html"):
 
     if request.method == "POST":
         _form = UserChangePasswordForm(user=_user, data=request.POST)
+        if _form.is_valid():
+            _form.save()
+            # return
     else:
         _form = UserChangePasswordForm(user=_user)
 
