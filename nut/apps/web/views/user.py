@@ -6,14 +6,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 
-from apps.web.forms.user import UserSettingsForm
+from apps.web.forms.user import UserSettingsForm, UserChangePasswordForm
 from apps.core.utils.http import JSONResponse
 # from apps.core.utils.image import HandleImage
 from apps.core.forms.user import AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.models import Entity, Entity_Like, Tag, Entity_Tag, User_Follow
 
-from apps.notifications import notify
+# from apps.notifications import notify
 
 from django.utils.log import getLogger
 
@@ -56,12 +56,17 @@ def settings(request, template="web/user/settings.html"):
 @login_required
 def change_password(request, template="web/user/change_password.html"):
 
+    _user = request.user
 
+    if request.method == "POST":
+        _form = UserChangePasswordForm(user=_user, data=request.POST)
+    else:
+        _form = UserChangePasswordForm(user=_user)
 
     return render_to_response(
         template,
         {
-
+            'form':_form,
         },
         context_instance = RequestContext(request),
     )
