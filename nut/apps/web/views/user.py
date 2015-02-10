@@ -72,6 +72,18 @@ def change_password(request, template="web/user/change_password.html"):
         context_instance = RequestContext(request),
     )
 
+@login_required
+def bind_sns(request, template="web/user/bind_sns.html"):
+    _user = request.user
+
+    return render_to_response(
+        template,
+        {
+            'user':_user,
+        },
+        context_instance = RequestContext(request),
+    )
+
 
 @login_required
 @csrf_exempt
