@@ -103,7 +103,8 @@ a:focus {
 }
 
 a {
-    color: #333333;
+    /*color: #333333;*/
+    color: #607fa6;
     text-decoration: none;
 }
 
@@ -125,6 +126,12 @@ a {
     border: 1px solid #fff;
     background-color: #fafafa;
     font-size: 16px;
+}
+.list-group-item .active {
+    /*border: 1px solid #fff;*/
+    background-color: #607fa6;
+    /*color: #fff;*/
+    /*font-size: 16px;*/
 }
 
 .form-control {
@@ -221,10 +228,9 @@ a {
     text-align: center;
     /*border-bottom: 1px solid #eeeddd;*/
 }
-.img-box{
-    
-}
-
+/*.img-box{*/
+    /**/
+/*}*/
 .img-box > a{
     display:inline-block;
     position: relative;
@@ -241,14 +247,14 @@ a {
 }
 
 /* welcome */
-.welcome-sign {
-    margin-top: 30px;
-}
-.welcome-login {
-    font-size: 18px;
-    padding-bottom: 6px;
-    padding-top: 6px;
-}
+/*.welcome-sign {*/
+    /*margin-top: 30px;*/
+/*}*/
+/*.welcome-login {*/
+    /*font-size: 18px;*/
+    /*padding-bottom: 6px;*/
+    /*padding-top: 6px;*/
+/*}*/
 
 /* 精选结构 */
 .entity-selection.thumbnail
@@ -388,9 +394,6 @@ a {
     padding-top: 10px;
     padding-bottom: 10px;
 }
-
-
-
 
 .jumbotron {
     margin-top: -50px;
