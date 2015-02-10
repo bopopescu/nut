@@ -7,7 +7,7 @@
     <div class="row">
         {% for entity in entities %}
             <div class="col-xs-6 col-sm-3">
-                <div class="thumbnail">
+                <div class="thumbnail entity-four">
                     <div class="img-box">
                         <a href="{% url 'web_entity_detail' entity.entity_hash %}">
                             <img class="img-responsive" alt="{{ entity.title }}" src="{{ entity.chief_image|resize:'240' }}" width="240" height="240">
@@ -16,12 +16,12 @@
         <div class="caption">
             {% if entity.id in user_entity_likes %}
                 <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
-                    <i class="fa fa-heart fa-lg"></i>
+                    <i class="fa fa-heart"></i>
                     &nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>
                 </a>
             {% else %}
                 <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
-                    <i class="fa fa-heart-o fa-lg"></i>
+                    <i class="fa fa-heart-o"></i>
                     {% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>
                 </a>
             {% endif %}

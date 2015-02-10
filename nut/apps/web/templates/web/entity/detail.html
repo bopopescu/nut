@@ -113,7 +113,7 @@
                                 <img class="media-object img-circle" src="{{ entity.top_note.user.profile.avatar_url }}" alt="{{ entity.top_note.user.profile.nickname }}" width="50" height="50">
                             </a>
                             <div class="media-body note-content">
-                                <p class="media-heading" style="font-size: 16px; color: #414243;">
+                                <p class="media-heading">
                                     <a href="{% url 'web_user_index' entity.top_note.user.pk %}" target="_blank">{{ entity.top_note.user.profile.nickname }}</a>
                                 </p>
                                 <div class="note-text">
