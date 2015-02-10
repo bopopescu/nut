@@ -53,6 +53,19 @@ def settings(request, template="web/user/settings.html"):
         context_instance = RequestContext(request),
     )
 
+@login_required
+def change_password(request, template="web/user/change_password.html"):
+
+
+
+    return render_to_response(
+        template,
+        {
+
+        },
+        context_instance = RequestContext(request),
+    )
+
 
 @login_required
 @csrf_exempt
