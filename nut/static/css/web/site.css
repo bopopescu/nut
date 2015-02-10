@@ -14,6 +14,14 @@ body {
 .thumbnail .caption {
     color: #414243;
 }
+i{
+    color: #9d9e9f;
+}
+.btn-primary {
+color: #fff;
+background-color: #427EC0;
+border:none;
+}
 /*去掉苹果的默认UI来渲染按钮*/
 input[type="submit"], input[type="reset"], input[type="button"], button,textarea { -webkit-appearance: none; }
 
@@ -267,17 +275,17 @@ a {
 .entity-selection.thumbnail .btn-like{
     padding: 0px;
     padding-left: 3px;
-    line-height: 24px;
+    line-height: 14px;
     font-size: 14px;
-    height: 24px;
+    height: 14px;
     color: #9d9e9f;
 }
 
 .entity-selection.thumbnail .posttime{
     padding: 0px;
-    line-height: 24px;
+    line-height: 14px;
     font-size: 14px;
-    height: 24px;
+    height: 14px;
     color: #9d9e9f;
 }
 /* 热门结构 */
@@ -293,9 +301,9 @@ a {
 }
 .entity-four.thumbnail .btn-like{
     padding: 0px;
-    line-height: 24px;
+    line-height: 14px;
     font-size: 14px;
-    height: 24px;
+    height: 14px;
     color: #9d9e9f;
 }
 .entity-four.thumbnail .caption {
@@ -343,6 +351,11 @@ a {
     padding: 20px;
 }
 
+.note-content .media-heading
+{
+    font-size: 16px; 
+    color: #414243;
+}
 @media (max-width: 768px){
     .note-avatar{
         width: 36px;
@@ -401,12 +414,13 @@ a {
 
 .footer {
     border-top: 1px solid #e5e5e5;
-    color: #777;
+    color: #9c9c9d;
     margin-top: 70px;
     padding: 30px 0;
+    font-size: 12px;
 }
 .footer a {
-    color: #777;
+    color: #9c9c9d;
 }
 .footer-top .about > div {
     height: 110px;
@@ -597,15 +611,15 @@ padding-left: 15px;
     /*font-size: 18px;*/
 }
 .note-text {
-    font-size: 16px;
-    color: #666666;
+    font-size: 14px;
+    color: #414243;
 }
 .note-text .post-time {
     color: #9D9E9F;
 }
 .note-text .create-time{
     font-size: 12px;
-    color: #999;
+    color: #9D9E9F;
 }
 
 .detail-img > div {
