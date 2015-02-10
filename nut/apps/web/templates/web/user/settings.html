@@ -14,6 +14,7 @@
                 {% include 'web/user/partial/settings_slide.html' %}
             </div>
             <div class="col-sm-8">
+                {% block main %}
                 <h2>编辑个人资料</h2>
                 <div class="row">
                     {% include 'web/user/partial/avatar_upload.html' with user_context=user %}
@@ -74,6 +75,7 @@
                          </div>
                      </form>
                 </div>
+                {% endblock %}
             </div>
         </div>
     </div>
