@@ -4,6 +4,10 @@ from django.contrib.auth import get_user_model
 
 # from apps.core.forms.user import UserForm
 from apps.core.models import User_Profile
+from django.utils.log import getLogger
+
+log = getLogger('django')
+
 
 
 
@@ -88,7 +92,9 @@ class UserSettingsForm(forms.Form):
 
 
 class UserChangePasswordForm(forms.Form):
-
+    error_messages = {
+        'password_mismatch': _("The two password fields didn't match."),
+    }
     current_password = forms.CharField(
         label=_('current password'),
         widget=forms.PasswordInput(attrs={'class':'form-control'})
@@ -106,10 +112,35 @@ class UserChangePasswordForm(forms.Form):
         min_length=8,
     )
 
+
+    def clean_current_password(self):
+        _current_password = self.cleaned_data.get('current_password')
+        if self.user_cache.check_password(_current_password):
+            return _current_password
+        else:
+            raise forms.ValidationError(
+                'password error'
+            )
+
+    def clean_password_confirmation(self):
+        password1 = self.cleaned_data.get('new_password')
+        password2 = self.cleaned_data.get('password_confirmation')
+        if password1 and password2:
+            if password1 != password2:
+                raise forms.ValidationError(
+                    self.error_messages['password_mismatch'],
+                    code='password_mismatch',
+                )
+        return password2
+
     def __init__(self, user, *args, **kwargs):
         self.user_cache = user
         super(UserChangePasswordForm, self).__init__(*args, **kwargs)
 
-
+    def save(self):
+        # log.info(self.cleaned_data)
+        _password = self.cleaned_data.get('password_confirmation')
+        self.user_cache.set_password(_password)
+        self.user_cache.save()
 
 __author__ = 'edison'
