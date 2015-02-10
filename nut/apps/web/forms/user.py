@@ -86,4 +86,30 @@ class UserSettingsForm(forms.Form):
 
         self.user_cache.profile.save()
 
+
+class UserChangePasswordForm(forms.Form):
+
+    current_password = forms.CharField(
+        label=_('current password'),
+        widget=forms.PasswordInput(attrs={'class':'form-control'})
+    )
+
+    new_password = forms.CharField(
+        label=_('New password'),
+        widget=forms.PasswordInput(attrs={'class':'form-control'}),
+        min_length=8,
+    )
+
+    password_confirmation = forms.CharField(
+        label=_('New password confirmation'),
+        widget=forms.PasswordInput(attrs={'class':'form-control'}),
+        min_length=8,
+    )
+
+    def __init__(self, user, *args, **kwargs):
+        self.user_cache = user
+        super(UserChangePasswordForm, self).__init__(*args, **kwargs)
+
+
+
 __author__ = 'edison'
