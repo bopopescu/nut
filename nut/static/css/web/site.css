@@ -88,7 +88,8 @@ img {
 
 a:hover,
 a:focus {
-  color: #333333;
+  /*color: #333333;*/
+  color: rgb(66, 126, 192);
   text-decoration: none;
 }
 
@@ -355,7 +356,7 @@ a {
 }
 
 .entity-detail >a >img {
-    padding: 20px;
+    /*padding: 20px;*/
     border: 1px solid #e6e6e6;
 }
 
@@ -768,6 +769,9 @@ padding-left: 15px;
 /*}*/
 
 /* 用户页 */
+.count {
+    color: #db1f77;
+}
 .user-info {
     border: 1px solid #eee;
     margin: 0 15px 0 15px;
