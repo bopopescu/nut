@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-md-12">
                 <ol class="breadcrumb">
-                    <li class="active"><i class="fa fa-home"></i></li>
+                    <li class="active"><a href="{% url 'web_selection' %}">{% trans 'selection' %}</a></li>
                     {% if selection_note %}
                         <li><a href="{% url 'web_selection' %}">{% trans 'selection' %}</a></li>
                     {% endif %}
@@ -34,6 +34,7 @@
 
         <div class="row">
             <div class="col-sm-8 col-md-8" itemscope itemtype="http://data-vocabulary.org/Product">
+                <hr style="margin-top: 0" >
                 <div class="thumbnail entity-detail">
                     {% if entity.default_buy_link.origin_source == "taobao.com" %}
                         <a id="buy-btn-img" href="http://item.taobao.com/item.htm?id={{ entity.default_buy_link.origin_id }}" target="_blank" biz-itemid="{{ entity.default_buy_link.origin_id }}" _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity_context.title }}-taobao'])">

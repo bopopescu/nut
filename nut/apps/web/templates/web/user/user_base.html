@@ -47,23 +47,23 @@
                 <div class="navbar nav-user-index" style="margin-left: 0;margin-right: 0; margin-bottom: 20px;">
                     <ul class="nav nav-pills pull-left" role="tablist">
                         <li role="presentation" {% if web_user_likes_url in request.path %}class="active"{% endif %}>
-                            <a href="{{ web_user_likes_url }}">{% trans 'likes' %}&nbsp; <span style="color: #db1f77">{{ user.like_count }}</span></a>
+                            <a href="{{ web_user_likes_url }}">{% trans 'likes' %}&nbsp; <span class="count">{{ user.like_count }}</span></a>
                         </li>
                         <li role="presentation" {% if web_user_notes_url in request.path %}class="active"{% endif %}>
-                            <a href="{{ web_user_notes_url }}">{% trans 'notes' %}&nbsp; <strong>{{ user.post_note_count }}</strong></a>
+                            <a href="{{ web_user_notes_url }}">{% trans 'notes' %}&nbsp; <span class="count">{{ user.post_note_count }}</span></a>
                         </li>
                         <li role="presentation" {% if web_user_tags_url in request.path %}class="active" {% endif %}>
-                            <a href="{{ web_user_tags_url }}">{% trans 'tags' %}&nbsp; <strong>{{ user.tags_count }}</strong></a>
+                            <a href="{{ web_user_tags_url }}">{% trans 'tags' %}&nbsp; <span class="count">{{ user.tags_count }}</span></a>
                         </li>
                     </ul>
-                    <ul class="nav nav-pills pull-right hidden-xs" role="tablist">
-                        <li role="presentation" {% if web_user_followings_url in request.path %}class="active"{% endif %}>
-                            <a href="{{ web_user_followings_url }}">关注了&nbsp; <strong>{{ user.following_count }}</strong>人</a>
-                        </li>
-                        <li role="presentation" {% if web_user_fans_url in request.path %}class="active"{% endif %}>
-                            <a href="{{ web_user_fans_url }}">关注者&nbsp; <strong>{{ user.fans_count }}</strong></a>
-                        </li>
-                    </ul>
+{#                    <ul class="nav nav-pills pull-right hidden-xs" role="tablist">#}
+{#                        <li role="presentation" {% if web_user_followings_url in request.path %}class="active"{% endif %}>#}
+{#                            <a href="{{ web_user_followings_url }}">关注了&nbsp; <strong>{{ user.following_count }}</strong>人</a>#}
+{#                        </li>#}
+{#                        <li role="presentation" {% if web_user_fans_url in request.path %}class="active"{% endif %}>#}
+{#                            <a href="{{ web_user_fans_url }}">关注者&nbsp; <strong>{{ user.fans_count }}</strong></a>#}
+{#                        </li>#}
+{#                    </ul>#}
                 </div>
             </div>
         </div>
