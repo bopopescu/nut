@@ -746,7 +746,7 @@ padding-left: 15px;
     resize: none;
 }
 .post-note >form .action {
-    display: none;
+    /*display: none;*/
     padding: 5px;
 }
 
