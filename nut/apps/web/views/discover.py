@@ -27,7 +27,7 @@ class DiscoverView(TemplateResponseMixin, ContextMixin, View):
         context = {
             'entities':_entities,
             'user_entity_likes': el,
-            'categories': _categories,
+            'categories': _categories[:11],
         }
         return self.render_to_response(context)
 
