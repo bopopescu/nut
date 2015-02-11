@@ -1,5 +1,5 @@
 
-<div class="note-comment-list" style="display: none; border: 1px solid #eee;padding: 10px;">
+<div class="note-comment-list" style="display: none; border: 1px solid #eee;padding: 10px; background-color: #fafafa">
 {% spaceless %}
 {% for comment in comment_list %}
     {% include 'web/entity/note/comment.html'  %}
@@ -11,7 +11,7 @@
     <fieldset>
         {% for field in forms %}
         <div class="form-group">
-            <div class="col-sm-offset-1 col-sm-10">
+            <div class="col-sm-12">
                 {{ field }}
 {#            <input  type="text" name="comment_text" class="form-control" value="" />#}
             </div>
