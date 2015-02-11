@@ -343,7 +343,8 @@ a {
 .entity-detail.thumbnail
 {
     border: none;
-    padding: 0px;
+    /*border-color: #e6e6e6;*/
+    padding: 0;
     margin-bottom: 60px;
 }
 .entity-detail .caption {
@@ -355,6 +356,7 @@ a {
 
 .entity-detail >a >img {
     padding: 20px;
+    border: 1px solid #e6e6e6;
 }
 
 .note-content .media-heading
@@ -779,10 +781,10 @@ padding-left: 15px;
 }
 .nav-user-index {
     border-radius: 0;
-    border: 1px solid #eee;
+    /*border: 1px solid #eee;*/
     border-top: 0;
     margin: 0 15px 15px 15px;
-    background-color: #FBFBFB;
+    /*background-color: #FBFBFB;*/
     font-size: 16px;
     min-height: 38px;
 }
