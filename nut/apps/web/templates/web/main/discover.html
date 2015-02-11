@@ -1,5 +1,5 @@
 {% extends 'web/base.html' %}
-{% load i18n %}
+{% load i18n static %}
 {% load guoku %}
 
 
@@ -18,14 +18,21 @@
                 <div class="col-sm-2">
                     <div class="thumbnail category">
                         <a href="{% url 'web_category_detail' category.id %}">
-                                    <img class="img-responsive" alt="{{ category.title }}" src="{{ category.icon_large_url }}"  width="40" height="40">
-                                    <p>{{ category.title|show_category }}</p>
+                            <img class="img-responsive" alt="{{ category.title }}" src="{{ category.icon_large_url }}"  width="40" height="40">
+                            <p>{{ category.title|show_category }}</p>
                         </a>
 {#                    {{ category }}#}
                     </div>
                 </div>
             {% endfor %}
-{#            </div>#}
+            <div class="col-sm-2">
+                <div class="thumbnail category">
+                    <a href="{% url 'web_category_list' %}">
+                        <img class="img-responsive" src="{% static 'images/icon_homepage_more.png' %}" width="40" height="40">
+                        <p>查看全部</p>
+                    </a>
+                </div>
+            </div>
         </div>
 
 
