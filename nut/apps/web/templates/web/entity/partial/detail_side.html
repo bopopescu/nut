@@ -56,7 +56,8 @@
     <div class="list-group">
         <div class="list-group-item detail-category">
             <p>品类</p>
-            <a class="category" href="{% url 'web_category_group' entity.category.group_id %}">{{ entity.category.group }}</a><a href="{% url 'web_category_detail' entity.category_id  %}">{{ entity.category.title|show_category }}</a>
+            <a class="category" href="{% url 'web_category_group' entity.category.group_id %}">{{ entity.category.group }}</a>
+            <a href="{% url 'web_category_detail' entity.category_id  %}">{{ entity.category.title|show_category }}</a>
         </div>
 
         {% if entity.tags.all|length > 0 %}
