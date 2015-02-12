@@ -51,9 +51,9 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
         self._expires_in = time.time() + value
 
     def get_token(self):
-        # self.access_token = cache.get('wechat_access_token')
-        # if self.access_token:
-        #     return self.access_token
+        self.access_token = cache.get('wechat_access_token')
+        if self.access_token:
+            return self.access_token
 
         url_query = 'https://api.weixin.qq.com/cgi-bin/token?%s' % urllib.urlencode(self.parameters)
         # log.info(url_query)
@@ -68,10 +68,11 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
 
     def post_menu(self, access_token, body):
         json_string = simplejson.dumps(body, ensure_ascii=False)
+        log.info(json_string)
         headers = {'content-type': 'application/json'}
         r = requests.post('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s' % access_token, data=json_string, headers=headers)
 
-        return r
+        return r.text
 
     def get(self, request, *args, **kwargs):
 
@@ -85,22 +86,47 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
         data = {
             "button":[
                 {
-                    "name":"果库精选",
-                    "sub_button":[
+                    "name":"果库",
+                    "sub_button": [
                         {
+                            "name":"精选",
                             "type":"click",
-                            "name":"设计师",
-                            "key":"v1001_NEWS",
+                            "key":"V1001_SELECTION",
+                        },
+                        {
+                            "name":"热门",
+                            "type":"click",
+                            "key":"V1002_POPULAR",
+                        },
+                    ]
+                },
+                {
+                    "name":"我的果库",
+                    "sub_button": [
+                        {
+                        "type":"click",
+                        "name":"喜欢",
+                        "key":"V2001_USER_LIKE",
                         }
                     ]
                 },
                 {
-                    "name":"年度精选",
+                    "name":"应用下载",
                     "sub_button": [
                         {
-                        "type":"click",
-                        "name":"钢笔篇",
-                        "key":"v2001_SELECTION",
+                            "name":"iPhone 版",
+                            "type":"view",
+                            "url":"https://itunes.apple.com/cn/app/guo-ku/id477652209?mt=8",
+                        },
+                        {
+                            "name":"iPad 版",
+                            "type":"view",
+                            "url":"https://itunes.apple.com/cn/app/guo-kuhd/id450507565?mt=8",
+                        },
+                        {
+                            "name":"Andorid 版",
+                            "type":"view",
+                            "url":"http://www.wandoujia.com/apps/com.guoku",
                         }
                     ]
                 }

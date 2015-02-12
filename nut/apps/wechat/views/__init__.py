@@ -13,7 +13,7 @@ from xml.etree import ElementTree as ET
 import hashlib
 
 # from apps.wechat.models import Robots
-from apps.wechat.handle import handle_reply
+from apps.wechat.handle import handle_reply, handle_event
 TOKEN = getattr(settings, 'WECHAT_TOKEN', 'guokuinwechat')
 
 log = getLogger('django')
@@ -52,9 +52,8 @@ class WeChatView(View):
         raise PermissionDenied
 
     def post(self, request):
-        # log.info(request.body)
         rawStr = request.body
-        # log.info(rawStr)
+        log.info(rawStr)
         if self.validate(request):
             msg = self.parseMsgXml(ET.fromstring(rawStr))
             log.info(msg)
@@ -63,6 +62,8 @@ class WeChatView(View):
             # _items = Robots.objects.filter(accept__contains=msg['Content']).first()
             if msg['MsgType'] == 'voice':
                 _items = handle_reply(msg['Recognition'])
+            elif msg['MsgType'] == "event":
+                _items = handle_event(msg)
             else:
                 _items = handle_reply(msg['Content'])
             log.info(_items[:5])
