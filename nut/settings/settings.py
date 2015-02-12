@@ -254,3 +254,5 @@ SINA_BACK_URL = APP_HOST + '/sina/auth'
 
 # wechat
 WeChatToken = 'guokuinwechat'
+WeChatAppID = 'wx728e94cbff8094df'
+WeChatAppSecret = 'd841a90cf90d00f145ca22b82e12a500'
