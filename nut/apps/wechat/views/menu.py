@@ -1,14 +1,24 @@
+# -*- coding: utf-8 -*-
+from django.http import HttpResponse
 from django.views.generic.base import View, TemplateResponseMixin, ContextMixin
-from django.conf import settings
-from json import loads
+from django.utils.log import getLogger
+from django.core.cache import cache
+# from json import loads
 import time
 import urllib2
 import urllib
+import requests
+from django.utils import simplejson
+from django.conf import settings
+
+AppID = getattr(settings, 'WECHAT_APP_ID', None)
+AppSecret = getattr(settings, 'WECHAT_APP_SECRET', None)
+
+# AppID = settings.WeChatAppID
+# AppSecret = settings.WeChatAppSecret
 
 
-AppID = getattr(settings, 'WeChatAppID', None)
-AppSecret = getattr(settings, 'WeChatAppSecret', None)
-
+log = getLogger('django')
 
 
 class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
@@ -19,6 +29,7 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
             'secret': AppSecret,
             'grant_type': 'client_credential',
         }
+    log.info(parameters)
     _access_token = None
     _expires_in = None
 
@@ -40,19 +51,68 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
         self._expires_in = time.time() + value
 
     def get_token(self):
-        f = urllib2.urlopen('https://api.weixin.qq.com/cgi-bin/token?%s' % urllib.urlencode(self.parameters))
-        res = loads( f.read() )
+        # self.access_token = cache.get('wechat_access_token')
+        # if self.access_token:
+        #     return self.access_token
+
+        url_query = 'https://api.weixin.qq.com/cgi-bin/token?%s' % urllib.urlencode(self.parameters)
+        # log.info(url_query)
+        f = urllib2.urlopen(url_query)
+        res = simplejson.loads( f.read() )
+        log.info(res)
         self.access_token = res['access_token']
         self.expires_in = res['expires_in']
+        cache.set('wechat_access_token', self.access_token, 7200)
+        return self.access_token
+
 
     def post_menu(self, access_token, body):
-        req = urllib2.Request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s' % access_token ,
-                              data=body)
-        f = urllib2.urlopen(req)
-        return f.read()
+        json_string = simplejson.dumps(body, ensure_ascii=False)
+        headers = {'content-type': 'application/json'}
+        r = requests.post('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s' % access_token, data=json_string, headers=headers)
+
+        return r
 
     def get(self, request, *args, **kwargs):
-        self.get_token()
+
         return self.render_to_response(self.get_context_data())
+
+    def post(self, request, *args, **kwargs):
+        # access_token = cache.get('wechat_access_token')
+        # if access_token is None:
+        access_token = self.get_token()
+
+        data = {
+            "button":[
+                {
+                    "name":"果库精选",
+                    "sub_button":[
+                        {
+                            "type":"click",
+                            "name":"设计师",
+                            "key":"v1001_NEWS",
+                        }
+                    ]
+                },
+                {
+                    "name":"年度精选",
+                    "sub_button": [
+                        {
+                        "type":"click",
+                        "name":"钢笔篇",
+                        "key":"v2001_SELECTION",
+                        }
+                    ]
+                }
+            ]
+        }
+
+
+        res = self.post_menu(access_token=access_token, body=data)
+        log.info(res)
+        return HttpResponse(res)
+
+
+
 
 __author__ = 'edison7500'

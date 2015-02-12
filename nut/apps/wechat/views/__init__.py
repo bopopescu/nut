@@ -14,7 +14,7 @@ import hashlib
 
 # from apps.wechat.models import Robots
 from apps.wechat.handle import handle_reply
-TOKEN = getattr(settings, 'WeChatToken', 'guokuinwechat')
+TOKEN = getattr(settings, 'WECHAT_TOKEN', 'guokuinwechat')
 
 log = getLogger('django')
 
