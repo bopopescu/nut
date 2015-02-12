@@ -52,16 +52,19 @@ class WeChatView(View):
         raise PermissionDenied
 
     def post(self, request):
-        log.info(request.body)
+        # log.info(request.body)
         rawStr = request.body
         # log.info(rawStr)
         if self.validate(request):
             msg = self.parseMsgXml(ET.fromstring(rawStr))
-            # log.info(msg['Content'])
+            log.info(msg)
             _timestamp = time.mktime(datetime.now().timetuple())
             log.info(_timestamp)
             # _items = Robots.objects.filter(accept__contains=msg['Content']).first()
-            _items = handle_reply(msg['Content'])
+            if msg['MsgType'] == 'voice':
+                _items = handle_reply(msg['Recognition'])
+            else:
+                _items = handle_reply(msg['Content'])
             log.info(_items[:5])
             return render_to_response(
                 'wechat/reply.xml',
