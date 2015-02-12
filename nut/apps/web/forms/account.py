@@ -216,7 +216,7 @@ class UserSignUpBioForm(forms.Form):
         required=False,
     )
     gender = forms.ChoiceField(
-        widget = forms.RadioSelect(),
+        widget = forms.Select(attrs={'class':'form-control'}),
         choices=User_Profile.GENDER_CHOICES,
         label=_('gender'),
         help_text=_(''),

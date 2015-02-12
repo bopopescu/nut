@@ -7,10 +7,10 @@
 {% block content %}
     <h1 class="sr-only">注册</h1>
     <div class="container" id="register-bio">
-        <div class="row">
-            <h2 class="col-sm-offset-4">完成注册</h2>
-            <hr />
-        </div>
+{#        <div class="row">#}
+{#            <h2 class="col-sm-offset-4">完成注册</h2>#}
+{#            <hr />#}
+{#        </div>#}
 
         <div class="row">
             <div class="col-sm-offset-5 col-sm-7">
@@ -46,16 +46,17 @@
                         {{ wizard.form.location }}
                     </div>
                     <div class="col-sm-2">
-                            {{ wizard.form.city }}
+                        {{ wizard.form.city }}
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-offset-2 col-sm-2 control-label" for="{{ wizard.form.gender.id_for_label  }}">{{ wizard.form.gender.label  }}</label>
-                    <div class="col-sm-4">
-                        {% for radio in wizard.form.gender %}
-                            <label class="checkbox-inline">{{ radio.choice_label }} {{ radio.tag }}&nbsp; </label>
-                        {% endfor %}
+                    <div class="col-sm-2">
+                        {{ wizard.form.gender }}
+{#                        {% for radio in wizard.form.gender %}#}
+{#                            <label class="checkbox-inline">{{ radio.choice_label }} {{ radio.tag }}&nbsp; </label>#}
+{#                        {% endfor %}#}
                     </div>
                 </div>
                 </fieldset>
