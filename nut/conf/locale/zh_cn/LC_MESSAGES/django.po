@@ -540,6 +540,8 @@ msgstr "记住密码"
 msgid "next"
 msgstr "下一步"
 
+msgid "finished"
+msgstr "完成"
 
 msgid "about"
 msgstr "关于"
