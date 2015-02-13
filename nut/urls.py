@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-
+from apps.web.feeds import SelectionFeeds
 
 
 urlpatterns = staticfiles_urlpatterns()
@@ -47,7 +47,7 @@ urlpatterns += patterns(
     'django.contrib.sitemaps.views',
     url(r'^sitemap\.xml$', 'index', {'sitemaps': sitemaps}),
     url(r'^sitemap-(?P<section>.+)\.xml$', 'sitemap', {'sitemaps': sitemaps}),
-    # url(r'^feed/selection/$', SelectionFeeds()),
+    url(r'^feed/selection/$', SelectionFeeds()),
 )
 
 if settings.DEBUG:
