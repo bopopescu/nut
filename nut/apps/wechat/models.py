@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 # from apps.core.extend.fields.listfield import ListObjectField
 
 
@@ -23,6 +24,13 @@ from django.utils.translation import ugettext_lazy as _
 #     class Meta:
 #         ordering = ['-created_datetime']
 
+class WeChat_Token(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False, related_name='wechat')
+    open_id = models.CharField(max_length=255)
+    joined_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    def __unicode__(self):
+        return self.open_id
 
 
 __author__ = 'edison'
