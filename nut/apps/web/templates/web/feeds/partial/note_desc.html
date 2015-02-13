@@ -1,0 +1,9 @@
+{% load entity %}
+<img src="{{ entity_context.chief_image.url|resize:'320' }}" alt="{{ entity_context.title }}">
+<br />
+{{ note_context.content }} [来自：{{ creator_context.nickname }}]
+<a class="price" href="{% url 'web_detail' entity_context.entity_hash %}">
+    购买 <span>&#65509;{{ entity_context.price }}</span>
+</a>
+
+
