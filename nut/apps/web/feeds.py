@@ -45,7 +45,8 @@ class SelectionFeeds(Feed):
         # return "/detail/%s/" % _entity_context['entity_hash']
         return reverse('web_entity_detail', args=[item.entity.entity_hash])
 
-    # def item_description(self, item):
+    def item_description(self, item):
+        return item.top_note.note
     #     _note_id = item.note_id
     #     _note_context = Note(_note_id).read()
     #     return _note_context['content']
