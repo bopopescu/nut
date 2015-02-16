@@ -70,6 +70,15 @@ class UserSettingsForm(forms.Form):
         )
         # return _email
 
+    def clean_bio(self):
+        _bio = self.cleaned_data.get('bio')
+        # _bio = _bio.replace('\r', '')
+        # log.info(_bio)
+        s = _bio.split('\r\n')
+        s =  " ".join(s)
+        log.info(s)
+        return s
+
     def __init__(self, user, *args, **kwargs):
         self.user_cache = user
         super(UserSettingsForm, self).__init__(*args, **kwargs)
