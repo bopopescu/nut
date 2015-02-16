@@ -104,9 +104,9 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
                     "name":"我的果库",
                     "sub_button": [
                         {
-                        "type":"click",
-                        "name":"喜欢",
-                        "key":"V2001_USER_LIKE",
+                        "type": "click",
+                        "name": "喜欢",
+                        "key": "V2001_USER_LIKE",
                         }
                     ]
                 },
@@ -132,7 +132,6 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
                 }
             ]
         }
-
 
         res = self.post_menu(access_token=access_token, body=data)
         log.info(res)
