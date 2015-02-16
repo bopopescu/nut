@@ -75,7 +75,9 @@ class UserForm(forms.Form):
     bio = forms.CharField(label=_('bio'),
                           widget=forms.Textarea(attrs={'class':'form-control','rows':'4', 'style':'resize:none;'}),
                           required=False,
+                          max_length=200,
                           help_text=_(''))
+
     website = forms.URLField(label=_('website'),
                              widget=forms.TextInput(attrs={'class':'form-control'}),
                              required=False,
