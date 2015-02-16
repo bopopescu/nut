@@ -1,0 +1,19 @@
+{% extends 'wechat/reply.xml' %}
+
+{% block content %}
+            <MsgType><![CDATA[news]]></MsgType>
+            <ArticleCount>1</ArticleCount>
+
+            <Articles>
+{#                {% for row in items %}#}
+                <item>
+                    <Title><![CDATA[绑定]]></Title>
+                    <Description><![CDATA[test test]]></Description>
+                    <Title><![CDATA[绑定账号]]></Title>
+                    <Description><![CDATA[绑定]]></Description>
+                    <PicUrl><![CDATA[http://imgcdn.guoku.com/images/310/b84ae4b1bb293a0aa278c17f45d126c9.jpg]]></PicUrl>
+                    <Url><![CDATA[http://h.guoku.com{% url 'wechat_bind' %}]]></Url>
+                </item>
+{#                {% endfor %}#}
+            </Articles>
+{% endblock %}
