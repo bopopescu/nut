@@ -5,11 +5,11 @@ from django.utils.translation import gettext_lazy as _
 class WeChatBindForm(forms.Form):
     email = forms.CharField(
         label=_('email'),
-        widget=forms.EmailInput(attrs={'class': 'form-control'}),
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder':_('email')}),
     )
     password = forms.CharField(
         label=_('password'),
-        widget=forms.PasswordInput(attrs={'class':'form-control'}),
+        widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':_('password')}),
     )
     open_id = forms.CharField(
         widget=forms.TextInput(attrs={'class':'form-control'}),
