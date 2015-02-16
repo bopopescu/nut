@@ -1,4 +1,5 @@
 from django.views.generic import FormView
+from django.views.generic import TemplateView
 from django.utils.log import getLogger
 
 from apps.wechat.forms.bind import WeChatBindForm
@@ -32,5 +33,8 @@ class WeChatBindView(FormView):
         # initial['open_id'] = self.open_id
         # return initial
 
+
+class WeChatBindSuccessView(TemplateView):
+    template_name = "wechat/bind_success.html"
 
 __author__ = 'edison'
