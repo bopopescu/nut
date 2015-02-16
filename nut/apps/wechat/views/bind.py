@@ -12,9 +12,10 @@ class WeChatBindView(FormView):
     template_name = "wechat/bind.html"
     form_class = WeChatBindForm
 
-    # def form_valid(self, form):
-
-        # return super(WeChatBindView, self).form_valid(form)
+    def form_valid(self, form):
+        form.bind(self.open_id)
+        log.info(self.open_id)
+        return super(WeChatBindView, self).form_valid(form)
 
     def get(self, request, *args, **kwargs):
         # self.open_id = request.session.get('open_id')
@@ -25,11 +26,11 @@ class WeChatBindView(FormView):
         self.open_id = kwargs.pop('open_id')
         return super(WeChatBindView, self).post(request, *args, **kwargs)
 
-    def get_initial(self):
+    # def get_initial(self):
         # log.info("open id %s" % self.open_id)
-        initial =  super(WeChatBindView, self).get_initial()
-        initial['open_id'] = self.open_id
-        return initial
+        # initial =  super(WeChatBindView, self).get_initial()
+        # initial['open_id'] = self.open_id
+        # return initial
 
 
 __author__ = 'edison'

@@ -11,11 +11,14 @@ class WeChatBindForm(forms.Form):
         label=_('password'),
         widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':_('password')}),
     )
-    open_id = forms.CharField(
-        widget=forms.HiddenInput(),
-    )
+    # open_id = forms.CharField(
+    #     widget=forms.HiddenInput(),
+    # )
+
+    def bind(self, open_id):
 
 
+        return
 
 
 
