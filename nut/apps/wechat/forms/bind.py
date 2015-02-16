@@ -12,7 +12,7 @@ class WeChatBindForm(forms.Form):
         widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':_('password')}),
     )
     open_id = forms.CharField(
-        widget=forms.TextInput(attrs={'class':'form-control'}),
+        widget=forms.HiddenInput(),
     )
 
 

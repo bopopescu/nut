@@ -161,7 +161,7 @@ msgstr ""
 #: apps/core/forms/account.py:8 apps/core/forms/user.py:33
 #: apps/management/templates/management/users/list.html:22
 msgid "email"
-msgstr "邮件"
+msgstr "邮箱"
 
 #: apps/core/forms/account.py:12
 msgid "password"

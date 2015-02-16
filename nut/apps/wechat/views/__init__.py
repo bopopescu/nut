@@ -66,7 +66,8 @@ class WeChatView(View):
                 _items = handle_event(msg)
 
                 if _items is None:
-                    request.session['open_id'] = msg['FromUserName']
+                    # request.session['open_id'] = msg['FromUserName']
+                    log.info("open id %s" % msg['FromUserName'])
                     return render_to_response(
                         'wechat/replybind.xml',
                         {
