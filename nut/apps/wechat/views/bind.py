@@ -1,7 +1,7 @@
 from django.views.generic import FormView
 from django.views.generic import TemplateView
 from django.utils.log import getLogger
-
+from django.core.urlresolvers import reverse
 from apps.wechat.forms.bind import WeChatBindForm
 
 
@@ -12,6 +12,8 @@ class WeChatBindView(FormView):
 
     template_name = "wechat/bind.html"
     form_class = WeChatBindForm
+    success_url = '/wechat/bind/success/'
+    # success_url = reverse('wechat_bind_success')
 
     def form_valid(self, form):
         form.bind(self.open_id)
