@@ -1,6 +1,6 @@
 from django.conf.urls import url, patterns, include
 from apps.wechat.views import WeChatView
-from apps.wechat.views.bind import WeChatBindView
+from apps.wechat.views.bind import WeChatBindView, WeChatBindSuccessView
 
 
 urlpatterns = patterns(
@@ -9,8 +9,9 @@ urlpatterns = patterns(
     url(r'^menu/', include('apps.wechat.urls.meun')),
     # url(r'^bind/', include('apps.wechat.urls.bind')),
 
+    url(r'^bind/success/$', WeChatBindSuccessView.as_view(), name='wechat_bind_success'),
     url(r'^bind/(?P<open_id>.*)/$', WeChatBindView.as_view(), name='wechat_bind'),
-    url(r'^bind/success/$', WeChatBindView.as_view(), name='wechat_bind_success'),
+
 )
 
 
