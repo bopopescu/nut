@@ -34,6 +34,9 @@ def handle_event(content):
         popular_list = Entity_Like.objects.popular_random()
         entities = Entity.objects.filter(id__in=popular_list)
         items = entities[:5]
+    elif content['EventKey'] == "V2001_USER_LIKE":
+        pass
+
         # items = entities[:5]
     return items
 
