@@ -9,7 +9,7 @@ urlpatterns = patterns(
     url(r'^menu/', include('apps.wechat.urls.meun')),
     # url(r'^bind/', include('apps.wechat.urls.bind')),
 
-    url(r'^bind/$', WeChatBindView.as_view(), name='wechat_bind'),
+    url(r'^bind/(?P<open_id>.*)/$', WeChatBindView.as_view(), name='wechat_bind'),
 )
 
 

@@ -12,7 +12,7 @@
                     <Title><![CDATA[绑定账号]]></Title>
                     <Description><![CDATA[绑定]]></Description>
                     <PicUrl><![CDATA[http://imgcdn.guoku.com/images/310/b84ae4b1bb293a0aa278c17f45d126c9.jpg]]></PicUrl>
-                    <Url><![CDATA[http://h.guoku.com{% url 'wechat_bind' %}]]></Url>
+                    <Url><![CDATA[http://h.guoku.com{% url 'wechat_bind' msg.FromUserName %}]]></Url>
                 </item>
 {#                {% endfor %}#}
             </Articles>
