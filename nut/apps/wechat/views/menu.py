@@ -5,8 +5,8 @@ from django.utils.log import getLogger
 from django.core.cache import cache
 # from json import loads
 import time
-import urllib2
-import urllib
+# import urllib2
+# import urllib
 import requests
 from django.utils import simplejson
 from django.conf import settings
@@ -55,10 +55,13 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
         if self.access_token:
             return self.access_token
 
-        url_query = 'https://api.weixin.qq.com/cgi-bin/token?%s' % urllib.urlencode(self.parameters)
+        # url_query = 'https://api.weixin.qq.com/cgi-bin/token?%s' % urllib.urlencode(self.parameters)
+        r = requests.get("https://api.weixin.qq.com/cgi-bin/token", params=self.parameters)
         # log.info(url_query)
-        f = urllib2.urlopen(url_query)
-        res = simplejson.loads( f.read() )
+        # f = urllib2.urlopen(url_query)
+        # res = simplejson.loads( f.read() )
+        # log.info(res)
+        res = r.json()
         log.info(res)
         self.access_token = res['access_token']
         self.expires_in = res['expires_in']
