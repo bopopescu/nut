@@ -1,0 +1,22 @@
+from django import forms
+from django.utils.translation import gettext_lazy as _
+
+
+class WeChatBindForm(forms.Form):
+    email = forms.CharField(
+        label=_('email'),
+        widget=forms.EmailInput(attrs={'class': 'form-control'}),
+    )
+    password = forms.CharField(
+        label=_('password'),
+        widget=forms.PasswordInput(attrs={'class':'form-control'}),
+    )
+    open_id = forms.CharField(
+        widget=forms.TextInput(attrs={'class':'form-control'}),
+    )
+
+
+
+
+
+__author__ = 'edison7500'

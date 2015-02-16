@@ -1,6 +1,7 @@
 # coding=utf-8
 # from apps.wechat.models import Robots
 from apps.core.models import Entity, Selection_Entity, Entity_Like
+from apps.wechat.models import Token
 from datetime import datetime
 from django.utils.log import getLogger
 
@@ -21,7 +22,7 @@ def handle_reply(content):
 
 
 def handle_event(content):
-    log.info(content)
+    # log.info(content)
     items = []
     if content['EventKey'] == "V1001_SELECTION":
         _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -35,9 +36,20 @@ def handle_event(content):
         entities = Entity.objects.filter(id__in=popular_list)
         items = entities[:5]
     elif content['EventKey'] == "V2001_USER_LIKE":
-        pass
+        open_id = content['FromUserName']
+        try:
+            token = Token.objects.get(open_id=open_id)
+        except Token.DoesNotExist, e:
+            log.info(e)
+            return None
 
-        # items = entities[:5]
+        el = Entity_Like.objects.filter(user = token.user)
+        for row in el[:5]:
+            items.append(row.entity)
+        # return items
+
     return items
+
+
 
 __author__ = 'edison'
