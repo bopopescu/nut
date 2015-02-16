@@ -76,7 +76,7 @@ class UserSettingsForm(forms.Form):
         # log.info(_bio)
         s = _bio.split('\r\n')
         s =  " ".join(s)
-        log.info(s)
+        # log.info(s)
         return s
 
     def __init__(self, user, *args, **kwargs):
