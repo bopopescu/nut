@@ -55,12 +55,8 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
         if self.access_token:
             return self.access_token
 
-        # url_query = 'https://api.weixin.qq.com/cgi-bin/token?%s' % urllib.urlencode(self.parameters)
         r = requests.get("https://api.weixin.qq.com/cgi-bin/token", params=self.parameters)
-        # log.info(url_query)
-        # f = urllib2.urlopen(url_query)
-        # res = simplejson.loads( f.read() )
-        # log.info(res)
+
         res = r.json()
         log.info(res)
         self.access_token = res['access_token']
