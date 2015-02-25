@@ -12,7 +12,8 @@ register = template.Library()
 log = getLogger('django')
 
 def format_time(value):
-
+    if type(value) is str:
+        return value
     before_time = time.mktime(value.timetuple())
     now = time.mktime(datetime.now().timetuple())
     time_interval = now - before_time
