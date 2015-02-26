@@ -510,7 +510,6 @@ class Entity(BaseModel):
         rankmode = 'SPH_RANK_NONE',
     )
 
-
 class Selection_Entity(BaseModel):
     entity = models.OneToOneField(Entity, unique=True)
     is_published = models.BooleanField(default=False)
@@ -569,11 +568,6 @@ class Entity_Like(models.Model):
     class Meta:
         ordering = ['-created_time']
         unique_together = ('entity', 'user')
-    #
-    # def save(self, *args, **kwargs):
-    #     super(Entity_Like, self).save(*args, **kwargs)
-    #     if self.user != self.entity.user or self.user.is_active >= self.user.blocked:
-    #         notify.send(self.user, recipient=self.entity.user, action_object=self, verb='like entity', target=self.entity)
 
 
 class Note(BaseModel):
