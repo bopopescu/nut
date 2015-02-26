@@ -809,6 +809,11 @@ padding-left: 15px;
     /*text-decoration: underline;*/
     /*text-underline: ;*/
 }
+
+.sns:after{
+    color: #9D9E9F;
+    content: " | ";
+}
 /*.nav-user-index .active >a {*/
     /*color: #fff;*/
 /*}*/
