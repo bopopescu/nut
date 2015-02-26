@@ -341,6 +341,12 @@ a {
     height: 25px;
 }
 
+.list-group-item
+{
+    border-top: 0;
+    border-bottom: 0;
+}
+
 .entity-detail.thumbnail
 {
     border: none;
@@ -639,7 +645,7 @@ padding-left: 15px;
 /* 商品详情页分类 */
 
 .detail-category{
-    border: 1px solid #fff;
+    /*border: 1px solid #fff;*/
     background: #fbfbfb;
     padding: 10px 0 10px 15px;
 }
