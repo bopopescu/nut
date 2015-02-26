@@ -16,14 +16,14 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <div class="media" style="border: 1px solid #eee; padding: 20px;">
-                    <a class="pull-left" href="#">
-                        <img class="media-object img-responsive img-circle" src="{{ user.profile.avatar_url|resize:'200' }}" alt="{{ user.profile.nickname }}" width="100" height="100" />
-                    </a>
+            <div class="col-sm-12">
+{#                <div style="border: 1px solid #eee; padding: 20px;">#}
+{#                    <a class="pull-left" href="#">#}
+{#                        <img class="media-object img-responsive img-circle" src="{{ user.profile.avatar_url|resize:'200' }}" alt="{{ user.profile.nickname }}" width="100" height="100" />#}
+{#                    </a>#}
 {#                    {{ request.user.id }}#}
                     {% if user == request.user %}
-                        <a class="btn btn-default pull-right" href="{% url 'web_user_settings' %}"><i class="fa fa-cog fa-lg"></i>&nbsp; {% trans 'settings' %}</a>
+                        <a class="btn btn-default pull-right" href="{% url 'web_user_settings' %}"><i class="fa fa-cog fa-lg"></i>&nbsp; 编辑个人资料</a>
                     {% elif request.user.id in user.concren %}
                         <a class="follow is-fan btn btn-cancel pull-right" data-status="1" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关注</a>
                     {% elif request.user.id in user.fans_list %}
@@ -32,18 +32,34 @@
                         <a class="follow btn btn-primary pull-right" data-status="0" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; 关注</a>
                     {% endif %}
 
-                    <div class="media-body">
-                        <h4 class="media-heading">{{ user.profile.nickname }}</h4>
-                        <p>{{ user.profile.bio }}</p>
-                        <address>{{ user.profile.location }}  {{ user.profile.city }}</address>
-                    </div>
+{#                    <div class="media-body">#}
+{#                        <h4 class="media-heading">{{ user.profile.nickname }}</h4>#}
+{#                        <p>{{ user.profile.bio }}</p>#}
+{#                        <address>{{ user.profile.location }}  {{ user.profile.city }}</address>#}
+{#                    </div>#}
 
-                    {% if request.user.is_staff %}
-                        <a class="btn btn-default pull-right" href="{% url 'management_user_edit' user.id %}" target="_blank"><i class="fa fa-edit fa-lg"></i></a>
-                    {% endif %}
+
+{#                </div>#}
+            </div>
+            <div class="col-sm-offset-5 col-sm-2">
+{#                <div style="text-align: center">#}
+{#                <a href="#">#}
+                    <img class="media-object img-responsive img-circle" src="{{ user.profile.avatar_url|resize:'200' }}" alt="{{ user.profile.nickname }}" width="132" height="132" />
+{#                </a>#}
+{#                </div>#}
+            </div>
+            <div class="col-sm-12">
+                <h4 class="text-center">{{ user.profile.nickname }}</h4>
+                <p class="text-center">{{ user.profile.bio }}</p>
+            </div>
+            {% if request.user.is_staff %}
+                <div class="col-sm-12">
+                    <a class="btn btn-default pull-right" href="{% url 'management_user_edit' user.id %}" target="_blank"><i class="fa fa-edit fa-lg"></i></a>
                 </div>
-
-
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <div class="navbar nav-user-index" style="margin-left: 0;margin-right: 0; margin-bottom: 20px;">
                     <ul class="nav nav-pills pull-left" role="tablist">
                         <li role="presentation" {% if web_user_likes_url in request.path %}class="active"{% endif %}>
@@ -66,6 +82,7 @@
 {#                    </ul>#}
                 </div>
             </div>
+{#            </div>#}
         </div>
 
 
