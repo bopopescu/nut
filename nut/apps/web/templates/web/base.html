@@ -109,14 +109,14 @@ window.location.href = url;</script><![endif]-->
 
                 <form class="navbar-form navbar-right" action="{% url 'web_search' %}" method="get" role="form">
                     <div class="input-group search">
-                        <input class="form-control" name="q" type="search" placeholder="搜你想要的" value="{{ keyword }}" style="padding: 4px 12px 4px 12px;">
+                        <input class="form-control" name="q" type="search" placeholder="搜你想要的" value="{{ keyword }}">
                         <span class="input-group-addon"><i class="fa fa-search fa-lg"></i></span>
                     </div>
                 </form>
 
                 {% if web_login_url not in request.path and web_register_url not in request.path %}
                 <ul class="nav navbar-nav navbar-right hidden-sm hidden-xs">
-                    <li><a href="{% url 'web_entity_create' %}"><i class="fa fa-plus" style="padding-right:40px;font-size:18px;"></i></a></li>
+                    <li><a href="{% url 'web_entity_create' %}"><i class="fa fa-plus" style="color: #9D9E9F; padding-right:40px;font-size:18px;"></i></a></li>
                 </ul>
                 {% endif %}
             </div>
