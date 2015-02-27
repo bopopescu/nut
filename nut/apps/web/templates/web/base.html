@@ -107,9 +107,9 @@ window.location.href = url;</script><![endif]-->
                     </ul>
                 {% endif %}
 
-                <form class="navbar-form navbar-right" action="{% url 'web_search' %}" method="get" role="form">
+                <form class="navbar-form navbar-right" action="{% url 'web_search' %}" method="get" role="form" style="margin-top: 11px;">
                     <div class="input-group search">
-                        <input class="form-control" name="q" type="search" placeholder="搜你想要的" value="{{ keyword }}">
+                        <input class="form-control" name="q" type="search" placeholder="搜你想要的" value="{{ keyword }}" style="height: 28px;">
                         <span class="input-group-addon"><i class="fa fa-search fa-lg"></i></span>
                     </div>
                 </form>
