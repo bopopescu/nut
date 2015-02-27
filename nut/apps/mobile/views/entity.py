@@ -197,8 +197,6 @@ def search(request):
             'entity_list' : []
         }
 
-
-
         el = None
         if visitor:
             _entity_id_list = map(lambda x : int(x._sphinx['id']), results)
@@ -206,6 +204,8 @@ def search(request):
             log.info(el)
 
         if _type == 'like':
+            if el is None:
+                return SuccessJsonResponse(res)
             like_entity_list = Entity.objects.filter(pk__in=el)
             paginator = ExtentPaginator(like_entity_list, _count)
             try:
