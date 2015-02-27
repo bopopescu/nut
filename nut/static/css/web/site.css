@@ -158,12 +158,14 @@ a {
 /* 导航栏选中状态处理 */
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
     background-color: #333333;
+    border-bottom: 3px solid #DB1F77;
     /*background-color: rgba(68,68,72,0);
     background-color: initial;
     */
 }
 .navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus {
     background-color: #333333;
+    border-bottom: 3px solid #DB1F77;
     /*
     background-color: rgba(68,68,72,0);
     background-color: initial;
@@ -808,7 +810,7 @@ padding-left: 15px;
     background-color: #fff;
     /*color: #607fa6;*/
     color: #414243;
-    border-bottom: 2px solid #DB1F77;
+    border-bottom: 3px solid #DB1F77;
     /*text-decoration: underline;*/
     /*text-underline: ;*/
 }
