@@ -800,11 +800,14 @@ padding-left: 15px;
 }
 .nav-user-index >ul >li >a {
     border-radius: 0;
+    color: #414243;
     /*padding-bottom: 20px;*/
 }
+.nav-user-index .nav-pills >li:hover > a,
 .nav-user-index .nav-pills >li.active > a {
     background-color: #fff;
-    color: #607fa6;
+    /*color: #607fa6;*/
+    color: #414243;
     border-bottom: 2px solid #DB1F77;
     /*text-decoration: underline;*/
     /*text-underline: ;*/

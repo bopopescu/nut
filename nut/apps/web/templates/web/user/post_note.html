@@ -16,40 +16,13 @@
                 </div>
                 <div class="col-xs-6 col-sm-6">
                     <p style="margin-left: 10px;margin-top: 32px; margin-right: 10px;">{{ note.note|truncatechars:"40" }}</p>
-                    <p class="post-time" style="margin-top: 10px; margin-left: 10px;"><span class="pull-right" >{{ note.post_time|format_time }}</span><i class="pull-right fa fa-clock-o" style="padding: 5px"></i></p>
+                    <p class="post-time" style="position: absolute; top: 182px; right: 24px">
+                        <i class="fa fa-clock-o" style="padding: 5px"></i>
+                        <span>{{ note.post_time|format_time }}</span>
+                    </p>
                 </div>
                 </div>
-{#                <div class="thumbnail entity-four">#}
-{#                    <div class="media">#}
-{#                        <div class="img-box">#}
-{#                        <a class="pull-left" href="{% url 'web_entity_detail' note.entity.entity_hash %}" target="_blank">#}
-{#                            <img class="media-object" alt="{{ note.entity.title }}" src="{{ note.entity.chief_image|resize:'240' }}" width="233" height="233">#}
-{#                        </a>#}
-{#                        </div>#}
-{#                        <div class="media-body note-text">#}
-{#                            <p style="margin-left: 24px;margin-top: 32px; margin-right: 24px;">{{ note.note|truncatechars:"50" }}</p>#}
-{#                            <p class="post-time"><span class="pull-right" style="margin-left: 10px;">{{ note.post_time }}</span><i class="pull-right fa fa-clock-o"></i></p>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="img-box">#}
-{#                        <a href="{% url 'web_entity_detail' note.entity.entity_hash %}">#}
-{#                            <img class="img-responsive" alt="{{ note.entity.title }}" src="{{ note.entity.chief_image|resize:'240' }}" width="240" height="240">#}
-{#                        </a>#}
-{#                    </div>#}
-{#                    <div class="caption">#}
-{#                        {% if entity.id in user_entity_likes %}#}
-{#                            <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ note.entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ note.entity.title }}']);">#}
-{#                                <i class="fa fa-heart"></i>#}
-{#                                &nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ note.entity.like_count }}</span>#}
-{#                            </a>#}
-{#                        {% else %}#}
-{#                            <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ note.entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ note.entity.title }}']);">#}
-{#                                <i class="fa fa-heart-o"></i>#}
-{#                                {% trans 'likes' %}&nbsp;<span class="like-count">{{ note.entity.like_count }}</span>#}
-{#                            </a>#}
-{#                        {% endif %}#}
-{#                    </div>#}
-                </div>
+            </div>
 {#            </div>#}
         {% endfor %}
     </div>
