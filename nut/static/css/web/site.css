@@ -128,10 +128,16 @@ a {
     background-color: #fafafa;
     font-size: 16px;
 }
-.list-group-item .active {
+.list-group-item.active {
     /*border: 1px solid #fff;*/
     background-color: #607fa6;
     /*color: #fff;*/
+    /*font-size: 16px;*/
+}
+.list-group-item.active > a {
+    /*border: 1px solid #fff;*/
+    /*background-color: #607fa6;*/
+    color: #fff;
     /*font-size: 16px;*/
 }
 
