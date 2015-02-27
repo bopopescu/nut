@@ -233,7 +233,8 @@ def search(request):
             res['entity_list'].append(
                 entity.v3_toDict(user_like_list=el)
             )
-        res['stat']['like_count'] = len(el)
+        if el:
+            res['stat']['like_count'] = len(el)
         return SuccessJsonResponse(res)
     return ErrorJsonResponse(status=400)
 
