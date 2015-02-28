@@ -23,18 +23,7 @@ background-color: #427EC0;
 border:none;
 }
 
-.round {
-    width:6px;
-    height:6px;
-    display: inline-block;
-    font-size:6px;
-    vertical-align: top;
-    border-radius: 3px;
-    /*text-align:center;*/
-    /*color:#ff1f77;*/
-    background-color: #ff1f77;
-    text-decoration:none
-}
+
 /*.round:hover{color:blue;text-decoration:none}*/
 /*去掉苹果的默认UI来渲染按钮*/
 input[type="submit"], input[type="reset"], input[type="button"], button,textarea { -webkit-appearance: none; }
@@ -53,6 +42,20 @@ a:hover,a:focus,a:selected {
 img {
     border:0;
 }
+
+.round {
+    width:6px;
+    height:6px;
+    display: inline-block;
+    font-size:6px;
+    vertical-align: top;
+    border-radius: 3px;
+    /*text-align:center;*/
+    /*color:#ff1f77;*/
+    background-color: #ff1f77;
+    text-decoration:none
+}
+
 /* 轮播 */
 .carousel-control.left {
   background-image:none;
@@ -169,6 +172,12 @@ a {
 .btn {
     border: 0;
     border-radius: 0;
+}
+
+.btn-setting {
+    border-radius: 8px;
+    background-color: #f0f0f0;
+    padding: 15px 25px 15px 25px;
 }
 
 .panel-default>.panel-heading {
