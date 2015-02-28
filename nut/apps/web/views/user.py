@@ -9,6 +9,7 @@ from django.contrib.auth import get_user_model
 from apps.web.forms.user import UserSettingsForm, UserChangePasswordForm
 from apps.core.utils.http import JSONResponse
 # from apps.core.utils.image import HandleImage
+from apps.core.models import Note
 from apps.core.forms.user import AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.models import Entity, Entity_Like, Tag, Entity_Tag, User_Follow
@@ -185,7 +186,8 @@ def post_note(request, user_id, template="web/user/post_note.html"):
 
     # log.info(_user.note_count)
     # note_list = _user.note.all().values_list('entity_id', flat=True)
-    note_list = _user.note.exclude(status=-1)
+    # note_list = _user.note.exclude(status=-1)
+    note_list = Note.objects.filter(user=_user).exclude(status=-1)
     log.info(note_list)
     paginator = ExtentPaginator(note_list, 20)
 
