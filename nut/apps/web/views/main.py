@@ -1,8 +1,8 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.views.decorators.http import require_GET
-from django.template import RequestContext
-from django.template import loader
+from django.template import RequestContext, loader
+# from django.template import loader
 
 from apps.core.models import Entity, Entity_Like, Selection_Entity, Entity_Tag
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
@@ -107,7 +107,6 @@ def search(request, template="web/main/search.html"):
     # if request.method == 'GET':
     _type = request.GET.get('t', 'e')
     _page = request.GET.get('page', 1)
-
     form = SearchForm(request.GET)
 
     if form.is_valid():
@@ -131,25 +130,48 @@ def search(request, template="web/main/search.html"):
                 tag_id_list.append(row.id)
             _results = Entity_Tag.objects.tags(tag_id_list)
             log.info(_results)
+
+
             # _results = res
                 # log.info(row.id)
 
-        return render_to_response(
-                template,
-                {
-                    'keyword': form.get_keyword(),
-                    'results': _results,
-                    'type': _type,
-                    'objects': _objects,
-                    'entity_count': form.get_entity_count(),
-                    'user_count': form.get_user_count(),
-                    'tag_count': form.get_tag_count()
-                },
-                context_instance=RequestContext(request),
-        )
+        # if _type == "e" and request.user.is_authenticated():
+        #     el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(_results))
+        #     log.info(el)
+            # context['user_entity_likes'] = el
 
+        c = {
+                'keyword': form.get_keyword(),
+                'results': _results,
+                'type': _type,
+                'objects': _objects,
+                'entity_count': form.get_entity_count(),
+                'user_count': form.get_user_count(),
+                'tag_count': form.get_tag_count()
+        }
+        if _type == "e" and request.user.is_authenticated():
+            entity_id_list = map(lambda x : int(x.id), _results)
+            log.info(entity_id_list)
+            el = Entity_Like.objects.user_like_list(user=request.user, entity_list=entity_id_list)
+            c['user_entity_likes'] = el
 
+        t = loader.get_template(template)
+        c = RequestContext(request, c)
+        return HttpResponse(t.render(c))
 
+        # return render_to_response(
+        #     template,
+        #     {
+        #         'keyword': form.get_keyword(),
+        #         'results': _results,
+        #         'type': _type,
+        #         'objects': _objects,
+        #         'entity_count': form.get_entity_count(),
+        #         'user_count': form.get_user_count(),
+        #         'tag_count': form.get_tag_count()
+        #     },
+        #     context_instance=RequestContext(request),
+        # )
 
 __author__ = 'edison'
 
