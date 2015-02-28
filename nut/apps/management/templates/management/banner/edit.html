@@ -21,7 +21,7 @@
 
     {{ forms.errors }}
     <div class="row">
-        <form class="well form-horizontal" method="post">
+        <form class="well form-horizontal" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <fieldset>
                 <div class="form-group">
