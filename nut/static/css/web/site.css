@@ -22,6 +22,17 @@ color: #fff;
 background-color: #427EC0;
 border:none;
 }
+
+.round {
+    width:16px;
+    height:16px;
+    display: inline-block;
+    font-size:20px;
+    text-align:center;
+    color:#f00;
+    text-decoration:none
+}
+.round:hover{color:blue;text-decoration:none}
 /*去掉苹果的默认UI来渲染按钮*/
 input[type="submit"], input[type="reset"], input[type="button"], button,textarea { -webkit-appearance: none; }
 
