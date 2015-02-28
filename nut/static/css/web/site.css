@@ -24,15 +24,18 @@ border:none;
 }
 
 .round {
-    width:16px;
-    height:16px;
+    width:6px;
+    height:6px;
     display: inline-block;
-    font-size:20px;
-    text-align:center;
-    color:#f00;
+    font-size:6px;
+    vertical-align: top;
+    border-radius: 3px;
+    /*text-align:center;*/
+    /*color:#ff1f77;*/
+    background-color: #ff1f77;
     text-decoration:none
 }
-.round:hover{color:blue;text-decoration:none}
+/*.round:hover{color:blue;text-decoration:none}*/
 /*去掉苹果的默认UI来渲染按钮*/
 input[type="submit"], input[type="reset"], input[type="button"], button,textarea { -webkit-appearance: none; }
 

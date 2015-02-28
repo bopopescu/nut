@@ -13,6 +13,7 @@ from apps.core.utils.http import JSONResponse
 from datetime import datetime
 import random
 
+
 @require_GET
 @login_required
 def messages(request, template='notifications/messages/message.html'):
