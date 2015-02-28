@@ -186,7 +186,7 @@ a {
 }
 .navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus {
     background-color: #333333;
-    border-bottom: 3px solid #ff1f77;
+    /*border-bottom: 3px solid #ff1f77;*/
     /*
     background-color: rgba(68,68,72,0);
     background-color: initial;
