@@ -663,7 +663,7 @@ class Note_Comment(BaseModel):
     # updated_time = models.DateTimeField(auto_now = True, db_index = True)
 
     class Meta:
-        ordering = ['-post_time']
+        ordering = ['post_time']
 
     def __unicode__(self):
         return self.content
