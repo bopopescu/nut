@@ -187,7 +187,7 @@ def post_note(request, user_id, template="web/user/post_note.html"):
     # log.info(_user.note_count)
     # note_list = _user.note.all().values_list('entity_id', flat=True)
     # note_list = _user.note.exclude(status=-1)
-    note_list = Note.objects.filter(user=_user).exclude(status=-1)
+    note_list = Note.objects.filter(user=_user).exclude(status=Note.remove).order_by("-post_time")
     log.info(note_list)
     paginator = ExtentPaginator(note_list, 20)
 

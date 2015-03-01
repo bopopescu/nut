@@ -178,7 +178,7 @@ def entity_note(request, user_id):
     if _timestamp != None:
         _timestamp = datetime.fromtimestamp(float(_timestamp))
 
-    notes = Note.objects.filter(user=_user, post_time__lt=_timestamp)[:_count]
+    notes = Note.objects.filter(user=_user, post_time__lt=_timestamp).exclude(status=-1).order_by('-post_time')[:_count]
     res = []
     for note in notes:
         log.info(note)
