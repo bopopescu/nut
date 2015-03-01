@@ -337,13 +337,7 @@ def search(request):
     if _forms.is_valid():
         results = _forms.search()
         log.info(results)
-        res = {
-            'stat' : {
-                'all_count' : results.count(),
-                # 'like_count' : 0,
-            },
-            'user_list' : []
-        }
+        res = []
 
         paginator = ExtentPaginator(results, _count)
         try:
@@ -354,7 +348,7 @@ def search(request):
             return ErrorJsonResponse(status=404)
         for user in users:
             # log.info(entity)
-            res['user_list'].append(
+            res.append(
                 user.v3_toDict()
             )
         return SuccessJsonResponse(res)
