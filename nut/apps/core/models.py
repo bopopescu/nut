@@ -589,7 +589,7 @@ class Note(BaseModel):
     objects = NoteManager()
 
     class Meta:
-        ordering = ['-post_time']
+        ordering = ['-status','post_time']
         # unique_together = ('entity', 'user')
 
     def __unicode__(self):
