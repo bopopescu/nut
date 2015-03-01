@@ -16,7 +16,7 @@
 
     <div class="container">
         {% static "images/profile_bg.png" as profile_bg%}
-        <div class="row" style='background-image: url("{{ profile_bg }}"); padding-top: 35px; padding-bottom: 35px; margin: -50px 0 0 0;'>
+        <div class="row" style='background-image: url("{{ profile_bg }}"); padding-top: 27px; padding-bottom: 27px; margin: -50px 0 0 0;'>
             <div class="col-xs-12 col-sm-12">
                     {% if user == request.user %}
                         <a class="btn btn-default btn-setting pull-right" href="{% url 'web_user_settings' %}"><i class="fa fa-cog fa-lg"></i>&nbsp; 编辑个人资料</a>
