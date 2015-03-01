@@ -323,7 +323,7 @@ def follow_action(request, user_id, target_status):
     return SuccessJsonResponse(res)
 
 
-# @check_sign
+@check_sign
 def search(request):
     _offset = int(request.GET.get('offset', '0'))
     _count = int(request.GET.get('count', '30'))
