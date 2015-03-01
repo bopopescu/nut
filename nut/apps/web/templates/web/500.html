@@ -4,18 +4,26 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="col-sm-offset-3">
-                <img class="img-responsive" src="{% static 'images/500.png' %}">
+            <div class="col-xs-offset-3 col-sm-offset-5">
+                <img class="img-responsive" src="{% static 'images/500.png' %}" style="margin-top: 80px">
             </div>
-            <h3 class="col-sm-offset-4">服务器开小差了，稍后回来</h3>
+            <div class="col-sm-12">
+                <p class="text-center" style="font-size: 32px; color: #414243; margin-top: 100px;">服务器开小差了，稍后回来</p>
+            </div>
             <br />
-            <p class="col-sm-offset-3">The Master said: “The Way is not practiced. I shall go ride a raft on the ocean</p>
-            <p class="col-sm-offset-4">— and I imagine You would go with me.” </p>
+            <div class="col-sm-12">
+                <p class="text-center">The Master said: “The Way is not practiced. I shall go ride a raft on the ocean</p>
+                <p class="text-center">— and I imagine You would go with me.” </p>
+            </div>
             <br />
-            <p class="col-sm-offset-4">子曰：“道不行，乘桴浮于海。从我者，其由与？”</p>
-            <p class="col-sm-offset-5">-- 《论语·公冶长》</p>
+            <div class="col-sm-12">
+                <p class="text-center">子曰：“道不行，乘桴浮于海。从我者，其由与？”</p>
+                <p class="text-center">-- 《论语·公冶长》</p>
+            </div>
             <br /><br />
-            <p class="col-sm-offset-4">返回 <a href="{% url 'web_selection' %}">首页</a>，或报告问题到 hi@guoku.com</p>
+            <div class="col-sm-12">
+                <p class="text-center" style="font-size: 16px;margin-top:40px">返回 <a href="{% url 'web_selection' %}" style="color: #427ec0">首页</a>，或报告问题到 hi@guoku.com</p>
+            </div>
         </div>
     </div>
 {% endblock %}
