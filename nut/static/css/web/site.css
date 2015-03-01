@@ -176,8 +176,12 @@ a {
 
 .btn-setting {
     border-radius: 8px;
-    background-color: #f0f0f0;
+    /*background-color: #f0f0f0;*/
     padding: 15px 25px 15px 25px;
+}
+.btn-setting:hover
+{
+    background-color: #f0f0f0;
 }
 
 .panel-default>.panel-heading {
