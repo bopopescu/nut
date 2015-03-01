@@ -1,10 +1,11 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.models import Entity_Tag, GKUser, Entity_Like, Note, User_Follow
-# from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
+from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 from apps.mobile.forms.user import MobileUserProfileForm
+from apps.mobile.forms.search import UserSearchForm
 
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage
@@ -319,10 +320,40 @@ def follow_action(request, user_id, target_status):
             res['relation'] = 0
         except User_Follow.DoesNotExist, e:
             return ErrorJsonResponse(status=400)
-
-
     return SuccessJsonResponse(res)
 
+
+@check_sign
+def search(request):
+    _offset = int(request.GET.get('offset', '0'))
+    _count = int(request.GET.get('count', '30'))
+
+    if _offset > 0 and _offset < 30:
+        return ErrorJsonResponse(status=404)
+
+    _offset = _offset / _count + 1
+
+    _forms = UserSearchForm(request.GET)
+    if _forms.is_valid():
+        results = _forms.search()
+        log.info(results)
+        res = []
+
+        paginator = ExtentPaginator(results, _count)
+        try:
+            users = paginator.page(_offset)
+        except PageNotAnInteger:
+            users = paginator.page(1)
+        except EmptyPage:
+            return ErrorJsonResponse(status=404)
+        for user in users:
+            # log.info(entity)
+            res.append(
+                user.v3_toDict()
+            )
+        return SuccessJsonResponse(res)
+
+    return ErrorJsonResponse(status=400)
 
 # @csrf_exempt
 # @check_sign
