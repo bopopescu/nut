@@ -122,7 +122,7 @@ a:focus {
 
 a {
     /*color: #333333;*/
-    color: #607fa6;
+    color: #427ec0;
     text-decoration: none;
 }
 
@@ -147,13 +147,13 @@ a {
 }
 .list-group-item.active {
     /*border: 1px solid #fff;*/
-    background-color: #607fa6;
+    background-color: #427ec0;
     /*color: #fff;*/
     /*font-size: 16px;*/
 }
 .list-group-item.active > a {
     /*border: 1px solid #fff;*/
-    /*background-color: #607fa6;*/
+    /*background-color: #427ec0;*/
     color: #fff;
     /*font-size: 16px;*/
 }
@@ -680,7 +680,7 @@ padding-left: 15px;
     color: #9D9E9F;
 }
 .note-text .create-time{
-    font-size: 12px;
+    font-size: 14px;
     color: #9D9E9F;
 }
 
@@ -762,7 +762,7 @@ padding-left: 15px;
     /*margin-bottom: 20px;*/
 }
 .common-note-item {
-    padding: 15px 19px 5px 19px;
+    padding: 30px 19px 5px 19px;
     margin: 0;
 }
 .poke {
@@ -859,7 +859,7 @@ padding-left: 15px;
 .nav-user-index .nav-pills >li:hover > a,
 .nav-user-index .nav-pills >li.active > a {
     background-color: #fff;
-    /*color: #607fa6;*/
+    /*color: #427ec0;*/
     color: #414243;
     border-bottom: 2px solid #ff1f77;
     /*text-decoration: underline;*/
