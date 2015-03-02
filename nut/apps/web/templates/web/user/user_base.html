@@ -42,8 +42,9 @@
             </div>
             <div class="col-xs-12 col-sm-12">
                 <p class="text-center">
-                    <a class="sns" href="{{ web_user_followings_url }}">关注了&nbsp; <span class="count">{{ user.following_count }}</span></a>
-                    <a href="{{ web_user_fans_url }}">关注者&nbsp; <span class="count">{{ user.fans_count }}</span></a>
+                    <a style="color: #414243" href="{{ web_user_followings_url }}">关注&nbsp; <span class="count">{{ user.following_count }}</span></a>
+                    <span style="margin-left: 15px; margin-right: 15px;">|</span>
+                    <a style="color: #414243" href="{{ web_user_fans_url }}">粉丝&nbsp; <span class="count">{{ user.fans_count }}</span></a>
                 </p>
             </div>
             {% if request.user.is_staff %}
