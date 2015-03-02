@@ -694,7 +694,7 @@ padding-left: 15px;
 }
 .detail-category .category:after{
     color: #414243;
-    content: "/";
+    content: " / ";
 }
 .detail-tag > h4{
     font-size: 16px;
