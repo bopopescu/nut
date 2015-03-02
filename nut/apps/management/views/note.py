@@ -19,9 +19,9 @@ def list(request, template='management/notes/list.html'):
     page = request.GET.get('page', 1)
 
     if status is None:
-        note_list = Note.objects.all()
+        note_list = Note.objects.all().order_by("-post_time")
     else:
-        note_list = Note.objects.filter(status = int(status))
+        note_list = Note.objects.filter(status = int(status)).order_by("-post_time")
 
     paginator = ExtentPaginator(note_list, 30)
 
