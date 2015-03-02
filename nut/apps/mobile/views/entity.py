@@ -11,8 +11,6 @@ from apps.mobile.models import Session_Key
 from apps.mobile.forms.search import EntitySearchForm
 from apps.report.models import Report
 from datetime import datetime
-import time
-import random
 
 
 from django.utils.log import getLogger
@@ -174,7 +172,6 @@ def search(request):
 
     _key = request.GET.get('session', None)
 
-
     try:
         _session = Session_Key.objects.get(session_key=_key)
         visitor = _session.user
@@ -187,6 +184,7 @@ def search(request):
     # log.info(request.GET)
 
     if _forms.is_valid():
+
         results = _forms.search()
         log.info(results.count())
         res = {
@@ -213,7 +211,7 @@ def search(request):
             except PageNotAnInteger:
                 entities = paginator.page(1)
             except EmptyPage:
-                return ErrorJsonResponse(status=404)
+                return ErrorJsonResponse(status=404, data=res)
             for entity in entities:
                 res['entity_list'].append(
                     entity.v3_toDict(user_like_list=el)
@@ -227,7 +225,7 @@ def search(request):
         except PageNotAnInteger:
             entities = paginator.page(1)
         except EmptyPage:
-            return ErrorJsonResponse(status=404)
+            return ErrorJsonResponse(status=404, data=res)
         for entity in entities:
             # log.info(entity)
             res['entity_list'].append(
@@ -236,7 +234,7 @@ def search(request):
         if el:
             res['stat']['like_count'] = len(el)
         return SuccessJsonResponse(res)
-    return ErrorJsonResponse(status=400)
+    return ErrorJsonResponse(status=400, data=_forms.errors)
 
 
 @csrf_exempt
