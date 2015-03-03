@@ -34,7 +34,7 @@ class Report(models.Model):
 
 
     reporter = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False, related_name='reporter')
-    type = models.CharField(choices=TYPE, default='sold out', max_length=20)
+    type = models.PositiveSmallIntegerField(choices=TYPE, default=sold_out)
     comment = models.TextField()
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
