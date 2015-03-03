@@ -7,7 +7,7 @@
     </a>
     <div class="media-body note-content">
         <a href="{% url 'web_user_index' note.user.pk %}" target="_blank">
-            <p class="media-heading">{{ note.user.profile.nickname }}</p>
+            <p class="media-heading"><a href="{% url 'web_user_index' note.user.pk %}" target="_blank">{{ note.user.profile.nickname }}</a></p>
         </a>
         <div class="note-text">
             <p class="with-tag content" >{{ note.note|escape }}</p>

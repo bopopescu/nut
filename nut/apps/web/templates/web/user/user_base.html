@@ -16,7 +16,7 @@
 
     <div class="container">
         {% static "images/profile_bg.png" as profile_bg%}
-        <div class="row" style='background-image: url("{{ profile_bg }}"); padding-top: 27px; padding-bottom: 27px; margin: -50px 0 0 0;'>
+        <div class="row" style='background-image: url("{{ profile_bg }}"); padding-top: 27px; padding-bottom: 22px; margin: -50px 0 0 0;'>
             <div class="col-xs-12 col-sm-12">
                     {% if user == request.user %}
                         <a class="btn btn-default btn-setting pull-right" href="{% url 'web_user_settings' %}"><i class="fa fa-cog fa-lg"></i>&nbsp; 编辑个人资料</a>
@@ -42,9 +42,14 @@
             </div>
             <div class="col-xs-12 col-sm-12">
                 <p class="text-center">
+<<<<<<< HEAD
                     <a style="color: #414243" href="{{ web_user_followings_url }}">关注&nbsp; <span class="count">{{ user.following_count }}</span></a>
                     <span style="margin-left: 15px; margin-right: 15px;">|</span>
                     <a style="color: #414243" href="{{ web_user_fans_url }}">粉丝&nbsp; <span class="count">{{ user.fans_count }}</span></a>
+=======
+                    <a class="sns" href="{{ web_user_followings_url }}" style="color:#414243;" style="color:#414243;">关注&nbsp; <span class="count">{{ user.following_count }}</span></a>
+                    <a href="{{ web_user_fans_url }}" style="color:#414243;">粉丝&nbsp; <span class="count">{{ user.fans_count }}</span></a>
+>>>>>>> 63e569b13bb0b1244cfedc0af71bb3102817eea6
                 </p>
             </div>
             {% if request.user.is_staff %}
@@ -53,18 +58,18 @@
                 </div>
             {% endif %}
         </div>
-        <div class="row">
+        <div class="row" style="margin-top:20px;margin-box:40px;">
             <div class="col-md-12">
                 <div class="navbar nav-user-index" style="margin-left: 0;margin-right: 0; margin-bottom: 20px;">
                     <ul class="nav nav-pills pull-left" role="tablist">
                         <li role="presentation" {% if web_user_likes_url in request.path %}class="active"{% endif %}>
-                            <a href="{{ web_user_likes_url }}">{% trans 'likes' %}&nbsp; <span class="count">{{ user.like_count }}</span></a>
+                            <a href="{{ web_user_likes_url }}">我{% trans 'likes' %}的商品&nbsp; <span class="count">{{ user.like_count }}</span></a>
                         </li>
                         <li role="presentation" {% if web_user_notes_url in request.path %}class="active"{% endif %}>
-                            <a href="{{ web_user_notes_url }}">{% trans 'notes' %}&nbsp; <span class="count">{{ user.post_note_count }}</span></a>
+                            <a href="{{ web_user_notes_url }}">我的{% trans 'notes' %}&nbsp; <span class="count">{{ user.post_note_count }}</span></a>
                         </li>
                         <li role="presentation" {% if web_user_tags_url in request.path %}class="active" {% endif %}>
-                            <a href="{{ web_user_tags_url }}">{% trans 'tags' %}&nbsp; <span class="count">{{ user.tags_count }}</span></a>
+                            <a href="{{ web_user_tags_url }}">我的{% trans 'tags' %}&nbsp; <span class="count">{{ user.tags_count }}</span></a>
                         </li>
                     </ul>
 {#                    <ul class="nav nav-pills pull-right hidden-xs" role="tablist">#}
