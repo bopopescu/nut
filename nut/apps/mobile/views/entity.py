@@ -252,7 +252,7 @@ def report(request, entity_id):
     except Entity.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
-    r = Report(reporter=_session.user, comment=_comment, content_object=entity)
+    r = Report(reporter=_session.user, type=Report.sold_out, comment=_comment, content_object=entity)
     r.save()
     return SuccessJsonResponse({ "status" : 1 })
 

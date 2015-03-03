@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.utils.translation import ugettext_lazy as _
+from model_utils import Choices
 
 
 class BaseModel(models.Model):
@@ -20,7 +22,19 @@ class BaseModel(models.Model):
 
 
 class Report(models.Model):
+    (sold_out, category_error, meaningless, malicious) = range(4)
+
+    # TYPE = Choices(_('sold out'), _('category error'), _('meaningless information'), _('malicious information'))
+    TYPE = [
+        (sold_out, _('sold out')),
+        (category_error,  _('category error')),
+        (meaningless, _('meaningless information')),
+        (malicious, _('malicious information')),
+    ]
+
+
     reporter = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False, related_name='reporter')
+    type = models.CharField(choices=TYPE, default='sold out', max_length=20)
     comment = models.TextField()
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()

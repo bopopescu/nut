@@ -12,7 +12,9 @@ urlpatterns = patterns(
     url(r'^(?P<eid>\d+)/unlike/$', 'entity_unlike', name='web_entity_unlike'),
 
     url(r'^new/$', 'entity_create', name='web_entity_create'),
-    url(r'^load/item/', 'entity_load', name='web_load_item_info')
+    url(r'^load/item/', 'entity_load', name='web_load_item_info'),
+
+    url(r'^(?P<eid>\d+)/report/$', 'report', name='web_entity_report'),
 )
 
 

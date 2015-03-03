@@ -9,6 +9,8 @@ from apps.core.utils.fetch.jd import JD
 from apps.core.utils.fetch import parse_jd_id_from_url, parse_taobao_id_from_url
 from apps.core.tasks.entity import fetch_image
 
+from apps.report.models import Report
+
 from urlparse import urlparse
 import re
 from datetime import datetime
@@ -260,9 +262,32 @@ class CreateEntityForm(forms.Form):
                 default = True,
             )
 
-
         return entity
 
 
+class ReportForms(forms.Form):
+
+    type = forms.ChoiceField(
+        label=_("type"),
+        choices=Report.TYPE,
+        widget=forms.RadioSelect(),
+        initial=Report.sold_out,
+    #
+    )
+    content = forms.CharField(
+        label=_("additional remarks"),
+        widget=forms.Textarea(attrs={'class':'form-control', 'style':"resize: none;", 'rows':'4',}),
+    )
+
+    def __init__(self, entity, *args, **kwargs):
+        self.entity_cache = entity
+        super(ReportForms, self).__init__(*args, **kwargs)
+
+    def save(self, user):
+        _content = self.cleaned_data.get('content')
+        r = Report(reporter=user, type="sold out", comment=_content, content_object=self.entity_cache)
+
+        r.save()
+        return r
 
 __author__ = 'edison7500'

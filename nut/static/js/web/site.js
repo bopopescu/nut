@@ -45,6 +45,17 @@ $.ajaxSetup({
             }
         },
 
+        //modalReport: function(html){
+        //    var reportModal = $('#ReportModal');
+        //    var reportContent = reportModal.find('.modal-content');
+        //    if (reportContent.find('.row')[0]) {
+        //        reportModal.modal('show');
+        //    } else {
+        //        html.appendTo(reportContent);
+        //        reportModal.modal('show');
+        //    }
+        //},
+
 //      初始化 tag
         initTag: function () {
             var array = $(".with-tag");
