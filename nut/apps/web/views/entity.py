@@ -1,6 +1,5 @@
 #encoding=utf8
-
-from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect
+from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
@@ -287,14 +286,19 @@ def entity_load(request):
 
 @login_required
 def report(request, eid, template="web/entity/report.html"):
+    if not request.is_ajax():
+        return HttpResponseNotAllowed(permitted_methods='')
     entity = get_object_or_404(Entity, pk=eid)
 
     _user = request.user
-
-    if request.method == "post":
-        _form = ReportForms(entity)
+    log.info(_user)
+    if request.method == "POST":
+        _form = ReportForms(entity, data=request.POST)
         if _form.is_valid():
             _form.save(_user)
+            return HttpResponse("success")
+            # log.info("OKOKOKO")
+        # log.info("error")
     else:
         _form = ReportForms(entity)
 
