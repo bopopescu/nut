@@ -272,11 +272,13 @@ class ReportForms(forms.Form):
         choices=Report.TYPE,
         widget=forms.RadioSelect(),
         initial=Report.sold_out,
+        required=False,
     #
     )
     content = forms.CharField(
         label=_("additional remarks"),
         widget=forms.Textarea(attrs={'class':'form-control', 'style':"resize: none;", 'rows':'4',}),
+        required=False,
     )
 
     def __init__(self, entity, *args, **kwargs):
@@ -285,7 +287,8 @@ class ReportForms(forms.Form):
 
     def save(self, user):
         _content = self.cleaned_data.get('content')
-        r = Report(reporter=user, type="sold out", comment=_content, content_object=self.entity_cache)
+        _type = self.cleaned_data.get('type')
+        r = Report(reporter=user, type=_type, comment=_content, content_object=self.entity_cache)
 
         r.save()
         return r
