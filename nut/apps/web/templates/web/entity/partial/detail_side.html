@@ -86,9 +86,11 @@
 {#            <img src="data:image/jpeg;base64, {{ web_entity_url|entity_qr }}">#}
 {#            <a href="javascript:;" id="shareToWeChat"><i class="fa fa-wechat"></i>&nbsp; 分享到朋友圈</a>#}
 {#        </div>#}
+        {% if request.user.is_authenticated %}
         <div class="list-group-item detail-report">
-            <a href="#"><i class="fa fa-flag-o"></i>&nbsp;&nbsp;举报</a>
+            <a href="{% url 'web_entity_report' entity.pk %}" data-toggle="modal" data-target="#ReportModal"><i class="fa fa-flag-o"></i>&nbsp;&nbsp;举报</a>
         </div>
+        {% endif %}
         <div class="list-group-item detail-download">
             <a href="{% url 'web_download' %}" target="_blank"><i class="fa fa-download"></i>&nbsp;&nbsp;下载</a>
        </div>

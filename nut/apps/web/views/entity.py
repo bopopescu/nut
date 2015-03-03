@@ -2,7 +2,7 @@
 
 from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.template import loader
 from django.contrib.auth.decorators import login_required
@@ -13,7 +13,7 @@ from apps.core.models import Entity, Entity_Like, Note, Note_Comment, Note_Poke
 from apps.core.tasks.entity import like_task, unlike_task
 from apps.web.forms.comment import CommentForm
 from apps.web.forms.note import NoteForm
-from apps.web.forms.entity import EntityURLFrom, CreateEntityForm
+from apps.web.forms.entity import EntityURLFrom, CreateEntityForm, ReportForms
 # from apps.core.tasks.entity import like_task
 
 from django.utils.log import getLogger
@@ -284,5 +284,28 @@ def entity_load(request):
 
     raise HttpResponseNotAllowed
 
+
+@login_required
+def report(request, eid, template="web/entity/report.html"):
+    entity = get_object_or_404(Entity, pk=eid)
+
+    _user = request.user
+
+    if request.method == "post":
+        _form = ReportForms(entity)
+        if _form.is_valid():
+            _form.save(_user)
+    else:
+        _form = ReportForms(entity)
+
+
+    return render_to_response(
+        template,
+        {
+            'form':_form,
+            'entity': entity,
+        },
+        context_instance = RequestContext(request),
+    )
 
 __author__ = 'edison'

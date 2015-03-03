@@ -576,3 +576,18 @@ msgstr "发布"
 
 msgid "pending"
 msgstr "待发布"
+
+msgid "additional remarks"
+msgstr "补充说明"
+
+msgid "sold out"
+msgstr "商品下架"
+
+msgid "category error"
+msgstr "分类错误"
+
+msgid "meaningless information"
+msgstr "垃圾或诈骗信息"
+
+msgid "malicious information"
+msgstr "不良信息"
