@@ -56,6 +56,10 @@ img {
     text-decoration:none
 }
 
+.ancillary {
+    color: #9d9e9f;
+}
+
 /* 轮播 */
 .carousel-control.left {
   background-image:none;
@@ -925,14 +929,16 @@ padding-left: 15px;
     margin-top: 20px;
 }
 
+/* 下载页 */
 .btn-download {
-    position: absolute;
-    bottom: 100px;
+    /*position: absolute;*/
+    /*float: right;*/
+    /*bottom: 100px;*/
     height: 40px;
     width: 120px;
     font-size: 18px;
     text-align: center;
-    margin-left: 50px;
+    margin-left: 15px;
 }
 
 /* 消息页 */
