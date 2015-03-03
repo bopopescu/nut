@@ -29,7 +29,7 @@
         {% if event.has_banner %}
         <div class="row">
             <div class="col-md-12">
-                <div id="carousel-guoku" class="carousel slide" data-ride="carousel" style="border:5px solid #eee;">
+                <div id="carousel-guoku" class="carousel slide" data-ride="carousel" style="">
                     <ol class="carousel-indicators">
                         {% for show in show_event_banners %}
                             <li data-target="#carousel-guoku" data-slide-to="{{ show.position|add:'-1' }}" {% if 1 == show.position %}class="active"{% endif %}></li>
@@ -87,10 +87,9 @@
         </div>
         {% endif %}
     
-        <div class="row">
+        <div class="row" style="margin-top:20px;">
             <div class="col-md-12">
                 <p class="pull-left">精选商品</p>
-
 {#                <p class="pull-right">最新更新: {{ selection_list.0.note_context.post_time|format_time }}</p>#}
             </div>
         </div>
