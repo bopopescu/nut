@@ -1,4 +1,5 @@
 {% extends 'wechat/reply.xml' %}
+{% load static %}
 
 {% block content %}
     <MsgType><![CDATA[news]]></MsgType>
@@ -10,7 +11,7 @@
             <Description><![CDATA[绑定果库帐号，查看自己的喜爱商品。]]></Description>
             <Title><![CDATA[去绑定果库帐号]]></Title>
             <Description><![CDATA[绑定果库帐号，查看自己的喜爱商品。]]></Description>
-            <PicUrl><![CDATA[http://imgcdn.guoku.com/images/310/b84ae4b1bb293a0aa278c17f45d126c9.jpg]]></PicUrl>
+            <PicUrl><![CDATA[http://h.guoku.com/static/images/wechat/profile_bg.png]]></PicUrl>
             <Url><![CDATA[http://h.guoku.com{% url 'wechat_bind' msg.FromUserName %}]]></Url>
         </item>
 {#                {% endfor %}#}
