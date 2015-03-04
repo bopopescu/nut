@@ -10,14 +10,27 @@ log = getLogger('django')
 
 def handle_reply(content):
     # log.info(content.decode('utf-8'))
-    _entities = Entity.search.query(content.decode('utf-8')).order_by('@weight', '-created_time')
+    res = list()
+
+    if content.decode('utf-8') == u'精选':
+        _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        entities = Selection_Entity.objects.published().filter(pub_time__lte=_refresh_datetime)
+
+        for row in entities[:5]:
+            res.append(row.entity)
+    elif content.decode('utf-8') == u'热门':
+        popular_list = Entity_Like.objects.popular_random()
+        entities = Entity.objects.filter(id__in=popular_list)
+        res = entities[:5]
+    else:
+        _entities = Entity.search.query(content.decode('utf-8')).order_by('@weight', '-created_time')
     # log.info(_entities.all())
     # for row in _entities.all():
     #     log.info(row)
-    res = list()
-    for row in _entities.all():
-        res.append(row)
-    log.info(res)
+
+        for row in _entities.all():
+            res.append(row)
+        log.info(res)
     return res
 
 
