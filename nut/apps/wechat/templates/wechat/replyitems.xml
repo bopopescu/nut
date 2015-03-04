@@ -32,6 +32,6 @@
 {#        {% endif %}#}
     {% else %}
         <MsgType><![CDATA[text]]></MsgType>
-        <Content><![CDATA[果库]]></Content>
+        <Content><![CDATA[给不了你想要的，但又舍不得放你走。换个角度，再试一次。]]></Content>
     {% endif %}
 </xml>
