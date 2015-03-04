@@ -89,13 +89,18 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
                     "sub_button": [
                         {
                             "name":"精选",
-                            "type":"click",
-                            "key":"V1001_SELECTION",
+                            "type":"view",
+                            "url":"http://guoku.com/selected/",
                         },
                         {
                             "name":"热门",
-                            "type":"click",
-                            "key":"V1002_POPULAR",
+                            "type":"view",
+                            "url":"http://guoku.com/popular/",
+                        },
+                        {
+                            "name":"专题",
+                            "type":"view",
+                            "url":"http://guoku.com/event/",
                         },
                     ]
                 },
