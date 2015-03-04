@@ -577,6 +577,8 @@ msgstr "发布"
 msgid "pending"
 msgstr "待发布"
 
+
+
 msgid "additional remarks"
 msgstr "补充说明"
 
@@ -591,3 +593,8 @@ msgstr "垃圾或诈骗信息"
 
 msgid "malicious information"
 msgstr "不良信息"
+
+
+# wechat
+msgid "bind"
+msgstr "绑定"
