@@ -15,7 +15,7 @@
     {% url 'web_user_fans' user.pk as web_user_fans_url %}
 
     <div class="container">
-        {% static "images/profile_bg.png" as profile_bg%}
+        {% static "images/profile_bg_04.png" as profile_bg%}
         <div class="row" style='background-image: url("{{ profile_bg }}"); padding-top: 27px; padding-bottom: 22px; margin: -50px 0 0 0;'>
             <div class="col-xs-12 col-sm-12">
                     {% if user == request.user %}
