@@ -272,7 +272,7 @@ class ReportForms(forms.Form):
         choices=Report.TYPE,
         widget=forms.RadioSelect(),
         initial=Report.sold_out,
-        required=False,
+        # required=False,
     #
     )
     content = forms.CharField(
