@@ -219,5 +219,40 @@
     })(window,document);
 </script>
 {#<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>#}
+<script type="text/javascript">
+    $('#ReportModal').on('loaded.bs.modal', function (e) {
+{#        console.log($(this));#}
+{#        console.log("OKOKKO");#}
+  // do something...
+        var report = $(this);
 
+        var form = report.find('form');
+        var submitbtn = report.find('button');
+
+        submitbtn.on('click', function(e){
+            console.log(form.serialize());
+            $.ajax({
+                type:'post',
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function(data){
+{#                    console.log(data)#}
+                    var header = report.find('.modal-header');
+                    var body = report.find('.modal-body');
+                    var footer = report.find('.modal-footer');
+{#                    console.log(header);#}
+                    header.find('p').remove();
+                    body.find('form').remove();
+                    body.append('<p class="text-center"><i class="fa fa-check-circle" style="font-size: 132px; color: #427ec0;"></i></p>');
+                    body.append('<p class="text-center" style="font-size: 32px;">举报已成功提交</p>');
+                    body.append('<p class="text-center ancillary">我们会尽快处理，感谢您对果库的支持</p>');
+                    footer.find('button').remove();
+                    footer.append('<button type="button" class="btn btn-primary" data-dismiss="modal">完成</button>');
+                    footer.attr('style', 'text-align: center; border-top-width: 0')
+                }
+            })
+        });
+
+    })
+</script>
 {% endblock %}
