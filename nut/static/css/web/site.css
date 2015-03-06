@@ -199,7 +199,7 @@ a {
 }
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
     background-color: #333333;
-    border-bottom: 3px solid #ff1f77;
+    border-bottom: 4px solid #ff1f77;
     padding-bottom: 12px;
     /*background-color: rgba(68,68,72,0);
     background-color: initial;
