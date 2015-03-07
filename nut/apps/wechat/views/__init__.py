@@ -63,8 +63,18 @@ class WeChatView(View):
             if msg['MsgType'] == 'voice':
                 _items = handle_reply(msg['Recognition'])
             elif msg['MsgType'] == "event":
+                if msg['Event'] == "subscribe":
+                    return render_to_response(
+                        'wechat/replysubscribe.xml',
+                        {
+                        'msg': msg,
+                        # 'item': _item,
+                        # 'items': _items[:5],
+                        'timestamp': int(_timestamp),
+                        },
+                        mimetype="application/xml",
+                    )
                 _items = handle_event(msg)
-
                 if _items is None:
                     # request.session['open_id'] = msg['FromUserName']
                     log.info("open id %s" % msg['FromUserName'])
