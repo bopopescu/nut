@@ -6,12 +6,13 @@
     <ArticleCount>1</ArticleCount>
     <Articles>
 {#                {% for row in items %}#}
+        {% static 'images/wechat/bind_bg_01.png'  as images %}
         <item>
             <Title><![CDATA[去绑定果库帐号]]></Title>
             <Description><![CDATA[绑定果库帐号，查看自己的喜爱商品。]]></Description>
             <Title><![CDATA[去绑定果库帐号]]></Title>
             <Description><![CDATA[绑定果库帐号，查看自己的喜爱商品。]]></Description>
-            <PicUrl><![CDATA[http://h.guoku.com/static/images/wechat/bind_bg_01.png]]></PicUrl>
+            <PicUrl><![CDATA[{{ images }}]]></PicUrl>
             <Url><![CDATA[http://h.guoku.com{% url 'wechat_bind' msg.FromUserName %}]]></Url>
         </item>
 {#                {% endfor %}#}
