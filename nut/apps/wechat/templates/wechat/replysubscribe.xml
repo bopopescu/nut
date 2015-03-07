@@ -9,6 +9,6 @@
 {#        <Content><![CDATA[{{ item.content }}]]></Content>#}
 
 
-        <MsgType><![CDATA[text]]></MsgType>
-        <Content><![CDATA[【最新消息】回复你想要的商品关键词，输入文字或者语音，得到果库君的贴身提示。]]></Content>
+    <MsgType><![CDATA[text]]></MsgType>
+    <Content><![CDATA[【最新消息】回复你想要的商品关键词，输入文字或者语音，得到果库君的贴身提示。]]></Content>
 </xml>
