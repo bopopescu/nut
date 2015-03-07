@@ -85,20 +85,20 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
         data = {
             "button":[
                 {
-                    "name":"果库",
+                    "name":"热门精选",
                     "sub_button": [
                         {
-                            "name":"精选",
+                            "name":"每日精选",
                             "type":"view",
                             "url":"http://guoku.com/selected/",
                         },
                         {
-                            "name":"热门",
+                            "name":"热门商品",
                             "type":"view",
                             "url":"http://guoku.com/popular/",
                         },
                         {
-                            "name":"专题",
+                            "name":"更多专题",
                             "type":"view",
                             "url":"http://guoku.com/event/",
                         },
@@ -109,7 +109,7 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
                     "sub_button": [
                         {
                         "type": "click",
-                        "name": "喜欢",
+                        "name": "喜爱的商品",
                         "key": "V2001_USER_LIKE",
                         }
                     ]
