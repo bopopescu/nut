@@ -15,5 +15,11 @@ def parse_jd_id_from_url(url):
     else:
         return None
 
+def parse_kaola_id_from_url(url):
+    ids = re.findall(r'\d+', url)
+    if len(ids) > 0:
+        return ids[0]
+    else:
+        return None
 
 __author__ = 'edison'

@@ -8,12 +8,14 @@ from django.core.files.base import ContentFile
 
 from apps.core.models import Entity, Selection_Entity, Sub_Category, Category, Buy_Link, Note
 from apps.core.utils.image import HandleImage
-from apps.core.utils.fetch import parse_taobao_id_from_url, parse_jd_id_from_url
-from apps.core.utils.fetch.taobao import TaoBao
-from apps.core.utils.fetch.jd import JD
+from apps.core.utils.fetch import parse_taobao_id_from_url, parse_jd_id_from_url, parse_kaola_id_from_url
+
 from apps.core.tasks.entity import fetch_image
 from apps.core.forms import get_admin_user_choices
 
+from apps.core.utils.fetch.taobao import TaoBao
+from apps.core.utils.fetch.jd import JD
+from apps.core.utils.fetch.kaola import Kaola
 
 from django.conf import settings
 from urlparse import urlparse
@@ -542,14 +544,14 @@ def load_entity_info(url):
     _data = dict()
 
     if re.search(r"\b(jd|360buy)\.com$", _hostname) != None:
-            _jd_id = parse_jd_id_from_url(_link)
+        _jd_id = parse_jd_id_from_url(_link)
             # log.info(_jd_id)
-            try:
+        try:
                 buy_link = Buy_Link.objects.get(origin_id=_jd_id, origin_source="jd.com",)
                 _data = {
                     'entity_id': buy_link.entity.id,
                 }
-            except Buy_Link.DoesNotExist:
+        except Buy_Link.DoesNotExist:
                 j = JD(_jd_id)
 
                 # print "OKOKOKOKOKO"
@@ -576,16 +578,16 @@ def load_entity_info(url):
             # return jd_info(self.request, _link)
 
     if re.search(r"\b(tmall|taobao|95095)\.(com|hk)$", _hostname) is not None:
-            _taobao_id = parse_taobao_id_from_url(_link)
-            log.info("taobao id %s" % _taobao_id)
+        _taobao_id = parse_taobao_id_from_url(_link)
+        log.info("taobao id %s" % _taobao_id)
 
-            try:
-                buy_link = Buy_Link.objects.get(origin_id=_taobao_id, origin_source="taobao.com",)
+        try:
+            buy_link = Buy_Link.objects.get(origin_id=_taobao_id, origin_source="taobao.com",)
                 # log.info(buy_link.entity)
-                _data = {
-                    'entity_id': buy_link.entity.id,
-                }
-            except Buy_Link.DoesNotExist:
+            _data = {
+                'entity_id': buy_link.entity.id,
+            }
+        except Buy_Link.DoesNotExist:
                 # log.info("OKOKOKO")
                 t = TaoBao(_taobao_id)
                 # log.info(t.res())
@@ -605,6 +607,33 @@ def load_entity_info(url):
                     'thumb_images': t.images,
                     # 'selected_category_id':
                 }
+
+    if re.search(r"\b(kaola)\.com$", _hostname) != None:
+        # log.info(_hostname)
+        _kaola_id = parse_kaola_id_from_url(_link)
+        log.info(_kaola_id)
+        try:
+            buy_link = Buy_Link.objects.get(origin_id=_kaola_id, origin_source="kaola.com",)
+                # log.info(buy_link.entity)
+            _data = {
+                'entity_id': buy_link.entity.id,
+            }
+        except Buy_Link.DoesNotExist:
+            k = Kaola(_kaola_id)
+            # k.fetch_html()
+            # log.info(k.desc)
+            _data = {
+                'cand_url': _link,
+                'origin_id': _kaola_id,
+                'origin_source': 'kaola.com',
+                'brand': k.brand,
+                'title': k.desc,
+                'thumb_images': k.images,
+                'price': k.price,
+                'cid': k.cid,
+            }
+
+            log.info(_data)
 
     return _data
 
