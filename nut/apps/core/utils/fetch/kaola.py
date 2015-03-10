@@ -18,6 +18,7 @@ class Kaola():
         self.kaola_id = id
         self.html = self.fetch_html()
         self.soup = BeautifulSoup(self.html, from_encoding="UTF-8")
+        self.nick="考拉海购"
         # log.info(self.soup)
 
     @property
@@ -62,6 +63,11 @@ class Kaola():
             return  _brand[0].string.replace(u'商品品牌：', '')
         return ''
         # return _brand
+
+    @property
+    def shop_link(self):
+
+        return "http://www.kaola.com/"
 
     def fetch_html(self):
         url = 'http://www.kaola.com/product/%s.html' % self.kaola_id

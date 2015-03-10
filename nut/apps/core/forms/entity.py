@@ -358,9 +358,23 @@ class BuyLinkForm(forms.Form):
                 )
                 self.b.save()
 
+        if re.search(r"\b(kaola)\.com$", _hostname) != None:
+            _kaola_id = parse_kaola_id_from_url(_link)
+            try:
+                self.b = Buy_Link.objects.get(origin_id=_kaola_id, origin_source="kaola.com",)
+            except Buy_Link.DoesNotExist:
+                k = Kaola(_kaola_id)
+                self.b = Buy_Link(
+                    entity = self.entity_cache,
+                    origin_id = _kaola_id,
+                    cid=k.cid,
+                    origin_source = "kaola.com",
+                    link="http://www.kaola.com/product/%s.html" % _kaola_id,
+                    price=k.price,
+                    default=_default,
+                )
+                self.b.save()
         return self.b
-
-    #     pass
 
 
 class CreateEntityForm(forms.Form):
@@ -523,13 +537,23 @@ class CreateEntityForm(forms.Form):
                 price = _price,
                 default = True,
             )
-        else:
+        elif "jd.com" in _origin_source:
             Buy_Link.objects.create(
                 entity = entity,
                 origin_id = _origin_id,
                 cid = self.initial['cid'],
                 origin_source = _origin_source,
                 link = "http://item.jd.com/%s.html" % _origin_id,
+                price = _price,
+                default = True,
+            )
+        else:
+            Buy_Link.objects.create(
+                entity = entity,
+                origin_id = _origin_id,
+                cid = self.initial['cid'],
+                origin_source = _origin_source,
+                link = "http://www.kaola.com/product/%s.html" % _origin_id,
                 price = _price,
                 default = True,
             )
@@ -611,7 +635,7 @@ def load_entity_info(url):
     if re.search(r"\b(kaola)\.com$", _hostname) != None:
         # log.info(_hostname)
         _kaola_id = parse_kaola_id_from_url(_link)
-        log.info(_kaola_id)
+        log.info(_link)
         try:
             buy_link = Buy_Link.objects.get(origin_id=_kaola_id, origin_source="kaola.com",)
                 # log.info(buy_link.entity)
@@ -623,7 +647,7 @@ def load_entity_info(url):
             # k.fetch_html()
             # log.info(k.desc)
             _data = {
-                'cand_url': _link,
+                'cand_url': "http://www.kaola.com/product/%s.html" % _kaola_id,
                 'origin_id': _kaola_id,
                 'origin_source': 'kaola.com',
                 'brand': k.brand,
@@ -631,6 +655,8 @@ def load_entity_info(url):
                 'thumb_images': k.images,
                 'price': k.price,
                 'cid': k.cid,
+                'shop_link': k.shop_link,
+                'shop_nick': k.nick,
             }
 
             log.info(_data)

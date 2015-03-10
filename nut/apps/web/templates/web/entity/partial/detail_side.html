@@ -7,9 +7,13 @@
             <a class="btn {% if row.default %}btn-primary{% else %}btn-default{% endif %} btn-buy" href="http://item.taobao.com/item.htm?id={{ row.origin_id }}" target="_blank" biz-itemid="{{ row.origin_id }}" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity.title }}-taobao'])">
                 <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ row.price }}</span>
             </a>
-        {% else %}
+        {% elif row.origin_source == "jd.com"%}
             <a class="btn btn-primary btn-buy" href="http://item.jd.com/{{ row.origin_id }}.html" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-jd'])">
-                <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity.price }}</span>
+                <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ row.price }}</span>
+            </a>
+        {% else %}
+            <a class="btn btn-primary btn-buy" href="{{ row.link }}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-kaola'])">
+                <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ row.price }}</span>
             </a>
         {% endif %}
         {% endfor %}
