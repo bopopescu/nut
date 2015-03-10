@@ -42,7 +42,6 @@ class TaoBao():
 
     @property
     def nick(self):
-
         self._nick = self._headers.get('at_nick')
         if not self._nick:
             return ""
