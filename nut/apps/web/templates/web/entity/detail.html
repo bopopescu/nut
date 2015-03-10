@@ -40,8 +40,12 @@
                         <a id="buy-btn-img" href="http://item.taobao.com/item.htm?id={{ entity.default_buy_link.origin_id }}" target="_blank" biz-itemid="{{ entity.default_buy_link.origin_id }}" _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity_context.title }}-taobao'])">
                             <img itemprop="image" src="{{ entity.chief_image|resize:'640' }}" alt="{{ entity_context.title }}" class="img-responsive" width="640" height="640">
                         </a>
-                    {% else %}
+                    {% elif entity.default_buy_link.origin_source == "jd.com" %}
                         <a id="buy-btn-img" href="http://item.jd.com/{{ entity.default_buy_link.origin_id }}.html" target="_blank"  _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity_context.title }}-jd'])">
+                            <img itemprop="image" src="{{ entity.chief_image|resize:'640' }}" alt="{{ entity_context.title }}" class="img-responsive" width="640" height="640">
+                        </a>
+                    {% else %}
+                        <a id="buy-btn-img" href="{{ entity.default_buy_link.link }}" target="_blank"  _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-kaola', '{{ entity_context.title }}-kaola'])">
                             <img itemprop="image" src="{{ entity.chief_image|resize:'640' }}" alt="{{ entity_context.title }}" class="img-responsive" width="640" height="640">
                         </a>
                     {% endif %}
