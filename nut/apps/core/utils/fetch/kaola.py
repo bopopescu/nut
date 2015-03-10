@@ -63,15 +63,13 @@ class Kaola():
         return ''
         # return _brand
 
-
-
-
     def fetch_html(self):
         url = 'http://www.kaola.com/product/%s.html' % self.kaola_id
         key = md5(url).hexdigest()
 
         res = cache.get(key)
         if res:
+            # log.info(res)
             self._headers = res['header']
             return res['body']
 
@@ -82,11 +80,8 @@ class Kaola():
             raise
 
         self._headers = f.headers
-        cache.set(key, {'body':res, 'header':self._headers})
-        # f.text()
-        # log.info(f.encoding)
         res = f.text
-
+        cache.set(key, {'body':res, 'header':self._headers})
         return res
         # res = f.read()
         # cache.set(key, {'body':res, 'header':self._headers})
