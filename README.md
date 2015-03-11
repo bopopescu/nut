@@ -11,6 +11,16 @@
 * Nginx 
 * Redis
 
+### 安装 MySQL
+```
+brew install mysql
+```
+
+### 安装 ImageMagick
+```
+brew install imagemagick
+```
+
 ### 快速安装
  ```
  virtualenv guoku-v4
@@ -30,16 +40,6 @@
 ### 搜索引擎
 * *whoohe-2.5.6* [相关文档](https://pythonhosted.org/Whoosh/index.html)
 
-
-### 安装 MySQL
-```
-brew install mysql
-```
-
-### 安装 ImageMagick
-```
-brew install imagemagick
-```
 
 ### 安装包
 * *django-storage （果库开发）*  [https://github.com/guoku/django-storages.git](https://github.com/guoku/django-storages.git)

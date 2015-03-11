@@ -28,13 +28,21 @@ urlpatterns = patterns(
     'apps.api.views',
     url(r'^', include(router.urls)),
     # url(r'^user/', )
+    # url(r'^feed/', include('apps.mobile.urls.feed')),
     url(r'^auth/', include('rest_framework.urls', namespace='rest_framework'))
     # url()
+)
+
+urlpatterns += patterns(
+    'apps.api.views',
+    url(r'^feed/', include('apps.mobile.urls.feed')),
 )
 
 urlpatterns += format_suffix_patterns([
     # url(r'^$',)
 ])
+
+
 
 # urlpatterns += format_suffix_patterns([
 #     # url(r'^$', api_root),
