@@ -31,12 +31,12 @@
 * *whoohe-2.5.6* [相关文档](https://pythonhosted.org/Whoosh/index.html)
 
 
-### MySQL
+### 安装 MySQL
 ```
 brew install mysql
 ```
 
-### ImageMagick
+### 安装 ImageMagick
 ```
 brew install imagemagick
 ```
