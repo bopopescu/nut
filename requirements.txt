@@ -35,5 +35,4 @@ sqlparse==0.1.11
 tablib==0.10.0
 urllib3==1.9
 Wand==0.3.8
-Whoosh==2.6.0
 PIL==1.1.7
