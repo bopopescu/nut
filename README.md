@@ -31,6 +31,16 @@
 * *whoohe-2.5.6* [相关文档](https://pythonhosted.org/Whoosh/index.html)
 
 
+### MySQL
+```
+brew install mysql
+```
+
+### ImageMagick
+```
+brew install imagemagick
+```
+
 ### 安装包
 * *django-storage （果库开发）*  [https://github.com/guoku/django-storages.git](https://github.com/guoku/django-storages.git)
 * *MySQL-python*
