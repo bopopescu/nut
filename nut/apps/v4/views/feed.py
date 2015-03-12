@@ -55,7 +55,7 @@ def activity(request):
             {
                 'type': 'entity',
                 'content' : {
-                    'entity' : row.target.v4_toDict(),
+                    'entity' : row.target.v3_toDict(),
                     'note' : row.action_object.v3_toDict(),
                 }
             }
