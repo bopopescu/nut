@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseNotAllowed, Http404, HttpResponseRedirect, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 
 from apps.web.forms.user import UserSettingsForm, UserChangePasswordForm
@@ -139,13 +140,16 @@ def unfollow_action(request, user_id):
     # return
 
 def index(request, user_id):
+
     return HttpResponseRedirect(reverse('web_user_entity_like', args=[user_id,]))
 
 
 def entity_like(request, user_id, template="web/user/like.html"):
 
     _page = request.GET.get('page', 1)
-    _user = get_user_model()._default_manager.get(pk=user_id)
+
+    # _user = get_user_model()._default_manager.get(pk=user_id, is_active__gte = 0)
+    _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
 
     entity_like_list = Entity_Like.objects.filter(user=_user).values_list('entity_id', flat=True)
 
