@@ -637,7 +637,7 @@ padding-left: 15px;
 
 .category{background: #fafafa;border: none;}
 .category >a{padding: 5px 5px 0px 5px;display: block;}
-.category >a > img{width: 32px;height: 32px;}
+.category >a > img{width: 56px;height: 56px;}
 .category >a > p{text-align: center;padding-top: 10px;color: #999;white-space: nowrap;overflow: hidden;font-size: 13px;margin: 0px -10px 10px -10px;}
 
 /* 分类页面 */
