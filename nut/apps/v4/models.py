@@ -64,7 +64,7 @@ class APIBuyLink(Buy_Link):
     def v4_toDict(self):
         res = self.toDict()
         res.pop('link', None)
-        res['buy_link'] = "http://h.guoku.com%s?type=mobile" % reverse('mobile_visit_item', args=[self.origin_id])
+        res['buy_link'] = "http://h.guoku.com%s?type=mobile" % reverse('v4_visit_item', args=[self.origin_id])
         res['price'] = int(self.price)
         return res
 

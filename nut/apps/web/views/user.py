@@ -186,7 +186,8 @@ def post_note(request, user_id, template="web/user/post_note.html"):
 
     page = request.GET.get('page', 1)
 
-    _user = get_user_model()._default_manager.get(pk=user_id)
+    _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
+    # _user = get_user_model()._default_manager.get(pk=user_id)
 
     # log.info(_user.note_count)
     # note_list = _user.note.all().values_list('entity_id', flat=True)
@@ -225,7 +226,8 @@ def post_note(request, user_id, template="web/user/post_note.html"):
 def tag(request, user_id, template="web/user/tag.html"):
 
     _page = request.GET.get('page', 1)
-    _user = get_user_model()._default_manager.get(pk=user_id)
+    _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
+    # _user = get_user_model()._default_manager.get(pk=user_id)
 
     tag_list = Entity_Tag.objects.user_tags(user_id)
 
@@ -285,7 +287,8 @@ def fans(request, user_id, template="web/user/fans.html"):
 
     page = request.GET.get('page', 1)
 
-    _user = get_user_model()._default_manager.get(pk=user_id)
+    # _user = get_user_model()._default_manager.get(pk=user_id)
+    _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
 
     fans_list = _user.fans.all()
 
@@ -312,7 +315,8 @@ def following(request, user_id, templates="web/user/following.html"):
 
     page = request.GET.get('page', 1)
 
-    _user = get_user_model()._default_manager.get(pk=user_id)
+    _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
+    # _user = get_user_model()._default_manager.get(pk=user_id)
     # log.info(request.user.following_list)
 
     followings_list = _user.followings.all()
