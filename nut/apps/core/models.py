@@ -464,7 +464,6 @@ class Entity(BaseModel):
 
     def v3_toDict(self, user_like_list=None):
         # log.info(user_like_list)
-        log.info("3v3v3v3v3v3")
         res = self.toDict()
         res.pop('id', None)
         res.pop('images', None)
@@ -550,7 +549,6 @@ class Buy_Link(BaseModel):
         ordering = ['-default']
 
     def v3_toDict(self):
-        log.info("buy v3v3v3v3 %s", reverse('mobile_visit_item', args=[self.origin_id]))
         res = self.toDict()
         res.pop('link', None)
 
