@@ -62,7 +62,7 @@ def entity_list(request):
 
 @check_sign
 def detail(request, entity_id):
-
+    # log.info("v3v3v3v3vv3")
     _key = request.GET.get('session', None)
     # log.info("session "_key)
     try:

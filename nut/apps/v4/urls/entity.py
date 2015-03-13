@@ -6,7 +6,7 @@ urlpatterns = patterns(
     url(r'^$', 'entity_list', name='mobile_entity_list'),
     url(r'^search/$', 'search', name='mobile_entity_search'),
     url(r'^guess/$', 'guess', name='mobile_entity_guess'),
-    url(r'^(?P<entity_id>\d+)/$', 'detail', name='mobile_entity_detail'),
+    url(r'^(?P<entity_id>\d+)/$', 'detail', name='v4_entity_detail'),
     url(r'^(?P<entity_id>\d+)/like/(?P<target_status>\d+)/$', 'like_action', name='mobile_entity_like_action'),
 
     # url(r'^note/$', 'note', name='mobile_entity_note'),
