@@ -11,6 +11,16 @@
 * Nginx 
 * Redis
 
+### 安装 MySQL
+```
+brew install mysql
+```
+
+### 安装 ImageMagick
+```
+brew install imagemagick
+```
+
 ### 快速安装
  ```
  virtualenv guoku-v4

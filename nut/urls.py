@@ -26,6 +26,7 @@ urlpatterns += patterns('',
 
     url(r'^management/', include('apps.management.urls')),
     url(r'^mobile/v3/', include('apps.mobile.urls')),
+    url(r'^mobile/v4/', include('apps.v4.urls')),
     url(r'^api/', include('apps.api.urls')),
     url(r'^wechat/', include('apps.wechat.urls')),
 
