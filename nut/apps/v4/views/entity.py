@@ -11,7 +11,7 @@ from apps.mobile.models import Session_Key
 from apps.mobile.forms.search import EntitySearchForm
 from apps.report.models import Report
 from datetime import datetime
-
+from apps.v4.models import APIEntity
 
 from django.utils.log import getLogger
 log = getLogger('django')
@@ -62,11 +62,11 @@ def entity_list(request):
 
 @check_sign
 def detail(request, entity_id):
-    # log.info("v3v3v3v3vv3")
+
     _key = request.GET.get('session', None)
     # log.info("session "_key)
     try:
-        entity = Entity.objects.get(pk=entity_id, status__gte=Entity.freeze)
+        entity = APIEntity.objects.get(pk=entity_id, status__gte=Entity.freeze)
     except Entity.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
@@ -84,7 +84,7 @@ def detail(request, entity_id):
     # log.info(el)
     res = dict()
 
-    res['entity'] = entity.v3_toDict(user_like_list=el)
+    res['entity'] = entity.v4_toDict(user_like_list=el)
     res['note_list'] = []
 
 
