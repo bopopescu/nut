@@ -31,7 +31,7 @@ $.ajaxSetup({
 
 
 
-;(function ($, document, window) {
+(function ($, document, window) {
 
     var util = {
         modalSignIn: function(html) {
@@ -49,14 +49,13 @@ $.ajaxSetup({
         //    var reportModal = $('#ReportModal');
         //    var reportContent = reportModal.find('.modal-content');
         //    if (reportContent.find('.row')[0]) {
-        //        reportModal.modal('show');
+                   //   reportModal.modal('show');
         //    } else {
-        //        html.appendTo(reportContent);
-        //        reportModal.modal('show');
+                   //   html.appendTo(reportContent);
+                   //   reportModal.modal('show');
         //    }
         //},
-
-//      初始化 tag
+        //初始化 tag
         initTag: function () {
             var array = $(".with-tag");
             for (var i=0; i<array.length; i++) {
@@ -86,15 +85,15 @@ $.ajaxSetup({
                 var counter = like.find('.like-count');
                 var entity_id = $(this).attr("data-entity");
                 var heart = like.find("i");
-//                var status = 0;
+            //  var status = 0;
                 var url ;
                 if (heart.hasClass("fa-heart-o")) {
                     url = "/entity/" + entity_id + '/like/';
                 } else {
                     url = "/entity/" + entity_id + '/unlike/';
                 }
-//                url = url.replace(/\/[01]\//,"/"+status+"/");
-//                console.log(url);
+            // url = url.replace(/\/[01]\//,"/"+status+"/");
+            // console.log(url);
                 $.ajax({
                     url: url,
                     type: 'POST',
@@ -107,7 +106,7 @@ $.ajaxSetup({
                             heart.removeClass('fa-heart-o');
                             heart.addClass('fa-heart');
                         } else if (result === 0){
-//                            console.log(result);
+            //  console.log(result);
                             if (count >0) {
                                 counter.text(" " + (count - 1));
                                 heart.removeClass('fa-heart');
@@ -151,14 +150,14 @@ $.ajaxSetup({
                                 $this.html('<i class="fa fa-check fa-lg"></i>&nbsp; 取消光柱');
                             } else {
                                 $this.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关注');
-//                            $this.html('<span class="img_not_fun"></span><b>取消关注</b>');
+                        //$this.html('<span class="img_not_fun"></span><b>取消关注</b>');
                             }
                             $this.attr('data-status', '1');
 
                             $this.removeClass("btn-primary").addClass("btn-cancel");
                         } else if (data.status == 0) {
                             $this.html('<i class="fa fa-plus"></i>&nbsp; 关注');
-    //                        $this.html('<span class="img_follow"></span><b>关注</b>');
+                        //$this.html('<span class="img_follow"></span><b>关注</b>');
                             $this.removeClass("btn-cancel").addClass("btn-primary");
                             $this.attr('data-status', '0');
                         } else {
@@ -188,10 +187,10 @@ $.ajaxSetup({
             var addEntity = $(".add-entity");
             var addEntityNote = $(".add-entity-note");
             var imageThumbails = $(".image-thumbnails");
-//            console.log(entityExist);
+            //  console.log(entityExist);
             form.on('submit', function(e) {
                 var entity_url = form.find("input[name='cand_url']").val();
-//                console.log(this.action);
+            //console.log(this.action);
                 addEntity.find(".title").text("");
                 addEntity.find("input[name=title]").val("");
 
@@ -207,9 +206,9 @@ $.ajaxSetup({
                         } else {
                             entityExist.slideUp();
 
-//                            console.log(data.data.user_context);
+            //console.log(data.data.user_context);
                             addEntityNote.find("a img").attr("src", data.data.user_avatar);
-//                            addEntityNote.find('.media-heading').html(data.data.user_context.nickname);
+            // addEntityNote.find('.media-heading').html(data.data.user_context.nickname);
                             var title;
                             if (data.data.taobao_id == undefined) {
                                 title = $.trim(data.data.jd_title);
@@ -219,7 +218,7 @@ $.ajaxSetup({
                                 addEntity.find("input[name=brand]").val(brand);
                             } else {
                                 $(".detail_title span:eq(1)").text(data.data.taobao_title);
-//                                $(".detail_title_input").val(data.data.taobao_title);
+            //  $(".detail_title_input").val(data.data.taobao_title);
                                 title = $.trim(data.data.taobao_title);
                                 addEntity.find(".title").text(title);
                                 addEntity.find("input[name=title]").val(title);
@@ -228,21 +227,21 @@ $.ajaxSetup({
                             imageThumbails.html("");
                             var html_string = "";
                             for(var i=0; i < data.data.thumb_images.length; i++) {
-//                                console.log(data.data.thumb_images[i]);
+            //  console.log(data.data.thumb_images[i]);
                                 var fix = data.data.taobao_id == undefined ? "" : "_64x64.jpg";
                                 if (i == 0) {
                                     html_string = "<div class='col-xs-3 col-sm-2'><div class='current-image thumbnail'><img class='img-responsive' src="
                                         + data.data.thumb_images[i] + fix + "></div></div>";
-//                                    imageThumbails.append(html_string);
+            //  imageThumbails.append(html_string);
                                     $(html_string).appendTo(imageThumbails);
 
                                 } else {
                                     html_string = "<div class='col-xs-3 col-sm-2'><div class='thumbnail'><img class='img-responsive' src="
                                         + data.data.thumb_images[i] + fix + "></div></div>";
                                     $(html_string).appendTo(imageThumbails);
-//                                    imageThumbails.append(html_string);
-//                                    createNewEntity.changeChiefImage($(html_string));
-//                                     console.log("okokoko");
+            //imageThumbails.append(html_string);
+            //createNewEntity.changeChiefImage($(html_string));
+            //console.log("okokoko");
                                 }
 
                                 $('<input name="thumb_images" type="hidden" value='+data.data.thumb_images[i]+'>').appendTo($(".add-entity-note form"));
@@ -251,11 +250,11 @@ $.ajaxSetup({
 
                             if(data.data.taobao_id == undefined){
                                 $('<input type="hidden" name="jd_id" value="'+data.data.jd_id+'">').appendTo($(".add-entity-note form"));
-//                                    '<input type="hidden" name="jd_title" value="'+data.data.jd_title+'">').appendTo($(".add-entity-note form"));
-//                                $(".detail_taobao_brand").val(data.data.brand);
+            //  '<input type="hidden" name="jd_title" value="'+data.data.jd_title+'">').appendTo($(".add-entity-note form"));
+            //$(".detail_taobao_brand").val(data.data.brand);
                             } else {
                                 $('<input type="hidden" name="taobao_id" value="'+data.data.taobao_id+'">' ).appendTo($(".add-entity-note form"));
-//                                    '<input type="hidden" name="taobao_title" value="'+data.data.taobao_title+'">').appendTo($(".add-entity-note form"));
+            //'<input type="hidden" name="taobao_title" value="'+data.data.taobao_title+'">').appendTo($(".add-entity-note form"));
                             }
                             $('<input type="hidden" name="shop_link" value="'+data.data.shop_link+'">' +
                                 '<input type="hidden" name="shop_nick" value="'+data.data.shop_nick+'">' +
@@ -296,21 +295,21 @@ $.ajaxSetup({
         },
 
         changeChiefImage : function(object) {
-//            console.log(object);
+           // console.log(object);
             var image = object.find(".thumbnail");
 
 
             image.on('click', function() {
-//                console.log($(this));
+           //     console.log($(this));
                 if (!$(this).hasClass('current-image')) {
                     object.find(".current-image").removeClass('current-image');
                     $(this).addClass('current-image');
                     var image_url = $(this).find('img').attr('src');
-//                    console.log(image_url.replace('64x64', '310x310'));
+                      //    console.log(image_url.replace('64x64', '310x310'));
                     var origin_image_url = image_url.replace('_64x64.jpg', '');
-//                    console.log(big_image_url);
+                      //    console.log(big_image_url);
                     $('.entity-chief-img').attr('src', origin_image_url);
-//                    console.log($(".add-entity-note form input[name='chief_image_url']"));
+                      //    console.log($(".add-entity-note form input[name='chief_image_url']"));
                     $(".add-entity-note form input[name='chief_image_url']").val(origin_image_url);
                 }
             });
@@ -346,7 +345,7 @@ $.ajaxSetup({
 
             if ($selection[0]) {
                 var flag = false;
-//                console.log(counter);
+           //     console.log(counter);
                 $(window).scroll(function () {
                     if($(this).scrollTop()>100) {
                         $(".btn-top").fadeIn();
@@ -361,10 +360,10 @@ $.ajaxSetup({
                     }
                     //这里临时不采用自动加载，换成分页
                     if (($(window).height() + $(window).scrollTop()) >= $(document).height() && flag == false && counter % 3 != 0) {
-//                        console.log("okokokokoko");
-//                        page.hide();
+                      //        console.log("okokokokoko");
+                      //        page.hide();
                         flag = true;
-//                        var url = window.location.href;
+                      //        var url = window.location.href;
                         var aQuery = window.location.href.split('?');
 
                         var url = aQuery[0];
@@ -372,17 +371,17 @@ $.ajaxSetup({
                         if (aQuery.length > 1) {
                             var param = aQuery[1].split('&');
                             var param_p;
-//                            console.log(param);
+                      //            console.log(param);
                             if (param.length > 1) {
-//                                param_c = param[0].split('=');
-//                                c = parseInt(param_c[1]);
+                      //                param_c = param[0].split('=');
+                      //                c = parseInt(param_c[1]);
                                 param_p = param[0].split('=');
                                 p = parseInt(param_p[1]);
                             }
                         }
 
-//                        var last_entity = $selection.find('.entity-selection:last');
-//                        var time = last_entity.find(".timestr").attr("name");
+                      //        var last_entity = $selection.find('.entity-selection:last');
+                      //        var time = last_entity.find(".timestr").attr("name");
                         var time = $selection.attr('data-refresh');
                         var data = {
                             'p': p+counter,
@@ -392,21 +391,21 @@ $.ajaxSetup({
                         if (c != 0 ){
                             data['c'] = c;
                         }
-//                        console.log(data);
-//                        console.log(time);
+                      //        console.log(data);
+                      //        console.log(time);
                         $.ajax({
                             url: url,
                             type: "GET",
                             data: data,
                             dataType:'json',
                             success: function(data) {
-//                                result =  $.parseJSON(data);
-//                                var status = parseInt(result.status);
+                      //                result =  $.parseJSON(data);
+                      //                var status = parseInt(result.status);
                                 if (data.status === 1) {
                                     var $html = $(data.data);
-//                                    $html.each(function () {
-//                                        util.showEntityTitle($(this));
-//                                    });
+                      //                    $html.each(function () {
+                      //                        util.showEntityTitle($(this));
+                      //                    });
                                     util.like($html);
                                     $html.appendTo($selection);
                                     counter ++;
@@ -417,20 +416,19 @@ $.ajaxSetup({
                     }
                 });
             }
-//            var entities = $selection.find('.entity-selection');
-//            console.log(entities);
+           // var entities = $selection.find('.entity-selection');
+           // console.log(entities);
         }
     };
 
     var detail = {
-
-        detailImageHover: function () {
+            detailImageHover: function () {
             // 鼠标放细节图上后效果
 
             $('#detail').each(function () {
                 var $this = $(this);
                 $this.find('.detail-img img').on('mouseover', function () {
-//                    console.log(this);
+                      //    console.log(this);
                     var re = /\/64\//;
                     var url_string = this.src.replace(re, '/640/');
                     $this.find('.entity-detail img')[0].src = url_string;
@@ -439,21 +437,21 @@ $.ajaxSetup({
         },
 
         shareWeibo: function() {
-//            var self = this;
+           // var self = this;
 
             $('.detail-share a').on('click', function(e){
                 e.preventDefault();
 
                 var url = location.href;
-//                console.log(url);
+           //     console.log(url);
                 var pic = $('.entity-detail img').attr("src");
-//                console.log(pic);
+           //     console.log(pic);
                 var content = $('.selection-note .note-text .content').html();
-//                console.log(content);
+           //     console.log(content);
                 content = content.replace(/<[\s\S]*?>/g, "");
                 content = content.replace(/%/, "");
                 content = content.replace(/&nbsp;/, "");
-//                console.log(content);
+           //     console.log(content);
                 var param = {
                     url:url,
                     type:'3',
@@ -480,15 +478,14 @@ $.ajaxSetup({
             //console.log($textarea.value);
 
             $textarea.on('focus', function(){
-//
                 $form.addClass('active');
             });
-//console.log($note);
+            //console.log($note);
 
             var $cancel = $form.find('.btn-cancel');
-//                console.log($cancel);
+           //     console.log($cancel);
             $cancel.on('click', function() {
-//                console.log(this);
+           //     console.log(this);
                 $form.removeClass('active');
             });
 
@@ -506,11 +503,10 @@ $.ajaxSetup({
                             detail.updateNote($html);
                             detail.clickComment($html);
                             util.initTag();
-//                            console.log($html);
-//                            self.poke();
-//                            $('<div class="sep"></div>').appendTo($notes);
+                       //            console.log($html);
+                      //            self.poke();
+                      //            $('<div class="sep"></div>').appendTo($notes);
                             $html.appendTo($(".common-note-list"));
-//
 
                             $note.parent().remove();
                         } else if (status === 0) {
@@ -519,7 +515,7 @@ $.ajaxSetup({
                     });
                 }
 
-//                console.log("OKOKOKO");
+           //     console.log("OKOKOKO");
                  e.preventDefault();
             });
         },
@@ -528,7 +524,7 @@ $.ajaxSetup({
 
             var noteDetail = $(".selection-note, .common-note-item");
             noteDetail.each(function(){
-//                var $this = $(this);
+           //     var $this = $(this);
                 detail.clickComment($(this));
                 detail.updateNote($(this));
                 detail.poke($(this));
@@ -536,7 +532,7 @@ $.ajaxSetup({
         },
 
         updateNote: function (noteItem) {
-//            console.log(noteItem);
+           // console.log(noteItem);
             var note_content = noteItem.find(".note-content .content");
             var note_update_form = noteItem.find(".update-note-form");
             var note_text = note_update_form.find('textarea');
@@ -545,14 +541,14 @@ $.ajaxSetup({
             //var htmltag = "<a href=\"\" target=\"_blank\">";
             origin_text = origin_text.replace(/<(.|\n)+?>/gi, "");
             noteItem.find(".update-note").on('click', function() {
-//                var form = noteItem.find();
+           //     var form = noteItem.find();
                 console.log(origin_text);
                 if (note_update_form.css('display') != 'block') {
                     note_content.hide();
                     note_update_form.show();
                     note_text.html(origin_text);
-//                    console.log(origin_text);
-//                    return;
+                      //    console.log(origin_text);
+                      //    return;
                 } else {
                     note_update_form.hide();
                     note_content.show();
@@ -564,9 +560,9 @@ $.ajaxSetup({
                 note_content.show();
             });
             note_update_form.on('submit', function(e) {
-//                    note_text[0].value;
-//                    var url = note_update_form[0].action;
-//                    console.log(note_text[0].value);
+                      //    note_text[0].value;
+                      //    var url = note_update_form[0].action;
+                      //    console.log(note_text[0].value);
                 var note_content_text = $.trim(note_text[0].value);
                 if (note_content_text.length > 0) {
                         $.ajax({
@@ -594,7 +590,7 @@ $.ajaxSetup({
             var commentText = form.find('.comment-content');
             var replyToUser = '';
             var replyToComment = '';
-//            console.log(commentText);
+           // console.log(commentText);
             comment.find('.btn-cancel').on('click', function() {
 
                 comment.slideToggle('fast');
@@ -602,30 +598,30 @@ $.ajaxSetup({
             });
 
             function reply(commentItem) {
-//                console.log(commentItem.find('.reply'));
+           //     console.log(commentItem.find('.reply'));
                 commentItem.find('.reply').on('click', function (e) {
 
                     var commentContent = commentItem.find('.comment-content');
                     var nickname = commentItem.find('.nickname');
-//                    console.log(nickname);
+                      //    console.log(nickname);
                     commentText.val('回复 ' + $.trim(nickname.text()) + ': ');
                     commentText.focus();
                     replyToUser = commentContent.attr('data-creator');
                     replyToComment = commentContent.attr('data-comment');
-//                    }
+                      //    }
                     return false;
                 });
 
                 commentItem.find('.close').on('click', function (e) {
                     var comment_id = $(this).attr('data-comment');
                     var url = '/entity/note/comment/' + comment_id + '/delete/';
-//                    console.log(comment_id);
+                      //    console.log(comment_id);
                     $.ajax({
                         url:url,
                         type: 'post',
                         dataType:'json',
                         success: function(data){
-//                            console.log(data);
+                      //            console.log(data);
                             if (data.status === 1) {
                                 commentItem.remove();
                             }
@@ -640,7 +636,7 @@ $.ajaxSetup({
                 reply($(this));
             });
 
-//            var commentItem = commentItem;
+           // var commentItem = commentItem;
             form.on('submit', function(e) {
                 var input = commentText[0];
                 var text = input.value;
@@ -665,15 +661,15 @@ $.ajaxSetup({
                         url:url,
                         data:data,
                         success: function(result) {
-//                            console.log(result);
+                      //            console.log(result);
                             try {
                                 result = $.parseJSON(result);
-//                                var status = parseInt(result.status);
-//                                if (status === 1) {
+                      //                var status = parseInt(result.status);
+                      //                if (status === 1) {
                                 var $html = $(result.data);
                                 reply($html);
                                 $html.insertBefore(form);
-//                                }
+                      //                }
                                 commentText.val('');
                             } catch (err) {
                                 var html = $(result);
@@ -691,18 +687,18 @@ $.ajaxSetup({
 
         clickComment: function (note) {
 
-//            console.log(noteDetail);
-//            console.log(note);
+           // console.log(noteDetail);
+           // console.log(note);
             note.find('.add-comment').on('click', function (e) {
                 var comments = note.find('.note-comment-list');
                 var notecontent = note.find(".note-content");
-//                console.log(notecontent);
+           //     console.log(notecontent);
                 if(comments[0]) {
                     comments.slideToggle('fast');
                 } else {
 
                     var url = '/entity/note/' + $(this).attr('data-note') + '/comment/';
-//                    console.log(url);
+                      //    console.log(url);
                     $.ajax({
                         url: url,
                         type: 'GET',
@@ -710,11 +706,11 @@ $.ajaxSetup({
                         success: function(data){
                             result =  $.parseJSON(data);
                             var $html = $(result.data);
-//                            self.noteComment($html);
+                      //            self.noteComment($html);
                             detail.commentAction($html);
                             $html.appendTo(notecontent);
                             $html.slideToggle('fast');
-//                            initTag();
+                      //            initTag();
                         },
                         error: function(ajaxContext) {
                              console.log(ajaxContext['responseText']);
@@ -726,9 +722,9 @@ $.ajaxSetup({
         },
 
         poke : function (note) {
-//            console.log("OKOKOKOKO");
+           // console.log("OKOKOKOKO");
             note.find('.poke').on('click', function (e) {
-//                console.log($(this));
+           //     console.log($(this));
                 var poke = $(this);
                 var note_id = poke.attr('data-note');
                 var counter = poke.find('span');
@@ -744,7 +740,7 @@ $.ajaxSetup({
 
                         if (result === 1) {
                             count++;
-//                            $counter.text(count).addClass("count_blue");
+                      //            $counter.text(count).addClass("count_blue");
                             poke.addClass('active');
 
                             if (count === 1) {
@@ -754,7 +750,7 @@ $.ajaxSetup({
                             }
                         } else if (result === 0) {
                             count--;
-//                            $counter.text(count).removeClass("count_blue");
+                      //            $counter.text(count).removeClass("count_blue");
                             poke.removeClass('active');
 
                             if (count === 0) {
@@ -775,13 +771,13 @@ $.ajaxSetup({
     var message = {
         loadData: function(){
             var message = $("#message");
-//            console.log(message);
-//            $(".btn-top").on('click', function() {
-//                $("html, body").animate(
-//                    {scrollTop : 0}, 800
-//                );
-//                return false;
-//            });
+           // console.log(message);
+           // $(".btn-top").on('click', function() {
+           //     $("html, body").animate(
+                      //    {scrollTop : 0}, 800
+           //     );
+           //     return false;
+           // });
 
             if (message[0]) {
                 var flag = false;
@@ -792,7 +788,7 @@ $.ajaxSetup({
                         $(".btn-top").fadeOut();
                     }
 
-//                    console.log(($(window).height()));
+                      //    console.log(($(window).height()));
                     if (($(window).height() + $(window).scrollTop()) >= $(document).height() && flag == false) {
                         flag = true;
                         var url = window.location.href;
@@ -804,12 +800,12 @@ $.ajaxSetup({
                             type: 'GET',
                             data: {'timestamp':timestamp},
                             success: function(data){
-//                                console.log(data);
+                      //                console.log(data);
                                 var result = $.parseJSON(data);
                                 var status = parseInt(result.status);
                                 if (status == 1 ) {
                                     var html = $(result.data);
-//                                console.log(html);
+                      //                console.log(html);
                                     html.appendTo(message);
                                 }
                                 flag = false;
@@ -848,17 +844,17 @@ $.ajaxSetup({
                             type: 'GET',
                             data: {'timestamp':timestamp, 'p':++counter },
                             success: function(data){
-//                                console.log(data);
+                      //                console.log(data);
                                 var result = $.parseJSON(data);
                                 var status = parseInt(result.status);
                                 if (status == 1 ) {
                                     var html = $(result.data);
-//                                console.log(html);
+                      //                console.log(html);
                                     util.like(html);
                                     html.appendTo(event);
                                 }
                                 flag = false;
-//                                counter ++;
+                      //                counter ++;
                             }
                         });
                     }
@@ -869,7 +865,7 @@ $.ajaxSetup({
     };
 
     (function init() {
-//        console.log($.find());
+           //   console.log($.find());
 
         util.like($('body'));
         util.follower();
@@ -878,7 +874,7 @@ $.ajaxSetup({
 
         createNewEntity.createEntity();
         createNewEntity.BrandAndTitle();
-//        createNewEntity.changeChiefImage();
+           //   createNewEntity.changeChiefImage();
         createNewEntity.postNewEntity();
 
 
