@@ -1,5 +1,5 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.models import Note, Entity_Like
+from apps.core.models import Note, Entity_Like, User_Follow
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
@@ -33,12 +33,13 @@ def activity(request):
         return ErrorJsonResponse(status=403)
 
     note_model = ContentType.objects.get_for_model(Note)
-    entity_like_model = ContentType.objects.get_for_model(Entity_Like)
-    log.info(type(note_model))
+    entity_list_models = ContentType.objects.get_for_model(Entity_Like)
+    user_follow = ContentType.objects.get_for_model(User_Follow)
+    log.info(entity_list_models)
 
     # feed_list = Notification.objects.filter(actor_object_id__in=_session.user.following_list, action_object_content_type=note_model, timestamp__lte=_timestamp)
     feed_list = Notification.objects.filter(actor_object_id__in=_session.user.following_list,
-                                            action_object_content_type__in=[note_model, entity_like_model],
+                                            action_object_content_type__in=[note_model, entity_list_models, user_follow],
                                             timestamp__lte=_timestamp)
 
     paginator = ExtentPaginator(feed_list, _count)
@@ -67,6 +68,15 @@ def activity(request):
                     }
                 }
             )
+        elif isinstance(row.action_object, User_Follow):
+            _context = {
+                'type' : 'user_follow',
+                'created_time' : time.mktime(row.timestamp.timetuple()),
+                'content': {
+                    'follower' : row.actor.v3_toDict()
+                }
+            }
+            res.append(_context)
         elif isinstance(row.action_object, Entity_Like):
             _context = {
                 'type' : 'entity_like_message',
