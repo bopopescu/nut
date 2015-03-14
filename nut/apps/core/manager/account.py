@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.contrib.auth.models import BaseUserManager
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from django.core.cache import cache
 # import random
 
 
@@ -42,6 +43,16 @@ class GKUserManager(BaseUserManager):
 
     def deactive(self):
         return self.get_query_set().deactive()
+
+    def deactive_user_list(self):
+        user_list = cache.get('deactive_user_list')
+        if user_list:
+            return user_list
+
+        user_list = self.get_query_set().deactive().values_list('id', flat=True)
+        cache.set('deactive_user_list', user_list, timeout=86400)
+        return user_list
+
 
     def admin(self):
         return self.get_query_set().admin()

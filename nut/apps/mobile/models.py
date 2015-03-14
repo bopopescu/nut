@@ -30,4 +30,11 @@ class Session_Key(models.Model):
         return self.session_key
 
 
+class V3_User(GKUser):
+
+    class Meta:
+        proxy = True
+
+
+
 __author__ = 'edison'

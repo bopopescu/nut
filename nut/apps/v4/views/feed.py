@@ -1,5 +1,5 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.models import Note
+from apps.core.models import Note, Entity_Like
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
@@ -9,7 +9,7 @@ from apps.notifications.models import Notification
 from django.contrib.contenttypes.models import ContentType
 from datetime import datetime
 from django.utils.log import getLogger
-
+import time
 
 log = getLogger('django')
 
@@ -33,9 +33,13 @@ def activity(request):
         return ErrorJsonResponse(status=403)
 
     note_model = ContentType.objects.get_for_model(Note)
-    # log.info(type(note_model))
+    entity_like_model = ContentType.objects.get_for_model(Entity_Like)
+    log.info(type(note_model))
 
-    feed_list = Notification.objects.filter(actor_object_id__in=_session.user.following_list, action_object_content_type=note_model, timestamp__lte=_timestamp)
+    # feed_list = Notification.objects.filter(actor_object_id__in=_session.user.following_list, action_object_content_type=note_model, timestamp__lte=_timestamp)
+    feed_list = Notification.objects.filter(actor_object_id__in=_session.user.following_list,
+                                            action_object_content_type__in=[note_model, entity_like_model],
+                                            timestamp__lte=_timestamp)
 
     paginator = ExtentPaginator(feed_list, _count)
     try:
@@ -51,16 +55,28 @@ def activity(request):
     for row in feeds.object_list:
         if row.action_object is None:
             continue
-        res.append(
-            {
-                'type': 'entity',
+
+        log.info(row.action_object_content_type)
+        if isinstance(row.action_object, Note):
+            res.append(
+                {
+                    'type': 'entity',
+                    'content' : {
+                        'entity' : row.target.v3_toDict(),
+                        'note' : row.action_object.v3_toDict(),
+                    }
+                }
+            )
+        elif isinstance(row.action_object, Entity_Like):
+            _context = {
+                'type' : 'entity_like_message',
+                'created_time' : time.mktime(row.timestamp.timetuple()),
                 'content' : {
+                    'liker' : row.actor.v3_toDict(),
                     'entity' : row.target.v3_toDict(),
-                    'note' : row.action_object.v3_toDict(),
                 }
             }
-        )
-
+            res.append(_context)
     return SuccessJsonResponse(res)
 
 __author__ = 'edison'

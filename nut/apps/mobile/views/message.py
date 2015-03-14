@@ -1,7 +1,7 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.models import Selection_Entity, Entity_Like, User_Follow, Note, Note_Comment, Note_Poke
 from apps.mobile.lib.sign import check_sign
-from apps.mobile.models import Session_Key
+from apps.mobile.models import Session_Key, V3_User
 
 
 from datetime import datetime
@@ -28,10 +28,15 @@ def message(request):
     except Session_Key.DoesNotExist:
         return ErrorJsonResponse(status=403)
 
-    log.info(request.GET)
-    _messages = _session.user.notifications.filter(timestamp__lt=_timestamp)
+    remove_user_list = V3_User.objects.deactive_user_list()
+    log.info(remove_user_list)
+    # actor_object_id
 
-    # log.info(_messages)
+    log.info(request.GET)
+    _messages = _session.user.notifications.filter(timestamp__lt=_timestamp).exclude(actor_object_id__in=remove_user_list)
+
+
+    log.info(_messages.query)
     res = []
     for row in _messages[:_count]:
         log.info(row.action_object.__class__.__name__)
