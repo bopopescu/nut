@@ -6,7 +6,7 @@ from django.template import RequestContext
 from django.template import loader
 
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
-from apps.core.models import Entity_Like, Entity, Sub_Category
+from apps.core.models import Entity_Like, Entity, Sub_Category, GKUser
 from django.db.models import Count
 from apps.core.utils.http import JSONResponse
 
@@ -30,7 +30,9 @@ def messages(request, template='notifications/messages/message.html'):
 
     _categories = Sub_Category.objects.filter(id__in=list(cids), status=True)
 
-    message_list = _user.notifications.filter(timestamp__lt=_timestamp)
+
+    remove_user_list = GKUser.objects.deactive_user_list()
+    message_list = _user.notifications.filter(timestamp__lt=_timestamp).exclude(actor_object_id__in=remove_user_list)
 
     paginator = ExtentPaginator(message_list, 10)
 
