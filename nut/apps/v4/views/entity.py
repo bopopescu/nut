@@ -243,7 +243,7 @@ def report(request, entity_id):
     _key = request.POST.get('session')
     _comment = request.POST.get('comment', '')
     _type = request.POST.get('type', Report.sold_out)
-    
+
     try:
         _session = Session_Key.objects.get(session_key=_key)
     except Session_Key.DoesNotExist:
