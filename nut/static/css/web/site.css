@@ -936,7 +936,27 @@ padding-left: 15px;
 /* 下载页 */
 .download_bg{background: #F7F7F7;height: 400px; width: 100%;
     position: absolute; z-index: -100;top: 50px;}
-.download_container{margin-top: -37px;}
+.download_container{
+    margin-top: 95px;
+}
+.download_container .guoku_into{
+    float: left;
+    margin-left: 60px;
+}
+.download_container .download_img{
+    float: left;
+}
+.download_container .guoku_into .title{
+    font-size: 28px;
+    color: #535353;
+    margin-top: 28px;
+}
+.download_container .guoku_into .intor{
+    color: #9D9E9F;
+    font-size: 16px;
+    margin-top: 24px;
+    line-height: 30px;
+}
 .btn-download {
     /*position: absolute;*/
     /*float: right;*/
