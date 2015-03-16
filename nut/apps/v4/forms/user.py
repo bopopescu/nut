@@ -17,6 +17,10 @@ class MobileUserProfileForm(forms.Form):
         widget=forms.EmailInput(),
         required=False,
     )
+    bio = forms.CharField(
+        widget=forms.Textarea(),
+        required=False,
+    )
     password = forms.CharField(
         widget=forms.PasswordInput(),
         required=False,
@@ -65,6 +69,7 @@ class MobileUserProfileForm(forms.Form):
         _nickname = self.cleaned_data.get('nickname')
         _email = self.cleaned_data.get('email')
         _password = self.cleaned_data.get('password')
+        _bio = self.cleaned_data.get('bio')
         # print _nickname
         if _image:
             avatar_file = HandleImage(_image)
@@ -81,6 +86,9 @@ class MobileUserProfileForm(forms.Form):
         if _password:
             self.user_cache.set_password(_password)
             self.user_cache.save()
+
+        if _bio:
+            self.user_cache.profile.bio = _bio
 
         self.user_cache.profile.save()
         return self.user_cache.v3_toDict()
