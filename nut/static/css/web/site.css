@@ -13,6 +13,7 @@ body {
 }
 .thumbnail .caption {
     color: #414243;
+    padding: 9px 9px 9px 0;
 }
 i{
     color: #9d9e9f;
@@ -414,7 +415,7 @@ a {
 .entity-detail .caption {
     border-top: 1px solid #eee;
     margin-top: 5px;
-    margin-left: 5px;
+    /*margin-left: 5px;*/
     margin-right: 5px;
 }
 
@@ -639,9 +640,9 @@ padding-left: 15px;
 }
 
 .category{background: #fafafa;border: none;}
-.category >a{padding: 5px 5px 0px 5px;display: block;}
+.category >a{padding: 20px 5px 0px 5px;display: block;}
 .category >a > img{width: 56px;height: 56px;}
-.category >a > p{text-align: center;padding-top: 10px;color: #999;white-space: nowrap;overflow: hidden;font-size: 13px;margin: 0px -10px 10px -10px;}
+.category >a > p{text-align: center;padding-top: 10px;color: #999;white-space: nowrap;overflow: hidden;font-size: 13px;margin: 0px -10px 20px -10px;}
 
 /* 分类页面 */
 .category-header {
@@ -748,7 +749,7 @@ padding-left: 15px;
 
 /* 精选点评*/
 .selection-note {
-    margin: 30px 15px 0 15px;
+    margin: 30px 15px 0 0px;
     padding-top: 20px;
     border-top: 1px solid #eee;
 }
@@ -770,7 +771,7 @@ padding-left: 15px;
     /*margin-bottom: 20px;*/
 }
 .common-note-item {
-    padding: 30px 19px 5px 19px;
+    padding: 30px 19px 5px 0;
     margin: 0;
 }
 .poke {
@@ -933,6 +934,9 @@ padding-left: 15px;
 }
 
 /* 下载页 */
+.download_bg{background: #F7F7F7;height: 400px; width: 100%;
+    position: absolute; z-index: -100;top: 50px;}
+.download_container{margin-top: -37px;}
 .btn-download {
     /*position: absolute;*/
     /*float: right;*/
