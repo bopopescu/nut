@@ -169,7 +169,7 @@ def report(request, note_id):
     except Note.DoesNotExist:
         return ErrorJsonResponse(status=400)
 
-    r = Report(reporter=_session.user, comment=_comment, content_object=note)
+    r = Report(reporter=_session.user, type=Report.sold_out, comment=_comment, content_object=note)
     r.save()
 
     return SuccessJsonResponse({ "status" : 1 })

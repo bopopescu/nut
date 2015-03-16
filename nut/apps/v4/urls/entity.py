@@ -10,7 +10,7 @@ urlpatterns = patterns(
     url(r'^(?P<entity_id>\d+)/like/(?P<target_status>\d+)/$', 'like_action', name='mobile_entity_like_action'),
 
     # url(r'^note/$', 'note', name='mobile_entity_note'),
-    url(r'^(?P<entity_id>\d+)/report/$', 'report', name='mobile_entity_report'),
+    url(r'^(?P<entity_id>\d+)/report/$', 'report', name='v4_entity_report'),
 )
 
 urlpatterns += patterns(

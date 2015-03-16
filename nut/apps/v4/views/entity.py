@@ -242,6 +242,8 @@ def search(request):
 def report(request, entity_id):
     _key = request.POST.get('session')
     _comment = request.POST.get('comment', '')
+    _type = request.POST.get('type', Report.sold_out)
+    
     try:
         _session = Session_Key.objects.get(session_key=_key)
     except Session_Key.DoesNotExist:
@@ -252,7 +254,7 @@ def report(request, entity_id):
     except Entity.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
-    r = Report(reporter=_session.user, type=Report.sold_out, comment=_comment, content_object=entity)
+    r = Report(reporter=_session.user, type=_type, comment=_comment, content_object=entity)
     r.save()
     return SuccessJsonResponse({ "status" : 1 })
 
