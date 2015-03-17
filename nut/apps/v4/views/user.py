@@ -137,7 +137,12 @@ def entity_like(request, user_id):
     res['entity_list'] = []
 
     entities = Entity_Like.objects.filter(user=_user, created_time__lt=_timestamp)[:_count]
-    last = len(entities) -1
+
+    log.info(entities.query)
+    last = len(entities) - 1
+    log.info("last %s" % last)
+    if last < 0:
+        return SuccessJsonResponse(res)
     res['timestamp'] = time.mktime(entities[last].created_time.timetuple())
 
 
