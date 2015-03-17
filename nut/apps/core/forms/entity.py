@@ -311,7 +311,7 @@ class BuyLinkForm(forms.Form):
         _default = int(_default)
         # log.info(type(bool(_default)))
         _hostname = urlparse(_link).hostname
-
+        log.info(_link)
         if _default:
             Buy_Link.objects.filter(entity=self.entity_cache).update(default=False)
 
@@ -320,7 +320,7 @@ class BuyLinkForm(forms.Form):
         # log.info(_link)
 
             try:
-                self.b = Buy_Link.objects.get(origin_id=_taobao_id, origin_source="taobao.com",)
+                self.b = Buy_Link.objects.get(origin_id=_taobao_id, entity=self.entity_cache, origin_source="taobao.com",)
                 # log.info(buy_link.entity)
                 # _data = {
                 #     'entity_hash': buy_link.entity.entity_hash,
@@ -344,7 +344,7 @@ class BuyLinkForm(forms.Form):
         if re.search(r"\b(jd|360buy)\.com$", _hostname) != None:
             _jd_id = parse_jd_id_from_url(_link)
             try:
-                self.b = Buy_Link.objects.get(origin_id=_jd_id, origin_source="jd.com",)
+                self.b = Buy_Link.objects.get(origin_id=_jd_id, entity=self.entity_cache, origin_source="jd.com",)
             except Buy_Link.DoesNotExist:
                 j = JD(_jd_id)
                 self.b = Buy_Link(
@@ -361,7 +361,7 @@ class BuyLinkForm(forms.Form):
         if re.search(r"\b(kaola)\.com$", _hostname) != None:
             _kaola_id = parse_kaola_id_from_url(_link)
             try:
-                self.b = Buy_Link.objects.get(origin_id=_kaola_id, origin_source="kaola.com",)
+                self.b = Buy_Link.objects.get(origin_id=_kaola_id, entity=self.entity_cache, origin_source="kaola.com",)
             except Buy_Link.DoesNotExist:
                 k = Kaola(_kaola_id)
                 self.b = Buy_Link(
