@@ -28,13 +28,14 @@ urlpatterns += patterns(
     'apps.mobile.views',
     # url(r'^entity/', include('apps.mobile.urls.entity')),
     url(r'^category/', include('apps.mobile.urls.category')),
-    url(r'^user/', include('apps.mobile.urls.user')),
+
     url(r'^message/', include('apps.mobile.urls.message')),
     # url(r'^feed/', include('apps.mobile.urls.feed')),
 )
 urlpatterns += patterns(
     'apps.v4.views',
     url(r'^entity/', include('apps.v4.urls.entity')),
+    url(r'^user/', include('apps.v4.urls.user')),
     url(r'^feed/', include('apps.v4.urls.feed')),
 )
 
