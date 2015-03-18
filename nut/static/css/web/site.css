@@ -995,3 +995,20 @@ padding-left: 15px;
     margin: 0 0 20px;
 }
 
+/*公共类 暂时放在这里*/
+.fs_14{font-size: 14px;}
+.fs_16{font-size: 16px;}
+
+.fc_1{color: #9D9E9F;}
+.fc_2{color:#414243;}
+
+/*举报页面*/
+.report{width: 540px; height: 496px;}
+.report_area{padding: 40px;}
+.report_area .list{padding: 0px;}
+.report_area .list li{list-style:none;height: 59px;border-bottom: 1px solid #E6E6E6;width: 100%;line-height: 59px;}
+.report_area .list_detail{margin-left: 20px;}
+.report_area .add_other{margin-top: 40px;}
+.report_area .textarea{padding: 10px;height: 80px;border-radius: 0;}
+.report .footer{border-top: none;padding: 0px 40px 40px 0;margin-top: -20px;}
+.report .footer .report_submit{height: 40px;width: 100px;border-radius: 0;}

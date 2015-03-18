@@ -277,7 +277,7 @@ class ReportForms(forms.Form):
     )
     content = forms.CharField(
         label=_("additional remarks"),
-        widget=forms.Textarea(attrs={'class':'form-control', 'style':"resize: none;", 'rows':'4',}),
+        widget=forms.Textarea(attrs={'class':'fs_14 textarea', 'style':"resize: none;", 'rows':'4',}),
         required=False,
     )
 
