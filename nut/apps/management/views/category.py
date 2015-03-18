@@ -1,14 +1,14 @@
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.decorators import login_required
-from apps.core.models import Category, Sub_Category
+from apps.core.models import Category, Sub_Category, Entity
 from apps.core.forms.category import CreateCategoryForm, EditCategoryForm, CreateSubCategoryForm, EditSubCategoryForm
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.core.utils.http import JSONResponse
-import json
+# import json
 
 from django.utils.log import getLogger
 
@@ -200,6 +200,32 @@ def edit(request, cid, template="management/category/edit.html"):
         {
             'forms':_forms,
             'button': _('update'),
+        },
+        context_instance = RequestContext(request)
+    )
+
+
+def category_entity_list(request, cid, templates = 'management/category/entity/category_entity_list.html'):
+
+    _category = get_object_or_404(Category, pk=cid)
+    page = request.GET.get('page', 1)
+    inner_qs = Sub_Category.objects.filter(group_id = cid)
+
+    entities = Entity.objects.filter(category__in=inner_qs)
+    paginator = ExtentPaginator(entities, 30)
+    try:
+        _entity_list = paginator.page(page)
+    except PageNotAnInteger:
+        _entity_list = paginator.page(1)
+    except EmptyPage:
+        raise Http404
+
+
+    return render_to_response(
+        templates,
+        {
+            'entities': _entity_list,
+            'category':_category,
         },
         context_instance = RequestContext(request)
     )
