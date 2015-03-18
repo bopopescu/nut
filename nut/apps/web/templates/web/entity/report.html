@@ -1,40 +1,26 @@
 {% load i18n %}
-
-<div class="modal-header" style="padding: 40px 0px 0px 40px;">
-{#    <div class="col-sm-12">#}
-        <p class="ancillary">请选择举报原因：</p>
-{#    </div>#}
-</div>
-{#<div class="row">#}
-<div class="modal-body">
-    <form role="form" method="post" action="{% url 'web_entity_report' entity.pk %}">
-        {% csrf_token %}
-        <fieldset>
-            {% for field in form %}
-                {% if field.html_name == "type" %}
-
-                    {% for radio in field %}
-                        <div class="checkbox" style="border-bottom: solid; border-bottom-width: 1px; border-bottom-color: #e6e6e6; padding: 15px 0 20px 0 ;">
-                            {{ radio }}
-                        </div>
+            <div class="modal-body report_area">
+                <p class="title fc_1 fs_14">请选择举报原因</p>
+                <form  role="form" method="post" action="{% url 'web_entity_report' entity.pk %}">
+                    {% csrf_token %}
+                    {% for field in form %}
+                         {% if field.html_name == "type" %}
+                             <ul class="list">
+                             {% for radio in field %}
+                                <li>
+                                    {{ radio.tag }}
+                                    <span class="fs_16 fc_2 list_detail">{{ radio.choice_label }}</span>
+                                </li>
+                             {% endfor %}
+                             </ul>
+                         {% else %}
+                             <p class="fc_1 fs_14 add_other">补充说明</p>
+                             {{ field }}
+                         {% endif %}
                     {% endfor %}
-
-                {% else %}
-                <div class="form-group" style="margin-top: 40px;">
-                    <label id="{{ field.id_for_label }}">{{ field.label }}</label>
-                    <div>
-                        {{ field }}
-                    </div>
-                </div>
-                {% endif %}
-            {% endfor %}
-        </fieldset>
-{#        <div class="form-group">#}
-{#            <button class="btn btn-primary" type="submit">{% trans 'submit' %}</button>#}
-{#        </div>#}
-    </form>
-</div>
-<div class="modal-footer" style="border-top-width: 0">
-    <button class="btn btn-primary btn-lg" type="button" id="report-submit">{% trans 'submit' %}</button>
-</div>
-{#</div>#}
+                </form>
+            </div>
+            <div class="modal-footer footer">
+                <!-- <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> -->
+                <button type="button" class="btn btn-primary report_submit">{% trans 'submit' %}</button>
+            </div>
