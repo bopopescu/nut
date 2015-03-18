@@ -1,9 +1,7 @@
 {% load guoku %}
 
-<p class="title fs_14 fc_2">最近</p>
-<ul class="message_list fs_14">
 {% for row in messages %}
-    <li>
+
     {% if row.action_object_content_type.model == 'user_follow' %}
         <div class="media message">
             <div class="pull-left message-icon">
@@ -101,7 +99,5 @@
             </div>
         </div>
     {% endif %}
-{#    <div class="line timestr" timestamp="{{ row.timestamp|timestamp }}"></div>#}
-    </li>
+    <div class="line timestr" timestamp="{{ row.timestamp|timestamp }}"></div>
 {% endfor %}
-</ul>
