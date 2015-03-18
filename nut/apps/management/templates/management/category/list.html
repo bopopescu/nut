@@ -32,6 +32,7 @@
                             <td>
                                 <a class="btn btn-default" href="{% url 'management_category_edit' category.pk %}" target="_blank">{% trans 'edit' %}</a>
                                 <a class="btn btn-primary" href="{% url 'management_sub_category_list' category.pk %}" target="_blank">{% trans 'detail' %}</a>
+                                <a class="btn btn-success" href="{% url 'management_category_entities' category.pk %}" target="_blank">{% trans 'entity' %}</a>
                             </td>
                         </tr>
                     {% endfor %}
