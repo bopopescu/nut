@@ -34,8 +34,7 @@ def activity(request):
 
     note_model = ContentType.objects.get_for_model(Note)
     # log.info(type(note_model))
-
-    feed_list = Notification.objects.filter(actor_object_id__in=_session.user.following_list, action_object_content_type=note_model, timestamp__lte=_timestamp)
+    feed_list = Notification.objects.filter(actor_object_id__in=_session.user.following_list, action_object_content_type=note_model, timestamp__lt=_timestamp)
 
     paginator = ExtentPaginator(feed_list, _count)
     try:

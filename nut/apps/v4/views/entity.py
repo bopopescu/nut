@@ -1,9 +1,10 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET
 
+
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.mobile.lib.sign import check_sign
-from apps.core.models import Entity, Entity_Like, Note_Poke
+from apps.core.models import Entity, Entity_Like, Note_Poke, GKUser
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 # from apps.core.models import Entity_Like
 from apps.core.tasks import like_task, unlike_task
@@ -94,10 +95,14 @@ def detail(request, entity_id):
         )
 
     res['like_user_list'] = []
-    for liker in entity.likes.all()[0:10]:
-        res['like_user_list'].append(
-            liker.user.v3_toDict()
-        )
+    for liker in entity.likes.all()[0:16]:
+        try:
+            res['like_user_list'].append(
+                liker.user.v3_toDict()
+            )
+        except GKUser.DoesNotExist, e:
+            log.error(e)
+            continue
 
     return SuccessJsonResponse(res)
 

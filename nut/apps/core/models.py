@@ -7,7 +7,7 @@ from django.utils.log import getLogger
 from django.db.models import Count
 from django.db.models.signals import post_save
 from django.conf import settings
-
+from django.core.cache import cache
 # from apps.core.extend.list_field import ListObjectField
 from apps.core.extend.fields.listfield import ListObjectField
 from apps.core.manager.account import GKUserManager
@@ -15,6 +15,8 @@ from apps.core.manager.entity import EntityManager, EntityLikeManager, Selection
 from apps.core.manager.note import NoteManager, NotePokeManager
 from apps.core.manager.tag import EntityTagManager
 from apps.core.manager.category import CategoryManager, SubCategoryManager
+
+from hashlib import md5
 # from apps.core.utils.tag import TagParser
 
 # from apps.notifications import notify
@@ -463,26 +465,32 @@ class Entity(BaseModel):
         return res
 
     def v3_toDict(self, user_like_list=None):
+        key_string = "entity_v3_%s" % self.id
+        key = md5(key_string.encode('utf-8')).hexdigest()
+        res = cache.get(key)
         # log.info(user_like_list)
-        res = self.toDict()
-        res.pop('id', None)
-        res.pop('images', None)
-        res.pop('user_id', None)
-        res.pop('rate', None)
-        res['entity_id'] = self.id
-        res['item_id_list'] = ['54c21867a2128a0711d970da']
+        if not res:
+            res = self.toDict()
+            res.pop('id', None)
+            res.pop('images', None)
+            res.pop('user_id', None)
+            res.pop('rate', None)
+            res['entity_id'] = self.id
+            res['item_id_list'] = ['54c21867a2128a0711d970da']
         # res['price'] = "%s" % int(self.price)
-        res['weight'] = 0
-        res['score_count'] = 0
-        res['mark_value'] = 0
-        res['mark'] = "none"
-        res['created_time'] = time.mktime(self.created_time.timetuple())
-        res['updated_time'] = time.mktime(self.created_time.timetuple())
-        res['novus_time'] = time.mktime(self.created_time.timetuple())
-        res['creator_id'] = self.user_id
-        res['old_root_category_id'] = 9
-        res['old_category_id'] = 152
-        res['total_score'] = 0
+            res['weight'] = 0
+            res['score_count'] = 0
+            res['mark_value'] = 0
+            res['mark'] = "none"
+            res['created_time'] = time.mktime(self.created_time.timetuple())
+            res['updated_time'] = time.mktime(self.created_time.timetuple())
+            res['novus_time'] = time.mktime(self.created_time.timetuple())
+            res['creator_id'] = self.user_id
+            res['old_root_category_id'] = 9
+            res['old_category_id'] = 152
+            res['total_score'] = 0
+            cache.set(key, res, timeout=86400)
+
         res['like_already'] = 0
         if user_like_list and self.id in user_like_list:
             res['like_already'] = 1
@@ -620,27 +628,28 @@ class Note(BaseModel):
     def post_timestamp(self):
         return time.mktime(self.post_time.timetuple())
 
-    # def save(self, *args, **kwargs):
-    #     super(Note, self).save(*args, **kwargs)
-    #     if self.user != self.entity.user or self.user.is_active >= self.user.blocked:
-    #         notify.send(self.user, recipient=self.entity.user, action_object=self, verb='post note', target=self.entity)
-        # t = TagParser(self.note)
-        # t.create_tag(user_id=self.user.pk, entity_id=self.entity_id)
-
     def v3_toDict(self, user_note_pokes=None, has_entity=False):
-        res = self.toDict()
-        res.pop('note', None)
-        res.pop('id', None)
-        res.pop('status', None)
-        res['note_id'] = self.id
-        res['content'] = self.note
-        res['comment_count'] = self.comment_count
-        res['poke_count'] = self.poke_count
-        res['created_time'] = time.mktime(self.post_time.timetuple())
-        res['updated_time'] = time.mktime(self.updated_time.timetuple())
-        res['creator'] = self.user.v3_toDict()
-        res['is_selected'] = self.status
-        res['poker_id_list'] = list(self.poke_list)
+        key_string = "note_v3_%s" % self.id
+        key = md5(key_string.encode('utf-8')).hexdigest()
+        res = cache.get(key)
+        # if res:
+
+        if not res:
+            res = self.toDict()
+            res.pop('note', None)
+            res.pop('id', None)
+            res.pop('status', None)
+            res['note_id'] = self.id
+            res['content'] = self.note
+            res['comment_count'] = self.comment_count
+            res['poke_count'] = self.poke_count
+            res['created_time'] = time.mktime(self.post_time.timetuple())
+            res['updated_time'] = time.mktime(self.updated_time.timetuple())
+            res['creator'] = self.user.v3_toDict()
+            res['is_selected'] = self.status
+            res['poker_id_list'] = list(self.poke_list)
+            cache.set(key, res, timeout=86400)
+            log.info("miss miss")
         # log.info(user_note_pokes)
         res['poke_already'] = 0
         if user_note_pokes and self.id in user_note_pokes:
