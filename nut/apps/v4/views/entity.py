@@ -81,8 +81,6 @@ def detail(request, entity_id):
         el = None
         np = None
 
-    # log.info(np)
-    # log.info(el)
     res = dict()
 
     res['entity'] = entity.v4_toDict(user_like_list=el)
