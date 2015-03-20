@@ -53,7 +53,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
     except Entity_Like.DoesNotExist:
         pass
 
-    _guess_entities = Entity.objects.guess(category_id=_entity.category_id, count=4)
+    _guess_entities = Entity.objects.guess(category_id=_entity.category_id, count=4, exclude_id=_entity.pk)
 
 
     return render_to_response(
