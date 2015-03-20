@@ -147,9 +147,10 @@ def guess(request):
     res = []
 
     _category_id = request.GET.get('cid', None)
+    _entity_id = request.GET.get('eid', None)
     _count = int(request.GET.get('count', '5'))
 
-    entities = Entity.objects.guess(category_id=_category_id, count=_count)
+    entities = Entity.objects.guess(category_id=_category_id, count=_count, exclude_id=_entity_id)
 
     for entity in entities:
         res.append(entity.v3_toDict())
