@@ -151,8 +151,8 @@ def entity_like(request, user_id, template="web/user/like.html"):
     # _user = get_user_model()._default_manager.get(pk=user_id, is_active__gte = 0)
     _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
 
-    ids = Entity.objects.filter(status__gte=Entity.freeze)
-    entity_like_list = Entity_Like.objects.filter(user=_user).filter(entity_id__in=ids)
+    # ids = Entity.objects.filter(status__gte=Entity.freeze)
+    entity_like_list = Entity_Like.objects.filter(user=_user, entity__status__gte=Entity.freeze)
 
     paginator = ExtentPaginator(entity_like_list, 20)
 
