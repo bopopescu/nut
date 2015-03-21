@@ -1,9 +1,48 @@
-from apps.core.models import Entity, Buy_Link, Note
+from apps.core.models import Entity, Buy_Link, Note, GKUser, Entity_Like
+from django.db import models
 from django.core.urlresolvers import reverse
+from django.core.cache import cache
 from django.utils.log import getLogger
 import time
+from hashlib import md5
 
 log = getLogger('django')
+
+
+class APIUser(GKUser):
+
+    class Meta:
+        proxy = True
+
+    @property
+    def fans_list(self):
+        # log.info("cache cache")
+        # return self.fans.all().values_list('follower_id', flat=True)
+        key_string = "user_fans_%s" % self.id
+        key = md5(key_string.encode('utf-8')).hexdigest()
+
+        res = cache.get(key)
+        if res:
+            log.info("hit hit")
+            return res
+        res = super(APIUser, self).fans_list
+        cache.set(key, res, timeout=3600)
+        return res
+
+
+    @property
+    def following_list(self):
+        # log.info("cache cache")
+        key_string = "user_follow_%s" % self.id
+        key = md5(key_string.encode('utf-8')).hexdigest()
+
+        res = cache.get(key)
+        if res:
+            # log.info("hit hit")
+            return res
+        res = list(super(APIUser, self).following_list)
+        cache.set(key, res, timeout=3600)
+        return res
 
 
 class APIEntity(Entity):
@@ -40,10 +79,10 @@ class APIEntity(Entity):
         res['mark'] = "none"
         res['created_time'] = time.mktime(self.created_time.timetuple())
         res['updated_time'] = time.mktime(self.created_time.timetuple())
-        res['novus_time'] = time.mktime(self.created_time.timetuple())
+        # res['novus_time'] = time.mktime(self.created_time.timetuple())
         res['creator_id'] = self.user_id
-        res['old_root_category_id'] = 9
-        res['old_category_id'] = 152
+        # res['old_root_category_id'] = 9
+        # res['old_category_id'] = 152
         res['total_score'] = 0
         res['like_already'] = 0
         if user_like_list and self.id in user_like_list:
@@ -55,6 +94,10 @@ class APIEntity(Entity):
                 b.v4_toDict()
             )
         return res
+
+    @property
+    def likes(self):
+        return super(APIEntity, self).likes
 
 
 class APIBuyLink(Buy_Link):
