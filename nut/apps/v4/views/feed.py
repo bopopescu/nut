@@ -33,14 +33,14 @@ def activity(request):
         return ErrorJsonResponse(status=403)
 
     note_model = ContentType.objects.get_for_model(Note)
-    entity_list_models = ContentType.objects.get_for_model(Entity_Like)
-    user_follow = ContentType.objects.get_for_model(User_Follow)
+    # entity_list_models = ContentType.objects.get_for_model(Entity_Like)
+    # user_follow = ContentType.objects.get_for_model(User_Follow)
     # log.info(entity_list_models)
 
     # log.info(dir(_session))
     # feed_list = Notification.objects.filter(actor_object_id__in=_session.user.following_list, action_object_content_type=note_model, timestamp__lte=_timestamp)
     feed_list = Notification.objects.filter(actor_object_id__in=_session.user.following_list,
-                                            action_object_content_type__in=[note_model, entity_list_models, user_follow],
+                                            action_object_content_type__in=[note_model],
                                             timestamp__lt=_timestamp)
 
     # log.info(feed_list.query)

@@ -5,24 +5,26 @@
 
 {% block list %}
     <div class="row">
-        {% for entity in entities %}
+        {% for entity_like in entities %}
             <div class="col-xs-6 col-sm-3">
                 <div class="thumbnail entity-four">
                     <div class="img-box">
-                        <a href="{% url 'web_entity_detail' entity.entity_hash %}">
-                            <img class="img-responsive" alt="{{ entity.title }}" src="{{ entity.chief_image|resize:'240' }}" width="240" height="240">
+                        <a target="_blank" href="{% url 'web_entity_detail' entity_like.entity.entity_hash %}">
+{#                        {{ entity_like.entity.entity_hash }}#}
+{#                        <a href="{{  entity_like.entity.entity_hash }}">#}
+                            <img class="img-responsive" alt="{{ entity_like.entity.title }}" src="{{ entity_like.entity.chief_image|resize:'240' }}" width="240" height="240">
                         </a>
                     </div>
         <div class="caption">
             {% if entity.id in user_entity_likes %}
-                <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
+                <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity_like.entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity_like.entity.title }}']);">
                     <i class="fa fa-heart"></i>
-                    &nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>
+                    &nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity_like.entity.like_count }}</span>
                 </a>
             {% else %}
-                <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
+                <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity_like.entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity_like.entity.title }}']);">
                     <i class="fa fa-heart-o"></i>
-                    {% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>
+                    {% trans 'likes' %}&nbsp;<span class="like-count">{{ entity_like.entity.like_count }}</span>
                 </a>
             {% endif %}
         </div>
@@ -31,5 +33,5 @@
         {% endfor %}
     </div>
 
-    {% include 'web/main/partial/paginator.html' with objects=el url=request.path %}
+    {% include 'web/main/partial/paginator.html' with objects=entities url=request.path %}
 {% endblock %}
