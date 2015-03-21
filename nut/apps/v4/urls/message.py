@@ -1,9 +1,9 @@
 from django.conf.urls import url, patterns
 
 urlpatterns = patterns(
-    'apps.mobile.views.message',
+    'apps.v4.views.message',
 
-    url(r'^$', 'message', name='mobile_user_message'),
+    url(r'^$', 'message', name='v4_user_message'),
 )
 
 __author__ = 'edison'
