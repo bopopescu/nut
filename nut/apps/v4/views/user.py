@@ -6,6 +6,7 @@ from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 from apps.mobile.forms.user import MobileUserProfileForm
 from apps.mobile.forms.search import UserSearchForm
+from apps.v4.models import APIEntity
 
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage
@@ -136,7 +137,8 @@ def entity_like(request, user_id):
     # res['timestamp'] = time.mktime(_timestamp.timetuple())
     res['entity_list'] = []
 
-    entities = Entity_Like.objects.filter(user=_user, created_time__lt=_timestamp)[:_count]
+    entities = Entity_Like.objects.filter(user=_user, entity__status__gte=APIEntity.freeze, created_time__lt=_timestamp)[:_count]
+
 
     log.info(entities.query)
     last = len(entities) - 1
