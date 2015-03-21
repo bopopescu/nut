@@ -41,7 +41,9 @@ def activity(request):
     # feed_list = Notification.objects.filter(actor_object_id__in=_session.user.following_list, action_object_content_type=note_model, timestamp__lte=_timestamp)
     feed_list = Notification.objects.filter(actor_object_id__in=_session.user.following_list,
                                             action_object_content_type__in=[note_model, entity_list_models, user_follow],
-                                            timestamp__lte=_timestamp)
+                                            timestamp__lt=_timestamp)
+
+    log.info(feed_list.query)
 
     paginator = ExtentPaginator(feed_list, _count)
     try:
