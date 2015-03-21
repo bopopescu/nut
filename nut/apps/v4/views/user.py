@@ -296,6 +296,9 @@ def follow_action(request, user_id, target_status):
         'user_id':user_id
     }
 
+    if user_id == _session.user.id:
+        return ErrorJsonResponse(status=403)
+
     if target_status == '1':
         try:
             uf = User_Follow.objects.get(
@@ -309,7 +312,7 @@ def follow_action(request, user_id, target_status):
                 followee_id = user_id,
             )
             uf.save()
-            log.info(_session.user.following_list)
+            # log.info(_session.user.following_list)
             if uf.followee_id in _session.user.fans_list:
                 res['relation'] = 3
             else:
