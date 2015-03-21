@@ -33,15 +33,15 @@ class APIUser(GKUser):
 
     @property
     def following_list(self):
-        log.info("cache cache")
+        # log.info("cache cache")
         key_string = "user_follow_%s" % self.id
         key = md5(key_string.encode('utf-8')).hexdigest()
 
         res = cache.get(key)
         if res:
-            log.info("hit hit")
+            # log.info("hit hit")
             return res
-        res = super(APIUser, self).following_list
+        res = list(super(APIUser, self).following_list)
         cache.set(key, res, timeout=3600)
         return res
 
