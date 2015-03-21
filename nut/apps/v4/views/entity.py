@@ -43,7 +43,7 @@ def entity_list(request):
 
     _key = request.GET.get('session', None)
     # log.info("session "_key)
-    entities = Entity.objects.new().filter(created_time__lt=_timestamp)[:30]
+    entities = APIEntity.objects.new().filter(created_time__lt=_timestamp)[:30]
 
     try:
         _session = Session_Key.objects.get(session_key=_key)
@@ -55,7 +55,7 @@ def entity_list(request):
     res = []
     for row in entities:
         res.append(
-            row.v3_toDict(user_like_list=el)
+            row.v4_toDict(user_like_list=el)
         )
 
     return SuccessJsonResponse(res)
@@ -68,7 +68,7 @@ def detail(request, entity_id):
     # log.info("session "_key)
     try:
         entity = APIEntity.objects.get(pk=entity_id, status__gte=Entity.freeze)
-    except Entity.DoesNotExist:
+    except APIEntity.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
     try:
@@ -91,7 +91,7 @@ def detail(request, entity_id):
         res['note_list'].append(
             note.v3_toDict(user_note_pokes=np)
         )
-
+    log.info(dir(entity))
     res['like_user_list'] = []
     for liker in entity.likes.all()[0:16]:
         try:
@@ -254,8 +254,8 @@ def report(request, entity_id):
         return ErrorJsonResponse(status=400)
 
     try:
-        entity = Entity.objects.get(pk = entity_id)
-    except Entity.DoesNotExist:
+        entity = APIEntity.objects.get(pk = entity_id)
+    except APIEntity.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
     r = Report(reporter=_session.user, type=_type, comment=_comment, content_object=entity)
