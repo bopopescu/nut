@@ -150,10 +150,10 @@ def guess(request):
     _entity_id = request.GET.get('eid', None)
     _count = int(request.GET.get('count', '5'))
 
-    entities = Entity.objects.guess(category_id=_category_id, count=_count, exclude_id=_entity_id)
+    entities =  APIEntity.objects.guess(category_id=_category_id, count=_count, exclude_id=_entity_id)
 
     for entity in entities:
-        res.append(entity.v3_toDict())
+        res.append(entity.v4_toDict())
 
     return SuccessJsonResponse(res)
 
