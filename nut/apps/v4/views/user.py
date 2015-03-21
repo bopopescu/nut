@@ -332,11 +332,24 @@ def follow_action(request, user_id, target_status):
 def search(request):
     _offset = int(request.GET.get('offset', '0'))
     _count = int(request.GET.get('count', '30'))
+    _key = request.GET.get('session')
 
     if _offset > 0 and _offset < 30:
         return ErrorJsonResponse(status=404)
 
     _offset = _offset / _count + 1
+
+    visitor = None
+    try:
+        _session = Session_Key.objects.get(session_key = _key)
+        visitor = _session.user
+    except Session_Key.DoesNotExist, e:
+        log.info(e.message)
+        # pass
+
+    log.info("vistor %s" % visitor)
+        # return ErrorJsonResponse(status=400)
+
 
     _forms = UserSearchForm(request.GET)
     if _forms.is_valid():
@@ -354,7 +367,7 @@ def search(request):
         for user in users:
             # log.info(entity)
             res.append(
-                user.v3_toDict()
+                user.v3_toDict(visitor=visitor)
             )
         return SuccessJsonResponse(res)
 
