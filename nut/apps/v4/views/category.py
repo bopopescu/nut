@@ -2,12 +2,13 @@ from django.views.decorators.http import require_GET
 
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.models import Category, Sub_Category, Entity, Entity_Like,  Note
-from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
+# from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 from apps.v4.models import APIEntity
 
 from django.utils.log import getLogger
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 log = getLogger('django')
 
@@ -59,7 +60,7 @@ def user_like(request, category_id, user_id):
 
     entity_list = APIEntity.objects.filter(category_id=category_id, id__in=innqs)
 
-    paginator = ExtentPaginator(entity_list, _count)
+    paginator = Paginator(entity_list, _count)
 
     try:
         entities = paginator.page(_offset)
@@ -84,18 +85,9 @@ def entity(request, category_id):
     _count = int(request.GET.get('count', '30'))
     _key = request.GET.get('session')
 
-    # entity_list = Entity.objects.filter(category_id=category_id, status__gte=0)
     entity_list = APIEntity.objects.new_or_selection(category_id=category_id)
 
-    # array = list(entity_category_list.values_list('id', flat=True))
-    # log.info(array)
-
-    # query = "select id, entity_id, count(*) as lcount from core_entity_like where entity_id in (%s) group by entity_id order by lcount desc" % ','.join(map(str, array))
-    # _entity_list = Entity_Like.objects.raw(query)
-    query = "SELECT id, entity_id, count(*) as lcount FROM core_entity_like where entity_id in (SELECT id FROM core_entity where category_id = %s) group by entity_id order by lcount desc" % category_id
-    _entity_list = Entity_Like.objects.raw(query)
-
-    paginator = ExtentPaginator(entity_list, _count)
+    paginator = Paginator(entity_list, _count)
 
     try:
         entities = paginator.page(_offset)
@@ -113,7 +105,7 @@ def entity(request, category_id):
 
     res = []
     for row in entities.object_list:
-        r = row.v3_toDict(user_like_list=el)
+        r = row.v4_toDict(user_like_list=el)
         r.pop('images', None)
         r.pop('id', None)
         res.append(
@@ -136,7 +128,7 @@ def entity_note(request, category_id):
 
     note_list = Note.objects.filter(entity__category_id=category_id)
 
-    paginator = ExtentPaginator(note_list, _count)
+    paginator = Paginator(note_list, _count)
 
     try:
         notes = paginator.page(_offset)

@@ -73,10 +73,10 @@ class APIEntity(Entity):
         res['entity_id'] = self.id
         res['item_id_list'] = ['54c21867a2128a0711d970da']
         # res['price'] = "%s" % int(self.price)
-        res['weight'] = 0
-        res['score_count'] = 0
-        res['mark_value'] = 0
-        res['mark'] = "none"
+        # res['weight'] = 0
+        # res['score_count'] = 0
+        # res['mark_value'] = 0
+        # res['mark'] = "none"
         res['created_time'] = time.mktime(self.created_time.timetuple())
         res['updated_time'] = time.mktime(self.created_time.timetuple())
         # res['novus_time'] = time.mktime(self.created_time.timetuple())
