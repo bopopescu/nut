@@ -180,7 +180,9 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
 
         if visitor:
-            if self.id in visitor.concren:
+            if self.id == visitor.id:
+                res['relation'] = 4
+            elif self.id in visitor.concren:
                 res['relation'] = 3
             elif self.id in visitor.following_list:
                 res['relation'] = 1
@@ -468,8 +470,7 @@ class Entity(BaseModel):
         res['chief_image'] = self.chief_image
         res['detail_images'] = self.detail_images
         res['entity_id'] = self.id
-        res['note_count'] = self.note_count
-        res['like_count'] = self.like_count
+
         return res
 
     def v3_toDict(self, user_like_list=None):
@@ -499,6 +500,8 @@ class Entity(BaseModel):
             res['total_score'] = 0
             cache.set(key, res, timeout=86400)
 
+        res['note_count'] = self.note_count
+        res['like_count'] = self.like_count
         res['like_already'] = 0
         if user_like_list and self.id in user_like_list:
             res['like_already'] = 1
@@ -636,7 +639,7 @@ class Note(BaseModel):
     def post_timestamp(self):
         return time.mktime(self.post_time.timetuple())
 
-    def v3_toDict(self, user_note_pokes=None, has_entity=False):
+    def v3_toDict(self, user_note_pokes=None, visitor= None, has_entity=False):
         key_string = "note_v3_%s" % self.id
         key = md5(key_string.encode('utf-8')).hexdigest()
         res = cache.get(key)
@@ -653,12 +656,13 @@ class Note(BaseModel):
             res['poke_count'] = self.poke_count
             res['created_time'] = time.mktime(self.post_time.timetuple())
             res['updated_time'] = time.mktime(self.updated_time.timetuple())
-            res['creator'] = self.user.v3_toDict()
             res['is_selected'] = self.status
             res['poker_id_list'] = list(self.poke_list)
             cache.set(key, res, timeout=86400)
             log.info("miss miss")
         # log.info(user_note_pokes)
+        log.info(visitor)
+        res['creator'] = self.user.v3_toDict(visitor)
         res['poke_already'] = 0
         if user_note_pokes and self.id in user_note_pokes:
             res['poke_already'] = 1
