@@ -6,7 +6,7 @@ from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 from apps.mobile.forms.user import MobileUserProfileForm
 from apps.mobile.forms.search import UserSearchForm
-from apps.v4.models import APIEntity
+from apps.v4.models import APIEntity, APIUser
 
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage
@@ -49,19 +49,18 @@ def detail(request, user_id):
         visitor = None
 
     try:
-        _user = GKUser.objects.get(pk=user_id)
+        _user = APIUser.objects.get(pk=user_id)
     except GKUser.DoesNotExist:
         raise ErrorJsonResponse(status=404)
 
     _last_like = Entity_Like.objects.filter(user=_user).last()
     _last_note = Note.objects.filter(user=_user).last()
-
     res = dict()
     res['user'] = _user.v3_toDict(visitor)
     if _last_like:
         res['last_like'] = _last_like.entity.v3_toDict()
     if _last_note:
-        res['last_note'] = _last_note.v3_toDict()
+        res['last_note'] = _last_note.v3_toDict(visitor=visitor)
 
     return SuccessJsonResponse(res)
 
@@ -73,7 +72,6 @@ def tag_list(request, user_id):
         _user = GKUser.objects.get(pk=user_id)
     except GKUser.DoesNotExist:
         return ErrorJsonResponse(status=404)
-
 
     res = {}
     res['user'] = _user.v3_toDict()
@@ -139,8 +137,6 @@ def entity_like(request, user_id):
 
     entities = Entity_Like.objects.filter(user=_user, entity__status__gte=APIEntity.freeze, created_time__lt=_timestamp)[:_count]
 
-
-    log.info(entities.query)
     last = len(entities) - 1
     log.info("last %s" % last)
     if last < 0:
