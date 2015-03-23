@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 
 from apps.web.forms.user import UserSettingsForm, UserChangePasswordForm
-from apps.core.utils.http import JSONResponse
+from apps.core.utils.http import JSONResponse, ErrorJsonResponse
 # from apps.core.utils.image import HandleImage
 from apps.core.models import Note
 from apps.core.forms.user import AvatarForm
@@ -105,6 +105,9 @@ def upload_avatar(request):
 @csrf_exempt
 def follow_action(request, user_id):
     _fans = request.user
+
+    if request.user.id == int(user_id):
+        return ErrorJsonResponse(status=403)
 
     try:
         uf = User_Follow.objects.get(

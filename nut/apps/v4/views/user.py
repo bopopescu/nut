@@ -294,7 +294,7 @@ def follow_action(request, user_id, target_status):
         'user_id':user_id
     }
 
-    if user_id == _session.user.id:
+    if int(user_id) == _session.user.id:
         return ErrorJsonResponse(status=403)
 
     if target_status == '1':

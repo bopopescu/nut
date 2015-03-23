@@ -781,20 +781,6 @@ class Entity_Tag(models.Model):
         return self.tag.tag_hash
 
 
-    # def v3_toDict(self):
-    #     res = {}
-    #     res['tag_hash'] = self.hash
-    #     res['tag'] = self.title
-    #
-    #
-    #     return res
-    # def get_absolute_url(self):
-    #     return "/t/%s" % self.tag_hash
-    #
-    # def __unicode__(self):
-    #     return self.tag
-
-
 class Sina_Token(models.Model):
     user = models.OneToOneField(GKUser, related_name='weibo')
     sina_id = models.CharField(max_length = 64, null = True, db_index = True)
@@ -1044,8 +1030,6 @@ post_save.connect(create_or_update_entity, sender=Entity, dispatch_uid="create_o
 
 
 def entity_set_to_selectoin(sender, instance, created, **kwargs):
-        # def save(self, *args, **kwargs):
-        # super(Selection_Entity, self).save(*args, **kwargs)
     if (sender, Selection_Entity) and created:
         user = GKUser.objects.get(pk=2)
         notify.send(user, recipient=instance.entity.user, action_object=instance, verb="set selection", target=instance.entity)
@@ -1053,8 +1037,6 @@ post_save.connect(entity_set_to_selectoin, sender=Selection_Entity, dispatch_uid
 
 
 def user_like_notification(sender, instance, created, **kwargs):
-    # log.info("OOKOKOKOKO")
-    # log.info(created)
     if issubclass(sender, Entity_Like) and created:
         log.info(instance.user)
         log.info(instance.entity.user)
