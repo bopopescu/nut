@@ -1,0 +1,217 @@
+body,button,input,select,textarea{font:12px/1.125 Arial,Helvetica,sans-serif;_font-family:"SimSun";}
+body,h1,h2,h3,h4,h5,h6,dl,dt,dd,ul,ol,li,th,td,p,blockquote,pre,form,fieldset,legend,input,button,textarea,hr{margin:0; padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+li{list-style:none;}
+fieldset,img{border:0;}
+q:before,q:after{content:'';}
+input,textarea{outline-style:none;}
+input[type="text"],input[type="password"],textarea{outline-style:none;-webkit-appearance:none;}
+textarea{resize:none}
+address,caption,cite,code,dfn,em,i,th,var{font-style:normal;font-weight:normal;}
+legend{color:#000;}
+abbr,acronym {border:0;font-variant:normal;}
+a{text-decoration:none;}
+a:hover{text-decoration:underline;}
+/*公共类 暂时放在这里*/
+.fs_14{font-size: 14px;}
+.fs_16{font-size: 16px;}
+.fs_24{font-size: 24px;}
+
+.fc_1{color: #9D9E9F;}
+.fc_2{color:#414243;}
+/*a标签的颜色*/
+.fc_3{color:#427EC0;}
+.fc_4{color:#ffffff;}
+
+.bg_c_blue{background: #427EC0;}
+.bg_c_gray{background: #F7F7F7;}
+
+
+/*举报页面*/
+.report{width: 540px; height: 496px;}
+.report_area{padding: 40px;}
+.report_area .list{padding: 0px;}
+.report_area .list li{list-style:none;height: 59px;border-bottom: 1px solid #E6E6E6;width: 100%;line-height: 59px;}
+.report_area .list_detail{margin-left: 20px;}
+.report_area .add_other{margin-top: 40px;}
+.report_area .textarea{padding: 10px;height: 80px;border-radius: 0;}
+.report .footer{border-top: none;padding: 0px 40px 40px 0;margin-top: -20px;}
+.report .footer .report_submit{height: 40px;width: 100px;border-radius: 0;}
+
+/*消息页面*/
+.message_page{width: 941px;margin-top: 75px;}
+.message_page .title{margin-top: 40px;margin-left: 2px; padding-bottom: 25px; border-bottom: 1px solid #E6E6E6;}
+.message_page .message_list{padding-top: 40px;width: 100%;}
+.message_page .message_list li{margin-bottom: 40px;}
+.message_page .list_detail{display: inline-block;}
+.message_page .header{height: 48px;width: 100%;margin-right: 20px;}
+.message_page .header img{height: 48px;width: 48px; border-radius: 24px;}
+.message_page .id{margin-right: 5px;}
+.message_page .button{width: 120px;height: 40px;line-height: 40px;font-weight: 600;text-align: center;float: right;margin-top: 4px;}
+.message_page .imgs{margin-left: 68px;margin-top: 5px;}
+.message_page .imgs img{width: 100%;border: 1px solid #e6e6e6;margin: 15px 0;}
+.message_page .borderbottom_none{border-bottom: none;}
+.message_page .early{margin-top: 80px;}
+
+.right_part{margin-top: 78px;}
+.right_part .right_list{margin-top: 16px;margin-bottom: 20px;}
+.right_part .right_list li{margin-bottom: 8px;}
+.right_part .download_part{border-top: 1px solid #E6E6E6;padding-top: 18px;}
+.right_part .download_link{margin-top: 16px;}
+.right_part .download_link img{float: left;margin-right: 12px;}
+.right_part .download_link p{line-height: 20px;}
+
+/*下载页*/
+.download_area{width: 960px;padding-bottom: 100px;}
+.download{height: 255px;width: 100%;padding: 145px 0 0;}
+.download_bg{background: #F7F7F7;height: 400px; width: 100%;position: absolute;top: 0;left: 0;}
+.download .guoku_into{float: right;margin-left: 60px;}
+.download .download_img{float: right;}
+.download .guoku_into .title{font-size: 28px;color: #535353;margin-top: 28px;}
+.download .guoku_into .intor{color: #9D9E9F;font-size: 16px;margin-top: 24px;height: 30px;width: 320px;line-height: 25px;}
+.download .download_link{margin-top: 97px;}
+.download .download_link li{width: 112px; height: 36px; line-height: 36px;text-align: center;background: #427EC0;float: left;margin-right: 10px;}
+.download .download_into{margin-top: 40px;}
+.download .download_into li{float: left;border-right: 1px solid #E6E6E6;padding-left: 34px;padding-right: 0px;}
+.download .download_into li .intor{margin-top: 15px;line-height: 20px;}
+.download .download_into .border-right_none{border-right: none;}
+.download .star_c{color: #FF9600}
+.download .tags_c{color: #BA7E32}
+
+@media screen and (max-width: 960px) {
+    .download{height: auto;width: 100%;padding: 0 0 0;}
+
+    .download_area{padding-bottom: 100px;width: 100%;}
+    .download .guoku_into{width: 100%;text-align: center;margin-top: 50px; margin-left: 0px;}
+    .download .guoku_into .intor{width: auto;}
+    .download .download_img{margin-top: 32px; width: 100%;text-align: center;}
+    .download .download_into li .intor{margin-top: 15px;line-height: 20px;width: 100%;text-align: center;}
+    .download .download_link{overflow: hidden;   bottom: -224px;float: left;margin-left: 0;width: 240px;position: absolute;left: 50%;margin-left: -120px;}
+    .download .download_link li{width: 240px; height: 42px; line-height: 42px;float: left;margin-bottom: 8px;}
+    .download .download_into{ margin-top: 234px;text-align: left;width: 266px;position: absolute;left: 50%;margin-left: -133px;}
+    .download .download_into li{clear:both;border-right: none;padding-left: 0px;padding-right: 0px;margin-top: 40px;}
+    .download .download_into li .intor{margin-top: 15px;line-height: 20px;width: 266px;text-align: left;}
+}
+
+
+
+/*
+    position: absolute; z-index: -100;top: 50px;}
+.download_container{
+    margin-top: 95px;
+}
+.download_link{
+	position: absolute; bottom: 82px; right: 42px;
+}
+
+.download_container .guoku_into{
+    float: left;
+    margin-left: 60px;
+}
+.download_container .download_img{
+    float: left;
+}
+.download_container .guoku_into .title{
+    font-size: 28px;
+    color: #535353;
+    margin-top: 28px;
+}
+.download_container .guoku_into .intor{
+    color: #9D9E9F;
+    font-size: 16px;
+    margin-top: 24px;
+    line-height: 30px;
+}
+.btn-download {
+    /*position: absolute;
+    /*float: right;*/
+    /*bottom: 100px;*/
+    /*height: 40px;
+    width: 120px;
+    font-size: 18px;
+    text-align: center;
+    margin-left: 15px;
+}
+
+@media screen and (max-width: 900px) {
+	.download_container{padding: 0 50px;} 
+	.download_container .guoku_into{
+		position: absolute;
+		top: 0;
+		text-align: center;
+		min-width: 280px; 
+		width: 280px;
+		left: 50%;
+		margin-left: -140px;
+    }
+	.download_container .download_img{
+		position: absolute;
+		top: 261px;
+		}
+	..download_link{
+	position: absolute; bottom: 82px; right: 42px;
+}
+}*/
+
+
+/*个人页面*/
+.profile_area{
+    width: 960px;
+}
+.profile{
+  width: 100%;
+  height: 362px;
+  background: #ccc;
+}
+
+.edit_personal_info{
+    border-radius: 10px;
+    width:152px;
+    height: 50px;
+    background: #ffffff;
+    display: inline-block;
+    text-align: center;
+    line-height: 50px;
+    float:right;
+    margin:20px 20px 0 0;
+}
+
+.personal_sticker{
+    border-radius: 59px;
+    width: 118px;
+    height: 118px;
+    background: #000;
+    display: inline-block;
+    margin: 60px 0 0 406px;
+}
+
+.text_name{
+    margin-top: 32px;
+    width: 100%;
+    text-align: center;
+}
+
+.info{
+    margin-top: 17px;
+    width: 100%;
+    text-align: center;
+}
+
+.follow{
+    margin-top: 16px;
+    width: 50%;
+    text-align: right;
+    float: left;
+}
+
+
+.fans{
+    margin-top: 16px;
+    width: 50%;
+    text-align: left;
+    float: left;
+}
+
+.red{
+    color: #db1f77;
+}
