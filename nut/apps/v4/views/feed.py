@@ -27,8 +27,10 @@ def activity(request):
 
     _offset = _offset / _count + 1
 
+    # visitor = None
     try:
         _session = Session_Key.objects.get(session_key = _key)
+        visitor = _session.user
     except Session_Key.DoesNotExist:
         return ErrorJsonResponse(status=403)
 
@@ -40,7 +42,7 @@ def activity(request):
     # log.info(dir(_session))
     # feed_list = Notification.objects.filter(actor_object_id__in=_session.user.following_list, action_object_content_type=note_model, timestamp__lte=_timestamp)
     feed_list = Notification.objects.filter(actor_object_id__in=_session.user.following_list,
-                                            action_object_content_type__in=[note_model,entity_list_models,user_follow],
+                                            action_object_content_type__in=[note_model, entity_list_models, user_follow],
                                             timestamp__lt=_timestamp)
 
     # log.info(feed_list.query)
@@ -75,15 +77,15 @@ def activity(request):
         elif isinstance(row.action_object, User_Follow):
             _context = {
                 'type' : 'user_follow',
-                'created_time' : time.mktime(row.timestamp.timetuple()),
+                'created_time': time.mktime(row.timestamp.timetuple()),
                 'content': {
-                    'follower' : row.actor.v3_toDict()
+                    'follower': row.actor.v3_toDict()
                 }
             }
             res.append(_context)
         elif isinstance(row.action_object, Entity_Like):
             _context = {
-                'type' : 'entity_like_message',
+                'type' : 'user_like',
                 'created_time' : time.mktime(row.timestamp.timetuple()),
                 'content' : {
                     'liker' : row.actor.v3_toDict(),
