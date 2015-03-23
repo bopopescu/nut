@@ -168,9 +168,9 @@ def entity_note_comment(request, nid, template='web/entity/note/comment_list.htm
     else:
         _forms = CommentForm()
 
-    _comment_list = Note_Comment.objects.filter(note_id= nid)
-
-    log.info(_comment_list)
+    _comment_list = Note_Comment.objects.filter(note_id=nid).normal()
+    log.info(_comment_list.query)
+    # log.info(_comment_list)
     _t = loader.get_template(template)
     _c = RequestContext(request, {
         'comment_list': _comment_list,
