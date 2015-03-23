@@ -65,6 +65,7 @@ def activity(request):
             res.append(
                 {
                     'type': 'entity',
+                    'created_time' : time.mktime(row.timestamp.timetuple()),
                     'content' : {
                         'entity' : row.target.v3_toDict(),
                         'note' : row.action_object.v3_toDict(),
