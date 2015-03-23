@@ -39,7 +39,7 @@ def detail(request, note_id):
         )
 
     res['comment_list'] = []
-    for comment in note.comments.all():
+    for comment in note.comments.normal():
         res['comment_list'].append(comment.v3_toDict())
 
     return SuccessJsonResponse(res)

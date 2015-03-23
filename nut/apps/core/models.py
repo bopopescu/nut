@@ -15,6 +15,7 @@ from apps.core.manager.entity import EntityManager, EntityLikeManager, Selection
 from apps.core.manager.note import NoteManager, NotePokeManager
 from apps.core.manager.tag import EntityTagManager
 from apps.core.manager.category import CategoryManager, SubCategoryManager
+from apps.core.manager.comment import CommentManager
 
 from hashlib import md5
 # from apps.core.utils.tag import TagParser
@@ -685,15 +686,14 @@ class Note_Comment(BaseModel):
     post_time = models.DateTimeField(auto_now = True, db_index = True)
     # updated_time = models.DateTimeField(auto_now = True, db_index = True)
 
+    objects = CommentManager()
+
     class Meta:
         ordering = ['post_time']
 
     def __unicode__(self):
         return self.content
 
-    # def save(self, *args, **kwargs):
-    #     super(Note_Comment, self).save(*args, **kwargs)
-    #     notify.send(self.user, recipient=self.note.user, verb="replied", action_object=self, target=self.note)
 
     def v3_toDict(self):
         res = self.toDict()
