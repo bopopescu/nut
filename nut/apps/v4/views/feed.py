@@ -79,7 +79,8 @@ def activity(request):
                 'type' : 'user_follow',
                 'created_time': time.mktime(row.timestamp.timetuple()),
                 'content': {
-                    'follower': row.actor.v3_toDict()
+                    'user': row.actor.v3_toDict(),
+                    'target': row.target.v3_toDict(),
                 }
             }
             res.append(_context)

@@ -91,6 +91,7 @@ a:hover{text-decoration:underline;}
     .download .download_into{ margin-top: 234px;text-align: left;width: 266px;position: absolute;left: 50%;margin-left: -133px;}
     .download .download_into li{clear:both;border-right: none;padding-left: 0px;padding-right: 0px;margin-top: 40px;}
     .download .download_into li .intor{margin-top: 15px;line-height: 20px;width: 266px;text-align: left;}
+    .download .download_button {height: 500px;}
 }
 
 
