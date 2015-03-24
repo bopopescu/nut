@@ -479,6 +479,7 @@ class Entity(BaseModel):
         key = md5(key_string.encode('utf-8')).hexdigest()
         res = cache.get(key)
         # log.info(user_like_list)
+        # res = {}
         if not res:
             res = self.toDict()
             res.pop('id', None)
@@ -516,6 +517,14 @@ class Entity(BaseModel):
 
     def __unicode__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        super(Entity, self).save(*args, **kwargs)
+
+        key_string = "entity_v3_%s" % self.id
+        key = md5(key_string.encode('utf-8')).hexdigest()
+        cache.delete(key)
+
 
     search = SphinxSearch(
         index = 'entities',
