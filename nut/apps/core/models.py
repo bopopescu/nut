@@ -520,7 +520,6 @@ class Entity(BaseModel):
 
     def save(self, *args, **kwargs):
         super(Entity, self).save(*args, **kwargs)
-
         key_string = "entity_v3_%s" % self.id
         key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
