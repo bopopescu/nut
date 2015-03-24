@@ -233,6 +233,12 @@ class User_Profile(BaseModel):
                 return "%s%s" % (settings.STATIC_URL, 'images/avatar/woman.png')
             return "%s%s" % (settings.STATIC_URL, 'images/avatar/man.png')
 
+    def save(self, *args, **kwargs):
+        super(User_Profile, self).save(*args, **kwargs)
+        key_string = "user_v3_%s" % self.user.id
+        key = md5(key_string.encode('utf-8')).hexdigest()
+        cache.delete(key)
+
 
 class User_Follow(models.Model):
     follower = models.ForeignKey(GKUser, related_name = "followings")
@@ -458,7 +464,7 @@ class Entity(BaseModel):
     @property
     def top_note(self):
         # try:
-        notes = self.notes.filter(status=1)
+        notes = self.notes.filter(status=1).order_by('-post_time')
         if len(notes) > 0:
             return notes[0]
         return None
