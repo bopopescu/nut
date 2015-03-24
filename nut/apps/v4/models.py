@@ -1,4 +1,4 @@
-from apps.core.models import Entity, Buy_Link, Note, GKUser, Entity_Like
+from apps.core.models import Entity, Buy_Link, Note, GKUser, Entity_Like, Selection_Entity
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
@@ -143,6 +143,11 @@ class APINote(Note):
 
         return res
 
+
+class APISelection_Entity(Selection_Entity):
+
+    class Meta:
+        proxy = True
 
 
 __author__ = 'edison'

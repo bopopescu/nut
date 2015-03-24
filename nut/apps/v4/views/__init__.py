@@ -6,6 +6,7 @@ from apps.mobile.models import Session_Key
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.models import Show_Banner, Banner, Buy_Link, Selection_Entity, Entity, Entity_Like, Sub_Category
 from apps.core.utils.taobaoapi.utils import taobaoke_mobile_item_convert
+from apps.v4.models import APISelection_Entity
 # from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from datetime import datetime
 import random
@@ -130,10 +131,8 @@ def selection(request):
     #     innqs = Sub_Category.objects.map(group_id_list=[25, 38, 39])
     #     selections = Selection_Entity.objects.published().filter(pub_time__lt=_timestamp, entity__category__in=innqs)[:30]
     # else:
-    selections = Selection_Entity.objects.published().filter(pub_time__lt=_timestamp)[:30]
+    selections = APISelection_Entity.objects.published().filter(pub_time__lt=_timestamp)[:30]
     ids = selections.values_list('entity_id', flat=True)
-
-
 
     try:
         _session = Session_Key.objects.get(session_key=_key)
