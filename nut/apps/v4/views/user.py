@@ -4,9 +4,10 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInte
 
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
-from apps.mobile.forms.user import MobileUserProfileForm
 from apps.mobile.forms.search import UserSearchForm
 from apps.v4.models import APIEntity, APIUser
+from apps.v4.forms.user import MobileUserProfileForm
+from apps.v4.forms.account import MobileUserRestPassword
 
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage
@@ -40,9 +41,18 @@ def update(request):
 @check_sign
 def update_account(request):
     if request.method == "POST":
+        _key = request.POST.get('session', None)
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
 
-
-        return
+        _forms = MobileUserRestPassword(user=_session.user, data=request.POST)
+        if _forms.is_valid():
+            res = _forms.save()
+            return SuccessJsonResponse(res)
+        log.info(_forms.errors)
+        return ErrorJsonResponse(status=400)
 
 @check_sign
 def detail(request, user_id):

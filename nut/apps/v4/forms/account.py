@@ -9,6 +9,11 @@ from apps.mobile.models import Session_Key
 from apps.core.utils.image import HandleImage
 from apps.core.tasks.account import fetch_avatar, update_token
 
+from django.utils.log import getLogger
+
+log = getLogger('django')
+
+
 class MobileUserSignInForm(GuoKuUserSignInForm):
 
     api_key = forms.CharField(
@@ -387,6 +392,55 @@ class MobileTaobaoLoginForm(TaobaoForm):
         }
 
         return res
+
+
+class MobileUserRestPassword(forms.Form):
+
+    password = forms.CharField(
+        widget=forms.PasswordInput(),
+        min_length=8,
+        required=False,
+    )
+
+    email = forms.EmailField(
+        widget=forms.EmailInput(),
+        required=False,
+    )
+
+    def clean_email(self):
+        _email = self.cleaned_data.get('email')
+
+        if _email is None:
+            return None
+
+        if self.user_cache.email == _email:
+            return _email
+
+        try:
+            get_user_model()._default_manager.get(email = _email)
+        except get_user_model().DoesNotExist:
+            return _email
+        raise forms.ValidationError(
+            self.error_messages['duplicate_email'],
+            code= 'duplicate_email',
+        )
+
+    def __init__(self, user, *args, **kwargs):
+        self.user_cache = user
+        super(MobileUserRestPassword, self).__init__(*args, **kwargs)
+
+    def save(self):
+        _password = self.cleaned_data.get('password')
+        _email = self.cleaned_data.get('email')
+        if _email:
+            self.user_cache.email = _email
+
+        if _password:
+            self.user_cache.set_password(_password)
+            # self.user_cache.save()
+        self.user_cache.save()
+        return self.user_cache.v3_toDict()
+
 
 
 __author__ = 'edison7500'

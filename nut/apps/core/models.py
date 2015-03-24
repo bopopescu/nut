@@ -191,6 +191,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
                 res['relation'] = 2
         return res
 
+    def save(self, *args, **kwargs):
+        super(GKUser, self).save(*args, **kwargs)
+        key_string = "user_v3_%s" % self.id
+        key = md5(key_string.encode('utf-8')).hexdigest()
+        cache.delete(key)
 
     search = SphinxSearch(
         index = 'users',
