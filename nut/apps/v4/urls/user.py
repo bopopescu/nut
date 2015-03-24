@@ -12,6 +12,7 @@ urlpatterns = patterns(
 
     url(r'^search/$', 'search', name='v4_user_search'),
     url(r'^update/$', 'update', name='v4_user_update'),
+    url(r'^update/account/$', 'update_account', name="v4_user_update_account"),
 
 
     url(r'^(?P<user_id>\d+)/following/$', 'following_list', name='v4_user_following'),

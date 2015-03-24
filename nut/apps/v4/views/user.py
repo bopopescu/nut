@@ -36,6 +36,13 @@ def update(request):
             return SuccessJsonResponse(res)
     return ErrorJsonResponse(status=400)
 
+@csrf_exempt
+@check_sign
+def update_account(request):
+    if request.method == "POST":
+
+
+        return
 
 @check_sign
 def detail(request, user_id):
