@@ -19,12 +19,13 @@ class MobileUserProfileForm(forms.Form):
     )
     bio = forms.CharField(
         widget=forms.Textarea(),
+        max_length=100,
         required=False,
     )
-    password = forms.CharField(
-        widget=forms.PasswordInput(),
+    gender = forms.ChoiceField(
+        choices=User_Profile.GENDER_CHOICES,
+        widget=forms.RadioSelect(),
         required=False,
-        min_length=6,
     )
 
     def __init__(self, user, *args, **kwargs):
@@ -67,9 +68,9 @@ class MobileUserProfileForm(forms.Form):
     def save(self):
         _image = self.cleaned_data.get('image')
         _nickname = self.cleaned_data.get('nickname')
-        _email = self.cleaned_data.get('email')
-        _password = self.cleaned_data.get('password')
         _bio = self.cleaned_data.get('bio')
+        _gender = self.cleaned_data.get('gender')
+
         # print _nickname
         if _image:
             avatar_file = HandleImage(_image)
@@ -79,13 +80,16 @@ class MobileUserProfileForm(forms.Form):
         if _nickname:
             self.user_cache.profile.nickname = _nickname
 
-        if _email:
-            self.user_cache.email = _email
-            self.user_cache.save()
+        if _gender:
+            self.user_cache.profile.gender = _gender
 
-        if _password:
-            self.user_cache.set_password(_password)
-            self.user_cache.save()
+        # if _email:
+        #     self.user_cache.email = _email
+        #     self.user_cache.save()
+        #
+        # if _password:
+        #     self.user_cache.set_password(_password)
+        #     self.user_cache.save()
 
         if _bio:
             self.user_cache.profile.bio = _bio

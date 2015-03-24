@@ -13,16 +13,15 @@ class MobileUserProfileForm(forms.Form):
         widget=forms.TextInput(),
         required=False
     )
-    
-    # email = forms.EmailField(
-    #     widget=forms.EmailInput(),
-    #     required=False,
-    # )
-    # password = forms.CharField(
-    #     widget=forms.PasswordInput(),
-    #     required=False,
-    #     min_length=6,
-    # )
+    email = forms.EmailField(
+        widget=forms.EmailInput(),
+        required=False,
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(),
+        required=False,
+        min_length=6,
+    )
 
     def __init__(self, user, *args, **kwargs):
         self.user_cache = user
