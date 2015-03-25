@@ -3,11 +3,12 @@ from django.contrib.auth import get_user_model, authenticate
 from apps.core.forms.account import GuoKuUserSignInForm, GuokuUserSignUpForm
 from apps.core.forms.weibo import WeiboForm
 from apps.core.forms.taobao import TaobaoForm
-from apps.core.models import Sina_Token, Taobao_Token,GKUser, User_Profile
+from apps.core.models import Sina_Token, Taobao_Token, GKUser, User_Profile
 from apps.mobile.models import Session_Key
 
 from apps.core.utils.image import HandleImage
 from apps.core.tasks.account import fetch_avatar, update_token
+
 
 class MobileUserSignInForm(GuoKuUserSignInForm):
 
@@ -24,14 +25,36 @@ class MobileUserSignInForm(GuoKuUserSignInForm):
         if not self.fields['email'].label:
             self.fields['email'].label = self.username_field.verbose_name
 
+    def clean_email(self):
+        self.email = self.cleaned_data.get('email')
+        try:
+            get_user_model()._default_manager.get(email=self.email)
+        except GKUser.DoesNotExist:
+            raise forms.ValidationError(
+                self.error_messages['no_email'],
+                code='no_email'
+            )
+        return self.email
+
+    def clean_password(self):
+        _password = self.cleaned_data.get('password')
+        _user = get_user_model()._default_manager.get(email = self.email)
+        if _user.check_password(_password):
+            return _password
+        raise  forms.ValidationError(
+            self.error_messages['password_error'],
+            code='password_error'
+        )
+
+
     def clean(self):
-        email = self.cleaned_data.get('email')
+        # email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password')
         self.api_key = self.cleaned_data.get('api_key')
         self.next_url = self.cleaned_data.get('next')
 
-        if email and password:
-            self.user_cache = authenticate(username=email,
+        if self.email and password:
+            self.user_cache = authenticate(username=self.email,
                                            password=password)
 
             if self.user_cache is None:

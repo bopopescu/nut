@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, get_user_model
 class GuoKuUserSignInForm(forms.Form):
 
     error_messages = {
+        'no_email': _('email is not exist'),
         'invalid_login': _('email or password wrong'),
         'inactive': _("This account is inactive."),
         'password_error': _('password error'),
