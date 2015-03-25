@@ -31,7 +31,7 @@ def login(request):
     else:
         _forms = MobileUserSignInForm(request=request)
 
-    log.info(_forms.errors)
+    log.info(dict(_forms.errors))
     for error in _forms.errors:
         log.info("error %s" % error)
         return ErrorJsonResponse(status=400, data={
@@ -56,7 +56,6 @@ def register(request):
                 'session': _forms.get_session()
             }
             return SuccessJsonResponse(res)
-        # log.info(_forms.errors)
         for error in _forms.errors:
             # log.info("error %s" % error)
             return ErrorJsonResponse(status=409, data={
