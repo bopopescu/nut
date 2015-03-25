@@ -258,6 +258,14 @@ class User_Follow(models.Model):
         super(User_Follow, self).save(*args, **kwargs)
         notify.send(self.follower, recipient=self.followee, verb=u'has followed you', action_object=self, target=self.followee)
 
+        key_string = "user_fans_%s" % self.followee.id
+        key = md5(key_string.encode('utf-8')).hexdigest()
+        cache.delete(key)
+
+        key_string = "user_follow_%s" % self.id
+        key = md5(key_string.encode('utf-8')).hexdigest()
+        cache.delete(key)
+        
 
 class Banner(BaseModel):
     CONTENT_TYPE_CHOICES = (

@@ -85,6 +85,8 @@ $.ajaxSetup({
                 var counter = like.find('.like-count');
                 var entity_id = $(this).attr("data-entity");
                 var heart = like.find("i");
+
+                ga('send', 'event', 'button', 'click', 'like', entity_id);
             //  var status = 0;
                 var url ;
                 if (heart.hasClass("fa-heart-o")) {
