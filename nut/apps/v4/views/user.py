@@ -73,7 +73,7 @@ def detail(request, user_id):
     _last_like = Entity_Like.objects.filter(user=_user).last()
     _last_note = Note.objects.filter(user=_user).last()
     res = dict()
-    res['user'] = _user.v3_toDict(visitor)
+    res['user'] = _user.v4_toDict(visitor)
     if _last_like:
         res['last_like'] = _last_like.entity.v3_toDict()
     if _last_note:
