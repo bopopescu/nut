@@ -33,7 +33,6 @@ def login(request):
 
     # dict(_forms.errors))
     for k, v in dict(_forms.errors).items():
-        log.info("error %s %s" % (k, v))
         return ErrorJsonResponse(status=400, data={
             'type': k,
             'message': v,
