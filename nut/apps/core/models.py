@@ -163,6 +163,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             except Exception, e:
                 log.error("Error: user id %s %s", (self.id,e.message))
             cache.set(key, res, timeout=86400)
+
         res['like_count'] = self.like_count
         res['entity_note_count'] = self.post_note_count
         res['tag_count'] = self.tags_count

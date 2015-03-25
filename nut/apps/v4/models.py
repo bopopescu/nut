@@ -1,4 +1,4 @@
-from apps.core.models import Entity, Buy_Link, Note, GKUser, Entity_Like, Selection_Entity
+from apps.core.models import Entity, Buy_Link, Note, GKUser, Entity_Like, Selection_Entity, Sina_Token, Taobao_Token
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
@@ -43,6 +43,72 @@ class APIUser(GKUser):
         res = list(super(APIUser, self).following_list)
         cache.set(key, res, timeout=3600)
         return res
+
+    def v4_toDict(self, visitor=None):
+
+        key_string = "user_v3_%s" % self.id
+        key = md5(key_string.encode('utf-8')).hexdigest()
+        res = cache.get(key)
+        if not res:
+        # key = md5(key_string)
+        # log.info("v3v3v3v3v3")
+            res = self.toDict()
+            res.pop('password', None)
+            res.pop('last_login', None)
+            res.pop('id', None)
+            res.pop('date_joined', None)
+            res.pop('is_admin', None)
+            res.pop('is_superuser', None)
+
+            res['user_id'] = self.id
+            res['is_censor'] = False
+
+            try:
+                res['nickname'] = self.profile.nickname
+                res['bio'] = self.profile.bio
+                res['gender'] = self.profile.gender
+                res['location'] = self.profile.location
+                res['city'] = self.profile.city
+                res['website'] = self.profile.website
+                res['avatar_large'] = self.profile.avatar_url
+                res['avatar_small'] = self.profile.avatar_url
+
+            # res['verified'] = self.profile.email_verified
+                res['relation'] = 0
+            except Exception, e:
+                log.error("Error: user id %s %s", (self.id,e.message))
+            cache.set(key, res, timeout=86400)
+
+        res['like_count'] = self.like_count
+        res['entity_note_count'] = self.post_note_count
+        res['tag_count'] = self.tags_count
+        res['fan_count'] = self.fans_count
+        res['following_count'] = self.following_count
+
+        try:
+            res['sina_screen_name'] = self.weibo.screen_name
+        except Sina_Token.DoesNotExist, e:
+            log.info("info: %s" % e.message)
+
+        try:
+            res['taobao_nick'] = self.taobao.screen_name
+            res['taobao_token_expires_in'] = self.taobao.expires_in
+        except Taobao_Token.DoesNotExist, e:
+            log.info("info: %s", e.message)
+
+
+
+        if visitor:
+            if self.id == visitor.id:
+                res['relation'] = 4
+            elif self.id in visitor.concren:
+                res['relation'] = 3
+            elif self.id in visitor.following_list:
+                res['relation'] = 1
+            elif self.id in visitor.fans_list:
+                res['relation'] = 2
+        return res
+
 
 
 class APIEntity(Entity):
