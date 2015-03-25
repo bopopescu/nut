@@ -157,27 +157,29 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
                 res['website'] = self.profile.website
                 res['avatar_large'] = self.profile.avatar_url
                 res['avatar_small'] = self.profile.avatar_url
-                res['like_count'] = self.like_count
-                res['entity_note_count'] = self.post_note_count
-                res['tag_count'] = self.tags_count
-                res['fan_count'] = self.fans_count
-                res['following_count'] = self.following_count
+
             # res['verified'] = self.profile.email_verified
                 res['relation'] = 0
             except Exception, e:
                 log.error("Error: user id %s %s", (self.id,e.message))
-
-            try:
-                res['sina_screen_name'] = self.weibo.screen_name
-            except Sina_Token.DoesNotExist, e:
-                log.info("info: %s" % e.message)
-
-            try:
-                res['taobao_nick'] = self.taobao.screen_name
-                res['taobao_token_expires_in'] = self.taobao.expires_in
-            except Taobao_Token.DoesNotExist, e:
-                log.info("info: %s", e.message)
             cache.set(key, res, timeout=86400)
+        res['like_count'] = self.like_count
+        res['entity_note_count'] = self.post_note_count
+        res['tag_count'] = self.tags_count
+        res['fan_count'] = self.fans_count
+        res['following_count'] = self.following_count
+
+        try:
+            res['sina_screen_name'] = self.weibo.screen_name
+        except Sina_Token.DoesNotExist, e:
+            log.info("info: %s" % e.message)
+
+        try:
+            res['taobao_nick'] = self.taobao.screen_name
+            res['taobao_token_expires_in'] = self.taobao.expires_in
+        except Taobao_Token.DoesNotExist, e:
+            log.info("info: %s", e.message)
+
 
 
         if visitor:
