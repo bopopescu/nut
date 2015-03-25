@@ -31,12 +31,12 @@ def login(request):
     else:
         _forms = MobileUserSignInForm(request=request)
 
-    log.info(dict(_forms.errors))
-    for error in _forms.errors:
-        log.info("error %s" % error)
+    # dict(_forms.errors))
+    for k, v in dict(_forms.errors).items():
+        log.info("error %s %s" % (k, v))
         return ErrorJsonResponse(status=400, data={
-            'type': 'email',
-            'message': 'Error',
+            'type': k,
+            'message': v,
         })
 
     return ErrorJsonResponse(status=400)

@@ -36,39 +36,44 @@ class MobileUserSignInForm(GuoKuUserSignInForm):
             )
         return self.email
 
+
     def clean_password(self):
-        _password = self.cleaned_data.get('password')
-        _user = get_user_model()._default_manager.get(email = self.email)
-        if _user.check_password(_password):
-            return _password
-        raise  forms.ValidationError(
-            self.error_messages['password_error'],
-            code='password_error'
-        )
-
-
-    def clean(self):
-        # email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password')
-        self.api_key = self.cleaned_data.get('api_key')
-        self.next_url = self.cleaned_data.get('next')
-
-        if self.email and password:
-            self.user_cache = authenticate(username=self.email,
+        # if email and password:
+        self.user_cache = authenticate(username=self.email,
                                            password=password)
-
-            if self.user_cache is None:
+        if self.user_cache is None:
                 raise forms.ValidationError(
                     self.error_messages['invalid_login']
                 )
-            elif not self.user_cache.is_active:
-                raise forms.ValidationError(
-                    self.error_messages['inactive'],
-                    code='inactive',
-                )
+
+    # def clean(self):
+    #     if not self.user_cache.is_active:
+    #             raise forms.ValidationError(
+    #                 self.error_messages['inactive'],
+    #                 code='inactive',
+    #             )
+        # email = self.cleaned_data.get('email')
+        # password = self.cleaned_data.get('password')
+        # self.api_key = self.cleaned_data.get('api_key')
+        # self.next_url = self.cleaned_data.get('next')
+
+        # if email and password:
+        #     self.user_cache = authenticate(username=email,
+        #                                    password=password)
+        #
+        #     if self.user_cache is None:
+        #         raise forms.ValidationError(
+        #             self.error_messages['invalid_login']
+        #         )
+        #     elif not self.user_cache.is_active:
+        #         raise forms.ValidationError(
+        #             self.error_messages['inactive'],
+        #             code='inactive',
+        #         )
 
     def get_session(self):
-
+        self.api_key = self.cleaned_data.get('api_key')
         session = Session_Key.objects.generate_session(
             user_id=self.get_user_id(),
             email=self.user_cache.email,
