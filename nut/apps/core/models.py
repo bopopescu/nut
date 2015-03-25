@@ -265,7 +265,7 @@ class User_Follow(models.Model):
         key_string = "user_follow_%s" % self.id
         key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
-        
+
 
 class Banner(BaseModel):
     CONTENT_TYPE_CHOICES = (
