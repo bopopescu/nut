@@ -30,7 +30,7 @@ def list(request, active=0, template="management/users/list.html"):
     elif admin:
         user_list = GKUser.objects.admin()
     else:
-        user_list = GKUser.objects.all()
+        user_list = GKUser.objects.all().order_by("-date_joined")
 
     paginator = ExtentPaginator(user_list, 30)
 
