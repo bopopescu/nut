@@ -286,6 +286,23 @@ a {
     text-align: center;
     /*border-bottom: 1px solid #eeeddd;*/
 }
+/*.img-box .alt_hover{
+    display: none;
+    position: absolute;
+    float: left;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+    background: #414243;
+    text-align: center;
+    height: 32px;
+    padding: 0 12px;
+    line-height: 32px;
+    font-size: 14px;
+    color: #ffffff;
+    border-radius: 4px;
+
+}*/
 /*.img-box{*/
     /**/
 /*}*/
