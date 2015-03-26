@@ -421,6 +421,7 @@ $.ajaxSetup({
            // var entities = $selection.find('.entity-selection');
            // console.log(entities);
         }
+
     };
 
     var detail = {
