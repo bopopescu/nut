@@ -61,7 +61,8 @@ window.location.href = url;</script><![endif]-->
 
 <body>
 {% url 'web_download' as web_download_url %}
-{% if web_download_url not in request.path %}
+{% url 'web_selection' as web_selection_url %}
+{% if web_selection_url in request.path %}
     <a href="{{ web_download_url }}" target="_blank"><img class="img-responsive guoku-weixin" alt="微信" title="微信" src="{% static 'images/download_icon.png' %}"></a>
 {% endif %}
 <h1 class="hidden sr-only">{% block h1 %}果库{% endblock %}</h1>
@@ -82,7 +83,7 @@ window.location.href = url;</script><![endif]-->
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    {% url 'web_selection' as web_selection_url %}
+{#                    {% url 'web_selection' as web_selection_url %}#}
                     <li {% if web_selection_url in request.path %}class="active"{% endif %}>
                         <a href="{{ web_selection_url }}">{% trans 'selection' %}</a>
                     </li>
