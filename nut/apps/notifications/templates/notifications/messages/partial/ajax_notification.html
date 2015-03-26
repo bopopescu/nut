@@ -1,6 +1,6 @@
 {% load guoku common %}
 
-<ul>
+<ul class="message_list fs_14">
 {% for row in messages %}
     <li class="timestr" timestamp="{{ row.timestamp|timestamp }}">
         <a href="{% url 'web_user_entity_like' row.actor.id %}" class="header" target="_blank">
