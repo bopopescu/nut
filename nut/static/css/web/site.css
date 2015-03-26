@@ -29,8 +29,8 @@ border:none;
 /*去掉苹果的默认UI来渲染按钮*/
 input[type="submit"], input[type="reset"], input[type="button"], button,textarea { -webkit-appearance: none; }
 
-.guoku-weixin{position:fixed;right:20px;top:100px;display: none;width: 70px;height: 70px;opacity:0.8; filter:alpha(opacity=80)}
-.guoku-weixin:hover{opacity: 100;filter:alpha(opacity=100);}
+.guoku-weixin{position:fixed;right:20px;top:100px;display: none;width: 70px;height: 70px;opacity: 100;filter:alpha(opacity=100);}
+.guoku-weixin:hover{opacity:0.85; filter:alpha(opacity=85);}
 @media (min-width: 1270px){
         .guoku-weixin{display: block;}
 }
@@ -286,6 +286,23 @@ a {
     text-align: center;
     /*border-bottom: 1px solid #eeeddd;*/
 }
+/*.img-box .alt_hover{
+    display: none;
+    position: absolute;
+    float: left;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+    background: #414243;
+    text-align: center;
+    height: 32px;
+    padding: 0 12px;
+    line-height: 32px;
+    font-size: 14px;
+    color: #ffffff;
+    border-radius: 4px;
+
+}*/
 /*.img-box{*/
     /**/
 /*}*/
