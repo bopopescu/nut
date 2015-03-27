@@ -29,11 +29,8 @@ border:none;
 /*去掉苹果的默认UI来渲染按钮*/
 input[type="submit"], input[type="reset"], input[type="button"], button,textarea { -webkit-appearance: none; }
 
-.guoku-weixin{position:fixed;right:20px;top:100px;display: none;width: 70px;height: 70px;opacity: 100;filter:alpha(opacity=100);}
+.guoku-weixin{z-index: 1000; position:fixed;right:20px;top:100px;width: 70px;height: 70px;opacity: 100;filter:alpha(opacity=100);}
 .guoku-weixin:hover{opacity:0.85; filter:alpha(opacity=85);}
-@media (min-width: 1270px){
-        .guoku-weixin{display: block;}
-}
 a:focus{outline:none;}
 a {
     text-decoration:none;
@@ -177,6 +174,7 @@ a {
     box-shadow: inherit;
     border: 1px solid #ccc;
 }
+
 
 .btn {
     border: 0;
@@ -530,6 +528,36 @@ a {
     border-radius: 0;
 }
 
+.add_goods{
+    display: none;
+    position: absolute;
+    top: 58px;
+    left: -34px;
+    z-index: 10;
+    background: #414243;
+    text-align: center;
+    height: 38px;
+    padding: 0 12px;
+    line-height: 38px;
+    font-size: 14px;
+    color: #ffffff;
+}
+.add_icon:hover .add_goods{display: block;}
+.add_goods .tip{
+    border-color: transparent transparent #414243 transparent;
+    border-style: solid;
+    border-width: 0 6px 6px 6px;
+    padding: 0;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+    position: absolute;
+    top: -6px;
+    left: 45px;
+}
+ 
 .list-unstyled {
     list-style: none outside none;
     padding-left: 0;
