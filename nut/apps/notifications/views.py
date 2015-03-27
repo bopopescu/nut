@@ -32,6 +32,9 @@ def messages(request, template='notifications/messages/message.html'):
 
 
     remove_user_list = GKUser.objects.deactive_user_list()
+    # remove_user_list.append(_user.id)
+    remove_user_list = list(remove_user_list)
+    remove_user_list.append(_user.id)
     message_list = _user.notifications.filter(timestamp__lt=_timestamp).exclude(actor_object_id__in=remove_user_list)
 
     paginator = ExtentPaginator(message_list, 10)
