@@ -8,7 +8,7 @@
         <div class="thumbnail entity-selection">
             <div class="img-box">
                 <a  href="{% url 'web_entity_detail' entity.entity_hash %}">
-                    <img class="img-responsive" alt="{{ entity.title }}" src="{{ entity.chief_image|resize:'310' }}" width='310' height='310'>
+                    <img class="img-responsive" alt="{{ entity.title }}" title="{{ entity.title }}" src="{{ entity.chief_image|resize:'310' }}" width='310' height='310'>
                 </a>
             </div>
             <div class="caption">
