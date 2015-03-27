@@ -61,14 +61,9 @@ window.location.href = url;</script><![endif]-->
 
 <body>
 {% url 'web_download' as web_download_url %}
-<<<<<<< HEAD
 {% url 'web_selection' as web_selection_url %}
 {% if web_selection_url in request.path %}
     <a href="{{ web_download_url }}" target="_blank"><img class="img-responsive guoku-weixin" alt="微信" title="微信" src="{% static 'images/download_icon.png' %}"></a>
-=======
-{% if web_download_url not in request.path %}
-    <a href="{{ web_download_url }}" target="_blank"><img class="img-responsive guoku-weixin" alt="下载" title="下载" src="{% static 'images/download_icon.png' %}"></a>
->>>>>>> 3bcde1acb4210ff412d7e4349c42bc99614dd01a
 {% endif %}
 <h1 class="hidden sr-only">{% block h1 %}果库{% endblock %}</h1>
 {% block header %}
