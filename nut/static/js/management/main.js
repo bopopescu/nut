@@ -144,7 +144,25 @@
         remove: function(){
             var comment_list = $("#comment");
             comment_list.find(".btn").on('click', function(){
-                console.log("OKOKOKO");
+                //console.log(this);
+
+                var row = $(this).parent().parent();
+
+                var comment_id = $(this).attr('comment-id');
+                var link = '/management/comment/' + comment_id + '/del/';
+
+                //console.log(comment_id);
+                $.ajax({
+                    type:'post',
+                    url: link,
+                    success: function(res){
+                        console.log(res['status']);
+                        if (res['status'] === 'success') {
+                            //console.log(row);
+                            row.remove();
+                        }
+                    }
+                });
             })
         }
     };

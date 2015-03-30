@@ -25,7 +25,7 @@
                         <td><a href="{% url 'management_user_edit' comment.user.pk %}">{{ comment.user.profile.nickname }}</a></td>
                         <td>{{ comment.content }}</td>
                         <td>{{ comment.post_time|date:'Y-m-d' }}</td>
-                        <td><a class="btn btn-default" href="#">{% trans 'delete' %}</a></td>
+                        <td><a class="btn btn-default" href="javascript:;" comment-id="{{ comment.pk }}">{% trans 'delete' %}</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

@@ -7,7 +7,9 @@ from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.models import Note_Comment
 from apps.core.extend.paginator import ExtentPaginator, InvalidPage, EmptyPage
+from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.management.decorators import staff_only
+
 
 # from apps.core.
 
@@ -21,7 +23,7 @@ def list(request, template='management/comment/list.html'):
 
     page = request.GET.get('page', 1)
 
-    comment_list = Note_Comment.objects.all()
+    comment_list = Note_Comment.objects.all().order_by("-post_time")
 
     paginator = ExtentPaginator(comment_list, 30)
 
@@ -61,11 +63,14 @@ def note_comment_list(request, note_id, template='management/notes/comment/list.
 @staff_only
 def delete(request, comment_id):
 
+    if not request.is_ajax() or not request.method == "POST":
+        return ErrorJsonResponse(status=400)
+
     try:
         comment = Note_Comment.objects.get(pk = comment_id)
         comment.delete()
     except Note_Comment.DoesNotExist:
-        raise Http404
-    return
+        return ErrorJsonResponse(status=404)
+    return SuccessJsonResponse(data={'status':'success'})
 
 __author__ = 'edison'
