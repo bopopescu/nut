@@ -20,7 +20,7 @@ class MobileUserProfileForm(forms.Form):
 
     bio = forms.CharField(
         widget=forms.Textarea(),
-        max_length=100,
+        max_length=30,
         required=False,
     )
     gender = forms.ChoiceField(

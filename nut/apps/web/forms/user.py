@@ -43,11 +43,13 @@ class UserSettingsForm(forms.Form):
                                 # widget=forms.Select(attrs={'class':'form-control'}),
                                 widget=forms.Select(attrs={'class':'form-control'}),
                                 help_text=_(''))
+
     bio = forms.CharField(label=_('bio'),
                           widget=forms.Textarea(attrs={'class':'form-control','rows':'4', 'style':'resize:none;'}),
                           required=False,
-                          max_length=200,
+                          max_length=30,
                           help_text=_(''))
+
     website = forms.URLField(label=_('website'),
                              widget=forms.URLInput(attrs={'class':'form-control'}),
                              required=False,
