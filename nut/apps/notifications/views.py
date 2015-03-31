@@ -51,14 +51,6 @@ def messages(request, template='notifications/messages/message.html'):
     except EmptyPage:
         raise Http404
 
-    # log.info(type(_messages.object_list))
-
-    _data = list(_messages.object_list)
-
-    # log.info(len(data))
-
-    # log.info(len(data))
-
     _user.notifications.mark_all_as_read()
     if request.is_ajax():
         res = {
