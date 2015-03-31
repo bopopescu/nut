@@ -31,8 +31,8 @@ def message(request):
     remove_user_list = V3_User.objects.deactive_user_list()
     log.info(remove_user_list)
     # actor_object_id
-
-    log.info(request.GET)
+    #
+    # log.info(request.GET)
     _messages = _session.user.notifications.filter(timestamp__lt=_timestamp).exclude(actor_object_id__in=remove_user_list)
 
 

@@ -4,14 +4,19 @@ from django.views.decorators.http import require_GET
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.template import loader
+from django.db.models import Count
 
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.core.models import Entity_Like, Entity, Sub_Category, GKUser
-from django.db.models import Count
 from apps.core.utils.http import JSONResponse
 
 from datetime import datetime
 import random
+
+
+from django.utils.log import getLogger
+
+log = getLogger('django')
 
 
 @require_GET
@@ -37,7 +42,7 @@ def messages(request, template='notifications/messages/message.html'):
     remove_user_list.append(_user.id)
     message_list = _user.notifications.filter(timestamp__lt=_timestamp).exclude(actor_object_id__in=remove_user_list)
 
-    paginator = ExtentPaginator(message_list, 10)
+    paginator = ExtentPaginator(message_list, 15)
 
     try:
         _messages = paginator.page(_page)
@@ -45,6 +50,14 @@ def messages(request, template='notifications/messages/message.html'):
         _messages = paginator.page(1)
     except EmptyPage:
         raise Http404
+
+    # log.info(type(_messages.object_list))
+
+    _data = list(_messages.object_list)
+
+    # log.info(len(data))
+
+    # log.info(len(data))
 
     _user.notifications.mark_all_as_read()
     if request.is_ajax():

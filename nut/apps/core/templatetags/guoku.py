@@ -1,15 +1,16 @@
 from django import template
 from django.utils.log import getLogger
 from django.conf import settings
+
 import time
 import qrcode
 import StringIO
-import base64
+# import base64
+
 
 register = template.Library()
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
-
 
 
 def enumerate_list(value):
@@ -27,13 +28,13 @@ def resize(value, size=None):
     if size:
         if host in value:
             uri = value.replace(host, '')
-            log.info(uri)
+            # log.info(uri)
             params = uri.split('/')
 
             params.insert(1, size)
             # log.info(params)
             uri_string = '/'.join(params)
-            log.info(uri_string)
+            # log.info(uri_string)
             return host + uri_string
             # return "%s" % (host, params[0], params[1])
     # log.info(value)
@@ -45,7 +46,6 @@ def show_category(value):
     title = value.split('-')
     return title[0]
 register.filter(show_category)
-
 
 def timestamp(value):
     # log.info(type(value))
@@ -73,5 +73,9 @@ def entity_qr(value):
     # output.close()
     return content.encode('base64').replace("\n", "")
 register.filter(entity_qr)
+
+
+
+
 
 __author__ = 'edison'

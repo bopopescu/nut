@@ -12,11 +12,11 @@ def images(request, file_name, size=None):
 
     if "/large/" in path or "small" in path:
         path = path.split('/')
-        log.info(path)
+        # log.info(path)
         image_name = "%s/%s/%s" % (path[1], path[-2], path[-1])
     else:
         path = path.split('/')
-        log.info(path)
+        # log.info(path)
         image_name = "%s/%s" % (path[1], path[-1])
 
     log.info(image_name)
