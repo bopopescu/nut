@@ -1,7 +1,10 @@
-{% load guoku common %}
+{% load guoku exloop common %}
 
 <ul class="message_list fs_14">
 {% for row in messages %}
+    {% if row.action_object == None %}
+        {{ forloop|continue }}
+    {% endif %}
     <li class="timestr" timestamp="{{ row.timestamp|timestamp }}">
         <a href="{% url 'web_user_entity_like' row.actor.id %}" class="header" target="_blank">
             <img src="{{ row.actor.profile.avatar_url|resize:'50' }}" alt="{{ row.actor.profile.nickname }}" />
