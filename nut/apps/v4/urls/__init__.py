@@ -21,6 +21,7 @@ urlpatterns += patterns(
     url(r'^sina/login/$', 'weibo.login_by_weibo', name="v4_login_by_weibo"),
     url(r'^sina/register/$', 'weibo.register_by_weibo', name='v4_register_by_weibo'),
     url(r'^sina/bind/$', 'weibo.link_by_weibo', name='v4_bind_by_weibo'),
+    url(r'^sina/unbind/$', 'weibo.unlink_by_weibo', name='v4_unbind_by_weibo'),
 
 
     url(r'^taobao/login/$', 'taobao.login_by_taobao', name='v4_login_by_taobao'),
