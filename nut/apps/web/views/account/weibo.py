@@ -33,9 +33,7 @@ def auth_by_sina(request):
         _sina_data = sina.get_auth_data(code)
         next_url = request.session.get('next_url', reverse("web_selection"))
         # del request.session['next_url']
-
-
-        log.info(_sina_data)
+        # log.info(_sina_data)
         try:
             weibo = Sina_Token.objects.get(sina_id = _sina_data['sina_id'])
             weibo.access_token = _sina_data['access_token']
