@@ -188,23 +188,23 @@ class MobileWeiboLinkForm(WeiboForm):
         return res.user.v3_toDict()
 
 
-class MobileWeiboUnLinkForm(forms):
+class MobileWeiboUnLinkForm(forms.Form):
     user_id = forms.CharField(
         widget=forms.TextInput(),
     )
-    weibo_id = forms.CharField(
+    sns_user_name = forms.CharField(
         widget=forms.TextInput(),
     )
 
     def clean(self):
         _user_id = self.cleaned_data.get('user_id')
-        _weibo_id = self.cleaned_data.get('weibo_id')
+        _weibo_name = self.cleaned_data.get('sns_user_name')
 
         try:
-            self.weibo_cache =  Sina_Token.objects.get(user_id=_user_id, sina_id=_weibo_id)
+            self.weibo_cache =  Sina_Token.objects.get(user_id=_user_id, screen_name=_weibo_name)
         except Sina_Token.DoesNotExist:
             raise forms.ValidationError(
-                ''
+                'user is not exist'
             )
 
     def unlink(self):
