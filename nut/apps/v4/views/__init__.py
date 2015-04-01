@@ -92,7 +92,7 @@ def selection(request):
         _timestamp = datetime.fromtimestamp(float(_timestamp))
     _key = request.GET.get('session')
 
-
+    _count = int(request.GET.get('count'))
     # _rcat = request.GET.get('rcat', None)
     # log.info("rcat %s" % _rcat)
     #
@@ -131,7 +131,7 @@ def selection(request):
     #     innqs = Sub_Category.objects.map(group_id_list=[25, 38, 39])
     #     selections = Selection_Entity.objects.published().filter(pub_time__lt=_timestamp, entity__category__in=innqs)[:30]
     # else:
-    selections = APISelection_Entity.objects.published().filter(pub_time__lt=_timestamp)[:30]
+    selections = APISelection_Entity.objects.published().filter(pub_time__lt=_timestamp)[:_count]
     ids = selections.values_list('entity_id', flat=True)
 
     try:
