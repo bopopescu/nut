@@ -8,7 +8,6 @@ from apps.mobile.models import Session_Key
 
 from apps.core.utils.image import HandleImage
 from apps.core.tasks.account import fetch_avatar, update_token
-from apps.v4.models import APIWeiboToken
 
 
 class MobileUserSignInForm(GuoKuUserSignInForm):
@@ -280,40 +279,6 @@ class MobileWeiboLoginForm(WeiboForm):
         }
 
         return res
-
-
-class MobileWeiboLinkForm(WeiboForm):
-
-    user_id = forms.CharField(
-        widget=forms.TextInput(),
-    )
-
-    def clean_sina_id(self):
-        _sina_id = self.cleaned_data.get('sina_id')
-
-        try:
-            APIWeiboToken.objects.get(sina_id=_sina_id)
-        except APIWeiboToken.DoesNotExist:
-            return _sina_id
-        raise forms.ValidationError(
-            'already bind',
-        )
-
-    def save(self):
-        _user_id = self.cleaned_data.get('user_id')
-        _sina_id = self.cleaned_data.get('sina_id')
-        _access_token = self.cleaned_data.get('sina_token')
-        _screen_name = self.cleaned_data.get('screen_name')
-
-        res = APIWeiboToken.objects.create(
-            user_id = _user_id,
-            sina_id = _sina_id,
-            screen_name = _screen_name,
-            access_token = _access_token
-        )
-
-        return res.user.v3_toDict()
-
 
 class MobileTaobaoSignUpForm(TaobaoForm):
 

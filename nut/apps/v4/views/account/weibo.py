@@ -1,11 +1,10 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.mobile.lib.sign import check_sign
-from apps.mobile.forms.account import MobileWeiboSignUpForm, MobileWeiboLoginForm, MobileWeiboLinkForm
+from apps.v4.forms.account import MobileWeiboSignUpForm, MobileWeiboLoginForm, MobileWeiboLinkForm
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.log import getLogger
 
-log = getLogger('djang'
-                'o')
+log = getLogger('django')
 
 @csrf_exempt
 @check_sign
