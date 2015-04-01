@@ -1,6 +1,6 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.mobile.lib.sign import check_sign
-from apps.mobile.forms.account import MobileWeiboSignUpForm, MobileWeiboLoginForm
+from apps.mobile.forms.account import MobileWeiboSignUpForm, MobileWeiboLoginForm, MobileWeiboLinkForm
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.log import getLogger
 
@@ -42,5 +42,25 @@ def register_by_weibo(request):
             })
     return ErrorJsonResponse(status=400)
 
+
+@csrf_exempt
+@check_sign
+def link_by_weibo(request):
+
+    if request.method == "POST":
+        _forms = MobileWeiboLinkForm(request.POST)
+        if _forms.is_valid():
+            res = _forms.save()
+            return SuccessJsonResponse(res)
+        log.info(dict(_forms.errors))
+        for k, v in _forms.errors.items():
+            # log.info("message  %s" % _forms.error_class.as_text(v))
+            _message = _forms.error_class.as_text(v)
+            return ErrorJsonResponse(status=403, data={
+                'type': k,
+                'message': _message.replace('*', ''),
+            })
+
+    return ErrorJsonResponse(status=400)
 
 __author__ = 'edison'

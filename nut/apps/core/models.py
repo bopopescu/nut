@@ -811,7 +811,7 @@ class Entity_Tag(models.Model):
         return self.tag.tag_hash
 
 
-class Sina_Token(models.Model):
+class Sina_Token(BaseModel):
     user = models.OneToOneField(GKUser, related_name='weibo')
     sina_id = models.CharField(max_length = 64, null = True, db_index = True)
     screen_name = models.CharField(max_length = 64, null = True, db_index = True)

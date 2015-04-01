@@ -1,4 +1,4 @@
-from apps.core.models import Entity, Buy_Link, Note, GKUser, Entity_Like, Selection_Entity, Sina_Token, Taobao_Token
+from apps.core.models import Entity, Buy_Link, Note, GKUser, Selection_Entity, Sina_Token, Taobao_Token
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
@@ -109,6 +109,15 @@ class APIUser(GKUser):
                 res['relation'] = 2
         return res
 
+
+class APIWeiboToken(Sina_Token):
+
+    class Meta:
+        proxy = True
+
+    def v4_toDict(self):
+        res = self.toDict()
+        return res
 
 
 class APIEntity(Entity):
