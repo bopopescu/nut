@@ -69,7 +69,7 @@ def unlink_by_weibo(request):
         _form = MobileWeiboUnLinkForm(request.POST)
         if _form.is_valid():
             _form.unlink()
-            return SuccessJsonResponse()
+            return SuccessJsonResponse(data={'status':'success'})
         for k, v in _form.errors.items():
             _message = _form.error_class.as_text(v)
             return ErrorJsonResponse(status=403, data={
