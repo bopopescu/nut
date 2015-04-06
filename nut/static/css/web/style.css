@@ -123,6 +123,10 @@ a:hover{text-decoration:none;}
 
 /*编辑个人信息页面*/
 .intorduce{}
+.edit_profile{margin-top: 110px;height: 1000px;}
+.change_password,.binding_page,.notice_page{margin-top: 110px;height: 600px;}
+.slide a{color: #414243;}
+.slide a:hover{color: #414243;}
 .slide ul li{height: 48px; border-bottom: 1px dashed #E6E6E6;line-height: 48px;text-align: left;padding: 0 0 0 8px;}
 .slide ul li:hover{font-weight: bold; background: #F8F8F8;}
 .slide ul li.check{font-weight: bold;}
