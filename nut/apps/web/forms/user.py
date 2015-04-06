@@ -18,22 +18,22 @@ class UserSettingsForm(forms.Form):
     }
 
     email = forms.EmailField(label=_('email'),
-                             widget=forms.TextInput(attrs={'class':'form-control', 'type':'email'}),
+                             widget=forms.TextInput(attrs={'class':'td', 'type':'email'}),
                              help_text=_(''),
                              required=False)
 
     nickname = forms.CharField(label=_('nickname'),
-                               widget=forms.TextInput(attrs={'class':'form-control'}),
+                               widget=forms.TextInput(attrs={'class':'td'}),
                                help_text=_(''))
 
     location = forms.CharField(
-        widget=forms.Select(attrs={"name" : "location", "class" : "form-control location"}),
+        widget=forms.Select(attrs={"name" : "location", "class" : "location"}),
         label=_('location'),
         required=False
     )
 
     city = forms.CharField(
-        widget=forms.Select(attrs={'name' : 'city', 'class' : 'form-control city'}),
+        widget=forms.Select(attrs={'name' : 'city', 'class' : 'city'}),
         label=_('city'),
         required=False
     )
@@ -41,11 +41,11 @@ class UserSettingsForm(forms.Form):
     gender = forms.ChoiceField(label=_('gender'),
                                 choices=User_Profile.GENDER_CHOICES,
                                 # widget=forms.Select(attrs={'class':'form-control'}),
-                                widget=forms.Select(attrs={'class':'form-control'}),
+                                widget=forms.Select(attrs={'class':'sex td'}),
                                 help_text=_(''))
 
     bio = forms.CharField(label=_('bio'),
-                          widget=forms.Textarea(attrs={'class':'form-control','rows':'4', 'style':'resize:none;'}),
+                          widget=forms.Textarea(attrs={'class':'td'}),
                           required=False,
                           max_length=30,
                           help_text=_(''))
