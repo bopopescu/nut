@@ -1,4 +1,4 @@
-body,button,input,select,textarea{font-family:Arial,Helvetica,sans-serif;_font-family:"SimSun";}
+body,button,input,select,textarea{font:12px/1.125 Arial,Helvetica,sans-serif;_font-family:"SimSun";}
 body,h1,h2,h3,h4,h5,h6,dl,dt,dd,ul,ol,li,th,td,p,blockquote,pre,form,fieldset,legend,input,button,textarea,hr{margin:0; padding:0;}
 table{border-collapse:collapse;border-spacing:0;}
 li{list-style:none;}
@@ -22,10 +22,17 @@ a:hover{text-decoration:none;}
 /*a标签的颜色*/
 .fc_3{color:#427EC0;}
 .fc_4{color:#ffffff;}
+.fc_5{color: #E6E6E6;}
+.fc_red{color: #db1f77;}
+.fc_weibo{color:#DC0000;}
+.fc_weixin{color: #56AB2D;}
 
 .bg_c_blue{background: #427EC0;}
 .bg_c_gray{background: #F7F7F7;}
-
+.clear{clear: both;}
+.table{display: table;border: none;}
+.tr{display: table-cell;border: none;}
+.td{display: table-cell;border:none;}
 
 /*举报页面*/
 .report{width: 540px; height: 496px;}
@@ -54,7 +61,7 @@ a:hover{text-decoration:none;}
 .message_page .early{margin-top: 80px;}
 
 .right_part{margin-top: 78px;}
-.right_part .right_list{margin-top: 16px;margin-bottom: 20px;padding: 0;}
+.right_part .right_list{margin-top: 16px;margin-bottom: 20px;}
 .right_part .right_list li{margin-bottom: 8px;}
 .right_part .download_part{border-top: 1px solid #E6E6E6;padding-top: 18px;}
 .right_part .download_link{margin-top: 16px;}
@@ -71,8 +78,8 @@ a:hover{text-decoration:none;}
 .download .guoku_into .intor{color: #9D9E9F;font-size: 16px;margin-top: 24px;height: 30px;width: 320px;line-height: 25px;}
 .download .download_link{margin-top: 97px;}
 .download .download_link li{width: 112px; height: 36px; line-height: 36px;text-align: center;background: #427EC0;float: left;margin-right: 10px;}
-.download .download_link li:hover{color: #ffffff;background-color: #3071a9;border-color: #285e8e;}
 .download .download_link li a:hover{color: #ffffff;}
+
 .download .download_into{margin-top: 40px;}
 .download .download_into li{float: left;border-right: 1px solid #E6E6E6;padding-left: 34px;padding-right: 0px;}
 .download .download_into li .intor{margin-top: 15px;line-height: 20px;}
@@ -88,135 +95,90 @@ a:hover{text-decoration:none;}
     .download .guoku_into .intor{width: auto;}
     .download .download_img{margin-top: 32px; width: 100%;text-align: center;}
     .download .download_into li .intor{margin-top: 15px;line-height: 20px;width: 100%;text-align: center;}
-    .download .download_link{overflow: hidden;   bottom: -224px;float: left;margin-left: 0;width: 240px;position: absolute;  z-index: 100;left: 50%;margin-left: -120px;}
+    .download .download_link{overflow: hidden;   bottom: -224px;float: left;margin-left: 0;width: 240px;position: absolute;left: 50%;margin-left: -120px;}
     .download .download_link li{width: 240px; height: 42px; line-height: 42px;float: left;margin-bottom: 8px;}
-    .download .download_link li:hover{color: #ffffff;background-color: #3071a9;border-color: #285e8e;}
-    .download .download_link li a:hover{color: #ffffff;}
     .download .download_into{ margin-top: 234px;text-align: left;width: 266px;position: absolute;left: 50%;margin-left: -133px;}
     .download .download_into li{clear:both;border-right: none;padding-left: 0px;padding-right: 0px;margin-top: 40px;}
     .download .download_into li .intor{margin-top: 15px;line-height: 20px;width: 266px;text-align: left;}
-    .download .download_button {height: 500px;}
+    .download .download_bottom {height: 500px;}
 }
-
-
-
-/*
-    position: absolute; z-index: -100;top: 50px;}
-.download_container{
-    margin-top: 95px;
-}
-.download_link{
-	position: absolute; bottom: 82px; right: 42px;
-}
-
-.download_container .guoku_into{
-    float: left;
-    margin-left: 60px;
-}
-.download_container .download_img{
-    float: left;
-}
-.download_container .guoku_into .title{
-    font-size: 28px;
-    color: #535353;
-    margin-top: 28px;
-}
-.download_container .guoku_into .intor{
-    color: #9D9E9F;
-    font-size: 16px;
-    margin-top: 24px;
-    line-height: 30px;
-}
-.btn-download {
-    /*position: absolute;
-    /*float: right;*/
-    /*bottom: 100px;*/
-    /*height: 40px;
-    width: 120px;
-    font-size: 18px;
-    text-align: center;
-    margin-left: 15px;
-}
-
-@media screen and (max-width: 900px) {
-	.download_container{padding: 0 50px;} 
-	.download_container .guoku_into{
-		position: absolute;
-		top: 0;
-		text-align: center;
-		min-width: 280px; 
-		width: 280px;
-		left: 50%;
-		margin-left: -140px;
-    }
-	.download_container .download_img{
-		position: absolute;
-		top: 261px;
-		}
-	..download_link{
-	position: absolute; bottom: 82px; right: 42px;
-}
-}*/
-
 
 /*个人页面*/
-.profile_area{
-    width: 960px;
-}
-.profile{
-  width: 100%;
-  height: 362px;
-  background: #ccc;
-}
+.profile{width: 100%;height: 362px;background: url(../images/profile_bg.png);}
+.edit_personal_info{border-radius: 10px;width:152px;height: 50px;background: #ffffff;display: inline-block;text-align: center;line-height: 50px;float:right;margin:20px 20px 0 0;}
+.personal_sticker{border-radius: 59px;width: 118px;height: 118px;background: url(../images/header.jpg);display: inline-block;}
+.text_name{margin-top: 32px;width: 100%;text-align: center;}
+.info{margin-top: 17px;width: 100%;text-align: center;}
+.follow{margin-top: 16px;width: 50%;text-align: right;float: left;}
+.fans{margin-top: 16px;width: 50%;text-align: left;float: left;}
+.profile_tab{height: 64px;margin-bottom: 30px;}
+.profile_tab ul{float: left;}
+.profile_tab ul li{float: left;height: 64px;line-height: 64px;margin-right: 40px;}
+.profile_tab ul li:hover{border-bottom: 2px solid #DB1F77;}
 
-.edit_personal_info{
-    border-radius: 10px;
-    width:152px;
-    height: 50px;
-    background: #ffffff;
-    display: inline-block;
-    text-align: center;
-    line-height: 50px;
-    float:right;
-    margin:20px 20px 0 0;
-}
-
-.personal_sticker{
-    border-radius: 59px;
-    width: 118px;
-    height: 118px;
-    background: #000;
-    display: inline-block;
-    margin: 60px 0 0 406px;
-}
-
-.text_name{
-    margin-top: 32px;
-    width: 100%;
-    text-align: center;
-}
-
-.info{
-    margin-top: 17px;
-    width: 100%;
-    text-align: center;
-}
-
-.follow{
-    margin-top: 16px;
-    width: 50%;
-    text-align: right;
-    float: left;
-}
+.goods_list li img{width: 100%;border:1px solid #eee;}
+.goods_list .goods_operate{height: 32px; line-height: 32px;margin-bottom: 30px;}
 
 
-.fans{
-    margin-top: 16px;
-    width: 50%;
-    text-align: left;
-    float: left;
-}
 
-.red{
-    color: #db1f77;
+/*编辑个人信息页面*/
+.intorduce{}
+.slide ul li{height: 48px; border-bottom: 1px dashed #E6E6E6;line-height: 48px;text-align: left;padding: 0 0 0 8px;}
+.slide ul li:hover{font-weight: bold; background: #F8F8F8;}
+.slide ul li.check{font-weight: bold;}
+.head{margin-bottom: 40px;}
+.tab_way{margin-bottom: 40px;}
+.head .head_pic{width: 118px;height: 118px;border-radius: 59px;margin:0 0 20px 124px; overflow: hidden;}
+.head .head_pic img{width: 118px;height: 118px;}
+.head .change_head{width: 140px;height: 40px;text-align: center;line-height: 40px;margin-left: 104px;position: relative;}
+.head .change_head:hover{background: #3071a9;}
+.head input{opacity: 0;width: 140px; height: 39px; position: absolute;top: 0px;left: 0px;}
+.edit_info_area{width: 100%;}
+.edit_info ul li{height: 40px;line-height: 40px;margin-bottom: 20px;width: 404px;}
+.edit_info ul li.intor{height: 124px;}
+.edit_info ul li span{width: 104px;}
+.edit_info ul li input{height: 39px; width: 100%;padding: 0 12px;border: 1px solid #E6E6E6;}
+.edit_info ul li textarea{height: 123px;width: 100%;padding: 12px;border: 1px solid #E6E6E6;}
+.edit_info ul li select{height: 40px; width: 140px;padding: 0 12px;border: 1px solid #E6E6E6;}
+.edit_info ul li select.city{margin-left: 15px;}
+.edit_info ul li select.notice{width: 300px;margin-left: 31px;}
+.submit_info button{width: 140px;height: 40px;text-align: center;line-height: 40px;border: none;}
+.submit_info button:hover{background: #3071a9;}
+.submit_info .button_loca{margin-left: 104px;position: relative;}
+.submit_info .button_notice{margin-left: 164px;}
+.submit_info .tip{margin-bottom: 20px;}
+.password ul li {position: relative;}
+.password ul li input.new_password{margin-left: 56px;}
+.password ul li .password_right{color: #427EC0;padding-left: 16px;position: absolute;top: 14px;right: -30px;}
+.binding{width: 405px;}
+.binding ul li .icon{margin-right: 40px;font-size: 40px;}
+.binding ul li .icon_taobao{background: url(../images/taobao_icon.png) no-repeat;display: inline-block;width: 40px;height: 34px;margin-right: 40px;}
+.binding ul li .id_name{  vertical-align: top;}
+.binding ul .binding_btn button{width: 140px;height: 40px;text-align: center;line-height: 40px;border: none;}
+.notice_page .edit_info ul li span{width: 128px;}
+.notice_page .edit_info ul li{width: 466px;}
+@media screen and (max-width: 600px) {
+    .edit_info ul li{width: 100%;}
+    .tab_way{text-align: center;}
+    .head{overflow: hidden;height: 178px;}
+    .head .head_pic{position: absolute;left: 50%;margin-left: -60px;}
+    .head .change_head{position: absolute;left: 50%;margin-left: -70px;top: 215px;}
+    .edit_info_area{overflow: hidden;height: 460px;}
+    .edit_info ul li input{margin-left: 0px;width: 100%;box-sizing:border-box;}
+    .edit_info ul li .title{width: 63px;}
+    .password ul li .title{width: 80px;}
+    .edit_info ul li.intor textarea{margin-left: 0px;width: 100%;outline:none}
+    .edit_info ul li select.select_area{margin-left: 64px;margin-top: 20px;}
+    .edit_info ul li select.city{margin-left: 0;margin-top: 20px;}
+    .edit_info ul li.address{height: auto;}
+    .edit_info ul li select.sex{}
+    .submit_info button.button_loca{position: absolute;left: 50%;margin-left: -70px;}
+    .edit_profile .slide {position: absolute;top: 937px; width: 200px;margin-bottom: 40px;}
+    .binding{width: 100%;}
+    .binding_page .slide,.change_password .slide,.notice_page .slide{position: absolute;top: 460px; width: 200px;margin-bottom: 40px;}
+    .binding ul .binding_btn button{width: 140px;}
+    .binding ul li .icon{margin-right: 20px;width: 46px;}
+    .binding ul li .icon_taobao{margin-right: 20px;width: 46px;}
+    .edit_info ul li select.notice{width: 100%;}
+    .notice_page .edit_info ul li{width: 100%;}
 }
