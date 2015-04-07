@@ -156,7 +156,7 @@ a:hover{text-decoration:none;}
 .password ul li .password_right{color: #427EC0;padding-left: 16px;position: absolute;top: 14px;right: -30px;}
 .binding{width: 405px;}
 .binding ul li .icon{margin-right: 40px;font-size: 40px;}
-.binding ul li .icon_taobao{background: url(../images/taobao_icon.png) no-repeat;display: inline-block;width: 40px;height: 34px;margin-right: 40px;}
+.binding ul li .icon_taobao{background: url(/static/images/taobao_icon.png) no-repeat;display: inline-block;width: 40px;height: 34px;margin-right: 40px;}
 .binding ul li .id_name{  vertical-align: top;}
 .binding ul .binding_btn button{width: 140px;height: 40px;text-align: center;line-height: 40px;border: none;}
 .notice_page .edit_info ul li span{width: 128px;}

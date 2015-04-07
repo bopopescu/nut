@@ -1,34 +1,75 @@
 {% extends 'web/user/settings.html' %}
 
-
 {% block main %}
-    <h2>绑定设置</h2>
-    <br />
-    <div class="row">
-            <label class="col-sm-4 control-label">新浪微博</label>
-            {% if user.weibo.screen_name %}
-                <p class="col-xs-4 col-sm-4">@{{ user.weibo.screen_name }}</p>
-                <div class="col-xs-4 col-sm-4">
-                    <a href="{%url 'web_unbind_by_weibo' %}" class="btn btn-cancel">取消绑定</a>
-                </div>
-            {% else %}
-                <div class="col-sm-offset-4 col-sm-4">
-                    <a href="{% url 'web_bind_by_weibo' %}" class="btn btn-primary">绑定微博</a>
-                </div>
-            {% endif %}
-    </div>
+    <div class="col-sm-9 col-xs-9">
+        <p class="fs_24 fc_2 tab_way">&nbsp;绑定设置</p>
+        <div class="edit_info binding">
+            <ul>
+                <li class="fs_16 fc_2 table">
+                    <div class="td">
+                        <i class="fa fa-weibo icon fc_weibo td"></i>
+                    </div>
+                    {% if user.weibo.screen_name %}
+                            <span class="id_name fs_16 fc_1">@{{ user.weibo.screen_name }}</span>
+{#                            <p class="col-xs-4 col-sm-4">@{{ user.weibo.screen_name }}</p>#}
+                            <div class="binding_btn td">
+                                <a href="{%url 'web_unbind_by_weibo' %}"><button  class="bg_c_gray fs_16 fc_3">取消绑定</button></a>
+                            </div>
+                    {% else %}
+                            <div class="binding_btn td">
+                                <a href="{% url 'web_bind_by_weibo' %}"><button  class="bg_c_blue fs_16 fc_4">绑定微博</button></a>
+                            </div>
+                    {% endif %}
+                </li>
 
-    <div class="row">
-            <label class="col-sm-4 control-label">淘宝网</label>
-            {% if user.taobao.screen_name %}
-                <p class="col-xs-4 col-sm-4">@{{ user.taobao.screen_name }}</p>
-                <div class="col-xs-4 col-sm-4">
-                   <a href="{%url 'web_unbind_by_taobao' %}">取消绑定</a>
-                </div>
-            {% else %}
-                <div class="col-sm-offset-4 col-sm-4">
-                    <a class="btn btn-primary" href="{%url 'web_bind_by_taobao' %}">绑定淘宝</a>
-                </div>
-            {% endif %}
+                <li>
+                    <div class="td">
+                        <span class="icon_taobao"></span>
+                    </div>
+                    {% if user.taobao.screen_name %}
+                        <span class="id_name fs_16 fc_1">@{{ user.taobao.screen_name }}</span>
+                        <div class="binding_btn td">
+                            <a href="{%url 'web_unbind_by_taobao' %}"><button  class="bg_c_blue fs_16 fc_4">取消绑定</button></a>
+                        </div>
+                    {% else %}
+                        <div class="binding_btn td">
+                            <a href="{%url 'web_bind_by_taobao' %}"><button class="bg_c_blue fs_16 fc_4" >绑定淘宝</button></a>
+                        </div>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
     </div>
 {% endblock %}
+
+{#{% block main %}#}
+{#    <h2>绑定设置</h2>#}
+{#    <br />#}
+{#    <div class="row">#}
+{#            <label class="col-sm-4 control-label">新浪微博</label>#}
+{#            {% if user.weibo.screen_name %}#}
+{#                <p class="col-xs-4 col-sm-4">@{{ user.weibo.screen_name }}</p>#}
+{#                <div class="col-xs-4 col-sm-4">#}
+{#                    <a href="{%url 'web_unbind_by_weibo' %}" class="btn btn-cancel">取消绑定</a>#}
+{#                </div>#}
+{#            {% else %}#}
+{#                <div class="col-sm-offset-4 col-sm-4">#}
+{#                    <a href="{% url 'web_bind_by_weibo' %}" class="btn btn-primary">绑定微博</a>#}
+{#                </div>#}
+{#            {% endif %}#}
+{#    </div>#}
+{##}
+{#    <div class="row">#}
+{#            <label class="col-sm-4 control-label">淘宝网</label>#}
+{#            {% if user.taobao.screen_name %}#}
+{#                <p class="col-xs-4 col-sm-4">@{{ user.taobao.screen_name }}</p>#}
+{#                <div class="col-xs-4 col-sm-4">#}
+{#                   <a href="{%url 'web_unbind_by_taobao' %}">取消绑定</a>#}
+{#                </div>#}
+{#            {% else %}#}
+{#                <div class="col-sm-offset-4 col-sm-4">#}
+{#                    <a class="btn btn-primary" href="{%url 'web_bind_by_taobao' %}">绑定淘宝</a>#}
+{#                </div>#}
+{#            {% endif %}#}
+{#    </div>#}
+{#{% endblock %}#}
