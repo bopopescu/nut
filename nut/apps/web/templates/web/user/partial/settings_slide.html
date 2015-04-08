@@ -23,7 +23,7 @@
         {% url 'web_user_bind_sns' as web_user_bind_sns_url %}
 				<ul class="fs_14 fc_2">
 					<li {% if web_user_settings_url in request.path %}class="check"{% endif %}>
-                        <a href="{{ web_user_settings_url }}" class="fc_2"><i class="fa fa-arrow-circle-right fc_2"></i>&nbsp;编辑个人资料</a>
+                        <a href="{{ web_user_settings_url }}" class="fc_2"><i class="fa fa-arrow-circle-right fc_5"></i>&nbsp;编辑个人资料</a>
                     </li>
 					<li {% if web_user_change_password_url in request.path %}class="check"{% endif %}>
                          <a href="{{ web_user_change_password_url }}" class="fc_2"><i class="fa fa-arrow-circle-right fc_5"></i>&nbsp;更改密码</a>
