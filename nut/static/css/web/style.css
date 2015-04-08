@@ -32,7 +32,7 @@ a:hover{text-decoration:none;}
 .clear{clear: both;}
 .table{display: table;border: none;}
 .tr{display: table-cell;border: none;}
-.td{display: table-cell;border:none;}
+.td{display: table-cell;border:none; vertical-align: middle;}
 
 /*举报页面*/
 .report{width: 540px; height: 496px;}
@@ -131,6 +131,7 @@ a:hover{text-decoration:none;}
 .slide ul li{height: 48px; border-bottom: 1px dashed #E6E6E6;line-height: 48px;text-align: left;padding: 0 0 0 8px;}
 .slide ul li:hover{font-weight: bold; background: #F8F8F8;}
 .slide ul li.check{font-weight: bold;}
+.slide ul li.check i{color:#414243;}
 .head{margin-bottom: 40px;}
 .tab_way{margin-bottom: 40px;}
 .head .head_pic{width: 118px;height: 118px;border-radius: 59px;margin:0 0 20px 124px; overflow: hidden;}
@@ -156,9 +157,9 @@ a:hover{text-decoration:none;}
 .password ul li input.new_password{margin-left: 56px;}
 .password ul li .password_right{color: #427EC0;padding-left: 16px;position: absolute;top: 14px;right: -30px;}
 .binding{width: 405px;}
-.binding ul li .icon{margin-right: 40px;font-size: 40px;}
+.binding ul li .icon{margin-right: 40px;font-size: 40px;display: inline-block;}
 .binding ul li .icon_taobao{background: url(/static/images/taobao_icon.png) no-repeat;display: inline-block;width: 40px;height: 34px;margin-right: 40px;}
-.binding ul li .id_name{  vertical-align: top;}
+.binding ul li .id_name{  vertical-align: top;display: inline-block;width: 104px;}
 .binding ul .binding_btn button{width: 140px;height: 40px;text-align: center;line-height: 40px;border: none;}
 .notice_page .edit_info ul li span{width: 128px;}
 .notice_page .edit_info ul li{width: 466px;}
