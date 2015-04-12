@@ -188,3 +188,50 @@ a:hover{text-decoration:none;}
     .edit_info ul li select.notice{width: 100%;}
     .notice_page .edit_info ul li{width: 100%;}
 }
+
+
+/*商品详情页*/
+.heart{width: 120px; height: 42px;border-radius: 8px;line-height: 42px;text-align: center;float: left; background: #F7F7F7;}
+.goods_detail{margin-top: 112px;}
+.goods_detail a:hover{text-decoration: none;}
+.goods_detail .tips{height: 37px;}
+.goods_detail .tips ul li{float: left;}
+.goods_detail .detail_pic{width: 100%;padding-bottom: 40px;border-bottom: 1px solid #E6E6E6;}
+.goods_detail .detail_pic img{width: 100%;}
+.goods_detail .detail_pic .goods_name{padding:40px 0;}
+.goods_detail .detail_pic .operate{height: 42px;width: 100%;}
+.goods_detail .detail_pic .operate .report_link{float: right;  margin-top: 25px;}
+.goods_detail .comment_list{padding-top: 40px;width: 100%;}
+.goods_detail .comment_list li{width: 100%;padding-bottom: 40px;}
+.goods_detail .comment_list li .head_pic{width: 60px;height: 60px;border-radius: 60px;float: left;}
+.goods_detail .comment_list .comment_detail{margin-left: 80px;}
+.goods_detail .comment_list .comment_detail .comment_word{margin-top: 6px;display: inline-block;line-height: 24px;}
+.goods_detail .comment_list .comment_detail .favorite{float: right;}
+.goods_detail .comment_list .comment_detail .comment_operate{padding: 17px 0 0;width: 100%;}
+.goods_detail .comment_list .comment_detail .comment_operate .times{float: right;}
+.goods_detail .comment_list .comment_detail .comment_operate .zan{margin-right: 35px;}
+.goods_detail .comment_list .comment_detail .reply_comment{width: 100%;padding: 16px;margin-top: 40px; background: #FAFAFA;}
+.goods_detail .comment_list .comment_detail .reply_comment textarea{height: 60px;width: 100%;border: 1px solid #E6E6E6;margin-bottom: 16px;padding: 10px;font-size: 16px;}
+.goods_detail .comment_list .buttons{width: 100%;height: 48px;}
+.goods_detail .comment_list .buttons a{display: inline-block;float: right;width: 100px;height: 48px;line-height: 48px;text-align: center;}
+.goods_detail .comment_list .buttons .cancel{margin-right: 16px;}
+.goods_detail .comment_list .buttons .cancel:hover{background-color: #ccc;color: #427EC0;}
+.goods_detail .comment_list .buttons .save:hover{background: #3071a9;color: #fff;}
+.goods_detail .comment_list li .online_comment{margin-left: 80px; margin-bottom: 16px;}
+.goods_detail .comment_list li .online_comment textarea{width: 100%;height: 60px; border: 1px solid #E6E6E6;padding: 10px;font-size: 16px;}
+.goods_detail .guess_Ulike img{width: 100%;height: 100%;}
+.goods_detail .title{padding-bottom: 20px;}
+.goods_detail .guess_Ulike .guess_img{padding-left: 0px;padding-bottom: 15px;}
+.goods_detail .detail_right{padding-left: 10px;}
+.goods_detail .detail_right .button{display: inline-block; padding: 0 17px; height: 46px;line-height: 46px;text-align: center;}
+.goods_detail .detail_right .button:hover{color: #ffffff;background-color: #3071a9;}
+.goods_detail .detail_right .other_pics {padding: 20px 0 0;margin-left: 0px;margin-bottom: 20px;  border-bottom: 1px solid #E6E6E6;}
+.goods_detail .detail_right .other_pics div{margin-bottom: 20px;padding-left: 20px;padding-right: 0px;}
+.goods_detail .detail_right .other_pics img{width: 100%;height: 100%;}
+.goods_detail .detail_right .some_likes{margin-left: 0px;}
+.goods_detail .detail_right .some_likes a{margin-bottom: 8px;margin-right: 8px;float: left; display: inline-block;width: 24px;height: 24px;}
+.goods_detail .detail_right .some_likes img{width: 100%;height: 100%;border-radius: 50%;}
+.goods_detail .detail_right .type{clear: both; padding: 20px 0 0;margin-left: 0px;margin-bottom: 20px;height: 80px; border-top: 1px solid #E6E6E6;  border-bottom: 1px solid #E6E6E6;}
+.goods_detail .detail_right .type .title{padding-bottom: 10px;}
+.goods_detail .detail_right .type li{float: left;}
+.goods_detail .detail_right .right_tips{border-bottom:  1px solid #E6E6E6;padding-bottom: 10px;}
