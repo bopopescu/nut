@@ -66,7 +66,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
             'user_post_note':_user_post_note,
             'note_forms':_note_forms,
             'guess_entities': _guess_entities,
-            'likers': _entity.likes.all()[:14],
+            'likers': _entity.likes.all()[:8],
         },
         context_instance = RequestContext(request),
     )
