@@ -1,9 +1,25 @@
-{#{% load web_common %}#}
+{% load common %}
 
 {% spaceless %}
-<div class="row common-note-list" itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
+{#<div class="row common-note-list" itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">#}
     {% for note in notes.normal %}
-        {% include 'web/entity/partial/ajax_detail_note.html' with note=note  %}
+        <li class="fs_16">
+            <a href="{% url 'web_user_index' note.user.pk %}" target="_blank">
+                <img src="{{ note.user.profile.avatar_url }}" alt="{{ note.user.profile.nickname }}" class="head_pic">
+            </a>
+            <div class="comment_detail">
+                <div class="user_name">
+                    <a href="{% url 'web_user_index' note.user.pk %}" target="_blank">{{ note.user.profile.nickname }}</a>
+                </div>
+                <span class="comment_word">Suicide Bunny 自杀小兔电子烟油，使用天然的植物香料调制，主打甜品混合水果口味风格，每瓶容量为 30ml，大约相当于 20 包烟。</span>
+                <div class="comment_operate">
+                    <a href="#" class="zan fc_3"><i class="fa fa-thumbs-up"></i> 453</a>
+                    <a href="#" class="fc_1"><i class="fa fa-comment-o"></i>{% if note.comment_count > 0 %}&nbsp;{{ note.comment_count }}{% endif %}</a>
+                    <a href="javascript:;" class="times fc_1"><i class="fa fa-clock-o"></i>&nbsp;{{ note.post_time|format_time }}</a>
+                </div>
+            </div>
+        </li>
+{#        {% include 'web/entity/partial/ajax_detail_note.html' with note=note  %}#}
     {% endfor %}
-</div>
+{#</div>#}
 {% endspaceless %}
