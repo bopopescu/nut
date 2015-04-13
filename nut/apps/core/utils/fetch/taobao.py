@@ -4,7 +4,7 @@ import urllib2
 import cookielib
 from bs4 import BeautifulSoup
 import re
-from urlparse import parse_qs, urlparse
+# from urlparse import parse_qs, urlparse
 from urllib import unquote
 from hashlib import md5
 from django.core.cache import cache
@@ -32,7 +32,6 @@ class TaoBao():
         if len(self.soup.findAll("body")) == 0:
             # print "OKOKOKO"
             self.html = self.fetch_html_ny()
-            # print self.html
             self.soup = BeautifulSoup(self.html)
             # print self.soup
 
@@ -66,7 +65,6 @@ class TaoBao():
     @property
     def price(self):
         ptag = self.get_ptag()
-
         if ptag:
             pr = ptag[0].string
             ps = re.findall("\d+\.\d+",pr)
@@ -169,12 +167,13 @@ if __name__=="__main__":
     # t = TaoBao("9960937204")
     # t = TaoBao("39523724233")
     # print t.soup.select("img#J_ImgBooth")
-    t = TaoBao("13268344018")
+    t = TaoBao("36680889791")
     # print t.soup.findAll('body')
+    print t.html
     print t.res()
     # print t.nick
     # print t.cid
-    # print t.price
+    print t.price
     # print t.desc
     # print t.images
     # print t.shoplink

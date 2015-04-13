@@ -1,7 +1,7 @@
 import urllib
 import urllib2
 from urllib import urlencode
-from apps.core.utils.taobaoapi.user import TaobaoUser
+from apps.core.utils.taobaoapi.user import TaobaoUser, TaobaoOpenUid
 from apps.core.utils.taobaoapi.utils import *
 import json
 
@@ -41,18 +41,25 @@ def _get_oauth_url(action, back_url):
 def get_taobao_user_info(access_token):
     return TaobaoUser(APP_KEY, APP_SECRET).get_user(access_token)
 
+def get_taobao_open_uid(user_id):
+    return TaobaoOpenUid(APP_KEY, APP_SECRET).get_open_id(user_id)
+
 def get_auth_data(code):
     auth_client = TaobaoClient(code = code,
                                app_key = APP_KEY,
                                app_secret = APP_SECRET)
     auth_record = json.loads(auth_client.get_res())
     taobao_user = get_taobao_user_info(auth_record['access_token'])
+    open_uid = get_taobao_open_uid(auth_record['taobao_user_id'])
+    log.info(open_uid)
     taobao_data = {}
-    taobao_data['access_token'] = auth_record['access_token']
-    taobao_data['taobao_id'] = auth_record['taobao_user_id']
-    taobao_data['expires_in'] = auth_record['expires_in']
-    taobao_data['screen_name'] = taobao_user['nick']
-    taobao_data['avatar_large'] = taobao_user['avatar']
+    taobao_data['access_token']     = auth_record['access_token']
+    taobao_data['refresh_token']    = auth_record['refresh_token']
+    taobao_data['taobao_id']        = auth_record['taobao_user_id']
+    taobao_data['expires_in']       = auth_record['expires_in']
+    taobao_data['screen_name']      = taobao_user['nick']
+    taobao_data['avatar_large']     = taobao_user['avatar']
+    taobao_data['open_uid']         = open_uid
     return taobao_data
 
 def get_login_url():

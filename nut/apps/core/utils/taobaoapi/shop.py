@@ -1,12 +1,11 @@
 #coding=utf-8
-from top.api import ShopGetRequest
+from top.api import TbkShopsDetailGetRequest
 from top import appinfo
-import json
 
 class TaobaoShop():
 
     def __init__(self, app_key, app_secret):
-        self.req = ShopGetRequest()
+        self.req = TbkShopsDetailGetRequest()
         self.req.set_app_info(appinfo(app_key, app_secret))
 
 

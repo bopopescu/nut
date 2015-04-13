@@ -830,6 +830,7 @@ class Taobao_Token(models.Model):
     screen_name = models.CharField(max_length = 64, null = True, db_index = True)
     access_token = models.CharField(max_length = 255, null = True, db_index = True)
     refresh_token = models.CharField(max_length = 255, null = True, db_index = True)
+    open_uid = models.CharField(max_length=64, null=True, db_index=True)
     create_time = models.DateTimeField(auto_now_add = True)
     expires_in = models.PositiveIntegerField(default = 0)
     re_expires_in = models.PositiveIntegerField(default = 0)
