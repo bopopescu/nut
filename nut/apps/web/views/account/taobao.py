@@ -32,11 +32,12 @@ def auth_by_taobao(request):
             taobao = Taobao_Token.objects.get(taobao_id=_taobao_data['taobao_id'])
             taobao.screen_name = _taobao_data['screen_name']
             taobao.access_token = _taobao_data['access_token']
+            taobao.access_token = _taobao_data['refresh_token']
             taobao.expires_in = _taobao_data['expires_in']
+            taobao.open_uid = _taobao_data['open_uid']
             taobao.save()
 
-            log.info(taobao.user)
-
+            # log.info(taobao.user)
             login_without_password(request, taobao.user)
             return HttpResponseRedirect(next_url)
         except Taobao_Token.DoesNotExist:
@@ -48,7 +49,9 @@ def auth_by_taobao(request):
                     taobao_id = _taobao_data['taobao_id'],
                     screen_name = _taobao_data['screen_name'],
                     access_token = _taobao_data['access_token'],
+                    refresh_token = _taobao_data['refresh_token'],
                     expires_in = _taobao_data['expires_in'],
+                    open_uid = _taobao_data['open_uid'],
                 )
                 return HttpResponseRedirect(next_url)
             else:
@@ -57,6 +60,7 @@ def auth_by_taobao(request):
                 request.session['avatar'] = _taobao_data['avatar_large']
                 request.session['screen_name'] = _taobao_data['screen_name']
                 request.session['access_token'] = _taobao_data['access_token']
+                request.session['refresh_token'] = _taobao_data['refresh_token']
                 request.session['expires_in'] = _taobao_data['expires_in']
                 return HttpResponseRedirect(reverse('web_register_from_three_part'))
     # return

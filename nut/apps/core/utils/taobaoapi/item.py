@@ -1,4 +1,4 @@
-from top.api import ItemGetRequest
+from top.api import TbkItemsGetRequest
 from top import appinfo 
 import json
 
@@ -13,7 +13,7 @@ class TaobaoItem():
                    prop_imgs,skus,videos,outer_id,is_virtual,wap_detail_url,sku, item_img'
     COMMON_FIELDS = 'detail_url,num_iid,title,nick,cid,pic_url,num,list_time,stuff_status,location,price,item_imgs,item_img'
     def __init__(self, app_key, app_secret):
-        self.req = ItemGetRequest() 
+        self.req = TbkItemsGetRequest()
         self.req.set_app_info(appinfo(app_key, app_secret))
 
     
