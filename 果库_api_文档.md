@@ -35,6 +35,7 @@ http://api.guoku.com/mobile/v4/
 
 * 获取精选列表
 	* http://api.guoku.com/mobile/v4/selection/
+	* 方法： GET
 	* 参数：
 		* timestamp 时间戳
 		* count     请求的个数
@@ -57,6 +58,7 @@ http://api.guoku.com/mobile/v4/
 	
 * 获取商品详细
 	* http://api.guoku.com/mobile/v4/entity/1458215/
+	* 方法： GET
 	* 参数：
 		* entity_id 商品 ID (/mobile/v4/entity/<entity_id>/)
 		
@@ -72,6 +74,7 @@ http://api.guoku.com/mobile/v4/
 	
 * 获取全部分类信息
 	* http://api.guoku.com/mobile/v4/category/
+	* 方法： GET
 	* 返回：
 	
 	```
