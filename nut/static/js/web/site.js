@@ -431,9 +431,9 @@ $.ajaxSetup({
                 var $this = $(this);
                 $this.find('.detail-img img').on('mouseover', function () {
                       //    console.log(this);
-                    var re = /\/64\//;
+                    var re = /\/128\//;
                     var url_string = this.src.replace(re, '/640/');
-                    $this.find('.entity-detail img')[0].src = url_string;
+                    $this.find('.detail_pic img')[0].src = url_string;
                 });
             });
         },
