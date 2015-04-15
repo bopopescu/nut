@@ -92,7 +92,7 @@
                                         </a>
                                     {% endif %}
                                     <a href="javascript:;" class="fc_1"><i class="fa fa-comment-o"></i>{% if entity.top_note.comment_count > 0 %}&nbsp;{{ entity.top_note.comment_count }}{% endif %}</a>
-	    							<a href="javascript:;" class="times fc_1"><i class="fa fa-clock-o"></i>&nbsp;{{ entity.top_note.post_time|format_time }}</a>
+	    							<a href="javascript:;" class="times fc_1"><i class="fa fa-clock-o"></i>&nbsp;{{ entity.top_note.post_time|format_time|cut:" " }}</a>
 	    						</div>
 {#	    						<div class="reply_comment">#}
 {#	    							<textarea name="" id=""></textarea>#}
