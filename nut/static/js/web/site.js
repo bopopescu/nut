@@ -80,7 +80,7 @@ $.ajaxSetup({
 
         like: function (object) {
             // 喜爱 like entity
-            object.find('.btn-like, .btn-like-detail').on('click', function (e) {
+            object.find('.btn-like, .like-action').on('click', function (e) {
                 var like = $(this);
                 var counter = like.find('.like-count');
                 var entity_id = $(this).attr("data-entity");
@@ -108,7 +108,7 @@ $.ajaxSetup({
                             heart.removeClass('fa-heart-o');
                             heart.addClass('fa-heart');
                         } else if (result === 0){
-            //  console.log(result);
+                            //console.log(result);
                             if (count >0) {
                                 counter.text(" " + (count - 1));
                                 heart.removeClass('fa-heart');
