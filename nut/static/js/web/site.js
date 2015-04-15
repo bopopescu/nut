@@ -429,8 +429,8 @@ $.ajaxSetup({
 
             $('#detail').each(function () {
                 var $this = $(this);
-                $this.find('.detail-img img').on('mouseover', function () {
-                      //    console.log(this);
+                $this.find('.other_pics img').on('mouseover', function () {
+                    //console.log(this);
                     var re = /\/128\//;
                     var url_string = this.src.replace(re, '/640/');
                     $this.find('.detail_pic img')[0].src = url_string;
