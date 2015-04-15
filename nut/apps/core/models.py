@@ -1103,4 +1103,9 @@ def user_post_comment_notification(sender, instance, created, **kwargs):
 post_save.connect(user_post_comment_notification, sender=Note_Comment, dispatch_uid="user_post_comment_action_notification")
 
 
+def user_poke_note_notification(sender, instance, created, **kwargs):
+
+    if issubclass(sender, Note_Poke) and created:
+        pass
+
 __author__ = 'edison7500'
