@@ -13,7 +13,7 @@
                 </div>
                 <span class="comment_word">{{ note.note|escape }}</span>
                 <div class="comment_operate">
-                    {% if entity.top_note.id in user_pokes %}
+                    {% if note.id  in user_pokes %}
                         <a href="javascript:;" class="zan fc_3 poke" data-note="{{ note.id }}">
                             <i class="fa fa-thumbs-up"></i>{% if note.poke_count > 0 %}&nbsp;<span>{{ note.poke_count }}</span>{% endif %}
                         </a>
