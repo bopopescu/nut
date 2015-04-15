@@ -26,13 +26,20 @@ a:hover{text-decoration:none;}
 .fc_red{color: #db1f77;}
 .fc_weibo{color:#DC0000;}
 .fc_weixin{color: #56AB2D;}
+.fc_333{color: #333333;}
+.fc_favor{color: #FF9600;}
+.fc_blue{color: #2E6BAE;}
 
+.fc_heart{color: #FF1F77;}
 .bg_c_blue{background: #427EC0;}
+.bg_c_cancel{background: #F0F0F0;}
 .bg_c_gray{background: #F7F7F7;}
 .clear{clear: both;}
 .table{display: table;border: none;}
 .tr{display: table-cell;border: none;}
-.td{display: table-cell;border:none; vertical-align: middle;}
+.td{display: table-cell;border:none;}
+.quote-left{color: #EBEBEB;}
+.quote-right{color: #EBEBEB;}
 
 /*举报页面*/
 .report{width: 540px; height: 496px;}
@@ -226,7 +233,7 @@ a:hover{text-decoration:none;}
 .goods_detail .detail_right .button{display: inline-block; padding: 0 17px; height: 46px;line-height: 46px;text-align: center;}
 .goods_detail .detail_right .button:hover{color: #ffffff;background-color: #3071a9;}
 .goods_detail .detail_right .other_pics {padding: 20px 0 0;margin-left: 0px;margin-bottom: 20px;  border-bottom: 1px solid #E6E6E6;}
-.goods_detail .detail_right .other_pics div{margin-bottom: 20px;padding-left: 20px;padding-right: 0px;}
+.goods_detail .detail_right .other_pics div{margin-bottom: 20px;padding-left: 0px;padding-right: 20px;}
 .goods_detail .detail_right .other_pics img{width: 100%;height: 100%;}
 .goods_detail .detail_right .some_likes{margin-left: 0px;}
 .goods_detail .detail_right .some_likes a{margin-bottom: 8px;margin-right: 8px;float: left; display: inline-block;width: 24px;height: 24px;}
