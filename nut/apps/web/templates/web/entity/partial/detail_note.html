@@ -14,15 +14,15 @@
                 <span class="comment_word">{{ note.note|escape }}</span>
                 <div class="comment_operate">
                     {% if entity.top_note.id in user_pokes %}
-                        <a href="#" class="zan fc_3">
-                            <i class="fa fa-thumbs-up"></i>{% if note.poke_count > 0 %}&nbsp;{{ note.poke_count }}{% endif %}
+                        <a href="javascript:;" class="zan fc_3 poke" data-note="{{ note.id }}">
+                            <i class="fa fa-thumbs-up"></i>{% if note.poke_count > 0 %}&nbsp;<span>{{ note.poke_count }}</span>{% endif %}
                         </a>
                     {% else %}
-                        <a href="#" class="zan fc_3">
-                            <i class="fa fa-thumbs-o-up"></i>{% if note.poke_count > 0 %}&nbsp;{{ note.poke_count }}{% endif %}
+                        <a href="javascript:;" class="zan fc_3 poke" data-note="{{ note.id }}">
+                            <i class="fa fa-thumbs-o-up"></i>{% if note.poke_count > 0 %}&nbsp;<span>{{ note.poke_count }}</span>{% endif %}
                         </a>
                     {% endif %}
-                    <a href="#" class="fc_1"><i class="fa fa-comment-o"></i>{% if note.comment_count > 0 %}&nbsp;{{ note.comment_count }}{% endif %}</a>
+                    <a href="javascript:;" class="fc_1"><i class="fa fa-comment-o"></i>{% if note.comment_count > 0 %}&nbsp;{{ note.comment_count }}{% endif %}</a>
                     <a href="javascript:;" class="times fc_1"><i class="fa fa-clock-o"></i>&nbsp;{{ note.post_time|format_time }}</a>
                 </div>
             </div>

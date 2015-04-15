@@ -524,11 +524,12 @@ $.ajaxSetup({
 
         noteAction: function () {
 
-            var noteDetail = $(".selection-note, .common-note-item");
+            var noteDetail = $(".comment_operate");
             noteDetail.each(function(){
            //     var $this = $(this);
-                detail.clickComment($(this));
-                detail.updateNote($(this));
+           //     console.log($(this));
+                //detail.clickComment($(this));
+                //detail.updateNote($(this));
                 detail.poke($(this));
             });
         },
@@ -724,7 +725,7 @@ $.ajaxSetup({
         },
 
         poke : function (note) {
-           // console.log("OKOKOKOKO");
+           //console.log("OKOKOKOKO");
             note.find('.poke').on('click', function (e) {
            //     console.log($(this));
                 var poke = $(this);
