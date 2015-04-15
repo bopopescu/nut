@@ -83,15 +83,15 @@
 	    						<span class="comment_word">{{ entity.top_note.note|escape }}</span>
 	    						<div class="comment_operate">
                                     {% if entity.top_note.id in user_pokes %}
-    							        <a href="#" class="zan fc_1">
+    							        <a href="javascript:;" class="zan fc_1 poke">
                                             <i class="fa fa-thumbs-up"> <!-- thumbs-up --></i>{% if entity.top_note.poke_count > 0 %}&nbsp;{{ entity.top_note.poke_count }}{% endif %}
                                         </a>
                                     {% else %}
-	    							    <a href="#" class="zan fc_1">
+	    							    <a href="javascript:;" class="zan fc_1 poke">
                                             <i class="fa fa-thumbs-o-up"> <!-- thumbs-up --></i>{% if entity.top_note.poke_count > 0 %}&nbsp;{{ entity.top_note.poke_count }}{% endif %}
                                         </a>
                                     {% endif %}
-                                    <a href="#" class="fc_1"><i class="fa fa-comment-o"></i>{% if entity.top_note.comment_count > 0 %}&nbsp;{{ entity.top_note.comment_count }}{% endif %}</a>
+                                    <a href="javascript:;" class="fc_1"><i class="fa fa-comment-o"></i>{% if entity.top_note.comment_count > 0 %}&nbsp;{{ entity.top_note.comment_count }}{% endif %}</a>
 	    							<a href="javascript:;" class="times fc_1"><i class="fa fa-clock-o"></i>&nbsp;{{ entity.top_note.post_time|format_time }}</a>
 	    						</div>
 {#	    						<div class="reply_comment">#}
