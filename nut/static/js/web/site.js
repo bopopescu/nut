@@ -731,6 +731,7 @@ $.ajaxSetup({
                 var poke = $(this);
                 var note_id = poke.attr('data-note');
                 var counter = poke.find('span');
+                var poke_icon = poke.find('i');
                 var url = '/note/' + note_id + '/poke/';
 
                 $.ajax({
@@ -744,7 +745,8 @@ $.ajaxSetup({
                         if (result === 1) {
                             count++;
                       //            $counter.text(count).addClass("count_blue");
-                            poke.addClass('active');
+                            poke_icon.addClass('fa-thumbs-up');
+                            poke_icon.removeClass('fa-thumbs-o-up');
 
                             if (count === 1) {
                                 $('<span>' + count + '</span>').appendTo(poke);
@@ -754,7 +756,8 @@ $.ajaxSetup({
                         } else if (result === 0) {
                             count--;
                       //            $counter.text(count).removeClass("count_blue");
-                            poke.removeClass('active');
+                            poke_icon.addClass('fa-thumbs-o-up');
+                            poke_icon.removeClass('fa-thumbs-up');
 
                             if (count === 0) {
                                 poke.find('span').remove();
