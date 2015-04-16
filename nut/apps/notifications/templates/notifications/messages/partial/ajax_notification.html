@@ -12,7 +12,7 @@
     {% if row.action_object_content_type.model == 'user_follow' %}
 
         <p class="list_detail">
-            <a href="{% url 'web_user_entity_like' row.actor.id %}" class="id" target="_blank">{{ row.actor.profile.nickname }}</a>开始关注你 <span class="fc_1">{{ row.timestamp|format_time }}</span>
+            <a href="{% url 'web_user_entity_like' row.actor.id %}" class="id" target="_blank">{{ row.actor.profile.nickname }}</a>开始关注你 <span class="fc_1">{{ row.timestamp|format_time|cut:" " }}</span>
         </p>
         {% if row.actor.id in request.user.concren %}
             <a data-status="1" data-user-id="{{ row.actor.id }}" href="javascript:;" class="follow is-fan button bg_c_gray fc_3"><i class="fa fa-exchange fa-lg fc_3"></i>&nbsp;取消关注</a>
@@ -53,7 +53,7 @@
 {#        </div>#}
     {% elif row.action_object_content_type.model == 'note' %}
         <p class="list_detail">
-            <a href="{% url 'web_user_entity_like' row.actor.id %}" class="id" target="_blank">{{ row.actor.profile.nickname }}</a>点评了你推荐的商品&nbsp;<span class="fc_1">{{ row.timestamp|format_time }}</span>
+            <a href="{% url 'web_user_entity_like' row.actor.id %}" class="id" target="_blank">{{ row.actor.profile.nickname }}</a>点评了你推荐的商品&nbsp;<span class="fc_1">{{ row.timestamp|format_time|cut:" " }}</span>
         </p>
         <div class="row imgs">
                 <div class="col-xs-4 col-sm-4 col-md-3">
@@ -78,7 +78,7 @@
     {% elif row.action_object_content_type.model == 'note_poke' %}
 {#        <a href="{% url 'web_user_entity_like' row.actor.id %}" class="header" target="_blank"><img src="{{ row.actor.profile.avatar_url }}" alt="{{ row.actor.profile.nickname }}" /></a>#}
         <p class="list_detail">
-            <a href="{% url 'web_user_entity_like' row.actor.id %}" class="id" target="_blank">{{ row.actor.profile.nickname }}</a>赞了你对 <strong>{{ row.target.entity.title }}</strong> 的点评 <span class="fc_1">{{ row.timestamp|format_time }}</span>
+            <a href="{% url 'web_user_entity_like' row.actor.id %}" class="id" target="_blank">{{ row.actor.profile.nickname }}</a>赞了你对 <strong>{{ row.target.entity.title }}</strong> 的点评 <span class="fc_1">{{ row.timestamp|format_time|cut:" " }}</span>
         </p>
             <div class="row imgs">
                 <div class="col-xs-4 col-sm-4 col-md-3">
@@ -121,14 +121,14 @@
                             <p>{{ row.action_object.content }}</p>
                         </div>
                      </div>
-                            <p class="message-time">{{ row.timestamp|format_time }}</p>
+                            <p class="message-time">{{ row.timestamp|format_time|cut:" " }}</p>
                 </div>
         </div>
     {% elif row.action_object_content_type.model == 'entity_like' %}
 {#        <li>#}
 {#            <a href="{% url 'web_user_entity_like' row.actor.id %}" class="header" target="_blank"><img src="{{ row.actor.profile.avatar_url }}" alt="{{ row.actor.profile.nickname }}" /></a>#}
             <p class="list_detail">
-                <a href="{% url 'web_user_entity_like' row.actor.id %}" class="id" target="_blank">{{ row.actor.profile.nickname }}</a>喜欢了1件商品 <span class="fc_1">{{ row.timestamp|format_time }}</span>
+                <a href="{% url 'web_user_entity_like' row.actor.id %}" class="id" target="_blank">{{ row.actor.profile.nickname }}</a>喜欢了1件商品 <span class="fc_1">{{ row.timestamp|format_time|cut:" " }}</span>
             </p>
             <div class="row imgs">
                 <div class="col-xs-4 col-sm-4 col-md-3">

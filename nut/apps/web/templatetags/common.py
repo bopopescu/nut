@@ -19,16 +19,16 @@ def format_time(value):
     time_interval = now - before_time
 
     if time_interval < 60:
-        return "%d 秒前" % (time_interval)
+        return "%d秒前" % (time_interval)
     elif time_interval < 60 * 60:
-        return "%d 分钟前" % ((time_interval / 60) + 1)
+        return "%d分钟前" % ((time_interval / 60) + 1)
     elif time_interval < 60 * 60 * 24:
-        return "%d 小时前" % (time_interval / (60 * 60) + 1)
+        return "%d小时前" % (time_interval / (60 * 60) + 1)
     elif time_interval < 60 * 60 * 48:
         return "昨天"
     elif time_interval < 60 * 60 * 72:
         return "前天"
-    return "%d 年 %d 月 %d 日" % (value.year, value.month, value.day)
+    return "%d年%d月%d日" % (value.year, value.month, value.day)
 
 register.filter(format_time)
 
