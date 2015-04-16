@@ -18,7 +18,7 @@
                     <p style="margin-left: 10px;margin-top: 32px; margin-right: 10px;">{{ note.note|truncatechars:"40" }}</p>
                     <p class="post-time" style="position: absolute; top: 182px; right: 24px">
                         <i class="fa fa-clock-o" style="padding: 5px"></i>
-                        <span style="color: #9D9E9F">{{ note.post_time|format_time }}</span>
+                        <span style="color: #9D9E9F">{{ note.post_time|format_time|cut:" " }}</span>
                     </p>
                 </div>
                 </div>

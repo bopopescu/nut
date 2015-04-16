@@ -23,7 +23,7 @@
                         </a>
                     {% endif %}
                     <a href="javascript:;" class="fc_1"><i class="fa fa-comment-o"></i>{% if note.comment_count > 0 %}&nbsp;{{ note.comment_count }}{% endif %}</a>
-                    <a href="javascript:;" class="times fc_1"><i class="fa fa-clock-o"></i>&nbsp;{{ note.post_time|format_time }}</a>
+                    <a href="javascript:;" class="times fc_1"><i class="fa fa-clock-o"></i>kk&nbsp;{{ note.post_time|format_time|cut:" " }}</a>
                 </div>
             </div>
         </li>

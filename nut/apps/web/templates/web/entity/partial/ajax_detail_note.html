@@ -44,7 +44,7 @@
                     {% endif %}
                     </a>
 
-                    <span  class="pull-right create-time"><i class="fa fa-clock-o"></i>&nbsp;{{ note.post_time|format_time }}</span>
+                    <span  class="pull-right create-time"><i class="fa fa-clock-o"></i>&nbsp;{{ note.post_time|format_time|cut:" " }}</span>
                     {% if note.user == request.user %}
                         <span class="pull-right my-note">你的点评</span>
                     {% endif %}
