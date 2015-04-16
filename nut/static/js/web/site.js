@@ -59,11 +59,13 @@ $.ajaxSetup({
         initTag: function () {
             var array = $(".with-tag");
             for (var i=0; i<array.length; i++) {
+                // replace <br> with \n
                 var str = array.eq(i).html(array.eq(i).html().replace(/\<br[!>]*\>/g, "\n")).text();
                 if (str == undefined)
                     continue;
-
+                //reg to match all legal charactor in tag
                 var ereg = /[#＃][0-9a-zA-Z\u4e00-\u9fff\u3040-\u30FF\u30A0-\u30FF]+/g;
+
                 var cut = str.match(ereg);
                 if (cut == null){
                     array.eq(i).html(str.replace(/\n/g, "<br>"));
@@ -725,6 +727,7 @@ $.ajaxSetup({
         },
 
         poke : function (note) {
+           // 给评论点赞
            //console.log("OKOKOKOKO");
             note.find('.poke').on('click', function (e) {
            //     console.log($(this));
@@ -788,6 +791,7 @@ $.ajaxSetup({
             if (message[0]) {
                 var flag = false;
                 $(window).scroll(function () {
+                    //回到顶部按钮效果
                     if ($(this).scrollTop() > 100) {
                         $(".btn-top").fadeIn();
                     } else {
@@ -831,6 +835,7 @@ $.ajaxSetup({
             if (event[0]) {
                 var flag = false;
                 $(window).scroll(function (){
+                    //DUP
                     if ($(this).scrollTop() > 100) {
                         $(".btn-top").fadeIn();
                     } else {
@@ -870,6 +875,20 @@ $.ajaxSetup({
         }
     };
 
+    // add by an
+    var account_setting = {
+    //    用户编辑个人资料
+        handleUserInfo:function(){
+            var userSettinForm = $('[action="/u/settings/"]');
+            if (!!userSettinForm.length){
+                userSettinForm.eq(0).submit(function(){
+                    //console.log('intercepted');
+                    return true ;
+                });
+            }
+        }
+    };
+
     (function init() {
            //   console.log($.find());
 
@@ -894,6 +913,9 @@ $.ajaxSetup({
         message.loadData();
 
         event.loadData();
+
+        //add by an
+        account_setting.handleUserInfo();
     })();
 
 
