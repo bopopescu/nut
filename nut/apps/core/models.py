@@ -488,6 +488,11 @@ class Entity(BaseModel):
     def get_absolute_url(self):
         return "/detail/%s" % self.entity_hash
 
+    # add by an
+    @property
+    def selection_hover_word(self):
+        return self.brand + ' ' +self.title;
+
     def toDict(self):
         res = super(Entity, self).toDict()
         res['chief_image'] = self.chief_image
