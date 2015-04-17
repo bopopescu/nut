@@ -492,6 +492,8 @@ class Entity(BaseModel):
     @property
     def selection_hover_word(self):
         return self.brand + ' ' +self.title;
+    # this property is for selection page's image hover message,
+    # should I put it into a manager class ? @jiaxin
 
     def toDict(self):
         res = super(Entity, self).toDict()
