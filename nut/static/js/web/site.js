@@ -34,6 +34,22 @@ $.ajaxSetup({
 (function ($, document, window) {
 
     var util = {
+        checkEventRead:function(){
+            // add by an , for event link status check , remove the red dot if event is read.
+            // the key is defined in 2 places!  DRY...
+            var viewed_event_slug_cookie_key = 'viewed_event_slug_cookie_key';
+
+            if(!newest_event_slug){
+                return ;
+            }
+            if ($.cookie(viewed_event_slug_cookie_key) === newest_event_slug){
+                //console.log('event is read!');
+                jQuery('.nav [href="/event/"] .round').hide();
+            }
+
+            return ;
+        },
+
         modalSignIn: function(html) {
             var signModal = $('#SignInModal');
             var signContent = signModal.find('.modal-content');
@@ -916,6 +932,7 @@ $.ajaxSetup({
 
         //add by an
         account_setting.handleUserInfo();
+        util.checkEventRead();
     })();
 
 
