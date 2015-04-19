@@ -148,6 +148,11 @@
         win.alimamatk_onload.push(o);
     })(window,document);
 </script>
+<script>
+    var viewed_event_slug_cookie_key = 'viewed_event_slug_cookie_key';
+    $.cookie(viewed_event_slug_cookie_key , newest_event_slug , { expires: 7, path: '/' });
+
+</script>
 
 {#<script src="{% static 'js/event.js' %}"></script>#}
 {#{% endblock %}#}
