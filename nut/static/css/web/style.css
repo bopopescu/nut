@@ -30,6 +30,7 @@ a:hover{text-decoration:none;}
 .fc_favor{color: #FF9600;}
 .fc_blue{color: #2E6BAE;}
 
+.fc_angle_right{color: #cccccc;}
 .fc_heart{color: #FF1F77;}
 .bg_c_blue{background: #427EC0;}
 .bg_c_cancel{background: #F0F0F0;}
@@ -226,9 +227,10 @@ a:hover{text-decoration:none;}
 .goods_detail .comment_list .buttons .save:hover{background: #3071a9;color: #fff;}
 .goods_detail .comment_list li .online_comment{margin-left: 80px; margin-bottom: 16px;}
 .goods_detail .comment_list li .online_comment textarea{width: 100%;height: 60px; border: 1px solid #E6E6E6;padding: 10px;font-size: 16px;}
-.goods_detail .guess_Ulike img{width: 100%;height: 100%;}
+.goods_detail .guess_Ulike img{width: 100%;height: 100%;overflow: hidden;}
 .goods_detail .title{padding-bottom: 20px;}
-.goods_detail .guess_Ulike .guess_img{padding-left: 0px;padding-bottom: 15px;}
+.goods_detail .guess_Ulike .guess_img{padding-left: 0px;padding-bottom: 15px;overflow: hidden;margin-bottom: -1000px;padding-bottom: 1000px;}
+.goods_detail .guess_Ulike .guess_img div{padding-bottom: 15px;}
 .goods_detail .detail_right{padding-left: 10px;}
 .goods_detail .detail_right .button{display: inline-block; padding: 0 17px; height: 46px;line-height: 46px;text-align: center;}
 .goods_detail .detail_right .button:hover{color: #ffffff;background-color: #3071a9;}
