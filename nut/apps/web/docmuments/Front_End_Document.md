@@ -13,8 +13,13 @@
                   
                   http://www.djangobook.com/en/2.0/chapter09.html
                   
-           a.3) 需要修改SETTING文件，TEMPLATE_CONTEXT_PROCESSORS 中加入 lastslug  processor
-            
+           a.3) 需要修改SETTING文件，TEMPLATE_CONTEXT_PROCESSORS 中加入 lastslug  processor, discuss with jiaxin TODO. 
+           
+           a.4) remove inline script in event home template , use url to determin when to set cookie  TODO 
+           
+           a.5) use global registry pattern instead of global var  newest_event_slug  TODO
+           
+           
                   
                              
            
