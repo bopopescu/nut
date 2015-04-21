@@ -205,7 +205,7 @@ a:hover{text-decoration:none;}
 .goods_detail .tips{height: 37px;}
 .goods_detail .tips ul li{float: left;}
 .goods_detail .detail_pic{width: 100%;padding-bottom: 40px;border-bottom: 1px solid #E6E6E6;}
-.goods_detail .detail_pic img{width: 100%;}
+.goods_detail .detail_pic img{width: 100%;border: 1px solid #f0f0f0;}
 .goods_detail .detail_pic .goods_name{padding:40px 0;}
 .goods_detail .detail_pic .operate{height: 42px;width: 100%;}
 .goods_detail .report_link{float: right;  margin-top: 25px;}
@@ -230,7 +230,7 @@ a:hover{text-decoration:none;}
 .goods_detail .guess_Ulike img{width: 100%;height: 100%;}
 .goods_detail .title{padding-bottom: 20px;}
 .goods_detail .guess_Ulike .guess_img{padding-left: 0px;padding-bottom: 15px;}
-.goods_detail .guess_Ulike .guess_img div{display: block;height: 0;padding-bottom: 99%;overflow: hidden;}
+.goods_detail .guess_Ulike .guess_img div{display: block;height: 0; border: 1px solid #f0f0f0; padding-bottom: 99%;overflow: hidden;}
 .goods_detail .guess_Ulike .guess_img div a{display: inline-block;}
 .goods_detail .detail_right{padding-left: 10px;margin-top: 0px;width: 260px;}
 .goods_detail .button_buy{display: inline-block; padding: 0 17px; height: 46px;line-height: 46px;text-align: center;}
