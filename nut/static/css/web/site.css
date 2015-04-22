@@ -1046,6 +1046,10 @@ padding-left: 15px;
     color: darkred;
 }
 
+.input_error_msg{
+    color:darkred;
+    font-size: 0.9em;
+}
 /* Add by An Chen end*/
 
 /*body,button,input,select,textarea{font:14px/1.125 Arial,Helvetica,sans-serif;_font-family:"SimSun";}*/

@@ -40,9 +40,18 @@
                                     <p id="default_city_value">{{ profile_form.city.value }}</p>
                                 </div>
                                 <ul>
-                                    <li class="fs_16 fc_2 table"><span class="title td">{{ profile_form.nickname.label }}</span>{{ profile_form.nickname }}</li>
+                                    <li class="fs_16 fc_2 table">
+                                        <span class="title td">{{ profile_form.nickname.label }}</span>
+                                        {{ profile_form.nickname }}
+                                        <span id="username_error_msg" class="input_error_msg"></span>
+
+                                    </li>
                                     <li class="fs_16 fc_2 table"><span class="title td">{{ profile_form.email.label }}</span>{{ profile_form.email }}</li>
-                                    <li class="fs_16 fc_2 intor table"><span class="title td">{{ profile_form.bio.label }}</span>{{ profile_form.bio }}</li>
+                                    <li class="fs_16 fc_2 intor table">
+                                        <span class="title td">{{ profile_form.bio.label }}</span>
+                                        {{ profile_form.bio }}
+                                        <span id="bio_error_msg" class="input_error_msg"></span>
+                                    </li>
 
 
                                     <li class="fs_16 fc_2 address table"><span class="title td">{{ profile_form.location.label }}</span>
