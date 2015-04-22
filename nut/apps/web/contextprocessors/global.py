@@ -5,7 +5,7 @@ from apps.core.models import Event
 def lastslug(request):
     "A global context processor for current event slug"
 
-
+    #  TODO : add time ordering
     events = Event.objects.filter(status=True)
     slug = ''
     if len(events) > 0:

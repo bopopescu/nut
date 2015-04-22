@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.log import getLogger
@@ -53,7 +54,7 @@ def cal_entity_hash(hash_string):
 class EntityURLFrom(forms.Form):
     cand_url = forms.URLField(
         label=_('links'),
-        widget=forms.URLInput(attrs={'class':'form-control', 'placeholder':_('copy item link')}),
+        widget=forms.URLInput(attrs={'class':'form-control', 'placeholder':_('复制商品链接')}),
         help_text = _(''),
     )
 
@@ -66,9 +67,10 @@ class EntityURLFrom(forms.Form):
         _hostname = urlparse(_link).hostname
 
         log.info(_hostname)
-        _data = dict()
+        _data = {'link_support':False}
 
         if re.search(r"\b(jd|360buy)\.com$", _hostname) != None:
+            _data['link_support'] = True;
             _jd_id = parse_jd_id_from_url(_link)
             # log.info(_jd_id)
             try:
@@ -81,7 +83,7 @@ class EntityURLFrom(forms.Form):
 
                 # print "OKOKOKOKOKO"
                 log.info(j.brand)
-                _data = {
+                _data.update({
                     'user_id': self.request.user.id,
                     'user_avatar': self.request.user.profile.avatar_url,
                     'cand_url': _link,
@@ -95,13 +97,17 @@ class EntityURLFrom(forms.Form):
                     'price': j.price,
                     'chief_image_url' : j.imgs[0],
                     'thumb_images': j.imgs,
+
                     # 'selected_category_id':
-                }
+                });
+
+                return _data;
                 # print _data
             # pass
             # return jd_info(self.request, _link)
 
         if re.search(r"\b(tmall|taobao|95095)\.(com|hk)$", _hostname) is not None:
+            _data['link_support'] = True;
             _taobao_id = parse_taobao_id_from_url(_link)
             # log.info(_taobao_id)
 
@@ -116,7 +122,7 @@ class EntityURLFrom(forms.Form):
                 t = TaoBao(_taobao_id)
                 # log.info(t.res())
                 res = t.res()
-                _data = {
+                _data.update({
                     'user_id': self.request.user.id,
                     'user_avatar': self.request.user.profile.avatar_url,
                     'cand_url': _link,
@@ -129,7 +135,9 @@ class EntityURLFrom(forms.Form):
                     'chief_image_url' : res['imgs'][0],
                     'thumb_images': res["imgs"],
                     # 'selected_category_id':
-                }
+                });
+                return _data;
+
 
         return _data
 

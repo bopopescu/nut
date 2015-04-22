@@ -144,6 +144,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     # 'django.core.context_processors.debug',
     'django.core.context_processors.static',
+    #add by an , for event slug insert into every page.
+    # see document for reason,
+    # modified base.html (template) for this processor to take effect
+    'apps.web.contextprocessors.global.lastslug',
 )
 
 

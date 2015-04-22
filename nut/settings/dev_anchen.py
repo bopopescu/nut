@@ -2,7 +2,7 @@ from stage import *
 
 
 TEMPLATE_CONTEXT_PROCESSORS += (
-    'apps.web.contextprocessors.global.lastslug',
+    # 'apps.web.contextprocessors.global.lastslug',
 )
 
 
