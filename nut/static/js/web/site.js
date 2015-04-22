@@ -226,6 +226,7 @@ $.ajaxSetup({
                 function remove_current_user_input(){
                     form.find("input[name='cand_url']").val('');
                 }
+
                 hide_url_not_support_message();
                 var entity_url = form.find("input[name='cand_url']").val();
                 if (!valid_url_support(entity_url)){
@@ -922,11 +923,66 @@ $.ajaxSetup({
     var account_setting = {
     //    用户编辑个人资料
         handleUserInfo:function(){
+            function show_message(selector, message){
+                $(selector).html(message);
+            }
+            function remove_message(selector){
+                $(selector).html('');
+            }
+
+            function clean_username() {
+
+                var username = $.trim($('#id_nickname').val());
+                $('#id_nickname').val(username);
+                return username;
+            }
+
+            function check_username(){
+                remove_message('#username_error_msg');
+                var username = clean_username();
+                var err_msg = '用户名格式：中英文数字皆可，2-16个字符。';
+                var usernameRegex = /^[\u4e00-\u9fa5a-zA-Z0-9]{2,16}$/;
+                if(usernameRegex.test(username) === false){
+                    show_message('#username_error_msg', '用户名格式：中英文数字皆可，2-16个字符。');
+                    return false ;
+                }else{
+                    return true;
+                }
+                //TODO : write a test for the reg up .
+
+            }
+            function check_email(){
+                return true;
+            }
+            function clean_bio(){
+                var bio = $.trim($('#id_bio').val());
+                    bio = bio.replace(/(\s+)/mg,' ');
+                    $('#id_bio').val(bio);
+                return bio;
+            }
+            function check_bio(){
+                remove_message('#bio_error_msg');
+                var bio = clean_bio();
+                var err_msg = '简介请限制在两百字以内。';
+
+                if (bio.length<=0 || bio.length >200){
+                    show_message('#bio_error_msg',err_msg);
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+
+
             var userSettinForm = $('[action="/u/settings/"]');
             if (!!userSettinForm.length){
                 userSettinForm.eq(0).submit(function(){
                     //console.log('intercepted');
-                    return true ;
+                    if (check_bio() && check_email() && check_username()){
+                        return true;
+                    }else{
+                        return false;
+                    }
                 });
             }
         }
