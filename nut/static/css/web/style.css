@@ -82,7 +82,7 @@ a:hover{text-decoration:none;}
 .download{height: 255px;width: 100%;padding: 145px 0 0;}
 .download_bg{background: #F7F7F7;height: 400px; width: 100%;position: absolute;top: 0;left: 0;}
 .download .guoku_into{float: right;margin-left: 60px;}
-.download .download_img{float: right;}
+.download .download_img{float: right;width: 473px;}
 .download .guoku_into .title{font-size: 28px;color: #535353;margin-top: 28px;}
 .download .guoku_into .intor{color: #9D9E9F;font-size: 16px;margin-top: 24px;height: 30px;width: 320px;line-height: 25px;}
 .download .download_link{margin-top: 97px;}
