@@ -957,6 +957,7 @@ $.ajaxSetup({
             function clean_bio(){
                 var bio = $.trim($('#id_bio').val());
                     bio = bio.replace(/(\s+)/mg,' ');
+                    bio = bio.replace(/([#><:$*&%])/mg, '');
                     $('#id_bio').val(bio);
                 return bio;
             }
