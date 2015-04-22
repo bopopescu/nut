@@ -1041,6 +1041,13 @@ padding-left: 15px;
     margin: 0 0 20px;
 }
 
+/* ADD BY An Chen*/
+#url_error_msg{
+    color: darkred;
+}
+
+/* Add by An Chen end*/
+
 /*body,button,input,select,textarea{font:14px/1.125 Arial,Helvetica,sans-serif;_font-family:"SimSun";}*/
 /*h1,h2,h3,h4,h5,h6,dl,dt,dd,ul,ol,li,th,td,p,blockquote,pre,form,fieldset,legend,input,button,textarea,hr{margin:0; padding:0;}*/
 table{border-collapse:collapse;border-spacing:0;}
