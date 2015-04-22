@@ -15,3 +15,6 @@ def lastslug(request):
     return {
         'newest_event_slug': slug,
     }
+
+if __name__ == "__main__":
+   print lastslug()

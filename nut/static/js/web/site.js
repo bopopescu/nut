@@ -208,7 +208,33 @@ $.ajaxSetup({
             var imageThumbails = $(".image-thumbnails");
             //  console.log(entityExist);
             form.on('submit', function(e) {
+                // have to add tool function here ,
+                // TODO : refactor the whole script ! by an
+                //
+
+                function valid_url_support(url){
+                    var reg= /\b(jd|360buy|tmall|taobao|95095)\.(com|hk)/i;
+                    return reg.test(url);
+
+                }
+                function show_url_not_support_message(){
+                    $('#url_error_msg').html('请输入淘宝，天猫或京东的商品链接。');
+                }
+                function hide_url_not_support_message(){
+                    $('#url_error_msg').html('');
+                }
+                function remove_current_user_input(){
+                    form.find("input[name='cand_url']").val('');
+                }
+                hide_url_not_support_message();
                 var entity_url = form.find("input[name='cand_url']").val();
+                if (!valid_url_support(entity_url)){
+                        show_url_not_support_message();
+                        remove_current_user_input();
+                    return false;
+                };
+
+
             //console.log(this.action);
                 addEntity.find(".title").text("");
                 addEntity.find("input[name=title]").val("");

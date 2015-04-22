@@ -10,6 +10,7 @@
             <div class="col-sm-8">
                 <div class="well create-entity" style="border-radius: 0;margin-bottom: 0;">
                     <p>选择货真价实，有用、有趣、有价值的好商品</p>
+                    <p id="url_error_msg"></p>
                      <form class="form-horizontal" method="post" action="{% url 'web_load_item_info' %}">
                      {% csrf_token %}
                         <fieldset>
