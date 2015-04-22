@@ -76,5 +76,4 @@ def test_final(id):
         print entity_info;
 
 if __name__ == "__main__":
-    test_final(44691754172);
-    test_final(43963498271);
+    test_final(44034481384);

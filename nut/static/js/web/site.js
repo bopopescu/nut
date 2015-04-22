@@ -219,6 +219,7 @@ $.ajaxSetup({
                     data: {cand_url:entity_url},
                     dataType:"json",
                     success : function (data) {
+
                         if(data.status == "EXIST") {
                             entityExist.find('a').attr("href", "/detail/"+data.data.entity_hash);
                             entityExist.slideDown();

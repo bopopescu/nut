@@ -3,13 +3,12 @@
     需求：
        a): 后端： 用户访问果库时，读取最新的 event slug， 放到页面中的一个script tag 中， 
            定义global var newest_event_slug. 这个值就是最新的在显示中的 event slug
-           a.1) : 缓存这个值 ， timeout=3*3600 sec
-                  TODO
+           a.1) : TODO : 缓存这个值 ， timeout=3*3600 sec
                   
                   https://docs.djangoproject.com/en/1.8/topics/cache/
            
-           a.2) : for put a var in all page ( newest_event_slug), we should set the
-                  TEMPLATE_CONTEXT_PROCESSORS value in settings.py 
+           a.2) : for put a var in all page ( newest_event_slug), we should add a context_processor into  the
+                  TEMPLATE_CONTEXT_PROCESSORS  in settings.py 
                   
                   http://www.djangobook.com/en/2.0/chapter09.html
                   
@@ -24,7 +23,7 @@
                              
            
            
-       b): 前端： 读取用户cookie , KEY = "viewed_event_slug", 
+       b): 前端： 读取用户cookie , KEY = "viewed_event_slug",  
            这个值应该是个list, 但是由于现在的实现中， 只有一个active的slug，因此
            这个值现在只是一个字符串。
        c): 前端：对比 cookie中的 viewed_event_slug, 和 global var 中的 newest_event_slug

@@ -280,9 +280,6 @@ def entity_load(request):
                     'data': _item_info,
                 }
 
-            #TODO:  by an, I post same item link three times, but the response is all "SUCESS"
-            #TODO:       the item should be cached already!
-            #TODO: test in production
 
             return JSONResponse(data=_res)
 
