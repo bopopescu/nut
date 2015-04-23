@@ -1,6 +1,7 @@
 /**
  * Created by edison on 14-9-21.
  */
+
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {

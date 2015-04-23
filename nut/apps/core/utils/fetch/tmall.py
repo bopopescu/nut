@@ -56,9 +56,31 @@ def process_mdskip_response(response_str):
     reg = re.compile('\((.*)\)');
     m = reg.search(response_str);
     j_obj = json.loads(m.group(1));
-    print json.dumps(j_obj,sort_keys=True,indent=4, separators=(',', ': '));
-    return 'lalalal';
+    return  json.dumps(j_obj,sort_keys=True,indent=4, separators=(',', ': '));
 
+def get_price_by_entity_info(entity_info):
+    price = 0 ;
+
+    return price ;
+    pass
+
+
+def get_tmall_item_id(id):
+    start_url = get_start_url(id);
+    with requests.Session() as s :
+        r = s.get(start_url , headers  = get_tmall_header(), cookies=get_tmall_cookie());
+        # print r.text;
+        script_url = extract_url(r.text);
+        # print script_url;
+        script_url = fix_script_url(script_url);
+        # print script_url;
+        r = s.get(script_url, headers=get_tmall_header());
+        # print r.text;
+        entity_info = process_mdskip_response(r.text);
+        # print entity_info
+        entity_price = get_price_by_entity_info(entity_info);
+        # print entity_price
+        return entity_price;
 
 def test_final(id):
     start_url = get_start_url(id);
