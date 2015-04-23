@@ -128,7 +128,7 @@
 {#        <li>#}
 {#            <a href="{% url 'web_user_entity_like' row.actor.id %}" class="header" target="_blank"><img src="{{ row.actor.profile.avatar_url }}" alt="{{ row.actor.profile.nickname }}" /></a>#}
             <p class="list_detail">
-                <a href="{% url 'web_user_entity_like' row.actor.id %}" class="id" target="_blank">{{ row.actor.profile.nickname }}</a>喜欢了1件商品 <span class="fc_1">{{ row.timestamp|format_time|cut:" " }}</span>
+                <a href="{% url 'web_user_entity_like' row.actor.id %}" class="id" target="_blank">{{ row.actor.profile.nickname }}</a>喜爱了1件商品 <span class="fc_1">{{ row.timestamp|format_time|cut:" " }}</span>
             </p>
             <div class="row imgs">
                 <div class="col-xs-4 col-sm-4 col-md-3">
