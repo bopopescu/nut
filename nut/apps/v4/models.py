@@ -61,7 +61,8 @@ class APIUser(GKUser):
             res.pop('is_superuser', None)
 
             res['user_id'] = self.id
-            res['is_censor'] = False
+            # res['is_active'] = self.active
+            # res['is_censor'] = False
 
             try:
                 res['nickname'] = self.profile.nickname
