@@ -545,6 +545,8 @@ class Entity(BaseModel):
         return res
 
     def __unicode__(self):
+        if self.brand is not None:
+            return "%s - %s" % (self.brand, self.title)
         return self.title
 
     def save(self, *args, **kwargs):
