@@ -6,6 +6,8 @@ urlpatterns = patterns(
     url(r'^homepage/$', 'homepage', name='v4_homepage'),
     url(r'^selection/$', 'selection', name='v4_selection'),
     url(r'^popular/$', 'popular', name='v4_popular'),
+    url(r'^toppopular/$', 'toppopular', name='v4_toppopular'),
+
     url(r'^unread/$', 'unread', name='v4_unread'),
     url(r'^item/(?P<item_id>\d+)/$', 'visit_item', name='v4_visit_item'),
 )
