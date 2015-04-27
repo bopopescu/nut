@@ -8,8 +8,8 @@ from apps.core.models import Show_Banner, Banner, Buy_Link, Selection_Entity, En
 from apps.core.utils.taobaoapi.utils import taobaoke_mobile_item_convert
 from apps.v4.models import APISelection_Entity, APIEntity
 # from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
-from datetime import datetime
-import random
+from datetime import datetime, timedelta
+# import random
 
 
 from django.utils.log import getLogger
@@ -153,6 +153,27 @@ def popular(request):
 
     return SuccessJsonResponse(res)
 
+
+@check_sign
+def toppopular(request):
+
+    days = timedelta(days=1)
+    now_string = datetime.now().strftime("%Y-%m-%d")
+    dt = datetime.now() - days
+
+
+    query = "select id, entity_id, count(*) as lcount from core_entity_like where created_time between '%s' and '%s' group by entity_id order by lcount desc" % (dt.strftime("%Y-%m-%d"), now_string)
+    _entity_list = Entity_Like.objects.raw(query)
+
+    res = []
+    for entity_like in _entity_list[:10]:
+        r = {
+            'entity': entity_like.entity.v3_toDict(),
+            'note': entity_like.entity.top_note.v3_toDict()
+        }
+        res.append(r)
+
+    return SuccessJsonResponse(res)
 
 @check_sign
 def unread(request):
