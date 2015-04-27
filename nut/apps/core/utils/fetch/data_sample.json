@@ -47,7 +47,7 @@
         },
         "inventoryDO": {
             "hidden": false,
-            "icTotalQuantity": 335,
+            "icTotalQuantity": 333,
             "skuQuantity": {
                 "78609694853": {
                     "quantity": 42,
@@ -65,8 +65,8 @@
                     "type": 1
                 },
                 "80194230323": {
-                    "quantity": 45,
-                    "totalQuantity": 45,
+                    "quantity": 44,
+                    "totalQuantity": 44,
                     "type": 1
                 },
                 "86073787887": {
@@ -85,13 +85,13 @@
                     "type": 1
                 },
                 "86073787890": {
-                    "quantity": 46,
-                    "totalQuantity": 46,
+                    "quantity": 45,
+                    "totalQuantity": 45,
                     "type": 1
                 }
             },
             "success": true,
-            "totalQuantity": 335,
+            "totalQuantity": 333,
             "type": 1
         },
         "itemPriceResultDO": {
@@ -364,7 +364,7 @@
             "regionId": 110101,
             "smartBannerFlag": "top",
             "success": true,
-            "systemTime": "1429603235320",
+            "systemTime": "1429765201263",
             "town": "\u4e1c\u534e\u95e8\u8857\u9053",
             "townId": 110101001
         },
@@ -381,7 +381,7 @@
             "tryBeforeBuy": false
         },
         "sellCountDO": {
-            "sellCount": 54,
+            "sellCount": 50,
             "success": true
         },
         "serviceInfoDO": {

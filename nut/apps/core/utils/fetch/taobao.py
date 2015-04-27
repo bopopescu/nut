@@ -11,6 +11,8 @@ from django.core.cache import cache
 
 from django.utils.log import getLogger
 
+from tmall import  get_tmall_item_price
+
 
 IMG_POSTFIX = "_\d+x\d+.*\.jpg|_b\.jpg"
 log = getLogger('django')
@@ -160,7 +162,7 @@ class TaoBao():
 			"desc": self.desc,
 			"cid": self.cid,
 			"promprice" : self.price,
-            "price": self.price or 0,
+            "price": self.price or get_tmall_item_price(self.item_id),
 			# "category" : "",
 			"imgs": self.images,
 			"count": 0,
