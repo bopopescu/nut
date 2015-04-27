@@ -3,10 +3,10 @@ from django.conf.urls import url, patterns, include
 
 urlpatterns = patterns(
     'apps.v4.views',
-    url(r'^homepage/$', 'homepage', name='mobile_homepage'),
-    url(r'^selection/$', 'selection', name='mobile_selection'),
-    url(r'^popular/$', 'popular', name='mobile_popular'),
-    url(r'^unread/$', 'unread', name='mobile_unread'),
+    url(r'^homepage/$', 'homepage', name='v4_homepage'),
+    url(r'^selection/$', 'selection', name='v4_selection'),
+    url(r'^popular/$', 'popular', name='v4_popular'),
+    url(r'^unread/$', 'unread', name='v4_unread'),
     url(r'^item/(?P<item_id>\d+)/$', 'visit_item', name='v4_visit_item'),
 )
 
