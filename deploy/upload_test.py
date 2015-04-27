@@ -23,7 +23,7 @@ env.local_root = os.path.join(root_dir, Config.get('local', 'project_dir'))
 env.project_root = Config.get('server', 'project_dir')
 
 def update_code():
-    local('git pull origin master')
+    local('git pull origin dev')
 
 
 @parallel
