@@ -147,7 +147,7 @@ class APIEntity(Entity):
         res.pop('user_id', None)
         res.pop('rate', None)
         res['entity_id'] = self.id
-        res['item_id_list'] = ['54c21867a2128a0711d970da']
+        # res['item_id_list'] = ['54c21867a2128a0711d970da']
         # res['price'] = "%s" % int(self.price)
         # res['weight'] = 0
         # res['score_count'] = 0

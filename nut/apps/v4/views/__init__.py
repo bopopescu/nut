@@ -6,7 +6,7 @@ from apps.mobile.models import Session_Key
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.models import Show_Banner, Banner, Buy_Link, Selection_Entity, Entity, Entity_Like, Sub_Category
 from apps.core.utils.taobaoapi.utils import taobaoke_mobile_item_convert
-from apps.v4.models import APISelection_Entity
+from apps.v4.models import APISelection_Entity, APIEntity
 # from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from datetime import datetime
 import random
@@ -131,7 +131,7 @@ def popular(request):
     _key = request.GET.get('session')
     log.info(_scale)
     popular_list = Entity_Like.objects.popular_random(_scale)
-    _entities = Entity.objects.filter(id__in=popular_list, status=Entity.selection)
+    _entities = APIEntity.objects.filter(id__in=popular_list, status=Entity.selection)
 
     try:
         _session = Session_Key.objects.get(session_key=_key)
@@ -147,7 +147,7 @@ def popular(request):
     res['scale'] = _scale
     for e in _entities:
         r = {
-            'entity': e.v3_toDict(user_like_list=el)
+            'entity': e.v4_toDict(user_like_list=el)
         }
         res['content'].append(r)
 
