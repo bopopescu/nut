@@ -1,4 +1,4 @@
-#encoding=utf8
+# -*- coding: utf-8 -*-
 
 from django.http import HttpResponse
 # from django.utils import simplejson as json
