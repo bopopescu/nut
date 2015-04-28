@@ -45,7 +45,7 @@ img {
 .round {
     width:6px;
     height:6px;
-    display: inline-block;
+    display: none;
     font-size:6px;
     vertical-align: top;
     border-radius: 3px;
@@ -1049,6 +1049,10 @@ padding-left: 15px;
 .input_error_msg{
     color:darkred;
     font-size: 0.9em;
+}
+
+.pass_input{
+    margin-left: 40px ;
 }
 /* Add by An Chen end*/
 

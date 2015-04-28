@@ -30,6 +30,12 @@ def home(request):
     raise Http404
 
 @require_http_methods(['GET'])
+def elist(request, template='web/events/list'):
+    # temp , route to home
+    return home(request)
+
+
+@require_http_methods(['GET'])
 def event(request, slug, template='web/events/home'):
     _page_num = request.GET.get('p', 1)
     _slug = slug

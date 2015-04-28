@@ -45,7 +45,9 @@ $.ajaxSetup({
             }
             if ($.cookie(viewed_event_slug_cookie_key) === newest_event_slug){
                 //console.log('event is read!');
-                jQuery('.nav [href="/event/"] .round').hide();
+                jQuery('.nav [href="/event/"] .round').css({display:'none'});
+            }else{
+                jQuery('.nav [href="/event/"] .round').css({display:'inline-block'});
             }
 
             return ;
