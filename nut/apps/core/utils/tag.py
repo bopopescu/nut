@@ -1,4 +1,4 @@
-# coding=utf8
+# -*- coding: utf-8 -*-
 # from time import time
 from apps.core.models import Tag, Entity_Tag
 

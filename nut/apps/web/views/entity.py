@@ -1,4 +1,4 @@
-#encoding=utf8
+# -*- coding: utf-8 -*-
 from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, get_object_or_404

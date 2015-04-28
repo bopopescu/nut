@@ -1,4 +1,4 @@
-#encoding=utf8
+# -*- coding: utf-8 -*-
 
 import requests
 import re
@@ -25,7 +25,6 @@ def get_tmall_header():
     tmall_header.update(origin_headers)
     return tmall_header
 
-    return
 def extract_url(str):
     reg = re.compile('url=\'(\S*)\'')
     m = reg.search(str)
@@ -49,19 +48,19 @@ def process_mdskip_response(response_str):
     reg = re.compile('\((.*)\)')
     m = reg.search(response_str)
     j_obj = json.loads(m.group(1))
-    # return  json.dumps(j_obj,sort_keys=True,indent=4, separators=(',', ': '));
+    # return  json.dumps(j_obj,sort_keys=True,indent=4, separators=(',', ': '))
     return j_obj
 
 def get_price_by_entity_info(entity_info):
     price = 0
-    prices = [];
+    prices = []
 
     if entity_info['isSuccess']:
         try:
             priceInfo = entity_info['defaultModel']['itemPriceResultDO']['priceInfo']
             for k,v in priceInfo.iteritems():
                 prices.append(priceInfo[k]['price'])
-                # may be there is multiple promotionList ... TODO;
+                # may be there is multiple promotionList ... TODO
                 if priceInfo[k]['promotionList'][0] and priceInfo[k]['promotionList'][0]['extraPromPrice'] :
                     prices.append(priceInfo[k]['promotionList'][0]['extraPromPrice'])
             # print prices
@@ -85,18 +84,18 @@ def get_price_by_entity_info(entity_info):
 
 
 def get_tmall_item_price(id):
-    entity_price  = 0  ;
+    entity_price  = 0
     start_url = get_start_url(id)
     with requests.Session() as s :
         r = s.get(start_url , headers  = get_tmall_header(), cookies=get_tmall_cookie())
-        # print r.text;
+        # print r.text
         try:
             script_url = extract_url(r.text)
-            # print script_url;
+            # print script_url
             script_url = fix_script_url(script_url)
-            # print script_url;
+            # print script_url
             r = s.get(script_url, headers=get_tmall_header())
-            # print r.text;
+            # print r.text
             entity_info = process_mdskip_response(r.text)
             # print entity_info
             entity_price = get_price_by_entity_info(entity_info)
@@ -112,5 +111,5 @@ def test_final(id):
 
 
 if __name__ == "__main__":
-    test_final(44034481384)# this is a tmall id ,
-    test_final(44092687648)# this is a taobao id, will return 0! ,
+    test_final(44034481384)# this is a tmall id , should output 1997
+    test_final(44092687648)# this is a taobao id, will return 0 ! ,

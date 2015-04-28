@@ -1,4 +1,4 @@
-# coding=utf8
+# -*- coding: utf-8 -*-
 from django import forms
 from apps.core.models import Note, Tag, Entity_Tag
 from apps.mobile.models import Session_Key
