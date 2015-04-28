@@ -4,7 +4,7 @@
 <div class="detail_right right_part">
     {% for row in entity.buy_links.all %}
         {% if row.origin_source == "taobao.com" %}
-            <a class="btn {% if row.default %}btn-primary{% else %}btn-default{% endif %} btn-buy" href="http://item.taobao.com/item.htm?id={{ row.origin_id }}" target="_blank" biz-itemid="{{ row.origin_id }}" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity.title }}-taobao'])">
+            <a class="btn {% if row.default %}btn-primary{% else %}btn-default{% endif %} btn-buy" href=href="http://detail.tmall.com/item.htm?id={{ row.origin_id }}" target="_blank" biz-itemid="{{ row.origin_id }}" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity.title }}-taobao'])">
                 <i class="fa fa-shopping-cart fc_blue"></i>
                 <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity.price }}</span>
             </a>
