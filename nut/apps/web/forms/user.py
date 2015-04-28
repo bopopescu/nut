@@ -106,21 +106,22 @@ class UserSettingsForm(forms.Form):
 class UserChangePasswordForm(forms.Form):
     error_messages = {
         'password_mismatch': _("The two password fields didn't match."),
+        'password_error': _("Old password didn't match")
     }
     current_password = forms.CharField(
         label=_('current password'),
-        widget=forms.PasswordInput(attrs={'class':'td'})
+        widget=forms.PasswordInput(attrs={'class':'td','placeholder':_('current password')})
     )
 
     new_password = forms.CharField(
         label=_('New password'),
-        widget=forms.PasswordInput(attrs={'class':'td'}),
+        widget=forms.PasswordInput(attrs={'class':'td','placeholder':_('New password')}),
         min_length=8,
     )
 
     password_confirmation = forms.CharField(
         label=_('New password confirmation'),
-        widget=forms.PasswordInput(attrs={'class':'td'}),
+        widget=forms.PasswordInput(attrs={'class':'td','placeholder':_('New password confirmation')}),
         min_length=8,
     )
 
@@ -131,7 +132,8 @@ class UserChangePasswordForm(forms.Form):
             return _current_password
         else:
             raise forms.ValidationError(
-                'password error'
+                self.error_messages['password_error'],
+                code='password_error'
             )
 
     def clean_password_confirmation(self):
