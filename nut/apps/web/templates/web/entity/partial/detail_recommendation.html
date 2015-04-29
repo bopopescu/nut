@@ -1,0 +1,12 @@
+{% load i18n staticfiles %}
+{% load common guoku %}
+    <p class="fs_14 fc_2 title">猜你喜爱</p>
+    {% for entity in guess_entities %}
+        <div class="col-xs-6 col-sm-3 guess_img">
+            <div>
+                <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank" class="">
+                    <img class="img-responsive" src="{{ entity.chief_image|resize:'240' }}" alt="{{ entity.title }}">
+                </a>
+            </div>
+        </div>
+    {% endfor %}

@@ -22,145 +22,38 @@
 {% block content %}
     <div class="container goods_detail" id="detail" xmlns="http://www.w3.org/1999/html">
         <h2 class="hidden">{{ entity.title }}</h2>
-        <div class="row">
-            <div class="col-md-12 tips">
-                <ul class="fs_14">
-                    <li class="fc_1"><a href="{% url 'web_selection' %}">{% trans 'selection' %}</a>&nbsp;&nbsp;<i class="fa fa-angle-right fc_angle_right"></i>&nbsp;&nbsp;</li>
-                    <li class="fc_1"><a href="{% url 'web_category_detail' entity.category_id %}">{{ entity.category.title|show_category }}</a>&nbsp;&nbsp;<i class="fa fa-angle-right fc_angle_right"></i>&nbsp;&nbsp;</li>
-                    <li class="fc_1">{% if entity.brand|length != 0 %}{{ entity.brand }} - {% endif %}{{ entity.title }}</li>
-                </ul>
-            </div>
+        <div class="row" id="detail_breadcrumb">
+            {% include "web/entity/partial/detail_breadcrumb.html" %}
         </div>
 
 
-        <div class="row">
-            <div class="col-sm-8 col-md-8 col-xs-12" itemscope itemtype="http://data-vocabulary.org/Product">
+        <div class="row" id="detail_content">
+            <div  id="detail_content_left" class="col-sm-8 col-md-8 col-xs-12" itemscope itemtype="http://data-vocabulary.org/Product">
                 <div class="detail_pic">
-                    {% if entity.default_buy_link.origin_source == "taobao.com" %}
-                        <a id="buy-btn-img" href="http://item.taobao.com/item.htm?id={{ entity.default_buy_link.origin_id }}" target="_blank" biz-itemid="{{ entity.default_buy_link.origin_id }}" _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity_context.title }}-taobao'])">
-                            <img itemprop="image" src="{{ entity.chief_image|resize:'640' }}" alt="{{ entity_context.title }}" title="{{ entity_context.title }}" class="img-responsive">
-                        </a>
-                    {% elif entity.default_buy_link.origin_source == "jd.com" %}
-                        <a id="buy-btn-img" href="http://item.jd.com/{{ entity.default_buy_link.origin_id }}.html" target="_blank"  _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity_context.title }}-jd'])">
-                            <img itemprop="image" src="{{ entity.chief_image|resize:'640' }}" alt="{{ entity_context.title }}" title="{{ entity_context.title }}" class="img-responsive">
-                        </a>
-                    {% else %}
-                        <a id="buy-btn-img" href="{{ entity.default_buy_link.link }}" target="_blank"  _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-kaola', '{{ entity_context.title }}-kaola'])">
-                            <img itemprop="image" src="{{ entity.chief_image|resize:'640' }}" alt="{{ entity_context.title }}" title="{{ entity_context.title }}" class="img-responsive">
-                        </a>
-                    {% endif %}
-                    <p class="fs_24 fc_333 goods_name">{% if entity.brand|length != 0 %}<span itemprop="brand">{{ entity.brand }}</span> - {% endif %}<span itemprop>{{ entity.title }}</span></p>
-                    <div class="operate">
-                        <div class="heart fs_16">
-                        {% if like_status %}
-		    			    <a class="like-action fc_333" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
-                                <i class="fa fa-heart fc_heart"></i>&nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>
-                            </a>
-                        {% else %}
-                            <a class="like-action fc_333" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
-                                <i class="fa fa-heart-o fc_1"></i>&nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>
-                            </a>
-                        {% endif %}
-                        </div>
-                        
-
-                        <a href="#" class="button_buy fs_18 fc_4 bg_c_blue hidden-sm hidden-md hidden-lg">
-                            <i class="fa fa-shopping-cart fc_blue"></i>
-                            购买 ￥168.00 
-                        </a>
-
-
-                        {% if request.user.is_authenticated %}
-		    			    <a data-target="#ReportModal" data-toggle="modal" href="{% url 'web_entity_report' entity.pk %}" _hover-ignore="1" class="report_link hidden-xs fc_1"><i class="fa fa-flag-o"></i>&nbsp;举报</a>
-                        {% endif %}
-	    			</div>
+                    {% include "web/entity/partial/detail_pic.html" %}
                 </div>
                 <div class="comment_list" itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
-                    <ul>
-                        {% if entity.has_top_note %}
-                        <li class="fs_16">
-                            <a href="{% url 'web_user_index' entity.top_note.user.pk %}" target="_blank">
-	    					    <img src="{{ entity.top_note.user.profile.avatar_url }}" alt="{{ entity.top_note.user.profile.nickname }}" class="head_pic">
-                            </a>
-	    					<div class="comment_detail">
-	    						<div class="user_name">
-{#		    						<a href="#">重力鸭</a>#}
-                                    <a href="{% url 'web_user_index' entity.top_note.user.pk %}" target="_blank">{{ entity.top_note.user.profile.nickname }}</a>
-		    						<a href="javascript:;" class="favorite fc_favor"><i class="fa fa-star"></i></a>
-	    						</div>
-	    						<span class="comment_word">{{ entity.top_note.note|escape }}</span>
-	    						<div class="comment_operate">
-                                    {% if entity.top_note.id in user_pokes %}
-    							        <a href="javascript:;" class="zan fc_1 poke" data-note="{{ entity.top_note.id }}">
-                                            <i class="fa fa-thumbs-up"> <!-- thumbs-up --></i>{% if entity.top_note.poke_count > 0 %}&nbsp;<span>{{ entity.top_note.poke_count }}</span>{% endif %}
-                                        </a>
-                                    {% else %}
-	    							    <a href="javascript:;" class="zan fc_1 poke" data-note="{{ entity.top_note.id }}">
-                                            <i class="fa fa-thumbs-o-up"> <!-- thumbs-up --></i>{% if entity.top_note.poke_count > 0 %}&nbsp;<span>{{ entity.top_note.poke_count }}</span>{% endif %}
-                                        </a>
-                                    {% endif %}
-                                    <a href="javascript:;" class="fc_1"><i class="fa fa-comment-o"></i>{% if entity.top_note.comment_count > 0 %}&nbsp;{{ entity.top_note.comment_count }}{% endif %}</a>
-	    							<a href="javascript:;" class="fs_14 times fc_1"><i class="fa fa-clock-o"></i>&nbsp;{{ entity.top_note.post_time|format_time|cut:" "}} </a>
-	    						</div>
-{#	    						<div class="reply_comment">#}
-{#	    							<textarea name="" id=""></textarea>#}
-{#	    							<div class="buttons">#}
-{#	    								<a href="#" class="bg_c_blue fc_4 save">确定</a>#}
-{#	    								<a href="#" class="bg_c_cancel fc_3 cancel">取消</a>#}
-{#	    							</div>#}
-{#	    						</div>#}
-	    					</div>
-	    				</li>
-                        {% endif %}
-
-                        {% include "web/entity/partial/detail_note.html" with notes=entity.notes %}
-                    </ul>
+                     <ul>
+                         {% include "web/entity/partial/detail_comment_head.html" %}
+                         {% include "web/entity/partial/detail_note.html" with notes=entity.notes %}
+                     </ul>
                 </div>
-{#                <hr style="margin-top: 0" >#}
-{#                <div class="thumbnail entity-detail">#}
-{#                    {% if entity.default_buy_link.origin_source == "taobao.com" %}#}
-{#                        <a id="buy-btn-img" href="http://item.taobao.com/item.htm?id={{ entity.default_buy_link.origin_id }}" target="_blank" biz-itemid="{{ entity.default_buy_link.origin_id }}" _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity_context.title }}-taobao'])">#}
-{#                            <img itemprop="image" src="{{ entity.chief_image|resize:'640' }}" alt="{{ entity_context.title }}" class="img-responsive" width="640" height="640">#}
-{#                        </a>#}
-{#                    {% elif entity.default_buy_link.origin_source == "jd.com" %}#}
-{#                        <a id="buy-btn-img" href="http://item.jd.com/{{ entity.default_buy_link.origin_id }}.html" target="_blank"  _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity_context.title }}-jd'])">#}
-{#                            <img itemprop="image" src="{{ entity.chief_image|resize:'640' }}" alt="{{ entity_context.title }}" class="img-responsive" width="640" height="640">#}
-{#                        </a>#}
-{#                    {% else %}#}
-{#                        <a id="buy-btn-img" href="{{ entity.default_buy_link.link }}" target="_blank"  _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-kaola', '{{ entity_context.title }}-kaola'])">#}
-{#                            <img itemprop="image" src="{{ entity.chief_image|resize:'640' }}" alt="{{ entity_context.title }}" class="img-responsive" width="640" height="640">#}
-{#                        </a>#}
-{#                    {% endif %}#}
-{##}
-{#                    <div class="caption" style="border:0">#}
-{#                        <h4 class="entity-title">{% if entity.brand|length != 0 %}#}
-{#                            <span itemprop="brand">{{ entity.brand }}</span> - {% endif %}<span itemprop>{{ entity.title }}</span>#}
-{#                        </h4>#}
-{#                        <div class="col-sm-6">#}
-{##}
-{#                            {% if like_status %}#}
-{#                                <a class="btn btn-like-detail" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">#}
-{#                                  <i class="fa fa-heart"></i>&nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>#}
-{#                                </a>#}
-{#                            {% else %}#}
-{#                                <a class="btn btn-like-detail" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">#}
-{#                                    <i class="fa fa-heart-o"></i>&nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>#}
-{#                                </a>#}
-{#                            {% endif %}#}
-{##}
-{#                        <div class="hidden-sm hidden-md hidden-lg pull-right">#}
-{#                            {% if entity.default_buy_link.origin_source == "taobao.com" %}#}
-{#                                <a id="buy-btn-mobile" class="btn btn-primary" href="http://item.taobao.com/item.htm?id={{ entity.default_buy_link.origin_id }}" target="_blank" biz-itemid="{{ entity.default_buy_link.origin_id }}" _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity_context.title }}-taobao'])">#}
-{#                                    <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity.price }}</span>#}
-{#                                </a>#}
-{#                            {% else %}#}
-{#                                <a id="buy-btn-mobile" class="btn btn-primary" href="http://item.jd.com/{{ entity.default_buy_link.origin_id }}.html" target="_blank"  _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity_context.title }}-jd'])">#}
-{#                                    <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity.price }}</span>#}
-{#                                </a>#}
-{#                            {% endif %}#}
-{#                        </div>#}
-{#                    </div>#}
+            </div>
 
+
+            <div  id="detail_content_right" class="col-sm-4 col-md-4 hidden-print hidden-xs" itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
+                 {% include "web/entity/partial/detail_side.html" %}
+            </div>
+
+
+
+        </div>
+        <div class="row" id="wast">
+
+            <div class="col-sm-8 col-md-8 col-xs-12" itemscope itemtype="http://data-vocabulary.org/Product">
+
+
+{##}
 {#                    {% if entity.has_top_note %}#}
 {#                    <div class="row selection-note">#}
 {#                        <div class="media">#}
@@ -254,27 +147,16 @@
 {#                    </div>#}
 {#                    {% endif %}#}
 {#                {% endif %}#}
-
-
-            </div>
-
-            <div class="col-sm-4 col-md-4 hidden-print hidden-xs" itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
-                {% include "web/entity/partial/detail_side.html" %}
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" id="detail_recommendation">
             <div class="col-sm-8 col-md-8 col-xs-12 guess_Ulike">
-                <p class="fs_14 fc_2 title">猜你喜爱</p>
-                {% for entity in guess_entities %}
-                    <div class="col-xs-6 col-sm-3 guess_img">
-                        <div>
-                            <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank" class="">
-                                <img class="img-responsive" src="{{ entity.chief_image|resize:'240' }}" alt="{{ entity.title }}">
-                            </a>
-                        </div>
-                    </div>
-                {% endfor %}
+                {% include "web/entity/partial/detail_recommendation.html" %}
+            </div>
+        </div>
+        <div  class="row" id="detail_report">
+            <div class="col-sm-8 col-md-8 col-xs-12">
                 <a href="#" class="report_link fc_1 hidden-sm hidden-md hidden-lg"><i class="fa fa-flag-o"></i> 举报</a>
             </div>
         </div>

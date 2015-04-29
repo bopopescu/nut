@@ -1,0 +1,40 @@
+{% load i18n staticfiles %}
+{% load common guoku %}
+{% if entity.default_buy_link.origin_source == "taobao.com" %}
+                        <a id="buy-btn-img" href="http://item.taobao.com/item.htm?id={{ entity.default_buy_link.origin_id }}" target="_blank" biz-itemid="{{ entity.default_buy_link.origin_id }}" _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity_context.title }}-taobao'])">
+                            <img itemprop="image" src="{{ entity.chief_image|resize:'640' }}" alt="{{ entity_context.title }}" title="{{ entity_context.title }}" class="img-responsive">
+                        </a>
+                    {% elif entity.default_buy_link.origin_source == "jd.com" %}
+                        <a id="buy-btn-img" href="http://item.jd.com/{{ entity.default_buy_link.origin_id }}.html" target="_blank"  _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity_context.title }}-jd'])">
+                            <img itemprop="image" src="{{ entity.chief_image|resize:'640' }}" alt="{{ entity_context.title }}" title="{{ entity_context.title }}" class="img-responsive">
+                        </a>
+                    {% else %}
+                        <a id="buy-btn-img" href="{{ entity.default_buy_link.link }}" target="_blank"  _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-kaola', '{{ entity_context.title }}-kaola'])">
+                            <img itemprop="image" src="{{ entity.chief_image|resize:'640' }}" alt="{{ entity_context.title }}" title="{{ entity_context.title }}" class="img-responsive">
+                        </a>
+                    {% endif %}
+                    <p class="fs_24 fc_333 goods_name">{% if entity.brand|length != 0 %}<span itemprop="brand">{{ entity.brand }}</span> - {% endif %}<span itemprop>{{ entity.title }}</span></p>
+                    <div class="operate">
+                        <div class="heart fs_16">
+                        {% if like_status %}
+		    			    <a class="like-action fc_333" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
+                                <i class="fa fa-heart fc_heart"></i>&nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>
+                            </a>
+                        {% else %}
+                            <a class="like-action fc_333" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
+                                <i class="fa fa-heart-o fc_1"></i>&nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>
+                            </a>
+                        {% endif %}
+                        </div>
+
+
+                        <a href="#" class="button_buy fs_18 fc_4 bg_c_blue hidden-sm hidden-md hidden-lg">
+                            <i class="fa fa-shopping-cart fc_blue"></i>
+                            购买 ￥168.00
+                        </a>
+
+
+                        {% if request.user.is_authenticated %}
+		    			    <a data-target="#ReportModal" data-toggle="modal" href="{% url 'web_entity_report' entity.pk %}" _hover-ignore="1" class="report_link hidden-xs fc_1"><i class="fa fa-flag-o"></i>&nbsp;举报</a>
+                        {% endif %}
+	    			</div>
