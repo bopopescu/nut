@@ -1,0 +1,37 @@
+{% load i18n staticfiles %}
+{% load common guoku %}
+{% if entity.has_top_note %}
+    <li class="fs_16">
+        <a href="{% url 'web_user_index' entity.top_note.user.pk %}" target="_blank">
+            <img src="{{ entity.top_note.user.profile.avatar_url }}" alt="{{ entity.top_note.user.profile.nickname }}" class="head_pic">
+        </a>
+        <div class="comment_detail">
+            <div class="user_name">
+                {#		    						<a href="#">重力鸭</a>#}
+                <a href="{% url 'web_user_index' entity.top_note.user.pk %}" target="_blank">{{ entity.top_note.user.profile.nickname }}</a>
+                <a href="javascript:;" class="favorite fc_favor"><i class="fa fa-star"></i></a>
+            </div>
+            <span class="comment_word">{{ entity.top_note.note|escape }}</span>
+            <div class="comment_operate">
+                {% if entity.top_note.id in user_pokes %}
+                    <a href="javascript:;" class="zan fc_1 poke" data-note="{{ entity.top_note.id }}">
+                        <i class="fa fa-thumbs-up"> <!-- thumbs-up --></i>{% if entity.top_note.poke_count > 0 %}&nbsp;<span>{{ entity.top_note.poke_count }}</span>{% endif %}
+                    </a>
+                {% else %}
+                    <a href="javascript:;" class="zan fc_1 poke" data-note="{{ entity.top_note.id }}">
+                        <i class="fa fa-thumbs-o-up"> <!-- thumbs-up --></i>{% if entity.top_note.poke_count > 0 %}&nbsp;<span>{{ entity.top_note.poke_count }}</span>{% endif %}
+                    </a>
+                {% endif %}
+                <a href="javascript:;" class="fc_1"><i class="fa fa-comment-o"></i>{% if entity.top_note.comment_count > 0 %}&nbsp;{{ entity.top_note.comment_count }}{% endif %}</a>
+                <a href="javascript:;" class="fs_14 times fc_1"><i class="fa fa-clock-o"></i>&nbsp;{{ entity.top_note.post_time|format_time|cut:" "}} </a>
+            </div>
+            {#	    						<div class="reply_comment">#}
+            {#	    							<textarea name="" id=""></textarea>#}
+            {#	    							<div class="buttons">#}
+            {#	    								<a href="#" class="bg_c_blue fc_4 save">确定</a>#}
+            {#	    								<a href="#" class="bg_c_cancel fc_3 cancel">取消</a>#}
+            {#	    							</div>#}
+            {#	    						</div>#}
+        </div>
+    </li>
+{% endif %}
