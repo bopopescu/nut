@@ -568,6 +568,8 @@ $.ajaxSetup({
 
            //     console.log("OKOKOKO");
                  e.preventDefault();
+                 return false ;
+
             });
         },
 
@@ -585,7 +587,7 @@ $.ajaxSetup({
 
         updateNote: function (noteItem) {
            // console.log(noteItem);
-            var note_content = noteItem.find(".note-content .content");
+            var note_content = noteItem.find(".comment_word.content");
             var note_update_form = noteItem.find(".update-note-form");
             var note_text = note_update_form.find('textarea');
             //console.log(note_text);
@@ -632,6 +634,7 @@ $.ajaxSetup({
                         });
                     } else {
                     note_text.focus();
+                    // TODO: handle empty input
                 }
                 e.preventDefault();
             });

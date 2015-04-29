@@ -3,30 +3,32 @@
 {% spaceless %}
 {#<div class="row common-note-list" itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">#}
     {% for note in notes.normal %}
-        <li class="fs_16">
-            <a href="{% url 'web_user_index' note.user.pk %}" target="_blank">
-                <img src="{{ note.user.profile.avatar_url }}" alt="{{ note.user.profile.nickname }}" class="head_pic">
-            </a>
-            <div class="comment_detail">
-                <div class="user_name">
-                    <a href="{% url 'web_user_index' note.user.pk %}" target="_blank">{{ note.user.profile.nickname }}</a>
-                </div>
-                <span class="comment_word">{{ note.note|escape }}</span>
-                <div class="comment_operate">
-                    {% if note.id  in user_pokes %}
-                        <a href="javascript:;" class="zan fc_3 poke" data-note="{{ note.id }}">
-                            <i class="fa fa-thumbs-up"></i>{% if note.poke_count > 0 %}&nbsp;<span>{{ note.poke_count }}</span>{% endif %}
-                        </a>
-                    {% else %}
-                        <a href="javascript:;" class="zan fc_3 poke" data-note="{{ note.id }}">
-                            <i class="fa fa-thumbs-o-up"></i>{% if note.poke_count > 0 %}&nbsp;<span>{{ note.poke_count }}</span>{% endif %}
-                        </a>
-                    {% endif %}
-                    <a href="javascript:;" class="fc_1"><i class="fa fa-comment-o"></i>{% if note.comment_count > 0 %}&nbsp;{{ note.comment_count }}{% endif %}</a>
-                    <a href="javascript:;" class="fs_14 times fc_1"><i class="fa fa-clock-o"></i>&nbsp;{{ note.post_time|format_time|cut:" " }}</a>
-                </div>
-            </div>
-        </li>
+
+        {% include "web/entity/partial/ajax_detail_note.html" %}
+{#        <li class="fs_16">#}
+{#            <a href="{% url 'web_user_index' note.user.pk %}" target="_blank">#}
+{#                <img src="{{ note.user.profile.avatar_url }}" alt="{{ note.user.profile.nickname }}" class="head_pic">#}
+{#            </a>#}
+{#            <div class="comment_detail">#}
+{#                <div class="user_name">#}
+{#                    <a href="{% url 'web_user_index' note.user.pk %}" target="_blank">{{ note.user.profile.nickname }}</a>#}
+{#                </div>#}
+{#                <span class="comment_word">{{ note.note|escape }}</span>#}
+{#                <div class="comment_operate">#}
+{#                    {% if note.id  in user_pokes %}#}
+{#                        <a href="javascript:;" class="zan fc_3 poke" data-note="{{ note.id }}">#}
+{#                            <i class="fa fa-thumbs-up"></i>{% if note.poke_count > 0 %}&nbsp;<span>{{ note.poke_count }}</span>{% endif %}#}
+{#                        </a>#}
+{#                    {% else %}#}
+{#                        <a href="javascript:;" class="zan fc_3 poke" data-note="{{ note.id }}">#}
+{#                            <i class="fa fa-thumbs-o-up"></i>{% if note.poke_count > 0 %}&nbsp;<span>{{ note.poke_count }}</span>{% endif %}#}
+{#                        </a>#}
+{#                    {% endif %}#}
+{#                    <a href="javascript:;" class="fc_1"><i class="fa fa-comment-o"></i>{% if note.comment_count > 0 %}&nbsp;{{ note.comment_count }}{% endif %}</a>#}
+{#                    <a href="javascript:;" class="fs_14 times fc_1"><i class="fa fa-clock-o"></i>&nbsp;{{ note.post_time|format_time|cut:" " }}</a>#}
+{#                </div>#}
+{#            </div>#}
+{#        </li>#}
 {#        {% include 'web/entity/partial/ajax_detail_note.html' with note=note  %}#}
     {% endfor %}
 {#</div>#}

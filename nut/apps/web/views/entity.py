@@ -101,6 +101,7 @@ def entity_post_note(request, eid, template='web/entity/partial/ajax_detail_note
             _t = loader.get_template(template)
             _c = RequestContext(request, {
                 'note': note,
+                'note_forms': _forms
             })
             _data = _t.render(_c)
             return JSONResponse(
