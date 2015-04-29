@@ -32,12 +32,16 @@
                 <div class="detail_pic">
                     {% include "web/entity/partial/detail_pic.html" %}
                 </div>
-                <div class="comment_list" itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
+                <div  class="comment_list" itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
                      <ul>
                          {% include "web/entity/partial/detail_comment_head.html" %}
                          {% include "web/entity/partial/detail_note.html" with notes=entity.notes %}
                      </ul>
                 </div>
+                <div class="" id="login_user_comment">
+                    {% include "web/entity/partial/detail_user_comment.html" %}
+                </div>
+
             </div>
 
 
@@ -48,107 +52,7 @@
 
 
         </div>
-        <div class="row" id="wast">
 
-            <div class="col-sm-8 col-md-8 col-xs-12" itemscope itemtype="http://data-vocabulary.org/Product">
-
-
-{##}
-{#                    {% if entity.has_top_note %}#}
-{#                    <div class="row selection-note">#}
-{#                        <div class="media">#}
-{#                            <a class="pull-left"  href="{% url 'web_user_index' entity.top_note.user.pk %}" target="_blank" >#}
-{#                                <img class="media-object img-circle" src="{{ entity.top_note.user.profile.avatar_url }}" alt="{{ entity.top_note.user.profile.nickname }}" width="50" height="50">#}
-{#                            </a>#}
-{#                            <div class="media-body note-content">#}
-{#                                <p class="media-heading">#}
-{#                                    <a href="{% url 'web_user_index' entity.top_note.user.pk %}" target="_blank">{{ entity.top_note.user.profile.nickname }}</a>#}
-{#                                </p>#}
-{#                                <div class="note-text">#}
-{#                                    <p class="with-tag content" >{{ entity.top_note.note|escape }}</p>#}
-{#                                        {% if note.user == request.user %}#}
-{#                                            <form class="form-horizontal update-note-form" action="{% url 'web_update_entity_note' note.pk %}" method="POST" style="display: none;">#}
-{#                                            {% csrf_token %}#}
-{#                                                <fieldset>#}
-{#                            <textarea class="form-control" name="note_text" rows="4" style="resize: none;">{{ note_context.content }}</textarea>#}
-{#                                                    {% for field in note_forms %}#}
-{#                                                        {{ field }}#}
-{#                                                    {% endfor %}#}
-{#                                                </fieldset>#}
-{#                                                <div class="control-group" style="margin-bottom:10px;">#}
-{#                                                    <div class="col-sm-offset-9">#}
-{#                                                        <button class="btn btn-default btn-cancel" style="margin-right:10px;" type="button">取消</button>#}
-{#                                                        <button class="btn btn-primary btn-post" type="submit">修改</button>#}
-{#                                                    </div>#}
-{#                                                </div>#}
-{#                                            </form>#}
-{#                                        {% endif %}#}
-{#                                    <p>#}
-{#                                        <a href="javascript:;" class="poke{% if entity.top_note.id in user_pokes %} active {% endif %}" data-note="{{ entity.top_note.id }}">#}
-{#                                            <i class="fa fa-thumbs-o-up"></i>&nbsp;#}
-{#                                        {% if entity.top_note.poke_count > 0 %}#}
-{#                                            <span>{{ entity.top_note.poke_count }}</span>#}
-{#                                        {% endif %}#}
-{#                                        </a>#}
-{#                                        <a href="javascript:;" class="add-comment" data-note="{{ entity.top_note.id }}"><i class="fa fa-comment-o"></i>&nbsp;#}
-{#                                        {% if entity.top_note.comment_count > 0 %}#}
-{#                                            <span>{{ entity.top_note.comment_count }}</span>#}
-{#                                        {% endif %}#}
-{#                                        </a>#}
-{#                                        {% if entity.top_note.user == request.user %}#}
-{#                                            <a class="update-note"><i class="fa fa-pencil-square-o"></i></a>#}
-{#                                        {% endif %}#}
-{#                                        <span class="pull-right create-time">{{ entity.top_note.post_time|format_time }}</span>#}
-{#                                        <i class="fa fa-star fa-lg pull-right" style="margin: 5px 5px 0 0;"></i>#}
-{#                                    </p>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    {% endif %}#}
-{##}
-{#                    {% include "web/entity/partial/detail_note.html" with notes=entity.notes %}#}
-{#                </div>#}
-{#                {% if request.user.is_blocked %}#}
-{#                    <div class="row" style="background-color: #fbfbfb; margin: 0;">#}
-{#                        <div class="media" style="padding: 15px">#}
-{#                            <div class="pull-left">#}
-{#                                <i class="fa fa-exclamation-triangle fa-5x"></i>#}
-{#                            </div>#}
-{#                            <div class="media-body post-note">#}
-{#                                <p>果库倡导友好、宽容和理性的对待不同的看法和意见，尊重他人。</p>#}
-{#                                <p>你的帐号因多次违规，已被禁言。可通过 hi@guoku.com 联系管理员</p>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                {% elif request.user.is_authenticated and  not user_post_note %}#}
-{#                    {% if not user_post_note %}#}
-{#                    <div class="row" style="margin: 0;">#}
-{#                        <div class="media" style="padding: 15px">#}
-{#                            <div class="pull-left">#}
-{#                                <img class="media-object img-circle" src="{{ user.profile.avatar_url }}" alt="{{ user.profile.nickname }}" width="50" height="">#}
-{#                            </div>#}
-{#                            <div class="media-body post-note">#}
-{#                                <form class="form-horizontal" action="{% url 'web_post_entity_note' entity.pk %}" method="POST" role="form">#}
-{#                                    {% csrf_token %}#}
-{#                                    <fieldset>#}
-{#                                        {% for field in note_forms %}#}
-{#                                            {{ field }}#}
-{#                                        {% endfor %}#}
-{#                                        <textarea class="form-control" name="note_text" style="resize: none;" placeholder="写点评 ＃贴标签"></textarea>#}
-{#                                    </fieldset>#}
-{#                                    <div class="action pull-right" style="margin-top:10px;">#}
-{#                                        <button class="btn btn-default btn-cancel" style="margin-right:10px;" type="button">取消</button>#}
-{#                                        <button class="btn btn-primary btn-post" type="submit">点评</button>#}
-{#                                    </div>#}
-{#                                </form>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    {% endif %}#}
-{#                {% endif %}#}
-            </div>
-        </div>
 
         <div class="row" id="detail_recommendation">
             <div class="col-sm-8 col-md-8 col-xs-12 guess_Ulike">
