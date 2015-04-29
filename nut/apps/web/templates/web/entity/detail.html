@@ -33,7 +33,7 @@
                     {% include "web/entity/partial/detail_pic.html" %}
                 </div>
                 <div  class="comment_list" itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
-                     <ul>
+                     <ul class="common-note-list">
                          {% include "web/entity/partial/detail_comment_head.html" %}
                          {% include "web/entity/partial/detail_note.html" with notes=entity.notes %}
                      </ul>
