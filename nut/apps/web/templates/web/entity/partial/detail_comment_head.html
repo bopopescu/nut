@@ -5,7 +5,7 @@
         <a href="{% url 'web_user_index' entity.top_note.user.pk %}" target="_blank">
             <img src="{{ entity.top_note.user.profile.avatar_url }}" alt="{{ entity.top_note.user.profile.nickname }}" class="head_pic">
         </a>
-        <div class="comment_detail">
+        <div class="comment_detail note-content">
             <div class="user_name">
                 {#		    						<a href="#">重力鸭</a>#}
                 <a href="{% url 'web_user_index' entity.top_note.user.pk %}" target="_blank">{{ entity.top_note.user.profile.nickname }}</a>
