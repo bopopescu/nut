@@ -17,6 +17,8 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+
 var csrftoken = getCookie('csrftoken');
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
@@ -76,6 +78,7 @@ $.ajaxSetup({
         //},
         //初始化 tag
         initTag: function () {
+            //TODO : re initTag after user post note  by an
             var array = $(".with-tag");
             for (var i=0; i<array.length; i++) {
                 // replace <br> with \n
@@ -553,13 +556,15 @@ $.ajaxSetup({
                             var $html = $(result.data);
                             detail.updateNote($html);
                             detail.clickComment($html);
-                            util.initTag();
+
                        //            console.log($html);
                       //            self.poke();
                       //            $('<div class="sep"></div>').appendTo($notes);
                             $html.appendTo($(".common-note-list"));
 
+
                             $note.parent().remove();
+                            util.initTag();
                         } else if (status === 0) {
                             // error
                         }
@@ -745,8 +750,9 @@ $.ajaxSetup({
 
            // console.log(noteDetail);
            // console.log(note);
+            // TODO : none login user's  note comment will lost in login process , to an
             note.find('.add-comment').on('click', function (e) {
-                var comments = note.find('.note-comment-list');
+                var comments = note.parent().find('.note-comment-list');
                 var notecontent = note.parent();
            //     console.log(notecontent);
                 if(comments[0]) {
