@@ -500,6 +500,8 @@ a {
     .navbar-brand{
         padding-left: 0px;
     }
+
+
 }
 
 .footer {
@@ -959,6 +961,18 @@ padding-left: 15px;
 @media (max-width: 767px){
     .sidebar {
         padding: 0 15px 0 15px;
+    }
+
+
+}
+
+@media screen and (max-width: 767px){
+      /*add by ant*/
+    #event_home_banner{
+        /*quick implement for sm screen's banner take full screen width*/
+        position:relative;
+        width : 106%!important;
+        left: -3%!important;
     }
 }
 

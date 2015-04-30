@@ -579,8 +579,8 @@ $.ajaxSetup({
             noteDetail.each(function(){
            //     var $this = $(this);
            //     console.log($(this));
-                //detail.clickComment($(this));
-                //detail.updateNote($(this));
+                detail.clickComment($(this));
+                detail.updateNote($(this));
                 detail.poke($(this));
             });
         },
@@ -591,7 +591,8 @@ $.ajaxSetup({
             var note_update_form = noteItem.find(".update-note-form");
             var note_text = note_update_form.find('textarea');
             //console.log(note_text);
-            var origin_text = note_content.html();
+            var origin_text = note_content.html() || '';
+
             //var htmltag = "<a href=\"\" target=\"_blank\">";
             origin_text = origin_text.replace(/<(.|\n)+?>/gi, "");
             noteItem.find(".update-note").on('click', function() {
@@ -764,6 +765,7 @@ $.ajaxSetup({
                       //            self.noteComment($html);
                             detail.commentAction($html);
                             $html.appendTo(notecontent);
+                            // TODO : ant is here !!!
                             $html.slideToggle('fast');
                       //            initTag();
                         },
