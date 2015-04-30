@@ -195,6 +195,8 @@ a:hover{text-decoration:none;}
     .binding ul li .icon_taobao{margin-right: 20px;width: 46px;}
     .edit_info ul li select.notice{width: 100%;}
     .notice_page .edit_info ul li{width: 100%;}
+
+
 }
 
 
@@ -249,4 +251,5 @@ a:hover{text-decoration:none;}
 .goods_detail .detail_right .share{margin-top: 30px;}
 @media screen and (max-width: 768px) {
     .goods_detail .button_buy{float: right;}
+
 }

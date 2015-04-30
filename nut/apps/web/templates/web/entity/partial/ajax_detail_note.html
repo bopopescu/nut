@@ -11,7 +11,7 @@
         </div>
         <span class="comment_word with-tag content">{{ note.note|escape }}</span>
         <div class="comment_operate">
-             {% if note.user == request.user %}
+                {% if note.user == request.user %}
                     <form class="form-horizontal update-note-form" action="{% url 'web_update_entity_note' note.pk %}" method="POST" style="display: none;">
                         {% csrf_token %}
                         <fieldset>
