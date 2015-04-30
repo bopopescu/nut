@@ -22,4 +22,12 @@ def parse_kaola_id_from_url(url):
     else:
         return None
 
+def parse_booking_id_from_url(url):
+    params = url.split("?")[1]
+    for param in params.split(";"):
+        tokens = param.split("=")
+        if len(tokens) >= 2 and tokens[0] == "sid":
+            return tokens[1]
+    return None
+
 __author__ = 'edison'

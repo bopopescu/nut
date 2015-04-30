@@ -8,7 +8,7 @@ from django.core.files.base import ContentFile
 
 from apps.core.models import Entity, Selection_Entity, Sub_Category, Category, Buy_Link, Note
 from apps.core.utils.image import HandleImage
-from apps.core.utils.fetch import parse_taobao_id_from_url, parse_jd_id_from_url, parse_kaola_id_from_url
+from apps.core.utils.fetch import parse_taobao_id_from_url, parse_jd_id_from_url, parse_kaola_id_from_url, parse_booking_id_from_url
 
 from apps.core.tasks.entity import fetch_image
 from apps.core.forms import get_admin_user_choices
@@ -16,6 +16,7 @@ from apps.core.forms import get_admin_user_choices
 from apps.core.utils.fetch.taobao import TaoBao
 from apps.core.utils.fetch.jd import JD
 from apps.core.utils.fetch.kaola import Kaola
+from apps.core.utils.fetch.booking import Booking
 
 from django.conf import settings
 from urlparse import urlparse
@@ -374,6 +375,23 @@ class BuyLinkForm(forms.Form):
                     default=_default,
                 )
                 self.b.save()
+
+        if re.search(r"\b(booking)\.com$", _hostname) != None:
+            _booking_id = parse_booking_id_from_url(_link)
+            try:
+                self.b = Buy_Link.objects.get(origin_id=_booking_id, entity=self.entity_cache, origin_source="booking.com",)
+            except Buy_Link.DoesNotExist:
+                b = Booking(_link)
+                self.b = Buy_Link(
+                    entity = self.entity_cache,
+                    origin_id = _booking_id,
+                    cid=b.cid,
+                    origin_source = "kaola.com",
+                    link=_link,
+                    price=b.price,
+                    default=_default,
+                )
+                self.b.save()
         return self.b
 
 
@@ -407,6 +425,12 @@ class CreateEntityForm(forms.Form):
         label=_('price'),
         widget=forms.NumberInput(attrs={'class':'form-control'}),
         help_text=_(''),
+    )
+
+    cand_url = forms.URLField(
+        widget=forms.URLInput(),
+        # show_hidden_initial=True,
+        required=False,
     )
 
     # content = forms.CharField(
@@ -547,6 +571,17 @@ class CreateEntityForm(forms.Form):
                 price = _price,
                 default = True,
             )
+        elif "booking.com" in _origin_source:
+            _link = self.cleaned_data.get('cand_url')
+            Buy_Link.objects.create(
+                entity = entity,
+                origin_id = _origin_id,
+                cid = self.initial['cid'],
+                origin_source = _origin_source,
+                link = _link,
+                price = _price,
+                default = True,
+            )
         else:
             Buy_Link.objects.create(
                 entity = entity,
@@ -657,6 +692,32 @@ def load_entity_info(url):
                 'cid': k.cid,
                 'shop_link': k.shop_link,
                 'shop_nick': k.nick,
+            }
+
+            log.info(_data)
+    if re.search(r"\b(booking)\.com$", _hostname) != None:
+        _booking_id = parse_booking_id_from_url(_link)
+        try:
+            buy_link = Buy_Link.objects.get(origin_id=_booking_id, origin_source="kaola.com",)
+                # log.info(buy_link.entity)
+            _data = {
+                'entity_id': buy_link.entity.id,
+            }
+        except Buy_Link.DoesNotExist:
+            b = Booking(_link)
+            # k.fetch_html()
+            # log.info(k.desc)
+            _data = {
+                'cand_url':_link,
+                'origin_id': _booking_id,
+                'origin_source': 'booking.com',
+                'brand': b.brand,
+                'title': b.desc,
+                'thumb_images': b.images,
+                'price': b.price,
+                'cid': b.cid,
+                'shop_link': b.shop_link,
+                'shop_nick': b.nick,
             }
 
             log.info(_data)
