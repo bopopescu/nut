@@ -571,7 +571,7 @@ msgstr ""
 #: apps/management/templates/management/management_base.html:71
 #: apps/management/templates/management/event_banner/list.html:49
 msgid "event"
-msgstr ""
+msgstr "专题"
 
 #: apps/management/forms/event_banner.py:31
 msgid "taobao user id"
