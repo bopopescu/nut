@@ -747,7 +747,7 @@ $.ajaxSetup({
            // console.log(note);
             note.find('.add-comment').on('click', function (e) {
                 var comments = note.find('.note-comment-list');
-                var notecontent = note.find(".note-content");
+                var notecontent = note.parent();
            //     console.log(notecontent);
                 if(comments[0]) {
                     comments.slideToggle('fast');
