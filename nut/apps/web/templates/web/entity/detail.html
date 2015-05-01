@@ -22,6 +22,9 @@
 {% block content %}
     <div class="container goods_detail" id="detail" xmlns="http://www.w3.org/1999/html">
         <h2 class="hidden">{{ entity.title }}</h2>
+
+
+
         <div class="row" id="detail_breadcrumb">
             {% include "web/entity/partial/detail_breadcrumb.html" %}
         </div>
@@ -35,7 +38,7 @@
                 <div  class="comment_list" itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
                      <ul class="common-note-list">
                          {% include "web/entity/partial/detail_comment_head.html" %}
-                         {% include "web/entity/partial/detail_note.html" with notes=entity.notes %}
+                         {% include "web/entity/partial/detail_note.html" with notes=entity.notes note_forms=note_forms %}
                      </ul>
                 </div>
                 <div class="" id="login_user_comment">
