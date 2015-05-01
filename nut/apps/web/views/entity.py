@@ -35,7 +35,16 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
 
     if request.user.is_authenticated():
         _user = request.user
-        _note_forms = NoteForm()
+        # pop up a note form if there is a note in entity's notes submit by current user .
+        # add by an , for user posted note pop up
+        _notes = Note.objects.filter(user=_user, entity=_entity)
+
+        if len(_notes) > 0 :
+            _note_forms = NoteForm(instance=_notes[0])
+        else:
+            _note_forms = None;
+
+
         n = _entity.notes.all().values_list('id', flat=True)
         _user_pokes = Note_Poke.objects.filter(note_id__in=list(n), user=request.user).values_list('note_id', flat=True)
         log.info(_user_pokes)
