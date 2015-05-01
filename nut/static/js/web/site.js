@@ -592,7 +592,7 @@ $.ajaxSetup({
 
         updateNote: function (noteItem) {
            // console.log(noteItem);
-            var note_content = noteItem.find(".comment_word.content");
+            var note_content = noteItem.parent().find(".comment_word.content");
             var note_update_form = noteItem.find(".update-note-form");
             var note_text = note_update_form.find('textarea');
             //console.log(note_text);
