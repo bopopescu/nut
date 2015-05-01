@@ -9,7 +9,7 @@ urlpatterns = patterns(
     url(r'^toppopular/$', 'toppopular', name='v4_toppopular'),
 
     url(r'^unread/$', 'unread', name='v4_unread'),
-    url(r'^item/(?P<item_id>\d+)/$', 'visit_item', name='v4_visit_item'),
+    url(r'^item/(?P<item_id>\w+)/$', 'visit_item', name='v4_visit_item'),
 )
 
 urlpatterns += patterns(
