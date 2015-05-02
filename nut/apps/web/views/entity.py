@@ -42,7 +42,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
         if len(_notes) > 0 :
             _note_forms = NoteForm(instance=_notes[0])
         else:
-            _note_forms = None;
+            _note_forms = NoteForm()
 
 
         n = _entity.notes.all().values_list('id', flat=True)
@@ -73,7 +73,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
             # 'user':_user,
             'user_pokes': _user_pokes,
             'user_post_note':_user_post_note,
-            'note_forms':_note_forms,
+            'note_forms':_note_forms or NoteForm(),
             'guess_entities': _guess_entities,
             'likers': _entity.likes.all()[:18],
         },

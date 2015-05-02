@@ -554,13 +554,18 @@ $.ajaxSetup({
                         var status = parseInt(result.status);
                         if (status === 1) {
                             var $html = $(result.data);
-                            detail.updateNote($html);
+
                             detail.clickComment($html);
 
                        //            console.log($html);
                       //            self.poke();
                       //            $('<div class="sep"></div>').appendTo($notes);
                             $html.appendTo($(".common-note-list"));
+
+                            //TODO : beware , if the dom operation is slow ,\
+                            // detail.update($html.parent()) may not find the parent element
+                            //
+                            detail.updateNote($html.find('.comment_operate'));
 
 
                             $note.parent().remove();
@@ -592,6 +597,7 @@ $.ajaxSetup({
 
         updateNote: function (noteItem) {
            // console.log(noteItem);
+
             var note_content = noteItem.parent().find(".comment_word.content");
             var note_update_form = noteItem.find(".update-note-form");
             var note_text = note_update_form.find('textarea');
