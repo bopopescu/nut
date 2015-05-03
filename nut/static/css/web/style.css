@@ -29,6 +29,8 @@ a:hover{text-decoration:none;}
 .fc_333{color: #333333;}
 .fc_favor{color: #FF9600;}
 .fc_blue{color: #2E6BAE;}
+.fc_argeement{color: #ADAEAF;}
+
 
 .fc_angle_right{color: #cccccc;}
 .fc_heart{color: #FF1F77;}
@@ -253,3 +255,6 @@ a:hover{text-decoration:none;}
     .goods_detail .button_buy{float: right;}
 
 }
+.friendly_link{margin-top: 40px;overflow: hidden;}
+.friendly_link li {float: left;margin:0 20px 20px 0;}
+.friendly_link li img{width: 200px;height: 100px;}
