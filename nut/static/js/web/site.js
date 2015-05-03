@@ -565,7 +565,7 @@ $.ajaxSetup({
                             //TODO : beware , if the dom operation is slow ,\
                             // detail.update($html.parent()) may not find the parent element
                             //
-                            detail.updateNote($html.find('.comment_operate'));
+                            detail.updateNote($html.find(''));
 
 
                             $note.parent().remove();
@@ -598,6 +598,7 @@ $.ajaxSetup({
         updateNote: function (noteItem) {
            // console.log(noteItem);
 
+            //console.warn('the following line , can not find note_content for new note (just added to page via ajax call)')
             var note_content = noteItem.parent().find(".comment_word.content");
             var note_update_form = noteItem.find(".update-note-form");
             var note_text = note_update_form.find('textarea');

@@ -7,6 +7,7 @@ from django.core.cache import cache
 from apps.core.models import Entity, Note, Buy_Link
 from apps.core.utils.fetch.taobao import TaoBao
 from apps.core.utils.fetch.jd import JD
+from apps.core.utils.fetch.tmall_new import Tmall
 from apps.core.utils.fetch import parse_jd_id_from_url, parse_taobao_id_from_url
 from apps.core.tasks.entity import fetch_image
 
@@ -16,6 +17,7 @@ from urlparse import urlparse
 import re
 from datetime import datetime
 from hashlib import md5
+
 
 
 log = getLogger('django')
@@ -105,8 +107,38 @@ class EntityURLFrom(forms.Form):
                 # print _data
             # pass
             # return jd_info(self.request, _link)
+        if re.search(r"\b(tmall)\.(com|hk)$", _hostname) is not None:
+            _data['link_support'] = True;
+            _tmall_id = parse_taobao_id_from_url(_link)
+            try:
+                buy_link = Buy_Link.objects.get(origin_id=_tmall_id, origin_source="taobao.com",)
+                log.info(buy_link.entity)
+                _data = {
+                    'entity_hash': buy_link.entity.entity_hash,
+                }
+            except Buy_Link.DoesNotExist:
+                # log.info("OKOKOKO")
+                t = Tmall(_tmall_id)
+                # log.info(t.res())
+                res = t.res()
+                _data.update({
+                    'user_id': self.request.user.id,
+                    'user_avatar': self.request.user.profile.avatar_url,
+                    'cand_url': _link,
+                    'taobao_id': _tmall_id,
+                    'cid': res['cid'],
+                    'taobao_title': res['desc'],
+                    'shop_nick': res['nick'],
+                    'shop_link': res['shop_link'],
+                    'price': res['price'],
+                    'chief_image_url' : res['imgs'][0],
+                    'thumb_images': res["imgs"],
+                    # 'selected_category_id':
+                });
+                return _data;
 
-        if re.search(r"\b(tmall|taobao|95095)\.(com|hk)$", _hostname) is not None:
+
+        if re.search(r"\b(taobao|95095)\.(com|hk)$", _hostname) is not None:
             _data['link_support'] = True;
             _taobao_id = parse_taobao_id_from_url(_link)
             # log.info(_taobao_id)
