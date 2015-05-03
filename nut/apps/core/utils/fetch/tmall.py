@@ -41,7 +41,6 @@ def get_start_url(id):
     return "http://detail.tmall.com/item.htm?id=%s"%id
 
 def get_tmall_cookie():
-
     return {}
 
 def process_mdskip_response(response_str):
