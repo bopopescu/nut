@@ -692,8 +692,6 @@ class Note(BaseModel):
             res.pop('status', None)
             res['note_id'] = self.id
             res['content'] = self.note
-            res['comment_count'] = self.comment_count
-            res['poke_count'] = self.poke_count
             res['created_time'] = time.mktime(self.post_time.timetuple())
             res['updated_time'] = time.mktime(self.updated_time.timetuple())
             res['is_selected'] = self.status
@@ -702,6 +700,8 @@ class Note(BaseModel):
             log.info("miss miss")
         # log.info(user_note_pokes)
         log.info(visitor)
+        res['poke_count'] = self.poke_count
+        res['comment_count'] = self.comment_count
         res['creator'] = self.user.v3_toDict(visitor)
         res['poke_already'] = 0
         if user_note_pokes and self.id in user_note_pokes:
