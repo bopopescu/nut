@@ -52,20 +52,23 @@
     </div>
 
     {% if entity.tags.all|length > 0 %}
+     <div class="type">
         <p class="fc_2 fs_14">标签</p>
         <ul class="right_list right_tips fc_3 fs_14">
             {% for tag in entity.tags.all %}
                 <li><a href="{% url "web_tag_detail" tag.hash %}">＃{{ tag.title }}</a></li>
             {% endfor %}
         </ul>
+        </div>
     {% endif %}
+    <div class="type">
+        <p class="fc_2 fs_14 share">分享</p>
+        <ul class="right_list fc_3 fs_14">
+            <li><a href="javascript:;">新浪微博</a></li>
+        </ul>
+    </div>
 
-    <p class="fc_2 fs_14 share">分享</p>
-    <ul class="right_list fc_3 fs_14">
-        <li><a href="javascript:;">新浪微博</a></li>
-    </ul>
-
-    <div class="download_part">
+    <div class="download_part type">
         <p class="fc_2 fs_14">应用下载</p>
         <div class="download_link fs_14">
             <img src="{% static 'images/download/Android_download.png' %}" alt="" />
