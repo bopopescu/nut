@@ -125,7 +125,7 @@ $.ajaxSetup({
                     type: 'POST',
                     jsonType:'json',
                     success: function(data) {
-                        var count = parseInt(counter.text());
+                        var count = parseInt(counter.text()) || 0;
                         var result = parseInt(data.status);
                         if (result === 1) {
                             counter.text(" "+(count + 1));
@@ -133,11 +133,16 @@ $.ajaxSetup({
                             heart.addClass('fa-heart');
                         } else if (result === 0){
                             //console.log(result);
-                            if (count >0) {
+
+                            if (count >1) {
                                 counter.text(" " + (count - 1));
-                                heart.removeClass('fa-heart');
-                                heart.addClass('fa-heart-o');
+
+                            }else{
+                                counter.text(" ");
                             }
+
+                            heart.removeClass('fa-heart');
+                            heart.addClass('fa-heart-o');
                         } else {
                             var html = $(data);
                             util.modalSignIn(html);

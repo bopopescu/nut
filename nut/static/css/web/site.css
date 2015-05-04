@@ -1085,6 +1085,24 @@ padding-left: 15px;
 .poke .fa-thumbs-up{
     color:#427ec0;
 }
+
+#detail_content .like-action .fa-heart{
+    color:#FF1F77!important;
+}
+
+#detail_content .like-action .fa-heart-o{
+    color:#9d9e9f!important;
+}
+
+#detail_content .like-action:hover{
+    color:#333333!important;
+}
+
+#detail_content .like-action{
+    color:#333333!important;
+}
+
+
 /* Add by An Chen end*/
 
 /*body,button,input,select,textarea{font:14px/1.125 Arial,Helvetica,sans-serif;_font-family:"SimSun";}*/
