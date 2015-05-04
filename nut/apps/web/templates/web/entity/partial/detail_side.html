@@ -46,8 +46,11 @@
     <div class="type">
         <p class="fc_2 fs_14 title">品类</p>
         <ul class="fs_14">
-{#            <li class="fc_1"><a href="#" class="fc_3">精选</a>&nbsp;>&nbsp;</li>#}
-            <li class="fc_1"><a href="{% url 'web_category_detail' entity.category_id  %}" class="fc_3">{{ entity.category.title|show_category }}</a></li>
+             <li class="fc_1">
+                 <a class="category" href="{% url 'web_category_group' entity.category.group_id %}">{{ entity.category.group }}</a>
+                 <i class="fa fa-angle-right"></i>
+                 <a href="{% url 'web_category_detail' entity.category_id  %}">{{ entity.category.title|show_category }}</a>
+             </li>
         </ul>
     </div>
 
