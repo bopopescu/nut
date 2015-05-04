@@ -852,7 +852,7 @@ padding-left: 15px;
     padding: 0 10px;
 }
 .my-note {
-    font-size: 12px;
+    font-size: 14px;
     margin-right: 20px;
 }
 
@@ -1071,6 +1071,19 @@ padding-left: 15px;
 
 .pass_input{
     margin-left: 40px ;
+}
+
+.comment-time{
+    font-size: 14px;
+    color:#9D9E9F;
+}
+
+.comment-time:hover{
+    color:#9D9E9F;
+}
+
+.poke .fa-thumbs-up{
+    color:#427ec0;
 }
 /* Add by An Chen end*/
 

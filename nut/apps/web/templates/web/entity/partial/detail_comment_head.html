@@ -14,11 +14,11 @@
             <span class="comment_word with-tag content">{{ entity.top_note.note|escape }}</span>
             <div class="comment_operate">
                 {% if entity.top_note.id in user_pokes %}
-                    <a href="javascript:;" class="zan fc_1 poke" data-note="{{ entity.top_note.id }}">
+                    <a href="javascript:;" class="poke" data-note="{{ entity.top_note.id }}">
                         <i class="fa fa-thumbs-up"> <!-- thumbs-up --></i>{% if entity.top_note.poke_count > 0 %}&nbsp;<span>{{ entity.top_note.poke_count }}</span>{% endif %}
                     </a>
                 {% else %}
-                    <a href="javascript:;" class="zan fc_1 poke" data-note="{{ entity.top_note.id }}">
+                    <a href="javascript:;" class="poke" data-note="{{ entity.top_note.id }}">
                         <i class="fa fa-thumbs-o-up"> <!-- thumbs-up --></i>{% if entity.top_note.poke_count > 0 %}&nbsp;<span>{{ entity.top_note.poke_count }}</span>{% endif %}
                     </a>
                 {% endif %}
@@ -30,7 +30,7 @@
                         <a class="update-note"><i class="fa fa-pencil-square-o"></i></a>
                     {% endif %}
                 </a>
-                <a href="javascript:;" class="fs_14 times fc_1">
+                <a  class="pull-right comment-time">
                     <i class="fa fa-clock-o"></i>&nbsp;{{ entity.top_note.post_time|format_time|cut:" "}}
                 </a>
             </div>
