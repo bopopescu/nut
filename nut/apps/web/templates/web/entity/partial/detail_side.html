@@ -68,6 +68,15 @@
         </ul>
     </div>
 
+  {% if request.user.is_staff %}
+      <div class="type">
+        <p class="fc_2 fs_14 share">管理</p>
+        <ul class="right_list fc_3 fs_14">
+            <li><a href="{% url 'management_entity_edit' entity.id %}" target=_blank><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;编辑商品</a></li>
+        </ul>
+      </div>
+  {% endif %}
+
     <div class="download_part type">
         <p class="fc_2 fs_14">应用下载</p>
         <div class="download_link fs_14">
