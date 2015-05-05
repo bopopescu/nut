@@ -972,8 +972,8 @@ padding-left: 15px;
     #event_home_banner{
         /*quick implement for sm screen's banner take full screen width*/
         position:relative;
-        width : 106%!important;
-        left: -3%!important;
+        width : 108%!important;
+        left: -4%!important;
     }
 }
 
