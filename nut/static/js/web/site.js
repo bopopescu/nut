@@ -570,7 +570,7 @@ $.ajaxSetup({
                             //TODO : beware , if the dom operation is slow ,\
                             // detail.update($html.parent()) may not find the parent element
                             //
-                            detail.updateNote($html.find(''));
+                            detail.updateNote($html.find('.comment_operate'));
 
 
                             $note.parent().remove();
@@ -648,6 +648,7 @@ $.ajaxSetup({
                                     note_update_form.hide();
                                     note_content.show();
                                 }
+                                util.initTag();
                             }
                         });
                     } else {
