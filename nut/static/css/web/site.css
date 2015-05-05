@@ -1083,6 +1083,10 @@ padding-left: 15px;
     color:#427ec0;
 }
 
+.poke .fa-thumbs-up + span{
+    color:#427ec0;
+}
+
 #detail_content .like-action .fa-heart{
     color:#FF1F77!important;
 }
