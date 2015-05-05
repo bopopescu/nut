@@ -31,7 +31,8 @@
                     </form>
                  {% endif %}
 
-                <a href="javascript:;" class="poke{% if note.id in user_pokes %} active {% endif %}" data-note="{{ note.id }}"><i class="fa fa-thumbs-o-up"></i>&nbsp;
+                <a href="javascript:;" class="poke" data-note="{{ note.id }}">
+                    <i class="fa   {% if note.id in user_pokes %} fa-thumbs-up {% else %}  fa-thumbs-o-up {% endif %} "></i>&nbsp;
                     {% if note.poke_count > 0 %}
                         <span>{{ note.poke_count }}</span>
                     {% endif %}
@@ -46,9 +47,9 @@
                     {% endif %}
                  </a>
 
-                <span  class="pull-right create-time"><i class="fa fa-clock-o"></i>&nbsp;{{ note.post_time|format_time|cut:" " }}</span>
+                <span  class="pull-right comment-time"><i class="fa fa-clock-o"></i>&nbsp;{{ note.post_time|format_time|cut:" " }}</span>
                     {% if note.user == request.user %}
-                        <span class="pull-right my-note">你的点评</span>
+                        <span class="pull-right my-note">我的点评</span>
                     {% endif %}
         </div>
     </div>

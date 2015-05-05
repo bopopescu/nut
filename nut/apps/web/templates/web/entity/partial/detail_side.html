@@ -46,19 +46,27 @@
     <div class="type">
         <p class="fc_2 fs_14 title">品类</p>
         <ul class="fs_14">
-{#            <li class="fc_1"><a href="#" class="fc_3">精选</a>&nbsp;>&nbsp;</li>#}
-            <li class="fc_1"><a href="{% url 'web_category_detail' entity.category_id  %}" class="fc_3">{{ entity.category.title|show_category }}</a></li>
+             <li class="fc_1">
+                 <a class="category" href="{% url 'web_category_group' entity.category.group_id %}">{{ entity.category.group }}</a>
+                 <i class="fa fa-angle-right"></i>
+                 <a href="{% url 'web_category_detail' entity.category_id  %}">{{ entity.category.title|show_category }}</a>
+             </li>
         </ul>
     </div>
 
     {% if entity.tags.all|length > 0 %}
+<<<<<<< HEAD
     <div class="type">
+=======
+     <div class="type">
+>>>>>>> 4c084579d9714b18b48c04e7ee866eface371139
         <p class="fc_2 fs_14">标签</p>
         <ul class="fc_3 fs_14">
             {% for tag in entity.tags.all %}
                 <li><a href="{% url "web_tag_detail" tag.hash %}">＃{{ tag.title }}</a></li>
             {% endfor %}
         </ul>
+<<<<<<< HEAD
     </div>
     {% endif %}
     <div class="type">
@@ -68,9 +76,30 @@
         </ul>
     </div>
     <div class="download_part">
+=======
+        </div>
+    {% endif %}
+    <div class="type">
+        <p class="fc_2 fs_14 share">分享</p>
+        <ul class="right_list fc_3 fs_14 ">
+            <li class="detail-share"><a href="javascript:;">新浪微博</a></li>
+        </ul>
+    </div>
+
+  {% if request.user.is_staff %}
+      <div class="type">
+        <p class="fc_2 fs_14 share">管理</p>
+        <ul class="right_list fc_3 fs_14">
+            <li><a href="{% url 'management_entity_edit' entity.id %}" target=_blank><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;编辑商品</a></li>
+        </ul>
+      </div>
+  {% endif %}
+
+    <div class="download_part type">
+>>>>>>> 4c084579d9714b18b48c04e7ee866eface371139
         <p class="fc_2 fs_14">应用下载</p>
         <div class="download_link fs_14">
-            <img src="{% static 'images/download/Android_download.png' %}" alt="" />
+            <img src="{% static 'images/download/download-Phone.png' %}" width=60px alt="" />
             <p class="fc_1">与「甄选好物」结缘，与「有识之士」为伍，发现生活之美。<br /><a href="{% url 'web_download' %}" class="fc_3">查看详情 »</a></p>
         </div>
     </div>

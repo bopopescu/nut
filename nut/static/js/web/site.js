@@ -125,7 +125,7 @@ $.ajaxSetup({
                     type: 'POST',
                     jsonType:'json',
                     success: function(data) {
-                        var count = parseInt(counter.text());
+                        var count = parseInt(counter.text()) || 0;
                         var result = parseInt(data.status);
                         if (result === 1) {
                             counter.text(" "+(count + 1));
@@ -133,11 +133,16 @@ $.ajaxSetup({
                             heart.addClass('fa-heart');
                         } else if (result === 0){
                             //console.log(result);
-                            if (count >0) {
+
+                            if (count >1) {
                                 counter.text(" " + (count - 1));
-                                heart.removeClass('fa-heart');
-                                heart.addClass('fa-heart-o');
+
+                            }else{
+                                counter.text(" ");
                             }
+
+                            heart.removeClass('fa-heart');
+                            heart.addClass('fa-heart-o');
                         } else {
                             var html = $(data);
                             util.modalSignIn(html);
@@ -491,20 +496,27 @@ $.ajaxSetup({
         },
 
         shareWeibo: function() {
-           // var self = this;
+           // var self =
+            function get_share_content(){
+                var product_name = $('#detail_content .goods_name').html() + ' : ';
+                var product_primary_note = $('#detail_content .common-note-list .comment_word').html();
+                var content = (product_name + product_primary_note);
+                    content = content.replace(/<[\s\S]*?>/g, "");
+                    content = content.replace(/%/, "");
+                    content = content.replace(/&nbsp;/, "");
+                return content ;
+            }
 
             $('.detail-share a').on('click', function(e){
                 e.preventDefault();
 
                 var url = location.href;
            //     console.log(url);
-                var pic = $('.entity-detail img').attr("src");
+                var pic = $('.detail_pic img').attr("src");
            //     console.log(pic);
-                var content = $('.selection-note .note-text .content').html();
+                var content = get_share_content();
            //     console.log(content);
-                content = content.replace(/<[\s\S]*?>/g, "");
-                content = content.replace(/%/, "");
-                content = content.replace(/&nbsp;/, "");
+
            //     console.log(content);
                 var param = {
                     url:url,
@@ -565,7 +577,7 @@ $.ajaxSetup({
                             //TODO : beware , if the dom operation is slow ,\
                             // detail.update($html.parent()) may not find the parent element
                             //
-                            detail.updateNote($html.find(''));
+                            detail.updateNote($html.find('.comment_operate'));
 
 
                             $note.parent().remove();
@@ -643,6 +655,7 @@ $.ajaxSetup({
                                     note_update_form.hide();
                                     note_content.show();
                                 }
+                                util.initTag();
                             }
                         });
                     } else {

@@ -18,11 +18,21 @@
     <div class="heart fs_16">
         {% if like_status %}
             <a class="like-action fc_333" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
-                <i class="fa fa-heart fc_heart"></i>&nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>
+                <i class="fa fa-heart fc_heart"></i>&nbsp;{% trans 'likes' %}&nbsp;
+                <span class="like-count">
+                    {% if entity.like_count > 0 %}
+                      {{ entity.like_count  }}
+                    {% endif %}
+                </span>
             </a>
         {% else %}
             <a class="like-action fc_333" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
-                <i class="fa fa-heart-o fc_1"></i>&nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>
+                <i class="fa fa-heart-o "></i>&nbsp;{% trans 'likes' %}&nbsp;
+                <span class="like-count">
+                    {% if entity.like_count > 0 %}
+                      {{ entity.like_count  }}
+                    {% endif %}
+                </span>
             </a>
         {% endif %}
     </div>
