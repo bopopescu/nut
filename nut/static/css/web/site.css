@@ -781,9 +781,6 @@ padding-left: 15px;
     padding: 15px 0 15px 15px;
 }
 
-.detail-share{
-    padding: 15px 0 15px 15px;
-}
 
 .detail-report {
     padding: 15px 0 15px 15px;
@@ -852,7 +849,7 @@ padding-left: 15px;
     padding: 0 10px;
 }
 .my-note {
-    font-size: 12px;
+    font-size: 14px;
     margin-right: 20px;
 }
 
@@ -972,8 +969,8 @@ padding-left: 15px;
     #event_home_banner{
         /*quick implement for sm screen's banner take full screen width*/
         position:relative;
-        width : 106%!important;
-        left: -3%!important;
+        width : 108%!important;
+        left: -4%!important;
     }
 }
 
@@ -1072,6 +1069,41 @@ padding-left: 15px;
 .pass_input{
     margin-left: 40px ;
 }
+
+.comment-time{
+    font-size: 14px;
+    color:#9D9E9F;
+}
+
+.comment-time:hover{
+    color:#9D9E9F;
+}
+
+.poke .fa-thumbs-up{
+    color:#427ec0;
+}
+
+.poke .fa-thumbs-up + span{
+    color:#427ec0;
+}
+
+#detail_content .like-action .fa-heart{
+    color:#FF1F77!important;
+}
+
+#detail_content .like-action .fa-heart-o{
+    color:#9d9e9f!important;
+}
+
+#detail_content .like-action:hover{
+    color:#333333!important;
+}
+
+#detail_content .like-action{
+    color:#333333!important;
+}
+
+
 /* Add by An Chen end*/
 
 /*body,button,input,select,textarea{font:14px/1.125 Arial,Helvetica,sans-serif;_font-family:"SimSun";}*/
@@ -1130,8 +1162,8 @@ a:hover{text-decoration:underline;}
 .message_page .early{margin-top: 80px;}
 
 .right_part{margin-top: 78px;}
-.right_part .right_list{margin-top: 16px;margin-bottom: 20px;padding: 0;}
-.right_part .right_list li{margin-bottom: 8px;}
+.right_part .right_list{padding: 0;}
+.right_part .right_list li{}
 .right_part .download_part{border-top: 1px solid #E6E6E6;padding-top: 18px;}
 .right_part .download_link{margin-top: 16px;}
 .right_part .download_link img{float: left;margin-right: 12px;}
