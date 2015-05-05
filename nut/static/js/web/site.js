@@ -496,20 +496,27 @@ $.ajaxSetup({
         },
 
         shareWeibo: function() {
-           // var self = this;
+           // var self =
+            function get_share_content(){
+                var product_name = $('#detail_content .goods_name').html() + ' : ';
+                var product_primary_note = $('#detail_content .common-note-list .comment_word').html();
+                var content = (product_name + product_primary_note);
+                    content = content.replace(/<[\s\S]*?>/g, "");
+                    content = content.replace(/%/, "");
+                    content = content.replace(/&nbsp;/, "");
+                return content ;
+            }
 
             $('.detail-share a').on('click', function(e){
                 e.preventDefault();
 
                 var url = location.href;
            //     console.log(url);
-                var pic = $('.entity-detail img').attr("src");
+                var pic = $('.detail_pic img').attr("src");
            //     console.log(pic);
-                var content = $('.selection-note .note-text .content').html();
+                var content = get_share_content();
            //     console.log(content);
-                content = content.replace(/<[\s\S]*?>/g, "");
-                content = content.replace(/%/, "");
-                content = content.replace(/&nbsp;/, "");
+
            //     console.log(content);
                 var param = {
                     url:url,
