@@ -417,7 +417,8 @@ $.ajaxSetup({
                         page.hide();
                     }
                     //这里临时不采用自动加载，换成分页
-                    if (($(window).height() + $(window).scrollTop()) >= $(document).height() && flag == false && counter % 3 != 0) {
+
+                    if (($(window).height() + $(window).scrollTop()) >= ($(document).height()-25) && flag == false && counter % 3 != 0) {
                       //        console.log("okokokokoko");
                       //        page.hide();
                         flag = true;
@@ -883,7 +884,7 @@ $.ajaxSetup({
                     }
 
                       //    console.log(($(window).height()));
-                    if (($(window).height() + $(window).scrollTop()) >= $(document).height() && flag == false) {
+                    if (($(window).height() + $(window).scrollTop()) >= ($(document).height()-25)&& flag == false) {
                         flag = true;
                         var url = window.location.href;
                         var last_message = message.find('.timestr:last');
@@ -926,7 +927,7 @@ $.ajaxSetup({
                         $(".btn-top").fadeOut();
                     }
 
-                    if (($(window).height() + $(window).scrollTop()) >= $(document).height() && flag == false) {
+                    if (($(window).height() + $(window).scrollTop()) >= ($(document).height()-25) && flag == false) {
                         flag = true;
                         var aQuery = window.location.href.split('?');
                         var url = aQuery[0];
