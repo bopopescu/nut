@@ -1,5 +1,6 @@
 {% load i18n staticfiles %}
 {% load common guoku %}
+
 {% if entity.default_buy_link.origin_source == "taobao.com" %}
     <a id="buy-btn-img" href="http://item.taobao.com/item.htm?id={{ entity.default_buy_link.origin_id }}" target="_blank" biz-itemid="{{ entity.default_buy_link.origin_id }}" _hover-ignore="1" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity_context.title }}-taobao'])">
         <img itemprop="image" src="{{ entity.chief_image|resize:'640' }}" alt="{{ entity_context.title }}" title="{{ entity_context.title }}" class="img-responsive">
@@ -13,56 +14,3 @@
         <img itemprop="image" src="{{ entity.chief_image|resize:'640' }}" alt="{{ entity_context.title }}" title="{{ entity_context.title }}" class="img-responsive">
     </a>
 {% endif %}
-<p class="fs_24 fc_333 goods_name">{% if entity.brand|length != 0 %}<span itemprop="brand">{{ entity.brand }}</span> - {% endif %}<span itemprop>{{ entity.title }}</span></p>
-<div class="operate">
-    <div class="heart fs_16">
-        {% if like_status %}
-            <a class="like-action fc_333" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
-                <i class="fa fa-heart fc_heart"></i>&nbsp;{% trans 'likes' %}&nbsp;
-                <span class="like-count">
-                    {% if entity.like_count > 0 %}
-                      {{ entity.like_count  }}
-                    {% endif %}
-                </span>
-            </a>
-        {% else %}
-            <a class="like-action fc_333" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
-                <i class="fa fa-heart-o "></i>&nbsp;{% trans 'likes' %}&nbsp;
-                <span class="like-count">
-                    {% if entity.like_count > 0 %}
-                      {{ entity.like_count  }}
-                    {% endif %}
-                </span>
-            </a>
-        {% endif %}
-    </div>
-
-  {% for row in entity.buy_links.all %}
-        {% if row.origin_source == "taobao.com" %}
-            <a class="btn {% if row.default %}btn-primary{% else %}btn-default{% endif %} btn-buy  button_buy fs_18 fc_4 bg_c_blue hidden-sm hidden-md hidden-lg" href=href="http://detail.tmall.com/item.htm?id={{ row.origin_id }}" target="_blank" biz-itemid="{{ row.origin_id }}" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity.title }}-taobao'])">
-                <i class="fa fa-shopping-cart fc_blue"></i>
-                <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity.price }}</span>
-            </a>
-        {% elif row.origin_source == "jd.com"%}
-            <a class="btn btn-primary btn-buy button_buy fs_18 fc_4 bg_c_blue hidden-sm hidden-md hidden-lg" href="http://item.jd.com/{{ row.origin_id }}.html" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-jd'])">
-                <i class="fa fa-shopping-cart fc_blue"></i>
-                <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ row.price }}</span>
-            </a>
-        {% else %}
-            <a class="btn btn-primary btn-buy button_buy fs_18 fc_4 bg_c_blue hidden-sm hidden-md hidden-lg" href="{{ row.link }}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-kaola'])">
-                <i class="fa fa-shopping-cart fc_blue"></i>
-                <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ row.price }}</span>
-            </a>
-        {% endif %}
-    {% endfor %}
-
-{#    <a href="#" class="button_buy fs_18 fc_4 bg_c_blue hidden-sm hidden-md hidden-lg">#}
-{#        <i class="fa fa-shopping-cart fc_blue"></i>#}
-{#        购买 ￥168.00#}
-{#    </a>#}
-
-
-    {% if request.user.is_authenticated %}
-        <a data-target="#ReportModal" data-toggle="modal" href="{% url 'web_entity_report' entity.pk %}" _hover-ignore="1" class="report_link hidden-xs fc_1"><i class="fa fa-flag-o"></i>&nbsp;举报</a>
-    {% endif %}
-</div>

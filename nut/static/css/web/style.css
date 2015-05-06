@@ -203,15 +203,16 @@ a:hover{text-decoration:none;}
 
 
 /*商品详情页*/
-.heart{width: 120px; height: 42px;border-radius: 8px;line-height: 42px;text-align: center;float: left; background: #F7F7F7;}
+.heart{width: 120px; height: 42px;border-radius: 8px;line-height: 42px;text-align: center; background: #F7F7F7;}
 .goods_detail{margin-top: 112px;}
 .goods_detail a:hover{text-decoration: none;}
 .goods_detail .tips{height: 37px;}
 .goods_detail .tips ul li{float: left;}
-.goods_detail .detail_pic{width: 100%;padding-bottom: 40px;border-bottom: 1px solid #E6E6E6;}
+.goods_detail .detail_pic{width: 100%;}
 .goods_detail .detail_pic img{width: 100%;border: 1px solid #f0f0f0;}
-.goods_detail .detail_pic .goods_name{padding:40px 0;}
-.goods_detail .detail_pic .operate{height: 42px;width: 100%;}
+.goods_detail .goods_name{padding:40px 0;}
+.goods_detail .detail_pic .operate{width: 100%;}
+.goods_detail .detail_middle{padding-bottom: 40px;border-bottom: 1px solid #E6E6E6;}
 .goods_detail .report_link{float: right;  margin-top: 25px;}
 .goods_detail .comment_list{padding-top: 40px;width: 100%;}
 .goods_detail .comment_list li{width: 100%;padding-bottom: 40px;}
@@ -246,12 +247,15 @@ a:hover{text-decoration:none;}
 .goods_detail .detail_right .some_likes a{margin-bottom: 8px;margin-right: 8px;float: left; display: inline-block;width: 24px;height: 24px;}
 .goods_detail .detail_right .some_likes img{width: 100%;height: 100%;border-radius: 50%;}
 .goods_detail .detail_right .type{padding: 20px 0;margin-left: 0px;border-bottom: 1px solid #F0F0F0;}
-.goods_detail .detail_right .type ul {overflow: hidden;}
 .goods_detail .detail_right .type .title{padding-bottom: 10px;}
-.goods_detail .detail_right .type li{float: left;}
 .goods_detail .detail_right .download_part{border-top: none;}
 .goods_detail .detail_right .right_tips{border-bottom:  1px solid #E6E6E6;padding-bottom: 10px;}
+<<<<<<< HEAD
 
+=======
+.goods_detail .detail_right .type ul {overflow: hidden; padding-top:10px;}
+.goods_detail .detail_right .share{}
+>>>>>>> 290c3d10be57b37cd65a25aa98c13f3f90df223c
 @media screen and (max-width: 768px) {
     .goods_detail .button_buy{float: right;}
 
@@ -259,3 +263,55 @@ a:hover{text-decoration:none;}
 .friendly_link{margin-top: 40px;overflow: hidden;}
 .friendly_link li {float: left;margin:0 20px 20px 0;}
 .friendly_link li img{width: 200px;height: 100px;}
+
+/*add  by ant for detial page button */
+.grey-button{
+    font-size:17px;
+    height: 42px;
+    border-radius: 5px;
+    line-height: 42px;
+    text-align: center;
+    background: #F7F7F7;
+}
+
+.blue-button{
+    font-size:17px;
+    height: 42px;
+    border-radius: 5px;
+    line-height: 42px;
+    text-align: center;
+    background:#427EC0;
+    color:#fff;
+    margin-top:20px;
+}
+
+.buy_link{
+    color: #fff;
+    font-size: 18px;
+}
+
+.buy_link span{
+    font : 22px Georgia,serif;
+}
+
+.buy_link i{
+    color:#fff;
+
+}
+
+.buy_link i:hover{
+    color:#fff;
+}
+
+.buy_link:hover{
+    color: #fff;
+
+}
+
+/*for detail page xs screen quick fix*/
+
+.note-comment-list{
+    margin-top: 10px;
+}
+
+/*for note-comment-list*/
