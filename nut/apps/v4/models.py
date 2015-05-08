@@ -219,6 +219,8 @@ class APINote(Note):
 
         return res
 
+    # def save(self, *args, **kwargs):
+    #     super(self, APINote).save(*args, **kwargs)
 
 class APISelection_Entity(Selection_Entity):
 

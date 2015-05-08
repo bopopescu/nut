@@ -88,7 +88,7 @@ class UpdateNoteForms(forms.Form):
         t = TagParser(_note_text)
         t.create_tag(user_id=self.note_cache.user_id, entity_id=self.note_cache.entity_id)
 
-        return self.note_cache.v3_toDict()
+        return self.note_cache.v4_toDict()
 
 
 
