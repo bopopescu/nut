@@ -10,8 +10,9 @@
                 <tr>
                     <th>#</th>
                     <th>{% trans 'reporter' %}</th>
+                    <th>{% trans 'report type' %}</th>
                     <th>{% trans 'report comment' %}</th>
-                    <th>{% trans 'report content type' %}</th>
+                    <th>{% trans 'content type' %}</th>
                     <th>{% trans 'content' %}</th>
 {#                    <th>{% trans 'brand' %}</th>#}
 {#                    <th>{% trans 'title' %}</th>#}
@@ -26,7 +27,8 @@
                 {% for report in reports %}
                     <tr>
                         <td>{{ report.id }}</td>
-                        <td>{{ report.reporter.profile.nickname }}</td>
+                        <td><a href="{% url 'management_user_edit' report.reporter.id %}">{{ report.reporter.profile.nickname }}</a></td>
+                        <td>{{ report.get_type_display }}</td>
                         <td>{{ report.comment }}</td>
                         <td>{{ report.content_type.model }}</td>
                         <td>
