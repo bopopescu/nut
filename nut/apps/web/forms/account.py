@@ -149,9 +149,15 @@ class UserSignUpForm(forms.Form):
         _nickname = self.cleaned_data.get('nickname')
         print _nickname
         try:
+            #  the following line will rise MultipleObjectsReturned if get return more than 1 User_Profile
+            #  if this exception is not handled , the exception will simple raise above to cause "internal service error"
+            #  right to the user.
+            #  so handle it
             User_Profile.objects.get(nickname = _nickname)
         except User_Profile.DoesNotExist:
             return _nickname
+        except User_Profile.MultipleObjectsReturned:
+            pass
         raise forms.ValidationError(
             self.error_messages['duplicate_nickname'],
             code='duplicate_nickname',
@@ -164,6 +170,8 @@ class UserSignUpForm(forms.Form):
             GKUser.objects.get(email=_email)
         except GKUser.DoesNotExist:
             return _email
+        except GKUser.MultipleObjectsReturned:
+            pass
         raise forms.ValidationError(
                self.error_messages['duplicate_email'],
                code='duplicate_email',

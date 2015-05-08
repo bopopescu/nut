@@ -10,10 +10,10 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'guoku',
-        'USER': 'root',
-        'PASSWORD': 'mypass740323',
-        'HOST': '',
+        'NAME': 'test',
+        'USER': 'guoku',
+        'PASSWORD': 'guoku!@#',
+        'HOST': '10.0.2.90',
         'PORT': '',
         'OPTIONS': {
             'use_unicode':'utf-8',
@@ -21,7 +21,6 @@ DATABASES = {
         }
     },
 }
-
 
 
 __author__ = 'an chen '
