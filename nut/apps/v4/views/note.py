@@ -7,6 +7,7 @@ from apps.mobile.models import Session_Key
 from apps.mobile.forms.note import PostNoteForms, UpdateNoteForms
 from apps.mobile.forms.comment import PostNoteCommentForm
 from apps.report.models import Report
+from apps.v4.models import APINote
 
 from django.utils.log import getLogger
 
@@ -103,12 +104,12 @@ def update_note(request, note_id):
             return ErrorJsonResponse(status=403)
 
         try:
-            note = Note.objects.get(pk=note_id, user=_session.user)
+            note = APINote.objects.get(pk=note_id, user=_session.user)
         except Note.DoesNotExist:
             return ErrorJsonResponse(status=404)
 
         _forms = UpdateNoteForms(note=note, data=request.POST)
-        # log.info(request.POST)
+        log.info(request.POST)
         if _forms.is_valid():
             res = _forms.update()
             return SuccessJsonResponse(res)
@@ -122,7 +123,7 @@ def post_comment(request, note_id):
     if request.method == "POST":
         # log.info(request.POST)
         try:
-            note = Note.objects.get(pk = note_id)
+            note = APINote.objects.get(pk = note_id)
         except Note.DoesNotExist:
             return ErrorJsonResponse(status=404)
 
