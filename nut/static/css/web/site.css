@@ -978,7 +978,8 @@ padding-left: 15px;
 .nav-sidebar {
     text-align: left;
     font-size: 13px;
-    border: 1px solid #eee;
+    /*removed by An*/
+    /*border: 1px solid #eee;*/
 }
 .nav-sidebar > li > a {
   padding-right: 20px;
@@ -992,6 +993,8 @@ padding-left: 15px;
 }
 .static-page h4 {
     margin-top: 20px;
+    /*add by An , temp for static page*/
+    margin-bottom : 10px;
 }
 
 /* 下载页 */
@@ -1113,7 +1116,25 @@ padding-left: 15px;
   background: #F7F7F7;
     border:0px;
 }
+/*for static content*/
+.main_static{
+    margin-top:110px;
+}
 
+.static-page hr{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid #eee;
+}
+
+.static-page p{
+    margin: 0 0 10px;
+}
+
+.static-page ol{
+    padding-left:40px;
+}
 /* Add by An Chen end*/
 
 /*body,button,input,select,textarea{font:14px/1.125 Arial,Helvetica,sans-serif;_font-family:"SimSun";}*/

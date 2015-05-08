@@ -1,4 +1,6 @@
 {% extends 'web/static_base.html' %}
+{% load i18n staticfiles %}
+{% load notifications_tags %}
 
 {% block title %}
 友情链接
@@ -10,13 +12,15 @@
 {#    </blockquote>#}
     <hr />
     <div class="links">
-        <div class="col-sm-2"><a class="btn btn-default" href="http://www.nuandao.com/" target="_blank">暖岛</a></div>
-        <div class="col-sm-2"><a class="btn btn-default" href="http://www.xiangqu.com/" target="_blank">想去</a></div>
-        <div class="col-sm-2"><a class="btn btn-default" href="http://www.52souluo.com/" target="_blank">我爱搜罗网</a></div>
-        <div class="col-sm-2"><a class="btn btn-default" href="http://www.linkchic.com/" target="_blank">LC风格网</a></div>
-        <div class="col-sm-2"><a class="btn btn-default" href="http://www.toodaylab.com/" target="_blank">理想生活实验室</a></div>
-        <div class="col-sm-2"><a class="btn btn-default" href="http://www.sopool.com/ " target="_blank">素铺</a></div>
-        <div class="col-sm-2"><a class="btn btn-default" href="http://www.xipin.com/">稀品网</a></div>
+       <p class="fs_32 fc_2">友情链接</p>
+					<ul class="friendly_link">
+						<li><a href="http://www.xiangqu.com/" target="_blank"><img src="{% static 'images/ad_1.png' %}" alt=""></a></li>
+						<li><a href="http://www.toodaylab.com/"  target="_blank"><img src="{% static 'images/ad_2.png' %}" alt=""></a></li>
+						<li><a href="http://www.sopool.com/"  target="_blank"><img src="{% static 'images/ad_3.png' %}" alt=""></a></li>
+						<li><a href="http://www.nuandao.com/" target="_blank"><img src="{% static 'images/ad_4.png' %}" alt=""></a></li>
+						<li><a href="http://xipin.com/" target="_blank"><img src="{% static 'images/ad_5.png' %}" alt=""></a></li>
+						<li><a href="http://www.52souluo.com/" target="_blank"><img src="{% static 'images/ad_6.png' %}" alt=""></a></li>
+					</ul>
 {#        <div class="col-sm-2"><a class="btn btn-default" href="http://www.yokamen.cn/" target="_blank">YOKA男士论坛</a></div>#}
     </div>
 
