@@ -27,7 +27,11 @@
                     </a>
                     <div class="pull-right posttime">
                         <i class="fa fa-clock-o"></i>
-                        <span class="timestr"> {{ entity.selection_entity.pub_time|format_time|cut:" " }}</span>
+                        {% if entity.selection_entity %}
+                          <span class="timestr"> {{ entity.selection_entity.pub_time|format_time|cut:" " }}</span>
+                        {% else %}
+                            <span class="timestr"> {{ entity.updated_time|format_time|cut:" " }}</span>
+                        {% endif %}
 {#                        #}
                     </div>
             </div>
