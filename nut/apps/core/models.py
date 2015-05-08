@@ -939,6 +939,16 @@ class Event(models.Model):
     def slug_url(self):
         return reverse('web_event', args=[self.slug])
 
+#  pendingn for assesment  ----- by An
+# class Event_Status(models.Model):
+#     event = models.OneToOneField(Event, primary_key=True)
+#     is_published = models.BooleanField(default=False)
+#     is_top = models.BooleanField(default=False)
+#
+#     def __unicode__(self):
+#         return "%s status : is_published : %s , is_top : %s" %(self.event.slug, self.is_published, self.is_top)
+#
+
 
 class Event_Banner(models.Model):
     (item, shop) = (0, 1)
