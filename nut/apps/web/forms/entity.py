@@ -56,7 +56,7 @@ def cal_entity_hash(hash_string):
 class EntityURLFrom(forms.Form):
     cand_url = forms.URLField(
         label=_('links'),
-        widget=forms.URLInput(attrs={'class':'form-control', 'placeholder':_('复制商品链接')}),
+        widget=forms.URLInput(attrs={'class':'form-control', 'placeholder':_('past the product link here')}),
         help_text = _(''),
     )
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-08 16:13+0800\n"
+"POT-Creation-Date: 2015-05-08 16:43+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -984,8 +984,8 @@ msgid "links"
 msgstr "友情链接"
 
 #: apps/web/forms/entity.py:59
-msgid "复制商品链接"
-msgstr ""
+msgid "past the product link here"
+msgstr "复制商品链接到此"
 
 #: apps/web/forms/entity.py:319
 msgid "additional remarks"
