@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-08 09:49+0800\n"
+"POT-Creation-Date: 2015-05-08 16:13+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,12 +25,12 @@ msgstr "编辑"
 #: apps/core/models.py:52
 #: apps/management/templates/management/users/list.html:10
 msgid "active"
-msgstr ""
+msgstr "活动用户"
 
 #: apps/core/models.py:53
 #: apps/management/templates/management/users/list.html:11
 msgid "blocked"
-msgstr "禁言"
+msgstr "禁言用户"
 
 #: apps/core/models.py:54 apps/core/models.py:417 apps/core/models.py:423
 #: apps/core/models.py:640 apps/core/models.py:859
@@ -532,23 +532,23 @@ msgstr ""
 msgid "admin"
 msgstr "管理员"
 
-#: apps/core/forms/user.py:58 apps/web/forms/account.py:234
+#: apps/core/forms/user.py:58 apps/web/forms/account.py:236
 #: apps/web/forms/user.py:31
 msgid "location"
 msgstr "所在地"
 
-#: apps/core/forms/user.py:64 apps/web/forms/account.py:239
+#: apps/core/forms/user.py:64 apps/web/forms/account.py:241
 #: apps/web/forms/user.py:37
 msgid "city"
 msgstr "城市"
 
 #: apps/core/forms/user.py:68
 #: apps/management/templates/management/users/list.html:24
-#: apps/web/forms/account.py:227 apps/web/forms/user.py:41
+#: apps/web/forms/account.py:229 apps/web/forms/user.py:41
 msgid "gender"
 msgstr "性别"
 
-#: apps/core/forms/user.py:75 apps/web/forms/account.py:219
+#: apps/core/forms/user.py:75 apps/web/forms/account.py:221
 #: apps/web/forms/user.py:47
 msgid "bio"
 msgstr "简介"
@@ -745,7 +745,7 @@ msgstr ""
 
 #: apps/management/templates/management/category/list.html:34
 msgid "detail"
-msgstr ""
+msgstr "详情"
 
 #: apps/management/templates/management/category/sub_category_edit.html:19
 #: apps/management/templates/management/entities/edit.html:51
@@ -842,7 +842,7 @@ msgstr "购买链接"
 
 #: apps/management/templates/management/notes/ajax_note_create.html:8
 msgid "add selection note"
-msgstr ""
+msgstr "点评"
 
 #: apps/management/templates/management/notes/ajax_note_create.html:27
 #: apps/management/templates/management/selection/set_publish_datetime.html:28
@@ -924,7 +924,7 @@ msgid "reset password"
 msgstr "重设密码"
 
 #: apps/management/templates/management/users/list.html:21
-#: apps/web/forms/account.py:214
+#: apps/web/forms/account.py:216
 msgid "avatar"
 msgstr "头像"
 
@@ -1042,7 +1042,7 @@ msgstr "工作"
 #: apps/web/templates/web/account/password_rest_confirm.html:22
 #: apps/web/templates/web/entity/report.html:25
 msgid "submit"
-msgstr ""
+msgstr "提交"
 
 #: apps/web/templates/web/account/register.html:58
 msgid "next"
