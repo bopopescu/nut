@@ -1135,6 +1135,14 @@ padding-left: 15px;
 .static-page ol{
     padding-left:40px;
 }
+
+.user_profile_image{
+  width: 100%;
+  margin-left: 50%;
+  position: relative;
+  left: -66px;
+}
+
 /* Add by An Chen end*/
 
 /*body,button,input,select,textarea{font:14px/1.125 Arial,Helvetica,sans-serif;_font-family:"SimSun";}*/
