@@ -84,8 +84,11 @@ def entity(request, category_id):
     _offset = _offset / 30 + 1
     _count = int(request.GET.get('count', '30'))
     _key = request.GET.get('session')
-
-    entity_list = APIEntity.objects.new_or_selection(category_id=category_id)
+    _reverse = int(request.GET.get('reverse', 0))
+    if _reverse != 0:
+        entity_list = APIEntity.objects.new_or_selection(category_id=category_id)
+    else:
+        entity_list = APIEntity.objects.new_or_selection(category_id=category_id).order_by('created_time')
 
     paginator = Paginator(entity_list, _count)
 
