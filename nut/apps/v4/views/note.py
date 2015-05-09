@@ -27,11 +27,11 @@ def detail(request, note_id):
 
     res = dict()
     try:
-        note = Note.objects.get(pk=note_id)
+        note = APINote.objects.get(pk=note_id)
     except Note.DoesNotExist:
         raise ErrorJsonResponse(status=404)
 
-    res['note'] = note.v3_toDict(user_note_pokes=np)
+    res['note'] = note.v4_toDict(user_note_pokes=np)
     res['entity'] = note.entity.v3_toDict()
     res['poker_list'] = []
     for poker in note.pokes.all():
