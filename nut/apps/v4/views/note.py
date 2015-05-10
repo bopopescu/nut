@@ -118,6 +118,24 @@ def update_note(request, note_id):
 
 @csrf_exempt
 @check_sign
+def remove(request, note_id):
+    if request.method == "POST":
+        _key = request.POST.get('session')
+        try:
+            _session = Session_Key.objects.get(session_key = _key)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
+
+        try:
+            note = APINote.objects.get(pk=note_id, user=_session.user)
+        except Note.DoesNotExist:
+            return ErrorJsonResponse(status=404)
+
+        note.delete()
+        return SuccessJsonResponse(data={'delete_already':1})
+
+@csrf_exempt
+@check_sign
 def post_comment(request, note_id):
 
     if request.method == "POST":
