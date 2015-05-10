@@ -5,7 +5,7 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInte
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 from apps.mobile.forms.search import UserSearchForm
-from apps.v4.models import APIEntity, APIUser
+from apps.v4.models import APIEntity, APIUser, APINote
 from apps.v4.forms.user import MobileUserProfileForm
 from apps.v4.forms.account import MobileUserRestPassword
 
@@ -198,12 +198,12 @@ def entity_note(request, user_id):
     if _timestamp != None:
         _timestamp = datetime.fromtimestamp(float(_timestamp))
 
-    notes = Note.objects.filter(user=_user, post_time__lt=_timestamp).exclude(status=-1).order_by('-post_time')[:_count]
+    notes = APINote.objects.filter(user=_user, entity__status__gt=APIEntity.remove, post_time__lt=_timestamp).exclude(status=Note.remove).order_by('-post_time')[:_count]
     res = []
     for note in notes:
         log.info(note)
         res.append({
-            'note': note.v3_toDict(),
+            'note': note.v4_toDict(),
             'entity': note.entity.v3_toDict(),
         })
 
