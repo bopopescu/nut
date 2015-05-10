@@ -910,6 +910,7 @@ padding-left: 15px;
     color: #414243;
     padding: 10px 0px;
     margin-right: 40px;
+    font-size:16px;
 
     /*padding-bottom: 20px;*/
 }
@@ -972,6 +973,13 @@ padding-left: 15px;
         width : 108%!important;
         left: -4%!important;
     }
+
+    /*for xs screen , user static page,  my items , break line bug fix */
+    .nav-user-index >ul >li >a{
+        margin-right:15px;
+        font-size:14px;
+    }
+
 }
 
 /*}*/
@@ -1137,10 +1145,10 @@ padding-left: 15px;
 }
 
 .user_profile_image{
-  width: 100%;
   margin-left: 50%;
   position: relative;
   left: -66px;
+  display:block;
 }
 
 /* Add by An Chen end*/
