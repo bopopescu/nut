@@ -89,6 +89,7 @@ a:hover{text-decoration:none;}
 .download .guoku_into .intor{color: #9D9E9F;font-size: 16px;margin-top: 24px;height: 30px;width: 320px;line-height: 25px;}
 .download .download_link{margin-top: 97px;}
 .download .download_link li{width: 112px; height: 36px; line-height: 36px;text-align: center;background: #427EC0;float: left;margin-right: 10px;}
+.download .download_link li a{color: #ffffff;}
 .download .download_link li a:hover{color: #ffffff;}
 
 .download .download_into{margin-top: 40px;}
