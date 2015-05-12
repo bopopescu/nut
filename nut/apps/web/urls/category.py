@@ -8,6 +8,7 @@ urlpatterns = patterns(
     url(r'^$', CategoryListView.as_view(), name='web_category_list'),
     url(r'^group/(?P<gid>\d+)/$', CategroyGroupListView.as_view(), name='web_category_group'),
     url(r'^(?P<cid>\d+)/$', 'detail', name='web_category_detail'),
+    url(r'^(?P<cid>\d+)/olike/$','detail_like', name='web_category_detail_olike'),
 )
 
 __author__ = 'edison7500'
