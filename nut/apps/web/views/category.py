@@ -7,6 +7,7 @@ from django.views.generic.base import View, TemplateResponseMixin, ContextMixin
 from apps.core.models import Category, Sub_Category, Entity, Entity_Like
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 
+from django.db.models import Count
 
 from django.utils.log import getLogger
 log = getLogger('django')
@@ -58,26 +59,39 @@ class CategroyGroupListView(TemplateResponseMixin, ContextMixin, View):
         }
         return self.render_to_response(context)
 
+# TODO : already move this function to viewtools
+# TODO : swith the viewtools version
+def _get_paged_list(the_list, page_num=1, item_per_page=24):
+    paginator = ExtentPaginator(the_list, item_per_page)
+    try:
+        _entities = paginator.page(page_num)
+    except PageNotAnInteger:
+        _entities = paginator.page(1)
+    except EmptyPage:
+        raise Http404
+    return _entities
+
+# TODO : already move this function to viewtools
+# TODO : swith the viewtools version
+def _get_entity_like_list(entity_list, request):
+    el = []
+    if request.user.is_authenticated():
+        e = entity_list.object_list
+        el = Entity_Like.objects.filter(entity_id__in=tuple(e), user=request.user).values_list('entity_id', flat=True)
+    return el
+
 
 @require_GET
 def detail(request, cid, template='web/category/detail.html'):
     _cid = cid
     _page = request.GET.get('page', 1)
-    _entity_list = Entity.objects.filter(status=Entity.selection, category=_cid)
+    _entity_list = Entity.objects.filter(status=Entity.selection, category=_cid)\
+                          .order_by('-selection_entity__pub_time')
     _sub_category = Sub_Category.objects.get(pk = _cid)
 
-    paginator = ExtentPaginator(_entity_list, 24)
-    try:
-        _entities = paginator.page(_page)
-    except PageNotAnInteger:
-        _entities = paginator.page(1)
-    except EmptyPage:
-        raise Http404
+    _entities = _get_paged_list(_entity_list, _page, 24)
 
-    el = []
-    if request.user.is_authenticated():
-        e = _entities.object_list
-        el = Entity_Like.objects.filter(entity_id__in=tuple(e), user=request.user).values_list('entity_id', flat=True)
+    el = _get_entity_like_list(_entities, request)
 
     return render_to_response(
         template,
@@ -85,8 +99,35 @@ def detail(request, cid, template='web/category/detail.html'):
             'sub_category': _sub_category,
             'entities': _entities,
             'user_entity_likes': el,
+            'sort_method': 'pub_time',
+            'cid': _cid,
         },
         context_instance = RequestContext(request),
     )
+
+@require_GET
+def detail_like(request, cid , template='web/category/detail.html'):
+    _cid = cid
+    _page = request.GET.get('page',1)
+    _entity_list = Entity.objects.filter(status=Entity.selection , category=_cid)\
+                   .annotate(lnumber=Count('likes'))\
+                   .order_by('-lnumber')
+    _sub_category   = Sub_Category.objects.get(pk = _cid)
+    _entities       = _get_paged_list(_entity_list,_page,24)
+    _user_like_list = _get_entity_like_list(_entities, request)
+    return render_to_response(
+        template,
+        {
+            'sub_category' : _sub_category,
+            'entities': _entities,
+            'user_entity_likes' : _user_like_list,
+            'sort_method': 'likes_count',
+             'cid': _cid,
+        },
+        context_instance = RequestContext(request),
+    )
+
+
+
 
 __author__ = 'edison7500'

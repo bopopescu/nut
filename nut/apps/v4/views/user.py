@@ -327,8 +327,9 @@ def follow_action(request, user_id, target_status):
                 followee_id = user_id,
             )
             uf.save()
-            # log.info(_session.user.following_list)
-            if uf.followee_id in _session.user.fans_list:
+            log.info(_session.user.following_list)
+            log.info(uf.followee_id)
+            if long(uf.followee_id) in _session.user.fans_list:
                 res['relation'] = 3
             else:
                 res['relation'] = 1

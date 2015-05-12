@@ -1,15 +1,36 @@
 {% extends 'web/base.html' %}
+{% load i18n staticfiles %}
 {% load guoku %}
 
 {% block title %}品类 － {{ sub_category.title }}{% endblock %}
 {% block keyword %}{{ sub_category.title }}{% endblock %}
 
 {% block content %}
+    {% url 'web_category_detail_olike' cid as sort_like_url %}
+    {% url 'web_category_detail' cid as sort_time_url %}
+
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="category-header">
-                    <p>{{ sub_category.title|show_category }}</p>
+                    <span class="category-name"> {{ sub_category.title|show_category }}</span>
+                    <span class="dropdown-toggle category-action pull-right">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                           aria-haspopup="false" role="button" aria-expanded="false">
+                            {% if sort_method == 'pub_time' %}
+                                时间
+                            {% else %}
+                                喜爱
+                            {% endif %}
+                            <span class="caret"></span>
+                        </a>
+                        <ul  id="sort_dropdown" class="dropdown-menu" role="menu"  >
+                            <li ><a href="{{ sort_time_url }}">时间</a></li>
+                            <li  class="divider"></li>
+                            <li ><a href="{{ sort_like_url }}">喜爱</a></li>
+                        </ul>
+
+                    </span>
                 </div>
             </div>
             {% for entity in entities %}
@@ -21,3 +42,15 @@
         {% include "web/main/partial/paginator.html" with objects=entities url=request.path %}
     </div>
 {% endblock %}
+
+{#                <div class="category-header">#}
+{#                    <p>{{ sub_category.title|show_category }}#}
+{##}
+{#                    <span>#}
+
+{#                            <a class="sort_link" href="{{  sort_like_url }}">按喜爱排序</a>#}
+{#                        {% else %}#}
+{#                            <a class="sort_link" href="{{ sort_time_url }}">按加入时间排序</a>#}
+{#                        {% endif %}#}
+{#                    </span>#}
+{#                    </p>#}
