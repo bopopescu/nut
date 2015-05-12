@@ -10,6 +10,9 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInte
 from apps.web.forms.search import SearchForm
 from apps.core.utils.http import JSONResponse
 from django.utils.log import getLogger
+
+from apps.web.utils.viewtools import get_paged_list
+
 import random
 
 # from apps.notifications import notify
@@ -107,6 +110,7 @@ def search(request, template="web/main/search.html"):
     # if request.method == 'GET':
     _type = request.GET.get('t', 'e')
     _page = request.GET.get('page', 1)
+    _order = request.GET.get('o', 'time')
     form = SearchForm(request.GET)
 
     if form.is_valid():
@@ -114,14 +118,9 @@ def search(request, template="web/main/search.html"):
         # log.info("result %s" % _results)
         # for row in _results:
         #     log.info(row)
-        paginator = ExtentPaginator(_results, 20)
 
-        try:
-            _objects = paginator.page(_page)
-        except PageNotAnInteger:
-            _objects = paginator.page(1)
-        except EmptyPage:
-            raise Http404
+        _objects =  get_paged_list(_results , _page , 24)
+
 
         if _type == "t":
             tag_id_list = list()
@@ -150,6 +149,7 @@ def search(request, template="web/main/search.html"):
                 'tag_count': form.get_tag_count()
         }
         if _type == "e" and request.user.is_authenticated():
+
             entity_id_list = map(lambda x : int(x.id), _results)
             log.info(entity_id_list)
             el = Entity_Like.objects.user_like_list(user=request.user, entity_list=entity_id_list)

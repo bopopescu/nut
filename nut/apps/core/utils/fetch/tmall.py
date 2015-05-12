@@ -110,5 +110,6 @@ def test_final(id):
 
 
 if __name__ == "__main__":
+    test_final(44509953660)
+
     test_final(44034481384)# this is a tmall id , should output 1997
-    test_final(44092687648)# this is a taobao id, will return 0 ! ,
