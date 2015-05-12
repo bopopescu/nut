@@ -1107,7 +1107,7 @@ msgstr "更新资料"
 msgid "notes"
 msgstr "点评"
 
-# wechat
+#: wechat
 #: apps/wechat/templates/wechat/bind.html:34
 msgid "bind"
 msgstr "绑定"
