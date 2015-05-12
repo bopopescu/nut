@@ -66,6 +66,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     # 'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'django.middleware.locale.LocaleMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
@@ -82,8 +84,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-
 
 CACHES = {
     "default": {
@@ -116,8 +116,11 @@ USE_L10N = True
 # USE_TZ = True
 
 LOCALE_PATHS = (
-    os.path.join(os.path.dirname(__file__), '../conf/locale'),
+    # os.path.join(os.path.dirname(__file__), '../conf/locale'),
+    os.path.join(os.getcwd(), 'conf/locale'),
 )
+
+# print LOCALE_PATHS
 
 STATICFILES_DIRS = (
     os.path.join(os.getcwd(), 'static'),
