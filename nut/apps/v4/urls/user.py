@@ -12,9 +12,12 @@ urlpatterns = patterns(
 
     url(r'^search/$', 'search', name='v4_user_search'),
 
+# update user profile
     url(r'^update/$', 'update', name='v4_user_update'),
     url(r'^update/account/$', 'update_account', name="v4_user_update_account"),
     url(r'update/email/$', 'update_email', name='v4_user_update_email'),
+
+# reset password
     url(r'reset/password/$', 'rest_password', name='v4_user_reset_password'),
 
 #   user relationship
@@ -23,6 +26,5 @@ urlpatterns = patterns(
 
     url(r'^(?P<user_id>\d+)/follow/(?P<target_status>\d+)/$', 'follow_action', name='v4_user_follow_action'),
 )
-
 
 __author__ = 'edison7500'
