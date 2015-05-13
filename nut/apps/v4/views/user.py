@@ -7,7 +7,7 @@ from apps.mobile.models import Session_Key
 from apps.mobile.forms.search import UserSearchForm
 from apps.v4.models import APIEntity, APIUser, APINote
 from apps.v4.forms.user import MobileUserProfileForm
-from apps.v4.forms.account import MobileUserRestPassword
+from apps.v4.forms.account import MobileUserRestPassword, MobileUserUpdateEmail
 
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage
@@ -56,7 +56,34 @@ def update_account(request):
 
 @csrf_exempt
 @check_sign
-def rest_passowrd(request):
+def update_email(request):
+    if request.method == "POST":
+        _key = request.POST.get('session', None)
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
+
+        _forms = MobileUserUpdateEmail(user=_session.user, data=request.POST)
+        if _forms.is_valid():
+            res = _forms.save()
+            return SuccessJsonResponse(res)
+        log.info(_forms.errors)
+        for k, v in dict(_forms.errors).items():
+            return ErrorJsonResponse(status=400, data={
+                'type': k,
+                'message': v,
+            })
+        return ErrorJsonResponse(status=400)
+
+    else:
+        return ErrorJsonResponse(status=400)
+
+
+
+@csrf_exempt
+@check_sign
+def rest_password(request):
     if request.method == "POST":
         pass
 

@@ -14,7 +14,8 @@ urlpatterns = patterns(
 
     url(r'^update/$', 'update', name='v4_user_update'),
     url(r'^update/account/$', 'update_account', name="v4_user_update_account"),
-    url(r'reset/password/$', 'rest_passowrd', name='v4_user_reset_password'),
+    url(r'update/email/$', 'update_email', name='v4_user_update_email'),
+    url(r'reset/password/$', 'rest_password', name='v4_user_reset_password'),
 
 #   user relationship
     url(r'^(?P<user_id>\d+)/following/$', 'following_list', name='v4_user_following'),

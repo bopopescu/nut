@@ -536,7 +536,7 @@ class MobileUserUpdateEmail(forms.Form):
     def save(self):
         # _password = self.cleaned_data.get('password')
         _email = self.cleaned_data.get('email')
-        
+
         if _email:
             self.user_cache.email = _email
 
