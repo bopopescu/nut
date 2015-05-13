@@ -70,11 +70,13 @@ def update_email(request):
             return SuccessJsonResponse(res)
         log.info(_forms.errors)
         for k, v in dict(_forms.errors).items():
+            log.info(v.as_text().split('*'))
+            error_msg = v.as_text().split('*')[1]
             return ErrorJsonResponse(status=400, data={
                 'type': k,
-                'message': v,
+                'message': error_msg.lstrip(),
             })
-        return ErrorJsonResponse(status=400)
+        return ErrorJsonResponse(status=500)
 
     else:
         return ErrorJsonResponse(status=400)
