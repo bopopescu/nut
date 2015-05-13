@@ -538,12 +538,66 @@ class MobileUserUpdateEmail(forms.Form):
         if _email:
             self.user_cache.email = _email
 
-        # if _password:
-        #     self.user_cache.set_password(_password)
-            # self.user_cache.save()
         self.user_cache.save()
         return self.user_cache.v3_toDict()
 
 
+class MobileRestPassword(forms.Form):
+
+    error_messages = {
+        'password_error': _('password error'),
+        'password_not_match':_('password not match'),
+        # 'duplicate_email': _("duplicate email"),
+    }
+
+    password = forms.CharField(
+        widget=forms.PasswordInput(),
+        min_length=6,
+        required=True,
+    )
+
+    new_password = forms.CharField(
+        widget=forms.PasswordInput(),
+        min_length = 8,
+        required=True,
+    )
+
+    confirm_password = forms.CharField(
+        widget=forms.PasswordInput(),
+        min_length=8,
+        required=True,
+    )
+
+    def clean_password(self):
+        _password = self.cleaned_data.get('password')
+        is_vaild = self.user_cache.check_password(_password)
+        if not is_vaild:
+            raise forms.ValidationError(
+                self.error_messages['password_error'],
+                code='password error',
+            )
+        return _password
+
+    def clean_confirm_passowd(self):
+        _confirm_password = self.cleaned_data.get('confirm_password')
+        _new_password = self.cleaned_data.geet('new_password')
+
+        if _confirm_password != _new_password:
+            raise forms.ValidationError(
+                self.error_messages['password_not_match'],
+                code='password not match',
+            )
+
+        return _confirm_password
+
+    def __init__(self, user, *args, **kwargs):
+        self.user_cache = user
+        super(MobileRestPassword, self).__init__(*args, **kwargs)
+
+    def save(self):
+        _confirm_password = self.cleaned_data.get('confirm_password')
+        self.user_cache.set_password(_confirm_password)
+        self.user_cache.save()
+        return self.user_cache.v3_toDict()
 
 __author__ = 'edison7500'
