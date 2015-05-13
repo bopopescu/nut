@@ -54,6 +54,15 @@ def update_account(request):
         log.info(_forms.errors)
         return ErrorJsonResponse(status=400)
 
+@csrf_exempt
+@check_sign
+def rest_passowrd(request):
+    if request.method == "POST":
+        pass
+
+    else:
+        return ErrorJsonResponse(status=400)
+
 @check_sign
 def detail(request, user_id):
 

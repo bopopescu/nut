@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model, authenticate
+from django.utils.translation import ugettext_lazy as _
+
 from apps.core.forms.account import GuoKuUserSignInForm, GuokuUserSignUpForm
 from apps.core.forms.weibo import WeiboForm
 from apps.core.forms.taobao import TaobaoForm
@@ -474,6 +476,72 @@ class MobileUserRestPassword(forms.Form):
 
         if _password:
             self.user_cache.set_password(_password)
+            # self.user_cache.save()
+        self.user_cache.save()
+        return self.user_cache.v3_toDict()
+
+
+class MobileUserUpdateEmail(forms.Form):
+
+    error_messages = {
+        'no_email': _('email is not exist'),
+        'invalid_login': _('email or password wrong'),
+        'inactive': _("This account is inactive."),
+        'password_error': _('password error'),
+    }
+
+    password = forms.CharField(
+        widget=forms.PasswordInput(),
+        min_length=6,
+        required=True,
+    )
+
+    email = forms.EmailField(
+        widget=forms.EmailInput(),
+        required=True,
+    )
+
+    def clean_email(self):
+        _email = self.cleaned_data.get('email')
+
+        if _email is None:
+            return None
+
+        if self.user_cache.email == _email:
+            return _email
+
+        try:
+            get_user_model()._default_manager.get(email = _email)
+        except get_user_model().DoesNotExist:
+            return _email
+        raise forms.ValidationError(
+            self.error_messages['duplicate_email'],
+            code='duplicate_email',
+        )
+
+    def clean_password(self):
+        _password = self.cleaned_data.get('password')
+        is_vaild = self.user_cache.check_password(_password)
+        if not is_vaild:
+            raise forms.ValidationError(
+                self.error_messages['password_error'],
+                code='password error',
+            )
+        return _password
+
+    def __init__(self, user, *args, **kwargs):
+        self.user_cache = user
+        super(MobileUserUpdateEmail, self).__init__(*args, **kwargs)
+
+    def save(self):
+        # _password = self.cleaned_data.get('password')
+        _email = self.cleaned_data.get('email')
+        
+        if _email:
+            self.user_cache.email = _email
+
+        # if _password:
+        #     self.user_cache.set_password(_password)
             # self.user_cache.save()
         self.user_cache.save()
         return self.user_cache.v3_toDict()
