@@ -27,11 +27,11 @@ def detail(request, note_id):
 
     res = dict()
     try:
-        note = Note.objects.get(pk=note_id)
+        note = APINote.objects.get(pk=note_id)
     except Note.DoesNotExist:
         raise ErrorJsonResponse(status=404)
 
-    res['note'] = note.v3_toDict(user_note_pokes=np)
+    res['note'] = note.v4_toDict(user_note_pokes=np)
     res['entity'] = note.entity.v3_toDict()
     res['poker_list'] = []
     for poker in note.pokes.all():
@@ -115,6 +115,24 @@ def update_note(request, note_id):
             return SuccessJsonResponse(res)
     return ErrorJsonResponse(status=400)
 
+
+@csrf_exempt
+@check_sign
+def remove(request, note_id):
+    if request.method == "POST":
+        _key = request.POST.get('session')
+        try:
+            _session = Session_Key.objects.get(session_key = _key)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
+
+        try:
+            note = APINote.objects.get(pk=note_id, user=_session.user)
+        except Note.DoesNotExist:
+            return ErrorJsonResponse(status=404)
+
+        note.delete()
+        return SuccessJsonResponse(data={'delete_already':1})
 
 @csrf_exempt
 @check_sign

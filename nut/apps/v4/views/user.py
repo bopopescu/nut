@@ -5,9 +5,9 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInte
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 from apps.mobile.forms.search import UserSearchForm
-from apps.v4.models import APIEntity, APIUser
+from apps.v4.models import APIEntity, APIUser, APINote
 from apps.v4.forms.user import MobileUserProfileForm
-from apps.v4.forms.account import MobileUserRestPassword
+from apps.v4.forms.account import MobileUserRestPassword, MobileUserUpdateEmail, MobileRestPassword
 
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage
@@ -52,6 +52,64 @@ def update_account(request):
             res = _forms.save()
             return SuccessJsonResponse(res)
         log.info(_forms.errors)
+        return ErrorJsonResponse(status=400)
+
+@csrf_exempt
+@check_sign
+def update_email(request):
+    if request.method == "POST":
+        _key = request.POST.get('session', None)
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
+
+        _forms = MobileUserUpdateEmail(user=_session.user, data=request.POST)
+        if _forms.is_valid():
+            res = _forms.save()
+            return SuccessJsonResponse(res)
+        log.info(_forms.errors)
+        for k, v in dict(_forms.errors).items():
+            log.info(v.as_text().split('*'))
+            error_msg = v.as_text().split('*')[1]
+            return ErrorJsonResponse(status=400, data={
+                'type': k,
+                'message': error_msg.lstrip(),
+            })
+        return ErrorJsonResponse(status=500)
+
+    else:
+        return ErrorJsonResponse(status=400)
+
+
+
+@csrf_exempt
+@check_sign
+def rest_password(request):
+    if request.method == "POST":
+        _key = request.POST.get('session', None)
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
+
+        _forms = MobileRestPassword(user=_session.user, data=request.POST)
+        if _forms.is_valid():
+            res = _forms.save()
+            return SuccessJsonResponse(res)
+        # log.info(_forms.errors)
+
+        for k, v in dict(_forms.errors).items():
+            log.info(v.as_text().split('*'))
+            error_msg = v.as_text().split('*')[1]
+            return ErrorJsonResponse(status=400, data={
+                'type': k,
+                'message': error_msg.lstrip(),
+            })
+
+        return ErrorJsonResponse(status=500)
+
+    else:
         return ErrorJsonResponse(status=400)
 
 @check_sign
@@ -198,12 +256,12 @@ def entity_note(request, user_id):
     if _timestamp != None:
         _timestamp = datetime.fromtimestamp(float(_timestamp))
 
-    notes = Note.objects.filter(user=_user, post_time__lt=_timestamp).exclude(status=-1).order_by('-post_time')[:_count]
+    notes = APINote.objects.filter(user=_user, entity__status__gt=APIEntity.remove, post_time__lt=_timestamp).exclude(status=Note.remove).order_by('-post_time')[:_count]
     res = []
     for note in notes:
         log.info(note)
         res.append({
-            'note': note.v3_toDict(),
+            'note': note.v4_toDict(),
             'entity': note.entity.v3_toDict(),
         })
 
@@ -327,8 +385,9 @@ def follow_action(request, user_id, target_status):
                 followee_id = user_id,
             )
             uf.save()
-            # log.info(_session.user.following_list)
-            if uf.followee_id in _session.user.fans_list:
+            log.info(_session.user.following_list)
+            log.info(uf.followee_id)
+            if long(uf.followee_id) in _session.user.fans_list:
                 res['relation'] = 3
             else:
                 res['relation'] = 1

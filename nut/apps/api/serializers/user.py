@@ -31,6 +31,6 @@ class AvatarSerializer(serializers.Serializer):
 
 
     def save(self, **kwargs):
-        _avarar = self.validated_data.get('avarat')
+        _avarar = self.validated_data.get('avatar')
 
 __author__ = 'edison7500'
