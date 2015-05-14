@@ -1,0 +1,16 @@
+{% load i18n %}
+{% load guoku %}
+{% load common %}
+{#{% load entity web_common %}#}
+
+<div class="event-item col-xs-12 col-sm-6 col-md-6">
+{#{{ event.slug }}#}
+
+    <div class="event-item-banner">
+     {% if event.banner_urls %}
+         <a href="{{ event.slug_url }}">
+         <img class="img-responsive" src="{{ event.banner_urls.0 }}" >
+         </a>
+     {% endif %}
+    </div>
+</div>

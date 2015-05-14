@@ -68,9 +68,11 @@ window.location.href = url;</script><![endif]-->
 <body>
 {% url 'web_download' as web_download_url %}
 {% url 'web_selection' as web_selection_url %}
+{% block global_links %}
 {% if web_selection_url in request.path %}
     <a href="{{ web_download_url }}" target="_blank"><img class="img-responsive guoku-weixin" src="{% static 'images/download_icon.png' %}"></a>
 {% endif %}
+{% endblock %}
 <h1 class="hidden sr-only">{% block h1 %}果库{% endblock %}</h1>
 {% block header %}
     <header class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="border-bottom: 0;opacity: 0.9;">

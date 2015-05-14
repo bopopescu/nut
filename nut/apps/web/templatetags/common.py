@@ -18,8 +18,10 @@ def format_time(value):
     now = time.mktime(datetime.now().timetuple())
     time_interval = now - before_time
 
-    if time_interval < 60:
-        return "%d秒前" % (time_interval)
+    if time_interval < 0:
+        return "刚刚"
+    elif time_interval < 60:
+        return "%d秒前" % time_interval
     elif time_interval < 60 * 60:
         return "%d分钟前" % ((time_interval / 60) + 1)
     elif time_interval < 60 * 60 * 24:
@@ -49,5 +51,21 @@ def selection_next_paginator(value):
 
     return value
 register.filter(selection_next_paginator)
+
+
+def format_boolean(value):
+        if value:
+            return "是"
+        else :
+            return "否"
+register.filter(format_boolean)
+
+def format_boolean_class(value):
+    if value:
+        return 'bool_yes'
+    else:
+        return 'bool_no'
+
+register.filter(format_boolean_class)
 
 __author__ = 'edison7500'

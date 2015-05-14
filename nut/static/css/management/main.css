@@ -117,3 +117,14 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+/*add by An Chen */
+/*for boolean style*/
+.bool_yes{
+    background-color: #22b24c!important;
+}
+
+.bool_no{
+    background-color:#953b39!important;
+}
+

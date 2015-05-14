@@ -1176,6 +1176,15 @@ padding-left: 15px;
     padding: 5px 15px;
 }
 
+.event-item{
+    padding:20px;
+}
+
+.event-item-banner img{
+    width : 100%
+
+}
+
 /* Add by An Chen end*/
 
 /*body,button,input,select,textarea{font:14px/1.125 Arial,Helvetica,sans-serif;_font-family:"SimSun";}*/
