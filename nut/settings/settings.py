@@ -120,7 +120,6 @@ LOCALE_PATHS = (
     os.path.join(os.getcwd(), 'conf/locale'),
 )
 
-# print LOCALE_PATHS
 
 STATICFILES_DIRS = (
     os.path.join(os.getcwd(), 'static'),
