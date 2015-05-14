@@ -29,10 +29,19 @@ def home(request):
         return HttpResponseRedirect(reverse('web_event', args=[event.slug]))
     raise Http404
 
+def _fill_banners_into_event_list(event_list):
+    for ev in event_list:
+        ev.banner_urls = ev.banner.get_banner_urls_for_event(ev)
+    return event_list
 @require_http_methods(['GET'])
-def elist(request, template='web/events/list'):
-    # temp , route to home
-    return home(request)
+def elist(request, template='web/events/list.html'):
+    _event_list = Event.objects.filter(event_status__is_published=True)
+    _event_list = _fill_banners_into_event_list(_event_list)
+    return render_to_response(template,
+                              {
+                                  'event_list': _event_list,
+                              },
+                              context_instance=RequestContext(request))
 
 
 @require_http_methods(['GET'])
