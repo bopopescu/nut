@@ -67,7 +67,7 @@ def detail(request, entity_id):
     _key = request.GET.get('session', None)
     # log.info("session "_key)
     try:
-        entity = APIEntity.objects.get(pk=entity_id, status__gte=Entity.freeze)
+        entity = APIEntity.objects.using('slave').get(pk=entity_id, status__gte=Entity.freeze)
     except APIEntity.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
@@ -150,7 +150,7 @@ def guess(request):
     _entity_id = request.GET.get('eid', None)
     _count = int(request.GET.get('count', '5'))
 
-    entities =  APIEntity.objects.guess(category_id=_category_id, count=_count, exclude_id=_entity_id)
+    entities = APIEntity.objects.guess(category_id=_category_id, count=_count, exclude_id=_entity_id)
 
     for entity in entities:
         res.append(entity.v4_toDict())

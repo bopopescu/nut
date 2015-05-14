@@ -19,6 +19,7 @@ urlpatterns += patterns(
     url(r'(?P<entity_id>\w+)/add/note/$', 'post_note', name='v4_post_note'),
     url(r'^note/(?P<note_id>\d+)/update/$', 'update_note', name='v4_update_note'),
     url(r'^note/(?P<note_id>\d+)/poke/(?P<target_status>\d+)/$', 'poke', name='v4_note_poke'),
+    url(r'^note/(?P<note_id>\d+)/del/$', 'remove', name='v4_note_del'),
 
     url(r'^note/(?P<note_id>\d+)/add/comment/$', 'post_comment', name='v4_post_note_comment'),
     url(r'^note/(?P<note_id>\d+)/comment/(?P<comment_id>\d+)/del/$', 'del_comment', name='v4_note_comment_del'),

@@ -23,9 +23,9 @@ class EntityQuerySet(models.query.QuerySet):
 
     def new_or_selection(self, category_id):
         if category_id:
-            return self.filter(category_id=category_id, status__gte=0)
+            return self.using('slave').filter(category_id=category_id, status__gte=0)
         else:
-            return self.filter(status__gte=0)
+            return self.using('slave').filter(status__gte=0)
 
 
 class EntityManager(models.Manager):
@@ -52,6 +52,9 @@ class EntityManager(models.Manager):
         entities = random.sample(entity_list[:size], count)
         return entities
 
+    # def sort_with_list(self, category_id=None):
+    #     Entity_Like.objects.using('slave').filter(entity__category = 10).values_list('entity', flat=True).annotate(dcount=models.Count('entity')).order_by('-dcount')
+
 
 class EntityLikeQuerySet(models.query.QuerySet):
 
@@ -71,6 +74,8 @@ class EntityLikeQuerySet(models.query.QuerySet):
 
         return self.filter(entity_id__in=entity_list, user=user).values_list('entity_id', flat=True)
 
+    def sort_with_list(self, category_id):
+        return self.using('slave').filter(entity__category = category_id).values_list('entity', flat=True).annotate(dcount=models.Count('entity')).order_by('-dcount')
 
 class EntityLikeManager(models.Manager):
 
@@ -101,6 +106,13 @@ class EntityLikeManager(models.Manager):
     def user_like_list(self, user, entity_list):
 
         return self.get_query_set().user_like_list(user=user, entity_list=entity_list)
+
+    def sort_with_list(self, category_id):
+
+        entity_id_list = self.get_query_set().sort_with_list(category_id)
+
+        return list(entity_id_list)
+
 
 
 class SelectionEntityQuerySet(models.query.QuerySet):
