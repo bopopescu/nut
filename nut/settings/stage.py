@@ -24,6 +24,18 @@ DATABASES = {
             'init_command':'SET storage_engine=INNODB',
         }
     },
+    'slave': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'core',
+        'USER': 'guoku',
+        'PASSWORD': 'guoku!@#',
+        'HOST': '10.0.2.95',
+        'PORT': '',
+        'OPTIONS': {
+            'use_unicode':'utf-8',
+            'init_command':'SET storage_engine=INNODB',
+        }
+    },
 }
 
 INSTALLED_APPS += (
