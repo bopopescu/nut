@@ -16,6 +16,7 @@ from apps.core.manager.note import NoteManager, NotePokeManager
 from apps.core.manager.tag import EntityTagManager
 from apps.core.manager.category import CategoryManager, SubCategoryManager
 from apps.core.manager.comment import CommentManager
+from apps.core.manager.event import ShowEventBannerManager
 
 from hashlib import md5
 # from apps.core.utils.tag import TagParser
@@ -905,7 +906,7 @@ class Event(models.Model):
         ordering = ['-created_datetime']
 
     def __unicode__(self):
-        return self.slug
+        return "%s - %s"%(self.slug, self.title)
 
     @property
     def has_banner(self):
@@ -940,14 +941,14 @@ class Event(models.Model):
         return reverse('web_event', args=[self.slug])
 
 #  pendingn for assesment  ----- by An
-# class Event_Status(models.Model):
-#     event = models.OneToOneField(Event, primary_key=True)
-#     is_published = models.BooleanField(default=False)
-#     is_top = models.BooleanField(default=False)
-#
-#     def __unicode__(self):
-#         return "%s status : is_published : %s , is_top : %s" %(self.event.slug, self.is_published, self.is_top)
-#
+class Event_Status(models.Model):
+    event = models.OneToOneField(Event, primary_key=True)
+    is_published = models.BooleanField(default=False)
+    is_top = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return "%s status : is_published : %s , is_top : %s" %(self.event.slug, self.is_published, self.is_top)
+
 
 
 class Event_Banner(models.Model):
@@ -1000,6 +1001,7 @@ class Show_Event_Banner(models.Model):
     position = models.IntegerField(default=0)
     created_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
 
+    objects = ShowEventBannerManager()
     class Meta:
         ordering = ['position']
 
