@@ -33,6 +33,7 @@ def _fill_banners_into_event_list(event_list):
     for ev in event_list:
         ev.banner_urls = ev.banner.get_banner_urls_for_event(ev)
     return event_list
+
 @require_http_methods(['GET'])
 def elist(request, template='web/events/list.html'):
     _event_list = Event.objects.filter(event_status__is_published=True)
