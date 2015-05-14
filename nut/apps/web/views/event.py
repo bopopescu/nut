@@ -36,7 +36,7 @@ def _fill_banners_into_event_list(event_list):
 
 @require_http_methods(['GET'])
 def elist(request, template='web/events/list.html'):
-    _event_list = Event.objects.filter(event_status__is_published=True)
+    _event_list = Event.objects.filter(event_status__is_published=True).order_by('-slug')
     _event_list = _fill_banners_into_event_list(_event_list)
     return render_to_response(template,
                               {
