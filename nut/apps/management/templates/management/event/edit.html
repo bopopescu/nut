@@ -8,7 +8,7 @@
             {% csrf_token %}
                 <fieldset>
                     {% for field in forms %}
-                        <div class="form-group {% if field.errors %}has-error{% endif %}">
+                        <div class="form-group {% if field.label == 'is_on_top' %} hidden {% endif %}  {% if field.errors %}has-error{% endif %}">
                             <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
                             <div class="col-sm-5">
                                 {{ field }}

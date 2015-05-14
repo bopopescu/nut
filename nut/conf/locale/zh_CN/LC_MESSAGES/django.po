@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-08 16:43+0800\n"
+"POT-Creation-Date: 2015-05-14 08:27+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -151,7 +150,7 @@ msgstr "发布"
 
 #: apps/core/models.py:858
 msgid "draft"
-msgstr ""
+msgstr "草稿"
 
 #: apps/core/models.py:956
 msgid "item"
@@ -177,13 +176,12 @@ msgstr "账户冻结"
 
 #: apps/core/forms/account.py:15 apps/web/forms/account.py:28
 #: apps/wechat/forms/bind.py:15
-#, fuzzy
 msgid "password error"
-msgstr "密码"
+msgstr "密码错误"
 
 #: apps/core/forms/account.py:16 apps/web/forms/account.py:29
 msgid "no cookies"
-msgstr ""
+msgstr "没有cookies"
 
 #: apps/core/forms/account.py:17
 msgid "no guoku api key"
@@ -215,7 +213,6 @@ msgid "A user with that email already exists."
 msgstr "此邮箱已经被注册过了。"
 
 #: apps/core/forms/account.py:132
-#, fuzzy
 msgid "Email"
 msgstr "邮箱"
 
@@ -253,7 +250,7 @@ msgstr "标题"
 #: apps/management/templates/management/entities/edit.html:114
 #: apps/management/templates/management/notes/table.html:13
 #: apps/management/templates/management/notes/comment/list.html:14
-#: apps/management/templates/management/report/list.html:15
+#: apps/management/templates/management/report/list.html:16
 #: apps/web/forms/comment.py:12 apps/web/forms/note.py:19
 msgid "content"
 msgstr "内容"
@@ -263,9 +260,8 @@ msgid "publish"
 msgstr "发布"
 
 #: apps/core/forms/article.py:42
-#, fuzzy
 msgid "cover"
-msgstr "发现"
+msgstr "封面图"
 
 #: apps/core/forms/banner.py:22
 msgid "none"
@@ -326,20 +322,18 @@ msgstr "否"
 
 #: apps/core/forms/category.py:29 apps/core/forms/category.py:86
 #: apps/core/forms/entity.py:95 apps/core/forms/entity.py:100
-#: apps/core/forms/event.py:34 apps/core/forms/note.py:44
+#: apps/core/forms/note.py:44
 #: apps/management/templates/management/category/list.html:21
 #: apps/management/templates/management/category/sub_category_list.html:21
 #: apps/management/templates/management/entities/edit.html:116
 #: apps/management/templates/management/entities/table.html:17
-#: apps/management/templates/management/event/list.html:21
 #: apps/management/templates/management/notes/table.html:15
 msgid "status"
 msgstr "状态"
 
 #: apps/core/forms/category.py:80
-#, fuzzy
 msgid "parent category"
-msgstr "品类"
+msgstr "上级品类"
 
 #: apps/core/forms/category.py:92 apps/core/forms/entity.py:208
 msgid "Select an Image"
@@ -375,14 +369,12 @@ msgid "max. 2 megabytes"
 msgstr "最大2兆"
 
 #: apps/core/forms/entity.py:214
-#, fuzzy
 msgid "image link"
-msgstr "图片"
+msgstr "图片链接"
 
 #: apps/core/forms/entity.py:220
-#, fuzzy
 msgid "chief image"
-msgstr "图片"
+msgstr "主图图片"
 
 #: apps/core/forms/entity.py:224
 msgid "set entity cheif Image"
@@ -396,7 +388,6 @@ msgstr "设置商品主图"
 #: apps/management/templates/management/event_banner/show_list.html:19
 #: apps/management/templates/management/recommendation/list.html:28
 #: apps/management/templates/management/recommendation/show_list.html:20
-#, fuzzy
 msgid "link"
 msgstr "友情链接"
 
@@ -413,9 +404,8 @@ msgid "origin_source"
 msgstr "来源"
 
 #: apps/core/forms/entity.py:462
-#, fuzzy
 msgid "select image"
-msgstr "精选"
+msgstr "选择 图片"
 
 #: apps/core/forms/entity.py:484
 #: apps/management/templates/management/management_base.html:85
@@ -429,26 +419,44 @@ msgid "note"
 msgstr "点评"
 
 #: apps/core/forms/entity.py:490
-#, fuzzy
 msgid "note status"
-msgstr "状态"
+msgstr "点评 状态"
 
 #: apps/core/forms/event.py:22
 #: apps/management/templates/management/management_base.html:113
-#: apps/management/templates/management/event/list.html:19
+#: apps/management/templates/management/event/list.html:21
 #: apps/management/templates/management/tags/list.html:5
 msgid "tag"
 msgstr "标签"
 
 #: apps/core/forms/event.py:28
-#: apps/management/templates/management/event/list.html:20
+#: apps/management/templates/management/event/list.html:22
 msgid "slug"
 msgstr ""
 
-#: apps/core/forms/event.py:48
-#, fuzzy
+#: apps/core/forms/event.py:34
+msgid "is_on_top"
+msgstr ""
+
+#: apps/core/forms/event.py:42 apps/core/forms/selection.py:22
+msgid "is_published"
+msgstr "已经 发布"
+
+#: apps/core/forms/event.py:46
+msgid "is the event published ?"
+msgstr "专题是否发布"
+
+#: apps/core/forms/event.py:50 apps/core/forms/note.py:79
+msgid "is_top"
+msgstr ""
+
+#: apps/core/forms/event.py:54
+msgid "is the event on top ? "
+msgstr ""
+
+#: apps/core/forms/event.py:64
 msgid "tag is not exist"
-msgstr "请输入真实邮箱"
+msgstr "标签 不存在"
 
 #: apps/core/forms/note.py:21
 msgid "note_id"
@@ -465,52 +473,39 @@ msgstr "发表时间"
 msgid "updated time"
 msgstr "更新时间"
 
-#: apps/core/forms/note.py:79
-msgid "is_top"
-msgstr ""
-
-#: apps/core/forms/search.py:6 apps/web/forms/search.py:12
-#, fuzzy
+#: apps/core/forms/search.py:6 apps/web/forms/search.py:13
 msgid "Search"
 msgstr "搜索"
 
 #: apps/core/forms/search.py:9
 #: apps/management/templates/management/event_banner/list.html:48
-#: apps/web/forms/entity.py:311 apps/web/forms/search.py:15
+#: apps/web/forms/entity.py:311 apps/web/forms/search.py:16
 msgid "type"
 msgstr ""
 
 #: apps/core/forms/selection.py:15
-#, fuzzy
 msgid "publish datetime"
-msgstr "更新时间"
-
-#: apps/core/forms/selection.py:22
-#, fuzzy
-msgid "is_published"
-msgstr "发布"
+msgstr "发布时间"
 
 #: apps/core/forms/selection.py:50
-#, fuzzy
 msgid "publish number"
-msgstr "发布"
+msgstr "发布 数量"
 
 #: apps/core/forms/selection.py:52
 msgid "default number"
-msgstr ""
+msgstr "缺省 发布 数量"
 
 #: apps/core/forms/selection.py:57
 msgid "interval time"
-msgstr ""
+msgstr "发布 间隔"
 
 #: apps/core/forms/selection.py:59
 msgid "this value is second"
-msgstr ""
+msgstr "以 秒 为单位"
 
 #: apps/core/forms/selection.py:64
-#, fuzzy
 msgid "start time"
-msgstr "更新时间"
+msgstr "更新 时间"
 
 #: apps/core/forms/selection.py:66
 msgid "set selection entity publish begin time"
@@ -578,9 +573,8 @@ msgid "taobao user id"
 msgstr ""
 
 #: apps/management/forms/event_banner.py:41
-#, fuzzy
 msgid "banner type"
-msgstr "内容类型"
+msgstr "主图 类型"
 
 #: apps/management/templates/management/dashboard.html:6
 #: apps/management/templates/management/dashboard.html:12
@@ -667,7 +661,7 @@ msgstr "已发布"
 #: apps/management/templates/management/comment/list.html:17
 #: apps/management/templates/management/entities/edit.html:117
 #: apps/management/templates/management/entities/table.html:18
-#: apps/management/templates/management/event/list.html:26
+#: apps/management/templates/management/event/list.html:32
 #: apps/management/templates/management/event_banner/list.html:51
 #: apps/management/templates/management/event_banner/show_list.html:22
 #: apps/management/templates/management/media/list.html:16
@@ -686,7 +680,7 @@ msgstr "操作"
 #: apps/management/templates/management/category/sub_category_list.html:33
 #: apps/management/templates/management/entities/edit.html:134
 #: apps/management/templates/management/entities/table.html:39
-#: apps/management/templates/management/event/list.html:45
+#: apps/management/templates/management/event/list.html:55
 #: apps/management/templates/management/event_banner/list.html:74
 #: apps/management/templates/management/event_banner/show_list.html:38
 #: apps/management/templates/management/notes/table.html:34
@@ -778,18 +772,16 @@ msgid "upload image"
 msgstr "上传图片"
 
 #: apps/management/templates/management/entities/edit.html:42
-#, fuzzy
 msgid "add buy link"
-msgstr "购买链接"
+msgstr "添加 购买 链接"
 
 #: apps/management/templates/management/entities/edit.html:70
 msgid "buy links"
 msgstr "购买链接"
 
 #: apps/management/templates/management/entities/edit.html:115
-#, fuzzy
 msgid "post time"
-msgstr "更新时间"
+msgstr "更新 时间"
 
 #: apps/management/templates/management/entities/list.html:12
 #: apps/management/templates/management/notes/list.html:10
@@ -799,46 +791,51 @@ msgid "all"
 msgstr "所有"
 
 #: apps/management/templates/management/entities/table.html:15
-#: apps/management/templates/management/report/list.html:19
+#: apps/management/templates/management/report/list.html:20
 msgid "created_time"
-msgstr ""
+msgstr "创建 时间"
 
-#: apps/management/templates/management/event/list.html:22
-msgid "has banner"
-msgstr ""
+#: apps/management/templates/management/event/list.html:19
+msgid "event title"
+msgstr "标题"
 
 #: apps/management/templates/management/event/list.html:23
-msgid "banners"
-msgstr ""
+msgid "event_is_on_top"
+msgstr "置顶专题"
 
 #: apps/management/templates/management/event/list.html:24
-msgid "has recommendation"
-msgstr ""
+msgid "event_is_published"
+msgstr "专题是否发布"
 
 #: apps/management/templates/management/event/list.html:25
-#, fuzzy
-msgid "recommendations"
-msgstr "评论"
+msgid "event_is_top"
+msgstr "置顶专题"
 
-#: apps/management/templates/management/event/list.html:46
-#, fuzzy
+#: apps/management/templates/management/event/list.html:29
+msgid "banners"
+msgstr "主图"
+
+#: apps/management/templates/management/event/list.html:31
+msgid "recommendations"
+msgstr "推荐位"
+
+#: apps/management/templates/management/event/list.html:56
 msgid "del"
 msgstr "删除"
 
 #: apps/management/templates/management/event_banner/list.html:46
 #: apps/management/templates/management/recommendation/list.html:27
-#, fuzzy
 msgid "images"
 msgstr "图片"
 
 #: apps/management/templates/management/media/list.html:15
+#: apps/management/templates/management/report/list.html:15
 msgid "content type"
 msgstr "内容类型"
 
 #: apps/management/templates/management/media/list.html:28
-#, fuzzy
 msgid "copy link"
-msgstr "购买链接"
+msgstr "复制 链接"
 
 #: apps/management/templates/management/notes/ajax_note_create.html:8
 msgid "add selection note"
@@ -871,14 +868,12 @@ msgid "reporter"
 msgstr ""
 
 #: apps/management/templates/management/report/list.html:13
-#, fuzzy
-msgid "report comment"
-msgstr "评论"
+msgid "report type"
+msgstr "举报 类型"
 
 #: apps/management/templates/management/report/list.html:14
-#, fuzzy
-msgid "report content type"
-msgstr "内容类型"
+msgid "report comment"
+msgstr "举报评论"
 
 #: apps/management/templates/management/selection/list.html:23
 #: apps/management/templates/management/selection/pending.html:14
@@ -901,19 +896,16 @@ msgid "set selection publish datetime"
 msgstr ""
 
 #: apps/management/templates/management/selection/table.html:15
-#, fuzzy
 msgid "published time"
-msgstr "发布"
+msgstr "发布时间"
 
 #: apps/management/templates/management/selection/table.html:40
-#, fuzzy
 msgid "edit datetime"
-msgstr "更新时间"
+msgstr "编辑时间"
 
 #: apps/management/templates/management/tags/list.html:15
-#, fuzzy
 msgid "created datetime"
-msgstr "更新时间"
+msgstr "创建时间"
 
 #: apps/management/templates/management/users/edit.html:12
 msgid "upload avatar"
@@ -949,12 +941,10 @@ msgid "malicious information"
 msgstr "不良信息"
 
 #: apps/web/feeds.py:24
-#, fuzzy
 msgid "guoku selection"
 msgstr "精选"
 
 #: apps/web/feeds.py:26
-#, fuzzy
 msgid "guoku selection desc"
 msgstr "精选"
 
@@ -1055,7 +1045,7 @@ msgstr "完成"
 #: apps/web/templates/web/account/partial/ajax_login.html:20
 #: apps/wechat/templates/wechat/bind.html:13
 msgid "error"
-msgstr ""
+msgstr "出错了"
 
 #: apps/web/templates/web/account/partial/ajax_login.html:47
 msgid "remember me"
@@ -1071,7 +1061,6 @@ msgstr "退出"
 
 #: apps/web/templates/web/account/restpassword/forget_password.html:4
 #: apps/web/templates/web/account/restpassword/send_mail_finished.html:4
-#, fuzzy
 msgid "forget password"
 msgstr "重设密码"
 
@@ -1079,7 +1068,6 @@ msgstr "重设密码"
 #: apps/web/templates/web/common/entity.html:20
 #: apps/web/templates/web/entity/partial/detail_middle.html:10
 #: apps/web/templates/web/entity/partial/detail_middle.html:19
-#: apps/web/templates/web/events/partial/event_item_list.html:26
 #: apps/web/templates/web/main/partial/entity.html:15
 #: apps/web/templates/web/main/partial/entity.html:20
 #: apps/web/templates/web/main/partial/selection_item_list.html:25
@@ -1111,6 +1099,12 @@ msgstr "点评"
 #: apps/wechat/templates/wechat/bind.html:34
 msgid "bind"
 msgstr "绑定"
+
+#~ msgid "has banner"
+#~ msgstr "有主图"
+
+#~ msgid "has recommendation"
+#~ msgstr "有推荐位置"
 
 #~ msgid "help"
 #~ msgstr "帮助"
