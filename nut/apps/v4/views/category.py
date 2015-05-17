@@ -81,9 +81,9 @@ def entity_sort(category_id, reverse, offset, count, key):
         reverse = int(reverse)
 
     if reverse != 0:
-        entity_list = APIEntity.objects.new_or_selection(category_id=category_id)
-    else:
         entity_list = APIEntity.objects.new_or_selection(category_id=category_id).order_by('created_time')
+    else:
+        entity_list = APIEntity.objects.new_or_selection(category_id=category_id)
 
     paginator = Paginator(entity_list, count)
 
