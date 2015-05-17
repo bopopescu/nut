@@ -225,7 +225,7 @@ def unread(request):
     try:
         _session = Session_Key.objects.get(session_key = _key)
     except Session_Key.DoesNotExist:
-        return ErrorJsonResponse(status=400)
+        return ErrorJsonResponse(status=403)
 
     res = {
         'unread_message_count': _session.user.notifications.read().count(),
