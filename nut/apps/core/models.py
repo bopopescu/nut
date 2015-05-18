@@ -811,7 +811,6 @@ class Entity_Tag(models.Model):
         ordering = ['-created_time']
         unique_together = ('entity', 'user', 'tag')
 
-
     @property
     def title(self):
         return self.tag.tag

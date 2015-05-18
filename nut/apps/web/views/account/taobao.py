@@ -19,7 +19,6 @@ def login_by_taobao(request):
     return HttpResponseRedirect(get_login_url())
 
 
-
 def auth_by_taobao(request):
 
     code = request.GET.get("code", None)
@@ -56,7 +55,7 @@ def auth_by_taobao(request):
                 return HttpResponseRedirect(next_url)
             else:
                 log.info(_taobao_data)
-                request.session['weibo_id'] = _taobao_data['taobao_id']
+                request.session['taobao_id'] = _taobao_data['taobao_id']
                 request.session['avatar'] = _taobao_data['avatar_large']
                 request.session['screen_name'] = _taobao_data['screen_name']
                 request.session['access_token'] = _taobao_data['access_token']
@@ -64,8 +63,6 @@ def auth_by_taobao(request):
                 request.session['expires_in'] = _taobao_data['expires_in']
                 return HttpResponseRedirect(reverse('web_register_from_three_part'))
     # return
-
-
 
 def bind(request):
     next_url = request.META.get('HTTP_REFERER', None)
