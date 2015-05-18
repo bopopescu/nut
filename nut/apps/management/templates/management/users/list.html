@@ -23,7 +23,9 @@
                     <th>{% trans 'nickname' %}</th>
                     <th>{% trans 'gender' %}</th>
 {#                    <th>{% trans 'is_admin' %}</th>#}
+                    <th>{% trans 'join datetime' %}</th>
                     <th>{% trans 'operation' %}</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -34,6 +36,7 @@
                         <td>{{ user.email }}</td>
                         <td>{{ user.profile.nickname }}</td>
                         <td>{{ user.profile.get_gender_display }}</td>
+                        <td>{{ user.date_joined|date:'Y-m-d H:i:s' }}</td>
 {#                        <td>{{ user.is_staff|yesno }}</td>#}
                         <td>
                             <a class="btn btn-primary" href="#">{% trans 'post message' %}</a>
