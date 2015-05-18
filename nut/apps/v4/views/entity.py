@@ -182,11 +182,8 @@ def search(request):
     except Session_Key.DoesNotExist:
         visitor = None
 
-
     _forms = EntitySearchForm(request.GET)
-
     # log.info(request.GET)
-
     if _forms.is_valid():
 
         results = _forms.search()

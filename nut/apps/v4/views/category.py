@@ -55,7 +55,6 @@ def user_like(request, category_id, user_id):
 
     _offset = _offset / _count + 1
 
-
     innqs = Entity_Like.objects.filter(user_id=user_id).values_list('entity_id', flat=True)
 
     entity_list = APIEntity.objects.filter(category_id=category_id, id__in=innqs)
