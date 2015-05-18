@@ -1,6 +1,6 @@
 #coding: utf-8
 from top.api import UserBuyerGetRequest
-from top.api import OpensecurityUidGetRequest
+from top.api import OpensecurityUidGetRequest, OpensecurityUidChangeRequest
 from top import appinfo
 
 # import json
