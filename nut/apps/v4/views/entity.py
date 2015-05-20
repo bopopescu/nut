@@ -89,7 +89,7 @@ def detail(request, entity_id):
 
     for note in entity.notes.top_or_normal():
         res['note_list'].append(
-            note.v3_toDict(user_note_pokes=np)
+            note.v4_toDict(user_note_pokes=np)
         )
     log.info(dir(entity))
     res['like_user_list'] = []
