@@ -127,6 +127,10 @@ class APIEntity(Entity):
     def buy_links(self):
         return APIBuyLink.objects.filter(entity=self.id)
 
+    @property
+    def notes(self):
+        return APINote.objects.filter(entity=self)
+
     def toDict(self):
         res = super(Entity, self).toDict()
         res['chief_image'] = self.chief_image
