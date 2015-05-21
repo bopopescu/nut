@@ -1191,6 +1191,12 @@ padding-left: 15px;
 #carousel-guoku .right{
     right: -10px ;
 }
+
+/*for event page banner border */
+
+.event-item-banner{
+    border: 1px solid #e6e6e6;
+}
 /* Add by An Chen end*/
 
 /*body,button,input,select,textarea{font:14px/1.125 Arial,Helvetica,sans-serif;_font-family:"SimSun";}*/
