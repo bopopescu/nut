@@ -18,7 +18,7 @@ for row in tusers:
     print row.id, row.taobao_id, row.screen_name
     if (row.taobao_id):
         t = TaobaoOpenUid(app_key, app_secret)
-        openuid =  t.get_open_id(row.taobao_id)
+        openuid = t.get_open_id(row.taobao_id)
         print openuid
         row.open_uid = openuid
         row.save()

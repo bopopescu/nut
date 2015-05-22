@@ -27,7 +27,6 @@ class NotificationQuerySet(models.query.QuerySet):
     def read(self):
         return self.filter(unread=True)
 
-
     def mark_all_as_read(self, recipient=None):
         qs = self.unread()
         if recipient:
@@ -93,8 +92,6 @@ class Notification(models.Model):
     def timesince(self, now=None):
         from django.utils.timesince import timesince as timesince_
         return timesince_(self.timestamp, now)
-
-
 
     def mark_as_read(self):
         if self.unread:
