@@ -17,44 +17,35 @@
 {#    <div class="download_bg"></div>#}
 		<div class="container download_area">
 			<div class="download_bg"></div>
-			<div class="row download">
-				<div class="col-sm-12 clearfix">
-					<div class="guoku_into">
-                        <img src="{% static 'images/download/guoku_icon.png' %}" alt="">
-                        <p class="title">尽收世上好物</p>
-                        <p class="intor">与「甄选好物」结缘，与「有识之士」为伍，发现生活之美。</p>
-                        <ul class="download_link">
-	                    	<li><a href="http://itunes.apple.com/cn/app/id477652209?mt=8" class="fc_4 fs_16">iPhone 版</a></li>
-	                    	<li><a href="http://itunes.apple.com/cn/app/id450507565?mt=8" class="fc_4 fs_16">iPad 版</a></li>
-	                    	<li><a href="http://app.guoku.com/download/android/guoku-release.apk"  target="_blank" bi="download_android" _hover-ignore="1" _orighref="http://app.guoku.com/download/android/guoku-release.apk" _tkworked="true" class="fc_4 fs_16">Android 版</a></li>
-	                    </ul>
-                    </div>
-                    <img class="download_img" src="{% static 'images/download/download_new.png' %}">
+            <div class="row">
+                <div class="col-xs-12 hidden-sm hidden-md hidden-lg">
+                   <div class="xs-app-intro">
+                    {% include 'web/partial/download_intro.html' %}
+                   </div>
+                   <div class="xs-app-download-img">
+                     {% include 'web/partial/download_pic.html' %}
+                   </div>
+                   <div class="xs-app-download-link">
+                       {% include 'web/partial/download_links.html' %}
+                   </div>
+                   <div class="xs-app-download-intro-table">
+                       {% include 'web/partial/download_intro_table.html' %}
+                   </div>
+                </div>
+                <div class="hidden-xs col-sm-12 col-md-12 col-lg-12 download-middle container-fluid">
+                        <div class="md-app-download-img col-sm-6">
+                             {% include 'web/partial/download_pic.html' %}
+                        </div>
+                        <div class="md-app-download-intro col-sm-6">
+                            {% include 'web/partial/download_intro.html' %}
+                            {% include 'web/partial/download_links.html' %}
+                        </div>
+                        <div class="md-app-download-intro-table col-sm-12">
+                            {% include 'web/partial/download_intro_table.html' %}
+                        </div>
 
-				</div>
-				<div class="col-sm-12 download_button">
-					<ul class="download_into fs_24">
-						<li class="col-sm-4">
-							<p><i class="fs_24 fa fa-star star_c"></i>&nbsp;&nbsp;每日精选</p>
-							<p class="intor fs_14 fc_1">
-								只收录最优质商品，最精彩点评， <br />轻松发现，省去筛选烦恼。
-							</p>
-						</li>
-						<li class="col-sm-4">
-							<p><img src="{% static 'images/download/discvr_icon.png' %}">&nbsp;&nbsp;全新发现</p>
-							<p class="intor fs_14 fc_1">
-								按品类细分商品、寻找好物不在盲目， <br />关爱生活、更关心你。
-							</p>
-						</li>
-						<li class="col-sm-4 border-right_none">
-							<p><i class="fs_24 fa fa-tags tags_c"></i>&nbsp;&nbsp;话题标签</p>
-							<p class="intor fs_14 fc_1">
-								实用、有趣的个人化标签、晒出独特品味，换一种方式去探索发现。
-							</p>
-						</li>
-					</ul>
-				</div>
-			</div>
+                </div>
+            </div>
 		</div>
 {#    </div>#}
 {% endblock %}
