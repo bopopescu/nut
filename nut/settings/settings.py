@@ -171,10 +171,16 @@ REST_FRAMEWORK = {
 }
 
 # mail
-EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
-MAILGUN_ACCESS_KEY = 'key-7n8gut3y8rpk1u-0edgmgaj7vs50gig8'
+EMAIL_BACKEND = 'sendcloud.SendCloudBackend'
+# MAILGUN_ACCESS_KEY = 'key-7n8gut3y8rpk1u-0edgmgaj7vs50gig8'
+MAIL_APP_USER = 'guoku_test_7LOIZp'
+MAIL_APP_KEY = 'gGg7gbLMk7XfYewdYPt3afMsKFGr481e.sendcloud.org'
+
 MAILGUN_SERVER_NAME = 'post.guoku.com'
 EMAIL_SUBJECT_PREFIX = '[guoku]'
+
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
