@@ -428,8 +428,8 @@ class CreateEntityForm(forms.Form):
     )
 
     cand_url = forms.URLField(
-        widget=forms.URLInput(),
-        # show_hidden_initial=True,
+        widget=forms.URLInput(attrs={'class':'form-control'}),
+        show_hidden_initial=True,
         required=False,
     )
 
@@ -454,7 +454,6 @@ class CreateEntityForm(forms.Form):
         img_count = len(self.initial['thumb_images'])
 
         # log.info("id %s" % group_id)
-
 
         img_choices = map(lambda x:(x, x+1), xrange(img_count))
 
@@ -648,10 +647,10 @@ def load_entity_info(url):
             }
         except Buy_Link.DoesNotExist:
                 # log.info("OKOKOKO")
-                t = TaoBao(_taobao_id)
+            t = TaoBao(_taobao_id)
                 # log.info(t.res())
                 # res = t.res()
-                _data = {
+            _data = {
                     # 'user_id': self.request.user.id,
                     # 'user_avatar': self.request.user.profile.avatar_url,
                     'cand_url': _link,
@@ -665,7 +664,8 @@ def load_entity_info(url):
                     # 'chief_image_url' : t.images[0],
                     'thumb_images': t.images,
                     # 'selected_category_id':
-                }
+            }
+            log.info(t.images)
 
     if re.search(r"\b(kaola)\.com$", _hostname) != None:
         # log.info(_hostname)
