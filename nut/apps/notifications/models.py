@@ -126,8 +126,13 @@ def notify_handler(verb, **kwargs):
 
     newnotify.save()
 
-
 # connect the signal
 notify.connect(notify_handler, dispatch_uid='notifications.models.notification')
+
+
+class JpushToken(models.Model):
+    rid = models.CharField(max_length=128)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False, related_name='jpush_token')
+    updated_time = models.DateTimeField(auto_now=True)
 
 __author__ = 'edison7500'
