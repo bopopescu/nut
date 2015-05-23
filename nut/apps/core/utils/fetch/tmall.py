@@ -33,9 +33,13 @@ def extract_url(str):
 
 def fix_script_url(script_url):
     l = list()
+    prepend = '';
+    if not 'http:' in script_url:
+        prepend = 'http:'
+
     l.append("callback=setMdskip")
     l.append("timestamp=%d"%int(time()))
-    return  "%s&%s"%(script_url,'&'.join(l))
+    return  "%s%s&%s"%(prepend,script_url,'&'.join(l))
 
 def get_start_url(id):
     return "http://detail.tmall.com/item.htm?id=%s"%id
@@ -47,7 +51,10 @@ def process_mdskip_response(response_str):
     reg = re.compile('\((.*)\)')
     m = reg.search(response_str)
     j_obj = json.loads(m.group(1))
+
     # return  json.dumps(j_obj,sort_keys=True,indent=4, separators=(',', ': '))
+    # print json.dumps(j_obj,sort_keys=True,indent=4, separators=(',', ': '))
+    # print j_obj
     return j_obj
 
 def get_price_by_entity_info(entity_info):
@@ -60,8 +67,17 @@ def get_price_by_entity_info(entity_info):
             for k,v in priceInfo.iteritems():
                 prices.append(priceInfo[k]['price'])
                 # may be there is multiple promotionList ... TODO
-                if priceInfo[k]['promotionList'][0] and priceInfo[k]['promotionList'][0]['extraPromPrice'] :
-                    prices.append(priceInfo[k]['promotionList'][0]['extraPromPrice'])
+                if priceInfo[k]['promotionList'] and len(priceInfo[k]['promotionList']):
+                     for promo in priceInfo[k]['promotionList']:
+                         try :
+                             prices.append(promo['price'])
+                             prices.append(promo['extraPromPrice'])
+                         except KeyError:
+                             continue;
+
+
+                # if priceInfo[k]['promotionList'][0] and priceInfo[k]['promotionList'][0]['extraPromPrice'] :
+                #     prices.append(priceInfo[k]['promotionList'][0]['extraPromPrice'])
             # print prices
         except Exception as e:
             # TODO: log error
@@ -71,7 +87,8 @@ def get_price_by_entity_info(entity_info):
 
         finally:
             if len(prices) > 0 :
-                price = min(prices)
+
+                price = min(map(float,prices))
             else:
                 price = 0
     else:
@@ -90,10 +107,12 @@ def get_tmall_item_price(id):
         # print r.text
         try:
             script_url = extract_url(r.text)
+            # print '--------------------'
             # print script_url
             script_url = fix_script_url(script_url)
             # print script_url
             r = s.get(script_url, headers=get_tmall_header())
+            # print '-------------------'
             # print r.text
             entity_info = process_mdskip_response(r.text)
             # print entity_info
@@ -110,6 +129,7 @@ def test_final(id):
 
 
 if __name__ == "__main__":
-    test_final(44509953660)
+    # test_final(20361416470)
+    test_final(41288775215)
 
-    test_final(44034481384)# this is a tmall id , should output 1997
+    # test_final(44034481384)# this is a tmall id , should output 1997
