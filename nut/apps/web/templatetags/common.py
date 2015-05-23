@@ -68,4 +68,12 @@ def format_boolean_class(value):
 
 register.filter(format_boolean_class)
 
+def format_like_num(value):
+    if value == 0:
+        return ''
+    else :
+        return value
+register.filter(format_like_num)
+
+
 __author__ = 'edison7500'
