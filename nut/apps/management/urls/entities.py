@@ -12,8 +12,8 @@ urlpatterns = patterns(
     url(r'^(?P<bid>\d+)/buy/link/remove/$', 'remove_buy_link', name='management_remove_entity_buy_link'),
 
     url(r'^image/(?P<entity_id>\d+)/remove/$', 'delete_image', name='management_remove_entity_image'),
+    url(r'^image/(?P<entity_id>\d+)/fetch/$', 'refetch_image', name='management_entity_fetch_image'),
     url(r'^image/(?P<entity_id>\d+)/$', 'image', name='management_entity_image'),
-
 )
 
 __author__ = 'edison7500'

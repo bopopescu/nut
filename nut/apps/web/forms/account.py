@@ -33,7 +33,7 @@ class UserSignInForm(forms.Form):
 
     email = forms.EmailField(
         label=_('email'),
-        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': _('email')}),
+        widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder': _('email')}),
         help_text=_('')
     )
     password = forms.CharField(
@@ -122,7 +122,7 @@ class UserSignUpForm(forms.Form):
 
     email = forms.EmailField(
         label=_('email'),
-        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'hi@guoku.com'}),
+        widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'hi@guoku.com'}),
         help_text=_('Required.'),
     )
 
@@ -250,6 +250,7 @@ class UserSignUpBioForm(forms.Form):
         _city = self.cleaned_data.get('city')
 
         # log.info(_avatar)
+        self.user = user
         if _avatar_file:
             _image = HandleImage(image_file= _avatar_file)
             _image.crop_square()
@@ -257,11 +258,10 @@ class UserSignUpBioForm(forms.Form):
             default_storage.save(file_path, ContentFile(_image.resize(180, 180)))
 
             avatar = avatar_path + "%s.jpg" % _image.name
-        else:
-            avatar = 'avatar/large_241170_637c2ee4729634de9fc848f9754c263b.png'
+            self.user.profile.avatar = avatar
+        # else:
+        #     avatar = None
 
-        self.user = user
-        self.user.profile.avatar = avatar
         self.user.profile.bio = _bio
         self.user.profile.gender = _gender
         self.user.profile.location = _location
