@@ -8,7 +8,8 @@
         <div class="row placeholders" id="images">
             {% for image in res.thumb_images %}
                 <div class="col-xs-6 col-sm-4 placeholder">
-                    <img class="img-responsive img-thumbnail" alt="{{ res.title }}" src="{{ image|resize:'240' }}" width="240" height="240">
+{#                {{ image }}#}
+                    <img class="img-responsive img-thumbnail" alt="{{ res.title }}" src="{{ image }}" width="240" height="240">
                 </div>
             {% endfor %}
         </div>

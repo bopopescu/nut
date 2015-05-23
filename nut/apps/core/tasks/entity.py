@@ -2,6 +2,7 @@ from celery.task import task
 from apps.core.tasks import BaseTask, DebugTask
 
 import urllib2
+import requests
 # from django.core.files.storage import default_storage
 # from django.core.files.base import ContentFile
 from apps.core.utils.image import HandleImage
@@ -17,8 +18,14 @@ image_host = getattr(settings, 'IMAGE_HOST', None)
 def fetch_image(images, entity_id, *args, **kwargs):
     image_list = list()
     for image_url in images:
-        f = urllib2.urlopen(image_url)
-        image = HandleImage(f)
+        if 'http' not in image_url:
+            image_url = 'http:' + image_url
+        # f = urllib2.urlopen(image_url)
+        if image_host in image_url:
+            continue
+            
+        r = requests.get(image_url, stream=True)
+        image = HandleImage(r.raw)
         image_name = image.save()
         image_list.append("%s%s" % (image_host, image_name))
     try:
