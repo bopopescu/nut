@@ -23,7 +23,7 @@ def fetch_image(images, entity_id, *args, **kwargs):
         # f = urllib2.urlopen(image_url)
         if image_host in image_url:
             continue
-            
+
         r = requests.get(image_url, stream=True)
         image = HandleImage(r.raw)
         image_name = image.save()

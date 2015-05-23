@@ -10,6 +10,7 @@ from apps.core.utils.tag import TagParser
 from django.utils.log import getLogger
 log = getLogger('django')
 
+
 class NoteForm(forms.ModelForm):
 
     class Meta:
@@ -22,12 +23,6 @@ class NoteForm(forms.ModelForm):
             'note': forms.Textarea(attrs={'class':'form-control', 'style':"resize: none;", 'rows':'4', 'placeholder':u"写点评 ＃贴标签"}),
             # 'email': forms.TextInput(attrs={'class':'form-control'})
         }
-    # content = forms.CharField(
-    #     label=_('content'),
-    #     widget=forms.Textarea(
-    #         attrs={'class':'form-control', 'style':"resize: none;", 'rows':'4', 'placeholder':u"写点评 ＃贴标签"}
-    #     )
-    # )
 
     def __init__(self, *args, **kwargs):
         self.entity_id = kwargs.pop('eid', None)
@@ -43,7 +38,6 @@ class NoteForm(forms.ModelForm):
     def save(self, commit=True):
         # note = super(NoteForm, self).save(commit=commit)
         _note = self.cleaned_data.get('note')
-
 
         try:
             note = Note.objects.get(user=self.user, entity_id=self.entity_id)
@@ -62,7 +56,6 @@ class NoteForm(forms.ModelForm):
 
     def update(self):
         _note = self.cleaned_data.get('note')
-
         note = Note.objects.get(pk=self.note_id, user=self.user)
         note.note = _note
         note.save()
