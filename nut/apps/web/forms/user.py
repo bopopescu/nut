@@ -3,8 +3,11 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 
 # from apps.core.forms.user import UserForm
+
 from apps.core.models import User_Profile
 from django.utils.log import getLogger
+
+from apps.web.utils.formtools import innerStrip
 
 log = getLogger('django')
 
@@ -76,8 +79,7 @@ class UserSettingsForm(forms.Form):
         _bio = self.cleaned_data.get('bio')
         # _bio = _bio.replace('\r', '')
         # log.info(_bio)
-        s = _bio.split('\r\n')
-        s =  " ".join(s)
+        s = innerStrip(_bio)
         # log.info(s)
         return s
 
