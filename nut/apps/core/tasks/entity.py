@@ -18,9 +18,11 @@ image_host = getattr(settings, 'IMAGE_HOST', None)
 def fetch_image(images, entity_id, *args, **kwargs):
     image_list = list()
     for image_url in images:
-        f = urllib2.urlopen(image_url)
-        # r = requests.get(image_url, stream=True)
-        image = HandleImage(f)
+        if 'http' not in image_url:
+            image_url = 'http:' + image_url
+        # f = urllib2.urlopen(image_url)
+        r = requests.get(image_url, stream=True)
+        image = HandleImage(r.raw)
         image_name = image.save()
         image_list.append("%s%s" % (image_host, image_name))
     try:
