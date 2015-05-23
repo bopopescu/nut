@@ -1,6 +1,6 @@
 #coding: utf-8
 from top.api import UserBuyerGetRequest
-from top.api import OpensecurityUidGetRequest, OpensecurityUidChangeRequest
+from top.api import OpensecurityUidGetRequest, OpensecurityIsvUidGetRequest
 from top import appinfo
 
 # import json
@@ -37,13 +37,32 @@ class TaobaoOpenUid():
             resp= self.req.getResponse()
             print resp
         except Exception, e:
-            print e
-            raise
+            print e.message
+            return None
         if (resp.has_key('opensecurity_uid_get_response')):
             return resp['opensecurity_uid_get_response']['open_uid']
 
+
+class TaobaoOpenIsvUID():
+
+    def __init__(self, app_key, app_secret):
+        self.req = OpensecurityIsvUidGetRequest()
+        self.req.set_app_info(appinfo(app_key, app_secret))
+
+    def get_isv_uid(self, open_uid):
+        self.req.open_uid = open_uid
+        try:
+            resp = self.req.getResponse()
+            print resp
+        except Exception, e:
+            print e
+
+        if (resp.has_key('opensecurity_isv_uid_get_response')):
+            return resp['opensecurity_isv_uid_get_response']['open_uid_isv']
+
 if __name__=="__main__":
-    t = TaobaoOpenUid('12313170', '90797bd8d5859aac971f8cc9d4e51105')
-    open_uid = t.get_open_id('49901372')
+    t = TaobaoOpenIsvUID('12313170', '90797bd8d5859aac971f8cc9d4e51105')
+    open_uid = t.get_isv_uid('AAEa6ZQCAASs0HrMGWO8Wjpb')
     print open_uid
     # t.get_open_uid('72913763')
+
