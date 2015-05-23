@@ -74,8 +74,6 @@ def get_price_by_entity_info(entity_info):
                              prices.append(promo['extraPromPrice'])
                          except KeyError:
                              continue;
-
-
                 # if priceInfo[k]['promotionList'][0] and priceInfo[k]['promotionList'][0]['extraPromPrice'] :
                 #     prices.append(priceInfo[k]['promotionList'][0]['extraPromPrice'])
             # print prices
@@ -87,7 +85,6 @@ def get_price_by_entity_info(entity_info):
 
         finally:
             if len(prices) > 0 :
-
                 price = min(map(float,prices))
             else:
                 price = 0
