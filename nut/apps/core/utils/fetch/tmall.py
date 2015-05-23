@@ -33,7 +33,7 @@ def extract_url(str):
 
 def fix_script_url(script_url):
     l = list()
-    prepend = '';
+    prepend = ''
     if not 'http:' in script_url:
         prepend = 'http:'
 
@@ -73,10 +73,7 @@ def get_price_by_entity_info(entity_info):
                              prices.append(promo['price'])
                              prices.append(promo['extraPromPrice'])
                          except KeyError:
-                             continue;
-                # if priceInfo[k]['promotionList'][0] and priceInfo[k]['promotionList'][0]['extraPromPrice'] :
-                #     prices.append(priceInfo[k]['promotionList'][0]['extraPromPrice'])
-            # print prices
+                             continue
         except Exception as e:
             # TODO: log error
             pass
