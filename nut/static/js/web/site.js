@@ -19,6 +19,12 @@ function getCookie(name) {
 }
 
 
+function clearUserInputString(str){
+    str = str.replace(/(\s+)/mg,' ');
+    str = str.replace(/([#><:$*&%])/mg, '');
+    return str.trim();
+}
+
 var csrftoken = getCookie('csrftoken');
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
@@ -644,6 +650,8 @@ $.ajaxSetup({
                       //    var url = note_update_form[0].action;
                       //    console.log(note_text[0].value);
                 var note_content_text = $.trim(note_text[0].value);
+                    note_content_text = clearUserInputString(note_content_text);
+
                 if (note_content_text.length > 0) {
                         $.ajax({
                             type: 'post',
@@ -997,8 +1005,7 @@ $.ajaxSetup({
             }
             function clean_bio(){
                 var bio = $.trim($('#id_bio').val());
-                    bio = bio.replace(/(\s+)/mg,' ');
-                    bio = bio.replace(/([#><:$*&%])/mg, '');
+                    bio = clearUserInputString(bio);
                     $('#id_bio').val(bio);
                 return bio;
             }

@@ -7,11 +7,14 @@ from apps.core.models import Note
 from apps.core.utils.tag import TagParser
 # from apps.notifications import notify
 
+from apps.web.utils.formtools import innerStrip
+
 from django.utils.log import getLogger
 log = getLogger('django')
 
 
 class NoteForm(forms.ModelForm):
+
 
     class Meta:
         model = Note
@@ -32,6 +35,7 @@ class NoteForm(forms.ModelForm):
 
     def clean_note(self):
         _note_text = self.cleaned_data.get('note')
+        _note_text = innerStrip(_note_text)
         _note_text = _note_text.replace(u"＃", "#")
         return _note_text
 
@@ -47,6 +51,8 @@ class NoteForm(forms.ModelForm):
                 user = self.user,
                 entity_id = self.entity_id,
             )
+        # except Note.MultipleObjectsReturned:
+
 
         t = TagParser(note.note)
         t.create_tag(user_id=self.user.pk, entity_id=self.entity_id)

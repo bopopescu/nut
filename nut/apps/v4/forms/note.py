@@ -37,7 +37,6 @@ class PostNoteForms(forms.Form):
             )
         return _session.user_id
 
-
     def clean_note(self):
         _note_text = self.cleaned_data.get('note')
         _note_text = _note_text.replace(u"＃", "#")
