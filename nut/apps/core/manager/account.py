@@ -21,7 +21,7 @@ class GKUserQuerySet(models.query.QuerySet):
         return self.filter(is_active=0)
 
     def deactive(self):
-        return self.filter(is_active=-1)
+        return self.using('slave').filter(is_active=-1)
 
     def admin(self):
         return self.filter(is_admin=True)
