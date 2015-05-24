@@ -10,6 +10,8 @@ urlpatterns = patterns(
 
     url(r'^unread/$', 'unread', name='v4_unread'),
     url(r'^item/(?P<item_id>\w+)/$', 'visit_item', name='v4_visit_item'),
+
+     url(r'^apns/token/$', 'apns_token', name='v4_apns_token'),
 )
 
 urlpatterns += patterns(

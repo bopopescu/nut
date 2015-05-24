@@ -7,6 +7,7 @@ from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.models import Show_Banner, Banner, Buy_Link, Selection_Entity, Entity, Entity_Like, Sub_Category
 from apps.core.utils.taobaoapi.utils import taobaoke_mobile_item_convert
 from apps.v4.models import APISelection_Entity, APIEntity
+from apps.v4.forms.pushtoken import PushForm
 # from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from datetime import datetime, timedelta
 # import random
@@ -250,5 +251,25 @@ def visit_item(request, item_id):
         return HttpResponseRedirect(decorate_taobao_url(get_taobao_url(b.origin_id, True), _ttid, _sid, _outer_code, _sche))
     else:
         return HttpResponseRedirect(b.link)
+
+
+def apns_token(request):
+
+    if request.method == 'POST':
+        _key = request.POST.get('session', None)
+        _user = None
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+            _user = _session.user
+        except Session_Key.DoesNotExist:
+            pass
+            # return ErrorJsonResponse(status=403)
+
+        form = PushForm(user=_user)
+        if form.is_valid():
+            form.save()
+            return SuccessJsonResponse(data={'message':'success'})
+        
+        return ErrorJsonResponse(status=400, data={'message':'error'})
 
 __author__ = 'edison7500'
