@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.utils.log import getLogger
 
+from apps.web.utils.formtools import innerStrip
 from apps.core.models import Note_Comment
 from apps.notifications import notify
 
@@ -24,6 +25,7 @@ class CommentForm(forms.Form):
     def save(self):
 
         _content = self.cleaned_data.get('content')
+        _content = innerStrip(_content)
         # log.info("ok ok ok %s" % _content)
         _reply_to_comment_id = self.data.get('reply_to_comment_id')
         _reply_to_user_id = self.data.get('reply_to_user_id')

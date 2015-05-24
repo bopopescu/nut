@@ -5,7 +5,6 @@ from apps.web.views.discover import DiscoverView
 
 urlpatterns = patterns(
     'apps.web.views',
-
     # url(r'^$', 'main.index', name='web_index'),
     url(r'^$', RedirectView.as_view(url='/selected/')),
     url(r'^selection/$', RedirectView.as_view(url='/selected/')),

@@ -69,6 +69,8 @@ class TaoBao():
             pr = ptag[0].string
             ps = re.findall("\d+\.\d+",pr)
             return float(ps[0])
+        else:
+            return  get_tmall_item_price(self.item_id)
 
     @property
     def images(self):
