@@ -129,12 +129,14 @@ def notify_handler(verb, **kwargs):
 notify.connect(notify_handler, dispatch_uid='notifications.models.notification')
 
 
-# class JpushToken(models.Model):
-#     rid = models.CharField(max_length=128)
-#     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False, related_name='jpush_token')
-#     updated_time = models.DateTimeField(auto_now=True)
-#
-#     def __unicode__(self):
-#         return self.rid
+class JpushToken(models.Model):
+    rid = models.CharField(max_length=128)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False, related_name='jpush_token', null=True)
+    model = models.CharField(max_length=100)
+    version = models.CharField(max_length=10)
+    updated_time = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.rid
 
 __author__ = 'edison7500'

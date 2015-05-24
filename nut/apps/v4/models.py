@@ -1,4 +1,6 @@
 from apps.core.models import Entity, Buy_Link, Note, GKUser, Selection_Entity, Sina_Token, Taobao_Token
+from apps.notifications.models import JpushToken
+
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
@@ -228,5 +230,11 @@ class APISelection_Entity(Selection_Entity):
     class Meta:
         proxy = True
 
+
+# API JPUSH
+class APIJpush(JpushToken):
+
+    class Meta:
+        proxy = True
 
 __author__ = 'edison'
