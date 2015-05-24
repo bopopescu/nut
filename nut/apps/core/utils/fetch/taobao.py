@@ -92,10 +92,10 @@ class TaoBao():
                 optimg = re.sub(IMG_POSTFIX, "", op.attrs.get('src'))
             except TypeError, e:
                 optimg = re.sub(IMG_POSTFIX, "", op.attrs.get('data-src'))
-            if optimg in _images:
-                continue
             if "http" not in optimg:
                 optimg = "http:" + optimg
+            if optimg in _images:
+                continue
             _images.append(optimg)
         return _images
 

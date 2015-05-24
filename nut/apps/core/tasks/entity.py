@@ -22,6 +22,7 @@ def fetch_image(images, entity_id, *args, **kwargs):
             image_url = 'http:' + image_url
         # f = urllib2.urlopen(image_url)
         if image_host in image_url:
+            image_list.append(image_url)
             continue
 
         r = requests.get(image_url, stream=True)
