@@ -22,10 +22,10 @@ if getattr(settings, 'USE_TZ'):
 class NotificationQuerySet(models.query.QuerySet):
 
     def unread(self):
-        return self.using('slave').filter(unread=True)
+        return self.filter(unread=True)
 
     def read(self):
-        return self.using('slave').filter(unread=True)
+        return self.filter(unread=True)
 
     def mark_all_as_read(self, recipient=None):
         qs = self.unread()

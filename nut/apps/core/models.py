@@ -761,10 +761,10 @@ class Note_Poke(models.Model):
         ordering = ['-created_time']
         unique_together = ('note', 'user')
 
-    def save(self, *args, **kwargs):
-
-        super(Note_Poke, self).save(*args, **kwargs)
-        notify.send(self.user, recipient=self.note.user, action_object=self, verb="poke note", target=self.note)
+    # def save(self, *args, **kwargs):
+    #
+    #     super(Note_Poke, self).save(*args, **kwargs)
+    #     notify.send(self.user, recipient=self.note.user, action_object=self, verb="poke note", target=self.note)
 
 
 class Tag(models.Model):
@@ -1124,6 +1124,10 @@ post_save.connect(user_post_comment_notification, sender=Note_Comment, dispatch_
 def user_poke_note_notification(sender, instance, created, **kwargs):
 
     if issubclass(sender, Note_Poke) and created:
-        pass
+
+        notify.send(instance.user, recipient=instance.note.user, action_object=instance, verb="poke note", target=instance.note)
+        # pass
+post_save.connect(user_poke_note_notification, sender=Note_Poke, dispatch_uid="user_poke_note_action_notification")
+
 
 __author__ = 'edison7500'
