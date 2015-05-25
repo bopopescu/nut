@@ -646,7 +646,7 @@ $.ajaxSetup({
                 note_content.show();
             });
             note_update_form.on('submit', function(e) {
-                      //    note_text[0].value;
+                      //   鸶te note_text[0].value;
                       //    var url = note_update_form[0].action;
                       //    console.log(note_text[0].value);
                 var note_content_text = $.trim(note_text[0].value);
@@ -684,7 +684,7 @@ $.ajaxSetup({
             comment.find('.btn-cancel').on('click', function() {
 
                 comment.slideToggle('fast');
-                commentText.val('');
+                //commentText.val('');
             });
 
             function reply(commentItem) {

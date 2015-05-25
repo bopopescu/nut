@@ -1052,6 +1052,11 @@ a:hover {
 .download_link a:hover {
   color: #fff;
 }
+/*for user page button */
+.user-main-button a {
+  background-color: #9d9d9d;
+  color: #9d9e9f!important;
+}
 @media (max-width: 767px) {
   .xs-app-intro .intro-holder {
     margin-top: 70px;

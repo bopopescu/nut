@@ -1,6 +1,17 @@
 from stage import *
 
 
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/tmp/django_cache',
+    }
+}
+
+
 TEMPLATE_CONTEXT_PROCESSORS += (
     # 'apps.web.contextprocessors.global.lastslug',
 )
@@ -8,10 +19,10 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test',
+        'NAME': 'core',
         'USER': 'guoku',
         'PASSWORD': 'guoku!@#',
-        'HOST': '10.0.2.90',
+        'HOST': '10.0.1.110',
         'PORT': '',
         'OPTIONS': {
             'use_unicode':'utf-8',
@@ -23,7 +34,7 @@ DATABASES = {
         'NAME': 'core',
         'USER': 'guoku',
         'PASSWORD': 'guoku!@#',
-        'HOST': '10.0.2.95',
+        'HOST': '10.0.1.110',
         'PORT': '',
         'OPTIONS': {
             'use_unicode':'utf-8',
@@ -31,6 +42,34 @@ DATABASES = {
         }
     },
 }
+
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'test',
+#         'USER': 'guoku',
+#         'PASSWORD': 'guoku!@#',
+#         'HOST': '10.0.2.90',
+#         'PORT': '',
+#         'OPTIONS': {
+#             'use_unicode':'utf-8',
+#             'init_command':'SET storage_engine=INNODB',
+#         }
+#     },
+#     'slave': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'test',
+#         'USER': 'guoku',
+#         'PASSWORD': 'guoku!@#',
+#         'HOST': '10.0.2.90',
+#         'PORT': '',
+#         'OPTIONS': {
+#             'use_unicode':'utf-8',
+#             'init_command':'SET storage_engine=INNODB',
+#         }
+#     },
+# }
 
 
 __author__ = 'an chen '

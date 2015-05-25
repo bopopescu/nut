@@ -19,12 +19,12 @@
                 <ul class="nav navbar-nav">
 {#                    {% url 'web_selection' as web_selection_url %}#}
                     <li {% if web_selection_url in request.path %}class="active"{% endif %}>
-                        <a href="{{ web_selection_url }}">{% trans 'selection' %}</a>
+                        <a href="{{ web_selection_url }}">{% trans 'Selection' %}</a>
                     </li>
 
                     {% url 'web_discover' as web_discover_url %}
                     <li {% if web_discover_url in request.path %}class="active"{% endif %}>
-                        <a href="{{ web_discover_url }}">{% trans 'discover' %}</a>
+                        <a href="{{ web_discover_url }}">{% trans 'Discover' %}</a>
                     </li>
 
 {#                    {% url 'web_popular' as web_popular_url %}#}
@@ -42,7 +42,7 @@
                     <li {% if web_event_home_url in request.path %}class="active" {% endif %}>
 {#                        <a href="{{ web_event_home_url }}">专题<img class="" alt="年货大集" title="年货大集" src="{% static 'images/new-icon.gif' %}" style="margin-top: -14px;width: 27px; height: 12px;"></a>#}
 {#                        <a href="{{ web_event_home_url }}">专题&nbsp;<i class="fa fa-circle" style="font-size: 6px; color: #ff1f77; vertical-align: top;"></i></a>#}
-                        <a href="{{ web_event_home_url }}">专题&nbsp;<span class="round"></span></a>
+                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="round"></span></a>
                     </li>
                 </ul>
 
@@ -53,15 +53,15 @@
                         {% if request.user.is_authenticated  %}
                             {% include 'web/account/partial/auth.html' with user_context=request.user %}
                         {% else %}
-                            <li><a href="{{ web_login_url }}" data-toggle="modal" data-target="#SignInModal">{% trans 'sign in' %}</a></li>
-                            <li><a href="{{ web_register_url }}">{% trans 'sign up' %}</a></li>
+                            <li><a href="{{ web_login_url }}" data-toggle="modal" data-target="#SignInModal">{% trans 'Sign In' %}</a></li>
+                            <li><a href="{{ web_register_url }}">{% trans 'Sign Up' %}</a></li>
                         {% endif %}
                     </ul>
                 {% endif %}
 
                 <form class="navbar-form navbar-right" action="{% url 'web_search' %}" method="get" role="form" style="margin-top: 11px;">
                     <div class="input-group search">
-                        <input class="form-control" name="q" type="search" placeholder="搜你想要的" value="{{ keyword }}" style="height: 28px;border:none;">
+                        <input class="form-control" name="q" type="search" placeholder="{% trans 'Search' %}" value="{{ keyword }}" style="height: 28px;border:none;">
                     </div>
                 </form>
 
@@ -70,7 +70,7 @@
                     <li>
                         <a href="{% url 'web_entity_create' %}" class="add_icon">
                             <i class="fa fa-plus" style="color: #9D9E9F; padding-right:40px;font-size:18px;"></i>
-                        <p class="add_goods"><span class="tip"></span>添加商品入库</p>
+                        <p class="add_goods"><span class="tip"></span>{% trans "Add Product"  %}</p>
                         </a>
                     </li>
 

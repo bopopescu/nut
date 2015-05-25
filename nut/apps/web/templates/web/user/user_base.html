@@ -31,9 +31,9 @@
             </div>
             <div class="col-xs-12 col-sm-12">
                 <p class="text-center">
-                    <a style="color: #414243" href="{{ web_user_followings_url }}">关注&nbsp; <span class="count">{{ user.following_count }}</span></a>
+                    <a style="color: #414243" href="{{ web_user_followings_url }}">{% trans 'Following' %}&nbsp; <span class="count">{{ user.following_count }}</span></a>
                     <span style="margin-left: 15px; margin-right: 15px;">|</span>
-                    <a style="color: #414243" href="{{ web_user_fans_url }}">粉丝&nbsp; <span class="count">{{ user.fans_count }}</span></a>
+                    <a style="color: #414243" href="{{ web_user_fans_url }}">{% trans 'Fans' %}&nbsp; <span class="count">{{ user.fans_count }}</span></a>
                 </p>
             </div>
             {% if request.user.is_staff %}
@@ -41,15 +41,18 @@
                     <a class="btn btn-default pull-right" href="{% url 'management_user_edit' user.id %}" target="_blank"><i class="fa fa-edit fa-lg"></i></a>
                 </div>
             {% endif %}
-            <div class="col-xs-12 col-sm-12" style="text-align:center;">
-                    {% if user == request.user %}
-                        <a class="btn btn-default btn-setting" href="{% url 'web_user_settings' %}"><i class="fa fa-cog fa-lg"></i>&nbsp; 编辑个人资料</a>
+            <div class="col-xs-12 col-sm-12 user-main-button" style="text-align:center;">
+
+                    {% if user.is_blocked %}
+                        <a  class="btn btn-setting disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
+                    {% elif user == request.user %}
+                        <a class="btn btn-default btn-setting" href="{% url 'web_user_settings' %}"><i class="fa fa-cog fa-lg"></i>&nbsp; {% trans _('Edit Profile') %}</a>
                     {% elif request.user.id in user.concren %}
-                        <a class="follow is-fan btn btn-cancel" data-status="1" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关注</a>
+                        <a class="follow is-fan btn btn-cancel" data-status="1" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
                     {% elif request.user.id in user.fans_list %}
-                        <a class="follow btn btn-cancel" data-status="1" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; 取消关注</a>
+                        <a class="follow btn btn-cancel" data-status="1" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
                     {% else %}
-                        <a class="follow btn btn-primary" data-status="0" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; 关注</a>
+                        <a class="follow btn btn-primary" data-status="0" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
                     {% endif %}
             </div>
         </div>
@@ -60,13 +63,13 @@
                 <div class="navbar nav-user-index" style="margin-left: 0;margin-right: 0; margin-bottom: 20px;">
                     <ul class="nav nav-pills pull-left" role="tablist">
                         <li role="presentation" {% if web_user_likes_url in request.path %}class="active"{% endif %}>
-                            <a href="{{ web_user_likes_url }}">我{% trans 'likes' %}的商品&nbsp; <span class="count">{{ user.like_count }}</span></a>
+                            <a href="{{ web_user_likes_url }}">{% trans 'My Likes' %}&nbsp; <span class="count">{{ user.like_count }}</span></a>
                         </li>
                         <li role="presentation" {% if web_user_notes_url in request.path %}class="active"{% endif %}>
-                            <a href="{{ web_user_notes_url }}">我的{% trans 'notes' %}&nbsp; <span class="count">{{ user.post_note_count }}</span></a>
+                            <a href="{{ web_user_notes_url }}">{% trans 'My Notes' %}&nbsp; <span class="count">{{ user.post_note_count }}</span></a>
                         </li>
                         <li role="presentation" {% if web_user_tags_url in request.path %}class="active" {% endif %}>
-                            <a href="{{ web_user_tags_url }}">我的{% trans 'tags' %}&nbsp; <span class="count">{{ user.tags_count }}</span></a>
+                            <a href="{{ web_user_tags_url }}">{% trans 'My tags' %}&nbsp; <span class="count">{{ user.tags_count }}</span></a>
                         </li>
                     </ul>
 {#                    <ul class="nav nav-pills pull-right hidden-xs" role="tablist">#}
