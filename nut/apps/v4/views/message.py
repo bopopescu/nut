@@ -28,8 +28,9 @@ def message(request):
     except Session_Key.DoesNotExist:
         return ErrorJsonResponse(status=403)
 
-    remove_user_list = V3_User.objects.deactive_user_list()
-    log.info(remove_user_list)
+    remove_user_list = []
+    # remove_user_list = V3_User.objects.deactive_user_list()
+    # log.info(remove_user_list)
     # actor_object_id
     #
     # log.info(request.GET)

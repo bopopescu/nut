@@ -1079,7 +1079,7 @@ post_save.connect(create_or_update_entity, sender=Entity, dispatch_uid="create_o
 
 
 def entity_set_to_selectoin(sender, instance, created, **kwargs):
-    if (sender, Selection_Entity) and created:
+    if (sender, Selection_Entity) and instance.is_published:
         user = GKUser.objects.get(pk=2)
         notify.send(user, recipient=instance.entity.user, action_object=instance, verb="set selection", target=instance.entity)
 post_save.connect(entity_set_to_selectoin, sender=Selection_Entity, dispatch_uid="entity_set_to_selection")
@@ -1087,8 +1087,10 @@ post_save.connect(entity_set_to_selectoin, sender=Selection_Entity, dispatch_uid
 
 def user_like_notification(sender, instance, created, **kwargs):
     if issubclass(sender, Entity_Like) and created:
-        log.info(instance.user)
-        log.info(instance.entity.user)
+        # log.info(instance.user)
+        # log.info(instance.entity.user)
+        if instance.user.is_active == GKUser.remove:
+            return
         if instance.user != instance.entity.user and instance.user.is_active >= instance.user.blocked:
             notify.send(instance.user, recipient=instance.entity.user, action_object=instance, verb='like entity', target=instance.entity)
 
@@ -1109,6 +1111,9 @@ def user_post_comment_notification(sender, instance, created, **kwargs):
     log.info(created)
     if issubclass(sender, Note_Comment) and created:
         log.info(instance.user)
+        if instance.user.is_active == GKUser.remove:
+            return
+
         notify.send(instance.user, recipient=instance.note.user, verb="replied note", action_object=instance, target=instance.note)
         if (instance.replied_user_id):
             try:
@@ -1124,7 +1129,8 @@ post_save.connect(user_post_comment_notification, sender=Note_Comment, dispatch_
 def user_poke_note_notification(sender, instance, created, **kwargs):
 
     if issubclass(sender, Note_Poke) and created:
-
+        if instance.user.is_active == GKUser.remove:
+            return
         notify.send(instance.user, recipient=instance.note.user, action_object=instance, verb="poke note", target=instance.note)
         # pass
 post_save.connect(user_poke_note_notification, sender=Note_Poke, dispatch_uid="user_poke_note_action_notification")
