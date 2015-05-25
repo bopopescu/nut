@@ -12,7 +12,11 @@
         {% for field in forms %}
         <div class="form-group">
             <div class="col-sm-12">
-                {{ field }}
+                {% if request.user.is_blocked %}
+                     <input class="form-control comment-content" type="text" disabled value="您已经被禁言"/>
+                {% else %}
+                     {{ field }}
+                {% endif %}
 {#            <input  type="text" name="comment_text" class="form-control" value="" />#}
             </div>
         </div>
@@ -21,8 +25,11 @@
 
     <div class="comment-action" style="height: 28px; position: relative;">
         <button class="btn btn-default btn-cancel" style="right: 70px; position: absolute;" type="button">取消</button>
+        {%  if not request.user.is_blocked %}
         <button class="btn btn-primary btn-comment" style="position: absolute; right: 0;" type="submit">评论</button>
+        {% endif %}
     </div>
+
 </form>
 </div>
 

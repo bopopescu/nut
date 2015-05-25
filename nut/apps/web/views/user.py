@@ -15,6 +15,8 @@ from apps.core.forms.user import AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.models import Entity, Entity_Like, Tag, Entity_Tag, User_Follow
 
+from ..utils.viewtools import get_paged_list
+
 # from apps.notifications import notify
 
 from django.utils.log import getLogger
@@ -157,19 +159,9 @@ def entity_like(request, user_id, template="web/user/like.html"):
     # ids = Entity.objects.filter(status__gte=Entity.freeze)
     entity_like_list = Entity_Like.objects.filter(user=_user, entity__status__gte=Entity.freeze)
 
-    paginator = ExtentPaginator(entity_like_list, 20)
 
-    try:
-        entity_likes = paginator.page(_page)
-    except PageNotAnInteger:
-        entity_likes = paginator.page(1)
-    except EmptyPage:
-        raise Http404
+    entity_likes = get_paged_list(entity_like_list,_page,20);
 
-    # log.info(el.object_list)
-
-    # _entities = Entity.objects.filter(pk__in=list(likes.object_list))
-    # log.info(_entities.query)
     el = list()
     if request.user.is_authenticated():
         el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(entity_likes.object_list.values_list('entity_id', flat=True)))
