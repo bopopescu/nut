@@ -249,6 +249,10 @@ def visit_item(request, item_id):
         if _taobaoke_info and _taobaoke_info.has_key('click_url'):
             return HttpResponseRedirect(decorate_taobao_url(_taobaoke_info['click_url'], _ttid, _sid, _outer_code, _sche))
         return HttpResponseRedirect(decorate_taobao_url(get_taobao_url(b.origin_id, True), _ttid, _sid, _outer_code, _sche))
+    if "jd.com" in b.origin_source:
+        _jd_url = "http://item.m.jd.com/product/%s.html" % b.origin_id
+        return HttpResponseRedirect(_jd_url)
+
     else:
         return HttpResponseRedirect(b.link)
 
