@@ -10,7 +10,7 @@
         <i class="fa fa-caret-down" style="padding-left:10px;font-size:20px;vertical-align: middle;color:#999;"></i>
     </a>
     <ul class="dropdown-menu" role="menu">
-        {% if user.is_staff %}
+        {% if request.user.is_staff %}
             <li><a href="{% url 'management_dashboard' %}" target="_blank"><i class="fa fa-pencil-square-o fa-lg"></i>&nbsp; {% trans 'Guoku Management' %}</a></li>
             <li class="divider"></li>
         {% endif %}
