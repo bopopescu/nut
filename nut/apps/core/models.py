@@ -24,7 +24,7 @@ from hashlib import md5
 # from apps.notifications import notify
 
 from djangosphinx.models import SphinxSearch
-from apps.notifications import notify
+from apps.notifications import notify, push
 from datetime import datetime
 import time
 
@@ -1109,6 +1109,7 @@ def user_like_notification(sender, instance, created, **kwargs):
             return
         if instance.user != instance.entity.user and instance.user.is_active >= instance.user.blocked:
             notify.send(instance.user, recipient=instance.entity.user, action_object=instance, verb='like entity', target=instance.entity)
+            # push.send(_('like'), rid=instance.user.jpush_token, content_type=instance, production=False)
 
 post_save.connect(user_like_notification, sender=Entity_Like, dispatch_uid="user_like_action_notification")
 

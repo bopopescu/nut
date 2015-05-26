@@ -5,11 +5,15 @@ from django.contrib.contenttypes import generic
 from django.db import models
 from django.utils.timezone import utc
 
-
+# from jpush import push
+import jpush
 
 from .signals import notify
 
 from model_utils import managers, Choices
+
+app_key = getattr(settings, 'JPUSH_KEY', None)
+app_secret = getattr(settings, 'JPUSH_SECRET', None)
 
 now=datetime.datetime.now
 if getattr(settings, 'USE_TZ'):
@@ -130,6 +134,7 @@ def notify_handler(verb, **kwargs):
 notify.connect(notify_handler, dispatch_uid='notifications.models.notification')
 
 
+# jpush
 class JpushToken(models.Model):
     rid = models.CharField(max_length=128)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False, related_name='jpush_token', null=True)
@@ -141,5 +146,25 @@ class JpushToken(models.Model):
         return self.rid
 
 
+def push_notification(verb, **kwargs):
+    _platform = kwargs.pop('platform')
+    _register_id = kwargs.pop('rid', None)
+    _production = kwargs.pop('production', True)
+
+    # print _register_id
+    if _register_id is None:
+        return
+
+    _jpush = jpush.JPush(app_key, app_secret)
+    push = _jpush.create_push()
+    # push.audience = _jpush.al
+    # push.platform = jpush.audience(_register_id)
+
+    ios_msg = jpush.ios(alert=verb, badge="+1", extras={'k1':'v1'})
+    push.notification = jpush.notification(alert=verb, ios=ios_msg)
+    push.platform = jpush.platform(_platform)
+    push.audience = jpush.audience(_register_id)
+    push.options = {"time_to_live":86400, "apns_production":_production}
+    push.send()
 
 __author__ = 'edison7500'
