@@ -778,7 +778,7 @@ msgstr "添加 购买 链接"
 #: apps/management/templates/management/entities/edit.html:43
 #,
 msgid "fetch image"
-msgstr "主图图片"
+msgstr "重新抓取图片"
 
 #: apps/management/templates/management/entities/edit.html:71
 msgid "buy links"
