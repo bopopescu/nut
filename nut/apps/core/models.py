@@ -487,6 +487,22 @@ class Entity(BaseModel):
     def get_absolute_url(self):
         return "/detail/%s" % self.entity_hash
 
+    @property
+    def enter_selection_time(self):
+        # this is a path for some entity's data problem
+        # some entity has the selection attrib set to 1 but do not has an selection_entity
+        if  not self.selection:
+            return None
+        _tm = None
+        try :
+            _tm = self.selection_entity.pub_time
+        except:
+            _tm = self.created_time
+
+        return _tm
+
+
+
     # add by an
     @property
     def selection_hover_word(self):

@@ -96,12 +96,16 @@ def event(request, slug, template='web/events/home'):
 
         if _entity_list:
             log.info(_entities)
-            _t = loader.get_template('web/events/partial/event_item_list.html')
-            _c = RequestContext(request, {
-                'user_entity_likes': el,
-                'entities': _entities,
-            })
-            _data = _t.render(_c)
+            _t = loader.get_template('web/events/partial/event_entity_list.html')
+            try:
+                _c = RequestContext(request, {
+                    'user_entity_likes': el,
+                    'entities': _entities,
+                })
+
+                _data = _t.render(_c)
+            except e :
+                log('render error'+ e  );
 
             _ret = {
                 'status' : '1',
