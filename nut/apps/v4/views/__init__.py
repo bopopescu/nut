@@ -10,6 +10,7 @@ from apps.v4.models import APISelection_Entity, APIEntity
 from apps.v4.forms.pushtoken import PushForm
 # from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from datetime import datetime, timedelta
+from django.views.decorators.csrf import csrf_exempt
 # import random
 
 
@@ -256,7 +257,8 @@ def visit_item(request, item_id):
     else:
         return HttpResponseRedirect(b.link)
 
-
+@csrf_exempt
+@check_sign
 def apns_token(request):
 
     if request.method == 'POST':
@@ -268,12 +270,20 @@ def apns_token(request):
         except Session_Key.DoesNotExist:
             pass
             # return ErrorJsonResponse(status=403)
-
-        form = PushForm(user=_user)
+        log.info(request.POST)
+        form = PushForm(user=_user, data=request.POST)
         if form.is_valid():
             form.save()
             return SuccessJsonResponse(data={'message':'success'})
-        
-        return ErrorJsonResponse(status=400, data={'message':'error'})
+        # log.info(form.errors)
+        for k, v in dict(form.errors).items():
+            log.info(v.as_text().split('*'))
+            error_msg = v.as_text().split('*')[1]
+            return ErrorJsonResponse(status=400, data={
+                'type': k,
+                'message': error_msg.lstrip(),
+            })
+
+        return ErrorJsonResponse(status=403, data={'message':'error'})
 
 __author__ = 'edison7500'

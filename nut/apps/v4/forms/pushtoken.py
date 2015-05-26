@@ -29,6 +29,7 @@ class PushForm(forms.Form):
             self.push = APIJpush()
             self.push.rid = _rid
         finally:
+            self.push.user = self.user
             self.push.model = _model
             self.push.version = _version
             self.push.save()

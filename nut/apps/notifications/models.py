@@ -6,6 +6,7 @@ from django.db import models
 from django.utils.timezone import utc
 
 
+
 from .signals import notify
 
 from model_utils import managers, Choices
@@ -138,5 +139,7 @@ class JpushToken(models.Model):
 
     def __unicode__(self):
         return self.rid
+
+
 
 __author__ = 'edison7500'
