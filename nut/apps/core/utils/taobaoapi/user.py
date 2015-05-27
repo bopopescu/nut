@@ -35,7 +35,7 @@ class TaobaoOpenUid():
         self.req.tb_user_id = user_id
         try:
             resp= self.req.getResponse()
-            print resp
+            # print resp
         except Exception, e:
             print e.message
             return None
@@ -51,11 +51,13 @@ class TaobaoOpenIsvUID():
 
     def get_isv_uid(self, open_uid):
         self.req.open_uid = open_uid
+
         try:
             resp = self.req.getResponse()
             print resp
         except Exception, e:
             print e
+            raise
 
         if (resp.has_key('opensecurity_isv_uid_get_response')):
             return resp['opensecurity_isv_uid_get_response']['open_uid_isv']
@@ -64,5 +66,11 @@ if __name__=="__main__":
     t = TaobaoOpenIsvUID('12313170', '90797bd8d5859aac971f8cc9d4e51105')
     open_uid = t.get_isv_uid('AAEa6ZQCAASs0HrMGWO8Wjpb')
     print open_uid
+
+
+    from apps.core.models import Taobao_Token
+
+    taobao = Taobao_Token.objects.get(user_id = 1062)
+    print taobao
     # t.get_open_uid('72913763')
 
