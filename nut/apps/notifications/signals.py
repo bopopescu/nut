@@ -5,4 +5,8 @@ notify = Signal(providing_args=[
     'timestamp'
 ])
 
+push = Signal(providing_args=[
+    'verb', 'rid', 'platform', 'content_type', 'production'
+])
+
 __author__ = 'edison'

@@ -5,6 +5,7 @@
 
 <div class="operate row">
     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-md-offset-0 col-lg-offset-0 col-sm-4 col-md-4 col-lg-4 grey-button">
+        <div >
          {% if like_status %}
             <a class="like-action fc_333" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
                 <i class="fa fa-heart fc_heart"></i>&nbsp;{% trans 'likes' %}&nbsp;
@@ -24,6 +25,7 @@
                 </span>
             </a>
         {% endif %}
+        </div >
     </div>
      <div class="hidden-xs col-sm-2 col-md-2 col-lg-2 pull-right">
     {% if request.user.is_authenticated %}

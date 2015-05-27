@@ -7,8 +7,10 @@ from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.models import Show_Banner, Banner, Buy_Link, Selection_Entity, Entity, Entity_Like, Sub_Category
 from apps.core.utils.taobaoapi.utils import taobaoke_mobile_item_convert
 from apps.v4.models import APISelection_Entity, APIEntity
+from apps.v4.forms.pushtoken import PushForm
 # from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from datetime import datetime, timedelta
+from django.views.decorators.csrf import csrf_exempt
 # import random
 
 
@@ -202,7 +204,7 @@ def toppopular(request):
     _count = int(_count)
 
     query = "select id, entity_id, count(*) as lcount from core_entity_like where created_time between '%s' and '%s' group by entity_id order by lcount desc" % (dt.strftime("%Y-%m-%d"), now_string)
-    _entity_list = Entity_Like.objects.raw(query)
+    _entity_list = Entity_Like.objects.raw(query).using('slave')
 
     res = []
     for entity_like in _entity_list[:_count]:
@@ -225,7 +227,7 @@ def unread(request):
     try:
         _session = Session_Key.objects.get(session_key = _key)
     except Session_Key.DoesNotExist:
-        return ErrorJsonResponse(status=400)
+        return ErrorJsonResponse(status=403)
 
     res = {
         'unread_message_count': _session.user.notifications.read().count(),
@@ -248,7 +250,40 @@ def visit_item(request, item_id):
         if _taobaoke_info and _taobaoke_info.has_key('click_url'):
             return HttpResponseRedirect(decorate_taobao_url(_taobaoke_info['click_url'], _ttid, _sid, _outer_code, _sche))
         return HttpResponseRedirect(decorate_taobao_url(get_taobao_url(b.origin_id, True), _ttid, _sid, _outer_code, _sche))
+    if "jd.com" in b.origin_source:
+        _jd_url = "http://item.m.jd.com/product/%s.html" % b.origin_id
+        return HttpResponseRedirect(_jd_url)
+
     else:
         return HttpResponseRedirect(b.link)
+
+@csrf_exempt
+@check_sign
+def apns_token(request):
+
+    if request.method == 'POST':
+        _key = request.POST.get('session', None)
+        _user = None
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+            _user = _session.user
+        except Session_Key.DoesNotExist:
+            pass
+            # return ErrorJsonResponse(status=403)
+        log.info(request.POST)
+        form = PushForm(user=_user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return SuccessJsonResponse(data={'message':'success'})
+        # log.info(form.errors)
+        for k, v in dict(form.errors).items():
+            log.info(v.as_text().split('*'))
+            error_msg = v.as_text().split('*')[1]
+            return ErrorJsonResponse(status=400, data={
+                'type': k,
+                'message': error_msg.lstrip(),
+            })
+
+        return ErrorJsonResponse(status=403, data={'message':'error'})
 
 __author__ = 'edison7500'

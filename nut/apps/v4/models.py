@@ -1,4 +1,6 @@
 from apps.core.models import Entity, Buy_Link, Note, GKUser, Selection_Entity, Sina_Token, Taobao_Token
+from apps.notifications.models import JpushToken
+
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
@@ -127,6 +129,10 @@ class APIEntity(Entity):
     def buy_links(self):
         return APIBuyLink.objects.filter(entity=self.id)
 
+    @property
+    def notes(self):
+        return APINote.objects.filter(entity=self)
+
     def toDict(self):
         res = super(Entity, self).toDict()
         res['chief_image'] = self.chief_image
@@ -224,5 +230,11 @@ class APISelection_Entity(Selection_Entity):
     class Meta:
         proxy = True
 
+
+# API JPUSH
+class APIJpush(JpushToken):
+
+    class Meta:
+        proxy = True
 
 __author__ = 'edison'

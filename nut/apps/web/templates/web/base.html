@@ -9,6 +9,7 @@ document.execCommand('stop');
 alert(tip);
 window.location.href = url;</script><![endif]-->
 <html lang="{{ LANGUAGE_CODE }}">
+{#<html lang="zh-cn">#}
 <head>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 {#    <meta charset="utf-8">#}
@@ -75,85 +76,7 @@ window.location.href = url;</script><![endif]-->
 {% endblock %}
 <h1 class="hidden sr-only">{% block h1 %}果库{% endblock %}</h1>
 {% block header %}
-    <header class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="border-bottom: 0;opacity: 0.9;">
-        <div class="container">
-            <div class="nav-header">
-                <button class="navbar-toggle collapsed" data-target=".collapse" data-toggle="collapse" type="button">
-                    <span class="sr-only">导航条</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{% url 'web_selection' %}">
-                    <img alt="{% trans 'guoku' %}" src="{% static 'images/logo2.png' %}" width="46" height="26" style="margin-top: 2px">
-{#                    <img src="{% static 'images/wap_logo.png' %}" style="height:30px;padding-left:5px;">#}
-                </a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-{#                    {% url 'web_selection' as web_selection_url %}#}
-                    <li {% if web_selection_url in request.path %}class="active"{% endif %}>
-                        <a href="{{ web_selection_url }}">{% trans 'selection' %}</a>
-                    </li>
-
-                    {% url 'web_discover' as web_discover_url %}
-                    <li {% if web_discover_url in request.path %}class="active"{% endif %}>
-                        <a href="{{ web_discover_url }}">{% trans 'discover' %}</a>
-                    </li>
-
-{#                    {% url 'web_popular' as web_popular_url %}#}
-{#                     <li {% if web_popular_url in request.path %}class="active" {% endif %}>#}
-{#                         <a href="{{ web_popular_url }}">{% trans 'popular' %}</a>#}
-{#                     </li>#}
-
-{#                    {% url 'web_category_list' as web_category_list_url %}#}
-{#                    <li {% if web_category_list_url in request.path %}class="active"{% endif %}>#}
-{#                        <a href="{{ web_category_list_url }}">品类</a>#}
-{#                    </li>#}
-
-                    {% url 'web_event_home' as web_event_home_url %}
-{#                {{ web_event_home_url }}#}
-                    <li {% if web_event_home_url in request.path %}class="active" {% endif %}>
-{#                        <a href="{{ web_event_home_url }}">专题<img class="" alt="年货大集" title="年货大集" src="{% static 'images/new-icon.gif' %}" style="margin-top: -14px;width: 27px; height: 12px;"></a>#}
-{#                        <a href="{{ web_event_home_url }}">专题&nbsp;<i class="fa fa-circle" style="font-size: 6px; color: #ff1f77; vertical-align: top;"></i></a>#}
-                        <a href="{{ web_event_home_url }}">专题&nbsp;<span class="round"></span></a>
-                    </li>
-                </ul>
-
-                {% url 'web_login' as web_login_url %}
-                {% url 'web_register' as web_register_url %}
-                {% if web_login_url not in request.path and web_register_url not in request.path %}
-                    <ul class="nav navbar-nav navbar-right">
-                        {% if request.user.is_authenticated  %}
-                            {% include 'web/account/partial/auth.html' with user_context=request.user %}
-                        {% else %}
-                            <li><a href="{{ web_login_url }}" data-toggle="modal" data-target="#SignInModal">{% trans 'sign in' %}</a></li>
-                            <li><a href="{{ web_register_url }}">{% trans 'sign up' %}</a></li>
-                        {% endif %}
-                    </ul>
-                {% endif %}
-
-                <form class="navbar-form navbar-right" action="{% url 'web_search' %}" method="get" role="form" style="margin-top: 11px;">
-                    <div class="input-group search">
-                        <input class="form-control" name="q" type="search" placeholder="搜你想要的" value="{{ keyword }}" style="height: 28px;border:none;">
-                    </div>
-                </form>
-
-                {% if web_login_url not in request.path and web_register_url not in request.path %}
-                <ul class="nav navbar-nav navbar-right hidden-sm hidden-xs">
-                    <li>
-                        <a href="{% url 'web_entity_create' %}" class="add_icon">
-                            <i class="fa fa-plus" style="color: #9D9E9F; padding-right:40px;font-size:18px;"></i>
-                        <p class="add_goods"><span class="tip"></span>添加商品入库</p>
-                        </a>
-                    </li>
-                    
-                </ul>
-
-                {% endif %}
-            </div>
-        </div>
-    </header>
+ {%  include "web/partial/header.html" %}
 {% endblock %}
 
 {% block content %} {% endblock %}
@@ -162,24 +85,22 @@ window.location.href = url;</script><![endif]-->
     <footer class="footer">
         <div class="container">
             <div class="row footer-top">
-                <div class="col-sm-9">
+                <div class="col-sm-10">
                     <ul class="list-inline text-center">
                         <li><a target="_blank" href="http://www.miibeian.gov.cn/">京ICP备14054029号</a></li>
                         <li>京公网安备11010502019958</li>
                         <li>|</li>
-                        <li><a href="{% url 'web_about' %}">{% trans 'about' %}</a></li>
-                        <li><a title="果库官方微博" href="http://weibo.com/guoku">新浪微博</a></li>
-                        <li><a title="Keep in touch :)" href="mailto:hi@guoku.com" _hover-ignore="1">电子邮件</a></li>
-                        <li><a href="{% url 'web_jobs' %}">工作</a></li>
-                        <li><a href="{% url 'web_agreement' %}" target="_blank">{% trans 'agreement' %}</a></li>
-                        <li><a href="{% url 'web_links' %}">{% trans 'links' %}</a></li>
+                        <li><a href="{% url 'web_about' %}">{% trans 'About' %}</a></li>
+                        <li><a title="{% trans 'Guoku on Weibo' %}" href="http://weibo.com/guoku">{% trans 'Guoku on Weibo' %}</a></li>
+                        <li><a title="Keep in touch :)" href="mailto:hi@guoku.com" _hover-ignore="1">{% trans 'Email' %}</a></li>
+                        <li><a href="{% url 'web_jobs' %}">{% trans "Jobs" %}</a></li>
+                        <li><a href="{% url 'web_agreement' %}" target="_blank">{% trans 'Agreement' %}</a></li>
+                        <li><a href="{% url 'web_links' %}">{% trans 'Links' %}</a></li>
                     </ul>
-{#                    <h4>果库网</h4>#}
-{#                    <p></p>#}
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <ul class="list-inline text-center">
-                        <li><i class="fa fa-copyright"></i>&nbsp; 2015 果库</li>
+                        <li><i class="fa fa-copyright"></i>&nbsp; 2015 {% trans 'Guoku' %}</li>
                     </ul>
                 </div>
             </div>
@@ -203,7 +124,6 @@ window.location.href = url;</script><![endif]-->
 
 <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
 <script src="{% static 'js/web/jquery.cookie.js' %}"></script>
-<script src="{% static 'js/web/parsley.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/web/site.js' %}"></script>
 

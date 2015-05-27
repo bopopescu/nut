@@ -120,7 +120,6 @@ LOCALE_PATHS = (
     os.path.join(os.getcwd(), 'conf/locale'),
 )
 
-# print LOCALE_PATHS
 
 STATICFILES_DIRS = (
     os.path.join(os.getcwd(), 'static'),
@@ -172,10 +171,16 @@ REST_FRAMEWORK = {
 }
 
 # mail
-EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
-MAILGUN_ACCESS_KEY = 'key-7n8gut3y8rpk1u-0edgmgaj7vs50gig8'
+EMAIL_BACKEND = 'sendcloud.SendCloudBackend'
+# MAILGUN_ACCESS_KEY = 'key-7n8gut3y8rpk1u-0edgmgaj7vs50gig8'
+MAIL_APP_USER = 'guoku_test_7LOIZp'
+MAIL_APP_KEY = 'gGg7gbLMk7XfYewdYPt3afMsKFGr481e.sendcloud.org'
+
 MAILGUN_SERVER_NAME = 'post.guoku.com'
 EMAIL_SUBJECT_PREFIX = '[guoku]'
+
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
@@ -266,7 +271,13 @@ WECHAT_TOKEN = 'guokuinwechat'
 WECHAT_APP_ID = 'wx728e94cbff8094df'
 WECHAT_APP_SECRET = 'd841a90cf90d00f145ca22b82e12a500'
 
+<<<<<<< HEAD
 
 #JPush
 JPUSH_APP_KEY = 'f9e153a53791659b9541eb37'
 JPUSH_APP_SECRET = 'a0529d3efa544d1da51405b7'
+=======
+# jpush
+JPUSH_KEY = 'f9e153a53791659b9541eb37'
+JPUSH_SECRET = 'a0529d3efa544d1da51405b7'
+>>>>>>> 72e43586aba0244e68985f37dafbfd46d5a59172

@@ -1,5 +1,5 @@
 {% extends 'web/user/user_base.html' %}
-
+{% load i18n static %}
 {% block list %}
     <div class="row">
         {% for f in followings %}
@@ -11,24 +11,24 @@
                         </a>
 {#                    {{ reqeust.user }}#}
                     {% if f.followee_id == request.user.id %}
-                        <a href="#" class="btn btn-cancel pull-right disabled">&nbsp; <b>我自己</b></a>
+                        <a href="#" class="btn btn-cancel pull-right disabled">&nbsp; <b>{% trans 'Myself' %}</b></a>
                     {% elif f.followee_id in request.user.concren %}
-                        <a data-status="1" data-user-id="{{ f.followee_id }}" href="javascript:;" class="follow is-fan btn btn-cancel pull-right"><i class="fa fa-exchange fa-lg" style="color: #ccc"></i>&nbsp; <b>取消关注</b></a>
+                        <a data-status="1" data-user-id="{{ f.followee_id }}" href="javascript:;" class="follow is-fan btn btn-cancel pull-right"><i class="fa fa-exchange fa-lg" style="color: #ccc"></i>&nbsp; <b>{% trans 'Unfollow' %}</b></a>
                     {% elif f.followee_id in request.user.following_list %}
 {#                    {% elif f.followee_id in request.user.following_list  %}#}
-                        <a data-status="1" data-user-id="{{ f.followee_id }}" href="javascript:;" class="follow btn btn-cancel pull-right"><i class="fa fa-check fa-lg" style="color: #ccc"></i>&nbsp; <b>取消关注</b></a>
+                        <a data-status="1" data-user-id="{{ f.followee_id }}" href="javascript:;" class="follow btn btn-cancel pull-right"><i class="fa fa-check fa-lg" style="color: #ccc"></i>&nbsp; <b>{% trans 'Unfollow' %}</b></a>
                     {% elif f.followee_id in request.user.fans_list %}
-                        <a data-status="0" data-user-id="{{ f.followee_id }}" href="javascript:;" class="follow btn btn-primary pull-right"><i class="fa fa-plus fa-lg" style="color: #fff"></i>&nbsp; <b>关注</b></a>
+                        <a data-status="0" data-user-id="{{ f.followee_id }}" href="javascript:;" class="follow btn btn-primary pull-right"><i class="fa fa-plus fa-lg" style="color: #fff"></i>&nbsp; <b>{% trans 'Follow' %}</b></a>
                     {% else %}
-                        <a data-status="0" data-user-id="{{ f.followee_id }}" href="javascript:;" class="follow btn btn-primary pull-right"><i class="fa fa-plus fa-lg" style="color: #fff"></i>&nbsp; <b>关注</b></a>
+                        <a data-status="0" data-user-id="{{ f.followee_id }}" href="javascript:;" class="follow btn btn-primary pull-right"><i class="fa fa-plus fa-lg" style="color: #fff"></i>&nbsp; <b>{% trans 'Follow' %}</b></a>
                     {% endif %}
 
 
                     <div class="media-body" style="padding-top:5px;">
                         <h4 class="media-heading">{{ f.followee.profile.nickname }}</h4>
                         <p>
-                            <span>{{ f.followee.fans_count }}</span>&nbsp;粉丝
-                            <span>{{ f.followee.following_count }}</span>&nbsp;关注
+                            <span>{{ f.followee.fans_count }}</span>&nbsp;{% trans 'Fans' %}
+                            <span>{{ f.followee.following_count }}</span>&nbsp;{% trans 'Followed' %}
                         </p>
                     </div>
                     </div>

@@ -23,8 +23,7 @@
 
 1.  登录到测试服务器 (注意命令大小写）
     sudo /data/www/nut/manage.py compilemessages
-    sudo /opt/script/gunicorn stop
-    sudo /opt/script/gunicorn start 
+    sudo /opt/script/gunicorn reload 
     
     
     

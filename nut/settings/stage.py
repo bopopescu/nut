@@ -14,7 +14,7 @@ USE_TZ = False
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test',
+        'NAME': 'core',
         'USER': 'guoku',
         'PASSWORD': 'guoku!@#',
         'HOST': '10.0.2.90',
@@ -29,7 +29,7 @@ DATABASES = {
         'NAME': 'core',
         'USER': 'guoku',
         'PASSWORD': 'guoku!@#',
-        'HOST': '10.0.2.95',
+        'HOST': '10.0.2.90',
         'PORT': '',
         'OPTIONS': {
             'use_unicode':'utf-8',

@@ -7,10 +7,14 @@ from apps.core.models import Note
 from apps.core.utils.tag import TagParser
 # from apps.notifications import notify
 
+from apps.web.utils.formtools import innerStrip
+
 from django.utils.log import getLogger
 log = getLogger('django')
 
+
 class NoteForm(forms.ModelForm):
+
 
     class Meta:
         model = Note
@@ -22,12 +26,6 @@ class NoteForm(forms.ModelForm):
             'note': forms.Textarea(attrs={'class':'form-control', 'style':"resize: none;", 'rows':'4', 'placeholder':u"写点评 ＃贴标签"}),
             # 'email': forms.TextInput(attrs={'class':'form-control'})
         }
-    # content = forms.CharField(
-    #     label=_('content'),
-    #     widget=forms.Textarea(
-    #         attrs={'class':'form-control', 'style':"resize: none;", 'rows':'4', 'placeholder':u"写点评 ＃贴标签"}
-    #     )
-    # )
 
     def __init__(self, *args, **kwargs):
         self.entity_id = kwargs.pop('eid', None)
@@ -37,13 +35,13 @@ class NoteForm(forms.ModelForm):
 
     def clean_note(self):
         _note_text = self.cleaned_data.get('note')
+        _note_text = innerStrip(_note_text)
         _note_text = _note_text.replace(u"＃", "#")
         return _note_text
 
     def save(self, commit=True):
         # note = super(NoteForm, self).save(commit=commit)
         _note = self.cleaned_data.get('note')
-
 
         try:
             note = Note.objects.get(user=self.user, entity_id=self.entity_id)
@@ -53,6 +51,8 @@ class NoteForm(forms.ModelForm):
                 user = self.user,
                 entity_id = self.entity_id,
             )
+        # except Note.MultipleObjectsReturned:
+
 
         t = TagParser(note.note)
         t.create_tag(user_id=self.user.pk, entity_id=self.entity_id)
@@ -62,7 +62,6 @@ class NoteForm(forms.ModelForm):
 
     def update(self):
         _note = self.cleaned_data.get('note')
-
         note = Note.objects.get(pk=self.note_id, user=self.user)
         note.note = _note
         note.save()

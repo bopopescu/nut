@@ -40,9 +40,6 @@ class RegisterWizard(SessionWizardView):
         user = signup_form.save()
         bio_form = form_list[1]
         bio_form.save(user = user)
-        # log.info(signup_form)
-
-        # log.info(user.pk)
 
         signup_form.login(self.request, user)
         return HttpResponseRedirect(reverse('web_selection'))
@@ -130,7 +127,7 @@ def register_from_three_part(request, template="web/account/three-part-register.
         _forms = UserSignUpForm(request.POST)
         _avatar = request.session.get('avatar')
         _weibo_id = request.session.get('weibo_id')
-        _taobao_id = request.session.get('taovao_id')
+        _taobao_id = request.session.get('taobao_id')
         _screen_name = request.session.get('screen_name')
         _access_token = request.session.get('access_token')
         _expires_in = request.session.get('expires_in')
