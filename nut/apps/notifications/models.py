@@ -5,10 +5,15 @@ from django.contrib.contenttypes import generic
 from django.db import models
 from django.utils.timezone import utc
 
+# from jpush import push
+import jpush
 
 from .signals import notify
 
 from model_utils import managers, Choices
+
+app_key = getattr(settings, 'JPUSH_KEY', None)
+app_secret = getattr(settings, 'JPUSH_SECRET', None)
 
 now=datetime.datetime.now
 if getattr(settings, 'USE_TZ'):
@@ -26,7 +31,6 @@ class NotificationQuerySet(models.query.QuerySet):
 
     def read(self):
         return self.filter(unread=True)
-
 
     def mark_all_as_read(self, recipient=None):
         qs = self.unread()
@@ -69,7 +73,6 @@ class Notification(models.Model):
 
     objects = managers.PassThroughManager.for_queryset_class(NotificationQuerySet)()
 
-
     class Meta:
         ordering = ['-timestamp']
 
@@ -93,8 +96,6 @@ class Notification(models.Model):
     def timesince(self, now=None):
         from django.utils.timesince import timesince as timesince_
         return timesince_(self.timestamp, now)
-
-
 
     def mark_as_read(self):
         if self.unread:
@@ -129,8 +130,41 @@ def notify_handler(verb, **kwargs):
 
     newnotify.save()
 
-
 # connect the signal
 notify.connect(notify_handler, dispatch_uid='notifications.models.notification')
+
+
+# jpush
+class JpushToken(models.Model):
+    rid = models.CharField(max_length=128)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False, related_name='jpush_token', null=True)
+    model = models.CharField(max_length=100)
+    version = models.CharField(max_length=10)
+    updated_time = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.rid
+
+
+def push_notification(verb, **kwargs):
+    _platform = kwargs.pop('platform')
+    _register_id = kwargs.pop('rid', None)
+    _production = kwargs.pop('production', True)
+
+    # print _register_id
+    if _register_id is None:
+        return
+
+    _jpush = jpush.JPush(app_key, app_secret)
+    push = _jpush.create_push()
+    # push.audience = _jpush.al
+    # push.platform = jpush.audience(_register_id)
+
+    ios_msg = jpush.ios(alert=verb, badge="+1", extras={'k1':'v1'})
+    push.notification = jpush.notification(alert=verb, ios=ios_msg)
+    push.platform = jpush.platform(_platform)
+    push.audience = jpush.audience(_register_id)
+    push.options = {"time_to_live":86400, "apns_production":_production}
+    push.send()
 
 __author__ = 'edison7500'

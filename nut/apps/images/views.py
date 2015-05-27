@@ -28,7 +28,6 @@ def images(request, file_name, size=None):
     raise Http404
 
 
-
 def old_format_images(request, file_name, size=None):
     _size = size.split('x')
     path = request.get_full_path()

@@ -55,7 +55,6 @@ def user_like(request, category_id, user_id):
 
     _offset = _offset / _count + 1
 
-
     innqs = Entity_Like.objects.filter(user_id=user_id).values_list('entity_id', flat=True)
 
     entity_list = APIEntity.objects.filter(category_id=category_id, id__in=innqs)
@@ -81,9 +80,9 @@ def entity_sort(category_id, reverse, offset, count, key):
         reverse = int(reverse)
 
     if reverse != 0:
-        entity_list = APIEntity.objects.new_or_selection(category_id=category_id)
-    else:
         entity_list = APIEntity.objects.new_or_selection(category_id=category_id).order_by('created_time')
+    else:
+        entity_list = APIEntity.objects.new_or_selection(category_id=category_id)
 
     paginator = Paginator(entity_list, count)
 
@@ -113,7 +112,7 @@ def entity_sort(category_id, reverse, offset, count, key):
 def entity_sort_like(category_id, offset, count, key):
     entity_list = Entity_Like.objects.sort_with_list(category_id=category_id)
     paginator = Paginator(entity_list, count)
-
+    log.info("page %d" % offset)
     try:
         entities = paginator.page(offset)
     except PageNotAnInteger:
@@ -126,21 +125,15 @@ def entity_sort_like(category_id, offset, count, key):
         el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(entities.object_list))
     except Session_Key.DoesNotExist:
         el = None
-    log.info(el)
+    log.info(entity_list)
     res = []
     for eid in entities.object_list:
-        entity = APIEntity.objects.get(pk=eid)
-        r = entity.v4_toDict(user_like_list=el)
-        # r.pop('images', None)
-        # r.pop('id', None)
-        res.append(r)
-
-        # r = row.v4_toDict(user_like_list=el)
-        # r.pop('images', None)
-        # r.pop('id', None)
-        # res.append(
-        #     r
-        # )
+        try:
+            entity = APIEntity.objects.get(pk=eid)
+            r = entity.v4_toDict(user_like_list=el)
+            res.append(r)
+        except APIEntity.DoesNotExist, e:
+            log.error("Error %s with entity id %s" % (e.message, eid))
     return SuccessJsonResponse(res)
 
 
@@ -149,48 +142,23 @@ def entity_sort_like(category_id, offset, count, key):
 def entity(request, category_id):
 
     _offset = int(request.GET.get('offset', '0'))
-    _offset = _offset / 30 + 1
+
+
     _count = int(request.GET.get('count', '30'))
+
+    _offset = _offset / _count + 1
+
+    # if _offset % _count != 0 :
+    #     _offset += 1
+
     _key = request.GET.get('session')
     _reverse = int(request.GET.get('reverse', 0))
     _sort = request.GET.get('sort', None)
 
     if _sort == 'like':
-        # entity_list = Entity_Like.objects.sort_with_list(category_id=category_id)
         return entity_sort_like(category_id=category_id, offset=_offset, count=_count, key=_key)
     else:
         return entity_sort(category_id=category_id, reverse=_reverse, offset=_offset, count=_count, key=_key)
-
-    # if _reverse != 0:
-    #     entity_list = APIEntity.objects.new_or_selection(category_id=category_id)
-    # else:
-    #     entity_list = APIEntity.objects.new_or_selection(category_id=category_id).order_by('created_time')
-    #
-    # paginator = Paginator(entity_list, _count)
-    #
-    # try:
-    #     entities = paginator.page(_offset)
-    # except PageNotAnInteger:
-    #     entities = paginator.page(1)
-    # except EmptyPage:
-    #     return ErrorJsonResponse(status=404)
-    #
-    # try:
-    #     _session = Session_Key.objects.get(session_key=_key)
-    #
-    #     el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(entities.object_list.values_list('id', flat=True)))
-    # except Session_Key.DoesNotExist:
-    #     el = None
-    #
-    # res = []
-    # for row in entities.object_list:
-    #     r = row.v4_toDict(user_like_list=el)
-    #     r.pop('images', None)
-    #     r.pop('id', None)
-    #     res.append(
-    #         r
-    #     )
-    # return SuccessJsonResponse(res)
 
 
 @require_GET

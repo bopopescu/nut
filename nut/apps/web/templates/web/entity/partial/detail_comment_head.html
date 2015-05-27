@@ -7,12 +7,32 @@
         </a>
         <div class="comment_detail note-content">
             <div class="user_name">
-                {#		    						<a href="#">重力鸭</a>#}
                 <a href="{% url 'web_user_index' entity.top_note.user.pk %}" target="_blank">{{ entity.top_note.user.profile.nickname }}</a>
                 <a href="javascript:;" class="favorite fc_favor"><i class="fa fa-star"></i></a>
             </div>
             <span class="comment_word with-tag content">{{ entity.top_note.note|escape }}</span>
             <div class="comment_operate">
+                {% if entity.top_note.user == request.user %}
+
+                    <form class="form-horizontal update-note-form" action="{% url 'web_update_entity_note' entity.top_note.pk %}" method="POST" style="display: none;">
+                        {% csrf_token %}
+                        <fieldset>
+
+{#                            <textarea class="form-control" name="note_text" rows="4" style="resize: none;">{{ 'testes' }}</textarea>#}
+
+                            {% for field in note_forms %}
+                                {{ field }}
+                            {% endfor %}
+                        </fieldset>
+                        <div class="control-group" style="margin-bottom:10px;">
+                            <div class="col-sm-offset-9">
+                                <button class="btn btn-default btn-cancel" style="margin-right:10px;" type="button">取消</button>
+                                <button class="btn btn-primary btn-post" type="submit">修改</button>
+                            </div>
+                        </div>
+                    </form>
+
+                {% endif %}
                 {% if entity.top_note.id in user_pokes %}
                     <a href="javascript:;" class="poke" data-note="{{ entity.top_note.id }}">
                         <i class="fa fa-thumbs-up"> <!-- thumbs-up --></i>{% if entity.top_note.poke_count > 0 %}&nbsp;<span>{{ entity.top_note.poke_count }}</span>{% endif %}
@@ -26,7 +46,7 @@
                     {% if entity.top_note.comment_count > 0 %}
                         &nbsp;{{ entity.top_note.comment_count }}
                     {% endif %}
-                    {% if note.user == request.user %}
+                    {% if entity.top_note.user == request.user %}
                         <a class="update-note"><i class="fa fa-pencil-square-o"></i></a>
                     {% endif %}
                 </a>
@@ -34,13 +54,6 @@
                     <i class="fa fa-clock-o"></i>&nbsp;{{ entity.top_note.post_time|format_time|cut:" "}}
                 </a>
             </div>
-            {#	    						<div class="reply_comment">#}
-            {#	    							<textarea name="" id=""></textarea>#}
-            {#	    							<div class="buttons">#}
-            {#	    								<a href="#" class="bg_c_blue fc_4 save">确定</a>#}
-            {#	    								<a href="#" class="bg_c_cancel fc_3 cancel">取消</a>#}
-            {#	    							</div>#}
-            {#	    						</div>#}
         </div>
     </li>
 {% endif %}

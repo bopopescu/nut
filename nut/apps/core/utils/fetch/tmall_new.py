@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 from urllib import unquote
 from hashlib import md5
 
+
 import json
 
 
@@ -25,7 +26,7 @@ origin_headers = {
 class Tmall():
     def __init__(self, item_id):
         self.item_id = item_id
-        self.html = self.fetch_html();
+        self.html = self.fetch_html()
         self.soup = BeautifulSoup(self.html, from_encoding="gb18030")
 
 
@@ -68,6 +69,9 @@ class Tmall():
             fjpg = fimg[0].attrs.get('src')
 
         fjpg = re.sub(IMG_POSTFIX, "", fjpg)
+
+        if "http" not in fjpg:
+            fjpg = "http:" + fjpg
 
         _images.append(fjpg)
 
@@ -122,9 +126,13 @@ class Tmall():
                 for k,v in priceInfo.iteritems():
                     prices.append(priceInfo[k]['price'])
                     # may be there is multiple promotionList ... TODO
-                    if priceInfo[k]['promotionList'][0] and priceInfo[k]['promotionList'][0]['extraPromPrice'] :
-                        prices.append(priceInfo[k]['promotionList'][0]['extraPromPrice'])
-                # print prices
+                    if priceInfo[k]['promotionList'] and len(priceInfo[k]['promotionList']):
+                         for promo in priceInfo[k]['promotionList']:
+                             try :
+                                 prices.append(promo['price'])
+                                 prices.append(promo['extraPromPrice'])
+                             except KeyError:
+                                 continue
             except Exception as e:
                 # TODO: log error
                 pass
@@ -132,7 +140,7 @@ class Tmall():
                 # log.error(e.message)
             finally:
                 if len(prices) > 0 :
-                    price = min(prices)
+                    price = min(map(float,prices))
                 else:
                     price = 0
         else:
@@ -146,9 +154,12 @@ class Tmall():
 
     def fix_script_url(self,script_url):
         l = list()
+        prepend = ''
+        if not 'http:' in script_url:
+            prepend = 'http:'
         l.append("callback=setMdskip")
         l.append("timestamp=%d"%int(time()))
-        return  "%s&%s"%(script_url,'&'.join(l))
+        return  "%s%s&%s"%(prepend,script_url,'&'.join(l))
 
     def get_tmall_header(self):
         tmall_header = {

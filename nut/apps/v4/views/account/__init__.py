@@ -49,17 +49,18 @@ def register(request):
         log.info(request.FILES)
         if _forms.is_valid():
             _user = _forms.save()
-            log.info("user user %s" % _user)
+            log.info("user user %s" % _user.v3_toDict())
             res = {
                 'user':_user.v3_toDict(),
                 'session': _forms.get_session()
             }
             return SuccessJsonResponse(res)
-        for error in _forms.errors:
-            # log.info("error %s" % error)
+        for k, v in dict(_forms.errors).items():
+            log.info(v.as_text().split('*'))
+            error_msg = v.as_text().split('*')[1]
             return ErrorJsonResponse(status=409, data={
-                'type': error,
-                'message':'Error',
+                'type': k,
+                'message': error_msg.lstrip(),
             })
 
     return ErrorJsonResponse(status=400)

@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 # from django.views.generic.list import ListView
 # from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.utils.log import getLogger
-from django.core.files.storage import default_storage
+# from django.core.files.storage import default_storage
 from django.views.decorators.csrf import csrf_exempt
 from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
@@ -14,6 +14,7 @@ from apps.core.models import Entity, Buy_Link
 from apps.core.forms.entity import EditEntityForm, EntityImageForm, BuyLinkForm, CreateEntityForm, load_entity_info
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
+from apps.core.tasks.entity import fetch_image
 
 from hashlib import md5
 
@@ -197,6 +198,18 @@ def remove_buy_link(request, bid):
     b.delete()
     return SuccessJsonResponse()
 
+@login_required
+def refetch_image(request, entity_id):
+    try:
+        _entity = Entity.objects.get(pk=entity_id)
+    except Entity.DoesNotExist:
+        raise Http404
+
+    log.info(_entity.images)
+
+    fetch_image(_entity.images, _entity.pk)
+    return SuccessJsonResponse(data={'status':'ok'})
+
 
 @login_required
 def image(request, entity_id, template='management/entities/upload_image.html'):
@@ -241,9 +254,9 @@ def delete_image(request, entity_id):
             raise Http404
 
         status = True
-        if 'http://imgcdn.guoku.com/' in _index:
-            image_name = _index.replace('http://imgcdn.guoku.com/', '')
-            status = default_storage.delete(image_name)
+        # if 'http://imgcdn.guoku.com/' in _index:
+        #     image_name = _index.replace('http://imgcdn.guoku.com/', '')
+        #     status = default_storage.delete(image_name)
         return SuccessJsonResponse(data={'status': status})
 
     return HttpResponseNotAllowed

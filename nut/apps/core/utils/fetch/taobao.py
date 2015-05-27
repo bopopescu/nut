@@ -27,8 +27,6 @@ class TaoBao():
                               'cna=I2H3CtFnDlgCAbRP3eN/4Ujy; t=2609558ec16b631c4a25eae0aad3e2dc; w_sec_step=step_login; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; '
                               'lzstat_uv=26261492702291067296|2341454@2511607@2938535@2581747@3284827@2581759@2938538@2817407@2879138@3010391; tg=0; _cc_=URm48syIZQ%3D%3D; tracknick=; uc3=nk2=&id2=&lg2=; __utma=6906807.613088467.1388062461.1388062461.1388062461.1; __utmz=6906807.1388062461.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); mt=ci=0_0&cyk=0_0; _m_h5_tk=6457881dd2bbeba22fc0b9d54ec0f4d9_1389601777274; _m_h5_tk_enc=3c432a80ff4e2f677c6e7b8ee62bdb48; _tb_token_=uHyzMrqWeUaM; cookie2=3f01e7e62c8f3a311a6f83fb1b3456ee; wud=wud; lzstat_ss=2446520129_1_1389711010_2581747|2258142779_0_1389706922_2938535|1182737663_4_1389706953_3284827|942709971_0_1389706966_2938538|2696785043_0_1389707052_2817407|50754089_2_1389707124_2879138|2574845227_1_1389707111_3010391|377674404_1_1389711010_2581759; linezing_session=3lJ2NagSIjQvEYbpCk5o8clc_1389693042774lS4I_5; swfstore=254259; whl=-1%260%260%261389692419141; ck1=; uc1=cookie14=UoLU4ni6x8i9JA%3D%3D; v=0'))
 
-    # images = list()
-
     def __init__(self, item_id):
         self.item_id = item_id
         self.html = self.fetch_html()
@@ -60,11 +58,9 @@ class TaoBao():
             log.error("Error: %s", e.message)
         return 0
 
-
     @property
     def desc(self):
         return self.soup.title.string[0:-4]
-
 
     @property
     def price(self):
@@ -73,6 +69,8 @@ class TaoBao():
             pr = ptag[0].string
             ps = re.findall("\d+\.\d+",pr)
             return float(ps[0])
+        else:
+            return  get_tmall_item_price(self.item_id)
 
     @property
     def images(self):
@@ -85,6 +83,8 @@ class TaoBao():
 
         fjpg = re.sub(IMG_POSTFIX, "", fjpg)
 
+        if "http" not in fjpg:
+            fjpg = "http:" + fjpg
         _images.append(fjpg)
 
         optimgs = self.soup.select("ul#J_UlThumb li a img")
@@ -94,10 +94,11 @@ class TaoBao():
                 optimg = re.sub(IMG_POSTFIX, "", op.attrs.get('src'))
             except TypeError, e:
                 optimg = re.sub(IMG_POSTFIX, "", op.attrs.get('data-src'))
+            if "http" not in optimg:
+                optimg = "http:" + optimg
             if optimg in _images:
                 continue
             _images.append(optimg)
-
         return _images
 
     @property
@@ -187,7 +188,7 @@ if __name__=="__main__":
     # print t.cid
     print t.price
     # print t.desc
-    # print t.images
+    print t.images
     # print t.shoplink
 
 

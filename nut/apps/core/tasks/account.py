@@ -4,13 +4,15 @@ import urllib2
 from apps.core.utils.image import HandleImage
 from apps.core.tasks import BaseTask
 from apps.core.models import User_Profile, Sina_Token, Taobao_Token
-
+from apps.core.utils.taobaoapi.user import TaobaoOpenUid
 
 from django.conf import settings
 
 image_path = getattr(settings, 'MOGILEFS_MEDIA_URL', 'avatar/')
 image_host = getattr(settings, 'IMAGE_HOST', None)
 
+taobao_app_key = getattr(settings, 'TAOBAO_APP_KEY', None)
+taobao_app_secret = getattr(settings, 'TAOBAO_APP_SECRET', None)
 
 
 @task(base=BaseTask)
@@ -58,6 +60,11 @@ def update_token(*args, **kwargs):
         token.screen_name = _screen_name
         token.access_token = _access_token
         token.expires_in = _expires_in
+
+        t = TaobaoOpenUid(app_key=taobao_app_key, app_secret=taobao_app_secret)
+        open_uid = t.get_open_id(_taobao_id)
+        if open_uid:
+            token.open_uid = open_uid
 
     token.save()
 

@@ -34,7 +34,7 @@ def register_by_weibo(request):
             return SuccessJsonResponse(res)
 
         for error in _forms.errors:
-            # log.info("error %s" % error)
+            log.info("error %s" % error)
             return ErrorJsonResponse(status=409, data={
                 'type': error,
                 'message':'Error',

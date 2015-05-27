@@ -9,7 +9,7 @@
     <div class="event-item-banner">
      {% if event.banner_urls %}
          <a href="{{ event.slug_url }}">
-         <img class="img-responsive" src="{{ event.banner_urls.0 }}" >
+         <img class="img-responsive" src="{{ event.banner_urls.0|resize:'480' }}" >
          </a>
      {% endif %}
     </div>
