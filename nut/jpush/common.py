@@ -4,7 +4,6 @@ import logging
 
 BASE_URL = "https://api.jpush.cn/"
 PUSH_URL = BASE_URL + 'v3/push'
-<<<<<<< HEAD
 VALIDATE_PUSH_URL = BASE_URL + 'v3/push/validate'
 
 DEVICE_BASEURL = "https://device.jpush.cn/"
@@ -12,8 +11,6 @@ DEVICE_URL = DEVICE_BASEURL + "v3/devices/"
 TAG_URL = DEVICE_BASEURL + "v3/tags/"
 TAGLIST_URL = TAG_URL
 ALIAS_URL = DEVICE_BASEURL + "v3/aliases/"
-=======
->>>>>>> 72e43586aba0244e68985f37dafbfd46d5a59172
 
 logger = logging.getLogger('jpush')
 
