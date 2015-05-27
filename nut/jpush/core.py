@@ -6,10 +6,7 @@ import requests
 
 from . import common
 from .push import Push
-<<<<<<< HEAD
 from .device import Device
-=======
->>>>>>> 72e43586aba0244e68985f37dafbfd46d5a59172
 
 logger = logging.getLogger('jpush')
 
@@ -67,10 +64,7 @@ class JPush(object):
     def create_push(self):
         """Create a Push notification."""
         return Push(self)
-<<<<<<< HEAD
 
     def create_device(self):
         """Create a Device information."""
         return Device(self)
-=======
->>>>>>> 72e43586aba0244e68985f37dafbfd46d5a59172
