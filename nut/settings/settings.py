@@ -259,6 +259,9 @@ TAOBAO_APP_INFO = {
     "web_app_secret" : "df91464ae934bacca326450f8ade67f7"
 }
 
+BAICHUAN_APP_KEY = '23093827'
+BAICHUAN_APP_SECRET = '7db5a8b0fb21e5d3b9910bf8b9feba38'
+
 
 # weibo
 SINA_APP_KEY = '2830558576'

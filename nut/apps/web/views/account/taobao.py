@@ -34,6 +34,7 @@ def auth_by_taobao(request):
             taobao.access_token = _taobao_data['refresh_token']
             taobao.expires_in = _taobao_data['expires_in']
             taobao.open_uid = _taobao_data['open_uid']
+            taobao.isv_uid = _taobao_data['isv_uid']
             taobao.save()
 
             # log.info(taobao.user)
@@ -51,6 +52,7 @@ def auth_by_taobao(request):
                     refresh_token = _taobao_data['refresh_token'],
                     expires_in = _taobao_data['expires_in'],
                     open_uid = _taobao_data['open_uid'],
+                    isv_uid = _taobao_data['isv_uid'],
                 )
                 return HttpResponseRedirect(next_url)
             else:
@@ -61,6 +63,8 @@ def auth_by_taobao(request):
                 request.session['access_token'] = _taobao_data['access_token']
                 request.session['refresh_token'] = _taobao_data['refresh_token']
                 request.session['expires_in'] = _taobao_data['expires_in']
+                request.session['open_uid'] = _taobao_data['open_uid']
+                request.session['isv_uid'] = _taobao_data['isv_uid']
                 return HttpResponseRedirect(reverse('web_register_from_three_part'))
     # return
 

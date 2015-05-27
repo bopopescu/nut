@@ -1,6 +1,6 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 
-from apps.mobile.forms.account import MobileTaobaoLoginForm, MobileTaobaoSignUpForm
+from apps.v4.forms.account import MobileTaobaoLoginForm, MobileTaobaoSignUpForm
 from apps.mobile.lib.sign import check_sign
 
 # from apps.mobile.models import Session_Key
