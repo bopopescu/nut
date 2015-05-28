@@ -12,8 +12,6 @@ from apps.web.utils.formtools import innerStrip
 log = getLogger('django')
 
 
-
-
 class UserSettingsForm(forms.Form):
 
     error_messages = {
