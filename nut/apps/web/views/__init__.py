@@ -2,6 +2,8 @@ from django.views.generic import TemplateView
 from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
+from django.shortcuts import redirect,render
+
 from django.views.defaults import server_error
 from django.views.defaults import page_not_found
 from django.utils.log import getLogger
@@ -36,12 +38,20 @@ class DownloadView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         log.info(request.META['HTTP_USER_AGENT'])
-        if 'iPhone' in request.META['HTTP_USER_AGENT']:
-            return HttpResponseRedirect("http://itunes.apple.com/cn/app/id477652209?mt=8")
+        if  'MicroMessenger' in request.META['HTTP_USER_AGENT']:
+            if 'iPhone' in request.META['HTTP_USER_AGENT']:
+                template_name='web/jump.html'
+                return render(request,template_name)
+            else:
+                return HttpResponseRedirect('http://android.myapp.com/myapp/detail.htm?apkName=com.guoku')
+        elif 'iPhone' in request.META['HTTP_USER_AGENT']:
+            template_name='web/jump.html'
+            return render(request,template_name)
+            # return HttpResponseRedirect("http://itunes.apple.com/cn/app/id477652209")
         elif 'iPad' in request.META['HTTP_USER_AGENT']:
             return HttpResponseRedirect("http://itunes.apple.com/cn/app/id450507565?mt=8")
         elif 'Android' in request.META['HTTP_USER_AGENT']:
-            return HttpResponseRedirect("http://android.myapp.com/myapp/detail.htm?apkName=com.guoku")
+            return HttpResponseRedirect("http://app.guoku.com/download/android/guoku-release.apk")
         else:
             return super(DownloadView, self).get(request, *args, **kwargs)
 
