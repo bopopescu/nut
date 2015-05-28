@@ -7,7 +7,7 @@ import requests
 from . import common
 from .push import Push
 
-logger = logging.getLogger('jpush')
+logger = logging.getLogger('django')
 
 class JPush(object):
 
@@ -39,7 +39,6 @@ class JPush(object):
                 '%s: %s' % (key, value) for (key, value)
                 in response.headers.items()),
             response.content)
-
         if response.status_code == 401:
             raise common.Unauthorized
         elif not (200 <= response.status_code < 300):
