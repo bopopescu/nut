@@ -29,11 +29,6 @@ class BaichuanForm(forms.Form):
         required=False,
     )
 
-    # avatar = forms.CharField(
-    #     widget=forms.TextInput(),
-    #     required=False
-    # )
-
 
 class BaichuanSignInForm(BaichuanForm):
 
@@ -57,7 +52,7 @@ class BaichuanSignInForm(BaichuanForm):
             return self.taobao
         except Taobao_Token.DoesNotExist:
 
-            user_key = generate(_user_id, _nick)
+            user_key = Taobao_Token.generate(_user_id, _nick)
             email = "%s@guoku.com" % user_key
             user_obj = GKUser.objects.create_user(email=email, password=None)
             User_Profile.objects.create(
@@ -91,11 +86,11 @@ class BaichuanSignInForm(BaichuanForm):
         return res
 
 
-
-def generate(user_id, nick):
-
-    code_string = "%s%s%s" % (user_id, nick, time.mktime(datetime.now().timetuple()))
-
-    return md5(code_string.encode('utf-8')).hexdigest()
+#
+# def generate(user_id, nick):
+#
+#     code_string = "%s%s%s" % (user_id, nick, time.mktime(datetime.now().timetuple()))
+#
+#     return md5(code_string.encode('utf-8')).hexdigest()
 
 __author__ = 'edison'
