@@ -41,7 +41,7 @@ class DownloadView(TemplateView):
         elif 'iPad' in request.META['HTTP_USER_AGENT']:
             return HttpResponseRedirect("http://itunes.apple.com/cn/app/id450507565?mt=8")
         elif 'Android' in request.META['HTTP_USER_AGENT']:
-            return HttpResponseRedirect("http://app.guoku.com/download/android/guoku-release.apk")
+            return HttpResponseRedirect("http://android.myapp.com/myapp/detail.htm?apkName=com.guoku")
         else:
             return super(DownloadView, self).get(request, *args, **kwargs)
 
