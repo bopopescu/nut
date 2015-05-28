@@ -8,7 +8,6 @@ from django.db.models import Count
 from django.db.models.signals import post_save
 from django.conf import settings
 from django.core.cache import cache
-# from apps.core.extend.list_field import ListObjectField
 from apps.core.extend.fields.listfield import ListObjectField
 from apps.core.manager.account import GKUserManager
 from apps.core.manager.entity import EntityManager, EntityLikeManager, SelectionEntityManager
