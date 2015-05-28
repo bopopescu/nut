@@ -276,6 +276,17 @@ def user_tag_detail(request, user_id, tag_hash, template="web/user/tag_detail.ht
         context_instance = RequestContext(request),
     )
 
+def user_goods(request, user_id, template="web/user/goods.html"):
+
+
+    return render_to_response(
+        template,
+        {
+
+        },
+        context_instance = RequestContext(request),
+    )
+
 
 def fans(request, user_id, template="web/user/fans.html"):
 
