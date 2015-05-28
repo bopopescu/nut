@@ -39,11 +39,7 @@ class DownloadView(TemplateView):
     def get(self, request, *args, **kwargs):
         log.info(request.META['HTTP_USER_AGENT'])
         if  'MicroMessenger' in request.META['HTTP_USER_AGENT']:
-            if 'iPhone' in request.META['HTTP_USER_AGENT']:
-                template_name='web/jump.html'
-                return render(request,template_name)
-            else:
-                return HttpResponseRedirect('http://android.myapp.com/myapp/detail.htm?apkName=com.guoku')
+                return HttpResponseRedirect('http://a.app.qq.com/o/simple.jsp?pkgname=com.guoku')
         elif 'iPhone' in request.META['HTTP_USER_AGENT']:
             template_name='web/jump.html'
             return render(request,template_name)
