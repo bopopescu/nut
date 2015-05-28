@@ -278,11 +278,22 @@ def user_tag_detail(request, user_id, tag_hash, template="web/user/tag_detail.ht
 
 def user_goods(request, user_id, template="web/user/goods.html"):
 
+    _page = request.GET.get('page', 1)
+    _entity_list = Entity.objects.filter(user=user_id).exclude(status=Entity.remove)
+    # log.info(_entity_list)
+    paginator = ExtentPaginator(_entity_list, 24)
+
+    try:
+        _entities = paginator.page(_page)
+    except PageNotAnInteger:
+        _entities = paginator.page(1)
+    except EmptyPage:
+        raise Http404
 
     return render_to_response(
         template,
         {
-
+            'entities': _entities,
         },
         context_instance = RequestContext(request),
     )
