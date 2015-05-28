@@ -230,7 +230,9 @@ class User_Profile(BaseModel):
 
     @property
     def avatar_url(self):
-        if self.avatar:
+        if 'http' in self.avatar:
+            return self.avatar
+        elif self.avatar:
             return "%s%s" % (image_host, self.avatar)
         else:
             if self.gender == self.Woman:
@@ -312,7 +314,6 @@ class Banner(BaseModel):
             return True
         except Show_Banner.DoesNotExist:
             return False
-
 
     @property
     def position(self):

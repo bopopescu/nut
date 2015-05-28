@@ -29,10 +29,10 @@ class BaichuanForm(forms.Form):
         required=False,
     )
 
-    avatar = forms.CharField(
-        widget=forms.TextInput(),
-        required=False
-    )
+    # avatar = forms.CharField(
+    #     widget=forms.TextInput(),
+    #     required=False
+    # )
 
 
 class BaichuanSignInForm(BaichuanForm):
@@ -41,10 +41,11 @@ class BaichuanSignInForm(BaichuanForm):
         widget=forms.TextInput()
     )
 
-    def clean_user_id(self):
+    def clean(self):
         _user_id = self.cleaned_data.get('user_id')
         _nick = self.cleaned_data.get('nick')
-        _avatar = self.cleaned_data.get('avatar')
+        # _avatar = self.cleaned_data.get('avatar')
+        self.api_key = self.cleaned_data.get('api_key')
 
         t = TaobaoOpenIsvUID(app_key, app_secret)
         isv_uid = t.get_isv_uid(_user_id)
@@ -52,8 +53,8 @@ class BaichuanSignInForm(BaichuanForm):
         log.info("isv %s" % isv_uid)
 
         try:
-            taobao = Taobao_Token.objects.get(isv_uid = isv_uid)
-            return taobao
+            self.taobao = Taobao_Token.objects.get(isv_uid = isv_uid)
+            return self.taobao
         except Taobao_Token.DoesNotExist:
 
             user_key = generate(_user_id, _nick)
@@ -62,33 +63,28 @@ class BaichuanSignInForm(BaichuanForm):
             User_Profile.objects.create(
                 user=user_obj,
                 nickname=_nick,
-                avatar=_avatar,
+                # avatar=_avatar,
             )
-            taobao = Taobao_Token.objects.create(
+            self.taobao = Taobao_Token.objects.create(
                 user = user_obj,
                 screen_name = _nick,
                 isv_uid = isv_uid,
             )
-            return taobao
+            return self.taobao
             # raise forms.ValidationError(
             #     'token is note exist'
             # )
 
     def login(self):
 
-        _taobao = self.cleaned_data.get('user_id')
-        _api_key = self.cleaned_data.get('api_key')
-
-        # _taobao = self.cleaned_data.get('taobao_id')
-
         session = Session_Key.objects.generate_session(
-            user_id=_taobao.user_id,
-            email=_taobao.user.email,
-            api_key=_api_key,
+            user_id=self.taobao.user_id,
+            email=self.taobao.user.email,
+            api_key=self.api_key,
             username="guoku",
         )
         res = {
-            'user':_taobao.user.v3_toDict(),
+            'user':self.taobao.user.v3_toDict(),
             'session':session.session_key,
         }
 
