@@ -863,6 +863,11 @@ class Taobao_Token(models.Model):
     def __unicode__(self):
         return self.screen_name
 
+    @staticmethod
+    def generate(user_id, nick):
+        code_string = "%s%s%s" % (user_id, nick, time.mktime(datetime.now().timetuple()))
+        return md5(code_string.encode('utf-8')).hexdigest()
+
 
 class Article(models.Model):
 
