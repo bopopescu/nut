@@ -8,7 +8,7 @@ from django.utils.timezone import utc
 # from jpush import push
 import jpush
 
-from .signals import notify
+from .signals import notify, push_notify
 
 from model_utils import managers, Choices
 
@@ -147,7 +147,9 @@ class JpushToken(models.Model):
 
 
 def push_notification(verb, **kwargs):
-    _platform = kwargs.pop('platform')
+    kwargs.pop('signal', None)
+
+    _platform = kwargs.pop('platform', 'ios')
     _register_id = kwargs.pop('rid', None)
     _production = kwargs.pop('production', True)
 
@@ -157,14 +159,16 @@ def push_notification(verb, **kwargs):
 
     _jpush = jpush.JPush(app_key, app_secret)
     push = _jpush.create_push()
-    # push.audience = _jpush.al
+    push.audience = jpush.registration_id(_register_id)
     # push.platform = jpush.audience(_register_id)
 
-    ios_msg = jpush.ios(alert=verb, badge="+1", extras={'k1':'v1'})
-    push.notification = jpush.notification(alert=verb, ios=ios_msg)
+    ios_msg = jpush.ios(alert=unicode(verb), badge="+1", extras={'k1':'v1'})
+    push.notification = jpush.notification(alert=unicode(verb), ios=ios_msg)
     push.platform = jpush.platform(_platform)
-    push.audience = jpush.audience(_register_id)
+    # push.audience = jpush.audience({'registration_id':_register_id})
     push.options = {"time_to_live":86400, "apns_production":_production}
     push.send()
+
+push_notify.connect(push_notification, dispatch_uid="notifications.models.jpush")
 
 __author__ = 'edison7500'
