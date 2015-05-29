@@ -101,7 +101,6 @@ class MobileUserSignUpForm(GuokuUserSignUpForm):
 
 
 
-
 class MobileUserSignOutForm(forms.Form):
 
     session = forms.CharField(
