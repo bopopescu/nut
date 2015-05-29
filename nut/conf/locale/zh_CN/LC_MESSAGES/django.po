@@ -1163,7 +1163,7 @@ msgstr "注册"
 
 #: apps/web/templates/web/partial/header.html:73
 msgid "Add Product"
-msgstr "添加有趣商品到果库"
+msgstr "添加有趣商品"
 
 #: apps/web/templates/web/user/fans.html:13
 #: apps/web/templates/web/user/following.html:14
