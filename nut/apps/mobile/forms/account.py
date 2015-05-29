@@ -8,6 +8,7 @@ from apps.mobile.models import Session_Key
 
 from apps.core.utils.image import HandleImage
 from apps.core.tasks.account import fetch_avatar, update_token
+from apps.v4.models import APIJpush
 
 
 class MobileUserSignInForm(GuoKuUserSignInForm):
@@ -46,31 +47,6 @@ class MobileUserSignInForm(GuoKuUserSignInForm):
                 raise forms.ValidationError(
                     self.error_messages['invalid_login']
                 )
-
-    # def clean(self):
-    #     if not self.user_cache.is_active:
-    #             raise forms.ValidationError(
-    #                 self.error_messages['inactive'],
-    #                 code='inactive',
-    #             )
-        # email = self.cleaned_data.get('email')
-        # password = self.cleaned_data.get('password')
-        # self.api_key = self.cleaned_data.get('api_key')
-        # self.next_url = self.cleaned_data.get('next')
-
-        # if email and password:
-        #     self.user_cache = authenticate(username=email,
-        #                                    password=password)
-        #
-        #     if self.user_cache is None:
-        #         raise forms.ValidationError(
-        #             self.error_messages['invalid_login']
-        #         )
-        #     elif not self.user_cache.is_active:
-        #         raise forms.ValidationError(
-        #             self.error_messages['inactive'],
-        #             code='inactive',
-        #         )
 
     def get_session(self):
         self.api_key = self.cleaned_data.get('api_key')
