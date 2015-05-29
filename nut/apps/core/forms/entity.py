@@ -47,7 +47,153 @@ def get_category_choices():
     res = map(lambda x : (x.id, x.title), category_list)
     return res
 
+def load_entity_info(url):
+    _link = url
+    _hostname = urlparse(_link).hostname
 
+        # log.info(_hostname)
+    _data = dict()
+
+    if re.search(r"\b(jd|360buy)\.com$", _hostname) != None:
+        _jd_id = parse_jd_id_from_url(_link)
+            # log.info(_jd_id)
+        try:
+                buy_link = Buy_Link.objects.get(origin_id=_jd_id, origin_source="jd.com",)
+                _data = {
+                    'entity_id': buy_link.entity.id,
+                }
+        except Buy_Link.DoesNotExist:
+                j = JD(_jd_id)
+
+                # print "OKOKOKOKOKO"
+                log.info("category id %s" % j.cid)
+                _data = {
+                    # 'user_id': self.request.user.id,
+                    # 'user_avatar': self.request.user.profile.avatar_url,
+                    'cand_url': _link,
+                    'origin_id': _jd_id,
+                    'origin_source': 'jd.com',
+                    'brand': j.brand,
+                    'title': j.title,
+                    'cid': j.cid,
+                    # 'taobao_title': res['desc'],
+                    'shop_link': j.shop_link,
+                    'shop_nick': j.nick,
+                    'price': j.price,
+                    # 'chief_image_url' : j.imgs[0],
+                    'thumb_images': j.imgs,
+                    # 'selected_category_id':
+                }
+                # print _data
+            # pass
+            # return jd_info(self.request, _link)
+
+    if re.search(r"\b(tmall|taobao|95095)\.(com|hk)$", _hostname) is not None:
+        _taobao_id = parse_taobao_id_from_url(_link)
+        log.info("taobao id %s" % _taobao_id)
+
+        try:
+            buy_link = Buy_Link.objects.get(origin_id=_taobao_id, origin_source="taobao.com",)
+                # log.info(buy_link.entity)
+            _data = {
+                'entity_id': buy_link.entity.id,
+            }
+        except Buy_Link.DoesNotExist:
+                # log.info("OKOKOKO")
+            t = TaoBao(_taobao_id)
+                # log.info(t.res())
+                # res = t.res()
+            _data = {
+                    # 'user_id': self.request.user.id,
+                    # 'user_avatar': self.request.user.profile.avatar_url,
+                    'cand_url': _link,
+                    'origin_id': _taobao_id,
+                    'origin_source': 'taobao.com',
+                    'cid': t.cid,
+                    'title': t.desc,
+                    'shop_nick': t.nick,
+                    'shop_link': t.shoplink,
+                    'price': t.price,
+                    # 'chief_image_url' : t.images[0],
+                    'thumb_images': t.images,
+                    # 'selected_category_id':
+            }
+            log.info(t.images)
+
+    if re.search(r"\b(kaola)\.com$", _hostname) != None:
+        # log.info(_hostname)
+        _kaola_id = parse_kaola_id_from_url(_link)
+        log.info(_link)
+        try:
+            buy_link = Buy_Link.objects.get(origin_id=_kaola_id, origin_source="kaola.com",)
+                # log.info(buy_link.entity)
+            _data = {
+                'entity_id': buy_link.entity.id,
+            }
+        except Buy_Link.DoesNotExist:
+            k = Kaola(_kaola_id)
+            # k.fetch_html()
+            # log.info(k.desc)
+            _data = {
+                'cand_url': "http://www.kaola.com/product/%s.html" % _kaola_id,
+                'origin_id': _kaola_id,
+                'origin_source': 'kaola.com',
+                'brand': k.brand,
+                'title': k.desc,
+                'thumb_images': k.images,
+                'price': k.price,
+                'cid': k.cid,
+                'shop_link': k.shop_link,
+                'shop_nick': k.nick,
+            }
+
+            log.info(_data)
+    if re.search(r"\b(booking)\.com$", _hostname) != None:
+        _booking_id = parse_booking_id_from_url(_link)
+        try:
+            buy_link = Buy_Link.objects.get(origin_id=_booking_id, origin_source="kaola.com",)
+                # log.info(buy_link.entity)
+            _data = {
+                'entity_id': buy_link.entity.id,
+            }
+        except Buy_Link.DoesNotExist:
+            b = Booking(_link)
+            # k.fetch_html()
+            # log.info(k.desc)
+            _data = {
+                'cand_url':_link,
+                'origin_id': _booking_id,
+                'origin_source': 'booking.com',
+                'brand': b.brand,
+                'title': b.desc,
+                'thumb_images': b.images,
+                'price': b.price,
+                'cid': b.cid,
+                'shop_link': b.shop_link,
+                'shop_nick': b.nick,
+            }
+
+            log.info(_data)
+
+    return _data
+
+    # return
+
+def cal_entity_hash(hash_string):
+    _hash = None
+    while True:
+        _hash = md5((hash_string + unicode(datetime.now())).encode('utf-8')).hexdigest()[0:8]
+        try:
+            Entity.objects.get(entity_hash = _hash)
+        except Entity.DoesNotExist:
+            break
+    return _hash
+
+
+# TODO:
+'''
+    Entity Form
+'''
 class EntityForm(forms.Form):
 
     (remove, freeze, new, selection) = (-2, -1, 0, 1)
@@ -141,259 +287,6 @@ class EntityForm(forms.Form):
     def clean(self):
         cleaned_data = super(EntityForm, self).clean()
         return cleaned_data
-
-
-
-class EditEntityForm(EntityForm):
-
-    # def clean_status(self):
-    #     status = self.cleaned_data.get('status')
-    #     return int(status)
-
-    def save(self):
-        # id = self.cleaned_data['id']
-        brand = self.cleaned_data.get('brand')
-        title = self.cleaned_data.get('title')
-        price = self.cleaned_data.get('price')
-        status = self.cleaned_data.get('status')
-        sub_category = self.cleaned_data.get('sub_category')
-        position = self.cleaned_data.get('position', 0)
-
-        images = self.entity.images
-        a = images[int(position)]
-        b = images[0]
-        images[int(position)] = b
-        images[0] = a
-
-        self.entity.brand = brand
-        self.entity.title = title
-        self.entity.price = price
-
-        if status:
-            self.entity.status = status
-            # if self.entity.status == Entity.selection:
-            #     try:
-            #         selection = Selection_Entity.objects.get(entity = self.entity)
-            #         selection.entity = self.entity
-            #         selection.is_published = False
-            #         selection.pub_time = datetime.now()
-            #         selection.save()
-            #     except Selection_Entity.DoesNotExist:
-            #         Selection_Entity.objects.create(
-            #             entity = self.entity,
-            #             is_published = False,
-            #             pub_time = datetime.now()
-            #         )
-            # else:
-            #     try:
-            #         selection = Selection_Entity.objects.get(entity = self.entity)
-            #         selection.delete()
-            #     except Selection_Entity.DoesNotExist, e:
-            #         log.info("INFO: entity id %s ,%s"% (self.entity.pk, e.message))
-
-        self.entity.category_id = sub_category
-        self.entity.images = images
-        self.entity.save()
-
-        return self.entity
-
-
-class EntityImageForm(forms.Form):
-    YES_OR_NO = (
-        (1, _('yes')),
-        (0, _('no')),
-    )
-
-    image = forms.ImageField(
-        label=_('Select an Image'),
-        help_text=_('max. 2 megabytes'),
-        required=False,
-    )
-
-    image_link = forms.CharField(
-        label=_('image link'),
-        widget=forms.TextInput(attrs={'class':'form-control'}),
-        required=False,
-    )
-
-    is_chief = forms.ChoiceField(
-        label=_('chief image'),
-        choices=YES_OR_NO,
-        widget=forms.Select(attrs={'class':'form-control'}),
-        initial=0,
-        help_text=_('set entity cheif Image'),
-    )
-
-    def __init__(self, entity, *args, **kwargs):
-        self.entity = entity
-        super(EntityImageForm, self).__init__(*args, **kwargs)
-
-    def clean_is_chief(self):
-        _is_chief = self.cleaned_data.get('is_chief')
-        return int(_is_chief)
-
-    def clean_image_link(self):
-        _image_link = self.cleaned_data.get('image_link')
-        return _image_link.strip()
-
-    def save(self):
-        _image = self.cleaned_data.get('image')
-        _image_link = self.cleaned_data.get('image_link')
-        _is_chief = self.cleaned_data.get('is_chief')
-
-        if _image:
-            entity_image = HandleImage(_image)
-        else:
-            import urllib2
-            f = urllib2.urlopen(_image_link)
-            entity_image = HandleImage(f)
-            # fetch_image.delay(entity.images, entity.id)
-
-        image_name = image_path + "%s.jpg" % entity_image.name
-
-        if default_storage.exists(image_name):
-            image_name = image_host + image_name
-        else:
-            image_name = image_host + default_storage.save(image_name, ContentFile(entity_image.image_data))
-        images = self.entity.images
-
-        if _is_chief:
-            images.insert(0, image_name)
-        else:
-            images.append(image_name)
-        self.entity.images = images
-        self.entity.save()
-
-
-class BuyLinkForm(forms.Form):
-    YES_OR_NO = (
-        (1, _('yes')),
-        (0, _('no')),
-    )
-    #
-    # origin_id = forms.IntegerField(
-    #     label=_('origin_id'),
-    #     widget=forms.TextInput(attrs={'class':'form-control'}),
-    #     help_text=_('')
-    # )
-
-    # price = forms.FloatField(
-    #     label=_('price'),
-    #     widget=forms.TextInput(attrs={'class':'form-control'}),
-    #     help_text=_('')
-    # )
-    link = forms.URLField(
-        label=_('link'),
-        widget=forms.URLInput(attrs={'class':'form-control'}),
-        help_text=_(''),
-    )
-
-    default = forms.ChoiceField(
-        label=_('default'),
-        choices=YES_OR_NO,
-        widget=forms.Select(attrs={'class':'form-control'}),
-        initial=False,
-        help_text=_(''),
-    )
-
-    def __init__(self, entity, *args, **kwargs):
-        self.entity_cache = entity
-        self.b = None
-        super(BuyLinkForm, self).__init__(*args, **kwargs)
-
-        # self.field['source'] = forms.ChoiceField(
-        #     label=_('source'),
-        #     widget=forms.Select(attrs={'class':'form-control'})
-        # )
-
-    def save(self):
-        _link = self.cleaned_data.get('link')
-        _default = self.cleaned_data.get('default')
-        _default = int(_default)
-        # log.info(type(bool(_default)))
-        _hostname = urlparse(_link).hostname
-        log.info(_link)
-        if _default:
-            Buy_Link.objects.filter(entity=self.entity_cache).update(default=False)
-
-        if re.search(r"\b(tmall|taobao|95095)\.(com|hk)$", _hostname) is not None:
-            _taobao_id = parse_taobao_id_from_url(_link)
-        # log.info(_link)
-
-            try:
-                self.b = Buy_Link.objects.get(origin_id=_taobao_id, entity=self.entity_cache, origin_source="taobao.com",)
-                # log.info(buy_link.entity)
-                # _data = {
-                #     'entity_hash': buy_link.entity.entity_hash,
-                # }
-            except Buy_Link.DoesNotExist:
-                t = TaoBao(_taobao_id)
-                # log.info(t.res())
-                # res = t.res()
-                # log.info(res)
-                self.b = Buy_Link(
-                    entity = self.entity_cache,
-                    origin_id = _taobao_id,
-                    cid=t.cid,
-                    origin_source = "taobao.com",
-                    link = "http://item.taobao.com/item.htm?id=%s" % _taobao_id,
-                    price=t.price,
-                    default=_default,
-                )
-                self.b.save()
-
-        if re.search(r"\b(jd|360buy)\.com$", _hostname) != None:
-            _jd_id = parse_jd_id_from_url(_link)
-            try:
-                self.b = Buy_Link.objects.get(origin_id=_jd_id, entity=self.entity_cache, origin_source="jd.com",)
-            except Buy_Link.DoesNotExist:
-                j = JD(_jd_id)
-                self.b = Buy_Link(
-                    entity = self.entity_cache,
-                    origin_id = _jd_id,
-                    cid=j.cid,
-                    origin_source = "jd.com",
-                    link="http://item.jd.com/%s.html" % _jd_id,
-                    price=j.price,
-                    default=_default,
-                )
-                self.b.save()
-
-        if re.search(r"\b(kaola)\.com$", _hostname) != None:
-            _kaola_id = parse_kaola_id_from_url(_link)
-            try:
-                self.b = Buy_Link.objects.get(origin_id=_kaola_id, entity=self.entity_cache, origin_source="kaola.com",)
-            except Buy_Link.DoesNotExist:
-                k = Kaola(_kaola_id)
-                self.b = Buy_Link(
-                    entity = self.entity_cache,
-                    origin_id = _kaola_id,
-                    cid=k.cid,
-                    origin_source = "kaola.com",
-                    link="http://www.kaola.com/product/%s.html" % _kaola_id,
-                    price=k.price,
-                    default=_default,
-                )
-                self.b.save()
-
-        if re.search(r"\b(booking)\.com$", _hostname) != None:
-            _booking_id = parse_booking_id_from_url(_link)
-            try:
-                self.b = Buy_Link.objects.get(origin_id=_booking_id, entity=self.entity_cache, origin_source="booking.com",)
-            except Buy_Link.DoesNotExist:
-                b = Booking(_link)
-                self.b = Buy_Link(
-                    entity = self.entity_cache,
-                    origin_id = _booking_id,
-                    cid=b.cid,
-                    origin_source = "kaola.com",
-                    link=_link,
-                    price=b.price,
-                    default=_default,
-                )
-                self.b.save()
-        return self.b
-
 
 class CreateEntityForm(forms.Form):
 
@@ -594,147 +487,304 @@ class CreateEntityForm(forms.Form):
         return entity
 
 
-def load_entity_info(url):
-    _link = url
-    _hostname = urlparse(_link).hostname
+class EditEntityForm(EntityForm):
 
-        # log.info(_hostname)
-    _data = dict()
+    # def clean_status(self):
+    #     status = self.cleaned_data.get('status')
+    #     return int(status)
 
-    if re.search(r"\b(jd|360buy)\.com$", _hostname) != None:
-        _jd_id = parse_jd_id_from_url(_link)
-            # log.info(_jd_id)
-        try:
-                buy_link = Buy_Link.objects.get(origin_id=_jd_id, origin_source="jd.com",)
-                _data = {
-                    'entity_id': buy_link.entity.id,
-                }
-        except Buy_Link.DoesNotExist:
-                j = JD(_jd_id)
+    def save(self):
+        # id = self.cleaned_data['id']
+        brand = self.cleaned_data.get('brand')
+        title = self.cleaned_data.get('title')
+        price = self.cleaned_data.get('price')
+        status = self.cleaned_data.get('status')
+        sub_category = self.cleaned_data.get('sub_category')
+        position = self.cleaned_data.get('position', 0)
 
-                # print "OKOKOKOKOKO"
-                log.info("category id %s" % j.cid)
-                _data = {
-                    # 'user_id': self.request.user.id,
-                    # 'user_avatar': self.request.user.profile.avatar_url,
-                    'cand_url': _link,
-                    'origin_id': _jd_id,
-                    'origin_source': 'jd.com',
-                    'brand': j.brand,
-                    'title': j.title,
-                    'cid': j.cid,
-                    # 'taobao_title': res['desc'],
-                    'shop_link': j.shop_link,
-                    'shop_nick': j.nick,
-                    'price': j.price,
-                    # 'chief_image_url' : j.imgs[0],
-                    'thumb_images': j.imgs,
-                    # 'selected_category_id':
-                }
-                # print _data
-            # pass
-            # return jd_info(self.request, _link)
+        images = self.entity.images
+        a = images[int(position)]
+        b = images[0]
+        images[int(position)] = b
+        images[0] = a
 
-    if re.search(r"\b(tmall|taobao|95095)\.(com|hk)$", _hostname) is not None:
-        _taobao_id = parse_taobao_id_from_url(_link)
-        log.info("taobao id %s" % _taobao_id)
+        self.entity.brand = brand
+        self.entity.title = title
+        self.entity.price = price
 
-        try:
-            buy_link = Buy_Link.objects.get(origin_id=_taobao_id, origin_source="taobao.com",)
+        if status:
+            self.entity.status = status
+            # if self.entity.status == Entity.selection:
+            #     try:
+            #         selection = Selection_Entity.objects.get(entity = self.entity)
+            #         selection.entity = self.entity
+            #         selection.is_published = False
+            #         selection.pub_time = datetime.now()
+            #         selection.save()
+            #     except Selection_Entity.DoesNotExist:
+            #         Selection_Entity.objects.create(
+            #             entity = self.entity,
+            #             is_published = False,
+            #             pub_time = datetime.now()
+            #         )
+            # else:
+            #     try:
+            #         selection = Selection_Entity.objects.get(entity = self.entity)
+            #         selection.delete()
+            #     except Selection_Entity.DoesNotExist, e:
+            #         log.info("INFO: entity id %s ,%s"% (self.entity.pk, e.message))
+
+        self.entity.category_id = sub_category
+        self.entity.images = images
+        self.entity.save()
+
+        return self.entity
+
+
+# TODO:
+'''
+    Entity Image Form
+'''
+class EntityImageForm(forms.Form):
+    YES_OR_NO = (
+        (1, _('yes')),
+        (0, _('no')),
+    )
+
+    image = forms.ImageField(
+        label=_('Select an Image'),
+        help_text=_('max. 2 megabytes'),
+        required=False,
+    )
+
+    image_link = forms.CharField(
+        label=_('image link'),
+        widget=forms.TextInput(attrs={'class':'form-control'}),
+        required=False,
+    )
+
+    is_chief = forms.ChoiceField(
+        label=_('chief image'),
+        choices=YES_OR_NO,
+        widget=forms.Select(attrs={'class':'form-control'}),
+        initial=0,
+        help_text=_('set entity cheif Image'),
+    )
+
+    def __init__(self, entity, *args, **kwargs):
+        self.entity = entity
+        super(EntityImageForm, self).__init__(*args, **kwargs)
+
+    def clean_is_chief(self):
+        _is_chief = self.cleaned_data.get('is_chief')
+        return int(_is_chief)
+
+    def clean_image_link(self):
+        _image_link = self.cleaned_data.get('image_link')
+        return _image_link.strip()
+
+    def save(self):
+        _image = self.cleaned_data.get('image')
+        _image_link = self.cleaned_data.get('image_link')
+        _is_chief = self.cleaned_data.get('is_chief')
+
+        if _image:
+            entity_image = HandleImage(_image)
+        else:
+            import urllib2
+            f = urllib2.urlopen(_image_link)
+            entity_image = HandleImage(f)
+            # fetch_image.delay(entity.images, entity.id)
+
+        image_name = image_path + "%s.jpg" % entity_image.name
+
+        if default_storage.exists(image_name):
+            image_name = image_host + image_name
+        else:
+            image_name = image_host + default_storage.save(image_name, ContentFile(entity_image.image_data))
+        images = self.entity.images
+
+        if _is_chief:
+            images.insert(0, image_name)
+        else:
+            images.append(image_name)
+        self.entity.images = images
+        self.entity.save()
+
+
+# TODO:
+'''
+    Entity Buy Link Form
+'''
+class BuyLinkForm(forms.Form):
+    YES_OR_NO = (
+        (1, _('yes')),
+        (0, _('no')),
+    )
+    #
+    # origin_id = forms.IntegerField(
+    #     label=_('origin_id'),
+    #     widget=forms.TextInput(attrs={'class':'form-control'}),
+    #     help_text=_('')
+    # )
+
+    # price = forms.FloatField(
+    #     label=_('price'),
+    #     widget=forms.TextInput(attrs={'class':'form-control'}),
+    #     help_text=_('')
+    # )
+    link = forms.URLField(
+        label=_('link'),
+        widget=forms.URLInput(attrs={'class':'form-control'}),
+        help_text=_(''),
+    )
+
+    default = forms.ChoiceField(
+        label=_('default'),
+        choices=YES_OR_NO,
+        widget=forms.Select(attrs={'class':'form-control'}),
+        initial=False,
+        help_text=_(''),
+    )
+
+    def __init__(self, entity, *args, **kwargs):
+        self.entity_cache = entity
+        self.b = None
+        super(BuyLinkForm, self).__init__(*args, **kwargs)
+
+        # self.field['source'] = forms.ChoiceField(
+        #     label=_('source'),
+        #     widget=forms.Select(attrs={'class':'form-control'})
+        # )
+
+    def save(self):
+        _link = self.cleaned_data.get('link')
+        _default = self.cleaned_data.get('default')
+        _default = int(_default)
+        # log.info(type(bool(_default)))
+        _hostname = urlparse(_link).hostname
+        log.info(_link)
+        if _default:
+            Buy_Link.objects.filter(entity=self.entity_cache).update(default=False)
+
+        if re.search(r"\b(tmall|taobao|95095)\.(com|hk)$", _hostname) is not None:
+            _taobao_id = parse_taobao_id_from_url(_link)
+        # log.info(_link)
+
+            try:
+                self.b = Buy_Link.objects.get(origin_id=_taobao_id, entity=self.entity_cache, origin_source="taobao.com",)
                 # log.info(buy_link.entity)
-            _data = {
-                'entity_id': buy_link.entity.id,
-            }
-        except Buy_Link.DoesNotExist:
-                # log.info("OKOKOKO")
-            t = TaoBao(_taobao_id)
+                # _data = {
+                #     'entity_hash': buy_link.entity.entity_hash,
+                # }
+            except Buy_Link.DoesNotExist:
+                t = TaoBao(_taobao_id)
                 # log.info(t.res())
                 # res = t.res()
-            _data = {
-                    # 'user_id': self.request.user.id,
-                    # 'user_avatar': self.request.user.profile.avatar_url,
-                    'cand_url': _link,
-                    'origin_id': _taobao_id,
-                    'origin_source': 'taobao.com',
-                    'cid': t.cid,
-                    'title': t.desc,
-                    'shop_nick': t.nick,
-                    'shop_link': t.shoplink,
-                    'price': t.price,
-                    # 'chief_image_url' : t.images[0],
-                    'thumb_images': t.images,
-                    # 'selected_category_id':
-            }
-            log.info(t.images)
+                # log.info(res)
+                self.b = Buy_Link(
+                    entity = self.entity_cache,
+                    origin_id = _taobao_id,
+                    cid=t.cid,
+                    origin_source = "taobao.com",
+                    link = "http://item.taobao.com/item.htm?id=%s" % _taobao_id,
+                    price=t.price,
+                    default=_default,
+                )
+                self.b.save()
 
-    if re.search(r"\b(kaola)\.com$", _hostname) != None:
-        # log.info(_hostname)
-        _kaola_id = parse_kaola_id_from_url(_link)
-        log.info(_link)
-        try:
-            buy_link = Buy_Link.objects.get(origin_id=_kaola_id, origin_source="kaola.com",)
-                # log.info(buy_link.entity)
-            _data = {
-                'entity_id': buy_link.entity.id,
-            }
-        except Buy_Link.DoesNotExist:
-            k = Kaola(_kaola_id)
-            # k.fetch_html()
-            # log.info(k.desc)
-            _data = {
-                'cand_url': "http://www.kaola.com/product/%s.html" % _kaola_id,
-                'origin_id': _kaola_id,
-                'origin_source': 'kaola.com',
-                'brand': k.brand,
-                'title': k.desc,
-                'thumb_images': k.images,
-                'price': k.price,
-                'cid': k.cid,
-                'shop_link': k.shop_link,
-                'shop_nick': k.nick,
-            }
+        if re.search(r"\b(jd|360buy)\.com$", _hostname) != None:
+            _jd_id = parse_jd_id_from_url(_link)
+            try:
+                self.b = Buy_Link.objects.get(origin_id=_jd_id, entity=self.entity_cache, origin_source="jd.com",)
+            except Buy_Link.DoesNotExist:
+                j = JD(_jd_id)
+                self.b = Buy_Link(
+                    entity = self.entity_cache,
+                    origin_id = _jd_id,
+                    cid=j.cid,
+                    origin_source = "jd.com",
+                    link="http://item.jd.com/%s.html" % _jd_id,
+                    price=j.price,
+                    default=_default,
+                )
+                self.b.save()
 
-            log.info(_data)
-    if re.search(r"\b(booking)\.com$", _hostname) != None:
-        _booking_id = parse_booking_id_from_url(_link)
-        try:
-            buy_link = Buy_Link.objects.get(origin_id=_booking_id, origin_source="kaola.com",)
-                # log.info(buy_link.entity)
-            _data = {
-                'entity_id': buy_link.entity.id,
-            }
-        except Buy_Link.DoesNotExist:
-            b = Booking(_link)
-            # k.fetch_html()
-            # log.info(k.desc)
-            _data = {
-                'cand_url':_link,
-                'origin_id': _booking_id,
-                'origin_source': 'booking.com',
-                'brand': b.brand,
-                'title': b.desc,
-                'thumb_images': b.images,
-                'price': b.price,
-                'cid': b.cid,
-                'shop_link': b.shop_link,
-                'shop_nick': b.nick,
-            }
+        if re.search(r"\b(kaola)\.com$", _hostname) != None:
+            _kaola_id = parse_kaola_id_from_url(_link)
+            try:
+                self.b = Buy_Link.objects.get(origin_id=_kaola_id, entity=self.entity_cache, origin_source="kaola.com",)
+            except Buy_Link.DoesNotExist:
+                k = Kaola(_kaola_id)
+                self.b = Buy_Link(
+                    entity = self.entity_cache,
+                    origin_id = _kaola_id,
+                    cid=k.cid,
+                    origin_source = "kaola.com",
+                    link="http://www.kaola.com/product/%s.html" % _kaola_id,
+                    price=k.price,
+                    default=_default,
+                )
+                self.b.save()
 
-            log.info(_data)
+        if re.search(r"\b(booking)\.com$", _hostname) != None:
+            _booking_id = parse_booking_id_from_url(_link)
+            try:
+                self.b = Buy_Link.objects.get(origin_id=_booking_id, entity=self.entity_cache, origin_source="booking.com",)
+            except Buy_Link.DoesNotExist:
+                b = Booking(_link)
+                self.b = Buy_Link(
+                    entity = self.entity_cache,
+                    origin_id = _booking_id,
+                    cid=b.cid,
+                    origin_source = "kaola.com",
+                    link=_link,
+                    price=b.price,
+                    default=_default,
+                )
+                self.b.save()
+        return self.b
 
-    return _data
 
-    # return
+class EditBuyLinkForm(forms.Form):
+    YES_OR_NO = (
+        (1, _('yes')),
+        (0, _('no')),
+    )
 
-def cal_entity_hash(hash_string):
-    _hash = None
-    while True:
-        _hash = md5((hash_string + unicode(datetime.now())).encode('utf-8')).hexdigest()[0:8]
-        try:
-            Entity.objects.get(entity_hash = _hash)
-        except Entity.DoesNotExist:
-            break
-    return _hash
+    link = forms.URLField(
+        label=_('link'),
+        widget=forms.URLInput(attrs={'class':'form-control'}),
+        help_text=_(''),
+    )
+
+    default = forms.ChoiceField(
+        label=_('default'),
+        choices=YES_OR_NO,
+        widget=forms.Select(attrs={'class':'form-control'}),
+        initial=False,
+        help_text=_(''),
+    )
+
+    def __init__(self, buy_link, *args, **kwargs):
+
+        self.buy_link = buy_link
+        super(EditBuyLinkForm, self).__init__(*args, **kwargs)
+
+    def save(self):
+        _link = self.cleaned_data.get('link')
+        _default = self.cleaned_data.get('default')
+        _default = int(_default)
+
+        if _default:
+            Buy_Link.objects.filter(entity=self.buy_link.entity).update(default=False)
+
+        self.buy_link.default = _default
+        self.buy_link.link = _link
+        self.buy_link.save()
+
+        return self.buy_link
+
 
 
 

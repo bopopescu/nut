@@ -26,7 +26,7 @@
         },
 
         removeBuyLink: function() {
-            $('#buylinks').find('.btn-link').on('click', function(){
+            $('#buylinks').find('.buy-link').on('click', function(){
                 var buy_link = $(this);
                 //console.log(buy_link);
 
