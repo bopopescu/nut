@@ -1402,3 +1402,21 @@ a:hover {
   background: #d9d9d9;
   color: #9d9e9f!important;
 }
+.guoku-social .links .social-link {
+  margin-left: 23px;
+}
+.job-sub-info {
+  margin-top: 12px;
+  color: #9d9d9d;
+}
+.sub-agreement-text {
+  margin-top: 12px;
+  color: #9d9d9d;
+}
+.link-row .link-item {
+  margin: 0px;
+  padding: 3px;
+}
+.link-row .link-item .image-bordered {
+  border: 1px solid #dddddd;
+}
