@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.views.decorators.http import require_GET
 from django.contrib.auth.decorators import login_required
 
-from apps.core.models import Sina_Token
+from apps.core.models import Sina_Token, GKUser, User_Profile
 # from apps.web.forms.account import UserSignInForm, UserPasswordResetForm
 from apps.web.lib.account import sina
 from apps.web.lib.account.utils import login_without_password
@@ -58,13 +58,24 @@ def auth_by_sina(request):
                 return HttpResponseRedirect(next_url)
             else:
                 log.info(_sina_data)
-                request.session['weibo_id'] = _sina_data['sina_id']
-                request.session['avatar'] = _sina_data['avatar_large']
-                request.session['screen_name'] = _sina_data['screen_name']
-                request.session['access_token'] = _sina_data['access_token']
-                request.session['expires_in'] = _sina_data['expires_in']
-
-                return HttpResponseRedirect(reverse('web_register_from_three_part'))
+                user_key = Sina_Token.generate(_sina_data['access_token'], _sina_data['screen_name'])
+                email = "%s@guoku.com" % user_key
+                user_obj = GKUser.objects.create_user(email=email, password=None)
+                User_Profile.objects.create(
+                    user=user_obj,
+                    nickname=_sina_data['screen_name'],
+                    avatar = _sina_data['avatar_large'],
+                )
+                Sina_Token.objects.create(
+                    user = user_obj,
+                    sina_id = _sina_data['sina_id'],
+                    screen_name = _sina_data['screen_name'],
+                    access_token = _sina_data['access_token'],
+                    expires_in = _sina_data['expires_in'],
+                )
+                login_without_password(request, user_obj)
+                return HttpResponseRedirect(next_url)
+                # return HttpResponseRedirect(reverse('web_register_from_three_part'))
     else:
         log.error("%s", error_uri)
         return HttpResponse("error")

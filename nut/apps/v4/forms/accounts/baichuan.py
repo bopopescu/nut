@@ -57,7 +57,7 @@ class BaichuanSignInForm(BaichuanForm):
             user_obj = GKUser.objects.create_user(email=email, password=None)
             User_Profile.objects.create(
                 user=user_obj,
-                nickname=_nick,
+                nickname=user_key,
                 # avatar=_avatar,
             )
             self.taobao = Taobao_Token.objects.create(

@@ -846,6 +846,11 @@ class Sina_Token(BaseModel):
     def __unicode__(self):
         return self.screen_name
 
+    @staticmethod
+    def generate(access_token, nick):
+        code_string = "%s%s%s" % (access_token, nick, time.mktime(datetime.now().timetuple()))
+        return md5(code_string.encode('utf-8')).hexdigest()
+
 
 class Taobao_Token(models.Model):
     user = models.OneToOneField(GKUser, related_name='taobao')
