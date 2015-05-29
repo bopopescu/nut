@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 from apps.management.decorators import staff_only
 
 from apps.core.models import Entity, Buy_Link
-from apps.core.forms.entity import EditEntityForm, EntityImageForm, BuyLinkForm, CreateEntityForm, load_entity_info
+from apps.core.forms.entity import EditEntityForm, EntityImageForm, CreateEntityForm, load_entity_info, BuyLinkForm, EditBuyLinkForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.tasks.entity import fetch_image
@@ -195,9 +195,32 @@ def buy_link(request, entity_id, template='management/entities/buy_link.html'):
 
 @csrf_exempt
 @login_required
-def edit_buy_link(request, bid):
+def edit_buy_link(request, bid, template='management/entities/edit_buy_link.html'):
 
-    return
+    try:
+        buy = Buy_Link.objects.get(pk = bid)
+    except Buy_Link.DoesNotExist:
+        raise Http404
+
+    if request.method == 'POST':
+        _forms = EditBuyLinkForm(buy_link=buy, data=request.POST)
+        if _forms.is_valid():
+            buy_link = _forms.save()
+            return HttpResponseRedirect(reverse('management_entity_edit', args=[buy_link.entity_id]))
+    else:
+        # log.info(int(buy.default))
+        _forms = EditBuyLinkForm(buy_link=buy, initial={
+            'link': buy.link,
+            'default':buy.default,
+        })
+
+    return render_to_response(
+                            template,
+                            {
+                                  'entity': buy.entity,
+                                  'forms': _forms,
+                            },
+                              context_instance = RequestContext(request))
 
 
 @csrf_exempt
