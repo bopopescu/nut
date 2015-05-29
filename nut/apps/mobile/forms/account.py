@@ -8,7 +8,7 @@ from apps.mobile.models import Session_Key
 
 from apps.core.utils.image import HandleImage
 from apps.core.tasks.account import fetch_avatar, update_token
-from apps.v4.models import APIJpush
+from apps.v4.models import APISession_Key
 
 
 class MobileUserSignInForm(GuoKuUserSignInForm):
@@ -111,7 +111,7 @@ class MobileUserSignOutForm(forms.Form):
     def logout(self):
         _session = self.cleaned_data.get('session')
         try:
-            _session_obj = Session_Key.objects.get(session_key=_session)
+            _session_obj = APISession_Key.objects.get(session_key=_session)
             _session_obj.delete()
             return True
         except Session_Key.DoesNotExist:
