@@ -1,3 +1,7 @@
+.little-gray-font {
+  font-size: 12px;
+  color: #9d9d9d;
+}
 @-moz-document url-prefix() {
   fieldset {
     display: table-cell;
@@ -1174,6 +1178,27 @@ a {
 .event-item-banner {
   border: 1px solid #e6e6e6;
 }
+.media-header {
+  margin-top: 30px ;
+}
+.media-cover-list .media-link .article-title {
+  font-size: 14px;
+  line-height: 24px;
+}
+.media-cover-list .media-link .article-source {
+  font-size: 12px;
+  color: #9d9d9d;
+  margin-left: 10px;
+}
+.media-cover-list .media-cover-time {
+  float: right;
+  font-size: 12px;
+  color: #9d9d9d;
+  line-height: 24px;
+}
+.media-cover-list .blank-row {
+  height: 20px;
+}
 /* Add by An Chen end*/
 /*body,button,input,select,textarea{font:14px/1.125 Arial,Helvetica,sans-serif;_font-family:"SimSun";}*/
 /*h1,h2,h3,h4,h5,h6,dl,dt,dd,ul,ol,li,th,td,p,blockquote,pre,form,fieldset,legend,input,button,textarea,hr{margin:0; padding:0;}*/
@@ -1376,4 +1401,22 @@ a:hover {
 .user-main-button .disabled {
   background: #d9d9d9;
   color: #9d9e9f!important;
+}
+.guoku-social .links .social-link {
+  margin-left: 23px;
+}
+.job-sub-info {
+  margin-top: 12px;
+  color: #9d9d9d;
+}
+.sub-agreement-text {
+  margin-top: 12px;
+  color: #9d9d9d;
+}
+.link-row .link-item {
+  margin: 0px;
+  padding: 3px;
+}
+.link-row .link-item .image-bordered {
+  border: 1px solid #dddddd;
 }

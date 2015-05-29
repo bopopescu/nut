@@ -8,19 +8,76 @@
 
 {% block  main %}
 {#    <blockquote>#}
-        <h3>友情链接：</h3>
+        <h3>友情链接</h3>
 {#    </blockquote>#}
     <hr />
-    <div class="links">
-       <p class="fs_32 fc_2">友情链接</p>
-					<ul class="friendly_link">
-						<li><a href="http://www.xiangqu.com/" target="_blank"><img src="{% static 'images/ad_1.png' %}" alt=""></a></li>
-						<li><a href="http://www.toodaylab.com/"  target="_blank"><img src="{% static 'images/ad_2.png' %}" alt=""></a></li>
-						<li><a href="http://www.sopool.com/"  target="_blank"><img src="{% static 'images/ad_3.png' %}" alt=""></a></li>
-						<li><a href="http://www.nuandao.com/" target="_blank"><img src="{% static 'images/ad_4.png' %}" alt=""></a></li>
-						<li><a href="http://xipin.com/" target="_blank"><img src="{% static 'images/ad_5.png' %}" alt=""></a></li>
-						<li><a href="http://www.52souluo.com/" target="_blank"><img src="{% static 'images/ad_6.png' %}" alt=""></a></li>
-					</ul>
+    <div class="links container-fluid">
+       <div class="link-row row">
+           <div class="link-item col-xs-4 col-sm-3 col-md-2 col-lg-2">
+               <a target="_blank" href="http://www.xiangqu.com/">
+                   <img class="img-responsive image-bordered"
+                        src="{% static 'images/links/003-0.png' %}"
+                        alter-img="{% static 'images/links/003.png'%}">
+               </a>
+           </div>
+
+           <div class="link-item col-xs-4 col-sm-3 col-md-2 col-lg-2">
+               <a target="_blank" href="http://www.toodaylab.com/">
+                   <img class="img-responsive image-bordered"
+                        src="{% static 'images/links/001-0.png' %}"
+                        alter-img="{% static 'images/links/001.png'%}">
+               </a>
+           </div>
+
+           <div class="link-item col-xs-4 col-sm-3 col-md-2 col-lg-2">
+               <a target="_blank" href="http://www.sopool.com/">
+                   <img class="img-responsive image-bordered"
+                        src="{% static 'images/links/004-0.png' %}"
+                        alter-img="{% static 'images/links/004.png'%}">
+               </a>
+           </div>
+
+           <div class="link-item col-xs-4 col-sm-3 col-md-2 col-lg-2">
+               <a target="_blank" href="http://www.nuandao.com/">
+                   <img class="img-responsive image-bordered"
+                        src="{% static 'images/links/006-0.png' %}"
+                        alter-img="{% static 'images/links/006.png'%}">
+               </a>
+           </div>
+{#           #}
+           <div class="link-item col-xs-4 col-sm-3 col-md-2 col-lg-2">
+               <a target="_blank" href="http://xipin.com/">
+                   <img class="img-responsive image-bordered"
+                        src="{% static 'images/links/005-0.png' %}"
+                        alter-img="{% static 'images/links/005.png'%}">
+               </a>
+           </div>
+           <div class="link-item col-xs-4 col-sm-3 col-md-2 col-lg-2">
+               <a target="_blank" href="http://www.52souluo.com/">
+                   <img class="img-responsive image-bordered"
+                        src="{% static 'images/links/002-0.png' %}"
+                        alter-img="{% static 'images/links/002.png'%}">
+               </a>
+           </div>
+           <div class="link-item col-xs-4 col-sm-3 col-md-2 col-lg-2">
+               <a target="_blank" href="http://nailao.org/">
+                   <img class="img-responsive image-bordered"
+                        src="{% static 'images/links/007-0.png' %}"
+                        alter-img="{% static 'images/links/007.png'%}">
+               </a>
+           </div>
+
+       </div>
+
+
+{#					<ul class="friendly_link">#}
+{#						<li><a href="http://www.xiangqu.com/" target="_blank"><img src="{% static 'images/ad_1.png' %}" alter-image="{% static %}" alt=""></a></li>#}
+{#						<li><a href="http://www.toodaylab.com/"  target="_blank"><img src="{% static 'images/ad_2.png' %}" alt=""></a></li>#}
+{#						<li><a href="http://www.sopool.com/"  target="_blank"><img src="{% static 'images/ad_3.png' %}" alt=""></a></li>#}
+{#						<li><a href="http://www.nuandao.com/" target="_blank"><img src="{% static 'images/ad_4.png' %}" alt=""></a></li>#}
+{#						<li><a href="http://xipin.com/" target="_blank"><img src="{% static 'images/ad_5.png' %}" alt=""></a></li>#}
+{#						<li><a href="http://www.52souluo.com/" target="_blank"><img src="{% static 'images/ad_6.png' %}" alt=""></a></li>#}
+{#					</ul>#}
 {#        <div class="col-sm-2"><a class="btn btn-default" href="http://www.yokamen.cn/" target="_blank">YOKA男士论坛</a></div>#}
     </div>
 
