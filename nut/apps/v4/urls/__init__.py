@@ -35,7 +35,7 @@ urlpatterns += patterns(
     url(r'^taobao/login/$', 'taobao.login_by_taobao', name='v4_login_by_taobao'),
     url(r'^taobao/register/$', 'taobao.register_by_taobao', name='v4_register_by_taobao'),
 
-    url(r'^baichuan/login', 'baichuan.login', name='v4_login_by_baichuan'),
+    url(r'^baichuan/login/$', 'baichuan.login', name='v4_login_by_baichuan'),
 
     # url(r'')
 )
