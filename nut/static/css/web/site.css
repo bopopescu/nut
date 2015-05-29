@@ -1,3 +1,7 @@
+.little-gray-font {
+  font-size: 12px;
+  color: #9d9d9d;
+}
 @-moz-document url-prefix() {
   fieldset {
     display: table-cell;
@@ -1173,6 +1177,27 @@ a {
 /*for event page banner border */
 .event-item-banner {
   border: 1px solid #e6e6e6;
+}
+.media-header {
+  margin-top: 30px ;
+}
+.media-cover-list .media-link .article-title {
+  font-size: 14px;
+  line-height: 24px;
+}
+.media-cover-list .media-link .article-source {
+  font-size: 12px;
+  color: #9d9d9d;
+  margin-left: 10px;
+}
+.media-cover-list .media-cover-time {
+  float: right;
+  font-size: 12px;
+  color: #9d9d9d;
+  line-height: 24px;
+}
+.media-cover-list .blank-row {
+  height: 20px;
 }
 /* Add by An Chen end*/
 /*body,button,input,select,textarea{font:14px/1.125 Arial,Helvetica,sans-serif;_font-family:"SimSun";}*/
