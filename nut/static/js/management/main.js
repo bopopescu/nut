@@ -38,7 +38,7 @@
                     type: "POST",
                     dataType: "json",
                     success: function(data) {
-                        buy_link.parent().remove();
+                        buy_link.parent().parent().parent().remove();
                     }
                 });
             });

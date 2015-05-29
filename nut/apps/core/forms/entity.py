@@ -762,7 +762,7 @@ class EditBuyLinkForm(forms.Form):
         label=_('default'),
         choices=YES_OR_NO,
         widget=forms.Select(attrs={'class':'form-control'}),
-        initial=False,
+        # initial=0,
         help_text=_(''),
     )
 
