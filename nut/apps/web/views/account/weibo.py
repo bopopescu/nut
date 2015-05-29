@@ -64,7 +64,7 @@ def auth_by_sina(request):
                 User_Profile.objects.create(
                     user=user_obj,
                     nickname=_sina_data['screen_name'],
-                    avatar = _sina_data['avatar_large'],
+                    avatar = user_key,
                 )
                 Sina_Token.objects.create(
                     user = user_obj,
