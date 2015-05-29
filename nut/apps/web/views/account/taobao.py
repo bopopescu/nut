@@ -57,15 +57,13 @@ def auth_by_taobao(request):
                 )
                 return HttpResponseRedirect(next_url)
             else:
-                log.info(_taobao_data)
-
-
+                # log.info(_taobao_data)
                 user_key = Taobao_Token.generate(_taobao_data['open_uid'], _taobao_data['screen_name'])
                 email = "%s@guoku.com" % user_key
                 user_obj = GKUser.objects.create_user(email=email, password=None)
                 User_Profile.objects.create(
-                    user=user_obj,
-                    nickname=_taobao_data['screen_name'],
+                    user= user_obj,
+                    nickname=user_key,
                 )
                 Taobao_Token.objects.create(
                     user = user_obj,
