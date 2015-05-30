@@ -1123,7 +1123,8 @@ def user_like_notification(sender, instance, created, **kwargs):
             # log.info("rid %s" % )
             for push_token in instance.entity.user.jpush_token.all():
                 # log.info("rid %s" % push_token.rid)
-                message = "%s %s" % (instance.user.profile.nickname, u'喜爱了你添加的商品')
+                message = instance.user.profile.nickname + u' 喜爱了你添加的商品'
+                log.info(message)
                 push_notify.send(push_token, verb=message, rid=push_token.rid, platform="ios", content_type=instance, production=False)
 
 post_save.connect(user_like_notification, sender=Entity_Like, dispatch_uid="user_like_action_notification")

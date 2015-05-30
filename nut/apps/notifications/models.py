@@ -1,17 +1,17 @@
 import datetime
-from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.db import models
 from django.utils.timezone import utc
-
-# from jpush import push
 import jpush
-
 from .signals import notify, push_notify
-
 from model_utils import managers, Choices
 
+
+from django.utils.log import getLogger
+log = getLogger('django')
+
+from django.conf import settings
 app_key = getattr(settings, 'JPUSH_KEY', None)
 app_secret = getattr(settings, 'JPUSH_SECRET', None)
 
@@ -161,9 +161,9 @@ def push_notification(verb, **kwargs):
     push = _jpush.create_push()
     push.audience = jpush.registration_id(_register_id)
     # push.platform = jpush.audience(_register_id)
-
-    ios_msg = jpush.ios(alert=unicode(verb), badge="+1", extras={'k1':'v1'})
-    push.notification = jpush.notification(alert=unicode(verb), ios=ios_msg)
+    # log.info(type(verb))
+    ios_msg = jpush.ios(alert=verb.encode('utf8'), badge="+1", extras={'entity':'v1'})
+    push.notification = jpush.notification(alert=verb.encode('utf8'), ios=ios_msg)
     push.platform = jpush.platform(_platform)
     # push.audience = jpush.audience({'registration_id':_register_id})
     push.options = {"time_to_live":86400, "apns_production":_production}

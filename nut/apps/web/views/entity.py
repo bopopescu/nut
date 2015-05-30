@@ -218,11 +218,11 @@ def entity_like(request, eid):
     if request.is_ajax():
         _user = request.user
         try:
-            like_task.delay(uid=_user.id, eid=eid)
-            # el = Entity_Like.objects.create(
-            #     user = _user,
-            #     entity_id = eid,
-            # )
+            # like_task.delay(uid=_user.id, eid=eid)
+            el = Entity_Like.objects.create(
+                user = _user,
+                entity_id = eid,
+            )
             return JSONResponse(data={'status':1})
         except Exception, e:
             log.error("ERROR: %s", e.message)
@@ -236,9 +236,9 @@ def entity_unlike(request, eid):
     if request.is_ajax():
         _user = request.user
         try:
-            # el = Entity_Like.objects.get(entity_id = eid, user = _user)
-            # el.delete()
-            unlike_task.delay(uid=_user.id, eid=eid)
+            el = Entity_Like.objects.get(entity_id = eid, user = _user)
+            el.delete()
+            # unlike_task.delay(uid=_user.id, eid=eid)
             return JSONResponse(data={'status':0})
         except Entity_Like.DoesNotExist:
             raise Http404
@@ -275,10 +275,7 @@ def entity_load(request):
         _forms = EntityURLFrom(request=request, data=request.POST)
         if _forms.is_valid():
             _item_info = _forms.load()
-
-            log.info(_item_info)
-
-
+            # log.info(_item_info)
             if _item_info.has_key('entity_hash'):
                 _res = {
                     'status' : 'EXIST',
@@ -289,8 +286,6 @@ def entity_load(request):
                     'status': 'SUCCESS',
                     'data': _item_info,
                 }
-
-
             return JSONResponse(data=_res)
 
     raise HttpResponseNotAllowed
