@@ -29,12 +29,14 @@ urlpatterns += patterns(
     url(r'^sina/bind/$', 'weibo.link_by_weibo', name='v4_bind_by_weibo'),
     url(r'^sina/unbind/$', 'weibo.unlink_by_weibo', name='v4_unbind_by_weibo'),
 
-    url(r'^weibo/login/$', 'weibo.signin_by_weibo', name='v4_signin_by_weibo'),
-
 # TODO: taobao
     url(r'^taobao/login/$', 'taobao.login_by_taobao', name='v4_login_by_taobao'),
     url(r'^taobao/register/$', 'taobao.register_by_taobao', name='v4_register_by_taobao'),
 
+# TODO: new sign in or sign up by weibo
+    url(r'^weibo/login/$', 'weibo.signin_by_weibo', name='v4_signin_by_weibo'),
+
+# TODO: new sign in or sign up by Baichuan
     url(r'^baichuan/login/$', 'baichuan.login', name='v4_login_by_baichuan'),
 
     # url(r'')
