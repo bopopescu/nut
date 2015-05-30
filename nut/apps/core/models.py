@@ -1140,7 +1140,7 @@ post_save.connect(user_post_note_notification, sender=Note, dispatch_uid="user_p
 
 
 def user_post_comment_notification(sender, instance, created, **kwargs):
-    log.info(created)
+    # log.info(created)
     if issubclass(sender, Note_Comment) and created:
         log.info(instance.user)
         if instance.user.is_active == GKUser.remove:
