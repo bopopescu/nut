@@ -42,10 +42,11 @@ class Push(object):
 
         """
         body = json.dumps(self.payload)
+        print body
+
         response = self._jpush._request('POST', body,
             common.PUSH_URL, 'application/json', version=3)
-
-        data = response.json()
+        # data = response.json()
 
         return PushResponse(response)
 
