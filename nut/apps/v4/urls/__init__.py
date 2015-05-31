@@ -11,7 +11,7 @@ urlpatterns = patterns(
     url(r'^unread/$', 'unread', name='v4_unread'),
     url(r'^item/(?P<item_id>\w+)/$', 'visit_item', name='v4_visit_item'),
 
-     url(r'^apns/token/$', 'apns_token', name='v4_apns_token'),
+    url(r'^apns/token/$', 'apns_token', name='v4_apns_token'),
 )
 
 urlpatterns += patterns(
@@ -33,7 +33,11 @@ urlpatterns += patterns(
     url(r'^taobao/login/$', 'taobao.login_by_taobao', name='v4_login_by_taobao'),
     url(r'^taobao/register/$', 'taobao.register_by_taobao', name='v4_register_by_taobao'),
 
-    url(r'^baichuan/login', 'baichuan.login', name='v4_login_by_baichuan'),
+# TODO: new sign in or sign up by weibo
+    url(r'^weibo/login/$', 'weibo.signin_by_weibo', name='v4_signin_by_weibo'),
+
+# TODO: new sign in or sign up by Baichuan
+    url(r'^baichuan/login/$', 'baichuan.login', name='v4_login_by_baichuan'),
 
     # url(r'')
 )

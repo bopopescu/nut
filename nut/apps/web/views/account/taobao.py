@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 
 from apps.web.lib.account.taobao import get_login_url, get_auth_data
-from apps.core.models import Taobao_Token
+from apps.core.models import Taobao_Token, GKUser, User_Profile
 from apps.web.lib.account.utils import login_without_password
 # from apps.core.utils.taobaoapi.utils import
 
@@ -28,13 +28,14 @@ def auth_by_taobao(request):
         log.info(_taobao_data)
 
         try:
-            taobao = Taobao_Token.objects.get(taobao_id=_taobao_data['taobao_id'])
+            taobao = Taobao_Token.objects.get(isv_uid=_taobao_data['isv_uid'])
+            taobao.taobao_id = _taobao_data['taobao_id']
             taobao.screen_name = _taobao_data['screen_name']
             taobao.access_token = _taobao_data['access_token']
             taobao.access_token = _taobao_data['refresh_token']
             taobao.expires_in = _taobao_data['expires_in']
             taobao.open_uid = _taobao_data['open_uid']
-            taobao.isv_uid = _taobao_data['isv_uid']
+            # taobao.isv_uid = _taobao_data['isv_uid']
             taobao.save()
 
             # log.info(taobao.user)
@@ -56,16 +57,35 @@ def auth_by_taobao(request):
                 )
                 return HttpResponseRedirect(next_url)
             else:
-                log.info(_taobao_data)
-                request.session['taobao_id'] = _taobao_data['taobao_id']
-                request.session['avatar'] = _taobao_data['avatar_large']
-                request.session['screen_name'] = _taobao_data['screen_name']
-                request.session['access_token'] = _taobao_data['access_token']
-                request.session['refresh_token'] = _taobao_data['refresh_token']
-                request.session['expires_in'] = _taobao_data['expires_in']
-                request.session['open_uid'] = _taobao_data['open_uid']
-                request.session['isv_uid'] = _taobao_data['isv_uid']
-                return HttpResponseRedirect(reverse('web_register_from_three_part'))
+                # log.info(_taobao_data)
+                user_key = Taobao_Token.generate(_taobao_data['open_uid'], _taobao_data['screen_name'])
+                email = "%s@guoku.com" % user_key
+                user_obj = GKUser.objects.create_user(email=email, password=None)
+                User_Profile.objects.create(
+                    user= user_obj,
+                    nickname=user_key,
+                )
+                Taobao_Token.objects.create(
+                    user = user_obj,
+                    taobao_id = _taobao_data['taobao_id'],
+                    screen_name = _taobao_data['screen_name'],
+                    access_token = _taobao_data['access_token'],
+                    refresh_token = _taobao_data['refresh_token'],
+                    expires_in = _taobao_data['expires_in'],
+                    open_uid = _taobao_data['open_uid'],
+                    isv_uid = _taobao_data['isv_uid'],
+                )
+                login_without_password(request, user_obj)
+                return HttpResponseRedirect(next_url)
+                # request.session['taobao_id'] = _taobao_data['taobao_id']
+                # request.session['avatar'] = _taobao_data['avatar_large']
+                # request.session['screen_name'] = _taobao_data['screen_name']
+                # request.session['access_token'] = _taobao_data['access_token']
+                # request.session['refresh_token'] = _taobao_data['refresh_token']
+                # request.session['expires_in'] = _taobao_data['expires_in']
+                # request.session['open_uid'] = _taobao_data['open_uid']
+                # request.session['isv_uid'] = _taobao_data['isv_uid']
+                # return HttpResponseRedirect(reverse('web_register_from_three_part'))
     # return
 
 def bind(request):

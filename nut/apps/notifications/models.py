@@ -1,17 +1,21 @@
+#coding=utf-8
+
 import datetime
-from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.db import models
+from django.db.models.signals import post_save
 from django.utils.timezone import utc
 
-# from jpush import push
 import jpush
-
-from .signals import notify, push_notify
-
+from .signals import notify
 from model_utils import managers, Choices
 
+
+from django.utils.log import getLogger
+log = getLogger('django')
+
+from django.conf import settings
 app_key = getattr(settings, 'JPUSH_KEY', None)
 app_secret = getattr(settings, 'JPUSH_SECRET', None)
 
@@ -146,29 +150,38 @@ class JpushToken(models.Model):
         return self.rid
 
 
-def push_notification(verb, **kwargs):
-    kwargs.pop('signal', None)
+# def push_notification(verb, **kwargs):
+#     kwargs.pop('signal', None)
+#
+#     _platform = kwargs.pop('platform', 'ios')
+#     _register_id = kwargs.pop('rid', None)
+#     _production = kwargs.pop('production', True)
+#     _instance = kwargs.pop('content_type', None)
+#     # print _register_id
+#     if _register_id is None:
+#         return
+#
+#     _jpush = jpush.JPush(app_key, app_secret)
+#     push = _jpush.create_push()
+#     push.audience = jpush.registration_id(_register_id)
+#     # push.platform = jpush.audience(_register_id)
+#     # log.info(type(verb))
+#     ios_msg = jpush.ios(alert=verb.encode('utf8'), badge="+1", extras={'entity':'v1'})
+#     push.notification = jpush.notification(alert=verb.encode('utf8'), ios=ios_msg)
+#     push.platform = jpush.platform(_platform)
+#     # push.audience = jpush.audience({'registration_id':_register_id})
+#     push.options = {"time_to_live":86400, "apns_production":_production}
+#     push.send()
 
-    _platform = kwargs.pop('platform', 'ios')
-    _register_id = kwargs.pop('rid', None)
-    _production = kwargs.pop('production', True)
+# push_notify.connect(push_notification, dispatch_uid="notifications.models.jpush")
 
-    # print _register_id
-    if _register_id is None:
-        return
 
-    _jpush = jpush.JPush(app_key, app_secret)
-    push = _jpush.create_push()
-    push.audience = jpush.registration_id(_register_id)
-    # push.platform = jpush.audience(_register_id)
+def push_notification(sender, instance, created, **kwargs):
+    if issubclass(instance, Notification):
+        log.info(instance)
 
-    ios_msg = jpush.ios(alert=unicode(verb), badge="+1", extras={'k1':'v1'})
-    push.notification = jpush.notification(alert=unicode(verb), ios=ios_msg)
-    push.platform = jpush.platform(_platform)
-    # push.audience = jpush.audience({'registration_id':_register_id})
-    push.options = {"time_to_live":86400, "apns_production":_production}
-    push.send()
 
-push_notify.connect(push_notification, dispatch_uid="notifications.models.jpush")
+
+post_save.connect(push_notification, sender=Notification, dispatch_uid='push.notification')
 
 __author__ = 'edison7500'
