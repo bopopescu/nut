@@ -45,10 +45,6 @@ class Push(object):
 
         response = self._jpush._request('POST', body,
             common.PUSH_URL, 'application/json', version=3)
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> master
 
         return PushResponse(response)
 
@@ -64,12 +60,6 @@ class Push(object):
         body = json.dumps(self.payload)
         response = self._jpush._request('POST', body,
             common.VALIDATE_PUSH_URL, 'application/json', version=3)
-<<<<<<< HEAD
-=======
-        # data = response.json()
->>>>>>> c6c92e4d68235ad8c195ee5c67eccd1adf898561
-=======
->>>>>>> master
 
         return PushResponse(response)
 

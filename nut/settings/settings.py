@@ -282,10 +282,7 @@ WECHAT_APP_SECRET = 'd841a90cf90d00f145ca22b82e12a500'
 # jpush
 JPUSH_KEY = 'f9e153a53791659b9541eb37'
 JPUSH_SECRET = 'a0529d3efa544d1da51405b7'
-<<<<<<< HEAD
-=======
+
 
 # for django-simple-captcha
-
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_dots',)
->>>>>>> c6c92e4d68235ad8c195ee5c67eccd1adf898561
