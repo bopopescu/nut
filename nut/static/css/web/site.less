@@ -1,3 +1,14 @@
+//vars
+@light-gray:#9d9d9d;
+
+
+//mixins
+.little-gray-font{
+  font-size: 12px;
+  color: @light-gray
+}
+
+
 @-moz-document url-prefix() {
     fieldset {
         display: table-cell;
@@ -1198,6 +1209,36 @@ padding-left: 15px;
     border: 1px solid #e6e6e6;
 }
 
+.media-header{
+
+    margin-top: 30px ;
+}
+
+.media-cover-list{
+
+    .media-link{
+        .article-title{
+            font-size: 14px;
+            line-height: 24px;
+        }
+        .article-source,{
+           .little-gray-font;
+            margin-left: 10px;
+        }
+    }
+
+    .media-cover-time{
+       float: right;
+       .little-gray-font;
+       line-height: 24px;
+
+    }
+
+    .blank-row{
+      height: 20px;
+    }
+
+}
 
 /* Add by An Chen end*/
 
@@ -1270,4 +1311,53 @@ a:hover{text-decoration:underline;}
       background: #d9d9d9;
       color : #9d9e9f!important;
     }
+}
+
+
+.guoku-social{
+   .links{
+     .social-link{
+       margin-left: 23px;
+
+     }
+   }
+}
+
+.job-sub-info{
+    margin-top: 12px;
+    color: @light-gray;
+}
+
+.sub-agreement-text{
+
+  .job-sub-info;
+}
+
+.link-row{
+    .link-item{
+        margin:0px;
+        padding:3px;
+       .image-bordered{
+           border: 1px solid #dddddd;
+
+       }
+    }
+}
+
+#reg_form{
+  .captcha{
+      float : right ;
+  }
+  .captcha ~ input{
+    width: 200px;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #eee;
+    float: left;
+  }
 }
