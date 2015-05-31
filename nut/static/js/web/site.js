@@ -1037,6 +1037,25 @@ $.ajaxSetup({
         }
     };
 
+    var link_page={
+        initLinks: function(){
+            jQuery('.link-item img').each(function(index, item){
+                 var src = jQuery(item).attr('src');
+                 var alter_src = jQuery(item).attr('alter-img');
+
+                 jQuery(item).mouseout(function(){
+                     jQuery(this).attr({src: src });
+                 });
+                 jQuery(item).mouseover(function(){
+                     jQuery(this).attr({src: alter_src});
+                 });
+
+
+            });
+        }
+    };
+
+
     (function init() {
            //   console.log($.find());
 
@@ -1065,6 +1084,8 @@ $.ajaxSetup({
         //add by an
         account_setting.handleUserInfo();
         util.checkEventRead();
+        link_page.initLinks();
+
     })();
 
 

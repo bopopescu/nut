@@ -90,4 +90,8 @@ urlpatterns += patterns(
     url(r'^(images|img|avatar)/', include('apps.images.urls')),
 )
 
+urlpatterns += patterns('',
+            url(r'^captcha/', include('captcha.urls')),
+        )
+
 __author__ = 'edison7500'

@@ -57,6 +57,8 @@ INSTALLED_APPS = (
     'apps.wechat',
     'apps.notifications',
     'apps.report',
+
+    'captcha',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -171,10 +173,12 @@ REST_FRAMEWORK = {
 }
 
 # mail
-EMAIL_BACKEND = 'sendcloud.SendCloudBackend'
-# MAILGUN_ACCESS_KEY = 'key-7n8gut3y8rpk1u-0edgmgaj7vs50gig8'
-MAIL_APP_USER = 'guoku_test_7LOIZp'
-MAIL_APP_KEY = 'gGg7gbLMk7XfYewdYPt3afMsKFGr481e.sendcloud.org'
+
+EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+MAILGUN_ACCESS_KEY = 'key-7n8gut3y8rpk1u-0edgmgaj7vs50gig8'
+# EMAIL_BACKEND = 'sendcloud.SendCloudBackend'
+# MAIL_APP_USER = 'guoku_test_7LOIZp'
+# MAIL_APP_KEY = 'DLq9W6TiDZAWOLNv'
 
 MAILGUN_SERVER_NAME = 'post.guoku.com'
 EMAIL_SUBJECT_PREFIX = '[guoku]'
@@ -278,3 +282,10 @@ WECHAT_APP_SECRET = 'd841a90cf90d00f145ca22b82e12a500'
 # jpush
 JPUSH_KEY = 'f9e153a53791659b9541eb37'
 JPUSH_SECRET = 'a0529d3efa544d1da51405b7'
+<<<<<<< HEAD
+=======
+
+# for django-simple-captcha
+
+CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_dots',)
+>>>>>>> c6c92e4d68235ad8c195ee5c67eccd1adf898561

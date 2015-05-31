@@ -1045,7 +1045,7 @@ a:hover {
 /*for like button in detail page */
 @media (min-width: 768px) {
   .grey-button {
-    max-width: 120px!important;
+    max-width: 140px!important;
   }
 }
 /*for download page */

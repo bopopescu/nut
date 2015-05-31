@@ -8,7 +8,6 @@ from django.db.models import Count
 from django.db.models.signals import post_save
 from django.conf import settings
 from django.core.cache import cache
-# from apps.core.extend.list_field import ListObjectField
 from apps.core.extend.fields.listfield import ListObjectField
 from apps.core.manager.account import GKUserManager
 from apps.core.manager.entity import EntityManager, EntityLikeManager, SelectionEntityManager
@@ -24,7 +23,7 @@ from hashlib import md5
 # from apps.notifications import notify
 
 from djangosphinx.models import SphinxSearch
-from apps.notifications import notify, push
+from apps.notifications import notify, push_notify
 from datetime import datetime
 import time
 
@@ -1110,7 +1109,11 @@ def user_like_notification(sender, instance, created, **kwargs):
             return
         if instance.user != instance.entity.user and instance.user.is_active >= instance.user.blocked:
             notify.send(instance.user, recipient=instance.entity.user, action_object=instance, verb='like entity', target=instance.entity)
-            # push.send(_('like'), rid=instance.user.jpush_token, content_type=instance, production=False)
+            # log.info("rid %s" % )
+            for push_token in instance.entity.user.jpush_token.all():
+
+                log.info("rid %s" % push_token.rid)
+                push_notify.send(push_token, verb=_('like'), rid=push_token.rid, platform="ios", content_type=instance, production=False)
 
 post_save.connect(user_like_notification, sender=Entity_Like, dispatch_uid="user_like_action_notification")
 
