@@ -54,7 +54,7 @@ class TaobaoOpenIsvUID():
 
         try:
             resp = self.req.getResponse()
-            print resp
+            # print resp
         except Exception, e:
             print e
             raise
