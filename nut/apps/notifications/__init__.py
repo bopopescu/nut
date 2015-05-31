@@ -1,5 +1,5 @@
 try:
-    from apps.notifications.signals import notify, push
+    from apps.notifications.signals import notify, push_notify
 except ImportError:
     pass
 

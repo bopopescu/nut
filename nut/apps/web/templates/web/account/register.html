@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="row">
-        <form class="form-horizontal" role="form" method="post" >
+        <form class="form-horizontal" role="form" method="post"  id="reg_form" >
             {% csrf_token %}
             {{ wizard.management_form }}
             <fieldset>
