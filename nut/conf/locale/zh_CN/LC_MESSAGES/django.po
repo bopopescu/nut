@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-25 16:27+0800\n"
+"POT-Creation-Date: 2015-05-31 15:05+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,23 +16,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: apps/core/models.py:52
+#: apps/core/models.py:51
 #: apps/management/templates/management/users/list.html:9
 msgid "editor"
 msgstr "编辑"
 
-#: apps/core/models.py:53
+#: apps/core/models.py:52
 #: apps/management/templates/management/users/list.html:10
 msgid "active"
 msgstr "活动用户"
 
-#: apps/core/models.py:54
+#: apps/core/models.py:53
 #: apps/management/templates/management/users/list.html:11
 msgid "blocked"
 msgstr "禁言用户"
 
-#: apps/core/models.py:55 apps/core/models.py:416 apps/core/models.py:422
-#: apps/core/models.py:639 apps/core/models.py:857
+#: apps/core/models.py:54 apps/core/models.py:415 apps/core/models.py:421
+#: apps/core/models.py:654 apps/core/models.py:872
 #: apps/core/forms/entity.py:55
 #: apps/management/templates/management/entities/buy_link.html:15
 #: apps/management/templates/management/entities/edit.html:76
@@ -45,31 +45,31 @@ msgstr "禁言用户"
 msgid "remove"
 msgstr "删除"
 
-#: apps/core/models.py:61
+#: apps/core/models.py:60
 msgid "date joined"
 msgstr "加入时间"
 
-#: apps/core/models.py:214
+#: apps/core/models.py:213
 msgid "man"
 msgstr "男"
 
-#: apps/core/models.py:215
+#: apps/core/models.py:214
 msgid "woman"
 msgstr "女"
 
-#: apps/core/models.py:216
+#: apps/core/models.py:215
 msgid "other"
 msgstr "其他"
 
-#: apps/core/models.py:221
+#: apps/core/models.py:220
 msgid "beijing"
 msgstr "北京"
 
-#: apps/core/models.py:222
+#: apps/core/models.py:221
 msgid "chaoyang"
 msgstr "朝阳"
 
-#: apps/core/models.py:274
+#: apps/core/models.py:273
 #: apps/management/templates/management/management_base.html:80
 #: apps/management/templates/management/category/list.html:35
 #: apps/management/templates/management/entities/list.html:7
@@ -77,7 +77,7 @@ msgstr "朝阳"
 msgid "entity"
 msgstr "商品"
 
-#: apps/core/models.py:275 apps/core/forms/entity.py:130
+#: apps/core/models.py:274 apps/core/forms/entity.py:130
 #: apps/core/forms/entity.py:470
 #: apps/management/templates/management/management_base.html:109
 #: apps/management/templates/management/category/list.html:5
@@ -86,7 +86,7 @@ msgstr "商品"
 msgid "category"
 msgstr "品类"
 
-#: apps/core/models.py:276 apps/core/forms/entity.py:497
+#: apps/core/models.py:275 apps/core/forms/entity.py:497
 #: apps/core/forms/note.py:92
 #: apps/management/templates/management/management_base.html:120
 #: apps/management/templates/management/comment/list.html:14
@@ -97,15 +97,15 @@ msgstr "品类"
 msgid "user"
 msgstr "用户"
 
-#: apps/core/models.py:277
+#: apps/core/models.py:276
 msgid "user_tag"
 msgstr "用户标签"
 
-#: apps/core/models.py:278
+#: apps/core/models.py:277
 msgid "outlink"
 msgstr "外链"
 
-#: apps/core/models.py:413 apps/core/models.py:854
+#: apps/core/models.py:412 apps/core/models.py:869
 #: apps/core/forms/entity.py:58
 #: apps/management/templates/management/management_base.html:66
 #: apps/management/templates/management/selection/list.html:7
@@ -116,70 +116,74 @@ msgstr "外链"
 msgid "selection"
 msgstr "精选"
 
-#: apps/core/models.py:414 apps/core/models.py:420
+#: apps/core/models.py:413 apps/core/models.py:419
 #: apps/core/forms/entity.py:57
 #: apps/management/templates/management/entities/list.html:14
 msgid "new"
 msgstr "新品"
 
-#: apps/core/models.py:415 apps/core/models.py:421
+#: apps/core/models.py:414 apps/core/models.py:420
 #: apps/core/forms/entity.py:56
 #: apps/management/templates/management/entities/list.html:15
 msgid "freeze"
 msgstr "冻结"
 
-#: apps/core/models.py:637
+#: apps/core/models.py:652
 #: apps/management/templates/management/notes/list.html:11
 #: apps/management/templates/management/users/notes.html:18
 msgid "top"
 msgstr ""
 
-#: apps/core/models.py:638
+#: apps/core/models.py:653
 #: apps/management/templates/management/notes/list.html:12
 #: apps/management/templates/management/users/notes.html:19
 msgid "normal"
 msgstr ""
 
-#: apps/core/models.py:855
+#: apps/core/models.py:870
 #: apps/management/templates/management/selection/list.html:19
 #: apps/management/templates/management/selection/pending.html:13
 #: apps/management/templates/management/selection/popular.html:18
 msgid "published"
 msgstr "发布"
 
-#: apps/core/models.py:856
+#: apps/core/models.py:871
 msgid "draft"
 msgstr "草稿"
 
-#: apps/core/models.py:954
+#: apps/core/models.py:969
 msgid "item"
 msgstr "商品banner"
 
-#: apps/core/models.py:955
+#: apps/core/models.py:970
 msgid "shop"
 msgstr "店铺banner"
+
+#: apps/core/models.py:1115
+msgid "like"
+msgstr "喜爱"
 
 #: apps/core/forms/account.py:12 apps/core/forms/account.py:148
 msgid "email is not exist"
 msgstr "请输入真实邮箱"
 
-#: apps/core/forms/account.py:13 apps/web/forms/account.py:26
+#: apps/core/forms/account.py:13 apps/web/forms/account.py:28
 #: apps/wechat/forms/bind.py:13
 msgid "email or password wrong"
 msgstr "邮箱和密码不匹配"
 
-#: apps/core/forms/account.py:14 apps/web/forms/account.py:27
+#: apps/core/forms/account.py:14 apps/web/forms/account.py:29
 #: apps/wechat/forms/bind.py:14
 msgid "This account is inactive."
 msgstr "账户冻结"
 
 #: apps/core/forms/account.py:15 apps/v4/forms/account.py:487
-#: apps/v4/forms/account.py:548 apps/web/forms/account.py:28
+#: apps/v4/forms/account.py:548 apps/web/forms/account.py:30
 #: apps/wechat/forms/bind.py:15
 msgid "password error"
 msgstr "密码错误"
 
-#: apps/core/forms/account.py:16 apps/web/forms/account.py:29
+#: apps/core/forms/account.py:16 apps/web/forms/account.py:31
 msgid "no cookies"
 msgstr "没有cookies"
 
@@ -190,25 +194,25 @@ msgstr ""
 #: apps/core/forms/account.py:21 apps/core/forms/account.py:59
 #: apps/core/forms/user.py:31
 #: apps/management/templates/management/users/list.html:22
-#: apps/web/forms/account.py:35 apps/web/forms/account.py:36
-#: apps/web/forms/account.py:124 apps/web/forms/user.py:23
+#: apps/web/forms/account.py:37 apps/web/forms/account.py:38
+#: apps/web/forms/account.py:126 apps/web/forms/user.py:21
 #: apps/wechat/forms/bind.py:20 apps/wechat/forms/bind.py:21
 msgid "email"
 msgstr "邮箱"
 
 #: apps/core/forms/account.py:26 apps/core/forms/account.py:64
-#: apps/web/forms/account.py:40 apps/web/forms/account.py:41
-#: apps/web/forms/account.py:130 apps/web/forms/account.py:132
+#: apps/web/forms/account.py:42 apps/web/forms/account.py:43
+#: apps/web/forms/account.py:132 apps/web/forms/account.py:134
 #: apps/wechat/forms/bind.py:24 apps/wechat/forms/bind.py:25
 msgid "password"
 msgstr "密码"
 
-#: apps/core/forms/account.py:53 apps/web/forms/account.py:110
+#: apps/core/forms/account.py:53 apps/web/forms/account.py:112
 msgid "A user with that nickname already exists."
 msgstr "已经有人用了这个用户名，请换一个。"
 
 #: apps/core/forms/account.py:54 apps/core/forms/user.py:25
-#: apps/web/forms/account.py:111 apps/web/forms/user.py:20
+#: apps/web/forms/account.py:113 apps/web/forms/user.py:18
 msgid "A user with that email already exists."
 msgstr "此邮箱已经被注册过了。"
 
@@ -221,15 +225,15 @@ msgid "please register email"
 msgstr "请填写邮箱地址"
 
 #: apps/core/forms/account.py:154 apps/core/forms/account.py:156
-#: apps/core/forms/user.py:146 apps/web/forms/user.py:119
-#: apps/web/forms/user.py:120
+#: apps/core/forms/user.py:146 apps/web/forms/user.py:117
+#: apps/web/forms/user.py:118
 msgid "New password"
 msgstr "新密码"
 
 #: apps/core/forms/account.py:157 apps/core/forms/account.py:159
-#: apps/core/forms/user.py:149 apps/web/forms/account.py:136
-#: apps/web/forms/account.py:138 apps/web/forms/user.py:125
-#: apps/web/forms/user.py:126
+#: apps/core/forms/user.py:149 apps/web/forms/account.py:138
+#: apps/web/forms/account.py:140 apps/web/forms/user.py:123
+#: apps/web/forms/user.py:124
 msgid "New password confirmation"
 msgstr "确认密码"
 
@@ -514,8 +518,8 @@ msgstr ""
 
 #: apps/core/forms/user.py:34
 #: apps/management/templates/management/users/list.html:23
-#: apps/web/forms/account.py:116 apps/web/forms/account.py:118
-#: apps/web/forms/user.py:28
+#: apps/web/forms/account.py:118 apps/web/forms/account.py:120
+#: apps/web/forms/user.py:26
 msgid "nickname"
 msgstr "用户名"
 
@@ -528,28 +532,28 @@ msgstr ""
 msgid "admin"
 msgstr "管理员"
 
-#: apps/core/forms/user.py:58 apps/web/forms/account.py:236
-#: apps/web/forms/user.py:34
+#: apps/core/forms/user.py:58 apps/web/forms/account.py:240
+#: apps/web/forms/user.py:32
 msgid "location"
 msgstr "所在地"
 
-#: apps/core/forms/user.py:64 apps/web/forms/account.py:241
-#: apps/web/forms/user.py:40
+#: apps/core/forms/user.py:64 apps/web/forms/account.py:245
+#: apps/web/forms/user.py:38
 msgid "city"
 msgstr "城市"
 
 #: apps/core/forms/user.py:68
 #: apps/management/templates/management/users/list.html:24
-#: apps/web/forms/account.py:229 apps/web/forms/user.py:44
+#: apps/web/forms/account.py:233 apps/web/forms/user.py:42
 msgid "gender"
 msgstr "性别"
 
-#: apps/core/forms/user.py:75 apps/web/forms/account.py:221
-#: apps/web/forms/user.py:50
+#: apps/core/forms/user.py:75 apps/web/forms/account.py:225
+#: apps/web/forms/user.py:48
 msgid "bio"
 msgstr "简介"
 
-#: apps/core/forms/user.py:81 apps/web/forms/user.py:56
+#: apps/core/forms/user.py:81 apps/web/forms/user.py:54
 msgid "website"
 msgstr "网址"
 
@@ -776,7 +780,6 @@ msgid "add buy link"
 msgstr "添加 购买 链接"
 
 #: apps/management/templates/management/entities/edit.html:43
-#,
 msgid "fetch image"
 msgstr "重新抓取图片"
 
@@ -917,12 +920,11 @@ msgid "reset password"
 msgstr "重设密码"
 
 #: apps/management/templates/management/users/list.html:21
-#: apps/web/forms/account.py:216
+#: apps/web/forms/account.py:220
 msgid "avatar"
 msgstr "头像"
 
 #: apps/management/templates/management/users/list.html:26
-#,
 msgid "join datetime"
 msgstr "编辑时间"
 
@@ -947,12 +949,10 @@ msgid "malicious information"
 msgstr "不良信息"
 
 #: apps/v4/forms/account.py:488
-#,
 msgid "duplicate email"
 msgstr "请填写邮箱地址"
 
 #: apps/v4/forms/account.py:549
-#,
 msgid "password not match"
 msgstr "您输入的旧密码不正确"
 
@@ -964,23 +964,31 @@ msgstr "精选"
 msgid "guoku selection desc"
 msgstr "精选"
 
-#: apps/web/forms/account.py:112 apps/web/forms/user.py:110
+#: apps/web/fields/__init__.py:25 apps/web/fields/__init__.py:57
+msgid "Invalid CAPTCHA"
+msgstr "验证码不正确"
+
+#: apps/web/fields/__init__.py:30
+msgid "Captcha Code"
+msgstr "验证码"
+
+#: apps/web/forms/account.py:114 apps/web/forms/user.py:108
 msgid "The two password fields didn't match."
 msgstr "您输入的两次密码不一致"
 
-#: apps/web/forms/account.py:119
+#: apps/web/forms/account.py:121
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr "必填，长度三十字以下，允许用数字、字母、下划线。"
 
-#: apps/web/forms/account.py:126
+#: apps/web/forms/account.py:128
 msgid "Required."
 msgstr "必填"
 
-#: apps/web/forms/account.py:133
+#: apps/web/forms/account.py:135
 msgid "Required"
 msgstr "必填"
 
-#: apps/web/forms/account.py:139
+#: apps/web/forms/account.py:141
 msgid "Enter the same password as above, for verification."
 msgstr "确认密码"
 
@@ -996,11 +1004,11 @@ msgstr "复制商品链接到此"
 msgid "additional remarks"
 msgstr "补充说明"
 
-#: apps/web/forms/user.py:111
+#: apps/web/forms/user.py:109
 msgid "Old password didn't match"
 msgstr "您输入的旧密码不正确"
 
-#: apps/web/forms/user.py:114 apps/web/forms/user.py:115
+#: apps/web/forms/user.py:112 apps/web/forms/user.py:113
 msgid "current password"
 msgstr "当前密码"
 
@@ -1010,13 +1018,8 @@ msgid "guoku"
 msgstr "果库"
 
 #: apps/web/templates/web/base.html:93
-#,
 msgid "About"
 msgstr "关于"
-
-#: apps/web/templates/web/base.html:94
-msgid "Guoku on Weibo"
-msgstr "果库官方微博"
 
 #: apps/web/templates/web/base.html:96
 msgid "Jobs"
@@ -1088,7 +1091,6 @@ msgid "Guoku Management"
 msgstr "网站管理入口"
 
 #: apps/web/templates/web/account/partial/auth.html:17
-#,
 msgid "My Guoku"
 msgstr "我的果库"
 
@@ -1097,12 +1099,10 @@ msgid "Messages"
 msgstr "消息"
 
 #: apps/web/templates/web/account/partial/auth.html:20
-#,  
 msgid "Settings"
 msgstr "设置"
 
 #: apps/web/templates/web/account/partial/auth.html:21
-#,  
 msgid "Sign Out"
 msgstr "退出"
 
@@ -1115,8 +1115,9 @@ msgstr "重设密码"
 #: apps/web/templates/web/common/entity.html:20
 #: apps/web/templates/web/entity/partial/detail_middle.html:11
 #: apps/web/templates/web/entity/partial/detail_middle.html:20
-#: apps/web/templates/web/main/partial/entity.html:15
-#: apps/web/templates/web/main/partial/entity.html:20
+#: apps/web/templates/web/events/partial/event_entity_list.html:26
+#: apps/web/templates/web/main/partial/entity.html:16
+#: apps/web/templates/web/main/partial/entity.html:21
 #: apps/web/templates/web/main/partial/selection_item_list.html:25
 #: apps/web/templates/web/user/like.html:22
 #: apps/web/templates/web/user/like.html:27
@@ -1137,27 +1138,22 @@ msgid "tags"
 msgstr "标签"
 
 #: apps/web/templates/web/partial/header.html:22
-#,
 msgid "Selection"
 msgstr "精选"
 
 #: apps/web/templates/web/partial/header.html:27
-#,
 msgid "Discover"
 msgstr "发现"
 
 #: apps/web/templates/web/partial/header.html:45
-#,
 msgid "Event"
 msgstr "专题"
 
 #: apps/web/templates/web/partial/header.html:56
-#,
 msgid "Sign In"
 msgstr "登录"
 
 #: apps/web/templates/web/partial/header.html:57
-#,
 msgid "Sign Up"
 msgstr "注册"
 
@@ -1207,33 +1203,31 @@ msgid "Following"
 msgstr "正关注"
 
 #: apps/web/templates/web/user/user_base.html:47
-#,
 msgid "Blocked User"
 msgstr "禁言用户"
 
 #: apps/web/templates/web/user/user_base.html:49
-#,
 msgid "Edit Profile"
 msgstr "更新资料"
 
 #: apps/web/templates/web/user/user_base.html:66
-#,
 msgid "My Likes"
 msgstr "喜爱"
 
 #: apps/web/templates/web/user/user_base.html:69
-
 msgid "My Notes"
 msgstr "点评"
 
 #: apps/web/templates/web/user/user_base.html:72
-#,
 msgid "My tags"
 msgstr "标签"
 
 #: apps/wechat/templates/wechat/bind.html:34
 msgid "bind"
 msgstr "绑定"
+
+#~ msgid "Guoku on Weibo"
+#~ msgstr "果库官方微博"
 
 #~ msgid "event_is_on_top"
 #~ msgstr "置顶专题"
