@@ -42,6 +42,13 @@ INSTALLED_APPS += (
     'gunicorn',
 )
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/tmp/django_cache',
+    }
+}
+
 # SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 # SESSION_ENGINE = 'django.contrib.sessions.backends.file'
 # SESSION_FILE_PATH = '/tmp/django'

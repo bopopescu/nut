@@ -1,10 +1,11 @@
-from apps.core.models import Entity, Buy_Link, Note, GKUser, Selection_Entity, Sina_Token, Taobao_Token
+from apps.core.models import Entity, Buy_Link, Note, GKUser, Selection_Entity, Sina_Token, Taobao_Token, User_Follow
 from apps.notifications.models import JpushToken
 
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
-from django.db.models.signals import post_delete
+from django.db.models.signals import post_delete, post_save
+from apps.notifications import notify
 
 import time
 from hashlib import md5
@@ -114,6 +115,12 @@ class APIUser(GKUser):
             elif self.id in visitor.fans_list:
                 res['relation'] = 2
         return res
+
+
+class APIUser_Follow(User_Follow):
+
+    class Meta:
+        proxy = True
 
 
 class APIWeiboToken(Sina_Token):
@@ -257,5 +264,13 @@ def remove_jpush_register_id(sender, instance, **kwargs):
 
 
 post_delete.connect(remove_jpush_register_id, sender=APISession_Key, dispatch_uid="user_logout_remove_jpush_id")
+
+
+def user_follow_notification(sender, instance, created, **kwargs):
+    if issubclass(sender, APIUser_Follow) and created:
+        # log.info(instance)
+        notify.send(instance.follower, recipient=instance.followee, verb=u'has followed you', action_object=instance, target=instance.followee)
+
+post_save.connect(user_follow_notification, sender=APIUser_Follow, dispatch_uid="user_follow_notification")
 
 __author__ = 'edison'

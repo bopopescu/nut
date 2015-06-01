@@ -5,7 +5,7 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInte
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 from apps.mobile.forms.search import UserSearchForm
-from apps.v4.models import APIEntity, APIUser, APINote
+from apps.v4.models import APIEntity, APIUser, APINote, APIUser_Follow
 from apps.v4.forms.user import MobileUserProfileForm
 from apps.v4.forms.account import MobileUserRestPassword, MobileUserUpdateEmail, MobileRestPassword
 
@@ -286,7 +286,7 @@ def following_list(request, user_id):
         visitor = None
 
     try:
-        _user = GKUser.objects.get(pk = user_id)
+        _user = APIUser.objects.get(pk = user_id)
     except GKUser.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
@@ -303,6 +303,7 @@ def following_list(request, user_id):
 
     res = []
     for user in _followings.object_list:
+        log.info(user.followee.v3_toDict(visitor=visitor))
         res.append(
             user.followee.v3_toDict(visitor=visitor)
         )
@@ -374,19 +375,19 @@ def follow_action(request, user_id, target_status):
 
     if target_status == '1':
         try:
-            uf = User_Follow.objects.get(
+            uf = APIUser_Follow.objects.get(
                 follower = _session.user,
                 followee_id = user_id,
             )
             return ErrorJsonResponse(status=400)
         except User_Follow.DoesNotExist, e:
-            uf = User_Follow(
+            uf = APIUser_Follow(
                 follower = _session.user,
                 followee_id = user_id,
             )
             uf.save()
-            log.info(_session.user.following_list)
-            log.info(uf.followee_id)
+            # log.info(_session.user.following_list)
+            # log.info(uf.followee_id)
             if long(uf.followee_id) in _session.user.fans_list:
                 res['relation'] = 3
             else:
