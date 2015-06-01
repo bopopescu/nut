@@ -26,7 +26,7 @@
         },
 
         removeBuyLink: function() {
-            $('#buylinks').find('.btn-link').on('click', function(){
+            $('#buylinks').find('.buy-link').on('click', function(){
                 var buy_link = $(this);
                 //console.log(buy_link);
 
@@ -38,7 +38,7 @@
                     type: "POST",
                     dataType: "json",
                     success: function(data) {
-                        buy_link.parent().remove();
+                        buy_link.parent().parent().parent().remove();
                     }
                 });
             });

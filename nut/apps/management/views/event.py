@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from apps.management.decorators import staff_only
 
 from apps.core.models import Event,Event_Status
 from apps.core.forms.event import EditEventForm, CreateEventForm
@@ -16,7 +17,7 @@ log = getLogger('django')
 
 
 @login_required
-# @staff_only
+@staff_only
 def list(request, template='management/event/list.html'):
 
     _page = request.GET.get('page', 1)
@@ -41,7 +42,8 @@ def list(request, template='management/event/list.html'):
         context_instance=RequestContext(request),
     )
 
-
+@login_required
+@staff_only
 def create(request, template='management/event/create.html'):
 
     if request.method == 'POST':
@@ -60,7 +62,8 @@ def create(request, template='management/event/create.html'):
         context_instance=RequestContext(request),
     )
 
-
+@login_required
+@staff_only
 def edit(request, eid, template='management/event/edit.html'):
 
     try:
