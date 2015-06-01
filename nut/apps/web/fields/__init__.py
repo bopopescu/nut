@@ -7,7 +7,7 @@ from captcha.fields import CaptchaField,CaptchaTextInput
 from captcha.models import CaptchaStore,get_safe_now
 from captcha.conf import settings as captcha_settings
 
-from django import  forms
+from django import forms
 from django.forms import CharField
 # for Wizard_CaptchaField -- end --
 

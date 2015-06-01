@@ -259,13 +259,12 @@ class User_Follow(models.Model):
 
     def save(self, *args, **kwargs):
         super(User_Follow, self).save(*args, **kwargs)
-        notify.send(self.follower, recipient=self.followee, verb=u'has followed you', action_object=self, target=self.followee)
 
         key_string = "user_fans_%s" % self.followee.id
         key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
 
-        key_string = "user_follow_%s" % self.id
+        key_string = "user_follow_%s" % self.follower.id
         key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
 
@@ -1168,5 +1167,13 @@ def user_poke_note_notification(sender, instance, created, **kwargs):
         # pass
 post_save.connect(user_poke_note_notification, sender=Note_Poke, dispatch_uid="user_poke_note_action_notification")
 
+
+
+def user_follow_notification(sender, instance, created, **kwargs):
+    if issubclass(sender, User_Follow) and created:
+        log.info(instance)
+        notify.send(instance.follower, recipient=instance.followee, verb=u'has followed you', action_object=instance, target=instance.followee)
+
+post_save.connect(user_follow_notification, sender=User_Follow, dispatch_uid="user_follow_notification")
 
 __author__ = 'edison7500'

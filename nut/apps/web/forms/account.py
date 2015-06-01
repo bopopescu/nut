@@ -142,7 +142,7 @@ class UserSignUpForm(forms.Form):
     )
 
     # we have captcha field now !
-    # captcha = Wizard_CaptchaField();
+    captcha = Wizard_CaptchaField()
 
     agree_tos = forms.BooleanField(widget=forms.CheckboxInput(attrs={'checked' : 'checked'}), initial=True)
 

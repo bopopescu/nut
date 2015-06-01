@@ -177,10 +177,8 @@ class JpushToken(models.Model):
 
 
 def push_notification(sender, instance, created, **kwargs):
-    if issubclass(instance, Notification):
-        log.info(instance)
-
-
+    if issubclass(sender, Notification):
+        log.info(instance.action_object_content_type.model)
 
 post_save.connect(push_notification, sender=Notification, dispatch_uid='push.notification')
 
