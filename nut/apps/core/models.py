@@ -1168,7 +1168,6 @@ def user_poke_note_notification(sender, instance, created, **kwargs):
 post_save.connect(user_poke_note_notification, sender=Note_Poke, dispatch_uid="user_poke_note_action_notification")
 
 
-
 def user_follow_notification(sender, instance, created, **kwargs):
     if issubclass(sender, User_Follow) and created:
         log.info(instance)
