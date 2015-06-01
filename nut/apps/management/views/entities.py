@@ -9,9 +9,10 @@ from django.utils.log import getLogger
 from django.views.decorators.csrf import csrf_exempt
 from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
+from apps.management.decorators import staff_only
 
 from apps.core.models import Entity, Buy_Link
-from apps.core.forms.entity import EditEntityForm, EntityImageForm, BuyLinkForm, CreateEntityForm, load_entity_info
+from apps.core.forms.entity import EditEntityForm, EntityImageForm, CreateEntityForm, load_entity_info, BuyLinkForm, EditBuyLinkForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.tasks.entity import fetch_image
@@ -33,6 +34,7 @@ log = getLogger('django')
 #         status = self.request.GET.get('status', None)
 
 @login_required
+@staff_only
 def list(request, template = 'management/entities/list.html'):
 
     status = request.GET.get('status', None)
@@ -63,6 +65,7 @@ def list(request, template = 'management/entities/list.html'):
 
 
 @login_required
+@staff_only
 def edit(request, entity_id, template='management/entities/edit.html'):
 
     _update = None
@@ -158,7 +161,12 @@ def create(request, template='management/entities/new.html'):
     )
 
 
+# TODO:
+'''
+    Handle Entity Buy Link
+'''
 @login_required
+@staff_only
 def buy_link(request, entity_id, template='management/entities/buy_link.html'):
 
     # _buy_link_list = Buy_Link.objects.filter(entity_id = entity_id)
@@ -187,6 +195,36 @@ def buy_link(request, entity_id, template='management/entities/buy_link.html'):
 
 @csrf_exempt
 @login_required
+def edit_buy_link(request, bid, template='management/entities/edit_buy_link.html'):
+
+    try:
+        buy = Buy_Link.objects.get(pk = bid)
+    except Buy_Link.DoesNotExist:
+        raise Http404
+
+    if request.method == 'POST':
+        _forms = EditBuyLinkForm(buy_link=buy, data=request.POST)
+        if _forms.is_valid():
+            buy_link = _forms.save()
+            return HttpResponseRedirect(reverse('management_entity_edit', args=[buy_link.entity_id]))
+    else:
+        # log.info(int(buy.default))
+        _forms = EditBuyLinkForm(buy_link=buy, initial={
+            'link': buy.link,
+            'default':buy.default,
+        })
+
+    return render_to_response(
+                            template,
+                            {
+                                  'entity': buy.entity,
+                                  'forms': _forms,
+                            },
+                              context_instance = RequestContext(request))
+
+
+@csrf_exempt
+@login_required
 def remove_buy_link(request, bid):
     try:
         b = Buy_Link.objects.get(pk=bid)
@@ -198,7 +236,13 @@ def remove_buy_link(request, bid):
     b.delete()
     return SuccessJsonResponse()
 
+
+# TODO:
+'''
+    Handle Image
+'''
 @login_required
+@staff_only
 def refetch_image(request, entity_id):
     try:
         _entity = Entity.objects.get(pk=entity_id)

@@ -149,6 +149,52 @@ class MobileWeiboLoginForm(WeiboForm):
 
         return res
 
+
+class MobileWeiboSignInForm(WeiboForm):
+
+    api_key = forms.CharField(
+        widget=forms.TextInput()
+    )
+
+    def clean(self):
+        _weibo_id = self.cleaned_data.get('sina_id')
+        _weibo_token = self.cleaned_data.get('sina_token')
+        _screen_name = self.cleaned_data.get('screen_name')
+        self.api_key = self.cleaned_data.get('api_key')
+
+        try:
+            self.weibo = Sina_Token.objects.get(sina_id = _weibo_id)
+            return self.weibo
+        except Sina_Token.DoesNotExist:
+            user_key = Sina_Token.generate(_weibo_token, _screen_name)
+            email = "%s@guoku.com" % user_key
+            user_obj = GKUser.objects.create_user(email=email, password=None)
+            User_Profile.objects.create(
+                user = user_obj,
+                nickname = user_key
+            )
+            self.weibo = Sina_Token.objects.create(
+                user=user_obj,
+                access_token=_weibo_token,
+                sina_id=_weibo_id,
+            )
+
+    def login(self):
+        session = Session_Key.objects.generate_session(
+            user_id=self.weibo.user_id,
+            email=self.weibo.user.email,
+            api_key=self.api_key,
+            username="guoku",
+        )
+
+        res = {
+            'user':self.weibo.user.v3_toDict(),
+            'session':session.session_key,
+        }
+
+        return res
+
+
 class MobileWeiboLinkForm(WeiboForm):
 
     user_id = forms.CharField(

@@ -93,11 +93,12 @@ def forget_password(request):
 def logout(request):
     # _req_uri = request.get_full_path()
     if request.method == "POST":
+        # log.info(request.POST)
         _forms = MobileUserSignOutForm(request.POST)
         if _forms.is_valid():
             res = _forms.logout()
             return SuccessJsonResponse({ 'success': '1' })
-
+        log.info(_forms.errors)
     return ErrorJsonResponse(status=400)
 
 

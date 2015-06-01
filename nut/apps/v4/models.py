@@ -4,10 +4,15 @@ from apps.notifications.models import JpushToken
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
-from django.utils.log import getLogger
+from django.db.models.signals import post_delete
+
 import time
 from hashlib import md5
 
+from apps.mobile.models import Session_Key
+
+
+from django.utils.log import getLogger
 log = getLogger('django')
 
 
@@ -236,5 +241,21 @@ class APIJpush(JpushToken):
 
     class Meta:
         proxy = True
+
+# API Seseion
+class APISession_Key(Session_Key):
+
+    class Meta:
+        proxy = True
+
+
+def remove_jpush_register_id(sender, instance, **kwargs):
+
+    if issubclass(sender, APISession_Key):
+        _user = instance.user
+        log.info(_user)
+
+
+post_delete.connect(remove_jpush_register_id, sender=APISession_Key, dispatch_uid="user_logout_remove_jpush_id")
 
 __author__ = 'edison'
