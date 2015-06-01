@@ -178,7 +178,24 @@ class JpushToken(models.Model):
 
 def push_notification(sender, instance, created, **kwargs):
     if issubclass(sender, Notification):
-        log.info(instance.action_object_content_type.model)
+        # log.info(instance.action_object_content_type.model)
+        _jpush = jpush.JPush(app_key, app_secret)
+        push = _jpush.create_push()
+        _platform = 'ios'
+        _production = False
+        if instance.action_object_content_type.model == "entity_like":
+            verb = instance.actor.profile.nickname + u' 喜爱了你添加的商品'
+            for reg in instance.recipient.jpush_token.all():
+                log.info(reg.model)
+                # if reg.model == 'iPhones':
+
+                push.platform = jpush.platform(_platform)
+                push.audience = jpush.registration_id(reg.rid)
+
+                ios_msg = jpush.ios(alert=verb.encode('utf8'), badge="+1", extras={'entity':'v1'})
+                push.notification = jpush.notification(alert=verb.encode('utf8'), ios=ios_msg)
+                push.options = {"time_to_live":86400, "apns_production":_production}
+                push.send()
 
 post_save.connect(push_notification, sender=Notification, dispatch_uid='push.notification')
 
