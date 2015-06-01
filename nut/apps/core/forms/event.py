@@ -48,7 +48,7 @@ class BaseEventForm(forms.Form):
     )
 
     is_top = forms.ChoiceField(
-        label=_('is_top'),
+        label=_('is_event_on_top'),
         choices=YES_OR_NO,
         widget=forms.Select(attrs={'class':'form-control'}),
         required=False,
