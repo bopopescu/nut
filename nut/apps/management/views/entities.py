@@ -17,6 +17,21 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInte
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.tasks.entity import fetch_image
 
+# for entity list view class
+from django.views.generic.list import  ListView
+from django.utils import timezone
+
+class EntityListView(ListView):
+    model = Entity
+    def get_context_data(self, **kwargs):
+        context = super(EntityListView.self).get_context_data(**kwargs)
+        context
+
+
+# entity list view class end
+
+
+
 from hashlib import md5
 
 log = getLogger('django')
@@ -32,6 +47,9 @@ log = getLogger('django')
 #     def get_queryset(self):
 #         page = self.request.GET.get('page', 1)
 #         status = self.request.GET.get('status', None)
+
+
+
 
 @login_required
 @staff_only
