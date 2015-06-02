@@ -37,6 +37,7 @@ urllib3==1.9
 Wand==0.3.8
 django-simple-captcha==0.4.5
 requests==2.6.0
+django-braces
 
 PIL==1.1.7
 
