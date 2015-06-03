@@ -42,11 +42,24 @@ class Push(object):
 
         """
         body = json.dumps(self.payload)
-        print body
 
         response = self._jpush._request('POST', body,
             common.PUSH_URL, 'application/json', version=3)
-        # data = response.json()
+
+        return PushResponse(response)
+
+    def send_validate(self):
+        """Send the notification to validate.
+
+        :returns: :py:class:`PushResponse` object with ``push_ids`` and
+            other response data.
+        :raises JPushFailure: Request failed.
+        :raises Unauthorized: Authentication failed.
+
+        """
+        body = json.dumps(self.payload)
+        response = self._jpush._request('POST', body,
+            common.VALIDATE_PUSH_URL, 'application/json', version=3)
 
         return PushResponse(response)
 

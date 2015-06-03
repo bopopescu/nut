@@ -57,6 +57,8 @@ INSTALLED_APPS = (
     'apps.wechat',
     'apps.notifications',
     'apps.report',
+
+    'captcha',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -261,6 +263,9 @@ TAOBAO_APP_INFO = {
     "web_app_secret" : "df91464ae934bacca326450f8ade67f7"
 }
 
+BAICHUAN_APP_KEY = '23093827'
+BAICHUAN_APP_SECRET = '7db5a8b0fb21e5d3b9910bf8b9feba38'
+
 
 # weibo
 SINA_APP_KEY = '2830558576'
@@ -273,6 +278,11 @@ WECHAT_TOKEN = 'guokuinwechat'
 WECHAT_APP_ID = 'wx728e94cbff8094df'
 WECHAT_APP_SECRET = 'd841a90cf90d00f145ca22b82e12a500'
 
+
 # jpush
 JPUSH_KEY = 'f9e153a53791659b9541eb37'
 JPUSH_SECRET = 'a0529d3efa544d1da51405b7'
+
+
+# for django-simple-captcha
+CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_dots',)

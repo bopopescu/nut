@@ -12,6 +12,8 @@ from apps.core.models import GKUser, User_Profile
 from apps.core.utils.image import HandleImage
 # from django.contrib.auth.tokens import default_token_generator
 
+from apps.web.fields import Wizard_CaptchaField
+
 
 from django.utils.log import getLogger
 from django.conf import settings
@@ -138,6 +140,9 @@ class UserSignUpForm(forms.Form):
         widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':_('New password confirmation')}),
         help_text=_("Enter the same password as above, for verification."),
     )
+
+    # we have captcha field now !
+    captcha = Wizard_CaptchaField()
 
     agree_tos = forms.BooleanField(widget=forms.CheckboxInput(attrs={'checked' : 'checked'}), initial=True)
 

@@ -15,7 +15,7 @@ urlpatterns = patterns(
 # update user profile
     url(r'^update/$', 'update', name='v4_user_update'),
     url(r'^update/account/$', 'update_account', name="v4_user_update_account"),
-    url(r'update/email/$', 'update_email', name='v4_user_update_email'),
+    url(r'^update/email/$', 'update_email', name='v4_user_update_email'),
 
 # reset password
     url(r'reset/password/$', 'rest_password', name='v4_user_reset_password'),
