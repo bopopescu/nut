@@ -8,6 +8,7 @@ from apps.mobile.models import Session_Key
 
 from apps.core.utils.image import HandleImage
 from apps.core.tasks.account import fetch_avatar, update_token
+from apps.v4.models import APISession_Key
 
 
 class MobileUserSignInForm(GuoKuUserSignInForm):
@@ -46,31 +47,6 @@ class MobileUserSignInForm(GuoKuUserSignInForm):
                 raise forms.ValidationError(
                     self.error_messages['invalid_login']
                 )
-
-    # def clean(self):
-    #     if not self.user_cache.is_active:
-    #             raise forms.ValidationError(
-    #                 self.error_messages['inactive'],
-    #                 code='inactive',
-    #             )
-        # email = self.cleaned_data.get('email')
-        # password = self.cleaned_data.get('password')
-        # self.api_key = self.cleaned_data.get('api_key')
-        # self.next_url = self.cleaned_data.get('next')
-
-        # if email and password:
-        #     self.user_cache = authenticate(username=email,
-        #                                    password=password)
-        #
-        #     if self.user_cache is None:
-        #         raise forms.ValidationError(
-        #             self.error_messages['invalid_login']
-        #         )
-        #     elif not self.user_cache.is_active:
-        #         raise forms.ValidationError(
-        #             self.error_messages['inactive'],
-        #             code='inactive',
-        #         )
 
     def get_session(self):
         self.api_key = self.cleaned_data.get('api_key')
@@ -125,7 +101,6 @@ class MobileUserSignUpForm(GuokuUserSignUpForm):
 
 
 
-
 class MobileUserSignOutForm(forms.Form):
 
     session = forms.CharField(
@@ -135,7 +110,7 @@ class MobileUserSignOutForm(forms.Form):
     def logout(self):
         _session = self.cleaned_data.get('session')
         try:
-            _session_obj = Session_Key.objects.get(session_key=_session)
+            _session_obj = APISession_Key.objects.get(session_key=_session)
             _session_obj.delete()
             return True
         except Session_Key.DoesNotExist:

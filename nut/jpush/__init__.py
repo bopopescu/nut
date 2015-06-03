@@ -2,7 +2,7 @@
 from .core import JPush
 from .common import JPushFailure, Unauthorized
 
-__version__ = '3.0.1'
+__version__ = '3.0.2'
 VERSION = tuple(map(int,  __version__.split('.')))
 
 from .push import (
@@ -20,6 +20,15 @@ from .push import (
     audience,
     options,
     message,
+)
+
+from .device import (
+    Device,
+    add,
+    remove,
+    device_tag,
+    device_alias,
+    device_regid,
 )
 
 __all__ = [
@@ -40,6 +49,12 @@ __all__ = [
     platform,
     audience,
     options,
+    Device,
+    add,
+    remove,
+    device_tag,
+    device_alias,
+    device_regid,
 ]
 
 # Silence urllib3 INFO logging by default

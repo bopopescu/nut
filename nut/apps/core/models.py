@@ -1,3 +1,5 @@
+#coding=utf-8
+
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
@@ -20,10 +22,8 @@ from apps.core.manager.event import ShowEventBannerManager
 from hashlib import md5
 # from apps.core.utils.tag import TagParser
 
-# from apps.notifications import notify
-
 from djangosphinx.models import SphinxSearch
-from apps.notifications import notify, push_notify
+from apps.notifications import notify
 from datetime import datetime
 import time
 
@@ -230,7 +230,9 @@ class User_Profile(BaseModel):
 
     @property
     def avatar_url(self):
-        if self.avatar:
+        if 'http' in self.avatar:
+            return self.avatar
+        elif self.avatar:
             return "%s%s" % (image_host, self.avatar)
         else:
             if self.gender == self.Woman:
@@ -257,13 +259,12 @@ class User_Follow(models.Model):
 
     def save(self, *args, **kwargs):
         super(User_Follow, self).save(*args, **kwargs)
-        notify.send(self.follower, recipient=self.followee, verb=u'has followed you', action_object=self, target=self.followee)
 
         key_string = "user_fans_%s" % self.followee.id
         key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
 
-        key_string = "user_follow_%s" % self.id
+        key_string = "user_follow_%s" % self.follower.id
         key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
 
@@ -312,7 +313,6 @@ class Banner(BaseModel):
             return True
         except Show_Banner.DoesNotExist:
             return False
-
 
     @property
     def position(self):
@@ -845,6 +845,11 @@ class Sina_Token(BaseModel):
     def __unicode__(self):
         return self.screen_name
 
+    @staticmethod
+    def generate(access_token, nick):
+        code_string = "%s%s%s" % (access_token, nick, time.mktime(datetime.now().timetuple()))
+        return md5(code_string.encode('utf-8')).hexdigest()
+
 
 class Taobao_Token(models.Model):
     user = models.OneToOneField(GKUser, related_name='taobao')
@@ -853,6 +858,7 @@ class Taobao_Token(models.Model):
     access_token = models.CharField(max_length = 255, null = True, db_index = True)
     refresh_token = models.CharField(max_length = 255, null = True, db_index = True)
     open_uid = models.CharField(max_length=64, null=True, db_index=True)
+    isv_uid = models.CharField(max_length=64, null=True, db_index=True)
     create_time = models.DateTimeField(auto_now_add = True)
     expires_in = models.PositiveIntegerField(default = 0)
     re_expires_in = models.PositiveIntegerField(default = 0)
@@ -860,6 +866,11 @@ class Taobao_Token(models.Model):
 
     def __unicode__(self):
         return self.screen_name
+
+    @staticmethod
+    def generate(user_id, nick):
+        code_string = "%s%s%s" % (user_id, nick, time.mktime(datetime.now().timetuple()))
+        return md5(code_string.encode('utf-8')).hexdigest()
 
 
 class Article(models.Model):
@@ -1102,17 +1113,18 @@ post_save.connect(entity_set_to_selectoin, sender=Selection_Entity, dispatch_uid
 
 def user_like_notification(sender, instance, created, **kwargs):
     if issubclass(sender, Entity_Like) and created:
-        # log.info(instance.user)
+        log.info(instance.user)
         # log.info(instance.entity.user)
         if instance.user.is_active == GKUser.remove:
             return
         if instance.user != instance.entity.user and instance.user.is_active >= instance.user.blocked:
             notify.send(instance.user, recipient=instance.entity.user, action_object=instance, verb='like entity', target=instance.entity)
             # log.info("rid %s" % )
-            for push_token in instance.entity.user.jpush_token.all():
-
-                log.info("rid %s" % push_token.rid)
-                push_notify.send(push_token, verb=_('like'), rid=push_token.rid, platform="ios", content_type=instance, production=False)
+            # for push_token in instance.entity.user.jpush_token.all():
+            #     # log.info("rid %s" % push_token.rid)
+            #     message = instance.user.profile.nickname + u' 喜爱了你添加的商品'
+            #     log.info(message)
+            #     push_notify.send(push_token, verb=message, rid=push_token.rid, platform="ios", content_type=instance, production=False)
 
 post_save.connect(user_like_notification, sender=Entity_Like, dispatch_uid="user_like_action_notification")
 
@@ -1128,7 +1140,7 @@ post_save.connect(user_post_note_notification, sender=Note, dispatch_uid="user_p
 
 
 def user_post_comment_notification(sender, instance, created, **kwargs):
-    log.info(created)
+    # log.info(created)
     if issubclass(sender, Note_Comment) and created:
         log.info(instance.user)
         if instance.user.is_active == GKUser.remove:
@@ -1155,5 +1167,12 @@ def user_poke_note_notification(sender, instance, created, **kwargs):
         # pass
 post_save.connect(user_poke_note_notification, sender=Note_Poke, dispatch_uid="user_poke_note_action_notification")
 
+
+def user_follow_notification(sender, instance, created, **kwargs):
+    if issubclass(sender, User_Follow) and created:
+        log.info(instance)
+        notify.send(instance.follower, recipient=instance.followee, verb=u'has followed you', action_object=instance, target=instance.followee)
+
+post_save.connect(user_follow_notification, sender=User_Follow, dispatch_uid="user_follow_notification")
 
 __author__ = 'edison7500'
