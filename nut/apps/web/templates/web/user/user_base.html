@@ -7,7 +7,7 @@
 {% block description %}果库,{{ user.profile.nickname }},{{ user.profile.bio }}{% endblock %}
 
 
-{% block content %}
+-{% block content %}
     {% url 'web_user_entity_like' user.pk as web_user_likes_url %}
     {% url 'web_user_post_note' user.pk as web_user_notes_url %}
     {% url 'web_user_tag' user.pk as web_user_tags_url %}
@@ -15,7 +15,7 @@
     {% url 'web_user_fans' user.pk as web_user_fans_url %}
 
         {% static "images/profile_bg_04.png" as profile_bg%}
-        <div class="row" style='background: url("{{ profile_bg }}"); padding-top: 27px; padding-bottom: 22px; margin: -50px 0 0 0;background-size: 278px;'>
+        <div class="row user-block" style='background: url("{{ profile_bg }}"); padding-top: 27px; padding-bottom: 22px; margin: -50px 0 0 0;background-size: 278px;'>
 
             <div class='user_profile_image'>
 {#                <div style="text-align: center">#}
@@ -46,7 +46,9 @@
                     {% if user.is_blocked %}
                         <a  class="btn btn-setting disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
                     {% elif user == request.user %}
-                        <a class="btn btn-default btn-setting" href="{% url 'web_user_settings' %}"><i class="fa fa-cog fa-lg"></i>&nbsp; {% trans _('Edit Profile') %}</a>
+                        <a class="btn btn-default btn-setting button-action" href="{% url 'web_user_settings' %}">
+                            <i class="fa fa-cog fa-lg"></i>
+                            &nbsp; {% trans _('Edit Profile') %}</a>
                     {% elif request.user.id in user.concren %}
                         <a class="follow is-fan btn btn-cancel" data-status="1" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
                     {% elif request.user.id in user.fans_list %}
