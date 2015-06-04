@@ -7,7 +7,10 @@
 
 {% block content %}
     <div class="editor_wrap">
-        <div class="cover"></div>
+        <div class="cover">
+            <div class="icon-wrapper"><i class="fa fa-file-image-o img-icon"></i></div>
+
+        </div>
         <div class="guoku_editor"></div>
     </div>
 
@@ -44,7 +47,7 @@
     <script src="{% static 'summernote/summernote.js' %}"></script>
     <script>
     $(document).ready(function() {
-        $('#summernote').summernote({
+        $('.guoku_editor').summernote({
             height: 700,
             codemirror: { // codemirror options
 {#                airMode: true,#}
