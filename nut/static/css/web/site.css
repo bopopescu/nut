@@ -1464,3 +1464,11 @@ a:hover {
 .mail-result h3 {
   margin-left: 30px;
 }
+.user-block .button-action {
+  color: #357ebd;
+  font-weight: 900;
+  font-size: 16px;
+}
+.user-block i {
+  color: #357ebd;
+}
