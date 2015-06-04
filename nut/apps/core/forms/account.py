@@ -5,6 +5,7 @@ from apps.core.models import GKUser, User_Profile
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from django.contrib.auth import authenticate, get_user_model
 
+from captcha.fields import CaptchaField
 
 class GuoKuUserSignInForm(forms.Form):
 
@@ -129,10 +130,12 @@ class GuokuUserSignUpForm(forms.Form):
 
 
 class UserPasswordResetForm(PasswordResetForm):
-    email = forms.EmailField(label=_("Email"),
+    email = forms.EmailField(label=_("Please Input Your Email"),
                              max_length=254,
                              widget=forms.TextInput(attrs={'class':'form-control'}),
                              help_text=_('please register email'))
+
+    captcha = CaptchaField(label=_("Please Input Captcha"),)
 
     def __init__(self, *args, **kwargs):
         super(UserPasswordResetForm, self).__init__(*args, **kwargs)
