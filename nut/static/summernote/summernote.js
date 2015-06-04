@@ -1,12 +1,20 @@
 /**
+<<<<<<< HEAD
  * Super simple wysiwyg editor on Bootstrap v0.6.8
+=======
+ * Super simple wysiwyg editor on Bootstrap v0.6.7
+>>>>>>> dev
  * http://summernote.org/
  *
  * summernote.js
  * Copyright 2013-2015 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
+<<<<<<< HEAD
  * Date: 2015-06-04T06:10Z
+=======
+ * Date: 2015-05-17T06:58Z
+>>>>>>> dev
  */
 (function (factory) {
   /* global define */
