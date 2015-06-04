@@ -1219,7 +1219,7 @@ msgstr "禁言用户"
 
 #: apps/web/templates/web/user/user_base.html:49
 msgid "Edit Profile"
-msgstr "更新资料"
+msgstr "编辑个人资料"
 
 #: apps/web/templates/web/user/user_base.html:66
 msgid "My Likes"
