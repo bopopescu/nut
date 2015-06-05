@@ -12,6 +12,7 @@ urlpatterns = patterns(
     url(r'^(?P<scid>\d+)/sub/category/edit/$', 'sub_category_edit', name='management_sub_category_edit'),
 
     url(r'^(?P<cid>\d+)/entity/$', 'category_entity_list', name='management_category_entities'),
+    url(r'^sub/(?P<scid>\d+)/entity/$', 'sub_category_entity_list', name='management_sub_category_entities'),
 )
 
 __author__ = 'edison'
