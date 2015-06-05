@@ -31,7 +31,7 @@
                             <td>{{ sub_category.status|yesno }}</td>
                             <td>
                                 <div class="btn-group">
-                                    <a class="btn btn-success" href="{% url 'management_sub_category_entities' sub_category.pk %}" target="_blank">{% trans 'detail' %}</a>
+                                    <a class="btn btn-success" href="{% url 'management_sub_category_entities' sub_category.pk %}" target="_blank">{% trans 'entity' %}</a>
                                     <a class="btn btn-default" href="{% url 'management_sub_category_edit' sub_category.pk %}" target="_blank">{% trans 'edit' %}</a>
                                 </div>
 {#                                <a class="btn btn-primary" href="{% url 'management_sub_category_list' category.pk %}" target="_blank">{% trans 'detail' %}</a>#}

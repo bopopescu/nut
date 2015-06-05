@@ -407,9 +407,18 @@ class Sub_Category(BaseModel):
         return self.title
 
 
-# class Taobao_Item_Category_Mapping(models.Model):
-#     taobao_category_id = models.IntegerField(db_index = True, unique = True)
-#     neo_category_id = models.IntegerField(db_index = True)
+# TODO: Production Brand
+class Brand(BaseModel):
+    name = models.CharField(max_length=100)
+    icon = models.CharField(max_length = 255, null = True, default = None)
+    company = models.CharField(max_length=100)
+    website = models.URLField(max_length=255)
+    national = models.CharField(max_length=100)
+    intro = models.TextField()
+
+    def __unicode__(self):
+        return self.name
+    # pass
 
 
 class Entity(BaseModel):
@@ -507,12 +516,10 @@ class Entity(BaseModel):
 
         return _tm
 
-
-
     # add by an
     @property
     def selection_hover_word(self):
-        return self.brand + ' ' +self.title;
+        return self.brand + ' ' +self.title
     # this property is for selection page's image hover message,
     # should I put it into a manager class ? @jiaxin
 
@@ -576,7 +583,7 @@ class Entity(BaseModel):
         key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
 
-
+    # search index
     search = SphinxSearch(
         index = 'entities',
         weights={
