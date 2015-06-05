@@ -1065,7 +1065,7 @@ a:hover {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
   }
   .xs-app-intro .intro-holder .text-holder {
     width: 100%;
@@ -1074,10 +1074,13 @@ a:hover {
   }
   .xs-app-intro .intro-holder .text-holder .slogan-big {
     font-size: 24px;
+    margin: 10px 0px;
   }
   .xs-app-intro .intro-holder .text-holder .slogan-small {
     color: #9D9E9F;
-    margin: 0px 40px;
+    margin: 15px auto;
+    display: block;
+    max-width: 400px;
   }
   .xs-app-download-img {
     margin: 30px 20px;
@@ -1128,7 +1131,7 @@ a:hover {
   }
   .download-middle .md-app-download-intro .intro-holder img {
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 19px;
   }
   .download-middle .md-app-download-intro .intro-holder .text-holder {
     width: 100%;
