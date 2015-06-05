@@ -1435,3 +1435,40 @@ a:hover {
   border: 1px solid #eee;
   float: left;
 }
+.password-fields {
+  padding-left: 20px;
+}
+.password-fields img {
+  clear: both;
+  position: relative;
+  left: 5px;
+}
+.password-fields input {
+  width: 200px;
+  font-size: 14px;
+  height: 34px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #eee;
+}
+.password-fields #id_captcha_1 {
+  position: relative;
+  float: left;
+}
+.password-fields .send-button {
+  margin-top: 20px;
+}
+.mail-result .status,
+.mail-result h3 {
+  margin-left: 30px;
+}
+.user-block .button-action {
+  color: #357ebd;
+  font-weight: 900;
+  font-size: 16px;
+}
+.user-block i {
+  color: #357ebd;
+}

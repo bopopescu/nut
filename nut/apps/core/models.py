@@ -125,6 +125,13 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def fans_count(self):
         return self.fans.count()
 
+    @property
+    def bio(self):
+        if hasattr(self, 'profile'):
+            if self.profile.bio:
+                return self.profile.bio
+        return ''
+
     def set_admin(self):
         self.is_admin = True
         self.save()
