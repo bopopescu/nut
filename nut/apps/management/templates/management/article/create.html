@@ -57,15 +57,15 @@
             onImageUpload: function(file, editor, welEditable) {
                 sendFile(file, editor, welEditable);
             },
-            toolbar:[
-                ['style',['style','bold','italic','underline','clear']],
+{#            toolbar:[#}
+{#                ['style',['style','bold','italic','underline','clear']],#}
 {#                ['fontface',['fontname']],#}
 {#                ['textsize',['fontsize']],#}
 {#                ['color', ['color']],#}
-                ['para', ['ul', 'ol']],
+{#                ['para', ['ul', 'ol']],#}
 {#                ['height', ['height']],#}
-                ['insert', ['picture','link','video']]
-            ]
+{#                ['insert', ['picture','link','video']]#}
+{#            ]#}
         });
         function sendFile(file, editor, welEditable) {
             data = new FormData();
