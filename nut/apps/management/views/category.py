@@ -98,7 +98,6 @@ def sub_category_create(request, cid, template="management/category/sub_category
     except Category.DoesNotExist:
         raise Http404
 
-
     if request.method == "POST":
         _forms = CreateSubCategoryForm(request.POST, request.FILES)
         if _forms.is_valid():
@@ -220,7 +219,6 @@ def category_entity_list(request, cid, templates = 'management/category/entity/c
     except EmptyPage:
         raise Http404
 
-
     return render_to_response(
         templates,
         {
@@ -229,5 +227,30 @@ def category_entity_list(request, cid, templates = 'management/category/entity/c
         },
         context_instance = RequestContext(request)
     )
+
+
+def sub_category_entity_list(request, scid, templates='management/category/entity/category_entity_list.html'):
+    page = request.GET.get('page', 1)
+
+    _sub_category = get_object_or_404(Sub_Category, pk=scid)
+
+    entities = Entity.objects.filter(category=_sub_category)
+    paginator = ExtentPaginator(entities, 30)
+    try:
+        _entity_list = paginator.page(page)
+    except PageNotAnInteger:
+        _entity_list = paginator.page(1)
+    except EmptyPage:
+        raise Http404
+
+    return render_to_response(
+        templates,
+        {
+            'entities': _entity_list,
+            'category':_sub_category,
+        },
+        context_instance = RequestContext(request)
+    )
+
 
 __author__ = 'edison'
