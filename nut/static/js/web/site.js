@@ -1014,7 +1014,7 @@ $.ajaxSetup({
                 var bio = clean_bio();
                 var err_msg = '简介请限制在两百字以内。';
 
-                if (bio.length<=0 || bio.length >200){
+                if (bio.length >200){
                     show_message('#bio_error_msg',err_msg);
                     return false;
                 }else{
