@@ -1,6 +1,6 @@
 //vars
 @light-gray:#9d9d9d;
-
+@link-color:#357ebd;
 
 //mixins
 .little-gray-font{
@@ -1360,4 +1360,56 @@ a:hover{text-decoration:underline;}
     border: 1px solid #eee;
     float: left;
   }
+}
+
+.password-fields{
+   padding-left : 20px;
+   img{
+     clear:both;
+     position: relative;
+     left:5px;
+
+   }
+
+   input{
+      width: 200px;
+      font-size: 14px;
+      height: 34px;
+      line-height: 1.42857143;
+      color: #555;
+      background-color: #fff;
+      background-image: none;
+      border: 1px solid #eee;
+   }
+  
+   #id_captcha_1{
+     position:relative;
+     float: left;
+   }
+
+  .send-button{
+     margin-top: 20px;
+  }
+
+}
+
+.mail-result{
+   .status, h3{
+      margin-left :30px;
+   }
+}
+
+
+
+.user-block{
+  .button-action{
+      color : @link-color;
+      font-weight:900;
+      font-size: 16px;
+  }
+
+  i{
+     color : @link-color;
+  }
+
 }
