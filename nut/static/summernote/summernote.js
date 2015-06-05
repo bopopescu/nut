@@ -1,20 +1,12 @@
 /**
-<<<<<<< HEAD
  * Super simple wysiwyg editor on Bootstrap v0.6.8
-=======
- * Super simple wysiwyg editor on Bootstrap v0.6.7
->>>>>>> dev
  * http://summernote.org/
  *
  * summernote.js
  * Copyright 2013-2015 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
-<<<<<<< HEAD
- * Date: 2015-06-04T06:10Z
-=======
- * Date: 2015-05-17T06:58Z
->>>>>>> dev
+ * Date: 2015-06-05T06:00Z
  */
 (function (factory) {
   /* global define */
@@ -26,7 +18,7 @@
     factory(window.jQuery);
   }
 }(function ($) {
-
+  
 
 
   if (!Array.prototype.reduce) {
@@ -83,7 +75,7 @@
           }
         }
       }
-
+  
       return res;
     };
   }
@@ -356,7 +348,7 @@
         return memo + fn(v);
       }, 0);
     };
-
+  
     /**
      * returns a copy of the collection with array type.
      * @param {Collection} collection - collection eg) node.childNodes, ...
@@ -368,7 +360,7 @@
       }
       return result;
     };
-
+  
     /**
      * cluster elements by predicate function.
      *
@@ -389,7 +381,7 @@
         return memo;
       }, [[head(array)]]);
     };
-
+  
     /**
      * returns a copy of the array with all falsy values removed
      *
@@ -443,7 +435,7 @@
       return array[idx - 1];
     };
 
-
+  
     return { head: head, last: last, initial: initial, tail: tail,
              prev: prev, next: next, find: find, contains: contains,
              all: all, sum: sum, from: from,
@@ -1077,7 +1069,7 @@
 
     /**
      * returns whether point is visible (can set cursor) or not.
-     *
+     * 
      * @param {BoundaryPoint} point
      * @return {Boolean}
      */
@@ -1542,7 +1534,7 @@
      */
     var textRangeToPoint = function (textRange, isStart) {
       var container = textRange.parentElement(), offset;
-
+  
       var tester = document.body.createTextRange(), prevContainer;
       var childNodes = list.from(container.childNodes);
       for (offset = 0; offset < childNodes.length; offset++) {
@@ -1555,42 +1547,42 @@
         }
         prevContainer = childNodes[offset];
       }
-
+  
       if (offset !== 0 && dom.isText(childNodes[offset - 1])) {
         var textRangeStart = document.body.createTextRange(), curTextNode = null;
         textRangeStart.moveToElementText(prevContainer || container);
         textRangeStart.collapse(!prevContainer);
         curTextNode = prevContainer ? prevContainer.nextSibling : container.firstChild;
-
+  
         var pointTester = textRange.duplicate();
         pointTester.setEndPoint('StartToStart', textRangeStart);
         var textCount = pointTester.text.replace(/[\r\n]/g, '').length;
-
+  
         while (textCount > curTextNode.nodeValue.length && curTextNode.nextSibling) {
           textCount -= curTextNode.nodeValue.length;
           curTextNode = curTextNode.nextSibling;
         }
-
+  
         /* jshint ignore:start */
         var dummy = curTextNode.nodeValue; // enforce IE to re-reference curTextNode, hack
         /* jshint ignore:end */
-
+  
         if (isStart && curTextNode.nextSibling && dom.isText(curTextNode.nextSibling) &&
             textCount === curTextNode.nodeValue.length) {
           textCount -= curTextNode.nodeValue.length;
           curTextNode = curTextNode.nextSibling;
         }
-
+  
         container = curTextNode;
         offset = textCount;
       }
-
+  
       return {
         cont: container,
         offset: offset
       };
     };
-
+    
     /**
      * return TextRange from boundary point (inspired by google closure-library)
      * @param {BoundaryPoint} point
@@ -1599,7 +1591,7 @@
     var pointToTextRange = function (point) {
       var textRangeInfo = function (container, offset) {
         var node, isCollapseToStart;
-
+  
         if (dom.isText(container)) {
           var prevTextNodes = dom.listPrev(container, func.not(dom.isText));
           var prevContainer = list.last(prevTextNodes).previousSibling;
@@ -1611,27 +1603,27 @@
           if (dom.isText(node)) {
             return textRangeInfo(node, 0);
           }
-
+  
           offset = 0;
           isCollapseToStart = false;
         }
-
+  
         return {
           node: node,
           collapseToStart: isCollapseToStart,
           offset: offset
         };
       };
-
+  
       var textRange = document.body.createTextRange();
       var info = textRangeInfo(point.node, point.offset);
-
+  
       textRange.moveToElementText(info.node);
       textRange.collapse(info.collapseToStart);
       textRange.moveStart('character', info.offset);
       return textRange;
     };
-
+    
     /**
      * Wrapped Range
      *
@@ -1646,7 +1638,7 @@
       this.so = so;
       this.ec = ec;
       this.eo = eo;
-
+  
       // nativeRange: get nativeRange from sc, so, ec, eo
       var nativeRange = function () {
         if (agent.isW3CRangeSupport) {
@@ -1707,7 +1699,7 @@
         } else {
           nativeRng.select();
         }
-
+        
         return this;
       };
 
@@ -1915,7 +1907,7 @@
           point.offset
         ).normalize();
       };
-
+      
       /**
        * makeIsOn: return isOn(pred) function
        */
@@ -1925,7 +1917,7 @@
           return !!ancestor && (ancestor === dom.ancestor(ec, pred));
         };
       };
-
+  
       // isOnEditable: judge whether range is on editable or not
       this.isOnEditable = makeIsOn(dom.isEditable);
       // isOnList: judge whether range is on list node or not
@@ -2028,7 +2020,7 @@
           return self.insertNode(childNode);
         }).reverse();
       };
-
+  
       /**
        * returns text in range
        *
@@ -2069,7 +2061,7 @@
           endPoint.offset
         );
       };
-
+  
       /**
        * create offsetPath bookmark
        *
@@ -2131,7 +2123,7 @@
     return {
       /**
        * @method
-       *
+       * 
        * create Range Object From arguments or Browser Selection
        *
        * @param {Node} sc - start container
@@ -2150,7 +2142,7 @@
               // Firefox: returns entire body as range on initialization. We won't never need it.
               return null;
             }
-
+  
             var nativeRng = selection.getRangeAt(0);
             sc = nativeRng.startContainer;
             so = nativeRng.startOffset;
@@ -2162,7 +2154,7 @@
             textRangeEnd.collapse(false);
             var textRangeStart = textRange;
             textRangeStart.collapse(true);
-
+  
             var startPoint = textRangeToPoint(textRangeStart, true),
             endPoint = textRangeToPoint(textRangeEnd, false);
 
@@ -2186,8 +2178,8 @@
       },
 
       /**
-       * @method
-       *
+       * @method 
+       * 
        * create WrappedRange from node
        *
        * @param {Node} node
@@ -2236,8 +2228,8 @@
       },
 
       /**
-       * @method
-       *
+       * @method 
+       * 
        * create WrappedRange from bookmark
        *
        * @param {Node} editable
@@ -2253,7 +2245,7 @@
       },
 
       /**
-       * @method
+       * @method 
        *
        * create WrappedRange from paraBookmark
        *
@@ -2273,8 +2265,8 @@
   })();
 
   /**
-   * @class defaults
-   *
+   * @class defaults 
+   * 
    * @singleton
    */
   var defaults = {
@@ -2282,16 +2274,16 @@
     version: '0.6.8',
 
     /**
-     *
+     * 
      * for event options, reference to EventHandler.attach
-     *
-     * @property {Object} options
-     * @property {String/Number} [options.width=null] set editor width
+     * 
+     * @property {Object} options 
+     * @property {String/Number} [options.width=null] set editor width 
      * @property {String/Number} [options.height=null] set editor height, ex) 300
      * @property {String/Number} options.minHeight set minimum height of editor
      * @property {String/Number} options.maxHeight
-     * @property {String/Number} options.focus
-     * @property {Number} options.tabsize
+     * @property {String/Number} options.focus 
+     * @property {Number} options.tabsize 
      * @property {Boolean} options.styleWithSpan
      * @property {Object} options.codemirror
      * @property {Object} [options.codemirror.mode='text/html']
@@ -2341,7 +2333,7 @@
       // toolbar
       toolbar: [
         ['style', ['style']],
-        ['font', ['bold', 'italic', 'underline', 'clear']],
+        ['font', ['bold', 'italic', 'underline', 'clear','quote']],
         // ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
         ['fontname', ['fontname']],
         ['fontsize', ['fontsize']],
@@ -2521,7 +2513,8 @@
           strikethrough: 'Strikethrough',
           subscript: 'Subscript',
           superscript: 'Superscript',
-          size: 'Font Size'
+          size: 'Font Size',
+          quote:'Add Quote'
         },
         image: {
           image: 'Picture',
@@ -2611,7 +2604,7 @@
         history: {
           undo: 'Undo',
           redo: 'Redo'
-        }
+        },
       }
     }
   };
@@ -2646,7 +2639,7 @@
         }).readAsDataURL(file);
       }).promise();
     };
-
+  
     /**
      * @method createImage
      *
@@ -4110,7 +4103,7 @@
      * @param {jQuery} $container
      * @param {Object} styleInfo
      */
-    this.update = function ($container, styleInfo) {
+    this.update = function ($container, styleInfo,currentTarget) {
       /**
        * handle dropdown's check mark (for fontname, fontsize, lineHeight).
        * @param {jQuery} $btn
@@ -4131,9 +4124,32 @@
        * @param {String} selector
        * @param {Function} pred
        */
+
+      // use less, strange , this function will invalid the execCommand call
+      function isNodeQuoted(node){
+          // is node is not provided , get baseNode from document.getSelection()
+
+          return  !!dom.ancestor(
+              node || document.getSelection().baseNode,
+              function(node){
+                  if (jQuery(node).prop('tagName') && jQuery(node).prop('tagName').toLowerCase() == 'blockquote')
+                      return true;});
+      }
+
+      var btnValue = function(selector, pred, values){
+          var $btn = $container.find(selector);
+          $btn.attr({'data-value': pred()? values[0]: values[1]});
+      }
+
       var btnState = function (selector, pred) {
         var $btn = $container.find(selector);
-        $btn.toggleClass('active', pred());
+         $btn.toggleClass('active', pred());
+
+         if(selector === 'button[data-event="formatBlock"]'){
+             $btn.attr({'data-value': pred()? 'p' : 'blockquote' });
+         }
+
+
       };
 
       if (styleInfo.image) {
@@ -4173,8 +4189,21 @@
         btnState('button[data-event="resize"][data-value="0.25"]', function () {
           return !!/(^|\s)(max-)?width\s*:\s*25%/.test(style);
         });
+
         return;
       }
+
+
+
+        btnState('button[data-event="formatBlock"]', function () {
+            return  isNodeQuoted();
+
+        });
+
+        //
+        //btnValue('button[data-event="formatBlock"]', function(){
+        //    return isNodeQuoted();
+        //}, ['p','blockqoute']);
 
       // fontname
       var $fontname = $container.find('.note-fontname');
@@ -4189,7 +4218,7 @@
               break;
             }
           }
-
+          
           $fontname.find('.note-current-fontname').text(selectedFont);
           checkDropdownMenu($fontname, selectedFont);
 
@@ -4269,8 +4298,8 @@
   var Toolbar = function () {
     var button = new Button();
 
-    this.update = function ($toolbar, styleInfo) {
-      button.update($toolbar, styleInfo);
+    this.update = function ($toolbar, styleInfo, currentTarget) {
+      button.update($toolbar, styleInfo,currentTarget);
     };
 
     /**
@@ -4327,7 +4356,7 @@
     };
 
     /**
-     * get button in toolbar
+     * get button in toolbar 
      *
      * @param {jQuery} $editable
      * @param {String} name
@@ -5155,13 +5184,13 @@
 
           $imageUrl.on('keyup paste', function (event) {
             var url;
-
+            
             if (event.type === 'paste') {
               url = event.originalEvent.clipboardData.getData('text');
             } else {
               url = $imageUrl.val();
             }
-
+            
             toggleBtn($imageBtn, url);
           }).val('').trigger('focus');
           bindEnterKey($imageUrl, $imageBtn);
@@ -5378,7 +5407,7 @@
 
         var isAirMode = layoutInfo.editor().data('options').airMode;
         if (!isAirMode) {
-          modules.toolbar.update(layoutInfo.toolbar(), styleInfo);
+          modules.toolbar.update(layoutInfo.toolbar(), styleInfo, event.currentTarget || event.target);
         }
 
         modules.popover.update(layoutInfo.popover(), styleInfo, isAirMode);
@@ -5408,6 +5437,10 @@
         var eventName = $btn.attr('data-event'),
             value = $btn.attr('data-value'),
             hide = $btn.attr('data-hide');
+
+        // add by An for blockquote remove
+
+
 
         var layoutInfo = dom.makeLayoutInfo(event.target);
 
@@ -5488,7 +5521,7 @@
 
       $dimensionDisplay.html(dim.c + ' x ' + dim.r);
     };
-
+    
     /**
      * bind KeyMap on keydown
      *
@@ -5658,7 +5691,7 @@
       $editable.on('scroll', bindCustomEvent($holder, callbacks, 'scroll'));
 
       $editable.on('paste', bindCustomEvent($holder, callbacks, 'paste'));
-
+      
       // [workaround] for old IE - IE8 don't have input events
       //  - TODO check IE version
       var changeEventName = agent.isMSIE ? 'DOMCharacterDataModified DOMSubtreeModified DOMNodeInserted' : 'input';
@@ -5688,7 +5721,7 @@
         }
       }
     };
-
+      
     this.detach = function (layoutInfo, options) {
       layoutInfo.holder().off();
       layoutInfo.editable().off();
@@ -5778,7 +5811,7 @@
                '<div class="popover-content">' +
                '</div>' +
              '</div>');
-
+      
       $popover.find('.popover-content').append(content);
       return $popover;
     };
@@ -5869,7 +5902,7 @@
 
         var hasDefaultFont = agent.isFontInstalled(options.defaultFontName);
         var defaultFontName = (hasDefaultFont) ? options.defaultFontName : realFontList[0];
-
+          
         var label = '<span class="note-current-fontname">' +
                         defaultFontName +
                      '</span>';
@@ -5968,6 +6001,13 @@
           event: 'removeFormat',
           title: lang.font.clear
         });
+      },
+      quote: function(lang,option){
+          return tplIconButton(option.iconPrefix + 'quote-left',{
+             event:'formatBlock',
+             title: lang.font.quote,
+             value: 'blockquote'
+          });
       },
       ul: function (lang, options) {
         return tplIconButton(options.iconPrefix + 'list-ul', {
@@ -6163,13 +6203,13 @@
         var $content = $('<div />');
         for (var idx = 0, len = options.airPopover.length; idx < len; idx ++) {
           var group = options.airPopover[idx];
-
+          
           var $group = $('<div class="note-' + group[0] + ' btn-group">');
           for (var i = 0, lenGroup = group[1].length; i < lenGroup; i++) {
             var $button = $(tplButtonInfo[group[1][i]](lang, options));
 
             $button.attr('data-name', group[1][i]);
-
+            
             $group.append($button);
           }
           $content.append($group);
@@ -6179,14 +6219,14 @@
       };
 
       var $notePopover = $('<div class="note-popover" />');
-
+      
       $notePopover.append(tplLinkPopover());
       $notePopover.append(tplImagePopover());
-
+      
       if (options.airMode) {
         $notePopover.append(tplAirPopover());
       }
-
+      
       return $notePopover;
     };
 
@@ -6511,6 +6551,7 @@
         $('<div class="note-statusbar">' + (options.disableResizeEditor ? '' : tplStatusbar()) + '</div>').prependTo($editor);
       }
 
+
       //03. create Editable
       var isContentEditable = !$holder.is(':disabled');
       var $editable = $('<div class="note-editable" contentEditable="' + isContentEditable + '"></div>')
@@ -6531,6 +6572,10 @@
       //031. create codable
       $('<textarea class="note-codable"></textarea>').prependTo($editor);
 
+        // done Title input here : by An .
+        var titleInput = $('<div class=""><input name="article-title" placeholder="input title"></div>')
+            .prependTo($editor);
+
       //04. create Toolbar
       var $toolbar = $('<div class="note-toolbar btn-toolbar" />');
       for (var idx = 0, len = options.toolbar.length; idx < len; idx ++) {
@@ -6549,9 +6594,12 @@
         }
         $toolbar.append($group);
       }
-
+      
       $toolbar.prependTo($editor);
-      var keyMap = options.keyMap[agent.isMac ? 'mac' : 'pc'];
+
+
+
+        var keyMap = options.keyMap[agent.isMac ? 'mac' : 'pc'];
       createPalette($toolbar, options);
       createTooltip($toolbar, keyMap, 'bottom');
 
@@ -6685,13 +6733,13 @@
 
   // jQuery namespace for summernote
   /**
-   * @class $.summernote
-   *
-   * summernote attribute
-   *
+   * @class $.summernote 
+   * 
+   * summernote attribute  
+   * 
    * @mixin defaults
-   * @singleton
-   *
+   * @singleton  
+   * 
    */
   $.summernote = $.summernote || {};
 
@@ -6709,11 +6757,11 @@
     renderer: renderer,
     /** @property {EventHandler} */
     eventHandler: eventHandler,
-    /**
-     * @property {Object} core
-     * @property {core.agent} core.agent
+    /** 
+     * @property {Object} core 
+     * @property {core.agent} core.agent 
      * @property {core.dom} core.dom
-     * @property {core.range} core.range
+     * @property {core.range} core.range 
      */
     core: {
       agent: agent,
@@ -6721,21 +6769,21 @@
       dom: dom,
       range: range
     },
-    /**
-     * @property {Object}
+    /** 
+     * @property {Object} 
      * pluginEvents event list for plugins
      * event has name and callback function.
-     *
-     * ```
+     * 
+     * ``` 
      * $.summernote.addPlugin({
      *     events : {
      *          'hello' : function(layoutInfo, value, $target) {
      *              console.log('event name is hello, value is ' + value );
      *          }
-     *     }
+     *     }     
      * })
      * ```
-     *
+     * 
      * * event name is data-event property.
      * * layoutInfo is a summernote layout information.
      * * value is data-value property.
@@ -6748,57 +6796,57 @@
   /**
    * @method addPlugin
    *
-   * add Plugin in Summernote
-   *
+   * add Plugin in Summernote 
+   * 
    * Summernote can make a own plugin.
    *
    * ### Define plugin
    * ```
-   * // get template function
+   * // get template function  
    * var tmpl = $.summernote.renderer.getTemplate();
-   *
-   * // add a button
+   * 
+   * // add a button   
    * $.summernote.addPlugin({
    *     buttons : {
-   *        // "hello"  is button's namespace.
+   *        // "hello"  is button's namespace.      
    *        "hello" : function(lang, options) {
-   *            // make icon button by template function
+   *            // make icon button by template function          
    *            return tmpl.iconButton('fa fa-header', {
-   *                // callback function name when button clicked
+   *                // callback function name when button clicked 
    *                event : 'hello',
-   *                // set data-value property
-   *                value : 'hello',
+   *                // set data-value property                 
+   *                value : 'hello',                
    *                hide : true
-   *            });
+   *            });           
    *        }
-   *
-   *     },
-   *
+   *     
+   *     }, 
+   *     
    *     events : {
    *        "hello" : function(layoutInfo, value) {
-   *            // here is event code
+   *            // here is event code 
    *        }
-   *     }
+   *     }     
    * });
-   * ```
+   * ``` 
    * ### Use a plugin in toolbar
-   *
-   * ```
+   * 
+   * ``` 
    *    $("#editor").summernote({
    *    ...
    *    toolbar : [
-   *        // display hello plugin in toolbar
+   *        // display hello plugin in toolbar     
    *        ['group', [ 'hello' ]]
    *    ]
-   *    ...
+   *    ...    
    *    });
    * ```
-   *
-   *
+   *  
+   *  
    * @param {Object} plugin
    * @param {Object} [plugin.buttons] define plugin button. for detail, see to Renderer.addButtonInfo
    * @param {Object} [plugin.dialogs] define plugin dialog. for detail, see to Renderer.addDialogInfo
-   * @param {Object} [plugin.events] add event in $.summernote.pluginEvents
+   * @param {Object} [plugin.events] add event in $.summernote.pluginEvents 
    * @param {Object} [plugin.langs] update $.summernote.lang
    * @param {Object} [plugin.options] update $.summernote.options
    */
@@ -6846,11 +6894,11 @@
      * @method
      * Initialize summernote
      *  - create editor layout and attach Mouse and keyboard events.
-     *
+     * 
      * ```
      * $("#summernote").summernote( { options ..} );
      * ```
-     *
+     *   
      * @member $.fn
      * @param {Object|String} options reference to $.summernote.options
      * @return {this}
@@ -6921,21 +6969,21 @@
     },
 
     /**
-     * @method
-     *
+     * @method 
+     * 
      * get the HTML contents of note or set the HTML contents of note.
      *
-     * * get contents
+     * * get contents 
      * ```
      * var content = $("#summernote").code();
      * ```
-     * * set contents
+     * * set contents 
      *
      * ```
      * $("#summernote").code(html);
      * ```
      *
-     * @member $.fn
+     * @member $.fn 
      * @param {String} [html] - HTML contents(optional, set)
      * @return {this|String} - context(set) or HTML contents of note(get).
      */
@@ -6973,7 +7021,7 @@
 
     /**
      * @method
-     *
+     * 
      * destroy Editor Layout and detach Key and Mouse Event
      *
      * @member $.fn
