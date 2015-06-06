@@ -416,6 +416,10 @@ class Brand(BaseModel):
     national = models.CharField(max_length=100, null=True, default=None)
     intro = models.TextField()
 
+    @property
+    def icon_url(self):
+        return "%s%s" % (image_host, self.icon)
+
     def __unicode__(self):
         return self.name
     # pass

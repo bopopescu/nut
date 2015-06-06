@@ -115,10 +115,7 @@ class BrandEditView(BaseEditView):
             brand = Brand.objects.get(pk = brand_id)
         except Brand.DoesNotExist:
             raise Http404
-        self.initial = {
-            'name': brand.name,
-            'national': brand.national,
-        }
+        self.initial = brand.toDict()
 
         form = self.get_form_class(brand=brand)
         # log.info(form)

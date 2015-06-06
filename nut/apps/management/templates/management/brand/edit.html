@@ -3,7 +3,11 @@
 
 {% block content %}
     <h1 class="page-header">{{ brand.name }}</h1>
-
+    <div class="row placeholders">
+        <div class="col-xs-6 col-sm-3 placeholders">
+            <img class="img-responsive img-thumbnail" alt="200x200"  src="{{ brand.icon_url }}">
+        </div>
+    </div>
 
     <div class="row">
         <form class="well form-horizontal" method="post" enctype="multipart/form-data">
@@ -12,7 +16,7 @@
             {% for field in form %}
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                    <div class="col-sm-5">
+                    <div class="col-sm-6">
                         {{ field }}
                     </div>
                     {% if field.errors %}
