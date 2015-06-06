@@ -4,9 +4,9 @@
 from django.http import Http404
 from apps.core.models import Brand
 from apps.core.models import Entity
-from apps.core.views import BaseListView, BaseEditView
+from apps.core.views import BaseListView, BaseFormView
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
-from apps.management.forms.brand import EditBrandForm
+from apps.management.forms.brand import EditBrandForm, CreateBrandForm
 
 from django.utils.log import getLogger
 
@@ -94,7 +94,7 @@ class BrandEntityListView(BaseListView):
         return self.render_to_response(context)
 
 
-class BrandEditView(BaseEditView):
+class BrandEditView(BaseFormView):
     template_name = 'management/brand/edit.html'
 
     form_class = EditBrandForm
@@ -138,6 +138,19 @@ class BrandEditView(BaseEditView):
         context = {
             'form':form,
             'brand': brand,
+        }
+        return self.render_to_response(context)
+
+
+class BrandCreateView(BaseFormView):
+
+    template_name = 'management/brand/create.html'
+    form_class = CreateBrandForm
+
+    def get(self, request):
+        form = self.get_form_class()
+        context = {
+            'form':form,
         }
         return self.render_to_response(context)
 

@@ -44,4 +44,13 @@ class EditBrandForm(BrandForm):
 
         return self.brand_cache
 
+
+class CreateBrandForm(BrandForm):
+
+    def __init__(self, *args, **kwargs):
+        super(CreateBrandForm, self).__init__(*args, **kwargs)
+
+    def save(self):
+        pass
+
 __author__ = 'edison'
