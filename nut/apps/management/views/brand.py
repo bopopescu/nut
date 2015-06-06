@@ -6,7 +6,7 @@ from apps.core.models import Brand
 from apps.core.models import Entity
 from apps.core.views import BaseListView, BaseEditView
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
-from apps.core.forms.brand import EditBrandForm
+from apps.management.forms.brand import EditBrandForm
 
 from django.utils.log import getLogger
 
