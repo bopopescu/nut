@@ -692,7 +692,7 @@ class Note(BaseModel):
 
     @property
     def comment_count(self):
-        return self.comments.count()
+        return self.comments.normal().count()
 
     @property
     def poke_count(self):
