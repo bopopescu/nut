@@ -3,11 +3,10 @@
 
 from django.http import Http404
 from apps.core.models import Brand
-# import random
-# from django.db.models import Count
 from apps.core.models import Entity
-from apps.core.views import BaseListView
+from apps.core.views import BaseListView, BaseEditView
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
+from apps.core.forms.brand import EditBrandForm
 
 from django.utils.log import getLogger
 
@@ -73,7 +72,7 @@ class BrandEntityListView(BaseListView):
 
     def get_queryset(self, **kwargs):
         name = kwargs.pop('brand_name')
-        return Entity.objects.filter(brand__contains=name)
+        return Entity.objects.filter(brand__contains=name).exclude(status=Entity.remove)
 
     def get(self, request, brand):
         _entity_list = self.get_queryset(brand_name=brand)
@@ -93,5 +92,57 @@ class BrandEntityListView(BaseListView):
             'entities': _entities,
         }
         return self.render_to_response(context)
+
+
+class BrandEditView(BaseEditView):
+    template_name = 'management/brand/edit.html'
+
+    form_class = EditBrandForm
+
+    def get_form_class(self, **kwargs):
+        brand = kwargs.pop('brand')
+        k = self.get_form_kwargs()
+        k.update(
+            {
+                'brand':brand
+            }
+        )
+        return self.form_class(**k)
+
+    def get(self, request, brand_id):
+
+        try:
+            brand = Brand.objects.get(pk = brand_id)
+        except Brand.DoesNotExist:
+            raise Http404
+        self.initial = {
+            'name': brand.name,
+            'national': brand.national,
+        }
+
+        form = self.get_form_class(brand=brand)
+        # log.info(form)
+        context = {
+            'form': form,
+            'brand': brand,
+        }
+        return self.render_to_response(context)
+
+    def post(self, request, brand_id):
+        try:
+            brand = Brand.objects.get(pk = brand_id)
+        except Brand.DoesNotExist:
+            raise Http404
+
+        form = self.get_form_class(brand=brand)
+        if form.is_valid():
+            brand = form.save()
+
+        context = {
+            'form':form,
+            'brand': brand,
+        }
+        return self.render_to_response(context)
+
 
 __author__ = 'edison'

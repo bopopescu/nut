@@ -39,7 +39,7 @@
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-success" href="{% url 'management_brand_entity_list' brand.name %}">{% trans 'entity' %}</a>
-                                <a class="btn btn-default" href="#">{% trans 'edit' %}</a>
+                                <a class="btn btn-default" href="{% url 'management_brand_edit' brand.pk %}">{% trans 'edit' %}</a>
                             </div>
                         </td>
                     </tr>
