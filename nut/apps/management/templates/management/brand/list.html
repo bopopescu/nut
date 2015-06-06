@@ -31,7 +31,7 @@
                 {% for brand in brands %}
                     <tr>
                         <td>{{ brand.pk }}</td>
-                        <td>{{ brand.icon }}</td>
+                        <td><img class="img-polaroid" style="max-height:150px;max-width:150px;"  src="{{ brand.icon_url }}"></td>
                         <td>{{ brand.name }}</td>
                         <td>{{ brand.company }}</td>
                         <td>{{ brand.national }}</td>
