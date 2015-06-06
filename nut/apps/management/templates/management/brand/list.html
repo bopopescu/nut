@@ -1,6 +1,22 @@
 {% extends 'management/management_base.html' %}
+{% load i18n %}
 
 
 {% block content %}
+    <h1 class="page-header">{% trans 'brand' %}</h1>
 
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>{% trans 'icon' %}</th>
+                    <th>{% trans 'name' %}</th>
+                    <th>{% trans 'company' %}</th>
+                    <th>{% trans 'national' %}</th>
+                    <th>{% trans 'website' %}</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
 {% endblock %}

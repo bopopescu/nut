@@ -409,11 +409,11 @@ class Sub_Category(BaseModel):
 
 # TODO: Production Brand
 class Brand(BaseModel):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     icon = models.CharField(max_length = 255, null = True, default = None)
-    company = models.CharField(max_length=100)
-    website = models.URLField(max_length=255)
-    national = models.CharField(max_length=100)
+    company = models.CharField(max_length=100, null=True, default=None)
+    website = models.URLField(max_length=255, null=True, default=None)
+    national = models.CharField(max_length=100, null=True, default=None)
     intro = models.TextField()
 
     def __unicode__(self):
