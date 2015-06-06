@@ -1,0 +1,13 @@
+{% extends 'management/management_base.html' %}
+{% load i18n %}
+{% load guoku %}
+
+{% block content %}
+    <div class="row">
+        <h1 class="page-header">{{ brand }}</h1>
+    </div>
+
+    {% include 'management/entities/table.html' with entities=entities %}
+
+    {% include "management/paginator.html" with objects=entities url=request.path %}
+{% endblock %}
