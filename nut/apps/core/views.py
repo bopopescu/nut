@@ -10,7 +10,7 @@ class BaseListView(TemplateResponseMixin, ContextMixin, View):
 
 
 
-class BaseEditView(TemplateResponseMixin, ContextMixin, View):
+class BaseFormView(TemplateResponseMixin, ContextMixin, View):
     initial = {}
     form_class = None
 
