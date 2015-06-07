@@ -22,8 +22,8 @@
                         <td>{{ stat.b }}</td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-success" href="{% url 'management_brand_entity_list' stat.brand %}">{% trans 'entity' %}</a>
-                                <a class="btn btn-default" href="#">{% trans 'edit' %}</a>
+                                <a class="btn btn-success" href="{% url 'management_brand_entity_list' stat.brand %}" target="_blank">{% trans 'entity' %}</a>
+                                <a class="btn btn-default" href="{% url 'management_brand_name_edit' stat.brand %}" target="_blank">{% trans 'edit' %}</a>
                             </div>
                         </td>
                     </tr>
