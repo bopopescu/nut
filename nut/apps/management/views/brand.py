@@ -1,7 +1,6 @@
-# from django.shortcuts import render_to_response
-# from django.views.generic.base import View, TemplateResponseMixin, ContextMixin
+from django.http import Http404, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
-from django.http import Http404
 from apps.core.models import Brand
 from apps.core.models import Entity
 from apps.core.views import BaseListView, BaseFormView
@@ -154,5 +153,14 @@ class BrandCreateView(BaseFormView):
         }
         return self.render_to_response(context)
 
+    def post(self, request):
+        form = self.get_form_class()
+        if form.is_valid():
+            brand = form.save()
+            return HttpResponseRedirect(reverse('management_brand_edit', args=[brand.id]))
+        context = {
+            'form': form
+        }
+        return self.render_to_response(context)
 
 __author__ = 'edison'
