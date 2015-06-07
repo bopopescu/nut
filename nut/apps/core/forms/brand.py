@@ -1,5 +1,6 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
+from apps.core.models import Brand
 # from django.core.files.storage import default_storage
 # from django.core.files.base import ContentFile
 #
@@ -23,6 +24,11 @@ class BrandForm(forms.Form):
         widget=forms.TextInput(attrs={'class':'form-control'})
     )
 
+    alias = forms.CharField(
+        label=_('alias'),
+        widget=forms.TextInput(attrs={'class':'form-control'})
+    )
+
     national = forms.CharField(
         label=_('national'),
         widget=forms.TextInput(attrs={'class':'form-control'}),
@@ -40,6 +46,12 @@ class BrandForm(forms.Form):
         widget=forms.URLInput(attrs={'class':'form-control'}),
         required=False,
     )
+
+    status = forms.ChoiceField(label=_('status'),
+                                choices=Brand.BRAND_STATUS_CHOICES,
+                                widget=forms.Select(attrs={'class':'form-control'}),
+                                initial=Brand.pending,
+                                help_text=_(''))
 
     intro = forms.CharField(
         label=_('intro'),

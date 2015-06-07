@@ -409,19 +409,34 @@ class Sub_Category(BaseModel):
 
 # TODO: Production Brand
 class Brand(BaseModel):
+    pending, publish,  promotion = xrange(3)
+    BRAND_STATUS_CHOICES = [
+        (pending, _("pending")),
+        (publish, _("publish")),
+        (promotion, _("promotion")),
+    ]
+
     name = models.CharField(max_length=100, unique=True)
+    alias = models.CharField(max_length=100, null=True, default=None)
     icon = models.CharField(max_length = 255, null = True, default = None)
     company = models.CharField(max_length=100, null=True, default=None)
     website = models.URLField(max_length=255, null=True, default=None)
     national = models.CharField(max_length=100, null=True, default=None)
     intro = models.TextField()
+    status = models.IntegerField(choices=BRAND_STATUS_CHOICES, default=pending)
+    created_date = models.DateTimeField(auto_now=True, db_index=True)
+
+    class Meta:
+        ordering = ['-created_date']
 
     @property
     def icon_url(self):
-        return "%s%s" % (image_host, self.icon)
+        if self.icon:
+            return "%s%s" % (image_host, self.icon)
+        return None
 
     def __unicode__(self):
-        return self.name
+        return "%s %s" % (self.name, self.alias)
     # pass
 
 
