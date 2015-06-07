@@ -191,8 +191,8 @@ def push_notification(sender, instance, created, **kwargs):
 
                 push.platform = jpush.platform(_platform)
                 push.audience = jpush.registration_id(reg.rid)
-
-                ios_msg = jpush.ios(alert=verb.encode('utf8'), badge="+1", extras={'entity':'v1'})
+                # log.info("%d" % instance.recipient.notifications.unread().count())
+                ios_msg = jpush.ios(alert=verb.encode('utf8'), badge=instance.recipient.notifications.unread().count(), extras={'url':'guoku://entity/%s/' % instance.target.pk})
                 push.notification = jpush.notification(alert=verb.encode('utf8'), ios=ios_msg)
                 push.options = {"time_to_live":86400, "apns_production":_production}
                 push.send()
