@@ -141,6 +141,53 @@ class BrandEditView(BaseFormView):
         return self.render_to_response(context)
 
 
+class BrandNameEditView(BaseFormView):
+    template_name = 'management/brand/edit.html'
+
+    form_class = EditBrandForm
+
+    def get_form_class(self, **kwargs):
+        brand = kwargs.pop('brand')
+        k = self.get_form_kwargs()
+        k.update(
+            {
+                'brand':brand
+            }
+        )
+        return self.form_class(**k)
+
+    def get(self, request, brand):
+
+        try:
+            brand = Brand.objects.get(name = brand)
+        except Brand.DoesNotExist:
+            raise Http404
+        self.initial = brand.toDict()
+
+        form = self.get_form_class(brand=brand)
+        # log.info(form)
+        context = {
+            'form': form,
+            'brand': brand,
+        }
+        return self.render_to_response(context)
+
+    def post(self, request, brand_id):
+        try:
+            brand = Brand.objects.get(pk = brand_id)
+        except Brand.DoesNotExist:
+            raise Http404
+
+        form = self.get_form_class(brand=brand)
+        if form.is_valid():
+            brand = form.save()
+
+        context = {
+            'form':form,
+            'brand': brand,
+        }
+        return self.render_to_response(context)
+
 class BrandCreateView(BaseFormView):
 
     template_name = 'management/brand/create.html'
