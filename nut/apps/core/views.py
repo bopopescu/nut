@@ -1,7 +1,15 @@
 from django.views.generic.base import View, TemplateResponseMixin, ContextMixin
+from django.contrib.auth.decorators import login_required
 
 
-class BaseListView(TemplateResponseMixin, ContextMixin, View):
+class LoginRequiredMixin(object):
+    @classmethod
+    def as_view(cls, **initkwargs):
+        view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
+        return login_required(view)
+
+
+class BaseListView(LoginRequiredMixin, TemplateResponseMixin, ContextMixin, View):
 
     queryset = None
 
