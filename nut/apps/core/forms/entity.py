@@ -119,6 +119,12 @@ def load_entity_info(url):
                     # 'selected_category_id':
             }
             log.info(t.images)
+        except Buy_Link.MultipleObjectsReturned:
+            buy_link = Buy_Link.objects.filter(origin_id=_taobao_id, origin_source="taobao.com").first()
+            _data = {
+                'entity_id': buy_link.entity.id,
+            }
+
 
     if re.search(r"\b(kaola)\.com$", _hostname) != None:
         # log.info(_hostname)
