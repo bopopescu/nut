@@ -104,9 +104,15 @@
                     </ul>
 
                     <ul class="nav nav-sidebar">
-                    {% url 'management_category_list' as management_category_list_url %}
-{#                    {{ request.path }}#}
-                        <li {% if management_category_list_url in request.path %}class="active" {% endif %}><a href="{{ management_category_list_url }}"><i class="fa fa-sitemap"></i> {% trans 'category' %}</a></li>
+                        {% url 'management_brand_list' as management_brand_list_url %}
+                        <li {% if management_brand_list_url in request.path %}class="active" {% endif %}>
+                            <a href="{{ management_brand_list_url }}"><i class="fa fa-barcode"></i> {% trans 'brand' %}</a>
+                        </li>
+
+                        {% url 'management_category_list' as management_category_list_url %}
+                        <li {% if management_category_list_url in request.path %}class="active" {% endif %}>
+                            <a href="{{ management_category_list_url }}"><i class="fa fa-sitemap"></i> {% trans 'category' %}</a>
+                        </li>
 
                         {% url 'management_tag_list' as management_tag_list_url %}
                         <li {% if management_tag_list_url in request.path %}class="active" {% endif %}>
