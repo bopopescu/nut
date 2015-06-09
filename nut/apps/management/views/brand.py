@@ -1,9 +1,6 @@
 from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-from django.contrib.auth.decorators import login_required
-from apps.management.decorators import staff_only
-
 from apps.core.models import Brand
 from apps.core.models import Entity
 from apps.core.views import BaseListView, BaseFormView
@@ -13,6 +10,7 @@ from apps.management.forms.brand import EditBrandForm, CreateBrandForm
 from django.utils.log import getLogger
 
 log = getLogger('django')
+
 
 class BrandStatView(BaseListView):
     template_name = "management/brand/stat.html"
