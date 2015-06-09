@@ -77,7 +77,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
             'user_post_note':_user_post_note,
             'note_forms':_note_forms or NoteForm(),
             'guess_entities': _guess_entities,
-            'likers': _entity.likes.all()[:],
+            'likers': _entity.likes.all()[:13],
             'pop_categories': _pop_categories,
             'pop_tags' : _pop_tags
 
