@@ -12,7 +12,7 @@ urlpatterns = patterns(
     url(r'^create/$', BrandCreateView.as_view(), name='management_brand_create'),
 
     url(r'^(?P<brand_id>\d+)/edit/$', BrandEditView.as_view(), name='management_brand_edit'),
-    url(r'^(?P<brand>.+)/edit/$', BrandNameEditView.as_view(), name='management_brand_name_edit'),
+    url(r'^(?P<brand_name>.+)/edit/$', BrandNameEditView.as_view(), name='management_brand_name_edit'),
     url(r'^(?P<brand>.+)/$', BrandEntityListView.as_view(), name='management_brand_entity_list'),
     # url(r'^add/$', 'create', name='management_banner_create'),
     # url(r'^(?P<banner_id>\d+)/edit/$', 'edit', name='management_banner_edit'),
