@@ -516,3 +516,54 @@
 .btn-group {
   border-right: 1px solid #f1f2f3;
 }
+.editor_wrap {
+  display: block;
+  margin-top: 30px;
+  width: 600px;
+}
+.editor_wrap .cover {
+  height: 90px;
+  width: 100%;
+  background-color: #f7f8f9;
+}
+.editor_wrap .cover #cover-upload-button {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  transform: translate(-300px, 0) scale(4);
+  font-size: 23px;
+  direction: ltr;
+  cursor: pointer;
+}
+.editor_wrap .cover .icon-wrapper {
+  padding-top: 15px;
+  width: 40px;
+  height: 10px;
+  color: #9d9e9f;
+  margin: 0 auto;
+  opacity: 0.4;
+}
+.editor_wrap .cover .icon-wrapper i {
+  font-size: 3.7em;
+}
+.editor_wrap .guoku_editor {
+  font-size: 16px;
+}
+.editor_wrap .title-input,
+.editor_wrap .title-input:focus {
+  width: 100%;
+  line-height: 60px;
+  border: none;
+  margin-top: 20px;
+  font-size: 38px;
+  outline: 0;
+}
+.editor_wrap blockquote {
+  background-color: #f9f9f9;
+  color: #5f5f5f;
+}

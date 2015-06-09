@@ -3,7 +3,9 @@
  */
 ;(function ($, document, window) {
 
+    var editor ={
 
+    };
     var entity = {
         removeImage: function() {
 //            console.log("OKOKO");
