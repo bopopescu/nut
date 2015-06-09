@@ -8,10 +8,14 @@
 {% block content %}
     <div class="editor_wrap">
         <div class="cover">
-            <div class="icon-wrapper"><i class="fa fa-file-image-o img-icon"></i></div>
+            <div class="icon-wrapper">
+                <i class="fa fa-file-image-o img-icon"></i>
+            </div>
+            <input type="file" accept="image/*" name="upload-file" id="cover-upload-button">
 
         </div>
         <div class="guoku_editor"></div>
+
     </div>
 
 
@@ -67,6 +71,12 @@
 {#                ['insert', ['picture','link','video']]#}
 {#            ]#}
         });
+        function handleCoverFile(event){
+            var files = event.target.files;
+            console.log(files);
+        }
+        $('#cover-upload-button').change(handleCoverFile);
+
         function sendFile(file, editor, welEditable) {
             data = new FormData();
             data.append("file", file[0]);

@@ -6,7 +6,7 @@
  * Copyright 2013-2015 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
- * Date: 2015-06-05T06:00Z
+ * Date: 2015-06-08T13:44Z
  */
 (function (factory) {
   /* global define */
@@ -602,7 +602,11 @@
       return node && /^DIV|^P|^LI|^H[1-7]/.test(node.nodeName.toUpperCase());
     };
 
+    var isHeader = function(node){
+        return /^H[1-7]/.test(node.nodeName.toUpperCase());
+    }
     var isLi = makePredByNodeName('LI');
+
 
     var isPurePara = function (node) {
       return isPara(node) && !isLi(node);
@@ -778,7 +782,6 @@
         if (!isEditable(el)) {
           ancestors.push(el);
         }
-
         return pred(el);
       });
       return ancestors;
@@ -1035,12 +1038,12 @@
     var nextPoint = function (point, isSkipInnerOffset) {
       var node, offset;
 
-      if (nodeLength(point.node) === point.offset) {
-        if (isEditable(point.node)) {
+      if (nodeLength(point.node) === point.offset) { //right edge
+        if (isEditable(point.node)) {//reach the end of editor
           return null;
         }
 
-        node = point.node.parentNode;
+        node = point.node.parentNode;//parent node for offset
         offset = position(point.node) + 1;
       } else if (hasChildren(point.node)) {
         node = point.node.childNodes[point.offset];
@@ -1463,6 +1466,7 @@
       isTable: isTable,
       isCell: isCell,
       isBlockquote: isBlockquote,
+      isHeader: isHeader,//add by An
       isBodyContainer: isBodyContainer,
       isAnchor: isAnchor,
       isDiv: makePredByNodeName('DIV'),
@@ -2315,7 +2319,7 @@
 
       shortcuts: true,              // enable keyboard shortcuts
 
-      placeholder: false,           // enable placeholder text
+      placeholder: "文章内容",           // enable placeholder text
       prettifyHtml: true,           // enable prettifying html while toggling codeview
 
       iconPrefix: 'fa fa-',         // prefix for css icon classes
@@ -2332,18 +2336,19 @@
 
       // toolbar
       toolbar: [
-        ['style', ['style']],
-        ['font', ['bold', 'italic', 'underline', 'clear','quote']],
+        //['style', ['style']],
+        ['font', ['header','bold', 'italic', 'underline', 'clear','quote']],
         // ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
-        ['fontname', ['fontname']],
-        ['fontsize', ['fontsize']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['height', ['height']],
-        ['table', ['table']],
+        //['fontname', ['fontname']],
+        //['fontsize', ['fontsize']],
+        //['color', ['color']],
+        //['para', ['ul', 'ol', 'paragraph']],
+        ['para', ['ul', 'ol']],
+        //['height', ['height']],
+        //['table', ['table']],
         ['insert', ['link', 'picture', 'hr']],
-        ['view', ['fullscreen', 'codeview']],
-        ['help', ['help']]
+        //['view', ['fullscreen', 'codeview']],
+        //['help', ['help']]
       ],
 
       plugin : { },
@@ -2514,7 +2519,8 @@
           subscript: 'Subscript',
           superscript: 'Superscript',
           size: 'Font Size',
-          quote:'Add Quote'
+          quote:'Add Quote',
+          header:'Make Header'
         },
         image: {
           image: 'Picture',
@@ -3238,8 +3244,15 @@
           bullet.toggleList(splitRoot.parentNode.nodeName);
           return;
         // if new line has content (not a line break)
-        } else {
+        }
+        else {
           nextPara = dom.splitTree(splitRoot, rng.getStartPoint());
+
+          if(dom.isEmpty(splitRoot) && dom.isHeader(splitRoot)){
+              // if we enter on an empty header line
+              // the new para will be <p> instead of <H?>
+              nextPara = dom.replace(nextPara, 'p');
+          }
 
           var emptyAnchors = dom.listDescendant(splitRoot, dom.isEmptyAnchor);
           emptyAnchors = emptyAnchors.concat(dom.listDescendant(nextPara, dom.isEmptyAnchor));
@@ -3745,18 +3758,134 @@
       afterCommand($editable);
     };
 
-    /**
-     * formatBlock
-     *
-     * @param {jQuery} $editable
-     * @param {String} tagName
-     */
+    this._formatPara= function($editable) {
+          var sc = range.create().sc;
+          var bq =  dom.ancestor(sc, dom.isBlockquote);
+          var hd =  dom.ancestor(sc, dom.isHeader);
+
+          var tagName ='p';
+              tagName = agent.isMSIE ? '<' + tagName + '>' : tagName;
+          if (bq){
+                dom.remove(bq);
+                return ;
+          }else if(hd){
+                dom.remove(hd);
+                return ;
+          }
+          else{
+              document.execCommand('FormatBlock', false, tagName);
+          }
+
+    } ;
+
+    this._formatBlockquote  = function($editable){
+        var sc = range.create().sc;
+        var bq =  dom.ancestor(sc, dom.isBlockquote);
+        var tagName ='blockquote';
+        tagName = agent.isMSIE ? '<' + tagName + '>' : tagName;
+        if(bq){
+            return ;
+        }else{
+            document.execCommand('FormatBlock', false, tagName);
+        }
+    };
+
+     this._removeBlockquote = function($editable){
+         var sc = range.create().sc;
+         var bq =  dom.ancestor(sc, dom.isBlockquote);
+         if(bq){
+             dom.remove(bq);
+             range.createFromNode(sc).normalize().select();
+             return ;
+         }else{
+            return ;
+         }
+     }
+      /**
+       * makeBlockquote
+       *
+       * @param {jQuery} $editable
+       * @param {String} tagName
+       */
+      this.makeBlockquote = function($editable, tagName){
+          beforeCommand($editable);
+          var tn = tagName.toLowerCase();
+          if (tn == 'p'){
+              this._removeBlockquote($editable);
+          }else if(tn == 'blockquote'){
+              this._formatBlockquote($editable);
+
+          }else{
+              throw new Error('invalid  tagName for makeBlockquote Command');
+          }
+
+          afterCommand($editable);
+      };
+      /**
+       * makeHeader
+       *
+       * @param {jQuery} $editable
+       * @param {String} tagName
+       */
+      this._formatHeader = function($editable){
+          var sc = range.create().sc;
+          var hd =  dom.ancestor(sc, dom.isHeader);
+          var tagName = 'H3';
+          if(!hd){
+              tagName = agent.isMSIE ? '<' + tagName + '>' : tagName;
+              document.execCommand('FormatBlock', false, tagName);
+          }else{
+              return ;
+          }
+
+      };
+
+      this._removeHeader = function($editable){
+          var sc = range.create().sc;
+          var hd =  dom.ancestor(sc, dom.isHeader);
+          if(hd){
+              dom.remove(hd);
+              range.createFromNode(sc).normalize().select();
+              return;
+          }else{
+              return ;
+          }
+      };
+      this.makeHeader = function($editable, tagName){
+          beforeCommand($editable);
+          var tn = tagName.toLowerCase();
+          if (tn == 'p'){
+              this._removeHeader($editable);
+          }else if(tn == 'h3'){
+              this._formatHeader($editable);
+
+          }else{
+              throw new Error('invalid  tagName for MakeHeader Command');
+          }
+
+          afterCommand($editable);
+      };
+      /**
+       * formatBlock
+       *
+       * @param {jQuery} $editable
+       * @param {String} tagName
+       */
+
+
     this.formatBlock = function ($editable, tagName) {
-      beforeCommand($editable);
-      // [workaround] for MSIE, IE need `<`
-      tagName = agent.isMSIE ? '<' + tagName + '>' : tagName;
-      document.execCommand('FormatBlock', false, tagName);
-      afterCommand($editable);
+        beforeCommand($editable);
+        var tn = tagName.toLowerCase();
+        if (tn == 'p'){
+                this._formatPara($editable);
+        }else if(tn == 'blockquote'){
+                this._formatBlockquote($editable);
+        }else{
+              // [workaround] for MSIE, IE need `<`
+              tagName = agent.isMSIE ? '<' + tagName + '>' : tagName;
+              document.execCommand('FormatBlock', false, tagName);
+        }
+        afterCommand($editable);
     };
 
     this.formatPara = function ($editable) {
@@ -4127,15 +4256,20 @@
 
       // use less, strange , this function will invalid the execCommand call
       function isNodeQuoted(node){
-          // is node is not provided , get baseNode from document.getSelection()
-
+          // iF node is not provided , get baseNode from document.getSelection()
           return  !!dom.ancestor(
-              node || document.getSelection().baseNode,
-              function(node){
-                  if (jQuery(node).prop('tagName') && jQuery(node).prop('tagName').toLowerCase() == 'blockquote')
-                      return true;});
+              node || range.create().sc,
+              dom.makePredByNodeName('BLOCKQUOTE')
+              );
       }
 
+      function isHeader(node){
+          // todo : determin if node is wrapped in a header element
+          return !!dom.ancestor(
+              node || range.create().sc,
+              dom.makePredByNodeName('H3')
+          ) ;
+      }
       var btnValue = function(selector, pred, values){
           var $btn = $container.find(selector);
           $btn.attr({'data-value': pred()? values[0]: values[1]});
@@ -4145,11 +4279,12 @@
         var $btn = $container.find(selector);
          $btn.toggleClass('active', pred());
 
-         if(selector === 'button[data-event="formatBlock"]'){
+         if(selector === '#blockquote_button'){
              $btn.attr({'data-value': pred()? 'p' : 'blockquote' });
          }
-
-
+         if(selector == '#header_button'){
+             $btn.attr({'data-value':pred()?'p':'h3'});
+         }
       };
 
       if (styleInfo.image) {
@@ -4195,10 +4330,15 @@
 
 
 
-        btnState('button[data-event="formatBlock"]', function () {
+        btnState('#blockquote_button', function () {
             return  isNodeQuoted();
 
         });
+
+        btnState('#header_button', function(){
+            return isHeader();
+        });
+
 
         //
         //btnValue('button[data-event="formatBlock"]', function(){
@@ -4898,16 +5038,118 @@
     };
   };
 
+    var html=(function(){
+        var regMeta  = /<meta[^>]+>/i;
+        var regStyle = /(<[^>]+) style=".*?"/img ;
+        var regClass = /(<[^>]+) class=".*?"/img ;
+
+        function stripStyle(htmlStr){
+            return htmlStr.replace(regMeta, ' ');
+        }
+        function removeMeta(htmlStr){
+            //the second param is the No.1 capture group
+            return  htmlStr.replace(regStyle, function(all, v){return v ;});
+        }
+
+        function removeClass(htmlStr){
+            return htmlStr.replace(regClass, function(all, v){return v;});
+        }
+        return {
+            stripStyle : stripStyle,
+            removeMeta : removeMeta,
+            removeClass: removeClass
+        }
+    })();
+
   var Clipboard = function (handler) {
 
     this.attach = function (layoutInfo) {
-      layoutInfo.editable().on('paste', hPasteClipboardImage);
+      layoutInfo.editable().on('paste', handlePast);
+    };
+
+    function getClipboardData(event){
+        return event.originalEvent.clipboardData;
+    }
+
+    function isImageItem(item){
+        return  (item.kind === 'file' && item.type.indexOf('image/') != -1);
+    }
+
+    function handleItem(item,idx){
+
+         if (isImageItem(item)){
+             var blob = item.getAsFile();
+             window.URL = window.URL || window.webkitURL;
+             var blobUrl = window.URL.createObjectURL(blob);
+             return {url: blobUrl, blob: blob};
+         }
+         return null;
+    }
+    function getImagesFromEvent(event){
+        var images = [];
+        var clipboardData = getClipboardData(event);
+        var items = clipboardData.items;
+            images = $.map(items, handleItem);
+            return images ;
+    }
+
+    function handleImages(images){
+        var layoutInfo = dom.makeLayoutInfo(event.currentTarget || event.target);
+        var $editable = layoutInfo.editable();
+        $.each(images,function(idx, imgDic){
+            handler.invoke('editor.insertImage', $editable, imgDic.url, 'blob.jpg');
+        });
+    }
+    function getTypedDataFromClipboardEvent(event, type){
+        var data = "";
+        var clipboardData = getClipboardData(event);
+            if (clipboardData.types.indexOf(type) > -1){
+                // found typed data in clipdata
+                data = clipboardData.getData(type)
+            }
+            return data ;
+
+    }
+
+    function handleHtml(htmlStr){
+        var layoutInfo = dom.makeLayoutInfo(event.currentTarget || event.target);
+        var $editable = layoutInfo.editable();
+            htmlStr = html.stripStyle(htmlStr);
+            htmlStr = html.removeMeta(htmlStr);
+            htmlStr = html.removeClass(htmlStr);
+            handler.invoke('editor.pasteHTML', $editable, htmlStr )
+
+    }
+    var handlePast = function(event){
+
+
+        var images = getImagesFromEvent(event);
+        if (images.length){
+            handleImages(images);
+        }
+        var html =  getTypedDataFromClipboardEvent(event, "text/html");
+        //var text =  getTextFromEvent(event);
+        //if (!!images.length) handleImage(images);
+
+        if (html){
+            handleHtml(html);
+
+        }else{
+           var text = "";
+           text = getTypedDataFromClipboardEvent(event, "text/plain");
+            handleText(text);
+        }
+
+        event.preventDefault();
+        return false;
+
     };
 
     /**
      * paste clipboard image
      *
      * @param {Event} event
+     *
      */
     var hPasteClipboardImage = function (event) {
       var clipboardData = event.originalEvent.clipboardData;
@@ -5766,6 +6008,7 @@
       var className = options.className;
       var dropdown = options.dropdown;
       var hide = options.hide;
+      var id = options.id;
 
       return '<button type="button"' +
                  ' class="btn btn-default btn-sm btn-small' +
@@ -5775,6 +6018,7 @@
                  (dropdown ? ' data-toggle="dropdown"' : '') +
                  (title ? ' title="' + title + '"' : '') +
                  (event ? ' data-event="' + event + '"' : '') +
+                 (id ? ' id="' + id + '" ' : '' ) +
                  (value ? ' data-value=\'' + value + '\'' : '') +
                  (hide ? ' data-hide=\'' + hide + '\'' : '') +
                  ' tabindex="-1">' +
@@ -6004,10 +6248,20 @@
       },
       quote: function(lang,option){
           return tplIconButton(option.iconPrefix + 'quote-left',{
-             event:'formatBlock',
+             event:'makeBlockquote',
              title: lang.font.quote,
-             value: 'blockquote'
+             value: 'blockquote',
+             id: 'blockquote_button'
+
           });
+      },
+      header: function(lang,option){
+            return tplIconButton(option.iconPrefix + 'header',{
+                event:'makeHeader',
+                title: lang.font.head,
+                value: 'h3',
+                id:'header_button'
+            });
       },
       ul: function (lang, options) {
         return tplIconButton(options.iconPrefix + 'list-ul', {
@@ -6573,7 +6827,7 @@
       $('<textarea class="note-codable"></textarea>').prependTo($editor);
 
         // done Title input here : by An .
-        var titleInput = $('<div class=""><input name="article-title" placeholder="input title"></div>')
+        var titleInput = $('<div class=""><input class="title-input" name="article-title" placeholder="标题"></div>')
             .prependTo($editor);
 
       //04. create Toolbar

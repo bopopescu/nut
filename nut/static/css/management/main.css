@@ -120,26 +120,3 @@ body {
 .bool_no {
   background-color: #953b39!important;
 }
-.editor_wrap {
-  display: block;
-  margin-top: 30px;
-  width: 600px;
-}
-.editor_wrap .cover {
-  height: 90px;
-  background-color: #f7f8f9;
-}
-.editor_wrap .cover .icon-wrapper {
-  padding-top: 15px;
-  width: 40px;
-  height: 10px;
-  color: #9d9e9f;
-  margin: 0 auto;
-  opacity: 0.4;
-}
-.editor_wrap .cover .icon-wrapper i {
-  font-size: 3.7em;
-}
-.editor_wrap .guoku_editor {
-  font-size: 12px;
-}
