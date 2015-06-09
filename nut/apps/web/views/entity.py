@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.utils.http import JSONResponse
-from apps.core.models import Entity, Entity_Like, Note, Note_Comment, Note_Poke
+from apps.core.models import Entity, Entity_Like, Note, Note_Comment, Note_Poke, Sub_Category , Entity_Tag
 from apps.core.tasks.entity import like_task, unlike_task
 from apps.web.forms.comment import CommentForm
 from apps.web.forms.note import NoteForm
@@ -64,6 +64,8 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
 
     _guess_entities = Entity.objects.guess(category_id=_entity.category_id, count=4, exclude_id=_entity.pk)
 
+    _pop_categories = Sub_Category.objects.popular_random()
+    _pop_tags = Entity_Tag.objects.popular_random()
 
     return render_to_response(
         templates,
@@ -75,7 +77,10 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
             'user_post_note':_user_post_note,
             'note_forms':_note_forms or NoteForm(),
             'guess_entities': _guess_entities,
-            'likers': _entity.likes.all()[:18],
+            'likers': _entity.likes.all()[:],
+            'pop_categories': _pop_categories,
+            'pop_tags' : _pop_tags
+
         },
         context_instance = RequestContext(request),
     )

@@ -1,92 +1,94 @@
 {% load static %}
 {% load guoku %}
 
-<div class="detail_right right_part">
-    {% for row in entity.buy_links.all %}
-        {% if row.origin_source == "taobao.com" %}
-            <a class="btn {% if row.default %}btn-primary{% else %}btn-default{% endif %} btn-buy" href=href="http://detail.tmall.com/item.htm?id={{ row.origin_id }}" target="_blank" biz-itemid="{{ row.origin_id }}" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity.title }}-taobao'])">
-                <i class="fa fa-shopping-cart fc_blue"></i>
-                <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ entity.price }}</span>
-            </a>
-        {% elif row.origin_source == "jd.com"%}
-            <a class="btn btn-primary btn-buy" href="{{ row.link }}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-jd'])">
-                <i class="fa fa-shopping-cart fc_blue"></i>
-                <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ row.price }}</span>
-            </a>
-        {% else %}
-            <a class="btn btn-primary btn-buy" href="{{ row.link }}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-kaola'])">
-                <i class="fa fa-shopping-cart fc_blue"></i>
-                <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ row.price }}</span>
-            </a>
-        {% endif %}
-    {% endfor %}
-    <div class="row other_pics">
-        <div class="col-xs-3 col-sm-3 col-md-3">
-            <a href="javascript:;" class="">
-                <img class="img-responsive" src="{{ entity.chief_image|resize:'128' }}" alt="{{ entity.title }}">
-            </a>
+
+<ul class="section-list">
+    <li class="section need-bottom-border">
+        <div class="section-title">3231人喜爱</div>
+        <div class="section-content">
+            <ul class="user-icon-list">
+                 {% for liker in likers %}
+                     <li>
+                        <a href="{% url 'web_user_index' liker.user_id %}" target="_blank">
+                            <img src="{{ liker.user.profile.avatar_url|resize:'50' }}" alt="{{ liker.user.profile.nickname }}" title="{{ liker.user.profile.nickname }}" width="25" height="25">
+                        </a>
+                     </li>
+                 {% endfor %}
+
+            </ul>
         </div>
-        {% for img in entity.detail_images %}
-            <div class="col-xs-3 col-sm-3 col-md-3">
-                <a href="javascript:;" class="">
-                    <img class="img-responsive" src="{{ img|resize:'128' }}" alt="{{ entity.title }}">
-                </a>
+    </li>
+    <li class="section need-bottom-border">
+        <div class="download-title">应用下载</div>
+        <div class="download-container">
+            <div class="section-download-content">
+                帮助你发现互联网上最有趣、最人气、最实用的好商品.
+                <br/>
+                <a class="download-link" href="{% url 'web_download' %}">查看详情</a>
             </div>
-        {% endfor %}
-    </div>
-    <p class="fc_2 fs_14 title">{{ entity.like_count }}&nbsp;人喜爱</p>
-    <div class="some_likes">
-        {% for liker in likers %}
-            <a href="{% url 'web_user_index' liker.user_id %}" target="_blank">
-                <img src="{{ liker.user.profile.avatar_url|resize:'50' }}" alt="{{ liker.user.profile.nickname }}" title="{{ liker.user.profile.nickname }}" width="25" height="25">
-            </a>
-        {% endfor %}
-    </div>
-
-    <div class="type">
-        <p class="fc_2 fs_14 title">品类</p>
-        <ul class="fs_14">
-             <li class="fc_1">
-                 <a class="category" href="{% url 'web_category_group' entity.category.group_id %}">{{ entity.category.group }}</a>
-                 <i class="fa fa-angle-right"></i>
-                 <a href="{% url 'web_category_detail' entity.category_id  %}">{{ entity.category.title|show_category }}</a>
-             </li>
-        </ul>
-    </div>
-
-    {% if entity.tags.all|length > 0 %}
-     <div class="type">
-        <p class="fc_2 fs_14">标签</p>
-        <ul class="fc_3 fs_14">
-            {% for tag in entity.tags.all %}
-                <li><a href="{% url "web_tag_detail" tag.hash %}">＃{{ tag.title }}</a></li>
-            {% endfor %}
-        </ul>
+            <div class="section-download-pic">
+                <img src="{% static 'images/side_bar/download_icon.png' %}" >
+            </div>
         </div>
+    </li>
+    <li class="section  need-bottom-border">
+        <div class="section-title">品类</div>
+        <div class="section-content">
+            <ul class="cate-list-all">
+                {% for cate in pop_categories %}
+                    <li><a href="{% url 'web_category_detail' cate.id %}">{{ cate.title }}</a></li>
+                {% endfor %}
+
+            </ul>
+        </div>
+    </li>
+    <li class="section" >
+        <div class="section-title">标签</div>
+        <div class="section-content">
+            <ul class="tag-list-all">
+                {% for tag in pop_tags %}
+                    <li><a href="{% url "web_tag_detail" tag.hash %}">{{ tag.title }}</a></li>
+
+                {% endfor %}
+
+            </ul>
+        </div>
+    </li>
+
+
+    <li class="section">
+        <div class="section-banner">
+            <a class="banner-link" href="#">
+                <img src="{% static 'images/side_bar/recommen_1.png' %}">
+            </a>
+            <a class="banner-link" href="#">
+                <img src="{% static 'images/side_bar/recommen_2.png' %}">
+            </a>
+            <a class="banner-link" href="#">
+                <img src="{% static 'images/side_bar/recommen_3.png' %}">
+            </a>
+        </div>
+    </li>
+
+
+    {% if request.user.is_staff %}
+        <li>
+            <a href="{% url 'management_entity_edit' entity.id %}" target=_blank>
+                <i class="fa fa-pencil-square-o"></i>
+                &nbsp;&nbsp;编辑商品
+            </a>
+        </li>
+
     {% endif %}
+
+</ul>
+
+<div class="detail_right right_part">
     <div class="type">
         <p class="fc_2 fs_14 share">分享</p>
         <ul class="right_list fc_3 fs_14 ">
             <li class="detail-share"><a href="javascript:;">新浪微博</a></li>
         </ul>
-    </div>
-
-  {% if request.user.is_staff %}
-      <div class="type">
-        <p class="fc_2 fs_14 share">管理</p>
-        <ul class="right_list fc_3 fs_14">
-            <li><a href="{% url 'management_entity_edit' entity.id %}" target=_blank><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;编辑商品</a></li>
-        </ul>
-      </div>
-  {% endif %}
-
-    <div class="download_part type">
-
-        <p class="fc_2 fs_14">应用下载</p>
-        <div class="download_link fs_14">
-            <img src="{% static 'images/download/download-Phone.png' %}" width=60px alt="" />
-            <p class="fc_1">与「甄选好物」结缘，与「有识之士」为伍，发现生活之美。<br /><a href="{% url 'web_download' %}" class="fc_3">查看详情 »</a></p>
-        </div>
     </div>
 </div>
 {#<div class="panel panel-default hidden-print hidden-xs">#}
