@@ -80,7 +80,6 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
             'likers': _entity.likes.all()[:13],
             'pop_categories': _pop_categories,
             'pop_tags' : _pop_tags
-
         },
         context_instance = RequestContext(request),
     )
