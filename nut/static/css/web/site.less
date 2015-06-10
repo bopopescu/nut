@@ -1,13 +1,42 @@
 //vars
 @light-gray:#9d9d9d;
 @link-color:#357ebd;
+@like-color:#FF1F77;
+@common-gray: #9D9E9F;
+@common-text-color: #414243;
+@very-light-gray:#F0F0F0;
 
+
+@primary-size : 16px ;
+@secondary-size: 14px;
+@title-size:22px;
+@mini-size: 11px;
+
+.little-round-tag{
+                border-radius: 40px;
+                padding: 0 10px;
+                height: 21px;
+                line-height: 21px;
+                display: inline-block;
+                text-align: center;
+//                background: @very-light-gray;
+                border: 1px solid @very-light-gray;
+                color: @common-text-color;
+                font-size: @mini-size;
+                margin: 4px 4px 0 0;
+                a{
+                   color: @common-text-color;
+                 }
+}
 //mixins
 .little-gray-font{
   font-size: 12px;
   color: @light-gray
 }
 
+.common-bordered{
+  border: 1px solid #e6e6e6;
+}
 
 @-moz-document url-prefix() {
     fieldset {
@@ -1314,6 +1343,8 @@ a:hover{text-decoration:underline;}
 }
 
 
+
+
 .guoku-social{
    .links{
      .social-link{
@@ -1411,5 +1442,175 @@ a:hover{text-decoration:underline;}
   i{
      color : @link-color;
   }
+
+}
+
+
+
+// for detail page
+#detail_content{
+
+  #detail_content_right{
+      .section-list{
+           max-width: 280px;
+//        http://stackoverflow.com/questions/5195836/2-column-div-layout-right-column-with-fixed-width-left-fluid
+           .download-title{
+              padding-bottom:10px;
+           }
+           .download-container{
+                height: auto;
+                width: 260px;
+                overflow: hidden;
+               .section-download-content{
+                  width: 200px;
+                  float : right;
+                }
+               .section-download-pic{
+                  float:none;
+                  width:auto;
+                  overflow: hidden;
+               }
+               .download-link{
+                  color: @link-color;
+               }
+           }
+           .section-banner img{
+             margin-bottom: 10px;
+           }
+
+           li.section{
+              padding-bottom: 20px;
+              margin-bottom: 20px;
+              .tag-list-all li, .cate-list-all li{
+                 .little-round-tag;
+
+              }
+              .user-icon-list{
+                width:220px;
+                li{
+                  display: inline-block;
+                  img{
+                      border-radius : 50%;
+                      margin: 0px 5px 5px 0px;
+                    }
+                 }
+              }
+
+
+           }
+           .need-bottom-border{
+              border-bottom: 1px solid @very-light-gray;
+           }
+           .section-title{
+              margin-bottom:10px;
+           }
+
+
+      }
+  }
+  #detail_content_left{
+    min-width: 600px;
+    padding-right: 30px;
+    .detail-pic-left{
+       .other-pics{
+           margin-top:10px;
+           .other-pic-list{
+             width: 42px;
+             height: 42px;
+             margin-right: 10px;
+             display: inline-block;
+             .common-bordered;
+           }
+       }
+    }
+
+    .detail-info-center{
+        .brand{
+            font-size: @primary-size;
+            font-weight: 800;
+
+        }
+        .brand.published{
+            color : @link-color;
+        }
+
+        .entity-title{
+           font-size: @title-size;
+           margin-top:10px;
+           margin-bottom: 0px;
+           line-height: @title-size+4px;
+
+
+        }
+        .price-tag{
+           font-size: @title-size;
+           font-family: Georgia,serif;
+           color: @link-color;
+           margin: 20px 0px;
+        }
+
+        .entity-tags{
+          margin-top:10px;
+          li{
+                .little-round-tag;
+
+          }
+        }
+
+       .entity-status{
+          li{
+              display: inline-block;
+              color : @common-gray;
+
+              i{
+                 margin-right:5px;
+              }
+              .fa-heart{
+                color:@common-gray!important;
+              }
+          }
+          li.seperator{
+             margin: 0px 5px;
+             color:@very-light-gray;
+          }
+       }
+       .button-wrapper{
+
+          margin-top:20px;
+          .row{
+            margin-top:10px;
+          }
+          .guoku-button{
+            font-size:@primary-size;
+            height: 35px;
+            border-radius: 10px;
+            line-height: 35px;
+            text-align: center;
+          }
+         .like-btn{
+           background-color: @very-light-gray;
+          }
+         .buy-btn{
+          background-color: @link-color;
+             .buy-button{
+                 color : #fff!important;
+
+                 i{
+                   color: #fff;
+                  }
+             }
+
+         }
+
+       }
+
+    }
+
+    .recommend-img{
+      .common-bordered;
+    }
+
+  }
+
 
 }
