@@ -98,7 +98,7 @@ def edit(request, entity_id, template='management/entities/edit.html'):
             _update = 0
 
     else:
-        log.info(entity.category)
+        # log.info(entity.category)
         _forms = EditEntityForm(
             entity = entity,
             initial=data
