@@ -11,6 +11,7 @@ from django.utils.log import getLogger
 
 log = getLogger('django')
 
+
 class BrandStatView(BaseListView):
     template_name = "management/brand/stat.html"
 
@@ -38,6 +39,7 @@ class BrandStatView(BaseListView):
         }
 
         return self.render_to_response(context)
+
 
 class BrandListView(BaseListView):
     template_name = "management/brand/list.html"
@@ -156,10 +158,10 @@ class BrandNameEditView(BaseFormView):
         )
         return self.form_class(**k)
 
-    def get(self, request, brand):
+    def get(self, request, brand_name):
 
         try:
-            brand = Brand.objects.get(name = brand)
+            brand = Brand.objects.get(name = brand_name)
         except Brand.DoesNotExist:
             raise Http404
         self.initial = brand.toDict()
@@ -172,9 +174,9 @@ class BrandNameEditView(BaseFormView):
         }
         return self.render_to_response(context)
 
-    def post(self, request, brand_id):
+    def post(self, request, brand_name):
         try:
-            brand = Brand.objects.get(pk = brand_id)
+            brand = Brand.objects.get(name = brand_name)
         except Brand.DoesNotExist:
             raise Http404
 
