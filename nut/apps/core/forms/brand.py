@@ -26,7 +26,8 @@ class BrandForm(forms.Form):
 
     alias = forms.CharField(
         label=_('alias'),
-        widget=forms.TextInput(attrs={'class':'form-control'})
+        widget=forms.TextInput(attrs={'class':'form-control'}),
+        required=False,
     )
 
     national = forms.CharField(

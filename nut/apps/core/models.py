@@ -630,11 +630,6 @@ class Selection_Entity(BaseModel):
     def __unicode__(self):
         return self.entity.title
 
-    # def save(self, *args, **kwargs):
-    #     super(Selection_Entity, self).save(*args, **kwargs)
-    #     user = GKUser.objects.get(pk=2)
-    #     notify.send(user, recipient=self.entity.user, action_object=self, verb="set selection", target=self.entity)
-
     @property
     def publish_timestamp(self):
         return time.mktime(self.pub_time.timetuple())
@@ -711,7 +706,7 @@ class Note(BaseModel):
 
     @property
     def comment_count(self):
-        return self.comments.count()
+        return self.comments.normal().count()
 
     @property
     def poke_count(self):
@@ -1108,8 +1103,8 @@ class Show_Editor_Recommendation(models.Model):
     class Meta:
         ordering = ['-position']
 
-# model post save
 
+# TODO: model post save
 def create_or_update_entity(sender, instance, created, **kwargs):
 
     if issubclass(sender, Entity):
@@ -1122,7 +1117,8 @@ def create_or_update_entity(sender, instance, created, **kwargs):
                 # selection.is_published = False
                 # selection.pub_time = datetime.now()
                 selection.save()
-            except Selection_Entity.DoesNotExist:
+            except Selection_Entity.DoesNotExist, e:
+                log.info(e.message)
                 Selection_Entity.objects.create(
                     entity = instance,
                     is_published = False,

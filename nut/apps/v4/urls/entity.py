@@ -9,6 +9,8 @@ urlpatterns = patterns(
     url(r'^(?P<entity_id>\d+)/$', 'detail', name='v4_entity_detail'),
     url(r'^(?P<entity_id>\d+)/like/(?P<target_status>\d+)/$', 'like_action', name='v4_entity_like_action'),
 
+    url(r'^(?P<entity_id>\d+)/liker/$', 'entity_liker', name='v4_entity_liker'),
+
     # url(r'^note/$', 'note', name='v4_entity_note'),
     url(r'^(?P<entity_id>\d+)/report/$', 'report', name='v4_entity_report'),
 )
