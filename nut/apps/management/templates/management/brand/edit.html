@@ -9,6 +9,10 @@
         </div>
     </div>
 
+    <div class="row" style="padding-bottom: 24px;">
+        <a class="btn btn-success" href="{% url 'management_brand_entity_list' brand.name %}" target="_blank">{% trans 'entity' %}</a>
+    </div>
+    
     <div class="row">
         <form class="well form-horizontal" method="post" enctype="multipart/form-data">
             {% csrf_token %}
