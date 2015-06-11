@@ -131,7 +131,7 @@ def like_action(request, entity_id, target_status):
 
 @check_sign
 def entity_liker(request, entity_id):
-    _key = request.POST.get('session', None)
+    _key = request.GET.get('session', None)
     _page = request.GET.get('page', 1)
 
     visitor = None
@@ -141,7 +141,7 @@ def entity_liker(request, entity_id):
     except Session_Key.DoesNotExist:
         pass
         # return ErrorJsonResponse(status=403)
-
+    log.info(visitor)
     liker = Entity_Like.objects.filter(entity = entity_id)
     paginator = Paginator(liker, 15)
     try:
