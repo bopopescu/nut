@@ -62,6 +62,9 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
     except Entity_Like.DoesNotExist:
         pass
 
+    popular_list = Entity_Like.objects.popular_random()[:4]
+    _pop_entities = Entity.objects.filter(id__in=popular_list)
+
     _guess_entities = Entity.objects.guess(category_id=_entity.category_id, count=4, exclude_id=_entity.pk)
 
     _pop_categories = Sub_Category.objects.popular_random()
@@ -71,6 +74,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
         templates,
         {
             'entity': _entity,
+            'pop_entities':_pop_entities,
             'like_status': like_status,
             # 'user':_user,
             'user_pokes': _user_pokes,

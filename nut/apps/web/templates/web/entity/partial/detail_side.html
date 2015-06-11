@@ -2,24 +2,73 @@
 {% load guoku %}
 
 
+{#<div class="detail_right right_part">#}
+{#    <div class="type">#}
+{#        <p class="fc_2 fs_14 share">分享</p>#}
+{#        <ul class="right_list fc_3 fs_14 ">#}
+{#            <li class="detail-share"><a href="javascript:;">新浪微博</a></li>#}
+{#        </ul>#}
+{#    </div>#}
+{#</div>#}
+
 <ul class="section-list">
     <li class="section need-bottom-border">
-        <div class="section-title">3231人喜爱</div>
+        <div class="section-title">喜爱</div>
         <div class="section-content">
             <ul class="user-icon-list">
-                 {% for liker in likers %}
-                     <li>
+                {% for liker in likers %}
+                    <li>
                         <a href="{% url 'web_user_index' liker.user_id %}" target="_blank">
                             <img src="{{ liker.user.profile.avatar_url|resize:'50' }}" alt="{{ liker.user.profile.nickname }}" title="{{ liker.user.profile.nickname }}" width="25" height="25">
                         </a>
-                     </li>
-                 {% endfor %}
+                    </li>
+                {% endfor %}
 
             </ul>
         </div>
     </li>
+    {% if request.user.is_staff %}
     <li class="section need-bottom-border">
-        <div class="download-title">应用下载</div>
+        <div class="section-title"></div>
+        <div class="section-content">
+            <a href="{% url 'management_entity_edit' entity.id %}" target=_blank>
+                <i class="fa fa-pencil-square-o"></i>
+                &nbsp;&nbsp;编辑商品
+            </a>
+        </div>
+    </li>
+    {% endif %}
+
+    <li class="section">
+        <ul class="pop-entity-list">
+            {% for ent in pop_entities %}
+                <li>
+                    <div class="pop-entity-wrapper need-bottom-border">
+                        <div class="img-holder">
+                            <a href="{% url 'web_entity_detail' ent.entity_hash %}">
+                                <img width="80px" height="80px" src="{{ ent.chief_image|resize:'80' }}" />
+                            </a>
+                        </div>
+                        <div class="entity-content">
+                            <div class="entity-name">
+                                <a href="{% url 'web_entity_detail' ent.entity_hash %}">
+                                    {{ ent.title|truncatechars:10 }}
+                                </a>
+                            </div>
+                            <div class="entity-intro">
+                                <a href="{% url 'web_entity_detail' ent.entity_hash %}">
+                                    {{ ent.top_note|truncatechars:42 }}
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </li>
+    <li class="section need-bottom-border">
+        <div class="download-title section-title">应用下载</div>
         <div class="download-container">
             <div class="section-download-content">
                 帮助你发现互联网上最有趣、最人气、最实用的好商品.
@@ -69,28 +118,7 @@
             </a>
         </div>
     </li>
-
-
-    {% if request.user.is_staff %}
-        <li>
-            <a href="{% url 'management_entity_edit' entity.id %}" target=_blank>
-                <i class="fa fa-pencil-square-o"></i>
-                &nbsp;&nbsp;编辑商品
-            </a>
-        </li>
-
-    {% endif %}
-
 </ul>
-
-<div class="detail_right right_part">
-    <div class="type">
-        <p class="fc_2 fs_14 share">分享</p>
-        <ul class="right_list fc_3 fs_14 ">
-            <li class="detail-share"><a href="javascript:;">新浪微博</a></li>
-        </ul>
-    </div>
-</div>
 {#<div class="panel panel-default hidden-print hidden-xs">#}
 {#    <div class="panel-body">#}
 {#        {% for row in entity.buy_links.all %}#}
