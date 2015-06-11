@@ -5,7 +5,9 @@
 @like-color:#FF1F77;
 @common-gray: #9D9E9F;
 @common-text-color: #414243;
-@very-light-gray:#F0F0F0;
+@very-light-gray:#F8F8F8;
+@panel-background-color: #fff;
+
 
 
 @primary-size : 14px ;
@@ -14,7 +16,7 @@
 @mini-size: 11px;
 
 .little-round-tag{
-                border-radius: 40px;
+                .border-radius(40px);
                 padding: 0 10px;
                 height: 21px;
                 line-height: 21px;
@@ -45,12 +47,17 @@
     }
 }
 body, h1, .h1, h2, .h2, h3, .h3, h4, .h4, .lead {
-    /*font-family:"STXihei","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;*/
+    font-family:"STXihei","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
 }
 body {
     padding-top: 100px;
-    color: #414243;
+    color: @common-text-color;
+
     -webkit-font-smoothing:subpixel-antialiased;
+}
+
+body.gray-body{
+    background-color: @very-light-gray;
 }
 .thumbnail .caption {
     color: #414243;
@@ -854,7 +861,7 @@ padding-left: 15px;
 /* 点评 */
 .common-note-list {
     margin: 0;
-
+    padding: 0px 15px;
 }
 .common-note-item {
     padding: 30px 19px 5px 0;
@@ -1015,6 +1022,9 @@ padding-left: 15px;
     .nav-user-index >ul >li >a{
         margin-right:15px;
         font-size:14px;
+    }
+    .goods_detail{
+
     }
 
 }
@@ -1452,7 +1462,7 @@ a:hover{text-decoration:underline;}
            .section-title{
              font-size:@subtitle-size;
            }
-           max-width: 280px;
+
 //        http://stackoverflow.com/questions/5195836/2-column-div-layout-right-column-with-fixed-width-left-fluid
            .download-title{
               padding-bottom:10px;
@@ -1479,15 +1489,18 @@ a:hover{text-decoration:underline;}
            }
 
            li.section{
-              padding-bottom: 20px;
-              margin-bottom: 20px;
+              padding-bottom: 10px;
+              margin-bottom: 10px;
               .tag-list-all li, .cate-list-all li{
                  .little-round-tag;
 
               }
+              .tag-list-all li:hover, .cate-list-all li:hover{
+                 background-color:red;
+              }
 
               .user-icon-list{
-                width:220px;
+
                 li{
                   display: inline-block;
                   img{
@@ -1496,13 +1509,14 @@ a:hover{text-decoration:underline;}
                     }
                  }
               }
+              @pop-entity-height:35px;
               .pop-entity-list{
                  li{
                     a{
                       color: @common-text-color;
                     }
                     .pop-entity-wrapper{
-                      height : 85px;
+                      height : @pop-entity-height;
                       width: 100%;
                       margin-bottom : 6px;
 
@@ -1518,7 +1532,7 @@ a:hover{text-decoration:underline;}
                         padding-right:95px;
                         .entity-name{
                            margin-bottom: 7px;
-                           font-size: @subtitle-size;
+                           font-size: @primary-size;
 
                         }
                         .entity-intro{
@@ -1546,8 +1560,9 @@ a:hover{text-decoration:underline;}
       }
   }
   #detail_content_left{
-    min-width: 600px;
-    padding-right: 30px;
+
+//    min-width: 600px;
+//    padding-right: 30px;
     .detail-pic-left{
        .other-pics{
            margin-top:10px;
@@ -1643,7 +1658,18 @@ a:hover{text-decoration:underline;}
        }
 
     }
+
+    #login_user_comment{
+       .media{
+           margin:0px 15px;
+       }
+    }
     #guess_list{
+      .guss-title{
+         padding: 10px 15px;
+         font-size: @subtitle-size;
+
+      }
       .guess_img{
          .img-box{
            .common-bordered;
@@ -1670,6 +1696,24 @@ a:hover{text-decoration:underline;}
      .border-radius(5px);
   }
 }
-.test{
-}
 
+.panel{
+ background-color: @panel-background-color;
+     padding: 18px 18px;
+     .border-radius(4px);
+     .box-shadow(0px 0px 5px #ddd;);
+}
+@media (min-width: 768px){
+   #detail_content_left {
+        .panel;
+   }
+
+   #detail_content_right{
+     padding-left: 10px;
+     .section{
+        .panel;
+     }
+
+
+   }
+}

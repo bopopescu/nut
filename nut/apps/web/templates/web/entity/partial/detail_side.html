@@ -29,7 +29,6 @@
     </li>
     {% if request.user.is_staff %}
     <li class="section need-bottom-border">
-        <div class="section-title"></div>
         <div class="section-content">
             <a href="{% url 'management_entity_edit' entity.id %}" target=_blank>
                 <i class="fa fa-pencil-square-o"></i>
@@ -40,13 +39,14 @@
     {% endif %}
 
     <li class="section">
+        <div class="section-title">热门商品</div>
         <ul class="pop-entity-list">
             {% for ent in pop_entities %}
                 <li>
                     <div class="pop-entity-wrapper need-bottom-border">
                         <div class="img-holder">
                             <a href="{% url 'web_entity_detail' ent.entity_hash %}">
-                                <img width="80px" height="80px" src="{{ ent.chief_image|resize:'80' }}" />
+                                <img width="35px" height="35px" src="{{ ent.chief_image|resize:'35' }}" />
                             </a>
                         </div>
                         <div class="entity-content">
@@ -55,11 +55,11 @@
                                     {{ ent.title|truncatechars:10 }}
                                 </a>
                             </div>
-                            <div class="entity-intro">
-                                <a href="{% url 'web_entity_detail' ent.entity_hash %}">
-                                    {{ ent.top_note|truncatechars:42 }}
-                                </a>
-                            </div>
+{#                            <div class="entity-intro">#}
+{#                                <a href="{% url 'web_entity_detail' ent.entity_hash %}">#}
+{#                                    {{ ent.top_note|truncatechars:42 }}#}
+{#                                </a>#}
+{#                            </div>#}
 
                         </div>
                     </div>
@@ -81,7 +81,7 @@
         </div>
     </li>
     <li class="section  need-bottom-border">
-        <div class="section-title">品类</div>
+        <div class="section-title">热门品类</div>
         <div class="section-content">
             <ul class="cate-list-all">
                 {% for cate in pop_categories %}
@@ -92,7 +92,7 @@
         </div>
     </li>
     <li class="section" >
-        <div class="section-title">标签</div>
+        <div class="section-title">热门标签</div>
         <div class="section-content">
             <ul class="tag-list-all">
                 {% for tag in pop_tags %}
