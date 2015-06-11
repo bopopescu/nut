@@ -433,7 +433,7 @@ a:hover {
 .profile {
   width: 100%;
   height: 362px;
-  background: url(../images/profile_bg.png);
+  background: url('../images/profile_bg.png');
 }
 .edit_personal_info {
   border-radius: 10px;
@@ -835,16 +835,6 @@ a:hover {
 .goods_detail .comment_list .comment_detail .favorite {
   float: right;
 }
-.goods_detail .comment_list .comment_detail .comment_operate {
-  padding: 17px 0 0;
-  width: 100%;
-}
-.goods_detail .comment_list .comment_detail .comment_operate .times {
-  float: right;
-}
-.goods_detail .comment_list .comment_detail .comment_operate .zan {
-  margin-right: 35px;
-}
 .goods_detail .comment_list .comment_detail .reply_comment {
   width: 100%;
   padding: 16px;
@@ -1121,3 +1111,6 @@ a:hover {
   }
 }
 /*add by An End*/
+.test {
+  color: black;
+}

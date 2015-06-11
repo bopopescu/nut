@@ -8,9 +8,9 @@
 @very-light-gray:#F0F0F0;
 
 
-@primary-size : 16px ;
-@secondary-size: 14px;
+@primary-size : 14px ;
 @title-size:22px;
+@subtitle-size:16px;
 @mini-size: 11px;
 
 .little-round-tag{
@@ -455,7 +455,7 @@ a {
 }
 .like-user-list > div > .thumbnail >a> img
 {
-    .border-radius: 12px;
+    .border-radius(12px);
     width:25px;
     height: 25px;
 }
@@ -854,11 +854,7 @@ padding-left: 15px;
 /* 点评 */
 .common-note-list {
     margin: 0;
-    /*padding: 4px;*/
-    /*border-left: 1px solid #eee;*/
-    /*border-right: 1px solid #eee;*/
-    /*border-bottom: 1px solid #ccc;*/
-    /*margin-bottom: 20px;*/
+
 }
 .common-note-item {
     padding: 30px 19px 5px 0;
@@ -1123,7 +1119,7 @@ padding-left: 15px;
 }
 
 .comment-time{
-    font-size: 14px;
+    font-size: @mini-size;
     color:#9D9E9F;
 }
 
@@ -1453,6 +1449,9 @@ a:hover{text-decoration:underline;}
 
   #detail_content_right{
       .section-list{
+           .section-title{
+             font-size:@subtitle-size;
+           }
            max-width: 280px;
 //        http://stackoverflow.com/questions/5195836/2-column-div-layout-right-column-with-fixed-width-left-fluid
            .download-title{
@@ -1486,6 +1485,7 @@ a:hover{text-decoration:underline;}
                  .little-round-tag;
 
               }
+
               .user-icon-list{
                 width:220px;
                 li{
@@ -1493,6 +1493,42 @@ a:hover{text-decoration:underline;}
                   img{
                       border-radius : 50%;
                       margin: 0px 5px 5px 0px;
+                    }
+                 }
+              }
+              .pop-entity-list{
+                 li{
+                    a{
+                      color: @common-text-color;
+                    }
+                    .pop-entity-wrapper{
+                      height : 85px;
+                      width: 100%;
+                      margin-bottom : 6px;
+
+
+                      .img-holder{
+                          float: right ;
+                          width: 80px;
+
+                      }
+                      .entity-content{
+                        width: auto ;
+                        float: none;
+                        padding-right:95px;
+                        .entity-name{
+                           margin-bottom: 7px;
+                           font-size: @subtitle-size;
+
+                        }
+                        .entity-intro{
+
+                          font-size: @mini-size;
+                        }
+
+                      }
+
+
                     }
                  }
               }
@@ -1562,6 +1598,7 @@ a:hover{text-decoration:underline;}
           li{
               display: inline-block;
               color : @common-gray;
+              font-size: @mini-size;
 
               i{
                  margin-right:5px;
@@ -1606,7 +1643,6 @@ a:hover{text-decoration:underline;}
        }
 
     }
-
     #guess_list{
       .guess_img{
          .img-box{
@@ -1617,14 +1653,23 @@ a:hover{text-decoration:underline;}
          }
          margin-bottom: 10px;
       }
-
-        .recommend-img{
-
-        }
     }
-
 
   }
 
+}
+.comment_operate{
+  .fa{
+     font-size: @mini-size;
+  }
 
 }
+
+.note-comment-list{
+  .btn-comment{
+     .border-radius(5px);
+  }
+}
+.test{
+}
+
