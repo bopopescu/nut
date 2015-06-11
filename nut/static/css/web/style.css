@@ -812,7 +812,6 @@ a:hover {
 }
 .goods_detail .comment_list {
   padding-top: 40px;
-  width: 100%;
 }
 .goods_detail .comment_list li {
   width: 100%;
@@ -830,7 +829,7 @@ a:hover {
 .goods_detail .comment_list .comment_detail .comment_word {
   margin-top: 6px;
   display: inline-block;
-  line-height: 24px;
+  line-height: 20px;
 }
 .goods_detail .comment_list .comment_detail .favorite {
   float: right;
