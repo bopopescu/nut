@@ -15,7 +15,7 @@
     <div class="entity-tags">
         <ul>
             {% for tag in entity.tags.all %}
-                 <li><a href="{% url "web_tag_detail" tag.hash %}">{{ tag.title }}</a></li>
+                 <li><a href="{% url "web_tag_detail" tag.hash %}">{{ tag.title|truncatechars:8 }}</a></li>
             {% endfor %}
 
         </ul>

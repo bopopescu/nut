@@ -2,95 +2,165 @@
 {% load guoku %}
 
 
+{#<div class="detail_right right_part">#}
+{#    <div class="type">#}
+{#        <p class="fc_2 fs_14 share">分享</p>#}
+{#        <ul class="right_list fc_3 fs_14 ">#}
+{#            <li class="detail-share"><a href="javascript:;">新浪微博</a></li>#}
+{#        </ul>#}
+{#    </div>#}
+{#</div>#}
+
 <ul class="section-list">
     <li class="section need-bottom-border">
-        <div class="section-title">3231人喜爱</div>
+        <div class="section-title">应用下载</div>
         <div class="section-content">
-            <ul class="user-icon-list">
-                 {% for liker in likers %}
-                     <li>
-                        <a href="{% url 'web_user_index' liker.user_id %}" target="_blank">
-                            <img src="{{ liker.user.profile.avatar_url|resize:'50' }}" alt="{{ liker.user.profile.nickname }}" title="{{ liker.user.profile.nickname }}" width="25" height="25">
-                        </a>
-                     </li>
-                 {% endfor %}
+             <div class="text-holder">
+                 精英消费指南，生活不一样。
+                 <span class="download-link">
+                     <a href="{% url "web_download" %}">查看详情 >></a>
+                 </span>
+             </div>
+             <div class="icon-holder">
+                 <a href="{% url "web_download" %}">
+                    <img width="64px" src="{% static "images/side_bar/icon64.png" %}" />
+                 </a>
+             </div>
 
-            </ul>
         </div>
     </li>
     <li class="section need-bottom-border">
-        <div class="download-title">应用下载</div>
-        <div class="download-container">
-            <div class="section-download-content">
-                帮助你发现互联网上最有趣、最人气、最实用的好商品.
-                <br/>
-                <a class="download-link" href="{% url 'web_download' %}">查看详情</a>
-            </div>
-            <div class="section-download-pic">
-                <img src="{% static 'images/side_bar/download_icon.png' %}" >
-            </div>
-        </div>
-    </li>
-    <li class="section  need-bottom-border">
-        <div class="section-title">品类</div>
+        <div class="section-title">微信公众号订阅</div>
         <div class="section-content">
-            <ul class="cate-list-all">
-                {% for cate in pop_categories %}
-                    <li><a href="{% url 'web_category_detail' cate.id %}">{{ cate.title }}</a></li>
-                {% endfor %}
+             <div class="text-holder">
+                 扫描右侧二维码，或搜索「guokuapp」立刻关注
+             </div>
+             <div class="icon-holder">
+                 <a href="{% url "web_download" %}">
+                    <img width="64px" src="{% static "images/side_bar/QRcode64.jpg" %}" />
+                 </a>
+             </div>
 
-            </ul>
         </div>
     </li>
-    <li class="section" >
-        <div class="section-title">标签</div>
-        <div class="section-content">
-            <ul class="tag-list-all">
-                {% for tag in pop_tags %}
-                    <li><a href="{% url "web_tag_detail" tag.hash %}">{{ tag.title }}</a></li>
-
-                {% endfor %}
-
-            </ul>
-        </div>
-    </li>
-
-
-    <li class="section">
-        <div class="section-banner">
-            <a class="banner-link" href="#">
-                <img src="{% static 'images/side_bar/recommen_1.png' %}">
-            </a>
-            <a class="banner-link" href="#">
-                <img src="{% static 'images/side_bar/recommen_2.png' %}">
-            </a>
-            <a class="banner-link" href="#">
-                <img src="{% static 'images/side_bar/recommen_3.png' %}">
-            </a>
-        </div>
-    </li>
-
-
+{#    <li class="section need-bottom-border">#}
+{#        <div class="section-title">喜爱</div>#}
+{#        <div class="section-content">#}
+{#            <ul class="user-icon-list">#}
+{#                {% for liker in likers %}#}
+{#                    <li>#}
+{#                        <a href="{% url 'web_user_index' liker.user_id %}" target="_blank">#}
+{#                            <img src="{{ liker.user.profile.avatar_url|resize:'50' }}" alt="{{ liker.user.profile.nickname }}" title="{{ liker.user.profile.nickname }}" width="25" height="25">#}
+{#                        </a>#}
+{#                    </li>#}
+{#                {% endfor %}#}
+{##}
+{#            </ul>#}
+{#        </div>#}
+{#    </li>#}
     {% if request.user.is_staff %}
-        <li>
+    <li class="section need-bottom-border">
+        <div class="section-content">
             <a href="{% url 'management_entity_edit' entity.id %}" target=_blank>
                 <i class="fa fa-pencil-square-o"></i>
                 &nbsp;&nbsp;编辑商品
             </a>
-        </li>
-
+        </div>
+    </li>
     {% endif %}
 
-</ul>
+    <li class="section">
+        <div class="section-title">热门商品</div>
+        <ul class="pop-entity-list">
+            {% for ent in pop_entities %}
+                <li>
+                    <div class="pop-entity-wrapper">
+                        <div class="entity-content">
+                            <div class="entity-name">
+                                <a href="{% url 'web_entity_detail' ent.entity_hash %}">
+                                    {{ ent.title|truncatechars:20 }}
+                                </a>
+                            </div>
+{#                            <div class="entity-intro">#}
+{#                                <a href="{% url 'web_entity_detail' ent.entity_hash %}">#}
+{#                                    {{ ent.top_note|truncatechars:42 }}#}
+{#                                </a>#}
+{#                            </div>#}
+                        </div>
+                        <div class="img-holder">
+                            <a href="{% url 'web_entity_detail' ent.entity_hash %}">
+                                <img width="52px" height="52px" src="{{ ent.chief_image|resize:'52' }}" />
+                            </a>
+                        </div>
 
-<div class="detail_right right_part">
-    <div class="type">
-        <p class="fc_2 fs_14 share">分享</p>
-        <ul class="right_list fc_3 fs_14 ">
-            <li class="detail-share"><a href="javascript:;">新浪微博</a></li>
+                    </div>
+                </li>
+            {% endfor %}
         </ul>
-    </div>
-</div>
+    </li>
+
+    <li class="section  need-bottom-border">
+        <div class="section-title">热门品类</div>
+        <div class="section-content">
+            <ul class="cate-list-all">
+                {% for cate in pop_categories %}
+                    <li>
+                        <a href="{% url 'web_category_group' cate.id %}">{{ cate.title }}</a>
+                    </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+    </li>
+{#    remove pop tags wait for tag system refactor  #}
+{#    <li class="section" >#}
+{#        <div class="section-title">热门标签</div>#}
+{#        <div class="section-content">#}
+{#            <ul class="tag-list-all">#}
+{#                {% for tag in pop_tags %}#}
+{#                    <li><a href="{% url "web_tag_detail" tag.hash %}">{{ tag.title }}</a></li>#}
+{##}
+{#                {% endfor %}#}
+{##}
+{#            </ul>#}
+{#        </div>#}
+{#    </li>#}
+    <li class="section">
+        <div class="section-banner">
+            <a class="banner-link" target="_blank " href="http://s.click.taobao.com/nc4ac3y">
+                <img  class="img-responsive" src="{% static 'images/side_bar/taobao.jpg' %}">
+            </a>
+        </div>
+    </li>
+    <li class="section">
+        <div class="section-banner">
+            <a class="banner-link" target="_blank " href="http://h5.m.taobao.com/we/detail2.htm?feedid=678492715&accountId=731372917">
+                <img  class="img-responsive" src="{% static 'images/side_bar/yozhan.jpg' %}">
+            </a>
+        </div>
+    </li>
+    <li class="section">
+        <div class="section-banner">
+            <a class="banner-link" target="_blank " href="http://mp.weixin.qq.com/s?__biz=MjM5MzA3MzQ4MA==&mid=208797197&idx=1&sn=6b3ab02ef7d4590a10f47b09ebf52fdf#rd">
+                <img  class="img-responsive" src="{% static 'images/side_bar/zhuanfang.jpg' %}">
+            </a>
+        </div>
+    </li>
+    <li class="section">
+        <div class="section-banner">
+            <a class="banner-link" target="_blank " href="http://www.guoku.com/event/20150608/">
+                <img  class="img-responsive" src="{% static 'images/side_bar/zhuanti.jpg' %}">
+            </a>
+        </div>
+    </li>
+    <li class="section">
+            <div class="section-banner">
+                <a class="banner-link" target="_blank " href="http://www.wandoujia.com/campaign/applaunch/?pn=com.guoku">
+                    <img src="{% static 'images/side_bar/wandoujia.jpg' %}">
+                </a>
+            </div>
+        </li>
+</ul>
 {#<div class="panel panel-default hidden-print hidden-xs">#}
 {#    <div class="panel-body">#}
 {#        {% for row in entity.buy_links.all %}#}

@@ -35,5 +35,14 @@ def upload_code():
             extra_opts = "--password-file='guoku.pass' "
         )
 
+# script_dir = Config.get('server', 'script_dir')
+#
+# def reload_gunicorn():
+# 	with cd(script_dir):
+# 		sudo('/bin/bash ./gunicorn reload')
+
 def upload():
     execute(upload_code)
+
+# def reload_test():
+#     execute(reload_gunicorn)
