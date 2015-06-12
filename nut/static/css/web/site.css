@@ -1521,10 +1521,9 @@ a:hover {
   color: #357ebd;
 }
 #detail_content #detail_content_right .section-list .section-banner img {
-  margin-bottom: 10px;
+  width: 100%;
 }
 #detail_content #detail_content_right .section-list li.section {
-  padding-bottom: 10px;
   margin-bottom: 10px;
 }
 #detail_content #detail_content_right .section-list li.section .tag-list-all li,
