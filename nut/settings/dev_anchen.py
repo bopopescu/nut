@@ -14,10 +14,10 @@ CACHES = {
 # TEMPLATE_CONTEXT_PROCESSORS += (
 #     # 'apps.web.contextprocessors.global.lastslug',
 # )
-
-# Current_Dbhost = 'localhost'
+LOCAL_TEST_DB = True
+Current_Dbhost = 'localhost'
 # Current_Dbhost = '10.0.1.110'
-Current_Dbhost = '10.0.2.90'
+# Current_Dbhost = '10.0.2.90'
 
 
 DATABASES = {
@@ -46,4 +46,11 @@ DATABASES = {
         }
     },
 }
+
+# need this for popular category like back trace time
+#  the test server will have very little entity like data
+# so the default popular backtrace day count will be 200
+# in production , the number will be 7  , in settings.py file
+DEFAULT_POPULAR_SCALE = 200
+
 __author__ = 'an chen '

@@ -19,7 +19,51 @@ from django.utils.log import getLogger
 
 log = getLogger('django')
 
-
+pop_category =[
+    {
+        'id': 13,
+        'title':'女装'
+    }, {
+        'id': 14,
+        'title':'男装'
+    },{
+        'id': 24,
+        'title':'首饰'
+    },{
+        'id': 38,
+        'title':'宠物'
+    },{
+        'id': 22,
+        'title':'电脑办公'
+    },{
+        'id': 4,
+        'title':'室内装饰'
+    },{
+        'id': 1,
+        'title':'生活日用'
+    },{
+        'id': 6,
+        'title':'家电'
+    },{
+        'id': 10,
+        'title':'文具'
+    },{
+        'id': 11,
+        'title':'图书'
+    },{
+        'id': 2,
+        'title':'收纳洗晒'
+    },{
+        'id': 21,
+        'title':'数码配件'
+    },{
+        'id': 19,
+        'title':'运动健身'
+    },{
+        'id': 27,
+        'title':'摄影摄像'
+    },
+]
 
 def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
     _entity_hash = entity_hash
@@ -62,13 +106,15 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
     except Entity_Like.DoesNotExist:
         pass
 
-    popular_list = Entity_Like.objects.popular_random()[:4]
+    popular_list = Entity_Like.objects.popular_random()[:3]
     _pop_entities = Entity.objects.filter(id__in=popular_list)
 
     _guess_entities = Entity.objects.guess(category_id=_entity.category_id, count=4, exclude_id=_entity.pk)
 
-    _pop_categories = Sub_Category.objects.popular_random()
-    _pop_tags = Entity_Tag.objects.popular_random()
+    _pop_categories = pop_category;
+    # _pop_categories = Sub_Category.objects.popular_random()
+    # remove _pop_tags , wait for tag system refactor over
+    # _pop_tags = Entity_Tag.objects.popular_random()
 
     return render_to_response(
         templates,
@@ -83,7 +129,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
             'guess_entities': _guess_entities,
             'likers': _entity.likes.all()[:13],
             'pop_categories': _pop_categories,
-            'pop_tags' : _pop_tags
+            # 'pop_tags' : _pop_tags
         },
         context_instance = RequestContext(request),
     )
