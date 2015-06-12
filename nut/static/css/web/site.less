@@ -1,19 +1,25 @@
+@import "mixin.less";
 //vars
 @light-gray:#9d9d9d;
 @link-color:#357ebd;
 @like-color:#FF1F77;
 @common-gray: #9D9E9F;
 @common-text-color: #414243;
-@very-light-gray:#F0F0F0;
+@very-light-gray:#F8F8F8;
+@panel-background-color: #fff;
+@default-background:#fff;
 
 
-@primary-size : 16px ;
-@secondary-size: 14px;
+@primary-size : 14px ;
 @title-size:22px;
+@subtitle-size:16px;
 @mini-size: 11px;
 
+
+@global-box-radius:4px;
+
 .little-round-tag{
-                border-radius: 40px;
+                .border-radius(40px);
                 padding: 0 10px;
                 height: 21px;
                 line-height: 21px;
@@ -44,11 +50,12 @@
     }
 }
 body, h1, .h1, h2, .h2, h3, .h3, h4, .h4, .lead {
-    /*font-family:"STXihei","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;*/
+    font-family:"STXihei","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
 }
 body {
     padding-top: 100px;
-    color: #414243;
+    color: @common-text-color;
+    background-color: @default-background;
     -webkit-font-smoothing:subpixel-antialiased;
 }
 .thumbnail .caption {
@@ -454,7 +461,7 @@ a {
 }
 .like-user-list > div > .thumbnail >a> img
 {
-    border-radius: 12px;
+    .border-radius(12px);
     width:25px;
     height: 25px;
 }
@@ -853,11 +860,7 @@ padding-left: 15px;
 /* 点评 */
 .common-note-list {
     margin: 0;
-    /*padding: 4px;*/
-    /*border-left: 1px solid #eee;*/
-    /*border-right: 1px solid #eee;*/
-    /*border-bottom: 1px solid #ccc;*/
-    /*margin-bottom: 20px;*/
+    padding: 0px 15px;
 }
 .common-note-item {
     padding: 30px 19px 5px 0;
@@ -1019,6 +1022,9 @@ padding-left: 15px;
         margin-right:15px;
         font-size:14px;
     }
+    .goods_detail{
+
+    }
 
 }
 
@@ -1122,7 +1128,7 @@ padding-left: 15px;
 }
 
 .comment-time{
-    font-size: 14px;
+    font-size: @mini-size;
     color:#9D9E9F;
 }
 
@@ -1452,7 +1458,10 @@ a:hover{text-decoration:underline;}
 
   #detail_content_right{
       .section-list{
-           max-width: 280px;
+           .section-title{
+             font-size:@subtitle-size;
+           }
+
 //        http://stackoverflow.com/questions/5195836/2-column-div-layout-right-column-with-fixed-width-left-fluid
            .download-title{
               padding-bottom:10px;
@@ -1475,23 +1484,76 @@ a:hover{text-decoration:underline;}
                }
            }
            .section-banner img{
-             margin-bottom: 10px;
+              width: 100%;
            }
 
            li.section{
-              padding-bottom: 20px;
-              margin-bottom: 20px;
+
+              margin-bottom: 10px;
               .tag-list-all li, .cate-list-all li{
                  .little-round-tag;
 
               }
+              .tag-list-all li:hover, .cate-list-all li:hover{
+                 background-color:@very-light-gray;
+              }
+              .section-content{
+                 width: 100%;
+                 min-height: 10px;
+                 .text-holder{
+                   float: right;
+                   width: 190px;
+                   margin-top:5px;
+                   color: @common-gray;
+                 }
+                 .icon-holder{
+                   width: auto;
+                   margin-right: 5px;
+                 }
+              }
               .user-icon-list{
-                width:220px;
+
                 li{
                   display: inline-block;
                   img{
                       border-radius : 50%;
                       margin: 0px 5px 5px 0px;
+                    }
+                 }
+              }
+              @pop-entity-height:52px;
+              .pop-entity-list{
+                 li{
+                    a{
+                      color: @common-text-color;
+                    }
+                    .pop-entity-wrapper{
+                      height : @pop-entity-height;
+                      width: 100%;
+                      margin-bottom : 6px;
+
+
+                      .img-holder{
+                          float: none ;
+                          width: auto;
+
+
+                      }
+                      .entity-content{
+                        width: 190px ;
+                        float: right;
+                        .entity-name{
+                           margin-top: 15px;
+                           font-size: @primary-size;
+                        }
+                        .entity-intro{
+
+                          font-size: @mini-size;
+                        }
+
+                      }
+
+
                     }
                  }
               }
@@ -1509,9 +1571,16 @@ a:hover{text-decoration:underline;}
       }
   }
   #detail_content_left{
-    min-width: 600px;
-    padding-right: 30px;
+
+//    min-width: 600px;
+//    padding-right: 30px;
     .detail-pic-left{
+       .detail_img_big{
+         img{
+           .common-bordered;
+         }
+
+       }
        .other-pics{
            margin-top:10px;
            .other-pic-list{
@@ -1561,6 +1630,7 @@ a:hover{text-decoration:underline;}
           li{
               display: inline-block;
               color : @common-gray;
+              font-size: @mini-size;
 
               i{
                  margin-right:5px;
@@ -1583,7 +1653,7 @@ a:hover{text-decoration:underline;}
           .guoku-button{
             font-size:@primary-size;
             height: 35px;
-            border-radius: 10px;
+            border-radius: @global-box-radius;
             line-height: 35px;
             text-align: center;
           }
@@ -1606,11 +1676,71 @@ a:hover{text-decoration:underline;}
 
     }
 
-    .recommend-img{
-      .common-bordered;
+    #login_user_comment{
+       .media{
+           margin:0px 15px;
+       }
+    }
+    #guess_list{
+      .guss-title{
+         padding: 10px 15px;
+         font-size: @subtitle-size;
+
+      }
+      .guess_img{
+         .img-box{
+           .common-bordered;
+         }
+         a{
+           display: block;
+         }
+         margin-bottom: 10px;
+      }
     }
 
   }
 
+}
+.comment_operate{
+  .fa{
+     font-size: @mini-size;
+  }
 
+}
+
+.note-comment-list{
+  .btn-comment,.btn-cancel{
+     .border-radius(@global-box-radius);
+  }
+}
+
+#login_user_comment{
+  .btn-post,.btn-cancel{
+     .border-radius(@global-box-radius);
+  }
+}
+
+.panel{
+ background-color: @panel-background-color;
+     padding: 18px 18px;
+     .border-radius(@global-box-radius);
+     .box-shadow(0px 0px 3px #ddd;);
+}
+@media (min-width: 768px){
+   body.gray-body{
+    background-color: @very-light-gray;
+    }
+
+   #detail_content_left {
+        .panel;
+   }
+
+   #detail_content_right{
+     padding-left: 10px;
+     .section{
+        .panel;
+     }
+
+
+   }
 }

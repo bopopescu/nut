@@ -37,6 +37,7 @@ def update(request):
             return SuccessJsonResponse(res)
     return ErrorJsonResponse(status=400)
 
+
 @csrf_exempt
 @check_sign
 def update_account(request):
@@ -53,6 +54,7 @@ def update_account(request):
             return SuccessJsonResponse(res)
         log.info(_forms.errors)
         return ErrorJsonResponse(status=400)
+
 
 @csrf_exempt
 @check_sign
@@ -341,7 +343,6 @@ def fans_list(request, user_id):
     except EmptyPage:
         return ErrorJsonResponse(status=404)
 
-
     res = []
     for user in _fans.object_list:
         res.append(
@@ -427,7 +428,6 @@ def search(request):
 
     log.info("vistor %s" % visitor)
         # return ErrorJsonResponse(status=400)
-
 
     _forms = UserSearchForm(request.GET)
     if _forms.is_valid():
