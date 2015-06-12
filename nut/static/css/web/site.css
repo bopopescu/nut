@@ -45,10 +45,8 @@ h4,
 body {
   padding-top: 100px;
   color: #414243;
+  background-color: #ffffff;
   -webkit-font-smoothing: subpixel-antialiased;
-}
-body.gray-body {
-  background-color: #f8f8f8;
 }
 .thumbnail .caption {
   color: #414243;
@@ -1553,7 +1551,21 @@ a:hover {
 }
 #detail_content #detail_content_right .section-list li.section .tag-list-all li:hover,
 #detail_content #detail_content_right .section-list li.section .cate-list-all li:hover {
-  background-color: red;
+  background-color: #f8f8f8;
+}
+#detail_content #detail_content_right .section-list li.section .section-content {
+  width: 100%;
+  min-height: 10px;
+}
+#detail_content #detail_content_right .section-list li.section .section-content .text-holder {
+  float: right;
+  width: 190px;
+  margin-top: 5px;
+  color: #9d9e9f;
+}
+#detail_content #detail_content_right .section-list li.section .section-content .icon-holder {
+  width: auto;
+  margin-right: 5px;
 }
 #detail_content #detail_content_right .section-list li.section .user-icon-list li {
   display: inline-block;
@@ -1566,21 +1578,20 @@ a:hover {
   color: #414243;
 }
 #detail_content #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper {
-  height: 35px;
+  height: 52px;
   width: 100%;
   margin-bottom: 6px;
 }
 #detail_content #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .img-holder {
-  float: right ;
-  width: 80px;
+  float: none ;
+  width: auto;
 }
 #detail_content #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .entity-content {
-  width: auto ;
-  float: none;
-  padding-right: 95px;
+  width: 190px ;
+  float: right;
 }
 #detail_content #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .entity-content .entity-name {
-  margin-bottom: 7px;
+  margin-top: 15px;
   font-size: 14px;
 }
 #detail_content #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .entity-content .entity-intro {
@@ -1668,7 +1679,7 @@ a:hover {
 #detail_content #detail_content_left .detail-info-center .button-wrapper .guoku-button {
   font-size: 14px;
   height: 35px;
-  border-radius: 10px;
+  border-radius: 4px;
   line-height: 35px;
   text-align: center;
 }
@@ -1703,10 +1714,20 @@ a:hover {
 .comment_operate .fa {
   font-size: 11px;
 }
-.note-comment-list .btn-comment {
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
+.note-comment-list .btn-comment,
+.note-comment-list .btn-cancel {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+#login_user_comment .btn-post,
+#login_user_comment .btn-cancel {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
@@ -1720,11 +1741,14 @@ a:hover {
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 5px #dddddd;
-  -moz-box-shadow: 0px 0px 5px #dddddd;
-  box-shadow: 0px 0px 5px #dddddd;
+  -webkit-box-shadow: 0px 0px 3px #dddddd;
+  -moz-box-shadow: 0px 0px 3px #dddddd;
+  box-shadow: 0px 0px 3px #dddddd;
 }
 @media (min-width: 768px) {
+  body.gray-body {
+    background-color: #f8f8f8;
+  }
   #detail_content_left {
     border-radius: 0;
     -webkit-box-shadow: inherit;
@@ -1739,9 +1763,9 @@ a:hover {
     -moz-background-clip: padding;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
-    -webkit-box-shadow: 0px 0px 5px #dddddd;
-    -moz-box-shadow: 0px 0px 5px #dddddd;
-    box-shadow: 0px 0px 5px #dddddd;
+    -webkit-box-shadow: 0px 0px 3px #dddddd;
+    -moz-box-shadow: 0px 0px 3px #dddddd;
+    box-shadow: 0px 0px 3px #dddddd;
   }
   #detail_content_right {
     padding-left: 10px;
@@ -1760,8 +1784,8 @@ a:hover {
     -moz-background-clip: padding;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
-    -webkit-box-shadow: 0px 0px 5px #dddddd;
-    -moz-box-shadow: 0px 0px 5px #dddddd;
-    box-shadow: 0px 0px 5px #dddddd;
+    -webkit-box-shadow: 0px 0px 3px #dddddd;
+    -moz-box-shadow: 0px 0px 3px #dddddd;
+    box-shadow: 0px 0px 3px #dddddd;
   }
 }

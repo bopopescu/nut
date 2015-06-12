@@ -7,13 +7,16 @@
 @common-text-color: #414243;
 @very-light-gray:#F8F8F8;
 @panel-background-color: #fff;
-
+@default-background:#fff;
 
 
 @primary-size : 14px ;
 @title-size:22px;
 @subtitle-size:16px;
 @mini-size: 11px;
+
+
+@global-box-radius:4px;
 
 .little-round-tag{
                 .border-radius(40px);
@@ -52,12 +55,8 @@ body, h1, .h1, h2, .h2, h3, .h3, h4, .h4, .lead {
 body {
     padding-top: 100px;
     color: @common-text-color;
-
+    background-color: @default-background;
     -webkit-font-smoothing:subpixel-antialiased;
-}
-
-body.gray-body{
-    background-color: @very-light-gray;
 }
 .thumbnail .caption {
     color: #414243;
@@ -1496,9 +1495,22 @@ a:hover{text-decoration:underline;}
 
               }
               .tag-list-all li:hover, .cate-list-all li:hover{
-                 background-color:red;
+                 background-color:@very-light-gray;
               }
-
+              .section-content{
+                 width: 100%;
+                 min-height: 10px;
+                 .text-holder{
+                   float: right;
+                   width: 190px;
+                   margin-top:5px;
+                   color: @common-gray;
+                 }
+                 .icon-holder{
+                   width: auto;
+                   margin-right: 5px;
+                 }
+              }
               .user-icon-list{
 
                 li{
@@ -1509,7 +1521,7 @@ a:hover{text-decoration:underline;}
                     }
                  }
               }
-              @pop-entity-height:35px;
+              @pop-entity-height:52px;
               .pop-entity-list{
                  li{
                     a{
@@ -1522,18 +1534,17 @@ a:hover{text-decoration:underline;}
 
 
                       .img-holder{
-                          float: right ;
-                          width: 80px;
+                          float: none ;
+                          width: auto;
+
 
                       }
                       .entity-content{
-                        width: auto ;
-                        float: none;
-                        padding-right:95px;
+                        width: 190px ;
+                        float: right;
                         .entity-name{
-                           margin-bottom: 7px;
+                           margin-top: 15px;
                            font-size: @primary-size;
-
                         }
                         .entity-intro{
 
@@ -1636,7 +1647,7 @@ a:hover{text-decoration:underline;}
           .guoku-button{
             font-size:@primary-size;
             height: 35px;
-            border-radius: 10px;
+            border-radius: @global-box-radius;
             line-height: 35px;
             text-align: center;
           }
@@ -1692,18 +1703,28 @@ a:hover{text-decoration:underline;}
 }
 
 .note-comment-list{
-  .btn-comment{
-     .border-radius(5px);
+  .btn-comment,.btn-cancel{
+     .border-radius(@global-box-radius);
+  }
+}
+
+#login_user_comment{
+  .btn-post,.btn-cancel{
+     .border-radius(@global-box-radius);
   }
 }
 
 .panel{
  background-color: @panel-background-color;
      padding: 18px 18px;
-     .border-radius(4px);
-     .box-shadow(0px 0px 5px #ddd;);
+     .border-radius(@global-box-radius);
+     .box-shadow(0px 0px 3px #ddd;);
 }
 @media (min-width: 768px){
+   body.gray-body{
+    background-color: @very-light-gray;
+    }
+
    #detail_content_left {
         .panel;
    }
