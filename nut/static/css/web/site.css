@@ -1603,6 +1603,9 @@ a:hover {
 #detail_content #detail_content_right .section-list .section-title {
   margin-bottom: 10px;
 }
+#detail_content #detail_content_left .detail-pic-left .detail_img_big img {
+  border: 1px solid #e6e6e6;
+}
 #detail_content #detail_content_left .detail-pic-left .other-pics {
   margin-top: 10px;
 }
