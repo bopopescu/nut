@@ -116,6 +116,7 @@ body {
 /*for boolean style*/
 .bool_yes {
   background-color: #22b24c!important;
+<<<<<<< HEAD
 }
 .bool_no {
   background-color: #953b39!important;
@@ -152,4 +153,9 @@ body {
 .guoku-management .product-table .info {
   font-size: 9px;
   color: #666666;
+=======
+}
+.bool_no {
+  background-color: #953b39!important;
+>>>>>>> editor
 }

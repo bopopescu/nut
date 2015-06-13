@@ -14,6 +14,15 @@ from apps.management.decorators import staff_only
 
 log = getLogger('django')
 
+from django.views.generic import ListView
+from apps.core.models import Selection_Article
+
+class SelectionArticleList(ListView):
+    model = Selection_Article
+    context_object_name = 'selection_article_list'
+    queryset = Selection_Article.objects.order_by('pub')
+
+
 
 @login_required
 @staff_only

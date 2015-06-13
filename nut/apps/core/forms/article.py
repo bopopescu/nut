@@ -10,6 +10,10 @@ log = getLogger('django')
 
 
 class BaseArticleForms(forms.Form):
+    cover = forms.CharField(
+        label = _('cover'),
+        widget=forms.TextInput(attrs={'class':'cover-input'})
+    )
 
     title = forms.CharField(
         label=_('title'),
@@ -36,13 +40,15 @@ class BaseArticleForms(forms.Form):
         return int(_is_publish)
 
 
+
+
 class CreateArticleForms(BaseArticleForms):
 
-    cover = forms.ImageField(
-        label=_('cover'),
-        widget=forms.FileInput(),
-        required=False,
-    )
+    # cover = forms.ImageField(
+    #     label=_('cover'),
+    #     widget=forms.FileInput(),
+    #     required=False,
+    # )
 
     def __init__(self, user, *args, **kwargs):
         self.user_cache = user
@@ -61,10 +67,12 @@ class CreateArticleForms(BaseArticleForms):
         )
         article.creator = self.user_cache
         article.publish = _is_publish
-        if _cover:
-            log.info(_cover)
-            _image = HandleImage(_cover)
-            article.cover = _image.save()
+        article.cover = _cover
+        #  use stand along method to handle cover image
+        # if _cover:
+        #     log.info(_cover)
+        #     _image = HandleImage(_cover)
+        #     article.cover = _image.save()
 
         article.save()
 

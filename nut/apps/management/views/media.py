@@ -30,7 +30,6 @@ def list(request, template="management/media/list.html"):
         context_instance = RequestContext(request)
     )
 
-
 def delete(request):
     pass
 
