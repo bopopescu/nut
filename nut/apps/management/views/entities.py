@@ -24,12 +24,11 @@ from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
 from django.utils import timezone
 
-class EntityListView(FilterMixin, SortMixin,ListView):
+class EntityListView(SortMixin,ListView):
     template_name = 'management/entities/new_list.html'
     model = Entity
     paginate_by = 25
     paginator_class = Jpaginator
-    default_filter_param = 'status'
     default_sort_params = ('price','desc')
 
     def sort_queryset(self, qs, sort_by, order):
