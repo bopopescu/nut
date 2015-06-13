@@ -10,6 +10,10 @@
     {% if entity.brand|length != 0 %}{% block subtitle %}{{ entity.brand }} - {% endblock %}{% endif %}{{ entity.title }}
 {% endblock %}
 
+{% block body_class %}
+    gray-body
+{% endblock %}
+
 {% block description %}
 {#    {{ entity.category }},#}
     {{ entity.category }},
@@ -29,45 +33,48 @@
         <div class="row" id="detail_breadcrumb">
             {% include "web/entity/partial/detail_breadcrumb.html" %}
         </div>
-
-
         <div class="row" id="detail_content">
-            <div  id="detail_content_left" class="col-sm-8 col-md-8 col-xs-12" itemscope itemtype="http://data-vocabulary.org/Product">
-                <div class="detail_pic">
-                    {% include "web/entity/partial/detail_pic.html" %}
-                </div>
 
-                 <div class="detail_middle">
-                    {% include "web/entity/partial/detail_middle.html" %}
+            <div  id="detail_content_left" class="container-fluid col-lg-8 col-md-8 col-sm-12  col-xs-12" itemscope itemtype="http://data-vocabulary.org/Product">
+                <div class="row">
+                    <div class="detail-pic-left col-xs-12 col-sm-6 col-md-7 col-lg-7">
+                         {% include "web/entity/partial/detail_pic.html" %}
+                         {% include 'web/entity/partial/entity_other_pic.html' %}
+                    </div>
+                    <div class="detail-info-center col-xs-12 col-sm-6 col-md-5 col-lg-5">
+                         {% include "web/entity/partial/detail_info_center.html" %}
+                    </div>
                 </div>
-
-                <div  class="comment_list" itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
+{#                <div class="detail_pic">#}
+{#                    {% include "web/entity/partial/detail_pic.html" %}#}
+{#                </div>#}
+{#                 <div class="detail_middle">#}
+{#                    {% include "web/entity/partial/detail_middle.html" %}#}
+{#                </div>#}
+                <div  class="row comment_list" itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
                      <ul class="common-note-list">
                          {% include "web/entity/partial/detail_comment_head.html" %}
                          {% include "web/entity/partial/detail_note.html" with notes=entity.notes note_forms=note_forms %}
                      </ul>
                 </div>
-                <div class="" id="login_user_comment">
+                <div class="row" id="login_user_comment">
                     {% include "web/entity/partial/detail_user_comment.html" %}
                 </div>
-
+                <div class="row" id="guess_list">
+                 {% include "web/entity/partial/detail_recommendation.html" %}
+                </div>
             </div>
-
-
-            <div  id="detail_content_right" class="col-sm-4 col-md-4 hidden-print hidden-xs" itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
+            <div  id="detail_content_right" class="hidden-print   col-lg-4 col-md-4 hidden-sm  hidden-xs" itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
                  {% include "web/entity/partial/detail_side.html" %}
             </div>
-
-
-
         </div>
 
 
-        <div class="row" id="detail_recommendation">
-            <div class="col-sm-8 col-md-8 col-xs-12 guess_Ulike">
-                {% include "web/entity/partial/detail_recommendation.html" %}
-            </div>
-        </div>
+{#        <div class="row" id="detail_recommendation">#}
+{#            <div class="col-sm-8 col-md-8 col-xs-12 guess_Ulike">#}
+{#                {% include "web/entity/partial/detail_recommendation.html" %}#}
+{#            </div>#}
+{#        </div>#}
 {#        <div  class="row" id="detail_report">#}
 {#            <div class="col-sm-8 col-md-8 col-xs-12">#}
 {#                <a href="#" class="report_link fc_1 hidden-sm hidden-md hidden-lg"><i class="fa fa-flag-o"></i> 举报</a>#}
@@ -136,7 +143,6 @@
                 }
             })
         });
-
     })
 </script>
 {% endblock %}

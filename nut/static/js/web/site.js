@@ -491,15 +491,34 @@ $.ajaxSetup({
             detailImageHover: function () {
             // 鼠标放细节图上后效果
 
-            $('#detail').each(function () {
-                var $this = $(this);
-                $this.find('.other_pics img').on('mouseover', function () {
-                    //console.log(this);
-                    var re = /\/128\//;
-                    var url_string = this.src.replace(re, '/640/');
-                    $this.find('.detail_pic img')[0].src = url_string;
+                function findThumbImages(){
+                    return $('.other-pic-list img');
+                }
+
+                findThumbImages().each(function(idx, thumb){
+                    function handleTrumb(){
+                        var newSrc = $(this)
+                                    .prop('src')
+                                    .replace(/images\/\d+\//i, 'images/640/');
+                        var oldSrc = $('.detail-pic-left #buy-btn-img img').prop('src');
+                        if (newSrc !== oldSrc){
+                            $('.detail-pic-left #buy-btn-img img').prop('src', newSrc);
+                        }
+                    }
+                    $(thumb).mouseenter(handleTrumb);
+                    $(thumb).click(handleTrumb);
                 });
-            });
+
+            //
+            //$('#detail').each(function () {
+            //    var $this = $(this);
+            //    $this.find('.other_pics img').on('mouseover', function () {
+            //        //console.log(this);
+            //        var re = /\/128\//;
+            //        var url_string = this.src.replace(re, '/640/');
+            //        $this.find('.detail_pic img')[0].src = url_string;
+            //    });
+            //});
         },
 
         shareWeibo: function() {

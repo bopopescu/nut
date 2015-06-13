@@ -1,0 +1,74 @@
+{% load i18n staticfiles %}
+{% load common guoku %}
+{# 如果品牌已经发布，CLASS="brand published"#}
+<div class="brand published">{{ entity.brand }}</div>
+<div class="entity-title">{{ entity.title }}</div>
+<div class="price-tag"><span itemprop="price">&#65509;{{ entity.price }}</span></div>
+<div class="entity-status">
+    <ul>
+        <li><i class="fa fa-heart"></i>{{ entity.like_count }}</li>
+        <li class="seperator">|</li>
+        <li><i class="fa fa-edit"></i>{{ entity.note_count }}</li>
+    </ul>
+</div>
+{% if entity.tags.all|length > 0 %}
+    <div class="entity-tags">
+        <ul>
+            {% for tag in entity.tags.all %}
+                 <li><a href="{% url "web_tag_detail" tag.hash %}">{{ tag.title|truncatechars:8 }}</a></li>
+            {% endfor %}
+
+        </ul>
+    </div>
+{% endif %}
+
+
+
+<div class="button-wrapper container-fluid">
+   <div class="row">
+       <div class="col-sm-10  guoku-button like-btn">
+           {% if like_status %}
+            <a class="like-action fc_333" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
+                <i class="fa fa-heart fc_heart"></i>&nbsp;{% trans 'likes' %}&nbsp;
+                <span class="like-count">
+                    {% if entity.like_count > 0 %}
+                      {{ entity.like_count  }}
+                    {% endif %}
+                </span>
+            </a>
+        {% else %}
+            <a class="like-action fc_333" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
+                <i class="fa fa-heart-o "></i>&nbsp;{% trans 'likes' %}&nbsp;
+                <span class="like-count">
+                    {% if entity.like_count > 0 %}
+                      {{ entity.like_count  }}
+                    {% endif %}
+                </span>
+            </a>
+        {% endif %}
+       </div>
+   </div>
+   <div class="row ">
+       <div class="col-sm-10  guoku-button buy-btn">
+            {% for row in entity.buy_links.all %}
+            {% if row.origin_source == "taobao.com" %}
+                <a class="buy-button"  href="http://detail.tmall.com/item.htm?id={{ row.origin_id }}" target="_blank" biz-itemid="{{ row.origin_id }}" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity.title }}-taobao'])">
+                    <i class="fa fa-shopping-cart"></i>
+                    <meta itemprop="currency" content="RMB" />购买<span itemprop="price"></span>
+                </a>
+            {% elif row.origin_source == "jd.com"%}
+                <a class="buy-button" href="http://item.jd.com/{{ row.origin_id }}.html" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-jd'])">
+                    <i class="fa fa-shopping-cart"></i>
+                    <meta itemprop="currency" content="RMB" />购买<span itemprop="price"></span>
+                </a>
+            {% else %}
+                <a class="buy-button" href="{{ row.link }}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-kaola'])">
+                    <i class="fa fa-shopping-cart"></i>
+                    <meta itemprop="currency" content="RMB" />购买<span itemprop="price"></span>
+                </a>
+            {% endif %}
+        {% endfor %}
+       </div>
+   </div>
+
+</div>
