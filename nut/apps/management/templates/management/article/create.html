@@ -7,6 +7,35 @@
 
 {% block content %}
     <div class="editor_wrap">
+       <form id="article_form" method="post">
+        <div class="fix-operate">
+            <div class="article-status-wrapper">
+                <div class="radio-warpper">
+
+                     <input type="radio" name="state" value="0">
+                     <lable>垃圾箱</lable>
+                </div>
+                <div class="radio-warpper">
+
+                     <input type="radio" name="state" value="1">
+                    <lable>草稿</lable>
+                </div>
+                <div class="radio-warpper">
+
+                     <input type="radio" name="state" value="2">
+                    <lable>发表</lable>
+                </div>
+{#                editor can NOT add selection   #}
+{#                <div class="radio-warpper">#}
+{#                    <lable>精选</lable>#}
+{#                     <input type="radio" name="state" value="2">#}
+{#                </div>#}
+
+            </div>
+            <div class="article-submit">
+                  保存文章
+            </div>
+        </div>
         <div class="cover">
             <div class="icon-wrapper">
                 <i class="fa fa-file-image-o img-icon"></i>
@@ -15,7 +44,15 @@
 
         </div>
         <div class="guoku_editor"></div>
+        <div class="article-form-wrapper">
+           {% csrf_token %}
+            {% for field in forms %}
+                {{ field }}{{ field.error }}
+            {% endfor %}
 
+        </div>
+        <button type="submit">提交</button>
+        </form>
     </div>
 
 
