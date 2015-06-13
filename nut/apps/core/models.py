@@ -903,9 +903,8 @@ class Taobao_Token(models.Model):
 
 class Article(models.Model):
 
-    (remove, draft, published, selection) = xrange(4)
+    (remove, draft, published) = xrange(3)
     ARTICLE_STATUS_CHOICES = [
-        (selection, _("selection")),
         (published, _("published")),
         (draft, _("draft")),
         (remove, _("remove")),
@@ -931,13 +930,24 @@ class Article(models.Model):
             return "http://imgcdn.guoku.com/%s" % self.cover
         return "%s%s" % (settings.STATIC_URL, 'images/article/default_cover.jpg')
 
+    @property
+    def once_selection(self):
+        res = hasattr(self,'selections') and (self.selections.count() > 0)
+        return res
+    @property
+    def last_selection_time(self):
+        if not self.once_selection:
+            return ' Never'
+        else:
+            return self.selections.order_by('-pub_time')[0]
+
 
 # use ForeignKey instead of  oneToOne for selection entity ,
 # this means , an article can be published many times , without first been removed from selection
 # this design is on propose
 #
 class Selection_Article(models.Model):
-    article = models.ForeignKey(Article, unique=True)
+    article = models.ForeignKey(Article, unique=True, related_name='selections')
     is_published = models.BooleanField(default=False)
     pub_time = models.DateTimeField(db_index=True,editable=True)
 
