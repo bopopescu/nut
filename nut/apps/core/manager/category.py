@@ -87,6 +87,10 @@ class SubCategoryManager(models.Manager):
         res = cache.get(key)
         if res:
             return res
+
+        if self.popular().count() < total :
+            return self.popular()
+
         res = random.sample(self.popular(), total)
         cache.set(key, res, timeout=3600)
         return res

@@ -125,6 +125,13 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def fans_count(self):
         return self.fans.count()
 
+    @property
+    def bio(self):
+        if hasattr(self, 'profile'):
+            if self.profile.bio:
+                return self.profile.bio
+        return ''
+
     def set_admin(self):
         self.is_admin = True
         self.save()
@@ -259,13 +266,12 @@ class User_Follow(models.Model):
 
     def save(self, *args, **kwargs):
         super(User_Follow, self).save(*args, **kwargs)
-        notify.send(self.follower, recipient=self.followee, verb=u'has followed you', action_object=self, target=self.followee)
 
         key_string = "user_fans_%s" % self.followee.id
         key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
 
-        key_string = "user_follow_%s" % self.id
+        key_string = "user_follow_%s" % self.follower.id
         key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
 
@@ -401,9 +407,37 @@ class Sub_Category(BaseModel):
         return self.title
 
 
-# class Taobao_Item_Category_Mapping(models.Model):
-#     taobao_category_id = models.IntegerField(db_index = True, unique = True)
-#     neo_category_id = models.IntegerField(db_index = True)
+# TODO: Production Brand
+class Brand(BaseModel):
+    pending, publish,  promotion = xrange(3)
+    BRAND_STATUS_CHOICES = [
+        (pending, _("pending")),
+        (publish, _("publish")),
+        (promotion, _("promotion")),
+    ]
+
+    name = models.CharField(max_length=100, unique=True)
+    alias = models.CharField(max_length=100, null=True, default=None)
+    icon = models.CharField(max_length = 255, null = True, default = None)
+    company = models.CharField(max_length=100, null=True, default=None)
+    website = models.URLField(max_length=255, null=True, default=None)
+    national = models.CharField(max_length=100, null=True, default=None)
+    intro = models.TextField()
+    status = models.IntegerField(choices=BRAND_STATUS_CHOICES, default=pending)
+    created_date = models.DateTimeField(auto_now=True, db_index=True)
+
+    class Meta:
+        ordering = ['-created_date']
+
+    @property
+    def icon_url(self):
+        if self.icon:
+            return "%s%s" % (image_host, self.icon)
+        return None
+
+    def __unicode__(self):
+        return "%s %s" % (self.name, self.alias)
+    # pass
 
 
 class Entity(BaseModel):
@@ -501,12 +535,10 @@ class Entity(BaseModel):
 
         return _tm
 
-
-
     # add by an
     @property
     def selection_hover_word(self):
-        return self.brand + ' ' +self.title;
+        return self.brand + ' ' +self.title
     # this property is for selection page's image hover message,
     # should I put it into a manager class ? @jiaxin
 
@@ -570,7 +602,7 @@ class Entity(BaseModel):
         key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
 
-
+    # search index
     search = SphinxSearch(
         index = 'entities',
         weights={
@@ -597,11 +629,6 @@ class Selection_Entity(BaseModel):
 
     def __unicode__(self):
         return self.entity.title
-
-    # def save(self, *args, **kwargs):
-    #     super(Selection_Entity, self).save(*args, **kwargs)
-    #     user = GKUser.objects.get(pk=2)
-    #     notify.send(user, recipient=self.entity.user, action_object=self, verb="set selection", target=self.entity)
 
     @property
     def publish_timestamp(self):
@@ -679,7 +706,7 @@ class Note(BaseModel):
 
     @property
     def comment_count(self):
-        return self.comments.count()
+        return self.comments.normal().count()
 
     @property
     def poke_count(self):
@@ -1076,8 +1103,8 @@ class Show_Editor_Recommendation(models.Model):
     class Meta:
         ordering = ['-position']
 
-# model post save
 
+# TODO: model post save
 def create_or_update_entity(sender, instance, created, **kwargs):
 
     if issubclass(sender, Entity):
@@ -1090,7 +1117,8 @@ def create_or_update_entity(sender, instance, created, **kwargs):
                 # selection.is_published = False
                 # selection.pub_time = datetime.now()
                 selection.save()
-            except Selection_Entity.DoesNotExist:
+            except Selection_Entity.DoesNotExist, e:
+                log.info(e.message)
                 Selection_Entity.objects.create(
                     entity = instance,
                     is_published = False,
@@ -1168,5 +1196,12 @@ def user_poke_note_notification(sender, instance, created, **kwargs):
         # pass
 post_save.connect(user_poke_note_notification, sender=Note_Poke, dispatch_uid="user_poke_note_action_notification")
 
+
+def user_follow_notification(sender, instance, created, **kwargs):
+    if issubclass(sender, User_Follow) and created:
+        log.info(instance)
+        notify.send(instance.follower, recipient=instance.followee, verb=u'has followed you', action_object=instance, target=instance.followee)
+
+post_save.connect(user_follow_notification, sender=User_Follow, dispatch_uid="user_follow_notification")
 
 __author__ = 'edison7500'
