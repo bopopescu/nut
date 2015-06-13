@@ -12,15 +12,21 @@ from apps.core.models import Article
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.management.decorators import staff_only
 
+from apps.core.mixins.views import SortMixin
+from apps.core.extend.paginator import ExtentPaginator as Jpaginator
+
 log = getLogger('django')
 
 from django.views.generic import ListView
 from apps.core.models import Selection_Article
 
-class SelectionArticleList(ListView):
+class SelectionArticleList(SortMixin,ListView):
+    template_name = 'management/articles/article_list.html'
     model = Selection_Article
+    paginate_by = 5
+    paginator_class = Jpaginator
     context_object_name = 'selection_article_list'
-    queryset = Selection_Article.objects.order_by('pub')
+    default_sort_params = ('pub_time', 'desc')
 
 
 
