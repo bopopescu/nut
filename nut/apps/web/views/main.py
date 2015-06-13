@@ -115,12 +115,7 @@ def search(request, template="web/main/search.html"):
 
     if form.is_valid():
         _results = form.search()
-        # log.info("result %s" % _results)
-        # for row in _results:
-        #     log.info(row)
-
-        _objects =  get_paged_list(_results , _page , 24)
-
+        _objects = get_paged_list(_results , _page , 24)
 
         if _type == "t":
             tag_id_list = list()
@@ -129,15 +124,6 @@ def search(request, template="web/main/search.html"):
                 tag_id_list.append(row.id)
             _results = Entity_Tag.objects.tags(tag_id_list)
             log.info(_results)
-
-
-            # _results = res
-                # log.info(row.id)
-
-        # if _type == "e" and request.user.is_authenticated():
-        #     el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(_results))
-        #     log.info(el)
-            # context['user_entity_likes'] = el
 
         c = {
                 'keyword': form.get_keyword(),
