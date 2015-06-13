@@ -119,6 +119,12 @@ def load_entity_info(url):
                     # 'selected_category_id':
             }
             log.info(t.images)
+        except Buy_Link.MultipleObjectsReturned:
+            buy_link = Buy_Link.objects.filter(origin_id=_taobao_id, origin_source="taobao.com").first()
+            _data = {
+                'entity_id': buy_link.entity.id,
+            }
+
 
     if re.search(r"\b(kaola)\.com$", _hostname) != None:
         # log.info(_hostname)
@@ -514,26 +520,6 @@ class EditEntityForm(EntityForm):
 
         if status:
             self.entity.status = status
-            # if self.entity.status == Entity.selection:
-            #     try:
-            #         selection = Selection_Entity.objects.get(entity = self.entity)
-            #         selection.entity = self.entity
-            #         selection.is_published = False
-            #         selection.pub_time = datetime.now()
-            #         selection.save()
-            #     except Selection_Entity.DoesNotExist:
-            #         Selection_Entity.objects.create(
-            #             entity = self.entity,
-            #             is_published = False,
-            #             pub_time = datetime.now()
-            #         )
-            # else:
-            #     try:
-            #         selection = Selection_Entity.objects.get(entity = self.entity)
-            #         selection.delete()
-            #     except Selection_Entity.DoesNotExist, e:
-            #         log.info("INFO: entity id %s ,%s"% (self.entity.pk, e.message))
-
         self.entity.category_id = sub_category
         self.entity.images = images
         self.entity.save()

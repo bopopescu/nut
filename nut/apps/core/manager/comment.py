@@ -7,7 +7,7 @@ log = getLogger('django')
 class CommentQuerySet(models.query.QuerySet):
 
     def normal(self):
-        return self.exclude(user__is_active=-1)
+        return self.exclude(user__is_active__lte=0)
     #
     # def top_or_normal(self):
     #     return self.filter(status__gte=0, user__is_active__gte=1)
