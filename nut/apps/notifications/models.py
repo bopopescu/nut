@@ -150,36 +150,39 @@ class JpushToken(models.Model):
         return self.rid
 
 
-# def push_notification(verb, **kwargs):
-#     kwargs.pop('signal', None)
-#
-#     _platform = kwargs.pop('platform', 'ios')
-#     _register_id = kwargs.pop('rid', None)
-#     _production = kwargs.pop('production', True)
-#     _instance = kwargs.pop('content_type', None)
-#     # print _register_id
-#     if _register_id is None:
-#         return
-#
-#     _jpush = jpush.JPush(app_key, app_secret)
-#     push = _jpush.create_push()
-#     push.audience = jpush.registration_id(_register_id)
-#     # push.platform = jpush.audience(_register_id)
-#     # log.info(type(verb))
-#     ios_msg = jpush.ios(alert=verb.encode('utf8'), badge="+1", extras={'entity':'v1'})
-#     push.notification = jpush.notification(alert=verb.encode('utf8'), ios=ios_msg)
-#     push.platform = jpush.platform(_platform)
-#     # push.audience = jpush.audience({'registration_id':_register_id})
-#     push.options = {"time_to_live":86400, "apns_production":_production}
-#     push.send()
-
-# push_notify.connect(push_notification, dispatch_uid="notifications.models.jpush")
-
-
 def push_notification(sender, instance, created, **kwargs):
-    if issubclass(instance, Notification):
-        log.info(instance)
+    if issubclass(sender, Notification):
+        # log.info(instance.action_object_content_type.model)
+        _jpush = jpush.JPush(app_key, app_secret)
+        push = _jpush.create_push()
+        _platform = 'ios'
+        _production = False
+        if instance.action_object_content_type.model == "entity_like":
+            verb = instance.actor.profile.nickname + u' 喜爱了你添加的商品'
+            for reg in instance.recipient.jpush_token.all():
+                log.info(reg.model)
+                # if reg.model == 'iPhones':
 
+                push.platform = jpush.platform(_platform)
+                push.audience = jpush.registration_id(reg.rid)
+                # log.info("%d" % instance.recipient.notifications.unread().count())
+                ios_msg = jpush.ios(alert=verb.encode('utf8'), badge=instance.recipient.notifications.unread().count(), extras={'url':'guoku://entity/%s' % instance.target.pk})
+                push.notification = jpush.notification(alert=verb.encode('utf8'), ios=ios_msg)
+                push.options = {"time_to_live":86400, "apns_production":_production}
+                push.send()
+        elif instance.action_object_content_type.model == 'user_follow':
+            verb = instance.actor.profile.nickname + u' 开始关注你'
+            for reg in instance.recipient.jpush_token.all():
+                log.info("model %s" % reg.model)
+                # if reg.model == 'iPhones':
+
+                push.platform = jpush.platform(_platform)
+                push.audience = jpush.registration_id(reg.rid)
+                # log.info("%d" % instance.recipient.notifications.unread().count())
+                ios_msg = jpush.ios(alert=verb.encode('utf8'), badge=instance.recipient.notifications.unread().count(), extras={'url':'guoku://user/%s' % instance.actor.pk})
+                push.notification = jpush.notification(alert=verb.encode('utf8'), ios=ios_msg)
+                push.options = {"time_to_live":86400, "apns_production":_production}
+                push.send()
 
 
 post_save.connect(push_notification, sender=Notification, dispatch_uid='push.notification')

@@ -433,7 +433,7 @@ a:hover {
 .profile {
   width: 100%;
   height: 362px;
-  background: url(../images/profile_bg.png);
+  background: url('../images/profile_bg.png');
 }
 .edit_personal_info {
   border-radius: 10px;
@@ -812,7 +812,6 @@ a:hover {
 }
 .goods_detail .comment_list {
   padding-top: 40px;
-  width: 100%;
 }
 .goods_detail .comment_list li {
   width: 100%;
@@ -830,20 +829,10 @@ a:hover {
 .goods_detail .comment_list .comment_detail .comment_word {
   margin-top: 6px;
   display: inline-block;
-  line-height: 24px;
+  line-height: 20px;
 }
 .goods_detail .comment_list .comment_detail .favorite {
   float: right;
-}
-.goods_detail .comment_list .comment_detail .comment_operate {
-  padding: 17px 0 0;
-  width: 100%;
-}
-.goods_detail .comment_list .comment_detail .comment_operate .times {
-  float: right;
-}
-.goods_detail .comment_list .comment_detail .comment_operate .zan {
-  margin-right: 35px;
 }
 .goods_detail .comment_list .comment_detail .reply_comment {
   width: 100%;
@@ -930,61 +919,6 @@ a:hover {
   color: #ffffff;
   background-color: #3071a9;
 }
-.goods_detail .detail_right .other_pics {
-  padding: 20px 0 0;
-  margin-left: 0px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #F0F0F0;
-  width: 250px;
-}
-.goods_detail .detail_right .other_pics div {
-  margin-bottom: 20px;
-  padding-left: 0px;
-  padding-right: 20px;
-}
-.goods_detail .detail_right .other_pics img {
-  width: 100%;
-  height: 100%;
-  border: 1px solid #E6E6E6;
-}
-.goods_detail .detail_right .some_likes {
-  margin-left: 0px;
-  overflow: hidden;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #F0F0F0;
-}
-.goods_detail .detail_right .some_likes a {
-  margin-bottom: 8px;
-  margin-right: 8px;
-  float: left;
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-}
-.goods_detail .detail_right .some_likes img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-.goods_detail .detail_right .type {
-  padding: 20px 0;
-  margin-left: 0px;
-  border-bottom: 1px solid #F0F0F0;
-}
-.goods_detail .detail_right .type .title {
-  padding-bottom: 10px;
-}
-.goods_detail .detail_right .download_part {
-  border-top: none;
-}
-.goods_detail .detail_right .right_tips {
-  border-bottom: 1px solid #E6E6E6;
-  padding-bottom: 10px;
-}
-.goods_detail .detail_right .type ul {
-  overflow: hidden;
-  padding-top: 10px;
-}
 @media screen and (max-width: 768px) {
   .goods_detail .button_buy {
     float: right;
@@ -1065,7 +999,7 @@ a:hover {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
   }
   .xs-app-intro .intro-holder .text-holder {
     width: 100%;
@@ -1074,10 +1008,13 @@ a:hover {
   }
   .xs-app-intro .intro-holder .text-holder .slogan-big {
     font-size: 24px;
+    margin: 10px 0px;
   }
   .xs-app-intro .intro-holder .text-holder .slogan-small {
     color: #9D9E9F;
-    margin: 0px 40px;
+    margin: 15px auto;
+    display: block;
+    max-width: 400px;
   }
   .xs-app-download-img {
     margin: 30px 20px;
@@ -1128,7 +1065,7 @@ a:hover {
   }
   .download-middle .md-app-download-intro .intro-holder img {
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 19px;
   }
   .download-middle .md-app-download-intro .intro-holder .text-holder {
     width: 100%;
@@ -1173,3 +1110,6 @@ a:hover {
   }
 }
 /*add by An End*/
+.test {
+  color: black;
+}
