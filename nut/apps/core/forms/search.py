@@ -12,7 +12,6 @@ class SearchForm(forms.Form):
     def search(self):
         pass
 
-
     def get_keyword(self):
         self.keyword = self.cleaned_data.get('q')
         return self.keyword
