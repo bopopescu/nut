@@ -1,6 +1,5 @@
 from django.views.generic.base import View, TemplateResponseMixin, ContextMixin
 from django.contrib.auth.decorators import login_required
-from apps.core.forms.search import SearchForm
 
 
 class LoginRequiredMixin(object):
@@ -49,6 +48,7 @@ class BaseFormView(TemplateResponseMixin, ContextMixin, View):
 
 
 class BaseSearchView(BaseFormView):
+    # form_class = SearchForm
 
     def get_form_kwargs(self):
         """
@@ -64,6 +64,10 @@ class BaseSearchView(BaseFormView):
                 # 'files': self.request.FILES,
             })
         return kwargs
+
+    def get_form_class(self):
+
+        return self.form_class(**self.get_form_kwargs())
 
 
 __author__ = 'edison'

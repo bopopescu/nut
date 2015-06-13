@@ -7,7 +7,8 @@ class SearchForm(forms.Form):
                         widget=forms.TextInput(attrs={'type': 'search'}))
 
     t = forms.CharField(required=False, label=_('type'),
-                        widget=forms.TextInput())
+                        widget=forms.TextInput(),
+                        initial='e')
 
     def search(self):
         pass
