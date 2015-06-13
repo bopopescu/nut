@@ -932,6 +932,18 @@ class Article(models.Model):
         return "%s%s" % (settings.STATIC_URL, 'images/article/default_cover.jpg')
 
 
+# use ForeignKey instead of  oneToOne for selection entity ,
+# this means , an article can be published many times , without first been removed from selection
+# this design is on propose
+#
+class Selection_Article(models.Model):
+    article = models.ForeignKey(Article, unique=True)
+    is_published = models.BooleanField(default=False)
+    pub_time = models.DateTimeField(db_index=True,editable=True)
+
+
+
+
 class Media(models.Model):
     file_path = models.URLField()
     content_type = models.CharField(max_length=30)

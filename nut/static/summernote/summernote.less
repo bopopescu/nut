@@ -518,6 +518,7 @@
    border-right: 1px solid @border-color;
 }
 
+@operate-height:120px;
 .editor_wrap{
 
        display: block;
@@ -525,6 +526,24 @@
        width: 600px;
        position : relative;
 
+  .fix-operate{
+     position : absolute;
+     left:600px;
+     width : 200px;
+     height: @operate-height;
+     div{
+       height:@operate-height;
+       display: inline-block;
+     }
+     .article-status-wrapper{
+         .radio-wrapper{
+
+         }
+         .article-submit{
+            text-align: center;
+         }
+     }
+  }
   .cover{
 
       height: 90px;
@@ -559,9 +578,7 @@
 
   }
 
-  .guoku_editor{
-      font-size: 16px;
-  }
+
 
    .title-input, .title-input:focus{
         width: 100%;
@@ -575,5 +592,9 @@
        background-color: #f9f9f9;
        color: #5f5f5f
    }
+  // all text style will be here
+  .guoku_editor{
+      font-size: 16px;
+  }
 
 }

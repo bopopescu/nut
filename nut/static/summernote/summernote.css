@@ -522,6 +522,19 @@
   width: 600px;
   position: relative;
 }
+.editor_wrap .fix-operate {
+  position: absolute;
+  left: 600px;
+  width: 200px;
+  height: 120px;
+}
+.editor_wrap .fix-operate div {
+  height: 120px;
+  display: inline-block;
+}
+.editor_wrap .fix-operate .article-status-wrapper .article-submit {
+  text-align: center;
+}
 .editor_wrap .cover {
   height: 90px;
   width: 100%;
@@ -552,9 +565,6 @@
 .editor_wrap .cover .icon-wrapper i {
   font-size: 3.7em;
 }
-.editor_wrap .guoku_editor {
-  font-size: 16px;
-}
 .editor_wrap .title-input,
 .editor_wrap .title-input:focus {
   width: 100%;
@@ -567,4 +577,7 @@
 .editor_wrap blockquote {
   background-color: #f9f9f9;
   color: #5f5f5f;
+}
+.editor_wrap .guoku_editor {
+  font-size: 16px;
 }
