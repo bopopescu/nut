@@ -4,7 +4,7 @@
 
 2.  本地测试解决方案
     a.) 倒入500000个 entity_like
-    b.) 判断是否测试环境   method isTestEnv
+    b.) 判断是否测试环境   method isTestEnv （数据库名字是否为 TEST, 或者本地SETTING 设置了 LOCAL_TEST_DB ＝ True）
     c.) 如果是， 设置筛选时间范围为 70天
     d.) 如果样本数仍然小于 取样数 ， 直接返回所有样本
     
