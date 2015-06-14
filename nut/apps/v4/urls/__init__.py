@@ -39,6 +39,9 @@ urlpatterns += patterns(
 # TODO: new sign in or sign up by Baichuan
     url(r'^baichuan/login/$', 'baichuan.login', name='v4_login_by_baichuan'),
 
+# TODO: sign in or sign up by weChat
+    url(r'^wechat/login/$', 'wechat.login', name='v4_login_by_wechat'),
+
 )
 
 urlpatterns += patterns(
