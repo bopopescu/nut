@@ -48,8 +48,10 @@ class EntityManager(models.Manager):
             entity_list = self.new_or_selection(category_id=category_id).exclude(pk=exclude_id)
         else:
             entity_list = self.new_or_selection(category_id=category_id)
-
-        entities = random.sample(entity_list[:size], count)
+        try:
+            entities = random.sample(entity_list[:size], count)
+        except ValueError:
+            entities = entity_list[:count]
         return entities
 
     # def sort_with_list(self, category_id=None):

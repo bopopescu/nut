@@ -110,7 +110,6 @@ def forget_password(request, template='web/account/restpassword/forget_password.
 
 def send_mail_finished(request, template="web/account/restpassword/send_mail_finished.html"):
 
-
     return render_to_response(
         template,
         {
@@ -156,8 +155,6 @@ def register_from_three_part(request, template="web/account/three-part-register.
         # _taobao_id = request.session.get('taobao_id', None)
         if screen_name:
             _avatar = request.session.get('avatar')
-
-
             _forms = UserSignUpForm(initial={
                 'nickname': screen_name
             })

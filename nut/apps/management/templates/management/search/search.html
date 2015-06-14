@@ -1,0 +1,34 @@
+{% extends 'management/management_base.html' %}
+{% load i18n %}
+{% load guoku %}
+
+
+{% block content %}
+    <div class="row">
+        <h1 class="page-header">{{ keyword }}</h1>
+{#    <h2 class="sub-header">{% trans 'all' %}</h2>#}
+
+    </div>
+    <div class="row" style="padding-bottom: 24px;">
+        <ul class="nav nav-pills" role="tablist">
+            <li {% ifequal type 'e' %}class="active"{% endifequal %}><a href="{% url 'management_search' %}?q={{ keyword }}&t=e">{% trans 'entity' %}</a></li>
+            <li {% ifequal type 't' %}class="active"{% endifequal %}><a href="{% url 'management_search' %}?q={{ keyword }}&t=t">{% trans 'tags' %}</a></li>
+            <li {% ifequal type 'u' %}class="active"{% endifequal %}><a href="{% url 'management_search' %}?q={{ keyword }}&t=u">{% trans 'users' %}</a></li>
+{#            <li {% ifequal status '0' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=0">{% trans 'new' %}</a></li>#}
+{#            <li {% ifequal status '-1' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=-1">{% trans 'freeze' %}</a></li>#}
+{#            <li {% ifequal status '-2' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=-2">{% trans 'remove' %}</a></li>#}
+        </ul>
+    </div>
+
+{#    <div class="row">#}
+    {% if type == 't' %}
+        {% include 'management/tags/table.html' with tags=objects %}
+    {% elif type == 'u' %}
+        {% include 'management/users/table.html' with users=objects %}
+    {% else %}
+        {% include "management/entities/table.html" with entities=objects %}
+    {% endif %}
+
+    {% include 'management/search/search_paginator.html' with objects=objects keyword=keyword type=type %}
+{#    </div>#}
+{% endblock %}

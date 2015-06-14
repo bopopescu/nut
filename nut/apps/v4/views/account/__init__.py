@@ -31,7 +31,6 @@ def login(request):
     else:
         _forms = MobileUserSignInForm(request=request)
 
-    # dict(_forms.errors))
     for k, v in dict(_forms.errors).items():
         error_msg = v.as_text().split('*')[1]
         return ErrorJsonResponse(status=400, data={

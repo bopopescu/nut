@@ -37,6 +37,7 @@ def update(request):
             return SuccessJsonResponse(res)
     return ErrorJsonResponse(status=400)
 
+
 @csrf_exempt
 @check_sign
 def update_account(request):
@@ -53,6 +54,7 @@ def update_account(request):
             return SuccessJsonResponse(res)
         log.info(_forms.errors)
         return ErrorJsonResponse(status=400)
+
 
 @csrf_exempt
 @check_sign
@@ -80,7 +82,6 @@ def update_email(request):
 
     else:
         return ErrorJsonResponse(status=400)
-
 
 
 @csrf_exempt
@@ -194,8 +195,6 @@ def entity_like(request, user_id):
         return ErrorJsonResponse(status=404)
 
     _key = request.GET.get('session')
-
-
     _timestamp = request.GET.get('timestamp', datetime.now())
     if _timestamp != None:
         _timestamp = datetime.fromtimestamp(float(_timestamp))
@@ -217,7 +216,6 @@ def entity_like(request, user_id):
     if last < 0:
         return SuccessJsonResponse(res)
     res['timestamp'] = time.mktime(entities[last].created_time.timetuple())
-
 
     try:
         _session = Session_Key.objects.get(session_key=_key)
@@ -341,7 +339,6 @@ def fans_list(request, user_id):
     except EmptyPage:
         return ErrorJsonResponse(status=404)
 
-
     res = []
     for user in _fans.object_list:
         res.append(
@@ -427,7 +424,6 @@ def search(request):
 
     log.info("vistor %s" % visitor)
         # return ErrorJsonResponse(status=400)
-
 
     _forms = UserSearchForm(request.GET)
     if _forms.is_valid():

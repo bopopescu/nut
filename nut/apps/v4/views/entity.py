@@ -1,6 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET
-
+from django.core.paginator import Paginator, EmptyPage
 
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.mobile.lib.sign import check_sign
@@ -120,25 +120,44 @@ def like_action(request, entity_id, target_status):
 
         if target_status == "1":
             like_task.delay(uid=_session.user_id, eid=entity_id)
-            # try:
-            #     Entity_Like.objects.get(user_id=_session.user_id, entity_id=entity_id)
-            # except Entity_Like.DoesNotExist:
-            #     Entity_Like.objects.create(
-            #         user_id = _session.user_id,
-            #         entity_id = entity_id
-            #     )
             res['like_already'] = 1
         else:
-            # try:
-            #     el = Entity_Like.objects.get(user_id=_session.user_id, entity_id=entity_id)
-            #     el.delete()
-            # except Entity_Like.DoesNotExist, e:
-            #     log.info("info %s", e.message)
             unlike_task.delay(uid=_session.user_id, eid=entity_id)
             res['like_already'] = 0
         return SuccessJsonResponse(res)
 
     return ErrorJsonResponse(status=400)
+
+
+@check_sign
+def entity_liker(request, entity_id):
+    _key = request.GET.get('session', None)
+    _page = request.GET.get('page', 1)
+
+    visitor = None
+    try:
+        _session = Session_Key.objects.get(session_key=_key)
+        visitor = _session.user
+    except Session_Key.DoesNotExist:
+        pass
+        # return ErrorJsonResponse(status=403)
+    log.info(visitor)
+    liker = Entity_Like.objects.filter(entity = entity_id)
+    paginator = Paginator(liker, 15)
+    try:
+        liker_list = paginator.page(_page)
+    except EmptyPage:
+        return ErrorJsonResponse(status=404)
+
+    res = dict()
+    res['page'] = _page
+    res['count'] = liker.count()
+    res['data'] = list()
+    for row in liker_list.object_list:
+        res['data'].append(
+            row.user.v3_toDict(visitor=visitor)
+        )
+    return SuccessJsonResponse(res)
 
 
 @check_sign
