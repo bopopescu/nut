@@ -1727,12 +1727,35 @@ a:hover{text-decoration:underline;}
      .box-shadow(0px 0px 3px #ddd;);
 }
 @media (min-width: 768px){
+
+
    body.gray-body{
     background-color: @very-light-gray;
     }
 
    #detail_content_left {
         .panel;
+        .detail-img-big{
+          height: 360px;
+          white-space: nowrap;
+
+
+          .v-helper{
+             display:inline-block;
+             height:100%;
+             vertical-align: middle;
+             width:0px;
+          }
+          .main-img{
+             vertical-align: middle;
+             border: none;
+             max-height:360px;
+             max-width: 360px;
+             margin:0 auto ;
+            .common-bordered;
+          }
+
+        }
    }
 
    #detail_content_right{
@@ -1740,7 +1763,5 @@ a:hover{text-decoration:underline;}
      .section{
         .panel;
      }
-
-
    }
 }
