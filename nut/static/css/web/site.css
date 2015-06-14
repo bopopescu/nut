@@ -1769,6 +1769,24 @@ a:hover {
     -moz-box-shadow: 0px 0px 3px #dddddd;
     box-shadow: 0px 0px 3px #dddddd;
   }
+  #detail_content_left .detail-img-big {
+    height: 360px;
+    white-space: nowrap;
+  }
+  #detail_content_left .detail-img-big .v-helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    width: 0px;
+  }
+  #detail_content_left .detail-img-big .main-img {
+    vertical-align: middle;
+    border: none;
+    max-height: 360px;
+    max-width: 360px;
+    margin: 0 auto ;
+    border: 1px solid #e6e6e6;
+  }
   #detail_content_right {
     padding-left: 10px;
   }
