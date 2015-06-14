@@ -7,11 +7,11 @@ class SearchForm(forms.Form):
                         widget=forms.TextInput(attrs={'type': 'search'}))
 
     t = forms.CharField(required=False, label=_('type'),
-                        widget=forms.TextInput())
+                        widget=forms.TextInput(),
+                        initial='e')
 
     def search(self):
         pass
-
 
     def get_keyword(self):
         self.keyword = self.cleaned_data.get('q')

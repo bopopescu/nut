@@ -207,10 +207,17 @@ def edit(request, cid, template="management/category/edit.html"):
 def category_entity_list(request, cid, templates = 'management/category/entity/category_entity_list.html'):
 
     _category = get_object_or_404(Category, pk=cid)
+
     page = request.GET.get('page', 1)
+    status = request.GET.get('status', None)
+
     inner_qs = Sub_Category.objects.filter(group_id = cid)
 
-    entities = Entity.objects.filter(category__in=inner_qs)
+    if status is None:
+        entities = Entity.objects.filter(category__in=inner_qs)
+    else:
+        entities = Entity.objects.filter(category__in=inner_qs, status = int(status))
+
     paginator = ExtentPaginator(entities, 30)
     try:
         _entity_list = paginator.page(page)
@@ -224,17 +231,23 @@ def category_entity_list(request, cid, templates = 'management/category/entity/c
         {
             'entities': _entity_list,
             'category':_category,
+            'status': status,
         },
         context_instance = RequestContext(request)
     )
 
 
-def sub_category_entity_list(request, scid, templates='management/category/entity/category_entity_list.html'):
+def sub_category_entity_list(request, scid, templates='management/category/entity/sub_category_entity_list.html'):
     page = request.GET.get('page', 1)
+    status = request.GET.get('status', None)
 
     _sub_category = get_object_or_404(Sub_Category, pk=scid)
 
-    entities = Entity.objects.filter(category=_sub_category)
+    if status is None:
+        entities = Entity.objects.filter(category=_sub_category)
+    else:
+        entities = Entity.objects.filter(category=_sub_category, status=int(status))
+
     paginator = ExtentPaginator(entities, 30)
     try:
         _entity_list = paginator.page(page)
@@ -248,6 +261,7 @@ def sub_category_entity_list(request, scid, templates='management/category/entit
         {
             'entities': _entity_list,
             'category':_sub_category,
+            'status': status,
         },
         context_instance = RequestContext(request)
     )
