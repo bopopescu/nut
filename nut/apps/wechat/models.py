@@ -27,6 +27,7 @@ from django.conf import settings
 class Token(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False, related_name='wechat')
     open_id = models.CharField(max_length=255)
+    unionid = models.CharField(max_length=255, default=None, null=True)
     joined_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
 
     def __unicode__(self):
