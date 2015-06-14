@@ -901,6 +901,22 @@ class Taobao_Token(models.Model):
         return md5(code_string.encode('utf-8')).hexdigest()
 
 
+class WeChat_Token(BaseModel):
+    user = models.OneToOneField(GKUser, related_name='weixin')
+    unionid = models.CharField(max_length=255, db_index=True)
+    nickname = models.CharField(max_length=255)
+    updated_time = models.DateTimeField(auto_now = True, null = True)
+
+    def __unicode__(self):
+        return self.nickname
+
+    @staticmethod
+    def generate(unionid, nick):
+        code_string = "%s%s%s" % (unionid, nick, time.mktime(datetime.now().timetuple()))
+        return md5(code_string.encode('utf-8')).hexdigest()
+
+
+# TODO: article model
 class Article(models.Model):
 
     (remove, draft, published, selection) = xrange(4)
@@ -945,7 +961,7 @@ class Media(models.Model):
         return "%s%s" % (image_host, self.file_path)
 
 
-# event banner
+# TODO: event banner
 class Event(models.Model):
     title = models.CharField(max_length=30, null=False, default='')
     tag = models.CharField(max_length=30, null=False, default='')
