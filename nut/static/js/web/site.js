@@ -496,7 +496,7 @@ $.ajaxSetup({
                 }
 
                 findThumbImages().each(function(idx, thumb){
-                    $(thumb).mouseenter(function(){
+                    function handleTrumb(){
                         var newSrc = $(this)
                                     .prop('src')
                                     .replace(/images\/\d+\//i, 'images/640/');
@@ -504,7 +504,9 @@ $.ajaxSetup({
                         if (newSrc !== oldSrc){
                             $('.detail-pic-left #buy-btn-img img').prop('src', newSrc);
                         }
-                    });
+                    }
+                    $(thumb).mouseenter(handleTrumb);
+                    $(thumb).click(handleTrumb);
                 });
 
             //
