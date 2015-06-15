@@ -22,7 +22,7 @@
                  </span>
              </div>
              <div class="icon-holder">
-                 <a href="{% url "web_download" %}">
+                <a href="{% url "web_download" %}">
                     <img width="64px" src="{% static "images/side_bar/icon64.png" %}" />
                  </a>
              </div>
@@ -33,12 +33,10 @@
         <div class="section-title">微信公众号订阅</div>
         <div class="section-content">
              <div class="text-holder">
-                 扫描右侧二维码，或搜索「guokuapp」立刻关注
+                 扫描左侧二维码，<BR/>或搜索「guokuapp」<BR/>立刻关注
              </div>
              <div class="icon-holder">
-                 <a href="{% url "web_download" %}">
                     <img width="64px" src="{% static "images/side_bar/QRcode64.jpg" %}" />
-                 </a>
              </div>
 
         </div>
@@ -125,38 +123,40 @@
 {#            </ul>#}
 {#        </div>#}
 {#    </li>#}
-    <li class="section">
-        <div class="section-banner">
-            <a class="banner-link" target="_blank " href="http://s.click.taobao.com/nc4ac3y">
-                <img  class="img-responsive" src="{% static 'images/side_bar/taobao.jpg' %}">
-            </a>
-        </div>
+
+    <li class="section banner-holder">
+            <div class="section-banner">
+                <a class="banner-link" target="_blank " href="http://www.wandoujia.com/campaign/applaunch/?pn=com.guoku">
+                    <img src="{% static 'images/side_bar/wandoujia.jpg' %}">
+                </a>
+            </div>
     </li>
-    <li class="section">
+    <li class="section banner-holder">
         <div class="section-banner">
             <a class="banner-link" target="_blank " href="http://h5.m.taobao.com/we/detail2.htm?feedid=678492715&accountId=731372917">
                 <img  class="img-responsive" src="{% static 'images/side_bar/yozhan.jpg' %}">
             </a>
         </div>
     </li>
-    <li class="section">
+    <li class="section banner-holder">
         <div class="section-banner">
             <a class="banner-link" target="_blank " href="http://mp.weixin.qq.com/s?__biz=MjM5MzA3MzQ4MA==&mid=208797197&idx=1&sn=6b3ab02ef7d4590a10f47b09ebf52fdf#rd">
                 <img  class="img-responsive" src="{% static 'images/side_bar/zhuanfang.jpg' %}">
             </a>
         </div>
     </li>
-    <li class="section">
+    <li class="section banner-holder">
         <div class="section-banner">
             <a class="banner-link" target="_blank " href="http://www.guoku.com/event/20150608/">
                 <img  class="img-responsive" src="{% static 'images/side_bar/zhuanti.jpg' %}">
             </a>
         </div>
     </li>
-    <li class="section">
+
+     <li class="section banner-holder">
             <div class="section-banner">
-                <a class="banner-link" target="_blank " href="http://www.wandoujia.com/campaign/applaunch/?pn=com.guoku">
-                    <img src="{% static 'images/side_bar/wandoujia.jpg' %}">
+                <a class="banner-link" target="_blank " href="http://s.click.taobao.com/nc4ac3y">
+                    <img  class="img-responsive" src="{% static 'images/side_bar/taobao.jpg' %}">
                 </a>
             </div>
         </li>
