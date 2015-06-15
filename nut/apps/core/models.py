@@ -41,7 +41,13 @@ class BaseModel(models.Model):
             fields.append(f.column)
         d = {}
         for attr in fields:
+            # log.info( getattr(self, attr) )
+            value = getattr(self, attr)
+            if value is None:
+                continue
+            log.info(value)
             d[attr] = "%s" % getattr(self, attr)
+        # log.info(d)
         return d
 
 

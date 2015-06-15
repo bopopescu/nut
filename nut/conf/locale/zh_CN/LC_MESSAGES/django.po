@@ -1260,3 +1260,18 @@ msgstr "绑定"
 
 #~ msgid "social account"
 #~ msgstr "社区帐号"
+
+msgid   "brand name"
+msgstr  "品牌名"
+
+msgid   "alias"
+msgstr  "别名"
+
+msgid   "national"
+msgstr  "国家"
+
+msgid   "company"
+msgstr  "公司"
+
+msgid   "intro"
+msgstr  "简介"
