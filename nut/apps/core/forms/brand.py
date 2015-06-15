@@ -27,6 +27,7 @@ class BrandForm(forms.Form):
     alias = forms.CharField(
         label=_('alias'),
         widget=forms.TextInput(attrs={'class':'form-control'}),
+        help_text=_('optional'),
         required=False,
     )
 
@@ -39,7 +40,8 @@ class BrandForm(forms.Form):
     company = forms.CharField(
         label=_('company'),
         widget=forms.TextInput(attrs={'class':'form-control'}),
-        # required=False,
+        help_text=_('optional'),
+        required=False,
     )
 
     website = forms.URLField(
@@ -52,13 +54,36 @@ class BrandForm(forms.Form):
                                 choices=Brand.BRAND_STATUS_CHOICES,
                                 widget=forms.Select(attrs={'class':'form-control'}),
                                 initial=Brand.pending,
-                                help_text=_(''))
+                                help_text=_('status'))
 
     intro = forms.CharField(
         label=_('intro'),
         widget=forms.Textarea(attrs={'class':'form-control'}),
+        # min_length=300,
+        max_length=500,
         required=False,
     )
+
+    def clean_name(self):
+        _name = self.cleaned_data.get('name')
+        return _name.strip(' \t\n\r')
+
+    def cleaned_alias(self):
+        _alias = self.cleaned_data.get('alias')
+        return _alias.strip(' \t\n\r')
+
+    def cleaned_national(self):
+        _national = self.cleaned_data.get('national')
+        return _national.strip(' \t\n\r')
+
+    def cleaned_company(self):
+        _company = self.cleaned_data.get('company')
+        return _company.strip(' \t\n\r')
+
+    def clean_intro(self):
+        _intro = self.cleaned_data.get('intro')
+        return _intro.strip(' \t\n\r')
+
     #
     # def __init__(self, brand, *args, **kwargs):
     #     self.brand_cache = brand
