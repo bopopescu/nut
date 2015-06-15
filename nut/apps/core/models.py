@@ -41,7 +41,13 @@ class BaseModel(models.Model):
             fields.append(f.column)
         d = {}
         for attr in fields:
+            # log.info( getattr(self, attr) )
+            value = getattr(self, attr)
+            if value is None:
+                continue
+            # log.info(value)
             d[attr] = "%s" % getattr(self, attr)
+        # log.info(d)
         return d
 
 
@@ -909,6 +915,22 @@ class Taobao_Token(models.Model):
         return md5(code_string.encode('utf-8')).hexdigest()
 
 
+class WeChat_Token(BaseModel):
+    user = models.OneToOneField(GKUser, related_name='weixin')
+    unionid = models.CharField(max_length=255, db_index=True)
+    nickname = models.CharField(max_length=255)
+    updated_time = models.DateTimeField(auto_now = True, null = True)
+
+    def __unicode__(self):
+        return self.nickname
+
+    @staticmethod
+    def generate(unionid, nick):
+        code_string = "%s%s%s" % (unionid, nick, time.mktime(datetime.now().timetuple()))
+        return md5(code_string.encode('utf-8')).hexdigest()
+
+
+# TODO: article model
 class Article(models.Model):
 
     (remove, draft, published) = xrange(3)
@@ -987,7 +1009,7 @@ class Media(models.Model):
         return "%s%s" % (image_host, self.file_path)
 
 
-# event banner
+# TODO: event banner
 class Event(models.Model):
     title = models.CharField(max_length=30, null=False, default='')
     tag = models.CharField(max_length=30, null=False, default='')
@@ -1204,7 +1226,7 @@ def user_post_note_notification(sender, instance, created, **kwargs):
     log.info(created)
     if issubclass(sender, Note) and created:
         log.info(instance.user)
-        if instance.user != instance.entity.user or instance.user.is_active >= instance.user.blocked:
+        if instance.user != instance.entity.user and instance.user.is_active >= instance.user.blocked:
             notify.send(instance.user, recipient=instance.entity.user, action_object=instance, verb='post note', target=instance.entity)
 
 post_save.connect(user_post_note_notification, sender=Note, dispatch_uid="user_post_note_action_notification")

@@ -880,11 +880,13 @@ $.ajaxSetup({
                             var html = $(data);
                             util.modalSignIn(html);
                         }
+                    },
+                    error: function(data){
+                         var html=$(data.responseText);
+                         util.modalSignIn(html);
                     }
-                }).done(function(data){
-                    console.log(data);
-                })
-                ;
+
+                });
             })
         }
     };

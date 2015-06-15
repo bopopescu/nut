@@ -17,7 +17,6 @@ class BaseListView(LoginRequiredMixin, TemplateResponseMixin, ContextMixin, View
         return self.queryset
 
 
-
 class BaseFormView(TemplateResponseMixin, ContextMixin, View):
     initial = {}
     form_class = None
@@ -40,6 +39,29 @@ class BaseFormView(TemplateResponseMixin, ContextMixin, View):
             kwargs.update({
                 'data': self.request.POST,
                 'files': self.request.FILES,
+            })
+        return kwargs
+
+    def get_form_class(self):
+
+        return self.form_class(**self.get_form_kwargs())
+
+
+class BaseSearchView(BaseFormView):
+    # form_class = SearchForm
+
+    def get_form_kwargs(self):
+        """
+        Returns the keyword arguments for instantiating the form.
+        """
+        kwargs = {
+            'initial': self.get_initial(),
+        }
+
+        if self.request.method in ('GET'):
+            kwargs.update({
+                'data': self.request.GET,
+                # 'files': self.request.FILES,
             })
         return kwargs
 
