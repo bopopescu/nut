@@ -286,3 +286,6 @@ JPUSH_SECRET = 'a0529d3efa544d1da51405b7'
 
 # for django-simple-captcha
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_dots',)
+
+# for debug server popular  category test
+DEFAULT_POPULAR_SCALE =  7

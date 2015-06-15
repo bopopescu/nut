@@ -1,6 +1,7 @@
 {% load static %}
 {% load guoku %}
 <div class="other-pics ">
+      {% if entity.detail_images %}
         <div class="other-pic-list">
             <a href="javascript:;" class="">
                 <img class="img-responsive" src="{{ entity.chief_image|resize:'42' }}" alt="{{ entity.title }}">
@@ -13,4 +14,5 @@
                 </a>
             </div>
         {% endfor %}
+     {% endif %}
 </div>
