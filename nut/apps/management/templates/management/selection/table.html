@@ -13,6 +13,7 @@
                     <th>{% trans 'user' %}</th>
                     <th>{% trans 'category' %}</th>
                     <th>{% trans 'published time' %}</th>
+                    <th>{% trans 'created datetime' %}</th>
                     <th>{% trans 'price' %}</th>
 {#                    <th>{% trans 'status' %}</th>#}
                     <th>{% trans 'operation' %}</th>
@@ -32,6 +33,7 @@
                         <td>{{ selection.entity.top_note.user.profile.nickname }}</td>
                         <td><a href="#">{{ selection.entity.category }}</a></td>
                         <td>{{ selection.entity.selection_entity.pub_time|date:'Y-m-d H:i:s' }}</td>
+                        <td>{{ selection.entity.created_time|date:'Y-m-d H:i:s' }}</td>
                         <td>{{ selection.entity.price }}</td>
 {#                        <td>{{ entity.get_status_display }}</td>#}
                         <td>
