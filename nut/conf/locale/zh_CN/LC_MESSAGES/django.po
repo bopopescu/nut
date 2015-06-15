@@ -1275,3 +1275,6 @@ msgstr  "公司"
 
 msgid   "intro"
 msgstr  "简介"
+
+msgid   "optional"
+msgstr   "选填"

@@ -16,12 +16,14 @@ class BrandForm(forms.Form):
     icon = forms.FileField(
         label=_('icon'),
         widget=forms.FileInput(),
+        help_text=_('icon need 300 x 300'),
         required=False,
     )
 
     name = forms.CharField(
         label=_('brand name'),
-        widget=forms.TextInput(attrs={'class':'form-control'})
+        widget=forms.TextInput(attrs={'class':'form-control'}),
+        help_text=_('brand name'),
     )
 
     alias = forms.CharField(
@@ -47,6 +49,7 @@ class BrandForm(forms.Form):
     website = forms.URLField(
         label=_('website'),
         widget=forms.URLInput(attrs={'class':'form-control'}),
+        help_text=_('prefix has http://'),
         required=False,
     )
 
@@ -61,6 +64,7 @@ class BrandForm(forms.Form):
         widget=forms.Textarea(attrs={'class':'form-control'}),
         # min_length=300,
         max_length=500,
+        help_text=_('300 - 500 words'),
         required=False,
     )
 
