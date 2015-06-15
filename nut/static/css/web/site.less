@@ -1667,21 +1667,27 @@ a:hover{text-decoration:underline;}
             height: 35px;
             border-radius: @global-box-radius;
             line-height: 35px;
-            text-align: center;
+            text-align: center
+
           }
          .like-btn{
            background-color: @very-light-gray;
+           .like-action{
+             display:block;
+             height:100%;
+           }
           }
          .buy-btn{
           background-color: @link-color;
              .buy-button{
+                 display:block;
+                 height:100%;
                  color : #fff!important;
 
                  i{
                    color: #fff;
                   }
              }
-
          }
 
        }
@@ -1789,13 +1795,20 @@ a:hover{text-decoration:underline;}
    }
 }
 
-@media (max-width:767px){
-   #detail_content_left{
+@media (max-width: 767px){
+   .detail-img-big{
      .main-img{
-          display: block;
-          width: 100% ;
-          max-width: 100%;
-          height: auto;
+       display: block;
+       width: 100% ;
+       max-width: 100%;
+        height: auto;
+     }
+   }
+   .entity-selection{
+     .img-box{
+       a{
+         width: 100%;
+       }
      }
    }
 }
