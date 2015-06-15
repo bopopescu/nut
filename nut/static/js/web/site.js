@@ -129,7 +129,7 @@ $.ajaxSetup({
                 $.ajax({
                     url: url,
                     type: 'POST',
-                    jsonType:'json',
+                    dataType:'json',
                     success: function(data) {
                         var count = parseInt(counter.text()) || 0;
                         var result = parseInt(data.status);
@@ -846,12 +846,14 @@ $.ajaxSetup({
                 // the /note/id/poke/ view need some fix  ?
 
 
-                $.ajax({
-                    type:'post',
-                    dataType:'json',
-                    url: url,
-                    success: function (data){
-                        var count = parseInt(counter.html()) || 0;
+                jQuery.when(
+                    $.ajax({
+                         type:'get',
+                         dataType:'json',
+                         url: url
+                    })
+                ).then(function success(data){
+                              var count = parseInt(counter.html()) || 0;
                         var result = parseInt(data.result);
 
                         if (result === 1) {
@@ -880,12 +882,19 @@ $.ajaxSetup({
                             var html = $(data);
                             util.modalSignIn(html);
                         }
-                    }
-                }).done(function(data){
-                    console.log(data);
-                })
-                ;
-            })
+                    },
+                     function fail(data){
+                          console.log('failed');
+                          html = $(data.responseText);
+                          util.modalSignIn(html);
+
+
+                     }
+                );
+
+
+
+            });
         }
     };
 
