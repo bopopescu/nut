@@ -1,12 +1,58 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.log import getLogger
+from django.core.exceptions import ObjectDoesNotExist
 
-from apps.core.models import Article
+from apps.core.models import Article, Selection_Article
 from apps.core.utils.image import HandleImage
 
 
+
 log = getLogger('django')
+
+class BaseSelectionArticleForm(forms.Form):
+    article_id = forms.CharField(required=False)
+    is_published = forms.BooleanField(required=False)
+    pub_time = forms.DateTimeField(required=False)
+
+    def get_article_obj(self):
+        return Article.objects.get(pk=self.cleaned_data['article_id'])
+
+    def clean_article(self):
+        article_id = self.cleaned_data['article_id']
+        try :
+            the_article = Article.objects.get(pk=article_id)
+        except ObjectDoesNotExist:
+            raise forms.ValidationError(_('can not find article'),
+                                         code='invalid_article_id ')
+        return article_id
+
+    def save(self):
+        _the_article = self.get_article_obj()
+        _is_published = self.cleaned_data.get('is_published', False)
+        _pub_time = self.cleaned_data.get('pub_time', None)
+
+        selection_article = Selection_Article(is_published=_is_published, pub_time=_pub_time)
+        selection_article.article = _the_article
+        try :
+            selection_article.save()
+        except Exception as e :
+            log(e)
+        return selection_article.id
+
+
+
+
+class CreateSelectionArticleForm(BaseSelectionArticleForm):
+    pass
+
+class EditSelectionArticleForm(BaseSelectionArticleForm):
+    pass
+
+class RemoveSelectionArticleForm(BaseSelectionArticleForm):
+    pass
+
+
 
 
 class BaseArticleForms(forms.Form):
@@ -77,6 +123,7 @@ class CreateArticleForms(BaseArticleForms):
         article.save()
 
         return article
+
 
 
 
