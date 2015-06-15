@@ -45,7 +45,7 @@ class BaseModel(models.Model):
             value = getattr(self, attr)
             if value is None:
                 continue
-            log.info(value)
+            # log.info(value)
             d[attr] = "%s" % getattr(self, attr)
         # log.info(d)
         return d
@@ -1184,7 +1184,7 @@ def user_post_note_notification(sender, instance, created, **kwargs):
     log.info(created)
     if issubclass(sender, Note) and created:
         log.info(instance.user)
-        if instance.user != instance.entity.user or instance.user.is_active >= instance.user.blocked:
+        if instance.user != instance.entity.user and instance.user.is_active >= instance.user.blocked:
             notify.send(instance.user, recipient=instance.entity.user, action_object=instance, verb='post note', target=instance.entity)
 
 post_save.connect(user_post_note_notification, sender=Note, dispatch_uid="user_post_note_action_notification")
