@@ -12,7 +12,7 @@
   text-align: center;
   border: 1px solid #f8f8f8;
   color: #414243;
-  font-size: 11px;
+  font-size: 12px;
   margin: 4px 4px 0 0;
 }
 .little-round-tag a {
@@ -950,6 +950,7 @@ a {
   /*background-color: #FBFBFB;*/
   font-size: 16px;
   min-height: 38px;
+  border-bottom: 1px solid #f0f0f0!important;
 }
 .nav-user-index > ul > li > a {
   border-radius: 0;
@@ -1116,7 +1117,7 @@ a {
   margin-left: 40px ;
 }
 .comment-time {
-  font-size: 11px;
+  font-size: 12px;
   color: #9D9E9F;
 }
 .comment-time:hover {
@@ -1500,6 +1501,9 @@ a:hover {
 .user-block i {
   color: #357ebd;
 }
+.user-block i.fa-plus {
+  color: #fff;
+}
 #detail_content #detail_content_right .section-list .section-title {
   font-size: 16px;
 }
@@ -1544,7 +1548,7 @@ a:hover {
   text-align: center;
   border: 1px solid #f8f8f8;
   color: #414243;
-  font-size: 11px;
+  font-size: 12px;
   margin: 4px 4px 0 0;
 }
 #detail_content #detail_content_right .section-list li.section .tag-list-all li a,
@@ -1597,7 +1601,7 @@ a:hover {
   font-size: 14px;
 }
 #detail_content #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .entity-content .entity-intro {
-  font-size: 11px;
+  font-size: 12px;
 }
 #detail_content #detail_content_right .section-list .need-bottom-border {
   border-bottom: 1px solid #f8f8f8;
@@ -1654,7 +1658,7 @@ a:hover {
   text-align: center;
   border: 1px solid #f8f8f8;
   color: #414243;
-  font-size: 11px;
+  font-size: 12px;
   margin: 4px 4px 0 0;
 }
 #detail_content #detail_content_left .detail-info-center .entity-tags li a {
@@ -1663,7 +1667,7 @@ a:hover {
 #detail_content #detail_content_left .detail-info-center .entity-status li {
   display: inline-block;
   color: #9d9e9f;
-  font-size: 11px;
+  font-size: 12px;
 }
 #detail_content #detail_content_left .detail-info-center .entity-status li i {
   margin-right: 5px;
@@ -1717,7 +1721,7 @@ a:hover {
   display: block;
 }
 .comment_operate .fa {
-  font-size: 11px;
+  font-size: 12px;
 }
 .note-comment-list .btn-comment,
 .note-comment-list .btn-cancel {
@@ -1788,7 +1792,6 @@ a:hover {
     max-height: 360px;
     max-width: 360px;
     margin: 0 auto ;
-    border: 1px solid #e6e6e6;
   }
   #detail_content_right {
     padding-left: 10px;
@@ -1807,6 +1810,19 @@ a:hover {
     -moz-background-clip: padding;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
+    -webkit-box-shadow: 0px 0px 3px #dddddd;
+    -moz-box-shadow: 0px 0px 3px #dddddd;
+    box-shadow: 0px 0px 3px #dddddd;
+  }
+  #detail_content_right .section.banner-holder {
+    padding: 0px;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  }
+  #detail_content_right .section.banner-holder img {
+    border-radius: 4px;
     -webkit-box-shadow: 0px 0px 3px #dddddd;
     -moz-box-shadow: 0px 0px 3px #dddddd;
     box-shadow: 0px 0px 3px #dddddd;

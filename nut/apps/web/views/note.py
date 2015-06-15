@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotAllowed
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
@@ -27,6 +27,8 @@ def poke(request, note_id):
             np.save()
             # notify.send(np.user, recipient=np.note.user, action_object=np, verb="poke note", target=np.note)
         return JSONResponse(data={'result':'1'})
+    else:
+        return HttpResponseNotAllowed
 
 
 __author__ = 'edison'

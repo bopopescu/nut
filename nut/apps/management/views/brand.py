@@ -117,9 +117,9 @@ class BrandEditView(BaseFormView):
         except Brand.DoesNotExist:
             raise Http404
         self.initial = brand.toDict()
+        log.info(self.initial)
 
         form = self.get_form_class(brand=brand)
-        # log.info(form)
         context = {
             'form': form,
             'brand': brand,
@@ -165,7 +165,7 @@ class BrandNameEditView(BaseFormView):
         except Brand.DoesNotExist:
             raise Http404
         self.initial = brand.toDict()
-
+        log.info(self.initial)
         form = self.get_form_class(brand=brand)
         # log.info(form)
         context = {
@@ -189,6 +189,7 @@ class BrandNameEditView(BaseFormView):
             'brand': brand,
         }
         return self.render_to_response(context)
+
 
 class BrandCreateView(BaseFormView):
 

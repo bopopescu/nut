@@ -37,8 +37,8 @@
                         <li><a href="#">{% trans 'settings' %}</a></li>
                         <li><a href="javascript:window.open('http://admin.guoku.com/management/entity/new/?url=' +encodeURIComponent(location.href), '_blank');">果库+</a></li>
                     </ul>
-                    <form class="navbar-form navbar-right">
-                        <input class="form-control" type="text" placeholder="{% trans "search" %}">
+                    <form class="navbar-form navbar-right" action="{% url 'management_search' %}">
+                        <input class="form-control" type="text" name="q" placeholder="{% trans "search" %}">
                     </form>
                 </div>
             </div>

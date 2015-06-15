@@ -28,12 +28,8 @@ class SearchForm(forms.Form):
         elif _type == "u":
             self.res = GKUser.search.query(_keyword).order_by('@weight', '-date_joined')
         else:
-            # self.res = Entity.search.query(_keyword)\
-            #            .annotate(lnumber=Count('likes'))\
-            #            .order_by('-lnumber')
             self.res = Entity.search.query(_keyword).order_by('@weight', '-created_time')
         return self.res
-
 
     def get_keyword(self):
         self.keyword = self.cleaned_data.get('q')
