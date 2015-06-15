@@ -75,6 +75,14 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.is_admin
 
     @property
+    def is_editor(self):
+        return self.is_active == GKUser.editor
+
+    @property
+    def is_chief_editor(self):
+        return self.is_admin
+
+    @property
     def is_blocked(self):
         if self.is_active == GKUser.blocked or self.active == GKUser.remove:
             return True
@@ -934,24 +942,36 @@ class Article(models.Model):
     def once_selection(self):
         res = hasattr(self,'selections') and (self.selections.count() > 0)
         return res
+
+    @property
+    def selection_count(self):
+        if not self.once_selection:
+            return 0
+        else:
+            return self.selections.count()
+
     @property
     def last_selection_time(self):
-        if not self.once_selection:
-            return ' Never'
-        else:
-            return self.selections.order_by('-pub_time')[0]
+        pubed_selection = self.selections.filter(is_published=True).order_by('-pub_time')
+        if  pubed_selection:
+            return pubed_selection[0].pub_time
+        else :
+            return _('Never')
+
+
 
 
 # use ForeignKey instead of  oneToOne for selection entity ,
 # this means , an article can be published many times , without first been removed from selection
 # this design is on propose
-#
+# selection_article's is_published is different from article's publish
+# editor can only control article's publish
+# only article manager can set selection_article's is_published property
 class Selection_Article(models.Model):
-    article = models.ForeignKey(Article, unique=True, related_name='selections')
+    article = models.ForeignKey(Article,unique=False, related_name='selections')
     is_published = models.BooleanField(default=False)
-    pub_time = models.DateTimeField(db_index=True,editable=True)
-
-
+    pub_time = models.DateTimeField(db_index=True,editable=True, null=True,blank=True)
+    create_time = models.DateTimeField(db_index=True, editable=False,auto_now_add=True, blank=True)
 
 
 class Media(models.Model):
