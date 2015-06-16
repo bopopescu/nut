@@ -63,10 +63,11 @@
                 this.setEditorValues(data);
         },
 
+
         bindEvents:function(){
             $('.fix-operate #save-draft').click(this.saveDraft.bind(this));
             $('.fix-operate #save-publish').click(this.savePublish.bind(this));
-
+            $('.fix-operate #return-list').click(this.returnList.bind(this));
         },
 
 
@@ -88,6 +89,11 @@
                     success,
                     fail
                 )
+        },
+
+        returnList: function(){
+            //var  =  collectFormValues[]
+            alert('not implement');
         },
 
         saveDraft:function(e){

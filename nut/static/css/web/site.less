@@ -1842,6 +1842,21 @@ a:hover{text-decoration:underline;}
             .title{
                 font-size: @title-size;
                 padding-bottom: 10px;
+                 .status{
+                      font-size: @primary-size;
+                      .border-radius(4px);
+                      .common-bordered();
+                      color: #fff;
+                      margin-left : 10px;
+                 }
+                 .article-status-1{
+                   background: red;
+                 }
+                 .article-status-2{
+                   background: blue;
+                 }
+
+
             }
             .info-list{
                 font-size:@primary-size;
@@ -1859,4 +1874,8 @@ a:hover{text-decoration:underline;}
 
         }
     }
+}
+
+.article-form-wrapper{
+    display:none;
 }

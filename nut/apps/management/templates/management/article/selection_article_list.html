@@ -1,5 +1,6 @@
 {% extends 'management/management_base.html' %}
-{% load i18n %}
+{% load i18n static %}
+{% load  common guoku %}
 
 {% block content %}
     <h1 class="page-header">精选文章</h1>
@@ -44,7 +45,7 @@
                             </div>
                         </td>
 
-                        <td>{{ sla.create_time|date:'Y-m-d H:i'}}</td>
+                        <td>{{ sla.create_time|format_time}}</td>
                         <td>{{ sla.article.selection_count}}</td>
                         <td>{{ sla.article.last_selection_time }}</td>
                         <td>
