@@ -30,10 +30,10 @@
                     <div class="article-item" article_id="{{ article.pk }}">
                         <div class="title">{{ article.title }}</div>
                         <div class="info-list">
-                            <div class="editor">{{ article.creator }}</div>
+                            <div class="editor">{{ article.creator.profile.nickname }}</div>
                             <div class="create-time">{{ article.updated_datetime }}e</div>
                             <div class="article-state">{{ article.get_publish_display }}</div>
-                            <div class="action edit">编辑</div>
+                            <div class="action edit"><a class="btn" href="{% url 'web_editor_article_edit' article.pk %}">编辑</a></div>
                             <div class="action preview">预览</div>
                             <div class="action delete">删除</div>
                         </div>
