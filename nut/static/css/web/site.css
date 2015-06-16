@@ -25,6 +25,9 @@
 .common-bordered {
   border: 1px solid #e6e6e6;
 }
+.bottom-bordered {
+  border-bottom: 1px solid #e6e6e6;
+}
 @-moz-document url-prefix() {
   fieldset {
     display: table-cell;
@@ -1844,4 +1847,36 @@ a:hover {
   .entity-selection .img-box a {
     width: 100%;
   }
+}
+#editor-articles .editor-action-list .editor-action {
+  font-size: 22px;
+  color: #9d9e9f;
+  margin: 20px 0px 10px 0px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e6e6e6;
+}
+#editor-articles .editor-action-list .editor-action .fa.fa-plus {
+  color: #9d9e9f;
+  margin-right: 10px;
+}
+#editor-articles #editor-article-list .article-item {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #e6e6e6;
+}
+#editor-articles #editor-article-list .article-item .title {
+  font-size: 22px;
+  padding-bottom: 10px;
+}
+#editor-articles #editor-article-list .article-item .info-list {
+  font-size: 14px;
+  color: #9d9e9f;
+  padding-bottom: 10px;
+}
+#editor-articles #editor-article-list .article-item .info-list div {
+  margin-right: 20px;
+  display: inline-block;
+}
+#editor-articles #editor-article-list .article-item .conten-digest {
+  padding-bottom: 10px;
 }

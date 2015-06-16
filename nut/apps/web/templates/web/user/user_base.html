@@ -7,7 +7,7 @@
 {% block description %}果库,{{ user.profile.nickname }},{{ user.profile.bio }}{% endblock %}
 
 
--{% block content %}
+{% block content %}
     {% url 'web_user_entity_like' user.pk as web_user_likes_url %}
     {% url 'web_user_post_note' user.pk as web_user_notes_url %}
     {% url 'web_user_tag' user.pk as web_user_tags_url %}

@@ -6,6 +6,9 @@
   ---------------------------------------------------*/
 /* Theme Variables
  ------------------------------------------*/
+.common-bordered {
+  border: 1px solid #e6e6e6;
+}
 .default-border {
   border: 1px solid #f1f2f3;
 }
@@ -91,6 +94,7 @@
   padding: 10px;
   overflow: auto;
   outline: none;
+  border: 1px solid #e6e6e6;
 }
 .note-editor .note-editable[contenteditable="false"] {
   background-color: #e5e5e5;
@@ -516,31 +520,33 @@
 .btn-group {
   border-right: 1px solid #f1f2f3;
 }
-.editor_wrap {
+#editor-container {
+  margin-top: 100px;
+}
+#editor-container .editor_wrap {
   display: block;
   margin-top: 30px;
   width: 600px;
   position: relative;
+  margin: 0 auto;
 }
-.editor_wrap .fix-operate {
-  position: absolute;
-  left: 600px;
-  width: 200px;
+#editor-container .editor_wrap .fix-operate {
+  position: fixed;
+  top: 100px;
+  right: 100px;
+  width: 100px;
   height: 120px;
 }
-.editor_wrap .fix-operate div {
-  height: 120px;
-  display: inline-block;
+#editor-container .editor_wrap .fix-operate .btn {
+  clear: both;
+  margin-bottom: 20px;
 }
-.editor_wrap .fix-operate .article-status-wrapper .article-submit {
-  text-align: center;
-}
-.editor_wrap .cover {
+#editor-container .editor_wrap .cover {
   height: 90px;
   width: 100%;
   background-color: #f7f8f9;
 }
-.editor_wrap .cover #cover-upload-button {
+#editor-container .editor_wrap .cover #cover-upload-button {
   height: 100%;
   width: 100%;
   position: relative;
@@ -554,7 +560,7 @@
   direction: ltr;
   cursor: pointer;
 }
-.editor_wrap .cover .icon-wrapper {
+#editor-container .editor_wrap .cover .icon-wrapper {
   padding-top: 15px;
   width: 40px;
   height: 10px;
@@ -562,11 +568,11 @@
   margin: 0 auto;
   opacity: 0.4;
 }
-.editor_wrap .cover .icon-wrapper i {
+#editor-container .editor_wrap .cover .icon-wrapper i {
   font-size: 3.7em;
 }
-.editor_wrap .title-input,
-.editor_wrap .title-input:focus {
+#editor-container .editor_wrap .title-input,
+#editor-container .editor_wrap .title-input:focus {
   width: 100%;
   line-height: 60px;
   border: none;
@@ -574,10 +580,10 @@
   font-size: 38px;
   outline: 0;
 }
-.editor_wrap blockquote {
+#editor-container .editor_wrap blockquote {
   background-color: #f9f9f9;
   color: #5f5f5f;
 }
-.editor_wrap .guoku_editor {
+#editor-container .editor_wrap .guoku_editor {
   font-size: 16px;
 }
