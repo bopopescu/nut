@@ -1,4 +1,4 @@
-from apps.core.models import Entity, Buy_Link, Note, GKUser, Selection_Entity, Sina_Token, Taobao_Token, User_Follow
+from apps.core.models import Entity, Buy_Link, Note, GKUser, Selection_Entity, Sina_Token, Taobao_Token, WeChat_Token, User_Follow
 from apps.notifications.models import JpushToken
 
 from django.db import models
@@ -243,13 +243,23 @@ class APISelection_Entity(Selection_Entity):
         proxy = True
 
 
-# API JPUSH
+class APIWeChatToken(WeChat_Token):
+
+    class Meta:
+        proxy = True
+
+    def __unicode__(self):
+        return self.unionid
+
+
+# TODO API JPUSH
 class APIJpush(JpushToken):
 
     class Meta:
         proxy = True
 
-# API Seseion
+
+# TODO API Seseion
 class APISession_Key(Session_Key):
 
     class Meta:
