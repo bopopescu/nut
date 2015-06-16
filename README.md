@@ -121,7 +121,10 @@ class EntityLikeManager(models.Manager):
 ```
 
 
-
+## 导出数据
+```
+/opt/mysql5/bin/mysqldump --single-transaction --flush-logs -u root core --ignore-table=core.core_entity_like --ignore-table=core.notifications_notification > core.sql
+```
 
 ### Emial
  <jiaxin@guoku.com>

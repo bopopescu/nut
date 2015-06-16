@@ -84,7 +84,6 @@ def update_email(request):
         return ErrorJsonResponse(status=400)
 
 
-
 @csrf_exempt
 @check_sign
 def rest_password(request):
@@ -196,8 +195,6 @@ def entity_like(request, user_id):
         return ErrorJsonResponse(status=404)
 
     _key = request.GET.get('session')
-
-
     _timestamp = request.GET.get('timestamp', datetime.now())
     if _timestamp != None:
         _timestamp = datetime.fromtimestamp(float(_timestamp))
@@ -219,7 +216,6 @@ def entity_like(request, user_id):
     if last < 0:
         return SuccessJsonResponse(res)
     res['timestamp'] = time.mktime(entities[last].created_time.timetuple())
-
 
     try:
         _session = Session_Key.objects.get(session_key=_key)
