@@ -20,8 +20,9 @@
             <div class="editor_wrap">
                 <form id="article_form" method="post">
                     <div class="fix-operate">
-                       <span   id="save-draft" class="btn btn-danger">保存草稿</span>
-                       <span  id="save-publish" class="btn btn-primary">发布文章</span>
+                        <span  id="return-list" class="btn btn-primary">返回列表</span>
+                       <span   id="save-draft"  class="btn btn-danger">保存草稿</span>
+                       <span   id="save-publish" class="btn btn-primary">发布文章</span>
                     </div>
                     <div class="cover article-cover">
                         <div class="icon-wrapper">
@@ -37,7 +38,7 @@
             </div>
             <div class="article-form-wrapper">
                        <form id="real_article_form" method="post">
-                           <div class="article-form-wrapper">
+                           <div class="">
                             <input type="text" id="artile_id" value="{{ pk }}">
                             {% csrf_token %}
                             {% for field in form %}
