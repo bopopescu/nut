@@ -953,6 +953,12 @@ class Article(models.Model):
 
     def __unicode__(self):
         return self.title
+    @property
+    def digest(self):
+        return self.content
+    @property
+    def status(self):
+        return self.publish
 
     @property
     def cover_url(self):

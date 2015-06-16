@@ -1,0 +1,59 @@
+{% extends 'web/base.html' %}
+{% load i18n static %}
+{% load  common guoku %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/web/style.css' %}">
+    <link href="{% static 'summernote/summernote.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %} 果库图文－编辑文章 {% endblock %}
+
+{% block keyword %}果库, 图文关键字{% endblock %}
+{% block description %}果库, 编辑图文， 描述{% endblock %}
+
+
+
+{% block content %}
+    <div class="container" id="editor-container">
+        <div class="row">
+            <div class="editor_wrap">
+                <form id="article_form" method="post">
+                    <div class="fix-operate">
+                       <span   id="save-draft" class="btn btn-danger">保存草稿</span>
+                       <span  id="save-publish" class="btn btn-primary">发布文章</span>
+                    </div>
+                    <div class="cover article-cover">
+                        <div class="icon-wrapper">
+                            <i class="fa fa-file-image-o img-icon"></i>
+                        </div>
+                        <input type="file" accept="image/*" name="upload-file" id="cover-upload-button">
+
+                    </div>
+                    <div class="guoku_editor"></div>
+
+
+                </form>
+            </div>
+            <div class="article-form-wrapper">
+                       <form id="real_article_form" method="post">
+                           <div class="article-form-wrapper">
+                            <input type="text" id="artile_id" value="{{ pk }}">
+                            {% csrf_token %}
+                            {% for field in form %}
+                                {{ field }}{{ field.error }}
+                            {% endfor %}
+                           </div>
+                        </form>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'summernote/summernote.js' %}"></script>
+    <script src="{% static 'js/web/editor.js' %}"></script>
+
+{% endblock %}

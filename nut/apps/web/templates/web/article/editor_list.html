@@ -1,0 +1,54 @@
+{% extends 'web/base.html' %}
+{% load i18n static %}
+{% load  common guoku %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/web/style.css' %}">
+{% endblock %}
+
+{% block title %} 果库图文－编辑列表 {% endblock %}
+
+{% block keyword %}果库, 图文关键字{% endblock %}
+{% block description %}果库, 图文列表， 描述{% endblock %}
+{% block content %}
+    <div class="container goods_detail">
+     <h2 class="hidden">图文列表</h2>
+     <div class="row" id="editor-articles" >
+           <div class="article_container col-sm-10 col-sm-offset-1">
+               <div class="editor-action-list">
+                    <a href="{% url 'web_editor_article_create' %}">
+                    <div class="editor-action">
+                        <i class="fa fa-plus"></i>新建
+                    </div>
+                    </a>
+
+               </div>
+               <div id="editor-article-list">
+
+                   {% for article in articles %}
+
+                    <div class="article-item" article_id="{{ article.pk }}">
+                        <div class="title">{{ article.title }}</div>
+                        <div class="info-list">
+                            <div class="editor">{{ article.creator }}</div>
+                            <div class="create-time">{{ article.updated_datetime }}e</div>
+                            <div class="article-state">{{ article.get_publish_display }}</div>
+                            <div class="action edit">编辑</div>
+                            <div class="action preview">预览</div>
+                            <div class="action delete">删除</div>
+                        </div>
+                        <div class="conten-digest">
+                            {{ article.content }}
+
+                        </div>
+                    </div>
+                   {% endfor %}
+
+               </div>
+
+           </div>
+
+     </div>
+    </div>
+
+{% endblock %}

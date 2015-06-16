@@ -19,7 +19,6 @@ from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 log = getLogger('django')
 
 from django.views.generic import ListView,View
-from django.views.generic.edit import FormView
 
 from apps.core.models import Selection_Article
 from apps.core.forms.article import CreateSelectionArticleForm
