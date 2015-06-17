@@ -6,7 +6,7 @@
  * Copyright 2013-2015 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
- * Date: 2015-06-08T13:44Z
+ * Date: 2015-06-17T15:53Z
  */
 (function (factory) {
   /* global define */
@@ -2337,7 +2337,7 @@
       // toolbar
       toolbar: [
         //['style', ['style']],
-        ['font', ['header','bold', 'italic', 'underline', 'clear','quote']],
+        ['font', ['header','bold', 'italic', 'underline','quote']],
         // ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
         //['fontname', ['fontname']],
         //['fontsize', ['fontsize']],
@@ -2346,9 +2346,9 @@
         ['para', ['ul', 'ol']],
         //['height', ['height']],
         //['table', ['table']],
-        ['insert', ['link', 'picture', 'hr']],
+        ['insert', ['link', 'picture']],
         //['view', ['fullscreen', 'codeview']],
-        //['help', ['help']]
+        ['clear', ['clear']]
       ],
 
       plugin : { },
@@ -6446,11 +6446,12 @@
           value: 'none'
         });
 
-        var content = '<div class="btn-group">' + fullButton + halfButton + quarterButton + '</div>' +
-                      '<div class="btn-group">' + leftButton + rightButton + justifyButton + '</div>' +
-                      '<div class="btn-group">' + roundedButton + circleButton + thumbnailButton + noneButton + '</div>' +
-                      '<div class="btn-group">' + removeButton + '</div>';
-        return tplPopover('note-image-popover', content);
+        //var content = '<div class="btn-group">' + fullButton + halfButton + quarterButton + '</div>' +
+                         //   '<div class="btn-group">' + leftButton + rightButton + justifyButton + '</div>' +
+                      //'<div class="btn-group">' + roundedButton + circleButton + thumbnailButton + noneButton + '</div>' +
+                      //'<div class="btn-group">' + removeButton + '</div>';
+          var content = '<div class="btn-group">' + leftButton + rightButton + justifyButton + '</div>';
+          return tplPopover('note-image-popover', content);
       };
 
       var tplAirPopover = function () {
