@@ -11,12 +11,12 @@
   display: inline-block;
   text-align: center;
   border: 1px solid #f8f8f8;
-  color: #414243;
+  color: #424242;
   font-size: 12px;
   margin: 4px 4px 0 0;
 }
 .little-round-tag a {
-  color: #414243;
+  color: #424242;
 }
 .little-gray-font {
   font-size: 12px;
@@ -24,6 +24,9 @@
 }
 .common-bordered {
   border: 1px solid #e6e6e6;
+}
+.bottom-bordered {
+  border-bottom: 1px solid #e6e6e6;
 }
 @-moz-document url-prefix() {
   fieldset {
@@ -44,7 +47,7 @@ h4,
 }
 body {
   padding-top: 100px;
-  color: #414243;
+  color: #424242;
   background-color: #ffffff;
   -webkit-font-smoothing: subpixel-antialiased;
 }
@@ -320,6 +323,9 @@ a {
   overflow: hidden;
   text-align: center;
   /*border-bottom: 1px solid #eeeddd;*/
+}
+.selection-item .img-box a {
+  width: 100%;
 }
 /*.img-box .alt_hover{
     display: none;
@@ -1544,13 +1550,13 @@ a:hover {
   display: inline-block;
   text-align: center;
   border: 1px solid #f8f8f8;
-  color: #414243;
+  color: #424242;
   font-size: 12px;
   margin: 4px 4px 0 0;
 }
 #detail_content #detail_content_right .section-list li.section .tag-list-all li a,
 #detail_content #detail_content_right .section-list li.section .cate-list-all li a {
-  color: #414243;
+  color: #424242;
 }
 #detail_content #detail_content_right .section-list li.section .tag-list-all li:hover,
 #detail_content #detail_content_right .section-list li.section .cate-list-all li:hover {
@@ -1578,7 +1584,7 @@ a:hover {
   margin: 0px 5px 5px 0px;
 }
 #detail_content #detail_content_right .section-list li.section .pop-entity-list li a {
-  color: #414243;
+  color: #424242;
 }
 #detail_content #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper {
   height: 52px;
@@ -1654,12 +1660,12 @@ a:hover {
   display: inline-block;
   text-align: center;
   border: 1px solid #f8f8f8;
-  color: #414243;
+  color: #424242;
   font-size: 12px;
   margin: 4px 4px 0 0;
 }
 #detail_content #detail_content_left .detail-info-center .entity-tags li a {
-  color: #414243;
+  color: #424242;
 }
 #detail_content #detail_content_left .detail-info-center .entity-status li {
   display: inline-block;
@@ -1841,4 +1847,81 @@ a:hover {
   .entity-selection .img-box a {
     width: 100%;
   }
+}
+#editor-articles .editor-action-list .editor-action {
+  font-size: 22px;
+  color: #9d9e9f;
+  margin: 20px 0px 10px 0px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e6e6e6;
+}
+#editor-articles .editor-action-list .editor-action .fa.fa-plus {
+  color: #9d9e9f;
+  margin-right: 10px;
+}
+#editor-articles #editor-article-list .article-item {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #e6e6e6;
+}
+#editor-articles #editor-article-list .article-item .title {
+  font-size: 22px;
+  padding-bottom: 10px;
+}
+#editor-articles #editor-article-list .article-item .title .status {
+  font-size: 14px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #e6e6e6;
+  color: #fff;
+  margin-left: 10px;
+}
+#editor-articles #editor-article-list .article-item .title .article-status-1 {
+  background: red;
+}
+#editor-articles #editor-article-list .article-item .title .article-status-2 {
+  background: blue;
+}
+#editor-articles #editor-article-list .article-item .info-list {
+  font-size: 14px;
+  color: #9d9e9f;
+  padding-bottom: 10px;
+}
+#editor-articles #editor-article-list .article-item .info-list div {
+  margin-right: 20px;
+  display: inline-block;
+}
+#editor-articles #editor-article-list .article-item .conten-digest {
+  padding-bottom: 10px;
+}
+.article-form-wrapper {
+  display: none;
+}
+.article-wrapper {
+  font-family: 'Open Sans', 'Helvetica Neue', 'Arial', 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
+  color: #424242;
+}
+.article-wrapper ul {
+  list-style-type: disc;
+}
+.article-wrapper li {
+  list-style: circle!important;
+  display: list-item;
+}
+.article-wrapper .title-wrapper h2 {
+  font-size: 32px;
+}
+.article-wrapper .info-wrapper {
+  margin: 20px 0px;
+  color: #9d9e9f;
+}
+.article-wrapper .info-wrapper span {
+  margin-right: 10px;
+}
+.article-wrapper .cover-wrapper {
+  margin-bottom: 20px;
 }

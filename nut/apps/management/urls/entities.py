@@ -1,10 +1,12 @@
 from django.conf.urls import url, patterns
 # from apps.management.views.entities import EntityListView
+from apps.management.views.entities import EntityListView
 
 urlpatterns = patterns(
     'apps.management.views.entities',
     # url(r'^$', EntityListView.as_view(), name='management_entity_list'),
     url(r'^$', 'list', name='management_entity_list'),
+    url(r'^list/$',EntityListView.as_view() , name='management_entity_list_new'),
     url(r'^new/$', 'create', name='management_entity_create'),
     url(r'^(?P<entity_id>\d+)/edit/$', 'edit', name='management_entity_edit'),
 

@@ -18,7 +18,7 @@
 
     {% block css %}{% endblock %}
 </head>
-<body>
+<body class="guoku-management">
     {% block navbar %}
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container-fluid">
@@ -93,6 +93,11 @@
 
                     <ul class="nav nav-sidebar">
                         {% url 'management_article_list' as management_article_list_url  %}
+                        {% url  'management_selection_article_list' as management_selection_article_list_url %}
+
+                       <li {% if management_selection_article_list_url in request.path %} class="active"{% endif %}>
+                            <a href="{{ management_selection_article_list_url }}"><i class="fa fa-star"></i>&nbsp; 精选文章</a>
+                        </li>
                         <li {% if management_article_list_url in request.path %}class="active"{% endif %}>
                             <a href="{{ management_article_list_url }}"><i class="fa fa-file-text"></i>&nbsp;{% trans 'article' %}</a>
                         </li>

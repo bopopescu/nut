@@ -15,8 +15,8 @@ class PageNotAnInteger(InvalidPage):
 
 class ExtentPaginator(Paginator):
 
-    def __init__(self, object_list, per_page, range_num=5):
-        super(ExtentPaginator, self).__init__(object_list, per_page)
+    def __init__(self, object_list, per_page ,range_num=5, *args, **kwargs ):
+        super(ExtentPaginator, self).__init__(object_list, per_page,  *args, **kwargs )
         self.range_num = range_num
 
 

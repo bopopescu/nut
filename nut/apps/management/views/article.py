@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.log import getLogger
+from django.core.exceptions import ObjectDoesNotExist
 
 from apps.core.forms.article import CreateArticleForms, EditArticleForms, UploadCoverForms
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
@@ -12,9 +13,90 @@ from apps.core.models import Article
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.management.decorators import staff_only
 
+from apps.core.mixins.views import SortMixin
+from apps.core.extend.paginator import ExtentPaginator as Jpaginator
+
 log = getLogger('django')
 
+from django.views.generic import ListView,View
 
+from apps.core.models import Selection_Article
+from apps.core.forms.article import CreateSelectionArticleForm
+
+
+from braces.views import UserPassesTestMixin, JSONResponseMixin
+
+# TODO : add authorise mixin here
+class SelectionArticleList(SortMixin,ListView):
+    template_name = 'management/article/selection_article_list.html'
+    model = Selection_Article
+    paginate_by = 5
+    paginator_class = Jpaginator
+    context_object_name = 'selection_article_list'
+    default_sort_params = ('create_time','desc')
+
+    def sort_queryset(self, qs, sort_by, order):
+        if sort_by:
+            qs = qs.order_by(sort_by)
+        if order =='desc':
+            qs = qs.reverse()
+        return qs
+
+
+
+class CreateSelectionArticle(UserPassesTestMixin, JSONResponseMixin , View):
+
+    def test_func(self, user):
+        return  user.is_chief_editor
+    # TODO : use POST for data alter
+    def get(self, request, article_id  , *args, **kwargs):
+        _form = CreateSelectionArticleForm(data={'article_id':article_id})
+        res = {}
+        if _form.is_valid():
+            _sid = _form.save()
+            res['status'] = 'success'
+            res['selection_article_id'] = _sid
+        else :
+            res['status'] = 'fail'
+            res['message'] = 'article id not found'
+
+        return self.render_json_response(res)
+
+
+
+class RemoveSelectionArticle(UserPassesTestMixin, JSONResponseMixin, View):
+    def test_func(self, user):
+        return  user.is_chief_editor
+    # TODO : use POST for data alter
+    def get(self, request, selection_article_id, *args, **kwargs):
+        res = {}
+        try:
+            selection_article = Selection_Article.objects.get(pk=selection_article_id)
+        except ObjectDoesNotExist:
+            res['status'] = 'fail'
+            res['message'] = 'selection article id not found'
+            return self.render_json_response(res)
+
+        selection_article.delete()
+        res['status'] = 'success'
+        res['selection_article_id'] = selection_article_id
+        return self.render_json_response(res)
+
+
+class ArticleList(UserPassesTestMixin,SortMixin,ListView):
+
+    def test_func(self, user):
+        return  user.is_chief_editor
+
+    template_name = 'management/article/list.html'
+    model = Article
+    paginate_by = 5
+    paginator_class = Jpaginator
+    context_object_name = 'articles'
+    default_sort_params = ('updated_dateime', 'desc')
+
+
+# the following function view is deprecated
 @login_required
 @staff_only
 def list(request, template="management/article/list.html"):

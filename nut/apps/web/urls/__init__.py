@@ -83,6 +83,8 @@ urlpatterns += patterns(
     url(r'^event/', include('apps.web.urls.event')),
     url(r'^t/', include('apps.web.urls.tag')),
     url(r'^tag/(?P<tag_text>\w+)/$', 'tag.text_to_detail', name='web_tag_text',),
+    url(r'^articles/',include('apps.web.urls.article')),
+
 )
 
 urlpatterns += patterns(
@@ -93,5 +95,7 @@ urlpatterns += patterns(
 urlpatterns += patterns('',
             url(r'^captcha/', include('captcha.urls')),
         )
+
+
 
 __author__ = 'edison7500'
