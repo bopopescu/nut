@@ -90,7 +90,22 @@ class ArticleList(UserPassesTestMixin,SortMixin,ListView):
 
     template_name = 'management/article/list.html'
     model = Article
-    paginate_by = 5
+    queryset = Article.objects.filter(publish=Article.published)
+    paginate_by = 30
+    paginator_class = Jpaginator
+    context_object_name = 'articles'
+    default_sort_params = ('updated_dateime', 'desc')
+
+
+class DraftArticleList(UserPassesTestMixin, SortMixin, ListView):
+
+    def test_func(self, user):
+        return  user.is_chief_editor
+
+    template_name = 'management/article/draft_list.html'
+    model = Article
+    queryset = Article.objects.filter(publish=Article.draft)
+    paginate_by = 30
     paginator_class = Jpaginator
     context_object_name = 'articles'
     default_sort_params = ('updated_dateime', 'desc')
