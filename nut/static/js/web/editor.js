@@ -11,11 +11,12 @@
 
     EditorApp.prototype={
         initSummernote: function(){
+          var that = this ;
           this.summer = $('.guoku_editor').summernote({
             height: 700,
             focus: true,
             onImageUpload: function(file, editor, welEditable) {
-                this.sendFile(file, editor, welEditable);
+                that.sendFile(file, editor, welEditable);
             }
            });
 
@@ -64,13 +65,12 @@
         },
 
 
-        bindEvents:function(){
+        bindEvents:function() {
+
             $('.fix-operate #save-draft').click(this.saveDraft.bind(this));
             $('.fix-operate #save-publish').click(this.savePublish.bind(this));
             $('.fix-operate #return-list').click(this.returnList.bind(this));
         },
-
-
         saveArticle: function(data, success,fail){
             //the article is is useless
             function k(){}
@@ -125,18 +125,20 @@
         },
 
         sendFile:function(file , callback){
+
             var  data = new FormData();
             data.append("file", file[0]);
             $.ajax({
                 data: data,
                 type: "POST",
-                url: "{% url 'management_upload_image' %}",
+                //TODO:
+                url: "/management/media/upload/image/",
                 cache: false,
                 contentType: false,
                 processData: false,
                 success: function(url) {
                     //handel
-                   callback(url);
+                    $('.guoku_editor').summernote('insertImage', url);
 
                 },
                 error: function(){

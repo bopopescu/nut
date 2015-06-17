@@ -1905,6 +1905,13 @@ a:hover {
   font-family: 'Open Sans', 'Helvetica Neue', 'Arial', 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
   color: #424242;
 }
+.article-wrapper ul {
+  list-style-type: disc;
+}
+.article-wrapper li {
+  list-style: circle!important;
+  display: list-item;
+}
 .article-wrapper .title-wrapper h2 {
   font-size: 32px;
 }
