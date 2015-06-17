@@ -29,6 +29,7 @@
 
                     <div class="article-item" article_id="{{ article.pk }}">
                         <div class="title">
+                            {% if article. %}
                             <a  href="{% url 'web_article_page' article.pk  %}" >
                             {{ article.title }}
                             </a>
