@@ -15,8 +15,10 @@
           this.summer = $('.guoku_editor').summernote({
             height: 700,
             focus: true,
-            onImageUpload: function(file, editor, welEditable) {
-                that.sendFile(file, editor, welEditable);
+            onImageUpload: function(file) {
+                that.sendFile(file, function(url){
+                    $('.guoku_editor').summernote('insertImage', url);
+                });
             }
            });
 
@@ -57,7 +59,7 @@
             return $(selector).css("backgroundImage");
         },
         setBackgroundImg:function(selector , url){
-            $(selector).css({"backgroundImage":url});
+            $(selector).css({"backgroundImage": 'url('+ url+')' });
         },
         fillSummernote: function(){
             var data = this.collectFormValues();
@@ -70,7 +72,30 @@
             $('.fix-operate #save-draft').click(this.saveDraft.bind(this));
             $('.fix-operate #save-publish').click(this.savePublish.bind(this));
             $('.fix-operate #return-list').click(this.returnList.bind(this));
+            $('.article-cover').on('change','#cover-upload-button',this.onCoverUpload.bind(this));
+
         },
+
+        getFileFromEvent: function(e){
+            var files = e.currentTarget.files
+            return files ;
+        },
+
+        setCover: function(url){
+            this.setBackgroundImg('.cover.article-cover', url);
+            $('#id_cover').val(url);
+            return ;
+        },
+        onCoverUpload: function(e){
+            var that = this;
+            var files = this.getFileFromEvent(e);
+            if (files){
+
+                this.sendFile(files, this.setCover.bind(this));
+            }
+
+        },
+
         saveArticle: function(data, success,fail){
             //the article is is useless
             function k(){}
@@ -125,7 +150,7 @@
         },
 
         sendFile:function(file , callback){
-
+            callback = callback || function(){};
             var  data = new FormData();
             data.append("file", file[0]);
             $.ajax({
@@ -137,12 +162,11 @@
                 contentType: false,
                 processData: false,
                 success: function(url) {
-                    //handel
-                    $('.guoku_editor').summernote('insertImage', url);
+                    callback(url)
 
                 },
                 error: function(){
-
+                    console.log('FILE UPLOAD FAIL')
                 }
             });
         }
