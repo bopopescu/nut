@@ -122,7 +122,7 @@
           //this.saveArticle(data, this.saveOK, this.saveFail);
           //  e.preventDefault();
             var host = window.location.host;
-            window.location ='http://' + host+'/articles/editor/';
+            window.location ='http://' + host+'/articles/edit/';
 
         },
 
