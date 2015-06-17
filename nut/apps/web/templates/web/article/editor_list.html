@@ -1,0 +1,61 @@
+{% extends 'web/base.html' %}
+{% load i18n static %}
+{% load  common guoku %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/web/style.css' %}">
+{% endblock %}
+
+{% block title %} 果库图文－编辑列表 {% endblock %}
+
+{% block keyword %}果库, 图文关键字{% endblock %}
+{% block description %}果库, 图文列表， 描述{% endblock %}
+{% block content %}
+    <div class="container goods_detail">
+     <h2 class="hidden">图文列表</h2>
+     <div class="row" id="editor-articles" >
+           <div class="article_container col-sm-10 col-sm-offset-1">
+               <div class="editor-action-list">
+                    <a href="{% url 'web_editor_article_create' %}">
+                    <div class="editor-action">
+                        <i class="fa fa-plus"></i>新建
+                    </div>
+                    </a>
+
+               </div>
+               <div id="editor-article-list">
+
+                   {% for article in articles %}
+
+                    <div class="article-item" article_id="{{ article.pk }}">
+                        <div class="title">
+                            <a  href="{% url 'web_article_page' article.pk  %}" >
+                            {{ article.title }}
+                            </a>
+                            <span class="status article-status-{{ article.publish }}">{{ article.get_publish_display }}</span></div>
+                        <div class="info-list">
+                            <div class="editor">作者：{{ article.creator.profile.nickname }}</div>
+                            <div class="create-time">{{ article.updated_datetime|format_time }}</div>
+{#                            <div class="article-state">{{ article.get_publish_display }}</div>#}
+                            <div class="action edit"><a class="btn" href="{% url 'web_editor_article_edit' article.pk %}">编辑</a></div>
+                            <div class="action preview"><a class="btn" href="{% url 'web_article_page' article.pk  %}" >预览</a></div>
+                            <div class="action delete">删除</div>
+                        </div>
+                        <div class="conten-digest">
+                            {{ article.content }}
+
+                        </div>
+                    </div>
+                   {% endfor %}
+
+               </div>
+               {% include 'web/article/paginator.html' %}
+
+           </div>
+
+     </div>
+    </div>
+
+
+
+{% endblock %}

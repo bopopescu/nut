@@ -81,6 +81,14 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.is_admin
 
     @property
+    def is_editor(self):
+        return self.is_active == GKUser.editor
+
+    @property
+    def is_chief_editor(self):
+        return self.is_admin
+
+    @property
     def is_blocked(self):
         if self.is_active == GKUser.blocked or self.active == GKUser.remove:
             return True
@@ -925,9 +933,8 @@ class WeChat_Token(BaseModel):
 # TODO: article model
 class Article(models.Model):
 
-    (remove, draft, published, selection) = xrange(4)
+    (remove, draft, published) = xrange(3)
     ARTICLE_STATUS_CHOICES = [
-        (selection, _("selection")),
         (published, _("published")),
         (draft, _("draft")),
         (remove, _("remove")),
@@ -946,12 +953,53 @@ class Article(models.Model):
 
     def __unicode__(self):
         return self.title
+    @property
+    def digest(self):
+        return self.content
+    @property
+    def status(self):
+        return self.publish
 
     @property
     def cover_url(self):
         if self.cover:
             return "http://imgcdn.guoku.com/%s" % self.cover
         return "%s%s" % (settings.STATIC_URL, 'images/article/default_cover.jpg')
+
+    @property
+    def once_selection(self):
+        res = hasattr(self,'selections') and (self.selections.count() > 0)
+        return res
+
+    @property
+    def selection_count(self):
+        if not self.once_selection:
+            return 0
+        else:
+            return self.selections.count()
+
+    @property
+    def last_selection_time(self):
+        pubed_selection = self.selections.filter(is_published=True).order_by('-pub_time')
+        if  pubed_selection:
+            return pubed_selection[0].pub_time
+        else :
+            return _('Never')
+
+
+
+
+# use ForeignKey instead of  oneToOne for selection entity ,
+# this means , an article can be published many times , without first been removed from selection
+# this design is on propose
+# selection_article's is_published is different from article's publish
+# editor can only control article's publish
+# only article manager can set selection_article's is_published property
+class Selection_Article(models.Model):
+    article = models.ForeignKey(Article,unique=False, related_name='selections')
+    is_published = models.BooleanField(default=False)
+    pub_time = models.DateTimeField(db_index=True,editable=True, null=True,blank=True)
+    create_time = models.DateTimeField(db_index=True, editable=False,auto_now_add=True, blank=True)
 
 
 class Media(models.Model):

@@ -1,12 +1,12 @@
 /**
- * Super simple wysiwyg editor on Bootstrap v0.6.7
+ * Super simple wysiwyg editor on Bootstrap v0.6.8
  * http://summernote.org/
  *
  * summernote.js
  * Copyright 2013-2015 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
- * Date: 2015-05-17T06:58Z
+ * Date: 2015-06-08T13:44Z
  */
 (function (factory) {
   /* global define */
@@ -18,7 +18,7 @@
     factory(window.jQuery);
   }
 }(function ($) {
-
+  
 
 
   if (!Array.prototype.reduce) {
@@ -75,7 +75,7 @@
           }
         }
       }
-
+  
       return res;
     };
   }
@@ -348,7 +348,7 @@
         return memo + fn(v);
       }, 0);
     };
-
+  
     /**
      * returns a copy of the collection with array type.
      * @param {Collection} collection - collection eg) node.childNodes, ...
@@ -360,7 +360,7 @@
       }
       return result;
     };
-
+  
     /**
      * cluster elements by predicate function.
      *
@@ -381,7 +381,7 @@
         return memo;
       }, [[head(array)]]);
     };
-
+  
     /**
      * returns a copy of the array with all falsy values removed
      *
@@ -435,7 +435,7 @@
       return array[idx - 1];
     };
 
-
+  
     return { head: head, last: last, initial: initial, tail: tail,
              prev: prev, next: next, find: find, contains: contains,
              all: all, sum: sum, from: from,
@@ -602,7 +602,11 @@
       return node && /^DIV|^P|^LI|^H[1-7]/.test(node.nodeName.toUpperCase());
     };
 
+    var isHeader = function(node){
+        return /^H[1-7]/.test(node.nodeName.toUpperCase());
+    }
     var isLi = makePredByNodeName('LI');
+
 
     var isPurePara = function (node) {
       return isPara(node) && !isLi(node);
@@ -778,7 +782,6 @@
         if (!isEditable(el)) {
           ancestors.push(el);
         }
-
         return pred(el);
       });
       return ancestors;
@@ -1035,12 +1038,12 @@
     var nextPoint = function (point, isSkipInnerOffset) {
       var node, offset;
 
-      if (nodeLength(point.node) === point.offset) {
-        if (isEditable(point.node)) {
+      if (nodeLength(point.node) === point.offset) { //right edge
+        if (isEditable(point.node)) {//reach the end of editor
           return null;
         }
 
-        node = point.node.parentNode;
+        node = point.node.parentNode;//parent node for offset
         offset = position(point.node) + 1;
       } else if (hasChildren(point.node)) {
         node = point.node.childNodes[point.offset];
@@ -1069,7 +1072,7 @@
 
     /**
      * returns whether point is visible (can set cursor) or not.
-     *
+     * 
      * @param {BoundaryPoint} point
      * @return {Boolean}
      */
@@ -1463,6 +1466,7 @@
       isTable: isTable,
       isCell: isCell,
       isBlockquote: isBlockquote,
+      isHeader: isHeader,//add by An
       isBodyContainer: isBodyContainer,
       isAnchor: isAnchor,
       isDiv: makePredByNodeName('DIV'),
@@ -1534,7 +1538,7 @@
      */
     var textRangeToPoint = function (textRange, isStart) {
       var container = textRange.parentElement(), offset;
-
+  
       var tester = document.body.createTextRange(), prevContainer;
       var childNodes = list.from(container.childNodes);
       for (offset = 0; offset < childNodes.length; offset++) {
@@ -1547,42 +1551,42 @@
         }
         prevContainer = childNodes[offset];
       }
-
+  
       if (offset !== 0 && dom.isText(childNodes[offset - 1])) {
         var textRangeStart = document.body.createTextRange(), curTextNode = null;
         textRangeStart.moveToElementText(prevContainer || container);
         textRangeStart.collapse(!prevContainer);
         curTextNode = prevContainer ? prevContainer.nextSibling : container.firstChild;
-
+  
         var pointTester = textRange.duplicate();
         pointTester.setEndPoint('StartToStart', textRangeStart);
         var textCount = pointTester.text.replace(/[\r\n]/g, '').length;
-
+  
         while (textCount > curTextNode.nodeValue.length && curTextNode.nextSibling) {
           textCount -= curTextNode.nodeValue.length;
           curTextNode = curTextNode.nextSibling;
         }
-
+  
         /* jshint ignore:start */
         var dummy = curTextNode.nodeValue; // enforce IE to re-reference curTextNode, hack
         /* jshint ignore:end */
-
+  
         if (isStart && curTextNode.nextSibling && dom.isText(curTextNode.nextSibling) &&
             textCount === curTextNode.nodeValue.length) {
           textCount -= curTextNode.nodeValue.length;
           curTextNode = curTextNode.nextSibling;
         }
-
+  
         container = curTextNode;
         offset = textCount;
       }
-
+  
       return {
         cont: container,
         offset: offset
       };
     };
-
+    
     /**
      * return TextRange from boundary point (inspired by google closure-library)
      * @param {BoundaryPoint} point
@@ -1591,7 +1595,7 @@
     var pointToTextRange = function (point) {
       var textRangeInfo = function (container, offset) {
         var node, isCollapseToStart;
-
+  
         if (dom.isText(container)) {
           var prevTextNodes = dom.listPrev(container, func.not(dom.isText));
           var prevContainer = list.last(prevTextNodes).previousSibling;
@@ -1603,27 +1607,27 @@
           if (dom.isText(node)) {
             return textRangeInfo(node, 0);
           }
-
+  
           offset = 0;
           isCollapseToStart = false;
         }
-
+  
         return {
           node: node,
           collapseToStart: isCollapseToStart,
           offset: offset
         };
       };
-
+  
       var textRange = document.body.createTextRange();
       var info = textRangeInfo(point.node, point.offset);
-
+  
       textRange.moveToElementText(info.node);
       textRange.collapse(info.collapseToStart);
       textRange.moveStart('character', info.offset);
       return textRange;
     };
-
+    
     /**
      * Wrapped Range
      *
@@ -1638,7 +1642,7 @@
       this.so = so;
       this.ec = ec;
       this.eo = eo;
-
+  
       // nativeRange: get nativeRange from sc, so, ec, eo
       var nativeRange = function () {
         if (agent.isW3CRangeSupport) {
@@ -1699,7 +1703,7 @@
         } else {
           nativeRng.select();
         }
-
+        
         return this;
       };
 
@@ -1907,7 +1911,7 @@
           point.offset
         ).normalize();
       };
-
+      
       /**
        * makeIsOn: return isOn(pred) function
        */
@@ -1917,7 +1921,7 @@
           return !!ancestor && (ancestor === dom.ancestor(ec, pred));
         };
       };
-
+  
       // isOnEditable: judge whether range is on editable or not
       this.isOnEditable = makeIsOn(dom.isEditable);
       // isOnList: judge whether range is on list node or not
@@ -2020,7 +2024,7 @@
           return self.insertNode(childNode);
         }).reverse();
       };
-
+  
       /**
        * returns text in range
        *
@@ -2061,7 +2065,7 @@
           endPoint.offset
         );
       };
-
+  
       /**
        * create offsetPath bookmark
        *
@@ -2123,7 +2127,7 @@
     return {
       /**
        * @method
-       *
+       * 
        * create Range Object From arguments or Browser Selection
        *
        * @param {Node} sc - start container
@@ -2142,7 +2146,7 @@
               // Firefox: returns entire body as range on initialization. We won't never need it.
               return null;
             }
-
+  
             var nativeRng = selection.getRangeAt(0);
             sc = nativeRng.startContainer;
             so = nativeRng.startOffset;
@@ -2154,7 +2158,7 @@
             textRangeEnd.collapse(false);
             var textRangeStart = textRange;
             textRangeStart.collapse(true);
-
+  
             var startPoint = textRangeToPoint(textRangeStart, true),
             endPoint = textRangeToPoint(textRangeEnd, false);
 
@@ -2178,8 +2182,8 @@
       },
 
       /**
-       * @method
-       *
+       * @method 
+       * 
        * create WrappedRange from node
        *
        * @param {Node} node
@@ -2228,8 +2232,8 @@
       },
 
       /**
-       * @method
-       *
+       * @method 
+       * 
        * create WrappedRange from bookmark
        *
        * @param {Node} editable
@@ -2245,7 +2249,7 @@
       },
 
       /**
-       * @method
+       * @method 
        *
        * create WrappedRange from paraBookmark
        *
@@ -2265,25 +2269,25 @@
   })();
 
   /**
-   * @class defaults
-   *
+   * @class defaults 
+   * 
    * @singleton
    */
   var defaults = {
     /** @property */
-    version: '0.6.7',
+    version: '0.6.8',
 
     /**
-     *
+     * 
      * for event options, reference to EventHandler.attach
-     *
-     * @property {Object} options
-     * @property {String/Number} [options.width=null] set editor width
+     * 
+     * @property {Object} options 
+     * @property {String/Number} [options.width=null] set editor width 
      * @property {String/Number} [options.height=null] set editor height, ex) 300
      * @property {String/Number} options.minHeight set minimum height of editor
      * @property {String/Number} options.maxHeight
-     * @property {String/Number} options.focus
-     * @property {Number} options.tabsize
+     * @property {String/Number} options.focus 
+     * @property {Number} options.tabsize 
      * @property {Boolean} options.styleWithSpan
      * @property {Object} options.codemirror
      * @property {Object} [options.codemirror.mode='text/html']
@@ -2315,7 +2319,7 @@
 
       shortcuts: true,              // enable keyboard shortcuts
 
-      placeholder: false,           // enable placeholder text
+      placeholder: "文章内容",           // enable placeholder text
       prettifyHtml: true,           // enable prettifying html while toggling codeview
 
       iconPrefix: 'fa fa-',         // prefix for css icon classes
@@ -2332,18 +2336,19 @@
 
       // toolbar
       toolbar: [
-        ['style', ['style']],
-        ['font', ['bold', 'italic', 'underline', 'clear']],
+        //['style', ['style']],
+        ['font', ['header','bold', 'italic', 'underline', 'clear','quote']],
         // ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
-        ['fontname', ['fontname']],
-        ['fontsize', ['fontsize']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['height', ['height']],
-        ['table', ['table']],
+        //['fontname', ['fontname']],
+        //['fontsize', ['fontsize']],
+        //['color', ['color']],
+        //['para', ['ul', 'ol', 'paragraph']],
+        ['para', ['ul', 'ol']],
+        //['height', ['height']],
+        //['table', ['table']],
         ['insert', ['link', 'picture', 'hr']],
-        ['view', ['fullscreen', 'codeview']],
-        ['help', ['help']]
+        //['view', ['fullscreen', 'codeview']],
+        //['help', ['help']]
       ],
 
       plugin : { },
@@ -2513,7 +2518,9 @@
           strikethrough: 'Strikethrough',
           subscript: 'Subscript',
           superscript: 'Superscript',
-          size: 'Font Size'
+          size: 'Font Size',
+          quote:'Add Quote',
+          header:'Make Header'
         },
         image: {
           image: 'Picture',
@@ -2603,7 +2610,7 @@
         history: {
           undo: 'Undo',
           redo: 'Redo'
-        }
+        },
       }
     }
   };
@@ -2638,7 +2645,7 @@
         }).readAsDataURL(file);
       }).promise();
     };
-
+  
     /**
      * @method createImage
      *
@@ -3237,8 +3244,15 @@
           bullet.toggleList(splitRoot.parentNode.nodeName);
           return;
         // if new line has content (not a line break)
-        } else {
+        }
+        else {
           nextPara = dom.splitTree(splitRoot, rng.getStartPoint());
+
+          if(dom.isEmpty(splitRoot) && dom.isHeader(splitRoot)){
+              // if we enter on an empty header line
+              // the new para will be <p> instead of <H?>
+              nextPara = dom.replace(nextPara, 'p');
+          }
 
           var emptyAnchors = dom.listDescendant(splitRoot, dom.isEmptyAnchor);
           emptyAnchors = emptyAnchors.concat(dom.listDescendant(nextPara, dom.isEmptyAnchor));
@@ -3744,18 +3758,134 @@
       afterCommand($editable);
     };
 
-    /**
-     * formatBlock
-     *
-     * @param {jQuery} $editable
-     * @param {String} tagName
-     */
+    this._formatPara= function($editable) {
+          var sc = range.create().sc;
+          var bq =  dom.ancestor(sc, dom.isBlockquote);
+          var hd =  dom.ancestor(sc, dom.isHeader);
+
+          var tagName ='p';
+              tagName = agent.isMSIE ? '<' + tagName + '>' : tagName;
+          if (bq){
+                dom.remove(bq);
+                return ;
+          }else if(hd){
+                dom.remove(hd);
+                return ;
+          }
+          else{
+              document.execCommand('FormatBlock', false, tagName);
+          }
+
+    } ;
+
+    this._formatBlockquote  = function($editable){
+        var sc = range.create().sc;
+        var bq =  dom.ancestor(sc, dom.isBlockquote);
+        var tagName ='blockquote';
+        tagName = agent.isMSIE ? '<' + tagName + '>' : tagName;
+        if(bq){
+            return ;
+        }else{
+            document.execCommand('FormatBlock', false, tagName);
+        }
+    };
+
+     this._removeBlockquote = function($editable){
+         var sc = range.create().sc;
+         var bq =  dom.ancestor(sc, dom.isBlockquote);
+         if(bq){
+             dom.remove(bq);
+             range.createFromNode(sc).normalize().select();
+             return ;
+         }else{
+            return ;
+         }
+     }
+      /**
+       * makeBlockquote
+       *
+       * @param {jQuery} $editable
+       * @param {String} tagName
+       */
+      this.makeBlockquote = function($editable, tagName){
+          beforeCommand($editable);
+          var tn = tagName.toLowerCase();
+          if (tn == 'p'){
+              this._removeBlockquote($editable);
+          }else if(tn == 'blockquote'){
+              this._formatBlockquote($editable);
+
+          }else{
+              throw new Error('invalid  tagName for makeBlockquote Command');
+          }
+
+          afterCommand($editable);
+      };
+      /**
+       * makeHeader
+       *
+       * @param {jQuery} $editable
+       * @param {String} tagName
+       */
+      this._formatHeader = function($editable){
+          var sc = range.create().sc;
+          var hd =  dom.ancestor(sc, dom.isHeader);
+          var tagName = 'H3';
+          if(!hd){
+              tagName = agent.isMSIE ? '<' + tagName + '>' : tagName;
+              document.execCommand('FormatBlock', false, tagName);
+          }else{
+              return ;
+          }
+
+      };
+
+      this._removeHeader = function($editable){
+          var sc = range.create().sc;
+          var hd =  dom.ancestor(sc, dom.isHeader);
+          if(hd){
+              dom.remove(hd);
+              range.createFromNode(sc).normalize().select();
+              return;
+          }else{
+              return ;
+          }
+      };
+      this.makeHeader = function($editable, tagName){
+          beforeCommand($editable);
+          var tn = tagName.toLowerCase();
+          if (tn == 'p'){
+              this._removeHeader($editable);
+          }else if(tn == 'h3'){
+              this._formatHeader($editable);
+
+          }else{
+              throw new Error('invalid  tagName for MakeHeader Command');
+          }
+
+          afterCommand($editable);
+      };
+      /**
+       * formatBlock
+       *
+       * @param {jQuery} $editable
+       * @param {String} tagName
+       */
+
+
     this.formatBlock = function ($editable, tagName) {
-      beforeCommand($editable);
-      // [workaround] for MSIE, IE need `<`
-      tagName = agent.isMSIE ? '<' + tagName + '>' : tagName;
-      document.execCommand('FormatBlock', false, tagName);
-      afterCommand($editable);
+        beforeCommand($editable);
+        var tn = tagName.toLowerCase();
+        if (tn == 'p'){
+                this._formatPara($editable);
+        }else if(tn == 'blockquote'){
+                this._formatBlockquote($editable);
+        }else{
+              // [workaround] for MSIE, IE need `<`
+              tagName = agent.isMSIE ? '<' + tagName + '>' : tagName;
+              document.execCommand('FormatBlock', false, tagName);
+        }
+        afterCommand($editable);
     };
 
     this.formatPara = function ($editable) {
@@ -4102,7 +4232,7 @@
      * @param {jQuery} $container
      * @param {Object} styleInfo
      */
-    this.update = function ($container, styleInfo) {
+    this.update = function ($container, styleInfo,currentTarget) {
       /**
        * handle dropdown's check mark (for fontname, fontsize, lineHeight).
        * @param {jQuery} $btn
@@ -4123,9 +4253,38 @@
        * @param {String} selector
        * @param {Function} pred
        */
+
+      // use less, strange , this function will invalid the execCommand call
+      function isNodeQuoted(node){
+          // iF node is not provided , get baseNode from document.getSelection()
+          return  !!dom.ancestor(
+              node || range.create().sc,
+              dom.makePredByNodeName('BLOCKQUOTE')
+              );
+      }
+
+      function isHeader(node){
+          // todo : determin if node is wrapped in a header element
+          return !!dom.ancestor(
+              node || range.create().sc,
+              dom.makePredByNodeName('H3')
+          ) ;
+      }
+      var btnValue = function(selector, pred, values){
+          var $btn = $container.find(selector);
+          $btn.attr({'data-value': pred()? values[0]: values[1]});
+      }
+
       var btnState = function (selector, pred) {
         var $btn = $container.find(selector);
-        $btn.toggleClass('active', pred());
+         $btn.toggleClass('active', pred());
+
+         if(selector === '#blockquote_button'){
+             $btn.attr({'data-value': pred()? 'p' : 'blockquote' });
+         }
+         if(selector == '#header_button'){
+             $btn.attr({'data-value':pred()?'p':'h3'});
+         }
       };
 
       if (styleInfo.image) {
@@ -4165,8 +4324,26 @@
         btnState('button[data-event="resize"][data-value="0.25"]', function () {
           return !!/(^|\s)(max-)?width\s*:\s*25%/.test(style);
         });
+
         return;
       }
+
+
+
+        btnState('#blockquote_button', function () {
+            return  isNodeQuoted();
+
+        });
+
+        btnState('#header_button', function(){
+            return isHeader();
+        });
+
+
+        //
+        //btnValue('button[data-event="formatBlock"]', function(){
+        //    return isNodeQuoted();
+        //}, ['p','blockqoute']);
 
       // fontname
       var $fontname = $container.find('.note-fontname');
@@ -4181,7 +4358,7 @@
               break;
             }
           }
-
+          
           $fontname.find('.note-current-fontname').text(selectedFont);
           checkDropdownMenu($fontname, selectedFont);
 
@@ -4261,8 +4438,8 @@
   var Toolbar = function () {
     var button = new Button();
 
-    this.update = function ($toolbar, styleInfo) {
-      button.update($toolbar, styleInfo);
+    this.update = function ($toolbar, styleInfo, currentTarget) {
+      button.update($toolbar, styleInfo,currentTarget);
     };
 
     /**
@@ -4319,7 +4496,7 @@
     };
 
     /**
-     * get button in toolbar
+     * get button in toolbar 
      *
      * @param {jQuery} $editable
      * @param {String} name
@@ -4861,16 +5038,118 @@
     };
   };
 
+    var html=(function(){
+        var regMeta  = /<meta[^>]+>/i;
+        var regStyle = /(<[^>]+) style=".*?"/img ;
+        var regClass = /(<[^>]+) class=".*?"/img ;
+
+        function stripStyle(htmlStr){
+            return htmlStr.replace(regMeta, ' ');
+        }
+        function removeMeta(htmlStr){
+            //the second param is the No.1 capture group
+            return  htmlStr.replace(regStyle, function(all, v){return v ;});
+        }
+
+        function removeClass(htmlStr){
+            return htmlStr.replace(regClass, function(all, v){return v;});
+        }
+        return {
+            stripStyle : stripStyle,
+            removeMeta : removeMeta,
+            removeClass: removeClass
+        }
+    })();
+
   var Clipboard = function (handler) {
 
     this.attach = function (layoutInfo) {
-      layoutInfo.editable().on('paste', hPasteClipboardImage);
+      layoutInfo.editable().on('paste', handlePast);
+    };
+
+    function getClipboardData(event){
+        return event.originalEvent.clipboardData;
+    }
+
+    function isImageItem(item){
+        return  (item.kind === 'file' && item.type.indexOf('image/') != -1);
+    }
+
+    function handleItem(item,idx){
+
+         if (isImageItem(item)){
+             var blob = item.getAsFile();
+             window.URL = window.URL || window.webkitURL;
+             var blobUrl = window.URL.createObjectURL(blob);
+             return {url: blobUrl, blob: blob};
+         }
+         return null;
+    }
+    function getImagesFromEvent(event){
+        var images = [];
+        var clipboardData = getClipboardData(event);
+        var items = clipboardData.items;
+            images = $.map(items, handleItem);
+            return images ;
+    }
+
+    function handleImages(images){
+        var layoutInfo = dom.makeLayoutInfo(event.currentTarget || event.target);
+        var $editable = layoutInfo.editable();
+        $.each(images,function(idx, imgDic){
+            handler.invoke('editor.insertImage', $editable, imgDic.url, 'blob.jpg');
+        });
+    }
+    function getTypedDataFromClipboardEvent(event, type){
+        var data = "";
+        var clipboardData = getClipboardData(event);
+            if (clipboardData.types.indexOf(type) > -1){
+                // found typed data in clipdata
+                data = clipboardData.getData(type)
+            }
+            return data ;
+
+    }
+
+    function handleHtml(htmlStr){
+        var layoutInfo = dom.makeLayoutInfo(event.currentTarget || event.target);
+        var $editable = layoutInfo.editable();
+            htmlStr = html.stripStyle(htmlStr);
+            htmlStr = html.removeMeta(htmlStr);
+            htmlStr = html.removeClass(htmlStr);
+            handler.invoke('editor.pasteHTML', $editable, htmlStr )
+
+    }
+    var handlePast = function(event){
+
+
+        var images = getImagesFromEvent(event);
+        if (images.length){
+            handleImages(images);
+        }
+        var html =  getTypedDataFromClipboardEvent(event, "text/html");
+        //var text =  getTextFromEvent(event);
+        //if (!!images.length) handleImage(images);
+
+        if (html){
+            handleHtml(html);
+
+        }else{
+           var text = "";
+           text = getTypedDataFromClipboardEvent(event, "text/plain");
+            handleText(text);
+        }
+
+        event.preventDefault();
+        return false;
+
     };
 
     /**
      * paste clipboard image
      *
      * @param {Event} event
+     *
      */
     var hPasteClipboardImage = function (event) {
       var clipboardData = event.originalEvent.clipboardData;
@@ -5147,13 +5426,13 @@
 
           $imageUrl.on('keyup paste', function (event) {
             var url;
-
+            
             if (event.type === 'paste') {
               url = event.originalEvent.clipboardData.getData('text');
             } else {
               url = $imageUrl.val();
             }
-
+            
             toggleBtn($imageBtn, url);
           }).val('').trigger('focus');
           bindEnterKey($imageUrl, $imageBtn);
@@ -5370,7 +5649,7 @@
 
         var isAirMode = layoutInfo.editor().data('options').airMode;
         if (!isAirMode) {
-          modules.toolbar.update(layoutInfo.toolbar(), styleInfo);
+          modules.toolbar.update(layoutInfo.toolbar(), styleInfo, event.currentTarget || event.target);
         }
 
         modules.popover.update(layoutInfo.popover(), styleInfo, isAirMode);
@@ -5400,6 +5679,10 @@
         var eventName = $btn.attr('data-event'),
             value = $btn.attr('data-value'),
             hide = $btn.attr('data-hide');
+
+        // add by An for blockquote remove
+
+
 
         var layoutInfo = dom.makeLayoutInfo(event.target);
 
@@ -5480,7 +5763,7 @@
 
       $dimensionDisplay.html(dim.c + ' x ' + dim.r);
     };
-
+    
     /**
      * bind KeyMap on keydown
      *
@@ -5650,7 +5933,7 @@
       $editable.on('scroll', bindCustomEvent($holder, callbacks, 'scroll'));
 
       $editable.on('paste', bindCustomEvent($holder, callbacks, 'paste'));
-
+      
       // [workaround] for old IE - IE8 don't have input events
       //  - TODO check IE version
       var changeEventName = agent.isMSIE ? 'DOMCharacterDataModified DOMSubtreeModified DOMNodeInserted' : 'input';
@@ -5680,7 +5963,7 @@
         }
       }
     };
-
+      
     this.detach = function (layoutInfo, options) {
       layoutInfo.holder().off();
       layoutInfo.editable().off();
@@ -5725,6 +6008,7 @@
       var className = options.className;
       var dropdown = options.dropdown;
       var hide = options.hide;
+      var id = options.id;
 
       return '<button type="button"' +
                  ' class="btn btn-default btn-sm btn-small' +
@@ -5734,6 +6018,7 @@
                  (dropdown ? ' data-toggle="dropdown"' : '') +
                  (title ? ' title="' + title + '"' : '') +
                  (event ? ' data-event="' + event + '"' : '') +
+                 (id ? ' id="' + id + '" ' : '' ) +
                  (value ? ' data-value=\'' + value + '\'' : '') +
                  (hide ? ' data-hide=\'' + hide + '\'' : '') +
                  ' tabindex="-1">' +
@@ -5770,7 +6055,7 @@
                '<div class="popover-content">' +
                '</div>' +
              '</div>');
-
+      
       $popover.find('.popover-content').append(content);
       return $popover;
     };
@@ -5861,7 +6146,7 @@
 
         var hasDefaultFont = agent.isFontInstalled(options.defaultFontName);
         var defaultFontName = (hasDefaultFont) ? options.defaultFontName : realFontList[0];
-
+          
         var label = '<span class="note-current-fontname">' +
                         defaultFontName +
                      '</span>';
@@ -5960,6 +6245,23 @@
           event: 'removeFormat',
           title: lang.font.clear
         });
+      },
+      quote: function(lang,option){
+          return tplIconButton(option.iconPrefix + 'quote-left',{
+             event:'makeBlockquote',
+             title: lang.font.quote,
+             value: 'blockquote',
+             id: 'blockquote_button'
+
+          });
+      },
+      header: function(lang,option){
+            return tplIconButton(option.iconPrefix + 'header',{
+                event:'makeHeader',
+                title: lang.font.head,
+                value: 'h3',
+                id:'header_button'
+            });
       },
       ul: function (lang, options) {
         return tplIconButton(options.iconPrefix + 'list-ul', {
@@ -6155,13 +6457,13 @@
         var $content = $('<div />');
         for (var idx = 0, len = options.airPopover.length; idx < len; idx ++) {
           var group = options.airPopover[idx];
-
+          
           var $group = $('<div class="note-' + group[0] + ' btn-group">');
           for (var i = 0, lenGroup = group[1].length; i < lenGroup; i++) {
             var $button = $(tplButtonInfo[group[1][i]](lang, options));
 
             $button.attr('data-name', group[1][i]);
-
+            
             $group.append($button);
           }
           $content.append($group);
@@ -6171,14 +6473,14 @@
       };
 
       var $notePopover = $('<div class="note-popover" />');
-
+      
       $notePopover.append(tplLinkPopover());
       $notePopover.append(tplImagePopover());
-
+      
       if (options.airMode) {
         $notePopover.append(tplAirPopover());
       }
-
+      
       return $notePopover;
     };
 
@@ -6350,7 +6652,7 @@
                    '<div class="title">' + lang.shortcut.shortcuts + '</div>' +
                    (agent.isMac ? tplShortcutTable(lang, options) : replaceMacKeys(tplShortcutTable(lang, options))) +
                    '<p class="text-center">' +
-                     '<a href="//summernote.org/" target="_blank">Summernote 0.6.7</a> · ' +
+                     '<a href="//summernote.org/" target="_blank">Summernote 0.6.8</a> · ' +
                      '<a href="//github.com/summernote/summernote" target="_blank">Project</a> · ' +
                      '<a href="//github.com/summernote/summernote/issues" target="_blank">Issues</a>' +
                    '</p>';
@@ -6503,6 +6805,7 @@
         $('<div class="note-statusbar">' + (options.disableResizeEditor ? '' : tplStatusbar()) + '</div>').prependTo($editor);
       }
 
+
       //03. create Editable
       var isContentEditable = !$holder.is(':disabled');
       var $editable = $('<div class="note-editable" contentEditable="' + isContentEditable + '"></div>')
@@ -6523,6 +6826,10 @@
       //031. create codable
       $('<textarea class="note-codable"></textarea>').prependTo($editor);
 
+        // done Title input here : by An .
+        var titleInput = $('<div class=""><input class="title-input" name="article-title" placeholder="标题"></div>')
+            .prependTo($editor);
+
       //04. create Toolbar
       var $toolbar = $('<div class="note-toolbar btn-toolbar" />');
       for (var idx = 0, len = options.toolbar.length; idx < len; idx ++) {
@@ -6541,9 +6848,12 @@
         }
         $toolbar.append($group);
       }
-
+      
       $toolbar.prependTo($editor);
-      var keyMap = options.keyMap[agent.isMac ? 'mac' : 'pc'];
+
+
+
+        var keyMap = options.keyMap[agent.isMac ? 'mac' : 'pc'];
       createPalette($toolbar, options);
       createTooltip($toolbar, keyMap, 'bottom');
 
@@ -6677,13 +6987,13 @@
 
   // jQuery namespace for summernote
   /**
-   * @class $.summernote
-   *
-   * summernote attribute
-   *
+   * @class $.summernote 
+   * 
+   * summernote attribute  
+   * 
    * @mixin defaults
-   * @singleton
-   *
+   * @singleton  
+   * 
    */
   $.summernote = $.summernote || {};
 
@@ -6701,11 +7011,11 @@
     renderer: renderer,
     /** @property {EventHandler} */
     eventHandler: eventHandler,
-    /**
-     * @property {Object} core
-     * @property {core.agent} core.agent
+    /** 
+     * @property {Object} core 
+     * @property {core.agent} core.agent 
      * @property {core.dom} core.dom
-     * @property {core.range} core.range
+     * @property {core.range} core.range 
      */
     core: {
       agent: agent,
@@ -6713,21 +7023,21 @@
       dom: dom,
       range: range
     },
-    /**
-     * @property {Object}
+    /** 
+     * @property {Object} 
      * pluginEvents event list for plugins
      * event has name and callback function.
-     *
-     * ```
+     * 
+     * ``` 
      * $.summernote.addPlugin({
      *     events : {
      *          'hello' : function(layoutInfo, value, $target) {
      *              console.log('event name is hello, value is ' + value );
      *          }
-     *     }
+     *     }     
      * })
      * ```
-     *
+     * 
      * * event name is data-event property.
      * * layoutInfo is a summernote layout information.
      * * value is data-value property.
@@ -6740,57 +7050,57 @@
   /**
    * @method addPlugin
    *
-   * add Plugin in Summernote
-   *
+   * add Plugin in Summernote 
+   * 
    * Summernote can make a own plugin.
    *
    * ### Define plugin
    * ```
-   * // get template function
+   * // get template function  
    * var tmpl = $.summernote.renderer.getTemplate();
-   *
-   * // add a button
+   * 
+   * // add a button   
    * $.summernote.addPlugin({
    *     buttons : {
-   *        // "hello"  is button's namespace.
+   *        // "hello"  is button's namespace.      
    *        "hello" : function(lang, options) {
-   *            // make icon button by template function
+   *            // make icon button by template function          
    *            return tmpl.iconButton('fa fa-header', {
-   *                // callback function name when button clicked
+   *                // callback function name when button clicked 
    *                event : 'hello',
-   *                // set data-value property
-   *                value : 'hello',
+   *                // set data-value property                 
+   *                value : 'hello',                
    *                hide : true
-   *            });
+   *            });           
    *        }
-   *
-   *     },
-   *
+   *     
+   *     }, 
+   *     
    *     events : {
    *        "hello" : function(layoutInfo, value) {
-   *            // here is event code
+   *            // here is event code 
    *        }
-   *     }
+   *     }     
    * });
-   * ```
+   * ``` 
    * ### Use a plugin in toolbar
-   *
-   * ```
+   * 
+   * ``` 
    *    $("#editor").summernote({
    *    ...
    *    toolbar : [
-   *        // display hello plugin in toolbar
+   *        // display hello plugin in toolbar     
    *        ['group', [ 'hello' ]]
    *    ]
-   *    ...
+   *    ...    
    *    });
    * ```
-   *
-   *
+   *  
+   *  
    * @param {Object} plugin
    * @param {Object} [plugin.buttons] define plugin button. for detail, see to Renderer.addButtonInfo
    * @param {Object} [plugin.dialogs] define plugin dialog. for detail, see to Renderer.addDialogInfo
-   * @param {Object} [plugin.events] add event in $.summernote.pluginEvents
+   * @param {Object} [plugin.events] add event in $.summernote.pluginEvents 
    * @param {Object} [plugin.langs] update $.summernote.lang
    * @param {Object} [plugin.options] update $.summernote.options
    */
@@ -6838,11 +7148,11 @@
      * @method
      * Initialize summernote
      *  - create editor layout and attach Mouse and keyboard events.
-     *
+     * 
      * ```
      * $("#summernote").summernote( { options ..} );
      * ```
-     *
+     *   
      * @member $.fn
      * @param {Object|String} options reference to $.summernote.options
      * @return {this}
@@ -6913,21 +7223,21 @@
     },
 
     /**
-     * @method
-     *
+     * @method 
+     * 
      * get the HTML contents of note or set the HTML contents of note.
      *
-     * * get contents
+     * * get contents 
      * ```
      * var content = $("#summernote").code();
      * ```
-     * * set contents
+     * * set contents 
      *
      * ```
      * $("#summernote").code(html);
      * ```
      *
-     * @member $.fn
+     * @member $.fn 
      * @param {String} [html] - HTML contents(optional, set)
      * @return {this|String} - context(set) or HTML contents of note(get).
      */
@@ -6965,7 +7275,7 @@
 
     /**
      * @method
-     *
+     * 
      * destroy Editor Layout and detach Key and Mouse Event
      *
      * @member $.fn

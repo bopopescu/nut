@@ -3,7 +3,9 @@
  */
 ;(function ($, document, window) {
 
+    var editor ={
 
+    };
     var entity = {
         removeImage: function() {
 //            console.log("OKOKO");
@@ -160,11 +162,58 @@
                         if (res['status'] === 'success') {
                             //console.log(row);
                             row.remove();
+
                         }
                     }
                 });
             })
         }
+    };
+
+    var article={
+        initAddSelectionArticle: function(){
+            add_btns = jQuery('.add-selection');
+            $.each(add_btns, function(idx , btn){
+                $(btn).click(function(e){
+                    var that = this;
+                    var article_id = $(this).attr('article_id');
+                    var url = $(this).attr('url');
+                    $.when(
+                        $.ajax(url)
+                    ).then(
+                        function success(data){
+                            console.log('success');
+                            console.log(data);
+                        },
+                        function fail(data){
+                            console.log('failed');
+                            console.log('data');
+                        }
+                    );
+                });
+            });
+        },
+        initRemoveSelectionArticle:function(){
+        //    use delegate : )
+            jQuery('.action-table')
+                .delegate('.remove-selection','click', function(){
+                    var url = $(this).attr('url');
+                    var selection_article_id = $(this).attr('selection_article_id');
+                    $.when(
+                        $.ajax(url)
+                    ).then(
+                        function success(data){
+                            console.log('success');
+                            console.log(data);
+                        },
+                        function fail(data){
+                            console.log('failed');
+                            console.log('data');
+                        }
+                    );
+                });
+        }
+
     };
 
     (function init() {
@@ -174,6 +223,10 @@
         dashboard.selectedChar();
 
         comment.remove();
+
+//        add by An
+        article.initAddSelectionArticle();
+        article.initRemoveSelectionArticle();
 //        note.post();
     })();
 })(jQuery, document, window);

@@ -1,5 +1,6 @@
 {% extends 'management/management_base.html' %}
-{% load i18n %}
+{% load i18n static %}
+{% load  common guoku %}
 
 {% block content %}
     <h1 class="page-header">{% trans 'article' %}</h1>
@@ -11,15 +12,20 @@
     </div>
 
 
-    <div class="table-responsive">
+    <div class="table-responsive action-table">
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>{% trans 'title' %}</th>
-                    <th>{% trans 'author' %}</th>
-                    <th>{% trans 'is publish' %}</th>
-                    <th>{% trans 'operation' %}</th>
+                    <th class="id">#</th>
+                    <th class="title">{% trans 'title' %}</th>
+                    <th class="person-link" >{% trans 'author' %}</th>
+                    <th class="cell-boolean" >文章状态</th>
+                    <th class="date-time">最后修改时间</th>
+                    <th class="edit-operation">{% trans 'operation' %}</th>
+                    <th class="cell-number">加入精选次数</th>
+                    <th class="date-time" >上次精选发布时间</th>
+
+                    <th class="edit-operation">精选操作</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,17 +33,35 @@
                     <tr>
                         <td>{{ row.pk }}</td>
                         <td>{{ row.title }}</td>
-                        <td><a href="{% url 'management_user_edit' row.creator_id %}" target="_blank">{{ row.creator }}</a></td>
+                        <td><a href="{% url 'management_user_edit' row.creator_id %}" target="_blank">{{ row.creator.profile.nickname }}</a></td>
                         <td>{{ row.get_publish_display  }}</td>
+                        <td>{{ row.updated_datetime|format_time}}</td>
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-default" href="{% url 'management_article_edit' row.pk %}">{% trans 'edit' %}</a>
                                 <a class="btn btn-success" href="{% url 'management_article_preview' row.pk %}">{% trans 'preview' %}</a>
                             </div>
                         </td>
+                        <td>{{ row.selection_count}}</td>
+                        <td>{{ row.last_selection_time }}</td>
+                        <td>
+                            <div class="btn-group">
+                                 <a class="btn btn-primary add-selection"
+                                    url = "{% url 'management_create_selection_article' row.pk %}"
+                                    article_id="{{  row.pk  }}">
+
+                                    加入精选
+                                </a>
+                            </div>
+
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+
+    {% include "management/entities/paginator_new.html" with page_obj=page_obj url=request.path %}
+
+
 {% endblock %}
