@@ -983,6 +983,10 @@ class Article(models.Model):
         return self.publish == Article.published
 
     @property
+    def is_removed(self):
+        return self.publish == Article.remove
+
+    @property
     def selection_count(self):
         if not self.once_selection:
             return 0
@@ -996,7 +1000,6 @@ class Article(models.Model):
             return pubed_selection[0].pub_time
         else :
             return _('Never')
-
 
 
 
