@@ -25,7 +25,7 @@
                         <span class="create-time">{{ article.created_datetime|format_time}}</span>
                     </div>
                     <div class="cover-wrapper">
-                        <img class="article-cover img-responsive" src="{% static 'images/article/cover_default.jpg' %}" />
+                        <img class="article-cover img-responsive" src="{% article.cover %}" />
                     </div>
                     <div class="content-wrapper">
                         {% autoescape off %}
