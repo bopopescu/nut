@@ -46,7 +46,7 @@
             var data = {
                 title : $('.note-editor .title-input').val(),
                 content: this.summer.code(),
-                cover : $('id_cover').val()
+                cover : $('#id_cover').val()
             };
             return data;
         },
