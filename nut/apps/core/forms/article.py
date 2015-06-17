@@ -58,7 +58,8 @@ class RemoveSelectionArticleForm(BaseSelectionArticleForm):
 class BaseArticleForms(forms.Form):
     cover = forms.CharField(
         label = _('cover'),
-        widget=forms.TextInput(attrs={'class':'cover-input'})
+        widget=forms.TextInput(attrs={'class':'cover-input'}),
+        required=False,
     )
 
     title = forms.CharField(
@@ -129,11 +130,9 @@ class CreateArticleForms(BaseArticleForms):
 
 class EditArticleForms(BaseArticleForms):
 
-
     def __init__(self, article, *args, **kwargs):
         self.article = article
         super(EditArticleForms, self).__init__(*args, **kwargs)
-
 
     def save(self):
         title = self.cleaned_data.get('title')
@@ -142,7 +141,7 @@ class EditArticleForms(BaseArticleForms):
 
         self.article.title = title
         self.article.content = content
-        self.article.publish = int(is_publish)
+        self.article.publish = is_publish
         self.article.save()
 
         return self.article
