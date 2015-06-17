@@ -31,7 +31,7 @@ from braces.views import UserPassesTestMixin, JSONResponseMixin
 class SelectionArticleList(SortMixin,ListView):
     template_name = 'management/article/selection_article_list.html'
     model = Selection_Article
-    paginate_by = 5
+    paginate_by = 30
     paginator_class = Jpaginator
     context_object_name = 'selection_article_list'
     default_sort_params = ('create_time','desc')
