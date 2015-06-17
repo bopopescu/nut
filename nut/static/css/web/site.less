@@ -4,7 +4,7 @@
 @link-color:#357ebd;
 @like-color:#FF1F77;
 @common-gray: #9D9E9F;
-@common-text-color: #414243;
+@common-text-color: #424242;
 @very-light-gray:#F8F8F8;
 @panel-background-color: #fff;
 @default-background:#fff;
@@ -1878,4 +1878,37 @@ a:hover{text-decoration:underline;}
 
 .article-form-wrapper{
     display:none;
+}
+
+
+@article-font-family: 'Open Sans', 'Helvetica Neue', 'Arial', 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
+@article-title-size : 32px;
+@article-font-color: @common-text-color;
+
+
+
+.article-wrapper{
+
+     font-family: @article-font-family;
+     color:@article-font-color;
+     .title-wrapper{
+        h2{
+          font-size:@article-title-size;
+        }
+     }
+     .info-wrapper{
+         margin: 20px 0px;
+         color: @common-gray;
+         span{
+            margin-right: 10px;
+         }
+
+     }
+     .cover-wrapper{
+         margin-bottom: 20px;
+     }
+
+     .content-wrapper{
+
+     }
 }
