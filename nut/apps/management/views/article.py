@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.log import getLogger
 from django.core.exceptions import ObjectDoesNotExist
 
-from apps.core.forms.article import CreateArticleForms, EditArticleForms, UploadCoverForms
+# from apps.core.forms.article import
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.core.models import Article
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
@@ -21,7 +21,7 @@ log = getLogger('django')
 from django.views.generic import ListView,View
 
 from apps.core.models import Selection_Article
-from apps.core.forms.article import CreateSelectionArticleForm
+from apps.core.forms.article import CreateSelectionArticleForm, CreateArticleForms, EditArticleForms, UploadCoverForms
 
 
 from braces.views import UserPassesTestMixin, JSONResponseMixin
@@ -196,9 +196,11 @@ def edit(request, article_id, template="management/article/edit.html"):
     }
 
     if request.method == "POST":
-        _forms = EditArticleForms(_article, request.POST, request.FILES)
+        _forms = EditArticleForms(article=_article, data=request.POST, files=request.FILES)
+        # log.info(request.POST)
+        log.info(_forms)
         if _forms.is_valid():
-            _forms.save()
+            _article = _forms.save()
 
     else:
         _forms = EditArticleForms(_article, data=data)
