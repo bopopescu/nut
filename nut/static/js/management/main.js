@@ -184,10 +184,12 @@
                         function success(data){
                             console.log('success');
                             console.log(data);
+                            alert('加入精选成功');
+
                         },
                         function fail(data){
                             console.log('failed');
-                            console.log('data');
+                            console.log(data);
                         }
                     );
                 });
