@@ -26,6 +26,7 @@ from apps.core.forms.article import CreateSelectionArticleForm
 
 from braces.views import UserPassesTestMixin, JSONResponseMixin
 
+
 # TODO : add authorise mixin here
 class SelectionArticleList(SortMixin,ListView):
     template_name = 'management/article/selection_article_list.html'
@@ -43,11 +44,11 @@ class SelectionArticleList(SortMixin,ListView):
         return qs
 
 
-
 class CreateSelectionArticle(UserPassesTestMixin, JSONResponseMixin , View):
 
     def test_func(self, user):
         return  user.is_chief_editor
+
     # TODO : use POST for data alter
     def get(self, request, article_id  , *args, **kwargs):
         _form = CreateSelectionArticleForm(data={'article_id':article_id})
@@ -67,6 +68,7 @@ class CreateSelectionArticle(UserPassesTestMixin, JSONResponseMixin , View):
 class RemoveSelectionArticle(UserPassesTestMixin, JSONResponseMixin, View):
     def test_func(self, user):
         return  user.is_chief_editor
+
     # TODO : use POST for data alter
     def get(self, request, selection_article_id, *args, **kwargs):
         res = {}
