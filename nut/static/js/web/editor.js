@@ -59,7 +59,7 @@
             return $(selector).css("backgroundImage");
         },
         setBackgroundImg:function(selector , url){
-            ($(selector).css({"backgroundImage": 'url('+ url+')' });
+            $(selector).css({"backgroundImage": 'url('+ url+')' });
         },
         fillSummernote: function(){
             var data = this.collectFormValues();
