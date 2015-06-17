@@ -91,9 +91,14 @@
                 )
         },
 
-        returnList: function(){
-            //var  =  collectFormValues[]
-            alert('not implement');
+        returnList: function(e){
+          var data = this.collectEditorValues();
+              data['publish'] = this.collectFormValues()['publish'];
+          this.saveArticle(data, this.saveok, this.saveFail);
+            e.preventDefault();
+            return false ;
+
+
         },
 
         saveDraft:function(e){
