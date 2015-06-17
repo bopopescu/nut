@@ -21,8 +21,8 @@ class BaseSelectionArticleForm(forms.Form):
     def clean_article(self):
         article_id = self.cleaned_data['article_id']
         try :
-            the_article = Article.objects.get(pk=article_id)
-        except ObjectDoesNotExist:
+            the_article = Article.objects.get(pk=article_id, publish=Article.published)
+        except Article.DoesNotExist:
             raise forms.ValidationError(_('can not find article'),
                                          code='invalid_article_id ')
         return article_id
