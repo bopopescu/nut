@@ -46,20 +46,20 @@
             var data = {
                 title : $('.note-editor .title-input').val(),
                 content: this.summer.code(),
-                cover : this.getBackgroundImgUrl('.article-cover')
+                cover : $('id_cover').val()
             };
             return data;
         },
         setEditorValues:function(data){
             $('.note-editor .title-input').val(data['title']);
             this.summer.code(data['content']);
-            this.setBackgroundImg('.article-cover',data.cover);
+            this.setBackgroundImg('.cover.article-cover',data['cover']);
         },
         getBackgroundImgUrl:function(selector){
             return $(selector).css("backgroundImage");
         },
         setBackgroundImg:function(selector , url){
-            $(selector).css({"backgroundImage": 'url('+ url+')' });
+            ($(selector).css({"backgroundImage": 'url('+ url+')' });
         },
         fillSummernote: function(){
             var data = this.collectFormValues();
