@@ -39,8 +39,8 @@
                         <td>{{ row.updated_datetime|format_time}}</td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-default" href="{% url 'management_article_edit' row.pk %}">{% trans 'edit' %}</a>
-                                <a class="btn btn-success" href="{% url 'management_article_preview' row.pk %}">{% trans 'goto' %}</a>
+                                <a class="btn btn-default" href="{% url 'management_article_edit' row.pk %}" target="_blank">{% trans 'edit' %}</a>
+                                <a class="btn btn-success" href="{% url 'web_article_page' row.pk %}" target="_blank">{% trans 'goto' %}</a>
                             </div>
                         </td>
                         <td>{{ row.selection_count}}</td>

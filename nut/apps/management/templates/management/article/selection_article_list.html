@@ -39,9 +39,9 @@
 
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-default" href="{% url 'management_article_edit' sla.article.pk %}">{% trans 'edit' %}</a>
+                                <a class="btn btn-default" href="{% url 'management_article_edit' sla.article.pk %}" target="_blank">{% trans 'edit' %}</a>
 
-                                <a class="btn btn-success" href="{% url 'management_article_preview' sla.article.pk %}">{% trans 'goto' %}</a>
+                                <a class="btn btn-success" href="{% url 'web_article_page' sla.article.pk %}" target="_blank">{% trans 'goto' %}</a>
                             </div>
                         </td>
 
