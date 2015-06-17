@@ -32,5 +32,6 @@
         </table>
         </div>
     </div>
+    {% include "management/paginator.html" with objects=comments url=request.path %}
 {% endblock %}
 

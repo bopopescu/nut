@@ -1,11 +1,16 @@
 from django.conf.urls import url, patterns
-from apps.management.views.article import SelectionArticleList,CreateSelectionArticle,ArticleList,RemoveSelectionArticle
+from apps.management.views.article import SelectionArticleList,\
+    CreateSelectionArticle,\
+    ArticleList,\
+    DraftArticleList, \
+    RemoveSelectionArticle
 
 
 
 urlpatterns = patterns(
     'apps.management.views.article',
     url(r'^all/$',ArticleList.as_view() , name="management_article_list"),
+    url(r'^draft/$', DraftArticleList.as_view(), name='management_article_draft'),
     url(r'^create/$', 'create', name="management_article_create"),
     url(r'^(?P<article_id>\d+)/edit/$', 'edit', name='management_article_edit'),
 

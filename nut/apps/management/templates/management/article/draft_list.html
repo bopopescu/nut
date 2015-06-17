@@ -2,8 +2,9 @@
 {% load i18n static %}
 {% load  common guoku %}
 
+
 {% block content %}
-    <h1 class="page-header">{% trans 'article' %}</h1>
+    <h1 class="page-header">{% trans 'draft article' %}</h1>
 
 {#    <div class="row">#}
 {#        <ul class="nav nav-pills" role="tablist">#}
@@ -22,10 +23,10 @@
                     <th class="cell-boolean" >文章状态</th>
                     <th class="date-time">最后修改时间</th>
                     <th class="edit-operation">{% trans 'operation' %}</th>
-                    <th class="cell-number">加入精选次数</th>
-                    <th class="date-time" >上次精选发布时间</th>
-
-                    <th class="edit-operation">精选操作</th>
+{#                    <th class="cell-number">加入精选次数</th>#}
+{#                    <th class="date-time" >上次精选发布时间</th>#}
+{##}
+{#                    <th class="edit-operation">精选操作</th>#}
                 </tr>
             </thead>
             <tbody>
@@ -39,22 +40,22 @@
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-default" href="{% url 'management_article_edit' row.pk %}">{% trans 'edit' %}</a>
-                                <a class="btn btn-success" href="{% url 'management_article_preview' row.pk %}">{% trans 'goto' %}</a>
+{#                                <a class="btn btn-success" href="{% url 'management_article_preview' row.pk %}">{% trans 'goto' %}</a>#}
                             </div>
                         </td>
-                        <td>{{ row.selection_count}}</td>
-                        <td>{{ row.last_selection_time }}</td>
-                        <td>
-                            <div class="btn-group">
-                                 <a class="btn btn-primary add-selection"
-                                    url = "{% url 'management_create_selection_article' row.pk %}"
-                                    article_id="{{  row.pk  }}">
-
-                                    加入精选
-                                </a>
-                            </div>
-
-                        </td>
+{#                        <td>{{ row.selection_count}}</td>#}
+{#                        <td>{{ row.last_selection_time }}</td>#}
+{#                        <td>#}
+{#                            <div class="btn-group">#}
+{#                                 <a class="btn btn-primary add-selection"#}
+{#                                    url = "{% url 'management_create_selection_article' row.pk %}"#}
+{#                                    article_id="{{  row.pk  }}">#}
+{##}
+{#                                    加入精选#}
+{#                                </a>#}
+{#                            </div>#}
+{##}
+{#                        </td>#}
                     </tr>
                 {% endfor %}
             </tbody>
@@ -62,6 +63,4 @@
     </div>
 
     {% include "management/entities/paginator_new.html" with page_obj=page_obj url=request.path %}
-
-
 {% endblock %}
