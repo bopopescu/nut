@@ -129,7 +129,6 @@ def list(request, template="management/article/list.html"):
     except EmptyPage:
         raise Http404
 
-
     return render_to_response(
         template,
         {
