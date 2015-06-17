@@ -963,13 +963,22 @@ class Article(models.Model):
     @property
     def cover_url(self):
         if self.cover:
-            return "http://imgcdn.guoku.com/%s" % self.cover
+            return  self.cover
         return "%s%s" % (settings.STATIC_URL, 'images/article/default_cover.jpg')
 
     @property
     def once_selection(self):
+        #article can be selected multiple times
         res = hasattr(self,'selections') and (self.selections.count() > 0)
         return res
+
+    @property
+    def is_draft(self):
+        return self.publish == Article.draft
+
+    @property
+    def is_published(self):
+        return self.publish == Article.published
 
     @property
     def selection_count(self):
