@@ -1,6 +1,6 @@
 # coding=utf-8
 from django.views.generic.base import View, TemplateResponseMixin, ContextMixin
-from django.views.generic import  ListView, View,TemplateView
+from django.views.generic import  ListView, View,TemplateView, DetailView
 from django.views.generic.edit import FormView,UpdateView
 from django.shortcuts import redirect, get_object_or_404
 
@@ -113,16 +113,25 @@ class EditorArticleEdit(AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,
 
 
     def test_func(self, user):
-        return user.is_editor
+        return user.is_editor or user.is_staff
+
+
+
+class ArticleDetail(DetailView):
+    model = Article
+    context_object_name = 'article'
+    template_name = 'web/article/onepage.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ArticleDetail, self).get_context_data(**kwargs)
+        context['is_article_detail'] = True
+        context = add_side_bar_context_data(context)
+        return context
 
 
 
 
 
 
-
-class DetailView(TemplateResponseMixin, ContextMixin, View):
-
-    template_name =  ""
 
 __author__ = 'edison'

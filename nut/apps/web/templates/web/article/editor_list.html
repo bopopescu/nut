@@ -28,13 +28,17 @@
                    {% for article in articles %}
 
                     <div class="article-item" article_id="{{ article.pk }}">
-                        <div class="title">{{ article.title }}<span class="status article-status-{{ article.publish }}">{{ article.get_publish_display }}</span></div>
+                        <div class="title">
+                            <a  href="{% url 'web_article_page' article.pk  %}" >
+                            {{ article.title }}
+                            </a>
+                            <span class="status article-status-{{ article.publish }}">{{ article.get_publish_display }}</span></div>
                         <div class="info-list">
                             <div class="editor">作者：{{ article.creator.profile.nickname }}</div>
                             <div class="create-time">{{ article.updated_datetime|format_time }}</div>
 {#                            <div class="article-state">{{ article.get_publish_display }}</div>#}
                             <div class="action edit"><a class="btn" href="{% url 'web_editor_article_edit' article.pk %}">编辑</a></div>
-                            <div class="action preview">预览</div>
+                            <div class="action preview"><a class="btn" href="{% url 'web_article_page' article.pk  %}" >预览</a></div>
                             <div class="action delete">删除</div>
                         </div>
                         <div class="conten-digest">

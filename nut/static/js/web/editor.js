@@ -92,12 +92,12 @@
         },
 
         returnList: function(e){
-          var data = this.collectEditorValues();
-              data['publish'] = this.collectFormValues()['publish'];
-          this.saveArticle(data, this.saveok, this.saveFail);
-            e.preventDefault();
-            return false ;
-
+          //var data = this.collectEditorValues();
+          //    data['publish'] = this.collectFormValues()['publish'];
+          //this.saveArticle(data, this.saveOK, this.saveFail);
+          //  e.preventDefault();
+            var host = window.location.host;
+            window.location ='http://' + host+'/articles/editor/';
 
         },
 
