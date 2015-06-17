@@ -140,10 +140,9 @@ class EditArticleForms(BaseArticleForms):
         content = self.cleaned_data.get('content')
         is_publish = self.cleaned_data.get('is_publish')
 
-
         self.article.title = title
         self.article.content = content
-        self.article.publish = is_publish
+        self.article.publish = int(is_publish)
         self.article.save()
 
         return self.article
