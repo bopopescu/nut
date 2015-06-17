@@ -42,7 +42,8 @@ class EditorArticleList(UserPassesTestMixin,ListView):
     paginator_class = Jpaginator
     context_object_name = 'articles'
     def get_queryset(self):
-        return Article.objects.filter(creator=self.request.user)
+        return Article.objects.filter(creator=self.request.user)\
+                              .exclude(publish=Article.remove)
 
 
 class EditorArticleCreate(UserPassesTestMixin, View):
@@ -127,6 +128,22 @@ class ArticleDetail(DetailView):
         context['is_article_detail'] = True
         context = add_side_bar_context_data(context)
         return context
+
+
+
+
+class ArticleDelete(UserPassesTestMixin, View):
+    def test_func(self, user):
+        return user.is_editor or user.is_staff
+
+    def get(self, *args , **kwargs):
+        pk = kwargs['pk']
+        the_article =  get_object_or_404(Article,pk=pk)
+#       TODO : check permission here
+        the_article.publish = Article.remove
+        the_article.save()
+        return redirect('web_editor_article_list')
+
 
 
 
