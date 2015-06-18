@@ -96,7 +96,6 @@ class SubCategoryForm(forms.Form):
 
 class CreateSubCategoryForm(SubCategoryForm):
 
-
     def save(self):
         _title = self.cleaned_data.get('title')
         _category = self.cleaned_data.get('category')
@@ -126,6 +125,11 @@ class EditSubCategoryForm(SubCategoryForm):
         self.sub_category = sub_category
         super(EditSubCategoryForm, self).__init__(*args, **kwargs)
 
+        self.fields['category'] = forms.ChoiceField(
+            label=_('parent category'),
+            choices=get_category_choices(),
+            widget=forms.Select(attrs={'class':'form-control'})
+        )
 
     def save(self):
         _title = self.cleaned_data.get('title')
