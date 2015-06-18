@@ -32,7 +32,9 @@ class Amazon(Spider):
 
     @property
     def price(self):
-        return self.soup.select("#price")
+        pricetag = self.soup.select("#priceblock_ourprice")
+        price = pricetag[0]
+        return float(price.string[1:].replace(',', ''))
 
     @property
     def images(self):
