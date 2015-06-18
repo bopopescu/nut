@@ -1901,19 +1901,21 @@ a:hover {
 .article-form-wrapper {
   display: none;
 }
-.article-wrapper {
-  font-family: 'Open Sans', 'Helvetica Neue', 'Arial', 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
-  color: #424242;
+.article-wrapper .title-wrapper h2 {
+  font-size: 32px;
 }
 .article-wrapper ul {
   list-style-type: disc;
 }
-.article-wrapper li {
-  list-style: circle!important;
+.article-wrapper ul li {
+  list-style: disc;
   display: list-item;
+  margin-left: 20px;
 }
-.article-wrapper .title-wrapper h2 {
-  font-size: 32px;
+.article-wrapper ol li {
+  list-style: decimal;
+  display: list-item;
+  margin-left: 20px;
 }
 .article-wrapper .info-wrapper {
   margin: 20px 0px;
@@ -1925,6 +1927,20 @@ a:hover {
 .article-wrapper .cover-wrapper {
   margin-bottom: 20px;
 }
-.article-wrapper .content-wrapper img {
+.article-wrapper .content-wrapper,
+.article-wrapper .note-editable {
+  font-family: 'Open Sans', 'Helvetica Neue', 'Arial', 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
+  color: #424242;
+  font-size: 16px;
+}
+.article-wrapper .content-wrapper blockquote,
+.article-wrapper .note-editable blockquote {
+  margin: 20px 0px;
+  background-color: #f9f9f9;
+  color: #5f5f5f;
+  padding-left: 20px;
+}
+.article-wrapper .content-wrapper img,
+.article-wrapper .note-editable img {
   max-width: 100%;
 }
