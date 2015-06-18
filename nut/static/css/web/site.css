@@ -1925,3 +1925,6 @@ a:hover {
 .article-wrapper .cover-wrapper {
   margin-bottom: 20px;
 }
+.article-wrapper .content-wrapper img {
+  max-width: 100%;
+}

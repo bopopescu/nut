@@ -31,7 +31,7 @@ class HandleImage(object):
         return self._image_data
 
     def get_ext_name(self):
-        ext = '.jpg'
+        ext = 'jpg'
         try:
             ext = self.content_type.split('/')[1]
         except :
