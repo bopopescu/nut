@@ -29,12 +29,14 @@
                 title : $('#real_article_form #id_title').val(),
                 content: $('#real_article_form #id_content').val(),
                 publish: $('#real_article_form #id_publish').val(),
+                showcover: $('#real_article_form #id_showcover').prop('checked')
             };
 
             return data;
         },
 
         setFormValues: function(data){
+            // not used , ajax can send data directly
             $('#real_article_form #id_cover').val(data['cover']);
             $('#real_article_form #id_title').val(data['title']);
             $('#real_article_form #id_content').val(data['content']);
@@ -46,7 +48,8 @@
             var data = {
                 title : $('.note-editor .title-input').val(),
                 content: this.summer.code(),
-                cover : $('#id_cover').val()
+                cover : $('#id_cover').val(),
+                showcover : $('#showcover').prop('checked') ? 1 : 0
             };
             return data;
         },
@@ -54,13 +57,17 @@
             $('.note-editor .title-input').val(data['title']);
             this.summer.code(data['content']);
             this.setBackgroundImg('.cover.article-cover',data['cover']);
+            $('#showcover').prop('checked', data['showcover']);
+
         },
         getBackgroundImgUrl:function(selector){
+            //not working  : ))))) ,css bgimg string to url
             return $(selector).css("backgroundImage");
         },
         setBackgroundImg:function(selector , url){
             $(selector).css({"backgroundImage": 'url('+ url+')' });
         },
+
         fillSummernote: function(){
             var data = this.collectFormValues();
                 this.setEditorValues(data);
