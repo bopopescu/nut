@@ -95,16 +95,27 @@ class EditSelectionArticle(UserPassesTestMixin, BaseFormView):
     def test_func(self, user):
         return user.is_chief_editor
 
-    def get(self, request, selection_id, *args, **kwargs):
+    def get_form_class(self, **kwargs):
+        sla = kwargs.pop('sla')
+        k = self.get_form_kwargs()
+        k.update(
+            {
+                'sla':sla
+            }
+        )
+        return self.form_class(**k)
+
+    def get(self, request, sla_id, *args, **kwargs):
         # _form = EditSelectionArticleForm
         try:
-            sla = Selection_Article.objects.get(pk = selection_id)
+            sla = Selection_Article.objects.get(pk = sla_id)
         except Selection_Article.DoesNotExist:
             raise Http404
 
         self.initial = sla.toDict()
         context = {
-            'form':self.get_form_class(),
+            'form':self.get_form_class(sla=sla),
+            'selection_article': sla,
         }
         return self.render_to_response(context=context)
         # return self.

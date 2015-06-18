@@ -5,6 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from apps.core.models import Article, Selection_Article
 from apps.core.utils.image import HandleImage
+from datetime import datetime
 
 
 
@@ -46,7 +47,34 @@ class CreateSelectionArticleForm(BaseSelectionArticleForm):
     pass
 
 class EditSelectionArticleForm(BaseSelectionArticleForm):
-    pass
+    YES_OR_NO = (
+        (1, _('yes')),
+        (0, _('no')),
+    )
+
+    article_id = forms.CharField(
+            widget=forms.TextInput(attrs={'class':'form-control', 'disabled':''}),
+            required=False,
+        )
+    is_published = forms.ChoiceField(
+        label=_('is_published'),
+        choices=YES_OR_NO,
+        widget=forms.Select(attrs={'class':'form-control'}),
+        help_text=_(''),
+        initial=1,
+    )
+
+    pub_time = forms.DateTimeField(
+        label=_('publish datetime'),
+        widget=forms.DateTimeInput(attrs={'class':'form-control'}),
+        help_text=_(''),
+        initial=datetime.now()
+    )
+
+    def __init__(self, sla, *args, **kwargs):
+        self.sla = sla
+        super(EditSelectionArticleForm, self).__init__(*args, **kwargs)
+
 
 class RemoveSelectionArticleForm(BaseSelectionArticleForm):
     pass
