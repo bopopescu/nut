@@ -1,8 +1,23 @@
 {% extends 'management/management_base.html' %}
 {% load i18n %}
-
+{% load guoku %}
 
 {% block content %}
+
+    <div class="row placeholders">
+{#        {% for image in sal.article.cor %}#}
+            <div class="col-xs-6 col-sm-3 placeholder">
+                <img class="img-responsive img-thumbnail" src="{{ sla.article.cover_url|resize:'240' }}" width="240" height="240">
+{#                {% if index != 0 %}#}
+{#                <span class="text-muted">#}
+{#                    <a class="btn btn-link" href="{% url 'management_remove_entity_image' entity.id %}">{% trans 'remove' %}</a>#}
+{#                    <a class="btn btn-link" href="{% url 'management_remove_entity_image' entity.id %}" data-image="{{ image }}">{% trans 'remove' %}</a>#}
+{#                </span>#}
+{#                {% endif %}#}
+            </div>
+{#        {% endfor %}#}
+    </div>
+
     <div class="row">
         {% include 'management/lib/forms.html' with forms=form url=request.path %}
     </div>
