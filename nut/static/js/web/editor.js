@@ -162,11 +162,12 @@
                 contentType: false,
                 processData: false,
                 success: function(url) {
-                    callback(url)
+                    callback(url);
 
                 },
-                error: function(){
-                    console.log('FILE UPLOAD FAIL')
+                error: function(data){
+                    console.log(data);
+                    console.log('FILE UPLOAD FAIL');
                 }
             });
         }

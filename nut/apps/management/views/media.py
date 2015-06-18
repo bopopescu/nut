@@ -57,7 +57,6 @@ def delete(request):
 @login_required
 @staff_only
 def upload_image(request):
-
     if request.method == "POST":
         file = request.FILES.get('file')
         image = HandleImage(file)
