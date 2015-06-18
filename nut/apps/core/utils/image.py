@@ -19,6 +19,8 @@ class HandleImage(object):
             self._image_data = ''.join(chuck for chuck in image_file.chunks())
         else:
             self._image_data = image_file.read()
+        self.content_type = image_file.content_type
+        self.ext_name = self.get_ext_name()
         image_file.close()
 
         self._name = None
@@ -27,6 +29,15 @@ class HandleImage(object):
     @property
     def image_data(self):
         return self._image_data
+
+    def get_ext_name(self):
+        ext = '.jpg'
+        try:
+            ext = self.content_type.split('/')[1]
+        except :
+            pass
+
+        return ext
 
     @property
     def name(self):
@@ -78,16 +89,19 @@ class HandleImage(object):
 
     def save(self, path = None, resize=False, square=False):
 
-        if square:
-            self.crop_square()
 
+        if square and (self.ext_name == 'jpg') :
+            self.crop_square()
         # else:
         if path:
             self.path = path
 
-        filename = self.path + self.name + '.jpg'
+        filename = self.path + self.name +'.' +self.ext_name
         if not default_storage.exists(filename):
-            filename = default_storage.save(filename, ContentFile(self.image_data))
+            try:
+                filename = default_storage.save(filename, ContentFile(self.image_data))
+            except Exception as e:
+                pass
         return filename
 
 
