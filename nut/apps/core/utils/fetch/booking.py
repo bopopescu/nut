@@ -83,7 +83,7 @@ class Booking():
             # log.error(e.message)
             raise
 
-        f = requests.get(url)
+        # f = requests.get(url)
         self._headers = f.headers
 
         res = f.content

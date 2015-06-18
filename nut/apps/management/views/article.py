@@ -298,7 +298,6 @@ def edit(request, article_id, template="management/article/edit.html"):
         context_instance = RequestContext(request)
     )
 
-
 @login_required
 @staff_only
 def preview(request, article_id, template="management/article/preview.html"):
