@@ -7,9 +7,8 @@ def get_admin_user_choices():
     return res
 
 def get_category_choices():
-
     category_list = Category.objects.all()
-    # log.info(category_list)
+    print category_list
     res = map(lambda x : (x.id, x.title), category_list)
     return res
 

@@ -42,7 +42,6 @@ class BaseSelectionArticleForm(forms.Form):
 
 
 
-
 class CreateSelectionArticleForm(BaseSelectionArticleForm):
     pass
 
@@ -133,15 +132,29 @@ class EditArticleForms(BaseArticleForms):
     def __init__(self, article, *args, **kwargs):
         self.article = article
         super(EditArticleForms, self).__init__(*args, **kwargs)
+        if self.article.is_published:
+            self.fields['is_publish'] = forms.ChoiceField(
+            label=_('publish'),
+            choices=Article.ARTICLE_STATUS_CHOICES,
+            widget=forms.Select(attrs={'class':'form-control', 'disabled':''}),
+            required=False,
+            # help_text=_(''),
+            # initial=Article.draft,
+        )
+
 
     def save(self):
         title = self.cleaned_data.get('title')
         content = self.cleaned_data.get('content')
-        is_publish = self.cleaned_data.get('is_publish')
+
 
         self.article.title = title
         self.article.content = content
-        self.article.publish = is_publish
+
+        if not self.article.is_published:
+            is_publish = self.cleaned_data.get('is_publish')
+            self.article.publish = is_publish
+
         self.article.save()
 
         return self.article

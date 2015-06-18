@@ -138,7 +138,7 @@ def sub_category_edit(request, scid, template="management/category/sub_category_
             initial={
                 'category':sub_category.group_id,
                 'title':sub_category.title,
-                'status':sub_category.status,
+                'status': int(sub_category.status),
             }
         )
 
@@ -190,7 +190,7 @@ def edit(request, cid, template="management/category/edit.html"):
             category=category,
             initial={
                 'title': category.title,
-                'status': category.status,
+                'status': int(category.status),
             }
         )
 

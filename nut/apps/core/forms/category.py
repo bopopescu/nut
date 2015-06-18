@@ -135,7 +135,6 @@ class EditSubCategoryForm(SubCategoryForm):
         _status = self.cleaned_data.get('status')
         _status = int(_status)
 
-
         if _icon:
             log.info("icon %s" % _icon)
             image_file = HandleImage(_icon)
