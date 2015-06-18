@@ -5,7 +5,12 @@
 {% block content %}
     <h1 class="page-header">精选文章</h1>
 
-
+    <div class="row">
+        <ul class="nav nav-pills" role="tablist">
+            <li {% if request.path == '/management/article/selections/' %}class="active"{% endif %}><a href="{% url 'management_selection_article_list' %}">{% trans 'published' %}</a></li>
+            <li {% if request.path == '/management/article/selections/pending/' %}class="active"{% endif %}><a href="{% url 'management_selection_pending_article_list' %}">{% trans 'pending' %}</a></li>
+        </ul>
+    </div>
 
     <div class="table-responsive">
         <table class="table table-striped action-table">

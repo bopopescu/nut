@@ -6,8 +6,9 @@
 {% block content %}
     <h1 class="page-header">{% trans 'media' %}</h1>
 
+    <div class="row">
     <div class="table-responsive">
-        <table class="table table-striped">
+        <table class="table table-striped" id="media">
             <thead>
                 <tr>
                     <th>#</th>
@@ -26,7 +27,7 @@
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-default" href="#">{% trans 'copy link' %}</a>
-                                <a class="btn btn-danger">{% trans 'delete' %}</a>
+                                <a class="btn btn-danger btn-delete" medium-id="{{ medium.pk }}">{% trans 'delete' %}</a>
                             </div>
                         </td>
 {#                        <td><a class="btn btn-default" href="{% url 'management_banner_edit' banner.pk %}">{% trans 'edit' %}</a></td>#}
@@ -35,6 +36,6 @@
             </tbody>
         </table>
     </div>
-
+    </div>
     {% include "management/paginator.html" with objects=media url=request.path %}
 {% endblock %}

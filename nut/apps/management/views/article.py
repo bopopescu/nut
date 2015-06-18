@@ -31,6 +31,24 @@ from braces.views import UserPassesTestMixin, JSONResponseMixin
 class SelectionArticleList(SortMixin,ListView):
     template_name = 'management/article/selection_article_list.html'
     model = Selection_Article
+    queryset = Selection_Article.objects.filter(is_published=True)
+    paginate_by = 30
+    paginator_class = Jpaginator
+    context_object_name = 'selection_article_list'
+    default_sort_params = ('create_time','desc')
+
+    def sort_queryset(self, qs, sort_by, order):
+        if sort_by:
+            qs = qs.order_by(sort_by)
+        if order =='desc':
+            qs = qs.reverse()
+        return qs
+
+
+class SelectionPendingArticleList(SortMixin,ListView):
+    template_name = 'management/article/selection_article_list.html'
+    model = Selection_Article
+    queryset = Selection_Article.objects.filter(is_published=False)
     paginate_by = 30
     paginator_class = Jpaginator
     context_object_name = 'selection_article_list'
