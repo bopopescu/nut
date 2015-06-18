@@ -35,7 +35,6 @@ def delete(request):
 
 @csrf_exempt
 def upload_image(request):
-
     if request.method == "POST":
         file =  request.FILES.get('file')
         image = HandleImage(file)
