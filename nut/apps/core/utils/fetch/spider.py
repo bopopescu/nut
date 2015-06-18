@@ -20,6 +20,7 @@ class Spider(object):
         self.urlobj = urlparse(url)
         self.html = self.fetch_html_cache(self.url)
         self.soup = BeautifulSoup(self.html, from_encoding="UTF-8")
+        
     @property
     def origin_id(self):
         key = md5(self.url).hexdigest()
@@ -33,7 +34,6 @@ class Spider(object):
 
     @property
     def buy_link(self):
-        # print "%s?%s" % (self.url, 'tag=guoku-23')
         return "%s?%s" % (self.url, 'tag=guoku-23')
 
     @property

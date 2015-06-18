@@ -182,17 +182,24 @@ def load_entity_info(url):
 
     if re.search(r"\b(amazon)\.cn$", _hostname) != None:
         a = Amazon(_link)
-        _data = {
-            'cand_url':a.buy_link,
-            'origin_id': a.origin_id,
-            'origin_source':a.hostname,
-            'title': a.desc,
-            'thumb_images': a.images,
-            'price': a.price,
-            'cid': a.cid,
-            'shop_link': a.shop_link,
-            'shop_nick': a.nick,
-        }
+        try:
+            buy_link = Buy_Link.objects.get(origin_id=a.origin_id, origin_source=a.hostname)
+            _data = {
+                'entity_id': buy_link.entity.id,
+            }
+        except Buy_Link.DoesNotExist, e:
+            _data = {
+                'cand_url':a.buy_link,
+                'origin_id': a.origin_id,
+                'origin_source':a.hostname,
+                'title': a.desc,
+                'thumb_images': a.images,
+                'price': a.price,
+                'cid': a.cid,
+                'brand': a.brand,
+                'shop_link': a.shop_link,
+                'shop_nick': a.nick,
+            }
 
     return _data
 
