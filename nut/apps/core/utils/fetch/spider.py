@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from urlparse import urlparse, urljoin
 from hashlib import md5
+
 try:
     from django.core.cache import cache
 except Exception, e:
@@ -20,11 +21,6 @@ class Spider(object):
         self.urlobj = urlparse(url)
         self.html = self.fetch_html_cache(self.url)
         self.soup = BeautifulSoup(self.html, from_encoding="UTF-8")
-        
-    @property
-    def origin_id(self):
-        key = md5(self.url).hexdigest()
-        return key
 
     @property
     def url(self):
@@ -41,7 +37,7 @@ class Spider(object):
         return self.urlobj.hostname
 
     def fetch_html_cache(self, url):
-        key = self.origin_id
+        key = md5(self.url).hexdigest()
 
         res = cache.get(key)
         if res:
