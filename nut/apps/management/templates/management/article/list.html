@@ -47,12 +47,18 @@
                         <td>{{ row.last_selection_time }}</td>
                         <td>
                             <div class="btn-group">
-                                 <a class="btn btn-primary add-selection"
+                                {% if row.selections.count %}
+                                    <a class="btn btn-default disabled" href="javascript:;">
+                                        已加入精选
+                                    </a>
+                                {% else %}
+                                    <a class="btn btn-primary add-selection" href="javascript:;"
                                     url = "{% url 'management_create_selection_article' row.pk %}"
                                     article_id="{{  row.pk  }}">
 
                                     加入精选
-                                </a>
+                                    </a>
+                                {% endif %}
                             </div>
 
                         </td>

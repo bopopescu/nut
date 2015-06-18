@@ -5,13 +5,19 @@
 {% block content %}
     <h1 class="page-header">精选文章</h1>
 
-
+    <div class="row">
+        <ul class="nav nav-pills" role="tablist">
+            <li {% if request.path == '/management/article/selections/' %}class="active"{% endif %}><a href="{% url 'management_selection_article_list' %}">{% trans 'published' %}</a></li>
+            <li {% if request.path == '/management/article/selections/pending/' %}class="active"{% endif %}><a href="{% url 'management_selection_pending_article_list' %}">{% trans 'pending' %}</a></li>
+        </ul>
+    </div>
 
     <div class="table-responsive">
         <table class="table table-striped action-table">
             <thead>
                 <tr>
                     <th class="id">#</th>
+                    <th class="cover">{% trans 'cover' %}</th>
                     <th class="title">{% trans 'title' %}</th>
                     <th class="person-link" >{% trans 'author' %}</th>
                     <th class="cell-boolean" >文章状态</th>
@@ -29,6 +35,7 @@
                 {% for sla in selection_article_list %}
                     <tr>
                         <td>{{ sla.pk }}</td>
+                        <td><img class="img-thumbnail img-responsive" src="{{ sla.article.cover_url|resize:'90' }}"></td>
                         <td>{{ sla.article.title }}</td>
                         <td>
                             <a href="{% url 'management_user_edit' sla.article.creator_id %}" target="_blank">
