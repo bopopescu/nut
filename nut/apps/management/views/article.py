@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.log import getLogger
+from django.utils.translation import gettext_lazy as _
 # from django.core.exceptions import ObjectDoesNotExist
 
 # from apps.core.forms.article import
@@ -112,12 +113,21 @@ class EditSelectionArticle(UserPassesTestMixin, BaseFormView):
         except Selection_Article.DoesNotExist:
             raise Http404
 
-        self.initial = sla.toDict()
+        self.initial = {
+            'article_id': sla.article.id,
+            'is_published': int(sla.is_published),
+            'pub_time': sla.pub_time,
+        }
         context = {
             'form':self.get_form_class(sla=sla),
-            'selection_article': sla,
+            'sla': sla,
+            'button': _('save'),
         }
         return self.render_to_response(context=context)
+
+    def post(self, request, sla_id, *args, **kwargs):
+
+        pass
         # return self.
 
 
