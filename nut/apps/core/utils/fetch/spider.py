@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from urlparse import urlparse, urljoin
 from hashlib import md5
 try:
     from django.core.cache import cache
@@ -9,21 +10,38 @@ except Exception, e:
 
 origin_headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36',
-    'Referer': 'http://detail.tmall.com/item.htm?id=44691754172'
+    # 'Referer': 'http://detail.tmall.com/item.htm?id=44691754172'
     }
 
-class Spider():
+class Spider(object):
 
     def __init__(self, url):
-        self.html = self.fetch_html_cache(url)
+        # self._url = url
+        self.urlobj = urlparse(url)
+        self.html = self.fetch_html_cache(self.url)
         self.soup = BeautifulSoup(self.html, from_encoding="UTF-8")
+    @property
+    def origin_id(self):
+        key = md5(self.url).hexdigest()
+        return key
 
-    # @property
-    # def desc(self):
-    #     return self.soup.title.string
+    @property
+    def url(self):
+        url = "http://%s%s" % (self.urlobj.hostname, self.urlobj.path)
+        url = urljoin(url, ' ')
+        return url.rstrip()
+
+    @property
+    def buy_link(self):
+        # print "%s?%s" % (self.url, 'tag=guoku-23')
+        return "%s?%s" % (self.url, 'tag=guoku-23')
+
+    @property
+    def hostname(self):
+        return self.urlobj.hostname
 
     def fetch_html_cache(self, url):
-        key = md5(url).hexdigest()
+        key = self.origin_id
 
         res = cache.get(key)
         if res:

@@ -1,18 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from apps.core.utils.fetch.spider import Spider
-from bs4 import BeautifulSoup
-import json
 
 
 class Amazon(Spider):
 
     def __init__(self, url):
-        # super(Amazon, self).__init__(url)
-        self.html = self.fetch_html(url)
-        self.soup = BeautifulSoup(self.html, from_encoding="UTF-8")
-
-        self._desc, self._nick, self._category = self.soup.title.string.split(':')
+        super(Amazon, self).__init__(url)
 
     @property
     def headers(self):
@@ -20,15 +14,20 @@ class Amazon(Spider):
 
     @property
     def desc(self):
-        return self._desc
+        _desc = self.soup.title.string.split(':')
+        return _desc[0]
 
     @property
     def nick(self):
-        return self._nick
+        return 'amazon'
 
     @property
-    def category(self):
-        return self._category
+    def shop_link(self):
+        return self.hostname
+
+    @property
+    def cid(self):
+        return 0
 
     @property
     def price(self):
@@ -52,17 +51,20 @@ class Amazon(Spider):
 
     @property
     def brand(self):
-        return ""
-
+        optbrands = self.soup.select('#brandByline_feature_div div a')
+        try:
+            brand = optbrands[0].string
+            return brand
+        except IndexError:
+            return ''
 
 if __name__=="__main__":
 
-    a = Amazon("http://www.amazon.cn/Apple-iPhone-6-Plus-4G%E6%99%BA%E8%83%BD%E6%89%8B%E6%9C%BA/dp/B00OB5TGRI/")
-    # r = b.fetch_html()
-    # print r
-    # print b.content
-    print a.desc, a.nick, a.category
-    print a.price
+    a = Amazon("http://www.amazon.cn/gp/product/B00BVV0VQU/ref=s9_cngwdyfloorv2-s9?pf_rd_m=A1AJ19PSB66TGU&pf_rd_s=center-2&pf_rd_r=0DEMD1RDSC5AD4HC9KWA&pf_rd_t=101&pf_rd_p=251248392&pf_rd_i=899254051")
+    print a.brand
+    print a.buy_link
+    # print a.desc
+    # print a.price, a.images
     # print b.desc
 
 

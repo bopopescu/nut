@@ -148,18 +148,22 @@ def edit(request, entity_id, template='management/entities/edit.html'):
 
 
 @login_required
+@staff_only
 def create(request, template='management/entities/new.html'):
 
-    # res = dict()
     _url = request.GET.get('url')
 
     if _url is None:
         raise Http404
         # print(_url)
     res = load_entity_info(_url)
+    # log.info("OKOKO %s", len(res))
 
     if res.has_key('entity_id'):
         return HttpResponseRedirect(reverse('management_entity_edit', args=[res['entity_id']]))
+
+    if len(res) == 0:
+        return HttpResponse('暂不支持')
 
     if request.method == "POST":
         # log.info(request.POST)

@@ -17,6 +17,7 @@ from apps.core.utils.fetch.taobao import TaoBao
 from apps.core.utils.fetch.jd import JD
 from apps.core.utils.fetch.kaola import Kaola
 from apps.core.utils.fetch.booking import Booking
+from apps.core.utils.fetch.amazon import Amazon
 
 from django.conf import settings
 from urlparse import urlparse
@@ -179,7 +180,19 @@ def load_entity_info(url):
                 'shop_nick': b.nick,
             }
 
-            log.info(_data)
+    if re.search(r"\b(amazon)\.cn$", _hostname) != None:
+        a = Amazon(_link)
+        _data = {
+            'cand_url':a.buy_link,
+            'origin_id': a.origin_id,
+            'origin_source':a.hostname,
+            'title': a.desc,
+            'thumb_images': a.images,
+            'price': a.price,
+            'cid': a.cid,
+            'shop_link': a.shop_link,
+            'shop_nick': a.nick,
+        }
 
     return _data
 
