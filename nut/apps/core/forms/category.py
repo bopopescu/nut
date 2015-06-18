@@ -125,6 +125,7 @@ class EditSubCategoryForm(SubCategoryForm):
         self.sub_category = sub_category
         super(EditSubCategoryForm, self).__init__(*args, **kwargs)
 
+        # TODO: disabel category cache
         self.fields['category'] = forms.ChoiceField(
             label=_('parent category'),
             choices=get_category_choices(),
