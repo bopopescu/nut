@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.log import getLogger
-from django.core.exceptions import ObjectDoesNotExist
+# from django.core.exceptions import ObjectDoesNotExist
 
 # from apps.core.forms.article import
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
@@ -18,10 +18,15 @@ from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
 log = getLogger('django')
 
-from django.views.generic import ListView,View
+from django.views.generic import ListView, View
+from apps.core.views import BaseFormView
 
 from apps.core.models import Selection_Article
-from apps.core.forms.article import CreateSelectionArticleForm, CreateArticleForms, EditArticleForms, UploadCoverForms
+from apps.core.forms.article import CreateSelectionArticleForm, \
+    EditSelectionArticleForm, \
+    CreateArticleForms, \
+    EditArticleForms, \
+    UploadCoverForms
 
 
 from braces.views import UserPassesTestMixin, JSONResponseMixin
@@ -68,7 +73,7 @@ class CreateSelectionArticle(UserPassesTestMixin, JSONResponseMixin , View):
         return  user.is_chief_editor
 
     # TODO : use POST for data alter
-    def get(self, request, article_id  , *args, **kwargs):
+    def get(self, request, article_id, *args, **kwargs):
         _form = CreateSelectionArticleForm(data={'article_id':article_id})
         res = {}
         if _form.is_valid():
@@ -82,6 +87,28 @@ class CreateSelectionArticle(UserPassesTestMixin, JSONResponseMixin , View):
         return self.render_json_response(res)
 
 
+class EditSelectionArticle(UserPassesTestMixin, BaseFormView):
+
+    template_name = 'management/article/edit_selection.html'
+    form_class = EditSelectionArticleForm
+
+    def test_func(self, user):
+        return user.is_chief_editor
+
+    def get(self, request, selection_id, *args, **kwargs):
+        # _form = EditSelectionArticleForm
+        try:
+            sla = Selection_Article.objects.get(pk = selection_id)
+        except Selection_Article.DoesNotExist:
+            raise Http404
+
+        self.initial = sla.toDict()
+        context = {
+            'form':self.get_form_class(),
+        }
+        return self.render_to_response(context=context)
+        # return self.
+
 
 class RemoveSelectionArticle(UserPassesTestMixin, JSONResponseMixin, View):
     def test_func(self, user):
@@ -92,7 +119,7 @@ class RemoveSelectionArticle(UserPassesTestMixin, JSONResponseMixin, View):
         res = {}
         try:
             selection_article = Selection_Article.objects.get(pk=selection_article_id)
-        except ObjectDoesNotExist:
+        except Selection_Article.DoesNotExist:
             res['status'] = 'fail'
             res['message'] = 'selection article id not found'
             return self.render_json_response(res)

@@ -20,15 +20,16 @@
                     <th class="cover">{% trans 'cover' %}</th>
                     <th class="title">{% trans 'title' %}</th>
                     <th class="person-link" >{% trans 'author' %}</th>
-                    <th class="cell-boolean" >文章状态</th>
+{#                    <th class="cell-boolean" >文章状态</th>#}
                      <th>{% trans 'operation' %}</th>
 
                      <th class="date-time">入精选时间</th>
                     <th>该文章入精选次数</th>
                     <th>上次精选发布时间</th>
-
+                    {% if request.path == '/management/article/selections/pending/' %}
                     <th>精选操作</th>
                     <th>精选发布</th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -42,12 +43,14 @@
                             {{ sla.article.creator.profile.nickname }}
                             </a>
                         </td>
-                        <td>{{ sla.article.get_publish_display }}</td>
+{#                        <td>{{ sla.article.get_publish_display }}</td>#}
 
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-default" href="{% url 'management_article_edit' sla.article.pk %}" target="_blank">{% trans 'edit' %}</a>
-
+{#                                {% if request.path == '/management/article/selections/pending/' %}#}
+                                <a class="btn btn-primary" href="#" target="_blank">{% trans 'edit publish datetime' %}</a>
+{#                                {% endif %}#}
                                 <a class="btn btn-success" href="{% url 'web_article_page' sla.article.pk %}" target="_blank">{% trans 'goto' %}</a>
                             </div>
                         </td>
@@ -55,6 +58,7 @@
                         <td>{{ sla.create_time|format_time}}</td>
                         <td>{{ sla.article.selection_count}}</td>
                         <td>{{ sla.article.last_selection_time }}</td>
+                        {% if request.path == '/management/article/selections/pending/' %}
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-danger remove-selection"
@@ -71,6 +75,7 @@
                                 </a>
                             </div>
                         </td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </tbody>

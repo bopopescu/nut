@@ -1009,7 +1009,7 @@ class Article(models.Model):
 # selection_article's is_published is different from article's publish
 # editor can only control article's publish
 # only article manager can set selection_article's is_published property
-class Selection_Article(models.Model):
+class Selection_Article(BaseModel):
     article = models.ForeignKey(Article,unique=False, related_name='selections')
     is_published = models.BooleanField(default=False)
     pub_time = models.DateTimeField(db_index=True,editable=True, null=True,blank=True)
