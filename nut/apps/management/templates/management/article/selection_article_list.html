@@ -17,6 +17,7 @@
             <thead>
                 <tr>
                     <th class="id">#</th>
+                    <th class="cover">{% trans 'cover' %}</th>
                     <th class="title">{% trans 'title' %}</th>
                     <th class="person-link" >{% trans 'author' %}</th>
                     <th class="cell-boolean" >文章状态</th>
@@ -34,6 +35,7 @@
                 {% for sla in selection_article_list %}
                     <tr>
                         <td>{{ sla.pk }}</td>
+                        <td><img class="img-thumbnail img-responsive" src="{{ sla.article.cover_url|resize:'90' }}"></td>
                         <td>{{ sla.article.title }}</td>
                         <td>
                             <a href="{% url 'management_user_edit' sla.article.creator_id %}" target="_blank">
