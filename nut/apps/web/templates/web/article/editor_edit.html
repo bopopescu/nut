@@ -24,12 +24,15 @@
                        <span   id="save-draft"  class="btn btn-danger">保存草稿</span>
                        <span   id="save-publish" class="btn btn-primary">发布文章</span>
                     </div>
-                    <div class="cover article-cover">
+
+                    <div class="cover article-cover" >
                         <div class="icon-wrapper">
                             <i class="fa fa-file-image-o img-icon"></i>
                         </div>
+                        <div class="showcover-wrapper">
+                           <input type="checkbox" id="showcover"> <span> 显示封面 </span>
+                        </div>
                         <input type="file" accept="image/*" name="upload-file" id="cover-upload-button">
-
                     </div>
                     <div class="guoku_editor "></div>
 
@@ -56,5 +59,11 @@
 {% block script %}
     <script src="{% static 'summernote/summernote.js' %}"></script>
     <script src="{% static 'js/web/editor.js' %}"></script>
+    <script language="javascript">
+            $(function () {
+              $('[data-toggle="tooltip"]').tooltip()
+            });
+
+    </script>
 
 {% endblock %}

@@ -52,9 +52,9 @@ class EditorArticleCreate(UserPassesTestMixin, View):
 
     def get(self,request):
         new_article = Article(
-            title='这里是文章标题',
-            cover='fewfwfew',
-            content='这里是文章内容',
+            title='标题',
+            cover='',
+            content='正文',
             publish=Article.draft,
             creator=self.request.user,
         )
@@ -88,6 +88,7 @@ class EditorArticleEdit(AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,
                 article.title = data['title']
                 article.cover = data['cover']
                 article.publish = data['publish']
+                article.showcover = int(data['showcover'])
                 article.save()
 
             except Exception as e:
