@@ -52,9 +52,9 @@ class EditorArticleCreate(UserPassesTestMixin, View):
 
     def get(self,request):
         new_article = Article(
-            title='标题',
+            title="标题",
             cover='',
-            content='正文',
+            content="正文",
             publish=Article.draft,
             creator=self.request.user,
         )
