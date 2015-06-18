@@ -1015,6 +1015,9 @@ class Selection_Article(models.Model):
     pub_time = models.DateTimeField(db_index=True,editable=True, null=True,blank=True)
     create_time = models.DateTimeField(db_index=True, editable=False,auto_now_add=True, blank=True)
 
+    # def __unicode__(self):
+    #     return self.article
+
 
 class Media(models.Model):
     file_path = models.URLField()
