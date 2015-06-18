@@ -116,7 +116,7 @@ class EditSelectionArticle(UserPassesTestMixin, BaseFormView):
         self.initial = {
             'article_id': sla.article.id,
             'is_published': int(sla.is_published),
-            'pub_time': sla.pub_time,
+            # 'pub_time': sla.pub_time,
         }
         context = {
             'form':self.get_form_class(sla=sla),
@@ -126,8 +126,26 @@ class EditSelectionArticle(UserPassesTestMixin, BaseFormView):
         return self.render_to_response(context=context)
 
     def post(self, request, sla_id, *args, **kwargs):
+        try:
+            sla = Selection_Article.objects.get(pk = sla_id)
+        except Selection_Article.DoesNotExist:
+            raise Http404
 
-        pass
+        # self.initial = {
+        #     'article_id': sla.article.id,
+        #     'is_published': int(sla.is_published),
+        #     'pub_time': sla.pub_time,
+        # }
+
+        form = self.get_form_class(sla=sla)
+        if form.is_valid():
+            form.save()
+        context = {
+            'form':self.get_form_class(sla=sla),
+            'sla': sla,
+            'button': _('save'),
+        }
+        return self.render_to_response(context=context)
         # return self.
 
 

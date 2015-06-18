@@ -75,6 +75,21 @@ class EditSelectionArticleForm(BaseSelectionArticleForm):
         self.sla = sla
         super(EditSelectionArticleForm, self).__init__(*args, **kwargs)
 
+    def save(self):
+        # _the_article = self.get_article_obj()
+        _is_published = self.cleaned_data.get('is_published')
+        _pub_time = self.cleaned_data.get('pub_time', None)
+
+        self.sla.is_published = _is_published
+        self.sla.pub_time = _pub_time
+        self.sla.save()
+        # selection_article = Selection_Article(is_published=_is_published, pub_time=_pub_time)
+        # selection_article.article = _the_article
+        # try :
+        #     selection_article.save()
+        # except Exception as e :
+        #     log(e)
+        return self.sla
 
 class RemoveSelectionArticleForm(BaseSelectionArticleForm):
     pass
