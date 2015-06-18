@@ -170,6 +170,29 @@
         }
     };
 
+    var media= {
+        remove: function(){
+            var media_list = $("#media");
+            //console.log(media_list);
+            media_list.find('.btn-delete').on('click', function(){
+                var row = $(this).parent().parent().parent();
+                //console.log(row);
+                var medium_id = $(this).attr('medium-id');
+                var link = '/management/media/delete/';
+                $.ajax({
+                    type:'post',
+                    url:link,
+                    data: {'mid': medium_id},
+                    success: function(res){
+                        row.remove();
+                    }
+                });
+
+                //console.log(medium_id)
+            });
+        }
+    };
+
     var article={
         initAddSelectionArticle: function(){
             add_btns = jQuery('.add-selection');
@@ -226,6 +249,7 @@
 
         comment.remove();
 
+        media.remove();
 //        add by An
         article.initAddSelectionArticle();
         article.initRemoveSelectionArticle();
