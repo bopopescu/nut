@@ -19,12 +19,14 @@ class HandleImage(object):
             self._image_data = ''.join(chuck for chuck in image_file.chunks())
         else:
             self._image_data = image_file.read()
-        self.content_type = image_file.content_type
+        try:
+            self.content_type = image_file.content_type
+        except AttributeError:
+            pass
         self.ext_name = self.get_ext_name()
         image_file.close()
 
         self._name = None
-
 
     @property
     def image_data(self):
@@ -88,8 +90,6 @@ class HandleImage(object):
         # return _img.make_blob()
 
     def save(self, path = None, resize=False, square=False):
-
-
         if square and (self.ext_name == 'jpg') :
             self.crop_square()
         # else:

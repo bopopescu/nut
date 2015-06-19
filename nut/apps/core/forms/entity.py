@@ -488,7 +488,18 @@ class CreateEntityForm(forms.Form):
                 price = _price,
                 default = True,
             )
-        elif "booking.com" in _origin_source:
+        # elif "booking.com" in _origin_source:
+        #     _link = self.cleaned_data.get('cand_url')
+        #     Buy_Link.objects.create(
+        #         entity = entity,
+        #         origin_id = _origin_id,
+        #         cid = self.initial['cid'],
+        #         origin_source = _origin_source,
+        #         link = _link,
+        #         price = _price,
+        #         default = True,
+        #     )
+        else:
             _link = self.cleaned_data.get('cand_url')
             Buy_Link.objects.create(
                 entity = entity,
@@ -496,16 +507,6 @@ class CreateEntityForm(forms.Form):
                 cid = self.initial['cid'],
                 origin_source = _origin_source,
                 link = _link,
-                price = _price,
-                default = True,
-            )
-        else:
-            Buy_Link.objects.create(
-                entity = entity,
-                origin_id = _origin_id,
-                cid = self.initial['cid'],
-                origin_source = _origin_source,
-                link = "http://www.kaola.com/product/%s.html" % _origin_id,
                 price = _price,
                 default = True,
             )

@@ -19,10 +19,11 @@ def images(request, file_name, size=None):
         # log.info(path)
         image_name = "%s/%s" % (path[1], path[-1])
 
-    log.info(image_name)
-    result = resize.apply_async((image_name, size), expires=5)
-    image_data = result.get()
-
+    # log.info("OKOKOKKO %s" %image_name)
+    # result = resize.apply_async((image_name, size), expires=15)
+    # image_data = result.get()
+    image_data = resize(image_name, size)
+    # log.info(image_data)
     if image_data:
         return HttpResponse(image_data, content_type='image/jpeg')
     raise Http404
