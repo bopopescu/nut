@@ -213,6 +213,7 @@ def buy_link(request, entity_id, template='management/entities/buy_link.html'):
 
     if request.method == 'POST':
         _forms = BuyLinkForm(entity=_entity, data=request.POST)
+        # log.info(request.POST)
         if _forms.is_valid():
             _forms.save()
             return HttpResponseRedirect(reverse('management_entity_edit', args=[entity_id]))

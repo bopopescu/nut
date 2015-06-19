@@ -666,15 +666,14 @@ class BuyLinkForm(forms.Form):
         _link = self.cleaned_data.get('link')
         _default = self.cleaned_data.get('default')
         _default = int(_default)
-        # log.info(type(bool(_default)))
+
         _hostname = urlparse(_link).hostname
-        log.info(_link)
+
         if _default:
             Buy_Link.objects.filter(entity=self.entity_cache).update(default=False)
 
         if re.search(r"\b(tmall|taobao|95095)\.(com|hk)$", _hostname) is not None:
             _taobao_id = parse_taobao_id_from_url(_link)
-        # log.info(_link)
 
             try:
                 self.b = Buy_Link.objects.get(origin_id=_taobao_id, entity=self.entity_cache, origin_source="taobao.com",)
@@ -744,11 +743,30 @@ class BuyLinkForm(forms.Form):
                     origin_id = b.origin_id,
                     cid=b.cid,
                     origin_source = b.hostname,
-                    link=_link,
+                    link=b.url,
                     price=b.price,
                     default=_default,
                 )
                 self.b.save()
+
+        if re.search(r"\b(amazon)\.(cn|com)$", _hostname) != None:
+            print _link
+            a = Amazon(_link)
+            try:
+                self.b = Buy_Link.objects.get(origin_id=a.origin_id, origin_source=a.hostname)
+
+            except Buy_Link.DoesNotExist, e:
+                self.b = Buy_Link(
+                    entity = self.entity_cache,
+                    origin_id = a.origin_id,
+                    cid=a.cid,
+                    origin_source = a.hostname,
+                    link=a.url,
+                    price=a.price,
+                    default=_default,
+                )
+                self.b.save()
+            # print self.b.link
         return self.b
 
 
