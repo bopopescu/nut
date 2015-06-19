@@ -66,7 +66,10 @@
             return $(selector).css("backgroundImage");
         },
         setBackgroundImg:function(selector , url){
-            $(selector).css({"backgroundImage": 'url('+ url+')' });
+            if(url){
+                $('.cover .icon-wrapper').hide();
+                $(selector).css({"backgroundImage": 'url('+ url+')' });
+            }
         },
 
         fillSummernote: function(){
