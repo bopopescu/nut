@@ -12,6 +12,7 @@
     EditorApp.prototype={
         initSummernote: function(){
           var that = this ;
+          this.error_messages = [];
           this.summer = $('.guoku_editor').summernote({
             height: 700,
             focus: true,
@@ -65,7 +66,10 @@
             return $(selector).css("backgroundImage");
         },
         setBackgroundImg:function(selector , url){
-            $(selector).css({"backgroundImage": 'url('+ url+')' });
+            if(url){
+                $('.cover .icon-wrapper').hide();
+                $(selector).css({"backgroundImage": 'url('+ url+')' });
+            }
         },
 
         fillSummernote: function(){
@@ -103,12 +107,51 @@
 
         },
 
+        clearErrorMessage: function(){
+            while(this.error_messages.length){
+                this.error_messages.shift();
+            }
+            return ;
+        },
+
+        checkData: function(data){
+            this.clearErrorMessage();
+
+            if (!data['cover']){
+                this.error_messages.push('请选择封面图');
+                return false;
+            }
+            if(!data['title']){
+                this.error_messages.push('请填写文章标题');
+                return false;
+            }
+
+            if(!data['content']){
+                this.error_messages.push('请输入文章内容');
+                return false;
+            }
+
+            return true;
+        },
+
+        showErrorMessages:function(){
+            var message = '';
+            $.each(this.error_messages, function(idx, msg){
+               message  += msg + "   ";
+            });
+            alert(message);
+
+        },
         saveArticle: function(data, success,fail){
             //the article is is useless
             function k(){}
             success = success || k;
             fail = fail||k;
 
+            if (!this.checkData(data)){
+                this.showErrorMessages();
+                return ;
+            }
             var that = this;
             var url = window.location.pathname;
                 $.when(

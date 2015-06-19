@@ -129,22 +129,20 @@ def load_entity_info(url):
 
     if re.search(r"\b(kaola)\.com$", _hostname) != None:
         # log.info(_hostname)
-        _kaola_id = parse_kaola_id_from_url(_link)
-        log.info(_link)
+        # _kaola_id = parse_kaola_id_from_url(_link)
+        # log.info(_link)
+        k = Kaola(_link)
         try:
-            buy_link = Buy_Link.objects.get(origin_id=_kaola_id, origin_source="kaola.com",)
+            buy_link = Buy_Link.objects.get(origin_id=k.origin_id, origin_source=k.hostname)
                 # log.info(buy_link.entity)
             _data = {
                 'entity_id': buy_link.entity.id,
             }
         except Buy_Link.DoesNotExist:
-            k = Kaola(_kaola_id)
-            # k.fetch_html()
-            # log.info(k.desc)
             _data = {
-                'cand_url': "http://www.kaola.com/product/%s.html" % _kaola_id,
-                'origin_id': _kaola_id,
-                'origin_source': 'kaola.com',
+                'cand_url': k.url,
+                'origin_id': k.origin_id,
+                'origin_source': k.hostname,
                 'brand': k.brand,
                 'title': k.desc,
                 'thumb_images': k.images,
@@ -165,7 +163,7 @@ def load_entity_info(url):
                 'entity_id': buy_link.entity.id,
             }
         except Buy_Link.DoesNotExist:
-            b = Booking(_link)
+            # b = Booking(_link)
             # k.fetch_html()
             # log.info(k.desc)
             _data = {
@@ -181,7 +179,7 @@ def load_entity_info(url):
                 'shop_nick': b.nick,
             }
 
-    if re.search(r"\b(amazon)\.cn$", _hostname) != None:
+    if re.search(r"\b(amazon)\.(cn|com)$", _hostname) != None:
         a = Amazon(_link)
         try:
             buy_link = Buy_Link.objects.get(origin_id=a.origin_id, origin_source=a.hostname)

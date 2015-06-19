@@ -522,14 +522,10 @@
 }
 #editor-container .editor_wrap .fix-operate {
   position: fixed;
-  top: 100px;
+  bottom: 130px;
   right: 100px;
   width: 100px;
   height: 120px;
-}
-#editor-container .editor_wrap .fix-operate .btn {
-  clear: both;
-  margin-bottom: 20px;
 }
 #editor-container .editor_wrap .cover {
   height: 333px;
@@ -546,7 +542,7 @@
   margin: 0;
   opacity: 0;
   filter: alpha(opacity=0);
-  transform: translate(0, 0) scale(1);
+  transform: translate(0, -40px) scale(1);
   font-size: 23px;
   direction: ltr;
   cursor: pointer;

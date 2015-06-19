@@ -20,19 +20,26 @@
             <div class="editor_wrap article-wrapper">
                 <form id="article_form" method="post">
                     <div class="fix-operate">
-                        <span  id="return-list" class="btn btn-primary">返回列表</span>
-                       <span   id="save-draft"  class="btn btn-danger">保存草稿</span>
-                       <span   id="save-publish" class="btn btn-primary">发布文章</span>
+                        <span  id="return-list" class="guoku-btn-normal btn-cancel">返回列表</span>
+                       <span   id="save-draft"  class="guoku-btn-normal">保存草稿</span>
+                       <span   id="save-publish" class="guoku-btn-normal">发布文章</span>
                     </div>
 
                     <div class="cover article-cover" >
                         <div class="icon-wrapper">
                             <i class="fa fa-file-image-o img-icon"></i>
                         </div>
-                        <div class="showcover-wrapper">
-                           <input type="checkbox" id="showcover"> <span> 显示封面 </span>
-                        </div>
                         <input type="file" accept="image/*" name="upload-file" id="cover-upload-button">
+                    </div>
+                    <div class="cover-info">
+                         <input type="checkbox" id="showcover">
+                         <span> 封面图显示在正文中 </span>
+                         <span class="cover-size-info">
+                             封面图建议尺寸 900×500 像素，jpg 格式
+                         </span>
+                        <span class="cover-size-info">
+
+                         </span>
                     </div>
                     <div class="guoku_editor "></div>
 

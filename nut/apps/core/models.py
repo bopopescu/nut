@@ -941,8 +941,8 @@ class Article(models.Model):
     ]
 
     creator = models.ForeignKey(GKUser, related_name="articles")
-    title = models.CharField(max_length=255)
-    cover = models.CharField(max_length=255)
+    title = models.CharField(max_length=64)
+    cover = models.CharField(max_length=255,blank=True)
     content = models.TextField()
     publish = models.IntegerField(choices=ARTICLE_STATUS_CHOICES, default=draft)
     created_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True, editable=False)
