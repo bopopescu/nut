@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from apps.core.utils.fetch.spider import Spider
+from urlparse import urljoin
 from hashlib import md5
 
 class Amazon(Spider):
@@ -39,6 +40,12 @@ class Amazon(Spider):
         pricetag = self.soup.select("#priceblock_ourprice")
         price = pricetag[0]
         return float(price.string[1:].replace(',', ''))
+
+    @property
+    def url(self):
+        url = "http://%s%s" % (self.urlobj.hostname, self.urlobj.path)
+        url = urljoin(url, ' ')
+        return url.rstrip()
 
     @property
     def images(self):

@@ -1,30 +1,18 @@
 # -*- coding: utf-8 -*-
 
-# import requests
-# from bs4 import BeautifulSoup
-# from hashlib import md5
-# from django.core.cache import cache
-# import re
 from urlparse import urljoin
 from apps.core.utils.fetch.spider import Spider
 
 class Booking(Spider):
 
-    # def __init__(self, url):
-    #     # self.url = url
-    #     self.html = self.fetch_html(url)
-    #     # print self.html
-    #     self.soup = BeautifulSoup(self.html, from_encoding="UTF-8")
-    #     self.nick = u"booking"
+    # @property
+    # def url(self):
+    #     url = "http://%s%s" % (self.urlobj.hostname, self.urlobj.path)
+    #     return url.rstrip()
 
-    @property
-    def url(self):
-        url = "http://%s%s" % (self.urlobj.hostname, self.urlobj.path)
-        return url.rstrip()
-
-    @property
-    def headers(self):
-        return self._headers
+    # @property
+    # def headers(self):
+    #     return self._headers
 
     @property
     def nick(self):
