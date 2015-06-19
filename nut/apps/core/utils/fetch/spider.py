@@ -31,8 +31,9 @@ class Spider(object):
     @property
     def url(self):
         url = "http://%s%s" % (self.urlobj.hostname, self.urlobj.path)
-        url = urljoin(url, ' ')
-        return url.rstrip()
+        return url
+        # url = urljoin(url, ' ')
+        # return url.rstrip()
     #
     # @property
     # def buy_link(self):
