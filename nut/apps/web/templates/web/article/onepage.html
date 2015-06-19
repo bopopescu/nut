@@ -9,10 +9,18 @@
 {% block title %} 果库图文－编辑列表 {% endblock %}
 
 {% block keyword %}果库, 图文关键字{% endblock %}
-{% block description %}果库, 图文列表， 描述{% endblock %}
+
+{% block body_class %}
+    gray-body
+{% endblock %}{% block description %}果库, 图文列表， 描述{% endblock %}
+
+
 {% block content %}
     <div class="container goods_detail">
      <h2 class="hidden">图文列表</h2>
+     <div class="row" id="detail_breadcrumb">
+         {% include "web/article/partial/article_breadcrumb.html" %}
+     </div>
      <div class="row" id="detail_content" >
             <div  id="detail_content_left" class="container-fluid col-lg-8 col-md-8 col-sm-12  col-xs-12" >
                 <div class="article-wrapper">
@@ -21,12 +29,14 @@
                         <H2>{{ article.title }}</H2>
                     </div>
                     <div class="info-wrapper">
-                        <span class="editor">作者：{{ article.creator.profile.nickname }}</span>
-                        <span class="create-time">{{ article.created_datetime|format_time}}</span>
+                        <span class="editor"><i class="fa fa-pencil"></i>{{ article.creator.profile.nickname }}</span>
+                        <span class="create-time"><i class="fa fa-clock-o"></i>{{ article.created_datetime|format_time}}</span>
                     </div>
+                   {% if article.showcover %}
                     <div class="cover-wrapper">
                         <img class="article-cover img-responsive" src="{{   article.cover }}" />
                     </div>
+                   {% endif %}
                     <div class="content-wrapper">
                         {% autoescape off %}
                         {{ article.content }}
