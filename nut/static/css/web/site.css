@@ -1880,8 +1880,9 @@ a:hover {
   margin-right: 10px;
 }
 #editor-articles #editor-article-list .article-item {
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   margin-bottom: 10px;
+  margin-top: 20px;
   border-bottom: 1px solid #e6e6e6;
 }
 #editor-articles #editor-article-list .article-item .title {
@@ -1890,21 +1891,16 @@ a:hover {
 }
 #editor-articles #editor-article-list .article-item .title .status {
   font-size: 14px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  border: 1px solid #e6e6e6;
-  color: #fff;
+  border: none;
+  color: #9d9e9f;
   margin-left: 10px;
-}
-#editor-articles #editor-article-list .article-item .title .article-status-1 {
-  background: #8c3a3a;
 }
 #editor-articles #editor-article-list .article-item .title .article-status-2 {
   background: #5ba4cf;
+  display: none;
+}
+#editor-articles #editor-article-list .article-item .title .article-selection i {
+  color: #ff9500;
 }
 #editor-articles #editor-article-list .article-item .info-list {
   font-size: 14px;
