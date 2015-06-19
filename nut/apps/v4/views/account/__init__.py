@@ -16,6 +16,10 @@ log = getLogger('django')
 @csrf_exempt
 @check_sign
 def login(request):
+    code = 200
+    if 'iPhone' in request.META['HTTP_USER_AGENT'] or 'iPad' in request.META['HTTP_USER_AGENT']:
+        code = 409
+
     if request.method == "POST":
         _forms = MobileUserSignInForm(request=request, data=request.POST)
         log.info(request.POST)
@@ -33,7 +37,7 @@ def login(request):
 
     for k, v in dict(_forms.errors).items():
         error_msg = v.as_text().split('*')[1]
-        return ErrorJsonResponse(status=400, data={
+        return ErrorJsonResponse(status=code, data={
             'type': k,
             'message': error_msg.lstrip(),
         })
@@ -44,6 +48,11 @@ def login(request):
 @csrf_exempt
 @check_sign
 def register(request):
+    log.info(request.META['HTTP_USER_AGENT'])
+    code = 200
+    if 'iPhone' in request.META['HTTP_USER_AGENT'] or 'iPad' in request.META['HTTP_USER_AGENT']:
+        code = 409
+
     if request.method == "POST":
         _forms = MobileUserSignUpForm(request=request, data=request.POST, files=request.FILES)
         log.info(request.FILES)
@@ -58,7 +67,7 @@ def register(request):
         for k, v in dict(_forms.errors).items():
             log.info(v.as_text().split('*'))
             error_msg = v.as_text().split('*')[1]
-            return ErrorJsonResponse(status=409, data={
+            return ErrorJsonResponse(status=code, data={
                 'type': k,
                 'message': error_msg.lstrip(),
             })
@@ -83,7 +92,7 @@ def forget_password(request):
                     'type' : 'email',
                     'message' : 'email does not exist',
                 },
-                status = 400
+                status = 200
             )
     return ErrorJsonResponse(status=400)
 

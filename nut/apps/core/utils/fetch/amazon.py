@@ -67,7 +67,7 @@ if __name__=="__main__":
 
     a = Amazon("http://www.amazon.cn/gp/product/B00BVV0VQU/ref=s9_cngwdyfloorv2-s9?pf_rd_m=A1AJ19PSB66TGU&pf_rd_s=center-2&pf_rd_r=0DEMD1RDSC5AD4HC9KWA&pf_rd_t=101&pf_rd_p=251248392&pf_rd_i=899254051")
     print a.brand
-    print a.buy_link
+    # print a.buy_link
     # print a.desc
     # print a.price, a.images
     # print b.desc
