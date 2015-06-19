@@ -1919,7 +1919,8 @@ a:hover {
   cursor: pointer;
 }
 #editor-articles #editor-article-list .article-item .conten-digest {
-  padding-bottom: 10px;
+  padding: 10px;
+  background-color: #f8f8f8;
 }
 .article-form-wrapper {
   display: none;
