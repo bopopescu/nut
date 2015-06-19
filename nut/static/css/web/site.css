@@ -1901,15 +1901,19 @@ a:hover {
   margin-left: 10px;
 }
 #editor-articles #editor-article-list .article-item .title .article-status-1 {
-  background: red;
+  background: #8c3a3a;
 }
 #editor-articles #editor-article-list .article-item .title .article-status-2 {
-  background: blue;
+  background: #5ba4cf;
 }
 #editor-articles #editor-article-list .article-item .info-list {
   font-size: 14px;
   color: #9d9e9f;
   padding-bottom: 10px;
+}
+#editor-articles #editor-article-list .article-item .info-list .editor,
+#editor-articles #editor-article-list .article-item .info-list .create-time {
+  font-size: 12px;
 }
 #editor-articles #editor-article-list .article-item .info-list div {
   margin-right: 20px;
@@ -1921,6 +1925,7 @@ a:hover {
 #editor-articles #editor-article-list .article-item .conten-digest {
   padding: 10px;
   background-color: #f8f8f8;
+  color: #9d9e9f;
 }
 .article-form-wrapper {
   display: none;

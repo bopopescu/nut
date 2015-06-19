@@ -52,10 +52,10 @@
                             <span class="status article-status-{{ article.publish }}">{{ article.get_publish_display }}</span></div>
                         <div class="info-list">
                             <div class="editor">
-                                作者：{{ article.creator.profile.nickname }}
+                                <i class="fa fa-pencil"></i>&nbsp;{{ article.creator.profile.nickname }}
                             </div>
                             <div class="create-time">
-                                {{ article.updated_datetime|format_time }}
+                               <i class="fa fa-clock-o"></i> {{ article.updated_datetime|format_time }}
                             </div>
 {#                            <div class="article-state">{{ article.get_publish_display }}</div>#}
                             <div class="action edit">
