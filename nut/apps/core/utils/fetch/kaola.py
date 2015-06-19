@@ -1,33 +1,37 @@
 # -*- coding: utf-8 -*-
 
-import requests
-from hashlib import md5
-from bs4 import BeautifulSoup
-from django.core.cache import cache
+# import requests
+# from hashlib import md5
+# from bs4 import BeautifulSoup
+# from django.core.cache import cache
 from django.utils.log import getLogger
 import re
+
+from apps.core.utils.fetch.spider import Spider
 
 log = getLogger('django')
 
 IMG_POSTFIX = "_\d+_\d+.*\.jpg|_b\.jpg"
 
-class Kaola():
-
-
-    def __init__(self, id, *args, **kwargs):
-        self.kaola_id = id
-        self.html = self.fetch_html()
-        self.soup = BeautifulSoup(self.html, from_encoding="UTF-8")
-        self.nick= u"考拉海购"
-        # log.info(self.soup)
+class Kaola(Spider):
 
     @property
-    def headers(self):
-        return self._headers
+    def origin_id(self):
+        p = re.compile('\d+')
+        m = p.search(self.urlobj.path)
+        return m.group()
+
+    @property
+    def nick(self):
+        return u"考拉海购"
 
     @property
     def desc(self):
         return self.soup.title.string[0:-5]
+
+    @property
+    def buy_link(self):
+        return "http://%s%s" % (self.urlobj.hostname, self.urlobj.path)
 
     @property
     def images(self):
@@ -68,28 +72,33 @@ class Kaola():
     def shop_link(self):
         return "http://www.kaola.com/"
 
-    def fetch_html(self):
-        url = 'http://www.kaola.com/product/%s.html' % self.kaola_id
-        key = md5(url).hexdigest()
-
-        res = cache.get(key)
-        if res:
-            # log.info(res)
-            self._headers = res['header']
-            return res['body']
-
-        try:
-            f = requests.get(url)
-        except Exception, e:
-            log.error(e.message)
-            raise
-
-        self._headers = f.headers
-        res = f.text
-        cache.set(key, {'body':res, 'header':self._headers})
-        return res
+    # def fetch_html(self):
+    #     url = 'http://www.kaola.com/product/%s.html' % self.kaola_id
+    #     key = md5(url).hexdigest()
+    #
+    #     res = cache.get(key)
+    #     if res:
+    #         # log.info(res)
+    #         self._headers = res['header']
+    #         return res['body']
+    #
+    #     try:
+    #         f = requests.get(url)
+    #     except Exception, e:
+    #         log.error(e.message)
+    #         raise
+    #
+    #     self._headers = f.headers
+    #     res = f.text
+    #     cache.set(key, {'body':res, 'header':self._headers})
+    #     return res
         # res = f.read()
         # cache.set(key, {'body':res, 'header':self._headers})
         # return res
+
+if __name__=="__main__":
+    k = Kaola('http://www.kaola.com/product/8505.html?from=RECOMMEND')
+    # print k.origin_id, k.nick, k.hostname, k.shop_link, k.buy_link
+    print k.html
 
 __author__ = 'edison'

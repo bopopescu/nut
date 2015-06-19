@@ -69,12 +69,12 @@ log = getLogger('django')
 @staff_only
 def list(request, template = 'management/entities/list.html'):
 
-    status = request.GET.get('status', None)
+    status = request.GET.get('status', '0')
     page = request.GET.get('page', 1)
-    if status is None:
-        entity_list  = Entity.objects.all()
-    else:
-        entity_list = Entity.objects.filter(status = int(status))
+    # if status is None:
+    #     entity_list  = Entity.objects.all()
+    # else:
+    entity_list = Entity.objects.filter(status = int(status))
 
     paginator = ExtentPaginator(entity_list, 30)
 
@@ -89,7 +89,7 @@ def list(request, template = 'management/entities/list.html'):
         template,
         {
             'entities': entities,
-                                # 'page_range': paginator.page_range_ext,
+            # 'page_range': paginator.page_range_ext,
             'status': status,
         },
         context_instance = RequestContext(request)
@@ -148,18 +148,22 @@ def edit(request, entity_id, template='management/entities/edit.html'):
 
 
 @login_required
+@staff_only
 def create(request, template='management/entities/new.html'):
 
-    # res = dict()
     _url = request.GET.get('url')
 
     if _url is None:
         raise Http404
         # print(_url)
     res = load_entity_info(_url)
+    # log.info("OKOKO %s", len(res))
 
     if res.has_key('entity_id'):
         return HttpResponseRedirect(reverse('management_entity_edit', args=[res['entity_id']]))
+
+    if len(res) == 0:
+        return HttpResponse('not support')
 
     if request.method == "POST":
         # log.info(request.POST)
