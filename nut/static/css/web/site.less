@@ -12,6 +12,7 @@
 @light-blue:#5ba4cf;
 @dark-red:rgb(140, 58, 58);
 
+@star-color:#FF9500;
 
 @primary-size : 14px ;
 @title-size:22px;
@@ -1857,24 +1858,31 @@ a:hover{text-decoration:underline;}
 
     #editor-article-list{
         .article-item{
-            padding-bottom: 10px;
+            padding-bottom: 20px;
             margin-bottom : 10px;
+            margin-top:20px;
             .bottom-bordered();
             .title{
                 font-size: @title-size;
                 padding-bottom: 10px;
                  .status{
                       font-size: @primary-size;
-                      .border-radius(4px);
-                      .common-bordered();
-                      color: #fff;
+                      border: none;
+                      color: @common-gray;
                       margin-left : 10px;
                  }
                  .article-status-1{
-                   background: @dark-red;
+//                   background: @dark-red;
+
                  }
                  .article-status-2{
                    background: @light-blue;
+                   display: none;
+                 }
+                 .article-selection{
+                    i{
+                      color:@star-color;
+                    }
                  }
 
 
