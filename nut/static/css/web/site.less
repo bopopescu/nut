@@ -1884,6 +1884,9 @@ a:hover{text-decoration:underline;}
                    margin-right: 20px;
                    display : inline-block;
                 }
+                .delete{
+                  cursor: pointer;
+                }
             }
             .conten-digest{
                 padding-bottom: 10px;
@@ -1911,12 +1914,12 @@ a:hover{text-decoration:underline;}
      position:relative;
    }
    .cover-info{
-      line-height: 32px;
+      line-height: 24px;
       color: @common-gray;
-      height: 30px;
+      height: 70px;
       width: 100%;
       .cover-size-info{
-         margin-left: 10px;
+         display :block;
       }
    }
 
@@ -1924,6 +1927,7 @@ a:hover{text-decoration:underline;}
 
 
 .article-wrapper{
+
     .title-wrapper{
         h2{
           font-size:@article-title-size;
@@ -1954,7 +1958,7 @@ a:hover{text-decoration:underline;}
      .info-wrapper{
          font-size:@mini-size;
          i{
-           margin-right:5px;
+           margin-right:3px;
          }
          margin: 20px 0px;
          color: @common-gray;
@@ -1973,6 +1977,9 @@ a:hover{text-decoration:underline;}
        color:@article-font-color;
        font-size: @article-content-size;
        line-height: 1.6;
+       p{
+         margin: 0 0 13px 0;
+       }
 
        blockquote{
           background-color: #f9f9f9;
