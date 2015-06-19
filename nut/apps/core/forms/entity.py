@@ -156,9 +156,10 @@ def load_entity_info(url):
 
             log.info(_data)
     if re.search(r"\b(booking)\.com$", _hostname) != None:
-        _booking_id = parse_booking_id_from_url(_link)
+        # _booking_id = parse_booking_id_from_url(_link)
+        b = Booking(_link)
         try:
-            buy_link = Buy_Link.objects.get(origin_id=_booking_id, origin_source="kaola.com",)
+            buy_link = Buy_Link.objects.get(origin_id=b.origin_id, origin_source=b.hostname,)
                 # log.info(buy_link.entity)
             _data = {
                 'entity_id': buy_link.entity.id,
@@ -168,9 +169,9 @@ def load_entity_info(url):
             # k.fetch_html()
             # log.info(k.desc)
             _data = {
-                'cand_url':_link,
-                'origin_id': _booking_id,
-                'origin_source': 'booking.com',
+                'cand_url':b.url,
+                'origin_id': b.origin_id,
+                'origin_source': b.hostname,
                 'brand': b.brand,
                 'title': b.desc,
                 'thumb_images': b.images,
