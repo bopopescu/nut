@@ -38,8 +38,14 @@ class Amazon(Spider):
     @property
     def price(self):
         pricetag = self.soup.select("#priceblock_ourprice")
-        price = pricetag[0]
-        return float(price.string[1:].replace(',', ''))
+        if len(pricetag) > 0:
+            price = pricetag[0]
+            return float(price.string[1:].replace(',', ''))
+        pricetag = self.soup.select("#priceblock_saleprice")
+        if len(pricetag) > 0:
+            price = pricetag[0]
+            print price
+            return float(price.string[1:].replace(',', ''))
 
     @property
     def url(self):
