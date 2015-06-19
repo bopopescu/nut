@@ -671,6 +671,10 @@ class Buy_Link(BaseModel):
         res['price'] = int(self.price)
         return res
 
+    @property
+    def amazon_url(self):
+        return "%s?tag=guoku-23" % self.link
+
     def __unicode__(self):
         return self.link
 
