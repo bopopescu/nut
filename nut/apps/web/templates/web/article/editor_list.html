@@ -71,8 +71,9 @@
                             </div>
                         </div>
                         <div class="conten-digest">
-
-                            {{ article.content|striptags }}
+                        {% autoescape off %}
+                            {{ article.content  }}
+                        {% endautoescape %}
 
                         </div>
                     </div>
