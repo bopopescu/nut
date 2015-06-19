@@ -61,6 +61,11 @@
                     <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;
                     <meta itemprop="currency" content="RMB" />购买<span itemprop="price"></span>
                 </a>
+            {% elif "amazon" in row.origin_source %}
+                <a class="buy-button" href="{{ row.amazon_url }}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-amazon', '{{ entity.title }}-amazon'])">
+                    <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;
+                    <meta itemprop="currency" content="RMB" />购买<span itemprop="price"></span>
+                </a>
             {% else %}
                 <a class="buy-button" href="{{ row.link }}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-kaola'])">
                     <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;
