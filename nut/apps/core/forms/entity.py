@@ -735,16 +735,17 @@ class BuyLinkForm(forms.Form):
                 self.b.save()
 
         if re.search(r"\b(booking)\.com$", _hostname) != None:
-            _booking_id = parse_booking_id_from_url(_link)
+            # _booking_id = parse_booking_id_from_url(_link)
+            b = Booking(_link)
             try:
-                self.b = Buy_Link.objects.get(origin_id=_booking_id, entity=self.entity_cache, origin_source="booking.com",)
+                self.b = Buy_Link.objects.get(origin_id=b.origin_id, entity=self.entity_cache, origin_source=b.hostname,)
             except Buy_Link.DoesNotExist:
                 b = Booking(_link)
                 self.b = Buy_Link(
                     entity = self.entity_cache,
-                    origin_id = _booking_id,
+                    origin_id = b.origin_id,
                     cid=b.cid,
-                    origin_source = "kaola.com",
+                    origin_source = b.hostname,
                     link=_link,
                     price=b.price,
                     default=_default,
