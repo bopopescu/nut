@@ -19,8 +19,8 @@ class Spider(object):
     def __init__(self, url):
         # self._url = url
         self.urlobj = urlparse(url)
-        self.html = self.fetch_html(self.url)
-        # self.html = self.fetch_html_cache(self.url)
+        # self.html = self.fetch_html(self.url)
+        self.html = self.fetch_html_cache(self.url)
         self.soup = BeautifulSoup(self.html, from_encoding="UTF-8")
 
     @property
@@ -31,8 +31,9 @@ class Spider(object):
     @property
     def url(self):
         url = "http://%s%s" % (self.urlobj.hostname, self.urlobj.path)
-        url = urljoin(url, ' ')
-        return url.rstrip()
+        return url
+        # url = urljoin(url, ' ')
+        # return url.rstrip()
     #
     # @property
     # def buy_link(self):

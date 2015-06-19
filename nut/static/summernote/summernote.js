@@ -6,7 +6,7 @@
  * Copyright 2013-2015 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
- * Date: 2015-06-17T15:53Z
+ * Date: 2015-06-19T03:21Z
  */
 (function (factory) {
   /* global define */
@@ -5120,6 +5120,14 @@
             handler.invoke('editor.pasteHTML', $editable, htmlStr )
 
     }
+
+    function handleText(text){
+        var layoutInfo = dom.makeLayoutInfo(event.currentTarget || event.target);
+        var $editable = layoutInfo.editable();
+        handler.invoke('editor.insertText', $editable, text )
+
+    }
+
     var handlePast = function(event){
 
 
@@ -6828,7 +6836,7 @@
       $('<textarea class="note-codable"></textarea>').prependTo($editor);
 
         // done Title input here : by An .
-        var titleInput = $('<div class=""><input class="title-input" name="article-title" placeholder="标题"></div>')
+        var titleInput = $('<div class=""><input class="title-input" name="article-title" placeholder="标题" maxlength="64"></div>')
             .prependTo($editor);
 
       //04. create Toolbar

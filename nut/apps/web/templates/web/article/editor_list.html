@@ -41,21 +41,29 @@
                                  </a>
                             {% endif %}
                             {% if article.is_removed %}
-
                                         {{ article.title }}
-
                             {% endif %}
 
 
 
 
-                            <span class="status article-status-{{ article.publish }}">{{ article.get_publish_display }}</span></div>
+                            <span class="status article-status-{{ article.publish }} ">
+                                {{ article.get_publish_display }}
+                            </span>
+                            {% if article.once_selection %}
+                            <span class="status article-selection">
+                                <i class="fa fa-star"></i>
+                            </span>
+
+                            {% endif %}
+
+                        </div>
                         <div class="info-list">
                             <div class="editor">
-                                作者：{{ article.creator.profile.nickname }}
+                                <i class="fa fa-pencil"></i>&nbsp;{{ article.creator.profile.nickname }}
                             </div>
                             <div class="create-time">
-                                {{ article.updated_datetime|format_time }}
+                               <i class="fa fa-clock-o"></i> {{ article.updated_datetime|format_time }}
                             </div>
 {#                            <div class="article-state">{{ article.get_publish_display }}</div>#}
                             <div class="action edit">
@@ -65,14 +73,15 @@
                             </div>
 {#                            <div class="action preview"><a class="btn" href="{% url 'web_article_page' article.pk  %}" >预览</a></div>#}
                             <div class="action delete">
-                                <a href="{% url 'web_article_delete' article.pk %}" >
+                                <a class="delete_link" target_url="{% url 'web_article_delete' article.pk %}"  >
                                 删除
                                  </a>
                             </div>
                         </div>
                         <div class="conten-digest">
-
-                            {{ article.content|striptags }}
+                        {% autoescape off %}
+                            {{ article.content|striptags|truncatechars:150 }}
+                        {% endautoescape %}
 
                         </div>
                     </div>
@@ -86,6 +95,24 @@
      </div>
     </div>
 
+{% endblock %}
+{% block script %}
 
+    <script language="javascript">
+            $(function () {
+                $('.delete_link').click(function(){
+                    if (window.confirm('您确定要删除此文章吗？')){
+                        var host = window.location.host;
+                        var pathName = $(this).attr('target_url');
+                        var url = 'http://'+host+pathName;
+                        window.location = url ;
+{#                        console.log("delete");#}
+                    }else{
+                        return ;
+                    }
+                });
+            });
+
+    </script>
 
 {% endblock %}

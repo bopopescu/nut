@@ -69,12 +69,12 @@ log = getLogger('django')
 @staff_only
 def list(request, template = 'management/entities/list.html'):
 
-    status = request.GET.get('status', None)
+    status = request.GET.get('status', '0')
     page = request.GET.get('page', 1)
-    if status is None:
-        entity_list  = Entity.objects.all()
-    else:
-        entity_list = Entity.objects.filter(status = int(status))
+    # if status is None:
+    #     entity_list  = Entity.objects.all()
+    # else:
+    entity_list = Entity.objects.filter(status = int(status))
 
     paginator = ExtentPaginator(entity_list, 30)
 
@@ -89,7 +89,7 @@ def list(request, template = 'management/entities/list.html'):
         template,
         {
             'entities': entities,
-                                # 'page_range': paginator.page_range_ext,
+            # 'page_range': paginator.page_range_ext,
             'status': status,
         },
         context_instance = RequestContext(request)
