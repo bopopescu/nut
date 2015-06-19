@@ -19,7 +19,7 @@
 @subtitle-size:16px;
 @mini-size: 12px;
 
-
+@hover-opacity:0.7;
 
 @global-box-radius:4px;
 
@@ -1821,6 +1821,15 @@ a:hover{text-decoration:underline;}
    }
 }
 
+.entity-four .img-box img:hover,
+.entity-selection .img-box img:hover,
+.guoku-button:hover,
+#detail_content_right .section-list .section-banner img:hover,
+.guess_img .img-box img:hover{
+  opacity: @hover-opacity;
+}
+
+
 @media (max-width: 767px){
    .detail-img-big{
      .main-img{
@@ -2022,9 +2031,11 @@ a:hover{text-decoration:underline;}
               transform: translate(0, 0);
                color:#c8c8c8;
        }
-
     }
+}
 
-
-
+.download-link{
+   a:hover{
+     text-decoration: underline;
+   }
 }
