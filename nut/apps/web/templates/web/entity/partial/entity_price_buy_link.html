@@ -18,6 +18,12 @@
                 <i class="fa fa-shopping-cart fc_blue"></i>
                 <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ row.price }}</span>
             </a>
+        {% elif "amazon" in row.origin_source %}
+            <a class="btn btn-primary btn-buy" href="{{ row.amazon_url }}" target="_blank" _hover-ignore="1" id="buy-btn"
+               onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-jd'])">
+                <i class="fa fa-shopping-cart fc_blue"></i>
+                <meta itemprop="currency" content="RMB" />购买<span itemprop="price">&#65509;{{ row.price }}</span>
+            </a>
         {% else %}
             <a class="btn btn-primary btn-buy" href="{{ row.link }}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-kaola'])">
                 <i class="fa fa-shopping-cart fc_blue"></i>
