@@ -9,6 +9,9 @@
 @panel-background-color: #fff;
 @default-background:#fff;
 
+@light-blue:#5ba4cf;
+@dark-red:rgb(140, 58, 58);
+
 
 @primary-size : 14px ;
 @title-size:22px;
@@ -1868,10 +1871,10 @@ a:hover{text-decoration:underline;}
                       margin-left : 10px;
                  }
                  .article-status-1{
-                   background: red;
+                   background: @dark-red;
                  }
                  .article-status-2{
-                   background: blue;
+                   background: @light-blue;
                  }
 
 
@@ -1880,6 +1883,9 @@ a:hover{text-decoration:underline;}
                 font-size:@primary-size;
                 color: @common-gray;
                 padding-bottom: 10px;
+                .editor, .create-time{
+                  font-size: @mini-size;
+                }
                 div{
                    margin-right: 20px;
                    display : inline-block;
@@ -1891,6 +1897,7 @@ a:hover{text-decoration:underline;}
             .conten-digest{
                 padding: 10px;
                 background-color: @very-light-gray;
+                color: @common-gray;
             }
 
 
