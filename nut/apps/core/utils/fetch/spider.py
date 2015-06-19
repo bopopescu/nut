@@ -33,10 +33,10 @@ class Spider(object):
         url = "http://%s%s" % (self.urlobj.hostname, self.urlobj.path)
         url = urljoin(url, ' ')
         return url.rstrip()
-
-    @property
-    def buy_link(self):
-        return "%s?%s" % (self.url, 'tag=guoku-23')
+    #
+    # @property
+    # def buy_link(self):
+    #     return "%s?%s" % (self.url, 'tag=guoku-23')
 
     @property
     def hostname(self):

@@ -163,7 +163,7 @@ def create(request, template='management/entities/new.html'):
         return HttpResponseRedirect(reverse('management_entity_edit', args=[res['entity_id']]))
 
     if len(res) == 0:
-        return HttpResponse('暂不支持')
+        return HttpResponse('not support')
 
     if request.method == "POST":
         # log.info(request.POST)

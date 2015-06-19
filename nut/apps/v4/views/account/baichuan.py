@@ -12,6 +12,9 @@ log = getLogger('django')
 @csrf_exempt
 @check_sign
 def login(request):
+    code = 200
+    if 'iPhone' in request.META['HTTP_USER_AGENT'] or 'iPad' in request.META['HTTP_USER_AGENT']:
+        code = 409
 
     if request.method == "POST":
         log.info(request.POST)
@@ -24,7 +27,7 @@ def login(request):
         for k, v in dict(_form.errors).items():
             log.info(v.as_text().split('*'))
             error_msg = v.as_text().split('*')[1]
-            return ErrorJsonResponse(status=409, data={
+            return ErrorJsonResponse(status=code, data={
                 'type': k,
                 'message': error_msg.lstrip(),
             })

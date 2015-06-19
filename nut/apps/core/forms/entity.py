@@ -189,7 +189,7 @@ def load_entity_info(url):
             }
         except Buy_Link.DoesNotExist, e:
             _data = {
-                'cand_url':a.buy_link,
+                'cand_url':a.url,
                 'origin_id': a.origin_id,
                 'origin_source':a.hostname,
                 'title': a.desc,
