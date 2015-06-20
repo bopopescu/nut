@@ -24,6 +24,8 @@ class EditBrandForm(BrandForm):
         _national = self.cleaned_data.get('national')
         _company = self.cleaned_data.get('company')
         _website = self.cleaned_data.get('website')
+        _tmall_link =self.cleaned_data.get('tmall_link')
+        print _tmall_link
         _intro = self.cleaned_data.get('intro')
         _icon_file = self.cleaned_data.get('icon')
         _status = self.cleaned_data.get('status')
@@ -33,6 +35,7 @@ class EditBrandForm(BrandForm):
         self.brand_cache.national = _national
         self.brand_cache.company = _company
         self.brand_cache.website = _website
+        self.brand_cache.tmall_link = _tmall_link
         self.brand_cache.status = _status
 
         if _intro:
