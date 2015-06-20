@@ -20,6 +20,7 @@ from apps.core.manager.comment import CommentManager
 from apps.core.manager.event import ShowEventBannerManager
 
 from hashlib import md5
+from urlparse import parse_qs, urlparse
 # from apps.core.utils.tag import TagParser
 
 from djangosphinx.models import SphinxSearch
@@ -449,6 +450,14 @@ class Brand(BaseModel):
         if self.icon:
             return "%s%s" % (image_host, self.icon)
         return None
+
+    @property
+    def shop_id(self):
+        if len(self.tmall_link) > 0:
+            o = urlparse(self.tmall_link)
+            qs = parse_qs(o.query)
+            return qs['shop_id'][0]
+        return ''
 
     def __unicode__(self):
         return "%s %s" % (self.name, self.alias)
