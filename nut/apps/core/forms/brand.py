@@ -97,13 +97,14 @@ class BrandForm(forms.Form):
         return _intro.strip(' \t\n\r')
 
     def clean_tmall_link(self):
-        _tmall_link = self.cleaned_data.get('tmall_link')
+        _tmall_link = self.cleaned_data.get('tmall_link', None)
+        print _tmall_link
+        if len(_tmall_link) == 0:
+            return _tmall_link
 
         urlobj = urlparse(_tmall_link)
         qs = parse_qs(urlobj.query)
-
         link = "%s://%s%s?shop_id=%s" % (urlobj.scheme, urlobj.hostname, urlobj.path, qs['shop_id'][0])
-
         return link.strip(' \t\n\r')
 
     #

@@ -25,6 +25,7 @@
                     <th>{% trans 'company' %}</th>
                     <th>{% trans 'national' %}</th>
                     <th>{% trans 'website' %}</th>
+                    <th>{% trans 'tmall' %}</th>
                     <th>{% trans 'operation' %}</th>
                 </tr>
             </thead>
@@ -37,6 +38,7 @@
                         <td>{{ brand.company }}</td>
                         <td>{{ brand.national }}</td>
                         <td>{{ brand.website }}</td>
+                        <td><a href="{{ brand.tmall_link }}">{{ brand.tmall_link }}</a></td>
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-success" href="{% url 'management_brand_entity_list' brand.name %}" target="_blank">{% trans 'entity' %}</a>
