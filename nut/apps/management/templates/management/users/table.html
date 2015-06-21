@@ -21,7 +21,7 @@
                         <td>{{ user.pk }}</td>
                         <td><img src="{{ user.profile.avatar_url }}" width="50" height="50"></td>
                         <td>{{ user.email }}</td>
-                        <td>{{ user.profile.nickname }}</td>
+                        <td>{{ user.profile.nick }}</td>
                         <td>{{ user.profile.get_gender_display }}</td>
                         <td>{{ user.date_joined|date:'Y-m-d H:i:s' }}</td>
                         <td {% if user.is_active == -1 %}class="bool_no"{% endif %}>{{ user.get_is_active_display }}</td>
