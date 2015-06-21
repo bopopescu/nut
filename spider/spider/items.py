@@ -8,7 +8,14 @@
 import scrapy
 
 
-class SpiderItem(scrapy.Item):
+class GItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    origin_id = scrapy.Field()
+    origin_source = scrapy.Field()
+    brand = scrapy.Field()
+    title = scrapy.Field()
+    cid = scrapy.Field()
+    image_urls = scrapy.Field()
+    price = scrapy.Field()
+    link = scrapy.Field()
