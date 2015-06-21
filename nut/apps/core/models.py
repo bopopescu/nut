@@ -78,6 +78,14 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.email
 
     @property
+    def can_write(self):
+        return  self.is_writer or self.is_editor or self.is_staff
+
+    @property
+    def is_writer(self):
+        return self.is_active == GKUser.writer
+
+    @property
     def is_staff(self):
         return self.is_admin
 
