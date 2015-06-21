@@ -19,7 +19,6 @@ class JD():
         self.item_id = item_id
         self.html = self.fetch_html()
         self.soup = BeautifulSoup(self.html, from_encoding="gb18030")
-
         self.price_json = self.fetch_price()
         # self.price_link = "http://p.3.cn/prices/get?skuid=J_%d&type=1&area=1_72_4137&callback=cnp" % self.item_id
 
