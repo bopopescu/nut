@@ -91,26 +91,28 @@ class EditorArticleEdit(AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,
     def post_ajax(self, request, *args, **kwargs):
         res={}
         pk = kwargs.get('pk')
-        atform = WebArticleEditForm(request.POST)
         article = get_object_or_404(Article, pk=pk)
+
+        if request.user.is_writer:
+            if article.creator != request.user:
+                raise Http404('没有找到对应文章，您是作者吗？')
+
+        atform = WebArticleEditForm(request.POST)
 
         if atform.is_valid():
             try :
-                data = atform.data
+                data = atform.cleaned_data
                 article.content = data['content']
                 article.title = data['title']
                 article.cover = data['cover']
                 article.publish = data['publish']
                 article.showcover = int(data['showcover'])
                 article.save()
-
             except Exception as e:
                 log(e)
                 res={
                     'error': 1
                 }
-
-
             res={
                 'status':'1',
                 'error':0
@@ -131,19 +133,25 @@ class ArticleDetail(DetailView):
     def get_queryset(self):
         return Article.objects.filter(publish=Article.published)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self,**kwargs):
         context = super(ArticleDetail, self).get_context_data(**kwargs)
         context['is_article_detail'] = True
+        context['is_article_creator'] = self.request.user == self.object.creator
         context = add_side_bar_context_data(context)
         return context
 
 class ArticleDelete(UserPassesTestMixin, View):
     def test_func(self, user):
-        return user.is_editor or user.is_staff
+        return user.can_write
 
-    def get(self, *args , **kwargs):
+    def get(self, request, *args , **kwargs):
         pk = kwargs['pk']
         the_article =  get_object_or_404(Article,pk=pk)
+
+        if request.user.is_writer:
+            if the_article.creator != request.user:
+                raise Http404('没有找到对应文章，您是作者吗？')
+
 #       TODO : check permission here
         the_article.publish = Article.remove
         the_article.save()
