@@ -661,7 +661,7 @@ class Selection_Entity(BaseModel):
 
 class Buy_Link(BaseModel):
     entity = models.ForeignKey(Entity, related_name='buy_links')
-    origin_id = models.CharField(max_length=100)
+    origin_id = models.CharField(max_length=100, db_index=True)
     origin_source = models.CharField(max_length=255)
     cid = models.CharField(max_length=255, null=True)
     link = models.CharField(max_length=255)
@@ -669,6 +669,7 @@ class Buy_Link(BaseModel):
     volume = models.IntegerField(default=0)
     rank = models.IntegerField(default=0)
     default = models.BooleanField(default=False)
+    is_soldout = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-default']
