@@ -52,22 +52,22 @@
        <div class="col-sm-10  guoku-button buy-btn">
             {% for row in entity.buy_links.all %}
             {% if row.origin_source == "taobao.com" %}
-                <a class="buy-button"  href="http://detail.tmall.com/item.htm?id={{ row.origin_id }}" target="_blank" biz-itemid="{{ row.origin_id }}" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity.title }}-taobao'])">
+                <a class="buy-button" rel="nofollow" href="http://detail.tmall.com/item.htm?id={{ row.origin_id }}" target="_blank" biz-itemid="{{ row.origin_id }}" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity.title }}-taobao'])">
                     <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;
                     <meta itemprop="currency" content="RMB" />购买<span itemprop="price"></span>
                 </a>
             {% elif row.origin_source == "jd.com"%}
-                <a class="buy-button" href="http://item.jd.com/{{ row.origin_id }}.html" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-jd'])">
+                <a class="buy-button" rel="nofollow" href="http://item.jd.com/{{ row.origin_id }}.html" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-jd'])">
                     <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;
                     <meta itemprop="currency" content="RMB" />购买<span itemprop="price"></span>
                 </a>
             {% elif "amazon" in row.origin_source %}
-                <a class="buy-button" href="{{ row.amazon_url }}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-amazon', '{{ entity.title }}-amazon'])">
+                <a class="buy-button" rel="nofollow" href="{{ row.amazon_url }}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-amazon', '{{ entity.title }}-amazon'])">
                     <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;
                     <meta itemprop="currency" content="RMB" />购买<span itemprop="price"></span>
                 </a>
             {% else %}
-                <a class="buy-button" href="{{ row.link }}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-kaola'])">
+                <a class="buy-button" rel="nofollow" href="{{ row.link }}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-kaola'])">
                     <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;
                     <meta itemprop="currency" content="RMB" />购买<span itemprop="price"></span>
                 </a>

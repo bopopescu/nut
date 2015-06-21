@@ -254,6 +254,9 @@ def visit_item(request, item_id):
         _jd_url = "http://item.m.jd.com/product/%s.html" % b.origin_id
         return HttpResponseRedirect(_jd_url)
 
+    if "amazon" in b.origin_source:
+        return HttpResponseRedirect(b.amazon_url)
+
     else:
         return HttpResponseRedirect(b.link)
 
