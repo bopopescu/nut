@@ -1,17 +1,48 @@
 (function(document,window){
 
+    // ployfill -----------  function.protype.bind
+
+    if (!Function.prototype.bind) {
+      Function.prototype.bind = function(oThis) {
+        if (typeof this !== 'function') {
+          // closest thing possible to the ECMAScript 5
+          // internal IsCallable function
+          throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable');
+        }
+
+        var aArgs   = Array.prototype.slice.call(arguments, 1),
+            fToBind = this,
+            fNOP    = function() {},
+            fBound  = function() {
+              return fToBind.apply(this instanceof fNOP
+                     ? this
+                     : oThis,
+                     aArgs.concat(Array.prototype.slice.call(arguments)));
+            };
+
+        fNOP.prototype = this.prototype;
+        fBound.prototype = new fNOP();
+
+        return fBound;
+      };
+    }
+    // polyfill ------------ end
+
     function EditorApp(){
+        this.initBootbox();
         this.initSummernote();
-
         this.bindEvents();
-
         this.fillSummernote();
+        //TODO: implement a method for determin if the article is changed
+        // this method should compare data in the real form , and data in the summernote, title , cover , and show-cover
+
 
     }
 
     EditorApp.prototype={
         initSummernote: function(){
           var that = this ;
+          this.contentChanged = false;
           this.error_messages = [];
           this.summer = $('.guoku_editor').summernote({
             height: 700,
@@ -20,10 +51,25 @@
                 that.sendFile(file, function(url){
                     $('.guoku_editor').summernote('insertImage', url);
                 });
-            }
+            },
+            onChange:function(contents, $editable){
+                that.contentChanged = true;
+                //console.log('changed');
+            },
            });
 
         },
+        initBootbox:function(){
+         if (!bootbox) return ;
+         bootbox.setDefaults({
+                 size:'small',
+                 className: 'guoku-dialog',
+                 closeButton: false,
+                 locale: 'zh_CN',
+                 className: 'guoku-dialog'
+             });
+        },
+
         collectFormValues: function () {
            var  data = {
                 cover : $('#real_article_form #id_cover').val(),
@@ -83,11 +129,17 @@
             $('.fix-operate #save-draft').click(this.saveDraft.bind(this));
             $('.fix-operate #save-publish').click(this.savePublish.bind(this));
             $('.fix-operate #return-list').click(this.returnList.bind(this));
-            $('.article-cover').on('change','#cover-upload-button',this.onCoverUpload.bind(this));
+            $('.article-cover')
+                .on('change','#cover-upload-button',this.onCoverUpload.bind(this));
+            $('.note-editor')
+                .on('change','input.title-input', this.onTitleChange.bind(this));
 
         },
 
-        getFileFromEvent: function(e){
+        onTitleChange:function(event){
+            this.contentChanged = true ;
+        },
+        _getFileFromEvent: function(e){
             var files = e.currentTarget.files
             return files ;
         },
@@ -95,13 +147,13 @@
         setCover: function(url){
             this.setBackgroundImg('.cover.article-cover', url);
             $('#id_cover').val(url);
+            this.contentChanged = true;
             return ;
         },
         onCoverUpload: function(e){
             var that = this;
-            var files = this.getFileFromEvent(e);
+            var files = this._getFileFromEvent(e);
             if (files){
-
                 this.sendFile(files, this.setCover.bind(this));
             }
 
@@ -139,7 +191,11 @@
             $.each(this.error_messages, function(idx, msg){
                message  += msg + "   ";
             });
-            alert(message);
+            bootbox.alert({
+                size:'small',
+                message: message,
+
+            });
 
         },
         saveArticle: function(data, success,fail){
@@ -153,6 +209,7 @@
                 return ;
             }
             var that = this;
+            bootbox.alert('保存中......');
             var url = window.location.pathname;
                 $.when(
                     $.ajax({
@@ -167,19 +224,29 @@
         },
 
         returnList: function(e){
-          //var data = this.collectEditorValues();
-          //    data['publish'] = this.collectFormValues()['publish'];
-          //this.saveArticle(data, this.saveOK, this.saveFail);
-          //  e.preventDefault();
-            var host = window.location.host;
-            window.location ='http://' + host+'/articles/edit/';
+            if (this.contentChanged){
+                bootbox.confirm({
+                message: '修改不会被保存，确认返回吗？',
+                callback: function(result){
+                    if(result){
+                         var host = window.location.host;
+                         window.location ='http://' + host+'/articles/edit/';
+                    }
+                    return ;
+                }
+                 });
+            }else{
+                //content not changed , just return ;
+                var host = window.location.host;
+                window.location ='http://' + host+'/articles/edit/';
+            }
 
         },
 
         saveDraft:function(e){
             var data = this.collectEditorValues();
                 data['publish'] = 1;
-            this.saveArticle(data,this.saveOK, this.saveFail);
+            this.saveArticle(data,this.saveOK.bind(this), this.saveFail.bind(this));
             e.preventDefault();
             return false;
         },
@@ -187,22 +254,32 @@
         savePublish:function(e){
             var data = this.collectEditorValues();
                 data['publish'] = 2;
-            this.saveArticle(data, this.saveOK, this.saveFail);
+            this.saveArticle(data, this.saveOK.bind(this), this.saveFail.bind(this));
             e.preventDefault();
             return false;
         },
 
-        saveOK:function(){
-            alert('save ok!');
+        saveOK:function(data){
+            console.log(data);
+            this.contentChanged = false;
+            bootbox.hideAll();
+            bootbox.alert( '文章已经被成功保存');
+            window.setTimeout(function(){
+                bootbox.hideAll();
+            },1000);
         },
-        saveFail:function(){
-            alert('save fail');
+
+        saveFail:function(data){
+            console.log(data);
+            bootbox.hideAll();
+            bootbox.alert('文章保存失败，请稍后再试');
         },
 
         sendFile:function(file , callback){
             callback = callback || function(){};
             var  data = new FormData();
             data.append("file", file[0]);
+            bootbox.alert('上传文件中......');
             $.ajax({
                 data: data,
                 type: "POST",
@@ -213,16 +290,21 @@
                 processData: false,
                 success: function(url) {
                     callback(url);
+                    bootbox.hideAll();
+                    bootbox.alert('上传成功');
+                    window.setTimeout(function(){
+                        bootbox.hideAll();
+                    }, 1000);
 
                 },
                 error: function(data){
+                    bootbox.hideAll();
+                    bootbox.alert('上传失败， 请稍后再试');
                     console.log(data);
                     console.log('FILE UPLOAD FAIL');
                 }
             });
         }
-
-
     };
 
     $(document).ready(function(){
