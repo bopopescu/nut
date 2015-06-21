@@ -90,6 +90,7 @@ class EntityLikeQuerySet(models.query.QuerySet):
     def sort_with_list(self, category_id):
         return self.using('slave').filter(entity__category = category_id).values_list('entity', flat=True).annotate(dcount=models.Count('entity')).order_by('-dcount')
 
+
 class EntityLikeManager(models.Manager):
 
     def get_query_set(self):
@@ -113,7 +114,7 @@ class EntityLikeManager(models.Manager):
             return res
         source = self.popular(scale)
         res = random.sample(source, 60)
-        cache.set(key, res, timeout=3600)
+        cache.set(key, res, timeout=10800)
         return res
 
     def user_like_list(self, user, entity_list):
@@ -125,7 +126,6 @@ class EntityLikeManager(models.Manager):
         entity_id_list = self.get_query_set().sort_with_list(category_id)
 
         return list(entity_id_list)
-
 
 
 class SelectionEntityQuerySet(models.query.QuerySet):
