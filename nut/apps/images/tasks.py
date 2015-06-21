@@ -8,10 +8,9 @@ logger = get_task_logger(__name__)
 
 @task(base=BaseTask)
 def resize(image_name, size=None, **kwargs):
-    # print image_name
-    logger.info(image_name)
+    # logger.info(image_name)
     f = default_storage.open(image_name)
-    logger.info(f)
+
     try:
         if size is not None:
             image = HandleImage(f)

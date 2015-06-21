@@ -54,6 +54,9 @@ urlpatterns += patterns(
     url(r'^taobao/auth/$', 'taobao.auth_by_taobao', name='web_auth_by_taobao'),
     url(r'^taobao/bind/$', 'taobao.bind', name='web_bind_by_taobao'),
     url(r'^taobao/unbind/$', 'taobao.unbind', name='web_unbind_by_taobao'),
+
+    url(r'^weixin/login/$', 'wechat.login_by_wechat', name='web_login_by_wechat'),
+    url(r'^weixin/auth/$', 'wechat.auth_by_wechat', name='web_auth_by_wechat'),
 )
 
 # static page

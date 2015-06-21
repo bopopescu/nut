@@ -53,6 +53,13 @@ class BrandForm(forms.Form):
         required=False,
     )
 
+    tmall_link = forms.URLField(
+        label=_('tmall link'),
+        widget=forms.URLInput(attrs={'class':'form-control'}),
+        help_text=_('brand tmall shop link'),
+        required=False,
+    )
+
     status = forms.ChoiceField(label=_('status'),
                                 choices=Brand.BRAND_STATUS_CHOICES,
                                 widget=forms.Select(attrs={'class':'form-control'}),
