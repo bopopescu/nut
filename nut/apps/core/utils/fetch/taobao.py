@@ -11,12 +11,11 @@ from django.core.cache import cache
 
 from django.utils.log import getLogger
 
-from tmall import  get_tmall_item_price
+from tmall import get_tmall_item_price
 
 
 IMG_POSTFIX = "_\d+x\d+.*\.jpg|_b\.jpg"
 log = getLogger('django')
-
 
 
 class TaoBao():
