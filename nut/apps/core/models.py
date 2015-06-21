@@ -444,6 +444,7 @@ class Brand(BaseModel):
     icon = models.CharField(max_length = 255, null = True, default = None)
     company = models.CharField(max_length=100, null=True, default=None)
     website = models.URLField(max_length=255, null=True, default=None)
+    tmall_link = models.URLField(max_length=255, null=True, default=None)
     national = models.CharField(max_length=100, null=True, default=None)
     intro = models.TextField()
     status = models.IntegerField(choices=BRAND_STATUS_CHOICES, default=pending)
