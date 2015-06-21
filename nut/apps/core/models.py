@@ -248,6 +248,12 @@ class User_Profile(BaseModel):
     email_verified = models.BooleanField(default = False)
 
     def __unicode__(self):
+        return self.nick
+
+    @property
+    def nick(self):
+        if len(self.nickname) == 32:
+            return "guoku_%s" % self.nickname[:8]
         return self.nickname
 
     @property
@@ -258,8 +264,6 @@ class User_Profile(BaseModel):
             return "%s%s" % (image_host, self.avatar)
         else:
             if self.gender == self.Woman:
-                # return "%s%s" % ('http://www.guoku.com/static/', 'images/woman.jpg')
-            # return "%s%s" % ('http://www.guoku.com/static/', 'images/man.jpg')
                 return "%s%s" % (settings.STATIC_URL, 'images/avatar/woman.png')
             return "%s%s" % (settings.STATIC_URL, 'images/avatar/man.png')
 
