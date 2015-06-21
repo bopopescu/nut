@@ -18,4 +18,11 @@ def admin_only(func=None):
     return admin_wrapped
 
 
+def writers_only(func=None):
+    def writers_wrapped(request, *args, **kwargs):
+        if not request.user.can_write:
+            raise Http404
+        return func(request, *args, **kwargs)
+    return writers_wrapped
+
 __author__ = 'edison'

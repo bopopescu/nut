@@ -8,7 +8,7 @@ from apps.core.utils.image import HandleImage
 from apps.core.utils.http import ErrorJsonResponse, SuccessJsonResponse
 from apps.core.models import Media
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
-from apps.management.decorators import staff_only
+from apps.management.decorators import staff_only, writers_only
 
 @login_required
 @staff_only
@@ -55,7 +55,7 @@ def delete(request):
 
 @csrf_exempt
 @login_required
-@staff_only
+@writers_only
 def upload_image(request):
     if request.method == "POST":
         file = request.FILES.get('file')
