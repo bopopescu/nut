@@ -52,8 +52,9 @@ class BaseModel(models.Model):
 
 
 class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
-    (remove, blocked, active, editor) = (-1, 0, 1, 2)
+    (remove, blocked, active, editor,writer) = (-1, 0, 1, 2, 3)
     USER_STATUS_CHOICES = [
+        (writer, _("writer")),
         (editor, _("editor")),
         (active, _("active")),
         (blocked, _("blocked")),
