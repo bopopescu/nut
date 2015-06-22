@@ -34,9 +34,13 @@
                             {{ article.creator.profile.nickname }}
                         </span>
                         <span class="create-time">
-                            <i class="fa fa-clock-o"></i>
-                            {{ article.created_datetime|format_time}}
+                            <i class="fa fa-clock-o"></i>{{article.created_datetime|format_time}}
                         </span>
+                        {% if is_article_creator %}
+                        <span class="edit-article">
+                            <i class="fa fa-edit"></i><a class="guoku-link" href="{% url 'web_editor_article_edit' article.pk %}">编辑文章</a>
+                        </span>
+                        {% endif %}
                     </div>
                    {% if article.showcover %}
                     <div class="cover-wrapper">

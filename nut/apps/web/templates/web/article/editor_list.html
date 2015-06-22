@@ -97,19 +97,40 @@
 
 {% endblock %}
 {% block script %}
-
+    <script src="{% static 'js/web/bootbox.js' %}"></script>
     <script language="javascript">
             $(function () {
+                bootbox.setDefaults({
+                    className: 'guoku-dialog',
+                    closeButton: false,
+                    locale:'zh_CN'
+                });
+
                 $('.delete_link').click(function(){
-                    if (window.confirm('您确定要删除此文章吗？')){
-                        var host = window.location.host;
-                        var pathName = $(this).attr('target_url');
-                        var url = 'http://'+host+pathName;
-                        window.location = url ;
+                    var that = this ;
+                    bootbox.confirm({
+                        size: 'small',
+                        message: '您确定要删除此文章吗？',
+                        callback: function(result){
+                            if (!!!result){
+                                return ;
+                            }else{
+                                var host = window.location.host;
+                                var pathName = $(that).attr('target_url');
+                                var url = 'http://'+host+pathName;
+                                window.location = url ;
+                            }
+                        }
+                    });
+{#                    if (window.confirm('您确定要删除此文章吗？')){#}
+{#                        var host = window.location.host;#}
+{#                        var pathName = $(this).attr('target_url');#}
+{#                        var url = 'http://'+host+pathName;#}
+{#                        window.location = url ;#}
 {#                        console.log("delete");#}
-                    }else{
-                        return ;
-                    }
+{#                    }else{#}
+{#                        return ;#}
+{#                    }#}
                 });
             });
 
