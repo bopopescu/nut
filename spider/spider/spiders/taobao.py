@@ -27,7 +27,6 @@ class TaobaoSpider(scrapy.Spider):
         item['link'] = response.url
         if 'noitem.htm' in response.url:
             item['is_soldout'] = 1
-
             return item
 
         metas = response.xpath('//meta/@content').extract()
