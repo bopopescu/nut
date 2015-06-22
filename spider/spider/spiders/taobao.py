@@ -12,12 +12,24 @@ class TaobaoSpider(scrapy.Spider):
 
     def __init__(self, item_id, *args, **kwargs):
         super(TaobaoSpider, self).__init__(*args, **kwargs)
+        self.item_id = item_id
         self.start_urls = [
-            "http://item.taobao.com/item.html?id=%s" % item_id
+            "http://item.taobao.com/item.html?id=%s" % self.item_id
         ]
 
     def parse(self, response):
         # self.log(response.headers)
+        item = GItem()
+        try:
+            item['origin_id'] = response.headers['At_Itemid']
+        except KeyError:
+            item['origin_id'] = self.item_id
+        item['link'] = response.url
+        if 'noitem.htm' in response.url:
+            item['is_soldout'] = 1
+
+            return item
+
         metas = response.xpath('//meta/@content').extract()
         # self.log(shop)
         shopId = 0
@@ -51,12 +63,6 @@ class TaobaoSpider(scrapy.Spider):
             pass
 
         soldout = response.xpath('//p[@class="tb-hint"]/strong/text()').extract()
-
-        item = GItem()
-        try:
-            item['origin_id'] = response.headers['At_Itemid']
-        except KeyError:
-            item['origin_id'] = ""
         item['price'] = price
         item['cid'] = cat_id
         item['image_urls'] = images
@@ -64,5 +70,5 @@ class TaobaoSpider(scrapy.Spider):
             item['shop_link'] = "http://shop%s.taobao.com" % shopId
         if len(soldout) > 0:
             item['is_soldout'] = 1
-        item['link'] = response.url
+        # item['link'] = response.url
         return item
