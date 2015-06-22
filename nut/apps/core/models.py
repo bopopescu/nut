@@ -53,8 +53,9 @@ class BaseModel(models.Model):
 
 
 class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
-    (remove, blocked, active, editor) = (-1, 0, 1, 2)
+    (remove, blocked, active, editor,writer) = (-1, 0, 1, 2, 3)
     USER_STATUS_CHOICES = [
+        (writer, _("writer")),
         (editor, _("editor")),
         (active, _("active")),
         (blocked, _("blocked")),
@@ -76,6 +77,14 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     def __unicode__(self):
         return self.email
+
+    @property
+    def can_write(self):
+        return  self.is_writer or self.is_editor or self.is_staff
+
+    @property
+    def is_writer(self):
+        return self.is_active == GKUser.writer
 
     @property
     def is_staff(self):

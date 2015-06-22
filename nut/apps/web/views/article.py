@@ -1,8 +1,10 @@
 # coding=utf-8
+
 from django.views.generic.base import View, TemplateResponseMixin, ContextMixin
 from django.views.generic import  ListView, View,TemplateView, DetailView
 from django.views.generic.edit import FormView,UpdateView
 from django.shortcuts import redirect, get_object_or_404
+from django.http import Http404
 
 from apps.core.models import Article,Selection_Article
 from apps.core.mixins.views import SortMixin
@@ -19,6 +21,7 @@ log = getLogger('django')
 class ArticleList(ListView):
     def test_func(self, user):
         return  user.is_chief_editor
+
     template_name = 'web/article/list.html'
     model = Selection_Article
     paginate_by = 5
@@ -34,7 +37,7 @@ class ArticleList(ListView):
 
 class EditorArticleList(UserPassesTestMixin,ListView):
     def test_func(self, user):
-        return  user.is_editor
+        return  user.can_write;
 
     template_name = 'web/article/editor_list.html'
     model = Article
@@ -48,7 +51,7 @@ class EditorArticleList(UserPassesTestMixin,ListView):
 
 class EditorArticleCreate(UserPassesTestMixin, View):
     def test_func(self, user):
-        return user.is_editor
+        return user.can_write
 
     def get(self,request):
         new_article = Article(
@@ -66,9 +69,19 @@ class EditorArticleEdit(AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,
     template_name = 'web/article/editor_edit.html'
     model = Article
 
-    def get(self, *args, **kwargs):
+    def test_func(self, user):
+        return user.can_write
+
+    def get(self,request, *args, **kwargs):
         pk = kwargs['pk']
         the_article =  get_object_or_404(Article,pk=pk)
+
+        if request.user.is_writer:
+            if the_article.creator != request.user:
+                raise Http404('没有找到对应文章，您是作者吗？')
+
+
+
         the_form = WebArticleEditForm(instance=the_article)
         return self.render_to_response({
             'form':the_form,
@@ -78,26 +91,28 @@ class EditorArticleEdit(AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,
     def post_ajax(self, request, *args, **kwargs):
         res={}
         pk = kwargs.get('pk')
-        atform = WebArticleEditForm(request.POST)
         article = get_object_or_404(Article, pk=pk)
+
+        if request.user.is_writer:
+            if article.creator != request.user:
+                raise Http404('没有找到对应文章，您是作者吗？')
+
+        atform = WebArticleEditForm(request.POST)
 
         if atform.is_valid():
             try :
-                data = atform.data
+                data = atform.cleaned_data
                 article.content = data['content']
                 article.title = data['title']
                 article.cover = data['cover']
                 article.publish = data['publish']
                 article.showcover = int(data['showcover'])
                 article.save()
-
             except Exception as e:
                 log(e)
                 res={
                     'error': 1
                 }
-
-
             res={
                 'status':'1',
                 'error':0
@@ -110,45 +125,37 @@ class EditorArticleEdit(AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,
 
         return self.render_to_response(res)
 
-
-
-
-
-    def test_func(self, user):
-        return user.is_editor or user.is_staff
-
-
-
 class ArticleDetail(DetailView):
     model = Article
     context_object_name = 'article'
     template_name = 'web/article/onepage.html'
 
-    def get_context_data(self, **kwargs):
+    def get_queryset(self):
+        return Article.objects.filter(publish=Article.published)
+
+    def get_context_data(self,**kwargs):
         context = super(ArticleDetail, self).get_context_data(**kwargs)
         context['is_article_detail'] = True
+        context['is_article_creator'] = self.request.user == self.object.creator
         context = add_side_bar_context_data(context)
         return context
 
-
-
-
 class ArticleDelete(UserPassesTestMixin, View):
     def test_func(self, user):
-        return user.is_editor or user.is_staff
+        return user.can_write
 
-    def get(self, *args , **kwargs):
+    def get(self, request, *args , **kwargs):
         pk = kwargs['pk']
         the_article =  get_object_or_404(Article,pk=pk)
+
+        if request.user.is_writer:
+            if the_article.creator != request.user:
+                raise Http404('没有找到对应文章，您是作者吗？')
+
 #       TODO : check permission here
         the_article.publish = Article.remove
         the_article.save()
         return redirect('web_editor_article_list')
-
-
-
-
-
 
 
 
