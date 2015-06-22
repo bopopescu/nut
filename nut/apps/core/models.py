@@ -749,7 +749,6 @@ class Note(BaseModel):
     def poke_list(self):
         return self.pokes.all().values_list('user_id', flat=True)
 
-
     @property
     def post_timestamp(self):
         return time.mktime(self.post_time.timetuple())
