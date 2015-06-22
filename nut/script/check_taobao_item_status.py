@@ -20,10 +20,10 @@ def crawl(item_id):
 
 links = Buy_Link.objects.filter(origin_source='taobao.com')
 
-for row in links:
+for row in links[:100]:
     # print row.origin_id
     print row.origin_id, crawl(item_id=row.origin_id)
-    time.sleep(2)
+    time.sleep(5)
 
 
 

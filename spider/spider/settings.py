@@ -16,10 +16,10 @@ NEWSPIDER_MODULE = 'spider.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'spider (+http://www.guoku.com)'
+USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.124 Safari/537.36"
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS=32
+CONCURRENT_REQUESTS=16
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
@@ -62,7 +62,9 @@ DOWNLOAD_DELAY=3
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'spider.pipelines.OriginIdPipeline': 300,
+   # 'spider.pipelines.OriginIdPipeline': 300,
+   'spider.pipelines.DuplicatesPipeline': 300,
+   'spider.pipelines.JsonWriterPipeline': 500,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
