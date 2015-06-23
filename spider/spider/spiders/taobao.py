@@ -20,27 +20,38 @@ class TaobaoSpider(scrapy.Spider):
     def parse(self, response):
         # self.log(response.headers)
         item = GItem()
+        item['status'] = 2
         try:
             item['origin_id'] = response.headers['At_Itemid']
         except KeyError:
             item['origin_id'] = self.item_id
         item['link'] = response.url
         if 'noitem.htm' in response.url:
-            item['is_soldout'] = 1
+            item['status'] = 0
             return item
 
         metas = response.xpath('//meta/@content').extract()
         # self.log(shop)
         shopId = 0
+        seller = 0
         for row in metas:
             m = re.search(r'shopId=\d+', row)
             if m:
                 shopId = re.sub('shopId=', '', m.group())
+            s = re.search(r'userid=\d+', row)
+            if s:
+                seller = re.sub('userid=', '', s.group())
+
+        if seller != 0:
+            item['seller'] = seller
+
+        if shopId != 0:
+            item['shop_link'] = "http://shop%s.taobao.com" % shopId
                 # shopId = m.group()
         #     print re.findall('shopId:"(\d+)', row)
             # self.log(row)
         # self.log(shopId)
-        price = response.xpath('//strong[@id="J_StrPrice"]/em[@class="tb-rmb-num"]/text()').extract()
+        # price = self.get_price(response)
 
         images = list()
         origin_images = response.xpath('//img[@id="J_ImgBooth"]/@data-src').extract()
@@ -62,12 +73,21 @@ class TaobaoSpider(scrapy.Spider):
             pass
 
         soldout = response.xpath('//p[@class="tb-hint"]/strong/text()').extract()
-        item['price'] = price
+        item['price'] = self.get_price(response)
         item['cid'] = cat_id
         item['image_urls'] = images
-        if shopId != 0:
-            item['shop_link'] = "http://shop%s.taobao.com" % shopId
+
         if len(soldout) > 0:
-            item['is_soldout'] = 1
+            item['status'] = 1
         # item['link'] = response.url
+
+        self.log(item)
         return item
+
+    def get_price(self, response):
+        price = response.xpath('//strong[@id="J_StrPrice"]/em[@class="tb-rmb-num"]/text()').extract()
+        if len(price) == 0:
+            price = 0
+            # price = response.xpath('//dl[@id="J_StrPriceModBox"]/dd').extract()
+            # self.log(price)
+        return price
