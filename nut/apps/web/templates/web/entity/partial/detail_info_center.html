@@ -56,9 +56,6 @@
                     <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;
                     <meta itemprop="currency" content="RMB" />购买<span itemprop="price"></span>
                 </a>
-                {% if row.seller %}
-                    <a class="btn btn-primary" biz-sellerid="{{ row.seller }}" href="#" _hover-ignore="1">店铺</a>
-                {% endif %}
             {% elif row.origin_source == "jd.com"%}
                 <a class="buy-button" rel="nofollow" href="http://item.jd.com/{{ row.origin_id }}.html" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-jd'])">
                     <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;
@@ -79,4 +76,11 @@
        </div>
    </div>
 
+{#    <div class="row">#}
+{#        {% for row in entity.buy_links.all %}#}
+{#            {% if "taobao" in row.origin_source %}#}
+{#                <a class="btn btn-success"  biz-sellerid="{{ row.seller }}" data-type="1" href="{{ row.shop_link }}" target="_blank" >店铺</a>#}
+{#            {% endif %}#}
+{#        {% endfor %}#}
+{#    </div>#}
 </div>

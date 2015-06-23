@@ -79,6 +79,7 @@
                         <th>{% trans 'link' %}</th>
                         <th>{% trans 'price' %}</th>
                         <th>{% trans 'source' %}</th>
+                        <th>{% trans 'shop link' %}</th>
                         <th>{% trans 'is default' %}</th>
                         <th>{% trans 'status' %}</th>
                         <th>{% trans 'operation' %}</th>
@@ -91,6 +92,7 @@
                             <td><a href="{{ buy_link }}" target="_blank">{{ buy_link }}</a></td>
                             <td><span class="label label-info">{{ buy_link.price }}</span></td>
                             <td>{{ buy_link.origin_source }}</td>
+                            <td><a href="{{ buy_link.shop_link }}" target="_blank">去店铺</a></td>
                             <td><span class="label label-primary">{{ buy_link.default }}</span></td>
                             <td><span class="label label-info">{{ buy_link.get_status_display }}</span></td>
                             <td>
