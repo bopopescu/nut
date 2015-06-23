@@ -212,13 +212,6 @@ a {
     border: 1px solid #eee;
 }
 
-.panel {
-    border-radius: 0;
-    -webkit-box-shadow: inherit;
-    box-shadow: inherit;
-    border: 1px solid #fff;
-    /*background-color: #fafafa;*/
-}
 
 .list-group-item {
     border: 1px solid #fff;
@@ -1489,11 +1482,34 @@ a:hover{text-decoration:underline;}
 
 }
 
+//for
 
 
-// for detail page
+// for all page
 #detail_content{
+   //for selection article list page
+  #article_list{
+      .article-wrapper{
+          margin-bottom :20px;
+          .panel-no-padding;
+          .title-wrapper{
+              padding:20px 20px 10px 20px;
+              h2{
+                font-size: @title-size;
+                line-height:1.2;
+              }
+          }
+          .info-wrapper{
+              padding-left: 20px;
+              padding-bottom: 10px;
+              margin:0px;
+          }
+          .content-digest{
+              padding:0px 20px 20px 20px;
+          }
 
+      }
+  }
   #detail_content_right{
       .section-list{
            .section-title{
@@ -1610,8 +1626,6 @@ a:hover{text-decoration:underline;}
   }
   #detail_content_left{
 
-//    min-width: 600px;
-//    padding-right: 30px;
     .detail-pic-left{
        .detail_img_big{
          img{
@@ -1744,6 +1758,8 @@ a:hover{text-decoration:underline;}
 
   }
 
+
+
 }
 .comment_operate{
   .fa{
@@ -1765,8 +1781,15 @@ a:hover{text-decoration:underline;}
 }
 
 .panel{
- background-color: @panel-background-color;
+     background-color: @panel-background-color;
      padding: 18px 18px;
+     .border-radius(@global-box-radius);
+     .box-shadow(0px 0px 3px #ddd);
+}
+
+.panel-no-padding{
+
+      background-color: @panel-background-color;
      .border-radius(@global-box-radius);
      .box-shadow(0px 0px 3px #ddd);
 }
@@ -1911,7 +1934,7 @@ a:hover{text-decoration:underline;}
                   cursor: pointer;
                 }
             }
-            .conten-digest{
+            .content-digest{
                 padding: 10px;
                 background-color: @very-light-gray;
                 color: @common-gray;
@@ -2020,7 +2043,7 @@ a:hover{text-decoration:underline;}
          padding:0px 9px;
        }
        a:after{
-              margin-left:3px;
+              margin-left:6px;
               content:"\f08e";
               display: inline-block;
               font-family:FontAwesome;
