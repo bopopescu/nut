@@ -9,7 +9,7 @@ class ArticleManager(models.Manager):
         pass
 
 class SelectionArticleManager(models.Manager):
-    def get_published(self):
-        pass
+    def published_until(self, until_time):
+        return self.get_queryset().filter(is_published=True)
 
 
