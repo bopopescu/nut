@@ -66,17 +66,19 @@
                                <i class="fa fa-clock-o"></i> {{ article.updated_datetime|format_time }}
                             </div>
 {#                            <div class="article-state">{{ article.get_publish_display }}</div>#}
-                            <div class="action edit">
-                                <a class="btn" href="{% url 'web_editor_article_edit' article.pk %}">
-                                    编辑
-                                </a>
-                            </div>
-{#                            <div class="action preview"><a class="btn" href="{% url 'web_article_page' article.pk  %}" >预览</a></div>#}
-                            <div class="action delete">
-                                <a class="delete_link" target_url="{% url 'web_article_delete' article.pk %}"  >
-                                删除
-                                 </a>
-                            </div>
+                            {% if not article.is_selection %}
+                                <div class="action edit">
+                                    <a class="btn" href="{% url 'web_editor_article_edit' article.pk %}">
+                                        编辑
+                                    </a>
+                                </div>
+    {#                            <div class="action preview"><a class="btn" href="{% url 'web_article_page' article.pk  %}" >预览</a></div>#}
+                                <div class="action delete">
+                                    <a class="delete_link" target_url="{% url 'web_article_delete' article.pk %}"  >
+                                    删除
+                                     </a>
+                                </div>
+                            {% endif %}
                         </div>
                         <div class="conten-digest">
                         {% autoescape off %}

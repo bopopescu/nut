@@ -2004,7 +2004,7 @@ a:hover {
 }
 .article-wrapper .content-wrapper a:after,
 .article-wrapper .note-editable a:after {
-  margin-left: 3px;
+  margin-left: 6px;
   content: "\f08e";
   display: inline-block;
   font-family: FontAwesome;

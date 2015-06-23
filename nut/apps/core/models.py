@@ -18,6 +18,7 @@ from apps.core.manager.tag import EntityTagManager
 from apps.core.manager.category import CategoryManager, SubCategoryManager
 from apps.core.manager.comment import CommentManager
 from apps.core.manager.event import ShowEventBannerManager
+from apps.core.manager.article import ArticleManager, SelectionArticleManager
 
 from hashlib import md5
 # from apps.core.utils.tag import TagParser
@@ -961,6 +962,8 @@ class Article(models.Model):
     updated_datetime = models.DateTimeField(auto_now=True, db_index=True, null=True, editable=False)
     showcover = models.BooleanField(default=False)
 
+    objects = ArticleManager()
+
     class Meta:
         ordering = ["-updated_datetime"]
 
@@ -983,9 +986,17 @@ class Article(models.Model):
 
     @property
     def once_selection(self):
+        """
+
+        :return: is the article was in selection at least once.
+        """
         #article can be selected multiple times
         res = hasattr(self,'selections') and (self.selections.count() > 0)
         return res
+
+    @property
+    def is_selection(self):
+        return self.once_selection
 
     @property
     def is_draft(self):
@@ -1028,6 +1039,7 @@ class Selection_Article(BaseModel):
     pub_time = models.DateTimeField(db_index=True,editable=True, null=True,blank=True)
     create_time = models.DateTimeField(db_index=True, editable=False,auto_now_add=True, blank=True)
 
+    objects = SelectionArticleManager()
     # def __unicode__(self):
     #     return self.article
 

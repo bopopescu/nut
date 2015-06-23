@@ -29,6 +29,10 @@ class ArticleList(ListView):
     context_object_name = 'selection_articles'
     # TODO :  make sure the pub time is alright
     default_sort_params = ('pub_time', 'desc')
+    #
+    # def get_queryset(self):
+    #     pass;
+
 
     def get_context_data(self, **kwargs):
         context = super(ArticleList, self).get_context_data(**kwargs)
