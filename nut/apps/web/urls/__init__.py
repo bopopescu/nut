@@ -57,6 +57,8 @@ urlpatterns += patterns(
 
     url(r'^weixin/login/$', 'wechat.login_by_wechat', name='web_login_by_wechat'),
     url(r'^weixin/auth/$', 'wechat.auth_by_wechat', name='web_auth_by_wechat'),
+    url(r'^weixin/bind/$', 'wechat.bind', name='web_bind_by_weixin'),
+    url(r'^weixin/unbind/$', 'wechat.unbind', name='web_unbind_by_weixin'),
 )
 
 # static page

@@ -6,8 +6,7 @@
         <div class="edit_info binding">
             <ul>
                 <li class="fs_16 fc_2 table">
-                   
-                    
+
                     {% if user.weibo.screen_name %}
                      <div class="td">
                         <i class="fa fa-weibo icon fc_weibo td"></i>
@@ -45,6 +44,29 @@
                     </div>
                     <div class="binding_btn td">
                         <a href="{%url 'web_bind_by_taobao' %}"><button class="bg_c_blue fs_16 fc_4" >绑定淘宝</button></a>
+                    </div>
+                    {% endif %}
+                </li>
+
+                <li class="fs_16 fc_2 table">
+
+                    {% if user.weixin.unionid %}
+                    <div class="td">
+{#                        <span class="icon_taobao"></span>#}
+                        <i class="fa fa-wechat fa-lg"></i>
+                        <span class="id_name fs_16 fc_1">@{{ user.weixin.nickname }}</span>
+                    </div>
+                    <div class="binding_btn td">
+                        <a href="{%url 'web_unbind_by_weixin' %}"><button  class="bg_c_gray fs_16 fc_3">取消绑定</button></a>
+                    </div>
+                    {% else %}
+                    <div class="td">
+                        <i class="fa fa-wechat fa-lg"></i>
+{#                        <span class="icon_taobao"></span>#}
+                        <span class="id_name fs_16 fc_1"></span>
+                    </div>
+                    <div class="binding_btn td">
+                        <a href="{%url 'web_bind_by_weixin' %}"><button class="bg_c_blue fs_16 fc_4" >绑定微信</button></a>
                     </div>
                     {% endif %}
                 </li>

@@ -1,5 +1,10 @@
+# -*- coding: utf-8 -*-
+
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.core.urlresolvers import reverse
+from django.views.decorators.http import require_GET
+from django.contrib.auth.decorators import login_required
+
 from urllib import urlencode
 import requests
 
@@ -28,12 +33,7 @@ def get_user_info(access_token, openid):
     return r.json()
 
 
-
-def login_by_wechat(request):
-    request.session['auth_source'] = "login"
-    next_url = request.GET.get('next', None)
-    if next_url:
-        request.session['next_url'] = next_url
+def get_weixin_auth_url():
 
     data = {
         'appid': APPID,
@@ -44,8 +44,26 @@ def login_by_wechat(request):
     }
 
     url = "https://open.weixin.qq.com/connect/qrconnect?%s" % urlencode(data)
-    print url
-    return HttpResponseRedirect(url)
+
+    return url
+
+def login_by_wechat(request):
+    request.session['auth_source'] = "login"
+    next_url = request.GET.get('next', None)
+    if next_url:
+        request.session['next_url'] = next_url
+
+    # data = {
+    #     'appid': APPID,
+    #     'redirect_uri': RedirectURI,
+    #     'response_type': 'code',
+    #     'scope': 'snsapi_login',
+    #     'state': 'wechat',
+    # }
+    #
+    # url = "https://open.weixin.qq.com/connect/qrconnect?%s" % urlencode(data)
+    # print url
+    return HttpResponseRedirect(get_weixin_auth_url())
 
 
 def auth_by_wechat(request):
@@ -73,6 +91,18 @@ def auth_by_wechat(request):
         except WeChat_Token.DoesNotExist:
             weixinUserDict = get_user_info(access_token=res['access_token'], openid=res['openid'])
 
+            is_bind = request.session.get('is_bind', None)
+            if request.user.is_authenticated() and is_bind:
+                # del request.session['next_url']
+                print weixinUserDict
+                del request.session['is_bind']
+                WeChat_Token.objects.create(
+                    user = request.user,
+                    unionid = weixinUserDict['unionid'],
+                    nickname = weixinUserDict['nickname'],
+                )
+                return HttpResponseRedirect(next_url)
+
             user_key = WeChat_Token.generate(weixinUserDict['unionid'], weixinUserDict['nickname'])
             email = "%s@guoku.com" % user_key
             user_obj = GKUser.objects.create_user(email=email, password=None)
@@ -91,4 +121,30 @@ def auth_by_wechat(request):
     else:
         raise Http404
 
+@require_GET
+@login_required
+def bind(request):
+    next_url = request.META.get('HTTP_REFERER', None)
+    # next_url = reverse('web_selection')
+    if next_url:
+        log.info(next_url)
+        request.session['next_url'] = next_url
+        request.session['is_bind'] = True
+        return HttpResponseRedirect(get_weixin_auth_url())
+
+    raise Http404
+
+@require_GET
+@login_required
+def unbind(request):
+    next_url = request.META.get('HTTP_REFERER', None)
+    if next_url is None:
+        raise Http404
+    try:
+        token = WeChat_Token.objects.get(user=request.user)
+    except WeChat_Token.DoesNotExist:
+        raise Http404
+
+    token.delete()
+    return HttpResponseRedirect(next_url)
 __author__ = 'edison'
