@@ -209,7 +209,7 @@
                 return ;
             }
             var that = this;
-            bootbox.alert('保存中......');
+            //bootbox.alert('保存中......');
             var url = window.location.pathname;
                 $.when(
                     $.ajax({
@@ -290,8 +290,8 @@
                 processData: false,
                 success: function(url) {
                     callback(url);
-                    bootbox.hideAll();
-                    bootbox.alert('上传成功');
+                    //bootbox.hideAll();
+                    //bootbox.alert('上传成功');
                     window.setTimeout(function(){
                         bootbox.hideAll();
                     }, 1000);

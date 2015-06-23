@@ -61,3 +61,5 @@ docs/_build/
 nut/settings/
 # Node tools
 node_modules
+nut/images
+
