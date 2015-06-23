@@ -34,14 +34,14 @@ from braces.views import UserPassesTestMixin, JSONResponseMixin
 
 
 # TODO : add authorise mixin here
-class SelectionArticleList(SortMixin,ListView):
+class SelectionArticleList(UserPassesTestMixin, SortMixin,ListView):
     template_name = 'management/article/selection_article_list.html'
     model = Selection_Article
     queryset = Selection_Article.objects.filter(is_published=True)
     paginate_by = 30
     paginator_class = Jpaginator
     context_object_name = 'selection_article_list'
-    default_sort_params = ('create_time','desc')
+    default_sort_params = ('pub_time','desc')
 
     def sort_queryset(self, qs, sort_by, order):
         if sort_by:
@@ -50,8 +50,11 @@ class SelectionArticleList(SortMixin,ListView):
             qs = qs.reverse()
         return qs
 
+    def test_func(self, user):
+        return user.is_chief_editor
 
-class SelectionPendingArticleList(SortMixin,ListView):
+
+class SelectionPendingArticleList(UserPassesTestMixin, SortMixin,ListView):
     template_name = 'management/article/selection_article_list.html'
     model = Selection_Article
     queryset = Selection_Article.objects.filter(is_published=False)
@@ -66,6 +69,9 @@ class SelectionPendingArticleList(SortMixin,ListView):
         if order =='desc':
             qs = qs.reverse()
         return qs
+
+    def test_func(self, user):
+        return user.is_chief_editor
 
 
 class CreateSelectionArticle(UserPassesTestMixin, JSONResponseMixin , View):

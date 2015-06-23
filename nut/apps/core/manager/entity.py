@@ -70,7 +70,6 @@ class EntityLikeQuerySet(models.query.QuerySet):
 
         if isTestEnv():
             weekly_days =70
-
         if scale == 'weekly':
             days = timedelta(days=weekly_days)
         else:
