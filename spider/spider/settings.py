@@ -62,9 +62,9 @@ DOWNLOAD_DELAY=3
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   # 'spider.pipelines.OriginIdPipeline': 300,
+   'spider.pipelines.ErrorPipeLine': 100,
    'spider.pipelines.DuplicatesPipeline': 300,
-   'spider.pipelines.JsonWriterPipeline': 500,
+   'spider.pipelines.SQLStorePipeline': 500,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

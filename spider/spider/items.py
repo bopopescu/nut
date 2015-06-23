@@ -18,6 +18,7 @@ class GItem(scrapy.Item):
     cid = scrapy.Field()
     image_urls = scrapy.Field()
     price = scrapy.Field()
-    is_soldout = scrapy.Field()
+    status = scrapy.Field()
     shop_link = scrapy.Field()
+    seller = scrapy.Field()
     link = scrapy.Field()

@@ -3,7 +3,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.stage'
 
-from apps.core.models import Buy_Link
+from apps.core.models import Buy_Link, Entity
 import requests
 import time
 
@@ -18,12 +18,12 @@ def crawl(item_id):
     res = requests.post('http://localhost:6800/schedule.json', data=data)
     return res.json()
 
-links = Buy_Link.objects.filter(origin_source='taobao.com')
+links = Buy_Link.objects.filter(origin_source='taobao.com', entity__status=Entity.selection).exclude(status=Buy_Link.remove).order_by('-id')
 
-for row in links[:100]:
+for row in links[:1000]:
     # print row.origin_id
     print row.origin_id, crawl(item_id=row.origin_id)
-    time.sleep(5)
+    time.sleep(10)
 
 
 

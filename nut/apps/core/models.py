@@ -688,6 +688,8 @@ class Buy_Link(BaseModel):
     volume = models.IntegerField(default=0)
     rank = models.IntegerField(default=0)
     default = models.BooleanField(default=False)
+    shop_link = models.URLField(max_length=255, null=True)
+    seller = models.CharField(max_length=255, null=True)
     status = models.PositiveIntegerField(default=sale, choices=Buy_Link_STATUS_CHOICES)
 
     class Meta:
