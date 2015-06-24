@@ -1520,6 +1520,58 @@ a:hover {
 .user-block i.fa-plus {
   color: #fff;
 }
+.guoku-link-button {
+  display: block;
+  width: 100%;
+}
+.user-tabs {
+  padding: 0;
+  margin: 0;
+}
+.user-tabs .active {
+  border-bottom: 2px solid #ff1f77;
+}
+.user-tabs li {
+  display: inline-block;
+}
+.user-tabs li .user-tab-link {
+  text-decoration: none;
+  text-align: center;
+}
+#user_article .user-article-item {
+  background-color: #ffffff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 3px #dddddd;
+  -moz-box-shadow: 0px 0px 3px #dddddd;
+  box-shadow: 0px 0px 3px #dddddd;
+  padding: 20px 20px 0px 20px;
+  margin-bottom: 20px;
+  height: 120px;
+}
+#user_article .user-article-item .title-wrapper {
+  height: 60px;
+}
+#user_article .user-article-item .title-wrapper .title {
+  font-size: 16px;
+}
+#user_article .user-article-item .info-wrapper .info {
+  float: right;
+  padding-right: 20px;
+  font-size: 12px;
+  color: #9d9e9f;
+}
+#user_article .user-article-item .info-wrapper .edit-link {
+  padding-right: 20px;
+  color: #357ebd;
+}
+#user_article .user-article-item .info-wrapper .edit-link i {
+  color: #357ebd;
+}
 #detail_content #article_list .article-wrapper {
   margin-bottom: 20px;
   background-color: #ffffff;
@@ -1958,6 +2010,10 @@ a:hover {
 }
 .editor_wrap .cover {
   position: relative;
+}
+.editor_wrap .author-wrapper {
+  position: absolute;
+  right: 0px;
 }
 .editor_wrap .cover-info {
   line-height: 24px;

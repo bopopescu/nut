@@ -109,6 +109,14 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.profile.email_verified
 
     @property
+    def published_article_count(self):
+        return self.articles.filter(publish=Article.published).count()
+
+    @property
+    def draft_article_count(self):
+        return self.articles.filter(publish=Article.draft).count()
+
+    @property
     def like_count(self):
         return self.likes.count()
 

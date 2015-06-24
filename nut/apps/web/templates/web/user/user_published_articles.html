@@ -1,0 +1,47 @@
+{% extends 'web/user/user_base.html' %}
+{% load i18n static %}
+{% load  common guoku %}
+
+{% block list %}
+<div class="row" id="user_article">
+    {% for article in articles %}
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 user-article-wrapper">
+            <div class="user-article-item">
+                <div class="title-wrapper">
+                    <div class="title">
+                      <a href="{% url 'web_article_page' article.pk %}">
+                          {{ article.title }}
+                      </a>
+                      {% if article.is_selection %}
+                            <span class="status article-selection tip-trigger">
+                                <i class="fa fa-star"></i>
+                                <span class="tip-content">
+
+                                </span>
+                            </span>
+
+                      {% endif %}
+                    </div>
+                </div>
+                <div class="info-wrapper">
+
+                    <div class="info">
+{#                        {% if request.user == article.creator %}#}
+{#                            {% if not article.is_selection %}#}
+{#                                <a class="edit-link" href="{% url 'web_editor_article_edit' article.pk %}">#}
+{#                                    <i class="fa fa-edit"></i>#}
+{#                                    编辑#}
+{#                                </a>#}
+{#                            {% endif %}#}
+{#                        {% endif %}#}
+                        <i class="fa fa-clock-o"></i> {{ article.updated_datetime|format_time }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% include 'web/main/partial/paginator.html' with objects=articles url=request.path %}
+{% endblock %}
