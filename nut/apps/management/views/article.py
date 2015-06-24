@@ -283,6 +283,7 @@ def edit(request, article_id, template="management/article/edit.html"):
         "title": _article.title,
         "content": _article.content,
         "is_publish": _article.publish,
+        "author": _article.creator_id
     }
 
     if request.method == "POST":
