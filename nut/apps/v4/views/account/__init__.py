@@ -16,9 +16,10 @@ log = getLogger('django')
 @csrf_exempt
 @check_sign
 def login(request):
-    log.info(request.META['HTTP_USER_AGENT'])
+    # log.info(request.META['HTTP_USER_AGENT'])
     code = 200
-    if 'iPhone' in request.META['HTTP_USER_AGENT'] or 'iPad' in request.META['HTTP_USER_AGENT']:
+    user_agent = request.META.get('HTTP_USER_AGENT', '')
+    if 'iPhone' in user_agent or 'iPad' in user_agent:
         code = 409
 
     if request.method == "POST":
@@ -49,9 +50,9 @@ def login(request):
 @csrf_exempt
 @check_sign
 def register(request):
-    log.info(request.META['HTTP_USER_AGENT'])
     code = 200
-    if 'iPhone' in request.META['HTTP_USER_AGENT'] or 'iPad' in request.META['HTTP_USER_AGENT']:
+    user_agent = request.META.get('HTTP_USER_AGENT', '')
+    if 'iPhone' in user_agent or 'iPad' in user_agent:
         code = 409
 
     if request.method == "POST":
