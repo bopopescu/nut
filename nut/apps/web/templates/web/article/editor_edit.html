@@ -20,10 +20,11 @@
             <div class="editor_wrap article-wrapper">
                 <form id="article_form" method="post">
                     <div class="fix-operate">
-                        <span  id="return-list" class="guoku-btn-normal btn-cancel">返回列表</span>
+                        <span  id="return-list" class="guoku-btn-normal btn-cancel">返回草稿箱</span>
                        <span   id="save-draft"  class="guoku-btn-normal">保存草稿</span>
                        <span   id="save-publish" class="guoku-btn-normal">发布文章</span>
                     </div>
+
 
                     <div class="cover article-cover" >
                         <div class="icon-wrapper">
@@ -31,6 +32,16 @@
                         </div>
                         <input type="file" accept="image/*" name="upload-file" id="cover-upload-button">
                     </div>
+{#                    {% if request.user.is_chief_editor %}#}
+{#                        <div class="author-wrapper">#}
+{#                            作者 :#}
+{#                            <select>#}
+{#                                <option value="0" selected>不变</option>#}
+{#                                <option value="1">anchen</option>#}
+{#                                <option value="2">李刚</option>#}
+{#                            </select>#}
+{#                        </div>#}
+{#                    {% endif %}#}
                     <div class="cover-info">
                          <input type="checkbox" id="showcover">
                          <span> 封面图显示在正文中 </span>
@@ -42,8 +53,6 @@
                          </span>
                     </div>
                     <div class="guoku_editor "></div>
-
-
                 </form>
             </div>
             <div class="article-form-wrapper">

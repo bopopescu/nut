@@ -254,9 +254,25 @@
         savePublish:function(e){
             var data = this.collectEditorValues();
                 data['publish'] = 2;
-            this.saveArticle(data, this.saveOK.bind(this), this.saveFail.bind(this));
+            this.saveArticle(data, this.publishOK.bind(this), this.saveFail.bind(this));
             e.preventDefault();
             return false;
+        },
+
+        publishOK:function(data){
+            console.log(data);
+            this.contentChanged = false;
+            bootbox.hideAll();
+            bootbox.alert( '文章已经被成功保存');
+            window.setTimeout(function(){
+                var host = window.location.host;
+                var dash_link = $('#user_dash_link').attr('href');
+                var artilce_part = 'articles/';
+                if(dash_link){
+                    window.location = 'http://' + host + dash_link + artilce_part;
+                }
+
+            },1000);
         },
 
         saveOK:function(data){
