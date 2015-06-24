@@ -13,13 +13,18 @@ from apps.core.utils.http import JSONResponse, ErrorJsonResponse
 from apps.core.models import Note
 from apps.core.forms.user import AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
-from apps.core.models import Entity, Entity_Like, Tag, Entity_Tag, User_Follow
+from apps.core.models import Entity, Entity_Like, Tag, \
+                             Entity_Tag, User_Follow,Article
+
+from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
 from ..utils.viewtools import get_paged_list
 
 # from apps.notifications import notify
 
 from django.utils.log import getLogger
+
+from django.views.generic import ListView
 
 log = getLogger('django')
 
@@ -242,6 +247,52 @@ def tag(request, user_id, template="web/user/tag.html"):
         },
         context_instance = RequestContext(request),
     )
+
+def articles(request,user_id, template="web/user/user_published_articles.html"):
+    _page = request.GET.get('page', 1)
+    _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
+    _articles  = Article.objects.get_published_by_user(_user)
+    paginator = ExtentPaginator(_articles, 12)
+    try:
+        _articles = paginator.page(_page)
+    except PageNotAnInteger:
+        _articles = paginator.page(1)
+    except EmptyPage:
+        raise Http404
+
+    return render_to_response(template,
+        {
+            'articles':_articles,
+            'user':_user
+        },
+        context_instance = RequestContext(request),
+        )
+
+
+# NOT ABLE TO RUN !!! ,
+# the Listview will automaticly replace user field in context with current request.user !!!
+# that will conflict the current user_base.html template's "user" !
+class UserArticles(ListView):
+    template_name = 'web/user/user_published_articles.html'
+    model = Article
+    paginate_by = 30
+    paginator_class = Jpaginator
+    context_object_name = 'articles'
+    def get_showing_user(self):
+        user_id =  self.kwargs['user_id']
+        _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
+        return _user
+
+    def get_context_data(self, **kwargs):
+        context = super(UserArticles, self).get_context_data(**kwargs)
+        context['user'] = self.get_showing_user()
+        context['_t_user'] = self.get_showing_user()
+        return context
+
+    def get_queryset(self):
+        user = self.get_showing_user();
+        qs = Article.objects.get_published_by_user(user)
+        return qs
 
 
 def user_tag_detail(request, user_id, tag_hash, template="web/user/tag_detail.html"):

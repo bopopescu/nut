@@ -1483,9 +1483,62 @@ a:hover{text-decoration:underline;}
 }
 
 //for
+.guoku-link-button{
+    display: block;
+    width:100%;
+}
+
 
 
 // for all page
+.user-tabs{
+    padding: 0;
+    margin: 0;
+
+    .active{
+          border-bottom: 2px solid @like-color;
+    }
+    li{
+        display: inline-block;
+
+        .user-tab-link{
+          text-decoration: none;
+          text-align: center;
+        }
+    }
+}
+
+#user_article{
+    .user-article-item{
+        .panel-no-padding;
+        padding: 20px 20px 0px 20px;
+        margin-bottom: 20px;
+        height: 120px;
+        .title-wrapper{
+           height: 60px;
+           .title{
+              font-size:@subtitle-size;
+           }
+        }
+        .info-wrapper{
+           .info{
+              float:right;
+              padding-right: 20px;
+              font-size:@mini-size;
+              color: @common-gray;
+           }
+           .edit-link{
+               padding-right: 20px;
+               color: @link-color;
+               i{
+                  color: @link-color;
+               }
+           }
+        }
+    }
+}
+
+
 #detail_content{
    //for selection article list page
   #article_list{
@@ -1961,6 +2014,10 @@ a:hover{text-decoration:underline;}
    .cover{
      position:relative;
    }
+   .author-wrapper{
+     position:absolute;
+     right:0px;
+   }
    .cover-info{
       line-height: 24px;
       color: @common-gray;
@@ -1970,6 +2027,7 @@ a:hover{text-decoration:underline;}
          display :block;
       }
    }
+
 
 }
 

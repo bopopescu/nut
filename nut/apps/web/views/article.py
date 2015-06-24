@@ -25,13 +25,13 @@ log = getLogger('django')
 class SelectionArticleList(AjaxResponseMixin,ListView):
     template_name = 'web/article/selection_list.html'
     model = Selection_Article
-    paginate_by = 5
+    paginate_by = 2
     paginator_class = Jpaginator
     context_object_name = 'selection_articles'
     #
     # def get_queryset(self):
     #     pass;
-
+    
     def get_refresh_time(self):
         refresh_time = self.request.GET\
                                     .get('t',datetime.now()\
@@ -53,7 +53,7 @@ class SelectionArticleList(AjaxResponseMixin,ListView):
         context = add_side_bar_context_data(context)
         return context
 
-class EditorArticleList(UserPassesTestMixin,ListView):
+class EditorDraftList(UserPassesTestMixin,ListView):
     def test_func(self, user):
         return  user.can_write;
 
@@ -63,8 +63,7 @@ class EditorArticleList(UserPassesTestMixin,ListView):
     paginator_class = Jpaginator
     context_object_name = 'articles'
     def get_queryset(self):
-        return Article.objects.filter(creator=self.request.user)\
-                              .exclude(publish=Article.remove)
+        return Article.objects.filter(creator=self.request.user,publish=Article.draft)
 
 class EditorArticleCreate(UserPassesTestMixin, View):
     def test_func(self, user):
@@ -140,7 +139,7 @@ class EditorArticleEdit(AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,
                 'error':1
             }
 
-        return self.render_to_response(res)
+        return self.render_json_response(res)
 
 class ArticleDetail(DetailView):
     model = Article
@@ -152,8 +151,10 @@ class ArticleDetail(DetailView):
 
     def get_context_data(self,**kwargs):
         context = super(ArticleDetail, self).get_context_data(**kwargs)
+        article = context['article']
         context['is_article_detail'] = True
         context['is_article_creator'] = self.request.user == self.object.creator
+        context['can_show_edit'] =  (not article.is_selection) and (self.request.user == article.creator)
         context = add_side_bar_context_data(context)
         return context
 
