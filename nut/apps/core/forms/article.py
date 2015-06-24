@@ -6,7 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from apps.core.models import Article, Selection_Article
 from apps.core.utils.image import HandleImage
 from datetime import datetime
-
+from apps.core.forms import get_admin_user_choices
 
 
 log = getLogger('django')
@@ -124,6 +124,16 @@ class BaseArticleForms(forms.Form):
         initial=Article.draft,
     )
 
+    def __init__(self, *args, **kwargs):
+        super(BaseArticleForms, self).__init__(*args, **kwargs)
+        user_choices = get_admin_user_choices()
+        self.fields['author'] = forms.ChoiceField(
+            label=_('author'),
+            choices=user_choices,
+            widget=forms.Select(attrs={'class':'form-control'}),
+            help_text=_(''),
+        )
+
     def cleaned_is_publish(self):
         _is_publish = self.cleaned_data.get('is_publish')
         return int(_is_publish)
@@ -189,10 +199,11 @@ class EditArticleForms(BaseArticleForms):
     def save(self):
         title = self.cleaned_data.get('title')
         content = self.cleaned_data.get('content')
-
+        author_id = self.cleaned_data.get('author')
 
         self.article.title = title
         self.article.content = content
+        self.article.creator_id = author_id
 
         if not self.article.is_published:
             is_publish = self.cleaned_data.get('is_publish')
