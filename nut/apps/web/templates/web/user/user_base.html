@@ -13,6 +13,7 @@
     {% url 'web_user_tag' user.pk as web_user_tags_url %}
     {% url 'web_user_followings' user.pk as web_user_followings_url %}
     {% url 'web_user_fans' user.pk as web_user_fans_url %}
+    {% url 'web_user_article' user.pk as web_user_article_url %}
 
         {% static "images/profile_bg_04.png" as profile_bg%}
         <div class="row user-block" style='background: url("{{ profile_bg }}"); padding-top: 27px; padding-bottom: 22px; margin: -50px 0 0 0;background-size: 278px;'>
@@ -63,22 +64,42 @@
         <div class="row" style="margin-top:20px;margin-box:40px;">
             <div class="col-md-12">
                 <div class="navbar nav-user-index" style="margin-left: 0;margin-right: 0; margin-bottom: 20px;">
-                    <ul class="nav nav-pills pull-left" role="tablist">
-                        <li role="presentation" {% if web_user_likes_url in request.path %}class="active"{% endif %}>
-                            <a href="{{ web_user_likes_url }}">{% trans 'My Likes' %}&nbsp; <span class="count">{{ user.like_count }}</span></a>
+                    <ul class="user-tabs" >
+                        <li {% if web_user_likes_url in request.path %}class="active"{% endif %}>
+                            <a class="user-tab-link guoku-link-button" href="{{ web_user_likes_url }}">{% trans 'My Likes' %}&nbsp; <span class="count">{{ user.like_count }}</span></a>
                         </li>
-                        <li role="presentation" {% if web_user_notes_url in request.path %}class="active"{% endif %}>
-                            <a href="{{ web_user_notes_url }}">{% trans 'My Notes' %}&nbsp; <span class="count">{{ user.post_note_count }}</span></a>
+                        <li {% if web_user_notes_url in request.path %}class="active"{% endif %}>
+                            <a class="user-tab-link guoku-link-button"  href="{{ web_user_notes_url }}">{% trans 'My Notes' %}&nbsp; <span class="count">{{ user.post_note_count }}</span></a>
                         </li>
-                        <li role="presentation" {% if web_user_tags_url in request.path %}class="active" {% endif %}>
-                            <a href="{{ web_user_tags_url }}">{% trans 'My tags' %}&nbsp; <span class="count">{{ user.tags_count }}</span></a>
+                        <li {% if web_user_tags_url in request.path %}class="active" {% endif %}>
+                            <a class="user-tab-link guoku-link-button"  href="{{ web_user_tags_url }}">{% trans 'My tags' %}&nbsp; <span class="count">{{ user.tags_count }}</span></a>
                         </li>
+                       {% if user.can_write %}
+                           <li {% if web_user_article_url in request.path %}class="active" {% endif %}>
+                                <a class="user-tab-link guoku-link-button"  href="{{ web_user_article_url }}">文章&nbsp; <span class="count">{{ user.published_article_count }}</span></a>
+                           </li>
+                        {% endif %}
+                        {% if request.user == user %}
+                            {% if user.can_write %}
+                                <li>
+                                 <a class="user-tab-link guoku-link-button"  href="{% url 'web_editor_article_list' %}">
+                                     草稿&nbsp;
+                                     <span class="count">
+                                     {{ user.draft_article_count }}
+                                     </span>
+                                 </a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+
+
+
                     </ul>
 {#                    <ul class="nav nav-pills pull-right hidden-xs" role="tablist">#}
-{#                        <li role="presentation" {% if web_user_followings_url in request.path %}class="active"{% endif %}>#}
+{#                        <li {% if web_user_followings_url in request.path %}class="active"{% endif %}>#}
 {#                            <a href="{{ web_user_followings_url }}">关注了&nbsp; <strong>{{ user.following_count }}</strong>人</a>#}
 {#                        </li>#}
-{#                        <li role="presentation" {% if web_user_fans_url in request.path %}class="active"{% endif %}>#}
+{#                        <li {% if web_user_fans_url in request.path %}class="active"{% endif %}>#}
 {#                            <a href="{{ web_user_fans_url }}">关注者&nbsp; <strong>{{ user.fans_count }}</strong></a>#}
 {#                        </li>#}
 {#                    </ul>#}
