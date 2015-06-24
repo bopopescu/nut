@@ -8,6 +8,7 @@ Change Log
 2. **core_buy_link** 表增加 **shop_link** 字段。
 3. **core_buy_link** 表增加 **seller** 字段。
 4. 优化 **nickname** 的显示 
+5. 增加微信登陆
 
 
 ### 注：
