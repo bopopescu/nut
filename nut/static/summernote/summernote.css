@@ -492,7 +492,11 @@
   background-color: #fff;
   border: none;
 }
-.btn-default:hover,
+.btn-default:hover {
+  color: #333;
+  background-color: #fff;
+  border: none;
+}
 .btn-default.active {
   color: #333;
   background-color: #f1f2f3;
@@ -564,7 +568,7 @@
   line-height: 60px;
   border: none;
   margin-top: 20px;
-  font-size: 38px;
+  font-size: 32px;
   outline: 0;
 }
 #editor-container .editor_wrap .guoku_editor {
