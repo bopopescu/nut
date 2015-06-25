@@ -46,7 +46,7 @@ class DuplicatesPipeline(object):
 class SQLStorePipeline(object):
 
     def __init__(self):
-        self.dbpool = adbapi.ConnectionPool('MySQLdb', db='test',
+        self.dbpool = adbapi.ConnectionPool('MySQLdb', db='core',
                                             host='10.0.2.90',
                                             user='guoku', passwd='guoku!@#', cursorclass=MySQLdb.cursors.DictCursor,
                                             charset='utf8', use_unicode=True)
