@@ -24,7 +24,9 @@
 {#        {% endif %}#}
     </div>
     <div class="cover-wrapper">
-        <img class="article-cover img-responsive" src="{{article.cover }}" />
+         <a  href="{% url 'web_article_page' article.pk  %}" >
+            <img class="article-cover img-responsive" src="{{article.cover }}" />
+         </a>
     </div>
     <div class="content-digest">
         {% autoescape off %}
