@@ -22,7 +22,10 @@ from django.views.generic.list import  ListView
 from apps.core.mixins.views import SortMixin,FilterMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
-from django.utils import timezone
+
+import requests
+
+# from django.utils import timezone
 
 class EntityListView(SortMixin,ListView):
     template_name = 'management/entities/new_list.html'
@@ -262,6 +265,7 @@ def edit_buy_link(request, bid, template='management/entities/edit_buy_link.html
 
 @csrf_exempt
 @login_required
+@staff_only
 def remove_buy_link(request, bid):
     try:
         b = Buy_Link.objects.get(pk=bid)
@@ -273,6 +277,26 @@ def remove_buy_link(request, bid):
     b.delete()
     return SuccessJsonResponse()
 
+
+@csrf_exempt
+@login_required
+@staff_only
+def check_buy_link(request, bid):
+    try:
+        b = Buy_Link.objects.get(pk=bid)
+    except Buy_Link.DoesNotExist:
+        return ErrorJsonResponse(status=404)
+
+# def crawl(item_id):
+    data = {
+        'project':'default',
+        'spider':'taobao',
+        'setting':'DOWNLOAD_DELAY=2',
+        'item_id': b.origin_id,
+    }
+    res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
+    # return res.json()
+    return SuccessJsonResponse(data=res.json())
 
 # TODO:
 '''
