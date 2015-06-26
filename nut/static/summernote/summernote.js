@@ -6,7 +6,7 @@
  * Copyright 2013-2015 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
- * Date: 2015-06-19T03:21Z
+ * Date: 2015-06-25T15:18Z
  */
 (function (factory) {
   /* global define */
@@ -2509,28 +2509,28 @@
     lang: {
       'en-US': {
         font: {
-          bold: 'Bold',
-          italic: 'Italic',
-          underline: 'Underline',
-          clear: 'Remove Font Style',
+          bold: '粗体',
+          italic: '斜体',
+          underline: '下划线',
+          clear: '清除格式',
           height: 'Line Height',
           name: 'Font Family',
           strikethrough: 'Strikethrough',
           subscript: 'Subscript',
           superscript: 'Superscript',
           size: 'Font Size',
-          quote:'Add Quote',
+          quote:'引用',
           header:'Make Header'
         },
         image: {
-          image: 'Picture',
+          image: '传图',
           insert: 'Insert Image',
           resizeFull: 'Resize Full',
           resizeHalf: 'Resize Half',
           resizeQuarter: 'Resize Quarter',
-          floatLeft: 'Float Left',
-          floatRight: 'Float Right',
-          floatNone: 'Float None',
+          floatLeft: '左',
+          floatRight: '右',
+          floatNone: '自动',
           shapeRounded: 'Shape: Rounded',
           shapeCircle: 'Shape: Circle',
           shapeThumbnail: 'Shape: Thumbnail',
@@ -2544,13 +2544,13 @@
           remove: 'Remove Image'
         },
         link: {
-          link: 'Link',
-          insert: 'Insert Link',
-          unlink: 'Unlink',
-          edit: 'Edit',
-          textToDisplay: 'Text to display',
-          url: 'To what URL should this link go?',
-          openInNewWindow: 'Open in new window'
+          link: '链接',
+          insert: '加链接',
+          unlink: '移除链接',
+          edit: '改',
+          textToDisplay: '链接文字',
+          url: '链接网址',
+          openInNewWindow: '开新窗口'
         },
         table: {
           table: 'Table'
@@ -2571,8 +2571,8 @@
           h6: 'Header 6'
         },
         lists: {
-          unordered: 'Unordered list',
-          ordered: 'Ordered list'
+          unordered: '无排序列表',
+          ordered: '排序列表'
         },
         options: {
           help: 'Help',
@@ -5042,6 +5042,9 @@
         var regMeta  = /<meta[^>]+>/i;
         var regStyle = /(<[^>]+) style=".*?"/img ;
         var regClass = /(<[^>]+) class=".*?"/img ;
+        var regId =    /(<[^>]+) id=".*?"/img;
+        var regHeaderFront = /(<h[1-9])/img;
+        var regHeaderEnd = /(<\/h[1-9]>)/img;
 
         function stripStyle(htmlStr){
             return htmlStr.replace(regMeta, ' ');
@@ -5054,179 +5057,117 @@
         function removeClass(htmlStr){
             return htmlStr.replace(regClass, function(all, v){return v;});
         }
+
+        function removeId(htmlStr){
+            return htmlStr.replace(regId, function(all,v){return v;});
+        }
+
+        function replaceHeaderWithH3(htmlStr){
+            htmlStr =   htmlStr.replace(regHeaderFront, function(all,v){ return '<h3' ;});
+            htmlStr =   htmlStr.replace(regHeaderEnd, function(all, v){ return '</h3>' ;});
+            return htmlStr;
+        }
         return {
             stripStyle : stripStyle,
             removeMeta : removeMeta,
-            removeClass: removeClass
+            removeClass: removeClass,
+            replaceHeaderWithH3: replaceHeaderWithH3
         }
     })();
 
-  var Clipboard = function (handler) {
+    var Clipboard = function (handler) {
 
-    this.attach = function (layoutInfo) {
-      layoutInfo.editable().on('paste', handlePast);
-    };
+        var $paste;
 
-    function getClipboardData(event){
-        return event.originalEvent.clipboardData;
-    }
+        this.attach = function (layoutInfo) {
 
-    function isImageItem(item){
-        return  (item.kind === 'file' && item.type.indexOf('image/') != -1);
-    }
+            if (window.clipboardData || agent.isFF) {
+                $paste = $('<div />').attr('contenteditable', true).css({
+                    position : 'absolute',
+                    left : -100000,
+                    'opacity' : 0
+                });
+                layoutInfo.editable().after($paste);
+                $paste.one('paste', hPasteClipboardImage);
 
-    function handleItem(item,idx){
-
-         if (isImageItem(item)){
-             var blob = item.getAsFile();
-             window.URL = window.URL || window.webkitURL;
-             var blobUrl = window.URL.createObjectURL(blob);
-             return {url: blobUrl, blob: blob};
-         }
-         return null;
-    }
-    function getImagesFromEvent(event){
-        var images = [];
-        var clipboardData = getClipboardData(event);
-        var items = clipboardData.items;
-            images = $.map(items, handleItem);
-            return images ;
-    }
-
-    function handleImages(images){
-        var layoutInfo = dom.makeLayoutInfo(event.currentTarget || event.target);
-        var $editable = layoutInfo.editable();
-        $.each(images,function(idx, imgDic){
-            handler.invoke('editor.insertImage', $editable, imgDic.url, 'blob.jpg');
-        });
-    }
-    function getTypedDataFromClipboardEvent(event, type){
-        var data = "";
-        var clipboardData = getClipboardData(event);
-            if (clipboardData.types.indexOf(type) > -1){
-                // found typed data in clipdata
-                data = clipboardData.getData(type)
+                layoutInfo.editable().on('keydown', function (e) {
+                    if (e.ctrlKey && e.keyCode === 86) {  // CTRL+V
+                        handler.invoke('saveRange', layoutInfo.editable());
+                        if ($paste) {
+                            $paste.focus();
+                        }
+                    }
+                });
             }
-            return data ;
 
-    }
+            layoutInfo.editable().on('paste', hPasteClipboardImage);
+        };
 
-    function handleHtml(htmlStr){
-        var layoutInfo = dom.makeLayoutInfo(event.currentTarget || event.target);
-        var $editable = layoutInfo.editable();
-            htmlStr = html.stripStyle(htmlStr);
-            htmlStr = html.removeMeta(htmlStr);
-            htmlStr = html.removeClass(htmlStr);
-            handler.invoke('editor.pasteHTML', $editable, htmlStr )
+        /**
+         * paste clipboard image
+         *
+         * @param {Event} event
+         */
 
-    }
+        var hPasteClipboardImage = function (event) {
 
-    function handleText(text){
-        var layoutInfo = dom.makeLayoutInfo(event.currentTarget || event.target);
-        var $editable = layoutInfo.editable();
-        handler.invoke('editor.insertText', $editable, text )
+            var clipboardData = event.originalEvent.clipboardData;
+            var layoutInfo = dom.makeLayoutInfo(event.currentTarget || event.target);
+            var $editable = layoutInfo.editable();
 
-    }
+            if (!clipboardData || !clipboardData.items || !clipboardData.items.length) {
 
-    var handlePast = function(event){
+                var callbacks = $editable.data('callbacks');
+                // only can run if it has onImageUpload method
+                if (!callbacks.onImageUpload) {
+                    return;
+                }
 
+                setTimeout(function () {
+                    if (!$paste) {
+                        return;
+                    }
 
-        var images = getImagesFromEvent(event);
-        if (images.length){
-            handleImages(images);
-        }
-        var html =  getTypedDataFromClipboardEvent(event, "text/html");
-        //var text =  getTextFromEvent(event);
-        //if (!!images.length) handleImage(images);
+                    var imgNode = $paste[0].firstChild;
+                    if (!imgNode) {
+                        return;
+                    }
 
-        if (html){
-            handleHtml(html);
+                    handler.invoke('restoreRange', $editable);
+                    if (!dom.isImg(imgNode)) {
+                        handler.invoke('pasteHTML', $editable, $paste.html());
+                    } else {
+                        var datauri = imgNode.src;
 
-        }else{
-           var text = "";
-           text = getTypedDataFromClipboardEvent(event, "text/plain");
-            handleText(text);
-        }
+                        var data = atob(datauri.split(',')[1]);
+                        var array = new Uint8Array(data.length);
+                        for (var i = 0; i < data.length; i++) {
+                            array[i] = data.charCodeAt(i);
+                        }
 
-        event.preventDefault();
-        return false;
+                        var blob = new Blob([array], { type : 'image/png' });
+                        blob.name = 'clipboard.png';
+                        handler.invoke('focus', $editable);
+                        handler.insertImages(layoutInfo, [blob]);
+                    }
 
-    };
+                    $paste.remove();
 
-    /**
-     * paste clipboard image
-     *
-     * @param {Event} event
-     *
-     */
-    var hPasteClipboardImage = function (event) {
-      var clipboardData = event.originalEvent.clipboardData;
-      var layoutInfo = dom.makeLayoutInfo(event.currentTarget || event.target);
-      var $editable = layoutInfo.editable();
+                }, 0);
 
-      if (!clipboardData || !clipboardData.items || !clipboardData.items.length) {
-        var callbacks = $editable.data('callbacks');
-        // only can run if it has onImageUpload method
-        if (!callbacks.onImageUpload) {
-          return;
-        }
-
-        // save cursor
-        handler.invoke('editor.saveNode', $editable);
-        handler.invoke('editor.saveRange', $editable);
-
-        $editable.html('');
-
-        setTimeout(function () {
-          var $img = $editable.find('img');
-
-          // if img is no in clipboard, insert text or dom
-          if (!$img.length || $img[0].src.indexOf('data:') === -1) {
-            var html = $editable.html();
-
-            handler.invoke('editor.restoreNode', $editable);
-            handler.invoke('editor.restoreRange', $editable);
-
-            handler.invoke('editor.focus', $editable);
-            try {
-              handler.invoke('editor.pasteHTML', $editable, html);
-            } catch (ex) {
-              handler.invoke('editor.insertText', $editable, html);
+                return;
             }
-            return;
-          }
 
-          var datauri = $img[0].src;
+            var item = list.head(clipboardData.items);
+            var isClipboardImage = item.kind === 'file' && item.type.indexOf('image/') !== -1;
 
-          var data = atob(datauri.split(',')[1]);
-          var array = new Uint8Array(data.length);
-          for (var i = 0; i < data.length; i++) {
-            array[i] = data.charCodeAt(i);
-          }
+            if (isClipboardImage) {
+                handler.insertImages(layoutInfo, [item.getAsFile()]);
+            }
 
-          var blob = new Blob([array], { type : 'image/png' });
-          blob.name = 'clipboard.png';
-
-          handler.invoke('editor.restoreNode', $editable);
-          handler.invoke('editor.restoreRange', $editable);
-          handler.insertImages(layoutInfo, [blob]);
-
-          handler.invoke('editor.afterCommand', $editable);
-        }, 0);
-
-        return;
-      }
-
-      var item = list.head(clipboardData.items);
-      var isClipboardImage = item.kind === 'file' && item.type.indexOf('image/') !== -1;
-
-      if (isClipboardImage) {
-        handler.insertImages(layoutInfo, [item.getAsFile()]);
-      }
-
-      handler.invoke('editor.afterCommand', $editable);
+            handler.invoke('editor.afterCommand', $editable);
+        };
     };
-  };
 
   var LinkDialog = function (handler) {
 
@@ -7206,6 +7147,10 @@
 
           eventHandler.attach(layoutInfo, options);
           eventHandler.attachCustomEvent(layoutInfo, options);
+        //    add by anchen
+           window.layout = layoutInfo;
+           window.range = range;
+           window.dom = dom ;
 
         }
       });
