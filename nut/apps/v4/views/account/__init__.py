@@ -105,7 +105,7 @@ def forget_password(request):
 @check_sign
 def logout(request):
     # _req_uri = request.get_full_path()
-    if request.method == "POST":
+    if request.method == 'POST':
         # log.info(request.POST)
         _forms = MobileUserSignOutForm(request.POST)
         if _forms.is_valid():
