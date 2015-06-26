@@ -1936,7 +1936,8 @@ a:hover {
 .entity-selection .img-box img:hover,
 .guoku-button:hover,
 #detail_content_right .section-list .section-banner img:hover,
-.guess_img .img-box img:hover {
+.guess_img .img-box img:hover,
+.article-wrapper .cover-wrapper img:hover {
   opacity: 0.7;
 }
 @media (max-width: 767px) {

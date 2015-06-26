@@ -169,16 +169,16 @@
         checkData: function(data){
             this.clearErrorMessage();
 
-            if (!data['cover']){
+            if ((!data['cover']) && (data['publish'] == 2)){
                 this.error_messages.push('请选择封面图');
                 return false;
             }
-            if(!data['title']){
+            if ((!data['title']) || (data['title']  == '标题')){
                 this.error_messages.push('请填写文章标题');
                 return false;
             }
 
-            if(!data['content']){
+            if((!data['content']) || (data['content'] == '正文')){
                 this.error_messages.push('请输入文章内容');
                 return false;
             }
@@ -263,7 +263,7 @@
             console.log(data);
             this.contentChanged = false;
             bootbox.hideAll();
-            bootbox.alert( '文章已经被成功保存');
+            bootbox.alert( '已发布');
             window.setTimeout(function(){
                 var host = window.location.host;
                 var dash_link = $('#user_dash_link').attr('href');
@@ -279,7 +279,7 @@
             console.log(data);
             this.contentChanged = false;
             bootbox.hideAll();
-            bootbox.alert( '文章已经被成功保存');
+            bootbox.alert( '已保存');
             window.setTimeout(function(){
                 bootbox.hideAll();
             },1000);
