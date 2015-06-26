@@ -15,7 +15,7 @@ def crawl(item_id):
         'setting':'DOWNLOAD_DELAY=2',
         'item_id': item_id,
     }
-    res = requests.post('http://localhost:6800/schedule.json', data=data)
+    res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
     return res.json()
 
 links = Buy_Link.objects.filter(origin_source='taobao.com', entity__status=Entity.selection).exclude(status=Buy_Link.remove).order_by('-id')
