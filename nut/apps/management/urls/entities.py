@@ -13,6 +13,7 @@ urlpatterns = patterns(
     url(r'^(?P<entity_id>\d+)/buy/link/$', 'buy_link', name='management_entity_buy_link'),
     url(r'^(?P<bid>\d+)/buy/link/remove/$', 'remove_buy_link', name='management_remove_entity_buy_link'),
     url(r'^(?P<bid>\d+)/buy/link/edit/$', 'edit_buy_link', name='management_edit_entity_buy_link'),
+    url(r'^(?P<bid>\d+)/buy/link/check/$', 'check_buy_link', name='management_check_buy_link'),
 
     url(r'^image/(?P<entity_id>\d+)/remove/$', 'delete_image', name='management_remove_entity_image'),
     url(r'^image/(?P<entity_id>\d+)/fetch/$', 'refetch_image', name='management_entity_fetch_image'),
