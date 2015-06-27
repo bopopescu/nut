@@ -70,7 +70,7 @@ class SelectionFeeds(Feed):
         return {'image':item.entity.chief_image}
 
 
-class ArticlesFeed(Feed):
+class ArticlesFeeds(Feed):
     feed_type = CustomFeedGenerator
 
     title = _("guoku article")
@@ -96,5 +96,10 @@ class ArticlesFeed(Feed):
 
     def item_description(self, item):
         return item.article.content
+
+    def item_extra_kwargs(self, item):
+        return {'cover':item.atricle.cover_url}
+
+
 
 __author__ = 'edison7500'
