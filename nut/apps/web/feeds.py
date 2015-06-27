@@ -94,8 +94,8 @@ class ArticlesFeeds(Feed):
     def item_pubdate(self, item):
         return item.pub_time
 
-    # def item_description(self, item):
-    #     return item.article.content
+    def item_description(self, item):
+        return item.article.content
 
     def item_extra_kwargs(self, item):
         return {'image':item.article.cover_url}
