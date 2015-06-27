@@ -158,7 +158,7 @@ def push_notification(sender, instance, created, **kwargs):
         _platform = 'ios'
         _production = True
         if instance.action_object_content_type.model == "entity_like":
-            verb = instance.actor.profile.nickname + u' 喜爱了你添加的商品'
+            verb = instance.actor.profile.nick + u' 喜爱了你添加的商品'
             for reg in instance.recipient.jpush_token.all():
                 log.info(reg.model)
                 # if reg.model == 'iPhones':
@@ -171,7 +171,7 @@ def push_notification(sender, instance, created, **kwargs):
                 push.options = {"time_to_live":86400, "apns_production":_production}
                 push.send()
         elif instance.action_object_content_type.model == 'user_follow':
-            verb = instance.actor.profile.nickname + u' 开始关注你'
+            verb = instance.actor.profile.nick + u' 开始关注你'
             for reg in instance.recipient.jpush_token.all():
                 # log.info("model %s" % reg.model)
                 # if reg.model == 'iPhones':
@@ -192,7 +192,7 @@ def push_notification(sender, instance, created, **kwargs):
                 push.options = {"time_to_live":86400, "apns_production":_production}
                 push.send()
         elif instance.action_object_content_type.model == 'note':
-            verb = instance.actor.profile.nickname + u'点评了你推荐的商品'
+            verb = instance.actor.profile.nick + u'点评了你推荐的商品'
             for reg in instance.recipient.jpush_token.all():
                 push.platform = jpush.platform(_platform)
                 push.audience = jpush.registration_id(reg.rid)
