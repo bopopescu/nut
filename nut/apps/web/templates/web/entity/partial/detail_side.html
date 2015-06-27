@@ -12,6 +12,19 @@
 {#</div>#}
 
 <ul class="section-list">
+    <li class="section  need-bottom-border">
+        <div class="section-title">热门品类</div>
+        <div class="section-content">
+            <ul class="cate-list-all">
+                {% for cate in pop_categories %}
+                    <li>
+                        <a href="{% url 'web_category_group' cate.id %}">{{ cate.title }}</a>
+                    </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+    </li>
     <li class="section need-bottom-border">
         <div class="section-title">应用下载</div>
         <div class="section-content">
@@ -108,19 +121,7 @@
         </ul>
     </li>
 
-    <li class="section  need-bottom-border">
-        <div class="section-title">热门品类</div>
-        <div class="section-content">
-            <ul class="cate-list-all">
-                {% for cate in pop_categories %}
-                    <li>
-                        <a href="{% url 'web_category_group' cate.id %}">{{ cate.title }}</a>
-                    </li>
-                {% endfor %}
 
-            </ul>
-        </div>
-    </li>
 {#    remove pop tags wait for tag system refactor  #}
 {#    <li class="section" >#}
 {#        <div class="section-title">热门标签</div>#}

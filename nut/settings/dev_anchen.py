@@ -16,6 +16,11 @@ CACHES = {
 #     # 'apps.web.contextprocessors.global.lastslug',
 # )
 LOCAL_TEST_DB = True
+
+# for redis counter
+LOCAL_TEST_ANT = True
+LOCAL_REDIS_SERVER = 'localhost'
+
 Current_Dbhost = 'localhost'
 # Current_Dbhost = '10.0.1.110'
 # Current_Dbhost = '10.0.2.90'
