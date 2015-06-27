@@ -57,6 +57,7 @@ INSTALLED_APPS = (
     'apps.wechat',
     'apps.notifications',
     'apps.report',
+    # 'apps.counter',
 
     'captcha',
 )

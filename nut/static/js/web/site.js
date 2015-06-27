@@ -21,7 +21,7 @@ function getCookie(name) {
 
 function clearUserInputString(str){
     str = str.replace(/(\s+)/mg,' ');
-    str = str.replace(/([#><:$*&%])/mg, '');
+    str = str.replace(/([><:$*&%])/mg, '');
     return str.trim();
 }
 
