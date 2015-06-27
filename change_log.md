@@ -4,7 +4,7 @@ Change Log
 ### Ver 2.2.4
 1. 增加 Article (图文) Sitemap
 2. 增加 Article (图文) Rss
-3.
+3. bug fixes
 
 
 ### Ver 2.2.3 （2015-06-24）
