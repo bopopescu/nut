@@ -1,5 +1,5 @@
 from django.contrib.sitemaps import Sitemap
-from apps.core.models import GKUser, Entity, Entity_Tag, Sub_Category
+from apps.core.models import GKUser, Entity, Entity_Tag, Sub_Category, Article
 from datetime import datetime
 
 
@@ -49,6 +49,17 @@ class CategorySitemap(Sitemap):
     # now = datetime.now()
     def items(self):
         return Sub_Category.objects.all()
+
+    def location(self, obj):
+        return obj.get_absolute_url()
+
+
+class ArticleSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 1.0
+
+    def items(self):
+        return Article.objects.filter(publish=Article.published)
 
     def location(self, obj):
         return obj.get_absolute_url()

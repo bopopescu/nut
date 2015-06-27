@@ -427,7 +427,7 @@ class Sub_Category(BaseModel):
         return "http://imgcdn.guoku.com/category/small/%s" % self.icon
 
     def get_absolute_url(self):
-        return "/c/%s" % self.id
+        return "/c/%s/" % self.id
 
     def v3_toDict(self):
         res = dict()
@@ -566,7 +566,7 @@ class Entity(BaseModel):
         return None
 
     def get_absolute_url(self):
-        return "/detail/%s" % self.entity_hash
+        return "/detail/%s/" % self.entity_hash
 
     @property
     def is_in_selection(self):
@@ -1055,7 +1055,8 @@ class Article(models.Model):
         else :
             return _('Never')
 
-
+    def get_absolute_url(self):
+        return "/articles/%s/" % self.pk
 
 # use ForeignKey instead of  oneToOne for selection entity ,
 # this means , an article can be published many times , without first been removed from selection
