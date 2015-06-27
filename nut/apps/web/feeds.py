@@ -1,3 +1,4 @@
+#coding=utf-8
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
 # from django.utils.feedgenerator import Atom1Feed
@@ -73,9 +74,9 @@ class SelectionFeeds(Feed):
 class ArticlesFeeds(Feed):
     feed_type = CustomFeedGenerator
 
-    title = _("live different")
+    title = u'果库 － 精英消费者指南'
     link = "/articles/"
-    description = _('guoku article desc')
+    description = _('精英消费者指南')
 
     description_template = "web/feeds/article_desc.html"
 
