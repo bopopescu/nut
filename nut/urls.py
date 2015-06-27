@@ -35,13 +35,18 @@ urlpatterns += patterns('',
 
 
 
-from apps.web.sitemaps import UserSitemap, EntitySitemap, TagSitemap, CategorySitemap
+from apps.web.sitemaps import UserSitemap, \
+    EntitySitemap, \
+    TagSitemap, \
+    CategorySitemap, \
+    ArticleSitemap
 
 sitemaps = {
     'user': UserSitemap,
     'entity': EntitySitemap,
     'tag': TagSitemap,
     'category': CategorySitemap,
+    'article': ArticleSitemap,
 }
 
 urlpatterns += patterns(
