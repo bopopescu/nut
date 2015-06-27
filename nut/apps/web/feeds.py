@@ -21,7 +21,7 @@ class CustomFeedGenerator(Rss201rev2Feed):
 class SelectionFeeds(Feed):
     feed_type = CustomFeedGenerator
 
-    title = _("guoku selection")
+    title = _("live different")
     link = '/selected/'
     description = _('guoku selection desc')
 
@@ -73,7 +73,7 @@ class SelectionFeeds(Feed):
 class ArticlesFeeds(Feed):
     feed_type = CustomFeedGenerator
 
-    title = _("guoku article")
+    title = _("live different")
     link = "/articles/"
     description = _('guoku article desc')
 
@@ -89,16 +89,16 @@ class ArticlesFeeds(Feed):
         return reverse('web_article_page', args=[item.article.pk])
 
     def item_author_name(self, item):
-        return item.article.creator.profile.nickname
+        return item.article.creator.profile.nick
 
     def item_pubdate(self, item):
         return item.pub_time
 
-    def item_description(self, item):
-        return item.article.content
+    # def item_description(self, item):
+    #     return item.article.content
 
     def item_extra_kwargs(self, item):
-        return {'cover':item.atricle.cover_url}
+        return {'image':item.article.cover_url}
 
 
 

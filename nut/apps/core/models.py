@@ -474,13 +474,13 @@ class Brand(BaseModel):
             return "%s%s" % (image_host, self.icon)
         return None
 
-    @property
-    def shop_id(self):
-        if len(self.tmall_link) > 0:
-            o = urlparse(self.tmall_link)
-            qs = parse_qs(o.query)
-            return qs['shop_id'][0]
-        return ''
+    # @property
+    # def shop_id(self):
+    #     if len(self.tmall_link) > 0:
+    #         o = urlparse(self.tmall_link)
+    #         qs = parse_qs(o.query)
+    #         return qs['shop_id'][0]
+    #     return ''
 
     def __unicode__(self):
         return "%s %s" % (self.name, self.alias)
