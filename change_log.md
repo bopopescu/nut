@@ -2,8 +2,8 @@ Change Log
 ==========
 
 ### Ver 2.2.4
-1.
-2.
+1. 增加 Article (图文) Sitemap
+2. 增加 Article (图文) Rss
 3.
 
 
