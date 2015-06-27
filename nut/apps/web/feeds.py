@@ -86,7 +86,7 @@ class ArticlesFeeds(Feed):
         return item.article.title
 
     def item_link(self, item):
-        return reverse('web_article_page', item.article.pk)
+        return reverse('web_article_page', args=[item.article.pk])
 
     def item_author_name(self, item):
         return item.article.creator.profile.nickname
