@@ -69,4 +69,11 @@ class SelectionFeeds(Feed):
         # _entity_context = Entity(_entity_id).read()
         return {'image':item.entity.chief_image}
 
+
+class ArticlesFeed(Feed):
+    feed_type = CustomFeedGenerator
+
+    title = _("guoku article")
+    link = "/articles/"
+
 __author__ = 'edison7500'
