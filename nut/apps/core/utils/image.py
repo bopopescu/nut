@@ -4,12 +4,14 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 
 from django.conf import settings
+from django.utils.log import getLogger
+
+log = getLogger('django')
+
 
 image_path = getattr(settings, 'MOGILEFS_MEDIA_URL', 'images/')
-
 avatar_path = getattr(settings, 'Avatar_Image_Path', 'avatar/')
 # avatar_size = getattr(settings, 'Avatar_Image_Size', [50, 180])
-
 
 class HandleImage(object):
     path = image_path
@@ -27,6 +29,7 @@ class HandleImage(object):
         image_file.close()
 
         self._name = None
+
 
     @property
     def image_data(self):
@@ -97,11 +100,13 @@ class HandleImage(object):
             self.path = path
 
         filename = self.path + self.name +'.' +self.ext_name
+        log.info(filename)
         if not default_storage.exists(filename):
             try:
                 filename = default_storage.save(filename, ContentFile(self.image_data))
             except Exception as e:
-                pass
+                log.info(e)
+
         return filename
 
 
