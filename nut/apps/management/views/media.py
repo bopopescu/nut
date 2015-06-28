@@ -63,12 +63,14 @@ def upload_image(request):
     if request.method == "POST":
         file = request.FILES.get('file')
         image = HandleImage(file)
+        log.info(image)
         filename = image.save()
-
+        log.info(filename)
         media =  Media.objects.create(
             file_path = filename,
             content_type = image.content_type,
         )
+        log.info(media)
         return HttpResponse(media.file_url)
     else:
         return HttpResponseBadRequest()
