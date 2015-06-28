@@ -60,6 +60,9 @@ class SQLStorePipeline(object):
         try:
             if item['status'] == 0:
                 sql = 'UPDATE core_buy_link SET status = %s where origin_id = %s' % (item['status'], item['origin_id'])
+            elif item['price'] ==0:
+                sql = 'UPDATE core_buy_link SET status = %s, shop_link = "%s", seller="%s" where origin_id = %s' % \
+                      (item['status'], item['shop_link'], item['seller'], item['origin_id'] )
             else:
                 sql = 'UPDATE core_buy_link SET status = %s, shop_link = "%s", seller="%s", price="%s" where origin_id = %s' % \
                       (item['status'], item['shop_link'], item['seller'], item['price'], item['origin_id'] )
