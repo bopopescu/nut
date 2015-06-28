@@ -104,9 +104,12 @@ class HandleImage(object):
         log.info(filename)
         if not default_storage.exists(filename):
             try:
+                log.info('real saveing begin----')
                 filename = default_storage.save(filename, ContentFile(self.image_data))
             except Exception as e:
                 log.info(e)
+        else:
+            log.info('file exist!----')
 
         return filename
 
