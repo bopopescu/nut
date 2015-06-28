@@ -10,6 +10,9 @@ from apps.core.models import Media
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.management.decorators import staff_only, writers_only
 
+from django.utils.log import getLogger
+log = getLogger('django')
+
 @login_required
 @staff_only
 def list(request, template="management/media/list.html"):
@@ -60,12 +63,14 @@ def upload_image(request):
     if request.method == "POST":
         file = request.FILES.get('file')
         image = HandleImage(file)
+        log.info(image)
         filename = image.save()
-
+        log.info(filename)
         media =  Media.objects.create(
             file_path = filename,
             content_type = image.content_type,
         )
+        log.info(media)
         return HttpResponse(media.file_url)
     else:
         return HttpResponseBadRequest()
