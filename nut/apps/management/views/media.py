@@ -61,10 +61,14 @@ def delete(request):
 @writers_only
 def upload_image(request):
     if request.method == "POST":
+        log.info('img upload begin----')
+
         file = request.FILES.get('file')
         image = HandleImage(file)
+        log.info('image handeled and returned')
         log.info(image)
         filename = image.save()
+        log.info('image saved -----')
         log.info(filename)
         media =  Media.objects.create(
             file_path = filename,
