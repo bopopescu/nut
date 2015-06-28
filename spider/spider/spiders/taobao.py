@@ -87,7 +87,13 @@ class TaobaoSpider(scrapy.Spider):
     def get_price(self, response):
         price = response.xpath('//strong[@id="J_StrPrice"]/em[@class="tb-rmb-num"]/text()').extract()
         if len(price) == 0:
-            price = 0
+            return 0
             # price = response.xpath('//dl[@id="J_StrPriceModBox"]/dd').extract()
-            # self.log(price)
-        return price
+        # self.log(price)
+
+        price = price[0].split('-')
+        # self.log(price)
+        if len(price) == 1:
+            return float(price[0])
+        else:
+            return float(price[1])
