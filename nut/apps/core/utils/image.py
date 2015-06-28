@@ -27,7 +27,7 @@ class HandleImage(object):
             pass
         self.ext_name = self.get_ext_name()
         image_file.close()
-
+        log.info('init HandleImage obj---')
         self._name = None
 
 
@@ -93,6 +93,7 @@ class HandleImage(object):
         # return _img.make_blob()
 
     def save(self, path = None, resize=False, square=False):
+        log.info('begin save -----')
         if square and (self.ext_name == 'jpg') :
             self.crop_square()
         # else:
@@ -103,9 +104,12 @@ class HandleImage(object):
         log.info(filename)
         if not default_storage.exists(filename):
             try:
+                log.info('real saveing begin----')
                 filename = default_storage.save(filename, ContentFile(self.image_data))
             except Exception as e:
                 log.info(e)
+        else:
+            log.info('file exist!----')
 
         return filename
 
