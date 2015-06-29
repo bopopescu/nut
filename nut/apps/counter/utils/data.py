@@ -16,18 +16,18 @@ class RedisCounterMachine(object):
     def get_redis_server(cls):
         r_server = None
         try :
-            if settings.LOCAL_TEST_REDIS:
+            if hasattr(settings ,'LOCAL_TEST_REDIS'):
                 # no need for pooling, for local test
                 r_server = redis.Redis(settings.LOCAL_TEST_REDIS_HOST)
-            elif settings.TEST_SERVER_REDIS:
+            elif hasattr(settings, 'TEST_SERVER_REDIS'):
                 # test.guoku.com
                 r_server = redis.Redis(settings.TEST_SERVER_REDIS_HOST)
             else:
                 #  use redis cache's raw client
                 #  no need for pooling , for django-redis already handled it
                 r_server = get_redis_connection("default")
-        except:
-            raise CounterException('can not find redis server')
+        except Exception as e:
+            raise CounterException('can not find redis server, for :%s', e.message)
         return r_server
 
     @classmethod
