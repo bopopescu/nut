@@ -57,7 +57,7 @@ INSTALLED_APPS = (
     'apps.wechat',
     'apps.notifications',
     'apps.report',
-    # 'apps.counter',
+    'apps.counter',
 
     'captcha',
 )
@@ -197,7 +197,6 @@ STATIC_ROOT = '/tmp/static/'
 AUTH_USER_MODEL = 'core.GKUser'
 
 IMAGE_HOST = 'http://imgcdn.guoku.com/'
-
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 # IMAGE_SIZE = [128, 310, 640]

@@ -1,62 +1,57 @@
+import hashlib
+import redis
+from urlparse import urlparse
 
 from django.conf import settings
-
-
 from django.views.generic import View
 from django_redis import get_redis_connection
 
 from braces.views import JSONResponseMixin, AjaxResponseMixin
 
-from urlparse import urlparse
-import hashlib
-import redis
+from django.utils.log import getLogger
+log = getLogger('django')
 
+from apps.counter.utils.data import RedisCounterMachine, CounterException
 
 class Counter(JSONResponseMixin, AjaxResponseMixin, View):
 
-    def get_redis_server(self):
-        r_server = None
-        if settings.LOCAL_TEST_ANT:
-            r_server = redis.Redis(settings.LOCAL_REDIS_SERVER)
-        else:
-            try :
-               r_server = get_redis_connection("default")
-            except:
-                raise Exception('can not find redis server')
-        return r_server
-
-
     def get(self, request):
+        # dummy :)
         return self.render_json_response({
             'name':'ant'
         })
 
-    def get_ajax(self, request , *args, **kwargs):
+    def response_error_message(self, message):
+        res = {
+            'error':1,
+            'message':message
+        }
+        return self.render_json_response(res)
+    def response_sucess_obj(self, obj):
+        res = {
+            'error': 0,
+        }
+        res.update(obj)
+        return self.render_json_response(res)
+
+    def get_key(self, request):
         referer = request.META['HTTP_REFERER']
         path =  urlparse(referer).path
-        r_server = None
-        if path :
-            key = hashlib.sha1(path).hexdigest()
-        else:
-            res ={
-                'error':1,
-                'message':'can not get referral path',
-            }
-            return self.render_json_response(res)
+        return  RedisCounterMachine.get_counter_key_from_path(path)
+
+    def get_ajax(self, request , *args, **kwargs):
+        counter_key = None
+        try:
+            counter_key = self.get_key(request)
+        except CounterException as e:
+            return self.response_error_message(e.message)
 
         try:
-            r_server = self.get_redis_server()
-        except Exception as e:
-            res={
-                'error':1,
-                'message': 'can not connect redis server'
-            }
-            return self.render_json_response(res)
+            count = RedisCounterMachine.increment_key(counter_key)
+        except CounterException as e:
+            return self.response_error_message(e.message)
 
-
-        #  TODO : go on for counter
-
-
-        return self.render_json_response({
-            'name':'clara'
-        })
+        res = {
+            'count':count,
+        }
+        return self.response_sucess_obj(res)
