@@ -20,6 +20,10 @@ class Amazon(Spider):
 
     @property
     def desc(self):
+        _desc = self.soup.select("#productTitle")
+        # return _desc[0].string
+        if len(_desc):
+            return _desc[0].string
         _desc = self.soup.title.string.split(':')
         return _desc[0]
 
