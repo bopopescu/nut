@@ -36,6 +36,12 @@
                         <span class="create-time">
                             <i class="fa fa-clock-o"></i>{{article.created_datetime|format_time}}
                         </span>
+                        <span class="read">
+                            阅读数
+                            <span id="read_counter">
+
+                            </span>
+                        </span>
                         {% if is_article_creator %}
                         <span class="edit-article">
                             <i class="fa fa-edit"></i><a class="guoku-link" href="{% url 'web_editor_article_edit' article.pk %}">编辑文章</a>
@@ -62,6 +68,6 @@
 
 {% endblock %}
 
-{#{% block script %}#}
-{#    <script src="{% static 'js/counter/counter.js' %}"></script>#}
-{#{% endblock %}#}
+{% block script %}
+    <script src="{% static 'js/counter/counter.js' %}"></script>
+{% endblock %}

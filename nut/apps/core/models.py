@@ -1055,8 +1055,11 @@ class Article(models.Model):
         else :
             return _('Never')
 
+<<<<<<< HEAD
     def get_absolute_url(self):
         return "/articles/%s/" % self.pk
+=======
+>>>>>>> d940ec1803a1933ae017feecefce9f3e0551acc8
 
 # use ForeignKey instead of  oneToOne for selection entity ,
 # this means , an article can be published many times , without first been removed from selection
