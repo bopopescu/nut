@@ -53,6 +53,37 @@ class TaobaoSpider(scrapy.Spider):
         # self.log(shopId)
         # price = self.get_price(response)
 
+        # images = list()
+        # origin_images = response.xpath('//img[@id="J_ImgBooth"]/@data-src').extract()
+        # optimgs = response.xpath('//ul[@id="J_UlThumb"]/li/div/a/img/@data-src').extract()
+        # # self.log(optimgs)
+        # if len(optimgs) > 1:
+        #     origin_images += optimgs[1:]
+        # for img in origin_images:
+        #     if 'http' not in img:
+        #         img = 'http:' + img
+        #     img = re.sub(IMG_POSTFIX, "", img)
+        #     images.append(img)
+
+        cat_id = 0
+        try:
+            cat = response.headers['At_Cat']
+            cat_id = cat.split('_')[-1]
+        except KeyError:
+            pass
+
+        soldout = response.xpath('//p[@class="tb-hint"]/strong/text()').extract()
+        item['price'] = self.get_price(response)
+        item['cid'] = cat_id
+        item['image_urls'] = self.get_images(response)
+
+        if len(soldout) > 0:
+            item['status'] = 1
+        # item['link'] = response.url
+
+        return item
+
+    def get_images(self, response):
         images = list()
         origin_images = response.xpath('//img[@id="J_ImgBooth"]/@data-src').extract()
         optimgs = response.xpath('//ul[@id="J_UlThumb"]/li/div/a/img/@data-src').extract()
@@ -65,24 +96,7 @@ class TaobaoSpider(scrapy.Spider):
             img = re.sub(IMG_POSTFIX, "", img)
             images.append(img)
 
-        cat_id = 0
-        try:
-            cat = response.headers['At_Cat']
-            cat_id = cat.split('_')[-1]
-        except KeyError:
-            pass
-
-        soldout = response.xpath('//p[@class="tb-hint"]/strong/text()').extract()
-        item['price'] = self.get_price(response)
-        item['cid'] = cat_id
-        item['image_urls'] = images
-
-        if len(soldout) > 0:
-            item['status'] = 1
-        # item['link'] = response.url
-
-        self.log(item)
-        return item
+        return images
 
     def get_price(self, response):
         price = response.xpath('//strong[@id="J_StrPrice"]/em[@class="tb-rmb-num"]/text()').extract()
