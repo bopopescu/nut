@@ -13,24 +13,47 @@ log = getLogger('django')
 
 @login_required
 @admin_only
-def list(request, active=0, template="management/users/list.html"):
+def list(request, active='1', template="management/users/list.html"):
 
     page = request.GET.get('page', 1)
-    # active = request.GET.get('active', None)
+    # active = request.GET.get('active', '1')
     admin = request.GET.get('admin', None)
 
+
+    if admin:
+        user_list = GKUser.objects.admin().using('slave')
+
+        paginator = ExtentPaginator(user_list, 30)
+
+        try:
+            users = paginator.page(page)
+        except InvalidPage:
+            users = paginator.page(1)
+        except EmptyPage:
+            raise Http404
+
+        return render_to_response(template,
+                            {
+                                'users':users,
+                                'active':None,
+                                'admin':admin,
+                            },
+                            context_instance = RequestContext(request))
+
     if active == '2':
-        user_list = GKUser.objects.editor()
+        user_list = GKUser.objects.editor().using('slave')
     elif active == '1':
-        user_list = GKUser.objects.active()
+        user_list = GKUser.objects.active().using('slave').order_by("-date_joined")
     elif active == '0':
-        user_list = GKUser.objects.blocked()
-    elif active == '999':
-        user_list = GKUser.objects.deactive()
-    elif admin:
-        user_list = GKUser.objects.admin()
+        user_list = GKUser.objects.blocked().using('slave')
+    # elif active == '999':
     else:
-        user_list = GKUser.objects.all().order_by("-date_joined")
+        user_list = GKUser.objects.deactive().using('slave')
+    # else:
+
+
+    # else:
+    #     user_list = GKUser.objects.all().order_by("-date_joined")
 
     paginator = ExtentPaginator(user_list, 30)
 
