@@ -1034,7 +1034,6 @@ class Article(models.Model):
             return _('Never')
 
 
-
 # use ForeignKey instead of  oneToOne for selection entity ,
 # this means , an article can be published many times , without first been removed from selection
 # this design is on propose

@@ -1,5 +1,5 @@
 # coding=utf-8
-
+from django.core.urlresolvers import reverse
 from django.views.generic import  ListView,\
                                   View,\
                                   TemplateView,\
@@ -14,13 +14,15 @@ from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
 from apps.web.utils.viewtools import add_side_bar_context_data
 from apps.web.forms.articles import WebArticleEditForm
-
+from apps.counter.utils.data import RedisCounterMachine
 
 from braces.views import UserPassesTestMixin,JSONResponseMixin,AjaxResponseMixin
 from django.utils.log import getLogger
 
 from datetime import datetime
 log = getLogger('django')
+
+
 
 class SelectionArticleList(AjaxResponseMixin,ListView):
     template_name = 'web/article/selection_list.html'
@@ -48,8 +50,24 @@ class SelectionArticleList(AjaxResponseMixin,ListView):
         _template = 'web/article/selection_ajax_list.html'
         return render(request, _template, context)
 
+    def get_read_counts(self,articles):
+        counts_dic = RedisCounterMachine.get_read_counts(articles)
+        return counts_dic
+
+
     def get_context_data(self, **kwargs):
         context = super(SelectionArticleList, self).get_context_data(**kwargs)
+        selection_articles = context['selection_articles']
+        articles = [sla.article for sla in selection_articles]
+        try :
+            # make sure use try catch ,
+            # if statistic is down
+            # the view is still working
+            context['read_count'] = self.get_read_counts(articles)
+        except Exception as e :
+            log.info('the fail to load read count')
+            log.info(e.message)
+
         context = add_side_bar_context_data(context)
         return context
 
