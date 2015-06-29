@@ -1054,7 +1054,7 @@ class Article(models.Model):
             return pubed_selection[0].pub_time
         else :
             return _('Never')
-        
+
     def get_absolute_url(self):
         return "/articles/%s/" % self.pk
 

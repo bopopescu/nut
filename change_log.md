@@ -2,6 +2,7 @@ Change Log
 ==========
 ### Ver 2.2.5
 1. spider update 可以检查 淘宝商品价格。 
+2. 增加 amazon 图书入库。
 
 ### Ver 2.2.4
 1. 增加 Article (图文) Sitemap
