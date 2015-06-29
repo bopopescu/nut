@@ -1941,7 +1941,7 @@ a:hover {
 .guoku-button:hover,
 #detail_content_right .section-list .section-banner img:hover,
 .guess_img .img-box img:hover,
-.article-wrapper .cover-wrapper img:hover {
+.article-wrapper .cover-wrapper a img:hover {
   opacity: 0.7;
 }
 @media (max-width: 767px) {
@@ -2111,6 +2111,29 @@ a:hover {
   -webkit-box-shadow: 0px 0px 3px #dddddd;
   -moz-box-shadow: 0px 0px 3px #dddddd;
   box-shadow: 0px 0px 3px #dddddd;
+}
+.seperator-line {
+  border-bottom: 1px solid #fff;
+  margin-bottom: 40px;
+  margin-top: -10px;
+}
+.seperator-line .round-box {
+  margin: 0 auto;
+  width: 50px;
+  height: 50px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  font-size: 30px;
+  line-height: 50px;
+  background-color: #fff;
+  color: #9d9e9f;
+  padding-left: 10px;
+  position: relative;
+  top: 24px;
 }
 .more-article-wrapper {
   margin: 20px 0px;

@@ -1903,7 +1903,7 @@ a:hover{text-decoration:underline;}
 .guoku-button:hover,
 #detail_content_right .section-list .section-banner img:hover,
 .guess_img .img-box img:hover,
-.article-wrapper .cover-wrapper img:hover
+.article-wrapper .cover-wrapper a img:hover
 {
   opacity: @hover-opacity;
 }
@@ -2121,6 +2121,26 @@ a:hover{text-decoration:underline;}
 
 .main-article{
    .panel;
+}
+
+.seperator-line{
+   border-bottom: 1px solid #fff;
+   margin-bottom: 40px;
+   margin-top: -10px;
+  .round-box{
+     margin: 0 auto;
+
+     width:50px;
+     height:50px;
+     .border-radius(25px);
+     font-size:30px;
+     line-height: 50px;
+     background-color: #fff;
+     color: @common-gray;
+     padding-left:10px;
+     position: relative;
+     top:24px;
+  }
 }
 
 .more-article-wrapper{
