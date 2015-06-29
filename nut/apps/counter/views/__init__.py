@@ -1,10 +1,6 @@
-import hashlib
-import redis
 from urlparse import urlparse
 
-from django.conf import settings
 from django.views.generic import View
-from django_redis import get_redis_connection
 
 from braces.views import JSONResponseMixin, AjaxResponseMixin
 

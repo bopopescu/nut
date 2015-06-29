@@ -9,11 +9,22 @@
             <h2>{{ article.title }}</h2>
          </a>
     </div>
+
+    <div class="cover-wrapper">
+         <a  href="{% url 'web_article_page' article.pk  %}" >
+            <img class="article-cover img-responsive" src="{{article.cover }}" />
+         </a>
+    </div>
+    <div class="content-digest">
+        {% autoescape off %}
+            {{ article.content|striptags|truncatechars:100 }}
+        {% endautoescape %}
+    </div>
     <div class="info-wrapper">
-        <span class="editor">
-            <i class="fa fa-pencil"></i>
-            {{ article.creator.profile.nickname }}
-        </span>
+{#        <span class="editor">#}
+{#            <i class="fa fa-pencil"></i>#}
+{#            {{ article.creator.profile.nickname }}#}
+{#        </span>#}
         <span class="create-time">
             <i class="fa fa-clock-o"></i>{{sla.pub_time|format_time}}
         </span>
@@ -21,7 +32,7 @@
         {% for key,value in read_count.items %}
               {% if key == article.pk %}
                   <span class="read">
-                      阅读数
+                      <i class="fa fa-eye"></i>
                       <span id="read_counter">
                           {{ value|format_read_num }}
                      </span>
@@ -36,15 +47,6 @@
 {#        </span>#}
 {#        {% endif %}#}
     </div>
-    <div class="cover-wrapper">
-         <a  href="{% url 'web_article_page' article.pk  %}" >
-            <img class="article-cover img-responsive" src="{{article.cover }}" />
-         </a>
-    </div>
-    <div class="content-digest">
-        {% autoescape off %}
-            {{ article.content|striptags|truncatechars:100 }}
-        {% endautoescape %}
-    </div>
+
 </div>
 {% endwith %}

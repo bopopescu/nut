@@ -83,6 +83,12 @@ i {
   background-color: #427EC0;
   border: none;
 }
+.v-helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  width: 0px;
+}
 /*.round:hover{color:blue;text-decoration:none}*/
 /*去掉苹果的默认UI来渲染按钮*/
 input[type="submit"],
@@ -1572,6 +1578,9 @@ a:hover {
 #user_article .user-article-item .info-wrapper .edit-link i {
   color: #357ebd;
 }
+#detail_content {
+  min-width: 550px;
+}
 #detail_content #article_list .article-wrapper {
   margin-bottom: 20px;
   background-color: #ffffff;
@@ -1586,7 +1595,7 @@ a:hover {
   box-shadow: 0px 0px 3px #dddddd;
 }
 #detail_content #article_list .article-wrapper .title-wrapper {
-  padding: 20px 20px 10px 20px;
+  padding: 20px;
 }
 #detail_content #article_list .article-wrapper .title-wrapper h2 {
   font-size: 22px;
@@ -1596,6 +1605,7 @@ a:hover {
   padding-left: 20px;
   padding-bottom: 10px;
   margin: 0px;
+  text-align: right;
 }
 #detail_content #article_list .article-wrapper .content-digest {
   padding: 0px 20px 20px 20px;
@@ -1889,12 +1899,6 @@ a:hover {
     height: 360px;
     white-space: nowrap;
   }
-  #detail_content_left .detail-img-big .v-helper {
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-    width: 0px;
-  }
   #detail_content_left .detail-img-big .main-img {
     vertical-align: middle;
     border: none;
@@ -2094,6 +2098,56 @@ a:hover {
   -moz-osx-font-smoothing: grayscale;
   transform: translate(0, 0);
   color: #c8c8c8;
+}
+.main-article {
+  background-color: #ffffff;
+  padding: 18px 18px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 3px #dddddd;
+  -moz-box-shadow: 0px 0px 3px #dddddd;
+  box-shadow: 0px 0px 3px #dddddd;
+}
+.more-article-wrapper {
+  margin: 20px 0px;
+  overflow: hidden;
+  background-color: #ffffff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 3px #dddddd;
+  -moz-box-shadow: 0px 0px 3px #dddddd;
+  box-shadow: 0px 0px 3px #dddddd;
+}
+.more-article-wrapper .title-wrapper {
+  width: 60%;
+  float: right;
+  display: block;
+  padding-top: 5%;
+}
+.more-article-wrapper .title-wrapper .title {
+  padding-top: 20px;
+  padding-left: 20px;
+  font-size: 16px;
+}
+.more-article-wrapper .cover-wrapper {
+  float: none;
+  width: 100%;
+  padding-right: 60%;
+}
+.more-article-wrapper .cover-wrapper a {
+  display: block;
+}
+.more-article-wrapper .cover-wrapper a img {
+  max-with: 100%;
+  width: 100%;
 }
 .download-link a:hover {
   text-decoration: underline;
