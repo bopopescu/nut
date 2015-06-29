@@ -51,7 +51,6 @@ class Amazon(Spider):
         pricetag = self.soup.select("#soldByThirdParty")
         print pricetag
 
-
     @property
     def url(self):
         url = "http://%s%s" % (self.urlobj.hostname, self.urlobj.path)
@@ -84,8 +83,9 @@ class Amazon(Spider):
 
 if __name__=="__main__":
 
-    a = Amazon("http://www.amazon.cn/%E7%BE%8E%E5%9B%BD%E7%BA%BD%E7%BA%A6%E6%91%84%E5%BD%B1%E5%AD%A6%E9%99%A2%E6%91%84%E5%BD%B1%E6%95%99%E6%9D%90-%E7%BE%8E%E5%9B%BD%E7%BA%BD%E7%BA%A6%E6%91%84%E5%BD%B1%E5%AD%A6%E9%99%A2/dp/B004UOY8L4/ref=sr_1_1?ie=UTF8&qid=1434730677&sr=8-1&keywords=%E7%BA%BD%E7%BA%A6%E6%91%84%E5%BD%B1%E5%AD%A6%E9%99%A2%E6%95%99%E6%9D%90")
-    print a.html
+    a = Amazon("http://www.amazon.cn/gp/product/B00ZOTR98S/ref=s9_cngwdyfloorv2-s9?pf_rd_m=A1AJ19PSB66TGU&pf_rd_s=center-2&pf_rd_r=1E361MGCXY8ZKYJBD5C4&pf_rd_t=101&pf_rd_p=252512872&pf_rd_i=899254051")
+    print a.url
+    # print a.html
     print a.price
     # print a.buy_link
     # print a.desc
