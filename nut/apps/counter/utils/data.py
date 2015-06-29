@@ -10,6 +10,10 @@ class CounterException(Exception):
 class RedisCounterMachine(object):
     '''
         A class for web static/counter util
+        to provide a middle layer of 1. connection/accessing redis server
+                                     2. handle key hash
+                                     3. handle group get generate and get
+                                     4.
     '''
 
     @classmethod
