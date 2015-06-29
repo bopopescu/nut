@@ -1032,6 +1032,9 @@ class Article(models.Model):
             return pubed_selection[0].pub_time
         else :
             return _('Never')
+    @property
+    def related_articles(self):
+        return Selection_Article.objects.article_related(self)
 
 
 # use ForeignKey instead of  oneToOne for selection entity ,

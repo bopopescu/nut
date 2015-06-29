@@ -98,6 +98,12 @@ background-color: #427EC0;
 border:none;
 }
 
+.v-helper{
+     display:inline-block;
+     height:100%;
+     vertical-align: middle;
+     width:0px;
+}
 
 /*.round:hover{color:blue;text-decoration:none}*/
 /*去掉苹果的默认UI来渲染按钮*/
@@ -1541,12 +1547,13 @@ a:hover{text-decoration:underline;}
 
 #detail_content{
    //for selection article list page
+  min-width: 550px;
   #article_list{
       .article-wrapper{
           margin-bottom :20px;
           .panel-no-padding;
           .title-wrapper{
-              padding:20px 20px 10px 20px;
+              padding:20px;
               h2{
                 font-size: @title-size;
                 line-height:1.2;
@@ -1556,6 +1563,8 @@ a:hover{text-decoration:underline;}
               padding-left: 20px;
               padding-bottom: 10px;
               margin:0px;
+              text-align:right;
+
           }
           .content-digest{
               padding:0px 20px 20px 20px;
@@ -1860,14 +1869,6 @@ a:hover{text-decoration:underline;}
         .detail-img-big{
           height: 360px;
           white-space: nowrap;
-
-
-          .v-helper{
-             display:inline-block;
-             height:100%;
-             vertical-align: middle;
-             width:0px;
-          }
           .main-img{
              vertical-align: middle;
              border: none;
@@ -2033,7 +2034,7 @@ a:hover{text-decoration:underline;}
 
 }
 
-
+// global article css def , all
 .article-wrapper{
 
     .title-wrapper{
@@ -2116,6 +2117,42 @@ a:hover{text-decoration:underline;}
                color:#c8c8c8;
        }
     }
+}
+
+.main-article{
+   .panel;
+}
+
+.more-article-wrapper{
+    margin: 20px 0px;
+    overflow: hidden;
+    .panel-no-padding;
+
+   .title-wrapper{
+        width: 60%;
+        float: right;
+        display: block;
+        padding-top:5%;
+       .title{
+          padding-top: 20px;
+          padding-left: 20px;
+          font-size: @subtitle-size;
+       }
+   }
+    .cover-wrapper{
+       float: none;
+       width: 100%;
+       padding-right: 60%;
+       a{
+         display: block;
+         img{
+           max-with: 100%;
+           width: 100%
+        }
+       }
+
+    }
+
 }
 
 .download-link{

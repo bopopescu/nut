@@ -23,7 +23,6 @@ from datetime import datetime
 log = getLogger('django')
 
 
-
 class SelectionArticleList(AjaxResponseMixin,ListView):
     template_name = 'web/article/selection_list.html'
     model = Selection_Article
@@ -39,6 +38,7 @@ class SelectionArticleList(AjaxResponseMixin,ListView):
                                     .get('t',datetime.now()\
                                                      .strftime('%Y-%m-%d %H:%M:%S'))
         return refresh_time
+
     def get_queryset(self):
         qs = Selection_Article.objects\
                               .published_until(self.get_refresh_time())\
@@ -53,7 +53,6 @@ class SelectionArticleList(AjaxResponseMixin,ListView):
     def get_read_counts(self,articles):
         counts_dic = RedisCounterMachine.get_read_counts(articles)
         return counts_dic
-
 
     def get_context_data(self, **kwargs):
         context = super(SelectionArticleList, self).get_context_data(**kwargs)
@@ -71,6 +70,7 @@ class SelectionArticleList(AjaxResponseMixin,ListView):
         context = add_side_bar_context_data(context)
         return context
 
+
 class EditorDraftList(UserPassesTestMixin,ListView):
     def test_func(self, user):
         return  user.can_write;
@@ -82,6 +82,7 @@ class EditorDraftList(UserPassesTestMixin,ListView):
     context_object_name = 'articles'
     def get_queryset(self):
         return Article.objects.filter(creator=self.request.user,publish=Article.draft)
+
 
 class EditorArticleCreate(UserPassesTestMixin, View):
     def test_func(self, user):
@@ -192,7 +193,5 @@ class ArticleDelete(UserPassesTestMixin, View):
         the_article.publish = Article.remove
         the_article.save()
         return redirect('web_editor_article_list')
-
-
 
 __author__ = 'edison'

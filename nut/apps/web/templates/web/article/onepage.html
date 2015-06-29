@@ -22,43 +22,65 @@
 {#         {% include "web/article/partial/article_breadcrumb.html" %}#}
 {#     </div>#}
      <div class="row" id="detail_content" >
-            <div  id="detail_content_left" class="container-fluid col-lg-8 col-md-8 col-sm-12  col-xs-12" >
-                <div class="article-wrapper">
 
-                    <div class="title-wrapper">
-                        <H2>{{ article.title }}</H2>
-                    </div>
-                    <div class="info-wrapper">
-                        <span class="editor">
-                            <i class="fa fa-pencil"></i>
-                            {{ article.creator.profile.nickname }}
-                        </span>
-                        <span class="create-time">
-                            <i class="fa fa-clock-o"></i>{{article.created_datetime|format_time}}
-                        </span>
-                        <span class="read">
-                            阅读数
-                            <span id="read_counter">
 
+            <div class="container-fluid col-lg-8 col-md-8 col-sm-12  col-xs-12" >
+                <div class="main-article">
+                    <div class="article-wrapper ">
+
+                        <div class="title-wrapper">
+                            <H2>{{ article.title }}</H2>
+                        </div>
+                        <div class="info-wrapper">
+                            <span class="editor">
+                                <i class="fa fa-pencil"></i>
+                                {{ article.creator.profile.nickname }}
                             </span>
-                        </span>
-                        {% if is_article_creator %}
-                        <span class="edit-article">
-                            <i class="fa fa-edit"></i><a class="guoku-link" href="{% url 'web_editor_article_edit' article.pk %}">编辑文章</a>
-                        </span>
-                        {% endif %}
-                    </div>
-                   {% if article.showcover %}
-                    <div class="cover-wrapper">
-                        <img class="article-cover img-responsive" src="{{   article.cover }}" />
-                    </div>
-                   {% endif %}
-                    <div class="content-wrapper">
-                        {% autoescape off %}
-                        {{ article.content }}
-                        {% endautoescape %}
+                            <span class="create-time">
+                                <i class="fa fa-clock-o"></i>{{article.created_datetime|format_time}}
+                            </span>
+                            <span class="read">
+                                阅读数
+                                <span id="read_counter">
+
+                                </span>
+                            </span>
+                            {% if is_article_creator %}
+                            <span class="edit-article">
+                                <i class="fa fa-edit"></i><a class="guoku-link" href="{% url 'web_editor_article_edit' article.pk %}">编辑文章</a>
+                            </span>
+                            {% endif %}
+                        </div>
+                       {% if article.showcover %}
+                        <div class="cover-wrapper">
+                            <img class="article-cover img-responsive" src="{{   article.cover }}" />
+                        </div>
+                       {% endif %}
+                        <div class="content-wrapper">
+                            {% autoescape off %}
+                            {{ article.content }}
+                            {% endautoescape %}
+                        </div>
                     </div>
                 </div>
+                {% for sla in article.related_articles %}
+                    {% with sla.article as r_article %}
+                        <div class="more-article-wrapper">
+                            <div class="title-wrapper">
+                                 <a href="{% url 'web_article_page' r_article.pk %}">
+                                <div class="title">{{ r_article.title }}</div>
+                                 </a>
+                            </div>
+                            <div class="cover-wrapper">
+                                 <a href="{% url 'web_article_page' r_article.pk %}">
+                                    <img  src="{{ r_article.cover }}">
+                                </a>
+                            </div>
+                        </div>
+                    {% endwith %}
+                {% endfor %}
+
+
             </div>
             <div id="detail_content_right" class="hidden-print   col-lg-4 col-md-4 hidden-sm  hidden-xs" >
                    {% include "web/entity/partial/detail_side.html" %}
