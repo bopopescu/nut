@@ -45,7 +45,7 @@
           this.contentChanged = false;
           this.error_messages = [];
           this.summer = $('.guoku_editor').summernote({
-            height: 700,
+            height: 1200,
             focus: true,
             onImageUpload: function(file) {
                 that.sendFile(file, function(url){

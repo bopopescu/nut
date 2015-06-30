@@ -3,6 +3,9 @@ import redis
 from django.conf import settings
 from django_redis import get_redis_connection
 from django.core.urlresolvers import reverse
+from django.utils.log import getLogger
+log = getLogger('django')
+
 
 class CounterException(Exception):
     pass
@@ -27,8 +30,10 @@ class RedisCounterMachine(object):
                 # test.guoku.com
                 r_server = redis.Redis(settings.TEST_SERVER_REDIS_HOST)
             elif hasattr(settings, 'PRODUCTION_REDIS_SERVER'):
+                log.error('connecting redis %s '%settings.PRODUCTION_REDIS_SERVER_HOST)
                 r_server = redis.Redis(settings.PRODUCTION_REDIS_SERVER_HOST)
             else:
+                log.error('not setting for connection redis')
                 raise  CounterException('can not find redis settings')
         except Exception as e:
             raise CounterException('can not find redis server, for :%s', e.message)
