@@ -17,7 +17,7 @@
 @primary-size : 14px ;
 @title-size:22px;
 @subtitle-size:16px;
-@mini-size: 12px;
+@mini-size: 13px;
 
 @hover-opacity:0.7;
 
@@ -1544,6 +1544,42 @@ a:hover{text-decoration:underline;}
     }
 }
 
+@media (min-width: 768px){
+    #detail_content{
+       #article_list{
+          .article-wrapper{
+            .panel-no-padding;
+            .title-wrapper{
+              padding:20px;
+            }
+            .info-wrapper{
+               padding-left: 20px;
+            }
+            .content-digest{
+              padding:0px 20px 20px 20px;
+            }
+          }
+       }
+    }
+}
+
+@media (max-width: 767px){
+    #detail_content{
+       #article_list{
+          .article-wrapper{
+            .title-wrapper{
+              padding: 20px 0px;
+            }
+            .info-wrapper{
+               padding-left: 0px;
+            }
+            .content-digest{
+              padding:0px 0px 20px 0px;
+            }
+          }
+       }
+    }
+}
 
 #detail_content{
    //for selection article list page
@@ -1551,23 +1587,21 @@ a:hover{text-decoration:underline;}
   #article_list{
       .article-wrapper{
           margin-bottom :20px;
-          .panel-no-padding;
+
           .title-wrapper{
-              padding:20px;
               h2{
                 font-size: @title-size;
                 line-height:1.2;
               }
           }
           .info-wrapper{
-              padding-left: 20px;
               padding-bottom: 10px;
               margin:0px;
-              text-align:right;
+              text-align:left;
 
           }
           .content-digest{
-              padding:0px 20px 20px 20px;
+
           }
 
       }
@@ -2145,7 +2179,7 @@ a:hover{text-decoration:underline;}
      .title-wrapper{
          padding-top:5px;
          .title{
-            padding: 0px 5px;
+            padding: 0px 0px 0px 13px;
             font-size: 15px;
             font-weight: 800;
          }

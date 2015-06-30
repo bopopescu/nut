@@ -25,9 +25,7 @@
 {#            <i class="fa fa-pencil"></i>#}
 {#            {{ article.creator.profile.nickname }}#}
 {#        </span>#}
-        <span class="create-time">
-            <i class="fa fa-clock-o"></i>{{sla.pub_time|format_time}}
-        </span>
+
 
         {% for key,value in read_count.items %}
               {% if key == article.pk %}
@@ -39,6 +37,9 @@
                   </span>
               {% endif %}
         {% endfor %}
+        <span class="create-time">
+            <i class="fa fa-clock-o"></i>{{sla.pub_time|format_time}}
+        </span>
 
 
 {#        {% if is_article_creator %}#}
