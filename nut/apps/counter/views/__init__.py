@@ -39,12 +39,12 @@ class Counter(JSONResponseMixin, AjaxResponseMixin, View):
         counter_key = None
         try:
             counter_key = self.get_key(request)
-        except CounterException as e:
+        except Exception as e:
             return self.response_error_message(e.message)
 
         try:
             count = RedisCounterMachine.increment_key(counter_key)
-        except CounterException as e:
+        except Exception as e:
             return self.response_error_message(e.message)
 
         res = {
