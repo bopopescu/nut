@@ -134,7 +134,10 @@ def detail(request, user_id):
     res = dict()
     res['user'] = _user.v4_toDict(visitor)
     if _last_like:
-        res['last_like'] = _last_like.entity.v3_toDict()
+        try:
+            res['last_like'] = _last_like.entity.v3_toDict()
+        except Exception, e:
+            log.error("Error %s" % e.message)
     if _last_note:
         res['last_note'] = _last_note.v3_toDict(visitor=visitor)
 
