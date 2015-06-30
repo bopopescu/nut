@@ -30,12 +30,13 @@ class RedisCounterMachine(object):
                 # test.guoku.com
                 r_server = redis.Redis(settings.TEST_SERVER_REDIS_HOST)
             elif hasattr(settings, 'PRODUCTION_REDIS_SERVER'):
-                log.error('connecting redis %s '%settings.PRODUCTION_REDIS_SERVER_HOST)
+                log.error('anchen: connecting redis %s '%settings.PRODUCTION_REDIS_SERVER_HOST)
                 r_server = redis.Redis(settings.PRODUCTION_REDIS_SERVER_HOST)
             else:
-                log.error('not setting for connection redis')
+                log.error('anchen: not setting for connection redis')
                 raise  CounterException('can not find redis settings')
         except Exception as e:
+            log.error('anchen: exception when get server %s'%e.message)
             raise CounterException('can not find redis server, for :%s', e.message)
         return r_server
 
@@ -48,6 +49,8 @@ class RedisCounterMachine(object):
     def get_counter_key_from_path(cls, path):
         prefix = 'counter'
         key_body = ':'.join(path.split('/'))
+        log.error('key generated ')
+        log.error('%s%s'%(prefix, key_body))
         return '%s%s'%(prefix, key_body)
 
     @classmethod
@@ -69,7 +72,9 @@ class RedisCounterMachine(object):
         r_server = cls.get_redis_server()
         key = cls._hash_key(key)
         try :
+
             count = r_server.incr(key)
+            log.error('key incremented for key %s'%key)
         except :
             raise CounterException('can not ')
         return count
