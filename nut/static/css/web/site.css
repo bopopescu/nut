@@ -1627,6 +1627,9 @@ a:hover {
   margin: 0px;
   text-align: left;
 }
+#detail_content #article_list .article-wrapper .info-wrapper .create-time {
+  float: right;
+}
 #detail_content #detail_content_right .section-list .section-title {
   font-size: 16px;
 }
@@ -2163,6 +2166,7 @@ a:hover {
   }
   .artice-section-title {
     border-left: 4px solid #9d9e9f;
+    padding-top: 30px;
     padding-left: 15px;
     position: relative;
     left: -15px;
