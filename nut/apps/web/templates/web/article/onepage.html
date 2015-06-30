@@ -64,10 +64,8 @@
                     </div>
                 </div>
 
-                     <div class="seperator-line">
-                        <div class="round-box">
-                            荐
-                        </div>
+                     <div class="artice-section-title">
+                        相似推荐
                     </div>
 
                 {% for sla in article.related_articles %}
@@ -75,7 +73,7 @@
                         <div class="more-article-wrapper">
                             <div class="title-wrapper">
                                  <a href="{% url 'web_article_page' r_article.pk %}">
-                                <div class="title">{{ r_article.title }}</div>
+                                <div class="title">{{ r_article.title|truncatechars:27 }}</div>
                                  </a>
                             </div>
                             <div class="cover-wrapper">
