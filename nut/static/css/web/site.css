@@ -1602,6 +1602,9 @@ a:hover {
   }
 }
 @media (max-width: 767px) {
+  #detail_content #article_list .article-wrapper {
+    border-bottom: 1px solid #d5d5d5;
+  }
   #detail_content #article_list .article-wrapper .title-wrapper {
     padding: 20px 0px;
   }
