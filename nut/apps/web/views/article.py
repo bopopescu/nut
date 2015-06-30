@@ -26,7 +26,7 @@ log = getLogger('django')
 class SelectionArticleList(AjaxResponseMixin,ListView):
     template_name = 'web/article/selection_list.html'
     model = Selection_Article
-    paginate_by = 30
+    paginate_by = 20
     paginator_class = Jpaginator
     context_object_name = 'selection_articles'
     #

@@ -23,7 +23,12 @@
                     {% for sla in selection_articles %}
                         {% include 'web/article/partial/article_item.html' %}
                     {% endfor %}
+
+                     <div class="pager-container container-fluid">
+                         {% include 'web/article/paginator.html' %}
+                    </div>
             </div>
+
             <div id="detail_content_right"
                  class="hidden-print   col-lg-4 col-md-4 hidden-sm  hidden-xs" >
                    {% include "web/entity/partial/detail_side.html" %}
