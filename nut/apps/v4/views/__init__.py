@@ -243,7 +243,7 @@ def visit_item(request, item_id):
     _outer_code = request.GET.get("outer_code", None)
     _sche = request.GET.get("sche", None)
 
-    b = Buy_Link.objects.get(origin_id=item_id)
+    b = Buy_Link.objects.filter(origin_id=item_id)[0]
 
     if "taobao.com" in b.origin_source:
         _taobaoke_info = taobaoke_mobile_item_convert(b.origin_id)
