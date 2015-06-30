@@ -88,6 +88,9 @@ DATABASES = {
     }
 }
 
+PRODUCTION_REDIS_SERVER = True
+PRODUCTION_REDIS_SERVER_HOST = '10.0.2.46'
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
