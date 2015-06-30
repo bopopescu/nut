@@ -8,6 +8,7 @@ from apps.core.models import Entity, Note, Buy_Link
 from apps.core.utils.fetch.taobao import TaoBao
 from apps.core.utils.fetch.jd import JD
 from apps.core.utils.fetch.tmall_new import Tmall
+from apps.core.utils.fetch.amazon import Amazon
 from apps.core.utils.fetch import parse_jd_id_from_url, parse_taobao_id_from_url
 from apps.core.tasks.entity import fetch_image
 
@@ -137,9 +138,8 @@ class EntityURLFrom(forms.Form):
                 });
                 return _data;
 
-
         if re.search(r"\b(taobao|95095)\.(com|hk)$", _hostname) is not None:
-            _data['link_support'] = True;
+            _data['link_support'] = True
             _taobao_id = parse_taobao_id_from_url(_link)
             # log.info(_taobao_id)
 
@@ -167,9 +167,32 @@ class EntityURLFrom(forms.Form):
                     'chief_image_url' : res['imgs'][0],
                     'thumb_images': res["imgs"],
                     # 'selected_category_id':
-                });
-                return _data;
+                })
+                return _data
 
+        if re.search(r"\b(amazon)\.(cn|com)$", _hostname) != None:
+            a = Amazon(_link)
+            try:
+                buy_link = Buy_Link.objects.get(origin_id=a.origin_id, origin_source=a.hostname)
+                _data = {
+                    'entity_id': buy_link.entity.id,
+                }
+            except Buy_Link.DoesNotExist, e:
+                _data = {
+                    'user_id': self.request.user.id,
+                    'user_avatar': self.request.user.profile.avatar_url,
+                    'cand_url':a.url,
+                    'origin_id': a.origin_id,
+                    'origin_source':a.hostname,
+                    'title': a.desc,
+                    'chief_image_url' : a.images[0],
+                    'thumb_images': a.images,
+                    'price': a.price,
+                    'cid': a.cid,
+                    'brand': a.brand,
+                    'shop_link': a.shop_link,
+                    'shop_nick': a.nick,
+                }
 
         return _data
 

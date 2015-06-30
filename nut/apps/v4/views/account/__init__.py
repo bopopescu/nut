@@ -16,13 +16,15 @@ log = getLogger('django')
 @csrf_exempt
 @check_sign
 def login(request):
+    # log.info(request.META['HTTP_USER_AGENT'])
     code = 200
-    if 'iPhone' in request.META['HTTP_USER_AGENT'] or 'iPad' in request.META['HTTP_USER_AGENT']:
+    user_agent = request.META.get('HTTP_USER_AGENT', '')
+    if 'iPhone' in user_agent or 'iPad' in user_agent:
         code = 409
 
     if request.method == "POST":
         _forms = MobileUserSignInForm(request=request, data=request.POST)
-        log.info(request.POST)
+        # log.info(request.POST)
         if _forms.is_valid():
             _forms.login()
             _user = _forms.get_user()
@@ -32,25 +34,25 @@ def login(request):
                 'session': _forms.get_session()
             }
             return SuccessJsonResponse(res)
+
+        log.info(_forms.errors)
+        for k, v in dict(_forms.errors).items():
+            error_msg = v.as_text().split('*')[1]
+            log.info(error_msg)
+            return ErrorJsonResponse(status=code, data={
+                'type': k,
+                'message': error_msg.lstrip(),
+            })
     else:
-        _forms = MobileUserSignInForm(request=request)
-
-    for k, v in dict(_forms.errors).items():
-        error_msg = v.as_text().split('*')[1]
-        return ErrorJsonResponse(status=code, data={
-            'type': k,
-            'message': error_msg.lstrip(),
-        })
-
-    return ErrorJsonResponse(status=400)
+        return ErrorJsonResponse(status=400)
 
 
 @csrf_exempt
 @check_sign
 def register(request):
-    log.info(request.META['HTTP_USER_AGENT'])
     code = 200
-    if 'iPhone' in request.META['HTTP_USER_AGENT'] or 'iPad' in request.META['HTTP_USER_AGENT']:
+    user_agent = request.META.get('HTTP_USER_AGENT', '')
+    if 'iPhone' in user_agent or 'iPad' in user_agent:
         code = 409
 
     if request.method == "POST":
@@ -64,9 +66,11 @@ def register(request):
                 'session': _forms.get_session()
             }
             return SuccessJsonResponse(res)
+        log.info(_forms.errors)
         for k, v in dict(_forms.errors).items():
-            log.info(v.as_text().split('*'))
+            # log.info(v.as_text().split('*'))
             error_msg = v.as_text().split('*')[1]
+            # log.info(error_msg)
             return ErrorJsonResponse(status=code, data={
                 'type': k,
                 'message': error_msg.lstrip(),
@@ -101,7 +105,7 @@ def forget_password(request):
 @check_sign
 def logout(request):
     # _req_uri = request.get_full_path()
-    if request.method == "POST":
+    if request.method == 'POST':
         # log.info(request.POST)
         _forms = MobileUserSignOutForm(request.POST)
         if _forms.is_valid():
@@ -109,7 +113,6 @@ def logout(request):
             return SuccessJsonResponse({ 'success': '1' })
         log.info(_forms.errors)
     return ErrorJsonResponse(status=400)
-
 
 
 

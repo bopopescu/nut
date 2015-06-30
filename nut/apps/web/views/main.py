@@ -21,12 +21,6 @@ log = getLogger('django')
 
 from datetime import datetime
 
-#
-# def index(request):
-#
-#
-#     return HttpResponse("OK")
-
 
 @require_GET
 def selection(request, template='web/main/selection.html'):
@@ -145,19 +139,6 @@ def search(request, template="web/main/search.html"):
         c = RequestContext(request, c)
         return HttpResponse(t.render(c))
 
-        # return render_to_response(
-        #     template,
-        #     {
-        #         'keyword': form.get_keyword(),
-        #         'results': _results,
-        #         'type': _type,
-        #         'objects': _objects,
-        #         'entity_count': form.get_entity_count(),
-        #         'user_count': form.get_user_count(),
-        #         'tag_count': form.get_tag_count()
-        #     },
-        #     context_instance=RequestContext(request),
-        # )
 
 __author__ = 'edison'
 

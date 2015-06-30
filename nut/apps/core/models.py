@@ -21,6 +21,7 @@ from apps.core.manager.event import ShowEventBannerManager
 from apps.core.manager.article import ArticleManager, SelectionArticleManager
 
 from hashlib import md5
+from urlparse import parse_qs, urlparse
 # from apps.core.utils.tag import TagParser
 
 from djangosphinx.models import SphinxSearch
@@ -241,6 +242,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         index = 'users',
         mode = 'SPH_MATCH_ALL',
         rankmode = 'SPH_RANK_NONE',
+        maxmatches = 5000,
     )
 
 
@@ -265,6 +267,12 @@ class User_Profile(BaseModel):
     email_verified = models.BooleanField(default = False)
 
     def __unicode__(self):
+        return self.nick
+
+    @property
+    def nick(self):
+        if len(self.nickname) == 32:
+            return "guoku_%s" % self.nickname[:8]
         return self.nickname
 
     @property
@@ -275,8 +283,6 @@ class User_Profile(BaseModel):
             return "%s%s" % (image_host, self.avatar)
         else:
             if self.gender == self.Woman:
-                # return "%s%s" % ('http://www.guoku.com/static/', 'images/woman.jpg')
-            # return "%s%s" % ('http://www.guoku.com/static/', 'images/man.jpg')
                 return "%s%s" % (settings.STATIC_URL, 'images/avatar/woman.png')
             return "%s%s" % (settings.STATIC_URL, 'images/avatar/man.png')
 
@@ -421,7 +427,7 @@ class Sub_Category(BaseModel):
         return "http://imgcdn.guoku.com/category/small/%s" % self.icon
 
     def get_absolute_url(self):
-        return "/c/%s" % self.id
+        return "/c/%s/" % self.id
 
     def v3_toDict(self):
         res = dict()
@@ -467,6 +473,14 @@ class Brand(BaseModel):
         if self.icon:
             return "%s%s" % (image_host, self.icon)
         return None
+
+    # @property
+    # def shop_id(self):
+    #     if len(self.tmall_link) > 0:
+    #         o = urlparse(self.tmall_link)
+    #         qs = parse_qs(o.query)
+    #         return qs['shop_id'][0]
+    #     return ''
 
     def __unicode__(self):
         return "%s %s" % (self.name, self.alias)
@@ -552,7 +566,7 @@ class Entity(BaseModel):
         return None
 
     def get_absolute_url(self):
-        return "/detail/%s" % self.entity_hash
+        return "/detail/%s/" % self.entity_hash
 
     @property
     def is_in_selection(self):
@@ -667,8 +681,14 @@ class Selection_Entity(BaseModel):
 
 
 class Buy_Link(BaseModel):
+    (remove, soldouot, sale) = xrange(3)
+    Buy_Link_STATUS_CHOICES = [
+        (sale, _("sale")),
+        (soldouot, _("soldouot")),
+        (remove, _("remove")),
+    ]
     entity = models.ForeignKey(Entity, related_name='buy_links')
-    origin_id = models.CharField(max_length=100)
+    origin_id = models.CharField(max_length=100, db_index=True)
     origin_source = models.CharField(max_length=255)
     cid = models.CharField(max_length=255, null=True)
     link = models.CharField(max_length=255)
@@ -676,6 +696,9 @@ class Buy_Link(BaseModel):
     volume = models.IntegerField(default=0)
     rank = models.IntegerField(default=0)
     default = models.BooleanField(default=False)
+    shop_link = models.URLField(max_length=255, null=True)
+    seller = models.CharField(max_length=255, null=True)
+    status = models.PositiveIntegerField(default=sale, choices=Buy_Link_STATUS_CHOICES)
 
     class Meta:
         ordering = ['-default']
@@ -684,7 +707,7 @@ class Buy_Link(BaseModel):
         res = self.toDict()
         res.pop('link', None)
 
-        res['buy_link'] = "http://api.guoku.com%s?type=mobile" % reverse('mobile_visit_item', args=[self.origin_id])
+        res['buy_link'] = "http://api.guoku.com%s?type=mobile" % reverse('v4_visit_item', args=[self.origin_id])
         res['price'] = int(self.price)
         return res
 
@@ -750,7 +773,6 @@ class Note(BaseModel):
     @property
     def poke_list(self):
         return self.pokes.all().values_list('user_id', flat=True)
-
 
     @property
     def post_timestamp(self):
@@ -1036,6 +1058,8 @@ class Article(models.Model):
     def related_articles(self):
         return Selection_Article.objects.article_related(self)
 
+    def get_absolute_url(self):
+        return "/articles/%s/" % self.pk
 
 # use ForeignKey instead of  oneToOne for selection entity ,
 # this means , an article can be published many times , without first been removed from selection

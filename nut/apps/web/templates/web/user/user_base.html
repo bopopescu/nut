@@ -2,9 +2,9 @@
 {% load i18n static %}
 {% load guoku %}
 
-{% block title %}{{ user.profile.nickname }}{% endblock %}
-{% block keyword %}果库,{{ user.profile.nickname }}{% endblock %}
-{% block description %}果库,{{ user.profile.nickname }},{{ user.profile.bio }}{% endblock %}
+{% block title %}{{ user.profile.nick }}{% endblock %}
+{% block keyword %}果库,{{ user.profile.nick }}{% endblock %}
+{% block description %}果库,{{ user.profile.nick }},{{ user.profile.bio }}{% endblock %}
 
 
 {% block content %}
@@ -21,13 +21,13 @@
             <div class='user_profile_image'>
 {#                <div style="text-align: center">#}
 {#                <a href="#">#}
-                <img class="media-object img-responsive img-circle" src="{{ user.profile.avatar_url|resize:'200' }}" alt="{{ user.profile.nickname }}" width="132" height="132" />
+                <img class="media-object img-responsive img-circle" src="{{ user.profile.avatar_url|resize:'200' }}" alt="{{ user.profile.nick }}" width="132" height="132" />
 {#                </a>#}
 {#                </div>#}
             </div>
 
             <div class="col-xs-12 col-sm-12">
-                <h4 class="text-center">{{ user.profile.nickname }}</h4>
+                <h4 class="text-center">{{ user.profile.nick }}</h4>
                 <p class="text-center">{{ user.bio }}</p>
             </div>
             <div class="col-xs-12 col-sm-12">

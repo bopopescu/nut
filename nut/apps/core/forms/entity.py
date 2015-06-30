@@ -126,7 +126,6 @@ def load_entity_info(url):
                 'entity_id': buy_link.entity.id,
             }
 
-
     if re.search(r"\b(kaola)\.com$", _hostname) != None:
         # log.info(_hostname)
         # _kaola_id = parse_kaola_id_from_url(_link)

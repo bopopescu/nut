@@ -23,6 +23,7 @@ def login_by_weibo(request):
 @csrf_exempt
 @check_sign
 def signin_by_weibo(request):
+
     if request.method == "POST":
         _forms = MobileWeiboSignInForm(request.POST)
         if _forms.is_valid():
