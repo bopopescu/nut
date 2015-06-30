@@ -26,19 +26,20 @@
 {#            {{ article.creator.profile.nickname }}#}
 {#        </span>#}
 
-
+        <span class="read">
         {% for key,value in read_count.items %}
               {% if key == article.pk %}
                   {% if not value == None  %}
-                  <span class="read">
+
                       <i class="fa fa-eye"></i>
                       <span id="read_counter">
                           {{ value|format_read_num }}
                      </span>
-                  </span>
+
                   {% endif %}
               {% endif %}
         {% endfor %}
+         </span>
         <span class="create-time">
             <i class="fa fa-clock-o"></i>{{sla.pub_time|format_time}}
         </span>
