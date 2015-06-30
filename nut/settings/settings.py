@@ -100,7 +100,8 @@ CACHES = {
             "PICKLE_VERSION": -1,
             "SOCKET_TIMEOUT": 5,  # in seconds
             "COMPRESS_MIN_LEN": 10,
-            "CONNECTION_POOL_KWARGS": {"max_connections": 1024}
+            "CONNECTION_POOL_KWARGS": {"max_connections": 1024},
+            "PARSER_CLASS": "redis.connection.HiredisParser",
         }
     }
 }

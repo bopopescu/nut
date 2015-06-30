@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/web/style.css' %}">
 {% endblock %}
 
-{% block title %} 果库图文－编辑列表 {% endblock %}
+{% block title %}{{ article.title }}{% endblock %}
 
 {% block keyword %}果库, 图文关键字{% endblock %}
 
@@ -14,10 +14,10 @@
     gray-body
 {% endblock %}{% block description %}果库, 图文列表， 描述{% endblock %}
 
-
+{% block h1 %}{{ article.title }}{% endblock %}
 {% block content %}
     <div class="container goods_detail">
-     <h2 class="hidden">图文列表</h2>
+     <h2 class="sr-only">{{ article.content|striptags|truncatechars:150 }}</h2>
 {#     <div class="row" id="detail_breadcrumb">#}
 {#         {% include "web/article/partial/article_breadcrumb.html" %}#}
 {#     </div>#}
@@ -64,11 +64,11 @@
                     </div>
                 </div>
 
-                <div class="seperator-line">
-                    <div class="round-box">
-                        荐
+                     <div class="seperator-line">
+                        <div class="round-box">
+                            荐
+                        </div>
                     </div>
-                </div>
 
                 {% for sla in article.related_articles %}
                     {% with sla.article as r_article %}
@@ -89,7 +89,7 @@
 
 
             </div>
-            <div id="detail_content_right" class="hidden-print   col-lg-4 col-md-4 hidden-sm  hidden-xs" >
+            <div id="detail_content_right" class="hidden-print col-lg-4 col-md-4 hidden-sm  hidden-xs" >
                    {% include "web/entity/partial/detail_side.html" %}
             </div>
      </div>

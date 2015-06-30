@@ -1410,3 +1410,6 @@ msgstr "绑定"
 
 #~ msgid "social account"
 #~ msgstr "社区帐号"
+
+msgid   "guoku live different"
+msgstr  "果库 － 精英消费者指南"

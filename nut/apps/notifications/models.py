@@ -156,9 +156,9 @@ def push_notification(sender, instance, created, **kwargs):
         _jpush = jpush.JPush(app_key, app_secret)
         push = _jpush.create_push()
         _platform = 'ios'
-        _production = False
+        _production = True
         if instance.action_object_content_type.model == "entity_like":
-            verb = instance.actor.profile.nickname + u' 喜爱了你添加的商品'
+            verb = instance.actor.profile.nick + u' 喜爱了你添加的商品'
             for reg in instance.recipient.jpush_token.all():
                 log.info(reg.model)
                 # if reg.model == 'iPhones':
@@ -171,11 +171,10 @@ def push_notification(sender, instance, created, **kwargs):
                 push.options = {"time_to_live":86400, "apns_production":_production}
                 push.send()
         elif instance.action_object_content_type.model == 'user_follow':
-            verb = instance.actor.profile.nickname + u' 开始关注你'
+            verb = instance.actor.profile.nick + u' 开始关注你'
             for reg in instance.recipient.jpush_token.all():
-                log.info("model %s" % reg.model)
+                # log.info("model %s" % reg.model)
                 # if reg.model == 'iPhones':
-
                 push.platform = jpush.platform(_platform)
                 push.audience = jpush.registration_id(reg.rid)
                 # log.info("%d" % instance.recipient.notifications.unread().count())
@@ -183,7 +182,33 @@ def push_notification(sender, instance, created, **kwargs):
                 push.notification = jpush.notification(alert=verb.encode('utf8'), ios=ios_msg)
                 push.options = {"time_to_live":86400, "apns_production":_production}
                 push.send()
-
+        elif instance.action_object_content_type.model == 'selection_entity':
+            verb = u'你添加的商品被收入精选'
+            for reg in instance.recipient.jpush_token.all():
+                push.platform = jpush.platform(_platform)
+                push.audience = jpush.registration_id(reg.rid)
+                ios_msg = jpush.ios(alert=verb.encode('utf8'), badge=instance.recipient.notifications.unread().count(), extras={'url':'guoku://entity/%s' % instance.target.pk})
+                push.notification = jpush.notification(alert=verb.encode('utf8'), ios=ios_msg)
+                push.options = {"time_to_live":86400, "apns_production":_production}
+                push.send()
+        elif instance.action_object_content_type.model == 'note':
+            verb = instance.actor.profile.nick + u'点评了你推荐的商品'
+            for reg in instance.recipient.jpush_token.all():
+                push.platform = jpush.platform(_platform)
+                push.audience = jpush.registration_id(reg.rid)
+                ios_msg = jpush.ios(alert=verb.encode('utf8'), badge=instance.recipient.notifications.unread().count(), extras={'url':'guoku://entity/%s' % instance.target.pk})
+                push.notification = jpush.notification(alert=verb.encode('utf8'), ios=ios_msg)
+                push.options = {"time_to_live":86400, "apns_production":_production}
+                push.send()
+        elif instance.action_object_content_type.model == 'note_poke':
+            verb = instance.actor.profile.nick + u'赞了你撰写的点评'
+            for reg in instance.recipient.jpush_token.all():
+                push.platform = jpush.platform(_platform)
+                push.audience = jpush.registration_id(reg.rid)
+                ios_msg = jpush.ios(alert=verb.encode('utf8'), badge=instance.recipient.notifications.unread().count(), extras={'url':'guoku://entity/%s' % instance.target.pk})
+                push.notification = jpush.notification(alert=verb.encode('utf8'), ios=ios_msg)
+                push.options = {"time_to_live":86400, "apns_production":_production}
+                push.send()
 
 post_save.connect(push_notification, sender=Notification, dispatch_uid='push.notification')
 

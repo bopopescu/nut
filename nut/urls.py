@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from apps.web.feeds import SelectionFeeds
+from apps.web.feeds import SelectionFeeds, ArticlesFeeds
 
 
 urlpatterns = staticfiles_urlpatterns()
@@ -37,13 +37,18 @@ urlpatterns += patterns('',
 
 
 
-from apps.web.sitemaps import UserSitemap, EntitySitemap, TagSitemap, CategorySitemap
+from apps.web.sitemaps import UserSitemap, \
+    EntitySitemap, \
+    TagSitemap, \
+    CategorySitemap, \
+    ArticleSitemap
 
 sitemaps = {
     'user': UserSitemap,
     'entity': EntitySitemap,
     'tag': TagSitemap,
     'category': CategorySitemap,
+    'article': ArticleSitemap,
 }
 
 urlpatterns += patterns(
@@ -51,6 +56,7 @@ urlpatterns += patterns(
     url(r'^sitemap\.xml$', 'index', {'sitemaps': sitemaps}),
     url(r'^sitemap-(?P<section>.+)\.xml$', 'sitemap', {'sitemaps': sitemaps}),
     url(r'^feed/selection/$', SelectionFeeds()),
+    url(r'^feed/articles/$', ArticlesFeeds()),
 )
 
 if settings.DEBUG:

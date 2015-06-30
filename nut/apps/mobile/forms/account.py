@@ -37,7 +37,6 @@ class MobileUserSignInForm(GuoKuUserSignInForm):
             )
         return self.email
 
-
     def clean_password(self):
         password = self.cleaned_data.get('password')
         # if email and password:
@@ -85,12 +84,10 @@ class MobileUserSignUpForm(GuokuUserSignUpForm):
             self.user_cache.profile.avatar = avatar_path_name
 
             self.user_cache.profile.save()
-
         return self.user_cache
 
 
     def get_session(self):
-
         session = Session_Key.objects.generate_session(
             user_id=self.get_user_id(),
             email=self.user_cache.email,

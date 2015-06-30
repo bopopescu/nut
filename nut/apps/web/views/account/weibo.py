@@ -63,8 +63,8 @@ def auth_by_sina(request):
                 user_obj = GKUser.objects.create_user(email=email, password=None)
                 User_Profile.objects.create(
                     user=user_obj,
-                    nickname=_sina_data['screen_name'],
-                    avatar = user_key,
+                    nickname=user_key,
+                    avatar = _sina_data['avatar_large'],
                 )
                 Sina_Token.objects.create(
                     user = user_obj,

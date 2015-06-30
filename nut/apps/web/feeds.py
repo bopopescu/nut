@@ -1,10 +1,11 @@
+#coding=utf-8
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
 # from django.utils.feedgenerator import Atom1Feed
 from django.utils.translation import gettext_lazy as _
 from django.utils.feedgenerator import Rss201rev2Feed
 
-from apps.core.models import Selection_Entity, Entity
+from apps.core.models import Selection_Entity, Entity, Selection_Article
 
 # from base.models import NoteSelection
 # from base.entity import Entity
@@ -21,7 +22,7 @@ class CustomFeedGenerator(Rss201rev2Feed):
 class SelectionFeeds(Feed):
     feed_type = CustomFeedGenerator
 
-    title = _("guoku selection")
+    title = _("live different")
     link = '/selected/'
     description = _('guoku selection desc')
 
@@ -68,5 +69,38 @@ class SelectionFeeds(Feed):
         # _entity_id = item.entity_id
         # _entity_context = Entity(_entity_id).read()
         return {'image':item.entity.chief_image}
+
+
+class ArticlesFeeds(Feed):
+    feed_type = CustomFeedGenerator
+
+    title = u'果库 － 精英消费者指南'
+    link = "/articles/"
+    description = _('精英消费者指南')
+
+    description_template = "web/feeds/article_desc.html"
+
+    def items(self):
+        return Selection_Article.objects.filter(is_published=True)[0:30]
+
+    def item_title(self, item):
+        return item.article.title
+
+    def item_link(self, item):
+        return reverse('web_article_page', args=[item.article.pk])
+
+    def item_author_name(self, item):
+        return item.article.creator.profile.nick
+
+    def item_pubdate(self, item):
+        return item.pub_time
+
+    def item_description(self, item):
+        return item.article.content
+
+    def item_extra_kwargs(self, item):
+        return {'image':item.article.cover_url}
+
+
 
 __author__ = 'edison7500'

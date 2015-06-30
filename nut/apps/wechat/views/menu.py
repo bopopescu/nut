@@ -64,7 +64,6 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
         cache.set('wechat_access_token', self.access_token, 7200)
         return self.access_token
 
-
     def post_menu(self, access_token, body):
         json_string = simplejson.dumps(body, ensure_ascii=False)
         log.info(json_string)

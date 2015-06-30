@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from apps.core.models import Brand
+from urlparse import urlparse, parse_qs
 # from django.core.files.storage import default_storage
 # from django.core.files.base import ContentFile
 #
@@ -70,8 +71,8 @@ class BrandForm(forms.Form):
         label=_('intro'),
         widget=forms.Textarea(attrs={'class':'form-control'}),
         # min_length=300,
-        max_length=500,
-        help_text=_('300 - 500 words'),
+        max_length=1000,
+        help_text=_('300 - 1000 words'),
         required=False,
     )
 
@@ -94,6 +95,17 @@ class BrandForm(forms.Form):
     def clean_intro(self):
         _intro = self.cleaned_data.get('intro')
         return _intro.strip(' \t\n\r')
+
+    def clean_tmall_link(self):
+        _tmall_link = self.cleaned_data.get('tmall_link', None)
+        # print _tmall_link
+        # if len(_tmall_link) == 0:
+        #     return _tmall_link
+        #
+        # urlobj = urlparse(_tmall_link)
+        # qs = parse_qs(urlobj.query)
+        # link = "%s://%s%s?shop_id=%s" % (urlobj.scheme, urlobj.hostname, urlobj.path, qs['shop_id'][0])
+        return _tmall_link.strip(' \t\n\r')
 
     #
     # def __init__(self, brand, *args, **kwargs):

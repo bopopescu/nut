@@ -7,13 +7,13 @@
 {% endblock %}
 
 {% block title %}
-    {% if entity.brand|length != 0 %}{% block subtitle %}{{ entity.brand }} - {% endblock %}{% endif %}{{ entity.title }}
+    {% if entity.brand|length != 0 %}{% block subtitle %}{{ entity.brand }} {% endblock %}{% endif %}{{ entity.title }} - {{ entity.category }}
 {% endblock %}
 
 {% block body_class %}
     gray-body
 {% endblock %}
-
+{% block keyword %}{% if entity.brand|length != 0 %}{{ entity.brand }},{% endif %}{{ entity.title }},{{ entity.category }}{% endblock %}
 {% block description %}
 {#    {{ entity.category }},#}
     {{ entity.category }},

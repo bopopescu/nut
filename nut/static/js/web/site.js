@@ -230,7 +230,7 @@ $.ajaxSetup({
                 //
 
                 function valid_url_support(url){
-                    var reg= /\b(jd|360buy|tmall|taobao|95095)\.(com|hk)/i;
+                    var reg= /\b(jd|360buy|tmall|taobao|95095|amazon)\.(cn|com|hk)/i;
                     return reg.test(url);
 
                 }

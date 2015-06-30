@@ -128,8 +128,6 @@ def entity_post_note(request, eid, template='web/entity/partial/ajax_detail_note
                 },
                 content_type='text/html; charset=utf-8',
             )
-
-    # else:
     raise HttpResponseNotAllowed
 
 
