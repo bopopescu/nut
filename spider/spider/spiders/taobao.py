@@ -24,7 +24,7 @@ class TaobaoSpider(scrapy.Spider):
         try:
             item['origin_id'] = response.headers['At_Itemid']
         except KeyError:
-            item['origin_id'] = self.item_id
+            item['origin_id'] = self.item_id.replace('#', '')
         item['link'] = response.url
         if 'noitem.htm' in response.url:
             item['status'] = 0
