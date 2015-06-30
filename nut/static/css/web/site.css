@@ -1629,6 +1629,7 @@ a:hover {
 }
 #detail_content #article_list .article-wrapper .info-wrapper .create-time {
   float: right;
+  padding-right: 10px;
 }
 #detail_content #detail_content_right .section-list .section-title {
   font-size: 16px;
