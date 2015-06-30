@@ -508,6 +508,10 @@
 .btn.active {
   box-shadow: none;
 }
+.fixed-toolbar {
+  position: fixed;
+  top: 50px;
+}
 .note-toolbar > .btn-group {
   margin: 0px;
 }
