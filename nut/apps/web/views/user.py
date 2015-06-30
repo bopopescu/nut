@@ -265,7 +265,7 @@ def articles(request,user_id, template="web/user/user_published_articles.html"):
             'articles':_articles,
             'user':_user
         },
-        context_instance = RequestContext(request),
+         context_instance = RequestContext(request),
         )
 
 

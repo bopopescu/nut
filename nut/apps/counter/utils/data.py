@@ -36,8 +36,9 @@ class RedisCounterMachine(object):
 
     @classmethod
     def _hash_key(cls,key):
-        return  hashlib.sha1(key).hexdigest()
-
+        # do not hash key , use them directly
+        # return  hashlib.sha1(key).hexdigest()
+        return key
     @classmethod
     def get_counter_key_from_path(cls, path):
         prefix = 'counter'
@@ -65,7 +66,7 @@ class RedisCounterMachine(object):
         try :
             count = r_server.incr(key)
         except :
-            raise CounterException('can not increment key')
+            raise CounterException('can not count')
         return count
 
     @classmethod
