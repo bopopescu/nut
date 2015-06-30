@@ -134,6 +134,17 @@
             $('.note-editor')
                 .on('change','input.title-input', this.onTitleChange.bind(this));
 
+            $(window).scroll(this.onWindowScroll.bind(this));
+
+        },
+
+        onWindowScroll: function(){
+            body_top = $('body').scrollTop();
+            if (body_top>453){
+                $('.note-toolbar.btn-toolbar').addClass('fixed-toolbar');
+            }else{
+                $('.note-toolbar.btn-toolbar').removeClass('fixed-toolbar');
+            }
         },
 
         onTitleChange:function(event){
