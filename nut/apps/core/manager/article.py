@@ -42,8 +42,7 @@ class SelectionArticleManager(models.Manager):
 
         rList = list(related_list)
         shuffle(rList)
-        # TODO: use longer timeout
-        cache.set(key, rList ,timeout=10)
+        cache.set(key, rList ,timeout=60*60*12)
         return related_list
 
 
