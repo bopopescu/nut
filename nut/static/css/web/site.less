@@ -1547,7 +1547,7 @@ a:hover{text-decoration:underline;}
 
 #detail_content{
    //for selection article list page
-  min-width: 550px;
+//  min-width: 550px;
   #article_list{
       .article-wrapper{
           margin-bottom :20px;
@@ -1903,7 +1903,8 @@ a:hover{text-decoration:underline;}
 .guoku-button:hover,
 #detail_content_right .section-list .section-banner img:hover,
 .guess_img .img-box img:hover,
-.article-wrapper .cover-wrapper a img:hover
+.article-wrapper .cover-wrapper a img:hover,
+.more-article-wrapper .cover-wrapper a img:hover
 {
   opacity: @hover-opacity;
 }
@@ -2119,44 +2120,65 @@ a:hover{text-decoration:underline;}
     }
 }
 
-.main-article{
-   .panel;
+@media (min-width: 768px){
+  .main-article{
+    .panel;
+  }
+  .more-article-wrapper{
+    .panel-no-padding;
+    .title-wrapper{
+         padding-top:5%;
+         .title{
+            padding-top: 20px;
+            padding-left: 20px;
+            font-size: @subtitle-size;
+         }
+     }
+  }
 }
 
-.seperator-line{
-   border-bottom: 1px solid #fff;
-   margin-bottom: 40px;
-   margin-top: -10px;
-  .round-box{
-     margin: 0 auto;
+@media (max-width: 767px){
+   .main-article{
 
-     width:50px;
-     height:50px;
-     .border-radius(25px);
-     font-size:30px;
-     line-height: 50px;
-     background-color: #fff;
-     color: @common-gray;
-     padding-left:10px;
-     position: relative;
-     top:24px;
-  }
+   }
+   .more-article-wrapper{
+     .title-wrapper{
+         padding-top:5px;
+         .title{
+            padding: 0px 5px;
+            font-size: 15px;
+            font-weight: 800;
+         }
+     }
+   }
+
+   .artice-section-title{
+      border-left: 4px solid @common-gray;
+      padding-left: 15px;
+      position: relative;
+      left: -15px;
+   }
+
+}
+
+
+.artice-section-title{
+
+  margin: 20px 0px;
+  font-size: @subtitle-size;
+
 }
 
 .more-article-wrapper{
     margin: 20px 0px;
     overflow: hidden;
-    .panel-no-padding;
 
    .title-wrapper{
         width: 60%;
         float: right;
         display: block;
-        padding-top:5%;
        .title{
-          padding-top: 20px;
-          padding-left: 20px;
-          font-size: @subtitle-size;
+
        }
    }
     .cover-wrapper{
