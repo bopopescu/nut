@@ -26,10 +26,10 @@ class RedisCounterMachine(object):
             elif hasattr(settings, 'TEST_SERVER_REDIS'):
                 # test.guoku.com
                 r_server = redis.Redis(settings.TEST_SERVER_REDIS_HOST)
+            elif hasattr(settings, 'PRODUCTION_REDIS_SERVER'):
+                r_server = redis.Redis(settings.PRODUCTION_REDIS_SERVER_HOST)
             else:
-                #  use redis cache's raw client
-                #  no need for pooling , for django-redis already handled it
-                r_server = get_redis_connection("default")
+                raise  CounterException('can not find redis settings')
         except Exception as e:
             raise CounterException('can not find redis server, for :%s', e.message)
         return r_server
@@ -66,7 +66,7 @@ class RedisCounterMachine(object):
         try :
             count = r_server.incr(key)
         except :
-            raise CounterException('can not count')
+            raise CounterException('can not ')
         return count
 
     @classmethod
