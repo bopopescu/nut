@@ -2079,6 +2079,9 @@ a:hover {
 .article-wrapper .info-wrapper span {
   margin-right: 10px;
 }
+.article-wrapper .info-wrapper .create-time {
+  float: right;
+}
 .article-wrapper .cover-wrapper {
   margin-bottom: 20px;
 }
