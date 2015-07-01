@@ -36,7 +36,6 @@ class Counter(JSONResponseMixin, AjaxResponseMixin, View):
         return  RedisCounterMachine.get_counter_key_from_path(path)
 
     def get_ajax(self, request , *args, **kwargs):
-        log.error('ajax call received ')
         counter_key = None
         try:
             counter_key = self.get_key(request)
