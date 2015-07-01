@@ -44,7 +44,7 @@ class EntityManager(models.Manager):
     def guess(self, category_id=None, count=5, exclude_id= None):
         size = count * 10
         if exclude_id:
-            entity_list = self.new_or_selection(category_id=category_id).exclude(pk=exclude_id)
+            entity_list = self.new_or_selection(category_id=category_id).exclude(pk=exclude_id).filter(buy_links__status=2)
         else:
             entity_list = self.new_or_selection(category_id=category_id)
         try:
