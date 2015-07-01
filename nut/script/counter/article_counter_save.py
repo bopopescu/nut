@@ -16,7 +16,3 @@ for pk, read_count in count_list.iteritems():
     article = Article.objects.get(pk=pk)
     article.read_count = read_count
     article.save()
-
-
-
-

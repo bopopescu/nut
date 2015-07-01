@@ -94,4 +94,5 @@ class RedisCounterMachine(object):
             return res
         except :
             raise CounterException('can not mget keys ')
-        return res
+        finally:
+            return res
