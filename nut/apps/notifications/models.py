@@ -162,7 +162,6 @@ def push_notification(sender, instance, created, **kwargs):
             for reg in instance.recipient.jpush_token.all():
                 log.info(reg.model)
                 # if reg.model == 'iPhones':
-
                 push.platform = jpush.platform(_platform)
                 push.audience = jpush.registration_id(reg.rid)
                 # log.info("%d" % instance.recipient.notifications.unread().count())
