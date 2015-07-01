@@ -3,6 +3,21 @@ Change Log
 ### Ver 2.2.5
 1. spider update 可以检查 淘宝商品价格。 
 2. 增加 amazon 图书入库。
+3. 部署计数器，和保存阅读数
+
+```
+alter table （SQL COMMAND）
+ALTER TABLE `core`.`core_article` 
+ADD COLUMN `read_count` INT ZEROFILL UNSIGNED NULL AFTER `showcover`;
+```
+
+2.  部署代码
+
+2.5 测试计数器工作正常
+
+3. sudo crontab -e   , 打开的编辑器里加入下面一行,并保存
+
+*/30 * * * * /usr/local/bin/python /data/www/nut/script/counter/article_counter_save.py 
 
 ### Ver 2.2.4
 1. 增加 Article (图文) Sitemap
