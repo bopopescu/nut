@@ -57,7 +57,6 @@ class RedisCounterMachine(object):
         return final_res
         # return dict(zip(pks,counts));
 
-
     @classmethod
     def increment_key(cls,key):
         counter_store = cls.get_store()
@@ -84,14 +83,16 @@ class RedisCounterMachine(object):
             raise  CounterException('can not get key ')
         return value
 
-
     @classmethod
     def get_keys_count(cls, keys):
         r_server = cls.get_store()
         hashed_keys = [cls._hash_key(key) for key in keys]
+        res = None
         try:
             res = r_server.get_many(hashed_keys)
-            return res
+            # return res
         except :
             raise CounterException('can not mget keys ')
-        return res
+        finally:
+            return res
+        # return res
