@@ -77,7 +77,7 @@ class EditSelectionArticleForm(BaseSelectionArticleForm):
 
     def save(self):
         # _the_article = self.get_article_obj()
-        _is_published = self.cleaned_data.get('is_published')
+        _is_published = int(self.cleaned_data.get('is_published'))
         _pub_time = self.cleaned_data.get('pub_time', None)
 
         self.sla.is_published = _is_published
