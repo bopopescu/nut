@@ -1,11 +1,10 @@
-import hashlib
-import redis
 from django.conf import settings
-from django_redis import get_redis_connection
+from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.utils.log import getLogger
 log = getLogger('django')
 
+import  re
 
 class CounterException(Exception):
     pass
@@ -20,25 +19,8 @@ class RedisCounterMachine(object):
     '''
 
     @classmethod
-    def get_redis_server(cls):
-        r_server = None
-        try :
-            if hasattr(settings ,'LOCAL_TEST_REDIS'):
-                # no need for pooling, for local test
-                r_server = redis.Redis(settings.LOCAL_TEST_REDIS_HOST)
-            elif hasattr(settings, 'TEST_SERVER_REDIS'):
-                # test.guoku.com
-                r_server = redis.Redis(settings.TEST_SERVER_REDIS_HOST)
-            elif hasattr(settings, 'PRODUCTION_REDIS_SERVER'):
-                log.error('anchen: connecting redis %s '%settings.PRODUCTION_REDIS_SERVER_HOST)
-                r_server = redis.Redis(settings.PRODUCTION_REDIS_SERVER_HOST)
-            else:
-                log.error('anchen: not setting for connection redis')
-                raise  CounterException('can not find redis settings')
-        except Exception as e:
-            log.error('anchen: exception when get server %s'%e.message)
-            raise CounterException('can not find redis server, for :%s', e.message)
-        return r_server
+    def get_store(cls):
+        return cache
 
     @classmethod
     def _hash_key(cls,key):
@@ -49,8 +31,6 @@ class RedisCounterMachine(object):
     def get_counter_key_from_path(cls, path):
         prefix = 'counter'
         key_body = ':'.join(path.split('/'))
-        log.error('key generated ')
-        log.error('%s%s'%(prefix, key_body))
         return '%s%s'%(prefix, key_body)
 
     @classmethod
@@ -59,29 +39,44 @@ class RedisCounterMachine(object):
         return cls.get_counter_key_from_path(path)
 
     @classmethod
+    def get_article_pk_from_counter_key(cls, key):
+        matchs = re.findall("counter:articles:(\d+):", key)
+        if matchs :
+            return long(matchs[0])
+        else:
+            return None
+
+    @classmethod
     def get_read_counts(cls,articles):
-        pks  = [article.pk for article in articles]
-        keys = [cls.get_article_read_count_key_from_pk(article.pk) \
-                for article in articles]
-        counts = cls.get_keys_count(keys)
-        return dict(zip(pks,counts));
+        keys = [cls.get_article_read_count_key_from_pk(article.pk) for article in articles]
+        res = cls.get_keys_count(keys)
+        final_res = dict()
+        for key  in res:
+            final_res[cls.get_article_pk_from_counter_key(key)] =res[key]
+
+        return final_res
+        # return dict(zip(pks,counts));
 
 
     @classmethod
     def increment_key(cls,key):
-        r_server = cls.get_redis_server()
+        counter_store = cls.get_store()
         key = cls._hash_key(key)
         try :
 
-            count = r_server.incr(key)
-            log.error('key incremented for key %s'%key)
-        except :
-            raise CounterException('can not ')
+            count = counter_store.incr(key)
+        except ValueError :
+            # cache this value forever
+            counter_store.set(key, 1, timeout=None)
+            count = 1
+            return count
+        except Exception as e :
+            raise CounterException(' increment error %s' %e.message)
         return count
 
     @classmethod
     def get_key(cls,key):
-        r_server= cls.get_redis_server()
+        r_server= cls.get_store()
         hkey = cls._hash_key()
         try:
             value = r_server.get(hkey)
@@ -92,10 +87,11 @@ class RedisCounterMachine(object):
 
     @classmethod
     def get_keys_count(cls, keys):
-        r_server = cls.get_redis_server()
+        r_server = cls.get_store()
         hashed_keys = [cls._hash_key(key) for key in keys]
         try:
-            res = r_server.mget(*hashed_keys)
+            res = r_server.get_many(hashed_keys)
+            return res
         except :
             raise CounterException('can not mget keys ')
         return res
