@@ -1,4 +1,4 @@
-(function(document,window){
+(function(document,window,$){
 
     // ployfill -----------  function.protype.bind
 
@@ -33,6 +33,7 @@
         this.initSummernote();
         this.bindEvents();
         this.fillSummernote();
+        this.updateEditableHeight();
         //TODO: implement a method for determin if the article is changed
         // this method should compare data in the real form , and data in the summernote, title , cover , and show-cover
 
@@ -45,7 +46,7 @@
           this.contentChanged = false;
           this.error_messages = [];
           this.summer = $('.guoku_editor').summernote({
-            height: 1200,
+            height: 700,
             focus: true,
             onImageUpload: function(file) {
                 that.sendFile(file, function(url){
@@ -54,9 +55,23 @@
             },
             onChange:function(contents, $editable){
                 that.contentChanged = true;
+                that.updateEditableHeight();
                 //console.log('changed');
             },
            });
+
+        },
+
+        updateEditableHeight:function(){
+            $('.note-editable').css({height:'auto'});
+            var editableHeight = $('.note-editable').height();
+                if (!editableHeight || editableHeight < 700){
+                     $('.note-editable').height(700);
+                }else{
+                    $('.note-editable').height(editableHeight + 40);
+                }
+                return editableHeight;
+
 
         },
         initBootbox:function(){
@@ -339,5 +354,5 @@
     })
 
 
-})(document, window)
+})(document, window, jQuery)
 
