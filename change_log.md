@@ -1,11 +1,11 @@
 Change Log
 ==========
-### Ver 2.2.6
+### Ver 4.2.6（2015-07-02）
 1. 完善推荐算法， 去除部分下架商品。
 2. 上传 png 自动转换成 jpeg
 
 
-### Ver 2.2.5 （2015-07-01）
+### Ver 4.2.5 （2015-07-01）
 1. spider update 可以检查 淘宝商品价格。 
 2. 增加 amazon 图书入库。
 3. 部署计数器，和保存阅读数
@@ -24,13 +24,13 @@ ADD COLUMN `read_count` INT ZEROFILL UNSIGNED NULL AFTER `showcover`;
 
 */30 * * * * /usr/local/bin/python /data/www/nut/script/counter/article_counter_save.py 
 
-### Ver 2.2.4
+### Ver 4.2.4
 1. 增加 Article (图文) Sitemap
 2. 增加 Article (图文) Rss
 3. bug fixes
 
 
-### Ver 2.2.3 （2015-06-24）
+### Ver 4.2.3 （2015-06-24）
 
 
 1. **core_buy_link** 表增加 **status** 字段。
