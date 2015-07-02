@@ -15,7 +15,8 @@ def resize(image_name, size=None, **kwargs):
         if size is not None:
             image = HandleImage(f)
             _size = float(size)
-            logger.info(image.image_data.content_type)
+            # logger.info(image.content_type)
+            # print image
             image.resize(_size, _size)
             image_data = image.image_data
         else:
