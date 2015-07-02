@@ -38,7 +38,7 @@ class SelectionArticleManager(models.Manager):
         related_list = self.get_queryset()\
                             .filter(pub_time__lte = datetime.now())\
                             .exclude(article__pk=article.pk)\
-                            .order_by('-pub_time')[:30]
+                            .order_by('-pub_time')[:6]
 
         rList = list(related_list)
         shuffle(rList)
