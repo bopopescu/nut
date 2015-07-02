@@ -73,8 +73,8 @@ SESSION_CACHE_ALIAS = "default"
 MOGILEFS_DOMAIN = 'prod'
 MOGILEFS_TRACKERS = ['10.0.2.50:7001']
 MOGILEFS_MEDIA_URL = 'images/'
-# DEFAULT_FILE_STORAGE = 'storages.backends.mogile.MogileFSStorage'
-DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.mogile.MogileFSStorage'
+# DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 # IMAGE_SIZE = [128, 310, 640]
 
 Avatar_Image_Path = 'avatar/'
