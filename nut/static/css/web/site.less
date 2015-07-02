@@ -24,6 +24,9 @@
 @global-box-radius:4px;
 
 @bottom-border-color:#d5d5d5;
+@guoku-editor-width : 600px;
+@common-shadow: 0px 2px 3px #ddd;
+
 .guoku-btn-normal{
             font-size:@primary-size;
             height: 35px;
@@ -1726,7 +1729,11 @@ a:hover{text-decoration:underline;}
       }
   }
   #detail_content_left{
+    .guess-title{
 
+      font-size: @subtitle-size;
+      margin: 20px 0px ;
+    }
     .detail-pic-left{
        .detail_img_big{
          img{
@@ -1841,7 +1848,7 @@ a:hover{text-decoration:underline;}
        }
     }
     #guess_list{
-      .guss-title{
+      .guess-title{
          padding: 10px 15px;
          font-size: @subtitle-size;
 
@@ -1895,24 +1902,48 @@ a:hover{text-decoration:underline;}
      .box-shadow(0px 0px 3px #ddd);
 }
 
+@media(max-width: 767px){
+  #detail_content_left {
+    .guess-wrapper{
+      margin:0px 0px;
+      #guess_list{
+        padding: 3px 0px;
+        background-color: @very-light-gray;
+         .guess-img{
+          padding: 3px;
+        }
+      }
+
+    }
+  }
+}
 
 @media (min-width: 768px){
-
-
    body.gray-body{
     background-color: @very-light-gray;
     }
 
    #detail_content_left {
-        .panel;
+       .entity-wrapper{
+         .panel;
+       }
+       .guess-wrapper{
+//         .panel;
+         margin:0px 15px;
+         .guess-img{
+           .panel-no-padding;
+           padding:10px;
+         }
+       }
+
         .detail-img-big{
-          height: 360px;
+          height: 320px;
           white-space: nowrap;
           .main-img{
              vertical-align: middle;
              border: none;
-             max-height:360px;
-             max-width: 360px;
+             max-height:320px;
+             max-width: 320px;
              margin:0 auto ;
           }
 
@@ -1937,16 +1968,6 @@ a:hover{text-decoration:underline;}
    }
 }
 
-.entity-four .img-box img:hover,
-.entity-selection .img-box img:hover,
-.guoku-button:hover,
-#detail_content_right .section-list .section-banner img:hover,
-.guess_img .img-box img:hover,
-.article-wrapper .cover-wrapper a img:hover,
-.more-article-wrapper .cover-wrapper a img:hover
-{
-  opacity: @hover-opacity;
-}
 
 
 @media (max-width: 767px){
@@ -2053,6 +2074,10 @@ a:hover{text-decoration:underline;}
 
 
 .editor_wrap{
+   .fixed-toolbar{
+     width: @guoku-editor-width;
+     .box-shadow(@common-shadow);
+   }
 
    .cover{
      position:relative;
@@ -2245,4 +2270,16 @@ a:hover{text-decoration:underline;}
    a:hover{
      text-decoration: underline;
    }
+}
+
+.entity-four .img-box img:hover,
+.entity-selection .img-box img:hover,
+.guoku-button:hover,
+#detail_content_right .section-list .section-banner img:hover,
+.guess_img .img-box img:hover,
+.article-wrapper .cover-wrapper a img:hover,
+.more-article-wrapper .cover-wrapper a img:hover,
+.guess-wrapper .recommend-img:hover
+{
+  opacity: @hover-opacity;
 }
