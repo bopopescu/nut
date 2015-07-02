@@ -1903,6 +1903,18 @@ a:hover {
   -moz-box-shadow: 0px 0px 3px #dddddd;
   box-shadow: 0px 0px 3px #dddddd;
 }
+@media (max-width: 767px) {
+  #detail_content_left .guess-wrapper {
+    margin: 0px 0px;
+  }
+  #detail_content_left .guess-wrapper #guess_list {
+    padding: 3px 0px;
+    background-color: #f8f8f8;
+  }
+  #detail_content_left .guess-wrapper #guess_list .guess-img {
+    padding: 3px;
+  }
+}
 @media (min-width: 768px) {
   body.gray-body {
     background-color: #f8f8f8;
@@ -1976,16 +1988,6 @@ a:hover {
     -moz-box-shadow: 0px 0px 3px #dddddd;
     box-shadow: 0px 0px 3px #dddddd;
   }
-}
-.entity-four .img-box img:hover,
-.entity-selection .img-box img:hover,
-.guoku-button:hover,
-#detail_content_right .section-list .section-banner img:hover,
-.guess_img .img-box img:hover,
-.article-wrapper .cover-wrapper a img:hover,
-.more-article-wrapper .cover-wrapper a img:hover,
-.guess-wrapper .recommend-img:hover {
-  opacity: 0.7;
 }
 @media (max-width: 767px) {
   .detail-img-big .main-img {
@@ -2230,4 +2232,14 @@ a:hover {
 }
 .download-link a:hover {
   text-decoration: underline;
+}
+.entity-four .img-box img:hover,
+.entity-selection .img-box img:hover,
+.guoku-button:hover,
+#detail_content_right .section-list .section-banner img:hover,
+.guess_img .img-box img:hover,
+.article-wrapper .cover-wrapper a img:hover,
+.more-article-wrapper .cover-wrapper a img:hover,
+.guess-wrapper .recommend-img:hover {
+  opacity: 0.7;
 }
