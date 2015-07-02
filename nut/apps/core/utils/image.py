@@ -33,6 +33,7 @@ class HandleImage(object):
 
     @property
     def image_data(self):
+        # self._image_data.format = 'jpeg'
         return self._image_data
 
     def get_ext_name(self):
