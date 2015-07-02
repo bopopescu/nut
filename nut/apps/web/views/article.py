@@ -160,6 +160,7 @@ class EditorArticleEdit(AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,
 
         return self.render_json_response(res)
 
+
 class ArticleDetail(DetailView):
     model = Article
     context_object_name = 'article'
@@ -176,6 +177,7 @@ class ArticleDetail(DetailView):
         context['can_show_edit'] =  (not article.is_selection) and (self.request.user == article.creator)
         context = add_side_bar_context_data(context)
         return context
+
 
 class ArticleDelete(UserPassesTestMixin, View):
     def test_func(self, user):
