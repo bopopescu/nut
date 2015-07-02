@@ -1902,6 +1902,21 @@ a:hover{text-decoration:underline;}
      .box-shadow(0px 0px 3px #ddd);
 }
 
+@media(max-width: 767px){
+  #detail_content_left {
+    .guess-wrapper{
+      margin:0px 0px;
+      #guess_list{
+        padding: 3px 0px;
+        background-color: @very-light-gray;
+         .guess-img{
+          padding: 3px;
+        }
+      }
+
+    }
+  }
+}
 
 @media (min-width: 768px){
    body.gray-body{
@@ -1953,17 +1968,6 @@ a:hover{text-decoration:underline;}
    }
 }
 
-.entity-four .img-box img:hover,
-.entity-selection .img-box img:hover,
-.guoku-button:hover,
-#detail_content_right .section-list .section-banner img:hover,
-.guess_img .img-box img:hover,
-.article-wrapper .cover-wrapper a img:hover,
-.more-article-wrapper .cover-wrapper a img:hover,
-.guess-wrapper .recommend-img:hover
-{
-  opacity: @hover-opacity;
-}
 
 
 @media (max-width: 767px){
@@ -2266,4 +2270,16 @@ a:hover{text-decoration:underline;}
    a:hover{
      text-decoration: underline;
    }
+}
+
+.entity-four .img-box img:hover,
+.entity-selection .img-box img:hover,
+.guoku-button:hover,
+#detail_content_right .section-list .section-banner img:hover,
+.guess_img .img-box img:hover,
+.article-wrapper .cover-wrapper a img:hover,
+.more-article-wrapper .cover-wrapper a img:hover,
+.guess-wrapper .recommend-img:hover
+{
+  opacity: @hover-opacity;
 }
