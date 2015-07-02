@@ -1,4 +1,4 @@
-部署计数器，和保存阅读数。
+部署计数器，和保存阅读数
 
 1. alter table （SQL COMMAND）
 
