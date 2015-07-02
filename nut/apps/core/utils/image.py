@@ -17,29 +17,40 @@ class HandleImage(object):
     path = image_path
 
     def __init__(self, image_file):
+        try:
+            self._content_type = image_file.content_type
+        except AttributeError:
+            self._content_type = None
+
         if hasattr(image_file, 'chunks'):
             self._image_data = ''.join(chuck for chuck in image_file.chunks())
         else:
             self._image_data = image_file.read()
-        try:
-            self.content_type = image_file.content_type
-        except AttributeError:
-            pass
+
         self.ext_name = self.get_ext_name()
         image_file.close()
         log.info('init HandleImage obj---')
         self._name = None
-
+        self.img = WandImage(blob=self._image_data)
 
     @property
     def image_data(self):
         # self._image_data.format = 'jpeg'
         return self._image_data
 
+    @property
+    def content_type(self):
+        if self._content_type is None:
+            return None
+
+        if self._content_type == 'image/png':
+            self._content_type = 'image/jpeg'
+        return self._content_type
+
     def get_ext_name(self):
         ext = 'jpg'
         try:
-            ext = self.content_type.split('/')[1]
+            ext = self._content_type.split('/')[1]
         except :
             pass
 
@@ -51,21 +62,21 @@ class HandleImage(object):
         return self._name
 
     def resize(self, w, h):
-        _img = WandImage(blob = self._image_data)
-
-        if (w /  h > _img.width / _img.height):
-            _width = round(h * _img.width / _img.height)
+        # _img = WandImage(blob = self._image_data)
+        # _img.format = 'jpeg'
+        if (w /  h > self.img.width / self.img.height):
+            _width = round(h * self.img.width / self.img.height)
             _height = h
         else:
             _width = w
-            _height = round(w * _img.height / _img.width)
+            _height = round(w * self.img.height / self.img.width)
 
         _width = int(_width)
         _height = int(_height)
         # _img.sample(_width, _height)
-        _img.resize(_width, _height)
+        self.img.resize(_width, _height)
         # _img.transform("%sx%s" % (_width, _height), "200%")
-        self._image_data =  _img.make_blob()
+        self._image_data = self.img.make_blob()
         return self.image_data
 
     def crop_square(self):
@@ -95,13 +106,20 @@ class HandleImage(object):
 
     def save(self, path = None, resize=False, square=False):
         log.info('begin save -----')
+
+        if self.ext_name == 'png':
+            # _img = WandImage(blob = self._image_data)
+            # _img.format = 'jpeg'
+            self._image_data = self.img.make_blob(format='jpeg')
+            self.ext_name = 'jpg'
+
         if square and (self.ext_name == 'jpg') :
             self.crop_square()
         # else:
         if path:
             self.path = path
 
-        filename = self.path + self.name +'.' +self.ext_name
+        filename = self.path + self.name +'.' + self.ext_name
         log.info(filename)
         if not default_storage.exists(filename):
             try:
