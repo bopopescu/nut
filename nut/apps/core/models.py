@@ -572,7 +572,6 @@ class Entity(BaseModel):
     def is_in_selection(self):
         return self.status == Entity.selection
 
-
     @property
     def enter_selection_time(self):
         _tm = None

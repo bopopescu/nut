@@ -1736,6 +1736,10 @@ a:hover {
 #detail_content #detail_content_right .section-list .section-title {
   margin-bottom: 10px;
 }
+#detail_content #detail_content_left .guess-title {
+  font-size: 16px;
+  margin: 20px 0px ;
+}
 #detail_content #detail_content_left .detail-pic-left .detail_img_big img {
   border: 1px solid #e6e6e6;
 }
@@ -1840,7 +1844,7 @@ a:hover {
 #detail_content #detail_content_left #login_user_comment .media {
   margin: 0px 15px;
 }
-#detail_content #detail_content_left #guess_list .guss-title {
+#detail_content #detail_content_left #guess_list .guess-title {
   padding: 10px 15px;
   font-size: 16px;
 }
@@ -1903,7 +1907,7 @@ a:hover {
   body.gray-body {
     background-color: #f8f8f8;
   }
-  #detail_content_left {
+  #detail_content_left .entity-wrapper {
     background-color: #ffffff;
     padding: 18px 18px;
     -webkit-border-radius: 4px;
@@ -1916,15 +1920,31 @@ a:hover {
     -moz-box-shadow: 0px 0px 3px #dddddd;
     box-shadow: 0px 0px 3px #dddddd;
   }
+  #detail_content_left .guess-wrapper {
+    margin: 0px 15px;
+  }
+  #detail_content_left .guess-wrapper .guess-img {
+    background-color: #ffffff;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    -webkit-box-shadow: 0px 0px 3px #dddddd;
+    -moz-box-shadow: 0px 0px 3px #dddddd;
+    box-shadow: 0px 0px 3px #dddddd;
+    padding: 10px;
+  }
   #detail_content_left .detail-img-big {
-    height: 360px;
+    height: 320px;
     white-space: nowrap;
   }
   #detail_content_left .detail-img-big .main-img {
     vertical-align: middle;
     border: none;
-    max-height: 360px;
-    max-width: 360px;
+    max-height: 320px;
+    max-width: 320px;
     margin: 0 auto ;
   }
   #detail_content_right {
@@ -1963,7 +1983,8 @@ a:hover {
 #detail_content_right .section-list .section-banner img:hover,
 .guess_img .img-box img:hover,
 .article-wrapper .cover-wrapper a img:hover,
-.more-article-wrapper .cover-wrapper a img:hover {
+.more-article-wrapper .cover-wrapper a img:hover,
+.guess-wrapper .recommend-img:hover {
   opacity: 0.7;
 }
 @media (max-width: 767px) {
@@ -2034,6 +2055,12 @@ a:hover {
 }
 .article-form-wrapper {
   display: none;
+}
+.editor_wrap .fixed-toolbar {
+  width: 600px;
+  -webkit-box-shadow: 0px 2px 3px #dddddd;
+  -moz-box-shadow: 0px 2px 3px #dddddd;
+  box-shadow: 0px 2px 3px #dddddd;
 }
 .editor_wrap .cover {
   position: relative;
