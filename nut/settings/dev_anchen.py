@@ -32,9 +32,6 @@ CACHES = {
 # )
 LOCAL_TEST_DB = True
 
-# for redis counter
-LOCAL_TEST_REDIS = True
-LOCAL_TEST_REDIS_HOST = 'localhost'
 
 Current_Dbhost = 'localhost'
 # Current_Dbhost = '10.0.1.110'
