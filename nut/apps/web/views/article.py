@@ -115,12 +115,11 @@ class EditorArticleEdit(AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,
             if the_article.creator != request.user:
                 raise Http404('没有找到对应文章，您是作者吗？')
 
-
-
         the_form = WebArticleEditForm(instance=the_article)
         return self.render_to_response({
             'form':the_form,
             'pk': pk,
+            'is_chief_editor': self.request.user.is_chief_editor
         })
 
     def post_ajax(self, request, *args, **kwargs):
