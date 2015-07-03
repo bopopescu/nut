@@ -47,6 +47,8 @@ def list(request, active='1', template="management/users/list.html"):
     elif active == '0':
         user_list = GKUser.objects.blocked().using('slave')
     # elif active == '999':
+    elif active == '3':
+        user_list = GKUser.objects.writer().using('slave')
     else:
         user_list = GKUser.objects.deactive().using('slave')
     # else:

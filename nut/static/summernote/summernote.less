@@ -1,5 +1,34 @@
 @import "elements.less";
 
+
+@light-gray:#9d9d9d;
+@link-color:#357ebd;
+@like-color:#FF1F77;
+@common-gray: #9D9E9F;
+@common-text-color: #424242;
+@very-light-gray:#F8F8F8;
+@panel-background-color: #fff;
+@default-background:#fff;
+
+@light-blue:#5ba4cf;
+@dark-red:rgb(140, 58, 58);
+
+@star-color:#FF9500;
+
+@primary-size : 14px ;
+@title-size:22px;
+@subtitle-size:16px;
+@mini-size: 13px;
+
+@hover-opacity:0.7;
+
+@global-box-radius:4px;
+
+@bottom-border-color:#d5d5d5;
+@guoku-editor-width : 600px;
+@common-shadow: 0px 2px 3px #ddd;
+
+
 /* Theme Variables
  ------------------------------------------*/
 @border-color: #f1f2f3;
@@ -595,4 +624,23 @@
     }
 
   }
+}
+
+#toggle-intro{
+    position: absolute;
+    right : -35px  ;
+    bottom: 0px;
+    height: 30px;
+    width:30px;
+    border-radius: 15px;
+    padding-top:2px;
+    cursor: pointer;
+    padding-left: 10px;
+    display: block;
+    background-color: @very-light-gray;
+    font-size: 22px;
+    color: #dddddd;
+}
+#toggle-intro:hover{
+      color: #999999;
 }

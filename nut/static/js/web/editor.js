@@ -137,13 +137,17 @@
             var data = this.collectFormValues();
                 this.setEditorValues(data);
         },
-
+        toggleIntro: function(){
+            console.log('intro');
+        },
 
         bindEvents:function() {
 
             $('.fix-operate #save-draft').click(this.saveDraft.bind(this));
             $('.fix-operate #save-publish').click(this.savePublish.bind(this));
             $('.fix-operate #return-list').click(this.returnList.bind(this));
+            $('.fix-operate #toggle-intro').click(this.toggleIntro.bind(this));
+
             $('.article-cover')
                 .on('change','#cover-upload-button',this.onCoverUpload.bind(this));
             $('.note-editor')
