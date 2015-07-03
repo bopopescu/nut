@@ -35,11 +35,11 @@ if __name__=="__main__":
     u =  PublishItem2U(app_key='23198909', app_secret='cc35120d1fb84446300eb1092fae4abe')
 
     resp = u.publish(
-        item_id = '39987099546',
+        item_id = '39502923104',
         title='test',
         comments='test',
         # detailurl='http://www.guoku.com/detail/c7fb6489/',
-        detailurl='http://guoku.uz.taobao.com/detail/741912015/?spm=a21a0.7476711.0.0.WH8XYt'
+        detailurl='http://guoku.uz.taobao.com/detail/e92780d8/'
     )
 
     print resp
