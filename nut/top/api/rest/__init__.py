@@ -12,3 +12,8 @@ from top.api.rest.OpensecurityUidGetRequest import OpensecurityUidGetRequest
 from top.api.rest.TbkShopsDetailGetRequest import TbkShopsDetailGetRequest
 from top.api.rest.TbkMobileShopsConvertRequest import TbkMobileShopsConvertRequest
 from top.api.rest.TbkMobileItemsConvertRequest import TbkMobileItemsConvertRequest
+
+from top.api.rest.SpContentItemPublishRequest import SpContentItemPublishRequest
+from top.api.rest.SpContentGraphicUpdateRequest import SpContentGraphicUpdateRequest
+from top.api.rest.SpContentItemUpdateRequest import SpContentItemUpdateRequest
+from top.api.rest.SpContentGraphicPublishRequest import SpContentGraphicPublishRequest
