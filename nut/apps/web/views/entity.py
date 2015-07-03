@@ -65,7 +65,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
         pass
 
 
-    _guess_entities = Entity.objects.guess(category_id=_entity.category_id, count=12, exclude_id=_entity.pk)
+    _guess_entities = Entity.objects.guess(category_id=_entity.category_id, count=9, exclude_id=_entity.pk)
 
 
 
