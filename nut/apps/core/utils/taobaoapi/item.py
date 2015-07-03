@@ -16,7 +16,6 @@ class TaobaoItem():
         self.req = TbkItemsGetRequest()
         self.req.set_app_info(appinfo(app_key, app_secret))
 
-    
     def get_item(self, num_iid, fields = None):
         num_iid = unicode(num_iid)
         if not fields:
