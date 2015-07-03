@@ -578,3 +578,21 @@
 #editor-container .editor_wrap .guoku_editor {
   font-size: 16px;
 }
+#toggle-intro {
+  position: absolute;
+  right: -35px;
+  bottom: 0px;
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  padding-top: 2px;
+  cursor: pointer;
+  padding-left: 10px;
+  display: block;
+  background-color: #f8f8f8;
+  font-size: 22px;
+  color: #dddddd;
+}
+#toggle-intro:hover {
+  color: #999999;
+}
