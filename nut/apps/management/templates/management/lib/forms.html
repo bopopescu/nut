@@ -2,6 +2,26 @@
     {% csrf_token %}
     <fieldset>
             {% for field in forms %}
+{#                {{ field.name }}#}
+                {% if field.name == 'pub_time' %}
+                <div class="form-group {% if field.errors %}has-error{% endif %}">
+                    <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                    <div class="input-group date form_datetime col-sm-5" data-link-field="dtp_input1" data-date-format="yyyy-mm-dd hh:ii">
+                        {{ field }}
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </span>
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </span>
+                    </div>
+                    {% if field.errors %}
+                        {% for error in field.errors %}
+                            <span class="help-block">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                {% else %}
                 <div class="form-group {% if field.errors %}has-error{% endif %}">
                     <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
                     <div class="col-sm-5">
@@ -13,6 +33,7 @@
                         {% endfor %}
                     {% endif %}
                 </div>
+                {% endif %}
             {% endfor %}
     </fieldset>
     <div class="form-group">
@@ -21,3 +42,4 @@
         </div>
     </div>
 </form>
+

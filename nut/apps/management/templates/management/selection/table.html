@@ -22,7 +22,11 @@
             <tbody>
                 {% for selection in selections %}
                     <tr>
-                        <td>{{ selection.entity.id }}</td>
+                        <td>
+{#                            <span class="input-group-addon">#}
+                                <input type="checkbox" value="{{ selection.entity.id }}">
+{#                            </span>#}
+                        </td>
                         <td>
 {#                          <div class="col-xs-2">#}
                                 <img class="img-thumbnail img-responsive" src="{{ selection.entity.chief_image|resize:'128' }}" width="128" height="128">
@@ -40,6 +44,7 @@
                             <div class="btn-group">
                                 <a class="btn btn-default" href="{% url 'management_entity_edit' selection.entity.pk %}" target="_blank">{% trans 'edit' %}</a>
                                 <a class="btn btn-primary" href="{% url 'management_selection_edit_publish' selection.pk %}" target="_blank">{% trans 'edit datetime' %}</a>
+{#                                <a class="btn btn-success">{% trans 'publish to U' %}</a>#}
                             </div>
                         </td>
                     </tr>

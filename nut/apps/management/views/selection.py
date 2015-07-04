@@ -83,7 +83,8 @@ def edit_publish(request, sid, template="management/selection/edit_publish.html"
 
     else:
         _forms = SelectionForm(selection=selection)
-
+        # print dir(_forms['pub_time'])
+        # print _forms['pub_time'].name
     return render_to_response(
         template,
         {
