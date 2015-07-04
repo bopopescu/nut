@@ -17,10 +17,10 @@
 {% block content %}
     <div class="container" id="editor-container">
         <div class="row">
-            {% if is_chief_editor %}
-                <div class="editor_wrap article-wrapper chief_editor">
+            {% if not is_chief_editor %}
+                <div class="editor_wrap article-wrapper common-editor">
             {% else  %}
-                 <div class="editor_wrap article-wrapper">
+                 <div class="editor_wrap article-wrapper chief-editor ">
             {% endif %}
                 <form id="article_form" method="post">
                     <div class="fix-operate">
