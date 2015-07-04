@@ -972,7 +972,7 @@ class WeChat_Token(BaseModel):
         return md5(code_string.encode('utf-8')).hexdigest()
 
 
-# TODO: article model
+# TODO: implement a digest property
 class Article(models.Model):
 
     (remove, draft, published) = xrange(3)

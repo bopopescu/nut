@@ -70,18 +70,8 @@
 
                 {% for sla in article.related_articles %}
                     {% with sla.article as r_article %}
-                        <div class="more-article-wrapper">
-                            <div class="title-wrapper">
-                                 <a href="{% url 'web_article_page' r_article.pk %}">
-                                <div class="title">{{ r_article.title|truncatechars:27 }}</div>
-                                 </a>
-                            </div>
-                            <div class="cover-wrapper">
-                                 <a href="{% url 'web_article_page' r_article.pk %}">
-                                    <img  src="{{ r_article.cover }}">
-                                </a>
-                            </div>
-                        </div>
+
+                      {% include 'web/article/partial/article_recommend_item.html' %}
                     {% endwith %}
                 {% endfor %}
 
