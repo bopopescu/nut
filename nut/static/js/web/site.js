@@ -47,7 +47,6 @@ $.ajaxSetup({
             // add by an , for event link status check , remove the red dot if event is read.
             // the key is defined in 2 places!  DRY...
             var viewed_event_slug_cookie_key = 'viewed_event_slug_cookie_key';
-
             if(!newest_event_slug){
                 return ;
             }
