@@ -155,6 +155,7 @@ def usite_published(request):
         entityids_json = request.POST.get('eids', None)
         # log.info(entityids_json)
         from apps.core.tasks import usite_published
+        # usite_published(entityids_json)
         usite_published.delay(entityids_json)
         # print json.loads(entityids_json)
         return SuccessJsonResponse(data={'status':'ok'})
