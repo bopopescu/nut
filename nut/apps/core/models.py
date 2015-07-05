@@ -998,6 +998,11 @@ class Article(models.Model):
         ordering = ["-updated_datetime"]
 
 
+    def save(self, *args, **kwargs):
+        if not kwargs.pop('skip_updatetime', False):
+            self.updated_datetime = datetime.now()
+        super(Article, self).save(*args, **kwargs)
+
 
     def __unicode__(self):
         return self.title
