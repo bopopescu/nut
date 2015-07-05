@@ -39,8 +39,24 @@ DATABASES = {
     },
 }
 
+DEBUG_TOOLBAR_CONFIG = {
+    'JQUERY_URL': '//libs.baidu.com/jquery/2.1.4//jquery.min.js'
+}
+
+
+TEMPLATE_CONTEXT_PROCESSORS += (
+    'django.core.context_processors.debug',
+)
+
+MIDDLEWARE_CLASSES += (
+    # ...
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # ...
+)
+
 INSTALLED_APPS += (
     'gunicorn',
+    'debug_toolbar',
 )
 
 

@@ -32,7 +32,7 @@ def usite_published(eids, **kwargs):
         resp = p.publish(
             item_id=item.origin_id,
             title=entity.title,
-            comments = entity.top_note.note,
+            comments = entity.top_note.note[:140],
             category = entity.category.title,
             detailurl='http://guoku.uz.taobao.com/detail/%s/' % entity.entity_hash,
         )
