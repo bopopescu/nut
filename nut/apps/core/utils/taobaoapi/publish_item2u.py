@@ -22,6 +22,8 @@ class PublishItem2U():
         self.req.title = title
         self.req.comments = comments
         self.req.detailurl = kwargs.pop('detailurl', None)
+        self.req.classname = kwargs.pop('category', None)
+        self.req.tags = u"新有好货,果库新品"
         # print self.req.title
         # print self.req.comments
         resp = {}
