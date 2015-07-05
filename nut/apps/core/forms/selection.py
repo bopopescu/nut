@@ -67,7 +67,6 @@ class SetPublishDatetimeForm(forms.Form):
         initial=datetime.now(),
     )
 
-
     def save(self):
         _publish_number = self.cleaned_data.get('publish_number')
         _start_time = self.cleaned_data.get('start_time')

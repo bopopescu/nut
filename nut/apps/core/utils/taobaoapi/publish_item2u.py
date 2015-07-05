@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from top.api import SpContentItemPublishRequest, SpContentItemUpdateRequest
 from top import appinfo
 # from django.utils.log import getLogger
@@ -13,6 +14,7 @@ class PublishItem2U():
         self.req.site_key = '7z2z61l918d7k80592e46154dl321fk6'
 
     def publish(self, **kwargs):
+        # print kwargs
         title = kwargs.pop('title', None)
         comments = kwargs.pop('comments', None)
 
@@ -20,12 +22,14 @@ class PublishItem2U():
         self.req.title = title
         self.req.comments = comments
         self.req.detailurl = kwargs.pop('detailurl', None)
-
+        # print self.req.title
+        # print self.req.comments
         resp = {}
         try:
             resp = self.req.getResponse()
+
         except Exception, e:
-            print e.message
+            print e
             # log.error(e.message)
         finally:
             return resp

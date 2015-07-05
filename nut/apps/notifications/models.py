@@ -157,19 +157,19 @@ def push_notification(sender, instance, created, **kwargs):
         push = _jpush.create_push()
         _platform = 'ios'
         _production = True
-        if instance.action_object_content_type.model == "entity_like":
-            verb = instance.actor.profile.nick + u' 喜爱了你添加的商品'
-            for reg in instance.recipient.jpush_token.all():
-                log.info(reg.model)
-                # if reg.model == 'iPhones':
-                push.platform = jpush.platform(_platform)
-                push.audience = jpush.registration_id(reg.rid)
-                # log.info("%d" % instance.recipient.notifications.unread().count())
-                ios_msg = jpush.ios(alert=verb.encode('utf8'), badge=instance.recipient.notifications.unread().count(), extras={'url':'guoku://entity/%s' % instance.target.pk})
-                push.notification = jpush.notification(alert=verb.encode('utf8'), ios=ios_msg)
-                push.options = {"time_to_live":86400, "apns_production":_production}
-                push.send()
-        elif instance.action_object_content_type.model == 'user_follow':
+        # if instance.action_object_content_type.model == "entity_like":
+        #     verb = instance.actor.profile.nick + u' 喜爱了你添加的商品'
+        #     for reg in instance.recipient.jpush_token.all():
+        #         log.info(reg.model)
+        #         # if reg.model == 'iPhones':
+        #         push.platform = jpush.platform(_platform)
+        #         push.audience = jpush.registration_id(reg.rid)
+        #         # log.info("%d" % instance.recipient.notifications.unread().count())
+        #         ios_msg = jpush.ios(alert=verb.encode('utf8'), badge=instance.recipient.notifications.unread().count(), extras={'url':'guoku://entity/%s' % instance.target.pk})
+        #         push.notification = jpush.notification(alert=verb.encode('utf8'), ios=ios_msg)
+        #         push.options = {"time_to_live":86400, "apns_production":_production}
+        #         push.send()
+        if instance.action_object_content_type.model == 'user_follow':
             verb = instance.actor.profile.nick + u' 开始关注你'
             for reg in instance.recipient.jpush_token.all():
                 # log.info("model %s" % reg.model)

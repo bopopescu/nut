@@ -23,9 +23,9 @@
                 {% for selection in selections %}
                     <tr>
                         <td>
-{#                            <span class="input-group-addon">#}
-                                <input type="checkbox" value="{{ selection.entity.id }}">
-{#                            </span>#}
+                            <label>
+                                <input class="usite-chk" type="checkbox" name="chk[]" value="{{ selection.entity.id }}" >
+                            </label>
                         </td>
                         <td>
 {#                          <div class="col-xs-2">#}

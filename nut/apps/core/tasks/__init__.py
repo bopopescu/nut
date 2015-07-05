@@ -22,6 +22,7 @@ from apps.core.tasks.account import fetch_avatar, update_token
 from apps.core.tasks.entity import fetch_image, like_task, unlike_task
 from apps.core.tasks.selection import set_publish_time
 from apps.core.tasks.note import post_note_task, depoke_note_task
+from apps.core.tasks.usite import usite_published
 
 
 __author__ = 'edison'

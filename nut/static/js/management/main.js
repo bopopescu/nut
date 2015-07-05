@@ -241,6 +241,51 @@
 
     };
 
+    var selection = {
+        publish2u:function(){
+            bootbox.setDefaults({
+                className: 'guoku-publish2u',
+                closeButton: false,
+                locale:'zh_CN'
+            });
+
+            $('#publish2u').click(function(){
+                bootbox.confirm({
+                    size: 'small',
+                    message: '发布到 U 站 ?',
+                    callback: function(result){
+                        if (result) {
+                            //return;
+                            var chklist = $('.usite-chk:checked');
+                            if (chklist.length > 0) {
+                                //console.log(chklist);
+                                var entityIds = new Array(0);
+                                chklist.each(function(res){
+                                    //console.log($(this).attr('value'));
+                                    //entityIds.append($(this).attr('value'));
+                                    entityIds.push($(this).attr('value'));
+                                });
+                                //console.log(entityIds);
+                                //console.log(JSON.stringify(entityIds));
+                                $.ajax({
+                                    type: 'post',
+                                    url: '/management/selection/usite/publish/',
+                                    data: {'eids': JSON.stringify(entityIds)},
+                                    success: function(res) {
+
+                                    }
+                                });
+                            }
+                            //console.log(chklist);
+                        }
+                    }
+                });
+            });
+        }
+    };
+
+
+
     (function init() {
 //        console.log($.find());
         entity.removeImage();
@@ -253,6 +298,8 @@
 //        add by An
         article.initAddSelectionArticle();
         article.initRemoveSelectionArticle();
+
+        selection.publish2u();
 //        note.post();
     })();
 })(jQuery, document, window);
