@@ -30,7 +30,7 @@ def selection(request, template='web/main/selection.html'):
     if _refresh_datetime is None:
         _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     # log.info(_refresh_datetime)
-    entity_list = Selection_Entity.objects.published().filter(pub_time__lte=_refresh_datetime)
+    entity_list = Selection_Entity.objects.published().filter(pub_time__lte=_refresh_datetime).using('slave')
     # entity_list = Entity.objects.
     paginator = ExtentPaginator(entity_list, 30)
     try:
@@ -44,7 +44,7 @@ def selection(request, template='web/main/selection.html'):
     if request.user.is_authenticated():
         # notify.send(request.user, recipient=request.user, verb='you visitor selection page')
         e = selections.object_list
-        el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(e.values_list('entity_id', flat=True)))
+        el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(e.values_list('entity_id', flat=True))).using('slave')
 
     if request.is_ajax():
         template = 'web/main/partial/selection_ajax.html'
