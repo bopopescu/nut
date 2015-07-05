@@ -33,6 +33,7 @@ def usite_published(eids, **kwargs):
             item_id=item.origin_id,
             title=entity.title,
             comments = entity.top_note.note,
+            category = entity.category.title,
             detailurl='http://guoku.uz.taobao.com/detail/%s/' % entity.entity_hash,
         )
         try:
@@ -49,6 +50,6 @@ def usite_published(eids, **kwargs):
             comments = entity.top_note.note,
             detailurl='http://guoku.uz.taobao.com/detail/%s/' % uid,
         )
-
+        print resp
 
 __author__ = 'edison'
