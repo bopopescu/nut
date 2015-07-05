@@ -25,7 +25,9 @@
                     {% endfor %}
 
                      <div class="pager-container container-fluid">
+                         {% with url=request.path %}
                          {% include 'web/article/paginator.html' %}
+                         {% endwith %}
                     </div>
             </div>
 
