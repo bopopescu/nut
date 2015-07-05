@@ -45,6 +45,7 @@ class SelectionArticleList(AjaxResponseMixin,ListView):
                               .order_by('-pub_time')
         return qs
 
+
     def get_ajax(self, request, *args, **kwargs):
         context = self.get_context_data()
         _template = 'web/article/selection_ajax_list.html'

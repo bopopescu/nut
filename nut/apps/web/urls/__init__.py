@@ -2,13 +2,15 @@ from django.conf.urls import url, include, patterns
 from django.views.generic import RedirectView
 from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, DownloadView
 from apps.web.views.discover import DiscoverView
+from apps.web.views.main import SelectionEntityList
 
 urlpatterns = patterns(
     'apps.web.views',
     # url(r'^$', 'main.index', name='web_index'),
     url(r'^$', RedirectView.as_view(url='/selected/')),
     url(r'^selection/$', RedirectView.as_view(url='/selected/')),
-    url(r'^selected/$', 'main.selection', name='web_selection'),
+    url(r'^selected/$', SelectionEntityList.as_view(), name='web_selection'),
+    # url(r'^selected/$', 'main.selection', name='web_selection'),
     # url(r'^selected/$',  RedirectView.as_view(url='/selection/'),
 
     url(r'^popular/$', 'main.popular', name='web_popular'),

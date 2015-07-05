@@ -4,6 +4,9 @@ from django.views.decorators.http import require_GET
 from django.template import RequestContext, loader
 # from django.template import loader
 
+from django.views.generic import ListView
+from braces.views import JSONResponseMixin ,AjaxResponseMixin
+
 from apps.core.models import Entity, Entity_Like, Selection_Entity, Entity_Tag
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 # from apps.web.forms.search import EntitySearchForm
@@ -12,6 +15,7 @@ from apps.core.utils.http import JSONResponse
 from django.utils.log import getLogger
 
 from apps.web.utils.viewtools import get_paged_list
+from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
 import random
 
@@ -20,6 +24,64 @@ import random
 log = getLogger('django')
 
 from datetime import datetime
+
+
+class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin , ListView):
+    template_name =  'web/main/selection.html'
+    model = Entity
+    paginate_by = 30
+    paginator_class = Jpaginator
+    def get_refresh_time(self):
+        refresh_time = self.request.GET\
+                                    .get('t',datetime.now()\
+                                                     .strftime('%Y-%m-%d %H:%M:%S'))
+        return refresh_time
+
+    def get_entity_like_list(self,entities,request):
+        el = []
+        if request.user.is_authenticated():
+            e = entities.values_list('id', flat=True)
+            el = Entity_Like.objects.filter(entity_id__in=tuple(e), user=request.user).values_list('entity_id', flat=True)
+        return el
+
+    def get_context_data(self, **kwargs):
+        context = super(SelectionEntityList,self).get_context_data()
+        context['refresh_datetime']  = self.get_refresh_time()
+        context['user_entity_likes'] = self.get_like_list(context['object_list'])
+        context['selections'] = context['page_obj']
+        return context
+
+    def get_like_list(self, entities):
+        like_list = list()
+        if not self.request.user.is_authenticated():
+            return like_list
+        else:
+            like_list = self.get_entity_like_list(entities, self.request)
+            return like_list
+
+    def get_queryset(self):
+        qs = Selection_Entity.objects.published_until(self.get_refresh_time())
+        return qs
+
+
+
+    def get_ajax(self, request, *args, **kwargs):
+        self.object_list = getattr(self , 'object_list' , self.get_queryset())
+        context  = self.get_context_data()
+        template = 'web/main/partial/selection_ajax.html'
+        _t = loader.get_template(template)
+        _c = RequestContext(
+            request,
+            context
+        )
+        _data = _t.render(_c)
+        return JSONResponse(
+            data={
+                'data': _data,
+                'status': 1,
+            },
+            content_type='text/html; charset=utf-8',
+        )
 
 
 @require_GET
