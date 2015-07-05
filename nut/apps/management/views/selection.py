@@ -148,16 +148,16 @@ def popular(request, template="management/selection/popular.html"):
     )
 
 @csrf_exempt
-# @login_required
-# @admin_only
+@login_required
+@admin_only
 def usite_published(request):
     if request.is_ajax():
         entityids_json = request.POST.get('eids', None)
         # log.info(entityids_json)
         from apps.core.tasks import usite_published
-        usite_published(entityids_json)
+        usite_published.delay(entityids_json)
         # print json.loads(entityids_json)
-        return SuccessJsonResponse()
+        return SuccessJsonResponse(data={'status':'ok'})
     else:
         return ErrorJsonResponse(status=400)
 
