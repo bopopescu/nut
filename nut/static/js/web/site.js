@@ -111,35 +111,37 @@ $.ajaxSetup({
     var AjaxLoader = Class.extend({
         init:function(options){
             this.loading = false ;
-
-            var option_key_list = ['container', 'request_url'];
-            for (key in options){
-                if(option_key_list.indexOf(key) > -1){
-                    this[key] = options[key];
-                }
-            }
             this.attach();
         },
         attach: function(){
-            $(window).scroll(this._handleScroll.bind(this));
+            this.scrollHandler =this._handleScroll.bind(this);
+            $(window).scroll(this.scrollHandler);
+        },
+
+        detach: function(){
+            $(window).off('scroll', this.scrollHandler);
         },
         _handleScroll: function(){
             if (this._shouldLoad()){
+                this.loading = true;
                 jQuery.when(
                     this.beginLoad()
                 ).then(
-                    this.loadSuccess,
-                    this.loadFail);
+                    this.loadSuccess.bind(this),
+                    this.loadFail.bind(this));
             }else{
                 return ;
             }
         },
         _shouldLoad: function(){
-            if (this.loading){
-                return false ;
-            }else{
-                return true ;
+            if (this.loading) {
+                return false;
             }
+           // use fast dom ?
+           if (($(window).height() + $(window).scrollTop()) < ($(document).height()-25)){
+               return false;
+           }
+           return  true;
         },
 
         getRequestUrl: function(){
@@ -167,14 +169,52 @@ $.ajaxSetup({
 
         },
         loadFail: function(data){
-            console.log(data);
+            //console.log(data);
+            // ajax call fail , maybe later
             this.loading = false;
         }
     });
 
 
+    var ArticleLoader = AjaxLoader.extend({
+        request_url: '/articles/',
+        init: function(){
+            this._super();
+            this.current_page = 1;
+        },
+        getData: function(){
+            return {
+                refresh_time : this.getRefreshTime(),
+                page :  this.current_page + 1,
+            }
+        },
+        loadSuccess: function(data){
+            if (data['errors'] === 0){
+                 $(data['html']).appendTo($('#article_list'));
+                 if(data['has_next_page'] === false){
+                     this.handleLastPage();
+                 }
+            }else{
+            //TODO: handle fail load
+            }
+            this.current_page++;
+            this.loading = false;
+            return ;
+
+        },
+        handleLastPage:function(){
+            this.detach();
+        },
+        getRefreshTime: function(){
+           return  $('#article_list').attr('refresh-time');
+        }
+
+    });
 
 
+    var RecommendArticleLoader = AjaxLoader.extend({
+        request_url:'recommend'
+    });
 
     var util = {
         checkEventRead:function(){
@@ -624,7 +664,6 @@ $.ajaxSetup({
     var detail = {
             detailImageHover: function () {
             // 鼠标放细节图上后效果
-
                 function findThumbImages(){
                     return $('.other-pic-list img');
                 }
@@ -642,17 +681,6 @@ $.ajaxSetup({
                     $(thumb).mouseenter(handleTrumb);
                     $(thumb).click(handleTrumb);
                 });
-
-            //
-            //$('#detail').each(function () {
-            //    var $this = $(this);
-            //    $this.find('.other_pics img').on('mouseover', function () {
-            //        //console.log(this);
-            //        var re = /\/128\//;
-            //        var url_string = this.src.replace(re, '/640/');
-            //        $this.find('.detail_pic img')[0].src = url_string;
-            //    });
-            //});
         },
 
         shareWeibo: function() {
@@ -1177,7 +1205,6 @@ $.ajaxSetup({
                 }
             }
 
-
             var userSettinForm = $('[action="/u/settings/"]');
             if (!!userSettinForm.length){
                 userSettinForm.eq(0).submit(function(){
@@ -1210,6 +1237,17 @@ $.ajaxSetup({
         }
     };
 
+    var selection_article={
+        init_loader: function(){
+            var article_list = $('#article_list');
+            if (article_list && article_list.length){
+                var article_loader = new ArticleLoader();
+            }
+        }
+    };
+
+
+
 
     (function init() {
            //   console.log($.find());
@@ -1239,6 +1277,8 @@ $.ajaxSetup({
         account_setting.handleUserInfo();
         util.checkEventRead();
         link_page.initLinks();
+        selection_article.init_loader();
+
 
     })();
 

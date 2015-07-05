@@ -23,7 +23,7 @@ from datetime import datetime
 log = getLogger('django')
 
 
-class SelectionArticleList(AjaxResponseMixin,ListView):
+class SelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
     template_name = 'web/article/selection_list.html'
     model = Selection_Article
     paginate_by = 5
@@ -47,9 +47,20 @@ class SelectionArticleList(AjaxResponseMixin,ListView):
 
 
     def get_ajax(self, request, *args, **kwargs):
+        # TODO : add error handling here
+        self.object_list = getattr(self,'object_list', self.get_queryset())
         context = self.get_context_data()
-        _template = 'web/article/selection_ajax_list.html'
-        return render(request, _template, context)
+        _template = 'web/article/partial/selection_ajax_list.html'
+        _t = loader.get_template(_template)
+        _c = RequestContext(request, context)
+        _html = _t.render(_c)
+
+        return self.render_json_response({
+            'html':_html,
+            'errors': 0,
+            'has_next_page':context['has_next_page']
+
+        }, status=200)
 
     def get_read_counts(self,articles):
         counts_dic = RedisCounterMachine.get_read_counts(articles)
@@ -58,12 +69,16 @@ class SelectionArticleList(AjaxResponseMixin,ListView):
     def get_context_data(self, **kwargs):
         context = super(SelectionArticleList, self).get_context_data(**kwargs)
         selection_articles = context['selection_articles']
+        context['refresh_time'] = self.get_refresh_time()
+        context['has_next_page'] = context['page_obj'].has_next()
         articles = [sla.article for sla in selection_articles]
+
         try :
             # make sure use try catch ,
             # if statistic is down
             # the view is still working
             context['read_count'] = self.get_read_counts(articles)
+
         except Exception as e :
             log.info('the fail to load read count')
             log.info(e.message)
