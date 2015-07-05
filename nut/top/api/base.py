@@ -56,7 +56,7 @@ def sign(secret, parameters):
         parameters = "%s%s%s" % (secret,
             str().join('%s%s' % (key, parameters[key]) for key in keys),
             secret)
-    sign = hashlib.md5(parameters).hexdigest().upper()
+    sign = hashlib.md5(parameters.encode('utf-8')).hexdigest().upper()
     return sign
 
 def mixStr(pstr):
@@ -202,10 +202,10 @@ class RestApi(object):
         return ""
     
     def getMultipartParas(self):
-        return [];
+        return []
 
     def getTranslateParas(self):
-        return {};
+        return {}
     
     def _check_requst(self):
         pass
@@ -231,8 +231,7 @@ class RestApi(object):
         sign_parameter.update(application_parameter)
         sys_parameters[P_SIGN] = sign(self.__secret, sign_parameter)
         connection.connect()
-        
-        header = self.get_request_header();
+        header = self.get_request_header()
         if(self.getMultipartParas()):
             form = MultiPartForm()
             for key, value in application_parameter.items():
@@ -244,11 +243,11 @@ class RestApi(object):
             body = str(form)
             header['Content-type'] = form.get_content_type()
         else:
-            body = urllib.urlencode(application_parameter)
-            
+            body = urllib.urlencode(encoded_dict(application_parameter))
+
         url = N_REST + "?" + urllib.urlencode(sys_parameters)
         connection.request(self.__httpmethod, url, body=body, headers=header)
-        response = connection.getresponse();
+        response = connection.getresponse()
         if response.status is not 200:
             raise RequestException('invalid http status ' + str(response.status) + ',detail body:' + response.read())
         result = response.read()
@@ -284,3 +283,15 @@ class RestApi(object):
                 application_parameter[translate_parameter[key]] = application_parameter[key]
                 del application_parameter[key]
         return application_parameter
+
+
+def encoded_dict(in_dict):
+    out_dict = {}
+    for k, v in in_dict.iteritems():
+        if isinstance(v, unicode):
+            v = v.encode('utf8')
+        elif isinstance(v, str):
+            # Must be encoded in UTF-8
+            v.decode('utf8')
+        out_dict[k] = v
+    return out_dict
