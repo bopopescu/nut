@@ -176,6 +176,10 @@ class EditorArticleEdit(AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,
         return self.render_json_response(res)
 
 
+class ArticleRelated(JSONResponseMixin, AjaxResponseMixin, ListView):
+
+    pass
+
 class ArticleDetail(DetailView):
     model = Article
     context_object_name = 'article'

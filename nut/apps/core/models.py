@@ -988,7 +988,7 @@ class Article(models.Model):
     content = models.TextField()
     publish = models.IntegerField(choices=ARTICLE_STATUS_CHOICES, default=draft)
     created_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True, editable=False)
-    updated_datetime = models.DateTimeField(auto_now=True, db_index=True, null=True, editable=False)
+    updated_datetime = models.DateTimeField()
     showcover = models.BooleanField(default=False)
     read_count = models.IntegerField(default=0 , blank=True)
 
@@ -997,8 +997,11 @@ class Article(models.Model):
     class Meta:
         ordering = ["-updated_datetime"]
 
+
+
     def __unicode__(self):
         return self.title
+
 
     @property
     def digest(self):
