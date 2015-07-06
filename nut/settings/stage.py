@@ -30,7 +30,7 @@ DATABASES = {
         'NAME': 'test',
         'USER': 'guoku',
         'PASSWORD': 'guoku!@#',
-        'HOST': '10.0.2.95',
+        'HOST': '10.0.2.90',
         'PORT': '',
         'OPTIONS': {
             'use_unicode':'utf-8',
