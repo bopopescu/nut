@@ -1,5 +1,6 @@
 {% load i18n staticfiles %}
 {% load notifications_tags %}
+{% load common %}
 
 <header class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="border-bottom: 0;opacity: 0.9;">
         <div class="container">
@@ -61,7 +62,7 @@
 
                 <form class="navbar-form navbar-right" action="{% url 'web_search' %}" method="get" role="form" style="margin-top: 11px;">
                     <div class="input-group search">
-                        <input class="form-control" name="q" type="search" placeholder="{% trans 'Search' %}" value="{{ keyword }}" style="height: 28px;border:none;">
+                        <input class="form-control" name="q" type="search" placeholder="{% trans 'Search' %}" value="{{ keyword|maybe_none }}" style="height: 28px;border:none;">
                     </div>
                 </form>
 

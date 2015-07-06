@@ -84,4 +84,12 @@ def format_read_num(value):
 
 register.filter(format_read_num)
 
+
+def maybe_none(value):
+    if value is None:
+        return ''
+    else:
+        return value
+register.filter(maybe_none)
+
 __author__ = 'edison7500'
