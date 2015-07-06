@@ -1631,6 +1631,31 @@ a:hover {
   float: right;
   padding-right: 10px;
 }
+#detail_content #detail_content_right .section-list .section .writer-name .writer-nick {
+  width: 75%;
+  float: right;
+  padding-top: 17px;
+  font-size: 16px;
+}
+#detail_content #detail_content_right .section-list .section .writer-name .writer-avatar {
+  width: auto ;
+  float: none;
+}
+#detail_content #detail_content_right .section-list .section .writer-name .writer-avatar img {
+  width: 50px;
+  height: 50px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+#detail_content #detail_content_right .section-list .section .writer-bio {
+  padding: 10px 0px 10px 0px;
+  color: #9d9e9f;
+  font-size: 13px;
+}
 #detail_content #detail_content_right .section-list .section-title {
   font-size: 16px;
 }
@@ -2114,6 +2139,10 @@ a:hover {
 .article-wrapper .cover-wrapper {
   margin-bottom: 20px;
 }
+.article-wrapper .divider {
+  height: 2px;
+  border-bottom: 1px solid #f8f8f8;
+}
 .article-wrapper .content-wrapper,
 .article-wrapper .note-editable {
   font-family: 'Open Sans', 'Helvetica Neue', 'Arial', 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
@@ -2154,6 +2183,29 @@ a:hover {
   transform: translate(0, 0);
   color: #c8c8c8;
 }
+.writer-wrapper {
+  margin-top: 20px;
+}
+.writer-wrapper .writer-intro .writer-name {
+  font-size: 16px;
+}
+.writer-wrapper .writer-intro .writer-bio {
+  color: #9d9e9f;
+}
+.writer-wrapper .writer-avatar {
+  width: auto ;
+  float: none ;
+}
+.writer-wrapper .writer-avatar .avatar-wrapper .user-avatar {
+  width: 60px;
+  height: 60px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
 @media (min-width: 768px) {
   .main-article {
     background-color: #ffffff;
@@ -2167,6 +2219,11 @@ a:hover {
     -webkit-box-shadow: 0px 0px 3px #dddddd;
     -moz-box-shadow: 0px 0px 3px #dddddd;
     box-shadow: 0px 0px 3px #dddddd;
+  }
+  .main-article .writer-intro {
+    width: 88%;
+    float: right;
+    padding-top: 10px;
   }
   .more-article-wrapper {
     background-color: #ffffff;
@@ -2197,6 +2254,11 @@ a:hover {
   }
 }
 @media (max-width: 767px) {
+  .main-article .writer-intro {
+    width: 80%;
+    float: right;
+    padding-top: 10px;
+  }
   .more-article-wrapper .title-wrapper {
     padding-top: 5px;
   }

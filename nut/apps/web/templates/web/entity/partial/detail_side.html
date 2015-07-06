@@ -10,7 +10,25 @@
 {#        </ul>#}
 {#    </div>#}
 {#</div>#}
-
+{% if article %}
+<ul class="section-list">
+    <li class="section">
+        <div class="writer-name">
+            <div class="writer-nick">
+                <a href="{% url 'web_user_article' article.creator.pk %}">
+                {{ article.creator.profile.nickname }}
+                </a>
+            </div>
+            <div class="writer-avatar">
+                <img src="{{ article.creator.profile.avatar_url }}">
+            </div>
+        </div>
+        <div class="writer-bio">
+            {{ article.creator.profile.bio|truncatechars:120 }}
+        </div>
+    </li>
+</ul>
+{% endif %}
 <ul class="section-list">
     <li class="section  need-bottom-border">
         <div class="section-title">热门品类</div>
