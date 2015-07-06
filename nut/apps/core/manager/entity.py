@@ -165,6 +165,9 @@ class SelectionEntityManager(models.Manager):
     def published(self):
         return self.get_queryset().published()
 
+    def published_until(self, refresh_time):
+        return self.published().filter(pub_time__lte=refresh_time)
+
     def pending(self):
         return self.get_queryset().pending()
 

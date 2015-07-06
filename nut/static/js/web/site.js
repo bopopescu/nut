@@ -2,6 +2,71 @@
  * Created by edison on 14-9-21.
  */
 
+
+/* Simple JavaScript Inheritance
+ * By John Resig http://ejohn.org/
+ * MIT Licensed.
+ */
+// Inspired by base2 and Prototype
+(function(){
+  var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
+
+  // The base Class implementation (does nothing)
+  this.Class = function(){};
+
+  // Create a new Class that inherits from this class
+  Class.extend = function(prop) {
+    var _super = this.prototype;
+
+    // Instantiate a base class (but only create the instance,
+    // don't run the init constructor)
+    initializing = true;
+    var prototype = new this();
+    initializing = false;
+
+    // Copy the properties over onto the new prototype
+    for (var name in prop) {
+      // Check if we're overwriting an existing function
+      prototype[name] = typeof prop[name] == "function" &&
+        typeof _super[name] == "function" && fnTest.test(prop[name]) ?
+        (function(name, fn){
+          return function() {
+            var tmp = this._super;
+
+            // Add a new ._super() method that is the same method
+            // but on the super-class
+            this._super = _super[name];
+
+            // The method only need to be bound temporarily, so we
+            // remove it when we're done executing
+            var ret = fn.apply(this, arguments);
+            this._super = tmp;
+
+            return ret;
+          };
+        })(name, prop[name]) :
+        prop[name];
+    }
+    // The dummy class constructor
+    function Class() {
+      // All construction is actually done in the init method
+      if ( !initializing && this.init )
+        this.init.apply(this, arguments);
+    }
+    // Populate our constructed prototype object
+    Class.prototype = prototype;
+
+    // Enforce the constructor to be what we expect
+    Class.prototype.constructor = Class;
+
+    // And make this class extendable
+    Class.extend = arguments.callee;
+
+    return Class;
+  };
+})();
+
+
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {
@@ -42,12 +107,120 @@ $.ajaxSetup({
 
 (function ($, document, window) {
 
+
+    var AjaxLoader = Class.extend({
+        init:function(options){
+            this.loading = false ;
+            this.attach();
+        },
+        attach: function(){
+            this.scrollHandler =this._handleScroll.bind(this);
+            $(window).scroll(this.scrollHandler);
+        },
+
+        detach: function(){
+            $(window).off('scroll', this.scrollHandler);
+        },
+        _handleScroll: function(){
+            if (this._shouldLoad()){
+                this.loading = true;
+                jQuery.when(
+                    this.beginLoad()
+                ).then(
+                    this.loadSuccess.bind(this),
+                    this.loadFail.bind(this));
+            }else{
+                return ;
+            }
+        },
+        _shouldLoad: function(){
+            if (this.loading) {
+                return false;
+            }
+           // use fast dom ?
+           if (($(window).height() + $(window).scrollTop()) < ($(document).height()-25)){
+               return false;
+           }
+           return  true;
+        },
+
+        getRequestUrl: function(){
+            return this.request_url
+        },
+
+        getData: function(){
+
+            throw new Error('not implemented');
+            return null;
+        },
+        beginLoad: function(){
+            var _url = this.getRequestUrl();
+            var _data = this.getData();
+            return $.ajax({
+                url : _url ,
+                data : _data
+            });
+        //    return a promise , like an ajax() here
+
+        },
+        loadSuccess: function(data){
+            console.log(data);
+            this.loading = false;
+
+        },
+        loadFail: function(data){
+            //console.log(data);
+            // ajax call fail , maybe later
+            this.loading = false;
+        }
+    });
+
+
+    var ArticleLoader = AjaxLoader.extend({
+        request_url: '/articles/',
+        init: function(){
+            this._super();
+            this.current_page = 1;
+        },
+        getData: function(){
+            return {
+                refresh_time : this.getRefreshTime(),
+                page :  this.current_page + 1,
+            }
+        },
+        loadSuccess: function(data){
+            if (data['errors'] === 0){
+                 $(data['html']).appendTo($('#article_list'));
+                 if(data['has_next_page'] === false){
+                     this.handleLastPage();
+                 }
+            }else{
+            //TODO: handle fail load
+            }
+            this.current_page++;
+            this.loading = false;
+            return ;
+
+        },
+        handleLastPage:function(){
+            this.detach();
+        },
+        getRefreshTime: function(){
+           return  $('#article_list').attr('refresh-time');
+        }
+
+    });
+
+
+    var RecommendArticleLoader = AjaxLoader.extend({
+        request_url:'recommend'
+    });
+
     var util = {
         checkEventRead:function(){
             // add by an , for event link status check , remove the red dot if event is read.
             // the key is defined in 2 places!  DRY...
             var viewed_event_slug_cookie_key = 'viewed_event_slug_cookie_key';
-
             if(!newest_event_slug){
                 return ;
             }
@@ -450,6 +623,7 @@ $.ajaxSetup({
                         var time = $selection.attr('data-refresh');
                         var data = {
                             'p': p+counter,
+                            'page': p+counter,
                             't':time
                         };
 
@@ -490,7 +664,6 @@ $.ajaxSetup({
     var detail = {
             detailImageHover: function () {
             // 鼠标放细节图上后效果
-
                 function findThumbImages(){
                     return $('.other-pic-list img');
                 }
@@ -508,17 +681,6 @@ $.ajaxSetup({
                     $(thumb).mouseenter(handleTrumb);
                     $(thumb).click(handleTrumb);
                 });
-
-            //
-            //$('#detail').each(function () {
-            //    var $this = $(this);
-            //    $this.find('.other_pics img').on('mouseover', function () {
-            //        //console.log(this);
-            //        var re = /\/128\//;
-            //        var url_string = this.src.replace(re, '/640/');
-            //        $this.find('.detail_pic img')[0].src = url_string;
-            //    });
-            //});
         },
 
         shareWeibo: function() {
@@ -1043,7 +1205,6 @@ $.ajaxSetup({
                 }
             }
 
-
             var userSettinForm = $('[action="/u/settings/"]');
             if (!!userSettinForm.length){
                 userSettinForm.eq(0).submit(function(){
@@ -1076,6 +1237,17 @@ $.ajaxSetup({
         }
     };
 
+    var selection_article={
+        init_loader: function(){
+            var article_list = $('#article_list');
+            if (article_list && article_list.length){
+                var article_loader = new ArticleLoader();
+            }
+        }
+    };
+
+
+
 
     (function init() {
            //   console.log($.find());
@@ -1099,13 +1271,14 @@ $.ajaxSetup({
         detail.noteAction();
 
         message.loadData();
-
         event.loadData();
 
         //add by an
         account_setting.handleUserInfo();
         util.checkEventRead();
         link_page.initLinks();
+        selection_article.init_loader();
+
 
     })();
 

@@ -20,7 +20,7 @@
         </div>
 
         {% if paginator %}
-            {% include "web/main/partial/selection_paginator.html" with objects=selections paginator=paginator url=request.url %}
+            {% include "web/main/partial/selection_paginator.html" with objects=selections paginator=paginator url=request.path %}
         {% endif %}
     </div>
 {% endblock %}
