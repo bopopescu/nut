@@ -18,15 +18,17 @@
     <div class="container goods_detail">
      <h2 class="hidden">图文列表</h2>
      <div class="row" id="detail_content" >
-            <div  id="article_list"
+            <div  id="article_list" refresh-time="{{ refresh_time }}"
                   class="container-fluid col-lg-8 col-md-8 col-sm-12  col-xs-12" >
                     {% for sla in selection_articles %}
                         {% include 'web/article/partial/article_item.html' %}
                     {% endfor %}
 
-                     <div class="pager-container container-fluid">
-                         {% include 'web/article/paginator.html' %}
-                    </div>
+{#                     <div class="pager-container container-fluid">#}
+{#                         {% with url=request.path %}#}
+{#                         {% include 'web/article/paginator.html' %}#}
+{#                         {% endwith %}#}
+{#                    </div>#}
             </div>
 
             <div id="detail_content_right"

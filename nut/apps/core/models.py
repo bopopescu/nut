@@ -995,7 +995,7 @@ class WeChat_Token(BaseModel):
         return md5(code_string.encode('utf-8')).hexdigest()
 
 
-# TODO: article model
+# TODO: implement a digest property
 class Article(models.Model):
 
     (remove, draft, published) = xrange(3)
@@ -1011,7 +1011,7 @@ class Article(models.Model):
     content = models.TextField()
     publish = models.IntegerField(choices=ARTICLE_STATUS_CHOICES, default=draft)
     created_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True, editable=False)
-    updated_datetime = models.DateTimeField(auto_now=True, db_index=True, null=True, editable=False)
+    updated_datetime = models.DateTimeField()
     showcover = models.BooleanField(default=False)
     read_count = models.IntegerField(default=0 , blank=True)
 
@@ -1020,8 +1020,16 @@ class Article(models.Model):
     class Meta:
         ordering = ["-updated_datetime"]
 
+
+    def save(self, *args, **kwargs):
+        if not kwargs.pop('skip_updatetime', False):
+            self.updated_datetime = datetime.now()
+        super(Article, self).save(*args, **kwargs)
+
+
     def __unicode__(self):
         return self.title
+
 
     @property
     def digest(self):
