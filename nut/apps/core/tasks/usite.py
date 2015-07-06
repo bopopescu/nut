@@ -48,6 +48,7 @@ def usite_published(eids, **kwargs):
             item_id=item.origin_id,
             title=entity.title,
             comments = entity.top_note.note,
+            category = entity.category.title,
             detailurl='http://guoku.uz.taobao.com/detail/%s/' % uid,
         )
         print resp
