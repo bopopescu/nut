@@ -18,13 +18,13 @@
                 <a href="{% url 'web_user_article' article.creator.pk %}">
                 {{ article.creator.profile.nickname }}
                 </a>
+                <div class="writer-bio">
+                     {{ article.creator.profile.bio|truncatechars:120 }}
+                </div>
             </div>
             <div class="writer-avatar">
                 <img src="{{ article.creator.profile.avatar_url }}">
             </div>
-        </div>
-        <div class="writer-bio">
-            {{ article.creator.profile.bio|truncatechars:120 }}
         </div>
     </li>
 </ul>
