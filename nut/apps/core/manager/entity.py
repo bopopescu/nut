@@ -26,11 +26,32 @@ class EntityQuerySet(models.query.QuerySet):
         else:
             return self.using('slave').filter(status__gte=0)
 
+    # def get(self, *args, **kwargs):
+    #     # print kwargs, args
+    #     return super(EntityQuerySet, self).get(*args, **kwargs)
+
 
 class EntityManager(models.Manager):
 
     def get_query_set(self):
         return EntityQuerySet(self.model, using = self._db)
+
+    # def get(self, *args, **kwargs):
+    #     # print  kwargs
+    #
+    #     entity_hash = kwargs['entity_hash']
+    #     key = 'entity:%s' % entity_hash
+    #     # print key
+    #     res = cache.get(key)
+    #     if res:
+    #         print "hit cache", type(res)
+    #         return res
+    #     else:
+    #         print "miss cache"
+    #         res = self.get_query_set().get(*args, **kwargs)
+    #         # key = 'entity:%s' % entity_hash
+    #         cache.set(key, res, timeout=86400)
+    #         return res
 
     def selection(self):
         return self.get_query_set().selection()

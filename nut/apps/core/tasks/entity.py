@@ -48,6 +48,7 @@ def like_task(uid, eid, **kwargs):
             user_id = uid,
             entity_id = eid,
         )
+        obj.entity.innr_like()
         return obj
     # return status
 
@@ -57,6 +58,7 @@ def unlike_task(uid, eid, **kwargs):
     try:
         obj = Entity_Like.objects.get(user_id=uid, entity_id=eid)
         obj.delete()
+        obj.entity.decr_like()
         return True
     except Entity_Like.DoesNotExist:
         return False

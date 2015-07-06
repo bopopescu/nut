@@ -260,19 +260,15 @@
                             if (chklist.length > 0) {
                                 //console.log(chklist);
                                 var entityIds = new Array(0);
-                                chklist.each(function(res){
-                                    //console.log($(this).attr('value'));
-                                    //entityIds.append($(this).attr('value'));
+                                chklist.each(function(){
                                     entityIds.push($(this).attr('value'));
                                 });
-                                //console.log(entityIds);
-                                //console.log(JSON.stringify(entityIds));
                                 $.ajax({
                                     type: 'post',
                                     url: '/management/selection/usite/publish/',
                                     data: {'eids': JSON.stringify(entityIds)},
                                     success: function(res) {
-
+                                        //$(this).prop('checked', false);
                                     }
                                 });
                             }
@@ -281,9 +277,23 @@
                     }
                 });
             });
+        },
+
+        check_all: function(){
+            $('#usite-chk-all').click(function(){
+                var chklist = $('.usite-chk');
+                if ($(this).prop('checked')) {
+                    chklist.each(function(){
+                        $(this).prop('checked', true);
+                    })
+                } else {
+                    chklist.each(function(){
+                        $(this).prop('checked', false);
+                    })
+                }
+            });
         }
     };
-
 
 
     (function init() {
@@ -300,6 +310,7 @@
         article.initRemoveSelectionArticle();
 
         selection.publish2u();
+        selection.check_all();
 //        note.post();
     })();
 })(jQuery, document, window);
