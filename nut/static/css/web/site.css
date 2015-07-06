@@ -1634,7 +1634,7 @@ a:hover {
 #detail_content #detail_content_right .section-list .section .writer-name .writer-nick {
   width: 75%;
   float: right;
-  padding-top: 17px;
+  padding-top: 8px;
   font-size: 16px;
 }
 #detail_content #detail_content_right .section-list .section .writer-name .writer-avatar {
@@ -1652,7 +1652,7 @@ a:hover {
   background-clip: padding-box;
 }
 #detail_content #detail_content_right .section-list .section .writer-bio {
-  padding: 10px 0px 10px 0px;
+  padding: 0px 0px 10px 0px;
   color: #9d9e9f;
   font-size: 13px;
 }
