@@ -260,19 +260,15 @@
                             if (chklist.length > 0) {
                                 //console.log(chklist);
                                 var entityIds = new Array(0);
-                                chklist.each(function(res){
-                                    //console.log($(this).attr('value'));
-                                    //entityIds.append($(this).attr('value'));
+                                chklist.each(function(){
                                     entityIds.push($(this).attr('value'));
                                 });
-                                //console.log(entityIds);
-                                //console.log(JSON.stringify(entityIds));
                                 $.ajax({
                                     type: 'post',
                                     url: '/management/selection/usite/publish/',
                                     data: {'eids': JSON.stringify(entityIds)},
                                     success: function(res) {
-
+                                        //$(this).prop('checked', false);
                                     }
                                 });
                             }
@@ -298,7 +294,6 @@
             });
         }
     };
-
 
 
     (function init() {
