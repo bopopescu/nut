@@ -1,5 +1,6 @@
 # coding=utf-8
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import  ListView,\
                                   View,\
                                   TemplateView,\
@@ -187,6 +188,20 @@ class ArticleDetail(DetailView):
 
     def get_queryset(self):
         return Article.objects.filter(publish=Article.published)
+
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get(self.pk_url_kwarg, None)
+        queryset = self.get_queryset()
+        if pk is not None:
+            queryset = queryset.filter(pk=pk)
+        try:
+            # Get the single item from the filtered queryset
+            obj = queryset.get()
+        except ObjectDoesNotExist:
+            raise Http404(("No %(verbose_name)s found matching the query") %
+                          {'verbose_name': queryset.model._meta.verbose_name})
+        return obj
+
 
     def get_context_data(self,**kwargs):
         context = super(ArticleDetail, self).get_context_data(**kwargs)
