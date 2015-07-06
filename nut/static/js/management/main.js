@@ -281,6 +281,21 @@
                     }
                 });
             });
+        },
+
+        check_all: function(){
+            $('#usite-chk-all').click(function(){
+                var chklist = $('.usite-chk');
+                if ($(this).prop('checked')) {
+                    chklist.each(function(){
+                        $(this).prop('checked', true);
+                    })
+                } else {
+                    chklist.each(function(){
+                        $(this).prop('checked', false);
+                    })
+                }
+            });
         }
     };
 
@@ -300,6 +315,7 @@
         article.initRemoveSelectionArticle();
 
         selection.publish2u();
+        selection.check_all();
 //        note.post();
     })();
 })(jQuery, document, window);

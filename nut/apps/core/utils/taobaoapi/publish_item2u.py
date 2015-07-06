@@ -23,7 +23,7 @@ class PublishItem2U():
         self.req.comments = comments
         self.req.detailurl = kwargs.pop('detailurl', None)
         self.req.classname = kwargs.pop('category', None)
-        self.req.tags = u"新有好货,果库新品"
+        self.req.tags = u"新有好货"
         # print self.req.title
         # print self.req.comments
         resp = {}
@@ -53,6 +53,8 @@ class UpdateItem2U():
         self.req.title = title
         self.req.comments = comments
         self.req.detailurl = kwargs.pop('detailurl', None)
+        self.req.classname = kwargs.pop('category', None)
+        self.req.tags = u"新有好货,果库新品"
 
         resp = {}
         try:
@@ -70,7 +72,7 @@ if __name__=="__main__":
     u = PublishItem2U(app_key='23198909', app_secret='cc35120d1fb84446300eb1092fae4abe')
 
     resp = u.publish(
-        item_id = '39502923104',
+        item_id = '14329051759',
         title='test',
         comments='test',
         # detailurl='http://www.guoku.com/detail/c7fb6489/',
@@ -79,16 +81,16 @@ if __name__=="__main__":
 
     uid = resp['sp_content_item_publish_response']['value']
 
-    p = UpdateItem2U(app_key='23198909', app_secret='cc35120d1fb84446300eb1092fae4abe')
-
-    resp = p.update(
-        id = uid,
-        item_id = '39502923104',
-        title='test',
-        comments='test',
-        # detailurl='http://www.guoku.com/detail/c7fb6489/',
-        detailurl='http://guoku.uz.taobao.com/detail/%s/' % uid
-    )
+    # p = UpdateItem2U(app_key='23198909', app_secret='cc35120d1fb84446300eb1092fae4abe')
+    #
+    # resp = p.update(
+    #     id = uid,
+    #     item_id = '39502923104',
+    #     title='test',
+    #     comments='test',
+    #     # detailurl='http://www.guoku.com/detail/c7fb6489/',
+    #     detailurl='http://guoku.uz.taobao.com/detail/%s/' % uid
+    # )
 
     print resp
 
