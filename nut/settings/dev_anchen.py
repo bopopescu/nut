@@ -71,4 +71,13 @@ DATABASES = {
 # in production , the number will be 7  , in settings.py file
 DEFAULT_POPULAR_SCALE = 200
 
+# class InvalidString(str):
+#     def __mod__(self, other):
+#         from django.template.base import TemplateSyntaxError
+#         raise TemplateSyntaxError(
+#             "Undefined variable or unknown value for: \"%s\"" % other)
+
+TEMPLATE_STRING_IF_INVALID = "****************** %s ****************"
+
+
 __author__ = 'an chen '

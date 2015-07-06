@@ -2196,12 +2196,21 @@ a:hover{text-decoration:underline;}
   .more-article-wrapper{
     .panel-no-padding;
     .title-wrapper{
-         padding-top:5%;
+         padding-top:10px;
          .title{
-            padding-top: 20px;
-            padding-left: 20px;
-            font-size: @subtitle-size;
+            padding: 5px 15px;
+            font-size: @title-size;
          }
+     }
+    .article-digest{
+       padding: 10px 15px 15px 15px;
+       font-size: @mini-size;
+       color: @common-gray;
+    }
+  }
+  .cover-wrapper{
+     a{
+       padding: 10px 0px 10px 10px;
      }
   }
 }
@@ -2214,9 +2223,12 @@ a:hover{text-decoration:underline;}
      .title-wrapper{
          padding-top:5px;
          .title{
-            padding: 0px 0px 0px 13px;
+            padding: 10px 13px 0px 13px;
             font-size: 15px;
             font-weight: 800;
+         }
+         .article-digest{
+            display:none;
          }
      }
    }
