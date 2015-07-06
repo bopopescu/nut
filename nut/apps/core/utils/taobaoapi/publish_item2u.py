@@ -54,7 +54,7 @@ class UpdateItem2U():
         self.req.comments = comments
         self.req.detailurl = kwargs.pop('detailurl', None)
         self.req.classname = kwargs.pop('category', None)
-        self.req.tags = u"新有好货,果库新品"
+        self.req.tags = u"新有好货"
 
         resp = {}
         try:

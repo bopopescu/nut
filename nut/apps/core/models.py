@@ -555,11 +555,15 @@ class Entity(BaseModel):
 
     def innr_like(self):
         key = 'entity_like:%s', self.pk
-        cache.incr(key)
+        try:
+            cache.incr(key)
+        except ValueError:
+            cache.set(key, self.likes.count())
 
     def decr_like(self):
         key = 'entity_like:%s', self.pk
-        cache.decr(key)
+        if self.likes.count() > 0:
+            cache.decr(key)
 
     @property
     def note_count(self):
