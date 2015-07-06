@@ -32,6 +32,7 @@ import time
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
 
+
 class BaseModel(models.Model):
 
     class Meta:
@@ -540,7 +541,25 @@ class Entity(BaseModel):
 
     @property
     def like_count(self):
-        return self.likes.count()
+        key = 'entity_like:%s', self.pk
+        res = cache.get(key)
+        if res:
+            log.info("hit hit")
+            return res
+        else:
+            log.info("miss miss")
+            res = self.likes.count()
+            cache.set(key, res)
+            return res
+        # return self.likes.count()
+
+    def innr_like(self):
+        key = 'entity_like:%s', self.pk
+        cache.incr(key)
+
+    def decr_like(self):
+        key = 'entity_like:%s', self.pk
+        cache.decr(key)
 
     @property
     def note_count(self):

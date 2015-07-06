@@ -30,7 +30,7 @@ DATABASES = {
         'NAME': 'test',
         'USER': 'guoku',
         'PASSWORD': 'guoku!@#',
-        'HOST': '10.0.2.90',
+        'HOST': '10.0.2.95',
         'PORT': '',
         'OPTIONS': {
             'use_unicode':'utf-8',
@@ -60,15 +60,15 @@ INSTALLED_APPS += (
 )
 
 
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django_redis.cache.RedisCache",
-#         "LOCATION": "redis://10.0.2.48:6379/1",
-#         "OPTIONS": {
-#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-#         }
-#     }
-# }
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://10.0.2.48:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
 
 
 #
