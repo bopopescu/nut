@@ -1615,6 +1615,36 @@ a:hover{text-decoration:underline;}
       }
   }
   #detail_content_right{
+
+      .section-list{
+        .section{
+          .writer-name{
+             .writer-nick{
+                 width: 75%;
+                 float:right;
+                 padding-top: 17px;
+                 font-size: @subtitle-size;
+             }
+             .writer-avatar{
+                 width: auto ;
+                 float: none;
+                 img{
+                     width: 50px;
+                     height: 50px;
+                     .border-radius(25px);
+                 }
+
+             }
+          }
+          .writer-bio{
+              padding:10px 0px 10px 0px;
+              color: @common-gray;
+              font-size: @mini-size;
+
+          }
+
+        }
+      }
       .section-list{
            .section-title{
              font-size:@subtitle-size;
@@ -2099,6 +2129,8 @@ a:hover{text-decoration:underline;}
 
 }
 
+
+
 // global article css def , all
 .article-wrapper{
 
@@ -2149,6 +2181,10 @@ a:hover{text-decoration:underline;}
          margin-bottom: 20px;
 
      }
+     .divider{
+        height:2px;
+        border-bottom: 1px solid @very-light-gray;
+     }
 
     .content-wrapper,.note-editable{
        font-family: @article-font-family;
@@ -2189,9 +2225,39 @@ a:hover{text-decoration:underline;}
     }
 }
 
+
+.writer-wrapper{
+        margin-top: 20px;
+        .writer-intro{
+           .writer-name{
+               font-size: @subtitle-size;
+            }
+           .writer-bio{
+              color: @common-gray;
+
+           }
+        }
+        .writer-avatar{
+           width: auto ;
+           float: none ;
+           .avatar-wrapper{
+              .user-avatar{
+                  width: 60px;
+                  height: 60px;
+                  .border-radius(30px);
+              }
+           }
+        }
+}
+
 @media (min-width: 768px){
   .main-article{
     .panel;
+    .writer-intro{
+           width: 88%;
+           float: right;
+           padding-top: 10px;
+    }
   }
   .more-article-wrapper{
     .panel-no-padding;
@@ -2217,7 +2283,11 @@ a:hover{text-decoration:underline;}
 
 @media (max-width: 767px){
    .main-article{
-
+      .writer-intro{
+           width: 80%;
+           float: right;
+           padding-top: 10px;
+      }
    }
    .more-article-wrapper{
      .title-wrapper{
