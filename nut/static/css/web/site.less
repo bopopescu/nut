@@ -1619,29 +1619,22 @@ a:hover{text-decoration:underline;}
 
       .section-list{
         .section{
-          .writer-name{
+          .writer-intro{
              .writer-nick{
-                 width: 75%;
-                 float:right;
-                 padding-top: 10px;
-                 font-size: @subtitle-size;
+                 font-size: @primary-size;
              }
-             .writer-avatar{
-                 width: auto ;
-                 float: none;
-                 img{
+             .writer-bio{
+                 color: @common-gray;
+             }
+          }
+          .writer-avatar{
+            max-width: 60px;
+            padding:0px;
+            img{
                      width: 50px;
                      height: 50px;
                      .border-radius(25px);
                  }
-
-             }
-          }
-          .writer-bio{
-              padding:0px 0px 0px 70px;
-              color: @common-gray;
-              font-size: @mini-size;
-
           }
 
         }
@@ -2130,7 +2123,7 @@ a:hover{text-decoration:underline;}
 
 }
 
-
+@article-block-element-margin: 0 0 13px 0;
 
 // global article css def , all
 .article-wrapper{
@@ -2182,11 +2175,6 @@ a:hover{text-decoration:underline;}
          margin-bottom: 20px;
 
      }
-     .divider{
-        height:2px;
-        border-bottom: 1px solid @very-light-gray;
-        margin-top: 60px;
-     }
 
     .content-wrapper,.note-editable{
        font-family: @article-font-family;
@@ -2194,14 +2182,19 @@ a:hover{text-decoration:underline;}
        font-size: @article-content-size;
        line-height: 1.6;
        p{
-         margin: 0 0 13px 0;
+         margin: @article-block-element-margin;
        }
 
+       h3{
+         font-size: @subtitle-size;
+         margin: @article-block-element-margin;
+         font-weight: 600;
+       }
        blockquote{
           background-color: #f9f9f9;
           color: #5f5f5f;
           padding: 20px 10px 10px;
-          margin: 0 0 13px 0;
+          margin: @article-block-element-margin;
           font-size:@article-content-size;
 
        }
@@ -2227,9 +2220,18 @@ a:hover{text-decoration:underline;}
     }
 }
 
+.main-article{
 
-.writer-wrapper{
-        margin-top: 20px;
+  .share-wrapper{
+     margin-top: 60px;
+     height : 20px;
+  }
+  .divider{
+        margin-bottom: 20px;
+        height:2px;
+        border-bottom: 1px solid @very-light-gray;
+  }
+  .writer-wrapper{
         .writer-intro{
            .writer-name{
                font-size: @subtitle-size;
@@ -2240,7 +2242,7 @@ a:hover{text-decoration:underline;}
            }
         }
         .writer-avatar{
-           float: left;
+           max-width:77px;
            .avatar-wrapper{
               .user-avatar{
                   width: 60px;
@@ -2249,17 +2251,21 @@ a:hover{text-decoration:underline;}
               }
            }
         }
+  }
+
 }
+
 
 @media (min-width: 768px){
   .main-article{
     .panel;
     .writer-intro{
-           width: 100%;
-           padding-top: 10px;
+      padding-top: 0px;
+      .writer-bio{
+        padding-right: 40px;
+      }
     }
     .writer-avatar{
-      width: 13%
     }
   }
   .more-article-wrapper{
@@ -2287,12 +2293,9 @@ a:hover{text-decoration:underline;}
 @media (max-width: 767px){
    .main-article{
       .writer-intro{
-           width: 100%;
            padding-top: 10px;
       }
       .writer-avatar{
-           width: 30%;
-           height: 100%;
         }
    }
    .more-article-wrapper{

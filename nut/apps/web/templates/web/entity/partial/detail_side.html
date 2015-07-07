@@ -13,21 +13,25 @@
 {% if article %}
 <ul class="section-list">
     <li class="section">
-        <div class="writer-name">
-            <div class="writer-nick">
-                <a href="{% url 'web_user_article' article.creator.pk %}">
-                {{ article.creator.profile.nickname }}
-                </a>
-                <div class="writer-bio">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="writer-avatar col-sm-2">
+                    <div class="avatar-wrapper">
+                        <img src="{{ article.creator.profile.avatar_url }}">
+                    </div>
+                </div>
+                <div class="writer-intro col-sm-10">
+                     <div class="writer-nick">
+                        <a href="{% url 'web_user_article' article.creator.pk %}">
+                            {{ article.creator.profile.nickname }}
+                        </a>
+                        <div class="writer-bio">
+                            {{ article.creator.profile.bio|truncatechars:60 }}
+                        </div>
+                    </div>
 
                 </div>
             </div>
-            <div class="writer-avatar">
-                <img src="{{ article.creator.profile.avatar_url }}">
-            </div>
-        </div>
-        <div class="writer-bio">
-            {{ article.creator.profile.bio|truncatechars:120 }}
         </div>
     </li>
 </ul>

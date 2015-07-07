@@ -1632,17 +1632,17 @@ a:hover {
   float: right;
   padding-right: 10px;
 }
-#detail_content #detail_content_right .section-list .section .writer-name .writer-nick {
-  width: 75%;
-  float: right;
-  padding-top: 10px;
-  font-size: 18px;
+#detail_content #detail_content_right .section-list .section .writer-intro .writer-nick {
+  font-size: 16px;
 }
-#detail_content #detail_content_right .section-list .section .writer-name .writer-avatar {
-  width: auto ;
-  float: none;
+#detail_content #detail_content_right .section-list .section .writer-intro .writer-bio {
+  color: #9d9e9f;
 }
-#detail_content #detail_content_right .section-list .section .writer-name .writer-avatar img {
+#detail_content #detail_content_right .section-list .section .writer-avatar {
+  max-width: 60px;
+  padding: 0px;
+}
+#detail_content #detail_content_right .section-list .section .writer-avatar img {
   width: 50px;
   height: 50px;
   -webkit-border-radius: 25px;
@@ -1651,11 +1651,6 @@ a:hover {
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-}
-#detail_content #detail_content_right .section-list .section .writer-bio {
-  padding: 0px 0px 0px 70px;
-  color: #9d9e9f;
-  font-size: 13px;
 }
 #detail_content #detail_content_right .section-list .section-title {
   font-size: 18px;
@@ -2140,11 +2135,6 @@ a:hover {
 .article-wrapper .cover-wrapper {
   margin-bottom: 20px;
 }
-.article-wrapper .divider {
-  height: 2px;
-  border-bottom: 1px solid #f8f8f8;
-  margin-top: 60px;
-}
 .article-wrapper .content-wrapper,
 .article-wrapper .note-editable {
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
@@ -2155,6 +2145,12 @@ a:hover {
 .article-wrapper .content-wrapper p,
 .article-wrapper .note-editable p {
   margin: 0 0 13px 0;
+}
+.article-wrapper .content-wrapper h3,
+.article-wrapper .note-editable h3 {
+  font-size: 18px;
+  margin: 0 0 13px 0;
+  font-weight: 600;
 }
 .article-wrapper .content-wrapper blockquote,
 .article-wrapper .note-editable blockquote {
@@ -2185,19 +2181,25 @@ a:hover {
   transform: translate(0, 0);
   color: #c8c8c8;
 }
-.writer-wrapper {
-  margin-top: 20px;
+.main-article .share-wrapper {
+  margin-top: 60px;
+  height: 20px;
 }
-.writer-wrapper .writer-intro .writer-name {
+.main-article .divider {
+  margin-bottom: 20px;
+  height: 2px;
+  border-bottom: 1px solid #f8f8f8;
+}
+.main-article .writer-wrapper .writer-intro .writer-name {
   font-size: 18px;
 }
-.writer-wrapper .writer-intro .writer-bio {
+.main-article .writer-wrapper .writer-intro .writer-bio {
   color: #9d9e9f;
 }
-.writer-wrapper .writer-avatar {
-  float: left;
+.main-article .writer-wrapper .writer-avatar {
+  max-width: 77px;
 }
-.writer-wrapper .writer-avatar .avatar-wrapper .user-avatar {
+.main-article .writer-wrapper .writer-avatar .avatar-wrapper .user-avatar {
   width: 60px;
   height: 60px;
   -webkit-border-radius: 30px;
@@ -2222,11 +2224,10 @@ a:hover {
     box-shadow: 0px 0px 3px #dddddd;
   }
   .main-article .writer-intro {
-    width: 100%;
-    padding-top: 10px;
+    padding-top: 0px;
   }
-  .main-article .writer-avatar {
-    width: 13%;
+  .main-article .writer-intro .writer-bio {
+    padding-right: 40px;
   }
   .more-article-wrapper {
     background-color: #ffffff;
@@ -2258,12 +2259,7 @@ a:hover {
 }
 @media (max-width: 767px) {
   .main-article .writer-intro {
-    width: 100%;
     padding-top: 10px;
-  }
-  .main-article .writer-avatar {
-    width: 30%;
-    height: 100%;
   }
   .more-article-wrapper .title-wrapper {
     padding-top: 5px;
