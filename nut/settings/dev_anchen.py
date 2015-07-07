@@ -81,7 +81,7 @@ DEFAULT_POPULAR_SCALE = 200
 #         raise TemplateSyntaxError(
 #             "Undefined variable or unknown value for: \"%s\"" % other)
 
-TEMPLATE_STRING_IF_INVALID = "****************** %s ****************"
+# TEMPLATE_STRING_IF_INVALID = "****************** %s ****************"
 
 
 __author__ = 'an chen '

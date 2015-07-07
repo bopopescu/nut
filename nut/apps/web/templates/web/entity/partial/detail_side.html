@@ -13,39 +13,81 @@
 {% if article %}
 <ul class="section-list">
     <li class="section">
-        <div class="writer-name">
-            <div class="writer-nick">
-                <a href="{% url 'web_user_article' article.creator.pk %}">
-                {{ article.creator.profile.nickname }}
-                </a>
-                <div class="writer-bio">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="writer-avatar col-sm-2">
+                    <div class="avatar-wrapper">
+                        <img src="{{ article.creator.profile.avatar_url }}">
+                    </div>
+                </div>
+                <div class="writer-intro col-sm-10">
+                     <div class="writer-nick">
+                        <a href="{% url 'web_user_article' article.creator.pk %}">
+                            {{ article.creator.profile.nickname }}
+                        </a>
+                        <div class="writer-bio">
+                            {{ article.creator.profile.bio|truncatechars:60 }}
+                        </div>
+                    </div>
 
                 </div>
             </div>
-            <div class="writer-avatar">
-                <img src="{{ article.creator.profile.avatar_url }}">
-            </div>
-        </div>
-        <div class="writer-bio">
-            {{ article.creator.profile.bio|truncatechars:120 }}
         </div>
     </li>
 </ul>
 {% endif %}
 <ul class="section-list">
-    <li class="section  need-bottom-border">
-        <div class="section-title">热门品类</div>
-        <div class="section-content">
-            <ul class="cate-list-all">
-                {% for cate in pop_categories %}
-                    <li>
-                        <a href="{% url 'web_category_group' cate.id %}">{{ cate.title }}</a>
-                    </li>
-                {% endfor %}
+    <li class="section">
+        <div class="section-title">热门商品</div>
+        <ul class="pop-entity-list">
+            {% for ent in pop_entities %}
+                <li>
+                    <div class="pop-entity-wrapper">
+                        <div class="entity-content">
+                            <div class="entity-name">
+                                <a href="{% url 'web_entity_detail' ent.entity_hash %}">
+                                    {{ ent.title|truncatechars:20 }}
+                                </a>
+                            </div>
+{#                            <div class="entity-intro">#}
+{#                                <a href="{% url 'web_entity_detail' ent.entity_hash %}">#}
+{#                                    {{ ent.top_note|truncatechars:42 }}#}
+{#                                </a>#}
+{#                            </div>#}
+                        </div>
+                        <div class="img-holder">
+                            <a href="{% url 'web_entity_detail' ent.entity_hash %}">
+                                <img width="52px" height="52px" src="{{ ent.chief_image|resize:'52' }}" />
+                            </a>
+                        </div>
 
-            </ul>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </li>
+ {% if request.user.is_staff  and is_entity_detail  %}
+    <li class="section need-bottom-border">
+        <div class="section-content">
+            <a href="{% url 'management_entity_edit' entity.id %}" target=_blank>
+                <i class="fa fa-pencil-square-o"></i>
+                &nbsp;&nbsp;编辑商品
+            </a>
         </div>
     </li>
+    {% endif %}
+
+    {% if request.user.is_staff  and  is_article_detail  %}
+    <li class="section need-bottom-border">
+        <div class="section-content">
+            <a href="{% url 'web_editor_article_edit' article.pk %}" target=_blank>
+                <i class="fa fa-pencil-square-o"></i>
+                &nbsp;&nbsp;编辑文章
+            </a>
+        </div>
+    </li>
+    {% endif %}
+
     <li class="section need-bottom-border">
         <div class="section-title">应用下载</div>
         <div class="section-content">
@@ -90,58 +132,6 @@
 {#            </ul>#}
 {#        </div>#}
 {#    </li>#}
-    {% if request.user.is_staff  and is_entity_detail  %}
-    <li class="section need-bottom-border">
-        <div class="section-content">
-            <a href="{% url 'management_entity_edit' entity.id %}" target=_blank>
-                <i class="fa fa-pencil-square-o"></i>
-                &nbsp;&nbsp;编辑商品
-            </a>
-        </div>
-    </li>
-    {% endif %}
-
-    {% if request.user.is_staff  and  is_article_detail  %}
-    <li class="section need-bottom-border">
-        <div class="section-content">
-            <a href="{% url 'web_editor_article_edit' article.pk %}" target=_blank>
-                <i class="fa fa-pencil-square-o"></i>
-                &nbsp;&nbsp;编辑文章
-            </a>
-        </div>
-    </li>
-    {% endif %}
-
-    <li class="section">
-        <div class="section-title">热门商品</div>
-        <ul class="pop-entity-list">
-            {% for ent in pop_entities %}
-                <li>
-                    <div class="pop-entity-wrapper">
-                        <div class="entity-content">
-                            <div class="entity-name">
-                                <a href="{% url 'web_entity_detail' ent.entity_hash %}">
-                                    {{ ent.title|truncatechars:20 }}
-                                </a>
-                            </div>
-{#                            <div class="entity-intro">#}
-{#                                <a href="{% url 'web_entity_detail' ent.entity_hash %}">#}
-{#                                    {{ ent.top_note|truncatechars:42 }}#}
-{#                                </a>#}
-{#                            </div>#}
-                        </div>
-                        <div class="img-holder">
-                            <a href="{% url 'web_entity_detail' ent.entity_hash %}">
-                                <img width="52px" height="52px" src="{{ ent.chief_image|resize:'52' }}" />
-                            </a>
-                        </div>
-
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-    </li>
-
 
 {#    remove pop tags wait for tag system refactor  #}
 {#    <li class="section" >#}
@@ -156,7 +146,40 @@
 {#            </ul>#}
 {#        </div>#}
 {#    </li>#}
+    <li class="section  need-bottom-border">
+        <div class="section-title">热门品类</div>
+        <div class="section-content">
+            <ul class="cate-list-all">
+                {% for cate in pop_categories %}
+                    <li>
+                        <a href="{% url 'web_category_group' cate.id %}">{{ cate.title }}</a>
+                    </li>
+                {% endfor %}
 
+            </ul>
+        </div>
+    </li>
+  <li class="section banner-holder">
+        <div class="section-banner">
+            <a class="banner-link" target="_blank " href="http://www.guoku.com/event/20150707/">
+                <img  class="img-responsive" src="{% static 'images/side_bar/zhuanti.jpg' %}">
+            </a>
+        </div>
+    </li>
+    <li class="section banner-holder">
+        <div class="section-banner">
+            <a class="banner-link" target="_blank " href="http://mp.weixin.qq.com/s?__biz=MjM5MzA3MzQ4MA==&mid=209847418&idx=1&sn=f2f8fdbdedcf48f0e05b632b887d629d#rd">
+                <img  class="img-responsive" src="{% static 'images/side_bar/weixin.jpg' %}">
+            </a>
+        </div>
+    </li>
+     <li class="section banner-holder">
+        <div class="section-banner">
+            <a class="banner-link" target="_blank " href="http://h5.m.taobao.com/we/detail2.htm?feedid=626075624&accountId=731372917">
+                <img  class="img-responsive" src="{% static 'images/side_bar/uzhan.jpg' %}">
+            </a>
+        </div>
+    </li>
     <li class="section banner-holder">
             <div class="section-banner">
                 <a class="banner-link" target="_blank " href="http://www.wandoujia.com/campaign/applaunch/?pn=com.guoku">
@@ -164,28 +187,6 @@
                 </a>
             </div>
     </li>
-    <li class="section banner-holder">
-        <div class="section-banner">
-            <a class="banner-link" target="_blank " href="http://guoku.uz.taobao.com/detail/678492715/?spm=a21a0.7476711.0.0.HGbuYQ">
-                <img  class="img-responsive" src="{% static 'images/side_bar/yozhan.jpg' %}">
-            </a>
-        </div>
-    </li>
-    <li class="section banner-holder">
-        <div class="section-banner">
-            <a class="banner-link" target="_blank " href="http://mp.weixin.qq.com/s?__biz=MjM5MzA3MzQ4MA==&mid=208797197&idx=1&sn=6b3ab02ef7d4590a10f47b09ebf52fdf#rd">
-                <img  class="img-responsive" src="{% static 'images/side_bar/zhuanfang.jpg' %}">
-            </a>
-        </div>
-    </li>
-    <li class="section banner-holder">
-        <div class="section-banner">
-            <a class="banner-link" target="_blank " href="http://www.guoku.com/event/20150608/">
-                <img  class="img-responsive" src="{% static 'images/side_bar/zhuanti.jpg' %}">
-            </a>
-        </div>
-    </li>
-
      <li class="section banner-holder">
             <div class="section-banner">
                 <a class="banner-link" target="_blank " href="http://s.click.taobao.com/nc4ac3y">

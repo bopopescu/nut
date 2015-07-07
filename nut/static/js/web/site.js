@@ -216,6 +216,15 @@ $.ajaxSetup({
         request_url:'recommend'
     });
 
+    function show_sns_page_dot(){
+            $('.nav-user-actions .round').css({display:'inline-block'});
+            $('.setting-list .round').css({display: 'inline-block'});
+    };
+    function hide_sns_page_dot(){
+            $('.nav-user-actions .round').css({display:'none'});
+            $('.setting-list .round').css({display: 'none'});
+
+    };
     var util = {
         checkEventRead:function(){
             // add by an , for event link status check , remove the red dot if event is read.
@@ -232,6 +241,15 @@ $.ajaxSetup({
             }
 
             return ;
+        },
+
+        checkSNSBindVisit: function(){
+            var sns_bind_page_visited_key = 'SNS_BIND_PAGE_VISITED';
+            if ($.cookie(sns_bind_page_visited_key) === 'visited'){
+                hide_sns_page_dot();
+            }else{
+                show_sns_page_dot();
+            }
         },
 
         modalSignIn: function(html) {
@@ -1276,6 +1294,7 @@ $.ajaxSetup({
         //add by an
         account_setting.handleUserInfo();
         util.checkEventRead();
+        util.checkSNSBindVisit();
         link_page.initLinks();
         selection_article.init_loader();
 

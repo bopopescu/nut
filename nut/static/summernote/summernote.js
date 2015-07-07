@@ -6,7 +6,7 @@
  * Copyright 2013-2015 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
- * Date: 2015-07-03T04:10Z
+ * Date: 2015-07-07T06:37Z
  */
 (function (factory) {
   /* global define */
@@ -3977,13 +3977,13 @@
 
     /**
      * unlink
-     *
+     * neet track  , by an
      * @type command
      *
      * @param {jQuery} $editable
      */
     this.unlink = function ($editable) {
-      var rng = this.createRange();
+      var rng = this.createRange($editable);
       if (rng.isOnAnchor()) {
         var anchor = dom.ancestor(rng.sc, dom.isAnchor);
         rng = range.createFromNode(anchor);
@@ -5100,7 +5100,6 @@
                     }
                 });
             }
-
             layoutInfo.editable().on('paste', hPasteClipboardImage);
         };
 
