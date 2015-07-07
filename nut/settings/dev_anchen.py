@@ -4,6 +4,10 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 IMAGE_HOST = 'http://images.hello.new/'
 
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+
+
 
 CACHES = {
     "default": {
