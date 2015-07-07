@@ -16,5 +16,15 @@ def lastslug(request):
         'newest_event_slug': slug,
     }
 
+def browser(request):
+    agent_string = request.META['HTTP_USER_AGENT']
+    return {
+        'isGuokuIphoneApp': 'orange' in agent_string,
+        'isGuokuIpadApp': 'pomelo' in agent_string,
+        'isWechat': 'MicroMessenger' in  agent_string,
+        'isMobileSafari': ('iPhone' in agent_string) and ('Mobile' in agent_string) and ('Safari' in agent_string),
+        'isAndroid': ('Android' in agent_string),
+    }
+
 if __name__ == "__main__":
    print lastslug()
