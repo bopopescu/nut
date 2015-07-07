@@ -48,7 +48,7 @@ class UserSettingsForm(forms.Form):
     bio = forms.CharField(label=_('bio'),
                           widget=forms.Textarea(attrs={'class':'td'}),
                           required=False,
-                          max_length=30,
+                          max_length=200,
                           help_text=_(''))
 
     website = forms.URLField(label=_('website'),

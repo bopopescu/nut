@@ -1,5 +1,5 @@
 .guoku-btn-normal {
-  font-size: 14px;
+  font-size: 16px;
   height: 35px;
   line-height: 35px;
   text-align: center;
@@ -63,7 +63,8 @@ h3,
 h4,
 .h4,
 .lead {
-  font-family: "STXihei", "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei UI", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+  font-size: 16px;
 }
 body {
   padding-top: 100px;
@@ -1563,7 +1564,7 @@ a:hover {
   height: 60px;
 }
 #user_article .user-article-item .title-wrapper .title {
-  font-size: 16px;
+  font-size: 18px;
 }
 #user_article .user-article-item .info-wrapper .info {
   float: right;
@@ -1631,8 +1632,33 @@ a:hover {
   float: right;
   padding-right: 10px;
 }
+#detail_content #detail_content_right .section-list .section .writer-name .writer-nick {
+  width: 75%;
+  float: right;
+  padding-top: 10px;
+  font-size: 18px;
+}
+#detail_content #detail_content_right .section-list .section .writer-name .writer-avatar {
+  width: auto ;
+  float: none;
+}
+#detail_content #detail_content_right .section-list .section .writer-name .writer-avatar img {
+  width: 50px;
+  height: 50px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+#detail_content #detail_content_right .section-list .section .writer-bio {
+  padding: 0px 0px 0px 70px;
+  color: #9d9e9f;
+  font-size: 13px;
+}
 #detail_content #detail_content_right .section-list .section-title {
-  font-size: 16px;
+  font-size: 18px;
 }
 #detail_content #detail_content_right .section-list .download-title {
   padding-bottom: 10px;
@@ -1725,7 +1751,7 @@ a:hover {
 }
 #detail_content #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .entity-content .entity-name {
   margin-top: 15px;
-  font-size: 14px;
+  font-size: 16px;
 }
 #detail_content #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .entity-content .entity-intro {
   font-size: 13px;
@@ -1737,7 +1763,7 @@ a:hover {
   margin-bottom: 10px;
 }
 #detail_content #detail_content_left .guess-title {
-  font-size: 16px;
+  font-size: 18px;
   margin: 20px 0px ;
 }
 #detail_content #detail_content_left .detail-pic-left .detail_img_big img {
@@ -1754,7 +1780,7 @@ a:hover {
   border: 1px solid #e6e6e6;
 }
 #detail_content #detail_content_left .detail-info-center .brand {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 800;
 }
 #detail_content #detail_content_left .detail-info-center .brand.published {
@@ -1817,7 +1843,7 @@ a:hover {
   margin-top: 10px;
 }
 #detail_content #detail_content_left .detail-info-center .button-wrapper .guoku-button {
-  font-size: 14px;
+  font-size: 16px;
   height: 35px;
   border-radius: 4px;
   line-height: 35px;
@@ -1846,7 +1872,7 @@ a:hover {
 }
 #detail_content #detail_content_left #guess_list .guess-title {
   padding: 10px 15px;
-  font-size: 16px;
+  font-size: 18px;
 }
 #detail_content #detail_content_left #guess_list .guess_img {
   margin-bottom: 10px;
@@ -2022,7 +2048,7 @@ a:hover {
   padding-bottom: 10px;
 }
 #editor-articles #editor-article-list .article-item .title .status {
-  font-size: 14px;
+  font-size: 16px;
   border: none;
   color: #9d9e9f;
   margin-left: 10px;
@@ -2035,7 +2061,7 @@ a:hover {
   color: #ff9500;
 }
 #editor-articles #editor-article-list .article-item .info-list {
-  font-size: 14px;
+  font-size: 16px;
   color: #9d9e9f;
   padding-bottom: 10px;
 }
@@ -2114,9 +2140,14 @@ a:hover {
 .article-wrapper .cover-wrapper {
   margin-bottom: 20px;
 }
+.article-wrapper .divider {
+  height: 2px;
+  border-bottom: 1px solid #f8f8f8;
+  margin-top: 60px;
+}
 .article-wrapper .content-wrapper,
 .article-wrapper .note-editable {
-  font-family: 'Open Sans', 'Helvetica Neue', 'Arial', 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
   color: #424242;
   font-size: 16px;
   line-height: 1.6;
@@ -2154,6 +2185,28 @@ a:hover {
   transform: translate(0, 0);
   color: #c8c8c8;
 }
+.writer-wrapper {
+  margin-top: 20px;
+}
+.writer-wrapper .writer-intro .writer-name {
+  font-size: 18px;
+}
+.writer-wrapper .writer-intro .writer-bio {
+  color: #9d9e9f;
+}
+.writer-wrapper .writer-avatar {
+  float: left;
+}
+.writer-wrapper .writer-avatar .avatar-wrapper .user-avatar {
+  width: 60px;
+  height: 60px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
 @media (min-width: 768px) {
   .main-article {
     background-color: #ffffff;
@@ -2167,6 +2220,13 @@ a:hover {
     -webkit-box-shadow: 0px 0px 3px #dddddd;
     -moz-box-shadow: 0px 0px 3px #dddddd;
     box-shadow: 0px 0px 3px #dddddd;
+  }
+  .main-article .writer-intro {
+    width: 100%;
+    padding-top: 10px;
+  }
+  .main-article .writer-avatar {
+    width: 13%;
   }
   .more-article-wrapper {
     background-color: #ffffff;
@@ -2197,6 +2257,14 @@ a:hover {
   }
 }
 @media (max-width: 767px) {
+  .main-article .writer-intro {
+    width: 100%;
+    padding-top: 10px;
+  }
+  .main-article .writer-avatar {
+    width: 30%;
+    height: 100%;
+  }
   .more-article-wrapper .title-wrapper {
     padding-top: 5px;
   }
@@ -2218,7 +2286,7 @@ a:hover {
 }
 .artice-section-title {
   margin: 20px 0px;
-  font-size: 16px;
+  font-size: 18px;
 }
 .more-article-wrapper {
   margin: 20px 0px;
