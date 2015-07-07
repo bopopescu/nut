@@ -18,12 +18,11 @@ def crawl(item_id):
     res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
     return res.json()
 
-links = Buy_Link.objects.filter(origin_source='taobao.com', entity__status=Entity.selection).exclude(status=Buy_Link.remove).order_by('-id')
-# print links.query
+links = Buy_Link.objects.filter(origin_source='taobao.com', entity__status=Entity.selection).exclude(status=Buy_Link.remove).order_by('id')
+# print links.count()
 for row in links:
-    # print row.origin_id
     print row.origin_id, crawl(item_id=row.origin_id)
-    time.sleep(10)
+    time.sleep(5)
 
 
 
