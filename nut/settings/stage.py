@@ -56,7 +56,7 @@ MIDDLEWARE_CLASSES += (
 
 INSTALLED_APPS += (
     'gunicorn',
-    # 'debug_toolbar',
+    'debug_toolbar',
 )
 
 
