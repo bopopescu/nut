@@ -1210,6 +1210,37 @@ padding-left: 15px;
 /*for static content*/
 .main_static{
     margin-top:110px;
+
+    h3{
+      font-size: @title-size;
+      font-weight: 600;
+    }
+    h4{
+      font-size: @subtitle-size;
+      font-weight: 600;
+    }
+    a{
+      h4{
+        color: @common-text-color;
+      }
+    }
+    p a{
+      padding: 0px 5px;
+    }
+    p a:after{
+        margin-left:6px;
+        content:"\f08e";
+        display: inline-block;
+        font-family:FontAwesome;
+        font-size: @mini-size;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        transform: translate(0, 0);
+        color:#c8c8c8;
+    }
+
+
 }
 
 .static-page hr{
@@ -2393,4 +2424,10 @@ a:hover{text-decoration:underline;}
       width: 100%;
       height: 100%;
   }
+}
+
+.bind-problem{
+    font-size: @mini-size;
+    padding-left: 20px;
+    font-weight: 600;
 }

@@ -1178,6 +1178,32 @@ a {
 .main_static {
   margin-top: 110px;
 }
+.main_static h3 {
+  font-size: 22px;
+  font-weight: 600;
+}
+.main_static h4 {
+  font-size: 18px;
+  font-weight: 600;
+}
+.main_static a h4 {
+  color: #424242;
+}
+.main_static p a {
+  padding: 0px 5px;
+}
+.main_static p a:after {
+  margin-left: 6px;
+  content: "\f08e";
+  display: inline-block;
+  font-family: FontAwesome;
+  font-size: 13px;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+  color: #c8c8c8;
+}
 .static-page hr {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -2334,4 +2360,9 @@ a:hover {
   top: 0px;
   width: 100%;
   height: 100%;
+}
+.bind-problem {
+  font-size: 13px;
+  padding-left: 20px;
+  font-weight: 600;
 }
