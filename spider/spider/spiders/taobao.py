@@ -20,14 +20,18 @@ class TaobaoSpider(scrapy.Spider):
     def parse(self, response):
         # self.log(response.headers)
         item = GItem()
-        item['status'] = 2
+
+
+
         try:
             item['origin_id'] = response.headers['At_Itemid']
         except KeyError:
             item['origin_id'] = self.item_id.replace('#', '')
         item['link'] = response.url
-        if 'noitem.htm' in response.url:
-            item['status'] = 0
+
+        item['status'] = self.get_item_status(response)
+
+        if item['status'] == 0:
             return item
 
         metas = response.xpath('//meta/@content').extract()
@@ -72,11 +76,20 @@ class TaobaoSpider(scrapy.Spider):
         except KeyError:
             pass
 
-        soldout = response.xpath('//p[@class="tb-hint"]/strong/text()').extract()
         item['price'] = self.get_price(response)
         item['cid'] = cat_id
         item['image_urls'] = self.get_images(response)
 
+        # item['status'] = 2
+        # if 'noitem.htm' in response.url:
+        #     item['status'] = 0
+        #     return item
+
+        item['price'] = self.get_price(response)
+        item['cid'] = cat_id
+        item['image_urls'] = self.get_images(response)
+
+        soldout = response.xpath('//p[@class="tb-hint"]/strong/text()').extract()
         if len(soldout) > 0:
             item['status'] = 1
         # item['link'] = response.url
@@ -111,3 +124,17 @@ class TaobaoSpider(scrapy.Spider):
             return float(price[0])
         else:
             return float(price[1])
+
+    def get_item_status(self, response):
+        # item['status'] = 2
+        if 'noitem.htm' in response.url:
+            return 0
+            # return item
+        soldout = response.xpath('//p[@class="tb-hint"]/strong/text()').extract()
+        if len(soldout) > 0:
+            return 1
+        soldout = response.xpath('//strong[@class="sold-out-tit"]/text()').extract()
+        if len(soldout) > 0:
+            return 1
+
+        return 2
