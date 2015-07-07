@@ -157,6 +157,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     # see document for reason,
     # modified base.html (template) for this processor to take effect
     'apps.web.contextprocessors.global.lastslug',
+    'apps.web.contextprocessors.global.browser',
 )
 
 
