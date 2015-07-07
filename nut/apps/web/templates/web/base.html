@@ -62,12 +62,12 @@ window.location.href = url;</script><![endif]-->
     <!-- End Google Analytics -->
     <script>
         // for newest event slug
-        var newest_event_slug =  '{{ newest_event_slug }}'  ;
+        var newest_event_slug =  '{{ newest_event_slugba }}'  ;
 
     </script>
 </head>
 
-<body class="{% block body_class %} {% endblock %}">
+<body class="{% block body_class %} {% endblock %} {% if isGuokuIphoneApp or isGuokuIpadApp %}guoku-app{% endif %}">
 {% url 'web_download' as web_download_url %}
 {% url 'web_selection' as web_selection_url %}
 {% block global_links %}
