@@ -75,6 +75,12 @@
     </div>
 {% endblock %}
 
+{% block script %}
+<script language="javascript">
+    var sns_bind_page_visited_key = 'SNS_BIND_PAGE_VISITED';
+    $.cookie(sns_bind_page_visited_key , 'visited' , { expires: 60, path: '/' });
+</script>
+{% endblock %}
 {#{% block main %}#}
 {#    <h2>绑定设置</h2>#}
 {#    <br />#}
