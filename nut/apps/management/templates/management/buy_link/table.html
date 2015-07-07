@@ -10,6 +10,7 @@
 {#                    <th>{% trans 'origin_id' %}</th>#}
                     <th>{% trans 'source' %}</th>
                     <th>{% trans 'buy link' %}</th>
+                    <th>{% trans 'shop link' %}</th>
                     <th>{% trans 'status' %}</th>
 {#                    <th>{% trans 'creator' %}</th>#}
 {#                    <th>{% trans 'category' %}</th>#}
@@ -34,7 +35,21 @@
 {#                        <td>{{ row.origin_id }}</td>#}
                         <td>{{ row.origin_source }}</td>
                         <td>{{ row.link }}</td>
+                        <td>
+                            {% if row.shop_link %}
+                                <a href="{{ row.shop_link }}" target="_blank">去店铺</a>
+                            {% endif %}
+                        </td>
                         <td><span class="label {% if row.status == 2 %}label-info{% else %}label-danger{% endif %}">{{ row.get_status_display }}</span></td>
+                        <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-success" href="{% url 'management_check_buy_link' row.pk %}" target="_blank">{% trans 'check status' %}</a>
+                                    <a class="btn btn-default" href="{% url 'management_edit_entity_buy_link' row.pk %}" target="_blank">{% trans 'edit' %}</a>
+{#                                    {% if not buy_link.default %}#}
+{#                                        <a class="btn btn-danger buy-link" data-index="{{ row.pk }}" href="javascript:;">&nbsp;{% trans 'remove' %}</a>#}
+{#                                    {% endif %}#}
+                                </div>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
