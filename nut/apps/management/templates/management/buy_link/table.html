@@ -43,7 +43,9 @@
                         <td><span class="label {% if row.status == 2 %}label-info{% else %}label-danger{% endif %}">{{ row.get_status_display }}</span></td>
                         <td>
                                 <div class="btn-group">
+                                    {% if 'taobao' in row.origin_source or 'tmall' in row.origin_source %}
                                     <a class="btn btn-success" href="{% url 'management_check_buy_link' row.pk %}" target="_blank">{% trans 'check status' %}</a>
+                                    {% endif %}
                                     <a class="btn btn-default" href="{% url 'management_edit_entity_buy_link' row.pk %}" target="_blank">{% trans 'edit' %}</a>
 {#                                    {% if not buy_link.default %}#}
 {#                                        <a class="btn btn-danger buy-link" data-index="{{ row.pk }}" href="javascript:;">&nbsp;{% trans 'remove' %}</a>#}
