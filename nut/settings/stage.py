@@ -21,7 +21,8 @@ DATABASES = {
         'HOST': '10.0.2.90',
         'PORT': '',
         'OPTIONS': {
-            'use_unicode':'utf-8',
+            # 'use_unicode':'utf-8',
+            'charset': 'utf8mb4',
             'init_command':'SET storage_engine=INNODB',
         }
     },
@@ -33,7 +34,8 @@ DATABASES = {
         'HOST': '10.0.2.90',
         'PORT': '',
         'OPTIONS': {
-            'use_unicode':'utf-8',
+            # 'use_unicode':'utf-8',
+            'charset': 'utf8mb4',
             'init_command':'SET storage_engine=INNODB',
         }
     },
