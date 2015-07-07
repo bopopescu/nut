@@ -1,9 +1,14 @@
 Change Log
 ==========
+### Ver 4.2.8
+1. 支持 emoj
+2. 给后台支持 buy link 检索
+
 ### Ver 4.2.7（2015-07-06）
 1. 增加商品发布到 U站
 2. 增加 django-debug-toolbar 
 3. 增加 商品喜爱计数器缓存
+4. 支持 果库内嵌浏览器 去除导航栏， 测试用 safari ， 改了 user agent  string , 加 orange 进去， 访问 http://test.guoku.com/articles/9/ ， 应该不出现导航栏。  
 
 ### Ver 4.2.6（2015-07-02）
 1. 完善推荐算法， 去除部分下架商品。
