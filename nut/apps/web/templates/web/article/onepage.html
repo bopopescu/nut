@@ -121,12 +121,17 @@
 {% block script %}
     <script type="text/javascript">
         var jiathis_config = {
-            url: "{{ request.path }}",
-            title: "【{{ article.title }}】{{ article.digest|truncatechars:50 }}(分享自 @果库)",
+            url: "http://www.guoku.com{{ request.path }}",
+            title: "【{{ article.title }}】:",
             appkey:{
-                "tsina":
+                "tsina":'2830558576',
             },
+            imageWidth:150,
+            marginTop:150,
+            pic:"{{ article.cover  }}",
+            summary:"{{ article.digest|striptags|truncatechars:50}}(分享自 @果库)",
             data_track_clickback:'true',
+
         };
     </script>
     <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2038803" charset="utf-8"></script>
