@@ -138,6 +138,15 @@ img {
   background-color: #ff1f77;
   text-decoration: none;
 }
+.nav-user-actions .round {
+  position: relative;
+  left: 5px;
+}
+.setting-list .round {
+  position: relative;
+  left: 5px;
+  top: 8px;
+}
 .ancillary {
   color: #9d9e9f;
 }
