@@ -63,6 +63,13 @@
                         </div>
                         <div class="divider"></div>
                         <div class="writer-wrapper">
+                            <div class="writer-avatar">
+                                <div class="avatar-wrapper">
+                                    <a href="{% url 'web_user_article' article.creator.pk %}">
+                                        <img class="user-avatar" src="{{ article.creator.profile.avatar_url }}" />
+                                    </a>
+                                </div>
+                            </div>
                             <div class="writer-intro">
                                 <div class="writer-name">
                                     <a href="{% url 'web_user_article' article.creator.pk %}">
@@ -71,13 +78,7 @@
                                 </div>
                                 <div class="writer-bio">{{ article.creator.profile.bio|truncatechars:200 }}</div>
                             </div>
-                            <div class="writer-avatar">
-                                <div class="avatar-wrapper">
-                                    <a href="{% url 'web_user_article' article.creator.pk %}">
-                                        <img class="user-avatar" src="{{ article.creator.profile.avatar_url }}" />
-                                    </a>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
