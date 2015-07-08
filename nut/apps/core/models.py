@@ -923,7 +923,7 @@ class Tag(models.Model):
         return self.tag
 
     def get_absolute_url(self):
-        return "/t/%s" % self.tag_hash
+        return "/t/%s/" % self.tag_hash
 
     search = SphinxSearch(
         index = 'tags',
@@ -955,6 +955,9 @@ class Entity_Tag(models.Model):
     @property
     def hash(self):
         return self.tag.tag_hash
+
+    def get_absolute_url(self):
+        return '/t/%s' % self.tag.tag_hash
 
 
 class Sina_Token(BaseModel):
