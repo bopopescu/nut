@@ -9,6 +9,7 @@
                     <th>{% trans 'image' %}  <span class="info">点击图片看详情</span><</th>
 {#                    <th>{% trans 'origin_id' %}</th>#}
                     <th>{% trans 'source' %}</th>
+                    <th>{% trans 'price' %}</th>
                     <th>{% trans 'buy link' %}</th>
                     <th>{% trans 'shop link' %}</th>
                     <th>{% trans 'status' %}</th>
@@ -34,6 +35,7 @@
                         </td>
 {#                        <td>{{ row.origin_id }}</td>#}
                         <td>{{ row.origin_source }}</td>
+                        <td>{{ row.price }}</td>
                         <td>{{ row.link }}</td>
                         <td>
                             {% if row.shop_link %}
