@@ -21,7 +21,7 @@ class EntitySitemap(Sitemap):
     priority = 1.0
     now = datetime.now()
     def items(self):
-        return Entity.objects.filter(updated_time__lte=self.now, status__gte=Entity.new)
+        return Entity.objects.filter(updated_time__lte=self.now, status__gte=Entity.freeze)
 
     def lastmod(self, obj):
         return obj.updated_time
