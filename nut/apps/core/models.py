@@ -1043,10 +1043,8 @@ class Article(models.Model):
             self.updated_datetime = datetime.now()
         super(Article, self).save(*args, **kwargs)
 
-
     def __unicode__(self):
         return self.title
-
 
     @property
     def digest(self):
@@ -1355,7 +1353,8 @@ post_save.connect(user_like_notification, sender=Entity_Like, dispatch_uid="user
 def user_post_note_notification(sender, instance, created, **kwargs):
     log.info(created)
     if issubclass(sender, Note) and created:
-        log.info(instance.user)
+        # log.info(instance.user)
+        instance.entity.innr_note()
         if instance.user != instance.entity.user and instance.user.is_active >= instance.user.blocked:
             notify.send(instance.user, recipient=instance.entity.user, action_object=instance, verb='post note', target=instance.entity)
 
