@@ -16,10 +16,18 @@ class BuyLinkListView(BaseListView):
         self.queryset = Buy_Link.objects.filter(status=status)
         return self.queryset
 
+    def get_status(self, request):
+        _status = request.GET.get('status')
+        try:
+            _status = int(_status)
+        except (TypeError, ValueError):
+            _status = 2
+        return _status
+
     def get(self, request):
         page = request.GET.get('page', 1)
-        status = request.GET.get('status', 2)
-        _buy_link_list =  self.get_queryset(status=status)
+        status = self.get_status(request)
+        _buy_link_list = self.get_queryset(status=status)
 
         paginator = ExtentPaginator(_buy_link_list, 30)
 
@@ -32,6 +40,7 @@ class BuyLinkListView(BaseListView):
 
         context = {
             'buy_links': _buy_links,
+            'status': status,
         }
         return self.render_to_response(context)
 
