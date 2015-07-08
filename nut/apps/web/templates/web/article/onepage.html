@@ -63,6 +63,7 @@
                         </div>
                         <div class="share-wrapper">
                             <!-- JiaThis Button BEGIN -->
+                            <div class="share-intro">分享到</div>
                             <div class="jiathis_style">
                                 <a class="jiathis_button_tsina"></a>
                                 <a class="jiathis_button_weixin"></a>
@@ -75,6 +76,10 @@
                         </div>
                         <div class="divider"></div>
                         <div class="writer-wrapper">
+{#                            <div class="row">#}
+{#                                <div class="write-pre col-xs-12 col-sm-12">#}
+{#                                </div>#}
+{#                            </div>#}
                             <div class="row">
                                 <div class="writer-avatar col-xs-2 col-sm-2">
                                     <div class="avatar-wrapper">
@@ -98,7 +103,8 @@
                 </div>
 
                      <div class="artice-section-title">
-                         大家都在看
+                         <div class="info-text">大家都在看</div>
+
                     </div>
 
                 {% for sla in article.related_articles %}
@@ -129,7 +135,7 @@
             imageWidth:150,
             marginTop:150,
             pic:"{{ article.cover  }}",
-            summary:"{{ article.digest|striptags|truncatechars:50}}(分享自 @果库)",
+            summary:"{{ article.digest|striptags|truncatechars:50}} （分享自 @果库）",
             data_track_clickback:'true',
 
         };
