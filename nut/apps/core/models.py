@@ -564,6 +564,7 @@ class Entity(BaseModel):
             log.info("miss miss")
             res = self.notes.count()
             cache.set(key, res)
+            return res
         # return self.notes.count()
 
     @property
