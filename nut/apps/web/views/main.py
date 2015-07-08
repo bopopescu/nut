@@ -46,9 +46,15 @@ class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin , ListView):
 
     def get_context_data(self, **kwargs):
         context = super(SelectionEntityList,self).get_context_data()
+        selections = context['page_obj']
         context['refresh_datetime']  = self.get_refresh_time()
-        context['user_entity_likes'] = self.get_like_list(context['object_list'])
-        context['selections'] = context['page_obj']
+        el = list()
+        if self.request.user.is_authenticated():
+            # notify.send(request.user, recipient=request.user, verb='you visitor selection page')
+            e = selections.object_list
+            el = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=list(e.values_list('entity_id', flat=True))).using('slave')
+        context['user_entity_likes'] = el
+        context['selections'] = selections
         return context
 
     def get_like_list(self, entities):
