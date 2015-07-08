@@ -224,6 +224,16 @@ def entity_like(request, eid):
     if request.is_ajax():
         _user = request.user
         try:
+            # try:
+            #     Entity_Like.objects.get(user_id=_user.id, entity_id=eid)
+            # except Entity_Like.DoesNotExist, e:
+            #         obj = Entity_Like.objects.create(
+            #             user_id = _user.id,
+            #             entity_id = eid,
+            #         )
+            #         obj.entity.innr_like()
+                    # return obj
+
             like_task.delay(uid=_user.id, eid=eid)
             # el = Entity_Like.objects.create(
             #     user = _user,
