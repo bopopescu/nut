@@ -8,15 +8,18 @@ class BuyLinkListView(BaseListView):
 
     template_name = 'management/buy_link/list.html'
 
-    queryset = Buy_Link.objects.all().order_by('-id')
+    # queryset = Buy_Link.objects.filter(status=Buy_Link.sale).order_by('-id')
 
-    # def get_queryset(self):
-
-        # return
+    def get_queryset(self, **kwargs):
+        status = kwargs.pop('status')
+        status = int(status)
+        self.queryset = Buy_Link.objects.filter(status=status)
+        return self.queryset
 
     def get(self, request):
         page = request.GET.get('page', 1)
-        _buy_link_list =  self.get_queryset()
+        status = request.GET.get('status', 2)
+        _buy_link_list =  self.get_queryset(status=status)
 
         paginator = ExtentPaginator(_buy_link_list, 30)
 
