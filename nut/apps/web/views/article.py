@@ -205,7 +205,9 @@ class ArticleDetail(DetailView):
 
     def get_context_data(self,**kwargs):
         context = super(ArticleDetail, self).get_context_data(**kwargs)
+
         article = context['article']
+        context['from_app'] = self.request.GET.get('from','normal') == 'app'
         context['is_article_detail'] = True
         context['is_article_creator'] = self.request.user == self.object.creator
         context['can_show_edit'] =  (not article.is_selection) and (self.request.user == article.creator)

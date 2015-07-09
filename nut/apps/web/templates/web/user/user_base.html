@@ -16,7 +16,7 @@
     {% url 'web_user_article' user.pk as web_user_article_url %}
 
         {% static "images/profile_bg_04.png" as profile_bg%}
-        <div class="row user-block user-page-up" style='background: url("{{ profile_bg }}"); padding-top: 27px; padding-bottom: 22px; margin: -50px 0 0 0;background-size: 278px;'>
+        <div class="row user-block user-page-up" style='background: url("{{ profile_bg }}") repeat-x; padding-top: 27px; padding-bottom: 22px; margin: -50px 0 0 0;background-size: 278px;'>
 
             <div class='user_profile_image'>
 {#                <div style="text-align: center">#}
@@ -27,11 +27,11 @@
             </div>
 
             <div class="col-xs-12 col-sm-12">
-                <h4 class="text-center">{{ user.profile.nick }}</h4>
-                <p class="text-center">{{ user.bio }}</p>
+                <h4 class="text-center user-name">{{ user.profile.nick }}</h4>
+                <p class="text-center user-bio">{{ user.bio }}</p>
             </div>
             <div class="col-xs-12 col-sm-12">
-                <p class="text-center">
+                <p class="text-center user-social">
                     <a style="color: #414243" href="{{ web_user_followings_url }}">{% trans 'Following' %}&nbsp; <span class="count">{{ user.following_count }}</span></a>
                     <span style="margin-left: 15px; margin-right: 15px;">|</span>
                     <a style="color: #414243" href="{{ web_user_fans_url }}">{% trans 'Fans' %}&nbsp; <span class="count">{{ user.fans_count }}</span></a>
