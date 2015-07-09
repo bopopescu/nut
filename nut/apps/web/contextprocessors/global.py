@@ -19,7 +19,7 @@ def lastslug(request):
 def browser(request):
     agent_string = request.META['HTTP_USER_AGENT']
     return {
-        'isGuokuIphoneApp': 'AppleWebKit' in agent_string,
+        'isGuokuIphoneApp': 'orange' in agent_string,
         'isGuokuIpadApp': 'pomelo' in agent_string,
         'isWechat': 'MicroMessenger' in  agent_string,
         'isMobileSafari': ('iPhone' in agent_string) and ('Mobile' in agent_string) and ('Safari' in agent_string),
