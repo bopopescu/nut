@@ -8,6 +8,9 @@ from django.utils.log import getLogger
 
 log = getLogger('django')
 
+@task(base=BaseTask)
+def pub_selections(*args, **kwargs):
+    pass
 
 @task(base=BaseTask)
 def set_publish_time(*args, **kwargs):
