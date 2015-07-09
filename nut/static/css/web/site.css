@@ -2225,16 +2225,24 @@ a:hover {
   transform: translate(0, 0);
   color: #c8c8c8;
 }
-.main-article .share-wrapper {
+#detail_content .share-wrapper {
   margin-top: 60px;
   height: 70px;
 }
-.main-article .share-wrapper .share-intro {
+#detail_content .share-wrapper .share-intro {
   font-size: 13px;
   margin-bottom: 10px;
   color: #9d9e9f;
 }
-.main-article .divider {
+#detail_content .share-wrapper-short {
+  padding-top: 20px;
+  margin-top: 10px;
+  height: 45px;
+}
+#detail_content .share-wrapper-short .jiathis_style {
+  float: right;
+}
+#detail_content .divider {
   margin-bottom: 20px;
   height: 2px;
   border-bottom: 1px solid #f8f8f8;

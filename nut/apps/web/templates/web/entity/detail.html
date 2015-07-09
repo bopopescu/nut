@@ -52,9 +52,18 @@
     {#                 <div class="detail_middle">#}
     {#                    {% include "web/entity/partial/detail_middle.html" %}#}
     {#                </div>#}
-                    <div class="share-wrapper">
+                    <div class="share-wrapper share-wrapper-short">
+                            <div class="jiathis_style">
+                                <a class="jiathis_button_tsina"></a>
+                                <a class="jiathis_button_weixin"></a>
+                                <a class="jiathis_button_qzone"></a>
+                                <a class="jiathis_button_tqq"></a>
+                                <a class="jiathis_button_tieba"></a>
+                                <a href="http://www.jiathis.com/share?uid=2038803" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+                            </div>
 
                     </div>
+                    <div class="divider"></div>
                     <div  class="row comment_list" itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
                          <ul class="common-note-list">
                              {% include "web/entity/partial/detail_comment_head.html" %}
@@ -170,4 +179,22 @@
         });
     })
 </script>
+ <script type="text/javascript">
+        var jiathis_config = {
+            url: "http://www.guoku.com{{ request.path }}",
+            title: "【{{ entity.selection_hover_word }}】:",
+            appkey:{
+                "tsina":'2830558576',
+            },
+            imageWidth:150,
+            marginTop:150,
+            pic:"{{ entity.chief_image  }}",
+            summary:"{{ entity.top_note.note|truncatechars:50}} （分享自 @果库）",
+            data_track_clickback:'true',
+
+        };
+    </script>
+    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2038803" charset="utf-8"></script>
+
+
 {% endblock %}
