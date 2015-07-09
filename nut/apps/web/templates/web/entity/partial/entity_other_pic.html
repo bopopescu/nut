@@ -9,8 +9,8 @@
         </div>
         {% for img in entity.detail_images %}
             <div class="other-pic-list">
-                <a href="javascript:;" class="">
-                    <img class="img-responsive" src="{{ img|resize:'42' }}" alt="{{ entity.title }}">
+            <a href="javascript:;" class="">
+               <img class="img-responsive" src="{{ img|resize:'42' }}" alt="{{ entity.title }}">
                 </a>
             </div>
         {% endfor %}
