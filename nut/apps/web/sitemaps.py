@@ -1,5 +1,5 @@
 from django.contrib.sitemaps import Sitemap
-from apps.core.models import GKUser, Entity, Entity_Tag, Sub_Category, Article
+from apps.core.models import GKUser, Entity, Tag, Sub_Category, Article
 from datetime import datetime
 
 
@@ -8,10 +8,10 @@ class UserSitemap(Sitemap):
     priority = 0.6
 
     def items(self):
-        return GKUser.objects.filter(is_active=GKUser.is_active).order_by('-date_joined')
+        return GKUser.objects.filter(is_active=GKUser.is_active).using('slave')
 
     def lastmod(self, obj):
-        return obj.last_login
+        return obj.date_joined
 
     def location(self, obj):
         return "/u/%s/" % obj.id
@@ -21,7 +21,7 @@ class EntitySitemap(Sitemap):
     priority = 1.0
     now = datetime.now()
     def items(self):
-        return Entity.objects.filter(updated_time__lte=self.now, status__gte=Entity.freeze)
+        return Entity.objects.filter(updated_time__lte=self.now, status__gte=Entity.freeze).using('slave')
 
     def lastmod(self, obj):
         return obj.updated_time
@@ -35,13 +35,13 @@ class TagSitemap(Sitemap):
     now = datetime.now()
 
     def items(self):
-        return Entity_Tag.objects.filter(created_time__lte=self.now)
+        return Tag.objects.filter(created_time__lte=self.now).using('slave')
 
     def lastmod(self, obj):
-        return obj.last_tagged_time
+        return obj.updated_time
 
     def location(self, obj):
-        return  obj.get_absolute_url()
+        return obj.get_absolute_url()
 
 class CategorySitemap(Sitemap):
     changefreq = "daily"
@@ -59,7 +59,7 @@ class ArticleSitemap(Sitemap):
     priority = 1.0
 
     def items(self):
-        return Article.objects.filter(publish=Article.published)
+        return Article.objects.filter(publish=Article.published).using('slave')
 
     def location(self, obj):
         return obj.get_absolute_url()
