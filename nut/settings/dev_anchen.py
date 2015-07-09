@@ -7,8 +7,6 @@ IMAGE_HOST = 'http://images.hello.new/'
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
 
-
-
 # CELERY #################################
 BROKER_URL = 'redis://localhost:6379/1'
 CELERY_ACCEPT_CONTENT = ['json']
@@ -35,8 +33,10 @@ CACHES = {
 #     }
 # }
 
+def removeDebugToolBar(theList):
+    return [x  for x in theList if x!='debug_toolbar']
 
-
+INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
 
 #
 # TEMPLATE_CONTEXT_PROCESSORS += (
@@ -44,11 +44,9 @@ CACHES = {
 # )
 LOCAL_TEST_DB = True
 
-
 Current_Dbhost = 'localhost'
 # Current_Dbhost = '10.0.1.110'
 # Current_Dbhost = '10.0.2.90'
-
 
 DATABASES = {
     'default': {
