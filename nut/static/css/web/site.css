@@ -2432,3 +2432,28 @@ a:hover {
 #article_list .info-wrapper .read {
   visibility: hidden;
 }
+.user-page-up {
+  background-repeat: repeat-x;
+}
+.user-page-up .user-name {
+  margin: 20px 0px;
+  font-size: 18px;
+}
+.user-page-up .user-bio {
+  display: block;
+  max-width: 550px;
+  margin: 0 auto ;
+}
+.user-page-up .user-social {
+  margin-top: 20px;
+}
+.user-page-up .user_profile_image img {
+  width: 132px;
+  height: 132px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
