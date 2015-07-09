@@ -11,7 +11,7 @@
 {% block keyword %}果库, 图文关键字{% endblock %}
 
 {% block body_class %}
-    gray-body
+    gray-body  {% if from_app %} guoku-app{% endif %}
 {% endblock %}{% block description %}果库, 图文列表， 描述{% endblock %}
 
 {% block h1 %}{{ article.title }}{% endblock %}
