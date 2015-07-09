@@ -1810,6 +1810,14 @@ a:hover {
   display: inline-block;
   border: 1px solid #e6e6e6;
 }
+#detail_content #detail_content_left .detail-pic-left .other-pics .other-pic-list a {
+  display: block;
+  text-align: center;
+}
+#detail_content #detail_content_left .detail-pic-left .other-pics .other-pic-list a img {
+  max-height: 40px;
+  margin: 0 auto;
+}
 #detail_content #detail_content_left .detail-info-center .brand {
   font-size: 16px;
   font-weight: 800;
