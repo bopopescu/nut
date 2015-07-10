@@ -67,9 +67,9 @@ class Selection(BaseModel):
 
 
 def process_report(sender, instance, created, **kwargs):
-    print sender
+    # print sender
     if issubclass(sender, Report):
-        print sender.content_type
+        print sender.object
 
 
 post_save.connect(process_report, sender=Report, dispatch_uid='process.report')
