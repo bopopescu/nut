@@ -79,8 +79,8 @@ def process_report(sender, instance, created, **kwargs):
                     'setting':'DOWNLOAD_DELAY=2',
                     'item_id': row.origin_id,
                 }
-                print data
-                # res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
+                # print data
+                res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
 
 
 post_save.connect(process_report, sender=Report, dispatch_uid='process.report')
