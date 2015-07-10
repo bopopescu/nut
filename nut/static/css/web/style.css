@@ -1112,6 +1112,9 @@ a:hover {
     color: #9D9E9F;
   }
 }
+.guoku-app {
+  padding-bottom: 40px;
+}
 .guoku-app #guoku_main_nav {
   display: none;
 }
@@ -1119,6 +1122,9 @@ a:hover {
   margin-top: 20px;
 }
 .guoku-app #detail_breadcrumb {
+  display: none;
+}
+.guoku-app .footer {
   display: none;
 }
 /*add by An End*/

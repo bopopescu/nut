@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.utils.http import JSONResponse
-from apps.core.models import Entity, Entity_Like, Note, Note_Comment, Note_Poke, Sub_Category , Entity_Tag
+from apps.core.models import Entity, Entity_Like, Note, Note_Comment, Note_Poke, Sub_Category , Entity_Tag, Brand
 from apps.core.tasks.entity import like_task, unlike_task
 from apps.web.forms.comment import CommentForm
 from apps.web.forms.note import NoteForm
@@ -21,6 +21,13 @@ from django.utils.log import getLogger
 
 log = getLogger('django')
 
+def get_entity_brand(entity):
+    if not bool(entity.brand):
+        return None
+    brand_list = Brand.objects.filter(name__contains=entity.brand)
+    if brand_list:
+        return brand_list[0]
+    return None
 
 
 def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
@@ -79,6 +86,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
             'guess_entities': _guess_entities,
             'likers': _entity.likes.all()[:13],
             'is_entity_detail':True,
+            # 'entity_brand': get_entity_brand(_entity),
             # 'pop_tags' : _pop_tags
         }
     context = add_side_bar_context_data(context)

@@ -133,7 +133,10 @@ class EntityLikeManager(models.Manager):
         if res:
             return res
         source = self.popular(scale)
-        res = random.sample(source, 60)
+        out_count=60
+        if isTestEnv():
+            out_count = 6
+        res = random.sample(source, out_count)
         cache.set(key, res, timeout=10800)
         return res
 

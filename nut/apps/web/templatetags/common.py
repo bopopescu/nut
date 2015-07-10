@@ -92,4 +92,12 @@ def maybe_none(value):
         return value
 register.filter(maybe_none)
 
+def handle_brand_intro(value):
+    if value is None:
+        return ''
+    else:
+        value = value.replace('\n', '<br>')
+    return value
+register.filter(handle_brand_intro)
+
 __author__ = 'edison7500'
