@@ -90,7 +90,7 @@ class EntityLikeQuerySet(models.query.QuerySet):
         # this is a temp workaround for local testing
 
         if isTestEnv():
-            weekly_days =70
+            weekly_days =700
         if scale == 'weekly':
             days = timedelta(days=weekly_days)
         else:
