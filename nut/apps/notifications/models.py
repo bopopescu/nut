@@ -182,7 +182,7 @@ def push_notification(sender, instance, created, **kwargs):
                 push.options = {"time_to_live":86400, "apns_production":_production}
                 push.send()
         elif instance.action_object_content_type.model == 'selection_entity':
-            verb = u'你添加的商品被收入精选'
+            verb = u' 你添加的商品被收入精选'
             for reg in instance.recipient.jpush_token.all():
                 push.platform = jpush.platform(_platform)
                 push.audience = jpush.registration_id(reg.rid)
@@ -191,7 +191,7 @@ def push_notification(sender, instance, created, **kwargs):
                 push.options = {"time_to_live":86400, "apns_production":_production}
                 push.send()
         elif instance.action_object_content_type.model == 'note':
-            verb = instance.actor.profile.nick + u'点评了你推荐的商品'
+            verb = instance.actor.profile.nick + u' 点评了你推荐的商品'
             for reg in instance.recipient.jpush_token.all():
                 push.platform = jpush.platform(_platform)
                 push.audience = jpush.registration_id(reg.rid)
@@ -200,7 +200,7 @@ def push_notification(sender, instance, created, **kwargs):
                 push.options = {"time_to_live":86400, "apns_production":_production}
                 push.send()
         elif instance.action_object_content_type.model == 'note_poke':
-            verb = instance.actor.profile.nick + u'赞了你撰写的点评'
+            verb = instance.actor.profile.nick + u' 赞了你撰写的点评'
             for reg in instance.recipient.jpush_token.all():
                 push.platform = jpush.platform(_platform)
                 push.audience = jpush.registration_id(reg.rid)
