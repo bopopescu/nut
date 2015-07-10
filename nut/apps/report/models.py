@@ -5,6 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 from model_utils import Choices
 from django.db.models.signals import post_save
+import requests
 
 
 class BaseModel(models.Model):
@@ -69,7 +70,17 @@ class Selection(BaseModel):
 def process_report(sender, instance, created, **kwargs):
     # print sender
     if issubclass(sender, Report):
-        print sender.object
+        if instance.content_type.model == 'entity':
+            for row in instance.content_object.buy_links.filter(origin_source='taobao.com'):
+                # print row
+                data = {
+                    'project':'default',
+                    'spider':'taobao',
+                    'setting':'DOWNLOAD_DELAY=2',
+                    'item_id': row.origin_id,
+                }
+                print data
+                # res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
 
 
 post_save.connect(process_report, sender=Report, dispatch_uid='process.report')
