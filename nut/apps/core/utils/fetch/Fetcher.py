@@ -99,7 +99,7 @@ class Fetcher():
         start_url = self.get_start_url(self.item_id)
         html = ""
         with requests.Session() as s :
-                r = s.get(start_url, headers=self.get_tmall_header(), cookies=self.get_tmall_cookie())
+                r = s.get(start_url, verify=False,headers=self.get_tmall_header(), cookies=self.get_tmall_cookie())
                 html = r.text
                 self._headers = r.headers
         #       price must be retrieved as soon as possible
