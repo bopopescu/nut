@@ -67,6 +67,7 @@ class Selection(BaseModel):
 
 
 def process_report(sender, instance, created, **kwargs):
+    print sender
     if issubclass(sender, Report):
         print sender.content_type
 
