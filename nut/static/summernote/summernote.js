@@ -6,7 +6,7 @@
  * Copyright 2013-2015 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
- * Date: 2015-07-07T06:37Z
+ * Date: 2015-07-10T07:50Z
  */
 (function (factory) {
   /* global define */
@@ -868,6 +868,25 @@
       return descendents;
     };
 
+      /**
+       *  walkChildren
+       *  @param: {node, the parent node , parent itself will not be passed to fn}
+       *  @param: {fn }a function take html ele as input
+       *  depth first
+       */
+     var walkChildren = function(node, fn){
+          (function fnWalk(current){
+              if(current !== node){
+                  fn(current);
+              }
+              for(var idx=0, len=current.childNodes.length; idx<len; idx++){
+                  fnWalk(current.childNodes[idx]);
+              }
+
+          })(node);
+
+      } ;
+
     /**
      * wrap node with new tag.
      *
@@ -1520,7 +1539,8 @@
       removeWhile: removeWhile,
       replace: replace,
       html: html,
-      value: value
+      value: value,
+      walkChildren: walkChildren
     };
   })();
 
@@ -3606,7 +3626,18 @@
       this[commands[idx]] = (function (sCmd) {
         return function ($editable, value) {
           beforeCommand($editable);
+          if (sCmd == 'removeFormat'){
+              console.log('removeFormat');
+              dom.walkChildren($editable[0], function(node){
+                  $(node).attr('class', '');
+                  $(node).attr('style', '');
+                  if ($(node).attr('data-src') && node.tagName.toLowerCase()=='img'){
+                      // find image !!!
+                      console.log(node.attr('data-src'));
+                  }
+              });
 
+          }
           document.execCommand(sCmd, false, value);
 
           afterCommand($editable, true);
