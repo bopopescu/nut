@@ -4,6 +4,7 @@ from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 from model_utils import Choices
+from django.db.models.signals import post_save
 
 
 class BaseModel(models.Model):
@@ -32,6 +33,13 @@ class Report(models.Model):
         (malicious, _('malicious information')),
     ]
 
+    (processed, in_hand, pending) = xrange(3)
+
+    PROGRESS = [
+        (processed, _('processed')),
+        (in_hand, ('in hand')),
+        (pending, _('pending')),
+    ]
 
     reporter = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False, related_name='reporter')
     type = models.PositiveSmallIntegerField(choices=TYPE, default=sold_out)
@@ -39,7 +47,7 @@ class Report(models.Model):
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
-
+    progress = models.PositiveSmallIntegerField(choices=PROGRESS, default=pending)
     created_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
 
     class Meta:
@@ -56,5 +64,13 @@ class Selection(BaseModel):
 
     class Meta:
         ordering = ['pub_date']
+
+
+def process_report(sender, instance, created, **kwargs):
+    if issubclass(sender, Report):
+        print sender.content_type
+
+
+post_save.connect(process_report, sender=Report, dispatch_uid='process.report')
 
 __author__ = 'edison'
