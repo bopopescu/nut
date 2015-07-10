@@ -61,9 +61,21 @@
                                 <a class="jiathis_button_tieba"></a>
                                 <a href="http://www.jiathis.com/share?uid=2038803" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
                             </div>
-
                     </div>
                     <div class="divider"></div>
+{#                    {% if entity_brand and entity_brand.intro %}#}
+{#                        <div class="brand-intro">#}
+{#                            <div class="brand-name">#}
+{#                                {{ entity_brand.name }}#}
+{#                            </div>#}
+{#                            <div class="brand-intro-words">#}
+{#                                {% autoescape off %}#}
+{#                                    {{ entity_brand.intro|striptags|handle_brand_intro }}#}
+{#                                {% endautoescape  %}#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    <div class="divider"></div>#}
+{#                    {% endif %}#}
                     <div  class="row comment_list" itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
                          <ul class="common-note-list">
                              {% include "web/entity/partial/detail_comment_head.html" %}

@@ -2207,6 +2207,8 @@ a:hover {
 .article-wrapper .content-wrapper img,
 .article-wrapper .note-editable img {
   max-width: 100%;
+  margin: 0 auto ;
+  display: block;
 }
 .article-wrapper .content-wrapper a,
 .article-wrapper .note-editable a {
@@ -2246,6 +2248,14 @@ a:hover {
   margin-bottom: 20px;
   height: 2px;
   border-bottom: 1px solid #f8f8f8;
+}
+#detail_content .brand-intro .brand-name {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+#detail_content .brand-intro .brand-intro-words {
+  color: #9d9e9f;
+  margin-bottom: 10px;
 }
 .main-article .writer-wrapper .write-pre {
   margin-bottom: 10px;
@@ -2332,6 +2342,7 @@ a:hover {
   }
   .cover-wrapper a {
     display: block;
+    padding: 8px;
   }
 }
 @media (max-width: 767px) {

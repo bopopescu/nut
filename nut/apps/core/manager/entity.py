@@ -90,7 +90,7 @@ class EntityLikeQuerySet(models.query.QuerySet):
         # this is a temp workaround for local testing
 
         if isTestEnv():
-            weekly_days =70
+            weekly_days =700
         if scale == 'weekly':
             days = timedelta(days=weekly_days)
         else:
@@ -133,7 +133,10 @@ class EntityLikeManager(models.Manager):
         if res:
             return res
         source = self.popular(scale)
-        res = random.sample(source, 60)
+        out_count=60
+        if isTestEnv():
+            out_count = 6
+        res = random.sample(source, out_count)
         cache.set(key, res, timeout=10800)
         return res
 
