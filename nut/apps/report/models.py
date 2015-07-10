@@ -34,12 +34,12 @@ class Report(models.Model):
         (malicious, _('malicious information')),
     ]
 
-    (processed, in_hand, pending) = xrange(3)
+    (pending, in_hand, processed) = xrange(3)
 
     PROGRESS = [
         (processed, _('processed')),
         (in_hand, ('in hand')),
-        (pending, _('pending')),
+        (pending, _('process pending')),
     ]
 
     reporter = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False, related_name='reporter')
@@ -73,6 +73,8 @@ def process_report(sender, instance, created, **kwargs):
         if instance.content_type.model == 'entity':
             for row in instance.content_object.buy_links.filter(origin_source='taobao.com'):
                 # print row
+                if row.status == 0:
+                    continue
                 data = {
                     'project':'default',
                     'spider':'taobao',
@@ -80,9 +82,9 @@ def process_report(sender, instance, created, **kwargs):
                     'item_id': row.origin_id,
                 }
                 # print data
-                # res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
-            instance.process = Report.progress
-            instance.save()
+                res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
+            # instance.process = Report.progress
+            # instance.save()
 
 
 post_save.connect(process_report, sender=Report, dispatch_uid='process.report')
