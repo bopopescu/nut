@@ -21,8 +21,8 @@ DATABASES = {
         'HOST': '10.0.2.90',
         'PORT': '',
         'OPTIONS': {
-            'use_unicode':'utf-8',
-            # 'charset': 'utf8mb4',
+            # 'use_unicode':'utf-8',
+            'charset': 'utf8mb4',
             'init_command':'SET storage_engine=INNODB',
         }
     },
@@ -35,8 +35,8 @@ DATABASES = {
         'HOST': '10.0.2.95',
         'PORT': '',
         'OPTIONS': {
-            'use_unicode':'utf-8',
-            # 'charset': 'utf8mb4',
+            # 'use_unicode':'utf-8',
+            'charset': 'utf8mb4',
             'init_command':'SET storage_engine=INNODB',
         }
     },
@@ -45,6 +45,8 @@ DATABASES = {
 INSTALLED_APPS += (
     'gunicorn',
 )
+
+DEFAULT_CHARSET = "UTF-8"
 
 # SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 # SESSION_ENGINE = 'django.contrib.sessions.backends.file'
