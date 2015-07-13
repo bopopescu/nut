@@ -20,7 +20,7 @@ var BatchSelectionApp = Class.extend({
 
     removeSelectionBatch: function(eids){
             var that = this ;
-            bootbox.confirm('共'+ eids.length +'件商品，确定要移除精选吗？', function(result){
+            bootbox.confirm('共 '+ eids.length +' 件商品，确定要移除精选吗？', function(result){
                 if(result){
                     that.sendRemoveMission(eids);
                 }else{
