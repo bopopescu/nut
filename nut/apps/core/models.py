@@ -54,6 +54,17 @@ class BaseModel(models.Model):
         return d
 
 
+    def pickToDict(self, *args):
+        '''
+          only work on simple python value fields ,
+          can not use to serialize object field!
+        '''
+        d = {}
+        for key in args:
+            d[key] = getattr(self, key, None)
+        return d
+
+
 class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     (remove, blocked, active, editor,writer) = (-1, 0, 1, 2, 3)
     USER_STATUS_CHOICES = [
@@ -540,6 +551,10 @@ class Entity(BaseModel):
         return []
 
     @property
+    def category_name(self):
+        return self.category.title + '/' + self.category.group.title
+
+    @property
     def like_count(self):
         key = 'entity:like:%s', self.pk
         res = cache.get(key)
@@ -585,6 +600,10 @@ class Entity(BaseModel):
         if len(notes) > 0:
             return notes[0]
         return None
+
+    @property
+    def top_note_string(self):
+        return self.top_note.note
 
     def get_absolute_url(self):
         return "/detail/%s/" % self.entity_hash

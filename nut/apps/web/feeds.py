@@ -74,14 +74,14 @@ class SelectionFeeds(Feed):
 class ArticlesFeeds(Feed):
     feed_type = CustomFeedGenerator
 
-    title = u'果库 － 精英消费者指南'
+    title = u'果库 － 精英消费者南'
     link = "/articles/"
-    description = _('精英消费者指南')
+    description = _('精英消费指南')
 
     description_template = "web/feeds/article_desc.html"
 
     def items(self):
-        return Selection_Article.objects.filter(is_published=True)[0:30]
+        return Selection_Article.objects.filter(is_published=True).order_by('-pub_time')[0:30]
 
     def item_title(self, item):
         return item.article.title
