@@ -37,6 +37,11 @@ class Amazon(Spider):
 
     @property
     def cid(self):
+        cate = self.soup.select("#wayfinding-breadcrumbs_feature_div .a-link-normal")
+        # print cate
+        if len(cate) > 0:
+            href = cate[0].attrs.get('href')
+            return href.split('=')[-1]
         return 0
 
     @property
@@ -50,21 +55,21 @@ class Amazon(Spider):
             except UnicodeEncodeError:
                 price = pricetag[0].string.split('-')[0]
                 return float(price[1:].replace(',', ''))
-                # print "OKOKO"
-
 
         pricetag = self.soup.select("#priceblock_saleprice")
         if len(pricetag) > 0:
             price = pricetag[0]
             # print price
             return float(price.string[1:].replace(',', ''))
-        # price = self.soup.select('.a-color-price')
-        # print price
 
         pricetag = self.soup.select("#soldByThirdParty span")
         if len(pricetag) > 0:
             price = pricetag[0].string
             return float(price[1:])
+
+        return 0
+        # pricetage = self.soup.select("#paperback_meta_binding_winner")
+        # print pricetag
 
     @property
     def url(self):
@@ -99,6 +104,15 @@ class Amazon(Spider):
                 images.append(res.replace('..', '.'))
             return images
 
+        optimages = self.soup.select("#main-image")
+        if len(optimages) > 0:
+            for row in optimages:
+                img_link = row.attrs.get('src')
+                array = img_link.split('_')
+                res =  "%s%s" % (array[0], array[-1])
+                images.append(res.replace('..', '.'))
+            return images
+
     @property
     def brand(self):
         optbrands = self.soup.select('#brandByline_feature_div div a')
@@ -110,10 +124,10 @@ class Amazon(Spider):
 
 if __name__=="__main__":
 
-    a = Amazon("http://www.amazon.cn/Onitsuka-Tiger-%E9%AC%BC%E5%A1%9A%E8%99%8E-%E4%B8%AD%E6%80%A7-%E4%BC%91%E9%97%B2%E8%B7%91%E6%AD%A5%E9%9E%8B-D508N-0144-%E7%99%BD%E8%89%B2-%E8%93%9D%E8%89%B2-37/dp/B00WHBAC3U/ref=sr_1_10?s=shoes&ie=UTF8&qid=1436334446&sr=1-10")
+    a = Amazon("http://www.amazon.cn/%E6%89%A7%E8%A1%8C-%E5%A6%82%E4%BD%95%E5%AE%8C%E6%88%90%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%AD%A6%E9%97%AE-%E5%8D%9A%E8%A5%BF%E8%BF%AA-%E6%9F%A5%E5%85%B0-%E4%BC%AF%E5%85%8B-%E8%91%97/dp/B00XVMFK22/ref=pd_rhf_dp_s_cp_7?ie=UTF8&refRID=1D1DB1B085P10JN590SE")
     print a.url
     print a.price
-    # print a.html
+    print a.cid
     print a.images
     # print a.buy_link
     # print a.desc
