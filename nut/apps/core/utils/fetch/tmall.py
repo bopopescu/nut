@@ -97,7 +97,7 @@ def get_tmall_item_price(id):
     entity_price  = 0
     start_url = get_start_url(id)
     with requests.Session() as s :
-        r = s.get(start_url, verify=False, headers = get_tmall_header(), cookies=get_tmall_cookie())
+        r = s.get(start_url ,verify=False, headers=get_tmall_header(), cookies=get_tmall_cookie())
         # print r.text
         try:
             script_url = extract_url(r.text)
