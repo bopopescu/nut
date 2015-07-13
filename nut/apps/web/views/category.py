@@ -90,7 +90,7 @@ def detail(request, cid, template='web/category/detail.html'):
     _page = request.GET.get('page', 1)
 
     _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    _entity_list = Entity.objects.filter(status=Entity.selection, selection_entity__pub_time__lte=_refresh_datetime, category=_cid,buy_links__status=2)\
+    _entity_list = Entity.objects.filter(status=Entity.selection, selection_entity__pub_time__lte=_refresh_datetime, category=_cid)\
                           .order_by('-selection_entity__pub_time').filter(buy_links__status=2)
 
     _sub_category = Sub_Category.objects.get(pk = _cid)
