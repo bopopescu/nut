@@ -110,7 +110,6 @@ def selection(request, template='web/main/selection.html'):
 
     el = list()
     if request.user.is_authenticated():
-        # notify.send(request.user, recipient=request.user, verb='you visitor selection page')
         e = selections.object_list
         el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(e.values_list('entity_id', flat=True))).using('slave')
 

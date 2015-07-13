@@ -43,8 +43,15 @@ class Amazon(Spider):
     def price(self):
         pricetag = self.soup.select("#priceblock_ourprice")
         if len(pricetag) > 0:
+            # print pricetag[0].string.split('-')
             price = pricetag[0]
-            return float(price.string[1:].replace(',', ''))
+            try:
+                return float(price.string[1:].replace(',', ''))
+            except UnicodeEncodeError:
+                price = pricetag[0].string.split('-')[0]
+                return float(price[1:].replace(',', ''))
+                # print "OKOKO"
+
 
         pricetag = self.soup.select("#priceblock_saleprice")
         if len(pricetag) > 0:
@@ -103,8 +110,9 @@ class Amazon(Spider):
 
 if __name__=="__main__":
 
-    a = Amazon("http://www.amazon.cn/%E5%9B%BE%E7%81%B5%E6%96%B0%E7%9F%A5-%E4%BF%A1%E6%81%AF%E7%AE%80%E5%8F%B2-%E8%A9%B9%E5%A7%86%E6%96%AF%C2%B7%E6%A0%BC%E9%9B%B7%E5%85%8B/dp/B00G6CY2R8/ref=pd_sim_14_4?ie=UTF8&refRID=17WFPQM9QV27GPGHS0PN")
+    a = Amazon("http://www.amazon.cn/Onitsuka-Tiger-%E9%AC%BC%E5%A1%9A%E8%99%8E-%E4%B8%AD%E6%80%A7-%E4%BC%91%E9%97%B2%E8%B7%91%E6%AD%A5%E9%9E%8B-D508N-0144-%E7%99%BD%E8%89%B2-%E8%93%9D%E8%89%B2-37/dp/B00WHBAC3U/ref=sr_1_10?s=shoes&ie=UTF8&qid=1436334446&sr=1-10")
     print a.url
+    print a.price
     # print a.html
     print a.images
     # print a.buy_link
