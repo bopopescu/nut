@@ -1,3 +1,78 @@
+.guoku-btn-normal {
+  font-size: 16px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: #357ebd;
+  display: inline-block;
+  width: 100%;
+  height: 40px;
+  color: #fff;
+  padding: 2px 5px;
+  margin: 5px;
+  cursor: pointer;
+}
+.little-round-tag {
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  border-radius: 40px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  padding: 0 10px;
+  height: 21px;
+  line-height: 21px;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid #f8f8f8;
+  color: #424242;
+  font-size: 13px;
+  margin: 4px 4px 0 0;
+}
+.little-round-tag a {
+  color: #424242;
+}
+.little-gray-font {
+  font-size: 12px;
+  color: #9d9d9d;
+}
+.common-bordered {
+  border: 1px solid #e6e6e6;
+}
+.bottom-bordered {
+  border-bottom: 1px solid #e6e6e6;
+}
+.panel {
+  background-color: #ffffff;
+  padding: 18px 18px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 3px #dddddd;
+  -moz-box-shadow: 0px 0px 3px #dddddd;
+  box-shadow: 0px 0px 3px #dddddd;
+}
+.panel-no-padding {
+  background-color: #ffffff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 3px #dddddd;
+  -moz-box-shadow: 0px 0px 3px #dddddd;
+  box-shadow: 0px 0px 3px #dddddd;
+}
 @-moz-document url-prefix() {
   fieldset {
     display: table-cell;
@@ -116,7 +191,6 @@ body {
 /*for boolean style*/
 .bool_yes {
   background-color: #22b24c!important;
-<<<<<<< HEAD
 }
 .bool_no {
   background-color: #953b39!important;
@@ -153,9 +227,49 @@ body {
 .guoku-management .product-table .info {
   font-size: 9px;
   color: #666666;
-=======
 }
-.bool_no {
-  background-color: #953b39!important;
->>>>>>> editor
+.batch-selection-modal .modal-dialog {
+  width: 90%;
+}
+.batch-selection-modal .modal-dialog .modal-content {
+  overflow-y: scroll;
+  background-color: #f8f8f8;
+}
+.batch-selection-modal .modal-dialog .modal-content .content-list {
+  list-style: none;
+}
+.batch-selection-modal .modal-dialog .modal-content .content-list li {
+  background-color: #ffffff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 3px #dddddd;
+  -moz-box-shadow: 0px 0px 3px #dddddd;
+  box-shadow: 0px 0px 3px #dddddd;
+  margin: 10px;
+}
+.batch-selection-modal .modal-dialog .modal-content .content-list li .entity-img img {
+  max-height: 60px;
+}
+.batch-selection-modal .modal-dialog .modal-content .content-list li .entity-info-wrapper .entity-name {
+  font-size: 16px;
+  font-width: 700;
+}
+.batch-selection-modal .modal-dialog .modal-content .content-list li .entity-info-wrapper .entity-note {
+  font-size: 12px;
+  color: #9d9d9d;
+}
+.batch-selection-modal .modal-dialog .modal-content .content-list li .entity-action-wrapper {
+  padding-top: 10px;
+}
+.batch-selection-modal .modal-dialog .modal-content .content-list li .gap-wrapper {
+  padding-right: 30px;
+  font-size: 18px;
+  text-align: right;
+}
+.batch-selection-modal .modal-dialog .modal-content .content-list .last_published {
+  background-color: #9d9d9d;
 }

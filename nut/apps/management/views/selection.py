@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+import json
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import Http404, HttpResponseRedirect
@@ -12,6 +14,8 @@ from apps.core.forms.selection import SelectionForm, SetPublishDatetimeForm
 from apps.management.decorators import admin_only
 from apps.core.utils.http import ErrorJsonResponse, SuccessJsonResponse
 
+from braces.views import AjaxResponseMixin, JSONResponseMixin
+from django.views.generic import View
 
 from datetime import datetime, timedelta
 # import json
@@ -102,6 +106,137 @@ def edit_publish(request, sid, template="management/selection/edit_publish.html"
         },
         context_instance = RequestContext(request)
     )
+
+class PrepareBatchSelection(JSONResponseMixin, AjaxResponseMixin,View):
+    template_name = 'management/selection/batch_selection.html'
+
+    def get_entity_list(self, id_list):
+        '''
+        :type id_list: list , a python list contain "Entity" id list ,
+                              then use this id list filter Selection_Entity's Pending List
+                              again , the result will be a pure Python list of dictionary , Not Query set
+        :return:
+        '''
+        selection_entities = Selection_Entity.objects.pending().filter(entity__pk__in=id_list)
+        entities = [sle.entity.pickToDict('id', 'title','chief_image','category_name','top_note_string') for sle in selection_entities]
+        return entities
+
+    def get_last_selection(self):
+        selection_entity = Selection_Entity.objects.published().first()
+        res = selection_entity.entity.pickToDict('id', 'title','chief_image','category_name')
+        res.update({'pub_time':selection_entity.pub_time.strftime('%Y-%m-%d %H:%M')})
+        return res
+
+    def post_ajax(self, request, *args, **kwargs):
+        entity_ids_jsonstring = request.POST.get('entity_id_list', None)
+        if not entity_ids_jsonstring:
+            res={
+                'error':1,
+                'msg': _('can not get entity id list'),
+            }
+            return self.render_json_response(res)
+
+        list_entity_ids = json.loads(entity_ids_jsonstring)
+        entities = self.get_entity_list(list_entity_ids)
+        res = {
+            'data': {
+                'entities': entities,
+                'last_published_entity': self.get_last_selection(),
+            },
+            'error':0 ,
+        }
+        return self.render_json_response(res)
+
+
+class RemoveBatchSelection(AjaxResponseMixin, JSONResponseMixin,View):
+
+    def doRemoveSelectionBatch(self, entity_id_list):
+        published_selections = Selection_Entity.objects.published().filter(entity__id__in=entity_id_list)
+        for sla in published_selections:
+            sla.is_published = False
+            sla.save()
+        return
+
+    def post_ajax(self, request, *args, **kwargs):
+        remove_id_list_jsonstring = request.POST.get('entity_id_list', None)
+        if not remove_id_list_jsonstring:
+            res={
+                'error':1,
+                'msg': 'can not get remove id list json string'
+            }
+            return self.render_json_response(res)
+        remove_list = json.loads(remove_id_list_jsonstring)
+        if remove_list:
+            try:
+                self.doRemoveSelectionBatch(remove_list)
+            except Exception as e:
+                res = {
+                    'error': 1,
+                    'msg': 'error %s' % e.message
+                }
+                return self.render_json_response(res)
+            res = {
+                'error': 0,
+                'msg' : 'remove selection Success'
+            }
+            return self.render_json_response(res)
+        else:
+            res={
+                'error':1,
+                'msg': 'can not get remove list from json string'
+            }
+            return self.render_json_response(res)
+
+
+class DoBatchSelection(AjaxResponseMixin, JSONResponseMixin,View):
+    def doBatchMission(self,batch_mission):
+        for mission in batch_mission:
+            sla = Selection_Entity.objects.pending().filter(entity__pk=mission['id']).get()
+            sla.is_published = True
+            sla.pub_time = mission['pub_time']
+            sla.save()
+        return
+
+    def post_ajax(self, request, *args, **kwargs):
+        batch_mission_jsonstring = request.POST.get('batch_list',None)
+        if not batch_mission_jsonstring:
+            res={
+                'error':1,
+                'msg': 'can not get batch data',
+            }
+            return self.render_json_response(res)
+        batch_mission = json.loads(batch_mission_jsonstring)
+        if batch_mission:
+            try:
+                self.doBatchMission(batch_mission)
+            except Exception as e:
+                res = {
+                    'error':1,
+                    'msg': 'error: %s'%e.message
+                }
+                return self.render_json_response(res)
+            res = {
+                'error':0,
+                'msg':u'精选商品发布成功',
+            }
+            return self.render_json_response(res)
+        else:
+            res={
+                'error':1,
+                'msg':'can not get batch list from data, contact admin',
+            }
+            return self.render_json_response(res)
+
+
+
+@csrf_exempt
+@login_required
+@admin_only
+def batch_selection(request,template='management/selection/batch_selection.html'):
+    if request.is_ajax():
+        pass
+    log.info('test for batch_selection');
+
 
 @login_required
 def set_publish_datetime(request, template="management/selection/set_publish_datetime.html"):
