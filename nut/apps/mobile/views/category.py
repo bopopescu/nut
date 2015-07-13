@@ -87,9 +87,6 @@ def entity(request, category_id):
     entity_list = Entity.objects.new_or_selection(category_id=category_id)
     paginator = ExtentPaginator(entity_list, _count)
 
-
-
-
     try:
         entities = paginator.page(_offset)
     except PageNotAnInteger:
