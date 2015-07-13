@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Count
 from django.core.cache import cache
 from django.contrib.auth import get_user_model
 # from django.utils import timezone
@@ -26,6 +27,17 @@ class EntityQuerySet(models.query.QuerySet):
         else:
             return self.using('slave').filter(status__gte=0)
 
+    def sort(self, category_id, like = False):
+        _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        if like:
+            return self.new_or_selection(category_id).filter(selection_entity__pub_time__lte=_refresh_datetime, buy_links__status=2) \
+                .annotate(lnumber=Count('likes')) \
+                .order_by('-lnumber')
+        else:
+            return self.new_or_selection(category_id).filter(selection_entity__pub_time__lte=_refresh_datetime, buy_links__status=2) \
+                .order_by('-selection_entity__pub_time')
+        # self.using('slave').filter(status=Entity.selection, selection_entity__pub_time__lte=_refresh_datetime, category=category_id)\
+                          # .order_by('-selection_entity__pub_time').filter(buy_links__status=2)
     # def get(self, *args, **kwargs):
     #     # print kwargs, args
     #     return super(EntityQuerySet, self).get(*args, **kwargs)
@@ -61,6 +73,10 @@ class EntityManager(models.Manager):
 
     def new_or_selection(self, category_id=None):
         return self.get_query_set().new_or_selection(category_id)
+
+    def sort(self, category_id, like=False):
+        assert category_id != None
+        return self.get_query_set().sort(category_id, like)
 
     def guess(self, category_id=None, count=5, exclude_id= None):
         size = count * 10
@@ -107,8 +123,8 @@ class EntityLikeQuerySet(models.query.QuerySet):
 
         return self.filter(entity_id__in=entity_list, user=user).values_list('entity_id', flat=True)
 
-    def sort_with_list(self, category_id):
-        return self.using('slave').filter(entity__category = category_id).values_list('entity', flat=True).annotate(dcount=models.Count('entity')).order_by('-dcount')
+    # def sort_with_list(self, category_id):
+    #     return self.using('slave').filter(entity__category = category_id).values_list('entity', flat=True).annotate(dcount=models.Count('entity')).order_by('-dcount')
 
 
 class EntityLikeManager(models.Manager):
@@ -144,11 +160,11 @@ class EntityLikeManager(models.Manager):
 
         return self.get_query_set().user_like_list(user=user, entity_list=entity_list)
 
-    def sort_with_list(self, category_id):
-
-        entity_id_list = self.get_query_set().sort_with_list(category_id)
-
-        return list(entity_id_list)
+    # def sort_with_list(self, category_id):
+    #
+    #     entity_id_list = self.get_query_set().sort_with_list(category_id)
+    #
+    #     return list(entity_id_list)
 
 
 class SelectionEntityQuerySet(models.query.QuerySet):
