@@ -136,6 +136,7 @@ class UserForm(forms.Form):
         self.user_cache.profile.nickname = self.cleaned_data['nickname']
         self.user_cache.profile.gender = self.cleaned_data['gender']
         self.user_cache.profile.website = self.cleaned_data['website']
+        self.user_cache.profile.bio = self.cleaned_data['bio']
         self.user_cache.profile.save()
         self.user_cache.save()
 
