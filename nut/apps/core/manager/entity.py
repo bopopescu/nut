@@ -67,7 +67,7 @@ class EntityManager(models.Manager):
         if exclude_id:
             entity_list = self.new_or_selection(category_id=category_id).exclude(pk=exclude_id).filter(buy_links__status=2)
         else:
-            entity_list = self.new_or_selection(category_id=category_id)
+            entity_list = self.new_or_selection(category_id=category_id).filter(buy_links__status=2)
         try:
             entities = random.sample(entity_list[:size], count)
         except ValueError:

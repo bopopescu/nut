@@ -1,5 +1,7 @@
 from django.views.decorators.http import require_GET
-
+from django.utils.log import getLogger
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Count
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.models import Category, Sub_Category, Entity, Entity_Like,  Note
 # from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
@@ -7,8 +9,8 @@ from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 from apps.v4.models import APIEntity
 
-from django.utils.log import getLogger
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
+from datetime import datetime
 
 log = getLogger('django')
 
@@ -80,9 +82,9 @@ def entity_sort(category_id, reverse, offset, count, key):
         reverse = int(reverse)
 
     if reverse != 0:
-        entity_list = APIEntity.objects.new_or_selection(category_id=category_id).order_by('created_time')
+        entity_list = APIEntity.objects.new_or_selection(category_id=category_id).filter(buy_links__status=2).order_by('created_time')
     else:
-        entity_list = APIEntity.objects.new_or_selection(category_id=category_id)
+        entity_list = APIEntity.objects.new_or_selection(category_id=category_id).filter(buy_links__status=2)
 
     paginator = Paginator(entity_list, count)
 
@@ -110,7 +112,11 @@ def entity_sort(category_id, reverse, offset, count, key):
     return SuccessJsonResponse(res)
 
 def entity_sort_like(category_id, offset, count, key):
-    entity_list = Entity_Like.objects.sort_with_list(category_id=category_id)
+    _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    # entity_list = Entity_Like.objects.sort_with_list(category_id=category_id)
+    entity_list = APIEntity.objects.filter(status=APIEntity.selection, selection_entity__pub_time__lte=_refresh_datetime , category=category_id, buy_links__status=2)\
+                   .annotate(lnumber=Count('likes'))\
+                   .order_by('-lnumber')
     paginator = Paginator(entity_list, count)
     log.info("page %d" % offset)
     try:
@@ -122,18 +128,20 @@ def entity_sort_like(category_id, offset, count, key):
 
     try:
         _session = Session_Key.objects.get(session_key=key)
-        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(entities.object_list))
+        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=tuple(entities.object_list))
     except Session_Key.DoesNotExist:
         el = None
     log.info(entity_list)
     res = []
-    for eid in entities.object_list:
-        try:
-            entity = APIEntity.objects.get(pk=eid)
-            r = entity.v4_toDict(user_like_list=el)
-            res.append(r)
-        except APIEntity.DoesNotExist, e:
-            log.error("Error %s with entity id %s" % (e.message, eid))
+    for entity in entities.object_list:
+        r = entity.v4_toDict(user_like_list=el)
+        res.append(r)
+        # try:
+        #     entity = APIEntity.objects.get(pk=eid)
+        #     r = entity.v4_toDict(user_like_list=el)
+        #     res.append(r)
+        # except APIEntity.DoesNotExist, e:
+        #     log.error("Error %s with entity id %s" % (e.message, eid))
     return SuccessJsonResponse(res)
 
 
