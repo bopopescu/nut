@@ -30,6 +30,7 @@ def get_user_info(access_token, openid):
         'access_token': access_token,
         'openid': openid,
     })
+    r.encoding = 'utf8'
     return r.json()
 
 
@@ -82,8 +83,11 @@ def auth_by_wechat(request):
         }
 
         r = requests.get(AccessTokenURL, params=data)
+        # r.encoding = 'utf-8'
+        # log.error("encoding ==> %s" % AccessTokenURL)
+        r.encoding = 'utf8'
         res = r.json()
-
+        log.error(res)
         try:
             weixin = WeChat_Token.objects.get(unionid=res['unionid'])
             login_without_password(request, weixin.user)

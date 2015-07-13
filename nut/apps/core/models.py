@@ -556,7 +556,7 @@ class Entity(BaseModel):
 
     @property
     def like_count(self):
-        key = 'entity_like:%s', self.pk
+        key = 'entity:like:%s', self.pk
         res = cache.get(key)
         if res:
             log.info("hit hit")
@@ -568,21 +568,19 @@ class Entity(BaseModel):
             return res
         # return self.likes.count()
 
-    def innr_like(self):
-        key = 'entity_like:%s', self.pk
-        try:
-            cache.incr(key)
-        except ValueError:
-            cache.set(key, self.likes.count())
-
-    def decr_like(self):
-        key = 'entity_like:%s', self.pk
-        if self.likes.count() > 0:
-            cache.decr(key)
-
     @property
     def note_count(self):
-        return self.notes.count()
+        key = 'entity:note:%s', self.pk
+        res = cache.get(key)
+        if res:
+            log.info("hit hit")
+            return res
+        else:
+            log.info("miss miss")
+            res = self.notes.count()
+            cache.set(key, res)
+            return res
+        # return self.notes.count()
 
     @property
     def has_top_note(self):
@@ -609,6 +607,25 @@ class Entity(BaseModel):
 
     def get_absolute_url(self):
         return "/detail/%s/" % self.entity_hash
+
+    def innr_like(self):
+        key = 'entity:like:%s', self.pk
+        try:
+            cache.incr(key)
+        except ValueError:
+            cache.set(key, self.likes.count())
+
+    def decr_like(self):
+        key = 'entity:like:%s', self.pk
+        if self.likes.count() > 0:
+            cache.decr(key)
+
+    def innr_note(self):
+        key = 'entity:note:%s', self.pk
+        try:
+            cache.incr(key)
+        except ValueError:
+            cache.set(key, self.notes.count())
 
     @property
     def is_in_selection(self):
@@ -925,7 +942,7 @@ class Tag(models.Model):
         return self.tag
 
     def get_absolute_url(self):
-        return "/t/%s" % self.tag_hash
+        return "/t/%s/" % self.tag_hash
 
     search = SphinxSearch(
         index = 'tags',
@@ -957,6 +974,9 @@ class Entity_Tag(models.Model):
     @property
     def hash(self):
         return self.tag.tag_hash
+
+    def get_absolute_url(self):
+        return '/t/%s' % self.tag.tag_hash
 
 
 class Sina_Token(BaseModel):
@@ -1045,10 +1065,8 @@ class Article(models.Model):
             self.updated_datetime = datetime.now()
         super(Article, self).save(*args, **kwargs)
 
-
     def __unicode__(self):
         return self.title
-
 
     @property
     def digest(self):
@@ -1357,7 +1375,8 @@ post_save.connect(user_like_notification, sender=Entity_Like, dispatch_uid="user
 def user_post_note_notification(sender, instance, created, **kwargs):
     log.info(created)
     if issubclass(sender, Note) and created:
-        log.info(instance.user)
+        # log.info(instance.user)
+        instance.entity.innr_note()
         if instance.user != instance.entity.user and instance.user.is_active >= instance.user.blocked:
             notify.send(instance.user, recipient=instance.entity.user, action_object=instance, verb='post note', target=instance.entity)
 

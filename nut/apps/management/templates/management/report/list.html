@@ -18,6 +18,7 @@
 {#                    <th>{% trans 'title' %}</th>#}
 {#                    <th>{% trans 'category' %}</th>#}
                     <th>{% trans 'created_time' %}</th>
+                    <th>{% trans 'progress' %}</th>
 {#                    <th>{% trans 'price' %}</th>#}
 {#                    <th>{% trans 'status' %}</th>#}
 {#                    <th>{% trans 'operation' %}</th>#}
@@ -41,6 +42,7 @@
                             {% endif %}
                         </td>
                         <td>{{ report.created_datetime|date:'Y-m-d H:i:s' }}</td>
+                        <td><span class="label label-success">{{ report.get_progress_display }}</span></td>
 {#                        <td>#}
 {#                          <div class="col-xs-2">#}
 {#                                <img class="img-thumbnail img-responsive" src="{{ entity.chief_image|resize:'128' }}" width="128" height="128">#}

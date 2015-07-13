@@ -19,11 +19,10 @@ def crawl(item_id):
     return res.json()
 
 links = Buy_Link.objects.filter(origin_source='taobao.com', entity__status=Entity.selection).exclude(status=Buy_Link.remove).order_by('-id')
-# print links.query
+# print links.count()
 for row in links:
-    # print row.origin_id
     print row.origin_id, crawl(item_id=row.origin_id)
-    time.sleep(10)
+    time.sleep(5)
 
 
 
