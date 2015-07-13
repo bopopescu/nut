@@ -90,13 +90,12 @@ def detail(request, cid, template='web/category/detail.html'):
     _page = request.GET.get('page', 1)
 
     _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    _entity_list = Entity.objects.filter(status=Entity.selection, selection_entity__pub_time__lte=_refresh_datetime, category=_cid)\
-                          .order_by('-selection_entity__pub_time').filter(buy_links__status=2)
+    _entity_list = Entity.objects.sort(category_id=cid, like=False)
 
+    # _entity_list = Entity.objects.filter(status=Entity.selection, selection_entity__pub_time__lte=_refresh_datetime, category=_cid)\
+    #                       .order_by('-selection_entity__pub_time').filter(buy_links__status=2)
     _sub_category = Sub_Category.objects.get(pk = _cid)
-
     _entities = _get_paged_list(_entity_list, _page, 24)
-
     el = _get_entity_like_list(_entities, request)
 
     return render_to_response(
@@ -116,9 +115,10 @@ def detail_like(request, cid , template='web/category/detail.html'):
     _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     _cid = cid
     _page = request.GET.get('page',1)
-    _entity_list = Entity.objects.filter(status=Entity.selection,selection_entity__pub_time__lte=_refresh_datetime , category=_cid, buy_links__status=2)\
-                   .annotate(lnumber=Count('likes'))\
-                   .order_by('-lnumber')
+    _entity_list = Entity.objects.sort(category_id=cid,like=True)
+    # _entity_list = Entity.objects.filter(status=Entity.selection,selection_entity__pub_time__lte=_refresh_datetime , category=_cid, buy_links__status=2)\
+    #                .annotate(lnumber=Count('likes'))\
+    #                .order_by('-lnumber')
     _sub_category   = Sub_Category.objects.get(pk = _cid)
     _entities       = _get_paged_list(_entity_list,_page,24)
     _user_like_list = _get_entity_like_list(_entities, request)
