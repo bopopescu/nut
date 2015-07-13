@@ -1,7 +1,8 @@
 /**
  * Created by edison on 14-9-12.
  */
-;(function ($, document, window) {
+;
+(function ($, document, window) {
 
     var editor ={
 
@@ -241,10 +242,11 @@
 
     };
 
+
     var selection = {
         publish2u:function(){
             bootbox.setDefaults({
-                className: 'guoku-publish2u',
+                className: 'guoku-publish2u batch-selection-modal',
                 closeButton: false,
                 locale:'zh_CN'
             });
@@ -308,6 +310,7 @@
 //        add by An
         article.initAddSelectionArticle();
         article.initRemoveSelectionArticle();
+
 
         selection.publish2u();
         selection.check_all();
