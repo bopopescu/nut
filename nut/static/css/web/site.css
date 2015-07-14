@@ -30,7 +30,7 @@
   line-height: 21px;
   display: inline-block;
   text-align: center;
-  border: 1px solid #f8f8f8;
+  border: 1px solid #e6e6e6;
   color: #424242;
   font-size: 13px;
   margin: 4px 4px 0 0;
@@ -137,6 +137,27 @@ img {
   /*color:#ff1f77;*/
   background-color: #ff1f77;
   text-decoration: none;
+}
+.guoku-button {
+  font-size: 16px;
+  height: 35px;
+  border-radius: 4px;
+  line-height: 35px;
+  text-align: center;
+  cursor: pointer;
+}
+.blue-button {
+  font-size: 16px;
+  height: 35px;
+  border-radius: 5px;
+  line-height: 35px;
+  text-align: center;
+  background: #427EC0;
+  color: #fff;
+  margin-top: 20px;
+}
+.primary-button {
+  width: 100px;
 }
 .nav-user-actions .round {
   position: relative;
@@ -1731,7 +1752,7 @@ a:hover {
   line-height: 21px;
   display: inline-block;
   text-align: center;
-  border: 1px solid #f8f8f8;
+  border: 1px solid #e6e6e6;
   color: #424242;
   font-size: 13px;
   margin: 4px 4px 0 0;
@@ -1742,7 +1763,7 @@ a:hover {
 }
 #detail_content #detail_content_right .section-list li.section .tag-list-all li:hover,
 #detail_content #detail_content_right .section-list li.section .cate-list-all li:hover {
-  background-color: #f8f8f8;
+  background-color: #f0f0f0;
 }
 #detail_content #detail_content_right .section-list li.section .section-content {
   width: 100%;
@@ -1756,6 +1777,9 @@ a:hover {
 #detail_content #detail_content_right .section-list li.section .section-content .icon-holder {
   width: auto;
   margin-right: 5px;
+}
+#detail_content #detail_content_right .section-list li.section .section-content .download-link i {
+  color: #357ebd;
 }
 #detail_content #detail_content_right .section-list li.section .user-icon-list li {
   display: inline-block;
@@ -1852,7 +1876,7 @@ a:hover {
   line-height: 21px;
   display: inline-block;
   text-align: center;
-  border: 1px solid #f8f8f8;
+  border: 1px solid #e6e6e6;
   color: #424242;
   font-size: 13px;
   margin: 4px 4px 0 0;
@@ -1881,13 +1905,6 @@ a:hover {
 #detail_content #detail_content_left .detail-info-center .button-wrapper .row {
   margin-top: 10px;
 }
-#detail_content #detail_content_left .detail-info-center .button-wrapper .guoku-button {
-  font-size: 16px;
-  height: 35px;
-  border-radius: 4px;
-  line-height: 35px;
-  text-align: center;
-}
 #detail_content #detail_content_left .detail-info-center .button-wrapper .like-btn {
   background-color: #f8f8f8;
 }
@@ -1908,6 +1925,17 @@ a:hover {
 }
 #detail_content #detail_content_left #login_user_comment .media {
   margin: 0px 15px;
+}
+#detail_content #detail_content_left #login_user_comment .media .visitor-note-wrapper {
+  margin-bottom: 10px;
+}
+#detail_content #detail_content_left #login_user_comment .media .visitor-note-wrapper .visitor-note-button {
+  width: 130px;
+  float: right;
+  padding: 0px 10px;
+}
+#detail_content #detail_content_left #login_user_comment .media .visitor-note-wrapper .visitor-note-button i {
+  color: #fff;
 }
 #detail_content #detail_content_left #guess_list .guess-title {
   padding: 10px 15px;
@@ -2178,6 +2206,9 @@ a:hover {
 }
 .article-wrapper .cover-wrapper {
   margin-bottom: 20px;
+}
+.article-wrapper .cover-wrapper .img {
+  margin: 0 auto;
 }
 .article-wrapper .content-wrapper,
 .article-wrapper .note-editable {

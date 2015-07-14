@@ -680,6 +680,22 @@ $.ajaxSetup({
     };
 
     var detail = {
+            initVisitorNote:function(){
+                $('#visitor_note').click(function(){
+                    $.when(
+                        $.ajax({
+                            url: '/login/'
+                        })
+                    ).then(
+                        function success(data){
+                            var html = $(data);
+                            util.modalSignIn(html);
+                        },
+                        function fail(){}
+                    );
+
+                });
+            },
             detailImageHover: function () {
             // 鼠标放细节图上后效果
                 function findThumbImages(){
@@ -1287,6 +1303,7 @@ $.ajaxSetup({
         detail.shareWeibo();
         detail.postNote();
         detail.noteAction();
+        detail.initVisitorNote();
 
         message.loadData();
         event.loadData();
