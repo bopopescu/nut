@@ -57,11 +57,15 @@ class CategorySitemap(Sitemap):
 class ArticleSitemap(Sitemap):
     changefreq = "daily"
     priority = 1.0
+    # template_name = 'web/sitemap/sitemap.xhtml'
 
     def items(self):
-        return Article.objects.filter(publish=Article.published).using('slave')
+        return Article.objects.filter(publish=Article.published).order_by('-updated_datetime').using('slave')
 
     def location(self, obj):
         return obj.get_absolute_url()
+
+    def lastmod(self, obj):
+        return obj.updated_datetime
 
 __author__ = 'edison7500'
