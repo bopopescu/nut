@@ -53,7 +53,7 @@
     {#                    {% include "web/entity/partial/detail_middle.html" %}#}
     {#                </div>#}
                     <div class="share-wrapper share-wrapper-short">
-                            <div class="report-wrapper" id="report_trigger">
+                            <div class="report-wrapper" id="report_trigger" report-url="/entity/{{ entity.pk }}/report/">
                                 <i class="fa fa-flag-o"></i>
                             </div>
                             <div class="jiathis_style">
@@ -139,6 +139,7 @@
 
 
 {% block script %}
+<script src="{% static 'js/web/bootbox.js' %}"></script>
 <script type="text/javascript">
     (function(win,doc){
         var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
