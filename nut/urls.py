@@ -31,7 +31,6 @@ urlpatterns += patterns('',
     url(r'^wechat/', include('apps.wechat.urls')),
     url(r'^counter/', include('apps.counter.urls')),
 
-
     url(r'^', include('apps.web.urls')),
 )
 
