@@ -78,13 +78,14 @@ class Amazon(Spider):
         url = "http://%s%s" % (self.urlobj.hostname, self.urlobj.path)
         if 'ref' in url:
             url = urljoin(url, ' ')
+        url = url.rstrip()
         match = re.search('\/$', url)
         if match is None:
             url += '/'
         # print pattern.match(url)
         # m =re.search('\/\Z', url)
         # print m.group(0)
-        return url.rstrip()
+        return url
 
     @property
     def images(self):
