@@ -1060,6 +1060,9 @@ a {
   }
 }
 @media screen and (max-width: 767px) {
+  .event-banner-wrapper {
+    overflow-x: hidden;
+  }
   /*add by ant*/
   #event_home_banner {
     /*quick implement for sm screen's banner take full screen width*/
@@ -2261,6 +2264,11 @@ a:hover {
 #detail_content .share-wrapper {
   margin-top: 60px;
   height: 70px;
+}
+#detail_content .share-wrapper .report-wrapper {
+  float: left ;
+  display: inline-block;
+  cursor: pointer;
 }
 #detail_content .share-wrapper .share-intro {
   font-size: 13px;
