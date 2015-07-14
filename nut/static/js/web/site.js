@@ -808,7 +808,6 @@ $.ajaxSetup({
             var $form = $note.find("form");
             var $textarea = $form.find("textarea");
             //console.log($textarea.value);
-
             $textarea.on('focus', function(){
                 $form.addClass('active');
             });
