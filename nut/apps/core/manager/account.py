@@ -32,7 +32,7 @@ class GKUserQuerySet(models.query.QuerySet):
 
 class GKUserManager(BaseUserManager):
 
-    def r(self):
+    def get_queryset(self):
         return GKUserQuerySet(self.model, using = self._db)
 
     def writer(self):
