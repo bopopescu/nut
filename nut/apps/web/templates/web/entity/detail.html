@@ -96,7 +96,7 @@
                          {% for entity in guess_entities %}
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 guess-img">
                                  <div class="img-box">
-                                    <a href="{% url 'web_entity_detail' entity.entity_hash %}?from=recommend" target="_blank" class="">
+                                    <a href="{% url 'web_entity_detail' entity.entity_hash %}#from=recommend" target="_blank" class="">
                                         <img class="recommend-img img-responsive"
                                              src="{{ entity.chief_image|resize:'240' }}"
                                              alt="{{ entity.title }}"
