@@ -82,9 +82,6 @@ class Amazon(Spider):
         match = re.search('\/$', url)
         if match is None:
             url += '/'
-        # print pattern.match(url)
-        # m =re.search('\/\Z', url)
-        # print m.group(0)
         return url
 
     @property

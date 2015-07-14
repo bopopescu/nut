@@ -23,8 +23,16 @@ class SixPM(Spider):
 
     @property
     def desc(self):
-        desc = self.soup.select("#productStage h1 .link fn")
+        desc = self.soup.select(".description ul li")
         return desc[0].string
+
+    @property
+    def cid(self):
+        return 0
+
+    @property
+    def shop_link(self):
+        return self.hostname
 
     @property
     def price(self):
@@ -39,6 +47,7 @@ class SixPM(Spider):
         if len(optimages) > 0:
             for row in optimages:
                 image = row.attrs.get('src')
+                image = image.replace('_THUMBNAILS', '')
                 # print image
                 images.append(image)
         return images
@@ -49,5 +58,9 @@ if __name__=="__main__":
 
     pm = SixPM("http://www.6pm.com/michael-antonio-avalon-brown")
     print pm.price
+    print pm.brand
+    print pm.url
+    print pm.images
+    print pm.desc
 
 __author__ = 'edison'
