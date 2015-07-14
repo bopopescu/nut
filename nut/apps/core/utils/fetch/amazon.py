@@ -3,6 +3,8 @@
 from apps.core.utils.fetch.spider import Spider
 from urlparse import urljoin
 from hashlib import md5
+import re
+
 
 class Amazon(Spider):
 
@@ -76,6 +78,12 @@ class Amazon(Spider):
         url = "http://%s%s" % (self.urlobj.hostname, self.urlobj.path)
         if 'ref' in url:
             url = urljoin(url, ' ')
+        match = re.search('\/$', url)
+        if match is None:
+            url += '/'
+        # print pattern.match(url)
+        # m =re.search('\/\Z', url)
+        # print m.group(0)
         return url.rstrip()
 
     @property
@@ -124,7 +132,7 @@ class Amazon(Spider):
 
 if __name__=="__main__":
 
-    a = Amazon("http://www.amazon.cn/%E6%89%A7%E8%A1%8C-%E5%A6%82%E4%BD%95%E5%AE%8C%E6%88%90%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%AD%A6%E9%97%AE-%E5%8D%9A%E8%A5%BF%E8%BF%AA-%E6%9F%A5%E5%85%B0-%E4%BC%AF%E5%85%8B-%E8%91%97/dp/B00XVMFK22/ref=pd_rhf_dp_s_cp_7?ie=UTF8&refRID=1D1DB1B085P10JN590SE")
+    a = Amazon("http://www.amazon.cn/gp/product/B00PL0DH54/")
     print a.url
     print a.price
     print a.cid
