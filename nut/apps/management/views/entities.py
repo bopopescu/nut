@@ -177,7 +177,7 @@ def create(request, template='management/entities/new.html'):
             return HttpResponseRedirect(reverse('management_entity_edit', args=[entity.pk]))
     else:
 
-        log.info("category %s %s" % (res['cid'], res['origin_source']))
+        # log.info("category %s %s" % (res['cid'], res['origin_source']))
         key_string = "%s%s" % (res['cid'], res['origin_source'])
         # log.info(ke)
         key = md5(key_string.encode('utf-8')).hexdigest()
@@ -187,7 +187,7 @@ def create(request, template='management/entities/new.html'):
             res['category_id'] = category_id
         else:
             res['category_id'] = 300
-        log.info("%s %s" % (key, category_id))
+        # log.info("%s %s" % (key, category_id))
         _forms = CreateEntityForm(request=request, initial=res)
 
     return render_to_response(
