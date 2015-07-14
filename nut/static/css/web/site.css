@@ -145,6 +145,7 @@ img {
   line-height: 35px;
   text-align: center;
   cursor: pointer;
+  border: none;
 }
 .blue-button {
   font-size: 16px;
@@ -152,9 +153,18 @@ img {
   border-radius: 5px;
   line-height: 35px;
   text-align: center;
-  background: #427EC0;
+  background: #357ebd;
   color: #fff;
   margin-top: 20px;
+}
+.entity-report-button {
+  width: 120px;
+  background-color: #357ebd;
+  color: #fff;
+}
+.entity-report-button :hover {
+  opacity: 0.8!important;
+  color: #fff!important;
 }
 .primary-button {
   width: 100px;

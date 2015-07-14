@@ -267,10 +267,10 @@ $.ajaxSetup({
         //    var reportModal = $('#ReportModal');
         //    var reportContent = reportModal.find('.modal-content');
         //    if (reportContent.find('.row')[0]) {
-                   //   reportModal.modal('show');
+        //              reportModal.modal('show');
         //    } else {
-                   //   html.appendTo(reportContent);
-                   //   reportModal.modal('show');
+        //              html.appendTo(reportContent);
+        //              reportModal.modal('show');
         //    }
         //},
         //初始化 tag
@@ -679,7 +679,51 @@ $.ajaxSetup({
 
     };
 
+    function sendReport(){
+        var _form = $('#report_form_wrapper form');
+        if (_form.length){
+            $.when($.ajax({
+                url: _form.attr('action'),
+                data: _form.serialize(),
+                method: 'POST',
+            })).then(
+                function reportSuccess(data){
+                    return ;
+                },
+                function reportFail(){
+                    return ;
+                }
+            );
+        }
+
+    };
+
     var detail = {
+            initReportButton: function(){
+                $('#report_trigger').click(function(){
+                    var url = $(this).attr('report-url');
+                    $.when($.ajax({
+                        url: url,
+                        method: 'GET',
+                    })).then(
+                        function(htmltext){
+                            //this call will return a  rendered template
+                            bootbox.dialog({
+                               title: '举报商品',
+                               message: htmltext,
+                                buttons: {
+                                    success:{
+                                        label:'发送',
+                                        className:'btn-primary',
+                                        callback: sendReport
+                                    },
+                                }
+                            });
+                        },function(){
+                            console.log('get report form fail ');
+                        });
+                });
+            },
             initVisitorNote:function(){
                 $('#visitor_note').click(function(){
                     $.when(
@@ -1304,6 +1348,7 @@ $.ajaxSetup({
         detail.postNote();
         detail.noteAction();
         detail.initVisitorNote();
+        detail.initReportButton();
 
         message.loadData();
         event.loadData();
