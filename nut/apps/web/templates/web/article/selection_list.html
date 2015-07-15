@@ -16,26 +16,45 @@
 {% block description %}果库, 图文列表， 描述{% endblock %}
 {% block content %}
     <div class="container goods_detail">
-     <h2 class="hidden">图文列表</h2>
-     <div class="row" id="detail_content" >
+        <h2 class="hidden">图文列表</h2>
+        <div class="row" id="detail_content" >
             <div  id="article_list" refresh-time="{{ refresh_time }}"
                   class="container-fluid col-lg-8 col-md-8 col-sm-12  col-xs-12" >
-                    {% for sla in selection_articles %}
-                        {% include 'web/article/partial/article_item.html' %}
-                    {% endfor %}
+                {% for sla in selection_articles %}
+                    {% include 'web/article/partial/article_item.html' %}
+                {% endfor %}
 
-{#                     <div class="pager-container container-fluid">#}
-{#                         {% with url=request.path %}#}
-{#                         {% include 'web/article/paginator.html' %}#}
-{#                         {% endwith %}#}
-{#                    </div>#}
+                {#                     <div class="pager-container container-fluid">#}
+                {#                         {% with url=request.path %}#}
+                {#                         {% include 'web/article/paginator.html' %}#}
+                {#                         {% endwith %}#}
+                {#                    </div>#}
             </div>
 
             <div id="detail_content_right"
                  class="hidden-print   col-lg-4 col-md-4 hidden-sm  hidden-xs" >
-                   {% include "web/entity/partial/detail_side.html" %}
+                {% include "web/entity/partial/detail_side.html" %}
             </div>
-     </div>
+        </div>
+        <div class="row hidden-xs">
+            <div class="col-sm-offset-12">
+                <a class="btn-top" href="javascript:;"  title="回到顶部" target="_self"><i class="fa fa-angle-up fa-lg"></i></a>
+            </div>
+        </div>
     </div>
+
+{% endblock %}
+
+{% block script %}
+
+    <script language="javascript">
+        $(window).scroll(function () {
+            if($(this).scrollTop()>100) {
+                $(".btn-top").fadeIn();
+            } else {
+                $(".btn-top").fadeOut();
+            }
+        });
+    </script>
 
 {% endblock %}
