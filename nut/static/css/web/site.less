@@ -9,6 +9,9 @@
 @panel-background-color: #fff;
 @default-background:#fff;
 
+@tag-hover-background:#F0F0F0;
+@tag-border-color:#e6e6e6;
+
 @light-blue:#5ba4cf;
 @dark-red:rgb(140, 58, 58);
 
@@ -52,7 +55,7 @@
                 display: inline-block;
                 text-align: center;
 //                background: @very-light-gray;
-                border: 1px solid @very-light-gray;
+                border: 1px solid @tag-border-color;
                 color: @common-text-color;
                 font-size: @mini-size;
                 margin: 4px 4px 0 0;
@@ -136,7 +139,44 @@ img {
     /*text-align:center;*/
     /*color:#ff1f77;*/
     background-color: @like-color;
-    text-decoration:none
+    text-decoration:none;
+}
+
+.guoku-button{
+            font-size:@primary-size;
+            height: 35px;
+            border-radius: @global-box-radius;
+            line-height: 35px;
+            text-align: center;
+            cursor: pointer;
+            border: none
+
+}
+
+.blue-button{
+    font-size:16px;
+    height: 35px;
+    border-radius: 5px;
+    line-height: 35px;
+    text-align: center;
+    background:@link-color;
+    color:#fff;
+    margin-top:20px;
+}
+
+.entity-report-button{
+    width:120px;
+    background-color:@link-color;
+    color: #fff;
+}
+
+.entity-report-button :hover{
+      opacity: 0.8!important;
+      color:#fff!important;
+}
+
+.primary-button{
+    width: 100px;
 }
 
 .nav-user-actions{
@@ -1061,6 +1101,9 @@ padding-left: 15px;
 }
 
 @media screen and (max-width: 767px){
+    .event-banner-wrapper{
+      overflow-x: hidden;
+    }
       /*add by ant*/
     #event_home_banner{
         /*quick implement for sm screen's banner take full screen width*/
@@ -1725,7 +1768,7 @@ a:hover{text-decoration:underline;}
 
               }
               .tag-list-all li:hover, .cate-list-all li:hover{
-                 background-color:@very-light-gray;
+                 background-color:@tag-hover-background;
               }
               .section-content{
                  width: 100%;
@@ -1738,6 +1781,11 @@ a:hover{text-decoration:underline;}
                  .icon-holder{
                    width: auto;
                    margin-right: 5px;
+                 }
+                 .download-link{
+                    i{
+                      color:@link-color;
+                    }
                  }
               }
               .user-icon-list{
@@ -1863,6 +1911,10 @@ a:hover{text-decoration:underline;}
                 .little-round-tag;
 
           }
+          li:hover{
+             background-color:@tag-hover-background;
+          }
+
         }
 
        .entity-status{
@@ -1888,14 +1940,6 @@ a:hover{text-decoration:underline;}
           margin-top:20px;
           .row{
             margin-top:10px;
-          }
-          .guoku-button{
-            font-size:@primary-size;
-            height: 35px;
-            border-radius: @global-box-radius;
-            line-height: 35px;
-            text-align: center
-
           }
          .like-btn{
            background-color: @very-light-gray;
@@ -1924,6 +1968,17 @@ a:hover{text-decoration:underline;}
     #login_user_comment{
        .media{
            margin:0px 15px;
+           .visitor-note-wrapper{
+              margin-bottom: 10px;
+              .visitor-note-button{
+                width:130px;
+                float:right;
+                padding: 0px 10px;
+                i{
+                  color:#fff;
+                }
+              }
+           }
        }
     }
     #guess_list{
@@ -2249,7 +2304,7 @@ a:hover{text-decoration:underline;}
        blockquote{
           background-color: #f9f9f9;
           color: #5f5f5f;
-          padding: 20px 10px 10px;
+          padding: 10px 10px 10px 10px;
           margin: @article-block-element-margin;
           font-size:@article-content-size;
 
@@ -2282,11 +2337,16 @@ a:hover{text-decoration:underline;}
    .share-wrapper{
     margin-top: 60px;
     height: 70px;
-    .share-intro{
-       font-size: @mini-size;
-       margin-bottom: 10px;
-       color: @common-gray;
-     }
+      .report-wrapper{
+         float:left ;
+         display: inline-block;
+         cursor:pointer;
+      }
+      .share-intro{
+         font-size: @mini-size;
+         margin-bottom: 10px;
+         color: @common-gray;
+       }
    }
   .share-wrapper-short{
     padding-top:20px;
@@ -2375,6 +2435,12 @@ a:hover{text-decoration:underline;}
     }
   }
   .more-article-wrapper{
+    .cover-wrapper{
+     a{
+       display:block;
+       padding: 8px;
+     }
+    }
     .panel-no-padding;
     .title-wrapper{
          padding-top:10px;
@@ -2389,12 +2455,7 @@ a:hover{text-decoration:underline;}
        color: @common-gray;
     }
   }
-  .cover-wrapper{
-     a{
-       display:block;
-       padding: 8px;
-     }
-  }
+
 }
 
 @media (max-width: 767px){
@@ -2427,7 +2488,7 @@ a:hover{text-decoration:underline;}
      }
    }
 
-   .artice-section-title{
+   .article-section-title{
 
       padding-top: 30px;
       .info-text{
@@ -2447,7 +2508,7 @@ a:hover{text-decoration:underline;}
 }
 
 
-.artice-section-title{
+.article-section-title{
 
   margin: 20px 0px;
   font-size: @subtitle-size;

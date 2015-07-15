@@ -145,11 +145,10 @@ $.ajaxSetup({
         },
 
         getRequestUrl: function(){
-            return this.request_url
+            return this.request_url;
         },
 
         getData: function(){
-
             throw new Error('not implemented');
             return null;
         },
@@ -158,7 +157,8 @@ $.ajaxSetup({
             var _data = this.getData();
             return $.ajax({
                 url : _url ,
-                data : _data
+                data : _data,
+                method: 'GET'
             });
         //    return a promise , like an ajax() here
 
@@ -171,10 +171,45 @@ $.ajaxSetup({
         loadFail: function(data){
             //console.log(data);
             // ajax call fail , maybe later
+            console.log('loading failed ');
             this.loading = false;
         }
     });
 
+    var RelatedArticleLoader = AjaxLoader.extend({
+        init: function(){
+            this._super();
+            this.current_page = 1 ;
+        },
+        getRequestUrl: function(){
+            return window.location.pathname;
+        },
+        getData: function(){
+            return {
+                page: this.current_page + 1,
+                target: 'related_article'
+            };
+        },
+        loadSuccess: function(data){
+            if (data.errors == 0){
+                $('.more-article-wrapper:last-child').after(data['html']);
+                this.current_page++;
+                this.loading = false;
+                if (!(data.has_next_page)){
+                    this.handleLastPage();
+                }
+            }else{
+                console.log('load error');
+            }
+            //console.log(data);
+            console.log('load related article success');
+
+        },
+        handleLastPage:function(){
+            this.detach();
+        },
+
+    });
 
     var ArticleLoader = AjaxLoader.extend({
         request_url: '/articles/',
@@ -267,10 +302,10 @@ $.ajaxSetup({
         //    var reportModal = $('#ReportModal');
         //    var reportContent = reportModal.find('.modal-content');
         //    if (reportContent.find('.row')[0]) {
-                   //   reportModal.modal('show');
+        //              reportModal.modal('show');
         //    } else {
-                   //   html.appendTo(reportContent);
-                   //   reportModal.modal('show');
+        //              html.appendTo(reportContent);
+        //              reportModal.modal('show');
         //    }
         //},
         //初始化 tag
@@ -398,6 +433,7 @@ $.ajaxSetup({
         },
 
         gotop: function() {
+
             $(".btn-top").on('click', function() {
                 $("html, body").animate(
                     {scrollTop : 0}, 800
@@ -602,6 +638,7 @@ $.ajaxSetup({
                 var flag = false;
            //     console.log(counter);
                 $(window).scroll(function () {
+
                     if($(this).scrollTop()>100) {
                         $(".btn-top").fadeIn();
                     } else {
@@ -679,7 +716,67 @@ $.ajaxSetup({
 
     };
 
+    function sendReport(){
+        var _form = $('#report_form_wrapper form');
+        if (_form.length){
+            $.when($.ajax({
+                url: _form.attr('action'),
+                data: _form.serialize(),
+                method: 'POST',
+            })).then(
+                function reportSuccess(data){
+                    return ;
+                },
+                function reportFail(){
+                    return ;
+                }
+            );
+        }
+
+    };
+
     var detail = {
+            initReportButton: function(){
+                $('#report_trigger').click(function(){
+                    var url = $(this).attr('report-url');
+                    $.when($.ajax({
+                        url: url,
+                        method: 'GET',
+                    })).then(
+                        function(htmltext){
+                            //this call will return a  rendered template
+                            bootbox.dialog({
+                               title: '举报商品',
+                               message: htmltext,
+                                buttons: {
+                                    success:{
+                                        label:'发送',
+                                        className:'btn-primary',
+                                        callback: sendReport
+                                    },
+                                }
+                            });
+                        },function(){
+                            console.log('get report form fail ');
+                        });
+                });
+            },
+            initVisitorNote:function(){
+                $('#visitor_note').click(function(){
+                    $.when(
+                        $.ajax({
+                            url: '/login/'
+                        })
+                    ).then(
+                        function success(data){
+                            var html = $(data);
+                            util.modalSignIn(html);
+                        },
+                        function fail(){}
+                    );
+
+                });
+            },
             detailImageHover: function () {
             // 鼠标放细节图上后效果
                 function findThumbImages(){
@@ -748,7 +845,6 @@ $.ajaxSetup({
             var $form = $note.find("form");
             var $textarea = $form.find("textarea");
             //console.log($textarea.value);
-
             $textarea.on('focus', function(){
                 $form.addClass('active');
             });
@@ -1264,6 +1360,15 @@ $.ajaxSetup({
         }
     };
 
+    var article_detail={
+        init_loader: function(){
+            var main_article = $('#main_article');
+            if(main_article && main_article.length){
+                var related_article_loader = new RelatedArticleLoader();
+            }
+        }
+    };
+
 
 
 
@@ -1287,6 +1392,8 @@ $.ajaxSetup({
         detail.shareWeibo();
         detail.postNote();
         detail.noteAction();
+        detail.initVisitorNote();
+        detail.initReportButton();
 
         message.loadData();
         event.loadData();
@@ -1296,7 +1403,10 @@ $.ajaxSetup({
         util.checkEventRead();
         util.checkSNSBindVisit();
         link_page.initLinks();
+
         selection_article.init_loader();
+        article_detail.init_loader();
+
 
 
     })();

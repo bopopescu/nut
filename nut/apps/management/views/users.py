@@ -18,13 +18,9 @@ def list(request, active='1', template="management/users/list.html"):
     page = request.GET.get('page', 1)
     # active = request.GET.get('active', '1')
     admin = request.GET.get('admin', None)
-
-
     if admin:
         user_list = GKUser.objects.admin().using('slave')
-
         paginator = ExtentPaginator(user_list, 30)
-
         try:
             users = paginator.page(page)
         except InvalidPage:

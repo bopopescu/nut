@@ -1059,6 +1059,8 @@ class Article(models.Model):
     class Meta:
         ordering = ["-updated_datetime"]
 
+    def __unicode__(self):
+        return self.title
 
     def save(self, *args, **kwargs):
         if not kwargs.pop('skip_updatetime', False):
@@ -1126,6 +1128,9 @@ class Article(models.Model):
     def related_articles(self):
         return Selection_Article.objects.article_related(self)
 
+    def get_related_articles(self, page=1):
+        return Selection_Article.objects.article_related(self, page)
+
     def get_absolute_url(self):
         return "/articles/%s/" % self.pk
 
@@ -1142,6 +1147,8 @@ class Selection_Article(BaseModel):
     create_time = models.DateTimeField(db_index=True, editable=False,auto_now_add=True, blank=True)
 
     objects = SelectionArticleManager()
+    def __unicode__(self):
+        return '%s- in selection at - %s'%(self.article.title, self.create_time)
     # def __unicode__(self):
     #     return self.article
 
