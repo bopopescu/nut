@@ -179,7 +179,7 @@ def load_entity_info(url):
                 'shop_nick': b.nick,
             }
 
-    if re.search(r"\b(amazon)\.(cn|com)$", _hostname) != None:
+    if re.search(r"\b(amazon)\.(cn|com|co\.jp)$", _hostname) != None:
         a = Amazon(_link)
         try:
             buy_link = Buy_Link.objects.get(origin_id=a.origin_id, origin_source=a.hostname)

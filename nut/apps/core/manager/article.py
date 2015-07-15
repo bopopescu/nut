@@ -4,8 +4,10 @@ from django.core.cache import cache
 from datetime import datetime
 
 from random import shuffle
+from django.core.paginator import  Paginator,InvalidPage
 
-
+from django.utils.log import getLogger
+log = getLogger('django')
 
 
 class ArticleManager(models.Manager):
@@ -19,38 +21,51 @@ class ArticleManager(models.Manager):
 
 
 class SelectionArticleManager(models.Manager):
-    def get_related_cache_key(self, article):
-        key = 'related_article_for_%s' % article.pk
+    def get_related_cache_key(self, article, page):
+        key = 'related_article_for_%s_page_%s' % (article.pk, page)
         return key
 
     def published(self,until_time=None):
-        pass
+        return self.published_until()
 
-    def article_related(self, article):
+    def pending(self):
+        return self.get_queryset().filter(is_published=False).using('slave')
+
+    def published_until(self,until_time=None):
+        if until_time is None:
+            until_time = datetime.now()
+        return self.get_queryset().filter(is_published=True, pub_time__lte=until_time)
+
+
+    def article_related(self, article, request_page=1):
         '''
         get a list of selection article that related to the article passed in as param
         :param article: article to be related
         :return:  all selection article , pubed , related to the param article
         '''
-        key = self.get_related_cache_key(article)
+        article_per_page = 6
+        key = self.get_related_cache_key(article, request_page)
         related_list = cache.get(key)
 
         if related_list:
-            return list(related_list)
+            return related_list
 
-        related_list = self.get_queryset()\
-                            .filter(pub_time__lte = datetime.now())\
-                            .exclude(article__pk=article.pk)\
-                            .order_by('-pub_time')[:6]
+        related_list = self.published()\
+                           .exclude(article__pk=article.pk)\
+                           .order_by('pub_time')[:100]
 
-        rList = list(related_list)
-        shuffle(rList)
-        cache.set(key, rList ,timeout=60*60*12)
-        return related_list
+        # shuffle(related_list)
+        p = Paginator(related_list, article_per_page)
+        res = None
+        try:
+            res = p.page(request_page)
+        except InvalidPage as e :
+            log.info('can not fetch related article form paginator')
+            return None
 
-
-
-
-    def published_until(self, until_time):
-        return self.get_queryset().filter(is_published=True)
+        # rList = res.object_list
+        rList = res
+        # TODO : set timeout longer
+        cache.set(key, rList ,timeout=1)
+        return rList
 

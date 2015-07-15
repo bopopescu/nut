@@ -7,7 +7,7 @@ from django.views.generic import  ListView,\
                                   DetailView
 from django.shortcuts import redirect, get_object_or_404,render
 from django.http import Http404
-from django.template import RequestContext, loader
+from django.template import RequestContext, loader,Context
 
 from apps.core.models import Article,Selection_Article
 from apps.core.mixins.views import SortMixin
@@ -42,7 +42,7 @@ class SelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
 
     def get_queryset(self):
         qs = Selection_Article.objects\
-                              .published_until(self.get_refresh_time())\
+                              .published_until(until_time=self.get_refresh_time())\
                               .order_by('-pub_time')
         return qs
 
@@ -181,7 +181,7 @@ class ArticleRelated(JSONResponseMixin, AjaxResponseMixin, ListView):
 
     pass
 
-class ArticleDetail(DetailView):
+class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
     model = Article
     context_object_name = 'article'
     template_name = 'web/article/onepage.html'
@@ -213,6 +213,24 @@ class ArticleDetail(DetailView):
         context['can_show_edit'] =  (not article.is_selection) and (self.request.user == article.creator)
         context = add_side_bar_context_data(context)
         return context
+
+    def get_ajax(self, request, *args, **kwargs):
+        page = request.GET.get('page', 2)
+        target  = request.GET.get('target', None)
+        article = self.get_object()
+        related_articles = article.get_related_articles(page)
+        _template = 'web/article/partial/article_related_list.html'
+        _t = loader.get_template(_template)
+        _c =Context({
+                'articles':related_articles
+            })
+        _data = _t.render(_c)
+        return self.render_json_response({
+            'html': _data,
+            'errors': 0,
+            'has_next_page': related_articles.has_next()
+
+        })
 
 
 class ArticleDelete(UserPassesTestMixin, View):

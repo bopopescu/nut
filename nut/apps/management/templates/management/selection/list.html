@@ -14,11 +14,10 @@
             <a href="{% url 'management_set_publish_datetime' %}" class="btn btn-primary" data-toggle="modal" data-target="#SelectionEntityModal">精选排时间</a>
             <a href="#" class="btn btn-success" id="publish2u">发布到U站</a>
             {% if management_selection_pending_url in request.path %}
-                <a href="#" class="btn btn-warning" id="btn_batch_selection_prepare" batch_url="{% url 'management_batch_selection_prepare' %}">小批量精选</a>
+                <a href="#" class="btn btn-warning" id="btn_batch_selection_prepare" batch_url="{% url 'management_batch_selection_prepare' %}">小批量发布</a>
             {% endif %}
-
             {% if management_selection_published_url in request.path %}
-                <a href="#" class="btn btn-danger" id="btn_batch_selection_remove" batch_url="{% url 'management_batch_selection_remove' %}">批量移出精选</a>
+                <a href="#" class="btn btn-danger" id="btn_batch_selection_remove" batch_url="{% url 'management_batch_selection_remove' %}">批量移出发布</a>
             {% endif %}
         </div>
     </div>
