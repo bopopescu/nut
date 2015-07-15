@@ -8,28 +8,28 @@
 
 {% block title %}{{ article.title }}{% endblock %}
 
-{% block keyword %}果库, 图文关键字{% endblock %}
+{% block keyword %}{{ article.title }},{{ article.creator.nickname }}{% endblock %}
 
 {% block body_class %}
     gray-body  {% if from_app %} guoku-app{% endif %}
-{% endblock %}{% block description %}果库, 图文列表， 描述{% endblock %}
+{% endblock %}{% block description %}{{ article.content|striptags|truncatechars:150 }}{% endblock %}
 
 {% block h1 %}{{ article.title }}{% endblock %}
 {% block content %}
     <div class="container goods_detail">
-        <h2 class="sr-only">{{ article.content|striptags|truncatechars:150 }}</h2>
-        {#     <div class="row" id="detail_breadcrumb">#}
-        {#         {% include "web/article/partial/article_breadcrumb.html" %}#}
-        {#     </div>#}
+        <h2 class="sr-only">{{ article.content|striptags|truncatewords:150 }}</h2>
+{#     <div class="row" id="detail_breadcrumb">#}
+{#         {% include "web/article/partial/article_breadcrumb.html" %}#}
+{#     </div>#}
         <div class="row" id="detail_content" >
 
 
-            <div class="container-fluid col-lg-8 col-md-8 col-sm-12  col-xs-12" >
+            <div class="container-fluid col-lg-8 col-md-8 col-sm-12  col-xs-12" itemscope itemtype="http://schema.org/NewsArticle">
                 <div class="main-article">
                     <div class="article-wrapper">
 
                         <div class="title-wrapper">
-                            <H2>{{ article.title }}</H2>
+                            <H2 itemprop="headline">{{ article.title }}</H2>
                         </div>
                         <div class="info-wrapper">
                             <span class="editor">
@@ -37,6 +37,7 @@
                                 {{ article.creator.profile.nickname }}
                             </span>
                             <span class="create-time">
+                                <meta itemprop="datePublished" content="{{article.created_datetime|date:'Y-m-d H:i:s'}}"/>
                                 <i class="fa fa-clock-o"></i>{{article.created_datetime|format_time}}
                             </span>
                             <span class="read">
@@ -46,19 +47,19 @@
                                 </span>
                             </span>
                             {% if is_article_creator %}
-                                <span class="edit-article">
+                            <span class="edit-article">
                                 <i class="fa fa-edit"></i><a class="guoku-link" href="{% url 'web_editor_article_edit' article.pk %}">编辑文章</a>
                             </span>
                             {% endif %}
                         </div>
-                        {% if article.showcover %}
-                            <div class="cover-wrapper">
-                                <img class="article-cover img-responsive" src="{{   article.cover }}" />
-                            </div>
-                        {% endif %}
-                        <div class="content-wrapper">
+                       {% if article.showcover %}
+                        <div class="cover-wrapper">
+                            <img class="article-cover img-responsive" itemprop="image" src="{{ article.cover }}" alt="{{ article.title }}" />
+                        </div>
+                       {% endif %}
+                        <div class="content-wrapper" itemprop="articleBody">
                             {% autoescape off %}
-                                {{ article.content }}
+                            {{ article.content }}
                             {% endautoescape %}
                         </div>
                         <div class="share-wrapper">
@@ -76,10 +77,10 @@
                         </div>
                         <div class="divider"></div>
                         <div class="writer-wrapper">
-                            {#                            <div class="row">#}
-                            {#                                <div class="write-pre col-xs-12 col-sm-12">#}
-                            {#                                </div>#}
-                            {#                            </div>#}
+{#                            <div class="row">#}
+{#                                <div class="write-pre col-xs-12 col-sm-12">#}
+{#                                </div>#}
+{#                            </div>#}
                             <div class="row">
                                 <div class="writer-avatar col-xs-2 col-sm-2">
                                     <div class="avatar-wrapper">
@@ -91,7 +92,7 @@
                                 <div class="writer-intro col-xs-10 col-sm-10">
                                     <div class="writer-name">
                                         <a href="{% url 'web_user_article' article.creator.pk %}">
-                                            {{ article.creator.profile.nickname }}
+                                         {{ article.creator.profile.nickname }}
                                         </a>
                                     </div>
                                     <div class="writer-bio">{{ article.creator.profile.bio|truncatechars:200 }}</div>
@@ -102,7 +103,7 @@
                     </div>
                 </div>
 
-                <div class="artice-section-title">
+                <div class="article-section-title">
                     <div class="info-text">大家都在看</div>
 
                 </div>
@@ -110,14 +111,14 @@
                 {% for sla in article.related_articles %}
                     {% with sla.article as r_article %}
 
-                        {% include 'web/article/partial/article_recommend_item.html' %}
+                      {% include 'web/article/partial/article_recommend_item.html' %}
                     {% endwith %}
                 {% endfor %}
 
 
             </div>
             <div id="detail_content_right" class="hidden-print col-lg-4 col-md-4 hidden-sm  hidden-xs" >
-                {% include "web/entity/partial/detail_side.html" %}
+                   {% include "web/entity/partial/detail_side.html" %}
             </div>
         </div>
         <div class="row hidden-xs">

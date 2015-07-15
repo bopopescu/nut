@@ -78,13 +78,11 @@ class Amazon(Spider):
         url = "http://%s%s" % (self.urlobj.hostname, self.urlobj.path)
         if 'ref' in url:
             url = urljoin(url, ' ')
+        url = url.rstrip()
         match = re.search('\/$', url)
         if match is None:
             url += '/'
-        # print pattern.match(url)
-        # m =re.search('\/\Z', url)
-        # print m.group(0)
-        return url.rstrip()
+        return url
 
     @property
     def images(self):
@@ -132,7 +130,7 @@ class Amazon(Spider):
 
 if __name__=="__main__":
 
-    a = Amazon("http://www.amazon.cn/gp/product/B00PL0DH54/")
+    a = Amazon("http://www.amazon.cn/gp/product/B00LF5DUA6/ref=s9_cngwdyfloorv2-s9?pf_rd_m=A1AJ19PSB66TGU&pf_rd_s=center-2&pf_rd_r=0KJF7YH4D252JM4ZPJKC&pf_rd_t=101&pf_rd_p=252512872&pf_rd_i=899254051")
     print a.url
     print a.price
     print a.cid

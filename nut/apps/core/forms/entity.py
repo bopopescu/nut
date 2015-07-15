@@ -18,6 +18,7 @@ from apps.core.utils.fetch.jd import JD
 from apps.core.utils.fetch.kaola import Kaola
 from apps.core.utils.fetch.booking import Booking
 from apps.core.utils.fetch.amazon import Amazon
+from apps.core.utils.fetch.six_pm import SixPM
 
 from django.conf import settings
 from urlparse import urlparse
@@ -199,6 +200,26 @@ def load_entity_info(url):
                 'shop_nick': a.nick,
             }
 
+    if re.search(r"6pm\.com", _hostname) != None:
+        pm = SixPM(_link)
+        try:
+            buy_link = Buy_Link.objects.get(origin_id=pm.origin_id, origin_source=pm.hostname)
+            _data = {
+                'entity_id': buy_link.entity.id,
+            }
+        except Buy_Link.DoesNotExist, e:
+            _data = {
+                'cand_url':pm.url,
+                'origin_id': pm.origin_id,
+                'origin_source':pm.hostname,
+                'title': pm.desc,
+                'thumb_images': pm.images,
+                'price': pm.price,
+                'cid': pm.cid,
+                'brand': pm.brand,
+                'shop_link': pm.shop_link,
+                'shop_nick': pm.nick,
+            }
     return _data
 
     # return
