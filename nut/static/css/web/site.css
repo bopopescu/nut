@@ -30,7 +30,7 @@
   line-height: 21px;
   display: inline-block;
   text-align: center;
-  border: 1px solid #f8f8f8;
+  border: 1px solid #e6e6e6;
   color: #424242;
   font-size: 13px;
   margin: 4px 4px 0 0;
@@ -137,6 +137,37 @@ img {
   /*color:#ff1f77;*/
   background-color: #ff1f77;
   text-decoration: none;
+}
+.guoku-button {
+  font-size: 16px;
+  height: 35px;
+  border-radius: 4px;
+  line-height: 35px;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+}
+.blue-button {
+  font-size: 16px;
+  height: 35px;
+  border-radius: 5px;
+  line-height: 35px;
+  text-align: center;
+  background: #357ebd;
+  color: #fff;
+  margin-top: 20px;
+}
+.entity-report-button {
+  width: 120px;
+  background-color: #357ebd;
+  color: #fff;
+}
+.entity-report-button :hover {
+  opacity: 0.8!important;
+  color: #fff!important;
+}
+.primary-button {
+  width: 100px;
 }
 .nav-user-actions .round {
   position: relative;
@@ -1039,6 +1070,9 @@ a {
   }
 }
 @media screen and (max-width: 767px) {
+  .event-banner-wrapper {
+    overflow-x: hidden;
+  }
   /*add by ant*/
   #event_home_banner {
     /*quick implement for sm screen's banner take full screen width*/
@@ -1731,7 +1765,7 @@ a:hover {
   line-height: 21px;
   display: inline-block;
   text-align: center;
-  border: 1px solid #f8f8f8;
+  border: 1px solid #e6e6e6;
   color: #424242;
   font-size: 13px;
   margin: 4px 4px 0 0;
@@ -1742,7 +1776,7 @@ a:hover {
 }
 #detail_content #detail_content_right .section-list li.section .tag-list-all li:hover,
 #detail_content #detail_content_right .section-list li.section .cate-list-all li:hover {
-  background-color: #f8f8f8;
+  background-color: #f0f0f0;
 }
 #detail_content #detail_content_right .section-list li.section .section-content {
   width: 100%;
@@ -1756,6 +1790,9 @@ a:hover {
 #detail_content #detail_content_right .section-list li.section .section-content .icon-holder {
   width: auto;
   margin-right: 5px;
+}
+#detail_content #detail_content_right .section-list li.section .section-content .download-link i {
+  color: #357ebd;
 }
 #detail_content #detail_content_right .section-list li.section .user-icon-list li {
   display: inline-block;
@@ -1852,13 +1889,16 @@ a:hover {
   line-height: 21px;
   display: inline-block;
   text-align: center;
-  border: 1px solid #f8f8f8;
+  border: 1px solid #e6e6e6;
   color: #424242;
   font-size: 13px;
   margin: 4px 4px 0 0;
 }
 #detail_content #detail_content_left .detail-info-center .entity-tags li a {
   color: #424242;
+}
+#detail_content #detail_content_left .detail-info-center .entity-tags li:hover {
+  background-color: #f0f0f0;
 }
 #detail_content #detail_content_left .detail-info-center .entity-status li {
   display: inline-block;
@@ -1881,13 +1921,6 @@ a:hover {
 #detail_content #detail_content_left .detail-info-center .button-wrapper .row {
   margin-top: 10px;
 }
-#detail_content #detail_content_left .detail-info-center .button-wrapper .guoku-button {
-  font-size: 16px;
-  height: 35px;
-  border-radius: 4px;
-  line-height: 35px;
-  text-align: center;
-}
 #detail_content #detail_content_left .detail-info-center .button-wrapper .like-btn {
   background-color: #f8f8f8;
 }
@@ -1908,6 +1941,17 @@ a:hover {
 }
 #detail_content #detail_content_left #login_user_comment .media {
   margin: 0px 15px;
+}
+#detail_content #detail_content_left #login_user_comment .media .visitor-note-wrapper {
+  margin-bottom: 10px;
+}
+#detail_content #detail_content_left #login_user_comment .media .visitor-note-wrapper .visitor-note-button {
+  width: 130px;
+  float: right;
+  padding: 0px 10px;
+}
+#detail_content #detail_content_left #login_user_comment .media .visitor-note-wrapper .visitor-note-button i {
+  color: #fff;
 }
 #detail_content #detail_content_left #guess_list .guess-title {
   padding: 10px 15px;
@@ -2179,6 +2223,9 @@ a:hover {
 .article-wrapper .cover-wrapper {
   margin-bottom: 20px;
 }
+.article-wrapper .cover-wrapper .img {
+  margin: 0 auto;
+}
 .article-wrapper .content-wrapper,
 .article-wrapper .note-editable {
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
@@ -2200,7 +2247,7 @@ a:hover {
 .article-wrapper .note-editable blockquote {
   background-color: #f9f9f9;
   color: #5f5f5f;
-  padding: 20px 10px 10px;
+  padding: 10px 10px 10px 10px;
   margin: 0 0 13px 0;
   font-size: 16px;
 }
@@ -2230,6 +2277,11 @@ a:hover {
 #detail_content .share-wrapper {
   margin-top: 60px;
   height: 70px;
+}
+#detail_content .share-wrapper .report-wrapper {
+  float: left ;
+  display: inline-block;
+  cursor: pointer;
 }
 #detail_content .share-wrapper .share-intro {
   font-size: 13px;
@@ -2328,6 +2380,10 @@ a:hover {
     -moz-box-shadow: 0px 0px 3px #dddddd;
     box-shadow: 0px 0px 3px #dddddd;
   }
+  .more-article-wrapper .cover-wrapper a {
+    display: block;
+    padding: 8px;
+  }
   .more-article-wrapper .title-wrapper {
     padding-top: 10px;
   }
@@ -2339,10 +2395,6 @@ a:hover {
     padding: 10px 15px 15px 15px;
     font-size: 13px;
     color: #9d9e9f;
-  }
-  .cover-wrapper a {
-    display: block;
-    padding: 8px;
   }
 }
 @media (max-width: 767px) {
@@ -2373,10 +2425,10 @@ a:hover {
   .more-article-wrapper .title-wrapper .article-digest {
     display: none;
   }
-  .artice-section-title {
+  .article-section-title {
     padding-top: 30px;
   }
-  .artice-section-title .info-text {
+  .article-section-title .info-text {
     padding-left: 15px;
     border-left: 4px solid #9d9e9f;
     position: relative;
@@ -2385,7 +2437,7 @@ a:hover {
     color: #9d9e9f;
   }
 }
-.artice-section-title {
+.article-section-title {
   margin: 20px 0px;
   font-size: 18px;
 }

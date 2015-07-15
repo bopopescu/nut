@@ -25,7 +25,7 @@
 
 
             <div class="container-fluid col-lg-8 col-md-8 col-sm-12  col-xs-12" itemscope itemtype="http://schema.org/NewsArticle">
-                <div class="main-article">
+                <div class="main-article" id="main_article">
                     <div class="article-wrapper">
 
                         <div class="title-wrapper">
@@ -103,14 +103,14 @@
                     </div>
                 </div>
 
-                     <div class="artice-section-title">
-                         <div class="info-text">大家都在看</div>
+                <div class="article-section-title">
+                    <div class="info-text">大家都在看</div>
 
-                    </div>
+                </div>
+
 
                 {% for sla in article.related_articles %}
                     {% with sla.article as r_article %}
-
                       {% include 'web/article/partial/article_recommend_item.html' %}
                     {% endwith %}
                 {% endfor %}
@@ -119,6 +119,11 @@
             </div>
             <div id="detail_content_right" class="hidden-print col-lg-4 col-md-4 hidden-sm  hidden-xs" >
                    {% include "web/entity/partial/detail_side.html" %}
+            </div>
+        </div>
+        <div class="row hidden-xs">
+            <div class="col-sm-offset-12">
+                <a class="btn-top" href="javascript:;"  title="回到顶部" target="_self"><i class="fa fa-angle-up fa-lg"></i></a>
             </div>
         </div>
     </div>
@@ -143,11 +148,21 @@
     </script>
     <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2038803" charset="utf-8"></script>
     <script src="{% static 'js/counter/counter.js' %}"></script>
-{#    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>#}
-{#    <script>#}
-{#        wx.config({#}
-{#            debug: false,#}
-{#            jsApiList: []#}
-{#        });#}
-{#    </script>#}
+    {#    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>#}
+    {#    <script>#}
+    {#        wx.config({#}
+    {#            debug: false,#}
+    {#            jsApiList: []#}
+    {#        });#}
+    {#    </script>#}
+    <script language="javascript">
+        $(window).scroll(function () {
+            if($(this).scrollTop()>100) {
+                $(".btn-top").fadeIn();
+            } else {
+                $(".btn-top").fadeOut();
+            }
+        });
+    </script>
+
 {% endblock %}
