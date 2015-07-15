@@ -145,11 +145,10 @@ $.ajaxSetup({
         },
 
         getRequestUrl: function(){
-            return this.request_url
+            return this.request_url;
         },
 
         getData: function(){
-
             throw new Error('not implemented');
             return null;
         },
@@ -158,7 +157,8 @@ $.ajaxSetup({
             var _data = this.getData();
             return $.ajax({
                 url : _url ,
-                data : _data
+                data : _data,
+                method: 'GET'
             });
         //    return a promise , like an ajax() here
 
@@ -171,10 +171,45 @@ $.ajaxSetup({
         loadFail: function(data){
             //console.log(data);
             // ajax call fail , maybe later
+            console.log('loading failed ');
             this.loading = false;
         }
     });
 
+    var RelatedArticleLoader = AjaxLoader.extend({
+        init: function(){
+            this._super();
+            this.current_page = 1 ;
+        },
+        getRequestUrl: function(){
+            return window.location.pathname;
+        },
+        getData: function(){
+            return {
+                page: this.current_page + 1,
+                target: 'related_article'
+            };
+        },
+        loadSuccess: function(data){
+            if (data.errors == 0){
+                $('.more-article-wrapper:last-child').after(data['html']);
+                this.current_page++;
+                this.loading = false;
+                if (!(data.has_next_page)){
+                    this.handleLastPage();
+                }
+            }else{
+                console.log('load error');
+            }
+            //console.log(data);
+            console.log('load related article success');
+
+        },
+        handleLastPage:function(){
+            this.detach();
+        },
+
+    });
 
     var ArticleLoader = AjaxLoader.extend({
         request_url: '/articles/',
@@ -1325,6 +1360,15 @@ $.ajaxSetup({
         }
     };
 
+    var article_detail={
+        init_loader: function(){
+            var main_article = $('#main_article');
+            if(main_article && main_article.length){
+                var related_article_loader = new RelatedArticleLoader();
+            }
+        }
+    };
+
 
 
 
@@ -1359,7 +1403,10 @@ $.ajaxSetup({
         util.checkEventRead();
         util.checkSNSBindVisit();
         link_page.initLinks();
+
         selection_article.init_loader();
+        article_detail.init_loader();
+
 
 
     })();
