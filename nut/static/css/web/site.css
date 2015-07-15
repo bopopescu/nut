@@ -2422,10 +2422,10 @@ a:hover {
   .more-article-wrapper .title-wrapper .article-digest {
     display: none;
   }
-  .artice-section-title {
+  .article-section-title {
     padding-top: 30px;
   }
-  .artice-section-title .info-text {
+  .article-section-title .info-text {
     padding-left: 15px;
     border-left: 4px solid #9d9e9f;
     position: relative;
@@ -2434,7 +2434,7 @@ a:hover {
     color: #9d9e9f;
   }
 }
-.artice-section-title {
+.article-section-title {
   margin: 20px 0px;
   font-size: 18px;
 }
