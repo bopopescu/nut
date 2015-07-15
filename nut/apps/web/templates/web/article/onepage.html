@@ -17,11 +17,11 @@
 {% block h1 %}{{ article.title }}{% endblock %}
 {% block content %}
     <div class="container goods_detail">
-     <h2 class="sr-only">{{ article.content|striptags|truncatechars:150 }}</h2>
-{#     <div class="row" id="detail_breadcrumb">#}
-{#         {% include "web/article/partial/article_breadcrumb.html" %}#}
-{#     </div>#}
-     <div class="row" id="detail_content" >
+        <h2 class="sr-only">{{ article.content|striptags|truncatechars:150 }}</h2>
+        {#     <div class="row" id="detail_breadcrumb">#}
+        {#         {% include "web/article/partial/article_breadcrumb.html" %}#}
+        {#     </div>#}
+        <div class="row" id="detail_content" >
 
 
             <div class="container-fluid col-lg-8 col-md-8 col-sm-12  col-xs-12" >
@@ -46,19 +46,19 @@
                                 </span>
                             </span>
                             {% if is_article_creator %}
-                            <span class="edit-article">
+                                <span class="edit-article">
                                 <i class="fa fa-edit"></i><a class="guoku-link" href="{% url 'web_editor_article_edit' article.pk %}">编辑文章</a>
                             </span>
                             {% endif %}
                         </div>
-                       {% if article.showcover %}
-                        <div class="cover-wrapper">
-                            <img class="article-cover img-responsive" src="{{   article.cover }}" />
-                        </div>
-                       {% endif %}
+                        {% if article.showcover %}
+                            <div class="cover-wrapper">
+                                <img class="article-cover img-responsive" src="{{   article.cover }}" />
+                            </div>
+                        {% endif %}
                         <div class="content-wrapper">
                             {% autoescape off %}
-                            {{ article.content }}
+                                {{ article.content }}
                             {% endautoescape %}
                         </div>
                         <div class="share-wrapper">
@@ -76,10 +76,10 @@
                         </div>
                         <div class="divider"></div>
                         <div class="writer-wrapper">
-{#                            <div class="row">#}
-{#                                <div class="write-pre col-xs-12 col-sm-12">#}
-{#                                </div>#}
-{#                            </div>#}
+                            {#                            <div class="row">#}
+                            {#                                <div class="write-pre col-xs-12 col-sm-12">#}
+                            {#                                </div>#}
+                            {#                            </div>#}
                             <div class="row">
                                 <div class="writer-avatar col-xs-2 col-sm-2">
                                     <div class="avatar-wrapper">
@@ -91,7 +91,7 @@
                                 <div class="writer-intro col-xs-10 col-sm-10">
                                     <div class="writer-name">
                                         <a href="{% url 'web_user_article' article.creator.pk %}">
-                                         {{ article.creator.profile.nickname }}
+                                            {{ article.creator.profile.nickname }}
                                         </a>
                                     </div>
                                     <div class="writer-bio">{{ article.creator.profile.bio|truncatechars:200 }}</div>
@@ -102,24 +102,29 @@
                     </div>
                 </div>
 
-                     <div class="artice-section-title">
-                         <div class="info-text">大家都在看</div>
+                <div class="artice-section-title">
+                    <div class="info-text">大家都在看</div>
 
-                    </div>
+                </div>
 
                 {% for sla in article.related_articles %}
                     {% with sla.article as r_article %}
 
-                      {% include 'web/article/partial/article_recommend_item.html' %}
+                        {% include 'web/article/partial/article_recommend_item.html' %}
                     {% endwith %}
                 {% endfor %}
 
 
             </div>
             <div id="detail_content_right" class="hidden-print col-lg-4 col-md-4 hidden-sm  hidden-xs" >
-                   {% include "web/entity/partial/detail_side.html" %}
+                {% include "web/entity/partial/detail_side.html" %}
             </div>
-     </div>
+        </div>
+        <div class="row hidden-xs">
+            <div class="col-sm-offset-12">
+                <a class="btn-top" href="javascript:;"  title="回到顶部" target="_self"><i class="fa fa-angle-up fa-lg"></i></a>
+            </div>
+        </div>
     </div>
 
 {% endblock %}
@@ -142,11 +147,21 @@
     </script>
     <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2038803" charset="utf-8"></script>
     <script src="{% static 'js/counter/counter.js' %}"></script>
-{#    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>#}
-{#    <script>#}
-{#        wx.config({#}
-{#            debug: false,#}
-{#            jsApiList: []#}
-{#        });#}
-{#    </script>#}
+    {#    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>#}
+    {#    <script>#}
+    {#        wx.config({#}
+    {#            debug: false,#}
+    {#            jsApiList: []#}
+    {#        });#}
+    {#    </script>#}
+    <script language="javascript">
+        $(window).scroll(function () {
+            if($(this).scrollTop()>100) {
+                $(".btn-top").fadeIn();
+            } else {
+                $(".btn-top").fadeOut();
+            }
+        });
+    </script>
+
 {% endblock %}

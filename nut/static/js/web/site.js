@@ -398,6 +398,7 @@ $.ajaxSetup({
         },
 
         gotop: function() {
+
             $(".btn-top").on('click', function() {
                 $("html, body").animate(
                     {scrollTop : 0}, 800
@@ -602,6 +603,7 @@ $.ajaxSetup({
                 var flag = false;
            //     console.log(counter);
                 $(window).scroll(function () {
+
                     if($(this).scrollTop()>100) {
                         $(".btn-top").fadeIn();
                     } else {

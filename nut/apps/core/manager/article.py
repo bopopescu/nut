@@ -23,6 +23,9 @@ class SelectionArticleManager(models.Manager):
         key = 'related_article_for_%s' % article.pk
         return key
 
+    def published(self,until_time=None):
+        pass
+
     def article_related(self, article):
         '''
         get a list of selection article that related to the article passed in as param
