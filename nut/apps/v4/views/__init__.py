@@ -257,6 +257,10 @@ def visit_item(request, item_id):
     if "amazon" in b.origin_source:
         return HttpResponseRedirect(b.amazon_url)
 
+    if "6pm" in b.origin_source:
+        url = b.link.replace('www', 'm')
+        return HttpResponseRedirect(url)
+
     else:
         return HttpResponseRedirect(b.link)
 
