@@ -26,7 +26,7 @@ class SelectionArticleManager(models.Manager):
         return key
 
     def published(self,until_time=None):
-        return self.published_until();
+        return self.published_until()
 
     def pending(self):
         return self.get_queryset().filter(is_published=False).using('slave')
