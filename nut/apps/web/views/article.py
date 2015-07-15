@@ -42,7 +42,7 @@ class SelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
 
     def get_queryset(self):
         qs = Selection_Article.objects\
-                              .published_until(self.get_refresh_time())\
+                              .published_until(until_time=self.get_refresh_time())\
                               .order_by('-pub_time')
         return qs
 
