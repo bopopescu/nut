@@ -152,8 +152,11 @@ class EntityLikeManager(models.Manager):
         out_count=60
         if isTestEnv():
             out_count = 6
-        res = random.sample(source, out_count)
-        cache.set(key, res, timeout=10800)
+        try:
+            res = random.sample(source, out_count)
+            cache.set(key, res, timeout=10800)
+        except ValueError:
+            res = source
         return res
 
     def user_like_list(self, user, entity_list):
