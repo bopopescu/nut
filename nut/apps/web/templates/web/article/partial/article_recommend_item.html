@@ -11,7 +11,7 @@
      </div>
      <div class="cover-wrapper">
           <a href="{% url 'web_article_page' r_article.pk %}">
-             <img  src="{{ r_article.cover }}">
+             <img  src="{{ r_article.cover|resize:'240' }}">
          </a>
      </div>
 </div>
