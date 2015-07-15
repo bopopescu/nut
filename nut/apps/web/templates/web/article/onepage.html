@@ -25,7 +25,7 @@
 
 
             <div class="container-fluid col-lg-8 col-md-8 col-sm-12  col-xs-12" itemscope itemtype="http://schema.org/NewsArticle">
-                <div class="main-article">
+                <div class="main-article" id="main_article">
                     <div class="article-wrapper">
 
                         <div class="title-wrapper">
@@ -107,6 +107,7 @@
                     <div class="info-text">大家都在看</div>
 
                 </div>
+
 
                 {% for sla in article.related_articles %}
                     {% with sla.article as r_article %}
