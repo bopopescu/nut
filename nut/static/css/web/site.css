@@ -1897,6 +1897,9 @@ a:hover {
 #detail_content #detail_content_left .detail-info-center .entity-tags li a {
   color: #424242;
 }
+#detail_content #detail_content_left .detail-info-center .entity-tags li:hover {
+  background-color: #f0f0f0;
+}
 #detail_content #detail_content_left .detail-info-center .entity-status li {
   display: inline-block;
   color: #9d9e9f;
