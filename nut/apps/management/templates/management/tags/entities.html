@@ -1,5 +1,12 @@
 {% extends 'management/management_base.html' %}
 
-{% block content %}
 
+{% block content %}
+    <div class="row">
+        <h1 class="page-header">{{ tag.name }}</h1>
+    </div>
+
+    {% include 'management/tags/entities_table.html'  with object_list=object_list %}
+
+    {% include "management/paginator.html" with objects=page_obj url=request.path %}
 {% endblock %}
