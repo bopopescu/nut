@@ -5,6 +5,7 @@ from django.conf import settings
 from apps.core.models import BaseModel
 
 
+
 class Tags(BaseModel):
     name = models.CharField(max_length=255, unique=True, db_index=True)
     hash = models.CharField(max_length=32, unique=True, db_index=True)
@@ -13,6 +14,13 @@ class Tags(BaseModel):
 
     def __unicode__(self):
         return self.name
+
+    @property
+    def tag_hash(self):
+        return self.hash[:8]
+
+    def get_absolute_url(self):
+        return "/t/%s/" % self.tag_hash
 
 
 class Content_Tags(BaseModel):
