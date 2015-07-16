@@ -23,7 +23,7 @@ class SixPM(Spider):
 
     @property
     def desc(self):
-        desc = self.soup.select(".description ul li")
+        desc = self.soup.select("#productStage h1 .link")
         return desc[0].string
 
     @property

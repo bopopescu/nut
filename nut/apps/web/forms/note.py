@@ -52,8 +52,6 @@ class NoteForm(forms.ModelForm):
                 entity_id = self.entity_id,
             )
         # except Note.MultipleObjectsReturned:
-
-
         t = TagParser(note.note)
         t.create_tag(user_id=self.user.pk, entity_id=self.entity_id)
 

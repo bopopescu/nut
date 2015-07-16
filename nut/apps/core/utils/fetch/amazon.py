@@ -48,28 +48,32 @@ class Amazon(Spider):
 
     @property
     def price(self):
+        f_price = 0
         pricetag = self.soup.select("#priceblock_ourprice")
         if len(pricetag) > 0:
             # print pricetag[0].string.split('-')
             price = pricetag[0]
             try:
-                return float(price.string[1:].replace(',', ''))
+                f_price =  float(price.string[1:].replace(',', ''))
             except UnicodeEncodeError:
                 price = pricetag[0].string.split('-')[0]
-                return float(price[1:].replace(',', ''))
+                f_price = float(price[1:].replace(',', ''))
 
         pricetag = self.soup.select("#priceblock_saleprice")
         if len(pricetag) > 0:
             price = pricetag[0]
             # print price
-            return float(price.string[1:].replace(',', ''))
+            f_price =  float(price.string[1:].replace(',', ''))
 
         pricetag = self.soup.select("#soldByThirdParty span")
         if len(pricetag) > 0:
             price = pricetag[0].string
-            return float(price[1:])
+            f_price =  float(price[1:])
 
-        return 0
+        if 'amazon.co.jp' in self.hostname:
+            f_price = f_price / 20.
+
+        return f_price
         # pricetage = self.soup.select("#paperback_meta_binding_winner")
         # print pricetag
 
@@ -119,6 +123,11 @@ class Amazon(Spider):
                 images.append(res.replace('..', '.'))
             return images
 
+        # amazon jp
+        # optimages = self.soup.select("#altImages .a-spacing-small ")
+        # print optimages
+
+
     @property
     def brand(self):
         optbrands = self.soup.select('#brandByline_feature_div div a')
@@ -130,14 +139,15 @@ class Amazon(Spider):
 
 if __name__=="__main__":
 
-    a = Amazon("http://www.amazon.cn/gp/product/B00LF5DUA6/ref=s9_cngwdyfloorv2-s9?pf_rd_m=A1AJ19PSB66TGU&pf_rd_s=center-2&pf_rd_r=0KJF7YH4D252JM4ZPJKC&pf_rd_t=101&pf_rd_p=252512872&pf_rd_i=899254051")
+    a = Amazon("http://www.amazon.co.jp/%E3%83%95%E3%82%A3%E3%83%AA%E3%83%83%E3%83%97%E3%82%B9-%E5%85%89%E7%BE%8E%E5%AE%B9%E5%99%A8-%E3%82%A8%E3%83%83%E3%82%BB%E3%83%B3%E3%82%B7%E3%83%A3%E3%83%AB-SC1991-00/dp/B00SB014CE")
+    print a.hostname
     print a.url
     print a.price
     print a.cid
     print a.images
     # print a.buy_link
-    # print a.desc
-    # print a.price, a.images
-    # print b.desc
+    print a.desc
+    print a.price, a.images
+    print a.desc
 
 
