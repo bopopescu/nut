@@ -5,7 +5,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
 
 
 from apps.core.models import Taobao_Token
-from apps.core.utils.taobaoapi.user import TaobaoOpenUid, BaichuanUid
+from apps.core.utils.taobaoapi.user import TaobaoOpenUid
 
 from django.conf import settings
 

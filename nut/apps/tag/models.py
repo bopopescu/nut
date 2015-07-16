@@ -5,12 +5,14 @@ from django.conf import settings
 from apps.core.models import BaseModel
 
 
-
 class Tags(BaseModel):
-    name = models.CharField(max_length=30, unique=True, db_index=True)
+    name = models.CharField(max_length=100, unique=True, db_index=True)
     hash = models.CharField(max_length=32, unique=True, db_index=True)
     status = models.BooleanField(default=False)
-    image = models.URLField(max_length=255)
+    image = models.URLField(max_length=255, null=True)
+
+    class Meta:
+        ordering = ["-id"]
 
     def __unicode__(self):
         return self.name
@@ -35,5 +37,6 @@ class Content_Tags(BaseModel):
 
     class Meta:
         unique_together = ('tag', 'creator', 'target_content_type', 'target_object_id')
+
 
 __author__ = 'xiejiaxin'
