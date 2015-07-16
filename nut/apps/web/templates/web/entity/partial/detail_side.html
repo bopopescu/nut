@@ -161,6 +161,33 @@
             {% endfor %}
         </ul>
     </li>
+    <li class="section">
+        <div class="section-title">热门图文</div>
+        <ul class="pop-article-list">
+            {% for sla in pop_articles %}
+                {% with sla.article as h_article %}
+                    <li>
+                        <div class="pop-article-wrapper">
+                            <div class="img-holder">
+                                <a href="{% url 'web_article_page' h_article.pk %}">
+                                    <img width="269"  src="{{ h_article.cover|resize:'270' }}"/>
+                                </a>
+                            </div>
+                            <div class="article-content">
+                                <div class="article-title">
+                                    <a href="{% url 'web_article_page' h_article.pk %}">
+                                        {{ h_article.title|truncatechars:16 }}
+                                    </a>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </li>
+                {% endwith %}
+            {% endfor %}
+        </ul>
+    </li>
     {#    <li class="section need-bottom-border">#}
     {#        <div class="section-title">喜爱</div>#}
     {#        <div class="section-content">#}
@@ -203,6 +230,8 @@
             </ul>
         </div>
     </li>
+
+
 
 </ul>
 {#<div class="panel panel-default hidden-print hidden-xs">#}

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-21 08:14+0800\n"
+"POT-Creation-Date: 2015-07-16 09:29+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,69 +16,71 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: apps/core/models.py:57
+#: apps/core/models.py:71
+#: apps/management/templates/management/users/list.html:9
 msgid "writer"
 msgstr "作者"
 
-#: apps/core/models.py:58
-#: apps/management/templates/management/users/list.html:9
+#: apps/core/models.py:72
+#: apps/management/templates/management/users/list.html:10
 msgid "editor"
 msgstr "编辑"
 
-#: apps/core/models.py:59
-#: apps/management/templates/management/users/list.html:10
+#: apps/core/models.py:73
+#: apps/management/templates/management/users/list.html:11
 msgid "active"
 msgstr "活动用户"
 
-#: apps/core/models.py:60
-#: apps/management/templates/management/users/list.html:11
+#: apps/core/models.py:74
+#: apps/management/templates/management/users/list.html:12
 msgid "blocked"
 msgstr "禁言用户"
 
-#: apps/core/models.py:61 apps/core/models.py:465 apps/core/models.py:471
-#: apps/core/models.py:701 apps/core/models.py:945
-#: apps/core/forms/entity.py:226
+#: apps/core/models.py:75 apps/core/models.py:509 apps/core/models.py:515
+#: apps/core/models.py:746 apps/core/models.py:798 apps/core/models.py:1044
+#: apps/core/forms/entity.py:246
+#: apps/management/templates/management/buy_link/list.html:15
 #: apps/management/templates/management/category/entity/category_entity_list.html:27
 #: apps/management/templates/management/category/entity/sub_category_entity_list.html:11
 #: apps/management/templates/management/entities/buy_link.html:15
-#: apps/management/templates/management/entities/edit.html:96
+#: apps/management/templates/management/entities/edit.html:107
 #: apps/management/templates/management/entities/list.html:16
 #: apps/management/templates/management/entities/new_list.html:16
 #: apps/management/templates/management/entities/partial/entity_images.html:11
 #: apps/management/templates/management/notes/list.html:13
-#: apps/management/templates/management/users/list.html:12
+#: apps/management/templates/management/users/list.html:13
 #: apps/management/templates/management/users/notes.html:20
 msgid "remove"
 msgstr "删除"
 
-#: apps/core/models.py:67
+#: apps/core/models.py:81
 msgid "date joined"
 msgstr "加入时间"
 
-#: apps/core/models.py:235
+#: apps/core/models.py:266
 msgid "man"
 msgstr "男"
 
-#: apps/core/models.py:236
+#: apps/core/models.py:267
 msgid "woman"
 msgstr "女"
 
-#: apps/core/models.py:237
+#: apps/core/models.py:268
 msgid "other"
 msgstr "其他"
 
-#: apps/core/models.py:242
+#: apps/core/models.py:273
 msgid "beijing"
 msgstr "北京"
 
-#: apps/core/models.py:243
+#: apps/core/models.py:274
 msgid "chaoyang"
 msgstr "朝阳"
 
-#: apps/core/models.py:296
+#: apps/core/models.py:331
 #: apps/management/templates/management/management_base.html:80
 #: apps/management/templates/management/brand/edit.html:13
-#: apps/management/templates/management/brand/list.html:42
+#: apps/management/templates/management/brand/list.html:44
 #: apps/management/templates/management/brand/stat.html:25
 #: apps/management/templates/management/category/list.html:35
 #: apps/management/templates/management/category/sub_category_list.html:34
@@ -89,66 +91,66 @@ msgstr "朝阳"
 msgid "entity"
 msgstr "商品"
 
-#: apps/core/models.py:297 apps/core/forms/entity.py:301
-#: apps/core/forms/entity.py:388
+#: apps/core/models.py:332 apps/core/forms/entity.py:321
+#: apps/core/forms/entity.py:408
 #: apps/management/templates/management/management_base.html:119
 #: apps/management/templates/management/category/list.html:5
 #: apps/management/templates/management/entities/table.html:15
 #: apps/management/templates/management/entities/table_new.html:15
-#: apps/management/templates/management/selection/table.html:14
+#: apps/management/templates/management/selection/table.html:18
 msgid "category"
 msgstr "品类"
 
-#: apps/core/models.py:298 apps/core/forms/entity.py:415
+#: apps/core/models.py:333 apps/core/forms/entity.py:435
 #: apps/core/forms/note.py:92
 #: apps/management/templates/management/management_base.html:131
 #: apps/management/templates/management/comment/list.html:14
 #: apps/management/templates/management/notes/comment/list.html:13
-#: apps/management/templates/management/selection/table.html:13
+#: apps/management/templates/management/selection/table.html:17
 #: apps/management/templates/management/users/list.html:5
 #: apps/web/templates/web/main/search.html:21
 msgid "user"
 msgstr "用户"
 
-#: apps/core/models.py:299
+#: apps/core/models.py:334
 msgid "user_tag"
 msgstr "用户标签"
 
-#: apps/core/models.py:300
+#: apps/core/models.py:335
 msgid "outlink"
 msgstr "外链"
 
-#: apps/core/models.py:429
+#: apps/core/models.py:464
 #: apps/management/templates/management/article/selection_article_list.html:11
-#: apps/management/templates/management/selection/list.html:23
+#: apps/management/templates/management/selection/list.html:35
 #: apps/management/templates/management/selection/pending.html:14
 #: apps/management/templates/management/selection/popular.html:22
 msgid "pending"
 msgstr "待发布"
 
-#: apps/core/models.py:430 apps/core/forms/article.py:120
-#: apps/core/forms/article.py:180
+#: apps/core/models.py:465 apps/core/forms/article.py:120
+#: apps/core/forms/article.py:190
 msgid "publish"
 msgstr "发布"
 
-#: apps/core/models.py:431
+#: apps/core/models.py:466
 msgid "promotion"
 msgstr "操作"
 
-#: apps/core/models.py:462 apps/core/forms/entity.py:229
+#: apps/core/models.py:506 apps/core/forms/entity.py:249
 #: apps/management/templates/management/management_base.html:66
 #: apps/management/templates/management/category/entity/category_entity_list.html:23
 #: apps/management/templates/management/category/entity/sub_category_entity_list.html:7
-#: apps/management/templates/management/selection/list.html:7
+#: apps/management/templates/management/selection/list.html:12
 #: apps/management/templates/management/selection/pending.html:6
 #: apps/management/templates/management/selection/popular.html:7
-#: apps/web/templates/web/entity/partial/detail_breadcrumb.html:5
+#: apps/web/templates/web/entity/partial/detail_breadcrumb.html:8
 #: apps/web/templates/web/main/selection.html:5
 msgid "selection"
 msgstr "精选"
 
-#: apps/core/models.py:463 apps/core/models.py:469
-#: apps/core/forms/entity.py:228
+#: apps/core/models.py:507 apps/core/models.py:513
+#: apps/core/forms/entity.py:248
 #: apps/management/templates/management/category/entity/category_entity_list.html:25
 #: apps/management/templates/management/category/entity/sub_category_entity_list.html:9
 #: apps/management/templates/management/entities/list.html:14
@@ -156,8 +158,8 @@ msgstr "精选"
 msgid "new"
 msgstr "新品"
 
-#: apps/core/models.py:464 apps/core/models.py:470
-#: apps/core/forms/entity.py:227
+#: apps/core/models.py:508 apps/core/models.py:514
+#: apps/core/forms/entity.py:247
 #: apps/management/templates/management/category/entity/category_entity_list.html:26
 #: apps/management/templates/management/category/entity/sub_category_entity_list.html:10
 #: apps/management/templates/management/entities/list.html:15
@@ -165,41 +167,46 @@ msgstr "新品"
 msgid "freeze"
 msgstr "冻结"
 
-#: apps/core/models.py:699
+#: apps/core/models.py:744
+#: apps/management/templates/management/buy_link/list.html:13
+msgid "sale"
+msgstr ""
+
+#: apps/core/models.py:796
 #: apps/management/templates/management/notes/list.html:11
 #: apps/management/templates/management/users/notes.html:18
 msgid "top"
 msgstr ""
 
-#: apps/core/models.py:700
+#: apps/core/models.py:797
 #: apps/management/templates/management/notes/list.html:12
 #: apps/management/templates/management/users/notes.html:19
 msgid "normal"
 msgstr ""
 
-#: apps/core/models.py:943
+#: apps/core/models.py:1042
 #: apps/management/templates/management/article/list.html:10
 #: apps/management/templates/management/article/selection_article_list.html:10
-#: apps/management/templates/management/selection/list.html:19
+#: apps/management/templates/management/selection/list.html:31
 #: apps/management/templates/management/selection/pending.html:13
 #: apps/management/templates/management/selection/popular.html:18
 msgid "published"
 msgstr "发布"
 
-#: apps/core/models.py:944
+#: apps/core/models.py:1043
 #: apps/management/templates/management/article/list.html:11
 msgid "draft"
 msgstr "草稿"
 
-#: apps/core/models.py:1008
+#: apps/core/models.py:1126
 msgid "Never"
 msgstr ""
 
-#: apps/core/models.py:1101
+#: apps/core/models.py:1229
 msgid "item"
 msgstr "商品banner"
 
-#: apps/core/models.py:1102
+#: apps/core/models.py:1230
 msgid "shop"
 msgstr "店铺banner"
 
@@ -269,13 +276,13 @@ msgid "Please Input Captcha"
 msgstr "请填写验证码"
 
 #: apps/core/forms/account.py:157 apps/core/forms/account.py:159
-#: apps/core/forms/user.py:146 apps/web/forms/user.py:117
+#: apps/core/forms/user.py:147 apps/web/forms/user.py:117
 #: apps/web/forms/user.py:118
 msgid "New password"
 msgstr "新密码"
 
 #: apps/core/forms/account.py:160 apps/core/forms/account.py:162
-#: apps/core/forms/user.py:149 apps/web/forms/account.py:138
+#: apps/core/forms/user.py:150 apps/web/forms/account.py:138
 #: apps/web/forms/account.py:140 apps/web/forms/user.py:123
 #: apps/web/forms/user.py:124
 msgid "New password confirmation"
@@ -286,16 +293,16 @@ msgid "can not find article"
 msgstr ""
 
 #: apps/core/forms/article.py:51 apps/core/forms/category.py:16
-#: apps/core/forms/entity.py:555 apps/core/forms/entity.py:626
-#: apps/core/forms/entity.py:775 apps/core/forms/event.py:12
+#: apps/core/forms/entity.py:576 apps/core/forms/entity.py:647
+#: apps/core/forms/entity.py:796 apps/core/forms/event.py:12
 #: apps/core/forms/note.py:68 apps/core/forms/selection.py:10
 #: apps/core/forms/user.py:20
 msgid "yes"
 msgstr "是"
 
 #: apps/core/forms/article.py:52 apps/core/forms/category.py:17
-#: apps/core/forms/entity.py:556 apps/core/forms/entity.py:627
-#: apps/core/forms/entity.py:776 apps/core/forms/event.py:11
+#: apps/core/forms/entity.py:577 apps/core/forms/entity.py:648
+#: apps/core/forms/entity.py:797 apps/core/forms/event.py:11
 #: apps/core/forms/note.py:69 apps/core/forms/selection.py:11
 #: apps/core/forms/user.py:21
 msgid "no"
@@ -316,8 +323,8 @@ msgid "cover"
 msgstr "封面图"
 
 #: apps/core/forms/article.py:108 apps/core/forms/category.py:24
-#: apps/core/forms/category.py:75 apps/core/forms/entity.py:242
-#: apps/core/forms/entity.py:331 apps/core/forms/event.py:16
+#: apps/core/forms/category.py:75 apps/core/forms/entity.py:262
+#: apps/core/forms/entity.py:351 apps/core/forms/event.py:16
 #: apps/core/forms/tags.py:8
 #: apps/management/templates/management/article/draft_list.html:21
 #: apps/management/templates/management/article/list.html:21
@@ -325,20 +332,27 @@ msgstr "封面图"
 #: apps/management/templates/management/entities/table.html:13
 #: apps/management/templates/management/entities/table_new.html:13
 #: apps/management/templates/management/selection/popular.html:39
-#: apps/management/templates/management/selection/table.html:12
+#: apps/management/templates/management/selection/table.html:16
 msgid "title"
 msgstr "标题"
 
 #: apps/core/forms/article.py:114 apps/core/forms/note.py:29
 #: apps/core/forms/note.py:73
 #: apps/management/templates/management/comment/list.html:15
-#: apps/management/templates/management/entities/edit.html:148
+#: apps/management/templates/management/entities/edit.html:159
 #: apps/management/templates/management/notes/table.html:13
 #: apps/management/templates/management/notes/comment/list.html:14
 #: apps/management/templates/management/report/list.html:16
 #: apps/web/forms/comment.py:13 apps/web/forms/note.py:23
 msgid "content"
 msgstr "内容"
+
+#: apps/core/forms/article.py:131
+#: apps/management/templates/management/article/draft_list.html:22
+#: apps/management/templates/management/article/list.html:22
+#: apps/management/templates/management/article/selection_article_list.html:22
+msgid "author"
+msgstr "作者"
 
 #: apps/core/forms/banner.py:22
 msgid "none"
@@ -361,7 +375,7 @@ msgid "fourth"
 msgstr "第四"
 
 #: apps/core/forms/banner.py:28 apps/core/forms/banner.py:132
-#: apps/core/forms/entity.py:282
+#: apps/core/forms/entity.py:302
 #: apps/management/forms/editor_recommendation.py:142
 #: apps/management/forms/event_banner.py:149
 #: apps/management/templates/management/event_banner/list.html:50
@@ -383,79 +397,89 @@ msgstr ""
 msgid "banner image"
 msgstr "主图"
 
-#: apps/core/forms/brand.py:17
+#: apps/core/forms/brand.py:18
 #: apps/management/templates/management/brand/list.html:23
 #: apps/management/templates/management/category/sub_category_list.html:19
 msgid "icon"
 msgstr "图标"
 
-#: apps/core/forms/brand.py:19
+#: apps/core/forms/brand.py:20
 msgid "icon need 300 x 300"
 msgstr ""
 
-#: apps/core/forms/brand.py:24 apps/core/forms/brand.py:26
+#: apps/core/forms/brand.py:25 apps/core/forms/brand.py:27
 msgid "brand name"
 msgstr "品牌名"
 
-#: apps/core/forms/brand.py:30
+#: apps/core/forms/brand.py:31
 msgid "alias"
 msgstr "别名"
 
-#: apps/core/forms/brand.py:32 apps/core/forms/brand.py:45
+#: apps/core/forms/brand.py:33 apps/core/forms/brand.py:46
 msgid "optional"
 msgstr "选填"
 
-#: apps/core/forms/brand.py:37
+#: apps/core/forms/brand.py:38
 #: apps/management/templates/management/brand/list.html:26
 msgid "national"
 msgstr "国家"
 
-#: apps/core/forms/brand.py:43
+#: apps/core/forms/brand.py:44
 #: apps/management/templates/management/brand/list.html:25
 msgid "company"
 msgstr "公司"
 
-#: apps/core/forms/brand.py:50 apps/core/forms/user.py:81
+#: apps/core/forms/brand.py:51 apps/core/forms/user.py:81
 #: apps/management/templates/management/brand/list.html:27
 #: apps/web/forms/user.py:54
 msgid "website"
 msgstr "网址"
 
-#: apps/core/forms/brand.py:52
+#: apps/core/forms/brand.py:53
 msgid "prefix has http://"
 msgstr ""
 
-#: apps/core/forms/brand.py:56 apps/core/forms/brand.py:60
+#: apps/core/forms/brand.py:58
+msgid "tmall link"
+msgstr "天猫链接"
+
+#: apps/core/forms/brand.py:60
+msgid "brand tmall shop link"
+msgstr "天猫品牌链接"
+
+#: apps/core/forms/brand.py:64 apps/core/forms/brand.py:68
 #: apps/core/forms/category.py:29 apps/core/forms/category.py:86
-#: apps/core/forms/entity.py:266 apps/core/forms/entity.py:271
+#: apps/core/forms/entity.py:286 apps/core/forms/entity.py:291
 #: apps/core/forms/note.py:44
+#: apps/management/templates/management/buy_link/table.html:15
 #: apps/management/templates/management/category/list.html:21
 #: apps/management/templates/management/category/sub_category_list.html:21
-#: apps/management/templates/management/entities/edit.html:150
+#: apps/management/templates/management/entities/edit.html:84
+#: apps/management/templates/management/entities/edit.html:161
 #: apps/management/templates/management/entities/table.html:19
 #: apps/management/templates/management/entities/table_new.html:19
 #: apps/management/templates/management/notes/table.html:15
 msgid "status"
 msgstr "状态"
 
-#: apps/core/forms/brand.py:63
+#: apps/core/forms/brand.py:71
 msgid "intro"
 msgstr "简介"
 
-#: apps/core/forms/brand.py:67
-msgid "300 - 500 words"
+#: apps/core/forms/brand.py:75
+msgid "300 - 1000 words"
 msgstr ""
 
 #: apps/core/forms/category.py:80 apps/core/forms/category.py:130
 msgid "parent category"
 msgstr "上级品类"
 
-#: apps/core/forms/category.py:92 apps/core/forms/entity.py:560
+#: apps/core/forms/category.py:92 apps/core/forms/entity.py:581
 msgid "Select an Image"
 msgstr "选择图片"
 
-#: apps/core/forms/entity.py:235 apps/core/forms/note.py:25
-#: apps/management/templates/management/entities/edit.html:147
+#: apps/core/forms/entity.py:255 apps/core/forms/note.py:25
+#: apps/management/templates/management/entities/edit.html:158
 #: apps/management/templates/management/entities/table.html:14
 #: apps/management/templates/management/entities/table_new.html:14
 #: apps/management/templates/management/notes/table.html:12
@@ -463,42 +487,43 @@ msgstr "选择图片"
 msgid "creator"
 msgstr "创建者"
 
-#: apps/core/forms/entity.py:238 apps/core/forms/entity.py:337
+#: apps/core/forms/entity.py:258 apps/core/forms/entity.py:357
 #: apps/management/templates/management/management_base.html:114
 #: apps/management/templates/management/brand/list.html:7
 #: apps/management/templates/management/brand/stat.html:13
 #: apps/management/templates/management/entities/table.html:12
 #: apps/management/templates/management/entities/table_new.html:12
 #: apps/management/templates/management/selection/popular.html:38
-#: apps/management/templates/management/selection/table.html:11
+#: apps/management/templates/management/selection/table.html:15
 msgid "brand"
 msgstr "品牌"
 
-#: apps/core/forms/entity.py:250 apps/core/forms/entity.py:343
+#: apps/core/forms/entity.py:270 apps/core/forms/entity.py:363
+#: apps/management/templates/management/buy_link/table.html:12
 #: apps/management/templates/management/entities/edit.html:80
 #: apps/management/templates/management/entities/table.html:17
 #: apps/management/templates/management/entities/table_new.html:17
-#: apps/management/templates/management/selection/table.html:17
+#: apps/management/templates/management/selection/table.html:21
 msgid "price"
 msgstr "价钱"
 
-#: apps/core/forms/entity.py:306 apps/core/forms/entity.py:394
+#: apps/core/forms/entity.py:326 apps/core/forms/entity.py:414
 msgid "sub_category"
 msgstr "子品类"
 
-#: apps/core/forms/entity.py:319
+#: apps/core/forms/entity.py:339
 msgid "origin id"
 msgstr ""
 
-#: apps/core/forms/entity.py:325
+#: apps/core/forms/entity.py:345
 msgid "origin_source"
 msgstr "来源"
 
-#: apps/core/forms/entity.py:379
+#: apps/core/forms/entity.py:399
 msgid "select image"
 msgstr "选择 图片"
 
-#: apps/core/forms/entity.py:401
+#: apps/core/forms/entity.py:421
 #: apps/management/templates/management/management_base.html:85
 #: apps/management/templates/management/banner/edit.html:17
 #: apps/management/templates/management/comment/list.html:13
@@ -509,27 +534,27 @@ msgstr "选择 图片"
 msgid "note"
 msgstr "点评"
 
-#: apps/core/forms/entity.py:407
+#: apps/core/forms/entity.py:427
 msgid "note status"
 msgstr "点评 状态"
 
-#: apps/core/forms/entity.py:561 apps/core/forms/user.py:158
+#: apps/core/forms/entity.py:582 apps/core/forms/user.py:159
 msgid "max. 2 megabytes"
 msgstr "最大2兆"
 
-#: apps/core/forms/entity.py:566
+#: apps/core/forms/entity.py:587
 msgid "image link"
 msgstr "图片链接"
 
-#: apps/core/forms/entity.py:572
+#: apps/core/forms/entity.py:593
 msgid "chief image"
 msgstr "主图图片"
 
-#: apps/core/forms/entity.py:576
+#: apps/core/forms/entity.py:597
 msgid "set entity cheif Image"
 msgstr "设置商品主图"
 
-#: apps/core/forms/entity.py:642 apps/core/forms/entity.py:780
+#: apps/core/forms/entity.py:663 apps/core/forms/entity.py:801
 #: apps/management/forms/editor_recommendation.py:18
 #: apps/management/forms/event_banner.py:19
 #: apps/management/templates/management/entities/edit.html:79
@@ -541,7 +566,7 @@ msgstr "设置商品主图"
 msgid "link"
 msgstr "友情链接"
 
-#: apps/core/forms/entity.py:648 apps/core/forms/entity.py:786
+#: apps/core/forms/entity.py:669 apps/core/forms/entity.py:807
 msgid "default"
 msgstr ""
 
@@ -597,13 +622,13 @@ msgid "is_top"
 msgstr "是否置顶点评"
 
 #: apps/core/forms/search.py:6 apps/web/forms/search.py:13
-#: apps/web/templates/web/partial/header.html:64
+#: apps/web/templates/web/partial/header.html:69
 msgid "Search"
 msgstr "搜索"
 
 #: apps/core/forms/search.py:9
 #: apps/management/templates/management/event_banner/list.html:48
-#: apps/web/forms/entity.py:311 apps/web/forms/search.py:16
+#: apps/web/forms/entity.py:334 apps/web/forms/search.py:16
 msgid "type"
 msgstr ""
 
@@ -643,7 +668,7 @@ msgid "user group"
 msgstr ""
 
 #: apps/core/forms/user.py:47
-#: apps/management/templates/management/users/list.html:13
+#: apps/management/templates/management/users/list.html:14
 msgid "admin"
 msgstr "管理员"
 
@@ -668,7 +693,7 @@ msgstr "性别"
 msgid "bio"
 msgstr "简介"
 
-#: apps/core/manager/account.py:66
+#: apps/core/manager/account.py:72
 msgid "please given email"
 msgstr "请提供Email"
 
@@ -740,23 +765,18 @@ msgstr "请登录"
 msgid "draft article"
 msgstr "草稿"
 
-#: apps/management/templates/management/article/draft_list.html:22
-#: apps/management/templates/management/article/list.html:22
-#: apps/management/templates/management/article/selection_article_list.html:22
-msgid "author"
-msgstr "作者"
-
 #: apps/management/templates/management/article/draft_list.html:25
 #: apps/management/templates/management/article/list.html:25
 #: apps/management/templates/management/article/selection_article_list.html:28
 #: apps/management/templates/management/banner/list.html:23
-#: apps/management/templates/management/brand/list.html:28
+#: apps/management/templates/management/brand/list.html:29
 #: apps/management/templates/management/brand/stat.html:15
+#: apps/management/templates/management/buy_link/table.html:23
 #: apps/management/templates/management/category/list.html:22
 #: apps/management/templates/management/category/sub_category_list.html:22
 #: apps/management/templates/management/comment/list.html:17
-#: apps/management/templates/management/entities/edit.html:82
-#: apps/management/templates/management/entities/edit.html:151
+#: apps/management/templates/management/entities/edit.html:85
+#: apps/management/templates/management/entities/edit.html:162
 #: apps/management/templates/management/entities/table.html:21
 #: apps/management/templates/management/entities/table_new.html:21
 #: apps/management/templates/management/event/list.html:34
@@ -766,22 +786,23 @@ msgstr "作者"
 #: apps/management/templates/management/notes/table.html:16
 #: apps/management/templates/management/recommendation/list.html:30
 #: apps/management/templates/management/recommendation/show_list.html:23
-#: apps/management/templates/management/selection/table.html:19
+#: apps/management/templates/management/selection/table.html:23
 #: apps/management/templates/management/tags/table.html:12
-#: apps/management/templates/management/users/table.html:14
+#: apps/management/templates/management/users/table.html:15
 msgid "operation"
 msgstr "操作"
 
 #: apps/management/templates/management/article/draft_list.html:42
 #: apps/management/templates/management/article/list.html:42
-#: apps/management/templates/management/article/selection_article_list.html:55
+#: apps/management/templates/management/article/selection_article_list.html:57
 #: apps/management/templates/management/banner/list.html:32
-#: apps/management/templates/management/brand/list.html:43
+#: apps/management/templates/management/brand/list.html:45
 #: apps/management/templates/management/brand/stat.html:26
+#: apps/management/templates/management/buy_link/table.html:51
 #: apps/management/templates/management/category/list.html:33
 #: apps/management/templates/management/category/sub_category_list.html:35
-#: apps/management/templates/management/entities/edit.html:94
-#: apps/management/templates/management/entities/edit.html:168
+#: apps/management/templates/management/entities/edit.html:105
+#: apps/management/templates/management/entities/edit.html:179
 #: apps/management/templates/management/entities/table.html:58
 #: apps/management/templates/management/entities/table_new.html:56
 #: apps/management/templates/management/event/list.html:58
@@ -790,14 +811,14 @@ msgstr "操作"
 #: apps/management/templates/management/notes/table.html:34
 #: apps/management/templates/management/recommendation/list.html:46
 #: apps/management/templates/management/recommendation/show_list.html:33
-#: apps/management/templates/management/selection/table.html:41
+#: apps/management/templates/management/selection/table.html:49
 #: apps/management/templates/management/tags/table.html:22
-#: apps/management/templates/management/users/table.html:31
+#: apps/management/templates/management/users/table.html:42
 msgid "edit"
 msgstr "编辑"
 
 #: apps/management/templates/management/article/edit.html:37
-#: apps/management/views/article.py:124 apps/management/views/article.py:146
+#: apps/management/views/article.py:130 apps/management/views/article.py:152
 msgid "save"
 msgstr "保存"
 
@@ -806,11 +827,11 @@ msgid "preview"
 msgstr "预览"
 
 #: apps/management/templates/management/article/list.html:43
-#: apps/management/templates/management/article/selection_article_list.html:59
+#: apps/management/templates/management/article/selection_article_list.html:67
 msgid "goto"
 msgstr ""
 
-#: apps/management/templates/management/article/selection_article_list.html:57
+#: apps/management/templates/management/article/selection_article_list.html:62
 msgid "edit publish datetime"
 msgstr "编辑入精选时间"
 
@@ -824,7 +845,7 @@ msgstr "创建"
 
 #: apps/management/templates/management/banner/edit.html:52
 #: apps/management/templates/management/brand/edit.html:38
-#: apps/management/templates/management/entities/edit.html:135
+#: apps/management/templates/management/entities/edit.html:146
 #: apps/management/templates/management/entities/edit_buy_link.html:42
 #: apps/management/templates/management/entities/upload_image.html:41
 #: apps/management/templates/management/event/edit.html:26
@@ -835,7 +856,7 @@ msgstr "创建"
 #: apps/management/templates/management/users/reset_password.html:42
 #: apps/management/templates/management/users/upload_avatar.html:47
 #: apps/management/views/category.py:151 apps/management/views/category.py:201
-#: apps/management/views/selection.py:92 apps/management/views/tags.py:53
+#: apps/management/views/selection.py:105 apps/management/views/tags.py:53
 msgid "update"
 msgstr "更新"
 
@@ -854,6 +875,7 @@ msgid "add"
 msgstr "添加"
 
 #: apps/management/templates/management/banner/list.html:21
+#: apps/management/templates/management/buy_link/table.html:9
 #: apps/management/templates/management/entities/table.html:18
 #: apps/management/templates/management/entities/table_new.html:18
 #: apps/management/templates/management/event_banner/show_list.html:20
@@ -861,7 +883,7 @@ msgstr "添加"
 #: apps/management/templates/management/notes/table.html:11
 #: apps/management/templates/management/recommendation/show_list.html:21
 #: apps/management/templates/management/selection/popular.html:37
-#: apps/management/templates/management/selection/table.html:10
+#: apps/management/templates/management/selection/table.html:14
 msgid "image"
 msgstr "图片"
 
@@ -871,7 +893,6 @@ msgstr "链接"
 
 #: apps/management/templates/management/brand/create.html:25
 #: apps/web/templates/web/account/password_rest_confirm.html:22
-#: apps/web/templates/web/entity/report.html:25
 msgid "submit"
 msgstr "提交"
 
@@ -887,9 +908,37 @@ msgstr "品牌状态"
 msgid "name"
 msgstr ""
 
+#: apps/management/templates/management/brand/list.html:28
+msgid "tmall"
+msgstr ""
+
 #: apps/management/templates/management/brand/stat.html:14
 msgid "entity count"
 msgstr "品牌下商品数量"
+
+#: apps/management/templates/management/buy_link/list.html:7
+#: apps/management/templates/management/buy_link/table.html:13
+msgid "buy link"
+msgstr "购买链接"
+
+#: apps/management/templates/management/buy_link/list.html:14
+msgid "soldout"
+msgstr "商品下架"
+
+#: apps/management/templates/management/buy_link/table.html:11
+#: apps/management/templates/management/entities/edit.html:81
+msgid "source"
+msgstr "来源"
+
+#: apps/management/templates/management/buy_link/table.html:14
+#: apps/management/templates/management/entities/edit.html:82
+msgid "shop link"
+msgstr "店铺 链接"
+
+#: apps/management/templates/management/buy_link/table.html:49
+#: apps/management/templates/management/entities/edit.html:104
+msgid "check status"
+msgstr "检查 状态"
 
 #: apps/management/templates/management/category/list.html:34
 msgid "detail"
@@ -904,7 +953,6 @@ msgstr "成功"
 #: apps/management/templates/management/category/entity/sub_category_entity_list.html:8
 #: apps/management/templates/management/entities/new_list.html:12
 #: apps/management/templates/management/notes/list.html:10
-#: apps/management/templates/management/users/list.html:8
 #: apps/management/templates/management/users/notes.html:17
 msgid "all"
 msgstr "所有"
@@ -945,11 +993,11 @@ msgstr "去品牌页"
 msgid "buy links"
 msgstr "购买链接"
 
-#: apps/management/templates/management/entities/edit.html:81
+#: apps/management/templates/management/entities/edit.html:83
 msgid "is default"
 msgstr ""
 
-#: apps/management/templates/management/entities/edit.html:149
+#: apps/management/templates/management/entities/edit.html:160
 msgid "post time"
 msgstr "更新 时间"
 
@@ -1035,6 +1083,10 @@ msgstr "举报 类型"
 msgid "report comment"
 msgstr "举报评论"
 
+#: apps/management/templates/management/report/list.html:21
+msgid "progress"
+msgstr ""
+
 #: apps/management/templates/management/search/search.html:15
 #: apps/web/templates/web/main/search.html:24
 msgid "tags"
@@ -1044,7 +1096,7 @@ msgstr "标签"
 msgid "users"
 msgstr "用户"
 
-#: apps/management/templates/management/selection/list.html:27
+#: apps/management/templates/management/selection/list.html:39
 #: apps/management/templates/management/selection/popular.html:26
 #: apps/web/templates/web/main/popular.html:6
 msgid "popular"
@@ -1058,16 +1110,16 @@ msgstr ""
 msgid "set selection publish datetime"
 msgstr ""
 
-#: apps/management/templates/management/selection/table.html:15
+#: apps/management/templates/management/selection/table.html:19
 msgid "published time"
 msgstr "发布时间"
 
-#: apps/management/templates/management/selection/table.html:16
+#: apps/management/templates/management/selection/table.html:20
 #: apps/management/templates/management/tags/table.html:11
 msgid "created datetime"
 msgstr "创建时间"
 
-#: apps/management/templates/management/selection/table.html:42
+#: apps/management/templates/management/selection/table.html:50
 msgid "edit datetime"
 msgstr "编辑时间"
 
@@ -1085,32 +1137,48 @@ msgid "avatar"
 msgstr "头像"
 
 #: apps/management/templates/management/users/table.html:12
-msgid "is_active"
-msgstr "用户分组"
-
-#: apps/management/templates/management/users/table.html:13
 msgid "join datetime"
 msgstr "编辑时间"
 
-#: apps/management/templates/management/users/table.html:30
+#: apps/management/templates/management/users/table.html:13
+msgid "is_active"
+msgstr "用户分组"
+
+#: apps/management/templates/management/users/table.html:14
+msgid "sns"
+msgstr ""
+
+#: apps/management/templates/management/users/table.html:41
 msgid "post message"
 msgstr "发消息"
 
-#: apps/report/models.py:29
+#: apps/management/views/selection.py:135
+msgid "can not get entity id list"
+msgstr ""
+
+#: apps/report/models.py:31
 msgid "sold out"
 msgstr "商品下架"
 
-#: apps/report/models.py:30
+#: apps/report/models.py:32
 msgid "category error"
 msgstr "分类错误"
 
-#: apps/report/models.py:31
+#: apps/report/models.py:33
 msgid "meaningless information"
 msgstr "垃圾或诈骗信息"
 
-#: apps/report/models.py:32
+#: apps/report/models.py:34
 msgid "malicious information"
 msgstr "不良信息"
+
+#: apps/report/models.py:40
+msgid "processed"
+msgstr ""
+
+#: apps/report/models.py:42
+msgid "process pending"
+msgstr "等待处理"
 
 #: apps/v4/forms/account.py:488
 msgid "duplicate email"
@@ -1120,13 +1188,17 @@ msgstr "请填写邮箱地址"
 msgid "password not match"
 msgstr "您输入的旧密码不正确"
 
-#: apps/web/feeds.py:24
-msgid "guoku selection"
-msgstr "精选"
+#: apps/web/feeds.py:25
+msgid "live different"
+msgstr "果库 － 精英消费者指南"
 
-#: apps/web/feeds.py:26
+#: apps/web/feeds.py:27
 msgid "guoku selection desc"
 msgstr "精选"
+
+#: apps/web/feeds.py:79
+msgid "精英消费指南"
+msgstr ""
 
 #: apps/web/fields/__init__.py:25 apps/web/fields/__init__.py:57
 msgid "Invalid CAPTCHA"
@@ -1156,15 +1228,15 @@ msgstr "必填"
 msgid "Enter the same password as above, for verification."
 msgstr "确认密码"
 
-#: apps/web/forms/entity.py:58 apps/web/templates/web/static_base.html:43
+#: apps/web/forms/entity.py:59 apps/web/templates/web/static_base.html:43
 msgid "links"
 msgstr "友情链接"
 
-#: apps/web/forms/entity.py:59
+#: apps/web/forms/entity.py:60
 msgid "past the product link here"
 msgstr "复制商品链接到此"
 
-#: apps/web/forms/entity.py:319
+#: apps/web/forms/entity.py:342
 msgid "additional remarks"
 msgstr "补充说明"
 
@@ -1176,32 +1248,27 @@ msgstr "您输入的旧密码不正确"
 msgid "current password"
 msgstr "当前密码"
 
-#: apps/web/templates/web/base.html:20
-#: apps/web/templates/web/partial/header.html:14
-msgid "guoku"
-msgstr "果库"
-
-#: apps/web/templates/web/base.html:95
+#: apps/web/templates/web/base.html:92
 msgid "About"
 msgstr "关于"
 
-#: apps/web/templates/web/base.html:97
+#: apps/web/templates/web/base.html:94
 msgid "Email"
 msgstr "邮箱"
 
-#: apps/web/templates/web/base.html:98
+#: apps/web/templates/web/base.html:95
 msgid "Jobs"
 msgstr "工作机会"
 
-#: apps/web/templates/web/base.html:99
+#: apps/web/templates/web/base.html:96
 msgid "Agreement"
 msgstr "协议"
 
-#: apps/web/templates/web/base.html:100
+#: apps/web/templates/web/base.html:97
 msgid "Links"
 msgstr "友情链接"
 
-#: apps/web/templates/web/base.html:105
+#: apps/web/templates/web/base.html:102
 msgid "Guoku"
 msgstr "果库"
 
@@ -1249,23 +1316,23 @@ msgstr "出错了"
 msgid "remember me"
 msgstr "记住密码"
 
-#: apps/web/templates/web/account/partial/auth.html:14
+#: apps/web/templates/web/account/partial/auth.html:17
 msgid "Guoku Management"
 msgstr "网站管理入口"
 
-#: apps/web/templates/web/account/partial/auth.html:19
+#: apps/web/templates/web/account/partial/auth.html:24
 msgid "My Guoku"
 msgstr "我的果库"
 
-#: apps/web/templates/web/account/partial/auth.html:21
+#: apps/web/templates/web/account/partial/auth.html:26
 msgid "Messages"
 msgstr "消息"
 
-#: apps/web/templates/web/account/partial/auth.html:22
+#: apps/web/templates/web/account/partial/auth.html:27
 msgid "Settings"
 msgstr "设置"
 
-#: apps/web/templates/web/account/partial/auth.html:23
+#: apps/web/templates/web/account/partial/auth.html:28
 msgid "Sign Out"
 msgstr "退出"
 
@@ -1298,27 +1365,35 @@ msgstr ""
 msgid "discover"
 msgstr "发现"
 
-#: apps/web/templates/web/partial/header.html:22
+#: apps/web/templates/web/partial/header.html:15
+msgid "guoku"
+msgstr "果库"
+
+#: apps/web/templates/web/partial/header.html:23
 msgid "Selection"
 msgstr "精选"
 
 #: apps/web/templates/web/partial/header.html:27
+msgid "Articles"
+msgstr "图文"
+
+#: apps/web/templates/web/partial/header.html:32
 msgid "Discover"
 msgstr "发现"
 
-#: apps/web/templates/web/partial/header.html:45
+#: apps/web/templates/web/partial/header.html:50
 msgid "Event"
 msgstr "专题"
 
-#: apps/web/templates/web/partial/header.html:56
+#: apps/web/templates/web/partial/header.html:61
 msgid "Sign In"
 msgstr "登录"
 
-#: apps/web/templates/web/partial/header.html:57
+#: apps/web/templates/web/partial/header.html:62
 msgid "Sign Up"
 msgstr "注册"
 
-#: apps/web/templates/web/partial/header.html:73
+#: apps/web/templates/web/partial/header.html:78
 msgid "Add Product"
 msgstr "添加有趣商品"
 
@@ -1331,8 +1406,8 @@ msgstr "自己"
 #: apps/web/templates/web/user/fans.html:18
 #: apps/web/templates/web/user/following.html:16
 #: apps/web/templates/web/user/following.html:19
-#: apps/web/templates/web/user/user_base.html:53
-#: apps/web/templates/web/user/user_base.html:55
+#: apps/web/templates/web/user/user_base.html:54
+#: apps/web/templates/web/user/user_base.html:56
 msgid "Unfollow"
 msgstr "取消关注"
 
@@ -1340,13 +1415,13 @@ msgstr "取消关注"
 #: apps/web/templates/web/user/fans.html:22
 #: apps/web/templates/web/user/following.html:21
 #: apps/web/templates/web/user/following.html:23
-#: apps/web/templates/web/user/user_base.html:57
+#: apps/web/templates/web/user/user_base.html:58
 msgid "Follow"
 msgstr "关注"
 
 #: apps/web/templates/web/user/fans.html:28
 #: apps/web/templates/web/user/following.html:30
-#: apps/web/templates/web/user/user_base.html:36
+#: apps/web/templates/web/user/user_base.html:37
 msgid "Fans"
 msgstr "粉丝"
 
@@ -1359,33 +1434,36 @@ msgstr "已关注"
 msgid "update profile"
 msgstr "更新资料"
 
-#: apps/web/templates/web/user/user_base.html:34
+#: apps/web/templates/web/user/user_base.html:35
 msgid "Following"
 msgstr "正关注"
 
-#: apps/web/templates/web/user/user_base.html:47
+#: apps/web/templates/web/user/user_base.html:48
 msgid "Blocked User"
 msgstr "禁言用户"
 
-#: apps/web/templates/web/user/user_base.html:51
+#: apps/web/templates/web/user/user_base.html:52
 msgid "Edit Profile"
 msgstr "编辑个人资料"
 
-#: apps/web/templates/web/user/user_base.html:68
+#: apps/web/templates/web/user/user_base.html:69
 msgid "My Likes"
 msgstr "喜爱"
 
-#: apps/web/templates/web/user/user_base.html:71
+#: apps/web/templates/web/user/user_base.html:72
 msgid "My Notes"
 msgstr "点评"
 
-#: apps/web/templates/web/user/user_base.html:74
+#: apps/web/templates/web/user/user_base.html:75
 msgid "My tags"
 msgstr "标签"
 
 #: apps/wechat/templates/wechat/bind.html:34
 msgid "bind"
 msgstr "绑定"
+
+#~ msgid "guoku selection"
+#~ msgstr "精选"
 
 #~ msgid "is publish"
 #~ msgstr "已发布"
@@ -1410,6 +1488,3 @@ msgstr "绑定"
 
 #~ msgid "social account"
 #~ msgstr "社区帐号"
-
-msgid   "guoku live different"
-msgstr  "果库 － 精英消费者指南"

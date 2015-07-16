@@ -21,6 +21,28 @@ class ArticleManager(models.Manager):
 
 
 class SelectionArticleManager(models.Manager):
+
+    def get_popular(self):
+        key = self.get_popular_cache_key()
+        merged =  cache.get(key)
+        if merged:
+            return merged
+        # most read article
+        # most recent article
+        pop_articles = list(self.published().order_by('article__read_count')[:8])
+        recent_articles = list(self.published()[:8])
+        merged = list(set(pop_articles + recent_articles))
+        shuffle(merged)
+        # TODO : set cache timeout longer
+        cache.set(key , merged, timeout=1)
+        return merged
+
+
+    def get_popular_cache_key(self):
+        key = 'popular_article_list'
+        return key
+
+
     def get_related_cache_key(self, article, page):
         key = 'related_article_for_%s_page_%s' % (article.pk, page)
         return key
@@ -65,7 +87,7 @@ class SelectionArticleManager(models.Manager):
 
         # rList = res.object_list
         rList = res
-        # TODO : set timeout longer
-        cache.set(key, rList ,timeout=1)
+        # set timeout longer to 6 hour
+        cache.set(key, rList ,timeout=6*3600)
         return rList
 

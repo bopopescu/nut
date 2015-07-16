@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
-from apps.core.models import  Entity_Like, Entity
+from apps.core.models import  Entity_Like, Entity,Selection_Article
 from django.http import Http404
 
 pop_category =[
@@ -77,7 +77,9 @@ def add_side_bar_context_data(context):
     # _pop_tags = Entity_Tag.objects.popular_random()
     popular_list = Entity_Like.objects.popular_random()[:3]
     _pop_entities = Entity.objects.filter(id__in=popular_list)
+    popular_articles = Selection_Article.objects.get_popular()[:3]
 
     context['pop_entities'] = _pop_entities
     context['pop_categories'] = pop_category
+    context['pop_articles'] = popular_articles
     return context
