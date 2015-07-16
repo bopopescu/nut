@@ -75,7 +75,7 @@ def add_side_bar_context_data(context):
     # _pop_categories = Sub_Category.objects.popular_random()
     # remove _pop_tags , wait for tag system refactor over
     # _pop_tags = Entity_Tag.objects.popular_random()
-    popular_list = Entity_Like.objects.popular_random()[:3]
+    popular_list = Entity_Like.objects.popular_random()[:5]
     _pop_entities = Entity.objects.filter(id__in=popular_list)
     popular_articles = Selection_Article.objects.get_popular()[:5]
 
