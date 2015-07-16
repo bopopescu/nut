@@ -138,7 +138,7 @@ $.ajaxSetup({
                 return false;
             }
            // use fast dom ?
-           if (($(window).height() + $(window).scrollTop()) < ($(document).height()-25)){
+           if (($(window).height() + $(window).scrollTop()) < ($(document).height()-55)){
                return false;
            }
            return  true;
