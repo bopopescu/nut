@@ -172,7 +172,7 @@
         submitbtn.on('click', function(e){
             console.log(form.serialize());
             $.ajax({
-                type锝tail:'post',
+                method:'post',
                 url: form.attr('action'),
                 data: form.serialize(),
                 success: function(data){
@@ -205,11 +205,8 @@
             marginTop:150,
             pic:"{{ entity.chief_image  }}",
             summary:"{{ entity.top_note.note|truncatechars:50}} （分享自 @果库）",
-            data_track_clickback:'true',
-
+            data_track_clickback:'true'
         };
     </script>
     <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2038803" charset="utf-8"></script>
-
-
 {% endblock %}
