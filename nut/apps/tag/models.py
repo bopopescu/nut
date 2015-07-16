@@ -33,7 +33,8 @@ class Content_Tags(BaseModel):
     target_object_id = models.BigIntegerField(null=True)
     target = generic.GenericForeignKey('target_content_type', 'target_object_id')
 
-    created_datetime = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+    # created_datetime = models.DateTimeField(auto_now_add=True, editable=True, db_index=True)
+    created_datetime = models.DateTimeField(db_index=True)
 
     class Meta:
         unique_together = ('tag', 'creator', 'target_content_type', 'target_object_id')
