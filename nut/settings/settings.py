@@ -58,7 +58,7 @@ INSTALLED_APPS = (
     'apps.notifications',
     'apps.report',
     'apps.counter',
-    'apps.tag',
+    # 'apps.tag',
 
     'captcha',
 )
