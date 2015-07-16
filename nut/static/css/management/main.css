@@ -273,3 +273,6 @@ body {
 .batch-selection-modal .modal-dialog .modal-content .content-list .last_published {
   background-color: #9d9d9d;
 }
+.article-management {
+  display: none;
+}
