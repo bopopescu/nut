@@ -33,8 +33,8 @@ class SelectionArticleManager(models.Manager):
         recent_articles = list(self.published()[:8])
         merged = list(set(pop_articles + recent_articles))
         shuffle(merged)
-        # TODO : set cache timeout longer
-        cache.set(key , merged, timeout=1)
+        #set cache timeout longer to 6 hour
+        cache.set(key , merged, timeout=6*3600)
         return merged
 
 
