@@ -174,17 +174,18 @@
 {#                                </a>#}
 {#                            </div>#}
                             <div class="article-content">
-                                <div class="article-list-head">{{ forloop.counter }}.</div>
+
                                 <div class="article-title">
+                                    <div class="article-list-head">{{ forloop.counter }}</div>
                                     <a href="{% url 'web_article_page' h_article.pk %}">
-                                        {{ h_article.title|truncatechars:16 }}
+                                        {{ h_article.title }}
                                     </a>
                                 </div>
-                                <div class="article-digest">
-                                    {% autoescape off %}
-                                    {{ h_article.content|striptags|truncatechars:50 }}
-                                    {% endautoescape %}
-                                </div>
+{#                                <div class="article-digest">#}
+{#                                    {% autoescape off %}#}
+{#                                    {{ h_article.content|striptags|truncatechars:50 }}#}
+{#                                    {% endautoescape %}#}
+{#                                </div>#}
                             </div>
 
 

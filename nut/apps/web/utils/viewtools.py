@@ -50,7 +50,6 @@ pop_category =[
     },
 ]
 
-
 def get_paged_list(the_list, page_num=1, item_per_page=24):
     paginator = ExtentPaginator(the_list, item_per_page)
     try:
