@@ -1824,6 +1824,15 @@ a:hover {
 #detail_content #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .entity-content .entity-intro {
   font-size: 13px;
 }
+#detail_content #detail_content_right .section-list li.section .pop-entity-list li .more-popular-entity {
+  display: inline-block;
+  float: right;
+}
+#detail_content #detail_content_right .section-list li.section .pop-entity-list li.more-entity-wrapper {
+  height: 30px;
+  padding-top: 5px;
+  padding-right: 10px;
+}
 #detail_content #detail_content_right .section-list li.section .pop-article-list .pop-article {
   padding-bottom: 10px;
   border-bottom: 1px solid #f8f8f8;
