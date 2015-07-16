@@ -1826,7 +1826,7 @@ a:hover {
 }
 #detail_content #detail_content_right .section-list li.section .pop-article-list .pop-article {
   padding-bottom: 10px;
-  border-bottom: 1px solid #e6e6e6;
+  border-bottom: 1px solid #f8f8f8;
   margin-bottom: 10px;
 }
 #detail_content #detail_content_right .section-list li.section .pop-article-list .pop-article:last-child {
@@ -1836,6 +1836,7 @@ a:hover {
 #detail_content #detail_content_right .section-list li.section .pop-article-list .article-content .article-list-head {
   display: inline-block;
   width: 14px;
+  color: #9d9e9f;
 }
 #detail_content #detail_content_right .section-list li.section .pop-article-list .article-content .article-title {
   display: inline-block;
