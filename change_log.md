@@ -1,5 +1,8 @@
 Change Log
 ==========
+### Ver 4.2.9
+1. 重构标签
+
 ### Ver 4.2.8
 1. 支持 emoj
 2. 后台支持 buy link 检索
