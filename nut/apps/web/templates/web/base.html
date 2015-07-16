@@ -55,7 +55,7 @@ window.location.href = url;</script><![endif]-->
 
     ga('create', 'UA-24696872-5', 'auto');
     ga('send', 'pageview');
-
+    ga('set', '&uid', '{{ request.user.id }}' )
     </script>
     <!-- End Google Analytics -->
     <script>
