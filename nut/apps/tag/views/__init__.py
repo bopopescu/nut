@@ -14,7 +14,6 @@ class TagListView(ListView):
     template_name = 'tag/list.html'
 
 
-
 class TagEntityView(ListView):
 
     http_method_names = ['get']
