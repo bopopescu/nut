@@ -7,6 +7,22 @@ from apps.core.models import Tag, Entity_Tag
 from apps.core.forms.tags import EditTagForms
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 
+
+from django.views.generic import ListView
+from apps.tag.models import Tags
+
+class TagListView(ListView):
+    template_name = 'management/tags/list.html'
+    queryset = Tags.objects.all()
+    paginator_class = ExtentPaginator
+
+class TagEntitiesView(ListView):
+
+    def get(self, request, *args, **kwargs):
+        tag_name = kwargs.pop('tag_name', None)
+        assert tag_name is not None
+        return super(TagEntitiesView, self).get(request, *args, **kwargs)
+
 def list(request, template='management/tags/list.html'):
 
     page = request.GET.get('page', 1)
