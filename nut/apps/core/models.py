@@ -1373,8 +1373,14 @@ def user_like_notification(sender, instance, created, **kwargs):
 post_save.connect(user_like_notification, sender=Entity_Like, dispatch_uid="user_like_action_notification")
 
 
+from django.core import serializers
+from apps.tag.tasks import generator_tag
 def user_post_note_notification(sender, instance, created, **kwargs):
-    log.info(created)
+    # log.info(created)
+    data = serializers.serialize('json', [instance])
+    # log.info(data)
+    generator_tag(data=data)
+
     if issubclass(sender, Note) and created:
         # log.info(instance.user)
         instance.entity.innr_note()
