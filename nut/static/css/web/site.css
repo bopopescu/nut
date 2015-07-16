@@ -1824,9 +1824,30 @@ a:hover {
 #detail_content #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .entity-content .entity-intro {
   font-size: 13px;
 }
+#detail_content #detail_content_right .section-list li.section .pop-article-list .pop-article {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e6e6e6;
+  margin-bottom: 10px;
+}
+#detail_content #detail_content_right .section-list li.section .pop-article-list .pop-article:last-child {
+  border-bottom: none;
+  margin-bottom: 0px;
+}
+#detail_content #detail_content_right .section-list li.section .pop-article-list .article-content .article-list-head {
+  display: inline-block;
+  width: 14px;
+}
 #detail_content #detail_content_right .section-list li.section .pop-article-list .article-content .article-title {
-  margin: 5px 0px 10px 0px;
-  text-align: center;
+  display: inline-block;
+  margin: 5px 0px 5px 0px;
+  text-align: left;
+}
+#detail_content #detail_content_right .section-list li.section .pop-article-list .article-content .article-title a {
+  color: #424242;
+}
+#detail_content #detail_content_right .section-list li.section .pop-article-list .article-content .article-digest {
+  color: #9d9e9f;
+  font-size: 13px;
 }
 #detail_content #detail_content_right .section-list .need-bottom-border {
   border-bottom: 1px solid #f8f8f8;
