@@ -34,13 +34,13 @@ class UserSignInForm(forms.Form):
     next = forms.CharField(required=False, widget=forms.HiddenInput())
 
     email = forms.EmailField(
-        label=_('email'),
-        widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder': _('email')}),
+        label=_('Email'),
+        widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder': _('Email')}),
         help_text=_('')
     )
     password = forms.CharField(
-        label=_('password'),
-        widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder': _('password')}),
+        label=_('Password'),
+        widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder': _('Password')}),
         help_text=_(''),
 
     )

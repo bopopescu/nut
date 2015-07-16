@@ -8,6 +8,75 @@
 {% endblock %}
 
 {% block content %}
+    <div class="row management-wrapper article-management">
+     <div class="manage-section article-info-container col-xs-12">
+         <div class="section-header">文章基本信息</div>
+         <div class="section-content container-fluid">
+             <div class="row">
+                 <div class="content-left col-xs-4">
+                     <div class="article-cover">
+{#                         add article cover here #}
+                         <img src="">
+                     </div>
+                     <div class="article-view-info container-fluid">
+{#                         add view info #}
+                         <div class="row">
+                             <div class="info-title col-xs-4">阅读数</div>
+                             <div class="info-content col-xs-8">66</div>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="content-right col-xs-8">
+                     <div class="article-status-wrapper container-fluid">
+                        <div class="row">
+                            <div class="article-title col-xs-12">
+                                这里是文章题目
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="article-status-name">
+                                文章状态
+                            </div>
+                            <div class="article-status-info">
+
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="article-status-name">
+                                精选状态
+                            </div>
+                            <div class="article-status-info">
+                                <ul>
+                                    <li>2015-6-19 4:00</li>
+                                </ul>
+                            </div>
+                        </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+     <div class="manage-section article-status-container col-xs-12">
+         <div class="section-header">文章属性设置</div>
+         <div class="section-content container-fluid">
+             <div class="row">
+                 <div class="article-creator col-xs-12"></div>
+                 <div class="article-status col-xs-12"></div>
+                 <div class="action col-xs-12"></div>
+             </div>
+         </div>
+     </div>
+     <div class="manage-section selection-status-container">
+         <div class="section-header">精选相关设置</div>
+         <div class="section-content container-fluid">
+             <div class="row">
+
+             </div>
+         </div>
+     </div>
+
+    </div>
+
     <div class="row">
         <div class="thumbnail">
             <img class="img-responsive" id='article-cover' src="{{ article.cover_url }}" width="" height="">

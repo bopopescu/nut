@@ -19,12 +19,12 @@
             {% if entity_like.entity.id in user_entity_likes %}
                 <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity_like.entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity_like.entity.title }}']);">
                     <i class="fa fa-heart"></i>
-                    &nbsp;{% trans 'likes' %}&nbsp;<span class="like-count">{{ entity_like.entity.like_count }}</span>
+                    &nbsp;{% trans 'Like' %}&nbsp;<span class="like-count">{{ entity_like.entity.like_count }}</span>
                 </a>
             {% else %}
                 <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity_like.entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity_like.entity.title }}']);">
                     <i class="fa fa-heart-o"></i>
-                    {% trans 'likes' %}&nbsp;<span class="like-count">{{ entity_like.entity.like_count }}</span>
+                    {% trans 'Like' %}&nbsp;<span class="like-count">{{ entity_like.entity.like_count }}</span>
                 </a>
             {% endif %}
         </div>

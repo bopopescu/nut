@@ -34,7 +34,7 @@
                 <p class="text-center user-social">
                     <a style="color: #414243" href="{{ web_user_followings_url }}">{% trans 'Following' %}&nbsp; <span class="count">{{ user.following_count }}</span></a>
                     <span style="margin-left: 15px; margin-right: 15px;">|</span>
-                    <a style="color: #414243" href="{{ web_user_fans_url }}">{% trans 'Fans' %}&nbsp; <span class="count">{{ user.fans_count }}</span></a>
+                    <a style="color: #414243" href="{{ web_user_fans_url }}">{% trans 'Followers' %}&nbsp; <span class="count">{{ user.fans_count }}</span></a>
                 </p>
             </div>
             {% if request.user.is_staff %}
@@ -66,24 +66,24 @@
                 <div class="navbar nav-user-index" style="margin-left: 0;margin-right: 0; margin-bottom: 20px;">
                     <ul class="user-tabs" >
                         <li {% if web_user_likes_url in request.path %}class="active"{% endif %}>
-                            <a class="user-tab-link guoku-link-button" href="{{ web_user_likes_url }}">{% trans 'My Likes' %}&nbsp; <span class="count">{{ user.like_count }}</span></a>
+                            <a class="user-tab-link guoku-link-button" href="{{ web_user_likes_url }}">{% trans 'Like' %}&nbsp; <span class="count">{{ user.like_count }}</span></a>
                         </li>
                         <li {% if web_user_notes_url in request.path %}class="active"{% endif %}>
-                            <a class="user-tab-link guoku-link-button"  href="{{ web_user_notes_url }}">{% trans 'My Notes' %}&nbsp; <span class="count">{{ user.post_note_count }}</span></a>
+                            <a class="user-tab-link guoku-link-button"  href="{{ web_user_notes_url }}">{% trans 'Note' %}&nbsp; <span class="count">{{ user.post_note_count }}</span></a>
                         </li>
                         <li {% if web_user_tags_url in request.path %}class="active" {% endif %}>
-                            <a class="user-tab-link guoku-link-button"  href="{{ web_user_tags_url }}">{% trans 'My tags' %}&nbsp; <span class="count">{{ user.tags_count }}</span></a>
+                            <a class="user-tab-link guoku-link-button"  href="{{ web_user_tags_url }}">{% trans 'Tags' %}&nbsp; <span class="count">{{ user.tags_count }}</span></a>
                         </li>
                        {% if user.can_write %}
                            <li {% if web_user_article_url in request.path %}class="active" {% endif %}>
-                                <a class="user-tab-link guoku-link-button"  href="{{ web_user_article_url }}">文章&nbsp; <span class="count">{{ user.published_article_count }}</span></a>
+                                <a class="user-tab-link guoku-link-button"  href="{{ web_user_article_url }}">{% trans 'Articles' %}&nbsp; <span class="count">{{ user.published_article_count }}</span></a>
                            </li>
                         {% endif %}
                         {% if request.user == user %}
                             {% if user.can_write %}
                                 <li>
                                  <a class="user-tab-link guoku-link-button"  href="{% url 'web_editor_article_list' %}">
-                                     草稿&nbsp;
+                                     {% trans 'Draft' %}&nbsp;
                                      <span class="count">
                                      {{ user.draft_article_count }}
                                      </span>
@@ -91,9 +91,6 @@
                                 </li>
                             {% endif %}
                         {% endif %}
-
-
-
                     </ul>
 {#                    <ul class="nav nav-pills pull-right hidden-xs" role="tablist">#}
 {#                        <li {% if web_user_followings_url in request.path %}class="active"{% endif %}>#}

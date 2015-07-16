@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-16 09:29+0800\n"
+"POT-Creation-Date: 2015-07-16 19:01+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -172,6 +172,11 @@ msgstr "冻结"
 msgid "sale"
 msgstr ""
 
+#: apps/core/models.py:745
+#: apps/management/templates/management/buy_link/list.html:14
+msgid "soldout"
+msgstr "商品下架"
+
 #: apps/core/models.py:796
 #: apps/management/templates/management/notes/list.html:11
 #: apps/management/templates/management/users/notes.html:18
@@ -241,14 +246,12 @@ msgstr ""
 #: apps/core/forms/account.py:22 apps/core/forms/account.py:60
 #: apps/core/forms/user.py:31
 #: apps/management/templates/management/users/table.html:9
-#: apps/web/forms/account.py:37 apps/web/forms/account.py:38
 #: apps/web/forms/account.py:126 apps/web/forms/user.py:21
 #: apps/wechat/forms/bind.py:20 apps/wechat/forms/bind.py:21
 msgid "email"
 msgstr "邮箱"
 
 #: apps/core/forms/account.py:27 apps/core/forms/account.py:65
-#: apps/web/forms/account.py:42 apps/web/forms/account.py:43
 #: apps/web/forms/account.py:132 apps/web/forms/account.py:134
 #: apps/wechat/forms/bind.py:24 apps/wechat/forms/bind.py:25
 msgid "password"
@@ -817,12 +820,12 @@ msgstr "操作"
 msgid "edit"
 msgstr "编辑"
 
-#: apps/management/templates/management/article/edit.html:37
+#: apps/management/templates/management/article/edit.html:106
 #: apps/management/views/article.py:130 apps/management/views/article.py:152
 msgid "save"
 msgstr "保存"
 
-#: apps/management/templates/management/article/edit.html:38
+#: apps/management/templates/management/article/edit.html:107
 msgid "preview"
 msgstr "预览"
 
@@ -920,10 +923,6 @@ msgstr "品牌下商品数量"
 #: apps/management/templates/management/buy_link/table.html:13
 msgid "buy link"
 msgstr "购买链接"
-
-#: apps/management/templates/management/buy_link/list.html:14
-msgid "soldout"
-msgstr "商品下架"
 
 #: apps/management/templates/management/buy_link/table.html:11
 #: apps/management/templates/management/entities/edit.html:81
@@ -1208,6 +1207,15 @@ msgstr "验证码不正确"
 msgid "Captcha Code"
 msgstr "验证码"
 
+#: apps/web/forms/account.py:37 apps/web/forms/account.py:38
+#: apps/web/templates/web/base.html:94
+msgid "Email"
+msgstr "邮箱"
+
+#: apps/web/forms/account.py:42 apps/web/forms/account.py:43
+msgid "Password"
+msgstr "密码"
+
 #: apps/web/forms/account.py:114 apps/web/forms/user.py:108
 msgid "The two password fields didn't match."
 msgstr "您输入的两次密码不一致"
@@ -1252,10 +1260,6 @@ msgstr "当前密码"
 msgid "About"
 msgstr "关于"
 
-#: apps/web/templates/web/base.html:94
-msgid "Email"
-msgstr "邮箱"
-
 #: apps/web/templates/web/base.html:95
 msgid "Jobs"
 msgstr "工作机会"
@@ -1289,7 +1293,6 @@ msgid "agreement"
 msgstr "协议"
 
 #: apps/web/templates/web/account/login.html:5
-#: apps/web/templates/web/account/partial/ajax_login.html:57
 msgid "sign in"
 msgstr "登录"
 
@@ -1298,6 +1301,22 @@ msgstr "登录"
 #: apps/web/templates/web/account/three-part-register.html:54
 msgid "sign up"
 msgstr "注册"
+
+#: apps/web/templates/web/account/register.html:11
+#: apps/web/templates/web/account/partial/ajax_login.html:5
+#: apps/web/templates/web/partial/header.html:62
+msgid "Sign Up"
+msgstr "注册"
+
+#: apps/web/templates/web/account/register.html:11
+#: apps/web/templates/web/account/partial/ajax_login.html:5
+msgid "Not Registered?"
+msgstr "没有账号？"
+
+#: apps/web/templates/web/account/register.html:15
+#: apps/web/templates/web/account/partial/ajax_login.html:8
+msgid "Sign Up Now"
+msgstr "去注册"
 
 #: apps/web/templates/web/account/register.html:58
 msgid "next"
@@ -1312,16 +1331,38 @@ msgstr "完成"
 msgid "error"
 msgstr "出错了"
 
+#: apps/web/templates/web/account/partial/ajax_login.html:20
+msgid "Account and Password Not Match"
+msgstr "用户名密码不匹配"
+
 #: apps/web/templates/web/account/partial/ajax_login.html:47
-msgid "remember me"
+msgid "Remember Me"
 msgstr "记住密码"
+
+#: apps/web/templates/web/account/partial/ajax_login.html:51
+msgid "Forget Password?"
+msgstr "忘记密码？"
+
+#: apps/web/templates/web/account/partial/ajax_login.html:57
+#: apps/web/templates/web/partial/header.html:61
+msgid "Sign In"
+msgstr "登录"
 
 #: apps/web/templates/web/account/partial/auth.html:17
 msgid "Guoku Management"
 msgstr "网站管理入口"
 
+#: apps/web/templates/web/account/partial/auth.html:20
+msgid "Write Article"
+msgstr "写文章"
+
+#: apps/web/templates/web/account/partial/auth.html:21
+#: apps/web/templates/web/user/user_base.html:86
+msgid "Draft"
+msgstr "草稿"
+
 #: apps/web/templates/web/account/partial/auth.html:24
-msgid "My Guoku"
+msgid "You"
 msgstr "我的果库"
 
 #: apps/web/templates/web/account/partial/auth.html:26
@@ -1353,8 +1394,20 @@ msgstr "重设密码"
 #: apps/web/templates/web/main/partial/selection_item_list.html:25
 #: apps/web/templates/web/user/like.html:22
 #: apps/web/templates/web/user/like.html:27
-msgid "likes"
+#: apps/web/templates/web/user/user_base.html:69
+msgid "Like"
 msgstr "喜爱"
+
+#: apps/web/templates/web/entity/detail.html:94
+msgid "Related Items"
+msgstr "相似推荐"
+
+#: apps/web/templates/web/entity/partial/detail_info_center.html:57
+#: apps/web/templates/web/entity/partial/detail_info_center.html:62
+#: apps/web/templates/web/entity/partial/detail_info_center.html:66
+#: apps/web/templates/web/entity/partial/detail_info_center.html:70
+msgid "Buy"
+msgstr "购买"
 
 #: apps/web/templates/web/mail/forget_password_subject.txt:2
 #, python-format
@@ -1370,10 +1423,11 @@ msgid "guoku"
 msgstr "果库"
 
 #: apps/web/templates/web/partial/header.html:23
-msgid "Selection"
-msgstr "精选"
+msgid "Selected"
+msgstr "商品"
 
 #: apps/web/templates/web/partial/header.html:27
+#: apps/web/templates/web/user/user_base.html:79
 msgid "Articles"
 msgstr "图文"
 
@@ -1384,14 +1438,6 @@ msgstr "发现"
 #: apps/web/templates/web/partial/header.html:50
 msgid "Event"
 msgstr "专题"
-
-#: apps/web/templates/web/partial/header.html:61
-msgid "Sign In"
-msgstr "登录"
-
-#: apps/web/templates/web/partial/header.html:62
-msgid "Sign Up"
-msgstr "注册"
 
 #: apps/web/templates/web/partial/header.html:78
 msgid "Add Product"
@@ -1421,7 +1467,6 @@ msgstr "关注"
 
 #: apps/web/templates/web/user/fans.html:28
 #: apps/web/templates/web/user/following.html:30
-#: apps/web/templates/web/user/user_base.html:37
 msgid "Fans"
 msgstr "粉丝"
 
@@ -1436,7 +1481,11 @@ msgstr "更新资料"
 
 #: apps/web/templates/web/user/user_base.html:35
 msgid "Following"
-msgstr "正关注"
+msgstr "关注"
+
+#: apps/web/templates/web/user/user_base.html:37
+msgid "Followers"
+msgstr "粉丝"
 
 #: apps/web/templates/web/user/user_base.html:48
 msgid "Blocked User"
@@ -1446,21 +1495,41 @@ msgstr "禁言用户"
 msgid "Edit Profile"
 msgstr "编辑个人资料"
 
-#: apps/web/templates/web/user/user_base.html:69
-msgid "My Likes"
-msgstr "喜爱"
-
 #: apps/web/templates/web/user/user_base.html:72
-msgid "My Notes"
+msgid "Note"
 msgstr "点评"
 
 #: apps/web/templates/web/user/user_base.html:75
-msgid "My tags"
-msgstr "标签"
+msgid "Tags"
+msgstr ""
 
 #: apps/wechat/templates/wechat/bind.html:34
 msgid "bind"
 msgstr "绑定"
+
+#~ msgid "Drafts"
+#~ msgstr "草稿箱"
+
+#~ msgid "Tag"
+#~ msgstr "标签"
+
+#~ msgid "Article"
+#~ msgstr "图文"
+
+#~ msgid "My Likes"
+#~ msgstr "喜爱"
+
+#~ msgid "My tags"
+#~ msgstr "标签"
+
+#~ msgid "likes"
+#~ msgstr "喜爱"
+
+#~ msgid "My Guoku"
+#~ msgstr "我的果库"
+
+#~ msgid "Selection Entities"
+#~ msgstr "点评"
 
 #~ msgid "guoku selection"
 #~ msgstr "精选"
