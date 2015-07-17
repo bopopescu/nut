@@ -4,11 +4,10 @@ from apps.mobile.lib.sign import check_sign
 from apps.core.models import Entity, Note, Note_Poke, Note_Comment
 from apps.core.tasks.note import post_note_task, depoke_note_task
 from apps.mobile.models import Session_Key
-from apps.mobile.forms.note import PostNoteForms, UpdateNoteForms
 from apps.mobile.forms.comment import PostNoteCommentForm
 from apps.report.models import Report
 from apps.v4.models import APINote
-
+from apps.v4.forms.note import PostNoteForms, UpdateNoteForms
 from django.utils.log import getLogger
 
 log = getLogger('django')
@@ -104,12 +103,12 @@ def update_note(request, note_id):
             return ErrorJsonResponse(status=403)
 
         try:
-            note = APINote.objects.get(pk=note_id, user=_session.user)
+            note = Note.objects.get(pk=note_id, user=_session.user)
         except Note.DoesNotExist:
             return ErrorJsonResponse(status=404)
 
         _forms = UpdateNoteForms(note=note, data=request.POST)
-        log.info(request.POST)
+        # log.info(request.POST)
         if _forms.is_valid():
             res = _forms.update()
             return SuccessJsonResponse(res)

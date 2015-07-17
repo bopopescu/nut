@@ -1378,7 +1378,6 @@ from apps.tag.tasks import generator_tag
 def user_post_note_notification(sender, instance, created, **kwargs):
     # log.info(created)
     data = serializers.serialize('json', [instance])
-    log.info(data)
     generator_tag(data=data)
 
     if issubclass(sender, Note) and created:
@@ -1404,7 +1403,6 @@ def user_post_comment_notification(sender, instance, created, **kwargs):
                 notify.send(instance.user, recipient=user, verb="replied comment", action_object=instance, target=instance)
             except GKUser.DoesNotExist, e:
                 log.error("Error: %s" % e.message)
-        # log.info(instance.replied_user_id)
 
 post_save.connect(user_post_comment_notification, sender=Note_Comment, dispatch_uid="user_post_comment_action_notification")
 
