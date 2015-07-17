@@ -204,6 +204,7 @@ class APIBuyLink(Buy_Link):
 
 
 class APINote(Note):
+
     class Meta:
         proxy = True
 
@@ -271,7 +272,6 @@ def remove_jpush_register_id(sender, instance, **kwargs):
     if issubclass(sender, APISession_Key):
         _user = instance.user
         log.info(_user)
-
 
 post_delete.connect(remove_jpush_register_id, sender=APISession_Key, dispatch_uid="user_logout_remove_jpush_id")
 

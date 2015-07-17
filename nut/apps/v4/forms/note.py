@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from apps.core.models import Note
+from apps.v4.models import APINote
 from apps.mobile.models import Session_Key
 
 from django.utils.log import getLogger
@@ -35,7 +36,7 @@ class PostNoteForms(forms.Form):
     def clean_note(self):
         _note_text = self.cleaned_data.get('note')
         _note_text = _note_text.replace(u"＃", "#")
-        return _note_text
+        return _note_text.strip()
 
     def save(self):
         _note_text = self.cleaned_data.get('note')
@@ -70,13 +71,10 @@ class UpdateNoteForms(forms.Form):
     def clean_note(self):
         _note_text = self.cleaned_data.get('note')
         _note_text = _note_text.replace(u"＃", "#")
-        return _note_text
+        return _note_text.strip()
 
     def update(self):
         _note_text = self.cleaned_data.get('note')
-        # _note_text = _note_text.replace(u"＃", "#")
-
-        # _user_id = self.cleaned_data.get('session')
         self.note_cache.note = _note_text
         self.note_cache.save()
 
