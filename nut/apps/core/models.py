@@ -1378,7 +1378,7 @@ from apps.tag.tasks import generator_tag
 def user_post_note_notification(sender, instance, created, **kwargs):
     # log.info(created)
     data = serializers.serialize('json', [instance])
-    # log.info(data)
+    log.info(data)
     generator_tag(data=data)
 
     if issubclass(sender, Note) and created:
