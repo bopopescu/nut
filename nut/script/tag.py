@@ -4,7 +4,7 @@ sys.path.append(BASE_DIR)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.stage'
 
 
-from apps.core.models import Tag, Entity_Tag
+from apps.core.models import Tag, Entity_Tag, Event
 from apps.tag.models import Tags as NewTag
 from apps.tag.models import Content_Tags
 from hashlib import md5
@@ -21,23 +21,32 @@ from hashlib import md5
 #     nt.status = row.status
 #     nt.save()
 
-et = Entity_Tag.objects.all()
-for row in et:
-    # print row.entity.notes.get(user=row.user), row.tag
-    # try:
-    notes = row.entity.notes.filter(user=row.user)
-    print notes
-    if len(notes) > 0:
-        t = NewTag.objects.get(name = row.tag.tag)
-        ct = Content_Tags()
-        ct.tag = t
-        ct.target = notes[0]
-        ct.creator = row.user
-        ct.created_datetime = row.created_time
-        ct.save()
-    continue
+# et = Entity_Tag.objects.all()
+# for row in et:
+#     # print row.entity.notes.get(user=row.user), row.tag
+#     # try:
+#     notes = row.entity.notes.filter(user=row.user)
+#     print notes
+#     if len(notes) > 0:
+#         t = NewTag.objects.get(name = row.tag.tag)
+#         ct = Content_Tags()
+#         ct.tag = t
+#         ct.target = notes[0]
+#         ct.creator = row.user
+#         ct.created_datetime = row.created_time
+#         ct.save()
+#     continue
 
-    # except
+
+events = Event.objects.all()
+for row in events:
+    print row.tag
+    try:
+        t = Tag.objects.get(tag_hash=row.tag)
+    except Tag.DoesNotExist:
+        continue
+    row.tag = t.tag
+    row.save()
 
 
 __author__ = 'edison'

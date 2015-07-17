@@ -1206,7 +1206,7 @@ class Event(models.Model):
 
     @property
     def tag_url(self):
-        return reverse('web_tag_detail', args=[self.tag])
+        return reverse('tag_entities_url', args=[self.tag])
 
     @property
     def slug_url(self):
