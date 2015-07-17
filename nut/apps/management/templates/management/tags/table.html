@@ -7,8 +7,8 @@
                     <tr>
                         <th>#</th>
                         <th>{% trans 'name' %}</th>
-                        <th>{% trans 'creator' %}</th>
-                        <th>{% trans 'created datetime' %}</th>
+{#                        <th>{% trans 'creator' %}</th>#}
+{#                        <th>{% trans 'created datetime' %}</th>#}
                         <th>{% trans 'operation' %}</th>
                     </tr>
                 </thead>
@@ -16,10 +16,15 @@
                     {% for tag in tags %}
                         <tr>
                             <td>{{ tag.pk }}</td>
-                            <td>{{ tag.tag }}</td>
-                            <td><a href="{% url 'management_user_edit' tag.creator_id %}" target="_blank">{{ tag.creator.profile.nickname }}</a></td>
-                            <td>{{ tag.created_time|date:'Y-m-d H:i:s' }}</td>
-                            <td><a class="btn btn-default" href="{% url 'management_tag_edit' tag.pk %}">{% trans 'edit' %}</a></td>
+                            <td>{{ tag.name }}</td>
+{#                            <td><a href="{% url 'management_user_edit' tag.creator_id %}" target="_blank">{{ tag.creator.profile.nickname }}</a></td>#}
+{#                            <td>{{ tag.created_time|date:'Y-m-d H:i:s' }}</td>#}
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary" href="{% url 'management_tag_entities' tag.name %}" target="_blank">{% trans 'entities' %}</a>
+                                    <a class="btn btn-default" href="{% url 'management_tag_edit' tag.pk %}" target="_blank">{% trans 'edit' %}</a>
+                                </div>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
