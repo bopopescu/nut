@@ -64,15 +64,31 @@ class ContentTagManager(models.Manager):
         return ContentTagQuerySet(self.model, using = self._db)
 
     def user_tags(self, user):
-        # obj = self.raw("SELECT tag_content_tags.id, tag_id, tag_tags.name, tag_tags.hash, count(tag_id) as entity_count \
-        #           from tag_content_tags join tag_tags on tag_id = tag_tags.id \
-        #            where creator_id=%s group by tag_id ORDER BY entity_count DESC" % user)
+
         obj = self.raw('SELECT id, tag_id, COUNT(tag_id) AS entity_count \
-                        FROM tag_content_tags WHERE creator_id=%s GROUP BY tag_id ORDER BY entity_count DESC' % user)
+                        FROM tag_content_tags WHERE creator_id=%s AND target_content_type_id = 24 GROUP BY tag_id ORDER BY entity_count DESC' % user)
+
+        res = list()
+        for row in obj:
+            data = {
+                'tag_id': row.tag_id,
+                'tag': row.tag.name,
+                'tag_hash': row.tag.hash,
+                'entity_count': row.entity_count,
+            }
+            # print  dict
+            res.append(data)
+            # print row.tag
+        return res
+
+    def tags(self, tag_id_list):
+        key_string = ','.join(str(s) for s in tag_id_list)
+        obj = self.raw("SELECT id, tag_id, COUNT(tag_id) AS entity_count \
+                        FROM tag_content_tags WHERE tag_id IN (%s) AND target_content_type_id = 24 GROUP BY tag_id ORDER BY entity_count DESC" % key_string)
         # c = connection.cursor()
-        # sql = "SELECT tag_id, tag_tags.name, tag_tags.hash, count(tag_id) as entity_count \
-        #           from tag_content_tags join tag_tags on tag_id = tag_tags.id \
-        #            where creator_id=%s group by tag_id ORDER BY entity_count DESC" % user
+        # sql = "SELECT tag_id, core_tag.tag, core_tag.tag_hash, count(tag_id) as entity_count \
+        #           from core_entity_tag join core_tag on tag_id = core_tag.id \
+        #            where tag_id in (%s) group by tag_id ORDER BY entity_count DESC" % key_string
         #
         # # log.info(sql)
         # c.execute(sql)
@@ -83,18 +99,15 @@ class ContentTagManager(models.Manager):
         # res = dictfetchall(c)
         res = list()
         for row in obj:
-            dict = {
+            data = {
                 'tag_id': row.tag_id,
                 'tag': row.tag.name,
                 'tag_hash': row.tag.hash,
                 'entity_count': row.entity_count,
             }
-            print  dict
-            res.append(dict)
-            # print row.tag
+            res.append(data)
 
         return res
-
 
 class Tags(BaseModel):
     name = models.CharField(max_length=100, unique=True, db_index=True)
