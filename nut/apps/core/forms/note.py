@@ -60,8 +60,8 @@ class NoteForm(forms.Form):
         self.note.status = _status
         self.note.save()
 
-        t = TagParser(_content)
-        t.create_tag(user_id=self.note.user_id, entity_id=self.note.entity_id)
+        # t = TagParser(_content)
+        # t.create_tag(user_id=self.note.user_id, entity_id=self.note.entity_id)
 
 class CreateNoteForm(forms.Form):
     YES_OR_NO = (
@@ -132,9 +132,9 @@ class CreateNoteForm(forms.Form):
                 status = _is_top,
             )
             note.save()
-        log.info(_content)
-        t = TagParser(_content)
-        t.create_tag(user_id=_user_id, entity_id=self.entity_cache.pk)
+        # log.info(_content)
+        # t = TagParser(_content)
+        # t.create_tag(user_id=_user_id, entity_id=self.entity_cache.pk)
         return note
 
 
