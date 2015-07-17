@@ -1,14 +1,12 @@
 from django.http import Http404
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.core.urlresolvers import reverse
 from django.utils.translation import gettext_lazy as _
 
-from apps.core.models import Tag, Entity_Tag
 from apps.core.forms.tags import EditTagForms
-from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
+from apps.core.extend.paginator import ExtentPaginator
 
 
-from django.views.generic import ListView
+from django.views.generic import ListView, FormView
 from apps.core.views import LoginRequiredMixin
 from apps.tag.models import Tags, Content_Tags
 
@@ -51,64 +49,69 @@ class TagEntitiesView(LoginRequiredMixin, ListView):
         return super(TagEntitiesView, self).get(request, *args, **kwargs)
 
 
-# def list(request, template='management/tags/list.html'):
-#
-#     page = request.GET.get('page', 1)
-#     tag_list = Tag.objects.all()
-#
-#     paginator = ExtentPaginator(tag_list, 30)
-#     try:
-#         _tags = paginator.page(page)
-#     except InvalidPage:
-#         _tags = paginator.page(1)
-#     except EmptyPage:
-#         raise Http404
-#
-#     return render_to_response(
-#             template,
-#             {
-#                 'tags': _tags,
-#             },
-#             context_instance = RequestContext(request)
-#         )
+class EditTagFormView(LoginRequiredMixin, FormView):
+    template_name = 'management/tags/edit.html'
+    form_class = EditTagForms
 
 
-def edit(request, tag_id, template='management/tags/edit.html'):
+    def get_success_url(self):
+        # print self.tag_id
+        self.success_url = reverse('management_tag_edit', args=[self.tag_id])
+        return self.success_url
 
-    try:
-        _tag = Tag.objects.get(pk = tag_id)
-    except Tag.DoesNotExist:
-        raise Http404
+    def get_initial(self):
+        res = super(EditTagFormView, self).get_initial()
+        res.update(
+            {
+                'title': self.tag.name
+            }
+        )
+        return res
 
-    if request.method == "POST":
-        _forms = EditTagForms(_tag, request.POST)
-        if _forms.is_valid():
-            _forms.save()
-    else:
-        _forms = EditTagForms(_tag, initial={
-            'title':_tag.tag,
-        })
+    def get_form_kwargs(self):
+        kwargs = super(EditTagFormView, self).get_form_kwargs()
+        kwargs.update(
+            {
+                'tag':self.tag,
+                # 'title': self.tag.name
+            }
+        )
+        print kwargs
+        return kwargs
 
+    def get_context_data(self, **kwargs):
+        context = kwargs.copy()
+        context.update(
+            {
+                'button': _('update'),
+            }
+        )
+        return context
 
-    return render_to_response(
-        template,
-        {
-            'forms': _forms,
-            'button': _('update'),
-        },
-        context_instance = RequestContext(request)
-    )
+    def form_valid(self, form):
+        # print form
+        self.object = form.save()
+        return super(EditTagFormView, self).form_valid(form)
 
+    def get(self, request, *args, **kwargs):
+        self.tag_id = kwargs.pop('tag_id', None)
+        assert self.tag_id is not None
+        try:
+            self.tag = Tags.objects.get(pk = self.tag_id)
+        except Tags.DoesNotExist:
+            raise Http404
 
-def entities(request, tag_id, templates="management/tags/entities.html"):
+        return super(EditTagFormView, self).get(request, *args, **kwargs)
 
+    def post(self, request, *args, **kwargs):
+        self.tag_id = kwargs.pop('tag_id', None)
+        assert self.tag_id is not None
+        try:
+            self.tag = Tags.objects.get(pk = self.tag_id)
+        except Tags.DoesNotExist:
+            raise Http404
+        # print request.POST
+        return super(EditTagFormView, self).post(request, *args, **kwargs)
 
-    return render_to_response(
-        templates,
-        {
-
-        },
-        context_instance = RequestContext(request)
-    )
 
 __author__ = 'edison'

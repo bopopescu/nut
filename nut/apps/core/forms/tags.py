@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
-
+from hashlib import md5
 
 class TagForms(forms.Form):
 
@@ -18,8 +18,9 @@ class EditTagForms(TagForms):
 
     def save(self):
         _title = self.cleaned_data.get('title')
-
-        self.tag_cache.tag = _title
-        self.tag_cache.save()
+        # print _title
+        self.tag_cache.name = _title
+        self.tag_cache.hash = md5(_title.encode('utf-8')).hexdigest()
+        return self.tag_cache.save()
 
 __author__ = 'edison'
