@@ -1,12 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from apps.core.models import Note, Tag, Entity_Tag
+from apps.core.models import Note
 from apps.mobile.models import Session_Key
-from apps.core.utils.tag import TagParser
-from apps.notifications import notify
-from datetime import datetime
-
-
 
 from django.utils.log import getLogger
 
@@ -84,8 +79,6 @@ class UpdateNoteForms(forms.Form):
         # _user_id = self.cleaned_data.get('session')
         self.note_cache.note = _note_text
         self.note_cache.save()
-        # t = TagParser(_note_text)
-        # t.create_tag(user_id=self.note_cache.user_id, entity_id=self.note_cache.entity_id)
 
         return self.note_cache.v3_toDict()
 
