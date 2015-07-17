@@ -110,7 +110,6 @@ class EditTagFormView(LoginRequiredMixin, FormView):
             self.tag = Tags.objects.get(pk = self.tag_id)
         except Tags.DoesNotExist:
             raise Http404
-        # print request.POST
         return super(EditTagFormView, self).post(request, *args, **kwargs)
 
 
