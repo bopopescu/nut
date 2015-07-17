@@ -15,6 +15,8 @@ from django.utils.log import getLogger
 from datetime import datetime
 import time
 
+from apps.tag.models import Content_Tags, Tags
+
 
 log = getLogger('django')
 
@@ -154,7 +156,8 @@ def tag_list(request, user_id):
 
     res = {}
     res['user'] = _user.v3_toDict()
-    res['tags'] = Entity_Tag.objects.user_tags(user=_user.pk)
+    # res['tags'] = Entity_Tag.objects.user_tags(user=_user.pk)
+    res['tags'] = Content_Tags.objects.user_tags(user=_user.pk)
     return SuccessJsonResponse(res)
 
 
@@ -167,12 +170,13 @@ def tag_detail(request, user_id, tag):
     except GKUser.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
-    tags = Entity_Tag.objects.filter(user_id=user_id, tag__tag=tag)
-
-
+    tags = Content_Tags.objects.filter(creator_id=user_id, tag__name=tag, target_content_type_id=24)
+    el = None
     try:
         _session = Session_Key.objects.get(session_key = _key)
-        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(tags.values_list('entity_id', flat=True)))
+        _eid_list = Note.objects.filter(pk__in=tags.values_list('target_object_id', flat=True)).values_list('entity_id', flat=True)
+        # eid_list = Note.objects.filter(pk__in=)
+        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(_eid_list))
     except Session_Key.DoesNotExist:
         el = None
 
@@ -180,7 +184,7 @@ def tag_detail(request, user_id, tag):
     res['user'] = user.v3_toDict()
     res['entity_list'] = []
     for row in tags:
-        entity = row.entity
+        entity = row.target.entity
         res['entity_list'].append(entity.v3_toDict(user_like_list=el))
         # log.info(entity)
 

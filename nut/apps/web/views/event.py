@@ -66,14 +66,8 @@ def event(request, slug, template='web/events/home'):
     inner_qs = Content_Tags.objects.filter(tag__hash=hash, target_content_type=24).values_list('target_object_id', flat=True)
     log.info(inner_qs)
     _eid_list = Note.objects.filter(pk__in=inner_qs).values_list('entity_id', flat=True)
-    # print _eid_list.query
-    # log.info(_entity_list)
-    # inner_qs = Entity_Tag.objects.filter(tag=tag).values_list('entity_id', flat=True)
 
     _entity_list = Entity.objects.filter(id__in=list(set(_eid_list)), status=Entity.selection)
-    # log.info(_entity_list)
-    # _page_num = request.GET.get('p', 1)
-    # _paginator = Paginator(_page_num, 24, len(_entity_id_list))
 
     _paginator = ExtentPaginator(_entity_list, 30)
 
