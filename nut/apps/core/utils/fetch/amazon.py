@@ -68,7 +68,8 @@ class Amazon(Spider):
         pricetag = self.soup.select("#soldByThirdParty span")
         if len(pricetag) > 0:
             price = pricetag[0].string
-            f_price =  float(price[1:])
+            price = price.strip()
+            f_price =  float(price[1:].replace(',', ''))
 
         if 'amazon.co.jp' in self.hostname:
             f_price = f_price / 20.
