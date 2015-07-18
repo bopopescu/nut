@@ -16,7 +16,7 @@ from django.utils.log import getLogger
 
 from apps.web.utils.viewtools import get_paged_list
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
-
+from apps.tag.models import Content_Tags
 import random
 
 # from apps.notifications import notify
@@ -183,8 +183,8 @@ def search(request, template="web/main/search.html"):
             for row in _objects:
                 log.info(row.id)
                 tag_id_list.append(row.id)
-            _results = Entity_Tag.objects.tags(tag_id_list)
-            log.info(_results)
+            _results = Content_Tags.objects.tags(tag_id_list)
+            # log.info(_results)
 
         c = {
                 'keyword': form.get_keyword(),

@@ -1206,7 +1206,7 @@ class Event(models.Model):
 
     @property
     def tag_url(self):
-        return reverse('web_tag_detail', args=[self.tag])
+        return reverse('tag_entities_url', args=[self.tag])
 
     @property
     def slug_url(self):
@@ -1375,6 +1375,12 @@ post_save.connect(user_like_notification, sender=Entity_Like, dispatch_uid="user
 
 def user_post_note_notification(sender, instance, created, **kwargs):
     # log.info(created)
+<<<<<<< HEAD
+=======
+    data = serializers.serialize('json', [instance])
+    generator_tag(data=data)
+
+>>>>>>> dev
     if issubclass(sender, Note) and created:
         # log.info(instance.user)
         instance.entity.innr_note()
@@ -1398,7 +1404,6 @@ def user_post_comment_notification(sender, instance, created, **kwargs):
                 notify.send(instance.user, recipient=user, verb="replied comment", action_object=instance, target=instance)
             except GKUser.DoesNotExist, e:
                 log.error("Error: %s" % e.message)
-        # log.info(instance.replied_user_id)
 
 post_save.connect(user_post_comment_notification, sender=Note_Comment, dispatch_uid="user_post_comment_action_notification")
 

@@ -57,8 +57,8 @@ class PostNoteForms(forms.Form):
             note.note = _note_text
             note.save()
             # notify.send(note.user, recipient=note.entity.user, action_object=note, verb='post note', target=note.entity)
-        t = TagParser(_note_text)
-        t.create_tag(user_id=_user_id, entity_id=self.entity_cache.pk)
+        # t = TagParser(_note_text)
+        # t.create_tag(user_id=_user_id, entity_id=self.entity_cache.pk)
 
         return note.v3_toDict()
 
@@ -85,8 +85,8 @@ class UpdateNoteForms(forms.Form):
         # _user_id = self.cleaned_data.get('session')
         self.note_cache.note = _note_text
         self.note_cache.save()
-        t = TagParser(_note_text)
-        t.create_tag(user_id=self.note_cache.user_id, entity_id=self.note_cache.entity_id)
+        # t = TagParser(_note_text)
+        # t.create_tag(user_id=self.note_cache.user_id, entity_id=self.note_cache.entity_id)
 
         return self.note_cache.v4_toDict()
 
