@@ -7,8 +7,8 @@
 {% endblock %}
 
 {% block title %}
-    {% if entity.brand|length != 0 %}{% block subtitle %}{{ entity.brand }} {% endblock %}{% endif %}{{ entity.title }} - {{ entity.category }} - 【精英消费指南】
-{% endblock %}
+    {% if entity.brand|length != 0 %}{{ entity.brand }}{% endif %}{{ entity.title }} - {{ entity.category }} - 【精英消费指南】
+{% endblock %}{% block suffix %} - 果库{% endblock %}
 
 {% block body_class %}
     gray-body
