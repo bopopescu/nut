@@ -30,7 +30,7 @@ urlpatterns += patterns('',
     url(r'^api/', include('apps.api.urls')),
     url(r'^wechat/', include('apps.wechat.urls')),
     url(r'^counter/', include('apps.counter.urls')),
-    url(r'^tag/', include('apps.tag.urls')),
+    # url(r'^tag/', include('apps.tag.urls')),
 
     url(r'^', include('apps.web.urls')),
 )
