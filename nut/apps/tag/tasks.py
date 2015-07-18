@@ -14,10 +14,10 @@ def generator_tag(**kwargs):
 
     row = next(serializers.deserialize('json', data))
     obj = row.object
+
     if isinstance(obj, Note):
         # print obj
         t = TagParser(obj.note)
-        print t.thashs
 
         t_objs = Content_Tags.objects.filter(creator=obj.user, target_content_type=24, target_object_id=obj.id)
         for row in t_objs:
