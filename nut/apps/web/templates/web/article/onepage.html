@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/web/style.css' %}">
 {% endblock %}
 
-{% block title %}{{ article.title }}{% endblock %}
+{% block title %}{{ article.title }} - 【精英消费指南】{% endblock %}
 
 {% block keyword %}{{ article.title }},{{ article.creator.nickname }}{% endblock %}
 
@@ -14,7 +14,7 @@
     gray-body  {% if from_app %} guoku-app{% endif %}
 {% endblock %}{% block description %}{{ article.content|striptags|truncatechars:150 }}{% endblock %}
 
-{% block h1 %}{{ article.title }}{% endblock %}
+{% block h1 %}{{ article.title }} － 精英消费指南{% endblock %}
 {% block content %}
     <div class="container goods_detail">
         <h2 class="sr-only">{{ article.content|striptags|truncatewords:150 }}</h2>
