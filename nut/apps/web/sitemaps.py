@@ -38,8 +38,8 @@ class TagSitemap(Sitemap):
     def items(self):
         return Tags.objects.all().using('slave')
 
-    def lastmod(self, obj):
-        return obj.updated_time
+    # def lastmod(self, obj):
+    #     return obj.updated_time
 
     def location(self, obj):
         return obj.get_absolute_url()
