@@ -17,14 +17,13 @@ from apps.core.models import Entity, Entity_Like, Tag, \
                              Entity_Tag, User_Follow,Article
 
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
-
+from apps.tag.models import Content_Tags, Tags
 from ..utils.viewtools import get_paged_list
 
 # from apps.notifications import notify
-
-from django.utils.log import getLogger
-
 from django.views.generic import ListView
+from hashlib import md5
+from django.utils.log import getLogger
 
 log = getLogger('django')
 
@@ -228,7 +227,7 @@ def tag(request, user_id, template="web/user/tag.html"):
     _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
     # _user = get_user_model()._default_manager.get(pk=user_id)
 
-    tag_list = Entity_Tag.objects.user_tags(user_id)
+    tag_list = Content_Tags.objects.user_tags(user_id)
 
     paginator = ExtentPaginator(tag_list, 12)
 
@@ -295,20 +294,17 @@ class UserArticles(ListView):
         return qs
 
 
-def user_tag_detail(request, user_id, tag_hash, template="web/user/tag_detail.html"):
+def user_tag_detail(request, user_id, tag_name, template="web/user/tag_detail.html"):
 
-    try:
-        _tag = Tag.objects.get(tag_hash=tag_hash)
-    except Tag.DoesNotExist:
-        raise Http404
-
+    _hash = md5(tag_name.encode('utf-8')).hexdigest()
     _page = request.GET.get('page', 1)
 
-    # inner_qs = Entity_Tag.objects.filter(tag=_tag)
-    # log.info(e)
-    inner_qs = Entity_Tag.objects.filter(tag=_tag, user_id=user_id).values_list('entity_id', flat=True)
-    _entity_list = Entity.objects.filter(id__in=inner_qs, status=Entity.selection)
-    # log.info(entities)
+    inner_qs = Content_Tags.objects.filter(tag__hash=_hash, creator_id=user_id, target_content_type_id=24).values_list('target_object_id', flat=True)
+
+    _eid_list = Note.objects.filter(pk__in=inner_qs).values_list('entity_id', flat=True)
+    print _eid_list
+    _entity_list = Entity.objects.filter(id__in=list(_eid_list), status=Entity.selection)
+
     paginator = ExtentPaginator(_entity_list, 24)
 
     try:
@@ -321,7 +317,7 @@ def user_tag_detail(request, user_id, tag_hash, template="web/user/tag_detail.ht
     return render_to_response(
         template,
         {
-            'tag': _tag,
+            'tag': tag_name,
             'entities': _entities,
         },
         context_instance = RequestContext(request),

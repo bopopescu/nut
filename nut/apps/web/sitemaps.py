@@ -1,5 +1,6 @@
 from django.contrib.sitemaps import Sitemap
-from apps.core.models import GKUser, Entity, Tag, Sub_Category, Article
+from apps.core.models import GKUser, Entity, Sub_Category, Article
+from apps.tag.models import Tags
 from datetime import datetime
 
 
@@ -35,7 +36,7 @@ class TagSitemap(Sitemap):
     now = datetime.now()
 
     def items(self):
-        return Tag.objects.filter(created_time__lte=self.now).using('slave')
+        return Tags.objects.all().using('slave')
 
     def lastmod(self, obj):
         return obj.updated_time
