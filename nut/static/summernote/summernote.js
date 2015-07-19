@@ -6,7 +6,7 @@
  * Copyright 2013-2015 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
- * Date: 2015-07-13T04:19Z
+ * Date: 2015-07-19T15:31Z
  */
 (function (factory) {
   /* global define */
@@ -1261,6 +1261,8 @@
       }
     };
 
+
+
     /**
      * @method splitTree
      *
@@ -2366,7 +2368,7 @@
         ['para', ['ul', 'ol']],
         //['height', ['height']],
         //['table', ['table']],
-        ['insert', ['link', 'picture']],
+        ['insert', ['link', 'picture','product']],
         //['view', ['fullscreen', 'codeview']],
         ['view', ['codeview']],
         ['clear', ['clear']]
@@ -2632,6 +2634,9 @@
           undo: 'Undo',
           redo: 'Redo'
         },
+        product:{
+            addProductCard:"添加商品卡片",
+        }
       }
     }
   };
@@ -3347,6 +3352,53 @@
   };
 
 
+    function Guoku(){
+
+    };
+    Guoku.prototype = {
+        clearHtml : function($editable){
+            dom.walkChildren($editable[0],this._removeNodeStyle);
+            this.walkChildrenSkipGuoku($editable[0], this._removeNodeClass)
+        },
+        _removeNodeStyle: function(node){
+            if(dom.isImg(node)){
+                var float = $(node).css('float');
+                if(float){
+                    $(node).removeAttr('style')
+                           .css({'float':float});
+                }
+
+            }else{
+
+                jQuery(node).removeAttr('style');
+            }
+
+        },
+        _removeNodeClass: function(node){
+            jQuery(node).removeAttr('class');
+        },
+        isGuokuEle: function(node){
+            return !!jQuery(node).attr('guoku_ele');
+        },
+        walkChildrenSkipGuoku: function(node , fn){
+            var that = this ;
+            (function fnWalk(current){
+                if(current !== node){
+                    fn(current);
+                }
+                for (var idx = 0,len=current.childNodes.length ; idx< len; idx ++){
+                    if(that.isGuokuEle(current.childNodes[idx])){
+                        continue;
+                    }else{
+                        fnWalk(current.childNodes[idx]);
+                    }
+
+                }
+            })(node);
+        }
+    };
+
+
   var KEY_BOGUS = 'bogus';
 
   /**
@@ -3361,6 +3413,7 @@
     var table = new Table();
     var typing = new Typing();
     var bullet = new Bullet();
+    var guoku = new Guoku();
 
     /**
      * @method createRange
@@ -3627,20 +3680,9 @@
         return function ($editable, value) {
           beforeCommand($editable);
           if (sCmd == 'removeFormat'){
-              console.log('removeFormat');
-              dom.walkChildren($editable[0], function(node){
-                  $(node).attr('class', '');
-                  $(node).attr('style', '');
-                  if ($(node).attr('data-src') && node.tagName.toLowerCase()=='img'){
-                      // find image !!!
-                      //console.log($(node).attr('data-src'));
-                      //$(node).attr('src', $(node).attr('data-src'));
-                  }
-              });
-
+              guoku.clearHtml($editable);
           }
           document.execCommand(sCmd, false, value);
-
           afterCommand($editable, true);
         };
       })(commands[idx]);
@@ -3741,7 +3783,7 @@
         beforeCommand($editable);
         $image.css({
           display: '',
-          width: Math.min($editable.width(), $image.width())
+          //width: Math.min($editable.width(), $image.width())
         });
         range.create().insertNode($image[0]);
         range.createFromNodeAfter($image[0]).select();
@@ -5111,7 +5153,7 @@
     var Clipboard = function (handler) {
 
         var $paste;
-
+        var guoku = new Guoku();
         this.attach = function (layoutInfo) {
 
             if (window.clipboardData || agent.isFF) {
@@ -5226,6 +5268,11 @@
                 return false ;
 
             }
+
+            // clear html on each past,
+            window.setTimeout(function(){
+                guoku.clearHtml($editable);
+            },16);
 
             handler.invoke('editor.afterCommand', $editable);
         };
@@ -5492,6 +5539,72 @@
     };
   };
 
+    var ProductDialog = function(handler){
+
+        this.showProductDialog = function($editable,$dialog){
+            return $.Deferred(function(deferred){
+
+                $productDialog = $dialog.find('.note-product-dialog');
+                $urlInput = $dialog.find('#product_link');
+                $addProductButton = $dialog.find('#add_product_button');
+
+                $productDialog.one('shown.bs.modal', function(){
+                                    $urlInput.focus();
+                                    $addProductButton.on('click',function(e){
+                                        var url = $urlInput.val();
+                                        deferred.resolve(url);
+                                        $productDialog.modal('hide');
+                                        e.preventDefault();
+                                        return false ;
+                                    });
+                            }).one('hidden.bs.modal', function(){
+                                    $addProductButton.off('click');
+                                    if(deferred.state() === 'pending'){
+                                        deferred.reject();
+                                    }
+                            }).modal('show');
+
+            }).promise();
+        };
+
+        this.show = function(layoutInfo){
+            var $editor = layoutInfo.editor(),
+                $dialog = layoutInfo.dialog(),
+                $editable = layoutInfo.editable(),
+                $popover = layoutInfo.popover();
+
+            handler.invoke('editor.saveRange', $editable);
+            this.showProductDialog($editable,$dialog).then(
+                function(url){
+                    handler.invoke('editor.restoreRange', $editable);
+                    console.log(url);
+                    url = url.split('?')[0];
+                    url = url.split('#')[0];
+                    var card_url= url+'card/';
+                    $.when($.ajax({
+                        url: card_url,
+                        method: 'GET',
+                    })).then(function success(data){
+                        console.log('successful load card url');
+                        if(data.error == 0){
+                            var theNode = $(data.html)[0];
+                            handler.invoke('editor.insertNode', $editable, theNode);
+                        }else{
+                            console.log('get card html error')
+                        }
+                    }, function fail(data){
+                        console.log('fail load card url');
+                    });
+                    // begin insert product card here
+
+                }).fail(function(){
+                    console.log('user quit');
+                    handler.invoke('editor.restoreRange', $editable);
+                });
+            console.log("show product dialog!");
+        };
+    };
+
 
   /**
    * @class EventHandler
@@ -5515,7 +5628,8 @@
       clipboard: new Clipboard(this),
       linkDialog: new LinkDialog(this),
       imageDialog: new ImageDialog(this),
-      helpDialog: new HelpDialog(this)
+      helpDialog: new HelpDialog(this),
+      productDialog: new ProductDialog(this),
     };
 
     /**
@@ -5602,7 +5716,14 @@
     };
 
     var commands = {
+
       /**
+       * @param {Object} layoutInfo
+       */
+      addProductCard: function (layoutInfo) {
+        modules.productDialog.show(layoutInfo);
+      },
+/**
        * @param {Object} layoutInfo
        */
       showLinkDialog: function (layoutInfo) {
@@ -6099,6 +6220,13 @@
     };
 
     var tplButtonInfo = {
+      product: function(lang,options){
+          return tplIconButton(options.iconPrefix +'cubes',{
+            event: 'addProductCard',
+            title: lang.product.addProductCard,
+            hide: true
+          });
+      },
       picture: function (lang, options) {
         return tplIconButton(options.iconPrefix + 'picture-o', {
           event: 'showImageDialog',
@@ -6669,6 +6797,11 @@
                      '<a href="//github.com/summernote/summernote/issues" target="_blank">Issues</a>' +
                    '</p>';
         return tplDialog('note-help-dialog', '', body, '');
+      },
+      product: function(lang, options){
+          var body = '<input class="product_link" name="product_link" id="product_link" maxlength="300" size="67">';
+          var footer = '<button id="add_product_button" href="#" class="btn btn-primary button-product-link">添加商品卡片</button>'
+          return tplDialog('note-product-dialog', '黏贴商品链接到下方', body , footer);
       }
     };
 
