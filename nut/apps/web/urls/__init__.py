@@ -3,7 +3,7 @@ from django.views.generic import RedirectView
 from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, DownloadView
 from apps.web.views.discover import DiscoverView
 from apps.web.views.main import SelectionEntityList
-
+from apps.web.views.entity import EntityCard
 urlpatterns = patterns(
     'apps.web.views',
     # url(r'^$', 'main.index', name='web_index'),
@@ -28,6 +28,8 @@ urlpatterns += patterns(
 urlpatterns += patterns(
     'apps.web.views.entity',
     url(r'^detail/(?P<entity_hash>\w+)/$', 'entity_detail', name='web_entity_detail'),
+    url(r'^detail/(?P<entity_hash>\w+)/card/$', EntityCard.as_view() , name='web_entity_card'),
+
 )
 
 
