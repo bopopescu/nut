@@ -1,3 +1,4 @@
+#coding=utf-8
 from celery.task import task
 from apps.core.tasks import BaseTask
 from django.core import serializers
@@ -16,7 +17,6 @@ def generator_tag(**kwargs):
     obj = row.object
 
     if isinstance(obj, Note):
-        # print obj
         t = TagParser(obj.note)
 
         t_objs = Content_Tags.objects.filter(creator=obj.user, target_content_type=24, target_object_id=obj.id)
@@ -27,19 +27,20 @@ def generator_tag(**kwargs):
 
         for k, v in t.tags.items():
             try:
-                t = Tags.objects.get(hash = v)
+                tag = Tags.objects.get(hash = v[1])
             except Tags.DoesNotExist:
-                t = Tags.objects.create(
-                    name = k,
-                    hash = v,
-                )
+                tag = Tags()
+                tag.name = v[0]
+                tag.hash = v[1]
+                tag.save()
             finally:
+                print tag.name
                 try:
-                    c = Content_Tags.objects.get(tag=t, creator=obj.user, target_content_type=24, target_object_id=obj.id)
+                    c = Content_Tags.objects.get(tag=tag, creator=obj.user, target_content_type=24, target_object_id=obj.id)
                 except Content_Tags.DoesNotExist:
                     c = Content_Tags()
                     c.target = obj
-                    c.tag = t
+                    c.tag = tag
                     c.creator = obj.user
                     c.save()
 

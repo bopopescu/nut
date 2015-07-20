@@ -742,7 +742,7 @@ class Buy_Link(BaseModel):
     (remove, soldouot, sale) = xrange(3)
     Buy_Link_STATUS_CHOICES = [
         (sale, _("sale")),
-        (soldouot, _("soldout")),
+        (soldouot, _("soldouot")),
         (remove, _("remove")),
     ]
     entity = models.ForeignKey(Entity, related_name='buy_links')
@@ -1376,9 +1376,9 @@ post_save.connect(user_like_notification, sender=Entity_Like, dispatch_uid="user
 from django.core import serializers
 from apps.tag.tasks import generator_tag
 def user_post_note_notification(sender, instance, created, **kwargs):
-    # log.info(created)
+
     data = serializers.serialize('json', [instance])
-    generator_tag(data=data)
+    generator_tag.delay(data=data)
 
     if issubclass(sender, Note) and created:
         # log.info(instance.user)
@@ -1392,7 +1392,7 @@ post_save.connect(user_post_note_notification, sender=Note, dispatch_uid="user_p
 def user_post_comment_notification(sender, instance, created, **kwargs):
     # log.info(created)
     if issubclass(sender, Note_Comment) and created:
-        log.info(instance.user)
+        # log.info(instance.user)
         if instance.user.is_active == GKUser.remove:
             return
 

@@ -302,8 +302,8 @@ def user_tag_detail(request, user_id, tag_name, template="web/user/tag_detail.ht
     inner_qs = Content_Tags.objects.filter(tag__hash=_hash, creator_id=user_id, target_content_type_id=24).values_list('target_object_id', flat=True)
 
     _eid_list = Note.objects.filter(pk__in=inner_qs).values_list('entity_id', flat=True)
-    print _eid_list
-    _entity_list = Entity.objects.filter(id__in=list(_eid_list), status=Entity.selection)
+    # print _eid_list
+    _entity_list = Entity.objects.filter(pk__in=list(_eid_list))
 
     paginator = ExtentPaginator(_entity_list, 24)
 

@@ -126,7 +126,7 @@ class Tags(BaseModel):
         return self.hash[:8]
 
     def get_absolute_url(self):
-        return "/t/%s/" % self.tag_hash
+        return "/tag/%s/" % self.name
 
 
 class Content_Tags(BaseModel):
