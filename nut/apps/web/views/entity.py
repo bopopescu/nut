@@ -18,9 +18,45 @@ from apps.web.utils.viewtools import add_side_bar_context_data
 from apps.tag.models import Content_Tags
 
 from django.utils.log import getLogger
-
+from django.views.generic.detail import DetailView
+from braces.views import  AjaxResponseMixin,JSONResponseMixin
 
 log = getLogger('django')
+
+class EntityCard(AjaxResponseMixin, JSONResponseMixin , DetailView):
+    template_name = 'web/entity/entity_card.html'
+    def get_object(self, queryset=None):
+        _entity_hash =  self.kwargs.get('entity_hash', None)
+        if _entity_hash is None:
+            raise Exception('can not find hash')
+        _entity = Entity.objects.get(entity_hash = _entity_hash, status__gte=Entity.freeze)
+        return _entity
+    def get(self, request, *args, **kwargs):
+#       TODO: render template here
+        pass
+    def get_ajax(self, request, *args, **kwargs):
+        _entity = None
+        data = {}
+        try:
+            _entity = self.get_object()
+        except Exception as e:
+            data = {
+                'error': 1,
+                'message': e.message
+            }
+            return self.render_json_response(data);
+
+        # entity is ok now
+        t = loader.get_template(template_name=self.template_name)
+        c = RequestContext(request,{
+            'entity': _entity
+        })
+        html = t.render(c)
+        data = {
+            'error': 0,
+            'html' : html
+        }
+        return self.render_json_response(data)
 
 def get_entity_brand(entity):
     if not bool(entity.brand):

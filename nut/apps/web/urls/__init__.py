@@ -3,7 +3,7 @@ from django.views.generic import RedirectView
 from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, DownloadView
 from apps.web.views.discover import DiscoverView
 from apps.web.views.main import SelectionEntityList
-
+from apps.web.views.entity import EntityCard
 urlpatterns = patterns(
     'apps.web.views',
     # url(r'^$', 'main.index', name='web_index'),
@@ -28,6 +28,8 @@ urlpatterns += patterns(
 urlpatterns += patterns(
     'apps.web.views.entity',
     url(r'^detail/(?P<entity_hash>\w+)/$', 'entity_detail', name='web_entity_detail'),
+    url(r'^detail/(?P<entity_hash>\w+)/card/$', EntityCard.as_view() , name='web_entity_card'),
+
 )
 
 
@@ -85,13 +87,20 @@ urlpatterns += patterns(
     url(r'^entity/', include('apps.web.urls.entity')),
     url(r'^note/', include('apps.web.urls.note')),
     url(r'^category/', include('apps.web.urls.category')),
+    # url(r'^c/', include('apps.web.urls.category')),
     url(r'^account/', include('apps.web.urls.account')),
     url(r'^u/', include('apps.web.urls.user')),
     url(r'^event/', include('apps.web.urls.event')),
     url(r'^t/', include('apps.web.urls.tag')),
     url(r'^tag/(?P<tag_text>\w+)/$', 'tag.text_to_detail', name='web_tag_text',),
     url(r'^articles/',include('apps.web.urls.article')),
+)
 
+# old url 301
+from apps.web.views.category import OldCategory
+urlpatterns += patterns(
+    '',
+    url(r'^c/(?P<cid>\d+)/$', OldCategory.as_view(), name='web_category_old_url'),
 )
 
 urlpatterns += patterns(
