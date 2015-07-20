@@ -2377,11 +2377,15 @@ a:hover{text-decoration:underline;}
           width: 100%;
           background-color: @very-light-gray;
           a:after{
+                  display:none;
                   content:'';
                   margin:0px;
                 }
           .entity-image-wrapper{
             padding: 10px;
+            a{
+              padding: 0px 0px;
+            }
             img{
               max-height: 125px;
             }
