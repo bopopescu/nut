@@ -29,7 +29,7 @@ from apps.core.forms.article import CreateSelectionArticleForm, \
     EditArticleForms, \
     UploadCoverForms
 
-
+from apps.tag.models import Content_Tags, Tags
 from braces.views import UserPassesTestMixin, JSONResponseMixin
 
 
@@ -279,11 +279,21 @@ def edit(request, article_id, template="management/article/edit.html"):
         log.error("Error: %s", e.message)
         raise Http404
 
+    tids = Content_Tags.objects.filter(target_content_type=31, target_object_id=_article.id).values_list('tag_id', flat=True)
+    # print tids
+    tags = Tags.objects.filter(pk__in=tids)
+    tag_list = []
+    for row in tags:
+        tag_list.append(row.name)
+
+    tag_string = ",".join(tag_list)
+
     data = {
         "title": _article.title,
         "content": _article.content,
         "is_publish": _article.publish,
-        "author": _article.creator_id
+        "author": _article.creator_id,
+        "tags": tag_string,
     }
 
     if request.method == "POST":
