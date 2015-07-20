@@ -64,7 +64,7 @@ def event(request, slug, template='web/events/home'):
     hash = md5(event.tag.encode('utf-8')).hexdigest()
     # tag = Tags.objects.get(name=event.tag)
     inner_qs = Content_Tags.objects.filter(tag__hash=hash, target_content_type=24).values_list('target_object_id', flat=True)
-    log.info(inner_qs)
+    # log.info(inner_qs)
     _eid_list = Note.objects.filter(pk__in=inner_qs).values_list('entity_id', flat=True)
 
     _entity_list = Entity.objects.filter(id__in=list(set(_eid_list)), status=Entity.selection)
