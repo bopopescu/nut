@@ -157,7 +157,6 @@ def tag_list(request, user_id):
 
     res = {}
     res['user'] = _user.v4_toDict()
-    # res['tags'] = Entity_Tag.objects.user_tags(user=_user.pk)
     res['tags'] = Content_Tags.objects.user_tags(user=_user.pk)
     return SuccessJsonResponse(res)
 
