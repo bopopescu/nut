@@ -6,7 +6,7 @@
  * Copyright 2013-2015 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
- * Date: 2015-07-19T15:31Z
+ * Date: 2015-07-20T02:09Z
  */
 (function (factory) {
   /* global define */
@@ -5549,6 +5549,7 @@
                 $addProductButton = $dialog.find('#add_product_button');
 
                 $productDialog.one('shown.bs.modal', function(){
+                                    $urlInput.val('');
                                     $urlInput.focus();
                                     $addProductButton.on('click',function(e){
                                         var url = $urlInput.val();
