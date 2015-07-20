@@ -2337,16 +2337,20 @@ a:hover {
 .article-wrapper .note-editable .guoku-card .entity-info-wrapper {
   height: 145px;
 }
+.article-wrapper .content-wrapper .guoku-card .entity-brand,
+.article-wrapper .note-editable .guoku-card .entity-brand {
+  margin: 10px 10px;
+}
 .article-wrapper .content-wrapper .guoku-card .entity-title,
 .article-wrapper .note-editable .guoku-card .entity-title {
-  margin: 10px 20px 10px 10px;
+  margin: 10px 10px 0px 10px;
   font-size: 18px;
 }
 .article-wrapper .content-wrapper .guoku-card .entity-info-detail,
 .article-wrapper .note-editable .guoku-card .entity-info-detail {
   position: absolute;
   width: 90%;
-  bottom: 20px;
+  bottom: 10px;
 }
 .article-wrapper .content-wrapper .guoku-card .entity-info-detail .entity-price,
 .article-wrapper .note-editable .guoku-card .entity-info-detail .entity-price {
