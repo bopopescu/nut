@@ -439,7 +439,7 @@ class Sub_Category(BaseModel):
         return "http://imgcdn.guoku.com/category/small/%s" % self.icon
 
     def get_absolute_url(self):
-        return "/c/%s/" % self.id
+        return "/category/%s/" % self.id
 
     def v3_toDict(self):
         res = dict()
