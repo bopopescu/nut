@@ -87,13 +87,20 @@ urlpatterns += patterns(
     url(r'^entity/', include('apps.web.urls.entity')),
     url(r'^note/', include('apps.web.urls.note')),
     url(r'^category/', include('apps.web.urls.category')),
+    # url(r'^c/', include('apps.web.urls.category')),
     url(r'^account/', include('apps.web.urls.account')),
     url(r'^u/', include('apps.web.urls.user')),
     url(r'^event/', include('apps.web.urls.event')),
     url(r'^t/', include('apps.web.urls.tag')),
     url(r'^tag/(?P<tag_text>\w+)/$', 'tag.text_to_detail', name='web_tag_text',),
     url(r'^articles/',include('apps.web.urls.article')),
+)
 
+# old url 301
+from apps.web.views.category import OldCategory
+urlpatterns += patterns(
+    '',
+    url(r'^c/(?P<cid>\d+)/$', OldCategory.as_view(), name='web_category_old_url'),
 )
 
 urlpatterns += patterns(
