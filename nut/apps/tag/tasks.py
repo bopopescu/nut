@@ -54,11 +54,11 @@ def generator_tag(**kwargs):
 
 @task(base=BaseTask)
 def generator_article_tag(**kwargs):
-    data = kwargs.pop('data', None)
+    data = kwargs.pop('dgit ata', None)
     assert data is not None
     data = json.loads(data)
     aid = data['article']
-    print data['tags']
+    # print data['tags']
 
     try:
         article = Article.objects.get(pk = aid)
@@ -69,7 +69,7 @@ def generator_article_tag(**kwargs):
     for row in data['tags']:
         tag_hash_list.append(md5(row.encode('utf-8')).hexdigest())
 
-    print tag_hash_list
+    # print tag_hash_list
 
     t_objs = Content_Tags.objects.filter(creator=article.creator, target_content_type=31, target_object_id=article.id)
     for row in t_objs:
