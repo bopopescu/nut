@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/web/style.css' %}">
 {% endblock %}
 
-{% block title %}{{ article.title }} - 【精英消费指南】{% endblock %}
+{% block title %}{{ article.title }} - 【精英消费指南】{% endblock %}{% block suffix %} - 果库{% endblock %}
 
 {% block keyword %}{{ article.title }},{{ article.creator.nickname }}{% endblock %}
 
