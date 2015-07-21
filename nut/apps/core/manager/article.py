@@ -74,7 +74,7 @@ class SelectionArticleManager(models.Manager):
 
         related_list = self.published()\
                            .exclude(article__pk=article.pk)\
-                           .order_by('pub_time')[:100]
+                           .order_by('-pub_time')[:100]
 
         # shuffle(related_list)
         p = Paginator(related_list, article_per_page)
