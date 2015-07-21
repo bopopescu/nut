@@ -4,6 +4,7 @@ from django import template
 # from django.conf import settings
 from django.utils.log import getLogger
 from datetime import datetime
+from apps.tag.models import Tags, Content_Tags
 import time
 
 
@@ -99,5 +100,16 @@ def handle_brand_intro(value):
         value = value.replace('\n', '<br>')
     return value
 register.filter(handle_brand_intro)
+
+
+def article_tag_string(article):
+        tids = Content_Tags.objects.filter(target_content_type=31, target_object_id=article.pk).values_list('tag_id', flat=True)
+        tags = Tags.objects.filter(pk__in=tids)
+        tag_list=[]
+        for row in tags:
+            tag_list.append(row.name)
+        tag_string = ",".join(tag_list)
+        return tag_string
+register.filter(article_tag_string)
 
 __author__ = 'edison7500'
