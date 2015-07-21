@@ -624,8 +624,8 @@ class Entity(BaseModel):
         key = 'entity:note:%s', self.pk
         try:
             cache.incr(key)
-        except ValueError:
-            cache.set(key, self.notes.count())
+        except Exception:
+            cache.set(key, int(self.notes.count()))
 
     @property
     def is_in_selection(self):
@@ -633,10 +633,10 @@ class Entity(BaseModel):
 
     @property
     def enter_selection_time(self):
-        _tm = None
+        # _tm = None
         try :
             _tm = self.selection_entity.pub_time
-        except:
+        except Exception:
             _tm = self.created_time
 
         return _tm
