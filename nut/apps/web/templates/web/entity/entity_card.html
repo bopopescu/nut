@@ -8,6 +8,7 @@
             </a>
         </div>
         <div class="entity-info-wrapper col-xs-9">
+            <div class="entity-brand">{% if entity.brand|length != 0 %}{{ entity.brand }}{% endif %}</div>
             <div class="entity-title">{{ entity.title }}</div>
             <div class="entity-info-detail">
                 <div class="entity-price">&#65509;{{ entity.price }}</div>
