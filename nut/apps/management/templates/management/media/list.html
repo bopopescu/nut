@@ -13,6 +13,7 @@
                 <tr>
                     <th>#</th>
                     <th>{% trans 'image' %}</th>
+                    <th>{% trans 'creator' %}</th>
                     <th>{% trans 'content type' %}</th>
                     <th>{% trans 'operation' %}</th>
                 </tr>
@@ -22,6 +23,14 @@
                     <tr>
                         <td>{{ medium.pk }}</td>
                         <td><img class="img-polaroid img-responsive" style="max-height:150px;max-width:150px;" src="{{ medium.file_url|resize:'240' }}" width="120" height="120"></td>
+                        <td>
+                            {% if medium.creator %}
+                                 <a href="{% url 'management_user_edit' medium.creator_id %}">
+                                     {{ medium.creator.profile.nickname  }}
+                                 </a>
+                            {% endif %}
+
+                           </td>
                         <td>{{ medium.content_type }}</td>
 {#                        <td></td>#}
                         <td>

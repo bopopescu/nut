@@ -1167,6 +1167,7 @@ class Media(models.Model):
     file_path = models.URLField()
     content_type = models.CharField(max_length=30)
     upload_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True, editable=False)
+    creator=models.ForeignKey(GKUser, related_name='media_entries')
 
     class Meta:
         ordering = ['-upload_datetime']
