@@ -54,7 +54,7 @@ def generator_tag(**kwargs):
 
 @task(base=BaseTask)
 def generator_article_tag(**kwargs):
-    data = kwargs.pop('dgit ata', None)
+    data = kwargs.pop('data', None)
     assert data is not None
     data = json.loads(data)
     aid = data['article']
@@ -67,6 +67,7 @@ def generator_article_tag(**kwargs):
 
     tag_hash_list = list()
     for row in data['tags']:
+        row = row.lower().strip()
         tag_hash_list.append(md5(row.encode('utf-8')).hexdigest())
 
     # print tag_hash_list
@@ -81,7 +82,7 @@ def generator_article_tag(**kwargs):
 
 
     for row in data['tags']:
-        tag = row.lower()
+        tag = row.lower().strip()
         thash = md5(tag.encode('utf-8')).hexdigest()
 
         try:
