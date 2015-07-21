@@ -73,6 +73,7 @@ def upload_image(request):
         media =  Media.objects.create(
             file_path = filename,
             content_type = image.content_type,
+            creator = request.user
         )
         log.info(media)
         return HttpResponse(media.file_url)
