@@ -2621,3 +2621,6 @@ a:hover {
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
+.tag-app-wrapper {
+  display: none;
+}
