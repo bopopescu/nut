@@ -1134,6 +1134,16 @@ class Article(models.Model):
     def get_absolute_url(self):
         return "/articles/%s/" % self.pk
 
+    # will cause circuler reference
+    # def tag_string(self):
+    #     tids = Content_Tags.objects.filter(target_content_type=31, target_object_id=self.pk).values_list('tag_id', flat=True)
+    #     tags = Tags.objects.filter(pk__in=tids)
+    #     tag_list=[]
+    #     for row in tags:
+    #         tag_list.append(row.name)
+    #     tag_string = ",".join(tag_list)
+    #     return tag_string
+
 # use ForeignKey instead of  oneToOne for selection entity ,
 # this means , an article can be published many times , without first been removed from selection
 # this design is on propose
