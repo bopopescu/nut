@@ -86,10 +86,11 @@ def _get_entity_like_list(entity_list, request):
 
 class OldCategory(RedirectView):
     permanent = True
+    pattern_name = 'web_category_detail'
 
     def get_redirect_url(self, *args, **kwargs):
         try:
-            url = reverse(self.pattern_name, args=args, kwargs=kwargs)
+            url = reverse(self.pattern_name, args=[self.cid], kwargs=kwargs)
         except NoReverseMatch:
             return None
         return url

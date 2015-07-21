@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from django.utils.log import getLogger
+
 from django.core.cache import cache
 
 from apps.core.models import Entity, Note, Buy_Link
@@ -20,7 +20,8 @@ from datetime import datetime
 from hashlib import md5
 
 
-
+from django.conf import settings
+from django.utils.log import getLogger
 log = getLogger('django')
 
 
@@ -68,21 +69,20 @@ class EntityURLFrom(forms.Form):
     def load(self):
         _link = self.cleaned_data.get('cand_url')
         _hostname = urlparse(_link).hostname
-
-        log.info(_hostname)
+        # log.info(_hostname)
         _data = {'link_support':False}
 
         if re.search(r"\b(jd|360buy)\.com$", _hostname) != None:
-            _data['link_support'] = True;
-            _jd_id = parse_jd_id_from_url(_link)
+            _data['link_support'] = True
+            origin_id = parse_jd_id_from_url(_link)
             # log.info(_jd_id)
             try:
-                buy_link = Buy_Link.objects.get(origin_id=_jd_id, origin_source="jd.com",)
+                buy_link = Buy_Link.objects.get(origin_id=origin_id, origin_source="jd.com",)
                 _data = {
                     'entity_hash': buy_link.entity.entity_hash,
                 }
             except Buy_Link.DoesNotExist:
-                j = JD(_jd_id)
+                j = JD(origin_id)
 
                 # print "OKOKOKOKOKO"
                 log.info(j.brand)
@@ -90,9 +90,10 @@ class EntityURLFrom(forms.Form):
                     'user_id': self.request.user.id,
                     'user_avatar': self.request.user.profile.avatar_url,
                     'cand_url': _link,
-                    'jd_id': _jd_id,
+                    'origin_id': origin_id,
+                    'origin_source': 'jd.com',
                     'brand': j.brand,
-                    'jd_title': j.title,
+                    'title': j.title,
                     'cid': j.cid,
                     # 'taobao_title': res['desc'],
                     # 'shop_nick': res['nick'],
@@ -102,14 +103,14 @@ class EntityURLFrom(forms.Form):
                     'thumb_images': j.imgs,
 
                     # 'selected_category_id':
-                });
+                })
 
-                return _data;
+                return _data
                 # print _data
             # pass
             # return jd_info(self.request, _link)
         if re.search(r"\b(tmall)\.(com|hk)$", _hostname) is not None:
-            _data['link_support'] = True;
+            _data['link_support'] = True
             _tmall_id = parse_taobao_id_from_url(_link)
             try:
                 buy_link = Buy_Link.objects.get(origin_id=_tmall_id, origin_source="taobao.com",)
@@ -126,41 +127,43 @@ class EntityURLFrom(forms.Form):
                     'user_id': self.request.user.id,
                     'user_avatar': self.request.user.profile.avatar_url,
                     'cand_url': _link,
-                    'taobao_id': _tmall_id,
+                    'origin_id': _tmall_id,
+                    'origin_source': "taobao.com",
                     'cid': res['cid'],
-                    'taobao_title': res['desc'],
+                    'title': res['desc'],
                     'shop_nick': res['nick'],
                     'shop_link': res['shop_link'],
                     'price': res['price'],
                     'chief_image_url' : res['imgs'][0],
                     'thumb_images': res["imgs"],
                     # 'selected_category_id':
-                });
-                return _data;
+                })
+                return _data
 
         if re.search(r"\b(taobao|95095)\.(com|hk)$", _hostname) is not None:
             _data['link_support'] = True
-            _taobao_id = parse_taobao_id_from_url(_link)
+            _origin_id = parse_taobao_id_from_url(_link)
             # log.info(_taobao_id)
 
             try:
-                buy_link = Buy_Link.objects.get(origin_id=_taobao_id, origin_source="taobao.com",)
+                buy_link = Buy_Link.objects.get(origin_id=_origin_id, origin_source="taobao.com",)
                 log.info(buy_link.entity)
                 _data = {
                     'entity_hash': buy_link.entity.entity_hash,
                 }
             except Buy_Link.DoesNotExist:
                 # log.info("OKOKOKO")
-                t = TaoBao(_taobao_id)
+                t = TaoBao(_origin_id)
                 # log.info(t.res())
                 res = t.res()
                 _data.update({
                     'user_id': self.request.user.id,
                     'user_avatar': self.request.user.profile.avatar_url,
                     'cand_url': _link,
-                    'taobao_id': _taobao_id,
+                    'origin_id': _origin_id,
+                    'origin_source': "taobao.com",
                     'cid': res['cid'],
-                    'taobao_title': res['desc'],
+                    'title': res['desc'],
                     'shop_nick': res['nick'],
                     'shop_link': res['shop_link'],
                     'price': res['price'],
@@ -193,27 +196,27 @@ class EntityURLFrom(forms.Form):
                     'shop_link': a.shop_link,
                     'shop_nick': a.nick,
                 }
-
         return _data
 
 
 
 class CreateEntityForm(forms.Form):
 
-    taobao_id = forms.CharField(
+    origin_id = forms.CharField(
         widget=forms.TextInput(),
-        required=False,
     )
-    jd_id = forms.CharField(
+
+    origin_source = forms.CharField(
         widget=forms.TextInput(),
-        required=False,
     )
+
     cid = forms.IntegerField(
         widget=forms.TextInput(),
     )
-    # cand_url = forms.URLField(
-    #     widget=forms.URLInput(),
-    # )
+
+    cand_url = forms.URLField(
+        widget=forms.URLInput(),
+    )
     shop_nick = forms.CharField(
         widget=forms.TextInput()
     )
@@ -237,31 +240,39 @@ class CreateEntityForm(forms.Form):
         widget=forms.Textarea(),
     )
 
+    def clean_note_text(self):
+
+        _note_text = self.cleaned_data.get('note_text')
+        return _note_text.strip()
+
     def __init__(self, request, *args, **kwargs):
         self.request = request
         super(CreateEntityForm, self).__init__(*args, **kwargs)
 
     def save(self):
-        _taobao_id = self.cleaned_data.get('taobao_id')
-        _jd_id = self.cleaned_data.get('jd_id')
+        # _taobao_id = self.cleaned_data.get('taobao_id')
+        # _jd_id = self.cleaned_data.get('jd_id')
+        _origin_id = self.cleaned_data.get('origin_id')
+        _origin_source = self.cleaned_data.get('origin_source')
         _shop_nick = self.cleaned_data.get('shop_nick')
         _brand = self.cleaned_data.get('brand')
         _title = self.cleaned_data.get('title')
         _cid = self.cleaned_data.get('cid', None)
         _price = self.cleaned_data.get('price')
+        _cand_url = self.cleaned_data.get('cand_url')
         _chief_image_url = self.cleaned_data.get('chief_image_url')
         _images = self.data.getlist('thumb_images')
 
         _note_text = self.cleaned_data.get('note_text')
         # _cand_url = self.cleaned_data.get('cand_url')
 
-        log.info("category %s" % _cid)
-        _entity_hash = cal_entity_hash(_taobao_id+_title+_shop_nick)
-
-        if _taobao_id:
-            key_string = "%s%s" % (_cid, "taobao.com")
-        else:
-            key_string = "%s%s" % (_cid, "jd.com")
+        # log.info("category %s" % _cid)
+        # _entity_hash = cal_entity_hash(_origin_id+_title+_shop_nick)
+        _entity_hash = cal_entity_hash(_origin_id + _title + _shop_nick)
+        # if _taobao_id:
+        #     key_string = "%s%s" % (_cid, "taobao.com")
+        # else:
+        key_string = "%s%s" % (_origin_id, _origin_source)
 
         key = md5(key_string.encode('utf-8')).hexdigest()
 
@@ -279,7 +290,7 @@ class CreateEntityForm(forms.Form):
 
         _images.insert(0, _chief_image_url)
 
-        log.info("category %s" % _cid)
+        # log.info("category %s" % _cid)
 
         entity = Entity(
             user_id=self.request.user.id,
@@ -291,11 +302,12 @@ class CreateEntityForm(forms.Form):
             images=_images,
         )
         entity.status = Entity.freeze
-        log.info(entity.images)
+        # log.info(entity.images)
 
         entity.save()
         # log.info(entity.images)
-        fetch_image.delay(entity.images, entity.id)
+        if not settings.DEBUG:
+            fetch_image.delay(entity.images, entity.id)
 
         Note.objects.create(
             user_id = self.request.user.id,
@@ -304,23 +316,23 @@ class CreateEntityForm(forms.Form):
         )
 
         # _hostname = urlparse(_cand_url).hostname
-        if _taobao_id:
+        if 'taobao' in _origin_source:
             Buy_Link.objects.create(
                 entity = entity,
-                origin_id = _taobao_id,
+                origin_id = _origin_id,
                 cid = _cid,
                 origin_source = "taobao.com",
-                link = "http://item.taobao.com/item.htm?id=%s" % _taobao_id,
+                link = "http://item.taobao.com/item.htm?id=%s" % _origin_source,
                 price = _price,
                 default = True,
             )
         else:
             Buy_Link.objects.create(
                 entity = entity,
-                origin_id = _jd_id,
+                origin_id = _origin_id,
                 cid = _cid,
-                origin_source = "jd.com",
-                link = "http://item.jd.com/%s.html" % _jd_id,
+                origin_source = _origin_source,
+                link = _cand_url,
                 price = _price,
                 default = True,
             )
