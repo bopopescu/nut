@@ -2396,6 +2396,11 @@ a:hover {
   margin-top: 10px;
   height: 45px;
 }
+#detail_content .share-wrapper-short .share-intro-entity {
+  color: #9d9e9f;
+  font-size: 13px;
+  float: right;
+}
 #detail_content .share-wrapper-short .jiathis_style {
   float: right;
 }
