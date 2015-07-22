@@ -25,6 +25,7 @@
                     </li>
 
                     <li {% if web_selection_url in request.path %}class="active"{% endif %}>
+{#                        <a href="{{ web_selection_url }}">{% trans 'Selected' %}</a>#}
                         <a href="{{ web_selection_url }}">{% trans 'Selected' %}</a>
                     </li>
 
