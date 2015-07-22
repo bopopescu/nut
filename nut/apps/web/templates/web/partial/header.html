@@ -19,13 +19,15 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
 {#                    {% url 'web_selection' as web_selection_url %}#}
-                    <li {% if web_selection_url in request.path %}class="active"{% endif %}>
-                        <a href="{{ web_selection_url }}">{% trans 'Selected' %}</a>
-                    </li>
                     {% url 'web_selection_articles' as web_article_list_url %}
                      <li {% if web_article_list_url in request.path %}class="active"{% endif %}>
                         <a href="{{ web_article_list_url }}">{% trans 'Articles' %}</a>
                     </li>
+
+                    <li {% if web_selection_url in request.path %}class="active"{% endif %}>
+                        <a href="{{ web_selection_url }}">{% trans 'Selected' %}</a>
+                    </li>
+
 
                     {% url 'web_discover' as web_discover_url %}
                     <li {% if web_discover_url in request.path %}class="active"{% endif %}>
