@@ -1303,7 +1303,7 @@ a {
   margin-top: 30px ;
 }
 .media-cover-list .media-link .article-title {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 24px;
 }
 .media-cover-list .media-link .article-source {
@@ -2267,6 +2267,10 @@ a:hover {
   color: #424242;
   font-size: 16px;
   line-height: 1.6;
+}
+.article-wrapper .content-wrapper div,
+.article-wrapper .note-editable div {
+  margin: 0 0 13px 0;
 }
 .article-wrapper .content-wrapper p,
 .article-wrapper .note-editable p {

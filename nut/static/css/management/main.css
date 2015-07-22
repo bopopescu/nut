@@ -274,5 +274,5 @@ body {
   background-color: #9d9d9d;
 }
 .article-management {
-  display: none;
+  display: block;
 }
