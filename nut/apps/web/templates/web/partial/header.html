@@ -52,6 +52,13 @@
 {#                        <a href="{{ web_event_home_url }}">专题&nbsp;<i class="fa fa-circle" style="font-size: 6px; color: #ff1f77; vertical-align: top;"></i></a>#}
                         <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="round"></span></a>
                     </li>
+
+
+                 {% url 'web_about' as web_about_url %}
+                    <li {% if web_about_url in request.path %}class="active"{% endif %}>
+{#                        <a href="{{ web_selection_url }}">{% trans 'Selected' %}</a>#}
+                        <a href="{{ web_about_url }}">{% trans 'About' %}</a>
+                    </li>
                 </ul>
 
                 {% url 'web_login' as web_login_url %}
