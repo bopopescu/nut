@@ -40,13 +40,41 @@ class TagEntitiesView(LoginRequiredMixin, ListView):
                 'tag': self.tag,
             }
         )
-        print res
         return res
 
     def get(self, request, *args, **kwargs):
         self.tag_name = kwargs.pop('tag_name', None)
         assert self.tag_name is not None
         return super(TagEntitiesView, self).get(request, *args, **kwargs)
+
+
+class ArticleTagListView(LoginRequiredMixin, ListView):
+    http_method_names = ['get']
+    paginator_class = ExtentPaginator
+    paginate_by = 30
+    template_name = 'management/tags/articles.html'
+
+    def get_queryset(self):
+        try:
+            self.tag = Tags.objects.get(name=self.tag_name)
+        except Tags.DoesNotExist:
+            raise Http404
+        self.queryset = Content_Tags.objects.filter(tag=self.tag, target_content_type_id=31)
+        return self.queryset
+
+    def get_context_data(self, **kwargs):
+        res = super(ArticleTagListView, self).get_context_data(**kwargs)
+        res.update(
+            {
+                'tag': self.tag,
+            }
+        )
+        return res
+
+    def get(self, request, *args, **kwargs):
+        self.tag_name = kwargs.pop('tag_name', None)
+        assert self.tag_name is not None
+        return super(ArticleTagListView, self).get(request, *args, **kwargs)
 
 
 class EditTagFormView(LoginRequiredMixin, FormView):
