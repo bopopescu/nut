@@ -6,7 +6,7 @@ from django.utils.log import getLogger
 
 from apps.core.models import Article, Selection_Article
 from apps.core.utils.image import HandleImage
-from apps.core.forms import get_admin_user_choices
+from apps.core.forms import get_admin_user_choices , get_author_choices
 from datetime import datetime
 import json
 from hashlib import md5
@@ -138,7 +138,8 @@ class BaseArticleForms(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(BaseArticleForms, self).__init__(*args, **kwargs)
-        user_choices = get_admin_user_choices()
+        # user_choices = get_admin_user_choices()
+        user_choices = get_author_choices()
         self.fields['author'] = forms.ChoiceField(
             label=_('author'),
             choices=user_choices,
