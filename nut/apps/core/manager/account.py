@@ -8,6 +8,9 @@ from django.core.cache import cache
 
 
 class GKUserQuerySet(models.query.QuerySet):
+    def author(self):
+        return self.filter(is_active__gte = 2)
+
     def writer(self):
         return self.filter(is_active=3)
 
@@ -34,6 +37,9 @@ class GKUserManager(BaseUserManager):
 
     def get_queryset(self):
         return GKUserQuerySet(self.model, using = self._db)
+
+    def author(self):
+        return self.get_queryset().author()
 
     def writer(self):
         return self.get_queryset().writer()
