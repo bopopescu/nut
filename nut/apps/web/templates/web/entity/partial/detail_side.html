@@ -39,45 +39,8 @@
         </li>
     </ul>
 {% endif %}
-<ul class="section-list">
 
-    <li class="section banner-holder">
-        <div class="section-banner">
-            <a class="banner-link" target="_blank " href="http://www.guoku.com/event/20150714/">
-                <img class="img-responsive" src="{% static 'images/side_bar/zt_714.jpg' %}">
-            </a>
-        </div>
-    </li>
-    <li class="section banner-holder">
-        <div class="section-banner">
-            <a class="banner-link" target="_blank "
-               href="http://www.guoku.com/articles/163/">
-                <img class="img-responsive" src="{% static 'images/side_bar/wx_714.jpg' %}">
-            </a>
-        </div>
-    </li>
-    <li class="section banner-holder">
-        <div class="section-banner">
-            <a class="banner-link" target="_blank " href="http://www.guoku.com/detail/c68b80fd/">
-                <img src="{% static 'images/side_bar/sp_714.jpg' %}">
-            </a>
-        </div>
-    </li>
-    <li class="section banner-holder">
-        <div class="section-banner">
-            <a class="banner-link" target="_blank "
-               href="http://guoku.uz.taobao.com/detail/612916039/?spm=a2116.1106356.w9006-9281270515.4.A4Wxvz">
-                <img class="img-responsive" src="{% static 'images/side_bar/uz_714.jpg' %}">
-            </a>
-        </div>
-    </li>
-    <li class="section banner-holder">
-        <div class="section-banner">
-            <a class="banner-link" target="_blank " href="http://www.wandoujia.com/campaign/applaunch/?pn=com.guoku">
-                <img class="img-responsive" src="{% static 'images/side_bar/wandoujia.jpg' %}">
-            </a>
-        </div>
-    </li>
+<ul class="section-list">
     {% if request.user.is_staff  and is_entity_detail %}
         <li class="section need-bottom-border">
             <div class="section-content">
@@ -99,39 +62,19 @@
             </div>
         </li>
     {% endif %}
-    <li class="section need-bottom-border">
-        <div class="section-title">应用下载</div>
+    <li class="section  need-bottom-border">
+        <div class="section-title">热门品类</div>
         <div class="section-content">
-            <div class="text-holder">
-                精英消费指南，生活不一样。
-                 <span class="download-link">
-                     <a href="{% url "web_download" %}">查看详情
-                         <i class="fa fa-angle-right"></i>
-                         <i class="fa fa-angle-right"></i>
-                     </a>
-                 </span>
-            </div>
-            <div class="icon-holder">
-                <a href="{% url "web_download" %}">
-                    <img width="64px" src="{% static "images/side_bar/icon64.png" %}"/>
-                </a>
-            </div>
+            <ul class="cate-list-all">
+                {% for cate in pop_categories %}
+                    <li>
+                        <a href="{% url 'web_category_group' cate.id %}">{{ cate.title }}</a>
+                    </li>
+                {% endfor %}
 
+            </ul>
         </div>
     </li>
-    <li class="section need-bottom-border">
-        <div class="section-title">微信公众号订阅</div>
-        <div class="section-content">
-            <div class="text-holder">
-                扫描左侧二维码，<BR/>或搜索「guokuapp」<BR/>立刻关注。
-            </div>
-            <div class="icon-holder">
-                <img width="64px" src="{% static "images/side_bar/QRcode64.jpg" %}"/>
-            </div>
-
-        </div>
-    </li>
-
     <li class="section">
         <div class="section-title">热门商品</div>
         <ul class="pop-entity-list">
@@ -159,15 +102,16 @@
                     </div>
                 </li>
             {% endfor %}
-              <li class="more-entity-wrapper">
-                  <div class="more-popular-entity">
-                      <a href="{% url 'web_popular' %}">
-                      查看更多<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
-                      </a>
-                  </div>
-              </li>
+            <li class="more-entity-wrapper">
+                <div class="more-popular-entity">
+                    <a href="{% url 'web_popular' %}">
+                        查看更多<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            </li>
         </ul>
     </li>
+
     <li class="section">
         <div class="section-title">热门图文</div>
         <ul class="pop-article-list">
@@ -175,11 +119,11 @@
                 {% with sla.article as h_article %}
                     <li class="pop-article">
                         <div class="pop-article-wrapper">
-{#                            <div class="img-holder">#}
-{#                                <a href="{% url 'web_article_page' h_article.pk %}">#}
-{#                                    <img width="269"  src="{{ h_article.cover|resize:'270' }}"/>#}
-{#                                </a>#}
-{#                            </div>#}
+                            {#                            <div class="img-holder">#}
+                            {#                                <a href="{% url 'web_article_page' h_article.pk %}">#}
+                            {#                                    <img width="269"  src="{{ h_article.cover|resize:'270' }}"/>#}
+                            {#                                </a>#}
+                            {#                            </div>#}
                             <div class="article-content">
 
                                 <div class="article-title">
@@ -188,11 +132,11 @@
                                         {{ h_article.title }}
                                     </a>
                                 </div>
-{#                                <div class="article-digest">#}
-{#                                    {% autoescape off %}#}
-{#                                    {{ h_article.content|striptags|truncatechars:50 }}#}
-{#                                    {% endautoescape %}#}
-{#                                </div>#}
+                                {#                                <div class="article-digest">#}
+                                {#                                    {% autoescape off %}#}
+                                {#                                    {{ h_article.content|striptags|truncatechars:50 }}#}
+                                {#                                    {% endautoescape %}#}
+                                {#                                </div>#}
                             </div>
 
 
@@ -202,6 +146,65 @@
             {% endfor %}
         </ul>
     </li>
+
+    <li class="section banner-holder">
+        <div class="section-banner">
+            <a class="banner-link" target="_blank " href="http://www.guoku.com/detail/211b340f/">
+                <img class="img-responsive" src="{% static 'images/side_bar/item721.jpg' %}">
+            </a>
+        </div>
+    </li>
+    <li class="section banner-holder">
+        <div class="section-banner">
+            <a class="banner-link" target="_blank "
+               href="http://guoku.uz.taobao.com/detail/617529834/?spm=a2116.1106356.w9006-9281270515.10.NNJ4hX">
+                <img class="img-responsive" src="{% static 'images/side_bar/uz721.jpg' %}">
+            </a>
+        </div>
+    </li>
+    <li class="section banner-holder">
+        <div class="section-banner">
+            <a class="banner-link" target="_blank " href="http://www.guoku.com/event/20150721/">
+                <img src="{% static 'images/side_bar/banner_articles.jpg' %}">
+            </a>
+        </div>
+    </li>
+    <li class="section need-bottom-border">
+        <div class="section-title">微信公众号订阅</div>
+        <div class="section-content">
+            <div class="text-holder">
+                扫描左侧二维码，<BR/>或搜索「guokuapp」<BR/>立刻关注。
+            </div>
+            <div class="icon-holder">
+                <img width="64px" src="{% static "images/side_bar/QRcode64.jpg" %}"/>
+            </div>
+
+        </div>
+    </li>
+
+    <li class="section need-bottom-border">
+        <div class="section-title">应用下载</div>
+        <div class="section-content">
+            <div class="text-holder">
+                精英消费指南，生活不一样。
+                 <span class="download-link">
+                     <a href="{% url "web_download" %}">查看详情
+                         <i class="fa fa-angle-right"></i>
+                         <i class="fa fa-angle-right"></i>
+                     </a>
+                 </span>
+            </div>
+            <div class="icon-holder">
+                <a href="{% url "web_download" %}">
+                    <img width="64px" src="{% static "images/side_bar/icon64.png" %}"/>
+                </a>
+            </div>
+
+        </div>
+    </li>
+
+
+
     {#    <li class="section need-bottom-border">#}
     {#        <div class="section-title">喜爱</div>#}
     {#        <div class="section-content">#}
@@ -231,19 +234,7 @@
     {#            </ul>#}
     {#        </div>#}
     {#    </li>#}
-    <li class="section  need-bottom-border">
-        <div class="section-title">热门品类</div>
-        <div class="section-content">
-            <ul class="cate-list-all">
-                {% for cate in pop_categories %}
-                    <li>
-                        <a href="{% url 'web_category_group' cate.id %}">{{ cate.title }}</a>
-                    </li>
-                {% endfor %}
 
-            </ul>
-        </div>
-    </li>
 
 
 
