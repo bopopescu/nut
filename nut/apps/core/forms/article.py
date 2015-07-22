@@ -1,12 +1,17 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.log import getLogger
-from django.core.exceptions import ObjectDoesNotExist
+# from django.core.exceptions import ObjectDoesNotExist
+# from django.core import serializers
 
 from apps.core.models import Article, Selection_Article
 from apps.core.utils.image import HandleImage
-from datetime import datetime
 from apps.core.forms import get_admin_user_choices
+from datetime import datetime
+import json
+from hashlib import md5
+from apps.tag.tasks import generator_article_tag
+
 
 
 log = getLogger('django')
@@ -22,7 +27,7 @@ class BaseSelectionArticleForm(forms.Form):
     def clean_article(self):
         article_id = self.cleaned_data['article_id']
         try :
-            the_article = Article.objects.get(pk=article_id, publish=Article.published)
+            Article.objects.get(pk=article_id, publish=Article.published)
         except Article.DoesNotExist:
             raise forms.ValidationError(_('can not find article'),
                                          code='invalid_article_id ')
@@ -42,9 +47,9 @@ class BaseSelectionArticleForm(forms.Form):
         return selection_article.id
 
 
-
 class CreateSelectionArticleForm(BaseSelectionArticleForm):
     pass
+
 
 class EditSelectionArticleForm(BaseSelectionArticleForm):
     YES_OR_NO = (
@@ -110,6 +115,13 @@ class BaseArticleForms(forms.Form):
         help_text = _(''),
     )
 
+    tags = forms.CharField(
+        label=_('tags'),
+        widget=forms.TextInput(attrs={'class':'form-control'}),
+        help_text=_(''),
+        required=False,
+    )
+
     content = forms.CharField(
         label=_('content'),
         widget=forms.Textarea(attrs={'class':'form-control', 'id':'summernote'}),
@@ -138,7 +150,10 @@ class BaseArticleForms(forms.Form):
         _is_publish = self.cleaned_data.get('is_publish')
         return int(_is_publish)
 
-
+    def clean_tags(self):
+        _tags = self.cleaned_data.get('tags')
+        _tags =  _tags.split(',')
+        return _tags
 
 
 class CreateArticleForms(BaseArticleForms):
@@ -175,6 +190,14 @@ class CreateArticleForms(BaseArticleForms):
 
         article.save()
 
+        tags = self.cleaned_data.get('tags')
+        if tags:
+            data = {
+                'tags':tags,
+                'article': self.article.pk
+            }
+            generator_article_tag(data=json.dumps(data))
+
         return article
 
 
@@ -200,6 +223,7 @@ class EditArticleForms(BaseArticleForms):
         title = self.cleaned_data.get('title')
         content = self.cleaned_data.get('content')
         author_id = self.cleaned_data.get('author')
+        tags = self.cleaned_data.get('tags')
 
         self.article.title = title
         self.article.content = content
@@ -210,6 +234,13 @@ class EditArticleForms(BaseArticleForms):
             self.article.publish = is_publish
 
         self.article.save()
+
+        if tags:
+            data = {
+                'tags':tags,
+                'article': self.article.pk
+            }
+            generator_article_tag(data=json.dumps(data))
 
         return self.article
 

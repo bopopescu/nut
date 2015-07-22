@@ -624,8 +624,8 @@ class Entity(BaseModel):
         key = 'entity:note:%s', self.pk
         try:
             cache.incr(key)
-        except ValueError:
-            cache.set(key, self.notes.count())
+        except Exception:
+            cache.set(key, int(self.notes.count()))
 
     @property
     def is_in_selection(self):
@@ -633,10 +633,10 @@ class Entity(BaseModel):
 
     @property
     def enter_selection_time(self):
-        _tm = None
+        # _tm = None
         try :
             _tm = self.selection_entity.pub_time
-        except:
+        except Exception:
             _tm = self.created_time
 
         return _tm
@@ -1134,6 +1134,16 @@ class Article(models.Model):
     def get_absolute_url(self):
         return "/articles/%s/" % self.pk
 
+    # will cause circuler reference
+    # def tag_string(self):
+    #     tids = Content_Tags.objects.filter(target_content_type=31, target_object_id=self.pk).values_list('tag_id', flat=True)
+    #     tags = Tags.objects.filter(pk__in=tids)
+    #     tag_list=[]
+    #     for row in tags:
+    #         tag_list.append(row.name)
+    #     tag_string = ",".join(tag_list)
+    #     return tag_string
+
 # use ForeignKey instead of  oneToOne for selection entity ,
 # this means , an article can be published many times , without first been removed from selection
 # this design is on propose
@@ -1157,6 +1167,7 @@ class Media(models.Model):
     file_path = models.URLField()
     content_type = models.CharField(max_length=30)
     upload_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True, editable=False)
+    creator=models.ForeignKey(GKUser, related_name='media_entries')
 
     class Meta:
         ordering = ['-upload_datetime']
