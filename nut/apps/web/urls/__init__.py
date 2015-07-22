@@ -7,7 +7,7 @@ from apps.web.views.entity import EntityCard
 urlpatterns = patterns(
     'apps.web.views',
     # url(r'^$', 'main.index', name='web_index'),
-    url(r'^$', RedirectView.as_view(url='/selected/')),
+    url(r'^$', RedirectView.as_view(url='/articles/')),
     url(r'^selection/$', RedirectView.as_view(url='/selected/')),
     url(r'^selected/$', SelectionEntityList.as_view(), name='web_selection'),
     # url(r'^selected/$', 'main.selection', name='web_selection'),
