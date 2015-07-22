@@ -1,35 +1,5 @@
-@import "mixin.less";
-//vars
-@light-gray:#9d9d9d;
-@border-gray:#e6e6e6;
-@link-color:#357ebd;
-@like-color:#FF1F77;
-@common-gray: #9D9E9F;
-@common-text-color: #424242;
-@very-light-gray:#F8F8F8;
-@panel-background-color: #fff;
-@default-background:#fff;
-
-@tag-hover-background:#F0F0F0;
-@tag-border-color:@border-gray;
-
-@light-blue:#5ba4cf;
-@dark-red:rgb(140, 58, 58);
-
-@star-color:#FF9500;
-
-@primary-size : 16px ;
-@title-size:22px;
-@subtitle-size:18px;
-@mini-size: 13px;
-
-@hover-opacity:0.7;
-
-@global-box-radius:4px;
-
-@bottom-border-color:#d5d5d5;
-@guoku-editor-width : 600px;
-@common-shadow: 0px 2px 3px #ddd;
+@import "../lib/mixin.less";
+@import "../lib/var.less";
 
 .guoku-btn-normal{
             font-size:@primary-size;
@@ -71,11 +41,11 @@
 }
 
 .common-bordered{
-  border: 1px solid #e6e6e6;
+  border: 1px solid @border-gray;
 }
 
 .bottom-bordered{
-  border-bottom: 1px solid #e6e6e6;
+  border-bottom: 1px solid @border-gray;
 }
 
 @-moz-document url-prefix() {
@@ -2333,6 +2303,9 @@ a:hover{text-decoration:underline;}
        color:@article-font-color;
        font-size: @article-content-size;
        line-height: 1.6;
+       div {
+         margin: @article-block-element-margin;
+       }
        p{
          margin: @article-block-element-margin;
        }

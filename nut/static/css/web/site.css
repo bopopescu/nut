@@ -2268,6 +2268,10 @@ a:hover {
   font-size: 16px;
   line-height: 1.6;
 }
+.article-wrapper .content-wrapper div,
+.article-wrapper .note-editable div {
+  margin: 0 0 13px 0;
+}
 .article-wrapper .content-wrapper p,
 .article-wrapper .note-editable p {
   margin: 0 0 13px 0;
