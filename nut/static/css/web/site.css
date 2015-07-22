@@ -1833,6 +1833,12 @@ a:hover {
   padding-top: 5px;
   padding-right: 10px;
 }
+#detail_content #detail_content_right .section-list li.section .pop-entity-list li.more-entity-wrapper a {
+  color: #357ebd;
+}
+#detail_content #detail_content_right .section-list li.section .pop-entity-list li.more-entity-wrapper a i {
+  color: #357ebd;
+}
 #detail_content #detail_content_right .section-list li.section .pop-article-list .pop-article {
   padding-bottom: 10px;
   border-bottom: 1px solid #f8f8f8;
