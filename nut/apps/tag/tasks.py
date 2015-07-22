@@ -80,7 +80,7 @@ def generator_article_tag(**kwargs):
     for row in data['tags']:
         tag = row.lower().strip()
         thash = md5(tag.encode('utf-8')).hexdigest()
-
+        print thash, tag
         try:
             t = Tags.objects.get(hash = thash)
         except Tags.DoesNotExist:
