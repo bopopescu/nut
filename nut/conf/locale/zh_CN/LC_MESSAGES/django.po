@@ -1424,7 +1424,7 @@ msgstr "果库"
 
 #: apps/web/templates/web/partial/header.html:23
 msgid "Selected"
-msgstr "商品"
+msgstr "精选"
 
 #: apps/web/templates/web/partial/header.html:27
 #: apps/web/templates/web/user/user_base.html:79
