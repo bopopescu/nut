@@ -40,7 +40,7 @@ def list(request, template='management/category/list.html'):
 
     page = request.GET.get('page', 1)
 
-    categories = Category.objects.all().order_by('-id')
+    categories = Category.objects.all().order_by('-status')
 
     paginator = ExtentPaginator(categories, 30)
     try:
@@ -181,7 +181,7 @@ def edit(request, cid, template="management/category/edit.html"):
         raise Http404
 
     if request.method == "POST":
-        print request.FILES
+        # print request.FILES
         _forms = EditCategoryForm(category=category, data=request.POST, files=request.FILES)
         if _forms.is_valid():
             category = _forms.save()

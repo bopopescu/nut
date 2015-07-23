@@ -397,7 +397,7 @@ class Category(BaseModel):
     objects = CategoryManager()
 
     class Meta:
-        ordering = ['-id']
+        ordering = ['-status', '-id']
 
     def __unicode__(self):
         return self.title
