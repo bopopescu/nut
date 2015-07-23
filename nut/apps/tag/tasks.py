@@ -59,7 +59,6 @@ def generator_article_tag(**kwargs):
     data = json.loads(data)
     aid = data['article']
     # print data['tags']
-
     try:
         article = Article.objects.get(pk = aid)
     except Article.DoesNotExist:
@@ -71,20 +70,17 @@ def generator_article_tag(**kwargs):
         tag_hash_list.append(md5(row.encode('utf-8')).hexdigest())
 
     # print tag_hash_list
-
     t_objs = Content_Tags.objects.filter(creator=article.creator, target_content_type=31, target_object_id=article.id)
     for row in t_objs:
         if row.tag.hash in tag_hash_list:
             print row.tag.hash
             continue
-
         row.delete()
-
 
     for row in data['tags']:
         tag = row.lower().strip()
         thash = md5(tag.encode('utf-8')).hexdigest()
-
+        # print thash, tag
         try:
             t = Tags.objects.get(hash = thash)
         except Tags.DoesNotExist:
