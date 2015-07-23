@@ -5,6 +5,10 @@ Change Log
 2. 修正添加商品 bug
 3. category 增加封面图片
 
+```
+alter table add column `cover` varchar(255) NOT NULL;
+```
+
 ### Ver 4.2.9
 1. 重构标签
 2. 页面 title 关键词调整
