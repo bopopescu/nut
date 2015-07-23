@@ -2,8 +2,10 @@ from django.conf.urls import url, include, patterns
 from django.views.generic import RedirectView
 from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, DownloadView
 from apps.web.views.discover import DiscoverView
-from apps.web.views.main import SelectionEntityList
+from apps.web.views.main import SelectionEntityList, SiteMapView
 from apps.web.views.entity import EntityCard
+
+
 urlpatterns = patterns(
     'apps.web.views',
     # url(r'^$', 'main.index', name='web_index'),
@@ -16,6 +18,8 @@ urlpatterns = patterns(
     url(r'^popular/$', 'main.popular', name='web_popular'),
     url(r'^discover/$', DiscoverView.as_view(), name='web_discover'),
     url(r'^search/$', 'main.search', name='web_search'),
+
+    url(r'^sitemap/$', SiteMapView.as_view(), name='web_sitemap_url'),
 )
 
 urlpatterns += patterns(
