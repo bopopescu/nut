@@ -6,7 +6,7 @@ Change Log
 3. category 增加封面图片
 
 ```
-alter table add column `cover` varchar(255) NOT NULL;
+alter table core_category add column `cover` varchar(255) NOT NULL;
 ```
 
 ### Ver 4.2.9
