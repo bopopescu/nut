@@ -1303,7 +1303,7 @@ a {
   margin-top: 30px ;
 }
 .media-cover-list .media-link .article-title {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 24px;
 }
 .media-cover-list .media-link .article-source {
@@ -1824,6 +1824,21 @@ a:hover {
 #detail_content #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .entity-content .entity-intro {
   font-size: 13px;
 }
+#detail_content #detail_content_right .section-list li.section .pop-entity-list li .more-popular-entity {
+  display: inline-block;
+  float: right;
+}
+#detail_content #detail_content_right .section-list li.section .pop-entity-list li.more-entity-wrapper {
+  height: 30px;
+  padding-top: 5px;
+  padding-right: 10px;
+}
+#detail_content #detail_content_right .section-list li.section .pop-entity-list li.more-entity-wrapper a {
+  color: #357ebd;
+}
+#detail_content #detail_content_right .section-list li.section .pop-entity-list li.more-entity-wrapper a i {
+  color: #357ebd;
+}
 #detail_content #detail_content_right .section-list li.section .pop-article-list .pop-article {
   padding-bottom: 10px;
   border-bottom: 1px solid #f8f8f8;
@@ -2259,6 +2274,10 @@ a:hover {
   font-size: 16px;
   line-height: 1.6;
 }
+.article-wrapper .content-wrapper div,
+.article-wrapper .note-editable div {
+  margin: 0 0 13px 0;
+}
 .article-wrapper .content-wrapper p,
 .article-wrapper .note-editable p {
   margin: 0 0 13px 0;
@@ -2300,6 +2319,64 @@ a:hover {
   transform: translate(0, 0);
   color: #c8c8c8;
 }
+.article-wrapper .content-wrapper .guoku-card,
+.article-wrapper .note-editable .guoku-card {
+  display: block;
+  width: 100%;
+  background-color: #f8f8f8;
+}
+.article-wrapper .content-wrapper .guoku-card a:after,
+.article-wrapper .note-editable .guoku-card a:after {
+  display: none;
+  content: '';
+  margin: 0px;
+}
+.article-wrapper .content-wrapper .guoku-card .entity-image-wrapper,
+.article-wrapper .note-editable .guoku-card .entity-image-wrapper {
+  padding: 10px;
+}
+.article-wrapper .content-wrapper .guoku-card .entity-image-wrapper a,
+.article-wrapper .note-editable .guoku-card .entity-image-wrapper a {
+  padding: 0px 0px;
+}
+.article-wrapper .content-wrapper .guoku-card .entity-image-wrapper img,
+.article-wrapper .note-editable .guoku-card .entity-image-wrapper img {
+  max-height: 125px;
+}
+.article-wrapper .content-wrapper .guoku-card .entity-info-wrapper,
+.article-wrapper .note-editable .guoku-card .entity-info-wrapper {
+  height: 145px;
+}
+.article-wrapper .content-wrapper .guoku-card .entity-brand,
+.article-wrapper .note-editable .guoku-card .entity-brand {
+  margin: 10px 10px;
+}
+.article-wrapper .content-wrapper .guoku-card .entity-title,
+.article-wrapper .note-editable .guoku-card .entity-title {
+  margin: 10px 10px 0px 10px;
+  font-size: 18px;
+}
+.article-wrapper .content-wrapper .guoku-card .entity-info-detail,
+.article-wrapper .note-editable .guoku-card .entity-info-detail {
+  position: absolute;
+  width: 90%;
+  bottom: 10px;
+}
+.article-wrapper .content-wrapper .guoku-card .entity-info-detail .entity-price,
+.article-wrapper .note-editable .guoku-card .entity-info-detail .entity-price {
+  display: inline-block;
+  font-family: Georgia,serif;
+  font-size: 18px;
+  color: #357ebd;
+}
+.article-wrapper .content-wrapper .guoku-card .entity-info-detail .entity-link,
+.article-wrapper .note-editable .guoku-card .entity-info-detail .entity-link {
+  float: right;
+}
+.article-wrapper .content-wrapper .guoku-card .entity-info-detail .entity-link i,
+.article-wrapper .note-editable .guoku-card .entity-info-detail .entity-link i {
+  color: #357ebd;
+}
 #detail_content .share-wrapper {
   margin-top: 60px;
   height: 70px;
@@ -2318,6 +2395,11 @@ a:hover {
   padding-top: 20px;
   margin-top: 10px;
   height: 45px;
+}
+#detail_content .share-wrapper-short .share-intro-entity {
+  color: #9d9e9f;
+  font-size: 13px;
+  float: right;
 }
 #detail_content .share-wrapper-short .jiathis_style {
   float: right;
@@ -2553,4 +2635,21 @@ a:hover {
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
+}
+.tag-app-wrapper {
+  display: none;
+}
+.contact-info-wrapper {
+  margin-top: 50px;
+}
+.contact-info-wrapper .contact-line {
+  font-size: 14px;
+  margin-left: 24px;
+  margin-top: 10px;
+}
+.contact-intro-head {
+  margin: 0px 0px 10px 0px;
+}
+.contact-list {
+  margin-bottom: 10px;
 }

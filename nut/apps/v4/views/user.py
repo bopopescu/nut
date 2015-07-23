@@ -1,5 +1,5 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.models import Entity_Tag, GKUser, Entity_Like, Note, User_Follow
+from apps.core.models import GKUser, Entity_Like, Note, User_Follow
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 
 from apps.mobile.lib.sign import check_sign
@@ -14,6 +14,9 @@ from django.core.paginator import Paginator, EmptyPage
 from django.utils.log import getLogger
 from datetime import datetime
 import time
+
+from apps.tag.models import Content_Tags
+# from apps.v4.models import APIUser
 
 
 log = getLogger('django')
@@ -148,13 +151,13 @@ def detail(request, user_id):
 def tag_list(request, user_id):
 
     try:
-        _user = GKUser.objects.get(pk=user_id)
-    except GKUser.DoesNotExist:
+        _user = APIUser.objects.get(pk=user_id)
+    except APIUser.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
     res = {}
-    res['user'] = _user.v3_toDict()
-    res['tags'] = Entity_Tag.objects.user_tags(user=_user.pk)
+    res['user'] = _user.v4_toDict()
+    res['tags'] = Content_Tags.objects.user_tags(user=_user.pk)
     return SuccessJsonResponse(res)
 
 
@@ -167,12 +170,12 @@ def tag_detail(request, user_id, tag):
     except GKUser.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
-    tags = Entity_Tag.objects.filter(user_id=user_id, tag__tag=tag)
-
-
+    tags = Content_Tags.objects.filter(creator_id=user_id, tag__name=tag, target_content_type_id=24)
     try:
         _session = Session_Key.objects.get(session_key = _key)
-        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(tags.values_list('entity_id', flat=True)))
+        _eid_list = Note.objects.filter(pk__in=tags.values_list('target_object_id', flat=True)).values_list('entity_id', flat=True)
+        # eid_list = Note.objects.filter(pk__in=)
+        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(_eid_list))
     except Session_Key.DoesNotExist:
         el = None
 
@@ -180,11 +183,8 @@ def tag_detail(request, user_id, tag):
     res['user'] = user.v3_toDict()
     res['entity_list'] = []
     for row in tags:
-        entity = row.entity
+        entity = row.target.entity
         res['entity_list'].append(entity.v3_toDict(user_like_list=el))
-        # log.info(entity)
-
-    log.info(res)
 
     return SuccessJsonResponse(res)
 

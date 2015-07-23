@@ -500,20 +500,25 @@ $.ajaxSetup({
             //console.log(data.data.user_context);
                             addEntityNote.find("a img").attr("src", data.data.user_avatar);
             // addEntityNote.find('.media-heading').html(data.data.user_context.nickname);
-                            var title;
-                            if (data.data.taobao_id == undefined) {
-                                title = $.trim(data.data.jd_title);
-                                var brand = $.trim(data.data.brand);
-                                addEntity.find(".title").text(title);
-                                addEntity.find("input[name=title]").val(title);
-                                addEntity.find("input[name=brand]").val(brand);
-                            } else {
-                                $(".detail_title span:eq(1)").text(data.data.taobao_title);
-            //  $(".detail_title_input").val(data.data.taobao_title);
-                                title = $.trim(data.data.taobao_title);
-                                addEntity.find(".title").text(title);
-                                addEntity.find("input[name=title]").val(title);
-                            }
+
+                            var title = $.trim(data.data.title);
+                            var brand = $.trim(data.data.brand);
+                            addEntity.find(".title").text(title);
+                            addEntity.find("input[name=title]").val(title);
+                            addEntity.find("input[name=brand]").val(brand);
+            //                if (data.data.taobao_id == undefined) {
+            //                    title = $.trim(data.data.jd_title);
+            //                    var brand = $.trim(data.data.brand);
+            //                    addEntity.find(".title").text(title);
+            //                    addEntity.find("input[name=title]").val(title);
+            //                    addEntity.find("input[name=brand]").val(brand);
+            //                } else {
+            //                    $(".detail_title span:eq(1)").text(data.data.taobao_title);
+            ////  $(".detail_title_input").val(data.data.taobao_title);
+            //                    title = $.trim(data.data.taobao_title);
+            //                    addEntity.find(".title").text(title);
+            //                    addEntity.find("input[name=title]").val(title);
+            //                }
                             addEntity.find(".entity-chief-img").attr('src', data.data.chief_image_url);
                             imageThumbails.html("");
                             var html_string = "";
@@ -539,21 +544,24 @@ $.ajaxSetup({
                             }
                             createNewEntity.changeChiefImage(imageThumbails);
 
-                            if(data.data.taobao_id == undefined){
-                                $('<input type="hidden" name="jd_id" value="'+data.data.jd_id+'">').appendTo($(".add-entity-note form"));
+                            //if(data.data.taobao_id == undefined){
+                            //$('<input type="hidden" name="origin_id" value="'+data.data.origin_id+'">').appendTo($(".add-entity-note form"));
             //  '<input type="hidden" name="jd_title" value="'+data.data.jd_title+'">').appendTo($(".add-entity-note form"));
             //$(".detail_taobao_brand").val(data.data.brand);
-                            } else {
-                                $('<input type="hidden" name="taobao_id" value="'+data.data.taobao_id+'">' ).appendTo($(".add-entity-note form"));
-            //'<input type="hidden" name="taobao_title" value="'+data.data.taobao_title+'">').appendTo($(".add-entity-note form"));
-                            }
-                            $('<input type="hidden" name="shop_link" value="'+data.data.shop_link+'">' +
+            //                } else {
+            //                    $('<input type="hidden" name="taobao_id" value="'+data.data.taobao_id+'">' ).appendTo($(".add-entity-note form"));
+            ////'<input type="hidden" name="taobao_title" value="'+data.data.taobao_title+'">').appendTo($(".add-entity-note form"));
+            //                }
+                            $(
+                                '<input type="hidden" name="origin_id" value="'+data.data.origin_id+'">' +
+                                '<input type="hidden" name="origin_source" value="'+data.data.origin_source+'">' +
+                                '<input type="hidden" name="shop_link" value="'+data.data.shop_link+'">' +
                                 '<input type="hidden" name="shop_nick" value="'+data.data.shop_nick+'">' +
                                 '<input type="hidden" name="url" value="'+data.data.cand_url+'">' +
                                 '<input type="hidden" name="price" value="'+data.data.price+'">' +
                                 '<input type="hidden" name="chief_image_url" value="'+data.data.chief_image_url+'">' +
                                 '<input type="hidden" name="cid" value="'+data.data.cid+'">' +
-                                '<input type="hidden" name="selected_category_id" value="'+data.data.selected_category_id+'">' +
+                                //'<input type="hidden" name="selected_category_id" value="'+data.data.selected_category_id+'">' +
                                 '<input type="hidden" name="cand_url" value="'+data.data.cand_url+'">' +
                                 '<input name="user_id" type="hidden" value="'+data.data.user_id+'">').appendTo($(".add-entity-note form")
                             );
@@ -1406,8 +1414,6 @@ $.ajaxSetup({
 
         selection_article.init_loader();
         article_detail.init_loader();
-
-
 
     })();
 

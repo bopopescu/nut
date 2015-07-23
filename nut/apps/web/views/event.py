@@ -11,11 +11,12 @@ from django.template.base import TemplateDoesNotExist
 
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.models import Show_Event_Banner, Show_Editor_Recommendation, Event
-from apps.core.models import Tag, Entity, Entity_Like, Entity_Tag
+from apps.core.models import Tag, Entity, Entity_Like, Entity_Tag, Note
 from apps.core.utils.http import JSONResponse
+from apps.tag.models import Tags, Content_Tags
+
+from hashlib import md5
 # from datetime import datetime
-
-
 
 from django.utils.log import getLogger
 log = getLogger('django')
@@ -60,13 +61,13 @@ def event(request, slug, template='web/events/home'):
     except TemplateDoesNotExist:
         template = "web/events/home.html"
 
-    tag = Tag.objects.get(tag_hash=event.tag)
-    inner_qs = Entity_Tag.objects.filter(tag=tag).values_list('entity_id', flat=True)
+    hash = md5(event.tag.encode('utf-8')).hexdigest()
+    tag = Tags.objects.get(hash=hash)
+    inner_qs = Content_Tags.objects.filter(tag=tag, target_content_type=24).values_list('target_object_id', flat=True)
+    log.info(inner_qs)
+    _eid_list = Note.objects.filter(pk__in=inner_qs).values_list('entity_id', flat=True)
 
-    _entity_list = Entity.objects.filter(id__in=inner_qs, status=Entity.selection)
-    log.info(_entity_list)
-    # _page_num = request.GET.get('p', 1)
-    # _paginator = Paginator(_page_num, 24, len(_entity_id_list))
+    _entity_list = Entity.objects.filter(id__in=list(set(_eid_list)), status=Entity.selection)
 
     _paginator = ExtentPaginator(_entity_list, 30)
 
@@ -83,7 +84,6 @@ def event(request, slug, template='web/events/home'):
         e = _entities.object_list
         el = Entity_Like.objects.filter(entity_id__in=list(e), user=request.user).values_list('entity_id', flat=True)
         # el =
-
 
     _show_event_banners = Show_Event_Banner.objects.filter(event=event, position__gt=0)
     _show_editor_recommendations = Show_Editor_Recommendation.objects.filter(event=event, position__gt=0)
@@ -104,8 +104,9 @@ def event(request, slug, template='web/events/home'):
                 })
 
                 _data = _t.render(_c)
-            except e :
-                log('render error'+ e  );
+            except Exception, e:
+                log.error('render error', e.message)
+                _data = list()
 
             _ret = {
                 'status' : '1',
@@ -116,12 +117,12 @@ def event(request, slug, template='web/events/home'):
                 content_type='text/html; charset=utf-8',
         )
 
-    log.info('tag text %s', event.tag)
+    # log.info('tag text %s', event.tag)
     return render_to_response(
         template,
         {
             'event': event,
-            'tag_text': tag.tag,
+            'tag_text': event.tag,
             'show_event_banners': _show_event_banners,
             'show_editor_recommendations': _show_editor_recommendations,
             'entities': _entities,

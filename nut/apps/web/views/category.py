@@ -4,13 +4,13 @@ from django.shortcuts import render_to_response
 from django.http import Http404
 from django.views.decorators.http import require_GET
 from django.template import RequestContext
-from django.views.generic import ListView
+from django.views.generic import ListView, RedirectView
 from django.views.generic.base import View, TemplateResponseMixin, ContextMixin
 
 from apps.core.models import Category, Sub_Category, Entity, Entity_Like
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
-
-from django.db.models import Count
+from django.core.urlresolvers import reverse, NoReverseMatch
+# from django.db.models import Count
 
 from django.utils.log import getLogger
 log = getLogger('django')
@@ -82,6 +82,23 @@ def _get_entity_like_list(entity_list, request):
         e = entity_list.object_list
         el = Entity_Like.objects.filter(entity_id__in=tuple(e), user=request.user).values_list('entity_id', flat=True)
     return el
+
+
+class OldCategory(RedirectView):
+    permanent = True
+    pattern_name = 'web_category_detail'
+
+    def get_redirect_url(self, *args, **kwargs):
+        try:
+            url = reverse(self.pattern_name, args=[self.cid], kwargs=kwargs)
+        except NoReverseMatch:
+            return None
+        return url
+
+    def get(self, request, *args, **kwargs):
+        self.cid = kwargs.pop('cid', None)
+        assert self.cid is not None
+        return super(OldCategory, self).get(request, *args, **kwargs)
 
 
 @require_GET

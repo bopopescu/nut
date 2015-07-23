@@ -7,8 +7,8 @@
 {% endblock %}
 
 {% block title %}
-    {% if entity.brand|length != 0 %}{% block subtitle %}{{ entity.brand }} {% endblock %}{% endif %}{{ entity.title }} - {{ entity.category }} - 【精英消费指南】
-{% endblock %}
+    {% if entity.brand|length != 0 %}{{ entity.brand }}{% endif %}{{ entity.title }} - {{ entity.category }} - 【精英消费指南】
+{% endblock %}{% block suffix %} - 果库{% endblock %}
 
 {% block body_class %}
     gray-body
@@ -55,7 +55,9 @@
                             <div class="report-wrapper" id="report_trigger" report-url="/entity/{{ entity.pk }}/report/">
                                 <i class="fa fa-flag-o"></i>
                             </div>
+
                             <div class="jiathis_style">
+
                                 <a class="jiathis_button_tsina"></a>
                                 <a class="jiathis_button_weixin"></a>
                                 <a class="jiathis_button_qzone"></a>
@@ -63,6 +65,7 @@
                                 <a class="jiathis_button_tieba"></a>
                                 <a href="http://www.jiathis.com/share?uid=2038803" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
                             </div>
+                            <span class="share-intro-entity">分享到：</span>
                     </div>
                     <div class="divider"></div>
 {#                    {% if entity_brand and entity_brand.intro %}#}

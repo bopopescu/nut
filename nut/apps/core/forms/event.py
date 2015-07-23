@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from apps.core.models import Event, Tag , Event_Status
+from apps.tag.models import Tags
 from django.utils.log import getLogger
 
 log = getLogger('django')
@@ -59,8 +60,8 @@ class BaseEventForm(forms.Form):
         _tag = self.cleaned_data.get('tag')
 
         try:
-            Tag.objects.get(tag_hash=_tag)
-        except Tag.DoesNotExist:
+            Tags.objects.get(name=_tag)
+        except Tags.DoesNotExist:
             raise forms.ValidationError(
                 _('tag is not exist'),
             )

@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from apps.core.models import Note, Tag, Entity_Tag
+from apps.core.models import Note
+from apps.v4.models import APINote
 from apps.mobile.models import Session_Key
-from apps.core.utils.tag import TagParser
-from apps.notifications import notify
-from datetime import datetime
-
-
 
 from django.utils.log import getLogger
 
@@ -40,7 +36,7 @@ class PostNoteForms(forms.Form):
     def clean_note(self):
         _note_text = self.cleaned_data.get('note')
         _note_text = _note_text.replace(u"＃", "#")
-        return _note_text
+        return _note_text.strip()
 
     def save(self):
         _note_text = self.cleaned_data.get('note')
@@ -56,8 +52,8 @@ class PostNoteForms(forms.Form):
             note.note = _note_text
             note.save()
             # notify.send(note.user, recipient=note.entity.user, action_object=note, verb='post note', target=note.entity)
-        t = TagParser(_note_text)
-        t.create_tag(user_id=_user_id, entity_id=self.entity_cache.pk)
+        # t = TagParser(_note_text)
+        # t.create_tag(user_id=_user_id, entity_id=self.entity_cache.pk)
 
         return note.v3_toDict()
 
@@ -75,17 +71,12 @@ class UpdateNoteForms(forms.Form):
     def clean_note(self):
         _note_text = self.cleaned_data.get('note')
         _note_text = _note_text.replace(u"＃", "#")
-        return _note_text
+        return _note_text.strip()
 
     def update(self):
         _note_text = self.cleaned_data.get('note')
-        # _note_text = _note_text.replace(u"＃", "#")
-
-        # _user_id = self.cleaned_data.get('session')
         self.note_cache.note = _note_text
         self.note_cache.save()
-        t = TagParser(_note_text)
-        t.create_tag(user_id=self.note_cache.user_id, entity_id=self.note_cache.entity_id)
 
         return self.note_cache.v3_toDict()
 

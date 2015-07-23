@@ -1,4 +1,5 @@
 from django.views.generic import ListView
+from django.http import Http404
 from apps.tag.models import Tags, Content_Tags
 from apps.core.extend.paginator import ExtentPaginator
 
@@ -13,7 +14,6 @@ class TagListView(ListView):
     template_name = 'tag/list.html'
 
 
-
 class TagEntityView(ListView):
 
     http_method_names = ['get']
@@ -22,8 +22,11 @@ class TagEntityView(ListView):
     paginator_class = ExtentPaginator
 
     def get_queryset(self):
-        self.tag = Tags.objects.get(name=self.tag_name)
-        self.queryset = Content_Tags.objects.filter(tag=self.tag)
+        try:
+            self.tag = Tags.objects.get(name=self.tag_name)
+        except Tags.DoesNotExist:
+            raise Http404
+        self.queryset = Content_Tags.objects.filter(tag=self.tag, target_content_type_id=24)
         return self.queryset
 
     def get_context_data(self, **kwargs):
@@ -38,7 +41,7 @@ class TagEntityView(ListView):
     def get(self, request, *args, **kwargs):
         self.tag_name = kwargs.pop('tag_name', None)
         assert self.tag_name is not None
-
+        self.tag_name = self.tag_name.lower()
         return super(TagEntityView, self).get(request, *args, **kwargs)
         # return self.render_to_response(context={})
 

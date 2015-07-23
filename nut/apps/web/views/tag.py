@@ -15,37 +15,39 @@ def detail(request, hash, template="web/tags/detail.html"):
     except Tag.DoesNotExist:
         raise Http404
 
-    _page = request.GET.get('page', 1)
+    return HttpResponseRedirect(reverse('tag_entities_url', args=[_tag.tag]))
 
-    # inner_qs = Entity_Tag.objects.filter(tag=_tag)
-    # log.info(e)
-    inner_qs = Entity_Tag.objects.filter(tag=_tag).values_list('entity_id', flat=True)
-    _entity_list = Entity.objects.filter(id__in=inner_qs, status=Entity.selection)
-    # log.info(entities)
-    paginator = ExtentPaginator(_entity_list, 24)
-
-    try:
-        _entities = paginator.page(_page)
-    except PageNotAnInteger:
-        _entities = paginator.page(1)
-    except EmptyPage:
-        raise Http404
-
-    el = list()
-    if request.user.is_authenticated():
-        e = _entities.object_list
-        el = Entity_Like.objects.filter(entity_id__in=list(e), user=request.user).values_list('entity_id', flat=True)
-    log.info(el)
-
-    return render_to_response(
-        template,
-        {
-            'tag': _tag,
-            'entities':_entities,
-            'user_entity_likes': el,
-        },
-        context_instance = RequestContext(request),
-    )
+    # _page = request.GET.get('page', 1)
+    #
+    # # inner_qs = Entity_Tag.objects.filter(tag=_tag)
+    # # log.info(e)
+    # inner_qs = Entity_Tag.objects.filter(tag=_tag).values_list('entity_id', flat=True)
+    # _entity_list = Entity.objects.filter(id__in=inner_qs, status=Entity.selection)
+    # # log.info(entities)
+    # paginator = ExtentPaginator(_entity_list, 24)
+    #
+    # try:
+    #     _entities = paginator.page(_page)
+    # except PageNotAnInteger:
+    #     _entities = paginator.page(1)
+    # except EmptyPage:
+    #     raise Http404
+    #
+    # el = list()
+    # if request.user.is_authenticated():
+    #     e = _entities.object_list
+    #     el = Entity_Like.objects.filter(entity_id__in=list(e), user=request.user).values_list('entity_id', flat=True)
+    # log.info(el)
+    #
+    # return render_to_response(
+    #     template,
+    #     {
+    #         'tag': _tag,
+    #         'entities':_entities,
+    #         'user_entity_likes': el,
+    #     },
+    #     context_instance = RequestContext(request),
+    # )
 
 
 def text_to_detail(request, tag_text):
