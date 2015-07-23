@@ -157,7 +157,7 @@ def sub_category_edit(request, scid, template="management/category/sub_category_
 def create(request, template="management/category/create.html"):
 
     if request.method == "POST":
-        _forms = CreateCategoryForm(request.POST)
+        _forms = CreateCategoryForm(data=request.POST, files=request.FILES)
         if _forms.is_valid():
             _forms.save()
     else:
@@ -181,7 +181,8 @@ def edit(request, cid, template="management/category/edit.html"):
         raise Http404
 
     if request.method == "POST":
-        _forms = EditCategoryForm(category=category, data=request.POST)
+        print request.FILES
+        _forms = EditCategoryForm(category=category, data=request.POST, files=request.FILES)
         if _forms.is_valid():
             category = _forms.save()
             return HttpResponseRedirect(reverse('management_category_list'))
@@ -197,6 +198,7 @@ def edit(request, cid, template="management/category/edit.html"):
     return render_to_response(
         template,
         {
+            'category': category,
             'forms':_forms,
             'button': _('update'),
         },

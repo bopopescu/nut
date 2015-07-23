@@ -1,5 +1,6 @@
 {% extends 'management/management_base.html' %}
 {% load i18n %}
+{% load guoku %}
 
 {% block content %}
     <h1 class="page-header">{% trans 'category' %}</h1>
@@ -16,7 +17,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
-{#                        <th>{% trans 'icon' %}</th>#}
+                        <th>{% trans 'cover' %}</th>
                         <th>{% trans 'name' %}</th>
                         <th>{% trans 'status' %}</th>
                         <th>{% trans 'operation' %}</th>
@@ -26,7 +27,8 @@
                     {% for category in category_list %}
                         <tr>
                             <td>{{ category.pk }}</td>
-{#                            <td><img src="{{ sub_category.icon_large_url }}"></td>#}
+
+                            <td><img src="{{ category.cover_url|resize:'300' }}"></td>
                             <td><a href="{% url 'management_sub_category_list' category.pk %}">{{ category.title }}</a></td>
                             <td>{{ category.status|yesno }}</td>
                             <td>

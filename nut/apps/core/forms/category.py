@@ -20,6 +20,12 @@ YES_OR_NO = (
 
 class CategoryForm(forms.Form):
 
+    cover = forms.FileField(
+        label=_('cover'),
+        widget=forms.FileInput(),
+        required=False,
+    )
+
     title = forms.CharField(
         label=_('title'),
         widget=forms.TextInput(attrs={'class':'form-control'}),
@@ -31,17 +37,28 @@ class CategoryForm(forms.Form):
         widget=forms.Select(attrs={'class':'form-control'}),
     )
 
+    def clean_status(self):
+        _status = self.cleaned_data.get('status')
+        return int(_status)
+
 
 class CreateCategoryForm(CategoryForm):
 
     def save(self):
         _title = self.cleaned_data.get('title')
         _status = self.cleaned_data.get('status')
-        _status = int(_status)
+        _cover = self.cleaned_data.get('cover')
+        # _status = int(_status)
         category = Category(
             title = _title,
             status = _status,
         )
+
+        if _cover:
+            # log.info("icon %s" % _cover)
+            image_file = HandleImage(_cover)
+            cover_file = image_file.save(path=image_path)
+            category.cover = cover_file
         category.save()
         return category
 
@@ -58,12 +75,19 @@ class EditCategoryForm(CategoryForm):
 
         _title = self.cleaned_data.get('title')
         _status = self.cleaned_data.get('status')
-
-        _status = int(_status)
+        _cover = self.cleaned_data.get('cover')
+        # _status = int(_status)
         # print _status
 
         self.category_cache.title = _title
         self.category_cache.status = _status
+
+        if _cover:
+            log.info("icon %s" % _cover)
+            image_file = HandleImage(_cover)
+            cover_file = image_file.save(path=image_path)
+            self.category_cache.cover = cover_file
+
         self.category_cache.save()
 
         return self.category_cache
