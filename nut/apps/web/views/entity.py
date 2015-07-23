@@ -8,18 +8,55 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.utils.http import JSONResponse
-from apps.core.models import Entity, Entity_Like, Note, Note_Comment, Note_Poke, Sub_Category , Entity_Tag, Brand
+from apps.core.models import Entity, Entity_Like, Note, Note_Comment, Note_Poke, Brand
 from apps.core.tasks.entity import like_task, unlike_task
 from apps.web.forms.comment import CommentForm
 from apps.web.forms.note import NoteForm
 from apps.web.forms.entity import EntityURLFrom, CreateEntityForm, ReportForms
 # from apps.core.tasks.entity import like_task
 from apps.web.utils.viewtools import add_side_bar_context_data
+from apps.tag.models import Content_Tags
 
 from django.utils.log import getLogger
-
+from django.views.generic.detail import DetailView
+from braces.views import  AjaxResponseMixin,JSONResponseMixin
 
 log = getLogger('django')
+
+class EntityCard(AjaxResponseMixin, JSONResponseMixin , DetailView):
+    template_name = 'web/entity/entity_card.html'
+    def get_object(self, queryset=None):
+        _entity_hash =  self.kwargs.get('entity_hash', None)
+        if _entity_hash is None:
+            raise Exception('can not find hash')
+        _entity = Entity.objects.get(entity_hash = _entity_hash, status__gte=Entity.freeze)
+        return _entity
+    def get(self, request, *args, **kwargs):
+#       TODO: render template here
+        pass
+    def get_ajax(self, request, *args, **kwargs):
+        _entity = None
+        data = {}
+        try:
+            _entity = self.get_object()
+        except Exception as e:
+            data = {
+                'error': 1,
+                'message': e.message
+            }
+            return self.render_json_response(data);
+
+        # entity is ok now
+        t = loader.get_template(template_name=self.template_name)
+        c = RequestContext(request,{
+            'entity': _entity
+        })
+        html = t.render(c)
+        data = {
+            'error': 0,
+            'html' : html
+        }
+        return self.render_json_response(data)
 
 def get_entity_brand(entity):
     if not bool(entity.brand):
@@ -42,6 +79,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
     except Entity.DoesNotExist:
         raise Http404
 
+    nid_list = _entity.notes.all().values_list('id', flat=True)
     if request.user.is_authenticated():
         _user = request.user
         # pop up a note form if there is a note in entity's notes submit by current user .
@@ -52,11 +90,10 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
             _note_forms = NoteForm(instance=_notes[0])
         else:
             _note_forms = NoteForm()
+        _user_pokes = Note_Poke.objects.filter(note_id__in=list(nid_list), user=request.user).values_list('note_id', flat=True)
+        # log.info(_user_pokes)
 
-
-        n = _entity.notes.all().values_list('id', flat=True)
-        _user_pokes = Note_Poke.objects.filter(note_id__in=list(n), user=request.user).values_list('note_id', flat=True)
-        log.info(_user_pokes)
+    tags = Content_Tags.objects.filter(target_object_id__in=list(nid_list))[:10]
 
     _user_post_note = True
     try:
@@ -71,10 +108,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
     except Entity_Like.DoesNotExist:
         pass
 
-
     _guess_entities = Entity.objects.guess(category_id=_entity.category_id, count=9, exclude_id=_entity.pk)
-
-
 
     context = {
             'entity': _entity,
@@ -84,8 +118,9 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
             'user_post_note':_user_post_note,
             'note_forms':_note_forms or NoteForm(),
             'guess_entities': _guess_entities,
-            'likers': _entity.likes.all()[:13],
+            # 'likers': _entity.likes.all()[:13],
             'is_entity_detail':True,
+            'tags':tags,
             # 'entity_brand': get_entity_brand(_entity),
             # 'pop_tags' : _pop_tags
         }

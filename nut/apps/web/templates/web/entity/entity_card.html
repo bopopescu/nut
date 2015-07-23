@@ -1,0 +1,24 @@
+{% load i18n staticfiles %}
+{% load common guoku %}
+<div guoku_ele="True" class="guoku-card container-fluid">
+    <div class="row">
+        <div class="entity-image-wrapper col-xs-3">
+            <a href="{{ entity.get_absolute_url }}#from=article" target="_blank">
+            <img class="img-responsive" src="{{ entity.chief_image|resize:'240' }}" />
+            </a>
+        </div>
+        <div class="entity-info-wrapper col-xs-9">
+            <div class="entity-brand">{% if entity.brand|length != 0 %}{{ entity.brand }}{% endif %}</div>
+            <div class="entity-title">{{ entity.title }}</div>
+            <div class="entity-info-detail">
+                <div class="entity-price">&#65509;{{ entity.price }}</div>
+                <div class="entity-link">
+                    <a href="{{ entity.get_absolute_url }}#from=article" target="_blank">
+                    查看详情<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

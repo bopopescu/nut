@@ -444,7 +444,7 @@ class Sub_Category(BaseModel):
         return "http://imgcdn.guoku.com/category/small/%s" % self.icon
 
     def get_absolute_url(self):
-        return "/c/%s/" % self.id
+        return "/category/%s/" % self.id
 
     def v3_toDict(self):
         res = dict()
@@ -629,8 +629,8 @@ class Entity(BaseModel):
         key = 'entity:note:%s', self.pk
         try:
             cache.incr(key)
-        except ValueError:
-            cache.set(key, self.notes.count())
+        except Exception:
+            cache.set(key, int(self.notes.count()))
 
     @property
     def is_in_selection(self):
@@ -638,10 +638,10 @@ class Entity(BaseModel):
 
     @property
     def enter_selection_time(self):
-        _tm = None
+        # _tm = None
         try :
             _tm = self.selection_entity.pub_time
-        except:
+        except Exception:
             _tm = self.created_time
 
         return _tm
@@ -747,7 +747,7 @@ class Buy_Link(BaseModel):
     (remove, soldouot, sale) = xrange(3)
     Buy_Link_STATUS_CHOICES = [
         (sale, _("sale")),
-        (soldouot, _("soldout")),
+        (soldouot, _("soldouot")),
         (remove, _("remove")),
     ]
     entity = models.ForeignKey(Entity, related_name='buy_links')
@@ -1139,6 +1139,16 @@ class Article(models.Model):
     def get_absolute_url(self):
         return "/articles/%s/" % self.pk
 
+    # will cause circuler reference
+    # def tag_string(self):
+    #     tids = Content_Tags.objects.filter(target_content_type=31, target_object_id=self.pk).values_list('tag_id', flat=True)
+    #     tags = Tags.objects.filter(pk__in=tids)
+    #     tag_list=[]
+    #     for row in tags:
+    #         tag_list.append(row.name)
+    #     tag_string = ",".join(tag_list)
+    #     return tag_string
+
 # use ForeignKey instead of  oneToOne for selection entity ,
 # this means , an article can be published many times , without first been removed from selection
 # this design is on propose
@@ -1162,6 +1172,7 @@ class Media(models.Model):
     file_path = models.URLField()
     content_type = models.CharField(max_length=30)
     upload_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True, editable=False)
+    creator=models.ForeignKey(GKUser, related_name='media_entries')
 
     class Meta:
         ordering = ['-upload_datetime']
@@ -1211,7 +1222,7 @@ class Event(models.Model):
 
     @property
     def tag_url(self):
-        return reverse('web_tag_detail', args=[self.tag])
+        return reverse('tag_entities_url', args=[self.tag])
 
     @property
     def slug_url(self):
@@ -1381,10 +1392,9 @@ post_save.connect(user_like_notification, sender=Entity_Like, dispatch_uid="user
 from django.core import serializers
 from apps.tag.tasks import generator_tag
 def user_post_note_notification(sender, instance, created, **kwargs):
-    # log.info(created)
+
     data = serializers.serialize('json', [instance])
-    # log.info(data)
-    generator_tag(data=data)
+    generator_tag.delay(data=data)
 
     if issubclass(sender, Note) and created:
         # log.info(instance.user)
@@ -1398,7 +1408,7 @@ post_save.connect(user_post_note_notification, sender=Note, dispatch_uid="user_p
 def user_post_comment_notification(sender, instance, created, **kwargs):
     # log.info(created)
     if issubclass(sender, Note_Comment) and created:
-        log.info(instance.user)
+        # log.info(instance.user)
         if instance.user.is_active == GKUser.remove:
             return
 
@@ -1409,7 +1419,6 @@ def user_post_comment_notification(sender, instance, created, **kwargs):
                 notify.send(instance.user, recipient=user, verb="replied comment", action_object=instance, target=instance)
             except GKUser.DoesNotExist, e:
                 log.error("Error: %s" % e.message)
-        # log.info(instance.replied_user_id)
 
 post_save.connect(user_post_comment_notification, sender=Note_Comment, dispatch_uid="user_post_comment_action_notification")
 

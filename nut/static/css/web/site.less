@@ -1,35 +1,5 @@
-@import "mixin.less";
-//vars
-@light-gray:#9d9d9d;
-@border-gray:#e6e6e6;
-@link-color:#357ebd;
-@like-color:#FF1F77;
-@common-gray: #9D9E9F;
-@common-text-color: #424242;
-@very-light-gray:#F8F8F8;
-@panel-background-color: #fff;
-@default-background:#fff;
-
-@tag-hover-background:#F0F0F0;
-@tag-border-color:@border-gray;
-
-@light-blue:#5ba4cf;
-@dark-red:rgb(140, 58, 58);
-
-@star-color:#FF9500;
-
-@primary-size : 16px ;
-@title-size:22px;
-@subtitle-size:18px;
-@mini-size: 13px;
-
-@hover-opacity:0.7;
-
-@global-box-radius:4px;
-
-@bottom-border-color:#d5d5d5;
-@guoku-editor-width : 600px;
-@common-shadow: 0px 2px 3px #ddd;
+@import "../lib/mixin.less";
+@import "../lib/var.less";
 
 .guoku-btn-normal{
             font-size:@primary-size;
@@ -71,11 +41,11 @@
 }
 
 .common-bordered{
-  border: 1px solid #e6e6e6;
+  border: 1px solid @border-gray;
 }
 
 .bottom-bordered{
-  border-bottom: 1px solid #e6e6e6;
+  border-bottom: 1px solid @border-gray;
 }
 
 @-moz-document url-prefix() {
@@ -1380,7 +1350,7 @@ padding-left: 15px;
 
     .media-link{
         .article-title{
-            font-size: 14px;
+            font-size: 16px;
             line-height: 24px;
         }
         .article-source,{
@@ -1830,6 +1800,22 @@ a:hover{text-decoration:underline;}
 
 
                     }
+                    .more-popular-entity{
+                       display: inline-block;
+                       float:right;
+                    }
+                 }
+                 li.more-entity-wrapper{
+                    height:30px;
+                    padding-top:5px;
+                    padding-right:10px;
+                    a{
+                      color: @link-color;
+                      i{
+                        color: @link-color;
+                      }
+                    }
+
                  }
               }
               .pop-article-list{
@@ -2274,6 +2260,7 @@ a:hover{text-decoration:underline;}
         }
     }
 
+
     ul{
        list-style-type:disc;
        li{
@@ -2317,10 +2304,15 @@ a:hover{text-decoration:underline;}
 
      }
     .content-wrapper,.note-editable{
+
+
        font-family: @article-font-family;
        color:@article-font-color;
        font-size: @article-content-size;
        line-height: 1.6;
+       div {
+         margin: @article-block-element-margin;
+       }
        p{
          margin: @article-block-element-margin;
        }
@@ -2359,6 +2351,54 @@ a:hover{text-decoration:underline;}
               transform: translate(0, 0);
                color:#c8c8c8;
        }
+
+       .guoku-card{
+          display: block;
+          width: 100%;
+          background-color: @very-light-gray;
+          a:after{
+                  display:none;
+                  content:'';
+                  margin:0px;
+                }
+          .entity-image-wrapper{
+            padding: 10px;
+            a{
+              padding: 0px 0px;
+            }
+            img{
+              max-height: 125px;
+            }
+          }
+          .entity-info-wrapper{
+            height: 145px;
+          }
+          .entity-brand{
+            margin:10px 10px;
+          }
+          .entity-title{
+            margin: 10px 10px 0px 10px;
+            font-size: @subtitle-size;
+          }
+          .entity-info-detail{
+              position: absolute;
+              width: 90%;
+              bottom: 10px;
+             .entity-price{
+                display: inline-block;
+                font-family: Georgia,serif;
+                font-size: @subtitle-size;
+                color: @link-color;
+             }
+             .entity-link{
+                float:right;
+
+                i{
+                  color: @link-color;
+                }
+             }
+          }
+       }
     }
 }
 
@@ -2381,6 +2421,11 @@ a:hover{text-decoration:underline;}
     padding-top:20px;
     margin-top:10px;
     height: 45px;
+    .share-intro-entity{
+      color: @common-gray;
+      font-size: @mini-size;
+      float: right;
+    }
     .jiathis_style{
        float:right;
     }
@@ -2654,4 +2699,27 @@ a:hover{text-decoration:underline;}
        .border-radius(50%);
      }
    }
+}
+
+
+.tag-app-wrapper{
+  display: none;
+}
+
+.contact-info-wrapper{
+  margin-top: 50px;
+  .contact-line{
+      font-size: 14px;
+      margin-left:24px;
+      margin-top:10px;
+  }
+}
+
+.contact-intro-head{
+   margin: 0px 0px 10px 0px;
+
+}
+
+.contact-list{
+  margin-bottom: 10px;
 }

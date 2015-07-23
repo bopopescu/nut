@@ -9,7 +9,7 @@ class TagParser():
     text_string = ""
 
     def __init__(self, text_sting):
-        self.text_string = text_sting
+        self.text_string = text_sting.lower()
         self._tags = self.parse()
 
     def _is_in_tag_interval(self, ch):
@@ -54,7 +54,10 @@ class TagParser():
         for row in self._tags:
             res.update(
                 {
-                    row: md5(row.encode('utf-8')).hexdigest()
+                    'data': [
+                        row,
+                        md5(row.encode('utf-8')).hexdigest()
+                    ]
                 }
             )
         return res

@@ -17,9 +17,7 @@
     </div>
     <div class="content-digest">
 {#    TODO : use bleach to clean output#}
-        {% autoescape off  %}
             {{ article.content|striptags|truncatechars:100 }}
-        {% endautoescape %}
     </div>
     <div class="info-wrapper">
 {#        <span class="editor">#}

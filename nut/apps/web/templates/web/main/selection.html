@@ -1,12 +1,11 @@
 {% extends 'web/base.html' %}
 {% load i18n %}
 
-
-{% block title %}{% block subtitle %}{% trans "selection" %}{% endblock %}{% endblock %}
-
+{% block title %}{% trans "selection" %}{% endblock %}{% block suffix %} - 果库{% endblock %}
 
 {% block content %}
     <div class="container">
+        <h2 class="sr-only">精选，精英消费指南</h2>
         <div class="row" id="selection" data-refresh="{{ refresh_datetime }}">
             {% for selection in selections %}
                 {% include "web/main/partial/selection_item_list.html" with entity=selection.entity %}
