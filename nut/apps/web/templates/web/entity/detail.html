@@ -23,11 +23,11 @@
     {% endif %}
 {% endblock %}
 
-{% block content %}
-{#    {% debug %}#}
-    <div class="container goods_detail" id="detail" xmlns="http://www.w3.org/1999/html">
-        <h2 class="hidden">{{ entity.title }}</h2>
+{% block h1 %}{% if entity.brand|length > 0 %}{{ entity.brand }},{% endif %}{{ entity.title }}{% if tags|length > 0 %}{% for tag in tags %},{{ tag.tag.name }}{% endfor %}{% endif %}{% endblock %}
 
+{% block content %}
+    {% spaceless %}<h2 class="sr-only">{{ entity.title }}{% if tags|length > 0 %}{% for tag in tags %},{{ tag.tag.name }}{% endfor %}{% endif %}</h2>{% endspaceless %}
+    <div class="container goods_detail" id="detail" xmlns="http://www.w3.org/1999/html">
         <div class="row" id="detail_breadcrumb">
             {% include "web/entity/partial/detail_breadcrumb.html" %}
         </div>
