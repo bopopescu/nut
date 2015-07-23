@@ -60,6 +60,9 @@ def delete(request):
 @login_required
 @writers_only
 def upload_image(request):
+    maxWidth = request.GET.get('mwidth', 900)
+    maxQuality = request.GET.get('mquality',70)
+
     if request.method == "POST":
         log.info('img upload begin----')
 
@@ -67,7 +70,7 @@ def upload_image(request):
         image = HandleImage(file)
         log.info('image handeled and returned')
         log.info(image)
-        filename = image.save()
+        filename = image.save(maxWidth=maxWidth, maxQuality=maxQuality)
         log.info('image saved -----')
         log.info(filename)
         media =  Media.objects.create(
