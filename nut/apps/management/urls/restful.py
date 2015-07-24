@@ -5,8 +5,9 @@ from apps.management.views.article import RESTfulArticleListView, RESTfulArticle
 
 urlpatterns = patterns(
    '',
-    url(r'^users/$', RESTfulUserListView.as_view() , name='restful_user_list'),
-    url(r'^articles/$', RESTfulArticleListView.as_view() , name='restful_article_list'),
-    url(r'^articles/(?P<pk>\d+)/$', RESTfulArticleDetail.as_view() , name='restful_article_detail'),
+    # disabled by AnChen, to be continued
+    # url(r'^users/$', RESTfulUserListView.as_view() , name='restful_user_list'),
+    # url(r'^articles/$', RESTfulArticleListView.as_view() , name='restful_article_list'),
+    # url(r'^articles/(?P<pk>\d+)/$', RESTfulArticleDetail.as_view() , name='restful_article_detail'),
 
 )
