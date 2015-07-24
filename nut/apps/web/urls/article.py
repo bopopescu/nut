@@ -17,7 +17,6 @@ urlpatterns = patterns(
     url(r'^(?P<pk>\d+)/delete/',ArticleDelete.as_view(),name='web_article_delete'),
     url(r'^(?P<pk>\d+)/',ArticleDetail.as_view(),name='web_article_page'),
     url(r'^(?P<pk>\d+)/related/',ArticleRelated.as_view(),name='web_article_related'),
-
 )
 
 __author__ = 'edison'
