@@ -13,6 +13,9 @@ image_path = getattr(settings, 'MOGILEFS_MEDIA_URL', 'images/')
 avatar_path = getattr(settings, 'Avatar_Image_Path', 'avatar/')
 # avatar_size = getattr(settings, 'Avatar_Image_Size', [50, 180])
 
+class GImageException(Exception):
+    pass
+
 class HandleImage(object):
     path = image_path
 
@@ -104,8 +107,40 @@ class HandleImage(object):
         # _img.resize(_width, _height)
         # return _img.make_blob()
 
-    def save(self, path = None, resize=False, square=False):
+    def handleWidth(self, maxWidth):
+        try :
+            maxWidth = int(maxWidth)
+        except ValueError:
+            raise GImageException('maxWidth should be a number')
+
+        (width, height) = self.img.size
+        if width > maxWidth:
+            ratio = float(maxWidth)/float(width)
+            newHeight = int(height * ratio)
+            self.img.sample(maxWidth,newHeight)
+            self._image_data = self.img.make_blob()
+        return
+
+    def handleQuality(self, quality):
+        try:
+            quality = int(quality)
+        except ValueError:
+            raise GImageException('quality should be a number')
+
+        if quality > 100 or quality <=0 :
+            quality = 70
+
+        self.img.compression_quality = quality
+        self._image_data = self.img.make_blob()
+        return
+
+
+    def save(self, path = None, resize=False, square=False, maxWidth=900,maxQuality=70):
         log.info('begin save -----')
+        if maxWidth:
+            self.handleWidth(maxWidth)
+        if maxQuality:
+            self.handleQuality(maxQuality)
 
         if self.ext_name == 'png':
             # _img = WandImage(blob = self._image_data)
