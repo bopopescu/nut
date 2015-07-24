@@ -330,7 +330,7 @@
                 data: data,
                 type: "POST",
                 //TODO:
-                url: "/management/media/upload/image/",
+                url: "/management/media/upload/image/?mwidth=750;mquality=70",
                 cache: false,
                 contentType: false,
                 processData: false,
