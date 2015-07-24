@@ -4,6 +4,7 @@ Change Log
 1. 后台图文编辑增加标签 
 2. 修正添加商品 bug
 3. category 增加封面图片
+4. 更新 404， 500 页面
 
 ```
 alter table core_category add column `cover` varchar(255) NOT NULL;
