@@ -391,11 +391,13 @@ class Show_Banner(BaseModel):
 
 class Category(BaseModel):
     title = models.CharField(max_length = 128, db_index = True)
-    status = models.BooleanField(default = True, db_index = True)
+    cover = models.CharField(max_length=255)
+    status = models.BooleanField(default=True, db_index = True)
 
     objects = CategoryManager()
+
     class Meta:
-        ordering = ['-id']
+        ordering = ['-status', '-id']
 
     def __unicode__(self):
         return self.title
@@ -404,6 +406,9 @@ class Category(BaseModel):
     def sub_category_count(self):
         return self.sub_categories.all().count()
 
+    @property
+    def cover_url(self):
+        return "http://imgcdn.guoku.com/%s" % self.cover
 
 class Sub_Category(BaseModel):
     group = models.ForeignKey(Category, related_name='sub_categories')

@@ -8,8 +8,7 @@ from django.views.generic import ListView
 from braces.views import JSONResponseMixin ,AjaxResponseMixin
 
 from apps.core.models import Entity, Entity_Like, Selection_Entity, Entity_Tag
-from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
-# from apps.web.forms.search import EntitySearchForm
+
 from apps.web.forms.search import SearchForm
 from apps.core.utils.http import JSONResponse
 from django.utils.log import getLogger
@@ -17,7 +16,8 @@ from django.utils.log import getLogger
 from apps.web.utils.viewtools import get_paged_list
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 from apps.tag.models import Content_Tags
-import random
+from apps.core.models import Sub_Category
+# import random
 
 # from apps.notifications import notify
 
@@ -90,60 +90,66 @@ class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin , ListView):
         )
 
 
-@require_GET
-def selection(request, template='web/main/selection.html'):
+class SiteMapView(ListView):
+    template_name = 'web/main/sitemap.html'
 
-    _page = request.GET.get('p', 1)
-    _refresh_datetime = request.GET.get('t', None)
-    if _refresh_datetime is None:
-        _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    # log.info(_refresh_datetime)
-    entity_list = Selection_Entity.objects.published().filter(pub_time__lte=_refresh_datetime).using('slave')
-    # entity_list = Entity.objects.
-    paginator = ExtentPaginator(entity_list, 30)
-    try:
-        selections = paginator.page(_page)
-    except PageNotAnInteger:
-        selections = paginator.page(1)
-    except EmptyPage:
-        raise Http404
+    queryset = Sub_Category.objects.all()
+    # def get_queryset(self):
 
-    el = list()
-    if request.user.is_authenticated():
-        e = selections.object_list
-        el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(e.values_list('entity_id', flat=True))).using('slave')
 
-    if request.is_ajax():
-        template = 'web/main/partial/selection_ajax.html'
-        _t = loader.get_template(template)
-        _c = RequestContext(
-            request,
-            {
-                'selections': selections,
-                'user_entity_likes': el,
-            }
-        )
-        _data = _t.render(_c)
-        return JSONResponse(
-            data={
-                'data': _data,
-                'status': 1,
-            },
-            content_type='text/html; charset=utf-8',
-        )
-
-    # log.info(_refresh_datetime)
-    return render_to_response(
-        template,
-        {
-            'selections': selections,
-            'user_entity_likes': el,
-            'refresh_datetime':_refresh_datetime,
-            'paginator':paginator,
-        },
-        context_instance = RequestContext(request),
-    )
-
+# @require_GET
+# def selection(request, template='web/main/selection.html'):
+#
+#     _page = request.GET.get('p', 1)
+#     _refresh_datetime = request.GET.get('t', None)
+#     if _refresh_datetime is None:
+#         _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+#     # log.info(_refresh_datetime)
+#     entity_list = Selection_Entity.objects.published().filter(pub_time__lte=_refresh_datetime).using('slave')
+#     # entity_list = Entity.objects.
+#     paginator = ExtentPaginator(entity_list, 30)
+#     try:
+#         selections = paginator.page(_page)
+#     except PageNotAnInteger:
+#         selections = paginator.page(1)
+#     except EmptyPage:
+#         raise Http404
+#
+#     el = list()
+#     if request.user.is_authenticated():
+#         e = selections.object_list
+#         el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(e.values_list('entity_id', flat=True))).using('slave')
+#
+#     if request.is_ajax():
+#         template = 'web/main/partial/selection_ajax.html'
+#         _t = loader.get_template(template)
+#         _c = RequestContext(
+#             request,
+#             {
+#                 'selections': selections,
+#                 'user_entity_likes': el,
+#             }
+#         )
+#         _data = _t.render(_c)
+#         return JSONResponse(
+#             data={
+#                 'data': _data,
+#                 'status': 1,
+#             },
+#             content_type='text/html; charset=utf-8',
+#         )
+#
+#     # log.info(_refresh_datetime)
+#     return render_to_response(
+#         template,
+#         {
+#             'selections': selections,
+#             'user_entity_likes': el,
+#             'refresh_datetime':_refresh_datetime,
+#             'paginator':paginator,
+#         },
+#         context_instance = RequestContext(request),
+#     )
 
 def popular(request, template='web/main/popular.html'):
 

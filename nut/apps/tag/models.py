@@ -144,6 +144,7 @@ class Content_Tags(BaseModel):
 
     class Meta:
         unique_together = ('tag', 'creator', 'target_content_type', 'target_object_id')
+        ordering = ["-created_datetime"]
 
 
 __author__ = 'xiejiaxin'
