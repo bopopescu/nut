@@ -57,12 +57,23 @@ class TagArticleView(ListView):
             self.tag = Tags.objects.get(name = self.tag_name)
         except Tags.DoesNotExist:
             raise Http404
+        self.queryset = Content_Tags.objects.filter(tag=self.tag, target_content_type_id=31)
+        return self.queryset
+
+    def get_context_data(self, **kwargs):
+        res = super(TagArticleView, self).get_context_data(**kwargs)
+        res.update(
+            {
+                'tag': self.tag,
+            }
+        )
+        return res
 
     def get(self, request, *args, **kwargs):
         self.tag_name = kwargs.pop('tag_name', None)
         assert self.tag_name is not None
         
-        super(TagArticleView, self).get(request, *args, **kwargs)
+        return super(TagArticleView, self).get(request, *args, **kwargs)
 
 
 __author__ = 'xiejiaxin'
