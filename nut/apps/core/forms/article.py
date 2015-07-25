@@ -9,7 +9,8 @@ from apps.core.utils.image import HandleImage
 from apps.core.forms import get_admin_user_choices , get_author_choices
 from datetime import datetime
 import json
-from hashlib import md5
+import re
+# from hashlib import md5
 from apps.tag.tasks import generator_article_tag
 
 
@@ -154,9 +155,14 @@ class BaseArticleForms(forms.Form):
     def clean_tags(self):
         _tags = self.cleaned_data.get('tags')
         _tags = _tags.strip()
-        _tags = _tags.split(',')
-        return _tags
-
+        _tmp_tags = re.split(',|\s', _tags)
+        # _tags = _tags.split(', ')
+        res = list()
+        for row in _tmp_tags:
+            if len(row) == 0:
+                continue
+            res.append(row)
+        return res
 
 class CreateArticleForms(BaseArticleForms):
 
