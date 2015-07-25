@@ -1,7 +1,15 @@
 {% extends 'web/base.html' %}
 {% load i18n %}
+ {% block meta-og %}
+{% endblock %}
 
-{% block title %}{{ keyword }}{% endblock %}{% block suffix %} - 果库{% endblock %}
+{% block meta-common %}
+    <meta name="title"  content="{{ keyword }}搜索结果 | 精英消费指南 | 果库">
+    <meta name="keywords" content="{{ keyword }},商品,图文,用户,标签,精英消费指南,果库">
+    <meta name="description" content="关于{{ keyword }}的所有搜索结果，涵盖与<搜索词>有关的所有商品、图文、用户、标签等。">
+{% endblock %}
+
+{% block title %}{{ keyword }}搜索结果 | 精英消费指南 | 果库{% endblock %}
 
 
 {% block content %}
