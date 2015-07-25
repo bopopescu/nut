@@ -1,5 +1,17 @@
 {% extends 'web/user/settings.html' %}
 
+ {% block meta-og %}
+{% endblock %}
+
+{% block meta-common %}
+    <meta name="title"  content="帐号绑定设置 | 精英消费指南 | 果库">
+    <meta name="keywords" content="帐号,绑定设置,精英消费指南,果库,微博、微信、淘宝">
+    <meta name="description" content="设置/绑定 社交网络账号、微博、微信、淘宝">
+{% endblock %}
+
+{% block title %}帐号绑定设置 | 精英消费指南 | 果库{% endblock %}
+
+
 {% block main %}
     <div class="col-sm-9 col-xs-9">
         <p class="fs_24 fc_2 tab_way">&nbsp;绑定设置<span class="bind-problem"><a href="/faq/#account_bind">绑定有问题？</a></span></p>

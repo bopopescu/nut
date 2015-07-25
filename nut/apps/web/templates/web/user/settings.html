@@ -1,7 +1,18 @@
 {% extends 'web/base.html' %}
 {% load i18n static %}
 
-{% block title %}{% trans 'settings' %}{% endblock %}
+
+ {% block meta-og %}
+{% endblock %}
+
+{% block meta-common %}
+    <meta name="title"  content="帐号设置 | 精英消费指南 | 果库">
+    <meta name="keywords" content="帐号,设置,精英消费指南,果库">
+    <meta name="description" content="果库用户、果库个人资料、账户信息编辑。">
+{% endblock %}
+
+{% block title %}帐号设置 | 精英消费指南 | 果库{% endblock %}
+
 
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/web/jquery.fileupload.css' %}">
