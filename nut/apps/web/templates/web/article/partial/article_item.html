@@ -5,13 +5,13 @@
 
 <div class="article-wrapper">
     <div class="title-wrapper">
-         <a  href="{% url 'web_article_page' article.pk  %}" >
+         <a  href="{% url 'web_article_page' article.pk  %}" target="_blank"  >
             <h2>{{ article.title }}</h2>
          </a>
     </div>
 
     <div class="cover-wrapper">
-         <a  href="{% url 'web_article_page' article.pk  %}" >
+         <a  href="{% url 'web_article_page' article.pk  %}" target="_blank" >
             <img class="article-cover img-responsive" src="{{article.cover }}" />
          </a>
     </div>

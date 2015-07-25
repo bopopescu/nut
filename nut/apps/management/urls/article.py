@@ -5,7 +5,9 @@ from apps.management.views.article import SelectionArticleList,\
     CreateSelectionArticle,\
     ArticleList,\
     DraftArticleList, \
-    RemoveSelectionArticle
+    RemoveSelectionArticle,\
+    RESTfulArticleDetail,\
+    RESTfulArticleListView
 
 
 

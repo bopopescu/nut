@@ -9,7 +9,6 @@ from django.core.paginator import  Paginator,InvalidPage
 from django.utils.log import getLogger
 log = getLogger('django')
 
-
 class ArticleManager(models.Manager):
     def get_published_by_user(self,user):
         # publish = 2   because  Article.published = 2, user 2 to avoid circular reference
@@ -43,8 +42,8 @@ class SelectionArticleManager(models.Manager):
         return key
 
 
-    def get_related_cache_key(self, article, page):
-        key = 'related_article_for_%s_page_%s' % (article.pk, page)
+    def get_related_cache_key(self, article):
+        key = 'related_article_for_%s' % article.pk
         return key
 
     def published(self,until_time=None):
@@ -66,15 +65,14 @@ class SelectionArticleManager(models.Manager):
         :return:  all selection article , pubed , related to the param article
         '''
         article_per_page = 6
-        key = self.get_related_cache_key(article, request_page)
+        key = self.get_related_cache_key(article)
         related_list = cache.get(key)
 
-        if related_list:
-            return related_list
-
-        related_list = self.published()\
+        if not related_list:
+            related_list = self.published()\
                            .exclude(article__pk=article.pk)\
                            .order_by('-pub_time')[:100]
+            cache.set(key, related_list, 20)
 
         # shuffle(related_list)
         p = Paginator(related_list, article_per_page)
@@ -84,10 +82,5 @@ class SelectionArticleManager(models.Manager):
         except InvalidPage as e :
             log.info('can not fetch related article form paginator')
             return None
-
-        # rList = res.object_list
-        rList = res
-        # set timeout longer to 6 hour
-        cache.set(key, rList ,timeout=6*3600)
-        return rList
+        return res
 

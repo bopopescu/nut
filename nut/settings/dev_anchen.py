@@ -37,7 +37,7 @@ CACHES = {
 
 def removeDebugToolBar(theList):
     return [x  for x in theList if x!='debug_toolbar']
-
+#
 INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
 
 #

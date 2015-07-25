@@ -2,9 +2,23 @@
 {% load i18n static %}
 {% load common %}
 
-{% block title %}{{ event.title }} - 【精英消费指南】{% endblock %}{% block suffix %} - 果库{% endblock %}
-{% block keyword %},{{ event.title }},打折促销,福利优惠,抽奖免费送,淘宝网购物,淘宝网精选专辑{% endblock %}
-{% block description %}果库专题，超实用的网络购物专辑，发现好物更便捷，闪购商品更迅速。品质生活，你值得拥有。{% endblock %}
+ {% block meta-og %}
+    <meta property="og:title" content="果库专题 | 精英消费指南 | 理想生活主张" >
+    <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
+    <meta property="og:description" content="果库的专题页，针对网友们关注的日常生活话题，进行深入报道，从精选的图文、商品，关联的品牌、标签，并配合网友们的经验分享，全方位多维度地解读消费文化和现象。">
+{% endblock %}
+
+{% block meta-common %}
+    <meta name="title"  content="{{ event.title }} - 专题 | 精英消费指南 | 果库">
+    <meta name="keywords" content="{{ event.title }},专题,消费专题,编辑推荐,精选图文,精选商品,果库、guoku、果库网、果库应用、精英消费指南、消费指南、精品导购应用、导购、购物指南、购物分享、淘宝网购物、淘宝网精选、精品推荐">
+    <meta name="description" content="{{ event.title }},{{ tag_text }},果库专题针对网友们关注的日常生活话题展开，精选的图文、商品，关联的品牌、标签，深度解读消费文化和现象。">
+{% endblock %}
+{% block title %}{{ event.title }} - 专题 | 精英消费指南 | 果库{% endblock %}
+
+
+{#{% block title %}{{ event.title }} - 【精英消费指南】{% endblock %}{% block suffix %} - 果库{% endblock %}#}
+{#{% block keyword %},{{ event.title }},打折促销,福利优惠,抽奖免费送,淘宝网购物,淘宝网精选专辑{% endblock %}#}
+{#{% block description %}果库专题，超实用的网络购物专辑，发现好物更便捷，闪购商品更迅速。品质生活，你值得拥有。{% endblock %}#}
 {% block global_links %}
     {% url 'web_event_list' as event_list_url %}
         <a href="{{ event_list_url }}" target="_blank"><img class="img-responsive guoku-weixin" src="{% static 'images/event/event_enter.png' %}"></a>

@@ -2325,6 +2325,10 @@ a:hover {
   width: 100%;
   background-color: #f8f8f8;
 }
+.article-wrapper .content-wrapper .guoku-card div,
+.article-wrapper .note-editable .guoku-card div {
+  margin-bottom: 0px!important;
+}
 .article-wrapper .content-wrapper .guoku-card a:after,
 .article-wrapper .note-editable .guoku-card a:after {
   display: none;
@@ -2361,6 +2365,7 @@ a:hover {
   position: absolute;
   width: 90%;
   bottom: 10px;
+  padding-left: 10px;
 }
 .article-wrapper .content-wrapper .guoku-card .entity-info-detail .entity-price,
 .article-wrapper .note-editable .guoku-card .entity-info-detail .entity-price {
