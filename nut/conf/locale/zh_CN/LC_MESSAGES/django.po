@@ -226,7 +226,7 @@ msgstr "邮箱和密码不匹配"
 #: apps/core/forms/account.py:15 apps/web/forms/account.py:29
 #: apps/wechat/forms/bind.py:14
 msgid "This account is inactive."
-msgstr "账户冻结"
+msgstr "帐户冻结"
 
 #: apps/core/forms/account.py:16 apps/v4/forms/account.py:487
 #: apps/v4/forms/account.py:548 apps/web/forms/account.py:30
@@ -1325,12 +1325,12 @@ msgstr "注册"
 #: apps/web/templates/web/account/register.html:11
 #: apps/web/templates/web/account/partial/ajax_login.html:5
 msgid "Not Registered?"
-msgstr "没有账号？"
+msgstr "没有帐号？"
 
 #: apps/web/templates/web/account/register.html:15
 #: apps/web/templates/web/account/partial/ajax_login.html:8
 msgid "Sign Up Now"
-msgstr "去注册"
+msgstr "去登录"
 
 #: apps/web/templates/web/account/register.html:58
 msgid "next"

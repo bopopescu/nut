@@ -2,6 +2,20 @@
 {% load i18n static %}
 {% load  common guoku %}
 
+ {% block meta-og %}
+    <meta property="og:title" content="{{ user.profile.nick }}果库页 | 精英消费指南 | 理想生活主张" >
+    <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
+    <meta property="og:description" content="{{ user.profile.nick }}果库的个人页，展现个人的兴趣爱好、消费倾向及擅长领域，包括个人在果库喜爱过、点评过的商品、为商品贴过的标签、撰写过、赞过的图文等。">
+{% endblock %}
+
+{% block meta-common %}
+    <meta name="title"  content="{{ user.profile.nick }}的图文 | 精英消费指南 | 果库">
+    <meta name="keywords" content="{{ user.profile.nick }},图文,撰写过的图文,精英消费指南,果库">
+    <meta name="description" content="{{ user.profile.nick }}在果库撰写过的所有图文，果库消费图文汇集全网秉持理想生活哲学的消费类文章，开拓精英视野与生活想象，涵盖品牌相关报道、卖家创业者专访、潮流资讯、消费见解主张、生活场景清单、购物经验心得分享等。">
+{% endblock %}
+
+{% block title %}{{ user.profile.nick }}的图文 | 精英消费指南 | 果库{% endblock %}
+
 {% block list %}
 <div class="row" id="user_article">
     {% for article in articles %}

@@ -1139,6 +1139,10 @@ class Article(models.Model):
     def get_absolute_url(self):
         return "/articles/%s/" % self.pk
 
+    @property
+    def url(self):
+        return self.get_absolute_url()
+
     # will cause circuler reference
     # def tag_string(self):
     #     tids = Content_Tags.objects.filter(target_content_type=31, target_object_id=self.pk).values_list('tag_id', flat=True)

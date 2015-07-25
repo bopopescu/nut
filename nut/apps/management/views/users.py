@@ -8,8 +8,17 @@ from apps.core.models import GKUser
 from apps.core.forms.user import UserForm, GuokuSetPasswordForm, AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 from apps.management.decorators import admin_only
+from apps.core.serializers.users import GKUserSerializer
+
 
 log = getLogger('django')
+
+from rest_framework import generics
+
+class RESTfulUserListView(generics.ListCreateAPIView):
+        queryset = GKUser.objects.all()
+        serializer_class = GKUserSerializer
+
 
 @login_required
 @admin_only

@@ -13,6 +13,7 @@ from apps.core.models import Article,Selection_Article
 from apps.core.mixins.views import SortMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
+
 from apps.web.utils.viewtools import add_side_bar_context_data
 from apps.web.forms.articles import WebArticleEditForm
 from apps.counter.utils.data import RedisCounterMachine
@@ -22,7 +23,6 @@ from django.utils.log import getLogger
 
 from datetime import datetime
 log = getLogger('django')
-
 
 class SelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
     template_name = 'web/article/selection_list.html'

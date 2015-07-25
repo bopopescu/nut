@@ -1,7 +1,18 @@
 {% extends 'web/base.html' %}
 {% load i18n staticfiles %}
 
-{% block title %}{% trans "sign up" %} - 【精英消费指南】{% endblock %}{% block suffix %} - 果库{% endblock %}
+
+ {% block meta-og %}
+{% endblock %}
+
+{% block meta-common %}
+    <meta name="title"  content="帐号注册 | 精英消费指南 | 果库">
+    <meta name="keywords" content="帐号,注册,精英消费指南,果库">
+    <meta name="description" content="用户注册">
+{% endblock %}
+
+{% block title %}帐号注册 | 精英消费指南 | 果库{% endblock %}
+
 
 {% block content %}
 <div class="container">
