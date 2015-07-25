@@ -153,7 +153,8 @@ class BaseArticleForms(forms.Form):
 
     def clean_tags(self):
         _tags = self.cleaned_data.get('tags')
-        _tags =  _tags.split(',')
+        _tags = _tags.strip()
+        _tags = _tags.split(',')
         return _tags
 
 
