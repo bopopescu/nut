@@ -1,0 +1,114 @@
+@import "../lib/mixin.less";
+@import "../lib/var.less";
+//for  diff screen size
+@import "dimentions/xs.less";
+@import "dimentions/sm.less";
+@import "dimentions/md.less";
+@import "dimentions/lg.less";
+
+body{
+  font-size: @primary-size;
+  line-height: 1.5em;
+}
+
+#guoku_main_nav{
+
+  .box-shadow(1px 1px 5px rgba(34, 34, 34, 0.4));
+  .navbar-brand{
+    padding-top: 9px;
+  }
+  .main-list{
+     li{
+       background: none;
+     }
+     a{
+         color: @common-gray;
+         &:hover, &:focus{
+           color:@common-text-color;
+           font-weight: 600;
+           background: none;
+         }
+     }
+  }
+  .nav-add-product{
+     .add_goods{
+        display: none;
+        position: absolute;
+        top: 58px;
+        left: -34px;
+        z-index: 10;
+        background: #414243;
+        text-align: center;
+        height: 38px;
+        padding: 0 12px;
+        line-height: 38px;
+        font-size: 14px;
+        color: #ffffff;
+        .border-radius(@global-box-radius);
+        .tip{
+            border-color: transparent transparent #414243 transparent;
+            border-style: solid;
+            border-width: 0 6px 6px 6px;
+            padding: 0;
+            width: 0;
+            height: 0;
+            font-size: 0;
+            line-height: 0;
+            overflow: hidden;
+            position: absolute;
+            top: -6px;
+            left: 45px;
+          }
+      }
+      a{
+         color: #000;
+        &:hover, &:focus{
+          background: none;
+          font-weight: 600;
+          .add_goods{
+            display: block;
+          }
+        }
+      }
+  }
+
+  .search{
+          .search-input{
+            .box-shadow(none);
+            border: 1px solid #e3e3e3;
+            .border-radius(32px);
+
+            line-height: 28px;
+            font-size:16px;
+            height: 28px;
+            background: none;
+          }
+          .fa{
+             position: absolute;
+             right: 15px;
+             top: 5px;
+             color:@common-gray;
+
+          }
+  }
+
+
+  .user-menu{
+      font-size: @primary-size;
+      a{
+         padding: 10px 20px;
+         color: @common-gray;
+      }
+  }
+
+
+}
+
+
+.guoku-content{
+   margin-top: 10px;
+}
+
+.add_goods{
+  display: none;
+}

@@ -1,9 +1,6 @@
 {% load i18n %}
 {% load notifications_tags %}
 {% load guoku %}
-{#<li>#}
-{#    <a href="#"><i class="fa fa-plus fa-lg" style="color:#fff;"></i></a>#}
-{#</li>#}
 <li class="dropdown nav-user-actions">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 10px;">
 
@@ -12,7 +9,7 @@
         <i class="fa fa-caret-down" style="padding-left:10px;font-size:20px;vertical-align: middle;color:#999;"></i>
 
     </a>
-    <ul class="dropdown-menu" role="menu">
+    <ul class="dropdown-menu user-menu" role="menu">
         {% if request.user.is_staff %}
             <li><a href="{% url 'management_dashboard' %}" target="_blank"><i class="fa fa-pencil-square-o fa-lg"></i>&nbsp; {% trans 'Guoku Management' %}</a></li>
         {% endif %}

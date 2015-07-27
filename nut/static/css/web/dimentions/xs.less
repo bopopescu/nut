@@ -1,0 +1,23 @@
+@import "../../lib/mixin.less";
+@import "../../lib/var.less";
+
+@media(max-width: 767px){
+    #guoku_main_nav{
+      background-color: @nav-xs-background-color;
+      .navbar-toggle{
+        .icon-bar{
+          background-color: @default-background;
+        }
+      }
+
+      .main-list{
+        li{
+          a{
+            &:hover, &:focus{
+               color: #fff;
+            }
+          }
+        }
+      }
+    }
+}
