@@ -31,6 +31,7 @@ class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin , ListView):
     model = Entity
     paginate_by = 30
     paginator_class = Jpaginator
+
     def get_refresh_time(self):
         refresh_time = self.request.GET\
                                     .get('t',datetime.now()\
