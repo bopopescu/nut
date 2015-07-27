@@ -212,8 +212,8 @@ Avatar_Image_Path = 'avatar/'
 
 HAYSTACK_CONNECTIONS = {
     'default': {
-        # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'ENGINE': 'apps.core.backends.whoosh_guoku_backend.GkEngine',
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        # 'ENGINE': 'apps.core.backends.whoosh_guoku_backend.GkEngine',
         'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
     }
 }

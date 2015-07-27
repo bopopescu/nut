@@ -58,6 +58,7 @@ class EntityCard(AjaxResponseMixin, JSONResponseMixin , DetailView):
         }
         return self.render_json_response(data)
 
+
 def get_entity_brand(entity):
     if not bool(entity.brand):
         return None
@@ -93,7 +94,9 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
         _user_pokes = Note_Poke.objects.filter(note_id__in=list(nid_list), user=request.user).values_list('note_id', flat=True)
         # log.info(_user_pokes)
 
-    tags = Content_Tags.objects.filter(target_object_id__in=list(nid_list))[:10]
+    # tags = Content_Tags.objects.filter(target_object_id__in=list(nid_list))[:10]
+
+    tags = Content_Tags.objects.entity_tags(list(nid_list))[:10]
 
     _user_post_note = True
     try:
