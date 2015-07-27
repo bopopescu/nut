@@ -28,7 +28,7 @@
                         <tr>
                             <td>{{ category.pk }}</td>
 
-                            <td><img src="{{ category.cover_url|resize:'300' }}"></td>
+                            <td><img src="{{ category.cover_url|resize:'150' }}"></td>
                             <td><a href="{% url 'management_sub_category_list' category.pk %}">{{ category.title }}</a></td>
                             <td>{{ category.status|yesno }}</td>
                             <td>
