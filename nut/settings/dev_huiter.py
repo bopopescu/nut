@@ -13,11 +13,10 @@ MIDDLEWARE_CLASSES += (
     # ...
 )
 
-
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': '/tmp/django_cache',
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        # 'LOCATION': '/tmp/django_cache',
     }
 }
 
