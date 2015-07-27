@@ -52,10 +52,6 @@ def decorate_taobao_url(url, ttid=None, sid=None, outer_code=None, sche=None):
 def homepage(request):
 
     res = dict()
-
-    # shows = Show_Banner.objects.all().values_list('banner_id', flat=True)
-    # log.info(innqs)
-    # banners = Banner.objects.filter(id__in=innqs)
     shows = Show_Banner.objects.all()
     res['banner'] = []
     for row in shows:
@@ -67,9 +63,6 @@ def homepage(request):
         )
 
     res['discover'] = []
-    # from django.db.models import Count
-    # el = Entity_Like.objects.popular(scale='weekly')
-    # category = Entity.objects.filter(pk__in=list(el)).annotate(dcount=Count('category')).values_list('category_id', flat=True)
     sub_category = Sub_Category.objects.popular_random(12)
     log.info(sub_category)
     for c in sub_category:
@@ -162,6 +155,40 @@ def selection(request):
 
     # paginator = ExtentPaginator(entity_list)
     return SuccessJsonResponse(res)
+
+@check_sign
+def discover(request):
+    _key = request.GET.get('session')
+
+    res = dict()
+    shows = Show_Banner.objects.all()
+    res['banner'] = []
+    for row in shows:
+        res['banner'].append(
+            {
+                'url':row.banner.url,
+                'img':row.banner.image_url
+            }
+        )
+
+    popular_list = Entity_Like.objects.popular_random()
+    _entities = APIEntity.objects.filter(id__in=popular_list, status=Entity.selection)
+    try:
+        _session = Session_Key.objects.get(session_key=_key)
+        # log.info("session %s" % _session)
+        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=_entities)
+    except Session_Key.DoesNotExist, e:
+        log.info(e.message)
+        el = None
+
+    res['entities'] = list()
+    for e in _entities:
+        r = {
+            'entity': e.v4_toDict(user_like_list=el)
+        }
+        res['entities'].append(r)
+
+    return SuccessJsonResponse(data=res)
 
 
 @check_sign
