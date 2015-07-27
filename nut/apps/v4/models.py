@@ -1,4 +1,6 @@
-from apps.core.models import Entity, Buy_Link, Note, GKUser, Selection_Entity, Sina_Token, Taobao_Token, WeChat_Token, User_Follow
+from apps.core.models import Entity, Buy_Link, Note, \
+    GKUser, Selection_Entity, Sina_Token, \
+    Taobao_Token, WeChat_Token, User_Follow, Category
 from apps.notifications.models import JpushToken
 
 from django.db import models
@@ -242,6 +244,16 @@ class APISelection_Entity(Selection_Entity):
 
     class Meta:
         proxy = True
+
+
+class APICategory(Category):
+
+    class Meta:
+        proxy = True
+
+    def v4_toDict(self):
+        res = self.toDict()
+        return res
 
 
 class APIWeChatToken(WeChat_Token):
