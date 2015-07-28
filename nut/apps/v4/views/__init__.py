@@ -71,11 +71,10 @@ class DiscoverView(BaseJsonView):
         _entities = APIEntity.objects.filter(id__in=popular_list, status=Entity.selection)
         try:
             _session = Session_Key.objects.get(session_key=_key)
-        # log.info("session %s" % _session)
             el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=_entities)
         except Session_Key.DoesNotExist, e:
             log.info(e.message)
-        el = None
+            el = None
 
         res['entities'] = list()
         for e in _entities:
@@ -85,7 +84,7 @@ class DiscoverView(BaseJsonView):
             res['entities'].append(r)
 
         res['categories'] = list()
-        categories = APICategory.objects.all()
+        categories = APICategory.objects.filter(status=True)
         for row in categories:
             r = {
             'category': row.v4_toDict(),
