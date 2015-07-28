@@ -6,7 +6,7 @@
  * Copyright 2013-2015 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
- * Date: 2015-07-28T06:43Z
+ * Date: 2015-07-28T06:50Z
  */
 (function (factory) {
   /* global define */
@@ -5582,7 +5582,7 @@
                     url = url.split('?')[0];
                     url = url.split('#')[0];
                     var card_url= url+'/card/';
-                    card_url = card_url.replace(/\/\//, '/');
+                    card_url = card_url.replace(/\/\/card\//, '/card/');
                     $.when($.ajax({
                         url: card_url,
                         method: 'GET',
