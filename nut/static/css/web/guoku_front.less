@@ -1,0 +1,220 @@
+@import "../lib/mixin.less";
+@import "../lib/var.less";
+//for  diff screen size
+
+body{
+  font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
+  font-size: @primary-size;
+  line-height: 1.5em;
+}
+
+#guoku_main_nav{
+  .box-shadow(1px 1px 5px rgba(34, 34, 34, 0.4));
+  .navbar-brand{
+    padding-top: 9px;
+  }
+  .main-list{
+     li{
+       background: none;
+     }
+     a{
+         color: @common-gray;
+         &:hover, &:focus{
+           color:@common-text-color;
+           font-weight: 600;
+           background: none;
+         }
+     }
+  }
+  .nav-add-product{
+     .add_goods{
+        display: none;
+        position: absolute;
+        top: 58px;
+        left: -28px;
+        z-index: 10;
+        background: #414243;
+        text-align: center;
+        height: 38px;
+        padding: 0 12px;
+        line-height: 38px;
+        font-size: 14px;
+        color: #ffffff;
+        .border-radius(@global-box-radius);
+        .tip{
+            border-color: transparent transparent #414243 transparent;
+            border-style: solid;
+            border-width: 0 6px 6px 6px;
+            padding: 0;
+            width: 0;
+            height: 0;
+            font-size: 0;
+            line-height: 0;
+            overflow: hidden;
+            position: absolute;
+            top: -6px;
+            left: 45px;
+          }
+      }
+      a{
+         color: #000;
+        &:hover, &:focus{
+          background: none;
+          font-weight: 600;
+          .add_goods{
+            display: block;
+          }
+        }
+      }
+  }
+  .user-action-toggle{
+        &:hover, &:focus{
+          background: none;
+        }
+  }
+  
+  .search{
+          .search-input{
+            .box-shadow(none);
+            border: 1px solid #e3e3e3;
+            .border-radius(32px);
+
+            line-height: 28px;
+            font-size:16px;
+            height: 28px;
+            background: none;
+          }
+          .fa{
+             position: absolute;
+             right: 15px;
+             top: 5px;
+             color:@common-gray;
+
+          }
+  }
+
+
+  .user-menu{
+      font-size: @primary-size;
+      a{
+         padding: 10px 20px;
+         color: @common-gray;
+      }
+  }
+}
+
+#guoku_footer{
+  min-height: 200px;
+  background: @foot-bg-color;
+  color: @common-gray;
+  a {
+    color: @common-gray;
+   }
+
+// SOME LAYOUT
+  .footer-columns{
+    max-width: 400px;
+    margin-left: 10px;
+  }
+
+  .footer-buttons{
+    max-width: 400px;
+    float:right;
+    margin-top: 40px;
+    ul{
+      list-style: none;
+      li{
+        float :right;
+        height: 38px;
+        width: 38px;
+        display:block;
+        .border-radius(19px);
+        background: @common-gray;
+        margin-left : 13px;
+         i{
+           position: relative;
+           top: 10px;
+           left: 10px;
+           display: block;
+           margin: 0 auto;
+           font-size: @subtitle-size;
+           color: #333;
+
+         }
+      }
+    }
+  }
+  .footer-content{
+//    FOOTER LOGO
+     .main-logo{
+       display: block;
+       margin: 0 auto;
+       margin-top:25px;
+     }
+    .word-logo{
+      display: block;
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+  }
+//  MIDDLE COLUMN
+   .column-header{
+       margin-top: 20px;
+       font-size: @mini-size;
+       color: @common-gray;
+       font-weight: 600;
+    }
+   .column-content{
+        ul{
+           padding-left: 0px;
+           padding-top: 10px;
+          list-style: none;
+        }
+        li{
+          font-size: @mini-size;
+          margin: 0px 0px 5px 0px;
+          color: @common-gray;
+          line-height: 1.2;
+        }
+    }
+  // THE VERY BOTTOM CONTENTS
+  .footer-bottom{
+      padding-top: 40px;
+      .footer-bottom-left{
+          ul{
+            list-style: none;
+            li{
+              float: left;
+              font-size: @mini-size;
+              color: @common-gray;
+              margin-right: 10px;
+            }
+          }
+      }
+      .footer-bottom-right{
+         float : right;
+         ul{
+           list-style: none;
+           li{
+             font-size: @mini-size;
+             margin-left: 10px;
+             float: right;
+           }
+         }
+      }
+  }
+}
+
+.guoku-content{
+   margin-top: 10px;
+}
+
+.add_goods{
+  display: none;
+}
+
+
+@import "dimentions/xs.less";
+@import "dimentions/sm.less";
+@import "dimentions/md.less";
+@import "dimentions/lg.less";
