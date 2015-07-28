@@ -34,7 +34,7 @@ def _check_request_param(param):
         return True
     else:
         raise MissParamError(u'need api_key and sign')
-
+4
 
 def _check_sign_md5(param):
     try:
