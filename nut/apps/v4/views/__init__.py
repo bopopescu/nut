@@ -156,6 +156,7 @@ def selection(request):
     # paginator = ExtentPaginator(entity_list)
     return SuccessJsonResponse(res)
 
+
 @check_sign
 def discover(request):
     _key = request.GET.get('session')
