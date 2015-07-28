@@ -2,7 +2,7 @@
 {% load notifications_tags %}
 {% load common %}
 
-<header id="guoku_main_nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="border-bottom: 0;opacity: 0.9;">
+<header id="guoku_main_nav" class="navbar navbar-fixed-top" role="navigation" style="border-bottom: 0;opacity: 0.9;">
         <div class="container">
             <div class="nav-header">
                 <button class="navbar-toggle collapsed" data-target=".collapse" data-toggle="collapse" type="button">
@@ -12,13 +12,13 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{% url 'web_selection' %}">
-                    <img alt="{% trans 'guoku' %}" src="{% static 'images/logo2.png' %}" width="46" height="26" style="margin-top: 2px">
-{#                    <img alt="{% trans 'guoku' %}" src="{% static 'images/logo-color.png' %}" width="46" height="26" style="margin-top: 2px">#}
+                    <img alt="{% trans 'guoku' %}" class="visible-xs"  src="{% static 'images/logo2.png' %}" width="46" height="26" style="margin-top: 2px">
+                    <img alt="{% trans 'guoku' %}" class="hidden-xs" src="{% static 'images/logo-color.png' %}" width="46" height="26" style="margin-top: 2px">
 {#                    <img src="{% static 'images/wap_logo.png' %}" style="height:30px;padding-left:5px;">#}
                 </a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav main-list">
 {#                    {% url 'web_selection' as web_selection_url %}#}
                     {% url 'web_selection_articles' as web_article_list_url %}
                      <li {% if web_article_list_url in request.path %}class="active"{% endif %}>
@@ -77,12 +77,13 @@
 
                 <form class="navbar-form navbar-right" action="{% url 'web_search' %}" method="get" role="form" style="margin-top: 11px;">
                     <div class="input-group search">
-                        <input class="form-control" name="q" type="search" placeholder="{% trans 'Search' %}" value="{{ keyword|maybe_none }}" style="height: 28px;border:none;">
+                        <input class="form-control search-input" name="q" type="search" placeholder="{% trans 'Search' %}" value="{{ keyword|maybe_none }}" >
+                        <i class="fa fa-search"></i>
                     </div>
                 </form>
 
                 {% if web_login_url not in request.path and web_register_url not in request.path %}
-                <ul class="nav navbar-nav navbar-right hidden-sm hidden-xs">
+                <ul class="nav navbar-nav nav-add-product navbar-right hidden-sm hidden-xs">
                     <li>
                         <a href="{% url 'web_entity_create' %}" class="add_icon">
                             <i class="fa fa-plus" style="color: #9D9E9F; padding-right:40px;font-size:18px;"></i>

@@ -1,0 +1,219 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5em;
+}
+#guoku_main_nav {
+  -webkit-box-shadow: 1px 1px 5px rgba(34, 34, 34, 0.4);
+  -moz-box-shadow: 1px 1px 5px rgba(34, 34, 34, 0.4);
+  box-shadow: 1px 1px 5px rgba(34, 34, 34, 0.4);
+}
+#guoku_main_nav .navbar-brand {
+  padding-top: 9px;
+}
+#guoku_main_nav .main-list li {
+  background: none;
+}
+#guoku_main_nav .main-list a {
+  color: #9d9e9f;
+}
+#guoku_main_nav .main-list a:hover,
+#guoku_main_nav .main-list a:focus {
+  color: #424242;
+  font-weight: 600;
+  background: none;
+}
+#guoku_main_nav .nav-add-product .add_goods {
+  display: none;
+  position: absolute;
+  top: 58px;
+  left: -28px;
+  z-index: 10;
+  background: #414243;
+  text-align: center;
+  height: 38px;
+  padding: 0 12px;
+  line-height: 38px;
+  font-size: 14px;
+  color: #ffffff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+#guoku_main_nav .nav-add-product .add_goods .tip {
+  border-color: transparent transparent #414243 transparent;
+  border-style: solid;
+  border-width: 0 6px 6px 6px;
+  padding: 0;
+  width: 0;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+  overflow: hidden;
+  position: absolute;
+  top: -6px;
+  left: 45px;
+}
+#guoku_main_nav .nav-add-product a {
+  color: #000;
+}
+#guoku_main_nav .nav-add-product a:hover,
+#guoku_main_nav .nav-add-product a:focus {
+  background: none;
+  font-weight: 600;
+}
+#guoku_main_nav .nav-add-product a:hover .add_goods,
+#guoku_main_nav .nav-add-product a:focus .add_goods {
+  display: block;
+}
+#guoku_main_nav .user-action-toggle:hover,
+#guoku_main_nav .user-action-toggle:focus {
+  background: none;
+}
+#guoku_main_nav .search .search-input {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border: 1px solid #e3e3e3;
+  -webkit-border-radius: 32px;
+  -moz-border-radius: 32px;
+  border-radius: 32px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  line-height: 28px;
+  font-size: 16px;
+  height: 28px;
+  background: none;
+}
+#guoku_main_nav .search .fa {
+  position: absolute;
+  right: 15px;
+  top: 5px;
+  color: #9d9e9f;
+}
+#guoku_main_nav .user-menu {
+  font-size: 16px;
+}
+#guoku_main_nav .user-menu a {
+  padding: 10px 20px;
+  color: #9d9e9f;
+}
+#guoku_footer {
+  min-height: 200px;
+  background: #232323;
+  color: #9d9e9f;
+}
+#guoku_footer a {
+  color: #9d9e9f;
+}
+#guoku_footer .footer-columns {
+  max-width: 400px;
+  margin-left: 10px;
+}
+#guoku_footer .footer-buttons {
+  max-width: 400px;
+  float: right;
+  margin-top: 40px;
+}
+#guoku_footer .footer-buttons ul {
+  list-style: none;
+}
+#guoku_footer .footer-buttons ul li {
+  float: right;
+  height: 38px;
+  width: 38px;
+  display: block;
+  -webkit-border-radius: 19px;
+  -moz-border-radius: 19px;
+  border-radius: 19px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background: #9d9e9f;
+  margin-left: 13px;
+}
+#guoku_footer .footer-buttons ul li i {
+  position: relative;
+  top: 10px;
+  left: 10px;
+  display: block;
+  margin: 0 auto;
+  font-size: 18px;
+  color: #333;
+}
+#guoku_footer .footer-content .main-logo {
+  display: block;
+  margin: 0 auto;
+  margin-top: 25px;
+}
+#guoku_footer .footer-content .word-logo {
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+#guoku_footer .column-header {
+  margin-top: 20px;
+  font-size: 13px;
+  color: #9d9e9f;
+  font-weight: 600;
+}
+#guoku_footer .column-content ul {
+  padding-left: 0px;
+  padding-top: 10px;
+  list-style: none;
+}
+#guoku_footer .column-content li {
+  font-size: 13px;
+  margin: 0px 0px 5px 0px;
+  color: #9d9e9f;
+  line-height: 1.2;
+}
+#guoku_footer .footer-bottom {
+  padding-top: 40px;
+}
+#guoku_footer .footer-bottom .footer-bottom-left ul {
+  list-style: none;
+}
+#guoku_footer .footer-bottom .footer-bottom-left ul li {
+  float: left;
+  font-size: 13px;
+  color: #9d9e9f;
+  margin-right: 10px;
+}
+#guoku_footer .footer-bottom .footer-bottom-right {
+  float: right;
+}
+#guoku_footer .footer-bottom .footer-bottom-right ul {
+  list-style: none;
+}
+#guoku_footer .footer-bottom .footer-bottom-right ul li {
+  font-size: 13px;
+  margin-left: 10px;
+  float: right;
+}
+.guoku-content {
+  margin-top: 10px;
+}
+.add_goods {
+  display: none;
+}
+@media (max-width: 767px) {
+  #guoku_main_nav {
+    background-color: #333333;
+  }
+  #guoku_main_nav .navbar-toggle .icon-bar {
+    background-color: #ffffff;
+  }
+  #guoku_main_nav .main-list li a:hover,
+  #guoku_main_nav .main-list li a:focus {
+    color: #fff;
+  }
+  #guoku_footer .footer-columns {
+    width: 120px ;
+    margin: 0 auto ;
+  }
+}
