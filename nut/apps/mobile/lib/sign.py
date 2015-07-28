@@ -29,7 +29,6 @@ class SignError(Exception):
 
 
 def _check_request_param(param):
-    print param.keys()
     if 'api_key' in param.keys() and 'sign' in param.keys():
         return True
     else:

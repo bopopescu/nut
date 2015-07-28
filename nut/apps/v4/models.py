@@ -253,6 +253,10 @@ class APICategory(Category):
 
     def v4_toDict(self):
         res = self.toDict()
+        res.pop('cover')
+        res.update(
+            {'cover_url': self.cover_url}
+        )
         return res
 
 
