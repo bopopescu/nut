@@ -144,6 +144,7 @@ def reset_password(request, user_id, template='management/users/reset_password.h
 
 
 @login_required
+@admin_only
 def upload_avatar(request, user_id, template='management/users/upload_avatar.html'):
 
     try:

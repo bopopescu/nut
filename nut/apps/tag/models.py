@@ -23,11 +23,12 @@ def dictfetchall(cursor):
 class ContentTagQuerySet(models.query.QuerySet):
     def user_tags(self, user):
         return self.filter(user=user).values('tag').annotate(tcount=Count('tag')).order_by('-tcount')
-        # self.raw()
-        # return
 
     def popular(self):
         return self.annotate(tcount=Count('tag')).order_by('-tcount')[:300]
+
+    def entity_tags(self, nid_list):
+        return self.filter(target_object_id__in=nid_list).values('tag','tag__name').annotate(ncount=Count('tag')).order_by('-ncount')
 
 
 class ContentTagManager(models.Manager):
@@ -51,7 +52,7 @@ class ContentTagManager(models.Manager):
             return res
 
         popularTags = self.popular_entity_tag()
-        if popularTags.count  < tag_count:
+        if popularTags.count < tag_count:
             res =  popularTags;
         else:
             res =  random.sample(popularTags, tag_count)
@@ -85,18 +86,6 @@ class ContentTagManager(models.Manager):
         key_string = ','.join(str(s) for s in tag_id_list)
         obj = self.raw("SELECT id, tag_id, COUNT(tag_id) AS entity_count \
                         FROM tag_content_tags WHERE tag_id IN (%s) AND target_content_type_id = 24 GROUP BY tag_id ORDER BY entity_count DESC" % key_string)
-        # c = connection.cursor()
-        # sql = "SELECT tag_id, core_tag.tag, core_tag.tag_hash, count(tag_id) as entity_count \
-        #           from core_entity_tag join core_tag on tag_id = core_tag.id \
-        #            where tag_id in (%s) group by tag_id ORDER BY entity_count DESC" % key_string
-        #
-        # # log.info(sql)
-        # c.execute(sql)
-        # # try:
-        # #     c.execute(sql)
-        # # finally:
-        # #     c.close()
-        # res = dictfetchall(c)
         res = list()
         for row in obj:
             data = {
@@ -108,6 +97,11 @@ class ContentTagManager(models.Manager):
             res.append(data)
 
         return res
+
+    def entity_tags(self, nid_list):
+        res = self.get_queryset().entity_tags(nid_list)
+        return res
+
 
 class Tags(BaseModel):
     name = models.CharField(max_length=100, unique=True, db_index=True)

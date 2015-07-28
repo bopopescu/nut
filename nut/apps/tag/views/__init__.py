@@ -18,7 +18,7 @@ class TagEntityView(ListView):
 
     http_method_names = ['get']
     template_name = 'tag/entities.html'
-    paginate_by = 30
+    paginate_by = 20
     paginator_class = ExtentPaginator
 
     def get_queryset(self):
@@ -45,7 +45,35 @@ class TagEntityView(ListView):
         return super(TagEntityView, self).get(request, *args, **kwargs)
         # return self.render_to_response(context={})
 
+
 class TagArticleView(ListView):
     http_method_names = ['get']
+    template_name = 'tag/articles.html'
+    paginate_by = 20
+    paginator_class = ExtentPaginator
+
+    def get_queryset(self):
+        try:
+            self.tag = Tags.objects.get(name = self.tag_name)
+        except Tags.DoesNotExist:
+            raise Http404
+        self.queryset = Content_Tags.objects.filter(tag=self.tag, target_content_type_id=31)
+        return self.queryset
+
+    def get_context_data(self, **kwargs):
+        res = super(TagArticleView, self).get_context_data(**kwargs)
+        res.update(
+            {
+                'tag': self.tag,
+            }
+        )
+        return res
+
+    def get(self, request, *args, **kwargs):
+        self.tag_name = kwargs.pop('tag_name', None)
+        assert self.tag_name is not None
+        
+        return super(TagArticleView, self).get(request, *args, **kwargs)
+
 
 __author__ = 'xiejiaxin'
