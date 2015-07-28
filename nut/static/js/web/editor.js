@@ -296,11 +296,14 @@
             bootbox.alert( '已发布');
             window.setTimeout(function(){
                 var host = window.location.host;
-                var dash_link = $('#user_dash_link').attr('href');
-                var artilce_part = 'articles/';
-                if(dash_link){
-                    window.location = 'http://' + host + dash_link + artilce_part;
-                }
+                var path = window.location.pathname.replace('edit/', '');
+                var article_url = host + path;
+                window.location = 'http://' + article_url;
+                //var dash_link = $('#user_dash_link').attr('href');
+                //var artilce_part = 'articles/';
+                //if(dash_link){
+                //  window.location = 'http://' + host + dash_link + artilce_part;
+                //}
 
             },1000);
         },
