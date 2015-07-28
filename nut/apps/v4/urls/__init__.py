@@ -1,4 +1,5 @@
 from django.conf.urls import url, patterns, include
+from apps.v4.views import DiscoverView
 
 
 urlpatterns = patterns(
@@ -6,7 +7,9 @@ urlpatterns = patterns(
     url(r'^homepage/$', 'homepage', name='v4_homepage'),
     url(r'^selection/$', 'selection', name='v4_selection'),
     url(r'^popular/$', 'popular', name='v4_popular'),
-    url(r'^discover/$', 'discover', name='v4_discover'),
+    # url(r'^discover/$', 'discover', name='v4_discover'),
+    url(r'^discover/$', DiscoverView.as_view(), name='v4_discover'),
+
     url(r'^toppopular/$', 'toppopular', name='v4_toppopular'),
 
     url(r'^unread/$', 'unread', name='v4_unread'),

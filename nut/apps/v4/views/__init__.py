@@ -11,6 +11,7 @@ from apps.v4.forms.pushtoken import PushForm
 # from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
+from apps.core.views import BaseJsonView
 # import random
 
 
@@ -46,6 +47,56 @@ def decorate_taobao_url(url, ttid=None, sid=None, outer_code=None, sche=None):
         url += question_mark + "&unid=%s" % outer_code
 
     return url
+
+
+
+class DiscoverView(BaseJsonView):
+    http_method_names = ['get']
+
+    def get_data(self, context):
+        _key = self.request.GET.get('session')
+
+        res = dict()
+        shows = Show_Banner.objects.all()
+        res['banner'] = []
+        for row in shows:
+            res['banner'].append(
+                {
+                    'url':row.banner.url,
+                    'img':row.banner.image_url
+                }
+            )
+
+        popular_list = Entity_Like.objects.popular_random()
+        _entities = APIEntity.objects.filter(id__in=popular_list, status=Entity.selection)
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+        # log.info("session %s" % _session)
+            el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=_entities)
+        except Session_Key.DoesNotExist, e:
+            log.info(e.message)
+        el = None
+
+        res['entities'] = list()
+        for e in _entities:
+            r = {
+                'entity': e.v4_toDict(user_like_list=el)
+            }
+            res['entities'].append(r)
+
+        res['categories'] = list()
+        categories = APICategory.objects.all()
+        for row in categories:
+            r = {
+            'category': row.v4_toDict(),
+            }
+            res['categories'].append(r)
+        return res
+
+    # @check_sign
+    def dispatch(self, request, *args, **kwargs):
+        return super(DiscoverView, self).dispatch(request, *args, **kwargs)
+
 
 
 @check_sign
