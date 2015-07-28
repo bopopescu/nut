@@ -343,7 +343,7 @@ def edit(request, article_id, template="management/article/edit.html"):
     if request.method == "POST":
         _forms = EditArticleForms(article=_article, data=request.POST, files=request.FILES)
         # log.info(request.POST)
-        log.info(_forms)
+        # log.info(_forms)
         if _forms.is_valid():
             _article = _forms.save()
 

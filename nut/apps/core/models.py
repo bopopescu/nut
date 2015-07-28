@@ -410,6 +410,7 @@ class Category(BaseModel):
     def cover_url(self):
         return "http://imgcdn.guoku.com/%s" % self.cover
 
+
 class Sub_Category(BaseModel):
     group = models.ForeignKey(Category, related_name='sub_categories')
     title = models.CharField(max_length = 128, db_index = True)

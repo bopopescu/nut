@@ -1,18 +1,26 @@
 from haystack import indexes
-from apps.core.models import Entity
+from apps.core.models import Entity, Article
 
 
 class EntityIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    title = indexes.CharField(model_attr='title')
+    title = indexes.CharField(model_attr='title', boost=1.125)
     user = indexes.CharField(model_attr='user')
     created_time = indexes.DateTimeField(model_attr='created_time')
+    price = indexes.FloatField(model_attr='price')
 
+    title_auto = indexes.EdgeNgramField(model_attr='title')
 
     def get_model(self):
         return Entity
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.all()
+        return self.get_model().objects.filter(status__gt=Entity.freeze).using('slave')
+
+
+#
+# class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
+#     text = indexes.CharField(document=True, use_template=True)
+#     title = indexes.CharField(model_attr='title', boost=1.125)
 
 __author__ = 'edison'

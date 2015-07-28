@@ -1,4 +1,4 @@
-from settings import *
+from stage import *
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
@@ -7,12 +7,18 @@ INSTALLED_APPS += (
     'debug_toolbar',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES += (
     # ...
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     # ...
 )
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        # 'LOCATION': '/tmp/django_cache',
+    }
+}
 
 DATABASES = {
     'default': {
