@@ -1,7 +1,7 @@
 #coding=utf-8
 from django.http import HttpResponseRedirect
 
-from apps.mobile.lib.sign import check_sign, sign
+from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.models import Show_Banner, Banner, Buy_Link, Selection_Entity, Entity, Entity_Like, Sub_Category
