@@ -29,7 +29,10 @@ class SignError(Exception):
 
 
 def _check_request_param(param):
-    if 'api_key' not in param.keys() and 'sign' not in param.keys():
+    print param.keys()
+    if 'api_key' in param.keys() and 'sign' in param.keys():
+        return True
+    else:
         raise MissParamError(u'need api_key and sign')
 
 
@@ -53,6 +56,7 @@ def _check_sign_md5(param):
         return True
     else:
         raise SignError(_client_sign)
+
 
 def check_sign(func):
     def check_sign_wrapped(*args, **kwargs):
