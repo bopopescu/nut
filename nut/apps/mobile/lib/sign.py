@@ -1,6 +1,8 @@
 from hashlib import md5
 from apps.core.utils.http import ErrorJsonResponse
 from apps.mobile.models import Apps
+from django.utils.decorators import available_attrs
+from functools import wraps
 # from http import ErrorJsonResponse
 # from mobile.models import Apps
 
@@ -53,9 +55,14 @@ def _check_sign_md5(param):
         raise SignError(_client_sign)
 
 def check_sign(func):
-    def check_sign_wrapped(request, *args, **kwargs):
-        _param = request.REQUEST.copy()
-        _req_uri = request.get_full_path()
+    def check_sign_wrapped(*args, **kwargs):
+        if len(args) == 2:
+            request = args[1]
+            _param = request.REQUEST.copy()
+        else:
+            request = args[0]
+            _param = request.REQUEST.copy()
+        # _req_uri = request.get_full_path()
         try :
             _check_request_param(param=_param)
             _check_sign_md5(_param)
@@ -84,9 +91,9 @@ def check_sign(func):
                 status = 400
             )
 
-        return func(request, *args, **kwargs)
+        return func(*args, **kwargs)
 
-    return check_sign_wrapped
+    return wraps(func, assigned=available_attrs(func))(check_sign_wrapped)
 
 
 __author__ = 'edison'
