@@ -1,0 +1,29 @@
+.guoku-button {
+  font-size: 16px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: #357ebd;
+  display: inline-block;
+  color: #fff;
+  padding: 2px 10px;
+  margin: 5px;
+  cursor: pointer;
+}
+.button-blue {
+  background-color: #357ebd;
+}
+.button-gray {
+  background-color: #9d9e9f;
+}
+.button-white {
+  background-color: #fff;
+  color: #424242;
+  border: 1px solid darker(#f8f8f8);
+}
