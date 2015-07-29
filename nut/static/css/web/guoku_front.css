@@ -27,6 +27,31 @@
   color: #424242;
   border: 1px solid darker(#f8f8f8);
 }
+.panel {
+  background-color: #ffffff;
+  padding: 18px 18px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 3px #dddddd;
+  -moz-box-shadow: 0px 0px 3px #dddddd;
+  box-shadow: 0px 0px 3px #dddddd;
+}
+.panel-no-padding {
+  background-color: #ffffff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 3px #dddddd;
+  -moz-box-shadow: 0px 0px 3px #dddddd;
+  box-shadow: 0px 0px 3px #dddddd;
+}
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Set default font family to sans-serif.
@@ -605,12 +630,19 @@ body {
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
-.guoku-content.user-page .user-info-wrapper .user-info .nick {
+.guoku-content.user-page .user-info-wrapper .user-info .user-nick-block {
+  max-width: 450px;
+}
+.guoku-content.user-page .user-info-wrapper .user-info .user-nick-block .nick {
   font-size: 22px;
   font-weight: 500;
 }
 .guoku-content.user-page .user-info-wrapper .user-info .user-bio {
+  max-width: 450px;
   font-size: 13px;
+}
+.guoku-content.user-page .user-admin-link-wrapper a {
+  float: right;
 }
 .test {
   color: red;
@@ -664,14 +696,25 @@ body {
   .guoku-content.user-page .user-info .user-nick-block {
     margin: 0 auto ;
   }
+  .guoku-content.user-page .user-info .center-wrapper {
+    margin: 0 auto ;
+    width: 240px;
+  }
+  .guoku-content.user-page .user-info .center-wrapper .action {
+    display: block;
+    margin-top: 20px;
+  }
+  .guoku-content.user-page .user-info .center-wrapper .nick {
+    margin-top: 20px;
+    display: block;
+    text-align: center;
+  }
   .guoku-content.user-page .user-info .user-bio {
     margin: 0 auto ;
+    margin-top: 20px!important;
   }
 }
 @media (max-width: 991px) {
-  .guoku-content.user-page .user-info {
-    max-width: 500px;
-  }
   .guoku-content.user-page .user-info .user-nick-block {
     margin: 0 auto ;
   }

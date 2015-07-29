@@ -146,7 +146,7 @@ msgstr "操作"
 #: apps/management/templates/management/selection/popular.html:7
 #: apps/web/templates/web/entity/partial/detail_breadcrumb.html:8
 msgid "selection"
-msgstr "精选"
+msgstr "商品"
 
 #: apps/core/models.py:537 apps/core/models.py:543
 #: apps/core/forms/entity.py:248
@@ -1445,7 +1445,7 @@ msgstr "果库"
 #: apps/web/templates/web/partial/header.html:25
 #: apps/web/templates/web/partial/header_new.html:25
 msgid "Selected"
-msgstr "精选"
+msgstr "商品"
 
 #: apps/web/templates/web/partial/header.html:30
 #: apps/web/templates/web/partial/header_new.html:30

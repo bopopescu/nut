@@ -1,7 +1,4 @@
 @media (max-width: 991px) {
-  .guoku-content.user-page .user-info {
-    max-width: 500px;
-  }
   .guoku-content.user-page .user-info .user-nick-block {
     margin: 0 auto ;
   }
