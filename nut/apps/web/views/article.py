@@ -90,7 +90,12 @@ class SelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
 
 class EditorDraftList(UserPassesTestMixin,ListView):
     def test_func(self, user):
-        return  user.can_write;
+        if not hasattr(user, 'can_write'):
+            return False
+        return  user.can_write
+
+    def handle_no_permission(self, request):
+        return redirect('web_selection')
 
     template_name = 'web/article/editor_list.html'
     model = Article
@@ -103,6 +108,7 @@ class EditorDraftList(UserPassesTestMixin,ListView):
 
 class EditorArticleCreate(UserPassesTestMixin, View):
     def test_func(self, user):
+
         return user.can_write
 
     def get(self,request):

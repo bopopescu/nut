@@ -9,7 +9,7 @@ from apps.web.views.entity import EntityCard
 urlpatterns = patterns(
     'apps.web.views',
     # url(r'^$', 'main.index', name='web_index'),
-    url(r'^$', RedirectView.as_view(url='/articles/')),
+    url(r'^$', RedirectView.as_view(url='/selected/')),
     url(r'^selection/$', RedirectView.as_view(url='/selected/')),
     url(r'^selected/$', SelectionEntityList.as_view(), name='web_selection'),
     # url(r'^selected/$', 'main.selection', name='web_selection'),
@@ -116,8 +116,8 @@ urlpatterns += patterns('',
             url(r'^captcha/', include('captcha.urls')),
         )
 
-urlpatterns += patterns('',
-            url(r'^test_index/',TestView.as_view()),
-        )
+# urlpatterns += patterns('',
+#             url(r'^test_index/',TestView.as_view()),
+#         )
 
 __author__ = 'edison7500'
