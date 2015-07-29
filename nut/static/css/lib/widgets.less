@@ -14,7 +14,7 @@
             margin:5px;
             cursor: pointer;
       }
-
+//buttons
 .button-blue{
   background-color: @link-color;
 }
@@ -27,4 +27,19 @@
   background-color: #fff;
   color:@common-text-color;
   border: 1px solid darker(@very-light-gray);
+}
+
+//
+@panel-shaddow: 0px 0px 3px #ddd;
+.panel{
+     background-color: @panel-background-color;
+     padding: 18px 18px;
+     .border-radius(@global-box-radius);
+     .box-shadow(@panel-shaddow);
+}
+
+.panel-no-padding{
+      background-color: @panel-background-color;
+     .border-radius(@global-box-radius);
+     .box-shadow(@panel-shaddow);
 }
