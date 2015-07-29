@@ -333,7 +333,7 @@
                 data: data,
                 type: "POST",
                 //TODO:
-                url: "/management/media/upload/image/?mwidth=750;mquality=70",
+                url: "/management/media/upload/image/?mwidth=1200;mquality=90",
                 cache: false,
                 contentType: false,
                 processData: false,

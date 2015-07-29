@@ -1649,6 +1649,12 @@ a:hover{text-decoration:underline;}
           margin-bottom :20px;
 
           .title-wrapper{
+              a{
+                color: @common-text-color;
+                &:hover, &:focus{
+                  text-decoration: underline;
+                }
+              }
               h2{
                 font-size: @title-size;
                 line-height:1.2;
@@ -2517,6 +2523,13 @@ a:hover{text-decoration:underline;}
     .panel-no-padding;
     .title-wrapper{
          padding-top:10px;
+         a{
+           color:@common-text-color;
+           &:hover, &:focus{
+             color:@common-text-color;
+             text-decoration: underline;
+           }
+         }
          .title{
             padding: 5px 15px;
             font-size: @title-size;

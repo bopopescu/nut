@@ -1,5 +1,6 @@
 @import "../../lib/mixin.less";
 @import "../../lib/var.less";
+@import "../../lib/widgets.less";
 
 @media(max-width: 767px){
     #guoku_main_nav{
@@ -8,6 +9,21 @@
         .icon-bar{
           background-color: @default-background;
         }
+      }
+        .search{
+          .search-input{
+              color:@very-light-gray;
+          }
+        }
+
+      .user-menu{
+         li a{
+           &:hover, &:focus{
+           background: none;
+           color: @very-light-gray;
+            }
+
+         }
       }
 
       .main-list{
@@ -26,5 +42,41 @@
          width: 120px ;
          margin: 0 auto ;
       }
+      .footer-buttons{
+
+         width: 204px;
+         float: none;
+         margin: 0 auto;
+         margin-top: 30px;
+         ul{
+           padding:0px;
+         }
+      }
+      .footer-bottom{
+        .footer-bottom-left, .footer-bottom-right{
+             float:none;
+             margin:0 auto;
+        }
+        .footer-bottom-left{
+          width: 400px;
+        }
+        .footer-bottom-right{
+          width: 200px;
+        }
+      }
+    }
+
+    .guoku-content{
+       &.user-page{
+         .user-info{
+           min-with: 400px;
+           .user-nick-block{
+              margin: 0 auto ;
+           }
+           .user-bio{
+             margin: 0 auto ;
+           }
+         }
+       }
     }
 }
