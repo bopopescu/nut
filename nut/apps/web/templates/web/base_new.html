@@ -73,7 +73,7 @@ window.location.href = url;</script><![endif]-->
     </script>
 </head>
 
-<body class="{% block body_class %} {% endblock %}">
+<body class="body-gray {% block body_class %} {% endblock %}">
 {% url 'web_download' as web_download_url %}
 {% url 'web_selection' as web_selection_url %}
 {% block global_links %}
@@ -141,8 +141,7 @@ window.location.href = url;</script><![endif]-->
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                     <div class="footer-buttons">
-                        <ul>
-                            <li><i class="fa fa-weibo"></i></li>
+                        <ul><li><i class="fa fa-weibo"></i></li>
                             <li><i class="fa fa-wechat"></i></li>
                             <li><i class="fa fa-renren"></i></li>
                             <li><i class="fa fa-qq"></i></li>

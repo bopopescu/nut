@@ -1,0 +1,82 @@
+.guoku-button {
+  font-size: 16px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: #357ebd;
+  display: inline-block;
+  color: #fff;
+  padding: 2px 10px;
+  margin: 5px;
+  cursor: pointer;
+}
+.button-blue {
+  background-color: #357ebd;
+}
+.button-gray {
+  background-color: #9d9e9f;
+}
+.button-white {
+  background-color: #fff;
+  color: #424242;
+  border: 1px solid darker(#f8f8f8);
+}
+@media (max-width: 767px) {
+  #guoku_main_nav {
+    background-color: #333333;
+  }
+  #guoku_main_nav .navbar-toggle .icon-bar {
+    background-color: #ffffff;
+  }
+  #guoku_main_nav .search .search-input {
+    color: #f8f8f8;
+  }
+  #guoku_main_nav .user-menu li a:hover,
+  #guoku_main_nav .user-menu li a:focus {
+    background: none;
+    color: #f8f8f8;
+  }
+  #guoku_main_nav .main-list li a:hover,
+  #guoku_main_nav .main-list li a:focus {
+    color: #fff;
+  }
+  #guoku_footer .footer-columns {
+    width: 120px ;
+    margin: 0 auto ;
+  }
+  #guoku_footer .footer-buttons {
+    width: 204px;
+    float: none;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+  #guoku_footer .footer-buttons ul {
+    padding: 0px;
+  }
+  #guoku_footer .footer-bottom .footer-bottom-left,
+  #guoku_footer .footer-bottom .footer-bottom-right {
+    float: none;
+    margin: 0 auto;
+  }
+  #guoku_footer .footer-bottom .footer-bottom-left {
+    width: 400px;
+  }
+  #guoku_footer .footer-bottom .footer-bottom-right {
+    width: 200px;
+  }
+  .guoku-content.user-page .user-info {
+    min-with: 400px;
+  }
+  .guoku-content.user-page .user-info .user-nick-block {
+    margin: 0 auto ;
+  }
+  .guoku-content.user-page .user-info .user-bio {
+    margin: 0 auto ;
+  }
+}

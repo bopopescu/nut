@@ -1,0 +1,36 @@
+{% extends 'web/base_new.html' %}
+{% load i18n static %}
+{% load guoku %}
+{% block meta-og %}
+    <meta property="og:title" content="{{ user.profile.nick }}果库页 | 精英消费指南 | 理想生活主张" >
+    <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
+    <meta property="og:description" content="{{ user.profile.nick }}果库的个人页，展现个人的兴趣爱好、消费倾向及擅长领域，包括个人在果库喜爱过、点评过的商品、为商品贴过的标签、撰写过、赞过的图文等。">
+{% endblock %}
+
+{% block meta-common %}
+    <meta name="title"  content="{{ user.profile.nick }} | 精英消费指南 | 果库">
+    <meta name="keywords" content="{{ user.profile.nick }},个人主页,喜爱,点评,标签,图文,消费经验,擅长领域,精英消费指南,果库">
+    <meta name="description" content="{{ user.profile.nick }},{{ user.profile.bio|truncatechars:'50' }},喜爱过的商品、点评过的商品、撰写过的图文、为商品贴过的标签，做理想消费精英，提理想生活主张，个人兴趣爱好、消费倾向及擅长领域，做消费的自己。">
+{% endblock %}
+{% block title %}{{ user.profile.nick }} | 精英消费指南 | 果库{% endblock %}
+{% block content %}
+    <div class="guoku-content container user-page">
+        <div class="row user-info-wrapper">
+            <div class="col-xs-12 col-sm-3 user-icon">
+                <img src="{{ current_user.avatar_url }}"/>
+            </div>
+            <div class="col-xs-12 col-sm-9 user-info">
+                <div class="user-nick-block">
+                    <span class="nick">{{ current_user.nickname }}</span>
+                    <span class="action guoku-button button-white"><i class="fa fa-edit"></i>编辑个人资料</span>
+                </div>
+                <div class="user-bio">{{ current_user.bio }}</div>
+            </div>
+        </div>
+        <div class="row user-admin-link-wrapper">
+            <div class="user-admin-link"><i class="fa fa-edit"></i></div>
+        </div>
+      {% block user_content_detail %}
+      {% endblock %}
+    </div>
+{% endblock %}
