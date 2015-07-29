@@ -1683,6 +1683,13 @@ a:hover {
 #detail_content #article_list .article-wrapper {
   margin-bottom: 20px;
 }
+#detail_content #article_list .article-wrapper .title-wrapper a {
+  color: #424242;
+}
+#detail_content #article_list .article-wrapper .title-wrapper a:hover,
+#detail_content #article_list .article-wrapper .title-wrapper a:focus {
+  text-decoration: underline;
+}
 #detail_content #article_list .article-wrapper .title-wrapper h2 {
   font-size: 22px;
   line-height: 1.2;
@@ -2494,6 +2501,14 @@ a:hover {
   }
   .more-article-wrapper .title-wrapper {
     padding-top: 10px;
+  }
+  .more-article-wrapper .title-wrapper a {
+    color: #424242;
+  }
+  .more-article-wrapper .title-wrapper a:hover,
+  .more-article-wrapper .title-wrapper a:focus {
+    color: #424242;
+    text-decoration: underline;
   }
   .more-article-wrapper .title-wrapper .title {
     padding: 5px 15px;

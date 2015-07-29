@@ -1,0 +1,30 @@
+@import "../lib/mixin.less";
+@import "../lib/var.less";
+.guoku-button{
+            font-size:@primary-size;
+            height: 35px;
+            border-radius: @global-box-radius;
+            line-height: 35px;
+            text-align: center;
+            .border-radius(4px);
+            background-color:@link-color;
+            display: inline-block;
+            color: #fff;
+            padding: 2px 10px;
+            margin:5px;
+            cursor: pointer;
+      }
+
+.button-blue{
+  background-color: @link-color;
+}
+
+.button-gray{
+  background-color:@common-gray;
+}
+
+.button-white{
+  background-color: #fff;
+  color:@common-text-color;
+  border: 1px solid darker(@very-light-gray);
+}

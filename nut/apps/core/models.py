@@ -122,6 +122,14 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.profile.email_verified
 
     @property
+    def published_articles(self):
+        return self.articles.filter(publish=Article.published)
+
+    @property
+    def drafting_articles(self):
+        return self.articles.filter(published=Article.draft)
+
+    @property
     def published_article_count(self):
         return self.articles.filter(publish=Article.published).count()
 
@@ -176,6 +184,22 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             if self.profile.bio:
                 return self.profile.bio
         return ''
+
+    @property
+    def nickname(self):
+        if hasattr(self, 'profile'):
+            if self.profile.nickname:
+                return self.profile.nickname
+        return ''
+
+    @property
+    def avatar_url(self):
+        if hasattr(self, 'profile'):
+            return self.profile.avatar_url
+        return "%s%s" % (settings.STATIC_URL, 'images/avatar/man.png')
+
+
+
 
     def set_admin(self):
         self.is_admin = True

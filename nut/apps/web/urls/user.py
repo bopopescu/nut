@@ -1,6 +1,6 @@
 from django.conf.urls import url, patterns
 
-from apps.web.views.user import UserArticles
+from apps.web.views.user import UserArticles, UserIndex
 
 urlpatterns = patterns(
     'apps.web.views.user',
@@ -10,6 +10,9 @@ urlpatterns = patterns(
     url(r'^upload/avatar/$', 'upload_avatar', name='web_user_upload_avatar'),
 
     url(r'^(?P<user_id>\d+)/$', 'index', name='web_user_index' ),
+    # tmpl user page
+    # url(r'^(?P<user_id>\d+)/new_front/$', UserIndex.as_view(), name='web_user_index_new'),
+
     url(r'^(?P<user_id>\d+)/like/$', 'entity_like', name='web_user_entity_like'),
     url(r'^(?P<user_id>\d+)/note/$', 'post_note', name='web_user_post_note'),
     url(r'^(?P<user_id>\d+)/tags/$', 'tag', name='web_user_tag'),

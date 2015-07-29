@@ -10,7 +10,7 @@ from django.contrib.auth import get_user_model
 from apps.web.forms.user import UserSettingsForm, UserChangePasswordForm
 from apps.core.utils.http import JSONResponse, ErrorJsonResponse
 # from apps.core.utils.image import HandleImage
-from apps.core.models import Note
+from apps.core.models import Note, GKUser
 from apps.core.forms.user import AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.models import Entity, Entity_Like, Tag, \
@@ -21,7 +21,7 @@ from apps.tag.models import Content_Tags, Tags
 from ..utils.viewtools import get_paged_list
 
 # from apps.notifications import notify
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from hashlib import md5
 from django.utils.log import getLogger
 
@@ -266,6 +266,28 @@ def articles(request,user_id, template="web/user/user_published_articles.html"):
         },
          context_instance = RequestContext(request),
         )
+
+
+
+class UserIndex(DetailView):
+    template_name = 'web/user/user_index.html'
+    model = GKUser
+    pk_url_kwarg = 'user_id'
+    context_object_name = 'current_user'
+
+    def get_context_data(self,**kwargs):
+        context_data = super(UserIndex, self).get_context_data(**kwargs)
+        current_user = context_data['object']
+        context_data['recent_likes'] = current_user.likes.all()[:10]
+        context_data['recent_notes'] = current_user.note.all()[:10]
+        context_data['articles'] = current_user.published_articles[:5]
+        context_data['followings'] = current_user.followings.all()[:8]
+        context_data['fans'] = current_user.fans.all()[:8]
+        context_data['tags']= Content_Tags.objects.user_tags(current_user.pk)
+        return context_data
+
+
+
 
 
 # NOT ABLE TO RUN !!! ,
