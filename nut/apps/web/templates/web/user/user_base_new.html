@@ -21,14 +21,16 @@
             </div>
             <div class="col-xs-12 col-sm-9 user-info">
                 <div class="user-nick-block">
-                    <span class="nick">{{ current_user.nickname }}</span>
-                    <span class="action guoku-button button-white"><i class="fa fa-edit"></i>编辑个人资料</span>
+                    <div class="center-wrapper">
+                        <span class="nick">{{ current_user.nickname }}</span>
+                        <span class="action guoku-button button-white"><i class="fa fa-edit"></i>编辑个人资料</span>
+                    </div>
                 </div>
                 <div class="user-bio">{{ current_user.bio }}</div>
             </div>
         </div>
         <div class="row user-admin-link-wrapper">
-            <div class="user-admin-link"><i class="fa fa-edit"></i></div>
+            <a href=""><i class="fa fa-edit"></i></a>
         </div>
       {% block user_content_detail %}
       {% endblock %}
