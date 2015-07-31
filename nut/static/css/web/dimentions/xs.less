@@ -1,7 +1,7 @@
 @import "../../lib/mixin.less";
 @import "../../lib/var.less";
 @import "../../lib/widgets.less";
-
+//for xs screen , and all screen NOT sx
 @media(max-width: 767px){
     #guoku_main_nav{
       background-color: @nav-xs-background-color;
@@ -100,4 +100,55 @@
          }
        }
     }
+
+//    reuse parts
+  .more-article-wrapper{
+     .title-wrapper{
+         padding-top:5px;
+         .title{
+            padding: 10px 13px 0px 13px;
+            font-size: 15px;
+            font-weight: 800;
+         }
+         .article-digest{
+            display:none;
+         }
+     }
+  }
+}
+
+
+@media(min-width: 768px){
+
+  // reuse parts
+
+  .more-article-wrapper{
+    .cover-wrapper{
+     a{
+       display:block;
+       padding: 8px;
+     }
+    }
+//    .panel-no-padding;
+    .title-wrapper{
+         padding-top:10px;
+         a{
+           color:@common-text-color;
+           &:hover, &:focus{
+             color:@common-text-color;
+             text-decoration: underline;
+           }
+         }
+         .title{
+            padding: 5px 15px;
+            font-size: @title-size;
+         }
+     }
+    .article-digest{
+       padding: 10px 15px 15px 15px;
+       font-size: @mini-size;
+       color: @common-gray;
+    }
+  }
+
 }
