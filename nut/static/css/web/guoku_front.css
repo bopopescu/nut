@@ -27,6 +27,9 @@
   color: #424242;
   border: 1px solid darker(#f8f8f8);
 }
+.common-bordered {
+  border: 1px solid #e6e6e6;
+}
 .panel {
   background-color: #ffffff;
   padding: 18px 18px;
@@ -51,6 +54,23 @@
   -webkit-box-shadow: 0px 0px 3px #dddddd;
   -moz-box-shadow: 0px 0px 3px #dddddd;
   box-shadow: 0px 0px 3px #dddddd;
+}
+.cell .img-box {
+  display: block;
+  height: 0;
+  padding-bottom: 99%;
+  overflow: hidden;
+  text-align: center;
+}
+.cell .img-box a {
+  display: inline-block;
+  position: relative;
+}
+.cell .img-box a img {
+  background-color: #f6f6f6;
+  width: 100%;
+  max-height: 100%;
+  max-width: 100%;
 }
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
@@ -644,8 +664,82 @@ body {
 .guoku-content.user-page .user-admin-link-wrapper a {
   float: right;
 }
+.guoku-content.user-page .content-panel {
+  background-color: #ffffff;
+  padding: 18px 18px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 3px #dddddd;
+  -moz-box-shadow: 0px 0px 3px #dddddd;
+  box-shadow: 0px 0px 3px #dddddd;
+  margin-bottom: 10px;
+}
+.guoku-content.user-page .content-panel .panel-header {
+  height: 30px;
+  margin-bottom: 10px;
+}
+.guoku-content.user-page .content-panel .panel-header .panel-name,
+.guoku-content.user-page .content-panel .panel-header .more-link {
+  display: inline-block;
+}
+.guoku-content.user-page .content-panel .panel-header .panel-name {
+  float: left;
+  color: #9d9e9f;
+  border-left: 4px solid #9d9e9f;
+  padding-left: 10px;
+  position: relative;
+  left: -4px;
+}
+.guoku-content.user-page .content-panel .panel-header .more-link {
+  float: right;
+  font-size: 13px;
+  position: relative;
+  right: 15px;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper {
+  padding-left: 10px;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .entity-cell {
+  padding: 0px 10px 10px 0px;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .entity-cell .img-box {
+  border: 1px solid #e6e6e6;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .note-cell {
+  height: auto;
+  min-height: 80px;
+  height: 80px;
+  overflow: hidden;
+  padding: 0px 10px 10px 0px;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .note-cell .img-box {
+  border: 1px solid #e6e6e6;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .note-cell .note-content-wrapper {
+  float: right;
+  width: 80%;
+  height: 100%;
+  padding-left: 10px;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .note-cell .note-content-wrapper .note-text {
+  font-size: 13px;
+  color: #424242;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .note-cell .note-content-wrapper .note-info {
+  font-size: 13px;
+  color: #9d9e9f;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .note-cell .note-entity-img-wrapper {
+  width: 100%;
+  height: 100px;
+  padding-right: 80%;
+}
 .test {
-  color: red;
+  color: black;
 }
 @media (max-width: 767px) {
   #guoku_main_nav {
@@ -712,6 +806,9 @@ body {
   .guoku-content.user-page .user-info .user-bio {
     margin: 0 auto ;
     margin-top: 20px!important;
+  }
+  .guoku-content.user-page .content-panel .note-cell {
+    margin-bottom: 10px;
   }
 }
 @media (max-width: 991px) {

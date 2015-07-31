@@ -85,6 +85,9 @@ def format_read_num(value):
 
 register.filter(format_read_num)
 
+def trim(value):
+    return value.strip()
+register.filter(trim)
 
 def maybe_none(value):
     if value is None:
