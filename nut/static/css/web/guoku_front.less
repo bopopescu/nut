@@ -260,11 +260,77 @@ body{
             float: right;
           }
       }
+
+      .content-panel{
+         .panel;
+         margin-bottom: 10px;
+         .panel-header{
+             height:30px;
+             .panel-name, .more-link{
+               display: inline-block;
+             }
+             .panel-name{
+               float: left;
+               color: @common-gray;
+               border-left: 4px solid @common-gray;
+               padding-left: 10px;
+               position: relative;
+               left: -4px;
+             }
+             .more-link{
+               float:right;
+               font-size: @mini-size;
+               position: relative;
+               right: 15px;
+             }
+           margin-bottom: 10px;
+         }
+         .panel-content-wrapper{
+             padding-left: 10px;
+             .entity-cell{
+                 padding: 0px 10px 10px 0px;
+                 .img-box{
+                   .common-bordered;
+                 }
+             }
+             .note-cell{
+                 height: auto;
+                 min-height: 80px;
+                 height: 80px;
+                 overflow: hidden;
+                 padding: 0px 10px 10px 0px;
+                 .img-box{
+                     .common-bordered;
+                   }
+                .note-content-wrapper{
+                   float: right;
+                   width: 80%;
+                   height: 100%;
+                   padding-left: 10px;
+                   .note-text{
+                     font-size: @mini-size;
+                     color: @common-text-color;
+                   }
+                   .note-info{
+                      font-size:@mini-size;
+                     color: @common-gray;
+                   }
+                }
+               .note-entity-img-wrapper{
+                   width: 100%;
+                   height: 100px;
+                   padding-right:80%;
+
+               }
+             }
+         }
+
+      }
    }
 }
 
 .test{
-  color: red;
+  color: black;
 }
 
 @import "dimentions/xs.less";

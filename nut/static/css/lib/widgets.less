@@ -29,7 +29,13 @@
   border: 1px solid darker(@very-light-gray);
 }
 
-//
+//border style
+
+.common-bordered{
+  border: 1px solid @border-gray;
+}
+
+// for panel
 @panel-shaddow: 0px 0px 3px #ddd;
 .panel{
      background-color: @panel-background-color;
@@ -42,4 +48,25 @@
       background-color: @panel-background-color;
      .border-radius(@global-box-radius);
      .box-shadow(@panel-shaddow);
+}
+
+// img box
+.cell{
+  .img-box{
+      display: block;
+      height: 0;
+      padding-bottom: 99%;
+      overflow: hidden;
+      text-align: center;
+      a{
+          display: inline-block;
+          position: relative;
+          img{
+            background-color: #f6f6f6;
+            width: 100%;
+            max-height: 100%;
+            max-width: 100%;
+          }
+      }
+  }
 }
