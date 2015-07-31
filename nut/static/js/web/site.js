@@ -795,7 +795,7 @@ $.ajaxSetup({
                     function handleTrumb(){
                         var newSrc = $(this)
                                     .prop('src')
-                                    .replace(/images\/\d+\//i, 'images/320/');
+                                    .replace(/images\/\d+\//i, 'images/310/');
                         var oldSrc = $('.detail-pic-left #buy-btn-img img').prop('src');
                         if (newSrc !== oldSrc){
                             $('.detail-pic-left #buy-btn-img img').prop('src', newSrc);
@@ -1414,8 +1414,5 @@ $.ajaxSetup({
 
         selection_article.init_loader();
         article_detail.init_loader();
-
     })();
-
-
 })(jQuery, document, window);

@@ -61,7 +61,7 @@
                                    <div class="note-wrapper">
                                        <div class="note-content-wrapper">
                                            <div class="note-text">
-                                               {{ noteObj.note|truncatechars:'20' }}
+                                               {{ noteObj.note|truncatechars:'36' }}
                                            </div>
                                            <div class="note-info">
                                                {{ noteObj.updated_time|format_time }}
@@ -69,20 +69,62 @@
                                        </div>
                                        <div class="note-entity-img-wrapper">
                                            <div class="img-box">
-                                               <a href="">
+                                               <a href="{{ noteObj.entity.absolute_url }}">
                                                    <img class="img-responsive" src="{{ noteObj.entity.chief_image|resize:'320'}}" />
                                                </a>
                                            </div>
                                        </div>
                                    </div>
-
-
                                 </div>
                                 {% endfor %}
                         </div>
+
+                </div>
+                <div class="container-fluid content-panel" id="user-article-panel">
+                        <div class="row panel-header">
+                            <div class="panel-name">我的文章</div>
+                            <div class="more-link">
+                                <a href="">
+                                查看全部
+                                <i class="fa fa-angle-right"></i>
+                                <i class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row panel-content-wrapper ">
+                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 article-cell cell">
+                                   {% for article in articles %}
+                                    {% with article as r_article %}
+
+                                            {% include 'web/article/partial/article_recommend_item.html' %}
+
+                                    {% endwith  %}
+                                  {% endfor %}
+                          </div>
+                        </div>
+
                 </div>
             </div>
-            <div class="content-right hidden-xs hidden-sm col-md-4 col-lg-3"></div>
+            <div class="content-right hidden-xs hidden-sm col-md-4 col-lg-3" id="detail_content_right" >
+                <ul class="section-list user-right">
+                    <li class="section">
+                        <div class="section-title">关注</div>
+                        <div class="section-content"></div>
+                    </li>
+                    <li class="section">
+                        <div class="section-title">粉丝</div>
+                        <div class="section-content"></div>
+                    </li>
+                    <li class="section">
+                        <div class="section-title">参与标签</div>
+                        <div class="section-content"></div>
+                    </li>
+                    <li class="section">
+                        <div class="section-title">客户端</div>
+                        <div class="section-content"></div>
+                    </li>
+                </ul>
+            </div>
 
         </div>
 

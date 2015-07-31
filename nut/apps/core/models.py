@@ -638,6 +638,10 @@ class Entity(BaseModel):
     def get_absolute_url(self):
         return "/detail/%s/" % self.entity_hash
 
+    @property
+    def absolute_url(self):
+        return self.get_absolute_url()
+
     def innr_like(self):
         key = 'entity:like:%s', self.pk
         try:
