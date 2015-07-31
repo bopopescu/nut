@@ -151,7 +151,7 @@
             imageWidth:150,
             marginTop:150,
             pic:"{{ article.cover  }}",
-            summary:"{{ article.digest|striptags|truncatechars:50}} （分享自 @果库）",
+            summary:"{{ article.digest|striptags|truncatechars:50|trim}} （分享自 @果库）",
             data_track_clickback:'true',
 
         };
