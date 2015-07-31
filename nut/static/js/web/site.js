@@ -795,7 +795,7 @@ $.ajaxSetup({
                     function handleTrumb(){
                         var newSrc = $(this)
                                     .prop('src')
-                                    .replace(/images\/\d+\//i, 'images/640/');
+                                    .replace(/images\/\d+\//i, 'images/320/');
                         var oldSrc = $('.detail-pic-left #buy-btn-img img').prop('src');
                         if (newSrc !== oldSrc){
                             $('.detail-pic-left #buy-btn-img img').prop('src', newSrc);
