@@ -323,14 +323,248 @@ body{
 
                }
              }
+             .article-cell{
+               padding-left: 0px;
+               left:-8px;
+               .more-article-wrapper{
+                 margin: 10px!important;
+               }
+             }
+
          }
 
+      }
+      .user-right{
+         .panel;
       }
    }
 }
 
+
+
+//
+
+#detail_content_right{
+
+      .section-list{
+        .section{
+          .writer-intro{
+             .writer-nick{
+                 font-size: @primary-size;
+             }
+             .writer-bio{
+                 margin-top:8px;
+                 color: @common-gray;
+                 font-size: @mini-size;
+             }
+          }
+          .writer-avatar{
+            max-width: 60px;
+            padding:0px;
+            img{
+                     width: 50px;
+                     height: 50px;
+                     .border-radius(25px);
+                 }
+          }
+
+        }
+      }
+      .section-list{
+           list-style: none;
+           .section-title{
+             font-size:@subtitle-size;
+           }
+
+//        http://stackoverflow.com/questions/5195836/2-column-div-layout-right-column-with-fixed-width-left-fluid
+           .download-title{
+              padding-bottom:10px;
+           }
+           .download-container{
+                height: auto;
+                width: 260px;
+                overflow: hidden;
+               .section-download-content{
+                  width: 200px;
+                  float : right;
+                }
+               .section-download-pic{
+                  float:none;
+                  width:auto;
+                  overflow: hidden;
+               }
+               .download-link{
+                  color: @link-color;
+               }
+           }
+           .section-banner img{
+              width: 100%;
+           }
+
+           li.section{
+
+              margin-bottom: 10px;
+              .tag-list-all li, .cate-list-all li{
+                 .little-round-tag;
+
+              }
+              .tag-list-all li:hover, .cate-list-all li:hover{
+                 background-color:@tag-hover-background;
+              }
+              .section-content{
+                 width: 100%;
+                 min-height: 10px;
+                 .text-holder{
+                   float: right;
+                   width: 190px;
+                   color: @common-gray;
+                 }
+                 .icon-holder{
+                   width: auto;
+                   margin-right: 5px;
+                 }
+                 .download-link{
+                    i{
+                      color:@link-color;
+                    }
+                 }
+              }
+              .user-icon-list{
+
+                li{
+                  display: inline-block;
+                  img{
+                      border-radius : 50%;
+                      margin: 0px 5px 5px 0px;
+                    }
+                 }
+              }
+              @pop-entity-height:52px;
+              .pop-entity-list{
+                 li{
+                    a{
+                      color: @common-text-color;
+                    }
+                    .pop-entity-wrapper{
+                      height : @pop-entity-height;
+                      width: 100%;
+                      margin-bottom : 6px;
+
+
+                      .img-holder{
+                          float: none ;
+                          width: auto;
+                      }
+                      .entity-content{
+                        width: 190px ;
+                        float: right;
+                        .entity-name{
+                           margin-top: 15px;
+                           font-size: @primary-size;
+                        }
+                        .entity-intro{
+                          font-size: @mini-size;
+                        }
+
+                      }
+
+
+                    }
+                    .more-popular-entity{
+                       display: inline-block;
+                       float:right;
+                    }
+                 }
+                 li.more-entity-wrapper{
+                    height:30px;
+                    padding-top:5px;
+                    padding-right:10px;
+                    a{
+                      color: @link-color;
+                      i{
+                        color: @link-color;
+                      }
+                    }
+
+                 }
+              }
+              .pop-article-list{
+                  .pop-article{
+                      padding-bottom: 10px;
+                      border-bottom: 1px solid @very-light-gray;
+                      margin-bottom: 10px;
+                  }
+                  .pop-article:last-child{
+                         border-bottom: none;
+                         margin-bottom:0px;
+                  }
+                  .article-content{
+                    .article-list-head{
+                      display: inline-block;
+                      width: 14px;
+                      color: @common-gray;
+                    }
+                    .article-title{
+                      display: inline-block;
+                      margin: 5px 0px 5px 0px;
+                      text-align: left;
+                      a{
+                        color: @common-text-color;
+                      }
+                    }
+                    .article-digest{
+                       color: @common-gray;
+                       font-size: @mini-size;
+                    }
+                  }
+
+              }
+
+
+           }
+           .need-bottom-border{
+              border-bottom: 1px solid @very-light-gray;
+           }
+           .section-title{
+              margin-bottom:10px;
+           }
+
+
+      }
+  }
+
+// reuse parts
+//
+
+.more-article-wrapper{
+    margin: 20px 0px;
+    overflow: hidden;
+
+   .title-wrapper{
+        width: 60%;
+        float: right;
+        display: block;
+       .title{
+
+       }
+   }
+   .cover-wrapper{
+       float: none;
+       width: 100%;
+       padding-right: 60%;
+       a{
+         display: block;
+         img{
+           max-with: 100%;
+           width: 100%
+        }
+       }
+    }
+}
+
+
 .test{
-  color: black;
+  color: #000000;
 }
 
 @import "dimentions/xs.less";
