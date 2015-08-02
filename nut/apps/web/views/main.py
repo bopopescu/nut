@@ -172,7 +172,6 @@ def popular(request, template='web/main/popular.html'):
         context_instance = RequestContext(request),
     )
 
-
 @require_GET
 def search(request, template="web/main/search.html"):
     # if request.method == 'GET':
