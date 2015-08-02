@@ -60,8 +60,6 @@ class APIUser(GKUser):
         key = md5(key_string.encode('utf-8')).hexdigest()
         res = cache.get(key)
         if not res:
-        # key = md5(key_string)
-        # log.info("v3v3v3v3v3")
             res = self.toDict()
             res.pop('password', None)
             res.pop('last_login', None)
