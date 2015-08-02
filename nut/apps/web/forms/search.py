@@ -2,8 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 # from haystack.forms import SearchForm
 from django.utils.log import getLogger
-from apps.core.models import GKUser, Entity, Tag, Entity_Tag
-from django.db.models import Count
+from apps.core.models import GKUser, Entity, Tag
 
 #
 log = getLogger('django')
@@ -23,6 +22,7 @@ class SearchForm(forms.Form):
         _keyword = self.get_keyword()
         _type = self.cleaned_data.get('t')
         _order = self.cleaned_data.get('o', 'time')
+
         if _type == "t":
             self.res = Tag.search.query(_keyword)
         elif _type == "u":
@@ -33,7 +33,6 @@ class SearchForm(forms.Form):
 
     def get_keyword(self):
         self.keyword = self.cleaned_data.get('q')
-
         return self.keyword
 
     def get_entity_count(self):

@@ -749,8 +749,8 @@ class Entity(BaseModel):
             'note' : 10,
             # 'intro': 5,
         },
-        maxmatches = 5000,
-        mode = 'SPH_MATCH_ALL',
+        maxmatches = 10000,
+        mode = 'SPH_MATCH_PHRASE',
         rankmode = 'SPH_RANK_NONE',
     )
 
