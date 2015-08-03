@@ -30,14 +30,14 @@ class UserIndex(indexes.SearchIndex, indexes.Indexable):
         return self.get_model().objects.filter(is_active__gte=GKUser.active)
 
 
-# class TagIndex(indexes.SearchIndex, indexes.Indexable):
-#     text = indexes.CharField(document=True, use_template=True)
-#
-#     def get_model(self):
-#         return Tags
-#
-#     def index_queryset(self, using=None):
-#         return self.get_model().objects.all()
+class TagIndex(indexes.SearchIndex, indexes.Indexable):
+    text = indexes.CharField(document=True, use_template=True)
+
+    def get_model(self):
+        return Tags
+
+    def index_queryset(self, using=None):
+        return self.get_model().objects.all()
 #
 # #
 # class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
