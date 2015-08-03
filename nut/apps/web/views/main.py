@@ -183,7 +183,6 @@ class GKSearchView(SearchView):
             'user_count': self.queryset.models(GKUser).count(),
             'tag_count': self.queryset.models(Tags).count(),
         })
-        print context
         return self.render_to_response(context)
 
     def get(self, request, *args, **kwargs):
