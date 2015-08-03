@@ -59,7 +59,7 @@ MIDDLEWARE_CLASSES += (
 INSTALLED_APPS += (
     'gunicorn',
     'debug_toolbar',
-    'haystack'
+    # 'haystack'
 )
 
 # CACHES = {
