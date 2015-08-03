@@ -31,7 +31,8 @@ import time
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
-
+# if define avatar_host , then use avata_host , for local development .
+avatar_host = getattr(settings, 'AVATAR_HOST', image_host)
 
 class BaseModel(models.Model):
 
@@ -260,7 +261,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         if visitor:
             if self.id == visitor.id:
                 res['relation'] = 4
-            elif self.id in visitor.concren:
+            elif self.id in visitor.    concren:
                 res['relation'] = 3
             elif self.id in visitor.following_list:
                 res['relation'] = 1
@@ -316,7 +317,7 @@ class User_Profile(BaseModel):
         if 'http' in self.avatar:
             return self.avatar
         elif self.avatar:
-            return "%s%s" % (image_host, self.avatar)
+            return "%s%s" % (avatar_host, self.avatar)
         else:
             if self.gender == self.Woman:
                 return "%s%s" % (settings.STATIC_URL, 'images/avatar/woman.png')

@@ -788,6 +788,13 @@ body {
   -moz-box-shadow: 0px 0px 3px #dddddd;
   box-shadow: 0px 0px 3px #dddddd;
 }
+.guoku-content.user-page .user-right .section-title {
+  border-left: 4px solid #9d9e9f;
+  padding-left: 12px;
+  position: relative;
+  left: -18px;
+  color: #9d9e9f;
+}
 #detail_content_right .section-list .section .writer-intro .writer-nick {
   font-size: 16px;
 }
@@ -815,6 +822,10 @@ body {
 }
 #detail_content_right .section-list .section-title {
   font-size: 18px;
+}
+#detail_content_right .section-list .section-title .more-link {
+  font-size: 13px;
+  float: right;
 }
 #detail_content_right .section-list .download-title {
   padding-bottom: 10px;
@@ -886,10 +897,20 @@ body {
 }
 #detail_content_right .section-list li.section .user-icon-list li {
   display: inline-block;
+  width: 27px;
+}
+#detail_content_right .section-list li.section .user-icon-list li a {
+  display: block;
 }
 #detail_content_right .section-list li.section .user-icon-list li img {
   border-radius: 50%;
   margin: 0px 5px 5px 0px;
+}
+#detail_content_right .section-list li.section .tag-list {
+  list-style: none ;
+}
+#detail_content_right .section-list li.section .tag-list li {
+  font-size: 13px;
 }
 #detail_content_right .section-list li.section .pop-entity-list li a {
   color: #424242;
@@ -960,6 +981,14 @@ body {
 }
 #detail_content_right .section-list .section-title {
   margin-bottom: 10px;
+}
+.user-right .section {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f8f8f8;
+}
+.user-right .section .section-content {
+  margin-top: 20px;
 }
 .more-article-wrapper {
   margin: 20px 0px;
