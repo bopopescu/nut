@@ -210,15 +210,6 @@ Avatar_Image_Path = 'avatar/'
 # Avatar_Image_Size = [180, 50]
 
 
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        # 'ENGINE': 'apps.core.backends.whoosh_guoku_backend.GkEngine',
-        'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
-    }
-}
-HAYSTACK_DEFAULT_OPERATOR = 'OR'
-
 
 # WHOOSH_INDEX = 'indexdir'
 
