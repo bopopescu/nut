@@ -62,17 +62,6 @@ INSTALLED_APPS += (
     'haystack'
 )
 
-
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://10.0.2.50:8983/solr/'
-        # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
-    }
-}
-HAYSTACK_DEFAULT_OPERATOR = 'OR'
-
 # CACHES = {
 #     "default": {
 #         "BACKEND": "django_redis.cache.RedisCache",
