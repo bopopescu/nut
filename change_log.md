@@ -2,6 +2,7 @@ Change Log
 ==========
 ### Ver 4.3.1
 1. v4 增加 discover 
+2. solr 替换 sphinx 搜索引擎
 
 
 ### Ver 4.3
