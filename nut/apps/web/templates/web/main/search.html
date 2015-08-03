@@ -15,7 +15,7 @@
 {% block content %}
     <div class="container">
         <div class="row search-header">
-            <h2><span>「{{ keyword }}」</span>的搜索结果</h2>
+            <h2><span>「{{ query }}」</span>的搜索结果</h2>
         </div>
         <nav class="navbar navbar-search navbar-static-top" role="navigation">
             <div class="container">
@@ -23,13 +23,13 @@
                     <ul class="nav navbar-nav">
 {#                        {% for row in results %}#}
                             <li {% if type == 'e' %}class="active"{% endif %}>
-                                <a href="{% url 'web_search' %}?q={{ keyword }}&t=e">{% trans 'entity' %}&nbsp;<strong>{{ entity_count }}</strong></a>
+                                <a href="{% url 'web_search' %}?q={{ query }}&t=e">{% trans 'entity' %}&nbsp;<strong>{{ entity_count }}</strong></a>
                             </li>
                             <li {% if type == 'u' %}class="active"{% endif %}>
-                                <a href="{% url 'web_search' %}?q={{ keyword }}&t=u">{% trans 'user' %}&nbsp;<strong>{{ user_count }}</strong></a>
+                                <a href="{% url 'web_search' %}?q={{ query }}&t=u">{% trans 'user' %}&nbsp;<strong>{{ user_count }}</strong></a>
                             </li>
                             <li {% if type == 't' %}class="active"{% endif %}>
-                                <a href="{% url 'web_search' %}?q={{ keyword }}&t=t">{% trans 'tags' %}&nbsp;<strong>{{ tag_count }}</strong></a>
+                                <a href="{% url 'web_search' %}?q={{ query }}&t=t">{% trans 'tags' %}&nbsp;<strong>{{ tag_count }}</strong></a>
                             </li>
 {#                        {% endfor %}#}
                     </ul>
@@ -39,22 +39,22 @@
 
         <div class="row">
             {% if type == 'u' %}
-                {% for user in results %}
-                    {% include 'web/main/partial/user.html' with user_context=user %}
+                {% for row in object_list %}
+                    {% include 'web/main/partial/user.html' with user_context=row.object %}
                 {% endfor %}
-            {% elif type == 't' %}
-                {% for tag in results %}
-                    {% include 'web/main/partial/tags.html' with tag_context=tag %}
+            {% elif row == 't' %}
+                {% for tag in object_list %}
+                    {% include 'web/main/partial/tags.html' with tag_context=row.object %}
                 {% endfor %}
             {% else %}
-                {% for entity in results %}
-                    {% include 'web/main/partial/entity.html' with entity=entity %}
+                {% for row in object_list %}
+                    {% include 'web/main/partial/entity.html' with entity=row.object %}
                 {% endfor %}
             {% endif %}
         </div>
 
-        {% if objects %}
-            {% include "web/main/partial/search/paginator.html" with objects=objects type=type url=request.path keyword=keyword %}
+        {% if page_obj %}
+            {% include "web/main/partial/search/paginator.html" with objects=page_obj type=type url=request.path keyword=query %}
         {% endif %}
 
     </div>
