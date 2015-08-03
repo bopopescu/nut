@@ -133,7 +133,7 @@ class GKSearchView(SearchView):
             res = self.queryset.models(Tags)
         else:
             res = self.queryset.models(Entity)
-
+        log.info(res)
         context = self.get_context_data(**{
             self.form_name: form,
             'query': form.cleaned_data.get(self.search_field),
