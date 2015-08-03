@@ -22,10 +22,6 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
 
 class UserIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    # id = indexes.IntegerField(model_attr='id')
-    nickname = indexes.CharField(model_attr='user__profile__nickname', boost=1.125)
-    bio = indexes.CharField(model_attr='user__profile__bio')
-    # email = indexes.CharField(model_attr='email', boost=1.125)
 
     def get_model(self):
         return GKUser
@@ -46,6 +42,7 @@ class TagIndex(indexes.SearchIndex, indexes.Indexable):
 #
 class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
+    author = indexes.CharField(model_attr='creator')
     title = indexes.CharField(model_attr='title', boost=1.125)
 
     def get_model(self):
