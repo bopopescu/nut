@@ -1,5 +1,5 @@
 from haystack import indexes
-from apps.core.models import Entity, Article
+from apps.core.models import Entity, GKUser, Article
 
 
 class EntityIndex(indexes.SearchIndex, indexes.Indexable):
@@ -18,6 +18,9 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
         return self.get_model().objects.filter(status__gt=Entity.freeze).using('slave')
 
 
+class UserIndex(indexes.SearchIndex, indexes.Indexable):
+    text = indexes.CharField(document=True, use_template=True)
+    
 #
 # class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
 #     text = indexes.CharField(document=True, use_template=True)
