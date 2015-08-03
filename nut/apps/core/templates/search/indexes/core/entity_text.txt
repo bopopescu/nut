@@ -1,3 +1,1 @@
 {{ object.title }}
-{{ object.user.profile.nickname }}
-{{ object.updated_time }}
