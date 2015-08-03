@@ -5,30 +5,27 @@
 
 {% block content %}
     <div class="row">
-        <h1 class="page-header">{{ keyword }}</h1>
+        <h1 class="page-header">{{ query }}</h1>
 {#    <h2 class="sub-header">{% trans 'all' %}</h2>#}
 
     </div>
     <div class="row" style="padding-bottom: 24px;">
         <ul class="nav nav-pills" role="tablist">
-            <li {% ifequal type 'e' %}class="active"{% endifequal %}><a href="{% url 'management_search' %}?q={{ keyword }}&t=e">{% trans 'entity' %}</a></li>
-            <li {% ifequal type 't' %}class="active"{% endifequal %}><a href="{% url 'management_search' %}?q={{ keyword }}&t=t">{% trans 'tags' %}</a></li>
-            <li {% ifequal type 'u' %}class="active"{% endifequal %}><a href="{% url 'management_search' %}?q={{ keyword }}&t=u">{% trans 'users' %}</a></li>
-{#            <li {% ifequal status '0' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=0">{% trans 'new' %}</a></li>#}
-{#            <li {% ifequal status '-1' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=-1">{% trans 'freeze' %}</a></li>#}
-{#            <li {% ifequal status '-2' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=-2">{% trans 'remove' %}</a></li>#}
+            <li {% ifequal type 'e' %}class="active"{% endifequal %}><a href="{% url 'management_search' %}?q={{ query }}&t=e">{% trans 'entity' %}</a></li>
+            <li {% ifequal type 't' %}class="active"{% endifequal %}><a href="{% url 'management_search' %}?q={{ query }}&t=t">{% trans 'tags' %}</a></li>
+            <li {% ifequal type 'u' %}class="active"{% endifequal %}><a href="{% url 'management_search' %}?q={{ query }}&t=u">{% trans 'users' %}</a></li>
         </ul>
     </div>
 
 {#    <div class="row">#}
     {% if type == 't' %}
-        {% include 'management/tags/table.html' with tags=objects %}
+        {% include 'management/tags/table.html' with tags=object_list %}
     {% elif type == 'u' %}
-        {% include 'management/users/table.html' with users=objects %}
+        {% include 'management/users/table.html' with users=object_list %}
     {% else %}
-        {% include "management/entities/table.html" with entities=objects %}
+        {% include "management/entities/table.html" with entities=object_list %}
     {% endif %}
 
-    {% include 'management/search/search_paginator.html' with objects=objects keyword=keyword type=type %}
+    {% include 'management/search/search_paginator.html' with objects=page_obj keyword=query type=type %}
 {#    </div>#}
 {% endblock %}
