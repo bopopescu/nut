@@ -183,6 +183,13 @@ class GKSearchView(SearchView):
             'user_count': self.queryset.models(GKUser).count(),
             'tag_count': self.queryset.models(Tags).count(),
         })
+        if self.type == "e" and self.request.user.is_authenticated():
+            entity_id_list = map(lambda x : x.object.pk, context['page_obj'])
+            # log.info(entity_id_list)
+            el = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=entity_id_list)
+            context.update({
+                'user_entity_likes': el,
+            })
         return self.render_to_response(context)
 
     def get(self, request, *args, **kwargs):

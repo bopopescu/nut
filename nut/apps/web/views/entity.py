@@ -308,7 +308,6 @@ def entity_unlike(request, eid):
             return JSONResponse(data={'status':0})
         except Entity_Like.DoesNotExist:
             raise Http404
-        # return JSONResponse()
 
     return HttpResponseNotAllowed
 
