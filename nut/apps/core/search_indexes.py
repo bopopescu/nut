@@ -21,6 +21,7 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
 
 class UserIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
+    # email = indexes.CharField(model_attr='email', boost=1.125)
 
     def get_model(self):
         return GKUser
