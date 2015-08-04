@@ -281,9 +281,9 @@ class UserIndex(DetailView):
         context_data['recent_likes'] = current_user.likes.all()[:10]
         context_data['recent_notes'] = current_user.note.all()[:10]
         context_data['articles'] = current_user.published_articles[:5]
-        context_data['followings'] = current_user.followings.all()[:8]
-        context_data['fans'] = current_user.fans.all()[:8]
-        context_data['tags']= Content_Tags.objects.user_tags(current_user.pk)
+        context_data['followings'] = current_user.followings.all()[:7]
+        context_data['fans'] = current_user.fans.all()[:7]
+        context_data['tags']= Content_Tags.objects.user_tags(current_user.pk)[0:5]
         return context_data
 
 
