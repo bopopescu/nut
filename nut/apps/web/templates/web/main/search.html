@@ -42,8 +42,8 @@
                 {% for row in object_list %}
                     {% include 'web/main/partial/user.html' with user_context=row.object %}
                 {% endfor %}
-            {% elif row == 't' %}
-                {% for tag in object_list %}
+            {% elif type == 't' %}
+                {% for row in object_list %}
                     {% include 'web/main/partial/tags.html' with tag_context=row.object %}
                 {% endfor %}
             {% else %}
