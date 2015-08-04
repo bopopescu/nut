@@ -7,7 +7,7 @@
 body{
   font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
   font-size: @primary-size;
-  line-height: 1.5em;
+  line-height: 1.5;
   .transition(all 1s);
 
 }
@@ -233,8 +233,9 @@ body{
            }
          }
         .user-info{
+
            .user-nick-block{
-              max-width:450px;
+
              .center-wrapper{
 
              }
@@ -258,6 +259,7 @@ body{
       .user-admin-link-wrapper{
           a{
             float: right;
+            padding-right: 40px;
           }
       }
 
@@ -336,6 +338,14 @@ body{
       }
       .user-right{
          .panel;
+         .section-title{
+             border-left: 4px solid @common-gray;
+             padding-left: 12px;
+             position: relative;
+             left : -18px;
+             color: @common-gray;
+         }
+
       }
    }
 }
@@ -344,8 +354,8 @@ body{
 
 //
 
-#detail_content_right{
 
+#detail_content_right{
       .section-list{
         .section{
           .writer-intro{
@@ -374,6 +384,11 @@ body{
            list-style: none;
            .section-title{
              font-size:@subtitle-size;
+             .more-link{
+                font-size: @mini-size;
+                float:right;
+
+             }
            }
 
 //        http://stackoverflow.com/questions/5195836/2-column-div-layout-right-column-with-fixed-width-left-fluid
@@ -433,10 +448,23 @@ body{
 
                 li{
                   display: inline-block;
+                  width: 27px;
+                  a {
+                    display: block;
+                     img{
+
+                     }
+                  }
                   img{
                       border-radius : 50%;
                       margin: 0px 5px 5px 0px;
                     }
+                 }
+              }
+              .tag-list{
+                 list-style: none ;
+                 li{
+                     font-size: @mini-size;
                  }
               }
               @pop-entity-height:52px;
@@ -533,6 +561,18 @@ body{
       }
   }
 
+
+.user-right{
+  .section{
+     margin-bottom: 10px;
+     padding-bottom: 10px;
+     border-bottom: 1px solid @very-light-gray;
+     .section-content{
+        margin-top: 20px;
+     }
+
+  }
+}
 // reuse parts
 //
 
@@ -548,6 +588,7 @@ body{
 
        }
    }
+
    .cover-wrapper{
        float: none;
        width: 100%;
@@ -564,7 +605,7 @@ body{
 
 
 .test{
-  color: #000000;
+  color: black;
 }
 
 @import "dimentions/xs.less";
