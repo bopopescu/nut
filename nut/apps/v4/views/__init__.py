@@ -202,7 +202,6 @@ def selection(request):
             'type': "note_selection",
         })
 
-    # paginator = ExtentPaginator(entity_list)
     return SuccessJsonResponse(res)
 
 

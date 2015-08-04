@@ -34,10 +34,9 @@ def resize(value, size=None):
             # log.info(params)
             uri_string = '/'.join(params)
             # print uri_string
-            return 'http://image.guoku.com/' + uri_string
-            # return host + uri_string
-            # return "%s" % (host, params[0], params[1])
-    # log.info(value)
+            # return 'http://image.guoku.com/' + uri_string
+            return host + uri_string
+
     return value
 register.filter(resize)
 
