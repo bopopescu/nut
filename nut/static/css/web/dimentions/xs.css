@@ -132,7 +132,7 @@
     margin-top: 30px;
   }
   #guoku_footer .footer-buttons ul {
-    padding: 0px;
+    padding: 0;
   }
   #guoku_footer .footer-bottom .footer-bottom-left,
   #guoku_footer .footer-bottom .footer-bottom-right {
@@ -144,9 +144,6 @@
   }
   #guoku_footer .footer-bottom .footer-bottom-right {
     width: 200px;
-  }
-  .guoku-content.user-page .user-info {
-    min-with: 400px;
   }
   .guoku-content.user-page .user-info .user-nick-block {
     margin: 0 auto ;
@@ -181,6 +178,14 @@
   }
   .more-article-wrapper .title-wrapper .article-digest {
     display: none;
+  }
+}
+@media (min-width: 768px) and (max-width: 990px) {
+  .container {
+    width: 100%;
+  }
+  .guoku-content.user-page .user-info {
+    max-width: 450px;
   }
 }
 @media (min-width: 768px) {
