@@ -11,7 +11,7 @@ urlpatterns = patterns(
 
     url(r'^(?P<user_id>\d+)/$', 'index', name='web_user_index' ),
     # tmpl user page
-    url(r'^(?P<user_id>\d+)/new_front/$', UserIndex.as_view(), name='web_user_index_new'),
+    # url(r'^(?P<user_id>\d+)/new_front/$', UserIndex.as_view(), name='web_user_index_new'),
 
     url(r'^(?P<user_id>\d+)/like/$', 'entity_like', name='web_user_entity_like'),
     url(r'^(?P<user_id>\d+)/note/$', 'post_note', name='web_user_post_note'),
