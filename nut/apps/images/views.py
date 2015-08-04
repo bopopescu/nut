@@ -19,7 +19,6 @@ def images(request, file_name, size=None):
         # log.info(path)
         image_name = "%s/%s" % (path[1], path[-1])
 
-    # log.info("OKOKOKKO %s" %image_name)
     # result = resize.apply_async((image_name, size), expires=15)
     # image_data = result.get()
     image_data = resize(image_name, size)

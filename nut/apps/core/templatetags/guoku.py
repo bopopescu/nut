@@ -12,7 +12,6 @@ register = template.Library()
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
 
-
 def enumerate_list(value):
     return enumerate(value)
 register.filter(enumerate_list)
@@ -25,9 +24,6 @@ def resize(value, size=None):
     if value is None or host not in value:
         return value
 
-    # if host not in value:
-    #     return value
-
     if size:
         if host in value:
             uri = value.replace(host, '')
@@ -37,8 +33,9 @@ def resize(value, size=None):
             params.insert(1, size)
             # log.info(params)
             uri_string = '/'.join(params)
-            # log.info(uri_string)
-            return host + uri_string
+            # print uri_string
+            return 'http://image.guoku.com/' + uri_string
+            # return host + uri_string
             # return "%s" % (host, params[0], params[1])
     # log.info(value)
     return value
@@ -56,7 +53,7 @@ def timestamp(value):
 register.filter('timestamp', timestamp)
 
 def entity_qr(value):
-    url = "%s%s" % ('http://h.guoku.com', value)
+    url = "%s%s" % ('http://www.guoku.com', value)
     qr = qrcode.QRCode(
         version=2,
         error_correction=qrcode.constants.ERROR_CORRECT_H,
