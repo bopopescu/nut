@@ -3,7 +3,7 @@ from apps.core.models import Entity, Buy_Link, Note, \
     Taobao_Token, WeChat_Token, User_Follow, Category
 from apps.notifications.models import JpushToken
 
-from django.db import models
+# from django.db import models
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.db.models.signals import post_delete, post_save
@@ -13,6 +13,10 @@ import time
 from hashlib import md5
 
 from apps.mobile.models import Session_Key
+
+from django.conf import settings
+
+imghost = getattr(settings, 'IMAGE_HOST')
 
 
 from django.utils.log import getLogger

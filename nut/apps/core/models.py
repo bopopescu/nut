@@ -382,7 +382,8 @@ class Banner(BaseModel):
 
     @property
     def image_url(self):
-        return "%s%s" % (image_host, self.image)
+        # return "%s%s" % (image_host, self.image)
+        return "%s%s" % ('http://image.guoku.com/', self.image)
 
     @property
     def has_show_banner(self):
@@ -432,7 +433,7 @@ class Category(BaseModel):
 
     @property
     def cover_url(self):
-        return "http://imgcdn.guoku.com/%s" % self.cover
+        return "%s%s" % (image_host, self.cover)
 
 
 class Sub_Category(BaseModel):
@@ -566,18 +567,26 @@ class Entity(BaseModel):
 
     @property
     def chief_image(self):
-        # log.info("images, %s" % image_host)
         if len(self.images) > 0:
             if 'http' in self.images[0]:
+                if image_host in self.images[0]:
+                    return self.images[0].replace('imgcdn', 'image')
                 return self.images[0]
             else:
-                # log.info("%s%s" % (image_host, self.images[0]))
                 return "%s%s" % (image_host, self.images[0])
+                # return "%s%s" % ('http://image.guoku.com/', self.images[0])
 
     @property
     def detail_images(self):
         if len(self.images) > 1:
-            return self.images[1:]
+            res = list()
+            for row in self.images[1:]:
+                if image_host in row:
+                    res.append(row.replace('imgcdn', 'image'))
+                else:
+                    res.append(row)
+            return res
+
         return []
 
     @property
@@ -684,11 +693,10 @@ class Entity(BaseModel):
         res['chief_image'] = self.chief_image
         res['detail_images'] = self.detail_images
         res['entity_id'] = self.id
-
         return res
 
     def v3_toDict(self, user_like_list=None):
-        key_string = "entity_v3_%s" % self.id
+        key_string = "entity:v3:%s" % self.id
         key = md5(key_string.encode('utf-8')).hexdigest()
         res = cache.get(key)
         # log.info(user_like_list)
@@ -1291,7 +1299,8 @@ class Event_Banner(models.Model):
 
     @property
     def image_url(self):
-        return "%s%s" % (image_host, self.image)
+        return "%s%s" % ('http://image.guoku.com/', self.image)
+        # return "%s%s" % (image_host, self.image)
 
     @property
     def position(self):
