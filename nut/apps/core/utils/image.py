@@ -135,7 +135,7 @@ class HandleImage(object):
         return
 
 
-    def save(self, path = None, resize=False, square=False, maxWidth=900,maxQuality=70):
+    def save(self, path = None, resize=False, square=False, maxWidth=1200,maxQuality=99):
         log.info('begin save -----')
         if maxWidth:
             self.handleWidth(maxWidth)
