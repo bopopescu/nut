@@ -680,9 +680,6 @@ body {
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
-.guoku-content.user-page .user-info-wrapper .user-info {
-  max-width: 450px;
-}
 .guoku-content.user-page .user-info-wrapper .user-info .user-nick-block .nick {
   font-size: 22px;
   font-weight: 500;
@@ -1058,9 +1055,6 @@ body {
   #guoku_footer .footer-bottom .footer-bottom-right {
     width: 200px;
   }
-  .guoku-content.user-page .user-info {
-    max-width: 400px;
-  }
   .guoku-content.user-page .user-info .user-nick-block {
     margin: 0 auto ;
   }
@@ -1099,6 +1093,9 @@ body {
 @media (min-width: 768px) and (max-width: 990px) {
   .container {
     width: 100%;
+  }
+  .guoku-content.user-page .user-info {
+    max-width: 450px;
   }
 }
 @media (min-width: 768px) {
