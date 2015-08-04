@@ -13,13 +13,15 @@ from apps.core.tasks.entity import like_task, unlike_task
 from apps.web.forms.comment import CommentForm
 from apps.web.forms.note import NoteForm
 from apps.web.forms.entity import EntityURLFrom, CreateEntityForm, ReportForms
-# from apps.core.tasks.entity import like_task
+
 from apps.web.utils.viewtools import add_side_bar_context_data
 from apps.tag.models import Content_Tags
 
 from django.utils.log import getLogger
 from django.views.generic.detail import DetailView
 from braces.views import  AjaxResponseMixin,JSONResponseMixin
+
+from django.conf import settings
 
 log = getLogger('django')
 
@@ -184,9 +186,7 @@ def entity_update_note(request, nid):
         _forms = NoteForm(request.POST, user=_user, nid=nid)
         if _forms.is_valid():
             note = _forms.update()
-
             return JSONResponse(data={'result':'1'})
-
     # else:
     return HttpResponseNotAllowed
 
@@ -279,12 +279,14 @@ def entity_like(request, eid):
             #         )
             #         obj.entity.innr_like()
                     # return obj
+            if settings.DEBUG:
+                el = Entity_Like.objects.create(
+                    user = _user,
+                    entity_id = eid,
+                )
+            else:
+                like_task.delay(uid=_user.id, eid=eid)
 
-            like_task.delay(uid=_user.id, eid=eid)
-            # el = Entity_Like.objects.create(
-            #     user = _user,
-            #     entity_id = eid,
-            # )
             return JSONResponse(data={'status':1})
         except Exception, e:
             log.error("ERROR: %s", e.message)
@@ -298,13 +300,14 @@ def entity_unlike(request, eid):
     if request.is_ajax():
         _user = request.user
         try:
-            # el = Entity_Like.objects.get(entity_id = eid, user = _user)
-            # el.delete()
-            unlike_task.delay(uid=_user.id, eid=eid)
+            if settings.DEBUG:
+                el = Entity_Like.objects.get(entity_id = eid, user = _user)
+                el.delete()
+            else:
+                unlike_task.delay(uid=_user.id, eid=eid)
             return JSONResponse(data={'status':0})
         except Entity_Like.DoesNotExist:
             raise Http404
-        # return JSONResponse()
 
     return HttpResponseNotAllowed
 
