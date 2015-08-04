@@ -570,8 +570,6 @@ class Entity(BaseModel):
     def chief_image(self):
         if len(self.images) > 0:
             if 'http' in self.images[0]:
-                if image_host in self.images[0]:
-                    return self.images[0].replace('imgcdn', 'image')
                 return self.images[0]
             else:
                 return "%s%s" % (image_host, self.images[0])
@@ -580,13 +578,14 @@ class Entity(BaseModel):
     @property
     def detail_images(self):
         if len(self.images) > 1:
-            res = list()
-            for row in self.images[1:]:
-                if image_host in row:
-                    res.append(row.replace('imgcdn', 'image'))
-                else:
-                    res.append(row)
-            return res
+            return self.innr_like()[1:]
+            # res = list()
+            # for row in self.images[1:]:
+            #     if image_host in row:
+            #         res.append(row.replace('imgcdn', 'image'))
+            #     else:
+            #         res.append(row)
+            # return res
 
         return []
 
