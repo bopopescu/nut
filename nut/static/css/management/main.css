@@ -461,6 +461,17 @@ body {
 .article-management {
   display: none;
 }
+.entity-table .formatted-time {
+  width: 100px;
+  color: #9d9e9f;
+}
+.entity-table .pub-time {
+  width: 180px;
+  color: black;
+}
+.entity-table .entity-image {
+  min-width: 100px;
+}
 .test {
   color: white;
 }

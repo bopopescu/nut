@@ -9,7 +9,6 @@ body{
   font-size: @primary-size;
   line-height: 1.5;
   .transition(all 1s);
-
 }
 
 .body-gray{
@@ -233,11 +232,8 @@ body{
            }
          }
         .user-info{
-
            .user-nick-block{
-
              .center-wrapper{
-
              }
              .nick{
               font-size: @title-size;
@@ -251,9 +247,6 @@ body{
                max-width:450px;
                font-size: @mini-size;
            }
-
-
-
         }
       }
       .user-admin-link-wrapper{
@@ -332,6 +325,11 @@ body{
                  margin: 10px!important;
                }
              }
+             .tag-cell{
+
+             }
+
+
 
          }
 
@@ -441,8 +439,21 @@ body{
                  .download-link{
                     i{
                       color:@link-color;
+
                     }
                  }
+                ul.user-detail-list{
+                   li{
+                      display: block;
+                      text-align: center;
+                      &.index-link{
+                         margin-bottom: 20px;
+                      }
+                      &.discover-more-link{
+                        margin-top: 20px;
+                      }
+                   }
+                }
               }
               .user-icon-list{
 
@@ -605,7 +616,7 @@ body{
 
 
 .test{
-  color: black;
+  color: #000000;
 }
 
 @import "dimentions/xs.less";
