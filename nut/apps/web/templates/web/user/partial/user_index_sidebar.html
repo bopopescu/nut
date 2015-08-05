@@ -1,0 +1,57 @@
+{% load i18n %}
+{% load common guoku %}
+{% load static %}
+
+<ul class="section-list user-right">
+    <li class="section">
+        <div class="section-title">关注<span class="more-link"><a>全部</a></span></div>
+        <div class="section-content">
+            <ul class="following-list user-icon-list">
+                {% for f in followings %}
+                    <li><a><img class="img-responsive" src="{{ f.followee.avatar_url  }}"></a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </li>
+    <li class="section">
+        <div class="section-title">粉丝<span class="more-link"><a>全部</a></span></div>
+        <div class="section-content">
+            <ul class="fans-list user-icon-list">
+                {% for f in fans %}
+                    <li><a><img class="img-responsive" src="{{ f.follower.avatar_url  }}"></a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </li>
+    <li class="section">
+        <div class="section-title">参与标签<span class="more-link"><a>全部</a></span></div>
+        <div class="section-content">
+            <ul class="tag-list">
+                {% for tag in tags %}
+                    <li><a href="{% url 'web_user_tag_detail' current_user.id tag.tag %}">
+                        #{{ tag.tag }}
+                    </a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </li>
+    <li class="section">
+        <div class="section-title">客户端<span class="more-link"><a>全部</a></span></div>
+        <div class="section-content">
+            <div class="text-holder">
+                精英消费指南，生活不一样。
+                                 <span class="download-link">
+                                     <a href="{% url "web_download" %}">查看详情
+                                         <i class="fa fa-angle-right"></i>
+                                         <i class="fa fa-angle-right"></i>
+                                     </a>
+                                 </span>
+            </div>
+            <div class="icon-holder">
+                <a href="{% url "web_download" %}">
+                    <img width="64px" src="{% static "images/side_bar/icon64.png" %}"/>
+                </a>
+            </div>
+        </div>
+    </li>
+</ul>

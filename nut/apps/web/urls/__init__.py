@@ -119,8 +119,8 @@ urlpatterns += patterns('',
             url(r'^captcha/', include('captcha.urls')),
         )
 
-# urlpatterns += patterns('',
-#             url(r'^test_index/',TestView.as_view()),
-#         )
+urlpatterns += patterns('',
+            url(r'^test_index/',TestView.as_view()),
+        )
 
 __author__ = 'edison7500'

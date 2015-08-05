@@ -153,6 +153,11 @@ def index(request, user_id):
     return HttpResponseRedirect(reverse('web_user_entity_like', args=[user_id,]))
 
 
+
+
+
+
+# prepare to retire this view -- anchen
 def entity_like(request, user_id, template="web/user/like.html"):
 
     _page = request.GET.get('page', 1)
@@ -269,6 +274,57 @@ def articles(request,user_id, template="web/user/user_published_articles.html"):
 
 
 
+class UserDetailBase(ListView):
+    '''
+        abstract view for user views
+    '''
+    paginate_by = 30
+    paginator_class = Jpaginator
+    context_object_name = 'articles'
+    def get_showing_user(self):
+        user_id =  self.kwargs['user_id']
+        _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
+        return _user
+
+    def get_context_data(self, **kwargs):
+        context_data = super(UserDetailBase, self).get_context_data(**kwargs)
+        context_data['current_user'] = self.get_showing_user()
+        return context_data
+
+
+
+
+class UserLikeView(UserDetailBase):
+    paginate_by = 28
+    template_name = 'web/user/user_like.html'
+    context_object_name = 'current_user_likes'
+
+    def get_queryset(self):
+        _user = self.get_showing_user()
+        _like_list = Entity_Like.objects.filter(user=_user, entity__status__gte=Entity.freeze)
+        return _like_list
+
+
+class UserNoteView(UserDetailBase):
+    paginate_by = 20
+    template_name = 'web/user/user_note.html'
+    context_object_name = 'current_user_notes'
+    def get_queryset(self):
+        _user = self.get_showing_user()
+        _note_list = Note.objects.filter(user=_user, entity__status__gt=Entity.remove,).exclude(status=Note.remove).order_by("-post_time")
+        return _note_list
+
+
+class UserTagView(UserDetailBase):
+    paginate_by = 10
+    template_name = 'web/user/user_tag.html'
+    context_object_name = 'current_user_tags'
+    def get_queryset(self):
+        _user = self.get_showing_user()
+        tag_list = Content_Tags.objects.user_tags(_user.pk)
+        return tag_list
+
+
 class UserIndex(DetailView):
     template_name = 'web/user/user_index.html'
     model = GKUser
@@ -285,8 +341,6 @@ class UserIndex(DetailView):
         context_data['fans'] = current_user.fans.all()[:7]
         context_data['tags']= Content_Tags.objects.user_tags(current_user.pk)[0:5]
         return context_data
-
-
 
 
 

@@ -1437,6 +1437,7 @@ def user_post_note_notification(sender, instance, created, **kwargs):
 
     data = serializers.serialize('json', [instance])
     generator_tag.delay(data=data)
+    # generator_tag(data=data)
 
     if issubclass(sender, Note) and created:
         # log.info(instance.user)
