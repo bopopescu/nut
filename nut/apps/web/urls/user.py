@@ -1,6 +1,7 @@
 from django.conf.urls import url, patterns
 
-from apps.web.views.user import UserArticles, UserIndex
+from apps.web.views.user import UserArticles, UserIndex,\
+                                UserLikeView
 
 urlpatterns = patterns(
     'apps.web.views.user',
@@ -11,7 +12,9 @@ urlpatterns = patterns(
 
     url(r'^(?P<user_id>\d+)/$', 'index', name='web_user_index' ),
     # tmpl user page
-    # url(r'^(?P<user_id>\d+)/new_front/$', UserIndex.as_view(), name='web_user_index_new'),
+    url(r'^(?P<user_id>\d+)/new_front/$', UserIndex.as_view(), name='web_user_index_new'),
+    url(r'^(?P<user_id>\d+)/like/new_front/$', UserLikeView.as_view(), name='web_user_entity_like_new'),
+    url(r'^(?P<user_id>\d+)/note/new_front/$', 'post_note', name='web_user_post_note'),
 
     url(r'^(?P<user_id>\d+)/like/$', 'entity_like', name='web_user_entity_like'),
     url(r'^(?P<user_id>\d+)/note/$', 'post_note', name='web_user_post_note'),
@@ -27,7 +30,6 @@ urlpatterns = patterns(
     url(r'^(?P<user_id>\d+)/follow/$', 'follow_action', name='web_user_follow_action'),
     url(r'^(?P<user_id>\d+)/unfollow/$', 'unfollow_action', name='web_user_unfollow_action'),
 )
-
 
 
 __author__ = 'edison'

@@ -8,74 +8,18 @@
     <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
     <meta property="og:description" content="{{ current_user.profile.nick }}果库的个人页，展现个人的兴趣爱好、消费倾向及擅长领域，包括个人在果库喜爱过、点评过的商品、为商品贴过的标签、撰写过、赞过的图文等。">
 {% endblock %}
-
 {% block meta-common %}
     <meta name="title"  content="{{ current_user.profile.nick }} | 精英消费指南 | 果库">
     <meta name="keywords" content="{{ current_user.profile.nick }},个人主页,喜爱,点评,标签,图文,消费经验,擅长领域,精英消费指南,果库">
     <meta name="description" content="{{ current_user.profile.nick }},{{ current_user.profile.bio|truncatechars:'50' }},喜爱过的商品、点评过的商品、撰写过的图文、为商品贴过的标签，做理想消费精英，提理想生活主张，个人兴趣爱好、消费倾向及擅长领域，做消费的自己。">
 {% endblock %}
 
-
 {% block title %}{{ current_user.profile.nick }} | 精英消费指南 | 果库{% endblock %}
 {% block user_content_detail %}
         <div class="row content-wrapper" id="user-main-content">
-
-                <div class="content-right col-xs-12 hidden-sm hidden-md hidden-lg" id="detail_content_right" >
-                <ul class="section-list user-right">
-                    <li class="section">
-                        <div class="section-title">关注<span class="more-link"><a>全部</a></span></div>
-                        <div class="section-content">
-                            <ul class="following-list user-icon-list">
-                                {% for f in followings %}
-                                    <li><a><img class="img-responsive" src="{{ f.followee.avatar_url  }}"></a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="section">
-                        <div class="section-title">粉丝<span class="more-link"><a>全部</a></span></div>
-                        <div class="section-content">
-                            <ul class="fans-list user-icon-list">
-                                {% for f in fans %}
-                                    <li><a><img class="img-responsive" src="{{ f.follower.avatar_url  }}"></a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="section">
-                        <div class="section-title">参与标签<span class="more-link"><a>全部</a></span></div>
-                        <div class="section-content">
-                            <ul class="tag-list">
-                                {% for tag in tags %}
-                                    <li><a href="{% url 'web_user_tag_detail' current_user.id tag.tag %}">
-                                        #{{ tag.tag }}
-                                    </a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="section">
-                        <div class="section-title">客户端<span class="more-link"><a>全部</a></span></div>
-                        <div class="section-content">
-                             <div class="text-holder">
-                                精英消费指南，生活不一样。
-                                 <span class="download-link">
-                                     <a href="{% url "web_download" %}">查看详情
-                                         <i class="fa fa-angle-right"></i>
-                                         <i class="fa fa-angle-right"></i>
-                                     </a>
-                                 </span>
-                            </div>
-                            <div class="icon-holder">
-                                <a href="{% url "web_download" %}">
-                                     <img width="64px" src="{% static "images/side_bar/icon64.png" %}"/>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                </div>
-
+            <div class="content-right col-xs-12 hidden-sm hidden-md hidden-lg" id="detail_content_right" >
+                {% include "web/user/partial/user_index_sidebar.html" %}
+            </div>
             <div class="content-left col-xs-12 col-sm-8 col-md-8 col-lg-8">
 
 {#                 <div class="container-fluid content-panel" id="user-follow-panel">#}
@@ -199,59 +143,7 @@
                 </div>
             </div>
             <div class="content-right hidden-xs col-sm-4 col-md-4 col-lg-4" id="detail_content_right" >
-                <ul class="section-list user-right">
-                    <li class="section">
-                        <div class="section-title">关注<span class="more-link"><a>全部</a></span></div>
-                        <div class="section-content">
-                            <ul class="following-list user-icon-list">
-                                {% for f in followings %}
-                                    <li><a><img class="img-responsive" src="{{ f.followee.avatar_url  }}"></a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="section">
-                        <div class="section-title">粉丝<span class="more-link"><a>全部</a></span></div>
-                        <div class="section-content">
-                            <ul class="fans-list user-icon-list">
-                                {% for f in fans %}
-                                    <li><a><img class="img-responsive" src="{{ f.follower.avatar_url  }}"></a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="section">
-                        <div class="section-title">参与标签<span class="more-link"><a>全部</a></span></div>
-                        <div class="section-content">
-                            <ul class="tag-list">
-                                {% for tag in tags %}
-                                    <li><a href="{% url 'web_user_tag_detail' current_user.id tag.tag %}">
-                                        #{{ tag.tag }}
-                                    </a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="section">
-                        <div class="section-title">客户端<span class="more-link"><a>全部</a></span></div>
-                        <div class="section-content">
-                             <div class="text-holder">
-                                精英消费指南，生活不一样。
-                                 <span class="download-link">
-                                     <a href="{% url "web_download" %}">查看详情
-                                         <i class="fa fa-angle-right"></i>
-                                         <i class="fa fa-angle-right"></i>
-                                     </a>
-                                 </span>
-                            </div>
-                            <div class="icon-holder">
-                                <a href="{% url "web_download" %}">
-                                     <img width="64px" src="{% static "images/side_bar/icon64.png" %}"/>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                 {% include "web/user/partial/user_index_sidebar.html" %}
             </div>
         </div>
 {% endblock %}

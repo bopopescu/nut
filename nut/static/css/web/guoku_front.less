@@ -9,7 +9,6 @@ body{
   font-size: @primary-size;
   line-height: 1.5;
   .transition(all 1s);
-
 }
 
 .body-gray{
@@ -441,8 +440,21 @@ body{
                  .download-link{
                     i{
                       color:@link-color;
+
                     }
                  }
+                ul.user-detail-list{
+                   li{
+                      display: block;
+                      text-align: center;
+                      &.index-link{
+                         margin-bottom: 20px;
+                      }
+                      &.discover-more-link{
+                        margin-top: 20px;
+                      }
+                   }
+                }
               }
               .user-icon-list{
 
@@ -605,7 +617,7 @@ body{
 
 
 .test{
-  color: black;
+  color: #000000;
 }
 
 @import "dimentions/xs.less";
