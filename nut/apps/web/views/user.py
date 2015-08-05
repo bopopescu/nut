@@ -315,6 +315,14 @@ class UserNoteView(UserDetailBase):
         return _note_list
 
 
+class UserTagView(UserDetailBase):
+    paginate_by = 10
+    template_name = 'web/user/user_tag.html'
+    context_object_name = 'current_user_tags'
+    def get_queryset(self):
+        _user = self.get_showing_user()
+        tag_list = Content_Tags.objects.user_tags(_user.pk)
+        return tag_list
 
 
 class UserIndex(DetailView):
