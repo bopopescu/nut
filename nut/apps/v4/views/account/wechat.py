@@ -13,7 +13,8 @@ log = getLogger('django')
 @check_sign
 def login(request):
     code = 200
-    if 'iPhone' in request.META['HTTP_USER_AGENT'] or 'iPad' in request.META['HTTP_USER_AGENT']:
+    user_agent = request.META.get('HTTP_USER_AGENT', '')
+    if 'iPhone' in user_agent or 'iPad' in user_agent:
         code = 409
 
     if request.method == "POST":
