@@ -325,7 +325,7 @@ class User_Profile(BaseModel):
 
     def save(self, *args, **kwargs):
         super(User_Profile, self).save(*args, **kwargs)
-        key_string = "user_v3_%s" % self.user.id
+        key_string = "user:v3:%s" % self.user.id
         key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
 
@@ -383,8 +383,8 @@ class Banner(BaseModel):
 
     @property
     def image_url(self):
-        # return "%s%s" % (image_host, self.image)
-        return "%s%s" % ('http://image.guoku.com/', self.image)
+        return "%s%s" % (image_host, self.image)
+        # return "%s%s" % ('http://image.guoku.com/', self.image)
 
     @property
     def has_show_banner(self):
@@ -578,7 +578,7 @@ class Entity(BaseModel):
     @property
     def detail_images(self):
         if len(self.images) > 1:
-            return self.innr_like()[1:]
+            return self.images[1:]
             # res = list()
             # for row in self.images[1:]:
             #     if image_host in row:
@@ -586,7 +586,6 @@ class Entity(BaseModel):
             #     else:
             #         res.append(row)
             # return res
-
         return []
 
     @property
@@ -696,8 +695,8 @@ class Entity(BaseModel):
         return res
 
     def v3_toDict(self, user_like_list=None):
-        key_string = "entity:v3:%s" % self.id
-        key = md5(key_string.encode('utf-8')).hexdigest()
+        key = "entity:dict:v3:%s" % self.id
+        # key = md5(key_string.encode('utf-8')).hexdigest()
         res = cache.get(key)
         # log.info(user_like_list)
         # res = {}
@@ -743,8 +742,9 @@ class Entity(BaseModel):
 
     def save(self, *args, **kwargs):
         super(Entity, self).save(*args, **kwargs)
-        key_string = "entity_v3_%s" % self.id
-        key = md5(key_string.encode('utf-8')).hexdigest()
+        key = "entity:dict:v3:%s" % self.id
+        # key_string = "entity_v3_%s" % self.id
+        # key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
 
     # search index
