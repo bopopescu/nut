@@ -7,7 +7,6 @@ from apps.core.models import Buy_Link, Entity
 import requests
 import time
 
-
 def crawl(item_id):
     data = {
         'project':'default',
@@ -23,7 +22,5 @@ links = Buy_Link.objects.filter(origin_source='taobao.com', entity__status__gt=E
 for row in links:
     print row.origin_id, crawl(item_id=row.origin_id)
     time.sleep(5)
-
-
 
 __author__ = 'edison'

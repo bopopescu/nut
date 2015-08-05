@@ -52,8 +52,4 @@ for row in entities:
         else:
             continue
 
-
-
-
-
 __author__ = 'edison'

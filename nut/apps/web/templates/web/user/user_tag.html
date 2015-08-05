@@ -21,9 +21,9 @@
                 {% include "web/user/partial/user_detail_sidebar.html" %}
             </div>
             <div class="content-left col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                <div class="container-fluid content-panel" id="user-like-panel">
+                <div class="container-fluid content-panel" id="user-tag-panel">
                         <div class="row panel-header">
-                            <div class="panel-name">我的喜爱</div>
+                            <div class="panel-name">我参与的标签</div>
 {#                            <div class="more-link">#}
 {#                                <a href="">#}
 {#                                查看全部#}
@@ -33,15 +33,11 @@
 {#                            </div>#}
                         </div>
                         <div class="row panel-content-wrapper ">
-                                {% for elike in current_user_likes %}
-                                <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3 entity-cell cell">
-                                   <div class="img-box">
-                                       <a href="">
-                                           <img class="img-responsive" src="{{ elike.entity.chief_image|resize:'320'}}" />
-                                       </a>
-                                   </div>
-                                </div>
-                                {% endfor %}
+
+                                    {% for tag in current_user_tags %}sm
+                                        <div class="tag-item col-xs-4 col-3">#{{ tag.tag }}</div>
+                                    {% endfor %}
+
                         </div>
                 </div>
                 <div class="pager-wrapper">
