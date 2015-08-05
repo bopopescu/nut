@@ -458,6 +458,9 @@ th {
 ul {
   padding: 0px;
 }
+ul li {
+  list-style: none;
+}
 body {
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
   font-size: 16px;
@@ -893,6 +896,16 @@ body {
 #detail_content_right .section-list li.section .section-content .download-link i {
   color: #357ebd;
 }
+#detail_content_right .section-list li.section .section-content ul.user-detail-list li {
+  display: block;
+  text-align: center;
+}
+#detail_content_right .section-list li.section .section-content ul.user-detail-list li.index-link {
+  margin-bottom: 20px;
+}
+#detail_content_right .section-list li.section .section-content ul.user-detail-list li.discover-more-link {
+  margin-top: 20px;
+}
 #detail_content_right .section-list li.section .user-icon-list li {
   display: inline-block;
   width: 27px;
@@ -1010,7 +1023,7 @@ body {
   width: 100%;
 }
 .test {
-  color: black;
+  color: #000000;
 }
 @media (max-width: 767px) {
   #guoku_main_nav {
