@@ -1,6 +1,6 @@
 from apps.core.forms.search import SearchForm
 from apps.core.models import Entity, GKUser
-
+from haystack.forms import SearchForm as haystackSearchForm
 
 class EntitySearchForm(SearchForm):
 
@@ -18,5 +18,17 @@ class UserSearchForm(SearchForm):
 
         qs = GKUser.search.query(_keyword).order_by('@weight', '-date_joined')
         return qs
+
+
+class APIEntitySearchForm(haystackSearchForm):
+
+    def search(self):
+        sqs = super(APIEntitySearchForm, self).search()
+
+        if not self.is_valid():
+            return self.no_query_found()
+
+        return sqs.models(Entity)
+
 
 __author__ = 'edison'
