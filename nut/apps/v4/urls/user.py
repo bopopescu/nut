@@ -1,5 +1,5 @@
 from django.conf.urls import url, patterns
-
+from apps.v4.views.user import APIUserSearchView
 
 urlpatterns = patterns(
     'apps.v4.views.user',
@@ -10,7 +10,8 @@ urlpatterns = patterns(
     url(r'^(?P<user_id>\d+)/like/$', 'entity_like', name='v4_user_entity_like'),
     url(r'^(?P<user_id>\d+)/entity/note/$', 'entity_note', name='v4_user_entity_note'),
 
-    url(r'^search/$', 'search', name='v4_user_search'),
+    url(r'^search/$', APIUserSearchView.as_view(), name='v4_user_search'),
+    # url(r'^search/$', 'search', name='v4_user_search'),
 
 # update user profile
     url(r'^update/$', 'update', name='v4_user_update'),
