@@ -23,7 +23,7 @@
             <div class="content-left col-xs-12 col-sm-8 col-md-8 col-lg-8">
                 <div class="container-fluid content-panel" id="user-tag-panel">
                         <div class="row panel-header">
-                            <div class="panel-name">我参与的标签</div>
+                            <div class="panel-name">我的图文</div>
 {#                            <div class="more-link">#}
 {#                                <a href="">#}
 {#                                查看全部#}
@@ -33,13 +33,11 @@
 {#                            </div>#}
                         </div>
                         <div class="row panel-content-wrapper ">
-
-                                    {% for tag in current_user_tags %}
-                                        <div class="tag-cell col-xs-3 col-3">
-                                               <a href="{% url 'tag_entities_url' tag.tag %}" > #{{ tag.tag }}</a>
-                                        </div>
-                                    {% endfor %}
-
+                                  {% for article in current_user_articles %}
+                                    {% with article as r_article %}
+                                            {% include 'web/article/partial/user_article_item.html' %}
+                                    {% endwith  %}
+                                  {% endfor %}
                         </div>
                 </div>
                 <div class="pager-wrapper">
