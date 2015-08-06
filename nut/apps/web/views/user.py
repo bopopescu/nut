@@ -327,7 +327,7 @@ class UserTagView(UserDetailBase):
 class UserArticleView(UserDetailBase):
     template_name =  'web/user/user_article.html'
     paginate_by = 5
-    context_object_name = 'currrent_user_articles'
+    context_object_name = 'current_user_articles'
 
     def get_queryset(self):
         _user = self.get_showing_user()

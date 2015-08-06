@@ -35,7 +35,7 @@
                         <div class="row panel-content-wrapper ">
                                   {% for article in current_user_articles %}
                                     {% with article as r_article %}
-                                            {% include 'web/article/partial/article_recommend_item.html' %}
+                                            {% include 'web/article/partial/user_article_item.html' %}
                                     {% endwith  %}
                                   {% endfor %}
                         </div>
