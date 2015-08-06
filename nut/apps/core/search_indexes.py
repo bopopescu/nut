@@ -29,7 +29,7 @@ class UserIndex(indexes.SearchIndex, indexes.Indexable):
         return GKUser
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.filter(is_active__gte=GKUser.active)
+        return self.get_model().objects.filter(is_active__gte=GKUser.active).using('slave')
 
 
 class TagIndex(indexes.SearchIndex, indexes.Indexable):
@@ -43,7 +43,7 @@ class TagIndex(indexes.SearchIndex, indexes.Indexable):
         return Tags
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.all()
+        return self.get_model().objects.all().using('slave')
 #
 #
 class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
@@ -55,7 +55,7 @@ class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
         return Article
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.filter(publish=Article.published)
+        return self.get_model().objects.filter(publish=Article.published).using('slave')
 
 
 __author__ = 'edison'
