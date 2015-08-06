@@ -17,8 +17,8 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            {% for entity in entities %}
-                {% include 'web/main/partial/entity.html' with entity=entity%}
+            {% for entity in object_list %}
+                {% include 'web/main/partial/entity.html' with entity=entity %}
             {% endfor %}
         </div>
     </div>

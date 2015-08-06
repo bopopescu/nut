@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
-from django.http import HttpResponseRedirect, HttpResponse, Http404
-from django.views.decorators.http import require_GET
+# from django.http import HttpResponseRedirect, HttpResponse, Http404
+# from django.views.decorators.http import require_GET
 from django.template import RequestContext, loader
 # from django.template import loader
 
@@ -15,9 +15,9 @@ from haystack.generic_views import SearchView
 from apps.core.utils.http import JSONResponse
 from django.utils.log import getLogger
 
-from apps.web.utils.viewtools import get_paged_list
+# from apps.web.utils.viewtools import get_paged_list
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
-from apps.tag.models import Content_Tags
+# from apps.tag.models import Content_Tags
 from apps.core.models import Sub_Category
 # import random
 
@@ -117,6 +117,35 @@ def popular(request, template='web/main/popular.html'):
         },
         context_instance = RequestContext(request),
     )
+
+class PopularView(ListView):
+
+    template_name = 'web/main/popular.html'
+    http_method_names = ['get']
+
+    # queryset = Entity_Like.objects.popular_random()
+    def get_queryset(self):
+        popular_list = Entity_Like.objects.popular_random()
+        self.entities = Entity.objects.filter(id__in=popular_list)
+        return self.entities
+
+    def get_context_data(self, **kwargs):
+        context = super(PopularView,self).get_context_data()
+        el = list()
+        if self.request.user.is_authenticated():
+            el = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=list(self.entities))
+
+        context.update(
+            {
+                'user_entity_likes':el,
+            }
+        )
+        return context
+
+    def get(self, request, *args, **kwargs):
+
+        return super(PopularView, self).get(request, *args, **kwargs)
+
 
 class GKSearchView(SearchView):
 
