@@ -13,12 +13,10 @@ urlpatterns = patterns(
     url(r'^search/$', APIUserSearchView.as_view(), name='mobile_user_search'),
     url(r'^update/$', 'update', name='mobile_user_update'),
 
-
     url(r'^(?P<user_id>\d+)/following/$', 'following_list', name='mobile_user_following'),
     url(r'^(?P<user_id>\d+)/fan/$', 'fans_list', name='mobile_user_fans'),
 
     url(r'^(?P<user_id>\d+)/follow/(?P<target_status>\d+)/$', 'follow_action', name='mobile_user_follow_action'),
 )
-
 
 __author__ = 'edison7500'
