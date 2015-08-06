@@ -1,5 +1,5 @@
 from django.conf.urls import url, patterns
-
+from apps.mobile.views.user import APIUserSearchView
 
 urlpatterns = patterns(
     'apps.mobile.views.user',
@@ -10,7 +10,7 @@ urlpatterns = patterns(
     url(r'^(?P<user_id>\d+)/like/$', 'entity_like', name='mobile_user_entity_like'),
     url(r'^(?P<user_id>\d+)/entity/note/$', 'entity_note', name='mobile_user_entity_note'),
 
-    url(r'^search/$', 'search', name='mobile_user_search'),
+    url(r'^search/$', APIUserSearchView.as_view(), name='mobile_user_search'),
     url(r'^update/$', 'update', name='mobile_user_update'),
 
 
