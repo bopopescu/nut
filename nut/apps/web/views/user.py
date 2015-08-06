@@ -127,8 +127,22 @@ def follow_action(request, user_id):
             followee_id = user_id,
         )
         uf.save()
+
+    try:
+        reverse_uf = User_Follow.objects.get(
+            follower_id = user_id,
+            followee = _fans
+        )
+        # mutual following
+        return JSONResponse(data={'status': 2})
+
+    except User_Follow.DoesNotExist :
+        return JSONResponse(data={'status': 1})
+
+
+
         # notify.send(_fans, recipient=uf.followee, verb=u'has followed you', action_object=uf, target=uf.followee)
-    return JSONResponse(data={'status':1})
+    # return JSONResponse(data={'status':1})
 
 
 @login_required
@@ -145,6 +159,7 @@ def unfollow_action(request, user_id):
         uf.delete()
     except User_Follow.DoesNotExist, e:
         raise Http404
+
     return JSONResponse(data={'status':0})
     # return
 
@@ -292,8 +307,6 @@ class UserDetailBase(ListView):
         return context_data
 
 
-
-
 class UserLikeView(UserDetailBase):
     paginate_by = 28
     template_name = 'web/user/user_like.html'
@@ -326,13 +339,31 @@ class UserTagView(UserDetailBase):
 
 class UserArticleView(UserDetailBase):
     template_name =  'web/user/user_article.html'
-    paginate_by = 5
+    paginate_by = 12
     context_object_name = 'current_user_articles'
 
     def get_queryset(self):
         _user = self.get_showing_user()
         _article_list = Article.objects.get_published_by_user(_user)
         return _article_list
+
+class UserFansView(UserDetailBase):
+    template_name = 'web/user/user_fans.html'
+    paginate_by = 12
+    context_object_name = 'current_user_fans'
+    def get_queryset(self):
+        _user = self.get_showing_user()
+        return _user.fans.all()
+
+
+class UserFollowingsView(UserDetailBase):
+    template_name = 'web/user/user_followings.html'
+    paginate_by = 12
+    context_object_name = 'current_user_followings'
+    def get_queryset(self):
+        _user = self.get_showing_user()
+        return _user.followings.all()
+
 
 class UserIndex(DetailView):
     template_name = 'web/user/user_index.html'

@@ -407,17 +407,20 @@ $.ajaxSetup({
                     method: 'post',
                     success: function(data){
                         //console.log(data);
-                        if (data.status == 1) {
-                            if($this.hasClass(".is-fan")){
-                                $this.html('<i class="fa fa-check fa-lg fc_3"></i>&nbsp; 取消光柱');
-                            } else {
-                                $this.html('<i class="fa fa-exchange fa-lg fc_3"></i>&nbsp; 取消关注');
-                        //$this.html('<span class="img_not_fun"></span><b>取消关注</b>');
-                            }
-                            $this.attr('data-status', '1');
 
+                        if (data.status == 1) {
+
+                            $this.html('<i class="fa fa-check fa-lg fc_3"></i>&nbsp; 取消关注');
+                            $this.attr('data-status', '1');
                             $this.removeClass("btn-primary").addClass("btn-cancel");
-                        } else if (data.status == 0) {
+
+                        }else if (data.status == 2){
+                            console.log('mutual !!!');
+                             $this.html('<i class="fa fa-exchange fa-lg fc_3"></i>&nbsp; 取消关柱');
+                             $this.removeClass('btn-primary').addClass('btn-cancel');
+                             $this.attr('data-status','1');
+
+                        }else if (data.status == 0) {
                             $this.html('<i class="fa fa-plus fc_4"></i>&nbsp; 关注');
                         //$this.html('<span class="img_follow"></span><b>关注</b>');
                             $this.removeClass("btn-cancel").addClass("btn-primary");
