@@ -139,8 +139,9 @@ class HandleImage(object):
         log.info('begin save -----')
         if maxWidth:
             self.handleWidth(maxWidth)
-        if maxQuality:
-            self.handleQuality(maxQuality)
+        # disable quality process by An
+        # if maxQuality:
+        #     self.handleQuality(maxQuality)
 
         if self.ext_name == 'png':
             # _img = WandImage(blob = self._image_data)
