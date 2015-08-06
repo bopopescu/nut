@@ -220,6 +220,7 @@ class APIntitySearchView(SearchView, JSONResponseMixin):
         _key = request.GET.get('session', None)
         self.offset = int(request.GET.get('offset', '0'))
         self.count = int(request.GET.get('count', '30'))
+        self.type = request.GET.get('type', None)
         try:
             _session = Session_Key.objects.get(session_key=_key)
             self.visitor = _session.user
