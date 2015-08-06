@@ -119,6 +119,10 @@ class Tags(BaseModel):
     def tag_hash(self):
         return self.hash[:8]
 
+    @property
+    def note_count(self):
+        return self.content_tags_set.filter(target_content_type_id=24).count()
+
     def get_absolute_url(self):
         return "/tag/%s/" % self.name
 

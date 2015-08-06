@@ -5,11 +5,12 @@ from apps.tag.models import Tags
 
 class EntityIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    # id = indexes.IntegerField(model_attr='id')
+    entity_id = indexes.IntegerField(model_attr='id')
     title = indexes.CharField(model_attr='title', boost=1.125)
     user = indexes.CharField(model_attr='user')
     created_time = indexes.DateTimeField(model_attr='created_time')
     price = indexes.FloatField(model_attr='price')
+    like_count = indexes.IntegerField(model_attr='like_count')
 
     title_auto = indexes.EdgeNgramField(model_attr='title')
 
@@ -22,6 +23,7 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
 
 class UserIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
+    date_joined = indexes.DateTimeField(model_attr='date_joined')
 
     def get_model(self):
         return GKUser
@@ -33,6 +35,7 @@ class UserIndex(indexes.SearchIndex, indexes.Indexable):
 class TagIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     name = indexes.CharField(model_attr='name', boost=1.125)
+    note_count = indexes.IntegerField(model_attr='note_count')
 
     tag_auto = indexes.EdgeNgramField(model_attr='name')
 
