@@ -27,6 +27,11 @@
   color: #424242;
   border: 1px solid darker(#f8f8f8);
 }
+.btn-cancel {
+  background-color: #f8f8f8;
+  color: #999;
+  border: 1px solid #eee;
+}
 .common-bordered {
   border: 1px solid #e6e6e6;
 }

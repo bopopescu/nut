@@ -27,6 +27,11 @@
   color: #424242;
   border: 1px solid darker(#f8f8f8);
 }
+.btn-cancel {
+  background-color: #f8f8f8;
+  color: #999;
+  border: 1px solid #eee;
+}
 .common-bordered {
   border: 1px solid #e6e6e6;
 }
@@ -780,6 +785,13 @@ body {
   text-align: center;
   padding: 20px 10px;
 }
+.guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-name {
+  font-size: 18px;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-social-status {
+  color: #9d9e9f;
+  font-size: 13px;
+}
 .guoku-content.user-page .user-right {
   background-color: #ffffff;
   padding: 18px 18px;
@@ -1027,7 +1039,7 @@ body {
   width: 100%;
 }
 .test {
-  color: #000000;
+  color: red;
 }
 @media (max-width: 767px) {
   #guoku_main_nav {
