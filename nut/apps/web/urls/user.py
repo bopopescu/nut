@@ -2,7 +2,7 @@ from django.conf.urls import url, patterns
 
 from apps.web.views.user import UserArticles, UserIndex,\
                                 UserLikeView, UserNoteView,\
-                                UserTagView
+                                UserTagView, UserArticleView
 
 
 urlpatterns = patterns(
@@ -16,8 +16,9 @@ urlpatterns = patterns(
     # tmpl user page
     url(r'^(?P<user_id>\d+)/new_front/$', UserIndex.as_view(), name='web_user_index_new'),
     url(r'^(?P<user_id>\d+)/like/new_front/$', UserLikeView.as_view(), name='web_user_entity_like_new'),
-    url(r'^(?P<user_id>\d+)/note/new_front/$', UserNoteView.as_view(), name='web_user_post_note'),
-    url(r'^(?P<user_id>\d+)/tags/new_front/$', UserTagView.as_view(), name='web_user_tag'),
+    url(r'^(?P<user_id>\d+)/note/new_front/$', UserNoteView.as_view(), name='web_user_post_note_new'),
+    url(r'^(?P<user_id>\d+)/tags/new_front/$', UserTagView.as_view(), name='web_user_tag_new'),
+    url(r'^(?P<user_id>\d+)/articles/new_front/$', UserArticleView.as_view(), name='web_user_article_new'),
 
 
     url(r'^(?P<user_id>\d+)/like/$', 'entity_like', name='web_user_entity_like'),

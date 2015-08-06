@@ -147,6 +147,16 @@ img {
   cursor: pointer;
   border: none;
 }
+.gray-button {
+  background-color: #9d9d9d;
+  color: #fff;
+}
+.seller-button {
+  margin-top: 10px;
+}
+.disabled-button {
+  cursor: default;
+}
 .blue-button {
   font-size: 16px;
   height: 35px;

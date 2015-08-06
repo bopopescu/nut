@@ -316,7 +316,7 @@ class UserNoteView(UserDetailBase):
 
 
 class UserTagView(UserDetailBase):
-    paginate_by = 10
+    paginate_by = 40
     template_name = 'web/user/user_tag.html'
     context_object_name = 'current_user_tags'
     def get_queryset(self):
@@ -324,6 +324,15 @@ class UserTagView(UserDetailBase):
         tag_list = Content_Tags.objects.user_tags(_user.pk)
         return tag_list
 
+class UserArticleView(UserDetailBase):
+    template_name =  'web/user/user_article.html'
+    paginate_by = 5
+    context_object_name = 'current_user_articles'
+
+    def get_queryset(self):
+        _user = self.get_showing_user()
+        _article_list = Article.objects.get_published_by_user(_user)
+        return _article_list
 
 class UserIndex(DetailView):
     template_name = 'web/user/user_index.html'
@@ -342,9 +351,7 @@ class UserIndex(DetailView):
         context_data['tags']= Content_Tags.objects.user_tags(current_user.pk)[0:5]
         return context_data
 
-
-
-# NOT ABLE TO RUN !!! ,
+# NOT ABLE TO RUN !!! , deprecated
 # the Listview will automaticly replace user field in context with current request.user !!!
 # that will conflict the current user_base.html template's "user" !
 class UserArticles(ListView):

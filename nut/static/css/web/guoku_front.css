@@ -776,6 +776,10 @@ body {
 .guoku-content.user-page .content-panel .panel-content-wrapper .article-cell .more-article-wrapper {
   margin: 10px!important;
 }
+.guoku-content.user-page .content-panel .panel-content-wrapper .tag-cell {
+  text-align: center;
+  padding: 20px 10px;
+}
 .guoku-content.user-page .user-right {
   background-color: #ffffff;
   padding: 18px 18px;
