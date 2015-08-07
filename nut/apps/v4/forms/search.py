@@ -23,7 +23,7 @@ from haystack.forms import SearchForm as haystackSearchForm
 class APIEntitySearchForm(haystackSearchForm):
 
     def search(self):
-        sqs = super(APIEntitySearchForm, self).search().order_by('-created_time')
+        sqs = super(APIEntitySearchForm, self).search()
         # print sqs
         if not self.is_valid():
             return self.no_query_found()
@@ -38,7 +38,7 @@ class APIUserSearchForm(haystackSearchForm):
         if not self.is_valid():
             return self.no_query_found()
 
-        return sqs.models(GKUser).order_by('-git fans_count')
+        return sqs.models(GKUser).order_by('-fans_count')
 
 
 __author__ = 'edison'
