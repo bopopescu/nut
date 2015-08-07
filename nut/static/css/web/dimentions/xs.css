@@ -114,7 +114,8 @@
 .guess_img .img-box img:hover,
 .article-wrapper .cover-wrapper a img:hover,
 .more-article-wrapper .cover-wrapper a img:hover,
-.guess-wrapper .recommend-img:hover {
+.guess-wrapper .recommend-img:hover,
+.user-page .img-box img:hover {
   opacity: 0.7;
 }
 .little-round-tag {
