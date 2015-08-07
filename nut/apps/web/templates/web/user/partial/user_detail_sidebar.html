@@ -6,13 +6,27 @@
     <li class="section">
         <div class="section-content">
             <ul class="user-detail-list">
-                <li class="index-link">个人主页</li>
-                <li>喜爱</li>
-                <li>点评</li>
-                <li>标签</li>
-                <li>图文</li>
+                <li class="index-link">
+                    <a href="{% url 'web_user_index' current_user.pk %}">
+                        <i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i>&nbsp;返回个人主页
+                    </a>
+                </li>
+                <li><a href="{% url 'web_user_entity_like' current_user.pk %}">
+                    喜爱
+                    </a>
+                </li>
+                <li><a href="{% url 'web_user_post_note' current_user.pk %}">点评</a></li>
+                <li><a href="{% url 'web_user_tag' current_user.pk %}">标签</a></li>
+                <li><a href="{% url 'web_user_article' current_user.pk %}">图文</a></li>
+            </ul>
+        </div>
+    </li>
+    <li class="section no-bottom">
+        <div class="section-content">
+            <ul class="user-detail-list">
                 <li class="discover-more-link">发现更多商品</li>
             </ul>
+
         </div>
     </li>
 </ul>
