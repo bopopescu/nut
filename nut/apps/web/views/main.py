@@ -160,7 +160,7 @@ class GKSearchView(SearchView):
         if 'u' in self.type:
             res = self.queryset.models(GKUser).order_by('-fans_count')
         elif 't' in self.type:
-            res = self.queryset.models(Tags)
+            res = self.queryset.models(Tags).order_by('-note_count')
         else:
             res = self.queryset.models(Entity).order_by('-like_count')
         log.info(res)
