@@ -1,8 +1,13 @@
 Change Log
 ==========
+### Ver 4.3.2
+1.
+
 ### Ver 4.3.1
 1. v4 增加 discover 
 2. solr 替换 sphinx 搜索引擎
+3. 增加店铺链接
+4. 优化搜索结果
 
 
 ### Ver 4.3

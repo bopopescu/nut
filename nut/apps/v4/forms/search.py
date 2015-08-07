@@ -28,7 +28,7 @@ class APIEntitySearchForm(haystackSearchForm):
         if not self.is_valid():
             return self.no_query_found()
 
-        return sqs.models(Entity)
+        return sqs.models(Entity).order_by('-like_count')
 
 
 class APIUserSearchForm(haystackSearchForm):
@@ -38,7 +38,7 @@ class APIUserSearchForm(haystackSearchForm):
         if not self.is_valid():
             return self.no_query_found()
 
-        return sqs.models(GKUser)
+        return sqs.models(GKUser).order_by('-git fans_count')
 
 
 __author__ = 'edison'
