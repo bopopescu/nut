@@ -31,6 +31,8 @@ class CategoryManager(models.Manager):
                         'category_id':sc.id,
                         'category_title':sc.title,
                         'status':int(sc.status),
+                        'category_icon_large': None,
+                        'category_icon_small': None,
                 }
 
                 if sc.icon is not  None:

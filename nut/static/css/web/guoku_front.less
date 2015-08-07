@@ -25,10 +25,13 @@ body{
      li{
        background: none;
      }
+     li.divider{
+          background-color: @light-gray;
+     }
      a{
          color: @common-gray;
          &:hover, &:focus{
-           color:@common-text-color;
+           color:@common-text-color!important;
            font-weight: 600;
            background: none;
          }
@@ -318,7 +321,7 @@ body{
                    height: 100%;
                    padding: 0 10px;
                    .note-text{
-                     font-size: @mini-size;
+                     font-size: @primary-size;
                      color: @common-text-color;
                      line-height: 1.3;
                    }
@@ -326,7 +329,7 @@ body{
                       font-size:@mini-size;
                       color: @common-gray;
                       position:absolute;
-                      bottom: 21px;
+                      bottom: 11px;
                    }
                 }
                .note-entity-img-wrapper{
@@ -474,6 +477,7 @@ body{
                    li{
                       display: block;
                       text-align: center;
+                      margin-bottom: 10px;
                       &.index-link{
                          margin-bottom: 20px;
                       }
@@ -503,7 +507,7 @@ body{
               .tag-list{
                  list-style: none ;
                  li{
-                     font-size: @mini-size;
+                     font-size: @primary-size;
                  }
               }
               @pop-entity-height:52px;

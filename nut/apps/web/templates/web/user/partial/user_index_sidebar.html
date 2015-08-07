@@ -4,7 +4,7 @@
 
 <ul class="section-list user-right">
     <li class="section">
-        <div class="section-title">关注<span class="more-link"><a href="{% url 'web_user_followings' current_user.pk %}">全部</a></span></div>
+        <div class="section-title">关注<span class="more-link"><a href="{% url 'web_user_followings' current_user.pk %}">全部&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></span></div>
         <div class="section-content">
             <ul class="following-list user-icon-list">
                 {% for f in followings %}
@@ -14,7 +14,7 @@
         </div>
     </li>
     <li class="section">
-        <div class="section-title">粉丝<span class="more-link"><a href="{% url 'web_user_fans' current_user.pk %}">全部</a></span></div>
+        <div class="section-title">粉丝<span class="more-link"><a href="{% url 'web_user_fans' current_user.pk %}">全部&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></span></div>
         <div class="section-content">
             <ul class="fans-list user-icon-list">
                 {% for f in fans %}
@@ -24,7 +24,7 @@
         </div>
     </li>
     <li class="section">
-        <div class="section-title">参与标签<span class="more-link"><a>全部</a></span></div>
+        <div class="section-title">参与标签<span class="more-link"><a href="{% url 'web_user_tag' current_user.pk %}">全部&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></span></div>
         <div class="section-content">
             <ul class="tag-list">
                 {% for tag in tags %}
@@ -36,7 +36,7 @@
         </div>
     </li>
     <li class="section">
-        <div class="section-title">客户端<span class="more-link"><a>全部</a></span></div>
+        <div class="section-title">客户端</div>
         <div class="section-content">
             <div class="text-holder">
                 精英消费指南，生活不一样。
