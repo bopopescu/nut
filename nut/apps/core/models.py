@@ -140,7 +140,28 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def like_count(self):
-        return self.likes.count()
+        key = 'user:like:%s' % self.pk
+        res = cache.get(key)
+        if res:
+            log.info('user like count hit')
+            return res
+        else:
+            log.info('user like count miss')
+            res = self.likes.count()
+            cache.set(key, res)
+            return res
+
+    def incr_like(self):
+        key = 'user:like:%s', self.pk
+        try:
+            cache.incr(key)
+        except ValueError:
+            cache.set(key, self.likes.count())
+
+    def decr_like(self):
+        key = 'user:like:%s' % self.pk
+        if self.likes.count() > 0:
+            cache.decr(key)
 
     @property
     def create_entity_count(self):
@@ -200,15 +221,13 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return "%s%s" % (settings.STATIC_URL, 'images/avatar/man.png')
 
 
-
-
     def set_admin(self):
         self.is_admin = True
         self.save()
 
     def v3_toDict(self, visitor=None):
 
-        key_string = "user_v3_%s" % self.id
+        key_string = "user:v3:%s" % self.id
         key = md5(key_string.encode('utf-8')).hexdigest()
         res = cache.get(key)
         if not res:
@@ -271,7 +290,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     def save(self, *args, **kwargs):
         super(GKUser, self).save(*args, **kwargs)
-        key_string = "user_v3_%s" % self.id
+        key_string = "user:v3:%s" % self.id
         key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
 
