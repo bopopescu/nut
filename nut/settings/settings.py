@@ -72,7 +72,7 @@ HAYSTACK_CONNECTIONS = {
         # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
     }
 }
-HAYSTACK_DEFAULT_OPERATOR = 'OR'
+HAYSTACK_DEFAULT_OPERATOR = 'AND'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
