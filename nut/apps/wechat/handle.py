@@ -26,7 +26,7 @@ def handle_reply(content):
     else:
         # _entities = Entity.search.query(content.decode('utf-8')).order_by('@weight', '-created_time')
         sqs = SearchQuerySet()
-        results = sqs.auto_query(content.decode('utf-8')).order_by('-created_time')
+        results = sqs.auto_query(content.decode('utf-8')).models(Entity).order_by('-like_count')
 
     # log.info(_entities.all())
     # for row in _entities.all():
