@@ -114,7 +114,8 @@
 .guess_img .img-box img:hover,
 .article-wrapper .cover-wrapper a img:hover,
 .more-article-wrapper .cover-wrapper a img:hover,
-.guess-wrapper .recommend-img:hover {
+.guess-wrapper .recommend-img:hover,
+.user-page .img-box img:hover {
   opacity: 0.7;
 }
 .little-round-tag {
@@ -817,7 +818,7 @@ body {
   font-size: 13px;
   color: #9d9e9f;
   position: absolute;
-  bottom: 11px;
+  bottom: 21px;
 }
 .guoku-content.user-page .content-panel .panel-content-wrapper .note-cell .note-entity-img-wrapper {
   width: 100%;
@@ -1089,7 +1090,7 @@ body {
   width: 100%;
 }
 .test {
-  color: red;
+  color: #000000;
 }
 @media (max-width: 767px) {
   #guoku_main_nav {
