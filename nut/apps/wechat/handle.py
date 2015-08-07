@@ -28,13 +28,8 @@ def handle_reply(content):
         sqs = SearchQuerySet()
         results = sqs.auto_query(content.decode('utf-8')).models(Entity).order_by('-like_count')
 
-    # log.info(_entities.all())
-    # for row in _entities.all():
-    #     log.info(row)
-
         for row in results:
             res.append(row.object)
-        log.info(res)
     return res
 
 
