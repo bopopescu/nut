@@ -24,6 +24,7 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
 class UserIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     date_joined = indexes.DateTimeField(model_attr='date_joined')
+    fans_count = indexes.IntegerField(model_attr='fans_count', boost=1.125)
 
     def get_model(self):
         return GKUser
