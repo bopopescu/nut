@@ -311,7 +311,6 @@ class UserLikeView(UserDetailBase):
     paginate_by = 28
     template_name = 'web/user/user_like.html'
     context_object_name = 'current_user_likes'
-
     def get_queryset(self):
         _user = self.get_showing_user()
         _like_list = Entity_Like.objects.filter(user=_user, entity__status__gte=Entity.freeze)
@@ -374,9 +373,9 @@ class UserIndex(DetailView):
     def get_context_data(self,**kwargs):
         context_data = super(UserIndex, self).get_context_data(**kwargs)
         current_user = context_data['object']
-        context_data['recent_likes'] = current_user.likes.all()[:10]
-        context_data['recent_notes'] = current_user.note.all()[:10]
-        context_data['articles'] = current_user.published_articles[:5]
+        context_data['recent_likes'] = current_user.likes.all()[:12]
+        context_data['recent_notes'] = current_user.note.all()[:6]
+        context_data['articles'] = current_user.published_articles[:6]
         context_data['followings'] = current_user.followings.all()[:7]
         context_data['fans'] = current_user.fans.all()[:7]
         context_data['tags']= Content_Tags.objects.user_tags(current_user.pk)[0:5]
