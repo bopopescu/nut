@@ -158,11 +158,11 @@ class GKSearchView(SearchView):
     def form_valid(self, form):
         self.queryset = form.search()
         if 'u' in self.type:
-            res = self.queryset.models(GKUser)
+            res = self.queryset.models(GKUser).order_by('-fans_count')
         elif 't' in self.type:
             res = self.queryset.models(Tags)
         else:
-            res = self.queryset.models(Entity)
+            res = self.queryset.models(Entity).order_by('-like_count')
         log.info(res)
         context = self.get_context_data(**{
             self.form_name: form,
