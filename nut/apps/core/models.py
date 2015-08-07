@@ -1113,7 +1113,7 @@ class Article(models.Model):
     created_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True, editable=False)
     updated_datetime = models.DateTimeField()
     showcover = models.BooleanField(default=False)
-    read_count = models.IntegerField(default=0 , blank=True)
+    read_count = models.IntegerField(default=0)
 
     objects = ArticleManager()
 
