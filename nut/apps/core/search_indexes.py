@@ -24,12 +24,13 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
 class UserIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     date_joined = indexes.DateTimeField(model_attr='date_joined')
+    fans_count = indexes.IntegerField(model_attr='fans_count')
 
     def get_model(self):
         return GKUser
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.filter(is_active__gte=GKUser.active)
+        return self.get_model().objects.filter(is_active__gte=GKUser.active).using('slave')
 
 
 class TagIndex(indexes.SearchIndex, indexes.Indexable):
@@ -43,19 +44,22 @@ class TagIndex(indexes.SearchIndex, indexes.Indexable):
         return Tags
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.all()
+        return self.get_model().objects.all().using('slave')
 #
 #
 class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     author = indexes.CharField(model_attr='creator')
     title = indexes.CharField(model_attr='title', boost=1.125)
+    read_count = indexes.CharField(model_attr='read_count')
+
+    title_auto = indexes.EdgeNgramField(model_attr='title')
 
     def get_model(self):
         return Article
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.filter(publish=Article.published)
+        return self.get_model().objects.filter(publish=Article.published).using('slave')
 
 
 __author__ = 'edison'
