@@ -1,11 +1,11 @@
-from django.shortcuts import render_to_response
-from django.http import HttpResponseRedirect, HttpResponse, Http404
-from django.views.decorators.http import require_GET
+# from django.shortcuts import render_to_response
+# from django.http import HttpResponseRedirect, HttpResponse, Http404
+# from django.views.decorators.http import require_GET
 from django.template import RequestContext, loader
 # from django.template import loader
 
 from django.views.generic import ListView
-from braces.views import JSONResponseMixin ,AjaxResponseMixin
+from braces.views import JSONResponseMixin, AjaxResponseMixin
 
 from apps.core.models import Entity, Entity_Like, Selection_Entity, GKUser
 from apps.tag.models import Tags
@@ -13,15 +13,16 @@ from apps.tag.models import Tags
 from apps.core.forms.search import GKSearchForm
 from haystack.generic_views import SearchView
 from apps.core.utils.http import JSONResponse
-from django.utils.log import getLogger
 
-from apps.web.utils.viewtools import get_paged_list
+
+# from apps.web.utils.viewtools import get_paged_list
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
-from apps.tag.models import Content_Tags
+# from apps.tag.models import Content_Tags
 from apps.core.models import Sub_Category
 # import random
 
 # from apps.notifications import notify
+from django.utils.log import getLogger
 
 log = getLogger('django')
 
@@ -97,26 +98,55 @@ class SiteMapView(ListView):
     queryset = Sub_Category.objects.all()
     # def get_queryset(self):
 
+#
+# def popular(request, template='web/main/popular.html'):
+#
+#     popular_list = Entity_Like.objects.popular_random()
+#     # random.sample(popular_list, 60)
+#     # _entities = Entity.objects.filter(id__in=list(popular_list))
+#     _entities = Entity.objects.filter(id__in=popular_list)
+#     # log.info("popular %s" % len(_entities))
+#     el = list()
+#     if request.user.is_authenticated():
+#         el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(_entities))
+#
+#     return render_to_response(
+#         template,
+#         {
+#             'entities':_entities,
+#             'user_entity_likes': el,
+#         },
+#         context_instance = RequestContext(request),
+#     )
 
-def popular(request, template='web/main/popular.html'):
+class PopularView(ListView):
 
-    popular_list = Entity_Like.objects.popular_random()
-    # random.sample(popular_list, 60)
-    # _entities = Entity.objects.filter(id__in=list(popular_list))
-    _entities = Entity.objects.filter(id__in=popular_list)
-    # log.info("popular %s" % len(_entities))
-    el = list()
-    if request.user.is_authenticated():
-        el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(_entities))
+    template_name = 'web/main/popular.html'
+    http_method_names = ['get']
 
-    return render_to_response(
-        template,
-        {
-            'entities':_entities,
-            'user_entity_likes': el,
-        },
-        context_instance = RequestContext(request),
-    )
+    # queryset = Entity_Like.objects.popular_random()
+    def get_queryset(self):
+        popular_list = Entity_Like.objects.popular_random()
+        self.entities = Entity.objects.filter(id__in=popular_list)
+        return self.entities
+
+    def get_context_data(self, **kwargs):
+        context = super(PopularView,self).get_context_data()
+        el = list()
+        if self.request.user.is_authenticated():
+            el = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=list(self.entities))
+
+        context.update(
+            {
+                'user_entity_likes':el,
+            }
+        )
+        return context
+
+    def get(self, request, *args, **kwargs):
+
+        return super(PopularView, self).get(request, *args, **kwargs)
+
 
 class GKSearchView(SearchView):
 
@@ -155,6 +185,7 @@ class GKSearchView(SearchView):
     def get(self, request, *args, **kwargs):
         self.type = request.GET.get('t', 'e')
         return super(GKSearchView, self).get(request, *args, **kwargs)
+
 
 __author__ = 'edison'
 
