@@ -26,7 +26,6 @@ class GKSearchForm(haystackSearchForm):
         sqs = super(GKSearchForm, self).search()
         if not self.is_valid():
             return self.no_query_found()
-
         return sqs
 
 __author__ = 'edison'
