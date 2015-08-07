@@ -51,6 +51,9 @@ class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     author = indexes.CharField(model_attr='creator')
     title = indexes.CharField(model_attr='title', boost=1.125)
+    read_count = indexes.CharField(model_attr='read_count')
+
+    title_auto = indexes.EdgeNgramField(model_attr='title')
 
     def get_model(self):
         return Article
