@@ -4,21 +4,21 @@
 
 <ul class="section-list user-right">
     <li class="section">
-        <div class="section-title">关注<span class="more-link"><a>全部</a></span></div>
+        <div class="section-title">关注<span class="more-link"><a href="{% url 'web_user_followings' current_user.pk %}">全部</a></span></div>
         <div class="section-content">
             <ul class="following-list user-icon-list">
                 {% for f in followings %}
-                    <li><a><img class="img-responsive" src="{{ f.followee.avatar_url  }}"></a></li>
+                    <li><a href="{% url 'web_user_index' f.followee.id  %}"><img class="img-responsive" src="{{ f.followee.avatar_url|resize:'30'  }}"></a></li>
                 {% endfor %}
             </ul>
         </div>
     </li>
     <li class="section">
-        <div class="section-title">粉丝<span class="more-link"><a>全部</a></span></div>
+        <div class="section-title">粉丝<span class="more-link"><a href="{% url 'web_user_fans' current_user.pk %}">全部</a></span></div>
         <div class="section-content">
             <ul class="fans-list user-icon-list">
                 {% for f in fans %}
-                    <li><a><img class="img-responsive" src="{{ f.follower.avatar_url  }}"></a></li>
+                    <li><a href="{% url 'web_user_index' f.follower.id %}"><img class="img-responsive" src="{{ f.follower.avatar_url|resize:'30'  }}"></a></li>
                 {% endfor %}
             </ul>
         </div>
