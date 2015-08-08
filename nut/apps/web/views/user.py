@@ -392,7 +392,7 @@ class UserIndex(DetailView):
         context_data = super(UserIndex, self).get_context_data(**kwargs)
         current_user = context_data['object']
         context_data['recent_likes'] = current_user.likes.all()[:12]
-        context_data['recent_notes'] = current_user.note.all()[:6]
+        context_data['recent_notes'] = current_user.note.all().order_by("-post_time")[:6]
         context_data['articles'] = current_user.published_articles[:6]
         context_data['followings'] = current_user.followings.all()[:7]
         context_data['fans'] = current_user.fans.all()[:7]
