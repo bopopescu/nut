@@ -12,19 +12,21 @@
                     </a>
                 </li>
                 <li><a href="{% url 'web_user_entity_like' current_user.pk %}">
-                    喜爱
+                    喜爱&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
                     </a>
                 </li>
-                <li><a href="{% url 'web_user_post_note' current_user.pk %}">点评</a></li>
-                <li><a href="{% url 'web_user_tag' current_user.pk %}">标签</a></li>
-                <li><a href="{% url 'web_user_article' current_user.pk %}">图文</a></li>
+                <li><a href="{% url 'web_user_post_note' current_user.pk %}">点评&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
+                <li><a href="{% url 'web_user_tag' current_user.pk %}">标签&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
+                <li><a href="{% url 'web_user_article' current_user.pk %}">图文&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
             </ul>
         </div>
     </li>
     <li class="section no-bottom">
         <div class="section-content">
             <ul class="user-detail-list">
-                <li class="discover-more-link">发现更多商品</li>
+                <li class="discover-more-link">
+                    <a href="{% url 'web_discover' %}">发现更多商品&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
+                </li>
             </ul>
 
         </div>

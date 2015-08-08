@@ -21,7 +21,7 @@
                 {% include "web/user/partial/user_detail_sidebar.html" %}
             </div>
             <div class="content-left col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                <div class="container-fluid content-panel" id="user-tag-panel">
+                <div class="container-fluid content-panel" id="user-article-panel">
                         <div class="row panel-header">
                             <div class="panel-name">我的图文</div>
 {#                            <div class="more-link">#}
@@ -31,6 +31,22 @@
 {#                                <i class="fa fa-angle-right"></i>#}
 {#                                </a>#}
 {#                            </div>#}
+                        </div>
+                        <div class="row panel-filter">
+                            <ul class="filter-list">
+                                {% for radio in article_filter_form.articleType  %}
+                                    <li>
+                                        <a href="{{ request.path|add:'?articleType='|add:radio.choice_value}}">
+                                            {{ radio.choice_label }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                                     <li>
+                                        <a href="{% url 'web_editor_article_list' %}">
+                                            草稿
+                                        </a>
+                                    </li>
+                            </ul>
                         </div>
                         <div class="row panel-content-wrapper ">
                                   {% for article in current_user_articles %}

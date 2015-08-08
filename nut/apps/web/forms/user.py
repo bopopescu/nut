@@ -157,4 +157,23 @@ class UserChangePasswordForm(forms.Form):
         self.user_cache.set_password(_password)
         self.user_cache.save()
 
+
+ArticleStatusChoice = (
+                      # ('all',_('All')),
+                       ('published',_('Published')),
+                       ('selected',_('Selected Article')),
+                        # ('draft', _('Draft')),
+                        )
+class UserArticleStatusFilterForm(forms.Form):
+    articleType = forms.ChoiceField(widget=forms.RadioSelect, choices=ArticleStatusChoice, required=False)
+    def get_cleaned_article_status(self):
+        if not self.is_valid():
+            articleType = 'all'
+        else:
+            articleType = self.cleaned_data.get('articleType','all')
+
+        return articleType
+
+
+
 __author__ = 'edison'

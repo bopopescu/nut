@@ -1,6 +1,6 @@
 from django.conf.urls import url, patterns
 
-from apps.web.views.user import UserArticles, UserIndex,\
+from apps.web.views.user import UserIndex,\
                                 UserLikeView, UserNoteView,\
                                 UserTagView, UserArticleView,\
                                 UserFansView, UserFollowingsView

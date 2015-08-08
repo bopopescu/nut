@@ -55,9 +55,11 @@
                 </div>
             </div>
         </div>
+       {% if request.user.is_staff %}
         <div class="row user-admin-link-wrapper">
-            <a href=""><i class="fa fa-edit"></i></a>
+            <a href="{% url 'management_user_edit' current_user.id %}" target="_blank"><i class="fa fa-edit"></i></a>
         </div>
+        {% endif %}
       {% block user_content_detail %}
       {% endblock %}
     </div>
