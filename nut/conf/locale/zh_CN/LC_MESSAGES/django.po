@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-06 04:41+0800\n"
+"POT-Creation-Date: 2015-08-08 13:04+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,7 +37,7 @@ msgid "blocked"
 msgstr "禁言用户"
 
 #: apps/core/models.py:76 apps/core/models.py:540 apps/core/models.py:546
-#: apps/core/models.py:781 apps/core/models.py:833 apps/core/models.py:1079
+#: apps/core/models.py:781 apps/core/models.py:833 apps/core/models.py:1083
 #: apps/core/forms/entity.py:246
 #: apps/management/templates/management/buy_link/list.html:15
 #: apps/management/templates/management/category/entity/category_entity_list.html:27
@@ -187,7 +187,7 @@ msgstr ""
 msgid "normal"
 msgstr ""
 
-#: apps/core/models.py:1077
+#: apps/core/models.py:1081
 #: apps/management/templates/management/article/list.html:10
 #: apps/management/templates/management/article/selection_article_list.html:10
 #: apps/management/templates/management/selection/list.html:31
@@ -196,20 +196,20 @@ msgstr ""
 msgid "published"
 msgstr "发布"
 
-#: apps/core/models.py:1078
+#: apps/core/models.py:1082
 #: apps/management/templates/management/article/list.html:11
 msgid "draft"
 msgstr "草稿"
 
-#: apps/core/models.py:1161
+#: apps/core/models.py:1165
 msgid "Never"
 msgstr ""
 
-#: apps/core/models.py:1279
+#: apps/core/models.py:1283
 msgid "item"
 msgstr "商品banner"
 
-#: apps/core/models.py:1280
+#: apps/core/models.py:1284
 msgid "shop"
 msgstr "店铺banner"
 
@@ -636,7 +636,7 @@ msgstr "是否置顶点评"
 
 #: apps/core/forms/search.py:6 apps/web/forms/search.py:13
 #: apps/web/templates/web/partial/header.html:80
-#: apps/web/templates/web/partial/header_new.html:80
+#: apps/web/templates/web/partial/header_new.html:77
 msgid "Search"
 msgstr "搜索"
 
@@ -1282,6 +1282,19 @@ msgstr "您输入的旧密码不正确"
 msgid "current password"
 msgstr "当前密码"
 
+#: apps/web/forms/user.py:161
+
+msgid "All"
+msgstr "所有"
+
+#: apps/web/forms/user.py:162
+msgid "Published"
+msgstr "发布"
+
+#: apps/web/forms/user.py:163
+msgid "Selected Article"
+msgstr "精选"
+
 #: apps/web/templates/web/base.html:103
 msgid "About"
 msgstr "关于"
@@ -1321,7 +1334,7 @@ msgstr "协议"
 #: apps/web/templates/web/account/register.html:22
 #: apps/web/templates/web/account/partial/ajax_login.html:5
 #: apps/web/templates/web/partial/header.html:73
-#: apps/web/templates/web/partial/header_new.html:73
+#: apps/web/templates/web/partial/header_new.html:70
 msgid "Sign Up"
 msgstr "注册"
 
@@ -1370,7 +1383,7 @@ msgstr "忘记密码？"
 
 #: apps/web/templates/web/account/partial/ajax_login.html:57
 #: apps/web/templates/web/partial/header.html:72
-#: apps/web/templates/web/partial/header_new.html:72
+#: apps/web/templates/web/partial/header_new.html:69
 msgid "Sign In"
 msgstr "登录"
 
@@ -1439,17 +1452,12 @@ msgstr "购买"
 msgid "product removed"
 msgstr "商品移除"
 
-#: apps/web/templates/web/entity/partial/detail_info_center.html:90
-msgid "seller"
-msgstr "店铺链接"
-
 #: apps/web/templates/web/mail/forget_password_subject.txt:2
 #, python-format
 msgid "Password reset on %(site_name)s"
 msgstr ""
 
 #: apps/web/templates/web/partial/header.html:15
-#: apps/web/templates/web/partial/header_new.html:15
 #: apps/web/templates/web/partial/header_new.html:16
 msgid "guoku"
 msgstr "果库"
@@ -1466,22 +1474,24 @@ msgid "Articles"
 msgstr "图文"
 
 #: apps/web/templates/web/partial/header.html:38
-#: apps/web/templates/web/partial/header_new.html:38
+#: apps/web/templates/web/partial/header_new.html:35
 msgid "Discover"
 msgstr "发现"
 
 #: apps/web/templates/web/partial/header.html:56
-#: apps/web/templates/web/partial/header_new.html:56
+#: apps/web/templates/web/partial/header_new.html:53
 msgid "Event"
 msgstr "专题"
 
 #: apps/web/templates/web/partial/header.html:89
-#: apps/web/templates/web/partial/header_new.html:90
+#: apps/web/templates/web/partial/header_new.html:87
 msgid "Add Product"
 msgstr "添加有趣商品"
 
 #: apps/web/templates/web/user/fans.html:13
 #: apps/web/templates/web/user/following.html:14
+#: apps/web/templates/web/user/user_fans.html:45
+#: apps/web/templates/web/user/user_followings.html:46
 msgid "Myself"
 msgstr "自己"
 
@@ -1491,6 +1501,12 @@ msgstr "自己"
 #: apps/web/templates/web/user/following.html:19
 #: apps/web/templates/web/user/user_base.html:69
 #: apps/web/templates/web/user/user_base.html:71
+#: apps/web/templates/web/user/user_base_new.html:34
+#: apps/web/templates/web/user/user_base_new.html:36
+#: apps/web/templates/web/user/user_fans.html:47
+#: apps/web/templates/web/user/user_fans.html:50
+#: apps/web/templates/web/user/user_followings.html:48
+#: apps/web/templates/web/user/user_followings.html:51
 msgid "Unfollow"
 msgstr "取消关注"
 
@@ -1499,16 +1515,25 @@ msgstr "取消关注"
 #: apps/web/templates/web/user/following.html:21
 #: apps/web/templates/web/user/following.html:23
 #: apps/web/templates/web/user/user_base.html:73
+#: apps/web/templates/web/user/user_base_new.html:38
+#: apps/web/templates/web/user/user_fans.html:52
+#: apps/web/templates/web/user/user_fans.html:54
+#: apps/web/templates/web/user/user_followings.html:53
+#: apps/web/templates/web/user/user_followings.html:55
 msgid "Follow"
 msgstr "关注"
 
 #: apps/web/templates/web/user/fans.html:28
 #: apps/web/templates/web/user/following.html:30
+#: apps/web/templates/web/user/user_fans.html:60
+#: apps/web/templates/web/user/user_followings.html:61
 msgid "Fans"
 msgstr "粉丝"
 
 #: apps/web/templates/web/user/fans.html:29
 #: apps/web/templates/web/user/following.html:31
+#: apps/web/templates/web/user/user_fans.html:61
+#: apps/web/templates/web/user/user_followings.html:62
 msgid "Followed"
 msgstr "已关注"
 
@@ -1517,18 +1542,22 @@ msgid "update profile"
 msgstr "更新资料"
 
 #: apps/web/templates/web/user/user_base.html:50
+#: apps/web/templates/web/user/user_base_new.html:51
 msgid "Following"
 msgstr "关注"
 
 #: apps/web/templates/web/user/user_base.html:52
+#: apps/web/templates/web/user/user_base_new.html:53
 msgid "Followers"
 msgstr "粉丝"
 
 #: apps/web/templates/web/user/user_base.html:63
+#: apps/web/templates/web/user/user_base_new.html:29
 msgid "Blocked User"
 msgstr "禁言用户"
 
 #: apps/web/templates/web/user/user_base.html:67
+#: apps/web/templates/web/user/user_base_new.html:32
 msgid "Edit Profile"
 msgstr "编辑个人资料"
 
@@ -1543,6 +1572,9 @@ msgstr "标签"
 #: apps/wechat/templates/wechat/bind.html:34
 msgid "bind"
 msgstr "绑定"
+
+#~ msgid "seller"
+#~ msgstr "店铺链接"
 
 #~ msgid "sign in"
 #~ msgstr "登录"

@@ -18,6 +18,7 @@ register.filter(enumerate_list)
 
 
 def resize(value, size=None):
+<<<<<<< HEAD
     host = image_host
     # log.info(value)
     # host = 'http://h.guoku.com/'
@@ -28,16 +29,27 @@ def resize(value, size=None):
         if host in value:
             uri = value.replace(host, '')
             # log.info(uri)
+=======
+    # for local debug.
+    hosts = [image_host, 'http://imgcdn.guoku.com/']
+    for h in hosts:
+        if h in value:
+            uri = value.replace(h, '')
+>>>>>>> 94e00b1c74ab6d8c944e41174a8216195115287c
             params = uri.split('/')
-
             params.insert(1, size)
-            # log.info(params)
             uri_string = '/'.join(params)
+<<<<<<< HEAD
             # print uri_string
             # return 'http://image.guoku.com/' + uri_string
             return host + uri_string
+=======
+            return h + uri_string
+            break
+>>>>>>> 94e00b1c74ab6d8c944e41174a8216195115287c
 
     return value
+
 register.filter(resize)
 
 

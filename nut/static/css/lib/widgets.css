@@ -12,11 +12,23 @@
   background-color: #357ebd;
   display: inline-block;
   color: #fff;
-  padding: 2px 10px;
+  padding: 0px 6px;
   margin: 5px;
   cursor: pointer;
+  text-decoration: none;
+  min-width: 110px;
+}
+.guoku-button:hover,
+.guoku-button:focus {
+  text-decoration: none!important;
 }
 .button-blue {
+  background-color: #357ebd;
+  color: #fff;
+}
+.button-blue:hover,
+.button-blue:focus {
+  color: #fff;
   background-color: #357ebd;
 }
 .button-gray {
@@ -27,10 +39,28 @@
   color: #424242;
   border: 1px solid darker(#f8f8f8);
 }
-.btn-cancel {
+.btn-cancel,
+.button-cancel {
   background-color: #f8f8f8;
   color: #999;
   border: 1px solid #eee;
+}
+.btn-cancel:hover,
+.button-cancel:hover,
+.btn-cancel:focus,
+.button-cancel:focus {
+  background-color: #f8f8f8;
+  color: #999;
+  border: 1px solid #eee;
+}
+.button-disabled {
+  background-color: #9d9e9f;
+  color: #f8f8f8;
+}
+.button-disabled:hover,
+.button-disabled:focus {
+  background-color: #9d9e9f;
+  color: #f8f8f8;
 }
 .common-bordered {
   border: 1px solid #e6e6e6;
@@ -84,7 +114,8 @@
 .guess_img .img-box img:hover,
 .article-wrapper .cover-wrapper a img:hover,
 .more-article-wrapper .cover-wrapper a img:hover,
-.guess-wrapper .recommend-img:hover {
+.guess-wrapper .recommend-img:hover,
+.user-page .img-box img:hover {
   opacity: 0.7;
 }
 .little-round-tag {
