@@ -1,7 +1,7 @@
 Change Log
 ==========
 ### Ver 4.3.2
-1.
+1. 更新用户个人页 ui
 
 ### Ver 4.3.1
 1. v4 增加 discover 
