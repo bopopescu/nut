@@ -300,7 +300,6 @@ class UserDetailBase(ListView):
         user_id =  self.kwargs['user_id']
         _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
         return _user
-
     def get_context_data(self, **kwargs):
         context_data = super(UserDetailBase, self).get_context_data(**kwargs)
         context_data['current_user'] = self.get_showing_user()
@@ -311,7 +310,6 @@ class UserLikeView(UserDetailBase):
     paginate_by = 28
     template_name = 'web/user/user_like.html'
     context_object_name = 'current_user_likes'
-
     def get_queryset(self):
         _user = self.get_showing_user()
         _like_list = Entity_Like.objects.filter(user=_user, entity__status__gte=Entity.freeze)
@@ -337,14 +335,33 @@ class UserTagView(UserDetailBase):
         tag_list = Content_Tags.objects.user_tags(_user.pk)
         return tag_list
 
+
+from apps.web.forms.user import UserArticleStatusFilterForm
 class UserArticleView(UserDetailBase):
     template_name =  'web/user/user_article.html'
     paginate_by = 12
     context_object_name = 'current_user_articles'
+    def get_context_data(self, **kwargs):
+        context_data = super(UserArticleView, self).get_context_data(**kwargs)
+        context_data['article_filter_form'] = UserArticleStatusFilterForm(initial={'articleType':'all'})
+        return context_data
+
+    def get_request_articles_status(self):
+        theForm = UserArticleStatusFilterForm(self.request.GET)
+        return theForm.get_cleaned_article_status()
 
     def get_queryset(self):
         _user = self.get_showing_user()
-        _article_list = Article.objects.get_published_by_user(_user)
+        article_status = self.get_request_articles_status()
+        if article_status == 'published':
+            _article_list = Article.objects.get_published_by_user(_user)
+        elif article_status == 'draft':
+            _article_list = Article.objects.get_drafted_by_user(_user)
+        elif article_status == 'selected':
+            _article_list = Article.objects.get_published_by_user(_user).filter(selections__isnull = False)
+        else:
+            _article_list = Article.objects.get_published_by_user(_user)
+
         return _article_list
 
 class UserFansView(UserDetailBase):
@@ -374,39 +391,13 @@ class UserIndex(DetailView):
     def get_context_data(self,**kwargs):
         context_data = super(UserIndex, self).get_context_data(**kwargs)
         current_user = context_data['object']
-        context_data['recent_likes'] = current_user.likes.all()[:10]
-        context_data['recent_notes'] = current_user.note.all()[:10]
-        context_data['articles'] = current_user.published_articles[:5]
+        context_data['recent_likes'] = current_user.likes.all()[:12]
+        context_data['recent_notes'] = current_user.note.all()[:6]
+        context_data['articles'] = current_user.published_articles[:6]
         context_data['followings'] = current_user.followings.all()[:7]
         context_data['fans'] = current_user.fans.all()[:7]
         context_data['tags']= Content_Tags.objects.user_tags(current_user.pk)[0:5]
         return context_data
-
-# NOT ABLE TO RUN !!! , deprecated
-# the Listview will automaticly replace user field in context with current request.user !!!
-# that will conflict the current user_base.html template's "user" !
-class UserArticles(ListView):
-    template_name = 'web/user/user_published_articles.html'
-    model = Article
-    paginate_by = 30
-    paginator_class = Jpaginator
-    context_object_name = 'articles'
-    def get_showing_user(self):
-        user_id =  self.kwargs['user_id']
-        _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
-        return _user
-
-    def get_context_data(self, **kwargs):
-        context = super(UserArticles, self).get_context_data(**kwargs)
-        context['user'] = self.get_showing_user()
-        context['_t_user'] = self.get_showing_user()
-        return context
-
-    def get_queryset(self):
-        user = self.get_showing_user();
-        qs = Article.objects.get_published_by_user(user)
-        return qs
-
 
 def user_tag_detail(request, user_id, tag_name, template="web/user/tag_detail.html"):
 

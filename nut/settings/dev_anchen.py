@@ -3,7 +3,7 @@ from stage import *
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 IMAGE_HOST = 'http://127.0.0.1:8000/'
-# AVATAR_HOST = 'http://imgcdn.guoku.com/'
+AVATAR_HOST = 'http://imgcdn.guoku.com/'
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
@@ -84,13 +84,13 @@ DATABASES = {
 # in production , the number will be 7  , in settings.py file
 DEFAULT_POPULAR_SCALE = 200
 
-class InvalidString(str):
-    def __mod__(self, other):
-        from django.template.base import TemplateSyntaxError
-        raise TemplateSyntaxError(
-            "Undefined variable or unknown value for: \"%s\"" % other)
-
-TEMPLATE_STRING_IF_INVALID = "****************** %s ****************"
+# class InvalidString(str):
+#     def __mod__(self, other):
+#         from django.template.base import TemplateSyntaxError
+#         raise TemplateSyntaxError(
+#             "Undefined variable or unknown value for: \"%s\"" % other)
+#
+# TEMPLATE_STRING_IF_INVALID = "****************** %s ****************"
 
 
 __author__ = 'an chen '

@@ -10,13 +10,23 @@
             background-color:@link-color;
             display: inline-block;
             color: #fff;
-            padding: 2px 10px;
+            padding: 0px 6px;
             margin:5px;
             cursor: pointer;
+            text-decoration:none;
+            min-width:110px;
+           &:hover,&:focus{
+             text-decoration:none!important;
+           }
       }
 //buttons
 .button-blue{
   background-color: @link-color;
+  color: #fff;
+  &:hover, &:focus{
+    color:#fff;
+    background-color:@link-color;
+  }
 }
 
 .button-gray{
@@ -29,11 +39,29 @@
   border: 1px solid darker(@very-light-gray);
 }
 
-.btn-cancel {
+.btn-cancel,.button-cancel {
   background-color: #f8f8f8;
   color: #999;
   border: 1px solid #eee;
+  &:hover,&:focus{
+    background-color: #f8f8f8;
+    color: #999;
+    border: 1px solid #eee;
+  }
 }
+
+.button-disabled{
+  background-color: @common-gray;
+  color:@very-light-gray;
+  &:hover,&:focus{
+     background-color: @common-gray;
+     color:@very-light-gray;
+  }
+}
+
+
+
+
 
 //border style
 
@@ -85,7 +113,8 @@
 .guess_img .img-box img:hover,
 .article-wrapper .cover-wrapper a img:hover,
 .more-article-wrapper .cover-wrapper a img:hover,
-.guess-wrapper .recommend-img:hover
+.guess-wrapper .recommend-img:hover,
+.user-page .img-box img:hover
 {
   opacity: @hover-opacity;
 }

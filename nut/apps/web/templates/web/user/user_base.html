@@ -62,7 +62,7 @@
                     {% if user.is_blocked %}
                         <a  class="btn btn-setting disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
                     {% elif user == request.user %}
-                        <a class="btn btn-default btn-setting button-action" href="{% url 'web_user_settings' %}">
+                        <a class="guoku-button button-blue" href="{% url 'web_user_settings' %}">
                             <i class="fa fa-cog fa-lg"></i>
                             &nbsp; {% trans _('Edit Profile') %}</a>
                     {% elif request.user.id in user.concren %}

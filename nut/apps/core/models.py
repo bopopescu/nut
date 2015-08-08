@@ -1052,6 +1052,10 @@ class Sina_Token(BaseModel):
     def __unicode__(self):
         return self.screen_name
 
+    @property
+    def weibo_link(self):
+        return "http://www.weibo.com/u/%s/"%self.sina_id
+
     @staticmethod
     def generate(access_token, nick):
         code_string = "%s%s%s" % (access_token, nick, time.mktime(datetime.now().timetuple()))
