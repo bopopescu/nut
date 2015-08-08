@@ -161,7 +161,14 @@
     width: 120px ;
     margin: 0 auto ;
   }
+  #guoku_footer .footer-columns .column-header {
+    text-align: center;
+  }
+  #guoku_footer .footer-columns .column-content li {
+    text-align: center;
+  }
   #guoku_footer .footer-buttons {
+    display: none;
     width: 204px;
     float: none;
     margin: 0 auto;

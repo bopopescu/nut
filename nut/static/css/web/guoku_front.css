@@ -846,6 +846,14 @@ body {
   color: #9d9e9f;
   font-size: 13px;
 }
+.guoku-content.user-page .content-panel .panel-filter .filter-list li {
+  border-right: 1px solid #f8f8f8;
+  padding: 0px 15px;
+  float: left;
+}
+.guoku-content.user-page .content-panel .panel-filter .filter-list li:last-child {
+  border-right: none;
+}
 .guoku-content.user-page .user-right {
   background-color: #ffffff;
   padding: 18px 18px;
@@ -993,6 +1001,7 @@ body {
 }
 #detail_content_right .section-list li.section .tag-list li {
   font-size: 16px;
+  margin: 10px 0;
 }
 #detail_content_right .section-list li.section .pop-entity-list li a {
   color: #424242;
@@ -1072,6 +1081,9 @@ body {
 .user-right .section .section-content {
   margin-top: 20px;
 }
+.user-right .section.no-bottom {
+  border-bottom: none;
+}
 .more-article-wrapper {
   margin: 20px 0px;
   overflow: hidden;
@@ -1080,6 +1092,10 @@ body {
   width: 60%;
   float: right;
   display: block;
+}
+.more-article-wrapper .title-wrapper .title i.fa-star {
+  color: #ff9500;
+  font-size: 13px;
 }
 .more-article-wrapper .cover-wrapper {
   float: none;
@@ -1119,7 +1135,14 @@ body {
     width: 120px ;
     margin: 0 auto ;
   }
+  #guoku_footer .footer-columns .column-header {
+    text-align: center;
+  }
+  #guoku_footer .footer-columns .column-content li {
+    text-align: center;
+  }
   #guoku_footer .footer-buttons {
+    display: none;
     width: 204px;
     float: none;
     margin: 0 auto;
