@@ -1111,7 +1111,7 @@ class Article(models.Model):
 
     creator = models.ForeignKey(GKUser, related_name="articles")
     title = models.CharField(max_length=64)
-    cover = models.CharField(max_length=255,blank=True)
+    cover = models.CharField(max_length=255, blank=True)
     content = models.TextField()
     publish = models.IntegerField(choices=ARTICLE_STATUS_CHOICES, default=draft)
     created_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True, editable=False)
@@ -1132,9 +1132,6 @@ class Article(models.Model):
             self.updated_datetime = datetime.now()
         super(Article, self).save(*args, **kwargs)
 
-    def __unicode__(self):
-        return self.title
-
     @property
     def digest(self):
         return self.content
@@ -1146,7 +1143,9 @@ class Article(models.Model):
     @property
     def cover_url(self):
         if self.cover:
-            return  self.cover
+            if image_host in self.cover:
+                return self.cover
+            return "%s%s" % (image_host, self.cover)
         return "%s%s" % (settings.STATIC_URL, 'images/article/default_cover.jpg')
 
     @property

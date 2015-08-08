@@ -1,10 +1,10 @@
 from settings import *
 
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-STATIC_URL = 'http://static.guoku.com/static/v4/c62db917dedc3a11dabaeb70c19794459b5841e7/'
+STATIC_URL = 'http://static.guoku.com/static/v4/d2cb7d965a14576667a89e3952fc6b4f0dbc819d/'
 
 LANGUAGE_CODE = 'zh-cn'
 
