@@ -3,18 +3,19 @@
 {% load common guoku %}
 {% load static %}
 
-{% block meta-og %}
+ {% block meta-og %}
     <meta property="og:title" content="{{ current_user.profile.nick }}果库页 | 精英消费指南 | 理想生活主张" >
     <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
     <meta property="og:description" content="{{ current_user.profile.nick }}果库的个人页，展现个人的兴趣爱好、消费倾向及擅长领域，包括个人在果库喜爱过、点评过的商品、为商品贴过的标签、撰写过、赞过的图文等。">
 {% endblock %}
-{% block meta-common %}
-    <meta name="title"  content="{{ current_user.profile.nick }} | 精英消费指南 | 果库">
-    <meta name="keywords" content="{{ current_user.profile.nick }},个人主页,喜爱,点评,标签,图文,消费经验,擅长领域,精英消费指南,果库">
-    <meta name="description" content="{{ current_user.profile.nick }},{{ current_user.profile.bio|truncatechars:'50' }},喜爱过的商品、点评过的商品、撰写过的图文、为商品贴过的标签，做理想消费精英，提理想生活主张，个人兴趣爱好、消费倾向及擅长领域，做消费的自己。">
-{% endblock %}
 
-{% block title %}{{ current_user.profile.nick }} | 精英消费指南 | 果库{% endblock %}
+{% block meta-common %}
+    <meta name="title"  content="{{ current_user.profile.nick }}的图文 | 精英消费指南 | 果库">
+    <meta name="keywords" content="{{ current_user.profile.nick }},图文,撰写过的图文,精英消费指南,果库">
+    <meta name="description" content="{{ current_user.profile.nick }}在果库撰写过的所有图文，果库消费图文汇集全网秉持理想生活哲学的消费类文章，开拓精英视野与生活想象，涵盖品牌相关报道、卖家创业者专访、潮流资讯、消费见解主张、生活场景清单、购物经验心得分享等。">
+{% endblock %}
+{% block title %}{{ current_user.profile.nick }}的图文 | 精英消费指南 | 果库{% endblock %}
+
 {% block user_content_detail %}
         <div class="row content-wrapper" id="user-main-content">
             <div class="content-right col-xs-12 hidden-sm hidden-md hidden-lg" id="detail_content_right" >
@@ -23,7 +24,7 @@
             <div class="content-left col-xs-12 col-sm-8 col-md-8 col-lg-8">
                 <div class="container-fluid content-panel" id="user-article-panel">
                         <div class="row panel-header">
-                            <div class="panel-name">我的图文</div>
+                            <div class="panel-name">{{ pronoun }}{% trans 'Articles' %}</div>
 {#                            <div class="more-link">#}
 {#                                <a href="">#}
 {#                                查看全部#}
