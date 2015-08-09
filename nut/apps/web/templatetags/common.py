@@ -26,7 +26,7 @@ def format_time(value):
     elif time_interval < 60 * 60:
         return "%d分钟前" % ((time_interval / 60) + 1)
     elif time_interval < 60 * 60 * 24:
-        return "%d小时前" % (time_interval / (60 * 60) + 1)
+        return "%d小时前" % (time_interval / (60 * 60))
     elif time_interval < 60 * 60 * 48:
         return "昨天"
     elif time_interval < 60 * 60 * 72:
