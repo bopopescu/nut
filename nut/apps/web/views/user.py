@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
+from django.utils.translation import ugettext as _
 
 from apps.web.forms.user import UserSettingsForm, UserChangePasswordForm
 from apps.core.utils.http import JSONResponse, ErrorJsonResponse
@@ -14,7 +15,7 @@ from apps.core.models import Note, GKUser
 from apps.core.forms.user import AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.models import Entity, Entity_Like, Tag, \
-                             Entity_Tag, User_Follow,Article
+                             Entity_Tag, User_Follow,Article,User_Profile
 
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 from apps.tag.models import Content_Tags, Tags
@@ -24,6 +25,9 @@ from ..utils.viewtools import get_paged_list
 from django.views.generic import ListView, DetailView
 from hashlib import md5
 from django.utils.log import getLogger
+
+
+
 
 log = getLogger('django')
 
@@ -300,9 +304,19 @@ class UserDetailBase(ListView):
         user_id =  self.kwargs['user_id']
         _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
         return _user
+    def get_pronoun(self):
+        _current_user = self.get_showing_user()
+        if self.request.user == _current_user:
+            return _('My')
+        elif _current_user.profile.gender == User_Profile.Woman:
+            return _('Hers')
+        else:
+            return _('His')
+
     def get_context_data(self, **kwargs):
         context_data = super(UserDetailBase, self).get_context_data(**kwargs)
         context_data['current_user'] = self.get_showing_user()
+        context_data['pronoun'] = self.get_pronoun()
         return context_data
 
 
@@ -387,6 +401,19 @@ class UserIndex(DetailView):
     model = GKUser
     pk_url_kwarg = 'user_id'
     context_object_name = 'current_user'
+    def get_showing_user(self):
+        user_id =  self.kwargs['user_id']
+        _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
+        return _user
+
+    def get_pronoun(self):
+        _current_user = self.get_showing_user()
+        if self.request.user == _current_user:
+            return _('My')
+        elif _current_user.profile.gender == User_Profile.Woman:
+            return _('Hers')
+        else:
+            return _('His')
 
     def get_context_data(self,**kwargs):
         context_data = super(UserIndex, self).get_context_data(**kwargs)
@@ -397,6 +424,7 @@ class UserIndex(DetailView):
         context_data['followings'] = current_user.followings.all()[:7]
         context_data['fans'] = current_user.fans.all()[:7]
         context_data['tags']= Content_Tags.objects.user_tags(current_user.pk)[0:5]
+        context_data['pronoun'] = self.get_pronoun()
         return context_data
 
 def user_tag_detail(request, user_id, tag_name, template="web/user/tag_detail.html"):
