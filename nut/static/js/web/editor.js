@@ -32,15 +32,24 @@
         this.initBootbox();
         this.initSummernote();
         this.bindEvents();
+        this.fix_cover_url();
         this.fillSummernote();
         this.updateEditableHeight();
         //TODO: implement a method for determin if the article is changed
         // this method should compare data in the real form , and data in the summernote, title , cover , and show-cover
-
-
     }
 
+
+
     EditorApp.prototype={
+        fix_cover_url: function(){
+            // #id_cover will only save uri of the cover
+            // first you should  replace #id_cover's value to  #article_full_cover's value
+            // when save article , the cover value will be striped to uri again
+            // #article_full_cover , will be the full url , see model's property for detail
+            var full_cover_url = $('#article_full_cover').val();
+            $('#id_cover').val(full_cover_url);
+        },
         initSummernote: function(){
           var that = this ;
           this.contentChanged = false;
