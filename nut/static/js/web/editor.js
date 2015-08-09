@@ -105,12 +105,18 @@
             $('#real_article_form #id_publish').val(data['publish']);
 
         },
+        get_path_from_url: function(url){
+            var el = document.createElement('a');
+                el.href = url;
+            //remove the first slash
+            return el.pathname.slice(1)
 
+        },
         collectEditorValues: function(){
             var data = {
                 title : $('.note-editor .title-input').val(),
                 content: this.summer.code(),
-                cover : $('#id_cover').val(),
+                cover : this.get_path_from_url($('#id_cover').val()),
                 showcover : $('#showcover').prop('checked') ? 1 : 0
             };
             return data;
