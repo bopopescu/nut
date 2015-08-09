@@ -1588,7 +1588,7 @@ msgstr "全部"
 
 #: apps/web/templates/web/user/partial/user_detail_sidebar.html:11
 msgid "Personal Home"
-msgstr ""
+msgstr "个人主页"
 
 #: apps/web/templates/web/user/partial/user_index_sidebar.html:27
 msgid "Contributed Tags"
