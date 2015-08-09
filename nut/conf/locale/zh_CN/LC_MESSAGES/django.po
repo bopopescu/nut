@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-08 13:04+0800\n"
+"POT-Creation-Date: 2015-08-09 08:35+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1282,16 +1282,11 @@ msgstr "您输入的旧密码不正确"
 msgid "current password"
 msgstr "当前密码"
 
-#: apps/web/forms/user.py:161
-
-msgid "All"
-msgstr "所有"
-
-#: apps/web/forms/user.py:162
+#: apps/web/forms/user.py:163
 msgid "Published"
 msgstr "发布"
 
-#: apps/web/forms/user.py:163
+#: apps/web/forms/user.py:164
 msgid "Selected Article"
 msgstr "精选"
 
@@ -1431,9 +1426,12 @@ msgstr "重设密码"
 #: apps/web/templates/web/main/partial/entity.html:16
 #: apps/web/templates/web/main/partial/entity.html:21
 #: apps/web/templates/web/main/partial/selection_item_list.html:25
-#: apps/web/templates/web/user/like.html:35
-#: apps/web/templates/web/user/like.html:40
+#: apps/web/templates/web/user/like.html:34
+#: apps/web/templates/web/user/like.html:39
 #: apps/web/templates/web/user/user_base.html:84
+#: apps/web/templates/web/user/user_index.html:26
+#: apps/web/templates/web/user/user_like.html:28
+#: apps/web/templates/web/user/partial/user_detail_sidebar.html:15
 msgid "Like"
 msgstr "喜爱"
 
@@ -1469,7 +1467,10 @@ msgstr "商品"
 
 #: apps/web/templates/web/partial/header.html:30
 #: apps/web/templates/web/partial/header_new.html:30
+#: apps/web/templates/web/user/user_article.html:27
 #: apps/web/templates/web/user/user_base.html:94
+#: apps/web/templates/web/user/user_index.html:82
+#: apps/web/templates/web/user/partial/user_detail_sidebar.html:20
 msgid "Articles"
 msgstr "图文"
 
@@ -1525,8 +1526,10 @@ msgstr "关注"
 
 #: apps/web/templates/web/user/fans.html:28
 #: apps/web/templates/web/user/following.html:30
+#: apps/web/templates/web/user/user_base_new.html:53
 #: apps/web/templates/web/user/user_fans.html:60
 #: apps/web/templates/web/user/user_followings.html:61
+#: apps/web/templates/web/user/partial/user_index_sidebar.html:17
 msgid "Fans"
 msgstr "粉丝"
 
@@ -1543,11 +1546,11 @@ msgstr "更新资料"
 
 #: apps/web/templates/web/user/user_base.html:50
 #: apps/web/templates/web/user/user_base_new.html:51
+#: apps/web/templates/web/user/partial/user_index_sidebar.html:7
 msgid "Following"
 msgstr "关注"
 
 #: apps/web/templates/web/user/user_base.html:52
-#: apps/web/templates/web/user/user_base_new.html:53
 msgid "Followers"
 msgstr "粉丝"
 
@@ -1562,12 +1565,50 @@ msgid "Edit Profile"
 msgstr "编辑个人资料"
 
 #: apps/web/templates/web/user/user_base.html:87
+#: apps/web/templates/web/user/user_index.html:47
+#: apps/web/templates/web/user/user_note.html:29
+#: apps/web/templates/web/user/partial/user_detail_sidebar.html:18
 msgid "Note"
 msgstr "点评"
 
 #: apps/web/templates/web/user/user_base.html:90
+#: apps/web/templates/web/user/user_tag.html:28
+#: apps/web/templates/web/user/partial/user_detail_sidebar.html:19
 msgid "Tags"
 msgstr "标签"
+
+#: apps/web/templates/web/user/user_index.html:29
+#: apps/web/templates/web/user/user_index.html:50
+#: apps/web/templates/web/user/user_index.html:85
+#: apps/web/templates/web/user/partial/user_index_sidebar.html:7
+#: apps/web/templates/web/user/partial/user_index_sidebar.html:17
+#: apps/web/templates/web/user/partial/user_index_sidebar.html:27
+msgid "All"
+msgstr "全部"
+
+#: apps/web/templates/web/user/partial/user_detail_sidebar.html:11
+msgid "Personal Home"
+msgstr "个人主页"
+
+#: apps/web/templates/web/user/partial/user_index_sidebar.html:27
+msgid "Contributed Tags"
+msgstr "参与标签"
+
+#: apps/web/templates/web/user/partial/user_index_sidebar.html:39
+msgid "App"
+msgstr "客户端"
+
+#: apps/web/views/user.py:310 apps/web/views/user.py:412
+msgid "My"
+msgstr "我的"
+
+#: apps/web/views/user.py:312 apps/web/views/user.py:414
+msgid "Hers"
+msgstr "她的"
+
+#: apps/web/views/user.py:314 apps/web/views/user.py:416
+msgid "His"
+msgstr "他的"
 
 #: apps/wechat/templates/wechat/bind.html:34
 msgid "bind"

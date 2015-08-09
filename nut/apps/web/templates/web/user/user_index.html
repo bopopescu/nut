@@ -13,8 +13,8 @@
     <meta name="keywords" content="{{ current_user.profile.nick }},个人主页,喜爱,点评,标签,图文,消费经验,擅长领域,精英消费指南,果库">
     <meta name="description" content="{{ current_user.profile.nick }},{{ current_user.profile.bio|truncatechars:'50' }},喜爱过的商品、点评过的商品、撰写过的图文、为商品贴过的标签，做理想消费精英，提理想生活主张，个人兴趣爱好、消费倾向及擅长领域，做消费的自己。">
 {% endblock %}
-
 {% block title %}{{ current_user.profile.nick }} | 精英消费指南 | 果库{% endblock %}
+
 {% block user_content_detail %}
         <div class="row content-wrapper" id="user-main-content">
             <div class="content-right col-xs-12 hidden-sm hidden-md hidden-lg" id="detail_content_right" >
@@ -23,10 +23,10 @@
             <div class="content-left col-xs-12 col-sm-8 col-md-8 col-lg-8">
                 <div class="container-fluid content-panel" id="user-like-panel">
                         <div class="row panel-header">
-                            <div class="panel-name">我的喜爱</div>
+                            <div class="panel-name">{{ pronoun }}{% trans 'Like' %}</div>
                             <div class="more-link">
                                 <a href="{% url 'web_user_entity_like' current_user.pk %}">
-                                    查看全部&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
+                                    {% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
                                 </a>
                             </div>
                         </div>
@@ -44,10 +44,10 @@
                 </div>
                 <div class="container-fluid content-panel" id="user-note-panel">
                         <div class="row panel-header">
-                            <div class="panel-name">我的点评</div>
+                            <div class="panel-name">{{ pronoun }}{% trans 'Note' %}</div>
                             <div class="more-link">
                                 <a href="{% url 'web_user_post_note' current_user.pk %}">
-                                    查看全部&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
+                                    {% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
                                 </a>
                             </div>
                         </div>
@@ -79,10 +79,10 @@
                 {% if current_user.can_write %}
                 <div class="container-fluid content-panel" id="user-article-panel">
                         <div class="row panel-header">
-                            <div class="panel-name">我的图文</div>
+                            <div class="panel-name">{{ pronoun }}{% trans 'Articles' %}</div>
                             <div class="more-link">
                                 <a href="{% url 'web_user_article' current_user.pk %}">
-                                查看全部&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
+                                {% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
                                 </a>
                             </div>
                         </div>
