@@ -17,7 +17,7 @@ urlpatterns = patterns(
 
     url(r'^(?P<eid>\d+)/report/$', 'report', name='web_entity_report'),
 
-    url(r'^go/(?P<buy_id>\d+)', gotoBuyView, name='web_entity_buy_url'),
+    url(r'^go/(?P<buy_id>\d+)/', gotoBuyView.as_view(), name='web_entity_buy_url'),
 )
 
 
