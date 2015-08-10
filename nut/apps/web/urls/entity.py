@@ -15,6 +15,8 @@ urlpatterns = patterns(
     url(r'^load/item/', 'entity_load', name='web_load_item_info'),
 
     url(r'^(?P<eid>\d+)/report/$', 'report', name='web_entity_report'),
+
+    url(r'^go/(?P<origin_id>\w+)', '', name='web_entity_buy_url'),
 )
 
 
