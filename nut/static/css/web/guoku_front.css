@@ -799,7 +799,7 @@ body {
 }
 .guoku-content.user-page .content-panel .panel-content-wrapper .note-cell {
   height: auto;
-  min-height: 80px;
+  min-height: 100px;
   overflow: hidden;
   padding: 0px 10px 10px 0px;
   margin-bottom: 40px;
@@ -839,6 +839,7 @@ body {
 .guoku-content.user-page .content-panel .panel-content-wrapper .tag-cell {
   text-align: center;
   padding: 20px 10px;
+  min-height: 140px;
 }
 .guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-name {
   font-size: 18px;
