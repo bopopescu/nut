@@ -15,6 +15,7 @@
 
 
 {% block content %}
+
     <div class="container" id="editor-container">
         <div class="row">
             {% if not is_chief_editor %}
@@ -70,6 +71,7 @@
                                 {{ field }}{{ field.error }}
                             {% endfor %}
                            </div>
+                           <input type="text" id="article_full_cover" value="{{ cover_url }}">
                         </form>
             </div>
 

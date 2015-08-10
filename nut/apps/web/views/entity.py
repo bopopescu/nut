@@ -36,9 +36,11 @@ class EntityCard(AjaxResponseMixin, JSONResponseMixin , DetailView):
             raise Exception('can not find hash')
         _entity = Entity.objects.get(entity_hash = _entity_hash, status__gte=Entity.freeze)
         return _entity
+
     def get(self, request, *args, **kwargs):
-#       TODO: render template here
-        pass
+        _entity_hash =  self.kwargs.get('entity_hash', None)
+        return HttpResponseRedirect(reverse('web_entity_detail',args=[_entity_hash]))
+
     def get_ajax(self, request, *args, **kwargs):
         _entity = None
         data = {}
