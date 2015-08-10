@@ -1,4 +1,5 @@
 from django.conf.urls import url, patterns
+from apps.web.views.entity import gotoBuyView
 
 
 urlpatterns = patterns(
@@ -16,7 +17,7 @@ urlpatterns = patterns(
 
     url(r'^(?P<eid>\d+)/report/$', 'report', name='web_entity_report'),
 
-    url(r'^go/(?P<origin_id>\w+)', '', name='web_entity_buy_url'),
+    url(r'^go/(?P<buy_id>\d+)', gotoBuyView, name='web_entity_buy_url'),
 )
 
 
