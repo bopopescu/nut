@@ -19,7 +19,7 @@ from apps.tag.models import Content_Tags
 
 from django.utils.log import getLogger
 from django.views.generic.detail import DetailView
-from braces.views import  AjaxResponseMixin,JSONResponseMixin
+from braces.views import AjaxResponseMixin,JSONResponseMixin
 
 from django.conf import settings
 
