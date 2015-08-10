@@ -341,7 +341,7 @@ class UserNoteView(UserDetailBase):
 
 
 class UserTagView(UserDetailBase):
-    paginate_by = 40
+    paginate_by = None
     template_name = 'web/user/user_tag.html'
     context_object_name = 'current_user_tags'
     def get_queryset(self):

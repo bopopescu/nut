@@ -117,6 +117,7 @@ def event(request, slug, template='web/events/home'):
                 content_type='text/html; charset=utf-8',
         )
 
+
     # log.info('tag text %s', event.tag)
     return render_to_response(
         template,
