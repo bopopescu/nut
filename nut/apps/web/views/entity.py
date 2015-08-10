@@ -394,14 +394,16 @@ class gotoBuyView(RedirectView):
     permanent = False
 
     def get_redirect_url(self, *args, **kwargs):
-
         b = Buy_Link.objects.get(pk = self.buy_id)
+
+        if "amazon" in b.origin_source:
+            return b.amazon_url
         return b.link
 
     def get(self, request, *args, **kwargs):
         self.buy_id = kwargs.pop('buy_id', None)
         assert self.buy_id is not None
-        super(gotoBuyView, self).get(request, *args, **kwargs)
+        return super(gotoBuyView, self).get(request, *args, **kwargs)
 
 
 __author__ = 'edison'

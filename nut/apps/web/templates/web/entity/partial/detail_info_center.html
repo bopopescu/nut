@@ -59,16 +59,16 @@
                             <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;{% trans 'Buy' %}<span itemprop="price"></span>
                         </a>
         {#                {% endif %}#}
-                    {% elif row.origin_source == "jd.com"%}
-                        <a class="buy-button" rel="nofollow" href="{% url 'web_entity_buy_url' row.id %}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-jd'])">
-                            <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;{% trans 'Buy' %}<span itemprop="price"></span>
-                        </a>
-                    {% elif "amazon" in row.origin_source %}
-                        <a class="buy-button" rel="nofollow" href="{% url 'web_entity_buy_url' row.id %}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-amazon', '{{ entity.title }}-amazon'])">
-                            <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;{% trans 'Buy' %}<span itemprop="price"></span>
-                        </a>
+{#                    {% elif row.origin_source == "jd.com"%}#}
+{#                        <a class="buy-button" rel="nofollow" href="{% url 'web_entity_buy_url' row.id %}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-jd'])">#}
+{#                            <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;{% trans 'Buy' %}<span itemprop="price"></span>#}
+{#                        </a>#}
+{#                    {% elif "amazon" in row.origin_source %}#}
+{#                        <a class="buy-button" rel="nofollow" href="{% url 'web_entity_buy_url' row.id %}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-amazon', '{{ entity.title }}-amazon'])">#}
+{#                            <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;{% trans 'Buy' %}<span itemprop="price"></span>#}
+{#                        </a>#}
                     {% else %}
-                        <a class="buy-button" rel="nofollow" href="{{ row.link }}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-{{ row.origin_souce }}'])">
+                        <a class="buy-button" rel="nofollow" href="{% url 'web_entity_buy_url' row.id %}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy', '{{ entity.title }}-{{ row.origin_souce }}'])">
                             <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;{% trans 'Buy' %}<span itemprop="price"></span>
                         </a>
                     {% endif %}
