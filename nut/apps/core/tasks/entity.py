@@ -49,7 +49,7 @@ def like_task(uid, eid, **kwargs):
             entity_id = eid,
         )
         obj.entity.innr_like()
-        obj.user.innr_like()
+        obj.user.incr_like()
         return obj
     # return status
 

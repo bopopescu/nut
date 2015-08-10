@@ -1443,7 +1443,7 @@ post_save.connect(entity_set_to_selectoin, sender=Selection_Entity, dispatch_uid
 
 def user_like_notification(sender, instance, created, **kwargs):
     if issubclass(sender, Entity_Like) and created:
-        log.info(instance.user)
+        # log.info(instance.user)
         # log.info(instance.entity.user)
         if instance.user.is_active == GKUser.remove:
             return
