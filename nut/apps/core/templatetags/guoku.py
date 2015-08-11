@@ -22,7 +22,6 @@ def resize(value, size=None):
     # log.info(value)
     if value is None or host not in value:
         return value
-
     if size:
         if host in value:
             uri = value.replace(host, '')
@@ -32,7 +31,6 @@ def resize(value, size=None):
             uri_string = '/'.join(params)
             return host + uri_string
     return value
-
 register.filter(resize)
 
 

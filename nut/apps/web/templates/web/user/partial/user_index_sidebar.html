@@ -3,6 +3,7 @@
 {% load static %}
 
 <ul class="section-list user-right">
+   {%  if followings %}
     <li class="section">
         <div class="section-title">{% trans 'Following' %}<span class="more-link"><a href="{% url 'web_user_followings' current_user.pk %}">{% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></span></div>
         <div class="section-content">
@@ -13,6 +14,8 @@
             </ul>
         </div>
     </li>
+    {% endif %}
+    {% if  fans %}
     <li class="section">
         <div class="section-title">{% trans 'Fans' %}<span class="more-link"><a href="{% url 'web_user_fans' current_user.pk %}">{% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></span></div>
         <div class="section-content">
@@ -23,6 +26,8 @@
             </ul>
         </div>
     </li>
+    {% endif %}
+    {% if tags %}
     <li class="section">
         <div class="section-title">{% trans 'Contributed Tags' %}<span class="more-link"><a href="{% url 'web_user_tag' current_user.pk %}">{% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></span></div>
         <div class="section-content">
@@ -35,8 +40,9 @@
             </ul>
         </div>
     </li>
+    {% endif %}
     <li class="section">
-        <div class="section-title">{% trans 'App' %}</div>
+        <div class="section-title">{% trans "Download App" %}</div>
         <div class="section-content">
             <div class="text-holder">
                 精英消费指南，生活不一样。
