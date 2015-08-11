@@ -10,7 +10,7 @@ body{
   font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
   font-size: @primary-size;
   line-height: 1.5;
-  .transition(all 1s);
+//  .transition(all 1s);
 }
 
 .body-gray{
@@ -27,6 +27,13 @@ body{
   .main-list{
     li{
       background: none;
+      &.active{
+         border-bottom: 4px solid @like-color;
+         a{
+           color: @common-text-color;
+           font-weight: 600;
+         }
+      }
     }
     li.divider{
       background-color: @light-gray;
