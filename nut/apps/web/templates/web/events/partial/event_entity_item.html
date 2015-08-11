@@ -24,13 +24,13 @@
                 {% endif %}
                         {% trans 'Like' %} <span class="like-count"> {{ entity.like_count | format_like_num }}</span>
                     </a>
-                    <div class="pull-right posttime">
-                        <i class="fa fa-clock-o"></i>
-                        <span class="timestr">
-                            {{ entity.selection_entity.pub_time|format_time|cut:" " }}
-                        </span>
-
-                    </div>
+{#                    <div class="pull-right posttime">#}
+{#                        <i class="fa fa-clock-o"></i>#}
+{#                        <span class="timestr">#}
+{#                            {{ entity.selection_entity.pub_time|format_time|cut:" " }}#}
+{#                        </span>#}
+{##}
+{#                    </div>#}
             </div>
         </div>
     </div>

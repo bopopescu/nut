@@ -29,7 +29,7 @@
 {% block content %}
         {% block bg %}
         {% endblock %}
-    <div class="container">
+    <div class="container" id="event_wrapper">
         {% block headevent %}
         {% endblock %}
 
@@ -117,7 +117,7 @@
 
         <div class="row" id="event">
             {% for entity in entities %}
-                {% include "web/main/partial/selection_item_list.html" with entity=entity %}
+                {% include "web/events/partial/event_entity_item.html" with entity=entity %}
             {% endfor %}
         </div>
         <div class="row hidden-xs">
