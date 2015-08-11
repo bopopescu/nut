@@ -32,7 +32,7 @@ from datetime import datetime
 class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin , ListView):
     template_name =  'web/main/selection.html'
     model = Entity
-    paginate_by = 30
+    paginate_by = 36
     paginator_class = Jpaginator
 
     def get_refresh_time(self):

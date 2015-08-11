@@ -1321,7 +1321,7 @@ class Event_Banner(models.Model):
 
     @property
     def image_url(self):
-        return "%s%s" % ('http://image.guoku.com/', self.image)
+        return "%s%s" % (image_host, self.image)
         # return "%s%s" % (image_host, self.image)
 
     @property

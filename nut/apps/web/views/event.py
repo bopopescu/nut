@@ -69,7 +69,7 @@ def event(request, slug, template='web/events/home'):
 
     _entity_list = Entity.objects.filter(id__in=list(set(_eid_list)), status=Entity.selection).using('slave')
 
-    _paginator = ExtentPaginator(_entity_list, 30)
+    _paginator = ExtentPaginator(_entity_list, 12)
 
     try:
         _entities = _paginator.page(_page_num)
@@ -116,6 +116,7 @@ def event(request, slug, template='web/events/home'):
                 data=_ret,
                 content_type='text/html; charset=utf-8',
         )
+
 
     # log.info('tag text %s', event.tag)
     return render_to_response(
