@@ -17,14 +17,14 @@
                 <div class="row">
                     <div class="writer-avatar col-sm-2">
                         <div class="avatar-wrapper">
-                            <a href="{% url 'web_user_article' article.creator.pk %}">
+                            <a href="{% url 'web_user_index' article.creator.pk %}">
                                 <img src="{{ article.creator.profile.avatar_url }}">
                             </a>
                         </div>
                     </div>
                     <div class="writer-intro col-sm-10">
                         <div class="writer-nick">
-                            <a href="{% url 'web_user_article' article.creator.pk %}">
+                            <a href="{% url 'web_user_index' article.creator.pk %}">
                                 {{ article.creator.profile.nickname }}
                             </a>
 
