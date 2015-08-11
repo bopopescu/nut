@@ -606,6 +606,25 @@ ul li {
   margin-top: 12px;
   border: none;
 }
+.btn-top {
+  display: none;
+  float: right;
+  background-color: #eee;
+  border: 1px solid#cccccc;
+  position: fixed;
+  /*right: 10px;*/
+  opacity: 0.8;
+  bottom: 120px;
+  width: 30px;
+  height: 30px;
+  z-index: 1000000;
+  text-align: center;
+  line-height: 28px;
+  /*vertical-align: middle;*/
+}
+.btn-top:hover {
+  background-color: #e0e0e0;
+}
 @-moz-document url-prefix() {
   fieldset {
     display: table-cell;
@@ -754,6 +773,129 @@ textarea {
   padding-top: 10px;
   padding-left: 15px;
   padding-right: 40px;
+}
+.btn-user {
+  display: inline-block;
+  font-size: 14px;
+  /*color: #333;*/
+  padding: 5px;
+}
+/* 喜欢按钮 */
+.btn-like {
+  display: inline-block;
+  /*border-radius: 0;*/
+  background-color: #fff;
+  border-radius: 0;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 10px;
+  height: 40px;
+  /*border-color: #eee;*/
+  /*border: #eeeddd solid 1px;*/
+  color: #333;
+}
+.btn-like-detail {
+  display: inline-block;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+  /*border-color: #eee;*/
+  border: none;
+  color: #333;
+  padding: 10px 20px;
+}
+.btn-user:hover,
+.btn-user:focus,
+.btn-user:active,
+.btn-like:hover,
+.btn-like:focus,
+.btn-like.active,
+.btn-like-detail:hover,
+.btn-like-detail:focus,
+.btn-like-detail:active,
+.open > .dropdown-toggle.btn-default {
+  color: #333;
+  /*background-color: #e6e6e6;*/
+  /*border-color: #adadad;*/
+  box-shadow: none;
+}
+.btn-like:active,
+.btn-like.active,
+.open > .dropdown-toggle.btn-like {
+  background-image: none;
+}
+.breadcrumb {
+  background: none;
+  padding: 0px;
+}
+/* 自定义翻页 */
+.pager > li > a {
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 0;
+  color: #898989;
+  font-weight: 700;
+}
+.pager .disabled > a {
+  background-color: #427DBF;
+  cursor: not-allowed;
+  color: #ffffff;
+}
+.row {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.col-xs-1,
+.col-sm-1,
+.col-md-1,
+.col-lg-1,
+.col-xs-2,
+.col-sm-2,
+.col-md-2,
+.col-lg-2,
+.col-xs-3,
+.col-sm-3,
+.col-md-3,
+.col-lg-3,
+.col-xs-4,
+.col-sm-4,
+.col-md-4,
+.col-lg-4,
+.col-xs-5,
+.col-sm-5,
+.col-md-5,
+.col-lg-5,
+.col-xs-6,
+.col-sm-6,
+.col-md-6,
+.col-lg-6,
+.col-xs-7,
+.col-sm-7,
+.col-md-7,
+.col-lg-7,
+.col-xs-8,
+.col-sm-8,
+.col-md-8,
+.col-lg-8,
+.col-xs-9,
+.col-sm-9,
+.col-md-9,
+.col-lg-9,
+.col-xs-10,
+.col-sm-10,
+.col-md-10,
+.col-lg-10,
+.col-xs-11,
+.col-sm-11,
+.col-md-11,
+.col-lg-11,
+.col-xs-12,
+.col-sm-12,
+.col-md-12,
+.col-lg-12 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
 }
 body {
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
