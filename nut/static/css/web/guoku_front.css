@@ -2106,6 +2106,11 @@ body {
     margin: 0 auto ;
   }
 }
+@media (min-width: 1170px) {
+  #event_wrapper {
+    width: 960px;
+  }
+}
 .test {
   color: red;
 }

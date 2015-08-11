@@ -35,13 +35,17 @@ CACHES = {
 #         'LOCATION': '/var/tmp/django_cache',
 #     }
 # }
-
-def removeDebugToolBar(theList):
-    return [x  for x in theList if x!='debug_toolbar']
 #
-INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
 
-#
+# ----------------------- debug -----------------------
+# # def removeDebugToolBar(theList):
+# #     return [x  for x in theList if x!='debug_toolbar']
+# # #
+# INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
+
+#-------------------------debug end --------------------
+
+
 # TEMPLATE_CONTEXT_PROCESSORS += (
 #     # 'apps.web.contextprocessors.global.lastslug',
 # )
