@@ -14,76 +14,6 @@ body {
 
 
 
-/* 去圆角处理 */
-
-
-/* 页码 */
-.pager li {
-    display: inline-block;
-    margin-top: 10px;
-}
-/* 图片宽高相等处理 */
-//.img-box{
-//    display:block;
-//    height:0;
-//    padding-bottom:99%;
-//    overflow:hidden;
-//    text-align: center;
-//    /*border-bottom: 1px solid #eeeddd;*/
-//}
-//.selection-item{
-//  .img-box{
-//    a{
-//      width:100%
-//    }
-//  }
-//}
-//.img-box > a{
-//    display:inline-block;
-//    position: relative;
-//}
-//
-//.img-box > a >img
-//{
-//    background-color: #f6f6f6;
-//    width: 100%;
-//    max-height:100%;
-//    max-width:100%;
-//    max-width: 280px\9;
-//    max-height: 280px\9;
-//}
-
-
-
-/* 精选结构 */
-
-
-
-/* 热门结构 */
-.entity-four.thumbnail
-{
-    border: none;
-    padding: 0px;
-    margin-bottom: 60px;
-}
-.entity-four.thumbnail .img-box
-{
-    border: 1px solid #e6e6e6;
-    /*box-shadow: 1px 1px 5px rgba(215,215,215,.4);*/
-}
-.entity-four.thumbnail .btn-like{
-    padding: 0px;
-    line-height: 14px;
-    font-size: 14px;
-    height: 14px;
-    color: #9d9e9f;
-}
-.entity-four.thumbnail .caption {
-    padding: 0px;
-    margin-top: 12px;
-    border: none;
-}
-
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div
 {
@@ -163,27 +93,6 @@ body {
     }
 }
 
-.guoku-caption {
-    border-top: 1px solid #eee;
-    margin: 5px 5px 0 5px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.jumbotron {
-    margin-top: -50px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-bottom: 50px;
-}
-
-.navbar-brand {
-    padding-bottom: 10px;
-    padding-top: 10px;
-    padding-left: 15px;
-    padding-right: 40px;
-}
-
 @media (max-width: 768px){
     .navbar-brand{
         padding-left: 0px;
@@ -192,29 +101,6 @@ body {
 
 }
 
-.footer {
-    border-top: 1px solid #e5e5e5;
-    color: #9c9c9d;
-    margin-top: 70px;
-    padding: 30px 0;
-    font-size: 14px;
-}
-.footer a {
-    color: #9c9c9d;
-}
-.footer-top .about > div {
-    height: 110px;
-    margin-bottom: 10px;
-}
-.footer-top .about > div h4 {
-    color: #563d7c;
-    font-size: 16px;
-}
-.footer-bottom ul > li + li:before {
-    color: #eee;
-    content: "|";
-    padding: 0 10px;
-}
 
 .form-control {
     border-radius: 0;
@@ -1586,7 +1472,7 @@ a:hover{text-decoration:underline;}
       }
       .guess_img{
          .img-box{
-           .common-bordered;
+           border:none!important;
          }
          a{
            display: block;

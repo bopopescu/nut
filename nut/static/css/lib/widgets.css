@@ -157,21 +157,19 @@
   -moz-box-shadow: 0px 0px 3px #dddddd;
   box-shadow: 0px 0px 3px #dddddd;
 }
-.cell .img-box,
-.selection-item .img-box {
-  display: block;
+.img-box {
   height: 0;
   padding-bottom: 95%;
   overflow: hidden;
   text-align: center;
+  border: 1px solid #e6e6e6;
+  display: block;
 }
-.cell .img-box a,
-.selection-item .img-box a {
+.img-box a {
   display: inline-block;
   position: relative;
 }
-.cell .img-box a img,
-.selection-item .img-box a img {
+.img-box a img {
   background-color: #f6f6f6;
   width: 100%;
   max-height: 100%;
@@ -230,4 +228,24 @@
 }
 .ancillary {
   color: #9d9e9f;
+}
+.entity-four.thumbnail {
+  border: none;
+  padding: 0px;
+  margin-bottom: 60px;
+}
+.entity-four.thumbnail .img-box {
+  border: 1px solid #e6e6e6;
+}
+.entity-four.thumbnail .btn-like {
+  padding: 0px;
+  line-height: 14px;
+  font-size: 14px;
+  height: 14px;
+  color: #9d9e9f;
+}
+.entity-four.thumbnail .caption {
+  padding: 0px;
+  margin-top: 12px;
+  border: none;
 }
