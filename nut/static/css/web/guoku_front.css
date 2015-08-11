@@ -1964,6 +1964,11 @@ body {
   width: 100%;
 }
 @media (max-width: 767px) {
+  .event-item {
+    padding: 5px 5px 5px 5px;
+  }
+}
+@media (max-width: 767px) {
   #guoku_main_nav {
     background-color: #ffffff;
   }
