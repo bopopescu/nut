@@ -157,18 +157,21 @@
   -moz-box-shadow: 0px 0px 3px #dddddd;
   box-shadow: 0px 0px 3px #dddddd;
 }
-.cell .img-box {
+.cell .img-box,
+.selection-item .img-box {
   display: block;
   height: 0;
   padding-bottom: 95%;
   overflow: hidden;
   text-align: center;
 }
-.cell .img-box a {
+.cell .img-box a,
+.selection-item .img-box a {
   display: inline-block;
   position: relative;
 }
-.cell .img-box a img {
+.cell .img-box a img,
+.selection-item .img-box a img {
   background-color: #f6f6f6;
   width: 100%;
   max-height: 100%;

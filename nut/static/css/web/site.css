@@ -157,18 +157,21 @@
   -moz-box-shadow: 0px 0px 3px #dddddd;
   box-shadow: 0px 0px 3px #dddddd;
 }
-.cell .img-box {
+.cell .img-box,
+.selection-item .img-box {
   display: block;
   height: 0;
   padding-bottom: 95%;
   overflow: hidden;
   text-align: center;
 }
-.cell .img-box a {
+.cell .img-box a,
+.selection-item .img-box a {
   display: inline-block;
   position: relative;
 }
-.cell .img-box a img {
+.cell .img-box a img,
+.selection-item .img-box a img {
   background-color: #f6f6f6;
   width: 100%;
   max-height: 100%;
@@ -241,71 +244,10 @@ body {
   margin-top: 10px;
 }
 /* 图片宽高相等处理 */
-.img-box {
-  display: block;
-  height: 0;
-  padding-bottom: 99%;
-  overflow: hidden;
-  text-align: center;
-  /*border-bottom: 1px solid #eeeddd;*/
-}
-.selection-item .img-box a {
-  width: 100%;
-}
-/*.img-box .alt_hover{
-    display: none;
-    position: absolute;
-    float: left;
-    top: 0px;
-    left: 0px;
-    z-index: 10;
-    background: #414243;
-    text-align: center;
-    height: 32px;
-    padding: 0 12px;
-    line-height: 32px;
-    font-size: 14px;
-    color: #ffffff;
-    border-radius: 4px;
-
-}*/
-/*.img-box{*/
-/**/
-/*}*/
-.img-box > a {
-  display: inline-block;
-  position: relative;
-}
-.img-box > a > img {
-  background-color: #f6f6f6;
-  width: 100%;
-  max-height: 100%;
-  max-width: 100%;
-  max-width: 280px\9;
-  max-height: 280px\9;
-}
-/* welcome */
-/*.welcome-sign {*/
-/*margin-top: 30px;*/
-/*}*/
-/*.welcome-login {*/
-/*font-size: 18px;*/
-/*padding-bottom: 6px;*/
-/*padding-top: 6px;*/
-/*}*/
 /* 精选结构 */
-.entity-selection.thumbnail {
-  border: none;
-  padding: 0px;
-  margin-bottom: 60px;
-}
 .entity-selection.thumbnail .img-box {
   border: 1px solid #e6e6e6;
   /*box-shadow: 1px 1px 5px rgba(215,215,215,.4);*/
-}
-.entity-selection.thumbnail .caption {
-  padding: 0px;
-  border: none;
 }
 .entity-selection.thumbnail .caption .note {
   padding: 0px;
