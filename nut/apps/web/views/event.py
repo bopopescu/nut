@@ -69,7 +69,7 @@ def event(request, slug, template='web/events/home'):
 
     _entity_list = Entity.objects.filter(id__in=list(set(_eid_list)), status=Entity.selection)
 
-    _paginator = ExtentPaginator(_entity_list, 30)
+    _paginator = ExtentPaginator(_entity_list, 12)
 
     try:
         _entities = _paginator.page(_page_num)
