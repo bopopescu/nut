@@ -866,9 +866,6 @@ ul li {
   color: #414243;
   padding: 9px 9px 9px 0;
 }
-i {
-  color: #9d9e9f;
-}
 .btn-primary {
   color: #fff;
   background-color: #427EC0;
@@ -2102,5 +2099,6 @@ body {
   }
 }
 .test {
-  color: blue;
+  color: red;
 }
+/*# sourceMappingURL=guoku_front.less.css.map */

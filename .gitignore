@@ -23,6 +23,8 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+*.less
+*.css.map
 
 # Installer logs
 pip-log.txt
