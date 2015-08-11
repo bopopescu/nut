@@ -245,32 +245,6 @@ body {
 }
 /* 图片宽高相等处理 */
 /* 精选结构 */
-.entity-selection.thumbnail .img-box {
-  border: 1px solid #e6e6e6;
-  /*box-shadow: 1px 1px 5px rgba(215,215,215,.4);*/
-}
-.entity-selection.thumbnail .caption .note {
-  padding: 0px;
-  margin-top: 16px;
-  margin-bottom: 21px;
-  line-height: 24px;
-  font-size: 16px;
-}
-.entity-selection.thumbnail .btn-like {
-  padding: 0px;
-  padding-left: 3px;
-  line-height: 14px;
-  font-size: 14px;
-  height: 14px;
-  color: #9d9e9f;
-}
-.entity-selection.thumbnail .posttime {
-  padding: 0px;
-  line-height: 14px;
-  font-size: 14px;
-  height: 14px;
-  color: #9d9e9f;
-}
 /* 热门结构 */
 .entity-four.thumbnail {
   border: none;
