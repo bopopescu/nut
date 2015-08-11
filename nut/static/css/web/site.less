@@ -1,16 +1,10 @@
 @import "../lib/mixin.less";
 @import "../lib/var.less";
+@import "../lib/widgets.less";
 
 
-@-moz-document url-prefix() {
-    fieldset {
-        display: table-cell;
-    }
-}
-body, h1, .h1, h2, .h2, h3, .h3, h4, .h4, .lead {
-    font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",Arial , sans-serif;
-    font-size: @primary-size;
-}
+
+
 body {
     padding-top: 100px;
     color: @common-text-color;
@@ -18,200 +12,14 @@ body {
     -webkit-font-smoothing:subpixel-antialiased;
 }
 
-.thumbnail .caption {
-    color: #414243;
-    padding: 9px 9px 9px 0;
-}
-
-i{
-    color: #9d9e9f;
-}
-.btn-primary {
-color: #fff;
-background-color: #427EC0;
-border:none;
-}
-
-.v-helper{
-     display:inline-block;
-     height:100%;
-     vertical-align: middle;
-     width:0px;
-}
-
-/*.round:hover{color:blue;text-decoration:none}*/
-/*去掉苹果的默认UI来渲染按钮*/
-input[type="submit"], input[type="reset"], input[type="button"], button,textarea { -webkit-appearance: none; }
-
-.guoku-weixin{z-index: 1000; position:fixed;right:20px;top:100px;width: 70px;height: 70px;opacity: 100;filter:alpha(opacity=100);}
-.guoku-weixin:hover{opacity:0.85; filter:alpha(opacity=85);}
-a:focus{outline:none;}
-a {
-    text-decoration:none;
-}
-a:hover,a:focus {
-    text-decoration:none;
-}
-img {
-    border:0;
-}
-
-.round {
-    width:6px;
-    height:6px;
-    display: none;
-    font-size:6px;
-    vertical-align: top;
-    border-radius: 3px;
-    /*text-align:center;*/
-    /*color:#ff1f77;*/
-    background-color: @like-color;
-    text-decoration:none;
-}
-
-.guoku-button{
-            font-size:@primary-size;
-            height: 35px;
-            border-radius: @global-box-radius;
-            line-height: 35px;
-            text-align: center;
-            cursor: pointer;
-            border: none
-
-}
-
-.gray-button{
-    background-color: @light-gray;
-    color: #fff;
-}
-
-.seller-button{
-  margin-top: 10px;
-}
-
-.disabled-button{
-  cursor: default;
-}
-
-.blue-button{
-    font-size:16px;
-    height: 35px;
-    border-radius: 5px;
-    line-height: 35px;
-    text-align: center;
-    background:@link-color;
-    color:#fff;
-    margin-top:20px;
-}
-
-.entity-report-button{
-    width:120px;
-    background-color:@link-color;
-    color: #fff;
-}
-
-.entity-report-button :hover{
-      opacity: 0.8!important;
-      color:#fff!important;
-}
-
-.primary-button{
-    width: 100px;
-}
-
-.nav-user-actions{
-  .round{
-    position:relative;
-    left: 5px;
-  }
-}
-
-.setting-list{
-  .round{
-    position:relative;
-    left: 5px;
-    top:8px;
-  }
-}
-
-.ancillary {
-    color: #9d9e9f;
-}
-
-/* 轮播 */
-.carousel-control.left {
-  background-image:none;
-}
-.carousel-control.right {
-  background-image:none;
-}
-.line{
-    background:#eee;
-    height:1px;
-    margin-bottom: 20px;
-}
-
-.fa-plus {
-    color: #ffffff;
-}
-/* 精选点评标记 */
-.fa-star {
-    color: #FF9500;
-    font-size: 14px;
-}
-/* 喜欢按钮 */
-.fa-heart {
-    color: #FF1F77;
-}
-/* 搜索 */
-.fa-search {
-    color: #ccc;
-}
-
-.fa-check {
-    color: #fff;
-}
-
-.fa-exchange {
-    color: #fff;
-}
-
-.fs_14{
-    font-size: 14px;
-}
-.search input {
-    border: 0;
-}
 
 
-a:hover,
-a:focus {
-  /*color: #333333;*/
-  color: rgb(66, 126, 192);
-  text-decoration: none;
-}
 
 
-.bio{color: #999;}
 
-/* 最大宽度限制处理 */
-@media (min-width: 1200px){
-    .container {
-        width: 990px;
-    }
-}
-
-a {
-    /*color: #333333;*/
-    color: #427ec0;
-    text-decoration: none;
-}
 
 /* 去圆角处理 */
-.thumbnail {
-    border-radius: 0;
-    border: 1px solid #eee;
-}
+
 
 
 .list-group-item {
