@@ -621,7 +621,7 @@ class Entity(BaseModel):
         else:
             log.info("miss miss")
             res = self.likes.count()
-            cache.set(key, res)
+            cache.set(key, res, timeout=86400)
             return res
         # return self.likes.count()
 
@@ -635,7 +635,7 @@ class Entity(BaseModel):
         else:
             log.info("miss miss")
             res = self.notes.count()
-            cache.set(key, res)
+            cache.set(key, res, timeout=86400)
             return res
         # return self.notes.count()
 
