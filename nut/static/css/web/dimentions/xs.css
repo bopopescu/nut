@@ -1,3 +1,9 @@
+.v-helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  width: 0px;
+}
 .little-gray-font {
   font-size: 13px;
   color: #9d9d9d;
@@ -55,8 +61,25 @@
   color: #fff;
   background-color: #357ebd;
 }
+.blue-button {
+  font-size: 16px;
+  height: 35px;
+  border-radius: 5px;
+  line-height: 35px;
+  text-align: center;
+  background: #357ebd;
+  color: #fff;
+  margin-top: 20px;
+}
 .button-gray {
   background-color: #9d9e9f;
+}
+.seller-button {
+  margin-top: 10px;
+}
+.gray-button {
+  background-color: #9d9d9d;
+  color: #fff;
 }
 .button-white {
   background-color: #fff;
@@ -77,6 +100,9 @@
   color: #999;
   border: 1px solid #eee;
 }
+.disabled-button {
+  cursor: default;
+}
 .button-disabled {
   background-color: #9d9e9f;
   color: #f8f8f8;
@@ -85,6 +111,23 @@
 .button-disabled:focus {
   background-color: #9d9e9f;
   color: #f8f8f8;
+}
+.entity-report-button {
+  width: 120px;
+  background-color: #357ebd;
+  color: #fff;
+}
+.entity-report-button:hover,
+.entity-report-button:focus {
+  opacity: 0.8!important;
+  color: #fff!important;
+}
+.primary-button {
+  width: 100px;
+}
+.nav-user-actions .round {
+  position: relative;
+  left: 5px;
 }
 .common-bordered {
   border: 1px solid #e6e6e6;
@@ -164,6 +207,26 @@
 }
 .bottom-bordered {
   border-bottom: 1px solid #e6e6e6;
+}
+.setting-list .round {
+  position: relative;
+  left: 5px;
+  top: 8px;
+}
+.round {
+  width: 6px;
+  height: 6px;
+  display: none;
+  font-size: 6px;
+  vertical-align: top;
+  border-radius: 3px;
+  /*text-align:center;*/
+  /*color:#ff1f77;*/
+  background-color: #ff1f77;
+  text-decoration: none;
+}
+.ancillary {
+  color: #9d9e9f;
 }
 @media (max-width: 767px) {
   #guoku_main_nav {

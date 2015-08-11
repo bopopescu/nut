@@ -1,7 +1,12 @@
 @import "../lib/mixin.less";
 @import "../lib/var.less";
 
-
+.v-helper{
+     display:inline-block;
+     height:100%;
+     vertical-align: middle;
+     width:0px;
+}
 
 .little-gray-font{
   font-size: @mini-size;
@@ -54,8 +59,30 @@
   }
 }
 
+.blue-button{
+    font-size:16px;
+    height: 35px;
+    border-radius: 5px;
+    line-height: 35px;
+    text-align: center;
+    background:@link-color;
+    color:#fff;
+    margin-top:20px;
+}
+
+
 .button-gray{
   background-color:@common-gray;
+}
+
+.seller-button{
+  margin-top: 10px;
+}
+
+
+.gray-button{
+    background-color: @light-gray;
+    color: #fff;
 }
 
 .button-white{
@@ -75,6 +102,10 @@
   }
 }
 
+.disabled-button{
+  cursor: default;
+}
+
 .button-disabled{
   background-color: @common-gray;
   color:@very-light-gray;
@@ -85,8 +116,27 @@
 }
 
 
+.entity-report-button{
+    width:120px;
+    background-color:@link-color;
+    color: #fff;
+    &:hover, &:focus{
+       opacity: 0.8!important;
+        color:#fff!important;
+    }
+}
 
 
+.primary-button{
+    width: 100px;
+}
+
+.nav-user-actions{
+  .round{
+    position:relative;
+    left: 5px;
+  }
+}
 
 //border style
 
@@ -165,4 +215,31 @@
 
 .bottom-bordered{
   border-bottom: 1px solid #e6e6e6;
+}
+
+
+.setting-list{
+  .round{
+    position:relative;
+    left: 5px;
+    top:8px;
+  }
+}
+
+.round {
+    width:6px;
+    height:6px;
+    display: none;
+    font-size:6px;
+    vertical-align: top;
+    border-radius: 3px;
+    /*text-align:center;*/
+    /*color:#ff1f77;*/
+    background-color: @like-color;
+    text-decoration:none;
+}
+
+
+.ancillary {
+    color: #9d9e9f;
 }
