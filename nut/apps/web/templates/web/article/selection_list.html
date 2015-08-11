@@ -30,7 +30,7 @@
         <h2 class="sr-only">精选图文,专访,果库专访,消费版今日头条,消费文章,果库</h2>
         <div class="row" id="detail_content" >
             <div  id="article_list" refresh-time="{{ refresh_time }}"
-                  class="container-fluid col-lg-8 col-md-8 col-sm-12  col-xs-12" >
+                  class="container-fluid col-lg-8 col-md-8 col-sm-8  col-xs-12" >
                 {% for sla in selection_articles %}
                     {% include 'web/article/partial/article_item.html' %}
                 {% endfor %}
@@ -43,7 +43,7 @@
             </div>
 
             <div id="detail_content_right"
-                 class="hidden-print   col-lg-4 col-md-4 hidden-sm  hidden-xs" >
+                 class="hidden-print   col-lg-4 col-md-4 col-sm-4  hidden-xs" >
                 {% include "web/entity/partial/detail_side.html" %}
             </div>
         </div>

@@ -319,11 +319,17 @@ class UserDetailBase(ListView):
         context_data['pronoun'] = self.get_pronoun()
         return context_data
 
-
+from apps.web.forms.user import UserLikeEntityFilterForm
 class UserLikeView(UserDetailBase):
     paginate_by = 28
     template_name = 'web/user/user_like.html'
     context_object_name = 'current_user_likes'
+    def get_context_data(self, **kwargs):
+        context_data = super(UserLikeView, self).get_context_data(**kwargs)
+        context_data['entity_filter_form'] = UserLikeEntityFilterForm(initial={'entityCategory': '0', 'entityBuyLinkStatus':'3'})
+        return context_data
+
+
     def get_queryset(self):
         _user = self.get_showing_user()
         _like_list = Entity_Like.objects.filter(user=_user, entity__status__gte=Entity.freeze)
@@ -341,7 +347,7 @@ class UserNoteView(UserDetailBase):
 
 
 class UserTagView(UserDetailBase):
-    paginate_by = 40
+    paginate_by = None
     template_name = 'web/user/user_tag.html'
     context_object_name = 'current_user_tags'
     def get_queryset(self):
