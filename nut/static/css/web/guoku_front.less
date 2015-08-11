@@ -5,7 +5,7 @@
 @import "../lib/widgets.less";
 
 @import "../lib/egypt.less";
-//for  diff screen size
+
 
 body{
   font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
@@ -17,6 +17,7 @@ body{
 .body-gray{
     background-color:@very-light-gray;
 }
+
 
 #guoku_main_nav{
   background-color: #fff;
@@ -399,6 +400,22 @@ body{
    }
 }
 
+#selection{
+  .entity-selection.thumbnail{
+        border: none;
+        padding: 0px;
+        margin-bottom: 60px;
+        .caption{
+          .note{
+            padding: 0px;
+            margin-top: 16px;
+            margin-bottom: 21px;
+            font-size: @primary-size;
+          }
+        }
+
+    }
+}
 
 
 //
@@ -673,8 +690,12 @@ body{
 
 
 .test{
-  color: red;
+  color: black;
 }
+
+//for  diff screen size
+
+
 
 @import "dimentions/xs.less";
 @import "dimentions/sm.less";

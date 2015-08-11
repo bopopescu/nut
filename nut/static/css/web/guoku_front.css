@@ -514,18 +514,21 @@ ul li {
   -moz-box-shadow: 0px 0px 3px #dddddd;
   box-shadow: 0px 0px 3px #dddddd;
 }
-.cell .img-box {
+.cell .img-box,
+.selection-item .img-box {
   display: block;
   height: 0;
   padding-bottom: 95%;
   overflow: hidden;
   text-align: center;
 }
-.cell .img-box a {
+.cell .img-box a,
+.selection-item .img-box a {
   display: inline-block;
   position: relative;
 }
-.cell .img-box a img {
+.cell .img-box a img,
+.selection-item .img-box a img {
   background-color: #f6f6f6;
   width: 100%;
   max-height: 100%;
@@ -1092,6 +1095,17 @@ body {
   left: -18px;
   color: #424242;
 }
+#selection .entity-selection.thumbnail {
+  border: none;
+  padding: 0px;
+  margin-bottom: 60px;
+}
+#selection .entity-selection.thumbnail .caption .note {
+  padding: 0px;
+  margin-top: 16px;
+  margin-bottom: 21px;
+  font-size: 16px;
+}
 #detail_content_right .section-list .section .writer-intro .writer-nick {
   font-size: 16px;
 }
@@ -1328,7 +1342,7 @@ body {
   width: 100%;
 }
 .test {
-  color: red;
+  color: black;
 }
 @media (max-width: 767px) {
   #guoku_main_nav {
