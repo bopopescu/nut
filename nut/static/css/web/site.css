@@ -157,21 +157,19 @@
   -moz-box-shadow: 0px 0px 3px #dddddd;
   box-shadow: 0px 0px 3px #dddddd;
 }
-.cell .img-box,
-.selection-item .img-box {
-  display: block;
+.img-box {
   height: 0;
   padding-bottom: 95%;
   overflow: hidden;
   text-align: center;
+  border: 1px solid #e6e6e6;
+  display: block;
 }
-.cell .img-box a,
-.selection-item .img-box a {
+.img-box a {
   display: inline-block;
   position: relative;
 }
-.cell .img-box a img,
-.selection-item .img-box a img {
+.img-box a img {
   background-color: #f6f6f6;
   width: 100%;
   max-height: 100%;
@@ -231,21 +229,6 @@
 .ancillary {
   color: #9d9e9f;
 }
-body {
-  padding-top: 100px;
-  color: #424242;
-  background-color: #ffffff;
-  -webkit-font-smoothing: subpixel-antialiased;
-}
-/* 去圆角处理 */
-/* 页码 */
-.pager li {
-  display: inline-block;
-  margin-top: 10px;
-}
-/* 图片宽高相等处理 */
-/* 精选结构 */
-/* 热门结构 */
 .entity-four.thumbnail {
   border: none;
   padding: 0px;
@@ -253,7 +236,6 @@ body {
 }
 .entity-four.thumbnail .img-box {
   border: 1px solid #e6e6e6;
-  /*box-shadow: 1px 1px 5px rgba(215,215,215,.4);*/
 }
 .entity-four.thumbnail .btn-like {
   padding: 0px;
@@ -266,6 +248,12 @@ body {
   padding: 0px;
   margin-top: 12px;
   border: none;
+}
+body {
+  padding-top: 100px;
+  color: #424242;
+  background-color: #ffffff;
+  -webkit-font-smoothing: subpixel-antialiased;
 }
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
@@ -337,51 +325,10 @@ body {
     height: 96px;
   }
 }
-.guoku-caption {
-  border-top: 1px solid #eee;
-  margin: 5px 5px 0 5px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-.jumbotron {
-  margin-top: -50px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-bottom: 50px;
-}
-.navbar-brand {
-  padding-bottom: 10px;
-  padding-top: 10px;
-  padding-left: 15px;
-  padding-right: 40px;
-}
 @media (max-width: 768px) {
   .navbar-brand {
     padding-left: 0px;
   }
-}
-.footer {
-  border-top: 1px solid #e5e5e5;
-  color: #9c9c9d;
-  margin-top: 70px;
-  padding: 30px 0;
-  font-size: 14px;
-}
-.footer a {
-  color: #9c9c9d;
-}
-.footer-top .about > div {
-  height: 110px;
-  margin-bottom: 10px;
-}
-.footer-top .about > div h4 {
-  color: #563d7c;
-  font-size: 16px;
-}
-.footer-bottom ul > li + li:before {
-  color: #eee;
-  content: "|";
-  padding: 0 10px;
 }
 .form-control {
   border-radius: 0;
@@ -1790,7 +1737,7 @@ a:hover {
   margin-bottom: 10px;
 }
 #detail_content #detail_content_left #guess_list .guess_img .img-box {
-  border: 1px solid #e6e6e6;
+  border: none!important;
 }
 #detail_content #detail_content_left #guess_list .guess_img a {
   display: block;
