@@ -1130,10 +1130,6 @@ body {
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  -webkit-transition: all 1s;
-  -moz-transition: all 1s;
-  -ms-transition: all 1s;
-  -o-transition: all 1s;
 }
 .body-gray {
   background-color: #f8f8f8;
@@ -1149,6 +1145,13 @@ body {
 }
 #guoku_main_nav .main-list li {
   background: none;
+}
+#guoku_main_nav .main-list li.active {
+  border-bottom: 4px solid #ff1f77;
+}
+#guoku_main_nav .main-list li.active a {
+  color: #424242;
+  font-weight: 600;
 }
 #guoku_main_nav .main-list li.divider {
   background-color: #9d9d9d;
@@ -2087,7 +2090,7 @@ body {
     color: #9d9e9f;
   }
   .user-page .user-info-wrapper .user-icon {
-    max-width: 150px;
+    max-width: 200px;
   }
 }
 @media (max-width: 991px) {
