@@ -2,6 +2,9 @@ from django.conf import settings
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.utils.log import getLogger
+
+from apps.core.models import Article
+
 log = getLogger('django')
 
 import  re
@@ -62,16 +65,29 @@ class RedisCounterMachine(object):
         counter_store = cls.get_store()
         key = cls._hash_key(key)
         try :
-
             count = counter_store.incr(key)
         except ValueError :
             # cache this value forever
-            counter_store.set(key, 1, timeout=None)
-            count = 1
+            try:
+                count  = cls.get_count_value_from_mysql_by_key(key)
+            except Exception as e :
+                count = 1
+            counter_store.set(key, count ,timeout=None)
             return count
         except Exception as e :
             raise CounterException(' increment error %s' %e.message)
         return count
+
+    @classmethod
+    def get_count_value_from_mysql_by_key(cls,key):
+        pk = cls.get_article_pk_from_counter_key(key)
+        article = Article.objects.get(pk=pk)
+        if article.read_count is None:
+            return 1
+        else:
+            return article.read_count
+
+
 
     @classmethod
     def get_key(cls,key):
