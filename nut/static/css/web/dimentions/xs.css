@@ -43,7 +43,6 @@
   display: inline-block;
   color: #fff;
   padding: 0px 6px;
-  margin: 5px;
   cursor: pointer;
   text-decoration: none;
   min-width: 110px;
@@ -276,6 +275,12 @@
 @media (max-width: 767px) {
   #guoku_main_nav {
     background-color: #ffffff;
+  }
+  #guoku_main_nav .navbar-form {
+    padding: 0px 0px;
+  }
+  #guoku_main_nav .navbar-form input {
+    padding-left: 10px;
   }
   #guoku_main_nav .navbar-toggle .icon-bar {
     background-color: #9d9e9f;
