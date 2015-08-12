@@ -3,6 +3,7 @@ Change Log
 ### Ver 4.3.2
 1. 更新用户个人页 ui
 2. 商品单页 购买链接 改为服务器跳转。（除淘宝）
+3. webUI 更新
 
 ### Ver 4.3.1
 1. v4 增加 discover 
