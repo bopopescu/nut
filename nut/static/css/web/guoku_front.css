@@ -2021,6 +2021,9 @@ body {
   }
 }
 @media (min-width: 768px) {
+  #detail_content_left .detail-pic-left {
+    max-width: 360px;
+  }
   .more-article-wrapper .cover-wrapper a {
     display: block;
     padding: 8px;
