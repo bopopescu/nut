@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-10 21:28+0800\n"
+"POT-Creation-Date: 2015-08-12 17:04+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -172,7 +172,6 @@ msgid "sale"
 msgstr ""
 
 #: apps/core/models.py:806
-#: apps/web/templates/web/entity/partial/detail_info_center.html:79
 msgid "soldouot"
 msgstr "商品下架"
 
@@ -246,7 +245,7 @@ msgstr ""
 #: apps/core/forms/user.py:31
 #: apps/management/templates/management/search/partial/users.html:9
 #: apps/management/templates/management/users/table.html:9
-#: apps/web/forms/account.py:126 apps/web/forms/user.py:21
+#: apps/web/forms/account.py:126 apps/web/forms/user.py:22
 #: apps/wechat/forms/bind.py:20 apps/wechat/forms/bind.py:21
 msgid "email"
 msgstr "邮箱"
@@ -262,7 +261,7 @@ msgid "A user with that nickname already exists."
 msgstr "已经有人用了这个用户名，请换一个。"
 
 #: apps/core/forms/account.py:55 apps/core/forms/user.py:25
-#: apps/web/forms/account.py:113 apps/web/forms/user.py:18
+#: apps/web/forms/account.py:113 apps/web/forms/user.py:19
 msgid "A user with that email already exists."
 msgstr "此邮箱已经被注册过了。"
 
@@ -279,15 +278,15 @@ msgid "Please Input Captcha"
 msgstr "请填写验证码"
 
 #: apps/core/forms/account.py:157 apps/core/forms/account.py:159
-#: apps/core/forms/user.py:147 apps/web/forms/user.py:117
-#: apps/web/forms/user.py:118
+#: apps/core/forms/user.py:147 apps/web/forms/user.py:118
+#: apps/web/forms/user.py:119
 msgid "New password"
 msgstr "新密码"
 
 #: apps/core/forms/account.py:160 apps/core/forms/account.py:162
 #: apps/core/forms/user.py:150 apps/web/forms/account.py:138
-#: apps/web/forms/account.py:140 apps/web/forms/user.py:123
-#: apps/web/forms/user.py:124
+#: apps/web/forms/account.py:140 apps/web/forms/user.py:124
+#: apps/web/forms/user.py:125
 msgid "New password confirmation"
 msgstr "确认密码"
 
@@ -444,7 +443,7 @@ msgstr "公司"
 
 #: apps/core/forms/brand.py:51 apps/core/forms/user.py:81
 #: apps/management/templates/management/brand/list.html:27
-#: apps/web/forms/user.py:54
+#: apps/web/forms/user.py:55
 msgid "website"
 msgstr "网址"
 
@@ -682,7 +681,7 @@ msgstr ""
 #: apps/management/templates/management/search/partial/users.html:10
 #: apps/management/templates/management/users/table.html:10
 #: apps/web/forms/account.py:118 apps/web/forms/account.py:120
-#: apps/web/forms/user.py:26
+#: apps/web/forms/user.py:27
 msgid "nickname"
 msgstr "用户名"
 
@@ -696,24 +695,24 @@ msgid "admin"
 msgstr "管理员"
 
 #: apps/core/forms/user.py:58 apps/web/forms/account.py:241
-#: apps/web/forms/user.py:32
+#: apps/web/forms/user.py:33
 msgid "location"
 msgstr "所在地"
 
 #: apps/core/forms/user.py:64 apps/web/forms/account.py:246
-#: apps/web/forms/user.py:38
+#: apps/web/forms/user.py:39
 msgid "city"
 msgstr "城市"
 
 #: apps/core/forms/user.py:68
 #: apps/management/templates/management/search/partial/users.html:11
 #: apps/management/templates/management/users/table.html:11
-#: apps/web/forms/account.py:234 apps/web/forms/user.py:42
+#: apps/web/forms/account.py:234 apps/web/forms/user.py:43
 msgid "gender"
 msgstr "性别"
 
 #: apps/core/forms/user.py:75 apps/web/forms/account.py:226
-#: apps/web/forms/user.py:48
+#: apps/web/forms/user.py:49
 msgid "bio"
 msgstr "简介"
 
@@ -1260,7 +1259,6 @@ msgid "Captcha Code"
 msgstr "验证码"
 
 #: apps/web/forms/account.py:37 apps/web/forms/account.py:38
-#: apps/web/templates/web/base.html:105
 msgid "Email"
 msgstr "邮箱"
 
@@ -1268,7 +1266,7 @@ msgstr "邮箱"
 msgid "Password"
 msgstr "密码"
 
-#: apps/web/forms/account.py:114 apps/web/forms/user.py:108
+#: apps/web/forms/account.py:114 apps/web/forms/user.py:109
 msgid "The two password fields didn't match."
 msgstr "您输入的两次密码不一致"
 
@@ -1300,41 +1298,21 @@ msgstr "复制商品链接到此"
 msgid "additional remarks"
 msgstr "补充说明"
 
-#: apps/web/forms/user.py:109
+#: apps/web/forms/user.py:110
 msgid "Old password didn't match"
 msgstr "您输入的旧密码不正确"
 
-#: apps/web/forms/user.py:112 apps/web/forms/user.py:113
+#: apps/web/forms/user.py:113 apps/web/forms/user.py:114
 msgid "current password"
 msgstr "当前密码"
 
-#: apps/web/forms/user.py:163
+#: apps/web/forms/user.py:164
 msgid "Published"
 msgstr "发布"
 
-#: apps/web/forms/user.py:164
+#: apps/web/forms/user.py:165
 msgid "Selected Article"
 msgstr "精选"
-
-#: apps/web/templates/web/base.html:103
-msgid "About"
-msgstr "关于"
-
-#: apps/web/templates/web/base.html:106
-msgid "Jobs"
-msgstr "工作机会"
-
-#: apps/web/templates/web/base.html:107
-msgid "Agreement"
-msgstr "协议"
-
-#: apps/web/templates/web/base.html:108
-msgid "Links"
-msgstr "友情链接"
-
-#: apps/web/templates/web/base.html:113
-msgid "Guoku"
-msgstr "果库"
 
 #: apps/web/templates/web/static_base.html:25
 msgid "about"
@@ -1448,7 +1426,7 @@ msgstr "重设密码"
 #: apps/web/templates/web/entity/partial/detail_info_center.html:41
 #: apps/web/templates/web/entity/partial/detail_middle.html:11
 #: apps/web/templates/web/entity/partial/detail_middle.html:20
-#: apps/web/templates/web/events/partial/event_entity_list.html:26
+#: apps/web/templates/web/events/partial/event_entity_item.html:25
 #: apps/web/templates/web/main/partial/entity.html:16
 #: apps/web/templates/web/main/partial/entity.html:21
 #: apps/web/templates/web/main/partial/selection_item_list.html:25
@@ -1472,9 +1450,9 @@ msgstr "相似推荐"
 msgid "Buy"
 msgstr "购买"
 
-#: apps/web/templates/web/entity/partial/detail_info_center.html:84
-msgid "product removed"
-msgstr "商品移除"
+#: apps/web/templates/web/entity/partial/detail_info_center.html:78
+msgid "Sold Out"
+msgstr "商品下架"
 
 #: apps/web/templates/web/mail/forget_password_subject.txt:2
 #, python-format
@@ -1555,7 +1533,7 @@ msgstr "关注"
 #: apps/web/templates/web/user/user_base_new.html:53
 #: apps/web/templates/web/user/user_fans.html:60
 #: apps/web/templates/web/user/user_followings.html:61
-#: apps/web/templates/web/user/partial/user_index_sidebar.html:17
+#: apps/web/templates/web/user/partial/user_index_sidebar.html:20
 msgid "Fans"
 msgstr "粉丝"
 
@@ -1572,7 +1550,7 @@ msgstr "更新资料"
 
 #: apps/web/templates/web/user/user_base.html:50
 #: apps/web/templates/web/user/user_base_new.html:51
-#: apps/web/templates/web/user/partial/user_index_sidebar.html:7
+#: apps/web/templates/web/user/partial/user_index_sidebar.html:8
 msgid "Following"
 msgstr "关注"
 
@@ -1606,9 +1584,9 @@ msgstr "标签"
 #: apps/web/templates/web/user/user_index.html:29
 #: apps/web/templates/web/user/user_index.html:50
 #: apps/web/templates/web/user/user_index.html:85
-#: apps/web/templates/web/user/partial/user_index_sidebar.html:7
-#: apps/web/templates/web/user/partial/user_index_sidebar.html:17
-#: apps/web/templates/web/user/partial/user_index_sidebar.html:27
+#: apps/web/templates/web/user/partial/user_index_sidebar.html:8
+#: apps/web/templates/web/user/partial/user_index_sidebar.html:20
+#: apps/web/templates/web/user/partial/user_index_sidebar.html:32
 msgid "All"
 msgstr "全部"
 
@@ -1616,29 +1594,47 @@ msgstr "全部"
 msgid "Personal Home"
 msgstr "个人主页"
 
-#: apps/web/templates/web/user/partial/user_index_sidebar.html:27
+#: apps/web/templates/web/user/partial/user_index_sidebar.html:32
 msgid "Contributed Tags"
 msgstr "参与标签"
 
-#: apps/web/templates/web/user/partial/user_index_sidebar.html:39
+#: apps/web/templates/web/user/partial/user_index_sidebar.html:45
 msgid "Download App"
 msgstr "客户端下载"
 
-#: apps/web/views/user.py:310 apps/web/views/user.py:412
+#: apps/web/views/user.py:310 apps/web/views/user.py:418
 msgid "My"
 msgstr "我的"
 
-#: apps/web/views/user.py:312 apps/web/views/user.py:414
+#: apps/web/views/user.py:312 apps/web/views/user.py:420
 msgid "Hers"
 msgstr "她的"
 
-#: apps/web/views/user.py:314 apps/web/views/user.py:416
+#: apps/web/views/user.py:314 apps/web/views/user.py:422
 msgid "His"
 msgstr "他的"
 
 #: apps/wechat/templates/wechat/bind.html:34
 msgid "bind"
 msgstr "绑定"
+
+#~ msgid "About"
+#~ msgstr "关于"
+
+#~ msgid "Jobs"
+#~ msgstr "工作机会"
+
+#~ msgid "Agreement"
+#~ msgstr "协议"
+
+#~ msgid "Links"
+#~ msgstr "友情链接"
+
+#~ msgid "Guoku"
+#~ msgstr "果库"
+
+#~ msgid "product removed"
+#~ msgstr "商品下架"
 
 #~ msgid "App"
 #~ msgstr "客户端"
