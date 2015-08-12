@@ -1642,6 +1642,7 @@ body {
 }
 #detail_content_right {
   padding-left: 10px;
+  max-width: 330px;
 }
 #detail_content_right .section {
   background-color: #ffffff;
@@ -1811,7 +1812,7 @@ body {
   width: auto;
 }
 #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .entity-content {
-  width: 70% ;
+  width: 77% ;
   float: right;
 }
 #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .entity-content .entity-name {
