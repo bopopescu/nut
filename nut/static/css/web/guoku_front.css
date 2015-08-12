@@ -400,7 +400,6 @@ ul li {
   display: inline-block;
   color: #fff;
   padding: 0px 6px;
-  margin: 5px;
   cursor: pointer;
   text-decoration: none;
   min-width: 110px;
@@ -1143,6 +1142,9 @@ body {
 #guoku_main_nav .navbar-brand {
   padding-top: 9px;
 }
+#guoku_main_nav .navbar-form {
+  padding-right: 30px;
+}
 #guoku_main_nav .main-list li {
   background: none;
 }
@@ -1238,7 +1240,7 @@ body {
   font-size: 16px;
   height: 28px;
   background: none;
-  padding: 0px 4px;
+  padding: 0px 8px;
 }
 #guoku_main_nav .search .fa {
   position: absolute;
@@ -1972,6 +1974,12 @@ body {
   #guoku_main_nav {
     background-color: #ffffff;
   }
+  #guoku_main_nav .navbar-form {
+    padding: 0px 0px;
+  }
+  #guoku_main_nav .navbar-form input {
+    padding-left: 10px;
+  }
   #guoku_main_nav .navbar-toggle .icon-bar {
     background-color: #9d9e9f;
   }
@@ -2112,6 +2120,6 @@ body {
   }
 }
 .test {
-  color: red;
+  color: black;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
