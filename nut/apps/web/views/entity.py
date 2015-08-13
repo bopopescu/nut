@@ -401,10 +401,9 @@ class gotoBuyView(RedirectView):
         return b.link
 
     def get(self, request, *args, **kwargs):
-        self.buy_id = kwargs.pop('buy_id', None)
-
         if 'guoku.com' not in request.META['HTTP_REFERER']:
             raise Http404
+        self.buy_id = kwargs.pop('buy_id', None)
         assert self.buy_id is not None
         return super(gotoBuyView, self).get(request, *args, **kwargs)
 
