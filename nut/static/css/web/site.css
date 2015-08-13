@@ -1323,6 +1323,9 @@ a:hover {
   body.gray-body {
     background-color: #f8f8f8;
   }
+  body.white-bogy {
+    background-color: #fff;
+  }
   #detail_content_left .entity-wrapper {
     background-color: #ffffff;
     padding: 18px 18px;
