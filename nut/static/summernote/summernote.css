@@ -524,7 +524,7 @@
 #editor-container .editor_wrap {
   display: block;
   margin-top: 30px;
-  width: 600px;
+  width: 750px;
   position: relative;
   margin: 0 auto;
 }
@@ -599,3 +599,7 @@
 .common-editor .note-view {
   display: none;
 }
+.test {
+  color: red;
+}
+/*# sourceMappingURL=summernote.less.css.map */

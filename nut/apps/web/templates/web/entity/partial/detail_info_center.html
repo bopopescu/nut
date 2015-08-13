@@ -26,7 +26,7 @@
 
 <div class="button-wrapper container-fluid">
    <div class="row">
-       <div class="col-sm-10  guoku-button like-btn">
+       <div class="col-xs-12 col-sm-10 guoku-button like-btn">
            {% if like_status %}
             <a class="like-action fc_333" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
                 <i class="fa fa-heart fc_heart"></i>&nbsp;&nbsp;{% trans 'Like' %}&nbsp;
@@ -49,9 +49,10 @@
        </div>
    </div>
    <div class="row ">
-            {% for row in entity.buy_links.all %}
+{#            {% for row in entity.buy_links.all %}#}
+               {% with row=entity.default_buy_link %}
                 {% if row.status == 2 %}
-                     <div class="col-sm-10  guoku-button buy-btn">
+                     <div class="col-xs-12 col-sm-10  guoku-button buy-btn">
                      {% if row.origin_source == "taobao.com" or row.origin_source == "tmail.com" %}
 {#                {% if row.status != 0 %}#}
                         <a class="buy-button" rel="nofollow" href="http://detail.tmall.com/item.htm?id={{ row.origin_id }}" target="_blank" biz-itemid="{{ row.origin_id }}" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity.title }}-taobao'])">
@@ -73,17 +74,22 @@
                         </a>
                     {% endif %}
                     </div>
-                {% endif %}
-                {% if row.status == 1 %}
-                    <div class="col-sm-10  guoku-button gray-button disabled-button">
-                        {% trans 'soldouot' %}
+                {% else %}
+                    <div class="col-xs-12 col-sm-10 guoku-button gray-button disabled-button">
+                        {% trans 'Sold Out' %}
                     </div>
                 {% endif %}
-                {% if row.status == 0 %}
-                    <div class="col-sm-10  guoku-button gray-button disabled-button">
-                       {% trans 'product removed' %}
-                    </div>
-                {% endif %}
+                {% endwith %}
+{#                {% if row.status == 1 %}#}
+{#                    <div class="col-sm-10  guoku-button gray-button disabled-button">#}
+{#                        {% trans 'Sold Out' %}#}
+{#                    </div>#}
+{#                {% endif %}    #}
+{#                {% if row.status == 0 %}#}
+{#                    <div class="col-sm-10  guoku-button gray-button disabled-button">#}
+{#                       {% trans 'product removed' %}#}
+{#                    </div>#}
+{#                {% endif %}#}
 {#                 {% if row.shop_link %}#}
 {#                     <div class="col-sm-10  guoku-button buy-btn seller-button">#}
 {#                      <a class="buy-button"  biz-sellerid="{{ row.seller }}" href="{{ row.shop_link }}" target="_blank">#}
@@ -92,7 +98,8 @@
 {#                    </div>#}
 {#                 {% endif %}#}
 
-        {% endfor %}
+{#        {% endfor %}#}
+
 
    </div>
 

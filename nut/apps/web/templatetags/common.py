@@ -72,7 +72,7 @@ register.filter(format_boolean_class)
 def format_like_num(value):
 
     if value == 0:
-        return ''
+        return 1
     else :
         return value
 register.filter(format_like_num)
