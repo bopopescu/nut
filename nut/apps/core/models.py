@@ -24,7 +24,7 @@ from hashlib import md5
 from urlparse import parse_qs, urlparse
 # from apps.core.utils.tag import TagParser
 
-from djangosphinx.models import SphinxSearch
+# from djangosphinx.models import SphinxSearch
 from apps.notifications import notify
 from datetime import datetime
 import time
@@ -294,12 +294,12 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
 
-    search = SphinxSearch(
-        index = 'users',
-        mode = 'SPH_MATCH_ALL',
-        rankmode = 'SPH_RANK_NONE',
-        maxmatches = 5000,
-    )
+    # search = SphinxSearch(
+    #     index = 'users',
+    #     mode = 'SPH_MATCH_ALL',
+    #     rankmode = 'SPH_RANK_NONE',
+    #     maxmatches = 5000,
+    # )
 
 
 class User_Profile(BaseModel):
@@ -767,19 +767,19 @@ class Entity(BaseModel):
         cache.delete(key)
 
     # search index
-    search = SphinxSearch(
-        index = 'entities',
-        weights={
-            'brand': 100,
-            'category': 80,
-            'title': 50,
-            'note' : 10,
-            # 'intro': 5,
-        },
-        maxmatches = 10000,
-        mode = 'SPH_MATCH_PHRASE',
-        rankmode = 'SPH_RANK_NONE',
-    )
+    # search = SphinxSearch(
+    #     index = 'entities',
+    #     weights={
+    #         'brand': 100,
+    #         'category': 80,
+    #         'title': 50,
+    #         'note' : 10,
+    #         # 'intro': 5,
+    #     },
+    #     maxmatches = 10000,
+    #     mode = 'SPH_MATCH_PHRASE',
+    #     rankmode = 'SPH_RANK_NONE',
+    # )
 
 class Selection_Entity(BaseModel):
     entity = models.OneToOneField(Entity, unique=True)
@@ -1005,11 +1005,11 @@ class Tag(models.Model):
     def get_absolute_url(self):
         return "/t/%s/" % self.tag_hash
 
-    search = SphinxSearch(
-        index = 'tags',
-        mode = 'SPH_MATCH_ALL',
-        rankmode = 'SPH_RANK_NONE',
-    )
+    # search = SphinxSearch(
+    #     index = 'tags',
+    #     mode = 'SPH_MATCH_ALL',
+    #     rankmode = 'SPH_RANK_NONE',
+    # )
 
 
 class Entity_Tag(models.Model):
