@@ -155,10 +155,11 @@
   -webkit-box-shadow: 0px 0px 2px #dddddd;
   -moz-box-shadow: 0px 0px 2px #dddddd;
   box-shadow: 0px 0px 2px #dddddd;
+  overflow: hidden;
 }
 .img-box {
   height: 0;
-  padding-bottom: 95%;
+  padding-bottom: 99%;
   overflow: hidden;
   text-align: center;
   border: 1px solid #e6e6e6;
@@ -242,6 +243,7 @@
   -webkit-box-shadow: 0px 0px 2px #dddddd;
   -moz-box-shadow: 0px 0px 2px #dddddd;
   box-shadow: 0px 0px 2px #dddddd;
+  overflow: hidden;
 }
 .entity-four.thumbnail .img-box {
   border: none;

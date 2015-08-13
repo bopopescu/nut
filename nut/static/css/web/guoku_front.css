@@ -512,10 +512,11 @@ ul li {
   -webkit-box-shadow: 0px 0px 2px #dddddd;
   -moz-box-shadow: 0px 0px 2px #dddddd;
   box-shadow: 0px 0px 2px #dddddd;
+  overflow: hidden;
 }
 .img-box {
   height: 0;
-  padding-bottom: 95%;
+  padding-bottom: 99%;
   overflow: hidden;
   text-align: center;
   border: 1px solid #e6e6e6;
@@ -599,6 +600,7 @@ ul li {
   -webkit-box-shadow: 0px 0px 2px #dddddd;
   -moz-box-shadow: 0px 0px 2px #dddddd;
   box-shadow: 0px 0px 2px #dddddd;
+  overflow: hidden;
 }
 .entity-four.thumbnail .img-box {
   border: none;
@@ -1141,7 +1143,7 @@ body {
   background: none;
 }
 #guoku_main_nav .main-list li.active {
-  border-bottom: 4px solid #ff1f77;
+  border-bottom: 2px solid #ff1f77;
 }
 #guoku_main_nav .main-list li.active a {
   color: #424242;
@@ -1391,7 +1393,7 @@ body {
   -webkit-box-shadow: 0px 0px 2px #dddddd;
   -moz-box-shadow: 0px 0px 2px #dddddd;
   box-shadow: 0px 0px 2px #dddddd;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .guoku-content.user-page .content-panel .panel-header {
   height: 30px;
@@ -1519,6 +1521,7 @@ body {
   padding: 0px;
   margin-bottom: 30px;
   padding-bottom: 10px;
+  border: none;
 }
 #selection .entity-selection.thumbnail .img-box,
 #event .entity-selection.thumbnail .img-box {
@@ -1997,16 +2000,22 @@ body {
   margin-bottom: 10px;
 }
 #discover_entity_list .fa,
-#category-entity-list .fa {
+#category-entity-list .fa,
+.search-entity-item .fa,
+.search-tag-item .fa {
   font-size: 24px;
   margin-right: 15px;
 }
 #discover_entity_list .caption,
-#category-entity-list .caption {
+#category-entity-list .caption,
+.search-entity-item .caption,
+.search-tag-item .caption {
   margin: 15px;
 }
 #discover_entity_list .fa-heart-o,
-#category-entity-list .fa-heart-o {
+#category-entity-list .fa-heart-o,
+.search-entity-item .fa-heart-o,
+.search-tag-item .fa-heart-o {
   color: #e6e6e6;
 }
 .user-right .section {
@@ -2048,6 +2057,9 @@ body {
 .more-article-wrapper .cover-wrapper a img {
   max-with: 100%;
   width: 100%;
+}
+.search-tag-item .img-box {
+  border: none;
 }
 @media (max-width: 767px) {
   .event-item {

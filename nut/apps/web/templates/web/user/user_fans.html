@@ -39,7 +39,7 @@
                                                 <div class="thumbnail" style="padding: 10px;padding-top:20px;height: 100px;">
                                                     <div class="media">
                                                         <a class="pull-left" href="{% url 'web_user_index' f.follower_id %}" target="_blank">
-                                                            <img class="media-object img-circle" src="{{ f.follower.profile.avatar_url }}" width="60" height="60" style="width:60px;height:60px;">
+                                                            <img class="media-object img-circle" src="{{ f.follower.profile.avatar_url|resize:'180' }}" width="60" height="60" style="width:60px;height:60px;">
                                                         </a>
                                                     {% if f.follower_id == request.user.id %}
                                                         <a href="#" class="btn btn-cancel pull-right disabled">&nbsp; <b>{% trans 'Myself' %}</b></a>
