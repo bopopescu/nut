@@ -39,7 +39,7 @@
                                                <div class="thumbnail" style="padding: 10px;padding-top:20px;height: 100px;">
                                                     <div class="media">
                                                         <a class="pull-left" href="{% url 'web_user_index' f.followee_id %}" target="_blank">
-                                                            <img class="media-object img-circle" src="{{ f.followee.profile.avatar_url }}" width="60" height="60" style="width:60px;height:60px;">
+                                                            <img class="media-object img-circle" src="{{ f.followee.profile.avatar_url|resize:'180' }}" width="60" height="60" style="width:60px;height:60px;">
                                                         </a>
                                 {#                    {{ reqeust.user }}#}
                                                     {% if f.followee_id == request.user.id %}
