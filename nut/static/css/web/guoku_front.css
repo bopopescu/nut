@@ -1519,6 +1519,7 @@ body {
   padding: 0px;
   margin-bottom: 30px;
   padding-bottom: 10px;
+  border: none;
 }
 #selection .entity-selection.thumbnail .img-box,
 #event .entity-selection.thumbnail .img-box {
@@ -2048,6 +2049,9 @@ body {
 .more-article-wrapper .cover-wrapper a img {
   max-with: 100%;
   width: 100%;
+}
+.search-tag-item .img-box {
+  border: none;
 }
 @media (max-width: 767px) {
   .event-item {
