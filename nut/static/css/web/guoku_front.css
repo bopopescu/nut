@@ -2005,6 +2005,10 @@ body {
 #category-entity-list .caption {
   margin: 15px;
 }
+#discover_entity_list .fa-heart-o,
+#category-entity-list .fa-heart-o {
+  color: #e6e6e6;
+}
 .user-right .section {
   margin-bottom: 10px!important;
   padding: 0 0 10px 0!important;
