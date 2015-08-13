@@ -1143,7 +1143,7 @@ body {
   background: none;
 }
 #guoku_main_nav .main-list li.active {
-  border-bottom: 4px solid #ff1f77;
+  border-bottom: 2px solid #ff1f77;
 }
 #guoku_main_nav .main-list li.active a {
   color: #424242;
