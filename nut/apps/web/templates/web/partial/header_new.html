@@ -13,7 +13,7 @@
                 </button>
                 <a class="navbar-brand" href="{% url 'web_selection' %}">
 {#                    <img alt="{% trans 'guoku' %}" class="visible-xs"  src="{% static 'images/logo2.png' %}" width="46"  style="margin-top: 2px">#}
-                    <img alt="{% trans 'guoku' %}" class="" src="{% static 'images/logo-color.png' %}" width="46"  style="margin-top: 2px">
+                    <img alt="{% trans 'guoku' %}" class="" src="{% static 'images/gklogo2015.png' %}" width="42" >
 {#                    <img src="{% static 'images/wap_logo.png' %}" style="height:30px;padding-left:5px;">#}
                 </a>
             </div>
@@ -74,7 +74,7 @@
 
                 <form class="navbar-form navbar-right" action="{% url 'web_search' %}" method="get" role="form" style="margin-top: 11px;">
                     <div class="input-group search">
-                        <input class="form-control search-input" name="q" type="search" placeholder="{% trans 'Search' %}" value="{{ keyword|maybe_none }}" >
+                        <input class="form-control search-input" name="q" type="search" placeholder="{% trans 'Search' %}" value="{{ keyword }}" >
                         <i class="fa fa-search"></i>
                     </div>
                 </form>
