@@ -140,9 +140,9 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 3px #dddddd;
-  -moz-box-shadow: 0px 0px 3px #dddddd;
-  box-shadow: 0px 0px 3px #dddddd;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
 }
 .panel-no-padding {
   background-color: #ffffff;
@@ -152,9 +152,9 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 3px #dddddd;
-  -moz-box-shadow: 0px 0px 3px #dddddd;
-  box-shadow: 0px 0px 3px #dddddd;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
 }
 .img-box {
   height: 0;
@@ -1174,9 +1174,9 @@ a:hover {
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 3px #dddddd;
-  -moz-box-shadow: 0px 0px 3px #dddddd;
-  box-shadow: 0px 0px 3px #dddddd;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
   padding: 20px 20px 0px 20px;
   margin-bottom: 20px;
   height: 120px;
@@ -1209,9 +1209,9 @@ a:hover {
     -moz-background-clip: padding;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
-    -webkit-box-shadow: 0px 0px 3px #dddddd;
-    -moz-box-shadow: 0px 0px 3px #dddddd;
-    box-shadow: 0px 0px 3px #dddddd;
+    -webkit-box-shadow: 0px 0px 2px #dddddd;
+    -moz-box-shadow: 0px 0px 2px #dddddd;
+    box-shadow: 0px 0px 2px #dddddd;
   }
   #detail_content #article_list .article-wrapper .title-wrapper {
     padding: 20px;
@@ -1283,9 +1283,9 @@ a:hover {
     -moz-background-clip: padding;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
-    -webkit-box-shadow: 0px 0px 3px #dddddd;
-    -moz-box-shadow: 0px 0px 3px #dddddd;
-    box-shadow: 0px 0px 3px #dddddd;
+    -webkit-box-shadow: 0px 0px 2px #dddddd;
+    -moz-box-shadow: 0px 0px 2px #dddddd;
+    box-shadow: 0px 0px 2px #dddddd;
   }
   #detail_content_left .guess-wrapper {
     margin: 0px 15px;
@@ -1298,9 +1298,9 @@ a:hover {
     -moz-background-clip: padding;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
-    -webkit-box-shadow: 0px 0px 3px #dddddd;
-    -moz-box-shadow: 0px 0px 3px #dddddd;
-    box-shadow: 0px 0px 3px #dddddd;
+    -webkit-box-shadow: 0px 0px 2px #dddddd;
+    -moz-box-shadow: 0px 0px 2px #dddddd;
+    box-shadow: 0px 0px 2px #dddddd;
     padding: 10px;
   }
   #detail_content_left .detail-img-big {
@@ -1402,9 +1402,9 @@ a:hover {
     -moz-background-clip: padding;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
-    -webkit-box-shadow: 0px 0px 3px #dddddd;
-    -moz-box-shadow: 0px 0px 3px #dddddd;
-    box-shadow: 0px 0px 3px #dddddd;
+    -webkit-box-shadow: 0px 0px 2px #dddddd;
+    -moz-box-shadow: 0px 0px 2px #dddddd;
+    box-shadow: 0px 0px 2px #dddddd;
   }
   .main-article .writer-intro {
     padding-top: 0px;
@@ -1433,9 +1433,9 @@ a:hover {
     -moz-background-clip: padding;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
-    -webkit-box-shadow: 0px 0px 3px #dddddd;
-    -moz-box-shadow: 0px 0px 3px #dddddd;
-    box-shadow: 0px 0px 3px #dddddd;
+    -webkit-box-shadow: 0px 0px 2px #dddddd;
+    -moz-box-shadow: 0px 0px 2px #dddddd;
+    box-shadow: 0px 0px 2px #dddddd;
   }
   .more-article-wrapper .cover-wrapper a {
     display: block;
