@@ -140,9 +140,9 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 3px #dddddd;
-  -moz-box-shadow: 0px 0px 3px #dddddd;
-  box-shadow: 0px 0px 3px #dddddd;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
 }
 .panel-no-padding {
   background-color: #ffffff;
@@ -152,9 +152,9 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 3px #dddddd;
-  -moz-box-shadow: 0px 0px 3px #dddddd;
-  box-shadow: 0px 0px 3px #dddddd;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
 }
 .img-box {
   height: 0;
