@@ -22,6 +22,7 @@
                     <th class="person-link" >{% trans 'author' %}</th>
                     <th class="cell-boolean" >文章状态</th>
                     <th class="date-time">最后修改时间</th>
+                    <th class="read-count">阅读</th>
                     <th class="edit-operation">{% trans 'operation' %}</th>
                     <th class="cell-number">加入精选次数</th>
                     <th class="date-time" >上次精选发布时间</th>
@@ -37,6 +38,7 @@
                         <td><a href="{% url 'management_user_edit' row.creator_id %}" target="_blank">{{ row.creator.profile.nickname }}</a></td>
                         <td>{{ row.get_publish_display  }}</td>
                         <td>{{ row.updated_datetime|format_time}}</td>
+                        <td>{{ row.read_count }}</td>
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-default" href="{% url 'management_article_edit' row.pk %}" target="_blank">{% trans 'edit' %}</a>
