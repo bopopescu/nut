@@ -5,11 +5,12 @@ from apps.web.views.user import UserIndex,\
                                 UserTagView, UserArticleView,\
                                 UserFansView, UserFollowingsView
 
+from apps.web.views.user import ChangePasswdFormView
 
 urlpatterns = patterns(
     'apps.web.views.user',
     url(r'^settings/$', 'settings', name='web_user_settings'),
-    url(r'^change/password/$', 'change_password', name='web_user_change_password'),
+    url(r'^change/password/$', ChangePasswdFormView.as_view(), name='web_user_change_password'),
     url(r'^bind/sns/$', 'bind_sns', name='web_user_bind_sns'),
     url(r'^upload/avatar/$', 'upload_avatar', name='web_user_upload_avatar'),
 
