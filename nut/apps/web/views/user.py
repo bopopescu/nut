@@ -65,25 +65,25 @@ def settings(request, template="web/user/settings.html"):
         context_instance = RequestContext(request),
     )
 
-@login_required
-def change_password(request, template="web/user/change_password.html"):
-
-    _user = request.user
-
-    if request.method == "POST":
-        _form = UserChangePasswordForm(user=_user, data=request.POST)
-        if _form.is_valid():
-            _form.save()
-    else:
-        _form = UserChangePasswordForm(user=_user)
-
-    return render_to_response(
-        template,
-        {
-            'form':_form,
-        },
-        context_instance = RequestContext(request),
-    )
+# @login_required
+# def change_password(request, template="web/user/change_password.html"):
+#
+#     _user = request.user
+#
+#     if request.method == "POST":
+#         _form = UserChangePasswordForm(user=_user, data=request.POST)
+#         if _form.is_valid():
+#             _form.save()
+#     else:
+#         _form = UserChangePasswordForm(user=_user)
+#
+#     return render_to_response(
+#         template,
+#         {
+#             'form':_form,
+#         },
+#         context_instance = RequestContext(request),
+#     )
 
 class ChangePasswdFormView(LoginRequiredMixin, FormView):
     form_class = UserChangePasswordForm
