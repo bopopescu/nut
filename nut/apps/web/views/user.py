@@ -14,15 +14,16 @@ from apps.core.utils.http import JSONResponse, ErrorJsonResponse
 from apps.core.models import Note, GKUser
 from apps.core.forms.user import AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
-from apps.core.models import Entity, Entity_Like, Tag, \
-                             Entity_Tag, User_Follow,Article,User_Profile
+from apps.core.models import Entity, Entity_Like, \
+                             User_Follow,Article,User_Profile
 
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 from apps.tag.models import Content_Tags, Tags
 from ..utils.viewtools import get_paged_list
 
 # from apps.notifications import notify
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, FormView
+from apps.core.views import LoginRequiredMixin
 from hashlib import md5
 from django.utils.log import getLogger
 
@@ -83,6 +84,25 @@ def change_password(request, template="web/user/change_password.html"):
         },
         context_instance = RequestContext(request),
     )
+
+class ChangePasswdFormView(LoginRequiredMixin, FormView):
+    form_class = UserChangePasswordForm
+    template_name = "web/user/change_password.html"
+    # success_url = reverse('web_user_change_password')
+
+    def get_form_kwargs(self):
+        kwargs = super(ChangePasswdFormView, self).get_form_kwargs()
+        kwargs.update(
+            {
+                'user': self.request.user
+            }
+        )
+        return kwargs
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return self.render_to_response(self.get_context_data(form=form))
+
 
 @login_required
 def bind_sns(request, template="web/user/bind_sns.html"):
@@ -167,12 +187,8 @@ def unfollow_action(request, user_id):
     return JSONResponse(data={'status':0})
     # return
 
-def index(request, user_id):
-
-    return HttpResponseRedirect(reverse('web_user_entity_like', args=[user_id,]))
-
-
-
+# def index(request, user_id):
+    # return HttpResponseRedirect(reverse('web_user_entity_like', args=[user_id,]))
 
 
 
