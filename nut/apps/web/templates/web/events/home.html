@@ -26,6 +26,9 @@
 {% endblock %}
 {% block h1 %}{{ tag_text }}{% endblock %}
 
+{% block body_class %}
+    gray-body event-body
+{% endblock %}
 {% block content %}
         {% block bg %}
         {% endblock %}
@@ -35,13 +38,13 @@
 
         {% block tag %}
         <div class="row">
-            <div class="col-md-12">
-                <ul class="nav nav-pills nav-home" role="tablist">
-                    <li>专题</li>
-                    <li>｜</li>
-                    <li>{{ tag_text }}</li>
-                </ul>
-            </div>
+{#            <div class="col-md-12">#}
+{#                <ul class="nav nav-pills nav-home" role="tablist">#}
+{#                    <li>专题</li>#}
+{#                    <li>｜</li>#}
+{#                    <li>{{ tag_text }}</li>#}
+{#                </ul>#}
+{#            </div>#}
         </div>
         {% endblock %}
         {% if event.has_banner %}

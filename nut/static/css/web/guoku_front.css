@@ -1127,6 +1127,9 @@ body {
 .body-gray {
   background-color: #f8f8f8;
 }
+.event-body {
+  padding-top: 52px;
+}
 #guoku_main_nav {
   background-color: #fff;
   -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
