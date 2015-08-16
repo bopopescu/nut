@@ -72,7 +72,7 @@ class EntityURLFrom(forms.Form):
         # log.info(_hostname)
         _data = {'link_support':False}
 
-        if re.search(r"\b(jd|360buy)\.com$", _hostname) != None:
+        if re.search(r"\b(jd|360buy)\.com$", _hostname) is not None:
             _data['link_support'] = True
             origin_id = parse_jd_id_from_url(_link)
             # log.info(_jd_id)
@@ -173,7 +173,7 @@ class EntityURLFrom(forms.Form):
                 })
                 return _data
 
-        if re.search(r"\b(amazon)\.(cn|com)$", _hostname) != None:
+        if re.search(r"\b(amazon)\.(cn|com)$", _hostname) is not None:
             a = Amazon(_link)
             try:
                 buy_link = Buy_Link.objects.get(origin_id=a.origin_id, origin_source=a.hostname)
@@ -184,11 +184,11 @@ class EntityURLFrom(forms.Form):
                 _data = {
                     'user_id': self.request.user.id,
                     'user_avatar': self.request.user.profile.avatar_url,
-                    'cand_url':a.url,
+                    'cand_url': a.url,
                     'origin_id': a.origin_id,
-                    'origin_source':a.hostname,
+                    'origin_source': a.hostname,
                     'title': a.desc,
-                    'chief_image_url' : a.images[0],
+                    'chief_image_url': a.images[0],
                     'thumb_images': a.images,
                     'price': a.price,
                     'cid': a.cid,

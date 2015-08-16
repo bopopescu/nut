@@ -1,4 +1,5 @@
-from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect, HttpResponse
+from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect, \
+    HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
@@ -12,27 +13,29 @@ from django.contrib.auth.decorators import login_required
 from apps.management.decorators import staff_only
 
 from apps.core.models import Entity, Buy_Link
-from apps.core.forms.entity import EditEntityForm, EntityImageForm, CreateEntityForm, load_entity_info, BuyLinkForm, EditBuyLinkForm
-from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
+from apps.core.forms.entity import EditEntityForm, EntityImageForm, \
+    CreateEntityForm, load_entity_info, BuyLinkForm, EditBuyLinkForm
+from apps.core.extend.paginator import ExtentPaginator, EmptyPage, \
+    PageNotAnInteger
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.tasks.entity import fetch_image
 
 # for entity list view class
-from django.views.generic.list import  ListView
-from apps.core.mixins.views import SortMixin,FilterMixin
+from django.views.generic.list import ListView
+from apps.core.mixins.views import SortMixin, FilterMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
-
 
 import requests
 
 # from django.utils import timezone
+
 
 class EntityListView(SortMixin, ListView):
     template_name = 'management/entities/new_list.html'
     model = Entity
     paginate_by = 25
     paginator_class = Jpaginator
-    default_sort_params = ('price','desc')
+    default_sort_params = ('price', 'desc')
 
     def sort_queryset(self, qs, sort_by, order):
         if sort_by:
@@ -42,7 +45,7 @@ class EntityListView(SortMixin, ListView):
         return qs
 
     def get_context_data(self, **kwargs):
-        context = super(EntityListView,self).get_context_data(**kwargs)
+        context = super(EntityListView, self).get_context_data(**kwargs)
         return context
 
 # entity list view class end
@@ -55,9 +58,9 @@ log = getLogger('django')
 
 #
 # class EntityListView(ListView):
-#     model = Entity
-#     template_name = 'management/entities/list.html'
-#     context_object_name = "entities"
+# model = Entity
+# template_name = 'management/entities/list.html'
+# context_object_name = "entities"
 #     paginate_by = 30
 #     http_method_names = [u'get',]
 #
@@ -66,18 +69,15 @@ log = getLogger('django')
 #         status = self.request.GET.get('status', None)
 
 
-
-
 @login_required
 @staff_only
-def list(request, template = 'management/entities/list.html'):
-
+def list(request, template='management/entities/list.html'):
     status = request.GET.get('status', '0')
     page = request.GET.get('page', 1)
     # if status is None:
     #     entity_list  = Entity.objects.all()
     # else:
-    entity_list = Entity.objects.filter(status = int(status))
+    entity_list = Entity.objects.filter(status=int(status))
 
     paginator = ExtentPaginator(entity_list, 30)
 
@@ -95,30 +95,29 @@ def list(request, template = 'management/entities/list.html'):
             # 'page_range': paginator.page_range_ext,
             'status': status,
         },
-        context_instance = RequestContext(request)
+        context_instance=RequestContext(request)
     )
 
 
 @login_required
 @staff_only
 def edit(request, entity_id, template='management/entities/edit.html'):
-
     _update = None
     try:
-        entity = Entity.objects.get(pk = entity_id)
+        entity = Entity.objects.get(pk=entity_id)
     except Entity.DoesNotExist:
         raise Http404
 
     data = {
-            # 'id':entity.pk,
-            'creator':entity.user.profile.nickname,
-            'brand':entity.brand,
-            'title':entity.title,
-            'price':entity.price,
-            'status': entity.status,
-            'category': entity.category.group_id,
-            'sub_category': entity.category_id,
-        }
+        # 'id':entity.pk,
+        'creator': entity.user.profile.nickname,
+        'brand': entity.brand,
+        'title': entity.title,
+        'price': entity.price,
+        'status': entity.status,
+        'category': entity.category.group_id,
+        'sub_category': entity.category_id,
+    }
 
     if request.method == "POST":
         _forms = EditEntityForm(
@@ -135,7 +134,7 @@ def edit(request, entity_id, template='management/entities/edit.html'):
     else:
         # log.info(entity.category)
         _forms = EditEntityForm(
-            entity = entity,
+            entity=entity,
             initial=data
         )
 
@@ -146,14 +145,13 @@ def edit(request, entity_id, template='management/entities/edit.html'):
             'forms': _forms,
             'update': _update,
         },
-        context_instance = RequestContext(request)
+        context_instance=RequestContext(request)
     )
 
 
 @login_required
 @staff_only
 def create(request, template='management/entities/new.html'):
-
     _url = request.GET.get('url')
 
     if _url is None:
@@ -163,18 +161,21 @@ def create(request, template='management/entities/new.html'):
     # log.info("OKOKO %s", len(res))
 
     if res.has_key('entity_id'):
-        return HttpResponseRedirect(reverse('management_entity_edit', args=[res['entity_id']]))
+        return HttpResponseRedirect(
+            reverse('management_entity_edit', args=[res['entity_id']]))
 
     if len(res) == 0:
         return HttpResponse('not support')
 
     if request.method == "POST":
         # log.info(request.POST)
-        _forms = CreateEntityForm(request=request, data=request.POST, initial=res)
+        _forms = CreateEntityForm(request=request, data=request.POST,
+                                  initial=res)
         # _forms = EntityURLFrom(request=request, data=request.POST)
         if _forms.is_valid():
             entity = _forms.save()
-            return HttpResponseRedirect(reverse('management_entity_edit', args=[entity.pk]))
+            return HttpResponseRedirect(
+                reverse('management_entity_edit', args=[entity.pk]))
     else:
 
         # log.info("category %s %s" % (res['cid'], res['origin_source']))
@@ -196,7 +197,7 @@ def create(request, template='management/entities/new.html'):
             'res': res,
             'forms': _forms,
         },
-        context_instance = RequestContext(request)
+        context_instance=RequestContext(request)
     )
 
 
@@ -204,10 +205,11 @@ def create(request, template='management/entities/new.html'):
 '''
     Handle Entity Buy Link
 '''
+
+
 @login_required
 @staff_only
 def buy_link(request, entity_id, template='management/entities/buy_link.html'):
-
     # _buy_link_list = Buy_Link.objects.filter(entity_id = entity_id)
     try:
         _entity = Entity.objects.get(pk=entity_id)
@@ -219,26 +221,28 @@ def buy_link(request, entity_id, template='management/entities/buy_link.html'):
         # log.info(request.POST)
         if _forms.is_valid():
             _forms.save()
-            return HttpResponseRedirect(reverse('management_entity_edit', args=[entity_id]))
+            return HttpResponseRedirect(
+                reverse('management_entity_edit', args=[entity_id]))
     else:
         _forms = BuyLinkForm(entity=_entity)
 
     return render_to_response(
         template,
         {
-            'entity':_entity,
-            'forms':_forms,
+            'entity': _entity,
+            'forms': _forms,
             # 'buy_link_list': _buy_link_list,
         },
-        context_instance = RequestContext(request)
+        context_instance=RequestContext(request)
     )
+
 
 @csrf_exempt
 @login_required
-def edit_buy_link(request, bid, template='management/entities/edit_buy_link.html'):
-
+def edit_buy_link(request, bid,
+                  template='management/entities/edit_buy_link.html'):
     try:
-        buy = Buy_Link.objects.get(pk = bid)
+        buy = Buy_Link.objects.get(pk=bid)
     except Buy_Link.DoesNotExist:
         raise Http404
 
@@ -246,21 +250,22 @@ def edit_buy_link(request, bid, template='management/entities/edit_buy_link.html
         _forms = EditBuyLinkForm(buy_link=buy, data=request.POST)
         if _forms.is_valid():
             buy_link = _forms.save()
-            return HttpResponseRedirect(reverse('management_entity_edit', args=[buy_link.entity_id]))
+            return HttpResponseRedirect(
+                reverse('management_entity_edit', args=[buy_link.entity_id]))
     else:
         # log.info(int(buy.default))
         _forms = EditBuyLinkForm(buy_link=buy, initial={
             'link': buy.link,
-            'default':buy.default,
+            'default': buy.default,
         })
 
     return render_to_response(
-                            template,
-                            {
-                                  'entity': buy.entity,
-                                  'forms': _forms,
-                            },
-                              context_instance = RequestContext(request))
+        template,
+        {
+            'entity': buy.entity,
+            'forms': _forms,
+        },
+        context_instance=RequestContext(request))
 
 
 @csrf_exempt
@@ -282,16 +287,17 @@ def remove_buy_link(request, bid):
 @login_required
 @staff_only
 def check_buy_link(request, bid):
+    # Todo(judy): add amazon here.
     try:
         b = Buy_Link.objects.get(pk=bid)
     except Buy_Link.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
-# def crawl(item_id):
+    # def crawl(item_id):
     data = {
-        'project':'default',
-        'spider':'taobao',
-        'setting':'DOWNLOAD_DELAY=2',
+        'project': 'default',
+        'spider': 'taobao',
+        'setting': 'DOWNLOAD_DELAY=2',
         'item_id': b.origin_id,
     }
     res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
@@ -302,6 +308,8 @@ def check_buy_link(request, bid):
 '''
     Handle Image
 '''
+
+
 @login_required
 @staff_only
 def refetch_image(request, entity_id):
@@ -313,19 +321,20 @@ def refetch_image(request, entity_id):
     log.info(_entity.images)
 
     fetch_image(_entity.images, _entity.pk)
-    return SuccessJsonResponse(data={'status':'ok'})
+    return SuccessJsonResponse(data={'status': 'ok'})
 
 
 @login_required
-def image(request, entity_id, template='management/entities/upload_image.html'):
-
+def image(request, entity_id,
+          template='management/entities/upload_image.html'):
     try:
         _entity = Entity.objects.get(pk=entity_id)
     except Entity.DoesNotExist:
         raise Http404
 
     if request.method == "POST":
-        _forms = EntityImageForm(entity=_entity, data=request.POST, files=request.FILES)
+        _forms = EntityImageForm(entity=_entity, data=request.POST,
+                                 files=request.FILES)
         if _forms.is_valid():
             _forms.save()
     else:
@@ -337,14 +346,13 @@ def image(request, entity_id, template='management/entities/upload_image.html'):
             'entity': _entity,
             'forms': _forms,
         },
-        context_instance = RequestContext(request)
+        context_instance=RequestContext(request)
     )
 
 
 @csrf_exempt
 @login_required
 def delete_image(request, entity_id):
-
     if request.method == 'POST':
         _index = request.POST.get('index', None)
         log.info(_index)
@@ -365,7 +373,6 @@ def delete_image(request, entity_id):
         return SuccessJsonResponse(data={'status': status})
 
     return HttpResponseNotAllowed
-
 
 
 __author__ = 'edison7500'
