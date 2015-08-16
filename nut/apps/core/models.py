@@ -1301,24 +1301,6 @@ class Event_Status(models.Model):
         return "%s status : is_published : %s , is_top : %s" %(self.event.slug, self.is_published, self.is_top)
 
 
-class Test_Event_Banner(models.Model):
-    (item, shop) = (0, 1)
-    BANNER_TYPE__CHOICES = [
-        (item, _("item")),
-        (shop, _("shop")),
-    ]
-
-    image = models.CharField(max_length=255, null=False)
-    banner_type = models.IntegerField(choices=BANNER_TYPE__CHOICES, default=item)
-    user_id = models.CharField(max_length=30, null=True)
-    link = models.CharField(max_length=255, null=True)
-    background_image = models.CharField(max_length=255, null=True, blank=True)
-    background_color = models.CharField(max_length=14, null=True,blank=True,default='#fff')
-    created_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
-    updated_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
-
-
-
 class Event_Banner(models.Model):
     (item, shop) = (0, 1)
     BANNER_TYPE__CHOICES = [
