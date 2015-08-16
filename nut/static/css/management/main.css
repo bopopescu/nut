@@ -742,6 +742,13 @@ body {
 .entity-table .entity-image {
   min-width: 100px;
 }
+#event_banner_info .banner-background-image {
+  max-height: 250px;
+}
+.color-sample-box {
+  width: 150px;
+  height: 150px;
+}
 .test {
   color: white;
 }

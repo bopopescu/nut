@@ -49,7 +49,6 @@ def show_list(request, sid, template='management/event_banner/show_list.html'):
 def create(request, event_id = None, template='management/event_banner/create.html'):
     _event_id = event_id
 
-
     if request.method == "POST":
         _forms = CreateEventBannerForms(request.POST, request.FILES)
         if _forms.is_valid():
@@ -96,6 +95,7 @@ def edit(request, event_banner_id, template='management/event_banner/edit.html')
         'banner_type':_event_banner.banner_type,
         'user_id':_event_banner.user_id,
         'event': event_id,
+        'event_banner_background_color': _event_banner.background_color,
     }
 
     if request.method == "POST":

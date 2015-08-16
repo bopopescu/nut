@@ -24,7 +24,7 @@ class BaseEventBannerForm(forms.Form):
         label=_('event banner image'),
         widget=forms.FileInput(attrs={'class':'controls'}),
         help_text=_(''),
-        required=False,
+        required=True,
     )
 
     user_id = forms.CharField(
@@ -33,6 +33,21 @@ class BaseEventBannerForm(forms.Form):
         help_text=_(''),
         required=False,
     )
+
+    event_banner_background_image=forms.FileField(
+        label=_('event banner background image'),
+        widget=forms.FileInput(attrs={'class':'controls'}),
+        help_text=_(''),
+        required=False,
+    )
+
+    event_banner_background_color = forms.CharField(
+        label=_('event banner background color'),
+        widget=forms.TextInput(attrs={'class':'form-control'}),
+        help_text=_(''),
+        required=False,
+    )
+
 
     def __init__(self, *args, **kwargs):
         super(BaseEventBannerForm, self).__init__(*args, **kwargs)
@@ -96,6 +111,8 @@ class CreateEventBannerForms(BaseEventBannerForm):
     def save(self):
         link = self.cleaned_data.get('link')
         event_banner_image = self.cleaned_data.get('event_banner_image')
+        event_banner_background_image = self.cleaned_data.get('event_banner_background_image',None)
+        event_banner_background_color = self.cleaned_data.get('event_banner_background_color','fff')
         position = self.cleaned_data.get('position')
         banner_type = self.cleaned_data.get('banner_type')
         user_id = self.cleaned_data.get('user_id')
@@ -108,12 +125,19 @@ class CreateEventBannerForms(BaseEventBannerForm):
         # log.info(f)
         #
         filename = _image.save()
+        _background_image_file_name = None
+        if event_banner_background_image:
+            _background_image = HandleImage(event_banner_background_image)
+            _background_image_file_name = _background_image.save()
+
 
         _event_banner = Event_Banner.objects.create(
             link = link,
             image = filename,
             banner_type = banner_type,
             user_id = user_id,
+            background_image = _background_image_file_name,
+            background_color = event_banner_background_color
         )
         #
         # if position > 0:
@@ -129,6 +153,13 @@ class CreateEventBannerForms(BaseEventBannerForm):
 
 
 class EditEventBannerForms(BaseEventBannerForm):
+    
+    event_banner_image = forms.FileField(
+        label=_('event banner image'),
+        widget=forms.FileInput(attrs={'class':'controls'}),
+        help_text=_(''),
+        required=False,
+    )
 
 
     def __init__(self, banner, *args, **kwargs):
@@ -172,12 +203,21 @@ class EditEventBannerForms(BaseEventBannerForm):
         banner_type = self.cleaned_data.get('banner_type')
         position = self.clean_position()
         event = self.cleaned_data.get('event')
+        event_banner_background_image = self.cleaned_data.get('event_banner_background_image')
+        event_banner_background_color = self.cleaned_data.get('event_banner_background_color')
+
 
         # log.info(position)
         self.banner.link = link
         # self.banner.position = position
         self.banner.user_id = user_id
         self.banner.banner_type = banner_type
+
+        if event_banner_background_image:
+            _background_image = HandleImage(event_banner_background_image)
+            self.banner.background_image = _background_image.save()
+
+        self.banner.background_color = event_banner_background_color
 
         if event_banner_image:
             _image = HandleImage(event_banner_image)
