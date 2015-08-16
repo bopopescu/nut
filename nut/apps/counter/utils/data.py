@@ -87,8 +87,6 @@ class RedisCounterMachine(object):
         else:
             return article.read_count
 
-
-
     @classmethod
     def get_key(cls,key):
         r_server= cls.get_store()

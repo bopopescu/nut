@@ -128,6 +128,7 @@ def event(request, slug, template='web/events/home'):
             'show_editor_recommendations': _show_editor_recommendations,
             'entities': _entities,
             'user_entity_likes': el,
+
         },
         context_instance=RequestContext(request)
     )

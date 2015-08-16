@@ -1133,9 +1133,17 @@ body {
 }
 .event-body {
   padding-top: 52px;
+  background-repeat: repeat-x;
+  background-clip: content-box;
+  background-position: 0px 52px;
+}
+.event-body #guoku_main_nav {
+  opacity: 1;
 }
 #guoku_main_nav {
   background-color: #fff;
+  opacity: 0.9;
+  border-bottom: 0;
   -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);

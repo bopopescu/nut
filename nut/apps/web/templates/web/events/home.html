@@ -28,6 +28,7 @@
 
 {% block body_class %}
     gray-body event-body
+
 {% endblock %}
 {% block content %}
         {% block bg %}
@@ -48,6 +49,7 @@
         </div>
         {% endblock %}
         {% if event.has_banner %}
+
           <div class="row event-banner-wrapper">
             <div class="col-md-12" id="event_home_banner">
                 <div id="carousel-guoku" class="carousel slide" data-ride="carousel" style="">
@@ -172,6 +174,28 @@
 <script>
     var viewed_event_slug_cookie_key = 'viewed_event_slug_cookie_key';
     $.cookie(viewed_event_slug_cookie_key , newest_event_slug , { expires: 7, path: '/' });
+    var bk_images = [];
+    var bk_colors = [];
+    {% if event.has_banner %}
+    {% for show in show_event_banners %}
+        {%  if show.banner.background_image %}
+            bk_images.push('{{ show.banner.background_image_url }}');
+        {% else  %}
+            bk_images.push('');
+        {% endif %}
+
+        {% if show.banner.background_color %}
+
+            bk_colors.push('{{ show.banner.background_color }}');
+        {% else %}
+            bk_colors.push('fff');
+        {% endif %}
+    {% endfor %}
+        // only use the first one
+        document.body.style.background = 'url("'+ bk_images[0] +'") repeat-x content-box 0px 52px #'+ bk_colors[0]  + '';
+
+{% endif %}
+
 
 </script>
 
