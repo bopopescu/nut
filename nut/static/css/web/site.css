@@ -99,6 +99,10 @@
   color: #999;
   border: 1px solid #eee;
 }
+.btn-cancel i,
+.button-cancel i {
+  color: #9d9e9f;
+}
 .disabled-button {
   cursor: default;
 }

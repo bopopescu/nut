@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-12 17:04+0800\n"
+"POT-Creation-Date: 2015-08-16 14:54+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -144,7 +144,7 @@ msgstr "操作"
 #: apps/management/templates/management/selection/list.html:12
 #: apps/management/templates/management/selection/pending.html:6
 #: apps/management/templates/management/selection/popular.html:7
-#: apps/web/templates/web/entity/partial/detail_breadcrumb.html:8
+#: apps/web/templates/web/entity/partial/detail_breadcrumb.html:9
 msgid "selection"
 msgstr "商品"
 
@@ -205,11 +205,11 @@ msgstr "草稿"
 msgid "Never"
 msgstr ""
 
-#: apps/core/models.py:1308
+#: apps/core/models.py:1307 apps/core/models.py:1325
 msgid "item"
 msgstr "商品banner"
 
-#: apps/core/models.py:1309
+#: apps/core/models.py:1308 apps/core/models.py:1326
 msgid "shop"
 msgstr "店铺banner"
 
@@ -389,9 +389,9 @@ msgstr "第四"
 #: apps/core/forms/banner.py:28 apps/core/forms/banner.py:132
 #: apps/core/forms/entity.py:302
 #: apps/management/forms/editor_recommendation.py:142
-#: apps/management/forms/event_banner.py:149
+#: apps/management/forms/event_banner.py:172
 #: apps/management/templates/management/event_banner/list.html:50
-#: apps/management/templates/management/event_banner/show_list.html:21
+#: apps/management/templates/management/event_banner/show_list.html:23
 #: apps/management/templates/management/recommendation/list.html:29
 #: apps/management/templates/management/recommendation/show_list.html:22
 msgid "position"
@@ -547,7 +547,7 @@ msgstr "选择 图片"
 #: apps/management/templates/management/banner/edit.html:17
 #: apps/management/templates/management/comment/list.html:13
 #: apps/management/templates/management/entities/edit.html:32
-#: apps/management/templates/management/event_banner/edit.html:34
+#: apps/management/templates/management/event_banner/edit.html:43
 #: apps/management/templates/management/notes/list.html:5
 #: apps/management/templates/management/recommendation/edit.html:34
 #: apps/management/templates/management/tags/entities_table.html:12
@@ -726,7 +726,7 @@ msgid "event banner image"
 msgstr "专题 Banner"
 
 #: apps/management/forms/editor_recommendation.py:54
-#: apps/management/forms/event_banner.py:71
+#: apps/management/forms/event_banner.py:86
 #: apps/management/templates/management/management_base.html:71
 #: apps/management/templates/management/event_banner/list.html:49
 msgid "event"
@@ -736,7 +736,15 @@ msgstr "专题"
 msgid "taobao user id"
 msgstr ""
 
-#: apps/management/forms/event_banner.py:41
+#: apps/management/forms/event_banner.py:38
+msgid "event banner background image"
+msgstr "配合主图的背景图"
+
+#: apps/management/forms/event_banner.py:45
+msgid "event banner background color"
+msgstr "配合主图的背景颜色"
+
+#: apps/management/forms/event_banner.py:56
 msgid "banner type"
 msgstr "主图 类型"
 
@@ -792,8 +800,8 @@ msgid "draft article"
 msgstr "草稿"
 
 #: apps/management/templates/management/article/draft_list.html:25
-#: apps/management/templates/management/article/list.html:25
-#: apps/management/templates/management/article/selection_article_list.html:29
+#: apps/management/templates/management/article/list.html:26
+#: apps/management/templates/management/article/selection_article_list.html:30
 #: apps/management/templates/management/banner/list.html:23
 #: apps/management/templates/management/brand/list.html:29
 #: apps/management/templates/management/brand/stat.html:15
@@ -807,7 +815,7 @@ msgstr "草稿"
 #: apps/management/templates/management/entities/table_new.html:21
 #: apps/management/templates/management/event/list.html:34
 #: apps/management/templates/management/event_banner/list.html:51
-#: apps/management/templates/management/event_banner/show_list.html:22
+#: apps/management/templates/management/event_banner/show_list.html:24
 #: apps/management/templates/management/media/list.html:18
 #: apps/management/templates/management/notes/table.html:16
 #: apps/management/templates/management/recommendation/list.html:30
@@ -824,8 +832,8 @@ msgid "operation"
 msgstr "操作"
 
 #: apps/management/templates/management/article/draft_list.html:42
-#: apps/management/templates/management/article/list.html:42
-#: apps/management/templates/management/article/selection_article_list.html:59
+#: apps/management/templates/management/article/list.html:44
+#: apps/management/templates/management/article/selection_article_list.html:61
 #: apps/management/templates/management/banner/list.html:32
 #: apps/management/templates/management/brand/list.html:45
 #: apps/management/templates/management/brand/stat.html:26
@@ -838,7 +846,7 @@ msgstr "操作"
 #: apps/management/templates/management/entities/table_new.html:56
 #: apps/management/templates/management/event/list.html:58
 #: apps/management/templates/management/event_banner/list.html:74
-#: apps/management/templates/management/event_banner/show_list.html:38
+#: apps/management/templates/management/event_banner/show_list.html:42
 #: apps/management/templates/management/notes/table.html:34
 #: apps/management/templates/management/recommendation/list.html:46
 #: apps/management/templates/management/recommendation/show_list.html:33
@@ -862,13 +870,13 @@ msgstr "保存"
 msgid "preview"
 msgstr "预览"
 
-#: apps/management/templates/management/article/list.html:43
-#: apps/management/templates/management/article/selection_article_list.html:69
+#: apps/management/templates/management/article/list.html:45
+#: apps/management/templates/management/article/selection_article_list.html:71
 #: apps/management/templates/management/tags/articles.html:37
 msgid "goto"
 msgstr ""
 
-#: apps/management/templates/management/article/selection_article_list.html:64
+#: apps/management/templates/management/article/selection_article_list.html:66
 msgid "edit publish datetime"
 msgstr "编辑入精选时间"
 
@@ -886,7 +894,7 @@ msgstr "创建"
 #: apps/management/templates/management/entities/edit_buy_link.html:42
 #: apps/management/templates/management/entities/upload_image.html:41
 #: apps/management/templates/management/event/edit.html:26
-#: apps/management/templates/management/event_banner/edit.html:54
+#: apps/management/templates/management/event_banner/edit.html:63
 #: apps/management/templates/management/notes/edit.html:43
 #: apps/management/templates/management/recommendation/edit.html:54
 #: apps/management/templates/management/users/edit.html:81
@@ -998,7 +1006,7 @@ msgid "all"
 msgstr "所有"
 
 #: apps/management/templates/management/comment/list.html:28
-#: apps/management/templates/management/event_banner/edit.html:55
+#: apps/management/templates/management/event_banner/edit.html:64
 #: apps/management/templates/management/media/list.html:39
 #: apps/management/templates/management/recommendation/edit.html:55
 msgid "delete"
@@ -1426,10 +1434,6 @@ msgstr "重设密码"
 #: apps/web/templates/web/entity/partial/detail_info_center.html:41
 #: apps/web/templates/web/entity/partial/detail_middle.html:11
 #: apps/web/templates/web/entity/partial/detail_middle.html:20
-#: apps/web/templates/web/events/partial/event_entity_item.html:25
-#: apps/web/templates/web/main/partial/entity.html:16
-#: apps/web/templates/web/main/partial/entity.html:21
-#: apps/web/templates/web/main/partial/selection_item_list.html:25
 #: apps/web/templates/web/user/like.html:34
 #: apps/web/templates/web/user/like.html:39
 #: apps/web/templates/web/user/user_base.html:84
@@ -1443,14 +1447,12 @@ msgstr "喜爱"
 msgid "Related Items"
 msgstr "相似推荐"
 
-#: apps/web/templates/web/entity/partial/detail_info_center.html:59
-#: apps/web/templates/web/entity/partial/detail_info_center.html:64
-#: apps/web/templates/web/entity/partial/detail_info_center.html:68
-#: apps/web/templates/web/entity/partial/detail_info_center.html:72
+#: apps/web/templates/web/entity/partial/detail_info_center.html:60
+#: apps/web/templates/web/entity/partial/detail_info_center.html:73
 msgid "Buy"
 msgstr "购买"
 
-#: apps/web/templates/web/entity/partial/detail_info_center.html:78
+#: apps/web/templates/web/entity/partial/detail_info_center.html:79
 msgid "Sold Out"
 msgstr "商品下架"
 
@@ -1600,7 +1602,7 @@ msgstr "参与标签"
 
 #: apps/web/templates/web/user/partial/user_index_sidebar.html:45
 msgid "Download App"
-msgstr "客户端下载"
+msgstr "应用下载"
 
 #: apps/web/views/user.py:310 apps/web/views/user.py:418
 msgid "My"
