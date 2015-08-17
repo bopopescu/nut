@@ -24,6 +24,7 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
 class UserIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     date_joined = indexes.DateTimeField(model_attr='date_joined')
+    is_active = indexes.IntegerField(model_attr='is_active')
     fans_count = indexes.IntegerField(model_attr='fans_count')
 
     def get_model(self):
