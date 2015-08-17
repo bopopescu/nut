@@ -1,16 +1,17 @@
 from apps.core.models import GKUser, Entity, Article
 from apps.tag.models import Tags
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
-from apps.core.views import LoginRequiredMixin
+from apps.core.views import LoginRequiredMixin, BaseJsonView
 # from apps.management.forms.search import ManagementSearchForm
 from apps.core.forms.search import GKSearchForm
 from haystack.generic_views import SearchView
+from haystack.query import SearchQuerySet
 from django.utils.log import getLogger
 
 log = getLogger('django')
 
 
-class ManageSearchView(SearchView, LoginRequiredMixin):
+class ManageSearchView(LoginRequiredMixin, SearchView):
 
     template_name = 'management/search/search.html'
     form_class = GKSearchForm
@@ -43,31 +44,17 @@ class ManageSearchView(SearchView, LoginRequiredMixin):
         self.type = request.GET.get('t', 'e')
         return super(ManageSearchView, self).get(request, *args, **kwargs)
 
-# class SearchForm(BaseSearchView):
-#     template_name = 'management/search/search.html'
-#     form_class = ManagementSearchForm
-#
-#     def get(self, request):
-#         _page = request.GET.get('page', 1)
-#         form = self.get_form_class()
-#         if form.is_valid():
-#             res = form.search()
-#             paginator = ExtentPaginator(res, 24)
-#             try:
-#                 _objects = paginator.page(_page)
-#             except PageNotAnInteger:
-#                 _objects = paginator.page(1)
-#             except EmptyPage:
-#                 raise Http404
-#
-#             log.info("count %s" % form.get_type())
-#
-#             context = {
-#                 'objects' : _objects,
-#                 'keyword': form.get_keyword(),
-#                 'type': form.get_type(),
-#             }
-#             return self.render_to_response(context)
+
+
+class AutoCompleteView(LoginRequiredMixin, BaseJsonView):
+
+    def get_data(self, context):
+        sqs = SearchQuerySet().autocomplete(title_auto=self.request.GET.get('q', ''))[:5]
+        suggestions = [result.title for result in sqs]
+        return {
+            'results':suggestions,
+        }
+
 
 
 __author__ = 'jiaxin'
