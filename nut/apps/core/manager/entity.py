@@ -114,10 +114,10 @@ class EntityLikeQuerySet(models.query.QuerySet):
 
         popular_time = (dt - days).strftime("%Y-%m-%d") + ' 00:00'
         if isTestEnv:
-            return self.filter(created_time__gte=popular_time).values_list('entity', flat=True).annotate(dcount=models.Count('entity')).order_by('-dcount')[:200]
+            return self.filter(created_time__gte=popular_time).values_list('entity', flat=True).annotate(dcount=models.Count('entity')).order_by('-dcount')[:400]
 
         user_innqs = get_user_model()._default_manager.filter(is_active__gt=0).values_list('id', flat=True)
-        return self.filter(created_time__gte=popular_time, user_id__in=user_innqs).values_list('entity', flat=True).annotate(dcount=models.Count('entity')).order_by('-dcount')[:200]
+        return self.filter(created_time__gte=popular_time, user_id__in=user_innqs).values_list('entity', flat=True).annotate(dcount=models.Count('entity')).order_by('-dcount')[:400]
 
     def user_like_list(self, user, entity_list):
 
