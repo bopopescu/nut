@@ -37,25 +37,14 @@ class AmazonSpider(scrapy.Spider):
         item['link'] = response.url
         item['status'] = self.get_item_status(response)
 
-        # if item['status'] == 0:
-        # return item
-
         # get brand
-        seller = ''
-        brand_xpath = response.xpath("//img[@id='logoByLine']")
-        if len(brand_xpath) > 0:
-            seller = brand_xpath.xpath(
-                "@title").extract() or brand_xpath.xpath("@alt").extract()
-        item['seller'] = seller
-
-        # get shop
-        # shop_link = "%s%s" % (self.domain,
-        # response.xpath(
-        # "//a[@id='brandteaser']/@href").extract())
+        item['seller'] = self.get_seller(response)
 
         # get category
         cat_id = 0
-        cate_list = response.xpath("//div[@id='wayfinding-breadcrumbs_feature_div']/ul/li/span/a/@href").extract()
+        cate_list = response.xpath(
+            "//div[@id='wayfinding-breadcrumbs_feature_div']"
+            "/ul/li/span/a/@href").extract()
         if cate_list:
             cat_id = cate_list[0].split('=')[-1]
         item['cid'] = cat_id
@@ -80,14 +69,26 @@ class AmazonSpider(scrapy.Spider):
         price_xpath = response.xpath(
             "//span[@id='priceblock_ourprice']/text()").extract()
         if len(price_xpath) == 0:
-            return 0
+            return 0, 0
         else:
             price = price_xpath[0][1:]
-            if self.currency_code == 'USD':
+            print self.currency_code, price_xpath[0][:1]
+            if self.currency_code == 'USD' and price_xpath[0][:1] == '$':
                 price = float(price)
                 cny_price = utiles.currency_converting('USD', price)
                 return cny_price, price
             return price, None
+
+    def get_seller(self, response):
+        brand_xpath_1 = response.xpath("//img[@id='logoByLine']")
+        brand_xpath_2 = response.xpath("//a[@id='brand']")
+        seller = ''
+        if len(brand_xpath_1) > 0:
+            seller = brand_xpath_1.xpath(
+                "@title").extract() or brand_xpath_1.xpath("@alt").extract()
+        if not seller and len(brand_xpath_2) > 0:
+            seller = brand_xpath_2[0].xpath("text()").extract()[0]
+        return seller
 
     def get_images(self, response):
         image_js = response.xpath(
