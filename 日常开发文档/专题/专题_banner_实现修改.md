@@ -1,3 +1,6 @@
+目的 ： 每一个BANNER 都有相对应的 BACKGROUND_COLOR 和 background_image 
+       这样对专题页表现控制的更好。
+
 1 .   数据库中加入 两个新字段
 
  MYSQL  执行 :
@@ -22,4 +25,3 @@ ADD COLUMN `background_color` VARCHAR(14) NULL DEFAULT 'fff' AFTER `background_i
         else:
             return None 
             
-4. 

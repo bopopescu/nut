@@ -33,22 +33,8 @@
 {% block content %}
         {% block bg %}
         {% endblock %}
-    <div class="container" id="event_wrapper">
-        {% block headevent %}
-        {% endblock %}
-
-        {% block tag %}
-        <div class="row">
-{#            <div class="col-md-12">#}
-{#                <ul class="nav nav-pills nav-home" role="tablist">#}
-{#                    <li>专题</li>#}
-{#                    <li>｜</li>#}
-{#                    <li>{{ tag_text }}</li>#}
-{#                </ul>#}
-{#            </div>#}
-        </div>
-        {% endblock %}
-        {% if event.has_banner %}
+    <div class="event-cross-screen">
+     {% if event.has_banner %}
 
           <div class="row event-banner-wrapper">
             <div class="col-md-12" id="event_home_banner">
@@ -92,6 +78,24 @@
             </div>
         </div>
         {% endif %}
+
+    </div>
+    <div class="container event-wrapper">
+        {% block headevent %}
+        {% endblock %}
+
+        {% block tag %}
+        <div class="row">
+{#            <div class="col-md-12">#}
+{#                <ul class="nav nav-pills nav-home" role="tablist">#}
+{#                    <li>专题</li>#}
+{#                    <li>｜</li>#}
+{#                    <li>{{ tag_text }}</li>#}
+{#                </ul>#}
+{#            </div>#}
+        </div>
+        {% endblock %}
+
 
         {% if event.has_recommendation %}
         <div class="row" style="margin-top: 40px;">
@@ -192,7 +196,8 @@
         {% endif %}
     {% endfor %}
         // only use the first one
-        document.body.style.background = 'url("'+ bk_images[0] +'") repeat-x content-box 0px 52px #'+ bk_colors[0]  + '';
+        document.body.style.background = 'url("'+ bk_images[0] +'") repeat-x content-box 0px 52px ';
+        $('.event-cross-screen').css({'background-color':'#'+bk_colors[0]});
 
 {% endif %}
 
