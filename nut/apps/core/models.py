@@ -1364,6 +1364,8 @@ class Show_Event_Banner(models.Model):
     class Meta:
         ordering = ['position']
 
+
+
 # editor recommendation
 
 class Editor_Recommendation(models.Model):

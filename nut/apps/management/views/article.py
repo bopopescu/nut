@@ -37,6 +37,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from apps.core.serializers.articles import ArticleSerializer, SelectionArticleSerializer
 
+
+from django.views.generic.edit import UpdateView
+
 from rest_framework import generics
 from rest_framework import mixins
 
@@ -73,6 +76,27 @@ class RESTfulArticleDetail(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+from apps.management.forms.article import UpdateArticleForm
+class UpdateArticleView(UpdateView):
+    model = Article
+    template_name = 'management/article/new_edit.html'
+    form_class = UpdateArticleForm
+    def get_initial(self):
+        initial = super(UpdateArticleView, self).get_initial()
+        _article = self.get_object()
+        tids = Content_Tags.objects.filter(target_content_type=31, target_object_id=_article.id).values_list('tag_id', flat=True)
+        tags = Tags.objects.filter(pk__in=tids)
+        tag_list = []
+        for row in tags:
+            tag_list.append(row.name)
+        tag_string = ",".join(tag_list)
+        initial['tags'] = tag_string
+        initial['creator'] = _article.creator
+        return initial
+
+    # success_url = reverse('management_article_list')
 
 
 
@@ -377,3 +401,5 @@ def preview(request, article_id, template="management/article/preview.html"):
     )
 
 __author__ = 'edison'
+
+
