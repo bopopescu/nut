@@ -909,9 +909,17 @@ class Note(BaseModel):
     def post_timestamp(self):
         return time.mktime(self.post_time.timetuple())
 
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        key = "note:v3:%s" % self.id
+        print key
+        cache.delete(key)
+        return super(Note, self).save(force_insert=False, force_update=False, using=None,
+             update_fields=None)
+
     def v3_toDict(self, user_note_pokes=None, visitor= None, has_entity=False):
-        key_string = "note_v3_%s" % self.id
-        key = md5(key_string.encode('utf-8')).hexdigest()
+        key = "note:v3:%s" % self.id
+        # key = md5(key_string.encode('utf-8')).hexdigest()
         res = cache.get(key)
         # if res:
 
@@ -929,7 +937,7 @@ class Note(BaseModel):
             cache.set(key, res, timeout=86400)
             log.info("miss miss")
         # log.info(user_note_pokes)
-        log.info(visitor)
+        # log.info(visitor)
         res['poke_count'] = self.poke_count
         res['comment_count'] = self.comment_count
         res['creator'] = self.user.v3_toDict(visitor)
