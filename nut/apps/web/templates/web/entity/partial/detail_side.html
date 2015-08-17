@@ -56,7 +56,7 @@
     {% if request.user.is_staff  and  is_article_detail %}
         <li class="section need-bottom-border">
             <div class="section-content">
-                <a href="{% url 'management_article_edit_new' article.pk %}" target=_blank>
+                <a href="{% url 'management_article_edit' article.pk %}" target=_blank>
                     <i class="fa fa-pencil-square-o"></i>
                     &nbsp;&nbsp;编辑文章
                 </a>
