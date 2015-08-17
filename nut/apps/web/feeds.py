@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import gettext_lazy as _
 from django.utils.feedgenerator import Rss201rev2Feed
 
-from apps.core.models import Selection_Entity, Entity, Selection_Article
+from apps.core.models import Selection_Entity, Selection_Article
 
 # from base.models import NoteSelection
 # from base.entity import Entity
@@ -72,7 +72,7 @@ class SelectionFeeds(Feed):
 
 
 class ArticlesFeeds(Feed):
-    feed_type = CustomFeedGenerator
+    feed_type = Rss201rev2Feed
 
     title = u'果库 － 精英消费者南'
     link = "/articles/"
@@ -81,7 +81,7 @@ class ArticlesFeeds(Feed):
     description_template = "web/feeds/article_desc.html"
 
     def items(self):
-        return Selection_Article.objects.filter(is_published=True).order_by('-pub_time')[0:30]
+        return Selection_Article.objects.published().order_by('-pub_time')[0:30]
 
     def item_title(self, item):
         return item.article.title
@@ -98,9 +98,13 @@ class ArticlesFeeds(Feed):
     def item_description(self, item):
         return item.article.content
 
-    def item_extra_kwargs(self, item):
-        return {'image':item.article.cover_url}
+    # def item_extra_kwargs(self, item):
+    #     return {'image':item.article.cover_url}
 
+    def get_context_data(self, **kwargs):
+        context = super(ArticlesFeeds, self).get_context_data(**kwargs)
+        return context
+        # return con
 
 
 __author__ = 'edison7500'
