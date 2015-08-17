@@ -21,7 +21,7 @@
 {#{% block description %}果库专题，超实用的网络购物专辑，发现好物更便捷，闪购商品更迅速。品质生活，你值得拥有。{% endblock %}#}
 {% block global_links %}
     {% url 'web_event_list' as event_list_url %}
-        <a href="{{ event_list_url }}" target="_blank"><img class="img-responsive guoku-weixin" src="{% static 'images/event/event_enter.png' %}"></a>
+        <a href="{{ event_list_url }}"><img class="img-responsive guoku-weixin" src="{% static 'images/event/event_enter.png' %}"></a>
 
 {% endblock %}
 {% block h1 %}{{ tag_text }}{% endblock %}
@@ -65,11 +65,11 @@
                         {% for show in show_event_banners %}
                             <div class="item {% if 1 == show.position %}active{% endif %}">
                                 {% if show.banner.banner_type == 1  %}
-                                    <a datatype="1" biz-sellerid="{{ show.banner.user_id }}" target="_blank" href="#">
+                                    <a class="event-banner-link" datatype="1" biz-sellerid="{{ show.banner.user_id }}" href="#">
                                         <img src="{{ show.banner.image_url }}" alt="" width="940" height="430">
                                     </a>
                                 {% else %}
-                                    <a target="_blank" href="{{ show.banner.link }}">
+                                    <a class="event-banner-link" href="{{ show.banner.link }}">
                                         <img src="{{ show.banner.image_url }}">
                                     </a>
                                 {% endif %}
@@ -104,7 +104,7 @@
             {% for show_editor in show_editor_recommendations %}
                 <div class="col-xs-12 col-sm-3 ">
                     <div class="recommendation-item ">
-                        <a target="_blank" href="{{ show_editor.recommendation.link }}">
+                        <a href="{{ show_editor.recommendation.link }}">
                             <img class="img-responsive" src="{{ show_editor.recommendation.image_url }}" width="450" height="225">
                         </a>
                     </div>
