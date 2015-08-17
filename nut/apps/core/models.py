@@ -455,6 +455,18 @@ class Category(BaseModel):
     def cover_url(self):
         return "%s%s" % (image_host, self.cover)
 
+    @property
+    def title_cn(self):
+        titles = self.title.split()
+        return titles[0]
+
+    @property
+    def title_en(self):
+        titles = self.title.split()
+        if (len(titles) == 2):
+            return titles[1]
+        return self.title
+
 
 class Sub_Category(BaseModel):
     group = models.ForeignKey(Category, related_name='sub_categories')
