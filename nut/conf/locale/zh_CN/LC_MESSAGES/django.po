@@ -1602,7 +1602,7 @@ msgstr "参与标签"
 
 #: apps/web/templates/web/user/partial/user_index_sidebar.html:45
 msgid "Download App"
-msgstr "客户端下载"
+msgstr "应用下载"
 
 #: apps/web/views/user.py:310 apps/web/views/user.py:418
 msgid "My"
