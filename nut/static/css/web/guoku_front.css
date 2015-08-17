@@ -1140,6 +1140,9 @@ body {
 .event-body #guoku_main_nav {
   opacity: 1;
 }
+.event-body .event-cross-screen {
+  width: 100%;
+}
 .event-body .event-banner-link img {
   display: block;
   margin: 0 auto ;
@@ -2246,11 +2249,11 @@ body {
   }
 }
 @media (min-width: 1170px) {
-  #event_wrapper {
+  .event_wrapper {
     width: 1170px;
   }
 }
 .test {
-  color: red;
+  color: black;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
