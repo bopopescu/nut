@@ -16,10 +16,34 @@ body{
 .body-gray{
   background-color:@very-light-gray;
 }
+.event-body{
+  padding-top:52px;
+  background-repeat: repeat-x;
+  background-clip: content-box;
+  background-position: 0px 52px;
+  #guoku_main_nav{
+    opacity: 1;
+  }
 
+  .event-cross-screen{
+    width:100%;
+  }
+
+  .event-banner-link{
+    img{
+      display : block;
+      margin:0 auto ;
+    }
+  }
+  .recommendation-item{
+    .panel-no-padding;
+  }
+}
 
 #guoku_main_nav{
   background-color: #fff;
+  opacity: 0.9;
+  border-bottom: 0;
   .box-shadow(@global-box-shadow);
   .navbar-brand{
     padding-top: 14px;
@@ -707,7 +731,7 @@ body{
 
 #detail_content_right{
   padding-left: 10px;
-  max-width:330px;
+
   .section{
     .panel;
   }
@@ -1024,6 +1048,6 @@ body{
 
 
 .test{
-  color: red;
+  color: black;
 }
 

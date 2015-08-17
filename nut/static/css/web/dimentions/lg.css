@@ -1,6 +1,6 @@
 @media (min-width: 1170px) {
-  #event_wrapper {
-    width: 960px;
+  .event-wrapper {
+    width: 1170px;
   }
 }
 /*# sourceMappingURL=lg.less.css.map */

@@ -456,6 +456,10 @@ ul li {
   color: #999;
   border: 1px solid #eee;
 }
+.btn-cancel i,
+.button-cancel i {
+  color: #9d9e9f;
+}
 .disabled-button {
   cursor: default;
 }
@@ -1127,8 +1131,39 @@ body {
 .body-gray {
   background-color: #f8f8f8;
 }
+.event-body {
+  padding-top: 52px;
+  background-repeat: repeat-x;
+  background-clip: content-box;
+  background-position: 0px 52px;
+}
+.event-body #guoku_main_nav {
+  opacity: 1;
+}
+.event-body .event-cross-screen {
+  width: 100%;
+}
+.event-body .event-banner-link img {
+  display: block;
+  margin: 0 auto ;
+}
+.event-body .recommendation-item {
+  background-color: #ffffff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
+  overflow: hidden;
+}
 #guoku_main_nav {
   background-color: #fff;
+  opacity: 0.9;
+  border-bottom: 0;
   -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
@@ -1772,7 +1807,6 @@ body {
 }
 #detail_content_right {
   padding-left: 10px;
-  max-width: 330px;
 }
 #detail_content_right .section {
   background-color: #ffffff;
@@ -2172,10 +2206,17 @@ body {
   .guoku-content.user-page .user-info {
     max-width: 450px;
   }
+  .guoku-content.user-page .note-cell .note-text {
+    font-size: 14px !important;
+    font-color: #9d9e9f !important;
+  }
 }
 @media (min-width: 768px) {
   #detail_content_left .detail-pic-left {
     max-width: 360px;
+  }
+  #detail_content_right {
+    max-width: 330px;
   }
   .more-article-wrapper .cover-wrapper a {
     display: block;
@@ -2214,11 +2255,11 @@ body {
   }
 }
 @media (min-width: 1170px) {
-  #event_wrapper {
-    width: 960px;
+  .event_wrapper {
+    width: 1170px;
   }
 }
 .test {
-  color: red;
+  color: black;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
