@@ -42,11 +42,13 @@
                                         </a>
                                     </li>
                                 {% endfor %}
+                                    {% if request.user == current_user %}
                                      <li>
                                         <a href="{% url 'web_editor_article_list' %}">
                                             草稿
                                         </a>
                                     </li>
+                                    {% endif %}
                             </ul>
                         </div>
                         <div class="row panel-content-wrapper ">
