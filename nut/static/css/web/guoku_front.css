@@ -2096,6 +2096,24 @@ body {
 .search-tag-item .img-box {
   border: none;
 }
+.guoku-app {
+  padding-bottom: 40px;
+}
+.guoku-app #guoku_main_nav {
+  display: none;
+}
+.guoku-app .goods_detail {
+  margin-top: 20px;
+}
+.guoku-app #detail_breadcrumb {
+  display: none;
+}
+.guoku-app .footer {
+  display: none;
+}
+.guoku-app.event-body {
+  padding-top: 0px;
+}
 @media (max-width: 767px) {
   .event-item {
     padding: 5px 5px 5px 5px;
