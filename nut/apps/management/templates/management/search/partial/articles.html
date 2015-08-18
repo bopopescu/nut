@@ -22,7 +22,7 @@
             <tbody>
                 {% for row in object_list %}
                     <tr>
-                        <td>{{ row.article_id }}</td>
+                        <td>{{ row.object.id }}</td>
                         <td>{{ row.title }}</td>
                         <td><a href="{% url 'management_user_edit' row.object.creator.id %}" target="_blank">{{ row.object.creator.profile.nickname }}</a></td>
                         <td>{{ row.object.get_publish_display  }}</td>
