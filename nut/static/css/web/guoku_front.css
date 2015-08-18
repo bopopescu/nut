@@ -1159,6 +1159,7 @@ body {
   -moz-box-shadow: 0px 0px 2px #dddddd;
   box-shadow: 0px 0px 2px #dddddd;
   overflow: hidden;
+  margin-bottom: 10px;
 }
 #guoku_main_nav {
   background-color: #fff;
@@ -2094,6 +2095,36 @@ body {
 }
 .search-tag-item .img-box {
   border: none;
+}
+.guoku-app {
+  padding-bottom: 40px;
+}
+.guoku-app #guoku_main_nav {
+  display: none;
+}
+.guoku-app .goods_detail {
+  margin-top: 20px;
+}
+.guoku-app #detail_breadcrumb {
+  display: none;
+}
+.guoku-app .footer {
+  display: none;
+}
+.guoku-app.event-body {
+  padding-top: 0px;
+}
+#event_list_page #event_list .event-item {
+  position: relative;
+  display: inline-block;
+}
+#event_list_page #event_list .event-item .event-item-banner {
+  width: 100%;
+  height: 0px;
+  padding-bottom: 46.8%;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center center;
 }
 @media (max-width: 767px) {
   .event-item {
