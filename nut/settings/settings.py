@@ -121,6 +121,7 @@ CACHES = {
             "PARSER_CLASS": "redis.connection.HiredisParser",
         }
     },
+
 }
 
 # Internationalization
