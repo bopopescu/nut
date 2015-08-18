@@ -35,7 +35,6 @@
         {% endblock %}
     <div class="event-cross-screen">
      {% if event.has_banner %}
-
           <div class="row event-banner-wrapper">
             <div class="col-md-12" id="event_home_banner">
                 <div id="carousel-guoku" class="carousel slide" data-ride="carousel" style="">
@@ -106,7 +105,7 @@
 
         <div class="row " >
             {% for show_editor in show_editor_recommendations %}
-                <div class="col-xs-12 col-sm-3 ">
+                <div class="col-xs-12 col-sm-3">
                     <div class="recommendation-item ">
                         <a href="{{ show_editor.recommendation.link }}">
                             <img class="img-responsive" src="{{ show_editor.recommendation.image_url }}" width="450" height="225">
