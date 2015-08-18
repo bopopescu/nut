@@ -14,13 +14,8 @@ from apps.core.utils.http import JSONResponse, ErrorJsonResponse
 from apps.core.models import Note, GKUser
 from apps.core.forms.user import AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
-<<<<<<< HEAD
-from apps.core.models import Entity, Entity_Like, \
-                             User_Follow,Article,User_Profile
-=======
 from apps.core.models import Entity, Entity_Like, Tag, \
                              Entity_Tag, User_Follow,Article,User_Profile,Selection_Article
->>>>>>> 87942a4acd4dbc4eb63b267eda52773ab6224259
 
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 from apps.tag.models import Content_Tags, Tags
