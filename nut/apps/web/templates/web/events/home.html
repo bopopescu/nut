@@ -27,8 +27,7 @@
 {% block h1 %}{{ tag_text }}{% endblock %}
 
 {% block body_class %}
-    gray-body event-body
-
+    gray-body event-body {% if from_app %} guoku-app{% endif %}
 {% endblock %}
 {% block content %}
         {% block bg %}
@@ -195,8 +194,13 @@
         {% endif %}
     {% endfor %}
         // only use the first one
-        document.body.style.background = 'url("'+ bk_images[0] +'") repeat-x content-box 0px 52px ';
-        $('.event-cross-screen').css({'background-color':'#'+bk_colors[0]});
+{#        document.body.style.background = 'url("'+ bk_images[0] +'") repeat-x content-box 0px 52px ';#}
+        $('.event-cross-screen').css({
+            'background-color':'#'+bk_colors[0],
+            'background-url': 'url("'+ bk_images[0] +'")',
+            'background-repeat':'repeat-x',
+            'background-clip':'content-box'
+        });
 
 {% endif %}
 
