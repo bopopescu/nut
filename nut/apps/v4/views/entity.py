@@ -187,6 +187,7 @@ class APIntitySearchView(SearchView, JSONResponseMixin):
 
     def get_data(self, context):
         # print context
+
         res = {
             'stat' : {
                 'all_count' : context.count(),

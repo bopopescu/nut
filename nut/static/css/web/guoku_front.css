@@ -2114,6 +2114,18 @@ body {
 .guoku-app.event-body {
   padding-top: 0px;
 }
+#event_list_page #event_list .event-item {
+  position: relative;
+  display: inline-block;
+}
+#event_list_page #event_list .event-item .event-item-banner {
+  width: 100%;
+  height: 0px;
+  padding-bottom: 46.8%;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center center;
+}
 @media (max-width: 767px) {
   .event-item {
     padding: 5px 5px 5px 5px;
