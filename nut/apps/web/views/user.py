@@ -427,7 +427,7 @@ class UserIndex(DetailView):
         current_user = context_data['object']
         context_data['recent_likes'] = current_user.likes.all()[:12]
         context_data['recent_notes'] = current_user.note.all().order_by("-post_time")[:6]
-        # get user published article list
+        # get user published selection article list
         _selection_article_ids = Selection_Article.objects.published_by_user(current_user).values_list("article__id", flat=True)
         _article_list = Article.objects.get_published_by_user(current_user).filter(selections__isnull = False)\
                                        .filter(pk__in=list(_selection_article_ids))[:6]
