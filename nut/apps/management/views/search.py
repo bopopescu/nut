@@ -49,7 +49,9 @@ class ManageSearchView(LoginRequiredMixin, SearchView):
 class AutoCompleteView(LoginRequiredMixin, BaseJsonView):
 
     def get_data(self, context):
+        # print self.request
         sqs = SearchQuerySet().autocomplete(title_auto=self.request.GET.get('q', ''))[:5]
+        # print sqs
         suggestions = [result.title for result in sqs]
         return {
             'results':suggestions,
