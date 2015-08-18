@@ -65,3 +65,5 @@ nut/settings/
 node_modules
 nut/images/
 
+nut/db.sqlite3
+spider/log.txt
