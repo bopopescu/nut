@@ -21,7 +21,7 @@ from apps.core.manager.event import ShowEventBannerManager
 from apps.core.manager.article import ArticleManager, SelectionArticleManager
 
 from hashlib import md5
-from urlparse import parse_qs, urlparse
+# from urlparse import parse_qs, urlparse
 # from apps.core.utils.tag import TagParser
 
 # from djangosphinx.models import SphinxSearch
