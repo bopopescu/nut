@@ -222,11 +222,7 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 Avatar_Image_Path = 'avatar/'
 # Avatar_Image_Size = [180, 50]
 
-
-
 # WHOOSH_INDEX = 'indexdir'
-
-
 
 # celery
 # from __future__ import absolute_import
@@ -251,10 +247,10 @@ CELERY_DISABLE_RATE_LIMITS = True
 # CELERY_RESULT_SERIALIZER = 'json'
 
 
-
-SPHINX_API_VERSION = 0x116
-SPHINX_SERVER = '10.0.2.50'
-SPHINX_PORT = 3312
+#
+# SPHINX_API_VERSION = 0x116
+# SPHINX_SERVER = '10.0.2.50'
+# SPHINX_PORT = 3312
 
 
 # taobao
