@@ -161,17 +161,17 @@ class UserChangePasswordForm(forms.Form):
 
 ArticleStatusChoice = (
                       # ('all',_('All')),
-                       ('published',_('Published')),
                        ('selected',_('Selected Article')),
+                       ('published',_('Published')),
                         # ('draft', _('Draft')),
                         )
 class UserArticleStatusFilterForm(forms.Form):
     articleType = forms.ChoiceField(widget=forms.RadioSelect, choices=ArticleStatusChoice, required=False)
     def get_cleaned_article_status(self):
         if not self.is_valid():
-            articleType = 'all'
+            articleType = 'published'
         else:
-            articleType = self.cleaned_data.get('articleType','all')
+            articleType = self.cleaned_data.get('articleType','published')
 
         return articleType
 
