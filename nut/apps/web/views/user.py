@@ -363,7 +363,7 @@ class UserArticleView(UserDetailBase):
     context_object_name = 'current_user_articles'
     def get_context_data(self, **kwargs):
         context_data = super(UserArticleView, self).get_context_data(**kwargs)
-        context_data['article_filter_form'] = UserArticleStatusFilterForm(initial={'articleType':'all'})
+        context_data['article_filter_form'] = UserArticleStatusFilterForm(initial={'articleType':'published'})
         return context_data
 
     def get_request_articles_status(self):
