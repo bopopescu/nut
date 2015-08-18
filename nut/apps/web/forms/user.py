@@ -169,10 +169,9 @@ class UserArticleStatusFilterForm(forms.Form):
     articleType = forms.ChoiceField(widget=forms.RadioSelect, choices=ArticleStatusChoice, required=False)
     def get_cleaned_article_status(self):
         if not self.is_valid():
-            articleType = 'published'
+            articleType = 'selected'
         else:
-            articleType = self.cleaned_data.get('articleType','published')
-
+            articleType = self.cleaned_data.get('articleType','selected')
         return articleType
 
 
