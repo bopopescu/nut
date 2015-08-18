@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 
 from django.core.cache import cache
@@ -180,7 +181,7 @@ class EntityURLFrom(forms.Form):
                 _data = {
                     'entity_id': buy_link.entity.id,
                 }
-            except Buy_Link.DoesNotExist, e:
+            except (Buy_Link.DoesNotExist, ObjectDoesNotExist), e:
                 _data = {
                     'user_id': self.request.user.id,
                     'user_avatar': self.request.user.profile.avatar_url,
@@ -191,6 +192,7 @@ class EntityURLFrom(forms.Form):
                     'chief_image_url': a.images[0],
                     'thumb_images': a.images,
                     'price': a.price,
+                    'foreign_price': a.foreign_price,
                     'cid': a.cid,
                     'brand': a.brand,
                     'shop_link': a.shop_link,

@@ -71,7 +71,7 @@ class AmazonSpider(scrapy.Spider):
         if len(price_xpath) == 0:
             return 0, 0
         else:
-            price = price_xpath[0][1:]
+            price = price_xpath[0].strip()[1:]
             print self.currency_code, price_xpath[0][:1]
             if self.currency_code == 'USD' and price_xpath[0][:1] == '$':
                 price = float(price)

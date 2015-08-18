@@ -2,12 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import redis
-import urllib2
-import json
 from spider import settings
 
-r = redis.Redis(host=settings.redis_host,
-                port=settings.redis_port)
+r = redis.Redis(host=settings.config_redis_host,
+                port=settings.config_redis_port,
+                db=settings.config_redis_db)
 
 
 def currency_converting(convert_from, amount):
@@ -26,7 +25,7 @@ def currency_converting(convert_from, amount):
     if type(amount) != 'float' or type(amount) != 'int':
         amount = float(amount)
     rate = get_rate(convert_from)
-    return amount*rate
+    return round(amount*rate, 2)
 
 
 def get_rate(convert_from):
@@ -38,4 +37,4 @@ def get_rate(convert_from):
         Decimal.
     """
     redis_key = 'currency.exchange.%s.CNY' % convert_from
-    return round(float(r.get(redis_key)), 2)
+    return float(r.get(redis_key))

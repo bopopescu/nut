@@ -287,7 +287,6 @@ def remove_buy_link(request, bid):
 @login_required
 @staff_only
 def check_buy_link(request, bid):
-    # Todo(judy): add amazon here.
     try:
         b = Buy_Link.objects.get(pk=bid)
     except Buy_Link.DoesNotExist:
