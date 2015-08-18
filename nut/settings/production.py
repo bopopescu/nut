@@ -52,8 +52,20 @@ DEFAULT_CHARSET = "UTF-8"
 # SESSION_ENGINE = 'django.contrib.sessions.backends.file'
 # SESSION_FILE_PATH = '/tmp/django'
 
+CACHES.update(
+    {
+        "session": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": "redis://10.0.2.95:6379/5",
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            }
+        }
+    }
+)
+
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-SESSION_CACHE_ALIAS = "default"
+SESSION_CACHE_ALIAS = "session"
 
 MOGILEFS_DOMAIN = 'prod'
 MOGILEFS_TRACKERS = ['10.0.2.50:7001']

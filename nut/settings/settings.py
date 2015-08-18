@@ -120,7 +120,7 @@ CACHES = {
             "CONNECTION_POOL_KWARGS": {"max_connections": 1024},
             "PARSER_CLASS": "redis.connection.HiredisParser",
         }
-    }
+    },
 }
 
 # Internationalization
