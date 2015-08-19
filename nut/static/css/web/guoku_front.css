@@ -1287,6 +1287,43 @@ body {
 #guoku_footer a {
   color: #9d9e9f;
 }
+#guoku_footer .footer-part {
+  margin-top: 40px;
+}
+#guoku_footer .footer-part .list-wrapper {
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  font-size: 13px;
+  float: left;
+}
+#guoku_footer .footer-part .list-wrapper ul {
+  padding: 0;
+  margin: 0;
+}
+#guoku_footer .footer-part .list-wrapper li {
+  font-size: 13px;
+  border-right: 1px solid #9d9e9f;
+  padding: 0 10px;
+  display: inline-block;
+}
+#guoku_footer .footer-part .list-wrapper li:last-child {
+  border-right: none;
+}
+#guoku_footer .footer-part .qr-wrapper {
+  float: right;
+}
+#guoku_footer .footer-part .qr-wrapper img {
+  display: block;
+  margin: 0 auto;
+}
+#guoku_footer .footer-part .qr-wrapper .qr-text {
+  font-size: 13px;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
 #guoku_footer .footer-columns {
   max-width: 400px;
   margin-left: 10px;
@@ -1326,7 +1363,6 @@ body {
 #guoku_footer .footer-content .main-logo {
   display: block;
   margin: 0 auto;
-  margin-top: 25px;
 }
 #guoku_footer .footer-content .word-logo {
   display: block;
@@ -1351,7 +1387,7 @@ body {
   line-height: 1.2;
 }
 #guoku_footer .footer-bottom {
-  padding-top: 40px;
+  padding: 40px 10px 10px 10px;
 }
 #guoku_footer .footer-bottom .footer-bottom-left ul {
   list-style: none;
@@ -1363,15 +1399,15 @@ body {
   margin-right: 10px;
 }
 #guoku_footer .footer-bottom .footer-bottom-right {
+  margin-bottom: 10px;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li {
   float: right;
-}
-#guoku_footer .footer-bottom .footer-bottom-right ul {
-  list-style: none;
-}
-#guoku_footer .footer-bottom .footer-bottom-right ul li {
-  font-size: 13px;
   margin-left: 10px;
-  float: right;
+  position: relative;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li img {
+  width: 28px;
 }
 .guoku-content {
   margin-top: 110px;
@@ -2155,6 +2191,17 @@ body {
   #guoku_main_nav .main-list li a:hover,
   #guoku_main_nav .main-list li a:focus {
     color: #424242;
+  }
+  #guoku_footer .footer-part .list-wrapper {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  #guoku_footer .footer-part .list-wrapper ul {
+    display: inline-block;
+  }
+  #guoku_footer .footer-part .qr-wrapper {
+    float: none!important;
+    margin: 0 auto ;
   }
   #guoku_footer .footer-columns {
     width: 120px ;
