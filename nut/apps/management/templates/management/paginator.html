@@ -1,5 +1,5 @@
    <div class="row">
-        <ul class="pagination pagination-lg">
+        <ul class="pagination pagination-lg inline">
             {% if status %}
                 {% if objects.has_previous %}
                     <li><a href="{{ url }}?status={{ status }}&page={{ objects.previous_page_number }}">&laquo;</a></li>

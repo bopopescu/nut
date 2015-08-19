@@ -31,12 +31,9 @@
             <canvas id="likeChart"  width="767" height="400"></canvas>
         </div>
     </div>
-{#    <h2 class="sub-header">{% trans 'selection' %}</h2>#}
-
-{#    {% include "management/entities/table.html" with entities=selection_entities %}#}
 
 {% endblock %}
 
-{% block js %}
+{% block user_script %}
     <script src="{% static 'thirdparty/chart/chart.min.js' %}"></script>
 {% endblock %}
