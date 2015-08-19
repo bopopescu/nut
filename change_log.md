@@ -11,6 +11,10 @@ Change Log
 3. 增加店铺链接
 4. 优化搜索结果
 
+```
+ALTER TABLE `core`.`core_buy_link` ADD COLUMN `foreign_price` DECIMAL(20,2) NULL COMMENT '' AFTER `seller`;
+```
+
 
 ### Ver 4.3
 1. 后台图文编辑增加标签 

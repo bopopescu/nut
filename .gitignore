@@ -68,3 +68,6 @@ nut/images/
 
 *.sqlite3
 spider/log.txt
+log.txt
+*.rdb
+*.swp
