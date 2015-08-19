@@ -1343,10 +1343,6 @@ body {
   text-align: center;
   margin-top: 20px;
 }
-#guoku_footer .footer-columns {
-  max-width: 400px;
-  margin-left: 10px;
-}
 #guoku_footer .footer-buttons {
   max-width: 400px;
   min-width: 204px;
@@ -1387,23 +1383,6 @@ body {
   display: block;
   margin: 0 auto;
   margin-top: 20px;
-}
-#guoku_footer .column-header {
-  margin-top: 20px;
-  font-size: 13px;
-  color: #9d9e9f;
-  font-weight: 600;
-}
-#guoku_footer .column-content ul {
-  padding-left: 0px;
-  padding-top: 10px;
-  list-style: none;
-}
-#guoku_footer .column-content li {
-  font-size: 13px;
-  margin: 0px 0px 5px 0px;
-  color: #9d9e9f;
-  line-height: 1.2;
 }
 #guoku_footer .footer-bottom {
   padding: 40px 10px 10px 10px;
