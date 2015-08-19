@@ -1328,7 +1328,7 @@ body {
 }
 #guoku_footer .footer-part .list-wrapper li.list-title {
   border-right: none;
-  padding: 0;
+  padding-right: 0;
 }
 #guoku_footer .footer-part .qr-wrapper {
   float: right;
