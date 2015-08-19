@@ -352,6 +352,17 @@
   #guoku_main_nav .main-list li a:focus {
     color: #424242;
   }
+  #guoku_footer .footer-part .list-wrapper {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  #guoku_footer .footer-part .list-wrapper ul {
+    display: inline-block;
+  }
+  #guoku_footer .footer-part .qr-wrapper {
+    float: none!important;
+    margin: 0 auto ;
+  }
   #guoku_footer .footer-columns {
     width: 120px ;
     margin: 0 auto ;

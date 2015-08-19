@@ -3,64 +3,94 @@
 <footer class="footer" id="guoku_footer">
         <div class="container">
             <div class="row footer-main">
-                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 footer-part logo-wrapper">
                     <div class="footer-content">
-                        <img class="main-logo" src="{% static 'images/logo_bottom.png' %}"/>
-                        <img class="word-logo" src="{% static 'images/word.png' %}" />
+                        <img class="main-logo" src="{% static 'images/footer/logo.png' %}" width="69px"/>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <div class="container-fluid footer-columns">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-4">
-                                 <div class="footer-content column-header">
-                                        About | 关于
-                                </div>
-                                <div class="column-content">
-                                    <ul >
-                                        <li><a href="{% url 'web_about' %}" target="_blank">关于果库</a></li>
-                                        <li><a href="{% url 'web_faq' %}" target="_blank">常见问题</a></li>
-                                        <li><a href="{% url 'web_jobs' %}" target="_blank">工作机会</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-4">
-                                  <div class="footer-content column-header">
-                                    Contact | 联系
-                                  </div>
-                                  <div class="column-content">
-                                        <ul>
-                                            <li><a href="mailto:hi@guoku.com">邮箱</a></li>
-                                            <li><a href="mailto:hi@guoku.com">意见反馈</a></li>
-                                        </ul>
-                                    </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-4">
-                                <div class="footer-content column-header">
-                                    Follow | 关注
-                                </div>
-                                <div class="column-content">
-                                    <ul>
-                                        <li><a href="http://www.weibo.com/guoku" target="_blank">新浪微博</a></li>
-                                        <li><a href="#">微信订阅</a></li>
-                                        <li><a href="http://site.douban.com/130280/" target="_blank">豆瓣小站</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                    <div class="footer-buttons">
-                        <ul><li>
-                                <a href="http://www.weibo.com/guoku" target="_blank">
-                                    <i class="fa fa-weibo"></i>
-                                </a>
-                            </li>
-{#                            <li><i class="fa fa-wechat"></i></li>#}
-{#                            <li><i class="fa fa-qq"></i></li>#}
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 footer-part">
+                    <div class="list-wrapper">
+                        <ul>
+                            <li>关于果库</li>
+                            <li>工作机会</li>
+                            <li>常见问题</li>
+                            <li>协议</li>
+                            <li>客户端下载</li>
                         </ul>
                     </div>
+                    <div class="list-wrapper">
+                        <ul>
+                            <li>意见反馈 : Hi@guoku.com</li>
+                        </ul>
+                    </div>
+                    <div class="list-wrapper">
+
+                        <ul>
+                            <li class="list-title">友情链接 ：</li>
+                            <li>理想生活实验室</li>
+                            <li>想去</li>
+                            <li>素铺</li>
+                            <li>稀品网</li>
+                            <li>我爱搜罗网</li>
+                            <li>奶酪</li>
+                        </ul>
+                    </div>
+{#                    <div class="container-fluid footer-columns">#}
+{#                        <div class="row">#}
+{#                            <div class="col-xs-12 col-sm-4">#}
+{#                                 <div class="footer-content column-header">#}
+{#                                        About | 关于#}
+{#                                </div>#}
+{#                                <div class="column-content">#}
+{#                                    <ul >#}
+{#                                        <li><a href="{% url 'web_about' %}" target="_blank">关于果库</a></li>#}
+{#                                        <li><a href="{% url 'web_faq' %}" target="_blank">常见问题</a></li>#}
+{#                                        <li><a href="{% url 'web_jobs' %}" target="_blank">工作机会</a></li>#}
+{#                                    </ul>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="col-xs-12 col-sm-4">#}
+{#                                  <div class="footer-content column-header">#}
+{#                                    Contact | 联系#}
+{#                                  </div>#}
+{#                                  <div class="column-content">#}
+{#                                        <ul>#}
+{#                                            <li><a href="mailto:hi@guoku.com">邮箱</a></li>#}
+{#                                            <li><a href="mailto:hi@guoku.com">意见反馈</a></li>#}
+{#                                        </ul>#}
+{#                                    </div>#}
+{#                            </div>#}
+{#                            <div class="col-xs-12 col-sm-4">#}
+{#                                <div class="footer-content column-header">#}
+{#                                    Follow | 关注#}
+{#                                </div>#}
+{#                                <div class="column-content">#}
+{#                                    <ul>#}
+{#                                        <li><a href="http://www.weibo.com/guoku" target="_blank">新浪微博</a></li>#}
+{#                                        <li><a href="#">微信订阅</a></li>#}
+{#                                        <li><a href="http://site.douban.com/130280/" target="_blank">豆瓣小站</a></li>#}
+{#                                    </ul>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 footer-part">
+                     <div class="qr-wrapper">
+                         <img src="{%  static 'images/footer/QR-code.jpg' %}" width="80px">
+                         <div class="qr-text">扫描关注微信公众平台</div>
+                     </div>
+
+{#                    <div class="footer-buttons">#}
+{#                        <ul><li>#}
+{#                                <a href="http://www.weibo.com/guoku" target="_blank">#}
+{#                                    <i class="fa fa-weibo"></i>#}
+{#                                </a>#}
+{#                            </li>#}
+{#                            <li><i class="fa fa-wechat"></i></li>#}
+{#                            <li><i class="fa fa-qq"></i></li>#}
+{#                        </ul>#}
+{#                    </div>#}
                 </div>
             </div>
             <div class="row footer-bottom">
@@ -72,10 +102,12 @@
                     </ul>
                 </div>
                 <div class="footer-bottom-right">
-                    <ul>
-                        <li><a href="{% url 'web_agreement' %}" target="_blank">用户协议</a></li>
-                        <li><a href="{% url 'web_download' %}" target="_blank">果库APP</a></li>
-                        <li><a href="{% url 'web_links' %}" target="_blank" >友情链接</a></li>
+                    <ul class="logo-list">
+                        <li><img src="{% static 'images/footer/sina.png' %}"></li>
+                        <li><img src="{% static 'images/footer/douban.png' %}"></li>
+                        <li><img src="{% static 'images/footer/twitter.png' %}"></li>
+                        <li><img src="{% static 'images/footer/facebook.png' %}"></li>
+                        <li><img src="{% static 'images/footer/instagram.png' %}"></li>
                     </ul>
                 </div>
             </div>
