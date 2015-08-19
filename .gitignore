@@ -63,3 +63,7 @@ nut/settings/
 node_modules
 nut/images/
 
+log.txt
+*.sqlite3
+*.rdb
+*.swp

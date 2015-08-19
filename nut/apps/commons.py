@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 import redis
 import requests
 import os
 import sys
 import settings.dev_judy as settings
-
-__author__ = 'judy'
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
@@ -16,8 +15,10 @@ r = redis.Redis(host=settings.config_redis_host,
                 port=settings.config_redis_port,
                 db=settings.config_redis_db)
 
+CURRENCY_KEY_FORMAT = 'currency.exchange.%s.CNY'
 
-def update_rate():
+
+def update_rate(convert_from_list, convert_to='CNY'):
     """ Update exchange rates.
 
     Request Fixer.io to get the newest exchange rate.
@@ -29,17 +30,15 @@ def update_rate():
     Args: None
     Returns: None
     """
-    convert_to = 'CNY'
-    convert_from = 'USD, JPY'  # add new symbol with ','
+    for convert_from in convert_from_list:
+        params = {'base': convert_from,
+                  'symbols': convert_to}
+        response = requests.get('http://api.fixer.io/latest', params=params)
+        rate_info = response.json()
 
-    params = {'base': convert_from,
-              'symbols': convert_to}
-    response = requests.get('http://api.fixer.io/latest', params=params)
-    rate_info = response.json()
-
-    symbol = 'currency.exchange.%s.%s' % (convert_from, convert_to)
-    rate = rate_info['rates'][convert_to]
-    r.set(symbol, rate)
+        symbol = 'currency.exchange.%s.%s' % (convert_from, convert_to)
+        rate = rate_info['rates'][convert_to]
+        r.set(symbol, rate)
 
 
 def get_rate(convert_from):
@@ -50,8 +49,12 @@ def get_rate(convert_from):
     Returns:
         Decimal.
     """
-    redis_key = 'currency.exchange.%s.CNY' % convert_from
-    return round(float(r.get(redis_key)), 2)
+    redis_key = CURRENCY_KEY_FORMAT % convert_from
+    exchange_rate = r.get(redis_key)
+    try:
+        return float(exchange_rate)
+    except ValueError:
+        pass
 
 
 def currency_converting(convert_from, amount):
