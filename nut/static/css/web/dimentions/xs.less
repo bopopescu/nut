@@ -51,18 +51,21 @@
     }
 
     #guoku_footer{
-      .footer-columns{
-         width: 120px ;
-         margin: 0 auto ;
-         .column-header{
-           text-align:center;
-         }
-         .column-content{
-           li{
-             text-align:center;
+      .footer-part{
+        .list-wrapper{
+           text-align: center;
+           margin-bottom:20px;
+
+           ul{
+             display:inline-block;
            }
-         }
+        }
+        .qr-wrapper{
+          float:none!important;
+          margin:0 auto ;
+        }
       }
+
       .footer-buttons{
          display:none;
          width: 204px;
@@ -77,12 +80,13 @@
         .footer-bottom-left, .footer-bottom-right{
              float:none;
              margin:0 auto;
+             padding-top:20px;
         }
         .footer-bottom-left{
-          width: 400px;
+          text-align: center;
         }
         .footer-bottom-right{
-          width: 200px;
+          text-align:center;
         }
       }
     }

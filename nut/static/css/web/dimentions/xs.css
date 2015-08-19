@@ -352,15 +352,16 @@
   #guoku_main_nav .main-list li a:focus {
     color: #424242;
   }
-  #guoku_footer .footer-columns {
-    width: 120px ;
+  #guoku_footer .footer-part .list-wrapper {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  #guoku_footer .footer-part .list-wrapper ul {
+    display: inline-block;
+  }
+  #guoku_footer .footer-part .qr-wrapper {
+    float: none!important;
     margin: 0 auto ;
-  }
-  #guoku_footer .footer-columns .column-header {
-    text-align: center;
-  }
-  #guoku_footer .footer-columns .column-content li {
-    text-align: center;
   }
   #guoku_footer .footer-buttons {
     display: none;
@@ -376,12 +377,13 @@
   #guoku_footer .footer-bottom .footer-bottom-right {
     float: none;
     margin: 0 auto;
+    padding-top: 20px;
   }
   #guoku_footer .footer-bottom .footer-bottom-left {
-    width: 400px;
+    text-align: center;
   }
   #guoku_footer .footer-bottom .footer-bottom-right {
-    width: 200px;
+    text-align: center;
   }
   .guoku-content.user-page .user-info .user-nick-block {
     margin: 0 auto ;
