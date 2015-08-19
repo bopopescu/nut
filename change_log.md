@@ -4,6 +4,10 @@ Change Log
 1. v4 增加 discover 
 2. solr 替换 sphinx 搜索引擎
 
+```
+ALTER TABLE `core`.`core_buy_link` ADD COLUMN `foreign_price` DECIMAL(20,2) NULL COMMENT '' AFTER `seller`;
+```
+
 
 ### Ver 4.3
 1. 后台图文编辑增加标签 
