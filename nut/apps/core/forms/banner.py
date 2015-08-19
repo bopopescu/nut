@@ -138,7 +138,7 @@ class EditBannerForm(BaseBannerForm):
         banner_image = self.cleaned_data.get('banner_image')
         position = self.clean_position()
         content_type = self.cleaned_data.get('content_type')
-        key = self.cleaned_date.get('key')
+        key = self.cleaned_data.get('key')
 
         self.banner.key = key
         self.banner.content_type = content_type
