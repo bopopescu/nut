@@ -322,12 +322,6 @@
   width: 0;
   z-index: 1;
 }
-body {
-  padding-top: 100px;
-  color: #424242;
-  background-color: #ffffff;
-  -webkit-font-smoothing: subpixel-antialiased;
-}
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
   padding: 0px;

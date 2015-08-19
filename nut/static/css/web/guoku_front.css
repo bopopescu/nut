@@ -1124,9 +1124,13 @@ textarea {
   color: #fff;
 }
 body {
+  padding-top: 100px;
+  color: #424242;
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
+  background-color: #ffffff;
+  -webkit-font-smoothing: subpixel-antialiased;
 }
 .body-gray {
   background-color: #f8f8f8;
