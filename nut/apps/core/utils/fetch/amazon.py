@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 
-from apps.core.utils.fetch.spider import Spider
 from urlparse import urljoin
 from hashlib import md5
 import re
 
+from apps.core.utils.fetch.spider import Spider
+from apps.commons import currency_converting
+
 
 class Amazon(Spider):
-
     def __init__(self, url):
+        self.high_resolution_pattern = re.compile('hiRes"[\s]*:[\s]*"([^";]+)')
+        self.foreign_price = None
         super(Amazon, self).__init__(url)
 
     @property
@@ -39,8 +42,9 @@ class Amazon(Spider):
 
     @property
     def cid(self):
-        cate = self.soup.select("#wayfinding-breadcrumbs_feature_div .a-link-normal")
-        # print cate
+        cate = self.soup.select(
+            "#wayfinding-breadcrumbs_feature_div .a-link-normal")
+        # print '>>> cate: ',  cate
         if len(cate) > 0:
             href = cate[0].attrs.get('href')
             return href.split('=')[-1]
@@ -54,7 +58,7 @@ class Amazon(Spider):
             # print pricetag[0].string.split('-')
             price = pricetag[0]
             try:
-                f_price =  float(price.string[1:].replace(',', ''))
+                f_price = float(price.string[1:].replace(',', ''))
             except UnicodeEncodeError:
                 price = pricetag[0].string.split('-')[0]
                 f_price = float(price[1:].replace(',', ''))
@@ -63,20 +67,25 @@ class Amazon(Spider):
         if len(pricetag) > 0:
             price = pricetag[0]
             # print price
-            f_price =  float(price.string[1:].replace(',', ''))
+            f_price = float(price.string[1:].replace(',', ''))
 
         pricetag = self.soup.select("#soldByThirdParty span")
         if len(pricetag) > 0:
             price = pricetag[0].string
             price = price.strip()
-            f_price =  float(price[1:].replace(',', ''))
+            f_price = float(price[1:].replace(',', ''))
 
-        if 'amazon.co.jp' in self.hostname:
-            f_price = f_price / 20.
-
+        if not self.hostname.endswith('.cn'):
+            cny_price = 0
+            self.foreign_price = f_price
+            if self.hostname.endswith('.com'):
+                cny_price = currency_converting('USD', f_price)
+            elif self.hostname.endswith('.jp'):
+                cny_price = currency_converting('JPY', f_price)
+            return cny_price
         return f_price
-        # pricetage = self.soup.select("#paperback_meta_binding_winner")
-        # print pricetag
+            # pricetage = self.soup.select("#paperback_meta_binding_winner")
+            # print pricetag
 
     @property
     def url(self):
@@ -91,6 +100,15 @@ class Amazon(Spider):
 
     @property
     def images(self):
+        images = []
+        image_js = self.soup.select("div#imageBlock_feature_div")
+        if image_js:
+            images = self.high_resolution_pattern.findall(image_js[0].text)
+        else:
+            images = self.get_medium_images()
+        return images
+
+    def get_medium_images(self):
         images = list()
         optimages = self.soup.select("#altImages ul .a-list-item span img")
         # return opt
@@ -100,7 +118,7 @@ class Amazon(Spider):
                 if len(img_link) == 0:
                     continue
                 array = img_link.split('_')
-                res =  "%s%s" % (array[0], array[-1])
+                res = "%s%s" % (array[0], array[-1])
                 images.append(res.replace('..', '.'))
             return images
 
@@ -111,7 +129,7 @@ class Amazon(Spider):
                 if len(img_link) == 0:
                     continue
                 array = img_link.split('_')
-                res =  "%s%s" % (array[0], array[-1])
+                res = "%s%s" % (array[0], array[-1])
                 images.append(res.replace('..', '.'))
             return images
 
@@ -120,27 +138,34 @@ class Amazon(Spider):
             for row in optimages:
                 img_link = row.attrs.get('src')
                 array = img_link.split('_')
-                res =  "%s%s" % (array[0], array[-1])
+                res = "%s%s" % (array[0], array[-1])
                 images.append(res.replace('..', '.'))
             return images
 
-        # amazon jp
-        # optimages = self.soup.select("#altImages .a-spacing-small ")
-        # print optimages
+            # amazon jp
+            # optimages = self.soup.select("#altImages .a-spacing-small ")
+            # print optimages
 
 
     @property
     def brand(self):
         optbrands = self.soup.select('#brandByline_feature_div div a')
-        try:
-            brand = optbrands[0].string
-            return brand
-        except IndexError:
-            return ''
+        if optbrands:
+            try:
+                brand = optbrands[0].string
+                return brand
+            except IndexError:
+                return ''
+        else:
+            another_try = self.soup.select("a#brand")
+            if another_try:
+                return another_try[0]
 
-if __name__=="__main__":
 
-    a = Amazon("http://www.amazon.co.jp/%E3%83%95%E3%82%A3%E3%83%AA%E3%83%83%E3%83%97%E3%82%B9-%E5%85%89%E7%BE%8E%E5%AE%B9%E5%99%A8-%E3%82%A8%E3%83%83%E3%82%BB%E3%83%B3%E3%82%B7%E3%83%A3%E3%83%AB-SC1991-00/dp/B00SB014CE")
+if __name__ == "__main__":
+    # a = Amazon("http://www.amazon.co.jp/%E3%83%95%E3%82%A3%E3%83%AA%E3%83%83%E3%83%97%E3%82%B9-%E5%85%89%E7%BE%8E%E5%AE%B9%E5%99%A8-%E3%82%A8%E3%83%83%E3%82%BB%E3%83%B3%E3%82%B7%E3%83%A3%E3%83%AB-SC1991-00/dp/B00SB014CE")
+    a = Amazon(
+        "http://www.amazon.cn/Borghese%E8%B4%9D%E4%BD%B3%E6%96%AF%E6%B4%BB%E5%8A%9B%E4%BA%AE%E9%87%87%E7%BE%8E%E8%82%A4%E6%B3%A5%E6%B5%86%E9%9D%A2%E8%86%9C430ml/dp/B00554AJ02")
     print a.hostname
     print a.url
     print a.price

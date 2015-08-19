@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 
 from django.core.cache import cache
@@ -72,7 +73,7 @@ class EntityURLFrom(forms.Form):
         # log.info(_hostname)
         _data = {'link_support':False}
 
-        if re.search(r"\b(jd|360buy)\.com$", _hostname) != None:
+        if re.search(r"\b(jd|360buy)\.com$", _hostname) is not None:
             _data['link_support'] = True
             origin_id = parse_jd_id_from_url(_link)
             # log.info(_jd_id)
@@ -173,24 +174,25 @@ class EntityURLFrom(forms.Form):
                 })
                 return _data
 
-        if re.search(r"\b(amazon)\.(cn|com)$", _hostname) != None:
+        if re.search(r"\b(amazon)\.(cn|com)$", _hostname) is not None:
             a = Amazon(_link)
             try:
                 buy_link = Buy_Link.objects.get(origin_id=a.origin_id, origin_source=a.hostname)
                 _data = {
                     'entity_id': buy_link.entity.id,
                 }
-            except Buy_Link.DoesNotExist, e:
+            except (Buy_Link.DoesNotExist, ObjectDoesNotExist), e:
                 _data = {
                     'user_id': self.request.user.id,
                     'user_avatar': self.request.user.profile.avatar_url,
-                    'cand_url':a.url,
+                    'cand_url': a.url,
                     'origin_id': a.origin_id,
-                    'origin_source':a.hostname,
+                    'origin_source': a.hostname,
                     'title': a.desc,
-                    'chief_image_url' : a.images[0],
+                    'chief_image_url': a.images[0],
                     'thumb_images': a.images,
                     'price': a.price,
+                    'foreign_price': a.foreign_price,
                     'cid': a.cid,
                     'brand': a.brand,
                     'shop_link': a.shop_link,
