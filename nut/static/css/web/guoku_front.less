@@ -7,9 +7,13 @@
 
 
 body{
+  padding-top: 100px;
+  color: @common-text-color;
   font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
   font-size: @primary-size;
   line-height: 1.5;
+   background-color: @default-background;
+  -webkit-font-smoothing:subpixel-antialiased;
   //.transition(all 1s);
 }
 
@@ -162,16 +166,66 @@ body{
   margin-top: 40px;
   background: @foot-bg-color;
   color: @common-gray;
-  a {
+  a,a:hover,a:focus,a:active{
     color: @common-gray;
+    text-decoration: none;
   }
 
-  // SOME LAYOUT
-  .footer-columns{
-    max-width: 400px;
-    margin-left: 10px;
+  li{
+    span, a{
+      opacity:0.6;
+    }
+    &.feed-back-text{
+      span,a{
+        opacity: 1;
+      }
+    }
+  }
+  a:hover{
+    opacity: 1;
   }
 
+  .footer-part{
+    margin-top:40px;
+    &.logo-wrapper{
+    }
+    .list-wrapper{
+      width:100%;
+      display:block;
+      margin: 0 auto;
+      margin-bottom:10px;
+      font-size:@mini-size;
+      float:left;
+      ul{padding:0;margin:0;}
+      li{
+        font-size:@mini-size;
+        border-right:1px solid @common-text-color;
+        padding:0 10px;
+        display:inline-block;
+
+        &:last-child{
+          border-right: none;
+        }
+        &.list-title{
+          border-right:none;
+          padding-right:0;
+        }
+      }
+    }
+    .qr-wrapper{
+      float:right;
+      img{
+        display: block;
+        margin: 0 auto;
+      }
+      .qr-text{
+        font-size:@mini-size;
+        width:100%;
+        text-align: center;
+        margin-top:20px;
+      }
+    }
+  }
   .footer-buttons{
     max-width: 400px;
     min-width: 204px;
@@ -205,7 +259,6 @@ body{
     .main-logo{
       display: block;
       margin: 0 auto;
-      margin-top:25px;
     }
     .word-logo{
       display: block;
@@ -213,48 +266,33 @@ body{
       margin-top: 20px;
     }
   }
-  //  MIDDLE COLUMN
-  .column-header{
-    margin-top: 20px;
-    font-size: @mini-size;
-    color: @common-gray;
-    font-weight: 600;
-  }
-  .column-content{
-    ul{
-      padding-left: 0px;
-      padding-top: 10px;
-      list-style: none;
-    }
-    li{
-      font-size: @mini-size;
-      margin: 0px 0px 5px 0px;
-      color: @common-gray;
-      line-height: 1.2;
-    }
-  }
-  // THE VERY BOTTOM CONTENTS
+
+
   .footer-bottom{
-    padding-top: 40px;
+    padding:40px 10px 10px 10px;
     .footer-bottom-left{
+      float:left;
       ul{
         list-style: none;
         li{
-          float: left;
           font-size: @mini-size;
           color: @common-gray;
           margin-right: 10px;
+          display:inline-block;
         }
       }
     }
     .footer-bottom-right{
-      float : right;
-      ul{
-        list-style: none;
+      margin-bottom:10px;
+      float:right;
+      .logo-list{
         li{
-          font-size: @mini-size;
-          margin-left: 10px;
-          float: right;
+          margin-left:10px;
+          position:relative;
+          display:inline-block;
+          img{
+             width:28px;
+          }
         }
       }
     }
@@ -1090,6 +1128,6 @@ body{
 
 
 .test{
-  color: black;
+  color: red;
 }
 

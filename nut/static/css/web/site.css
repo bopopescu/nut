@@ -322,12 +322,6 @@
   width: 0;
   z-index: 1;
 }
-body {
-  padding-top: 100px;
-  color: #424242;
-  background-color: #ffffff;
-  -webkit-font-smoothing: subpixel-antialiased;
-}
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
   padding: 0px;
@@ -815,15 +809,6 @@ body {
   color: #333333!important;
 }
 /*for detail button */
-.round_button {
-  width: 100%;
-  height: 42px;
-  border-radius: 8px;
-  line-height: 42px;
-  text-align: center;
-  background: #F7F7F7;
-  border: 0px;
-}
 /*for static content*/
 .main_static {
   margin-top: 110px;
@@ -1663,6 +1648,6 @@ a:hover {
   margin-bottom: 10px;
 }
 .test {
-  color: red;
+  color: black;
 }
 /*# sourceMappingURL=site.less.css.map */
