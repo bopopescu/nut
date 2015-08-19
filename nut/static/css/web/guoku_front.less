@@ -162,8 +162,23 @@ body{
   margin-top: 40px;
   background: @foot-bg-color;
   color: @common-gray;
-  a {
+  a,a:hover,a:focus,a:active{
     color: @common-gray;
+    text-decoration: none;
+  }
+
+  li{
+    span, a{
+      opacity:0.6;
+    }
+    &.feed-back-text{
+      span,a{
+        opacity: 1;
+      }
+    }
+  }
+  a:hover{
+    opacity: 1;
   }
 
   .footer-part{
@@ -180,12 +195,16 @@ body{
       ul{padding:0;margin:0;}
       li{
         font-size:@mini-size;
-        border-right:1px solid @common-gray;
+        border-right:1px solid @common-text-color;
         padding:0 10px;
         display:inline-block;
 
         &:last-child{
           border-right: none;
+        }
+        &.list-title{
+          border-right:none;
+          padding:0;
         }
       }
     }
@@ -274,23 +293,25 @@ body{
   .footer-bottom{
     padding:40px 10px 10px 10px;
     .footer-bottom-left{
+      float:left;
       ul{
         list-style: none;
         li{
-          float: left;
           font-size: @mini-size;
           color: @common-gray;
           margin-right: 10px;
+          display:inline-block;
         }
       }
     }
     .footer-bottom-right{
       margin-bottom:10px;
+      float:right;
       .logo-list{
         li{
-          float:right;
           margin-left:10px;
           position:relative;
+          display:inline-block;
           img{
              width:28px;
           }
