@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from apps.commons import update_rate
 
 __author__ = 'judy'
 
@@ -32,6 +33,7 @@ links = Buy_Link.objects.filter(origin_source__in=('www.amazon.com',
     status=Buy_Link.remove).order_by('-id')
 
 
+update_rate(['USD', 'JPY'])
 for row in links:
     print row.origin_id, crawl(item_id=row.origin_id, domain=row.origin_source)
     time.sleep(5)
