@@ -34,6 +34,20 @@
                                 <a href="#" class="btn btn-danger" id="btn_batch_selection_remove" batch_url="{% url 'management_batch_selection_remove' %}">批量移出发布</a>
                             {% endif %}
                         </div>
+
+                        <ul class="nav nav-pills" role="tablist">
+                            <li {% if management_selection_published_url in request.path %}class="active"{% endif %}>
+                                <a href="{{ management_selection_published_url }}">{% trans 'published' %}</a>
+                            </li>
+
+                            <li {% if management_selection_pending_url in request.path %}class="active"{% endif %}>
+                                <a href="{{ management_selection_pending_url }}">{% trans 'pending' %}&nbsp;({{ pending_count }})</a>
+                            </li>
+
+                            <li {% if management_selection_popular_url in request.path %}class="active"{% endif %}>
+                                <a href="{{ management_selection_popular_url }}">{% trans 'popular' %}</a>
+                            </li>
+                        </ul>
                     </div>
 
                     <div class="box-body table-responsive">
