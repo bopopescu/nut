@@ -66,4 +66,11 @@ node_modules
 nut/images/
 
 nut/db.sqlite3
+# spider 
 spider/log.txt
+spider/dbs/*
+
+log.txt
+*.sqlite3
+*.rdb
+*.swp
