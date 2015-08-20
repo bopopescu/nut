@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
+from urllib import unquote
 
 import urllib2
 import cookielib
-from bs4 import BeautifulSoup
 import re
-# from urlparse import parse_qs, urlparse
-from urllib import unquote
+
 from hashlib import md5
+from bs4 import BeautifulSoup
+# from urlparse import parse_qs, urlparse
 from django.core.cache import cache
-
 from django.utils.log import getLogger
-
 from tmall import get_tmall_item_price
-
 
 IMG_POSTFIX = "_\d+x\d+.*\.jpg|_b\.jpg"
 log = getLogger('django')
@@ -21,6 +19,8 @@ log = getLogger('django')
 class TaoBao():
     cookie = cookielib.CookieJar()
     opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))
+    opener.addheaders.append(('User-agent',
+                              'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36'))
     urllib2.install_opener(opener)
     opener.addheaders.append(('Cookie',
                               'cna=I2H3CtFnDlgCAbRP3eN/4Ujy; t=2609558ec16b631c4a25eae0aad3e2dc; w_sec_step=step_login; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0%26__ll%3D-1%26_ato%3D0; '
@@ -29,12 +29,15 @@ class TaoBao():
     def __init__(self, item_id):
         self.item_id = item_id
         self.html = self.fetch_html()
-        self.soup = BeautifulSoup(self.html, from_encoding="gb18030")
+        self.soup = BeautifulSoup(self.html)
         if len(self.soup.findAll("body")) == 0:
             # print "OKOKOKO"
             self.html = self.fetch_html_ny()
             self.soup = BeautifulSoup(self.html)
             # print self.soup
+        f = open("/Users/judy/Desktop/amazon.html", 'wb')
+        f.write(self.html)
+        f.close()
 
     @property
     def headers(self):
@@ -42,10 +45,23 @@ class TaoBao():
 
     @property
     def nick(self):
-        self._nick = self._headers.get('at_nick')
-        if not self._nick:
-            return ""
-        return unquote(self._nick)
+        nick = self.soup.select("a.tb-seller-name")
+        if nick:
+            nick = nick[0].text.strip()
+            self._nick = nick
+            return nick
+        nick = self._headers.get('at_nick')
+        if nick:
+            self._nick = nick
+            return nick.text
+        nick = self.soup.select(".tb-shop-seller a")
+        if nick:
+            self._nick = nick[0].text
+            return nick[0].text
+        try:
+            return unquote(self._nick)
+        except:
+            return ''
 
     @property
     def cid(self):
@@ -66,15 +82,20 @@ class TaoBao():
         ptag = self.get_ptag()
         if ptag:
             pr = ptag[0].string
-            ps = re.findall("\d+\.\d+",pr)
-            return float(ps[0])
+            ps = re.findall("\d+\.\d+", pr or '')
+            if ps:
+                return float(ps[0])
+            else:
+                return 0.0
         else:
-            return  get_tmall_item_price(self.item_id)
+            return get_tmall_item_price(self.item_id)
 
     @property
     def images(self):
         _images = list()
         fimg = self.soup.select("#J_ImgBooth")
+        if not fimg:
+            fimg = self.soup.select("#J_ThumbContent img")
 
         fjpg = fimg[0].attrs.get('data-src')
         if not fjpg:
@@ -91,7 +112,7 @@ class TaoBao():
         for op in optimgs:
             try:
                 optimg = re.sub(IMG_POSTFIX, "", op.attrs.get('src'))
-            except TypeError, e:
+            except TypeError:
                 optimg = re.sub(IMG_POSTFIX, "", op.attrs.get('data-src'))
             if "http" not in optimg:
                 optimg = "http:" + optimg
@@ -103,14 +124,24 @@ class TaoBao():
     @property
     def shoplink(self):
         shopidtag = re.findall('shopId:"(\d+)', self.html)
-
         if len(shopidtag) > 0:
-            shoplink = "http://shop"+shopidtag[0]+".taobao.com"
-            return shoplink
+            return "http://shop" + shopidtag[0] + ".taobao.com"
+        shopidtag = self.soup.select("div.tb-shop-info-ft a")
+        if shopidtag:
+            shop_link = shopidtag[0].attrs.get('href')
+            if shop_link.startswith('//'):
+                shop_link = shop_link[2:]
+            return shop_link
+        shopidtag = tb_shop_name = self.soup.select("div.tb-shop-name a")
+        if shopidtag:
+            return tb_shop_name[0].attrs.get('href')
         return "http://chaoshi.tmall.com/"
 
     def get_ptag(self):
-        ptag = self.soup.select("div.tb-wrap ul li strong em.tb-rmb-num")
+        ptag = self.soup.select("em.tb-rmb-num")
+        if len(ptag) > 0:
+            return ptag
+        ptag = self.soup.select("strong.tb-rmb-num")
         if len(ptag) > 0:
             return ptag
         ptag = self.soup.select("span.originPrice")
@@ -121,9 +152,11 @@ class TaoBao():
 
     def fetch_html(self):
         url = 'http://item.taobao.com/item.htm?id=%s' % self.item_id
+        print url
         key = md5(url).hexdigest()
 
         res = cache.get(key)
+        res = None
         if res:
             self._headers = res['header']
             return res['body']
@@ -137,12 +170,13 @@ class TaoBao():
         self._headers = f.headers
 
         res = f.read()
-        cache.set(key, {'body':res, 'header':self._headers})
+        cache.set(key, {'body': res, 'header': self._headers})
         return res
 
     def fetch_html_ny(self):
         try:
-            f= self.opener.open("http://item.ny.taobao.com/item.htm?id=%s" % self.item_id)
+            f = self.opener.open(
+                "http://item.ny.taobao.com/item.htm?id=%s" % self.item_id)
         except Exception, e:
             log.error(e.message)
             raise
@@ -159,36 +193,45 @@ class TaoBao():
         :return:
         """
         result = {
-			"desc": self.desc,
-			"cid": self.cid,
-			"promprice" : self.price,
+            "desc": self.desc,
+            "cid": self.cid,
+            "promprice": self.price,
             "price": self.price or get_tmall_item_price(self.item_id),
-			# "category" : "",
-			"imgs": self.images,
-			"count": 0,
-			"reviews": 0,
-			"nick": self.nick,
-			"shop_link": self.shoplink,
-			"location": "",
+            # "category" : "",
+            "imgs": self.images,
+            "count": 0,
+            "reviews": 0,
+            "nick": self.nick,
+            "shop_link": self.shoplink,
+            "location": "",
+            "brand": self.brand,
         }
         return result
 
+    @property
+    def brand(self):
+        seller_soup = self.soup.select("ul.attributes-list li")
+        if not seller_soup:
+            seller_soup = self.soup.select("ul#J_AttrUL li")
+        if seller_soup > 0:
+            for brand_li in seller_soup:
+                if brand_li.text.find(u'品牌') >= 0:
+                    return brand_li.text.split(u':')[1].strip()
+        return ''
 
 
-if __name__=="__main__":
-    # t = TaoBao("9960937204")
-    # t = TaoBao("39523724233")
-    # print t.soup.select("img#J_ImgBooth")
-    t = TaoBao("36680889791")
+if __name__ == "__main__":
+    t = TaoBao("15704945571")
     # print t.soup.findAll('body')
-    print t.html
+    # print t.html
     print t.res()
+    print t.brand
     # print t.nick
     # print t.cid
     print t.price
     # print t.desc
     print t.images
-    # print t.shoplink
+    print t.shoplink
 
 
 
