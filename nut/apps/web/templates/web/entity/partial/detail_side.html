@@ -119,18 +119,12 @@
                 {% with sla.article as h_article %}
                     <li class="pop-article">
                         <div class="pop-article-wrapper">
-                            <div class="img-holder">
-                                <a href="{% url 'web_article_page' h_article.pk %}">
-                                    <div class="img-frame" style="background-image:url({{ h_article.cover_url|resize:'270' }})"></div>
-{#                                    <img width="269"  src="{{ h_article.cover|resize:'270' }}"/>#}
-                                </a>
-                            </div>
+
                             <div class="article-content">
 
                                 <div class="article-title">
-                                    <div class="article-list-head">{{ forloop.counter }}</div>
                                     <a href="{% url 'web_article_page' h_article.pk %}">
-                                        {{ h_article.title }}
+                                        {{ h_article.title|truncatechars:32 }}
                                     </a>
                                 </div>
                                 {#                                <div class="article-digest">#}
@@ -139,8 +133,12 @@
                                 {#                                    {% endautoescape %}#}
                                 {#                                </div>#}
                             </div>
-
-
+                             <div class="img-holder">
+                                <a href="{% url 'web_article_page' h_article.pk %}">
+                                    <div class="img-frame" style="background-image:url({{ h_article.cover_url|resize:'100' }})"></div>
+{#                                    <img width="269"  src="{{ h_article.cover|resize:'270' }}"/>#}
+                                </a>
+                            </div>
                         </div>
                     </li>
                 {% endwith %}
