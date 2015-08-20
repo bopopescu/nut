@@ -67,3 +67,6 @@ nut/images/
 
 nut/db.sqlite3
 spider/log.txt
+
+spider/dbs/*
+spider/items/*
