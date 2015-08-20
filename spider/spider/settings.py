@@ -70,7 +70,7 @@ DOWNLOAD_DELAY=3
 ITEM_PIPELINES = {
    'spider.pipelines.ErrorPipeLine': 100,
    'spider.pipelines.DuplicatesPipeline': 300,
-   'spider.pipelines.SQLStorePipeline': 500,
+   # 'spider.pipelines.SQLStorePipeline': 500,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
