@@ -3,6 +3,15 @@ Change Log
 ### Ver 4.3.3
 1. 购买链接增加防盗链
 2. 精选页面 UI 更新
+3. 修复添加商品却是店铺信息 bug
+
+
+### 注:
+```
+ALTER TABLE `core`.`core_buy_link` ADD COLUMN `foreign_price` DECIMAL(20,2) NULL COMMENT '' AFTER `seller`;
+```
+
+
 
 ### Ver 4.3.2
 1. 更新用户个人页 ui
@@ -14,6 +23,10 @@ Change Log
 2. solr 替换 sphinx 搜索引擎
 3. 增加店铺链接
 4. 优化搜索结果
+
+```
+ALTER TABLE `core`.`core_buy_link` ADD COLUMN `foreign_price` DECIMAL(20,2) NULL COMMENT '' AFTER `seller`;
+```
 
 
 ### Ver 4.3
