@@ -65,5 +65,12 @@ nut/settings/
 node_modules
 nut/images/
 
+<<<<<<< HEAD
 nut/db.sqlite3
 spider/log.txt
+=======
+log.txt
+*.sqlite3
+*.rdb
+*.swp
+>>>>>>> 455fab9c83ed7eecaf18e4a0ec9541254fbe0b63
