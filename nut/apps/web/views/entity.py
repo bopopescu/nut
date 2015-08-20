@@ -9,12 +9,12 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.utils.http import JSONResponse
-<<<<<<< HEAD
-from apps.core.models import Entity, Entity_Like, Note, Note_Comment, Note_Poke, Brand, Buy_Link
-=======
+# <<<<<<< HEAD
+# from apps.core.models import Entity, Entity_Like, Note, Note_Comment, Note_Poke, Brand, Buy_Link
+# =======
 from apps.core.models import Entity, Entity_Like, Note, Note_Comment, \
-    Note_Poke, Brand
->>>>>>> 455fab9c83ed7eecaf18e4a0ec9541254fbe0b63
+    Note_Poke, Brand, Buy_Link
+# >>>>>>> 455fab9c83ed7eecaf18e4a0ec9541254fbe0b63
 from apps.core.tasks.entity import like_task, unlike_task
 from apps.web.forms.comment import CommentForm
 from apps.web.forms.note import NoteForm
@@ -25,12 +25,12 @@ from apps.tag.models import Content_Tags
 
 
 from django.views.generic.detail import DetailView
-<<<<<<< HEAD
+# <<<<<<< HEAD
 from django.views.generic import RedirectView
 from braces.views import AjaxResponseMixin,JSONResponseMixin
-=======
-from braces.views import AjaxResponseMixin, JSONResponseMixin
->>>>>>> 455fab9c83ed7eecaf18e4a0ec9541254fbe0b63
+# =======
+# from braces.views import AjaxResponseMixin, JSONResponseMixin
+# >>>>>>> 455fab9c83ed7eecaf18e4a0ec9541254fbe0b63
 
 from django.conf import settings
 from django.utils.log import getLogger
@@ -51,13 +51,13 @@ class EntityCard(AjaxResponseMixin, JSONResponseMixin, DetailView):
         return _entity
 
     def get(self, request, *args, **kwargs):
-<<<<<<< HEAD
+# <<<<<<< HEAD
         _entity_hash =  self.kwargs.get('entity_hash', None)
         return HttpResponseRedirect(reverse('web_entity_detail',args=[_entity_hash]))
-=======
-        # TODO: render template here
-        pass
->>>>>>> 455fab9c83ed7eecaf18e4a0ec9541254fbe0b63
+# =======
+#         # TODO: render template here
+#         pass
+# >>>>>>> 455fab9c83ed7eecaf18e4a0ec9541254fbe0b63
 
     def get_ajax(self, request, *args, **kwargs):
         _entity = None
@@ -417,7 +417,7 @@ def report(request, eid, template="web/entity/report.html"):
     )
 
 
-<<<<<<< HEAD
+# <<<<<<< HEAD
 class gotoBuyView(RedirectView):
     permanent = False
 
@@ -436,6 +436,4 @@ class gotoBuyView(RedirectView):
         return super(gotoBuyView, self).get(request, *args, **kwargs)
 
 
-=======
->>>>>>> 455fab9c83ed7eecaf18e4a0ec9541254fbe0b63
 __author__ = 'edison'
