@@ -963,9 +963,14 @@ body{
           padding-bottom: 10px;
           border-bottom: 1px solid @very-light-gray;
           margin-bottom: 10px;
+          .pop-article-wrapper{
+            vertical-align:top;
+          }
           .img-holder{
+             float:none;
              display:inline-block;
              position: relative;
+             width: 20%;
              a{
                display: block;
                width:100%;
@@ -979,6 +984,11 @@ body{
                     background-position: center center;
                 }
              }
+          }
+          .article-content{
+            display: inline-block;
+            width:77%;
+            float:right;
           }
         }
         .pop-article:last-child{

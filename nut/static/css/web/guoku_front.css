@@ -2052,9 +2052,14 @@ body {
   border-bottom: 1px solid #f8f8f8;
   margin-bottom: 10px;
 }
+#detail_content_right .section-list li.section .pop-article-list .pop-article .pop-article-wrapper {
+  vertical-align: top;
+}
 #detail_content_right .section-list li.section .pop-article-list .pop-article .img-holder {
+  float: none;
   display: inline-block;
   position: relative;
+  width: 20%;
 }
 #detail_content_right .section-list li.section .pop-article-list .pop-article .img-holder a {
   display: block;
@@ -2067,6 +2072,11 @@ body {
   padding-bottom: 100%;
   background-size: cover;
   background-position: center center;
+}
+#detail_content_right .section-list li.section .pop-article-list .pop-article .article-content {
+  display: inline-block;
+  width: 77%;
+  float: right;
 }
 #detail_content_right .section-list li.section .pop-article-list .pop-article:last-child {
   border-bottom: none;
