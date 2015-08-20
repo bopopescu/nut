@@ -5,7 +5,7 @@
     <section class="content-header">
         <h1>
             {% trans 'mobile banner' %}
-            <small>{{ banner }}</small>
+            <small>{% trans 'banner' %}</small>
         </h1>
 
         <ol class="breadcrumb">
@@ -28,12 +28,12 @@
 
         <div class="row">
             <div class="col-xs-12">
-                <div class="box">
+                <div class="box box-info">
                     <div class="box-header">
                         <a class="btn btn-primary" href="{% url 'management_banner_create' %}">{% trans 'add' %}</a>
                     </div>
                     <div class="box-body table-responsive">
-                        <table class="table table-bordered table-hover" id="banner">
+                        <table class="table table-bordered" id="banner">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -43,22 +43,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for banner in banners %}
+                                {% for banner in object_list %}
                                     <tr>
                                         <td>{{ banner.id }}</td>
                                         <td><img class="img-polaroid" style="max-width:150px;" src="{{ banner.image_url }}"></td>
-                                        <td>{{ banner.url }}</td>
+                                        <td>{{ banner.url|truncatechars:'100' }}</td>
                                         <td><a class="btn btn-default" href="{% url 'management_banner_edit' banner.pk %}">{% trans 'edit' %}</a></td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
                     </div>
+
+                    <div class="box-footer">
+                        {% include "management/paginator.html" with objects=page_obj url=request.path %}
+                    </div>
                 </div>
             </div>
         </div>
 
-        {% include "management/paginator.html" with objects=banners url=request.path %}
+
     </section>
 
 {#    <h1 class="page-header">{% trans 'banner' %}</h1>#}
