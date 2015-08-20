@@ -28,7 +28,7 @@
                             <li {% ifequal status '-2' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=-2">{% trans 'remove' %}</a></li>
                         </ul>
                     </div>
-                    <div class="box-body">
+                    <div class="box-body table-responsive">
                         {% include "management/entities/table.html" with entities=entities %}
                     </div>
                     <div class="box-footer">
