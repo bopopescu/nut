@@ -5,7 +5,7 @@ from hashlib import md5
 import re
 
 from apps.core.utils.fetch.spider import Spider
-from apps.commons import currency_converting
+from apps.core.utils.commons import currency_converting
 
 
 class Amazon(Spider):
@@ -70,6 +70,12 @@ class Amazon(Spider):
             f_price = float(price.string[1:].replace(',', ''))
 
         pricetag = self.soup.select("#soldByThirdParty span")
+        if len(pricetag) > 0:
+            price = pricetag[0].string
+            price = price.strip()
+            f_price = float(price[1:].replace(',', ''))
+
+        pricetag = self.soup.select("span#ags_price_local")
         if len(pricetag) > 0:
             price = pricetag[0].string
             price = price.strip()

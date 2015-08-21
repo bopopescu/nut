@@ -113,4 +113,9 @@ SINA_APP_KEY = '1459383851'
 SINA_APP_SECRET = 'bfb2e43c3fa636f102b304c485fa2110'
 SINA_BACK_URL = APP_HOST + '/sina/auth'
 
+# config of site in redis.
+CONFIG_REDIS_HOST = '10.0.2.95'
+CONFIG_REDIS_PORT = 6379
+CONFIG_REDIS_DB = 10
+
 __author__ = 'edison7500'

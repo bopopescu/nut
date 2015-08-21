@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from apps.commons import update_rate, get_rate
+from apps.core.utils.commons import update_rate, get_rate
 
 
 def test_exchange_rate():
