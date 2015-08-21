@@ -14,6 +14,9 @@ urlpatterns = patterns(
     url(r'^note/', include('apps.management.urls.note')),
     url(r'^comment/', include('apps.management.urls.comments')),
 
+
+
+
     url(r'^brand/', include('apps.management.urls.brand')),
     url(r'^category/', include('apps.management.urls.category')),
     url(r'^t/', include('apps.management.urls.tags')),
@@ -25,7 +28,9 @@ urlpatterns = patterns(
     url(r'^event-banner/', include('apps.management.urls.event_banner')),
     url(r'^recommend/', include('apps.management.urls.recommendation')),
 
+
     url(r'^search/', include('apps.management.urls.search')),
+
 
     url(r'^report/', include('apps.management.urls.report')),
     # url(r'^wechat/', include('apps.management.urls.wechat')),
