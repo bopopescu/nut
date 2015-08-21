@@ -17,8 +17,8 @@
     <link href="{% static 'css/management/bootstrap-datetimepicker.min.css' %}" rel="stylesheet">
 
     {% block css %}{% endblock %}
-{#    <script src="{% static 'js/management/restful/sentinel.js' %}" id="hero" ></script>#}
-{#    <script data-main="{% static 'js/management/restful/app.js' %}" src="{% static 'js/management/restful/require.js' %}" ></script>#}
+    <script src="{% static 'js/management/restful/sentinel.js' %}" id="hero" ></script>
+    <script data-main="{% static 'js/management/restful/app.js' %}" src="{% static 'js/management/restful/require.js' %}" ></script>
 
 </head>
 <body class="guoku-management">
@@ -151,23 +151,7 @@
 
 </body>
 {% block manage_script %}
-    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script charset="UTF-8" src="{% static 'js/web/bootbox.js' %}" type="text/javascript"></script>
-{#    <script src="{% static 'thirdparty/chart/chart.min.js' %}"></script>#}
-    <script src="{% static 'js/management/main.js' %}"></script>
-    <script charset="UTF-8" src="{% static 'js/management/bootstrap-datetimepicker.min.js' %}" type="text/javascript"></script>
-    <script charset="UTF-8" src="{% static 'js/management/locales/bootstrap-datetimepicker.zh-CN.js' %}"></script>
-{#    <script src="{% static 'js/management/category.js' %}"></script>#}
-    {% block js %}{% endblock %}
-<script type="text/javascript">
-    $(".form_datetime").datetimepicker({
-        language: 'zh-CN',
-        format: "yyyy-mm-dd hh:ii",
-        autoclose: true,
-        pickerPosition: "bottom-left"
-    });
-</script>
+
 {% endblock %}
 {% block user_script %}
 
