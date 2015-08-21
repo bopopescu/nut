@@ -1,188 +1,333 @@
 {% extends 'management/management_base.html' %}
 {% load i18n static %}
 
-
 {% block content %}
-    <h1 class="page-header">{{ entity.title }}</h1>
-    <div class="row placeholders" id="images">
+    <section class="content-header">
+        <h1>
+            {{ entity.title }}
+{#            <small>{{ entity }}</small>#}
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+            <li><a href="#">{% trans 'entity' %}</a></li>
+            <li class="active">{{ entity.title }}</li>
+        </ol>
+    </section>
 
-            {% include "management/entities/partial/entity_images.html" with images=entity.images %}
-{#            <div class="col-xs-6 col-sm-3">#}
-{#            <div class="thumbnail">#}
-{#                <img class="img-responsive img-thumbnail" alt="{{ entity.title }}" src="{{ image|resize:'480' }}" width="240" height="240">#}
-{#                {% if index != 0 %}#}
-{#                <div class="caption">#}
-{#                    <h3>{{ index|add:1 }}</h3>#}
-{#                <span class="text-muted">#}
-{#                    <a class="btn btn-link" href="{% url 'management_remove_entity_image' entity.id %}">{% trans 'remove' %}</a>#}
-{#                    <a class="btn btn-danger" href="{% url 'management_remove_entity_image' entity.id %}" data-image="{{ image }}">{% trans 'remove' %}</a>#}
-{#                </span>#}
-{#                </div>#}
-{#                {% endif %}#}
-{#            </div>#}
-{#            </div>#}
-{#        {% endfor %}#}
-    </div>
-    {% if entity.has_top_note %}
-    <div class="row">
-        <div class="alert alert-info alert-dismissable" role="alert">
-                <button type="button" class="close" data-dismiss="alert">
-                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                </button>
-                <strong>{% trans 'note' %}!!!</strong>
-                有置顶点评
-        </div>
-    </div>
-    {% endif %}
-
-    <div class="row" style="padding-bottom: 24px;">
-        <a href="{% url 'web_entity_detail' entity.entity_hash %}" class="btn btn-success btn-lg" target="_blank">{% trans 'go to' %}</a>
-        <a href="{% url 'management_note_create' entity.pk %}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#EntityNoteModal">{% trans 'add note' %}</a>
-        <a href="{% url 'management_entity_image' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'upload image' %}</a>
-        <a href="{% url 'management_entity_buy_link' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'add buy link' %}</a>
-        <a href="{% url 'management_entity_fetch_image' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'fetch image' %}</a>
-        {% if entity.brand %}
-            <a href="{% url 'management_brand_name_edit' entity.brand %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'goto brand' %}</a>
-        {% endif %}
-    </div>
-
-    <div class="row">
-        {% if update == 0 %}
-            <div class="alert alert-success alert-dismissable" role="alert">
-                <button type="button" class="close" data-dismiss="alert">
-                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                </button>
-                <strong>{% trans 'success' %}</strong>
-                entity update success
+    <section class="content">
+        <div class="row">
+        {% if entity.has_top_note %}
+            <div class="col-sm-12">
+                <div class="alert alert-info alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-info-circle"></i>{% trans 'note' %}!!!</h4>
+                    有置顶点评
+                </div>
             </div>
         {% endif %}
-        {% if update == 1  %}
-            <div class="alert alert-danger alert-dismissable" role="alert">
-                <button type="button" class="close" data-dismiss="alert">
-                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                </button>
-                {% for k, v in forms.errors.items %}
-                    <strong>{{ k }}</strong>
-                    {{ v.as_text  }}
-                {% endfor %}
-            </div>
-        {% endif %}
-    </div>
 
-    <div class="row">
-        <div class="panel panel-default">
-            <div class="panel-heading">{% trans 'buy links' %}</div>
-            <table class="table table-small-font table-hover table-bordered">
-                <thead>
-                    <tr>
-{#                        <th>#</th>#}
-                        <th>{% trans 'link' %}</th>
-                        <th>{% trans 'price' %}</th>
-                        <th>{% trans 'source' %}</th>
-                        <th>{% trans 'shop link' %}</th>
-                        <th>{% trans 'is default' %}</th>
-                        <th>{% trans 'status' %}</th>
-                        <th>{% trans 'operation' %}</th>
-                    </tr>
-                </thead>
-                <tbody id="buylinks">
-                    {% for buy_link in entity.buy_links.all %}
-                        <tr>
-{#                            <td>{{ buy_link.pk }}</td>#}
-                            <td><a href="{{ buy_link }}" target="_blank">{{ buy_link }}</a></td>
-                            <td><span class="label label-info">{{ buy_link.price }}</span></td>
-                            <td>{{ buy_link.origin_source }}</td>
-                            <td>
-                                {% if buy_link.shop_link %}
-                                    <a href="{{ buy_link.shop_link }}" target="_blank">去店铺</a>
-                                {% endif %}
-                            </td>
-                            <td><span class="label label-primary">{{ buy_link.default }}</span></td>
-                            <td><span class="label {% if buy_link.status == 2 %}label-info{% else %}label-danger{% endif %}">{{ buy_link.get_status_display }}</span></td>
-                            <td>
-                                <div class="btn-group">
-                                    <a class="btn btn-success" href="{% url 'management_check_buy_link' buy_link.pk %}" target="_blank">{% trans 'check status' %}</a>
-                                    <a class="btn btn-default" href="{% url 'management_edit_entity_buy_link' buy_link.pk %}" target="_blank">{% trans 'edit' %}</a>
-                                    {% if not buy_link.default %}
-                                        <a class="btn btn-danger buy-link" data-index="{{ buy_link.pk }}" href="javascript:;">&nbsp;{% trans 'remove' %}</a>
-                                    {% endif %}
-                                </div>
-                            </td>
-{#                            <td><span class="label label-primary">{{ buy_link.default }}</span></td>#}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-{#            <ul class="list-group" id="buylinks">#}
-{#                {% for buy_link in entity.buy_links.all %}#}
-{#                    <li class="list-group-item"><a href="{{ buy_link }}" target="_blank">{{ buy_link }}</a>#}
-{#                        {% if not buy_link.default %}#}
-{#                            <a class="pull-right btn-link" data-index="{{ buy_link.pk }}" href="javascript:;">&nbsp;{% trans 'remove' %}</a>#}
-{#                            <span class="label label-danger pull-right">{{ buy_link.default }}</span>#}
-{#                        {% else %}#}
-{#                            <span class="label label-primary pull-right">{{ buy_link.default }}</span>#}
-{#                        {% endif %}#}
-{#                    </li>#}
-{#                {% endfor %}#}
-{#            </ul>#}
-        </div>
-    </div>
-
-    <div class="row">
-        <form class="well form-horizontal" method="post">
-            {% csrf_token %}
-            <fieldset>
-            {% for field in forms %}
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                    <div class="col-sm-5">
-                        {{ field }}
+            <div class="col-xs-12">
+                <div class="box box-default">
+                    <div class="box-header" id="images">
+                        {% include "management/entities/partial/entity_images.html" with images=entity.images %}
                     </div>
                 </div>
-            {% endfor %}
-            </fieldset>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-5">
-                    <button type="submit" class="btn btn-primary btn-lg">{% trans 'update' %}</button>
+            </div>
+
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <a href="{% url 'web_entity_detail' entity.entity_hash %}" class="btn btn-success btn-lg" target="_blank">{% trans 'go to' %}</a>
+                        <a href="{% url 'management_note_create' entity.pk %}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#EntityNoteModal">{% trans 'add note' %}</a>
+                        <a href="{% url 'management_entity_image' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'upload image' %}</a>
+                        <a href="{% url 'management_entity_buy_link' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'add buy link' %}</a>
+                        <a href="{% url 'management_entity_fetch_image' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'fetch image' %}</a>
+                        {% if entity.brand %}
+                            <a href="{% url 'management_brand_name_edit' entity.brand %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'goto brand' %}</a>
+                        {% endif %}
+                    </div>
+
+                    <div class="box-body table-responsive">
+                        <table class="table table-small-font table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>{% trans 'link' %}</th>
+                                    <th>{% trans 'price' %}</th>
+                                    <th>{% trans 'source' %}</th>
+                                    <th>{% trans 'shop link' %}</th>
+                                    <th>{% trans 'is default' %}</th>
+                                    <th>{% trans 'status' %}</th>
+                                    <th>{% trans 'operation' %}</th>
+                                </tr>
+                            </thead>
+                            <tbody id="buylinks">
+                                {% for buy_link in entity.buy_links.all %}
+                                    <tr>
+                                        <td><a href="{{ buy_link }}" target="_blank">{{ buy_link }}</a></td>
+                                        <td><span class="label label-info">{{ buy_link.price }}</span></td>
+                                        <td>{{ buy_link.origin_source }}</td>
+                                        <td>
+                                            {% if buy_link.shop_link %}
+                                                <a href="{{ buy_link.shop_link }}" target="_blank">去店铺</a>
+                                            {% endif %}
+                                        </td>
+                                        <td><span class="label label-primary">{{ buy_link.default }}</span></td>
+                                        <td><span class="label {% if buy_link.status == 2 %}label-info{% else %}label-danger{% endif %}">{{ buy_link.get_status_display }}</span></td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a class="btn btn-success" href="{% url 'management_check_buy_link' buy_link.pk %}" target="_blank">{% trans 'check status' %}</a>
+                                                <a class="btn btn-default" href="{% url 'management_edit_entity_buy_link' buy_link.pk %}" target="_blank">{% trans 'edit' %}</a>
+                                                {% if not buy_link.default %}
+                                                    <a class="btn btn-danger buy-link" data-index="{{ buy_link.pk }}" href="javascript:;">&nbsp;{% trans 'remove' %}</a>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </form>
-    </div>
 
-    <div class="row">
-    <div class="table-responsive">
-        <table class="table table-small-font table-hover table-bordered">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>{% trans "creator" %}</th>
-                    <th>{% trans 'content' %}</th>
-                    <th>{% trans 'post time' %}</th>
-                    <th>{% trans 'status' %}</th>
-                    <th>{% trans 'operation' %}</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for note in entity.notes.all %}
-                    <tr>
-                        <td>{{ note.id }}</td>
-                        <td><a href="{% url 'management_user_edit' note.user_id %}">{{ note.user.profile.nickname }}</a></td>
-                        <td>{{ note.note }}</td>
-                        <td>{{ note.post_time|date:'Y-m-d H:i:s' }}</td>
-                        <td>
-                            {% if note.status == 1 %}
-                                <span class="label label-info">{{ note.get_status_display }}</span>
-                            {% else %}
-                                <span class="label label-default">{{ note.get_status_display }}</span>
-                            {% endif %}
-                        </td>
-                        <td><a class="btn btn-default" href="{% url 'management_note_edit' note.pk %}" target="_blank">{% trans 'edit' %}</a></td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    </div>
+            <div class="col-xs-12">
+                <div class="box box-primary">
+
+                    {% if update == 0 %}
+                        <div class="box box-header">
+                            <div class="alert alert-success alert-dismissable" role="alert">
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                                </button>
+                                <strong>{% trans 'success' %}</strong>
+                                entity update success
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if update == 1  %}
+                        <div class="box box-header">
+                            <div class="alert alert-danger alert-dismissable" role="alert">
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                                </button>
+                                {% for k, v in forms.errors.items %}
+                                    <strong>{{ k }}</strong>
+                                    {{ v.as_text  }}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+
+                <form class="form-horizontal" method="post">
+                    {% csrf_token %}
+                    <div class="box-body">
+                    {% for field in forms %}
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                            <div class="col-sm-5">
+                                {{ field }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                    <div class="box-footer">
+                        <div class="col-sm-offset-2 col-sm-5">
+                            <button type="submit" class="btn btn-primary btn-lg">{% trans 'update' %}</button>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+
+            <div class="col-xs-12">
+                <div class="box box-default">
+                    <div class="box-body table-responsive">
+                        <table class="table table-small-font table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>{% trans "creator" %}</th>
+                                    <th>{% trans 'content' %}</th>
+                                    <th>{% trans 'post time' %}</th>
+                                    <th>{% trans 'status' %}</th>
+                                    <th>{% trans 'operation' %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for note in entity.notes.all %}
+                                    <tr>
+                                        <td>{{ note.id }}</td>
+                                        <td><a href="{% url 'management_user_edit' note.user_id %}">{{ note.user.profile.nickname }}</a></td>
+                                        <td>{{ note.note }}</td>
+                                        <td>{{ note.post_time|date:'Y-m-d H:i:s' }}</td>
+                                        <td>
+                                            {% if note.status == 1 %}
+                                                <span class="label label-info">{{ note.get_status_display }}</span>
+                                            {% else %}
+                                                <span class="label label-default">{{ note.get_status_display }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td><a class="btn btn-default" href="{% url 'management_note_edit' note.pk %}" target="_blank">{% trans 'edit' %}</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{#    <h1 class="page-header">{{ entity.title }}</h1>#}
+{#    <div class="row placeholders" id="images">#}
+{#        {% include "management/entities/partial/entity_images.html" with images=entity.images %}#}
+{#    </div>#}
+{#    {% if entity.has_top_note %}#}
+{#    <div class="row">#}
+{#        <div class="alert alert-info alert-dismissable" role="alert">#}
+{#                <button type="button" class="close" data-dismiss="alert">#}
+{#                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>#}
+{#                </button>#}
+{#                <strong>{% trans 'note' %}!!!</strong>#}
+{#                有置顶点评#}
+{#        </div>#}
+{#    </div>#}
+{#    {% endif %}#}
+{##}
+{#    <div class="row" style="padding-bottom: 24px;">#}
+{#        <a href="{% url 'web_entity_detail' entity.entity_hash %}" class="btn btn-success btn-lg" target="_blank">{% trans 'go to' %}</a>#}
+{#        <a href="{% url 'management_note_create' entity.pk %}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#EntityNoteModal">{% trans 'add note' %}</a>#}
+{#        <a href="{% url 'management_entity_image' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'upload image' %}</a>#}
+{#        <a href="{% url 'management_entity_buy_link' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'add buy link' %}</a>#}
+{#        <a href="{% url 'management_entity_fetch_image' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'fetch image' %}</a>#}
+{#        {% if entity.brand %}#}
+{#            <a href="{% url 'management_brand_name_edit' entity.brand %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'goto brand' %}</a>#}
+{#        {% endif %}#}
+{#    </div>#}
+{##}
+{#    <div class="row">#}
+{#        {% if update == 0 %}#}
+{#            <div class="alert alert-success alert-dismissable" role="alert">#}
+{#                <button type="button" class="close" data-dismiss="alert">#}
+{#                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>#}
+{#                </button>#}
+{#                <strong>{% trans 'success' %}</strong>#}
+{#                entity update success#}
+{#            </div>#}
+{#        {% endif %}#}
+{#        {% if update == 1  %}#}
+{#            <div class="alert alert-danger alert-dismissable" role="alert">#}
+{#                <button type="button" class="close" data-dismiss="alert">#}
+{#                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>#}
+{#                </button>#}
+{#                {% for k, v in forms.errors.items %}#}
+{#                    <strong>{{ k }}</strong>#}
+{#                    {{ v.as_text  }}#}
+{#                {% endfor %}#}
+{#            </div>#}
+{#        {% endif %}#}
+{#    </div>#}
+{##}
+{#    <div class="row">#}
+{#        <div class="panel panel-default">#}
+{#            <div class="panel-heading">{% trans 'buy links' %}</div>#}
+{#            <table class="table table-small-font table-hover table-bordered">#}
+{#                <thead>#}
+{#                    <tr>#}
+{#                        <th>{% trans 'link' %}</th>#}
+{#                        <th>{% trans 'price' %}</th>#}
+{#                        <th>{% trans 'source' %}</th>#}
+{#                        <th>{% trans 'shop link' %}</th>#}
+{#                        <th>{% trans 'is default' %}</th>#}
+{#                        <th>{% trans 'status' %}</th>#}
+{#                        <th>{% trans 'operation' %}</th>#}
+{#                    </tr>#}
+{#                </thead>#}
+{#                <tbody id="buylinks">#}
+{#                    {% for buy_link in entity.buy_links.all %}#}
+{#                        <tr>#}
+{#                            <td><a href="{{ buy_link }}" target="_blank">{{ buy_link }}</a></td>#}
+{#                            <td><span class="label label-info">{{ buy_link.price }}</span></td>#}
+{#                            <td>{{ buy_link.origin_source }}</td>#}
+{#                            <td>#}
+{#                                {% if buy_link.shop_link %}#}
+{#                                    <a href="{{ buy_link.shop_link }}" target="_blank">去店铺</a>#}
+{#                                {% endif %}#}
+{#                            </td>#}
+{#                            <td><span class="label label-primary">{{ buy_link.default }}</span></td>#}
+{#                            <td><span class="label {% if buy_link.status == 2 %}label-info{% else %}label-danger{% endif %}">{{ buy_link.get_status_display }}</span></td>#}
+{#                            <td>#}
+{#                                <div class="btn-group">#}
+{#                                    <a class="btn btn-success" href="{% url 'management_check_buy_link' buy_link.pk %}" target="_blank">{% trans 'check status' %}</a>#}
+{#                                    <a class="btn btn-default" href="{% url 'management_edit_entity_buy_link' buy_link.pk %}" target="_blank">{% trans 'edit' %}</a>#}
+{#                                    {% if not buy_link.default %}#}
+{#                                        <a class="btn btn-danger buy-link" data-index="{{ buy_link.pk }}" href="javascript:;">&nbsp;{% trans 'remove' %}</a>#}
+{#                                    {% endif %}#}
+{#                                </div>#}
+{#                            </td>#}
+{#                        </tr>#}
+{#                    {% endfor %}#}
+{#                </tbody>#}
+{#            </table>#}
+{##}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <div class="row">#}
+{#        <form class="well form-horizontal" method="post">#}
+{#            {% csrf_token %}#}
+{#            <fieldset>#}
+{#            {% for field in forms %}#}
+{#                <div class="form-group">#}
+{#                    <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>#}
+{#                    <div class="col-sm-5">#}
+{#                        {{ field }}#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#            </fieldset>#}
+{#            <div class="form-group">#}
+{#                <div class="col-sm-offset-2 col-sm-5">#}
+{#                    <button type="submit" class="btn btn-primary btn-lg">{% trans 'update' %}</button>#}
+{#                </div>#}
+{#            </div>#}
+{#        </form>#}
+{#    </div>#}
+{##}
+{#    <div class="row">#}
+{#    <div class="table-responsive">#}
+{#        <table class="table table-small-font table-hover table-bordered">#}
+{#            <thead>#}
+{#                <tr>#}
+{#                    <th>#</th>#}
+{#                    <th>{% trans "creator" %}</th>#}
+{#                    <th>{% trans 'content' %}</th>#}
+{#                    <th>{% trans 'post time' %}</th>#}
+{#                    <th>{% trans 'status' %}</th>#}
+{#                    <th>{% trans 'operation' %}</th>#}
+{#                </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#                {% for note in entity.notes.all %}#}
+{#                    <tr>#}
+{#                        <td>{{ note.id }}</td>#}
+{#                        <td><a href="{% url 'management_user_edit' note.user_id %}">{{ note.user.profile.nickname }}</a></td>#}
+{#                        <td>{{ note.note }}</td>#}
+{#                        <td>{{ note.post_time|date:'Y-m-d H:i:s' }}</td>#}
+{#                        <td>#}
+{#                            {% if note.status == 1 %}#}
+{#                                <span class="label label-info">{{ note.get_status_display }}</span>#}
+{#                            {% else %}#}
+{#                                <span class="label label-default">{{ note.get_status_display }}</span>#}
+{#                            {% endif %}#}
+{#                        </td>#}
+{#                        <td><a class="btn btn-default" href="{% url 'management_note_edit' note.pk %}" target="_blank">{% trans 'edit' %}</a></td>#}
+{#                    </tr>#}
+{#                {% endfor %}#}
+{#            </tbody>#}
+{#        </table>#}
+{#    </div>#}
+{#    </div>#}
 
     <div id="EntityNoteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="EntityNoteModal" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -192,6 +337,6 @@
 {% endblock %}
 
 
-    {% block js %}
-        <script src="{% static 'js/management/category.js' %}"></script>
-    {% endblock %}
+{% block user_script %}
+    <script src="{% static 'js/management/category.js' %}"></script>
+{% endblock %}

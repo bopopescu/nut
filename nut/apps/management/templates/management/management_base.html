@@ -221,6 +221,7 @@
                         </a>
                     </li>
 
+                    <li class="header">{% trans 'user manager' %}</li>
                     {% url 'management_user_list' as management_user_list_url %}
                     <li {% if management_user_list_url in request.path %}class="active" {% endif %}>
                         <a href="{{ management_user_list_url }}">
