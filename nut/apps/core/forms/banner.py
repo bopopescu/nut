@@ -103,13 +103,13 @@ class CreateBannerForm(BaseBannerForm):
         return banner
 
 class EditBannerForm(BaseBannerForm):
-    # content_type = forms.ChoiceField(label=_('content_type'),
-    #                                 choices=Banner.CONTENT_TYPE_CHOICES,
-    #                                widget=forms.Select(attrs={'class':'form-control', 'readonly':''}),
-    #                                help_text=_(''))
-    # key = forms.CharField(label=_('key'),
-    #                       widget=forms.TextInput(attrs={'class':'form-control', 'readonly':''}),
-    #                       help_text=_(''))
+    content_type = forms.ChoiceField(label=_('content_type'),
+                                    choices=Banner.CONTENT_TYPE_CHOICES,
+                                   widget=forms.Select(attrs={'class':'form-control'}),
+                                   help_text=_(''))
+    key = forms.CharField(label=_('key'),
+                          widget=forms.TextInput(attrs={'class':'form-control'}),
+                          help_text=_(''))
     banner_image = forms.ImageField(
                                     label=_('banner image'),
                                     widget=forms.FileInput(attrs={'class':'controls'}),
@@ -137,13 +137,19 @@ class EditBannerForm(BaseBannerForm):
     def save(self):
         banner_image = self.cleaned_data.get('banner_image')
         position = self.clean_position()
+        content_type = self.cleaned_data.get('content_type')
+        key = self.cleaned_data.get('key')
+
+        self.banner.key = key
+        self.banner.content_type = content_type
+        # self.banner.save()
 
         if banner_image:
             _image = HandleImage(banner_image)
             file_path = "%s%s.jpg" % (image_path, _image.name)
             default_storage.save(file_path, ContentFile(_image.image_data))
             self.banner.image = file_path
-            self.banner.save()
+        self.banner.save()
 
         if position > 0 and self.banner.position == 0:
             try:
@@ -164,5 +170,6 @@ class EditBannerForm(BaseBannerForm):
             show.save()
             tmp_show.save()
 
+        return self.banner
 
 __author__ = 'edison'
