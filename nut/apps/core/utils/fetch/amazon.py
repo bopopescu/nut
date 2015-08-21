@@ -75,6 +75,12 @@ class Amazon(Spider):
             price = price.strip()
             f_price = float(price[1:].replace(',', ''))
 
+        pricetag = self.soup.select("span#ags_price_local")
+        if len(pricetag) > 0:
+            price = pricetag[0].string
+            price = price.strip()
+            f_price = float(price[1:].replace(',', ''))
+
         if not self.hostname.endswith('.cn'):
             cny_price = 0
             self.foreign_price = f_price
