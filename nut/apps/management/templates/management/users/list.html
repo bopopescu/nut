@@ -31,14 +31,19 @@
                             <li {% if admin %}class="active" {% endif %}><a href="{% url 'management_user_list' %}?admin=1">{% trans 'admin' %}</a></li>
                         </ul>
                     </div>
+                    <div class="box-body">
+                        {% include 'management/users/table.html' with users=users %}
+                    </div>
 
-                    {% include 'management/users/table.html' with users=users %}
+                    <div  class="box-footer">
+                        {% include "management/paginator.html" with objects=users url=request.path %}
+                    </div>
                 </div>
             </div>
         </div>
 
 
 
-    {% include "management/paginator.html" with objects=users url=request.path %}
+
     </section>
 {% endblock %}
