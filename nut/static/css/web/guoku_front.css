@@ -544,7 +544,9 @@ ul li {
 .article-wrapper .cover-wrapper a img:hover,
 .more-article-wrapper .cover-wrapper a img:hover,
 .guess-wrapper .recommend-img:hover,
-.user-page .img-box img:hover {
+.user-page .img-box img:hover,
+.pop-article-list .pop-article-wrapper .img-holder a:hover,
+.pop-entity-list .pop-entity-wrapper .img-holder a:hover {
   opacity: 0.7;
 }
 .little-round-tag {
@@ -1415,9 +1417,6 @@ body {
 #guoku_footer .footer-bottom .footer-bottom-right .logo-list li img {
   width: 28px;
 }
-.guoku-content {
-  margin-top: 110px;
-}
 .guoku-content.user-page .user-info-wrapper {
   margin-bottom: 40px;
 }
@@ -1967,12 +1966,26 @@ body {
 }
 #detail_content_right .section-list li.section .section-content .text-holder {
   float: right;
-  width: 190px;
+  width: 70%;
   color: #9d9e9f;
 }
 #detail_content_right .section-list li.section .section-content .icon-holder {
-  width: auto;
+  width: 27%;
   margin-right: 5px;
+  display: inline-block;
+  position: relative;
+}
+#detail_content_right .section-list li.section .section-content .icon-holder a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+#detail_content_right .section-list li.section .section-content .icon-holder a .img-frame {
+  width: 100%;
+  height: 0 ;
+  padding-bottom: 100%;
+  background-size: cover;
+  background-position: center center;
 }
 #detail_content_right .section-list li.section .section-content .download-link i {
   color: #357ebd;
@@ -2016,7 +2029,21 @@ body {
 }
 #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .img-holder {
   float: none ;
-  width: auto;
+  width: 20%;
+  display: inline-block;
+  position: relative;
+}
+#detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .img-holder a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+#detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .img-holder a .img-frame {
+  width: 100%;
+  height: 0 ;
+  padding-bottom: 100%;
+  background-size: cover;
+  background-position: center center;
 }
 #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .entity-content {
   width: 77% ;
@@ -2306,6 +2333,11 @@ body {
 @media (min-width: 768px) and (max-width: 990px) {
   .container {
     width: 100%;
+  }
+  li.section .text-holder,
+  li.section .article-title,
+  li.section .entity-name {
+    font-size: 13px !important;
   }
   .guoku-content.user-page .user-info {
     max-width: 450px;
