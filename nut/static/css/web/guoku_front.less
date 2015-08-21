@@ -300,7 +300,6 @@ body{
 }
 
 .guoku-content{
-  margin-top: 110px;
   &.user-page{
     .user-info-wrapper{
       margin-bottom: 40px;
@@ -858,12 +857,26 @@ body{
         min-height: 10px;
         .text-holder{
           float: right;
-          width: 190px;
+          width: 70%;
           color: @common-gray;
         }
         .icon-holder{
-          width: auto;
+          width: 27%;
           margin-right: 5px;
+          display:inline-block;
+          position: relative;
+          a{
+            display :block;
+            width: 100%;
+            height:100%;
+            .img-frame{
+              width: 100%;
+              height: 0 ;
+              padding-bottom: 100%;
+              background-size:cover;
+              background-position: center center;
+            }
+          }
         }
         .download-link{
           i{
@@ -922,7 +935,23 @@ body{
 
             .img-holder{
               float: none ;
-              width: auto;
+              width: 20%;
+              display:inline-block;
+              position: relative;
+              a{
+               display: block;
+               width:100%;
+               height: 100%;
+
+                .img-frame{
+                    width: 100%;
+                    height: 0 ;
+                    padding-bottom: 100%;
+                    background-size:cover;
+                    background-position: center center;
+                }
+             }
+
             }
             .entity-content{
               width: 77% ;
@@ -958,10 +987,38 @@ body{
         }
       }
       .pop-article-list{
+         display:block;
         .pop-article{
           padding-bottom: 10px;
           border-bottom: 1px solid @very-light-gray;
           margin-bottom: 10px;
+          .pop-article-wrapper{
+            vertical-align:top;
+          }
+          .img-holder{
+             float:none;
+             display:inline-block;
+             position: relative;
+             width: 20%;
+             a{
+               display: block;
+               width:100%;
+               height: 100%;
+
+                .img-frame{
+                    width: 100%;
+                    height: 0 ;
+                    padding-bottom: 100%;
+                    background-size:cover;
+                    background-position: center center;
+                }
+             }
+          }
+          .article-content{
+            display: inline-block;
+            width:77%;
+            float:right;
+          }
         }
         .pop-article:last-child{
           border-bottom: none;
