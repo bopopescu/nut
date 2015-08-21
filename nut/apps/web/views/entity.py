@@ -9,8 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.utils.http import JSONResponse
-from apps.core.models import Entity, Entity_Like, Note, Note_Comment, \
-    Note_Poke, Brand
+from apps.core.models import Entity, Entity_Like, Note, Note_Comment, Note_Poke, Brand, Buy_Link
 from apps.core.tasks.entity import like_task, unlike_task
 from apps.web.forms.comment import CommentForm
 from apps.web.forms.note import NoteForm
@@ -19,11 +18,18 @@ from apps.web.forms.entity import EntityURLFrom, CreateEntityForm, ReportForms
 from apps.web.utils.viewtools import add_side_bar_context_data
 from apps.tag.models import Content_Tags
 
-from django.utils.log import getLogger
+
 from django.views.generic.detail import DetailView
+<<<<<<< HEAD
 from braces.views import AjaxResponseMixin, JSONResponseMixin
+=======
+from django.views.generic import RedirectView
+from braces.views import AjaxResponseMixin,JSONResponseMixin
+>>>>>>> dev
 
 from django.conf import settings
+from django.utils.log import getLogger
+
 
 log = getLogger('django')
 
@@ -40,8 +46,8 @@ class EntityCard(AjaxResponseMixin, JSONResponseMixin, DetailView):
         return _entity
 
     def get(self, request, *args, **kwargs):
-        # TODO: render template here
-        pass
+        _entity_hash =  self.kwargs.get('entity_hash', None)
+        return HttpResponseRedirect(reverse('web_entity_detail',args=[_entity_hash]))
 
     def get_ajax(self, request, *args, **kwargs):
         _entity = None
@@ -399,6 +405,22 @@ def report(request, eid, template="web/entity/report.html"):
         },
         context_instance=RequestContext(request),
     )
+
+
+class gotoBuyView(RedirectView):
+    permanent = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        b = Buy_Link.objects.get(pk = self.buy_id)
+
+        if "amazon" in b.origin_source:
+            return b.amazon_url
+        return b.link
+
+    def get(self, request, *args, **kwargs):
+        self.buy_id = kwargs.pop('buy_id', None)
+        assert self.buy_id is not None
+        return super(gotoBuyView, self).get(request, *args, **kwargs)
 
 
 __author__ = 'edison'

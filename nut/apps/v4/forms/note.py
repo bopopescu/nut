@@ -18,7 +18,7 @@ class PostNoteForms(forms.Form):
         widget=forms.Textarea(),
     )
 
-    def __init__(self, entity, *args, **kwargs):
+    def     __init__(self, entity, *args, **kwargs):
         self.entity_cache = entity
         # self.user_cache = None
         super(PostNoteForms, self).__init__(*args, **kwargs)

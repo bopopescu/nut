@@ -324,7 +324,7 @@ class CreateEntityForm(forms.Form):
                 origin_id = _origin_id,
                 cid = _cid,
                 origin_source = "taobao.com",
-                link = "http://item.taobao.com/item.htm?id=%s" % _origin_source,
+                link = "http://item.taobao.com/item.htm?id=%s" % _origin_id,
                 price = _price,
                 default = True,
             )

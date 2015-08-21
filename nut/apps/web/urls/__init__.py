@@ -5,7 +5,7 @@ from apps.web.views.discover import DiscoverView
 from apps.web.views.main import SelectionEntityList, SiteMapView
 from apps.web.views.entity import EntityCard
 
-from apps.web.views.main import GKSearchView
+from apps.web.views.main import GKSearchView, PopularView
 
 
 urlpatterns = patterns(
@@ -17,7 +17,7 @@ urlpatterns = patterns(
     # url(r'^selected/$', 'main.selection', name='web_selection'),
     # url(r'^selected/$',  RedirectView.as_view(url='/selection/'),
 
-    url(r'^popular/$', 'main.popular', name='web_popular'),
+    url(r'^popular/$', PopularView.as_view(), name='web_popular'),
     url(r'^discover/$', DiscoverView.as_view(), name='web_discover'),
     # url(r'^search/$', 'main.search', name='web_search'),
     url(r'^search/?$', GKSearchView.as_view(), name='web_search'),
@@ -119,8 +119,8 @@ urlpatterns += patterns('',
             url(r'^captcha/', include('captcha.urls')),
         )
 
-# urlpatterns += patterns('',
-#             url(r'^test_index/',TestView.as_view()),
-#         )
+urlpatterns += patterns('',
+            url(r'^test_index/',TestView.as_view()),
+        )
 
 __author__ = 'edison7500'

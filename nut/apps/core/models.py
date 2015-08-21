@@ -140,7 +140,28 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def like_count(self):
-        return self.likes.count()
+        key = 'user:like:%s' % self.pk
+        res = cache.get(key)
+        if res:
+            log.info('user like count hit')
+            return res
+        else:
+            log.info('user like count miss')
+            res = self.likes.count()
+            cache.set(key, res)
+            return res
+
+    def incr_like(self):
+        key = 'user:like:%s', self.pk
+        try:
+            cache.incr(key)
+        except ValueError:
+            cache.set(key, self.likes.count())
+
+    def decr_like(self):
+        key = 'user:like:%s' % self.pk
+        if self.likes.count() > 0:
+            cache.decr(key)
 
     @property
     def create_entity_count(self):
@@ -200,15 +221,13 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return "%s%s" % (settings.STATIC_URL, 'images/avatar/man.png')
 
 
-
-
     def set_admin(self):
         self.is_admin = True
         self.save()
 
     def v3_toDict(self, visitor=None):
 
-        key_string = "user_v3_%s" % self.id
+        key_string = "user:v3:%s" % self.id
         key = md5(key_string.encode('utf-8')).hexdigest()
         res = cache.get(key)
         if not res:
@@ -271,7 +290,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     def save(self, *args, **kwargs):
         super(GKUser, self).save(*args, **kwargs)
-        key_string = "user_v3_%s" % self.id
+        key_string = "user:v3:%s" % self.id
         key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
 
@@ -325,7 +344,7 @@ class User_Profile(BaseModel):
 
     def save(self, *args, **kwargs):
         super(User_Profile, self).save(*args, **kwargs)
-        key_string = "user_v3_%s" % self.user.id
+        key_string = "user:v3:%s" % self.user.id
         key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
 
@@ -383,8 +402,8 @@ class Banner(BaseModel):
 
     @property
     def image_url(self):
-        # return "%s%s" % (image_host, self.image)
-        return "%s%s" % ('http://image.guoku.com/', self.image)
+        return "%s%s" % (image_host, self.image)
+        # return "%s%s" % ('http://image.guoku.com/', self.image)
 
     @property
     def has_show_banner(self):
@@ -570,8 +589,6 @@ class Entity(BaseModel):
     def chief_image(self):
         if len(self.images) > 0:
             if 'http' in self.images[0]:
-                if image_host in self.images[0]:
-                    return self.images[0].replace('imgcdn', 'image')
                 return self.images[0]
             else:
                 return "%s%s" % (image_host, self.images[0])
@@ -580,14 +597,14 @@ class Entity(BaseModel):
     @property
     def detail_images(self):
         if len(self.images) > 1:
-            res = list()
-            for row in self.images[1:]:
-                if image_host in row:
-                    res.append(row.replace('imgcdn', 'image'))
-                else:
-                    res.append(row)
-            return res
-
+            return self.images[1:]
+            # res = list()
+            # for row in self.images[1:]:
+            #     if image_host in row:
+            #         res.append(row.replace('imgcdn', 'image'))
+            #     else:
+            #         res.append(row)
+            # return res
         return []
 
     @property
@@ -604,7 +621,7 @@ class Entity(BaseModel):
         else:
             log.info("miss miss")
             res = self.likes.count()
-            cache.set(key, res)
+            cache.set(key, res, timeout=86400)
             return res
         # return self.likes.count()
 
@@ -618,7 +635,7 @@ class Entity(BaseModel):
         else:
             log.info("miss miss")
             res = self.notes.count()
-            cache.set(key, res)
+            cache.set(key, res, timeout=86400)
             return res
         # return self.notes.count()
 
@@ -697,8 +714,8 @@ class Entity(BaseModel):
         return res
 
     def v3_toDict(self, user_like_list=None):
-        key_string = "entity:v3:%s" % self.id
-        key = md5(key_string.encode('utf-8')).hexdigest()
+        key = "entity:dict:v3:%s" % self.id
+        # key = md5(key_string.encode('utf-8')).hexdigest()
         res = cache.get(key)
         # log.info(user_like_list)
         # res = {}
@@ -744,8 +761,9 @@ class Entity(BaseModel):
 
     def save(self, *args, **kwargs):
         super(Entity, self).save(*args, **kwargs)
-        key_string = "entity_v3_%s" % self.id
-        key = md5(key_string.encode('utf-8')).hexdigest()
+        key = "entity:dict:v3:%s" % self.id
+        # key_string = "entity_v3_%s" % self.id
+        # key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
 
     # search index
@@ -1035,6 +1053,10 @@ class Sina_Token(BaseModel):
     def __unicode__(self):
         return self.screen_name
 
+    @property
+    def weibo_link(self):
+        return "http://www.weibo.com/u/%s/"%self.sina_id
+
     @staticmethod
     def generate(access_token, nick):
         code_string = "%s%s%s" % (access_token, nick, time.mktime(datetime.now().timetuple()))
@@ -1090,13 +1112,13 @@ class Article(models.Model):
 
     creator = models.ForeignKey(GKUser, related_name="articles")
     title = models.CharField(max_length=64)
-    cover = models.CharField(max_length=255,blank=True)
+    cover = models.CharField(max_length=255, blank=True)
     content = models.TextField()
     publish = models.IntegerField(choices=ARTICLE_STATUS_CHOICES, default=draft)
     created_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True, editable=False)
     updated_datetime = models.DateTimeField()
     showcover = models.BooleanField(default=False)
-    read_count = models.IntegerField(default=0 , blank=True)
+    read_count = models.IntegerField(default=0)
 
     objects = ArticleManager()
 
@@ -1111,9 +1133,6 @@ class Article(models.Model):
             self.updated_datetime = datetime.now()
         super(Article, self).save(*args, **kwargs)
 
-    def __unicode__(self):
-        return self.title
-
     @property
     def digest(self):
         return self.content
@@ -1125,7 +1144,9 @@ class Article(models.Model):
     @property
     def cover_url(self):
         if self.cover:
-            return  self.cover
+            if image_host in self.cover:
+                return self.cover
+            return "%s%s" % (image_host, self.cover)
         return "%s%s" % (settings.STATIC_URL, 'images/article/default_cover.jpg')
 
     @property
@@ -1281,7 +1302,6 @@ class Event_Status(models.Model):
         return "%s status : is_published : %s , is_top : %s" %(self.event.slug, self.is_published, self.is_top)
 
 
-
 class Event_Banner(models.Model):
     (item, shop) = (0, 1)
     BANNER_TYPE__CHOICES = [
@@ -1293,6 +1313,8 @@ class Event_Banner(models.Model):
     banner_type = models.IntegerField(choices=BANNER_TYPE__CHOICES, default=item)
     user_id = models.CharField(max_length=30, null=True)
     link = models.CharField(max_length=255, null=True)
+    background_image = models.CharField(max_length=255, null=True, blank=True)
+    background_color = models.CharField(max_length=14, null=True,blank=True,default='fff')
     created_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
     updated_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
 
@@ -1301,8 +1323,14 @@ class Event_Banner(models.Model):
 
     @property
     def image_url(self):
-        return "%s%s" % ('http://image.guoku.com/', self.image)
+        return "%s%s" % (image_host, self.image)
         # return "%s%s" % (image_host, self.image)
+    @property
+    def background_image_url(self):
+        if self.background_image:
+            return "%s%s" %(image_host, self.background_image)
+        else:
+            return None
 
     @property
     def position(self):
@@ -1336,6 +1364,8 @@ class Show_Event_Banner(models.Model):
     objects = ShowEventBannerManager()
     class Meta:
         ordering = ['position']
+
+
 
 # editor recommendation
 
@@ -1423,7 +1453,7 @@ post_save.connect(entity_set_to_selectoin, sender=Selection_Entity, dispatch_uid
 
 def user_like_notification(sender, instance, created, **kwargs):
     if issubclass(sender, Entity_Like) and created:
-        log.info(instance.user)
+        # log.info(instance.user)
         # log.info(instance.entity.user)
         if instance.user.is_active == GKUser.remove:
             return
@@ -1439,6 +1469,7 @@ def user_post_note_notification(sender, instance, created, **kwargs):
 
     data = serializers.serialize('json', [instance])
     generator_tag.delay(data=data)
+    # generator_tag(data=data)
 
     if issubclass(sender, Note) and created:
         # log.info(instance.user)

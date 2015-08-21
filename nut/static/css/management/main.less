@@ -1,6 +1,7 @@
 @import "../lib/mixin.less";
 @import "../lib/var.less";
 @import '../lib/component.less';
+@import '../lib/widgets.less';
 
 
 @-moz-document url-prefix() {
@@ -336,6 +337,34 @@ body {
 .article-management{
   display: none;
 }
+
+.entity-table{
+  .formatted-time{
+    width: 100px;
+    color: @common-gray;
+  }
+  .pub-time{
+     width: 180px;
+     color: black;
+
+  }
+  .entity-image{
+    min-width: 100px;
+  }
+}
+
+#event_banner_info{
+  .banner-background-image{
+    max-height: 250px;
+  }
+
+}
+
+.color-sample-box{
+    width: 150px;
+    height:150px;
+  }
+
 
 .test{
   color: white;

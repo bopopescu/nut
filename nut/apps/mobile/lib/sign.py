@@ -64,7 +64,6 @@ def check_sign(func):
         else:
             request = args[0]
             _param = request.REQUEST.copy()
-        # _req_uri = request.get_full_path()
         try :
             _check_request_param(param=_param)
             _check_sign_md5(_param)

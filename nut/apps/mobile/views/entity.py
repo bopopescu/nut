@@ -4,13 +4,17 @@ from django.views.decorators.http import require_GET
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.mobile.lib.sign import check_sign
 from apps.core.models import Entity, Entity_Like, Note_Poke
-from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
+# from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 # from apps.core.models import Entity_Like
 from apps.core.tasks import like_task, unlike_task
 from apps.mobile.models import Session_Key
-from apps.mobile.forms.search import EntitySearchForm
+# from apps.mobile.forms.search import EntitySearchForm
 from apps.report.models import Report
 from datetime import datetime
+
+from apps.core.views import JSONResponseMixin
+from apps.mobile.forms.search import APIEntitySearchForm
+from haystack.generic_views import SearchView
 
 
 from django.utils.log import getLogger
@@ -153,88 +157,136 @@ def guess(request):
 
     return SuccessJsonResponse(res)
 
+class APIEntitySearchView(SearchView, JSONResponseMixin):
+    form_class = APIEntitySearchForm
+    http_method_names = ['get']
 
-
-@require_GET
-@check_sign
-def search(request):
-
-    _type = request.GET.get('type', None)
-
-    # _query_string = request.GET.get('q')
-    _offset = int(request.GET.get('offset', '0'))
-    _count = int(request.GET.get('count', '30'))
-
-    if _offset > 0 and _offset < 30:
-        return ErrorJsonResponse(status=404)
-
-    _offset = _offset / _count + 1
-
-    _key = request.GET.get('session', None)
-
-    try:
-        _session = Session_Key.objects.get(session_key=_key)
-        visitor = _session.user
-    except Session_Key.DoesNotExist:
-        visitor = None
-
-
-    _forms = EntitySearchForm(request.GET)
-
-    # log.info(request.GET)
-
-    if _forms.is_valid():
-
-        results = _forms.search()
-        log.info(results.count())
+    def get_data(self, context):
+        # print context
         res = {
             'stat' : {
-                'all_count' : results.count(),
+                'all_count' : context.count(),
                 'like_count' : 0,
             },
             'entity_list' : []
         }
 
         el = None
-        if visitor:
-            _entity_id_list = map(lambda x : int(x._sphinx['id']), results)
-            el = Entity_Like.objects.user_like_list(user = visitor, entity_list=_entity_id_list)
-            log.info(el)
-
-        if _type == 'like':
-            if el is None:
-                return SuccessJsonResponse(res)
-            like_entity_list = Entity.objects.filter(pk__in=el)
-            paginator = ExtentPaginator(like_entity_list, _count)
-            try:
-                entities = paginator.page(_offset)
-            except PageNotAnInteger:
-                entities = paginator.page(1)
-            except EmptyPage:
-                return ErrorJsonResponse(status=404, data=res)
-            for entity in entities:
-                res['entity_list'].append(
-                    entity.v3_toDict(user_like_list=el)
-                )
-                res['stat']['like_count'] = len(el)
-            return SuccessJsonResponse(res)
-
-        paginator = ExtentPaginator(results, _count)
-        try:
-            entities = paginator.page(_offset)
-        except PageNotAnInteger:
-            entities = paginator.page(1)
-        except EmptyPage:
-            return ErrorJsonResponse(status=404, data=res)
-        for entity in entities:
-            # log.info(entity)
+        if self.visitor:
+            _entity_id_list = map(lambda x : int(x.object.id), context[self.offset:self.offset+self.count])
+            el = Entity_Like.objects.user_like_list(user = self.visitor, entity_list=_entity_id_list)
+            # log.info(el)
+        for row in context[self.offset:self.offset+self.count]:
             res['entity_list'].append(
-                entity.v3_toDict(user_like_list=el)
+                row.object.v3_toDict(user_like_list=el)
             )
         if el:
             res['stat']['like_count'] = len(el)
-        return SuccessJsonResponse(res)
-    return ErrorJsonResponse(status=400, data=_forms.errors)
+
+        return res
+
+    def form_valid(self, form):
+        self.queryset = form.search()
+        return self.render_to_json_response(self.queryset)
+
+    def form_invalid(self, form):
+        return ErrorJsonResponse(status=400, data=form.errors)
+
+    def get(self, request, *args, **kwargs):
+        _key = request.GET.get('session', None)
+        self.offset = int(request.GET.get('offset', '0'))
+        self.count = int(request.GET.get('count', '30'))
+        self.type = request.GET.get('type', None)
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+            self.visitor = _session.user
+        except Session_Key.DoesNotExist:
+            self.visitor = None
+        return super(APIEntitySearchView, self).get(request, *args, **kwargs)
+
+    def dispatch(self, request, *args, **kwargs):
+        return super(APIEntitySearchView, self).dispatch(request, *args, **kwargs)
+
+# @require_GET
+# @check_sign
+# def search(request):
+#
+#     _type = request.GET.get('type', None)
+#
+#     # _query_string = request.GET.get('q')
+#     _offset = int(request.GET.get('offset', '0'))
+#     _count = int(request.GET.get('count', '30'))
+#
+#     if _offset > 0 and _offset < 30:
+#         return ErrorJsonResponse(status=404)
+#
+#     _offset = _offset / _count + 1
+#
+#     _key = request.GET.get('session', None)
+#
+#     try:
+#         _session = Session_Key.objects.get(session_key=_key)
+#         visitor = _session.user
+#     except Session_Key.DoesNotExist:
+#         visitor = None
+#
+#
+#     _forms = EntitySearchForm(request.GET)
+#
+#     # log.info(request.GET)
+#
+#     if _forms.is_valid():
+#
+#         results = _forms.search()
+#         log.info(results.count())
+#         res = {
+#             'stat' : {
+#                 'all_count' : results.count(),
+#                 'like_count' : 0,
+#             },
+#             'entity_list' : []
+#         }
+#
+#         el = None
+#         if visitor:
+#             _entity_id_list = map(lambda x : int(x._sphinx['id']), results)
+#             el = Entity_Like.objects.user_like_list(user = visitor, entity_list=_entity_id_list)
+#             log.info(el)
+#
+#         if _type == 'like':
+#             if el is None:
+#                 return SuccessJsonResponse(res)
+#             like_entity_list = Entity.objects.filter(pk__in=el)
+#             paginator = ExtentPaginator(like_entity_list, _count)
+#             try:
+#                 entities = paginator.page(_offset)
+#             except PageNotAnInteger:
+#                 entities = paginator.page(1)
+#             except EmptyPage:
+#                 return ErrorJsonResponse(status=404, data=res)
+#             for entity in entities:
+#                 res['entity_list'].append(
+#                     entity.v3_toDict(user_like_list=el)
+#                 )
+#                 res['stat']['like_count'] = len(el)
+#             return SuccessJsonResponse(res)
+#
+#         paginator = ExtentPaginator(results, _count)
+#         try:
+#             entities = paginator.page(_offset)
+#         except PageNotAnInteger:
+#             entities = paginator.page(1)
+#         except EmptyPage:
+#             return ErrorJsonResponse(status=404, data=res)
+#         for entity in entities:
+#             # log.info(entity)
+#             res['entity_list'].append(
+#                 entity.v3_toDict(user_like_list=el)
+#             )
+#         if el:
+#             res['stat']['like_count'] = len(el)
+#         return SuccessJsonResponse(res)
+#     return ErrorJsonResponse(status=400, data=_forms.errors)
 
 
 @csrf_exempt

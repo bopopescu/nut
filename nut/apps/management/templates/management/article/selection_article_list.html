@@ -20,6 +20,7 @@
                     <th class="cover">{% trans 'cover' %}</th>
                     <th class="title">{% trans 'title' %}</th>
                     <th class="person-link" >{% trans 'author' %}</th>
+                    <th class="read-count">文章阅读数</th>
                     <th class="tags">文章标签</th>
 {#                    <th class="cell-boolean" >文章状态</th>#}
                     <th class="date-time">入精选时间</th>
@@ -45,6 +46,7 @@
                             {{ sla.article.creator.profile.nickname }}
                             </a>
                         </td>
+                        <td>{{ sla.article.read_count }}</td>
                         <td> {{ sla.article|article_tag_string }}</td>
 {#                        <td>{{ sla.article.get_publish_display }}</td>#}
 

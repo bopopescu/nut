@@ -27,24 +27,44 @@ def generator_tag(**kwargs):
                 continue
             row.delete()
 
-        for k, v in t.tags.items():
+        for tagData in t.tags:
+            # TagParser.tags is very strange, read code first,
+            theTagHash =tagData['data'][1]
             try:
-                tag = Tags.objects.get(hash = v[1])
+                tag = Tags.objects.get(hash = theTagHash)
             except Tags.DoesNotExist:
                 tag = Tags()
-                tag.name = v[0]
-                tag.hash = v[1]
+                tag.name = tagData['data'][0]
+                tag.hash = tagData['data'][1]
                 tag.save()
             finally:
-                # print tag.name
                 try:
-                    c = Content_Tags.objects.get(tag=tag, creator=obj.user, target_content_type=24, target_object_id=obj.id)
+                    c = Content_Tags.objects.get(tag=tag,creator=obj.user,target_content_type=24, target_object_id=obj.id)
                 except Content_Tags.DoesNotExist:
                     c = Content_Tags()
                     c.target = obj
                     c.tag = tag
                     c.creator = obj.user
                     c.save()
+
+        # for k, v in t.tags.items():
+        #     try:
+        #         tag = Tags.objects.get(hash = v[1])
+        #     except Tags.DoesNotExist:
+        #         tag = Tags()
+        #         tag.name = v[0]
+        #         tag.hash = v[1]
+        #         tag.save()
+        #     finally:
+        #         # print tag.name
+        #         try:
+        #             c = Content_Tags.objects.get(tag=tag, creator=obj.user, target_content_type=24, target_object_id=obj.id)
+        #         except Content_Tags.DoesNotExist:
+        #             c = Content_Tags()
+        #             c.target = obj
+        #             c.tag = tag
+        #             c.creator = obj.user
+        #             c.save()
 
     # if isinstance(obj, Article):
     #     print obj.content

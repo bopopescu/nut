@@ -1,0 +1,34 @@
+{% load i18n %}
+{% load common guoku %}
+{% load static %}
+
+<ul class="section-list user-right">
+    <li class="section">
+        <div class="section-content">
+            <ul class="user-detail-list">
+                <li class="index-link">
+                    <a href="{% url 'web_user_index' current_user.pk %}">
+                        <i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i>&nbsp;{% trans 'Personal Home' %}
+                    </a>
+                </li>
+                <li><a href="{% url 'web_user_entity_like' current_user.pk %}">
+                    {% trans 'Like' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+                <li><a href="{% url 'web_user_post_note' current_user.pk %}">{% trans 'Note' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
+                <li><a href="{% url 'web_user_tag' current_user.pk %}">{% trans 'Tags' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
+                <li><a href="{% url 'web_user_article_published' current_user.pk %}">{% trans 'Articles' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
+            </ul>
+        </div>
+    </li>
+    <li class="section no-bottom">
+        <div class="section-content">
+            <ul class="user-detail-list">
+                <li class="discover-more-link">
+                    <a href="{% url 'web_discover' %}">发现更多商品&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
+                </li>
+            </ul>
+
+        </div>
+    </li>
+</ul>

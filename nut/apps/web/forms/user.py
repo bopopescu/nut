@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 
 # from apps.core.forms.user import UserForm
 
-from apps.core.models import User_Profile
+from apps.core.models import User_Profile, Buy_Link, Category
 from django.utils.log import getLogger
 
 from apps.web.utils.formtools import innerStrip
@@ -156,5 +157,62 @@ class UserChangePasswordForm(forms.Form):
         _password = self.cleaned_data.get('password_confirmation')
         self.user_cache.set_password(_password)
         self.user_cache.save()
+
+
+ArticleStatusChoice = (
+                      # ('all',_('All')),
+                       ('selected',_('Selected Article')),
+                       ('published',_('Published')),
+                        # ('draft', _('Draft')),
+                        )
+class UserArticleStatusFilterForm(forms.Form):
+    articleType = forms.ChoiceField(widget=forms.RadioSelect, choices=ArticleStatusChoice, required=False)
+    def get_cleaned_article_status(self):
+        if not self.is_valid():
+            articleType = 'selected'
+        else:
+            articleType = self.cleaned_data.get('articleType','selected')
+        return articleType
+
+
+
+UserLikeEntityCategoryChoice=(
+    ('1', '生活日用'),
+    ('2','收纳洗晒'),
+    ('3','家庭清洁'),
+    ('4','室内装饰'),
+    ('5','家具'),
+    ('6','家电'),
+    ('7','烹饪厨具'),
+    ('8','个人养护'),
+    ('9','外出旅行'),
+    ('10','文具'),
+    ('11','图书'),
+    ('12','食品'),
+    ('0','全部'),
+)
+
+UserLikeEntityBuyLinkStatusChoice=(
+    ('2','正常'),
+    ('1','下架'), # Buy_link model has a third state , see implemention in  User Article View
+    ('3','全部'),
+)
+
+class UserLikeEntityFilterForm(forms.Form):
+    entityCategory = forms.ChoiceField(widget=forms.RadioSelect, choices=UserLikeEntityCategoryChoice, required=False)
+    entityBuyLinkStatus = forms.ChoiceField(widget=forms.RadioSelect, choices=UserLikeEntityBuyLinkStatusChoice, required=False)
+    def get_filter_values(self):
+        res = dict()
+        if self.is_valid():
+            res['entityCategory'] = self.cleaned_data.get('entityCategory', '0')
+            res['entityBuyLinkStatus'] = self.cleaned_data.get('entityBuyLinkStatus', '1')
+        else:
+            res['entityBuyLinkStatus'] = '1'
+            res['entityCategory'] =  '0'
+
+        return res
+
+
+
 
 __author__ = 'edison'

@@ -48,11 +48,25 @@ class TagParser():
             i += 1
         return tag_list
 
+    # @property
+    # def tags(self):
+    #     res = dict()
+    #     for row in self._tags:
+    #         res.update(
+    #             {
+    #                 'data': [
+    #                     row,
+    #                     md5(row.encode('utf-8')).hexdigest()
+    #                 ]
+    #             }
+    #         )
+    #     return res
+
     @property
     def tags(self):
-        res = dict()
+        res = list()
         for row in self._tags:
-            res.update(
+            res.append(
                 {
                     'data': [
                         row,

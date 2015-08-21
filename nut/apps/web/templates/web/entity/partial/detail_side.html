@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 {% load guoku %}
 
@@ -17,14 +18,14 @@
                 <div class="row">
                     <div class="writer-avatar col-sm-2">
                         <div class="avatar-wrapper">
-                            <a href="{% url 'web_user_article' article.creator.pk %}">
-                                <img src="{{ article.creator.profile.avatar_url }}">
+                            <a href="{% url 'web_user_index' article.creator.pk %}">
+                                <img src="{{ article.creator.profile.avatar_url|resize:'180' }}">
                             </a>
                         </div>
                     </div>
                     <div class="writer-intro col-sm-10">
                         <div class="writer-nick">
-                            <a href="{% url 'web_user_article' article.creator.pk %}">
+                            <a href="{% url 'web_user_index' article.creator.pk %}">
                                 {{ article.creator.profile.nickname }}
                             </a>
 
@@ -94,7 +95,8 @@
                         </div>
                         <div class="img-holder">
                             <a href="{% url 'web_entity_detail' ent.entity_hash %}">
-                                <img width="52px" height="52px" src="{{ ent.chief_image|resize:'52' }}"/>
+                                <div class="img-frame" style="background-image:url({{ ent.chief_image|resize:'128' }})"></div>
+{#                                <img width="52px" height="52px" src="{{ ent.chief_image|resize:'128' }}"/>#}
                             </a>
                         </div>
 
@@ -104,9 +106,7 @@
             <li class="more-entity-wrapper">
                 <div class="more-popular-entity">
                     <a href="{% url 'web_popular' %}">
-                        查看更多
-                         <i class="fa fa-angle-right"></i>
-                         <i class="fa fa-angle-right"></i>
+                        查看更多&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
                     </a>
                 </div>
             </li>
@@ -120,17 +120,12 @@
                 {% with sla.article as h_article %}
                     <li class="pop-article">
                         <div class="pop-article-wrapper">
-                            {#                            <div class="img-holder">#}
-                            {#                                <a href="{% url 'web_article_page' h_article.pk %}">#}
-                            {#                                    <img width="269"  src="{{ h_article.cover|resize:'270' }}"/>#}
-                            {#                                </a>#}
-                            {#                            </div>#}
+
                             <div class="article-content">
 
                                 <div class="article-title">
-                                    <div class="article-list-head">{{ forloop.counter }}</div>
                                     <a href="{% url 'web_article_page' h_article.pk %}">
-                                        {{ h_article.title }}
+                                        {{ h_article.title|truncatechars:32 }}
                                     </a>
                                 </div>
                                 {#                                <div class="article-digest">#}
@@ -139,8 +134,12 @@
                                 {#                                    {% endautoescape %}#}
                                 {#                                </div>#}
                             </div>
-
-
+                             <div class="img-holder">
+                                <a href="{% url 'web_article_page' h_article.pk %}">
+                                    <div class="img-frame" style="background-image:url({{ h_article.cover_url|resize:'100' }})"></div>
+{#                                    <img width="269"  src="{{ h_article.cover|resize:'270' }}"/>#}
+                                </a>
+                            </div>
                         </div>
                     </li>
                 {% endwith %}
@@ -150,29 +149,22 @@
 
     <li class="section banner-holder">
         <div class="section-banner">
-            <a class="banner-link" target="_blank " href="http://www.guoku.com/articles/393/">
-                <img class="img-responsive" src="{% static 'images/side_bar/article_0804.jpg' %}">
+            <a class="banner-link" target="_blank " href="http://www.guoku.com/articles/482/#from=sidebar">
+                <img class="img-responsive" src="{% static 'images/side_bar/article_820.jpg' %}">
             </a>
         </div>
     </li>
     <li class="section banner-holder">
         <div class="section-banner">
-            <a class="banner-link" target="_blank " href="http://s.click.taobao.com/ALbr4xx">
-                <img class="img-responsive" src="{% static 'images/side_bar/alimama_0804.jpg' %}">
+            <a class="banner-link" target="_blank " href="http://www.guoku.com/articles/522/#from=sidebar">
+                <img src="{% static 'images/side_bar/interview_820.jpg' %}">
             </a>
         </div>
     </li>
     <li class="section banner-holder">
         <div class="section-banner">
-            <a class="banner-link" target="_blank " href="http://www.guoku.com/articles/378/">
-                <img src="{% static 'images/side_bar/interview_0804.jpg' %}">
-            </a>
-        </div>
-    </li>
-    <li class="section banner-holder">
-        <div class="section-banner">
-            <a class="banner-link" target="_blank " href="http://www.guoku.com/detail/cea4158c">
-                <img src="{% static 'images/side_bar/item_0804.jpg' %}">
+            <a class="banner-link" target="_blank " href="http://www.guoku.com/detail/2498c4fe/#from=sidebar">
+                <img src="{% static 'images/side_bar/item_8_20.jpg' %}">
             </a>
         </div>
     </li>
@@ -190,14 +182,13 @@
     </li>
 
     <li class="section need-bottom-border">
-        <div class="section-title">应用下载</div>
+        <div class="section-title">{% trans 'Download App' %}</div>
         <div class="section-content">
             <div class="text-holder">
                 精英消费指南，生活不一样。
                  <span class="download-link">
-                     <a href="{% url "web_download" %}">查看详情
-                         <i class="fa fa-angle-right"></i>
-                         <i class="fa fa-angle-right"></i>
+                     <a href="{% url "web_download" %}">
+                         查看详情&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
                      </a>
                  </span>
             </div>

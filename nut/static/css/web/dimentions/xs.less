@@ -3,11 +3,23 @@
 @import "../../lib/widgets.less";
 //for xs screen , and all screen NOT sx
 @media(max-width: 767px){
+  .event-item{
+    padding:5px 5px 5px 5px;
+  }
+}
+
+@media(max-width: 767px){
     #guoku_main_nav{
+      .navbar-form{
+        padding: 0px 0px;
+        input{
+          padding-left: 10px;
+        }
+      }
       background-color: @nav-xs-background-color;
       .navbar-toggle{
         .icon-bar{
-          background-color: @default-background;
+          background-color: @common-gray;
         }
       }
         .search{
@@ -30,20 +42,32 @@
         li{
           a{
             &:hover, &:focus{
-               color: #fff;
+               color: @common-text-color;
             }
           }
         }
+
       }
     }
 
     #guoku_footer{
-      .footer-columns{
-         width: 120px ;
-         margin: 0 auto ;
-      }
-      .footer-buttons{
+      .footer-part{
+        .list-wrapper{
+           text-align: center;
+           margin-bottom:20px;
 
+           ul{
+             display:inline-block;
+           }
+        }
+        .qr-wrapper{
+          float:none!important;
+          margin:0 auto ;
+        }
+      }
+
+      .footer-buttons{
+         display:none;
          width: 204px;
          float: none;
          margin: 0 auto;
@@ -56,12 +80,13 @@
         .footer-bottom-left, .footer-bottom-right{
              float:none;
              margin:0 auto;
+             padding-top:20px;
         }
         .footer-bottom-left{
-          width: 400px;
+          text-align: center;
         }
         .footer-bottom-right{
-          width: 200px;
+          text-align:center;
         }
       }
     }
@@ -74,7 +99,7 @@
            }
            .center-wrapper{
               margin: 0 auto ;
-              width: 240px;
+              width: 142px;
               .action{
                 display: block;
                 margin-top: 20px;
@@ -86,9 +111,16 @@
               }
            }
            .user-bio{
-
+             text-align: center;
              margin: 0 auto ;
              margin-top: 20px!important;
+           }
+           .user-binding{
+              width: 20px;
+              margin: 0 auto;
+           }
+           .user-social-info{
+              text-align: center;
            }
          }
          .content-panel{
@@ -126,12 +158,28 @@
       .user-info{
         max-width:450px;
       }
+      .note-cell{
+              .note-text{
+                font-size:@smaller-primary!important;
+                font-color: @common-gray!important;
+              }
+           }
     }
   }
 }
 
 @media(min-width: 768px)  {
   // reuse parts
+  #detail_content_left{
+    .detail-pic-left{
+      max-width: 360px;
+    }
+  }
+
+  #detail_content_right{
+    max-width:  330px;
+  }
+
   .more-article-wrapper{
     .cover-wrapper{
      a{
@@ -160,4 +208,14 @@
        color: @common-gray;
     }
   }
+
+  .user-page{
+    .user-info-wrapper{
+      .user-icon{
+        max-width: 200px;
+      }
+    }
+  }
+
+
 }

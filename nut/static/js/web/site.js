@@ -401,33 +401,69 @@ $.ajaxSetup({
                 } else {
                     action_url +=  "/follow/";
                 }
-                $.ajax({
+
+                $.when($.ajax({
                     url: action_url,
                     dataType:'json',
-                    method: 'post',
-                    success: function(data){
-                        //console.log(data);
+                    method:'POST'
+                })).then(function success(data){
+                    console.log('success');
+                    console.log(data);
                         if (data.status == 1) {
-                            if($this.hasClass(".is-fan")){
-                                $this.html('<i class="fa fa-check fa-lg fc_3"></i>&nbsp; 取消光柱');
-                            } else {
-                                $this.html('<i class="fa fa-exchange fa-lg fc_3"></i>&nbsp; 取消关注');
-                        //$this.html('<span class="img_not_fun"></span><b>取消关注</b>');
-                            }
+                            $this.html('<i class="fa fa-check fa-lg"></i>&nbsp; 取消关注');
                             $this.attr('data-status', '1');
+                            $this.removeClass("button-blue").addClass("btn-cancel");
 
-                            $this.removeClass("btn-primary").addClass("btn-cancel");
-                        } else if (data.status == 0) {
-                            $this.html('<i class="fa fa-plus fc_4"></i>&nbsp; 关注');
+                        }else if (data.status == 2){
+                            console.log('mutual !!!');
+                             $this.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关柱');
+                             $this.removeClass('button-blue').addClass('btn-cancel');
+                             $this.attr('data-status','1');
+
+                        }else if (data.status == 0) {
+                            $this.html('<i class="fa fa-plus"></i>&nbsp; 关注');
                         //$this.html('<span class="img_follow"></span><b>关注</b>');
-                            $this.removeClass("btn-cancel").addClass("btn-primary");
+                            $this.removeClass("btn-cancel").addClass("button-blue");
                             $this.attr('data-status', '0');
-                        } else {
-                            var html = $(data);
-                            util.modalSignIn(html);
+                        }else{
+                          console.log('did not response with valid data');
                         }
-                    }
+
+                }, function fail(error){
+                    console.log('failed' + error);
+                    var html = $(error.responseText);
+                    util.modalSignIn(html);
                 });
+                //$.ajax({
+                //    url: action_url,
+                //    dataType:'json',
+                //    method: 'post',
+                //    success: function(data){
+                //        //console.log(data);
+                //
+                //        if (data.status == 1) {
+                //
+                //            $this.html('<i class="fa fa-check fa-lg"></i>&nbsp; 取消关注');
+                //            $this.attr('data-status', '1');
+                //            $this.removeClass("button-blue").addClass("btn-cancel");
+                //
+                //        }else if (data.status == 2){
+                //            console.log('mutual !!!');
+                //             $this.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关柱');
+                //             $this.removeClass('button-blue').addClass('btn-cancel');
+                //             $this.attr('data-status','1');
+                //
+                //        }else if (data.status == 0) {
+                //            $this.html('<i class="fa fa-plus"></i>&nbsp; 关注');
+                //        //$this.html('<span class="img_follow"></span><b>关注</b>');
+                //            $this.removeClass("btn-cancel").addClass("button-blue");
+                //            $this.attr('data-status', '0');
+                //        } else {
+                //            var html = $(data);
+                //            util.modalSignIn(html);
+                //        }
+                //    }
+                //});
                 //e.preventDefault();
             })
         },

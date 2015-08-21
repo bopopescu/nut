@@ -63,7 +63,7 @@
                     <ul class="nav nav-sidebar">
                         {% url 'management_selection_list' as management_selection_url %}
                         <li {% if management_selection_url in request.path %} class="active" {% endif %}>
-                            <a href="{{ management_selection_url }}"><i class="fa fa-star"></i>&nbsp;{% trans 'selection' %}</a>
+                            <a href="{{ management_selection_url }}"><i class="fa fa-star"></i>&nbsp;{% trans 'Selection Entity Management' %}</a>
                         </li>
 
                         {% url 'management_event' as management_event_url %}

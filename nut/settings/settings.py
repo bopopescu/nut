@@ -72,7 +72,7 @@ HAYSTACK_CONNECTIONS = {
         # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
     }
 }
-HAYSTACK_DEFAULT_OPERATOR = 'OR'
+HAYSTACK_DEFAULT_OPERATOR = 'AND'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -113,6 +113,7 @@ CACHES = {
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.ShardClient",
             "PICKLE_VERSION": -1,
+            "SOCKET_CONNECT_TIMEOUT": 5,
             "SOCKET_TIMEOUT": 5,  # in seconds
             "COMPRESS_MIN_LEN": 10,
             "CONNECTION_POOL_KWARGS": {"max_connections": 1024},

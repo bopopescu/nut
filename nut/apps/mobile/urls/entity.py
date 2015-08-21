@@ -1,10 +1,11 @@
 from django.conf.urls import url, patterns
+from apps.mobile.views.entity import APIEntitySearchView
 
 
 urlpatterns = patterns(
     'apps.mobile.views.entity',
     url(r'^$', 'entity_list', name='mobile_entity_list'),
-    url(r'^search/$', 'search', name='mobile_entity_search'),
+    url(r'^search/$', APIEntitySearchView.as_view(), name='mobile_entity_search'),
     url(r'^guess/$', 'guess', name='mobile_entity_guess'),
     url(r'^(?P<entity_id>\d+)/$', 'detail', name='mobile_entity_detail'),
     url(r'^(?P<entity_id>\d+)/like/(?P<target_status>\d+)/$', 'like_action', name='mobile_entity_like_action'),

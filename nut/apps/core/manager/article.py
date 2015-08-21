@@ -15,7 +15,10 @@ class ArticleManager(models.Manager):
         return self.get_queryset().filter(publish=2, creator=user).order_by('-updated_datetime')
 
     def get_drafted_by_user(self,user):
-        pass
+        return self.get_queryset().filter(publish=1, creator=user).order_by('-updated_datetime')
+
+    def get_removed_by_user(self,user):
+        return self.get_queryset().filter(publish=0, creator=user).order_by('-updated_datetime')
 
 
 
@@ -48,6 +51,9 @@ class SelectionArticleManager(models.Manager):
 
     def published(self,until_time=None):
         return self.published_until()
+
+    def published_by_user(self,user):
+        return self.published_until().filter(article__creator = user)
 
     def pending(self):
         return self.get_queryset().filter(is_published=False).using('slave')
