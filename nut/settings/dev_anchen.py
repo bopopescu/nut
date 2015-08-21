@@ -2,8 +2,10 @@ from stage import *
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
-IMAGE_HOST = 'http://127.0.0.1:8000/'
+# IMAGE_HOST = 'http://127.0.0.1:8000/'
 # AVATAR_HOST = 'http://imgcdn.guoku.com/'
+IMAGE_HOST = 'http://imgcdn.guoku.com/'
+AVATAR_HOST = 'http://imgcdn.guoku.com/'
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
@@ -35,13 +37,17 @@ CACHES = {
 #         'LOCATION': '/var/tmp/django_cache',
 #     }
 # }
+#
 
+# ----------------------- debug -----------------------
 def removeDebugToolBar(theList):
     return [x  for x in theList if x!='debug_toolbar']
-#
+
 INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
 
-#
+#-------------------------debug end --------------------
+
+
 # TEMPLATE_CONTEXT_PROCESSORS += (
 #     # 'apps.web.contextprocessors.global.lastslug',
 # )
@@ -89,7 +95,7 @@ DEFAULT_POPULAR_SCALE = 200
 #         from django.template.base import TemplateSyntaxError
 #         raise TemplateSyntaxError(
 #             "Undefined variable or unknown value for: \"%s\"" % other)
-
+#
 # TEMPLATE_STRING_IF_INVALID = "****************** %s ****************"
 
 

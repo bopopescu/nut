@@ -4,11 +4,20 @@
 
 {% block content %}
 
-    <div class="row" style="margin-top: 40px;">
+    <div class="row" style="margin-top: 40px;" id="event_banner_info">
         <div class="col-sm-6">
+            <div > Banner 主图</div>
             <div class="thumbnail">
                 <img src="{{ event_banner.image_url }}">
             </div>
+        </div>
+        <div class="col-sm-3 banner-background-image">
+            <div> {% trans 'event banner background image' %}</div>
+            <img class="img-responsive" src="{{ event_banner.background_image_url }}">
+            </div>
+        <div class="col-sm-3 banner-background-color">
+            <DIV> {% trans 'event banner background color' %} </DIV>
+            <div class="color-sample-box" style="background-color:#{{ event_banner.background_color }}"></div>
         </div>
     </div>
 

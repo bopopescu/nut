@@ -11,7 +11,7 @@ from django.template.base import TemplateDoesNotExist
 
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.models import Show_Event_Banner, Show_Editor_Recommendation, Event
-from apps.core.models import Tag, Entity, Entity_Like, Entity_Tag, Note
+from apps.core.models import  Entity, Entity_Like, Note
 from apps.core.utils.http import JSONResponse
 from apps.tag.models import Tags, Content_Tags
 
@@ -63,13 +63,13 @@ def event(request, slug, template='web/events/home'):
 
     hash = md5(event.tag.encode('utf-8')).hexdigest()
     tag = Tags.objects.get(hash=hash)
-    inner_qs = Content_Tags.objects.filter(tag=tag, target_content_type=24).values_list('target_object_id', flat=True)
-    log.info(inner_qs)
-    _eid_list = Note.objects.filter(pk__in=inner_qs).values_list('entity_id', flat=True)
+    inner_qs = Content_Tags.objects.filter(tag=tag, target_content_type=24).values_list('target_object_id', flat=True).using('slave')
+    log.info(inner_qs.query)
+    _eid_list = Note.objects.filter(pk__in=list(inner_qs)).values_list('entity_id', flat=True).using('slave')
 
-    _entity_list = Entity.objects.filter(id__in=list(set(_eid_list)), status=Entity.selection)
+    _entity_list = Entity.objects.filter(id__in=list(set(_eid_list)), status=Entity.selection).using('slave')
 
-    _paginator = ExtentPaginator(_entity_list, 30)
+    _paginator = ExtentPaginator(_entity_list, 12)
 
     try:
         _entities = _paginator.page(_page_num)
@@ -117,6 +117,7 @@ def event(request, slug, template='web/events/home'):
                 content_type='text/html; charset=utf-8',
         )
 
+
     # log.info('tag text %s', event.tag)
     return render_to_response(
         template,
@@ -127,6 +128,8 @@ def event(request, slug, template='web/events/home'):
             'show_editor_recommendations': _show_editor_recommendations,
             'entities': _entities,
             'user_entity_likes': el,
+            'from_app':request.GET.get('from','normal') == 'app'
+
         },
         context_instance=RequestContext(request)
     )

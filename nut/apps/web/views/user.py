@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
+from django.utils.translation import ugettext as _
 
 from apps.web.forms.user import UserSettingsForm, UserChangePasswordForm
 from apps.core.utils.http import JSONResponse, ErrorJsonResponse
@@ -14,7 +15,7 @@ from apps.core.models import Note, GKUser
 from apps.core.forms.user import AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.models import Entity, Entity_Like, Tag, \
-                             Entity_Tag, User_Follow,Article
+                             Entity_Tag, User_Follow,Article,User_Profile,Selection_Article
 
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 from apps.tag.models import Content_Tags, Tags
@@ -24,6 +25,9 @@ from ..utils.viewtools import get_paged_list
 from django.views.generic import ListView, DetailView
 from hashlib import md5
 from django.utils.log import getLogger
+
+
+
 
 log = getLogger('django')
 
@@ -127,8 +131,22 @@ def follow_action(request, user_id):
             followee_id = user_id,
         )
         uf.save()
+
+    try:
+        reverse_uf = User_Follow.objects.get(
+            follower_id = user_id,
+            followee = _fans
+        )
+        # mutual following
+        return JSONResponse(data={'status': 2})
+
+    except User_Follow.DoesNotExist :
+        return JSONResponse(data={'status': 1})
+
+
+
         # notify.send(_fans, recipient=uf.followee, verb=u'has followed you', action_object=uf, target=uf.followee)
-    return JSONResponse(data={'status':1})
+    # return JSONResponse(data={'status':1})
 
 
 @login_required
@@ -145,6 +163,7 @@ def unfollow_action(request, user_id):
         uf.delete()
     except User_Follow.DoesNotExist, e:
         raise Http404
+
     return JSONResponse(data={'status':0})
     # return
 
@@ -153,6 +172,11 @@ def index(request, user_id):
     return HttpResponseRedirect(reverse('web_user_entity_like', args=[user_id,]))
 
 
+
+
+
+
+# prepare to retire this view -- anchen
 def entity_like(request, user_id, template="web/user/like.html"):
 
     _page = request.GET.get('page', 1)
@@ -269,33 +293,10 @@ def articles(request,user_id, template="web/user/user_published_articles.html"):
 
 
 
-class UserIndex(DetailView):
-    template_name = 'web/user/user_index.html'
-    model = GKUser
-    pk_url_kwarg = 'user_id'
-    context_object_name = 'current_user'
-
-    def get_context_data(self,**kwargs):
-        context_data = super(UserIndex, self).get_context_data(**kwargs)
-        current_user = context_data['object']
-        context_data['recent_likes'] = current_user.likes.all()[:10]
-        context_data['recent_notes'] = current_user.note.all()[:10]
-        context_data['articles'] = current_user.published_articles[:5]
-        context_data['followings'] = current_user.followings.all()[:7]
-        context_data['fans'] = current_user.fans.all()[:7]
-        context_data['tags']= Content_Tags.objects.user_tags(current_user.pk)[0:5]
-        return context_data
-
-
-
-
-
-# NOT ABLE TO RUN !!! ,
-# the Listview will automaticly replace user field in context with current request.user !!!
-# that will conflict the current user_base.html template's "user" !
-class UserArticles(ListView):
-    template_name = 'web/user/user_published_articles.html'
-    model = Article
+class UserDetailBase(ListView):
+    '''
+        abstract view for user views
+    '''
     paginate_by = 30
     paginator_class = Jpaginator
     context_object_name = 'articles'
@@ -303,18 +304,164 @@ class UserArticles(ListView):
         user_id =  self.kwargs['user_id']
         _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
         return _user
+    def get_pronoun(self):
+        _current_user = self.get_showing_user()
+        if self.request.user == _current_user:
+            return _('My')
+        elif _current_user.profile.gender == User_Profile.Woman:
+            return _('Hers')
+        else:
+            return _('His')
 
     def get_context_data(self, **kwargs):
-        context = super(UserArticles, self).get_context_data(**kwargs)
-        context['user'] = self.get_showing_user()
-        context['_t_user'] = self.get_showing_user()
-        return context
+        context_data = super(UserDetailBase, self).get_context_data(**kwargs)
+        context_data['current_user'] = self.get_showing_user()
+        context_data['pronoun'] = self.get_pronoun()
+        return context_data
+
+from apps.web.forms.user import UserLikeEntityFilterForm
+class UserLikeView(UserDetailBase):
+    paginate_by = 28
+    template_name = 'web/user/user_like.html'
+    context_object_name = 'current_user_likes'
+    def get_context_data(self, **kwargs):
+        context_data = super(UserLikeView, self).get_context_data(**kwargs)
+        context_data['entity_filter_form'] = UserLikeEntityFilterForm(initial={'entityCategory': '0', 'entityBuyLinkStatus':'3'})
+        return context_data
+
 
     def get_queryset(self):
-        user = self.get_showing_user();
-        qs = Article.objects.get_published_by_user(user)
-        return qs
+        _user = self.get_showing_user()
+        _like_list = Entity_Like.objects.filter(user=_user, entity__status__gte=Entity.freeze)
+        return _like_list
 
+
+class UserNoteView(UserDetailBase):
+    paginate_by = 20
+    template_name = 'web/user/user_note.html'
+    context_object_name = 'current_user_notes'
+    def get_queryset(self):
+        _user = self.get_showing_user()
+        _note_list = Note.objects.filter(user=_user, entity__status__gt=Entity.remove,).exclude(status=Note.remove).order_by("-post_time")
+        return _note_list
+
+
+class UserTagView(UserDetailBase):
+    paginate_by = None
+    template_name = 'web/user/user_tag.html'
+    context_object_name = 'current_user_tags'
+    def get_queryset(self):
+        _user = self.get_showing_user()
+        tag_list = Content_Tags.objects.user_tags(_user.pk)
+        return tag_list
+
+
+class UserPublishedArticleView(UserDetailBase):
+    template_name =  'web/user/user_article.html'
+    paginate_by = 12
+    context_object_name = 'current_user_articles'
+    def get_queryset(self):
+        _user = self.get_showing_user()
+        _article_list = Article.objects.get_published_by_user(_user)
+        return _article_list
+
+class UserPublishedSelectionArticleView(UserDetailBase):
+    template_name =  'web/user/user_article.html'
+    paginate_by = 12
+    context_object_name = 'current_user_articles'
+    def get_queryset(self):
+        _user = self.get_showing_user()
+        _selection_article_ids = Selection_Article.objects.published_by_user(_user).values_list("article__id", flat=True)
+        _article_list = Article.objects.get_published_by_user(_user).filter(selections__isnull = False).filter(pk__in=list(_selection_article_ids))
+        return _article_list
+
+
+from apps.web.forms.user import UserArticleStatusFilterForm
+class UserArticleView(UserDetailBase):
+    template_name =  'web/user/user_article.html'
+    paginate_by = 12
+    context_object_name = 'current_user_articles'
+    def get_context_data(self, **kwargs):
+        context_data = super(UserArticleView, self).get_context_data(**kwargs)
+        context_data['article_filter_form'] = UserArticleStatusFilterForm(initial={'articleType':'published'})
+        return context_data
+
+    def get_request_articles_status(self):
+        theForm = UserArticleStatusFilterForm(self.request.GET)
+        return theForm.get_cleaned_article_status()
+
+    def get_queryset(self):
+        _user = self.get_showing_user()
+        article_status = self.get_request_articles_status()
+        if article_status == 'published':
+            _article_list = Article.objects.get_published_by_user(_user)
+        elif article_status == 'draft':
+            _article_list = Article.objects.get_drafted_by_user(_user)
+        else :
+            _selection_article_ids = Selection_Article.objects.published_by_user(_user).values_list("article__id", flat=True)
+            _article_list = Article.objects.get_published_by_user(_user).filter(selections__isnull = False).filter(pk__in=list(_selection_article_ids))
+        # else:
+        #     _article_list = Article.objects.get_published_by_user(_user)
+
+        return _article_list
+
+class UserFansView(UserDetailBase):
+    template_name = 'web/user/user_fans.html'
+    paginate_by = 12
+    context_object_name = 'current_user_fans'
+    def get_queryset(self):
+        _user = self.get_showing_user()
+        return _user.fans.all()
+
+
+class UserFollowingsView(UserDetailBase):
+    template_name = 'web/user/user_followings.html'
+    paginate_by = 12
+    context_object_name = 'current_user_followings'
+    def get_queryset(self):
+        _user = self.get_showing_user()
+        return _user.followings.all()
+
+
+class UserIndex(DetailView):
+    template_name = 'web/user/user_index.html'
+    model = GKUser
+    pk_url_kwarg = 'user_id'
+    context_object_name = 'current_user'
+    def get_showing_user(self):
+        user_id =  self.kwargs['user_id']
+        _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
+        return _user
+
+    def get_pronoun(self):
+        _current_user = self.get_showing_user()
+        if self.request.user == _current_user:
+            return _('My')
+        elif _current_user.profile.gender == User_Profile.Woman:
+            return _('Hers')
+        else:
+            return _('His')
+
+    def get_context_data(self,**kwargs):
+        context_data = super(UserIndex, self).get_context_data(**kwargs)
+        current_user = context_data['object']
+        context_data['recent_likes'] = current_user.likes.all()[:12]
+        context_data['recent_notes'] = current_user.note.all().order_by("-post_time")[:6]
+        # get user published selection article list
+
+        _article_list = Article.objects.get_published_by_user(current_user).order_by("-selections", '-updated_datetime')[0:6]
+        # _selection_article_ids = Selection_Article.objects.published_by_user(current_user).values_list("article__id", flat=True)
+        # _common_article_ids    = Article.objects.get_published_by_user(current_user).exclude(pk_in=list(_selection_article_ids)).values_list("pk",flat=True)
+        # _article_list = Article.objects.get_published_by_user(current_user).filter(selections__isnull = False)\
+        #                                .filter(pk__in=list(_selection_article_ids))[:6]
+        #
+        context_data['articles'] = _article_list
+
+        context_data['followings'] = current_user.followings.all()[:7]
+        context_data['fans'] = current_user.fans.all()[:7]
+        context_data['tags']= Content_Tags.objects.user_tags(current_user.pk)[0:5]
+        context_data['pronoun'] = self.get_pronoun()
+        return context_data
 
 def user_tag_detail(request, user_id, tag_name, template="web/user/tag_detail.html"):
 

@@ -21,30 +21,19 @@
 {#{% block description %}果库专题，超实用的网络购物专辑，发现好物更便捷，闪购商品更迅速。品质生活，你值得拥有。{% endblock %}#}
 {% block global_links %}
     {% url 'web_event_list' as event_list_url %}
-        <a href="{{ event_list_url }}" target="_blank"><img class="img-responsive guoku-weixin" src="{% static 'images/event/event_enter.png' %}"></a>
+        <a href="{{ event_list_url }}"><img class="img-responsive guoku-weixin" src="{% static 'images/event/event_enter.png' %}"></a>
 
 {% endblock %}
 {% block h1 %}{{ tag_text }}{% endblock %}
 
+{% block body_class %}
+    gray-body event-body {% if from_app %} guoku-app{% endif %}
+{% endblock %}
 {% block content %}
         {% block bg %}
         {% endblock %}
-    <div class="container">
-        {% block headevent %}
-        {% endblock %}
-
-        {% block tag %}
-        <div class="row">
-            <div class="col-md-12">
-                <ul class="nav nav-pills nav-home" role="tablist">
-                    <li>专题</li>
-                    <li>｜</li>
-                    <li>{{ tag_text }}</li>
-                </ul>
-            </div>
-        </div>
-        {% endblock %}
-        {% if event.has_banner %}
+    <div class="event-cross-screen">
+     {% if event.has_banner %}
           <div class="row event-banner-wrapper">
             <div class="col-md-12" id="event_home_banner">
                 <div id="carousel-guoku" class="carousel slide" data-ride="carousel" style="">
@@ -60,11 +49,11 @@
                         {% for show in show_event_banners %}
                             <div class="item {% if 1 == show.position %}active{% endif %}">
                                 {% if show.banner.banner_type == 1  %}
-                                    <a datatype="1" biz-sellerid="{{ show.banner.user_id }}" target="_blank" href="#">
+                                    <a class="event-banner-link" datatype="1" biz-sellerid="{{ show.banner.user_id }}" href="#">
                                         <img src="{{ show.banner.image_url }}" alt="" width="940" height="430">
                                     </a>
                                 {% else %}
-                                    <a target="_blank" href="{{ show.banner.link }}">
+                                    <a class="event-banner-link" href="{{ show.banner.link }}">
                                         <img src="{{ show.banner.image_url }}">
                                     </a>
                                 {% endif %}
@@ -88,6 +77,24 @@
         </div>
         {% endif %}
 
+    </div>
+    <div class="container event-wrapper">
+        {% block headevent %}
+        {% endblock %}
+
+        {% block tag %}
+        <div class="row">
+{#            <div class="col-md-12">#}
+{#                <ul class="nav nav-pills nav-home" role="tablist">#}
+{#                    <li>专题</li>#}
+{#                    <li>｜</li>#}
+{#                    <li>{{ tag_text }}</li>#}
+{#                </ul>#}
+{#            </div>#}
+        </div>
+        {% endblock %}
+
+
         {% if event.has_recommendation %}
         <div class="row" style="margin-top: 40px;">
             <div class="col-md-12">
@@ -95,11 +102,11 @@
             </div>
         </div>
 
-        <div class="row" >
+        <div class="row " >
             {% for show_editor in show_editor_recommendations %}
-                <div class="col-xs-12 col-sm-6">
-                    <div class="thumbnail">
-                        <a target="_blank" href="{{ show_editor.recommendation.link }}">
+                <div class="col-xs-12 col-sm-3">
+                    <div class="recommendation-item ">
+                        <a href="{{ show_editor.recommendation.link }}">
                             <img class="img-responsive" src="{{ show_editor.recommendation.image_url }}" width="450" height="225">
                         </a>
                     </div>
@@ -117,7 +124,7 @@
 
         <div class="row" id="event">
             {% for entity in entities %}
-                {% include "web/main/partial/selection_item_list.html" with entity=entity %}
+                {% include "web/events/partial/event_entity_item.html" with entity=entity %}
             {% endfor %}
         </div>
         <div class="row hidden-xs">
@@ -169,6 +176,34 @@
 <script>
     var viewed_event_slug_cookie_key = 'viewed_event_slug_cookie_key';
     $.cookie(viewed_event_slug_cookie_key , newest_event_slug , { expires: 7, path: '/' });
+    var bk_images = [];
+    var bk_colors = [];
+    {% if event.has_banner %}
+    {% for show in show_event_banners %}
+        {%  if show.banner.background_image %}
+            bk_images.push('{{ show.banner.background_image_url }}');
+        {% else  %}
+            bk_images.push('');
+        {% endif %}
+
+        {% if show.banner.background_color %}
+
+            bk_colors.push('{{ show.banner.background_color }}');
+        {% else %}
+            bk_colors.push('fff');
+        {% endif %}
+    {% endfor %}
+        // only use the first one
+{#        document.body.style.background = 'url("'+ bk_images[0] +'") repeat-x content-box 0px 52px ';#}
+        $('.event-cross-screen').css({
+            'background-color':'#'+bk_colors[0],
+            'background-image': 'url('+ bk_images[0] +')',
+            'background-repeat':'repeat-x',
+            'background-clip':'content-box'
+        });
+
+{% endif %}
+
 
 </script>
 

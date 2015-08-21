@@ -19,13 +19,13 @@
 
 {#    <div class="row">#}
     {% if type == 't' %}
-        {% include 'management/tags/table.html' with tags=object_list %}
+        {% include 'management/search/partial/tags.html' with object_list=object_list %}
     {% elif type == 'u' %}
-        {% include 'management/users/table.html' with users=object_list %}
+        {% include 'management/search/partial/users.html' with object_list=object_list %}
     {% else %}
-        {% include "management/entities/table.html" with entities=object_list %}
+        {% include "management/search/partial/entities.html" with object_list=object_list %}
     {% endif %}
 
-    {% include 'management/search/search_paginator.html' with objects=page_obj keyword=query type=type %}
+    {% include 'management/search/search_paginator.html' with objects=page_obj keyword=query status=type %}
 {#    </div>#}
 {% endblock %}

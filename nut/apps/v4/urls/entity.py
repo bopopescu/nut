@@ -1,10 +1,11 @@
 from django.conf.urls import url, patterns
-
+from apps.v4.views.entity import APIntitySearchView
 
 urlpatterns = patterns(
     'apps.v4.views.entity',
     url(r'^$', 'entity_list', name='v4_entity_list'),
-    url(r'^search/$', 'search', name='v4_entity_search'),
+    url(r'^search/$', APIntitySearchView.as_view(), name='v4_entity_search'),
+    # url(r'^search/$', 'search', name='v4_entity_search'),
     url(r'^guess/$', 'guess', name='v4_entity_guess'),
     url(r'^(?P<entity_id>\d+)/$', 'detail', name='v4_entity_detail'),
     url(r'^(?P<entity_id>\d+)/like/(?P<target_status>\d+)/$', 'like_action', name='v4_entity_like_action'),

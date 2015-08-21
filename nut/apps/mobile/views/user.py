@@ -15,6 +15,10 @@ import time
 
 from apps.tag.models import Content_Tags
 
+from apps.core.views import JSONResponseMixin
+from apps.v4.forms.search import APIUserSearchForm
+from haystack.generic_views import SearchView
+
 log = getLogger('django')
 
 
@@ -322,37 +326,71 @@ def follow_action(request, user_id, target_status):
     return SuccessJsonResponse(res)
 
 
-@check_sign
-def search(request):
-    _offset = int(request.GET.get('offset', '0'))
-    _count = int(request.GET.get('count', '30'))
+class APIUserSearchView(SearchView, JSONResponseMixin):
+    form_class = APIUserSearchForm
+    http_method_names = ['get']
 
-    if _offset > 0 and _offset < 30:
-        return ErrorJsonResponse(status=404)
-
-    _offset = _offset / _count + 1
-
-    _forms = UserSearchForm(request.GET)
-    if _forms.is_valid():
-        results = _forms.search()
-        log.info(results)
+    def get_data(self, context):
         res = []
-
-        paginator = ExtentPaginator(results, _count)
-        try:
-            users = paginator.page(_offset)
-        except PageNotAnInteger:
-            users = paginator.page(1)
-        except EmptyPage:
-            return ErrorJsonResponse(status=404)
-        for user in users:
-            # log.info(entity)
+        for row in context[self.offset: self.offset+self.count]:
             res.append(
-                user.v3_toDict()
+                row.object.v3_toDict(visitor=self.visitor)
             )
-        return SuccessJsonResponse(res)
+        return res
 
-    return ErrorJsonResponse(status=400)
+    def form_valid(self, form):
+        self.queryset = form.search()
+        return self.render_to_json_response(self.queryset)
+
+    def form_invalid(self, form):
+        return ErrorJsonResponse(status=400)
+
+    def get(self, request, *args, **kwargs):
+        _key = request.GET.get('session', None)
+        self.offset = int(request.GET.get('offset', '0'))
+        self.count = int(request.GET.get('count', '30'))
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+            self.visitor = _session.user
+        except Session_Key.DoesNotExist:
+            self.visitor = None
+        return super(APIUserSearchView, self).get(request, *args, **kwargs)
+
+    @check_sign
+    def dispatch(self, request, *args, **kwargs):
+        return super(APIUserSearchView, self).dispatch(request, *args, **kwargs)
+
+# @check_sign
+# def search(request):
+#     _offset = int(request.GET.get('offset', '0'))
+#     _count = int(request.GET.get('count', '30'))
+#
+#     if _offset > 0 and _offset < 30:
+#         return ErrorJsonResponse(status=404)
+#
+#     _offset = _offset / _count + 1
+#
+#     _forms = UserSearchForm(request.GET)
+#     if _forms.is_valid():
+#         results = _forms.search()
+#         log.info(results)
+#         res = []
+#
+#         paginator = ExtentPaginator(results, _count)
+#         try:
+#             users = paginator.page(_offset)
+#         except PageNotAnInteger:
+#             users = paginator.page(1)
+#         except EmptyPage:
+#             return ErrorJsonResponse(status=404)
+#         for user in users:
+#             # log.info(entity)
+#             res.append(
+#                 user.v3_toDict()
+#             )
+#         return SuccessJsonResponse(res)
+#
+#     return ErrorJsonResponse(status=400)
 
 # @csrf_exempt
 # @check_sign

@@ -142,6 +142,7 @@ class EditorArticleEdit(AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,
         return self.render_to_response({
             'form':the_form,
             'pk': pk,
+            'cover_url': the_article.cover_url,
             'is_chief_editor': self.request.user.is_chief_editor
         })
 

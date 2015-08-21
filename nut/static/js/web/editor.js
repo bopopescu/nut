@@ -32,15 +32,55 @@
         this.initBootbox();
         this.initSummernote();
         this.bindEvents();
+        this.fix_cover_url();
         this.fillSummernote();
         this.updateEditableHeight();
+        this.renderEntityCard();
         //TODO: implement a method for determin if the article is changed
         // this method should compare data in the real form , and data in the summernote, title , cover , and show-cover
-
-
     }
 
+
+
     EditorApp.prototype={
+        renderEntityCard:function(){
+            var cardList = $('.guoku-card');
+            $.map(cardList, function(ele, index){
+                console.log('ele : ' + ele + '  index: ' + index);
+                var hash = $(ele).attr('data_entity_hash');
+                if (hash){
+                    var url = '/detail/' + hash + '/card/'
+                    $.when($.ajax({
+                        url: url,
+                        method: 'GET'
+                    })).then(
+                        function success(data){
+                            //console.log("load card success");
+                            if(data.error == 0){
+                                //console.log('card data ok ');
+                                var newInnerHtml = $(data.html).html()
+                                //console.log(newInnerHtml);
+                                $(ele).html(newInnerHtml);
+                                //console.log('card rendered');
+                            }
+                            else{
+                                console.log('card data error');
+                            }
+
+                        },function fail(){
+                            console.log("load card fail");
+                        });
+                }
+            });
+        },
+        fix_cover_url: function(){
+            // #id_cover will only save uri of the cover
+            // first you should  replace #id_cover's value to  #article_full_cover's value
+            // when save article , the cover value will be striped to uri again
+            // #article_full_cover , will be the full url , see model's property for detail
+            var full_cover_url = $('#article_full_cover').val();
+            $('#id_cover').val(full_cover_url);
+        },
         initSummernote: function(){
           var that = this ;
           this.contentChanged = false;
@@ -105,12 +145,18 @@
             $('#real_article_form #id_publish').val(data['publish']);
 
         },
+        get_path_from_url: function(url){
+            var el = document.createElement('a');
+                el.href = url;
+            //remove the first slash
+            return el.pathname.slice(1)
 
+        },
         collectEditorValues: function(){
             var data = {
                 title : $('.note-editor .title-input').val(),
                 content: this.summer.code(),
-                cover : $('#id_cover').val(),
+                cover : this.get_path_from_url($('#id_cover').val()),
                 showcover : $('#showcover').prop('checked') ? 1 : 0
             };
             return data;

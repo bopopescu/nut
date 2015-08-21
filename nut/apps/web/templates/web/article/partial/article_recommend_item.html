@@ -2,7 +2,7 @@
 {% load  common guoku %}
 <div class="more-article-wrapper">
      <div class="title-wrapper">
-          <a href="{% url 'web_article_page' r_article.pk %}#from=recommend">
+          <a href="{% url 'web_article_page' r_article.pk %}{% if from_app %}?from=app{% endif %}#from=recommend">
              <div class="title">{{ r_article.title|truncatechars:22 }}</div>
           </a>
           <div class="article-digest">
@@ -10,8 +10,8 @@
           </div>
      </div>
      <div class="cover-wrapper">
-          <a href="{% url 'web_article_page' r_article.pk %}#from=recommend">
-             <img  src="{{ r_article.cover|resize:'240' }}">
+          <a href="{% url 'web_article_page' r_article.pk %}{% if from_app %}?from=app{% endif %}#from=recommend">
+             <img  src="{{ r_article.cover_url|resize:'310' }}">
          </a>
      </div>
 </div>

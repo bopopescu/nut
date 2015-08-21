@@ -4,6 +4,7 @@ from apps.core.models import Entity, Selection_Entity, Entity_Like
 from apps.wechat.models import Token
 from datetime import datetime
 from django.utils.log import getLogger
+from haystack.query import SearchQuerySet
 
 log = getLogger('django')
 
@@ -23,14 +24,12 @@ def handle_reply(content):
         entities = Entity.objects.filter(id__in=popular_list)
         res = entities[:5]
     else:
-        _entities = Entity.search.query(content.decode('utf-8')).order_by('@weight', '-created_time')
-    # log.info(_entities.all())
-    # for row in _entities.all():
-    #     log.info(row)
+        # _entities = Entity.search.query(content.decode('utf-8')).order_by('@weight', '-created_time')
+        sqs = SearchQuerySet()
+        results = sqs.auto_query(content.decode('utf-8')).models(Entity).order_by('-like_count')
 
-        for row in _entities.all():
-            res.append(row)
-        log.info(res)
+        for row in results:
+            res.append(row.object)
     return res
 
 

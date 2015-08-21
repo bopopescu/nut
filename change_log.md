@@ -1,8 +1,21 @@
 Change Log
 ==========
+### Ver 4.3.2
+1. 更新用户个人页 ui
+2. 商品单页 购买链接 改为服务器跳转。（除淘宝）
+3. webUI 更新（专题页）
+4. 专题BANNER 增加了辅助字段。
+
+ALTER TABLE `core`.`core_event_banner` 
+ADD COLUMN `background_image` VARCHAR(255) NULL DEFAULT NULL AFTER `updated_time`,
+ADD COLUMN `background_color` VARCHAR(14) NULL DEFAULT 'fff' AFTER `background_image`;
+
+
 ### Ver 4.3.1
 1. v4 增加 discover 
 2. solr 替换 sphinx 搜索引擎
+3. 增加店铺链接
+4. 优化搜索结果
 
 ```
 ALTER TABLE `core`.`core_buy_link` ADD COLUMN `foreign_price` DECIMAL(20,2) NULL COMMENT '' AFTER `seller`;

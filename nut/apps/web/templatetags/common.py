@@ -26,7 +26,7 @@ def format_time(value):
     elif time_interval < 60 * 60:
         return "%d分钟前" % ((time_interval / 60) + 1)
     elif time_interval < 60 * 60 * 24:
-        return "%d小时前" % (time_interval / (60 * 60) + 1)
+        return "%d小时前" % (time_interval / (60 * 60))
     elif time_interval < 60 * 60 * 48:
         return "昨天"
     elif time_interval < 60 * 60 * 72:
@@ -72,7 +72,7 @@ register.filter(format_boolean_class)
 def format_like_num(value):
 
     if value == 0:
-        return ''
+        return 1
     else :
         return value
 register.filter(format_like_num)
