@@ -443,7 +443,7 @@ class Sidebar_Banner(BaseModel):
         (disabled,_('banner disabled')),
         (enabled, _('banner enabled'))
     ]
-    image = models.CharField(max_length = 64, null = False)
+    image = models.CharField(max_length = 256, null = False)
     created_time = models.DateTimeField(auto_now_add = True, editable=False, db_index = True)
     updated_time = models.DateTimeField(auto_now = True, editable=False, db_index = True)
     link = models.CharField(max_length = 255, null = False)
