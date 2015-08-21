@@ -434,6 +434,11 @@
   .container {
     width: 100%;
   }
+  li.section .text-holder,
+  li.section .article-title,
+  li.section .entity-name {
+    font-size: 13px !important;
+  }
   .guoku-content.user-page .user-info {
     max-width: 450px;
   }
