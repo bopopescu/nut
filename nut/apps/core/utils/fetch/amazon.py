@@ -5,7 +5,7 @@ from hashlib import md5
 import re
 
 from apps.core.utils.fetch.spider import Spider
-from apps.commons import currency_converting
+from apps.core.utils.commons import currency_converting
 
 
 class Amazon(Spider):
