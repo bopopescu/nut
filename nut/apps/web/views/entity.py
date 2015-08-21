@@ -9,17 +9,9 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.utils.http import JSONResponse
-<<<<<<< HEAD
-# <<<<<<< HEAD
-# from apps.core.models import Entity, Entity_Like, Note, Note_Comment, Note_Poke, Brand, Buy_Link
-# =======
+
 from apps.core.models import Entity, Entity_Like, Note, Note_Comment, \
     Note_Poke, Brand, Buy_Link
-# >>>>>>> 455fab9c83ed7eecaf18e4a0ec9541254fbe0b63
-=======
-from apps.core.models import Entity, Entity_Like, Note, Note_Comment, \
-    Note_Poke, Brand, Buy_Link
->>>>>>> dc30702d3f0b2d6b333e152effdf3bd492296d02
 from apps.core.tasks.entity import like_task, unlike_task
 from apps.web.forms.comment import CommentForm
 from apps.web.forms.note import NoteForm
@@ -29,17 +21,9 @@ from apps.web.utils.viewtools import add_side_bar_context_data
 from apps.tag.models import Content_Tags
 
 from django.views.generic.detail import DetailView
-<<<<<<< HEAD
-# <<<<<<< HEAD
-from django.views.generic import RedirectView
-from braces.views import AjaxResponseMixin,JSONResponseMixin
-# =======
-# from braces.views import AjaxResponseMixin, JSONResponseMixin
-# >>>>>>> 455fab9c83ed7eecaf18e4a0ec9541254fbe0b63
-=======
+
 from django.views.generic import RedirectView
 from braces.views import AjaxResponseMixin, JSONResponseMixin
->>>>>>> dc30702d3f0b2d6b333e152effdf3bd492296d02
 
 from django.conf import settings
 from django.utils.log import getLogger
@@ -60,19 +44,10 @@ class EntityCard(AjaxResponseMixin, JSONResponseMixin, DetailView):
         return _entity
 
     def get(self, request, *args, **kwargs):
-<<<<<<< HEAD
-# <<<<<<< HEAD
-        _entity_hash =  self.kwargs.get('entity_hash', None)
-        return HttpResponseRedirect(reverse('web_entity_detail',args=[_entity_hash]))
-# =======
-#         # TODO: render template here
-#         pass
-# >>>>>>> 455fab9c83ed7eecaf18e4a0ec9541254fbe0b63
-=======
+
         _entity_hash = self.kwargs.get('entity_hash', None)
         return HttpResponseRedirect(
             reverse('web_entity_detail', args=[_entity_hash]))
->>>>>>> dc30702d3f0b2d6b333e152effdf3bd492296d02
 
     def get_ajax(self, request, *args, **kwargs):
         _entity = None
@@ -433,10 +408,6 @@ def report(request, eid, template="web/entity/report.html"):
     )
 
 
-<<<<<<< HEAD
-# <<<<<<< HEAD
-=======
->>>>>>> dc30702d3f0b2d6b333e152effdf3bd492296d02
 class gotoBuyView(RedirectView):
     permanent = False
 
