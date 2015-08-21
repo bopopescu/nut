@@ -417,7 +417,6 @@ def report(request, eid, template="web/entity/report.html"):
     )
 
 
-# <<<<<<< HEAD
 class gotoBuyView(RedirectView):
     permanent = False
 
