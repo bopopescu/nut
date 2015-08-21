@@ -922,7 +922,23 @@ body{
 
             .img-holder{
               float: none ;
-              width: auto;
+              width: 20%;
+              display:inline-block;
+              position: relative;
+              a{
+               display: block;
+               width:100%;
+               height: 100%;
+
+                .img-frame{
+                    width: 100%;
+                    height: 0 ;
+                    padding-bottom: 100%;
+                    background-size:cover;
+                    background-position: center center;
+                }
+             }
+
             }
             .entity-content{
               width: 77% ;
