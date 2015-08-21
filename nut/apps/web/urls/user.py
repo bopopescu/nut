@@ -3,7 +3,8 @@ from django.conf.urls import url, patterns
 from apps.web.views.user import UserIndex,\
                                 UserLikeView, UserNoteView,\
                                 UserTagView, UserArticleView,\
-                                UserFansView, UserFollowingsView
+                                UserFansView, UserFollowingsView,\
+                                UserPublishedArticleView,UserPublishedSelectionArticleView
 
 
 urlpatterns = patterns(
@@ -19,7 +20,12 @@ urlpatterns = patterns(
     url(r'^(?P<user_id>\d+)/like/$', UserLikeView.as_view(), name='web_user_entity_like'),
     url(r'^(?P<user_id>\d+)/note/$', UserNoteView.as_view(), name='web_user_post_note'),
     url(r'^(?P<user_id>\d+)/tags/$', UserTagView.as_view(), name='web_user_tag'),
-    url(r'^(?P<user_id>\d+)/articles/$', UserArticleView.as_view(), name='web_user_article'),
+
+    url(r'^(?P<user_id>\d+)/articles/$', UserPublishedSelectionArticleView.as_view(), name='web_user_article'),
+
+    url(r'^(?P<user_id>\d+)/articles/selection/$', UserPublishedSelectionArticleView.as_view(), name='web_user_article_selection'),
+    url(r'^(?P<user_id>\d+)/articles/published/$', UserPublishedArticleView.as_view(), name='web_user_article_published'),
+
     url(r'^(?P<user_id>\d+)/fans/$', UserFansView.as_view(), name='web_user_fans'),
     url(r'^(?P<user_id>\d+)/followings/$', UserFollowingsView.as_view(), name='web_user_followings'),
 

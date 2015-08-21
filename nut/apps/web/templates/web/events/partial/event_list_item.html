@@ -6,11 +6,10 @@
 <div class="event-item col-xs-6 col-sm-6 col-md-6 col-lg-4">
 {#{{ event.slug }}#}
 
-    <div class="event-item-banner">
-     {% if event.banner_urls %}
-         <a href="{{ event.slug_url }}">
-         <img class="img-responsive" src="{{ event.banner_urls.0|resize:'480' }}" >
-         </a>
-     {% endif %}
-    </div>
+           <a href="{{ event.slug_url }}">
+            <div class="event-item-banner" style="background-image:url({{ event.banner_urls.0|resize:'480'}})">
+{#         <img class="img-responsive" src="{{ event.banner_urls.0|resize:'480' }}" >#}
+            </div>
+            </a>
+
 </div>

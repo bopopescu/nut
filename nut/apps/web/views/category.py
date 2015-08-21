@@ -16,7 +16,6 @@ from django.utils.log import getLogger
 log = getLogger('django')
 
 
-
 class CategoryListView(ListView):
 
     # model = Category
