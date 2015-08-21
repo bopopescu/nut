@@ -157,8 +157,8 @@ class EntityURLFrom(forms.Form):
                 _data = {
                     'entity_hash': buy_link.entity.entity_hash,
                 }
-            except Buy_Link.DoesNotExist:
-                # log.info("OKOKOKO")
+            except (Buy_Link.DoesNotExist, Entity.DoesNotExist):
+                log.info("OKOKOKO")
                 t = TaoBao(_origin_id)
                 # log.info(t.res())
                 res = t.res()

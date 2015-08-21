@@ -128,7 +128,7 @@ class Tmall():
 
         return price
 
-    def get_price_by_price_json(self,entity_info):
+    def get_price_by_price_json(self, entity_info):
         price = 0
         prices = []
         if entity_info['isSuccess']:
