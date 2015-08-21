@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 
-from apps.core.models import Show_Event_Banner, Event_Banner
+from apps.core.models import Event, Show_Event_Banner, Event_Banner
 from apps.management.forms.event_banner import CreateEventBannerForms, EditEventBannerForms
 # from utils.authority import staff_only
 
@@ -33,12 +33,13 @@ def list(request, template='management/event_banner/list.html'):
 @login_required
 # @staff_only
 def show_list(request, sid, template='management/event_banner/show_list.html'):
+    _event = Event.objects.get(pk =sid)
     _show_banners = Show_Event_Banner.objects.filter(event=sid)
 
     return render_to_response(
         template,
         {
-            'event': sid,
+            'event': _event,
             'show_banners':_show_banners,
         },
         context_instance=RequestContext(request)
