@@ -544,7 +544,9 @@ ul li {
 .article-wrapper .cover-wrapper a img:hover,
 .more-article-wrapper .cover-wrapper a img:hover,
 .guess-wrapper .recommend-img:hover,
-.user-page .img-box img:hover {
+.user-page .img-box img:hover,
+.pop-article-list .pop-article-wrapper .img-holder a:hover,
+.pop-entity-list .pop-entity-wrapper .img-holder a:hover {
   opacity: 0.7;
 }
 .little-round-tag {
@@ -2016,7 +2018,21 @@ body {
 }
 #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .img-holder {
   float: none ;
-  width: auto;
+  width: 20%;
+  display: inline-block;
+  position: relative;
+}
+#detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .img-holder a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+#detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .img-holder a .img-frame {
+  width: 100%;
+  height: 0 ;
+  padding-bottom: 100%;
+  background-size: cover;
+  background-position: center center;
 }
 #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .entity-content {
   width: 77% ;

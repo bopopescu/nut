@@ -95,7 +95,8 @@
                         </div>
                         <div class="img-holder">
                             <a href="{% url 'web_entity_detail' ent.entity_hash %}">
-                                <img width="52px" height="52px" src="{{ ent.chief_image|resize:'128' }}"/>
+                                <div class="img-frame" style="background-image:url({{ ent.chief_image|resize:'128' }})"></div>
+{#                                <img width="52px" height="52px" src="{{ ent.chief_image|resize:'128' }}"/>#}
                             </a>
                         </div>
 
