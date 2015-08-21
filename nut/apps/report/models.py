@@ -32,6 +32,7 @@ class Report(models.Model):
         (category_error,  _('category error')),
         (meaningless, _('meaningless information')),
         (malicious, _('malicious information')),
+
     ]
 
     (pending, in_hand, processed) = xrange(3)

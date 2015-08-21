@@ -15,7 +15,7 @@ from apps.core.models import Note, GKUser
 from apps.core.forms.user import AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.models import Entity, Entity_Like, Tag, \
-                             Entity_Tag, User_Follow,Article,User_Profile
+                             Entity_Tag, User_Follow,Article,User_Profile,Selection_Article
 
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 from apps.tag.models import Content_Tags, Tags
@@ -356,6 +356,26 @@ class UserTagView(UserDetailBase):
         return tag_list
 
 
+class UserPublishedArticleView(UserDetailBase):
+    template_name =  'web/user/user_article.html'
+    paginate_by = 12
+    context_object_name = 'current_user_articles'
+    def get_queryset(self):
+        _user = self.get_showing_user()
+        _article_list = Article.objects.get_published_by_user(_user)
+        return _article_list
+
+class UserPublishedSelectionArticleView(UserDetailBase):
+    template_name =  'web/user/user_article.html'
+    paginate_by = 12
+    context_object_name = 'current_user_articles'
+    def get_queryset(self):
+        _user = self.get_showing_user()
+        _selection_article_ids = Selection_Article.objects.published_by_user(_user).values_list("article__id", flat=True)
+        _article_list = Article.objects.get_published_by_user(_user).filter(selections__isnull = False).filter(pk__in=list(_selection_article_ids))
+        return _article_list
+
+
 from apps.web.forms.user import UserArticleStatusFilterForm
 class UserArticleView(UserDetailBase):
     template_name =  'web/user/user_article.html'
@@ -363,7 +383,7 @@ class UserArticleView(UserDetailBase):
     context_object_name = 'current_user_articles'
     def get_context_data(self, **kwargs):
         context_data = super(UserArticleView, self).get_context_data(**kwargs)
-        context_data['article_filter_form'] = UserArticleStatusFilterForm(initial={'articleType':'all'})
+        context_data['article_filter_form'] = UserArticleStatusFilterForm(initial={'articleType':'published'})
         return context_data
 
     def get_request_articles_status(self):
@@ -377,10 +397,11 @@ class UserArticleView(UserDetailBase):
             _article_list = Article.objects.get_published_by_user(_user)
         elif article_status == 'draft':
             _article_list = Article.objects.get_drafted_by_user(_user)
-        elif article_status == 'selected':
-            _article_list = Article.objects.get_published_by_user(_user).filter(selections__isnull = False)
-        else:
-            _article_list = Article.objects.get_published_by_user(_user)
+        else :
+            _selection_article_ids = Selection_Article.objects.published_by_user(_user).values_list("article__id", flat=True)
+            _article_list = Article.objects.get_published_by_user(_user).filter(selections__isnull = False).filter(pk__in=list(_selection_article_ids))
+        # else:
+        #     _article_list = Article.objects.get_published_by_user(_user)
 
         return _article_list
 
@@ -426,7 +447,16 @@ class UserIndex(DetailView):
         current_user = context_data['object']
         context_data['recent_likes'] = current_user.likes.all()[:12]
         context_data['recent_notes'] = current_user.note.all().order_by("-post_time")[:6]
-        context_data['articles'] = current_user.published_articles[:6]
+        # get user published selection article list
+
+        _article_list = Article.objects.get_published_by_user(current_user).order_by("-selections", '-updated_datetime')[0:6]
+        # _selection_article_ids = Selection_Article.objects.published_by_user(current_user).values_list("article__id", flat=True)
+        # _common_article_ids    = Article.objects.get_published_by_user(current_user).exclude(pk_in=list(_selection_article_ids)).values_list("pk",flat=True)
+        # _article_list = Article.objects.get_published_by_user(current_user).filter(selections__isnull = False)\
+        #                                .filter(pk__in=list(_selection_article_ids))[:6]
+        #
+        context_data['articles'] = _article_list
+
         context_data['followings'] = current_user.followings.all()[:7]
         context_data['fans'] = current_user.fans.all()[:7]
         context_data['tags']= Content_Tags.objects.user_tags(current_user.pk)[0:5]

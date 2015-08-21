@@ -35,18 +35,30 @@
                         </div>
                         <div class="row panel-filter">
                             <ul class="filter-list">
-                                {% for radio in article_filter_form.articleType  %}
-                                    <li>
-                                        <a href="{{ request.path|add:'?articleType='|add:radio.choice_value}}">
-                                            {{ radio.choice_label }}
-                                        </a>
-                                    </li>
-                                {% endfor %}
+                                <li>
+                                    <a href="{% url 'web_user_article_selection' current_user.pk %}">
+                                        精选
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'web_user_article_published' current_user.pk %}">
+                                        发布
+                                    </a>
+                                </li>
+{#                                {% for radio in article_filter_form.articleType  %}#}
+{#                                    <li>#}
+{#                                        <a href="{{ request.path|add:'?articleType='|add:radio.choice_value}}">#}
+{#                                            {{ radio.choice_label }}#}
+{#                                        </a>#}
+{#                                    </li>#}
+{#                                {% endfor %}#}
+                                    {% if request.user == current_user %}
                                      <li>
                                         <a href="{% url 'web_editor_article_list' %}">
                                             草稿
                                         </a>
                                     </li>
+                                    {% endif %}
                             </ul>
                         </div>
                         <div class="row panel-content-wrapper ">
