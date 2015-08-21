@@ -370,6 +370,7 @@ class User_Follow(models.Model):
         cache.delete(key)
 
 
+
 class Banner(BaseModel):
     CONTENT_TYPE_CHOICES = (
         (u'entity', _('entity')),
@@ -432,7 +433,29 @@ class Show_Banner(BaseModel):
 
     class Meta:
         ordering = ['id']
-    
+
+#  Banner for side bar
+
+class Sidebar_Banner(BaseModel):
+    (removed, disabled, enabled) = xrange(3)
+    SB_BANNER_STATUS_CHOICE = [
+        (removed, _('banner removed')),
+        (disabled,_('banner disabled')),
+        (enabled, _('banner enabled'))
+    ]
+    image = models.CharField(max_length = 64, null = False)
+    created_time = models.DateTimeField(auto_now_add = True, editable=False, db_index = True)
+    updated_time = models.DateTimeField(auto_now = True, editable=False, db_index = True)
+    link = models.CharField(max_length = 255, null = False)
+    position = models.IntegerField(null=False,default=1,blank=False)
+    status = models.IntegerField(choices=SB_BANNER_STATUS_CHOICE, default=disabled)
+    class Meta:
+        ordering = ['-status', 'position', '-updated_time']
+
+
+
+
+
 
 class Category(BaseModel):
     title = models.CharField(max_length = 128, db_index = True)
