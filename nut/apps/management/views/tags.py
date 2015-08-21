@@ -112,6 +112,7 @@ class EditTagFormView(LoginRequiredMixin, FormView):
         context.update(
             {
                 'button': _('update'),
+                'title': self.tag.name
             }
         )
         return context
