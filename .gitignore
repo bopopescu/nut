@@ -52,6 +52,8 @@ coverage.xml
 # Django stuff:
 *.log
 *.pot
+spider/log.txt
+log.txt
 
 # Sphinx documentation
 docs/_build/
@@ -65,7 +67,8 @@ nut/settings/
 node_modules
 nut/images/
 
-log.txt
+# Vim stuff
+*.swp
+
 *.sqlite3
 *.rdb
-*.swp
