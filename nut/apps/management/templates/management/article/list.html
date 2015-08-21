@@ -59,7 +59,7 @@
                                         </div>
                                     </td>
                                     <td>{{ row.selection_count}}</td>
-                                    <td>{{ row.last_selection_time }}</td>
+                                    <td>{{ row.last_selection_time|date:'Y-m-d H:i:s' }}</td>
                                     <td>
                                         <div class="btn-group">
                                         {% if row.selections.count %}
