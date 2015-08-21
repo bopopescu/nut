@@ -35,9 +35,9 @@ class TaoBao():
             self.html = self.fetch_html_ny()
             self.soup = BeautifulSoup(self.html)
             # print self.soup
-        f = open("/Users/judy/Desktop/amazon.html", 'wb')
-        f.write(self.html)
-        f.close()
+        # f = open("/Users/judy/Desktop/amazon.html", 'wb')
+        # f.write(self.html)
+        # f.close()
 
     @property
     def headers(self):
@@ -53,7 +53,7 @@ class TaoBao():
         nick = self._headers.get('at_nick')
         if nick:
             self._nick = nick
-            return nick.text
+            return nick
         nick = self.soup.select(".tb-shop-seller a")
         if nick:
             self._nick = nick[0].text
