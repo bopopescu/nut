@@ -300,6 +300,6 @@ CAPTCHA_LENGTH = 5
 DEFAULT_POPULAR_SCALE =  7
 
 # config of site in redis.
-config_redis_host = 'localhost'
-config_redis_port = 6379
-config_redis_db = 10
+CONFIG_REDIS_HOST = 'localhost'
+CONFIG_REDIS_PORT = 6379
+CONFIG_REDIS_DB = 1

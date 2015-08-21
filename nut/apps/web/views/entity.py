@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.utils.http import JSONResponse
-from apps.core.models import Entity, Entity_Like, Note, Note_Comment, Note_Poke, Brand, Buy_Link
+from apps.core.models import Entity, Entity_Like, Note, Note_Comment, \
+    Note_Poke, Brand, Buy_Link
 from apps.core.tasks.entity import like_task, unlike_task
 from apps.web.forms.comment import CommentForm
 from apps.web.forms.note import NoteForm
@@ -18,14 +19,9 @@ from apps.web.forms.entity import EntityURLFrom, CreateEntityForm, ReportForms
 from apps.web.utils.viewtools import add_side_bar_context_data
 from apps.tag.models import Content_Tags
 
-
 from django.views.generic.detail import DetailView
-<<<<<<< HEAD
-from braces.views import AjaxResponseMixin, JSONResponseMixin
-=======
 from django.views.generic import RedirectView
-from braces.views import AjaxResponseMixin,JSONResponseMixin
->>>>>>> dev
+from braces.views import AjaxResponseMixin, JSONResponseMixin
 
 from django.conf import settings
 from django.utils.log import getLogger
@@ -46,8 +42,9 @@ class EntityCard(AjaxResponseMixin, JSONResponseMixin, DetailView):
         return _entity
 
     def get(self, request, *args, **kwargs):
-        _entity_hash =  self.kwargs.get('entity_hash', None)
-        return HttpResponseRedirect(reverse('web_entity_detail',args=[_entity_hash]))
+        _entity_hash = self.kwargs.get('entity_hash', None)
+        return HttpResponseRedirect(
+            reverse('web_entity_detail', args=[_entity_hash]))
 
     def get_ajax(self, request, *args, **kwargs):
         _entity = None
@@ -296,8 +293,8 @@ def entity_like(request, eid):
             # try:
             # Entity_Like.objects.get(user_id=_user.id, entity_id=eid)
             # except Entity_Like.DoesNotExist, e:
-            #         obj = Entity_Like.objects.create(
-            #             user_id = _user.id,
+            # obj = Entity_Like.objects.create(
+            # user_id = _user.id,
             #             entity_id = eid,
             #         )
             #         obj.entity.innr_like()
@@ -345,6 +342,7 @@ def entity_create(request, template="web/entity/new.html"):
             return HttpResponseRedirect(
                 reverse('web_entity_detail', args=[entity.entity_hash, ]))
         log.info(_forms.errors)
+        raise 500
     else:
         _url_froms = EntityURLFrom(request)
 
@@ -364,7 +362,7 @@ def entity_load(request):
         if _forms.is_valid():
             _item_info = _forms.load()
             # log.info(_item_info)
-            if _item_info.has_key('entity_hash'):
+            if 'entity_hash' in _item_info:
                 _res = {
                     'status': 'EXIST',
                     'data': _item_info,
@@ -411,7 +409,7 @@ class gotoBuyView(RedirectView):
     permanent = False
 
     def get_redirect_url(self, *args, **kwargs):
-        b = Buy_Link.objects.get(pk = self.buy_id)
+        b = Buy_Link.objects.get(pk=self.buy_id)
 
         if "amazon" in b.origin_source:
             return b.amazon_url

@@ -9,11 +9,11 @@ import settings.dev_judy as settings
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_judy'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
 
-r = redis.Redis(host=settings.config_redis_host,
-                port=settings.config_redis_port,
-                db=settings.config_redis_db)
+r = redis.Redis(host=settings.CONFIG_REDIS_HOST,
+                port=settings.CONFIG_REDIS_PORT,
+                db=settings.CONFIG_REDIS_DB)
 
 CURRENCY_KEY_FORMAT = 'currency.exchange.%s.CNY'
 
