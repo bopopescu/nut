@@ -21,18 +21,9 @@ require.config({
         }
     },
 
-    shim: {
-        'backbone': {
-            deps: ['underscore', 'jquery'],
-            exports: 'Backbone'
-        },
-        'underscore': {
-            exports: '_'
-        }
-    }
 });
 
-require(['jquery', 'backbone', 'app/router'], function ($, Backbone, Router) {
+require(['app/router'], function (Router) {
     var router = new Router();
     Backbone.history.start();
 });
