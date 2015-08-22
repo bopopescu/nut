@@ -4,7 +4,10 @@ from django.views.generic.base import RedirectView
 urlpatterns = patterns(
     'apps.management',
     url(r'^$', RedirectView.as_view(url = '/management/dashboard/')),
+
     url(r'^restful/', include('apps.management.urls.restful')),
+
+
     url(r'^dashboard/$', 'views.dashboard', name='management_dashboard'),
     url(r'^selection/', include('apps.management.urls.selection')),
     url(r'^entity/', include('apps.management.urls.entities')),
