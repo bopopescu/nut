@@ -17,6 +17,9 @@ class Amazon(Spider):
     @property
     def origin_id(self):
         key = md5(self.url).hexdigest()
+        # print "url %s" % self.url
+        # m =  re.search(r"gp\/product\/(\w+)\/?", self.url)
+        # print m.group(1)
         return key
 
     @property
