@@ -67,23 +67,17 @@ nut/settings/
 node_modules
 nut/images/
 
-<<<<<<< HEAD
 nut/db.sqlite3
-# spider 
-spider/log.txt
-<<<<<<< HEAD
-spider/dbs/*
 
 log.txt
 =======
 # Vim stuff
 *.swp
 
->>>>>>> dc30702d3f0b2d6b333e152effdf3bd492296d02
 *.sqlite3
 *.rdb
-=======
 
+# spider 
+spider/log.txt
 spider/dbs/*
 spider/items/*
->>>>>>> c6e926a01733ecb2cb4919fdcfc4fdc7cb7de4d5
