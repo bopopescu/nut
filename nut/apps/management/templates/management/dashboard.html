@@ -1,6 +1,6 @@
 {% extends 'management/management_base.html' %}
 {% load staticfiles i18n %}
-
+{% load guoku %}
 
 
 {% block title %}{% trans 'dashboard' %}{% endblock %}
@@ -9,34 +9,175 @@
 {#{% endblock %}#}
 
 {% block content %}
-    <h1 class="page-header">{% trans 'dashboard' %}</h1>
 
-    {% include 'management/banner/show_banners.html' with show_banners=show_banners %}
+    <section class="content-header">
+        <h1>{% trans 'dashboard' %}
+            <small>{% trans 'control panel' %}</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+        </ol>
+    </section>
 
-    <div class="row">
-        <strong>一周精选发布状况</strong>
-        <div class="col-sm-12">
-            <canvas id="selectionChart"  width="767" height="400"></canvas>
-        </div>
-    </div>
-    <div class="row">
-        <strong>一周分布精选分类</strong>
-        <div class="col-sm-12">
-            <canvas id="categoryChart"  width="767" height="400"></canvas>
-        </div>
-    </div>
-    <div class="row">
-        <strong>一周喜欢状况</strong>
-        <div class="col-sm-12">
-            <canvas id="likeChart"  width="767" height="400"></canvas>
-        </div>
-    </div>
-{#    <h2 class="sub-header">{% trans 'selection' %}</h2>#}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-red">
+                    <span class="info-box-icon"><i class="fa fa-thumbs-o-up"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">{% trans 'like' %}</span>
+                        <span class="info-box-number">41,410</span>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 70%"></div>
+                        </div>
+                        <span class="progress-description">
+                            70% Increase in 30 Days
+                        </span>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div><!-- /.col -->
 
-{#    {% include "management/entities/table.html" with entities=selection_entities %}#}
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-aqua">
+                    <span class="info-box-icon"><i class="fa fa-user-plus"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">{% trans 'user registrations' %}</span>
+                        <span class="info-box-number">41,410</span>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 70%"></div>
+                        </div>
+                        <span class="progress-description">
+                            70% Increase in 30 Days
+                        </span>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div><!-- /.col -->
+
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-yellow">
+                    <span class="info-box-icon"><i class="fa fa-star"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">{% trans 'selection entity' %}</span>
+                        <span class="info-box-number">41,410</span>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 70%"></div>
+                        </div>
+                        <span class="progress-description">
+                            70% Increase in 30 Days
+                        </span>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div><!-- /.col -->
+
+
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-green">
+                    <span class="info-box-icon"><i class="fa fa-pencil"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">{% trans 'post note' %}</span>
+                        <span class="info-box-number">41,410</span>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 70%"></div>
+                        </div>
+                        <span class="progress-description">
+                            70% Increase in 30 Days
+                        </span>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div><!-- /.col -->
+        </div>
+
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{% trans 'latest post note' %}</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table class="table no-margin">
+                                <thead>
+                                    <tr>
+                                        <th>{% trans 'note id' %}</th>
+                                        <th>{% trans 'user' %}</th>
+                                        <th>{% trans 'entity' %}</th>
+                                        <th>{% trans 'content' %}</th>
+                                        <th>{% trans 'post time' %}</th>
+{#                                        <th>{% trans '' %}</th>#}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for note in notes %}
+                                        <tr>
+                                            <td>{{ note.id }}</td>
+                                            <td>{{ note.user }}</td>
+                                            <td>{{ note.entity }}</td>
+                                            <td>{{ note.note }}</td>
+                                            <td>{{ note.post_time|date:'Y-m-d H:i:s' }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{% trans 'Recently Added Products' %}</h3>
+                    </div>
+                    <div class="box-body">
+                        <ul class="products-list product-list-in-box">
+                        {% for entity in entities %}
+                            <li class="item">
+                                <div class="product-img">
+                                    <img src="{{ entity.chief_image|resize:'128' }}" alt="Product Image">
+                                </div>
+                                <div class="product-info">
+                                    <a href="javascript:;" class="product-title">{{ entity|truncatechars:'20' }}<span class="label label-warning pull-right">{{ entity.price }}</span></a>
+                                    <span class="product-description">
+                                       {{ entity.title }}
+                                    </span>
+                                </div>
+                            </li><!-- /.item -->
+                        {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="box-footer text-center">
+                        <a href="javascript::;" class="uppercase">View All Products</a>
+                    </div><!-- /.box-footer -->
+                </div>
+
+            </div>
+        </div>
+    </section>
+{#    <h1 class="page-header">{% trans 'dashboard' %}</h1>#}
+{##}
+{#    {% include 'management/banner/show_banners.html' with show_banners=show_banners %}#}
+{##}
+{#    <div class="row">#}
+{#        <strong>一周精选发布状况</strong>#}
+{#        <div class="col-sm-12">#}
+{#            <canvas id="selectionChart"  width="767" height="400"></canvas>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="row">#}
+{#        <strong>一周分布精选分类</strong>#}
+{#        <div class="col-sm-12">#}
+{#            <canvas id="categoryChart"  width="767" height="400"></canvas>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="row">#}
+{#        <strong>一周喜欢状况</strong>#}
+{#        <div class="col-sm-12">#}
+{#            <canvas id="likeChart"  width="767" height="400"></canvas>#}
+{#        </div>#}
+{#    </div>#}
 
 {% endblock %}
 
-{% block js %}
+{% block user_script %}
     <script src="{% static 'thirdparty/chart/chart.min.js' %}"></script>
 {% endblock %}

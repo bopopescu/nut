@@ -110,6 +110,7 @@ def edit(request, eid, template='management/event/edit.html'):
     return render_to_response(
         template,
         {
+            'event': event,
             'forms': _forms,
         },
         context_instance=RequestContext(request),
