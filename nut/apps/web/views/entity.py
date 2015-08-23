@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect, HttpResponse
+from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect, \
+    HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
@@ -8,7 +9,9 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.utils.http import JSONResponse
-from apps.core.models import Entity, Entity_Like, Note, Note_Comment, Note_Poke, Brand, Buy_Link
+
+from apps.core.models import Entity, Entity_Like, Note, Note_Comment, \
+    Note_Poke, Brand, Buy_Link
 from apps.core.tasks.entity import like_task, unlike_task
 from apps.web.forms.comment import CommentForm
 from apps.web.forms.note import NoteForm
@@ -17,10 +20,10 @@ from apps.web.forms.entity import EntityURLFrom, CreateEntityForm, ReportForms
 from apps.web.utils.viewtools import add_side_bar_context_data
 from apps.tag.models import Content_Tags
 
-
 from django.views.generic.detail import DetailView
+
 from django.views.generic import RedirectView
-from braces.views import AjaxResponseMixin,JSONResponseMixin
+from braces.views import AjaxResponseMixin, JSONResponseMixin
 
 from django.conf import settings
 from django.utils.log import getLogger
@@ -28,18 +31,23 @@ from django.utils.log import getLogger
 
 log = getLogger('django')
 
-class EntityCard(AjaxResponseMixin, JSONResponseMixin , DetailView):
+
+class EntityCard(AjaxResponseMixin, JSONResponseMixin, DetailView):
     template_name = 'web/entity/entity_card.html'
+
     def get_object(self, queryset=None):
-        _entity_hash =  self.kwargs.get('entity_hash', None)
+        _entity_hash = self.kwargs.get('entity_hash', None)
         if _entity_hash is None:
             raise Exception('can not find hash')
-        _entity = Entity.objects.get(entity_hash = _entity_hash, status__gte=Entity.freeze)
+        _entity = Entity.objects.get(entity_hash=_entity_hash,
+                                     status__gte=Entity.freeze)
         return _entity
 
     def get(self, request, *args, **kwargs):
-        _entity_hash =  self.kwargs.get('entity_hash', None)
-        return HttpResponseRedirect(reverse('web_entity_detail',args=[_entity_hash]))
+
+        _entity_hash = self.kwargs.get('entity_hash', None)
+        return HttpResponseRedirect(
+            reverse('web_entity_detail', args=[_entity_hash]))
 
     def get_ajax(self, request, *args, **kwargs):
         _entity = None
@@ -55,13 +63,13 @@ class EntityCard(AjaxResponseMixin, JSONResponseMixin , DetailView):
 
         # entity is ok now
         t = loader.get_template(template_name=self.template_name)
-        c = RequestContext(request,{
+        c = RequestContext(request, {
             'entity': _entity
         })
         html = t.render(c)
         data = {
             'error': 0,
-            'html' : html
+            'html': html
         }
         return self.render_json_response(data)
 
@@ -83,7 +91,8 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
     _user_pokes = list()
 
     try:
-        _entity = Entity.objects.get(entity_hash = _entity_hash, status__gte=Entity.freeze)
+        _entity = Entity.objects.get(entity_hash=_entity_hash,
+                                     status__gte=Entity.freeze)
     except Entity.DoesNotExist:
         raise Http404
 
@@ -94,11 +103,13 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
         # add by an , for user posted note pop up
         _notes = Note.objects.filter(user=_user, entity=_entity)
 
-        if len(_notes) > 0 :
+        if len(_notes) > 0:
             _note_forms = NoteForm(instance=_notes[0])
         else:
             _note_forms = NoteForm()
-        _user_pokes = Note_Poke.objects.filter(note_id__in=list(nid_list), user=request.user).values_list('note_id', flat=True)
+        _user_pokes = Note_Poke.objects.filter(note_id__in=list(nid_list),
+                                               user=request.user).values_list(
+            'note_id', flat=True)
         # log.info(_user_pokes)
 
     # tags = Content_Tags.objects.filter(target_object_id__in=list(nid_list))[:10]
@@ -118,49 +129,55 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
     except Entity_Like.DoesNotExist:
         pass
 
-    _guess_entities = Entity.objects.guess(category_id=_entity.category_id, count=9, exclude_id=_entity.pk)
+    _guess_entities = Entity.objects.guess(category_id=_entity.category_id,
+                                           count=9, exclude_id=_entity.pk)
 
     context = {
-            'entity': _entity,
-            'like_status': like_status,
-            # 'user':_user,
-            'user_pokes': _user_pokes,
-            'user_post_note':_user_post_note,
-            'note_forms':_note_forms or NoteForm(),
-            'guess_entities': _guess_entities,
-            # 'likers': _entity.likes.all()[:13],
-            'is_entity_detail':True,
-            'tags':tags,
-            # 'entity_brand': get_entity_brand(_entity),
-            # 'pop_tags' : _pop_tags
-        }
+        'entity': _entity,
+        'like_status': like_status,
+        # 'user':_user,
+        'user_pokes': _user_pokes,
+        'user_post_note': _user_post_note,
+        'note_forms': _note_forms or NoteForm(),
+        'guess_entities': _guess_entities,
+        # 'likers': _entity.likes.all()[:13],
+        'is_entity_detail': True,
+        'tags': tags,
+        # 'entity_brand': get_entity_brand(_entity),
+        # 'pop_tags' : _pop_tags
+    }
     context = add_side_bar_context_data(context)
     return render_to_response(
         templates,
         context,
-        context_instance = RequestContext(request),
+        context_instance=RequestContext(request),
     )
 
 
 def wap_entity_detail(request, entity_hash, template='wap/detail.html'):
-    return HttpResponseRedirect(reverse('web_entity_detail', args=[entity_hash]))
+    return HttpResponseRedirect(
+        reverse('web_entity_detail', args=[entity_hash]))
 
 
 def wechat_entity_detail(request, entity_id, template='wap/detail.html'):
-
     # _entity_id = int(entity_id)
     try:
-        _entity = Entity.objects.get(pk = entity_id)
+        _entity = Entity.objects.get(pk=entity_id)
     except Entity.DoesNotExist:
         raise Http404
-    return HttpResponseRedirect(reverse('web_entity_detail', args=[_entity.entity_hash]))
+    return HttpResponseRedirect(
+        reverse('web_entity_detail', args=[_entity.entity_hash]))
 
-def tencent_entity_detail(request, entity_hash, template='tencent/detail.html'):
-    return HttpResponseRedirect(reverse('web_entity_detail', args=[entity_hash]))
+
+def tencent_entity_detail(request, entity_hash,
+                          template='tencent/detail.html'):
+    return HttpResponseRedirect(
+        reverse('web_entity_detail', args=[entity_hash]))
 
 
 @login_required
-def entity_post_note(request, eid, template='web/entity/partial/ajax_detail_note.html'):
+def entity_post_note(request, eid,
+                     template='web/entity/partial/ajax_detail_note.html'):
     if request.method == 'POST':
         _user = request.user
         _eid = eid
@@ -175,9 +192,9 @@ def entity_post_note(request, eid, template='web/entity/partial/ajax_detail_note
             })
             _data = _t.render(_c)
             return JSONResponse(
-                data= {
-                    'status':1,
-                    'data':_data,
+                data={
+                    'status': 1,
+                    'data': _data,
                 },
                 content_type='text/html; charset=utf-8',
             )
@@ -191,13 +208,14 @@ def entity_update_note(request, nid):
         _forms = NoteForm(request.POST, user=_user, nid=nid)
         if _forms.is_valid():
             note = _forms.update()
-            return JSONResponse(data={'result':'1'})
+            return JSONResponse(data={'result': '1'})
     # else:
     return HttpResponseNotAllowed
 
-# @login_required
-def entity_note_comment(request, nid, template='web/entity/note/comment_list.html'):
 
+# @login_required
+def entity_note_comment(request, nid,
+                        template='web/entity/note/comment_list.html'):
     # _user = None
     if request.method == "POST":
         if request.user.is_authenticated():
@@ -206,7 +224,7 @@ def entity_note_comment(request, nid, template='web/entity/note/comment_list.htm
             return HttpResponseRedirect(reverse('web_login'))
 
         try:
-            note = Note.objects.get(pk = nid)
+            note = Note.objects.get(pk=nid)
         except Note.DoesNotExist:
             raise Http404
         _forms = CommentForm(note=note, user=_user, data=request.POST)
@@ -226,12 +244,12 @@ def entity_note_comment(request, nid, template='web/entity/note/comment_list.htm
             return JSONResponse(
                 data={
                     'data': _data,
-                    'status' : '1',
+                    'status': '1',
                 },
                 content_type='text/html; charset=utf-8',
             )
-         # log.info(_forms.errors)
-        # return
+            # log.info(_forms.errors)
+            # return
     else:
         _forms = CommentForm()
 
@@ -249,7 +267,7 @@ def entity_note_comment(request, nid, template='web/entity/note/comment_list.htm
 
     return JSONResponse(
         data={
-            'data':_data,
+            'data': _data,
         },
         content_type='text/html; charset=utf-8',
     )
@@ -260,9 +278,9 @@ def entity_note_comment_delete(request, comment_id):
     if request.is_ajax():
         _user = request.user
         try:
-            comment = Note_Comment.objects.get(user=_user, pk = comment_id)
+            comment = Note_Comment.objects.get(user=_user, pk=comment_id)
             comment.delete()
-            return JSONResponse(data={'status':1})
+            return JSONResponse(data={'status': 1})
         except:
             raise Http404
 
@@ -276,23 +294,23 @@ def entity_like(request, eid):
         _user = request.user
         try:
             # try:
-            #     Entity_Like.objects.get(user_id=_user.id, entity_id=eid)
+            # Entity_Like.objects.get(user_id=_user.id, entity_id=eid)
             # except Entity_Like.DoesNotExist, e:
-            #         obj = Entity_Like.objects.create(
-            #             user_id = _user.id,
+            # obj = Entity_Like.objects.create(
+            # user_id = _user.id,
             #             entity_id = eid,
             #         )
             #         obj.entity.innr_like()
-                    # return obj
+            # return obj
             if settings.DEBUG:
                 el = Entity_Like.objects.create(
-                    user = _user,
-                    entity_id = eid,
+                    user=_user,
+                    entity_id=eid,
                 )
             else:
                 like_task.delay(uid=_user.id, eid=eid)
 
-            return JSONResponse(data={'status':1})
+            return JSONResponse(data={'status': 1})
         except Exception, e:
             log.error("ERROR: %s", e.message)
 
@@ -306,11 +324,11 @@ def entity_unlike(request, eid):
         _user = request.user
         try:
             if settings.DEBUG:
-                el = Entity_Like.objects.get(entity_id = eid, user = _user)
+                el = Entity_Like.objects.get(entity_id=eid, user=_user)
                 el.delete()
             else:
                 unlike_task.delay(uid=_user.id, eid=eid)
-            return JSONResponse(data={'status':0})
+            return JSONResponse(data={'status': 0})
         except Entity_Like.DoesNotExist:
             raise Http404
 
@@ -319,36 +337,37 @@ def entity_unlike(request, eid):
 
 @login_required
 def entity_create(request, template="web/entity/new.html"):
-
     if request.method == 'POST':
         _forms = CreateEntityForm(request=request, data=request.POST)
         if _forms.is_valid():
             entity = _forms.save()
 
-            return HttpResponseRedirect(reverse('web_entity_detail', args=[entity.entity_hash,]))
+            return HttpResponseRedirect(
+                reverse('web_entity_detail', args=[entity.entity_hash, ]))
         log.info(_forms.errors)
+        raise 500
     else:
         _url_froms = EntityURLFrom(request)
 
         return render_to_response(
             template,
             {
-                'url_forms':_url_froms
+                'url_forms': _url_froms
             },
-            context_instance = RequestContext(request),
+            context_instance=RequestContext(request),
         )
+
 
 @login_required
 def entity_load(request):
-
     if request.method == "POST":
         _forms = EntityURLFrom(request=request, data=request.POST)
         if _forms.is_valid():
             _item_info = _forms.load()
             # log.info(_item_info)
-            if _item_info.has_key('entity_hash'):
+            if 'entity_hash' in _item_info:
                 _res = {
-                    'status' : 'EXIST',
+                    'status': 'EXIST',
                     'data': _item_info,
                 }
             else:
@@ -375,18 +394,17 @@ def report(request, eid, template="web/entity/report.html"):
             _form.save(_user)
             return HttpResponse("success")
             # log.info("OKOKOKO")
-        # log.info("error")
+            # log.info("error")
     else:
         _form = ReportForms(entity)
-
 
     return render_to_response(
         template,
         {
-            'form':_form,
+            'form': _form,
             'entity': entity,
         },
-        context_instance = RequestContext(request),
+        context_instance=RequestContext(request),
     )
 
 
@@ -394,13 +412,15 @@ class gotoBuyView(RedirectView):
     permanent = False
 
     def get_redirect_url(self, *args, **kwargs):
-        b = Buy_Link.objects.get(pk = self.buy_id)
+        b = Buy_Link.objects.get(pk=self.buy_id)
 
         if "amazon" in b.origin_source:
             return b.amazon_url
         return b.link
 
     def get(self, request, *args, **kwargs):
+        if 'guoku.com' not in request.META['HTTP_REFERER']:
+            raise Http404
         self.buy_id = kwargs.pop('buy_id', None)
         assert self.buy_id is not None
         return super(gotoBuyView, self).get(request, *args, **kwargs)

@@ -136,7 +136,7 @@ class CreateSubCategoryForm(SubCategoryForm):
 
         if _icon:
             image_file = HandleImage(_icon)
-            icon_file = image_file.save(path=image_path)
+            icon_file = image_file.icon_save(path=image_path)
             sub_category.icon = icon_file
 
         sub_category.save()
@@ -167,7 +167,7 @@ class EditSubCategoryForm(SubCategoryForm):
         if _icon:
             log.info("icon %s" % _icon)
             image_file = HandleImage(_icon)
-            icon_file = image_file.save(path=image_path)
+            icon_file = image_file.icon_save(path=image_path)
             self.sub_category.icon = icon_file
 
         self.sub_category.title = _title

@@ -109,6 +109,7 @@ CACHES = {
         "LOCATION": [
             "redis://10.0.2.46:6379/1",
             "redis://10.0.2.47:6379/1",
+            "redis://10.0.2.200:6379/1",
         ],
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.ShardClient",
@@ -119,7 +120,8 @@ CACHES = {
             "CONNECTION_POOL_KWARGS": {"max_connections": 1024},
             "PARSER_CLASS": "redis.connection.HiredisParser",
         }
-    }
+    },
+
 }
 
 # Internationalization
@@ -221,11 +223,7 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 Avatar_Image_Path = 'avatar/'
 # Avatar_Image_Size = [180, 50]
 
-
-
 # WHOOSH_INDEX = 'indexdir'
-
-
 
 # celery
 # from __future__ import absolute_import
@@ -250,10 +248,10 @@ CELERY_DISABLE_RATE_LIMITS = True
 # CELERY_RESULT_SERIALIZER = 'json'
 
 
-
-SPHINX_API_VERSION = 0x116
-SPHINX_SERVER = '10.0.2.50'
-SPHINX_PORT = 3312
+#
+# SPHINX_API_VERSION = 0x116
+# SPHINX_SERVER = '10.0.2.50'
+# SPHINX_PORT = 3312
 
 
 # taobao
@@ -298,3 +296,8 @@ CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs','captcha.helpers.noise_d
 CAPTCHA_LENGTH = 5
 # for debug server popular  category test
 DEFAULT_POPULAR_SCALE =  7
+
+# config of site in redis.
+CONFIG_REDIS_HOST = 'localhost'
+CONFIG_REDIS_PORT = 6379
+CONFIG_REDIS_DB = 1
