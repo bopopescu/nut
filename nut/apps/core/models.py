@@ -477,7 +477,7 @@ class Sub_Category(BaseModel):
     objects = SubCategoryManager()
 
     class Meta:
-        ordering = ['-id']
+        ordering = ['-status']
 
     @property
     def icon_large_url(self):
