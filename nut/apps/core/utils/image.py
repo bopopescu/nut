@@ -107,6 +107,53 @@ class HandleImage(object):
         # _img.resize(_width, _height)
         # return _img.make_blob()
 
+
+
+
+    def save(self, path = None, resize=False, square=False):
+        # log.info('begin save -----')
+
+        if self.ext_name == 'png':
+            # _img = WandImage(blob = self._image_data)
+            # _img.format = 'jpeg'
+            self._image_data = self.img.make_blob(format='jpeg')
+            self.ext_name = 'jpg'
+
+        if square and (self.ext_name == 'jpg') :
+            self.crop_square()
+        # else:
+        if path:
+            self.path = path
+
+        filename = self.path + self.name +'.' + self.ext_name
+        log.info(filename)
+        if not default_storage.exists(filename):
+            try:
+                # log.info('real saveing begin----')
+                filename = default_storage.save(filename, ContentFile(self.image_data))
+            except Exception as e:
+                log.info(e)
+        else:
+            # log.info('file exist!----')
+            pass
+
+        return filename
+
+
+    def avatar_save(self, resize=True):
+        self.path = avatar_path
+
+        self.crop_square()
+        if resize:
+            self.resize(300, 300)
+
+        filename = self.path + self.name + '.jpg'
+        if not default_storage.exists(filename):
+            filename = default_storage.save(filename, ContentFile(self.image_data))
+        return filename
+
+class LimitedImage(HandleImage):
+
     def handleWidth(self, maxWidth):
         try :
             maxWidth = int(maxWidth)
@@ -134,52 +181,13 @@ class HandleImage(object):
         self._image_data = self.img.make_blob()
         return
 
-
-    def save(self, path = None, resize=False, square=False, maxWidth=1200,maxQuality=99):
-        log.info('begin save -----')
+    def save(self, path = None, resize=False, square=False, maxWidth=None,maxQuality=None):
         if maxWidth:
             self.handleWidth(maxWidth)
-        # disable quality process by An
-        # if maxQuality:
-        #     self.handleQuality(maxQuality)
 
-        if self.ext_name == 'png':
-            # _img = WandImage(blob = self._image_data)
-            # _img.format = 'jpeg'
-            self._image_data = self.img.make_blob(format='jpeg')
-            self.ext_name = 'jpg'
+        if maxQuality:
+            self.handleQuality(maxQuality)
 
-        if square and (self.ext_name == 'jpg') :
-            self.crop_square()
-        # else:
-        if path:
-            self.path = path
-
-        filename = self.path + self.name +'.' + self.ext_name
-        log.info(filename)
-        if not default_storage.exists(filename):
-            try:
-                log.info('real saveing begin----')
-                filename = default_storage.save(filename, ContentFile(self.image_data))
-            except Exception as e:
-                log.info(e)
-        else:
-            log.info('file exist!----')
-
-        return filename
-
-
-    def avatar_save(self, resize=True):
-        self.path = avatar_path
-
-        self.crop_square()
-        if resize:
-            self.resize(300, 300)
-
-        filename = self.path + self.name + '.jpg'
-        if not default_storage.exists(filename):
-            filename = default_storage.save(filename, ContentFile(self.image_data))
-        return filename
-
+        return super(LimitedImage,self).save(path, resize ,square)
 
 __author__ = 'edison'
