@@ -1,14 +1,49 @@
 define(function(require){
     "use strict";
     var BannerItemView = Backbone.View.extend({
-        tagName: 'li',
-        className:'list-item',
+        tagName: 'tr',
+        className: 'banner-data data-holder',
         template: _.template($('#id-sbbanner-item-template').html()),
+        initialize: function(){
+            this.listenTo(this.model, 'sync', this.render );
+        },
+        events: {
+          'change input': 'changeValue',
+          'click .btn-edit': 'editValue',
+          'click .btn-save': 'saveValue',
+        },
 
-        initialize: function(){},
+        editValue: function(){
+
+            this.$('td').removeClass('value');
+            this.$('.edit-save').addClass('editing');
+        },
+        saveValue: function(){
+            this.collectData();
+            this.model.save();
+
+            this.$('td').addClass('value');
+            this.$('.edit-save').removeClass('editing');
+        },
+
+        collectData: function(){
+            var theView = this;
+            var inputs = this.$('input[for-key]');
+            inputs.each(function(index,ele){
+               var  the_key  = $(ele).attr('for-key');
+               var  the_value = $(ele).val();
+                theView.model.set(the_key,the_value);
+            });
+        },
+
+        changeValue: function(e){
+            console.log('value has changed');
+            console.log(e);
+        },
         render: function(){
             var template = this.template;
             this.$el.html(template(this.model.toJSON()));
+            return this;
         }
     });
 
@@ -16,7 +51,6 @@ define(function(require){
         initialize: function(){
             this.listenTo(this.collection, 'reset', this.render);
             this.listenTo(this.collection, 'add', this.collectionAdd);
-
             this.listContainer = this.$('.list-container');
             this.clearEle(this.listContainer.get());
             this.collection.fetch({reset:true});
@@ -34,6 +68,8 @@ define(function(require){
             return this;
         }
     });
+
+    return BannerListView;
 
 
 });
