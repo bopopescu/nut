@@ -126,7 +126,7 @@ class HandleImage(object):
             self.path = path
 
         filename = self.path + self.name +'.' + self.ext_name
-        log.info(filename)
+        # log.info(filename)
         if not default_storage.exists(filename):
             try:
                 # log.info('real saveing begin----')
@@ -139,7 +139,6 @@ class HandleImage(object):
 
         return filename
 
-
     def avatar_save(self, resize=True):
         self.path = avatar_path
 
@@ -148,6 +147,20 @@ class HandleImage(object):
             self.resize(300, 300)
 
         filename = self.path + self.name + '.jpg'
+        if not default_storage.exists(filename):
+            filename = default_storage.save(filename, ContentFile(self.image_data))
+        return filename
+
+    def icon_save(self, **kwargs):
+
+        path = kwargs.pop('path', None)
+        if path:
+            self.path = path
+
+        if self.img.format == "PNG":
+            self.ext_name = 'png'
+
+        filename = self.path + self.name +'.' + self.ext_name
         if not default_storage.exists(filename):
             filename = default_storage.save(filename, ContentFile(self.image_data))
         return filename

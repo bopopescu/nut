@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.core.urlresolvers import reverse
+# from django.core.urlresolvers import reverse
 from django.http import HttpResponseNotAllowed, Http404, HttpResponseRedirect, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
@@ -22,7 +22,8 @@ from apps.tag.models import Content_Tags, Tags
 from ..utils.viewtools import get_paged_list
 
 # from apps.notifications import notify
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, FormView
+from apps.core.views import LoginRequiredMixin
 from hashlib import md5
 from django.utils.log import getLogger
 
@@ -64,25 +65,44 @@ def settings(request, template="web/user/settings.html"):
         context_instance = RequestContext(request),
     )
 
-@login_required
-def change_password(request, template="web/user/change_password.html"):
+# @login_required
+# def change_password(request, template="web/user/change_password.html"):
+#
+#     _user = request.user
+#
+#     if request.method == "POST":
+#         _form = UserChangePasswordForm(user=_user, data=request.POST)
+#         if _form.is_valid():
+#             _form.save()
+#     else:
+#         _form = UserChangePasswordForm(user=_user)
+#
+#     return render_to_response(
+#         template,
+#         {
+#             'form':_form,
+#         },
+#         context_instance = RequestContext(request),
+#     )
 
-    _user = request.user
+class ChangePasswdFormView(LoginRequiredMixin, FormView):
+    form_class = UserChangePasswordForm
+    template_name = "web/user/change_password.html"
+    # success_url = reverse('web_user_change_password')
 
-    if request.method == "POST":
-        _form = UserChangePasswordForm(user=_user, data=request.POST)
-        if _form.is_valid():
-            _form.save()
-    else:
-        _form = UserChangePasswordForm(user=_user)
+    def get_form_kwargs(self):
+        kwargs = super(ChangePasswdFormView, self).get_form_kwargs()
+        kwargs.update(
+            {
+                'user': self.request.user
+            }
+        )
+        return kwargs
 
-    return render_to_response(
-        template,
-        {
-            'form':_form,
-        },
-        context_instance = RequestContext(request),
-    )
+    def form_valid(self, form):
+        self.object = form.save()
+        return self.render_to_response(self.get_context_data(form=form))
+
 
 @login_required
 def bind_sns(request, template="web/user/bind_sns.html"):
@@ -167,12 +187,8 @@ def unfollow_action(request, user_id):
     return JSONResponse(data={'status':0})
     # return
 
-def index(request, user_id):
-
-    return HttpResponseRedirect(reverse('web_user_entity_like', args=[user_id,]))
-
-
-
+# def index(request, user_id):
+    # return HttpResponseRedirect(reverse('web_user_entity_like', args=[user_id,]))
 
 
 

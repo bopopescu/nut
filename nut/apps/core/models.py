@@ -21,10 +21,10 @@ from apps.core.manager.event import ShowEventBannerManager
 from apps.core.manager.article import ArticleManager, SelectionArticleManager
 
 from hashlib import md5
-from urlparse import parse_qs, urlparse
+# from urlparse import parse_qs, urlparse
 # from apps.core.utils.tag import TagParser
 
-from djangosphinx.models import SphinxSearch
+# from djangosphinx.models import SphinxSearch
 from apps.notifications import notify
 from datetime import datetime
 import time
@@ -294,12 +294,12 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
 
-    search = SphinxSearch(
-        index = 'users',
-        mode = 'SPH_MATCH_ALL',
-        rankmode = 'SPH_RANK_NONE',
-        maxmatches = 5000,
-    )
+    # search = SphinxSearch(
+    #     index = 'users',
+    #     mode = 'SPH_MATCH_ALL',
+    #     rankmode = 'SPH_RANK_NONE',
+    #     maxmatches = 5000,
+    # )
 
 
 class User_Profile(BaseModel):
@@ -477,6 +477,18 @@ class Category(BaseModel):
     @property
     def cover_url(self):
         return "%s%s" % (image_host, self.cover)
+
+    @property
+    def title_cn(self):
+        titles = self.title.split()
+        return titles[0]
+
+    @property
+    def title_en(self):
+        titles = self.title.split()
+        if (len(titles) == 2):
+            return titles[1]
+        return self.title
 
 
 class Sub_Category(BaseModel):
@@ -790,19 +802,19 @@ class Entity(BaseModel):
         cache.delete(key)
 
     # search index
-    search = SphinxSearch(
-        index = 'entities',
-        weights={
-            'brand': 100,
-            'category': 80,
-            'title': 50,
-            'note' : 10,
-            # 'intro': 5,
-        },
-        maxmatches = 10000,
-        mode = 'SPH_MATCH_PHRASE',
-        rankmode = 'SPH_RANK_NONE',
-    )
+    # search = SphinxSearch(
+    #     index = 'entities',
+    #     weights={
+    #         'brand': 100,
+    #         'category': 80,
+    #         'title': 50,
+    #         'note' : 10,
+    #         # 'intro': 5,
+    #     },
+    #     maxmatches = 10000,
+    #     mode = 'SPH_MATCH_PHRASE',
+    #     rankmode = 'SPH_RANK_NONE',
+    # )
 
 class Selection_Entity(BaseModel):
     entity = models.OneToOneField(Entity, unique=True)
@@ -835,6 +847,7 @@ class Buy_Link(BaseModel):
     cid = models.CharField(max_length=255, null=True)
     link = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=20, decimal_places=2, default=0)
+    foreign_price = models.DecimalField(max_digits=20, decimal_places=2, default=0)
     volume = models.IntegerField(default=0)
     rank = models.IntegerField(default=0)
     default = models.BooleanField(default=False)
@@ -920,9 +933,17 @@ class Note(BaseModel):
     def post_timestamp(self):
         return time.mktime(self.post_time.timetuple())
 
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        key = "note:v3:%s" % self.id
+        print key
+        cache.delete(key)
+        return super(Note, self).save(force_insert=False, force_update=False, using=None,
+             update_fields=None)
+
     def v3_toDict(self, user_note_pokes=None, visitor= None, has_entity=False):
-        key_string = "note_v3_%s" % self.id
-        key = md5(key_string.encode('utf-8')).hexdigest()
+        key = "note:v3:%s" % self.id
+        # key = md5(key_string.encode('utf-8')).hexdigest()
         res = cache.get(key)
         # if res:
 
@@ -940,7 +961,7 @@ class Note(BaseModel):
             cache.set(key, res, timeout=86400)
             log.info("miss miss")
         # log.info(user_note_pokes)
-        log.info(visitor)
+        # log.info(visitor)
         res['poke_count'] = self.poke_count
         res['comment_count'] = self.comment_count
         res['creator'] = self.user.v3_toDict(visitor)
@@ -1028,11 +1049,11 @@ class Tag(models.Model):
     def get_absolute_url(self):
         return "/t/%s/" % self.tag_hash
 
-    search = SphinxSearch(
-        index = 'tags',
-        mode = 'SPH_MATCH_ALL',
-        rankmode = 'SPH_RANK_NONE',
-    )
+    # search = SphinxSearch(
+    #     index = 'tags',
+    #     mode = 'SPH_MATCH_ALL',
+    #     rankmode = 'SPH_RANK_NONE',
+    # )
 
 
 class Entity_Tag(models.Model):

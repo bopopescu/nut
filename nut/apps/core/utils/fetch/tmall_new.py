@@ -60,6 +60,17 @@ class Tmall():
         return self._price
 
     @property
+    def brand(self):
+        seller_soup = self.soup.select("ul.attributes-list li")
+        if not seller_soup:
+            seller_soup = self.soup.select("ul#J_AttrUL li")
+        if seller_soup > 0:
+            for brand_li in seller_soup:
+                if brand_li.text.find(u'品牌') >= 0:
+                    return brand_li.text.split(u':')[1].strip()
+        return ''
+
+    @property
     def images(self):
         _images = list()
         fimg = self.soup.select("#J_ImgBooth")
@@ -117,7 +128,7 @@ class Tmall():
 
         return price
 
-    def get_price_by_price_json(self,entity_info):
+    def get_price_by_price_json(self, entity_info):
         price = 0
         prices = []
         if entity_info['isSuccess']:
@@ -188,6 +199,7 @@ class Tmall():
 			"nick": self.nick,
 			"shop_link": self.shoplink,
 			"location": "",
+            "brand": self.brand
         }
         return result
 

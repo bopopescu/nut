@@ -3,72 +3,124 @@
 {% load guoku %}
 
 {% block content %}
-    <div class="row">
-        <h1 class="page-header">{% trans 'selection' %}</h1>
-        <a href="{% url 'management_set_publish_datetime' %}" class="btn btn-primary pull-right" data-toggle="modal" data-target="#SelectionEntityModal">精选排时间</a>
-    </div>
+    <section class="content-header">
+        <h1>
+            {% trans 'popular' %}
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+            <li><a href="#">{% trans 'selection' %}</a></li>
+            <li class="active">{% trans 'popular' %}</li>
+        </ol>
+    </section>
 
-        <div class="row" style="padding-bottom: 24px;">
-            <ul class="nav nav-pills" role="tablist">
-                {% url 'management_selection_published' as management_selection_published_url %}
-                {% url 'management_selection_pending' as management_selection_pending_url %}
-                {% url 'management_selection_popular' as management_selection_popular_url %}
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <ul class="nav nav-pills" role="tablist">
+                            {% url 'management_selection_published' as management_selection_published_url %}
+                            {% url 'management_selection_pending' as management_selection_pending_url %}
+                            {% url 'management_selection_popular' as management_selection_popular_url %}
 
-                <li {% if management_selection_published_url in request.path %}class="active"{% endif %}>
-                    <a href="{% url 'management_selection_list' %}">{% trans 'published' %}</a>
-                </li>
+                            <li {% if management_selection_published_url in request.path %}class="active"{% endif %}>
+                                <a href="{% url 'management_selection_list' %}">{% trans 'published' %}</a>
+                            </li>
 
-                <li {% if management_selection_pending_url in request.path %}class="active"{% endif %}>
-                    <a href="{% url 'management_selection_pending' %}">{% trans 'pending' %}&nbsp;({{ pending_count }})</a>
-                </li>
+                            <li {% if management_selection_pending_url in request.path %}class="active"{% endif %}>
+                                <a href="{% url 'management_selection_pending' %}">{% trans 'pending' %}&nbsp;({{ pending_count }})</a>
+                            </li>
 
-                <li {% if management_selection_popular_url in request.path %}class="active"{% endif %}>
-                    <a href="{{ management_selection_popular_url }}">{% trans 'popular' %}</a>
-                </li>
-            </ul>
+                            <li {% if management_selection_popular_url in request.path %}class="active"{% endif %}>
+                                <a href="{{ management_selection_popular_url }}">{% trans 'popular' %}</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="box-body table-responsive">
+                        <table class="table table-small-font table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>{% trans 'image' %}</th>
+                                    <th>{% trans 'brand' %}</th>
+                                    <th>{% trans 'title' %}</th>
+                                    <th>{% trans 'count' %}</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for like in popular_entity_list %}
+                                    <tr>
+                                        <td>{{ like.entity.id }}</td>
+                                        <td>
+                                            <img class="img-thumbnail img-responsive" src="{{ like.entity.chief_image|resize:'240' }}" width="120" height="120">
+                                        </td>
+                                        <td>{{ like.entity.brand }}</td>
+                                        <td>{{ like.entity.title }}</td>
+                                        <td>{{ like.lcount }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-
-<div class="row">
-    <div class="table-responsive">
-        <table class="table table-small-font table-hover table-bordered">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>{% trans 'image' %}</th>
-                    <th>{% trans 'brand' %}</th>
-                    <th>{% trans 'title' %}</th>
-                    <th>{% trans 'count' %}</th>
-{#                    <th>{% trans 'category' %}</th>#}
-{#                    <th>{% trans 'published time' %}</th>#}
-{#                    <th>{% trans 'price' %}</th>#}
-{#                    <th>{% trans 'status' %}</th>#}
-{#                    <th>{% trans 'operation' %}</th>#}
-                </tr>
-            </thead>
-            <tbody>
-                {% for like in popular_entity_list %}
-                    <tr>
-                        <td>{{ like.entity.id }}</td>
-                        <td>
-                            <img class="img-thumbnail img-responsive" src="{{ like.entity.chief_image|resize:'240' }}" width="120" height="120">
-                        </td>
-                        <td>{{ like.entity.brand }}</td>
-                        <td>{{ like.entity.title }}</td>
-                        <td>{{ like.lcount }}</td>
-{#                        <td><a href="#">{{ selection.entity.category }}</a></td>#}
-{#                        <td>{{ selection.entity.selection_entity.pub_time|date:'Y-m-d H:i:s' }}</td>#}
-{#                        <td>{{ selection.entity.price }}</td>#}
-{#                        <td>{{ entity.get_status_display }}</td>#}
+    </section>
+{#    <div class="row">#}
+{#        <h1 class="page-header">{% trans 'selection' %}</h1>#}
+{#        <a href="{% url 'management_set_publish_datetime' %}" class="btn btn-primary pull-right" data-toggle="modal" data-target="#SelectionEntityModal">精选排时间</a>#}
+{#    </div>#}
+{##}
+{#        <div class="row" style="padding-bottom: 24px;">#}
+{#            <ul class="nav nav-pills" role="tablist">#}
+{#                {% url 'management_selection_published' as management_selection_published_url %}#}
+{#                {% url 'management_selection_pending' as management_selection_pending_url %}#}
+{#                {% url 'management_selection_popular' as management_selection_popular_url %}#}
+{##}
+{#                <li {% if management_selection_published_url in request.path %}class="active"{% endif %}>#}
+{#                    <a href="{% url 'management_selection_list' %}">{% trans 'published' %}</a>#}
+{#                </li>#}
+{##}
+{#                <li {% if management_selection_pending_url in request.path %}class="active"{% endif %}>#}
+{#                    <a href="{% url 'management_selection_pending' %}">{% trans 'pending' %}&nbsp;({{ pending_count }})</a>#}
+{#                </li>#}
+{##}
+{#                <li {% if management_selection_popular_url in request.path %}class="active"{% endif %}>#}
+{#                    <a href="{{ management_selection_popular_url }}">{% trans 'popular' %}</a>#}
+{#                </li>#}
+{#            </ul>#}
+{#        </div>#}
+{##}
+{#<div class="row">#}
+{#    <div class="table-responsive">#}
+{#        <table class="table table-small-font table-hover table-bordered">#}
+{#            <thead>#}
+{#                <tr>#}
+{#                    <th>#</th>#}
+{#                    <th>{% trans 'image' %}</th>#}
+{#                    <th>{% trans 'brand' %}</th>#}
+{#                    <th>{% trans 'title' %}</th>#}
+{#                    <th>{% trans 'count' %}</th>#}
+{##}
+{#                </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#                {% for like in popular_entity_list %}#}
+{#                    <tr>#}
+{#                        <td>{{ like.entity.id }}</td>#}
 {#                        <td>#}
-{#                            <div class="btn-group">#}
-{#                                <a class="btn btn-default" href="{% url 'management_entity_edit' selection.entity.pk %}" target="_blank">{% trans 'edit' %}</a>#}
-{#                                <a class="btn btn-primary" href="{% url 'management_selection_edit_publish' selection.pk %}" target="_blank">{% trans 'edit datetime' %}</a>#}
-{#                            </div>#}
+{#                            <img class="img-thumbnail img-responsive" src="{{ like.entity.chief_image|resize:'240' }}" width="120" height="120">#}
 {#                        </td>#}
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
- </div>
+{#                        <td>{{ like.entity.brand }}</td>#}
+{#                        <td>{{ like.entity.title }}</td>#}
+{#                        <td>{{ like.lcount }}</td>#}
+{#                    </tr>#}
+{#                {% endfor %}#}
+{#            </tbody>#}
+{#        </table>#}
+{#    </div>#}
+{# </div>#}
 {% endblock %}

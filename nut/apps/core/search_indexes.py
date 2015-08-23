@@ -24,6 +24,7 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
 class UserIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     date_joined = indexes.DateTimeField(model_attr='date_joined')
+    is_active = indexes.IntegerField(model_attr='is_active')
     fans_count = indexes.IntegerField(model_attr='fans_count')
 
     def get_model(self):
@@ -49,9 +50,10 @@ class TagIndex(indexes.SearchIndex, indexes.Indexable):
 #
 class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
+    article_id = indexes.IntegerField(model_attr='id')
     author = indexes.CharField(model_attr='creator')
     title = indexes.CharField(model_attr='title', boost=1.125)
-    # read_count = indexes.IntegerField(model_attr='read_count')
+    read_count = indexes.IntegerField(model_attr='read_count')
 
     title_auto = indexes.EdgeNgramField(model_attr='title')
 

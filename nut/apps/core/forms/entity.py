@@ -478,7 +478,8 @@ class CreateEntityForm(forms.Form):
 
         entity.save()
         log.info(entity.images)
-        fetch_image.delay(entity.images, entity.id)
+        if not settings.DEBUG:
+            fetch_image.delay(entity.images, entity.id)
 
         if _note_text:
             Note.objects.create(

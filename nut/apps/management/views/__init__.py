@@ -4,7 +4,7 @@ from django.template import RequestContext
 # from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.contrib.auth.decorators import  login_required
 
-from apps.core.models import Show_Banner, Sub_Category
+from apps.core.models import Show_Banner, Sub_Category, Entity, Note
 from apps.core.utils.http import SuccessJsonResponse
 from apps.report.models import Selection
 from apps.management.decorators import staff_only
@@ -59,7 +59,7 @@ def dashboard(request, template='management/dashboard.html'):
     # innqs = Selection_Entity.objects.filter(pub_time__range=(range_date.strftime("%Y-%m-%d"), now.strftime("%Y-%m-%d")))
     # e = Entity.objects.filter(id__in=innqs).values_list('category', flat=True).distinct()
     # log.info(e)
-    show_banners = Show_Banner.objects.all()
+    # show_banners = Show_Banner.objects.all()
 
     # selection_entity_list = Entity.objects.filter(status = Entity.selection)
 
@@ -71,11 +71,14 @@ def dashboard(request, template='management/dashboard.html'):
     #     selection_entities = paginator.page(1)
     # except EmptyPage:
     #     raise Http404
+    entities = Entity.objects.all()[0:10]
+    notes = Note.objects.all().order_by("-post_time")[0:10]
 
 
     return render_to_response(template,
                                 {
-                                    'show_banners': show_banners,
+                                    'notes': notes,
+                                    'entities': entities,
                                     # 'selection_entities': selection_entities,
                                 },
                                 context_instance = RequestContext(request))
