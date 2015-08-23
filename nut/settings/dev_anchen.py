@@ -1,5 +1,5 @@
 from stage import *
-
+DEBUG = True
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 # IMAGE_HOST = 'http://127.0.0.1:8000/'
