@@ -11,6 +11,8 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 from apps.core.forms.banner import CreateBannerForm, EditBannerForm
 from apps.management.decorators import staff_only
 
+from apps.core.views import LoginRequiredMixin
+from django.views.generic import ListView
 
 @login_required
 @staff_only
@@ -38,6 +40,24 @@ def list(request, template="management/banner/list.html"):
                     },
                     context_instance = RequestContext(request)
                 )
+
+class BannerListView(LoginRequiredMixin, ListView):
+
+    template_name = "management/banner/list.html"
+    queryset = Banner.objects.all()
+    paginate_by = 25
+    paginator_class = ExtentPaginator
+
+    def get_context_data(self, **kwargs):
+        kwargs = super(BannerListView, self).get_context_data(**kwargs)
+        show_banners = Show_Banner.objects.all()[0:4]
+        kwargs.update(
+            {
+                'show_banners': show_banners,
+            }
+        )
+        return kwargs
+
 
 @login_required
 @staff_only
