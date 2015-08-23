@@ -449,6 +449,11 @@ class Sidebar_Banner(BaseModel):
     link = models.CharField(max_length = 255, null = False)
     position = models.IntegerField(null=False,default=1,blank=False)
     status = models.IntegerField(choices=SB_BANNER_STATUS_CHOICE, default=disabled)
+
+    @property
+    def image_url(self):
+        return "%s%s" % (image_host, self.image)
+
     class Meta:
         ordering = ['-status', 'position', '-updated_time']
 

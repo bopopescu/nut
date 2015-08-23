@@ -1,30 +1,101 @@
+{% extends 'management/management_restful_base.html' %}
 {% load staticfiles i18n %}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Employee Directory</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+ {% block css %}
+    <link href="{% static 'css/management/restful_application.css' %}" rel="stylesheet">
+ {% endblock %}
+{% block content %}
+    <section class="content-header">
+        <h1>
+            {% trans 'SideBar Banner' %}
+            <small>{% trans 'list' %}</small>
+        </h1>
 
-    <link href="{% static 'js/management/restful/resource/bootstrap/css/bootstrap-responsive.css' %}" rel="stylesheet">
-    <link href="{% static 'js/management/restful/resource/css/style.css' %}" rel="stylesheet">
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+{#            <li><a href="#">Tables</a></li>#}
+            <li class="active">{% trans 'SideBar Banner' %}</li>
+        </ol>
+    </section>
+    <section class="content" id="SBBanner-management">
+        <div class="col-xs-12 content-full-height">
+            <div class="box">
+                <div class="box-header"><h2>{% trans 'SideBar Banner List' %}</h2> <button id="add-sbbanner" class="btn btn-primary ">添加 Side Bar Banner</button></div>
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover table-dynamic" id="sbbanner">
+                        <thead>
+                             <tr>
+                                <th>{% trans 'Banner Image' %}</th>
+                                <th>{% trans 'Position' %}</th>
+                                <th>{% trans 'Link' %}</th>
+                                <th>{% trans 'Status' %}</th>
+                                <th>{% trans 'Edit' %}</th>
+                                <th>{% trans 'Delete' %}</th>
+                            </tr>
+                        </thead>
+                        <tbody class="list-container">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
+{% endblock %}
+{% block user_script %}
     <script src="{% static 'js/management/restful/lib/underscore.js' %}"  ></script>
     <script src="{% static 'js/management/restful/lib/jquery.js' %}"  ></script>
+    <script src="{% static 'js/management/restful/lib/csrf.js' %}"  ></script>
+
     <script src="{% static 'js/management/restful/lib/backbone.js' %}"  ></script>
+    <script src="{% static 'js/management/restful/lib/ant_backbone_ext.js' %}"  ></script>
+
 
     <script src="{% static 'js/management/restful/sentinel.js' %}" id="hero" ></script>
     <script data-main="{% static 'js/management/restful/main.js' %}" src="{% static 'js/management/restful/require.js' %}" ></script>
 
 
-</head>
+    {% block html_templates %}
+        <script id="id-sbbanner-item-template" type="text/template">
+                <td class="value">
+                    <div class="attachment-block">
+                        <img class="attachment-img" src="<%=image_url %>"/>
+                    </div>
+                    <input type="hidden" for-key="image" value="<%=image%>">
+                    <input type="file"  accept="image/*" name="upload-file" class="image-file-input" >
+                </td>
+                <td class="value">
+                    <span class="value-content">
+                        <%=position%>
+                    </span>
+                    <span class="form-widget">
+                        <input  type="text" value="<%=position%>" for-key="position">
+                    </span>
+                </td>
+                <td class="value">
+                    <span class="value-content">
+                        <a href="<%=link%>"><%=link %></a>
+                    </span>
+                    <span class="form-widget">
+                        <input type="text" value="<%=link%>" for-key="link">
+                    </span>
+                </td>
+                <td class="value">
+                    <span class="value-content">
+                        <%=status%>
+                    </span>
+                    <span class="form-widget">
+                        <input type="text" value="<%=status%>" for-key="status">
+                    </span>
+                </td>
 
-<body></body>
+                <td class="action edit-save">
+                    <button class="btn btn-warning btn-edit">Edit</button>
+                    <button class="btn btn-success btn-save">Save</button>
+                </td>
+                <td class="action">
+                    <button class="btn btn-danger btn-delete">Delete</button>
+                </td>
+        </script>
+    {% endblock %}
 
-</html>
+{% endblock %}
