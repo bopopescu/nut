@@ -1,7 +1,7 @@
 from settings import *
 
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 STATIC_URL = 'http://static.guoku.com/static/v4/8f04cbf2a3d6a99173fb8b3bd116eed6690fc581/'
@@ -41,6 +41,8 @@ DATABASES = {
         }
     },
 }
+
+
 
 INSTALLED_APPS += (
     'gunicorn',
