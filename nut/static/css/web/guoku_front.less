@@ -134,6 +134,7 @@ body{
         color: @common-gray;
       }
     }
+
   }
 
   .search{
@@ -759,6 +760,21 @@ body{
 
     }
     .guess-img{
+      .img-holder{
+        display: inline-block;
+        width: 100%;
+        a{
+          display: block;
+          width: 100%;
+          height:100%;
+          .img-frame{
+            heigth:0;
+            padding-bottom: 100%;
+            background-position: center center;
+            background-size: contain;
+          }
+        }
+      }
       .img-box{
         border:none!important;
       }
