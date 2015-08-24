@@ -34,7 +34,7 @@ class EntityQuerySet(models.query.QuerySet):
                 .annotate(lnumber=Count('likes')) \
                 .order_by('-lnumber')
         else:
-            return self.new_or_selection(category_id).filter(selection_entity__pub_time__lte=_refresh_datetime, buy_links__status=2) \
+            return self.new_or_selection(category_id).filter(selection_entity__pub_time__lte=_refresh_datetime, buy_links__status=2).distinct() \
                 .order_by('-selection_entity__pub_time')
         # self.using('slave').filter(status=Entity.selection, selection_entity__pub_time__lte=_refresh_datetime, category=category_id)\
                           # .order_by('-selection_entity__pub_time').filter(buy_links__status=2)
