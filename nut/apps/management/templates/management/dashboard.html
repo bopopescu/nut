@@ -111,7 +111,7 @@
                                     {% for note in notes %}
                                         <tr>
                                             <td>{{ note.id }}</td>
-                                            <td>{{ note.user }}</td>
+                                            <td><a href="{% url 'management_user_edit' note.user.pk %}">{{ note.user.profile.nick }}</a></td>
                                             <td>{{ note.entity }}</td>
                                             <td>{{ note.note }}</td>
                                             <td>{{ note.post_time|date:'Y-m-d H:i:s' }}</td>
@@ -138,7 +138,7 @@
                                 <div class="product-info">
                                     <a href="javascript:;" class="product-title">{{ entity|truncatechars:'20' }}<span class="label label-warning pull-right">{{ entity.price }}</span></a>
                                     <span class="product-description">
-                                       {{ entity.title }}
+                                       {{ entity.user.profile.nick }}
                                     </span>
                                 </div>
                             </li><!-- /.item -->
