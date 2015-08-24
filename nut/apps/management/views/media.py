@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
-from apps.core.utils.image import HandleImage
+from apps.core.utils.image import HandleImage,LimitedImage
 from apps.core.utils.http import ErrorJsonResponse, SuccessJsonResponse
 from apps.core.models import Media
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
@@ -60,19 +60,20 @@ def delete(request):
 @login_required
 @writers_only
 def upload_image(request):
-    maxWidth = request.GET.get('mwidth', 1200)
-    maxQuality = request.GET.get('mquality',100)
+    # maxWidth = request.GET.get('mwidth', 1200)
+    # maxQuality = request.GET.get('mquality',100)
 
     if request.method == "POST":
         log.info('img upload begin----')
 
         file = request.FILES.get('file')
-        image = HandleImage(file)
+        image = LimitedImage(file)
         log.info('image handeled and returned')
         log.info(image)
-        filename = image.save(maxWidth=maxWidth, maxQuality=maxQuality)
+        filename = image.save()
         log.info('image saved -----')
         log.info(filename)
+
         media =  Media.objects.create(
             file_path = filename,
             content_type = image.content_type,
