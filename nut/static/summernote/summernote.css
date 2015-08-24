@@ -540,6 +540,7 @@
   width: 100%;
   background-color: #f7f8f9;
   background-size: cover;
+  background-position: center center;
 }
 #editor-container .editor_wrap .cover #cover-upload-button {
   height: 100%;

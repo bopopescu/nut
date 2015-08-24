@@ -19,6 +19,7 @@ class BaseEventBannerForm(forms.Form):
         label=_('link'),
         widget=forms.TextInput(attrs={'class':'form-control'}),
         help_text=_(''),
+        required=False
     )
     event_banner_image = forms.FileField(
         label=_('event banner image'),

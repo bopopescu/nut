@@ -107,40 +107,11 @@ class HandleImage(object):
         # _img.resize(_width, _height)
         # return _img.make_blob()
 
-    def handleWidth(self, maxWidth):
-        try :
-            maxWidth = int(maxWidth)
-        except ValueError:
-            raise GImageException('maxWidth should be a number')
 
-        (width, height) = self.img.size
-        if width > maxWidth:
-            ratio = float(maxWidth)/float(width)
-            newHeight = int(height * ratio)
-            self.img.sample(maxWidth,newHeight)
-            self._image_data = self.img.make_blob()
-        return
 
-    def handleQuality(self, quality):
-        try:
-            quality = int(quality)
-        except ValueError:
-            raise GImageException('quality should be a number')
 
-        if quality > 100 or quality <=0 :
-            quality = 70
-
-        self.img.compression_quality = quality
-        self._image_data = self.img.make_blob()
-        return
-
-    def save(self, path = None, resize=False, square=False, maxWidth=1200, maxQuality=99):
-        log.info('begin save -----')
-        if maxWidth:
-            self.handleWidth(maxWidth)
-        # disable quality process by An
-        # if maxQuality:
-        #     self.handleQuality(maxQuality)
+    def save(self, path = None, resize=False, square=False):
+        # log.info('begin save -----')
 
         if self.ext_name == 'png':
             # _img = WandImage(blob = self._image_data)
@@ -158,12 +129,13 @@ class HandleImage(object):
         # log.info(filename)
         if not default_storage.exists(filename):
             try:
-                log.info('real saveing begin----')
+                # log.info('real saveing begin----')
                 filename = default_storage.save(filename, ContentFile(self.image_data))
             except Exception as e:
                 log.info(e)
         else:
-            log.info('file exist!----')
+            # log.info('file exist!----')
+            pass
 
         return filename
 
@@ -193,5 +165,42 @@ class HandleImage(object):
             filename = default_storage.save(filename, ContentFile(self.image_data))
         return filename
 
+class LimitedImage(HandleImage):
+
+    def handleWidth(self, maxWidth):
+        try :
+            maxWidth = int(maxWidth)
+        except ValueError:
+            raise GImageException('maxWidth should be a number')
+
+        (width, height) = self.img.size
+        if width > maxWidth:
+            ratio = float(maxWidth)/float(width)
+            newHeight = int(height * ratio)
+            self.img.sample(maxWidth,newHeight)
+            self._image_data = self.img.make_blob()
+        return
+
+    def handleQuality(self, quality):
+        try:
+            quality = int(quality)
+        except ValueError:
+            raise GImageException('quality should be a number')
+
+        if quality > 100 or quality <=0 :
+            quality = 70
+
+        self.img.compression_quality = quality
+        self._image_data = self.img.make_blob()
+        return
+
+    def save(self, path = None, resize=False, square=False, maxWidth=None,maxQuality=None):
+        if maxWidth:
+            self.handleWidth(maxWidth)
+
+        if maxQuality:
+            self.handleQuality(maxQuality)
+
+        return super(LimitedImage,self).save(path, resize ,square)
 
 __author__ = 'edison'
