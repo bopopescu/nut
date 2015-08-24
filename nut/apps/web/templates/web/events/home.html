@@ -50,12 +50,17 @@
                             <div class="item {% if 1 == show.position %}active{% endif %}">
                                 {% if show.banner.banner_type == 1  %}
                                     <a class="event-banner-link" datatype="1" biz-sellerid="{{ show.banner.user_id }}" href="#">
-                                        <img src="{{ show.banner.image_url }}" alt="" width="940" height="430">
+                                        <img class="event-banner" src="{{ show.banner.image_url }}" alt="" width="940" height="430">
                                     </a>
                                 {% else %}
-                                    <a class="event-banner-link" href="{{ show.banner.link }}">
-                                        <img src="{{ show.banner.image_url }}">
-                                    </a>
+                                    {% if show.banner.link %}
+                                         <a class="event-banner-link" href="{{ show.banner.link }}">
+                                            <img class="event-banner" src="{{ show.banner.image_url }}">
+                                         </a>
+                                    {% else %}
+                                        <img class="event-banner" src="{{ show.banner.image_url }}">
+                                    {% endif %}
+
                                 {% endif %}
                                 <div class="carousel-caption">
                                 </div>

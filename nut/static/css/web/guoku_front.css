@@ -1149,7 +1149,7 @@ body {
 .event-body .event-cross-screen {
   width: 100%;
 }
-.event-body .event-banner-link img {
+.event-body .event-banner {
   display: block;
   margin: 0 auto ;
 }
