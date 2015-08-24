@@ -767,7 +767,7 @@ class Entity(BaseModel):
         return res
 
     def __unicode__(self):
-        if self.brand is not None:
+        if len(self.brand) > 0:
             return "%s - %s" % (self.brand, self.title)
         return self.title
 
