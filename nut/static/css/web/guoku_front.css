@@ -1887,6 +1887,7 @@ body {
   padding-bottom: 100%;
   background-position: center center;
   background-size: contain;
+  background-repeat: no-repeat;
 }
 #detail_content_left #guess_list .guess-img .img-box {
   border: none!important;
