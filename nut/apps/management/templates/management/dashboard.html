@@ -111,7 +111,7 @@
                                     {% for note in notes %}
                                         <tr>
                                             <td>{{ note.id }}</td>
-                                            <td>{{ note.user }}</td>
+                                            <td><a href="{% url 'management_user_edit' note.user.pk %}">{{ note.user.profile.nick }}</a></td>
                                             <td>{{ note.entity }}</td>
                                             <td>{{ note.note }}</td>
                                             <td>{{ note.post_time|date:'Y-m-d H:i:s' }}</td>
