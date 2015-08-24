@@ -3,11 +3,33 @@
 {% load guoku %}
 
 {% block content %}
-    <div class="row">
-        <h1 class="page-header">{{ brand }}</h1>
-    </div>
+    <section class="content-header">
+        <h1>
+            {{ brand }}
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+            <li><a href="#">{{ brand }}</a></li>
+            <li class="active">{% trans 'entity' %}</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-header">
 
-    {% include 'management/entities/table.html' with entities=entities %}
+                    </div>
 
-    {% include "management/paginator.html" with objects=entities url=request.path %}
+                    <div class="box-body">
+                         {% include 'management/entities/table.html' with entities=entities %}
+                    </div>
+
+                    <div class="box-footer">
+                        {% include "management/paginator.html" with objects=entities url=request.path %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

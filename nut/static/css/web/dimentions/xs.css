@@ -187,7 +187,9 @@
 .article-wrapper .cover-wrapper a img:hover,
 .more-article-wrapper .cover-wrapper a img:hover,
 .guess-wrapper .recommend-img:hover,
-.user-page .img-box img:hover {
+.user-page .img-box img:hover,
+.pop-article-list .pop-article-wrapper .img-holder a:hover,
+.pop-entity-list .pop-entity-wrapper .img-holder a:hover {
   opacity: 0.7;
 }
 .little-round-tag {
@@ -431,6 +433,11 @@
 @media (min-width: 768px) and (max-width: 990px) {
   .container {
     width: 100%;
+  }
+  li.section .text-holder,
+  li.section .article-title,
+  li.section .entity-name {
+    font-size: 13px !important;
   }
   .guoku-content.user-page .user-info {
     max-width: 450px;
