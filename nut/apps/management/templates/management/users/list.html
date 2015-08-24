@@ -2,55 +2,48 @@
 {% load i18n %}
 
 {% block content %}
-    <h1 class="page-header">{% trans 'user' %}</h1>
-    <div class="row">
-        <ul class="nav nav-pills" role="tablist">
+    <section class="content-header">
+        <h1>
+            {% trans 'user' %}
+            <small>{% trans 'entity' %}</small>
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+{#            <li><a href="#">Tables</a></li>#}
+            <li class="active">{% trans 'user' %}</li>
+        </ol>
+    </section>
+
+    <section class="content">
+{#    <h1 class="page-header">{% trans 'user' %}</h1>#}
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <ul class="nav nav-pills" role="tablist">
 {#            <li {% if admin == None and active == None %}class="active" {% endif %}><a href="{% url 'management_user_list' %}">{% trans 'all' %}</a></li>#}
-            <li {% if active == '3' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '3' %}">{% trans 'writer' %}</a></li>
-            <li {% if active == '2' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '2' %}">{% trans 'editor' %}</a></li>
-            <li {% if active == '1' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '1' %}">{% trans 'active' %}</a></li>
-            <li {% if active == '0' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '0' %}">{% trans 'blocked' %}</a></li>
-            <li {% if active == '999' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '999' %}">{% trans 'remove' %}</a></li>
-            <li {% if admin %}class="active" {% endif %}><a href="{% url 'management_user_list' %}?admin=1">{% trans 'admin' %}</a></li>
-        </ul>
-    </div>
+                            <li {% if active == '3' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '3' %}">{% trans 'writer' %}</a></li>
+                            <li {% if active == '2' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '2' %}">{% trans 'editor' %}</a></li>
+                            <li {% if active == '1' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '1' %}">{% trans 'active' %}</a></li>
+                            <li {% if active == '0' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '0' %}">{% trans 'blocked' %}</a></li>
+                            <li {% if active == '999' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '999' %}">{% trans 'remove' %}</a></li>
+                            <li {% if admin %}class="active" {% endif %}><a href="{% url 'management_user_list' %}?admin=1">{% trans 'admin' %}</a></li>
+                        </ul>
+                    </div>
+                    <div class="box-body">
+                        {% include 'management/users/table.html' with users=users %}
+                    </div>
 
-    {% include 'management/users/table.html' with users=users %}
-{#    <div class="table-responsive">#}
-{#        <table class="table table-striped">#}
-{#            <thead>#}
-{#                <tr>#}
-{#                    <th>#</th>#}
-{#                    <th>{% trans 'avatar' %}</th>#}
-{#                    <th>{% trans 'email' %}</th>#}
-{#                    <th>{% trans 'nickname' %}</th>#}
-{#                    <th>{% trans 'gender' %}</th>#}
-{#                    <th>{% trans 'is_active' %}</th>#}
-{#                    <th>{% trans 'join datetime' %}</th>#}
-{#                    <th>{% trans 'operation' %}</th>#}
-{##}
-{#                </tr>#}
-{#            </thead>#}
-{#            <tbody>#}
-{#                {% for user in users %}#}
-{#                    <tr>#}
-{#                        <td>{{ user.pk }}</td>#}
-{#                        <td><img src="{{ user.profile.avatar_url }}" width="50" height="50"></td>#}
-{#                        <td>{{ user.email }}</td>#}
-{#                        <td>{{ user.profile.nickname }}</td>#}
-{#                        <td>{{ user.profile.get_gender_display }}</td>#}
-{#                        <td>{{ user.date_joined|date:'Y-m-d H:i:s' }}</td>#}
-{#                        <td {% if user.is_active == -1 %}class="bool_no"{% endif %}>{{ user.get_is_active_display }}</td>#}
-{#                        <td>{{ user.is_staff|yesno }}</td>#}
-{#                        <td>#}
-{#                            <a class="btn btn-primary" href="#">{% trans 'post message' %}</a>#}
-{#                            <a class="btn btn-default" href="{% url 'management_user_edit' user.pk %}" target="_blank">{% trans 'edit' %}</a>#}
-{#                        </td>#}
-{#                    </tr>#}
-{#                {% endfor %}#}
-{#            </tbody>#}
-{#        </table>#}
-{#    </div>#}
+                    <div  class="box-footer">
+                        {% include "management/paginator.html" with objects=users url=request.path %}
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    {% include "management/paginator.html" with objects=users url=request.path %}
+
+
+
+    </section>
 {% endblock %}

@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 
-from apps.core.models import Show_Editor_Recommendation, Editor_Recommendation
+from apps.core.models import Event, Show_Editor_Recommendation, Editor_Recommendation
 from apps.management.forms.editor_recommendation import CreateEditorRecommendForms, EditEditorRecommendForms
 from apps.management.decorators import staff_only
 # from utils.authority import staff_only
@@ -32,12 +32,13 @@ def list(request, template='management/recommendation/list.html'):
 @login_required
 @staff_only
 def show_list(request, rid, template='management/recommendation/show_list.html'):
+    _event = Event.objects.get(pk = rid)
     _show_recommendations = Show_Editor_Recommendation.objects.filter(event_id = rid)
 
     return render_to_response(
         template,
         {
-            'event': rid,
+            'event': _event,
             'show_recommendations': _show_recommendations,
         },
         context_instance=RequestContext(request),

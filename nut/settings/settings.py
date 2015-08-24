@@ -296,3 +296,8 @@ CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs','captcha.helpers.noise_d
 CAPTCHA_LENGTH = 5
 # for debug server popular  category test
 DEFAULT_POPULAR_SCALE =  7
+
+# config of site in redis.
+CONFIG_REDIS_HOST = 'localhost'
+CONFIG_REDIS_PORT = 6379
+CONFIG_REDIS_DB = 1

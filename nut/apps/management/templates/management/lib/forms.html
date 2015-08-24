@@ -1,6 +1,6 @@
-<form class="well form-horizontal" method="post" action="{{ url }}" {% if forms.is_multipart %}enctype="multipart/form-data"{% endif %}>
+<form class="form-horizontal" method="post" action="{{ url }}" {% if forms.is_multipart %}enctype="multipart/form-data"{% endif %}>
     {% csrf_token %}
-    <fieldset>
+    <div class="box-body">
             {% for field in forms %}
 {#                {{ field.name }}#}
                 {% if field.name == 'pub_time' %}
@@ -35,8 +35,8 @@
                 </div>
                 {% endif %}
             {% endfor %}
-    </fieldset>
-    <div class="form-group">
+    </div>
+    <div class="box-footer">
         <div class="col-sm-offset-2 col-sm-5">
             <button type="submit" class="btn btn-primary btn-lg">{{ button }}</button>
         </div>

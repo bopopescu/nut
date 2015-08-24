@@ -5,46 +5,98 @@
         <link href="{% static 'js/jquery-ui/jquery-ui.css' %}" rel="stylesheet">
 {% endblock %}
 {% block content %}
-     {% url 'management_selection_published' as management_selection_published_url %}
-     {% url 'management_selection_pending' as management_selection_pending_url %}
-     {% url 'management_selection_popular' as management_selection_popular_url %}
-    <div class="row">
-        <h1 class="page-header">{% trans 'selection' %}</h1>
-        <div class="btn-group pull-right">
-            <a href="{% url 'management_set_publish_datetime' %}" class="btn btn-primary" data-toggle="modal" data-target="#SelectionEntityModal">精选排时间</a>
-            <a href="#" class="btn btn-success" id="publish2u">发布到U站</a>
-            {% if management_selection_pending_url in request.path %}
-                <a href="#" class="btn btn-warning" id="btn_batch_selection_prepare" batch_url="{% url 'management_batch_selection_prepare' %}">小批量发布</a>
-            {% endif %}
-            {% if management_selection_published_url in request.path %}
-                <a href="#" class="btn btn-danger" id="btn_batch_selection_remove" batch_url="{% url 'management_batch_selection_remove' %}">批量移出发布</a>
-            {% endif %}
-        </div>
-    </div>
+    {% url 'management_selection_published' as management_selection_published_url %}
+    {% url 'management_selection_pending' as management_selection_pending_url %}
+    {% url 'management_selection_popular' as management_selection_popular_url %}
+    <section class="content-header">
+        <h1>
+            {% trans 'selection entity' %}
+            <small>{% trans 'selection' %}</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+{#            <li><a href="#">Tables</a></li>#}
+            <li class="active">{% trans 'selection' %}</li>
+        </ol>
+    </section>
 
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <div class="btn-group pull-right">
+                            <a href="{% url 'management_set_publish_datetime' %}" class="btn btn-primary" data-toggle="modal" data-target="#SelectionEntityModal">精选排时间</a>
+                            <a href="#" class="btn btn-success" id="publish2u">发布到U站</a>
+                            {% if management_selection_pending_url in request.path %}
+                                <a href="#" class="btn btn-warning" id="btn_batch_selection_prepare" batch_url="{% url 'management_batch_selection_prepare' %}">小批量发布</a>{% endif %}
+                            {% if management_selection_published_url in request.path %}
+                                <a href="#" class="btn btn-danger" id="btn_batch_selection_remove" batch_url="{% url 'management_batch_selection_remove' %}">批量移出发布</a>
+                            {% endif %}
+                        </div>
+
+                        <ul class="nav nav-pills" role="tablist">
+                            <li {% if management_selection_published_url in request.path %}class="active"{% endif %}>
+                                <a href="{{ management_selection_published_url }}">{% trans 'published' %}</a>
+                            </li>
+
+                            <li {% if management_selection_pending_url in request.path %}class="active"{% endif %}>
+                                <a href="{{ management_selection_pending_url }}">{% trans 'pending' %}&nbsp;({{ pending_count }})</a>
+                            </li>
+
+                            <li {% if management_selection_popular_url in request.path %}class="active"{% endif %}>
+                                <a href="{{ management_selection_popular_url }}">{% trans 'popular' %}</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="box-body table-responsive">
+                        {% include "management/selection/table.html" with entities=selections %}
+                    </div>
+                    <div class="box-footer">
+                        {% include "management/paginator.html" with objects=selections url=request.path %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{#    <div class="row">#}
+{#        <h1 class="page-header">{% trans 'selection' %}</h1>#}
+{#        <div class="btn-group pull-right">#}
+{#            <a href="{% url 'management_set_publish_datetime' %}" class="btn btn-primary" data-toggle="modal" data-target="#SelectionEntityModal">精选排时间</a>#}
+{#            <a href="#" class="btn btn-success" id="publish2u">发布到U站</a>#}
+{#            {% if management_selection_pending_url in request.path %}#}
+{#                <a href="#" class="btn btn-warning" id="btn_batch_selection_prepare" batch_url="{% url 'management_batch_selection_prepare' %}">小批量发布</a>#}
+{#            {% endif %}#}
+{#            {% if management_selection_published_url in request.path %}#}
+{#                <a href="#" class="btn btn-danger" id="btn_batch_selection_remove" batch_url="{% url 'management_batch_selection_remove' %}">批量移出发布</a>#}
+{#            {% endif %}#}
+{#        </div>#}
+{#    </div>#}
+{##}
 {#    <div>#}
 {#    <h2 class="sub-header">{% trans 'all' %}</h2>#}
-        <div class="row" style="padding-bottom: 24px;">
-            <ul class="nav nav-pills" role="tablist">
-
-                <li {% if management_selection_published_url in request.path %}class="active"{% endif %}>
-                    <a href="{{ management_selection_published_url }}">{% trans 'published' %}</a>
-                </li>
-
-                <li {% if management_selection_pending_url in request.path %}class="active"{% endif %}>
-                    <a href="{{ management_selection_pending_url }}">{% trans 'pending' %}&nbsp;({{ pending_count }})</a>
-                </li>
-
-                <li {% if management_selection_popular_url in request.path %}class="active"{% endif %}>
-                    <a href="{{ management_selection_popular_url }}">{% trans 'popular' %}</a>
-                </li>
-            </ul>
-        </div>
+{#        <div class="row" style="padding-bottom: 24px;">#}
+{#            <ul class="nav nav-pills" role="tablist">#}
+{##}
+{#                <li {% if management_selection_published_url in request.path %}class="active"{% endif %}>#}
+{#                    <a href="{{ management_selection_published_url }}">{% trans 'published' %}</a>#}
+{#                </li>#}
+{##}
+{#                <li {% if management_selection_pending_url in request.path %}class="active"{% endif %}>#}
+{#                    <a href="{{ management_selection_pending_url }}">{% trans 'pending' %}&nbsp;({{ pending_count }})</a>#}
+{#                </li>#}
+{##}
+{#                <li {% if management_selection_popular_url in request.path %}class="active"{% endif %}>#}
+{#                    <a href="{{ management_selection_popular_url }}">{% trans 'popular' %}</a>#}
+{#                </li>#}
+{#            </ul>#}
+{#        </div>#}
 {#    </div>#}
-
-    {% include "management/selection/table.html" with entities=selections %}
-
-    {% include "management/paginator.html" with objects=selections url=request.path %}
+{##}
+{#    {% include "management/selection/table.html" with entities=selections %}#}
+{##}
+{#    {% include "management/paginator.html" with objects=selections url=request.path %}#}
 
     <div id="SelectionEntityModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="EntityNoteModal" aria-hidden="true">
         <div class="modal-dialog modal-lg">

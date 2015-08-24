@@ -477,7 +477,7 @@ class Sub_Category(BaseModel):
     objects = SubCategoryManager()
 
     class Meta:
-        ordering = ['-id']
+        ordering = ['-status']
 
     @property
     def icon_large_url(self):
@@ -824,6 +824,7 @@ class Buy_Link(BaseModel):
     cid = models.CharField(max_length=255, null=True)
     link = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=20, decimal_places=2, default=0)
+    foreign_price = models.DecimalField(max_digits=20, decimal_places=2, default=0)
     volume = models.IntegerField(default=0)
     rank = models.IntegerField(default=0)
     default = models.BooleanField(default=False)
