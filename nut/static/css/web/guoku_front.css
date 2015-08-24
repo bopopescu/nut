@@ -1554,6 +1554,13 @@ body {
   color: #9d9e9f;
   font-size: 13px;
 }
+.guoku-content.user-page .content-panel .panel-content-wrapper .empty-panel-content {
+  display: block;
+  text-align: center;
+  min-height: 200px;
+  padding-top: 90px;
+  color: #9d9d9d;
+}
 .guoku-content.user-page .content-panel .panel-filter .filter-list li {
   border-right: 1px solid #f8f8f8;
   padding: 0px 15px;
