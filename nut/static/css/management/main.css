@@ -253,8 +253,7 @@
 .more-article-wrapper .cover-wrapper a img:hover,
 .guess-wrapper .recommend-img:hover,
 .user-page .img-box img:hover,
-.pop-article-list .pop-article-wrapper .img-holder a:hover,
-.pop-entity-list .pop-entity-wrapper .img-holder a:hover {
+.img-holder a:hover {
   opacity: 0.7;
 }
 .little-round-tag {
