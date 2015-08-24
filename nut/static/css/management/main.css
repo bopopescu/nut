@@ -388,6 +388,12 @@
   width: 0;
   z-index: 1;
 }
+.change_password,
+.binding_page,
+.edit_profile,
+.main_static {
+  min-height: 570px;
+}
 @-moz-document url-prefix() {
   fieldset {
     display: table-cell;

@@ -680,6 +680,12 @@ ul li {
   width: 0;
   z-index: 1;
 }
+.change_password,
+.binding_page,
+.edit_profile,
+.main_static {
+  min-height: 570px;
+}
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
   color: #9d9e9f;
@@ -1334,6 +1340,12 @@ body {
 #guoku_footer .footer-part .list-wrapper li.list-title {
   border-right: none;
   padding-right: 0;
+}
+#guoku_footer .footer-part .list-wrapper li.no-padding-left {
+  padding-left: 0px;
+}
+#guoku_footer .footer-part .list-wrapper li:first-child {
+  padding-right: 0px;
 }
 #guoku_footer .footer-part .qr-wrapper {
   float: right;
