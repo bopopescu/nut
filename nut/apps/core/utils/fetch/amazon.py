@@ -54,7 +54,7 @@ class Amazon(Spider):
             # print pricetag[0].string.split('-')
             price = pricetag[0]
             try:
-                f_price =  float(price.string[1:].replace(',', ''))
+                f_price = float(price.string[1:].replace(',', ''))
             except UnicodeEncodeError:
                 price = pricetag[0].string.split('-')[0]
                 f_price = float(price[1:].replace(',', ''))
@@ -63,7 +63,7 @@ class Amazon(Spider):
         if len(pricetag) > 0:
             price = pricetag[0]
             # print price
-            f_price =  float(price.string[1:].replace(',', ''))
+            f_price = float(price.string[1:].replace(',', ''))
 
         pricetag = self.soup.select("#soldByThirdParty span")
         if len(pricetag) > 0:
