@@ -513,7 +513,10 @@ class Sub_Category(BaseModel):
         res['category_icon_large'] = self.icon_large_url
         res['category_icon_small'] = self.icon_small_url
         res['category_id'] = self.pk
-        res['category_title'] = self.title
+        if self.title in '+':
+            res['category_title'] = self.group.title
+        else:
+            res['category_title'] = self.title
         return res
 
     def __unicode__(self):

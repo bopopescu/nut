@@ -1,4 +1,4 @@
-from apps.core.models import GKUser, Entity, Article
+from apps.core.models import GKUser, Entity, Article, Sub_Category
 from apps.tag.models import Tags
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.views import LoginRequiredMixin, BaseJsonView
@@ -49,12 +49,16 @@ class ManageSearchView(LoginRequiredMixin, SearchView):
 class AutoCompleteView(LoginRequiredMixin, BaseJsonView):
 
     def get_data(self, context):
-        # print self.request
-        sqs = SearchQuerySet().autocomplete(title_auto=self.request.GET.get('q', ''))[:5]
+        type = self.request.GET.get('t', None)
+        if type == 'c':
+            sqs= SearchQuerySet().models(Sub_Category).autocomplete(title_auto=self.request.GET.get('q', ''))
+        else:
+            sqs = SearchQuerySet().models(Entity).autocomplete(title_auto=self.request.GET.get('q', ''))[:10]
         # print sqs
+
         suggestions = [result.title for result in sqs]
         return {
-            'results':suggestions,
+            'results':list(set(suggestions)),
         }
 
 
