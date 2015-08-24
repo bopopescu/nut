@@ -8,7 +8,7 @@ define(function(require){
             this.listenTo(this.model, 'sync', this.render );
         },
         events: {
-          'change input': 'changeValue',
+          //'change input': 'changeValue',
           'click .btn-edit': 'editValue',
           'click .btn-save': 'saveValue',
         },
@@ -20,7 +20,12 @@ define(function(require){
         },
         saveValue: function(){
             this.collectData();
-            this.model.save();
+            this.model.save({
+                wait: true,
+                success: this.syncOK.bind(this),
+                error:this.error.bind(this)
+            });
+
 
             this.$('td').addClass('value');
             this.$('.edit-save').removeClass('editing');
