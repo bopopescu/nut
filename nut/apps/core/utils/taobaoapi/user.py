@@ -62,15 +62,17 @@ class TaobaoOpenIsvUID():
         if (resp.has_key('opensecurity_isv_uid_get_response')):
             return resp['opensecurity_isv_uid_get_response']['open_uid_isv']
 
+
+
 if __name__=="__main__":
-    t = TaobaoOpenIsvUID('12313170', '90797bd8d5859aac971f8cc9d4e51105')
-    open_uid = t.get_isv_uid('AAEa6ZQCAASs0HrMGWO8Wjpb')
+    t = TaobaoOpenIsvUID('23093827', '5a9a26e067f33eea258510e3040caf17')
+    open_uid = t.get_isv_uid('AAEELit1AB1sujxQQZ64d8D1')
     print open_uid
 
 
-    from apps.core.models import Taobao_Token
-
-    taobao = Taobao_Token.objects.get(user_id = 1062)
-    print taobao
+    # from apps.core.models import Taobao_Token
+    #
+    # taobao = Taobao_Token.objects.get(user_id = 1062)
+    # print taobao
     # t.get_open_uid('72913763')
 
