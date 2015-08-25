@@ -68,10 +68,12 @@ HAYSTACK_CONNECTIONS = {
     'default': {
         # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://10.0.2.50:8983/solr/'
+        'URL': 'http://10.0.2.50:8983/solr/',
+        'INCLUDE_SPELLING': True,
         # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
     }
 }
+
 HAYSTACK_DEFAULT_OPERATOR = 'AND'
 
 MIDDLEWARE_CLASSES = (
@@ -271,7 +273,7 @@ TAOBAO_APP_INFO = {
 }
 
 BAICHUAN_APP_KEY = '23093827'
-BAICHUAN_APP_SECRET = '7db5a8b0fb21e5d3b9910bf8b9feba38'
+BAICHUAN_APP_SECRET = '5a9a26e067f33eea258510e3040caf17'
 
 
 # weibo

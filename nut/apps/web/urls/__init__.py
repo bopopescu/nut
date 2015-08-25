@@ -110,10 +110,7 @@ urlpatterns += patterns(
     url(r'^c/(?P<cid>\d+)/$', OldCategory.as_view(), name='web_category_old_url'),
 )
 
-urlpatterns += patterns(
-    'apps.images',
-    url(r'^(images|img|avatar)/', include('apps.images.urls')),
-)
+
 
 urlpatterns += patterns('',
             url(r'^captcha/', include('captcha.urls')),
