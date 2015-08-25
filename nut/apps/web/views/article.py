@@ -88,6 +88,11 @@ class SelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
         return context
 
 
+class NewSelectionArticleList(SelectionArticleList):
+    template_name = template_name = 'web/article/selection_list_new.html'
+    paginate_by = 12
+
+
 class EditorDraftList(UserPassesTestMixin,ListView):
     def test_func(self, user):
         if not hasattr(user, 'can_write'):
