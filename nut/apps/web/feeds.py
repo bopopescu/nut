@@ -42,12 +42,12 @@ class ArticlesFeedGenerator(Rss201rev2Feed):
         # if item['content_encoded'] is not None:
             # handler.strat
         # content = '<![CDATA[' +item['content'] + ']]>'
-        # handler.addQuickElement(u'content:encoded', item['content_encoded'])
+        handler.addQuickElement(u'content:encoded', item['content_encoded'])
 
-        if item['content_encoded'] is not None:
-            handler.startElement(u'content:encoded', {})
-            handler.characters(item['content_encoded'])
-            handler.endElement(u'content:encoded')
+        # if item['content_encoded'] is not None:
+        #     handler.startElement(u'content:encoded', {})
+        #     handler.characters(item['content_encoded'])
+        #     handler.endElement(u'content:encoded')
 
 
 class SelectionFeeds(Feed):
@@ -71,7 +71,6 @@ class SelectionFeeds(Feed):
 
     def item_description(self, item):
         return item.top_note.note
-
 
     def item_author_name(self, item):
         return item.entity.top_note.user.profile.nickname
@@ -121,7 +120,7 @@ class ArticlesFeeds(Feed):
         # return item.article.content
         content = strip_tags(item.article.content)
         desc = content.split(u'。')
-        return desc[0] + u'。'
+        return "<![CDATA[%s]]>" % (desc[0] + u'。')
 
     def item_extra_kwargs(self, item):
         extra = super(ArticlesFeeds, self).item_extra_kwargs(item)
