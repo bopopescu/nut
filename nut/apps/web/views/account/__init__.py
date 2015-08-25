@@ -92,6 +92,7 @@ def forget_password(request,
         if _forms.is_valid():
             _forms.save(template_invoke_name=settings.RESET_PASSWORD_TEMPLATE,
                         domain_override='guoku.com')
+            # print "send mail ok"
             return HttpResponseRedirect(reverse('web_send_mail_finished'))
     else:
         _forms = UserPasswordResetForm()
