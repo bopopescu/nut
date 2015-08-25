@@ -30,6 +30,7 @@ class SelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
     paginate_by = 5
     paginator_class = Jpaginator
     context_object_name = 'selection_articles'
+    ajax_template_name = 'web/article/partial/selection_ajax_list.html'
     #
     # def get_queryset(self):
     #     pass;
@@ -51,7 +52,7 @@ class SelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
         # TODO : add error handling here
         self.object_list = getattr(self,'object_list', self.get_queryset())
         context = self.get_context_data()
-        _template = 'web/article/partial/selection_ajax_list.html'
+        _template = self.ajax_template_name
         _t = loader.get_template(_template)
         _c = RequestContext(request, context)
         _html = _t.render(_c)
@@ -88,9 +89,69 @@ class SelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
         return context
 
 
-class NewSelectionArticleList(SelectionArticleList):
+class NewSelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
     template_name = template_name = 'web/article/selection_list_new.html'
+    ajax_template_name = 'web/article/partial/selection_ajax_list_new.html'
     paginate_by = 12
+    model = Selection_Article
+    paginator_class = Jpaginator
+    context_object_name = 'selection_articles'
+    #
+    # def get_queryset(self):
+    #     pass;
+
+    def get_refresh_time(self):
+        refresh_time = self.request.GET\
+                                    .get('t',datetime.now()\
+                                                     .strftime('%Y-%m-%d %H:%M:%S'))
+        return refresh_time
+
+    def get_queryset(self):
+        qs = Selection_Article.objects\
+                              .published_until(until_time=self.get_refresh_time())\
+                              .order_by('-pub_time')
+        return qs
+
+
+    def get_ajax(self, request, *args, **kwargs):
+        # TODO : add error handling here
+        self.object_list = getattr(self,'object_list', self.get_queryset())
+        context = self.get_context_data()
+        _template = self.ajax_template_name
+        _t = loader.get_template(_template)
+        _c = RequestContext(request, context)
+        _html = _t.render(_c)
+
+        return self.render_json_response({
+            'html':_html,
+            'errors': 0,
+            'has_next_page':context['has_next_page']
+
+        }, status=200)
+
+    def get_read_counts(self,articles):
+        counts_dic = RedisCounterMachine.get_read_counts(articles)
+        return counts_dic
+
+    def get_context_data(self, **kwargs):
+        context = super(NewSelectionArticleList, self).get_context_data(**kwargs)
+        selection_articles = context['selection_articles']
+        context['refresh_time'] = self.get_refresh_time()
+        context['has_next_page'] = context['page_obj'].has_next()
+        articles = [sla.article for sla in selection_articles]
+
+        try :
+            # make sure use try catch ,
+            # if statistic is down
+            # the view is still working
+            context['read_count'] = self.get_read_counts(articles)
+
+        except Exception as e :
+            log.info('the fail to load read count')
+            log.info(e.message)
+
+        return context
+
 
 
 class EditorDraftList(UserPassesTestMixin,ListView):
