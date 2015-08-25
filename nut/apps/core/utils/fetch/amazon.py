@@ -11,6 +11,7 @@ from apps.core.utils.commons import currency_converting
 class Amazon(Spider):
     def __init__(self, url):
         self.high_resolution_pattern = re.compile('hiRes"[\s]*:[\s]*"([^";]+)')
+        self.large_resolution_pattern = re.compile('large"[\s]*:[\s]*"([^";]+)')
         self.foreign_price = None
         super(Amazon, self).__init__(url)
 
@@ -55,32 +56,9 @@ class Amazon(Spider):
 
     @property
     def price(self):
-        f_price = 0
-        pricetag = self.soup.select("#priceblock_ourprice")
-        if len(pricetag) > 0:
-            # print pricetag[0].string.split('-')
-            price = pricetag[0].string
-            if price.find('-') >= 0:
-                price = price.split('-')[1].strip()
-            f_price = float(price[1:].replace(',', ''))
-
-        pricetag = self.soup.select("#priceblock_saleprice")
-        if len(pricetag) > 0:
-            price = pricetag[0]
-            # print price
-            f_price = float(price.string[1:].replace(',', ''))
-
-        pricetag = self.soup.select("#soldByThirdParty span")
-        if len(pricetag) > 0:
-            price = pricetag[0].string
-            price = price.strip()
-            f_price = float(price[1:].replace(',', ''))
-
-        pricetag = self.soup.select("span#ags_price_local")
-        if len(pricetag) > 0:
-            price = pricetag[0].string
-            price = price.strip()
-            f_price = float(price[1:].replace(',', ''))
+        f_price = self.get_price_tag()
+        if not f_price:
+            return 0.0
 
         if not self.hostname.endswith('.cn'):
             cny_price = 0
@@ -91,8 +69,44 @@ class Amazon(Spider):
                 cny_price = currency_converting('JPY', f_price)
             return cny_price
         return f_price
-            # pricetage = self.soup.select("#paperback_meta_binding_winner")
-            # print pricetag
+
+    def get_price_tag(self):
+        f_price = 0
+        pricetag = self.soup.select("#priceblock_dealprice")
+        if len(pricetag) > 0:
+            price = pricetag[0]
+            f_price = float(price.string[1:].replace(',', ''))
+            return f_price
+
+        pricetag = self.soup.select("#priceblock_ourprice")
+        if len(pricetag) > 0:
+            price = pricetag[0].string
+            if price.find('-') >= 0:
+                price = price.split('-')[1].strip()
+            f_price = float(price[1:].replace(',', ''))
+            return f_price
+
+        pricetag = self.soup.select("#priceblock_saleprice")
+        if len(pricetag) > 0:
+            price = pricetag[0]
+            # print price
+            f_price = float(price.string[1:].replace(',', ''))
+            return f_price
+
+        pricetag = self.soup.select("#soldByThirdParty span")
+        if len(pricetag) > 0:
+            price = pricetag[0].string
+            price = price.strip()
+            f_price = float(price[1:].replace(',', ''))
+            return f_price
+
+        pricetag = self.soup.select("span#ags_price_local")
+        if len(pricetag) > 0:
+            price = pricetag[0].string
+            price = price.strip()
+            f_price = float(price[1:].replace(',', ''))
+            return f_price
+        return f_price
 
     @property
     def url(self):
@@ -108,9 +122,18 @@ class Amazon(Spider):
     @property
     def images(self):
         images = []
+        f = open('/Users/judy/Desktop/amazon.html', 'wb')
+        f.write(self.html)
+        f.close()
         image_js = self.soup.select("div#imageBlock_feature_div")
         if image_js:
-            images = self.high_resolution_pattern.findall(image_js[0].text)
+            hires_images = self.high_resolution_pattern.findall(image_js[0].text)
+            if hires_images:
+                images = hires_images
+            else:
+                large_images = self.large_resolution_pattern.findall(image_js[0].text)
+                if large_images:
+                    images = large_images
         else:
             images = self.get_medium_images()
         return images

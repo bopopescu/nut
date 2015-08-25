@@ -138,7 +138,7 @@ $.ajaxSetup({
                 return false;
             }
            // use fast dom ?
-           if (($(window).height() + $(window).scrollTop()) < ($(document).height()-55)){
+           if (($(window).height() + $(window).scrollTop()) < ($(document).height()-155)){
                return false;
            }
            return  true;
@@ -261,6 +261,27 @@ $.ajaxSetup({
 
     };
     var util = {
+        handlePageScroll: function(){
+            var last_scroll = 0 ;
+            function handleScrollSideBar(){
+                var fix_sidebar = $('#sidebar_fix');
+                if(!fix_sidebar.length) return;
+                var sideBarWidth = fix_sidebar.width();
+                var current_scroll = $(window).scrollTop();
+                if (current_scroll>2020 && (last_scroll< 2020)){
+                    console.log($(window).scrollTop());
+                    fix_sidebar.width(sideBarWidth);
+                    fix_sidebar.css({position:'fixed', top:'60px'});
+                }
+                if ((current_scroll < 2020 ) && (last_scroll > 2020)){
+                    fix_sidebar.width('auto');
+                    fix_sidebar.css({position:'relative', top:'0px'});
+                }
+                last_scroll = current_scroll;
+            }
+            $(window).scroll(handleScrollSideBar);
+
+        },
         checkEventRead:function(){
             // add by an , for event link status check , remove the red dot if event is read.
             // the key is defined in 2 places!  DRY...
@@ -1162,9 +1183,6 @@ $.ajaxSetup({
                 var counter = poke.find('span');
                 var poke_icon = poke.find('i');
                 var url = '/note/' + note_id + '/poke/';
-                //TODO: if user not login , click poke should  popup login modal
-                // the /note/id/poke/ view need some fix  ?
-
 
                 $.ajax({
                     type:'post',
@@ -1181,7 +1199,7 @@ $.ajaxSetup({
                             poke_icon.removeClass('fa-thumbs-o-up');
 
                             if (count === 1) {
-                                $('<span>' + count + '</span>').appendTo(poke);
+                                $('<span class="poke-count">' + count + '</span>').appendTo(poke);
                             } else {
                                 counter.html(count);
                             }
@@ -1410,7 +1428,7 @@ $.ajaxSetup({
             if(main_article && main_article.length){
                 var related_article_loader = new RelatedArticleLoader();
             }
-        }
+        },
     };
 
 
@@ -1423,6 +1441,7 @@ $.ajaxSetup({
         util.follower();
         util.initTag();
         util.gotop();
+        util.handlePageScroll();
 
         createNewEntity.createEntity();
         createNewEntity.BrandAndTitle();
