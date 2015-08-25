@@ -366,9 +366,9 @@ ul li {
   color: #9d9d9d;
 }
 .guoku-btn-normal {
-  font-size: 16px;
-  height: 35px;
-  line-height: 35px;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
   text-align: center;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -386,9 +386,9 @@ ul li {
   cursor: pointer;
 }
 .guoku-button {
-  font-size: 16px;
-  height: 35px;
-  line-height: 35px;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
   text-align: center;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -417,11 +417,21 @@ ul li {
   color: #fff;
   background-color: #357ebd;
 }
+.button-white {
+  background-color: #fff;
+  color: #9d9e9f;
+}
+.button-white .fa {
+  color: #9d9e9f;
+}
+.button-white:hover {
+  color: #9d9e9f;
+}
 .blue-button {
-  font-size: 16px;
-  height: 35px;
-  border-radius: 5px;
-  line-height: 35px;
+  font-size: 14px;
+  height: 32px;
+  border-radius: 4px;
+  line-height: 32px;
   text-align: center;
   background: #357ebd;
   color: #fff;
@@ -436,11 +446,6 @@ ul li {
 .gray-button {
   background-color: #9d9d9d;
   color: #fff;
-}
-.button-white {
-  background-color: #fff;
-  color: #424242;
-  border: 1px solid darker(#f8f8f8);
 }
 .btn-cancel,
 .button-cancel {
@@ -545,8 +550,7 @@ ul li {
 .more-article-wrapper .cover-wrapper a img:hover,
 .guess-wrapper .recommend-img:hover,
 .user-page .img-box img:hover,
-.pop-article-list .pop-article-wrapper .img-holder a:hover,
-.pop-entity-list .pop-entity-wrapper .img-holder a:hover {
+.img-holder a:hover {
   opacity: 0.7;
 }
 .little-round-tag {
@@ -680,6 +684,12 @@ ul li {
   display: block;
   width: 0;
   z-index: 1;
+}
+.change_password,
+.binding_page,
+.edit_profile,
+.main_static {
+  min-height: 570px;
 }
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
@@ -1336,6 +1346,12 @@ body {
   border-right: none;
   padding-right: 0;
 }
+#guoku_footer .footer-part .list-wrapper li.no-padding-left {
+  padding-left: 0px;
+}
+#guoku_footer .footer-part .list-wrapper li:first-child {
+  padding-right: 0px;
+}
 #guoku_footer .footer-part .qr-wrapper {
   float: right;
 }
@@ -1436,8 +1452,17 @@ body {
   margin-bottom: 10px;
 }
 .guoku-content.user-page .user-info-wrapper .user-info .user-nick-block .nick {
-  font-size: 22px;
+  font-size: 32px;
   font-weight: 500;
+  margin-right: 12px;
+}
+.guoku-content.user-page .user-info-wrapper .user-info .user-nick-block .guoku-button {
+  position: relative;
+  top: -5px;
+  padding: 0px 15px;
+}
+.guoku-content.user-page .user-info-wrapper .user-info .user-nick-block .guoku-button.btn-cancel {
+  background-color: #fff;
 }
 .guoku-content.user-page .user-info-wrapper .user-info .user-bio {
   margin-bottom: 10px;
@@ -1553,6 +1578,15 @@ body {
 .guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-social-status {
   color: #9d9e9f;
   font-size: 13px;
+  position: absolute;
+  padding-top: 10px;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .empty-panel-content {
+  display: block;
+  text-align: center;
+  min-height: 200px;
+  padding-top: 90px;
+  color: #9d9d9d;
 }
 .guoku-content.user-page .content-panel .panel-filter .filter-list li {
   border-right: 1px solid #f8f8f8;
@@ -1840,6 +1874,22 @@ body {
 #detail_content_left #guess_list .guess-title {
   padding: 10px 15px;
   font-size: 18px;
+}
+#detail_content_left #guess_list .guess-img .img-holder {
+  display: inline-block;
+  width: 100%;
+}
+#detail_content_left #guess_list .guess-img .img-holder a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+#detail_content_left #guess_list .guess-img .img-holder a .img-frame {
+  heigth: 0;
+  padding-bottom: 100%;
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 #detail_content_left #guess_list .guess-img .img-box {
   border: none!important;
