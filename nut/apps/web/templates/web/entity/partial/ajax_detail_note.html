@@ -32,15 +32,15 @@
                  {% endif %}
 
                 <a href="javascript:;" class="poke" data-note="{{ note.id }}">
-                    <i class="fa   {% if note.id in user_pokes %} fa-thumbs-up {% else %}  fa-thumbs-o-up {% endif %} "></i>&nbsp;
+                    <i class="fa   {% if note.id in user_pokes %} fa-thumbs-up {% else %}  fa-thumbs-o-up {% endif %} "></i>
                     {% if note.poke_count > 0 %}
-                        <span>{{ note.poke_count }}</span>
+                        <span class="poke-count">{{ note.poke_count }}</span>
                     {% endif %}
                 </a>
 
-                 <a href="javascript:;" class="add-comment" data-note="{{ note.pk }}"><i class="fa fa-comment-o"></i>&nbsp;
+                 <a href="javascript:;" class="add-comment" data-note="{{ note.pk }}"><i class="fa fa-comment-o"></i>
                     {% if note.comment_count > 0 %}
-                        <span style="color: #ccc">{{ note.comment_count }}</span>
+                        <span>{{ note.comment_count }}</span>
                     {% endif %}
                     {% if note.user == request.user %}
                         <a class="update-note"><i class="fa fa-pencil-square-o"></i></a>

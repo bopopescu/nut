@@ -35,11 +35,11 @@
                 {% endif %}
                 {% if entity.top_note.id in user_pokes %}
                     <a href="javascript:;" class="poke" data-note="{{ entity.top_note.id }}">
-                        <i class="fa fa-thumbs-up"> <!-- thumbs-up --></i>{% if entity.top_note.poke_count > 0 %}&nbsp;<span>{{ entity.top_note.poke_count }}</span>{% endif %}
+                        <i class="fa fa-thumbs-up"></i>{% if entity.top_note.poke_count > 0 %}<span class="poke-count">{{ entity.top_note.poke_count }}</span>{% endif %}
                     </a>
                 {% else %}
                     <a href="javascript:;" class="poke" data-note="{{ entity.top_note.id }}">
-                        <i class="fa fa-thumbs-o-up"> <!-- thumbs-up --></i>{% if entity.top_note.poke_count > 0 %}&nbsp;<span>{{ entity.top_note.poke_count }}</span>{% endif %}
+                        <i class="fa fa-thumbs-o-up"></i>{% if entity.top_note.poke_count > 0 %}<span class="poke-count">{{ entity.top_note.poke_count }}</span>{% endif %}
                     </a>
                 {% endif %}
                 <a href="javascript:;" class="fc_1 add-comment" data-note="{{ entity.top_note.id }}" ><i class="fa fa-comment-o"></i>

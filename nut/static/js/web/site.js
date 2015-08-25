@@ -1162,9 +1162,6 @@ $.ajaxSetup({
                 var counter = poke.find('span');
                 var poke_icon = poke.find('i');
                 var url = '/note/' + note_id + '/poke/';
-                //TODO: if user not login , click poke should  popup login modal
-                // the /note/id/poke/ view need some fix  ?
-
 
                 $.ajax({
                     type:'post',
@@ -1181,7 +1178,7 @@ $.ajaxSetup({
                             poke_icon.removeClass('fa-thumbs-o-up');
 
                             if (count === 1) {
-                                $('<span>' + count + '</span>').appendTo(poke);
+                                $('<span class="poke-count">' + count + '</span>').appendTo(poke);
                             } else {
                                 counter.html(count);
                             }
