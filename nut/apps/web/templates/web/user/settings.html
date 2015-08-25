@@ -24,12 +24,12 @@
     {% url 'web_user_change_password' as web_user_change_password_url %}
     {% url 'web_user_bind_sns' as web_user_bind_sns_url %}
 
-    {% if web_user_change_password in request.path %}
-    <div class="container change_password">
+    {% if web_user_change_password_url in request.path %}
+    <div class="container  change_password">
     {% elif web_user_bind_sns_url in request.path %}
     <div class="container binding_page">
     {% else %}
-    <div class="container edit_profile" id="settings">
+    <div class="container  edit_profile" id="settings">
 {#    {% elif  %}    #}
     {% endif %}
         <div class="row">

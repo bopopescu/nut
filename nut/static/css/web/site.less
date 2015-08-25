@@ -225,6 +225,30 @@
 .common-note-list {
   margin: 0;
   padding: 0px 15px;
+  .poke{
+      text-decoration: none;
+     &:hover,&:focus,&:active{
+       text-decoration: none;
+     }
+  }
+  .fa-thumbs-o-up,.fa-comment-o,.add-comment,.add-comment span,.poke .poke-count,{
+      color: @common-gray;
+      text-decoration: none;
+      &:hover,&:focus,&:active{
+        color:@common-gray;
+        text-decoration:none;
+      }
+  }
+  .poke-count,.comment-count,.add-comment span{
+    font-size: @mini-size;
+    padding-left:5px;
+    text-decoration:none;
+    &:hover,&:focus,&:active{
+        color:@common-gray;
+        text-decoration:none;
+      }
+  }
+
 }
 .common-note-item {
   padding: 30px 19px 5px 0;
@@ -244,7 +268,8 @@
   margin:5px 0 0 38px
 }
 .add-comment span {
-  color: #ccc;
+  font-size: @mini-size;
+  padding-left: 5px;
 }
 
 .update-note {
