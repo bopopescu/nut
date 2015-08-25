@@ -3,13 +3,21 @@ from apps.core.tasks import DebugTask, BaseTask
 from apps.core.utils.image import HandleImage
 from django.core.files.storage import default_storage
 from celery.utils.log import get_task_logger
+import requests
+from StringIO import StringIO
+from django.conf import settings
 
 logger = get_task_logger(__name__)
 
+intranet_image_server = getattr(settings, 'INTRANET_IMAGE_SERVER', 'http://10.0.2.50/')
+
 @task(base=BaseTask)
 def resize(image_name, size=None, **kwargs):
-    # logger.info(image_name)
-    f = default_storage.open(image_name)
+    # print image_name
+    url = intranet_image_server + image_name
+    r = requests.get(url)
+    # f = default_storage.open(image_name)
+    f = StringIO(r.content)
 
     try:
         if size is not None:

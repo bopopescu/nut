@@ -22,6 +22,11 @@ urlpatterns += patterns(
     # (r'^visit_item/$', 'mobile.views.old_visit_item'),
 )
 
+urlpatterns += patterns(
+    'apps.images',
+    url(r'^(images|img|avatar)/', include('apps.images.urls')),
+)
+
 urlpatterns += patterns('',
 
     url(r'^management/', include('apps.management.urls')),
