@@ -454,7 +454,7 @@ class CreateEntityForm(forms.Form):
         _status = self.cleaned_data.get('status')
         _user_id = self.cleaned_data.get('user')
         # log.info(self.initial['shop_nick'])
-        _entity_hash = cal_entity_hash(_origin_id + _title + self.initial['shop_nick'].decode('utf8'))
+        _entity_hash = cal_entity_hash(_origin_id + _title + self.initial['shop_nick'])
         log.info("main image %s" % _main_image)
 
         images = self.initial['thumb_images']

@@ -13,7 +13,7 @@ intranet_image_server = getattr(settings, 'INTRANET_IMAGE_SERVER', 'http://10.0.
 
 @task(base=BaseTask)
 def resize(image_name, size=None, **kwargs):
-
+    # print image_name
     url = intranet_image_server + image_name
     r = requests.get(url)
     # f = default_storage.open(image_name)
