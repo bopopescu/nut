@@ -25,9 +25,11 @@
                         <div class="row panel-header">
                             <div class="panel-name">{{ pronoun }}{% trans 'Like' %}</div>
                             <div class="more-link">
+                                {% if recent_likes %}
                                 <a href="{% url 'web_user_entity_like' current_user.pk %}">
                                     {% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
                                 </a>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="row panel-content-wrapper ">
@@ -39,6 +41,10 @@
                                        </a>
                                    </div>
                                 </div>
+                                {% empty %}
+                                    <div class="empty-panel-content">
+                                        <span>暂无喜爱</span>
+                                    </div>
                                 {% endfor %}
                         </div>
                 </div>
@@ -46,9 +52,11 @@
                         <div class="row panel-header">
                             <div class="panel-name">{{ pronoun }}{% trans 'Note' %}</div>
                             <div class="more-link">
+                                {% if recent_notes %}
                                 <a href="{% url 'web_user_post_note' current_user.pk %}">
                                     {% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
                                 </a>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="row panel-content-wrapper ">
@@ -72,6 +80,10 @@
                                        </div>
                                    </div>
                                 </div>
+                                 {% empty %}
+                                    <div class="empty-panel-content">
+                                        <span>暂无点评</span>
+                                    </div>
                                 {% endfor %}
                         </div>
 
@@ -81,9 +93,11 @@
                         <div class="row panel-header">
                             <div class="panel-name">{{ pronoun }}{% trans 'Articles' %}</div>
                             <div class="more-link">
-                                <a href="{% url 'web_user_article_selection' current_user.pk %}">
-                                {% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
-                                </a>
+                                {% if articles %}
+                                    <a href="{% url 'web_user_article_selection' current_user.pk %}">
+                                    {% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
+                                    </a>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="row panel-content-wrapper ">
@@ -92,6 +106,10 @@
                                     {% with article as r_article %}
                                             {% include 'web/user/partial/user_article_item.html' %}
                                     {% endwith  %}
+                                     {% empty %}
+                                    <div class="empty-panel-content">
+                                        <span>暂无文章</span>
+                                    </div>
                                   {% endfor %}
                           </div>
                         </div>

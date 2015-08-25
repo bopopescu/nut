@@ -9,9 +9,9 @@
   color: #9d9d9d;
 }
 .guoku-btn-normal {
-  font-size: 16px;
-  height: 35px;
-  line-height: 35px;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
   text-align: center;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -29,9 +29,9 @@
   cursor: pointer;
 }
 .guoku-button {
-  font-size: 16px;
-  height: 35px;
-  line-height: 35px;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
   text-align: center;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -60,11 +60,21 @@
   color: #fff;
   background-color: #357ebd;
 }
+.button-white {
+  background-color: #fff;
+  color: #9d9e9f;
+}
+.button-white .fa {
+  color: #9d9e9f;
+}
+.button-white:hover {
+  color: #9d9e9f;
+}
 .blue-button {
-  font-size: 16px;
-  height: 35px;
-  border-radius: 5px;
-  line-height: 35px;
+  font-size: 14px;
+  height: 32px;
+  border-radius: 4px;
+  line-height: 32px;
   text-align: center;
   background: #357ebd;
   color: #fff;
@@ -79,11 +89,6 @@
 .gray-button {
   background-color: #9d9d9d;
   color: #fff;
-}
-.button-white {
-  background-color: #fff;
-  color: #424242;
-  border: 1px solid darker(#f8f8f8);
 }
 .btn-cancel,
 .button-cancel {
@@ -188,8 +193,7 @@
 .more-article-wrapper .cover-wrapper a img:hover,
 .guess-wrapper .recommend-img:hover,
 .user-page .img-box img:hover,
-.pop-article-list .pop-article-wrapper .img-holder a:hover,
-.pop-entity-list .pop-entity-wrapper .img-holder a:hover {
+.img-holder a:hover {
   opacity: 0.7;
 }
 .little-round-tag {
@@ -323,6 +327,12 @@
   display: block;
   width: 0;
   z-index: 1;
+}
+.change_password,
+.binding_page,
+.edit_profile,
+.main_static {
+  min-height: 570px;
 }
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
@@ -536,6 +546,59 @@
   margin: 0;
   padding: 0px 15px;
 }
+.common-note-list .poke {
+  text-decoration: none;
+}
+.common-note-list .poke:hover,
+.common-note-list .poke:focus,
+.common-note-list .poke:active {
+  text-decoration: none;
+}
+.common-note-list .fa-thumbs-o-up,
+.common-note-list .fa-comment-o,
+.common-note-list .add-comment,
+.common-note-list .add-comment span,
+.common-note-list .poke .poke-count {
+  color: #9d9e9f;
+  text-decoration: none;
+}
+.common-note-list .fa-thumbs-o-up:hover,
+.common-note-list .fa-comment-o:hover,
+.common-note-list .add-comment:hover,
+.common-note-list .add-comment span:hover,
+.common-note-list .poke .poke-count:hover,
+.common-note-list .fa-thumbs-o-up:focus,
+.common-note-list .fa-comment-o:focus,
+.common-note-list .add-comment:focus,
+.common-note-list .add-comment span:focus,
+.common-note-list .poke .poke-count:focus,
+.common-note-list .fa-thumbs-o-up:active,
+.common-note-list .fa-comment-o:active,
+.common-note-list .add-comment:active,
+.common-note-list .add-comment span:active,
+.common-note-list .poke .poke-count:active {
+  color: #9d9e9f;
+  text-decoration: none;
+}
+.common-note-list .poke-count,
+.common-note-list .comment-count,
+.common-note-list .add-comment span {
+  font-size: 13px;
+  padding-left: 5px;
+  text-decoration: none;
+}
+.common-note-list .poke-count:hover,
+.common-note-list .comment-count:hover,
+.common-note-list .add-comment span:hover,
+.common-note-list .poke-count:focus,
+.common-note-list .comment-count:focus,
+.common-note-list .add-comment span:focus,
+.common-note-list .poke-count:active,
+.common-note-list .comment-count:active,
+.common-note-list .add-comment span:active {
+  color: #9d9e9f;
+  text-decoration: none;
+}
 .common-note-item {
   padding: 30px 19px 5px 0;
   margin: 0;
@@ -554,7 +617,8 @@
   margin: 5px 0 0 38px;
 }
 .add-comment span {
-  color: #ccc;
+  font-size: 13px;
+  padding-left: 5px;
 }
 .update-note {
   margin: 5px 0;
