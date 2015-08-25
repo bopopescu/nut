@@ -33,7 +33,9 @@ class ArticlesFeedGenerator(Rss201rev2Feed):
 
         content = '<![CDATA[' +item['content'] + ']]>'
         handler.addQuickElement(u'content:encoded', content)
-        handler.addQuickElement(u'media:content', item['media'])
+        image = item['media']
+        media_tag = 'media:content url=%s' % image
+        handler.addQuickElement(media_tag, '')
 
 
 
