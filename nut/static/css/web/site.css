@@ -546,6 +546,59 @@
   margin: 0;
   padding: 0px 15px;
 }
+.common-note-list .poke {
+  text-decoration: none;
+}
+.common-note-list .poke:hover,
+.common-note-list .poke:focus,
+.common-note-list .poke:active {
+  text-decoration: none;
+}
+.common-note-list .fa-thumbs-o-up,
+.common-note-list .fa-comment-o,
+.common-note-list .add-comment,
+.common-note-list .add-comment span,
+.common-note-list .poke .poke-count {
+  color: #9d9e9f;
+  text-decoration: none;
+}
+.common-note-list .fa-thumbs-o-up:hover,
+.common-note-list .fa-comment-o:hover,
+.common-note-list .add-comment:hover,
+.common-note-list .add-comment span:hover,
+.common-note-list .poke .poke-count:hover,
+.common-note-list .fa-thumbs-o-up:focus,
+.common-note-list .fa-comment-o:focus,
+.common-note-list .add-comment:focus,
+.common-note-list .add-comment span:focus,
+.common-note-list .poke .poke-count:focus,
+.common-note-list .fa-thumbs-o-up:active,
+.common-note-list .fa-comment-o:active,
+.common-note-list .add-comment:active,
+.common-note-list .add-comment span:active,
+.common-note-list .poke .poke-count:active {
+  color: #9d9e9f;
+  text-decoration: none;
+}
+.common-note-list .poke-count,
+.common-note-list .comment-count,
+.common-note-list .add-comment span {
+  font-size: 13px;
+  padding-left: 5px;
+  text-decoration: none;
+}
+.common-note-list .poke-count:hover,
+.common-note-list .comment-count:hover,
+.common-note-list .add-comment span:hover,
+.common-note-list .poke-count:focus,
+.common-note-list .comment-count:focus,
+.common-note-list .add-comment span:focus,
+.common-note-list .poke-count:active,
+.common-note-list .comment-count:active,
+.common-note-list .add-comment span:active {
+  color: #9d9e9f;
+  text-decoration: none;
+}
 .common-note-item {
   padding: 30px 19px 5px 0;
   margin: 0;
@@ -564,7 +617,8 @@
   margin: 5px 0 0 38px;
 }
 .add-comment span {
-  color: #ccc;
+  font-size: 13px;
+  padding-left: 5px;
 }
 .update-note {
   margin: 5px 0;
