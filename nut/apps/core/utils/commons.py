@@ -5,7 +5,7 @@ import redis
 import requests
 import os
 import sys
-import settings.dev_judy as settings
+import settings.production as settings
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
