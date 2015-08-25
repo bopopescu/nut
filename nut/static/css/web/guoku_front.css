@@ -1578,6 +1578,8 @@ body {
 .guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-social-status {
   color: #9d9e9f;
   font-size: 13px;
+  position: absolute;
+  padding-top: 10px;
 }
 .guoku-content.user-page .content-panel .panel-content-wrapper .empty-panel-content {
   display: block;
