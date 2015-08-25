@@ -173,6 +173,9 @@ body{
   li{
     span, a{
       opacity:0.6;
+      &:hover{
+        opacity:1;
+      }
     }
     &.feed-back-text{
       span,a{
@@ -212,7 +215,7 @@ body{
         &.no-padding-left{
           padding-left: 0px;
         }
-        &:first-child{
+        &.no-padding-right{
           padding-right: 0px;
         }
       }
@@ -295,6 +298,37 @@ body{
           margin-left:10px;
           position:relative;
           display:inline-block;
+          a.img-logo-link{
+            display:block;
+            img{
+              display: block;
+              position :relative;
+              top:6px;
+            }
+          }
+          a.font-logo-link{
+             display: block;
+             background-color: @common-gray;
+             color:black;
+             font-size: 18px;
+             height:28px;
+             width:28px;
+             .border-radius(14px);
+             padding-top:2px;
+            &.logo-weibo{
+              padding-left: 5px;
+            }
+            &.logo-twitter{
+              padding-left:6px;
+            }
+            &.logo-facebook{
+              padding-left:9px;
+            }
+            &.logo-instagram{
+              padding-left:6px;
+            }
+
+          }
           img{
              width:28px;
           }
@@ -1177,6 +1211,10 @@ body{
 
 // for  app access
 
+.main-content{
+  margin-top:110px;
+}
+
 .guoku-app{
    padding-bottom: 40px;
    #guoku_main_nav{
@@ -1184,6 +1222,9 @@ body{
    }
    .goods_detail{
      margin-top: 20px;
+   }
+   .main-content{
+     margin-top:20px;
    }
    #detail_breadcrumb{
       display:none;
@@ -1217,7 +1258,61 @@ body{
 }
 //for  diff screen size
 
+#selection_article_list{
+   .selection-article-item{
+     display: inline-block;
+     position:relative;
+     .article-panel{
+        .panel-no-padding;
+        width:100%;
+        margin-bottom: 25px;
 
+        .img-holder{
+           width:100%;
+           height:0;
+           padding-bottom: 55%;
+           background-position: center center;
+           background-size: cover;
+           background-repeat:no-repeat;
+        }
+
+        .article-title{
+          font-size: 24px;
+          color:@common-text-color;
+          margin: 15px 10px;
+          min-height: 54px;
+          max-height:54px;
+          a{
+            color: @common-text-color;
+            &:hover{
+              text-decoration: none;
+            }
+          }
+        }
+
+        .article-intro{
+          font-size:@smaller-primary;
+          color: @common-gray;
+          margin: 15px 10px;
+          min-height: 84px;
+          max-height:84px;
+
+        }
+        .article-info{
+           min-height:30px;
+           .create-time{
+             float:right;
+             padding-right: 10px;
+             color: @common-gray;
+             font-size:@mini-size;
+             .fa{
+               margin-right:5px;
+             }
+           }
+        }
+     }
+   }
+}
 
 @import "dimentions/xs.less";
 @import "dimentions/sm.less";
@@ -1226,6 +1321,6 @@ body{
 
 
 .test{
-  color: red;
+  color: black;
 }
 

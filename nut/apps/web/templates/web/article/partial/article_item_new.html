@@ -1,0 +1,73 @@
+{% load i18n staticfiles %}
+{% load common guoku %}
+
+{% with sla.article as article %}
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
+        <div class="article-panel">
+            <a class="img-link" href="{% url 'web_article_page' article.pk   %}">
+            <div class="img-holder" style="background-image: url({{ article.cover_url|resize:'310' }})"></div>
+            </a>
+
+            <div class="article-title">
+                <a  href="{% url 'web_article_page' article.pk   %}">
+                {{ article.title|truncatechars:32 }}
+                </a>
+            </div>
+            <div class="article-intro"> {{ article.content|striptags|truncatechars:60 }}</div>
+            <div class="article-info">
+                 <span class="create-time">
+                    <i class="fa fa-clock-o"></i>{{sla.pub_time|format_time}}
+                 </span>
+            </div>
+        </div>
+{#        <div class="article-wrapper">#}
+{#            <div class="title-wrapper">#}
+{#                <a  href="{% url 'web_article_page' article.pk  %}" target="_blank"  >#}
+{#                    <h2>{{ article.title }}</h2>#}
+{#                </a>#}
+{#            </div>#}
+{##}
+{#            <div class="cover-wrapper">#}
+{#                <a  href="{% url 'web_article_page' article.pk  %}" target="_blank" >#}
+{#                    <img class="article-cover img-responsive" src="{{ article.cover_url|resize:'750' }}" />#}
+{#                </a>#}
+{#            </div>#}
+{#            <div class="content-digest">#}
+                {#    TODO : use bleach to clean output#}
+{#                {{ article.content|striptags|truncatechars:100 }}#}
+{#            </div>#}
+{#            <div class="info-wrapper">#}
+                {#        <span class="editor">#}
+                {#            <i class="fa fa-pencil"></i>#}
+                {#            {{ article.creator.profile.nickname }}#}
+                {#        </span>#}
+{##}
+{#        <span class="read">#}
+{#        {% for key,value in read_count.items %}#}
+{#            {% if key == article.pk %}#}
+{#                {% if not value == None  %}#}
+{##}
+{#                    <i class="fa fa-eye"></i>#}
+{#                    <span id="read_counter">#}
+{#                          {{ value|format_read_num }}#}
+{#                     </span>#}
+{##}
+{#                {% endif %}#}
+{#            {% endif %}#}
+{#        {% endfor %}#}
+{#         </span>#}
+{#        <span class="create-time">#}
+{#            <i class="fa fa-clock-o"></i>{{sla.pub_time|format_time}}#}
+{#        </span>#}
+{##}
+{##}
+                {#        {% if is_article_creator %}#}
+                {#        <span class="edit-article">#}
+                {#            <i class="fa fa-edit"></i><a class="guoku-link" href="{% url 'web_editor_article_edit' article.pk %}">编辑文章</a>#}
+                {#        </span>#}
+                {#        {% endif %}#}
+{#            </div>#}
+{##}
+{#        </div>#}
+    </div>
+{% endwith %}
