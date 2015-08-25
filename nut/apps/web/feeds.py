@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.feedgenerator import Rss201rev2Feed
 
 from apps.core.models import Selection_Entity, Selection_Article
+from django.utils.html import strip_tags
 
 # from base.models import NoteSelection
 # from base.entity import Entity
@@ -96,7 +97,7 @@ class ArticlesFeeds(Feed):
         return item.pub_time
 
     def item_description(self, item):
-        return item.article.content
+        return strip_tags(item.article.content)
 
     # def item_extra_kwargs(self, item):
     #     return {'image':item.article.cover_url}
