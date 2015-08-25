@@ -173,6 +173,9 @@ body{
   li{
     span, a{
       opacity:0.6;
+      &:hover{
+        opacity:1;
+      }
     }
     &.feed-back-text{
       span,a{
@@ -212,7 +215,7 @@ body{
         &.no-padding-left{
           padding-left: 0px;
         }
-        &:first-child{
+        &.no-padding-right{
           padding-right: 0px;
         }
       }
@@ -295,6 +298,37 @@ body{
           margin-left:10px;
           position:relative;
           display:inline-block;
+          a.img-logo-link{
+            display:block;
+            img{
+              display: block;
+              position :relative;
+              top:6px;
+            }
+          }
+          a.font-logo-link{
+             display: block;
+             background-color: @common-gray;
+             color:black;
+             font-size: 18px;
+             height:28px;
+             width:28px;
+             .border-radius(14px);
+             padding-top:2px;
+            &.logo-weibo{
+              padding-left: 5px;
+            }
+            &.logo-twitter{
+              padding-left:6px;
+            }
+            &.logo-facebook{
+              padding-left:9px;
+            }
+            &.logo-instagram{
+              padding-left:6px;
+            }
+
+          }
           img{
              width:28px;
           }
@@ -1226,6 +1260,6 @@ body{
 
 
 .test{
-  color: red;
+  color: black;
 }
 

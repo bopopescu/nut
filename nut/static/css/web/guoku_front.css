@@ -1311,6 +1311,10 @@ body {
 #guoku_footer li a {
   opacity: 0.6;
 }
+#guoku_footer li span:hover,
+#guoku_footer li a:hover {
+  opacity: 1;
+}
 #guoku_footer li.feed-back-text span,
 #guoku_footer li.feed-back-text a {
   opacity: 1;
@@ -1349,7 +1353,7 @@ body {
 #guoku_footer .footer-part .list-wrapper li.no-padding-left {
   padding-left: 0px;
 }
-#guoku_footer .footer-part .list-wrapper li:first-child {
+#guoku_footer .footer-part .list-wrapper li.no-padding-right {
   padding-right: 0px;
 }
 #guoku_footer .footer-part .qr-wrapper {
@@ -1429,6 +1433,41 @@ body {
   margin-left: 10px;
   position: relative;
   display: inline-block;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.img-logo-link {
+  display: block;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.img-logo-link img {
+  display: block;
+  position: relative;
+  top: 6px;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link {
+  display: block;
+  background-color: #9d9e9f;
+  color: black;
+  font-size: 18px;
+  height: 28px;
+  width: 28px;
+  -webkit-border-radius: 14px;
+  -moz-border-radius: 14px;
+  border-radius: 14px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  padding-top: 2px;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link.logo-weibo {
+  padding-left: 5px;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link.logo-twitter {
+  padding-left: 6px;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link.logo-facebook {
+  padding-left: 9px;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link.logo-instagram {
+  padding-left: 6px;
 }
 #guoku_footer .footer-bottom .footer-bottom-right .logo-list li img {
   width: 28px;
@@ -2446,6 +2485,6 @@ body {
   }
 }
 .test {
-  color: red;
+  color: black;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
