@@ -274,11 +274,12 @@ $.ajaxSetup({
                 if (current_scroll>2020 && (last_scroll< 2020)){
                     console.log($(window).scrollTop());
                     fix_sidebar.width(sideBarWidth);
-                    fix_sidebar.css({position:'fixed', top:'60px', display:'block'});
+                    fix_sidebar.css({position:'fixed', top:'60px', display:'block',opacity:0});
+                    fix_sidebar.stop().animate({opacity:1})
                 }
-                if ((current_scroll < 2020 ) && (last_scroll > 2020)){
+                if (current_scroll < 2020 ){
                     fix_sidebar.width('auto');
-                    fix_sidebar.css({position:'relative', top:'0px'});
+                    fix_sidebar.css({position:'relative', top:'0px', opacity:0});
                 }
                 last_scroll = current_scroll;
             }

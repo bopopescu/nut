@@ -550,7 +550,8 @@ ul li {
 .more-article-wrapper .cover-wrapper a img:hover,
 .guess-wrapper .recommend-img:hover,
 .user-page .img-box img:hover,
-.img-holder a:hover {
+.img-holder a:hover,
+.selection-article-item .img-holder:hover {
   opacity: 0.7;
 }
 .little-round-tag {
@@ -2283,6 +2284,9 @@ body {
 .search-tag-item .img-box {
   border: none;
 }
+.main-content {
+  margin-top: 110px;
+}
 .guoku-app {
   padding-bottom: 40px;
 }
@@ -2290,6 +2294,9 @@ body {
   display: none;
 }
 .guoku-app .goods_detail {
+  margin-top: 20px;
+}
+.guoku-app .main-content {
   margin-top: 20px;
 }
 .guoku-app #detail_breadcrumb {
@@ -2312,6 +2319,63 @@ body {
   overflow: hidden;
   background-size: cover;
   background-position: center center;
+}
+#selection_article_list .selection-article-item {
+  display: inline-block;
+  position: relative;
+}
+#selection_article_list .selection-article-item .article-panel {
+  background-color: #ffffff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: 25px;
+}
+#selection_article_list .selection-article-item .article-panel .img-holder {
+  width: 100%;
+  height: 0;
+  padding-bottom: 55%;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+#selection_article_list .selection-article-item .article-panel .article-title {
+  font-size: 18px;
+  color: #424242;
+  margin: 15px 10px;
+  min-height: 54px;
+}
+#selection_article_list .selection-article-item .article-panel .article-title a {
+  color: #424242;
+}
+#selection_article_list .selection-article-item .article-panel .article-title a:hover {
+  text-decoration: none;
+}
+#selection_article_list .selection-article-item .article-panel .article-intro {
+  font-size: 14px;
+  color: #9d9e9f;
+  margin: 15px 10px;
+  min-height: 84px;
+}
+#selection_article_list .selection-article-item .article-panel .article-info {
+  min-height: 30px;
+}
+#selection_article_list .selection-article-item .article-panel .article-info .create-time {
+  float: right;
+  padding-right: 10px;
+  color: #9d9e9f;
+  font-size: 13px;
+}
+#selection_article_list .selection-article-item .article-panel .article-info .create-time .fa {
+  margin-right: 5px;
 }
 @media (max-width: 767px) {
   .event-item {
