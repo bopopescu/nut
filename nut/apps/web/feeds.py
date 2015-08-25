@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import gettext_lazy as _
 from django.utils.feedgenerator import Rss201rev2Feed
 
+
 from apps.core.models import Selection_Entity, Selection_Article
 from django.utils.html import strip_tags
 
@@ -15,10 +16,27 @@ from django.utils.html import strip_tags
 from datetime import datetime
 
 class CustomFeedGenerator(Rss201rev2Feed):
+
     def add_item_elements(self, handler, item):
         super(CustomFeedGenerator, self).add_item_elements(handler, item)
         handler.addQuickElement(u"image", item['image'])
         # handler.addQuickElement(u"short_description", item['short_description'])
+
+class ArticlesFeedGenerator(Rss201rev2Feed):
+
+    def add_root_elements(self, handler):
+        super(ArticlesFeedGenerator, self).add_root_elements(handler)
+        # print self.feed
+
+    def add_item_elements(self, handler, item):
+        super(ArticlesFeedGenerator, self).add_item_elements(handler, item)
+
+        content = '<![CDATA[' +item['content'] + ']]>'
+        handler.addQuickElement(u'content:encoded', content)
+        handler.addQuickElement(u'media:content', item['media'])
+
+
+
 
 class SelectionFeeds(Feed):
     feed_type = CustomFeedGenerator
@@ -73,10 +91,11 @@ class SelectionFeeds(Feed):
 
 
 class ArticlesFeeds(Feed):
-    feed_type = Rss201rev2Feed
+    feed_type = ArticlesFeedGenerator
 
-    title = u'果库 － 精英消费者南'
+    title = u'果库 | 精英消费者南'
     link = "/articles/"
+    author_email = "hi@guoku.com"
     description = _('精英消费指南')
 
     description_template = "web/feeds/article_desc.html"
@@ -99,8 +118,12 @@ class ArticlesFeeds(Feed):
     def item_description(self, item):
         return strip_tags(item.article.content)
 
-    # def item_extra_kwargs(self, item):
-    #     return {'image':item.article.cover_url}
+    def item_extra_kwargs(self, item):
+        # kwargs = {'media':item.article.cover_url}
+        data = dict()
+        data['media'] = item.article.cover_url
+        data['content'] = item.article.content
+        return data
 
     def get_context_data(self, **kwargs):
         context = super(ArticlesFeeds, self).get_context_data(**kwargs)
