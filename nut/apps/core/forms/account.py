@@ -1,4 +1,12 @@
+# coding=utf-8
 from django import forms
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.sites.models import get_current_site
+from django.core.mail import EmailMessage
+from django.core.urlresolvers import reverse
+from django.template.defaulttags import url
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import login as auth_login
 from apps.core.models import GKUser, User_Profile
@@ -151,6 +159,38 @@ class UserPasswordResetForm(PasswordResetForm):
                 _('email is not exist')
             )
         return _email
+
+    def save(self, template_invoke_name, domain_override=None, use_https=False,
+             token_generator=default_token_generator,
+             from_email=None, request=None):
+        """Overrides method of parent. """
+        user_model = get_user_model()
+        email = self.cleaned_data["email"]
+        active_users = user_model._default_manager.filter(
+            email__iexact=email, is_active=True)
+        for user in active_users:
+            if not user.has_usable_password():
+                continue
+            if not domain_override:
+                current_site = get_current_site(request)
+                domain = current_site.domain
+            else:
+                domain = domain_override
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            user = user
+            token = token_generator.make_token(user)
+            protocol = 'https' if use_https else 'http'
+            mail_message = EmailMessage(to=(email,),
+                                        from_email='hi@guoku.com')
+            reverse_url = reverse('web_password_reset_confirm',
+                                  kwargs={'uidb64': uid, 'token': token})
+            reset_link = "{0:s}:{1:s}{2:s}".format(protocol, domain, reverse_url)
+            sub_vars = {'%name%': (user.nickname,),
+                        '%reset_link%': (reset_link,),
+                        }
+            mail_message.template_invoke_name = template_invoke_name
+            mail_message.sub_vars = sub_vars
+            mail_message.send()
 
 
 class UserSetPasswordForm(SetPasswordForm):
