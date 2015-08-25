@@ -2348,10 +2348,11 @@ body {
   background-repeat: no-repeat;
 }
 #selection_article_list .selection-article-item .article-panel .article-title {
-  font-size: 18px;
+  font-size: 24px;
   color: #424242;
   margin: 15px 10px;
   min-height: 54px;
+  max-height: 54px;
 }
 #selection_article_list .selection-article-item .article-panel .article-title a {
   color: #424242;
@@ -2364,6 +2365,7 @@ body {
   color: #9d9e9f;
   margin: 15px 10px;
   min-height: 84px;
+  max-height: 84px;
 }
 #selection_article_list .selection-article-item .article-panel .article-info {
   min-height: 30px;
