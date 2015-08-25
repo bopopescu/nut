@@ -1450,8 +1450,6 @@ $.ajaxSetup({
         createNewEntity.BrandAndTitle();
            //   createNewEntity.changeChiefImage();
         createNewEntity.postNewEntity();
-
-
         selection.loadData();
 
         detail.detailImageHover();
