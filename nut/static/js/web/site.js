@@ -263,15 +263,18 @@ $.ajaxSetup({
     var util = {
         handlePageScroll: function(){
             var last_scroll = 0 ;
+            var fix_sidebar = $('#sidebar_fix');
+            fix_sidebar.css({display:'none'});
+
             function handleScrollSideBar(){
-                var fix_sidebar = $('#sidebar_fix');
+
                 if(!fix_sidebar.length) return;
                 var sideBarWidth = fix_sidebar.width();
                 var current_scroll = $(window).scrollTop();
                 if (current_scroll>2020 && (last_scroll< 2020)){
                     console.log($(window).scrollTop());
                     fix_sidebar.width(sideBarWidth);
-                    fix_sidebar.css({position:'fixed', top:'60px'});
+                    fix_sidebar.css({position:'fixed', top:'60px', display:'block'});
                 }
                 if ((current_scroll < 2020 ) && (last_scroll > 2020)){
                     fix_sidebar.width('auto');
