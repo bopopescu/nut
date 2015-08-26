@@ -298,7 +298,12 @@ $.ajaxSetup({
     var util = {
         handlePageScroll: function(){
             var last_scroll = 0 ;
+
             var fix_sidebar = $('#sidebar_fix');
+            var footer = $('#guoku_footer');
+
+            if(!fix_sidebar.length) return;
+
             fix_sidebar.css({display:'none'});
 
             function handleScrollSideBar(){
@@ -312,10 +317,23 @@ $.ajaxSetup({
                     fix_sidebar.css({position:'fixed', top:'60px', display:'block',opacity:0});
                     fix_sidebar.stop().animate({opacity:1})
                 }
+                if (current_scroll>2020 && (last_scroll >= 2020)){
+                    var fixbar_bound = fix_sidebar[0].getBoundingClientRect();
+                    var footer_bound = footer[0].getBoundingClientRect();
+                    if (fixbar_bound.bottom >= footer_bound.top){
+                        fix_sidebar.find('.remove-ready').remove();
+                    }
+
+
+                    //console.log(fixbar_bound.bottom  + ' : ' + footer_bound.top);
+                }
+
                 if (current_scroll < 2020 ){
                     fix_sidebar.width('auto');
                     fix_sidebar.css({position:'relative', top:'0px', opacity:0});
                 }
+
+
                 last_scroll = current_scroll;
             }
             $(window).scroll(handleScrollSideBar);
