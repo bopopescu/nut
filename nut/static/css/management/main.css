@@ -400,6 +400,15 @@
 .main_static {
   min-height: 570px;
 }
+.load-more-button {
+  margin: 0 auto ;
+  width: 200px;
+  background-color: #fff;
+  color: #424242;
+  height: 32px;
+  font-size: 18px;
+  display: none;
+}
 @-moz-document url-prefix() {
   fieldset {
     display: table-cell;

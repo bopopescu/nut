@@ -335,6 +335,15 @@
 .main_static {
   min-height: 570px;
 }
+.load-more-button {
+  margin: 0 auto ;
+  width: 200px;
+  background-color: #fff;
+  color: #424242;
+  height: 32px;
+  font-size: 18px;
+  display: none;
+}
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
   padding: 0px;
