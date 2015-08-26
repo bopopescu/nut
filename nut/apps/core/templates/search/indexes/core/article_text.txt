@@ -1,5 +1,7 @@
-{% load common%}
+{% load common %}
+{% load pinyin %}
 
 {{ object.title }}
+{{ object.title|pinyin }}
 {{ object|article_tag_string }}
 {{ object.content|striptags|safe }}
