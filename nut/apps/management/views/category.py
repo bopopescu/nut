@@ -27,7 +27,7 @@ def list(request, template='management/category/list.html'):
 
         for c in categories:
             res[c.id] = []
-            for s in c.sub_categories.all():
+            for s in c.sub_categories.all().order_by('alias'):
                 res[c.id].append(
                     {
                         'category_id': s.id,

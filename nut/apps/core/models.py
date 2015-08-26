@@ -470,8 +470,9 @@ class Category(BaseModel):
 
 class Sub_Category(BaseModel):
     group = models.ForeignKey(Category, related_name='sub_categories')
-    title = models.CharField(max_length = 128, db_index = True)
-    icon = models.CharField(max_length = 64, db_index = True, null = True, default = None)
+    title = models.CharField(max_length=128, db_index=True)
+    alias = models.CharField(max_length=128, db_index=True, default=None)
+    icon = models.CharField(max_length = 64, null = True, default = None)
     status = models.BooleanField(default = True, db_index = True)
 
     objects = SubCategoryManager()
