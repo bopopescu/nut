@@ -26,7 +26,7 @@ def dashboard(request, template='management/dashboard.html'):
     reg_count = GKUser.objects.filter(date_joined__range=(range_date.strftime("%Y-%m-%d"),
                                                                  now.strftime("%Y-%m-%d"))).count()
 
-    sel_count = Selection_Entity.objects.filter(pub_time__range=(range_date.strftime("%Y-%m-%d"),
+    sel_count = Selection_Entity.objects.filter(is_published=True, pub_time__range=(range_date.strftime("%Y-%m-%d"),
                                                                  now.strftime("%Y-%m-%d"))).count()
 
     note_count = Note.objects.filter(post_time__range=(range_date.strftime("%Y-%m-%d"),
