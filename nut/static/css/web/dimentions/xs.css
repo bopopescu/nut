@@ -457,6 +457,9 @@
     font-size: 14px !important;
     font-color: #9d9e9f !important;
   }
+  #selection_article_list .selection-article-item .article-title {
+    min-height: 80px!important;
+  }
 }
 @media (min-width: 768px) {
   #detail_content_left .detail-pic-left {
