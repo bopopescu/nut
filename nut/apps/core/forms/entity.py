@@ -37,7 +37,7 @@ image_host = getattr(settings, 'IMAGE_HOST', None)
 
 
 def get_sub_category_choices(group_id):
-    sub_category_list = Sub_Category.objects.filter(group = group_id)
+    sub_category_list = Sub_Category.objects.filter(group = group_id).order_by('alias')
     res = map(lambda x: (x.id, x.title) , sub_category_list)
     return res
 
