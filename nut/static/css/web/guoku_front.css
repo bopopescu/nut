@@ -2506,6 +2506,9 @@ body {
     font-size: 14px !important;
     font-color: #9d9e9f !important;
   }
+  #selection_article_list .selection-article-item .article-title {
+    min-height: 80px!important;
+  }
 }
 @media (min-width: 768px) {
   #detail_content_left .detail-pic-left {
@@ -2550,12 +2553,18 @@ body {
     margin: 0 auto ;
   }
 }
+@media (max-width: 1199px) {
+  #selection_article_list .selection-article-item .article-title {
+    font-size: 18px!important;
+    font-weight: 600;
+  }
+}
 @media (min-width: 1170px) {
   .event_wrapper {
     width: 1170px;
   }
 }
 .test {
-  color: black;
+  color: red;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
