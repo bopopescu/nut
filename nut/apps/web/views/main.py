@@ -20,6 +20,8 @@ from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 # from apps.tag.models import Content_Tags
 from apps.core.models import Sub_Category
 # import random
+from apps.web.utils.viewtools import add_side_bar_context_data
+
 
 # from apps.notifications import notify
 from django.utils.log import getLogger
@@ -93,9 +95,19 @@ class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin , ListView):
 
 
 class SiteMapView(ListView):
+
+
     template_name = 'web/main/sitemap.html'
 
     queryset = Sub_Category.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(SiteMapView, self).get_context_data(**kwargs)
+        context = add_side_bar_context_data(context)
+        return context
+
+
+
     # def get_queryset(self):
 
 #

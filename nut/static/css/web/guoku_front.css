@@ -2384,6 +2384,28 @@ body {
 #selection_article_list .selection-article-item .article-panel .article-info .create-time .fa {
   margin-right: 5px;
 }
+#sitemap #site_map_list {
+  padding-left: 20px;
+  padding-right: 40px;
+}
+#sitemap .page-title {
+  font-size: 22px;
+  padding-left: 20px;
+}
+#sitemap .site-section {
+  padding: 0px 20px 20px 20px;
+  border-bottom: 1px solid #e6e6e6;
+}
+#sitemap .site-section .title {
+  font-size: 18px;
+  color: #424242;
+  margin: 15px 0;
+}
+#sitemap .site-section div {
+  font-size: 16px;
+  color: #9d9e9f;
+  margin-top: 10px;
+}
 @media (max-width: 767px) {
   .event-item {
     padding: 5px 5px 5px 5px;
