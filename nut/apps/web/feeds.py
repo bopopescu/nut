@@ -50,8 +50,6 @@ class ArticlesFeedGenerator(Rss201rev2Feed):
             handler.endElement(u'content:encoded')
 
 
-
-
 class SelectionFeeds(Feed):
     feed_type = CustomFeedGenerator
 
