@@ -121,14 +121,17 @@ $.ajaxSetup({
         detach: function(){
             $(window).off('scroll', this.scrollHandler);
         },
+        loadNextBatch:function(){
+            jQuery.when(
+                    this.beginLoad()
+            ).then(
+                    this.loadSuccess.bind(this),
+                    this.loadFail.bind(this)
+            );
+        },
         _handleScroll: function(){
             if (this._shouldLoad()){
-                this.loading = true;
-                jQuery.when(
-                    this.beginLoad()
-                ).then(
-                    this.loadSuccess.bind(this),
-                    this.loadFail.bind(this));
+                this.loadNextBatch();
             }else{
                 return ;
             }
@@ -153,6 +156,7 @@ $.ajaxSetup({
             return null;
         },
         beginLoad: function(){
+            this.loading = true;
             var _url = this.getRequestUrl();
             var _data = this.getData();
             return $.ajax({
@@ -216,6 +220,8 @@ $.ajaxSetup({
         init: function(){
             this._super();
             this.current_page = 1;
+            $('.load-more-button').click(this.loadNextBatch.bind(this));
+
         },
         getData: function(){
             return {
@@ -233,16 +239,35 @@ $.ajaxSetup({
             //TODO: handle fail load
             }
             this.current_page++;
+            if (this.current_page % 3 == 0 && (data['has_next_page'] === true)){
+                this.showLoadButton();
+            }else{
+                this.hideLoadButton();
+            }
             this.loading = false;
             return ;
 
         },
+        showLoadButton:function(){
+            $('.load-more-button').show();
+        },
+        hideLoadButton:function(){
+             $('.load-more-button').hide();
+        },
         handleLastPage:function(){
             this.detach();
+            this.hideLoadButton();
         },
         getRefreshTime: function(){
            return  $('#selection_article_list').attr('refresh-time');
-        }
+        },
+
+        _shouldLoad: function(){
+            var page_condition = (this.current_page > 0) && (this.current_page % 3 != 0);
+            return page_condition && this._super();
+        },
+
+
 
     });
 

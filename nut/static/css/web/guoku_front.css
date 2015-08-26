@@ -692,6 +692,15 @@ ul li {
 .main_static {
   min-height: 570px;
 }
+.load-more-button {
+  margin: 0 auto ;
+  width: 200px;
+  background-color: #fff;
+  color: #424242;
+  height: 32px;
+  font-size: 18px;
+  display: none;
+}
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
   color: #9d9e9f;
@@ -2587,6 +2596,6 @@ body {
   }
 }
 .test {
-  color: red;
+  color: #ff0000;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
