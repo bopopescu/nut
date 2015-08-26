@@ -11,8 +11,8 @@ from apps.web.views.article import  SelectionArticleList,\
 
 urlpatterns = patterns(
     'apps.web.views.article',
-    url(r'^$', SelectionArticleList.as_view(), name='web_selection_articles'),
-    url(r'^list/$', NewSelectionArticleList.as_view(), name='web_selection_articles_new'),
+    url(r'^$', NewSelectionArticleList.as_view(), name='web_selection_articles'),
+    # url(r'^list/$', NewSelectionArticleList.as_view(), name='web_selection_articles_new'),
 
     url(r'^edit/$', EditorDraftList.as_view(), name='web_editor_article_list'),
     url(r'^create/$',EditorArticleCreate.as_view(),name='web_editor_article_create'),

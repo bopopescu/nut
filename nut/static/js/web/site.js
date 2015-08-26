@@ -216,7 +216,7 @@ $.ajaxSetup({
     });
 
     var ArticleLoader = AjaxLoader.extend({
-        request_url: '/articles/list/',
+        request_url: '/articles/',
         init: function(){
             this._super();
             this.current_page = 1;
@@ -271,40 +271,6 @@ $.ajaxSetup({
 
     });
 
-    var OldArticleLoader = AjaxLoader.extend({
-        request_url: '/articles/',
-        init: function(){
-            this._super();
-            this.current_page = 1;
-        },
-        getData: function(){
-            return {
-                refresh_time : this.getRefreshTime(),
-                page :  this.current_page + 1,
-            }
-        },
-        loadSuccess: function(data){
-            if (data['errors'] === 0){
-                 $(data['html']).appendTo($('#article_list'));
-                 if(data['has_next_page'] === false){
-                     this.handleLastPage();
-                 }
-            }else{
-            //TODO: handle fail load
-            }
-            this.current_page++;
-            this.loading = false;
-            return ;
-
-        },
-        handleLastPage:function(){
-            this.detach();
-        },
-        getRefreshTime: function(){
-           return  $('#article_list').attr('refresh-time');
-        }
-
-    });
 
 
     var RecommendArticleLoader = AjaxLoader.extend({
@@ -1504,15 +1470,6 @@ $.ajaxSetup({
         }
     };
 
-    var old_selection_article={
-        init_loader: function(){
-            var article_list = $('#article_list');
-            if (article_list && article_list.length){
-                var old_article_loader = new OldArticleLoader();
-            }
-        }
-    };
-
     var article_detail={
         init_loader: function(){
             var main_article = $('#main_article');
@@ -1558,6 +1515,5 @@ $.ajaxSetup({
 
         selection_article.init_loader();
         article_detail.init_loader();
-        old_selection_article.init_loader();
     })();
 })(jQuery, document, window);
