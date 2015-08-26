@@ -2094,9 +2094,14 @@ body {
 #detail_content_right .section-list li.section .user-icon-list li {
   display: inline-block;
   width: 27px;
+  height: 27px;
 }
 #detail_content_right .section-list li.section .user-icon-list li a {
   display: block;
+}
+#detail_content_right .section-list li.section .user-icon-list li a img {
+  width: 27px;
+  height: 27px;
 }
 #detail_content_right .section-list li.section .user-icon-list li img {
   border-radius: 50%;
