@@ -4,7 +4,7 @@
 from django.template import RequestContext, loader
 # from django.template import loader
 
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 from braces.views import JSONResponseMixin, AjaxResponseMixin
 
 from apps.core.models import Entity, Entity_Like, Selection_Entity, GKUser
@@ -94,17 +94,17 @@ class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin , ListView):
         )
 
 
-class SiteMapView(ListView):
+class SiteMapView(TemplateView):
 
 
-    template_name = 'web/main/sitemap.html'
+    template_name = 'web/sitemap.html'
 
-    queryset = Sub_Category.objects.all()
-
-    def get_context_data(self, **kwargs):
-        context = super(SiteMapView, self).get_context_data(**kwargs)
-        context = add_side_bar_context_data(context)
-        return context
+    # queryset = Sub_Category.objects.all()
+    #
+    # def get_context_data(self, **kwargs):
+    #     context = super(SiteMapView, self).get_context_data(**kwargs)
+    #     context = add_side_bar_context_data(context)
+    #     return context
 
 
 
