@@ -197,14 +197,15 @@ REST_FRAMEWORK = {
 
 # mail
 
-EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
-MAILGUN_ACCESS_KEY = 'key-7n8gut3y8rpk1u-0edgmgaj7vs50gig8'
-# EMAIL_BACKEND = 'sendcloud.SendCloudBackend'
-# MAIL_APP_USER = 'guoku_test_7LOIZp'
-# MAIL_APP_KEY = 'DLq9W6TiDZAWOLNv'
+# EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+# MAILGUN_ACCESS_KEY = 'key-7n8gut3y8rpk1u-0edgmgaj7vs50gig8'
+EMAIL_BACKEND = 'sendcloud.SendCloudBackend'
+MAIL_APP_USER = 'guoku_test_7LOIZp'
+MAIL_APP_KEY = 'DLq9W6TiDZAWOLNv'
+RESET_PASSWORD_TEMPLATE = 'forget_password'
 
-MAILGUN_SERVER_NAME = 'post.guoku.com'
-EMAIL_SUBJECT_PREFIX = '[guoku]'
+# MAILGUN_SERVER_NAME = 'post.guoku.com'
+# EMAIL_SUBJECT_PREFIX = '[guoku]'
 
 
 
