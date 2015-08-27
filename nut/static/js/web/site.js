@@ -303,7 +303,7 @@ $.ajaxSetup({
                 var sideBarWidth = fix_sidebar.width();
                 var current_scroll = $(window).scrollTop();
                 if (current_scroll>2020 && (last_scroll< 2020)){
-                    console.log($(window).scrollTop());
+                    //console.log($(window).scrollTop());
                     fix_sidebar.width(sideBarWidth);
                     fix_sidebar.css({position:'fixed', top:'60px', display:'block',opacity:0});
                     fix_sidebar.stop().animate({opacity:1})
@@ -317,11 +317,7 @@ $.ajaxSetup({
                         if (last_scroll > current_scroll){
                              fix_sidebar.find('.remove-ready').css({opacity:1});
                         }
-
                     }
-
-
-                    //console.log(fixbar_bound.bottom  + ' : ' + footer_bound.top);
                 }
 
                 if (current_scroll < 2020 ){
