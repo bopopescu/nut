@@ -122,9 +122,6 @@ class Amazon(Spider):
     @property
     def images(self):
         images = []
-        # f = open('/Users/judy/Desktop/amazon.html', 'wb')
-        # f.write(self.html)
-        # f.close()
         image_js = self.soup.select("div#imageBlock_feature_div")
         if image_js:
             hires_images = self.high_resolution_pattern.findall(image_js[0].text)
