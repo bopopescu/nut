@@ -13,6 +13,7 @@
             <div class="col-sm-3 col-md-3 slide hidden-xs">
             {% url 'web_about' as web_about_url %}
             {% url 'web_jobs' as web_jobs_url %}
+            {% url 'web_sitemap_url' as web_sitemap_url %}
             {% url 'web_links' as web_links_url %}
             {% url 'web_agreement' as web_agreement_url %}
             {% url 'web_faq' as web_faq_url %}
@@ -35,6 +36,12 @@
                     <a href="{{ web_jobs_url }}">
                          <i class="fa fa-arrow-circle-right"></i>
                         <span>JOBS {% trans 'jobs' %}</span>
+                    </a>
+                </li>
+                <li class="fc_5 {% if web_jobs_url in request.path %}check{% endif %}">
+                    <a href="{{ web_sitemap_url }}">
+                         <i class="fa fa-arrow-circle-right"></i>
+                        <span>SITEMAP {% trans 'sitemap' %}</span>
                     </a>
                 </li>
                 <li class="fc_5 {% if web_links_url in request.path %}check{% endif %}">

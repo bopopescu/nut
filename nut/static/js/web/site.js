@@ -84,6 +84,8 @@ function getCookie(name) {
 }
 
 
+
+
 function clearUserInputString(str){
     str = str.replace(/(\s+)/mg,' ');
     str = str.replace(/([><:$*&%])/mg, '');
@@ -103,7 +105,20 @@ $.ajaxSetup({
     }
 });
 
+function getQueryStrings() {
+  var assoc  = {};
+  var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
+  var queryString = location.search.substring(1);
+  var keyValues = queryString.split('&');
 
+  for(var i in keyValues) {
+    var key = keyValues[i].split('=');
+    if (key.length > 1) {
+      assoc[decode(key[0])] = decode(key[1]);
+    }
+  }
+  return assoc;
+}
 
 (function ($, document, window) {
 
@@ -121,14 +136,20 @@ $.ajaxSetup({
         detach: function(){
             $(window).off('scroll', this.scrollHandler);
         },
+        loadNextBatch:function(){
+            jQuery.when(
+                    this.beginLoad()
+            ).then(
+                    this.loadSuccess.bind(this),
+                    this.loadFail.bind(this)
+            );
+        },
+        loadPrevBatch:function(){
+            console.log('not implement');
+        },
         _handleScroll: function(){
             if (this._shouldLoad()){
-                this.loading = true;
-                jQuery.when(
-                    this.beginLoad()
-                ).then(
-                    this.loadSuccess.bind(this),
-                    this.loadFail.bind(this));
+                this.loadNextBatch();
             }else{
                 return ;
             }
@@ -153,6 +174,7 @@ $.ajaxSetup({
             return null;
         },
         beginLoad: function(){
+            this.loading = true;
             var _url = this.getRequestUrl();
             var _data = this.getData();
             return $.ajax({
@@ -212,11 +234,38 @@ $.ajaxSetup({
     });
 
     var ArticleLoader = AjaxLoader.extend({
-        request_url: '/articles/list/',
+        request_url: '/articles/',
         init: function(){
             this._super();
-            this.current_page = 1;
+            this.current_page =this.getInitPageNum();
+            $('.next-button').click(this.goNext.bind(this));
+            $('.prev-button').click(this.goPrev.bind(this));
+
         },
+        goNext:function(){
+
+           this.gotoPage(this.current_page+1);
+        },
+        goPrev: function(){
+            this.gotoPage(this.current_page-5);
+
+        },
+
+        gotoPage:function(pageNum){
+            var path = window.location.pathname;
+            var host = window.location.host;
+            var protocol = window.location.protocol;
+            var refresh_time = this.getRefreshTime();
+            var newUrl = protocol+'//'+host+path + '?page=' + pageNum +'&t='+refresh_time;
+            window.location.href = newUrl;
+        },
+
+        getInitPageNum: function(){
+            var queryDics = getQueryStrings();
+            return  parseInt(queryDics['page']) || 1 ;
+
+        },
+
         getData: function(){
             return {
                 refresh_time : this.getRefreshTime(),
@@ -233,53 +282,48 @@ $.ajaxSetup({
             //TODO: handle fail load
             }
             this.current_page++;
+            if (this.current_page % 3 == 0 ){
+                if(this.current_page>5){
+                    this.showPrevButton();
+                }
+                if (data['has_next_page'] === true ){
+                    this.showNextButton();
+                }
+            }else{
+                this.hideLoadButton();
+            }
             this.loading = false;
             return ;
 
         },
+        showPrevButton:function(){
+            $('.prev-button').show();
+        },
+        showNextButton:function(){
+            $('.next-button').show();
+        },
+
+        hideLoadButton:function(){
+             $('.prev-button').hide();
+             $('.next-button').hide();
+        },
         handleLastPage:function(){
             this.detach();
+            this.hideLoadButton();
         },
         getRefreshTime: function(){
            return  $('#selection_article_list').attr('refresh-time');
-        }
+        },
+
+        _shouldLoad: function(){
+            var page_condition = (this.current_page > 0) && (this.current_page % 3 != 0);
+            return page_condition && this._super();
+        },
+
+
 
     });
 
-    var OldArticleLoader = AjaxLoader.extend({
-        request_url: '/articles/',
-        init: function(){
-            this._super();
-            this.current_page = 1;
-        },
-        getData: function(){
-            return {
-                refresh_time : this.getRefreshTime(),
-                page :  this.current_page + 1,
-            }
-        },
-        loadSuccess: function(data){
-            if (data['errors'] === 0){
-                 $(data['html']).appendTo($('#article_list'));
-                 if(data['has_next_page'] === false){
-                     this.handleLastPage();
-                 }
-            }else{
-            //TODO: handle fail load
-            }
-            this.current_page++;
-            this.loading = false;
-            return ;
-
-        },
-        handleLastPage:function(){
-            this.detach();
-        },
-        getRefreshTime: function(){
-           return  $('#article_list').attr('refresh-time');
-        }
-
-    });
 
 
     var RecommendArticleLoader = AjaxLoader.extend({
@@ -298,7 +342,12 @@ $.ajaxSetup({
     var util = {
         handlePageScroll: function(){
             var last_scroll = 0 ;
+
             var fix_sidebar = $('#sidebar_fix');
+            var footer = $('#guoku_footer');
+
+            if(!fix_sidebar.length) return;
+
             fix_sidebar.css({display:'none'});
 
             function handleScrollSideBar(){
@@ -307,15 +356,29 @@ $.ajaxSetup({
                 var sideBarWidth = fix_sidebar.width();
                 var current_scroll = $(window).scrollTop();
                 if (current_scroll>2020 && (last_scroll< 2020)){
-                    console.log($(window).scrollTop());
+                    //console.log($(window).scrollTop());
                     fix_sidebar.width(sideBarWidth);
                     fix_sidebar.css({position:'fixed', top:'60px', display:'block',opacity:0});
                     fix_sidebar.stop().animate({opacity:1})
                 }
+                if (current_scroll>2020 && (last_scroll >= 2020)){
+                    var fixbar_bound = fix_sidebar[0].getBoundingClientRect();
+                    var footer_bound = footer[0].getBoundingClientRect();
+                    if (fixbar_bound.bottom >= footer_bound.top){
+                        fix_sidebar.find('.remove-ready').css({opacity:0});
+                    }else{
+                        if (last_scroll > current_scroll){
+                             fix_sidebar.find('.remove-ready').css({opacity:1});
+                        }
+                    }
+                }
+
                 if (current_scroll < 2020 ){
                     fix_sidebar.width('auto');
                     fix_sidebar.css({position:'relative', top:'0px', opacity:0});
                 }
+
+
                 last_scroll = current_scroll;
             }
             $(window).scroll(handleScrollSideBar);
@@ -1461,15 +1524,6 @@ $.ajaxSetup({
         }
     };
 
-    var old_selection_article={
-        init_loader: function(){
-            var article_list = $('#article_list');
-            if (article_list && article_list.length){
-                var old_article_loader = new OldArticleLoader();
-            }
-        }
-    };
-
     var article_detail={
         init_loader: function(){
             var main_article = $('#main_article');
@@ -1515,6 +1569,5 @@ $.ajaxSetup({
 
         selection_article.init_loader();
         article_detail.init_loader();
-        old_selection_article.init_loader();
     })();
 })(jQuery, document, window);

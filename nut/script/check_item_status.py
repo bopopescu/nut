@@ -14,7 +14,6 @@ from apps.core.models import Buy_Link, Entity
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
-# os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_judy'
 
 # update exchange rate
 update_rate(['USD', 'JPY'])

@@ -1,0 +1,49 @@
+{% extends 'web/base.html' %}
+
+{% block title %}网站地图{% endblock %}{% block suffix %} - 果库{% endblock %}
+
+{% block h1 %}网站地图{% endblock %}
+
+{% block content %}
+    <div class="container" id="sitemap">
+
+        <div class="row">
+            <h3 class="page-title">网站地图</h3>
+        </div>
+        <div class="row site-section">
+            <div class="title">精选</div>
+            <div class="col-xs-2">精选商品</div>
+            <div class="col-xs-2">精选图文</div>
+        </div>
+        <div class="row site-section">
+            <div class="title">发现</div>
+            <div class="col-xs-2">推荐品类</div>
+            <div class="col-xs-2">热门商品</div>
+        </div>
+        <div class="row site-section">
+            <div class="title">专题</div>
+            <div class="col-xs-2">最新专题</div>
+            <div class="col-xs-2">往期专题</div>
+        </div>
+        <div class="row site-section">
+            <div class="title">关注果库</div>
+            <div class="col-xs-2">微博</div>
+            <div class="col-xs-2">微信</div>
+            <div class="col-xs-2">QQ空间</div>
+            <div class="col-xs-2">豆瓣</div>
+            <div class="col-xs-2">Instagram</div>
+            <div class="col-xs-2">facebook</div>
+            <div class="col-xs-2">twitter</div>
+        </div>
+        <div class="row site-section">
+            <div class="title">爆料投稿</div>
+            <div class="col-xs-2">添加商品</div>
+            <div class="col-xs-2">意见反馈</div>
+        </div>
+        <div class="row">
+            {% for row in object_list %}
+                <a class="label label-info" href="{% url 'web_category_detail' row.id %}" target="_blank">{{ row.title }}</a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
