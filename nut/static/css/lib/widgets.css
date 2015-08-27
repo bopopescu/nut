@@ -337,11 +337,23 @@
 }
 .load-more-button {
   margin: 0 auto ;
+  background-color: #ffffff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
+  overflow: hidden;
   width: 200px;
   background-color: #fff;
   color: #424242;
   height: 32px;
   font-size: 18px;
+  line-height: 35px;
   display: none;
 }
 /*# sourceMappingURL=widgets.less.css.map */

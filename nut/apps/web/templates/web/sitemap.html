@@ -1,0 +1,55 @@
+{% extends 'web/static_base.html' %}
+
+{% block meta-og %}
+{% endblock %}
+
+{% block meta-common %}
+    <meta name="title"  content="网站地图 | 精英消费指南 | 果库">
+    <meta name="keywords" content="网站地图, guoku sitemap,果库、guoku、果库网、果库应用、精英消费指南、消费指南、精品导购应用、导购、购物指南、购物分享、淘宝网购物、淘宝网精选、精品推荐">
+    <meta name="description" content="果库的网站地图，果库网站提供的功能列表">
+{% endblock %}
+
+{% block title %}网站地图 | 精英消费指南 | 果库{% endblock %}
+
+{% block main %}
+   <div class="container" id="sitemap">
+        <div class="row" >
+            <div class="container-fluid col-lg-8 col-md-8 col-sm-12  col-xs-12" id="site_map_list">
+                    <h3 >网站地图</h3>
+                    <hr>
+                <div class="row site-section">
+                    <div class="title">精选</div>
+                    <div class="col-xs-6  col-sm-3 col-md-2 col-lg-2"><a target="_blank" href="{% url 'web_selection' %}">精选商品</a></div>
+                    <div class="col-xs-6  col-sm-3 col-md-2 col-lg-2"><a target="_blank" href="{% url 'web_selection_articles' %}">精选图文</a></div>
+                </div>
+                <div class="row site-section">
+                    <div class="title">发现</div>
+                    <div class="col-xs-6  col-sm-3 col-md-2 col-lg-2"><a target="_blank" href="{% url 'web_category_list' %}">推荐品类</a></div>
+                    <div class="col-xs-6  col-sm-3 col-md-2 col-lg-2"><a target="_blank" href="{% url 'web_popular' %}">热门商品</a></div>
+                </div>
+                <div class="row site-section">
+                    <div class="title">专题</div>
+                    <div class="col-xs-6  col-sm-3 col-md-2 col-lg-2"><a target="_blank" href="{% url 'web_event_home' %}">最新专题</a></div>
+                    <div class="col-xs-6  col-sm-3 col-md-2 col-lg-2"><a target="_blank" href="{% url 'web_event_list' %}">往期专题</a></div>
+                </div>
+                <div class="row site-section">
+                    <div class="title">关注果库</div>
+                    <div class="col-xs-6  col-sm-3 col-md-2 col-lg-2"><a target="_blank" href="http://weibo.com/guoku">微博</a></div>
+                    <div class="col-xs-6  col-sm-3 col-md-2 col-lg-2"><a target="_blank" href="http://site.douban.com/130280/">豆瓣</a></div>
+                    <div class="col-xs-6  col-sm-3 col-md-2 col-lg-2"><a target="_blank" href="http://instagram.com/guoku/">Instagram</a></div>
+                    <div class="col-xs-6  col-sm-3 col-md-2 col-lg-2"><a target="_blank" href="http://www.facebook.com/172009339558352">Facebook</a></div>
+                    <div class="col-xs-6  col-sm-3 col-md-2 col-lg-2"><a target="_blank" href="http://twitter.com/guokuapp">Twitter</a></div>
+                </div>
+                <div class="row site-section">
+                    <div class="title">爆料投稿</div>
+                    <div class="col-xs-6  col-sm-3 col-md-2 col-lg-2"><a target="_blank" href="{% url 'web_entity_create' %}">添加商品</a></div>
+                    <div class="col-xs-6  col-sm-3 col-md-2 col-lg-2"><a target="_blank" href="mailto:hi@guoku.com">意见反馈</a></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+{% endblock %}
