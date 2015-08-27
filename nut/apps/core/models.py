@@ -1,7 +1,9 @@
 #coding=utf-8
+from datetime import datetime
 
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
@@ -10,6 +12,7 @@ from django.db.models import Count
 from django.db.models.signals import post_save
 from django.conf import settings
 from django.core.cache import cache
+import requests
 from apps.core.extend.fields.listfield import ListObjectField
 from apps.core.manager.account import GKUserManager
 from apps.core.manager.entity import EntityManager, EntityLikeManager, SelectionEntityManager
@@ -25,8 +28,9 @@ from hashlib import md5
 # from apps.core.utils.tag import TagParser
 
 # from djangosphinx.models import SphinxSearch
+from apps.core.utils.image import HandleImage
 from apps.notifications import notify
-from datetime import datetime
+
 import time
 
 log = getLogger('django')
@@ -781,6 +785,25 @@ class Entity(BaseModel):
         # key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
 
+    def fetch_image(self):
+        image_list = list()
+        for image_url in self.images:
+            if 'http' not in image_url:
+                image_url = 'http:' + image_url
+            if image_host in image_url:
+                image_list.append(image_url)
+                continue
+
+            r = requests.get(image_url, stream=True)
+            image = HandleImage(r.raw)
+            image_name = image.save()
+            image_list.append("%s%s" % (image_host, image_name))
+        try:
+            self.images = image_list
+            self.save()
+        except Entity.DoesNotExist, e:
+            pass
+
     # search index
     # search = SphinxSearch(
     #     index = 'entities',
@@ -1467,11 +1490,14 @@ def create_or_update_entity(sender, instance, created, **kwargs):
 post_save.connect(create_or_update_entity, sender=Entity, dispatch_uid="create_or_update_entity")
 
 
-def entity_set_to_selectoin(sender, instance, created, **kwargs):
+@receiver(post_save, sender=Selection_Entity)
+def entity_set_to_selection(sender, instance, created, raw, using, update_fields, **kwargs):
+    if created:
+        instance.entity.fetch_image()
+
     if (sender, Selection_Entity) and instance.is_published:
         user = GKUser.objects.get(pk=2)
         notify.send(user, recipient=instance.entity.user, action_object=instance, verb="set selection", target=instance.entity)
-post_save.connect(entity_set_to_selectoin, sender=Selection_Entity, dispatch_uid="entity_set_to_selection")
 
 
 def user_like_notification(sender, instance, created, **kwargs):
