@@ -35,9 +35,6 @@ class TaoBao():
             self.html = self.fetch_html_ny()
             self.soup = BeautifulSoup(self.html)
             # print self.soup
-        # f = open("/Users/judy/Desktop/amazon.html", 'wb')
-        # f.write(self.html)
-        # f.close()
 
     @property
     def headers(self):
