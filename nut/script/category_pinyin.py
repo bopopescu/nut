@@ -6,7 +6,7 @@ sys.path.append(BASE_DIR)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
 
 
-from apps.core.models import Sub_Category
+from apps.core.models import Sub_Category, Entity
 
 
 p = Pinyin()
