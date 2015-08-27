@@ -312,7 +312,12 @@ $.ajaxSetup({
                     var fixbar_bound = fix_sidebar[0].getBoundingClientRect();
                     var footer_bound = footer[0].getBoundingClientRect();
                     if (fixbar_bound.bottom >= footer_bound.top){
-                        fix_sidebar.find('.remove-ready').remove();
+                        fix_sidebar.find('.remove-ready').css({opacity:0});
+                    }else{
+                        if (last_scroll > current_scroll){
+                             fix_sidebar.find('.remove-ready').css({opacity:1});
+                        }
+
                     }
 
 
