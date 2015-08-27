@@ -1,3 +1,4 @@
+from django.conf import settings
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.forms.account import UserPasswordResetForm
 from apps.mobile.forms.account import MobileUserSignInForm, MobileUserSignUpForm, MobileUserSignOutForm
@@ -74,10 +75,8 @@ def forget_password(request):
     if request.method == 'POST':
         _forms = UserPasswordResetForm(request.POST)
         if _forms.is_valid():
-            _forms.save(domain_override='guoku.com',
-                        subject_template_name='web/mail/forget_password_subject.txt',
-                        email_template_name='web/mail/forget_password.html',
-                        from_email='hi@guoku.com')
+            _forms.save(template_invoke_name=settings.RESET_PASSWORD_TEMPLATE,
+                        domain_override='guoku.com')
             return SuccessJsonResponse(data={ 'success' : '1' })
         return ErrorJsonResponse(
                 data = {

@@ -208,6 +208,7 @@ class UserSignUpForm(forms.Form):
             nickname = _nickname,
 
         )
+        _user.send_verify_mail()
         return _user
 
     def login(self, request, user):

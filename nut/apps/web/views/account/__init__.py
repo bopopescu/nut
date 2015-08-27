@@ -1,3 +1,4 @@
+from django.contrib.auth.tokens import default_token_generator
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
@@ -5,8 +6,10 @@ from django.core.urlresolvers import reverse
 from django.contrib.formtools.wizard.views import SessionWizardView
 from django.contrib.auth import logout as auth_logout
 from django.core.files.storage import default_storage
+from django.utils.http import urlsafe_base64_decode
 
 from apps.core.forms.account import UserPasswordResetForm
+from apps.core.models import GKUser
 from apps.web.forms.account import UserSignInForm, UserSignUpForm
 from celery import group
 from apps.core.tasks.account import fetch_avatar, update_token
@@ -115,6 +118,21 @@ def send_mail_finished(request,
         },
         context_instance=RequestContext(request),
     )
+
+
+def register_mail_confirm(request,
+                          uidb64, token,
+                          template="web/account/register_complete.html"):
+    uid = urlsafe_base64_decode(uidb64)
+    user = GKUser.get(pk=uid)
+    if default_token_generator.check_token(user, token):
+        return render_to_response(
+            template,
+            {
+
+            },
+            context_instance=RequestContext(request),
+        )
 
 
 # from three part

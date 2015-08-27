@@ -1,7 +1,13 @@
+from django.conf import settings
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import EmailMessage
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
 from django.contrib.auth.models import BaseUserManager
 from django.utils import timezone
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import ugettext_lazy as _
 from django.core.cache import cache
 # import random
@@ -81,6 +87,7 @@ class GKUserManager(BaseUserManager):
         user.set_password(password)
         user.save(using=self._db)
         return user
+
 
     def create_user(self, email, password=None, is_active=1, **extra_fields):
 
