@@ -97,3 +97,4 @@ DEFAULT_POPULAR_SCALE = 200
 # TEMPLATE_STRING_IF_INVALID = "****************** %s ****************"
 
 RESET_PASSWORD_TEMPLATE = 'forget_password'
+VERIFY_EMAIL_TEMPLATE = 'verify_email'
