@@ -33,8 +33,12 @@
                     {% include 'web/article/partial/article_item_new.html' %}
                 {% endfor %}
         </div>
-        <div class="row">
-            <div class="guoku-button load-more-button" > 更多图文 </div>
+        <div class="row button-row">
+            <ul class="nav-button-holder">
+                <li class="guoku-button prev-button">  上一页</li>
+                <li class="guoku-button next-button">  下一页 </li>
+            </ul>
+
         </div>
         <div class="row hidden-xs">
             <div class="col-sm-offset-12">
