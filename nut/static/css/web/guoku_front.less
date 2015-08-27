@@ -978,10 +978,12 @@ body{
         li{
           display: inline-block;
           width: 27px;
+          height:27px;
           a {
             display: block;
             img{
-
+                width: 27px;
+                height:27px;
             }
           }
           img{
@@ -1277,7 +1279,7 @@ body{
         }
 
         .article-title{
-          font-size: 24px;
+          font-size: 22px;
           color:@common-text-color;
           margin: 15px 10px;
           min-height: 54px;
@@ -1314,6 +1316,39 @@ body{
    }
 }
 
+#sitemap{
+  #site_map_list{
+    padding-left:20px;
+    padding-right:40px;
+  }
+  .page-title{
+     font-size: @title-size;
+     padding-left:20px;
+  }
+
+  .site-section{
+     padding: 0px 20px 20px 20px;
+     border-bottom: 1px solid @border-gray;
+    &:last-child{
+      border-bottom: none;
+      padding-bottom: 60px;
+    }
+     .title{
+       font-size:@subtitle-size;
+       color:@common-text-color;
+       margin:15px 0;
+
+     }
+     div{
+        font-size: @primary-size;
+        color: @common-gray;
+        margin-top:10px;
+     }
+  }
+}
+
+
+
 @import "dimentions/xs.less";
 @import "dimentions/sm.less";
 @import "dimentions/md.less";
@@ -1321,6 +1356,6 @@ body{
 
 
 .test{
-  color: black;
+  color: #ff0000;
 }
 

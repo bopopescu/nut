@@ -4,7 +4,7 @@
 from django.template import RequestContext, loader
 # from django.template import loader
 
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 from braces.views import JSONResponseMixin, AjaxResponseMixin
 
 from apps.core.models import Entity, Entity_Like, Selection_Entity, GKUser
@@ -20,6 +20,8 @@ from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 # from apps.tag.models import Content_Tags
 from apps.core.models import Sub_Category
 # import random
+from apps.web.utils.viewtools import add_side_bar_context_data
+
 
 # from apps.notifications import notify
 from django.utils.log import getLogger
@@ -92,10 +94,20 @@ class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin , ListView):
         )
 
 
-class SiteMapView(ListView):
-    template_name = 'web/main/sitemap.html'
+class SiteMapView(TemplateView):
 
-    queryset = Sub_Category.objects.all()
+
+    template_name = 'web/sitemap.html'
+
+    # queryset = Sub_Category.objects.all()
+    #
+    # def get_context_data(self, **kwargs):
+    #     context = super(SiteMapView, self).get_context_data(**kwargs)
+    #     context = add_side_bar_context_data(context)
+    #     return context
+
+
+
     # def get_queryset(self):
 
 #
