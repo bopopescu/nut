@@ -335,7 +335,9 @@
 .main_static {
   min-height: 570px;
 }
-.load-more-button {
+.load-more-button,
+.next-button,
+.prev-button {
   margin: 0 auto ;
   background-color: #ffffff;
   -webkit-border-radius: 4px;
@@ -350,10 +352,22 @@
   overflow: hidden;
   width: 200px;
   background-color: #fff;
-  color: #424242;
-  height: 32px;
-  font-size: 18px;
-  line-height: 35px;
+  color: #9d9e9f;
+  height: 64px;
+  font-size: 16px;
+  line-height: 70px;
+  margin: 20px;
   display: none;
+}
+.nav-button-holder {
+  background: none;
+  margin: 0 auto ;
+  display: inline-block;
+}
+.nav-button-holder li {
+  float: left;
+}
+.button-row {
+  text-align: center;
 }
 /*# sourceMappingURL=widgets.less.css.map */

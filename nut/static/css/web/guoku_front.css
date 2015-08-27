@@ -692,7 +692,9 @@ ul li {
 .main_static {
   min-height: 570px;
 }
-.load-more-button {
+.load-more-button,
+.next-button,
+.prev-button {
   margin: 0 auto ;
   background-color: #ffffff;
   -webkit-border-radius: 4px;
@@ -707,11 +709,23 @@ ul li {
   overflow: hidden;
   width: 200px;
   background-color: #fff;
-  color: #424242;
-  height: 32px;
-  font-size: 18px;
-  line-height: 35px;
+  color: #9d9e9f;
+  height: 64px;
+  font-size: 16px;
+  line-height: 70px;
+  margin: 20px;
   display: none;
+}
+.nav-button-holder {
+  background: none;
+  margin: 0 auto ;
+  display: inline-block;
+}
+.nav-button-holder li {
+  float: left;
+}
+.button-row {
+  text-align: center;
 }
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
@@ -2430,6 +2444,13 @@ body {
 @media (max-width: 767px) {
   .event-item {
     padding: 5px 5px 5px 5px;
+  }
+  .next-button,
+  .prev-button {
+    width: 100px;
+    height: 36px;
+    font-size: 14px;
+    line-height: 36px;
   }
 }
 @media (max-width: 767px) {

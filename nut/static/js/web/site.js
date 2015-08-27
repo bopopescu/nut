@@ -84,6 +84,8 @@ function getCookie(name) {
 }
 
 
+
+
 function clearUserInputString(str){
     str = str.replace(/(\s+)/mg,' ');
     str = str.replace(/([><:$*&%])/mg, '');
@@ -103,7 +105,20 @@ $.ajaxSetup({
     }
 });
 
+function getQueryStrings() {
+  var assoc  = {};
+  var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
+  var queryString = location.search.substring(1);
+  var keyValues = queryString.split('&');
 
+  for(var i in keyValues) {
+    var key = keyValues[i].split('=');
+    if (key.length > 1) {
+      assoc[decode(key[0])] = decode(key[1]);
+    }
+  }
+  return assoc;
+}
 
 (function ($, document, window) {
 
@@ -128,6 +143,9 @@ $.ajaxSetup({
                     this.loadSuccess.bind(this),
                     this.loadFail.bind(this)
             );
+        },
+        loadPrevBatch:function(){
+            console.log('not implement');
         },
         _handleScroll: function(){
             if (this._shouldLoad()){
@@ -219,10 +237,35 @@ $.ajaxSetup({
         request_url: '/articles/',
         init: function(){
             this._super();
-            this.current_page = 1;
-            $('.load-more-button').click(this.loadNextBatch.bind(this));
+            this.current_page =this.getInitPageNum();
+            $('.next-button').click(this.goNext.bind(this));
+            $('.prev-button').click(this.goPrev.bind(this));
 
         },
+        goNext:function(){
+
+           this.gotoPage(this.current_page+1);
+        },
+        goPrev: function(){
+            this.gotoPage(this.current_page-5);
+
+        },
+
+        gotoPage:function(pageNum){
+            var path = window.location.pathname;
+            var host = window.location.host;
+            var protocol = window.location.protocol;
+            var refresh_time = this.getRefreshTime();
+            var newUrl = protocol+'//'+host+path + '?page=' + pageNum +'&t='+refresh_time;
+            window.location.href = newUrl;
+        },
+
+        getInitPageNum: function(){
+            var queryDics = getQueryStrings();
+            return  parseInt(queryDics['page']) || 1 ;
+
+        },
+
         getData: function(){
             return {
                 refresh_time : this.getRefreshTime(),
@@ -239,8 +282,13 @@ $.ajaxSetup({
             //TODO: handle fail load
             }
             this.current_page++;
-            if (this.current_page % 3 == 0 && (data['has_next_page'] === true)){
-                this.showLoadButton();
+            if (this.current_page % 3 == 0 ){
+                if(this.current_page>5){
+                    this.showPrevButton();
+                }
+                if (data['has_next_page'] === true ){
+                    this.showNextButton();
+                }
             }else{
                 this.hideLoadButton();
             }
@@ -248,11 +296,16 @@ $.ajaxSetup({
             return ;
 
         },
-        showLoadButton:function(){
-            $('.load-more-button').show();
+        showPrevButton:function(){
+            $('.prev-button').show();
         },
+        showNextButton:function(){
+            $('.next-button').show();
+        },
+
         hideLoadButton:function(){
-             $('.load-more-button').hide();
+             $('.prev-button').hide();
+             $('.next-button').hide();
         },
         handleLastPage:function(){
             this.detach();
