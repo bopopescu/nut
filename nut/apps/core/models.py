@@ -1,5 +1,4 @@
 #coding=utf-8
-from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 
 from django.db import models
@@ -29,6 +28,7 @@ from hashlib import md5
 # from apps.core.utils.tag import TagParser
 
 # from djangosphinx.models import SphinxSearch
+from apps.core.utils.commons import verification_token_generator
 from apps.notifications import notify
 from datetime import datetime
 import time
@@ -298,12 +298,12 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
 
-    def send_verify_mail(self):
+    def send_verification_mail(self):
         template_invoke_name = settings.VERIFY_EMAIL_TEMPLATE
         mail_message = EmailMessage(to=(self.email,),
                                     from_email='hi@guoku.com')
         uidb64 = urlsafe_base64_encode(force_bytes(self.id))
-        token = default_token_generator.make_token(self)
+        token = verification_token_generator.make_token(self)
         reverse_url = reverse('register_confirm',
                               kwargs={'uidb64': uidb64,
                                       'token': token})

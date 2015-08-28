@@ -43,6 +43,9 @@
                     <div class="head">
                         {% include 'web/user/partial/avatar_upload.html' with user_context=user %}
                     </div>
+                {% if profile_form.errors %}
+                    {{ profile_form.errors.as_ul }}
+                {% endif %}
                     <form method="post" action="{% url 'web_user_settings' %}" class="form-horizontal">{% csrf_token %}
                         <div class="edit_info_area">
                             <div class="edit_info clear">
