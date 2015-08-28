@@ -2444,6 +2444,9 @@ body {
   color: #9d9e9f;
   margin-top: 10px;
 }
+.search-result-container {
+  min-height: 570px;
+}
 @media (max-width: 767px) {
   .event-item {
     padding: 5px 5px 5px 5px;
