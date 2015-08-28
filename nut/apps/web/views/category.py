@@ -131,7 +131,7 @@ def detail_like(request, cid , template='web/category/detail.html'):
     _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     _cid = cid
     _page = request.GET.get('page',1)
-    _entity_list = Entity.objects.sort(category_id=cid,like=True)
+    _entity_list = Entity.objects.sort(category_id=cid,like=True).exclude(selection_entity__is_published=False)
     # _entity_list = Entity.objects.filter(status=Entity.selection,selection_entity__pub_time__lte=_refresh_datetime , category=_cid, buy_links__status=2)\
     #                .annotate(lnumber=Count('likes'))\
     #                .order_by('-lnumber')
