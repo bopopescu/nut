@@ -18,7 +18,6 @@ def images(request, file_name, size=None):
         path = path.split('/')
         image_name = "%s/%s" % (path[1], path[-1])
 
-
     # log.info(image_name)
     # result = resize.apply_async((image_name, size), expires=15)
     # image_data = result.get()
