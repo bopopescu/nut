@@ -2,7 +2,7 @@ from django.views.generic import ListView
 from django.http import Http404
 from apps.tag.models import Tags, Content_Tags
 from apps.core.extend.paginator import ExtentPaginator
-
+from apps.core.models import Entity_Like, Note
 from django.utils.log import getLogger
 
 log = getLogger('django')
@@ -31,9 +31,17 @@ class TagEntityView(ListView):
 
     def get_context_data(self, **kwargs):
         res = super(TagEntityView, self).get_context_data(**kwargs)
+        contenttag_list = res['object_list']
+
+        if self.request.user.is_authenticated():
+            note_id_list = contenttag_list.values_list("target_object_id", flat=True)
+            eid_list = Note.objects.filter(pk__in=list(note_id_list)).values_list('entity_id', flat=True)
+            el =  Entity_Like.objects.filter(entity_id__in=list(eid_list), user=self.request.user).values_list('entity_id', flat=True)
+
         res.update(
             {
                 'tag': self.tag,
+                'user_entity_likes':el,
             }
         )
         return res
