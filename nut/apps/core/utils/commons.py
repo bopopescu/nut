@@ -4,10 +4,6 @@ from django.utils.http import int_to_base36
 
 import redis
 import requests
-<<<<<<< HEAD
-
-from django.conf import settings
-=======
 import os
 import sys
 import six
@@ -18,7 +14,6 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
->>>>>>> 55663b4b7286d8fc738a69217ae8d36aae095c19
 
 r = redis.Redis(host=settings.CONFIG_REDIS_HOST,
                 port=settings.CONFIG_REDIS_PORT,
