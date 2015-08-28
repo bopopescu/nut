@@ -204,6 +204,7 @@ EMAIL_BACKEND = 'sendcloud.SendCloudBackend'
 MAIL_APP_USER = 'guoku_test_7LOIZp'
 MAIL_APP_KEY = 'DLq9W6TiDZAWOLNv'
 RESET_PASSWORD_TEMPLATE = 'forget_password'
+VERFICATION_EMAIL_TEMPLATE = 'verify_email'
 
 # MAILGUN_SERVER_NAME = 'post.guoku.com'
 # EMAIL_SUBJECT_PREFIX = '[guoku]'

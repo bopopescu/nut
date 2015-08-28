@@ -1,7 +1,6 @@
 from django.conf.urls import url, patterns
 from django.contrib.auth.views import password_reset_confirm, password_reset_complete
 from apps.core.forms.account import UserSetPasswordForm
-from apps.web.views.account import register_mail_confirm
 
 
 urlpatterns = patterns(
@@ -23,7 +22,9 @@ urlpatterns = patterns(
             'template_name':'web/account/password_rest_complete.html',
         },
         name='web_password_rest_complete'),
-    url(r'^user/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$', register_mail_confirm,
+
+    url(r'^send/verify/mail/$', 'send_verification_mail', name='send_verification_mail'),
+    url(r'^user/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$', 'register_mail_confirm',
         name='register_confirm')
 )
 

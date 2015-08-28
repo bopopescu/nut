@@ -1,4 +1,4 @@
-from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
@@ -10,6 +10,7 @@ from django.utils.http import urlsafe_base64_decode
 
 from apps.core.forms.account import UserPasswordResetForm
 from apps.core.models import GKUser
+from apps.core.utils.commons import verification_token_generator
 from apps.web.forms.account import UserSignInForm, UserSignUpForm
 from celery import group
 from apps.core.tasks.account import fetch_avatar, update_token
@@ -120,19 +121,40 @@ def send_mail_finished(request,
     )
 
 
-def register_mail_confirm(request,
-                          uidb64, token,
-                          template="web/account/register_complete.html"):
-    uid = urlsafe_base64_decode(uidb64)
-    user = GKUser.get(pk=uid)
-    if default_token_generator.check_token(user, token):
+@login_required
+def send_verification_mail(request,
+                     template="web/account/send_mail.html"):
+    try:
+        user = request.user
+        user.send_verification_mail()
         return render_to_response(
             template,
             {
-
+                'verified': 2
             },
             context_instance=RequestContext(request),
         )
+    except:
+        raise 500
+
+
+def register_mail_confirm(request,
+                          uidb64, token,
+                          template="web/account/send_mail.html"):
+    uid = urlsafe_base64_decode(uidb64)
+    user = GKUser.objects.get(pk=uid)
+    verified = False
+    if verification_token_generator.check_token(user, token):
+        user.profile.email_verified = True
+        user.profile.save()
+        verified = 1
+    return render_to_response(
+        template,
+        {
+            'verified': verified
+        },
+        context_instance=RequestContext(request),
+    )
 
 
 # from three part
