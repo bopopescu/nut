@@ -22,6 +22,11 @@ urlpatterns += patterns(
     # (r'^visit_item/$', 'mobile.views.old_visit_item'),
 )
 
+urlpatterns += patterns(
+    'apps.images',
+    url(r'^(images|img|avatar)/', include('apps.images.urls')),
+)
+
 urlpatterns += patterns('',
 
     url(r'^management/', include('apps.management.urls')),
@@ -55,6 +60,7 @@ urlpatterns += patterns(
     'django.contrib.sitemaps.views',
     url(r'^sitemap\.xml$', 'index', {'sitemaps': sitemaps}),
     url(r'^sitemap-(?P<section>.+)\.xml$', 'sitemap', {'sitemaps': sitemaps}),
+
     url(r'^feed/selection/$', SelectionFeeds()),
     url(r'^feed/articles/$', ArticlesFeeds()),
 )

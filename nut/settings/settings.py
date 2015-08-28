@@ -68,10 +68,12 @@ HAYSTACK_CONNECTIONS = {
     'default': {
         # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://10.0.2.50:8983/solr/'
+        'URL': 'http://10.0.2.50:8983/solr/',
+        'INCLUDE_SPELLING': True,
         # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
     }
 }
+
 HAYSTACK_DEFAULT_OPERATOR = 'AND'
 
 MIDDLEWARE_CLASSES = (
@@ -195,14 +197,15 @@ REST_FRAMEWORK = {
 
 # mail
 
-EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
-MAILGUN_ACCESS_KEY = 'key-7n8gut3y8rpk1u-0edgmgaj7vs50gig8'
-# EMAIL_BACKEND = 'sendcloud.SendCloudBackend'
-# MAIL_APP_USER = 'guoku_test_7LOIZp'
-# MAIL_APP_KEY = 'DLq9W6TiDZAWOLNv'
+# EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+# MAILGUN_ACCESS_KEY = 'key-7n8gut3y8rpk1u-0edgmgaj7vs50gig8'
+EMAIL_BACKEND = 'sendcloud.SendCloudBackend'
+MAIL_APP_USER = 'guoku_test_7LOIZp'
+MAIL_APP_KEY = 'DLq9W6TiDZAWOLNv'
+RESET_PASSWORD_TEMPLATE = 'forget_password'
 
-MAILGUN_SERVER_NAME = 'post.guoku.com'
-EMAIL_SUBJECT_PREFIX = '[guoku]'
+# MAILGUN_SERVER_NAME = 'post.guoku.com'
+# EMAIL_SUBJECT_PREFIX = '[guoku]'
 
 
 
@@ -271,7 +274,7 @@ TAOBAO_APP_INFO = {
 }
 
 BAICHUAN_APP_KEY = '23093827'
-BAICHUAN_APP_SECRET = '7db5a8b0fb21e5d3b9910bf8b9feba38'
+BAICHUAN_APP_SECRET = '5a9a26e067f33eea258510e3040caf17'
 
 
 # weibo

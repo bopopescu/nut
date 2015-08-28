@@ -1,6 +1,6 @@
 {% load staticfiles i18n %}
 {% load guoku %}
-{#{% load notifications_tags %}#}
+{% load notifications_tags %}
 
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -39,14 +39,15 @@
                     <span class="sr-only">Toggle navigation</span>
                 </a>
                 <div class="navbar-custom-menu">
+                    {% notifications_unread as unread_count %}
                      <ul class="nav navbar-nav">
                          <li class="dropdown notifications-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-bell-o"></i>
-                                <span class="label label-warning">10</span>
+                                <span class="label label-warning">{{ unread_count }}</span>
                             </a>
                              <ul class="dropdown-menu">
-                                 <li class="header">You have 10 notifications</li>
+                                 <li class="header">You have {{ unread_count }} notifications</li>
                                  <li>
                                      <ul class="menu">
                                          <li>
@@ -84,7 +85,7 @@
                                                    <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="{% url 'management_user_edit' request.user.pk %}" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="#" class="btn btn-default btn-flat">Sign out</a>

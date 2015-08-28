@@ -37,7 +37,7 @@ image_host = getattr(settings, 'IMAGE_HOST', None)
 
 
 def get_sub_category_choices(group_id):
-    sub_category_list = Sub_Category.objects.filter(group = group_id)
+    sub_category_list = Sub_Category.objects.filter(group = group_id).order_by('alias')
     res = map(lambda x: (x.id, x.title) , sub_category_list)
     return res
 
@@ -454,7 +454,7 @@ class CreateEntityForm(forms.Form):
         _status = self.cleaned_data.get('status')
         _user_id = self.cleaned_data.get('user')
         # log.info(self.initial['shop_nick'])
-        _entity_hash = cal_entity_hash(_origin_id + _title + self.initial['shop_nick'].decode('utf8'))
+        _entity_hash = cal_entity_hash(_origin_id + _title + self.initial['shop_nick'])
         log.info("main image %s" % _main_image)
 
         images = self.initial['thumb_images']

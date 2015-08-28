@@ -23,68 +23,81 @@
     <section class="content">
         <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box bg-red">
-                    <span class="info-box-icon"><i class="fa fa-thumbs-o-up"></i></span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{% trans 'like' %}</span>
-                        <span class="info-box-number">41,410</span>
-                        <div class="progress">
-                            <div class="progress-bar" style="width: 70%"></div>
-                        </div>
-                        <span class="progress-description">
-                            70% Increase in 30 Days
-                        </span>
-                    </div><!-- /.info-box-content -->
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>{{ like_count }}</h3>
+                        <p>昨天用户喜爱数</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-heart"></i>
+                    </div>
+                    <a class="small-box-footer" href="#">
+                        More info
+                        <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div><!-- /.col -->
+
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>{{ reg_count }}</h3>
+                        <p>昨天注册用户</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-person-add"></i>
+                    </div>
+                    <a class="small-box-footer" href="#">
+                        More info
+                        <i class="fa fa-arrow-circle-right"></i>
+                    </a>
                 </div><!-- /.info-box -->
             </div><!-- /.col -->
 
             <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box bg-aqua">
-                    <span class="info-box-icon"><i class="fa fa-user-plus"></i></span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{% trans 'user registrations' %}</span>
-                        <span class="info-box-number">41,410</span>
-                        <div class="progress">
-                            <div class="progress-bar" style="width: 70%"></div>
-                        </div>
-                        <span class="progress-description">
-                            70% Increase in 30 Days
-                        </span>
-                    </div><!-- /.info-box-content -->
-                </div><!-- /.info-box -->
-            </div><!-- /.col -->
-
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box bg-yellow">
-                    <span class="info-box-icon"><i class="fa fa-star"></i></span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{% trans 'selection entity' %}</span>
-                        <span class="info-box-number">41,410</span>
-                        <div class="progress">
-                            <div class="progress-bar" style="width: 70%"></div>
-                        </div>
-                        <span class="progress-description">
-                            70% Increase in 30 Days
-                        </span>
-                    </div><!-- /.info-box-content -->
-                </div><!-- /.info-box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>{{ sel_count }}</h3>
+                        <p>昨天精选发布</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-star"></i>
+                    </div>
+                    <a class="small-box-footer" href="#">
+                        More info
+                        <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
             </div><!-- /.col -->
 
 
             <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box bg-green">
-                    <span class="info-box-icon"><i class="fa fa-pencil"></i></span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">{% trans 'post note' %}</span>
-                        <span class="info-box-number">41,410</span>
-                        <div class="progress">
-                            <div class="progress-bar" style="width: 70%"></div>
-                        </div>
-                        <span class="progress-description">
-                            70% Increase in 30 Days
-                        </span>
-                    </div><!-- /.info-box-content -->
-                </div><!-- /.info-box -->
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>{{ note_count }}</h3>
+                        <p>昨天点评数</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-compose"></i>
+                    </div>
+                    <a class="small-box-footer" href="#">
+                        More info
+                        <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+{#                <div class="info-box bg-green">#}
+{#                    <span class="info-box-icon"><i class="fa fa-pencil"></i></span>#}
+{#                    <div class="info-box-content">#}
+{#                        <span class="info-box-text">{% trans 'post note' %}</span>#}
+{#                        <span class="info-box-number">41,410</span>#}
+{#                        <div class="progress">#}
+{#                            <div class="progress-bar" style="width: 70%"></div>#}
+{#                        </div>#}
+{#                        <span class="progress-description">#}
+{#                            70% Increase in 30 Days#}
+{#                        </span>#}
+{#                    </div><!-- /.info-box-content -->#}
+{#                </div><!-- /.info-box -->#}
             </div><!-- /.col -->
         </div>
 
@@ -111,7 +124,7 @@
                                     {% for note in notes %}
                                         <tr>
                                             <td>{{ note.id }}</td>
-                                            <td>{{ note.user }}</td>
+                                            <td><a href="{% url 'management_user_edit' note.user.pk %}">{{ note.user.profile.nick }}</a></td>
                                             <td>{{ note.entity }}</td>
                                             <td>{{ note.note }}</td>
                                             <td>{{ note.post_time|date:'Y-m-d H:i:s' }}</td>
@@ -138,7 +151,7 @@
                                 <div class="product-info">
                                     <a href="javascript:;" class="product-title">{{ entity|truncatechars:'20' }}<span class="label label-warning pull-right">{{ entity.price }}</span></a>
                                     <span class="product-description">
-                                       {{ entity.title }}
+                                       {{ entity.user.profile.nick }}
                                     </span>
                                 </div>
                             </li><!-- /.item -->

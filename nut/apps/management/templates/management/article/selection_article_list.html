@@ -53,7 +53,7 @@
                                 {% for sla in selection_article_list %}
                                     <tr>
                                         <td>{{ sla.pk }}</td>
-                                        <td><img class="img-thumbnail img-responsive" src="{{ sla.article.cover_url|resize:'90' }}"></td>
+                                        <td><a href="{% url 'web_article_page' sla.article.pk %}" target="_blank"><img class="img-thumbnail img-responsive" src="{{ sla.article.cover_url|resize:'90' }}"></a></td>
                                         <td>{{ sla.article.title }}</td>
                                         <td>
                                             <a href="{% url 'management_user_edit' sla.article.creator_id %}" target="_blank">
@@ -74,15 +74,12 @@
                                                    href="{% url 'management_article_edit' sla.article.pk %}" target="_blank">
                                                     {% trans 'edit' %}
                                                 </a>
-                                                {% if request.path == '/management/article/selections/pending/' %}
+{#                                                {% if request.path == '/management/article/selections/pending/' %}#}
                                                 <a class="btn btn-primary"
                                                    href="{% url 'management_selection_article_edit' sla.pk %}" target="_blank">
                                                     {% trans 'edit publish datetime' %}
                                                 </a>
-                                                {% endif %}
-                                                <a class="btn btn-success"
-                                                   href="{% url 'web_article_page' sla.article.pk %}" target="_blank">
-                                                    {% trans 'goto' %}</a>
+{##}
                                             </div>
                                         </td>
 
@@ -101,6 +98,10 @@
                                                 <a class="btn btn-primary selection-publish">
                                                     发布文章到前端精选流
                                                 </a>
+{#                                                <a class="btn btn-primary"#}
+{#                                                   href="{% url 'management_selection_article_edit' sla.pk %}" target="_blank">#}
+{#                                                    {% trans 'edit publish datetime' %}#}
+{#                                                </a>#}
                                             </div>
                                         </td>
                                         {% endif %}

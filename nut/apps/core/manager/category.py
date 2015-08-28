@@ -27,9 +27,13 @@ class CategoryManager(models.Manager):
 
             _content = []
             for sc in c.sub_categories.filter(status__gte=0):
+
+                title = sc.title
+                if '+' in title:
+                    title = c.title
                 r = {
                         'category_id':sc.id,
-                        'category_title':sc.title,
+                        'category_title':title,
                         'status':int(sc.status),
                         # 'category_icon_large': None,
                         # 'category_icon_small':None,

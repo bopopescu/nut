@@ -74,9 +74,9 @@
   color: #9d9d9d;
 }
 .guoku-btn-normal {
-  font-size: 16px;
-  height: 35px;
-  line-height: 35px;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
   text-align: center;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -94,9 +94,9 @@
   cursor: pointer;
 }
 .guoku-button {
-  font-size: 16px;
-  height: 35px;
-  line-height: 35px;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
   text-align: center;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -125,11 +125,21 @@
   color: #fff;
   background-color: #357ebd;
 }
+.button-white {
+  background-color: #fff;
+  color: #9d9e9f;
+}
+.button-white .fa {
+  color: #9d9e9f;
+}
+.button-white:hover {
+  color: #9d9e9f;
+}
 .blue-button {
-  font-size: 16px;
-  height: 35px;
-  border-radius: 5px;
-  line-height: 35px;
+  font-size: 14px;
+  height: 32px;
+  border-radius: 4px;
+  line-height: 32px;
   text-align: center;
   background: #357ebd;
   color: #fff;
@@ -144,11 +154,6 @@
 .gray-button {
   background-color: #9d9d9d;
   color: #fff;
-}
-.button-white {
-  background-color: #fff;
-  color: #424242;
-  border: 1px solid darker(#f8f8f8);
 }
 .btn-cancel,
 .button-cancel {
@@ -253,8 +258,8 @@
 .more-article-wrapper .cover-wrapper a img:hover,
 .guess-wrapper .recommend-img:hover,
 .user-page .img-box img:hover,
-.pop-article-list .pop-article-wrapper .img-holder a:hover,
-.pop-entity-list .pop-entity-wrapper .img-holder a:hover {
+.img-holder a:hover,
+.selection-article-item .img-holder:hover {
   opacity: 0.7;
 }
 .little-round-tag {
@@ -388,6 +393,47 @@
   display: block;
   width: 0;
   z-index: 1;
+}
+.change_password,
+.binding_page,
+.edit_profile,
+.main_static {
+  min-height: 570px;
+}
+.load-more-button,
+.next-button,
+.prev-button {
+  margin: 0 auto ;
+  background-color: #ffffff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
+  overflow: hidden;
+  width: 200px;
+  background-color: #fff;
+  color: #9d9e9f;
+  height: 64px;
+  font-size: 16px;
+  line-height: 70px;
+  margin: 20px;
+  display: none;
+}
+.nav-button-holder {
+  background: none;
+  margin: 0 auto ;
+  display: inline-block;
+}
+.nav-button-holder li {
+  float: left;
+}
+.button-row {
+  text-align: center;
 }
 @-moz-document url-prefix() {
   fieldset {

@@ -1,5 +1,16 @@
 Change Log
 ==========
+### Ver 4.3.4
+1. 分类增加拼音排序
+2. 商品搜索 title 增加拼音查找
+
+```
+pip install xpinyin
+```
+```
+alter table core_sub_category add column `alias` varchar(128) NOT NULL AFTER `title`;
+```
+
 ### Ver 4.3.3
 1. 购买链接增加防盗链
 2. 精选页面 UI 更新

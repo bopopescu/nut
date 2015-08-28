@@ -3,13 +3,8 @@
 
 import redis
 import requests
-import os
-import sys
-import settings.dev_judy as settings
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-sys.path.append(BASE_DIR)
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
+from django.conf import settings
 
 r = redis.Redis(host=settings.CONFIG_REDIS_HOST,
                 port=settings.CONFIG_REDIS_PORT,
@@ -39,6 +34,7 @@ def update_rate(convert_from_list, convert_to='CNY'):
         symbol = 'currency.exchange.%s.%s' % (convert_from, convert_to)
         rate = rate_info['rates'][convert_to]
         r.set(symbol, rate)
+        return rate
 
 
 def get_rate(convert_from):
@@ -51,6 +47,8 @@ def get_rate(convert_from):
     """
     redis_key = CURRENCY_KEY_FORMAT % convert_from
     exchange_rate = r.get(redis_key)
+    if not exchange_rate:
+        exchange_rate = update_rate((convert_from,))
     try:
         return float(exchange_rate)
     except ValueError:

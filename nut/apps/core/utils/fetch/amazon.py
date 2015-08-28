@@ -11,6 +11,7 @@ from apps.core.utils.commons import currency_converting
 class Amazon(Spider):
     def __init__(self, url):
         self.high_resolution_pattern = re.compile('hiRes"[\s]*:[\s]*"([^";]+)')
+        self.large_resolution_pattern = re.compile('large"[\s]*:[\s]*"([^";]+)')
         self.foreign_price = None
         super(Amazon, self).__init__(url)
 
@@ -59,12 +60,10 @@ class Amazon(Spider):
         pricetag = self.soup.select("#priceblock_ourprice")
         if len(pricetag) > 0:
             # print pricetag[0].string.split('-')
-            price = pricetag[0]
-            try:
-                f_price = float(price.string[1:].replace(',', ''))
-            except UnicodeEncodeError:
-                price = pricetag[0].string.split('-')[0]
-                f_price = float(price[1:].replace(',', ''))
+            price = pricetag[0].string
+            if price.find('-') >= 0:
+                price = price.split('-')[1].strip()
+            f_price = float(price[1:].replace(',', ''))
 
         pricetag = self.soup.select("#priceblock_saleprice")
         if len(pricetag) > 0:
