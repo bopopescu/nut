@@ -1,9 +1,6 @@
 #coding=utf-8
-<<<<<<< HEAD
 from datetime import datetime
-=======
 from django.core.mail import EmailMessage
->>>>>>> 55663b4b7286d8fc738a69217ae8d36aae095c19
 
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
@@ -30,15 +27,9 @@ from apps.core.manager.event import ShowEventBannerManager
 from apps.core.manager.article import ArticleManager, SelectionArticleManager
 
 from hashlib import md5
-# from urlparse import parse_qs, urlparse
-# from apps.core.utils.tag import TagParser
 
-# from djangosphinx.models import SphinxSearch
-<<<<<<< HEAD
 from apps.core.utils.image import HandleImage
-=======
 from apps.core.utils.commons import verification_token_generator
->>>>>>> 55663b4b7286d8fc738a69217ae8d36aae095c19
 from apps.notifications import notify
 
 import time
