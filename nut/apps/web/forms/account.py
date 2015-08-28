@@ -7,10 +7,8 @@ from django.core.urlresolvers import reverse
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 
-# from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from apps.core.models import GKUser, User_Profile
 from apps.core.utils.image import HandleImage
-# from django.contrib.auth.tokens import default_token_generator
 
 from apps.web.fields import Wizard_CaptchaField
 
@@ -208,6 +206,7 @@ class UserSignUpForm(forms.Form):
             nickname = _nickname,
 
         )
+        _user.send_verification_mail()
         return _user
 
     def login(self, request, user):
