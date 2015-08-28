@@ -16,6 +16,8 @@ def resize(image_name, size=None, **kwargs):
     # print image_name
     url = intranet_image_server + image_name
     r = requests.get(url)
+    if r.status_code == 404:
+        return None
     # f = default_storage.open(image_name)
     f = StringIO(r.content)
 
