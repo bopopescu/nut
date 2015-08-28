@@ -366,9 +366,9 @@ ul li {
   color: #9d9d9d;
 }
 .guoku-btn-normal {
-  font-size: 16px;
-  height: 35px;
-  line-height: 35px;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
   text-align: center;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -386,9 +386,9 @@ ul li {
   cursor: pointer;
 }
 .guoku-button {
-  font-size: 16px;
-  height: 35px;
-  line-height: 35px;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
   text-align: center;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -417,11 +417,21 @@ ul li {
   color: #fff;
   background-color: #357ebd;
 }
+.button-white {
+  background-color: #fff;
+  color: #9d9e9f;
+}
+.button-white .fa {
+  color: #9d9e9f;
+}
+.button-white:hover {
+  color: #9d9e9f;
+}
 .blue-button {
-  font-size: 16px;
-  height: 35px;
-  border-radius: 5px;
-  line-height: 35px;
+  font-size: 14px;
+  height: 32px;
+  border-radius: 4px;
+  line-height: 32px;
   text-align: center;
   background: #357ebd;
   color: #fff;
@@ -436,11 +446,6 @@ ul li {
 .gray-button {
   background-color: #9d9d9d;
   color: #fff;
-}
-.button-white {
-  background-color: #fff;
-  color: #424242;
-  border: 1px solid darker(#f8f8f8);
 }
 .btn-cancel,
 .button-cancel {
@@ -545,8 +550,8 @@ ul li {
 .more-article-wrapper .cover-wrapper a img:hover,
 .guess-wrapper .recommend-img:hover,
 .user-page .img-box img:hover,
-.pop-article-list .pop-article-wrapper .img-holder a:hover,
-.pop-entity-list .pop-entity-wrapper .img-holder a:hover {
+.img-holder a:hover,
+.selection-article-item .img-holder:hover {
   opacity: 0.7;
 }
 .little-round-tag {
@@ -680,6 +685,47 @@ ul li {
   display: block;
   width: 0;
   z-index: 1;
+}
+.change_password,
+.binding_page,
+.edit_profile,
+.main_static {
+  min-height: 570px;
+}
+.load-more-button,
+.next-button,
+.prev-button {
+  margin: 0 auto ;
+  background-color: #ffffff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
+  overflow: hidden;
+  width: 200px;
+  background-color: #fff;
+  color: #9d9e9f;
+  height: 64px;
+  font-size: 16px;
+  line-height: 70px;
+  margin: 20px;
+  display: none;
+}
+.nav-button-holder {
+  background: none;
+  margin: 0 auto ;
+  display: inline-block;
+}
+.nav-button-holder li {
+  float: left;
+}
+.button-row {
+  text-align: center;
 }
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
@@ -1149,7 +1195,7 @@ body {
 .event-body .event-cross-screen {
   width: 100%;
 }
-.event-body .event-banner-link img {
+.event-body .event-banner {
   display: block;
   margin: 0 auto ;
 }
@@ -1301,6 +1347,10 @@ body {
 #guoku_footer li a {
   opacity: 0.6;
 }
+#guoku_footer li span:hover,
+#guoku_footer li a:hover {
+  opacity: 1;
+}
 #guoku_footer li.feed-back-text span,
 #guoku_footer li.feed-back-text a {
   opacity: 1;
@@ -1335,6 +1385,12 @@ body {
 #guoku_footer .footer-part .list-wrapper li.list-title {
   border-right: none;
   padding-right: 0;
+}
+#guoku_footer .footer-part .list-wrapper li.no-padding-left {
+  padding-left: 0px;
+}
+#guoku_footer .footer-part .list-wrapper li.no-padding-right {
+  padding-right: 0px;
 }
 #guoku_footer .footer-part .qr-wrapper {
   float: right;
@@ -1414,6 +1470,41 @@ body {
   position: relative;
   display: inline-block;
 }
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.img-logo-link {
+  display: block;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.img-logo-link img {
+  display: block;
+  position: relative;
+  top: 6px;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link {
+  display: block;
+  background-color: #9d9e9f;
+  color: black;
+  font-size: 18px;
+  height: 28px;
+  width: 28px;
+  -webkit-border-radius: 14px;
+  -moz-border-radius: 14px;
+  border-radius: 14px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  padding-top: 2px;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link.logo-weibo {
+  padding-left: 5px;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link.logo-twitter {
+  padding-left: 6px;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link.logo-facebook {
+  padding-left: 9px;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link.logo-instagram {
+  padding-left: 6px;
+}
 #guoku_footer .footer-bottom .footer-bottom-right .logo-list li img {
   width: 28px;
 }
@@ -1436,8 +1527,17 @@ body {
   margin-bottom: 10px;
 }
 .guoku-content.user-page .user-info-wrapper .user-info .user-nick-block .nick {
-  font-size: 22px;
+  font-size: 32px;
   font-weight: 500;
+  margin-right: 12px;
+}
+.guoku-content.user-page .user-info-wrapper .user-info .user-nick-block .guoku-button {
+  position: relative;
+  top: -5px;
+  padding: 0px 15px;
+}
+.guoku-content.user-page .user-info-wrapper .user-info .user-nick-block .guoku-button.btn-cancel {
+  background-color: #fff;
 }
 .guoku-content.user-page .user-info-wrapper .user-info .user-bio {
   margin-bottom: 10px;
@@ -1553,6 +1653,15 @@ body {
 .guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-social-status {
   color: #9d9e9f;
   font-size: 13px;
+  position: absolute;
+  padding-top: 10px;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .empty-panel-content {
+  display: block;
+  text-align: center;
+  min-height: 200px;
+  padding-top: 90px;
+  color: #9d9d9d;
 }
 .guoku-content.user-page .content-panel .panel-filter .filter-list li {
   border-right: 1px solid #f8f8f8;
@@ -1841,6 +1950,22 @@ body {
   padding: 10px 15px;
   font-size: 18px;
 }
+#detail_content_left #guess_list .guess-img .img-holder {
+  display: inline-block;
+  width: 100%;
+}
+#detail_content_left #guess_list .guess-img .img-holder a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+#detail_content_left #guess_list .guess-img .img-holder a .img-frame {
+  heigth: 0;
+  padding-bottom: 100%;
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
 #detail_content_left #guess_list .guess-img .img-box {
   border: none!important;
 }
@@ -2004,9 +2129,14 @@ body {
 #detail_content_right .section-list li.section .user-icon-list li {
   display: inline-block;
   width: 27px;
+  height: 27px;
 }
 #detail_content_right .section-list li.section .user-icon-list li a {
   display: block;
+}
+#detail_content_right .section-list li.section .user-icon-list li a img {
+  width: 27px;
+  height: 27px;
 }
 #detail_content_right .section-list li.section .user-icon-list li img {
   border-radius: 50%;
@@ -2194,6 +2324,9 @@ body {
 .search-tag-item .img-box {
   border: none;
 }
+.main-content {
+  margin-top: 110px;
+}
 .guoku-app {
   padding-bottom: 40px;
 }
@@ -2201,6 +2334,9 @@ body {
   display: none;
 }
 .guoku-app .goods_detail {
+  margin-top: 20px;
+}
+.guoku-app .main-content {
   margin-top: 20px;
 }
 .guoku-app #detail_breadcrumb {
@@ -2224,9 +2360,103 @@ body {
   background-size: cover;
   background-position: center center;
 }
+#selection_article_list .selection-article-item {
+  display: inline-block;
+  position: relative;
+}
+#selection_article_list .selection-article-item .article-panel {
+  background-color: #ffffff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: 25px;
+}
+#selection_article_list .selection-article-item .article-panel .img-holder {
+  width: 100%;
+  height: 0;
+  padding-bottom: 55%;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+#selection_article_list .selection-article-item .article-panel .article-title {
+  font-size: 22px;
+  color: #424242;
+  margin: 15px 10px;
+  min-height: 54px;
+  max-height: 54px;
+}
+#selection_article_list .selection-article-item .article-panel .article-title a {
+  color: #424242;
+}
+#selection_article_list .selection-article-item .article-panel .article-title a:hover {
+  text-decoration: none;
+}
+#selection_article_list .selection-article-item .article-panel .article-intro {
+  font-size: 14px;
+  color: #9d9e9f;
+  margin: 15px 10px;
+  min-height: 84px;
+  max-height: 84px;
+}
+#selection_article_list .selection-article-item .article-panel .article-info {
+  min-height: 30px;
+}
+#selection_article_list .selection-article-item .article-panel .article-info .create-time {
+  float: right;
+  padding-right: 10px;
+  color: #9d9e9f;
+  font-size: 13px;
+}
+#selection_article_list .selection-article-item .article-panel .article-info .create-time .fa {
+  margin-right: 5px;
+}
+#sitemap #site_map_list {
+  padding-left: 20px;
+  padding-right: 40px;
+}
+#sitemap .page-title {
+  font-size: 22px;
+  padding-left: 20px;
+}
+#sitemap .site-section {
+  padding: 0px 20px 20px 20px;
+}
+#sitemap .site-section:last-child {
+  border-bottom: none;
+  padding-bottom: 60px;
+}
+#sitemap .site-section .title {
+  font-size: 18px;
+  color: #424242;
+  margin: 15px 0;
+}
+#sitemap .site-section div {
+  font-size: 16px;
+  color: #9d9e9f;
+  margin-top: 10px;
+}
+.search-result-container {
+  min-height: 570px;
+}
 @media (max-width: 767px) {
   .event-item {
     padding: 5px 5px 5px 5px;
+  }
+  .next-button,
+  .prev-button {
+    width: 100px;
+    height: 36px;
+    font-size: 14px;
+    line-height: 36px;
   }
 }
 @media (max-width: 767px) {
@@ -2346,6 +2576,9 @@ body {
     font-size: 14px !important;
     font-color: #9d9e9f !important;
   }
+  #selection_article_list .selection-article-item .article-title {
+    min-height: 80px!important;
+  }
 }
 @media (min-width: 768px) {
   #detail_content_left .detail-pic-left {
@@ -2388,6 +2621,12 @@ body {
   }
   .guoku-content.user-page .user-info .user-bio {
     margin: 0 auto ;
+  }
+}
+@media (max-width: 1199px) {
+  #selection_article_list .selection-article-item .article-title {
+    font-size: 18px!important;
+    font-weight: 600;
   }
 }
 @media (min-width: 1170px) {

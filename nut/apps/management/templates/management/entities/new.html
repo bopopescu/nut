@@ -4,41 +4,88 @@
 
 
 {% block content %}
-{#    <div class="container">#}
-        <div class="row placeholders" id="images">
-            {% for image in res.thumb_images %}
-                <div class="col-xs-6 col-sm-4 placeholder">
-{#                {{ image }}#}
-                    <img class="img-responsive img-thumbnail" alt="{{ res.title }}" src="{{ image }}" width="240" height="240">
-                </div>
-            {% endfor %}
-        </div>
+    <section class="content-header">
+        <h1>
+            {% trans 'create entity' %}
+            <small>{% trans 'add entity' %}</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+            <li class="active">{% trans 'create entity' %}</li>
+        </ol>
+    </section>
+
+    <section class="content">
         <div class="row">
-            <form class="form-horizontal well" action="" method="post">
-            {% csrf_token %}
-                <fieldset>
-                    {% for field in forms %}
-                        <div class="form-group {% if field.errors %}has-error{% endif %}">
-                            <label class="control-label col-sm-2">{{ field.label }}&nbsp;:</label>
-                            <div class="col-sm-5">
-                            {{ field }}
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        {% for image in res.thumb_images %}
+                            <div class="col-xs-6 col-sm-3 placeholder">
+                                <img class="img-responsive img-thumbnail" alt="{{ res.title }}" src="{{ image }}" width="240" height="240">
                             </div>
-                            {% if field.errors %}
-                                {% for error in field.errors %}
-                                    <span class="help-block">{{ error }}</span>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                </fieldset>
-                <div class="form-group">
-                    <div class="col-sm-offset-2">
-                        <button type="submit" class="btn btn-primary">{% trans 'add' %}</button>
+                        {% endfor %}
                     </div>
+                    <form class="form-horizontal" action="" method="post">
+                    {% csrf_token %}
+                        <div class="box-body">
+                            {% for field in forms %}
+                                <div class="form-group {% if field.errors %}has-error{% endif %}">
+                                    <label class="control-label col-sm-2">{{ field.label }}&nbsp;:</label>
+                                    <div class="col-sm-5">
+                                    {{ field }}
+                                    </div>
+                                    {% if field.errors %}
+                                        {% for error in field.errors %}
+                                            <span class="help-block">{{ error }}</span>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="box-footer">
+                            <div class="col-sm-offset-2">
+                                <button type="submit" class="btn btn-primary">{% trans 'add' %}</button>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
-            </form>
+            </div>
         </div>
-{#    </div>#}
+    </section>
+{#        <div class="row placeholders" id="images">#}
+{#            {% for image in res.thumb_images %}#}
+{#                <div class="col-xs-6 col-sm-4 placeholder">#}
+{#                    <img class="img-responsive img-thumbnail" alt="{{ res.title }}" src="{{ image }}" width="240" height="240">#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
+{#        <div class="row">#}
+{#            <form class="form-horizontal well" action="" method="post">#}
+{#            {% csrf_token %}#}
+{#                <fieldset>#}
+{#                    {% for field in forms %}#}
+{#                        <div class="form-group {% if field.errors %}has-error{% endif %}">#}
+{#                            <label class="control-label col-sm-2">{{ field.label }}&nbsp;:</label>#}
+{#                            <div class="col-sm-5">#}
+{#                            {{ field }}#}
+{#                            </div>#}
+{#                            {% if field.errors %}#}
+{#                                {% for error in field.errors %}#}
+{#                                    <span class="help-block">{{ error }}</span>#}
+{#                                {% endfor %}#}
+{#                            {% endif %}#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{#                </fieldset>#}
+{#                <div class="form-group">#}
+{#                    <div class="col-sm-offset-2">#}
+{#                        <button type="submit" class="btn btn-primary">{% trans 'add' %}</button>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </form>#}
+{#        </div>#}
 {% endblock %}
 
 {% block user_script %}

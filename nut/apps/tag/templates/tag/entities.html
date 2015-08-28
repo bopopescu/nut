@@ -13,7 +13,9 @@
 
                 {% for obj in object_list %}
 {#                    {{ obj.target }}#}
-                    {% include 'web/common/entity.html' with entity=obj.target.entity %}
+
+                     {% include 'web/main/partial/entity.html' with entity=obj.target.entity %}
+{#                    {% include 'web/common/entity.html' with entity=obj.target.entity %}#}
 
                 {% endfor %}
             </div>

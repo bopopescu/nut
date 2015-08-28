@@ -4,7 +4,7 @@ from settings import *
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-STATIC_URL = 'http://static.guoku.com/static/v4/0e02e18f0edeb9e12740ad50b98bc6ec252b176a/'
+STATIC_URL = 'http://static.guoku.com/static/v4/06bfdbd65f6fc43db25b05172672cbe51d2cb228/'
 
 LANGUAGE_CODE = 'zh-cn'
 
@@ -41,6 +41,8 @@ DATABASES = {
         }
     },
 }
+
+
 
 INSTALLED_APPS += (
     'gunicorn',

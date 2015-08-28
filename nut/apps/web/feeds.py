@@ -4,20 +4,51 @@ from django.core.urlresolvers import reverse
 # from django.utils.feedgenerator import Atom1Feed
 from django.utils.translation import gettext_lazy as _
 from django.utils.feedgenerator import Rss201rev2Feed
+# from django.shortcuts import get_object_or_404
+# from xml.sax.saxutils import escape
 
 from apps.core.models import Selection_Entity, Selection_Article
 
-# from base.models import NoteSelection
-# from base.entity import Entity
-# from base.note import Note
-# from base.user import User
+from django.utils.html import strip_tags
+
 from datetime import datetime
 
 class CustomFeedGenerator(Rss201rev2Feed):
+    mime_type = 'application/xml; charset=utf-8'
     def add_item_elements(self, handler, item):
         super(CustomFeedGenerator, self).add_item_elements(handler, item)
         handler.addQuickElement(u"image", item['image'])
         # handler.addQuickElement(u"short_description", item['short_description'])
+
+class ArticlesFeedGenerator(Rss201rev2Feed):
+
+    mime_type = 'application/xml; charset=utf-8'
+
+    def rss_attributes(self):
+        attrs = super(ArticlesFeedGenerator, self).rss_attributes()
+        attrs['xmlns:content'] = 'http://purl.org/rss/1.0/modules/content/'
+        attrs['xmlns:media'] = 'http://search.yahoo.com/mrss/'
+        attrs['xmlns:georss'] = 'http://www.georss.org/georss'
+        attrs['xmlns:dc'] ="http://purl.org/dc/elements/1.1/"
+        return attrs
+
+    # def add_root_elements(self, handler):
+    #     super(ArticlesFeedGenerator, self).add_root_elements(handler)
+    #     print self.feed
+
+    def add_item_elements(self, handler, item):
+        super(ArticlesFeedGenerator, self).add_item_elements(handler, item)
+
+        # if item['content_encoded'] is not None:
+            # handler.strat
+        # content = '<![CDATA[' +item['content'] + ']]>'
+        # handler.addQuickElement(u'content:encoded', item['content_encoded'])
+
+        if item['content_encoded'] is not None:
+            handler.startElement(u'content:encoded', {})
+            handler._write(item['content_encoded'])
+            handler.endElement(u'content:encoded')
+
 
 class SelectionFeeds(Feed):
     feed_type = CustomFeedGenerator
@@ -33,30 +64,15 @@ class SelectionFeeds(Feed):
         # return NoteSelection.objects(post_time__lt = datetime.now())[:60]
 
     def item_title(self, item):
-        # _entity_id = item.entity.title
-        # _entity_context = Entity(_entity_id).read()
-        if len(item.entity.brand) > 0:
-            return "%s - %s" % (item.entity.brand, item.entity.title)
-        return item.entity.title
+        return item.entity
 
     def item_link(self, item):
-        # _entity_id = item.entity_id
-        # _entity = Entity.objects.get(pk = _entity_id)
-        # _entity_context = Entity(_entity_id).read()
-        # return "/detail/%s/" % _entity_context['entity_hash']
         return reverse('web_entity_detail', args=[item.entity.entity_hash])
 
     def item_description(self, item):
         return item.top_note.note
-    #     _note_id = item.note_id
-    #     _note_context = Note(_note_id).read()
-    #     return _note_context['content']
 
     def item_author_name(self, item):
-        # _note_id = item.note_id
-        # _note_context = Note(_note_id).read()
-        # _creator_context = User(_note_context['creator_id']).read()
-        # return _creator_context['nickname']
         return item.entity.top_note.user.profile.nickname
 
     def item_pubdate(self, item):
@@ -72,13 +88,18 @@ class SelectionFeeds(Feed):
 
 
 class ArticlesFeeds(Feed):
-    feed_type = Rss201rev2Feed
-
-    title = u'果库 － 精英消费者南'
+    feed_type = ArticlesFeedGenerator
+    title = u'图文频道>>果库|精英消费者南'
     link = "/articles/"
-    description = _('精英消费指南')
+    author_email = "hi@guoku.com"
+    feed_copyright = "2010-2015 果库. All rights reserved."
+    description = '果库消费图文汇集全网秉持理想生活哲学的消费类文章，开拓精英视野与生活想象，涵盖品牌相关报道、卖家创业者专访、潮流资讯、消费见解主张、生活场景清单、购物经验心得分享等。'
 
-    description_template = "web/feeds/article_desc.html"
+
+    # description_template = "web/feeds/article_description.html"
+
+    # def get_object(self, request, *args, **kwargs):
+    #     return getattr(get_object_or_404)
 
     def items(self):
         return Selection_Article.objects.published().order_by('-pub_time')[0:30]
@@ -96,15 +117,22 @@ class ArticlesFeeds(Feed):
         return item.pub_time
 
     def item_description(self, item):
-        return item.article.content
+        # return item.article.content
+        content = strip_tags(item.article.content)
+        desc = content.split(u'。')
+        # return "<![CDATA[%s]]>" % (desc[0] + u'。')
+        return desc[0] + u'。'
 
-    # def item_extra_kwargs(self, item):
-    #     return {'image':item.article.cover_url}
+    def item_extra_kwargs(self, item):
+        extra = super(ArticlesFeeds, self).item_extra_kwargs(item)
 
-    def get_context_data(self, **kwargs):
-        context = super(ArticlesFeeds, self).get_context_data(**kwargs)
-        return context
-        # return con
+        extra.update(
+            {
+                'content_encoded': "<![CDATA[%s]]>" % item.article.content
+            }
+        )
+
+        return extra
 
 
 __author__ = 'edison7500'

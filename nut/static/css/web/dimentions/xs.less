@@ -6,6 +6,13 @@
   .event-item{
     padding:5px 5px 5px 5px;
   }
+
+  .next-button,.prev-button{
+    width:100px;
+    height:36px;
+    font-size:14px;
+    line-height:36px;
+  }
 }
 
 @media(max-width: 767px){
@@ -168,6 +175,14 @@
                 font-color: @common-gray!important;
               }
            }
+    }
+  }
+
+  #selection_article_list{
+    .selection-article-item{
+      .article-title{
+         min-height:80px!important;
+      }
     }
   }
 }
