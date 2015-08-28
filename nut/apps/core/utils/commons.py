@@ -1,11 +1,15 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from django.utils.crypto import salted_hmac
+from django.utils.http import int_to_base36
 
 import redis
 import requests
 import os
 import sys
+import six
 import settings.production as settings
+
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
@@ -74,3 +78,16 @@ def currency_converting(convert_from, amount):
         amount = float(amount)
     rate = get_rate(convert_from)
     return round(amount*rate, 2)
+
+
+class VerifyUserTokenGenerator(PasswordResetTokenGenerator):
+    def _make_token_with_timestamp(self, user, timestamp):
+        ts_b36 = int_to_base36(timestamp)
+        key_salt = "django.contrib.auth.tokens.PasswordResetTokenGenerator"
+
+        value = (six.text_type(user.pk) + user.password +
+                 six.text_type(timestamp))
+        hash = salted_hmac(key_salt, value).hexdigest()[::2]
+        return "%s-%s" % (ts_b36, hash)
+
+verification_token_generator = VerifyUserTokenGenerator()

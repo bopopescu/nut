@@ -87,12 +87,19 @@ class UserSettingsForm(forms.Form):
         super(UserSettingsForm, self).__init__(*args, **kwargs)
 
     def save(self):
+        send = False
         _nickname = self.cleaned_data.get('nickname', None)
         _location = self.cleaned_data.get('location', None)
         _city = self.cleaned_data.get('city', None)
         _gender = self.cleaned_data.get('gender', None)
         _bio = self.cleaned_data.get('bio', None)
         _website = self.cleaned_data.get('website', None)
+        _email = self.cleaned_data.get('email', None)
+
+        if self.user_cache.email != _email:
+            send = True
+            self.user_cache.email = _email
+            self.user_cache.profile.email_verified = False
 
         self.user_cache.profile.nickname = _nickname
         self.user_cache.profile.location = _location
@@ -102,6 +109,9 @@ class UserSettingsForm(forms.Form):
         self.user_cache.profile.website = _website
 
         self.user_cache.profile.save()
+        self.user_cache.save()
+        if send:
+            self.user_cache.send_verification_mail()
 
 
 class UserChangePasswordForm(forms.Form):
