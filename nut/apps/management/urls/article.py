@@ -6,8 +6,6 @@ from apps.management.views.article import SelectionArticleList,\
     ArticleList,\
     DraftArticleList, \
     RemoveSelectionArticle,\
-    RESTfulArticleDetail,\
-    RESTfulArticleListView,\
     UpdateArticleView
 
 
@@ -20,8 +18,6 @@ urlpatterns = patterns(
     url(r'^(?P<article_id>\d+)/edit/$', 'edit', name='management_article_edit'),
 
     url(r'^(?P<pk>\d+)/edit/new/$',UpdateArticleView.as_view(), name='management_article_edit_new'),
-
-
 
     url(r'^(?P<article_id>\d+)/cover/upload/$', 'upload_cover', name='management_article_cover_upload'),
     url(r'^(?P<article_id>\d+)/preview/$', 'preview', name='management_article_preview'),
