@@ -95,41 +95,8 @@ class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin , ListView):
 
 
 class SiteMapView(TemplateView):
-
-
     template_name = 'web/sitemap.html'
 
-    # queryset = Sub_Category.objects.all()
-    #
-    # def get_context_data(self, **kwargs):
-    #     context = super(SiteMapView, self).get_context_data(**kwargs)
-    #     context = add_side_bar_context_data(context)
-    #     return context
-
-
-
-    # def get_queryset(self):
-
-#
-# def popular(request, template='web/main/popular.html'):
-#
-#     popular_list = Entity_Like.objects.popular_random()
-#     # random.sample(popular_list, 60)
-#     # _entities = Entity.objects.filter(id__in=list(popular_list))
-#     _entities = Entity.objects.filter(id__in=popular_list)
-#     # log.info("popular %s" % len(_entities))
-#     el = list()
-#     if request.user.is_authenticated():
-#         el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(_entities))
-#
-#     return render_to_response(
-#         template,
-#         {
-#             'entities':_entities,
-#             'user_entity_likes': el,
-#         },
-#         context_instance = RequestContext(request),
-#     )
 
 class PopularView(ListView):
 

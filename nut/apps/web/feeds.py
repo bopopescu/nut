@@ -13,6 +13,21 @@ from django.utils.html import strip_tags
 
 from datetime import datetime
 
+
+from xml.sax.saxutils import XMLGenerator
+
+class SimplerXMLGenerator(XMLGenerator):
+    def addQuickElement(self, name, contents=None, attrs=None, escape=False):
+        "Convenience method for adding an element with no children"
+        if attrs is None: attrs = {}
+        self.startElement(name, attrs)
+        if contents is not None:
+            if escape:
+                self._write(contents)
+            self.characters(contents)
+        self.endElement(name)
+
+
 class CustomFeedGenerator(Rss201rev2Feed):
     mime_type = 'application/xml; charset=utf-8'
     def add_item_elements(self, handler, item):
@@ -23,6 +38,16 @@ class CustomFeedGenerator(Rss201rev2Feed):
 class ArticlesFeedGenerator(Rss201rev2Feed):
 
     mime_type = 'application/xml; charset=utf-8'
+    def write(self, outfile, encoding):
+        handler = SimplerXMLGenerator(outfile, encoding)
+        handler.startDocument()
+        handler.startElement("rss", self.rss_attributes())
+        handler.startElement("channel", self.root_attributes())
+        self.add_root_elements(handler)
+        self.write_items(handler)
+        self.endChannelElement(handler)
+        handler.endElement("rss")
+
 
     def rss_attributes(self):
         attrs = super(ArticlesFeedGenerator, self).rss_attributes()
@@ -45,9 +70,12 @@ class ArticlesFeedGenerator(Rss201rev2Feed):
         # handler.addQuickElement(u'content:encoded', item['content_encoded'])
 
         if item['content_encoded'] is not None:
-            handler.startElement(u'content:encoded', {})
-            handler._write(item['content_encoded'])
-            handler.endElement(u'content:encoded')
+            handler.addQuickElement(u'content:encoded', item['content_encoded'], escape=True)
+        # if item['description_encoded'] is not None:
+        #     handler.addQuickElement(u'description', item['description_encoded'], escape=True)
+            # handler.startElement(u'content:encoded', {})
+            # handler._write(item['content_encoded'])
+            # handler.endElement(u'content:encoded')
 
 
 class SelectionFeeds(Feed):
@@ -117,7 +145,6 @@ class ArticlesFeeds(Feed):
         return item.pub_time
 
     def item_description(self, item):
-        # return item.article.content
         content = strip_tags(item.article.content)
         desc = content.split(u'。')
         # return "<![CDATA[%s]]>" % (desc[0] + u'。')
@@ -128,7 +155,7 @@ class ArticlesFeeds(Feed):
 
         extra.update(
             {
-                'content_encoded': "<![CDATA[%s]]>" % item.article.content
+                'content_encoded': "<![CDATA[%s]]>" % item.article.content,
             }
         )
 
