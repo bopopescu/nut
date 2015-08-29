@@ -1157,7 +1157,7 @@ class WeChat_Token(BaseModel):
 
 
 # TODO: implement a digest property
-class Article(models.Model):
+class Article(BaseModel):
 
     (remove, draft, published) = xrange(3)
     ARTICLE_STATUS_CHOICES = [
