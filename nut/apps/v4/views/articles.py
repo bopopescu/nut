@@ -20,7 +20,6 @@ class ArticlesListView(BaseJsonView):
             return res
 
         for row in sla.object_list:
-            # print row.article
             res.append(
                 row.api_article.v4_toDict()
             )
@@ -32,8 +31,10 @@ class ArticlesListView(BaseJsonView):
         self.size = request.GET.get('size', 10)
         return super(ArticlesListView, self).get(request, *args, **kwargs)
 
-    # @check_sign
+    @check_sign
     def dispatch(self, request, *args, **kwargs):
         return super(ArticlesListView, self).dispatch(request, *args, **kwargs)
+
+
 
 __author__ = 'xiejiaxin'
