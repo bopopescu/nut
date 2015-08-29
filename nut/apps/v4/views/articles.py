@@ -1,6 +1,8 @@
 from apps.core.views import BaseJsonView
 # from apps.core.models import Selection_Article
 from apps.v4.models import APISeletion_Articles
+from apps.mobile.lib.sign import check_sign
+
 
 class ArticlesListView(BaseJsonView):
     http_method_names = ['get']
@@ -17,5 +19,8 @@ class ArticlesListView(BaseJsonView):
 
         return res
 
+    # @check_sign
+    def dispatch(self, request, *args, **kwargs):
+        return super(ArticlesListView, self).dispatch(request, *args, **kwargs)
 
 __author__ = 'xiejiaxin'
