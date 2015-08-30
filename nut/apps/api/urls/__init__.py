@@ -1,6 +1,6 @@
 from django.conf.urls import url, include, patterns
 from rest_framework import routers
-from rest_framework.urlpatterns import format_suffix_patterns
+# from rest_framework.urlpatterns import format_suffix_patterns
 
 from apps.api.views import user, entity, banner
 
@@ -12,17 +12,17 @@ router.register(r'entities', entity.EntityViewSet),
 router.register(r'banner', banner.BannerViewSet),
 
 
-selection_list = entity.SelectionViewSet.as_view({
-    'get': 'list',
-})
-
-
-selection_detail = entity.SelectionViewSet.as_view({
-    'get': 'retrieve',
-    # 'put': 'update',
-    # 'patch': 'partial_update',
-    # 'delete': 'destroy',
-})
+# selection_list = entity.SelectionViewSet.as_view({
+#     'get': 'list',
+# })
+#
+#
+# selection_detail = entity.SelectionViewSet.as_view({
+#     'get': 'retrieve',
+#     # 'put': 'update',
+#     # 'patch': 'partial_update',
+#     # 'delete': 'destroy',
+# })
 
 #
 urlpatterns = patterns(
