@@ -45,30 +45,5 @@
             </div>
         </div>
     </section>
-{#    <div class="row">#}
-{#        <form class="well form-horizontal" method="post" enctype="multipart/form-data">#}
-{#            {% csrf_token %}#}
-{#            <fieldset>#}
-{#            {% for field in form %}#}
-{#                <div class="form-group">#}
-{#                    <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>#}
-{#                    <div class="col-sm-6">#}
-{#                        {{ field }}#}
-{#                    </div>#}
-{#                    {% if field.errors %}#}
-{#                        {% for error in field.errors %}#}
-{#                            <span class="help-block">{{ error }}</span>#}
-{#                        {% endfor %}#}
-{#                    {% endif %}#}
-{#                </div>#}
-{#            {% endfor %}#}
-{#            </fieldset>#}
-{#            <div class="form-group">#}
-{#                <div class="col-sm-offset-2 col-sm-5">#}
-{#                    <button type="submit" class="btn btn-primary btn-lg">{% trans 'submit' %}</button>#}
-{#                </div>#}
-{#            </div>#}
-{#        </form>#}
-{#    </div>#}
 
 {% endblock %}
