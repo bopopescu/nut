@@ -6,9 +6,6 @@
 $(function(){
     var EntityModel = Backbone.Model.extend({
 
-        //parse : function(data){
-        //    console.log(data);
-        //}
     });
 
     var EntityList = Backbone.Collection.extend({
@@ -50,6 +47,7 @@ $(function(){
 
         initialize: function(){
             this.listenTo(entities, 'add', this.addOne);
+            this.listenTo(entities, 'reset', this.addAll);
 
             entities.fetch();
         },
@@ -57,6 +55,10 @@ $(function(){
         addOne: function(entity) {
             var view = new EntityView({model: entity});
             this.$("ul").append(view.render().el);
+        },
+
+        addAll: function(){
+            entities.each(this.addOne, this);
         }
 
     });
