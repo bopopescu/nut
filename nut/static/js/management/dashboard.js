@@ -6,9 +6,9 @@
 $(function(){
     var EntityModel = Backbone.Model.extend({
 
-        parse : function(data){
-            console.log(data);
-        }
+        //parse : function(data){
+        //    console.log(data);
+        //}
     });
 
     var EntityList = Backbone.Collection.extend({
@@ -36,7 +36,7 @@ $(function(){
         },
 
         render: function(){
-            console.log(this.model.toJSON());
+            //console.log(this.model.toJSON());
             this.$el.html(this.template(this.model.toJSON()));
             return this;
         }
