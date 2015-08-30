@@ -15,11 +15,11 @@ class UserSerializer(serializers.ModelSerializer):
 class EntitySerializer(serializers.HyperlinkedModelSerializer):
 
     user = UserSerializer()
-    chief_image = serializers.URLField(source='chief_image')
-    detail_images = serializers.CharField(source='detail_images')
-    like_count = serializers.IntegerField(source='like_count', read_only=True)
-    note_count = serializers.IntegerField(source='note_count', required=True)
-    entity_hash = serializers.CharField(source='entity_hash', read_only=True)
+    # chief_image = serializers.URLField(source='chief_image')
+    # detail_images = serializers.CharField(source='detail_images')
+    # like_count = serializers.IntegerField(source='like_count', read_only=True)
+    # note_count = serializers.IntegerField(source='note_count', required=True)
+    # entity_hash = serializers.CharField(source='entity_hash', read_only=True)
     # creator = serializers.CharField(source='user')
 
     class Meta:
