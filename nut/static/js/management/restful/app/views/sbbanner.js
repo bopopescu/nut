@@ -14,21 +14,26 @@ define(function(require){
         },
 
         editValue: function(){
-
             this.$('td').removeClass('value');
             this.$('.edit-save').addClass('editing');
         },
         saveValue: function(){
             this.collectData();
-            this.model.save({
+
+            var res= this.model.save({
                 wait: true,
-                success: this.syncOK.bind(this),
-                error:this.error.bind(this)
-            });
-
-
+            }).then(this.success.bind(this),this.error.bind(this));
+            console.log(res);
             this.$('td').addClass('value');
             this.$('.edit-save').removeClass('editing');
+        },
+        success: function(data){
+
+            console.log(data);
+        },
+
+        error:function(data){
+            console.log(JSON.parse(data.responseText).status[0]);
         },
 
         collectData: function(){
