@@ -15,6 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
 class EntitySerializer(serializers.HyperlinkedModelSerializer):
 
     user = UserSerializer()
+    url = serializers.URLField(source='get_absolute_url')
     # chief_image = serializers.URLField(source='chief_image')
     # detail_images = serializers.CharField(source='detail_images')
     # like_count = serializers.IntegerField(source='like_count', read_only=True)
@@ -24,7 +25,7 @@ class EntitySerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Entity
-        fields = ('user', 'url', 'entity_hash', 'brand', 'title', 'intro', 'rate',
+        fields = ('user', 'url', 'brand', 'title', 'intro', 'rate',
                   'price', 'status', 'chief_image', 'detail_images', 'like_count', 'note_count' )
         # depth = 1
 
