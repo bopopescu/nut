@@ -7,6 +7,7 @@ from apps.api.views import user, entity, banner
 
 router = routers.DefaultRouter()
 router.register(r'user', user.UserViewSet),
+router.register(r'entities', entity.EntityViewSet),
 # router.register(r'selection', entity.SelectionViewSet),
 router.register(r'banner', banner.BannerViewSet),
 
@@ -23,24 +24,23 @@ selection_detail = entity.SelectionViewSet.as_view({
     # 'delete': 'destroy',
 })
 
-
+#
 urlpatterns = patterns(
     'apps.api.views',
+    # url(r'^entities/', include('apps.api.urls.entities')),
     url(r'^', include(router.urls)),
-    # url(r'^user/', )
     # url(r'^feed/', include('apps.mobile.urls.feed')),
     url(r'^auth/', include('rest_framework.urls', namespace='rest_framework'))
-    # url()
 )
 
-urlpatterns += patterns(
-    'apps.api.views',
-    url(r'^feed/', include('apps.mobile.urls.feed')),
-)
+# urlpatterns += patterns(
+#     'apps.api.views',
+#     url(r'^feed/', include('apps.mobile.urls.feed')),
+# )
 
-urlpatterns += format_suffix_patterns([
-    # url(r'^$',)
-])
+# urlpatterns += format_suffix_patterns([
+#     # url(r'^$',)
+# ])
 
 
 
