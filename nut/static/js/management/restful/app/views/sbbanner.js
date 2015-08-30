@@ -4,11 +4,12 @@ define(function(require){
         tagName: 'form',
         template: _.template($('#id-sbbanner-form-template').html()),
         schema :{
-            image: {type:'Hidden',},
+            image: {type:'Imgpicker'},
             position: 'Number',
             link:'Text',
             status: {type:'Select', options:{0: '移除', 1:'不激活',2:'激活'}}
-        }
+        },
+
     });
 
     //var BannerItemView = Backbone.View.extend({
