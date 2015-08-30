@@ -5,11 +5,11 @@ from rest_framework import serializers
 
 class UserSerializer(serializers.ModelSerializer):
 
-    # nickname = serializers.CharField(source='profile.nickname')
+    #nickname = serializers.CharField(source='nickname')
 
     class Meta:
         model = GKUser
-        fields = ('email',)
+        fields = ('email','nickname')
 
 
 class EntitySerializer(serializers.HyperlinkedModelSerializer):
