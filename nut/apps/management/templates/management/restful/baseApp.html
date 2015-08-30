@@ -42,59 +42,29 @@
 
 {% endblock %}
 {% block user_script %}
-    <script src="{% static 'js/management/restful/lib/underscore.js' %}"  ></script>
-    <script src="{% static 'js/management/restful/lib/jquery.js' %}"  ></script>
-    <script src="{% static 'js/management/restful/lib/csrf.js' %}"  ></script>
-
-    <script src="{% static 'js/management/restful/lib/backbone.js' %}"  ></script>
-    <script src="{% static 'js/management/restful/lib/ant_backbone_ext.js' %}"  ></script>
-
-
-    <script src="{% static 'js/management/restful/sentinel.js' %}" id="hero" ></script>
-    <script data-main="{% static 'js/management/restful/main.js' %}" src="{% static 'js/management/restful/require.js' %}" ></script>
-
-
     {% block html_templates %}
-        <script id="id-sbbanner-item-template" type="text/template">
-                <td class="value">
-                    <div class="attachment-block">
-                        <img class="attachment-img" src="<%=image_url %>"/>
-                    </div>
-                    <input type="hidden" for-key="image" value="<%=image%>">
-                    <input type="file"  accept="image/*" name="upload-file" class="image-file-input" >
+{#        will put all single app template here #}
+{#        by -an #}
+        <script id="id-sbbanner-form-template" type="text/html">
+                <tr>
+                <td>
+
                 </td>
-                <td class="value">
-                    <span class="value-content">
-                        <%=position%>
-                    </span>
-                    <span class="form-widget">
-                        <input  type="text" value="<%=position%>" for-key="position">
-                    </span>
+                <td class='value' data-editors='position'>
                 </td>
-                <td class="value">
-                    <span class="value-content">
-                        <a href="<%=link%>"><%=link %></a>
-                    </span>
-                    <span class="form-widget">
-                        <input type="text" value="<%=link%>" for-key="link">
-                    </span>
+                <td data-editors='link'>
                 </td>
-                <td class="value">
-                    <span class="value-content">
-                        <%=status%>
-                    </span>
-                    <span class="form-widget">
-                        <input type="text" value="<%=status%>" for-key="status">
-                    </span>
+                    <td data-editors='status'>
                 </td>
 
-                <td class="action edit-save">
-                    <button class="btn btn-warning btn-edit">Edit</button>
-                    <button class="btn btn-success btn-save">Save</button>
+                <td class='action edit-save'>
+                    <button class='btn btn-warning btn-edit'>Edit</button>
+                    <button class='btn btn-success btn-save'>Save</button>
                 </td>
-                <td class="action">
-                    <button class="btn btn-danger btn-delete">Delete</button>
+                <td class='action'>
+                    <button class='btn btn-danger btn-delete'>Delete</button>
                 </td>
+                </tr>
         </script>
     {% endblock %}
 

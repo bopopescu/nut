@@ -1,4 +1,29 @@
 {% extends 'management/management_base.html' %}
+{% load staticfiles i18n %}
+{% block css %}
+{#    <link href="{% static 'js/management/restful/lib/templates/bootstrap.css' %}" rel="stylesheet">#}
+    <link href="{% static 'js/management/restful/lib/templates/bootstrap3.css' %}" rel="stylesheet">
+
+{% endblock %}
 
 {% block manage_script %}
+    <script src="{% static 'js/management/restful/lib/underscore.js' %}"  ></script>
+    <script src="{% static 'js/management/restful/lib/jquery.js' %}"  ></script>
+    <script src="{% static 'js/management/restful/lib/csrf.js' %}"  ></script>
+
+
+
+    <script src="{% static 'js/management/restful/lib/backbone.js' %}"  ></script>
+    <script src="{% static 'js/management/restful/lib/ant_backbone_ext.js' %}"  ></script>
+
+    <script src="{% static 'js/management/restful/lib/backbone-forms.js' %}"  ></script>
+
+    <script src="{% static 'js/management/restful/lib/adapters/backbone.bootstrap-modal.js' %}"  ></script>
+    <script src="{% static 'js/management/restful/lib/templates/bootstrap3.js' %}"  ></script>
+
+
+    <script src="{% static 'js/management/restful/sentinel.js' %}" id="hero" ></script>
+    <script data-main="{% static 'js/management/restful/main.js' %}" src="{% static 'js/management/restful/require.js' %}" ></script>
+
+
 {% endblock %}
