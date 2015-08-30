@@ -814,20 +814,6 @@ class Entity(BaseModel):
         except Entity.DoesNotExist, e:
             pass
 
-    # search index
-    # search = SphinxSearch(
-    #     index = 'entities',
-    #     weights={
-    #         'brand': 100,
-    #         'category': 80,
-    #         'title': 50,
-    #         'note' : 10,
-    #         # 'intro': 5,
-    #     },
-    #     maxmatches = 10000,
-    #     mode = 'SPH_MATCH_PHRASE',
-    #     rankmode = 'SPH_RANK_NONE',
-    # )
 
 class Selection_Entity(BaseModel):
     entity = models.OneToOneField(Entity, unique=True)
