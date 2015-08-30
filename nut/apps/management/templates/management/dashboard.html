@@ -137,25 +137,25 @@
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="box box-primary">
+                <div class="box box-primary" id="recently-entities">
                     <div class="box-header with-border">
                         <h3 class="box-title">{% trans 'Recently Added Products' %}</h3>
                     </div>
                     <div class="box-body">
                         <ul class="products-list product-list-in-box">
-                        {% for entity in entities %}
-                            <li class="item">
-                                <div class="product-img">
-                                    <img src="{{ entity.chief_image|resize:'128' }}" alt="Product Image">
-                                </div>
-                                <div class="product-info">
-                                    <a href="javascript:;" class="product-title">{{ entity|truncatechars:'20' }}<span class="label label-warning pull-right">{{ entity.price }}</span></a>
-                                    <span class="product-description">
-                                       {{ entity.user.profile.nick }}
-                                    </span>
-                                </div>
-                            </li><!-- /.item -->
-                        {% endfor %}
+{#                        {% for entity in entities %}#}
+{#                            <li class="item">#}
+{#                                <div class="product-img">#}
+{#                                    <img src="{{ entity.chief_image|resize:'128' }}" alt="Product Image">#}
+{#                                </div>#}
+{#                                <div class="product-info">#}
+{#                                    <a href="javascript:;" class="product-title">{{ entity|truncatechars:'20' }}<span class="label label-warning pull-right">{{ entity.price }}</span></a>#}
+{#                                    <span class="product-description">#}
+{#                                       {{ entity.user.profile.nick }}#}
+{#                                    </span>#}
+{#                                </div>#}
+{#                            </li><!-- /.item -->#}
+{#                        {% endfor %}#}
                         </ul>
                     </div>
                     <div class="box-footer text-center">
@@ -192,5 +192,16 @@
 {% endblock %}
 
 {% block user_script %}
-    <script src="{% static 'thirdparty/chart/chart.min.js' %}"></script>
+{#    <script src="{% static 'thirdparty/chart/chart.min.js' %}"></script>#}
+    <script type="text/template" id="entity-template">
+            <div class="product-img">
+                <img src="<%= chief_image %>" alt="Product Image">
+            </div>
+            <div class="product-info">
+                <a href="javascript:;" class="product-title"><%= title %><span class="label label-warning pull-right"><%= price %></span></a>
+                <span class="product-description">
+                </span>
+            </div>
+    </script>
+    <script src="{% static 'js/management/dashboard.js' %}" type="application/javascript"></script>
 {% endblock %}
