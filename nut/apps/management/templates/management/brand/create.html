@@ -2,30 +2,73 @@
 {% load i18n %}
 
 {% block content %}
-    <div class="row">
-        <form class="well form-horizontal" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <fieldset>
-            {% for field in form %}
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                    <div class="col-sm-6">
-                        {{ field }}
+    <section class="content-header">
+        <h1>
+            创建品牌
+        </h1>
+        <small>创建新的品牌</small>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3>创建新的品牌</h3>
                     </div>
-                    {% if field.errors %}
-                        {% for error in field.errors %}
-                            <span class="help-block">{{ error }}</span>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-            {% endfor %}
-            </fieldset>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-5">
-                    <button type="submit" class="btn btn-primary btn-lg">{% trans 'submit' %}</button>
+                   <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                   {% csrf_token %}
+                    <div class="box-body">
+                    {% for field in form %}
+                        <div class="form-group">
+                                <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                            <div class="col-sm-6">
+                                {{ field }}
+                            </div>
+                            {% if field.errors %}
+                                {% for error in field.errors %}
+                                    <span class="help-block">{{ error }}</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    </div>
+                        <div class="box-footer">
+                            <div class="col-sm-offset-2 col-sm-5">
+                                <button type="submit" class="btn btn-primary btn-lg">{% trans 'submit' %}</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
-    </div>
+        </div>
+    </section>
+{#    <div class="row">#}
+{#        <form class="well form-horizontal" method="post" enctype="multipart/form-data">#}
+{#            {% csrf_token %}#}
+{#            <fieldset>#}
+{#            {% for field in form %}#}
+{#                <div class="form-group">#}
+{#                    <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>#}
+{#                    <div class="col-sm-6">#}
+{#                        {{ field }}#}
+{#                    </div>#}
+{#                    {% if field.errors %}#}
+{#                        {% for error in field.errors %}#}
+{#                            <span class="help-block">{{ error }}</span>#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#            </fieldset>#}
+{#            <div class="form-group">#}
+{#                <div class="col-sm-offset-2 col-sm-5">#}
+{#                    <button type="submit" class="btn btn-primary btn-lg">{% trans 'submit' %}</button>#}
+{#                </div>#}
+{#            </div>#}
+{#        </form>#}
+{#    </div>#}
 
 {% endblock %}
