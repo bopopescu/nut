@@ -1350,6 +1350,30 @@ body{
   min-height: 570px;
 }
 
+#settings.edit_profile{
+  .edit_info{
+    ul li{
+      position: relative;
+      height: auto;
+      padding: 0;
+      margin: 0 0 10px 0;
+
+      &.error-msg{
+         height: auto!important;
+         color: darkred;
+         text-align: right;
+         font-size: @mini-size;
+         height: auto;
+         .errorlist li{
+           font-size: @mini-size;
+           height: auto;
+         }
+      }
+
+    }
+  }
+
+}
 
 @import "dimentions/xs.less";
 @import "dimentions/sm.less";
