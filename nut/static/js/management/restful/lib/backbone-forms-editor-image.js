@@ -19,7 +19,7 @@
             this.$uploadInput = $('<input type="file" multiple="multiple" />');
             this.$loader = $('<p class="upload-status"><span class="loader"></span> Uploading&hellip;</p>');
             this.$error = $('<p class="upload-error error">Error</p>');
-            this.$image = $('<img src="">');
+            this.$image = $('<img class="table-image" src="">');
         },
 
         // return an array of file dicts
@@ -31,6 +31,7 @@
         setValue: function(value) {
             var str = value;
             this.$input.val(str);
+            this.$image.attr('src',str);
 
         },
 
@@ -43,9 +44,13 @@
             this.$el.append(this.$image);
             return this;
         },
-
-        sendFile:function(file ){
+        _getFileFromEvent: function(e){
+            var files = e.currentTarget.files
+            return files ;
+        },
+        sendFile:function(event){
             var  data = new FormData();
+            var file = this._getFileFromEvent(event);
             data.append("file", file[0]);
             console.log('上传文件中......');
             $.ajax({
@@ -62,6 +67,7 @@
         },
 
         upload_success: function(url){
+            this.setValue(url);
             console.log(url);
         },
         upload_fail: function(data){

@@ -1,6 +1,13 @@
 .content-full-height {
   float: none;
 }
+.table-image {
+  max-width: 150px;
+  min-width: 150px;
+}
+.table .form-control {
+  height: auto;
+}
 .table-dynamic .data-holder td {
   position: relative;
 }
