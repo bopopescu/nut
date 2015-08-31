@@ -1,5 +1,8 @@
-[![guoku icon](http://tp4.sinaimg.cn/2179686555/50/5657509044/1)](id:jiaxin)
+<p align="center">
+  <img title="backbone marionette" src='http://tp4.sinaimg.cn/2179686555/50/5657509044/1' />
+</p>
 
+<p align="center">The Django framework</p>
 
 ## 概览
 **果库网站 V4**
@@ -37,8 +40,8 @@ brew install imagemagick
 * *jQuery-1.11.1*	[相关文档](http://jquery.com/)
 
 
-### 搜索引擎
-* *whoohe-2.5.6* [相关文档](https://pythonhosted.org/Whoosh/index.html)
+<!--### 搜索引擎
+* *whoohe-2.5.6* [相关文档](https://pythonhosted.org/Whoosh/index.html)-->
 
 
 ### 安装包
