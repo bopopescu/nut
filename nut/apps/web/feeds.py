@@ -146,6 +146,7 @@ class ArticlesFeeds(Feed):
 
     def item_description(self, item):
         content = strip_tags(item.article.content)
+        # content = strip_tags(item.article.bleached_content)
         desc = content.split(u'。')
         # return "<![CDATA[%s]]>" % (desc[0] + u'。')
         return desc[0] + u'。'
@@ -156,6 +157,7 @@ class ArticlesFeeds(Feed):
         extra.update(
             {
                 'content_encoded': "<![CDATA[%s]]>" % item.article.content,
+                # 'content_encoded': "<![CDATA[%s]]>" % item.article.bleached_content,
             }
         )
 

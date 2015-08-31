@@ -322,11 +322,14 @@ class UserDetailBase(ListView):
         return _user
     def get_pronoun(self):
         _current_user = self.get_showing_user()
-        if self.request.user == _current_user:
-            return _('My')
-        elif _current_user.profile.gender == User_Profile.Woman:
-            return _('Hers')
-        else:
+        try:
+            if self.request.user == _current_user:
+                return _('My')
+            elif _current_user.profile.gender == User_Profile.Woman:
+                return _('Hers')
+            else:
+                return _('His')
+        except Exception as e:
             return _('His')
 
     def get_context_data(self, **kwargs):

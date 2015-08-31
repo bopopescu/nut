@@ -43,9 +43,9 @@
                     <div class="head">
                         {% include 'web/user/partial/avatar_upload.html' with user_context=user %}
                     </div>
-                {% if profile_form.errors %}
-                    {{ profile_form.errors.as_ul }}
-                {% endif %}
+{#                {% if profile_form.errors %}#}
+{#                    {{ profile_form.errors.as_ul }}#}
+{#                {% endif %}#}
                     <form method="post" action="{% url 'web_user_settings' %}" class="form-horizontal">{% csrf_token %}
                         <div class="edit_info_area">
                             <div class="edit_info clear">
@@ -57,14 +57,23 @@
                                     <li class="fs_16 fc_2 table">
                                         <span class="title td">{{ profile_form.nickname.label }}</span>
                                         {{ profile_form.nickname }}
-                                        <span id="username_error_msg" class="input_error_msg"></span>
-
                                     </li>
-                                    <li class="fs_16 fc_2 table"><span class="title td">{{ profile_form.email.label }}</span>{{ profile_form.email }}</li>
+                                    <li class="error-msg" id="username_error_msg">
+                                        {{ profile_form.nickname.errors }}
+                                    </li>
+                                    <li class="fs_16 fc_2 table">
+                                        <span class="title td">{{ profile_form.email.label }}</span>
+                                        {{ profile_form.email }}
+                                    </li>
+                                    <li class="error-msg">
+                                         {{ profile_form.email.errors }}
+                                    </li>
                                     <li class="fs_16 fc_2 intor table">
                                         <span class="title td">{{ profile_form.bio.label }}</span>
                                         {{ profile_form.bio }}
-                                        <span id="bio_error_msg" class="input_error_msg"></span>
+                                    </li>
+                                    <li class="error-msg" id="bio_error_msg">
+                                        {{ profile_form.bio.errors }}
                                     </li>
 
 
