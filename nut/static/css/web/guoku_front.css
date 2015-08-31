@@ -2447,6 +2447,23 @@ body {
 .search-result-container {
   min-height: 570px;
 }
+#settings.edit_profile .edit_info ul li {
+  position: relative;
+  height: auto;
+  padding: 0;
+  margin: 0 0 10px 0;
+}
+#settings.edit_profile .edit_info ul li.error-msg {
+  height: auto!important;
+  color: darkred;
+  text-align: right;
+  font-size: 13px;
+  height: auto;
+}
+#settings.edit_profile .edit_info ul li.error-msg .errorlist li {
+  font-size: 13px;
+  height: auto;
+}
 @media (max-width: 767px) {
   .event-item {
     padding: 5px 5px 5px 5px;
