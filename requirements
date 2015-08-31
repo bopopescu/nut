@@ -40,6 +40,7 @@ requests==2.6.0
 pysolr==3.3.2
 pytest==2.7.2
 xpinyin==0.5.3
+bleach==1.4.1
 
 # package form github
 -e git+https://github.com/guoku/django-storages.git#egg=django-storages
