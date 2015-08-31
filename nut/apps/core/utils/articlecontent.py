@@ -24,7 +24,7 @@ def handleBoldStyle(content):
         sup.contents = span.contents
         span.insert_after(sup)
         span.extract()
-    return soup.prettify()
+    return str(soup)
 
 
 def contentBleacher(content):
