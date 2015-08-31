@@ -300,7 +300,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         cache.delete(key)
 
     def send_verification_mail(self):
-        template_invoke_name = settings.VERIFY_EMAIL_TEMPLATE
+        template_invoke_name = settings.VERFICATION_EMAIL_TEMPLATE
         mail_message = EmailMessage(to=(self.email,),
                                     from_email='hi@guoku.com')
         uidb64 = urlsafe_base64_encode(force_bytes(self.id))
