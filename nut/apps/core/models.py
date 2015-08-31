@@ -1142,7 +1142,8 @@ class WeChat_Token(BaseModel):
         return md5(code_string.encode('utf-8')).hexdigest()
 
 
-# TODO: implement a digest property
+from apps.core.utils.articlecontent import contentBleacher
+
 class Article(BaseModel):
 
     (remove, draft, published) = xrange(3)
@@ -1174,6 +1175,10 @@ class Article(BaseModel):
         if not kwargs.pop('skip_updatetime', False):
             self.updated_datetime = datetime.now()
         super(Article, self).save(*args, **kwargs)
+
+    @property
+    def bleached_content(self):
+        return contentBleacher(self.content)
 
     @property
     def digest(self):
