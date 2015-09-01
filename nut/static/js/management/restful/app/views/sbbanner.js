@@ -15,7 +15,14 @@ define(function(require){
         events:{
             'click .btn-edit': 'editValue',
             'click .btn-save': 'saveValue',
-            'change': 'showSaveButton'
+            'change': 'showSaveButton',
+            'click .btn-delete': 'deleteEntry'
+        },
+
+        deleteEntry: function(){
+          this.model.destroy();
+          this.$el.remove();
+
         },
         editValue: function(){
             console.log(this);
@@ -29,7 +36,6 @@ define(function(require){
         showSaveButton:function(){
             console.log('changed! show button');
             this.getSaveButton().show();
-
         },
         hideSaveButton:function(){
             console.log("hide button !")
@@ -107,9 +113,32 @@ define(function(require){
         initialize: function(){
             this.listenTo(this.collection, 'reset', this.render);
             this.listenTo(this.collection, 'add', this.collectionAdd);
+            this.listenTo(this.collection, 'sync', this.sync);
             this.listContainer = this.$('.list-container');
+            this.addButton = this.$('#add-sbbanner');
             this.clearEle(this.listContainer.get());
             this.collection.fetch({reset:true});
+        },
+
+        events : {
+            'click #add-sbbanner':  'addBanner'
+        },
+
+        addBanner: function(){
+          var newModel =   this.collection.create({
+              image: 'xxx',
+              position: 1,
+              link: 'http://www.guoku.com/',
+              status:1
+          });
+          var newBannerItemForm = new BannerItemForm({
+              model : newModel
+          });
+          this.listContainer.prepend(newBannerItemForm.render().el);
+        },
+
+        sync: function(){
+            console.log('collection sync');
         },
 
         render: function(){

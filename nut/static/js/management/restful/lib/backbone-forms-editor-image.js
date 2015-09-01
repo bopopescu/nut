@@ -28,10 +28,14 @@
             return val ;
         },
 
+        resizeImageUrl:function(url,sizeStr){
+            return url.replace('images/','images/'+sizeStr+'/');
+        },
         setValue: function(value) {
             var str = value;
             this.$input.val(str);
-            this.$image.attr('src',str);
+            var resizedUrl = this.resizeImageUrl(str, '100');
+            this.$image.attr('src','/'+resizedUrl);
 
         },
 
@@ -42,7 +46,6 @@
             this.$el.append(this.$loader.hide());
             this.$el.append(this.$error.hide());
             this.$el.append(this.$image);
-            this.$image.attr('src', this.value);
             return this;
         },
         _getFileFromEvent: function(e){
@@ -67,9 +70,17 @@
             });
         },
 
+        get_path_from_url: function(url){
+            var el = document.createElement('a');
+                el.href = url;
+            //remove the first slash
+            return el.pathname.slice(1)
+        },
+
         upload_success: function(url){
-            this.setValue(url);
-            console.log(url);
+            var uri = this.get_path_from_url(url);
+            this.setValue(uri);
+            console.log(uri);
         },
         upload_fail: function(data){
             console.log(data);
