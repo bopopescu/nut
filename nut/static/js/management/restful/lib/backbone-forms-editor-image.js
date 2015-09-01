@@ -25,7 +25,7 @@
         // return an array of file dicts
         getValue: function() {
             var val = this.$input.val();
-            return val ? JSON.parse(val) : [];
+            return val ;
         },
 
         setValue: function(value) {
@@ -42,6 +42,7 @@
             this.$el.append(this.$loader.hide());
             this.$el.append(this.$error.hide());
             this.$el.append(this.$image);
+            this.$image.attr('src', this.value);
             return this;
         },
         _getFileFromEvent: function(e){
