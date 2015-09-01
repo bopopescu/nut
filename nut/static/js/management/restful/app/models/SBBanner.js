@@ -2,8 +2,8 @@ define(function (require) {
 
       var   SBBanner = Backbone.Model.extend({
             urlRoot: "/management/restful/sbbanners/"
-
         });
+
       var  SBBannerCollection = Backbone.Collection.extend({
             url:'/management/restful/sbbanners/',
             model: SBBanner,
@@ -14,16 +14,10 @@ define(function (require) {
                     return data;
                 }
             }
-
-
         });
 
       return {
           SBBanner: SBBanner,
           SBBannerCollection: SBBannerCollection
       }
-
-
-
-
 });

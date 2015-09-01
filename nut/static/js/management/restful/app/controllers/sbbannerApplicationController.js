@@ -21,7 +21,6 @@ define(function(require){
         }
 
     });
-
     return applicationController;
 
 });
