@@ -7,9 +7,9 @@ define(function(require){
         tagName: 'form',
         template: _.template($('#id-sbbanner-form-template').html()),
         schema :{
-            image: {type:'Imgpicker'},
-            position: 'Number',
-            link:'Text',
+            image: {type:'Imgpicker',validators:['required'] },
+            position: {type:'Number', validators: ['required','number']},
+            link:{type:'Text', validators:['required','url']},
             status: {type:'Select', options:{0: '移除', 1:'不激活',2:'激活'}}
         },
         events:{
@@ -20,8 +20,11 @@ define(function(require){
         },
 
         deleteEntry: function(){
-          this.model.destroy();
-          this.$el.remove();
+            if (window.confirm('确认要删除吗？')){
+                 this.model.destroy();
+                    this.$el.remove();
+            }
+
 
         },
         editValue: function(){
@@ -29,7 +32,7 @@ define(function(require){
         },
         saveValue: function(){
             console.log(this);
-            this.commit();
+            console.log(this.commit());
             this.model.save();
             this.hideSaveButton();
         },
@@ -126,8 +129,8 @@ define(function(require){
 
         addBanner: function(){
           var newModel =   this.collection.create({
-              image: 'xxx',
-              position: 1,
+              image: 'WWW',
+              position: 10,
               link: 'http://www.guoku.com/',
               status:1
           });
