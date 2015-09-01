@@ -1,7 +1,9 @@
 # coding=utf-8
 from django import forms
+from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.models import get_current_site
+from django.core.exceptions import ValidationError
 from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
 from django.template.defaulttags import url
@@ -136,12 +138,23 @@ class GuokuUserSignUpForm(forms.Form):
         return self.user_cache
 
 
+def validate_user_status(email):
+    user = GKUser.objects.filter(email=email)
+    if not user:
+        raise ValidationError(_('This email has not been registered on Guoku.'))
+    user = user[0]
+    if user.is_blocked:
+        raise ValidationError(_('Your account has been deleted, '
+                                'please contact %s.' % settings.GUOKU_MAIL))
+
+
 class UserPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(label=_("Please Input Your Email"),
                              max_length=254,
                              widget=forms.TextInput(
                                  attrs={'class': 'form-control'}),
-                             help_text=_('please register email'))
+                             help_text=_('please register email'),)
+    email.validators.append(validate_user_status)
 
     captcha = CaptchaField(label=_("Please Input Captcha"), )
 
