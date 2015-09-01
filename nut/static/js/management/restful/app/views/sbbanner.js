@@ -1,6 +1,9 @@
 define(function(require){
     "use strict";
     var BannerItemForm = Backbone.Form.extend({
+        initialize: function(options){
+            Backbone.Form.prototype.initialize.call(this,options);
+        },
         tagName: 'form',
         template: _.template($('#id-sbbanner-form-template').html()),
         schema :{
@@ -9,7 +12,29 @@ define(function(require){
             link:'Text',
             status: {type:'Select', options:{0: '移除', 1:'不激活',2:'激活'}}
         },
+        events:{
+            'click .btn-edit': 'editValue',
+            'click .btn-save': 'saveValue',
+            'change': 'showSaveButton'
+        },
+        editValue: function(){
+            console.log(this);
+        },
+        saveValue: function(){
+            console.log(this);
+            this.commit();
+            this.model.save();
+            this.hideSaveButton();
+        },
+        showSaveButton:function(){
+            console.log('changed! show button');
+            this.saveButton.show();
 
+        },
+        hideSaveButton:function(){
+            console.log("hide button !")
+            this.saveButton.hide();
+        },
     });
 
     //var BannerItemView = Backbone.View.extend({
