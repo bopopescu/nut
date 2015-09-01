@@ -1,7 +1,9 @@
 from  apps.core.models import Sidebar_Banner
-from  apps.core.serializers.sidebar_banner import Sidebar_Banner_Serializer
+from  apps.api.serializers.sidebar_banner import Sidebar_Banner_Serializer
 from  rest_framework import generics
 from  rest_framework import permissions
+
+
 # use only the most simple permission class , only admin and editor get
 # http://www.django-rest-framework.org/tutorial/4-authentication-and-permissions/
 
