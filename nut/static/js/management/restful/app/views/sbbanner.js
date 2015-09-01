@@ -32,9 +32,21 @@ define(function(require){
         },
         saveValue: function(){
             console.log(this);
-            console.log(this.commit());
-            this.model.save();
-            this.hideSaveButton();
+            var error_obj = this.commit();
+
+
+            if (_.isUndefined(error_obj)){
+                 this.model.save();
+                 this.hideSaveButton();
+            }else{
+                var msg = 'error: \n';
+                _.map(error_obj, function(value, key){
+                   console.log( key + ' : ' + value.message );
+                   msg = msg + key + ' :  ' +  value.message + '\n';
+                });
+                alert(msg);
+            }
+
         },
         showSaveButton:function(){
             console.log('changed! show button');
