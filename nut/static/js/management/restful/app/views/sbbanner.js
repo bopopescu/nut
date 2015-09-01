@@ -28,13 +28,22 @@ define(function(require){
         },
         showSaveButton:function(){
             console.log('changed! show button');
-            this.saveButton.show();
+            this.getSaveButton().show();
 
         },
         hideSaveButton:function(){
             console.log("hide button !")
-            this.saveButton.hide();
+            this.getSaveButton().hide();
         },
+        getSaveButton:function(){
+            this._saveButton = this._saveButton || this.$('.edit-save .btn-save');
+            return this._saveButton;
+        },
+        render: function(){
+            Backbone.Form.prototype.render.call(this);
+            this.getSaveButton().hide();
+            return this;
+        }
     });
 
     //var BannerItemView = Backbone.View.extend({
