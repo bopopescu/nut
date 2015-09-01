@@ -15,7 +15,7 @@ define(function(require){
 
             this.sbbannerCollection = new SBBannerCollection();
             var sbbannerList = new SBBannerListView({
-                el: '#sbbanner',
+                el: '#SBBanner-management',
                 collection: this.sbbannerCollection,
             });
         }
