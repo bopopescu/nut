@@ -24,7 +24,9 @@
 
 
     <script src="{% static 'js/management/restful/sentinel.js' %}" id="hero" ></script>
-    <script data-main="{% static 'js/management/restful/main.js' %}" src="{% static 'js/management/restful/require.js' %}" ></script>
+    {% block entry_script %}
+    {# Important the app entry script is here #}
+    {% endblock %}
 
 
 {% endblock %}

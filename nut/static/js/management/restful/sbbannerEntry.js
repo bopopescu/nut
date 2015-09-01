@@ -21,7 +21,7 @@ require.config({
     },
 });
 
-require(['app/router'], function (Router) {
+require(['app/sbbannerRouter'], function (Router) {
     var router = new Router();
     Backbone.history.start();
 });
