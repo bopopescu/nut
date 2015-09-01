@@ -6,7 +6,8 @@
                 {% if field.name == 'pub_time' %}
                 <div class="form-group {% if field.errors %}has-error{% endif %}">
                     <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                    <div class="input-group date form_datetime col-sm-5" data-link-field="dtp_input1" data-date-format="yyyy-mm-dd hh:ii">
+{#                                               block time picker , by AnChen        #}
+                    <div class="input-group date _form_datetime col-sm-5" data-link-field="dtp_input1" data-date-format="yyyy-mm-dd hh:ii">
                         {{ field }}
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-remove"></span>

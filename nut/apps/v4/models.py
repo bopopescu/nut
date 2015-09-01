@@ -1,13 +1,16 @@
 from apps.core.models import Entity, Buy_Link, Note, \
     GKUser, Selection_Entity, Sina_Token, \
     Taobao_Token, WeChat_Token, User_Follow, Category
-from apps.notifications.models import JpushToken
 
+from apps.core.models import Selection_Article, Article
+from apps.notifications.models import JpushToken
+from apps.notifications import notify
 # from django.db import models
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.db.models.signals import post_delete, post_save
-from apps.notifications import notify
+from django.utils.html import strip_tags
+
 
 import time
 from hashlib import md5
@@ -270,6 +273,36 @@ class APIWeChatToken(WeChat_Token):
     def __unicode__(self):
         return self.unionid
 
+# TODO Selection Articles
+
+class APISeletion_Articles(Selection_Article):
+
+    class Meta:
+        proxy = True
+
+    @property
+    def api_article(self):
+        return  APIArticle.objects.get(pk=self.article_id)
+        # return APIArticle(self.article)
+
+class APIArticle(Article):
+
+    class Meta:
+        proxy = True
+
+    @property
+    def strip_tags_content(self):
+        return strip_tags(self.content)
+
+    def v4_toDict(self):
+        res = self.toDict()
+        res.pop('creator_id')
+        res['created_datetime'] = time.mktime(self.created_datetime.timetuple())
+        res['updated_datetime'] = time.mktime(self.updated_datetime.timetuple())
+        res['content'] = self.strip_tags_content
+        res['url'] = self.get_absolute_url()
+        res['creator'] = self.creator.v3_toDict()
+        return res
 
 # TODO API JPUSH
 class APIJpush(JpushToken):
