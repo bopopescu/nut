@@ -119,7 +119,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def is_blocked(self):
-        if self.is_active == GKUser.blocked or self.active == GKUser.remove:
+        if self.is_active == GKUser.blocked or self.is_active == GKUser.remove:
             return True
         return False
 
