@@ -179,7 +179,6 @@ class UserPasswordResetForm(PasswordResetForm):
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             user = user
             token = token_generator.make_token(user)
-            protocol = 'https' if use_https else 'http'
             mail_message = EmailMessage(to=(email,),
                                         from_email='hi@guoku.com')
             reverse_url = reverse('web_password_reset_confirm',

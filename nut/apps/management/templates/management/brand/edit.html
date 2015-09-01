@@ -2,42 +2,91 @@
 {% load i18n %}
 
 {% block content %}
-    <h1 class="page-header">{{ brand.name }}</h1>
-    <div class="row placeholders">
-        <div class="col-xs-6 col-sm-3 placeholders">
-            <img class="img-responsive img-thumbnail" alt="300x300"  src="{{ brand.icon_url }}">
-        </div>
-    </div>
-
-    <div class="row" style="padding-bottom: 24px;">
-        <a class="btn btn-success" href="{% url 'management_brand_entity_list' brand.name %}" target="_blank">{% trans 'entity' %}</a>
-    </div>
-    
-    <div class="row">
-        <form class="well form-horizontal" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <fieldset>
-            {% for field in form %}
-                <div class="form-group {% if field.errors %}has-error{% endif %}">
-                    <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                    <div class="col-sm-6">
-                        {{ field }}
+    <section class="content-header">
+        <h1>
+            {{ brand.name }}
+            <small>更新品牌信息</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+            <li><a href="#"><i class="fa fa-barcode"></i>{% trans 'brand' %}</a></li>
+            <li class="active">{{ brand.name }}</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+               <div class="box box-primary">
+                   <div class="box-header">
+                       <div class="col-xs-6 col-sm-3 col-sm-offset-3 placeholders">
+                           <img class="img-responsive img-thumbnail" alt="300x300"  src="{{ brand.icon_url }}">
+                       </div>
+                   </div>
+                   <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                   {% csrf_token %}
+                   <div class="box-body">
+                    {% for field in form %}
+                        <div class="form-group {% if field.errors %}has-error{% endif %}">
+                            <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                            <div class="col-sm-6">
+                                {{ field }}
+                            </div>
+                            {% if field.errors %}
+                                {% for error in field.errors %}
+                                    <span class="help-block">{{ error }}</span>
+                                {% endfor %}
+                            {% else %}
+                                <span class="help-block">{{ field.help_text }}</span>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
                     </div>
-                    {% if field.errors %}
-                        {% for error in field.errors %}
-                            <span class="help-block">{{ error }}</span>
-                        {% endfor %}
-                    {% else %}
-                        <span class="help-block">{{ field.help_text }}</span>
-                    {% endif %}
-                </div>
-            {% endfor %}
-            </fieldset>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-5">
-                    <button type="submit" class="btn btn-primary btn-lg">{% trans 'update' %}</button>
-                </div>
+                    <div class="box-footer">
+                        <div class="col-sm-offset-2 col-sm-5">
+                            <button type="submit" class="btn btn-primary btn-lg">{% trans 'update' %}</button>
+                        </div>
+                    </div>
+                   </form>
+               </div>
             </div>
-        </form>
-    </div>
+        </div>
+    </section>
+{#    <h1 class="page-header">{{ brand.name }}</h1>#}
+{#    <div class="row placeholders">#}
+{#        <div class="col-xs-6 col-sm-3 placeholders">#}
+{#            <img class="img-responsive img-thumbnail" alt="300x300"  src="{{ brand.icon_url }}">#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <div class="row" style="padding-bottom: 24px;">#}
+{#        <a class="btn btn-success" href="{% url 'management_brand_entity_list' brand.name %}" target="_blank">{% trans 'entity' %}</a>#}
+{#    </div>#}
+{#    #}
+{#    <div class="row">#}
+{#        <form class="well form-horizontal" method="post" enctype="multipart/form-data">#}
+{#            {% csrf_token %}#}
+{#            <fieldset>#}
+{#            {% for field in form %}#}
+{#                <div class="form-group {% if field.errors %}has-error{% endif %}">#}
+{#                    <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>#}
+{#                    <div class="col-sm-6">#}
+{#                        {{ field }}#}
+{#                    </div>#}
+{#                    {% if field.errors %}#}
+{#                        {% for error in field.errors %}#}
+{#                            <span class="help-block">{{ error }}</span>#}
+{#                        {% endfor %}#}
+{#                    {% else %}#}
+{#                        <span class="help-block">{{ field.help_text }}</span>#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#            </fieldset>#}
+{#            <div class="form-group">#}
+{#                <div class="col-sm-offset-2 col-sm-5">#}
+{#                    <button type="submit" class="btn btn-primary btn-lg">{% trans 'update' %}</button>#}
+{#                </div>#}
+{#            </div>#}
+{#        </form>#}
+{#    </div>#}
 {% endblock %}

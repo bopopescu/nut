@@ -1,10 +1,13 @@
 #coding=utf-8
 from datetime import datetime
+from django.core.mail import EmailMessage
 
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.dispatch import receiver
 from django.utils import timezone
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils.log import getLogger
@@ -24,11 +27,9 @@ from apps.core.manager.event import ShowEventBannerManager
 from apps.core.manager.article import ArticleManager, SelectionArticleManager
 
 from hashlib import md5
-# from urlparse import parse_qs, urlparse
-# from apps.core.utils.tag import TagParser
 
-# from djangosphinx.models import SphinxSearch
 from apps.core.utils.image import HandleImage
+from apps.core.utils.commons import verification_token_generator
 from apps.notifications import notify
 
 import time
@@ -298,12 +299,20 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
 
-    # search = SphinxSearch(
-    #     index = 'users',
-    #     mode = 'SPH_MATCH_ALL',
-    #     rankmode = 'SPH_RANK_NONE',
-    #     maxmatches = 5000,
-    # )
+    def send_verification_mail(self):
+        template_invoke_name = settings.VERFICATION_EMAIL_TEMPLATE
+        mail_message = EmailMessage(to=(self.email,),
+                                    from_email='hi@guoku.com')
+        uidb64 = urlsafe_base64_encode(force_bytes(self.id))
+        token = verification_token_generator.make_token(self)
+        reverse_url = reverse('register_confirm',
+                              kwargs={'uidb64': uidb64,
+                                      'token': token})
+        verify_link = "{0:s}{1:s}".format(settings.SITE_DOMAIN, reverse_url)
+        sub_vars = {'%verify_link%': (verify_link,)}
+        mail_message.template_invoke_name = template_invoke_name
+        mail_message.sub_vars = sub_vars
+        mail_message.send()
 
 
 class User_Profile(BaseModel):
@@ -1175,8 +1184,9 @@ class WeChat_Token(BaseModel):
         return md5(code_string.encode('utf-8')).hexdigest()
 
 
-# TODO: implement a digest property
-class Article(models.Model):
+from apps.core.utils.articlecontent import contentBleacher
+
+class Article(BaseModel):
 
     (remove, draft, published) = xrange(3)
     ARTICLE_STATUS_CHOICES = [
@@ -1207,6 +1217,10 @@ class Article(models.Model):
         if not kwargs.pop('skip_updatetime', False):
             self.updated_datetime = datetime.now()
         super(Article, self).save(*args, **kwargs)
+
+    @property
+    def bleached_content(self):
+        return contentBleacher(self.content)
 
     @property
     def digest(self):

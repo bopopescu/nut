@@ -137,6 +137,7 @@ USE_I18N = True
 
 USE_L10N = True
 
+SITE_DOMAIN = 'guoku.com'
 # USE_TZ = True
 
 LOCALE_PATHS = (
@@ -200,9 +201,10 @@ REST_FRAMEWORK = {
 # EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
 # MAILGUN_ACCESS_KEY = 'key-7n8gut3y8rpk1u-0edgmgaj7vs50gig8'
 EMAIL_BACKEND = 'sendcloud.SendCloudBackend'
-MAIL_APP_USER = 'guoku_test_7LOIZp'
+MAIL_APP_USER = 'guoku_hi'
 MAIL_APP_KEY = 'DLq9W6TiDZAWOLNv'
 RESET_PASSWORD_TEMPLATE = 'forget_password'
+VERFICATION_EMAIL_TEMPLATE = 'verify_email'
 
 # MAILGUN_SERVER_NAME = 'post.guoku.com'
 # EMAIL_SUBJECT_PREFIX = '[guoku]'
@@ -251,10 +253,6 @@ CELERY_DISABLE_RATE_LIMITS = True
 # CELERY_RESULT_SERIALIZER = 'json'
 
 
-#
-# SPHINX_API_VERSION = 0x116
-# SPHINX_SERVER = '10.0.2.50'
-# SPHINX_PORT = 3312
 
 
 # taobao
