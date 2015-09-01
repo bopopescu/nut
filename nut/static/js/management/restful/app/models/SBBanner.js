@@ -1,11 +1,11 @@
 define(function (require) {
 
       var   SBBanner = Backbone.Model.extend({
-            urlRoot: "/management/restful/sbbanners/"
+            urlRoot: "/api/sbbanner/"
         });
 
       var  SBBannerCollection = Backbone.Collection.extend({
-            url:'/management/restful/sbbanners/',
+            url:'/api/sbbanner/',
             model: SBBanner,
             parse: function(data){
                 if(_.isObject(data.results)){

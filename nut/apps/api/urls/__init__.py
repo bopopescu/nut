@@ -34,9 +34,16 @@ urlpatterns = patterns(
 )
 
 urlpatterns += patterns(
+    '',
+    url(r'^sbbanner/', include('apps.api.urls.sbbanner')),
+)
+
+urlpatterns += patterns(
     'apps.api.views',
     url(r'^feed/', include('apps.mobile.urls.feed')),
 )
+
+
 
 urlpatterns += format_suffix_patterns([
     # url(r'^$',)
