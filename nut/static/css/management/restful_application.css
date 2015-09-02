@@ -1,0 +1,49 @@
+.content-full-height {
+  float: none;
+}
+.table-image {
+  max-width: 150px;
+  min-width: 150px;
+}
+.table .form-control {
+  height: auto;
+}
+.table-dynamic .data-holder td {
+  position: relative;
+}
+.table-dynamic .data-holder td.editing .btn-edit {
+  display: none;
+}
+.table-dynamic .data-holder td.editing .btn-save {
+  display: block;
+}
+.table-dynamic .data-holder td .btn-edit {
+  display: block;
+}
+.table-dynamic .data-holder td .btn-save {
+  display: none;
+}
+.table-dynamic .data-holder td.value .value-content {
+  display: block;
+}
+.table-dynamic .data-holder td.value .form-widget {
+  display: none;
+}
+.table-dynamic .data-holder td .value-content {
+  display: none;
+}
+.table-dynamic .data-holder td .form-widget {
+  display: block;
+}
+.table-dynamic .data-holder td .image-file-input {
+  position: absolute;
+  height: 100%;
+  min-height: 20px;
+  width: 100%;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  direction: ltr;
+  cursor: pointer;
+}
+/*# sourceMappingURL=restful_application.less.css.map */
