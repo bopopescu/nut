@@ -15,14 +15,23 @@
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 {#    <link href="{% static 'thirdparty/animate/animate.min.css' %}" rel="stylesheet">#}
     <link href="{% static 'thirdparty/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+<<<<<<< HEAD
     <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+=======
+    <link rel="stylesheet" href="{% static 'css/ionicons.css' %}">
+>>>>>>> 516027fca6283cf63d43e1254e2ba13f56ca9356
 {#    <link href="{% static 'css/management/rwd-table.min.css' %}" rel="stylesheet">#}
 {#    <link href="{% static 'css/management/main.css' %}" rel="stylesheet">#}
     <link href="{% static 'css/management/AdminLTE.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/management/skins/_all-skins.min.css' %}">
     <link href="{% static 'css/management/bootstrap-datetimepicker.min.css' %}" rel="stylesheet">
 
-    {% block css %}{% endblock %}
+    {% block css %}
+
+    {% endblock %}
+{#    <script src="{% static 'js/management/restful/sentinel.js' %}" id="hero" ></script>#}
+{#    <script data-main="{% static 'js/management/restful/app.js' %}" src="{% static 'js/management/restful/require.js' %}" ></script>#}
+
 </head>
 <body class="guoku-management hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -231,6 +240,14 @@
                             <i class="fa fa-user"></i>&nbsp;<span>{% trans 'user' %}</span>
                         </a>
                     </li>
+
+                    <li class="header">{% trans 'test functions' %}</li>
+                     <li >
+                        <a href="{% url 'restful_app_sbbanner' %}">
+                            <i class="fa fa-life-ring"></i>&nbsp;<span>侧边栏</span>
+                        </a>
+                    </li>
+
                 </ul>
             </section>
         </aside>
