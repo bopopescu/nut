@@ -347,17 +347,17 @@
 }
 
 .load-more-button, .next-button,.prev-button{
-  margin: 0 auto ;
-  .panel-no-padding;
-  width: 200px;
-  background-color:#fff;
-  color: @common-gray;
-  height:64px;
-  font-size:16px;
-  line-height:70px;
-  display:none;
-  margin:20px;
-  display: none;
+  display: inline-block;
+  padding:5px 14px;
+  background: #fff;
+  color:#898989;
+  font-weight: 700;
+  border:1px solid #ddd;
+  cursor: pointer;
+  &:hover, &:active,&focus{
+    background: #eee;
+  }
+  margin-right: 10px;
 
 }
 
