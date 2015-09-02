@@ -368,6 +368,8 @@
 }
 .button-row {
   text-align: center;
+  padding-top: 40px;
+  padding-bottom: 20px;
 }
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {

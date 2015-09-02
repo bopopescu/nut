@@ -725,6 +725,8 @@ ul li {
 }
 .button-row {
   text-align: center;
+  padding-top: 40px;
+  padding-bottom: 20px;
 }
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
