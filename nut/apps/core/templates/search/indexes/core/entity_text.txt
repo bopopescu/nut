@@ -1,1 +1,3 @@
+{% load pinyin %}
 {{ object.title }}
+{{ object.title|pinyin }}
