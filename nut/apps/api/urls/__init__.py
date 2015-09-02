@@ -1,6 +1,6 @@
 from django.conf.urls import url, include, patterns
 from rest_framework import routers
-# from rest_framework.urlpatterns import format_suffix_patterns
+from rest_framework.urlpatterns import format_suffix_patterns
 
 from apps.api.views import user, entity, banner
 
@@ -33,16 +33,6 @@ urlpatterns = patterns(
     url(r'^auth/', include('rest_framework.urls', namespace='rest_framework'))
 )
 
-<<<<<<< HEAD
-# urlpatterns += patterns(
-#     'apps.api.views',
-#     url(r'^feed/', include('apps.mobile.urls.feed')),
-# )
-
-# urlpatterns += format_suffix_patterns([
-#     # url(r'^$',)
-# ])
-=======
 urlpatterns += patterns(
     '',
     url(r'^sbbanner/', include('apps.api.urls.sbbanner')),
@@ -58,7 +48,6 @@ urlpatterns += patterns(
 urlpatterns += format_suffix_patterns([
     # url(r'^$',)
 ])
->>>>>>> 516027fca6283cf63d43e1254e2ba13f56ca9356
 
 
 
