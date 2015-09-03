@@ -33,4 +33,11 @@ class AvatarSerializer(serializers.Serializer):
     def save(self, **kwargs):
         _avarar = self.validated_data.get('avatar')
 
+
+class NestingUserSerializer(serializers.ModelSerializer):
+    profile = UserProfileSerializer()
+    class Meta:
+        model = GKUser
+        fields = ('pk','profile','email')
+
 __author__ = 'edison7500'

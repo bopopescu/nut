@@ -4,6 +4,7 @@ define(function(require){
         initialize: function(options){
             Backbone.Form.prototype.initialize.call(this,options);
         },
+        // jQuery will strip <tr><td> when create dom from str,  if  you wrap them in <form>
         tagName: 'form',
         template: _.template($('#id-sbbanner-form-template').html()),
         schema :{

@@ -1,0 +1,79 @@
+{% extends 'management/management_restful_base.html' %}
+{% load staticfiles i18n %}
+
+ {% block css %}
+    <link href="{% static 'css/management/restful_application.css' %}" rel="stylesheet">
+ {% endblock %}
+
+{% block content %}
+    <section class="content-header">
+        <h1>
+            {% trans 'Articles' %}
+            <small>{% trans 'list' %}</small>
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+{#            <li><a href="#">Tables</a></li>#}
+            <li class="active">{% trans 'Article' %}</li>
+        </ol>
+    </section>
+    <section class="content" id="Article-management">
+        <div class="col-xs-12 content-full-height">
+            <div class="box">
+                <div class="box-header"><h2>{% trans 'Article List' %}</h2> </div>
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover table-dynamic" id="sbbanner">
+                        <thead>
+                             <tr>
+                                <th>{% trans 'Article Cover' %}</th>
+                                <th>{% trans 'Article title' %}</th>
+                                <th>{% trans 'Article Writer' %}</th>
+                                <th>{% trans 'Article Status' %}</th>
+                                <th>{% trans 'Edit content' %}</th>
+                                <th>{% trans 'Edit attribute ' %}</th>
+
+                            </tr>
+                        </thead>
+                        <tbody class="list-container">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+{% block user_script %}
+    {% block html_templates %}
+{#        will put all single app template here #}
+{#        by -anchen #}
+        <script id="id_article_list_item_template" type="text/html">
+                <tr>
+                <td class="cover`">
+                </td>
+                <td class='title'>
+                </td>
+                <td  class='writer'>
+                </td>
+                <td  class='status'>
+
+                </td>
+
+                <td class='action edit'>
+                    <button class='btn btn-success btn-save'>{% trans 'Edit Content' %}</button>
+                </td>
+                <td class='action edit'>
+                    <button class='btn btn-success btn-save'>{% trans 'Edit status' %}</button>
+                </td>
+                </tr>
+        </script>
+    {% endblock %}
+
+{% endblock %}
+
+{# following is the real deal!   #}
+{# must set the global application controller here #}
+ {% block entry_script %}
+    <script data-main="{% static 'js/management/restful/articleEntry.js' %}" src="{% static 'js/management/restful/require.js' %}" ></script>
+ {% endblock %}
