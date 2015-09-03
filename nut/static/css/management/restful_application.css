@@ -46,4 +46,10 @@
   direction: ltr;
   cursor: pointer;
 }
+#Article-management table .title {
+  max-width: 250px;
+}
+.test {
+  color: red;
+}
 /*# sourceMappingURL=restful_application.less.css.map */
