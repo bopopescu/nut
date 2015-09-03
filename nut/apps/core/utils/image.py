@@ -166,6 +166,10 @@ class HandleImage(object):
         return filename
 
 class LimitedImage(HandleImage):
+    def __init__(self, image_file):
+        super(LimitedImage,self).__init__(image_file)
+        self.maxReturnWidth = 750
+
 
     def handleWidth(self, maxWidth):
         try :
@@ -201,6 +205,8 @@ class LimitedImage(HandleImage):
         if maxQuality:
             self.handleQuality(maxQuality)
 
-        return super(LimitedImage,self).save(path, resize ,square)
+        file_name = super(LimitedImage,self).save(path, resize ,square)
+
+        return file_name
 
 __author__ = 'edison'
