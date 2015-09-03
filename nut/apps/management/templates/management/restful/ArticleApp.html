@@ -21,7 +21,14 @@
     <section class="content" id="Article-management">
         <div class="col-xs-12 content-full-height">
             <div class="box">
-                <div class="box-header"><h2>{% trans 'Article List' %}</h2> </div>
+                <div class="box-header">
+                    <h2>{% trans 'Article List' %}</h2>
+                     <ul class="pagination pagination-sm no-margin pull-right">
+                        <li class="page-action first"><a>{% trans 'first page' %}</a></li>
+                        <li class="page-action prev"><a>{% trans 'previous page' %}</a></li>
+                        <li class="page-action next"><a>{% trans 'next page' %}</a></li>
+                    </ul>
+                </div>
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-hover table-dynamic" id="sbbanner">
                         <thead>
@@ -40,11 +47,13 @@
                     </table>
                 </div>
                 <div class="box-footer clearfix">
+                    <div class="page-info "></div>
+                    <div class="total-page-info"></div>
+                    <input type="text" id="to_page_num" placeholder="go to page num...">
                     <ul class="pagination pagination-sm no-margin pull-right">
-                        <li><a>{% trans 'first page' %}</a></li>
-                        <li><a>{% trans 'previous page' %}</a></li>
-                        <li><input type="text" id="page_num_input"></li>
-                        <li><a>{% trans 'next page' %}</a></li>
+                        <li class="page-action first"><a>{% trans 'first page' %}</a></li>
+                        <li class="page-action prev"><a>{% trans 'previous page' %}</a></li>
+                        <li class="page-action next"><a>{% trans 'next page' %}</a></li>
                     </ul>
                 </div>
             </div>
@@ -61,11 +70,11 @@
                     <img src="<%=coverImage%>">
 
                 </td>
-                <td class='title'>
+                <td>
                     <ul>
-                        <li> <%=title%></li>
-                        <li> 作者： <%=creator.profile.nickname%></li>
-                        <li> 阅读数： <%=read_count%></li>
+                        <li  class='title'> <%=title%></li>
+                        <li class="author"> 作者： <%=creator.profile.nickname%></li>
+                        <li class="read"> 阅读数： <%=read_count%></li>
                     </ul>
 
                 </td>

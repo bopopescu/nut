@@ -21,11 +21,36 @@ define(function(require){
             this.listenTo(this.collection, 'sync', this.sync);
             this.listContainer = this.$('.list-container');
             this.clearEle(this.listContainer.get());
+
+            this.$page_info = this.$('.page-info');
+            this.$total_page = this.$('.total-page-info');
+            this.$input_pagenum = this.$('#to_page_num');
+
             this.collection.fetch({reset:true});
         },
+        events:{
+            'click .page-action.first': 'goFirstPage',
+            'click .page-action.prev':'goPrevPage',
+            'click .page-action.next':'goNextPage'
+        },
+
+        goFirstPage: function(){
+            this.collection.getFirstPage({reset: true});
+        },
+
+        goPrevPage: function(){
+            this.collection.getPreviousPage({reset:true});
+        },
+        goNextPage:function(){
+            this.collection.getNextPage({reset:true});
+        },
+
         render: function(){
             this.clearEle(this.listContainer.get());
             var container = this.listContainer;
+            this.$page_info.html("第"+this.collection.state.currentPage + "页");
+            this.$total_page.html("/共"+this.collection.state.totalRecords+ "页");
+
             this.collection.each(function(model){
                 var item = new ArticleListItemView({
                     model: model,

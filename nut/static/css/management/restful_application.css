@@ -48,6 +48,23 @@
 }
 #Article-management table .title {
   max-width: 250px;
+  font-weight: 600;
+  font-size: 16px;
+}
+#Article-management table .author {
+  color: darkblue;
+}
+#Article-management table .read {
+  color: darkred;
+}
+#Article-management .box-footer div {
+  display: inline-block;
+}
+#Article-management .box-footer input {
+  margin-left: 20px;
+}
+#Article-management .box-footer .page-action {
+  cursor: pointer;
 }
 .test {
   color: red;
