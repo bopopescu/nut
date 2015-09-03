@@ -27,8 +27,8 @@
                         <thead>
                              <tr>
                                 <th>{% trans 'Article Cover' %}</th>
-                                <th>{% trans 'Article title' %}</th>
-                                <th>{% trans 'Article Writer' %}</th>
+                                <th>{% trans 'Article title(writer)' %}</th>
+                                <th>{% trans 'last modified time' %}</th>
                                 <th>{% trans 'Article Status' %}</th>
                                 <th>{% trans 'Edit content' %}</th>
                                 <th>{% trans 'Edit attribute ' %}</th>
@@ -38,6 +38,14 @@
                         <tbody class="list-container">
                         </tbody>
                     </table>
+                </div>
+                <div class="box-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li><a>{% trans 'first page' %}</a></li>
+                        <li><a>{% trans 'previous page' %}</a></li>
+                        <li><input type="text" id="page_num_input"></li>
+                        <li><a>{% trans 'next page' %}</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -49,18 +57,23 @@
 {#        will put all single app template here #}
 {#        by -anchen #}
         <script id="id_article_list_item_template" type="text/html">
-                <tr>
                 <td class="cover">
-                    <%=cover_url%>
+                    <img src="<%=coverImage%>">
+
                 </td>
                 <td class='title'>
-                    <%=title%>
+                    <ul>
+                        <li> <%=title%></li>
+                        <li> 作者： <%=creator.profile.nickname%></li>
+                        <li> 阅读数： <%=read_count%></li>
+                    </ul>
+
                 </td>
-                <td  class='writer'>
-                    <%=creator.profile.nickname%>
+                <td  class='time'>
+                    <%=updated_datetime%>
                 </td>
                 <td  class='status'>
-                    <%=published%>
+                    <%=status%>
                 </td>
 
                 <td class='action edit'>
@@ -69,7 +82,6 @@
                 <td class='action edit'>
                     <button class='btn btn-success btn-save'>{% trans 'Edit status' %}</button>
                 </td>
-                </tr>
         </script>
     {% endblock %}
 
