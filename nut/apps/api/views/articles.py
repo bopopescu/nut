@@ -9,6 +9,9 @@ class RFArticleListView(generics.ListCreateAPIView):
 
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+    paginate_by = 20
+    paginate_by_param = 'page_size'
+    max_paginate_by = 100
 
 class RFArticleDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (Admin_And_Editor_Only,)
