@@ -472,9 +472,6 @@ class Sidebar_Banner(BaseModel):
 
 
 
-
-
-
 class Category(BaseModel):
     title = models.CharField(max_length = 128, db_index = True)
     cover = models.CharField(max_length=255)
@@ -926,7 +923,6 @@ class Entity_Like(models.Model):
         ordering = ['-created_time']
         unique_together = ('entity', 'user')
 
-
 class Note(BaseModel):
 
     (remove, normal, top) = (-1, 0, 1)
@@ -1183,9 +1179,8 @@ class WeChat_Token(BaseModel):
         code_string = "%s%s%s" % (unionid, nick, time.mktime(datetime.now().timetuple()))
         return md5(code_string.encode('utf-8')).hexdigest()
 
-
+# for bleach Article Content
 from apps.core.utils.articlecontent import contentBleacher
-
 class Article(BaseModel):
 
     (remove, draft, published) = xrange(3)
