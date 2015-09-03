@@ -14,8 +14,11 @@ class NestedSelectionArticleSerializer(serializers.ModelSerializer):
 
 class ArticleSerializer(serializers.ModelSerializer):
     selections = NestedSelectionArticleSerializer(many=True)
+    status = serializers.SerializerMethodField()
     creator = NestingUserSerializer()
     class Meta:
         model = Article
-        fields =  ('id','creator','title','selections','cover','published','created_datetime','showcover','read_count','cover_url')
+        fields =  ('id','creator','status','title','selections','cover','publish','created_datetime','showcover','read_count','cover_url')
 
+    def get_status(self, obj):
+        return obj.get_publish_display()
