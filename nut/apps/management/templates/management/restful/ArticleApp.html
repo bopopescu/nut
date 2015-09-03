@@ -50,14 +50,17 @@
 {#        by -anchen #}
         <script id="id_article_list_item_template" type="text/html">
                 <tr>
-                <td class="cover`">
+                <td class="cover">
+                    <%=cover_url%>
                 </td>
                 <td class='title'>
+                    <%=title%>
                 </td>
                 <td  class='writer'>
+                    <%=creator.profile.nickname%>
                 </td>
                 <td  class='status'>
-
+                    <%=published%>
                 </td>
 
                 <td class='action edit'>
