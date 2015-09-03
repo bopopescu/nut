@@ -4,13 +4,14 @@ from apps.core.models import Article, Selection_Article
 
 
 class ArticleSerializer(serializers.ModelSerializer):
+    selections = NestedSelectionArticleSerializer
     class Meta:
         model = Article
-        fields =  ('id','creator','title','cover', 'content','published','created_datetime','showcover','read_count','cover_url')
+        fields =  ('id','creator','selections','title','cover', 'content','published','created_datetime','showcover','read_count','cover_url')
 
-
-class SelectionArticleSerializer(serializers.ModelSerializer):
+# the following serializer is for ArticleSerializer nested use only
+class NestedSelectionArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Selection_Article
-        fields = ('article', 'is_published', 'pub_time')
+        fields = ('is_published','create_time','pub_time', )
 

@@ -371,4 +371,12 @@
   padding-top: 40px;
   padding-bottom: 20px;
 }
+.like-action {
+  text-decoration: none;
+}
+.like-action:hover,
+.like-action:focus,
+.like-action:active {
+  text-decoration: none;
+}
 /*# sourceMappingURL=widgets.less.css.map */

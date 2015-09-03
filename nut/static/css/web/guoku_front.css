@@ -728,6 +728,14 @@ ul li {
   padding-top: 40px;
   padding-bottom: 20px;
 }
+.like-action {
+  text-decoration: none;
+}
+.like-action:hover,
+.like-action:focus,
+.like-action:active {
+  text-decoration: none;
+}
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
   color: #9d9e9f;

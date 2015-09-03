@@ -436,6 +436,14 @@
   padding-top: 40px;
   padding-bottom: 20px;
 }
+.like-action {
+  text-decoration: none;
+}
+.like-action:hover,
+.like-action:focus,
+.like-action:active {
+  text-decoration: none;
+}
 @-moz-document url-prefix() {
   fieldset {
     display: table-cell;

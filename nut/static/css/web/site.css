@@ -371,6 +371,14 @@
   padding-top: 40px;
   padding-bottom: 20px;
 }
+.like-action {
+  text-decoration: none;
+}
+.like-action:hover,
+.like-action:focus,
+.like-action:active {
+  text-decoration: none;
+}
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
   padding: 0px;
