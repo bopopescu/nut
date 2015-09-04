@@ -1,0 +1,70 @@
+{% extends 'management/management_restful_base.html' %}
+{% load staticfiles i18n %}
+ {% block css %}
+    <link href="{% static 'css/management/restful_application.css' %}" rel="stylesheet">
+ {% endblock %}
+{% block content %}
+    <section class="content-header">
+        <h1>
+            {% trans 'SideBar Banner' %}
+            <small>{% trans 'list' %}</small>
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+{#            <li><a href="#">Tables</a></li>#}
+            <li class="active">{% trans 'SideBar Banner' %}</li>
+        </ol>
+    </section>
+    <section class="content" id="SBBanner-management">
+        <div class="col-xs-12 content-full-height">
+            <div class="box">
+                <div class="box-header"><h2>{% trans 'SideBar Banner List' %}</h2> <button id="add-sbbanner" class="btn btn-primary ">添加 Side Bar Banner</button></div>
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover table-dynamic" id="sbbanner">
+                        <thead>
+                             <tr>
+                                <th>{% trans 'Banner Image' %}</th>
+                                <th>{% trans 'Position' %}</th>
+                                <th>{% trans 'Link' %}</th>
+                                <th>{% trans 'Status' %}</th>
+                                <th>{% trans 'Edit' %}</th>
+                                <th>{% trans 'Delete' %}</th>
+                            </tr>
+                        </thead>
+                        <tbody class="list-container">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+{% block user_script %}
+    {% block html_templates %}
+{#        will put all single app template here #}
+{#        by -an #}
+        <script id="id-sbbanner-form-template" type="text/html">
+                <tr>
+                <td data-editors='image'>
+                </td>
+                <td class='value' data-editors='position'>
+                </td>
+                <td data-editors='link'>
+                </td>
+                    <td data-editors='status'>
+                </td>
+
+                <td class='action edit-save '>
+{#                    <button class='btn btn-warning btn-edit'>Edit</button>#}
+                    <button class='btn btn-success btn-save'>Save</button>
+                </td>
+                <td class='action'>
+                    <button class='btn btn-danger btn-delete'>Delete</button>
+                </td>
+                </tr>
+        </script>
+    {% endblock %}
+
+{% endblock %}
