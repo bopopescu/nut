@@ -31,7 +31,14 @@ define(function(require){
         events:{
             'click .page-action.first': 'goFirstPage',
             'click .page-action.prev':'goPrevPage',
-            'click .page-action.next':'goNextPage'
+            'click .page-action.next':'goNextPage',
+            'change .to_page_num': 'pageNumberChanged'
+        },
+        pageNumberChanged: function(event){
+           var pageNum =  parseInt($(event.target).val());
+               if (_.isNumber(pageNum)){
+                   this.collection.getPage(pageNum, {reset:true});
+               }
         },
 
         goFirstPage: function(){
@@ -48,8 +55,9 @@ define(function(require){
         render: function(){
             this.clearEle(this.listContainer.get());
             var container = this.listContainer;
+            var totalPageNumber = this.collection.state.totalPages;
             this.$page_info.html("第"+this.collection.state.currentPage + "页");
-            this.$total_page.html("/共"+this.collection.state.totalRecords+ "页");
+            this.$total_page.html("/共"+(totalPageNumber)+ "页");
 
             this.collection.each(function(model){
                 var item = new ArticleListItemView({
