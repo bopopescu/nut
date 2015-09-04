@@ -57,13 +57,16 @@
 #Article-management table .read {
   color: darkred;
 }
-#Article-management .box-footer div {
+#Article-management .box-footer div,
+#Article-management .box-header div {
   display: inline-block;
 }
-#Article-management .box-footer input {
+#Article-management .box-footer input,
+#Article-management .box-header input {
   margin-left: 20px;
 }
-#Article-management .box-footer .page-action {
+#Article-management .box-footer .page-action,
+#Article-management .box-header .page-action {
   cursor: pointer;
 }
 .test {
