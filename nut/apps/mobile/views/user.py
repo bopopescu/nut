@@ -1,5 +1,5 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.models import Entity_Tag, GKUser, Entity_Like, Note, User_Follow
+from apps.core.models import GKUser, Entity_Like, Note, User_Follow
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 
 from apps.mobile.lib.sign import check_sign

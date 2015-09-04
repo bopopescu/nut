@@ -1028,59 +1028,59 @@ class Note_Poke(models.Model):
     #     super(Note_Poke, self).save(*args, **kwargs)
     #     notify.send(self.user, recipient=self.note.user, action_object=self, verb="poke note", target=self.note)
 
-
-class Tag(models.Model):
-    tag = models.CharField(max_length = 128, null = False, unique = True, db_index = True)
-    tag_hash = models.CharField(max_length = 32, unique = True, db_index = True)
-    status = models.IntegerField(default = 0, db_index = True)
-    creator = models.ForeignKey(GKUser, related_name='tags')
-    # entity = models.ForeignKey(Entity, related_name='tag')
-    created_time = models.DateTimeField(auto_now_add = True, db_index=True)
-    updated_time = models.DateTimeField(auto_now = True, db_index = True)
-
-    class Meta:
-        ordering = ['-created_time']
-        unique_together = ('creator', 'tag')
-
-    def __unicode__(self):
-        return self.tag
-
-    def get_absolute_url(self):
-        return "/t/%s/" % self.tag_hash
-
-    # search = SphinxSearch(
-    #     index = 'tags',
-    #     mode = 'SPH_MATCH_ALL',
-    #     rankmode = 'SPH_RANK_NONE',
-    # )
-
-
-class Entity_Tag(models.Model):
-    entity = models.ForeignKey(Entity, related_name='tags')
-    user = models.ForeignKey(GKUser, related_name='user_tags')
-    tag = models.ForeignKey(Tag, related_name='entities')
-    # tag_text = models.CharField(max_length = 128, null = False, db_index = True)
-    # tag_hash = models.CharField(max_length = 32, db_index = True)
-    # count = models.IntegerField(default = 0)
-    created_time = models.DateTimeField(auto_now_add = True, db_index = True)
-    last_tagged_time = models.DateTimeField(db_index = True)
-
-    objects = EntityTagManager()
-
-    class Meta:
-        ordering = ['-created_time']
-        unique_together = ('entity', 'user', 'tag')
-
-    @property
-    def title(self):
-        return self.tag.tag
-
-    @property
-    def hash(self):
-        return self.tag.tag_hash
-
-    def get_absolute_url(self):
-        return '/t/%s' % self.tag.tag_hash
+#
+# class Tag(models.Model):
+#     tag = models.CharField(max_length = 128, null = False, unique = True, db_index = True)
+#     tag_hash = models.CharField(max_length = 32, unique = True, db_index = True)
+#     status = models.IntegerField(default = 0, db_index = True)
+#     creator = models.ForeignKey(GKUser, related_name='tags')
+#     # entity = models.ForeignKey(Entity, related_name='tag')
+#     created_time = models.DateTimeField(auto_now_add = True, db_index=True)
+#     updated_time = models.DateTimeField(auto_now = True, db_index = True)
+#
+#     class Meta:
+#         ordering = ['-created_time']
+#         unique_together = ('creator', 'tag')
+#
+#     def __unicode__(self):
+#         return self.tag
+#
+#     def get_absolute_url(self):
+#         return "/t/%s/" % self.tag_hash
+#
+#     # search = SphinxSearch(
+#     #     index = 'tags',
+#     #     mode = 'SPH_MATCH_ALL',
+#     #     rankmode = 'SPH_RANK_NONE',
+#     # )
+#
+#
+# class Entity_Tag(models.Model):
+#     entity = models.ForeignKey(Entity, related_name='tags')
+#     user = models.ForeignKey(GKUser, related_name='user_tags')
+#     tag = models.ForeignKey(Tag, related_name='entities')
+#     # tag_text = models.CharField(max_length = 128, null = False, db_index = True)
+#     # tag_hash = models.CharField(max_length = 32, db_index = True)
+#     # count = models.IntegerField(default = 0)
+#     created_time = models.DateTimeField(auto_now_add = True, db_index = True)
+#     last_tagged_time = models.DateTimeField(db_index = True)
+#
+#     objects = EntityTagManager()
+#
+#     class Meta:
+#         ordering = ['-created_time']
+#         unique_together = ('entity', 'user', 'tag')
+#
+#     @property
+#     def title(self):
+#         return self.tag.tag
+#
+#     @property
+#     def hash(self):
+#         return self.tag.tag_hash
+#
+#     def get_absolute_url(self):
+#         return '/t/%s' % self.tag.tag_hash
 
 
 class Sina_Token(BaseModel):

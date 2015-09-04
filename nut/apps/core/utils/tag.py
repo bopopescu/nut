@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # from time import time
-from apps.core.models import Tag, Entity_Tag
+# from apps.core.models import Tag, Entity_Tag
 
 from hashlib import md5
 from datetime import datetime
@@ -70,34 +70,34 @@ class TagParser():
 
         return _hash
 
-
-    def create_tag(self, user_id, entity_id):
-        tags = self.parse()
-
-        for tag in tags:
-            log.info(tag)
-            try:
-                t = Tag.objects.get(tag=tag)
-            except Tag.DoesNotExist:
-                # t_hash = t.cal_tag_hash(tag)
-                t = Tag(
-                    tag = tag,
-                    tag_hash = self.cal_tag_hash(tag),
-                )
-                t.creator_id = user_id
-                t.save()
-            try:
-                Entity_Tag.objects.get(
-                    user_id = user_id,
-                    entity_id = entity_id,
-                    tag = t
-                )
-            except Entity_Tag.DoesNotExist, e:
-                Entity_Tag.objects.create(
-                    user_id = user_id,
-                    entity_id = entity_id,
-                    tag = t,
-                    last_tagged_time = datetime.now()
-                )
+    #
+    # def create_tag(self, user_id, entity_id):
+    #     tags = self.parse()
+    #
+    #     for tag in tags:
+    #         log.info(tag)
+    #         try:
+    #             t = Tag.objects.get(tag=tag)
+    #         except Tag.DoesNotExist:
+    #             # t_hash = t.cal_tag_hash(tag)
+    #             t = Tag(
+    #                 tag = tag,
+    #                 tag_hash = self.cal_tag_hash(tag),
+    #             )
+    #             t.creator_id = user_id
+    #             t.save()
+    #         try:
+    #             Entity_Tag.objects.get(
+    #                 user_id = user_id,
+    #                 entity_id = entity_id,
+    #                 tag = t
+    #             )
+    #         except Entity_Tag.DoesNotExist, e:
+    #             Entity_Tag.objects.create(
+    #                 user_id = user_id,
+    #                 entity_id = entity_id,
+    #                 tag = t,
+    #                 last_tagged_time = datetime.now()
+    #             )
 
 __author__ = 'edison'
