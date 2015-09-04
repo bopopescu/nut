@@ -111,7 +111,7 @@ CACHES = {
         "LOCATION": [
             "redis://10.0.2.46:6379/1",
             "redis://10.0.2.47:6379/1",
-            "redis://10.0.2.200:6379/1",
+            # "redis://10.0.2.200:6379/1",
         ],
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.ShardClient",
@@ -205,6 +205,8 @@ MAIL_APP_USER = 'guoku_hi'
 MAIL_APP_KEY = 'DLq9W6TiDZAWOLNv'
 RESET_PASSWORD_TEMPLATE = 'forget_password'
 VERFICATION_EMAIL_TEMPLATE = 'verify_email'
+GUOKU_MAIL = 'hi@guoku.com'
+
 
 # MAILGUN_SERVER_NAME = 'post.guoku.com'
 # EMAIL_SUBJECT_PREFIX = '[guoku]'
