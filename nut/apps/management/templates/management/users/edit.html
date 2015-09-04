@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
-            <li><a href="#">{% trans 'users' %}</a></li>
+            <li><a href="#"><i class="fa fa-users"></i>{% trans 'users' %}</a></li>
             <li class="active">{{ user.profile.nickname }}</li>
         </ol>
     </section>
@@ -29,6 +29,14 @@
                             <li class="list-group-item">
                                 <b>{% trans 'following' %}</b>
                                 <a class="pull-right">{{ user.following_count }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>{% trans 'articles' %}</b>
+                                <a class="pull-right">{{ user.articles.all|length }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>{% trans 'media' %}</b>
+                                <a class="pull-right" href="{% url 'management_user_media' user.pk %}">{{ user.media_entries.all|length }}</a>
                             </li>
                         </ul>
                     </div>
