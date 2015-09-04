@@ -49,6 +49,12 @@ def decorate_taobao_url(url, ttid=None, sid=None, outer_code=None, sche=None):
     return url
 
 
+class HomeView(BaseJsonView):
+    http_method_names = ['get']
+
+    # def get_data(self, context):
+
+        # return
 
 class DiscoverView(BaseJsonView):
     http_method_names = ['get']
