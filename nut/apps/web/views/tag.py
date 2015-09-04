@@ -2,7 +2,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
-from apps.core.models import Tag, Entity_Tag, Entity, Entity_Like
+# from apps.core.models import Tag, Entity_Tag, Entity, Entity_Like
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from django.utils.log import getLogger
 
