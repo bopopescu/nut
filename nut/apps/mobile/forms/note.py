@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from apps.core.models import Note, Tag, Entity_Tag
+from apps.core.models import Note
 from apps.mobile.models import Session_Key
-from apps.core.utils.tag import TagParser
-from apps.notifications import notify
-from datetime import datetime
-
 
 
 from django.utils.log import getLogger

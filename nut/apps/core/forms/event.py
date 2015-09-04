@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from apps.core.models import Event, Tag , Event_Status
+from apps.core.models import Event, Event_Status
 from apps.tag.models import Tags
 from django.utils.log import getLogger
 
@@ -125,7 +125,7 @@ class EditEventForm(BaseEventForm):
         _tag = self.cleaned_data.get('tag')
         _slug = self.cleaned_data.get('slug')
         _status = self.cleaned_data.get('status', False)
-        _status = int(_status)
+        # _status = int(_status)
 
         _is_published = self.cleaned_data.get('is_published',False)
         _is_published = int(_is_published)
