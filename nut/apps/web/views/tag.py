@@ -1,21 +1,35 @@
 from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
+from django.views.generic import RedirectView
+from apps.tag.models import Tags
 # from apps.core.models import Tag, Entity_Tag, Entity, Entity_Like
-from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
+# from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from django.utils.log import getLogger
 
 log = getLogger('django')
 
 
-def detail(request, hash, template="web/tags/detail.html"):
-    try:
-        _tag = Tag.objects.get(tag_hash = hash)
-    except Tag.DoesNotExist:
-        raise Http404
 
-    return HttpResponseRedirect(reverse('tag_entities_url', args=[_tag.tag]))
+class TagHashView(RedirectView):
+    # pass
+    pattern_name = 'tag_entities_url'
+    # def get
+
+    def get_redirect_url(self, *args, **kwargs):
+        _tag = get_object_or_404(Tags, hash=kwargs['hash'])
+        return super(TagHashView, self).get(*args, **kwargs)
+
+
+# def detail(request, hash, template="web/tags/detail.html"):
+#     try:
+#         _tag = Tag.objects.get(tag_hash = hash)
+#     except Tag.DoesNotExist:
+#         raise Http404
+#
+#     return HttpResponseRedirect(reverse('tag_entities_url', args=[_tag.tag]))
 
     # _page = request.GET.get('page', 1)
     #
@@ -50,14 +64,14 @@ def detail(request, hash, template="web/tags/detail.html"):
     # )
 
 
-def text_to_detail(request, tag_text):
-    log.info(tag_text)
-    try:
-        _tag = Tag.objects.get(tag = tag_text)
-    except Tag.DoesNotExist:
-        raise Http404
-
-    return HttpResponseRedirect(reverse('web_tag_detail', args=[_tag.tag_hash]))
+# def text_to_detail(request, tag_text):
+#     log.info(tag_text)
+#     try:
+#         _tag = Tag.objects.get(tag = tag_text)
+#     except Tag.DoesNotExist:
+#         raise Http404
+#
+#     return HttpResponseRedirect(reverse('web_tag_detail', args=[_tag.tag_hash]))
 
 
 __author__ = 'edison'
