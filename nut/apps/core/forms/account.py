@@ -16,6 +16,7 @@ from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from django.contrib.auth import authenticate, get_user_model
 
 from captcha.fields import CaptchaField
+from settings import GUOKU_MAIL, GUOKU_NAME
 
 
 class GuoKuUserSignInForm(forms.Form):
@@ -193,7 +194,7 @@ class UserPasswordResetForm(PasswordResetForm):
             user = user
             token = token_generator.make_token(user)
             mail_message = EmailMessage(to=(email,),
-                                        from_email='hi@guoku.com')
+                                        from_email=GUOKU_MAIL,)
             reverse_url = reverse('web_password_reset_confirm',
                                   kwargs={'uidb64': uid, 'token': token})
             reset_link = "{0:s}{1:s}".format(domain, reverse_url)
@@ -201,6 +202,7 @@ class UserPasswordResetForm(PasswordResetForm):
                         '%reset_link%': (reset_link,)}
             mail_message.template_invoke_name = template_invoke_name
             mail_message.sub_vars = sub_vars
+            mail_message.from_name = GUOKU_NAME
             mail_message.send()
 
 
