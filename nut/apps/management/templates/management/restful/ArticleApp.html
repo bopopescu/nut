@@ -68,10 +68,37 @@
     {% block html_templates %}
 {#        will put all single app template here #}
 {#        by -anchen #}
+
+        <script id="id_article_detail_form_template" type="text/html">
+
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <TD CLASS="input-title">title</TD>
+                    <td class="input-cell" data-editors="title"></td>
+                </tr>
+                <tr>
+                    <td class="input-title">cover</td>
+                    <td class="input-cell" data-editors="cover"></td>
+                </tr>
+                <tr>
+                    <td class="input-title">creator</td>
+                    <td class="input-cell" data-editors="creator"></td>
+                </tr>
+                <tr>
+                    <td class="input-title">publish</td>
+                    <td class="input-cell" data-editors="publish"></td>
+                </tr>
+                <tr>
+                    <td class="input-title">read count</td>
+                    <td class="input-cell" data-editors="read_count"></td>
+                </tr>
+                </tbody>
+            </table>
+        </script>
         <script id="id_article_list_item_template" type="text/html">
                 <td class="cover">
                     <img src="<%=coverImage%>">
-
                 </td>
                 <td>
                     <ul>
@@ -89,10 +116,10 @@
                 </td>
 
                 <td class='action edit'>
-                    <button class='btn btn-success btn-save'>{% trans 'Edit Content' %}</button>
+                    <button class='btn btn-success btn-save edit-content'>{% trans 'Edit Content' %}</button>
                 </td>
                 <td class='action edit'>
-                    <button class='btn btn-success btn-save'>{% trans 'Edit status' %}</button>
+                    <button class='btn btn-success btn-save edit-status'>{% trans 'Edit status' %}</button>
                 </td>
         </script>
     {% endblock %}

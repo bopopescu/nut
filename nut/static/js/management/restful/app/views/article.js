@@ -1,15 +1,89 @@
 define(function(require){
     "use strict";
 
+    function getCreatorSelectOptions(){
+            return [{val: 0, label: 'ant'},{val:1, label:'clara'}];
+        }
+
+    var ArticleDetailFormView = Backbone.Form.extend({
+
+        initialize: function(options){
+            Backbone.Form.prototype.initialize.call(this, options);
+        },
+        saveArticle:function(){
+            console.log('ok is clicked, captured by form view');
+            this.remove();
+        },
+        cancelEdit:function(){
+            console.log('cancel is clicked , captured by form view');
+            this.remove();
+        },
+        tagName: 'form',
+        template : _.template($('#id_article_detail_form_template').html()),
+        schema: {
+            title: {type:'Text', validators:['required']},
+            cover: {type:'Imgpicker', validators:['required']},
+            creator: {type:'Select',options:getCreatorSelectOptions},
+            publish: {type:'Select', options:{0: '移除', 1:'草稿' , 2:'发布'}},
+            read_count: {type: 'Number', validators:['required']}
+        },
+
+    });
+
     var ArticleListItemView = Backbone.View.extend({
         initialize: function(){
             Backbone.View.prototype.initialize.apply(this,[].slice.call(arguments));
         },
         tagName: 'tr',
         template : _.template($('#id_article_list_item_template').html()),
-        events : {},
+        events : {
+            'click .edit-content': 'editContent',
+            'click .edit-status': 'editAttribute'
+        },
+
+        getDetailFormContainer: function(){
+             var that = this ;
+             bootbox.hideAll();
+             bootbox.setDefaults({
+                className: 'batch-selection-modal',
+                closeButton: false,
+                locale:'zh_CN'
+            });
+            bootbox.dialog({
+                title: '文章属性编辑',
+                    message:'<div id="article_form_wrapper"></div>',
+                    buttons:{
+                        success:{
+                            label:"保存文章",
+                            className: 'btn-success save-article',
+                            callback: function(){ that.trigger('modalOK');}
+                        },
+                        fail:{
+                            label:"放弃操作",
+                            className:'btn-danger quit-edit',
+                            callback: function(){that.trigger('modalCancel');}
+                        }
+                    }
+
+            });
+            return $('#article_form_wrapper');
+        },
+
+        editAttribute: function(){
+            var articleEditView = new ArticleDetailFormView({
+               model: this.model,
+            });
+            var detailFormContainer = this.getDetailFormContainer();
+                detailFormContainer.append(articleEditView.render().$el);
+
+            articleEditView.listenToOnce(this, 'modalOK', articleEditView.saveArticle);
+            articleEditView.listenToOnce(this, 'modalCancel', articleEditView.cancelEdit);
+        },
+        editContent: function(){
+            alert('attribute' + this.model.get('id'));
+        },
         render: function(){
-            this.$el.html(this.template(this.model.toJSON()))
+            this.$el.html(this.template(this.model.toJSON()));
             return this ;
         }
 
