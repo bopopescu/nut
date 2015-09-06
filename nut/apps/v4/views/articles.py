@@ -4,12 +4,14 @@ from apps.v4.models import APISeletion_Articles
 from apps.mobile.lib.sign import check_sign
 
 from django.core.paginator import Paginator
+from datetime import datetime
+
 
 class ArticlesListView(BaseJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
-        sla_list = APISeletion_Articles.objects.published().order_by('-pub_time')
+        sla_list = APISeletion_Articles.objects.published(until_time=self.timestamp).order_by('-pub_time')
 
         paginator = Paginator(sla_list, self.size)
 
@@ -29,6 +31,9 @@ class ArticlesListView(BaseJsonView):
     def get(self, request, *args, **kwargs):
         self.page = request.GET.get('page', 1)
         self.size = request.GET.get('size', 10)
+        self.timestamp = request.GET.get('timestamp', None)
+        if self.timestamp != None:
+            self.timestamp = datetime.fromtimestamp(float(self.timestamp))
         return super(ArticlesListView, self).get(request, *args, **kwargs)
 
     @check_sign
