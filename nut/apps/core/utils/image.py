@@ -67,6 +67,11 @@ class HandleImage(object):
     def resize(self, w, h):
         # _img = WandImage(blob = self._image_data)
         # _img.format = 'jpeg'
+
+        #  quick fix 0 divide error in django.log
+        if w == 0 or h == 0 :
+            w = h = 100
+
         if (w /  h > self.img.width / self.img.height):
             _width = round(h * self.img.width / self.img.height)
             _height = h
@@ -166,6 +171,9 @@ class HandleImage(object):
         return filename
 
 class LimitedImage(HandleImage):
+    def __init__(self, image_file):
+        super(LimitedImage,self).__init__(image_file)
+
 
     def handleWidth(self, maxWidth):
         try :
@@ -201,6 +209,9 @@ class LimitedImage(HandleImage):
         if maxQuality:
             self.handleQuality(maxQuality)
 
-        return super(LimitedImage,self).save(path, resize ,square)
+        file_name = super(LimitedImage,self).save(path, resize ,square)
+        # (width, height) = self.img.size
+
+        return file_name
 
 __author__ = 'edison'

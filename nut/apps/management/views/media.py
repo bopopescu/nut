@@ -60,8 +60,6 @@ def delete(request):
 @login_required
 @writers_only
 def upload_image(request):
-    # maxWidth = request.GET.get('mwidth', 1200)
-    # maxQuality = request.GET.get('mquality',100)
 
     if request.method == "POST":
         log.info('img upload begin----')

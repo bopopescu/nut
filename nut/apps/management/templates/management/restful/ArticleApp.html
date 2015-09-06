@@ -1,0 +1,133 @@
+{% extends 'management/management_restful_base.html' %}
+{% load staticfiles i18n %}
+
+ {% block css %}
+    <link href="{% static 'css/management/restful_application.css' %}" rel="stylesheet">
+ {% endblock %}
+
+{% block content %}
+    <section class="content-header">
+        <h1>
+            {% trans 'Articles' %}
+            <small>{% trans 'list' %}</small>
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+{#            <li><a href="#">Tables</a></li>#}
+            <li class="active">{% trans 'Article' %}</li>
+        </ol>
+    </section>
+    <section class="content" id="Article-management">
+        <div class="col-xs-12 content-full-height">
+            <div class="box">
+                <div class="box-header">
+                    <h2>{% trans 'Article List' %}</h2>
+                     <div class="page-info "></div>
+                    <div class="total-page-info"></div>
+                    <input type="text" class="to_page_num" placeholder="go to page num...">
+                     <ul class="pagination pagination-sm no-margin pull-right">
+                        <li class="page-action first"><a>{% trans 'first page' %}</a></li>
+                        <li class="page-action prev"><a>{% trans 'previous page' %}</a></li>
+                        <li class="page-action next"><a>{% trans 'next page' %}</a></li>
+                    </ul>
+                </div>
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover table-dynamic" id="sbbanner">
+                        <thead>
+                             <tr>
+                                <th>{% trans 'Article Cover' %}</th>
+                                <th>{% trans 'Article title(writer)' %}</th>
+                                <th>{% trans 'last modified time' %}</th>
+                                <th>{% trans 'Article Status' %}</th>
+                                <th>{% trans 'Edit content' %}</th>
+                                <th>{% trans 'Edit attribute ' %}</th>
+
+                            </tr>
+                        </thead>
+                        <tbody class="list-container">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="box-footer clearfix">
+                    <div class="page-info "></div>
+                    <div class="total-page-info"></div>
+                    <input type="text" class="to_page_num" placeholder="go to page num...">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li class="page-action first"><a>{% trans 'first page' %}</a></li>
+                        <li class="page-action prev"><a>{% trans 'previous page' %}</a></li>
+                        <li class="page-action next"><a>{% trans 'next page' %}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+{% block user_script %}
+    {% block html_templates %}
+{#        will put all single app template here #}
+{#        by -anchen #}
+
+        <script id="id_article_detail_form_template" type="text/html">
+
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <TD CLASS="input-title">title</TD>
+                    <td class="input-cell" data-editors="title"></td>
+                </tr>
+                <tr>
+                    <td class="input-title">cover</td>
+                    <td class="input-cell" data-editors="cover"></td>
+                </tr>
+                <tr>
+                    <td class="input-title">creator</td>
+                    <td class="input-cell" data-editors="creator"></td>
+                </tr>
+                <tr>
+                    <td class="input-title">publish</td>
+                    <td class="input-cell" data-editors="publish"></td>
+                </tr>
+                <tr>
+                    <td class="input-title">read count</td>
+                    <td class="input-cell" data-editors="read_count"></td>
+                </tr>
+                </tbody>
+            </table>
+        </script>
+        <script id="id_article_list_item_template" type="text/html">
+                <td class="cover">
+                    <img src="<%=coverImage%>">
+                </td>
+                <td>
+                    <ul>
+                        <li  class='title'> <%=title%></li>
+                        <li class="author"> 作者： <%=creator.profile.nickname%></li>
+                        <li class="read"> 阅读数： <%=read_count%></li>
+                    </ul>
+
+                </td>
+                <td  class='time'>
+                    <%=updated_datetime%>
+                </td>
+                <td  class='status'>
+                    <%=status%>
+                </td>
+
+                <td class='action edit'>
+                    <button class='btn btn-success btn-save edit-content'>{% trans 'Edit Content' %}</button>
+                </td>
+                <td class='action edit'>
+                    <button class='btn btn-success btn-save edit-status'>{% trans 'Edit status' %}</button>
+                </td>
+        </script>
+    {% endblock %}
+
+{% endblock %}
+
+{# following is the real deal!   #}
+{# must set the global application controller here #}
+ {% block entry_script %}
+    <script data-main="{% static 'js/management/restful/articleEntry.js' %}" src="{% static 'js/management/restful/require.js' %}" ></script>
+ {% endblock %}

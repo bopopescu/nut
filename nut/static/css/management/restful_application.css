@@ -46,4 +46,41 @@
   direction: ltr;
   cursor: pointer;
 }
+#SBBanner-management #sbbanner .banner-image {
+  max-width: 250px;
+  width: 250px;
+}
+#SBBanner-management #sbbanner .banner-position input {
+  width: 60px;
+}
+#SBBanner-management #sbbanner .banner-link input {
+  width: 250px;
+  font-size: 12px;
+}
+#Article-management table .title {
+  max-width: 250px;
+  font-weight: 600;
+  font-size: 16px;
+}
+#Article-management table .author {
+  color: darkblue;
+}
+#Article-management table .read {
+  color: darkred;
+}
+#Article-management .box-footer div,
+#Article-management .box-header div {
+  display: inline-block;
+}
+#Article-management .box-footer input,
+#Article-management .box-header input {
+  margin-left: 20px;
+}
+#Article-management .box-footer .page-action,
+#Article-management .box-header .page-action {
+  cursor: pointer;
+}
+.test {
+  color: red;
+}
 /*# sourceMappingURL=restful_application.less.css.map */

@@ -1,4 +1,4 @@
-from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
@@ -35,13 +35,9 @@ from braces.views import UserPassesTestMixin, JSONResponseMixin
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from apps.core.serializers.articles import ArticleSerializer, SelectionArticleSerializer
-
+from apps.api.serializers.articles import ArticleSerializer
 
 from django.views.generic.edit import UpdateView
-
-from rest_framework import generics
-from rest_framework import mixins
 
 
 class RESTfulArticleListView(APIView):
