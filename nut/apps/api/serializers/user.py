@@ -3,7 +3,6 @@ from rest_framework import serializers
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = User_Profile
         fields = ('nickname', 'location', 'city', 'gender', 'bio', 'website', 'avatar', 'email_verified',)
@@ -32,5 +31,12 @@ class AvatarSerializer(serializers.Serializer):
 
     def save(self, **kwargs):
         _avarar = self.validated_data.get('avatar')
+
+
+class NestingUserSerializer(serializers.ModelSerializer):
+    profile = UserProfileSerializer()
+    class Meta:
+        model = GKUser
+        fields = ('pk','profile','email')
 
 __author__ = 'edison7500'

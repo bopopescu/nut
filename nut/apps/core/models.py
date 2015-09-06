@@ -25,7 +25,7 @@ from apps.core.manager.category import CategoryManager, SubCategoryManager
 from apps.core.manager.comment import CommentManager
 from apps.core.manager.event import ShowEventBannerManager
 from apps.core.manager.article import ArticleManager, SelectionArticleManager
-
+from apps.core.manager.sidebar_banner import SidebarBannerManager
 from hashlib import md5
 
 from apps.core.utils.image import HandleImage
@@ -33,6 +33,8 @@ from apps.core.utils.commons import verification_token_generator
 from apps.notifications import notify
 
 import time
+from settings import GUOKU_MAIL, GUOKU_NAME
+
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -300,7 +302,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def send_verification_mail(self):
         template_invoke_name = settings.VERFICATION_EMAIL_TEMPLATE
         mail_message = EmailMessage(to=(self.email,),
-                                    from_email='hi@guoku.com')
+                                    from_email=GUOKU_MAIL,)
         uidb64 = urlsafe_base64_encode(force_bytes(self.id))
         token = verification_token_generator.make_token(self)
         reverse_url = reverse('register_confirm',
@@ -309,6 +311,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         verify_link = "{0:s}{1:s}".format(settings.SITE_DOMAIN, reverse_url)
         sub_vars = {'%verify_link%': (verify_link,)}
         mail_message.template_invoke_name = template_invoke_name
+        mail_message.from_name = GUOKU_NAME
         mail_message.sub_vars = sub_vars
         mail_message.send()
 
@@ -460,16 +463,14 @@ class Sidebar_Banner(BaseModel):
     position = models.IntegerField(null=False,default=1,blank=False)
     status = models.IntegerField(choices=SB_BANNER_STATUS_CHOICE, default=disabled)
 
+    objects = SidebarBannerManager()
+
     @property
     def image_url(self):
         return "%s%s" % (image_host, self.image)
 
     class Meta:
         ordering = ['-status', 'position', '-updated_time']
-
-
-
-
 
 
 class Category(BaseModel):
@@ -1166,9 +1167,8 @@ class WeChat_Token(BaseModel):
         code_string = "%s%s%s" % (unionid, nick, time.mktime(datetime.now().timetuple()))
         return md5(code_string.encode('utf-8')).hexdigest()
 
-
+# for bleach Article Content
 from apps.core.utils.articlecontent import contentBleacher
-
 class Article(BaseModel):
 
     (remove, draft, published) = xrange(3)

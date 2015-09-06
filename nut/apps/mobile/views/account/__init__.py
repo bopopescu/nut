@@ -76,7 +76,7 @@ def forget_password(request):
         _forms = UserPasswordResetForm(request.POST)
         if _forms.is_valid():
             _forms.save(template_invoke_name=settings.RESET_PASSWORD_TEMPLATE,
-                        domain_override='guoku.com')
+                        domain_override=settings.SITE_DOMAIN)
             return SuccessJsonResponse(data={ 'success' : '1' })
         return ErrorJsonResponse(
                 data = {

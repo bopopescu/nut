@@ -403,26 +403,25 @@
 .load-more-button,
 .next-button,
 .prev-button {
-  margin: 0 auto ;
-  background-color: #ffffff;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 2px #dddddd;
-  -moz-box-shadow: 0px 0px 2px #dddddd;
-  box-shadow: 0px 0px 2px #dddddd;
-  overflow: hidden;
-  width: 200px;
-  background-color: #fff;
-  color: #9d9e9f;
-  height: 64px;
-  font-size: 16px;
-  line-height: 70px;
-  margin: 20px;
-  display: none;
+  display: inline-block;
+  padding: 5px 14px;
+  background: #fff;
+  color: #898989;
+  font-weight: 700;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.load-more-button:hover,
+.next-button:hover,
+.prev-button:hover,
+.load-more-button:active,
+.next-button:active,
+.prev-button:active,
+.load-more-buttonfocus,
+.next-buttonfocus,
+.prev-buttonfocus {
+  background: #eee;
 }
 .nav-button-holder {
   background: none;
@@ -434,6 +433,16 @@
 }
 .button-row {
   text-align: center;
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+.like-action {
+  text-decoration: none;
+}
+.like-action:hover,
+.like-action:focus,
+.like-action:active {
+  text-decoration: none;
 }
 @-moz-document url-prefix() {
   fieldset {
