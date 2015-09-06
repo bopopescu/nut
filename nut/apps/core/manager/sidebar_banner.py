@@ -1,7 +1,5 @@
 from django.db import models
 
-
-
 class SidebarBannerQuerySet(models.query.QuerySet):
     def active_sbbanners(self):
         return self.using('slave').filter(status=2).order_by('position','-updated_time')
