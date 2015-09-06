@@ -1716,7 +1716,6 @@ Form.editors.Select = Form.editors.Base.extend({
     }else{
       html = this._objectToHtml(options);
     }
-
     return html;
   },
 

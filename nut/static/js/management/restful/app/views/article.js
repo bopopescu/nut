@@ -1,8 +1,17 @@
 define(function(require){
     "use strict";
+    var Writers = require('models/writers');
 
-    function getCreatorSelectOptions(){
-            return [{val: 0, label: 'ant'},{val:1, label:'clara'}];
+    function getCreatorSelectOptions(callback){
+            var writerList = new Writers();
+                writerList.on('reset', function(){
+                    var resultList = [];
+                    writerList.each(function(writer){
+                        resultList.push({val: writer.get('id'), label: writer.get('profile').nickname});
+                    });
+                    callback(resultList)
+                });
+                writerList.fetch({reset: true});
         }
 
     var ArticleDetailFormView = Backbone.Form.extend({
@@ -11,7 +20,8 @@ define(function(require){
             Backbone.Form.prototype.initialize.call(this, options);
         },
         saveArticle:function(){
-            console.log('ok is clicked, captured by form view');
+            this.commit();
+            this.model.save();
             this.remove();
         },
         cancelEdit:function(){
@@ -23,7 +33,7 @@ define(function(require){
         schema: {
             title: {type:'Text', validators:['required']},
             cover: {type:'Imgpicker', validators:['required']},
-            creator: {type:'Select',options:getCreatorSelectOptions},
+            creator_id: {type:'Select',options:getCreatorSelectOptions},
             publish: {type:'Select', options:{0: '移除', 1:'草稿' , 2:'发布'}},
             read_count: {type: 'Number', validators:['required']}
         },
@@ -33,6 +43,7 @@ define(function(require){
     var ArticleListItemView = Backbone.View.extend({
         initialize: function(){
             Backbone.View.prototype.initialize.apply(this,[].slice.call(arguments));
+            this.listenTo(this.model, 'sync', this.render);
         },
         tagName: 'tr',
         template : _.template($('#id_article_list_item_template').html()),
@@ -145,7 +156,5 @@ define(function(require){
     });
 
     return ArticleListView ;
-
-
 
 });
