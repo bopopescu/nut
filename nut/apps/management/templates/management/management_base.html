@@ -16,16 +16,12 @@
 {#    <link href="{% static 'thirdparty/animate/animate.min.css' %}" rel="stylesheet">#}
     <link href="{% static 'thirdparty/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
-{#    <link href="{% static 'css/management/rwd-table.min.css' %}" rel="stylesheet">#}
-{#    <link href="{% static 'css/management/main.css' %}" rel="stylesheet">#}
     <link href="{% static 'css/management/AdminLTE.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/management/skins/_all-skins.min.css' %}">
     <link href="{% static 'css/management/bootstrap-datetimepicker.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/management/basic_management.css' %}" rel="stylesheet">
 
-    {% block css %}
-
-    {% endblock %}
+    {% block css %}{% endblock %}
 {#    <script src="{% static 'js/management/restful/sentinel.js' %}" id="hero" ></script>#}
 {#    <script data-main="{% static 'js/management/restful/app.js' %}" src="{% static 'js/management/restful/require.js' %}" ></script>#}
 
@@ -49,7 +45,7 @@
                                 <i class="fa fa-bell-o"></i>
                                 <span class="label label-warning">{{ unread_count }}</span>
                             </a>
-                             <ul class="dropdown-menu">
+                             <ul class="dropdown-menu" id="notify">
                                  <li class="header">You have {{ unread_count }} notifications</li>
                                  <li>
                                      <ul class="menu">
@@ -97,9 +93,9 @@
                              </ul>
                          </li>
 
-                         <li>
-                             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                         </li>
+{#                         <li>#}
+{#                             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>#}
+{#                         </li>#}
                      </ul>
                 </div>
             </nav>
@@ -263,6 +259,7 @@
         <strong>Copyright &copy; 2011-2015 <a href="http://www.guoku.com">guoku</a>.</strong> All rights reserved.
     </footer>
 {% endblock %}
+
 </div>
 
 </body>

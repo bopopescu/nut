@@ -42,26 +42,34 @@ $(function(){
 
     var entities = new EntityList();
 
-    var EntityListView = Backbone.View.extend({
-        el: "#recently-entities",
+    var DashboardView = Backbone.View.extend({
+        el: "#dashboard",
 
         initialize: function(){
             this.listenTo(entities, 'add', this.addOne);
             this.listenTo(entities, 'reset', this.addAll);
+            this.listenTo(entities, 'all', this.render);
 
+            this.recently = this.$("#entities-footer");
             entities.fetch();
         },
 
         addOne: function(entity) {
             var view = new EntityView({model: entity});
-            this.$("ul").append(view.render().el);
+            this.$("#recently-entities ul").append(view.render().el);
         },
 
         addAll: function(){
             entities.each(this.addOne, this);
+        },
+
+        render : function(){
+            if (entities.length) {
+                this.recently.show();
+            }
         }
 
     });
 
-    var entitiesView = new EntityListView();
+    var dashboard = new DashboardView();
 });

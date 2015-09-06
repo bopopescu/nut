@@ -20,7 +20,7 @@
         </ol>
     </section>
 
-    <section class="content">
+    <section class="content" id="dashboard">
         <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="small-box bg-red">
@@ -143,22 +143,9 @@
                     </div>
                     <div class="box-body">
                         <ul class="products-list product-list-in-box">
-{#                        {% for entity in entities %}#}
-{#                            <li class="item">#}
-{#                                <div class="product-img">#}
-{#                                    <img src="{{ entity.chief_image|resize:'128' }}" alt="Product Image">#}
-{#                                </div>#}
-{#                                <div class="product-info">#}
-{#                                    <a href="javascript:;" class="product-title">{{ entity|truncatechars:'20' }}<span class="label label-warning pull-right">{{ entity.price }}</span></a>#}
-{#                                    <span class="product-description">#}
-{#                                       {{ entity.user.profile.nick }}#}
-{#                                    </span>#}
-{#                                </div>#}
-{#                            </li><!-- /.item -->#}
-{#                        {% endfor %}#}
                         </ul>
                     </div>
-                    <div class="box-footer text-center" id="entities-footer" >
+                    <div class="box-footer text-center" id="entities-footer" style="display: none;" >
                         <a href="{% url 'management_entity_list' %}" class="uppercase">View All Products</a>
                     </div><!-- /.box-footer -->
                 </div>
@@ -166,28 +153,6 @@
             </div>
         </div>
     </section>
-{#    <h1 class="page-header">{% trans 'dashboard' %}</h1>#}
-{##}
-{#    {% include 'management/banner/show_banners.html' with show_banners=show_banners %}#}
-{##}
-{#    <div class="row">#}
-{#        <strong>一周精选发布状况</strong>#}
-{#        <div class="col-sm-12">#}
-{#            <canvas id="selectionChart"  width="767" height="400"></canvas>#}
-{#        </div>#}
-{#    </div>#}
-{#    <div class="row">#}
-{#        <strong>一周分布精选分类</strong>#}
-{#        <div class="col-sm-12">#}
-{#            <canvas id="categoryChart"  width="767" height="400"></canvas>#}
-{#        </div>#}
-{#    </div>#}
-{#    <div class="row">#}
-{#        <strong>一周喜欢状况</strong>#}
-{#        <div class="col-sm-12">#}
-{#            <canvas id="likeChart"  width="767" height="400"></canvas>#}
-{#        </div>#}
-{#    </div>#}
 
 {% endblock %}
 
