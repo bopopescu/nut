@@ -35,7 +35,7 @@ from braces.views import UserPassesTestMixin, JSONResponseMixin
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from api.serializers.articles import ArticleSerializer
+from apps.api.serializers.articles import ArticleSerializer
 
 from django.views.generic.edit import UpdateView
 
