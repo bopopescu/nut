@@ -25,7 +25,7 @@ from apps.core.manager.category import CategoryManager, SubCategoryManager
 from apps.core.manager.comment import CommentManager
 from apps.core.manager.event import ShowEventBannerManager
 from apps.core.manager.article import ArticleManager, SelectionArticleManager
-
+from apps.core.manager.sidebar_banner import SidebarBannerManager
 from hashlib import md5
 
 from apps.core.utils.image import HandleImage
@@ -449,6 +449,7 @@ class Show_Banner(BaseModel):
 
 #  Banner for side bar
 
+
 class Sidebar_Banner(BaseModel):
     (removed, disabled, enabled) = xrange(3)
     SB_BANNER_STATUS_CHOICE = [
@@ -462,6 +463,8 @@ class Sidebar_Banner(BaseModel):
     link = models.CharField(max_length = 255, null = False)
     position = models.IntegerField(null=False,default=1,blank=False)
     status = models.IntegerField(choices=SB_BANNER_STATUS_CHOICE, default=disabled)
+
+    objects = SidebarBannerManager()
 
     @property
     def image_url(self):
