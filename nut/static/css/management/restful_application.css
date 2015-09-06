@@ -46,6 +46,17 @@
   direction: ltr;
   cursor: pointer;
 }
+#SBBanner-management #sbbanner .banner-image {
+  max-width: 250px;
+  width: 250px;
+}
+#SBBanner-management #sbbanner .banner-position input {
+  width: 60px;
+}
+#SBBanner-management #sbbanner .banner-link input {
+  width: 250px;
+  font-size: 12px;
+}
 #Article-management table .title {
   max-width: 250px;
   font-weight: 600;
