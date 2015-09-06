@@ -552,6 +552,10 @@
     font-size: 13px;
     color: #9d9e9f;
   }
+  .more-article-wrapper .article-digest .created-date {
+    padding: 10px 0;
+    text-align: right;
+  }
   .user-page .user-info-wrapper .user-icon {
     max-width: 200px;
   }

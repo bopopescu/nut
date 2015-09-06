@@ -12,13 +12,13 @@ log = getLogger('django')
 class ArticleManager(models.Manager):
     def get_published_by_user(self,user):
         # publish = 2   because  Article.published = 2, user 2 to avoid circular reference
-        return self.get_queryset().filter(publish=2, creator=user).order_by('-updated_datetime')
+        return self.get_queryset().using('slave').filter(publish=2, creator=user).order_by('-created_datetime')
 
     def get_drafted_by_user(self,user):
-        return self.get_queryset().filter(publish=1, creator=user).order_by('-updated_datetime')
+        return self.get_queryset().using('slave').filter(publish=1, creator=user).order_by('-updated_datetime')
 
     def get_removed_by_user(self,user):
-        return self.get_queryset().filter(publish=0, creator=user).order_by('-updated_datetime')
+        return self.get_queryset().using('slave').filter(publish=0, creator=user).order_by('-updated_datetime')
 
 
 

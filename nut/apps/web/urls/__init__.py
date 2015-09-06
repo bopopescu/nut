@@ -86,7 +86,6 @@ urlpatterns += patterns(
 
 )
 
-
 # entity
 urlpatterns += patterns(
     'apps.web.views',
