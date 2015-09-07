@@ -32,17 +32,21 @@ urlpatterns = patterns(
     # url(r'^feed/', include('apps.mobile.urls.feed')),
     url(r'^auth/', include('rest_framework.urls', namespace='rest_framework'))
 )
-
+# for side bar banner
 urlpatterns += patterns(
     '',
     url(r'^sbbanner/', include('apps.api.urls.sbbanner')),
 )
 
 urlpatterns += patterns(
+    '',
+    url(r'^articles/', include('apps.api.urls.articles')),
+)
+
+urlpatterns += patterns(
     'apps.api.views',
     url(r'^feed/', include('apps.mobile.urls.feed')),
 )
-
 
 
 urlpatterns += format_suffix_patterns([
