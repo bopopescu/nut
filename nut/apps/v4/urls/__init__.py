@@ -1,10 +1,11 @@
 from django.conf.urls import url, patterns, include
-from apps.v4.views import DiscoverView
+from apps.v4.views import DiscoverView, HomeView
 
 
 urlpatterns = patterns(
     'apps.v4.views',
     url(r'^homepage/$', 'homepage', name='v4_homepage'),
+    url(r'^home/$', HomeView.as_view(), name='v4_home'),
     url(r'^selection/$', 'selection', name='v4_selection'),
     url(r'^popular/$', 'popular', name='v4_popular'),
     # url(r'^discover/$', 'discover', name='v4_discover'),

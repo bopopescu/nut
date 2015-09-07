@@ -6,7 +6,7 @@ from apps.mobile.models import Session_Key
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.models import Show_Banner, Banner, Buy_Link, Selection_Entity, Entity, Entity_Like, Sub_Category
 from apps.core.utils.taobaoapi.utils import taobaoke_mobile_item_convert
-from apps.v4.models import APISelection_Entity, APIEntity, APICategory
+from apps.v4.models import APISelection_Entity, APIEntity, APICategory, APISeletion_Articles
 from apps.v4.forms.pushtoken import PushForm
 # from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from datetime import datetime, timedelta
@@ -52,9 +52,23 @@ def decorate_taobao_url(url, ttid=None, sid=None, outer_code=None, sche=None):
 class HomeView(BaseJsonView):
     http_method_names = ['get']
 
-    # def get_data(self, context):
+    def get_data(self, context):
+        res = dict()
+        shows = Show_Banner.objects.all()
+        res['banner'] = []
+        for row in shows:
+            res['banner'].append(
+                {
+                    'url':row.banner.url,
+                    'img':row.banner.image_url
+                }
+            )
+        res['articles'] = []
+        res['entities'] = []
+        return res
 
-        # return
+    def dispatch(self, request, *args, **kwargs):
+        return super(HomeView, self).dispatch(request, *args, **kwargs)
 
 class DiscoverView(BaseJsonView):
     http_method_names = ['get']
