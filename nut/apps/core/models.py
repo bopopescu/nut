@@ -15,6 +15,8 @@ from django.db.models import Count
 from django.db.models.signals import post_save
 from django.conf import settings
 from django.core.cache import cache
+from django.contrib.contenttypes.generic import GenericRelation
+
 import requests
 from apps.core.extend.fields.listfield import ListObjectField
 from apps.core.manager.account import GKUserManager
@@ -1186,6 +1188,7 @@ class WeChat_Token(BaseModel):
 
 # for bleach Article Content
 from apps.core.utils.articlecontent import contentBleacher
+from apps.tag.models import Content_Tags
 class Article(BaseModel):
 
     (remove, draft, published) = xrange(3)
@@ -1204,6 +1207,8 @@ class Article(BaseModel):
     updated_datetime = models.DateTimeField()
     showcover = models.BooleanField(default=False)
     read_count = models.IntegerField(default=0)
+
+    tags = GenericRelation(Content_Tags)
 
     objects = ArticleManager()
 
