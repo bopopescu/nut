@@ -29,6 +29,7 @@ class ArticlesListView(BaseJsonView):
     def get(self, request, *args, **kwargs):
         self.page = request.GET.get('page', 1)
         self.size = request.GET.get('size', 10)
+        self.timestamp = request.GET.get('timestamp', None)
         return super(ArticlesListView, self).get(request, *args, **kwargs)
 
     @check_sign

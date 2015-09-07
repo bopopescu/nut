@@ -129,14 +129,13 @@ class Tags(BaseModel):
 
 class Content_Tags(BaseModel):
     tag = models.ForeignKey(Tags)
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='user_tags')
 
     target_content_type = models.ForeignKey(ContentType, related_name='tag_target', blank=True, null=True)
     target_object_id = models.BigIntegerField(null=True)
     target = generic.GenericForeignKey('target_content_type', 'target_object_id')
 
     created_datetime = models.DateTimeField(auto_now_add=True, editable=True, db_index=True)
-    # created_datetime = models.DateTimeField(db_index=True)
 
     objects = ContentTagManager()
 
