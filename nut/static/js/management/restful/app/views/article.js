@@ -1,6 +1,7 @@
 define(function(require){
     "use strict";
     var Writers = require('models/writers');
+    var ArticleCollection = require('models/article').ArticleCollection;
 
     function getCreatorSelectOptions(callback){
             var writerList = new Writers();
@@ -13,6 +14,7 @@ define(function(require){
                 });
                 writerList.fetch({reset: true});
         }
+
 
     var ArticleDetailFormView = Backbone.Form.extend({
 
@@ -118,7 +120,63 @@ define(function(require){
             'click .page-action.first': 'goFirstPage',
             'click .page-action.prev':'goPrevPage',
             'click .page-action.next':'goNextPage',
-            'change .to_page_num': 'pageNumberChanged'
+            'change .to_page_num': 'pageNumberChanged',
+            'change .filter-publish': 'changeFilter'
+        },
+        getFilterParams: function(){
+            var params={};
+            this.$('.filter').each(function(index,ele){
+                params[$(ele).attr('name')] = $(ele).val();
+            });
+            return params;
+        },
+        getUrlParams: function(url){
+           var qs = url.split('?')[1];
+           return this.queryStringToParams(qs);
+        },
+
+        getUrlPath: function(url){
+            return url.split('?')[0];
+        },
+        queryStringToParams: function (qs) {
+            var kvp, k, v, ls, params = {}, decode = decodeURIComponent;
+            var kvps = qs.split('&');
+            for (var i = 0, l = kvps.length; i < l; i++) {
+                var param = kvps[i];
+                kvp = param.split('='), k = kvp[0], v = kvp[1] || true;
+                k = decode(k), v = decode(v), ls = params[k];
+                if (_.isArray(ls)) ls.push(v);
+                else if (ls) params[k] = [ls, v];
+                else params[k] = v;
+            }
+            return params;
+        },
+        paramToQueryString: function(param){
+            var qs = '?';
+            var encode = encodeURIComponent;
+            for(var key in param){
+
+                var str = encode(key)+'='+encode(param[key])
+                qs += str;
+            }
+            return qs;
+        },
+
+        changeCollectionByParam:function(param){
+            var oldUrlPath = this.getUrlPath(this.collection.url);
+            var oldParams = this.getUrlParams(this.collection.url);
+            var newParams = this.getFilterParams();
+            var params = _.extend({}, oldParams, newParams);
+            var qs = this.paramToQueryString(params);
+            var newUrl = oldUrlPath + qs;
+            this.collection.url = newUrl;
+            this.collection.getFirstPage({reset:true});
+        },
+
+        changeFilter: function(event){
+            var params = this.getFilterParams();
+            this.changeCollectionByParam(params);
+
         },
         pageNumberChanged: function(event){
            var pageNum =  parseInt($(event.target).val());
@@ -136,6 +194,7 @@ define(function(require){
         },
         goNextPage:function(){
             this.collection.getNextPage({reset:true});
+            console.log(this.collection.url);
         },
 
         render: function(){

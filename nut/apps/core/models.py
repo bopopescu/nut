@@ -1189,6 +1189,7 @@ class WeChat_Token(BaseModel):
 # for bleach Article Content
 from apps.core.utils.articlecontent import contentBleacher
 from apps.tag.models import Content_Tags
+from django.contrib.contenttypes.models import ContentType
 class Article(BaseModel):
 
     (remove, draft, published) = xrange(3)
@@ -1208,8 +1209,6 @@ class Article(BaseModel):
     showcover = models.BooleanField(default=False)
     read_count = models.IntegerField(default=0)
 
-    tags = GenericRelation(Content_Tags)
-
     objects = ArticleManager()
 
     class Meta:
@@ -1222,6 +1221,14 @@ class Article(BaseModel):
         if not kwargs.pop('skip_updatetime', False):
             self.updated_datetime = datetime.now()
         super(Article, self).save(*args, **kwargs)
+
+    @property
+    def tag_list(self):
+        _tag_list = Content_Tags.objects\
+                            .filter(target_object_id=self.id, target_content_type=ContentType.objects.get_for_model(self))\
+                            .values_list('tag__name', flat=True)
+        return list(set(list(_tag_list)))
+
 
     @property
     def bleached_content(self):
