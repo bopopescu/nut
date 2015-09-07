@@ -32,11 +32,8 @@ class ArticlesListView(BaseJsonView):
         self.page = request.GET.get('page', 1)
         self.size = request.GET.get('size', 10)
         self.timestamp = request.GET.get('timestamp', None)
-<<<<<<< HEAD
-=======
         if self.timestamp != None:
             self.timestamp = datetime.fromtimestamp(float(self.timestamp))
->>>>>>> 7d862dca1c5a364d40b3f586f23d34c318a96705
         return super(ArticlesListView, self).get(request, *args, **kwargs)
 
     @check_sign
