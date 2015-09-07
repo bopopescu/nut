@@ -304,6 +304,7 @@ class APIArticle(Article):
         res['creator'] = self.creator.v3_toDict()
         return res
 
+
 # TODO API JPUSH
 class APIJpush(JpushToken):
 
