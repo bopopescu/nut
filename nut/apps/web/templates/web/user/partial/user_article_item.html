@@ -18,6 +18,9 @@
           </a>
           <div class="article-digest">
               {{ r_article.content|striptags|truncatechars:50 }}
+              {% if 'publish' in request.path %}
+                  <div class="created-date">{{ r_article.created_datetime|date:'Y-m-d' }}</div>
+              {% endif %}
 
           </div>
      </div>

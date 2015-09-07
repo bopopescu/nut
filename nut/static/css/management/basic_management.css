@@ -1,3 +1,68 @@
+.guoku-btn {
+  font-size: 16px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  display: inline-block;
+  padding: 2px 5px;
+  cursor: pointer;
+  border: none;
+}
+.guoku-btn:focus,
+.guoku-btn:active {
+  border: none;
+}
+.guoku-btn-blue {
+  font-size: 16px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  display: inline-block;
+  padding: 2px 5px;
+  cursor: pointer;
+  border: none;
+  background-color: #357ebd;
+  color: #fff;
+}
+.guoku-btn-blue:focus,
+.guoku-btn-blue:active {
+  border: none;
+}
+.guoku-btn-normal {
+  font-size: 16px;
+  line-height: 35px;
+  text-align: center;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: #357ebd;
+  display: inline-block;
+  width: 100%;
+  color: #fff;
+  padding: 2px 5px;
+  margin: 5px;
+  cursor: pointer;
+  border: none;
+}
+.guoku-btn-normal:focus,
+.guoku-btn-normal:active {
+  border: none;
+}
 .v-helper {
   display: inline-block;
   height: 100%;
@@ -379,185 +444,57 @@
 .like-action:active {
   text-decoration: none;
 }
-@media (max-width: 767px) {
-  .event-item {
-    padding: 5px 5px 5px 5px;
-  }
+.batch-selection-modal {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-@media (max-width: 767px) {
-  #guoku_main_nav {
-    background-color: #ffffff;
-  }
-  #guoku_main_nav .navbar-form {
-    padding: 0px 0px;
-  }
-  #guoku_main_nav .navbar-form input {
-    padding-left: 10px;
-  }
-  #guoku_main_nav .navbar-toggle .icon-bar {
-    background-color: #9d9e9f;
-  }
-  #guoku_main_nav .search .search-input {
-    color: #f8f8f8;
-  }
-  #guoku_main_nav .user-menu li a:hover,
-  #guoku_main_nav .user-menu li a:focus {
-    background: none;
-    color: #f8f8f8;
-  }
-  #guoku_main_nav .main-list li a:hover,
-  #guoku_main_nav .main-list li a:focus {
-    color: #424242;
-  }
-  #guoku_footer .footer-part .list-wrapper {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  #guoku_footer .footer-part .list-wrapper ul {
-    display: inline-block;
-  }
-  #guoku_footer .footer-part .qr-wrapper {
-    float: none!important;
-    margin: 0 auto ;
-  }
-  #guoku_footer .footer-buttons {
-    display: none;
-    width: 204px;
-    float: none;
-    margin: 0 auto;
-    margin-top: 30px;
-  }
-  #guoku_footer .footer-buttons ul {
-    padding: 0;
-  }
-  #guoku_footer .footer-bottom .footer-bottom-left,
-  #guoku_footer .footer-bottom .footer-bottom-right {
-    float: none;
-    margin: 0 auto;
-    padding-top: 20px;
-  }
-  #guoku_footer .footer-bottom .footer-bottom-left .font-logo-link.logo-weibo,
-  #guoku_footer .footer-bottom .footer-bottom-right .font-logo-link.logo-weibo {
-    padding-left: 2px!important;
-  }
-  #guoku_footer .footer-bottom .footer-bottom-left .font-logo-link.logo-twitter,
-  #guoku_footer .footer-bottom .footer-bottom-right .font-logo-link.logo-twitter {
-    padding-left: 2px!important;
-  }
-  #guoku_footer .footer-bottom .footer-bottom-left .font-logo-link.logo-facebook,
-  #guoku_footer .footer-bottom .footer-bottom-right .font-logo-link.logo-facebook {
-    padding-left: 2px!important;
-  }
-  #guoku_footer .footer-bottom .footer-bottom-left .font-logo-link.logo-instagram,
-  #guoku_footer .footer-bottom .footer-bottom-right .font-logo-link.logo-instagram {
-    padding-left: 2px!important;
-  }
-  #guoku_footer .footer-bottom .footer-bottom-left {
-    text-align: center;
-  }
-  #guoku_footer .footer-bottom .footer-bottom-right {
-    text-align: center;
-  }
-  .guoku-content.user-page .user-info .user-nick-block {
-    margin: 0 auto ;
-  }
-  .guoku-content.user-page .user-info .center-wrapper {
-    margin: 0 auto ;
-    width: 142px;
-  }
-  .guoku-content.user-page .user-info .center-wrapper .action {
-    display: block;
-    margin-top: 20px;
-  }
-  .guoku-content.user-page .user-info .center-wrapper .nick {
-    margin-top: 20px;
-    display: block;
-    text-align: center;
-  }
-  .guoku-content.user-page .user-info .user-bio {
-    text-align: center;
-    margin: 0 auto ;
-    margin-top: 20px!important;
-  }
-  .guoku-content.user-page .user-info .user-binding {
-    width: 20px;
-    margin: 0 auto;
-  }
-  .guoku-content.user-page .user-info .user-social-info {
-    text-align: center;
-  }
-  .guoku-content.user-page .content-panel .note-cell {
-    margin-bottom: 10px;
-  }
-  .more-article-wrapper .title-wrapper {
-    padding-top: 5px;
-  }
-  .more-article-wrapper .title-wrapper .title {
-    padding: 10px 13px 0px 13px;
-    font-size: 15px;
-    font-weight: 800;
-  }
-  .more-article-wrapper .title-wrapper .article-digest {
-    display: none;
-  }
+.batch-selection-modal .modal-dialog {
+  width: 90%;
 }
-@media (min-width: 768px) and (max-width: 990px) {
-  .container {
-    width: 100%;
-  }
-  li.section .text-holder,
-  li.section .article-title,
-  li.section .entity-name {
-    font-size: 13px !important;
-  }
-  .guoku-content.user-page .user-info {
-    max-width: 450px;
-  }
-  .guoku-content.user-page .note-cell .note-text {
-    font-size: 14px !important;
-    font-color: #9d9e9f !important;
-  }
-  #selection_article_list .selection-article-item .article-title {
-    min-height: 80px!important;
-  }
+.batch-selection-modal .modal-dialog .modal-content {
+  overflow-y: scroll;
+  background-color: #f8f8f8;
 }
-@media (min-width: 768px) {
-  #detail_content_left .detail-pic-left {
-    max-width: 360px;
-  }
-  #detail_content_right {
-    max-width: 330px;
-  }
-  .more-article-wrapper .cover-wrapper a {
-    display: block;
-    padding: 8px;
-  }
-  .more-article-wrapper .title-wrapper {
-    padding-top: 10px;
-  }
-  .more-article-wrapper .title-wrapper a {
-    color: #424242;
-  }
-  .more-article-wrapper .title-wrapper a:hover,
-  .more-article-wrapper .title-wrapper a:focus {
-    color: #424242;
-    text-decoration: underline;
-  }
-  .more-article-wrapper .title-wrapper .title {
-    padding: 5px 15px;
-    font-size: 22px;
-  }
-  .more-article-wrapper .article-digest {
-    padding: 10px 15px 15px 15px;
-    font-size: 13px;
-    color: #9d9e9f;
-  }
-  .more-article-wrapper .article-digest .created-date {
-    padding: 10px 0;
-    text-align: right;
-  }
-  .user-page .user-info-wrapper .user-icon {
-    max-width: 200px;
-  }
+.batch-selection-modal .modal-dialog .modal-content .content-list {
+  list-style: none;
 }
-/*# sourceMappingURL=xs.less.css.map */
+.batch-selection-modal .modal-dialog .modal-content .content-list li {
+  cursor: pointer;
+  background-color: #ffffff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
+  overflow: hidden;
+  margin: 10px;
+}
+.batch-selection-modal .modal-dialog .modal-content .content-list li .entity-img img {
+  max-height: 60px;
+}
+.batch-selection-modal .modal-dialog .modal-content .content-list li .entity-info-wrapper .entity-name {
+  font-size: 16px;
+  font-width: 700;
+}
+.batch-selection-modal .modal-dialog .modal-content .content-list li .entity-info-wrapper .entity-note {
+  font-size: 12px;
+  color: #9d9d9d;
+}
+.batch-selection-modal .modal-dialog .modal-content .content-list li .entity-action-wrapper {
+  padding-top: 10px;
+}
+.batch-selection-modal .modal-dialog .modal-content .content-list li .gap-wrapper {
+  padding-right: 30px;
+  font-size: 18px;
+  text-align: right;
+}
+.batch-selection-modal .modal-dialog .modal-content .content-list .last_published {
+  background-color: #9d9d9d;
+}
+/*# sourceMappingURL=basic_management.less.css.map */

@@ -1,16 +1,18 @@
 from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.utils.log import getLogger
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
 
-from apps.core.models import GKUser
+from apps.core.models import GKUser, Media
 from apps.core.forms.user import UserForm, GuokuSetPasswordForm, AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 from apps.management.decorators import admin_only
 from apps.core.serializers.users import GKUserSerializer
+from apps.core.views import LoginRequiredMixin
 
 
+from django.utils.log import getLogger
 log = getLogger('django')
 
 from rest_framework import generics
@@ -115,6 +117,23 @@ def edit(request, user_id, template="management/users/edit.html"):
                                     'forms':_forms,
                                 },
                               context_instance = RequestContext(request))
+
+
+class MediaListView(LoginRequiredMixin, ListView):
+    http_method_names = ['get']
+    template_name = "management/users/media.html"
+    model = Media
+    paginator_class = ExtentPaginator
+
+    def get_queryset(self):
+        media = Media.objects.filter(creator=self.user_id)
+        return media
+
+    def get(self, request, *args, **kwargs):
+        self.user_id = kwargs.pop('user_id', None)
+        assert self.user_id is not None
+        return super(MediaListView, self).get(request, *args, **kwargs)
+
 
 
 @login_required

@@ -7,6 +7,7 @@ from apps.mobile.lib.sign import check_sign
 
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.log import getLogger
+from settings import settings
 
 
 log = getLogger('django')
@@ -86,10 +87,8 @@ def forget_password(request):
     if request.method == 'POST':
         _forms = UserPasswordResetForm(request.POST)
         if _forms.is_valid():
-            _forms.save(domain_override='guoku.com',
-                        subject_template_name='web/mail/forget_password_subject.txt',
-                        email_template_name='web/mail/forget_password.html',
-                        from_email='hi@guoku.com')
+            _forms.save(template_invoke_name=settings.RESET_PASSWORD_TEMPLATE,
+                        domain_override=settings.SITE_DOMAIN)
             return SuccessJsonResponse(data={ 'success' : '1' })
         return ErrorJsonResponse(
                 data = {
