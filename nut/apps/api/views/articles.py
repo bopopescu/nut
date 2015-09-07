@@ -7,7 +7,7 @@ from apps.api.permissions import  Admin_And_Editor_Only
 class RFArticleListView(generics.ListCreateAPIView):
     permission_classes = (Admin_And_Editor_Only,)
 
-    queryset = Article.objects.all()
+    queryset = Article.objects.filter(publish=Article.published)
     serializer_class = ArticleSerializer
     paginate_by = 20
     paginate_by_param = 'page_size'
