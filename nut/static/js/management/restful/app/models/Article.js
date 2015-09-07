@@ -4,8 +4,28 @@ define(function(require){
     });
 
     var ArticleCollection = Backbone.PageableCollection.extend({
-        url: '/api/articles',
+        url: '/api/articles/?publish=2',
         model:Article,
+        //addUrlParam: function(key, value){
+        //
+        //},
+        //getUrlParams:function(){
+        //    return this.queryStringToParams(this.url);
+        //},
+        //
+        //queryStringToParams: function (qs) {
+        //    var kvp, k, v, ls, params = {}, decode = decodeURIComponent;
+        //    var kvps = qs.split('&');
+        //    for (var i = 0, l = kvps.length; i < l; i++) {
+        //        var param = kvps[i];
+        //        kvp = param.split('='), k = kvp[0], v = kvp[1] || true;
+        //        k = decode(k), v = decode(v), ls = params[k];
+        //        if (_isArray(ls)) ls.push(v);
+        //        else if (ls) params[k] = [ls, v];
+        //        else params[k] = v;
+        //    }
+        //    return params;
+        //},
         parse: function(data,options){
             Backbone.PageableCollection.prototype.parse.call(this,data, options);
             if(_.isObject(data.results)){
@@ -26,9 +46,11 @@ define(function(require){
 
         },
         parseState: function (resp, queryParams, state, options) {
-                 return {totalRecords: resp.count};
+            return {totalRecords: resp.count};
         }
     });
+
+
 
     return {
         Article: Article,

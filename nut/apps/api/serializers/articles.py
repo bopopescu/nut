@@ -1,9 +1,6 @@
  # -*- coding: utf-8 -*-
 
-from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
-from apps.tag.models import Content_Tags
-
 
 from apps.core.models import Article, Selection_Article,GKUser
 from apps.counter.utils.data import RedisCounterMachine
@@ -39,10 +36,7 @@ class ArticleSerializer(serializers.ModelSerializer):
         return obj.cover_url.replace('images/', 'images/100/')
 
     def get_tags(self, obj):
-        tags = Content_Tags.objects\
-                            .filter(target_object_id=obj.id, target_content_type=ContentType.objects.get_for_model(obj))\
-                            .values_list('tag__name', flat=True)
-        tags = list(set(list(tags)))
+        tags = obj.tag_list
         return ','.join([tag for tag in tags])
 
     def update(self, instance, validated_attrs):

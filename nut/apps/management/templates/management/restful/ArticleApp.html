@@ -39,10 +39,18 @@
                                 <th>{% trans 'Article Cover' %}</th>
                                 <th>{% trans 'Article title(writer)' %}</th>
                                 <th>{% trans 'last modified time' %}</th>
-                                <th>{% trans 'Article Status' %}</th>
+                                <th>
+                                    {% trans 'Article Status' %}
+                                    <div class="filter-wrapper">
+                                        <select name="publish" class="filter-publish filter">
+                                            <option value="2" selected>{% trans 'published article' %}</option>
+                                            <option value="1">{% trans 'drafting article' %}</option>
+                                            <option value="0">{% trans 'removed article' %}</option>
+                                        </select>
+                                    </div>
+                                </th>
                                 <th>{% trans 'Edit content' %}</th>
                                 <th>{% trans 'Edit attribute ' %}</th>
-
                             </tr>
                         </thead>
                         <tbody class="list-container">
