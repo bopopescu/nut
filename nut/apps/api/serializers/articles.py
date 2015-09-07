@@ -1,3 +1,5 @@
+ # -*- coding: utf-8 -*-
+
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
 from apps.tag.models import Content_Tags
@@ -39,21 +41,23 @@ class ArticleSerializer(serializers.ModelSerializer):
     def get_tags(self, obj):
         tags = Content_Tags.objects\
                             .filter(target_object_id=obj.id, target_content_type=ContentType.objects.get_for_model(obj))\
-                            .values('tag__name')\
-                            .distinct()
-        return ','.join([tag['tag__name'] for tag in tags])
+                            .values_list('tag__name', flat=True)
+        tags = list(set(list(tags)))
+        return ','.join([tag for tag in tags])
 
     def update(self, instance, validated_attrs):
         super(ArticleSerializer, self).update(instance, validated_attrs)
         _tags = self._initial_data['tags']
         _tags = _tags.strip()
-        _tmp_tags = re.split(',|\s', _tags)
+        _tags = _tags.replace(u'，',',')
+        _tags = _tags.replace(u'＃','#')
+        _tmp_tags = re.split(',|\s|#', _tags)
         res = list()
         for row in _tmp_tags:
             if len(row) == 0:
                 continue
             res.append(row)
-
+        res = list(set(res))
         if res:
             data = {
                 'tags':res,
