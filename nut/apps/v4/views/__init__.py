@@ -64,9 +64,21 @@ class HomeView(BaseJsonView):
                 }
             )
         res['articles'] = []
+        articles = APISeletion_Articles.objects.published()
+        for row in articles[:3]:
+            res['articles'].append(
+                row.api_article.v4_toDict()
+            )
+
         res['entities'] = []
+        entities = APISelection_Entity.objects.published()
+        for row in entities[:5]:
+            res['entities'].append(
+                row.entity.v3_toDict()
+            )
         return res
 
+    # @check_sign
     def dispatch(self, request, *args, **kwargs):
         return super(HomeView, self).dispatch(request, *args, **kwargs)
 
