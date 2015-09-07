@@ -43,25 +43,20 @@ class ArticleSerializer(serializers.ModelSerializer):
                             .distinct()
         return ','.join([tag['tag__name'] for tag in tags])
 
-    def validate_tags(self, value):
-        _tags = value
+    def update(self, instance, validated_attrs):
+        super(ArticleSerializer, self).update(instance, validated_attrs)
+        _tags = self._initial_data['tags']
         _tags = _tags.strip()
         _tmp_tags = re.split(',|\s', _tags)
-        # _tags = _tags.split(', ')
         res = list()
         for row in _tmp_tags:
             if len(row) == 0:
                 continue
             res.append(row)
-        return res
 
-
-    def update(self, instance, validated_attrs):
-        super(ArticleSerializer, self).update(instance, validated_attrs)
-        tags = validated_attrs['tags']
-        if tags:
+        if res:
             data = {
-                'tags':tags,
+                'tags':res,
                 'article': instance.id
             }
             generator_article_tag(data=json.dumps(data))

@@ -35,7 +35,8 @@ define(function(require){
             cover: {type:'Imgpicker', validators:['required']},
             creator_id: {type:'Select',options:getCreatorSelectOptions},
             publish: {type:'Select', options:{0: '移除', 1:'草稿' , 2:'发布'}},
-            read_count: {type: 'Number', validators:['required']}
+            read_count: {type: 'Number', validators:['required']},
+            tags:'Text'
         },
 
     });
