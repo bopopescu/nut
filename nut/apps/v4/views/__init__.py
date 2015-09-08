@@ -78,7 +78,7 @@ class HomeView(BaseJsonView):
             )
         return res
 
-    # @check_sign
+    @check_sign
     def dispatch(self, request, *args, **kwargs):
         return super(HomeView, self).dispatch(request, *args, **kwargs)
 
