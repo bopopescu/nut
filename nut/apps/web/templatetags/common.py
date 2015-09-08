@@ -32,9 +32,9 @@ def format_time(value):
     elif time_interval < 60 * 60 * 72:
         return "前天"
     elif time_interval < 60*60*168:
-        return "%d天前"%(time_interval/(60*60*24) + 1)
+        return "%d天前"%(time_interval/(60*60*24))
     else:
-        return "%d周前"%(time_interval/(60*60*24*7) + 1)
+        return "%d周前"%(time_interval/(60*60*24*7))
     # NEVER GO HERE
     return "很久很久以前"
 
