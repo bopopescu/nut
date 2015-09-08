@@ -56,7 +56,9 @@ class SQLStorePipeline(object):
         query.addErrback(self.handle_error, spider)
         return query
 
-    def _conditional_update(self, tx, item, spider):
+    def _conditional_update(self, tx, item, spider, selection=False):
+        print '=' * 80
+        import pdb; pdb.set_trace()
         try:
             if item['status'] == 0:
                 sql = 'UPDATE core_buy_link SET status = %s where origin_id = %s' % (item['status'], item['origin_id'])

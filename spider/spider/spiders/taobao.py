@@ -10,7 +10,7 @@ class TaobaoSpider(scrapy.Spider):
     name = "taobao"
     allowed_domains = ["taobao.com"]
 
-    def __init__(self, item_id, *args, **kwargs):
+    def __init__(self, item_id, selection=False, *args, **kwargs):
         super(TaobaoSpider, self).__init__(*args, **kwargs)
         self.item_id = item_id
         self.start_urls = [
