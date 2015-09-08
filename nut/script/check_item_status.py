@@ -7,13 +7,14 @@ import time
 
 import requests
 
-from apps.core.utils.commons import update_rate
-from apps.core.models import Buy_Link, Entity
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
+
+from apps.core.utils.commons import update_rate
+from apps.core.models import Buy_Link, Entity
 
 # update exchange rate
 update_rate(['USD', 'JPY'])
@@ -41,16 +42,16 @@ for row in links:
 
 
 # Amazon
-links = Buy_Link.objects.filter(origin_source__in=('www.amazon.com',
-                                                   'www.amazon.cn'),
-                                entity__status__gt=Entity.new) \
-    .exclude(status=Buy_Link.remove) \
-    .order_by('-id')
-
-for row in links:
-    print row.origin_id, crawl(item_id=row.origin_id,
-                               domain=row.origin_source,
-                               spider='amazon')
-    time.sleep(5)
+# links = Buy_Link.objects.filter(origin_source__in=('www.amazon.com',
+#                                                    'www.amazon.cn'),
+#                                 entity__status__gt=Entity.new) \
+#     .exclude(status=Buy_Link.remove) \
+#     .order_by('-id')
+#
+# for row in links:
+#     print row.origin_id, crawl(item_id=row.origin_id,
+#                                domain=row.origin_source,
+#                                spider='amazon')
+#     time.sleep(5)
 
 __author__ = 'edison'
