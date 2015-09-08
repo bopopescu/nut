@@ -11,7 +11,9 @@ class ArticlesListView(BaseJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
-        sla_list = APISeletion_Articles.objects.published(until_time=self.timestamp).order_by('-pub_time')
+        sla_list = APISeletion_Articles.objects.\
+            published_until(until_time=self.timestamp).\
+            order_by('-pub_time')
 
         paginator = Paginator(sla_list, self.size)
 
