@@ -7,13 +7,13 @@ import requests
 import os
 import sys
 import six
-import settings.production as settings
+import settings.dev_judy as settings
 
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_judy'
 
 r = redis.Redis(host=settings.CONFIG_REDIS_HOST,
                 port=settings.CONFIG_REDIS_PORT,
