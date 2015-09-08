@@ -1,0 +1,123 @@
+{% load i18n staticfiles %}
+{% load notifications_tags %}
+<!DOCTYPE html>
+<!--[if lt IE 8]><script type="text/javascript">var tip = '建议升级你的浏览器（如 Chrome, Firefox）以获得更好的体验！',
+    url = 'http://browsehappy.com';
+
+document.execCommand('stop');
+alert(tip);
+window.location.href = url;</script><![endif]-->
+<html lang="zh-cn">
+{#<html lang="zh-cn">#}
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+{#    <meta charset="utf-8">#}
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0, User-scalable=no" name="viewport">
+
+    {% notifications_unread as unread_count %}
+    <title>{% if unread_count %}({{ unread_count }})&nbsp;{% endif %}{% block prefix %}{% endblock %}{% block title %}{% endblock %}{% block suffix %}{% endblock %}</title>
+
+{# og metas #}
+   <meta property="og:image" content="{% static 'images/guoku-logo.png' %}">
+
+ {% block meta-og %}
+    <meta property="og:title" content="果库精选商品 | 精英消费指南 | 理想生活主张" >
+    <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
+    <meta property="og:description" content="果库精选商品每日更新，恪守选品标准和美学格调，推荐有趣、有用、有价值的国内外优质优惠的网购商品。尽收世上好物。">
+{% endblock %}
+
+{% block meta-common %}
+    <meta name="title"  content="果库精选商品 | 精英消费指南 | 理想生活主张">
+    <meta name="keywords" content="精选商品,精选,尽收世上好物,果库、guoku、果库网、果库应用、精英消费指南、消费指南、精品导购应用、导购、购物指南、购物分享、淘宝网购物、淘宝网精选、精品推荐">
+    <meta name="description" content="果库精选商品每日更新，恪守选品标准和美学格调，推荐有趣、有用、有价值的国内外优质优惠的网购商品。尽收世上好物。">
+{% endblock %}
+    <meta name="msvalidate.01" content="AC5BC2B7EE50E9FED342DC08F3BA6BAC" />
+    <meta name="360-site-verification" content="7c3351c76f5ddce0bf24427040d88bd5" />
+    <link rel="icon" type="image/ico" href="{% static 'images/favicon.ico' %}">
+
+    <link rel="apple-touch-icon-precomposed" href="{% static 'images/touch-icon-precomposed.png' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/web/site.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/web/guoku_front.css' %}">
+
+    {% block css %}{% endblock %}
+
+    <!-- Respond.js proxy on external server -->
+    <!--[if lt IE 9]>
+      <script src="{% static 'js/html5shiv.min.js' %}"></script>
+      <script src="{% static 'js/respond.min.js' %}"></script>
+
+	<link href="http://static.guoku.com/respond-proxy.html" id="respond-proxy" rel="respond-proxy" />
+	<link href="http://{{ request.META.HTTP_HOST }}/respond.proxy.gif" id="respond-redirect" rel="respond-redirect" />
+	<script src="http://{{ request.META.HTTP_HOST }}/respond.proxy.js"></script>
+
+    <![endif]-->
+    <!-- Google Analytics -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-24696872-5', 'auto');
+    ga('send', 'pageview');
+    ga('set', '&uid', '{{ request.user.id }}' )
+    </script>
+    <!-- End Google Analytics -->
+    <script>
+        // for newest event slug
+        var newest_event_slug =  '{{ newest_event_slug }}'  ;
+
+    </script>
+</head>
+
+<body class="body-gray {% block body_class %} {% endblock %}">
+{% url 'web_download' as web_download_url %}
+{% url 'web_selection' as web_selection_url %}
+{% block global_links %}
+{% if web_selection_url in request.path %}
+    <a href="{{ web_download_url }}" target="_blank"><img class="img-responsive guoku-weixin" src="{% static 'images/download_icon.png' %}"></a>
+{% endif %}
+{% endblock %}
+<h1 class="hidden sr-only">{% block h1 %}果库,精英消费指南,精英,消费指南,专访{% endblock %}</h1>
+{% block header %}
+ {%  include "web/partial/header_new.html" %}
+{% endblock %}
+
+{% block content %} {% endblock %}
+
+{% block footer %}
+   {% include 'web/partial/footer.html' %}
+{% endblock %}
+
+{% block modal %}
+    {% if not request.user.is_authenticated %}
+    <div id="SignInModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="SignInModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="border-radius: 0px"></div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
+
+<script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+<script src="{% static 'js/web/jquery.cookie.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/web/site.js' %}"></script>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?5ad5f89777e93197294d9c4c6724e915";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+{% block script %}{% endblock %}
+</body>
+
+</html>
