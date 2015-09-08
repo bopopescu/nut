@@ -121,7 +121,7 @@ define(function(require){
             'click .page-action.prev':'goPrevPage',
             'click .page-action.next':'goNextPage',
             'change .to_page_num': 'pageNumberChanged',
-            'change .filter-publish': 'changeFilter'
+            'change .filter': 'changeFilter'
         },
         getFilterParams: function(){
             var params={};
@@ -153,13 +153,14 @@ define(function(require){
         },
         paramToQueryString: function(param){
             var qs = '?';
+            var paramStringList =[]
             var encode = encodeURIComponent;
             for(var key in param){
 
-                var str = encode(key)+'='+encode(param[key])
-                qs += str;
+                var str = encode(key)+'='+encode(param[key]) ;
+                paramStringList.push(str);
             }
-            return qs;
+            return qs+ paramStringList.join('&');
         },
 
         changeCollectionByParam:function(param){
