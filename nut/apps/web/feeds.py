@@ -156,8 +156,8 @@ class ArticlesFeeds(Feed):
 
         extra.update(
             {
-                'content_encoded': "<![CDATA[%s]]>" % item.article.content,
-                # 'content_encoded': "<![CDATA[%s]]>" % item.article.bleached_content,
+                # 'content_encoded': "<![CDATA[%s]]>" % item.article.content,
+                'content_encoded': "<![CDATA[%s]]>" % item.article.bleached_content,
             }
         )
 

@@ -236,8 +236,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     def v3_toDict(self, visitor=None):
 
-        key_string = "user:v3:%s" % self.id
-        key = md5(key_string.encode('utf-8')).hexdigest()
+        key = "user:v3:%s" % self.id
         res = cache.get(key)
         if not res:
         # key = md5(key_string)
@@ -299,8 +298,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     def save(self, *args, **kwargs):
         super(GKUser, self).save(*args, **kwargs)
-        key_string = "user:v3:%s" % self.id
-        key = md5(key_string.encode('utf-8')).hexdigest()
+        key = "user:v3:%s" % self.id
         cache.delete(key)
 
     def send_verification_mail(self):
@@ -362,8 +360,7 @@ class User_Profile(BaseModel):
 
     def save(self, *args, **kwargs):
         super(User_Profile, self).save(*args, **kwargs)
-        key_string = "user:v3:%s" % self.user.id
-        key = md5(key_string.encode('utf-8')).hexdigest()
+        key = "user:v3:%s" % self.user.id
         cache.delete(key)
 
 
@@ -845,20 +842,6 @@ class Entity(BaseModel):
         except Entity.DoesNotExist, e:
             pass
 
-    # search index
-    # search = SphinxSearch(
-    #     index = 'entities',
-    #     weights={
-    #         'brand': 100,
-    #         'category': 80,
-    #         'title': 50,
-    #         'note' : 10,
-    #         # 'intro': 5,
-    #     },
-    #     maxmatches = 10000,
-    #     mode = 'SPH_MATCH_PHRASE',
-    #     rankmode = 'SPH_RANK_NONE',
-    # )
 
 class Selection_Entity(BaseModel):
     entity = models.OneToOneField(Entity, unique=True)
@@ -1341,10 +1324,10 @@ class Selection_Article(BaseModel):
 
 
 class Media(models.Model):
+    creator=models.ForeignKey(GKUser, related_name='media_entries')
     file_path = models.URLField()
     content_type = models.CharField(max_length=30)
     upload_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True, editable=False)
-    creator=models.ForeignKey(GKUser, related_name='media_entries')
 
     class Meta:
         ordering = ['-upload_datetime']

@@ -1,5 +1,5 @@
 {% extends 'management/management_base.html' %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block content %}
     <section class="content-header">
@@ -41,9 +41,9 @@
                 </div>
             </div>
         </div>
-
-
-
-
     </section>
+{% endblock %}
+
+{% block user_script %}
+{#    <script type="application/javascript" src="{% static 'js/management/users.js' %}">#}
 {% endblock %}
