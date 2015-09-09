@@ -41,6 +41,7 @@ urlpatterns += patterns(
 urlpatterns += patterns(
     '',
     url(r'^articles/', include('apps.api.urls.articles')),
+    url(r'^sla/', include('apps.api.urls.sla')),
 )
 
 urlpatterns += patterns(

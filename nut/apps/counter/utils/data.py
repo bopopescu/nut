@@ -42,6 +42,15 @@ class RedisCounterMachine(object):
         return cls.get_counter_key_from_path(path)
 
     @classmethod
+    def set_article_read_count_from_pk(cls,pk,count):
+        path = reverse('web_article_page', args=[pk])
+        key = cls.get_counter_key_from_path(path)
+        counter_store = cls.get_store()
+        key = cls._hash_key(key)
+        res = counter_store.set(key, count ,timeout=None)
+        return res
+
+    @classmethod
     def get_article_pk_from_counter_key(cls, key):
         matchs = re.findall("counter:articles:(\d+):", key)
         if matchs :

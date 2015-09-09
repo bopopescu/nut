@@ -4,6 +4,18 @@
 
     var editors = Backbone.Form.editors;
 
+    //for nested object
+    editors.ObjectSelect = editors.Select.extend({
+        setValue: function(value){
+            this.$el.val(value.pk);
+
+        },
+        getValue: function(){
+
+        }
+
+    });
+
     editors.Imgpicker = editors.Text.extend({
         tagName: 'div',
 

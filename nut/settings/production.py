@@ -4,7 +4,7 @@ DEBUG = True
 # DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-STATIC_URL = 'http://static.guoku.com/static/v4/c7a25a54590d5229e9c0916a3410b4210ca95199/'
+STATIC_URL = 'http://static.guoku.com/static/v4/23dec5cd335cb1d6ecc920a9c080f4590562e17f/'
 
 LANGUAGE_CODE = 'zh-cn'
 

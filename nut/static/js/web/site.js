@@ -159,7 +159,7 @@ function getQueryStrings() {
                 return false;
             }
            // use fast dom ?
-           if (($(window).height() + $(window).scrollTop()) < ($(document).height()-155)){
+           if (($(window).height() + $(window).scrollTop()) < ($(document).height()-250)){
                return false;
            }
            return  true;
@@ -345,8 +345,9 @@ function getQueryStrings() {
 
             var fix_sidebar = $('#sidebar_fix');
             var footer = $('#guoku_footer');
+            var $topLink = $('.btn-top');
 
-            if(!fix_sidebar.length) return;
+
 
             fix_sidebar.css({display:'none'});
 
@@ -378,10 +379,32 @@ function getQueryStrings() {
                     fix_sidebar.css({position:'relative', top:'0px', opacity:0});
                 }
 
-
                 last_scroll = current_scroll;
             }
+
+            function handleTopLink(){
+
+                if($topLink.length){
+                    if($(this).scrollTop()>100){
+                            $topLink.fadeIn();
+                        var footer_bound = footer[0].getBoundingClientRect();
+                        var toplink_bound =  $topLink[0].getBoundingClientRect();
+                        if (toplink_bound.bottom >= (footer_bound.top + 20)){
+                            $topLink.css({bottom:'270px'});
+                        }else{
+                             //$topLink.css({bottom:'120px'});
+                        }
+                    }else{
+                        $topLink.fadeOut();
+                    }
+
+                }else{
+                    return ;
+                }
+            }
+
             $(window).scroll(handleScrollSideBar);
+            $(window).scroll(handleTopLink)
 
         },
         checkEventRead:function(){
@@ -806,11 +829,7 @@ function getQueryStrings() {
            //     console.log(counter);
                 $(window).scroll(function () {
 
-                    if($(this).scrollTop()>100) {
-                        $(".btn-top").fadeIn();
-                    } else {
-                        $(".btn-top").fadeOut();
-                    }
+
 
                     if (counter % 3 == 0 ) {
                         page.show();
@@ -1346,11 +1365,7 @@ function getQueryStrings() {
                 var flag = false;
                 $(window).scroll(function () {
                     //回到顶部按钮效果
-                    if ($(this).scrollTop() > 100) {
-                        $(".btn-top").fadeIn();
-                    } else {
-                        $(".btn-top").fadeOut();
-                    }
+
 
                       //    console.log(($(window).height()));
                     if (($(window).height() + $(window).scrollTop()) >= ($(document).height()-25)&& flag == false) {

@@ -7,7 +7,7 @@ from rest_framework import views
 
 from apps.core.models import GKUser
 from apps.api.serializers.user import UserSerializer
-
+from apps.api.permissions import Admin_And_Editor_Only
 
 from django.utils.log import getLogger
 
@@ -26,6 +26,12 @@ class UserViewSet(viewsets.ModelViewSet):
         # recent_users = GKUser.objects.filter(is_admin=True)
         page = self.paginate_queryset(recent_users)
         serializer = self.get_pagination_serializer(page)
+        return Response(serializer.data)
+
+    @list_route(permission_classes=[Admin_And_Editor_Only])
+    def writers(self,request):
+        writer = GKUser.objects.filter(is_active__gte=2)
+        serializer =  self.get_serializer(writer, many=True)
         return Response(serializer.data)
 
 

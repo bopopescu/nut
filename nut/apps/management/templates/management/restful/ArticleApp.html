@@ -37,12 +37,26 @@
                         <thead>
                              <tr>
                                 <th>{% trans 'Article Cover' %}</th>
-                                <th>{% trans 'Article title(writer)' %}</th>
-                                <th>{% trans 'last modified time' %}</th>
-                                <th>{% trans 'Article Status' %}</th>
+                                <th>
+                                    {% trans 'Article title(writer)' %}
+                                    <div class="filter-wrapper">
+{#                                     <input type="text" name="search" class="filter-search filter">#}
+                                    </div>
+                                </th>
+
+                                <th>{% trans 'last selection time' %}</th>
+                                <th>
+                                    {% trans 'Article Status' %}
+                                    <div class="filter-wrapper">
+                                        <select name="publish" class="filter-publish filter">
+                                            <option value="2" selected>{% trans 'published article' %}</option>
+                                            <option value="1">{% trans 'drafting article' %}</option>
+                                            <option value="0">{% trans 'removed article' %}</option>
+                                        </select>
+                                    </div>
+                                </th>
                                 <th>{% trans 'Edit content' %}</th>
                                 <th>{% trans 'Edit attribute ' %}</th>
-
                             </tr>
                         </thead>
                         <tbody class="list-container">
@@ -74,24 +88,28 @@
             <table class="table table-bordered">
                 <tbody>
                 <tr>
-                    <TD CLASS="input-title">title</TD>
+                    <TD CLASS="input-title">{% trans 'article title' %}</TD>
                     <td class="input-cell" data-editors="title"></td>
                 </tr>
                 <tr>
-                    <td class="input-title">cover</td>
+                    <td class="input-title">{% trans 'cover' %}</td>
                     <td class="input-cell" data-editors="cover"></td>
                 </tr>
                 <tr>
-                    <td class="input-title">creator</td>
-                    <td class="input-cell" data-editors="creator"></td>
+                    <td class="input-title">{% trans 'author' %}</td>
+                    <td class="input-cell" data-editors="creator_id"></td>
                 </tr>
                 <tr>
-                    <td class="input-title">publish</td>
+                    <td class="input-title">{% trans 'article status' %}</td>
                     <td class="input-cell" data-editors="publish"></td>
                 </tr>
                 <tr>
-                    <td class="input-title">read count</td>
+                    <td class="input-title">{% trans 'article read count' %}</td>
                     <td class="input-cell" data-editors="read_count"></td>
+                </tr>
+                <tr>
+                    <td class="input-title">{% trans 'article tags' %}</td>
+                    <td class="input-cell" data-editors="tags"></td>
                 </tr>
                 </tbody>
             </table>
@@ -105,11 +123,18 @@
                         <li  class='title'> <%=title%></li>
                         <li class="author"> 作者： <%=creator.profile.nickname%></li>
                         <li class="read"> 阅读数： <%=read_count%></li>
+                        <li class="last-modify"> 最后修改： <%=last_modified_fmt%></li>
                     </ul>
 
                 </td>
                 <td  class='time'>
-                    <%=updated_datetime%>
+                    <div class="add-selection-wrapper">
+                        <% if ((!(once_selection)) && (publish==2)) { %>
+                            <button class="btn btn-primary add_selection">{% trans "Add To Selection" %}</button>
+                        <% }else{ %>
+                            <%=last_selection_time%>
+                        <% } %>
+                    </div>
                 </td>
                 <td  class='status'>
                     <%=status%>

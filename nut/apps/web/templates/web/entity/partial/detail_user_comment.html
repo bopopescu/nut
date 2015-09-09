@@ -1,11 +1,11 @@
 {% if request.user.is_blocked %}
-    <div class="media" style="padding: 15px">
-        <div class="pull-left">
-            <i class="fa fa-exclamation-triangle fa-5x"></i>
+    <div class="media" style="padding: 15px" class="blocked-user-notice">
+        <div class="pull-left ">
+            <i class="fa fa-exclamation-triangle"></i>
         </div>
         <div class="media-body post-note">
             <p>果库倡导友好、宽容和理性的对待不同的看法和意见，尊重他人。</p>
-            <p>你的帐号因多次违规，已被禁言。可通过 hi@guoku.com 联系管理员</p>
+            <p>你的帐号因多次违规，已被禁言。可通过 hi@guoku.com 联系管理员。</p>
         </div>
     </div>
 {% elif request.user.is_authenticated and  not user_post_note %}

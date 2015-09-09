@@ -20,7 +20,10 @@ def lastslug(request):
     }
 
 def browser(request):
-    agent_string = request.META['HTTP_USER_AGENT']
+    try :
+        agent_string = request.META['HTTP_USER_AGENT']
+    except KeyError:
+        agent_string = ''
     return {
         'isGuokuIphoneApp': 'orange' in agent_string,
         'isGuokuIpadApp': 'pomelo' in agent_string,
@@ -28,6 +31,16 @@ def browser(request):
         'isMobileSafari': ('iPhone' in agent_string) and ('Mobile' in agent_string) and ('Safari' in agent_string),
         'isAndroid': ('guoku-client' in agent_string),
     }
+
+def isMobile(request):
+    try:
+        host_str = request.META['HTTP_HOST']
+    except KeyError:
+        host_str = ''
+
+
+
+    return 'm.guoku.com' in host_str
 
 if __name__ == "__main__":
    print lastslug()
