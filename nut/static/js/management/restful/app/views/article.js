@@ -1,8 +1,18 @@
 define(function(require){
     "use strict";
+    var Writers = require('models/writers');
+    var SelectionArticle = require('models/article').SelectionArticle;
 
-    function getCreatorSelectOptions(){
-            return [{val: 0, label: 'ant'},{val:1, label:'clara'}];
+    function getCreatorSelectOptions(callback){
+            var writerList = new Writers();
+                writerList.on('reset', function(){
+                    var resultList = [];
+                    writerList.each(function(writer){
+                        resultList.push({val: writer.get('id'), label: writer.get('profile').nickname});
+                    });
+                    callback(resultList)
+                });
+                writerList.fetch({reset: true});
         }
 
     var ArticleDetailFormView = Backbone.Form.extend({
@@ -11,7 +21,8 @@ define(function(require){
             Backbone.Form.prototype.initialize.call(this, options);
         },
         saveArticle:function(){
-            console.log('ok is clicked, captured by form view');
+            this.commit();
+            this.model.save();
             this.remove();
         },
         cancelEdit:function(){
@@ -23,9 +34,10 @@ define(function(require){
         schema: {
             title: {type:'Text', validators:['required']},
             cover: {type:'Imgpicker', validators:['required']},
-            creator: {type:'Select',options:getCreatorSelectOptions},
+            creator_id: {type:'Select',options:getCreatorSelectOptions},
             publish: {type:'Select', options:{0: '移除', 1:'草稿' , 2:'发布'}},
-            read_count: {type: 'Number', validators:['required']}
+            read_count: {type: 'Number', validators:['required']},
+            tags:'Text'
         },
 
     });
@@ -33,14 +45,37 @@ define(function(require){
     var ArticleListItemView = Backbone.View.extend({
         initialize: function(){
             Backbone.View.prototype.initialize.apply(this,[].slice.call(arguments));
+            this.listenTo(this.model, 'sync', this.render);
         },
         tagName: 'tr',
         template : _.template($('#id_article_list_item_template').html()),
         events : {
             'click .edit-content': 'editContent',
-            'click .edit-status': 'editAttribute'
+            'click .edit-status': 'editAttribute',
+            'click .add_selection': 'addSelection'
         },
 
+        addSelection: function(){
+            var that = this;
+            console.log('add selection' + this.model.get('id'));
+            var newSla = new SelectionArticle({
+                article : this.model.id,
+                is_published: false,
+            });
+
+            newSla.save().then(
+                that.addSelectionSuccess.bind(this),
+                that.addSelectionError.bind(this)
+            );
+
+        },
+        addSelectionSuccess: function(){
+            console.log('sla add success , begin sync model');
+            this.model.fetch();
+        },
+        addSelectionError: function(){
+            console.log('sla add fail ');
+        },
         getDetailFormContainer: function(){
              var that = this ;
              bootbox.hideAll();
@@ -106,7 +141,64 @@ define(function(require){
             'click .page-action.first': 'goFirstPage',
             'click .page-action.prev':'goPrevPage',
             'click .page-action.next':'goNextPage',
-            'change .to_page_num': 'pageNumberChanged'
+            'change .to_page_num': 'pageNumberChanged',
+            'change .filter': 'changeFilter'
+        },
+        getFilterParams: function(){
+            var params={};
+            this.$('.filter').each(function(index,ele){
+                params[$(ele).attr('name')] = $(ele).val();
+            });
+            return params;
+        },
+        getUrlParams: function(url){
+           var qs = url.split('?')[1];
+           return this.queryStringToParams(qs);
+        },
+
+        getUrlPath: function(url){
+            return url.split('?')[0];
+        },
+        queryStringToParams: function (qs) {
+            var kvp, k, v, ls, params = {}, decode = decodeURIComponent;
+            var kvps = qs.split('&');
+            for (var i = 0, l = kvps.length; i < l; i++) {
+                var param = kvps[i];
+                kvp = param.split('='), k = kvp[0], v = kvp[1] || true;
+                k = decode(k), v = decode(v), ls = params[k];
+                if (_.isArray(ls)) ls.push(v);
+                else if (ls) params[k] = [ls, v];
+                else params[k] = v;
+            }
+            return params;
+        },
+        paramToQueryString: function(param){
+            var qs = '?';
+            var paramStringList =[]
+            var encode = encodeURIComponent;
+            for(var key in param){
+
+                var str = encode(key)+'='+encode(param[key]) ;
+                paramStringList.push(str);
+            }
+            return qs+ paramStringList.join('&');
+        },
+
+        changeCollectionByParam:function(param){
+            var oldUrlPath = this.getUrlPath(this.collection.url);
+            var oldParams = this.getUrlParams(this.collection.url);
+            var newParams = this.getFilterParams();
+            var params = _.extend({}, oldParams, newParams);
+            var qs = this.paramToQueryString(params);
+            var newUrl = oldUrlPath + qs;
+            this.collection.url = newUrl;
+            this.collection.getFirstPage({reset:true});
+        },
+
+        changeFilter: function(event){
+            var params = this.getFilterParams();
+            this.changeCollectionByParam(params);
+
         },
         pageNumberChanged: function(event){
            var pageNum =  parseInt($(event.target).val());
@@ -124,6 +216,7 @@ define(function(require){
         },
         goNextPage:function(){
             this.collection.getNextPage({reset:true});
+            console.log(this.collection.url);
         },
 
         render: function(){
@@ -145,7 +238,5 @@ define(function(require){
     });
 
     return ArticleListView ;
-
-
 
 });

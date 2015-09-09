@@ -15,6 +15,8 @@ from django.db.models import Count
 from django.db.models.signals import post_save
 from django.conf import settings
 from django.core.cache import cache
+from django.contrib.contenttypes.generic import GenericRelation
+
 import requests
 from apps.core.extend.fields.listfield import ListObjectField
 from apps.core.manager.account import GKUserManager
@@ -1169,6 +1171,8 @@ class WeChat_Token(BaseModel):
 
 # for bleach Article Content
 from apps.core.utils.articlecontent import contentBleacher
+from apps.tag.models import Content_Tags
+from django.contrib.contenttypes.models import ContentType
 class Article(BaseModel):
 
     (remove, draft, published) = xrange(3)
@@ -1200,6 +1204,14 @@ class Article(BaseModel):
         if not kwargs.pop('skip_updatetime', False):
             self.updated_datetime = datetime.now()
         super(Article, self).save(*args, **kwargs)
+
+    @property
+    def tag_list(self):
+        _tag_list = Content_Tags.objects\
+                            .filter(target_object_id=self.id, target_content_type=ContentType.objects.get_for_model(self))\
+                            .values_list('tag__name', flat=True)
+        return list(set(list(_tag_list)))
+
 
     @property
     def bleached_content(self):
@@ -1256,11 +1268,15 @@ class Article(BaseModel):
 
     @property
     def last_selection_time(self):
+        if not self.once_selection:
+            return _('Never in Selection')
+
         pubed_selection = self.selections.filter(is_published=True).order_by('-pub_time')
         if  pubed_selection:
-            return pubed_selection[0].pub_time
+            return pubed_selection[0].pub_time.strftime('%Y-%m-%d %H:%M')
         else :
-            return _('Never')
+            return _('Not Set Selection Pub Time')
+
     @property
     def related_articles(self):
         return Selection_Article.objects.article_related(self)
@@ -1298,6 +1314,9 @@ class Selection_Article(BaseModel):
     create_time = models.DateTimeField(db_index=True, editable=False,auto_now_add=True, blank=True)
 
     objects = SelectionArticleManager()
+    class Meta:
+        ordering = ['-pub_time']
+
     def __unicode__(self):
         return '%s- in selection at - %s'%(self.article.title, self.create_time)
     # def __unicode__(self):

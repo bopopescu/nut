@@ -17,7 +17,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = GKUser
-        fields = ('url', 'email', 'like_count', 'profile', 'is_verified', 'create_entity_count')
+        fields = ('id','url', 'email', 'like_count', 'profile', 'is_verified', 'create_entity_count')
         # depth = 1
 
 
@@ -37,6 +37,7 @@ class NestingUserSerializer(serializers.ModelSerializer):
     profile = UserProfileSerializer()
     class Meta:
         model = GKUser
-        fields = ('pk','profile','email')
+        fields = ('id','profile','email')
+
 
 __author__ = 'edison7500'
