@@ -38,11 +38,11 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">{% trans 'entity_id' %}</label>
-                                    <div class="col-sm-10">
-                                        <p class="form-control-static">
-                                            <a href="{% url 'management_entity_edit' entity.pk %}">{{ entity.pk }}</a>
-                                        </p>
-                                    </div>
+                                <div class="col-sm-10">
+                                    <p class="form-control-static">
+                                        <a href="{% url 'management_entity_edit' entity.pk %}">{{ entity.pk }}</a>
+                                    </p>
+                                </div>
                             </div>
                         {% for field in forms %}
                             <div class="form-group">
