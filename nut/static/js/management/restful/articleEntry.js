@@ -13,6 +13,7 @@ require.config({
         views:'../app/views',
         util:'../app/utils',
         controllers: '../app/controllers',
+        utils:'../app/utils',
         tests: '../tests'
     },
     map: {

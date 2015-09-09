@@ -44,7 +44,7 @@
                                     </div>
                                 </th>
 
-                                <th>{% trans 'last modified time' %}</th>
+                                <th>{% trans 'last in selection time' %}</th>
                                 <th>
                                     {% trans 'Article Status' %}
                                     <div class="filter-wrapper">
@@ -123,6 +123,7 @@
                         <li  class='title'> <%=title%></li>
                         <li class="author"> 作者： <%=creator.profile.nickname%></li>
                         <li class="read"> 阅读数： <%=read_count%></li>
+                        <li class="last-modify"> 最后修改： <%=last_modified_fmt%></li>
                     </ul>
 
                 </td>
