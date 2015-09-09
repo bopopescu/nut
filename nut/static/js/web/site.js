@@ -159,7 +159,7 @@ function getQueryStrings() {
                 return false;
             }
            // use fast dom ?
-           if (($(window).height() + $(window).scrollTop()) < ($(document).height()-155)){
+           if (($(window).height() + $(window).scrollTop()) < ($(document).height()-250)){
                return false;
            }
            return  true;
