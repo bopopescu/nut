@@ -398,8 +398,6 @@ def report(request, eid, template="web/entity/report.html"):
         if _form.is_valid():
             _form.save(_user)
             return HttpResponse("success")
-            # log.info("OKOKOKO")
-            # log.info("error")
     else:
         _form = ReportForms(entity)
 
