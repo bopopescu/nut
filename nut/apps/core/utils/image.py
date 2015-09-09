@@ -170,6 +170,7 @@ class HandleImage(object):
             filename = default_storage.save(filename, ContentFile(self.image_data))
         return filename
 
+
 class LimitedImage(HandleImage):
     def __init__(self, image_file):
         super(LimitedImage,self).__init__(image_file)
