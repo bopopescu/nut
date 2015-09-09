@@ -1957,6 +1957,9 @@ body {
 #detail_content_left .detail-info-center .button-wrapper .buy-btn .buy-button i {
   color: #fff;
 }
+#detail_content_left #login_user_comment .blocked-user-notice i {
+  font-size: 18px;
+}
 #detail_content_left #login_user_comment .media {
   margin: 0px 15px;
 }
