@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect, \
-    HttpResponse
+    HttpResponse, HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
@@ -424,6 +424,8 @@ class gotoBuyView(RedirectView):
         return b.link
 
     def get(self, request, *args, **kwargs):
+        if not request.META.has_key('HTTP_REFERER'):
+            return HttpResponseForbidden()
         if 'guoku.com' not in request.META['HTTP_REFERER']:
             raise Http404
         self.buy_id = kwargs.pop('buy_id', None)
