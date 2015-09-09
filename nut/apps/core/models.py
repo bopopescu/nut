@@ -1285,11 +1285,15 @@ class Article(BaseModel):
 
     @property
     def last_selection_time(self):
+        if not self.once_selection:
+            return _('Never in Selection')
+
         pubed_selection = self.selections.filter(is_published=True).order_by('-pub_time')
         if  pubed_selection:
-            return pubed_selection[0].pub_time
+            return pubed_selection[0].pub_time.strftime('%Y-%m-%d %H:%M')
         else :
-            return _('Never')
+            return _('Not Set Selection Pub Time')
+
     @property
     def related_articles(self):
         return Selection_Article.objects.article_related(self)
@@ -1327,6 +1331,9 @@ class Selection_Article(BaseModel):
     create_time = models.DateTimeField(db_index=True, editable=False,auto_now_add=True, blank=True)
 
     objects = SelectionArticleManager()
+    class Meta:
+        ordering = ['-pub_time']
+
     def __unicode__(self):
         return '%s- in selection at - %s'%(self.article.title, self.create_time)
     # def __unicode__(self):

@@ -10,11 +10,15 @@ import re
 import json
 from apps.tag.tasks import generator_article_tag
 
+
+
+
 # the following serializer is for ArticleSerializer nested use only
 class NestedSelectionArticleSerializer(serializers.ModelSerializer):
+    article = serializers.PrimaryKeyRelatedField(read_only=False, queryset=Article.objects.all())
     class Meta:
         model = Selection_Article
-        fields = ('is_published','create_time','pub_time', )
+        fields = ('article','is_published','create_time','pub_time', )
 
 
 class ArticleSerializer(serializers.ModelSerializer):
@@ -27,7 +31,13 @@ class ArticleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
-        fields =  ('id','creator','tags','creator_id','status','title','coverImage','selections','once_selection','cover','publish','updated_datetime','last_selection_time','showcover','read_count','cover_url')
+        fields =  ('id','creator'\
+                       ,'tags','creator_id','status','title'\
+                       ,'coverImage','selections'\
+                       ,'once_selection','cover'\
+                       ,'publish','updated_datetime'\
+                       ,'last_selection_time','showcover'\
+                       ,'read_count','cover_url')
 
     def get_status(self, obj):
         return obj.get_publish_display()
