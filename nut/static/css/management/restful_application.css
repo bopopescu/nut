@@ -80,6 +80,10 @@
 #Article-management .box-header .page-action {
   cursor: pointer;
 }
+#article_form_wrapper .input-title {
+  text-align: right;
+  margin-righ: 30px;
+}
 .test {
   color: red;
 }
