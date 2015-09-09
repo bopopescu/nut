@@ -3,8 +3,6 @@ define(function(require){
     var Writers = require('models/writers');
     var SelectionArticle = require('models/article').SelectionArticle;
 
-
-
     function getCreatorSelectOptions(callback){
             var writerList = new Writers();
                 writerList.on('reset', function(){
@@ -16,7 +14,6 @@ define(function(require){
                 });
                 writerList.fetch({reset: true});
         }
-
 
     var ArticleDetailFormView = Backbone.Form.extend({
 
