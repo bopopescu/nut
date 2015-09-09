@@ -3,6 +3,7 @@ import scrapy
 import re
 from spider.items import GItem
 
+
 IMG_POSTFIX = "_\d+x\d+.*\.jpg|_b\.jpg"
 
 
@@ -10,8 +11,10 @@ class TaobaoSpider(scrapy.Spider):
     name = "taobao"
     allowed_domains = ["taobao.com"]
 
-    def __init__(self, item_id, selection=False, *args, **kwargs):
+    def __init__(self, item_id, update_selection_status=False, *args,
+                 **kwargs):
         super(TaobaoSpider, self).__init__(*args, **kwargs)
+        self.update_selection_status = update_selection_status
         self.item_id = item_id
         self.start_urls = [
             "http://item.taobao.com/item.html?id=%s" % self.item_id
@@ -21,6 +24,8 @@ class TaobaoSpider(scrapy.Spider):
         # self.log(response.headers)
         item = GItem()
 
+        item['update_selection_status'] = self.update_selection_status
+        item['entity_id'] = s
         try:
             item['origin_id'] = response.headers['At_Itemid']
         except KeyError:
@@ -28,6 +33,7 @@ class TaobaoSpider(scrapy.Spider):
         item['link'] = response.url
 
         item['status'] = self.get_item_status(response)
+        item['update_selection_status'] = self.update_selection_status
 
         if item['status'] == 0:
             return item
@@ -49,8 +55,8 @@ class TaobaoSpider(scrapy.Spider):
 
         if shopId != 0:
             item['shop_link'] = "http://shop%s.taobao.com" % shopId
-                # shopId = m.group()
-        #     print re.findall('shopId:"(\d+)', row)
+            # shopId = m.group()
+            # print re.findall('shopId:"(\d+)', row)
             # self.log(row)
         # self.log(shopId)
         # price = self.get_price(response)
@@ -60,7 +66,7 @@ class TaobaoSpider(scrapy.Spider):
         # optimgs = response.xpath('//ul[@id="J_UlThumb"]/li/div/a/img/@data-src').extract()
         # # self.log(optimgs)
         # if len(optimgs) > 1:
-        #     origin_images += optimgs[1:]
+        # origin_images += optimgs[1:]
         # for img in origin_images:
         #     if 'http' not in img:
         #         img = 'http:' + img
@@ -87,7 +93,8 @@ class TaobaoSpider(scrapy.Spider):
         item['cid'] = cat_id
         item['image_urls'] = self.get_images(response)
 
-        soldout = response.xpath('//p[@class="tb-hint"]/strong/text()').extract()
+        soldout = response.xpath(
+            '//p[@class="tb-hint"]/strong/text()').extract()
         if len(soldout) > 0:
             item['status'] = 1
         # item['link'] = response.url
@@ -96,8 +103,10 @@ class TaobaoSpider(scrapy.Spider):
 
     def get_images(self, response):
         images = list()
-        origin_images = response.xpath('//img[@id="J_ImgBooth"]/@data-src').extract()
-        optimgs = response.xpath('//ul[@id="J_UlThumb"]/li/div/a/img/@data-src').extract()
+        origin_images = response.xpath(
+            '//img[@id="J_ImgBooth"]/@data-src').extract()
+        optimgs = response.xpath(
+            '//ul[@id="J_UlThumb"]/li/div/a/img/@data-src').extract()
         # self.log(optimgs)
         if len(optimgs) > 1:
             origin_images += optimgs[1:]
@@ -110,7 +119,8 @@ class TaobaoSpider(scrapy.Spider):
         return images
 
     def get_price(self, response):
-        price = response.xpath('//strong[@id="J_StrPrice"]/em[@class="tb-rmb-num"]/text()').extract()
+        price = response.xpath(
+            '//strong[@id="J_StrPrice"]/em[@class="tb-rmb-num"]/text()').extract()
         if len(price) == 0:
             return 0
             # price = response.xpath('//dl[@id="J_StrPriceModBox"]/dd').extract()
@@ -128,10 +138,12 @@ class TaobaoSpider(scrapy.Spider):
         if 'noitem.htm' in response.url:
             return 0
             # return item
-        soldout = response.xpath('//p[@class="tb-hint"]/strong/text()').extract()
+        soldout = response.xpath(
+            '//p[@class="tb-hint"]/strong/text()').extract()
         if len(soldout) > 0:
             return 1
-        soldout = response.xpath('//strong[@class="sold-out-tit"]/text()').extract()
+        soldout = response.xpath(
+            '//strong[@class="sold-out-tit"]/text()').extract()
         if len(soldout) > 0:
             return 1
 
