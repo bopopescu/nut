@@ -31,7 +31,7 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
         return Entity
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.filter(status__gt=Entity.freeze).using('slave')
+        return self.get_model().objects.filter(status__gt=Entity.freeze).using('slave').filter(buy_links__status=2).distinct()
 
 
 class UserIndex(indexes.SearchIndex, indexes.Indexable):

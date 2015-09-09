@@ -81,14 +81,14 @@ def dashboard(request, template='management/dashboard.html'):
     #     selection_entities = paginator.page(1)
     # except EmptyPage:
     #     raise Http404
-    entities = Entity.objects.all()[0:10]
+    # entities = Entity.objects.all()[0:10]
     notes = Note.objects.all().order_by("-post_time")[0:10]
 
 
     return render_to_response(template,
                                 {
                                     'notes': notes,
-                                    'entities': entities,
+                                    # 'entities': entities,
                                     'like_count': like_count,
                                     'reg_count': reg_count,
                                     'sel_count': sel_count,

@@ -4,8 +4,8 @@ from rest_framework import serializers
 
 class BannerSerializer(serializers.HyperlinkedModelSerializer):
 
-    url = serializers.URLField(source='url', read_only=True)
-    image_url = serializers.URLField(source='image_url', read_only=True)
+    # url = serializers.URLField(source='url', read_only=True)
+    # image_url = serializers.URLField(source='image_url', read_only=True)
 
     class Meta:
         model = Banner

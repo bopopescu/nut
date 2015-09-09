@@ -32,7 +32,7 @@ class TagEntityView(ListView):
     def get_context_data(self, **kwargs):
         res = super(TagEntityView, self).get_context_data(**kwargs)
         contenttag_list = res['object_list']
-
+        el = []
         if self.request.user.is_authenticated():
             note_id_list = contenttag_list.values_list("target_object_id", flat=True)
             eid_list = Note.objects.filter(pk__in=list(note_id_list)).values_list('entity_id', flat=True)
