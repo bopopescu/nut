@@ -23,3 +23,4 @@ class GItem(scrapy.Item):
     shop_link = scrapy.Field()
     seller = scrapy.Field()
     link = scrapy.Field()
+    update_selection_status = scrapy.Field()
