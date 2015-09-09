@@ -27,7 +27,7 @@ class ArticleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
-        fields =  ('id','creator','tags','creator_id','status','title','coverImage','selections','cover','publish','updated_datetime','showcover','read_count','cover_url')
+        fields =  ('id','creator','tags','creator_id','status','title','coverImage','selections','once_selection','cover','publish','updated_datetime','last_selection_time','showcover','read_count','cover_url')
 
     def get_status(self, obj):
         return obj.get_publish_display()

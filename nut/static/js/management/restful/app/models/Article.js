@@ -1,6 +1,27 @@
 define(function(require){
+    var commonTools = require('utils/common');
+
     var Article = Backbone.Model.extend({
-        urlRoot: "/api/articles/"
+        urlRoot: "/api/articles/",
+
+        last_modified_fmt: function(){
+            return commonTools.formatTime(this.get('updated_datetime'));
+        },
+        hasPublishedSelection: function(){
+            if (!this.hasSelection()){
+                return false;
+            }else{
+                _.filter(this.get('selections'), function(){
+
+                });
+            }
+        },
+
+        toJSON:function(){
+            var res = Backbone.Model.prototype.toJSON.call(this);
+                res.last_modified_fmt = this.last_modified_fmt();
+            return res;
+        },
     });
 
     var ArticleCollection = Backbone.PageableCollection.extend({
