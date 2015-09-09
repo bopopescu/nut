@@ -75,8 +75,6 @@ define(function(require){
         }
     });
 
-
-
     return {
         Article: Article,
         ArticleCollection: ArticleCollection,
