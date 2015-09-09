@@ -44,7 +44,7 @@
                                     </div>
                                 </th>
 
-                                <th>{% trans 'last in selection time' %}</th>
+                                <th>{% trans 'last selection time' %}</th>
                                 <th>
                                     {% trans 'Article Status' %}
                                     <div class="filter-wrapper">
@@ -128,7 +128,13 @@
 
                 </td>
                 <td  class='time'>
-                    <%=updated_datetime%>
+                    <div class="add-selection-wrapper">
+                        <% if ((!(once_selection)) && (publish==2)) { %>
+                            <button class="btn btn-primary add_selection">{% trans "Add To Selection" %}</button>
+                        <% }else{ %>
+                            <%=last_selection_time%>
+                        <% } %>
+                    </div>
                 </td>
                 <td  class='status'>
                     <%=status%>

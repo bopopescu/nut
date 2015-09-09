@@ -1,7 +1,9 @@
 define(function(require){
     "use strict";
     var Writers = require('models/writers');
-    var ArticleCollection = require('models/article').ArticleCollection;
+    var SelectionArticle = require('models/article').SelectionArticle;
+
+
 
     function getCreatorSelectOptions(callback){
             var writerList = new Writers();
@@ -52,9 +54,31 @@ define(function(require){
         template : _.template($('#id_article_list_item_template').html()),
         events : {
             'click .edit-content': 'editContent',
-            'click .edit-status': 'editAttribute'
+            'click .edit-status': 'editAttribute',
+            'click .add_selection': 'addSelection'
         },
 
+        addSelection: function(){
+            var that = this;
+            console.log('add selection' + this.model.get('id'));
+            var newSla = new SelectionArticle({
+                article : this.model.id,
+                is_published: false,
+            });
+
+            newSla.save().then(
+                that.addSelectionSuccess.bind(this),
+                that.addSelectionError.bind(this)
+            );
+
+        },
+        addSelectionSuccess: function(){
+            console.log('sla add success , begin sync model');
+            this.model.fetch();
+        },
+        addSelectionError: function(){
+            console.log('sla add fail ');
+        },
         getDetailFormContainer: function(){
              var that = this ;
              bootbox.hideAll();

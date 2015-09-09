@@ -15,7 +15,7 @@ class ArticleFilter(django_filters.FilterSet):
 class RFArticleListView(generics.ListCreateAPIView):
     permission_classes = (Admin_And_Editor_Only,)
 
-    queryset = Article.objects.filter()
+    queryset = Article.objects.all().order_by('-updated_datetime')
     serializer_class = ArticleSerializer
     paginate_by = 20
     paginate_by_param = 'page_size'
