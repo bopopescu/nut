@@ -1272,7 +1272,7 @@ class Article(BaseModel):
             return _('Never in Selection')
 
         pubed_selection = self.selections.filter(is_published=True).order_by('-pub_time')
-        if  pubed_selection:
+        if pubed_selection:
             return pubed_selection[0].pub_time.strftime('%Y-%m-%d %H:%M')
         else :
             return _('Not Set Selection Pub Time')
