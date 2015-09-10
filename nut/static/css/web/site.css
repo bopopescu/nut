@@ -5,7 +5,7 @@
   width: 0px;
 }
 .little-gray-font {
-  font-size: 13px;
+  font-size: 12px;
   color: #9d9d9d;
 }
 .guoku-btn-normal {
@@ -227,7 +227,7 @@
   text-align: center;
   border: 1px solid #e6e6e6;
   color: #424242;
-  font-size: 13px;
+  font-size: 12px;
   margin: 4px 4px 0 0;
 }
 .little-round-tag a {
@@ -644,7 +644,7 @@
 .common-note-list .poke-count,
 .common-note-list .comment-count,
 .common-note-list .add-comment span {
-  font-size: 13px;
+  font-size: 12px;
   padding-left: 5px;
   text-decoration: none;
 }
@@ -678,7 +678,7 @@
   margin: 5px 0 0 38px;
 }
 .add-comment span {
-  font-size: 13px;
+  font-size: 12px;
   padding-left: 5px;
 }
 .update-note {
@@ -900,7 +900,7 @@
   margin-left: 40px ;
 }
 .comment-time {
-  font-size: 13px;
+  font-size: 12px;
   color: #9D9E9F;
 }
 .comment-time:hover {
@@ -934,7 +934,7 @@
   font-weight: 600;
 }
 .main_static h4 {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
 }
 .main_static a h4 {
@@ -948,7 +948,7 @@
   content: "\f08e";
   display: inline-block;
   font-family: FontAwesome;
-  font-size: 13px;
+  font-size: 12px;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -1015,13 +1015,13 @@
   line-height: 24px;
 }
 .media-cover-list .media-link .article-source {
-  font-size: 13px;
+  font-size: 12px;
   color: #9d9d9d;
   margin-left: 10px;
 }
 .media-cover-list .media-cover-time {
   float: right;
-  font-size: 13px;
+  font-size: 12px;
   color: #9d9d9d;
   line-height: 24px;
 }
@@ -1342,12 +1342,12 @@ a:hover {
   height: 60px;
 }
 #user_article .user-article-item .title-wrapper .title {
-  font-size: 18px;
+  font-size: 16px;
 }
 #user_article .user-article-item .info-wrapper .info {
   float: right;
   padding-right: 20px;
-  font-size: 13px;
+  font-size: 12px;
   color: #9d9e9f;
 }
 #user_article .user-article-item .info-wrapper .edit-link {
@@ -1396,7 +1396,7 @@ a:hover {
   }
 }
 .comment_operate .fa {
-  font-size: 13px;
+  font-size: 12px;
 }
 .note-comment-list .btn-comment,
 .note-comment-list .btn-cancel {
@@ -1498,7 +1498,7 @@ a:hover {
   cursor: pointer;
 }
 #detail_content .share-wrapper .share-intro {
-  font-size: 13px;
+  font-size: 12px;
   margin-bottom: 10px;
   color: #9d9e9f;
 }
@@ -1509,7 +1509,7 @@ a:hover {
 }
 #detail_content .share-wrapper-short .share-intro-entity {
   color: #9d9e9f;
-  font-size: 13px;
+  font-size: 12px;
   float: right;
 }
 #detail_content .share-wrapper-short .jiathis_style {
@@ -1521,7 +1521,7 @@ a:hover {
   border-bottom: 1px solid #f8f8f8;
 }
 #detail_content .brand-intro .brand-name {
-  font-size: 18px;
+  font-size: 16px;
   margin-bottom: 10px;
 }
 #detail_content .brand-intro .brand-intro-words {
@@ -1532,12 +1532,12 @@ a:hover {
   margin-bottom: 10px;
 }
 .main-article .writer-wrapper .writer-intro .writer-name {
-  font-size: 18px;
+  font-size: 16px;
 }
 .main-article .writer-wrapper .writer-intro .writer-bio {
   margin-top: 10px;
   color: #9d9e9f;
-  font-size: 13px;
+  font-size: 12px;
 }
 @media (max-width: 400px) {
   .main-article .writer-avatar {
@@ -1621,7 +1621,7 @@ a:hover {
   }
   .more-article-wrapper .article-digest {
     padding: 10px 15px 15px 15px;
-    font-size: 13px;
+    font-size: 12px;
     color: #9d9e9f;
   }
 }
@@ -1661,13 +1661,13 @@ a:hover {
     border-left: 4px solid #9d9e9f;
     position: relative;
     left: -15px;
-    font-size: 13px;
+    font-size: 12px;
     color: #9d9e9f;
   }
 }
 .article-section-title {
   margin: 20px 0px;
-  font-size: 18px;
+  font-size: 16px;
 }
 .more-article-wrapper {
   margin: 20px 0px;
@@ -1711,7 +1711,7 @@ a:hover {
   height: 100%;
 }
 .bind-problem {
-  font-size: 13px;
+  font-size: 12px;
   padding-left: 20px;
   font-weight: 600;
 }
@@ -1726,7 +1726,7 @@ a:hover {
 }
 .user-page-up .user-name {
   margin: 20px 0px;
-  font-size: 18px;
+  font-size: 16px;
 }
 .user-page-up .user-bio {
   display: block;
