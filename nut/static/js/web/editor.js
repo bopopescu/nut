@@ -369,7 +369,7 @@
             bootbox.alert('文章保存失败，请稍后再试');
         },
 
-        sendFile:function(file , callback){
+        sendFile:function(file , callback , maxWidth){
             callback = callback || function(){};
             var  data = new FormData();
             data.append("file", file[0]);

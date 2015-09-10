@@ -722,17 +722,6 @@
 .count {
   color: #db1f77;
 }
-.user-info {
-  border: 1px solid #eee;
-  margin: 0 15px 0 15px;
-  padding: 10px;
-  height: 188px;
-}
-.user-info > img {
-  margin: 15px;
-  display: inline-block;
-  float: left;
-}
 .nav-user-index {
   border-radius: 0;
   /*border: 1px solid #eee;*/
