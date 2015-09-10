@@ -4,9 +4,7 @@ from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, D
 from apps.web.views.discover import DiscoverView
 from apps.web.views.main import SelectionEntityList, SiteMapView
 from apps.web.views.entity import EntityCard
-
 from apps.web.views.main import GKSearchView, PopularView
-
 
 urlpatterns = patterns(
     'apps.web.views',
