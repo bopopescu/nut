@@ -362,7 +362,7 @@ ul li {
   width: 0px;
 }
 .little-gray-font {
-  font-size: 13px;
+  font-size: 12px;
   color: #9d9d9d;
 }
 .guoku-btn-normal {
@@ -584,7 +584,7 @@ ul li {
   text-align: center;
   border: 1px solid #e6e6e6;
   color: #424242;
-  font-size: 13px;
+  font-size: 12px;
   margin: 4px 4px 0 0;
 }
 .little-round-tag a {
@@ -774,7 +774,7 @@ ul li {
   padding-bottom: 10px;
 }
 #editor-articles #editor-article-list .article-item .title .status {
-  font-size: 16px;
+  font-size: 14px;
   border: none;
   color: #9d9e9f;
   margin-left: 10px;
@@ -787,13 +787,13 @@ ul li {
   color: #ff9500;
 }
 #editor-articles #editor-article-list .article-item .info-list {
-  font-size: 16px;
+  font-size: 14px;
   color: #9d9e9f;
   padding-bottom: 10px;
 }
 #editor-articles #editor-article-list .article-item .info-list .editor,
 #editor-articles #editor-article-list .article-item .info-list .create-time {
-  font-size: 13px;
+  font-size: 12px;
 }
 #editor-articles #editor-article-list .article-item .info-list div {
   margin-right: 20px;
@@ -834,7 +834,7 @@ ul li {
 }
 .article-wrapper .title-wrapper h2 {
   font-size: 32px;
-  line-height: 1.5;
+  line-height: 1.3;
 }
 .article-wrapper ul {
   list-style-type: disc;
@@ -850,7 +850,7 @@ ul li {
   margin-left: 20px;
 }
 .article-wrapper .info-wrapper {
-  font-size: 13px;
+  font-size: 12px;
   margin: 20px 0px;
   color: #9d9e9f;
 }
@@ -873,7 +873,7 @@ ul li {
 .article-wrapper .note-editable {
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
   color: #424242;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.6;
 }
 .article-wrapper .content-wrapper div,
@@ -886,7 +886,7 @@ ul li {
 }
 .article-wrapper .content-wrapper h3,
 .article-wrapper .note-editable h3 {
-  font-size: 18px;
+  font-size: 16px;
   margin: 0 0 13px 0;
   font-weight: 600;
 }
@@ -896,7 +896,7 @@ ul li {
   color: #5f5f5f;
   padding: 10px 10px 10px 10px;
   margin: 0 0 13px 0;
-  font-size: 16px;
+  font-size: 14px;
 }
 .article-wrapper .content-wrapper img,
 .article-wrapper .note-editable img {
@@ -960,7 +960,7 @@ ul li {
 .article-wrapper .content-wrapper .guoku-card .entity-title,
 .article-wrapper .note-editable .guoku-card .entity-title {
   margin: 10px 10px 0px 10px;
-  font-size: 18px;
+  font-size: 16px;
 }
 .article-wrapper .content-wrapper .guoku-card .entity-info-detail,
 .article-wrapper .note-editable .guoku-card .entity-info-detail {
@@ -973,7 +973,7 @@ ul li {
 .article-wrapper .note-editable .guoku-card .entity-info-detail .entity-price {
   display: inline-block;
   font-family: Georgia,serif;
-  font-size: 18px;
+  font-size: 16px;
   color: #357ebd;
 }
 .article-wrapper .content-wrapper .guoku-card .entity-info-detail .entity-link,
@@ -1200,7 +1200,7 @@ body {
   padding-top: 100px;
   color: #424242;
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.5;
   background-color: #ffffff;
   -webkit-font-smoothing: subpixel-antialiased;
@@ -1254,6 +1254,7 @@ body {
 }
 #guoku_main_nav .main-list li {
   background: none;
+  font-size: 16px;
 }
 #guoku_main_nav .main-list li.active {
   border-bottom: 2px solid #ff1f77;
@@ -1326,7 +1327,7 @@ body {
   background: none;
 }
 #guoku_main_nav .nav-user-actions .user-menu {
-  font-size: 16px;
+  font-size: 14px;
 }
 #guoku_main_nav .nav-user-actions .user-menu a {
   padding: 10px 20px;
@@ -1391,7 +1392,7 @@ body {
   display: block;
   margin: 0 auto;
   margin-bottom: 10px;
-  font-size: 13px;
+  font-size: 12px;
   float: left;
 }
 #guoku_footer .footer-part .list-wrapper ul {
@@ -1399,7 +1400,7 @@ body {
   margin: 0;
 }
 #guoku_footer .footer-part .list-wrapper li {
-  font-size: 13px;
+  font-size: 12px;
   border-right: 1px solid #424242;
   padding: 0 10px;
   display: inline-block;
@@ -1425,7 +1426,7 @@ body {
   margin: 0 auto;
 }
 #guoku_footer .footer-part .qr-wrapper .qr-text {
-  font-size: 13px;
+  font-size: 12px;
   width: 100%;
   text-align: center;
   margin-top: 20px;
@@ -1459,7 +1460,7 @@ body {
   left: 10px;
   display: block;
   margin: 0 auto;
-  font-size: 18px;
+  font-size: 16px;
   color: #333;
 }
 #guoku_footer .footer-content .main-logo {
@@ -1481,7 +1482,7 @@ body {
   list-style: none;
 }
 #guoku_footer .footer-bottom .footer-bottom-left ul li {
-  font-size: 13px;
+  font-size: 12px;
   color: #9d9e9f;
   margin-right: 10px;
   display: inline-block;
@@ -1567,7 +1568,7 @@ body {
 .guoku-content.user-page .user-info-wrapper .user-info .user-bio {
   margin-bottom: 10px;
   max-width: 450px;
-  font-size: 16px;
+  font-size: 14px;
 }
 .guoku-content.user-page .user-info-wrapper .user-info .user-binding {
   margin-bottom: 10px;
@@ -1615,7 +1616,7 @@ body {
 }
 .guoku-content.user-page .content-panel .panel-header .more-link {
   float: right;
-  font-size: 13px;
+  font-size: 12px;
   position: relative;
   right: 15px;
 }
@@ -1645,12 +1646,12 @@ body {
   padding: 0 10px;
 }
 .guoku-content.user-page .content-panel .panel-content-wrapper .note-cell .note-content-wrapper .note-text {
-  font-size: 16px;
+  font-size: 14px;
   color: #424242;
   line-height: 1.3;
 }
 .guoku-content.user-page .content-panel .panel-content-wrapper .note-cell .note-content-wrapper .note-info {
-  font-size: 13px;
+  font-size: 12px;
   color: #9d9e9f;
   position: absolute;
   bottom: 11px;
@@ -1673,11 +1674,11 @@ body {
   min-height: 140px;
 }
 .guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-name {
-  font-size: 18px;
+  font-size: 16px;
 }
 .guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-social-status {
   color: #9d9e9f;
-  font-size: 13px;
+  font-size: 12px;
   position: absolute;
   padding-top: 10px;
 }
@@ -1849,7 +1850,7 @@ body {
   padding-right: 10px;
 }
 #detail_content_left .guess-title {
-  font-size: 18px;
+  font-size: 16px;
   margin: 20px 0px ;
 }
 #detail_content_left .detail-pic-left .detail_img_big img {
@@ -1874,7 +1875,7 @@ body {
   margin: 0 auto;
 }
 #detail_content_left .detail-info-center .brand {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 800;
 }
 #detail_content_left .detail-info-center .brand.published {
@@ -1909,7 +1910,7 @@ body {
   text-align: center;
   border: 1px solid #e6e6e6;
   color: #424242;
-  font-size: 13px;
+  font-size: 12px;
   margin: 4px 4px 0 0;
 }
 #detail_content_left .detail-info-center .entity-tags li a {
@@ -1921,7 +1922,7 @@ body {
 #detail_content_left .detail-info-center .entity-status li {
   display: inline-block;
   color: #9d9e9f;
-  font-size: 13px;
+  font-size: 12px;
 }
 #detail_content_left .detail-info-center .entity-status li i {
   margin-right: 5px;
@@ -1958,7 +1959,7 @@ body {
   color: #fff;
 }
 #detail_content_left #login_user_comment .blocked-user-notice i {
-  font-size: 18px;
+  font-size: 16px;
 }
 #detail_content_left #login_user_comment .media {
   margin: 0px 15px;
@@ -1976,7 +1977,7 @@ body {
 }
 #detail_content_left #guess_list .guess-title {
   padding: 10px 15px;
-  font-size: 18px;
+  font-size: 16px;
 }
 #detail_content_left #guess_list .guess-img .img-holder {
   display: inline-block;
@@ -2030,12 +2031,12 @@ body {
   box-shadow: 0px 0px 3px #dddddd;
 }
 #detail_content_right .section-list .section .writer-intro .writer-nick {
-  font-size: 16px;
+  font-size: 14px;
 }
 #detail_content_right .section-list .section .writer-intro .writer-bio {
   margin-top: 8px;
   color: #9d9e9f;
-  font-size: 13px;
+  font-size: 12px;
 }
 #detail_content_right .section-list .section .writer-avatar {
   max-width: 60px;
@@ -2055,10 +2056,10 @@ body {
   list-style: none;
 }
 #detail_content_right .section-list .section-title {
-  font-size: 16px;
+  font-size: 14px;
 }
 #detail_content_right .section-list .section-title .more-link {
-  font-size: 13px;
+  font-size: 12px;
   float: right;
 }
 #detail_content_right .section-list .download-title {
@@ -2102,7 +2103,7 @@ body {
   text-align: center;
   border: 1px solid #e6e6e6;
   color: #424242;
-  font-size: 13px;
+  font-size: 12px;
   margin: 4px 4px 0 0;
 }
 #detail_content_right .section-list li.section .tag-list-all li a,
@@ -2174,7 +2175,7 @@ body {
   list-style: none ;
 }
 #detail_content_right .section-list li.section .tag-list li {
-  font-size: 16px;
+  font-size: 14px;
   margin: 10px 0;
 }
 #detail_content_right .section-list li.section .pop-entity-list li a {
@@ -2209,10 +2210,10 @@ body {
 }
 #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .entity-content .entity-name {
   margin-top: 15px;
-  font-size: 16px;
+  font-size: 14px;
 }
 #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .entity-content .entity-intro {
-  font-size: 13px;
+  font-size: 12px;
 }
 #detail_content_right .section-list li.section .pop-entity-list li .more-popular-entity {
   display: inline-block;
@@ -2282,7 +2283,7 @@ body {
 }
 #detail_content_right .section-list li.section .pop-article-list .article-content .article-digest {
   color: #9d9e9f;
-  font-size: 13px;
+  font-size: 12px;
 }
 #detail_content_right .section-list .need-bottom-border {
   border-bottom: 1px solid #f8f8f8;
@@ -2335,7 +2336,7 @@ body {
 }
 .more-article-wrapper .title-wrapper .title i.fa-star {
   color: #ff9500;
-  font-size: 13px;
+  font-size: 12px;
 }
 .more-article-wrapper .cover-wrapper {
   float: none;
@@ -2421,6 +2422,7 @@ body {
   margin: 15px 10px;
   min-height: 54px;
   max-height: 54px;
+  line-height: 1.3;
 }
 #selection_article_list .selection-article-item .article-panel .article-title a {
   color: #424242;
@@ -2442,7 +2444,7 @@ body {
   float: right;
   padding-right: 10px;
   color: #9d9e9f;
-  font-size: 13px;
+  font-size: 12px;
 }
 #selection_article_list .selection-article-item .article-panel .article-info .create-time .fa {
   margin-right: 5px;
@@ -2463,12 +2465,12 @@ body {
   padding-bottom: 60px;
 }
 #sitemap .site-section .title {
-  font-size: 18px;
+  font-size: 16px;
   color: #424242;
   margin: 15px 0;
 }
 #sitemap .site-section div {
-  font-size: 16px;
+  font-size: 14px;
   color: #9d9e9f;
   margin-top: 10px;
 }
@@ -2485,11 +2487,11 @@ body {
   height: auto!important;
   color: darkred;
   text-align: right;
-  font-size: 13px;
+  font-size: 12px;
   height: auto;
 }
 #settings.edit_profile .edit_info ul li.error-msg .errorlist li {
-  font-size: 13px;
+  font-size: 12px;
   height: auto;
 }
 @media (max-width: 767px) {
@@ -2621,7 +2623,7 @@ body {
   li.section .text-holder,
   li.section .article-title,
   li.section .entity-name {
-    font-size: 13px !important;
+    font-size: 12px !important;
   }
   .guoku-content.user-page .user-info {
     max-width: 450px;
@@ -2662,7 +2664,7 @@ body {
   }
   .more-article-wrapper .article-digest {
     padding: 10px 15px 15px 15px;
-    font-size: 13px;
+    font-size: 12px;
     color: #9d9e9f;
   }
   .more-article-wrapper .article-digest .created-date {
