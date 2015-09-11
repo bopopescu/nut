@@ -148,9 +148,6 @@ def entity(request, category_id):
 
     _offset = _offset / _count + 1
 
-    # if _offset % _count != 0 :
-    #     _offset += 1
-
     _key = request.GET.get('session')
     _reverse = int(request.GET.get('reverse', 0))
     _sort = request.GET.get('sort', None)
@@ -169,7 +166,6 @@ def entity_note(request, category_id):
     _count = int(request.GET.get('count', '30'))
 
     _offset = _offset / _count + 1
-
 
     res = []
 

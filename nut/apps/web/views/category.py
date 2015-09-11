@@ -37,8 +37,6 @@ class CategroyGroupListView(TemplateResponseMixin, ContextMixin, View):
         category = Category.objects.get(pk = gid)
         sub_categories = Sub_Category.objects.filter(group=gid).values_list('id', flat=True)
 
-        # log.info(sub_categories)
-
         _entity_list = Entity.objects.filter(category_id__in=list(sub_categories), status=Entity.selection).filter(buy_links__status=2)
         paginator = ExtentPaginator(_entity_list, 24)
         try:
