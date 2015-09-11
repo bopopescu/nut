@@ -297,8 +297,8 @@ class APIArticle(Article):
     def v4_toDict(self):
         res = self.toDict()
         res.pop('creator_id')
-        res['created_datetime'] = time.mktime(self.created_datetime.timetuple())
-        res['updated_datetime'] = time.mktime(self.updated_datetime.timetuple())
+        res.pop('created_datetime', None)
+        res.pop('updated_datetime', None)
         res['content'] = self.strip_tags_content
         res['url'] = self.get_absolute_url()
         res['creator'] = self.creator.v3_toDict()
