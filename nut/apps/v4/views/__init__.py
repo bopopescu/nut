@@ -73,8 +73,12 @@ class HomeView(BaseJsonView):
         res['entities'] = []
         entities = APISelection_Entity.objects.published()
         for row in entities[:5]:
+            r = {
+                'entity': row.entity.v3_toDict(),
+                'note': row.entity.top_note.v3_toDict(),
+            }
             res['entities'].append(
-                row.entity.v3_toDict()
+                r
             )
         return res
 

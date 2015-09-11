@@ -5,7 +5,7 @@ from apps.mobile.lib.sign import check_sign
 
 from django.core.paginator import Paginator
 from datetime import datetime
-
+import time
 
 class ArticlesListView(BaseJsonView):
     http_method_names = ['get']
@@ -24,8 +24,16 @@ class ArticlesListView(BaseJsonView):
             return res
 
         for row in sla.object_list:
+            a = row.api_article.v4_toDict()
+            a.update(
+                {
+                    'pub_time': time.mktime(row.pub_time.timetuple())
+                }
+            )
+            # print a
             res.append(
-                row.api_article.v4_toDict()
+                a
+                # row.api_article.v4_toDict()
             )
 
         return res
