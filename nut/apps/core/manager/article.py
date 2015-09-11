@@ -21,7 +21,6 @@ class ArticleManager(models.Manager):
         return self.get_queryset().using('slave').filter(publish=0, creator=user).order_by('-updated_datetime')
 
 
-
 class SelectionArticleManager(models.Manager):
 
     def get_popular(self):

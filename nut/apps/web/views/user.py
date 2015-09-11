@@ -468,12 +468,12 @@ class UserIndex(DetailView):
         context_data['recent_notes'] = current_user.note.all().order_by("-post_time")[:6]
         # get user published selection article list
 
-        _article_list = Article.objects.get_published_by_user(current_user).order_by("-selections", '-updated_datetime')[0:6]
-        # _selection_article_ids = Selection_Article.objects.published_by_user(current_user).values_list("article__id", flat=True)
+        # _article_list = Article.objects.get_published_by_user(current_user).order_by('-updated_datetime')[0:6]
+        _selection_article_ids = Selection_Article.objects.published_by_user(current_user).values_list("article__id", flat=True)
         # _common_article_ids    = Article.objects.get_published_by_user(current_user).exclude(pk_in=list(_selection_article_ids)).values_list("pk",flat=True)
-        # _article_list = Article.objects.get_published_by_user(current_user).filter(selections__isnull = False)\
-        #                                .filter(pk__in=list(_selection_article_ids))[:6]
-        #
+        _article_list = Article.objects.get_published_by_user(current_user).filter(selections__isnull = False)\
+                                       .filter(pk__in=list(_selection_article_ids))[:6]
+
         context_data['articles'] = _article_list
 
         context_data['followings'] = current_user.followings.all()[:7]
