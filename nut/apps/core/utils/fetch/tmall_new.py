@@ -164,6 +164,7 @@ class Tmall():
         return m.group(1)
 
     def fix_script_url(self,script_url):
+        script_url = script_url.replace('mdskip.taobao.com', 'mdskip.tmall.com')
         l = list()
         prepend = ''
         if not 'http:' in script_url:
@@ -174,7 +175,7 @@ class Tmall():
 
     def get_tmall_header(self):
         tmall_header = {
-            'Cookie':'cna=C6IRC8X/ODgCAd6BFDvWbabx swfstore=293511 __tmall_fp_ab=__804b whl=-1%260%260%260 otherx=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0 lzstat_uv=11965390701316469673|2934243@2674749 lzstat_ss=140379413_3_1398070003_2934243|815277699_0_1422723118_2674749 tkmb=e=zGU0g6e1d7xnyW5gckzC5SRSoSV%2BCJRsbB%2FqUvs5Uf58hRjnchOE8RJiVyxap21Z%2BF5k2ycdFwjLcpg6et5YWldFaIJiTj%2B8PB3D9WtY4uPRMmgp0PWxFg3THzlXWZl9d72ZRUy6HrHElkYSV3L9ohm909Wxn%2B5XYLRmURqimRuTELpeqF6LqRumN4F3VGOHygplmP3ghh8WXWUiIsL4c4lpflo%2BFw6HwYInDAPb8d0rZeab&iv=0&et=1425984084 tk_trace=1 _tb_token_=59d5380e68b33 ck1= uc1=lltime=1429272638&cookie14=UoW1Hdw4eYlPpw%3D%3D&existShop=false&cookie16=Vq8l%2BKCLySLZMFWHxqs8fwqnEw%3D%3D&cookie21=V32FPkk%2Fgipm&tag=4&cookie15=W5iHLLyFOGW7aA%3D%3D&pas=0 uc3=nk2=F5fFAGakplCe&id2=UU21bCqQ9jo%3D&vt3=F8dAT%2BTo5SBALLi8fWU%3D&lg2=WqG3DMC9VAQiUQ%3D%3D lgc=tayaktaka tracknick=tayaktaka cookie2=56e6bb7399ccc24cd086055984b64234 cookie1=ACIJ9hF2im3m%2BNvit%2F8rlnKsDPnZLJknoRP8Hwy%2Fwu4%3D unb=25737270 t=fafd65949bdd322f75e42578c7769165 _nk_=tayaktaka _l_g_=Ug%3D%3D cookie17=UU21bCqQ9jo%3D login=true __ozlvd2061=1429594589 CNZZDATA1000279581=1990981142-1429595063-%7C1429595063 ucn=unit pnm_cku822=043UW5TcyMNYQwiAiwQRHhBfEF8QXtHcklnMWc%3D%7CUm5Ockt0QHhMeEZ7Qn1GeS8%3D%7CU2xMHDJ7G2AHYg8hAS8WKQcnCU4nTGI0Yg%3D%3D%7CVGhXd1llXGNXb1tvUWxValFuWWRGf0J%2BSnZNdU11QH9FfEl3T3FfCQ%3D%3D%7CVWldfS0TMwcyCysXLQ0jYQ51HEYZaCd8V3dJaVVwJnZYDlg%3D%7CVmhIGCcZOQIiHiEaJQU7DjIKKhYvFisLPwI%2FHyMaIx4%2BCzEPWQ8%3D%7CV25Tbk5zU2xMcEl1VWtTaUlwJg%3D%3D cq=ccp%3D1 isg=C6C4BA9AD0DB0F423D25D418B73D4637 l=AVS2KrRgVCxULAEZoGGeYVQs1CNULFQs',
+            'Cookie':'cna=C6IRC8X/ODgCAd6BFDvWbabx; swfstore=293511; whl=-1%260%260%260; CNZZDATA1000279581=2084491831-1431329588-http%253A%252F%252Fsubject.tmall.com%252F%7C1432794651; lzstat_uv=11965390701316469673|2934243@2674749@3576861; lzstat_ss=140379413_3_1398070003_2934243|815277699_0_1422723118_2674749|2999861223_2_1434841102_3576861; ucn=center; tkmb=e=zGU0g6e1d7xnyW5i7tVTF34AiQ6j29rfKzBnvRc7iWAKnIJfZf8qogh3jq5OecGVnIZVGJ6iJNJUooZBX7Ci3Kb86eKaBMLWSFMJq3gfdbiOtqM14m8TUixr3LK%2FQUevmmOcDn3qcCAD0AiwnIeHDgP50F2QwFA5ztriqzRqqT9%2Fh3aZffAL0k6U0Q%3D%3D&iv=0&et=1436260677; ck1=; _tb_token_=e3eab0131bee0; uc3=nk2=F5fFAGakplCe&id2=UU21bCqQ9jo%3D&vt3=F8dASM2ebvybuPH%2FldI%3D&lg2=WqG3DMC9VAQiUQ%3D%3D; lgc=tayaktaka; tracknick=tayaktaka; cookie2=2c4c3d08862516f8b17f01d55c31d074; skt=7b0c61cad5da6b2f; t=5070ce985c3f11b15a524d6788515bf0; tk_trace=1; pnm_cku822=172UW5TcyMNYQwiAiwQRHhBfEF8QXtHcklnMWc%3D%7CUm5OcktyTnpCdkJ%2BRXxIfSs%3D%7CU2xMHDJ7G2AHYg8hAS8WKQcnCU4nTGI0Yg%3D%3D%7CVGhXd1llXGVZbVVhVWlSa19qXWBCe05zR3xDf0p%2BS3JKcEl0QW85%7CVWldfS0TMw8wDzAQLg4gdlNlSx1L%7CVmhIGCEdPRwgFCsUNAgxDDAQLhsvFjYKPgE8HCAdKBU1CT0CPx8jHiYcShw%3D%7CV25Tbk5zU2xMcEl1VWtTaUlwJg%3D%3D; cq=ccp%3D1; l=AgkJbJ5afOfrqhFMGy4g0hBRmTtjVv2I; isg=E67B4BE00CF880E3F80FAD48EBEE149E',
             'User-Agent':'Mozilla/5.0 (Macintosh Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36'
          }
         tmall_header.update(origin_headers)
@@ -202,8 +203,6 @@ class Tmall():
             "brand": self.brand
         }
         return result
-
-
 
 def tmall_test_fn():
     product = Tmall('3362046923')

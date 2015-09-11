@@ -1,11 +1,11 @@
 from rest_framework import generics
-
+from rest_framework.permissions import IsAdminUser
 from apps.core.models import  Selection_Article
 from apps.api.serializers.articles import NestedSelectionArticleSerializer
 from apps.api.permissions import  Admin_And_Editor_Only
 
 class RFSlaListView(generics.ListCreateAPIView):
-    permission_class=(Admin_And_Editor_Only,)
+    permission_class=(IsAdminUser,)
 
     queryset = Selection_Article.objects.all().order_by('-pub_time')
     serializer_class= NestedSelectionArticleSerializer
@@ -14,7 +14,7 @@ class RFSlaListView(generics.ListCreateAPIView):
     max_paginate_by =  100
 
 class RFSlaDetailView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (Admin_And_Editor_Only,)
+    permission_classes = (IsAdminUser,)
     queryset = Selection_Article.objects.all()
     serializer_class = NestedSelectionArticleSerializer
 

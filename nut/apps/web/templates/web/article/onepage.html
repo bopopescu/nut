@@ -144,7 +144,7 @@
         function renderEntityCard(){
                 var cardList = $('.guoku-card');
                 $.map(cardList, function(ele, index){
-                    console.log('ele : ' + ele + '  index: ' + index);
+{#                    console.log('ele : ' + ele + '  index: ' + index);#}
                     var hash = $(ele).attr('data_entity_hash');
                     if (hash){
                         var url = '/detail/' + hash + '/card/'
