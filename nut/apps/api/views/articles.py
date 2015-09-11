@@ -1,5 +1,6 @@
 from rest_framework import generics
 from rest_framework import filters
+from rest_framework.permissions import IsAdminUser
 import django_filters
 
 from apps.core.models import Article
@@ -13,7 +14,7 @@ class ArticleFilter(django_filters.FilterSet):
         fields = ['publish']
 
 class RFArticleListView(generics.ListCreateAPIView):
-    permission_classes = (Admin_And_Editor_Only,)
+    permission_classes = (IsAdminUser,)
 
     queryset = Article.objects.all().order_by('-updated_datetime')
     serializer_class = ArticleSerializer
@@ -25,7 +26,7 @@ class RFArticleListView(generics.ListCreateAPIView):
     filter_class =  ArticleFilter
 
 class RFArticleDetailView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (Admin_And_Editor_Only,)
+    permission_classes = (IsAdminUser,)
 
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
