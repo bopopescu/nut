@@ -24,5 +24,6 @@ require.config({
 
 require(['app/articleRouter'], function (Router) {
     var router = new Router();
+    window.router = router;
     Backbone.history.start();
 });

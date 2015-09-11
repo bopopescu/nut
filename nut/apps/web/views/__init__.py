@@ -33,6 +33,9 @@ class FaqView(TemplateView):
     template_name = "web/base_faq.html"
 
 class LinksView(TemplateView):
+    def get_context_data(self, **kwargs):
+        context = super(LinksView, self).get_context_data(**kwargs)
+        return  context
     template_name = "web/links.html"
 
 
