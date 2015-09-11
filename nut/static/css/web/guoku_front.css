@@ -1207,6 +1207,9 @@ body {
   background-color: #ffffff;
   -webkit-font-smoothing: subpixel-antialiased;
 }
+body > .container {
+  min-height: 523px;
+}
 .body-gray {
   background-color: #f8f8f8;
 }
