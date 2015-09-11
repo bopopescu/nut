@@ -32,6 +32,7 @@ def extract_url(str):
 
 
 def fix_script_url(script_url):
+    script_url = script_url.replace('mdskip.taobao.com', 'mdskip.tmall.com')
     l = list()
     prepend = ''
     if not 'http:' in script_url:
