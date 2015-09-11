@@ -204,8 +204,6 @@ class Tmall():
         }
         return result
 
-
-
 def tmall_test_fn():
     product = Tmall('3362046923')
     print product.res()
