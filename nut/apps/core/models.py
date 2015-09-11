@@ -888,7 +888,7 @@ class Buy_Link(BaseModel):
     def v3_toDict(self):
         res = self.toDict()
         res.pop('link', None)
-
+        res.pop('default', None)
         res['buy_link'] = "http://api.guoku.com%s?type=mobile" % reverse('v4_visit_item', args=[self.origin_id])
         res['price'] = int(self.price)
         return res
