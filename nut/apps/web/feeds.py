@@ -130,7 +130,7 @@ class ArticlesFeeds(Feed):
     #     return getattr(get_object_or_404)
 
     def items(self):
-        return Selection_Article.objects.published().order_by('-pub_time')[0:1]
+        return Selection_Article.objects.published().order_by('-pub_time')[0:30]
 
     def item_title(self, item):
         return item.article.title
@@ -155,8 +155,8 @@ class ArticlesFeeds(Feed):
         # extra = super(ArticlesFeeds, self).item_extra_kwargs(item)
         extra = {
                 # 'content_encoded': "<![CDATA[%s]]>" % item.article.content,
-                # 'content_encoded': "<![CDATA[%s]]>" % item.article.bleached_content,
-                'content_encoded': "<![CDATA[%s]]>" % u'<p>test</p>',
+                'content_encoded': "<![CDATA[%s]]>" % item.article.bleached_content,
+                # 'content_encoded': "<![CDATA[%s]]>" % u'<p>test</p>',
                 }
 
 
