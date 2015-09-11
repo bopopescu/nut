@@ -4,15 +4,17 @@ from django.http import HttpResponseRedirect
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.models import Show_Banner, Banner, Buy_Link, Selection_Entity, Entity, Entity_Like, Sub_Category
+from apps.core.models import Show_Banner, Banner,\
+    Buy_Link, Selection_Entity, Entity, \
+    Entity_Like, Sub_Category
+
 from apps.core.utils.taobaoapi.utils import taobaoke_mobile_item_convert
 from apps.v4.models import APISelection_Entity, APIEntity, APICategory, APISeletion_Articles
 from apps.v4.forms.pushtoken import PushForm
-# from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
 from apps.core.views import BaseJsonView
-# import random
+
 
 
 from django.utils.log import getLogger
@@ -68,6 +70,13 @@ class HomeView(BaseJsonView):
         for row in articles[:3]:
             res['articles'].append(
                 row.api_article.v4_toDict()
+            )
+
+        res['categories'] = []
+        categories = APICategory.objects.all()
+        for row in categories[:3]:
+            res['categories'].append(
+                row.v4_toDict()
             )
 
         res['entities'] = []
