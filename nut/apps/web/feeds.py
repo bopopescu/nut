@@ -23,8 +23,11 @@ class SimplerXMLGenerator(XMLGenerator):
         self.startElement(name, attrs)
         if contents is not None:
             if escape:
+                self.characters(contents)
+            else:
+                if not isinstance(contents, unicode):
+                    contents = unicode(contents, self._encoding)
                 self._write(contents)
-            self.characters(contents)
         self.endElement(name)
 
 
