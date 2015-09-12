@@ -91,9 +91,20 @@ class HomeView(BaseJsonView):
             )
         return res
 
+    def get(self, request, *args, **kwargs):
+        _key = self.request.GET.get('session')
+        try:
+            self.session = Session_Key.objects.get(session_key=_key)
+            # Selection_Entity.objects.set_user_refresh_datetime(session=self.session.session_key)
+        except Session_Key.DoesNotExist, e:
+            self.session = None
+
+        return super(HomeView, self).get(request, *args, **kwargs)
+
     @check_sign
     def dispatch(self, request, *args, **kwargs):
         return super(HomeView, self).dispatch(request, *args, **kwargs)
+
 
 class DiscoverView(BaseJsonView):
     http_method_names = ['get']
