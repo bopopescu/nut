@@ -81,9 +81,15 @@ class HomeView(BaseJsonView):
 
         res['entities'] = []
         entities = APISelection_Entity.objects.published()
+        ids = entities.values_list('entity_id', flat=True)
+
+        el = None
+        if self.session is not  None:
+            el = Entity_Like.objects.user_like_list(user=self.session.user, entity_list=list(ids))
+
         for row in entities[:5]:
             r = {
-                'entity': row.entity.v3_toDict(),
+                'entity': row.entity.v3_toDict(user_like_list=el),
                 'note': row.entity.top_note.v3_toDict(),
             }
             res['entities'].append(
@@ -129,7 +135,7 @@ class DiscoverView(BaseJsonView):
             _session = Session_Key.objects.get(session_key=_key)
             el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=_entities)
         except Session_Key.DoesNotExist, e:
-            log.info(e.message)
+            # log.info(e.message)
             el = None
 
         res['entities'] = list()
