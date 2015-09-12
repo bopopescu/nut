@@ -244,7 +244,12 @@
         checkData: function(data){
             this.clearErrorMessage();
 
+
             if ((!data['cover']) && (data['publish'] == 2)){
+                this.error_messages.push('请选择封面图');
+                return false;
+            }
+            if (/default_cover\.jpg/.test(data['cover']) && (data['publish'] == 2)){
                 this.error_messages.push('请选择封面图');
                 return false;
             }

@@ -5,7 +5,7 @@
   width: 0px;
 }
 .little-gray-font {
-  font-size: 12px;
+  font-size: 13px;
   color: #9d9d9d;
 }
 .guoku-btn-normal {
@@ -229,7 +229,7 @@
   text-align: center;
   border: 1px solid #e6e6e6;
   color: #424242;
-  font-size: 12px;
+  font-size: 13px;
   margin: 4px 4px 0 0;
 }
 .little-round-tag a {
@@ -526,7 +526,7 @@
   li.section .text-holder,
   li.section .article-title,
   li.section .entity-name {
-    font-size: 12px !important;
+    font-size: 13px !important;
   }
   .guoku-content.user-page .user-info {
     max-width: 450px;
@@ -567,7 +567,7 @@
   }
   .more-article-wrapper .article-digest {
     padding: 10px 15px 15px 15px;
-    font-size: 12px;
+    font-size: 13px;
     color: #9d9e9f;
   }
   .more-article-wrapper .article-digest .created-date {
