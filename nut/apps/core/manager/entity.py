@@ -187,14 +187,14 @@ class SelectionEntityManager(models.Manager):
     def published(self):
         return self.get_queryset().published()
 
-    def published_until(self, refresh_time):
+    def published_until(self, refresh_time=datetime.now()):
         return self.published().filter(pub_time__lte=refresh_time)
 
     def pending(self):
         return self.get_queryset().pending()
 
     def set_user_refresh_datetime(self, session):
-        log.info(datetime.now())
+        # log.info(datetime.now())
         # _key = "%s_selection" % session
         cache.set(session, datetime.now())
 
