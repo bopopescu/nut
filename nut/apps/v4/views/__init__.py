@@ -80,7 +80,7 @@ class HomeView(BaseJsonView):
             )
 
         res['entities'] = []
-        entities = APISelection_Entity.objects.published()
+        entities = APISelection_Entity.objects.published_until()
         ids = entities.values_list('entity_id', flat=True)
 
         el = None
