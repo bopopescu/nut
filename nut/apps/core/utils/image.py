@@ -1,4 +1,4 @@
-from wand.image import  Image as WandImage
+from wand.image import Image as WandImage
 from hashlib import md5
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
