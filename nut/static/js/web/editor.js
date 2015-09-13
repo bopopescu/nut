@@ -39,8 +39,6 @@
         // this method should compare data in the real form , and data in the summernote, title , cover , and show-cover
     }
 
-
-
     EditorApp.prototype={
         renderEntityCard:function(){
             var cardList = $('.guoku-card');

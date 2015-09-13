@@ -1,0 +1,90 @@
+{% extends 'management/management_restful_base.html' %}
+{% load staticfiles i18n %}
+
+ {% block css %}
+    <link href="{% static 'css/management/restful_application.css' %}" rel="stylesheet">
+ {% endblock %}
+
+{% block content %}
+    <section class="content-header">
+        <h1>
+            {% trans 'Friendly Link' %}
+            <small>{% trans 'list' %}</small>
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+{#            <li><a href="#">Tables</a></li>#}
+            <li class="active">{% trans 'Friendly Link Banner' %}</li>
+        </ol>
+    </section>
+    <section class="content" id="FLink-management">
+        <div class="col-xs-12 content-full-height">
+            <div class="box">
+                <div class="box-header"><h2>{% trans 'Friendly Link List' %}</h2> <button id="add-flink" class="btn btn-primary ">
+                    {% trans 'Add' %} {% trans 'Friendly Link'  %}
+                </button></div>
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover table-dynamic" id="flink-table">
+                        <thead>
+                             <tr>
+                                <th>{% trans 'Link Site Name' %}</th>
+                                <th>{% trans 'Link Logo' %}</th>
+                                <th>{% trans 'Link Catetory' %}</th>
+                                <th>{% trans 'Link Position' %}</th>
+                                <th>{% trans 'Link Url' %}</th>
+                                <th>{% trans 'Link Status' %}</th>
+                                <th>{% trans 'Save Change' %}</th>
+                                <th>{% trans 'Delete' %}</th>
+                            </tr>
+                        </thead>
+                        <tbody class="list-container">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+{% block user_script %}
+    {% block html_templates %}
+{#        will put all single app template here #}
+{#        by -anchen #}
+        <script id="id-flink-form-template" type="text/html">
+                <tr>
+                    <td class="name title" data-editors="name">
+
+                    </td>
+                    <td class="image" data-editors="logo">
+
+                    </td>
+                    <td class="select category" data-editors="link_category">
+
+                    </td>
+                    <td class="number position" data-editors="position">
+
+                    </td>
+                    <td class="url" data-editors="link">
+
+                    </td>
+                    <td class="select status" data-editors="status">
+
+                    </td>
+                    <td class="action edit-save ">
+                        <button class='btn btn-success btn-save'>Save</button>
+                    </td>
+                    <td class="action delete">
+                        <button class='btn btn-danger btn-delete'>Delete</button>
+                    </td>
+                </tr>
+        </script>
+    {% endblock %}
+
+{% endblock %}
+
+{# following is the real deal!   #}
+{# must set the global application controller here #}
+ {% block entry_script %}
+    <script data-main="{% static 'js/management/restful/flinksEntry.js' %}" src="{% static 'js/management/restful/require.js' %}" ></script>
+ {% endblock %}
