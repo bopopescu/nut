@@ -190,6 +190,13 @@ class SelectionEntityManager(models.Manager):
     def published_until(self, refresh_time):
         return self.published().filter(pub_time__lte=refresh_time)
 
+
+    def published_until_now(self, util_time=None):
+        if util_time is None:
+            util_time = datetime.now()
+        return self.published().filter(pub_time__lte=util_time)
+
+
     def pending(self):
         return self.get_queryset().pending()
 

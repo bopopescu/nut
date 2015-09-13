@@ -7,7 +7,8 @@ from django.template import RequestContext, loader
 from django.views.generic import ListView, TemplateView
 from braces.views import JSONResponseMixin, AjaxResponseMixin
 
-from apps.core.models import Entity, Entity_Like, Selection_Entity, GKUser
+from apps.core.models import Entity, Entity_Like, Selection_Entity, \
+                             GKUser, Show_Banner, Selection_Article
 from apps.tag.models import Tags
 # from apps.web.forms.search import SearchForm
 from apps.core.forms.search import GKSearchForm
@@ -29,6 +30,49 @@ from django.utils.log import getLogger
 log = getLogger('django')
 
 from datetime import datetime
+
+
+class IndexView(TemplateView):
+    template_name = 'web/index.html'
+    def get_banners(self):
+        shows = Show_Banner.objects.all()
+        banners = []
+        for show in shows:
+            banners.append({
+                'url': show.banner.url,
+                'img': show.banner.image_url
+            })
+        return banners
+
+    def get_selection_entities(self):
+        selections = Selection_Entity.objects.published_until_now()[:10]
+        return selections
+
+    def get_selection_articles(self):
+        articles = Selection_Article.objects.published_until()[:5]
+        return articles
+
+    def get_hot_categories(self):
+        cates = Sub_Category.objects.popular_random()
+        return cates
+
+    def get_top_articles(self):
+        return []
+
+    def get_top_entities(self):
+        return []
+
+    def get_context_data(self, **kwargs):
+        context =  super(IndexView,self).get_context_data(**kwargs);
+        context['banners'] = self.get_banners()
+        context['selection_entities'] = self.get_selection_entities()
+        context['selection_articles'] = self.get_selection_articles()
+        context['categories'] = self.get_hot_categories()
+        context['top_articles'] = self.get_top_articles()
+        context['top_entities'] = self.get_top_entities()
+        context['brands']=[];
+        return context
+
 
 
 class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin , ListView):

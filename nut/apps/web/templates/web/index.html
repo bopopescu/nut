@@ -17,6 +17,24 @@
 {% block content %}
 <div class="guoku-content">
 
+{% for banner in banners %}
+    <div >{{ banner.img }}</div>
+{% endfor %}
+{% for sle in selection_entities %}
+    <div > {{ sle.entity.title }}</div>
+{% endfor %}
+
+{% for sla in selection_articles %}
+    <div > {{ sla.article.title }}</div>
+{% endfor %}
+
+{% for sub_cate in categories %}
+    <div > {{ sub_cate.title }}</div>
+{% endfor %}
+
+
+
+
 
 </div>
 {% endblock %}
