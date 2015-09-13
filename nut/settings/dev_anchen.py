@@ -2,13 +2,11 @@ from stage import *
 DEBUG = True
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 #
-# IMAGE_HOST = 'http://imgcdn.guoku.com/'
+IMAGE_HOST = 'http://imgcdn.guoku.com/'
 
-IMAGE_HOST = 'http://127.0.0.1:9766/'
-
+# IMAGE_HOST = 'http://127.0.0.1:9766/'
 AVATAR_HOST = IMAGE_HOST
-
-INTRANET_IMAGE_SERVER = 'http://images.hello.new/'
+# INTRANET_IMAGE_SERVER = 'http://images.hello.new/'
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
