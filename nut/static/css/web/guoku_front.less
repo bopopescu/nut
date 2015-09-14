@@ -5,7 +5,11 @@
 @import "../lib/article.less";
 @import "../lib/egypt.less";
 
+*{
+  &:active,&:focus{
 
+  }
+}
 body{
   padding-top: 100px;
   color: @common-text-color;
@@ -54,8 +58,30 @@ body.compact-body{
    padding-top:51px;
 }
 #index-banners{
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
+  max-width: 1450px;
+  .slick-list{
+    overflow: visible!important;
+    .slick-slide{
+      &:active,&:focus,&:hover{
+        border: none!important;
+        box-shadow: none!important;
+        outline: none;
+      }
+    }
+  }
+  .banner-image-cell{
+     padding: 0 10px;
+    .banner-image-wrapper{
+       height: 0;
+       width: 100%;
+       padding-bottom: 40%;
+       background-size: cover;
+       background-position: center center;
+    }
+  }
+
 }
 
 #guoku_main_nav{
@@ -355,7 +381,7 @@ body.compact-body{
 }
 
 .guoku-content{
-  &.user-page{
+  &.user-page,&.index-page{
     .user-info-wrapper{
       margin-bottom: 40px;
       .user-icon{
