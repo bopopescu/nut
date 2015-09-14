@@ -3,14 +3,13 @@
 
 import os
 import sys
-import time
-import settings.dev_judy as settings
-import requests
-import datetime
-
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_judy'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
+import time
+import settings.production as settings
+import requests
+import datetime
 
 from apps.core.utils.commons import update_rate
 from apps.core.models import Buy_Link, Selection_Entity
@@ -36,8 +35,7 @@ def crawl(buy_link):
         data['domain'] = buy_link.origin_source
     data['spider'] = spider
 
-    # res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
-    res = requests.post('http://localhost:6800/schedule.json', data=data)
+    res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
     return res.json()
 
 
