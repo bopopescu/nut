@@ -52,21 +52,30 @@ class SQLStorePipeline(object):
                                             charset='utf8', use_unicode=True)
 
     def process_item(self, item, spider):
+        print '*' * 80
+        print '>> item:', item
+        print '>> spider ', spider
         query = self.dbpool.runInteraction(self._conditional_update, item,
                                            spider)
         query.addErrback(self.handle_error, spider)
-        return query
+        query.addCallback(self.done, item)
+        return item
+
+    def done(self, rows, item):
+        print '>> item: ', item
+        print '>> rows: ', rows
 
     def _conditional_update(self, tx, item, spider):
         print '=' * 80
-        import pdb; pdb.set_trace()
+        print ('conditional update')
+        print '=' * 80
         try:
             if item['update_selection_status']:
                 sql = 'UPDATE core_selection_entity SET is_published=0 where' \
                       ' entity_id = (SELECT entity_id FROM core.core_buy_link ' \
                       'where origin_id = %s);' % item['origin_id']
             if item['status'] == 0:
-                sql = 'UPDATE core_buy_link SET status = %s where origin_id ='\
+                sql = 'UPDATE core_buy_link SET status = %s where origin_id =' \
                       ' %s' % (item['status'], item['origin_id'])
             elif item['price'] == 0:
                 sql = 'UPDATE core_buy_link SET status = %s,' \
@@ -80,7 +89,10 @@ class SQLStorePipeline(object):
                       (item['status'], item['shop_link'], item['seller'],
                        item['price'], item['origin_id'] )
 
+            spider.log('='*80)
             spider.log(sql)
+            spider.log('='*80)
+            spider.log(' '*80)
 
             tx.execute(
                 sql
@@ -89,12 +101,16 @@ class SQLStorePipeline(object):
             spider.log(e)
 
     def handle_error(self, e, spider):
+        print '&' * 80
+        print '>> e: ', e.value
+        print
         spider.log(e)
+        print dir(spider.log)
 
         # class JsonWriterPipeline(object):
         #
         # def __init__(self):
-        #         self.file = open('items.jl', 'ab')
+        # self.file = open('items.jl', 'ab')
         #
         #     def process_item(self, item, spider):
         #         line = json.dumps(dict(item)) + "\n"
