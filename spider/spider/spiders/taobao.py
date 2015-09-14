@@ -25,7 +25,6 @@ class TaobaoSpider(scrapy.Spider):
         item = GItem()
 
         item['update_selection_status'] = self.update_selection_status
-        item['entity_id'] = s
         try:
             item['origin_id'] = response.headers['At_Itemid']
         except KeyError:

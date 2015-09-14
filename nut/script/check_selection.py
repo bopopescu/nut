@@ -46,6 +46,7 @@ start_time = now - datetime.timedelta(hours=settings.INTERVAL_OF_SELECTION)
 end_time = now + datetime.timedelta(hours=settings.INTERVAL_OF_SELECTION)
 selections_entity = Selection_Entity.objects.values_list('entity_id').filter(
     pub_time__gte=start_time, pub_time__lte=end_time)
+
 links = Buy_Link.objects.filter(entity_id__in=selections_entity)
 for buy_link in links:
     print buy_link.origin_id, crawl(buy_link)
