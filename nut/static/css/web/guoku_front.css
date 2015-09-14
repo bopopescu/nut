@@ -754,6 +754,14 @@ ul li {
 .like-action:active {
   text-decoration: none;
 }
+.guoku-bg-image-wrapper {
+  height: 0 ;
+  width: 100%;
+  padding-bottom: 100%;
+  background-size: cover;
+  background-position: center center;
+  border: 1px solid #e6e6e6;
+}
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
   color: #9d9e9f;
@@ -1566,6 +1574,12 @@ body.compact-body {
 }
 #guoku_footer .footer-bottom .footer-bottom-right .logo-list li img {
   width: 28px;
+}
+.guoku-content.index-page {
+  margin-top: 30px;
+}
+.guoku-content.index-page .entity-cell {
+  padding: 10px 10px;
 }
 .guoku-content.user-page .user-info-wrapper,
 .guoku-content.index-page .user-info-wrapper {

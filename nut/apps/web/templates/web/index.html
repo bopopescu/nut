@@ -40,18 +40,20 @@
 
     <div class="row">
         <div class="container-fluid content-panel">
-            <div class="row pannel-header">
+            <div class="row panel-header">
                 <div class="panel-name">
                     {% trans 'Trending Entities' %}
                 </div>
                 <div class="more-link">
-                    <a>{% trans 'more' %}<i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></a>
+                    <a>{% trans 'more' %}<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
                 </div>
             </div>
             <div class="row panel-content-wrapper">
                 {% for sla in selection_entities %}
-                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2 cell">
-                        <img class="img-responsive" src="{{ sla.entity.chief_image }}">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2 cell entity-cell">
+                        <div class="guoku-bg-image-wrapper" style="background-image:url('{{ sla.entity.chief_image|resize:'310' }}')">
+
+                        </div>
                     </div>
                 {% endfor %}
             </div>
