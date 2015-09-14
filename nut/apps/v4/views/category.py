@@ -1,19 +1,56 @@
 from django.views.decorators.http import require_GET
 from django.utils.log import getLogger
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-# from django.db.models import Count
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.models import Category, Sub_Category, Entity, Entity_Like,  Note
+from apps.core.models import Category, Sub_Category, Entity, Entity_Like, Note, Selection_Entity
 # from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 from apps.v4.models import APIEntity
 
+from apps.core.views import BaseJsonView
 
-# from datetime import datetime
 
 log = getLogger('django')
 
+
+class CategoryListView(BaseJsonView):
+
+    http_method_names = 'get'
+
+    def get_data(self, context):
+        res = Category.objects.toDict()
+        return res
+
+    @check_sign
+    def dispatch(self, request, *args, **kwargs):
+        return super(CategoryListView, self).dispatch(request, *args, **kwargs)
+
+
+
+class CategorySelectionView(BaseJsonView):
+
+    http_method_names = 'get'
+
+    def get_data(self, context):
+        group = Category.objects.filter(pk=self.group_id)
+        cids = Sub_Category.objects.filter(group=group).values_list('id', flat=True)
+        selections = Selection_Entity.objects.published().filter(entity__category__in=cids)
+        res = list()
+
+        for selection in selections:
+            res.append(
+                selection.entity.v3_toDict()
+            )
+        return res
+
+    def get(self, request, *args, **kwargs):
+        self.group_id = kwargs.pop('group_id', None)
+        assert self.group_id is not None
+        return super(CategorySelectionView, self).get(request, *args, **kwargs)
+
+    def dispatch(self, request, *args, **kwargs):
+        return super(CategorySelectionView, self).dispatch(request, *args, **kwargs)
 
 
 @require_GET
