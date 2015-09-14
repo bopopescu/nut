@@ -10,6 +10,7 @@ from apps.core.utils.tag import TagParser
 from apps.web.utils.formtools import innerStrip
 
 from django.utils.log import getLogger
+from string import  maketrans
 log = getLogger('django')
 
 
@@ -36,7 +37,10 @@ class NoteForm(forms.ModelForm):
     def clean_note(self):
         _note_text = self.cleaned_data.get('note')
         _note_text = innerStrip(_note_text)
+        _note_text = _note_text.replace('<', '')
+        _note_text = _note_text.replace('>', '')
         _note_text = _note_text.replace(u"＃", "#")
+
         return _note_text
 
     def save(self, commit=True):
