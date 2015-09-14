@@ -30,10 +30,8 @@ class ArticlesListView(BaseJsonView):
                     'pub_time': time.mktime(row.pub_time.timetuple())
                 }
             )
-            # print a
             res.append(
                 a
-                # row.api_article.v4_toDict()
             )
 
         return res

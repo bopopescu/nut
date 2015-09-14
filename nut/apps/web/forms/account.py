@@ -259,9 +259,9 @@ class UserSignUpBioForm(forms.Form):
             _image = HandleImage(image_file= _avatar_file)
             _image.crop_square()
             file_path = avatar_path + "%s.jpg" % (_image.name)
-            default_storage.save(file_path, ContentFile(_image.resize(180, 180)))
-
-            avatar = avatar_path + "%s.jpg" % _image.name
+            # default_storage.save(file_path, ContentFile(_image.resize(180, 180)))
+            avatar = _image.avatar_save(resize=True)
+            # avatar = avatar_path + "%s.jpg" % _image.name
             self.user.profile.avatar = avatar
         # else:
         #     avatar = None

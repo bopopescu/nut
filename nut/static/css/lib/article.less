@@ -78,9 +78,9 @@
 
 
 @article-font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",Arial , sans-serif;
-@article-title-size : 32px;
+@article-title-size : @primary-title-size;
 @article-font-color: @common-text-color;
-@article-content-size: 16px;
+@article-content-size: @primary-size;
 
 
 .editor_wrap{
@@ -117,10 +117,9 @@
   .title-wrapper{
     h2{
       font-size:@article-title-size;
-      line-height:1.5;
+      line-height:1.3;
     }
   }
-
 
   ul{
     list-style-type:disc;

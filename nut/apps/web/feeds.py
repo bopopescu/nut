@@ -23,8 +23,11 @@ class SimplerXMLGenerator(XMLGenerator):
         self.startElement(name, attrs)
         if contents is not None:
             if escape:
+                self.characters(contents)
+            else:
+                if not isinstance(contents, unicode):
+                    contents = unicode(contents, self._encoding)
                 self._write(contents)
-            self.characters(contents)
         self.endElement(name)
 
 
@@ -70,7 +73,7 @@ class ArticlesFeedGenerator(Rss201rev2Feed):
         # handler.addQuickElement(u'content:encoded', item['content_encoded'])
 
         if item['content_encoded'] is not None:
-            handler.addQuickElement(u'content:encoded', item['content_encoded'], escape=True)
+            handler.addQuickElement(u'content:encoded', item['content_encoded'], escape=False)
         # if item['description_encoded'] is not None:
         #     handler.addQuickElement(u'description', item['description_encoded'], escape=True)
             # handler.startElement(u'content:encoded', {})
@@ -152,14 +155,13 @@ class ArticlesFeeds(Feed):
         return desc[0] + u'。'
 
     def item_extra_kwargs(self, item):
-        extra = super(ArticlesFeeds, self).item_extra_kwargs(item)
-
-        extra.update(
-            {
+        # extra = super(ArticlesFeeds, self).item_extra_kwargs(item)
+        extra = {
                 # 'content_encoded': "<![CDATA[%s]]>" % item.article.content,
                 'content_encoded': "<![CDATA[%s]]>" % item.article.bleached_content,
-            }
-        )
+                # 'content_encoded': "<![CDATA[%s]]>" % u'<p>test</p>',
+                }
+
 
         return extra
 

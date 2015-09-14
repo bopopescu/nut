@@ -184,19 +184,6 @@
   max-height: 100%;
   max-width: 100%;
 }
-.entity-four .img-box img:hover,
-.entity-selection .img-box img:hover,
-.guoku-button:hover,
-#detail_content_right .section-list .section-banner img:hover,
-.guess_img .img-box img:hover,
-.article-wrapper .cover-wrapper a img:hover,
-.more-article-wrapper .cover-wrapper a img:hover,
-.guess-wrapper .recommend-img:hover,
-.user-page .img-box img:hover,
-.img-holder a:hover,
-.selection-article-item .img-holder:hover {
-  opacity: 0.7;
-}
 .entity-four .img-box img,
 .entity-selection .img-box img,
 .guoku-button,
@@ -207,11 +194,26 @@
 .guess-wrapper .recommend-img,
 .user-page .img-box img,
 .img-holder a,
-.selection-article-item .img-holder {
+.selection-article-item .img-holder,
+.thumbnail.category img {
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   -ms-transition: all 0.35s;
   -o-transition: all 0.35s;
+}
+.entity-four .img-box img:hover,
+.entity-selection .img-box img:hover,
+.guoku-button:hover,
+#detail_content_right .section-list .section-banner img:hover,
+.guess_img .img-box img:hover,
+.article-wrapper .cover-wrapper a img:hover,
+.more-article-wrapper .cover-wrapper a img:hover,
+.guess-wrapper .recommend-img:hover,
+.user-page .img-box img:hover,
+.img-holder a:hover,
+.selection-article-item .img-holder:hover,
+.thumbnail.category img:hover {
+  opacity: 0.7;
 }
 .little-round-tag {
   -webkit-border-radius: 40px;
@@ -493,6 +495,12 @@
 .category > a > img {
   width: 56px;
   height: 56px;
+  text-decoration: none;
+}
+.category > a:hover,
+.category > a:focus,
+.category > a:active {
+  text-decoration: none;
 }
 .category > a > p {
   text-align: center;
@@ -502,6 +510,12 @@
   overflow: hidden;
   font-size: 13px;
   margin: 0px -10px 20px -10px;
+  text-decoration: none;
+}
+.category > a > p:hover,
+.category > a > p:focus,
+.category > a > p:active {
+  text-decoration: none;
 }
 /* 分类页面 */
 .category-header {
@@ -721,17 +735,6 @@
 /* 用户页 */
 .count {
   color: #db1f77;
-}
-.user-info {
-  border: 1px solid #eee;
-  margin: 0 15px 0 15px;
-  padding: 10px;
-  height: 188px;
-}
-.user-info > img {
-  margin: 15px;
-  display: inline-block;
-  float: left;
 }
 .nav-user-index {
   border-radius: 0;
@@ -1775,6 +1778,6 @@ a:hover {
   margin-bottom: 10px;
 }
 .test {
-  color: black;
+  color: red;
 }
 /*# sourceMappingURL=site.less.css.map */

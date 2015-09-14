@@ -6,9 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.log import getLogger
 from django.utils.translation import gettext_lazy as _
-# from django.core.exceptions import ObjectDoesNotExist
 
-# from apps.core.forms.article import
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.core.models import Article
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse

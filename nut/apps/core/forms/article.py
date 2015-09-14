@@ -210,7 +210,6 @@ class CreateArticleForms(BaseArticleForms):
 
 
 
-
 class EditArticleForms(BaseArticleForms):
 
     def __init__(self, article, *args, **kwargs):

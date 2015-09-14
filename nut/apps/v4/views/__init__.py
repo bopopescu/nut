@@ -4,15 +4,17 @@ from django.http import HttpResponseRedirect
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.models import Show_Banner, Banner, Buy_Link, Selection_Entity, Entity, Entity_Like, Sub_Category
+from apps.core.models import Show_Banner, Banner,\
+    Buy_Link, Selection_Entity, Entity, \
+    Entity_Like, Sub_Category
+
 from apps.core.utils.taobaoapi.utils import taobaoke_mobile_item_convert
 from apps.v4.models import APISelection_Entity, APIEntity, APICategory, APISeletion_Articles
 from apps.v4.forms.pushtoken import PushForm
-# from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
 from apps.core.views import BaseJsonView
-# import random
+
 
 
 from django.utils.log import getLogger
@@ -70,11 +72,24 @@ class HomeView(BaseJsonView):
                 row.api_article.v4_toDict()
             )
 
+        res['categories'] = []
+        categories = APICategory.objects.all()
+        for row in categories[:3]:
+            res['categories'].append(
+                row.v4_toDict()
+            )
+
         res['entities'] = []
-        entities = APISelection_Entity.objects.published()
+        entities = APISelection_Entity.objects.published_until()
+        ids = entities.values_list('entity_id', flat=True)
+
+        el = None
+        if self.session is not  None:
+            el = Entity_Like.objects.user_like_list(user=self.session.user, entity_list=list(ids))
+
         for row in entities[:5]:
             r = {
-                'entity': row.entity.v3_toDict(),
+                'entity': row.entity.v3_toDict(user_like_list=el),
                 'note': row.entity.top_note.v3_toDict(),
             }
             res['entities'].append(
@@ -82,9 +97,20 @@ class HomeView(BaseJsonView):
             )
         return res
 
+    def get(self, request, *args, **kwargs):
+        _key = self.request.GET.get('session')
+        try:
+            self.session = Session_Key.objects.get(session_key=_key)
+            # Selection_Entity.objects.set_user_refresh_datetime(session=self.session.session_key)
+        except Session_Key.DoesNotExist, e:
+            self.session = None
+
+        return super(HomeView, self).get(request, *args, **kwargs)
+
     @check_sign
     def dispatch(self, request, *args, **kwargs):
         return super(HomeView, self).dispatch(request, *args, **kwargs)
+
 
 class DiscoverView(BaseJsonView):
     http_method_names = ['get']
@@ -109,7 +135,7 @@ class DiscoverView(BaseJsonView):
             _session = Session_Key.objects.get(session_key=_key)
             el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=_entities)
         except Session_Key.DoesNotExist, e:
-            log.info(e.message)
+            # log.info(e.message)
             el = None
 
         res['entities'] = list()

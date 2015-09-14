@@ -15,7 +15,6 @@ class DiscoverView(TemplateResponseMixin, ContextMixin, View):
     def get(self, request):
         popular_list = Entity_Like.objects.popular_random()
         _entities = Entity.objects.filter(id__in=popular_list)
-    # log.info("popular %s" % len(_entities))
         el = list()
         if request.user.is_authenticated():
             el = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=list(_entities))
