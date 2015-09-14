@@ -8,11 +8,9 @@
 from twisted.enterprise import adbapi
 from scrapy.exceptions import DropItem
 import MySQLdb.cursors
-# import json
 
 
 class OriginIdPipeline(object):
-
     def process_item(self, item, spider):
         # print "KOKOKOKOKO",item
         # if item.has_key('origin_id'):
@@ -21,6 +19,7 @@ class OriginIdPipeline(object):
             return item
         else:
             raise DropItem(item)
+
 
 class ErrorPipeLine(object):
     def process_item(self, item, spider):
@@ -31,7 +30,6 @@ class ErrorPipeLine(object):
 
 
 class DuplicatesPipeline(object):
-
     def __init__(self):
         self.ids_seen = set()
 
@@ -44,46 +42,61 @@ class DuplicatesPipeline(object):
 
 
 class SQLStorePipeline(object):
-
     def __init__(self):
         self.dbpool = adbapi.ConnectionPool('MySQLdb', db='core',
-                                            host='10.0.2.90',
-                                            user='guoku', passwd='guoku!@#', cursorclass=MySQLdb.cursors.DictCursor,
-                                            charset='utf8', use_unicode=True)
+                                            host='10.0.2.48',
+                                            user='guoku', passwd='guoku!@#',
+                                            cursorclass=MySQLdb.cursors.DictCursor)
 
     def process_item(self, item, spider):
         query = self.dbpool.runInteraction(self._conditional_update, item, spider)
         query.addErrback(self.handle_error, spider)
-        return query
+        return item
 
     def _conditional_update(self, tx, item, spider):
         try:
             if item['status'] == 0:
-                sql = 'UPDATE core_buy_link SET status = %s where origin_id = %s' % (item['status'], item['origin_id'])
-            elif item['price'] ==0:
-                sql = 'UPDATE core_buy_link SET status = %s, shop_link = "%s", seller="%s" where origin_id = %s' % \
-                      (item['status'], item['shop_link'], item['seller'], item['origin_id'] )
+                sqls = ["UPDATE core_buy_link SET status = '%s' where"
+                        " origin_id = '%s'"
+                        % (item['status'], item['origin_id'])]
+            elif item['price'] == 0:
+                sqls = ["UPDATE core_buy_link SET status = '%s',"
+                        " shop_link = '%s', seller='%s' where origin_id = '%s'"
+                        % (item['status'], item['shop_link'], item['seller'],
+                           item['origin_id'])]
             else:
-                sql = 'UPDATE core_buy_link SET status = %s, shop_link = "%s", seller="%s", price="%s" where origin_id = %s' % \
-                      (item['status'], item['shop_link'], item['seller'], item['price'], item['origin_id'] )
+                sqls = ["UPDATE core_buy_link SET status = '%s',"
+                        " shop_link = '%s', seller='%s', price='%s'"
+                        " where origin_id = '%s'"
+                        % (item['status'], item['shop_link'], item['seller'],
+                        item['price'], item['origin_id'])]
 
-            spider.log(sql)
+            if item['update_selection_status']:
+                sqls.append("UPDATE core_selection_entity SET is_published=0"
+                            " where entity_id = (SELECT entity_id FROM "
+                            "core.core_buy_link where origin_id = '%s');"
+                            % item['origin_id'])
 
-            tx.execute(
-                sql
-            )
+            for sql in sqls:
+                tx.execute(
+                    sql
+                )
+            spider.log(sqls)
+
         except KeyError, e:
             spider.log(e)
+        except BaseException, e:
+            print e.message
 
     def handle_error(self, e, spider):
         spider.log(e)
 
-# class JsonWriterPipeline(object):
-#
-#     def __init__(self):
-#         self.file = open('items.jl', 'ab')
-#
-#     def process_item(self, item, spider):
-#         line = json.dumps(dict(item)) + "\n"
-#         self.file.write(line)
-#         return item
+        # class JsonWriterPipeline(object):
+        #
+        # def __init__(self):
+        # self.file = open('items.jl', 'ab')
+        #
+        # def process_item(self, item, spider):
+        # line = json.dumps(dict(item)) + "\n"
+        #         self.file.write(line)
+        #         return item

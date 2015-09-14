@@ -3,17 +3,14 @@
 
 import os
 import sys
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+sys.path.append(BASE_DIR)
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
 import time
-
 import requests
 
 from apps.core.utils.commons import update_rate
 from apps.core.models import Buy_Link, Entity
-
-
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-sys.path.append(BASE_DIR)
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
 
 # update exchange rate
 update_rate(['USD', 'JPY'])
@@ -25,7 +22,7 @@ def crawl(spider, **parameters):
         'setting': 'DOWNLOAD_DELAY=2',
     }
     data.update(parameters)
-    res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
+    res = requests.post('http://localhost:6800/schedule.json', data=data)
     return res.json()
 
 

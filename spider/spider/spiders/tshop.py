@@ -18,9 +18,10 @@ class TaobaoShop(CrawlSpider):
     rules = (
         Rule(LinkExtractor(allow=('item\.htm', )), callback='parse_item'),
     )
-    #
-    def __init__(self, shop_id, *args, **kwargs):
+
+    def __init__(self, shop_id, update_selection_status=False, *args, **kwargs):
         super(TaobaoShop, self).__init__(*args, **kwargs)
+        self.update_selection_status = update_selection_status
         self.shop_id = shop_id
         self.start_urls = [
             "http://shop%s.taobao.com/" % self.shop_id
@@ -31,6 +32,7 @@ class TaobaoShop(CrawlSpider):
     #     self.logger.info(response.url)
 
     def parse_item(self, response):
+        item['update_selection_status'] = self.update_selection_status
         self.logger.info('Hi, this is an item page! %s', response.url)
         item = GItem()
         item['status'] = 2
