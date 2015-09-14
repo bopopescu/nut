@@ -22,7 +22,7 @@ def crawl(spider, **parameters):
         'setting': 'DOWNLOAD_DELAY=2',
     }
     data.update(parameters)
-    res = requests.post('http://localhost:6800/schedule.json', data=data)
+    res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
     return res.json()
 
 

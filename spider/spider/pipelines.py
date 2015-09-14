@@ -44,9 +44,10 @@ class DuplicatesPipeline(object):
 class SQLStorePipeline(object):
     def __init__(self):
         self.dbpool = adbapi.ConnectionPool('MySQLdb', db='core',
-                                            host='10.0.2.48',
+                                            host='10.0.2.90',
                                             user='guoku', passwd='guoku!@#',
-                                            cursorclass=MySQLdb.cursors.DictCursor)
+                                            cursorclass=MySQLdb.cursors.DictCursor,
+                                            charset='utf8', use_unicode=True)
 
     def process_item(self, item, spider):
         query = self.dbpool.runInteraction(self._conditional_update, item, spider)
@@ -86,7 +87,7 @@ class SQLStorePipeline(object):
         except KeyError, e:
             spider.log(e)
         except BaseException, e:
-            print e.message
+            spider.log(e)
 
     def handle_error(self, e, spider):
         spider.log(e)
