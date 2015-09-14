@@ -83,6 +83,6 @@ def add_side_bar_context_data(context):
     context['pop_entities'] = _pop_entities
     context['pop_categories'] = Category.objects.filter(status=True)
     context['pop_articles'] = popular_articles
-    # context['sidebar_banners'] = Sidebar_Banner.objects.active_sbbanners()
+    context['sidebar_banners'] = Sidebar_Banner.objects.active_sbbanners()
 
     return context
