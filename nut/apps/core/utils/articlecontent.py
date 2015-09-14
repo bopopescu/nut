@@ -2,7 +2,9 @@
 import bleach
 from bs4 import BeautifulSoup
 
-articleContentAllowedTags = ['p', 'em', 'strong', 'div', 'ul', 'ol', 'li','a','br','span','img', 'b']
+articleContentAllowedTags = ['p', 'em', 'strong', 'div', 'ul', \
+                             'ol', 'li','a','br','span','img', \
+                             'b','blockquote','h3']
 allowedAttrs = {
     '*': ['class'],
     'a': ['href', 'rel'],

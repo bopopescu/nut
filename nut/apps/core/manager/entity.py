@@ -133,7 +133,7 @@ class EntityLikeManager(models.Manager):
         return EntityLikeQuerySet(self.model, using=self._db)
 
     def popular(self, scale='weekly'):
-        key = 'entity_popular_%s' % scale
+        key = 'entity:popular:%s' % scale
         res = cache.get(key)
         if res:
             return list(res)
@@ -142,7 +142,7 @@ class EntityLikeManager(models.Manager):
         return list(res)
 
     def popular_random(self, scale='weekly'):
-        key = 'entity_popular_random_%s' % scale
+        key = 'entity:popular:random:%s' % scale
         # popular_list = self.popular()
         res = cache.get(key)
         log.info(res)
@@ -160,14 +160,7 @@ class EntityLikeManager(models.Manager):
         return res
 
     def user_like_list(self, user, entity_list):
-
         return self.get_query_set().user_like_list(user=user, entity_list=entity_list)
-
-    # def sort_with_list(self, category_id):
-    #
-    #     entity_id_list = self.get_query_set().sort_with_list(category_id)
-    #
-    #     return list(entity_id_list)
 
 
 class SelectionEntityQuerySet(models.query.QuerySet):
@@ -187,14 +180,14 @@ class SelectionEntityManager(models.Manager):
     def published(self):
         return self.get_queryset().published()
 
-    def published_until(self, refresh_time):
+    def published_until(self, refresh_time=datetime.now()):
         return self.published().filter(pub_time__lte=refresh_time)
 
     def pending(self):
         return self.get_queryset().pending()
 
     def set_user_refresh_datetime(self, session):
-        log.info(datetime.now())
+        # log.info(datetime.now())
         # _key = "%s_selection" % session
         cache.set(session, datetime.now())
 

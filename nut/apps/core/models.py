@@ -888,7 +888,7 @@ class Buy_Link(BaseModel):
     def v3_toDict(self):
         res = self.toDict()
         res.pop('link', None)
-
+        res.pop('default', None)
         res['buy_link'] = "http://api.guoku.com%s?type=mobile" % reverse('v4_visit_item', args=[self.origin_id])
         res['price'] = int(self.price)
         return res
@@ -1504,6 +1504,42 @@ class Show_Editor_Recommendation(models.Model):
 
     class Meta:
         ordering = ['-position']
+
+class Friendly_Link(BaseModel):
+    (removed, disabled, enabled) = xrange(3)
+    FL_STATUS_CHOICE = [
+        (removed, _('banner removed')),
+        (disabled,_('banner disabled')),
+        (enabled, _('banner enabled'))
+    ]
+
+    DesignSite = 'DS'
+    Media = 'MEDIA'
+    Tech  = 'TECH'
+    Channel = 'CHANNEL'
+    Startup = 'STARTUP'
+    Other = 'OTHER'
+
+    LINK_CATEGORY_CHOICE = (
+        ( DesignSite,_('Design Site')),
+        (Media,_('Media Site')),
+        (Tech,_('Tech Site')),
+        (Channel,_('Channel & Cooperation')),
+        (Startup, _('Startup')),
+        (Other,_('Other'))
+    )
+    name = models.CharField(max_length=64, null=False, blank=False)
+    link = models.CharField(max_length=255, null=False, blank=False)
+    link_category =  models.CharField(max_length=64, choices=LINK_CATEGORY_CHOICE,default=Other)
+    position = models.IntegerField(null=True, default=99)
+    logo = models.CharField(max_length=255,null=True, blank=True, default='')
+    status = models.IntegerField(choices=FL_STATUS_CHOICE, default=disabled)
+
+    @property
+    def logo_url(self):
+        return "%s%s" % (image_host, self.logo)
+
+
 
 
 # TODO: model post save

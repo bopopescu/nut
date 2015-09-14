@@ -42,6 +42,7 @@ urlpatterns += patterns(
     '',
     url(r'^articles/', include('apps.api.urls.articles')),
     url(r'^sla/', include('apps.api.urls.sla')),
+    url(r'^flink/', include('apps.api.urls.flink')),
 )
 
 urlpatterns += patterns(

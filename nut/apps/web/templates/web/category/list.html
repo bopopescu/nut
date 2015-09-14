@@ -27,15 +27,12 @@
                             <h5>{{ category.title }}</h5>
                         </div>
                     </div>
-{#                {% endfor %}#}
 
                 <div class="row category-list">
-{#                {% for category in categories %}#}
                     {% for sub in category.sub_categories.all %}
                         {% if sub.status != 0 %}
                         <div class="col-xs-4 col-sm-3 col-md-2">
                             <div class="thumbnail category">
-{#                                {{ sub }}#}
                                 <a href="{% url 'web_category_detail' sub.id %}">
                                     <img class="img-responsive" alt="{{ sub.title }}" src="{{ sub.icon_large_url }}"  width="40" height="40">
                                     <p>{{ sub.title|show_category }}</p>

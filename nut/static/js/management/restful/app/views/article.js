@@ -1,7 +1,7 @@
 define(function(require){
     "use strict";
     var Writers = require('models/writers');
-    var SelectionArticle = require('models/article').SelectionArticle;
+    var SelectionArticle = require('models/Article').SelectionArticle;
 
     function getCreatorSelectOptions(callback){
             var writerList = new Writers();

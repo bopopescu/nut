@@ -190,21 +190,6 @@
   }
 }
 
-//link pic effect
-.entity-four .img-box img:hover,
-.entity-selection .img-box img:hover,
-.guoku-button:hover,
-#detail_content_right .section-list .section-banner img:hover,
-.guess_img .img-box img:hover,
-.article-wrapper .cover-wrapper a img:hover,
-.more-article-wrapper .cover-wrapper a img:hover,
-.guess-wrapper .recommend-img:hover,
-.user-page .img-box img:hover,
-.img-holder a:hover,
-.selection-article-item .img-holder:hover{
-
-  opacity: @hover-opacity;
-}
 
 .entity-four .img-box img,
 .entity-selection .img-box img,
@@ -216,8 +201,12 @@
 .guess-wrapper .recommend-img,
 .user-page .img-box img,
 .img-holder a,
-.selection-article-item .img-holder{
+.selection-article-item .img-holder,
+.thumbnail.category img{
    .transition(all 0.35s);
+   &:hover{
+     opacity: @hover-opacity;
+   }
 }
 
 //
