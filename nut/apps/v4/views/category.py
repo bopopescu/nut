@@ -27,7 +27,6 @@ class CategoryListView(BaseJsonView):
         return super(CategoryListView, self).dispatch(request, *args, **kwargs)
 
 
-
 class CategorySelectionView(BaseJsonView):
 
     http_method_names = 'get'
@@ -35,10 +34,17 @@ class CategorySelectionView(BaseJsonView):
     def get_data(self, context):
         group = Category.objects.filter(pk=self.group_id)
         cids = Sub_Category.objects.filter(group=group).values_list('id', flat=True)
-        selections = Selection_Entity.objects.published().filter(entity__category__in=cids)[:30]
-        res = list()
+        selection_list = Selection_Entity.objects.published().filter(entity__category__in=cids)
 
-        for selection in selections:
+        paginator = Paginator(selection_list, self.size)
+
+        res = list()
+        try:
+            selections = paginator.page(self.page)
+        except Exception:
+            return res
+
+        for selection in selections.object_list:
             res.append(
                 selection.entity.v3_toDict()
             )
@@ -47,6 +53,7 @@ class CategorySelectionView(BaseJsonView):
     def get(self, request, *args, **kwargs):
         self.group_id = kwargs.pop('group_id', None)
         self.page = request.GET.get('page', 1)
+        self.size = request.GET.get('size', 30)
         assert self.group_id is not None
         return super(CategorySelectionView, self).get(request, *args, **kwargs)
 
