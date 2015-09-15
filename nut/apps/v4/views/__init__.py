@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.models import Show_Banner, Banner,\
+from apps.core.models import Show_Banner, \
     Buy_Link, Selection_Entity, Entity, \
     Entity_Like, Sub_Category
 
@@ -137,6 +137,15 @@ class DiscoverView(BaseJsonView):
         except Session_Key.DoesNotExist, e:
             # log.info(e.message)
             el = None
+
+        res['articles'] = list()
+        popular_articles = APISeletion_Articles.objects.filter().order_by('-article__read_count')[:3]
+        for row in popular_articles:
+            print type(row)
+            r = {
+                'article': row.api_article.v4_toDict()
+            }
+            res['articles'].append(r)
 
         res['entities'] = list()
         for e in _entities:
@@ -395,5 +404,6 @@ def apns_token(request):
             })
 
         return ErrorJsonResponse(status=403, data={'message':'error'})
+
 
 __author__ = 'edison7500'

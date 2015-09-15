@@ -46,9 +46,11 @@ class CategorySelectionView(BaseJsonView):
 
     def get(self, request, *args, **kwargs):
         self.group_id = kwargs.pop('group_id', None)
+        self.page = request.GET.get('page', 1)
         assert self.group_id is not None
         return super(CategorySelectionView, self).get(request, *args, **kwargs)
 
+    @check_sign
     def dispatch(self, request, *args, **kwargs):
         return super(CategorySelectionView, self).dispatch(request, *args, **kwargs)
 
@@ -113,8 +115,8 @@ def user_like(request, category_id, user_id):
 
     return SuccessJsonResponse(res)
 
-# @require_GET
-# @check_sign
+@require_GET
+@check_sign
 def entity_sort(category_id, reverse, offset, count, key):
     if type(reverse) is not int:
         reverse = int(reverse)
@@ -149,8 +151,8 @@ def entity_sort(category_id, reverse, offset, count, key):
         )
     return SuccessJsonResponse(res)
 
-# @require_GET
-# @check_sign
+@require_GET
+@check_sign
 def entity_sort_like(category_id, offset, count, key):
     entity_list = APIEntity.objects.sort(category_id, like=True)
     paginator = Paginator(entity_list, count)
@@ -179,7 +181,6 @@ def entity_sort_like(category_id, offset, count, key):
 def entity(request, category_id):
 
     _offset = int(request.GET.get('offset', '0'))
-
 
     _count = int(request.GET.get('count', '30'))
 
