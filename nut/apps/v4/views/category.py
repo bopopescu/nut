@@ -35,7 +35,7 @@ class CategorySelectionView(BaseJsonView):
     def get_data(self, context):
         group = Category.objects.filter(pk=self.group_id)
         cids = Sub_Category.objects.filter(group=group).values_list('id', flat=True)
-        selections = Selection_Entity.objects.published().filter(entity__category__in=cids)
+        selections = Selection_Entity.objects.published().filter(entity__category__in=cids)[:30]
         res = list()
 
         for selection in selections:
@@ -53,13 +53,13 @@ class CategorySelectionView(BaseJsonView):
         return super(CategorySelectionView, self).dispatch(request, *args, **kwargs)
 
 
-@require_GET
-@check_sign
-def category_list(request):
-
-    res = Category.objects.toDict()
-    # res = []
-    return SuccessJsonResponse(res)
+# @require_GET
+# @check_sign
+# def category_list(request):
+#
+#     res = Category.objects.toDict()
+#     # res = []
+#     return SuccessJsonResponse(res)
 
 
 @require_GET
