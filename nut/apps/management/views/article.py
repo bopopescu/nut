@@ -186,7 +186,7 @@ class EditSelectionArticle(UserPassesTestMixin, BaseFormView):
         self.initial = {
             'article_id': sla.article.id,
             'is_published': int(sla.is_published),
-            # 'pub_time': sla.pub_time,
+            'pub_time': sla.pub_time,
         }
         context = {
             'form':self.get_form_class(sla=sla),
