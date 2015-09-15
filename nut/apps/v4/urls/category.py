@@ -1,5 +1,5 @@
 from django.conf.urls import url, patterns
-from apps.v4.views.category import CategoryListView
+from apps.v4.views.category import CategoryListView, CategorySelectionView
 
 
 urlpatterns = patterns(
@@ -11,7 +11,7 @@ urlpatterns = patterns(
     url(r'^(?P<category_id>\d+)/entity/note/$', 'entity_note', name='v4_category_entity_note'),
     url(r'^(?P<category_id>\d+)/user/(?P<user_id>\d+)/like/$', 'user_like', name='v4_category_user_like'),
 
-    # url(r'^(?P<group_id>\d+)/selection/$', '', name='v4_category_user_like'),
+    url(r'^(?P<group_id>\d+)/selection/$', CategorySelectionView.as_view(), name='v4_category_selection'),
 )
 
 __author__ = 'edison'
