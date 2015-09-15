@@ -323,11 +323,11 @@ msgstr "这个邮箱还未在果库注册。"
 #: apps/core/forms/account.py:148
 #, python-format
 msgid "Your account has been deleted, please contact %s."
-msgstr "您的帐号已注销或删除，请联系%s。"
+msgstr "你的帐号已注销或删除，请联系%s。"
 
 #: apps/core/forms/account.py:153
 msgid "Please Input Your Email"
-msgstr "请填写您的Email"
+msgstr "请填写你的Email"
 
 #: apps/core/forms/account.py:157
 msgid "please register email"
@@ -1747,7 +1747,7 @@ msgstr "请填写邮箱地址"
 
 #: apps/v4/forms/account.py:549
 msgid "password not match"
-msgstr "您输入的旧密码不正确"
+msgstr "你输入的旧密码不正确"
 
 #: apps/web/feeds.py:87
 msgid "live different"
@@ -1775,7 +1775,7 @@ msgstr "密码"
 
 #: apps/web/forms/account.py:112 apps/web/forms/user.py:119
 msgid "The two password fields didn't match."
-msgstr "您输入的两次密码不一致"
+msgstr "你输入的两次密码不一致"
 
 #: apps/web/forms/account.py:119
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
@@ -1807,7 +1807,7 @@ msgstr "补充说明"
 
 #: apps/web/forms/user.py:120
 msgid "Old password didn't match"
-msgstr "您输入的旧密码不正确"
+msgstr "你输入的旧密码不正确"
 
 #: apps/web/forms/user.py:123 apps/web/forms/user.py:124
 msgid "current password"
