@@ -386,6 +386,50 @@ body.compact-body{
     padding:10px 10px;
 
   }
+  .article-cell{
+     padding:10px;
+     left: 0px!important;
+     .article-intro{
+       float: right;
+       width: 70%;
+       height: auto;
+       padding-right:20px;
+       .article-title{
+          font-size:@subtitle-size;
+       }
+       .article-digest{
+          color:@common-gray;
+          font-size:@smaller-primary;
+
+       }
+     }
+     .article-cover{
+       float: none;
+       width:25%;
+
+     }
+  }
+  .category-cell{
+
+    padding:10px;
+    .cate-wrapper{
+      background-color:@very-light-gray;
+      text-align: center;
+      padding:10px 0;
+      .cate-icon{
+        display: inline-block;
+        max-width: 100px;
+        width:70%;
+
+      }
+      .category-title{
+         padding:10px 0;
+         font-size: @smaller-primary;
+         display: block;
+         text-align: center;
+      }
+    }
+  }
 }
 .guoku-content{
   &.user-page,&.index-page{
@@ -1272,7 +1316,8 @@ body.compact-body{
   margin-top:110px;
 }
 
-.guoku-app{
+
+.guoku-app,.mobile-body{
    padding-bottom: 40px;
    #guoku_main_nav{
      display: none;
@@ -1436,6 +1481,23 @@ body.compact-body{
 @import "dimentions/md.less";
 @import "dimentions/lg.less";
 
+
+//mobile page
+body{
+  .for-mobile{
+    display:none;
+  }
+}
+
+
+.mobile-body{
+      .for-browser{
+         display: none;
+      }
+      .for-mobile{
+         display:block;
+      }
+}
 
 .test{
   color: black;

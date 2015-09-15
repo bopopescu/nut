@@ -49,9 +49,9 @@
                 </div>
             </div>
             <div class="row panel-content-wrapper">
-                {% for sla in selection_entities %}
-                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2 cell entity-cell">
-                        <div class="guoku-bg-image-wrapper" style="background-image:url('{{ sla.entity.chief_image|resize:'310' }}')">
+                {% for sle in selection_entities %}
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2 cell entity-cell cell">
+                        <div class="guoku-bg-image-wrapper" style="background-image:url('{{ sle.entity.chief_image|resize:'310' }}')">
 
                         </div>
                     </div>
@@ -60,24 +60,71 @@
         </div>
     </div>
 
-{% for banner in banners %}
-    <div >{{ banner.img }}</div>
-{% endfor %}
-{% for sle in selection_entities %}
-    <div > {{ sle.entity.title }}</div>
-{% endfor %}
+    <div class="row">
+        <div class="container-fluid content-panel">
+            <div class="row panel-header">
+                <div class="panel-name">
+                    {% trans 'Trending Article' %}
+                </div>
+                 <div class="more-link">
+                    <a>{% trans 'more' %}<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
+                </div>
+            </div>
+            <div class="row panel-content-wrapper">
+                {% for sla in selection_articles %}
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 cell article-cell cell">
+                        <div class="article-intro">
+                            <div class="article-title">
+                                 <a>{{ sla.article.title }}</a>
+                            </div>
+                            <div class="article-digest">
+                                 {{ sla.article.digest|striptags|truncatechars:60 }}<a>阅读全文</a>
+                            </div>
 
-{% for sla in selection_articles %}
-    <div > {{ sla.article.title }}</div>
-{% endfor %}
+                        </div>
+                        <div class="article-cover">
+                            <div class="guoku-bg-image-wrapper" style="background-image:url('{{ sla.article.cover_url|resize:'450' }}')">
 
-{% for sub_cate in categories %}
-    <div > {{ sub_cate.title }}</div>
-{% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
-
-
-
+    <div class="row">
+        <div class="container-fluid content-panel">
+            <div class="row panel-header">
+                <div class="panel-name">
+                    {% trans 'Trending Sub Category' %}
+                </div>
+                 <div class="more-link">
+                    <a>{% trans 'more' %}<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
+                </div>
+            </div>
+            <div class="row panel-content-wrapper">
+                {% for cate in categories  %}
+                    <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2 cell category-cell  {% if forloop.counter > 11 %}late-category{% endif %}">
+                        <div class="cate-wrapper">
+                            <img  class="img-responsive cate-icon" src="{{ cate.icon_large_url }}">
+                            <div class="category-title">
+                                {{ cate.title }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                     <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2 cell category-cell">
+                         <div class="cate-wrapper">
+                             <img  class="img-responsive cate-icon" src="{% static 'images/more.png' %}">
+                            <div class="category-title">
+                               查看全部
+                            </div>
+                         </div>
+                     </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 {% endblock %}

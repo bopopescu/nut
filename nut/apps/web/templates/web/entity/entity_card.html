@@ -4,8 +4,11 @@
 <div guoku_ele="True" class="guoku-card container-fluid" data_entity_hash="{{ entity.entity_hash }}">
     <div class="row">
         <div class="entity-image-wrapper col-xs-3">
-            <a href="{{ entity.get_absolute_url }}#from=article" target="_blank">
+            <a href="{{ entity.get_absolute_url }}#from=article" target="_blank" class="entity-img-link for-browser">
             <img class="img-responsive" src="{{ entity.chief_image|resize:'240' }}" />
+            </a>
+            <a href="{{ entity.mobile_url }}"  class="entity-img-link for-mobile">
+             <img class="img-responsive" src="{{ entity.chief_image|resize:'240' }}" />
             </a>
         </div>
         <div class="entity-info-wrapper col-xs-9">
@@ -13,8 +16,13 @@
             <div class="entity-title">{{ entity.title }}</div>
             <div class="entity-info-detail">
                 <div class="entity-price">&#65509;{{ entity.price }}</div>
-                <div class="entity-link">
+                <div class="entity-link for-browser">
                     <a href="{{ entity.get_absolute_url }}#from=article" target="_blank">
+                    查看详情<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+                <div class="entity-link for-mobile">
+                    <a href="{{ entity.mobile_url }}" >
                     查看详情<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
                     </a>
                 </div>

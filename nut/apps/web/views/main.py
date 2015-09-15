@@ -53,7 +53,7 @@ class IndexView(TemplateView):
         return articles
 
     def get_hot_categories(self):
-        cates = Sub_Category.objects.popular_random()
+        cates = Sub_Category.objects.popular_random(total=15)
         return cates
 
     def get_top_articles(self):

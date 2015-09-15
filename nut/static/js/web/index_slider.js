@@ -4,7 +4,7 @@ $('#index-banners').slick({
   centerMode: true,
   arrows: true,
   slidesToShow: 1,
-  centerPadding:'160px',
+  centerPadding:'15%',
 
   //centerPadding: '60px',
   //slidesToShow: 3,

@@ -1581,6 +1581,46 @@ body.compact-body {
 .guoku-content.index-page .entity-cell {
   padding: 10px 10px;
 }
+.guoku-content.index-page .article-cell {
+  padding: 10px;
+  left: 0px!important;
+}
+.guoku-content.index-page .article-cell .article-intro {
+  float: right;
+  width: 70%;
+  height: auto;
+  padding-right: 20px;
+}
+.guoku-content.index-page .article-cell .article-intro .article-title {
+  font-size: 18px;
+}
+.guoku-content.index-page .article-cell .article-intro .article-digest {
+  color: #9d9e9f;
+  font-size: 14px;
+}
+.guoku-content.index-page .article-cell .article-cover {
+  float: none;
+  width: 25%;
+}
+.guoku-content.index-page .category-cell {
+  padding: 10px;
+}
+.guoku-content.index-page .category-cell .cate-wrapper {
+  background-color: #f8f8f8;
+  text-align: center;
+  padding: 10px 0;
+}
+.guoku-content.index-page .category-cell .cate-wrapper .cate-icon {
+  display: inline-block;
+  max-width: 100px;
+  width: 70%;
+}
+.guoku-content.index-page .category-cell .cate-wrapper .category-title {
+  padding: 10px 0;
+  font-size: 14px;
+  display: block;
+  text-align: center;
+}
 .guoku-content.user-page .user-info-wrapper,
 .guoku-content.index-page .user-info-wrapper {
   margin-bottom: 40px;
@@ -2439,25 +2479,32 @@ body.compact-body {
 .main-content {
   margin-top: 110px;
 }
-.guoku-app {
+.guoku-app,
+.mobile-body {
   padding-bottom: 40px;
 }
-.guoku-app #guoku_main_nav {
+.guoku-app #guoku_main_nav,
+.mobile-body #guoku_main_nav {
   display: none;
 }
-.guoku-app .goods_detail {
+.guoku-app .goods_detail,
+.mobile-body .goods_detail {
   margin-top: 20px;
 }
-.guoku-app .main-content {
+.guoku-app .main-content,
+.mobile-body .main-content {
   margin-top: 20px;
 }
-.guoku-app #detail_breadcrumb {
+.guoku-app #detail_breadcrumb,
+.mobile-body #detail_breadcrumb {
   display: none;
 }
-.guoku-app .footer {
+.guoku-app .footer,
+.mobile-body .footer {
   display: none;
 }
-.guoku-app.event-body {
+.guoku-app.event-body,
+.mobile-body.event-body {
   padding-top: 0px;
 }
 #event_list_page #event_list .event-item {
@@ -2583,6 +2630,13 @@ body.compact-body {
   }
 }
 @media (max-width: 767px) {
+  .guoku-card .entity-image-wrapper {
+    padding: 0px!important;
+    padding-top: 10px!important;
+  }
+  #index-banners .banner-image-cell {
+    padding: 0 0!important;
+  }
   #guoku_main_nav {
     background-color: #ffffff;
   }
@@ -2766,16 +2820,31 @@ body.compact-body {
     margin: 0 auto ;
   }
 }
-@media (max-width: 1199px) {
+@media (max-width: 1170px) {
   #selection_article_list .selection-article-item .article-title {
     font-size: 18px!important;
     font-weight: 600;
+  }
+  .guoku-content.index-page .late-category {
+    display: none;
   }
 }
 @media (min-width: 1170px) {
   .event_wrapper {
     width: 1170px;
   }
+  .guoku-content.index-page .category-cell.col-lg-2 {
+    width: 12.5%;
+  }
+}
+body .for-mobile {
+  display: none;
+}
+.mobile-body .for-browser {
+  display: none;
+}
+.mobile-body .for-mobile {
+  display: block;
 }
 .test {
   color: black;
