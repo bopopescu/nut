@@ -994,6 +994,9 @@ ul li {
 .article-wrapper .note-editable .guoku-card .entity-info-detail .entity-link i {
   color: #357ebd;
 }
+.mobile-body #main_article .writer-wrapper {
+  padding-bottom: 60px;
+}
 @-moz-document url-prefix() {
   fieldset {
     display: table-cell;

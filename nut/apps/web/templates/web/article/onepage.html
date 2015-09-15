@@ -92,14 +92,22 @@
                             <div class="row">
                                 <div class="writer-avatar col-xs-2 col-sm-2">
                                     <div class="avatar-wrapper">
-                                        <a href="{% url 'web_user_index' article.creator.pk %}">
+                                        <a href="{% url 'web_user_index' article.creator.pk %}" class="for-browser">
+                                            <img class="user-avatar" src="{{ article.creator.profile.avatar_url|resize:'180' }}" />
+                                        </a>
+                                         <a href="{{ article.creator.mobile_url }}" class="for-mobile">
                                             <img class="user-avatar" src="{{ article.creator.profile.avatar_url|resize:'180' }}" />
                                         </a>
                                     </div>
                                 </div>
                                 <div class="writer-intro col-xs-10 col-sm-10">
-                                    <div class="writer-name">
+                                    <div class="writer-name for-browser">
                                         <a href="{% url 'web_user_index' article.creator.pk %}">
+                                         {{ article.creator.profile.nickname }}
+                                        </a>
+                                    </div>
+                                    <div class="writer-name for-mobile">
+                                        <a href="{{ article.creator.mobile_url }}">
                                          {{ article.creator.profile.nickname }}
                                         </a>
                                     </div>
@@ -111,7 +119,7 @@
                     </div>
                 </div>
 
-                <div class="article-section-title">
+                <div class="article-section-title for-browser">
                     <div class="info-text">大家都在看</div>
 
                 </div>

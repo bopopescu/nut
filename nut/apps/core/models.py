@@ -148,6 +148,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.articles.filter(publish=Article.draft).count()
 
     @property
+    def mobile_url(self):
+        return 'guoku://user/' + str(self.id) + '/'
+
+
+    @property
     def like_count(self):
         key = 'user:like:%s' % self.pk
         res = cache.get(key)

@@ -121,6 +121,7 @@ function getQueryStrings() {
 }
 
 (function ($, document, window) {
+    var isMobile = $('body.mobile-body').length > 0;
 
 
     var AjaxLoader = Class.extend({
@@ -173,6 +174,7 @@ function getQueryStrings() {
             throw new Error('not implemented');
             return null;
         },
+
         beginLoad: function(){
             this.loading = true;
             var _url = this.getRequestUrl();
@@ -230,7 +232,9 @@ function getQueryStrings() {
         handleLastPage:function(){
             this.detach();
         },
-
+        _shouldLoad: function(){
+            return (!isMobile) && this._super();
+        },
     });
 
     var ArticleLoader = AjaxLoader.extend({
