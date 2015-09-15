@@ -411,6 +411,13 @@
   }
 }
 @media (max-width: 767px) {
+  .guoku-card .entity-image-wrapper {
+    padding: 0px!important;
+    padding-top: 10px!important;
+  }
+  #index-banners .banner-image-cell {
+    padding: 0 0!important;
+  }
   #guoku_main_nav {
     background-color: #ffffff;
   }

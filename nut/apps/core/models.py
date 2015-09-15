@@ -726,6 +726,10 @@ class Entity(BaseModel):
     def absolute_url(self):
         return self.get_absolute_url()
 
+    @property
+    def mobile_url(self):
+        return 'guoku://entity/'+ str(self.id) + '/'
+
     def innr_like(self):
         key = 'entity:like:%s', self.pk
         try:
