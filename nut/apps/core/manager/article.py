@@ -43,7 +43,6 @@ class SelectionArticleManager(models.Manager):
         key = 'popular_article_list'
         return key
 
-
     def get_related_cache_key(self, article):
         key = 'related_article_for_%s' % article.pk
         return key
