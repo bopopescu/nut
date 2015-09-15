@@ -1469,11 +1469,11 @@ function getQueryStrings() {
             function check_username(){
                 remove_message('#username_error_msg');
                 var username = clean_username();
-                var err_msg = '用户名格式：中英文数字皆可，3-30个字符。';
-                var usernameRegexString = '^[\u4e00-\u9fa5_a-zA-Z0-9]{3,30}$';
+                var err_msg = '用户名格式：中英文数字皆可，2-30个字符。';
+                var usernameRegexString = '^[\u4e00-\u9fa5_a-zA-Z0-9]{2,30}$';
                 var usernameRegex = RegExp(usernameRegexString);
                 if(usernameRegex.test(username) === false){
-                    show_message('#username_error_msg', '用户名格式：中英文数字皆可，3-30个字符。');
+                    show_message('#username_error_msg', '用户名格式：中英文数字皆可，2-30个字符。');
                     return false ;
                 }else{
                     return true;

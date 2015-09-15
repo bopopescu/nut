@@ -113,9 +113,9 @@ class UserSignUpForm(forms.Form):
     }
 
     nickname = forms.RegexField(
-        error_message=_('nickname: 6 to 30 character can not start with digits'),
+        error_message=_('nickname: 2 to 30 character can not start with digits'),
         label=_('nickname'),
-        regex= r"^[^0-9][\w-]{5,30}$",
+        regex= r"^[^0-9][\w-]{2,30}$",
         widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':_('nickname')}),
         help_text=_("Required. 30 characters or fewer. Letters."),
     )
