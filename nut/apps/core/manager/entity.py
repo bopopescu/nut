@@ -174,21 +174,11 @@ class EntityLikeManager(models.Manager):
         return res
 
     def user_like_list(self, user, entity_list):
-<<<<<<< HEAD
-        return self.get_query_set().user_like_list(user=user, entity_list=entity_list)
-
-=======
 
         return self.get_query_set().user_like_list(user=user,
                                                    entity_list=entity_list)
 
-        # def sort_with_list(self, category_id):
-        #
-        # entity_id_list = self.get_query_set().sort_with_list(category_id)
-        #
-        #     return list(entity_id_list)
 
->>>>>>> 1c861993ecc066feb5a908dd3c1a274592db055a
 
 class SelectionEntityQuerySet(models.query.QuerySet):
     def published(self):
