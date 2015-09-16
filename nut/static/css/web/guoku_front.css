@@ -2633,9 +2633,15 @@ body.compact-body {
   }
 }
 @media (max-width: 767px) {
+  #selection_article_list .selection-article-item .article-title {
+    min-height: 0px!important;
+  }
+  #selection_article_list .selection-article-item .article-intro {
+    min-height: 0px!important;
+  }
   .guoku-card .entity-image-wrapper {
     padding: 0px!important;
-    padding-top: 10px!important;
+    padding-top: 10px!im;
   }
   #index-banners .banner-image-cell {
     padding: 0 0!important;
@@ -2773,7 +2779,7 @@ body.compact-body {
     font-color: #9d9e9f !important;
   }
   #selection_article_list .selection-article-item .article-title {
-    min-height: 80px!important;
+    min-height: 66px!important;
   }
 }
 @media (min-width: 768px) {
