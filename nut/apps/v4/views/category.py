@@ -62,14 +62,6 @@ class CategorySelectionView(BaseJsonView):
         return super(CategorySelectionView, self).dispatch(request, *args, **kwargs)
 
 
-# @require_GET
-# @check_sign
-# def category_list(request):
-#
-#     res = Category.objects.toDict()
-#     # res = []
-#     return SuccessJsonResponse(res)
-
 
 @require_GET
 @check_sign
