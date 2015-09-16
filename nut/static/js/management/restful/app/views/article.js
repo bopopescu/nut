@@ -52,7 +52,7 @@ define(function(require){
         events : {
             'click .edit-content': 'editContent',
             'click .edit-status': 'editAttribute',
-            'click .add_selection': 'addSelection'
+            'click .add_selection': 'addSelection',
         },
 
         addSelection: function(){
@@ -115,7 +115,7 @@ define(function(require){
             articleEditView.listenToOnce(this, 'modalCancel', articleEditView.cancelEdit);
         },
         editContent: function(){
-            alert('attribute' + this.model.get('id'));
+            window.open('/articles/'+ this.model.id + '/edit/');
         },
         render: function(){
             this.$el.html(this.template(this.model.toJSON()));
