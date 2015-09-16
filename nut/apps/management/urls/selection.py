@@ -10,6 +10,7 @@ urlpatterns = patterns(
     url(r'^$', RedirectView.as_view(url="/management/selection/published/"), name='management_selection_list'),
     url(r'^published/$', 'published', name='management_selection_published'),
     url(r'^pending/$', 'pending', name='management_selection_pending'),
+    url(r'^pending_and_removed/$', 'pending_and_removed', name='management_selection_pending_and_removed'),
     url(r'^publish/(?P<sid>\d+)/edit/$', 'edit_publish', name='management_selection_edit_publish'),
 
     url(r'^set/publish/datetime/$', 'set_publish_datetime', name='management_set_publish_datetime'),
