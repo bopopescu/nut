@@ -1224,7 +1224,8 @@ class Article(BaseModel):
 
     @property
     def bleached_content(self):
-        return contentBleacher(self.content)
+        cover_html = ' <img class="article-cover img-responsive" itemprop="image" src="%s" alt="%s" />' % (self.cover_url, self.title)
+        return cover_html + contentBleacher(self.content)
 
     @property
     def digest(self):
