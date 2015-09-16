@@ -4,13 +4,13 @@
     <div class="container">
         <div class="row">
             {% if not verified %}
-                哎呀，大概等太久，验证已失效，<a href="{% url 'send_verify_mail' %}">重新发送一封激活邮件吧。</a>
+                哎呀，大概等太久，验证已失效，重新 <a href="{% url 'send_verify_mail' %}">发送一封激活邮件</a> 吧。
             {% else %}
                 {% ifequal verified 2 %}
-                    激活邮件已发送，请到您的注册邮箱检查邮件。
+                    激活邮件已发送，请到你的注册邮箱检查邮件。
                 {% else %}
                     {% ifequal verified 1 %}
-                        您已激活。
+                        验证完成。
                     {% endifequal %}
                 {% endifequal %}
             {% endif %}
