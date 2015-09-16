@@ -3,11 +3,14 @@
 
 import os
 import sys
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+sys.path.append(BASE_DIR)
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
 import time
-
 import requests
 
 
+<<<<<<< HEAD
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
@@ -16,6 +19,8 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
 from apps.core.utils.commons import update_rate
 from apps.core.models import Buy_Link, Entity
 
+=======
+>>>>>>> 1c861993ecc066feb5a908dd3c1a274592db055a
 # update exchange rate
 update_rate(['USD', 'JPY'])
 

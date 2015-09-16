@@ -23,15 +23,17 @@
                             {% url 'management_selection_published' as management_selection_published_url %}
                             {% url 'management_selection_pending' as management_selection_pending_url %}
                             {% url 'management_selection_popular' as management_selection_popular_url %}
+                            {% url 'management_selection_pending_and_removed' as management_selection_pending_and_removed_url %}
 
                             <li {% if management_selection_published_url in request.path %}class="active"{% endif %}>
                                 <a href="{% url 'management_selection_list' %}">{% trans 'published' %}</a>
                             </li>
-
                             <li {% if management_selection_pending_url in request.path %}class="active"{% endif %}>
                                 <a href="{% url 'management_selection_pending' %}">{% trans 'pending' %}&nbsp;({{ pending_count }})</a>
                             </li>
-
+                            <li {% if management_selection_pending_and_removed_url in request.path %}class="active"{% endif %}>
+                                <a href="{{ management_selection_pending_and_removed_url }}">{% trans 'pending and removed' %}&nbsp;({{ pending_and_removed_count }})</a>
+                            </li>
                             <li {% if management_selection_popular_url in request.path %}class="active"{% endif %}>
                                 <a href="{{ management_selection_popular_url }}">{% trans 'popular' %}</a>
                             </li>

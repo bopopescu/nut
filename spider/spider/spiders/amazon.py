@@ -15,7 +15,8 @@ class AmazonSpider(scrapy.Spider):
         'http://www.amazon.cn',
         'http://www.amazon.com']
 
-    def __init__(self, item_id, domain, *args, **kwargs):
+    def __init__(self, item_id, domain, update_selection_status=False,
+                 *args, **kwargs):
         """
         Args:
             item_id: Id of a entity.
@@ -25,6 +26,7 @@ class AmazonSpider(scrapy.Spider):
         self.item_id = item_id
         self.domain = domain
         self.currency_code = self.get_currency_code()
+        self.update_selection_status = update_selection_status
         self.start_urls = [
             'http://%s/gp/product/%s' % (self.domain, self.item_id)
         ]
@@ -33,6 +35,7 @@ class AmazonSpider(scrapy.Spider):
     def parse(self, response):
         item = GItem()
 
+        item['update_selection_status'] = self.update_selection_status
         item['origin_id'] = self.item_id
         item['link'] = response.url
         item['status'] = self.get_item_status(response)

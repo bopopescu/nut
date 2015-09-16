@@ -13,7 +13,7 @@
         <div class="form-group">
             <div class="col-sm-12">
                 {% if request.user.is_blocked %}
-                     <input class="form-control comment-content" type="text" disabled value="您已经被禁言"/>
+                     <input class="form-control comment-content" type="text" disabled value="你已经被禁言"/>
                 {% else %}
                      {{ field }}
                 {% endif %}
