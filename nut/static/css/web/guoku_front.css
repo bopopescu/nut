@@ -1413,11 +1413,9 @@ body.compact-body {
   color: #9d9e9f;
   text-decoration: none;
 }
-#guoku_footer li span,
 #guoku_footer li a {
   opacity: 0.6;
 }
-#guoku_footer li span:hover,
 #guoku_footer li a:hover {
   opacity: 1;
 }
