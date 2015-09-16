@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
-from django.utils.crypto import salted_hmac
-from django.utils.http import int_to_base36
-
-import redis
-import requests
 import os
 import sys
-import six
-import settings.production as settings
-
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
-
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
+
+import six
+import redis
+import requests
+import settings.production as settings
+
+from django.utils.crypto import salted_hmac
+from django.utils.http import int_to_base36
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 r = redis.Redis(host=settings.CONFIG_REDIS_HOST,
                 port=settings.CONFIG_REDIS_PORT,

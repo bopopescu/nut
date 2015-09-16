@@ -202,7 +202,7 @@ class EditorArticleEdit(AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,
 
         if request.user.is_writer:
             if the_article.creator != request.user:
-                raise Http404('没有找到对应文章，您是作者吗？')
+                raise Http404('没有找到对应文章，你是作者吗？')
 
         the_form = WebArticleEditForm(instance=the_article)
         return self.render_to_response({
@@ -219,7 +219,7 @@ class EditorArticleEdit(AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,
 
         if request.user.is_writer:
             if article.creator != request.user:
-                raise Http404('没有找到对应文章，您是作者吗？')
+                raise Http404('没有找到对应文章，你是作者吗？')
 
         atform = WebArticleEditForm(request.POST)
 
@@ -316,7 +316,7 @@ class ArticleDelete(UserPassesTestMixin, View):
 
         if request.user.is_writer:
             if the_article.creator != request.user:
-                raise Http404('没有找到对应文章，您是作者吗？')
+                raise Http404('没有找到对应文章，你是作者吗？')
 
 #       TODO : check permission here
         the_article.publish = Article.remove
