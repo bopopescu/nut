@@ -1782,6 +1782,9 @@ body.compact-body {
 }
 .guoku-content.user-page .content-panel .panel-content-wrapper .article-cell .more-article-wrapper,
 .guoku-content.index-page .content-panel .panel-content-wrapper .article-cell .more-article-wrapper {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
   margin: 10px!important;
 }
 .guoku-content.user-page .content-panel .panel-content-wrapper .tag-cell,

@@ -26,13 +26,13 @@
 
 {% block h1 %}{{ article.title }} － 精英消费指南{% endblock %}
 {% block content %}
-    <div class="container goods_detail">
+    <div class="container goods_detail article-onepage">
         <h2 class="sr-only">{{ article.content|striptags|truncatewords:150 }}</h2>
 {#     <div class="row" id="detail_breadcrumb">#}
 {#         {% include "web/article/partial/article_breadcrumb.html" %}#}
 {#     </div>#}
         <div class="row" id="detail_content" >
-            <div class="container-fluid col-lg-8 col-md-8 col-sm-12  col-xs-12" itemscope itemtype="http://schema.org/NewsArticle">
+            <div class="container-fluid col-lg-8 col-md-8 col-sm-12  col-xs-12 " itemscope itemtype="http://schema.org/NewsArticle">
                 <div class="main-article" id="main_article">
                     <div class="article-wrapper">
 
