@@ -200,7 +200,7 @@ def homepage(request):
 
 @check_sign
 def selection(request):
-    log.info(request.GET)
+    # log.info(request.GET)
     # _timestamp = request.GET.get('timestamp', None)
     _timestamp = request.GET.get('timestamp', datetime.now())
     if _timestamp != None:
