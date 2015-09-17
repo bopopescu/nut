@@ -26,13 +26,13 @@
 
 {% block h1 %}{{ article.title }} － 精英消费指南{% endblock %}
 {% block content %}
-    <div class="container goods_detail">
+    <div class="container goods_detail article-onepage">
         <h2 class="sr-only">{{ article.content|striptags|truncatewords:150 }}</h2>
 {#     <div class="row" id="detail_breadcrumb">#}
 {#         {% include "web/article/partial/article_breadcrumb.html" %}#}
 {#     </div>#}
         <div class="row" id="detail_content" >
-            <div class="container-fluid col-lg-8 col-md-8 col-sm-12  col-xs-12" itemscope itemtype="http://schema.org/NewsArticle">
+            <div class="container-fluid col-lg-8 col-md-8 col-sm-12  col-xs-12 " itemscope itemtype="http://schema.org/NewsArticle">
                 <div class="main-article" id="main_article">
                     <div class="article-wrapper">
 
@@ -70,7 +70,8 @@
                             {{ article.content }}
                             {% endautoescape %}
                         </div>
-                        <div class="share-wrapper">
+
+                        <div class="share-wrapper for-browser">
                             <!-- JiaThis Button BEGIN -->
                             <div class="share-intro">分享到</div>
                             <div class="jiathis_style">
@@ -92,14 +93,22 @@
                             <div class="row">
                                 <div class="writer-avatar col-xs-2 col-sm-2">
                                     <div class="avatar-wrapper">
-                                        <a href="{% url 'web_user_index' article.creator.pk %}">
+                                        <a href="{% url 'web_user_index' article.creator.pk %}" class="for-browser">
+                                            <img class="user-avatar" src="{{ article.creator.profile.avatar_url|resize:'180' }}" />
+                                        </a>
+                                         <a href="{{ article.creator.mobile_url }}" class="for-mobile">
                                             <img class="user-avatar" src="{{ article.creator.profile.avatar_url|resize:'180' }}" />
                                         </a>
                                     </div>
                                 </div>
                                 <div class="writer-intro col-xs-10 col-sm-10">
-                                    <div class="writer-name">
+                                    <div class="writer-name for-browser">
                                         <a href="{% url 'web_user_index' article.creator.pk %}">
+                                         {{ article.creator.profile.nickname }}
+                                        </a>
+                                    </div>
+                                    <div class="writer-name for-mobile">
+                                        <a href="{{ article.creator.mobile_url }}">
                                          {{ article.creator.profile.nickname }}
                                         </a>
                                     </div>
@@ -111,7 +120,7 @@
                     </div>
                 </div>
 
-                <div class="article-section-title">
+                <div class="article-section-title for-browser">
                     <div class="info-text">大家都在看</div>
 
                 </div>

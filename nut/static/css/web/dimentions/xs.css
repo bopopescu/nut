@@ -397,12 +397,27 @@
 .like-action:active {
   text-decoration: none;
 }
+.guoku-bg-image-wrapper {
+  height: 0 ;
+  width: 100%;
+  padding-bottom: 100%;
+  background-size: cover;
+  background-position: center center;
+  border: 1px solid #e6e6e6;
+}
 @media (max-width: 767px) {
   .event-item {
     padding: 5px 5px 5px 5px;
   }
 }
 @media (max-width: 767px) {
+  .guoku-card .entity-image-wrapper {
+    padding: 0px!important;
+    padding-top: 10px!important;
+  }
+  #index-banners .banner-image-cell {
+    padding: 0 0!important;
+  }
   #guoku_main_nav {
     background-color: #ffffff;
   }

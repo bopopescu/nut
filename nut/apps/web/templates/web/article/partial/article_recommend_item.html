@@ -1,6 +1,6 @@
 {% load i18n static %}
 {% load  common guoku %}
-<div class="more-article-wrapper">
+<div class="more-article-wrapper for-browser">
      <div class="title-wrapper">
           <a href="{% url 'web_article_page' r_article.pk %}{% if from_app %}?from=app{% endif %}#from=recommend">
              <div class="title">{{ r_article.title|truncatechars:22 }}</div>

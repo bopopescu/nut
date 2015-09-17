@@ -148,6 +148,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.articles.filter(publish=Article.draft).count()
 
     @property
+    def mobile_url(self):
+        return 'guoku://user/' + str(self.id) + '/'
+
+
+    @property
     def like_count(self):
         key = 'user:like:%s' % self.pk
         res = cache.get(key)
@@ -726,6 +731,10 @@ class Entity(BaseModel):
     def absolute_url(self):
         return self.get_absolute_url()
 
+    @property
+    def mobile_url(self):
+        return 'guoku://entity/'+ str(self.id) + '/'
+
     def innr_like(self):
         key = 'entity:like:%s', self.pk
         try:
@@ -1215,7 +1224,8 @@ class Article(BaseModel):
 
     @property
     def bleached_content(self):
-        return contentBleacher(self.content)
+        cover_html = ' <img class="article-cover img-responsive" itemprop="image" src="%s" alt="%s" />' % (self.cover_url, self.title)
+        return cover_html + contentBleacher(self.content)
 
     @property
     def digest(self):

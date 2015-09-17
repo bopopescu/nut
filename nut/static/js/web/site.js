@@ -121,6 +121,7 @@ function getQueryStrings() {
 }
 
 (function ($, document, window) {
+    var isMobile = $('body.mobile-body').length > 0;
 
 
     var AjaxLoader = Class.extend({
@@ -173,6 +174,7 @@ function getQueryStrings() {
             throw new Error('not implemented');
             return null;
         },
+
         beginLoad: function(){
             this.loading = true;
             var _url = this.getRequestUrl();
@@ -230,7 +232,9 @@ function getQueryStrings() {
         handleLastPage:function(){
             this.detach();
         },
-
+        _shouldLoad: function(){
+            return (!isMobile) && this._super();
+        },
     });
 
     var ArticleLoader = AjaxLoader.extend({
@@ -1465,10 +1469,11 @@ function getQueryStrings() {
             function check_username(){
                 remove_message('#username_error_msg');
                 var username = clean_username();
-                var err_msg = '用户名格式：中英文数字皆可，2-16个字符。';
-                var usernameRegex = /^[\u4e00-\u9fa5a-zA-Z0-9]{2,16}$/;
+                var err_msg = '用户名格式：中英文数字皆可，2-30个字符。';
+                var usernameRegexString = '^[\u4e00-\u9fa5_a-zA-Z0-9]{2,30}$';
+                var usernameRegex = RegExp(usernameRegexString);
                 if(usernameRegex.test(username) === false){
-                    show_message('#username_error_msg', '用户名格式：中英文数字皆可，2-16个字符。');
+                    show_message('#username_error_msg', '用户名格式：中英文数字皆可，2-30个字符。');
                     return false ;
                 }else{
                     return true;

@@ -2,6 +2,9 @@
 from apps.core.models import Event
 from django.core.cache import  cache
 
+from django.conf import settings
+
+
 def lastslug(request):
     "A global context processor for current event slug"
     key = 'last_event_slug'
@@ -32,15 +35,22 @@ def browser(request):
         'isAndroid': ('guoku-client' in agent_string),
     }
 
-def isMobile(request):
-    try:
-        host_str = request.META['HTTP_HOST']
-    except KeyError:
-        host_str = ''
+def isFromMobile(request):
+    res = False
+    if hasattr(settings, 'ANT_SIMULATE_MOBILE') and  settings.ANT_SIMULATE_MOBILE:
+        res = True
+    else:
+        try:
+            host_str = request.META['HTTP_HOST']
+        except KeyError:
+            host_str = ''
 
+        res = 'm.guoku.com' in host_str
 
+    return {
+        'isFromMobile' : res
+    }
 
-    return 'm.guoku.com' in host_str
 
 if __name__ == "__main__":
    print lastslug()
