@@ -34,7 +34,10 @@ class CategorySelectionView(BaseJsonView):
     def get_data(self, context):
         group = Category.objects.filter(pk=self.group_id)
         cids = Sub_Category.objects.filter(group=group).values_list('id', flat=True)
-        selection_list = Selection_Entity.objects.published().filter(entity__category__in=cids)
+        if self.sort == "like":
+            selection_list = Selection_Entity.objects.category_sort_like(category_ids=cids)
+        else:
+            selection_list = Selection_Entity.objects.published().filter(entity__category__in=cids)
 
         paginator = Paginator(selection_list, self.size)
 
@@ -45,8 +48,10 @@ class CategorySelectionView(BaseJsonView):
             return res
 
         el = None
-        if self.session is not  None:
-            el = Entity_Like.objects.user_like_list(user=self.session.user, entity_list=list(selections.object_list.values_list('entity_id', flat=True)))
+        if self.session is not None:
+            entity_ids = map(lambda  x: x['entity_id'], selections.object_list.values())
+            # print  entity_ids
+            el = Entity_Like.objects.user_like_list(user=self.session.user, entity_list=entity_ids)
 
         for selection in selections.object_list:
 
@@ -59,6 +64,7 @@ class CategorySelectionView(BaseJsonView):
         self.group_id = kwargs.pop('group_id', None)
         self.page = request.GET.get('page', 1)
         self.size = request.GET.get('size', 30)
+        self.sort = request.GET.get('sort', "time")
 
         _key = self.request.GET.get('session')
         try:

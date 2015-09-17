@@ -232,5 +232,11 @@ class SelectionEntityManager(models.Manager):
         # log.debug(unread_count.query)
         return unread_count
 
+    def category_sort_like(self, category_ids):
+#        return self.get_queryset().published().filter(entity__category__in=category_ids).annotate(lnumber=Count('entity__likes')).order_by('-lnumber')
+        res = self.published().filter(entity__category__in=category_ids).annotate(lnumber=Count('entity__likes')).order_by('-lnumber')
+        # print res.query
+        return res
+
 
 __author__ = 'edison'
