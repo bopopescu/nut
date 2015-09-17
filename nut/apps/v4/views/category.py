@@ -50,7 +50,6 @@ class CategorySelectionView(BaseJsonView):
         el = None
         if self.session is not None:
             entity_ids = map(lambda  x: x['entity_id'], selections.object_list.values())
-            # print  entity_ids
             el = Entity_Like.objects.user_like_list(user=self.session.user, entity_list=entity_ids)
 
         for selection in selections.object_list:
