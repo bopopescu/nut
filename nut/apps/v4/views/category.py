@@ -44,9 +44,14 @@ class CategorySelectionView(BaseJsonView):
         except Exception:
             return res
 
+        el = None
+        if self.session is not  None:
+            el = Entity_Like.objects.user_like_list(user=self.session.user, entity_list=list(selections.object_list.values_list('entity_id', flat=True)))
+
         for selection in selections.object_list:
+
             res.append(
-                selection.entity.v3_toDict()
+                selection.entity.v3_toDict(user_like_list=el)
             )
         return res
 
@@ -54,6 +59,14 @@ class CategorySelectionView(BaseJsonView):
         self.group_id = kwargs.pop('group_id', None)
         self.page = request.GET.get('page', 1)
         self.size = request.GET.get('size', 30)
+
+        _key = self.request.GET.get('session')
+        try:
+            self.session = Session_Key.objects.get(session_key=_key)
+            # Selection_Entity.objects.set_user_refresh_datetime(session=self.session.session_key)
+        except Session_Key.DoesNotExist, e:
+            log.info(e.message)
+            self.session = None
         assert self.group_id is not None
         return super(CategorySelectionView, self).get(request, *args, **kwargs)
 
