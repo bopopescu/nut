@@ -11,7 +11,7 @@ from apps.core.models import GKUser, User_Profile
 from apps.core.utils.image import HandleImage
 
 from apps.web.fields import Wizard_CaptchaField
-
+from apps.web.utils.formtools import clean_user_text
 
 from django.utils.log import getLogger
 from django.conf import settings
@@ -113,11 +113,11 @@ class UserSignUpForm(forms.Form):
     }
 
     nickname = forms.RegexField(
+        error_message=_('nickname: 3 to 30 character can not start with digits'),
         label=_('nickname'),
-        regex=r"^[\w+-]+$",
+        regex= r"^[^0-9][\w-]{3,30}$",
         widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':_('nickname')}),
-        help_text=_("Required. 30 characters or fewer. Letters, digits and "
-                      "@/./+/-/_ only."),
+        help_text=_("Required. 3-30 characters . Letters."),
     )
 
     email = forms.EmailField(
@@ -150,7 +150,8 @@ class UserSignUpForm(forms.Form):
 
     def clean_nickname(self):
         _nickname = self.cleaned_data.get('nickname')
-        print _nickname
+        _nickname = clean_user_text(_nickname)
+        # print _nickname
         try:
             #  the following line will rise MultipleObjectsReturned if get return more than 1 User_Profile
             #  if this exception is not handled , the exception will simple raise above to cause "internal service error"
@@ -249,6 +250,7 @@ class UserSignUpBioForm(forms.Form):
     def save(self, user):
         _avatar_file = self.cleaned_data.get('avatar')
         _bio = self.cleaned_data.get('bio')
+        _bio = clean_user_text(_bio)
         _gender = self.cleaned_data.get('gender')
         _location = self.cleaned_data.get('location')
         _city = self.cleaned_data.get('city')

@@ -49,5 +49,4 @@ class ArticlesListView(BaseJsonView):
         return super(ArticlesListView, self).dispatch(request, *args, **kwargs)
 
 
-
 __author__ = 'xiejiaxin'

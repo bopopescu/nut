@@ -7,9 +7,10 @@ from apps.core.models import Note
 from apps.core.utils.tag import TagParser
 # from apps.notifications import notify
 
-from apps.web.utils.formtools import innerStrip
+from apps.web.utils.formtools import innerStrip,clean_user_text
 
 from django.utils.log import getLogger
+from string import  maketrans
 log = getLogger('django')
 
 
@@ -36,6 +37,7 @@ class NoteForm(forms.ModelForm):
     def clean_note(self):
         _note_text = self.cleaned_data.get('note')
         _note_text = innerStrip(_note_text)
+        _note_text = clean_user_text(_note_text)
         _note_text = _note_text.replace(u"＃", "#")
         return _note_text
 

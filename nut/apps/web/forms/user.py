@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 from apps.core.models import User_Profile, Buy_Link, Category
 from django.utils.log import getLogger
 
-from apps.web.utils.formtools import innerStrip
+from apps.web.utils.formtools import innerStrip, clean_user_text
 
 log = getLogger('django')
 
@@ -17,6 +17,8 @@ class UserSettingsForm(forms.Form):
 
     error_messages = {
         'duplicate_email' : _('A user with that email already exists.'),
+        'duplicate_nickname': _("A user with that nickname already exists."),
+
     }
 
     email = forms.EmailField(label=_('email'),
@@ -56,7 +58,25 @@ class UserSettingsForm(forms.Form):
                              widget=forms.URLInput(attrs={'class':'form-control'}),
                              required=False,
                              help_text=_(''))
-
+    def clean_nickname(self):
+        _nickname = self.cleaned_data.get('nickname')
+        _nickname = clean_user_text(_nickname)
+        if self.user_cache.profile.nickname == _nickname:
+            return _nickname
+        try:
+            #  the following line will rise MultipleObjectsReturned if get return more than 1 User_Profile
+            #  if this exception is not handled , the exception will simple raise above to cause "internal service error"
+            #  right to the user.
+            #  so handle it
+            User_Profile.objects.get(nickname = _nickname)
+        except User_Profile.DoesNotExist:
+            return _nickname
+        except User_Profile.MultipleObjectsReturned:
+            pass
+        raise forms.ValidationError(
+            self.error_messages['duplicate_nickname'],
+            code='duplicate_nickname',
+        )
 
     def clean_email(self):
         _email = self.cleaned_data.get('email')
@@ -79,6 +99,7 @@ class UserSettingsForm(forms.Form):
         # _bio = _bio.replace('\r', '')
         # log.info(_bio)
         s = innerStrip(_bio)
+        s = clean_user_text(s)
         # log.info(s)
         return s
 

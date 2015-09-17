@@ -754,6 +754,14 @@ ul li {
 .like-action:active {
   text-decoration: none;
 }
+.guoku-bg-image-wrapper {
+  height: 0 ;
+  width: 100%;
+  padding-bottom: 100%;
+  background-size: cover;
+  background-position: center center;
+  border: 1px solid #e6e6e6;
+}
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
   color: #9d9e9f;
@@ -985,6 +993,9 @@ ul li {
 .article-wrapper .content-wrapper .guoku-card .entity-info-detail .entity-link i,
 .article-wrapper .note-editable .guoku-card .entity-info-detail .entity-link i {
   color: #357ebd;
+}
+.mobile-body #main_article .writer-wrapper {
+  padding-bottom: 60px;
 }
 @-moz-document url-prefix() {
   fieldset {
@@ -1243,6 +1254,34 @@ body > .container {
   overflow: hidden;
   margin-bottom: 10px;
 }
+body.compact-body {
+  padding-top: 51px;
+}
+#index-banners {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1450px;
+}
+#index-banners .slick-list {
+  overflow: visible!important;
+}
+#index-banners .slick-list .slick-slide:active,
+#index-banners .slick-list .slick-slide:focus,
+#index-banners .slick-list .slick-slide:hover {
+  border: none!important;
+  box-shadow: none!important;
+  outline: none;
+}
+#index-banners .banner-image-cell {
+  padding: 0 10px;
+}
+#index-banners .banner-image-cell .banner-image-wrapper {
+  height: 0;
+  width: 100%;
+  padding-bottom: 40%;
+  background-size: cover;
+  background-position: center center;
+}
 #guoku_main_nav {
   background-color: #fff;
   opacity: 0.98;
@@ -1374,11 +1413,9 @@ body > .container {
   color: #9d9e9f;
   text-decoration: none;
 }
-#guoku_footer li span,
 #guoku_footer li a {
   opacity: 0.6;
 }
-#guoku_footer li span:hover,
 #guoku_footer li a:hover {
   opacity: 1;
 }
@@ -1539,10 +1576,58 @@ body > .container {
 #guoku_footer .footer-bottom .footer-bottom-right .logo-list li img {
   width: 28px;
 }
-.guoku-content.user-page .user-info-wrapper {
+.guoku-content.index-page {
+  margin-top: 30px;
+}
+.guoku-content.index-page .entity-cell {
+  padding: 10px 10px;
+}
+.guoku-content.index-page .article-cell {
+  padding: 10px;
+  left: 0px!important;
+}
+.guoku-content.index-page .article-cell .article-intro {
+  float: right;
+  width: 70%;
+  height: auto;
+  padding-right: 20px;
+}
+.guoku-content.index-page .article-cell .article-intro .article-title {
+  font-size: 18px;
+}
+.guoku-content.index-page .article-cell .article-intro .article-digest {
+  color: #9d9e9f;
+  font-size: 14px;
+}
+.guoku-content.index-page .article-cell .article-cover {
+  float: none;
+  width: 25%;
+}
+.guoku-content.index-page .category-cell {
+  padding: 10px;
+}
+.guoku-content.index-page .category-cell .cate-wrapper {
+  background-color: #f8f8f8;
+  text-align: center;
+  padding: 10px 0;
+}
+.guoku-content.index-page .category-cell .cate-wrapper .cate-icon {
+  display: inline-block;
+  max-width: 100px;
+  width: 70%;
+}
+.guoku-content.index-page .category-cell .cate-wrapper .category-title {
+  padding: 10px 0;
+  font-size: 14px;
+  display: block;
+  text-align: center;
+}
+.guoku-content.user-page .user-info-wrapper,
+.guoku-content.index-page .user-info-wrapper {
   margin-bottom: 40px;
 }
-.guoku-content.user-page .user-info-wrapper .user-icon img {
+.guoku-content.user-page .user-info-wrapper .user-icon img,
+.guoku-content.index-page .user-info-wrapper .user-icon img {
   display: block;
   margin: 0 auto ;
   width: 120px;
@@ -1554,42 +1639,52 @@ body > .container {
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
-.guoku-content.user-page .user-info-wrapper .user-info .user-nick-block {
+.guoku-content.user-page .user-info-wrapper .user-info .user-nick-block,
+.guoku-content.index-page .user-info-wrapper .user-info .user-nick-block {
   margin-bottom: 10px;
 }
-.guoku-content.user-page .user-info-wrapper .user-info .user-nick-block .nick {
+.guoku-content.user-page .user-info-wrapper .user-info .user-nick-block .nick,
+.guoku-content.index-page .user-info-wrapper .user-info .user-nick-block .nick {
   font-size: 32px;
   font-weight: 500;
   margin-right: 12px;
 }
-.guoku-content.user-page .user-info-wrapper .user-info .user-nick-block .guoku-button {
+.guoku-content.user-page .user-info-wrapper .user-info .user-nick-block .guoku-button,
+.guoku-content.index-page .user-info-wrapper .user-info .user-nick-block .guoku-button {
   position: relative;
   top: -5px;
   padding: 0px 15px;
 }
-.guoku-content.user-page .user-info-wrapper .user-info .user-nick-block .guoku-button.btn-cancel {
+.guoku-content.user-page .user-info-wrapper .user-info .user-nick-block .guoku-button.btn-cancel,
+.guoku-content.index-page .user-info-wrapper .user-info .user-nick-block .guoku-button.btn-cancel {
   background-color: #fff;
 }
-.guoku-content.user-page .user-info-wrapper .user-info .user-bio {
+.guoku-content.user-page .user-info-wrapper .user-info .user-bio,
+.guoku-content.index-page .user-info-wrapper .user-info .user-bio {
   margin-bottom: 10px;
   max-width: 450px;
   font-size: 16px;
 }
-.guoku-content.user-page .user-info-wrapper .user-info .user-binding {
+.guoku-content.user-page .user-info-wrapper .user-info .user-binding,
+.guoku-content.index-page .user-info-wrapper .user-info .user-binding {
   margin-bottom: 10px;
 }
-.guoku-content.user-page .user-info-wrapper .user-info .user-binding .user-binding-icon {
+.guoku-content.user-page .user-info-wrapper .user-info .user-binding .user-binding-icon,
+.guoku-content.index-page .user-info-wrapper .user-info .user-binding .user-binding-icon {
   color: #DC0000;
 }
-.guoku-content.user-page .user-info-wrapper .user-info .user-social-info .count {
+.guoku-content.user-page .user-info-wrapper .user-info .user-social-info .count,
+.guoku-content.index-page .user-info-wrapper .user-info .user-social-info .count {
   color: #357ebd;
   font-weight: 600;
 }
-.guoku-content.user-page .user-admin-link-wrapper a {
+.guoku-content.user-page .user-admin-link-wrapper a,
+.guoku-content.index-page .user-admin-link-wrapper a {
   float: right;
   padding-right: 40px;
 }
-.guoku-content.user-page .content-panel {
+.guoku-content.user-page .content-panel,
+.guoku-content.index-page .content-panel {
   background-color: #ffffff;
   padding: 18px 18px;
   -webkit-border-radius: 4px;
@@ -1603,15 +1698,19 @@ body > .container {
   box-shadow: 0px 0px 2px #dddddd;
   margin-bottom: 20px;
 }
-.guoku-content.user-page .content-panel .panel-header {
+.guoku-content.user-page .content-panel .panel-header,
+.guoku-content.index-page .content-panel .panel-header {
   height: 30px;
   margin-bottom: 10px;
 }
 .guoku-content.user-page .content-panel .panel-header .panel-name,
-.guoku-content.user-page .content-panel .panel-header .more-link {
+.guoku-content.index-page .content-panel .panel-header .panel-name,
+.guoku-content.user-page .content-panel .panel-header .more-link,
+.guoku-content.index-page .content-panel .panel-header .more-link {
   display: inline-block;
 }
-.guoku-content.user-page .content-panel .panel-header .panel-name {
+.guoku-content.user-page .content-panel .panel-header .panel-name,
+.guoku-content.index-page .content-panel .panel-header .panel-name {
   float: left;
   color: #424242;
   border-left: 4px solid #9d9e9f;
@@ -1619,90 +1718,112 @@ body > .container {
   position: relative;
   left: -4px;
 }
-.guoku-content.user-page .content-panel .panel-header .more-link {
+.guoku-content.user-page .content-panel .panel-header .more-link,
+.guoku-content.index-page .content-panel .panel-header .more-link {
   float: right;
   font-size: 13px;
   position: relative;
   right: 15px;
 }
-.guoku-content.user-page .content-panel .panel-content-wrapper {
+.guoku-content.user-page .content-panel .panel-content-wrapper,
+.guoku-content.index-page .content-panel .panel-content-wrapper {
   padding-left: 10px;
 }
-.guoku-content.user-page .content-panel .panel-content-wrapper .entity-cell {
+.guoku-content.user-page .content-panel .panel-content-wrapper .entity-cell,
+.guoku-content.index-page .content-panel .panel-content-wrapper .entity-cell {
   padding: 0px 10px 10px 0px;
 }
-.guoku-content.user-page .content-panel .panel-content-wrapper .entity-cell .img-box {
+.guoku-content.user-page .content-panel .panel-content-wrapper .entity-cell .img-box,
+.guoku-content.index-page .content-panel .panel-content-wrapper .entity-cell .img-box {
   border: 1px solid #e6e6e6;
 }
-.guoku-content.user-page .content-panel .panel-content-wrapper .note-cell {
+.guoku-content.user-page .content-panel .panel-content-wrapper .note-cell,
+.guoku-content.index-page .content-panel .panel-content-wrapper .note-cell {
   height: auto;
   min-height: 100px;
   overflow: hidden;
   padding: 0px 10px 10px 0px;
   margin-bottom: 40px;
 }
-.guoku-content.user-page .content-panel .panel-content-wrapper .note-cell .img-box {
+.guoku-content.user-page .content-panel .panel-content-wrapper .note-cell .img-box,
+.guoku-content.index-page .content-panel .panel-content-wrapper .note-cell .img-box {
   border: 1px solid #e6e6e6;
 }
-.guoku-content.user-page .content-panel .panel-content-wrapper .note-cell .note-content-wrapper {
+.guoku-content.user-page .content-panel .panel-content-wrapper .note-cell .note-content-wrapper,
+.guoku-content.index-page .content-panel .panel-content-wrapper .note-cell .note-content-wrapper {
   float: right;
   width: 80%;
   height: 100%;
   padding: 0 10px;
 }
-.guoku-content.user-page .content-panel .panel-content-wrapper .note-cell .note-content-wrapper .note-text {
+.guoku-content.user-page .content-panel .panel-content-wrapper .note-cell .note-content-wrapper .note-text,
+.guoku-content.index-page .content-panel .panel-content-wrapper .note-cell .note-content-wrapper .note-text {
   font-size: 16px;
   color: #424242;
   line-height: 1.3;
 }
-.guoku-content.user-page .content-panel .panel-content-wrapper .note-cell .note-content-wrapper .note-info {
+.guoku-content.user-page .content-panel .panel-content-wrapper .note-cell .note-content-wrapper .note-info,
+.guoku-content.index-page .content-panel .panel-content-wrapper .note-cell .note-content-wrapper .note-info {
   font-size: 13px;
   color: #9d9e9f;
   position: absolute;
   bottom: 11px;
   right: 32px;
 }
-.guoku-content.user-page .content-panel .panel-content-wrapper .note-cell .note-entity-img-wrapper {
+.guoku-content.user-page .content-panel .panel-content-wrapper .note-cell .note-entity-img-wrapper,
+.guoku-content.index-page .content-panel .panel-content-wrapper .note-cell .note-entity-img-wrapper {
   width: 100%;
   padding-right: 80%;
 }
-.guoku-content.user-page .content-panel .panel-content-wrapper .article-cell {
+.guoku-content.user-page .content-panel .panel-content-wrapper .article-cell,
+.guoku-content.index-page .content-panel .panel-content-wrapper .article-cell {
   padding-left: 0px;
   left: -8px;
 }
-.guoku-content.user-page .content-panel .panel-content-wrapper .article-cell .more-article-wrapper {
+.guoku-content.user-page .content-panel .panel-content-wrapper .article-cell .more-article-wrapper,
+.guoku-content.index-page .content-panel .panel-content-wrapper .article-cell .more-article-wrapper {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
   margin: 10px!important;
 }
-.guoku-content.user-page .content-panel .panel-content-wrapper .tag-cell {
+.guoku-content.user-page .content-panel .panel-content-wrapper .tag-cell,
+.guoku-content.index-page .content-panel .panel-content-wrapper .tag-cell {
   text-align: center;
   padding: 20px 10px;
   min-height: 140px;
 }
-.guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-name {
+.guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-name,
+.guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .user-name {
   font-size: 18px;
 }
-.guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-social-status {
+.guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-social-status,
+.guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .user-social-status {
   color: #9d9e9f;
   font-size: 13px;
   position: absolute;
   padding-top: 10px;
 }
-.guoku-content.user-page .content-panel .panel-content-wrapper .empty-panel-content {
+.guoku-content.user-page .content-panel .panel-content-wrapper .empty-panel-content,
+.guoku-content.index-page .content-panel .panel-content-wrapper .empty-panel-content {
   display: block;
   text-align: center;
   min-height: 200px;
   padding-top: 90px;
   color: #9d9d9d;
 }
-.guoku-content.user-page .content-panel .panel-filter .filter-list li {
+.guoku-content.user-page .content-panel .panel-filter .filter-list li,
+.guoku-content.index-page .content-panel .panel-filter .filter-list li {
   border-right: 1px solid #f8f8f8;
   padding: 0px 15px;
   float: left;
 }
-.guoku-content.user-page .content-panel .panel-filter .filter-list li:last-child {
+.guoku-content.user-page .content-panel .panel-filter .filter-list li:last-child,
+.guoku-content.index-page .content-panel .panel-filter .filter-list li:last-child {
   border-right: none;
 }
-.guoku-content.user-page .user-right {
+.guoku-content.user-page .user-right,
+.guoku-content.index-page .user-right {
   background-color: #ffffff;
   padding: 18px 18px;
   -webkit-border-radius: 4px;
@@ -1715,7 +1836,8 @@ body > .container {
   -moz-box-shadow: 0px 0px 2px #dddddd;
   box-shadow: 0px 0px 2px #dddddd;
 }
-.guoku-content.user-page .user-right .section-title {
+.guoku-content.user-page .user-right .section-title,
+.guoku-content.index-page .user-right .section-title {
   border-left: 4px solid #9d9e9f;
   padding-left: 12px;
   position: relative;
@@ -2361,25 +2483,32 @@ body > .container {
 .main-content {
   margin-top: 110px;
 }
-.guoku-app {
+.guoku-app,
+.mobile-body {
   padding-bottom: 40px;
 }
-.guoku-app #guoku_main_nav {
+.guoku-app #guoku_main_nav,
+.mobile-body #guoku_main_nav {
   display: none;
 }
-.guoku-app .goods_detail {
+.guoku-app .goods_detail,
+.mobile-body .goods_detail {
   margin-top: 20px;
 }
-.guoku-app .main-content {
+.guoku-app .main-content,
+.mobile-body .main-content {
   margin-top: 20px;
 }
-.guoku-app #detail_breadcrumb {
+.guoku-app #detail_breadcrumb,
+.mobile-body #detail_breadcrumb {
   display: none;
 }
-.guoku-app .footer {
+.guoku-app .footer,
+.mobile-body .footer {
   display: none;
 }
-.guoku-app.event-body {
+.guoku-app.event-body,
+.mobile-body.event-body {
   padding-top: 0px;
 }
 #event_list_page #event_list .event-item {
@@ -2505,6 +2634,19 @@ body > .container {
   }
 }
 @media (max-width: 767px) {
+  #selection_article_list .selection-article-item .article-title {
+    min-height: 0px!important;
+  }
+  #selection_article_list .selection-article-item .article-intro {
+    min-height: 0px!important;
+  }
+  .guoku-card .entity-image-wrapper {
+    padding: 0px!important;
+    padding-top: 10px!im;
+  }
+  #index-banners .banner-image-cell {
+    padding: 0 0!important;
+  }
   #guoku_main_nav {
     background-color: #ffffff;
   }
@@ -2638,7 +2780,7 @@ body > .container {
     font-color: #9d9e9f !important;
   }
   #selection_article_list .selection-article-item .article-title {
-    min-height: 80px!important;
+    min-height: 66px!important;
   }
 }
 @media (min-width: 768px) {
@@ -2688,16 +2830,31 @@ body > .container {
     margin: 0 auto ;
   }
 }
-@media (max-width: 1199px) {
+@media (max-width: 1170px) {
   #selection_article_list .selection-article-item .article-title {
     font-size: 18px!important;
     font-weight: 600;
+  }
+  .guoku-content.index-page .late-category {
+    display: none;
   }
 }
 @media (min-width: 1170px) {
   .event_wrapper {
     width: 1170px;
   }
+  .guoku-content.index-page .category-cell.col-lg-2 {
+    width: 12.5%;
+  }
+}
+body .for-mobile {
+  display: none;
+}
+.mobile-body .for-browser {
+  display: none;
+}
+.mobile-body .for-mobile {
+  display: block;
 }
 .test {
   color: black;

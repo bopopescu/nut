@@ -14,3 +14,7 @@ class SbbannerAppView(TemplateView):
 
 class ArticleAppView(TemplateView):
     template_name = 'management/restful/ArticleApp.html'
+
+
+class FLinkAppView(TemplateView):
+    template_name = 'management/restful/FriendLinkApp.html'
