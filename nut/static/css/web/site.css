@@ -1609,7 +1609,7 @@ a:hover {
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
   }
-  .more-article-wrapper {
+  .article-onepage .more-article-wrapper {
     background-color: #ffffff;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -1622,26 +1622,26 @@ a:hover {
     box-shadow: 0px 0px 2px #dddddd;
     overflow: hidden;
   }
-  .more-article-wrapper .cover-wrapper a {
+  .article-onepage .more-article-wrapper .cover-wrapper a {
     display: block;
     padding: 8px;
   }
-  .more-article-wrapper .title-wrapper {
+  .article-onepage .more-article-wrapper .title-wrapper {
     padding-top: 10px;
   }
-  .more-article-wrapper .title-wrapper a {
+  .article-onepage .more-article-wrapper .title-wrapper a {
     color: #424242;
   }
-  .more-article-wrapper .title-wrapper a:hover,
-  .more-article-wrapper .title-wrapper a:focus {
+  .article-onepage .more-article-wrapper .title-wrapper a:hover,
+  .article-onepage .more-article-wrapper .title-wrapper a:focus {
     color: #424242;
     text-decoration: underline;
   }
-  .more-article-wrapper .title-wrapper .title {
+  .article-onepage .more-article-wrapper .title-wrapper .title {
     padding: 5px 15px;
     font-size: 22px;
   }
-  .more-article-wrapper .article-digest {
+  .article-onepage .more-article-wrapper .article-digest {
     padding: 10px 15px 15px 15px;
     font-size: 13px;
     color: #9d9e9f;
