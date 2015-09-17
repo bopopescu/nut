@@ -117,20 +117,19 @@ def user_like(request, category_id, user_id):
 # @require_GET
 # @check_sign
 def entity_sort(category_id, reverse, offset, count, key):
-    if type(reverse) is not int:
-        reverse = int(reverse)
 
     if reverse != 0:
         entity_list = APIEntity.objects.sort(category_id, like=False)
     else:
         entity_list = APIEntity.objects.sort(category_id, like=False)
-
     paginator = Paginator(entity_list, count)
+
+    print entity_list.count()
 
     try:
         entities = paginator.page(offset)
-    except PageNotAnInteger:
-        entities = paginator.page(1)
+    # except PageNotAnInteger:
+    #     entities = paginator.page(1)
     except EmptyPage:
         return ErrorJsonResponse(status=404)
 
@@ -141,7 +140,7 @@ def entity_sort(category_id, reverse, offset, count, key):
     except Session_Key.DoesNotExist:
         el = None
     res = []
-    for row in entities.object_list:
+    for row in entities:
         r = row.v4_toDict(user_like_list=el)
         r.pop('images', None)
         r.pop('id', None)
@@ -183,6 +182,9 @@ def entity(request, category_id):
 
     _count = int(request.GET.get('count', '30'))
 
+    if _offset > 0 and _offset < 30:
+        return ErrorJsonResponse(status=404)
+    # print _offset, _count
     _offset = _offset / _count + 1
 
     _key = request.GET.get('session')
