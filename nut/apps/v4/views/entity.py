@@ -181,7 +181,7 @@ def guess(request):
     return SuccessJsonResponse(res)
 
 
-class APIntitySearchView(SearchView, JSONResponseMixin):
+class APIEntitySearchView(SearchView, JSONResponseMixin):
     form_class = APIEntitySearchForm
     http_method_names = ['get']
 
@@ -227,10 +227,11 @@ class APIntitySearchView(SearchView, JSONResponseMixin):
             self.visitor = _session.user
         except Session_Key.DoesNotExist:
             self.visitor = None
-        return super(APIntitySearchView, self).get(request, *args, **kwargs)
+        return super(APIEntitySearchView, self).get(request, *args, **kwargs)
 
+    @check_sign
     def dispatch(self, request, *args, **kwargs):
-        return super(APIntitySearchView, self).dispatch(request, *args, **kwargs)
+        return super(APIEntitySearchView, self).dispatch(request, *args, **kwargs)
 
 
 # @require_GET
