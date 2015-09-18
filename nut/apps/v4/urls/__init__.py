@@ -51,7 +51,7 @@ urlpatterns += patterns(
 
 urlpatterns += patterns(
     'apps.v4.views',
-    url(r'^articles/$', include('apps.v4.urls.articles')),
+    url(r'^articles/', include('apps.v4.urls.articles')),
 
     url(r'^entity/', include('apps.v4.urls.entity')),
     url(r'^category/', include('apps.v4.urls.category')),
