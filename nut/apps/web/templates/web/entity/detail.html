@@ -14,7 +14,7 @@
     <meta name="description" content="{%  if entity.brand|length != 0 %}{{ entity.brand }},{% endif %}{{ entity.title }},由果库网友分享的互联网上可购买得到的商品信息，透过网友们自发的喜爱、客观中立的点评，帮助你更便捷地发现好物，更高效地做出消费决策。">
 {% endblock %}
 
-{% block title %}{%  if entity.brand|length != 0 %}{{ entity.brand }} - {% endif %}{{ entity.title }} - {{ entity.category }} - {{ entity.category.group }}| 精英消费指南 | 果库{% endblock %}
+{% block title %}{%  if entity.brand|length != 0 %}{{ entity.brand }} - {% endif %}{{ entity.title }} - {{ entity.category }} - {{ entity.category.group }} | 精英消费指南 | 果库{% endblock %}
 
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/web/style.css' %}">

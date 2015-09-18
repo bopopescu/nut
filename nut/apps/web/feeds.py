@@ -9,7 +9,7 @@ from django.utils.feedgenerator import Rss201rev2Feed
 
 from apps.core.models import Selection_Entity, Selection_Article
 
-from django.utils.html import strip_tags
+from django.utils.html import strip_tags, escape
 
 from datetime import datetime
 
@@ -136,13 +136,13 @@ class ArticlesFeeds(Feed):
         return Selection_Article.objects.published().order_by('-pub_time')[0:30]
 
     def item_title(self, item):
-        return item.article.title
+        return escape(item.article.title)
 
     def item_link(self, item):
         return reverse('web_article_page', args=[item.article.pk])
 
     def item_author_name(self, item):
-        return item.article.creator.profile.nick
+        return escape(item.article.creator.profile.nick)
 
     def item_pubdate(self, item):
         return item.pub_time
@@ -152,7 +152,7 @@ class ArticlesFeeds(Feed):
         # content = strip_tags(item.article.bleached_content)
         desc = content.split(u'。')
         # return "<![CDATA[%s]]>" % (desc[0] + u'。')
-        return desc[0] + u'。'
+        return escape(desc[0] + u'。')
 
     def item_extra_kwargs(self, item):
         # extra = super(ArticlesFeeds, self).item_extra_kwargs(item)
@@ -161,8 +161,6 @@ class ArticlesFeeds(Feed):
                 'content_encoded': "<![CDATA[%s]]>" % item.article.bleached_content,
                 # 'content_encoded': "<![CDATA[%s]]>" % u'<p>test</p>',
                 }
-
-
         return extra
 
 
