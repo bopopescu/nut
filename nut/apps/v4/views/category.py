@@ -17,7 +17,6 @@ log = getLogger('django')
 class CategoryListView(BaseJsonView):
 
     http_method_names = 'get'
-
     def get_data(self, context):
         res = Category.objects.toDict()
         return res
