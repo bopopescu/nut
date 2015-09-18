@@ -97,7 +97,7 @@ class ArticleSearchView(SearchView, JSONResponseMixin):
             self.visitor = None
         return super(ArticleSearchView, self).get(request, *args, **kwargs)
 
-    # @check_sign
+    @check_sign
     def dispatch(self, request, *args, **kwargs):
         return super(ArticleSearchView, self).dispatch(request, *args, **kwargs)
 
