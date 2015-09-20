@@ -1182,7 +1182,7 @@ class WeChat_Token(BaseModel):
 from apps.core.utils.articlecontent import contentBleacher
 from apps.tag.models import Content_Tags
 from django.contrib.contenttypes.models import ContentType
-from django.utils.http import escape
+from django.utils.html import escape
 class Article(BaseModel):
 
     (remove, draft, published) = xrange(3)
