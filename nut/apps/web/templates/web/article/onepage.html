@@ -146,9 +146,10 @@
     </div>
 
 {% endblock %}
-
+{% block counter_script %}
+        <script src="{% static 'js/counter/counter.js' %}"></script>
+{% endblock %}
 {% block script %}
-
     <script type="text/javascript" language="javascript">
         function renderEntityCard(){
                 var cardList = $('.guoku-card');
@@ -198,7 +199,6 @@
         };
     </script>
     <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2038803" charset="utf-8"></script>
-    <script src="{% static 'js/counter/counter.js' %}"></script>
     {#    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>#}
     {#    <script>#}
     {#        wx.config({#}
