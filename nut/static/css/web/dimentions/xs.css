@@ -528,6 +528,21 @@
   .guoku-content.user-page .content-panel .note-cell {
     margin-bottom: 10px;
   }
+  #main_article .article-wrapper .title-wrapper h2 {
+    font-size: 28px;
+  }
+  #main_article .divider {
+    margin-top: 20px;
+  }
+  #main_article .writer-wrapper {
+    padding-top: 30px;
+  }
+  #main_article .writer-wrapper .writer-intro {
+    padding-left: 28px;
+  }
+  #main_article .writer-wrapper .writer-intro .writer-bio {
+    margin-top: 0px;
+  }
   .more-article-wrapper .title-wrapper {
     padding-top: 5px;
   }
