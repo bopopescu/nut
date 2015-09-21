@@ -2642,7 +2642,7 @@ body.compact-body {
   }
   .guoku-card .entity-image-wrapper {
     padding: 0px!important;
-    padding-top: 10px!im;
+    padding-top: 10px!important;
   }
   #index-banners .banner-image-cell {
     padding: 0 0!important;
