@@ -139,9 +139,10 @@ class DiscoverView(BaseJsonView):
             el = None
 
         res['articles'] = list()
-        start_date = datetime.now()
-        enda_date = start_date - timedelta(days=3)
-        popular_articles = APISeletion_Articles.objects.filter(is_published=True, pub_time__range=(enda_date, start_date)).order_by('-article__read_count')[:3]
+        # start_date = datetime.now()
+        # enda_date = start_date - timedelta(days=3)
+        # popular_articles = APISeletion_Articles.objects.filter(is_published=True, pub_time__range=(enda_date, start_date)).order_by('-article__read_count')[:3]
+        popular_articles = APISeletion_Articles.objects.discover()[:3]
         for row in popular_articles:
             print type(row)
             r = {
