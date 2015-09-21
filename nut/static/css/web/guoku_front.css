@@ -1260,7 +1260,7 @@ body.compact-body {
 #index-banners {
   width: 100%;
   margin: 0 auto;
-  max-width: 1450px;
+  max-width: 1170px;
 }
 #index-banners .slick-list {
   overflow: visible!important;
@@ -2643,6 +2643,9 @@ body.compact-body {
   .guoku-card .entity-image-wrapper {
     padding: 0px!important;
     padding-top: 10px!important;
+  }
+  #index-banners .slick-list {
+    overflow: hidden!important;
   }
   #index-banners .banner-image-cell {
     padding: 0 0!important;
