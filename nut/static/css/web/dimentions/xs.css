@@ -421,6 +421,9 @@
     padding: 0px!important;
     padding-top: 10px!important;
   }
+  #index-banners .slick-list {
+    overflow: hidden!important;
+  }
   #index-banners .banner-image-cell {
     padding: 0 0!important;
   }
