@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.cache import cache
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from random import shuffle
 from django.core.paginator import  Paginator,InvalidPage
@@ -21,7 +21,20 @@ class ArticleManager(models.Manager):
         return self.get_queryset().using('slave').filter(publish=0, creator=user).order_by('-updated_datetime')
 
 
+class SelectionArticleQuerySet(models.query.QuerySet):
+    def discover(self):
+        start_date = datetime.now()
+        end_date = start_date - timedelta(days=3)
+        return self.filter(is_published=True, pub_time__range=(end_date, start_date)).order_by('-article__read_count')
+
+
 class SelectionArticleManager(models.Manager):
+
+    def get_queryset(self):
+        return SelectionArticleQuerySet(self.model, using=self._db)
+
+    def discover(self):
+        return self.get_queryset().discover()
 
     def get_popular(self):
         key = self.get_popular_cache_key()
