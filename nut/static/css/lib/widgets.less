@@ -202,13 +202,23 @@
 .user-page .img-box img,
 .img-holder a,
 .selection-article-item .img-holder,
-.thumbnail.category img{
+.thumbnail.category img,
+.hover-light
+{
    .transition(all 0.35s);
    &:hover{
      opacity: @hover-opacity;
    }
 }
 
+
+.hover-light{
+   a{
+     &:hover, &:focus, &:active,&:visited{
+        text-decoration:none;
+     }
+   }
+}
 //
 
 .little-round-tag{
