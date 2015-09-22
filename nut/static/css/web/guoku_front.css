@@ -1263,7 +1263,7 @@ body.compact-body {
   max-width: 1170px;
 }
 #index-banners .slick-list {
-  overflow: visible!important;
+  overflow: hidden!important;
 }
 #index-banners .slick-list .slick-slide:active,
 #index-banners .slick-list .slick-slide:focus,
