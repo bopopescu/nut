@@ -20,7 +20,7 @@
             <div class="caption">
                 <p class="note">{{ entity.top_note|truncatechars:70 }}</p>
             </div>
-            <div class="info">
+            <div class="info for-browser">
                 {% if entity.id in user_entity_likes %}
                     <a class="btn btn-like pull-left" href="javascript:;" data-entity="{{ entity.id }}" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
                     <i class="fa fa-heart"></i>
