@@ -139,7 +139,7 @@ class DiscoverView(BaseJsonView):
             el = None
 
         res['articles'] = list()
-        popular_articles = APISeletion_Articles.objects.filter().order_by('-article__read_count')[:3]
+        popular_articles = APISeletion_Articles.objects.discover()[:3]
         for row in popular_articles:
             print type(row)
             r = {
@@ -375,6 +375,7 @@ def visit_item(request, item_id):
 
     else:
         return HttpResponseRedirect(b.link)
+
 
 @csrf_exempt
 @check_sign
