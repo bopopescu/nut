@@ -3,13 +3,13 @@
 {% load  common guoku %}
 
 {% block meta-og %}
-    <meta property="og:title" content="果库图文 | 精英消费指南 | 理想生活主张" >
+    <meta property="og:title" content="{{ article.title }}" >
     <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
     <meta property="og:description" content="果库的图文详情页，网友们参与撰写的消费经验文章，直接关联到优质商品信息，真实的图文记录、场景购物清单，帮助你解决具体的生活问题，更便捷地发现好物，更高效地做出品质消费决策。">
 {% endblock %}
 
 {% block meta-common %}
-    <meta name="title"  content="{{ article.title }} | 精英消费指南 | 果库">
+    <meta name="title"  content="{{ article.title }} ">
     <meta name="keywords" content="{{ article.title }},{{ article|article_tag_string }},果库、guoku、果库网、果库应用、精英消费指南、消费指南、精品导购应用、导购、购物指南、购物分享、淘宝网购物、淘宝网精选、精品推荐,">
     <meta name="description" content="{{ article.title }},由果库网友撰写的消费经验文章，或是作者亲身的购买使用感受以及中立消费见解，或是解决具体生活问题的场景购物清单，又或是饱含消费主张的经验故事分享。真实的图文记录，帮助你更高效地做出消费决策，养成正向的消费价值观。">
 {% endblock %}
