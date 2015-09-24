@@ -1,42 +1,25 @@
 {% load i18n staticfiles %}
 {% load common guoku %}
 
-<div guoku_ele="True" class="guoku-card container-fluid" data_entity_hash="{{ entity.entity_hash }}">
-
-
-
-    <div class="row">
-        <div class="entity-image-wrapper col-xs-3">
-            {% if not isFromMobile %}
-            <a href="{{ entity.get_absolute_url }}#from=article" target="_blank" class="entity-img-link for-browser">
-            <img class="img-responsive" src="{{ entity.chief_image|resize:'240' }}" />
-            </a>
-            {% else %}
-            <a href="{{ entity.mobile_url }}"  class="entity-img-link for-mobile">
-             <img class="img-responsive" src="{{ entity.chief_image|resize:'240' }}" />
-            </a>
-            {% endif %}
-        </div>
-        <div class="entity-info-wrapper col-xs-9">
-            <div class="entity-brand">{% if entity.brand|length != 0 %}{{ entity.brand }}{% endif %}</div>
-            <div class="entity-title">{{ entity.title }}</div>
-            <div class="entity-info-detail">
-                <div class="entity-price">&#65509;{{ entity.price }}</div>
-                {% if not isFromMobile %}
-                <div class="entity-link for-browser">
-                    <a href="{{ entity.get_absolute_url }}#from=article" target="_blank">
-                    查看详情<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
-                    </a>
-                </div>
-                {% else %}
-                <div class="entity-link for-mobile">
-                    <a href="{{ entity.mobile_url }}" >
-                    查看详情<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
-                    </a>
-                </div>
-                {% endif %}
-            </div>
-        </div>
-    </div>
+<div guoku_ele="True" class="guoku-card container-fluid hover-light" data_entity_hash="{{ entity.entity_hash }}">
+    {% if isFromMobile %}<a href="{{ entity.mobile_url }}">{% else %}<a href="{{ entity.absolute_url }}">{% endif %}
+    <img src="{{ entity.chief_image|resize:'240' }}" width="240px" >
+    <p class="entity-brand info">
+            <span>
+            {% if entity.brand|length != 0 %}{{ entity.brand }}{% endif %}
+            </span>
+    </p>
+    <p class="entity-title info">
+        <span>{{ entity.title }}</span>
+    </p>
+    <p class="entity-price info">
+            <span>
+            &#65509;{{ entity.price }}
+            </span>
+    </p>
+    </a>
+    {% if isFromMobile %}<a href="{{ entity.mobile_url }}">{% else %}<a href="{{ entity.absolute_url }}">{% endif %}
+    <p class="entity-link">查看详情</p>
+    </a>
 
 </div>
