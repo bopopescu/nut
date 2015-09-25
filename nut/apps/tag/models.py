@@ -139,6 +139,15 @@ class Tags(BaseModel):
     def get_absolute_url(self):
         return "/tag/%s/" % self.name
 
+    @property
+    def articles(self):
+        return self.content_tags_set.filter(target_content_type_id=31)
+
+    @property
+    def articlesCount(self):
+        return self.articles.count()
+
+
 
 class Content_Tags(BaseModel):
     tag = models.ForeignKey(Tags)

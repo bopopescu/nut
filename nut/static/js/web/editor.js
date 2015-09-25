@@ -401,8 +401,8 @@
                 error: function(data){
                     bootbox.hideAll();
                     bootbox.alert('上传失败， 请稍后再试');
-                    console.log(data);
-                    console.log('FILE UPLOAD FAIL');
+                    //console.log(data);
+                    //console.log('FILE UPLOAD FAIL');
                 }
             });
         }

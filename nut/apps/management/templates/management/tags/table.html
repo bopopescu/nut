@@ -7,6 +7,8 @@
                     <tr>
                         <th>#</th>
                         <th>{% trans 'name' %}</th>
+                        <th>{% trans 'entity_count' %}</th>
+                        <th>{% trans 'article_count' %}</th>
                         <th>{% trans 'status' %}</th>
 {#                        <th>{% trans 'created datetime' %}</th>#}
                         <th>{% trans 'operation' %}</th>
@@ -17,6 +19,8 @@
                         <tr>
                             <td>{{ tag.pk }}</td>
                             <td>{{ tag.name }}</td>
+                            <td>not implement</td>
+                            <td>{{ tag.articlesCount }}</td>
                             <td>{{ tag.status }}</td>
 {#                            <td><a href="{% url 'management_user_edit' tag.creator_id %}" target="_blank">{{ tag.creator.profile.nickname }}</a></td>#}
 {#                            <td>{{ tag.created_time|date:'Y-m-d H:i:s' }}</td>#}
