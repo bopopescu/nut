@@ -59,12 +59,19 @@ class Counter(JSONResponseMixin, AjaxResponseMixin, View):
 
 class CounterView(View):
     __metaclass__ = ABCMeta
+
     @abstractmethod
     def get_couter_key(self):
         pass
 
     @abstractmethod
-    def incr_key(self , key , value):
+    def get_store(self):
+        pass
+
+    @abstractmethod
+    def incr_key(self , key ):
+        store = self.get_store()
+        store.incr(key)
         pass
 
     @abstractmethod
@@ -72,7 +79,7 @@ class CounterView(View):
         pass
 
 
-class ArticleImageCounter(View):
+class ArticleImageCounter(CounterView):
     def get_img_data(self):
         img_key = 'guoku_counter_image_key'
         img_data  = cache.get(img_key)
