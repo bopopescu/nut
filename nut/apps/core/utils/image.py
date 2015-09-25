@@ -204,14 +204,15 @@ class LimitedImage(HandleImage):
         return
 
     def save(self, path = None, resize=False, square=False, maxWidth=None,maxQuality=None):
-        if maxWidth:
-            self.handleWidth(maxWidth)
-
-        if maxQuality:
-            self.handleQuality(maxQuality)
+        # if maxWidth:
+        #     self.handleWidth(maxWidth)
+        #
+        # if maxQuality:
+        #     self.handleQuality(maxQuality)
 
         file_name = super(LimitedImage,self).save(path, resize ,square)
-        # (width, height) = self.img.size
+        if maxWidth and self.img.width > int(maxWidth):
+            file_name = file_name.replace('images/', 'images/'+maxWidth+'/')
 
         return file_name
 

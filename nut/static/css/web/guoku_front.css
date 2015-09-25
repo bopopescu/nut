@@ -919,7 +919,6 @@ ul li {
 .article-wrapper .content-wrapper img,
 .article-wrapper .note-editable img {
   max-width: 100%;
-  max-height: 240px;
   margin: 0 auto ;
   display: block;
 }
@@ -962,6 +961,10 @@ ul li {
   background-color: #f8f8f8;
   padding-top: 10px;
   margin-bottom: 15px;
+}
+.article-wrapper .content-wrapper .guoku-card img,
+.article-wrapper .note-editable .guoku-card img {
+  max-height: 240px;
 }
 .article-wrapper .content-wrapper .guoku-card a:hover,
 .article-wrapper .note-editable .guoku-card a:hover,
