@@ -1074,7 +1074,7 @@ ul li {
   color: #357ebd;
 }
 .mobile-body #main_article .writer-wrapper {
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 }
 @-moz-document url-prefix() {
   fieldset {
