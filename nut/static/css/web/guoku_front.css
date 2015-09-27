@@ -552,7 +552,8 @@ ul li {
 .user-page .img-box img,
 .img-holder a,
 .selection-article-item .img-holder,
-.thumbnail.category img {
+.thumbnail.category img,
+.hover-light {
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   -ms-transition: all 0.35s;
@@ -569,8 +570,15 @@ ul li {
 .user-page .img-box img:hover,
 .img-holder a:hover,
 .selection-article-item .img-holder:hover,
-.thumbnail.category img:hover {
+.thumbnail.category img:hover,
+.hover-light:hover {
   opacity: 0.7;
+}
+.hover-light a:hover,
+.hover-light a:focus,
+.hover-light a:active,
+.hover-light a:visited {
+  text-decoration: none;
 }
 .little-round-tag {
   -webkit-border-radius: 40px;
@@ -911,12 +919,27 @@ ul li {
 .article-wrapper .content-wrapper img,
 .article-wrapper .note-editable img {
   max-width: 100%;
+  max-height: 240px;
   margin: 0 auto ;
   display: block;
 }
 .article-wrapper .content-wrapper a,
 .article-wrapper .note-editable a {
   padding: 0px 9px;
+}
+.article-wrapper .content-wrapper a .info,
+.article-wrapper .note-editable a .info {
+  color: #424242;
+}
+.article-wrapper .content-wrapper a .info:hover,
+.article-wrapper .note-editable a .info:hover,
+.article-wrapper .content-wrapper a .info:visited,
+.article-wrapper .note-editable a .info:visited,
+.article-wrapper .content-wrapper a .info:focus,
+.article-wrapper .note-editable a .info:focus,
+.article-wrapper .content-wrapper a .info:active,
+.article-wrapper .note-editable a .info:active {
+  color: #424242;
 }
 .article-wrapper .content-wrapper a:after,
 .article-wrapper .note-editable a:after {
@@ -934,68 +957,124 @@ ul li {
 .article-wrapper .content-wrapper .guoku-card,
 .article-wrapper .note-editable .guoku-card {
   display: block;
-  width: 100%;
+  margin: 0 auto;
+  width: 240px;
   background-color: #f8f8f8;
+  padding-top: 10px;
+  margin-bottom: 15px;
 }
-.article-wrapper .content-wrapper .guoku-card div,
-.article-wrapper .note-editable .guoku-card div {
-  margin-bottom: 0px!important;
+.article-wrapper .content-wrapper .guoku-card a:hover,
+.article-wrapper .note-editable .guoku-card a:hover,
+.article-wrapper .content-wrapper .guoku-card a:focus,
+.article-wrapper .note-editable .guoku-card a:focus,
+.article-wrapper .content-wrapper .guoku-card a:active,
+.article-wrapper .note-editable .guoku-card a:active,
+.article-wrapper .content-wrapper .guoku-card a:visited,
+.article-wrapper .note-editable .guoku-card a:visited {
+  text-decoration: none;
+}
+.article-wrapper .content-wrapper .guoku-card a,
+.article-wrapper .note-editable .guoku-card a {
+  padding: 0;
 }
 .article-wrapper .content-wrapper .guoku-card a:after,
 .article-wrapper .note-editable .guoku-card a:after {
+  content: none;
+}
+.article-wrapper .content-wrapper .guoku-card p,
+.article-wrapper .note-editable .guoku-card p {
+  margin: 8px 0;
+}
+.article-wrapper .content-wrapper .guoku-card p span,
+.article-wrapper .note-editable .guoku-card p span {
+  display: block;
+  margin: 0 auto ;
+  max-width: 240px;
+  font-size: 14px;
+}
+.article-wrapper .content-wrapper .guoku-card .entity-brand,
+.article-wrapper .note-editable .guoku-card .entity-brand {
+  font-weight: 600;
+}
+.article-wrapper .content-wrapper .guoku-card .entity-link,
+.article-wrapper .note-editable .guoku-card .entity-link {
+  text-align: center;
+  font-size: 14px;
+  padding: 15px 0 ;
+}
+.article-wrapper .content-wrapper .guoku-card__deprecate,
+.article-wrapper .note-editable .guoku-card__deprecate {
+  display: block;
+  width: 100%;
+  background-color: transparent;
+}
+.article-wrapper .content-wrapper .guoku-card__deprecate .entity-link,
+.article-wrapper .note-editable .guoku-card__deprecate .entity-link {
+  text-align: center;
+}
+.article-wrapper .content-wrapper .guoku-card__deprecate .entity-link a,
+.article-wrapper .note-editable .guoku-card__deprecate .entity-link a {
+  display: inline-block;
+}
+.article-wrapper .content-wrapper .guoku-card__deprecate div,
+.article-wrapper .note-editable .guoku-card__deprecate div {
+  margin-bottom: 0px!important;
+}
+.article-wrapper .content-wrapper .guoku-card__deprecate a:after,
+.article-wrapper .note-editable .guoku-card__deprecate a:after {
   display: none;
   content: '';
   margin: 0px;
 }
-.article-wrapper .content-wrapper .guoku-card .entity-image-wrapper,
-.article-wrapper .note-editable .guoku-card .entity-image-wrapper {
+.article-wrapper .content-wrapper .guoku-card__deprecate .entity-image-wrapper,
+.article-wrapper .note-editable .guoku-card__deprecate .entity-image-wrapper {
   padding: 10px;
 }
-.article-wrapper .content-wrapper .guoku-card .entity-image-wrapper a,
-.article-wrapper .note-editable .guoku-card .entity-image-wrapper a {
+.article-wrapper .content-wrapper .guoku-card__deprecate .entity-image-wrapper a,
+.article-wrapper .note-editable .guoku-card__deprecate .entity-image-wrapper a {
   padding: 0px 0px;
 }
-.article-wrapper .content-wrapper .guoku-card .entity-image-wrapper img,
-.article-wrapper .note-editable .guoku-card .entity-image-wrapper img {
+.article-wrapper .content-wrapper .guoku-card__deprecate .entity-image-wrapper img,
+.article-wrapper .note-editable .guoku-card__deprecate .entity-image-wrapper img {
   max-height: 125px;
 }
-.article-wrapper .content-wrapper .guoku-card .entity-info-wrapper,
-.article-wrapper .note-editable .guoku-card .entity-info-wrapper {
+.article-wrapper .content-wrapper .guoku-card__deprecate .entity-info-wrapper,
+.article-wrapper .note-editable .guoku-card__deprecate .entity-info-wrapper {
   height: 145px;
 }
-.article-wrapper .content-wrapper .guoku-card .entity-brand,
-.article-wrapper .note-editable .guoku-card .entity-brand {
+.article-wrapper .content-wrapper .guoku-card__deprecate .entity-brand,
+.article-wrapper .note-editable .guoku-card__deprecate .entity-brand {
   margin: 10px 10px;
 }
-.article-wrapper .content-wrapper .guoku-card .entity-title,
-.article-wrapper .note-editable .guoku-card .entity-title {
+.article-wrapper .content-wrapper .guoku-card__deprecate .entity-title,
+.article-wrapper .note-editable .guoku-card__deprecate .entity-title {
   margin: 10px 10px 0px 10px;
   font-size: 18px;
 }
-.article-wrapper .content-wrapper .guoku-card .entity-info-detail,
-.article-wrapper .note-editable .guoku-card .entity-info-detail {
+.article-wrapper .content-wrapper .guoku-card__deprecate .entity-info-detail,
+.article-wrapper .note-editable .guoku-card__deprecate .entity-info-detail {
   position: absolute;
   width: 90%;
   bottom: 10px;
   padding-left: 10px;
 }
-.article-wrapper .content-wrapper .guoku-card .entity-info-detail .entity-price,
-.article-wrapper .note-editable .guoku-card .entity-info-detail .entity-price {
+.article-wrapper .content-wrapper .guoku-card__deprecate .entity-info-detail .entity-price,
+.article-wrapper .note-editable .guoku-card__deprecate .entity-info-detail .entity-price {
   display: inline-block;
   font-family: Georgia,serif;
   font-size: 18px;
   color: #357ebd;
 }
-.article-wrapper .content-wrapper .guoku-card .entity-info-detail .entity-link,
-.article-wrapper .note-editable .guoku-card .entity-info-detail .entity-link {
+.article-wrapper .content-wrapper .guoku-card__deprecate .entity-info-detail .entity-link,
+.article-wrapper .note-editable .guoku-card__deprecate .entity-info-detail .entity-link {
   float: right;
 }
-.article-wrapper .content-wrapper .guoku-card .entity-info-detail .entity-link i,
-.article-wrapper .note-editable .guoku-card .entity-info-detail .entity-link i {
+.article-wrapper .content-wrapper .guoku-card__deprecate .entity-info-detail .entity-link i,
+.article-wrapper .note-editable .guoku-card__deprecate .entity-info-detail .entity-link i {
   color: #357ebd;
 }
 .mobile-body #main_article .writer-wrapper {
-  padding-bottom: 60px;
+  padding-bottom: 20px;
 }
 @-moz-document url-prefix() {
   fieldset {
@@ -1252,6 +1331,7 @@ body > .container {
   -moz-box-shadow: 0px 0px 2px #dddddd;
   box-shadow: 0px 0px 2px #dddddd;
   overflow: hidden;
+  display: inline-block;
   margin-bottom: 10px;
 }
 body.compact-body {
@@ -1260,10 +1340,10 @@ body.compact-body {
 #index-banners {
   width: 100%;
   margin: 0 auto;
-  max-width: 1450px;
+  max-width: 1170px;
 }
 #index-banners .slick-list {
-  overflow: visible!important;
+  overflow: hidden!important;
 }
 #index-banners .slick-list .slick-slide:active,
 #index-banners .slick-list .slick-slide:focus,
@@ -2642,7 +2722,10 @@ body.compact-body {
   }
   .guoku-card .entity-image-wrapper {
     padding: 0px!important;
-    padding-top: 10px!im;
+    padding-top: 10px!important;
+  }
+  #index-banners .slick-list {
+    overflow: hidden!important;
   }
   #index-banners .banner-image-cell {
     padding: 0 0!important;
@@ -2750,6 +2833,21 @@ body.compact-body {
   }
   .guoku-content.user-page .content-panel .note-cell {
     margin-bottom: 10px;
+  }
+  #main_article .article-wrapper .title-wrapper h2 {
+    font-size: 28px;
+  }
+  #main_article .divider {
+    margin-top: 20px;
+  }
+  #main_article .writer-wrapper {
+    padding-top: 30px;
+  }
+  #main_article .writer-wrapper .writer-intro {
+    padding-left: 28px;
+  }
+  #main_article .writer-wrapper .writer-intro .writer-bio {
+    margin-top: 0px;
   }
   .more-article-wrapper .title-wrapper {
     padding-top: 5px;

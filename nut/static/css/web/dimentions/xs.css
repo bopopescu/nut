@@ -195,7 +195,8 @@
 .user-page .img-box img,
 .img-holder a,
 .selection-article-item .img-holder,
-.thumbnail.category img {
+.thumbnail.category img,
+.hover-light {
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   -ms-transition: all 0.35s;
@@ -212,8 +213,15 @@
 .user-page .img-box img:hover,
 .img-holder a:hover,
 .selection-article-item .img-holder:hover,
-.thumbnail.category img:hover {
+.thumbnail.category img:hover,
+.hover-light:hover {
   opacity: 0.7;
+}
+.hover-light a:hover,
+.hover-light a:focus,
+.hover-light a:active,
+.hover-light a:visited {
+  text-decoration: none;
 }
 .little-round-tag {
   -webkit-border-radius: 40px;
@@ -411,9 +419,18 @@
   }
 }
 @media (max-width: 767px) {
+  #selection_article_list .selection-article-item .article-title {
+    min-height: 0px!important;
+  }
+  #selection_article_list .selection-article-item .article-intro {
+    min-height: 0px!important;
+  }
   .guoku-card .entity-image-wrapper {
     padding: 0px!important;
     padding-top: 10px!important;
+  }
+  #index-banners .slick-list {
+    overflow: hidden!important;
   }
   #index-banners .banner-image-cell {
     padding: 0 0!important;
@@ -522,6 +539,21 @@
   .guoku-content.user-page .content-panel .note-cell {
     margin-bottom: 10px;
   }
+  #main_article .article-wrapper .title-wrapper h2 {
+    font-size: 28px;
+  }
+  #main_article .divider {
+    margin-top: 20px;
+  }
+  #main_article .writer-wrapper {
+    padding-top: 30px;
+  }
+  #main_article .writer-wrapper .writer-intro {
+    padding-left: 28px;
+  }
+  #main_article .writer-wrapper .writer-intro .writer-bio {
+    margin-top: 0px;
+  }
   .more-article-wrapper .title-wrapper {
     padding-top: 5px;
   }
@@ -551,7 +583,7 @@
     font-color: #9d9e9f !important;
   }
   #selection_article_list .selection-article-item .article-title {
-    min-height: 80px!important;
+    min-height: 66px!important;
   }
 }
 @media (min-width: 768px) {

@@ -111,9 +111,15 @@
             {% for show_editor in show_editor_recommendations %}
                 <div class="col-xs-12 col-sm-3">
                     <div class="recommendation-item ">
-                        <a href="{{ show_editor.recommendation.link }}">
-                            <img class="img-responsive" src="{{ show_editor.recommendation.image_url }}" width="450" height="225">
+                        {% if isFromMobile %}
+                        <a href="{{ show_editor.recommendation.link|mobile_link }}">
+                            <img class="img-responsive" src="{{ show_editor.recommendation.image_url }}" >
                         </a>
+                        {% else %}
+                        <a href="{{ show_editor.recommendation.link }}">
+                            <img class="img-responsive" src="{{ show_editor.recommendation.image_url }}" >
+                        </a>
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}

@@ -1182,6 +1182,7 @@ class WeChat_Token(BaseModel):
 from apps.core.utils.articlecontent import contentBleacher
 from apps.tag.models import Content_Tags
 from django.contrib.contenttypes.models import ContentType
+from django.utils.html import escape
 class Article(BaseModel):
 
     (remove, draft, published) = xrange(3)
@@ -1216,15 +1217,12 @@ class Article(BaseModel):
 
     @property
     def tag_list(self):
-        _tag_list = Content_Tags.objects\
-                            .filter(target_object_id=self.id, target_content_type=ContentType.objects.get_for_model(self))\
-                            .values_list('tag__name', flat=True)
-        return list(set(list(_tag_list)))
-
+        _tag_list = Content_Tags.objects.article_tags(self.id)
+        return _tag_list
 
     @property
     def bleached_content(self):
-        cover_html = ' <img class="article-cover img-responsive" itemprop="image" src="%s" alt="%s" />' % (self.cover_url, self.title)
+        cover_html = '<img class="article-cover img-responsive" src="%s">' % self.cover_url
         return cover_html + contentBleacher(self.content)
 
     @property

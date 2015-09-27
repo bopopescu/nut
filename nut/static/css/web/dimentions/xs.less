@@ -22,10 +22,13 @@
     .guoku-card{
       .entity-image-wrapper{
         padding:0px!important;
-        padding-top:10px!im;
+        padding-top:10px!important;
       }
     }
     #index-banners{
+        .slick-list{
+          overflow:hidden!important;
+        }
         .banner-image-cell {
           padding: 0 0!important;
         }
@@ -167,6 +170,35 @@
          }
        }
     }
+// for mobile article
+
+  #main_article{
+    .article-wrapper{
+      .title-wrapper{
+        h2{
+          font-size: @mobile-title-size;
+        }
+      }
+    }
+    .divider{
+      margin-top: 20px;
+    }
+    .writer-wrapper{
+      padding-top: 30px;
+      .writer-avatar{
+      }
+      .writer-intro{
+        padding-left:28px;
+        .writer-name{
+        }
+        .writer-bio{
+          margin-top:0px;
+        }
+
+      }
+    }
+  }
+
 
 //    reuse parts
   .more-article-wrapper{
