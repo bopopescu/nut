@@ -8,6 +8,8 @@ from django.db.models import Count
 from django.core.cache import cache
 
 from django.utils.log import getLogger
+
+from urllib import  quote
 # from apps.core.manager import dictfetchall
 import random
 
@@ -127,6 +129,11 @@ class Tags(BaseModel):
 
     def __unicode__(self):
         return self.name
+
+    @property
+    def quoted_tag_name(self):
+        return quote(self.name.encode('utf-8'))
+
 
     @property
     def tag_hash(self):
