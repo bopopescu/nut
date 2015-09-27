@@ -30,6 +30,10 @@ class ContentTagQuerySet(models.query.QuerySet):
     def entity_tags(self, nid_list):
         return self.filter(target_object_id__in=nid_list).values('tag','tag__name').annotate(ncount=Count('tag')).order_by('-ncount')
 
+    def article_tags(self, article_id):
+        _tag_list =  self.filter(target_object_id=article_id, target_content_type_id=31)\
+                   .values_list('tag__name', flat=True)
+        return list(set(list(_tag_list)))
 
 class ContentTagManager(models.Manager):
 
@@ -98,9 +102,18 @@ class ContentTagManager(models.Manager):
 
         return res
 
+    def article_tags(self, article_id):
+        res = self.get_queryset().article_tags(article_id)
+        return res
+
     def entity_tags(self, nid_list):
         res = self.get_queryset().entity_tags(nid_list)
         return res
+
+
+
+
+
 
 
 class Tags(BaseModel):

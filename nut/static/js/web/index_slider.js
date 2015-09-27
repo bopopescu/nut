@@ -5,6 +5,7 @@ $('#index-banners').slick({
   arrows: true,
   slidesToShow: 1,
   centerPadding:'15%',
+  dots:true,
 
   //centerPadding: '60px',
   //slidesToShow: 3,
