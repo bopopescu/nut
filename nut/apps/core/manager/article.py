@@ -9,6 +9,7 @@ from django.core.paginator import  Paginator,InvalidPage
 from django.utils.log import getLogger
 log = getLogger('django')
 
+
 class ArticleManager(models.Manager):
     def get_published_by_user(self,user):
         # publish = 2   because  Article.published = 2, user 2 to avoid circular reference
