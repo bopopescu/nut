@@ -7,6 +7,8 @@
                     <tr>
                         <th>#</th>
                         <th>{% trans 'name' %}</th>
+                        <th>{% trans 'note_count' %}</th>
+                        <th>{% trans 'article_count' %}</th>
                         <th>{% trans 'status' %}</th>
 {#                        <th>{% trans 'created datetime' %}</th>#}
                         <th>{% trans 'operation' %}</th>
@@ -17,14 +19,16 @@
                         <tr>
                             <td>{{ tag.pk }}</td>
                             <td>{{ tag.name }}</td>
+                            <td>{{ tag.note_count }}</td>
+                            <td>{{ tag.articlesCount }}</td>
                             <td>{{ tag.status }}</td>
 {#                            <td><a href="{% url 'management_user_edit' tag.creator_id %}" target="_blank">{{ tag.creator.profile.nickname }}</a></td>#}
 {#                            <td>{{ tag.created_time|date:'Y-m-d H:i:s' }}</td>#}
                             <td>
                                 <div class="btn-group">
 {#                                    {{ tag.name }}#}
-                                    <a class="btn btn-primary" href="{% url 'management_tag_entities' tag.name %}" target="_blank">{% trans 'entities' %}</a>
-                                     <a class="btn btn-success" href="{% url 'management_tag_articles' tag.name %}" target="_blank">{% trans 'articles' %}</a>
+                                    <a class="btn btn-primary" href="{% url 'management_tag_entities' tag.quoted_tag_name %}" target="_blank">{% trans 'entities' %}</a>
+                                     <a class="btn btn-success" href="{% url 'management_tag_articles' tag.quoted_tag_name %}" target="_blank">{% trans 'articles' %}</a>
                                     <a class="btn btn-default" href="{% url 'management_tag_edit' tag.pk %}" target="_blank">{% trans 'edit' %}</a>
                                 </div>
                             </td>

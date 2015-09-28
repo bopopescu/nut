@@ -65,10 +65,12 @@ def upload_image(request):
         log.info('img upload begin----')
 
         file = request.FILES.get('file')
+        maxWidth = request.GET.get('maxWidth', None)
+
         image = LimitedImage(file)
         log.info('image handeled and returned')
         log.info(image)
-        filename = image.save()
+        filename = image.save(maxWidth=maxWidth)
         log.info('image saved -----')
         log.info(filename)
 

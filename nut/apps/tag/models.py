@@ -8,6 +8,8 @@ from django.db.models import Count
 from django.core.cache import cache
 
 from django.utils.log import getLogger
+
+from urllib import  quote
 # from apps.core.manager import dictfetchall
 import random
 
@@ -129,6 +131,11 @@ class Tags(BaseModel):
         return self.name
 
     @property
+    def quoted_tag_name(self):
+        return quote(self.name.encode('utf-8'))
+
+
+    @property
     def tag_hash(self):
         return self.hash[:8]
 
@@ -138,6 +145,15 @@ class Tags(BaseModel):
 
     def get_absolute_url(self):
         return "/tag/%s/" % self.name
+
+    @property
+    def articles(self):
+        return self.content_tags_set.filter(target_content_type_id=31)
+
+    @property
+    def articlesCount(self):
+        return self.articles.count()
+
 
 
 class Content_Tags(BaseModel):
