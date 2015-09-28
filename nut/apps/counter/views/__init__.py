@@ -60,6 +60,7 @@ class Counter(JSONResponseMixin, AjaxResponseMixin, View):
 class CounterView(View):
     __metaclass__ = ABCMeta
 
+
     @abstractmethod
     def get_couter_key(self):
         pass
