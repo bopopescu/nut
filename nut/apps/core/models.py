@@ -1217,15 +1217,12 @@ class Article(BaseModel):
 
     @property
     def tag_list(self):
-        _tag_list = Content_Tags.objects\
-                            .filter(target_object_id=self.id, target_content_type=ContentType.objects.get_for_model(self))\
-                            .values_list('tag__name', flat=True)
-        return list(set(list(_tag_list)))
-
+        _tag_list = Content_Tags.objects.article_tags(self.id)
+        return _tag_list
 
     @property
     def bleached_content(self):
-        cover_html = ' <img class="article-cover img-responsive" itemprop="image" src="%s" alt="%s" >' % (self.cover_url, escape(self.title))
+        cover_html = '<img class="article-cover img-responsive" src="%s">' % self.cover_url
         return cover_html + contentBleacher(self.content)
 
     @property

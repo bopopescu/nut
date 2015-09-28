@@ -10,6 +10,8 @@ from django.views.generic import ListView, FormView
 from apps.core.views import LoginRequiredMixin
 from apps.tag.models import Tags, Content_Tags
 
+from urllib import  unquote
+
 
 class TagListView(LoginRequiredMixin, ListView):
     template_name = 'management/tags/list.html'
@@ -26,6 +28,7 @@ class TagEntitiesView(LoginRequiredMixin, ListView):
     template_name = 'management/tags/entities.html'
 
     def get_queryset(self):
+
         try:
             self.tag = Tags.objects.get(name=self.tag_name)
         except Tags.DoesNotExist:
@@ -44,6 +47,7 @@ class TagEntitiesView(LoginRequiredMixin, ListView):
 
     def get(self, request, *args, **kwargs):
         self.tag_name = kwargs.pop('tag_name', None)
+        self.tag_name = unquote(str(self.tag_name)).decode('utf-8')
         assert self.tag_name is not None
         return super(TagEntitiesView, self).get(request, *args, **kwargs)
 
@@ -73,6 +77,7 @@ class ArticleTagListView(LoginRequiredMixin, ListView):
 
     def get(self, request, *args, **kwargs):
         self.tag_name = kwargs.pop('tag_name', None)
+        self.tag_name = unquote(str(self.tag_name)).decode('utf-8')
         assert self.tag_name is not None
         return super(ArticleTagListView, self).get(request, *args, **kwargs)
 
