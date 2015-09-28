@@ -115,4 +115,12 @@ def article_tag_string(article):
         return tag_string
 register.filter(article_tag_string)
 
+
+def mobile_link(value):
+   _value = value.decode('utf-8')
+   _value = _value.replace('http://www.guoku.com/detail/', 'guoku://entity/')
+   _value = _value.replace('http://www.guoku.com/articles/','http://m.guoku.com/articles/')
+   return _value.encode('utf-8')
+register.filter(mobile_link)
+
 __author__ = 'edison7500'

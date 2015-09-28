@@ -133,6 +133,12 @@
             }
         });
 
+        select1.click(showOptionModal())
+
+        function showOptionModal(){
+            console.log('show option modal');
+        }
+
         function createOption(value, text) {
             return $("<option " + "value='" + value + "'>" + text + "</option>");
         }

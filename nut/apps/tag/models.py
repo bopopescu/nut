@@ -8,6 +8,8 @@ from django.db.models import Count
 from django.core.cache import cache
 
 from django.utils.log import getLogger
+
+from urllib import  quote
 # from apps.core.manager import dictfetchall
 import random
 
@@ -30,6 +32,10 @@ class ContentTagQuerySet(models.query.QuerySet):
     def entity_tags(self, nid_list):
         return self.filter(target_object_id__in=nid_list).values('tag','tag__name').annotate(ncount=Count('tag')).order_by('-ncount')
 
+    def article_tags(self, article_id):
+        _tag_list =  self.filter(target_object_id=article_id, target_content_type_id=31)\
+                   .values_list('tag__name', flat=True)
+        return list(set(list(_tag_list)))
 
 class ContentTagManager(models.Manager):
 
@@ -98,9 +104,18 @@ class ContentTagManager(models.Manager):
 
         return res
 
+    def article_tags(self, article_id):
+        res = self.get_queryset().article_tags(article_id)
+        return res
+
     def entity_tags(self, nid_list):
         res = self.get_queryset().entity_tags(nid_list)
         return res
+
+
+
+
+
 
 
 class Tags(BaseModel):
@@ -116,6 +131,11 @@ class Tags(BaseModel):
         return self.name
 
     @property
+    def quoted_tag_name(self):
+        return quote(self.name.encode('utf-8'))
+
+
+    @property
     def tag_hash(self):
         return self.hash[:8]
 
@@ -125,6 +145,15 @@ class Tags(BaseModel):
 
     def get_absolute_url(self):
         return "/tag/%s/" % self.name
+
+    @property
+    def articles(self):
+        return self.content_tags_set.filter(target_content_type_id=31)
+
+    @property
+    def articlesCount(self):
+        return self.articles.count()
+
 
 
 class Content_Tags(BaseModel):

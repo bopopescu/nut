@@ -169,7 +169,6 @@ WECHAT_TOKEN = 'guokuinwechat'
 WECHAT_APP_ID = 'wx865ef8a1231580c5'
 WECHAT_APP_SECRET = '98c99129bb86afc010810b66d62a0b1c'
 
-
 HAYSTACK_CONNECTIONS = {
     'default': {
         # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',

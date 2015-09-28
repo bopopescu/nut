@@ -88,7 +88,7 @@
             onImageUpload: function(file) {
                 that.sendFile(file, function(url){
                     $('.guoku_editor').summernote('insertImage', url);
-                });
+                },750);
             },
             onChange:function(contents, $editable){
                 that.contentChanged = true;
@@ -227,7 +227,7 @@
             var that = this;
             var files = this._getFileFromEvent(e);
             if (files){
-                this.sendFile(files, this.setCover.bind(this));
+                this.sendFile(files, this.setCover.bind(this),900);
             }
 
         },
@@ -375,13 +375,17 @@
         sendFile:function(file , callback , maxWidth){
             callback = callback || function(){};
             var  data = new FormData();
+            queryString  = '';
+            if(maxWidth){
+              queryString =  '?maxWidth=' + maxWidth;
+            }
             data.append("file", file[0]);
             bootbox.alert('上传文件中......');
             $.ajax({
                 data: data,
                 type: "POST",
                 //TODO:
-                url: "/management/media/upload/image/?mwidth=1200;mquality=90",
+                url: "/management/media/upload/image/" + queryString,
                 cache: false,
                 contentType: false,
                 processData: false,
@@ -397,8 +401,8 @@
                 error: function(data){
                     bootbox.hideAll();
                     bootbox.alert('上传失败， 请稍后再试');
-                    console.log(data);
-                    console.log('FILE UPLOAD FAIL');
+                    //console.log(data);
+                    //console.log('FILE UPLOAD FAIL');
                 }
             });
         }
