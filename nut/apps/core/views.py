@@ -3,7 +3,6 @@ from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from apps.core.utils.http import JSONResponse
 
-
 class JSONResponseMixin(object):
     def render_to_json_response(self, context, **response_kwargs):
         return JSONResponse(
