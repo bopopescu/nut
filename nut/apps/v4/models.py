@@ -301,6 +301,7 @@ class APIArticle(Article):
         res.pop('created_datetime', None)
         res.pop('updated_datetime', None)
         res['article_id'] = self.id
+        res['tags'] = self.tag_list
         res['content'] = self.strip_tags_content
         res['url'] = self.get_absolute_url()
         res['creator'] = self.creator.v3_toDict()
