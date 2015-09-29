@@ -5,6 +5,7 @@ from django import template
 from django.utils.log import getLogger
 from datetime import datetime
 from apps.tag.models import Tags, Content_Tags
+from apps.core.models import Entity
 import time
 import re
 
@@ -118,23 +119,35 @@ register.filter(article_tag_string)
 
 
 def find_entity_hash(str):
-    theHash = ''
     regHash = r'http://www.guoku.com/detail/(\w+)/?$'
     p  = re.compile(regHash)
     m = p.match(str)
     if m :
-        print m.group()
+        return  m.groups()[0]
     else:
-        print 'not found'
+        return None
 
-    return theHash
+def get_mobile_link_by_hash(theHash):
+    try:
+        entity = Entity.objects.get(entity_hash=theHash)
+        return entity.mobile_url
+    except Exception as e:
+        return None
+    return
 
 def mobile_link(value):
    _value = value.decode('utf-8')
+   theHash = find_entity_hash(_value)
+   if theHash:
+        _value = get_mobile_link_by_hash(theHash)
+   else:
+       pass
 
-   _value = _value.replace('http://www.guoku.com/detail/', 'guoku://entity/')
-   _value = _value.replace('http://www.guoku.com/articles/','http://m.guoku.com/articles/')
-   return _value.encode('utf-8')
+   if _value :
+        _value = _value.replace('http://www.guoku.com/articles/','http://m.guoku.com/articles/')
+        return _value.encode('utf-8')
+   else :
+       raise Exception('can not find link')
 register.filter(mobile_link)
 
 if __name__ == "__main__":
