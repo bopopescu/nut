@@ -6,6 +6,7 @@ from django.utils.log import getLogger
 from datetime import datetime
 from apps.tag.models import Tags, Content_Tags
 import time
+import re
 
 
 register = template.Library()
@@ -116,11 +117,27 @@ def article_tag_string(article):
 register.filter(article_tag_string)
 
 
+def find_entity_hash(str):
+    theHash = ''
+    regHash = r'http://www.guoku.com/detail/(\w+)/?$'
+    p  = re.compile(regHash)
+    m = p.match(str)
+    if m :
+        print m.group()
+    else:
+        print 'not found'
+
+    return theHash
+
 def mobile_link(value):
    _value = value.decode('utf-8')
+
    _value = _value.replace('http://www.guoku.com/detail/', 'guoku://entity/')
    _value = _value.replace('http://www.guoku.com/articles/','http://m.guoku.com/articles/')
    return _value.encode('utf-8')
 register.filter(mobile_link)
+
+if __name__ == "__main__":
+    find_entity_hash('http://127.0.0.1:9766/detail/b2836b6c')
 
 __author__ = 'edison7500'
