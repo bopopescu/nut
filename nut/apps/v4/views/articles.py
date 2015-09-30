@@ -118,7 +118,7 @@ class ArticleTagView(BaseJsonView):
             return res
         queryset = Content_Tags.objects.filter(tag=self.tag, target_content_type_id=31)
         articleID_list = queryset.values_list('target_object_id', flat=True)
-        article_list = APIArticle.objects.filter(pk__in=articleID_list)
+        article_list = APIArticle.objects.filter(pk__in=articleID_list).order_by('-updated_datetime')
 
         paginator = Paginator(article_list, self.size)
 
@@ -133,7 +133,6 @@ class ArticleTagView(BaseJsonView):
             )
 
         return res
-
 
     def get(self, request, *args, **kwargs):
         self.tag_name = kwargs.pop('tag_name', None)
