@@ -5,6 +5,7 @@ from apps.web.views.discover import DiscoverView
 from apps.web.views.main import SelectionEntityList, SiteMapView
 from apps.web.views.entity import EntityCard
 from apps.web.views.main import GKSearchView, PopularView,IndexView
+from apps.web.views.flink import FriendlyLinkListView
 
 urlpatterns = patterns(
     'apps.web.views',
@@ -78,11 +79,10 @@ urlpatterns += patterns(
     url(r'^about/$', AboutView.as_view(), name='web_about'),
     url(r'^jobs/$', JobsView.as_view(), name='web_jobs'),
     url(r'^agreement/$', Agreement.as_view(), name='web_agreement'),
-    url(r'^links/$', LinksView.as_view(), name='web_links'),
+    url(r'^links/$', FriendlyLinkListView.as_view(), name='web_links'),
     url(r'^faq/$', FaqView.as_view(), name='web_faq'),
     url(r'^download/$', DownloadView.as_view(), name='web_download'),
     url(r'^download/ios/$', 'download_ios'),
-
 )
 
 # entity
@@ -99,8 +99,6 @@ urlpatterns += patterns(
     # url(r'^t/', include('apps.web.urls.tag')),
     # url(r'^tag/(?P<tag_text>\w+)/$', 'tag.text_to_detail', name='web_tag_text',),
     url(r'^articles/',include('apps.web.urls.article')),
-
-
 )
 
 # old url 301

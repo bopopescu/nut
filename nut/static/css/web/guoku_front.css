@@ -993,7 +993,7 @@ ul li {
   display: block;
   margin: 0 auto ;
   max-width: 240px;
-  font-size: 14px;
+  font-size: 16px;
 }
 .article-wrapper .content-wrapper .guoku-card .entity-brand,
 .article-wrapper .note-editable .guoku-card .entity-brand {
@@ -1002,7 +1002,7 @@ ul li {
 .article-wrapper .content-wrapper .guoku-card .entity-link,
 .article-wrapper .note-editable .guoku-card .entity-link {
   text-align: center;
-  font-size: 14px;
+  font-size: 16px;
   padding: 15px 0 ;
 }
 .article-wrapper .content-wrapper .guoku-card__deprecate,
@@ -1496,6 +1496,37 @@ body.compact-body {
   color: #9d9e9f;
   text-decoration: none;
 }
+#guoku_footer .list-wrapper {
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  font-size: 13px;
+  float: left;
+}
+#guoku_footer .list-wrapper ul {
+  padding: 0;
+  margin: 0;
+}
+#guoku_footer .list-wrapper li {
+  font-size: 13px;
+  border-right: 1px solid #424242;
+  padding: 0 10px;
+  display: inline-block;
+}
+#guoku_footer .list-wrapper li:last-child {
+  border-right: none;
+}
+#guoku_footer .list-wrapper li.list-title {
+  border-right: none;
+  padding-right: 0;
+}
+#guoku_footer .list-wrapper li.no-padding-left {
+  padding-left: 0px;
+}
+#guoku_footer .list-wrapper li.no-padding-right {
+  padding-right: 0px;
+}
 #guoku_footer li a {
   opacity: 0.6;
 }
@@ -1511,37 +1542,6 @@ body.compact-body {
 }
 #guoku_footer .footer-part {
   margin-top: 40px;
-}
-#guoku_footer .footer-part .list-wrapper {
-  width: 100%;
-  display: block;
-  margin: 0 auto;
-  margin-bottom: 10px;
-  font-size: 13px;
-  float: left;
-}
-#guoku_footer .footer-part .list-wrapper ul {
-  padding: 0;
-  margin: 0;
-}
-#guoku_footer .footer-part .list-wrapper li {
-  font-size: 13px;
-  border-right: 1px solid #424242;
-  padding: 0 10px;
-  display: inline-block;
-}
-#guoku_footer .footer-part .list-wrapper li:last-child {
-  border-right: none;
-}
-#guoku_footer .footer-part .list-wrapper li.list-title {
-  border-right: none;
-  padding-right: 0;
-}
-#guoku_footer .footer-part .list-wrapper li.no-padding-left {
-  padding-left: 0px;
-}
-#guoku_footer .footer-part .list-wrapper li.no-padding-right {
-  padding-right: 0px;
 }
 #guoku_footer .footer-part .qr-wrapper {
   float: right;
@@ -1597,8 +1597,13 @@ body.compact-body {
   margin: 0 auto;
   margin-top: 20px;
 }
+#guoku_footer .footer-line {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #333333;
+}
 #guoku_footer .footer-bottom {
-  padding: 40px 10px 10px 10px;
+  padding: 20px 10px 10px 10px;
 }
 #guoku_footer .footer-bottom .footer-bottom-left {
   float: left;
@@ -2777,6 +2782,9 @@ body.compact-body {
   }
   #guoku_footer .footer-buttons ul {
     padding: 0;
+  }
+  #guoku_footer .footer-line .list-wrapper {
+    text-align: center;
   }
   #guoku_footer .footer-bottom .footer-bottom-left,
   #guoku_footer .footer-bottom .footer-bottom-right {

@@ -480,6 +480,9 @@
   #guoku_footer .footer-buttons ul {
     padding: 0;
   }
+  #guoku_footer .footer-line .list-wrapper {
+    text-align: center;
+  }
   #guoku_footer .footer-bottom .footer-bottom-left,
   #guoku_footer .footer-bottom .footer-bottom-right {
     float: none;
