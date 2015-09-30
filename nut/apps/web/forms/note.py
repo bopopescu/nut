@@ -67,11 +67,11 @@ class NoteForm(forms.ModelForm):
         note = Note.objects.get(pk=self.note_id, user=self.user)
         note.note = _note
         note.save()
-        t = TagParser(_note)
+        # t = TagParser(_note)
         if not self.entity_id :
             self.entity_id = note.entity_id
 
-        t.create_tag(user_id=self.user.pk, entity_id=self.entity_id)
+        # t.create_tag(user_id=self.user.pk, entity_id=self.entity_id)
         return note
     #     _content = self.cleaned_data.get('content')
     #     log.info(_content)

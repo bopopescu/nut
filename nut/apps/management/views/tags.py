@@ -1,6 +1,7 @@
 from django.http import Http404
 from django.core.urlresolvers import reverse
 from django.utils.translation import gettext_lazy as _
+from django.db.models import Count
 
 from apps.core.forms.tags import EditTagForms
 from apps.core.extend.paginator import ExtentPaginator
@@ -10,14 +11,38 @@ from django.views.generic import ListView, FormView
 from apps.core.views import LoginRequiredMixin
 from apps.tag.models import Tags, Content_Tags
 
+
+from apps.core.mixins.views import SortMixin
+
 from urllib import  unquote
 
 
-class TagListView(LoginRequiredMixin, ListView):
+class TagListView(LoginRequiredMixin,SortMixin, ListView ):
+    default_sort_params = ('id', 'desc')
     template_name = 'management/tags/list.html'
     queryset = Tags.objects.all()
     paginate_by = 30
     paginator_class = ExtentPaginator
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(TagListView, self).get_context_data()
+        context['sort_by'] = self.get_sort_params()[0]
+        context['extra_query'] = 'sort_by='+context['sort_by']
+        return context
+
+    def sort_queryset(self, qs, sort_by, order):
+        if sort_by == 'article':
+            qs = qs.filter(content_tags__target_content_type_id=31).annotate(acount=Count('content_tags')).order_by('-acount')
+        elif sort_by ==  'entity':
+            qs = qs.filter(content_tags__target_content_type_id=24).annotate(acount=Count('content_tags')).order_by('-acount')
+        else :
+            pass
+        return qs
+
+
+
+
+
 
 
 class TagEntitiesView(LoginRequiredMixin, ListView):

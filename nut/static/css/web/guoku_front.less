@@ -213,28 +213,7 @@ body.compact-body{
     text-decoration: none;
   }
 
-  li{
-    a{
-      opacity:0.6;
-      &:hover{
-        opacity:1;
-      }
-    }
-    &.feed-back-text{
-      span,a{
-        opacity: 1;
-      }
-    }
-  }
-  a:hover{
-    opacity: 1;
-  }
-
-  .footer-part{
-    margin-top:40px;
-    &.logo-wrapper{
-    }
-    .list-wrapper{
+  .list-wrapper{
       width:100%;
       display:block;
       margin: 0 auto;
@@ -263,6 +242,29 @@ body.compact-body{
         }
       }
     }
+
+  li{
+    a{
+      opacity:0.6;
+      &:hover{
+        opacity:1;
+      }
+    }
+    &.feed-back-text{
+      span,a{
+        opacity: 1;
+      }
+    }
+  }
+  a:hover{
+    opacity: 1;
+  }
+
+  .footer-part{
+    margin-top:40px;
+    &.logo-wrapper{
+    }
+
     .qr-wrapper{
       float:right;
       img{
@@ -318,9 +320,14 @@ body.compact-body{
     }
   }
 
+  .footer-line{
+      margin-top:20px;
+      padding-top:20px;
+      border-top: 1px solid @dark-line;
 
+  }
   .footer-bottom{
-    padding:40px 10px 10px 10px;
+    padding:20px 10px 10px 10px;
     .footer-bottom-left{
       float:left;
       ul{
