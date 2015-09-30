@@ -993,7 +993,7 @@ ul li {
   display: block;
   margin: 0 auto ;
   max-width: 240px;
-  font-size: 14px;
+  font-size: 16px;
 }
 .article-wrapper .content-wrapper .guoku-card .entity-brand,
 .article-wrapper .note-editable .guoku-card .entity-brand {
@@ -1002,7 +1002,7 @@ ul li {
 .article-wrapper .content-wrapper .guoku-card .entity-link,
 .article-wrapper .note-editable .guoku-card .entity-link {
   text-align: center;
-  font-size: 14px;
+  font-size: 16px;
   padding: 15px 0 ;
 }
 .article-wrapper .content-wrapper .guoku-card__deprecate,
