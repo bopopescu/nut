@@ -2070,9 +2070,6 @@ function getQueryStrings() {
 
     };
 
-
-
-
     (function init() {
            //   console.log($.find());
 
@@ -2110,7 +2107,5 @@ function getQueryStrings() {
         flink.init_flink();
 
         tracker.init_tracker();
-
-
     })();
 })(jQuery, document, window);
