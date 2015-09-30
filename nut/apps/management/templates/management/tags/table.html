@@ -11,9 +11,7 @@
                         </th>
                         <th>{% trans 'name' %}</th>
                         <th>
-                            <a href="{% url 'management_tag_list' %}?sort_by=entity">
                             {% trans 'note_count' %}{%  if sort_by == 'entity' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}
-                            </a>
                         </th>
                         <th>
                             <a href="{% url 'management_tag_list' %}?sort_by=article">

@@ -1,5 +1,7 @@
 {% load i18n staticfiles %}
 {% load notifications_tags %}
+{% load cache %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <!--[if lt IE 8]><script type="text/javascript">var tip = '建议升级你的浏览器（如 Chrome, Firefox）以获得更好的体验！',
     url = 'http://browsehappy.com';

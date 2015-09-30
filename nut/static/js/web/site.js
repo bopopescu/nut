@@ -1579,6 +1579,14 @@ function getQueryStrings() {
         },
     };
 
+    var flink = {
+        init_flink: function(){
+            jQuery.when(
+                jQuery.get('')
+            )
+        }
+    };
+
 
 
 
