@@ -1,6 +1,8 @@
 from apps.core.views import BaseJsonView, JSONResponseMixin
 from apps.core.utils.http import ErrorJsonResponse
 
+from apps.tag.models import Content_Tags, Tags
+
 from apps.v4.models import APISeletion_Articles, APIArticle
 from apps.v4.forms.search import APIArticleSearchForm
 
@@ -101,5 +103,48 @@ class ArticleSearchView(SearchView, JSONResponseMixin):
     def dispatch(self, request, *args, **kwargs):
         return super(ArticleSearchView, self).dispatch(request, *args, **kwargs)
 
+
+class ArticleTagView(BaseJsonView):
+
+    http_method_names = ['get']
+
+    def get_data(self, context):
+
+        res = []
+
+        try:
+            self.tag = Tags.objects.get(name=self.tag_name)
+        except Tags.DoesNotExist:
+            return res
+        queryset = Content_Tags.objects.filter(tag=self.tag, target_content_type_id=31)
+        articleID_list = queryset.values_list('target_object_id', flat=True)
+        article_list = APIArticle.objects.filter(pk__in=articleID_list)
+
+        paginator = Paginator(article_list, self.size)
+
+        try:
+            articles = paginator.page(self.page)
+        except Exception:
+            return res
+
+        for row in articles.object_list:
+            res.append(
+                row.v4_toDict()
+            )
+
+        return res
+
+
+    def get(self, request, *args, **kwargs):
+        self.tag_name = kwargs.pop('tag_name', None)
+        self.page = request.GET.get('page', 1)
+        self.size = request.GET.get('size', 10)
+        assert self.tag_name is not None
+
+        return super(ArticleTagView, self).get(request, *args, **kwargs)
+
+    # @check_sign
+    def dispatch(self, request, *args, **kwargs):
+        return super(ArticleTagView, self).dispatch(request, *args, **kwargs)
 
 __author__ = 'xiejiaxin'

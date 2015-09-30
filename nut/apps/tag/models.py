@@ -114,10 +114,6 @@ class ContentTagManager(models.Manager):
 
 
 
-
-
-
-
 class Tags(BaseModel):
     name = models.CharField(max_length=100, unique=True, db_index=True)
     hash = models.CharField(max_length=32, unique=True, db_index=True)
