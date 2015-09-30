@@ -1603,7 +1603,7 @@ body.compact-body {
   border-top: 1px solid #333333;
 }
 #guoku_footer .footer-bottom {
-  padding: 40px 10px 10px 10px;
+  padding: 20px 10px 10px 10px;
 }
 #guoku_footer .footer-bottom .footer-bottom-left {
   float: left;
@@ -2782,6 +2782,9 @@ body.compact-body {
   }
   #guoku_footer .footer-buttons ul {
     padding: 0;
+  }
+  #guoku_footer .footer-line .list-wrapper {
+    text-align: center;
   }
   #guoku_footer .footer-bottom .footer-bottom-left,
   #guoku_footer .footer-bottom .footer-bottom-right {

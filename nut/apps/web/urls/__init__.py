@@ -99,9 +99,6 @@ urlpatterns += patterns(
     # url(r'^t/', include('apps.web.urls.tag')),
     # url(r'^tag/(?P<tag_text>\w+)/$', 'tag.text_to_detail', name='web_tag_text',),
     url(r'^articles/',include('apps.web.urls.article')),
-    url(r'^flinks/',include('apps.web.urls.flink')),
-
-
 )
 
 # old url 301
