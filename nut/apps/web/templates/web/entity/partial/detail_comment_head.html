@@ -1,21 +1,21 @@
 {% load i18n staticfiles %}
 {% load common guoku %}
 {% if entity.has_top_note %}
-
+    {% with the_top_note=entity.top_note %}
     <li >
-        <a href="{% url 'web_user_index' entity.top_note.user.pk %}" target="_blank">
-            <img src="{{ entity.top_note.user.profile.avatar_url }}" alt="{{ entity.top_note.user.profile.nickname }}" class="head_pic">
+        <a href="{% url 'web_user_index' the_top_note.user.pk %}" target="_blank">
+            <img src="{{ the_top_note.user.profile.avatar_url }}" alt="{{ the_top_note.user.profile.nickname }}" class="head_pic">
         </a>
         <div class="comment_detail note-content">
             <div class="user_name">
-                <a href="{% url 'web_user_index' entity.top_note.user.pk %}" target="_blank">{{ entity.top_note.user.profile.nickname }}</a>
+                <a href="{% url 'web_user_index' the_top_note.user.pk %}" target="_blank">{{ the_top_note.user.profile.nickname }}</a>
                 <a href="javascript:;" class="favorite fc_favor"><i class="fa fa-star"></i></a>
             </div>
-            <span class="comment_word with-tag content">{{ entity.top_note.note|escape }}</span>
+            <span class="comment_word with-tag content">{{ the_top_note.note|escape }}</span>
             <div class="comment_operate">
-                {% if entity.top_note.user == request.user %}
+                {% if the_top_note.user == request.user %}
 
-                    <form class="form-horizontal update-note-form" action="{% url 'web_update_entity_note' entity.top_note.pk %}" method="POST" style="display: none;">
+                    <form class="form-horizontal update-note-form" action="{% url 'web_update_entity_note' the_top_note.pk %}" method="POST" style="display: none;">
                         {% csrf_token %}
                         <fieldset>
 
@@ -34,27 +34,28 @@
                     </form>
 
                 {% endif %}
-                {% if entity.top_note.id in user_pokes %}
-                    <a href="javascript:;" class="poke" data-note="{{ entity.top_note.id }}">
-                        <i class="fa fa-thumbs-up"></i>{% if entity.top_note.poke_count > 0 %}<span class="poke-count">{{ entity.top_note.poke_count }}</span>{% endif %}
+                {% if the_top_note.id in user_pokes %}
+                    <a href="javascript:;" class="poke" data-note="{{ the_top_note.id }}">
+                        <i class="fa fa-thumbs-up"></i>{% if the_top_note.poke_count > 0 %}<span class="poke-count">{{ the_top_note.poke_count }}</span>{% endif %}
                     </a>
                 {% else %}
-                    <a href="javascript:;" class="poke" data-note="{{ entity.top_note.id }}">
-                        <i class="fa fa-thumbs-o-up"></i>{% if entity.top_note.poke_count > 0 %}<span class="poke-count">{{ entity.top_note.poke_count }}</span>{% endif %}
+                    <a href="javascript:;" class="poke" data-note="{{ the_top_note.id }}">
+                        <i class="fa fa-thumbs-o-up"></i>{% if the_top_note.poke_count > 0 %}<span class="poke-count">{{ the_top_note.poke_count }}</span>{% endif %}
                     </a>
                 {% endif %}
-                <a href="javascript:;" class="fc_1 add-comment" data-note="{{ entity.top_note.id }}" ><i class="fa fa-comment-o"></i>
-                    {% if entity.top_note.comment_count > 0 %}
-                        &nbsp;{{ entity.top_note.comment_count }}
+                <a href="javascript:;" class="fc_1 add-comment" data-note="{{ the_top_note.id }}" ><i class="fa fa-comment-o"></i>
+                    {% if the_top_note.comment_count > 0 %}
+                        &nbsp;{{ the_top_note.comment_count }}
                     {% endif %}
-                    {% if entity.top_note.user == request.user %}
+                    {% if the_top_note.user == request.user %}
                         <a class="update-note"><i class="fa fa-pencil-square-o"></i></a>
                     {% endif %}
                 </a>
                 <a  class="pull-right comment-time">
-                    <i class="fa fa-clock-o"></i>&nbsp;{{ entity.top_note.post_time|date:"Y-m-d"|cut:" "}}
+                    <i class="fa fa-clock-o"></i>&nbsp;{{ the_top_note.post_time|date:"Y-m-d"|cut:" "}}
                 </a>
             </div>
         </div>
     </li>
+    {% endwith %}
 {% endif %}
