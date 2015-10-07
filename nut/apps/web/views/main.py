@@ -116,7 +116,12 @@ class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin , ListView):
             return like_list
 
     def get_queryset(self):
-        qs = Selection_Entity.objects.published_until(self.get_refresh_time())
+        qs = Selection_Entity.objects.published_until(self.get_refresh_time())\
+                                     .select_related('entity')\
+                                     .prefetch_related('entity__likes')
+        # prefetch notes will be a performance hit,
+        # because top_note will use a filter , which will hit database again.
+
         return qs
 
     def get_ajax(self, request, *args, **kwargs):
