@@ -91,11 +91,9 @@ class ArticleImageCounter(CounterView):
            cache.set(img_key, img_data, timeout=60*60*24)
            return img_data
 
-
     def updateCounter(self,id):
 
         return
-
 
     def get(self, *args ,**kwargs):
         id = self.kwargs.pop("aid")
