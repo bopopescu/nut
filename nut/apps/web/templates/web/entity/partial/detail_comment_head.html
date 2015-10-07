@@ -1,6 +1,7 @@
 {% load i18n staticfiles %}
 {% load common guoku %}
 {% if entity.has_top_note %}
+
     <li >
         <a href="{% url 'web_user_index' entity.top_note.user.pk %}" target="_blank">
             <img src="{{ entity.top_note.user.profile.avatar_url }}" alt="{{ entity.top_note.user.profile.nickname }}" class="head_pic">
