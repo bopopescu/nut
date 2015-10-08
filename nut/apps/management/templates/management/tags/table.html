@@ -1,5 +1,5 @@
 {% load i18n %}
-
+{% load static %}
 {#<div class="row">#}
 {#        <div class="table-responsive">#}
             <table class="table table-bordered table-hover">
@@ -21,6 +21,9 @@
                         <th>{% trans 'status' %}</th>
 {#                        <th>{% trans 'created datetime' %}</th>#}
                         <th>{% trans 'operation' %}</th>
+                        <th>
+                            {% trans 'Display In Article List' %}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,6 +43,9 @@
                                      <a class="btn btn-success" href="{% url 'management_tag_articles' tag.quoted_tag_name %}" target="_blank">{% trans 'articles' %}</a>
                                     <a class="btn btn-default" href="{% url 'management_tag_edit' tag.pk %}" target="_blank">{% trans 'edit' %}</a>
                                 </div>
+                            </td>
+                            <td>
+                                <input type="checkbox" data-id="{{ tag.pk }}" class="js-switch" />
                             </td>
                         </tr>
                     {% endfor %}

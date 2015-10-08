@@ -1201,6 +1201,7 @@ class Article(BaseModel):
     updated_datetime = models.DateTimeField()
     showcover = models.BooleanField(default=False)
     read_count = models.IntegerField(default=0)
+    related_entities = models.ManyToManyField(Entity,related_name='related_articles')
 
     objects = ArticleManager()
 
@@ -1210,9 +1211,11 @@ class Article(BaseModel):
     def __unicode__(self):
         return self.title
 
+
     def save(self, *args, **kwargs):
         if not kwargs.pop('skip_updatetime', False):
             self.updated_datetime = datetime.now()
+
         super(Article, self).save(*args, **kwargs)
 
     @property
@@ -1652,5 +1655,13 @@ def user_follow_notification(sender, instance, created, **kwargs):
         notify.send(instance.follower, recipient=instance.followee, verb=u'has followed you', action_object=instance, target=instance.followee)
 
 post_save.connect(user_follow_notification, sender=User_Follow, dispatch_uid="user_follow_notification")
+
+#
+# def article_related_entity_update(sender, instance, created, **kwargs):
+#     if issubclass(sender, Article ):
+#         print(instance.content)
+#
+# post_save.connect(article_related_entity_update, sender=Article, dispatch_uid="article_related_product_update")
+
 
 __author__ = 'edison7500'
