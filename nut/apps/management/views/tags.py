@@ -7,7 +7,8 @@ from apps.core.forms.tags import EditTagForms
 from apps.core.extend.paginator import ExtentPaginator
 
 
-from django.views.generic import View,ListView, FormView
+from django.views.generic import View,ListView, FormView, DetailView,UpdateView
+from django.views.generic.detail import SingleObjectMixin
 from apps.core.views import LoginRequiredMixin
 from apps.tag.models import Tags, Content_Tags
 
@@ -175,18 +176,44 @@ class EditTagFormView(LoginRequiredMixin, FormView):
 
 
 from apps.management.forms.tag import  SwitchTopArticleTagForm
+from django.shortcuts import  get_object_or_404
+from braces.views import CsrfExemptMixin,UserPassesTestMixin
 
-class SwitchTopArticleTagView(JSONResponseMixin, FormView):
+class SwitchTopArticleTagView(UserPassesTestMixin,JSONResponseMixin, UpdateView):
     form_class = SwitchTopArticleTagForm
-    def get_object(self):
-        pass
+    model = Tags
+    pk_url_kwarg = 'tag_id'
+
+    def test_func(self, user):
+        return user.is_staff
+
+    # def get_form(self, form_class):
+    #     pk = self.kwargs.get(self.pk_url_kwarg, None)
+    #     inst = get_object_or_404(Tags, pk)
+    #     return form_class(instance=inst, **self.get_form_kwargs())
+
 
     def form_invalid(self, form):
-        res = {'id': form.cleaned_data['id'],'isTopArticleTag':form.cleaned_data}
-        pass
+        res = {'error':1}
+        return self.render_json_response(res)
 
-    def form_invalid(self, form):
-        pass
+    def form_valid(self, form):
+        form.save()
+        res = {'error':0}
+        return self.render_json_response(res)
+    #
+    # def get(self, **kwargs):
+    #     res = {'error':1}
+    #     return self.render_json_response(res)
+    #
+    # def post(self, request, tag_id, *args, **kwargs):
+    #     theTag = get_object_or_404(Tags,tag_id)
+    #     theform = SwitchTopArticleTagForm(model=theTag )
+    #     res = {'error': 0  , 'isTopArticleTag': 'not knoe'}
+    #     return self.render_json_response(res)
+    #
+
+
 
 
 
