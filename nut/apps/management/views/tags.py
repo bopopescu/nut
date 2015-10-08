@@ -7,12 +7,13 @@ from apps.core.forms.tags import EditTagForms
 from apps.core.extend.paginator import ExtentPaginator
 
 
-from django.views.generic import ListView, FormView
+from django.views.generic import View,ListView, FormView
 from apps.core.views import LoginRequiredMixin
 from apps.tag.models import Tags, Content_Tags
 
 
 from apps.core.mixins.views import SortMixin
+from braces.views import AjaxResponseMixin,JSONResponseMixin
 
 from urllib import  unquote
 
@@ -170,6 +171,23 @@ class EditTagFormView(LoginRequiredMixin, FormView):
         except Tags.DoesNotExist:
             raise Http404
         return super(EditTagFormView, self).post(request, *args, **kwargs)
+
+
+
+from apps.management.forms.tag import  SwitchTopArticleTagForm
+
+class SwitchTopArticleTagView(JSONResponseMixin, FormView):
+    form_class = SwitchTopArticleTagForm
+    def get_object(self):
+        pass
+
+    def form_invalid(self, form):
+        res = {'id': form.cleaned_data['id'],'isTopArticleTag':form.cleaned_data}
+        pass
+
+    def form_invalid(self, form):
+        pass
+
 
 
 __author__ = 'edison'

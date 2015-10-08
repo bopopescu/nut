@@ -14,7 +14,7 @@ function switchChange(){
     console.log($(this).attr('data-id'));
     var tag_id = $(this).attr('data-id');
     var url = '/management/t/' + tag_id + '/topArticleTag/' ;
-    var data =  {isTopArticleTag: $(this).prop('checked')};
+    var data =  {id:tag_id ,isTopArticleTag: $(this).prop('checked')};
 
     when($.ajax({
         type:'POST',
