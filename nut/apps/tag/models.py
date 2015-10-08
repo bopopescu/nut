@@ -132,6 +132,9 @@ class Tags(BaseModel):
     hash = models.CharField(max_length=32, unique=True, db_index=True)
     status = models.BooleanField(default=False)
     image = models.URLField(max_length=255, null=True)
+    # state fields
+    isTopArticleTag = models.BooleanField(default=False, db_index=True)
+
 
     class Meta:
         ordering = ["-id"]
@@ -162,7 +165,6 @@ class Tags(BaseModel):
     @property
     def articlesCount(self):
         return self.articles.count()
-
 
 
 class Content_Tags(BaseModel):
