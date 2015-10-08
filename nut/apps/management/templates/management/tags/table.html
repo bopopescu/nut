@@ -45,7 +45,7 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="checkbox" data-id="{{ tag.pk }}" class="js-switch" />
+                                <input type="checkbox" data-id="{{ tag.pk }}" class="js-switch"  {% if tag.isTopArticleTag %}checked{% endif %} />
                             </td>
                         </tr>
                     {% endfor %}
