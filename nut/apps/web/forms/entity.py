@@ -374,9 +374,7 @@ class ReportForms(forms.Form):
         _type = self.cleaned_data.get('type')
         r = Report(reporter=user, type=_type, comment=_content,
                    content_object=self.entity_cache)
-
         r.save()
         return r
-
 
 __author__ = 'edison7500'
