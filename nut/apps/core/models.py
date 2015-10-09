@@ -37,6 +37,8 @@ from apps.notifications import notify
 import time
 from settings import GUOKU_MAIL, GUOKU_NAME
 
+from apps.web.utils.datatools import get_entity_list_from_article_content
+
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -1212,12 +1214,21 @@ class Article(BaseModel):
     def __unicode__(self):
         return self.title
 
-
     def save(self, *args, **kwargs):
         if not kwargs.pop('skip_updatetime', False):
             self.updated_datetime = datetime.now()
+        res = super(Article, self).save(*args, **kwargs)
+        # add article related entities,
+        hash_list = get_entity_list_from_article_content(self.content)
+        entity_list = list(Entity.objects.filter(entity_hash__in=hash_list))
+        if entity_list:
+            self.related_entities = entity_list
+        else:
+            self.related_entities=[]
 
-        super(Article, self).save(*args, **kwargs)
+        return res
+
+
 
     @property
     def tag_list(self):
