@@ -1201,6 +1201,7 @@ class Article(BaseModel):
     updated_datetime = models.DateTimeField()
     showcover = models.BooleanField(default=False)
     read_count = models.IntegerField(default=0)
+    # entity cars in in article content
     related_entities = models.ManyToManyField(Entity,related_name='related_articles')
 
     objects = ArticleManager()

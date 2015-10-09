@@ -43,12 +43,6 @@ class TagListView(LoginRequiredMixin,SortMixin, ListView ):
             pass
         return qs
 
-
-
-
-
-
-
 class TagEntitiesView(LoginRequiredMixin, ListView):
 
     http_method_names = ['get']
