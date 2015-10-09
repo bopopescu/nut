@@ -22,7 +22,9 @@
 {#                        <th>{% trans 'created datetime' %}</th>#}
                         <th>{% trans 'operation' %}</th>
                         <th>
-                            {% trans 'Display In Article List' %}
+                            <a href="{% url 'management_tag_list' %}?sort_by=topArticleTag">
+                            {% trans 'Display In Article List' %}{%  if sort_by == 'topArticleTag' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}
+                            </a>
                         </th>
                     </tr>
                 </thead>
