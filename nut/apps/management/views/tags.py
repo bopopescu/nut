@@ -38,7 +38,7 @@ class TagListView(LoginRequiredMixin,SortMixin, ListView ):
         elif sort_by ==  'entity':
             qs = qs.filter(content_tags__target_content_type_id=24).annotate(acount=Count('content_tags')).order_by('-acount')
         elif sort_by == 'topArticleTag':
-            qs = qs.filter(content_tags__target_content_type_id=31).annotate(acount=Count('content_tags')).order_by('-isTopArticleTag')
+            qs = qs.filter(content_tags__target_content_type_id=31).annotate(acount=Count('content_tags')).order_by('-isTopArticleTag', '-acount')
         else :
             pass
         return qs
