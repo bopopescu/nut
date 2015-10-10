@@ -149,7 +149,10 @@ class NewTagArticleView(JSONResponseMixin, AjaxResponseMixin,ListView):
         context['has_next_page'] = context['page_obj'].has_next()
         context['top_article_tags'] = Tags.objects.top_article_tags()
         context['tag'] = self.tag
+        context['top_article_tags'] = Tags.objects.top_article_tags()
+
         articles = context['articles']
+
         try :
             # make sure use try catch ,
             # if statistic is down
