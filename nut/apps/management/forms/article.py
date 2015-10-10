@@ -22,3 +22,5 @@ class UpdateArticleForm(ModelForm):
     class Meta:
         model = Article
         fields = ['publish', 'read_count', 'creator']
+
+
