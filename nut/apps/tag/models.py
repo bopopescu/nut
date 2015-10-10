@@ -122,9 +122,18 @@ class ContentTagManager(models.Manager):
         return res
 
 
+class TagsQueryset(models.query.QuerySet):
+    def top_article_tags(self):
+        res = self.using('slave').filter(isTopArticleTag=True,content_tags__target_content_type_id=31).annotate(acount=Count('content_tags')).order_by('-acount')
+        return res
 
 
+class TagsManager(models.Manager):
+    def get_queryset(self):
+        return TagsQueryset(self.model, using = self._db)
 
+    def top_article_tags(self):
+        return self.get_queryset().top_article_tags()
 
 
 class Tags(BaseModel):
@@ -135,6 +144,7 @@ class Tags(BaseModel):
     # state fields
     isTopArticleTag = models.BooleanField(default=False, db_index=True)
 
+    objects = TagsManager()
 
     class Meta:
         ordering = ["-id"]

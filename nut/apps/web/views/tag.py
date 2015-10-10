@@ -8,7 +8,7 @@ from apps.tag.models import Tags
 # from apps.core.models import Tag, Entity_Tag, Entity, Entity_Like
 # from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from django.utils.log import getLogger
-
+from django.views.generic import ListView
 log = getLogger('django')
 
 
@@ -21,6 +21,9 @@ class TagHashView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         _tag = get_object_or_404(Tags, hash=kwargs['hash'])
         return super(TagHashView, self).get(*args, **kwargs)
+
+
+
 
 
 # def detail(request, hash, template="web/tags/detail.html"):
