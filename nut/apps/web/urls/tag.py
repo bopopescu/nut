@@ -1,5 +1,5 @@
 from django.conf.urls import url, patterns
-from apps.web.views.tag import TagHashView
+from apps.web.views.tag import TagHashView,TagArticleList
 
 urlpatterns = patterns(
     'apps.web.views.tag',

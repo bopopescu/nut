@@ -1,0 +1,6 @@
+{% load i18n static %}
+{% load  common guoku %}
+
+{% for article in articles %}
+    {%  include 'tag/partial/article_item_new.html' %}
+{% endfor %}
