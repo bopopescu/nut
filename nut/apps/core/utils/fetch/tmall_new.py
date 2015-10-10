@@ -27,7 +27,7 @@ class Tmall():
     def __init__(self, item_id):
         self.item_id = item_id
         self.html = self.fetch_html()
-        self.soup = BeautifulSoup(self.html, from_encoding="gb18030")
+        self.soup = BeautifulSoup(self.html)
 
 
     @property
