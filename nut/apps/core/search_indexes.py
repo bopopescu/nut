@@ -67,6 +67,7 @@ class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
     author = indexes.CharField(model_attr='creator')
     title = indexes.CharField(model_attr='title', boost=1.125)
     read_count = indexes.IntegerField(model_attr='read_count')
+    is_selection = indexes.BooleanField(model_attr='is_selection')
 
     title_auto = indexes.EdgeNgramField(model_attr='title')
 
