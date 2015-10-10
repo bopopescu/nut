@@ -174,7 +174,7 @@ class Tags(BaseModel):
 
     @property
     def articlesCount(self):
-        return self.articles.count()
+        return self.articles.values('target_object_id').distinct().count()
 
 
 class Content_Tags(BaseModel):
