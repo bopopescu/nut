@@ -109,7 +109,10 @@ class NewSelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
     def get_queryset(self):
         qs = Selection_Article.objects\
                               .published_until(until_time=self.get_refresh_time())\
-                              .order_by('-pub_time')
+                              .order_by('-pub_time')\
+                              .select_related('article')
+                              # .defer('article__content')
+
         return qs
 
 

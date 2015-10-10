@@ -7,12 +7,14 @@ from apps.core.forms.tags import EditTagForms
 from apps.core.extend.paginator import ExtentPaginator
 
 
-from django.views.generic import ListView, FormView
+from django.views.generic import View,ListView, FormView, DetailView,UpdateView
+from django.views.generic.detail import SingleObjectMixin
 from apps.core.views import LoginRequiredMixin
 from apps.tag.models import Tags, Content_Tags
 
 
 from apps.core.mixins.views import SortMixin
+from braces.views import AjaxResponseMixin,JSONResponseMixin
 
 from urllib import  unquote
 
@@ -35,15 +37,11 @@ class TagListView(LoginRequiredMixin,SortMixin, ListView ):
             qs = qs.filter(content_tags__target_content_type_id=31).annotate(acount=Count('content_tags')).order_by('-acount')
         elif sort_by ==  'entity':
             qs = qs.filter(content_tags__target_content_type_id=24).annotate(acount=Count('content_tags')).order_by('-acount')
+        elif sort_by == 'topArticleTag':
+            qs = qs.filter(content_tags__target_content_type_id=31).annotate(acount=Count('content_tags')).order_by('-isTopArticleTag', '-acount')
         else :
             pass
         return qs
-
-
-
-
-
-
 
 class TagEntitiesView(LoginRequiredMixin, ListView):
 
@@ -170,6 +168,49 @@ class EditTagFormView(LoginRequiredMixin, FormView):
         except Tags.DoesNotExist:
             raise Http404
         return super(EditTagFormView, self).post(request, *args, **kwargs)
+
+
+
+from apps.management.forms.tag import  SwitchTopArticleTagForm
+from django.shortcuts import  get_object_or_404
+from braces.views import CsrfExemptMixin,UserPassesTestMixin
+
+class SwitchTopArticleTagView(UserPassesTestMixin,JSONResponseMixin, UpdateView):
+    form_class = SwitchTopArticleTagForm
+    model = Tags
+    pk_url_kwarg = 'tag_id'
+
+    def test_func(self, user):
+        return user.is_staff
+
+    # def get_form(self, form_class):
+    #     pk = self.kwargs.get(self.pk_url_kwarg, None)
+    #     inst = get_object_or_404(Tags, pk)
+    #     return form_class(instance=inst, **self.get_form_kwargs())
+
+
+    def form_invalid(self, form):
+        res = {'error':1}
+        return self.render_json_response(res)
+
+    def form_valid(self, form):
+        form.save()
+        res = {'error':0}
+        return self.render_json_response(res)
+    #
+    # def get(self, **kwargs):
+    #     res = {'error':1}
+    #     return self.render_json_response(res)
+    #
+    # def post(self, request, tag_id, *args, **kwargs):
+    #     theTag = get_object_or_404(Tags,tag_id)
+    #     theform = SwitchTopArticleTagForm(model=theTag )
+    #     res = {'error': 0  , 'isTopArticleTag': 'not knoe'}
+    #     return self.render_json_response(res)
+    #
+
+
+
 
 
 __author__ = 'edison'

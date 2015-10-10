@@ -1,5 +1,6 @@
 {% extends 'management/management_base.html' %}
 {% load i18n %}
+{% load staticfiles i18n %}
 
 {% block content %}
     <section class="content-header">
@@ -17,9 +18,7 @@
             <div class="col-xs-12">
                 <div class="box box-info">
                     <div class="box-header">
-
                     </div>
-
                     <div class="box-body table-responsive">
                         {% include 'management/tags/table.html' with tags=object_list %}
                     </div>
@@ -37,4 +36,10 @@
 {##}
 {#    {% include "management/paginator.html" with objects=page_obj url=request.path %}#}
 
+{% endblock %}
+
+{% block user_script %}
+     <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
+
+     <script src="{% static 'js/management/tag/tag.js' %}" type="application/javascript"></script>
 {% endblock %}
