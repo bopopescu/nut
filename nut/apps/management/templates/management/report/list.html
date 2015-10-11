@@ -16,7 +16,7 @@
         </ol>
     </section>
 
-    <section class="content">
+    <section class="content" id="management_report_list">
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
@@ -43,7 +43,7 @@
                                         <td>{{ report.id }}</td>
                                         <td><a href="{% url 'management_user_edit' report.reporter.id %}">{{ report.reporter.profile.nickname }}</a></td>
                                         <td>{{ report.get_type_display }}</td>
-                                        <td>{{ report.comment }}</td>
+                                        <td class="report-comment-content">{{ report.comment|truncatechars:200 }}</td>
                                         <td>{{ report.content_type.model }}</td>
                                         <td>
                                             {% if report.content_type.model == 'entity' %}
@@ -65,7 +65,7 @@
                 </div>
             </div>
         </div>
-{#         {% include "management/paginator.html" with objects=reports url=request.path %}#}
+         {% include "management/paginator.html" with objects=reports url=request.path %}
     </section>
 
 {#    {% include "management/paginator.html" with objects=reports url=request.path %}#}
@@ -73,8 +73,8 @@
 
 {% block user_script %}
     <script>
-      $(function () {
-        $("#report").DataTable();
+{#      $(function () {#}
+{#        $("#report").DataTable();#}
 {#        $('#example2').DataTable({#}
 {#          "paging": true,#}
 {#          "lengthChange": false,#}
@@ -83,6 +83,6 @@
 {#          "info": true,#}
 {#          "autoWidth": false#}
 {#        });#}
-      });
+{#      });#}
     </script>
 {% endblock %}
