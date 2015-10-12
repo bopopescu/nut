@@ -579,6 +579,7 @@ function getQueryStrings() {
     var AjaxLoader = Class.extend({
         init:function(options){
             this.loading = false ;
+            this.try_count=5;
             this.attach();
         },
         attach: function(){
@@ -648,6 +649,10 @@ function getQueryStrings() {
             //console.log(data);
             // ajax call fail , maybe later
             console.log('loading failed ');
+            this.try_count--;
+            if (this.try_count <= 0){
+                this.detach();
+            }
             this.loading = false;
         }
     });
@@ -778,6 +783,10 @@ function getQueryStrings() {
 
 
 
+    });
+
+    var TagArticleLoader = ArticleLoader.extend({
+        request_url: window.location.pathname
     });
 
 
@@ -1989,12 +1998,21 @@ function getQueryStrings() {
 
     var selection_article={
         init_loader: function(){
-            var article_list = $('#selection_article_list');
+            var article_list = $('.selection-article-container');
             if (article_list && article_list.length){
                 var article_loader = new ArticleLoader();
             }
         }
     };
+
+    var tag_article={
+        init_loader: function () {
+            var tag_article_list = $('.tag-article-container');
+            if (tag_article_list && tag_article_list.length){
+                var tag_article_loader = new TagArticleLoader();
+            }
+        }
+    }
 
     var article_detail={
         init_loader: function(){
@@ -2103,6 +2121,7 @@ function getQueryStrings() {
 
         selection_article.init_loader();
         article_detail.init_loader();
+        tag_article.init_loader();
 
         flink.init_flink();
 

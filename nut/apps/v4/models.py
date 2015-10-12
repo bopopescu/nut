@@ -285,6 +285,9 @@ class APISeletion_Articles(Selection_Article):
         return  APIArticle.objects.get(pk=self.article_id)
         # return APIArticle(self.article)
 
+
+import HTMLParser
+h_parser = HTMLParser.HTMLParser()
 class APIArticle(Article):
 
     class Meta:
@@ -292,7 +295,7 @@ class APIArticle(Article):
 
     @property
     def strip_tags_content(self):
-        return strip_tags(self.content)
+        return h_parser.unescape(strip_tags(self.content))
 
     def v4_toDict(self):
         res = self.toDict()
