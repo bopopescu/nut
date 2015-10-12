@@ -136,6 +136,7 @@ window.location.href = url;</script><![endif]-->
 {% block counter_script %}
 
 {% endblock %}
+{% block ga_script %}
     <!-- Google Analytics -->
     <script>
 
@@ -149,7 +150,8 @@ window.location.href = url;</script><![endif]-->
     ga('set', '&uid', '412916' )
 
     </script>
-
+{% endblock %}
+{% block baidu_script %}
 <script>
 var _hmt = _hmt || [];
 (function() {
@@ -159,6 +161,7 @@ var _hmt = _hmt || [];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
+{% endblock %}
 
 
 {% block script %}{% endblock %}
