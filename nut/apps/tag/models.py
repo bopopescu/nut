@@ -127,9 +127,6 @@ class TagsQueryset(models.query.QuerySet):
         res = self.using('slave').filter(isTopArticleTag=True,content_tags__target_content_type_id=31).annotate(acount=Count('content_tags')).order_by('-acount')
         return res
 
-<<<<<<< HEAD
-=======
-
 class TagsManager(models.Manager):
     def get_queryset(self):
         return TagsQueryset(self.model, using = self._db)
@@ -138,7 +135,6 @@ class TagsManager(models.Manager):
         return self.get_queryset().top_article_tags()
 
 
->>>>>>> 146f3d00ba17d493f872a4e953d7cd071f5f8d56
 class Tags(BaseModel):
     name = models.CharField(max_length=100, unique=True, db_index=True)
     hash = models.CharField(max_length=32, unique=True, db_index=True)
