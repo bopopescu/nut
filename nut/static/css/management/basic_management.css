@@ -531,4 +531,7 @@
 .batch-selection-modal .modal-dialog .modal-content .content-list .last_published {
   background-color: #9d9d9d;
 }
+#management_report_list .report-comment-content {
+  max-width: 200px;
+}
 /*# sourceMappingURL=basic_management.less.css.map */

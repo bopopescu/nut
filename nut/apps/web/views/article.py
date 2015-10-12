@@ -10,6 +10,7 @@ from django.http import Http404
 from django.template import RequestContext, loader,Context
 
 from apps.core.models import Article,Selection_Article
+from apps.tag.models import Tags
 from apps.core.mixins.views import SortMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
@@ -109,7 +110,10 @@ class NewSelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
     def get_queryset(self):
         qs = Selection_Article.objects\
                               .published_until(until_time=self.get_refresh_time())\
-                              .order_by('-pub_time')
+                              .order_by('-pub_time')\
+                              .select_related('article')
+                              # .defer('article__content')
+
         return qs
 
 
@@ -138,6 +142,8 @@ class NewSelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
         selection_articles = context['selection_articles']
         context['refresh_time'] = self.get_refresh_time()
         context['has_next_page'] = context['page_obj'].has_next()
+        context['top_article_tags'] = Tags.objects.top_article_tags()
+
         articles = [sla.article for sla in selection_articles]
 
         try :

@@ -108,8 +108,6 @@
                     $('.note-editable').height(editableHeight + 40);
                 }
                 return editableHeight;
-
-
         },
         initBootbox:function(){
          if (!bootbox) return ;

@@ -1,7 +1,6 @@
 {% load i18n staticfiles %}
 {% load common guoku %}
 
-{% with sla.article as article %}
     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
         <div class="article-panel">
             <a class="img-link" href="{% url 'web_article_page' article.pk   %}">
@@ -13,11 +12,7 @@
                 {{ article.title|truncatechars:32 }}
                 </a>
             </div>
-            <div class="article-intro">
-                {% autoescape off %}
-                {{ article.content|striptags|truncatechars:60 }}
-                {% endautoescape %}
-            </div>
+            <div class="article-intro"> {{ article.content|striptags|truncatechars:60 }}</div>
             <div class="article-info">
                  <span class="create-time">
                     <i class="fa fa-clock-o"></i>{{sla.pub_time|format_time}}
@@ -74,4 +69,3 @@
 {##}
 {#        </div>#}
     </div>
-{% endwith %}

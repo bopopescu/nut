@@ -5,7 +5,7 @@
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/web/style.css' %}">
 {% endblock %}
- {% block meta-og %}
+{% block meta-og %}
     <meta property="og:title" content="果库精选图文 | 精英消费指南 | 理想生活主张" >
     <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
     <meta property="og:description" content="果库的精选图文页，消费版的今日头条，在筛选优质商品之外，延伸出的消费文章推荐栏目，包含果库专访、潮流资讯、品牌报道等，开拓精英视野与生活想象。">
@@ -27,12 +27,13 @@
 {#{% block description %}果库消费图文汇集全网秉持理想生活哲学的消费类文章，开拓精英视野与生活想象，涵盖品牌相关报道、卖家创业者专访、潮流资讯、消费见解主张、生活场景清单、购物经验心得分享等。{% endblock %}#}
 {% block content %}
     <div class="container main-content near-top" >
-        <h2 class="sr-only">精选图文,专访,果库专访,消费版今日头条,消费文章,果库</h2>
-        <div class="row" id="top_article_tags_container">
+        <h2 class="sr-only">果库图文Tag,专访,果库专访,消费版今日头条,消费文章,果库</h2>
+
+       <div class="row" id="top_article_tags_container">
 {#              <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 top-article-tag">#}
               <div class="top-article-tag">
                 <a href="/articles/">
-                    <div class="tag-element tag-current">
+                    <div class="tag-element">
                         全部
                     </div>
                 </a>
@@ -48,16 +49,18 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="row selection-article-container" id="selection_article_list" refresh-time="{{ refresh_time }}" >
-                {% for sla in selection_articles %}
-                    {% include 'web/article/partial/article_item_new.html' %}
-                {% endfor %}
+
+        <div class="row tag-article-container" id="selection_article_list" refresh-time="{{ refresh_time }}" >
+            {% for article in articles %}
+                {% include 'tag/partial/article_item_new.html' %}
+            {% endfor %}
         </div>
         <div class="row button-row">
             <ul class="nav-button-holder">
                 <li class=" prev-button" style="display:none;">  上一页</li>
                 <li class=" next-button" style="display:none;">  下一页 </li>
             </ul>
+
         </div>
         <div class="row hidden-xs">
             <div class="col-sm-offset-12">
@@ -69,6 +72,5 @@
 {% endblock %}
 
 {% block script %}
-
 
 {% endblock %}

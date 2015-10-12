@@ -478,7 +478,7 @@ class UserIndex(DetailView):
 
         context_data['followings'] = current_user.followings.all()[:7]
         context_data['fans'] = current_user.fans.all()[:7]
-        context_data['tags']= Content_Tags.objects.user_tags(current_user.pk)[0:5]
+        context_data['tags']= Content_Tags.objects.query_user_tags(current_user.pk)[0:5]
         context_data['pronoun'] = self.get_pronoun()
         return context_data
 

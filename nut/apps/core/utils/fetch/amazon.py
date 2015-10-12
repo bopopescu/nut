@@ -6,12 +6,14 @@ import re
 
 from apps.core.utils.fetch.spider import Spider
 from apps.core.utils.commons import currency_converting
+from settings import CURRENCY_SYMBOLS
 
 
 class Amazon(Spider):
     def __init__(self, url):
         self.high_resolution_pattern = re.compile('hiRes"[\s]*:[\s]*"([^";]+)')
         self.large_resolution_pattern = re.compile('large"[\s]*:[\s]*"([^";]+)')
+        self.price_pattern = re.compile(u'(?:￥|\$)\s?(?P<price>\d+\.\d+)')
         self.foreign_price = None
         super(Amazon, self).__init__(url)
 
@@ -77,6 +79,7 @@ class Amazon(Spider):
             price = pricetag[0]
             f_price = float(price.string[1:].replace(',', ''))
             return f_price
+
         pricetag = self.soup.select("#priceblock_ourprice")
         if len(pricetag) > 0:
             price = pricetag[0].string
@@ -93,10 +96,23 @@ class Amazon(Spider):
 
         pricetag = self.soup.select("#soldByThirdParty span")
         if len(pricetag) > 0:
-            price = pricetag[0].string
+            price = 0
+            for tag in pricetag:
+                if tag.string.startswith(CURRENCY_SYMBOLS):
+                    price = tag.string
             price = price.strip()
             f_price = float(price[1:].replace(',', ''))
             return f_price
+
+        pricetag = self.soup.select("div#tmmSwatches ul")
+        if len(pricetag) > 0:
+            prices = self.price_pattern.findall(pricetag[0].text,
+                                                re.MULTILINE)
+            if len(prices) == 1:
+                return prices[0]
+            prices = [float(price) for price in prices]
+            prices.sort()
+            return prices[0]
 
         pricetag = self.soup.select("span#ags_price_local")
         if len(pricetag) > 0:
@@ -104,6 +120,16 @@ class Amazon(Spider):
             price = price.strip()
             f_price = float(price[1:].replace(',', ''))
             return f_price
+
+        pricetag = self.soup.select("table.product")
+        if len(pricetag) > 0:
+            prices = self.price_pattern.findall(pricetag[0].text,
+                                                re.MULTILINE)
+            if len(prices) == 1:
+                return prices[0]
+            prices = [float(price) for price in prices]
+            prices.sort()
+            return prices[0]
         return f_price
 
     @property
@@ -122,11 +148,13 @@ class Amazon(Spider):
         images = []
         image_js = self.soup.select("div#imageBlock_feature_div")
         if image_js:
-            hires_images = self.high_resolution_pattern.findall(image_js[0].text)
+            hires_images = self.high_resolution_pattern.findall(
+                image_js[0].text)
             if hires_images:
                 images = hires_images
             else:
-                large_images = self.large_resolution_pattern.findall(image_js[0].text)
+                large_images = self.large_resolution_pattern.findall(
+                    image_js[0].text)
                 if large_images:
                     images = large_images
         else:

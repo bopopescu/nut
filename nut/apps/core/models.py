@@ -37,6 +37,8 @@ from apps.notifications import notify
 import time
 from settings import GUOKU_MAIL, GUOKU_NAME
 
+from apps.web.utils.datatools import get_entity_list_from_article_content
+
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -1201,6 +1203,8 @@ class Article(BaseModel):
     updated_datetime = models.DateTimeField()
     showcover = models.BooleanField(default=False)
     read_count = models.IntegerField(default=0)
+    # entity cars in in article content
+    related_entities = models.ManyToManyField(Entity,related_name='related_articles')
 
     objects = ArticleManager()
 
@@ -1213,7 +1217,18 @@ class Article(BaseModel):
     def save(self, *args, **kwargs):
         if not kwargs.pop('skip_updatetime', False):
             self.updated_datetime = datetime.now()
-        super(Article, self).save(*args, **kwargs)
+        res = super(Article, self).save(*args, **kwargs)
+        # add article related entities,
+        hash_list = get_entity_list_from_article_content(self.content)
+        entity_list = list(Entity.objects.filter(entity_hash__in=hash_list))
+        if entity_list:
+            self.related_entities = entity_list
+        else:
+            self.related_entities=[]
+
+        return res
+
+
 
     @property
     def tag_list(self):
@@ -1652,5 +1667,13 @@ def user_follow_notification(sender, instance, created, **kwargs):
         notify.send(instance.follower, recipient=instance.followee, verb=u'has followed you', action_object=instance, target=instance.followee)
 
 post_save.connect(user_follow_notification, sender=User_Follow, dispatch_uid="user_follow_notification")
+
+#
+# def article_related_entity_update(sender, instance, created, **kwargs):
+#     if issubclass(sender, Article ):
+#         print(instance.content)
+#
+# post_save.connect(article_related_entity_update, sender=Article, dispatch_uid="article_related_product_update")
+
 
 __author__ = 'edison7500'

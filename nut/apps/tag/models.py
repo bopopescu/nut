@@ -24,16 +24,16 @@ def dictfetchall(cursor):
 
 class ContentTagQuerySet(models.query.QuerySet):
     def user_tags(self, user):
-        return self.filter(user=user).values('tag').annotate(tcount=Count('tag')).order_by('-tcount')
+        return self.using('slave').filter(creator=user).select_related('tag').annotate(tcount=Count('tag')).order_by('-tcount')
 
     def popular(self):
         return self.annotate(tcount=Count('tag')).order_by('-tcount')[:300]
 
     def entity_tags(self, nid_list):
-        return self.filter(target_object_id__in=nid_list).values('tag','tag__name').annotate(ncount=Count('tag')).order_by('-ncount')
+        return self.using('slave').filter(target_object_id__in=nid_list).values('tag','tag__name').annotate(ncount=Count('tag')).order_by('-ncount')
 
     def article_tags(self, article_id):
-        _tag_list =  self.filter(target_object_id=article_id, target_content_type_id=31)\
+        _tag_list =  self.using('slave').filter(target_object_id=article_id, target_content_type_id=31)\
                    .values_list('tag__name', flat=True)
         return list(set(list(_tag_list)))
 
@@ -88,6 +88,15 @@ class ContentTagManager(models.Manager):
             # print row.tag
         return res
 
+    def query_user_tags(self,user):
+        #in user index page , use this query will reduce page query a lot
+        # if use raw sql :
+        # a . all user tags will be selected ,
+        # b .  and every row will cause an other db hit (row.tag.name)
+        # after test , switch to  query_user_tags
+        return self.get_queryset().user_tags(user)
+
+
     def tags(self, tag_id_list):
         key_string = ','.join(str(s) for s in tag_id_list)
         obj = self.raw("SELECT id, tag_id, COUNT(tag_id) AS entity_count \
@@ -113,12 +122,32 @@ class ContentTagManager(models.Manager):
         return res
 
 
+class TagsQueryset(models.query.QuerySet):
+    def top_article_tags(self):
+        res = self.using('slave').filter(isTopArticleTag=True,content_tags__target_content_type_id=31).annotate(acount=Count('content_tags')).order_by('-acount')
+        return res
 
+<<<<<<< HEAD
+=======
+
+class TagsManager(models.Manager):
+    def get_queryset(self):
+        return TagsQueryset(self.model, using = self._db)
+
+    def top_article_tags(self):
+        return self.get_queryset().top_article_tags()
+
+
+>>>>>>> 146f3d00ba17d493f872a4e953d7cd071f5f8d56
 class Tags(BaseModel):
     name = models.CharField(max_length=100, unique=True, db_index=True)
     hash = models.CharField(max_length=32, unique=True, db_index=True)
     status = models.BooleanField(default=False)
     image = models.URLField(max_length=255, null=True)
+    # state fields
+    isTopArticleTag = models.BooleanField(default=False, db_index=True)
+
+    objects = TagsManager()
 
     class Meta:
         ordering = ["-id"]
@@ -148,8 +177,7 @@ class Tags(BaseModel):
 
     @property
     def articlesCount(self):
-        return self.articles.count()
-
+        return self.articles.values('target_object_id').distinct().count()
 
 
 class Content_Tags(BaseModel):

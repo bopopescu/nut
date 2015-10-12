@@ -1932,6 +1932,21 @@ body.compact-body {
   left: -18px;
   color: #424242;
 }
+#top_article_tags_container {
+  margin-bottom: 20px;
+}
+#top_article_tags_container .top-article-tag {
+  display: inline-block;
+  margin-right: 20px;
+  margin-left: 15px;
+}
+#top_article_tags_container .tag-element {
+  text-align: center;
+  margin-bottom: 10px;
+}
+#top_article_tags_container .tag-current {
+  font-weight: 600;
+}
 #selection .entity-selection.thumbnail,
 #event .entity-selection.thumbnail {
   background-color: #ffffff;
@@ -2570,6 +2585,9 @@ body.compact-body {
 }
 .main-content {
   margin-top: 110px;
+}
+.main-content.near-top {
+  margin-top: 90px;
 }
 .guoku-app,
 .mobile-body {
