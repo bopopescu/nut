@@ -10,7 +10,7 @@ def report_list(request, template="management/report/list.html"):
 
     _page = request.GET.get('page', 1)
 
-    _report_list = Report.objects.all()
+    _report_list = Report.objects.all().order_by("-id")
 
     paginator = ExtentPaginator(_report_list, 20)
 
