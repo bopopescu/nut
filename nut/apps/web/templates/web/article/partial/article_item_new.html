@@ -13,7 +13,11 @@
                 {{ article.title|truncatechars:32 }}
                 </a>
             </div>
-            <div class="article-intro"> {{ article.content|striptags|truncatechars:60 }}</div>
+            <div class="article-intro">
+                {% autoescape off %}
+                {{ article.content|striptags|truncatechars:60 }}
+                {% endautoescape %}
+            </div>
             <div class="article-info">
                  <span class="create-time">
                     <i class="fa fa-clock-o"></i>{{sla.pub_time|format_time}}
