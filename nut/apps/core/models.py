@@ -1221,6 +1221,7 @@ class Article(BaseModel):
         # add article related entities,
         hash_list = get_entity_list_from_article_content(self.content)
         entity_list = list(Entity.objects.filter(entity_hash__in=hash_list))
+        pi
         if entity_list:
             self.related_entities = entity_list
         else:

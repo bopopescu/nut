@@ -34,7 +34,7 @@ class ArticlesListView(BaseJsonView):
             a = row.api_article.v4_toDict()
             a.update(
                 {
-                    'pub_time': time.mktime(row.pub_time.timetuple())
+                    'pub_time': time.mktime(row.pub_time.timetuple()),
                 }
             )
             res.append(
