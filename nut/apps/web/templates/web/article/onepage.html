@@ -21,7 +21,7 @@
 {% endblock %}
 
 {% block body_class %}
-    gray-body  {% if from_app %} guoku-app{% endif %}
+    gray-body
 {% endblock %}{% block description %}{{ article.content|striptags|truncatechars:150 }}{% endblock %}
 
 {% block h1 %}{{ article.title }} － 精英消费指南{% endblock %}
@@ -149,6 +149,11 @@
 {% block counter_script %}
         <script src="{% static 'js/counter/counter.js' %}"></script>
 {% endblock %}
+{% if isFromMobile %}
+    {% block ga_script %}
+        <!-- disable GA-->
+    {% endblock %}
+{% endif %}
 {% block script %}
     <script type="text/javascript" language="javascript">
         function renderEntityCard(){
