@@ -29,21 +29,21 @@
     <div class="container main-content near-top" >
         <h2 class="sr-only">果库图文Tag,专访,果库专访,消费版今日头条,消费文章,果库</h2>
 
-        <div class="row" id="top_article_tags_container">
-            <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 top-article-tag">
+       <div class="row" id="top_article_tags_container">
+{#              <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 top-article-tag">#}
+              <div class="top-article-tag">
                 <a href="/articles/">
                     <div class="tag-element">
                         全部
                     </div>
                 </a>
-            </div>
-
-            {% for top_tag in top_article_tags %}
-                <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 top-article-tag">
+              </div>
+              {% for top_tag in top_article_tags %}
+{#                <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 top-article-tag">#}
+                <div class="top-article-tag">
                     <a href="{% url 'tag_articles_url' top_tag.quoted_tag_name %}">
                         <div class="tag-element {% if tag.name == top_tag.name %}tag-current{% endif %}">
-                            {{ top_tag.name }}
-
+                            #{{ top_tag.name }}
                         </div>
                     </a>
                 </div>
