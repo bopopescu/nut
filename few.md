@@ -1,0 +1,1 @@
+~/.profile PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/local/bin:‌​/opt/local/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/usr/bin:/bin:/usr/sbin 

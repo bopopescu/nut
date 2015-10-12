@@ -23,5 +23,13 @@ ALTER TABLE `core_article_related_entities` ADD CONSTRAINT `entity_id_refs_id_8f
 ALTER TABLE `core_article_related_entities` ADD CONSTRAINT `article_id_refs_id_c5544a89` FOREIGN KEY (`article_id`) REFERENCES `core_article` (`id`);
 
 
-5. change Article save method 
+5. change Article save method , to handle add m2m relation entities
+
+
+
+6. if you want to update all article's related entity 
+
+   run script in  :    nut/script/Article_related/update_article_related_entities.py
+   
+   
 
