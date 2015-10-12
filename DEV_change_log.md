@@ -1,4 +1,5 @@
 
+6. 更新 ariticle api , html_unescape 
 5. 保存文章的时候提取相关商品列表保存
 
 4. Article model 加入related_entities m2m 字段 (需要执行 SQL 语句)
