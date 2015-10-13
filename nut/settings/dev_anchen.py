@@ -9,6 +9,20 @@ IMAGE_HOST = 'http://imgcdn.guoku.com/'
 
 AVATAR_HOST = IMAGE_HOST
 
+
+
+#for local solr search
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://localhost:8983/solr/',
+        'INCLUDE_SPELLING': True,
+        # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
+    }
+}
+
 #for mobile access simulation
 # ANT_SIMULATE_MOBILE = True
 
