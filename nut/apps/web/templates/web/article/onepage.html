@@ -120,6 +120,7 @@
                     </div>
                 </div>
 
+                {% if not isFromMobile %}
                 <div class="article-section-title for-browser">
                     <div class="info-text">大家都在看</div>
 
@@ -132,11 +133,14 @@
                     {% endwith %}
                 {% endfor %}
 
+                {% endif %}
 
             </div>
+            {% if not isFromMobile %}
             <div id="detail_content_right" class="hidden-print col-lg-4 col-md-4 hidden-sm  hidden-xs" >
                    {% include "web/entity/partial/detail_side.html" %}
             </div>
+            {% endif %}
         </div>
         <div class="row hidden-xs">
             <div class="col-sm-offset-12">
@@ -188,6 +192,8 @@
             };
         renderEntityCard();
     </script>
+
+    {% if not isFromMobile %}
     <script type="text/javascript">
         var jiathis_config = {
             url: "http://www.guoku.com{{ request.path }}",
@@ -204,6 +210,7 @@
         };
     </script>
     <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2038803" charset="utf-8"></script>
+    {% endif %}
     {#    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>#}
     {#    <script>#}
     {#        wx.config({#}
