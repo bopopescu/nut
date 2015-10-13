@@ -1,5 +1,7 @@
 
-
+4. user tag list view , tag link updated to quoted 
+3. tag_entities_url url pattern capture change to (.*)
+2. user index page , sidebar , tag link updated to quoted 
 1. remove ga for article detail page, in m.guoku.com domains
    
 === 2015 - 10 - 12 === start =================

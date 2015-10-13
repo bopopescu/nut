@@ -371,7 +371,7 @@ class UserTagView(UserDetailBase):
     context_object_name = 'current_user_tags'
     def get_queryset(self):
         _user = self.get_showing_user()
-        tag_list = Content_Tags.objects.user_tags(_user.pk)
+        tag_list = Content_Tags.objects.query_user_tags(_user)
         return tag_list
 
 

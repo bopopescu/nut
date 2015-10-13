@@ -33,7 +33,7 @@
         <div class="section-content">
             <ul class="tag-list">
                 {% for tag in tags %}
-                    <li><a href="{% url 'tag_entities_url' tag.tag.name %}">
+                    <li><a href="{% url 'tag_entities_url' tag.tag.quoted_tag_name %}">
                         #{{ tag.tag.name }}
                     </a></li>
                 {% endfor %}
