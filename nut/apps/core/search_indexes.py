@@ -8,7 +8,6 @@ class CategoryIndex(indexes.SearchIndex, indexes.Indexable):
     title = indexes.CharField(model_attr='title')
 
     title_auto = indexes.NgramField(model_attr='title')
-
     def get_model(self):
         return Sub_Category
 

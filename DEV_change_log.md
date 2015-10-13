@@ -1,10 +1,10 @@
 
+
 1. remove ga for article detail page, in m.guoku.com domains
    
-
 === 2015 - 10 - 12 === start =================
 
-
+==== 2015-10-12  =========== MERGED TO  MASTER 
 8. view optimize : use selected_related , prefetch_related to reduce sql hits.
 
 7. block ISP ad injection

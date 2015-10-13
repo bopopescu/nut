@@ -1,6 +1,6 @@
 from django.conf.urls import url, include, patterns
 from django.views.generic import RedirectView
-from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, DownloadView,TestView
+from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, DownloadView
 from apps.web.views.discover import DiscoverView
 from apps.web.views.main import SelectionEntityList, SiteMapView
 from apps.web.views.entity import EntityCard
@@ -114,8 +114,5 @@ urlpatterns += patterns('',
             url(r'^captcha/', include('captcha.urls')),
         )
 
-urlpatterns += patterns('',
-            url(r'^test_index/',TestView.as_view()),
-        )
 
 __author__ = 'edison7500'

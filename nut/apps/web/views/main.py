@@ -4,7 +4,7 @@
 from django.template import RequestContext, loader
 # from django.template import loader
 
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView, TemplateView,View
 from braces.views import JSONResponseMixin, AjaxResponseMixin
 
 from apps.core.models import Entity, Entity_Like, Selection_Entity, \
