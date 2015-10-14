@@ -44,8 +44,8 @@ class SelectionArticleManager(models.Manager):
             return merged
         # most read article
         # most recent article
-        pop_articles = list(self.published().order_by('article__read_count')[:8])
-        recent_articles = list(self.published()[:8])
+        pop_articles = list(self.published().order_by('-article__read_count')[:8])
+        recent_articles = list(self.published()[:16])
         merged = list(set(pop_articles + recent_articles))
         shuffle(merged)
         #set cache timeout longer to 6 hour
@@ -73,7 +73,7 @@ class SelectionArticleManager(models.Manager):
     def published_until(self,until_time=None):
         if until_time is None:
             until_time = datetime.now()
-        return self.get_queryset().select_related('article').filter(is_published=True, pub_time__lte=until_time)
+        return self.get_queryset().select_related('article').filter(is_published=True, pub_time__lte=until_time).order_by('-pub_time')
 
 
     def article_related(self, article, request_page=1):

@@ -21,18 +21,18 @@ from django.db.models import Count
 class TagEntitiesByHashView(ListView):
     paginate_by = 20
     paginator_class = ExtentPaginator
-    def get(self,request,**kwargs):
-        self.tag_hash = kwargs.pop('tag_hash', None)
+    template_name = 'tag/entities.html'
 
     def get_queryset(self):
-        self.tag = _tag = get_object_or_404(Tags, 'hash' ,self.tag_hash)
+        self.tag_hash = self.kwargs.pop('tag_hash', None)
+        self.tag = _tag = get_object_or_404(Tags, hash=self.tag_hash)
         if _tag:
             return Content_Tags.objects.filter(tag=_tag , target_content_type_id=24).annotate(tCount=Count('tag'))
         else:
             return None
 
     def get_context_data(self, **kwargs):
-        ctx = super(TagEntitiesByHashView).get_context_data(**kwargs)
+        ctx = super(TagEntitiesByHashView,self).get_context_data(**kwargs)
         contenttag_list = ctx['object_list']
         el = []
         if self.request.user.is_authenticated():
@@ -44,6 +44,7 @@ class TagEntitiesByHashView(ListView):
             'tag' : self.tag,
             'user_entity_likes':el
         })
+        return ctx
 
 
 class TagEntityView(ListView):

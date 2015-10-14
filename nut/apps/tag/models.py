@@ -30,7 +30,7 @@ class ContentTagQuerySet(models.query.QuerySet):
         return self.annotate(tcount=Count('tag')).order_by('-tcount')[:300]
 
     def entity_tags(self, nid_list):
-        return self.using('slave').filter(target_object_id__in=nid_list).values('tag','tag__name').annotate(ncount=Count('tag')).order_by('-ncount')
+        return self.using('slave').filter(target_object_id__in=nid_list).values('tag','tag__name','tag__hash').annotate(ncount=Count('tag')).order_by('-ncount')
 
     def article_tags(self, article_id):
         _tag_list =  self.using('slave').filter(target_object_id=article_id, target_content_type_id=31)\

@@ -17,7 +17,7 @@
         <ul>
             {% for row in tags %}
 {#                {{ tag }}#}
-                 <li><a href="{% url "tag_entities_url" row.tag__name %}" target="_blank">{{ row.tag__name|truncatechars:8 }}</a></li>
+                 <li><a href="{% url "tag_entities_url" row.tag__hash %}" target="_blank">{{ row.tag__name|truncatechars:8 }}</a></li>
             {% endfor %}
         </ul>
     </div>
