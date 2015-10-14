@@ -677,7 +677,7 @@ class Entity(BaseModel):
 
     @property
     def like_count(self):
-        key = 'entity:like:%s', self.pk
+        key = 'entity:like:%d' % self.pk
         res = cache.get(key)
         if res:
             log.info("hit hit")
@@ -691,7 +691,7 @@ class Entity(BaseModel):
 
     @property
     def note_count(self):
-        key = 'entity:note:%s', self.pk
+        key = 'entity:note:%d' % self.pk
         res = cache.get(key)
         if res:
             log.info("hit hit")
@@ -738,19 +738,19 @@ class Entity(BaseModel):
         return 'guoku://entity/'+ str(self.id) + '/'
 
     def innr_like(self):
-        key = 'entity:like:%s', self.pk
+        key = 'entity:like:%d' % self.pk
         try:
             cache.incr(key)
         except ValueError:
             cache.set(key, self.likes.count())
 
     def decr_like(self):
-        key = 'entity:like:%s', self.pk
+        key = 'entity:like:%d' % self.pk
         if self.likes.count() > 0:
             cache.decr(key)
 
     def innr_note(self):
-        key = 'entity:note:%s', self.pk
+        key = 'entity:note:%d' % self.pk
         try:
             cache.incr(key)
         except Exception:
