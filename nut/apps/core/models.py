@@ -1400,7 +1400,7 @@ class Event(models.Model):
 
     @property
     def tag_url(self):
-        return reverse('tag_entities_url', args=[self.tag])
+        return reverse('tag_entities_url', args=[self.tag.hash])
 
     @property
     def slug_url(self):
