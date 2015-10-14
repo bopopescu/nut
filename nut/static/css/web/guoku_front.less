@@ -634,17 +634,18 @@ body.compact-body{
 
 
 #top_article_tags_container{
+  padding-left:15px;
   .top-article-tag{
     display: inline-block;
-    margin-right:20px;
-    margin-left:15px;
+    margin-left:5px;
   }
   .tag-element{
-    text-align: center;
-    margin-bottom: 10px;
+    .normal-round-tag;
+//    text-align: center;
+//    margin-bottom: 10px;
   }
   .tag-current{
-    font-weight: 600;
+    background-color: @tag-hover-background;
 //    background: @link-color;
 //    color:#fff;
 
@@ -1050,9 +1051,6 @@ body.compact-body{
       margin-bottom: 10px;
       .tag-list-all li, .cate-list-all li{
         .little-round-tag;
-      }
-      .tag-list-all li:hover, .cate-list-all li:hover{
-        background-color:@tag-hover-background;
       }
       .section-content{
         width: 100%;
