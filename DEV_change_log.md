@@ -1,3 +1,12 @@
+
+
+1. 精选商品页中的待发布和已下架完全区分开；
+2. 爬虫在爬到已下架的精选商品的时候，会把状态从商品更改为冻结。
+ 
+=== 2015-10-15 ================================
+
+
+
 8. view optimize : use selected_related , prefetch_related to reduce sql hits.
 
 7. block ISP ad injection

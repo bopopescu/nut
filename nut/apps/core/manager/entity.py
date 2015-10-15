@@ -1,14 +1,12 @@
+import random
+
 from django.db import models
 from django.db.models import Count
-from django.core.cache import cache
-from django.contrib.auth import get_user_model
-# from django.utils import timezone
-# from django.utils.translation import ugettext_lazy as _
-import random
-from datetime import datetime, timedelta
-
-from django.utils.log import getLogger
 from django.conf import settings
+from django.core.cache import cache
+from django.utils.log import getLogger
+from django.contrib.auth import get_user_model
+from datetime import datetime, timedelta
 
 
 log = getLogger('django')
@@ -45,7 +43,7 @@ class EntityQuerySet(models.query.QuerySet):
             # .order_by('-selection_entity__pub_time').filter(buy_links__status=2)
             # def get(self, *args, **kwargs):
             # # print kwargs, args
-            #     return super(EntityQuerySet, self).get(*args, **kwargs)
+            # return super(EntityQuerySet, self).get(*args, **kwargs)
 
 
 class EntityManager(models.Manager):
@@ -55,11 +53,11 @@ class EntityManager(models.Manager):
     # def get(self, *args, **kwargs):
     # # print  kwargs
     #
-    #     entity_hash = kwargs['entity_hash']
-    #     key = 'entity:%s' % entity_hash
-    #     # print key
-    #     res = cache.get(key)
-    #     if res:
+    # entity_hash = kwargs['entity_hash']
+    # key = 'entity:%s' % entity_hash
+    # # print key
+    # res = cache.get(key)
+    # if res:
     #         print "hit cache", type(res)
     #         return res
     #     else:
@@ -79,7 +77,7 @@ class EntityManager(models.Manager):
         return self.get_query_set().new_or_selection(category_id)
 
     def sort(self, category_id, like=False):
-        assert category_id != None
+        assert category_id is not None
         return self.get_query_set().sort(category_id, like)
 
     def guess(self, category_id=None, count=5, exclude_id=None):
@@ -179,17 +177,19 @@ class EntityLikeManager(models.Manager):
                                                    entity_list=entity_list)
 
 
-
 class SelectionEntityQuerySet(models.query.QuerySet):
     def published(self):
         return self.filter(is_published=True)
 
     def pending(self):
-        return self.filter(is_published=False)
+        return self.filter(is_published=False).exclude(
+            entity__status__lt=1,
+            entity__buy_links__status__in=(0, 1))
 
     def pending_and_removed(self):
         return self.filter(is_published=False,
-                           entity__buy_links__status__in=(0, 1))
+                           entity__buy_links__status__in=(0, 1),
+                           entity__status__lt=1)
 
 
 class SelectionEntityManager(models.Manager):
@@ -202,12 +202,10 @@ class SelectionEntityManager(models.Manager):
     def published_until(self, refresh_time=datetime.now()):
         return self.published().filter(pub_time__lte=refresh_time)
 
-
     def published_until_now(self, util_time=None):
         if util_time is None:
             util_time = datetime.now()
         return self.published().filter(pub_time__lte=util_time)
-
 
     def pending(self):
         return self.get_queryset().pending()
@@ -233,8 +231,10 @@ class SelectionEntityManager(models.Manager):
         return unread_count
 
     def category_sort_like(self, category_ids):
-#        return self.get_queryset().published().filter(entity__category__in=category_ids).annotate(lnumber=Count('entity__likes')).order_by('-lnumber')
-        res = self.published().filter(entity__category__in=category_ids).annotate(lnumber=Count('entity__likes')).order_by('-lnumber')
+        # return self.get_queryset().published().filter(entity__category__in=category_ids).annotate(lnumber=Count('entity__likes')).order_by('-lnumber')
+        res = self.published().filter(
+            entity__category__in=category_ids).annotate(
+            lnumber=Count('entity__likes')).order_by('-lnumber')
         # print res.query
         return res
 
