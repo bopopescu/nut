@@ -80,8 +80,6 @@ class TagEntityView(ListView):
 
     def get(self, request, *args, **kwargs):
         self.tag_name = kwargs.pop('tag_name', None)
-        self.tag_name = unquote(str(self.tag_name)).decode('utf-8')
-
         assert self.tag_name is not None
 
         self.tag_name = self.tag_name.lower()

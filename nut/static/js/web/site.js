@@ -938,7 +938,7 @@ function getQueryStrings() {
                 }
 
                 for (var j in cut){
-                    str = str.replace(cut[j], "<a class='btn-link' rel='nofollow' href='/tag/"+encodeURI(cut[j].replace(/[#＃]/,""))+"' >"+cut[j]+"</a>&nbsp;");
+                    str = str.replace(cut[j], "<a class='btn-link' rel='nofollow' href='/tag/name/"+encodeURI(cut[j].replace(/[#＃]/,""))+"' >"+cut[j]+"</a>&nbsp;");
                 }
 
                 array.eq(i).html(str.replace(/\n/g, "<br>"));
