@@ -194,7 +194,7 @@ msgid "sale"
 msgstr ""
 
 #: apps/core/models.py:877
-msgid "soldouot"
+msgid "soldout"
 msgstr "商品下架"
 
 #: apps/core/models.py:929
