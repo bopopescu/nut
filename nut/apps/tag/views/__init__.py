@@ -5,7 +5,7 @@ from apps.core.extend.paginator import ExtentPaginator
 from apps.core.models import Entity_Like, Note
 from django.utils.log import getLogger
 from django.shortcuts import get_object_or_404
-
+import urllib
 
 log = getLogger('django')
 
@@ -112,7 +112,7 @@ class TagArticleView(ListView):
 
     def get(self, request, *args, **kwargs):
         self.tag_name = kwargs.pop('tag_name', None)
-        self.tag_name = unquote(str(self.tag_name)).decode('utf-8')
+        self.tag_name = urllib.unquote(str(self.tag_name)).decode('utf-8')
 
         assert self.tag_name is not None
 
@@ -135,7 +135,7 @@ class NewTagArticleView(JSONResponseMixin, AjaxResponseMixin,ListView):
 
     def get_tag_name(self):
         tag_name = self.kwargs.pop('tag_name',None)
-        return unquote(str(tag_name)).decode('utf-8')
+        return urllib.unquote(str(tag_name)).decode('utf-8')
 
     #
     # def get_queryset(self):
