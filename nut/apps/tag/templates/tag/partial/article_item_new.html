@@ -15,7 +15,7 @@
             <div class="article-intro"> {{ article.content|striptags|truncatechars:60 }}</div>
             <div class="article-info">
                  <span class="create-time">
-                    <i class="fa fa-clock-o"></i>{{sla.pub_time|format_time}}
+                    <i class="fa fa-clock-o"></i>{{ article.updated_datetime|format_time}}
                  </span>
             </div>
         </div>

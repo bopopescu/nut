@@ -204,7 +204,9 @@
             imageWidth:150,
             marginTop:150,
             pic:"{{ article.cover  }}",
+        {% autoescape off %}
             summary:"{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}} （分享自 @果库）",
+        {% endautoescape %}
             data_track_clickback:'true',
 
         };
