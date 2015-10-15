@@ -45,12 +45,14 @@ class SQLStorePipeline(object):
     def __init__(self):
         self.dbpool = adbapi.ConnectionPool('MySQLdb', db='core',
                                             host='10.0.2.90',
-                                            user='guoku', passwd='guoku!@#',
+                                            user='guoku',
+                                            passwd='guoku!@#',
                                             cursorclass=MySQLdb.cursors.DictCursor,
                                             charset='utf8', use_unicode=True)
 
     def process_item(self, item, spider):
-        query = self.dbpool.runInteraction(self._conditional_update, item, spider)
+        query = self.dbpool.runInteraction(self._conditional_update, item,
+                                           spider)
         query.addErrback(self.handle_error, spider)
         return item
 
@@ -70,16 +72,16 @@ class SQLStorePipeline(object):
                         " shop_link = '%s', seller='%s', price='%s'"
                         " where origin_id = '%s'"
                         % (item['status'], item['shop_link'], item['seller'],
-                        item['price'], item['origin_id'])]
+                           item['price'], item['origin_id'])]
 
             if item['update_selection_status']:
                 sqls.append("UPDATE core_selection_entity SET is_published=0"
-                            " where entity_id = (SELECT entity_id FROM "
+                            " where entity_id in (SELECT entity_id FROM "
                             "core.core_buy_link where origin_id = '%s');"
                             % item['origin_id'])
 
-                sqls.append("UPDATE core.entity SET status=-1"
-                            " where entity_id = (SELECT entity_id FROM "
+                sqls.append("UPDATE core_entity SET status='-1'"
+                            " where id in (SELECT entity_id FROM "
                             "core.core_buy_link where origin_id = '%s');"
                             % item['origin_id'])
 
@@ -104,5 +106,5 @@ class SQLStorePipeline(object):
         #
         # def process_item(self, item, spider):
         # line = json.dumps(dict(item)) + "\n"
-        #         self.file.write(line)
+        # self.file.write(line)
         #         return item
