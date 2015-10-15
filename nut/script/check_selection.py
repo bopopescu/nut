@@ -6,11 +6,12 @@ import sys
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
+
 import time
-import settings.production as settings
 import requests
 import datetime
 
+from django.conf import settings
 from apps.core.utils.commons import update_rate
 from apps.core.models import Buy_Link, Selection_Entity
 
