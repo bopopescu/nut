@@ -78,6 +78,11 @@ class SQLStorePipeline(object):
                             "core.core_buy_link where origin_id = '%s');"
                             % item['origin_id'])
 
+                sqls.append("UPDATE core.entity SET status=-1"
+                            " where entity_id = (SELECT entity_id FROM "
+                            "core.core_buy_link where origin_id = '%s');"
+                            % item['origin_id'])
+
             for sql in sqls:
                 tx.execute(
                     sql
