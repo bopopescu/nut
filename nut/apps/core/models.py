@@ -1,7 +1,7 @@
 #coding=utf-8
 from datetime import datetime
 from django.core.mail import EmailMessage
-
+import urllib
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.dispatch import receiver
@@ -38,7 +38,7 @@ import time
 from settings import GUOKU_MAIL, GUOKU_NAME
 
 from apps.web.utils.datatools import get_entity_list_from_article_content
-
+import HTMLParser
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -1242,7 +1242,7 @@ class Article(BaseModel):
 
     @property
     def digest(self):
-        return self.content
+        return HTMLParser.HTMLParser().unescape(self.content)
 
     @property
     def status(self):

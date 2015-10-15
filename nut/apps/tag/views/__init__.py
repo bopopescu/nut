@@ -5,7 +5,6 @@ from apps.core.extend.paginator import ExtentPaginator
 from apps.core.models import Entity_Like, Note
 from django.utils.log import getLogger
 from django.shortcuts import get_object_or_404
-from urllib import  unquote
 
 
 log = getLogger('django')
