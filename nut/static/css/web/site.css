@@ -439,6 +439,16 @@
   background-position: center center;
   border: 1px solid #e6e6e6;
 }
+p.boolean-true {
+  background: forestgreen;
+  color: #fff;
+  font-weight: 600;
+}
+p.boolean-false {
+  background: darkred;
+  color: #fff;
+  font-weight: 600;
+}
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
   padding: 0px;

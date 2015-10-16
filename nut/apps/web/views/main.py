@@ -191,7 +191,7 @@ class GKSearchView(SearchView):
         elif 't' in self.type:
             res = self.queryset.models(Tags).order_by('-note_count')
         elif 'a' in self.type:
-            res = self.queryset.models(Article).order_by('-read_count')
+            res = self.queryset.models(Article).order_by('-score','-read_count')
         else:
             res = self.queryset.models(Entity).order_by('-like_count')
         log.info(res)

@@ -439,6 +439,16 @@
   background-position: center center;
   border: 1px solid #e6e6e6;
 }
+p.boolean-true {
+  background: forestgreen;
+  color: #fff;
+  font-weight: 600;
+}
+p.boolean-false {
+  background: darkred;
+  color: #fff;
+  font-weight: 600;
+}
 @media (max-width: 767px) {
   .event-item {
     padding: 5px 5px 5px 5px;
