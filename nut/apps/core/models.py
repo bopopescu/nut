@@ -1368,6 +1368,10 @@ class Event(models.Model):
     status = models.BooleanField(default=False)
     created_datetime = models.DateTimeField(auto_now=True, db_index=True)
 
+    #add related articles
+    related_articles = models.ManyToManyField(Article, related_name='related_events')
+
+
     class Meta:
         ordering = ['-created_datetime']
 
@@ -1406,7 +1410,6 @@ class Event(models.Model):
     def slug_url(self):
         return reverse('web_event', args=[self.slug])
 
-#  pendingn for assesment  ----- by An
 class Event_Status(models.Model):
     event = models.OneToOneField(Event, primary_key=True)
     is_published = models.BooleanField(default=False)
@@ -1415,6 +1418,9 @@ class Event_Status(models.Model):
     def __unicode__(self):
         return "%s status : is_published : %s , is_top : %s" %(self.event.slug, self.is_published, self.is_top)
 
+
+# class Event_Articles(BaseModel):
+#     event = models.ForeignKey(Event)
 
 class Event_Banner(models.Model):
     (item, shop) = (0, 1)

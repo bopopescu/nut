@@ -1,10 +1,11 @@
+6. add Event-related-article management 
 5. add article search , order by score 
 4. change site.js , use /tag/name/  for tag entity page link
 3. tag_entities_url url pattern capture change to (\w+) , to capture hash.
 2. user index page - sidebar, user tag page , tag link updated to hash form. 
-1. remove ga for article detail page, in m.guoku.com domains
-   
+1. remove ga form article detail page, in m.guoku.com domains
 === 2015 - 10 - 12 === start =================
+
 
 ==== 2015-10-12  =========== MERGED TO  MASTER 
 8. view optimize : use selected_related , prefetch_related to reduce sql hits.
