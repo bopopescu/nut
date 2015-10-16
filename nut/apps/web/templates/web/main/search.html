@@ -24,8 +24,12 @@
 {#                <div class="navbar-collapse collapse">#}
                     <ul class="nav navbar-nav">
 {#                        {% for row in results %}#}
+
                             <li {% if type == 'e' %}class="active"{% endif %}>
                                 <a href="{% url 'web_search' %}?q={{ query }}&t=e">{% trans 'entity' %}&nbsp;<strong>{{ entity_count }}</strong></a>
+                            </li>
+                            <li {% if type == 'a' %}class="active"{% endif %}>
+                                <a href="{% url 'web_search' %}?q={{ query }}&t=a">{% trans 'Articles' %}&nbsp;<strong>{{ article_count }}</strong></a>
                             </li>
                             <li {% if type == 'u' %}class="active"{% endif %}>
                                 <a href="{% url 'web_search' %}?q={{ query }}&t=u">{% trans 'user' %}&nbsp;<strong>{{ user_count }}</strong></a>
@@ -33,13 +37,14 @@
                             <li {% if type == 't' %}class="active"{% endif %}>
                                 <a href="{% url 'web_search' %}?q={{ query }}&t=t">{% trans 'tags' %}&nbsp;<strong>{{ tag_count }}</strong></a>
                             </li>
+
 {#                        {% endfor %}#}
                     </ul>
 {#                </div>#}
             </div>
         </nav>
 
-        <div class="row">
+        <div class="row" id="selection_article_list">
             {% if type == 'u' %}
                 {% for row in object_list %}
                     {% include 'web/main/partial/user.html' with user_context=row.object %}
@@ -47,6 +52,10 @@
             {% elif type == 't' %}
                 {% for row in object_list %}
                     {% include 'web/main/partial/tags.html' with tag_context=row.object %}
+                {% endfor %}
+            {% elif type == 'a' %}
+                {% for row in object_list %}
+                    {% include 'web/main/partial/article.html' with article=row.object%}
                 {% endfor %}
             {% else %}
                 {% for row in object_list %}
