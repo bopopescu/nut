@@ -8,7 +8,8 @@ from django.views.generic import ListView, TemplateView,View
 from braces.views import JSONResponseMixin, AjaxResponseMixin
 
 from apps.core.models import Entity, Entity_Like, Selection_Entity, \
-                             GKUser, Show_Banner, Selection_Article
+                             GKUser, Show_Banner, Selection_Article, \
+                             Article
 from apps.tag.models import Tags
 # from apps.web.forms.search import SearchForm
 from apps.core.forms.search import GKSearchForm
@@ -189,6 +190,8 @@ class GKSearchView(SearchView):
             res = self.queryset.models(GKUser).order_by('-fans_count')
         elif 't' in self.type:
             res = self.queryset.models(Tags).order_by('-note_count')
+        elif 'a' in self.type:
+            res = self.queryset.models(Article).order_by('-read_count')
         else:
             res = self.queryset.models(Entity).order_by('-like_count')
         log.info(res)
@@ -200,6 +203,7 @@ class GKSearchView(SearchView):
             'entity_count': self.queryset.models(Entity).count(),
             'user_count': self.queryset.models(GKUser).count(),
             'tag_count': self.queryset.models(Tags).count(),
+            'article_count':self.queryset.models(Article).count(),
         })
         if self.type == "e" and self.request.user.is_authenticated():
             entity_id_list = map(lambda x : x.object.pk, context['page_obj'])

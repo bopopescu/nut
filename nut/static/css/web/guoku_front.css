@@ -2737,6 +2737,10 @@ body.compact-body {
 #selection_article_list .selection-article-item .article-panel .article-info .create-time .fa {
   margin-right: 5px;
 }
+#selection_article_list .selection-article-item.article-compact .article-title {
+  font-size: 18px;
+  font-weight: 600;
+}
 #sitemap #site_map_list {
   padding-left: 20px;
   padding-right: 40px;
