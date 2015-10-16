@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from apps.web.feeds import SelectionFeeds, ArticlesFeeds
+from apps.web.feeds import SelectionFeeds, ArticlesFeeds,ArticlesInterviewFeeds
 
 
 urlpatterns = staticfiles_urlpatterns()
@@ -63,6 +63,7 @@ urlpatterns += patterns(
 
     url(r'^feed/selection/$', SelectionFeeds()),
     url(r'^feed/articles/$', ArticlesFeeds()),
+    url(r'^feed/articles/interview/$', ArticlesInterviewFeeds()),
 )
 
 if settings.DEBUG:
