@@ -27,10 +27,10 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-
-                            <th>{% trans 'event title' %}</th>
                             <th>#</th>
-                            <th>{% trans 'tag' %}</th>
+                            <th class="event-title-column">{% trans 'event title' %}</th>
+
+                            <th class="event-tag-column">{% trans 'tag' %}</th>
                             <th>{% trans 'slug' %}</th>
 {#                            <th>{% trans 'event_is_on_top' %}</th>#}
                             <th>{% trans 'published' %}</th>
@@ -47,8 +47,9 @@
                     <tbody>
                         {% for event in events %}
                             <tr>
-                                <td><a target="_blank" href="{{ event.slug_url }}">{{ event.title }}</a></td>
                                 <td>{{ event.id }}</td>
+                                <td><a target="_blank" href="{{ event.slug_url }}">{{ event.title }}</a></td>
+
                                 <td><a target="_blank" href="{{ event.tag_url }}">{{ event.tag }}</a></td>
                                 <td><a target="_blank" href="{{ event.slug_url }}">{{ event.slug }}</a></td>
 {#                                     the following row is hidding by an chen#}

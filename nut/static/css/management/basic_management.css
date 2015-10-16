@@ -570,7 +570,11 @@ p.boolean-false {
 #management_report_list .report-comment-content {
   max-width: 200px;
 }
+.event-tag-column,
+.event-title-column {
+  width: 150px;
+}
 #test {
-  color: red;
+  color: black;
 }
 /*# sourceMappingURL=basic_management.less.css.map */
