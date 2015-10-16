@@ -504,6 +504,16 @@
   background-position: center center;
   border: 1px solid #e6e6e6;
 }
+p.boolean-true {
+  background: forestgreen;
+  color: #fff;
+  font-weight: 600;
+}
+p.boolean-false {
+  background: darkred;
+  color: #fff;
+  font-weight: 600;
+}
 .batch-selection-modal {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -559,5 +569,8 @@
 }
 #management_report_list .report-comment-content {
   max-width: 200px;
+}
+#test {
+  color: red;
 }
 /*# sourceMappingURL=basic_management.less.css.map */

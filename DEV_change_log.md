@@ -1,5 +1,5 @@
-
-
+5. add article search , order by score 
+4. change site.js , use /tag/name/  for tag entity page link
 3. tag_entities_url url pattern capture change to (\w+) , to capture hash.
 2. user index page - sidebar, user tag page , tag link updated to hash form. 
 1. remove ga for article detail page, in m.guoku.com domains
