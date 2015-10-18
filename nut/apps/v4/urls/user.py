@@ -1,10 +1,11 @@
 from django.conf.urls import url, patterns
-from apps.v4.views.user import APIUserSearchView
+from apps.v4.views.user import APIUserSearchView, APIUserIndexView
 
 urlpatterns = patterns(
     'apps.v4.views.user',
 
-    url(r'^(?P<user_id>\d+)/$', 'detail', name='v4_user_info'),
+    # url(r'^(?P<user_id>\d+)/$', 'detail', name='v4_user_info'),
+    url(r'^(?P<user_id>\d+)/$', APIUserIndexView.as_view(), name='v4_user_info'),
     url(r'^(?P<user_id>\d+)/tag/$', 'tag_list', name='v4_user_tag_list'),
     url(r'^(?P<user_id>\d+)/tag/(?P<tag>\w+)/$', 'tag_detail', name='v4_user_tag_detail'),
     url(r'^(?P<user_id>\d+)/like/$', 'entity_like', name='v4_user_entity_like'),
