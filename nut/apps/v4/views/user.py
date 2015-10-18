@@ -16,7 +16,7 @@ from datetime import datetime
 import time
 
 from apps.tag.models import Content_Tags
-from apps.core.views import JSONResponseMixin
+from apps.core.views import JSONResponseMixin, BaseJsonView
 from apps.v4.forms.search import APIUserSearchForm
 from haystack.generic_views import SearchView
 # from apps.v4.models import APIUser
@@ -135,17 +135,17 @@ def detail(request, user_id):
     except GKUser.DoesNotExist:
         raise ErrorJsonResponse(status=404)
 
-    _last_like = Entity_Like.objects.filter(user=_user).last()
-    _last_note = Note.objects.filter(user=_user).last()
+    # _last_like = Entity_Like.objects.filter(user=_user).last()
+    # _last_note = Note.objects.filter(user=_user).last()
     res = dict()
     res['user'] = _user.v4_toDict(visitor)
-    if _last_like:
-        try:
-            res['last_like'] = _last_like.entity.v3_toDict()
-        except Exception, e:
-            log.error("Error %s" % e.message)
-    if _last_note:
-        res['last_note'] = _last_note.v3_toDict(visitor=visitor)
+    # if _last_like:
+    #     try:
+    #         res['last_like'] = _last_like.entity.v3_toDict()
+    #     except Exception, e:
+    #         log.error("Error %s" % e.message)
+    # if _last_note:
+    #     res['last_note'] = _last_note.v3_toDict(visitor=visitor)
 
     return SuccessJsonResponse(res)
 
@@ -409,6 +409,48 @@ def follow_action(request, user_id, target_status):
     return SuccessJsonResponse(res)
 
 
+class APIUserIndexView(BaseJsonView):
+    http_method_names = ['get']
+
+    def get_data(self, context):
+        res = dict()
+        try:
+            _user = APIUser.objects.get(pk=self.user_id)
+        except GKUser.DoesNotExist:
+            raise ErrorJsonResponse(status=404)
+
+        _last_like = Entity_Like.objects.filter(user=_user, entity__status__gte=APIEntity.freeze)
+        _last_note = APINote.objects.filter(user=_user)
+        res['user'] = _user.v4_toDict(self.visitor)
+        res['last_like'] = []
+        res['last_note'] = []
+        for row in _last_like[:10]:
+            res['last_like'].append(
+                row.entity.v3_toDict()
+            )
+        for row in _last_note[:10]:
+            res['last_note'].append(
+                row.v4_toDict()
+            )
+
+        return res
+
+    def get(self, request, *args, **kwargs):
+        self.user_id = kwargs.pop('user_id', None)
+        assert self.user_id is not None
+        _key = self.request.GET.get('session')
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+            self.visitor = _session.user
+        except Session_Key.DoesNotExist, e:
+            self.visitor = None
+
+        return super(APIUserIndexView, self).get(request, *args, **kwargs)
+
+    # @check_sign
+    def dispatch(self, request, *args, **kwargs):
+        return super(APIUserIndexView, self).dispatch(request, *args, **kwargs)
+
 
 class APIUserSearchView(SearchView, JSONResponseMixin):
     form_class = APIUserSearchForm
@@ -443,58 +485,6 @@ class APIUserSearchView(SearchView, JSONResponseMixin):
     @check_sign
     def dispatch(self, request, *args, **kwargs):
         return super(APIUserSearchView, self).dispatch(request, *args, **kwargs)
-
-
-# @check_sign
-# def search(request):
-#     _offset = int(request.GET.get('offset', '0'))
-#     _count = int(request.GET.get('count', '30'))
-#     _key = request.GET.get('session')
-#
-#     if _offset > 0 and _offset < 30:
-#         return ErrorJsonResponse(status=404)
-#
-#     _offset = _offset / _count + 1
-#
-#     visitor = None
-#     try:
-#         _session = Session_Key.objects.get(session_key = _key)
-#         visitor = _session.user
-#     except Session_Key.DoesNotExist, e:
-#         log.info(e.message)
-#         # pass
-#
-#     log.info("vistor %s" % visitor)
-#         # return ErrorJsonResponse(status=400)
-#
-#     _forms = UserSearchForm(request.GET)
-#     if _forms.is_valid():
-#         results = _forms.search()
-#         log.info(results)
-#         res = []
-#
-#         paginator = ExtentPaginator(results, _count)
-#         try:
-#             users = paginator.page(_offset)
-#         except PageNotAnInteger:
-#             users = paginator.page(1)
-#         except EmptyPage:
-#             return ErrorJsonResponse(status=404)
-#         for user in users:
-#             # log.info(entity)
-#             res.append(
-#                 user.v3_toDict(visitor=visitor)
-#             )
-#         return SuccessJsonResponse(res)
-#
-#     return ErrorJsonResponse(status=400)
-
-# @csrf_exempt
-# @check_sign
-# def unfollow_action(request):
-#
-#
-#     return SuccessJsonResponse()
 
 
 __author__ = 'edison7500'
