@@ -1,9 +1,19 @@
 6. add Event-related-article management 
+   
+   CREATE TABLE `core_event_related_articles` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `event_id` integer NOT NULL,
+    `article_id` integer NOT NULL,
+    UNIQUE (`event_id`, `article_id`)
+    );
+    ALTER TABLE `core_event_related_articles` ADD CONSTRAINT `article_id_refs_id_71111e46` FOREIGN KEY (`article_id`) REFERENCES `core_article` (`id`);
+    ALTER TABLE `core_event_related_articles` ADD CONSTRAINT `event_id_refs_id_9a1e89d0` FOREIGN KEY (`event_id`) REFERENCES `core_event` (`id`);
+
 5. add article search , order by score 
 4. change site.js , use /tag/name/  for tag entity page link
 3. tag_entities_url url pattern capture change to (\w+) , to capture hash.
 2. user index page - sidebar, user tag page , tag link updated to hash form. 
-1. remove ga form article detail page, in m.guoku.com domains
+1. remove ga/ jiathis form article detail page, in m.guoku.com domains
 === 2015 - 10 - 12 === start =================
 
 

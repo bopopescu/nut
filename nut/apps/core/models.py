@@ -1398,6 +1398,14 @@ class Event(models.Model):
         return False
 
     @property
+    def has_articles(self):
+        count = self.related_articles.count()
+        if count > 0 :
+            return True
+        else:
+            return False
+
+    @property
     def recommendations(self):
         count = self.recommendation.count()
         return count
