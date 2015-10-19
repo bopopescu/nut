@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from apps.core.utils.http import JSONResponse
 
+
 class JSONResponseMixin(object):
     def render_to_json_response(self, context, **response_kwargs):
         return JSONResponse(
@@ -11,7 +12,6 @@ class JSONResponseMixin(object):
         )
 
     def get_data(self, context):
-
         return context
 
 
@@ -22,8 +22,8 @@ class LoginRequiredMixin(object):
         return login_required(view)
 
 
-class BaseListView(LoginRequiredMixin, TemplateResponseMixin, ContextMixin, View):
-
+class BaseListView(LoginRequiredMixin, TemplateResponseMixin, ContextMixin,
+                   View):
     queryset = None
 
     def get_queryset(self):
@@ -31,7 +31,6 @@ class BaseListView(LoginRequiredMixin, TemplateResponseMixin, ContextMixin, View
 
 
 class BaseJsonView(JSONResponseMixin, TemplateView):
-
     def render_to_response(self, context, **response_kwargs):
         return self.render_to_json_response(context, **response_kwargs)
 
@@ -62,7 +61,6 @@ class BaseFormView(TemplateResponseMixin, ContextMixin, View):
         return kwargs
 
     def get_form_class(self):
-
         return self.form_class(**self.get_form_kwargs())
 
 
@@ -85,7 +83,6 @@ class BaseSearchView(BaseFormView):
         return kwargs
 
     def get_form_class(self):
-
         return self.form_class(**self.get_form_kwargs())
 
 

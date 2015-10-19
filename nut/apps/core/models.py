@@ -873,10 +873,10 @@ class Selection_Entity(BaseModel):
 
 
 class Buy_Link(BaseModel):
-    (remove, soldouot, sale) = xrange(3)
+    (remove, soldout, sale) = xrange(3)
     Buy_Link_STATUS_CHOICES = [
         (sale, _("sale")),
-        (soldouot, _("soldouot")),
+        (soldout, _("soldout")),
         (remove, _("remove")),
     ]
     entity = models.ForeignKey(Entity, related_name='buy_links')
