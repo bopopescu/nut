@@ -2687,6 +2687,9 @@ body.compact-body {
   background-size: cover;
   background-position: center center;
 }
+#selection_article_list .event-article-item {
+  margin-top: 40px;
+}
 #selection_article_list .selection-article-item {
   display: inline-block;
   position: relative;
