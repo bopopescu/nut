@@ -58,9 +58,9 @@ register.filter(selection_next_paginator)
 
 def format_boolean(value):
         if value:
-            return "是"
+            return "<p class='boolean-true'>是</p>"
         else :
-            return "否"
+            return "<p class='boolean-false'>否</p>"
 register.filter(format_boolean)
 
 def format_boolean_class(value):

@@ -42,7 +42,7 @@
                 <div class="top-article-tag">
                     <a href="{% url 'tag_articles_url' top_tag.quoted_tag_name %}">
                         <div class="tag-element {% if tag.name == top_tag.name %}tag-current{% endif %}">
-                            #{{ top_tag.name }}
+                            {{ top_tag.name }}
                         </div>
                     </a>
                 </div>

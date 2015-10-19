@@ -1,5 +1,5 @@
 {% extends 'management/management_base.html' %}
-{% load i18n %}
+{% load staticfiles i18n %}
 {% load common %}
 
 {% block content %}
@@ -27,41 +27,44 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-
-                            <th>{% trans 'event title' %}</th>
                             <th>#</th>
-                            <th>{% trans 'tag' %}</th>
+                            <th class="event-title-column">{% trans 'event title' %}</th>
+
+                            <th class="event-tag-column">{% trans 'tag' %}</th>
                             <th>{% trans 'slug' %}</th>
 {#                            <th>{% trans 'event_is_on_top' %}</th>#}
-{#                            <th>{% trans 'event_is_published' %}</th>#}
-                            <th>{% trans 'event_is_top' %}</th>
+                            <th>{% trans 'published' %}</th>
+                            <th>{% trans '置顶' %}</th>
 {##}
 {#                            <th>{% trans '新状态－置顶' %}</th>#}
                             <th>{% trans 'has banner' %}</th>
                             <th>{% trans 'banners' %}</th>
 {#                            <th>{% trans 'has recommendation' %}</th>#}
                             <th>{% trans 'recommendations' %}</th>
+                            <th>{% trans 'Articles' %}</th>
                             <th>{% trans 'operation' %}</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for event in events %}
                             <tr>
-                                <td><a target="_blank" href="{{ event.slug_url }}">{{ event.title }}</a></td>
                                 <td>{{ event.id }}</td>
+                                <td><a target="_blank" href="{{ event.slug_url }}">{{ event.title }}</a></td>
+
                                 <td><a target="_blank" href="{{ event.tag_url }}">{{ event.tag }}</a></td>
                                 <td><a target="_blank" href="{{ event.slug_url }}">{{ event.slug }}</a></td>
 {#                                     the following row is hidding by an chen#}
 {#                                <td class="{{ event.status|format_boolean_class }}">{{ event.status|format_boolean }}</td>#}
-{#                                <td class="{{ event.event_status.is_published|format_boolean_class }}">{{ event.event_status.is_published|format_boolean }}</td>#}
-                                <td class="{{ event.event_status.is_top|format_boolean_class }}">{{ event.event_status.is_top|format_boolean }}</td>
+                                <td class="{{ event.event_status.is_published|format_boolean_class }}">{{ event.event_status.is_published|format_boolean|safe }}</td>
+                                <td class="{{ event.event_status.is_top|format_boolean_class }}">{{ event.event_status.is_top|format_boolean|safe }}</td>
 {#                                <td>{{ event.event_status.is_top }}</td>#}
-                                <td>{{ event.has_banner|format_boolean }}</td>
+                                <td>{{ event.has_banner|format_boolean|safe }}</td>
                                 <td>
                                     <a class="btn btn-primary" href="{% url 'management_event_show_banner' event.pk %}" target="_blank">{{ event.banners }}</a>
                                 </td>
 {#                                <td>{{ event.has_recommendation|format_boolean }}</td>#}
                                 <td><a class="btn btn-primary" href="{% url 'management_event_show_recommendation' event.pk %}" target="_blank">{{ event.recommendations }}</a></td>
+                                <td><span class="btn btn-primary event-article-management" data-event-id="{{ event.id }}">{{ event.related_articles.count }}</span></td>
                                 <td>
                                     <div class="btn-group">
 {#                                        <a href="#" class="btn btn-default" target="_blank" >{% trans 'preview' %}</a>#}
@@ -146,4 +149,34 @@
 {#            </div>#}
 {#        </div>#}
 {#    </div>#}
+{% endblock %}
+{% block user_script %}
+
+
+    <script id="id-event-article-list-template" type="text/html">
+
+        <div class="event-title">专题：<%=title%></div>
+        <div class="actions">
+            <input type="text" size="60" id="article_url" placeholder="put guoku article link here">
+            <div class="btn btn-primary add-article">add article</div>
+        </div>
+        <table class="list-container table table-striped">
+            <TR>
+                <th>article ID</th>
+                <th>article title</th>
+                <th>Delete</th>
+            </TR>
+
+
+        </table>
+    </script>
+    <script id="id-event-article-item-template" type="text/html">
+      <td><%=(id||'not found')%></td>
+      <td><%=(title||'not found')%></td>
+      <td><button class="btn btn-danger article-remove-button" data-article-id="<%=(id||'not found')%>" >remove</button></td>
+
+    </script>
+
+    <script src="{% static 'js/management/restful/lib/csrf.js' %}"></script>
+    <script src="{% static 'js/management/events/event_articles.js' %}"></script>
 {% endblock %}
