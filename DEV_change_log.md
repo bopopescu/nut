@@ -1,3 +1,12 @@
+========= 2015 - 10 -18 submmmit to master ========
+
+
+1. 精选商品页中的待发布和已下架完全区分开；
+2. 爬虫在爬到已下架的精选商品的时候，会把状态从商品更改为冻结。
+ 
+=== 2015-10-15 ================================
+
+
 6. add Event-related-article management 
    
    CREATE TABLE `core_event_related_articles` (

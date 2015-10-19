@@ -81,3 +81,4 @@ log.txt
 spider/log.txt
 spider/dbs/*
 spider/items/*
+*.pid
