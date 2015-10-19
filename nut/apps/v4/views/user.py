@@ -420,7 +420,7 @@ class APIUserIndexView(BaseJsonView):
             raise ErrorJsonResponse(status=404)
 
         _last_like = Entity_Like.objects.filter(user=_user, entity__status__gte=APIEntity.freeze)
-        _last_note = APINote.objects.filter(user=_user)
+        _last_note = APINote.objects.filter(user=_user).order_by('-post_time')
         res['user'] = _user.v4_toDict(self.visitor)
         res['last_user_like'] = []
         res['last_post_note'] = []
@@ -430,7 +430,7 @@ class APIUserIndexView(BaseJsonView):
             )
         for row in _last_note[:10]:
             res['last_post_note'].append(
-                row.v4_toDict()
+                row.v4_toDict(has_entity=True)
             )
 
         return res
