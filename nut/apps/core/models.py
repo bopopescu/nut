@@ -197,6 +197,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return len(t)
 
     @property
+    def article_cout(self):
+        return self.articles.count()
+
+    @property
     def following_list(self):
         return self.followings.all().values_list('followee_id', flat=True)
 
@@ -278,6 +282,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         res['like_count'] = self.like_count
         res['entity_note_count'] = self.post_note_count
         res['tag_count'] = self.tags_count
+        # res['article_count'] = self.article_cout
         res['fan_count'] = self.fans_count
         res['following_count'] = self.following_count
 
