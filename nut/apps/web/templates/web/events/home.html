@@ -98,16 +98,9 @@
 {#            </div>#}
         </div>
         {% endblock %}
-        {% if event.has_articles %}
-         <div class="row" id="selection_article_list">
-            {% for article in event.related_articles.all %}
-                    {% include 'web/events/partial/event_article_item.html' %}
-            {% endfor %}
-         </div>
-        {% endif %}
 
-        {% if event.has_recommendation %}
-        <div class="row">
+    {% if event.has_recommendation %}
+        <div class="row" style="margin-top:40px;">
             <div class="col-md-12">
                 <p class="pull-left">编辑推荐</p>
             </div>
@@ -131,8 +124,22 @@
             {% endfor %}
         </div>
         {% endif %}
+
+
+        {% if event.has_articles %}
+         <div class="row" id="selection_article_list" style="margin-top:20px;">
+            <div class="col-md-12">
+                <p class="pull-left">精选图文</p>
+            </div>
+             {% for article in event.related_articles.all %}
+                    {% include 'web/events/partial/event_article_item.html' %}
+            {% endfor %}
+         </div>
+        {% endif %}
+
+
     
-        <div class="row" style="margin-top:20px;">
+        <div class="row">
             <div class="col-md-12">
                 <p class="pull-left">精选商品</p>
 {#                <p class="pull-right">最新更新: {{ selection_list.0.note_context.post_time|format_time }}</p>#}
