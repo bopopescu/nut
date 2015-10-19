@@ -1,7 +1,7 @@
 {% load guoku tags %}
 
 <div class="col-xs-6 col-sm-3 col-md-3 search-tag-item" >
-<a  href="{% if user_id == None %}{% url 'tag_entities_url' tag_context.name %} {% else %}{% url 'web_user_tag_entity' user_id tag_context.name %}{% endif %}">
+<a  href="{% if user_id == None %}{% url 'tag_entities_url' tag_context.hash %} {% else %}{% url 'web_user_tag_entity' user_id tag_context.name %}{% endif %}">
     <div class="thumbnail">
         <p style="padding:10px;margin-bottom:0;"><strong>#{{ tag_context.name|truncatechars:'10' }}</strong></p>
         <div class="img-box">

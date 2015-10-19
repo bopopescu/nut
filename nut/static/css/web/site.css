@@ -243,6 +243,32 @@
 .little-round-tag a {
   color: #424242;
 }
+.little-round-tag:hover {
+  background-color: #f0f0f0;
+}
+.normal-round-tag {
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  border-radius: 40px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  padding: 0 10px;
+  height: 32px;
+  line-height: 32px;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid #e6e6e6;
+  color: #424242;
+  font-size: 16px;
+  margin: 4px 4px 0 0;
+}
+.normal-round-tag a {
+  color: #424242;
+}
+.normal-round-tag:hover {
+  background-color: #dddddd;
+}
 .bottom-bordered {
   border-bottom: 1px solid #e6e6e6;
 }
@@ -412,6 +438,16 @@
   background-size: cover;
   background-position: center center;
   border: 1px solid #e6e6e6;
+}
+p.boolean-true {
+  background: forestgreen;
+  color: #fff;
+  font-weight: 600;
+}
+p.boolean-false {
+  background: darkred;
+  color: #fff;
+  font-weight: 600;
 }
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {

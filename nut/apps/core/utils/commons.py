@@ -8,8 +8,8 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
 import six
 import redis
 import requests
-import settings.production as settings
 
+from django.conf import settings
 from django.utils.crypto import salted_hmac
 from django.utils.http import int_to_base36
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
