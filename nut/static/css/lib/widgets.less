@@ -234,6 +234,29 @@
   a{
     color: @common-text-color;
   }
+  &:hover{
+    background-color: @tag-hover-background;
+  }
+}
+
+.normal-round-tag{
+  .border-radius(40px);
+  padding: 0 10px;
+  height: 32px;
+  line-height: 32px;
+  display: inline-block;
+  text-align: center;
+  //                background: @very-light-gray;
+  border: 1px solid @tag-border-color;
+  color: @common-text-color;
+  font-size: @primary-size;
+  margin: 4px 4px 0 0;
+  a{
+    color: @common-text-color;
+  }
+  &:hover{
+    background-color: @tag-hover-background-dark;
+  }
 }
 
 .bottom-bordered{
@@ -402,4 +425,15 @@
    background-size: cover;
    background-position: center center;
    border: 1px solid @border-gray;
+}
+
+p.boolean-true{
+    background: forestgreen;
+    color: #fff;
+    font-weight:600;
+}
+p.boolean-false{
+    background: darkred;
+    color:#fff;
+     font-weight:600;
 }

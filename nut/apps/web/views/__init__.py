@@ -17,8 +17,8 @@ def webpage_not_found(request):
     return page_not_found(request, template_name='web/404.html')
 
 
-class TestView(TemplateView):
-    template_name = 'web/index.html'
+# class TestView(TemplateView):
+#     template_name = 'web/index.html'
 
 class AboutView(TemplateView):
     template_name = "web/about.html"
