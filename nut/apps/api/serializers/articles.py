@@ -1,4 +1,4 @@
- # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 from rest_framework import serializers
 
@@ -10,15 +10,24 @@ import re
 import json
 from apps.tag.tasks import generator_article_tag
 
-
-
-
 # the following serializer is for ArticleSerializer nested use only
 class NestedSelectionArticleSerializer(serializers.ModelSerializer):
     article = serializers.PrimaryKeyRelatedField(read_only=False, queryset=Article.objects.all())
     class Meta:
         model = Selection_Article
         fields = ('article','is_published','create_time','pub_time', )
+
+
+class NestedArticleSerializer(serializers.ModelSerializer):
+    coverImage = serializers.SerializerMethodField()
+    creator = NestingUserSerializer(read_only=True)
+
+    class Meta:
+        model = Article
+        fields = ('id','creator','title')
+
+    def get_coverImage(self,obj):
+        return obj.cover_url.replace('images/', 'images/100/')
 
 
 class ArticleSerializer(serializers.ModelSerializer):

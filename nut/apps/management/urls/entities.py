@@ -18,6 +18,8 @@ urlpatterns = patterns(
     url(r'^image/(?P<entity_id>\d+)/remove/$', 'delete_image', name='management_remove_entity_image'),
     url(r'^image/(?P<entity_id>\d+)/fetch/$', 'refetch_image', name='management_entity_fetch_image'),
     url(r'^image/(?P<entity_id>\d+)/$', 'image', name='management_entity_image'),
+
+
 )
 
 __author__ = 'edison7500'

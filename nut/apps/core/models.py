@@ -1,7 +1,7 @@
 #coding=utf-8
 from datetime import datetime
 from django.core.mail import EmailMessage
-
+import urllib
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.dispatch import receiver
@@ -38,7 +38,7 @@ import time
 from settings import GUOKU_MAIL, GUOKU_NAME
 
 from apps.web.utils.datatools import get_entity_list_from_article_content
-
+import HTMLParser
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -878,10 +878,10 @@ class Selection_Entity(BaseModel):
 
 
 class Buy_Link(BaseModel):
-    (remove, soldouot, sale) = xrange(3)
+    (remove, soldout, sale) = xrange(3)
     Buy_Link_STATUS_CHOICES = [
         (sale, _("sale")),
-        (soldouot, _("soldouot")),
+        (soldout, _("soldout")),
         (remove, _("remove")),
     ]
     entity = models.ForeignKey(Entity, related_name='buy_links')
@@ -1247,7 +1247,7 @@ class Article(BaseModel):
 
     @property
     def digest(self):
-        return self.content
+        return HTMLParser.HTMLParser().unescape(self.content)
 
     @property
     def status(self):
@@ -1373,6 +1373,10 @@ class Event(models.Model):
     status = models.BooleanField(default=False)
     created_datetime = models.DateTimeField(auto_now=True, db_index=True)
 
+    #add related articles
+    related_articles = models.ManyToManyField(Article, related_name='related_events')
+
+
     class Meta:
         ordering = ['-created_datetime']
 
@@ -1399,19 +1403,26 @@ class Event(models.Model):
         return False
 
     @property
+    def has_articles(self):
+        count = self.related_articles.count()
+        if count > 0 :
+            return True
+        else:
+            return False
+
+    @property
     def recommendations(self):
         count = self.recommendation.count()
         return count
 
     @property
     def tag_url(self):
-        return reverse('tag_entities_url', args=[self.tag])
+        return reverse('tag_entities_url', args=[self.tag.hash])
 
     @property
     def slug_url(self):
         return reverse('web_event', args=[self.slug])
 
-#  pendingn for assesment  ----- by An
 class Event_Status(models.Model):
     event = models.OneToOneField(Event, primary_key=True)
     is_published = models.BooleanField(default=False)
@@ -1420,6 +1431,9 @@ class Event_Status(models.Model):
     def __unicode__(self):
         return "%s status : is_published : %s , is_top : %s" %(self.event.slug, self.is_published, self.is_top)
 
+
+# class Event_Articles(BaseModel):
+#     event = models.ForeignKey(Event)
 
 class Event_Banner(models.Model):
     (item, shop) = (0, 1)

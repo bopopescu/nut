@@ -186,6 +186,7 @@ class PrepareBatchSelection(JSONResponseMixin, AjaxResponseMixin, View):
 
 
 class RemoveBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
+
     def doRemoveSelectionBatch(self, entity_id_list):
         published_selections = Selection_Entity.objects.published().filter(
             entity__id__in=entity_id_list)
