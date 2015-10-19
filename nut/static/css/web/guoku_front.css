@@ -624,7 +624,7 @@ ul li {
   color: #424242;
 }
 .normal-round-tag:hover {
-  background-color: #f0f0f0;
+  background-color: #dddddd;
 }
 .bottom-bordered {
   border-bottom: 1px solid #e6e6e6;
@@ -1997,10 +1997,10 @@ body.compact-body {
   color: #424242;
 }
 #top_article_tags_container .tag-element:hover {
-  background-color: #f0f0f0;
+  background-color: #dddddd;
 }
 #top_article_tags_container .tag-current {
-  background-color: #f0f0f0;
+  background-color: #dddddd;
 }
 #selection .entity-selection.thumbnail,
 #event .entity-selection.thumbnail {
@@ -2686,9 +2686,6 @@ body.compact-body {
   overflow: hidden;
   background-size: cover;
   background-position: center center;
-}
-#selection_article_list .event-article-item {
-  margin-top: 40px;
 }
 #selection_article_list .selection-article-item {
   display: inline-block;
