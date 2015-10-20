@@ -16,6 +16,7 @@ urlpatterns = patterns(
     url(r'^banner/', include('apps.management.urls.banner')),
     url(r'^note/', include('apps.management.urls.note')),
     url(r'^comment/', include('apps.management.urls.comments')),
+    url(r'^edm/', include('apps.management.urls.edm')),
 
 
 
@@ -38,6 +39,7 @@ urlpatterns = patterns(
 
 
 )
+print urlpatterns
 
 urlpatterns += patterns(
     'apps.management.views.account',

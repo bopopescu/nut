@@ -1,5 +1,5 @@
-#coding=utf-8
-from datetime import datetime
+# coding=utf-8
+from datetime import datetime, time
 from django.core.mail import EmailMessage
 
 from django.db import models
@@ -15,14 +15,13 @@ from django.db.models import Count
 from django.db.models.signals import post_save
 from django.conf import settings
 from django.core.cache import cache
-from django.contrib.contenttypes.generic import GenericRelation
 
 import requests
 from apps.core.extend.fields.listfield import ListObjectField
 from apps.core.manager.account import GKUserManager
-from apps.core.manager.entity import EntityManager, EntityLikeManager, SelectionEntityManager
+from apps.core.manager.entity import EntityManager, EntityLikeManager, \
+    SelectionEntityManager
 from apps.core.manager.note import NoteManager, NotePokeManager
-from apps.core.manager.tag import EntityTagManager
 from apps.core.manager.category import CategoryManager, SubCategoryManager
 from apps.core.manager.comment import CommentManager
 from apps.core.manager.event import ShowEventBannerManager
@@ -34,7 +33,7 @@ from apps.core.utils.image import HandleImage
 from apps.core.utils.commons import verification_token_generator
 from apps.notifications import notify
 
-import time
+# import time
 from settings import GUOKU_MAIL, GUOKU_NAME
 
 from apps.web.utils.datatools import get_entity_list_from_article_content
@@ -45,14 +44,14 @@ image_host = getattr(settings, 'IMAGE_HOST', None)
 # if define avatar_host , then use avata_host , for local development .
 avatar_host = getattr(settings, 'AVATAR_HOST', image_host)
 
-class BaseModel(models.Model):
 
+class BaseModel(models.Model):
     class Meta:
         abstract = True
 
     def toDict(self):
         fields = []
-        for f in  self._meta.fields:
+        for f in self._meta.fields:
             fields.append(f.column)
         d = {}
         for attr in fields:
@@ -78,7 +77,7 @@ class BaseModel(models.Model):
 
 
 class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
-    (remove, blocked, active, editor,writer) = (-1, 0, 1, 2, 3)
+    (remove, blocked, active, editor, writer) = (-1, 0, 1, 2, 3)
     USER_STATUS_CHOICES = [
         (writer, _("writer")),
         (editor, _("editor")),
@@ -105,7 +104,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def can_write(self):
-        return  self.is_writer or self.is_editor or self.is_staff
+        return self.is_writer or self.is_editor or self.is_staff
 
     @property
     def is_writer(self):
@@ -206,7 +205,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def concren(self):
-        return  list(set(self.following_list) & set(self.fans_list))
+        return list(set(self.following_list) & set(self.fans_list))
 
     @property
     def following_count(self):
@@ -246,8 +245,8 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         key = "user:v3:%s" % self.id
         res = cache.get(key)
         if not res:
-        # key = md5(key_string)
-        # log.info("v3v3v3v3v3")
+            # key = md5(key_string)
+            # log.info("v3v3v3v3v3")
             res = self.toDict()
             res.pop('password', None)
             res.pop('last_login', None)
@@ -269,10 +268,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
                 res['avatar_large'] = self.profile.avatar_url
                 res['avatar_small'] = self.profile.avatar_url
 
-            # res['verified'] = self.profile.email_verified
+                # res['verified'] = self.profile.email_verified
                 res['relation'] = 0
             except Exception, e:
-                log.error("Error: user id %s %s", (self.id,e.message))
+                log.error("Error: user id %s %s", (self.id, e.message))
             cache.set(key, res, timeout=86400)
 
         res['like_count'] = self.like_count
@@ -295,7 +294,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         if visitor:
             if self.id == visitor.id:
                 res['relation'] = 4
-            elif self.id in visitor.    concren:
+            elif self.id in visitor.concren:
                 res['relation'] = 3
             elif self.id in visitor.following_list:
                 res['relation'] = 1
@@ -311,7 +310,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def send_verification_mail(self):
         template_invoke_name = settings.VERFICATION_EMAIL_TEMPLATE
         mail_message = EmailMessage(to=(self.email,),
-                                    from_email=GUOKU_MAIL,)
+                                    from_email=GUOKU_MAIL, )
         uidb64 = urlsafe_base64_encode(force_bytes(self.id))
         token = verification_token_generator.make_token(self)
         reverse_url = reverse('register_confirm',
@@ -331,19 +330,20 @@ class User_Profile(BaseModel):
     Other = u'O'
     GENDER_CHOICES = (
         (Man, _('man')),
-        (Woman,  _('woman')),
-        (Other,  _('other')),
+        (Woman, _('woman')),
+        (Other, _('other')),
     )
 
     user = models.OneToOneField(GKUser, related_name='profile')
-    nickname = models.CharField(max_length = 64, db_index = True)
-    location = models.CharField(max_length = 32, null = True, default = _('beijing'))
-    city = models.CharField(max_length = 32, null = True, default = _('chaoyang'))
-    gender = models.CharField(max_length = 2, choices = GENDER_CHOICES, default = Other)
-    bio = models.CharField(max_length = 1024, null = True, blank = True)
-    website = models.CharField(max_length = 1024, null = True, blank = True)
+    nickname = models.CharField(max_length=64, db_index=True)
+    location = models.CharField(max_length=32, null=True, default=_('beijing'))
+    city = models.CharField(max_length=32, null=True, default=_('chaoyang'))
+    gender = models.CharField(max_length=2, choices=GENDER_CHOICES,
+                              default=Other)
+    bio = models.CharField(max_length=1024, null=True, blank=True)
+    website = models.CharField(max_length=1024, null=True, blank=True)
     avatar = models.CharField(max_length=255)
-    email_verified = models.BooleanField(default = False)
+    email_verified = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.nick
@@ -372,9 +372,9 @@ class User_Profile(BaseModel):
 
 
 class User_Follow(models.Model):
-    follower = models.ForeignKey(GKUser, related_name = "followings")
-    followee = models.ForeignKey(GKUser, related_name = "fans")
-    followed_time = models.DateTimeField(auto_now_add = True, db_index = True)
+    follower = models.ForeignKey(GKUser, related_name="followings")
+    followee = models.ForeignKey(GKUser, related_name="fans")
+    followed_time = models.DateTimeField(auto_now_add=True, db_index=True)
 
     class Meta:
         ordering = ['-followed_time']
@@ -392,7 +392,6 @@ class User_Follow(models.Model):
         cache.delete(key)
 
 
-
 class Banner(BaseModel):
     CONTENT_TYPE_CHOICES = (
         (u'entity', _('entity')),
@@ -402,11 +401,13 @@ class Banner(BaseModel):
         (u'outlink', _('outlink')),
     )
 
-    content_type = models.CharField(max_length = 64, choices=CONTENT_TYPE_CHOICES)
-    key = models.CharField(max_length = 1024)
-    image = models.CharField(max_length = 64, null = False)
-    created_time = models.DateTimeField(auto_now_add = True, editable=False, db_index = True)
-    updated_time = models.DateTimeField(auto_now = True, editable=False, db_index = True)
+    content_type = models.CharField(max_length=64, choices=CONTENT_TYPE_CHOICES)
+    key = models.CharField(max_length=1024)
+    image = models.CharField(max_length=64, null=False)
+    created_time = models.DateTimeField(auto_now_add=True, editable=False,
+                                        db_index=True)
+    updated_time = models.DateTimeField(auto_now=True, editable=False,
+                                        db_index=True)
 
     class Meta:
         ordering = ['-created_time']
@@ -451,10 +452,12 @@ class Banner(BaseModel):
 
 class Show_Banner(BaseModel):
     banner = models.OneToOneField(Banner, related_name='show')
-    created_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+    created_time = models.DateTimeField(auto_now_add=True, editable=False,
+                                        db_index=True)
 
     class Meta:
         ordering = ['id']
+
 
 #  Banner for side bar
 
@@ -462,15 +465,18 @@ class Sidebar_Banner(BaseModel):
     (removed, disabled, enabled) = xrange(3)
     SB_BANNER_STATUS_CHOICE = [
         (removed, _('banner removed')),
-        (disabled,_('banner disabled')),
+        (disabled, _('banner disabled')),
         (enabled, _('banner enabled'))
     ]
-    image = models.CharField(max_length = 255, null = False)
-    created_time = models.DateTimeField(auto_now_add = True, editable=False, db_index = True)
-    updated_time = models.DateTimeField(auto_now = True, editable=False, db_index = True)
-    link = models.CharField(max_length = 255, null = False)
-    position = models.IntegerField(null=False,default=1,blank=False)
-    status = models.IntegerField(choices=SB_BANNER_STATUS_CHOICE, default=disabled)
+    image = models.CharField(max_length=255, null=False)
+    created_time = models.DateTimeField(auto_now_add=True, editable=False,
+                                        db_index=True)
+    updated_time = models.DateTimeField(auto_now=True, editable=False,
+                                        db_index=True)
+    link = models.CharField(max_length=255, null=False)
+    position = models.IntegerField(null=False, default=1, blank=False)
+    status = models.IntegerField(choices=SB_BANNER_STATUS_CHOICE,
+                                 default=disabled)
 
     objects = SidebarBannerManager()
 
@@ -483,9 +489,9 @@ class Sidebar_Banner(BaseModel):
 
 
 class Category(BaseModel):
-    title = models.CharField(max_length = 128, db_index = True)
+    title = models.CharField(max_length=128, db_index=True)
     cover = models.CharField(max_length=255)
-    status = models.BooleanField(default=True, db_index = True)
+    status = models.BooleanField(default=True, db_index=True)
 
     objects = CategoryManager()
 
@@ -520,8 +526,8 @@ class Sub_Category(BaseModel):
     group = models.ForeignKey(Category, related_name='sub_categories')
     title = models.CharField(max_length=128, db_index=True)
     alias = models.CharField(max_length=128, db_index=True, default=None)
-    icon = models.CharField(max_length = 64, null = True, default = None)
-    status = models.BooleanField(default = True, db_index = True)
+    icon = models.CharField(max_length=64, null=True, default=None)
+    status = models.BooleanField(default=True, db_index=True)
 
     objects = SubCategoryManager()
 
@@ -574,7 +580,7 @@ class Sub_Category(BaseModel):
 
 # TODO: Production Brand
 class Brand(BaseModel):
-    pending, publish,  promotion = xrange(3)
+    pending, publish, promotion = xrange(3)
     BRAND_STATUS_CHOICES = [
         (pending, _("pending")),
         (publish, _("publish")),
@@ -583,7 +589,7 @@ class Brand(BaseModel):
 
     name = models.CharField(max_length=100, unique=True)
     alias = models.CharField(max_length=100, null=True, default=None)
-    icon = models.CharField(max_length = 255, null = True, default = None)
+    icon = models.CharField(max_length=255, null=True, default=None)
     company = models.CharField(max_length=100, null=True, default=None)
     website = models.URLField(max_length=255, null=True, default=None)
     tmall_link = models.URLField(max_length=255, null=True, default=None)
@@ -611,11 +617,10 @@ class Brand(BaseModel):
 
     def __unicode__(self):
         return "%s %s" % (self.name, self.alias)
-    # pass
+        # pass
 
 
 class Entity(BaseModel):
-
     (remove, freeze, new, selection) = (-2, -1, 0, 1)
     ENTITY_STATUS_CHOICES = [
         (selection, _("selection")),
@@ -632,12 +637,14 @@ class Entity(BaseModel):
 
     user = models.ForeignKey(GKUser, related_name='entities', null=True)
     entity_hash = models.CharField(max_length=32, unique=True, db_index=True)
-    category = models.ForeignKey(Sub_Category, related_name='category', db_index=True)
+    category = models.ForeignKey(Sub_Category, related_name='category',
+                                 db_index=True)
     brand = models.CharField(max_length=256, default='')
     title = models.CharField(max_length=256, default='')
     intro = models.TextField(default='')
     rate = models.DecimalField(max_digits=3, decimal_places=2, default=1.0)
-    price = models.DecimalField(max_digits=20, decimal_places=2, default=0, db_index=True)
+    price = models.DecimalField(max_digits=20, decimal_places=2, default=0,
+                                db_index=True)
     mark = models.IntegerField(default=0, db_index=True)
     images = ListObjectField()
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
@@ -687,7 +694,7 @@ class Entity(BaseModel):
             res = self.likes.count()
             cache.set(key, res, timeout=86400)
             return res
-        # return self.likes.count()
+            # return self.likes.count()
 
     @property
     def note_count(self):
@@ -701,7 +708,7 @@ class Entity(BaseModel):
             res = self.notes.count()
             cache.set(key, res, timeout=86400)
             return res
-        # return self.notes.count()
+            # return self.notes.count()
 
     @property
     def has_top_note(self):
@@ -735,7 +742,7 @@ class Entity(BaseModel):
 
     @property
     def mobile_url(self):
-        return 'guoku://entity/'+ str(self.id) + '/'
+        return 'guoku://entity/' + str(self.id) + '/'
 
     def innr_like(self):
         key = 'entity:like:%s', self.pk
@@ -763,7 +770,7 @@ class Entity(BaseModel):
     @property
     def enter_selection_time(self):
         # _tm = None
-        try :
+        try:
             _tm = self.selection_entity.pub_time
         except Exception:
             _tm = self.created_time
@@ -772,7 +779,7 @@ class Entity(BaseModel):
 
     @property
     def selection_hover_word(self):
-        return self.brand + ' ' +self.title
+        return self.brand + ' ' + self.title
 
     def toDict(self):
         res = super(Entity, self).toDict()
@@ -795,7 +802,7 @@ class Entity(BaseModel):
             res.pop('rate', None)
             res['entity_id'] = self.id
             res['item_id_list'] = ['54c21867a2128a0711d970da']
-        # res['price'] = "%s" % int(self.price)
+            # res['price'] = "%s" % int(self.price)
             res['weight'] = 0
             res['score_count'] = 0
             res['mark_value'] = 0
@@ -885,13 +892,15 @@ class Buy_Link(BaseModel):
     cid = models.CharField(max_length=255, null=True)
     link = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=20, decimal_places=2, default=0)
-    foreign_price = models.DecimalField(max_digits=20, decimal_places=2, default=0)
+    foreign_price = models.DecimalField(max_digits=20, decimal_places=2,
+                                        default=0)
     volume = models.IntegerField(default=0)
     rank = models.IntegerField(default=0)
     default = models.BooleanField(default=False)
     shop_link = models.URLField(max_length=255, null=True)
     seller = models.CharField(max_length=255, null=True)
-    status = models.PositiveIntegerField(default=sale, choices=Buy_Link_STATUS_CHOICES)
+    status = models.PositiveIntegerField(default=sale,
+                                         choices=Buy_Link_STATUS_CHOICES)
 
     class Meta:
         ordering = ['-default']
@@ -900,7 +909,8 @@ class Buy_Link(BaseModel):
         res = self.toDict()
         res.pop('link', None)
         res.pop('default', None)
-        res['buy_link'] = "http://api.guoku.com%s?type=mobile" % reverse('v4_visit_item', args=[self.origin_id])
+        res['buy_link'] = "http://api.guoku.com%s?type=mobile" % reverse(
+            'v4_visit_item', args=[self.origin_id])
         res['price'] = int(self.price)
         return res
 
@@ -915,7 +925,7 @@ class Buy_Link(BaseModel):
 class Entity_Like(models.Model):
     entity = models.ForeignKey(Entity, related_name='likes')
     user = models.ForeignKey(GKUser, related_name='likes')
-    created_time = models.DateTimeField(auto_now_add = True, db_index=True)
+    created_time = models.DateTimeField(auto_now_add=True, db_index=True)
 
     objects = EntityLikeManager()
 
@@ -925,7 +935,6 @@ class Entity_Like(models.Model):
 
 
 class Note(BaseModel):
-
     (remove, normal, top) = (-1, 0, 1)
     NOTE_STATUS_CHOICES = [
         (top, _("top")),
@@ -935,15 +944,16 @@ class Note(BaseModel):
 
     user = models.ForeignKey(GKUser, related_name='note')
     entity = models.ForeignKey(Entity, related_name="notes")
-    note = models.TextField(null = True, blank=True)
-    post_time = models.DateTimeField(auto_now_add=True, editable=False, db_index = True)
+    note = models.TextField(null=True, blank=True)
+    post_time = models.DateTimeField(auto_now_add=True, editable=False,
+                                     db_index=True)
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
     status = models.IntegerField(choices=NOTE_STATUS_CHOICES, default=normal)
 
     objects = NoteManager()
 
     class Meta:
-        ordering = ['-status','post_time']
+        ordering = ['-status', 'post_time']
         # unique_together = ('entity', 'user')
 
     def __unicode__(self):
@@ -976,10 +986,11 @@ class Note(BaseModel):
         key = "note:v3:%s" % self.id
         print key
         cache.delete(key)
-        return super(Note, self).save(force_insert=False, force_update=False, using=None,
-             update_fields=None)
+        return super(Note, self).save(force_insert=False, force_update=False,
+                                      using=None,
+                                      update_fields=None)
 
-    def v3_toDict(self, user_note_pokes=None, visitor= None, has_entity=False):
+    def v3_toDict(self, user_note_pokes=None, visitor=None, has_entity=False):
         key = "note:v3:%s" % self.id
         # key = md5(key_string.encode('utf-8')).hexdigest()
         res = cache.get(key)
@@ -1019,10 +1030,10 @@ class Note(BaseModel):
 class Note_Comment(BaseModel):
     note = models.ForeignKey(Note, related_name='comments')
     user = models.ForeignKey(GKUser, related_name='note_comment')
-    content = models.TextField(null = False)
+    content = models.TextField(null=False)
     replied_comment_id = models.IntegerField(default=None, null=True)
     replied_user_id = models.IntegerField(default=None, null=True)
-    post_time = models.DateTimeField(auto_now = True, db_index = True)
+    post_time = models.DateTimeField(auto_now=True, db_index=True)
     # updated_time = models.DateTimeField(auto_now = True, db_index = True)
 
     objects = CommentManager()
@@ -1054,7 +1065,7 @@ class Note_Comment(BaseModel):
 class Note_Poke(models.Model):
     note = models.ForeignKey(Note, related_name="pokes")
     user = models.ForeignKey(GKUser, related_name="poke")
-    created_time = models.DateTimeField(auto_now_add = True, db_index = True)
+    created_time = models.DateTimeField(auto_now_add=True, db_index=True)
 
     objects = NotePokeManager()
 
@@ -1062,10 +1073,11 @@ class Note_Poke(models.Model):
         ordering = ['-created_time']
         unique_together = ('note', 'user')
 
-    # def save(self, *args, **kwargs):
-    #
-    #     super(Note_Poke, self).save(*args, **kwargs)
-    #     notify.send(self.user, recipient=self.note.user, action_object=self, verb="poke note", target=self.note)
+        # def save(self, *args, **kwargs):
+        #
+        #     super(Note_Poke, self).save(*args, **kwargs)
+        #     notify.send(self.user, recipient=self.note.user, action_object=self, verb="poke note", target=self.note)
+
 
 #
 # class Tag(models.Model):
@@ -1124,45 +1136,47 @@ class Note_Poke(models.Model):
 
 class Sina_Token(BaseModel):
     user = models.OneToOneField(GKUser, related_name='weibo')
-    sina_id = models.CharField(max_length = 64, null = True, db_index = True)
-    screen_name = models.CharField(max_length = 64, null = True, db_index = True)
-    access_token = models.CharField(max_length = 255, null = True, db_index = True)
-    create_time = models.DateTimeField(auto_now_add = True)
+    sina_id = models.CharField(max_length=64, null=True, db_index=True)
+    screen_name = models.CharField(max_length=64, null=True, db_index=True)
+    access_token = models.CharField(max_length=255, null=True, db_index=True)
+    create_time = models.DateTimeField(auto_now_add=True)
     expires_in = models.PositiveIntegerField(default=0)
-    updated_time = models.DateTimeField(auto_now = True, null = True)
+    updated_time = models.DateTimeField(auto_now=True, null=True)
 
     def __unicode__(self):
         return self.screen_name
 
     @property
     def weibo_link(self):
-        return "http://www.weibo.com/u/%s/"%self.sina_id
+        return "http://www.weibo.com/u/%s/" % self.sina_id
 
     @staticmethod
     def generate(access_token, nick):
-        code_string = "%s%s%s" % (access_token, nick, time.mktime(datetime.now().timetuple()))
+        code_string = "%s%s%s" % (
+            access_token, nick, time.mktime(datetime.now().timetuple()))
         return md5(code_string.encode('utf-8')).hexdigest()
 
 
 class Taobao_Token(models.Model):
     user = models.OneToOneField(GKUser, related_name='taobao')
-    taobao_id = models.CharField(max_length = 64, null = True, db_index = True)
-    screen_name = models.CharField(max_length = 64, null = True, db_index = True)
-    access_token = models.CharField(max_length = 255, null = True, db_index = True)
-    refresh_token = models.CharField(max_length = 255, null = True, db_index = True)
+    taobao_id = models.CharField(max_length=64, null=True, db_index=True)
+    screen_name = models.CharField(max_length=64, null=True, db_index=True)
+    access_token = models.CharField(max_length=255, null=True, db_index=True)
+    refresh_token = models.CharField(max_length=255, null=True, db_index=True)
     open_uid = models.CharField(max_length=64, null=True, db_index=True)
     isv_uid = models.CharField(max_length=64, null=True, db_index=True)
-    create_time = models.DateTimeField(auto_now_add = True)
-    expires_in = models.PositiveIntegerField(default = 0)
-    re_expires_in = models.PositiveIntegerField(default = 0)
-    updated_time = models.DateTimeField(auto_now = True, null = True)
+    create_time = models.DateTimeField(auto_now_add=True)
+    expires_in = models.PositiveIntegerField(default=0)
+    re_expires_in = models.PositiveIntegerField(default=0)
+    updated_time = models.DateTimeField(auto_now=True, null=True)
 
     def __unicode__(self):
         return self.screen_name
 
     @staticmethod
     def generate(user_id, nick):
-        code_string = "%s%s%s" % (user_id, nick, time.mktime(datetime.now().timetuple()))
+        code_string = "%s%s%s" % (
+            user_id, nick, time.mktime(datetime.now().timetuple()))
         return md5(code_string.encode('utf-8')).hexdigest()
 
 
@@ -1170,23 +1184,23 @@ class WeChat_Token(BaseModel):
     user = models.OneToOneField(GKUser, related_name='weixin')
     unionid = models.CharField(max_length=255, db_index=True)
     nickname = models.CharField(max_length=255)
-    updated_time = models.DateTimeField(auto_now = True, null = True)
+    updated_time = models.DateTimeField(auto_now=True, null=True)
 
     def __unicode__(self):
         return self.nickname
 
     @staticmethod
     def generate(unionid, nick):
-        code_string = "%s%s%s" % (unionid, nick, time.mktime(datetime.now().timetuple()))
+        code_string = "%s%s%s" % (
+            unionid, nick, time.mktime(datetime.now().timetuple()))
         return md5(code_string.encode('utf-8')).hexdigest()
 
 # for bleach Article Content
 from apps.core.utils.articlecontent import contentBleacher
 from apps.tag.models import Content_Tags
-from django.contrib.contenttypes.models import ContentType
-from django.utils.html import escape
-class Article(BaseModel):
 
+
+class Article(BaseModel):
     (remove, draft, published) = xrange(3)
     ARTICLE_STATUS_CHOICES = [
         (published, _("published")),
@@ -1199,12 +1213,14 @@ class Article(BaseModel):
     cover = models.CharField(max_length=255, blank=True)
     content = models.TextField()
     publish = models.IntegerField(choices=ARTICLE_STATUS_CHOICES, default=draft)
-    created_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True, editable=False)
+    created_datetime = models.DateTimeField(auto_now_add=True, db_index=True,
+                                            null=True, editable=False)
     updated_datetime = models.DateTimeField()
     showcover = models.BooleanField(default=False)
     read_count = models.IntegerField(default=0)
     # entity cars in in article content
-    related_entities = models.ManyToManyField(Entity,related_name='related_articles')
+    related_entities = models.ManyToManyField(Entity,
+                                              related_name='related_articles')
 
     objects = ArticleManager()
 
@@ -1224,10 +1240,9 @@ class Article(BaseModel):
         if entity_list:
             self.related_entities = entity_list
         else:
-            self.related_entities=[]
+            self.related_entities = []
 
         return res
-
 
 
     @property
@@ -1254,7 +1269,8 @@ class Article(BaseModel):
             if image_host in self.cover:
                 return self.cover
             return "%s%s" % (image_host, self.cover)
-        return "%s%s" % (settings.STATIC_URL, 'images/article/default_cover.jpg')
+        return "%s%s" % (
+            settings.STATIC_URL, 'images/article/default_cover.jpg')
 
     @property
     def once_selection(self):
@@ -1263,7 +1279,7 @@ class Article(BaseModel):
         :return: is the article was in selection at least once.
         """
         #article can be selected multiple times
-        res = hasattr(self,'selections') and (self.selections.count() > 0)
+        res = hasattr(self, 'selections') and (self.selections.count() > 0)
         return res
 
     @property
@@ -1294,10 +1310,11 @@ class Article(BaseModel):
         if not self.once_selection:
             return _('Never in Selection')
 
-        pubed_selection = self.selections.filter(is_published=True).order_by('-pub_time')
+        pubed_selection = self.selections.filter(is_published=True).order_by(
+            '-pub_time')
         if pubed_selection:
             return pubed_selection[0].pub_time.strftime('%Y-%m-%d %H:%M')
-        else :
+        else:
             return _('Not Set Selection Pub Time')
 
     @property
@@ -1314,15 +1331,16 @@ class Article(BaseModel):
     def url(self):
         return self.get_absolute_url()
 
-    # will cause circuler reference
-    # def tag_string(self):
-    #     tids = Content_Tags.objects.filter(target_content_type=31, target_object_id=self.pk).values_list('tag_id', flat=True)
-    #     tags = Tags.objects.filter(pk__in=tids)
-    #     tag_list=[]
-    #     for row in tags:
-    #         tag_list.append(row.name)
-    #     tag_string = ",".join(tag_list)
-    #     return tag_string
+        # will cause circuler reference
+        # def tag_string(self):
+        #     tids = Content_Tags.objects.filter(target_content_type=31, target_object_id=self.pk).values_list('tag_id', flat=True)
+        #     tags = Tags.objects.filter(pk__in=tids)
+        #     tag_list=[]
+        #     for row in tags:
+        #         tag_list.append(row.name)
+        #     tag_string = ",".join(tag_list)
+        #     return tag_string
+
 
 # use ForeignKey instead of  oneToOne for selection entity ,
 # this means , an article can be published many times , without first been removed from selection
@@ -1331,26 +1349,32 @@ class Article(BaseModel):
 # editor can only control article's publish
 # only article manager can set selection_article's is_published property
 class Selection_Article(BaseModel):
-    article = models.ForeignKey(Article,unique=False, related_name='selections')
+    article = models.ForeignKey(Article, unique=False,
+                                related_name='selections')
     is_published = models.BooleanField(default=False)
-    pub_time = models.DateTimeField(db_index=True,editable=True, null=True,blank=True)
-    create_time = models.DateTimeField(db_index=True, editable=False,auto_now_add=True, blank=True)
+    pub_time = models.DateTimeField(db_index=True, editable=True, null=True,
+                                    blank=True)
+    create_time = models.DateTimeField(db_index=True, editable=False,
+                                       auto_now_add=True, blank=True)
 
     objects = SelectionArticleManager()
+
     class Meta:
         ordering = ['-pub_time']
 
     def __unicode__(self):
-        return '%s- in selection at - %s'%(self.article.title, self.create_time)
-    # def __unicode__(self):
-    #     return self.article
+        return '%s- in selection at - %s' % (
+            self.article.title, self.create_time)
+        # def __unicode__(self):
+        #     return self.article
 
 
 class Media(models.Model):
-    creator=models.ForeignKey(GKUser, related_name='media_entries')
+    creator = models.ForeignKey(GKUser, related_name='media_entries')
     file_path = models.URLField()
     content_type = models.CharField(max_length=30)
-    upload_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True, editable=False)
+    upload_datetime = models.DateTimeField(auto_now_add=True, db_index=True,
+                                           null=True, editable=False)
 
     class Meta:
         ordering = ['-upload_datetime']
@@ -1364,7 +1388,8 @@ class Media(models.Model):
 class Event(models.Model):
     title = models.CharField(max_length=30, null=False, default='')
     tag = models.CharField(max_length=30, null=False, default='')
-    slug = models.CharField(max_length=100, null=False, db_index=True, unique=True)
+    slug = models.CharField(max_length=100, null=False, db_index=True,
+                            unique=True)
     status = models.BooleanField(default=False)
     created_datetime = models.DateTimeField(auto_now=True, db_index=True)
 
@@ -1372,11 +1397,11 @@ class Event(models.Model):
         ordering = ['-created_datetime']
 
     def __unicode__(self):
-        return "%s - %s"%(self.slug, self.title)
+        return "%s - %s" % (self.slug, self.title)
 
     @property
     def has_banner(self):
-        count = self.banner.filter(position__gt = 0).count()
+        count = self.banner.filter(position__gt=0).count()
         if count > 0:
             return True
         return False
@@ -1388,8 +1413,8 @@ class Event(models.Model):
 
     @property
     def has_recommendation(self):
-        count = self.recommendation.filter(position__gt = 0).count()
-        if count > 0 :
+        count = self.recommendation.filter(position__gt=0).count()
+        if count > 0:
             return True
         return False
 
@@ -1406,6 +1431,7 @@ class Event(models.Model):
     def slug_url(self):
         return reverse('web_event', args=[self.slug])
 
+
 #  pendingn for assesment  ----- by An
 class Event_Status(models.Model):
     event = models.OneToOneField(Event, primary_key=True)
@@ -1413,7 +1439,8 @@ class Event_Status(models.Model):
     is_top = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return "%s status : is_published : %s , is_top : %s" %(self.event.slug, self.is_published, self.is_top)
+        return "%s status : is_published : %s , is_top : %s" % (
+            self.event.slug, self.is_published, self.is_top)
 
 
 class Event_Banner(models.Model):
@@ -1424,13 +1451,17 @@ class Event_Banner(models.Model):
     ]
 
     image = models.CharField(max_length=255, null=False)
-    banner_type = models.IntegerField(choices=BANNER_TYPE__CHOICES, default=item)
+    banner_type = models.IntegerField(choices=BANNER_TYPE__CHOICES,
+                                      default=item)
     user_id = models.CharField(max_length=30, null=True)
     link = models.CharField(max_length=255, null=True)
     background_image = models.CharField(max_length=255, null=True, blank=True)
-    background_color = models.CharField(max_length=14, null=True,blank=True,default='fff')
-    created_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
-    updated_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+    background_color = models.CharField(max_length=14, null=True, blank=True,
+                                        default='fff')
+    created_time = models.DateTimeField(auto_now_add=True, editable=False,
+                                        db_index=True)
+    updated_time = models.DateTimeField(auto_now_add=True, editable=False,
+                                        db_index=True)
 
     class Meta:
         ordering = ['-created_time']
@@ -1439,10 +1470,11 @@ class Event_Banner(models.Model):
     def image_url(self):
         return "%s%s" % (image_host, self.image)
         # return "%s%s" % (image_host, self.image)
+
     @property
     def background_image_url(self):
         if self.background_image:
-            return "%s%s" %(image_host, self.background_image)
+            return "%s%s" % (image_host, self.background_image)
         else:
             return None
 
@@ -1473,12 +1505,13 @@ class Show_Event_Banner(models.Model):
     banner = models.OneToOneField(Event_Banner, related_name='show')
     event = models.ForeignKey(Event, related_name='banner', null=True)
     position = models.IntegerField(default=0)
-    created_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+    created_time = models.DateTimeField(auto_now_add=True, editable=False,
+                                        db_index=True)
 
     objects = ShowEventBannerManager()
+
     class Meta:
         ordering = ['position']
-
 
 
 # editor recommendation
@@ -1486,8 +1519,10 @@ class Show_Event_Banner(models.Model):
 class Editor_Recommendation(models.Model):
     image = models.CharField(max_length=255, null=False)
     link = models.CharField(max_length=255, null=False)
-    created_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
-    updated_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+    created_time = models.DateTimeField(auto_now_add=True, editable=False,
+                                        db_index=True)
+    updated_time = models.DateTimeField(auto_now_add=True, editable=False,
+                                        db_index=True)
 
     class Meta:
         ordering = ['-created_time']
@@ -1516,46 +1551,51 @@ class Editor_Recommendation(models.Model):
         try:
             return self.show.event
         except Show_Editor_Recommendation.DoesNotExist, Event.DoesNotExist:
-            return  None
+            return None
 
 
 class Show_Editor_Recommendation(models.Model):
-    recommendation = models.OneToOneField(Editor_Recommendation, related_name='show', unique=False)
+    recommendation = models.OneToOneField(Editor_Recommendation,
+                                          related_name='show', unique=False)
     event = models.ForeignKey(Event, related_name='recommendation', null=True)
     position = models.IntegerField(default=0)
-    created_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+    created_time = models.DateTimeField(auto_now_add=True, editable=False,
+                                        db_index=True)
 
     class Meta:
         ordering = ['-position']
+
 
 class Friendly_Link(BaseModel):
     (removed, disabled, enabled) = xrange(3)
     FL_STATUS_CHOICE = [
         (removed, _('banner removed')),
-        (disabled,_('banner disabled')),
+        (disabled, _('banner disabled')),
         (enabled, _('banner enabled'))
     ]
 
     DesignSite = 'DS'
     Media = 'MEDIA'
-    Tech  = 'TECH'
+    Tech = 'TECH'
     Channel = 'CHANNEL'
     Startup = 'STARTUP'
     Other = 'OTHER'
 
     LINK_CATEGORY_CHOICE = (
-        ( DesignSite,_('Design Site')),
-        (Media,_('Media Site')),
-        (Tech,_('Tech Site')),
-        (Channel,_('Channel & Cooperation')),
+        (DesignSite, _('Design Site')),
+        (Media, _('Media Site')),
+        (Tech, _('Tech Site')),
+        (Channel, _('Channel & Cooperation')),
         (Startup, _('Startup')),
-        (Other,_('Other'))
+        (Other, _('Other'))
     )
     name = models.CharField(max_length=64, null=False, blank=False)
     link = models.CharField(max_length=255, null=False, blank=False)
-    link_category =  models.CharField(max_length=64, choices=LINK_CATEGORY_CHOICE,default=Other)
+    link_category = models.CharField(max_length=64,
+                                     choices=LINK_CATEGORY_CHOICE,
+                                     default=Other)
     position = models.IntegerField(null=True, default=99)
-    logo = models.CharField(max_length=255,null=True, blank=True, default='')
+    logo = models.CharField(max_length=255, null=True, blank=True, default='')
     status = models.IntegerField(choices=FL_STATUS_CHOICE, default=disabled)
 
     @property
@@ -1563,17 +1603,48 @@ class Friendly_Link(BaseModel):
         return "%s%s" % (image_host, self.logo)
 
 
+class EDM(BaseModel):
+    title = models.CharField(default=u'本月果库上不可错过的精彩内容，已为你准备好'
+                                     u' - 果库 | 精英消费指南',
+                             max_length=255)
+    created = models.DateTimeField()
+    modified = models.DateTimeField()
+    verification = models.BooleanField()
+    publish_time = models.DateTimeField(default=datetime.now, null=False)
+    cover_image = models.CharField(max_length=255, null=False)
+    cover_hype_link = models.CharField(max_length=255, null=False)
+    cover_description = models.TextField(null=False)
+    articles = models.ManyToManyField(Article, null=False)
+
+    def __unicode__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        """ On save, update timestamps """
+        if not self.id and not self.pk:
+            self.created = datetime.now()
+        self.modified = datetime.now()
+        return super(EDM, self).save(*args, **kwargs)
+
+    @property
+    def cover(self):
+        cover_image = self.cover_image
+        if type(self.cover_image) == list:
+            cover_image = self.cover_image[0]
+        if 'http' in cover_image:
+            return cover_image
+        else:
+            return "%s%s" % (image_host, cover_image)
 
 
 # TODO: model post save
 def create_or_update_entity(sender, instance, created, **kwargs):
-
     if issubclass(sender, Entity):
         log.info(type(instance.status))
         if int(instance.status) == Entity.selection:
             log.info("status %s" % instance.status)
             try:
-                selection = Selection_Entity.objects.get(entity = instance)
+                selection = Selection_Entity.objects.get(entity=instance)
                 selection.entity = instance
                 # selection.is_published = False
                 # selection.pub_time = datetime.now()
@@ -1581,27 +1652,33 @@ def create_or_update_entity(sender, instance, created, **kwargs):
             except Selection_Entity.DoesNotExist, e:
                 log.info(e.message)
                 Selection_Entity.objects.create(
-                    entity = instance,
-                    is_published = False,
-                    pub_time = datetime.now()
+                    entity=instance,
+                    is_published=False,
+                    pub_time=datetime.now()
                 )
         else:
             try:
-                selection = Selection_Entity.objects.get(entity = instance)
+                selection = Selection_Entity.objects.get(entity=instance)
                 selection.delete()
             except Selection_Entity.DoesNotExist, e:
-                log.info("INFO: entity id %s ,%s"% (instance.pk, e.message))
-post_save.connect(create_or_update_entity, sender=Entity, dispatch_uid="create_or_update_entity")
+                log.info("INFO: entity id %s ,%s" % (instance.pk, e.message))
+
+
+post_save.connect(create_or_update_entity, sender=Entity,
+                  dispatch_uid="create_or_update_entity")
 
 
 @receiver(post_save, sender=Selection_Entity)
-def entity_set_to_selection(sender, instance, created, raw, using, update_fields, **kwargs):
+def entity_set_to_selection(sender, instance, created, raw, using,
+                            update_fields, **kwargs):
     if created:
         instance.entity.fetch_image()
 
     if (sender, Selection_Entity) and instance.is_published:
         user = GKUser.objects.get(pk=2)
-        notify.send(user, recipient=instance.entity.user, action_object=instance, verb="set selection", target=instance.entity)
+        notify.send(user, recipient=instance.entity.user,
+                    action_object=instance, verb="set selection",
+                    target=instance.entity)
 
 
 def user_like_notification(sender, instance, created, **kwargs):
@@ -1611,15 +1688,19 @@ def user_like_notification(sender, instance, created, **kwargs):
         if instance.user.is_active == GKUser.remove:
             return
         if instance.user != instance.entity.user and instance.user.is_active >= instance.user.blocked:
-            notify.send(instance.user, recipient=instance.entity.user, action_object=instance, verb='like entity', target=instance.entity)
+            notify.send(instance.user, recipient=instance.entity.user,
+                        action_object=instance, verb='like entity',
+                        target=instance.entity)
 
-post_save.connect(user_like_notification, sender=Entity_Like, dispatch_uid="user_like_action_notification")
 
+post_save.connect(user_like_notification, sender=Entity_Like,
+                  dispatch_uid="user_like_action_notification")
 
 from django.core import serializers
 from apps.tag.tasks import generator_tag
-def user_post_note_notification(sender, instance, created, **kwargs):
 
+
+def user_post_note_notification(sender, instance, created, **kwargs):
     data = serializers.serialize('json', [instance])
     generator_tag.delay(data=data)
     # generator_tag(data=data)
@@ -1628,9 +1709,13 @@ def user_post_note_notification(sender, instance, created, **kwargs):
         # log.info(instance.user)
         instance.entity.innr_note()
         if instance.user != instance.entity.user and instance.user.is_active >= instance.user.blocked:
-            notify.send(instance.user, recipient=instance.entity.user, action_object=instance, verb='post note', target=instance.entity)
+            notify.send(instance.user, recipient=instance.entity.user,
+                        action_object=instance, verb='post note',
+                        target=instance.entity)
 
-post_save.connect(user_post_note_notification, sender=Note, dispatch_uid="user_post_note_action_notification")
+
+post_save.connect(user_post_note_notification, sender=Note,
+                  dispatch_uid="user_post_note_action_notification")
 
 
 def user_post_comment_notification(sender, instance, created, **kwargs):
@@ -1640,33 +1725,47 @@ def user_post_comment_notification(sender, instance, created, **kwargs):
         if instance.user.is_active == GKUser.remove:
             return
 
-        notify.send(instance.user, recipient=instance.note.user, verb="replied note", action_object=instance, target=instance.note)
+        notify.send(instance.user, recipient=instance.note.user,
+                    verb="replied note", action_object=instance,
+                    target=instance.note)
         if (instance.replied_user_id):
             try:
-                user = GKUser.objects.get(pk = instance.replied_user_id)
-                notify.send(instance.user, recipient=user, verb="replied comment", action_object=instance, target=instance)
+                user = GKUser.objects.get(pk=instance.replied_user_id)
+                notify.send(instance.user, recipient=user,
+                            verb="replied comment", action_object=instance,
+                            target=instance)
             except GKUser.DoesNotExist, e:
                 log.error("Error: %s" % e.message)
 
-post_save.connect(user_post_comment_notification, sender=Note_Comment, dispatch_uid="user_post_comment_action_notification")
+
+post_save.connect(user_post_comment_notification, sender=Note_Comment,
+                  dispatch_uid="user_post_comment_action_notification")
 
 
 def user_poke_note_notification(sender, instance, created, **kwargs):
-
     if issubclass(sender, Note_Poke) and created:
         if instance.user.is_active == GKUser.remove:
             return
-        notify.send(instance.user, recipient=instance.note.user, action_object=instance, verb="poke note", target=instance.note)
+        notify.send(instance.user, recipient=instance.note.user,
+                    action_object=instance, verb="poke note",
+                    target=instance.note)
         # pass
-post_save.connect(user_poke_note_notification, sender=Note_Poke, dispatch_uid="user_poke_note_action_notification")
+
+
+post_save.connect(user_poke_note_notification, sender=Note_Poke,
+                  dispatch_uid="user_poke_note_action_notification")
 
 
 def user_follow_notification(sender, instance, created, **kwargs):
     if issubclass(sender, User_Follow) and created:
         log.info(instance)
-        notify.send(instance.follower, recipient=instance.followee, verb=u'has followed you', action_object=instance, target=instance.followee)
+        notify.send(instance.follower, recipient=instance.followee,
+                    verb=u'has followed you', action_object=instance,
+                    target=instance.followee)
 
-post_save.connect(user_follow_notification, sender=User_Follow, dispatch_uid="user_follow_notification")
+
+post_save.connect(user_follow_notification, sender=User_Follow,
+                  dispatch_uid="user_follow_notification")
 
 #
 # def article_related_entity_update(sender, instance, created, **kwargs):

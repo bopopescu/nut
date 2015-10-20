@@ -251,30 +251,30 @@ class EntityForm(forms.Form):
 
     # id = forms.IntegerField(label=_('entity_id'),
     #                      widget=forms.NumberInput(attrs={'class':'form-control', 'readonly':''}),
-                         # help_text=_(''))
+                         # )
     creator = forms.CharField(label=_('creator'),
                               widget=forms.TextInput(attrs={'class':'form-control', 'readonly':''}),
-                              help_text=_(''))
+                              )
     brand = forms.CharField(label=_('brand'),
                             widget=forms.TextInput(attrs={'class':'form-control'}),
                             required=False,
-                            help_text=_(''))
+                            )
     title = forms.CharField(label=_('title'),
                             widget=forms.TextInput(attrs={'class':'form-control'}),
-                            help_text=_(''))
+                            )
     # intro = forms.CharField(label=_('intro'), widget=forms.Textarea(attrs={'class':'form-control'}),
     #                         required=False,
-    #                         help_text=_(''))
+    #                         )
     price = forms.DecimalField(
         max_digits=20, decimal_places=2,
         label=_('price'),
         widget=forms.NumberInput(attrs={'class':'form-control'}),
-        help_text=_(''),
+
     )
     # note = forms.CharField(
     #     label= _('note'),
     #     widget=forms.Textarea(attrs={'class':'form-control'}),
-    #     help_text=_(''),
+    #
     # )
 
     def __init__(self, entity, *args, **kwargs):
@@ -286,12 +286,12 @@ class EntityForm(forms.Form):
             self.fields['status'] = forms.ChoiceField(label=_('status'),
                                                   choices=Entity.ENTITY_STATUS_CHOICES,
                                                   widget=forms.Select(attrs={'class':'form-control'}),
-                                                  help_text=_(''))
+                                                  )
         else:
             self.fields['status'] = forms.ChoiceField(label=_('status'),
                                                   choices=Entity.NO_SELECTION_ENTITY_STATUS_CHOICES,
                                                   widget=forms.Select(attrs={'class':'form-control',}),
-                                                  help_text=_(''))
+                                                  )
 
         if len(self.entity.images) > 1:
             # position_list = list()
@@ -303,7 +303,7 @@ class EntityForm(forms.Form):
                             choices=position_choices,
                             widget=forms.Select(attrs={'class':'form-control',}),
                             initial=0,
-                            help_text=_(''))
+                            )
         # log.info(args)
         if len(args):
             group_id = args[0]['category']
@@ -321,12 +321,12 @@ class EntityForm(forms.Form):
         self.fields['category'] = forms.ChoiceField(label=_('category'),
                                                     widget=forms.Select(attrs={'class':'form-control', 'id':'category', 'data-init':sub_category}),
                                                     choices=get_category_choices(),
-                                                    help_text=_('')
+
                                                     )
         self.fields['sub_category'] = forms.ChoiceField(label=_('sub_category'),
                                                         choices=sub_category_choices,
                                                         widget=forms.Select(attrs={'class':'form-control', 'id':'sub-category', 'data-init':sub_category}),
-                                                        help_text=_(''))
+                                                        )
         # log.info(self.fields)
 
     def clean(self):
@@ -338,19 +338,19 @@ class CreateEntityForm(forms.Form):
     origin_id = forms.CharField(
         label=_('origin id'),
         widget=forms.TextInput(attrs={'class':'form-control', 'readonly':''}),
-        help_text=_(''),
+
     )
 
     origin_source = forms.CharField(
         label=_('origin_source'),
         widget=forms.TextInput(attrs={'class':'form-control', 'readonly':''}),
-        help_text=_(''),
+
     )
 
     title = forms.CharField(
         label=_('title'),
         widget=forms.TextInput(attrs={'class':'form-control'}),
-        help_text=_(''),
+
     )
 
     brand = forms.CharField(
@@ -362,7 +362,7 @@ class CreateEntityForm(forms.Form):
     price = forms.FloatField(
         label=_('price'),
         widget=forms.NumberInput(attrs={'class':'form-control'}),
-        help_text=_(''),
+
     )
 
     cand_url = forms.URLField(
@@ -374,7 +374,7 @@ class CreateEntityForm(forms.Form):
     # content = forms.CharField(
     #     label=_('note'),
     #     widget=forms.Textarea(attrs={'class':'form-control'}),
-    #     help_text=_(''),
+    #
     # )
 
     def __init__(self, request, *args, **kwargs):
@@ -399,7 +399,7 @@ class CreateEntityForm(forms.Form):
             label=_('select image'),
             choices=img_choices,
             widget=forms.Select(attrs={'class':'form-control'}),
-            help_text=_(''),
+
         )
 
         cate = Sub_Category.objects.get(pk = category_id)
@@ -409,18 +409,18 @@ class CreateEntityForm(forms.Form):
                                                     widget=forms.Select(attrs={'class':'form-control', 'id':'category', 'data-init':cate.group_id}),
                                                     choices=get_category_choices(),
                                                     initial=cate.group_id,
-                                                    help_text=_(''),
+
                                     )
         self.fields['sub_category'] = forms.CharField(label=_('sub_category'),
                                                         # choices=sub_category_choices,
                                                         widget=forms.Select(attrs={'class':'form-control', 'id':'sub-category', 'data-init':category_id}),
                                                         initial=category_id,
-                                                        help_text=_(''))
+                                                        )
 
         self.fields['content'] = forms.CharField(
             label=_('note'),
             widget=forms.Textarea(attrs={'class':'form-control'}),
-            help_text=_(''),
+
             required=False,
         )
 
@@ -428,14 +428,14 @@ class CreateEntityForm(forms.Form):
                                                   choices=Note.NOTE_STATUS_CHOICES,
                                                   widget=forms.Select(attrs={'class':'form-control'}),
                                                   initial=Note.normal,
-                                                  help_text=_(''))
+                                                  )
 
         user_choices = get_admin_user_choices()
         self.fields['user'] = forms.ChoiceField(
             label=_('user'),
             choices=user_choices,
             widget=forms.Select(attrs={'class':'form-control'}),
-            help_text=_(''),
+
         )
 
     # def clean_status(self):
@@ -652,18 +652,18 @@ class BuyLinkForm(forms.Form):
     # origin_id = forms.IntegerField(
     #     label=_('origin_id'),
     #     widget=forms.TextInput(attrs={'class':'form-control'}),
-    #     help_text=_('')
+    #
     # )
 
     # price = forms.FloatField(
     #     label=_('price'),
     #     widget=forms.TextInput(attrs={'class':'form-control'}),
-    #     help_text=_('')
+    #
     # )
     link = forms.URLField(
         label=_('link'),
         widget=forms.URLInput(attrs={'class':'form-control'}),
-        help_text=_(''),
+
     )
 
     default = forms.ChoiceField(
@@ -671,7 +671,7 @@ class BuyLinkForm(forms.Form):
         choices=YES_OR_NO,
         widget=forms.Select(attrs={'class':'form-control'}),
         initial=False,
-        help_text=_(''),
+
     )
 
     def __init__(self, entity, *args, **kwargs):
@@ -801,7 +801,7 @@ class EditBuyLinkForm(forms.Form):
     link = forms.URLField(
         label=_('link'),
         widget=forms.URLInput(attrs={'class':'form-control'}),
-        help_text=_(''),
+
     )
 
     default = forms.ChoiceField(
@@ -809,7 +809,7 @@ class EditBuyLinkForm(forms.Form):
         choices=YES_OR_NO,
         widget=forms.Select(attrs={'class':'form-control'}),
         # initial=0,
-        help_text=_(''),
+
     )
 
     def __init__(self, buy_link, *args, **kwargs):

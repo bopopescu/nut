@@ -1,0 +1,336 @@
+{% load i18n staticfiles %}
+{% load guoku %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>{{ edm.title }}</title>
+<style type="text/css">
+body {
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+    color: #9d9e9f;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+a {
+    color: #428bca;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+div {
+    display: block;
+}
+
+span {
+    display: block;
+    color: #9d9e9f;
+    font-size: 12px;
+}
+
+.content {
+    width: 900px;
+    padding: 4% 2%;
+    text-align: center;
+    margin: 0 auto;
+    background: #fafafa;
+}
+
+.header {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.container {
+{#            width: 96%;#} text-align: center;
+{#            margin: 0 auto;#} padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.logo {
+    width: 20%;
+{#                max-width: 90%;#}
+}
+
+.banner {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.banner img {
+    max-width: 100%;
+}
+
+.banner p {
+    padding: 0;
+    color: #9d9e9f;
+    text-align: left;
+    line-height: 25px;
+    font-size: 16px;
+}
+
+.liner {
+    padding: 0 15px 0;
+    margin: 50px 0;
+    line-height: 1px;
+    border-left: 375px solid #dddddd;
+    border-right: 375px solid #dddddd;
+    text-align: center;
+}
+
+.liner span {
+    font-size: 18px;
+    color: #5e5e5e;
+    line-height: 0;
+}
+
+.liner_with_no_text {
+    height: 1px;
+    border-top: 1px solid #dddddd;
+}
+
+.article {
+    width: 100%;
+    height: 300px;
+{#            border: solid #5e5e5e 1px;#} margin: 10px 0;
+}
+
+.article-cover {
+    float: left;
+    width: 40%;
+    height: 100%;
+}
+
+.article-cover img {
+    max-width: 98%;
+    max-height: 98%;
+}
+
+.article-content {
+    float: left;
+    width: 60%;
+    height: 100%;
+}
+
+.article-title {
+    text-align: left;
+}
+
+.article-title a {
+    font-size: 22px;
+    color: #424242;
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+    font-weight: bolder;
+}
+
+.article-summary {
+    font-size: 16px;
+    color: #9d9e9f;
+    text-align: left;
+}
+
+.popular_entities {
+    margin-right: -15px;
+    margin-left: -15px;
+    height: auto;
+    display: inline-block;
+}
+
+.thumbnail {
+    float: left;
+    padding-right: 15px;
+    padding-left: 15px;
+    border: none;
+    width: 30%;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.entity-img {
+    height: 0;
+    padding-bottom: 99%;
+    overflow: hidden;
+    text-align: center;
+    border: 1px solid #e6e6e6;
+    display: block;
+}
+
+.entity-img a {
+    display: inline-block;
+}
+
+.entity-img a img {
+    background-color: #f6f6f6;
+    width: 100%;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.entity-info {
+    width: 100%
+}
+
+.entity-title {
+    display: block;
+}
+
+.entity-title a {
+    font-size: 16px;
+    color: #424242;
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+}
+
+.entity-price {
+    display: block;
+    color: #428bca;
+    font-size: 16px;
+    font-family: Georgia, serif;
+}
+
+.get_more {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    width: 150px;
+    height: 26px;
+    background: #80BEF3;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 30px;
+    margin: 40px auto;
+    color: #ffffff;
+}
+
+.get_more a {
+    color: #ffffff;
+}
+
+.footer {
+    width: 100%;
+    padding-bottom: 30px;
+}
+
+.footer_of_footer {
+    margin-top: 20px;
+}
+
+.footer_of_footer span {
+    margin: 7px auto;
+}
+
+.contact_me img {
+    width: 30px;
+    height: 30px;
+    margin: auto 3px;
+}
+
+.get_me {
+    width: 100%;
+    margin-bottom: 40px;
+    color: #9d9e9f;
+}
+
+.get_me img {
+    margin-top: 5px;
+    margin-bottom: 7px;
+}
+
+.get_me span {
+    font-size: 14px;
+    color: #424242;
+}
+
+.get_me a {
+    font-size: 14px;
+}
+</style>
+</head>
+<body>
+<div class="content">
+    <div class="header">
+        <img class="logo" src="{% static 'images/edm/logo.png' %}">
+    </div>
+    <div class="container">
+        <div class="banner">
+            <img src="/static/images/edm/{{ edm.cover_image }}"/>
+
+            <p class="description">{{ edm.cover_description }}
+                <a href="#">...阅读更多</a></p>
+        </div>
+        <div class="liner"> 热门图文</div>
+        <div class="articles">
+            {% for article in edm.articles.all %}
+                <div class="article">
+                    <div class="article-cover">
+                        <img src="{{ article.cover_url }}"/>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-title">
+                            <a href="#">
+                                {{ article.title|truncatechars:36 }}
+                            </a>
+                        </div>
+                        <div class="article-summary">
+                            {{ article.content|striptags|truncatechars:120 }}
+                            <a href="#">...阅读更多</a></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="liner"> 热门商品</div>
+        <div class="popular_entities">
+            {% for entity in popular_entities %}
+                <div class="thumbnail">
+                    <div class="entity-img">
+                        <a href="#">
+                            <img src="{{ entity.chief_image|resize:'310' }}"/>
+                        </a>
+                    </div>
+                    <div class="entity-info">
+                        <span class="entity-title">
+                            <a href="#">
+                                {{ entity.title|truncatechars:18 }}
+                            </a>
+                        </span>
+                        <span class="entity-price">￥{{ entity.price }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="footer">
+        <div class="liner_with_no_text"></div>
+        <div class="get_more"><a href="#">浏览更多</a></div>
+        <div class="contact_me">
+            <a href="#"><img src="{% static 'images/edm/sina@2x.png' %}"></a>
+            <a href="#"><img src="{% static 'images/edm/douban@2x.png' %}"></a>
+            <a href="#"><img src="{% static 'images/edm/twitter@2x.png' %}"></a>
+            <a href="#"><img
+                    src="{% static 'images/edm/facebook@2x.png' %}"></a>
+            <a href="#"><img
+                    src="{% static 'images/edm/instagram@2x.png' %}"></a>
+        </div>
+        <div class="get_me">
+            <img src="{% static 'images/edm/QR_DL.jpg' %}">
+            <span>
+                下载果库客户端
+            </span>
+            <a href="#">iPhone</a> ·
+            <a href="#">iPad</a> ·
+            <a href="#">Android</a>
+        </div>
+        <div class="liner_with_no_text"></div>
+        <div class="footer_of_footer">
+            <span>如果不想继续接受此邮件，请点击 <a href="#">退订</a></span>
+            <span> © 果库 2015</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

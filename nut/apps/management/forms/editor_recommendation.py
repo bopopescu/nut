@@ -17,12 +17,12 @@ class BaseRecommendationForm(forms.Form):
     link = forms.URLField(
         label=_('link'),
         widget=forms.TextInput(attrs={'class':'form-control'}),
-        help_text=_(''),
+
     )
     editor_recommend_image = forms.FileField(
         label=_('event banner image'),
         widget=forms.FileInput(attrs={'class':'controls'}),
-        help_text=_(''),
+
         required=False,
     )
 
@@ -39,7 +39,7 @@ class BaseRecommendationForm(forms.Form):
         # self.fields['position'] = forms.ChoiceField(label=_('position'),
         #                                           choices=BANNER_POSITION_CHOICES,
         #                                           widget=forms.Select(attrs={'class':'form-control',}),
-        #                                           help_text=_(''))
+        #                                           )
 
         events = Event.objects.all()
         events_list = list()
@@ -54,7 +54,7 @@ class BaseRecommendationForm(forms.Form):
             label=_('event'),
             choices=events_choices,
             widget=forms.Select(attrs={'class':'form-control',}),
-            help_text=_(''),
+
             required=False
         )
 
@@ -129,7 +129,7 @@ class EditEditorRecommendForms(BaseRecommendationForm):
         #     self.fields['position'] = forms.ChoiceField(label=_('position'),
         #                                           choices=BANNER_POSITION_CHOICES,
         #                                           widget=forms.Select(attrs={'class':'form-control',}),
-        #                                           help_text=_(''))
+        #                                           )
         if self.recommendation.event:
             try:
                 # event_id = kwargs['data']['event']
@@ -142,7 +142,7 @@ class EditEditorRecommendForms(BaseRecommendationForm):
                 self.fields['position'] = forms.ChoiceField(label=_('position'),
                                                   choices=position_choices,
                                                   widget=forms.Select(attrs={'class':'form-control',}),
-                                                  help_text=_(''))
+                                                  )
             except KeyError:
                 pass
 

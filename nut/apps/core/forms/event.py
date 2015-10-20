@@ -16,19 +16,19 @@ class BaseEventForm(forms.Form):
     title = forms.CharField(
         label=_('title'),
         widget=forms.TextInput(attrs={'class':'form-control'}),
-        help_text=_(''),
+
     )
 
     tag = forms.CharField(
         label=_('tag'),
         widget=forms.TextInput(attrs={'class':'form-control'}),
-        help_text=_('')
+
     )
 
     slug = forms.CharField(
         label=_('slug'),
         widget=forms.TextInput(attrs={'class':'form-control'}),
-        help_text=_(''),
+
     )
     # change widget to textInput by An , explain later .
     status = forms.ChoiceField(
@@ -36,7 +36,7 @@ class BaseEventForm(forms.Form):
         choices=YES_OR_NO,
         widget=forms.TextInput( attrs={'class':'form-control'}, ),
         required=False,
-        help_text=_(''),
+
         initial=0,
     )
 

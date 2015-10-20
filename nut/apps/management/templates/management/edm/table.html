@@ -1,0 +1,44 @@
+{% load i18n %}
+{% load guoku %}
+
+<table class="table table-small-font table-hover table-bordered">
+    <thead>
+    <tr>
+        <th>{% trans 'title' %}</th>
+        <th>{% trans 'cover' %}</th>
+        <th>{% trans 'publish_time' %}</th>
+        <th>{% trans 'verification' %}</th>
+        <th>{% trans 'status' %}</th>
+        <th>{% trans 'operate' %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for edm in object_list %}
+        <tr>
+            <td class="product-brand">
+                {{ edm.title }}
+            </td>
+            <td class="product-brand">
+                <img src="{{ edm.cover_image }}" />
+            </td>
+            <td class="product-title">
+                {{ edm.publish_time }}
+            </td>
+            <td class="product-title">
+                {% trans "this is a test" as edm.verification %}
+                {{ edm.verification }}
+            </td>
+            <td class="product-title">
+                {{ edm.status }}
+            </td>
+            <td class="product-title">
+                <a href="{% url 'management_edm_edit' edm.id %}"> 编辑</a> /
+                <a href=""> 删除</a> /
+                <a href="{% url 'preview_edm' edm.id %}"> {% trans 'Preview' %}</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{#    </div>#}
+{# </div>#}
