@@ -1,8 +1,6 @@
 from django.db import models
 from django.core.cache import cache
-
 from datetime import datetime, timedelta
-
 from random import shuffle
 from django.core.paginator import  Paginator,InvalidPage
 
