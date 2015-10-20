@@ -1,5 +1,5 @@
 from django.conf.urls import url, patterns
-from apps.v4.views.user import APIUserSearchView, APIUserIndexView
+from apps.v4.views.user import APIUserSearchView, APIUserIndexView, APIUserNotes
 
 urlpatterns = patterns(
     'apps.v4.views.user',
@@ -10,8 +10,8 @@ urlpatterns = patterns(
     url(r'^(?P<user_id>\d+)/tag/(?P<tag>\w+)/$', 'tag_detail', name='v4_user_tag_detail'),
     url(r'^(?P<user_id>\d+)/like/$', 'entity_like', name='v4_user_entity_like'),
     url(r'^(?P<user_id>\d+)/entity/note/$', 'entity_note', name='v4_user_entity_note'),
+    url(r'^(?P<user_id>\d+)/notes/$', APIUserNotes.as_view(), name='v4_user_notes'),
 
-    url(r'^search/$', APIUserSearchView.as_view(), name='v4_user_search'),
     # url(r'^search/$', 'search', name='v4_user_search'),
 
 # update user profile
