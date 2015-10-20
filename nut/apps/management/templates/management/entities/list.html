@@ -23,6 +23,7 @@
                     <div class="box-header">
                         <ul class="nav nav-pills" role="tablist">
                             <li {% ifequal status None %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}">{% trans 'all' %}</a></li>
+                            <li {% ifequal status '1' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=1">{% trans '精选商品' %}</a></li>
                             <li {% ifequal status '0' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=0">{% trans 'new' %}</a></li>
                             <li {% ifequal status '-1' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=-1">{% trans 'freeze' %}</a></li>
                             <li {% ifequal status '-2' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=-2">{% trans 'remove' %}</a></li>

@@ -69,15 +69,19 @@ log = getLogger('django')
 #         status = self.request.GET.get('status', None)
 
 
+
+
+
 @login_required
 @staff_only
 def list(request, template='management/entities/list.html'):
-    status = request.GET.get('status', '0')
+    status = request.GET.get('status', None)
     page = request.GET.get('page', 1)
-    # if status is None:
-    #     entity_list  = Entity.objects.all()
-    # else:
-    entity_list = Entity.objects.filter(status=int(status))
+
+    if status is None:
+        entity_list  = Entity.objects.all()
+    else:
+        entity_list = Entity.objects.filter(status=int(status)).order_by('-updated_time')
 
     paginator = ExtentPaginator(entity_list, 30)
 
