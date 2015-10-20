@@ -163,7 +163,7 @@
 
                     {% url 'management_entity_list' as management_entity_list_url %}
                     <li {% if management_entity_list_url in request.path %}class="active"{% endif %}>
-                        <a href="{{ management_entity_list_url }}">
+                        <a href="{{ management_entity_list_url }}?status=0">
                             <i class="fa fa-gift"></i>&nbsp;<span>{% trans 'entity' %}</span>
                         </a>
                     </li>
