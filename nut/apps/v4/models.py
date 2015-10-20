@@ -63,8 +63,8 @@ class APIUser(GKUser):
 
     def v4_toDict(self, visitor=None):
 
-        key_string = "user_v3_%s" % self.id
-        key = md5(key_string.encode('utf-8')).hexdigest()
+        key = "user:v4:%s" % self.id
+        # key = md5(key_string.encode('utf-8')).hexdigest()
         res = cache.get(key)
         if not res:
             res = self.toDict()
@@ -90,11 +90,11 @@ class APIUser(GKUser):
                 res['avatar_small'] = self.profile.avatar_url
 
             # res['verified'] = self.profile.email_verified
-                res['relation'] = 0
             except Exception, e:
                 log.error("Error: user id %s %s", (self.id,e.message))
             cache.set(key, res, timeout=86400)
 
+        res['relation'] = 0
         res['like_count'] = self.like_count
         res['entity_note_count'] = self.post_note_count
         res['tag_count'] = self.tags_count
