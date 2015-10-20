@@ -27,6 +27,8 @@ class FilterMixin(object):
     def get_filter_value(self):
         return self.request.GET.get('filtervalue',self.get_default_filter_value())
 
+    def get_filter_param(self):
+        return self.get_filter_field(), self.get_filter_value()
 
     def get_queryset(self):
         return self.filter_queryset(
@@ -36,7 +38,7 @@ class FilterMixin(object):
     def get_context_data(self, *args, **kwargs):
         context = super(FilterMixin, self).get_context_data(*args, **kwargs)
         context.update({
-            'filter': self.get_filter_param(),
+            'filter': self.get_filter_field(),
             'value' : self.get_filter_value(),
         })
         return context

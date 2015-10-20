@@ -33,7 +33,7 @@
                         {% include "management/entities/table.html" with entities=entities %}
                     </div>
                     <div class="box-footer">
-                        {% include "management/paginator.html" with objects=entities url=request.path %}
+                        {% include "management/entities/paginator_new.html" with objects=entities url=request.path %}
                     </div>
                 </div>
             </div>
