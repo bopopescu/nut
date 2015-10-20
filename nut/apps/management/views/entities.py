@@ -30,22 +30,38 @@ import requests
 # from django.utils import timezone
 
 
-class EntityListView(SortMixin, ListView):
-    template_name = 'management/entities/new_list.html'
-    model = Entity
-    paginate_by = 25
-    paginator_class = Jpaginator
-    default_sort_params = ('price', 'desc')
 
-    def sort_queryset(self, qs, sort_by, order):
-        if sort_by:
-            qs = qs.order_by(sort_by)
-        if order == 'desc':
-            qs = qs.reverse()
+class EntityListView(FilterMixin, ListView):
+    template_name = 'management/entities/list.html'
+    model = Entity
+    paginate_by = 30
+    context_object_name = 'entities'
+    paginator_class = Jpaginator
+
+    def get_queryset(self):
+        qs = super(EntityListView,self).get_queryset()
+        status =  self.request.GET.get('status', None)
+        if status is None:
+            return qs
+        else:
+            entity_list = qs.filter(status=int(status)).order_by('-updated_time')
+        return  entity_list
+
+
+    def filter_queryset(self, qs, filter_param):
+        filter_field, filter_value = filter_param
+        if filter_field == 'brand':
+            qs = qs.filter(brand__icontains=filter_value)
+        elif filter_field == 'title':
+            qs = qs.filter(title__icontaines=filter_value)
+        else:
+            pass
         return qs
 
-    def get_context_data(self, **kwargs):
-        context = super(EntityListView, self).get_context_data(**kwargs)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(EntityListView, self).get_context_data(*args, **kwargs)
+        context['status'] =  self.request.GET.get('status', None)
         return context
 
 # entity list view class end
