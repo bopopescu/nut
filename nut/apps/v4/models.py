@@ -35,7 +35,7 @@ class APIUser(GKUser):
     def fans_list(self):
         # log.info("cache cache")
         # return self.fans.all().values_list('follower_id', flat=True)
-        key_string = "user_fans_%s" % self.id
+        key_string = "user:fans:%s" % self.id
         key = md5(key_string.encode('utf-8')).hexdigest()
 
         res = cache.get(key)
