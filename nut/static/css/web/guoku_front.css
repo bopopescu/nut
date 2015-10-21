@@ -2135,7 +2135,8 @@ body.compact-body {
   padding-right: 10px;
 }
 #detail_content_left .guess-title,
-#detail_content_left .note-wrapper-title {
+#detail_content_left .note-wrapper-title,
+#detail_content_left .related-article-wrapper-title {
   font-size: 18px;
   margin: 20px 0px ;
 }
@@ -2636,7 +2637,7 @@ body.compact-body {
   display: block;
 }
 .more-article-wrapper .cover-wrapper a img {
-  max-with: 100%;
+  max-width: 100%;
   width: 100%;
 }
 .search-tag-item .img-box {
