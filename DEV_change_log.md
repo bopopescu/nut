@@ -1,4 +1,6 @@
-4. 
+5. 
+
+4. hide footer elements in xs screen
 
 3. management selection articles list , add search 
 
