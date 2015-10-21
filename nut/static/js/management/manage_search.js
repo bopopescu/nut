@@ -1,4 +1,4 @@
-console.log('in entity.js');
+console.log('in manage_search.js');
 
 function queryStringToParams(qs) {
             if (!qs) return {};
@@ -44,5 +44,4 @@ function handleSearch(e){
 
 }
 
-$('#brand_search').change(handleSearch);
-$('#title_search').change(handleSearch);
+$('.guoku_search_input').change(handleSearch);
