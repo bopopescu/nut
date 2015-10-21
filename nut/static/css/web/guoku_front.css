@@ -2134,7 +2134,8 @@ body.compact-body {
   float: right;
   padding-right: 10px;
 }
-#detail_content_left .guess-title {
+#detail_content_left .guess-title,
+#detail_content_left .note-wrapper-title {
   font-size: 18px;
   margin: 20px 0px ;
 }
