@@ -151,7 +151,7 @@ class NewTagArticleView(JSONResponseMixin, AjaxResponseMixin,ListView):
         tag_name =  self.get_tag_name()
         self.tag = tag = get_object_or_404(Tags, name=tag_name)
         article_ids = Content_Tags.objects.filter(tag=self.tag, target_content_type_id=31).values_list('target_object_id', flat=True)
-        return Article.objects.filter(pk__in=article_ids)
+        return Article.objects.filter(pk__in=article_ids, selections__is_published=True, selections__pub_time__lte=datetime.now())
 
     def get_ajax(self, request, *args, **kwargs):
         # TODO : add error handling here
