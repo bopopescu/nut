@@ -38,8 +38,8 @@ class FilterMixin(object):
     def get_context_data(self, *args, **kwargs):
         context = super(FilterMixin, self).get_context_data(*args, **kwargs)
         context.update({
-            'filter': self.get_filter_field(),
-            'value' : self.get_filter_value(),
+            'filterfield': self.get_filter_field(),
+            'filtervalue' : self.get_filter_value(),
         })
         return context
 
