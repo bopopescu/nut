@@ -53,7 +53,7 @@ class EntityListView(FilterMixin, ListView):
         if filter_field == 'brand':
             qs = qs.filter(brand__icontains=filter_value)
         elif filter_field == 'title':
-            qs = qs.filter(title__icontaines=filter_value)
+            qs = qs.filter(title__icontains=filter_value)
         else:
             pass
         return qs

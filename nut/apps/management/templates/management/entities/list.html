@@ -1,5 +1,5 @@
 {% extends "management/management_base.html" %}
-{% load i18n %}
+{% load staticfiles i18n %}
 
 
 {% block content %}
@@ -58,4 +58,8 @@
 {##}
 {#    {% include "management/paginator.html" with objects=entities url=request.path %}#}
 
+{% endblock %}
+
+{% block user_script %}
+        <script src="{% static 'js/management/entity/entity.js' %}" type="application/javascript"></script>
 {% endblock %}
