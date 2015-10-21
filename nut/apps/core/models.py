@@ -246,12 +246,9 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         self.save()
 
     def v3_toDict(self, visitor=None):
-
         key = "user:v3:%s" % self.id
         res = cache.get(key)
         if not res:
-        # key = md5(key_string)
-        # log.info("v3v3v3v3v3")
             res = self.toDict()
             res.pop('password', None)
             res.pop('last_login', None)
@@ -435,9 +432,6 @@ class Banner(BaseModel):
 
     @property
     def has_show_banner(self):
-        # if self.show.count() > 0:
-        #     return True
-        # return False
         try:
             self.show
             return True

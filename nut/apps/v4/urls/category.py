@@ -1,11 +1,12 @@
 from django.conf.urls import url, patterns
-from apps.v4.views.category import CategoryListView, CategorySelectionView
+from apps.v4.views.category import CategoryListView, CategorySelectionView, GroupListView
 
 
 urlpatterns = patterns(
     'apps.v4.views.category',
     # url(r'^$', 'category_list', name='v4_category_list'),
     url(r'^$', CategoryListView.as_view(), name='v4_category_list'),
+    url(r'^group/$', GroupListView.as_view(), name='v4_group_list'),
     url(r'^(?P<category_id>\d+)/stat/$', 'stat', name='v4_category_stat'),
     url(r'^(?P<category_id>\d+)/entity/$', 'entity', name='v4_category_entity'),
     url(r'^(?P<category_id>\d+)/entity/note/$', 'entity_note', name='v4_category_entity_note'),

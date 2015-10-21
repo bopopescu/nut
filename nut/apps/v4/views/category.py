@@ -6,7 +6,7 @@ from apps.core.models import Category, Sub_Category, Entity, Entity_Like, Note, 
 # from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
-from apps.v4.models import APIEntity
+from apps.v4.models import APIEntity, APICategory
 
 from apps.core.views import BaseJsonView
 
@@ -25,6 +25,22 @@ class CategoryListView(BaseJsonView):
     def dispatch(self, request, *args, **kwargs):
         return super(CategoryListView, self).dispatch(request, *args, **kwargs)
 
+
+class GroupListView(BaseJsonView):
+    http_method_names = ['get']
+
+    def get_data(self, context):
+        groups = APICategory.objects.filter(status=True)
+        res = []
+        for row in groups:
+            res.append(
+                row.v4_toDict()
+            )
+        return res
+
+    @check_sign
+    def dispatch(self, request, *args, **kwargs):
+        return super(GroupListView, self).dispatch(request, *args, **kwargs)
 
 class CategorySelectionView(BaseJsonView):
 
