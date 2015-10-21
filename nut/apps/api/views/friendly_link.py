@@ -5,6 +5,7 @@ from rest_framework import generics
 from apps.api.permissions import Admin_write_only
 
 class RFFriendlyLinkListView(generics.ListCreateAPIView):
+    paginate_by = 17
     permission_classes = (Admin_write_only,)
     queryset =  Friendly_Link.objects.all()
     serializer_class = Friendly_Link_Serializer
