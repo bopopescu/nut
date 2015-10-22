@@ -95,19 +95,7 @@
 
 
                 </div>
-                {% if entity.related_articles %}
 
-                    <div class="related-article-wrapper-title">
-                        相关图文
-                    </div>
-                    <div class="related-article-wrapper">
-                        {% for r_article in entity.related_articles.all %}
-
-                            {% include 'web/article/partial/article_recommend_item.html' %}
-                        {% endfor %}
-                    </div>
-
-                {% endif %}
                 <div class="note-wrapper-title">
                 用户点评
                 </div>
@@ -124,6 +112,20 @@
                         {% include "web/entity/partial/detail_user_comment.html" %}
                     </div>
                 </div>
+
+                 {% if entity.related_articles.all %}
+
+                    <div class="related-article-wrapper-title">
+                        关联图文
+                    </div>
+                    <div class="related-article-wrapper">
+                        {% for r_article in entity.related_articles.all %}
+
+                            {% include 'web/article/partial/article_recommend_item.html' %}
+                        {% endfor %}
+                    </div>
+
+                {% endif %}
 
                 <div class="guess-title">{% trans 'Related Items' %}</div>
 

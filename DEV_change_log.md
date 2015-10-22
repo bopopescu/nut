@@ -10,7 +10,7 @@
    a. add selection entity tab 
    b. add search for brand and entity title 
     
-======== 2015 - 10 -20  start ===========
+======== 2015 - 10 -18  start ===========
 ========= 2015 - 10 -18 submmmit to master ========
 
 
