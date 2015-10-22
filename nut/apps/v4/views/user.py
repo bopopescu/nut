@@ -244,17 +244,17 @@ def entity_like(request, user_id):
 
 @check_sign
 def entity_note(request, user_id):
-    log.info(request.GET)
+    # log.info(request.GET)
 
     try:
         _user = GKUser.objects.get(pk=user_id)
     except GKUser.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
-    _offset = int(request.GET.get('offset', '0'))
+    # _offset = int(request.GET.get('offset', '0'))
     _count = int(request.GET.get('count', '30'))
 
-    _offset = _offset / _count + 1
+    # _offset = _offset / _count + 1
 
     _timestamp = request.GET.get('timestamp', datetime.now())
     if _timestamp != None:
@@ -265,9 +265,10 @@ def entity_note(request, user_id):
     for note in notes:
         # log.info(note)
         res.append({
-            'note': note.v4_toDict(has_entity=True),
+            'note': note.v4_toDict(entity=True),
             'entity': note.entity.v3_toDict(),
         })
+    # log.info(res)
 
     return SuccessJsonResponse(res)
 
@@ -463,16 +464,16 @@ class APIUserNotes(BaseJsonView):
         notes = APINote.objects.filter(user=_user, entity__status__gt=APIEntity.remove, post_time__lt=self.timestamp).exclude(status=Note.remove).order_by('-post_time')[:self.count]
         res = {}
         last = len(notes) - 1
-        # log.info("last %s" % last)
+        log.info("last %s" % last)
         if last < 0:
-            return SuccessJsonResponse(res)
+            return ErrorJsonResponse(status=404)
+            # return SuccessJsonResponse(res)
         res['timestamp'] = time.mktime(notes[last].post_time.timetuple())
         res['notes'] = []
         for row in notes:
             res['notes'].append(
                 row.v4_toDict(has_entity=True)
             )
-        # log.info(res)
         return res
 
     def get(self, request, *args, **kwargs):
@@ -482,13 +483,14 @@ class APIUserNotes(BaseJsonView):
         self.offset = int(request.GET.get('offset', '0'))
         self.count = int(request.GET.get('count', '30'))
 
-    # _offset = _offset / _count + 1
-
         self.timestamp = request.GET.get('timestamp', datetime.now())
         if self.timestamp != None:
             self.timestamp = datetime.fromtimestamp(float(self.timestamp))
 
         return super(APIUserNotes, self).get(request, *args, **kwargs)
+
+    def dispatch(self, request, *args, **kwargs):
+        return super(APIUserNotes, self).dispatch(request, *args, **kwargs)
 
 
 class APIUserSearchView(SearchView, JSONResponseMixin):
