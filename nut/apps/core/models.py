@@ -432,7 +432,7 @@ class Banner(BaseModel):
     @property
     def has_show_banner(self):
         # if self.show.count() > 0:
-        #     return True
+        # return True
         # return False
         try:
             self.show
@@ -459,7 +459,7 @@ class Show_Banner(BaseModel):
         ordering = ['id']
 
 
-#  Banner for side bar
+# Banner for side bar
 
 class Sidebar_Banner(BaseModel):
     (removed, disabled, enabled) = xrange(3)
@@ -1604,12 +1604,30 @@ class Friendly_Link(BaseModel):
 
 
 class EDM(BaseModel):
+    (pending_approval,
+     ready_to_send,
+     checking_user_list,
+     sending,
+     send_succeed,
+     send_failed) = xrange(6)
+
+    EDM_STATUS_CHOICE = [
+        (pending_approval, _('pending approval')),
+        (ready_to_send, _('ready to send')),
+        (checking_user_list, _('checking user list')),
+        (sending, _('sending')),
+        (send_succeed, _('send succeed')),
+        (send_failed, _('send failed'))
+    ]
+
     title = models.CharField(default=u'本月果库上不可错过的精彩内容，已为你准备好'
                                      u' - 果库 | 精英消费指南',
                              max_length=255)
     created = models.DateTimeField()
     modified = models.DateTimeField()
-    verification = models.BooleanField()
+    approved = models.BooleanField()
+    status = models.IntegerField(choices=EDM_STATUS_CHOICE,
+                                 default=pending_approval)
     publish_time = models.DateTimeField(default=datetime.now, null=False)
     cover_image = models.CharField(max_length=255, null=False)
     cover_hype_link = models.CharField(max_length=255, null=False)
@@ -1624,6 +1642,13 @@ class EDM(BaseModel):
         if not self.id and not self.pk:
             self.created = datetime.now()
         self.modified = datetime.now()
+
+        if self.approved is True and self.status == self.pending_approval:
+            self.status = self.ready_to_send
+
+        if self.approved is False:
+            self.status = self.pending_approval
+
         return super(EDM, self).save(*args, **kwargs)
 
     @property
@@ -1631,6 +1656,7 @@ class EDM(BaseModel):
         cover_image = self.cover_image
         if type(self.cover_image) == list:
             cover_image = self.cover_image[0]
+
         if 'http' in cover_image:
             return cover_image
         else:

@@ -206,10 +206,13 @@ REST_FRAMEWORK = {
 EMAIL_BACKEND = 'sendcloud.SendCloudBackend'
 MAIL_APP_USER = 'guoku_hi'
 MAIL_APP_KEY = 'DLq9W6TiDZAWOLNv'
-RESET_PASSWORD_TEMPLATE = 'forget_password'
-VERFICATION_EMAIL_TEMPLATE = 'verify_email'
 GUOKU_MAIL = 'hi@mail.guoku.com'
 GUOKU_NAME = u'果库'
+RESET_PASSWORD_TEMPLATE = 'forget_password'
+VERFICATION_EMAIL_TEMPLATE = 'verify_email'
+# list
+MAIL_LIST_ADDR='all_gkusers'
+
 
 
 # MAILGUN_SERVER_NAME = 'post.guoku.com'

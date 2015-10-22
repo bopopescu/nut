@@ -1306,7 +1306,7 @@ msgid "publish_time"
 msgstr "发布时间"
 
 #: apps/management/templates/management/edm/table.html:10
-msgid "verification"
+msgid "approved"
 msgstr "操作"
 
 #: apps/management/templates/management/edm/table.html:12
@@ -1891,7 +1891,7 @@ msgid "Required"
 msgstr "必填项"
 
 #: apps/web/forms/account.py:139
-msgid "Enter the same password as above, for verification."
+msgid "Enter the same password as above, for approved."
 msgstr "确认密码"
 
 #: apps/web/forms/entity.py:62 apps/web/templates/web/static_base.html:50
