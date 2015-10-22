@@ -82,7 +82,7 @@ def dashboard(request, template='management/dashboard.html'):
     # except EmptyPage:
     #     raise Http404
     # entities = Entity.objects.all()[0:10]
-    notes = Note.objects.all().order_by("-post_time")[0:10]
+    notes = Note.objects.exclude(status__gt=Note.remove).filter(user__is_active__gt=0).order_by("-post_time")[0:10]
 
 
     return render_to_response(template,

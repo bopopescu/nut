@@ -15,7 +15,7 @@ log = getLogger('django')
 
 
 class EntityViewSet(viewsets.ModelViewSet):
-    queryset = Entity.objects.all()
+    queryset = Entity.objects.exclude(status__gt=Entity.remove)
     serializer_class = EntitySerializer
     # permission_classes = ( IsOwnerOrReadOnly, permissions.IsAdminUser, )
     # permission_classes = ( IsOwnerOrReadOnly, )
