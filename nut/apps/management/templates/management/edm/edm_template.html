@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+ <head lang="en"> 
+  <meta charset="UTF-8" /> 
+  <title>%title%</title> 
+  <style type="text/css">
+body {
+    background: #fafafa;
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+    color: #9d9e9f;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+a {
+    color: #428bca;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+div {
+    display: block;
+}
+
+span {
+    display: block;
+    color: #9d9e9f;
+    font-size: 12px;
+}
+
+.content {
+    background: #ffffff;
+    width: 900px;
+    padding: 4% 2%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.header {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.container {
+    text-align: center;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.logo {
+    width: 20%;
+}
+
+.banner {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.banner img {
+    max-width: 100%;
+}
+
+.banner p {
+    padding: 0;
+    color: #9d9e9f;
+    text-align: left;
+    line-height: 25px;
+    font-size: 16px;
+}
+
+.liner {
+    padding: 0 15px 0;
+    margin: 50px 0;
+    line-height: 1px;
+    border-left: 375px solid #dddddd;
+    border-right: 375px solid #dddddd;
+    text-align: center;
+}
+
+.liner span {
+    font-size: 18px;
+    color: #5e5e5e;
+    line-height: 0;
+}
+
+.liner_with_no_text {
+    height: 1px;
+    border-top: 1px solid #dddddd;
+}
+
+.article {
+    width: 100%;
+    height: 200px;
+    margin: 30px 0;
+}
+
+.article-cover {
+    float: left;
+    width: 40%;
+    height: 100%;
+}
+
+.article-cover img {
+    max-width: 98%;
+    max-height: 98%;
+}
+
+.article-content {
+    float: left;
+    margin-left: 1%;
+    width: 59%;
+    height: 100%;
+}
+
+.article-title {
+    text-align: left;
+    padding: 0 10px;
+}
+
+.article-title a {
+    font-size: 22px;
+    color: #424242;
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+    font-weight: bolder;
+}
+
+.article-summary {
+    padding: 0 10px;
+    font-size: 16px;
+    color: #9d9e9f;
+    text-align: left;
+}
+
+.popular_entities {
+    margin-right: -15px;
+    margin-left: -15px;
+    height: auto;
+    display: inline-block;
+}
+
+.thumbnail {
+    float: left;
+    padding-right: 15px;
+    padding-left: 15px;
+    border: none;
+    width: 30%;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.entity-img {
+    height: 0;
+    padding-bottom: 99%;
+    overflow: hidden;
+    text-align: center;
+    border: 1px solid #e6e6e6;
+    display: block;
+}
+
+.entity-img a {
+    display: inline-block;
+}
+
+.entity-img a img {
+    background-color: #f6f6f6;
+    width: 100%;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.entity-info {
+    width: 100%
+}
+
+.entity-title {
+    display: block;
+}
+
+.entity-title a {
+    font-size: 16px;
+    color: #424242;
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+}
+
+.entity-price {
+    display: block;
+    color: #428bca;
+    font-size: 16px;
+    font-family: Georgia, serif;
+}
+
+.get_more {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    width: 150px;
+    height: 26px;
+    background: #80BEF3;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 30px;
+    margin: 40px auto;
+    color: #ffffff;
+}
+
+.get_more a {
+    color: #ffffff;
+}
+
+.footer {
+    width: 100%;
+    padding-bottom: 30px;
+}
+
+.footer_of_footer {
+    margin-top: 20px;
+}
+
+.footer_of_footer span {
+    margin: 7px auto;
+}
+
+.contact_me img {
+    width: 30px;
+    height: 30px;
+    margin: auto 3px;
+}
+
+.get_me {
+    width: 100%;
+    margin-bottom: 40px;
+    color: #9d9e9f;
+}
+
+.get_me img {
+    margin-top: 5px;
+    margin-bottom: 7px;
+}
+
+.get_me span {
+    font-size: 14px;
+    color: #424242;
+}
+
+.get_me a {
+    font-size: 14px;
+}
+</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <div class="header"> 
+    <img class="logo" src="%logo_image_url%" /> 
+   </div> 
+   <div class="container"> 
+    <div class="banner"> 
+     <a href="%banner_hype_link%" target="_blank"> <img src="%banner_image_src%" /> </a> 
+     <p class="description"> %banner_description% <a href="%banner_hype_link%" target="_blank"> &nbsp;阅读更多 </a> </p> 
+    </div> 
+    <div class="liner">
+      热门图文
+    </div> 
+    <div class="articles"> 
+     <div class="article"> 
+      <div class="article-cover"> 
+       <a href="%article_1_url%/" target="_blank"> <img src="%article_1_cover%" /> </a> 
+      </div> 
+      <div class="article-content"> 
+       <div class="article-title"> 
+        <a href="%article_1_url%/" target="_blank"> %article_1_title% </a> 
+       </div> 
+       <div class="article-summary">
+         %article_1_summary% 
+        <a href="%article_1_url%/" target="_blank"> &nbsp;阅读更多 </a> 
+       </div> 
+      </div> 
+     </div> 
+     <div class="article"> 
+      <div class="article-cover"> 
+       <a href="%article_2_url%/" target="_blank"> <img src="%article_2_cover%" /> </a> 
+      </div> 
+      <div class="article-content"> 
+       <div class="article-title"> 
+        <a href="%article_2_url%/" target="_blank"> %article_2_title% </a> 
+       </div> 
+       <div class="article-summary">
+         %article_2_summary% 
+        <a href="%article_2_url%/" target="_blank"> &nbsp;阅读更多 </a> 
+       </div> 
+      </div> 
+     </div> 
+     <div class="article"> 
+      <div class="article-cover"> 
+       <a href="%article_3_url%/" target="_blank"> <img src="%article_3_cover%" /> </a> 
+      </div> 
+      <div class="article-content"> 
+       <div class="article-title"> 
+        <a href="%article_3_url%/" target="_blank"> %article_3_title% </a> 
+       </div> 
+       <div class="article-summary">
+         %article_3_summary% 
+        <a href="%article_3_url%/" target="_blank"> &nbsp;阅读更多 </a> 
+       </div> 
+      </div> 
+     </div> 
+     <div class="article"> 
+      <div class="article"> 
+       <div class="article-cover"> 
+        <a href="%article_4_url%/" target="_blank"> <img src="%article_4_cover%" /> </a> 
+       </div> 
+       <div class="article-content"> 
+        <div class="article-title"> 
+         <a href="%article_4_url%/" target="_blank"> %article_4_title% </a> 
+        </div> 
+        <div class="article-summary">
+          %article_4_summary% 
+         <a href="%article_4_url%/" target="_blank"> &nbsp;阅读更多 </a> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="article-cover"> 
+       <a href="%article_5_url%/" target="_blank"> <img src="%article_5_cover%" /> </a> 
+      </div> 
+      <div class="article-content"> 
+       <div class="article-title"> 
+        <a href="%article_5_url%/" target="_blank"> %article_5_title% </a> 
+       </div> 
+       <div class="article-summary">
+         %article_5_summary% 
+        <a href="%article_5_url%/" target="_blank"> &nbsp;阅读更多 </a> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="liner">
+      热门商品
+    </div> 
+    <div class="popular_entities"> 
+     <div class="thumbnail"> 
+      <div class="entity-img"> 
+       <a href="%entity_1_url%" target="_blank"> <img src="%eitity_1_img%" /> </a> 
+      </div> 
+      <div class="entity-info"> 
+       <span class="entity-title"> <a href="%entity_1_url%" target="_blank"> %entity_1_title% </a> </span> 
+       <span class="entity-price">￥ %entity_1_price%</span> 
+      </div> 
+     </div> 
+     <div class="thumbnail"> 
+      <div class="entity-img"> 
+       <a href="%entity_2_url%" target="_blank"> <img src="%eitity_2_img%" /> </a> 
+      </div> 
+      <div class="entity-info"> 
+       <span class="entity-title"> <a href="%entity_2_url%" target="_blank"> %entity_2_title% </a> </span> 
+       <span class="entity-price">￥ %entity_2_price%</span> 
+      </div> 
+     </div> 
+     <div class="thumbnail"> 
+      <div class="entity-img"> 
+       <a href="%entity_3_url%" target="_blank"> <img src="%eitity_3_img%" /> </a> 
+      </div> 
+      <div class="entity-info"> 
+       <span class="entity-title"> <a href="%entity_3_url%" target="_blank"> %entity_3_title% </a> </span> 
+       <span class="entity-price">￥ %entity_3_price%</span> 
+      </div> 
+     </div> 
+     <div class="thumbnail"> 
+      <div class="entity-img"> 
+       <a href="%entity_4_url%" target="_blank"> <img src="%eitity_4_img%" /> </a> 
+      </div> 
+      <div class="entity-info"> 
+       <span class="entity-title"> <a href="%entity_4_url%" target="_blank"> %entity_4_title% </a> </span> 
+       <span class="entity-price">￥ %entity_4_price%</span> 
+      </div> 
+     </div> 
+     <div class="thumbnail"> 
+      <div class="entity-img"> 
+       <a href="%entity_5_url%" target="_blank"> <img src="%eitity_5_img%" /> </a> 
+      </div> 
+      <div class="entity-info"> 
+       <span class="entity-title"> <a href="%entity_5_url%" target="_blank"> %entity_5_title% </a> </span> 
+       <span class="entity-price">￥ %entity_5_price%</span> 
+      </div> 
+     </div> 
+     <div class="thumbnail"> 
+      <div class="entity-img"> 
+       <a href="%entity_6_url%" target="_blank"> <img src="%eitity_6_img%" /> </a> 
+      </div> 
+      <div class="entity-info"> 
+       <span class="entity-title"> <a href="%entity_6_url%" target="_blank"> %entity_6_title% </a> </span> 
+       <span class="entity-price">￥ %entity_6_price%</span> 
+      </div> 
+     </div> 
+     <div class="thumbnail"> 
+      <div class="entity-img"> 
+       <a href="%entity_7_url%" target="_blank"> <img src="%eitity_7_img%" /> </a> 
+      </div> 
+      <div class="entity-info"> 
+       <span class="entity-title"> <a href="%entity_7_url%" target="_blank"> %entity_7_title% </a> </span> 
+       <span class="entity-price">￥ %entity_7_price%</span> 
+      </div> 
+     </div> 
+     <div class="thumbnail"> 
+      <div class="entity-img"> 
+       <a href="%entity_8_url%" target="_blank"> <img src="%eitity_8_img%" /> </a> 
+      </div> 
+      <div class="entity-info"> 
+       <span class="entity-title"> <a href="%entity_8_url%" target="_blank"> %entity_8_title% </a> </span> 
+       <span class="entity-price">￥ %entity_8_price%</span> 
+      </div> 
+     </div> 
+     <div class="thumbnail"> 
+      <div class="entity-img"> 
+       <a href="%entity_9_url%" target="_blank"> <img src="%eitity_9_img%" /> </a> 
+      </div> 
+      <div class="entity-info"> 
+       <span class="entity-title"> <a href="%entity_9_url%" target="_blank"> %entity_9_title% </a> </span> 
+       <span class="entity-price">￥ %entity_9_price%</span> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+   <div class="footer"> 
+    <div class="liner_with_no_text"></div> 
+    <div class="get_more"> 
+     <a href="http://www.guoku.com" target="_blank"> 浏览更多 </a> 
+    </div> 
+    <div class="contact_me"> 
+     <a href="http://weibo.com/guoku" target="_blank"><img src="%weibo_img_src%" /></a> 
+     <a href="http://site.douban.com/130280/" target="_blank"><img src="%douban_img_src%" /></a> 
+     <a href="http://twitter.com/guokuapp" target="_blank"><img src="%twitter_img_src%" /></a> 
+     <a href="http://www.facebook.com/172009339558352" target="_blank"><img src="%facebook_img_src%" /></a> 
+     <a href="http://instagram.com/guoku/" target="_blank"><img src="%instagram_img_src%" /></a> 
+    </div> 
+    <div class="get_me"> 
+     <img src="%qr_dl_img_src%" /> 
+     <span> 下载果库客户端 </span> 
+     <a href="http://itunes.apple.com/cn/app/id477652209?mt=8" target="_blank">iPhone</a> &middot; 
+     <a href="http://itunes.apple.com/cn/app/id450507565?mt=8" target="_blank">iPad</a> &middot; 
+     <a href="http://app.guoku.com/download/android/guoku-release.apk" target="_blank" bi="download_android" _hover-ignore="1" _orighref="http://app.guoku.com/download/android/guoku-release.apk" _tkworked="true">Android</a> 
+    </div> 
+    <div class="liner_with_no_text"></div> 
+    <div class="footer_of_footer"> 
+     <span>如果不想继续接受此邮件，请点击 <a href="%%user_defined_unsubscribe_link%%">退订</a></span> 
+     <span> &copy; 果库 2015</span> 
+    </div> 
+   </div> 
+  </div>  
+ </body>
+</html>

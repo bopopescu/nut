@@ -27,7 +27,10 @@ def resize(value, size=None):
             uri = value.replace(host, '')
             # log.info(uri)
             params = uri.split('/')
-            params.insert(1, size)
+            if params[0] == 'images':
+                params.insert(1, size)
+            else:
+                params.insert(0, size)
             uri_string = '/'.join(params)
             return host + uri_string
     return value

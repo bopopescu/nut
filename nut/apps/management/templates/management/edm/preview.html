@@ -7,6 +7,7 @@
 <title>{{ edm.title }}</title>
 <style type="text/css">
 body {
+    background: #fafafa;
     text-align: center;
     font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
     color: #9d9e9f;
@@ -31,11 +32,11 @@ span {
 }
 
 .content {
+    background: #ffffff;
     width: 900px;
     padding: 4% 2%;
     text-align: center;
     margin: 0 auto;
-    background: #fafafa;
 }
 
 .header {
@@ -45,8 +46,8 @@ span {
 }
 
 .container {
-{#            width: 96%;#} text-align: center;
-{#            margin: 0 auto;#} padding-right: 15px;
+    text-align: center;
+    padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
@@ -54,7 +55,6 @@ span {
 
 .logo {
     width: 20%;
-{#                max-width: 90%;#}
 }
 
 .banner {
@@ -96,8 +96,8 @@ span {
 
 .article {
     width: 100%;
-    height: 300px;
-{#            border: solid #5e5e5e 1px;#} margin: 10px 0;
+    height: 200px;
+    margin: 30px 0;
 }
 
 .article-cover {
@@ -113,12 +113,14 @@ span {
 
 .article-content {
     float: left;
-    width: 60%;
+    margin-left: 1%;
+    width: 59%;
     height: 100%;
 }
 
 .article-title {
     text-align: left;
+    padding: 0 10px;
 }
 
 .article-title a {
@@ -129,6 +131,7 @@ span {
 }
 
 .article-summary {
+    padding: 0 10px;
     font-size: 16px;
     color: #9d9e9f;
     text-align: left;
@@ -257,27 +260,40 @@ span {
     </div>
     <div class="container">
         <div class="banner">
-            <img src="/static/images/edm/{{ edm.cover_image }}"/>
+            <a href="{{ edm.cover_hype_link }}" target="_blank">
+                <img src="{{ edm.cover }}"/>
+            </a>
 
-            <p class="description">{{ edm.cover_description }}
-                <a href="#">...阅读更多</a></p>
+            <p class="description">
+                {{ edm.cover_description }}
+                <a href="{{ edm.cover_hype_link }}" target="_blank">
+                    &nbsp;阅读更多
+                </a>
+            </p>
         </div>
         <div class="liner"> 热门图文</div>
         <div class="articles">
             {% for article in edm.articles.all %}
                 <div class="article">
                     <div class="article-cover">
-                        <img src="{{ article.cover_url }}"/>
+                        <a href="{% url 'web_article_page' article.id %}"
+                           target="_blank">
+                            <img src="{{ article.cover_url|resize:'350' }}"/>
+                        </a>
                     </div>
                     <div class="article-content">
                         <div class="article-title">
-                            <a href="#">
+                            <a href="{% url 'web_article_page' article.id %}"
+                               target="_blank">
                                 {{ article.title|truncatechars:36 }}
                             </a>
                         </div>
                         <div class="article-summary">
                             {{ article.content|striptags|truncatechars:120 }}
-                            <a href="#">...阅读更多</a></p>
+                            <a href="{% url 'web_article_page' article.id %}"
+                               target="_blank">
+                                &nbsp;阅读更多
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -288,13 +304,15 @@ span {
             {% for entity in popular_entities %}
                 <div class="thumbnail">
                     <div class="entity-img">
-                        <a href="#">
+                        <a href="{% url 'web_entity_detail' entity.entity_hash %}"
+                           target="_blank">
                             <img src="{{ entity.chief_image|resize:'310' }}"/>
                         </a>
                     </div>
                     <div class="entity-info">
                         <span class="entity-title">
-                            <a href="#">
+                            <a href="{% url 'web_entity_detail' entity.entity_hash %}"
+                               target="_blank">
                                 {{ entity.title|truncatechars:18 }}
                             </a>
                         </span>
@@ -306,14 +324,22 @@ span {
     </div>
     <div class="footer">
         <div class="liner_with_no_text"></div>
-        <div class="get_more"><a href="#">浏览更多</a></div>
+        <div class="get_more">
+            <a href="http://www.guoku.com" target="_blank">
+                浏览更多
+            </a>
+        </div>
         <div class="contact_me">
-            <a href="#"><img src="{% static 'images/edm/sina@2x.png' %}"></a>
-            <a href="#"><img src="{% static 'images/edm/douban@2x.png' %}"></a>
-            <a href="#"><img src="{% static 'images/edm/twitter@2x.png' %}"></a>
-            <a href="#"><img
+            <a href="http://weibo.com/guoku" target="_blank"><img
+                    src="{% static 'images/edm/sina@2x.png' %}"></a>
+            <a href="http://site.douban.com/130280/" target="_blank"><img
+                    src="{% static 'images/edm/douban@2x.png' %}"></a>
+            <a href="http://twitter.com/guokuapp" target="_blank"><img
+                    src="{% static 'images/edm/twitter@2x.png' %}"></a>
+            <a href="http://www.facebook.com/172009339558352"
+               target="_blank"><img
                     src="{% static 'images/edm/facebook@2x.png' %}"></a>
-            <a href="#"><img
+            <a href="http://instagram.com/guoku/" target="_blank"><img
                     src="{% static 'images/edm/instagram@2x.png' %}"></a>
         </div>
         <div class="get_me">
@@ -321,13 +347,13 @@ span {
             <span>
                 下载果库客户端
             </span>
-            <a href="#">iPhone</a> ·
-            <a href="#">iPad</a> ·
-            <a href="#">Android</a>
+            <a href="http://itunes.apple.com/cn/app/id477652209?mt=8" target="_blank">iPhone</a> ·
+            <a href="http://itunes.apple.com/cn/app/id450507565?mt=8" target="_blank">iPad</a> ·
+            <a href="http://app.guoku.com/download/android/guoku-release.apk" target="_blank" bi="download_android" _hover-ignore="1" _orighref="http://app.guoku.com/download/android/guoku-release.apk" _tkworked="true">Android</a>
         </div>
         <div class="liner_with_no_text"></div>
         <div class="footer_of_footer">
-            <span>如果不想继续接受此邮件，请点击 <a href="#">退订</a></span>
+            <span>如果不想继续接受此邮件，请点击 <a href=" href="%%user_defined_unsubscribe_link%%"">退订</a></span>
             <span> © 果库 2015</span>
         </div>
     </div>
