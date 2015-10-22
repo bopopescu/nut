@@ -1,4 +1,4 @@
-5. 
+5. minor css adjusts
 
 4. hide footer elements in xs screen
 
