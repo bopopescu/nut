@@ -617,7 +617,7 @@ ul li {
   text-align: center;
   border: 1px solid #e6e6e6;
   color: #424242;
-  font-size: 16px;
+  font-size: 14px;
   margin: 4px 4px 0 0;
 }
 .normal-round-tag a {
@@ -1970,7 +1970,7 @@ body.compact-body {
 }
 #top_article_tags_container {
   padding-left: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 #top_article_tags_container .top-article-tag {
   display: inline-block;
@@ -1990,7 +1990,7 @@ body.compact-body {
   text-align: center;
   border: 1px solid #e6e6e6;
   color: #424242;
-  font-size: 16px;
+  font-size: 14px;
   margin: 4px 4px 0 0;
 }
 #top_article_tags_container .tag-element a {
@@ -2134,7 +2134,9 @@ body.compact-body {
   float: right;
   padding-right: 10px;
 }
-#detail_content_left .guess-title {
+#detail_content_left .guess-title,
+#detail_content_left .note-wrapper-title,
+#detail_content_left .related-article-wrapper-title {
   font-size: 18px;
   margin: 20px 0px ;
 }
@@ -2635,7 +2637,7 @@ body.compact-body {
   display: block;
 }
 .more-article-wrapper .cover-wrapper a img {
-  max-with: 100%;
+  max-width: 100%;
   width: 100%;
 }
 .search-tag-item .img-box {
@@ -2841,6 +2843,11 @@ body.compact-body {
   #guoku_main_nav .main-list li a:hover,
   #guoku_main_nav .main-list li a:focus {
     color: #424242;
+  }
+  #guoku_footer .footer-line,
+  #guoku_footer .qr-container,
+  #guoku_footer .footer-bottom-left {
+    display: none;
   }
   #guoku_footer .footer-part .list-wrapper {
     text-align: center;

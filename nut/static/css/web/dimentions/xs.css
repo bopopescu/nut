@@ -260,7 +260,7 @@
   text-align: center;
   border: 1px solid #e6e6e6;
   color: #424242;
-  font-size: 16px;
+  font-size: 14px;
   margin: 4px 4px 0 0;
 }
 .normal-round-tag a {
@@ -494,6 +494,11 @@ p.boolean-false {
   #guoku_main_nav .main-list li a:hover,
   #guoku_main_nav .main-list li a:focus {
     color: #424242;
+  }
+  #guoku_footer .footer-line,
+  #guoku_footer .qr-container,
+  #guoku_footer .footer-bottom-left {
+    display: none;
   }
   #guoku_footer .footer-part .list-wrapper {
     text-align: center;

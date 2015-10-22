@@ -2,30 +2,30 @@
         <ul class="pagination pagination-lg">
             {% if status %}
                 {% if page_obj.has_previous %}
-                    <li><a href="{{ url }}?status={{ status }}&page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                    <li><a href="{{ url }}?status={{ status }}&page={{ page_obj.previous_page_number }}&filterfield={{ filterfield }}&filtervalue={{ filtervalue }}">&laquo;</a></li>
                 {% endif %}
                 {% for num in page_obj.paginator.page_range_ext %}
                     <li {% ifequal num entities.number %}class="active"{% endifequal %}>
-                        <a href="{{ url }}?status={{ status }}&page={{ num }}">{{ num }} <span class="sr-only">(current)</span></a>
+                        <a href="{{ url }}?status={{ status }}&page={{ num }}&filterfield={{ filterfield }}&filtervalue={{ filtervalue }}">{{ num }} <span class="sr-only">(current)</span></a>
                     </li>
                 {% endfor %}
                 {% if page_obj.has_next %}
-                    <li><a href="{{ url }}?status={{ status }}&page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                    <li><a href="{{ url }}?status={{ status }}&page={{ page_obj.next_page_number }}&filterfield={{ filterfield }}&filtervalue={{ filtervalue }}">&raquo;</a></li>
                 {% endif %}
             {% else %}
                 {% if page_obj.has_previous %}
-                    <li><a href="{{ url }}?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                    <li><a href="{{ url }}?page={{ page_obj.previous_page_number }}&filterfield={{ filterfield }}&filtervalue={{ filtervalue }}">&laquo;</a></li>
                 {% endif %}
                 {% for num in page_obj.paginator.page_range_ext  %}
                     <li {% ifequal num page_obj.number %}class="active"{% endifequal %}>
-                        <a href="{{ url }}?page={{ num }}">
+                        <a href="{{ url }}?page={{ num }}&filterfield={{ filterfield }}&filtervalue={{ filtervalue }}">
                             {{ num }}
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                 {% endfor %}
                 {% if page_obj.has_next %}
-                    <li><a href="{{ url }}?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                    <li><a href="{{ url }}?page={{ page_obj.next_page_number }}&filterfield={{ filterfield }}&filtervalue={{ filtervalue }}">&raquo;</a></li>
                 {% endif %}
             {% endif %}
         </ul>

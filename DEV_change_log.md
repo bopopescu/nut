@@ -1,3 +1,16 @@
+5. minor css adjusts
+
+4. hide footer elements in xs screen
+
+3. management selection articles list , add search 
+
+2. entity detail page : add related article block
+
+1. management entity management 
+   a. add selection entity tab 
+   b. add search for brand and entity title 
+    
+======== 2015 - 10 -20  start ===========
 ========= 2015 - 10 -18 submmmit to master ========
 
 
