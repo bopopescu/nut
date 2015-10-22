@@ -9,12 +9,10 @@ import urllib
 
 log = getLogger('django')
 
-
 class TagListView(ListView):
     queryset = Tags.objects.all()
     http_method_names = ['get']
     template_name = 'tag/list.html'
-
 
 from django.db.models import Count
 class TagEntitiesByHashView(ListView):

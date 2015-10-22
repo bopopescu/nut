@@ -1,3 +1,7 @@
+
+1.  
+===== 2015 - 10 -22 == START =====
+
 5. minor css adjusts
 
 4. hide footer elements in xs screen
