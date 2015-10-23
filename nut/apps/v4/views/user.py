@@ -453,7 +453,12 @@ class APIUserIndexView(BaseJsonView):
         return super(APIUserIndexView, self).dispatch(request, *args, **kwargs)
 
 
-class APIUserNotes(BaseJsonView):
+class APIUserLikeView(BaseJsonView):
+
+    pass
+
+
+class APIUserNotesView(BaseJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
