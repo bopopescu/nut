@@ -265,7 +265,7 @@ def entity_note(request, user_id):
     for note in notes:
         # log.info(note)
         res.append({
-            'note': note.v4_toDict(entity=True),
+            'note': note.v4_toDict(),
             'entity': note.entity.v3_toDict(),
         })
     # log.info(res)
