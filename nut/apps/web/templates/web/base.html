@@ -69,8 +69,10 @@ window.location.href = url;</script><![endif]-->
     <script>
         // for newest event slug
         var newest_event_slug =  '{{ newest_event_slug }}'  ;
+        var base_url = '{% static 'js/management/restful/lib/' %}'
 
     </script>
+
 </head>
 
 <body class="{% block body_class %} gray-body {% endblock %} {% if isFromMobile %} mobile-body {% endif %}">
