@@ -1,8 +1,9 @@
 4. dig functions for article
 3. selection entity page js rebuild --- not finished 
 2. user change email mail 认证 --- not finished
-1. new register user mail 认证 --- not finished 
+1. new register user mail 认证 --- not finished
 
+to know WHAT is css trigger ? 
 
 to  remove unpublished article in article tag page !!
 
