@@ -1,5 +1,5 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.models import GKUser, Entity_Like, Note, User_Follow
+from apps.core.models import GKUser, Entity_Like, Note, User_Follow, Sub_Category
 # from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 
 from apps.mobile.lib.sign import check_sign
@@ -192,54 +192,54 @@ def tag_detail(request, user_id, tag):
     return SuccessJsonResponse(res)
 
 
-@check_sign
-def entity_like(request, user_id):
-    # log.info(request.GET)
-    try:
-        _user = GKUser.objects.get(pk=user_id)
-    except GKUser.DoesNotExist:
-        return ErrorJsonResponse(status=404)
-
-    _key = request.GET.get('session')
-    _timestamp = request.GET.get('timestamp', datetime.now())
-    if _timestamp != None:
-        _timestamp = datetime.fromtimestamp(float(_timestamp))
-    else:
-        _timestamp = datetime.now()
-    # _offset = int(request.GET.get('offset', '0'))
-    _count = int(request.GET.get('count', '30'))
-    log.info(_timestamp)
-    # _offset = _offset / _count + 1
-
-    res = {}
-    # res['timestamp'] = time.mktime(_timestamp.timetuple())
-    res['entity_list'] = []
-
-    entities = Entity_Like.objects.filter(user=_user, entity__status__gte=APIEntity.freeze, created_time__lt=_timestamp)[:_count]
-
-    last = len(entities) - 1
-    # log.info("last %s" % last)
-    if last < 0:
-        return SuccessJsonResponse(res)
-    res['timestamp'] = time.mktime(entities[last].created_time.timetuple())
-
-    try:
-        _session = Session_Key.objects.get(session_key=_key)
-        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(entities.values_list('entity_id', flat=True)))
-    except Session_Key.DoesNotExist:
-        el = None
-
-    for like in entities:
-        try:
-            e = like.entity.v3_toDict(el)
-        except Exception, e:
-            log.error("Error: %s" % e.message)
-            continue
-        res['entity_list'].append(
-            e
-        )
-
-    return SuccessJsonResponse(res)
+# @check_sign
+# def entity_like(request, user_id):
+#     # log.info(request.GET)
+#     try:
+#         _user = GKUser.objects.get(pk=user_id)
+#     except GKUser.DoesNotExist:
+#         return ErrorJsonResponse(status=404)
+#
+#     _key = request.GET.get('session')
+#     _timestamp = request.GET.get('timestamp', datetime.now())
+#     if _timestamp != None:
+#         _timestamp = datetime.fromtimestamp(float(_timestamp))
+#     else:
+#         _timestamp = datetime.now()
+#     # _offset = int(request.GET.get('offset', '0'))
+#     _count = int(request.GET.get('count', '30'))
+#     log.info(_timestamp)
+#     # _offset = _offset / _count + 1
+#
+#     res = {}
+#     # res['timestamp'] = time.mktime(_timestamp.timetuple())
+#     res['entity_list'] = []
+#
+#     entities = Entity_Like.objects.filter(user=_user, entity__status__gte=APIEntity.freeze, created_time__lt=_timestamp)[:_count]
+#
+#     last = len(entities) - 1
+#     # log.info("last %s" % last)
+#     if last < 0:
+#         return SuccessJsonResponse(res)
+#     res['timestamp'] = time.mktime(entities[last].created_time.timetuple())
+#
+#     try:
+#         _session = Session_Key.objects.get(session_key=_key)
+#         el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(entities.values_list('entity_id', flat=True)))
+#     except Session_Key.DoesNotExist:
+#         el = None
+#
+#     for like in entities:
+#         try:
+#             e = like.entity.v3_toDict(el)
+#         except Exception, e:
+#             log.error("Error: %s" % e.message)
+#             continue
+#         res['entity_list'].append(
+#             e
+#         )
+#
+#     return SuccessJsonResponse(res)
 
 
 @check_sign
@@ -260,7 +260,8 @@ def entity_note(request, user_id):
     if _timestamp != None:
         _timestamp = datetime.fromtimestamp(float(_timestamp))
 
-    notes = APINote.objects.filter(user=_user, entity__status__gt=APIEntity.remove, post_time__lt=_timestamp).exclude(status=Note.remove).order_by('-post_time')[:_count]
+    notes = APINote.objects.filter(user=_user, entity__status__gt=APIEntity.remove, post_time__lt=_timestamp). \
+                exclude(status=Note.remove).order_by('-post_time')[:_count]
     res = []
     for note in notes:
         # log.info(note)
@@ -454,8 +455,63 @@ class APIUserIndexView(BaseJsonView):
 
 
 class APIUserLikeView(BaseJsonView):
+    http_method_names = ['get']
 
-    pass
+    def get_data(self, context):
+        res = {}
+    # res['timestamp'] = time.mktime(_timestamp.timetuple())
+        res['entity_list'] = []
+
+        if self.category_id == 0:
+            entities = Entity_Like.objects.filter(user=self.user, entity__status__gte=APIEntity.freeze, created_time__lt=self.timestamp)[:self.count]
+        else:
+            scid_list = Sub_Category.objects.filter(group_id = self.category_id).values_list('pk', flat=True)
+            entities = Entity_Like.objects.filter(user=self.user, entity__category_id__in=list(scid_list), entity__status__gte=APIEntity.freeze, created_time__lt=self.timestamp)[:self.count]
+            
+        last = len(entities) - 1
+        if last < 0:
+            return SuccessJsonResponse(res)
+        res['timestamp'] = time.mktime(entities[last].created_time.timetuple())
+        try:
+            _session = Session_Key.objects.get(session_key=self.key)
+            self.el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(entities.values_list('entity_id', flat=True)))
+        except Session_Key.DoesNotExist:
+            self.el = None
+
+        for like in entities:
+            try:
+                e = like.entity.v3_toDict(self.el)
+            except Exception, e:
+                log.error("Error: %s" % e.message)
+                continue
+            res['entity_list'].append(
+                e
+            )
+        return res
+
+    def get(self, request, *args, **kwargs):
+        _user_id = kwargs.pop('user_id', None)
+        assert _user_id is not None
+
+        self.category_id = request.GET.get('cid', 0)
+
+        try:
+            self.user = GKUser.objects.get(pk = _user_id)
+        except GKUser.DoesNotExist:
+            return ErrorJsonResponse(status=404)
+
+        self.key = request.GET.get('session')
+        self.timestamp = request.GET.get('timestamp', datetime.now())
+        if self.timestamp != None:
+            self.timestamp = datetime.fromtimestamp(float(self.timestamp))
+        else:
+            self.timestamp = datetime.now()
+
+        self.count = int(request.GET.get('count', '30'))
+        return super(APIUserLikeView, self).get(request, *args, **kwargs)
+
+    def dispatch(self, request, *args, **kwargs):
+        return super(APIUserLikeView, self).dispatch(request, *args, **kwargs)
 
 
 class APIUserNotesView(BaseJsonView):
@@ -466,7 +522,8 @@ class APIUserNotesView(BaseJsonView):
             _user = GKUser.objects.get(pk=self.user_id)
         except GKUser.DoesNotExist:
             return ErrorJsonResponse(status=404)
-        notes = APINote.objects.filter(user=_user, entity__status__gt=APIEntity.remove, post_time__lt=self.timestamp).exclude(status=Note.remove).order_by('-post_time')[:self.count]
+        notes = APINote.objects.filter(user=_user, entity__status__gt=APIEntity.remove, post_time__lt=self.timestamp).\
+                    exclude(status=Note.remove).order_by('-post_time')[:self.count]
         res = {}
         last = len(notes) - 1
         log.info("last %s" % last)
@@ -492,10 +549,10 @@ class APIUserNotesView(BaseJsonView):
         if self.timestamp != None:
             self.timestamp = datetime.fromtimestamp(float(self.timestamp))
 
-        return super(APIUserNotes, self).get(request, *args, **kwargs)
+        return super(APIUserNotesView, self).get(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
-        return super(APIUserNotes, self).dispatch(request, *args, **kwargs)
+        return super(APIUserNotesView, self).dispatch(request, *args, **kwargs)
 
 
 class APIUserSearchView(SearchView, JSONResponseMixin):
