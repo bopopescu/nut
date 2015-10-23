@@ -1235,9 +1235,14 @@ class Article(BaseModel):
     class Meta:
         ordering = ["-updated_datetime"]
 
+
+
+    def get_dig_key(self):
+        return 'article:dig:%d' % self.pk
+
     @property
     def dig_count(self):
-        key = 'article:dig:%d' % self.pk
+        key = self.get_dig_key()
         res = cache.get(key)
         if res :
             return res
@@ -1248,14 +1253,14 @@ class Article(BaseModel):
             return res
 
     def incr_dig(self):
-        key = 'article:dig:%d'% self.pk
+        key = self.get_dig_key()
         try:
             cache.incr(key)
         except ValueError:
             cache.set(key, self.likes.count())
 
     def decr_dig(self):
-        key = 'article:dig:%d' % self.pk
+        key = self.get_dig_key()
         if self.digs.count()>0:
             cache.decr(key)
 
