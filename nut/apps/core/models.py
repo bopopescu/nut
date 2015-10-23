@@ -26,7 +26,7 @@ from apps.core.manager.tag import EntityTagManager
 from apps.core.manager.category import CategoryManager, SubCategoryManager
 from apps.core.manager.comment import CommentManager
 from apps.core.manager.event import ShowEventBannerManager
-from apps.core.manager.article import ArticleManager, SelectionArticleManager
+from apps.core.manager.article import ArticleManager, SelectionArticleManager,ArticleDigManager
 from apps.core.manager.sidebar_banner import SidebarBannerManager
 from hashlib import md5
 
@@ -166,6 +166,25 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             res = self.likes.count()
             cache.set(key, res)
             return res
+
+    @property
+    def dig_count(self):
+        key = 'user:dig:%' % self.pk
+        res = cache.get(key)
+        if res:
+            return res
+        else:
+            res = self.digs.count()
+            cache.set(key, res)
+            return res
+
+    def incr_dig(self):
+        key = 'user:dig:' % self.pk
+        try:
+            cache.incr(key)
+        except ValueError:
+            cache.set(key,self.digs.count())
+
 
     def incr_like(self):
         key = 'user:like:%s', self.pk
@@ -685,10 +704,10 @@ class Entity(BaseModel):
         key = 'entity:like:%d' % self.pk
         res = cache.get(key)
         if res:
-            log.info("hit hit")
+            # log.info("hit hit")
             return res
         else:
-            log.info("miss miss")
+            # log.info("miss miss")
             res = self.likes.count()
             cache.set(key, res, timeout=86400)
             return res
@@ -699,7 +718,7 @@ class Entity(BaseModel):
         key = 'entity:note:%d' % self.pk
         res = cache.get(key)
         if res:
-            log.info("hit hit")
+            # log.info("hit hit")
             return res
         else:
             log.info("miss miss")
@@ -1216,6 +1235,30 @@ class Article(BaseModel):
     class Meta:
         ordering = ["-updated_datetime"]
 
+    @property
+    def dig_count(self):
+        key = 'article:dig:%d' % self.pk
+        res = cache.get(key)
+        if res :
+            return res
+        else:
+            res = self.digs.count()
+            # TODO : set timeout to  3600*24
+            cache.set(key, res, timeout=20)
+            return res
+
+    def incr_dig(self):
+        key = 'article:dig:%d'% self.pk
+        try:
+            cache.incr(key)
+        except ValueError:
+            cache.set(key, self.likes.count())
+
+    def decr_dig(self):
+        key = 'article:dig:%d' % self.pk
+        if self.digs.count()>0:
+            cache.decr(key)
+
     def __unicode__(self):
         return self.title
 
@@ -1230,7 +1273,6 @@ class Article(BaseModel):
             self.related_entities = entity_list
         else:
             self.related_entities=[]
-
         return res
 
 
@@ -1350,6 +1392,16 @@ class Selection_Article(BaseModel):
     # def __unicode__(self):
     #     return self.article
 
+
+class Article_Dig(BaseModel):
+    article = models.ForeignKey(Article, related_name='digs')
+    user = models.ForeignKey(GKUser, related_name='digs')
+    created_time = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    objects =ArticleDigManager()
+    class Meta:
+        ordering = ['-created_time']
+        unique_together = ('article', 'user')
 
 class Media(models.Model):
     creator=models.ForeignKey(GKUser, related_name='media_entries')
