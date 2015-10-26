@@ -53,7 +53,6 @@ class ArticleUndig(JSONResponseMixin,LoginRequiredMixin,AjaxResponseMixin,View):
         _aid = self.kwargs.pop('pk', None)
         if _aid is None:
             return http.Http404
-
         try:
             if settings.DEBUG:
                 el = Article_Dig.objects.get(article_id=_aid, user=_user)
