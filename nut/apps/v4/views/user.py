@@ -467,7 +467,7 @@ class APIUserLikeView(BaseJsonView):
         else:
             scid_list = Sub_Category.objects.filter(group_id = self.category_id).values_list('pk', flat=True)
             entities = Entity_Like.objects.filter(user=self.user, entity__category_id__in=list(scid_list), entity__status__gte=APIEntity.freeze, created_time__lt=self.timestamp)[:self.count]
-            
+
         last = len(entities) - 1
         if last < 0:
             return SuccessJsonResponse(res)
