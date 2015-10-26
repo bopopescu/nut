@@ -113,15 +113,16 @@
                     </div>
                 </div>
 
-                 {% if entity.related_articles.all %}
+                 {% if entity.selected_related_articles %}
 
                     <div class="related-article-wrapper-title">
                         关联图文
                     </div>
                     <div class="related-article-wrapper">
-                        {% for r_article in entity.related_articles.all %}
-
+                        {% for selection_article  in entity.selected_related_articles %}
+                            {% with  selection_article.article as r_article %}
                             {% include 'web/article/partial/article_recommend_item.html' %}
+                            {% endwith %}
                         {% endfor %}
                     </div>
 
