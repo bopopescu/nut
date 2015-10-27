@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import datetime
 
 from django import forms
 from django.conf import settings
@@ -10,7 +11,7 @@ from django.forms import ModelForm
 from django.forms.widgets import SelectMultiple, \
     TextInput, URLInput, DateTimeInput, CheckboxInput, Textarea
 
-from apps.core.models import EDM
+from apps.core.models import EDM, Article
 from apps.core.utils.image import HandleImage
 
 
@@ -21,13 +22,11 @@ class EDMDetailForm(ModelForm):
     class Meta:
         model = EDM
         fields = ('title', 'cover_image', 'cover_hype_link',
-                  'cover_description', 'articles', 'approved',
-                  'publish_time')
+                  'cover_description', 'selection_articles', 'publish_time')
         widgets = {
-            'approved': CheckboxInput(attrs={'class': ''}),
             'publish_time': DateTimeInput(attrs={'class': 'form-control'}),
             'cover_description': Textarea(attrs={'class': 'form-control'}),
-            'articles': SelectMultiple(attrs={'class': 'chosen-select'}),
+            'selection_articles': SelectMultiple(attrs={'class': 'chosen-select'}),
             'title': TextInput(attrs={'class': 'form-control'}),
             'cover_hype_link': URLInput(attrs={'class': 'form-control'})
         }
@@ -36,6 +35,9 @@ class EDMDetailForm(ModelForm):
         label=_('Select an Image'),
         help_text=_('max. 2 megabytes'),
     )
+    # articles = forms.ModelMultipleChoiceField(label="Default Evaluation Forms",
+    #                                           widget=SelectMultiple(attrs={'class':'chosen-select'}),
+    #                                           queryset=EDM.articles)
 
     def save(self, commit=True):
         cover_image = self.cleaned_data.get('cover_image')
@@ -44,4 +46,6 @@ class EDMDetailForm(ModelForm):
             file_path = "%s%s.jpg" % (image_path, _image.name)
             self.instance.cover_image = file_path
             default_storage.save(file_path, ContentFile(_image.image_data))
+        if self.has_changed():
+            self.instance.status = EDM.waiting_for_sd_verify
         return super(EDMDetailForm, self).save()

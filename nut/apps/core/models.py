@@ -1,5 +1,5 @@
 # coding=utf-8
-from datetime import datetime, time
+from datetime import datetime, time, timedelta
 from django.core.mail import EmailMessage
 
 from django.db import models
@@ -12,7 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils.log import getLogger
 from django.db.models import Count
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.conf import settings
 from django.core.cache import cache
 
@@ -609,8 +609,8 @@ class Brand(BaseModel):
 
     # @property
     # def shop_id(self):
-    #     if len(self.tmall_link) > 0:
-    #         o = urlparse(self.tmall_link)
+    # if len(self.tmall_link) > 0:
+    # o = urlparse(self.tmall_link)
     #         qs = parse_qs(o.query)
     #         return qs['shop_id'][0]
     #     return ''
@@ -671,8 +671,8 @@ class Entity(BaseModel):
             return self.images[1:]
             # res = list()
             # for row in self.images[1:]:
-            #     if image_host in row:
-            #         res.append(row.replace('imgcdn', 'image'))
+            # if image_host in row:
+            # res.append(row.replace('imgcdn', 'image'))
             #     else:
             #         res.append(row)
             # return res
@@ -1075,14 +1075,14 @@ class Note_Poke(models.Model):
 
         # def save(self, *args, **kwargs):
         #
-        #     super(Note_Poke, self).save(*args, **kwargs)
-        #     notify.send(self.user, recipient=self.note.user, action_object=self, verb="poke note", target=self.note)
+        # super(Note_Poke, self).save(*args, **kwargs)
+        # notify.send(self.user, recipient=self.note.user, action_object=self, verb="poke note", target=self.note)
 
 
 #
 # class Tag(models.Model):
-#     tag = models.CharField(max_length = 128, null = False, unique = True, db_index = True)
-#     tag_hash = models.CharField(max_length = 32, unique = True, db_index = True)
+# tag = models.CharField(max_length = 128, null = False, unique = True, db_index = True)
+# tag_hash = models.CharField(max_length = 32, unique = True, db_index = True)
 #     status = models.IntegerField(default = 0, db_index = True)
 #     creator = models.ForeignKey(GKUser, related_name='tags')
 #     # entity = models.ForeignKey(Entity, related_name='tag')
@@ -1604,35 +1604,45 @@ class Friendly_Link(BaseModel):
 
 
 class EDM(BaseModel):
-    (pending_approval,
-     ready_to_send,
-     checking_user_list,
-     sending,
-     send_succeed,
-     send_failed) = xrange(6)
+    (
+        waiting_for_sd_verify,
+        sd_verifying,
+        sd_verify_succeed,
+        sd_verify_failed,
+        sending,
+        send_completed,
+        send_failed) = xrange(7)
 
     EDM_STATUS_CHOICE = [
-        (pending_approval, _('pending approval')),
-        (ready_to_send, _('ready to send')),
-        (checking_user_list, _('checking user list')),
+        (waiting_for_sd_verify, _('waiting for sd verify')),
+        (sd_verifying, _('sd verifying')),
+        (sd_verify_succeed, _('sd verify succeed')),
+        (sd_verify_failed, _('sd verify failed')),
         (sending, _('sending')),
-        (send_succeed, _('send succeed')),
+        (send_completed, _('send completed')),
         (send_failed, _('send failed'))
     ]
+    now = datetime.now()
+    amonth_ago = now - timedelta(days=32)
 
     title = models.CharField(default=u'本月果库上不可错过的精彩内容，已为你准备好'
                                      u' - 果库 | 精英消费指南',
                              max_length=255)
     created = models.DateTimeField()
     modified = models.DateTimeField()
-    approved = models.BooleanField()
     status = models.IntegerField(choices=EDM_STATUS_CHOICE,
-                                 default=pending_approval)
+                                 default=waiting_for_sd_verify)
     publish_time = models.DateTimeField(default=datetime.now, null=False)
     cover_image = models.CharField(max_length=255, null=False)
     cover_hype_link = models.CharField(max_length=255, null=False)
     cover_description = models.TextField(null=False)
-    articles = models.ManyToManyField(Article, null=False)
+    sd_template_invoke_name = models.CharField(max_length=255, null=True)
+    display = models.BooleanField(default=True)
+    selection_articles = models.ManyToManyField(Selection_Article, null=False,
+                                                limit_choices_to=dict(is_published=True,
+                                                                  # pub_time__gte=amonth_ago,
+                                                # pub_time__lte=now
+                                                ))
 
     def __unicode__(self):
         return self.title
@@ -1642,14 +1652,16 @@ class EDM(BaseModel):
         if not self.id and not self.pk:
             self.created = datetime.now()
         self.modified = datetime.now()
-
-        if self.approved is True and self.status == self.pending_approval:
-            self.status = self.ready_to_send
-
-        if self.approved is False:
-            self.status = self.pending_approval
-
         return super(EDM, self).save(*args, **kwargs)
+
+    # @property
+    # def articles(self):
+    #     month_articles = Selection_Article.objects.filter(is_published=True,
+    #                                                       pub_time__gte=amonth_ago,
+    #                                                       pub_time__lte=now)
+    #     if self.pk or self.id:
+    #         month_articles += self.articles
+    #     return month_articles
 
     @property
     def cover(self):

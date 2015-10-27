@@ -12,7 +12,8 @@ urlpatterns = patterns(
     url(r'^edit/(?P<pk>\d+)/$', EDMUpdate.as_view(), name='management_edm_edit'),
     url(r'^create/$', EDMCreate.as_view(), name='management_edm_create'),
     url(r'^preview/(?P<edm_id>\d+)/$', 'preview_edm', name='preview_edm'),
-    url(r'^check/$', 'check_edm_user_list', name='check_edm_user_list'),
     url(r'^send/(?P<edm_id>\d+)/$', 'send_edm', name='send_edm'),
+    url(r'^approval/(?P<edm_id>\d+)/$', 'approval_edm', name='approval_edm'),
+    url(r'^sync/(?P<edm_id>\d+)/$', 'sync_verify_status', name='sync_verify_status'),
 )
 print urlpatterns
