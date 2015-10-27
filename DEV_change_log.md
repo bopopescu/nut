@@ -3,10 +3,14 @@
 2. user change email mail 认证 --- not finished
 1. new register user mail 认证 --- not finished
 
+to use assignment_tag replace global context processors 
+
 to know WHAT is css trigger ? 
 
-to  remove unpublished article in article tag page !!
+to  remove unpublished article in article tag page !!  -- DONE. 
 
+to  make google analysis js async --- already async , the article is written 2009 
+http://www.stevesouders.com/blog/2009/12/01/google-analytics-goes-async/
 
 to test incr decr functions
     1. incr a value that is empty 

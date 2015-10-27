@@ -77,7 +77,7 @@ class IndexView(TemplateView):
 
 
 class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin , ListView):
-    template_name =  'web/main/selection.html'
+    template_name =  'web/main/selection_new.html'
     model = Entity
     paginate_by = 36
     paginator_class = Jpaginator

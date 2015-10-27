@@ -66,17 +66,14 @@ window.location.href = url;</script><![endif]-->
 	<script src="http://{{ request.META.HTTP_HOST }}/respond.proxy.js"></script>
 
     <![endif]-->
-
     <!-- End Google Analytics -->
     <script>
         // for newest event slug
         var newest_event_slug =  '{{ newest_event_slug }}'  ;
-        var base_url = '{% static 'js/management/restful/lib/' %}'
-
+        //  must put base_url in global var , requirejs will need it.
+        var base_url = '{% static 'js/web/app/' %}'
     </script>
-
 </head>
-
 <body class="{% block body_class %} gray-body {% endblock %} {% if isFromMobile %} mobile-body {% endif %}">
 {% url 'web_download' as web_download_url %}
 {% url 'web_selection' as web_selection_url %}
