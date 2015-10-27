@@ -273,7 +273,8 @@ span {
         </div>
         <div class="liner"> 热门图文</div>
         <div class="articles">
-            {% for article in edm.articles.all %}
+            {% for selection_article in edm.selection_articles.all %}
+                {% with article=selection_article.article %}
                 <div class="article">
                     <div class="article-cover">
                         <a href="{% url 'web_article_page' article.id %}"
@@ -297,6 +298,7 @@ span {
                         </div>
                     </div>
                 </div>
+                {% endwith %}
             {% endfor %}
         </div>
         <div class="liner"> 热门商品</div>

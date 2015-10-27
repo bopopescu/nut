@@ -7,7 +7,6 @@
         <th>{% trans 'title' %}</th>
         <th>{% trans 'cover' %}</th>
         <th>{% trans 'publish_time' %}</th>
-        <th>{% trans 'approved' %}</th>
         <th>{% trans 'status' %}</th>
         <th>{% trans 'operate' %}</th>
     </tr>
@@ -19,23 +18,54 @@
                 {{ edm.title }}
             </td>
             <td class="product-brand">
-                <img src="{{ edm.cover|resize:'350' }}" />
+                <img src="{{ edm.cover|resize:'350' }}"/>
             </td>
             <td class="product-title">
-                {{ edm.publish_time|date:'Y-m-d H:i:s'  }}
+                {{ edm.publish_time|date:'Y-m-d H:i:s' }}
             </td>
             <td class="product-title">
-                {% trans "this is a test" as edm.verification %}
-                {{ edm.verification }}
+                {% if edm.status == edm.sd_verify_failed or edm.status == edm.send_failed %}
+                    <span class="badge badge-inverse" style="background: #333;">
+                {% elif edm.status == edm.sd_verify_succeed or edm.status == edm.send_completed %}
+                    <span class="badge badge-success"
+                          style="background-color: #468847;">
+                {% else %}
+                    <span class="badge badge">
+                {% endif %}
+                {{ edm.get_status_display }}
+                </span>
             </td>
             <td class="product-title">
-                {{ edm.status }}
-            </td>
-            <td class="product-title">
-                <a href="{% url 'management_edm_edit' edm.id %}"> 编辑</a><br>
-{#                <a href=""> 删除</a><br>#}
-                <a href="{% url 'preview_edm' edm.id %}"> {% trans 'Preview' %}</a><br>
-                <a href="{% url 'send_edm' edm.id %}"> {% trans 'Send' %}</a>
+                {% if edm.status != edm.sending and edm.status != edm.send_completed and edm.status != edm.send_failed %}
+                    {% if edm.status == edm.sd_verifying %}
+                        <a id="check_verify" name="{{ edm.id }}"
+                           href="javascript:void(0)"
+                           class="btn btn-warning"> {% trans 'check verify status' %}</a>
+                    {% else %}
+                        <div class="btn-group">
+                        <a href="{% url 'preview_edm' edm.id %}"
+                           class="btn btn-info"> {% trans 'Delete' %}</a>
+                        {% if edm.status == edm.sd_verify_succeed %}
+                            <a href="{% url 'send_edm' edm.id %}"
+                               class="btn btn-default"> {% trans 'Send' %}</a>
+                            </div>
+                        {% else %}
+                            <a href="{% url 'management_edm_edit' edm.id %}"
+                               class="btn btn-default"> {% trans 'Edit' %}</a>
+                            </div>
+                            <a id="submit_verify" name="{{ edm.id }}"
+                               href="javascript:void(0)"
+                               class="btn btn-primary">
+                                {% if edm.status == edm.sd_verify_failed %}
+                                    {% trans 'resubmit verify' %}
+                                {% else %}
+                                    {% trans 'submit verify' %}
+                                {% endif %}
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                <a href="{% url 'preview_edm' edm.id %}" class="btn btn-default"> {% trans 'Let me preview it' %}</a>
             </td>
         </tr>
     {% endfor %}

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-19 17:04+0800\n"
+"POT-Creation-Date: 2015-10-26 15:50+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -264,6 +264,34 @@ msgstr ""
 #: apps/core/models.py:1590
 msgid "Other"
 msgstr "其他"
+
+#: apps/core/models.py:1617
+msgid "waiting for sd verify"
+msgstr "等待审核"
+
+#: apps/core/models.py:1618
+msgid "sd verifying"
+msgstr "审核中"
+
+#: apps/core/models.py:1619
+msgid "sd verify succeed"
+msgstr "审核通过"
+
+#: apps/core/models.py:1620
+msgid "sd verify failed"
+msgstr "审核失败"
+
+#: apps/core/models.py:1621
+msgid "sending"
+msgstr "发送中"
+
+#: apps/core/models.py:1622
+msgid "send completed"
+msgstr "发送完成"
+
+#: apps/core/models.py:1623
+msgid "send failed"
+msgstr "发送失败"
 
 #: apps/core/forms/account.py:24 apps/core/forms/account.py:173
 msgid "email is not exist"
@@ -539,7 +567,7 @@ msgstr "天猫品牌链接"
 #: apps/management/templates/management/buy_link/table.html:15
 #: apps/management/templates/management/category/list.html:37
 #: apps/management/templates/management/category/sub_category_list.html:35
-#: apps/management/templates/management/edm/table.html:11
+#: apps/management/templates/management/edm/table.html:10
 #: apps/management/templates/management/entities/edit.html:59
 #: apps/management/templates/management/entities/edit.html:154
 #: apps/management/templates/management/entities/table.html:19
@@ -564,6 +592,7 @@ msgid "parent category"
 msgstr "上级品类"
 
 #: apps/core/forms/category.py:116 apps/core/forms/entity.py:582
+#: apps/management/forms/edm.py:34
 msgid "Select an Image"
 msgstr "选择图片"
 
@@ -638,6 +667,7 @@ msgid "note status"
 msgstr "点评 状态"
 
 #: apps/core/forms/entity.py:583 apps/core/forms/user.py:159
+#: apps/management/forms/edm.py:35
 msgid "max. 2 megabytes"
 msgstr "最大2兆"
 
@@ -808,9 +838,8 @@ msgstr "专题 Banner"
 #: apps/management/forms/editor_recommendation.py:54
 #: apps/management/forms/event_banner.py:87
 #: apps/management/templates/management/management_base.html:153
-#: apps/management/templates/management/edm/detail.html:11
-#: apps/management/templates/management/edm/detail.html:17
-#: apps/management/templates/management/edm/detail.html:19
+#: apps/management/templates/management/edm/detail.html:23
+#: apps/management/templates/management/edm/detail.html:25
 #: apps/management/templates/management/event/create.html:8
 #: apps/management/templates/management/event/create.html:13
 #: apps/management/templates/management/event/create.html:14
@@ -899,9 +928,10 @@ msgid "comment"
 msgstr "评论"
 
 #: apps/management/templates/management/management_base.html:188
+#: apps/management/templates/management/edm/detail.html:11
 #: apps/management/templates/management/edm/list.html:8
 #: apps/management/templates/management/edm/list.html:9
-#: apps/management/templates/management/edm/list.html:14
+#: apps/management/templates/management/edm/list.html:15
 msgid "EDM"
 msgstr ""
 
@@ -978,7 +1008,7 @@ msgstr "草稿"
 #: apps/management/templates/management/category/entity/category_entity_list.html:11
 #: apps/management/templates/management/chart/likechat.html:11
 #: apps/management/templates/management/comment/list.html:13
-#: apps/management/templates/management/edm/detail.html:15
+#: apps/management/templates/management/edm/detail.html:21
 #: apps/management/templates/management/edm/list.html:13
 #: apps/management/templates/management/entities/edit.html:11
 #: apps/management/templates/management/entities/edit_buy_link.html:13
@@ -1056,6 +1086,7 @@ msgstr "操作"
 #: apps/management/templates/management/buy_link/table.html:51
 #: apps/management/templates/management/category/list.html:49
 #: apps/management/templates/management/category/sub_category_list.html:49
+#: apps/management/templates/management/edm/detail.html:15
 #: apps/management/templates/management/entities/edit.html:79
 #: apps/management/templates/management/entities/edit.html:172
 #: apps/management/templates/management/entities/table.html:58
@@ -1090,7 +1121,7 @@ msgid "save"
 msgstr "保存"
 
 #: apps/management/templates/management/article/edit.html:54
-#: apps/management/templates/management/edm/detail.html:52
+#: apps/management/templates/management/edm/detail.html:58
 msgid "preview"
 msgstr "预览"
 
@@ -1118,7 +1149,6 @@ msgstr ""
 
 #: apps/management/templates/management/banner/create.html:8
 #: apps/management/templates/management/banner/create.html:51
-#: apps/management/templates/management/edm/detail.html:50
 #: apps/management/templates/management/entities/buy_link.html:42
 #: apps/management/templates/management/event/create.html:42
 #: apps/management/templates/management/event_banner/create.html:36
@@ -1157,8 +1187,8 @@ msgstr "主图"
 #: apps/management/templates/management/brand/list.html:25
 #: apps/management/templates/management/category/list.html:25
 #: apps/management/templates/management/category/sub_category_list.html:24
-#: apps/management/templates/management/edm/detail.html:12
-#: apps/management/templates/management/edm/list.html:23
+#: apps/management/templates/management/edm/detail.html:13
+#: apps/management/templates/management/edm/list.html:26
 #: apps/management/templates/management/entities/new.html:48
 #: apps/management/templates/management/event/create.html:9
 #: apps/management/templates/management/event/list.html:23
@@ -1190,6 +1220,7 @@ msgid "url"
 msgstr "链接"
 
 #: apps/management/templates/management/brand/create.html:40
+#: apps/management/templates/management/edm/detail.html:56
 #: apps/web/templates/web/account/password_rest_confirm.html:30
 msgid "submit"
 msgstr "提交"
@@ -1305,17 +1336,42 @@ msgstr "删除"
 msgid "publish_time"
 msgstr "发布时间"
 
-#: apps/management/templates/management/edm/table.html:10
-msgid "approved"
-msgstr "操作"
-
-#: apps/management/templates/management/edm/table.html:12
+#: apps/management/templates/management/edm/table.html:11
 msgid "operate"
 msgstr "操作"
 
-#: apps/management/templates/management/edm/table.html:28
-msgid "this is a test"
-msgstr "标签 不存在"
+#: apps/management/templates/management/edm/table.html:39
+msgid "Let me preview it"
+msgstr "让我预览一下"
+
+#: apps/management/templates/management/edm/table.html:44
+msgid "check verify status"
+msgstr "检查审核状态"
+
+#: apps/management/templates/management/edm/table.html:48
+#: apps/management/templates/management/restful/FriendLinkApp.html:38
+#: apps/management/templates/management/restful/SBBannerApp.html:34
+#: apps/management/templates/management/restful/baseApp.html:32
+msgid "Delete"
+msgstr "删除"
+
+#: apps/management/templates/management/edm/table.html:51
+msgid "Send"
+msgstr "发送"
+
+#: apps/management/templates/management/edm/table.html:54
+#: apps/management/templates/management/restful/SBBannerApp.html:33
+#: apps/management/templates/management/restful/baseApp.html:31
+msgid "Edit"
+msgstr "编辑"
+
+#: apps/management/templates/management/edm/table.html:60
+msgid "resubmit verify"
+msgstr "再次提交审核"
+
+#: apps/management/templates/management/edm/table.html:62
+msgid "submit verify"
+msgstr "我要提交审核"
 
 #: apps/management/templates/management/entities/edit.html:40
 #: apps/management/templates/management/users/edit.html:66
@@ -1626,12 +1682,6 @@ msgstr "状态"
 msgid "Save Change"
 msgstr ""
 
-#: apps/management/templates/management/restful/FriendLinkApp.html:38
-#: apps/management/templates/management/restful/SBBannerApp.html:34
-#: apps/management/templates/management/restful/baseApp.html:32
-msgid "Delete"
-msgstr "删除"
-
 #: apps/management/templates/management/restful/SBBannerApp.html:11
 #: apps/management/templates/management/restful/SBBannerApp.html:18
 #: apps/management/templates/management/restful/baseApp.html:9
@@ -1663,11 +1713,6 @@ msgstr "友情链接"
 #: apps/management/templates/management/restful/baseApp.html:30
 msgid "Status"
 msgstr "状态"
-
-#: apps/management/templates/management/restful/SBBannerApp.html:33
-#: apps/management/templates/management/restful/baseApp.html:31
-msgid "Edit"
-msgstr ""
 
 #: apps/management/templates/management/search/search.html:26
 #: apps/management/templates/management/users/edit.html:11
@@ -1891,7 +1936,7 @@ msgid "Required"
 msgstr "必填项"
 
 #: apps/web/forms/account.py:139
-msgid "Enter the same password as above, for approved."
+msgid "Enter the same password as above, for verification."
 msgstr "确认密码"
 
 #: apps/web/forms/entity.py:62 apps/web/templates/web/static_base.html:50
@@ -2239,6 +2284,21 @@ msgstr "他的"
 #: apps/wechat/templates/wechat/bind.html:34
 msgid "bind"
 msgstr "绑定"
+
+#~ msgid "Preview"
+#~ msgstr "预览"
+
+#~ msgid "pending approval"
+#~ msgstr "等待确认内容"
+
+#~ msgid "approved"
+#~ msgstr "合格"
+
+#~ msgid "this is a test"
+#~ msgstr "标签 不存在"
+
+#~ msgid "approval"
+#~ msgstr "提交审核"
 
 #~ msgid "last modified time"
 #~ msgstr "更新时间"

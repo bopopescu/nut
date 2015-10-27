@@ -3,9 +3,9 @@
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.shortcuts import render_to_response, get_object_or_404
 import json
+from django.template import RequestContext, loader, Context
 from django.views.csrf import csrf_failure
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from model_utils.tests.models import Post
@@ -16,6 +16,7 @@ from django.views.generic import ListView, CreateView, UpdateView, FormView, \
     DeleteView
 from apps.management.decorators import staff_only
 from apps.management.forms.edm import EDMDetailForm
+from sendcloud.template import SendCloudTemplate
 
 
 class EDMListView(ListView):
@@ -46,13 +47,9 @@ class EDMDelete(DeleteView):
 @staff_only
 def preview_edm(request, edm_id, template='management/edm/preview.html'):
     if request.method == 'GET':
-        edm = EDM.objects.filter(id=edm_id)
+        edm = get_object_or_404(EDM, pk=edm_id)
         popular_list = Entity_Like.objects.popular_random('monthly', 9)
         entities = Entity.objects.filter(id__in=popular_list)
-        if edm:
-            edm = edm[0]
-        else:
-            raise 404
         return render_to_response(
             template,
             {'edm': edm,
@@ -64,25 +61,66 @@ def preview_edm(request, edm_id, template='management/edm/preview.html'):
 @login_required
 @staff_only
 def send_edm(request, edm_id):
-    check_edm_user_list()
+    pass
+    # check_edm_user_list()
+
+@csrf_exempt
+@login_required
+@staff_only
+def approval_edm(request, edm_id):
+    edm = get_object_or_404(EDM, pk=edm_id)
+    if edm.status not in (edm.waiting_for_sd_verify, edm.sd_verify_failed):
+        return "This edm can't approval."
+
+    invoke_name = edm.sd_template_invoke_name
+    if not invoke_name:
+        invoke_name = 'edm-'+str(edm.publish_time.date())
+        invoke_name = invoke_name.replace('-', '_')
+        invoke_name = invoke_name.strip()
+        edm.sd_template_invoke_name = invoke_name
+        edm.save()
+
+    sd_tm = SendCloudTemplate(invoke_name=invoke_name)
+    t = loader.get_template('management/edm/preview.html')
+    edm = get_object_or_404(EDM, pk=edm_id)
+    popular_list = Entity_Like.objects.popular_random('monthly', 9)
+    entities = Entity.objects.filter(id__in=popular_list)
+    c = Context({'edm': edm, 'popular_list': entities})
+    html = t.render(c)
+
+    data = {
+        'name': u'edm - %s版' % str(edm.publish_time.date()).strip(),
+        'html': html,
+        'subject': edm.title,
+    }
+    try:
+        sd_tm.update_or_create(**data)
+        edm.status = edm.sd_verifying
+        edm.save()
+        # return True
+        return HttpResponse('')
+    except BaseException, e:
+        # return False
+        return HttpResponse('')
 
 
 @csrf_exempt
 @login_required
 @staff_only
-def check_edm_user_list(request):
-    if request.method == 'POST':
-        gk_users_count = GKUser.objects.filter(is_active__gte=1).count()
-        # sd_user_count =
-        print '>> count: ', gk_users_count
-        response_data = {}
-        response_data['result'] = 'Create post successful!'
-        return HttpResponse(
-            json.dumps(response_data),
-            content_type="application/json"
-        )
-    else:
-        return HttpResponse(
-            json.dumps({"nothing to see": "this isn't happening"}),
-            content_type="application/json"
-        )
+def sync_verify_status(request, edm_id):
+    edm = get_object_or_404(EDM, pk=edm_id)
+    if edm.status != edm.sd_verifying or not edm.sd_template_invoke_name:
+        return "This edm can't sync status."
+
+    sd_tm = SendCloudTemplate(invoke_name=edm.sd_template_invoke_name)
+    status = sd_tm.get_status()
+    if status == 1:
+        edm.status = edm.sd_verify_succeed
+    elif status == 0:
+        edm.status = edm.sd_verifying
+    elif status == -1:
+        edm.status = edm.sd_verify_failed
+    elif status == -2:
+        edm.status = edm.waiting_for_sd_verify
+    edm.save()
+    return HttpResponse('')

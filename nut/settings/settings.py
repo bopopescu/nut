@@ -14,6 +14,8 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -146,7 +148,6 @@ LOCALE_PATHS = (
     os.path.join(os.getcwd(), 'conf/locale'),
 )
 
-
 STATICFILES_DIRS = (
     os.path.join(os.getcwd(), 'static'),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
@@ -157,13 +158,13 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    # 'django.template.loaders.eggs.Loader',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -172,7 +173,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     # 'django.core.context_processors.debug',
     'django.core.context_processors.static',
-    #add by an , for event slug insert into every page.
+    # add by an , for event slug insert into every page.
     # see document for reason,
     # modified base.html (template) for this processor to take effect
     'apps.web.contextprocessors.global.lastslug',
@@ -192,7 +193,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAdminUser',
     ],
     # 'DEFAULT_AUTHENTICATION_CLASSES': [
-    #     'rest_framework.'
+    # 'rest_framework.'
     # ],
     'PAGINATE_BY': 10,
     'PAGINATE_BY_PARAM': 'size',
@@ -211,7 +212,11 @@ GUOKU_NAME = u'果库'
 RESET_PASSWORD_TEMPLATE = 'forget_password'
 VERFICATION_EMAIL_TEMPLATE = 'verify_email'
 # list
-MAIL_LIST_ADDR='all_gkusers'
+MAIL_LIST_ADDR = 'all_gkusers'
+SD_VERIFY_STATUS = {1: 'succed',
+                    0: 'verifying',
+                    -2: 'not submited',
+                    -1: 'failed'}
 
 
 
@@ -271,10 +276,10 @@ TAOBAO_OAUTH_URL = 'https://oauth.taobao.com/authorize'
 TAOBAO_OAUTH_LOGOFF = 'https://oauth.taobao.com/logoff'
 TAOBAO_BACK_URL = APP_HOST + "/taobao/auth"
 TAOBAO_APP_INFO = {
-    "default_app_key" : "12313170",
-    "default_app_secret" : "90797bd8d5859aac971f8cc9d4e51105",
-    "web_app_key" : "21419640",
-    "web_app_secret" : "df91464ae934bacca326450f8ade67f7"
+    "default_app_key": "12313170",
+    "default_app_secret": "90797bd8d5859aac971f8cc9d4e51105",
+    "web_app_key": "21419640",
+    "web_app_secret": "df91464ae934bacca326450f8ade67f7"
 }
 
 BAICHUAN_APP_KEY = '23093827'
@@ -299,10 +304,11 @@ JPUSH_SECRET = 'a0529d3efa544d1da51405b7'
 
 
 # for django-simple-captcha
-CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs','captcha.helpers.noise_dots',)
+CAPTCHA_NOISE_FUNCTIONS = (
+    'captcha.helpers.noise_arcs', 'captcha.helpers.noise_dots',)
 CAPTCHA_LENGTH = 5
 # for debug server popular  category test
-DEFAULT_POPULAR_SCALE =  7
+DEFAULT_POPULAR_SCALE = 7
 
 # config of site in redis.
 CONFIG_REDIS_HOST = 'localhost'
