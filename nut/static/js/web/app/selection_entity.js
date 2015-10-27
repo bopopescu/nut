@@ -4,7 +4,8 @@ require.config({
         libs: './libs',
         utils: './utils',
         jquery: 'libs/jquery-1.11.1.min',
-        bootstrap: 'libs/bootstrap.min'
+        bootstrap: 'libs/bootstrap.min',
+        fastdom: 'libs/fastdom'
     },
 
     shim: {
