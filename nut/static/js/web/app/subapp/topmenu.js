@@ -69,11 +69,13 @@ define(['bootstrap', 'libs/Class','underscore','jquery', 'fastdom'],function(boo
         showHeader: function(){
             console.log('show header');
             this.$menu.removeClass('hidden-header');
+            this.$menu.addClass('shown-header');
             console.log((new Date()).getMilliseconds());
 
         },
         hideHeader: function(){
             console.log('hideHeader');
+            this.$menu.removeClass('shown-header');
             this.$menu.addClass('hidden-header');
             console.log((new Date()).getMilliseconds());
 
