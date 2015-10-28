@@ -79,7 +79,7 @@ window.location.href = url;</script><![endif]-->
 {% url 'web_selection' as web_selection_url %}
 {% block global_links %}
 {% if web_selection_url in request.path %}
-    <a href="{{ web_download_url }}" target="_blank"><img class="img-responsive guoku-weixin" src="{% static 'images/download_icon.png' %}"></a>
+    <a class="acc-layer" href="{{ web_download_url }}" target="_blank"><img class="img-responsive guoku-weixin" src="{% static 'images/download_icon.png' %}"></a>
 {% endif %}
 {% endblock %}
 <h1 class="hidden sr-only">{% block h1 %}果库,精英消费指南,精英,消费指南,专访{% endblock %}</h1>
