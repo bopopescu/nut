@@ -493,7 +493,7 @@ class APIUserLikeView(BaseJsonView):
         _user_id = kwargs.pop('user_id', None)
         assert _user_id is not None
 
-        self.category_id = request.GET.get('cid', 0)
+        self.category_id = int(request.GET.get('cid', '0'))
 
         try:
             self.user = GKUser.objects.get(pk = _user_id)
