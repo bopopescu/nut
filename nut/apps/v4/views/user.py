@@ -462,7 +462,7 @@ class APIUserLikeView(BaseJsonView):
     # res['timestamp'] = time.mktime(_timestamp.timetuple())
         res['entity_list'] = []
 
-        if self.category_id == 0:
+        if int(self.category_id) == 0:
             entities = Entity_Like.objects.filter(user=self.user, entity__status__gte=APIEntity.freeze, created_time__lt=self.timestamp)[:self.count]
         else:
             scid_list = Sub_Category.objects.filter(group_id = self.category_id).values_list('pk', flat=True)
