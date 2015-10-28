@@ -86,6 +86,16 @@ body.compact-body{
 }
 
 #guoku_main_nav{
+  &.hidden-header{
+    .animate-header;
+    .transform(translateY(-60px));
+  }
+
+  &.shown-header{
+    .animate-header;
+    .transform(translateY(0px));
+  }
+
   background-color: #fff;
   opacity: 0.98;
   border-bottom: 0;
@@ -1538,6 +1548,6 @@ body{
 }
 
 .test{
-  color: black;
+  color: red;
 }
 

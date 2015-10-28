@@ -1,4 +1,6 @@
 {% extends 'web/base.html' %}
+{% load i18n staticfiles %}
+
  {% block meta-og %}
     <meta property="og:title" content="果库精选商品 | 精英消费指南 | 理想生活主张" >
     <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
@@ -36,4 +38,10 @@
             {% include "web/main/partial/selection_paginator.html" with objects=selections paginator=paginator url=request.path %}
         {% endif %}
     </div>
+{% endblock %}
+
+{% block basic_script %}
+{#    <script src="{% static 'js/web/app/libs/jquery-1.11.1.min.js' %}"></script>#}
+{#    <script src="{% static 'js/web/app/libs/bootstrap.min.js' %}"></script>#}
+    <script data-main="{% static 'js/web/app/selection_entity' %}" src="{% static 'js/web/app/require.js' %}"></script>
 {% endblock %}

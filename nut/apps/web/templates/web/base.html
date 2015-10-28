@@ -40,19 +40,21 @@ window.location.href = url;</script><![endif]-->
     <meta name="keywords" content="精选商品,精选,尽收世上好物,果库、guoku、果库网、果库应用、精英消费指南、消费指南、精品导购应用、导购、购物指南、购物分享、淘宝网购物、淘宝网精选、精品推荐">
     <meta name="description" content="果库精选商品每日更新，恪守选品标准和美学格调，推荐有趣、有用、有价值的国内外优质优惠的网购商品。尽收世上好物。">
 {% endblock %}
-
-{#    <meta content="果库,guoku,果库福利,果库专题,精英消费指南,消费指南,购物指南,果库专访,专访,导购,福利,购物分享,淘宝网购物,淘宝网精选,精品推荐,品质生活{% block keyword %}{% endblock %}" name="keywords">#}
-{#    <meta content="果库,旨在帮助你发现互联网上最有趣、最人气、最实用的好商品,恪守选品标准和美学格调,开拓精英视野与生活想象.{% block description %}我们每日为你精选秉持理想生活哲学的消费图文,推荐国内外最优质的商品信息,涵盖女装、男装、配饰、母婴、美容、居家、科技、户外、保健、文化、美食、玩乐等类别.围绕精英消费指南的定位,品质消费的理念,果库为追求生活质量的消费者提供更高效的消费决策.{% endblock %}" name="description">#}
+    {% block owner_auth %}
     <meta name="msvalidate.01" content="AC5BC2B7EE50E9FED342DC08F3BA6BAC" />
     <meta name="360-site-verification" content="7c3351c76f5ddce0bf24427040d88bd5" />
-    <link rel="icon" type="image/ico" href="{% static 'images/favicon.ico' %}">
+    {% endblock %}
+    {% block css_basic %}
+        <link rel="icon" type="image/ico" href="{% static 'images/favicon.ico' %}">
+        <link rel="apple-touch-icon-precomposed" href="{% static 'images/touch-icon-precomposed.png' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/font-awesome/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/web/site.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/web/guoku_front.css' %}">
+    {% endblock %}
+    {% block css %}
 
-    <link rel="apple-touch-icon-precomposed" href="{% static 'images/touch-icon-precomposed.png' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/font-awesome/css/font-awesome.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/web/site.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/web/guoku_front.css' %}">
-    {% block css %}{% endblock %}
+    {% endblock %}
 
     <!-- Respond.js proxy on external server -->
     <!--[if lt IE 9]>
@@ -64,57 +66,34 @@ window.location.href = url;</script><![endif]-->
 	<script src="http://{{ request.META.HTTP_HOST }}/respond.proxy.js"></script>
 
     <![endif]-->
-
     <!-- End Google Analytics -->
     <script>
         // for newest event slug
         var newest_event_slug =  '{{ newest_event_slug }}'  ;
-
+        //  must put base_url in global var , requirejs will need it.
+        var base_url = '{% static 'js/web/app/' %}'
     </script>
 </head>
-
 <body class="{% block body_class %} gray-body {% endblock %} {% if isFromMobile %} mobile-body {% endif %}">
 {% url 'web_download' as web_download_url %}
 {% url 'web_selection' as web_selection_url %}
 {% block global_links %}
 {% if web_selection_url in request.path %}
-    <a href="{{ web_download_url }}" target="_blank"><img class="img-responsive guoku-weixin" src="{% static 'images/download_icon.png' %}"></a>
+    <a class="acc-layer" href="{{ web_download_url }}" target="_blank"><img class="img-responsive guoku-weixin" src="{% static 'images/download_icon.png' %}"></a>
 {% endif %}
 {% endblock %}
 <h1 class="hidden sr-only">{% block h1 %}果库,精英消费指南,精英,消费指南,专访{% endblock %}</h1>
+
 {% block header %}
  {%  include "web/partial/header_new.html" %}
 {% endblock %}
 
-{% block content %} {% endblock %}
+{% block content %}
+
+{% endblock %}
 
 {% block footer %}
- {% include 'web/partial/footer.html' %}
-
-{#    <footer class="footer">#}
-{#        <div class="container">#}
-{#            <div class="row footer-top">#}
-{#                <div class="col-sm-10">#}
-{#                    <ul class="list-inline text-center">#}
-{#                        <li><a target="_blank" href="http://www.miibeian.gov.cn/">京ICP备14054029号</a></li>#}
-{#                        <li>京公网安备11010502019958</li>#}
-{#                        <li>|</li>#}
-{#                        <li><a href="{% url 'web_about' %}">{% trans 'About' %}</a></li>#}
-{#                        <li><a title="{% trans 'Guoku on Weibo' %}" href="http://weibo.com/guoku">{% trans 'Guoku on Weibo' %}</a></li>#}
-{#                        <li><a title="Keep in touch :)" href="mailto:hi@guoku.com" _hover-ignore="1">{% trans 'Email' %}</a></li>#}
-{#                        <li><a href="{% url 'web_jobs' %}">{% trans "Jobs" %}</a></li>#}
-{#                        <li><a href="{% url 'web_agreement' %}" target="_blank">{% trans 'Agreement' %}</a></li>#}
-{#                        <li><a href="{% url 'web_links' %}">{% trans 'Links' %}</a></li>#}
-{#                    </ul>#}
-{#                </div>#}
-{#                <div class="col-sm-2">#}
-{#                    <ul class="list-inline text-center">#}
-{#                        <li><i class="fa fa-copyright"></i>&nbsp; 2015 {% trans 'Guoku' %}</li>#}
-{#                    </ul>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </footer>#}
+    {% include 'web/partial/footer.html' %}
 {% endblock %}
 
 {% block modal %}
@@ -126,12 +105,16 @@ window.location.href = url;</script><![endif]-->
     </div>
     {% endif %}
 {% endblock %}
-<script type="text/html" id="flink_item">
-   <li><a href="<%=link%>"  target="_blank"><%=name%></a></li>
-</script>
-<script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
-<script src="{% static 'js/web/site.js' %}"></script>
+
+{% block basic_script %}
+    <script type="text/html" id="flink_item">
+       <li><a href="<%=link%>"  target="_blank"><%=name%></a></li>
+    </script>
+    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/web/site.js' %}"></script>
+{% endblock %}
+
 {% block counter_script %}
 
 {% endblock %}
@@ -151,19 +134,19 @@ window.location.href = url;</script><![endif]-->
     </script>
 {% endblock %}
 {% block baidu_script %}
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?5ad5f89777e93197294d9c4c6724e915";
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?5ad5f89777e93197294d9c4c6724e915";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
 {% endblock %}
+{% block script %}
 
-
-{% block script %}{% endblock %}
+{% endblock %}
 </body>
 
 </html>
