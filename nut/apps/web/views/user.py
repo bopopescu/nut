@@ -454,6 +454,9 @@ class UserIndex(DetailView):
 
     def get_pronoun(self):
         _current_user = self.get_showing_user()
+        if not _current_user.profile:
+            return _('His')
+
         if self.request.user == _current_user:
             return _('My')
         elif _current_user.profile.gender == User_Profile.Woman:

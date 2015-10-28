@@ -47,13 +47,13 @@ class EntityListView(FilterMixin, ListView):
             entity_list = qs.filter(status=int(status)).order_by('-updated_time')
         return  entity_list
 
-
+    # TODO: need clear input  in filter Mixin
     def filter_queryset(self, qs, filter_param):
         filter_field, filter_value = filter_param
         if filter_field == 'brand':
-            qs = qs.filter(brand__icontains=filter_value)
+            qs = qs.filter(brand__icontains=filter_value.strip())
         elif filter_field == 'title':
-            qs = qs.filter(title__icontains=filter_value)
+            qs = qs.filter(title__icontains=filter_value.strip())
         else:
             pass
         return qs

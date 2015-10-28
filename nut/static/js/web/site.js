@@ -17,11 +17,11 @@
   'use strict';
 
   // Normalize rAF
-  var raf = window.requestAnimationFrame
-    || window.webkitRequestAnimationFrame
-    || window.mozRequestAnimationFrame
-    || window.msRequestAnimationFrame
-    || function(cb) { return window.setTimeout(cb, 1000 / 60); };
+  var raf = window.requestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.msRequestAnimationFrame ||
+      function(cb) { return window.setTimeout(cb, 1000 / 60); };
 
   /**
    * Creates a fresh
@@ -65,11 +65,10 @@
     // We should *not* schedule a new frame if:
     // 1. We're 'reading'
     // 2. A frame is already scheduled
-    var doesntNeedFrame = this.batch.mode === 'reading'
-      || this.batch.scheduled;
+    var doesntNeedFrame = this.batch.mode === 'reading' || this.batch.scheduled;
 
     // If a frame isn't needed, return
-    if (doesntNeedFrame) return id;
+    if (doesntNeedFrame) {return id;}
 
     // Schedule a new
     // frame, then return
@@ -807,13 +806,9 @@ function getQueryStrings() {
     var util = {
         handlePageScroll: function(){
             var last_scroll = 0 ;
-
             var fix_sidebar = $('#sidebar_fix');
             var footer = $('#guoku_footer');
             var $topLink = $('.btn-top');
-
-
-
             fix_sidebar.css({display:'none'});
 
             function handleScrollSideBar(){

@@ -2,11 +2,68 @@ from django.db import models
 from django.core.cache import cache
 from datetime import datetime, timedelta
 from random import shuffle
-from django.core.paginator import  Paginator,InvalidPage
 
+from django.core.paginator import  Paginator,InvalidPage
+from django.contrib.auth import get_user_model
 from django.utils.log import getLogger
+from django.db.models import Count
+
+import random
 log = getLogger('django')
 
+
+class ArticleDigQuerySet(models.query.QuerySet):
+    def popular(self, scale):
+        dt = datetime.now()
+        weekly_days = 7
+        if scale == 'weekly':
+            days = timedelta(days = weekly_days)
+        else:
+            days = timedelta(days=1)
+
+        popular_time = (dt-days).strftime("%Y-%m-%d") + ' 00:00'
+        user_innqs = get_user_model()._default_manager.filter(is_active__gt=0)\
+                                                      .values_list('id', flat=True)
+        return self.filter(created_time__gte=popular_time,user_id__in=user_innqs)\
+                   .values_list('article',flat=True)\
+                   .annotate(dcount=Count('aritlce'))\
+                   .order_by('-dcount')[:400]
+
+    def user_dig_list(self, user, article_list):
+        return self.filter(article_id__in=article_list, user=user)\
+                   .values_list('article_id', flat=True)
+
+
+class ArticleDigManager(models.Manager):
+    def get_queryset(self):
+        return ArticleDigQuerySet(self.model, using=self._db)
+
+    def popular(self, scale='weekly'):
+        key = 'article:popular:%s' % scale
+        res = cache.get(key)
+        if res:
+            return list(res)
+        else:
+            res = self.get_queryset().popular(scale)
+            # TODO: set timeout to 3600 *24
+            cache.set(key, res, timeout=20)
+            return res
+
+    def popular_random(self, scale='weekly'):
+        key  ='article:popular:random:%s' %scale
+        res = cache.get(key)
+        if res:
+            return res
+        else:
+            source = self.popular(scale)
+            out_count= 60
+            try :
+                res = random.sample(source, out_count)
+                #TODO : set timeout to 3600 * 24
+                cache.set(key, res, timeout=20)
+            except ValueError:
+                res = source
+            return res
 
 class ArticleManager(models.Manager):
     def get_published_by_user(self,user):
