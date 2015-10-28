@@ -501,7 +501,7 @@ class APIUserLikeView(BaseJsonView):
             return ErrorJsonResponse(status=404)
 
         self.key = request.GET.get('session')
-        self.timestamp = request.GET.get('timestamp', datetime.now())
+        self.timestamp = request.GET.get('timestamp', None)
         if self.timestamp != None:
             self.timestamp = datetime.fromtimestamp(float(self.timestamp))
         else:
