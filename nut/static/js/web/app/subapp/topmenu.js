@@ -42,7 +42,7 @@ define(['bootstrap', 'libs/Class','underscore','jquery', 'fastdom'],function(boo
             //console.log()
         },
         moveHeader:function(){
-            console.log('move header');
+            //console.log('move header');
 
             if (_.isNull(this.scrollTop)) {
                 return ;
@@ -67,17 +67,17 @@ define(['bootstrap', 'libs/Class','underscore','jquery', 'fastdom'],function(boo
 
 
         showHeader: function(){
-            console.log('show header');
+            //console.log('show header');
             this.$menu.removeClass('hidden-header');
             this.$menu.addClass('shown-header');
-            console.log((new Date()).getMilliseconds());
+            //console.log((new Date()).getMilliseconds());
 
         },
         hideHeader: function(){
-            console.log('hideHeader');
+            //console.log('hideHeader');
             this.$menu.removeClass('shown-header');
             this.$menu.addClass('hidden-header');
-            console.log((new Date()).getMilliseconds());
+            //console.log((new Date()).getMilliseconds());
 
         }
 
