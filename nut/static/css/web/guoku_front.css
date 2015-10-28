@@ -681,6 +681,11 @@ ul li {
   border: none;
 }
 .btn-top {
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
   display: none;
   float: right;
   background-color: #eee;
@@ -813,10 +818,29 @@ p.boolean-false {
   -o-transition: all 0.4s ease-in;
 }
 .acc-layer {
+  backface-visibility: hidden;
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
   -ms-transform: translate3d(0, 0, 0);
   -o-transform: translate3d(0, 0, 0);
+}
+#sidebar_fix {
+  backface-visibility: hidden;
+}
+.guoku-weixin {
+  z-index: 1000;
+  backface-visibility: hidden;
+  position: fixed;
+  right: 20px;
+  top: 100px;
+  width: 70px;
+  height: 70px;
+  opacity: 100;
+  filter: alpha(opacity=100);
+}
+.guoku-weixin:hover {
+  opacity: 0.85;
+  filter: alpha(opacity=85);
 }
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
@@ -1150,20 +1174,6 @@ button,
 textarea {
   -webkit-appearance: none;
 }
-.guoku-weixin {
-  z-index: 1000;
-  position: fixed;
-  right: 20px;
-  top: 100px;
-  width: 70px;
-  height: 70px;
-  opacity: 100;
-  filter: alpha(opacity=100);
-}
-.guoku-weixin:hover {
-  opacity: 0.85;
-  filter: alpha(opacity=85);
-}
 /* 轮播 */
 .carousel-control.left {
   background-image: none;
@@ -1414,8 +1424,13 @@ body.compact-body {
   background-position: center center;
 }
 #guoku_main_nav {
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
   background-color: #fff;
-  opacity: 0.98;
+  opacity: 1;
   border-bottom: 0;
   -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
@@ -3085,6 +3100,6 @@ body .for-mobile {
   display: block;
 }
 .test {
-  color: red;
+  color: black;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
