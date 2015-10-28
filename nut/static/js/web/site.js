@@ -806,13 +806,9 @@ function getQueryStrings() {
     var util = {
         handlePageScroll: function(){
             var last_scroll = 0 ;
-
             var fix_sidebar = $('#sidebar_fix');
             var footer = $('#guoku_footer');
             var $topLink = $('.btn-top');
-
-
-
             fix_sidebar.css({display:'none'});
 
             function handleScrollSideBar(){
