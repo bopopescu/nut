@@ -256,7 +256,7 @@ span {
 <body>
 <div class="content">
     <div class="header">
-        <img class="logo" src="{% static 'images/edm/logo.png' %}">
+        <img class="logo" src="http://{{ host }}{% static 'images/edm/logo.png' %}">
     </div>
     <div class="container">
         <div class="banner">
@@ -266,7 +266,7 @@ span {
 
             <p class="description">
                 {{ edm.cover_description }}
-                <a href="{{ edm.cover_hype_link }}" target="_blank">
+                <a href="http://{{ host }}{{ edm.cover_hype_link }}" target="_blank">
                     &nbsp;阅读更多
                 </a>
             </p>
@@ -277,21 +277,21 @@ span {
                 {% with article=selection_article.article %}
                 <div class="article">
                     <div class="article-cover">
-                        <a href="{% url 'web_article_page' article.id %}"
+                        <a href="http://{{ host }}{% url 'web_article_page' article.id %}"
                            target="_blank">
                             <img src="{{ article.cover_url|resize:'350' }}"/>
                         </a>
                     </div>
                     <div class="article-content">
                         <div class="article-title">
-                            <a href="{% url 'web_article_page' article.id %}"
+                            <a href="http://{{ host }}{% url 'web_article_page' article.id %}"
                                target="_blank">
                                 {{ article.title|truncatechars:36 }}
                             </a>
                         </div>
                         <div class="article-summary">
                             {{ article.content|striptags|truncatechars:120 }}
-                            <a href="{% url 'web_article_page' article.id %}"
+                            <a href="http://{{ host }}{% url 'web_article_page' article.id %}"
                                target="_blank">
                                 &nbsp;阅读更多
                             </a>
@@ -306,14 +306,14 @@ span {
             {% for entity in popular_entities %}
                 <div class="thumbnail">
                     <div class="entity-img">
-                        <a href="{% url 'web_entity_detail' entity.entity_hash %}"
+                        <a href="http://{{ host }}{% url 'web_entity_detail' entity.entity_hash %}"
                            target="_blank">
                             <img src="{{ entity.chief_image|resize:'310' }}"/>
                         </a>
                     </div>
                     <div class="entity-info">
                         <span class="entity-title">
-                            <a href="{% url 'web_entity_detail' entity.entity_hash %}"
+                            <a href="http://{{ host }}{% url 'web_entity_detail' entity.entity_hash %}"
                                target="_blank">
                                 {{ entity.title|truncatechars:18 }}
                             </a>
@@ -333,19 +333,19 @@ span {
         </div>
         <div class="contact_me">
             <a href="http://weibo.com/guoku" target="_blank"><img
-                    src="{% static 'images/edm/sina@2x.png' %}"></a>
+                    src="http://{{ host }}{% static 'images/edm/sina@2x.png' %}"></a>
             <a href="http://site.douban.com/130280/" target="_blank"><img
-                    src="{% static 'images/edm/douban@2x.png' %}"></a>
+                    src="http://{{ host }}{% static 'images/edm/douban@2x.png' %}"></a>
             <a href="http://twitter.com/guokuapp" target="_blank"><img
-                    src="{% static 'images/edm/twitter@2x.png' %}"></a>
+                    src="http://{{ host }}{% static 'images/edm/twitter@2x.png' %}"></a>
             <a href="http://www.facebook.com/172009339558352"
                target="_blank"><img
-                    src="{% static 'images/edm/facebook@2x.png' %}"></a>
+                    src="http://{{ host }}{% static 'images/edm/facebook@2x.png' %}"></a>
             <a href="http://instagram.com/guoku/" target="_blank"><img
-                    src="{% static 'images/edm/instagram@2x.png' %}"></a>
+                    src="http://{{ host }}{% static 'images/edm/instagram@2x.png' %}"></a>
         </div>
         <div class="get_me">
-            <img src="{% static 'images/edm/QR_DL.jpg' %}">
+            <img src="http://{{ host }}{% static 'images/edm/QR_DL.jpg' %}">
             <span>
                 下载果库客户端
             </span>
@@ -355,7 +355,7 @@ span {
         </div>
         <div class="liner_with_no_text"></div>
         <div class="footer_of_footer">
-            <span>如果不想继续接受此邮件，请点击 <a href=" href="%%user_defined_unsubscribe_link%%"">退订</a></span>
+            <span>如果不想继续接受此邮件，请点击 <a href="%%user_defined_unsubscribe_link%%">退订</a></span>
             <span> © 果库 2015</span>
         </div>
     </div>

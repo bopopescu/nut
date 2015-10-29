@@ -149,9 +149,9 @@ class EntityLikeManager(models.Manager):
 
     def popular(self, scale='weekly'):
         key = 'entity:popular:%s' % scale
-        # res = cache.get(key)
-        # if res:
-        #     return list(res)
+        res = cache.get(key)
+        if res:
+            return list(res)
         res = self.get_query_set().popular(scale)
         cache.set(key, res, timeout=86400)
         return list(res)
@@ -159,13 +159,13 @@ class EntityLikeManager(models.Manager):
     def popular_random(self, scale='weekly', out_count=60):
         key = 'entity:popular:random:%s' % scale
         # popular_list = self.popular()
-        # res = cache.get(key)
-        # log.info(res)
-        # if res:
-        #     return res
+        res = cache.get(key)
+        log.info(res)
+        if res:
+            return res
         source = self.popular(scale)
-        # if isTestEnv():
-        #     out_count = 6
+        if isTestEnv():
+            out_count = 6
         try:
             res = random.sample(source, out_count)
             cache.set(key, res, timeout=10800)
