@@ -1,5 +1,6 @@
 {% load i18n staticfiles %}
 {% load notifications_tags %}
+{% load flink_tags %}
 <footer class="footer" id="guoku_footer">
         <div class="container">
             <div class="row footer-main">
@@ -90,6 +91,10 @@
                 <div class="list-wrapper">
                         <ul id="flink_list">
                             <li class="list-title no-padding-right"><span><a href="{% url 'web_links' %}">友情链接</a> :</span></li>
+                            {% get_friendly_links as flinks %}
+                            {% for flink in flinks %}
+                                <li><a href="{{  flink.link }}"  target="_blank">{{ flink.name }}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
 

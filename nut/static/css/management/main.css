@@ -550,6 +550,16 @@ p.boolean-false {
   opacity: 0.85;
   filter: alpha(opacity=85);
 }
+.loading-icon {
+  display: inline-block;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  margin: 30px 0px;
+  text-align: center;
+}
 @-moz-document url-prefix() {
   fieldset {
     display: table-cell;
