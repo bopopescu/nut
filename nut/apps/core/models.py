@@ -1609,18 +1609,15 @@ class EDM(BaseModel):
         sd_verifying,
         sd_verify_succeed,
         sd_verify_failed,
-        sending,
         send_completed,
-        send_failed) = xrange(7)
+    ) = xrange(5)
 
     EDM_STATUS_CHOICE = [
         (waiting_for_sd_verify, _('waiting for sd verify')),
         (sd_verifying, _('sd verifying')),
         (sd_verify_succeed, _('sd verify succeed')),
         (sd_verify_failed, _('sd verify failed')),
-        (sending, _('sending')),
         (send_completed, _('send completed')),
-        (send_failed, _('send failed'))
     ]
 
     title = models.CharField(default=u'本月果库上不可错过的精彩内容，已为你准备好'
@@ -1637,6 +1634,7 @@ class EDM(BaseModel):
     sd_template_invoke_name = models.CharField(max_length=255, null=True)
     display = models.BooleanField(default=True)
     selection_articles = models.ManyToManyField(Selection_Article, null=False)
+    sd_task_id = models.CharField(max_length=45, null=True)
 
     def __unicode__(self):
         return self.title

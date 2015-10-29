@@ -1,21 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from datetime import datetime
+import json
+
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
-import json
 from django.template import RequestContext, loader, Context
-from django.views.csrf import csrf_failure
-from django.views.decorators.csrf import csrf_exempt, csrf_protect
-from model_utils.tests.models import Post
+from django.views.decorators.csrf import csrf_exempt
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView
 
-from apps.core.models import EDM, Entity_Like, Entity, GKUser
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, FormView, \
-    DeleteView
+from apps.core.models import EDM, Entity_Like, Entity
 from apps.management.decorators import staff_only
 from apps.management.forms.edm import EDMDetailForm
 from sendcloud.template import SendCloudTemplate
@@ -65,9 +61,11 @@ def preview_edm(request, edm_id, template='management/edm/preview.html'):
         edm = get_object_or_404(EDM, pk=edm_id)
         popular_list = Entity_Like.objects.popular_random('monthly', 9)
         entities = Entity.objects.filter(id__in=popular_list)
+        site_host = request.get_host()
         return render_to_response(
             template,
             {'edm': edm,
+             'host': site_host,
              'popular_entities': entities},
             context_instance=RequestContext(request),
         )
@@ -79,28 +77,42 @@ def preview_edm(request, edm_id, template='management/edm/preview.html'):
 def send_edm(request, edm_id):
     response_data = {'result': 'succeed', 'message': ''}
     edm = get_object_or_404(EDM, pk=edm_id)
-    if edm.status not in (edm.waiting_for_sd_verify, edm.sd_verify_failed):
+    if edm.status != edm.sd_verify_succeed:
         response_data['result'] = 'failed'
-        response_data['message'] = "This edm can't approval. " \
+        response_data['message'] = "This edm can't be sent. " \
                                    "please contact administrators."
     else:
         invoke_name = edm.sd_template_invoke_name
         to = settings.MAIL_LIST
         sd_tm = SendCloudTemplate(invoke_name=invoke_name)
-        # result = sd_tm.send_to_list(u'本月果库上不可错过的精彩内容，已为你准备好 - 果库 | 精英消费指南',
-        #                             settings.GUOKU_MAIL, settings.GUOKU_NAME, to)
-        # response_data['message'] = result
-        sd_tm.send_to_list(u'本月果库上不可错过的精彩内容，已为你准备好 - 果库 | 精英消费指南',
+        result = sd_tm.send_to_list(u'本月果库上不可错过的精彩内容，已为你准备好 - 果库 | 精英消费指南',
                                     settings.GUOKU_MAIL, settings.GUOKU_NAME, to)
+        if not result or result['message'] != 'success':
+            response_data['result'] = 'failed'
+            response_data['message'] = ';'.join(result['errors'])
+        else:
+            edm.status = edm.send_completed
+            edm.sd_task_id = result['mail_list_task_id_list']
+            edm.save()
     return HttpResponse(json.dumps(response_data),
                         content_type="application/json")
-
-
-@csrf_exempt
-@login_required
-@staff_only
-def check_send_status(request, edm_id):
-    pass
+#
+#
+# @csrf_exempt
+# @login_required
+# @staff_only
+# def check_send_status(request, edm_id):
+#     response_data = {'result': 'succeed', 'message': ''}
+#     edm = get_object_or_404(EDM, pk=edm_id)
+#     if edm.status != edm.sending:
+#         response_data['result'] = 'failed'
+#         response_data['message'] = "This edm didn't sended anything."
+#     else:
+#         invoke_name = edm.sd_template_invoke_name
+#         sd_tm = SendCloudTemplate(invoke_name=invoke_name)
+#         sd_tm.check_task(edm.sd_task_id)
+#     return HttpResponse(json.dumps(response_data),
+#                         content_type="application/json")
 
 
 @csrf_exempt
@@ -115,7 +127,7 @@ def approval_edm(request, edm_id):
     else:
         invoke_name = edm.sd_template_invoke_name
         if not invoke_name:
-            invoke_name = 'edm-' + str(edm.publish_time.date())
+            invoke_name = 'edm-%d-%s' % (edm.id, str(edm.publish_time.date()))
             invoke_name = invoke_name.replace('-', '_')
             invoke_name = invoke_name.strip()
             edm.sd_template_invoke_name = invoke_name
@@ -126,7 +138,8 @@ def approval_edm(request, edm_id):
         edm = get_object_or_404(EDM, pk=edm_id)
         popular_list = Entity_Like.objects.popular_random('monthly', 9)
         entities = Entity.objects.filter(id__in=popular_list)
-        c = Context({'edm': edm, 'popular_list': entities})
+        site_host = request.get_host()
+        c = Context({'edm': edm, 'popular_entities': entities, 'host': site_host})
         html = t.render(c)
 
         data = {
