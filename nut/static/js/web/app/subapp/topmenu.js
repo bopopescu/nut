@@ -28,7 +28,24 @@ define(['bootstrap', 'libs/Class','underscore','jquery', 'fastdom','cookie'],fun
 
             this.setupScrollMenu();
             this.checkSNSBindVisit();
+            this.checkEventRead();
 
+        },
+        checkEventRead:function(){
+            // add by an , for event link status check , remove the red dot if event is read.
+            // the key is defined in 2 places!  DRY...
+            var viewed_event_slug_cookie_key = 'viewed_event_slug_cookie_key';
+            if(!newest_event_slug){
+                return ;
+            }
+            if ($.cookie(viewed_event_slug_cookie_key) === newest_event_slug){
+                //console.log('event is read!');
+                jQuery('.nav [href="/event/"] .round').css({display:'none'});
+            }else{
+                jQuery('.nav [href="/event/"] .round').css({display:'inline-block'});
+            }
+
+            return ;
         },
         checkSNSBindVisit: function(){
             var sns_bind_page_visited_key = 'SNS_BIND_PAGE_VISITED';
