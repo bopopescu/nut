@@ -7,7 +7,7 @@
 2. user change email mail 认证 --- not finished
 1. new register user mail 认证 --- not finished
 
-to use assignment_tag replace global context processors 
+0 . to use assignment_tag replace global context processors
 
 to know WHAT is css trigger ? 
 

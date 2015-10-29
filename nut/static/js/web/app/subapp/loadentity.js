@@ -81,16 +81,20 @@ define(['jquery','libs/Class','libs/fastdom'],
                 if(c !== 0){
                     data['c'] = c;
                 }
-                $.when($.ajax({
+                // defer to get loading_icon
+                fastdom.defer(30, function(){
+                    $.when($.ajax({
                     url: url,
                     method: "GET",
                     data: data,
-                    dataType:'json',
+                    dataType:'json'
 
-                })).then(
-                    this.loadSuccess.bind(this),
-                    this.loadFail.bind(this)
-                );
+                    })).then(
+                        that.loadSuccess.bind(that),
+                        that.loadFail.bind(that)
+                    );
+                });
+
             }
         },
 
