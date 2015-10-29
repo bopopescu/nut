@@ -56,7 +56,9 @@ define(['jquery','libs/underscore','libs/Class','libs/fastdom'],
                 });
             }
 
-        },
+
+
+        }
     });
 
     return GoTop;

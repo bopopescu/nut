@@ -249,24 +249,6 @@
   max-height: 100%;
   max-width: 100%;
 }
-.entity-four .img-box img,
-.entity-selection .img-box img,
-.guoku-button,
-#detail_content_right .section-list .section-banner img,
-.guess_img .img-box img,
-.article-wrapper .cover-wrapper a img,
-.more-article-wrapper .cover-wrapper a img,
-.guess-wrapper .recommend-img,
-.user-page .img-box img,
-.img-holder a,
-.selection-article-item .img-holder,
-.thumbnail.category img,
-.hover-light {
-  -webkit-transition: all 0.35s;
-  -moz-transition: all 0.35s;
-  -ms-transition: all 0.35s;
-  -o-transition: all 0.35s;
-}
 .entity-four .img-box img:hover,
 .entity-selection .img-box img:hover,
 .guoku-button:hover,
