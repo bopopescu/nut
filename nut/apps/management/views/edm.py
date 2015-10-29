@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+from datetime import datetime
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 import json
@@ -22,6 +24,7 @@ from sendcloud.template import SendCloudTemplate
 class EDMListView(ListView):
     model = EDM
     template_name = 'management/edm/list.html'
+    queryset = EDM.objects.filter(display=True)
 
 
 class EDMCreate(CreateView):
@@ -38,9 +41,21 @@ class EDMUpdate(UpdateView):
     success_url = reverse_lazy('management_edm_list')
 
 
-class EDMDelete(DeleteView):
-    model = EDM
-    success_url = reverse_lazy('management_edm_list')
+@csrf_exempt
+@login_required
+@staff_only
+def edm_delete(request, edm_id):
+    response_data = {'result': 'succeed', 'message': ''}
+    edm = get_object_or_404(EDM, pk=edm_id)
+    if edm.status not in(edm.waiting_for_sd_verify, edm.sd_verify_succeed,
+                         edm.sd_verify_failed):
+        response_data['result'] = 'failed'
+        response_data['message'] = "This edm can't be deleted."
+    else:
+        edm.display = False
+        edm.save()
+    return HttpResponse(json.dumps(response_data),
+                        content_type="application/json")
 
 
 @login_required
@@ -58,69 +73,98 @@ def preview_edm(request, edm_id, template='management/edm/preview.html'):
         )
 
 
+@csrf_exempt
 @login_required
 @staff_only
 def send_edm(request, edm_id):
+    response_data = {'result': 'succeed', 'message': ''}
+    edm = get_object_or_404(EDM, pk=edm_id)
+    if edm.status not in (edm.waiting_for_sd_verify, edm.sd_verify_failed):
+        response_data['result'] = 'failed'
+        response_data['message'] = "This edm can't approval. " \
+                                   "please contact administrators."
+    else:
+        invoke_name = edm.sd_template_invoke_name
+        to = settings.MAIL_LIST
+        sd_tm = SendCloudTemplate(invoke_name=invoke_name)
+        # result = sd_tm.send_to_list(u'本月果库上不可错过的精彩内容，已为你准备好 - 果库 | 精英消费指南',
+        #                             settings.GUOKU_MAIL, settings.GUOKU_NAME, to)
+        # response_data['message'] = result
+        sd_tm.send_to_list(u'本月果库上不可错过的精彩内容，已为你准备好 - 果库 | 精英消费指南',
+                                    settings.GUOKU_MAIL, settings.GUOKU_NAME, to)
+    return HttpResponse(json.dumps(response_data),
+                        content_type="application/json")
+
+
+@csrf_exempt
+@login_required
+@staff_only
+def check_send_status(request, edm_id):
     pass
-    # check_edm_user_list()
+
 
 @csrf_exempt
 @login_required
 @staff_only
 def approval_edm(request, edm_id):
+    response_data = {'result': 'succeed', 'message': ''}
     edm = get_object_or_404(EDM, pk=edm_id)
     if edm.status not in (edm.waiting_for_sd_verify, edm.sd_verify_failed):
-        return "This edm can't approval."
+        response_data['result'] = 'failed'
+        response_data['message'] = "This edm can't approval."
+    else:
+        invoke_name = edm.sd_template_invoke_name
+        if not invoke_name:
+            invoke_name = 'edm-' + str(edm.publish_time.date())
+            invoke_name = invoke_name.replace('-', '_')
+            invoke_name = invoke_name.strip()
+            edm.sd_template_invoke_name = invoke_name
+            edm.save()
 
-    invoke_name = edm.sd_template_invoke_name
-    if not invoke_name:
-        invoke_name = 'edm-'+str(edm.publish_time.date())
-        invoke_name = invoke_name.replace('-', '_')
-        invoke_name = invoke_name.strip()
-        edm.sd_template_invoke_name = invoke_name
-        edm.save()
+        sd_tm = SendCloudTemplate(invoke_name=invoke_name)
+        t = loader.get_template('management/edm/preview.html')
+        edm = get_object_or_404(EDM, pk=edm_id)
+        popular_list = Entity_Like.objects.popular_random('monthly', 9)
+        entities = Entity.objects.filter(id__in=popular_list)
+        c = Context({'edm': edm, 'popular_list': entities})
+        html = t.render(c)
 
-    sd_tm = SendCloudTemplate(invoke_name=invoke_name)
-    t = loader.get_template('management/edm/preview.html')
-    edm = get_object_or_404(EDM, pk=edm_id)
-    popular_list = Entity_Like.objects.popular_random('monthly', 9)
-    entities = Entity.objects.filter(id__in=popular_list)
-    c = Context({'edm': edm, 'popular_list': entities})
-    html = t.render(c)
-
-    data = {
-        'name': u'edm - %s版' % str(edm.publish_time.date()).strip(),
-        'html': html,
-        'subject': edm.title,
-    }
-    try:
-        sd_tm.update_or_create(**data)
-        edm.status = edm.sd_verifying
-        edm.save()
-        # return True
-        return HttpResponse('')
-    except BaseException, e:
-        # return False
-        return HttpResponse('')
+        data = {
+            'name': u'edm - %s版' % str(edm.publish_time.date()).strip(),
+            'html': html,
+            'subject': edm.title,
+        }
+        try:
+            sd_tm.update_or_create(**data)
+            edm.status = edm.sd_verifying
+            edm.save()
+        except BaseException, e:
+            response_data['result'] = 'failed'
+            response_data['message'] = e.message
+    return HttpResponse(json.dumps(response_data),
+                        content_type="application/json")
 
 
 @csrf_exempt
 @login_required
 @staff_only
 def sync_verify_status(request, edm_id):
+    response_data = {'result': 'succeed', 'message': ''}
     edm = get_object_or_404(EDM, pk=edm_id)
     if edm.status != edm.sd_verifying or not edm.sd_template_invoke_name:
-        return "This edm can't sync status."
-
-    sd_tm = SendCloudTemplate(invoke_name=edm.sd_template_invoke_name)
-    status = sd_tm.get_status()
-    if status == 1:
-        edm.status = edm.sd_verify_succeed
-    elif status == 0:
-        edm.status = edm.sd_verifying
-    elif status == -1:
-        edm.status = edm.sd_verify_failed
-    elif status == -2:
-        edm.status = edm.waiting_for_sd_verify
-    edm.save()
-    return HttpResponse('')
+        response_data['result'] = 'failed'
+        response_data['message'] = "This edm can't sync status."
+    else:
+        sd_tm = SendCloudTemplate(invoke_name=edm.sd_template_invoke_name)
+        status = sd_tm.get_status()
+        if status == 1:
+            edm.status = edm.sd_verify_succeed
+        elif status == 0:
+            edm.status = edm.sd_verifying
+        elif status == -1:
+            edm.status = edm.sd_verify_failed
+        elif status == -2:
+            edm.status = edm.waiting_for_sd_verify
+        edm.save()
+    return HttpResponse(json.dumps(response_data),
+                        content_type="application/json")

@@ -36,17 +36,66 @@
         </div>
     </section>
 
+    <div id="WarningModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="WarningModal" aria-hidden="true">
+       <div class="modal-dialog">
+          <div class="modal-content">
+             <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                   aria-hidden="true">×
+                </button>
+            <h4 class="modal-title" id="myModalLabel">
+               Something went wrong...
+            </h4>
+         </div>
+         <div class="modal-body">
+         </div>
+      </div><!-- /.modal-content -->
+   </div><!-- /.modal-dialog -->
+</div>
+
 {% endblock %}
 {% block user_script %}
     <script type="text/javascript">
+        var wm = $('#WarningModal');
+        var wm_content = wm.find('.modal-body');
+
         $('#submit_verify').on('click', function (event) {
             $.ajax({
                 type: "GET",
                 url: 'approval/' + $(this).attr('name'),
-                success: function () {
-                    location.reload()
+                success: function (json) {
+                    if (json.result == 'failed')
+                    {
+                        wm_content.text(json.message);
+                        wm.modal({keyboard: true});
+                    }
+                    else{
+                        location.reload()
+                    }
                 },
                 error: function (xhr, errmsg, err) {
+                    wm_content.text(errmsg);
+                    wm.modal({keyboard: true});
+                }
+            })
+        });
+        $('#send').on('click', function (event) {
+            $.ajax({
+                type: "GET",
+                url: 'send/' + $(this).attr('name'),
+                success: function (json) {
+                    if (json.result == 'failed')
+                    {
+                        wm_content.text(json.message);
+                        wm.modal({keyboard: true});
+                    }
+                    else{
+                        location.reload()
+                    }
+                },
+                error: function (xhr, errmsg, err) {
+                    wm_content.text(errmsg);
+                    wm.modal({keyboard: true});
                 }
             })
         });
@@ -54,10 +103,39 @@
             $.ajax({
                 type: "GET",
                 url: 'sync/' + $(this).attr('name'),
-                success: function () {
-                    location.reload()
+                success: function (json) {
+                    if (json.result == 'failed')
+                    {
+                        wm_content.text(json.message);
+                        wm.modal({keyboard: true});
+                    }
+                    else{
+                        location.reload()
+                    }
                 },
                 error: function (xhr, errmsg, err) {
+                    wm_content.text(errmsg);
+                    wm.modal({keyboard: true});
+                }
+            })
+        });
+        $('#delete_edm').on('click', function (event) {
+            $.ajax({
+                type: "GET",
+                url: 'delete/' + $(this).attr('name'),
+                success: function (json) {
+                    if (json.result == 'failed')
+                    {
+                        wm_content.text(json.message);
+                        wm.modal({keyboard: true});
+                    }
+                    else{
+                        location.reload()
+                    }
+                },
+                error: function (xhr, errmsg, err) {
+                    wm_content.text(errmsg);
+                    wm.modal({keyboard: true});
                 }
             })
         });
