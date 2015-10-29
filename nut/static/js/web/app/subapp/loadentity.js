@@ -102,11 +102,12 @@ define(['jquery','libs/Class','libs/fastdom'],
             fastdom.defer(function(){
                 that.counter++;
                 that.doClear();
+                if (that.counter % 3 === 0){
+                    that.page.show();
+                }
                 that.loading = false;
             });
         }
-
-
     });
 
     return LoadEntity;
