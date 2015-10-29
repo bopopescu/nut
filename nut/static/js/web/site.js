@@ -1104,7 +1104,7 @@ function getQueryStrings() {
 
                 }
                 function show_url_not_support_message(){
-                    $('#url_error_msg').html('请输入淘宝，天猫或京东的商品链接。');
+                    $('#url_error_msg').html('请输入淘宝、天猫、亚马逊或京东的商品链接');
                 }
                 function hide_url_not_support_message(){
                     $('#url_error_msg').html('');
