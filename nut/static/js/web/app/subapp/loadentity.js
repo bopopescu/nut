@@ -5,8 +5,10 @@ define(['jquery','libs/Class','libs/fastdom'],
         init: function(){
             this.$selection = $('#selection');
             this.page = this.$selection.parent().find('.pager');
+            this.loading_icon = $('.loading-icon');
             this.counter = 1;
             this.page.hide();
+            //this.loading_icon.hide();
 
             this.read = null;
             this.write = null;
@@ -22,6 +24,9 @@ define(['jquery','libs/Class','libs/fastdom'],
         },
         onScroll:function(){
 
+            if (this.read){
+                fastdom.clear(this.read)
+            }
             this.read = fastdom.read(this.doRead.bind(this));
 
             if(this.write){
@@ -43,7 +48,7 @@ define(['jquery','libs/Class','libs/fastdom'],
             this.isOverScrolled =(this.windowHeight + this.scrollTop) >  (this.docHeight - this.footerHeight);
         },
         doWrite:function(){
-
+            var that = this;
             this.shouldLoad = this.isOverScrolled && (this.counter%3 !== 0) && (!this.loading);
 
             if(!this.shouldLoad){
@@ -51,6 +56,11 @@ define(['jquery','libs/Class','libs/fastdom'],
                 return ;
             }else{
                 this.loading = true;
+
+                fastdom.defer(function(){
+                    that.loading_icon.show();
+                });
+
                 var aQuery = window.location.href.split('?');
                 var url = aQuery[0];
                 var p = 1, c = 0 ;
@@ -85,17 +95,15 @@ define(['jquery','libs/Class','libs/fastdom'],
         },
 
         loadSuccess: function(res){
-            console.log('success');
-            console.log(res);
-
             this.attachNewSelections($(res.data));
-
         },
         loadFail:function(data){
             console.log(data)
+
         },
         attachNewSelections: function(elemList){
             var that = this;
+
             fastdom.defer(function(){
                 that.$selection.append(elemList);
             });
@@ -103,6 +111,7 @@ define(['jquery','libs/Class','libs/fastdom'],
                 that.counter++;
                 that.doClear();
                 if (that.counter % 3 === 0){
+                    that.loading_icon.hide();
                     that.page.show();
                 }
                 that.loading = false;

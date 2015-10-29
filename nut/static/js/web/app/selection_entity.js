@@ -47,6 +47,5 @@ require(['jquery',
  var  menu = new Menu();
  var  app_like = new  AppEntityLike();
  var  app_loadEntity = new LoadEntity();
-      console.log(jQuery);
 
 });
