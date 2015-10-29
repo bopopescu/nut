@@ -266,7 +266,7 @@ span {
 
             <p class="description">
                 {{ edm.cover_description }}
-                <a href="http://{{ host }}{{ edm.cover_hype_link }}" target="_blank">
+                <a href="{{ edm.cover_hype_link }}" target="_blank">
                     &nbsp;阅读更多
                 </a>
             </p>
@@ -290,7 +290,7 @@ span {
                             </a>
                         </div>
                         <div class="article-summary">
-                            {{ article.content|striptags|truncatechars:120 }}
+                            {{ article.content|striptags|truncatechars:120|cut:'　' }}
                             <a href="http://{{ host }}{% url 'web_article_page' article.id %}"
                                target="_blank">
                                 &nbsp;阅读更多
