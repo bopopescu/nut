@@ -1,4 +1,17 @@
-define(['bootstrap', 'libs/Class','underscore','jquery', 'fastdom'],function(boot, Class,_,$,fastdom){
+define(['bootstrap', 'libs/Class','underscore','jquery', 'fastdom','cookie'],function(boot, Class,_,$,fastdom,cookie){
+
+    // cookie is a shim resource , it will attch to jquery objects.
+
+     function show_sns_page_dot(){
+            $('.nav-user-actions .round').css({display:'inline-block'});
+            $('.setting-list .round').css({display: 'inline-block'});
+    };
+    function hide_sns_page_dot(){
+            $('.nav-user-actions .round').css({display:'none'});
+            $('.setting-list .round').css({display: 'none'});
+
+    };
+
 
     var Menu = Class.extend({
         init: function(){
@@ -14,8 +27,18 @@ define(['bootstrap', 'libs/Class','underscore','jquery', 'fastdom'],function(boo
             this.read = this.write = null;
 
             this.setupScrollMenu();
+            this.checkSNSBindVisit();
 
         },
+        checkSNSBindVisit: function(){
+            var sns_bind_page_visited_key = 'SNS_BIND_PAGE_VISITED';
+            if ($.cookie(sns_bind_page_visited_key) === 'visited'){
+                hide_sns_page_dot();
+            }else{
+                show_sns_page_dot();
+            }
+        },
+
         setupScrollMenu: function(){
             $(window).scroll(this.scheduleHeaderMove.bind(this));
             //$(window).scroll(_.debounce(this.show.bind(this), 100));

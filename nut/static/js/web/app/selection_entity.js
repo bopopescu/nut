@@ -8,13 +8,15 @@ require.config({
         bootstrap: 'libs/bootstrap.min',
         fastdom: 'libs/fastdom',
         csrf:'libs/csrf',
-        underscore:'libs/underscore'
-
+        underscore:'libs/underscore',
+        cookie: 'libs/jquery.cookie'
     },
 
     shim: {
 // shim won't handle script load , you still need require script in your source
-
+        'cookie':{
+            deps:['jquery']
+        },
         'csrf':{
             deps:['jquery']
         },
