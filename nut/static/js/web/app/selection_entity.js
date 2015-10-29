@@ -35,17 +35,18 @@ require.config({
 
 require(['jquery',
          'utils/EntityLike',
-         'subapp/topmenu'
+         'subapp/topmenu',
+         'subapp/loadentity'
         ],
         function(jQuery,
                  AppEntityLike,
-                 Menu
-
-    ){
+                 Menu,
+                 LoadEntity){
 // TODO : check if csrf work --
-//
+// TODO : make sure bind is usable
  var  menu = new Menu();
  var  app_like = new  AppEntityLike();
+ var  app_loadEntity = new LoadEntity();
       console.log(jQuery);
 
 });
