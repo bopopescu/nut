@@ -1622,8 +1622,6 @@ class EDM(BaseModel):
         (send_completed, _('send completed')),
         (send_failed, _('send failed'))
     ]
-    now = datetime.now()
-    amonth_ago = now - timedelta(days=32)
 
     title = models.CharField(default=u'本月果库上不可错过的精彩内容，已为你准备好'
                                      u' - 果库 | 精英消费指南',
@@ -1638,11 +1636,7 @@ class EDM(BaseModel):
     cover_description = models.TextField(null=False)
     sd_template_invoke_name = models.CharField(max_length=255, null=True)
     display = models.BooleanField(default=True)
-    selection_articles = models.ManyToManyField(Selection_Article, null=False,
-                                                limit_choices_to=dict(is_published=True,
-                                                                  # pub_time__gte=amonth_ago,
-                                                # pub_time__lte=now
-                                                ))
+    selection_articles = models.ManyToManyField(Selection_Article, null=False)
 
     def __unicode__(self):
         return self.title
@@ -1653,15 +1647,6 @@ class EDM(BaseModel):
             self.created = datetime.now()
         self.modified = datetime.now()
         return super(EDM, self).save(*args, **kwargs)
-
-    # @property
-    # def articles(self):
-    #     month_articles = Selection_Article.objects.filter(is_published=True,
-    #                                                       pub_time__gte=amonth_ago,
-    #                                                       pub_time__lte=now)
-    #     if self.pk or self.id:
-    #         month_articles += self.articles
-    #     return month_articles
 
     @property
     def cover(self):

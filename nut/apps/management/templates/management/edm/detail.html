@@ -13,7 +13,7 @@
                 <small>{% trans 'add' %}</small>
             {% else %}
                 <small>{% trans 'edit' %}</small>
-                <span class="label label-default">{{ edm.status }}</span>
+{#                <span class="label label-default">{{ edm.status }}</span>#}
             {% endif %}
 
         </h1>
@@ -54,8 +54,6 @@
                             <div class="col-sm-offset-2 col-sm-10">
                                 <button type="submit"
                                         class="btn btn-primary btn-lg">{% trans 'submit' %}</button>
-                                <button type="submit"
-                                        class="btn btn-primary btn-lg">{% trans 'preview' %}</button>
                             </div>
                         </div>
                     </form>

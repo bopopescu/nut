@@ -43,10 +43,13 @@
                            class="btn btn-warning"> {% trans 'check verify status' %}</a>
                     {% else %}
                         <div class="btn-group">
-                        <a href="{% url 'preview_edm' edm.id %}"
+                        <a id="delete_edm" name="{{ edm.id }}"
+                           href="javascript:void(0)"
                            class="btn btn-info"> {% trans 'Delete' %}</a>
                         {% if edm.status == edm.sd_verify_succeed %}
-                            <a href="{% url 'send_edm' edm.id %}"
+                            <a name="{{ edm.id }}"
+                               id="send"
+                               href="javascript:void(0)"
                                class="btn btn-default"> {% trans 'Send' %}</a>
                             </div>
                         {% else %}
@@ -65,11 +68,9 @@
                         {% endif %}
                     {% endif %}
                 {% endif %}
-                <a href="{% url 'preview_edm' edm.id %}" class="btn btn-default"> {% trans 'Let me preview it' %}</a>
+                <a target="_blank" href="{% url 'preview_edm' edm.id %}" class="btn btn-default"> {% trans 'Let me preview it' %}</a>
             </td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
-{#    </div>#}
-{# </div>#}

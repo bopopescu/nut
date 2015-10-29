@@ -15,5 +15,6 @@ urlpatterns = patterns(
     url(r'^send/(?P<edm_id>\d+)/$', 'send_edm', name='send_edm'),
     url(r'^approval/(?P<edm_id>\d+)/$', 'approval_edm', name='approval_edm'),
     url(r'^sync/(?P<edm_id>\d+)/$', 'sync_verify_status', name='sync_verify_status'),
+    url(r'^delete/(?P<edm_id>\d+)/$', 'edm_delete', name='delete_edm'),
 )
 print urlpatterns

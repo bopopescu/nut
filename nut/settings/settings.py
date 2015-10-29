@@ -206,11 +206,14 @@ REST_FRAMEWORK = {
 # MAILGUN_ACCESS_KEY = 'key-7n8gut3y8rpk1u-0edgmgaj7vs50gig8'
 EMAIL_BACKEND = 'sendcloud.SendCloudBackend'
 MAIL_APP_USER = 'guoku_hi'
+MAIL_EDM_USER = 'guoku_edm3'
 MAIL_APP_KEY = 'DLq9W6TiDZAWOLNv'
+MAIL_LIST = 'test_edm@maillist.sendcloud.org'
 GUOKU_MAIL = 'hi@mail.guoku.com'
 GUOKU_NAME = u'果库'
 RESET_PASSWORD_TEMPLATE = 'forget_password'
 VERFICATION_EMAIL_TEMPLATE = 'verify_email'
+SD_SUBSCRIBE_url = 'http://sendcloud.sohu.com/subInvite/subscriptionInvite.do?invitecode=9c385ed3-0012-4eba-9d7a-bb39729cac9b'
 # list
 MAIL_LIST_ADDR = 'all_gkusers'
 SD_VERIFY_STATUS = {1: 'succed',
@@ -318,3 +321,4 @@ CONFIG_REDIS_DB = 1
 INTERVAL_OF_SELECTION = 24
 
 CURRENCY_SYMBOLS = (u'$', u'￥')
+

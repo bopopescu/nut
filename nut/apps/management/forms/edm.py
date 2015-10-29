@@ -1,17 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import datetime
 
 from django import forms
+from django.db.models import Q
 from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.utils.translation import gettext_lazy as _
 from django.forms import ModelForm
-from django.forms.widgets import SelectMultiple, \
-    TextInput, URLInput, DateTimeInput, CheckboxInput, Textarea
+from django.forms.widgets import SelectMultiple
+from django.forms.widgets import TextInput
+from django.forms.widgets import URLInput
+from django.forms.widgets import DateTimeInput
+from django.forms.widgets import Textarea
+from datetime import datetime, timedelta
 
-from apps.core.models import EDM, Article
+from apps.core.models import EDM, Selection_Article
 from apps.core.utils.image import HandleImage
 
 
@@ -26,7 +30,8 @@ class EDMDetailForm(ModelForm):
         widgets = {
             'publish_time': DateTimeInput(attrs={'class': 'form-control'}),
             'cover_description': Textarea(attrs={'class': 'form-control'}),
-            'selection_articles': SelectMultiple(attrs={'class': 'chosen-select'}),
+            'selection_articles': SelectMultiple(
+                attrs={'class': 'chosen-select'}),
             'title': TextInput(attrs={'class': 'form-control'}),
             'cover_hype_link': URLInput(attrs={'class': 'form-control'})
         }
@@ -35,9 +40,21 @@ class EDMDetailForm(ModelForm):
         label=_('Select an Image'),
         help_text=_('max. 2 megabytes'),
     )
-    # articles = forms.ModelMultipleChoiceField(label="Default Evaluation Forms",
-    #                                           widget=SelectMultiple(attrs={'class':'chosen-select'}),
-    #                                           queryset=EDM.articles)
+
+    def __init__(self, *args, **kwargs):
+        super(EDMDetailForm, self).__init__(*args, **kwargs)
+        now = datetime.now()
+        amonth_ago = now - timedelta(days=32)
+        article_filter_q = [Q(is_published=True) & Q(pub_time__gte=amonth_ago)
+                            & Q(pub_time__lte=now)]
+        if 'fields' in self:
+            article_filter_q = (
+                article_filter_q | Q(pk__in=self.initial['selection_articles']))
+            self.fields['selection_articles'].queryset =\
+                Selection_Article.objects.filter(*article_filter_q)
+        else:
+            self.base_fields['selection_articles'].queryset = \
+                Selection_Article.objects.filter(*article_filter_q)
 
     def save(self, commit=True):
         cover_image = self.cleaned_data.get('cover_image')
