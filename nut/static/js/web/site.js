@@ -1289,8 +1289,6 @@ function getQueryStrings() {
            //     console.log(counter);
                 $(window).scroll(function () {
 
-
-
                     if (counter % 3 == 0 ) {
                         page.show();
                     } else {

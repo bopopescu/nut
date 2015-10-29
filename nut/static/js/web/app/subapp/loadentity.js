@@ -1,0 +1,114 @@
+define(['jquery','libs/Class','libs/fastdom'],
+    function($,Class,fastdom){
+
+    var LoadEntity = Class.extend({
+        init: function(){
+            this.$selection = $('#selection');
+            this.page = this.$selection.parent().find('.pager');
+            this.counter = 1;
+            this.page.hide();
+
+            this.read = null;
+            this.write = null;
+            this.loading = false;
+            this.shouldLoad = true;
+
+            this.setupLoadWatcher();
+        },
+        setupLoadWatcher: function(){
+            if (!this.$selection[0]) return;
+            var flag = false;
+            $(window).scroll(this.onScroll.bind(this));
+        },
+        onScroll:function(){
+
+            this.read = fastdom.read(this.doRead.bind(this));
+
+            if(this.write){
+                fastdom.clear(this.write);
+            }
+            this.write = fastdom.write(this.doWrite.bind(this));
+
+        },
+        doClear : function(){
+            this.scrollTop = this.windowHeight = this.footerHeight = this.docHeight = null;
+            this.read = null;
+            //this.read = this.write = null;
+        },
+        doRead:function(){
+            this.scrollTop = $(window).scrollTop();
+            this.windowHeight = $(window).height();
+            this.footerHeight = $('#guoku_footer').height();
+            this.docHeight = $(document).height();
+            this.isOverScrolled =(this.windowHeight + this.scrollTop) >  (this.docHeight - this.footerHeight);
+        },
+        doWrite:function(){
+
+            this.shouldLoad = this.isOverScrolled && (this.counter%3 !== 0) && (!this.loading);
+
+            if(!this.shouldLoad){
+                this.doClear();
+                return ;
+            }else{
+                this.loading = true;
+                var aQuery = window.location.href.split('?');
+                var url = aQuery[0];
+                var p = 1, c = 0 ;
+                if(aQuery.length > 1){
+                    var param = aQuery[1].split('&');
+                    var param_p ;
+                    if(param.length >1){
+                        param_p = param[0].split('=');
+                        p = parseInt(param_p[1]);
+                    }
+                }
+                var time = this.$selection.attr('data-refresh');
+                var data = {
+                    'p': p+this.counter,
+                    'page':p+this.counter,
+                    't':time
+                    };
+                if(c !== 0){
+                    data['c'] = c;
+                }
+                $.when($.ajax({
+                    url: url,
+                    method: "GET",
+                    data: data,
+                    dataType:'json',
+
+                })).then(
+                    this.loadSuccess.bind(this),
+                    this.loadFail.bind(this)
+                );
+            }
+        },
+
+        loadSuccess: function(res){
+            console.log('success');
+            console.log(res);
+
+            this.attachNewSelections($(res.data));
+
+        },
+        loadFail:function(data){
+            console.log(data)
+        },
+        attachNewSelections: function(elemList){
+            var that = this;
+            fastdom.defer(function(){
+                that.$selection.append(elemList);
+            });
+            fastdom.defer(function(){
+                that.counter++;
+                that.doClear();
+                that.loading = false;
+            });
+        }
+
+
+    });
+
+    return LoadEntity;
+
+});
