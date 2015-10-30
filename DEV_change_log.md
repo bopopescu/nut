@@ -1,8 +1,16 @@
+
+5. need fix scroll top header hidden bug 
+4. top menu auto show/hide on scroll -- done
+3. event page read red dot indicator -- done
+2. sns bind page red dot indicator -- done
+1. entity selection page autoload , paging --- done
+==================== new framework==========
+
 5. the great performance leap is to add backface-visibility: hidden; to fix elements !
 
 4. dig functions for article
 
-3. selection entity page js rebuild --- not finished 
+3. selection entity page js rebuild --- Done
 
 2. user change email mail 认证 --- not finished
 1. new register user mail 认证 --- not finished
