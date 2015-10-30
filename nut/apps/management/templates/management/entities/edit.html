@@ -1,5 +1,9 @@
 {% extends 'management/management_base.html' %}
 {% load i18n static %}
+{% block css %}
+    {{ block.super }}
+    <link href="{% static 'chosen/chosen.min.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
     <section class="content-header">
@@ -341,5 +345,6 @@
 
 
 {% block user_script %}
+    <script src="{% static 'chosen/chosen.jquery.min.js' %}"></script>
     <script src="{% static 'js/management/category.js' %}"></script>
 {% endblock %}
