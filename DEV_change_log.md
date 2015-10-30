@@ -1,5 +1,9 @@
 
-1.  
+1. 添加select插件chosen到后台的商品页。
+===== 2015 - 10 -30 == START =====
+
+
+1.
 ===== 2015 - 10 -22 == START =====
 
 5. minor css adjusts
