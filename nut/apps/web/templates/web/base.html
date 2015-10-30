@@ -58,12 +58,12 @@ window.location.href = url;</script><![endif]-->
 
     <!-- Respond.js proxy on external server -->
     <!--[if lt IE 9]>
-      <script src="{% static 'js/html5shiv.min.js' %}"></script>
+      <script src="{% static 'js/html5shiv.js' %}"></script>
       <script src="{% static 'js/respond.min.js' %}"></script>
 
-	<link href="http://static.guoku.com/respond-proxy.html" id="respond-proxy" rel="respond-proxy" />
-	<link href="http://{{ request.META.HTTP_HOST }}/respond.proxy.gif" id="respond-redirect" rel="respond-redirect" />
-	<script src="http://{{ request.META.HTTP_HOST }}/respond.proxy.js"></script>
+{#	<link href="http://static.guoku.com/respond-proxy.html" id="respond-proxy" rel="respond-proxy" />#}
+{#	<link href="http://{{ request.META.HTTP_HOST }}/respond.proxy.gif" id="respond-redirect" rel="respond-redirect" />#}
+{#	<script src="http://{{ request.META.HTTP_HOST }}/respond.proxy.js"></script>#}
 
     <![endif]-->
     <!-- End Google Analytics -->

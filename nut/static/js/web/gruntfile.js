@@ -15,8 +15,27 @@ module.exports = function(grunt) {
           }
       }
     },
-  });
 
+    requirejs:{
+        compile:{
+            options:{
+                baseUrl:'app/'
+            }
+        }
+    },
+    watch:{
+        scripts:{
+            files:[ '**/*.js'],
+            tasks:['jshint'],
+            options:{
+                spawn: false,
+                debounceDelay:500
+            }
+        }
+
+    }
+  });
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
 
   // Default task(s).

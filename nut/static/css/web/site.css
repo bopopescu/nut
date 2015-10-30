@@ -175,7 +175,7 @@
   display: block;
 }
 .img-box a {
-  display: inline-block;
+  display: block;
   position: relative;
 }
 .img-box a img {

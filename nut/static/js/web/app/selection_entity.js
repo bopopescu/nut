@@ -35,11 +35,13 @@ require.config({
 });
 
 
-require(['jquery',
+require(['libs/polyfills',
+         'jquery',
          'utils/EntityLike',
          'subapp/topmenu',
          'subapp/loadentity',
          'subapp/gotop',
+
         ],
         function(jQuery,
                  AppEntityLike,
