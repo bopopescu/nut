@@ -675,7 +675,8 @@ function getQueryStrings() {
   var queryString = location.search.substring(1);
   var keyValues = queryString.split('&');
 
-  for(var i in keyValues) {
+  //for(var i in keyValues) {
+  for(var i=0, len=keyValues.length; i<len;i++) {
     var key = keyValues[i].split('=');
     if (key.length > 1) {
       assoc[decode(key[0])] = decode(key[1]);
@@ -1071,35 +1072,50 @@ function getQueryStrings() {
                 }
             // url = url.replace(/\/[01]\//,"/"+status+"/");
             // console.log(url);
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    jsonType:'json',
-                    success: function(data) {
-                        var count = parseInt(counter.text()) || 0;
-                        var result = parseInt(data.status);
-                        if (result === 1) {
-                            counter.text(" "+(count + 1));
-                            heart.removeClass('fa-heart-o');
-                            heart.addClass('fa-heart');
-                        } else if (result === 0){
-                            //console.log(result);
-
-                            if (count >1) {
-                                counter.text(" " + (count - 1));
-
-                            }else{
-                                counter.text(" ");
-                            }
-
-                            heart.removeClass('fa-heart');
-                            heart.addClass('fa-heart-o');
-                        } else {
-                            var html = $(data);
-                            util.modalSignIn(html);
-                        }
+                $.when($.ajax(
+                    {
+                        url: url,
+                        type: 'get',
+                        dataType:'json'
                     }
-                });
+                )).then(
+                    function(data){
+                        console.log(data);
+                    },
+                    function(){
+                        console.log(data);
+                    });
+
+
+                //$.ajax({
+                //    url: url,
+                //    type: 'POST',
+                //    dataType:'json',
+                //    success: function(data) {
+                //        var count = parseInt(counter.text()) || 0;
+                //        var result = parseInt(data.status);
+                //        if (result === 1) {
+                //            counter.text(" "+(count + 1));
+                //            heart.removeClass('fa-heart-o');
+                //            heart.addClass('fa-heart');
+                //        } else if (result === 0){
+                //            //console.log(result);
+                //
+                //            if (count >1) {
+                //                counter.text(" " + (count - 1));
+                //
+                //            }else{
+                //                counter.text(" ");
+                //            }
+                //
+                //            heart.removeClass('fa-heart');
+                //            heart.addClass('fa-heart-o');
+                //        } else {
+                //            var html = $(data);
+                //            util.modalSignIn(html);
+                //        }
+                //    }
+                //});
                 e.preventDefault();
             });
         },

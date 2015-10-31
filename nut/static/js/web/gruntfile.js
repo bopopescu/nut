@@ -19,14 +19,17 @@ module.exports = function(grunt) {
     requirejs:{
         compile:{
             options:{
-                baseUrl:'app/'
+                baseUrl: 'app/',
+                mainConfigFile: 'app/config.js',
+                name: 'selection_entity_app',
+                out: 'build/selection_entity_app_build.js'
             }
         }
     },
     watch:{
         scripts:{
             files:[ '**/*.js'],
-            tasks:['jshint'],
+            tasks:['requirejs'],
             options:{
                 spawn: false,
                 debounceDelay:500
@@ -35,6 +38,7 @@ module.exports = function(grunt) {
 
     }
   });
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
 

@@ -11,7 +11,6 @@
 -->
 <!--[if lt IE 8]><script type="text/javascript">var tip = '建议升级你的浏览器（如 Chrome, Firefox）以获得更好的体验！',
     url = 'http://browsehappy.com';
-
 document.execCommand('stop');
 alert(tip);
 window.location.href = url;</script><![endif]-->
@@ -61,6 +60,7 @@ window.location.href = url;</script><![endif]-->
     <!-- Respond.js proxy on external server -->
     <!--[if lt IE 9]>
       <script src="{% static 'js/html5shiv.js' %}"></script>
+      <script src="{% static 'js/es5_shim.min.js' %}"></script>
       <script src="{% static 'js/respond.min.js' %}"></script>
 
 {#	<link href="http://static.guoku.com/respond-proxy.html" id="respond-proxy" rel="respond-proxy" />#}
@@ -69,10 +69,8 @@ window.location.href = url;</script><![endif]-->
 
     <![endif]-->
     <script>
-        // for newest event slug
-        var newest_event_slug =  '{{ newest_event_slug }}'  ;
-        //  must put base_url in global var , requirejs will need it.
-        var base_url = '{% static 'js/web/app/' %}'
+        var newest_event_slug = '{{ newest_event_slug }}' ;
+        var base_url = '{% static 'js/web/app/' %}';
     </script>
 </head>
 <body class="{% block body_class %} gray-body {% endblock %} {% if isFromMobile %} mobile-body {% endif %}">
@@ -111,7 +109,7 @@ window.location.href = url;</script><![endif]-->
     <script type="text/html" id="flink_item">
        <li><a href="<%=link%>"  target="_blank"><%=name%></a></li>
     </script>
-    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery-1.11.1.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/web/site.js' %}"></script>
 {% endblock %}

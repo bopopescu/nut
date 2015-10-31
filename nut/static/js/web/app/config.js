@@ -1,14 +1,14 @@
 requirejs.config({
-    baseUrl:'./',
+    baseUrl: 'app/',
     paths: {
         libs: './libs',
         utils: './utils',
         subapp: './subapp',
         jquery: 'libs/jquery-1.11.1.min',
         bootstrap: 'libs/bootstrap.min',
-        fastdom: 'libs/fastdom',
+        fastdom: 'libs/fastdom.ant',
         csrf:'libs/csrf',
-        underscore:'libs/underscore',
+        underscore:'libs/underscore.ant',
         cookie: 'libs/jquery.cookie'
     },
 
@@ -30,30 +30,5 @@ requirejs.config({
             exports: '_'
         }
     }
-
-
-});
-
-
-require(['libs/polyfills',
-         'jquery',
-         'utils/EntityLike',
-         'subapp/topmenu',
-         'subapp/loadentity',
-         'subapp/gotop',
-
-        ],
-        function(jQuery,
-                 AppEntityLike,
-                 Menu,
-                 LoadEntity,
-                 GoTop
-        ){
-// TODO : check if csrf work --
-// TODO : make sure bind is usable
-         var  menu = new Menu();
-         var  app_like = new  AppEntityLike();
-         var  app_loadEntity = new LoadEntity();
-         var  goto = new GoTop();
 
 });
