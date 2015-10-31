@@ -1,4 +1,4 @@
-define(['libs/CLass'],function(Class){
+define(['libs/Class'],function(Class){
 
     var AccountApp = Class.extend({
         init: function(){

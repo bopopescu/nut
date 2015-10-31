@@ -1,4 +1,5 @@
 
+6. IE8 compatible fix  -- done 
 5. need fix scroll top header hidden bug 
 4. top menu auto show/hide on scroll -- done
 3. event page read red dot indicator -- done
@@ -9,6 +10,9 @@
 5. the great performance leap is to add backface-visibility: hidden; to fix elements !
 
 4. dig functions for article
+
+   *****  need syncdb *******, 
+   new model :  Article_Dig
 
 3. selection entity page js rebuild --- Done
 
