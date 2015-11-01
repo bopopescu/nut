@@ -150,6 +150,9 @@ def mobile_link(value):
        raise Exception('can not find link')
 register.filter(mobile_link)
 
+
+
+
 if __name__ == "__main__":
     find_entity_hash('http://127.0.0.1:9766/detail/b2836b6c')
 
