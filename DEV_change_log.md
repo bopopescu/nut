@@ -1,9 +1,25 @@
+
+6. IE8 compatible fix  -- done 
+5. need fix scroll top header hidden bug 
+4. top menu auto show/hide on scroll -- done
+3. event page read red dot indicator -- done
+2. sns bind page red dot indicator -- done
+1. entity selection page autoload , paging --- done
+==================== new framework==========
+
+5. the great performance leap is to add backface-visibility: hidden; to fix elements !
+
 4. dig functions for article
-3. selection entity page js rebuild --- not finished 
+
+   *****  need syncdb *******, 
+   new model :  Article_Dig
+
+3. selection entity page js rebuild --- Done
+
 2. user change email mail 认证 --- not finished
 1. new register user mail 认证 --- not finished
 
-to use assignment_tag replace global context processors 
+0 . to use assignment_tag replace global context processors
 
 to know WHAT is css trigger ? 
 
@@ -11,6 +27,9 @@ to  remove unpublished article in article tag page !!  -- DONE.
 
 to  make google analysis js async --- already async , the article is written 2009 
 http://www.stevesouders.com/blog/2009/12/01/google-analytics-goes-async/
+
+to test event read function working 
+   
 
 to test incr decr functions
     1. incr a value that is empty 

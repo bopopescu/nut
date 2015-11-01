@@ -179,8 +179,9 @@
   border: 1px solid #e6e6e6;
   display: block;
   a{
-    display: inline-block;
+    display: block;
     position: relative;
+
     img{
       background-color: #f6f6f6;
       width: 100%;
@@ -205,7 +206,7 @@
 .thumbnail.category img,
 .hover-light
 {
-   .transition(all 0.35s);
+//   .transition(all 0.35s);
    &:hover{
      opacity: @hover-opacity;
    }
@@ -314,6 +315,8 @@
 
 
 .btn-top {
+  .acc-layer;
+
   display: none;
   float: right;
   background-color: #eee;
@@ -443,6 +446,19 @@ p.boolean-false{
 }
 
 .acc-layer{
+  backface-visibility: hidden;
   .transform(translate3d(0,0,0));
 }
+#sidebar_fix{
+  backface-visibility:hidden;
+}
 
+.guoku-weixin{z-index: 1000; backface-visibility: hidden;  position:fixed;right:20px;top:100px;width: 70px;height: 70px;opacity: 100;filter:alpha(opacity=100);}
+.guoku-weixin:hover{opacity:0.85; filter:alpha(opacity=85);}
+
+.loading-icon{
+   display:inline-block;
+   .acc-layer;
+   margin:30px 0px;
+   text-align:center;
+}

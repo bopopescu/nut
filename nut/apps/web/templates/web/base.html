@@ -1,5 +1,5 @@
 {% load i18n staticfiles %}
-{% load notifications_tags %}
+{% load notifications_tags%}
 {% load cache %}
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
@@ -11,10 +11,11 @@
 -->
 <!--[if lt IE 8]><script type="text/javascript">var tip = '建议升级你的浏览器（如 Chrome, Firefox）以获得更好的体验！',
     url = 'http://browsehappy.com';
-
 document.execCommand('stop');
 alert(tip);
 window.location.href = url;</script><![endif]-->
+
+
 <html lang="zh-cn">
 {#<html lang="zh-cn">#}
 <head>
@@ -58,7 +59,8 @@ window.location.href = url;</script><![endif]-->
 
     <!-- Respond.js proxy on external server -->
     <!--[if lt IE 9]>
-      <script src="{% static 'js/html5shiv.min.js' %}"></script>
+      <script src="{% static 'js/html5shiv.js' %}"></script>
+      <script src="{% static 'js/es5_shim.min.js' %}"></script>
       <script src="{% static 'js/respond.min.js' %}"></script>
 
 	<link href="http://static.guoku.com/respond-proxy.html" id="respond-proxy" rel="respond-proxy" />
@@ -66,12 +68,9 @@ window.location.href = url;</script><![endif]-->
 	<script src="http://{{ request.META.HTTP_HOST }}/respond.proxy.js"></script>
 
     <![endif]-->
-    <!-- End Google Analytics -->
     <script>
-        // for newest event slug
-        var newest_event_slug =  '{{ newest_event_slug }}'  ;
-        //  must put base_url in global var , requirejs will need it.
-        var base_url = '{% static 'js/web/app/' %}'
+        var newest_event_slug = '{{ newest_event_slug }}' ;
+        var base_url = '{% static 'js/web/app/' %}';
     </script>
 </head>
 <body class="{% block body_class %} gray-body {% endblock %} {% if isFromMobile %} mobile-body {% endif %}">
@@ -79,7 +78,7 @@ window.location.href = url;</script><![endif]-->
 {% url 'web_selection' as web_selection_url %}
 {% block global_links %}
 {% if web_selection_url in request.path %}
-    <a class="acc-layer" href="{{ web_download_url }}" target="_blank"><img class="img-responsive guoku-weixin" src="{% static 'images/download_icon.png' %}"></a>
+    <a class="round-link acc-layer guoku-weixin" href="{{ web_download_url }}" target="_blank"><img class="img-responsive " src="{% static 'images/download_icon.png' %}"></a>
 {% endif %}
 {% endblock %}
 <h1 class="hidden sr-only">{% block h1 %}果库,精英消费指南,精英,消费指南,专访{% endblock %}</h1>
@@ -110,7 +109,7 @@ window.location.href = url;</script><![endif]-->
     <script type="text/html" id="flink_item">
        <li><a href="<%=link%>"  target="_blank"><%=name%></a></li>
     </script>
-    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery-1.11.1.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/web/site.js' %}"></script>
 {% endblock %}
