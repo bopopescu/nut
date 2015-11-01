@@ -1046,7 +1046,10 @@ function getQueryStrings() {
                     continue;
                 }
 
-                for (var j in cut){
+                //for (var j in cut){
+                // will interate on array's property in old browser!!!!
+
+                for (var j=0, len=cut.length;j<len; j++){
                     str = str.replace(cut[j], "<a class='btn-link' rel='nofollow' href='/tag/name/"+encodeURI(cut[j].replace(/[#＃]/,""))+"' >"+cut[j]+"</a>&nbsp;");
                 }
 
@@ -1072,50 +1075,51 @@ function getQueryStrings() {
                 }
             // url = url.replace(/\/[01]\//,"/"+status+"/");
             // console.log(url);
-                $.when($.ajax(
-                    {
-                        url: url,
-                        type: 'get',
-                        dataType:'json'
+            //    $.when($.ajax(
+            //        {
+            //            url: url,
+            //            type: 'get',
+            //            dataType:'json',
+            //            cache: false,
+            //        }
+            //    )).then(
+            //        function(data){
+            //            console.log(data);
+            //        },
+            //        function(data){
+            //            console.log(data);
+            //        });
+
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType:'json',
+                    success: function(data) {
+                        var count = parseInt(counter.text()) || 0;
+                        var result = parseInt(data.status);
+                        if (result === 1) {
+                            counter.text(" "+(count + 1));
+                            heart.removeClass('fa-heart-o');
+                            heart.addClass('fa-heart');
+                        } else if (result === 0){
+                            //console.log(result);
+
+                            if (count >1) {
+                                counter.text(" " + (count - 1));
+
+                            }else{
+                                counter.text(" ");
+                            }
+
+                            heart.removeClass('fa-heart');
+                            heart.addClass('fa-heart-o');
+                        } else {
+                            var html = $(data);
+                            util.modalSignIn(html);
+                        }
                     }
-                )).then(
-                    function(data){
-                        console.log(data);
-                    },
-                    function(){
-                        console.log(data);
-                    });
-
-
-                //$.ajax({
-                //    url: url,
-                //    type: 'POST',
-                //    dataType:'json',
-                //    success: function(data) {
-                //        var count = parseInt(counter.text()) || 0;
-                //        var result = parseInt(data.status);
-                //        if (result === 1) {
-                //            counter.text(" "+(count + 1));
-                //            heart.removeClass('fa-heart-o');
-                //            heart.addClass('fa-heart');
-                //        } else if (result === 0){
-                //            //console.log(result);
-                //
-                //            if (count >1) {
-                //                counter.text(" " + (count - 1));
-                //
-                //            }else{
-                //                counter.text(" ");
-                //            }
-                //
-                //            heart.removeClass('fa-heart');
-                //            heart.addClass('fa-heart-o');
-                //        } else {
-                //            var html = $(data);
-                //            util.modalSignIn(html);
-                //        }
-                //    }
-                //});
+                });
                 e.preventDefault();
             });
         },
