@@ -1,5 +1,6 @@
+
 需要达到目的 ： 
-    
+==================   
    1. 通过requirejs, 来处理前端模组化开发需求
    2. 通过 grunt 来自动化开发过程
       1. jshint(too much syntax error,in our js, closed for now)
@@ -7,16 +8,36 @@
       3. test( not implement ye)
    3. 通过 bower 来管理外部库依赖（ NOT implement yet）
    
-
+   
 遥远的未来： 
     4. auto TEST SUIT (with phantom/casper)
     5. CI (tri/jenkins )
     6. MVVM 
-   
-   
-   
-策略： 
+      
 
+getting started:
+===================
+1. cd  static/js/web/
+2. npm install (need node.js installed globally)
+3. grunt watch 
+   
+   then grunt will monitor all sub dir js change 
+   and compile/build production files 
+   
+   for now only entity_selection use this method 
+   other page still use old method , 
+   will migrate page by page
+   
+
+
+
+
+
+
+   
+   
+文件结构策略： 
+====================
    每个页面各自有不同的 ***_app.js
    （例如 : selection 页的主文件为 selection_entity_app.js）
    
@@ -33,7 +54,7 @@
           
 
 实现细节
-
+===============================
 1. 网站前端（不包含管理界面）项目位置
     nut/static/js/web
 
@@ -52,4 +73,6 @@
    e.   
    
 相关文章和资源：
-grunt,bower,requirejs 
+
+grunt,bower,requirejs
+
