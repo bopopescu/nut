@@ -1,14 +1,15 @@
-目的 ： 
+需要达到目的 ： 
     
    1. 通过requirejs, 来处理前端模组化开发需求
    2. 通过 grunt 来自动化开发过程
-      1. jshint
+      1. jshint(too much syntax error,in our js, closed for now)
       2. requirejs build
       3. test( not implement ye)
    3. 通过 bower 来管理外部库依赖（ NOT implement yet）
    
    
 策略： 
+
    每个页面各自有不同的 ***_app.js
    （例如 : selection 页的主文件为 selection_entity_app.js）
    
@@ -20,12 +21,9 @@
    (例如：selection_entity_app.js 会编译成为 selection_entity_app_build.js)
    文件名称会加上 "_build".
    
-   Django 文件需要引用 build 好的文件。
-   
-   
-   
-   
-   
+   Django 模版文件需要引用 build 好的文件（生产系统）
+          测试系统用未优化的文件。(TODO : automation）
+          
 
 实现细节
 
