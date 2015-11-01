@@ -1,17 +1,17 @@
+// singleton instance few.
+var instance = null;
 
-
-
-define(['libs/Class'], function(Class){
+define(['libs/Class'], function (Class) {
     //singleton for tracker
-    var instance = null ;
+
     var Tracker = Class.extend({
-        init: function(){
+        init: function () {
             console.log('tracker init');
-            if (!instance){
+            if (!instance) {
                 instance = this;
             }
         }
     });
-    new Tracker();
+    instance = instance || new Tracker();
     return instance;
 });

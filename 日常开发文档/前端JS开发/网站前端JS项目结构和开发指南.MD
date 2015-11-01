@@ -7,6 +7,13 @@
       3. test( not implement ye)
    3. 通过 bower 来管理外部库依赖（ NOT implement yet）
    
+
+遥远的未来： 
+    4. auto TEST SUIT (with phantom/casper)
+    5. CI (tri/jenkins )
+    6. MVVM 
+   
+   
    
 策略： 
 
@@ -43,5 +50,6 @@
       http://gruntjs.com/configuring-tasks
       
    e.   
+   
 相关文章和资源：
-      
+grunt,bower,requirejs 
