@@ -1093,7 +1093,7 @@ function getQueryStrings() {
 
                 $.ajax({
                     url: url,
-                    type: 'POST',
+                    method: 'POST',
                     dataType:'json',
                     success: function(data) {
                         var count = parseInt(counter.text()) || 0;
@@ -1118,7 +1118,8 @@ function getQueryStrings() {
                             var html = $(data);
                             util.modalSignIn(html);
                         }
-                    }
+                    },
+
                 });
                 e.preventDefault();
             });

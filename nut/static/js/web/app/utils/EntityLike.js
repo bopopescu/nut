@@ -52,7 +52,7 @@ define(['libs/Class','subapp/account','jquery','fastdom'], function(Class,Accoun
                             $heart.removeClass('fa-heart');
                             $heart.addClass('fa-heart-o');
                         } else {
-
+                            // this should be a singleton
                             var accountApp = new AccountApp();
                                 accountApp.modalSignIn($(data));
                         }
