@@ -96,7 +96,12 @@ define(['bootstrap', 'libs/Class','underscore','jquery', 'fastdom','cookie'],fun
             if(this.lastScrollTop > this.scrollTop){
                 this.showHeader();
             }else{
-                this.hideHeader(this.scrollTop);
+                if (this.scrollTop < 140){
+                    this.showHeader();
+                }else{
+                     this.hideHeader(this.scrollTop);
+                }
+
             }
 
             this.read = null;
