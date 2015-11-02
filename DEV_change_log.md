@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 6. IE8 compatible fix  -- done 
 5. need fix scroll top header hidden bug 
 4. top menu auto show/hide on scroll -- done
@@ -51,6 +52,13 @@ to implement article dig:
     4. front end dig in article list 
     5. front end dig in article detail 
     
+=======
+1. 添加select插件chosen到后台的商品页。
+===== 2015 - 10 -30 == START =====
+
+
+1.
+>>>>>>> 246bbc348b6330e3673277b76b2dc141916cb818
 ===== 2015 - 10 -22 == START =====
 
 5. minor css adjusts
