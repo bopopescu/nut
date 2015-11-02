@@ -17,9 +17,9 @@
    *****  need syncdb *******, 
    new model :  Article_Dig
 
-3. selection entity page js rebuild --- see ( new frontend )
+2. selection entity page js rebuild --- see ( new frontend )
 
-0 . to use assignment_tag on footer's friendly link
+1. to use assignment_tag on footer's friendly link
 
     
 
