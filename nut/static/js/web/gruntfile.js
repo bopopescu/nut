@@ -22,7 +22,7 @@ module.exports = function(grunt) {
                 baseUrl: 'app/',
                 mainConfigFile: 'app/config.js',
                 name: 'selection_entity_app',
-                out: 'build/selection_entity_app_build.js'
+                out: 'jsbuild/selection_entity_app_build.js',
             }
         }
     },
