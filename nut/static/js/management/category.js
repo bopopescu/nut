@@ -133,7 +133,7 @@
             }
         });
 
-        select1.click(showOptionModal())
+        select1.click(showOptionModal());
 
         function showOptionModal(){
             console.log('show option modal');
