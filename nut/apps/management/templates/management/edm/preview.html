@@ -260,13 +260,13 @@ span {
     </div>
     <div class="container">
         <div class="banner">
-            <a href="{{ edm.cover_hype_link }}" target="_blank">
+            <a href="{{ edm.cover_hype_link }}?from=edm" target="_blank">
                 <img src="{{ edm.cover }}"/>
             </a>
 
             <p class="description">
                 {{ edm.cover_description }}
-                <a href="{{ edm.cover_hype_link }}" target="_blank">
+                <a href="{{ edm.cover_hype_link }}?from=edm" target="_blank">
                     &nbsp;阅读更多
                 </a>
             </p>
@@ -277,21 +277,21 @@ span {
                 {% with article=selection_article.article %}
                 <div class="article">
                     <div class="article-cover">
-                        <a href="http://{{ host }}{% url 'web_article_page' article.id %}"
+                        <a href="http://{{ host }}{% url 'web_article_page' article.id %}?from=edm"
                            target="_blank">
                             <img src="{{ article.cover_url|resize:'350' }}"/>
                         </a>
                     </div>
                     <div class="article-content">
                         <div class="article-title">
-                            <a href="http://{{ host }}{% url 'web_article_page' article.id %}"
+                            <a href="http://{{ host }}{% url 'web_article_page' article.id %}?from=edm"
                                target="_blank">
                                 {{ article.title|truncatechars:36 }}
                             </a>
                         </div>
                         <div class="article-summary">
                             {{ article.content|striptags|truncatechars:120|cut:'　' }}
-                            <a href="http://{{ host }}{% url 'web_article_page' article.id %}"
+                            <a href="http://{{ host }}{% url 'web_article_page' article.id %}?from=edm"
                                target="_blank">
                                 &nbsp;阅读更多
                             </a>
@@ -306,14 +306,14 @@ span {
             {% for entity in popular_entities %}
                 <div class="thumbnail">
                     <div class="entity-img">
-                        <a href="http://{{ host }}{% url 'web_entity_detail' entity.entity_hash %}"
+                        <a href="http://{{ host }}{% url 'web_entity_detail' entity.entity_hash %}?from=edm"
                            target="_blank">
                             <img src="{{ entity.chief_image|resize:'310' }}"/>
                         </a>
                     </div>
                     <div class="entity-info">
                         <span class="entity-title">
-                            <a href="http://{{ host }}{% url 'web_entity_detail' entity.entity_hash %}"
+                            <a href="http://{{ host }}{% url 'web_entity_detail' entity.entity_hash %}?from=edm"
                                target="_blank">
                                 {{ entity.title|truncatechars:18 }}
                             </a>
@@ -327,7 +327,7 @@ span {
     <div class="footer">
         <div class="liner_with_no_text"></div>
         <div class="get_more">
-            <a href="http://www.guoku.com" target="_blank">
+            <a href="http://www.guoku.com?from=edm" target="_blank">
                 浏览更多
             </a>
         </div>
