@@ -22,7 +22,8 @@
    
    in IE8 , this will cause error ,
    because j will iterate with value of Array's property like "slice" !!!
-   
+   ===============================
+   fix: 
    use another form of iteration method like following 
    
    for (var i=0 , len=someArray.length; i< len; i++){.....}
