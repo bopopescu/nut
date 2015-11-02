@@ -1,7 +1,9 @@
 
+=== 2015-11-02 ================================
+给创建商品页添加了chosen插件。
 
-6. IE8 compatible fix  -- done 
-5. need fix scroll top header hidden bug  -- done 
+6. IE8 compatible fix  -- done
+5. need fix scroll top header hidden bug  -- done
 4. top menu auto show/hide on scroll -- done
 3. event page read red dot indicator -- done
 2. sns bind page red dot indicator -- done
@@ -14,14 +16,14 @@
 5. the great performance leap is to add backface-visibility: hidden; to fix elements !
 4. dig functions for article (server side/Front End not implemented)
 
-   *****  need syncdb *******, 
+   *****  need syncdb *******,
    new model :  Article_Dig
 
 3. selection entity page js rebuild --- see ( new frontend )
 
 0 . to use assignment_tag on footer's friendly link
 
-    
+
 
 ===== 2015 - 10 -22 == START =====
 
@@ -29,26 +31,26 @@
 
 4. hide footer elements in xs screen
 
-3. management selection articles list , add search 
+3. management selection articles list , add search
 
 2. entity detail page : add related article block
 
-1. management entity management 
-   a. add selection entity tab 
-   b. add search for brand and entity title 
-    
+1. management entity management
+   a. add selection entity tab
+   b. add search for brand and entity title
+
 ======== 2015 - 10 -18  start ===========
 ========= 2015 - 10 -18 submmmit to master ========
 
 
 1. 精选商品页中的待发布和已下架完全区分开；
 2. 爬虫在爬到已下架的精选商品的时候，会把状态从商品更改为冻结。
- 
+
 === 2015-10-15 ================================
 
 
-6. add Event-related-article management 
-   
+6. add Event-related-article management
+
    CREATE TABLE `core_event_related_articles` (
     `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
     `event_id` integer NOT NULL,
@@ -58,16 +60,16 @@
     ALTER TABLE `core_event_related_articles` ADD CONSTRAINT `article_id_refs_id_71111e46` FOREIGN KEY (`article_id`) REFERENCES `core_article` (`id`);
     ALTER TABLE `core_event_related_articles` ADD CONSTRAINT `event_id_refs_id_9a1e89d0` FOREIGN KEY (`event_id`) REFERENCES `core_event` (`id`);
 
-5. add article search , order by score 
+5. add article search , order by score
 4. change site.js , use /tag/name/  for tag entity page link
 3. tag_entities_url url pattern capture change to (\w+) , to capture hash.
-2. user index page - sidebar, user tag page , tag link updated to hash form. 
+2. user index page - sidebar, user tag page , tag link updated to hash form.
 1. remove ga/ jiathis form article detail page, in m.guoku.com domains
 
 === 2015 - 10 - 12 === start =================
 
 
-==== 2015-10-12  =========== MERGED TO  MASTER 
+==== 2015-10-12  =========== MERGED TO  MASTER
 8. view optimize : use selected_related , prefetch_related to reduce sql hits.
 
 7. block ISP ad injection

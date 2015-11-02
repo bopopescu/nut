@@ -13,7 +13,6 @@ def get_admin_user_choices():
 
 def get_category_choices():
     category_list = Category.objects.all()
-    print category_list
     res = map(lambda x : (x.id, x.title), category_list)
     return res
 
