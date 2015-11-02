@@ -28,14 +28,6 @@ getting started:
    other page still use old method , 
    will migrate page by page
    
-
-
-
-
-
-
-   
-   
 文件结构策略： 
 ====================
    每个页面各自有不同的 ***_app.js
