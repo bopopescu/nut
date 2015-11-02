@@ -477,6 +477,13 @@ p.boolean-false {
   margin: 30px 0px;
   text-align: center;
 }
+.carousel-inner .item {
+  text-align: center;
+}
+.carousel-inner .item a,
+.carousel-inner .item img {
+  display: inline-block;
+}
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
   padding: 0px;

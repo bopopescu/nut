@@ -115,6 +115,7 @@ define(['bootstrap', 'libs/Class','underscore','jquery', 'fastdom','cookie'],fun
             //console.log('show header');
             this.$menu.removeClass('hidden-header');
             this.$menu.addClass('shown-header');
+            $('.round-link').show();
             //console.log((new Date()).getMilliseconds());
 
         },
@@ -122,6 +123,8 @@ define(['bootstrap', 'libs/Class','underscore','jquery', 'fastdom','cookie'],fun
             //console.log('hideHeader');
             this.$menu.removeClass('shown-header');
             this.$menu.addClass('hidden-header');
+            $('.round-link').hide();
+
             //console.log((new Date()).getMilliseconds());
 
         }

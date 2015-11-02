@@ -15,7 +15,5 @@ define(['libs/Class'],function(Class){
             }
         }
     });
-
     return AccountApp;
-
 });

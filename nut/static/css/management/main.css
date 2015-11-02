@@ -542,6 +542,13 @@ p.boolean-false {
   margin: 30px 0px;
   text-align: center;
 }
+.carousel-inner .item {
+  text-align: center;
+}
+.carousel-inner .item a,
+.carousel-inner .item img {
+  display: inline-block;
+}
 @-moz-document url-prefix() {
   fieldset {
     display: table-cell;

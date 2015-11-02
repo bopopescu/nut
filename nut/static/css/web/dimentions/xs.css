@@ -477,6 +477,13 @@ p.boolean-false {
   margin: 30px 0px;
   text-align: center;
 }
+.carousel-inner .item {
+  text-align: center;
+}
+.carousel-inner .item a,
+.carousel-inner .item img {
+  display: inline-block;
+}
 @media (max-width: 767px) {
   .event-item {
     padding: 5px 5px 5px 5px;

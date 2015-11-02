@@ -7,22 +7,19 @@
 2. sns bind page red dot indicator -- done
 1. entity selection page autoload , paging --- done
 
+note: the great performance leap(scroll frame rate) is to add backface-visibility: hidden; to fix elements.
 ==================== new frontend ==========
 ============= document in "前端JS开发" =======
 
-6. 添加select插件chosen到后台的商品页。
-5. the great performance leap is to add backface-visibility: hidden; to fix elements !
+5. 添加select插件chosen到后台的商品页。
+    
 4. dig functions for article (server side/Front End not implemented)
 
    *****  need syncdb *******, 
    new model :  Article_Dig
 
 2. selection entity page js rebuild --- see ( new frontend )
-
 1. to use assignment_tag on footer's friendly link
-
-    
-
 ===== 2015 - 10 -22 == START =====
 
 5. minor css adjusts

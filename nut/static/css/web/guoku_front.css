@@ -834,6 +834,13 @@ p.boolean-false {
   margin: 30px 0px;
   text-align: center;
 }
+.carousel-inner .item {
+  text-align: center;
+}
+.carousel-inner .item a,
+.carousel-inner .item img {
+  display: inline-block;
+}
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
   color: #9d9e9f;
@@ -3092,6 +3099,6 @@ body .for-mobile {
   display: block;
 }
 .test {
-  color: black;
+  color: #ff0000;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
