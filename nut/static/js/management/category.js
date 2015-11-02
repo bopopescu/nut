@@ -171,7 +171,4 @@
             placeholder_text_multiple: "Select Title, You Can Also Search The Title Of An Article."
         }
     );
-    //$('#category').on('change', function(evt, params) {
-    //    alert("");
-    //});
 })(jQuery);

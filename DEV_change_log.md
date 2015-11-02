@@ -1,4 +1,6 @@
 
+=== 2015-11-02 ================================
+给创建商品页添加了chosen插件。
 
 6. IE8 compatible fix  -- done 
 5. need fix scroll top header hidden bug  -- done 
