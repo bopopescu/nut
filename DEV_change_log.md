@@ -1,64 +1,28 @@
 
-<<<<<<< HEAD
+
 6. IE8 compatible fix  -- done 
-5. need fix scroll top header hidden bug 
+5. need fix scroll top header hidden bug  -- done 
 4. top menu auto show/hide on scroll -- done
 3. event page read red dot indicator -- done
 2. sns bind page red dot indicator -- done
 1. entity selection page autoload , paging --- done
-==================== new framework==========
 
+==================== new frontend ==========
+============= document in "前端JS开发" =======
+
+6. 添加select插件chosen到后台的商品页。
 5. the great performance leap is to add backface-visibility: hidden; to fix elements !
-
-4. dig functions for article
+4. dig functions for article (server side/Front End not implemented)
 
    *****  need syncdb *******, 
    new model :  Article_Dig
 
-3. selection entity page js rebuild --- Done
+3. selection entity page js rebuild --- see ( new frontend )
 
-2. user change email mail 认证 --- not finished
-1. new register user mail 认证 --- not finished
+0 . to use assignment_tag on footer's friendly link
 
-0 . to use assignment_tag replace global context processors
-
-to know WHAT is css trigger ? 
-
-to  remove unpublished article in article tag page !!  -- DONE. 
-
-to  make google analysis js async --- already async , the article is written 2009 
-http://www.stevesouders.com/blog/2009/12/01/google-analytics-goes-async/
-
-to test event read function working 
-   
-
-to test incr decr functions
-    1. incr a value that is empty 
-    2. incr a value that has value 
-    3. decr a value 0 
-    4. decr a value greater than 0 
-
-
-to implement article tag
-    1. in selection article list view , add article tags context
-    2. in selection article list item template add tag 
-    3. in article  detail page add tag item 
-    4. share css 
-
-to implement article dig: 
-    1. add dig model 
-    2. add  ulr for dig action
-    3. add view for article dig 
-    4. front end dig in article list 
-    5. front end dig in article detail 
     
-=======
-1. 添加select插件chosen到后台的商品页。
-===== 2015 - 10 -30 == START =====
 
-
-1.
->>>>>>> 246bbc348b6330e3673277b76b2dc141916cb818
 ===== 2015 - 10 -22 == START =====
 
 5. minor css adjusts
