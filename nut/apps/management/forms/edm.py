@@ -35,6 +35,11 @@ class EDMDetailForm(ModelForm):
             'title': TextInput(attrs={'class': 'form-control'}),
             'cover_hype_link': URLInput(attrs={'class': 'form-control'})
         }
+        labels = {'title': _('title'), 'cover_image': _('cover image'),
+                  'cover_hype_link': _('cover hype link'),
+                  'cover_description': _('cover description'),
+                  'selection_articles': _('selection articles'),
+                  'publish_time': _('publish time')}
 
     cover_image = forms.ImageField(
         label=_('Select an Image'),
@@ -50,7 +55,7 @@ class EDMDetailForm(ModelForm):
         if 'fields' in self:
             article_filter_q = (
                 article_filter_q | Q(pk__in=self.initial['selection_articles']))
-            self.fields['selection_articles'].queryset =\
+            self.fields['selection_articles'].queryset = \
                 Selection_Article.objects.filter(*article_filter_q)
         else:
             self.base_fields['selection_articles'].queryset = \
