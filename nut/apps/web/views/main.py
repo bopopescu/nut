@@ -1,40 +1,34 @@
-# from django.shortcuts import render_to_response
-# from django.http import HttpResponseRedirect, HttpResponse, Http404
-# from django.views.decorators.http import require_GET
-from django.template import RequestContext, loader
-# from django.template import loader
-
-from django.views.generic import ListView, TemplateView,View
-from braces.views import JSONResponseMixin, AjaxResponseMixin
-
-from apps.core.models import Entity, Entity_Like, Selection_Entity, \
-                             GKUser, Show_Banner, Selection_Article, \
-                             Article
-from apps.tag.models import Tags
-# from apps.web.forms.search import SearchForm
-from apps.core.forms.search import GKSearchForm
-from haystack.generic_views import SearchView
-from apps.core.utils.http import JSONResponse
-
-
-# from apps.web.utils.viewtools import get_paged_list
-from apps.core.extend.paginator import ExtentPaginator as Jpaginator
-# from apps.tag.models import Content_Tags
-from apps.core.models import Sub_Category
-# import random
-from apps.web.utils.viewtools import add_side_bar_context_data
-
-
-# from apps.notifications import notify
+from datetime import datetime
+from braces.views import AjaxResponseMixin
+from braces.views import JSONResponseMixin
+from django.views.generic import ListView
+from django.views.generic import TemplateView
 from django.utils.log import getLogger
+from django.template import loader
+from django.template import RequestContext
+from haystack.generic_views import SearchView
+from apps.core.tasks.records import log_searches
+
+from apps.tag.models import Tags
+from apps.core.models import Entity, Search_History
+from apps.core.models import Entity_Like
+from apps.core.models import Selection_Entity
+from apps.core.models import GKUser
+from apps.core.models import Show_Banner
+from apps.core.models import Selection_Article
+from apps.core.models import Article
+from apps.core.forms.search import GKSearchForm
+from apps.core.utils.http import JSONResponse
+from apps.core.extend.paginator import ExtentPaginator as Jpaginator
+from apps.core.models import Sub_Category
+
 
 log = getLogger('django')
-
-from datetime import datetime
 
 
 class IndexView(TemplateView):
     template_name = 'web/index.html'
+
     def get_banners(self):
         shows = Show_Banner.objects.all()
         banners = []
@@ -64,46 +58,51 @@ class IndexView(TemplateView):
         return []
 
     def get_context_data(self, **kwargs):
-        context =  super(IndexView,self).get_context_data(**kwargs);
+        context = super(IndexView, self).get_context_data(**kwargs);
         context['banners'] = self.get_banners()
         context['selection_entities'] = self.get_selection_entities()
         context['selection_articles'] = self.get_selection_articles()
         context['categories'] = self.get_hot_categories()
         context['top_articles'] = self.get_top_articles()
         context['top_entities'] = self.get_top_entities()
-        context['brands']=[];
+        context['brands'] = [];
         return context
 
 
-
-class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin , ListView):
-    template_name =  'web/main/selection_new.html'
+class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin, ListView):
+    template_name = 'web/main/selection_new.html'
     model = Entity
     paginate_by = 36
     paginator_class = Jpaginator
 
     def get_refresh_time(self):
-        refresh_time = self.request.GET\
-                                    .get('t',datetime.now()\
-                                                     .strftime('%Y-%m-%d %H:%M:%S'))
+        refresh_time = self.request.GET \
+            .get('t', datetime.now() \
+                 .strftime('%Y-%m-%d %H:%M:%S'))
         return refresh_time
 
-    def get_entity_like_list(self,entities,request):
+    def get_entity_like_list(self, entities, request):
         el = []
         if request.user.is_authenticated():
             e = entities.values_list('id', flat=True)
-            el = Entity_Like.objects.filter(entity_id__in=tuple(e), user=request.user).values_list('entity_id', flat=True)
+            el = Entity_Like.objects.filter(entity_id__in=tuple(e),
+                                            user=request.user).values_list(
+                'entity_id', flat=True)
         return el
 
     def get_context_data(self, **kwargs):
-        context = super(SelectionEntityList,self).get_context_data()
+        context = super(SelectionEntityList, self).get_context_data()
         selections = context['page_obj']
-        context['refresh_datetime']  = self.get_refresh_time()
+        context['refresh_datetime'] = self.get_refresh_time()
         el = list()
         if self.request.user.is_authenticated():
-            # notify.send(request.user, recipient=request.user, verb='you visitor selection page')
             e = selections.object_list
-            el = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=list(e.values_list('entity_id', flat=True))).using('slave')
+            el = Entity_Like.objects.user_like_list(user=self.request.user,
+                                                    entity_list=list(
+                                                        e.values_list(
+                                                            'entity_id',
+                                                            flat=True))
+                                                    ).using('slave')
         context['user_entity_likes'] = el
         context['selections'] = selections
         return context
@@ -117,17 +116,17 @@ class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin , ListView):
             return like_list
 
     def get_queryset(self):
-        qs = Selection_Entity.objects.published_until(self.get_refresh_time())\
-                                     .select_related('entity')\
-                                     .prefetch_related('entity__likes')
+        qs = Selection_Entity.objects.published_until(self.get_refresh_time()) \
+            .select_related('entity') \
+            .prefetch_related('entity__likes')
         # prefetch notes will be a performance hit,
         # because top_note will use a filter , which will hit database again.
 
         return qs
 
     def get_ajax(self, request, *args, **kwargs):
-        self.object_list = getattr(self , 'object_list' , self.get_queryset())
-        context  = self.get_context_data()
+        self.object_list = getattr(self, 'object_list', self.get_queryset())
+        context = self.get_context_data()
         template = 'web/main/partial/selection_ajax.html'
         _t = loader.get_template(template)
         _c = RequestContext(
@@ -149,7 +148,6 @@ class SiteMapView(TemplateView):
 
 
 class PopularView(ListView):
-
     template_name = 'web/main/popular.html'
     http_method_names = ['get']
 
@@ -160,25 +158,25 @@ class PopularView(ListView):
         return self.entities
 
     def get_context_data(self, **kwargs):
-        context = super(PopularView,self).get_context_data()
+        context = super(PopularView, self).get_context_data()
         el = list()
         if self.request.user.is_authenticated():
-            el = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=list(self.entities))
+            el = Entity_Like.objects.user_like_list(user=self.request.user,
+                                                    entity_list=list(
+                                                        self.entities))
 
         context.update(
             {
-                'user_entity_likes':el,
+                'user_entity_likes': el,
             }
         )
         return context
 
     def get(self, request, *args, **kwargs):
-
         return super(PopularView, self).get(request, *args, **kwargs)
 
 
 class GKSearchView(SearchView):
-
     form_class = GKSearchForm
     http_method_names = ['get']
     template_name = 'web/main/search.html'
@@ -191,7 +189,8 @@ class GKSearchView(SearchView):
         elif 't' in self.type:
             res = self.queryset.models(Tags).order_by('-note_count')
         elif 'a' in self.type:
-            res = self.queryset.models(Article).filter(is_selection=True).order_by('-score','-read_count')
+            res = self.queryset.models(Article).filter(
+                is_selection=True).order_by('-score', '-read_count')
         else:
             res = self.queryset.models(Entity).order_by('-like_count')
         log.info(res)
@@ -203,15 +202,18 @@ class GKSearchView(SearchView):
             'entity_count': self.queryset.models(Entity).count(),
             'user_count': self.queryset.models(GKUser).count(),
             'tag_count': self.queryset.models(Tags).count(),
-            'article_count':self.queryset.models(Article).count(),
+            'article_count': self.queryset.models(Article).count(),
         })
         if self.type == "e" and self.request.user.is_authenticated():
-            entity_id_list = map(lambda x : x.object.pk, context['page_obj'])
+            entity_id_list = map(lambda x: x.object.pk, context['page_obj'])
             # log.info(entity_id_list)
-            el = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=entity_id_list)
+            el = Entity_Like.objects.user_like_list(user=self.request.user,
+                                                    entity_list=entity_id_list)
             context.update({
                 'user_entity_likes': el,
             })
+        key_word = form.cleaned_data.get(self.search_field)
+        log_searches(self.request.user, key_word)
         return self.render_to_response(context)
 
     def get(self, request, *args, **kwargs):
@@ -220,6 +222,3 @@ class GKSearchView(SearchView):
 
 
 __author__ = 'edison'
-
-
-
