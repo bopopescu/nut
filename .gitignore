@@ -58,10 +58,9 @@ log.txt
 docs/_build/
 
 # PyCharm
-
 .idea/
 
-nut/settings/
+#nut/settings/
 # Node tools
 node_modules
 nut/images/
@@ -78,6 +77,6 @@ log.txt
 
 # spider 
 spider/log.txt
-spider/dbs/*
-spider/items/*
+spider/dbs/
+spider/items/
 *.pid
