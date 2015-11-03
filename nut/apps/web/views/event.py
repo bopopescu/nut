@@ -16,7 +16,7 @@ from apps.core.utils.http import JSONResponse
 from apps.tag.models import Tags, Content_Tags
 
 from hashlib import md5
-# from datetime import datetime
+from datetime import datetime
 
 from django.utils.log import getLogger
 log = getLogger('django')
@@ -67,7 +67,9 @@ def event(request, slug, template='web/events/home'):
     log.info(inner_qs.query)
     _eid_list = Note.objects.filter(pk__in=list(inner_qs)).values_list('entity_id', flat=True).using('slave')
 
-    _entity_list = Entity.objects.filter(id__in=list(set(_eid_list)), status=Entity.selection).using('slave')
+    _entity_list = Entity.objects.filter(id__in=list(set(_eid_list)), status=Entity.selection)\
+                                 .filter(selection_entity__is_published=True, selection_entity__pub_time__lte=datetime.now())\
+                                 .using('slave')
 
     _paginator = ExtentPaginator(_entity_list, 12)
 
