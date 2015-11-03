@@ -52,10 +52,7 @@
                                {% if show.banner.link %}</a>{% endif %}
                             </div>
                          {% endfor %}
-
-
                      </div>
-
                    {% if show_event_banners|length > 1 %}
 
                      <a class="left carousel-control" href="#slider-guoku" role="button" data-slide="prev">
@@ -136,7 +133,14 @@
     {% if event.has_recommendation %}
         <div class="row" style="margin-top:40px;">
             <div class="col-sm-12">
-                <p class="pull-left">编辑推荐<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
+                <p class="pull-left">
+                    {% if event.slug == '20151101' %}
+                        推荐店铺
+                    {% else %}
+                        编辑推荐
+                    {% endif %}
+
+                    <span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
             </div>
         </div>
 
