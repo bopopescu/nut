@@ -35,28 +35,12 @@
                         <a href="{{ web_discover_url }}">{% trans 'Discover' %}</a>
                     </li>
 
-{#                    {% url 'web_popular' as web_popular_url %}#}
-{#                     <li {% if web_popular_url in request.path %}class="active" {% endif %}>#}
-{#                         <a href="{{ web_popular_url }}">{% trans 'popular' %}</a>#}
-{#                     </li>#}
-
-{#                    {% url 'web_category_list' as web_category_list_url %}#}
-{#                    <li {% if web_category_list_url in request.path %}class="active"{% endif %}>#}
-{#                        <a href="{{ web_category_list_url }}">品类</a>#}
-{#                    </li>#}
 
                     {% url 'web_event_home' as web_event_home_url %}
-{#                {{ web_event_home_url }}#}
                     <li {% if web_event_home_url in request.path %}class="active" {% endif %}>
-{#                        <a href="{{ web_event_home_url }}">专题<img class="" alt="年货大集" title="年货大集" src="{% static 'images/new-icon.gif' %}" style="margin-top: -14px;width: 27px; height: 12px;"></a>#}
-{#                        <a href="{{ web_event_home_url }}">专题&nbsp;<i class="fa fa-circle" style="font-size: 6px; color: #ff1f77; vertical-align: top;"></i></a>#}
-                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="round"></span></a>
+{#                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span><span class="round"></span></a>#}
+                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></a>
                     </li>
-{#                 {% url 'web_about' as web_about_url %}#}
-{#                    <li {% if web_about_url in request.path %}class="active"{% endif %}>#}
-{#                        <a href="{{ web_selection_url }}">{% trans 'Selected' %}</a>#}
-{#                        <a href="{{ web_about_url }}">{% trans 'About' %}</a>#}
-{#                    </li>#}
                 </ul>
 
                 {% url 'web_login' as web_login_url %}
@@ -89,7 +73,6 @@
                     </li>
 
                 </ul>
-
                 {% endif %}
             </div>
         </div>
