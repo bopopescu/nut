@@ -47,7 +47,7 @@
                      {% endif %}
                      <div class="carousel-inner" role="listbox">
                          {% for show in show_event_banners %}
-                             <div class="item {% if 1 == show.position %} active {% endif %}" data-background="{{ show.banner.background_image_url|default:'none' }}" data-background_color="{{ show.banner.background_color|default:'none' }}">{% if show.banner.link %}<a href="{{ show.banner.link }}" target="_blank">{% endif %}
+                             <div class="item {% if 1 == show.position %} active {% endif %}" data-background="{{ show.banner.background_image_url|default:'none' }}" data-background_color="{{ show.banner.background_color|default:'none' }}">{% if show.banner.link %}<a href="{{ show.banner.link }}">{% endif %}
                                 <img src="{{ show.banner.image_url }}">
                                {% if show.banner.link %}</a>{% endif %}
                             </div>
