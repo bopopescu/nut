@@ -1,5 +1,10 @@
 
-=== 2015-11-02 ================================
+1. event template adjust for 1111 event 
+
+==== 2015-11-3 ===
+
+
+=== 2015-11-02 ===  merged to master =============================
 给创建商品页添加了chosen插件。
 
 6. IE8 compatible fix  -- done 
