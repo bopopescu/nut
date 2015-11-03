@@ -336,6 +336,15 @@
   background-color: #ff1f77;
   text-decoration: none;
 }
+.b_day {
+  position: relative;
+  top: -8px;
+  left: 1px;
+}
+p .b_day {
+  top: -8px;
+  left: 3px;
+}
 .ancillary {
   color: #9d9e9f;
 }
@@ -547,7 +556,7 @@ p.boolean-false {
 }
 .carousel-inner .item a,
 .carousel-inner .item img {
-  display: inline-block;
+  display: inline-block !important;
 }
 @-moz-document url-prefix() {
   fieldset {
