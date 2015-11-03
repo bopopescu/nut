@@ -47,8 +47,9 @@
                      {% endif %}
                      <div class="carousel-inner" role="listbox">
                          {% for show in show_event_banners %}
-                             <div class="item {% if 1 == show.position %} active {% endif %}" data-background="{{ show.banner.background_image_url|default:'none' }}" data-background_color="{{ show.banner.background_color|default:'none' }}">
+                             <div class="item {% if 1 == show.position %} active {% endif %}" data-background="{{ show.banner.background_image_url|default:'none' }}" data-background_color="{{ show.banner.background_color|default:'none' }}">{% if show.banner.link %}<a href="{{ show.banner.link }}" target="_blank">{% endif %}
                                 <img src="{{ show.banner.image_url }}">
+                               {% if show.banner.link %}</a>{% endif %}
                             </div>
                          {% endfor %}
 
@@ -135,7 +136,7 @@
     {% if event.has_recommendation %}
         <div class="row" style="margin-top:40px;">
             <div class="col-sm-12">
-                <p class="pull-left">编辑推荐</p>
+                <p class="pull-left">编辑推荐<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
             </div>
         </div>
 
@@ -162,7 +163,7 @@
         {% if event.has_articles %}
          <div class="row" id="selection_article_list" style="margin-top:20px;">
             <div class="col-sm-12">
-                <p class="pull-left">精选图文</p>
+                <p class="pull-left">精选图文<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
             </div>
              {% for article in event.related_articles.all %}
                     {% include 'web/events/partial/event_article_item.html' %}
@@ -174,7 +175,7 @@
     
         <div class="row">
             <div class="col-sm-12">
-                <p class="pull-left">精选商品</p>
+                <p class="pull-left">精选商品<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
 {#                <p class="pull-right">最新更新: {{ selection_list.0.note_context.post_time|format_time }}</p>#}
             </div>
         </div>
