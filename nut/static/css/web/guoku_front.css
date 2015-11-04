@@ -1178,7 +1178,7 @@ p.boolean-false {
   color: #357ebd;
 }
 .main-article .share-wrapper .dig-wrapper {
-  display: inline-block;
+  display: none;
   font-size: 13px;
   color: #9d9e9f;
 }
@@ -3157,6 +3157,6 @@ body .for-mobile {
   display: block;
 }
 .test {
-  color: black;
+  color: red;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
