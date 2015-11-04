@@ -78,8 +78,8 @@ def event(request, slug, template='web/events/home'):
 
     top_entities_list = None
     top_entities_list_like = list()
-    if u'20151111' == event.slug:
-        top_tag_name =  u'双十一推荐'
+    if event.toptag :
+        top_tag_name = event.toptag
 
         try:
             top_tag = Tags.objects.get(name=top_tag_name)
@@ -107,8 +107,6 @@ def event(request, slug, template='web/events/home'):
 
         except Tags.DoesNotExist as e:
             pass
-
-
 
 
     _paginator = ExtentPaginator(_entity_list, 12)

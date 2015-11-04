@@ -1438,6 +1438,7 @@ class Media(models.Model):
 class Event(models.Model):
     title = models.CharField(max_length=30, null=False, default='')
     tag = models.CharField(max_length=30, null=False, default='')
+    toptag = models.CharField(max_length=30, null=False, default='')
     slug = models.CharField(max_length=100, null=False, db_index=True, unique=True)
     status = models.BooleanField(default=False)
     created_datetime = models.DateTimeField(auto_now=True, db_index=True)

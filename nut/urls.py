@@ -23,11 +23,11 @@ urlpatterns += patterns(
 )
 
 # add by anchen, for local img function testing
-if getattr(settings, 'LOCAL_IMG_DEBUG', None):
-    urlpatterns += patterns(
-        'apps.images',
-        url(r'^(images|img|avatar)/', include('apps.images.urls')),
-    )
+# if getattr(settings, 'LOCAL_IMG_DEBUG', None):
+#     urlpatterns += patterns(
+#         'apps.images',
+#         url(r'^(images|img|avatar)/', include('apps.images.urls')),
+#     )
 
 urlpatterns += patterns('',
 
