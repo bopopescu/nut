@@ -131,16 +131,15 @@
         {% endblock %}
 
     {% if event.has_recommendation %}
-        <div class="row" style="margin-top:40px;">
+        <div class="row" style="margin-top:20px;">
             <div class="col-sm-12">
                 <p class="pull-left">
                     {% if event.slug == '20151101' %}
-                        推荐店铺
+                        推荐店铺<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
                     {% else %}
                         编辑推荐
                     {% endif %}
 
-                    <span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
             </div>
         </div>
 
@@ -167,7 +166,10 @@
         {% if event.has_articles %}
          <div class="row" id="selection_article_list" style="margin-top:20px;">
             <div class="col-sm-12">
-                <p class="pull-left">精选图文<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
+                <p class="pull-left">精选图文
+                     {% if event.slug == '20151101' %}
+                        <span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
+                     {% endif %}
             </div>
              {% for article in event.related_articles.all %}
                     {% include 'web/events/partial/event_article_item.html' %}
@@ -177,9 +179,12 @@
 
 
     
-        <div class="row">
+        <div class="row" style="margin-top:20px;">
             <div class="col-sm-12">
-                <p class="pull-left">精选商品<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
+                <p class="pull-left">精选商品
+                     {% if event.slug == '20151101' %}
+                        <span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
+                    {% endif %}
 {#                <p class="pull-right">最新更新: {{ selection_list.0.note_context.post_time|format_time }}</p>#}
             </div>
         </div>
