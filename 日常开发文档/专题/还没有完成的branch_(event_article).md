@@ -15,5 +15,7 @@
     2. templates 
     3. implement onpage add remove edit
 
-7. done !
+7. done ! 
+
+
 
