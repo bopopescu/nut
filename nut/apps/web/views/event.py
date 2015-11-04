@@ -74,8 +74,6 @@ def event(request, slug, template='web/events/home'):
 
 
     # here is some dirty code for 1111 event
-    # TODO  use top_tag to handle toped entities
-
     top_entities_list = None
     top_entities_list_like = list()
     if event.toptag :
