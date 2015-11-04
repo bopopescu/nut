@@ -103,3 +103,4 @@ INTRANET_IMAGE_SERVER = 'http://127.0.0.1:8001/'
 
 # mail
 MAIL_LIST_ADDR='test_edm'
+MAIL_LIST = 'test_edm@maillist.sendcloud.org'
