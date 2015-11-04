@@ -1,4 +1,13 @@
 
+
+1. Event Top entity functions
+
+    need run SQL  : 
+    
+    ALTER TABLE `core`.`core_event` 
+    ADD COLUMN `toptag` VARCHAR(30) NOT NULL AFTER `created_datetime`;
+
+=== 2015-11-4============================ 
 1. event template adjust for 1111 event 
 
 ==== 2015-11-3 ===

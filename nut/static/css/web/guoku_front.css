@@ -993,6 +993,7 @@ p.boolean-false {
   color: #424242;
   font-size: 16px;
   line-height: 1.6;
+  margin-bottom: 30px;
 }
 .article-wrapper .content-wrapper div,
 .article-wrapper .note-editable div {
@@ -1175,6 +1176,34 @@ p.boolean-false {
 .article-wrapper .content-wrapper .guoku-card__deprecate .entity-info-detail .entity-link i,
 .article-wrapper .note-editable .guoku-card__deprecate .entity-info-detail .entity-link i {
   color: #357ebd;
+}
+.main-article .share-wrapper .dig-wrapper {
+  display: none;
+  font-size: 13px;
+  color: #9d9e9f;
+}
+.main-article .share-wrapper .dig-wrapper div {
+  display: inline-block;
+}
+.main-article .share-wrapper .dig-wrapper .dig-action {
+  positon: relative;
+  width: 30px;
+  height: 100%;
+}
+.main-article .share-wrapper .dig-wrapper .dig-action .dig-img {
+  position: relative;
+  left: 0px;
+  top: -5px;
+  height: 24px;
+}
+.main-article .share-wrapper .dig-wrapper .digged img.dig {
+  display: none;
+}
+.main-article .share-wrapper .dig-wrapper .undigged img.undig {
+  display: none;
+}
+.main-article .divider {
+  margin: 30px 0px;
 }
 .mobile-body #main_article .writer-wrapper {
   padding-bottom: 20px;
@@ -3128,6 +3157,6 @@ body .for-mobile {
   display: block;
 }
 .test {
-  color: black;
+  color: red;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */

@@ -30,8 +30,6 @@ requirejs.config({
             exports: '_'
         }
     }
-
-
 });
 
 require([

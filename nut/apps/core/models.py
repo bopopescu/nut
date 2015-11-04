@@ -167,9 +167,12 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             cache.set(key, res)
             return res
 
+    def get_user_dig_key(self):
+        return 'user:dig%' %self.pk
+
     @property
     def dig_count(self):
-        key = 'user:dig:%' % self.pk
+        key = self.get_user_dig_key()
         res = cache.get(key)
         if res:
             return res
@@ -179,11 +182,19 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             return res
 
     def incr_dig(self):
-        key = 'user:dig:' % self.pk
+        key = self.get_user_dig_key()
         try:
             cache.incr(key)
         except ValueError:
             cache.set(key,self.digs.count())
+
+    def decr_dig(self):
+        key = self.get_user_dig_key()
+        try:
+            cache.decr(key)
+        except :
+            cache.set(key, self.digs.count())
+
 
 
     def incr_like(self):
@@ -1427,6 +1438,7 @@ class Media(models.Model):
 class Event(models.Model):
     title = models.CharField(max_length=30, null=False, default='')
     tag = models.CharField(max_length=30, null=False, default='')
+    toptag = models.CharField(max_length=30, null=False, default='')
     slug = models.CharField(max_length=100, null=False, db_index=True, unique=True)
     status = models.BooleanField(default=False)
     created_datetime = models.DateTimeField(auto_now=True, db_index=True)
