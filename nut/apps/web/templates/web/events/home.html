@@ -134,7 +134,7 @@
         <div class="row" style="margin-top:20px;">
             <div class="col-sm-12">
                 <p class="pull-left">
-                    {% if event.slug == '20151101' %}
+                    {% if event.slug == '20151111' %}
                         推荐店铺<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
                     {% else %}
                         编辑推荐
@@ -167,7 +167,7 @@
          <div class="row" id="selection_article_list" style="margin-top:20px;">
             <div class="col-sm-12">
                 <p class="pull-left">精选图文
-                     {% if event.slug == '20151101' %}
+                     {% if event.slug == '20151111' %}
                         <span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
                      {% endif %}
             </div>
@@ -182,7 +182,7 @@
         <div class="row" style="margin-top:20px;">
             <div class="col-sm-12">
                 <p class="pull-left">精选商品
-                     {% if event.slug == '20151101' %}
+                     {% if event.slug == '20151111' %}
                         <span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
                     {% endif %}
 {#                <p class="pull-right">最新更新: {{ selection_list.0.note_context.post_time|format_time }}</p>#}
@@ -190,6 +190,9 @@
         </div>
 
         <div class="row" id="event">
+            {% for entity in top_entities %}
+               {% include "web/events/partial/event_entity_item.html" with entity=entity %}
+            {% endfor %}
             {% for entity in entities %}
                 {% include "web/events/partial/event_entity_item.html" with entity=entity %}
             {% endfor %}

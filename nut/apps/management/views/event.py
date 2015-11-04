@@ -99,6 +99,7 @@ def edit(request, eid, template='management/event/edit.html'):
         data = {
             'title': event.title,
             'tag': event.tag,
+            'toptag':event.toptag,
             'slug': event.slug,
             'status': status,
             'is_published':is_published,

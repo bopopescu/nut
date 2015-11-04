@@ -71,9 +71,16 @@
                             {% endautoescape %}
                         </div>
 
-                        <div class="share-wrapper for-browser">
+                        <div class="share-wrapper share-wrapper-short for-browser">
                             <!-- JiaThis Button BEGIN -->
-                            <div class="share-intro">分享到</div>
+                            <div class="dig-wrapper">
+                                <div class="undig dig-action">
+                                    <img class="dig-img dig" src="{% static 'images/article/dig.png' %}" >
+                                    <img class="dig-img undigg" src="{% static 'images/article/undig.png' %}" >
+                                </div>
+                                <div class="dig-count">10</div>
+                                <div class="dig-word">人赞</div>
+                            </div>
                             <div class="jiathis_style">
                                 <a class="jiathis_button_tsina"></a>
                                 <a class="jiathis_button_weixin"></a>
@@ -82,6 +89,9 @@
                                 <a class="jiathis_button_tieba"></a>
                                 <a href="http://www.jiathis.com/share?uid=2038803" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
                             </div>
+                            <span class="share-intro-entity">分享到&nbsp;&nbsp;</span>
+
+
                             <!-- JiaThis Button END -->
                         </div>
                         <div class="divider"></div>

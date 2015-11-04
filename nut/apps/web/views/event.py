@@ -63,13 +63,49 @@ def event(request, slug, template='web/events/home'):
 
     hash = md5(event.tag.encode('utf-8')).hexdigest()
     tag = Tags.objects.get(hash=hash)
-    inner_qs = Content_Tags.objects.filter(tag=tag, target_content_type=24).values_list('target_object_id', flat=True).using('slave')
+    inner_qs = Content_Tags.objects.filter(tag=tag, target_content_type=24)\
+               .values_list('target_object_id', flat=True).using('slave')
     log.info(inner_qs.query)
     _eid_list = Note.objects.filter(pk__in=list(inner_qs)).values_list('entity_id', flat=True).using('slave')
 
     _entity_list = Entity.objects.filter(id__in=list(set(_eid_list)), status=Entity.selection)\
                                  .filter(selection_entity__is_published=True, selection_entity__pub_time__lte=datetime.now())\
                                  .using('slave')
+
+
+    # here is some dirty code for 1111 event
+    top_entities_list = None
+    top_entities_list_like = list()
+    if event.toptag :
+        top_tag_name = event.toptag
+
+        try:
+            top_tag = Tags.objects.get(name=top_tag_name)
+
+            note_id_list = Content_Tags.objects\
+                                           .filter(tag=top_tag,target_content_type_id=24)\
+                                           .values_list("target_object_id", flat=True)\
+                                           .using('slave')
+
+            top_entities_id_list = Note.objects\
+                                       .filter(pk__in=list(note_id_list ))\
+                                       .values_list('entity_id', flat=True)\
+                                       .using('slave')
+
+            top_entities_list = Entity.objects\
+                                 .filter(pk__in=list(top_entities_id_list))\
+                                 .filter(selection_entity__is_published=True, selection_entity__pub_time__lte=datetime.now())\
+                                 .using('slave')
+
+            if request.user.is_authenticated():
+                top_entities_list_like=Entity_Like.objects\
+                                            .filter(entity_id__in=top_entities_list, user=request.user)\
+                                            .values_list('entity_id', flat=True).using('slave')
+
+
+        except Tags.DoesNotExist as e:
+            pass
+
 
     _paginator = ExtentPaginator(_entity_list, 12)
 
@@ -85,6 +121,7 @@ def event(request, slug, template='web/events/home'):
     if request.user.is_authenticated():
         e = _entities.object_list
         el = Entity_Like.objects.filter(entity_id__in=list(e), user=request.user).values_list('entity_id', flat=True)
+        el = list(el) + list(top_entities_list_like)
         # el =
 
     _show_event_banners = Show_Event_Banner.objects.filter(event=event, position__gt=0)
@@ -125,6 +162,8 @@ def event(request, slug, template='web/events/home'):
         template,
         {
             'event': event,
+            'top_entities':top_entities_list,
+            'top_entities_like':top_entities_list_like,
             'tag_text': event.tag,
             'show_event_banners': _show_event_banners,
             'show_editor_recommendations': _show_editor_recommendations,

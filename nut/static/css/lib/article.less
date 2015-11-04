@@ -170,6 +170,7 @@
     color:@article-font-color;
     font-size: @article-content-size;
     line-height: 1.6;
+    margin-bottom: 30px;
     div {
       margin: @article-block-element-margin;
     }
@@ -319,6 +320,46 @@
   }
 }
 
+.main-article{
+  .share-wrapper{
+     .dig-wrapper{
+       display:none;
+//        display:inline-block;
+        font-size:@mini-size;
+        color:@common-gray;
+        div{
+          display: inline-block;
+        }
+        .dig-action{
+            positon:relative;
+            width: 30px;
+            height: 100%;
+            .dig-img{
+              position: relative;
+              left:0px;
+              top:-5px;
+              height:24px;
+            }
+        }
+        .digged{
+           img.dig{
+              display: none;
+           }
+        }
+        .undigged{
+           img.undig{
+              display:none;
+           }
+        }
+
+     }
+  }
+  .divider{
+    margin:30px 0px;
+  }
+
+
+}
 
 .mobile-body{
   #main_article{
