@@ -25,6 +25,13 @@
 {% endblock %}{% block description %}{{ article.content|striptags|truncatechars:150 }}{% endblock %}
 
 {% block h1 %}{{ article.title }} － 精英消费指南{% endblock %}
+
+{% block header %}
+ {% if not isFromMobile %}
+    {% include "web/partial/header_new.html" %}
+ {% endif %}
+{% endblock %}
+
 {% block content %}
     <div class="container goods_detail article-onepage">
         <h2 class="sr-only">{{ article.content|striptags|truncatewords:150 }}</h2>
@@ -48,7 +55,7 @@
                                 <meta itemprop="datePublished" content="{{article.created_datetime|date:'Y-m-d H:i:s'}}"/>
                                 <i class="fa fa-clock-o"></i>{{article.created_datetime|date:"Y-m-d"}}
                             </span>
-                            <span class="read">
+                            <span class="read" style="display:none">
                                 <i class="fa fa-eye"></i>
                                 <span id="read_counter">
 

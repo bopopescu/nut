@@ -39,7 +39,6 @@ require([
         'subapp/topmenu',
         'subapp/loadentity',
         'subapp/gotop',
-
     ],
     function (polyfill,
               jQuery,
@@ -53,7 +52,6 @@ require([
         var app_like = new AppEntityLike();
         var app_loadEntity = new LoadEntity();
         var goto = new GoTop();
-
     });
 
 

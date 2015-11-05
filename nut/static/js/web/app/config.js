@@ -6,6 +6,7 @@ requirejs.config({
     paths: {
         libs: './libs',
         utils: './utils',
+        component:'./component',
         subapp: './subapp',
         jquery: 'libs/jquery-1.11.1.min',
         bootstrap: 'libs/bootstrap.min',

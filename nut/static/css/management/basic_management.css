@@ -576,7 +576,7 @@ p.boolean-false {
 }
 .carousel-inner .item a,
 .carousel-inner .item img {
-  display: inline-block !important;
+  display: block;
 }
 .batch-selection-modal {
   -webkit-user-select: none;

@@ -868,7 +868,7 @@ p.boolean-false {
 }
 .carousel-inner .item a,
 .carousel-inner .item img {
-  display: inline-block !important;
+  display: block;
 }
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
@@ -1449,7 +1449,7 @@ body > .container {
   -moz-box-shadow: 0px 0px 2px #dddddd;
   box-shadow: 0px 0px 2px #dddddd;
   overflow: hidden;
-  display: inline-block;
+  display: block;
   margin-bottom: 10px;
 }
 body.compact-body {
@@ -3157,6 +3157,6 @@ body .for-mobile {
   display: block;
 }
 .test {
-  color: black;
+  color: red;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
