@@ -1,5 +1,7 @@
 
-
+2. add hidden img for app share , element id = 'share_img'
+1. remove header render for article page 
+====== 2015 - 11 -5 ============
 1. Event Top entity functions
 
     need run SQL  : 
