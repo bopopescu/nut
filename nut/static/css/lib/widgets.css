@@ -511,6 +511,6 @@ p.boolean-false {
 }
 .carousel-inner .item a,
 .carousel-inner .item img {
-  display: inline-block !important;
+  display: block;
 }
 /*# sourceMappingURL=widgets.less.css.map */

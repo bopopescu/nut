@@ -17,12 +17,22 @@ module.exports = function(grunt) {
     },
 
     requirejs:{
-        compile:{
+        compile_selection_entity:{
             options:{
                 baseUrl: 'app/',
                 mainConfigFile: 'app/config.js',
                 name: 'selection_entity_app',
                 out: 'jsbuild/selection_entity_app_build.js',
+                optimize:'none'
+            }
+        },
+        compile_article_list:{
+            options:{
+                baseUrl: 'app/',
+                mainConfigFile: 'app/config.js',
+                name: 'article_list_app',
+                out: 'jsbuild/article_list_app_build.js',
+                optimize: 'none'
             }
         }
     },
