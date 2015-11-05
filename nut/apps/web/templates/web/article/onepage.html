@@ -35,6 +35,7 @@
 {% block content %}
     <div class="container goods_detail article-onepage">
         <h2 class="sr-only">{{ article.content|striptags|truncatewords:150 }}</h2>
+        <div id="article_cover_img" style="display:none"><img src="{{ article.cover_url }}"></div>
 {#     <div class="row" id="detail_breadcrumb">#}
 {#         {% include "web/article/partial/article_breadcrumb.html" %}#}
 {#     </div>#}
