@@ -297,21 +297,12 @@ class EntityForm(forms.Form):
         super(EntityForm, self).__init__(*args, **kwargs)
 
         self.entity = entity
-
-        if self.entity.has_top_note:
-            self.fields['status'] = forms.ChoiceField(label=_('status'),
-                                                      choices=Entity.ENTITY_STATUS_CHOICES,
-                                                      widget=forms.Select(
-                                                          attrs={
-                                                              'class': 'form-control'}),
-                                                      help_text=_(''))
-        else:
-            self.fields['status'] = forms.ChoiceField(label=_('status'),
-                                                      choices=Entity.NO_SELECTION_ENTITY_STATUS_CHOICES,
-                                                      widget=forms.Select(
-                                                          attrs={
-                                                              'class': 'form-control', }),
-                                                      help_text=_(''))
+        self.fields['status'] = forms.ChoiceField(label=_('status'),
+                                                  choices=Entity.ENTITY_STATUS_CHOICES,
+                                                  widget=forms.Select(
+                                                      attrs={
+                                                          'class': 'form-control'}),
+                                                  help_text=_(''), )
 
         if len(self.entity.images) > 1:
             # position_list = list()
@@ -368,6 +359,7 @@ class SubCategoryField(ChoiceField):
     def validate(self, value):
         return value
 
+
 class CreateEntityForm(forms.Form):
     origin_id = forms.CharField(
         label=_('origin id'),
@@ -405,11 +397,18 @@ class CreateEntityForm(forms.Form):
         required=False,
     )
 
-    # content = forms.CharField(
-    #     label=_('note'),
-    #     widget=forms.Textarea(attrs={'class':'form-control'}),
-    #     help_text=_(''),
-    # )
+    content = forms.CharField(
+        label=_('note'),
+        widget=forms.Textarea(attrs={'class': 'form-control'}),
+        help_text=_(''),
+    )
+
+    status = forms.ChoiceField(label=_('status'),
+                               choices=Entity.ENTITY_STATUS_CHOICES,
+                               widget=forms.Select(
+                                   attrs={
+                                       'class': 'form-control'}),
+                               help_text=_(''))
 
     def __init__(self, request, *args, **kwargs):
         self.request = request
@@ -446,19 +445,16 @@ class CreateEntityForm(forms.Form):
                                                     help_text=_(''),
                                                     )
         self.fields['sub_category'] = SubCategoryField(label=_('sub_category'),
-                                                        widget=forms.Select(
-                                                            attrs={
-                                                                'class': 'form-control',
-                                                                'id': 'sub-category',
-                                                                }),
-                                                        choices=sub_cate_choices,
-                                                       initial=sub_cate_choices[0][0],
-                                                        help_text=_(''),
-                                                        )
-        # def sub_validate(self, value):
-        #     return value
-        # self.fields['sub_category'].validate = sub_validate
-
+                                                       widget=forms.Select(
+                                                           attrs={
+                                                               'class': 'form-control',
+                                                               'id': 'sub-category',
+                                                           }),
+                                                       choices=sub_cate_choices,
+                                                       initial=
+                                                       sub_cate_choices[0][0],
+                                                       help_text=_(''),
+                                                       )
 
         self.fields['content'] = forms.CharField(
             label=_('note'),
@@ -467,7 +463,7 @@ class CreateEntityForm(forms.Form):
             required=False,
         )
 
-        self.fields['status'] = forms.ChoiceField(label=_('note status'),
+        self.fields['note_status'] = forms.ChoiceField(label=_('note status'),
                                                   choices=Note.NOTE_STATUS_CHOICES,
                                                   widget=forms.Select(attrs={
                                                       'class': 'form-control'}),
@@ -496,6 +492,7 @@ class CreateEntityForm(forms.Form):
         _main_image = int(self.cleaned_data.get('main_image'))
         _note_text = self.cleaned_data.get('content')
         _status = self.cleaned_data.get('status')
+        _note_status = self.cleaned_data.get('note_status')
         _user_id = self.cleaned_data.get('user')
         # log.info(self.initial['shop_nick'])
         _entity_hash = cal_entity_hash(
@@ -519,6 +516,7 @@ class CreateEntityForm(forms.Form):
             price=_price,
             category_id=_sub_category,
             images=images,
+            status=_status
         )
 
         entity.save()
@@ -531,7 +529,7 @@ class CreateEntityForm(forms.Form):
                 user_id=_user_id,
                 entity=entity,
                 note=_note_text,
-                status=_status,
+                status=_note_status,
             )
 
         if "taobao" in _origin_source:
