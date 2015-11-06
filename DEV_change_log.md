@@ -1,3 +1,8 @@
+1. 修改了gruntfile.js，会自动把web/app下说有名称为*_app.js的文件build到web/jsbuild下，build后的名称为*_app_build.js；
+2. 修复了message页，屏幕不断向下滚动时，会不断给页面增加空白块的bug；
+3. 把discove页的js模块使用RequireJS加载。
+
+=== 2015-11-6============================ 
 
 3. article page new front end 
 2. add hidden img for app share , element id = 'share_img'
@@ -17,8 +22,8 @@
 ==== 2015-11-3 ===
 
 
-=== 2015-11-02 ===  merged to master =============================
 给创建商品页添加了chosen插件。
+=== 2015-11-02 ===  merged to master =============================
 
 6. IE8 compatible fix  -- done 
 5. need fix scroll top header hidden bug  -- done 
