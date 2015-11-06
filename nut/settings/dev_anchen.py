@@ -25,7 +25,7 @@ HAYSTACK_CONNECTIONS = {
 }
 
 #for mobile access simulation
-ANT_SIMULATE_MOBILE = True
+# ANT_SIMULATE_MOBILE = True
 
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"

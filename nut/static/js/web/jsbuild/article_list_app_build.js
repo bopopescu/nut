@@ -1486,10 +1486,226 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 
     return GoTop;
 });
-define('subapp/selection_article_loader',[''
+define('component/ajaxloader',['libs/Class', 'jquery'], function(Class, jQuery){
+    var $= jQuery;
 
-], function(){
-    var ArticleLoader = Class
+    var AjaxLoader = Class.extend({
+        init:function(options){
+            this.loading = false ;
+            this.try_count=5;
+            this.loading_indicator = document.getElementById('main_loading_indicator');
+            this.attach();
+        },
+        attach: function(){
+            this.scrollHandler =this._handleScroll.bind(this);
+            $(window).scroll(this.scrollHandler);
+        },
+
+        detach: function(){
+            $(window).off('scroll', this.scrollHandler);
+        },
+        loadNextBatch:function(){
+            jQuery.when(
+                    this.beginLoad()
+            ).then(
+                    this.loadSuccess.bind(this),
+                    this.loadFail.bind(this)
+            );
+        },
+        loadPrevBatch:function(){
+            console.log('not implement');
+        },
+        _handleScroll: function(){
+            if (this._shouldLoad()){
+                this.loadNextBatch();
+            }else{
+                return ;
+            }
+        },
+        _shouldLoad: function(){
+            if (this.loading) {
+                return false;
+            }
+            var loading_indicator  = this.loading_indicator;
+                if (loading_indicator){
+                    var position = loading_indicator.getBoundingClientRect();
+                    //console.log(position.top + ' :   '+ window.innerHeight);
+                    return (position.top > 0
+                          && (position.top+100) <= (window.innerHeight || document.documentElement.clientHeight));
+                }else{
+                    return false;
+                }
+        },
+
+        getRequestUrl: function(){
+            return this.request_url;
+        },
+
+        getData: function(){
+            throw new Error('not implemented');
+            return null;
+        },
+
+        beginLoad: function(){
+            this.loading = true;
+            var _url = this.getRequestUrl();
+            var _data = this.getData();
+            return $.ajax({
+                url : _url ,
+                data : _data,
+                method: 'GET'
+            });
+        //    return a promise , like an ajax() here
+
+        },
+        loadSuccess: function(data){
+            console.log(data);
+            this.loading = false;
+
+        },
+        loadFail: function(data){
+            //console.log(data);
+            // ajax call fail , maybe later
+            console.log('loading failed ');
+            this.try_count--;
+            if (this.try_count <= 0){
+                this.detach();
+            }
+            this.loading = false;
+        }
+    });
+
+    return AjaxLoader;
+});
+define('utils/browser',[], function () {
+    //all helper function for browser operation here,
+    //
+    var browser = {
+        getQueryStrings: function () {
+            var assoc = {};
+            var decode = function (s) {
+                return decodeURIComponent(s.replace(/\+/g, " "));
+            };
+            var queryString = location.search.substring(1);
+            var keyValues = queryString.split('&');
+
+            //for(var i in keyValues) {
+            for (var i = 0, len = keyValues.length; i < len; i++) {
+                var key = keyValues[i].split('=');
+                if (key.length > 1) {
+                    assoc[decode(key[0])] = decode(key[1]);
+                }
+            }
+            return assoc;
+        }
+    };
+
+    return browser
+
+});
+define('subapp/selection_article_loader',['component/ajaxloader', 'utils/browser', 'libs/fastdom'
+
+], function (AjaxLoader, browser, fastdom) {
+
+    var ArticleLoader = AjaxLoader.extend({
+        request_url: '/articles/',
+        init: function () {
+            this._super();
+            this.current_page = this.getInitPageNum();
+            $('.next-button').click(this.goNext.bind(this));
+            $('.prev-button').click(this.goPrev.bind(this));
+
+        },
+        goNext: function () {
+
+            this.gotoPage(this.current_page + 1);
+        },
+        goPrev: function () {
+            this.gotoPage(this.current_page - 5);
+        },
+
+        gotoPage: function (pageNum) {
+            var path = window.location.pathname;
+            var host = window.location.host;
+            var protocol = window.location.protocol;
+            var refresh_time = this.getRefreshTime();
+            var newUrl = protocol + '//' + host + path + '?page=' + pageNum + '&t=' + refresh_time;
+            window.location.href = newUrl;
+        },
+
+        getInitPageNum: function () {
+            var queryDics = browser.getQueryStrings();
+            return parseInt(queryDics['page']) || 1;
+        },
+
+        getData: function () {
+            return {
+                refresh_time: this.getRefreshTime(),
+                page: this.current_page + 1,
+            }
+        },
+
+        loadSuccess: function (data) {
+            var that = this;
+            if (data['errors'] === 0) {
+
+                fastdom.defer(30, function () {
+                    $(data['html']).appendTo($('#selection_article_list'));
+                    if (data['has_next_page'] === false) {
+                        that.handleLastPage();
+                    }
+
+                    that.current_page++;
+                    if (that.current_page % 3 == 0) {
+                        $(that.loading_indicator).hide();
+
+                        if (that.current_page > 5) {
+                            that.showPrevButton();
+                        }
+                        if (data['has_next_page'] === true) {
+                            that.showNextButton();
+                        }
+                    } else {
+                        that.hideLoadButton();
+                    }
+                    that.loading = false;
+                });
+            } else {
+                //TODO: handle fail load
+            }
+
+            return;
+
+        },
+        showPrevButton: function () {
+            $('.prev-button').show();
+        },
+        showNextButton: function () {
+            $('.next-button').show();
+        },
+
+        hideNextButton: function () {
+            $('.next-button').hide();
+        },
+        hideLoadButton: function () {
+            $('.prev-button').hide();
+            $('.next-button').hide();
+        },
+        handleLastPage: function () {
+            this.detach();
+            this.hideNextButton();
+        },
+        getRefreshTime: function () {
+            return $('#selection_article_list').attr('refresh-time');
+        },
+
+        _shouldLoad: function () {
+            var page_condition = (this.current_page > 0) && (this.current_page % 3 != 0);
+            return page_condition && this._super();
+        },
+    });
+
+    return ArticleLoader;
 });
 
 require([
