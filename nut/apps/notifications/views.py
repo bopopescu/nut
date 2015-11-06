@@ -54,21 +54,22 @@ def messages(request, template='notifications/messages/message.html'):
 
     _user.notifications.mark_all_as_read()
     if request.is_ajax():
-        res = {
-            'status' : 0,
-            'msg' : 'no data'
-        }
-        if len(res) > 0:
+        if not _messages.object_list:
+            res = {
+                'status': 0,
+                'msg': 'no data'
+            }
+        else:
             _t = loader.get_template('notifications/messages/partial/ajax_notification.html')
             _c = RequestContext(request, {
-                    'messages': _messages,
+                'messages': _messages,
             })
             _data = _t.render(_c)
             res = {
                 'status': 1,
                 'data': _data,
             }
-            return JSONResponse(data=res, content_type='text/html; charset=utf-8',)
+        return JSONResponse(data=res, content_type='text/html; charset=utf-8',)
 
     return render_to_response(
         template,
