@@ -8,9 +8,12 @@ define(['libs/Class', 'subapp/account', 'jquery', 'fastdom'],
             handleDig: function (e) {
                 var $digEle = $(e.currentTarget);
                 var $counter = $digEle.parent().find('.dig-count');
-                    articleId = $digEle
+                    articleId = $digEle.attr('data-article-id');
+                    console.log(articleId);
             }
         });
+
+        return AppArticleDig;
 
 
     });

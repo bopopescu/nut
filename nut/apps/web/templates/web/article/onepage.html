@@ -172,48 +172,21 @@
     </div>
 
 {% endblock %}
-{% block counter_script %}
-        <script src="{% static 'js/counter/counter.js' %}"></script>
+
+{% block basic_script %}
+{#<script data-main="{% static 'js/web/app/article_list_app.js' %}" src="{% static 'js/web/app/require.js' %}"></script>#}
+    <script data-main="{% static 'js/web/jsbuild/article_page_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
 {% endblock %}
+
+{#{% block counter_script %}#}
+{#        <script src="{% static 'js/counter/counter.js' %}"></script>#}
+{#{% endblock %}#}
 {% if isFromMobile %}
     {% block ga_script %}
         <!-- disable GA-->
     {% endblock %}
 {% endif %}
 {% block script %}
-    <script type="text/javascript" language="javascript">
-        function renderEntityCard(){
-                var cardList = $('.guoku-card');
-                $.map(cardList, function(ele, index){
-{#                    console.log('ele : ' + ele + '  index: ' + index);#}
-                    var hash = $(ele).attr('data_entity_hash');
-                    if (hash){
-                        var url = '/detail/' + hash + '/card/'
-                        $.when($.ajax({
-                            url: url,
-                            method: 'GET'
-                        })).then(
-                            function success(data){
-                                //console.log("load card success");
-                                if(data.error == 0){
-                                    //console.log('card data ok ');
-                                    var newInnerHtml = $(data.html).html()
-                                    //console.log(newInnerHtml);
-                                    $(ele).html(newInnerHtml);
-                                    //console.log('card rendered');
-                                }
-                                else{
-                                    console.log('card data error');
-                                }
-
-                            },function fail(){
-                                console.log("load card fail");
-                            });
-                    }
-                });
-            };
-        renderEntityCard();
-    </script>
 
     {% if not isFromMobile %}
     <script type="text/javascript">
