@@ -5,360 +5,113 @@
 <head lang="en">
 <meta charset="UTF-8">
 <title>{{ edm.title }}</title>
-<style type="text/css">
-body {
-    background: #fafafa;
-    text-align: center;
-    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
-    color: #9d9e9f;
-    font-size: 16px;
-    line-height: 1.6;
-}
-
-a {
-    color: #428bca;
-    text-decoration: none;
-    background-color: transparent;
-}
-
-div {
-    display: block;
-}
-
-span {
-    display: block;
-    color: #9d9e9f;
-    font-size: 12px;
-}
-
-.content {
-    background: #ffffff;
-    width: 900px;
-    padding: 4% 2%;
-    text-align: center;
-    margin: 0 auto;
-}
-
-.header {
-    width: 100%;
-    text-align: center;
-    margin: 0 auto;
-}
-
-.container {
-    text-align: center;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-.logo {
-    width: 20%;
-}
-
-.banner {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.banner img {
-    max-width: 100%;
-}
-
-.banner p {
-    padding: 0;
-    color: #9d9e9f;
-    text-align: left;
-    line-height: 25px;
-    font-size: 16px;
-}
-
-.liner {
-    padding: 0 15px 0;
-    margin: 50px 0;
-    line-height: 1px;
-    border-left: 375px solid #dddddd;
-    border-right: 375px solid #dddddd;
-    text-align: center;
-}
-
-.liner span {
-    font-size: 18px;
-    color: #5e5e5e;
-    line-height: 0;
-}
-
-.liner_with_no_text {
-    height: 1px;
-    border-top: 1px solid #dddddd;
-}
-
-.article {
-    width: 100%;
-    height: 200px;
-    margin: 30px 0;
-}
-
-.article-cover {
-    float: left;
-    width: 40%;
-    height: 100%;
-}
-
-.article-cover img {
-    max-width: 98%;
-    max-height: 98%;
-}
-
-.article-content {
-    float: left;
-    margin-left: 1%;
-    width: 59%;
-    height: 100%;
-}
-
-.article-title {
-    text-align: left;
-    padding: 0 10px;
-}
-
-.article-title a {
-    font-size: 22px;
-    color: #424242;
-    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
-    font-weight: bolder;
-}
-
-.article-summary {
-    padding: 0 10px;
-    font-size: 16px;
-    color: #9d9e9f;
-    text-align: left;
-}
-
-.popular_entities {
-    margin-right: -15px;
-    margin-left: -15px;
-    height: auto;
-    display: inline-block;
-}
-
-.thumbnail {
-    float: left;
-    padding-right: 15px;
-    padding-left: 15px;
-    border: none;
-    width: 30%;
-    overflow: hidden;
-    margin-bottom: 40px;
-}
-
-.entity-img {
-    height: 0;
-    padding-bottom: 99%;
-    overflow: hidden;
-    text-align: center;
-    border: 1px solid #e6e6e6;
-    display: block;
-}
-
-.entity-img a {
-    display: inline-block;
-}
-
-.entity-img a img {
-    background-color: #f6f6f6;
-    width: 100%;
-    max-height: 100%;
-    max-width: 100%;
-}
-
-.entity-info {
-    width: 100%
-}
-
-.entity-title {
-    display: block;
-}
-
-.entity-title a {
-    font-size: 16px;
-    color: #424242;
-    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
-}
-
-.entity-price {
-    display: block;
-    color: #428bca;
-    font-size: 16px;
-    font-family: Georgia, serif;
-}
-
-.get_more {
-    text-align: center;
-    vertical-align: middle;
-    padding: 10px;
-    width: 150px;
-    height: 26px;
-    background: #80BEF3;
-    -moz-border-radius: 15px;
-    -webkit-border-radius: 15px;
-    border-radius: 30px;
-    margin: 40px auto;
-    color: #ffffff;
-}
-
-.get_more a {
-    color: #ffffff;
-}
-
-.footer {
-    width: 100%;
-    padding-bottom: 30px;
-}
-
-.footer_of_footer {
-    margin-top: 20px;
-}
-
-.footer_of_footer span {
-    margin: 7px auto;
-}
-
-.contact_me img {
-    width: 30px;
-    height: 30px;
-    margin: auto 3px;
-}
-
-.get_me {
-    width: 100%;
-    margin-bottom: 40px;
-    color: #9d9e9f;
-}
-
-.get_me img {
-    margin-top: 5px;
-    margin-bottom: 7px;
-}
-
-.get_me span {
-    font-size: 14px;
-    color: #424242;
-}
-
-.get_me a {
-    font-size: 14px;
-}
-</style>
 </head>
-<body>
-<div class="content">
-    <div class="header">
-        <img class="logo" src="http://{{ host }}{% static 'images/edm/logo.png' %}">
-    </div>
-    <div class="container">
-        <div class="banner">
-            <a href="{{ edm.cover_hype_link }}?from=edm" target="_blank">
-                <img src="{{ edm.cover }}"/>
-            </a>
-
-            <p class="description">
-                {{ edm.cover_description }}
-                <a href="{{ edm.cover_hype_link }}?from=edm" target="_blank">
-                    &nbsp;阅读更多
+<body style="background: #fafafa; color: #9d9e9f; font-family: Helvetica Neue, Helvetica, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif; font-size: 16px;  text-align: center;">
+    <div style="background: #ffffff; display: block; margin: 0 auto; text-align: center; width: 98%;">
+        <div style="display: block; margin: 0 auto; text-align: center; width: 100%;">
+            <img style="width: 20%; " src="http://{{ host }}{% static 'images/edm/logo.png' %}">
+        </div>
+        <div style="display: block; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; text-align: center;">
+            <div style="display: block; margin-top: 20px; text-align: center;">
+                <a style="background-color: transparent; color: #428bca; text-decoration: none;" href="{{ edm.cover_hype_link }}?from=edm" target="_blank">
+                    <img style="width: 100%;" src="{{ edm.cover }}"/>
                 </a>
-            </p>
-        </div>
-        <div class="liner"> 热门图文</div>
-        <div class="articles">
-            {% for selection_article in edm.selection_articles.all %}
-                {% with article=selection_article.article %}
-                <div class="article">
-                    <div class="article-cover">
-                        <a href="http://{{ host }}{% url 'web_article_page' article.id %}?from=edm"
-                           target="_blank">
-                            <img src="{{ article.cover_url|resize:'350' }}"/>
-                        </a>
-                    </div>
-                    <div class="article-content">
-                        <div class="article-title">
+                <p style="color: #9d9e9f; font-size: 16px; line-height: 25px; padding: 0; text-align: left;">
+                    {{ edm.cover_description }}
+                    <a style="background-color: transparent; color: #428bca; text-decoration: none;" href="{{ edm.cover_hype_link }}?from=edm" target="_blank">
+                        &nbsp;阅读更多
+                    </a>
+                </p>
+            </div>
+            <div style="border-left: 37vw solid #dddddd; border-right: 37vw solid #dddddd; display: block; line-height: 1px; margin: 50px 0; padding: 0 15px 0; text-align: center;">热门图文</div>
+            <div style="display: inline-block;">
+                {% for selection_article in edm.selection_articles.all %}
+                    {% with article=selection_article.article %}
+                    <div style="display: block; height: 200px; margin: 30px 0; width: 100%;">
+                        <div style="display: block; float: left; height: 100%; width: 40%;">
                             <a href="http://{{ host }}{% url 'web_article_page' article.id %}?from=edm"
-                               target="_blank">
-                                {{ article.title|truncatechars:36 }}
+                               style="background-color: transparent; color: #428bca; text-decoration: none;" target="_blank">
+                                <img style="max-height: 98%; max-width: 98%;" src="{{ article.cover_url|resize:'350' }}"/>
                             </a>
                         </div>
-                        <div class="article-summary">
-                            {{ article.content|striptags|truncatechars:120|cut:'　' }}
-                            <a href="http://{{ host }}{% url 'web_article_page' article.id %}?from=edm"
-                               target="_blank">
-                                &nbsp;阅读更多
-                            </a>
+                        <div style="display: block; float: left; height: 100%; margin-left: 1%; width: 59%;">
+                            <div style="display: block; padding: 0 10px; text-align: left;">
+                                <a href="http://{{ host }}{% url 'web_article_page' article.id %}?from=edm"
+                                   style="background-color: transparent; color: #424242; font-family: Helvetica Neue, Helvetica, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif; font-size: 22px; font-weight: bolder; text-decoration: none;" target="_blank">
+                                    {{ article.title|truncatechars:36 }}
+                                </a>
+                            </div>
+                            <div style="color: #9d9e9f; display: block; font-size: 16px; padding: 0 10px; text-align: left;">
+                                {{ article.content|striptags|truncatechars:120|cut:'　' }}
+                                <a href="http://{{ host }}{% url 'web_article_page' article.id %}?from=edm"
+                                   style="background-color: transparent; color: #428bca; text-decoration: none;" target="_blank">
+                                    &nbsp;阅读更多
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                {% endwith %}
-            {% endfor %}
-        </div>
-        <div class="liner"> 热门商品</div>
-        <div class="popular_entities">
-            {% for entity in popular_entities %}
-                <div class="thumbnail">
-                    <div class="entity-img">
-                        <a href="http://{{ host }}{% url 'web_entity_detail' entity.entity_hash %}?from=edm"
-                           target="_blank">
-                            <img src="{{ entity.chief_image|resize:'310' }}"/>
-                        </a>
-                    </div>
-                    <div class="entity-info">
-                        <span class="entity-title">
+                    {% endwith %}
+                {% endfor %}
+            </div>
+            <div style="border-left: 37vw solid #dddddd; border-right: 37vw solid #dddddd; display: block; line-height: 1px; margin: 50px 0; padding: 0 15px 0; text-align: center;">热门商品</div>
+            <div style="display: inline-block; width:100%; height: auto; ">
+                {% for entity in popular_entities %}
+                    <div style="border: none; display: block; float: left; margin-bottom: 40px; overflow: hidden; padding-left: 15px; padding-right: 15px; width: 30%; max-width: 30%;">
+                        <div style="border: 1px solid #e6e6e6; display: inline-block; height: 0; overflow: hidden; padding-bottom: 99%; text-align: center;" >
                             <a href="http://{{ host }}{% url 'web_entity_detail' entity.entity_hash %}?from=edm"
+                               style="background-color: transparent; color: #428bca; display: inline-block; text-decoration: none;"
                                target="_blank">
-                                {{ entity.title|truncatechars:18 }}
+                                <img style="background-color: #f6f6f6; max-height: 100%; max-width: 100%; width: 100%;" src="{{ entity.chief_image|resize:'310' }}"/>
                             </a>
-                        </span>
-                        <span class="entity-price">￥{{ entity.price }}</span>
+                        </div>
+                        <div style="display: block; width: 100%;">
+                            <span style="color: #9d9e9f; display: block; font-size: 12px;">
+                                <a href="http://{{ host }}{% url 'web_entity_detail' entity.entity_hash %}?from=edm"
+                                   style="background-color: transparent; color: #424242; font-family: Helvetica Neue, Helvetica, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif; font-size: 16px; text-decoration: none;" target="_blank">
+                                    {{ entity.title|truncatechars:18 }}
+                                </a>
+                            </span>
+                            <span style="color: #428bca; display: block; font-family: Georgia, serif; font-size: 16px;">￥{{ entity.price }}</span>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+        <div style="display: block; padding-bottom: 30px; width: 100%;">
+            <div style="border-top: 1px solid #dddddd; display: block; height: 1px;"></div>
+            <div style="background: #80BEF3; border-radius: 30px; color: #ffffff; display: block; height: 26px; margin: 40px auto; padding: 10px; text-align: center; vertical-align: middle; width: 150px;">
+                <a href="http://www.guoku.com?from=edm" style="background-color: transparent; color: #ffffff; text-decoration: none;" target="_blank">
+                    浏览更多
+                </a>
+            </div>
+            <div style="display: block;">
+                <a href="http://weibo.com/guoku" style="background-color: transparent; color: #428bca; text-decoration: none;" target="_blank"><img
+                        style="height: 30px; margin: auto 3px; width: 30px;" src="http://{{ host }}{% static 'images/edm/sina@2x.png' %}"></a>
+                <a href="http://site.douban.com/130280/" style="background-color: transparent; color: #428bca; text-decoration: none;" target="_blank"><img
+                        style="height: 30px; margin: auto 3px; width: 30px;" src="http://{{ host }}{% static 'images/edm/douban@2x.png' %}"></a>
+                <a href="http://twitter.com/guokuapp" style="background-color: transparent; color: #428bca; text-decoration: none;" target="_blank"><img
+                        style="height: 30px; margin: auto 3px; width: 30px;" src="http://{{ host }}{% static 'images/edm/twitter@2x.png' %}"></a>
+                <a href="http://www.facebook.com/172009339558352" style="background-color: transparent; color: #428bca; text-decoration: none;"
+                   target="_blank"><img
+                        style="height: 30px; margin: auto 3px; width: 30px;" src="http://{{ host }}{% static 'images/edm/facebook@2x.png' %}"></a>
+                <a href="http://instagram.com/guoku/" style="background-color: transparent; color: #428bca; text-decoration: none;" target="_blank"><img
+                        style="height: 30px; margin: auto 3px; width: 30px;" src="http://{{ host }}{% static 'images/edm/instagram@2x.png' %}"></a>
+            </div>
+            <div style="color: #9d9e9f; display: block; margin-bottom: 40px; width: 100%;">
+                <img style="margin-bottom: 7px; margin-top: 5px;" src="http://{{ host }}{% static 'images/edm/QR_DL.jpg' %}">
+                <span style="color: #424242; display: block; font-size: 14px;">
+                    下载果库客户端
+                </span>
+                <a style="background-color: transparent; color: #428bca; font-size: 14px; text-decoration: none;" href="http://itunes.apple.com/cn/app/id477652209?mt=8" target="_blank">iPhone</a> ·
+                <a style="background-color: transparent; color: #428bca; font-size: 14px; text-decoration: none;" href="http://itunes.apple.com/cn/app/id450507565?mt=8" target="_blank">iPad</a> ·
+                <a style="background-color: transparent; color: #428bca; font-size: 14px; text-decoration: none;" href="http://app.guoku.com/download/android/guoku-release.apk" target="_blank" bi="download_android" _hover-ignore="1" _orighref="http://app.guoku.com/download/android/guoku-release.apk" _tkworked="true">Android</a>
+            </div>
+            <div style="border-top: 1px solid #dddddd; display: block; height: 1px;"></div>
+            <div style="display: block; margin-top: 20px;">
+                <span style="color: #9d9e9f; display: block; font-size: 12px; margin: 7px auto;">如果不想继续接受此邮件，请点击 <a style="background-color: transparent; color: #428bca; text-decoration: none;" href="%%user_defined_unsubscribe_link%%">退订</a></span>
+                <span style="color: #9d9e9f; display: block; font-size: 12px; margin: 7px auto;"> © 果库 2015</span>
+            </div>
         </div>
     </div>
-    <div class="footer">
-        <div class="liner_with_no_text"></div>
-        <div class="get_more">
-            <a href="http://www.guoku.com?from=edm" target="_blank">
-                浏览更多
-            </a>
-        </div>
-        <div class="contact_me">
-            <a href="http://weibo.com/guoku" target="_blank"><img
-                    src="http://{{ host }}{% static 'images/edm/sina@2x.png' %}"></a>
-            <a href="http://site.douban.com/130280/" target="_blank"><img
-                    src="http://{{ host }}{% static 'images/edm/douban@2x.png' %}"></a>
-            <a href="http://twitter.com/guokuapp" target="_blank"><img
-                    src="http://{{ host }}{% static 'images/edm/twitter@2x.png' %}"></a>
-            <a href="http://www.facebook.com/172009339558352"
-               target="_blank"><img
-                    src="http://{{ host }}{% static 'images/edm/facebook@2x.png' %}"></a>
-            <a href="http://instagram.com/guoku/" target="_blank"><img
-                    src="http://{{ host }}{% static 'images/edm/instagram@2x.png' %}"></a>
-        </div>
-        <div class="get_me">
-            <img src="http://{{ host }}{% static 'images/edm/QR_DL.jpg' %}">
-            <span>
-                下载果库客户端
-            </span>
-            <a href="http://itunes.apple.com/cn/app/id477652209?mt=8" target="_blank">iPhone</a> ·
-            <a href="http://itunes.apple.com/cn/app/id450507565?mt=8" target="_blank">iPad</a> ·
-            <a href="http://app.guoku.com/download/android/guoku-release.apk" target="_blank" bi="download_android" _hover-ignore="1" _orighref="http://app.guoku.com/download/android/guoku-release.apk" _tkworked="true">Android</a>
-        </div>
-        <div class="liner_with_no_text"></div>
-        <div class="footer_of_footer">
-            <span>如果不想继续接受此邮件，请点击 <a href="%%user_defined_unsubscribe_link%%">退订</a></span>
-            <span> © 果库 2015</span>
-        </div>
-    </div>
-</div>
 </body>
 </html>
