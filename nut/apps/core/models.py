@@ -17,6 +17,8 @@ from django.conf import settings
 from django.core.cache import cache
 
 import requests
+from sendcloud.address_list import SendCloudAddressList
+
 from apps.core.extend.fields.listfield import ListObjectField
 from apps.core.manager.account import GKUserManager
 from apps.core.manager.entity import EntityManager, EntityLikeManager, \
@@ -1687,6 +1689,32 @@ def create_or_update_entity(sender, instance, created, **kwargs):
 
 post_save.connect(create_or_update_entity, sender=Entity,
                   dispatch_uid="create_or_update_entity")
+
+@receiver(post_save, sender=User_Profile)
+def add_email_to_sd_maillist(sender, instance, created, raw, using,
+                            update_fields, **kwargs):
+    if created:
+        try:
+            member_addr = instance.user.email
+            sd_list = SendCloudAddressList(mail_list_addr=settings.MAIL_LIST,
+                                           member_addr=member_addr)
+            sd_list.add_member(name=instance.nickname)
+        except BaseException, e:
+            log.error("Error: add user email to sd error: %s",
+                      e.message)
+    else:
+        user = GKUser.objects.get(pk=instance.user.id)
+        if user.email != instance.user.email or user.nickname != instance.nickname:
+            print 'here it is!'
+            try:
+                name = '%s;%s' % (instance.nickname, user.nickname)
+                member_addr = '%s;%s' % (instance.user.email, user.email)
+                sd_list = SendCloudAddressList(mail_list_addr=settings.MAIL_LIST,
+                                               member_addr=member_addr)
+                sd_list.update_member(name=name, member_addr=member_addr)
+            except BaseException, e:
+                log.error("Error: add user email to sd error: %s",
+                          e.message)
 
 
 @receiver(post_save, sender=Selection_Entity)
