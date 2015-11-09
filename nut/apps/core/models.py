@@ -1682,6 +1682,9 @@ class Search_History(BaseModel):
     key_word = models.CharField(max_length=255, null=False, blank=False)
     search_time = models.DateTimeField(null=True, blank=False)
 
+    def record(self):
+        pass
+
 
 ################################################################################
 
