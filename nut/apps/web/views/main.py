@@ -7,7 +7,6 @@ from django.utils.log import getLogger
 from django.template import loader
 from django.template import RequestContext
 from haystack.generic_views import SearchView
-from apps.core.tasks.records import log_searches
 
 from apps.tag.models import Tags
 from apps.core.models import Entity, Search_History
@@ -212,8 +211,8 @@ class GKSearchView(SearchView):
             context.update({
                 'user_entity_likes': el,
             })
-        key_word = form.cleaned_data.get(self.search_field)
-        log_searches(self.request.user, key_word)
+        key_words = form.cleaned_data.get(self.search_field)
+        Search_History.record(user_id=self.request.user, key_words=key_words)
         return self.render_to_response(context)
 
     def get(self, request, *args, **kwargs):
