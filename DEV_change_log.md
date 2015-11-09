@@ -4,9 +4,22 @@
 
 === 2015-11-6============================ 
 
-3. article page new front end 
+3. article list page new front end 
 2. add hidden img for app share , element id = 'share_img'
 1. remove header render for article page 
+
+关于客户端分享文章，图片问题
+
+1. 客户端抓取页面（m.guoku.com/articles/id/）的第一张图片。
+   现在第一张图片是双十一促销gif（in header）
+2. quick FIX 
+   m.guoku.com 取消渲染 header 
+   
+3. more.
+   在图文详情页，有加入一个隐藏 div , ID="share_img"
+   div 中有 img 元素作为文章分享图片。
+  
+   
 
 ====== 2015 - 11 -5 ============
 1. Event Top entity functions
