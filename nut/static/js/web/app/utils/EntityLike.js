@@ -1,4 +1,5 @@
-define(['libs/Class','subapp/account','jquery','fastdom'], function(Class,AccountApp,$,fastdom){
+define(['libs/Class','subapp/account','jquery','fastdom'],
+    function(Class,AccountApp,$,fastdom){
 
     var AppEntityLike = Class.extend({
         init: function(){
