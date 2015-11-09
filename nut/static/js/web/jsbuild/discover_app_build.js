@@ -738,7 +738,8 @@ define('subapp/account',['libs/Class'],function(Class){
 })(window.fastdom);
 
 
-define('utils/EntityLike',['libs/Class','subapp/account','jquery','fastdom'], function(Class,AccountApp,$,fastdom){
+define('utils/EntityLike',['libs/Class','subapp/account','jquery','fastdom'],
+    function(Class,AccountApp,$,fastdom){
 
     var AppEntityLike = Class.extend({
         init: function(){
