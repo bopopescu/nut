@@ -893,9 +893,6 @@ function getQueryStrings() {
             var page_condition = (this.current_page > 0) && (this.current_page % 3 != 0);
             return page_condition && this._super();
         },
-
-
-
     });
 
     var TagArticleLoader = ArticleLoader.extend({

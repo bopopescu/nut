@@ -1,0 +1,128 @@
+
+//for SideBar banner management
+
+
+.content-full-height{
+    float:none;
+}
+
+.table-image{
+  max-width: 150px;
+  min-width: 150px;
+
+}
+
+.table{
+  .form-control{
+    height: auto;
+  }
+}
+
+.table-dynamic{
+   .data-holder{
+     td{
+       position: relative;
+        &.editing{
+            .btn-edit{
+              display:none;
+            }
+            .btn-save{
+              display: block;
+            }
+        }
+        .btn-edit{
+          display:block;
+        }
+        .btn-save{
+          display:none;
+        }
+        &.value{
+          .value-content{
+            display:block
+          }
+          .form-widget{
+            display: none;
+          }
+        }
+
+       .value-content{
+          display:none;
+       }
+       .form-widget{
+          display:block;
+       }
+
+       .image-file-input{
+           position: absolute;
+           height:100%;
+           min-height: 20px;
+           width: 100%;
+           top:0;
+           right: 0;
+           opacity: 0;
+           direction: ltr;
+           cursor: pointer;
+         }
+     }
+   }
+}
+#SBBanner-management{
+   #sbbanner{
+     .banner-image{
+       max-width:250px;
+       width:250px;
+     }
+     .banner-position{
+       input{
+          width: 60px;
+       }
+     }
+     .banner-link{
+       input{
+          width:250px;
+          font-size: 12px;
+       }
+     }
+   }
+}
+
+#Article-management{
+  table{
+    .title{
+      max-width:250px;
+      font-weight:600;
+      font-size:16px;
+    }
+    .author{
+      color:darkblue;
+
+    }
+    .read{
+      color:darkred;
+    }
+  }
+
+  .box-footer,.box-header{
+    div{
+      display: inline-block;
+    }
+    input{
+      margin-left: 20px;
+    }
+    .page-action{
+      cursor: pointer;
+    }
+  }
+}
+
+
+#article_form_wrapper{
+    .input-title{
+      text-align: right;
+      margin-righ: 30px;
+    }
+}
+
+.test{
+  color:black;
+}

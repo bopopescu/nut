@@ -1,8 +1,27 @@
 module.exports = function(grunt) {
 
+  var files = grunt.file.expand('app/*_app.js');
+  var requirejsOptions = {};
+  files.forEach(function(file) {
+      var filename = file.split('/')[1];
+      var suffix = '.'+filename.split('.')[1];
+      var name = filename.split('.')[0];
+      var build_filename = name + '_build' + suffix;
+      requirejsOptions[name] = {
+          options: {
+              baseUrl: 'app',
+              mainConfigFile: 'app/config.js',
+              name: name,
+              out: 'jsbuild/'+build_filename,
+              optimize: 'none'
+          }
+      };
+  });
+
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    requirejs: requirejsOptions,
     jshint: {
       files: ['*.js', '!gruntFile.js'],
       options: {
@@ -14,17 +33,6 @@ module.exports = function(grunt) {
               "jQuery": true
           }
       }
-    },
-
-    requirejs:{
-        compile:{
-            options:{
-                baseUrl: 'app/',
-                mainConfigFile: 'app/config.js',
-                name: 'selection_entity_app',
-                out: 'build/selection_entity_app_build.js'
-            }
-        }
     },
     watch:{
         scripts:{

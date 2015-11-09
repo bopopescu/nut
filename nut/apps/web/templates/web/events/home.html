@@ -32,6 +32,7 @@
 {% block content %}
         {% block bg %}
         {% endblock %}
+    <div style="display:none" id="share_img"><img src="{{ show_event_banners.0.banner.image_url }}"></div>
     <div class="event-cross-screen">
      {% if event.has_banner %}
           <div class="row event-banner-wrapper">
@@ -47,14 +48,12 @@
                      {% endif %}
                      <div class="carousel-inner" role="listbox">
                          {% for show in show_event_banners %}
-                             <div class="item {% if 1 == show.position %} active {% endif %}" data-background="{{ show.banner.background_image_url|default:'none' }}" data-background_color="{{ show.banner.background_color|default:'none' }}">
+                             <div class="item {% if 1 == show.position %} active {% endif %}" data-background="{{ show.banner.background_image_url|default:'none' }}" data-background_color="{{ show.banner.background_color|default:'none' }}">{% if show.banner.link %}<a href="{{ show.banner.link }}">{% endif %}
                                 <img src="{{ show.banner.image_url }}">
+                               {% if show.banner.link %}</a>{% endif %}
                             </div>
                          {% endfor %}
-
-
                      </div>
-
                    {% if show_event_banners|length > 1 %}
 
                      <a class="left carousel-control" href="#slider-guoku" role="button" data-slide="prev">
@@ -133,9 +132,15 @@
         {% endblock %}
 
     {% if event.has_recommendation %}
-        <div class="row" style="margin-top:40px;">
+        <div class="row" style="margin-top:20px;">
             <div class="col-sm-12">
-                <p class="pull-left">编辑推荐</p>
+                <p class="pull-left">
+                    {% if event.slug == '20151111' %}
+                        推荐店铺<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
+                    {% else %}
+                        编辑推荐
+                    {% endif %}
+
             </div>
         </div>
 
@@ -162,7 +167,10 @@
         {% if event.has_articles %}
          <div class="row" id="selection_article_list" style="margin-top:20px;">
             <div class="col-sm-12">
-                <p class="pull-left">精选图文</p>
+                <p class="pull-left">精选图文
+                     {% if event.slug == '20151111' %}
+                        <span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
+                     {% endif %}
             </div>
              {% for article in event.related_articles.all %}
                     {% include 'web/events/partial/event_article_item.html' %}
@@ -172,14 +180,20 @@
 
 
     
-        <div class="row">
+        <div class="row" style="margin-top:20px;">
             <div class="col-sm-12">
-                <p class="pull-left">精选商品</p>
+                <p class="pull-left">精选商品
+                     {% if event.slug == '20151111' %}
+                        <span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
+                    {% endif %}
 {#                <p class="pull-right">最新更新: {{ selection_list.0.note_context.post_time|format_time }}</p>#}
             </div>
         </div>
 
         <div class="row" id="event">
+            {% for entity in top_entities %}
+               {% include "web/events/partial/event_entity_item.html" with entity=entity %}
+            {% endfor %}
             {% for entity in entities %}
                 {% include "web/events/partial/event_entity_item.html" with entity=entity %}
             {% endfor %}

@@ -22,10 +22,12 @@ urlpatterns += patterns(
     # (r'^visit_item/$', 'mobile.views.old_visit_item'),
 )
 
-# urlpatterns += patterns(
-#     'apps.images',
-#     url(r'^(images|img|avatar)/', include('apps.images.urls')),
-# )
+# add by anchen, for local img function testing
+# if getattr(settings, 'LOCAL_IMG_DEBUG', None):
+#     urlpatterns += patterns(
+#         'apps.images',
+#         url(r'^(images|img|avatar)/', include('apps.images.urls')),
+#     )
 
 urlpatterns += patterns('',
 

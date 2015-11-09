@@ -25,9 +25,17 @@
 {% endblock %}{% block description %}{{ article.content|striptags|truncatechars:150 }}{% endblock %}
 
 {% block h1 %}{{ article.title }} － 精英消费指南{% endblock %}
+
+{% block header %}
+ {% if not isFromMobile %}
+    {% include "web/partial/header_new.html" %}
+ {% endif %}
+{% endblock %}
+
 {% block content %}
     <div class="container goods_detail article-onepage">
         <h2 class="sr-only">{{ article.content|striptags|truncatewords:150 }}</h2>
+        <div id="share_img" style="display:none"><img src="{{ article.cover_url }}"></div>
 {#     <div class="row" id="detail_breadcrumb">#}
 {#         {% include "web/article/partial/article_breadcrumb.html" %}#}
 {#     </div>#}
@@ -48,7 +56,7 @@
                                 <meta itemprop="datePublished" content="{{article.created_datetime|date:'Y-m-d H:i:s'}}"/>
                                 <i class="fa fa-clock-o"></i>{{article.created_datetime|date:"Y-m-d"}}
                             </span>
-                            <span class="read">
+                            <span class="read" style="display:none">
                                 <i class="fa fa-eye"></i>
                                 <span id="read_counter">
 
@@ -71,9 +79,16 @@
                             {% endautoescape %}
                         </div>
 
-                        <div class="share-wrapper for-browser">
+                        <div class="share-wrapper share-wrapper-short for-browser">
                             <!-- JiaThis Button BEGIN -->
-                            <div class="share-intro">分享到</div>
+                            <div class="dig-wrapper">
+                                <div class="undig dig-action">
+                                    <img class="dig-img dig" src="{% static 'images/article/dig.png' %}" >
+                                    <img class="dig-img undigg" src="{% static 'images/article/undig.png' %}" >
+                                </div>
+                                <div class="dig-count">10</div>
+                                <div class="dig-word">人赞</div>
+                            </div>
                             <div class="jiathis_style">
                                 <a class="jiathis_button_tsina"></a>
                                 <a class="jiathis_button_weixin"></a>
@@ -82,6 +97,9 @@
                                 <a class="jiathis_button_tieba"></a>
                                 <a href="http://www.jiathis.com/share?uid=2038803" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
                             </div>
+                            <span class="share-intro-entity">分享到&nbsp;&nbsp;</span>
+
+
                             <!-- JiaThis Button END -->
                         </div>
                         <div class="divider"></div>
@@ -203,7 +221,7 @@
             },
             imageWidth:150,
             marginTop:150,
-            pic:"{{ article.cover  }}",
+            pic:"{{ article.cover_url }}",
         {% autoescape off %}
             summary:"{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}} （分享自 @果库）",
         {% endautoescape %}

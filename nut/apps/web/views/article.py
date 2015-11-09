@@ -30,7 +30,7 @@ log = getLogger('django')
 
 
 class ArticleDig(JSONResponseMixin,AjaxResponseMixin, LoginRequiredMixin, View):
-    def get_ajax(self, request, *args, **kwargs):
+    def post_ajax(self, request, *args, **kwargs):
         _user = request.user
         _aid = self.kwargs.pop('pk', None)
         if _aid is None:
@@ -48,7 +48,7 @@ class ArticleDig(JSONResponseMixin,AjaxResponseMixin, LoginRequiredMixin, View):
 
 
 class ArticleUndig(JSONResponseMixin,LoginRequiredMixin,AjaxResponseMixin,View):
-    def get_ajax(self, request, *args, **kwargs):
+    def post_ajax(self, request, *args, **kwargs):
         _user = request.user
         _aid = self.kwargs.pop('pk', None)
         if _aid is None:
