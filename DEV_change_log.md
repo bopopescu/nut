@@ -1,9 +1,9 @@
-=== 2015-11-03 ================================
+=== 2015-11-09 ================================
 
 CREATE TABLE `core_search_history` (
     `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
     `user_id` integer NOT NULL,
-    `key_word` varchar(255) NOT NULL,
+    `key_words` varchar(255) NOT NULL,
     `search_time` datetime
 );
 ALTER TABLE `core_search_history` ADD CONSTRAINT `user_id_refs_id_371b5c0a` FOREIGN KEY (`user_id`) REFERENCES `core_gkuser` (`id`);
