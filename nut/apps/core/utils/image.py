@@ -113,8 +113,6 @@ class HandleImage(object):
         # return _img.make_blob()
 
 
-
-
     def save(self, path = None, resize=False, square=False):
         # log.info('begin save -----')
 
