@@ -1681,14 +1681,14 @@ from celery.task import task
 from apps.core.tasks import BaseTask
 class Search_History(BaseModel):
     user = models.ForeignKey(GKUser, null=False)
-    key_word = models.CharField(max_length=255, null=False, blank=False)
+    key_words = models.CharField(max_length=255, null=False, blank=False)
     search_time = models.DateTimeField(null=True, blank=False)
 
     @classmethod
     @task(base=BaseTask)
     def record(cls, user_id, **kwargs):
         key_words = kwargs.pop('key_words')
-        footpoint = cls(user=user_id, key_word=key_words, search_time=datetime.now())
+        footpoint = cls(user=user_id, key_words=key_words, search_time=datetime.now())
         footpoint.save()
 
 
