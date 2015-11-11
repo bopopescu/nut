@@ -1683,6 +1683,61 @@ class Friendly_Link(BaseModel):
     def logo_url(self):
         return "%s%s" % (image_host, self.logo)
 
+class EDM(BaseModel):
+    (
+        waiting_for_sd_verify,
+        sd_verifying,
+        sd_verify_succeed,
+        sd_verify_failed,
+        send_completed,
+    ) = xrange(5)
+
+    EDM_STATUS_CHOICE = [
+        (waiting_for_sd_verify, _('waiting for sd verify')),
+        (sd_verifying, _('sd verifying')),
+        (sd_verify_succeed, _('sd verify succeed')),
+        (sd_verify_failed, _('sd verify failed')),
+        (send_completed, _('send completed')),
+    ]
+
+    title = models.CharField(default=u'本月果库上不可错过的精彩内容，已为你准备好'
+                                     u' - 果库 | 精英消费指南',
+                             max_length=255)
+    created = models.DateTimeField()
+    modified = models.DateTimeField()
+    status = models.IntegerField(choices=EDM_STATUS_CHOICE,
+                                 default=waiting_for_sd_verify)
+    publish_time = models.DateTimeField(default=datetime.now, null=False)
+    cover_image = models.CharField(max_length=255, null=False)
+    cover_hype_link = models.CharField(max_length=255, null=False)
+    cover_description = models.TextField(null=False)
+    sd_template_invoke_name = models.CharField(max_length=255, null=True)
+    display = models.BooleanField(default=True)
+    selection_articles = models.ManyToManyField(Selection_Article, null=False)
+    sd_task_id = models.CharField(max_length=45, null=True)
+
+    def __unicode__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        """ On save, update timestamps """
+        if not self.id and not self.pk:
+            self.created = datetime.now()
+        self.modified = datetime.now()
+        return super(EDM, self).save(*args, **kwargs)
+
+    @property
+    def cover(self):
+        cover_image = self.cover_image
+        if type(self.cover_image) == list:
+            cover_image = self.cover_image[0]
+
+        if 'http' in cover_image:
+            return cover_image
+        else:
+            return "%s%s" % (image_host, cover_image)
+
+
 
 from celery.task import task
 from apps.core.tasks import BaseTask
@@ -1700,6 +1755,32 @@ class Search_History(BaseModel):
 
 
 ################################################################################
+@receiver(post_save, sender=User_Profile)
+def add_email_to_sd_maillist(sender, instance, created, raw, using,
+                            update_fields, **kwargs):
+    if created:
+        try:
+            member_addr = instance.user.email
+            sd_list = SendCloudAddressList(mail_list_addr=settings.MAIL_LIST,
+                                           member_addr=member_addr)
+            sd_list.add_member(name=instance.nickname)
+        except BaseException, e:
+            log.error("Error: add user email to sd error: %s",
+                      e.message)
+    else:
+        user = GKUser.objects.get(pk=instance.user.id)
+        if user.email != instance.user.email or user.nickname != instance.nickname:
+            print 'here it is!'
+            try:
+                name = '%s;%s' % (instance.nickname, user.nickname)
+                member_addr = '%s;%s' % (instance.user.email, user.email)
+                sd_list = SendCloudAddressList(mail_list_addr=settings.MAIL_LIST,
+                                               member_addr=member_addr)
+                sd_list.update_member(name=name, member_addr=member_addr)
+            except BaseException, e:
+                log.error("Error: add user email to sd error: %s",
+                          e.message)
+
 
 # TODO: model post save
 def create_or_update_entity(sender, instance, created, **kwargs):
