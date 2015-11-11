@@ -1,43 +1,48 @@
 # coding=utf-8
-from datetime import datetime, time, timedelta
-from django.core.mail import EmailMessage
 
-from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+import time
+import requests
+import HTMLParser
+
+from hashlib import md5
+from datetime import datetime
+from django.core import serializers
+from django.core.mail import EmailMessage
+from django.core.cache import cache
+from django.core.urlresolvers import reverse
 from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import ugettext_lazy as _
-from django.core.urlresolvers import reverse
 from django.utils.log import getLogger
+from django.db import models
 from django.db.models import Count
 from django.db.models.signals import post_save, pre_save
 from django.conf import settings
-from django.core.cache import cache
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin
 
-import requests
-from sendcloud.address_list import SendCloudAddressList
-
+from settings import GUOKU_MAIL, GUOKU_NAME
+from apps.notifications import notify
+from apps.core.utils.image import HandleImage
+from apps.core.utils.articlecontent import contentBleacher
+from apps.core.utils.commons import verification_token_generator
 from apps.core.extend.fields.listfield import ListObjectField
 from apps.core.manager.account import GKUserManager
-from apps.core.manager.entity import EntityManager, EntityLikeManager, \
-    SelectionEntityManager
+from apps.core.manager.entity import SelectionEntityManager
+from apps.core.manager.entity import EntityLikeManager
+from apps.core.manager.entity import EntityManager
 from apps.core.manager.note import NoteManager, NotePokeManager
-from apps.core.manager.category import CategoryManager, SubCategoryManager
+from apps.core.manager.category import SubCategoryManager
+from apps.core.manager.category import CategoryManager
 from apps.core.manager.comment import CommentManager
 from apps.core.manager.event import ShowEventBannerManager
-from apps.core.manager.article import ArticleManager, SelectionArticleManager
+from apps.core.manager.article import SelectionArticleManager
+from apps.core.manager.article import ArticleManager
+from apps.core.manager.article import ArticleDigManager
 from apps.core.manager.sidebar_banner import SidebarBannerManager
-from hashlib import md5
-
-from apps.core.utils.image import HandleImage
-from apps.core.utils.commons import verification_token_generator
-from apps.notifications import notify
-
-# import time
-from settings import GUOKU_MAIL, GUOKU_NAME
-
 from apps.web.utils.datatools import get_entity_list_from_article_content
 
 
@@ -65,7 +70,6 @@ class BaseModel(models.Model):
             d[attr] = "%s" % getattr(self, attr)
         # log.info(d)
         return d
-
 
     def pickToDict(self, *args):
         '''
@@ -154,7 +158,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def mobile_url(self):
         return 'guoku://user/' + str(self.id) + '/'
 
-
     @property
     def like_count(self):
         key = 'user:like:%s' % self.pk
@@ -167,6 +170,36 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             res = self.likes.count()
             cache.set(key, res)
             return res
+
+    def get_user_dig_key(self):
+        return 'user:dig%' %self.pk
+
+    @property
+    def dig_count(self):
+        key = self.get_user_dig_key()
+        res = cache.get(key)
+        if res:
+            return res
+        else:
+            res = self.digs.count()
+            cache.set(key, res)
+            return res
+
+    def incr_dig(self):
+        key = self.get_user_dig_key()
+        try:
+            cache.incr(key)
+        except ValueError:
+            cache.set(key,self.digs.count())
+
+    def decr_dig(self):
+        key = self.get_user_dig_key()
+        try:
+            cache.decr(key)
+        except :
+            cache.set(key, self.digs.count())
+
+
 
     def incr_like(self):
         key = 'user:like:%s', self.pk
@@ -196,6 +229,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def tags_count(self):
         t = self.user_tags.values('tag').annotate(tcount=Count('tag'))
         return len(t)
+
+    @property
+    def article_cout(self):
+        return self.articles.count()
 
     @property
     def following_list(self):
@@ -237,18 +274,14 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             return self.profile.avatar_url
         return "%s%s" % (settings.STATIC_URL, 'images/avatar/man.png')
 
-
     def set_admin(self):
         self.is_admin = True
         self.save()
 
     def v3_toDict(self, visitor=None):
-
         key = "user:v3:%s" % self.id
         res = cache.get(key)
         if not res:
-            # key = md5(key_string)
-            # log.info("v3v3v3v3v3")
             res = self.toDict()
             res.pop('password', None)
             res.pop('last_login', None)
@@ -279,6 +312,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         res['like_count'] = self.like_count
         res['entity_note_count'] = self.post_note_count
         res['tag_count'] = self.tags_count
+        # res['article_count'] = self.article_cout
         res['fan_count'] = self.fans_count
         res['following_count'] = self.following_count
 
@@ -433,9 +467,6 @@ class Banner(BaseModel):
 
     @property
     def has_show_banner(self):
-        # if self.show.count() > 0:
-        # return True
-        # return False
         try:
             self.show
             return True
@@ -686,13 +717,13 @@ class Entity(BaseModel):
 
     @property
     def like_count(self):
-        key = 'entity:like:%s', self.pk
+        key = 'entity:like:%d' % self.pk
         res = cache.get(key)
         if res:
-            log.info("hit hit")
+            # log.info("hit hit")
             return res
         else:
-            log.info("miss miss")
+            # log.info("miss miss")
             res = self.likes.count()
             cache.set(key, res, timeout=86400)
             return res
@@ -700,10 +731,10 @@ class Entity(BaseModel):
 
     @property
     def note_count(self):
-        key = 'entity:note:%s', self.pk
+        key = 'entity:note:%d' % self.pk
         res = cache.get(key)
         if res:
-            log.info("hit hit")
+            # log.info("hit hit")
             return res
         else:
             log.info("miss miss")
@@ -747,19 +778,19 @@ class Entity(BaseModel):
         return 'guoku://entity/' + str(self.id) + '/'
 
     def innr_like(self):
-        key = 'entity:like:%s', self.pk
+        key = 'entity:like:%d' % self.pk
         try:
             cache.incr(key)
         except ValueError:
             cache.set(key, self.likes.count())
 
     def decr_like(self):
-        key = 'entity:like:%s', self.pk
+        key = 'entity:like:%d' % self.pk
         if self.likes.count() > 0:
             cache.decr(key)
 
     def innr_note(self):
-        key = 'entity:note:%s', self.pk
+        key = 'entity:note:%d' % self.pk
         try:
             cache.incr(key)
         except Exception:
@@ -1046,7 +1077,6 @@ class Note_Comment(BaseModel):
     def __unicode__(self):
         return self.content
 
-
     def v3_toDict(self):
         res = self.toDict()
         res.pop('user_id', None)
@@ -1077,8 +1107,8 @@ class Note_Poke(models.Model):
 
         # def save(self, *args, **kwargs):
         #
-        # super(Note_Poke, self).save(*args, **kwargs)
-        # notify.send(self.user, recipient=self.note.user, action_object=self, verb="poke note", target=self.note)
+        #     super(Note_Poke, self).save(*args, **kwargs)
+        #     notify.send(self.user, recipient=self.note.user, action_object=self, verb="poke note", target=self.note)
 
 
 #
@@ -1197,11 +1227,8 @@ class WeChat_Token(BaseModel):
             unionid, nick, time.mktime(datetime.now().timetuple()))
         return md5(code_string.encode('utf-8')).hexdigest()
 
-# for bleach Article Content
-from apps.core.utils.articlecontent import contentBleacher
+
 from apps.tag.models import Content_Tags
-
-
 class Article(BaseModel):
     (remove, draft, published) = xrange(3)
     ARTICLE_STATUS_CHOICES = [
@@ -1229,6 +1256,33 @@ class Article(BaseModel):
     class Meta:
         ordering = ["-updated_datetime"]
 
+    def get_dig_key(self):
+        return 'article:dig:%d' % self.pk
+
+    @property
+    def dig_count(self):
+        key = self.get_dig_key()
+        res = cache.get(key)
+        if res:
+            return res
+        else:
+            res = self.digs.count()
+            # TODO : set timeout to  3600*24
+            cache.set(key, res, timeout=20)
+            return res
+
+    def incr_dig(self):
+        key = self.get_dig_key()
+        try:
+            cache.incr(key)
+        except ValueError:
+            cache.set(key, self.likes.count())
+
+    def decr_dig(self):
+        key = self.get_dig_key()
+        if self.digs.count() > 0:
+            cache.decr(key)
+
     def __unicode__(self):
         return self.title
 
@@ -1243,14 +1297,13 @@ class Article(BaseModel):
             self.related_entities = entity_list
         else:
             self.related_entities = []
-
         return res
-
 
     @property
     def tag_list(self):
         _tag_list = Content_Tags.objects.article_tags(self.id)
         return _tag_list
+
 
     @property
     def bleached_content(self):
@@ -1259,7 +1312,7 @@ class Article(BaseModel):
 
     @property
     def digest(self):
-        return self.content
+        return HTMLParser.HTMLParser().unescape(self.content)
 
     @property
     def status(self):
@@ -1280,7 +1333,7 @@ class Article(BaseModel):
 
         :return: is the article was in selection at least once.
         """
-        #article can be selected multiple times
+        # article can be selected multiple times
         res = hasattr(self, 'selections') and (self.selections.count() > 0)
         return res
 
@@ -1371,6 +1424,18 @@ class Selection_Article(BaseModel):
         #     return self.article
 
 
+class Article_Dig(BaseModel):
+    article = models.ForeignKey(Article, related_name='digs')
+    user = models.ForeignKey(GKUser, related_name='digs')
+    created_time = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    objects = ArticleDigManager()
+
+    class Meta:
+        ordering = ['-created_time']
+        unique_together = ('article', 'user')
+
+
 class Media(models.Model):
     creator = models.ForeignKey(GKUser, related_name='media_entries')
     file_path = models.URLField()
@@ -1390,10 +1455,14 @@ class Media(models.Model):
 class Event(models.Model):
     title = models.CharField(max_length=30, null=False, default='')
     tag = models.CharField(max_length=30, null=False, default='')
-    slug = models.CharField(max_length=100, null=False, db_index=True,
-                            unique=True)
+    toptag = models.CharField(max_length=30, null=False, default='')
+    slug = models.CharField(max_length=100, null=False, db_index=True, unique=True)
     status = models.BooleanField(default=False)
     created_datetime = models.DateTimeField(auto_now=True, db_index=True)
+
+    # add related articles
+    related_articles = models.ManyToManyField(Article,
+                                              related_name='related_events')
 
     class Meta:
         ordering = ['-created_datetime']
@@ -1421,20 +1490,27 @@ class Event(models.Model):
         return False
 
     @property
+    def has_articles(self):
+        count = self.related_articles.count()
+        if count > 0:
+            return True
+        else:
+            return False
+
+    @property
     def recommendations(self):
         count = self.recommendation.count()
         return count
 
     @property
     def tag_url(self):
-        return reverse('tag_entities_url', args=[self.tag])
+        return reverse('tag_entities_url', args=[self.tag.hash])
 
     @property
     def slug_url(self):
         return reverse('web_event', args=[self.slug])
 
 
-#  pendingn for assesment  ----- by An
 class Event_Status(models.Model):
     event = models.OneToOneField(Event, primary_key=True)
     is_published = models.BooleanField(default=False)
@@ -1444,6 +1520,9 @@ class Event_Status(models.Model):
         return "%s status : is_published : %s , is_top : %s" % (
             self.event.slug, self.is_published, self.is_top)
 
+
+# class Event_Articles(BaseModel):
+#     event = models.ForeignKey(Event)
 
 class Event_Banner(models.Model):
     (item, shop) = (0, 1)
@@ -1605,60 +1684,22 @@ class Friendly_Link(BaseModel):
         return "%s%s" % (image_host, self.logo)
 
 
-class EDM(BaseModel):
-    (
-        waiting_for_sd_verify,
-        sd_verifying,
-        sd_verify_succeed,
-        sd_verify_failed,
-        send_completed,
-    ) = xrange(5)
+from celery.task import task
+from apps.core.tasks import BaseTask
+class Search_History(BaseModel):
+    user = models.ForeignKey(GKUser, null=False)
+    key_words = models.CharField(max_length=255, null=False, blank=False)
+    search_time = models.DateTimeField(null=True, blank=False)
 
-    EDM_STATUS_CHOICE = [
-        (waiting_for_sd_verify, _('waiting for sd verify')),
-        (sd_verifying, _('sd verifying')),
-        (sd_verify_succeed, _('sd verify succeed')),
-        (sd_verify_failed, _('sd verify failed')),
-        (send_completed, _('send completed')),
-    ]
+    @classmethod
+    @task(base=BaseTask)
+    def record(cls, user_id, **kwargs):
+        key_words = kwargs.pop('key_words')
+        footpoint = cls(user=user_id, key_words=key_words, search_time=datetime.now())
+        footpoint.save()
 
-    title = models.CharField(default=u'本月果库上不可错过的精彩内容，已为你准备好'
-                                     u' - 果库 | 精英消费指南',
-                             max_length=255)
-    created = models.DateTimeField()
-    modified = models.DateTimeField()
-    status = models.IntegerField(choices=EDM_STATUS_CHOICE,
-                                 default=waiting_for_sd_verify)
-    publish_time = models.DateTimeField(default=datetime.now, null=False)
-    cover_image = models.CharField(max_length=255, null=False)
-    cover_hype_link = models.CharField(max_length=255, null=False)
-    cover_description = models.TextField(null=False)
-    sd_template_invoke_name = models.CharField(max_length=255, null=True)
-    display = models.BooleanField(default=True)
-    selection_articles = models.ManyToManyField(Selection_Article, null=False)
-    sd_task_id = models.CharField(max_length=45, null=True)
 
-    def __unicode__(self):
-        return self.title
-
-    def save(self, *args, **kwargs):
-        """ On save, update timestamps """
-        if not self.id and not self.pk:
-            self.created = datetime.now()
-        self.modified = datetime.now()
-        return super(EDM, self).save(*args, **kwargs)
-
-    @property
-    def cover(self):
-        cover_image = self.cover_image
-        if type(self.cover_image) == list:
-            cover_image = self.cover_image[0]
-
-        if 'http' in cover_image:
-            return cover_image
-        else:
-            return "%s%s" % (image_host, cover_image)
-
+################################################################################
 
 # TODO: model post save
 def create_or_update_entity(sender, instance, created, **kwargs):
@@ -1690,32 +1731,6 @@ def create_or_update_entity(sender, instance, created, **kwargs):
 post_save.connect(create_or_update_entity, sender=Entity,
                   dispatch_uid="create_or_update_entity")
 
-@receiver(post_save, sender=User_Profile)
-def add_email_to_sd_maillist(sender, instance, created, raw, using,
-                            update_fields, **kwargs):
-    if created:
-        try:
-            member_addr = instance.user.email
-            sd_list = SendCloudAddressList(mail_list_addr=settings.MAIL_LIST,
-                                           member_addr=member_addr)
-            sd_list.add_member(name=instance.nickname)
-        except BaseException, e:
-            log.error("Error: add user email to sd error: %s",
-                      e.message)
-    else:
-        user = GKUser.objects.get(pk=instance.user.id)
-        if user.email != instance.user.email or user.nickname != instance.nickname:
-            print 'here it is!'
-            try:
-                name = '%s;%s' % (instance.nickname, user.nickname)
-                member_addr = '%s;%s' % (instance.user.email, user.email)
-                sd_list = SendCloudAddressList(mail_list_addr=settings.MAIL_LIST,
-                                               member_addr=member_addr)
-                sd_list.update_member(name=name, member_addr=member_addr)
-            except BaseException, e:
-                log.error("Error: add user email to sd error: %s",
-                          e.message)
-
 
 @receiver(post_save, sender=Selection_Entity)
 def entity_set_to_selection(sender, instance, created, raw, using,
@@ -1745,7 +1760,6 @@ def user_like_notification(sender, instance, created, **kwargs):
 post_save.connect(user_like_notification, sender=Entity_Like,
                   dispatch_uid="user_like_action_notification")
 
-from django.core import serializers
 from apps.tag.tasks import generator_tag
 
 

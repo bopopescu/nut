@@ -4,8 +4,9 @@ from django.http import HttpResponse
 # from django.utils import simplejson as json
 import json
 
+
 class JSONResponse(HttpResponse):
-    def __init__(self, data, status=200, ensure_ascii=True, content_type='application/json; charset=utf8'):
+    def __init__(self, data, status=200, ensure_ascii=True, content_type='application/json; charset=utf-8'):
         # _content = json.dumps(data, indent=2, ensure_ascii = False)
         _content = json.dumps(data, indent=2, ensure_ascii=ensure_ascii)
         super(JSONResponse, self).__init__(

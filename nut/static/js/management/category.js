@@ -2,7 +2,6 @@
     var url = "/management/category/";
     var new_data;
     var old_data;
-
     var category_group = $("#category");
     var category = $("#sub-category");
     var init_category = category.attr("data-init");
@@ -117,6 +116,11 @@
                 $(this).remove();
             });
 
+            var chosen_category = $("#sub_category_chosen .chosen-results");
+            var chosen_selected = $("#sub_category_chosen").find("a.chosen-single span").first();
+            chosen_category.empty();
+            chosen_selected.text('');
+
             var select_value = select1.val();
             //console.log(select_value);
             var more_options;
@@ -125,18 +129,28 @@
                     more_options = options[i].options;
                 }
             }
-            //console.log(options);
 
             for (var j = 0; j < more_options.length; j++) {
                 var option_level2 = createOption(more_options[j].value, more_options[j].text);
+                var sub_chosen_li = createLi(more_options[j].value, more_options[j].text);
                 select2.append(option_level2);
+                chosen_category.append(sub_chosen_li);
             }
+
+            //update options of chosen
+            chosen_category.children(":first").css("active-result result-selected");
+            chosen_selected.text(chosen_category.children().first().text());
+            select2.trigger("chosen:updated");
         });
 
         select1.click(showOptionModal());
 
         function showOptionModal(){
             console.log('show option modal');
+        }
+
+        function createLi(value, text) {
+            return $('<li class="active-result" data-option-array-index='+value+'>'+text+'</li>');
         }
 
         function createOption(value, text) {
@@ -147,4 +161,14 @@
             option.attr("selected", "selected");
         }
     }
+    $("#sub-category, #category").chosen(
+        {
+            no_results_text: "Oops, nothing found!",
+            width: "100%",
+            height: "25px",
+            search_contains: true,
+            allow_single_deselect: true,
+            placeholder_text_multiple: "Select Title, You Can Also Search The Title Of An Article."
+        }
+    );
 })(jQuery);

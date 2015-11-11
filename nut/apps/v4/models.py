@@ -35,7 +35,7 @@ class APIUser(GKUser):
     def fans_list(self):
         # log.info("cache cache")
         # return self.fans.all().values_list('follower_id', flat=True)
-        key_string = "user_fans_%s" % self.id
+        key_string = "user:fans:%s" % self.id
         key = md5(key_string.encode('utf-8')).hexdigest()
 
         res = cache.get(key)
@@ -63,8 +63,8 @@ class APIUser(GKUser):
 
     def v4_toDict(self, visitor=None):
 
-        key_string = "user_v3_%s" % self.id
-        key = md5(key_string.encode('utf-8')).hexdigest()
+        key = "user:v4:%s" % self.id
+        # key = md5(key_string.encode('utf-8')).hexdigest()
         res = cache.get(key)
         if not res:
             res = self.toDict()
@@ -90,16 +90,17 @@ class APIUser(GKUser):
                 res['avatar_small'] = self.profile.avatar_url
 
             # res['verified'] = self.profile.email_verified
-                res['relation'] = 0
             except Exception, e:
                 log.error("Error: user id %s %s", (self.id,e.message))
             cache.set(key, res, timeout=86400)
 
+        res['relation'] = 0
         res['like_count'] = self.like_count
         res['entity_note_count'] = self.post_note_count
         res['tag_count'] = self.tags_count
         res['fan_count'] = self.fans_count
         res['following_count'] = self.following_count
+        res['article_count'] = self.article_cout
 
         try:
             res['sina_screen_name'] = self.weibo.screen_name
@@ -304,6 +305,7 @@ class APIArticle(Article):
         res.pop('created_datetime', None)
         res.pop('updated_datetime', None)
         res['article_id'] = self.id
+        res['tags'] = self.tag_list
         res['content'] = self.strip_tags_content
         res['url'] = self.get_absolute_url()
         res['creator'] = self.creator.v3_toDict()

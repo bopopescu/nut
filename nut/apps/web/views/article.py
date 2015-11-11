@@ -9,7 +9,7 @@ from django.shortcuts import redirect, get_object_or_404,render
 from django.http import Http404
 from django.template import RequestContext, loader,Context
 
-from apps.core.models import Article,Selection_Article
+from apps.core.models import Article,Selection_Article, Article_Dig
 from apps.tag.models import Tags
 from apps.core.mixins.views import SortMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
@@ -19,75 +19,50 @@ from apps.web.utils.viewtools import add_side_bar_context_data
 from apps.web.forms.articles import WebArticleEditForm
 from apps.counter.utils.data import RedisCounterMachine
 
-from braces.views import UserPassesTestMixin,JSONResponseMixin,AjaxResponseMixin
+from braces.views import UserPassesTestMixin,JSONResponseMixin,AjaxResponseMixin,CsrfExemptMixin, LoginRequiredMixin
 from django.utils.log import getLogger
-
+from django.conf import settings
 from datetime import datetime
+
+from apps.core.tasks.article import dig_task, undig_task
+from django import  http
 log = getLogger('django')
 
-class SelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
-    template_name = 'web/article/selection_list.html'
-    model = Selection_Article
-    paginate_by = 5
-    paginator_class = Jpaginator
-    context_object_name = 'selection_articles'
-    ajax_template_name = 'web/article/partial/selection_ajax_list.html'
-    #
-    # def get_queryset(self):
-    #     pass;
-    
-    def get_refresh_time(self):
-        refresh_time = self.request.GET\
-                                    .get('t',datetime.now()\
-                                                     .strftime('%Y-%m-%d %H:%M:%S'))
-        return refresh_time
 
-    def get_queryset(self):
-        qs = Selection_Article.objects\
-                              .published_until(until_time=self.get_refresh_time())\
-                              .order_by('-pub_time')
-        return qs
-
-
-    def get_ajax(self, request, *args, **kwargs):
-        # TODO : add error handling here
-        self.object_list = getattr(self,'object_list', self.get_queryset())
-        context = self.get_context_data()
-        _template = self.ajax_template_name
-        _t = loader.get_template(_template)
-        _c = RequestContext(request, context)
-        _html = _t.render(_c)
-
-        return self.render_json_response({
-            'html':_html,
-            'errors': 0,
-            'has_next_page':context['has_next_page']
-
-        }, status=200)
-
-    def get_read_counts(self,articles):
-        counts_dic = RedisCounterMachine.get_read_counts(articles)
-        return counts_dic
-
-    def get_context_data(self, **kwargs):
-        context = super(SelectionArticleList, self).get_context_data(**kwargs)
-        selection_articles = context['selection_articles']
-        context['refresh_time'] = self.get_refresh_time()
-        context['has_next_page'] = context['page_obj'].has_next()
-        articles = [sla.article for sla in selection_articles]
-
-        try :
-            # make sure use try catch ,
-            # if statistic is down
-            # the view is still working
-            context['read_count'] = self.get_read_counts(articles)
-
+class ArticleDig(JSONResponseMixin,AjaxResponseMixin, LoginRequiredMixin, View):
+    def post_ajax(self, request, *args, **kwargs):
+        _user = request.user
+        _aid = self.kwargs.pop('pk', None)
+        if _aid is None:
+            return http.Http404
+        try:
+            if settings.DEBUG:
+                el = Article_Dig.objects.get(article_id=_aid, user=_user)
+                el.delete()
+            else:
+                dig_task.delay(uid=_user.id, aid=_aid)
+            return self.render_json_response(data={'status': 1})
         except Exception as e :
-            log.info('the fail to load read count')
-            log.info(e.message)
+            log.error("ERROR : %s ", e.message)
+            return http.HttpResponseServerError
 
-        context = add_side_bar_context_data(context)
-        return context
+
+class ArticleUndig(JSONResponseMixin,LoginRequiredMixin,AjaxResponseMixin,View):
+    def post_ajax(self, request, *args, **kwargs):
+        _user = request.user
+        _aid = self.kwargs.pop('pk', None)
+        if _aid is None:
+            return http.Http404
+        try:
+            if settings.DEBUG:
+                el = Article_Dig.objects.get(article_id=_aid, user=_user)
+                el.delete()
+            else:
+                undig_task.delay(uid=_user.id, aid=_aid)
+            return self.render_json_response(data={'status':0})
+        except Exception as e:
+            log.error("ERROR: %s", e.message)
+        return http.HttpResponseServerError
 
 
 class NewSelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):

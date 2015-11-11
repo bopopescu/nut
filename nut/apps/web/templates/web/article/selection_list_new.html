@@ -42,7 +42,7 @@
                 <div class="top-article-tag">
                     <a href="{% url 'tag_articles_url' top_tag.quoted_tag_name %}">
                         <div class="tag-element {% if tag.name == top_tag.name %}tag-current{% endif %}">
-                            #{{ top_tag.name }}
+                            {{ top_tag.name }}
                         </div>
                     </a>
                 </div>
@@ -52,6 +52,12 @@
                 {% for sla in selection_articles %}
                     {% include 'web/article/partial/article_item_new.html' %}
                 {% endfor %}
+        </div>
+         <div class="row" id="main_loading_indicator">
+            <div class="col-xs-12 loading-icon">
+                <img src="{% static 'images/widgets/loading.gif' %}" height="32px" width="32px">
+            </div>
+
         </div>
         <div class="row button-row">
             <ul class="nav-button-holder">
@@ -68,7 +74,10 @@
 
 {% endblock %}
 
+{% block basic_script %}
+{#<script data-main="{% static 'js/web/app/article_list_app.js' %}" src="{% static 'js/web/app/require.js' %}"></script>#}
+    <script data-main="{% static 'js/web/jsbuild/article_list_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+{% endblock %}
+
 {% block script %}
-
-
 {% endblock %}

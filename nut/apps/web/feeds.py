@@ -7,7 +7,8 @@ from django.utils.feedgenerator import Rss201rev2Feed
 # from django.shortcuts import get_object_or_404
 # from xml.sax.saxutils import escape
 
-from apps.core.models import Selection_Entity, Selection_Article
+from apps.core.models import Selection_Entity, Selection_Article, Article
+from apps.tag.models import Content_Tags,Tags
 
 from django.utils.html import strip_tags, escape
 
@@ -118,6 +119,49 @@ class SelectionFeeds(Feed):
         return {'image':item.entity.chief_image}
 
 
+class ArticlesInterviewFeeds(Feed):
+    feed_type = ArticlesFeedGenerator
+    title = u'果库'
+    link = '/tag/articles/%25E4%25B8%2593%25E8%25AE%25BF/'
+    author_email = "hi@guoku.com"
+    feed_copyright = "2010-2015 果库. All rights reserved."
+    description = '果库消费图文,专访精英卖家,汇集全网秉持理想生活哲学的消费类文章，开拓精英视野与生活想象，涵盖品牌相关报道、卖家创业者专访、潮流资讯、消费见解主张、生活场景清单、购物经验心得分享等。'
+    def items(self):
+        _tag = Tags.objects.get(name=u'专访')
+        article_id_list = Content_Tags.objects.filter(tag=_tag, target_content_type_id=31).values_list('target_object_id').distinct()
+        articles = Article.objects.filter(id__in=article_id_list).order_by('-updated_datetime')[:50]
+        return articles
+
+    def item_title(self, article):
+        return escape(article.title)
+
+    def item_link(self, article):
+
+        return reverse('web_article_page', args=[article.pk])+'?from=feed'
+
+    def item_author_name(self, article):
+        return escape(article.creator.profile.nick)
+
+    def item_pubdate(self, article):
+        return article.updated_datetime
+
+    def item_description(self, article):
+        content = strip_tags(article.content)
+        # content = strip_tags(item.article.bleached_content)
+        desc = content.split(u'。')
+        # return "<![CDATA[%s]]>" % (desc[0] + u'。')
+        return escape(desc[0] + u'。')
+
+    def item_extra_kwargs(self, article):
+        # extra = super(ArticlesFeeds, self).item_extra_kwargs(item)
+        extra = {
+                # 'content_encoded': "<![CDATA[%s]]>" % item.article.content,
+                'content_encoded': ("<![CDATA[%s]]>" % article.bleached_content).encode('utf-8'),
+                # 'content_encoded': "<![CDATA[%s]]>" % u'<p>test</p>',
+                }
+        return extra
+
+
 class ArticlesFeeds(Feed):
     feed_type = ArticlesFeedGenerator
     title = u'图文频道>>果库|精英消费者南'
@@ -133,7 +177,7 @@ class ArticlesFeeds(Feed):
     #     return getattr(get_object_or_404)
 
     def items(self):
-        return Selection_Article.objects.published().order_by('-pub_time')[0:30]
+        return Selection_Article.objects.published().order_by('-pub_time')[0:50]
 
     def item_title(self, item):
         return escape(item.article.title)
@@ -159,7 +203,7 @@ class ArticlesFeeds(Feed):
         # extra = super(ArticlesFeeds, self).item_extra_kwargs(item)
         extra = {
                 # 'content_encoded': "<![CDATA[%s]]>" % item.article.content,
-                'content_encoded': ("<![CDATA[%s]]>" % item.article.bleached_content).encode('utf-8'),
+                'content_encoded': ("<![CDATA[%s]]>" % item.article.bleached_content.encode('utf8')),
                 # 'content_encoded': "<![CDATA[%s]]>" % u'<p>test</p>',
                 }
         return extra

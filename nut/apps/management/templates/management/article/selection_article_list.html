@@ -24,6 +24,7 @@
                             <li {% if request.path == '/management/article/selections/' %}class="active"{% endif %}><a href="{% url 'management_selection_article_list' %}">{% trans 'published' %}</a></li>
                             <li {% if request.path == '/management/article/selections/pending/' %}class="active"{% endif %}><a href="{% url 'management_selection_pending_article_list' %}">{% trans 'pending' %}</a></li>
                         </ul>
+{#                        <SPAN class="pull-right">Search::{{ filterfield }} = {{ filtervalue }}</SPAN>#}
                     </div>
 
                     <div class="box-body table-responsive">
@@ -32,7 +33,11 @@
                                 <tr>
                                     <th class="id">#</th>
                                     <th class="cover">{% trans 'cover' %}</th>
-                                    <th class="title">{% trans 'title' %}</th>
+                                    <th class="title">
+                                        {% trans 'title' %}
+                                        <input class="guoku_search_input" data-search-field="title" type="text">
+
+                                    </th>
                                     <th class="person-link" >{% trans 'author' %}</th>
                                     <th class="read-count">文章阅读数</th>
                                     <th class="tags">文章标签</th>
@@ -213,4 +218,8 @@
 {#    {% include "management/entities/paginator_new.html" with page_obj=page_obj url=request.path %}#}
 
 
+{% endblock %}
+
+{% block user_script %}
+        <script src="{% static 'js/management/manage_search.js' %}" type="application/javascript"></script>
 {% endblock %}

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             {% for tag in object_list %}
-                <a href="{% url 'tag_entities_url' tag.name %}"><span class="label label-info">{{ tag }}</span></a>
+                <a href="{% url 'tag_entities_url' tag.hash %}"><span class="label label-info">{{ tag }}</span></a>
             {% endfor %}
         </div>
     </div>

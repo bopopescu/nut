@@ -48,7 +48,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'rest_framework',
     # 'rest_framework.authtoken',
-    # 'haystack',
+    'haystack',
     'djcelery',
     # 'notifications',
 
@@ -63,7 +63,7 @@ INSTALLED_APPS = (
     'apps.counter',
     'apps.tag',
 
-    'haystack',
+
     'captcha',
 )
 

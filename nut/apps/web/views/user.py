@@ -371,7 +371,7 @@ class UserTagView(UserDetailBase):
     context_object_name = 'current_user_tags'
     def get_queryset(self):
         _user = self.get_showing_user()
-        tag_list = Content_Tags.objects.user_tags(_user.pk)
+        tag_list = Content_Tags.objects.query_user_tags(_user)
         return tag_list
 
 
@@ -454,6 +454,9 @@ class UserIndex(DetailView):
 
     def get_pronoun(self):
         _current_user = self.get_showing_user()
+        if not _current_user.profile:
+            return _('His')
+
         if self.request.user == _current_user:
             return _('My')
         elif _current_user.profile.gender == User_Profile.Woman:

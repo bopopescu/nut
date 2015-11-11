@@ -1,5 +1,6 @@
 {% load i18n staticfiles %}
 {% load notifications_tags %}
+{% load flink_tags %}
 <footer class="footer" id="guoku_footer">
         <div class="container">
             <div class="row footer-main">
@@ -67,7 +68,7 @@
 {#                        </div>#}
 {#                    </div>#}
                 </div>
-                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 footer-part">
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 footer-part qr-container">
                      <div class="qr-wrapper">
                          <img src="{%  static 'images/footer/QR-code.jpg' %}" width="80px">
                          <div class="qr-text">扫描关注微信公众平台</div>
@@ -90,6 +91,10 @@
                 <div class="list-wrapper">
                         <ul id="flink_list">
                             <li class="list-title no-padding-right"><span><a href="{% url 'web_links' %}">友情链接</a> :</span></li>
+                            {% get_friendly_links as flinks %}
+                            {% for flink in flinks %}
+                                <li><a href="{{  flink.link }}"  target="_blank">{{ flink.name }}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
 

@@ -47,7 +47,7 @@
             var str = value;
             this.$input.val(str);
             var resizedUrl = this.resizeImageUrl(str, '100');
-            this.$image.attr('src','/'+resizedUrl);
+            this.$image.attr('src','//imgcdn.guoku.com/'+resizedUrl);
 
         },
 

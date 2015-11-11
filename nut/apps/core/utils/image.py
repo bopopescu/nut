@@ -72,7 +72,7 @@ class HandleImage(object):
         if w == 0 or h == 0 :
             w = h = 100
 
-        if (w /  h > self.img.width / self.img.height):
+        if (w / h > self.img.width / self.img.height):
             _width = round(h * self.img.width / self.img.height)
             _height = h
         else:
@@ -111,8 +111,6 @@ class HandleImage(object):
         #
         # _img.resize(_width, _height)
         # return _img.make_blob()
-
-
 
 
     def save(self, path = None, resize=False, square=False):

@@ -1,6 +1,7 @@
 (function(document,window,$){
 
     // ployfill -----------  function.protype.bind
+    // add
     if (!Function.prototype.bind) {
       Function.prototype.bind = function(oThis) {
         if (typeof this !== 'function') {

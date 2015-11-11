@@ -25,6 +25,7 @@
 {#    <script src="{% static 'js/management/restful/sentinel.js' %}" id="hero" ></script>#}
 {#    <script data-main="{% static 'js/management/restful/app.js' %}" src="{% static 'js/management/restful/require.js' %}" ></script>#}
 
+
 </head>
 <body class="guoku-management hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -163,7 +164,7 @@
 
                     {% url 'management_entity_list' as management_entity_list_url %}
                     <li {% if management_entity_list_url in request.path %}class="active"{% endif %}>
-                        <a href="{{ management_entity_list_url }}">
+                        <a href="{{ management_entity_list_url }}?status=0">
                             <i class="fa fa-gift"></i>&nbsp;<span>{% trans 'entity' %}</span>
                         </a>
                     </li>
@@ -294,7 +295,6 @@
     <script src="{% static 'js/management/plugins/datatables/dataTables.bootstrap.min.js' %}"></script>
 
     <script src="{% static 'js/underscore-min.js' %}" type="application/javascript"></script>
-    <script src="{% static 'js/backbone-min.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/backbone-min.js' %}" type="application/javascript"></script>
 {#    <script src="{% static 'js/management/category.js' %}"></script>#}
 {#    {% block js %}{% endblock %}#}

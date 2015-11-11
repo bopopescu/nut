@@ -14,7 +14,7 @@
     <meta name="description" content="{{ article.title }},由果库网友撰写的消费经验文章，或是作者亲身的购买使用感受以及中立消费见解，或是解决具体生活问题的场景购物清单，又或是饱含消费主张的经验故事分享。真实的图文记录，帮助你更高效地做出消费决策，养成正向的消费价值观。">
 {% endblock %}
 
-{% block title %}{{ article.title }} | 精英消费指南 | 果库{% endblock %}
+{% block title %}{{ article.title }} {% if not isFromMobile  %}| 精英消费指南 | 果库 {% endif %}{% endblock %}
 
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/web/style.css' %}">
@@ -25,9 +25,17 @@
 {% endblock %}{% block description %}{{ article.content|striptags|truncatechars:150 }}{% endblock %}
 
 {% block h1 %}{{ article.title }} － 精英消费指南{% endblock %}
+
+{% block header %}
+ {% if not isFromMobile %}
+    {% include "web/partial/header_new.html" %}
+ {% endif %}
+{% endblock %}
+
 {% block content %}
     <div class="container goods_detail article-onepage">
         <h2 class="sr-only">{{ article.content|striptags|truncatewords:150 }}</h2>
+        <div id="share_img" style="display:none"><img src="{{ article.cover_url }}"></div>
 {#     <div class="row" id="detail_breadcrumb">#}
 {#         {% include "web/article/partial/article_breadcrumb.html" %}#}
 {#     </div>#}
@@ -48,7 +56,7 @@
                                 <meta itemprop="datePublished" content="{{article.created_datetime|date:'Y-m-d H:i:s'}}"/>
                                 <i class="fa fa-clock-o"></i>{{article.created_datetime|date:"Y-m-d"}}
                             </span>
-                            <span class="read">
+                            <span class="read" style="display:none">
                                 <i class="fa fa-eye"></i>
                                 <span id="read_counter">
 
@@ -71,9 +79,16 @@
                             {% endautoescape %}
                         </div>
 
-                        <div class="share-wrapper for-browser">
+                        <div class="share-wrapper share-wrapper-short for-browser">
                             <!-- JiaThis Button BEGIN -->
-                            <div class="share-intro">分享到</div>
+                            <div class="dig-wrapper">
+                                <div class="undig dig-action">
+                                    <img class="dig-img dig" src="{% static 'images/article/dig.png' %}" >
+                                    <img class="dig-img undigg" src="{% static 'images/article/undig.png' %}" >
+                                </div>
+                                <div class="dig-count">10</div>
+                                <div class="dig-word">人赞</div>
+                            </div>
                             <div class="jiathis_style">
                                 <a class="jiathis_button_tsina"></a>
                                 <a class="jiathis_button_weixin"></a>
@@ -82,6 +97,9 @@
                                 <a class="jiathis_button_tieba"></a>
                                 <a href="http://www.jiathis.com/share?uid=2038803" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
                             </div>
+                            <span class="share-intro-entity">分享到&nbsp;&nbsp;</span>
+
+
                             <!-- JiaThis Button END -->
                         </div>
                         <div class="divider"></div>
@@ -120,6 +138,7 @@
                     </div>
                 </div>
 
+                {% if not isFromMobile %}
                 <div class="article-section-title for-browser">
                     <div class="info-text">大家都在看</div>
 
@@ -132,11 +151,14 @@
                     {% endwith %}
                 {% endfor %}
 
+                {% endif %}
 
             </div>
+            {% if not isFromMobile %}
             <div id="detail_content_right" class="hidden-print col-lg-4 col-md-4 hidden-sm  hidden-xs" >
                    {% include "web/entity/partial/detail_side.html" %}
             </div>
+            {% endif %}
         </div>
         <div class="row hidden-xs">
             <div class="col-sm-offset-12">
@@ -188,6 +210,8 @@
             };
         renderEntityCard();
     </script>
+
+    {% if not isFromMobile %}
     <script type="text/javascript">
         var jiathis_config = {
             url: "http://www.guoku.com{{ request.path }}",
@@ -197,13 +221,16 @@
             },
             imageWidth:150,
             marginTop:150,
-            pic:"{{ article.cover  }}",
+            pic:"{{ article.cover_url }}",
+        {% autoescape off %}
             summary:"{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}} （分享自 @果库）",
+        {% endautoescape %}
             data_track_clickback:'true',
 
         };
     </script>
     <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2038803" charset="utf-8"></script>
+    {% endif %}
     {#    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>#}
     {#    <script>#}
     {#        wx.config({#}

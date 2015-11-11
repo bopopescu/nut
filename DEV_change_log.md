@@ -1,4 +1,91 @@
 
+	need run SQL  : 
+
+	CREATE TABLE `core_search_history` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `user_id` integer NOT NULL,
+    `key_words` varchar(255) NOT NULL,
+    `search_time` datetime
+	);
+	ALTER TABLE `core_search_history` ADD CONSTRAINT 	`user_id_refs_id_371b5c0a` FOREIGN KEY (`user_id`) REFERENCES 	`core_gkuser` (`id`);
+
+· 每次用户搜索的时候，都通过celery把搜索时间、关键字、用户记录下。
+
+=== 2015-11-09 ================================
+
+
+1. 修改了gruntfile.js，会自动把web/app下说有名称为*_app.js的文件build到web/jsbuild下，build后的名称为*_app_build.js；
+2. 修复了message页，屏幕不断向下滚动时，会不断给页面增加空白块的bug；
+3. 把discove页的js模块使用RequireJS加载。
+
+=== 2015-11-6============================ 
+
+
+3. article page new front end 
+2. add hidden img for app share , element id = 'share_img'
+1. remove header render for article page 
+
+====== 2015 - 11 -5 ============
+
+
+1. Event Top entity functions
+
+    need run SQL  : 
+    
+    ALTER TABLE `core`.`core_event` 
+    ADD COLUMN `toptag` VARCHAR(30) NOT NULL AFTER `created_datetime`;
+
+=== 2015-11-4============================ 
+
+
+1. event template adjust for 1111 event 
+
+==== 2015-11-3 ===
+
+
+
+给创建商品页添加了chosen插件。
+
+=== 2015-11-02 ===  merged to master =============================
+
+
+6. IE8 compatible fix  -- done 
+5. need fix scroll top header hidden bug  -- done 
+4. top menu auto show/hide on scroll -- done
+3. event page read red dot indicator -- done
+2. sns bind page red dot indicator -- done
+1. entity selection page autoload , paging --- done
+
+note: the great performance leap(scroll frame rate) is to add backface-visibility: hidden; to fix elements.
+==================== new frontend ==========
+============= document in "前端JS开发" =======
+
+5. 添加select插件chosen到后台的商品页。
+    
+4. dig functions for article (server side/Front End not implemented)
+
+   *****  need syncdb *******, 
+   new model :  Article_Dig
+
+2. selection entity page js rebuild --- see ( new frontend )
+1. to use assignment_tag on footer's friendly link
+===== 2015 - 10 -22 == START =====
+
+5. minor css adjusts
+
+4. hide footer elements in xs screen
+
+3. management selection articles list , add search 
+
+2. entity detail page : add related article block
+
+1. management entity management 
+   a. add selection entity tab 
+   b. add search for brand and entity title 
+    
+======== 2015 - 10 -18  start ===========
+========= 2015 - 10 -18 submmmit to master ========
+
 
 1. 精选商品页中的待发布和已下架完全区分开；
 2. 爬虫在爬到已下架的精选商品的时候，会把状态从商品更改为冻结。
@@ -6,7 +93,27 @@
 === 2015-10-15 ================================
 
 
+6. add Event-related-article management 
+   
+   CREATE TABLE `core_event_related_articles` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `event_id` integer NOT NULL,
+    `article_id` integer NOT NULL,
+    UNIQUE (`event_id`, `article_id`)
+    );
+    ALTER TABLE `core_event_related_articles` ADD CONSTRAINT `article_id_refs_id_71111e46` FOREIGN KEY (`article_id`) REFERENCES `core_article` (`id`);
+    ALTER TABLE `core_event_related_articles` ADD CONSTRAINT `event_id_refs_id_9a1e89d0` FOREIGN KEY (`event_id`) REFERENCES `core_event` (`id`);
 
+5. add article search , order by score 
+4. change site.js , use /tag/name/  for tag entity page link
+3. tag_entities_url url pattern capture change to (\w+) , to capture hash.
+2. user index page - sidebar, user tag page , tag link updated to hash form. 
+1. remove ga/ jiathis form article detail page, in m.guoku.com domains
+
+=== 2015 - 10 - 12 === start =================
+
+
+==== 2015-10-12  =========== MERGED TO  MASTER 
 8. view optimize : use selected_related , prefetch_related to reduce sql hits.
 
 7. block ISP ad injection

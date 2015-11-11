@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from apps.web.feeds import SelectionFeeds, ArticlesFeeds
+from apps.web.feeds import SelectionFeeds, ArticlesFeeds,ArticlesInterviewFeeds
 
 
 urlpatterns = staticfiles_urlpatterns()
@@ -22,10 +22,12 @@ urlpatterns += patterns(
     # (r'^visit_item/$', 'mobile.views.old_visit_item'),
 )
 
-urlpatterns += patterns(
-    'apps.images',
-    url(r'^(images|img|avatar)/', include('apps.images.urls')),
-)
+# add by anchen, for local img function testing
+# if getattr(settings, 'LOCAL_IMG_DEBUG', None):
+#     urlpatterns += patterns(
+#         'apps.images',
+#         url(r'^(images|img|avatar)/', include('apps.images.urls')),
+#     )
 
 urlpatterns += patterns('',
 
@@ -63,6 +65,7 @@ urlpatterns += patterns(
 
     url(r'^feed/selection/$', SelectionFeeds()),
     url(r'^feed/articles/$', ArticlesFeeds()),
+    url(r'^feed/articles/interview/$', ArticlesInterviewFeeds()),
 )
 
 if settings.DEBUG:
