@@ -6,7 +6,7 @@
         <meta charset="UTF-8">
         <title>{{ edm.title }}</title>
     </head>
-    <body style="background: #fafafa; color: #9d9e9f; font-family: Helvetica Neue, Helvetica, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif; font-size: 16px; ">
+    <body>
         <table style="background: #ffffff;" align="center" border="0" cellpadding="20" cellspacing="0" width="900" style="border-collapse: collapse;">
             <tbody align="center">
                 <tr>
@@ -23,15 +23,15 @@
                                     <a style="background-color: transparent; color: #428bca; text-decoration: none;"
                                         href="{{ edm.cover_hype_link }}?from=edm"
                                         target="_blank">
-                                    <img src="{{ edm.cover }}" width="100%"/>
+                                    <img src="{{ edm.cover }}" width="100%" style="max-width: 100%"/>
                                     </a>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="center">
-                                    <p style="color: #9d9e9f; font-size: 16px; line-height: 25px; padding: 0; text-align: left;">
+                                    <p style="color: #9d9e9f; font-size: 14px; line-height: 20px; padding: 0; text-align: left;">
                                         {{ edm.cover_description }}
-                                        <a style="background-color: transparent; color: #428bca; text-decoration: none;"
+                                        <a style="background-color: transparent; color: #428bca; text-decoration: none; font-size: 14px"
                                             href="{{ edm.cover_hype_link }}?from=edm"
                                             target="_blank">
                                         &nbsp;阅读更多
@@ -44,14 +44,14 @@
                 </tr>
                 <tr>
                     <td>
-                        <table width="100%">
+                        <table width="100%" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td style="border-top-color: #dddddd; border-top-width: 1px; border-top-style: solid; " width="37%">
+                                <td width="43%" style="height: 1px; background-color: #dddddd">
                                 </td>
-                                <td style="line-height: 1px;text-align: center;">
+                                <td style="line-height: 1px;text-align: center; color: #9d9e9f; font-family: Helvetica Neue, Helvetica, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif; font-size: 14px;">
                                     热门图文
                                 </td>
-                                <td style="border-top-color: #dddddd; border-top-width: 1px; border-top-style: solid; " width="37%">
+                                <td width="43%" style="height: 1px; background-color: #dddddd">
                                 </td>
                             </tr>
                         </table>
@@ -59,7 +59,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <table>
+                        <table cellpadding="6%">
                             {% for selection_article in edm.selection_articles.all %}
                             {% with article=selection_article.article %}
                             <tr>
@@ -76,16 +76,16 @@
                                     <a href="http://{{ host }}{% url 'web_article_page' article.id %}?from=edm"
                                         style="background-color: transparent; color: #424242; font-family: Helvetica Neue, Helvetica, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif; font-size: 20px; font-weight: bolder; text-decoration: none;"
                                         target="_blank">
-                                    {{ article.title|truncatechars:24 }}
+                                    {{ article.title|truncatechars:40 }}
                                     </a>
                                 </td>
                             </tr>
                             <tr>
-                                <td valign="top">
-                                    <p style="color: #9d9e9f; font-size: 14px; padding: 0; text-align: left; margin: 0;">
-                                        {{ article.content|striptags|truncatechars:120|cut:'　' }}
+                                <td valign="top" style="font-size: 14px">
+                                    <p style="color: #9d9e9f; font-size: 100%; line-height:20px; text-align: left; margin: 0;">
+                                        {{ article.content|striptags|truncatechars:150|cut:'　' }}
                                         <a href="http://{{ host }}{% url 'web_article_page' article.id %}?from=edm"
-                                           style="background-color: transparent; color: #428bca; text-decoration: none;"
+                                           style="background-color: transparent; color: #428bca; text-decoration: none; font-size: 14px"
                                            target="_blank">
                                             &nbsp;阅读更多
                                         </a>
@@ -93,7 +93,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="font-size: 0; line-height: 0;" height="30">&nbsp;</td>
+                                <td style="font-size: 0; line-height: 0;" height="10">&nbsp;</td>
                             </tr>
                             {% endwith %}
                             {% endfor %}
@@ -102,14 +102,14 @@
                 </tr>
                 <tr>
                     <td>
-                        <table width="100%">
+                        <table width="100%" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td style="border-top-color: #dddddd; border-top-width: 1px; border-top-style: solid; " width="37%">
+                                <td width="43%" style="height: 1px; background-color: #dddddd">
                                 </td>
-                                <td style="line-height: 1px;text-align: center;">
+                                <td style="line-height: 1px;text-align: center; color: #9d9e9f; font-family: Helvetica Neue, Helvetica, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif; font-size: 14px;">
                                     热门商品
                                 </td>
-                                <td style="border-top-color: #dddddd; border-top-width: 1px; border-top-style: solid; " width="37%">
+                                <td width="43%" style="height: 1px; background-color: #dddddd">
                                 </td>
                             </tr>
                         </table>
@@ -117,24 +117,27 @@
                 </tr>
                 <tr>
                     <td>
-                        <table width="100%">
+                        <table width="100%" cellpadding="10%" border="0" cellspacing="0" >
                             <tr>
                                 {% for entity in popular_entities %}
                                 {% if forloop.counter0|divisibleby:3 %}
                             <tr>
                                 {% endif %}
                                 <td width="30%" align="center">
-                                    <table width="100%">
-                                        <tr>
-                                            <td align="center" style="border: 1px solid #e6e6e6; overflow: hidden; ">
-                                                <a href="http://{{ host }}{% url 'web_entity_detail' entity.entity_hash %}?from=edm" style="background-color: transparent; font-size: 16px; text-decoration: none;" target="_blank">
-                                                    <img src="{{ entity.chief_image|resize:'310'}}" style="display: block; max-width: 100%" />
+                                    <table width="100%" cellpadding="0" cellspacing="1" border="0" style="border: 1px solid #dddddd; max-height: 313px;">
+                                        <tr style="display:block; max-height: 260px; margin: 0;">
+                                            <td align="center" width="100%" style="height: 0; margin: 0; display: block; max-height: 260px;
+                                            padding-bottom: 99%; overflow: hidden; text-align: center;">
+                                                <a href="http://{{ host }}{% url 'web_entity_detail' entity.entity_hash %}?from=edm" style="background-color: transparent; display: block; margin: 0; position: relative;" target="_blank">
+                                                    <img src="{{ entity.chief_image|resize:'310'}}"
+                                                         style="display: block;vertical-align: middle;height: auto;background-color: #f6f6f6; width: 100%; max-height: 100%; max-width: 100%; margin-right: auto;margin-left: auto;"/>
                                                 </a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td align="center">
-                                                <span style="color: #9d9e9f; display: block; font-size: 12px;">
+                                                <br>
+                                                <span style="color: #9d9e9f;">
                                                     <a href="http://{{ host }}{% url 'web_entity_detail' entity.entity_hash %}?from=edm" style="background-color: transparent; color: #424242; font-family: Helvetica Neue, Helvetica, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif; font-size: 16px; text-decoration: none;" target="_blank">
                                                         {{ entity.title|truncatechars:18 }}
                                                     </a>
@@ -143,7 +146,8 @@
                                         </tr>
                                         <tr>
                                             <td align="center">
-                                                <span style="color: #428bca; display: block; font-family: Georgia, serif; font-size: 16px;">￥{{ entity.price }}</span>
+                                                <span style="color: #428bca; display: block; font-family: Georgia, serif; font-size: 14px;">￥{{ entity.price }}</span>
+                                                <br>
                                             </td>
                                         </tr>
                                     </table>
@@ -152,7 +156,6 @@
                                     </tr>
                                 {% endif %}
                             {% endfor %}
-{#                            </tr>#}
                         </table>
                     </td>
                 </tr>
@@ -161,9 +164,9 @@
                 </tr>
                 <tr>
                     <td>
-                        <table>
+                        <table cellpadding="8" cellspacing="0">
                             <tr>
-                                <td style="background: #80BEF3; border-radius: 30px; color: #ffffff; display: block; height: 26px; margin: 40px auto; padding: 10px; text-align: center; vertical-align: middle; width: 150px;">
+                                <td align="center" valign="middle" style="background: #80BEF3; border-radius: 30px; color: #ffffff; display: block; height: 18px; margin: 40px auto; padding: 10px; text-align: center; vertical-align: middle; width: 150px;">
                                     <a href="http://www.guoku.com?from=edm" style="background-color: transparent; color: #ffffff; text-decoration: none;" target="_blank">
                                     浏览更多
                                     </a>
@@ -236,7 +239,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <table cellpadding="0" cellspacing="0">
+                        <table cellpadding="10" cellspacing="0">
                             <tr>
                                 <td align="center" height="20">
                                     <span style="color: #9d9e9f; font-size: 12px; ">如果不想继续接受此邮件，请点击 <a
