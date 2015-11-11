@@ -44,14 +44,10 @@
                 </tr>
                 <tr>
                     <td>
-                        <table width="100%" cellpadding="0" cellspacing="0">
+                        <table width="98%" cellpadding="0" cellspacing="0" border="0">
                             <tr>
-                                <td width="43%" style="height: 1px; background-color: #dddddd">
-                                </td>
-                                <td style="line-height: 1px;text-align: center; color: #9d9e9f; font-family: Helvetica Neue, Helvetica, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif; font-size: 14px;">
+                                <td style="line-height: 1px; text-align: center; color: #9d9e9f; font-family: Helvetica Neue, Helvetica, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif; font-size: 14px; padding: 0 15px 0; margin: 50px 0; line-height: 1px; border-left: 375px solid #dddddd;border-right: 375px solid #dddddd;text-align: center;">
                                     热门图文
-                                </td>
-                                <td width="43%" style="height: 1px; background-color: #dddddd">
                                 </td>
                             </tr>
                         </table>
@@ -102,14 +98,10 @@
                 </tr>
                 <tr>
                     <td>
-                        <table width="100%" cellpadding="0" cellspacing="0">
+                        <table width="98%" cellpadding="0" cellspacing="0" border="0">
                             <tr>
-                                <td width="43%" style="height: 1px; background-color: #dddddd">
-                                </td>
-                                <td style="line-height: 1px;text-align: center; color: #9d9e9f; font-family: Helvetica Neue, Helvetica, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif; font-size: 14px;">
+                                <td style="line-height: 1px; text-align: center; color: #9d9e9f; font-family: Helvetica Neue, Helvetica, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif; font-size: 14px; padding: 0 15px 0; margin: 50px 0; line-height: 1px; border-left: 375px solid #dddddd;border-right: 375px solid #dddddd;text-align: center;">
                                     热门商品
-                                </td>
-                                <td width="43%" style="height: 1px; background-color: #dddddd">
                                 </td>
                             </tr>
                         </table>
@@ -124,7 +116,9 @@
                             <tr>
                                 {% endif %}
                                 <td width="30%" align="center">
-                                    <table width="100%" cellpadding="0" cellspacing="1" border="0" style="border: 1px solid #dddddd; max-height: 313px;">
+                                    <table width="100%" cellpadding="0" cellspacing="1" border="0" style="border: 1px solid #dddddd;
+{#                                    max-height: 313px;#}
+                                    ">
                                         <tr style="display:block; max-height: 260px; margin: 0;">
                                             <td align="center" width="100%" style="height: 0; margin: 0; display: block; max-height: 260px;
                                             padding-bottom: 99%; overflow: hidden; text-align: center;">
@@ -137,11 +131,9 @@
                                         <tr>
                                             <td align="center">
                                                 <br>
-                                                <span style="color: #9d9e9f;">
                                                     <a href="http://{{ host }}{% url 'web_entity_detail' entity.entity_hash %}?from=edm" style="background-color: transparent; color: #424242; font-family: Helvetica Neue, Helvetica, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif; font-size: 16px; text-decoration: none;" target="_blank">
                                                         {{ entity.title|truncatechars:18 }}
                                                     </a>
-                                                </span>
                                             </td>
                                         </tr>
                                         <tr>
