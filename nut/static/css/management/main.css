@@ -240,7 +240,7 @@
   display: block;
 }
 .img-box a {
-  display: inline-block;
+  display: block;
   position: relative;
 }
 .img-box a img {
@@ -248,24 +248,6 @@
   width: 100%;
   max-height: 100%;
   max-width: 100%;
-}
-.entity-four .img-box img,
-.entity-selection .img-box img,
-.guoku-button,
-#detail_content_right .section-list .section-banner img,
-.guess_img .img-box img,
-.article-wrapper .cover-wrapper a img,
-.more-article-wrapper .cover-wrapper a img,
-.guess-wrapper .recommend-img,
-.user-page .img-box img,
-.img-holder a,
-.selection-article-item .img-holder,
-.thumbnail.category img,
-.hover-light {
-  -webkit-transition: all 0.35s;
-  -moz-transition: all 0.35s;
-  -ms-transition: all 0.35s;
-  -o-transition: all 0.35s;
 }
 .entity-four .img-box img:hover,
 .entity-selection .img-box img:hover,
@@ -308,6 +290,32 @@
 .little-round-tag a {
   color: #424242;
 }
+.little-round-tag:hover {
+  background-color: #f0f0f0;
+}
+.normal-round-tag {
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  border-radius: 40px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  padding: 0 10px;
+  height: 32px;
+  line-height: 32px;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid #e6e6e6;
+  color: #424242;
+  font-size: 14px;
+  margin: 4px 4px 0 0;
+}
+.normal-round-tag a {
+  color: #424242;
+}
+.normal-round-tag:hover {
+  background-color: #dddddd;
+}
 .bottom-bordered {
   border-bottom: 1px solid #e6e6e6;
 }
@@ -327,6 +335,35 @@
   /*color:#ff1f77;*/
   background-color: #ff1f77;
   text-decoration: none;
+}
+.b_day {
+  position: relative;
+  top: -8px;
+  left: 1px;
+}
+p .b_day {
+  top: -8px;
+  left: 3px;
+}
+.carousel-indicators li {
+  height: 8px;
+  width: 8px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.carousel-indicators li.active {
+  height: 8px;
+  width: 8px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
 }
 .ancillary {
   color: #9d9e9f;
@@ -363,6 +400,11 @@
   border: none;
 }
 .btn-top {
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
   display: none;
   float: right;
   background-color: #eee;
@@ -477,6 +519,64 @@
   background-size: cover;
   background-position: center center;
   border: 1px solid #e6e6e6;
+}
+p.boolean-true {
+  background: forestgreen;
+  color: #fff;
+  font-weight: 600;
+}
+p.boolean-false {
+  background: darkred;
+  color: #fff;
+  font-weight: 600;
+}
+.animate-header {
+  -webkit-transition: all 0.4s ease-in;
+  -moz-transition: all 0.4s ease-in;
+  -ms-transition: all 0.4s ease-in;
+  -o-transition: all 0.4s ease-in;
+}
+.acc-layer {
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+}
+#sidebar_fix {
+  backface-visibility: hidden;
+}
+.guoku-weixin {
+  z-index: 1000;
+  backface-visibility: hidden;
+  position: fixed;
+  right: 20px;
+  top: 100px;
+  width: 70px;
+  height: 70px;
+  opacity: 100;
+  filter: alpha(opacity=100);
+}
+.guoku-weixin:hover {
+  opacity: 0.85;
+  filter: alpha(opacity=85);
+}
+.loading-icon {
+  display: inline-block;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  margin: 30px 0px;
+  text-align: center;
+}
+.carousel-inner .item {
+  text-align: center;
+}
+.carousel-inner .item a,
+.carousel-inner .item img {
+  display: block;
 }
 @-moz-document url-prefix() {
   fieldset {
@@ -841,6 +941,12 @@ body {
   height: 150px;
 }
 .test {
-  color: white;
+  color: red;
+}
+.event-article-modal {
+  width: 50%;
+}
+.event-article-modal .event-title {
+  size: 22px;
 }
 /*# sourceMappingURL=main.less.css.map */

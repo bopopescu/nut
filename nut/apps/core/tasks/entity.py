@@ -38,12 +38,13 @@ def fetch_image(images, entity_id, *args, **kwargs):
     # return
 
 
+
 @task(base=BaseTask)
 def like_task(uid, eid, **kwargs):
 
     try:
         Entity_Like.objects.get(user_id=uid, entity_id=eid)
-    except Entity_Like.DoesNotExist, e:
+    except Entity_Like.DoesNotExist as  e:
         obj = Entity_Like.objects.create(
             user_id = uid,
             entity_id = eid,

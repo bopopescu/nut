@@ -5,16 +5,43 @@ from apps.core.extend.paginator import ExtentPaginator
 from apps.core.models import Entity_Like, Note
 from django.utils.log import getLogger
 from django.shortcuts import get_object_or_404
-from urllib import  unquote
-
+import urllib
 
 log = getLogger('django')
-
 
 class TagListView(ListView):
     queryset = Tags.objects.all()
     http_method_names = ['get']
     template_name = 'tag/list.html'
+
+from django.db.models import Count
+class TagEntitiesByHashView(ListView):
+    paginate_by = 20
+    paginator_class = ExtentPaginator
+    template_name = 'tag/entities.html'
+
+    def get_queryset(self):
+        self.tag_hash = self.kwargs.pop('tag_hash', None)
+        self.tag = _tag = get_object_or_404(Tags, hash=self.tag_hash)
+        if _tag:
+            return Content_Tags.objects.filter(tag=_tag , target_content_type_id=24).annotate(tCount=Count('tag'))
+        else:
+            return None
+
+    def get_context_data(self, **kwargs):
+        ctx = super(TagEntitiesByHashView,self).get_context_data(**kwargs)
+        contenttag_list = ctx['object_list']
+        el = []
+        if self.request.user.is_authenticated():
+            note_id_list = contenttag_list.values_list("target_object_id", flat=True)
+            eid_list = Note.objects.filter(pk__in=list(note_id_list)).values_list('entity_id', flat=True)
+            el =  Entity_Like.objects.filter(entity_id__in=list(eid_list), user=self.request.user).values_list('entity_id', flat=True)
+
+        ctx.update({
+            'tag' : self.tag,
+            'user_entity_likes':el
+        })
+        return ctx
 
 
 class TagEntityView(ListView):
@@ -52,6 +79,7 @@ class TagEntityView(ListView):
     def get(self, request, *args, **kwargs):
         self.tag_name = kwargs.pop('tag_name', None)
         assert self.tag_name is not None
+
         self.tag_name = self.tag_name.lower()
         return super(TagEntityView, self).get(request, *args, **kwargs)
         # return self.render_to_response(context={})
@@ -82,7 +110,7 @@ class TagArticleView(ListView):
 
     def get(self, request, *args, **kwargs):
         self.tag_name = kwargs.pop('tag_name', None)
-        self.tag_name = unquote(str(self.tag_name)).decode('utf-8')
+        self.tag_name = urllib.unquote(str(self.tag_name)).decode('utf-8')
 
         assert self.tag_name is not None
 
@@ -105,7 +133,7 @@ class NewTagArticleView(JSONResponseMixin, AjaxResponseMixin,ListView):
 
     def get_tag_name(self):
         tag_name = self.kwargs.pop('tag_name',None)
-        return unquote(str(tag_name)).decode('utf-8')
+        return urllib.unquote(str(tag_name)).decode('utf-8')
 
     #
     # def get_queryset(self):
@@ -121,7 +149,7 @@ class NewTagArticleView(JSONResponseMixin, AjaxResponseMixin,ListView):
         tag_name =  self.get_tag_name()
         self.tag = tag = get_object_or_404(Tags, name=tag_name)
         article_ids = Content_Tags.objects.filter(tag=self.tag, target_content_type_id=31).values_list('target_object_id', flat=True)
-        return Article.objects.filter(pk__in=article_ids)
+        return Article.objects.filter(pk__in=article_ids, selections__is_published=True, selections__pub_time__lte=datetime.now())
 
     def get_ajax(self, request, *args, **kwargs):
         # TODO : add error handling here

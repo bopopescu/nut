@@ -71,7 +71,7 @@ def sub_category_list(request, cid, template="management/category/sub_category_l
     except Category.DoesNotExist:
         raise Http404
 
-    sub_categories = Sub_Category.objects.filter(group_id = cid)
+    sub_categories = Sub_Category.objects.filter(group_id = cid).order_by('-id')
 
     paginator = ExtentPaginator(sub_categories, 30)
 

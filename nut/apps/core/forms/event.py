@@ -25,6 +25,12 @@ class BaseEventForm(forms.Form):
 
     )
 
+    toptag = forms.CharField(
+        label=_('Top_Tag'),
+        widget=forms.TextInput(attrs={'class':'form-control'}),
+        help_text=_('')
+    )
+
     slug = forms.CharField(
         label=_('slug'),
         widget=forms.TextInput(attrs={'class':'form-control'}),
@@ -67,6 +73,17 @@ class BaseEventForm(forms.Form):
             )
         return _tag
 
+    def clean_toptag(self):
+        _tag = self.cleaned_data.get('toptag')
+
+        try:
+            Tags.objects.get(name=_tag)
+        except Tags.DoesNotExist:
+            raise forms.ValidationError(
+                _('tag is not exist'),
+            )
+        return _tag
+
     def clean_status(self):
         _status = self.cleaned_data.get('status')
         return int(_status)
@@ -85,6 +102,7 @@ class CreateEventForm(BaseEventForm):
     def save(self):
         _title = self.cleaned_data.get('title')
         _tag = self.cleaned_data.get('tag')
+        _toptag = self.cleaned_data.get('toptag')
         _slug = self.cleaned_data.get('slug')
         _status = self.cleaned_data.get('status')
         _is_top = self.cleaned_data.get('is_top')
@@ -103,6 +121,7 @@ class CreateEventForm(BaseEventForm):
         event = Event.objects.create(
             title = _title,
             tag = _tag,
+            toptag=_toptag,
             slug = _slug,
             status = _status,
         )
@@ -123,6 +142,7 @@ class EditEventForm(BaseEventForm):
     def save(self):
         _title = self.cleaned_data.get('title')
         _tag = self.cleaned_data.get('tag')
+        _toptag = self.cleaned_data.get('toptag')
         _slug = self.cleaned_data.get('slug')
         _status = self.cleaned_data.get('status', False)
         # _status = int(_status)
@@ -141,6 +161,7 @@ class EditEventForm(BaseEventForm):
 
         self.event.title = _title
         self.event.tag = _tag
+        self.event.toptag = _toptag
         self.event.slug = _slug
         self.event.status = _status
         self.event.event_status.is_published = _is_published

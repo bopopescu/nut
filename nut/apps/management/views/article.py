@@ -12,7 +12,7 @@ from apps.core.models import Article
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.management.decorators import staff_only
 
-from apps.core.mixins.views import SortMixin
+from apps.core.mixins.views import SortMixin, FilterMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
 log = getLogger('django')
@@ -96,7 +96,7 @@ class UpdateArticleView(UpdateView):
 
 
 # TODO : add authorise mixin here
-class SelectionArticleList(UserPassesTestMixin, SortMixin,ListView):
+class SelectionArticleList(UserPassesTestMixin,FilterMixin, SortMixin,ListView):
     template_name = 'management/article/selection_article_list.html'
     model = Selection_Article
     queryset = Selection_Article.objects.filter(is_published=True)
@@ -104,6 +104,14 @@ class SelectionArticleList(UserPassesTestMixin, SortMixin,ListView):
     paginator_class = Jpaginator
     context_object_name = 'selection_article_list'
     default_sort_params = ('pub_time','desc')
+
+    def filter_queryset(self, qs, filter_param):
+        filter_field, filter_value = filter_param
+        if filter_field == 'title':
+            qs = qs.filter(article__title__icontains=filter_value)
+        else:
+            pass
+        return qs
 
     def sort_queryset(self, qs, sort_by, order):
         if sort_by:

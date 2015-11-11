@@ -30,6 +30,6 @@ class APIArticleSearchForm(haystackSearchForm):
         if not self.is_valid():
             return self.no_query_found()
 
-        return sqs.models(Article).order_by('-read_count')
+        return sqs.models(Article).filter(is_selection=True).order_by('-read_count')
 
 __author__ = 'edison'

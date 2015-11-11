@@ -5,8 +5,8 @@ from apps.management.views.entities import EntityListView
 urlpatterns = patterns(
     'apps.management.views.entities',
     # url(r'^$', EntityListView.as_view(), name='management_entity_list'),
-    url(r'^$', 'list', name='management_entity_list'),
-    url(r'^list/$',EntityListView.as_view() , name='management_entity_list_new'),
+    url(r'^$', EntityListView.as_view(), name='management_entity_list'),
+    # url(r'^list/$',EntityListView.as_view() , name='management_entity_list_new'),
     url(r'^new/$', 'create', name='management_entity_create'),
     url(r'^(?P<entity_id>\d+)/edit/$', 'edit', name='management_entity_edit'),
 
@@ -18,6 +18,8 @@ urlpatterns = patterns(
     url(r'^image/(?P<entity_id>\d+)/remove/$', 'delete_image', name='management_remove_entity_image'),
     url(r'^image/(?P<entity_id>\d+)/fetch/$', 'refetch_image', name='management_entity_fetch_image'),
     url(r'^image/(?P<entity_id>\d+)/$', 'image', name='management_entity_image'),
+
+
 )
 
 __author__ = 'edison7500'

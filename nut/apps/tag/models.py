@@ -30,7 +30,7 @@ class ContentTagQuerySet(models.query.QuerySet):
         return self.annotate(tcount=Count('tag')).order_by('-tcount')[:300]
 
     def entity_tags(self, nid_list):
-        return self.using('slave').filter(target_object_id__in=nid_list).values('tag','tag__name').annotate(ncount=Count('tag')).order_by('-ncount')
+        return self.using('slave').filter(target_object_id__in=nid_list).values('tag','tag__name','tag__hash').annotate(ncount=Count('tag')).order_by('-ncount')
 
     def article_tags(self, article_id):
         _tag_list =  self.using('slave').filter(target_object_id=article_id, target_content_type_id=31)\
@@ -124,9 +124,9 @@ class ContentTagManager(models.Manager):
 
 class TagsQueryset(models.query.QuerySet):
     def top_article_tags(self):
-        res = self.using('slave').filter(isTopArticleTag=True,content_tags__target_content_type_id=31).annotate(acount=Count('content_tags')).order_by('-acount')
+        res = self.using('slave').filter(isTopArticleTag=True,content_tags__target_content_type_id=31).distinct()
+                                 # .annotate(acount=Count('content_tags')).order_by('-acount')
         return res
-
 
 class TagsManager(models.Manager):
     def get_queryset(self):
@@ -134,7 +134,12 @@ class TagsManager(models.Manager):
 
     def top_article_tags(self):
         return self.get_queryset().top_article_tags()
+        # tags = Content_Tags.objects.filter(tag__isTopArticleTag=True).aggregate('tag')
+        # tag_list = self.get_queryset().filter(isTopArticleTag=True)
+        # content_tags = Content_Tags.objects.filter(tag__in=tag_list, target_content_type_id=31).group_by('target_object_id')
 
+
+        return tags
 
 class Tags(BaseModel):
     name = models.CharField(max_length=100, unique=True, db_index=True)

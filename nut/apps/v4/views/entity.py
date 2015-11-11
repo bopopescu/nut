@@ -198,7 +198,7 @@ class APIEntitySearchView(SearchView, JSONResponseMixin):
 
         el = None
         if self.visitor:
-            _entity_id_list = map(lambda x : int(x.object.id), context[self.offset:self.offset+self.count])
+            _entity_id_list = map(lambda x : int(x.entity_id), context[self.offset:self.offset+self.count])
             el = Entity_Like.objects.user_like_list(user = self.visitor, entity_list=_entity_id_list)
             # log.info(el)
         for row in context[self.offset:self.offset+self.count]:

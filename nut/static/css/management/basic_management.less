@@ -1,0 +1,61 @@
+@import "../lib/mixin.less";
+@import "../lib/var.less";
+@import '../lib/component.less';
+@import '../lib/widgets.less';
+
+.batch-selection-modal{
+    .user-select(none);
+    .modal-dialog{
+      width: 90%;
+      .modal-content{
+        overflow-y: scroll;
+        background-color: @very-light-gray;
+        .content-list{
+           list-style: none;
+           li{
+               cursor: pointer;
+               .panel-no-padding;
+               margin: 10px;
+               .entity-img{
+                 img{
+                   max-height: 60px;
+                 }
+               }
+               .entity-info-wrapper{
+                  .entity-name{
+                    font-size: 16px;
+                    font-width: 700;
+                  }
+                  .entity-note{
+                    font-size: 12px;
+                    color:#9d9d9d;
+                  }
+               }
+               .entity-action-wrapper{
+                 padding-top: 10px;
+               }
+               .gap-wrapper{
+                  padding-right: 30px;
+                  font-size: @subtitle-size;
+                  text-align: right;
+               }
+           }
+           .last_published{
+              background-color:@light-gray;
+           }
+        }
+      }
+    }
+}
+#management_report_list{
+  .report-comment-content{
+     max-width: 200px;
+  }
+}
+.event-tag-column,.event-title-column{
+  width: 150px;
+}
+
+#test{
+  color:red;
+}

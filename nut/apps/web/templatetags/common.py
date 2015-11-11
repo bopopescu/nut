@@ -58,9 +58,9 @@ register.filter(selection_next_paginator)
 
 def format_boolean(value):
         if value:
-            return "是"
+            return "<p class='boolean-true'>是</p>"
         else :
-            return "否"
+            return "<p class='boolean-false'>否</p>"
 register.filter(format_boolean)
 
 def format_boolean_class(value):
@@ -149,6 +149,9 @@ def mobile_link(value):
    else :
        raise Exception('can not find link')
 register.filter(mobile_link)
+
+
+
 
 if __name__ == "__main__":
     find_entity_hash('http://127.0.0.1:9766/detail/b2836b6c')

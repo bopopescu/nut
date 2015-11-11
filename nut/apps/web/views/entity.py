@@ -322,8 +322,8 @@ def entity_like(request, eid):
 @login_required
 @csrf_exempt
 def entity_unlike(request, eid):
-    if request.is_ajax():
-        _user = request.user
+        if request.is_ajax():
+            _user = request.user
         try:
             if settings.DEBUG:
                 el = Entity_Like.objects.get(entity_id=eid, user=_user)
@@ -334,7 +334,7 @@ def entity_unlike(request, eid):
         except Entity_Like.DoesNotExist:
             raise Http404
 
-    return HttpResponseNotAllowed
+        return HttpResponseNotAllowed
 
 
 @login_required

@@ -32,52 +32,84 @@
 {% block content %}
         {% block bg %}
         {% endblock %}
+    <div style="display:none" id="share_img"><img src="{{ show_event_banners.0.banner.image_url }}"></div>
     <div class="event-cross-screen">
      {% if event.has_banner %}
           <div class="row event-banner-wrapper">
             <div class="col-md-12" id="event_home_banner">
-                <div id="carousel-guoku" class="carousel slide" data-ride="carousel" style="">
-                    {% if show_event_banners|length > 1 %}
-                    <ol class="carousel-indicators">
-                        {% for show in show_event_banners %}
-                            <li data-target="#carousel-guoku" data-slide-to="{{ show.position|add:'-1' }}" {% if 1 == show.position %}class="active"{% endif %}></li>
-                        {% endfor %}
-                    </ol>
-                    {% endif %}
 
-                    <div class="carousel-inner" role="listbox">
-                        {% for show in show_event_banners %}
-                            <div class="item {% if 1 == show.position %}active{% endif %}">
-                                {% if show.banner.banner_type == 1  %}
-                                    <a class="event-banner-link" datatype="1" biz-sellerid="{{ show.banner.user_id }}" href="#">
-                                        <img class="event-banner" src="{{ show.banner.image_url }}" alt="" width="940" height="430">
-                                    </a>
-                                {% else %}
-                                    {% if show.banner.link %}
-                                         <a class="event-banner-link" href="{{ show.banner.link }}">
-                                            <img class="event-banner" src="{{ show.banner.image_url }}">
-                                         </a>
-                                    {% else %}
-                                        <img class="event-banner" src="{{ show.banner.image_url }}">
-                                    {% endif %}
-
-                                {% endif %}
-                                <div class="carousel-caption">
-                                </div>
+                 <div id="slider-guoku" class="carousel slide" data-ride="carousel">
+                     {% if show_event_banners|length > 1 %}
+                     <ol class="carousel-indicators">
+                         {% for show in show_event_banners %}
+                             <li data-target="#slider-guoku" data-slide-to="{{ forloop.counter0 }}" class="{% if 1 == forloop.counter %}active{% endif %}"></li>
+                         {% endfor %}
+                     </ol>
+                     {% endif %}
+                     <div class="carousel-inner" role="listbox">
+                         {% for show in show_event_banners %}
+                             <div class="item {% if 1 == show.position %} active {% endif %}" data-background="{{ show.banner.background_image_url|default:'none' }}" data-background_color="{{ show.banner.background_color|default:'none' }}">{% if show.banner.link %}<a href="{{ show.banner.link }}">{% endif %}
+                                <img src="{{ show.banner.image_url }}">
+                               {% if show.banner.link %}</a>{% endif %}
                             </div>
-                        {% endfor %}
-                    </div>
-                    {% if show_event_banners|length > 1 %}
-                    <a class="left carousel-control" href="#carousel-guoku" role="button" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
+                         {% endfor %}
+                     </div>
+                   {% if show_event_banners|length > 1 %}
+
+                     <a class="left carousel-control" href="#slider-guoku" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="right carousel-control" href="#carousel-guoku" role="button" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
+                      </a>
+                      <a class="right carousel-control" href="#slider-guoku" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                         <span class="sr-only">Next</span>
-                    </a>
-                    {% endif %}
-                </div>
+                      </a>
+
+                   {% endif %}
+                 </div>
+
+
+
+{#                <div id="carousel-guoku" class="carousel slide" data-ride="carousel" style="">#}
+{#                    {% if show_event_banners|length > 1 %}#}
+{#                    <ol class="carousel-indicators">#}
+{#                        {% for show in show_event_banners %}#}
+{#                            <li data-target="#carousel-guoku" data-slide-to="{{ show.position|add:'-1' }}" {% if 1 == show.position %}class="active"{% endif %}></li>#}
+{#                        {% endfor %}#}
+{#                    </ol>#}
+{#                    {% endif %}#}
+{##}
+{#                    <div class="carousel-inner" role="listbox">#}
+{#                        {% for show in show_event_banners %}#}
+{#                            <div class="item {% if 1 == show.position %}active{% endif %}">#}
+{#                                {% if show.banner.banner_type == 1  %}#}
+{#                                    <a class="event-banner-link" datatype="1" biz-sellerid="{{ show.banner.user_id }}" href="#">#}
+{#                                        <img class="event-banner" src="{{ show.banner.image_url }}" alt="" width="940" height="430">#}
+{#                                    </a>#}
+{#                                {% else %}#}
+{#                                    {% if show.banner.link %}#}
+{#                                         <a class="event-banner-link" href="{{ show.banner.link }}">#}
+{#                                            <img class="event-banner" src="{{ show.banner.image_url }}">#}
+{#                                         </a>#}
+{#                                    {% else %}#}
+{#                                        <img class="event-banner" src="{{ show.banner.image_url }}">#}
+{#                                    {% endif %}#}
+{##}
+{#                                {% endif %}#}
+{#                            </div>#}
+{#                        {% endfor %}#}
+{#                    </div>#}
+{#                    {% if show_event_banners|length > 1 %}#}
+{#                    <a class="left carousel-control" href="#carousel-guoku" role="button" data-slide="prev">#}
+{#                        <span class="glyphicon glyphicon-chevron-left"></span>#}
+{#                        <span class="sr-only">Previous</span>#}
+{#                    </a>#}
+{#                    <a class="right carousel-control" href="#carousel-guoku" role="button" data-slide="next">#}
+{#                        <span class="glyphicon glyphicon-chevron-right"></span>#}
+{#                        <span class="sr-only">Next</span>#}
+{#                    </a>#}
+{#                    {% endif %}#}
+{#                </div>#}
             </div>
         </div>
         {% endif %}
@@ -99,11 +131,16 @@
         </div>
         {% endblock %}
 
+    {% if event.has_recommendation %}
+        <div class="row" style="margin-top:20px;">
+            <div class="col-sm-12">
+                <p class="pull-left">
+                    {% if event.slug == '20151111' %}
+                        推荐店铺<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
+                    {% else %}
+                        编辑推荐
+                    {% endif %}
 
-        {% if event.has_recommendation %}
-        <div class="row" style="margin-top: 40px;">
-            <div class="col-md-12">
-                <p class="pull-left">编辑推荐</p>
             </div>
         </div>
 
@@ -125,15 +162,38 @@
             {% endfor %}
         </div>
         {% endif %}
+
+
+        {% if event.has_articles %}
+         <div class="row" id="selection_article_list" style="margin-top:20px;">
+            <div class="col-sm-12">
+                <p class="pull-left">精选图文
+                     {% if event.slug == '20151111' %}
+                        <span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
+                     {% endif %}
+            </div>
+             {% for article in event.related_articles.all %}
+                    {% include 'web/events/partial/event_article_item.html' %}
+            {% endfor %}
+         </div>
+        {% endif %}
+
+
     
         <div class="row" style="margin-top:20px;">
-            <div class="col-md-12">
-                <p class="pull-left">精选商品</p>
+            <div class="col-sm-12">
+                <p class="pull-left">精选商品
+                     {% if event.slug == '20151111' %}
+                        <span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>
+                    {% endif %}
 {#                <p class="pull-right">最新更新: {{ selection_list.0.note_context.post_time|format_time }}</p>#}
             </div>
         </div>
 
         <div class="row" id="event">
+            {% for entity in top_entities %}
+               {% include "web/events/partial/event_entity_item.html" with entity=entity %}
+            {% endfor %}
             {% for entity in entities %}
                 {% include "web/events/partial/event_entity_item.html" with entity=entity %}
             {% endfor %}
@@ -149,6 +209,12 @@
         {% endif %}
 
     </div>
+{% endblock %}
+
+{% block basic_script %}
+    <script src="{% static 'js/jquery-1.11.1.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.335.js' %}"></script>
+    <script src="{% static 'js/web/site.js' %}"></script>
 {% endblock %}
 
 
@@ -194,7 +260,7 @@
         {%  if show.banner.background_image %}
             bk_images.push('{{ show.banner.background_image_url }}');
         {% else  %}
-            bk_images.push('');
+            bk_images.push('none');
         {% endif %}
 
         {% if show.banner.background_color %}
@@ -213,6 +279,13 @@
             'background-clip':'content-box'
         });
 
+        $('#slider-guoku').on('slid.bs.carousel', function(){
+            var currentItem = $(this).find('.item.active');
+            var bgImg = currentItem.attr('data-background');
+            var bgColor = currentItem.attr('data-background_color');
+{#            console.log(bgImg);#}
+{#            console.log(bgColor);#}
+        });
 {% endif %}
 
 

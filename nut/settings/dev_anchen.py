@@ -3,14 +3,29 @@ DEBUG = True
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 #
 IMAGE_HOST = 'http://imgcdn.guoku.com/'
-
+#
+# LOCAL_IMG_DEBUG=True
 # IMAGE_HOST = 'http://127.0.0.1:9766/'
 # INTRANET_IMAGE_SERVER = 'http://images.hello.new/'
 
 AVATAR_HOST = IMAGE_HOST
 
+
+
+#for local solr search
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://localhost:8983/solr/',
+        'INCLUDE_SPELLING': True,
+        # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
+    }
+}
+
 #for mobile access simulation
-ANT_SIMULATE_MOBILE = True
+# ANT_SIMULATE_MOBILE = True
 
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
