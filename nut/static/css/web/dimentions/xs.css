@@ -511,7 +511,7 @@ p.boolean-false {
 }
 .carousel-inner .item a,
 .carousel-inner .item img {
-  display: block;
+  display: inline-block !important;
 }
 @media (max-width: 767px) {
   .event-item {
