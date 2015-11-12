@@ -1696,13 +1696,15 @@ class Friendly_Link(BaseModel):
 from celery.task import task
 from apps.core.tasks import BaseTask
 class Search_History(BaseModel):
-    user = models.ForeignKey(GKUser, null=False)
+    user = models.ForeignKey(GKUser, null=True)
     key_words = models.CharField(max_length=255, null=False, blank=False)
     search_time = models.DateTimeField(null=True, blank=False)
 
     @classmethod
     @task(base=BaseTask)
     def record(cls, user_id, **kwargs):
+        if user_id and user_id.is_anonymous():
+            user_id = None
         key_words = kwargs.pop('key_words')
         footpoint = cls(user=user_id, key_words=key_words, search_time=datetime.now())
         footpoint.save()
