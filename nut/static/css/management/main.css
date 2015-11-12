@@ -576,7 +576,7 @@ p.boolean-false {
 }
 .carousel-inner .item a,
 .carousel-inner .item img {
-  display: block;
+  display: inline-block !important;
 }
 @-moz-document url-prefix() {
   fieldset {
