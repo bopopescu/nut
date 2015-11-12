@@ -4,6 +4,22 @@
    
 ===== 2015 - 11 - 12 =======
 
+
+	need run SQL  : 
+
+	CREATE TABLE `core_search_history` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `user_id` integer NOT NULL,
+    `key_words` varchar(255) NOT NULL,
+    `search_time` datetime
+	);
+	ALTER TABLE `core_search_history` ADD CONSTRAINT 	`user_id_refs_id_371b5c0a` FOREIGN KEY (`user_id`) REFERENCES 	`core_gkuser` (`id`);
+
+· 每次用户搜索的时候，都通过celery把搜索时间、关键字、用户记录下。
+
+=== 2015-11-09 ================================
+
+
 1. 修改了gruntfile.js，会自动把web/app下说有名称为*_app.js的文件build到web/jsbuild下，build后的名称为*_app_build.js；
 2. 修复了message页，屏幕不断向下滚动时，会不断给页面增加空白块的bug；
 3. 把discovery 页的js模块使用RequireJS加载。
@@ -31,6 +47,8 @@
  
 
 ====== 2015 - 11 -5 ============
+
+
 1. Event Top entity functions
 
     need run SQL  : 
@@ -39,13 +57,18 @@
     ADD COLUMN `toptag` VARCHAR(30) NOT NULL AFTER `created_datetime`;
 
 === 2015-11-4============================ 
+
+
 1. event template adjust for 1111 event 
 
 ==== 2015-11-3 ===
 
 
+
 给创建商品页添加了chosen插件。
+
 === 2015-11-02 ===  merged to master =============================
+
 
 6. IE8 compatible fix  -- done 
 5. need fix scroll top header hidden bug  -- done 
