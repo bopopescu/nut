@@ -511,7 +511,7 @@ p.boolean-false {
 }
 .carousel-inner .item a,
 .carousel-inner .item img {
-  display: inline-block !important;
+  display: block;
 }
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
@@ -1910,6 +1910,6 @@ a:hover {
   margin-bottom: 10px;
 }
 .test {
-  color: red;
+  color: black;
 }
 /*# sourceMappingURL=site.less.css.map */
