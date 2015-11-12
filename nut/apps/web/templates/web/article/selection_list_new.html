@@ -53,6 +53,12 @@
                     {% include 'web/article/partial/article_item_new.html' %}
                 {% endfor %}
         </div>
+         <div class="row" id="main_loading_indicator">
+            <div class="col-xs-12 loading-icon">
+                <img src="{% static 'images/widgets/loading.gif' %}" height="32px" width="32px">
+            </div>
+
+        </div>
         <div class="row button-row">
             <ul class="nav-button-holder">
                 <li class=" prev-button" style="display:none;">  上一页</li>
@@ -68,7 +74,10 @@
 
 {% endblock %}
 
+{% block basic_script %}
+{#<script data-main="{% static 'js/web/app/article_list_app.js' %}" src="{% static 'js/web/app/require.js' %}"></script>#}
+    <script data-main="{% static 'js/web/jsbuild/article_list_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+{% endblock %}
+
 {% block script %}
-
-
 {% endblock %}
