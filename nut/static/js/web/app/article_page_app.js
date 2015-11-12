@@ -8,7 +8,8 @@ require([
         'subapp/articlepagecounter',
         'subapp/entitycard',
         'subapp/detailsidebar',
-        'subapp/related_article_loader'
+        'subapp/related_article_loader',
+        'libs/csrf',
 
     ],
     function (polyfill,
@@ -21,7 +22,6 @@ require([
               EntityCardRender,
               SideBarManager,
               RelatedArticleLoader
-
 
     ){
         var page = new Page();

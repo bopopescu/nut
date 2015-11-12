@@ -82,13 +82,13 @@
                         <div class="share-wrapper share-wrapper-short ">
                             <!-- JiaThis Button BEGIN -->
                             <span class="dig-wrapper">
-                                <span class="undigged dig-action" data-article-id="{{ article.pk }}">
+                                <span class="{% if dig_status %} digged {% else %} undigged {% endif %} dig-action" data-article-id="{{ article.pk }}">
                                     <img class="dig-img dig" src="{% static 'images/article/dig.png' %}" >
                                     <img class="dig-img undig" src="{% static 'images/article/undig.png' %}" >
                                 </span>
                                 <span class="dig-info">
-                                    <span class="dig-count">10</span>
-                                    <span class="dig-word">人赞</span>
+                                    <span class="dig-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>
+                                    <span class="dig-word">赞</span>
                                 </span>
 
                             </span>
@@ -145,10 +145,7 @@
                 {% if not isFromMobile %}
                 <div class="article-section-title for-browser">
                     <div class="info-text">大家都在看</div>
-
                 </div>
-
-
                 {% for sla in article.related_articles %}
                     {% with sla.article as r_article %}
                       {% include 'web/article/partial/article_recommend_item.html' %}

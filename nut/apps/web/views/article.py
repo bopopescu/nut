@@ -29,7 +29,7 @@ from django import  http
 log = getLogger('django')
 
 
-class ArticleDig(JSONResponseMixin,AjaxResponseMixin, LoginRequiredMixin, View):
+class ArticleDig(LoginRequiredMixin,JSONResponseMixin,AjaxResponseMixin, View ):
     def post_ajax(self, request, *args, **kwargs):
         _user = request.user
         _aid = self.kwargs.pop('pk', None)
@@ -37,11 +37,19 @@ class ArticleDig(JSONResponseMixin,AjaxResponseMixin, LoginRequiredMixin, View):
             return http.Http404
         try:
             if settings.DEBUG:
-                el = Article_Dig.objects.get(article_id=_aid, user=_user)
-                el.delete()
+                try:
+                    Article_Dig.objects.get(user_id=_user.id, article_id=_aid)
+                except Article_Dig.DoesNotExist as e:
+                    obj = Article_Dig.objects.create(
+                                    user_id = _user.id,
+                                    article_id = _aid,
+                                )
+                    obj.article.incr_dig()
+                    obj.user.incr_dig()
             else:
                 dig_task.delay(uid=_user.id, aid=_aid)
-            return self.render_json_response(data={'status': 1})
+            return self.render_json_response({'status': 1, 'article_id': _aid})
+
         except Exception as e :
             log.error("ERROR : %s ", e.message)
             return http.HttpResponseServerError
@@ -57,9 +65,11 @@ class ArticleUndig(JSONResponseMixin,LoginRequiredMixin,AjaxResponseMixin,View):
             if settings.DEBUG:
                 el = Article_Dig.objects.get(article_id=_aid, user=_user)
                 el.delete()
+                el.article.decr_dig()
+                el.user.decr_dig()
             else:
                 undig_task.delay(uid=_user.id, aid=_aid)
-            return self.render_json_response(data={'status':0})
+            return self.render_json_response({'status':0, 'article_id':_aid})
         except Exception as e:
             log.error("ERROR: %s", e.message)
         return http.HttpResponseServerError
@@ -265,7 +275,20 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
         context['is_article_detail'] = True
         context['is_article_creator'] = self.request.user == self.object.creator
         context['can_show_edit'] =  (not article.is_selection) and (self.request.user == article.creator)
+
+        dig_status = 0
+        if  self.request.user.is_authenticated():
+            try:
+                article.digs.get(user=self.request.user)
+                dig_status = 1
+            except Article_Dig.DoesNotExist:
+                pass
+
+        context['dig_status'] = dig_status
+
         context = add_side_bar_context_data(context)
+
+
         return context
 
     def get_ajax(self, request, *args, **kwargs):
