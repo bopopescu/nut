@@ -80,19 +80,19 @@
                         </div>
 
                         <div class="share-wrapper share-wrapper-short ">
-                            <!-- JiaThis Button BEGIN -->
-                            <span class="dig-wrapper">
-                                <span class="{% if dig_status %} digged {% else %} undigged {% endif %} dig-action" data-article-id="{{ article.pk }}">
-                                    <img class="dig-img dig" src="{% static 'images/article/dig.png' %}" >
-                                    <img class="dig-img undig" src="{% static 'images/article/undig.png' %}" >
-                                </span>
-                                <span class="dig-info">
-                                    <span class="dig-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>
-                                    <span class="dig-word">赞</span>
-                                </span>
+{#                             TEMP REMOVE BY ANCHEN #}
+{#                            <span class="dig-wrapper">#}
+{#                                <span class="{% if dig_status %} digged {% else %} undigged {% endif %} dig-action" data-article-id="{{ article.pk }}">#}
+{#                                    <img class="dig-img dig" src="{% static 'images/article/dig.png' %}" >#}
+{#                                    <img class="dig-img undig" src="{% static 'images/article/undig.png' %}" >#}
+{#                                </span>#}
+{#                                <span class="dig-info">#}
+{#                                    <span class="dig-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>#}
+{#                                    <span class="dig-word">赞</span>#}
+{#                                </span>#}
+{#                            </span>#}
 
-                            </span>
-
+                         <!-- JiaThis Button BEGIN -->
                             <div class="jiathis_style for-browser">
                                 <a class="jiathis_button_tsina"></a>
                                 <a class="jiathis_button_weixin"></a>
