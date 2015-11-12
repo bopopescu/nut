@@ -323,8 +323,7 @@
 .main-article{
   .share-wrapper{
      .dig-wrapper{
-       display:none;
-//        display:inline-block;
+        display:inline-block;
         font-size:@mini-size;
         color:@common-gray;
         div{
@@ -345,11 +344,22 @@
            img.dig{
               display: none;
            }
+           img.undig{
+              display: inline;
+           }
         }
         .undigged{
            img.undig{
               display:none;
            }
+           img.dig{
+             display: inline;
+           }
+        }
+        .dig-info{
+          .dig-count{
+            margin: 0px 6px;
+          }
         }
 
      }

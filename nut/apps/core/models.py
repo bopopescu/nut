@@ -172,7 +172,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             return res
 
     def get_user_dig_key(self):
-        return 'user:dig%' %self.pk
+        return 'user:dig:%s' % self.pk
 
     @property
     def dig_count(self):
@@ -1282,12 +1282,15 @@ class Article(BaseModel):
         try:
             cache.incr(key)
         except ValueError:
-            cache.set(key, self.likes.count())
+            cache.set(key, self.digs.count())
 
     def decr_dig(self):
         key = self.get_dig_key()
-        if self.digs.count() > 0:
+        try :
             cache.decr(key)
+        except Exception:
+            cache.set(key, self.digs.count())
+
 
     def __unicode__(self):
         return self.title
@@ -1693,13 +1696,15 @@ class Friendly_Link(BaseModel):
 from celery.task import task
 from apps.core.tasks import BaseTask
 class Search_History(BaseModel):
-    user = models.ForeignKey(GKUser, null=False)
+    user = models.ForeignKey(GKUser, null=True)
     key_words = models.CharField(max_length=255, null=False, blank=False)
     search_time = models.DateTimeField(null=True, blank=False)
 
     @classmethod
     @task(base=BaseTask)
     def record(cls, user_id, **kwargs):
+        if user_id and user_id.is_anonymous():
+            user_id = None
         key_words = kwargs.pop('key_words')
         footpoint = cls(user=user_id, key_words=key_words, search_time=datetime.now())
         footpoint.save()

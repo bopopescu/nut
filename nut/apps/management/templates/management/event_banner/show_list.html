@@ -26,11 +26,11 @@
                     </div>
 
                     <div class="box-body">
-                        <table class="table table-striped">
+                        <table class="table table-striped guoku-mng-table">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{% trans 'link' %}</th>
+                                    <th class="link">{% trans 'link' %}</th>
                                     <th>{% trans 'image' %}</th>
                                     <th>背景图</th>
                                     <th>背景颜色</th>
@@ -42,7 +42,7 @@
                                 {% for show in show_banners %}
                                     <tr>
                                         <td>{{ show.banner.id }}</td>
-                                        <td>{{ show.banner.link }}</td>
+                                        <td class="link">{{ show.banner.link }}</td>
                                         <td><img class="img-polaroid img-responsive" src="{{ show.banner.image_url }}" width="150" height="150"></td>
                                         <td><img class="img-responsive" src="{{ show.banner.background_image_url }}"> </td>
                                         <td><div class="color-sample-box" style="background-color: #{{ show.banner.background_color }}"></div></td>
