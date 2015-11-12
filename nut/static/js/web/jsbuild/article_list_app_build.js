@@ -1498,10 +1498,12 @@ define('component/ajaxloader',['libs/Class', 'jquery'], function(Class, jQuery){
         },
         attach: function(){
             this.scrollHandler =this._handleScroll.bind(this);
+            $(this.loading_indicator).show();
             $(window).scroll(this.scrollHandler);
         },
 
         detach: function(){
+            $(this.loading_indicator).hide();
             $(window).off('scroll', this.scrollHandler);
         },
         loadNextBatch:function(){
