@@ -1,6 +1,12 @@
+
+2. remove 1111 gif on header 
+1. article page dig
+   
+===== 2015 - 11 - 12 =======
+
 1. 修改了gruntfile.js，会自动把web/app下说有名称为*_app.js的文件build到web/jsbuild下，build后的名称为*_app_build.js；
 2. 修复了message页，屏幕不断向下滚动时，会不断给页面增加空白块的bug；
-3. 把discove页的js模块使用RequireJS加载。
+3. 把discovery 页的js模块使用RequireJS加载。
 
 === 2015-11-6============================ 
 
@@ -11,7 +17,8 @@
 关于客户端分享文章，图片问题
 
 1. 客户端抓取页面（m.guoku.com/articles/id/）的第一张图片。
-   现在第一张图片是双十一促销gif（in header）
+   现在第一张图片是双十一促销gif（in header）（新版 DEV 已经移除）
+
 2. quick FIX 
    m.guoku.com 取消渲染 header 
    
@@ -20,9 +27,8 @@
    div 中有 img 元素作为文章分享图片。
    
 4. 文章分享中 文章的地址， 应该是www.guoku.com的地址，而不是 m.guoku.com 的地址。
- 
-  
    
+ 
 
 ====== 2015 - 11 -5 ============
 1. Event Top entity functions
