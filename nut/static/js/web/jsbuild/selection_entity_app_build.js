@@ -301,7 +301,7 @@ define('libs/Class',[], function(){
     return Class;
 
 });
-define('subapp/account',['libs/Class'],function(Class){
+define('subapp/account',['libs/Class','jquery'],function(Class, $){
 
     var AccountApp = Class.extend({
         init: function(){
@@ -313,7 +313,7 @@ define('subapp/account',['libs/Class'],function(Class){
             if (signContent.find('.row')[0]) {
                 signModal.modal('show');
             } else {
-                html.appendTo(signContent);
+                $(html).appendTo(signContent);
                 signModal.modal('show');
             }
         }
@@ -738,7 +738,8 @@ define('subapp/account',['libs/Class'],function(Class){
 })(window.fastdom);
 
 
-define('utils/EntityLike',['libs/Class','subapp/account','jquery','fastdom'], function(Class,AccountApp,$,fastdom){
+define('utils/EntityLike',['libs/Class','subapp/account','jquery','fastdom'],
+    function(Class,AccountApp,$,fastdom){
 
     var AppEntityLike = Class.extend({
         init: function(){

@@ -38,8 +38,8 @@
 
                     {% url 'web_event_home' as web_event_home_url %}
                     <li {% if web_event_home_url in request.path %}class="active" {% endif %}>
-{#                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span><span class="round"></span></a>#}
-                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></a>
+                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="round"></span></a>
+{#                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></a>#}
                     </li>
                 </ul>
 

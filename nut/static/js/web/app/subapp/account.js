@@ -1,4 +1,4 @@
-define(['libs/Class'],function(Class){
+define(['libs/Class','jquery'],function(Class, $){
 
     var AccountApp = Class.extend({
         init: function(){
@@ -10,7 +10,7 @@ define(['libs/Class'],function(Class){
             if (signContent.find('.row')[0]) {
                 signModal.modal('show');
             } else {
-                html.appendTo(signContent);
+                $(html).appendTo(signContent);
                 signModal.modal('show');
             }
         }

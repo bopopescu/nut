@@ -79,17 +79,21 @@
                             {% endautoescape %}
                         </div>
 
-                        <div class="share-wrapper share-wrapper-short for-browser">
+                        <div class="share-wrapper share-wrapper-short ">
                             <!-- JiaThis Button BEGIN -->
-                            <div class="dig-wrapper">
-                                <div class="undig dig-action">
+                            <span class="dig-wrapper">
+                                <span class="{% if dig_status %} digged {% else %} undigged {% endif %} dig-action" data-article-id="{{ article.pk }}">
                                     <img class="dig-img dig" src="{% static 'images/article/dig.png' %}" >
-                                    <img class="dig-img undigg" src="{% static 'images/article/undig.png' %}" >
-                                </div>
-                                <div class="dig-count">10</div>
-                                <div class="dig-word">人赞</div>
-                            </div>
-                            <div class="jiathis_style">
+                                    <img class="dig-img undig" src="{% static 'images/article/undig.png' %}" >
+                                </span>
+                                <span class="dig-info">
+                                    <span class="dig-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>
+                                    <span class="dig-word">赞</span>
+                                </span>
+
+                            </span>
+
+                            <div class="jiathis_style for-browser">
                                 <a class="jiathis_button_tsina"></a>
                                 <a class="jiathis_button_weixin"></a>
                                 <a class="jiathis_button_qzone"></a>
@@ -97,7 +101,7 @@
                                 <a class="jiathis_button_tieba"></a>
                                 <a href="http://www.jiathis.com/share?uid=2038803" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
                             </div>
-                            <span class="share-intro-entity">分享到&nbsp;&nbsp;</span>
+                            <span class="share-intro-entity for-browser">分享到&nbsp;&nbsp;</span>
 
 
                             <!-- JiaThis Button END -->
@@ -141,15 +145,19 @@
                 {% if not isFromMobile %}
                 <div class="article-section-title for-browser">
                     <div class="info-text">大家都在看</div>
-
                 </div>
-
-
                 {% for sla in article.related_articles %}
                     {% with sla.article as r_article %}
                       {% include 'web/article/partial/article_recommend_item.html' %}
                     {% endwith %}
                 {% endfor %}
+
+                <div class="row" id="main_loading_indicator">
+                        <div class="col-xs-12 loading-icon">
+                <img src="{% static 'images/widgets/loading.gif' %}" height="32px" width="32px">
+                </div>
+
+        </div>
 
                 {% endif %}
 
@@ -168,48 +176,21 @@
     </div>
 
 {% endblock %}
-{% block counter_script %}
-        <script src="{% static 'js/counter/counter.js' %}"></script>
+
+{% block basic_script %}
+{#<script data-main="{% static 'js/web/app/article_list_app.js' %}" src="{% static 'js/web/app/require.js' %}"></script>#}
+    <script data-main="{% static 'js/web/jsbuild/article_page_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
 {% endblock %}
+
+{#{% block counter_script %}#}
+{#        <script src="{% static 'js/counter/counter.js' %}"></script>#}
+{#{% endblock %}#}
 {% if isFromMobile %}
     {% block ga_script %}
         <!-- disable GA-->
     {% endblock %}
 {% endif %}
 {% block script %}
-    <script type="text/javascript" language="javascript">
-        function renderEntityCard(){
-                var cardList = $('.guoku-card');
-                $.map(cardList, function(ele, index){
-{#                    console.log('ele : ' + ele + '  index: ' + index);#}
-                    var hash = $(ele).attr('data_entity_hash');
-                    if (hash){
-                        var url = '/detail/' + hash + '/card/'
-                        $.when($.ajax({
-                            url: url,
-                            method: 'GET'
-                        })).then(
-                            function success(data){
-                                //console.log("load card success");
-                                if(data.error == 0){
-                                    //console.log('card data ok ');
-                                    var newInnerHtml = $(data.html).html()
-                                    //console.log(newInnerHtml);
-                                    $(ele).html(newInnerHtml);
-                                    //console.log('card rendered');
-                                }
-                                else{
-                                    console.log('card data error');
-                                }
-
-                            },function fail(){
-                                console.log("load card fail");
-                            });
-                    }
-                });
-            };
-        renderEntityCard();
-    </script>
 
     {% if not isFromMobile %}
     <script type="text/javascript">
