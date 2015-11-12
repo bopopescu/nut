@@ -6,7 +6,9 @@ require([
         'subapp/gotop',
         'subapp/articledig',
         'subapp/articlepagecounter',
-        'subapp/entitycard'
+        'subapp/entitycard',
+        'subapp/detailsidebar',
+        'subapp/related_article_loader'
 
     ],
     function (polyfill,
@@ -16,7 +18,11 @@ require([
               GoTop,
               ArticleDig,
               ArticlePageCounter,
-              EntityCardRender
+              EntityCardRender,
+              SideBarManager,
+              RelatedArticleLoader
+
+
     ){
         var page = new Page();
         var menu = new Menu();
@@ -24,7 +30,8 @@ require([
         var articleDig = new ArticleDig();
         var articlePageCounter = new ArticlePageCounter();
         var entityCardRender = new EntityCardRender();
-
+        var sidebar = new SideBarManager();
+        var relatedArticleLoader = new RelatedArticleLoader();
         console.log("article list init!！");
 });
 

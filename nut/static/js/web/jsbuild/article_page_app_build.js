@@ -1598,6 +1598,222 @@ define('subapp/entitycard',['jquery', 'libs/Class'],
         return CardRender;
 
 });
+define('subapp/detailsidebar',['jquery', 'libs/Class', 'fastdom', 'underscore'],
+    function($, Class, fastdom, _){
+    var SideBarManager = Class.extend({
+        init: function(){
+            this.$fix_sidebar = $('#sidebar_fix');
+            this.$footer = $('#guoku_footer');
+            this.last_scroll = 0 ;
+            this.current_scroll = 0 ;
+            this.sideBarWidth = this.$fix_sidebar.width();
+
+            this.$fix_sidebar.hide();
+
+            if (!this.$fix_sidebar.length){
+                return;
+            }
+
+            this.clear();
+            this.setupScrollHandler();
+        },
+        clear: function(){
+            if(this.read){
+                fastdom.clear(this.read);
+            }
+            if(this.write){
+                fastdom.clear(this.write);
+            }
+        },
+        setupScrollHandler:function(){
+            $(window).on('scroll', this.scrollHandler.bind(this));
+        },
+        scrollHandler: function(){
+            this.clear();
+            this.read = fastdom.read(this.readAction.bind(this));
+            this.write = fastdom.write(this.writeAction.bind(this));
+        },
+        readAction: function(){
+            this.current_scroll = $(window).scrollTop();
+
+        },
+        writeAction: function(){
+            if (this.current_scroll>2020 && (this.last_scroll< 2020)){
+                    //console.log($(window).scrollTop());
+                    this.$fix_sidebar.width(this.sideBarWidth);
+                    this.$fix_sidebar.css({position:'fixed', top:'60px', display:'block',opacity:0});
+                    this.$fix_sidebar.stop().animate({opacity:1})
+                }
+
+            if (this.current_scroll>2020 && (this.last_scroll >= 2020)){
+                    var fixbar_bound = this.$fix_sidebar[0].getBoundingClientRect();
+                    var footer_bound = this.$footer[0].getBoundingClientRect();
+                    if (fixbar_bound.bottom >= footer_bound.top){
+                        this.$fix_sidebar.find('.remove-ready').css({opacity:0});
+                    }else{
+                        if (this.last_scroll > this.current_scroll){
+                             this.$fix_sidebar.find('.remove-ready').css({opacity:1});
+                        }
+                    }
+                }
+
+            if (this.current_scroll < 2020 ){
+                    this.$fix_sidebar.width('auto');
+                    this.$fix_sidebar.css({position:'relative', top:'0px', opacity:0});
+                }
+
+            this.last_scroll = this.current_scroll;
+        }
+
+
+    });
+
+    return SideBarManager;
+});
+define('component/ajaxloader',['libs/Class', 'jquery'], function(Class, jQuery){
+    var $= jQuery;
+
+    var AjaxLoader = Class.extend({
+        init:function(options){
+            this.loading = false ;
+            this.try_count=5;
+            this.loading_indicator = document.getElementById('main_loading_indicator');
+            this.attach();
+        },
+        attach: function(){
+            this.scrollHandler =this._handleScroll.bind(this);
+            $(this.loading_indicator).show();
+            $(window).scroll(this.scrollHandler);
+        },
+
+        detach: function(){
+            $(this.loading_indicator).hide();
+            $(window).off('scroll', this.scrollHandler);
+        },
+        loadNextBatch:function(){
+            jQuery.when(
+                    this.beginLoad()
+            ).then(
+                    this.loadSuccess.bind(this),
+                    this.loadFail.bind(this)
+            );
+        },
+        loadPrevBatch:function(){
+            console.log('not implement');
+        },
+        _handleScroll: function(){
+            if (this._shouldLoad()){
+                this.loadNextBatch();
+            }else{
+                return ;
+            }
+        },
+        _shouldLoad: function(){
+            if (this.loading) {
+                return false;
+            }
+            var loading_indicator  = this.loading_indicator;
+                if (loading_indicator){
+                    var position = loading_indicator.getBoundingClientRect();
+                    //console.log(position.top + ' :   '+ window.innerHeight);
+                    return (position.top > 0
+                          && (position.top+100) <= (window.innerHeight || document.documentElement.clientHeight));
+                }else{
+                    return false;
+                }
+        },
+
+        getRequestUrl: function(){
+            return this.request_url;
+        },
+
+        getData: function(){
+            throw new Error('not implemented');
+            return null;
+        },
+
+        beginLoad: function(){
+            this.loading = true;
+            var _url = this.getRequestUrl();
+            var _data = this.getData();
+            return $.ajax({
+                url : _url ,
+                data : _data,
+                method: 'GET'
+            });
+        //    return a promise , like an ajax() here
+
+        },
+        loadSuccess: function(data){
+            console.log(data);
+            this.loading = false;
+
+        },
+        loadFail: function(data){
+            //console.log(data);
+            // ajax call fail , maybe later
+            console.log('loading failed ');
+            this.try_count--;
+            if (this.try_count <= 0){
+                this.detach();
+            }
+            this.loading = false;
+        }
+    });
+
+    return AjaxLoader;
+});
+define('subapp/related_article_loader',['component/ajaxloader', 'jquery', 'libs/fastdom'],
+    function(AjaxLoader, $, fastdom){
+
+        RelatedArticleLoader = AjaxLoader.extend({
+        init: function(){
+            this.isMobile = $('body.mobile-body').length > 0;
+            this._super();
+            this.current_page = 1 ;
+            this.ajax_data = null;
+        },
+        getRequestUrl: function(){
+            return window.location.pathname;
+        },
+        getData: function(){
+            return {
+                page: this.current_page + 1,
+                target: 'related_article'
+            };
+        },
+        doSuccess: function(){
+            var data = this.ajax_data;
+            if (data.errors == 0){
+                $('.more-article-wrapper').last().after(data['html']);
+                this.current_page++;
+                this.loading = false;
+                if (!(data.has_next_page)){
+                    this.handleLastPage();
+                }
+            }else{
+                console.log('load error!');
+            }
+            //console.log(data);
+            console.log('load related article success');
+            this.ajax_data = null;
+
+        },
+        loadSuccess: function(data){
+            this.ajax_data = data;
+            fastdom.defer(30, this.doSuccess.bind(this));
+        },
+        handleLastPage:function(){
+
+            this.detach();
+        },
+        _shouldLoad: function(){
+            return (!this.isMobile) && this._super();
+        },
+    });
+
+    return RelatedArticleLoader;
+});
 require([
         'libs/polyfills',
         'jquery',
@@ -1606,7 +1822,9 @@ require([
         'subapp/gotop',
         'subapp/articledig',
         'subapp/articlepagecounter',
-        'subapp/entitycard'
+        'subapp/entitycard',
+        'subapp/detailsidebar',
+        'subapp/related_article_loader'
 
     ],
     function (polyfill,
@@ -1616,7 +1834,11 @@ require([
               GoTop,
               ArticleDig,
               ArticlePageCounter,
-              EntityCardRender
+              EntityCardRender,
+              SideBarManager,
+              RelatedArticleLoader
+
+
     ){
         var page = new Page();
         var menu = new Menu();
@@ -1624,7 +1846,8 @@ require([
         var articleDig = new ArticleDig();
         var articlePageCounter = new ArticlePageCounter();
         var entityCardRender = new EntityCardRender();
-
+        var sidebar = new SideBarManager();
+        var relatedArticleLoader = new RelatedArticleLoader();
         console.log("article list init!！");
 });
 

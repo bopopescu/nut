@@ -18,6 +18,9 @@
 3. more.
    在图文详情页，有加入一个隐藏 div , ID="share_img"
    div 中有 img 元素作为文章分享图片。
+   
+4. 文章分享中 文章的地址， 应该是www.guoku.com的地址，而不是 m.guoku.com 的地址。
+ 
   
    
 
