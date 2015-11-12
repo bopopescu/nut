@@ -9,7 +9,7 @@
 
 	CREATE TABLE `core_search_history` (
     `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    `user_id` integer NOT NULL,
+    `user_id` integer,
     `key_words` varchar(255) NOT NULL,
     `search_time` datetime
 	);
