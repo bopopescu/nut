@@ -301,7 +301,7 @@ define('libs/Class',[], function(){
     return Class;
 
 });
-define('subapp/account',['libs/Class'],function(Class){
+define('subapp/account',['libs/Class','jquery'],function(Class, $){
 
     var AccountApp = Class.extend({
         init: function(){
@@ -313,7 +313,7 @@ define('subapp/account',['libs/Class'],function(Class){
             if (signContent.find('.row')[0]) {
                 signModal.modal('show');
             } else {
-                html.appendTo(signContent);
+                $(html).appendTo(signContent);
                 signModal.modal('show');
             }
         }

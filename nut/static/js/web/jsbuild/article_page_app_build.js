@@ -1486,7 +1486,7 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 
     return GoTop;
 });
-define('subapp/account',['libs/Class'],function(Class){
+define('subapp/account',['libs/Class','jquery'],function(Class, $){
 
     var AccountApp = Class.extend({
         init: function(){
@@ -1498,25 +1498,121 @@ define('subapp/account',['libs/Class'],function(Class){
             if (signContent.find('.row')[0]) {
                 signModal.modal('show');
             } else {
-                html.appendTo(signContent);
+                $(html).appendTo(signContent);
                 signModal.modal('show');
             }
         }
     });
     return AccountApp;
 });
-define('subapp/articledig',['libs/Class', 'subapp/account', 'jquery', 'fastdom'],
-    function (Class, AccountApp, $, fastdom) {
+define('subapp/articledig',['libs/Class',
+        'subapp/account',
+        'jquery',
+        'fastdom',
+        'underscore',
+        'subapp/account'
+    ],
+    function (Class,
+              AccountApp,
+              $,
+              fastdom,
+              _,
+              AccountApp) {
 
         var AppArticleDig = Class.extend({
             init: function () {
+
                 $('.dig-action').on('click', this.handleDig.bind(this));
+
             },
             handleDig: function (e) {
                 var $digEle = $(e.currentTarget);
-                var $counter = $digEle.parent().find('.dig-count');
+                var action = $digEle.hasClass('undigged')? 'dig': 'undig';
                     articleId = $digEle.attr('data-article-id');
+                $.when(this.sendRequest(articleId,action)).then(
+                    this.requestSuccess.bind(this),
+                    this.requestFail.bind(this)
+                );
                     console.log(articleId);
+            },
+            getRequestUrl:function(articleId, action){
+                var url = '/articles/'+ articleId + '/' + action + '/';
+                return url ;
+            },
+            sendRequest: function(articleId, action){
+                var requestUrl = this.getRequestUrl(articleId, action);
+                return $.ajax({
+                    method: 'POST',
+                    url: requestUrl,
+                });
+
+            },
+
+            getAccountApp:function(){
+                this.AccountApp = this.AccountApp || new AccountApp();
+                return this.AccountApp;
+            },
+            requestSuccess: function(data){
+
+                if(_.isString(data)){
+                    this.getAccountApp().modalSignIn(data);
+                    return ;
+                }
+                this.updateDigElementStatus(data);
+            },
+            updateCounter: function($counterEle, status){
+                if(!$counterEle || ($counterEle.length === 0)){
+                    return ;
+                }
+                var html = $counterEle.html();
+                if (!html){
+                    html = '0';
+                }
+                var currentCount =  parseInt(html);
+                if (_.isNaN(currentCount)){
+                    currentCount = 0 ;
+                };
+
+                if (status === 1){
+                    currentCount +=1 ;
+                }else if(status === 0){
+                    currentCount -=1;
+                }else{
+                    console.log('error parse dig count');
+                }
+
+                if(currentCount<=0){
+                    $counterEle.html('  ');
+                }else{
+                    $counterEle.html(currentCount + ' ');
+                }
+
+
+
+            },
+            updateDigClass: function($ele, status){
+                if(status === 1){
+                    $ele.removeClass('undigged')
+                        .addClass('digged');
+                }else if(status === 0){
+                    $ele.removeClass('digged')
+                        .addClass('undigged');
+                }else{
+                    console.log('status error for dig wrapper！');
+                }
+            },
+            updateDigElementStatus: function(data){
+                var that = this;
+                var article_id = data.article_id;
+                var dig_elements = $('.dig-action[data-article-id="'+  article_id  +'"]');
+                var status = data.status;
+                    dig_elements.each(function(index,ele){
+                      that.updateCounter($(ele).parent().find('.dig-count'), status);
+                      that.updateDigClass($(ele), status);
+                    });
+            },
+            requestFail:function(){
+                console.log('server error');
             }
         });
 
@@ -1814,6 +1910,40 @@ define('subapp/related_article_loader',['component/ajaxloader', 'jquery', 'libs/
 
     return RelatedArticleLoader;
 });
+define('libs/csrf',['jquery'],function($){
+
+    function getCookie(name) {
+    var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+});
 require([
         'libs/polyfills',
         'jquery',
@@ -1824,7 +1954,8 @@ require([
         'subapp/articlepagecounter',
         'subapp/entitycard',
         'subapp/detailsidebar',
-        'subapp/related_article_loader'
+        'subapp/related_article_loader',
+        'libs/csrf',
 
     ],
     function (polyfill,
@@ -1837,7 +1968,6 @@ require([
               EntityCardRender,
               SideBarManager,
               RelatedArticleLoader
-
 
     ){
         var page = new Page();

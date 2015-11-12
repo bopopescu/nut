@@ -168,7 +168,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             return res
 
     def get_user_dig_key(self):
-        return 'user:dig%' %self.pk
+        return 'user:dig:%s' % self.pk
 
     @property
     def dig_count(self):
@@ -1269,12 +1269,15 @@ class Article(BaseModel):
         try:
             cache.incr(key)
         except ValueError:
-            cache.set(key, self.likes.count())
+            cache.set(key, self.digs.count())
 
     def decr_dig(self):
         key = self.get_dig_key()
-        if self.digs.count()>0:
+        try :
             cache.decr(key)
+        except Exception:
+            cache.set(key, self.digs.count())
+
 
     def __unicode__(self):
         return self.title
