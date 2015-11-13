@@ -59,10 +59,10 @@
         var wm = $('#WarningModal');
         var wm_content = wm.find('.modal-body');
 
-        $('#submit_verify').on('click', function (event) {
+        $('.edm_submit_verify').on('click', function () {
             $.ajax({
                 type: "GET",
-                url: 'approval/' + $(this).attr('name'),
+                url: 'approval/' + $(this).attr('id').split('_')[1],
                 success: function (json) {
                     if (json.result == 'failed')
                     {
@@ -79,10 +79,10 @@
                 }
             })
         });
-        $('#send').on('click', function (event) {
+        $('.edm_send').on('click', function () {
             $.ajax({
                 type: "GET",
-                url: 'send/' + $(this).attr('name'),
+                url: 'send/' + $(this).attr('id').split('_')[1],
                 success: function (json) {
                     if (json.result == 'failed')
                     {
@@ -99,10 +99,10 @@
                 }
             })
         });
-        $('#check_verify').on('click', function (event) {
+        $('.edm_check_verify').on('click', function () {
             $.ajax({
                 type: "GET",
-                url: 'sync/' + $(this).attr('name'),
+                url: 'sync/' + $(this).attr('id').split('_')[1],
                 success: function (json) {
                     if (json.result == 'failed')
                     {
@@ -119,10 +119,10 @@
                 }
             })
         });
-        $('#delete_edm').on('click', function (event) {
+        $('.edm_delete_edm').on('click', function () {
             $.ajax({
                 type: "GET",
-                url: 'delete/' + $(this).attr('name'),
+                url: 'delete/' + $(this).$(this).attr('id').split('_')[1],
                 success: function (json) {
                     if (json.result == 'failed')
                     {
