@@ -868,7 +868,7 @@ p.boolean-false {
 }
 .carousel-inner .item a,
 .carousel-inner .item img {
-  display: block;
+  display: inline-block !important;
 }
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
