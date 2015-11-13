@@ -317,6 +317,7 @@ define('subapp/account',['libs/Class','jquery'],function(Class, $){
             }
         }
     });
+
     return AccountApp;
 });
 /**
