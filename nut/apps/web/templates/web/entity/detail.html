@@ -154,6 +154,11 @@
                  {% include "web/entity/partial/detail_side.html" %}
             </div>
         </div>
+        <div class="row hidden-xs">
+            <div class="col-sm-offset-12">
+                <a class="btn-top" href="javascript:;"  title="回到顶部" target="_self"><i class="fa fa-angle-up fa-lg"></i></a>
+            </div>
+        </div>
 
 
 {#        <div class="row" id="detail_recommendation">#}
@@ -172,6 +177,11 @@
             <div class="modal-content" style="border-radius: 0"></div>
         </div>
     </div>
+{% endblock %}
+
+{% block basic_script %}
+{#<script data-main="{% static 'js/web/app/article_list_app.js' %}" src="{% static 'js/web/app/require.js' %}"></script>#}
+    <script data-main="{% static 'js/web/jsbuild/entity_detail_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
 {% endblock %}
 
 

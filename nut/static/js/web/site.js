@@ -909,11 +909,12 @@ function getQueryStrings() {
             $('.nav-user-actions .round').css({display:'inline-block'});
             $('.setting-list .round').css({display: 'inline-block'});
     };
+
     function hide_sns_page_dot(){
             $('.nav-user-actions .round').css({display:'none'});
             $('.setting-list .round').css({display: 'none'});
-
     };
+
     var util = {
         handlePageScroll: function(){
             var last_scroll = 0 ;
@@ -1066,7 +1067,7 @@ function getQueryStrings() {
             //  var status = 0;
                 var url ;
                 if (heart.hasClass("fa-heart-o")) {
-                    url = "/entity/" + entity_id + '/like/';
+                    url = "/entity/" + entity_id + '/like/' ;
                 } else {
                     url = "/entity/" + entity_id + '/unlike/';
                 }
