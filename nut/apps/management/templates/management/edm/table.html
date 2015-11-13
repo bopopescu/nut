@@ -36,27 +36,26 @@
             <td class="product-title">
                 {% if edm.status != edm.send_completed %}
                     {% if edm.status == edm.sd_verifying %}
-                        <a id="check_verify" name="{{ edm.id }}"
+                        <a id="check_{{ edm.id }}"
                            href="javascript:void(0)"
-                           class="btn btn-warning"> {% trans 'check verify status' %}</a>
+                           class="btn btn-warning edm_check_verify"> {% trans 'check verify status' %}</a>
                     {% else %}
                         <div class="btn-group">
-                        <a id="delete_edm" name="{{ edm.id }}"
+                        <a id="delete_{{ edm.id }}"
                            href="javascript:void(0)"
-                           class="btn btn-info"> {% trans 'Delete' %}</a>
+                           class="btn btn-info edm_delete"> {% trans 'Delete' %}</a>
                         {% if edm.status == edm.sd_verify_succeed %}
-                            <a name="{{ edm.id }}"
-                               id="send"
+                            <a id="send_{{ edm.id }}"
                                href="javascript:void(0)"
-                               class="btn btn-default"> {% trans 'Send' %}</a>
+                               class="btn btn-default edm_send"> {% trans 'Send' %}</a>
                             </div>
                         {% else %}
                             <a href="{% url 'management_edm_edit' edm.id %}"
                                class="btn btn-default"> {% trans 'Edit' %}</a>
                             </div>
-                            <a id="submit_verify" name="{{ edm.id }}"
+                            <a id="verify_{{ edm.id }}"
                                href="javascript:void(0)"
-                               class="btn btn-primary">
+                               class="btn btn-primary edm_submit_verify">
                                 {% if edm.status == edm.sd_verify_failed %}
                                     {% trans 'resubmit verify' %}
                                 {% else %}
