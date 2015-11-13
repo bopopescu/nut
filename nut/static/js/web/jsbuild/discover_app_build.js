@@ -115,8 +115,7 @@ if (!Array.prototype.indexOf) {
     return -1;
   };
 }
-
-console.log('pollyFill ');
+;
 define("libs/polyfills", function(){});
 
 /*! jQuery v1.11.1 | (c) 2005, 2014 jQuery Foundation, Inc. | jquery.org/license */
@@ -738,7 +737,7 @@ define('subapp/account',['libs/Class','jquery'],function(Class, $){
 })(window.fastdom);
 
 
-define('utils/EntityLike',['libs/Class','subapp/account','jquery','fastdom'],
+define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
     function(Class,AccountApp,$,fastdom){
 
     var AppEntityLike = Class.extend({
@@ -1104,7 +1103,7 @@ requirejs.config({
 require([
         'libs/polyfills',
         'jquery',
-        'utils/EntityLike',
+        'subapp/entitylike',
         'subapp/topmenu'
     ],
     function(polyfill,

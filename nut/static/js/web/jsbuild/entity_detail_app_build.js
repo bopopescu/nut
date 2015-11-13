@@ -1485,253 +1485,232 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 
     return GoTop;
 });
-define('component/ajaxloader',['libs/Class', 'jquery'], function(Class, jQuery){
-    var $= jQuery;
+define('subapp/detailsidebar',['jquery', 'libs/Class', 'fastdom', 'underscore'],
+    function($, Class, fastdom, _){
+    var SideBarManager = Class.extend({
+        init: function(){
+            this.$fix_sidebar = $('#sidebar_fix');
+            this.$footer = $('#guoku_footer');
+            this.last_scroll = 0 ;
+            this.current_scroll = 0 ;
+            this.sideBarWidth = this.$fix_sidebar.width();
 
-    var AjaxLoader = Class.extend({
-        init:function(options){
-            this.loading = false ;
-            this.try_count=5;
-            this.loading_indicator = document.getElementById('main_loading_indicator');
-            this.attach();
-        },
-        attach: function(){
-            this.scrollHandler =this._handleScroll.bind(this);
-            $(this.loading_indicator).show();
-            $(window).scroll(this.scrollHandler);
-        },
+            this.$fix_sidebar.hide();
 
-        detach: function(){
-            $(this.loading_indicator).hide();
-            $(window).off('scroll', this.scrollHandler);
+            if (!this.$fix_sidebar.length){
+                return;
+            }
+
+            this.clear();
+            this.setupScrollHandler();
         },
-        loadNextBatch:function(){
-            jQuery.when(
-                    this.beginLoad()
-            ).then(
-                    this.loadSuccess.bind(this),
-                    this.loadFail.bind(this)
-            );
-        },
-        loadPrevBatch:function(){
-            console.log('not implement');
-        },
-        _handleScroll: function(){
-            if (this._shouldLoad()){
-                this.loadNextBatch();
-            }else{
-                return ;
+        clear: function(){
+            if(this.read){
+                fastdom.clear(this.read);
+            }
+            if(this.write){
+                fastdom.clear(this.write);
             }
         },
-        _shouldLoad: function(){
-            if (this.loading) {
-                return false;
-            }
-            var loading_indicator  = this.loading_indicator;
-                if (loading_indicator){
-                    var position = loading_indicator.getBoundingClientRect();
-                    //console.log(position.top + ' :   '+ window.innerHeight);
-                    return (position.top > 0
-                          && (position.top+100) <= (window.innerHeight || document.documentElement.clientHeight));
-                }else{
-                    return false;
+        setupScrollHandler:function(){
+            $(window).on('scroll', this.scrollHandler.bind(this));
+        },
+        scrollHandler: function(){
+            this.clear();
+            this.read = fastdom.read(this.readAction.bind(this));
+            this.write = fastdom.write(this.writeAction.bind(this));
+        },
+        readAction: function(){
+            this.current_scroll = $(window).scrollTop();
+
+        },
+        writeAction: function(){
+            if (this.current_scroll>2020 && (this.last_scroll< 2020)){
+                    //console.log($(window).scrollTop());
+                    this.$fix_sidebar.width(this.sideBarWidth);
+                    this.$fix_sidebar.css({position:'fixed', top:'60px', display:'block',opacity:0});
+                    this.$fix_sidebar.stop().animate({opacity:1})
                 }
-        },
 
-        getRequestUrl: function(){
-            return this.request_url;
-        },
+            if (this.current_scroll>2020 && (this.last_scroll >= 2020)){
+                    var fixbar_bound = this.$fix_sidebar[0].getBoundingClientRect();
+                    var footer_bound = this.$footer[0].getBoundingClientRect();
+                    if (fixbar_bound.bottom >= footer_bound.top){
+                        this.$fix_sidebar.find('.remove-ready').css({opacity:0});
+                    }else{
+                        if (this.last_scroll > this.current_scroll){
+                             this.$fix_sidebar.find('.remove-ready').css({opacity:1});
+                        }
+                    }
+                }
 
-        getData: function(){
-            throw new Error('not implemented');
-            return null;
-        },
+            if (this.current_scroll < 2020 ){
+                    this.$fix_sidebar.width('auto');
+                    this.$fix_sidebar.css({position:'relative', top:'0px', opacity:0});
+                }
 
-        beginLoad: function(){
-            this.loading = true;
-            var _url = this.getRequestUrl();
-            var _data = this.getData();
-            return $.ajax({
-                url : _url ,
-                data : _data,
-                method: 'GET'
-            });
-        //    return a promise , like an ajax() here
-
-        },
-        loadSuccess: function(data){
-            console.log(data);
-            this.loading = false;
-
-        },
-        loadFail: function(data){
-            //console.log(data);
-            // ajax call fail , maybe later
-            console.log('loading failed ');
-            this.try_count--;
-            if (this.try_count <= 0){
-                this.detach();
-            }
-            this.loading = false;
+            this.last_scroll = this.current_scroll;
         }
+
+
     });
 
-    return AjaxLoader;
+    return SideBarManager;
 });
-define('utils/browser',[], function () {
-    //all helper function for browser operation here,
-    //
-    var browser = {
-        getQueryStrings: function () {
-            var assoc = {};
-            var decode = function (s) {
-                return decodeURIComponent(s.replace(/\+/g, " "));
-            };
-            var queryString = location.search.substring(1);
-            var keyValues = queryString.split('&');
+define('subapp/account',['libs/Class','jquery'],function(Class, $){
 
-            //for(var i in keyValues) {
-            for (var i = 0, len = keyValues.length; i < len; i++) {
-                var key = keyValues[i].split('=');
-                if (key.length > 1) {
-                    assoc[decode(key[0])] = decode(key[1]);
-                }
-            }
-            return assoc;
-        }
-    };
-
-    return browser
-
-});
-define('subapp/selection_article_loader',['component/ajaxloader', 'utils/browser', 'libs/fastdom'
-
-], function (AjaxLoader, browser, fastdom) {
-
-    var ArticleLoader = AjaxLoader.extend({
-        request_url: '/articles/',
-        init: function () {
-            this._super();
-            this.current_page = this.getInitPageNum();
-            $('.next-button').click(this.goNext.bind(this));
-            $('.prev-button').click(this.goPrev.bind(this));
+    var AccountApp = Class.extend({
+        init: function(){
 
         },
-        goNext: function () {
-
-            this.gotoPage(this.current_page + 1);
-        },
-        goPrev: function () {
-            this.gotoPage(this.current_page - 5);
-        },
-
-        gotoPage: function (pageNum) {
-            var path = window.location.pathname;
-            var host = window.location.host;
-            var protocol = window.location.protocol;
-            var refresh_time = this.getRefreshTime();
-            var newUrl = protocol + '//' + host + path + '?page=' + pageNum + '&t=' + refresh_time;
-            window.location.href = newUrl;
-        },
-
-        getInitPageNum: function () {
-            var queryDics = browser.getQueryStrings();
-            return parseInt(queryDics['page']) || 1;
-        },
-
-        getData: function () {
-            return {
-                refresh_time: this.getRefreshTime(),
-                page: this.current_page + 1,
-            }
-        },
-
-        loadSuccess: function (data) {
-            var that = this;
-            if (data['errors'] === 0) {
-
-                fastdom.defer(30, function () {
-                    $(data['html']).appendTo($('#selection_article_list'));
-                    if (data['has_next_page'] === false) {
-                        that.handleLastPage();
-                    }
-
-                    that.current_page++;
-                    if (that.current_page % 3 == 0) {
-                        $(that.loading_indicator).hide();
-
-                        if (that.current_page > 5) {
-                            that.showPrevButton();
-                        }
-                        if (data['has_next_page'] === true) {
-                            that.showNextButton();
-                        }
-                    } else {
-                        that.hideLoadButton();
-                    }
-                    that.loading = false;
-                });
+        modalSignIn:function(html){
+            var signModal = $('#SignInModal');
+            var signContent = signModal.find('.modal-content');
+            if (signContent.find('.row')[0]) {
+                signModal.modal('show');
             } else {
-                //TODO: handle fail load
+                $(html).appendTo(signContent);
+                signModal.modal('show');
+            }
+        }
+    });
+    return AccountApp;
+});
+define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
+    function(Class,AccountApp,$,fastdom){
+
+    var AppEntityLike = Class.extend({
+        init: function(){
+
+            $('#selection, #discover_entity_list').on('click' ,'.btn-like, .like-action', this.handleLike.bind(this));
+            console.log('app entity like functions');
+            console.log(fastdom);
+        },
+        handleLike:function(e){
+            var $likeEle = $(e.currentTarget);
+            var $counter = $likeEle.find(".like-count");
+            var entity_id = $likeEle.attr("data-entity");
+            var $heart = $likeEle.find('i');
+
+            //TODO : gather ga code to tracker app
+            if(ga){
+                ga('send', 'event', 'button', 'click', 'like', entity_id);
+            }
+            var url = '';
+            if($heart.hasClass('fa-heart-o')){
+                url = '/entity/' + entity_id + '/like/';
+            }else{
+                url = '/entity/' + entity_id + '/unlike/'
             }
 
-            return;
+            $.when($.ajax({
+                url: url,
+                method:'POST',
+                jsonType:'json'
+            })).then(
+                function success(data){
+                    console.log('success');
+                    console.log(data);
 
-        },
-        showPrevButton: function () {
-            $('.prev-button').show();
-        },
-        showNextButton: function () {
-            $('.next-button').show();
-        },
+                    var count = parseInt($counter.text()) || 0;
+                        var result = parseInt(data.status);
+                        if (result === 1) {
+                            $counter.text(" "+(count + 1));
+                            $heart.removeClass('fa-heart-o');
+                            $heart.addClass('fa-heart');
+                        } else if (result === 0){
+                            //console.log(result);
 
-        hideNextButton: function () {
-            $('.next-button').hide();
-        },
-        hideLoadButton: function () {
-            $('.prev-button').hide();
-            $('.next-button').hide();
-        },
-        handleLastPage: function () {
-            this.detach();
-            this.hideNextButton();
-        },
-        getRefreshTime: function () {
-            return $('#selection_article_list').attr('refresh-time');
-        },
+                            if (count >1) {
+                                $counter.text(" " + (count - 1));
 
-        _shouldLoad: function () {
-            var page_condition = (this.current_page > 0) && (this.current_page % 3 != 0);
-            return page_condition && this._super();
-        },
+                            }else{
+                                $counter.text(" ");
+                            }
+
+                            $heart.removeClass('fa-heart');
+                            $heart.addClass('fa-heart-o');
+                        } else {
+                            // this should be a singleton
+                            var accountApp = new AccountApp();
+                                accountApp.modalSignIn($(data));
+                        }
+
+
+                }
+                ,
+                function fail(data){
+                    console.log('fail');
+                    console.log(data);
+                }
+            );
+
+        }
+
+    });
+    return AppEntityLike;
+});
+define('libs/csrf',['jquery'],function($){
+
+    function getCookie(name) {
+    var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
     });
 
-    return ArticleLoader;
 });
-
 require([
         'libs/polyfills',
         'jquery',
         'subapp/page',
         'subapp/topmenu',
         'subapp/gotop',
-        'subapp/selection_article_loader'
+        'subapp/detailsidebar',
+        'subapp/entitylike',
+        'libs/csrf'
+
     ],
     function (polyfill,
               jQuery,
               Page,
               Menu,
               GoTop,
-              ArticleLoader
+              SideBarManager,
+              EntityLike
+
     ){
         var page = new Page();
         var menu = new Menu();
         var goto = new GoTop();
-        var article_loader = new ArticleLoader();
-
-        console.log("article list  init！");
+        var sidebar = new SideBarManager();
+        var entityLike  =new EntityLike();
+        console.log("entity detail init！");
 });
 
-
-define("article_list_app", function(){});
+define("entity_detail_app", function(){});
 

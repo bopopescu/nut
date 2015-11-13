@@ -6,7 +6,7 @@ require([
         'subapp/gotop',
         'subapp/detailsidebar',
         'subapp/entitylike',
-        'libs/csrf',
+        'libs/csrf'
 
     ],
     function (polyfill,
@@ -23,5 +23,5 @@ require([
         var goto = new GoTop();
         var sidebar = new SideBarManager();
         var entityLike  =new EntityLike();
-        console.log("entity detail init!！");
+        console.log("entity detail init！");
 });
