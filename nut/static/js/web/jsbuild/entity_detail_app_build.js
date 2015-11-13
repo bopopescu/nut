@@ -1574,6 +1574,7 @@ define('subapp/account',['libs/Class','jquery'],function(Class, $){
             }
         }
     });
+
     return AccountApp;
 });
 define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],

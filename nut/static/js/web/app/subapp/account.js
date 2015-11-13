@@ -15,5 +15,6 @@ define(['libs/Class','jquery'],function(Class, $){
             }
         }
     });
+
     return AccountApp;
 });

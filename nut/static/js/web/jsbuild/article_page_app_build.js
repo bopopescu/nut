@@ -1502,6 +1502,7 @@ define('subapp/account',['libs/Class','jquery'],function(Class, $){
             }
         }
     });
+
     return AccountApp;
 });
 define('subapp/articledig',['libs/Class',
