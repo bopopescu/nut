@@ -132,28 +132,26 @@ class NewTagArticleView(JSONResponseMixin, AjaxResponseMixin,ListView):
     context_object_name = 'articles'
 
     def get_tag_name(self):
-        tag_name = self.kwargs.pop('tag_name',None)
+        tag_name = self.kwargs.pop('tag_name', None)
         return urllib.unquote(str(tag_name)).decode('utf-8')
-
-    #
-    # def get_queryset(self):
-    #     pass;
 
     def get_refresh_time(self):
         refresh_time = self.request.GET\
                                     .get('t',datetime.now()\
-                                                     .strftime('%Y-%m-%d %H:%M:%S'))
+                                    .strftime('%Y-%m-%d %H:%M:%S'))
         return refresh_time
 
     def get_queryset(self):
         tag_name =  self.get_tag_name()
-        self.tag = tag = get_object_or_404(Tags, name=tag_name)
+        self.tag = get_object_or_404(Tags, name=tag_name)
         article_ids = Content_Tags.objects.filter(tag=self.tag, target_content_type_id=31).values_list('target_object_id', flat=True)
+        print len(Article.objects.filter(pk__in=article_ids, selections__is_published=True, selections__pub_time__lte=datetime.now()))
         return Article.objects.filter(pk__in=article_ids, selections__is_published=True, selections__pub_time__lte=datetime.now())
+
 
     def get_ajax(self, request, *args, **kwargs):
         # TODO : add error handling here
-        self.object_list = getattr(self,'object_list', self.get_queryset())
+        self.object_list = getattr(self, 'object_list', self.get_queryset())
         context = self.get_context_data()
         _template = self.ajax_template_name
         _t = loader.get_template(_template)
@@ -161,10 +159,9 @@ class NewTagArticleView(JSONResponseMixin, AjaxResponseMixin,ListView):
         _html = _t.render(_c)
 
         return self.render_json_response({
-            'html':_html,
+            'html': _html,
             'errors': 0,
-            'has_next_page':context['has_next_page']
-
+            'has_next_page': context['has_next_page']
         }, status=200)
 
     def get_read_counts(self,articles):

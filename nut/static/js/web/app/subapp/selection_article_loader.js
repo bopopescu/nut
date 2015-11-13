@@ -1,9 +1,8 @@
 define(['component/ajaxloader', 'utils/browser', 'libs/fastdom'
 
 ], function (AjaxLoader, browser, fastdom) {
-
     var ArticleLoader = AjaxLoader.extend({
-        request_url: '/articles/',
+        request_url: location['pathname'],
         init: function () {
             this._super();
             this.current_page = this.getInitPageNum();
@@ -68,7 +67,6 @@ define(['component/ajaxloader', 'utils/browser', 'libs/fastdom'
             } else {
                 //TODO: handle fail load
             }
-
             return;
 
         },
@@ -97,7 +95,7 @@ define(['component/ajaxloader', 'utils/browser', 'libs/fastdom'
         _shouldLoad: function () {
             var page_condition = (this.current_page > 0) && (this.current_page % 3 != 0);
             return page_condition && this._super();
-        },
+        }
     });
 
     return ArticleLoader;
