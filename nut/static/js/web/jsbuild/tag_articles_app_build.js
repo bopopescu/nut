@@ -1609,7 +1609,6 @@ define('subapp/selection_article_loader',['component/ajaxloader', 'utils/browser
 
 ], function (AjaxLoader, browser, fastdom) {
     var ArticleLoader = AjaxLoader.extend({
-        request_url: location['pathname'],
         init: function () {
             this._super();
             this.current_page = this.getInitPageNum();
@@ -1728,6 +1727,7 @@ function (polyfill,
     var menu = new Menu();
     var goto = new GoTop();
     var article_loader = new ArticleLoader();
+    article_loader.request_url = location['pathname'];
 
     console.log("article list  init！");
 });

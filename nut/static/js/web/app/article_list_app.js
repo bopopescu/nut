@@ -18,6 +18,7 @@ require([
         var menu = new Menu();
         var goto = new GoTop();
         var article_loader = new ArticleLoader();
+        article_loader.request_url = location['pathname'];
 
         console.log("article list  init！");
 });

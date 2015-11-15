@@ -2,7 +2,6 @@ define(['component/ajaxloader', 'utils/browser', 'libs/fastdom'
 
 ], function (AjaxLoader, browser, fastdom) {
     var ArticleLoader = AjaxLoader.extend({
-        request_url: location['pathname'],
         init: function () {
             this._super();
             this.current_page = this.getInitPageNum();
