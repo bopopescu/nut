@@ -1,55 +1,13 @@
-   <div class="row clearfix">
+{% load i18n %}
+{% load common %}
+
+{% spaceless %}
+    <div class="row clearfix">
         <ul class="pager">
-            {% if status %}
-                {% if objects.has_previous %}
-                    <li><a href="{{ url }}?status={{ status }}&page={{ objects.previous_page_number }}">&laquo;</a></li>
-                {% endif %}
-                {% for num in page_range %}
-                    <li {% ifequal num objects.number %}class="disabled"{% endifequal %}>
-                        <a href="#">{{ num }} <span class="sr-only">(current)</span></a>
-                    </li>
-                {% endfor %}
-                {% if objects.has_next %}
-                    <li><a href="{{ url }}?status={{ status }}&page={{ objects.next_page_number }}">&raquo;</a></li>
-                {% endif %}
-            {% elif keyword %}
-
-                {% if objects.has_previous %}
-                    <li><a href="{{ url }}?q={{ keyword }}&page={{ objects.previous_page_number }}">&laquo;</a></li>
-                {% endif %}
-               {% for num in objects.paginator.page_range_ext  %}
-                    {% ifequal num objects.number %}
-                        <li {% ifequal num objects.number %}class="disabled"{% endifequal %}>
-                            <a href="#">{{ num }} <span class="sr-only">(current)</span></a>
-                        </li>
-                    {% else %}
-                        <li>
-                            <a href="{{ url }}?q={{ keyword }}&page={{ num }}">{{ num }} <span class="sr-only">({{ num }})</span></a>
-                        </li>
-                    {% endifequal %}
-                {% endfor %}
-                {% if objects.has_next %}
-                    <li><a href="{{ url }}?q={{ keyword }}&page={{ objects.next_page_number }}">&raquo;</a></li>
-                {% endif %}
-
-            {% else %}
-                {% if objects.has_previous %}
-                    <li><a href="{{ url }}?page={{ objects.previous_page_number }}">&laquo;</a></li>
-                {% endif %}
-                {% for num in objects.paginator.page_range_ext  %}
-                    {% ifequal num objects.number %}
-                        <li {% ifequal num objects.number %}class="disabled"{% endifequal %}>
-                            <a href="#">{{ num }} <span class="sr-only">(current)</span></a>
-                        </li>
-                    {% else %}
-                        <li>
-                            <a href="{{ url }}?page={{ num }}">{{ num }} <span class="sr-only">({{ num }})</span></a>
-                        </li>
-                    {% endifequal %}
-                {% endfor %}
-                {% if objects.has_next %}
-                    <li><a href="{{ url }}?page={{ objects.next_page_number }}">&raquo;</a></li>
-                {% endif %}
+            {% if objects.has_previous %}
+                <li><a href="{{ url }}?page={{ objects.previous_page_number|selection_previous_paginator }}&t={{ refresh_datetime }}">上一页</a></li>
             {% endif %}
+            <li><a href="{{ url }}?page={{ objects.next_page_number|selection_next_paginator }}&t={{ refresh_datetime }}">下一页</a></li>
         </ul>
     </div>
+{% endspaceless %}

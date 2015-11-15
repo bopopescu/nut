@@ -1,18 +1,17 @@
 from datetime import  datetime
-
-from django.shortcuts import render_to_response
 from django.http import Http404
+from django.shortcuts import render_to_response
 from django.views.decorators.http import require_GET
-from django.template import RequestContext
 from django.views.generic import ListView, RedirectView
 from django.views.generic.base import View, TemplateResponseMixin, ContextMixin
 
 from apps.core.models import Category, Sub_Category, Entity, Entity_Like
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from django.core.urlresolvers import reverse, NoReverseMatch
-# from django.db.models import Count
-
 from django.utils.log import getLogger
+from apps.core.utils.http import JSONResponse
+
+
 log = getLogger('django')
 
 
@@ -25,7 +24,7 @@ class CategoryListView(ListView):
     context_object_name = "categories"
 
 
-class CategroyGroupListView(TemplateResponseMixin, ContextMixin, View):
+class CategoryGroupListView(TemplateResponseMixin, ContextMixin, View):
     http_method_names = ['get']
     template_name = 'web/category/detail.html'
 
@@ -34,7 +33,7 @@ class CategroyGroupListView(TemplateResponseMixin, ContextMixin, View):
 
         gid = kwargs.pop('gid', None)
         _page = request.GET.get('page', 1)
-        category = Category.objects.get(pk = gid)
+        category = Category.objects.get(pk=gid)
         sub_categories = Sub_Category.objects.filter(group=gid).values_list('id', flat=True)
 
         _entity_list = Entity.objects.filter(category_id__in=list(sub_categories), status=Entity.selection).filter(buy_links__status=2)
@@ -98,41 +97,83 @@ class OldCategory(RedirectView):
         return super(OldCategory, self).get(request, *args, **kwargs)
 
 
-@require_GET
-def detail(request, cid, template='web/category/detail.html'):
-    _cid = cid
-    _page = request.GET.get('page', 1)
+from django.template import loader, RequestContext
+from braces.views import JSONResponseMixin, AjaxResponseMixin
+from apps.core.extend.paginator import ExtentPaginator as Jpaginator
+class CategoryDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
+    template_name = 'web/category/detail.html'
+    model = Entity
+    paginate_by = 36
+    paginator_class = Jpaginator
+    ajax_template_name = 'web/category/cate_selection_ajax.html'
 
-    # _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    _entity_list = Entity.objects.sort(category_id=cid, like=False)
-    print _entity_list.query
-    # _entity_list = Entity.objects.filter(status=Entity.selection, selection_entity__pub_time__lte=_refresh_datetime, category=_cid)\
-    #                       .order_by('-selection_entity__pub_time').filter(buy_links__status=2)
-    _sub_category = Sub_Category.objects.get(pk = _cid)
-    _entities = _get_paged_list(_entity_list, _page, 24)
-    el = _get_entity_like_list(_entities, request)
+    def get_refresh_time(self):
+        refresh_time = self.request.GET \
+            .get('t', datetime.now() \
+                 .strftime('%Y-%m-%d %H:%M:%S'))
+        return refresh_time
 
-    return render_to_response(
-        template,
-        {
-            'sub_category': _sub_category,
-            'entities': _entities,
-            'user_entity_likes': el,
-            'sort_method': 'pub_time',
-            'cid': _cid,
-        },
-        context_instance = RequestContext(request),
-    )
+    def get_category_id(self):
+        cid = self.kwargs.get('cid', None)
+        return int(cid)
+
+    def get_queryset(self):
+        cid = self.get_category_id()
+        self.cid = cid
+        sub_categories = Sub_Category.objects.filter(group=cid).values_list('id', flat=True)
+        return Entity.objects.filter(category_id__in=list(sub_categories),
+                                     status=Entity.selection).filter(buy_links__status=2)
+
+    def get_ajax(self, request, *args, **kwargs):
+        status = 1
+        self.object_list = getattr(self, 'object_list', self.get_queryset())
+        context = self.get_context_data()
+        _template = self.ajax_template_name
+        _t = loader.get_template(_template)
+        _c = RequestContext(
+            request,
+            context
+        )
+        try:
+            if not context['entities'].has_next():
+                status = 0
+        except:
+            pass
+        _data = _t.render(_c)
+        return JSONResponse(
+            data={
+                'data': _data,
+                'status': status
+            },
+            content_type='text/html; charset=utf-8',
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryDetailView, self).get_context_data(**kwargs)
+        cid = self.cid
+        entities = context['page_obj']
+        context['refresh_datetime'] = self.get_refresh_time()
+        el = list()
+        category = Category.objects.get(pk=cid)
+        if self.request.user.is_authenticated():
+            e = entities.object_list
+            el = Entity_Like.objects.user_like_list(user=self.request.user,
+                                                    entity_list=list(
+                                                        e.values_list(
+                                                            'id',
+                                                            flat=True))
+                                                    ).using('slave')
+        context['user_entity_likes'] = el
+        context['entities'] = entities
+        context['sub_category'] = category
+        return context
+
 
 @require_GET
 def detail_like(request, cid , template='web/category/detail.html'):
-    _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     _cid = cid
     _page = request.GET.get('page',1)
     _entity_list = Entity.objects.sort(category_id=cid,like=True).exclude(selection_entity__is_published=False)
-    # _entity_list = Entity.objects.filter(status=Entity.selection,selection_entity__pub_time__lte=_refresh_datetime , category=_cid, buy_links__status=2)\
-    #                .annotate(lnumber=Count('likes'))\
-    #                .order_by('-lnumber')
     _sub_category   = Sub_Category.objects.get(pk = _cid)
     _entities       = _get_paged_list(_entity_list,_page,24)
     _user_like_list = _get_entity_like_list(_entities, request)
@@ -148,7 +189,3 @@ def detail_like(request, cid , template='web/category/detail.html'):
         context_instance = RequestContext(request),
     )
 
-
-
-
-__author__ = 'edison7500'

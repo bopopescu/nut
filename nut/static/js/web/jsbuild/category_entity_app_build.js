@@ -1625,6 +1625,30 @@ define('subapp/loadentity',['jquery','libs/Class','libs/fastdom'],
     return LoadEntity;
 //test
 });
+/**
+ * Created by judy on 13/11/15.
+ */
+
+define('subapp/load_category_entity',['jquery','libs/Class','libs/fastdom','subapp/loadentity'],
+    function($,Class, fastdom, LoadEntity){
+
+        var LoadCategoryEntity = LoadEntity.extend({
+            init: function () {
+                this.$selection = $('#category-entity-list');
+                this.page = this.$selection.parent().find('.pager');
+                this.loading_icon = $('.loading-icon');
+                this.counter = 1;
+                this.page.hide();
+                this.read = null;
+                this.write = null;
+                this.loading = false;
+                this.shouldLoad = true;
+                this.setupLoadWatcher();
+            }
+        });
+        return LoadCategoryEntity;
+    });
+
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -1697,63 +1721,29 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 
     return GoTop;
 });
-requirejs.config({
-    baseUrl:base_url,
-    paths: {
-        libs: './libs',
-        utils: './utils',
-        subapp: './subapp',
-        jquery: 'libs/jquery-1.11.1.min',
-        bootstrap: 'libs/bootstrap.min',
-        fastdom: 'libs/fastdom.ant',
-        csrf:'libs/csrf',
-        underscore:'libs/underscore.ant',
-        cookie: 'libs/jquery.cookie'
-    },
-
-    shim: {
-// shim won't handle script load , you still need require script in your source
-        'cookie':{
-            deps:['jquery']
-        },
-        'csrf':{
-            deps:['jquery']
-        },
-        'bootstrap':{
-            deps:['jquery']
-        },
-        'jquery':{
-            exports:'jQuery'
-        },
-        'underscore':{
-            exports: '_'
-        }
-    }
-});
-
 require([
         'libs/polyfills',
         'jquery',
         'utils/EntityLike',
         'subapp/topmenu',
-        'subapp/loadentity',
+        'subapp/load_category_entity',
         'subapp/gotop',
     ],
     function (polyfill,
               jQuery,
               AppEntityLike,
               Menu,
-              LoadEntity,
+              LoadCategoryEntity,
               GoTop) {
 // TODO : check if csrf work --
 // TODO : make sure bind is usable
         var menu = new Menu();
         var app_like = new AppEntityLike();
-        var app_loadEntity = new LoadEntity();
+        var app_load_category_entity = new LoadCategoryEntity();
         var goto = new GoTop();
+
+        console.log('it works!');
     });
 
-
-
-define("selection_entity_app", function(){});
+define("category_entity_app", function(){});
 

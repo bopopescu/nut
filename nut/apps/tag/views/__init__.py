@@ -66,7 +66,7 @@ class TagEntityView(ListView):
         if self.request.user.is_authenticated():
             note_id_list = contenttag_list.values_list("target_object_id", flat=True)
             eid_list = Note.objects.filter(pk__in=list(note_id_list)).values_list('entity_id', flat=True)
-            el =  Entity_Like.objects.filter(entity_id__in=list(eid_list), user=self.request.user).values_list('entity_id', flat=True)
+            el = Entity_Like.objects.filter(entity_id__in=list(eid_list), user=self.request.user).values_list('entity_id', flat=True)
 
         res.update(
             {
@@ -142,10 +142,9 @@ class NewTagArticleView(JSONResponseMixin, AjaxResponseMixin,ListView):
         return refresh_time
 
     def get_queryset(self):
-        tag_name =  self.get_tag_name()
+        tag_name = self.get_tag_name()
         self.tag = get_object_or_404(Tags, name=tag_name)
         article_ids = Content_Tags.objects.filter(tag=self.tag, target_content_type_id=31).values_list('target_object_id', flat=True)
-        print len(Article.objects.filter(pk__in=article_ids, selections__is_published=True, selections__pub_time__lte=datetime.now()))
         return Article.objects.filter(pk__in=article_ids, selections__is_published=True, selections__pub_time__lte=datetime.now())
 
 
