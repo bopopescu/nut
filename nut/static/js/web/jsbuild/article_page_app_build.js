@@ -1485,7 +1485,7 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 
     return GoTop;
 });
-define('subapp/account',['libs/Class','jquery'],function(Class, $){
+define('subapp/account',['libs/Class','jquery','bootstrap'],function(Class, $){
 
     var AccountApp = Class.extend({
         init: function(){
@@ -1502,7 +1502,6 @@ define('subapp/account',['libs/Class','jquery'],function(Class, $){
             }
         }
     });
-
     return AccountApp;
 });
 define('subapp/articledig',['libs/Class',

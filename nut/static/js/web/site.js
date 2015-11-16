@@ -1533,7 +1533,7 @@ function getQueryStrings() {
                                 }
                             });
                         },function(){
-                            console.log('get report form fail ');
+                            console.log('get report form fail! ');
                         });
                 });
             },
