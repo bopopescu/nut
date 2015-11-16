@@ -7,6 +7,7 @@ require([
         'subapp/detailsidebar',
         'subapp/entitylike',
         'subapp/entityreport',
+        'subapp/usernote',
         'libs/csrf'
 
     ],
@@ -17,7 +18,9 @@ require([
               GoTop,
               SideBarManager,
               EntityLike,
-              EntityReport
+              EntityReport,
+              UserNote
+
 
     ){
         var page = new Page();
@@ -26,5 +29,6 @@ require([
         var sidebar = new SideBarManager();
         var entityLike  =new EntityLike();
         var entityReport = new EntityReport();
+        var userNote = new UserNote();
         console.log("entity detail init");
 });
