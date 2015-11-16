@@ -6,6 +6,7 @@ require([
         'subapp/gotop',
         'subapp/detailsidebar',
         'subapp/entitylike',
+        'subapp/entityreport',
         'libs/csrf'
 
     ],
@@ -15,7 +16,8 @@ require([
               Menu,
               GoTop,
               SideBarManager,
-              EntityLike
+              EntityLike,
+              EntityReport
 
     ){
         var page = new Page();
@@ -23,5 +25,6 @@ require([
         var goto = new GoTop();
         var sidebar = new SideBarManager();
         var entityLike  =new EntityLike();
-        console.log("entity detail init！");
+        var entityReport = new EntityReport();
+        console.log("entity detail init");
 });
