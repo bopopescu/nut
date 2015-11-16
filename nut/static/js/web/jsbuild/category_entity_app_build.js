@@ -1545,6 +1545,10 @@ define('subapp/loadentity',['jquery','libs/Class','libs/fastdom'],
         },
         doWrite:function(){
             var that = this;
+
+            if(this.loading_icon.length <= 0){
+                this.loading = true
+            }
             this.shouldLoad = this.isOverScrolled && (this.counter%3 !== 0) && (!this.loading);
 
             if(!this.shouldLoad){
@@ -1635,7 +1639,7 @@ define('subapp/load_category_entity',['jquery','libs/Class','libs/fastdom','suba
         var LoadCategoryEntity = LoadEntity.extend({
             init: function () {
                 this.$selection = $('#category-entity-list');
-                this.page = this.$selection.parent().find('.pager');
+                this.page = this.$selection.parent().find('.pager .next');
                 this.loading_icon = $('.loading-icon');
                 this.counter = 1;
                 this.page.hide();

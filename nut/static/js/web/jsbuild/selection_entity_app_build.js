@@ -1545,6 +1545,10 @@ define('subapp/loadentity',['jquery','libs/Class','libs/fastdom'],
         },
         doWrite:function(){
             var that = this;
+
+            if(this.loading_icon.length <= 0){
+                this.loading = true
+            }
             this.shouldLoad = this.isOverScrolled && (this.counter%3 !== 0) && (!this.loading);
 
             if(!this.shouldLoad){
