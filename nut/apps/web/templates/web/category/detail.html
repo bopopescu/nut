@@ -49,11 +49,13 @@
                 {% include 'web/main/partial/entity.html' with entity=entity %}
             {% endfor %}
         </div>
-        <div class="row" >
-            <div class="col-xs-12 loading-icon">
-                <img src="{% static 'images/widgets/loading.gif' %}" height="32px" width="32px">
+        {% if entities.has_next %}
+            <div class="row" >
+                <div class="col-xs-12 loading-icon">
+                    <img src="{% static 'images/widgets/loading.gif' %}" height="32px" width="32px">
+                </div>
             </div>
-        </div>
+        {% endif %}
 
         <div class="row hidden-xs">
             <div class="col-sm-offset-12">
