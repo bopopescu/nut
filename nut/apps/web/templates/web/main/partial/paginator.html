@@ -5,9 +5,11 @@
     <div class="row clearfix">
         <ul class="pager">
             {% if objects.has_previous %}
-                <li><a href="{{ url }}?page={{ objects.previous_page_number|selection_previous_paginator }}&t={{ refresh_datetime }}">上一页</a></li>
+                <li class="previous"><a href="{{ url }}?page={{ objects.previous_page_number|selection_previous_paginator }}&t={{ refresh_datetime }}">上一页</a></li>
             {% endif %}
-            <li><a href="{{ url }}?page={{ objects.next_page_number|selection_next_paginator }}&t={{ refresh_datetime }}">下一页</a></li>
+            {% if objects.has_next %}
+                <li class="next"><a href="{{ url }}?page={{ objects.next_page_number|selection_next_paginator }}&t={{ refresh_datetime }}">下一页</a></li>
+            {% endif %}
         </ul>
     </div>
 {% endspaceless %}

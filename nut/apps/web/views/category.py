@@ -1,14 +1,27 @@
-from datetime import  datetime
+from datetime import datetime
+from django.core.urlresolvers import NoReverseMatch
+from django.core.urlresolvers import reverse
+from django.utils.log import getLogger
+from django.template import RequestContext
+from django.template import loader
 from django.http import Http404
 from django.shortcuts import render_to_response
 from django.views.decorators.http import require_GET
-from django.views.generic import ListView, RedirectView
-from django.views.generic.base import View, TemplateResponseMixin, ContextMixin
-
-from apps.core.models import Category, Sub_Category, Entity, Entity_Like
-from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
-from django.core.urlresolvers import reverse, NoReverseMatch
-from django.utils.log import getLogger
+from django.views.generic import ListView
+from django.views.generic import RedirectView
+from django.views.generic.base import View
+from django.views.generic.base import TemplateResponseMixin
+from django.views.generic.base import ContextMixin
+from braces.views import AjaxResponseMixin
+from braces.views import JSONResponseMixin
+from apps.core.models import Category
+from apps.core.models import Sub_Category
+from apps.core.models import Entity
+from apps.core.models import Entity_Like
+from apps.core.extend.paginator import EmptyPage
+from apps.core.extend.paginator import PageNotAnInteger
+from apps.core.extend.paginator import ExtentPaginator
+from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 from apps.core.utils.http import JSONResponse
 
 
@@ -16,7 +29,6 @@ log = getLogger('django')
 
 
 class CategoryListView(ListView):
-
     # model = Category
     http_method_names = ['get']
     queryset = Category.objects.filter(status=True)
@@ -34,9 +46,12 @@ class CategoryGroupListView(TemplateResponseMixin, ContextMixin, View):
         gid = kwargs.pop('gid', None)
         _page = request.GET.get('page', 1)
         category = Category.objects.get(pk=gid)
-        sub_categories = Sub_Category.objects.filter(group=gid).values_list('id', flat=True)
+        sub_categories = Sub_Category.objects.filter(group=gid).values_list(
+            'id', flat=True)
 
-        _entity_list = Entity.objects.filter(category_id__in=list(sub_categories), status=Entity.selection).filter(buy_links__status=2)
+        _entity_list = Entity.objects.filter(
+            category_id__in=list(sub_categories),
+            status=Entity.selection).filter(buy_links__status=2)
         paginator = ExtentPaginator(_entity_list, 24)
         try:
             _entities = paginator.page(_page)
@@ -49,14 +64,17 @@ class CategoryGroupListView(TemplateResponseMixin, ContextMixin, View):
         el = []
         if request.user.is_authenticated():
             e = _entities.object_list
-            el = Entity_Like.objects.filter(entity_id__in=tuple(e), user=request.user).values_list('entity_id', flat=True)
+            el = Entity_Like.objects.filter(entity_id__in=tuple(e),
+                                            user=request.user).values_list(
+                'entity_id', flat=True)
 
         context = {
-            'entities':_entities,
+            'entities': _entities,
             'user_entity_likes': el,
             'sub_category': category,
         }
         return self.render_to_response(context)
+
 
 # TODO : already move this function to viewtools
 # TODO : swith the viewtools version
@@ -70,13 +88,16 @@ def _get_paged_list(the_list, page_num=1, item_per_page=24):
         raise Http404
     return _entities
 
+
 # TODO : already move this function to viewtools
 # TODO : swith the viewtools version
 def _get_entity_like_list(entity_list, request):
     el = []
     if request.user.is_authenticated():
         e = entity_list.object_list
-        el = Entity_Like.objects.filter(entity_id__in=tuple(e), user=request.user).values_list('entity_id', flat=True)
+        el = Entity_Like.objects.filter(entity_id__in=tuple(e),
+                                        user=request.user).values_list(
+            'entity_id', flat=True)
     return el
 
 
@@ -97,9 +118,6 @@ class OldCategory(RedirectView):
         return super(OldCategory, self).get(request, *args, **kwargs)
 
 
-from django.template import loader, RequestContext
-from braces.views import JSONResponseMixin, AjaxResponseMixin
-from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 class CategoryDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
     template_name = 'web/category/detail.html'
     model = Entity
@@ -120,9 +138,8 @@ class CategoryDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
     def get_queryset(self):
         cid = self.get_category_id()
         self.cid = cid
-        sub_categories = Sub_Category.objects.filter(group=cid).values_list('id', flat=True)
-        return Entity.objects.filter(category_id__in=list(sub_categories),
-                                     status=Entity.selection).filter(buy_links__status=2)
+        entity_list = Entity.objects.sort(category_id=cid, like=False)
+        return entity_list
 
     def get_ajax(self, request, *args, **kwargs):
         status = 1
@@ -150,11 +167,9 @@ class CategoryDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(CategoryDetailView, self).get_context_data(**kwargs)
-        cid = self.cid
         entities = context['page_obj']
-        context['refresh_datetime'] = self.get_refresh_time()
         el = list()
-        category = Category.objects.get(pk=cid)
+        sub_category = Sub_Category.objects.get(pk=self.cid)
         if self.request.user.is_authenticated():
             e = entities.object_list
             el = Entity_Like.objects.user_like_list(user=self.request.user,
@@ -163,29 +178,33 @@ class CategoryDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
                                                             'id',
                                                             flat=True))
                                                     ).using('slave')
-        context['user_entity_likes'] = el
+        context['cid'] = self.cid
         context['entities'] = entities
-        context['sub_category'] = category
+        context['sort_method'] = 'pub_time'
+        context['user_entity_likes'] = el
+        context['sub_category'] = sub_category
+        context['refresh_datetime'] = self.get_refresh_time()
+        print '>>> ', entities.has_previous(), entities.has_next()
         return context
 
 
 @require_GET
-def detail_like(request, cid , template='web/category/detail.html'):
+def detail_like(request, cid, template='web/category/detail.html'):
     _cid = cid
-    _page = request.GET.get('page',1)
-    _entity_list = Entity.objects.sort(category_id=cid,like=True).exclude(selection_entity__is_published=False)
-    _sub_category   = Sub_Category.objects.get(pk = _cid)
-    _entities       = _get_paged_list(_entity_list,_page,24)
+    _page = request.GET.get('page', 1)
+    _entity_list = Entity.objects.sort(category_id=cid, like=True).exclude(
+        selection_entity__is_published=False)
+    _sub_category = Sub_Category.objects.get(pk=_cid)
+    _entities = _get_paged_list(_entity_list, _page, 24)
     _user_like_list = _get_entity_like_list(_entities, request)
     return render_to_response(
         template,
         {
-            'sub_category' : _sub_category,
+            'sub_category': _sub_category,
             'entities': _entities,
-            'user_entity_likes' : _user_like_list,
+            'user_entity_likes': _user_like_list,
             'sort_method': 'likes_count',
-             'cid': _cid,
+            'cid': _cid,
         },
-        context_instance = RequestContext(request),
+        context_instance=RequestContext(request),
     )
-
