@@ -115,8 +115,7 @@ if (!Array.prototype.indexOf) {
     return -1;
   };
 }
-
-console.log('pollyFill ');
+;
 define("libs/polyfills", function(){});
 
 /*! jQuery v1.11.1 | (c) 2005, 2014 jQuery Foundation, Inc. | jquery.org/license */
@@ -318,6 +317,7 @@ define('subapp/account',['libs/Class','jquery'],function(Class, $){
             }
         }
     });
+
     return AccountApp;
 });
 /**
@@ -738,7 +738,7 @@ define('subapp/account',['libs/Class','jquery'],function(Class, $){
 })(window.fastdom);
 
 
-define('utils/EntityLike',['libs/Class','subapp/account','jquery','fastdom'],
+define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
     function(Class,AccountApp,$,fastdom){
 
     var AppEntityLike = Class.extend({
@@ -1724,7 +1724,7 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 require([
         'libs/polyfills',
         'jquery',
-        'utils/EntityLike',
+        'subapp/entitylike',
         'subapp/topmenu',
         'subapp/load_category_entity',
         'subapp/gotop',
@@ -1741,8 +1741,6 @@ require([
         var app_like = new AppEntityLike();
         var app_load_category_entity = new LoadCategoryEntity();
         var goto = new GoTop();
-
-        console.log('it works!');
     });
 
 define("category_entity_app", function(){});
