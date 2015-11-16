@@ -21,7 +21,7 @@ from django.db.models import Count
 from django.db.models.signals import post_save
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, AnonymousUser
 from django.contrib.auth.models import PermissionsMixin
 
 from settings import GUOKU_MAIL, GUOKU_NAME
@@ -1703,8 +1703,9 @@ class Search_History(BaseModel):
     @classmethod
     @task(base=BaseTask)
     def record(cls, user_id, **kwargs):
-        if user_id and user_id.is_anonymous():
+        if user_id and isinstance(user_id, AnonymousUser):
             user_id = None
+
         key_words = kwargs.pop('key_words')
         footpoint = cls(user=user_id, key_words=key_words, search_time=datetime.now())
         footpoint.save()

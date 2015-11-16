@@ -136,7 +136,7 @@ class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin, ListView):
         return JSONResponse(
             data={
                 'data': _data,
-                'status': 1,
+                'status': 1
             },
             content_type='text/html; charset=utf-8',
         )
