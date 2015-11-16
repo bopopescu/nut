@@ -744,7 +744,7 @@ define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
     var AppEntityLike = Class.extend({
         init: function(){
 
-            $('#selection, #discover_entity_list').on('click' ,'.btn-like, .like-action', this.handleLike.bind(this));
+            $('#selection, #discover_entity_list, #category-entity-list').on('click' ,'.btn-like, .like-action', this.handleLike.bind(this));
             console.log('app entity like functions');
             console.log(fastdom);
         },
@@ -1595,24 +1595,27 @@ define('subapp/loadentity',['jquery','libs/Class','libs/fastdom'],
         },
 
         loadSuccess: function(res){
-            this.attachNewSelections($(res.data));
+            this.attachNewSelections($(res.data), res.status);
         },
         loadFail:function(data){
             console.log(data)
 
         },
-        attachNewSelections: function(elemList){
+        attachNewSelections: function(elemList, status){
             var that = this;
 
             fastdom.defer(function(){
                 that.$selection.append(elemList);
             });
+
             fastdom.defer(function(){
                 that.counter++;
                 that.doClear();
                 if (that.counter % 3 === 0){
                     that.loading_icon.hide();
-                    that.page.show();
+                    if (status===1){
+                        that.page.show();
+                    }
                 }
                 that.loading = false;
             });

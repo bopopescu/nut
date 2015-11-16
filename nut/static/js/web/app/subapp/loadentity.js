@@ -99,24 +99,27 @@ define(['jquery','libs/Class','libs/fastdom'],
         },
 
         loadSuccess: function(res){
-            this.attachNewSelections($(res.data));
+            this.attachNewSelections($(res.data), res.status);
         },
         loadFail:function(data){
             console.log(data)
 
         },
-        attachNewSelections: function(elemList){
+        attachNewSelections: function(elemList, status){
             var that = this;
 
             fastdom.defer(function(){
                 that.$selection.append(elemList);
             });
+
             fastdom.defer(function(){
                 that.counter++;
                 that.doClear();
                 if (that.counter % 3 === 0){
                     that.loading_icon.hide();
-                    that.page.show();
+                    if (status===1){
+                        that.page.show();
+                    }
                 }
                 that.loading = false;
             });

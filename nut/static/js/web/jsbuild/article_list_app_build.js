@@ -1607,9 +1607,7 @@ define('utils/browser',[], function () {
 define('subapp/selection_article_loader',['component/ajaxloader', 'utils/browser', 'libs/fastdom'
 
 ], function (AjaxLoader, browser, fastdom) {
-
     var ArticleLoader = AjaxLoader.extend({
-        request_url: '/articles/',
         init: function () {
             this._super();
             this.current_page = this.getInitPageNum();
@@ -1674,7 +1672,6 @@ define('subapp/selection_article_loader',['component/ajaxloader', 'utils/browser
             } else {
                 //TODO: handle fail load
             }
-
             return;
 
         },
@@ -1703,7 +1700,7 @@ define('subapp/selection_article_loader',['component/ajaxloader', 'utils/browser
         _shouldLoad: function () {
             var page_condition = (this.current_page > 0) && (this.current_page % 3 != 0);
             return page_condition && this._super();
-        },
+        }
     });
 
     return ArticleLoader;
@@ -1728,6 +1725,7 @@ require([
         var menu = new Menu();
         var goto = new GoTop();
         var article_loader = new ArticleLoader();
+        article_loader.request_url = location['pathname'];
 
         console.log("article list  init！");
 });
