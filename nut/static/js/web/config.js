@@ -2,10 +2,10 @@
 
 requirejs.config({
     baseUrl: 'app/',
-    baseUrl: 'bower_components/',
     paths: {
         libs: './libs',
         utils: './utils',
+        bower: 'bower_components',
         component:'./component',
         subapp: './subapp',
         jquery: 'libs/jquery-1.11.1.min',
@@ -14,7 +14,8 @@ requirejs.config({
         csrf:'libs/csrf',
         underscore:'libs/underscore.ant',
         cookie: 'libs/jquery.cookie',
-        masonry: 'libs/masonry.pkgd.min'
+        masonry: 'libs/masonry',
+        jquery_bridget: 'libs/jquery.bridget'
     },
 
     shim: {
@@ -35,7 +36,7 @@ requirejs.config({
             exports: '_'
         },
         'masonry':{
-            deps:['jquery'],
+            deps:['jquery']
         }
     }
 });

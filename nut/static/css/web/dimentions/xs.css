@@ -62,13 +62,13 @@
 }
 .button-white {
   background-color: #fff;
-  color: #9d9e9f;
+  color: #9D9E9F;
 }
 .button-white .fa {
-  color: #9d9e9f;
+  color: #9D9E9F;
 }
 .button-white:hover {
-  color: #9d9e9f;
+  color: #9D9E9F;
 }
 .blue-button {
   font-size: 14px;
@@ -81,7 +81,7 @@
   margin-top: 20px;
 }
 .button-gray {
-  background-color: #9d9e9f;
+  background-color: #9D9E9F;
 }
 .seller-button {
   margin-top: 10px;
@@ -106,19 +106,19 @@
 }
 .btn-cancel i,
 .button-cancel i {
-  color: #9d9e9f;
+  color: #9D9E9F;
 }
 .disabled-button {
   cursor: default;
 }
 .button-disabled {
-  background-color: #9d9e9f;
-  color: #f8f8f8;
+  background-color: #9D9E9F;
+  color: #F8F8F8;
 }
 .button-disabled:hover,
 .button-disabled:focus {
-  background-color: #9d9e9f;
-  color: #f8f8f8;
+  background-color: #9D9E9F;
+  color: #F8F8F8;
 }
 .entity-report-button {
   width: 120px;
@@ -141,7 +141,7 @@
   border: 1px solid #e6e6e6;
 }
 .panel {
-  background-color: #ffffff;
+  background-color: #fff;
   padding: 18px 18px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -149,30 +149,30 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 2px #dddddd;
-  -moz-box-shadow: 0px 0px 2px #dddddd;
-  box-shadow: 0px 0px 2px #dddddd;
+  -webkit-box-shadow: 0px 0px 2px #ddd;
+  -moz-box-shadow: 0px 0px 2px #ddd;
+  box-shadow: 0px 0px 2px #ddd;
 }
 .panel-no-padding {
-  background-color: #ffffff;
+  background-color: #fff;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 2px #dddddd;
-  -moz-box-shadow: 0px 0px 2px #dddddd;
-  box-shadow: 0px 0px 2px #dddddd;
+  -webkit-box-shadow: 0px 0px 2px #ddd;
+  -moz-box-shadow: 0px 0px 2px #ddd;
+  box-shadow: 0px 0px 2px #ddd;
   overflow: hidden;
 }
 .img-box {
+  display: block;
   height: 0;
   padding-bottom: 99%;
   overflow: hidden;
   text-align: center;
   border: 1px solid #e6e6e6;
-  display: block;
 }
 .img-box a {
   display: block;
@@ -226,7 +226,7 @@
   color: #424242;
 }
 .little-round-tag:hover {
-  background-color: #f0f0f0;
+  background-color: #F0F0F0;
 }
 .normal-round-tag {
   -webkit-border-radius: 40px;
@@ -249,7 +249,7 @@
   color: #424242;
 }
 .normal-round-tag:hover {
-  background-color: #dddddd;
+  background-color: #ddd;
 }
 .bottom-bordered {
   border-bottom: 1px solid #e6e6e6;
@@ -268,7 +268,7 @@
   border-radius: 3px;
   /*text-align:center;*/
   /*color:#ff1f77;*/
-  background-color: #ff1f77;
+  background-color: #FF1F77;
   text-decoration: none;
 }
 .b_day {
@@ -307,16 +307,16 @@ p .b_day {
   border: none;
   margin-bottom: 60px;
   padding: 0px 0px 16px 0px;
-  background-color: #ffffff;
+  background-color: #fff;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 2px #dddddd;
-  -moz-box-shadow: 0px 0px 2px #dddddd;
-  box-shadow: 0px 0px 2px #dddddd;
+  -webkit-box-shadow: 0px 0px 2px #ddd;
+  -moz-box-shadow: 0px 0px 2px #ddd;
+  box-shadow: 0px 0px 2px #ddd;
   overflow: hidden;
 }
 .entity-four.thumbnail .img-box {
@@ -536,7 +536,7 @@ p.boolean-false {
     padding: 0 0!important;
   }
   #guoku_main_nav {
-    background-color: #ffffff;
+    background-color: #fff;
   }
   #guoku_main_nav .navbar-form {
     padding: 0px 0px;
@@ -545,15 +545,15 @@ p.boolean-false {
     padding-left: 10px;
   }
   #guoku_main_nav .navbar-toggle .icon-bar {
-    background-color: #9d9e9f;
+    background-color: #9D9E9F;
   }
   #guoku_main_nav .search .search-input {
-    color: #f8f8f8;
+    color: #F8F8F8;
   }
   #guoku_main_nav .user-menu li a:hover,
   #guoku_main_nav .user-menu li a:focus {
     background: none;
-    color: #f8f8f8;
+    color: #F8F8F8;
   }
   #guoku_main_nav .main-list li a:hover,
   #guoku_main_nav .main-list li a:focus {
@@ -688,7 +688,7 @@ p.boolean-false {
   }
   .guoku-content.user-page .note-cell .note-text {
     font-size: 14px !important;
-    font-color: #9d9e9f !important;
+    font-color: #9D9E9F !important;
   }
   #selection_article_list .selection-article-item .article-title {
     min-height: 66px!important;
@@ -723,7 +723,7 @@ p.boolean-false {
   .more-article-wrapper .article-digest {
     padding: 10px 15px 15px 15px;
     font-size: 13px;
-    color: #9d9e9f;
+    color: #9D9E9F;
   }
   .more-article-wrapper .article-digest .created-date {
     padding: 10px 0;
@@ -733,4 +733,3 @@ p.boolean-false {
     max-width: 200px;
   }
 }
-/*# sourceMappingURL=xs.less.css.map */

@@ -72,12 +72,12 @@
 
 @media (min-width: 768px){
   .caption .note {
-    height: 120px;
+    //height: 120px;
   }
 }
 @media (min-width: 992px){
   .caption .note {
-    height: 96px;
+    //height: 96px;
   }
 }
 
@@ -927,7 +927,7 @@ a:hover{text-decoration:underline;}
     }
     .info-wrapper{
       .info{
-        float:right;
+        //float:right;
         padding-right: 20px;
         font-size:@mini-size;
         color: @common-gray;
@@ -1386,20 +1386,35 @@ a:hover{text-decoration:underline;}
   color: black;
 }
 
-.scroll-row{
-  padding: 20px;
+.entity-selection .img-box{
+    height: 100%;
+    padding: 0;
+    overflow:auto;
 }
-.selection-item {
-  margin-bottom: 20px;
-  float: left;
-  //width: 220px;
-  border: 1px solid red;
+
+// Parent Element, or Container
+.grid (@columns: 3, @gap: 10px, @width: 100%) {
+  -moz-column-count: @columns;
+  -moz-column-gap: @gap;
+  -webkit-column-count: @columns;
+  -webkit-column-gap: @gap;
+  column-count: @columns;
+  column-gap: @gap;
+  width: @width;
 }
-.selection-itembox img {
-  max-width: 100%
+
+// Child Element, or Tile
+.grid-box (@margin-bottom: 20px) {
+  display: inline-block;
+  margin-bottom: @margin-bottom;
+  width: 100%;
 }
-.selection-item--width2 { width: 160px; }
-.selection-item--height2 { height: 140px; }
-.selection-sizer,
-.selection-item { width: 20%; }
-.selection-item--width2 { width: 40%; }
+
+// Example: Book Shelf concept
+.book-shelf {
+background: #fff;
+.grid (3, 10px, 960px)
+}
+.book {
+.grid-box (15px);
+}

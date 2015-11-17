@@ -3,9 +3,10 @@ require([
         'jquery',
         'utils/EntityLike',
         'subapp/topmenu',
-        //'subapp/loadentity',
         'subapp/gotop',
         'subapp/scrollview_selection',
+        'masonry',
+        'jquery_bridget'
     ],
 
     function (polyfill,
