@@ -65,7 +65,8 @@ nut/settings/
 # Node tools
 node_modules
 nut/images/
-
+ant_image/*
+ant_image/avatar/*
 nut/db.sqlite3
 
 log.txt
