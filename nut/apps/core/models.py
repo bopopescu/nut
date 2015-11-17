@@ -1702,13 +1702,23 @@ class Search_History(BaseModel):
 
     @classmethod
     @task(base=BaseTask)
-    def record(cls, user_id, **kwargs):
-        if user_id and isinstance(user_id, AnonymousUser):
-            user_id = None
+    def record(cls, gk_user, **kwargs):
+        """
+        Record search history.
+        Args:
+            kwargs: search key words.
+            gk_user: GKUser object or id of a GKUser.
+        """
+        if gk_user and isinstance(gk_user, AnonymousUser):
+            gk_user = None
 
         key_words = kwargs.pop('key_words')
-        footpoint = cls(user=user_id, key_words=key_words, search_time=datetime.now())
-        footpoint.save()
+        if not key_words:
+            return
+        footprint = cls(user=gk_user,
+                        key_words=key_words,
+                        search_time=datetime.now())
+        footprint.save()
 
 
 ################################################################################

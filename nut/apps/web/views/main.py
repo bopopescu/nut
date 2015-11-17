@@ -212,7 +212,7 @@ class GKSearchView(SearchView):
                 'user_entity_likes': el,
             })
         key_words = form.cleaned_data.get(self.search_field)
-        Search_History.record(user_id=self.request.user, key_words=key_words)
+        Search_History.record(gk_user=self.request.user, key_words=key_words)
         return self.render_to_response(context)
 
     def get(self, request, *args, **kwargs):
