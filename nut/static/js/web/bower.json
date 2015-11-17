@@ -1,0 +1,25 @@
+{
+  "name": "guoku_frontend",
+  "version": "0.0.1",
+  "homepage": "http://www.guoku.com",
+  "authors": [
+    "hi@guoku.com"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "guoku"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "masonry": "~3.3.2"
+  }
+}
