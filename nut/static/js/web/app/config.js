@@ -1,8 +1,8 @@
 //change filename from fastdom to fastdom.ant to avoid duplicate module name
 
-
 requirejs.config({
     baseUrl: 'app/',
+    baseUrl: 'bower_components/',
     paths: {
         libs: './libs',
         utils: './utils',
@@ -13,11 +13,12 @@ requirejs.config({
         fastdom: 'libs/fastdom.ant',
         csrf:'libs/csrf',
         underscore:'libs/underscore.ant',
-        cookie: 'libs/jquery.cookie'
+        cookie: 'libs/jquery.cookie',
+        masonry: 'libs/masonry.pkgd.min'
     },
 
     shim: {
-// shim won't handle script load , you still need require script in your source
+        // shim won't handle script load , you still need require script in your source
         'cookie':{
             deps:['jquery']
         },
@@ -32,7 +33,10 @@ requirejs.config({
         },
         'underscore':{
             exports: '_'
+        },
+        'masonry':{
+            deps:['jquery'],
         }
     }
-
 });
+
