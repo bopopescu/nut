@@ -1,4 +1,9 @@
 
+1. 给module Search_History的record方法加了一点注释。
+
+===== 2015 - 11 - 12 =======
+
+
 1. 把tag/articles下的页面加热RequireJS
 2. 把category下的页面加入RequireJS，并作为滚动到页底自动加载
 3. 在model research_history里的记录搜索函数，判断用户是否为游客的时候，换为一种更加安全的方式
