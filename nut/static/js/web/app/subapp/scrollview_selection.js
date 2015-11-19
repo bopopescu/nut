@@ -16,13 +16,16 @@ define(['jquery','libs/Class','libs/fastdom','masonry','jquery_bridget', 'images
                 var $grid = this.$selection.masonry({
                     isFitWidth:true,
                     resizeable:true,
-                    itemSelector: '.selection-box'
+                    itemSelector: '.selection-box',
+                    animate: true,
+                    saveOptions: true
                 });
                 $grid.imagesLoaded().progress( function() {
                     $grid.masonry();
                 });
                 this.$grid = $grid;
                 $(window).scroll(this.onScroll.bind(this));
+                $(window).resize(this.onResize.bind(this));
             },
 
             onScroll:function(){
@@ -34,6 +37,12 @@ define(['jquery','libs/Class','libs/fastdom','masonry','jquery_bridget', 'images
                     fastdom.clear(this.write);
                 }
                 this.write = fastdom.write(this.doWrite.bind(this));
+            },
+
+            onResize: function () {
+                this.$grid.imagesLoaded().progress( function() {
+                    this.$grid.masonry('layout');
+                });
             },
 
             doClear : function(){
@@ -111,20 +120,11 @@ define(['jquery','libs/Class','libs/fastdom','masonry','jquery_bridget', 'images
             attachNewSelections: function(elemList, status){
                 var that = this;
                 fastdom.defer(function(){
-                    that.$grid.append( elemList ).masonry('appended', elemList);
+                    that.$grid.append( elemList ).masonry('appended', elemList,
+                        {saveOptions: true});
                     that.$grid.imagesLoaded().progress( function() {
                         that.$grid.masonry();
                     });
-
-                    //
-                    //that.$selection.imagesLoaded( function() {
-                    //    that.$grid.append( elemList ).masonry('appended', elemList);
-                        //that.$grid.masonry('layout');
-                    //}).progress( function( instance, image ) {
-                    //    var result = image.isLoaded ? 'loaded' : 'broken';
-                    //    that.$grid.masonry();
-                    //    console.log( 'image is ' + result + ' for ' + image.img.src );
-                    //});
                 });
 
                 fastdom.defer(function(){
