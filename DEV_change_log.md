@@ -1,3 +1,7 @@
+1. 合并EDM到dev
+
+===== 2015 - 11 - 12 =======
+
 
 1. 给module Search_History的record方法加了一点注释。
 
