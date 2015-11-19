@@ -27,31 +27,31 @@ class UserForm(forms.Form):
 
     # user_id = forms.CharField(label=_('user_id'),
     #                           widget=forms.TextInput(attrs={'class':'form-control', 'readonly':''}),
-    #                           help_text=_(''))
+    #                           )
     email = forms.EmailField(label=_('email'),
                              widget=forms.TextInput(attrs={'class':'form-control', 'type':'email'}),
-                             help_text=_(''))
+                             )
     nickname = forms.CharField(label=_('nickname'),
                                widget=forms.TextInput(attrs={'class':'form-control'}),
-                               help_text=_(''))
+                               )
 
     is_active = forms.ChoiceField(label=_('user group'),
                                   choices=get_user_model().USER_STATUS_CHOICES,
                                    widget=forms.Select(attrs={'class':'form-control'}),
                                    required=False,
-                                   help_text=_(''))
+                                   )
     # is_active = forms.ChoiceField(label=_('active'),
     #                                 choices=YES_OR_NO,
     #                                 widget=forms.Select(attrs={'class':'form-control'}),
-    #                                 help_text=_(''))
+    #                                 )
     is_admin = forms.BooleanField(label=_('admin'),
                                    widget=forms.RadioSelect(choices=YES_OR_NO),
                                    required=False,
-                                   help_text=_(''),)
+                                   )
     # is_admin = forms.ChoiceField(label=_('admin'),
     #                              choices=YES_OR_NO,
     #                              widget=forms.Select(attrs={'class':'form-control'}),
-    #                              help_text=_(''))
+    #                              )
 
     location = forms.CharField(
         widget=forms.Select(attrs={"name" : "location", "class" : "form-control location"}),
@@ -70,18 +70,18 @@ class UserForm(forms.Form):
                                 # widget=forms.Select(attrs={'class':'form-control'}),
                                 widget=forms.RadioSelect(),
                                 initial=User_Profile.Other,
-                                help_text=_(''))
+                                )
 
     bio = forms.CharField(label=_('bio'),
                           widget=forms.Textarea(attrs={'class':'form-control','rows':'4', 'style':'resize:none;'}),
                           required=False,
                           max_length=200,
-                          help_text=_(''))
+                          )
 
     website = forms.URLField(label=_('website'),
                              widget=forms.TextInput(attrs={'class':'form-control'}),
                              required=False,
-                             help_text=_(''))
+                             )
 
     def __init__(self, user, *args, **kwargs):
         # self.request = request
@@ -146,10 +146,10 @@ class UserForm(forms.Form):
 class GuokuSetPasswordForm(SetPasswordForm):
     new_password1 = forms.CharField(label=_('New password'),
                                       widget=forms.PasswordInput(attrs={'class':'form-control'}),
-                                      help_text=_(''))
+                                      )
     new_password2 = forms.CharField(label=_('New password confirmation'),
                                        widget=forms.PasswordInput(attrs={'class':'form-control'}),
-                                       help_text=_(''))
+                                       )
 
 
 class AvatarForm(forms.Form):

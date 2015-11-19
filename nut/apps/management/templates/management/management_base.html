@@ -190,6 +190,13 @@
                         </a>
                     </li>
 
+                    {% url 'management_edm_list' as management_edm_list_url %}
+                    <li {% if management_edm_list_url in request.path %}class="active"{% endif %}>
+                        <a href="{{ management_edm_list_url }}">
+                            <i class="fa fa-envelope"></i>&nbsp;<span>{% trans 'EDM' %}</span>
+                        </a>
+                    </li>
+
                     <li class="header">{% trans 'articles' %}</li>
                     {% url  'management_selection_article_list' as management_selection_article_list_url %}
                     <li {% if management_selection_article_list_url in request.path %}class="active"{% endif %}>
