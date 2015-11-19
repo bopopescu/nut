@@ -46,7 +46,7 @@ class APIUser(GKUser):
         return res
 
 
-
+# TODO: mobile models
 class Apps(models.Model):
     user = models.ForeignKey(GKUser)
     app_name = models.CharField(u'application name', max_length=30, unique=True)
@@ -62,7 +62,6 @@ class Apps(models.Model):
     def __unicode__(self):
         # app_label = 'mobile'
         return self.app_name
-
 
 class Session_Key(models.Model):
     user = models.ForeignKey(APIUser, related_name = "mobile_client_session")
@@ -87,6 +86,8 @@ class V3_User(GKUser):
     class Meta:
         proxy = True
 
+
+# class Luanc
 
 
 
