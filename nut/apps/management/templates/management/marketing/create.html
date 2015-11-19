@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'management/management_base.html' %}
+{% load i18n %}
 
-</body>
-</html>
+
+{% block content %}
+    <section class="content-header">
+        <h1>{% trans 'new launch image' %}</h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+            <li><a href="#">{% trans 'launch image' %}</a></li>
+            <li class="active">{% trans 'new launch image' %}</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-header">
+
+                    </div>
+                    <form class="form-horizontal" method="post" action="{% url 'management_create_launch_image' %}">
+                        {% csrf_token %}
+                        <div class="box box-body">
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
