@@ -62,7 +62,7 @@ class EntityURLFrom(forms.Form):
         label=_('links'),
         widget=forms.URLInput(attrs={'class': 'form-control', 'placeholder': _(
             'past the product link here')}),
-        help_text=_(''),
+
     )
 
     def __init__(self, request, *args, **kwargs):
