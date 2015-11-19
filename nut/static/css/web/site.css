@@ -1905,19 +1905,23 @@ a:hover {
   height: 100%;
   padding: 0;
   overflow: auto;
+  min-width: 100%;
 }
-.book-shelf {
-  background: #fff;
-  -moz-column-count: 3;
-  -moz-column-gap: 10px;
-  -webkit-column-count: 3;
-  -webkit-column-gap: 10px;
-  column-count: 3;
-  column-gap: 10px;
-  width: 960px;
+html {
+  overflow-y: scroll;
 }
-.book {
+#selection {
+  padding: 0;
+  -moz-column-gap: 1.5em;
+  -webkit-column-gap: 1.5em;
+  column-gap: 1.5em;
+}
+#selection:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+#selection .selection-box {
+  float: left;
   display: inline-block;
-  margin-bottom: 15px;
-  width: 100%;
 }

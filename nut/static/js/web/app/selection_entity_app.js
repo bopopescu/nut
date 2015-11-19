@@ -6,7 +6,8 @@ require([
         'subapp/gotop',
         'subapp/scrollview_selection',
         'masonry',
-        'jquery_bridget'
+        'jquery_bridget',
+        'images_loaded'
     ],
 
     function (polyfill,

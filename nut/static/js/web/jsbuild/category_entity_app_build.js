@@ -1627,7 +1627,6 @@ define('subapp/loadentity',['jquery','libs/Class','libs/fastdom'],
     });
 
     return LoadEntity;
-//test
 });
 /**
  * Created by judy on 13/11/15.
