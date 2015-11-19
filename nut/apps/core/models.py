@@ -23,6 +23,7 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import AbstractBaseUser, AnonymousUser
 from django.contrib.auth.models import PermissionsMixin
+from sendcloud.address_list import SendCloudAddressList
 
 from settings import GUOKU_MAIL, GUOKU_NAME
 from apps.notifications import notify
@@ -1779,22 +1780,21 @@ def add_email_to_sd_maillist(sender, instance, created, raw, using,
             member_addr = instance.user.email
             sd_list = SendCloudAddressList(mail_list_addr=settings.MAIL_LIST,
                                            member_addr=member_addr)
-            sd_list.add_member(name=instance.nickname)
+            sd_list.add_member(name=instance.nickname, upsert='false')
         except BaseException, e:
             log.error("Error: add user email to sd error: %s",
                       e.message)
     else:
         user = GKUser.objects.get(pk=instance.user.id)
         if user.email != instance.user.email or user.nickname != instance.nickname:
-            print 'here it is!'
             try:
-                name = '%s;%s' % (instance.nickname, user.nickname)
-                member_addr = '%s;%s' % (instance.user.email, user.email)
+                name = instance.nickname
+                member_addr = instance.user.email
                 sd_list = SendCloudAddressList(mail_list_addr=settings.MAIL_LIST,
                                                member_addr=member_addr)
-                sd_list.update_member(name=name, member_addr=member_addr)
+                sd_list.add_member(name=name, upsert='true')
             except BaseException, e:
-                log.error("Error: add user email to sd error: %s",
+                log.error("Error: update user info to sd error: %s",
                           e.message)
 
 
