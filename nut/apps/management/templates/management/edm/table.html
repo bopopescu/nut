@@ -1,0 +1,73 @@
+{% load i18n %}
+{% load guoku %}
+
+<table class="table table-small-font table-hover table-bordered">
+    <thead>
+    <tr>
+        <th>{% trans 'title' %}</th>
+        <th>{% trans 'cover' %}</th>
+        <th>{% trans 'publish_time' %}</th>
+        <th>{% trans 'status' %}</th>
+        <th>{% trans 'operate' %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for edm in object_list %}
+        <tr>
+            <td class="product-brand">
+                {{ edm.title }}
+            </td>
+            <td class="product-brand">
+                <img src="{{ edm.cover|resize:'350' }}"/>
+            </td>
+            <td class="product-title">
+                {{ edm.publish_time|date:'Y-m-d H:i:s' }}
+            </td>
+            <td class="product-title">
+                {% if edm.status == edm.sd_verify_succeed or edm.status == edm.send_completed %}
+                    <span class="badge badge-success"
+                          style="background-color: #468847;">
+                {% else %}
+                    <span class="badge badge">
+                {% endif %}
+                {{ edm.get_status_display }}
+                </span>
+            </td>
+            <td class="product-title">
+                {% if edm.status != edm.send_completed %}
+                    {% if edm.status == edm.sd_verifying %}
+                        <a id="check_{{ edm.id }}"
+                           href="javascript:void(0)"
+                           class="btn btn-warning edm_check_verify"> {% trans 'check verify status' %}</a>
+                    {% else %}
+                        <div class="btn-group">
+                        <a id="delete_{{ edm.id }}"
+                           href="javascript:void(0)"
+                           class="btn btn-info edm_delete"> {% trans 'Delete' %}</a>
+                        {% if edm.status == edm.sd_verify_succeed %}
+                            <a id="send_{{ edm.id }}"
+                               href="javascript:void(0)"
+                               class="btn btn-default edm_send"> {% trans 'Send' %}</a>
+                            </div>
+                        {% else %}
+                            <a href="{% url 'management_edm_edit' edm.id %}"
+                               class="btn btn-default"> {% trans 'Edit' %}</a>
+                            </div>
+                            <a id="verify_{{ edm.id }}"
+                               href="javascript:void(0)"
+                               class="btn btn-primary edm_submit_verify">
+                                {% if edm.status == edm.sd_verify_failed %}
+                                    {% trans 'resubmit verify' %}
+                                {% else %}
+                                    {% trans 'submit verify' %}
+                                {% endif %}
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                <a target="_blank" href="{% url 'preview_edm' edm.id %}" class="btn btn-default"> {% trans 'Let me preview it' %}</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

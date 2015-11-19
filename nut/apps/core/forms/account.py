@@ -38,7 +38,7 @@ class GuoKuUserSignInForm(forms.Form):
         label=_('password'),
         widget=forms.PasswordInput(),
         min_length=6,
-        help_text=_('')
+
     )
 
     def __init__(self, request=None, *args, **kwargs):
@@ -75,7 +75,7 @@ class GuokuUserSignUpForm(forms.Form):
         label=_('password'),
         widget=forms.PasswordInput(),
         min_length=8,
-        help_text=_('')
+
     )
 
     nickname = forms.CharField(

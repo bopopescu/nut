@@ -17,7 +17,8 @@
     <meta name="description" content="按照标签分类，果库消费图文，汇集全网秉持理想生活哲学的消费类文章，开拓精英视野与生活想象，涵盖品牌相关报道、卖家创业者专访、潮流资讯、消费见解主张、生活场景清单、购物经验心得分享等。">
 {% endblock %}
 
-{% block title %}{{ tag.name }} | 精选图文 | 精英消费指南 | 果库{% endblock %}
+{% block title %}{{ tag.name }} | 精选图文 | 精英消费指南 | 果库
+{% endblock %}
 
 {% block body_class %}
     gray-body
@@ -49,18 +50,21 @@
                 </div>
             {% endfor %}
         </div>
-
         <div class="row tag-article-container" id="selection_article_list" refresh-time="{{ refresh_time }}" >
             {% for article in articles %}
                 {% include 'tag/partial/article_item_new.html' %}
             {% endfor %}
+        </div>
+        <div class="row" id="main_loading_indicator">
+            <div class="col-xs-12 loading-icon">
+                <img src="{% static 'images/widgets/loading.gif' %}" height="32px" width="32px">
+            </div>
         </div>
         <div class="row button-row">
             <ul class="nav-button-holder">
                 <li class=" prev-button" style="display:none;">  上一页</li>
                 <li class=" next-button" style="display:none;">  下一页 </li>
             </ul>
-
         </div>
         <div class="row hidden-xs">
             <div class="col-sm-offset-12">
@@ -71,6 +75,9 @@
 
 {% endblock %}
 
-{% block script %}
+{% block basic_script %}
+    <script data-main="{% static 'js/web/jsbuild/tag_articles_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+{% endblock %}
 
+{% block script %}
 {% endblock %}
