@@ -8,9 +8,11 @@ class LaunchBoardListView(ListView):
     template_name = "management/marketing/list.html"
 
 
-class NewLaunchBoardView(CreateView):
+class NewLaunchBoardView(FormView):
     form_class = LaunchBoardForm
     template_name = "management/marketing/create.html"
+    # model = LaunchBoard
+
 
 
 class EditLaunchBoardView(FormView):
