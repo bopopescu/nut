@@ -198,7 +198,7 @@ def entity_post_note(request, eid,
                     'status': 1,
                     'data': _data,
                 },
-                content_type='text/html; charset=utf-8',
+                content_type='application/json; charset=utf-8',
             )
     raise HttpResponseNotAllowed
 

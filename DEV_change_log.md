@@ -1,4 +1,13 @@
 
+
+TODO : 现在移动端的标签还都是个人标签，是否需要改成全局标签
+
+====  2015 - 11 -18 =====
+
+2. new front-end for entity-detail page
+1. add placeholder bug  quick fix for register page on IE8 
+==== 2015 - 11  - 17  =====
+
 1. 把tag/articles下的页面加热RequireJS
 2. 把category下的页面加入RequireJS，并作为滚动到页底自动加载
 3. 在model research_history里的记录搜索函数，判断用户是否为游客的时候，换为一种更加安全的方式

@@ -3,7 +3,7 @@
 {% if entity.has_top_note %}
     {% with the_top_note=entity.top_note %}
     <li >
-        <a href="{% url 'web_user_index' the_top_note.user.pk %}" target="_blank">
+        <a class="pull-left" href="{% url 'web_user_index' the_top_note.user.pk %}" target="_blank">
             <img src="{{ the_top_note.user.profile.avatar_url }}" alt="{{ the_top_note.user.profile.nickname }}" class="head_pic">
         </a>
         <div class="comment_detail note-content">
