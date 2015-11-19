@@ -1,5 +1,6 @@
 from apps.mobile.models import LaunchBoard
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 
 class LaunchBoardForm(forms.Form):
@@ -20,7 +21,6 @@ class LaunchBoardForm(forms.Form):
         help_text=_(''),
         initial=0,
     )
-
 
     def save(self):
         pass
