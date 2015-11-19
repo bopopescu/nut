@@ -22,7 +22,7 @@
 {% block content %}
     <div class="container">
         <h2 class="sr-only">精选商品，精英消费指南</h2>
-        <div class="grid" id="selection" data-refresh="{{ refresh_datetime }}">
+        <div id="selection" data-refresh="{{ refresh_datetime }}">
             {% for selection in selections %}
                 {% include "web/main/partial/selection_item_list.html" with entity=selection.entity %}
             {% endfor %}
@@ -40,9 +40,9 @@
             </div>
         </div>
 
-        {% if paginator %}
-            {% include "web/main/partial/selection_paginator.html" with objects=selections paginator=paginator url=request.path %}
-        {% endif %}
+{#        {% if paginator %}#}
+{#            {% include "web/main/partial/selection_paginator.html" with objects=selections paginator=paginator url=request.path %}#}
+{#        {% endif %}#}
     </div>
 {% endblock %}
 

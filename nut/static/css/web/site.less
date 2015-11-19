@@ -1387,34 +1387,28 @@ a:hover{text-decoration:underline;}
 }
 
 .entity-selection .img-box{
-    height: 100%;
-    padding: 0;
-    overflow:auto;
+  height: 100%;
+  padding: 0;
+  overflow:auto;
+  min-width: 100%;
 }
 
-// Parent Element, or Container
-.grid (@columns: 3, @gap: 10px, @width: 100%) {
-  -moz-column-count: @columns;
-  -moz-column-gap: @gap;
-  -webkit-column-count: @columns;
-  -webkit-column-gap: @gap;
-  column-count: @columns;
-  column-gap: @gap;
-  width: @width;
+html { overflow-y: scroll; }
+
+#selection{
+  padding: 0;
+  -moz-column-gap: 1.5em;
+  -webkit-column-gap: 1.5em;
+  column-gap: 1.5em;
+}
+#selection:after {
+  content: '';
+  display: block;
+  clear: both;
 }
 
-// Child Element, or Tile
-.grid-box (@margin-bottom: 20px) {
+#selection .selection-box{
+  float: left;
   display: inline-block;
-  margin-bottom: @margin-bottom;
-  width: 100%;
 }
 
-// Example: Book Shelf concept
-.book-shelf {
-background: #fff;
-.grid (3, 10px, 960px)
-}
-.book {
-.grid-box (15px);
-}
