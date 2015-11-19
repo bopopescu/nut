@@ -18,11 +18,12 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.log import getLogger
 from django.db import models
 from django.db.models import Count
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth.models import AbstractBaseUser, AnonymousUser
+from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
+from sendcloud.address_list import SendCloudAddressList
 
 from settings import GUOKU_MAIL, GUOKU_NAME
 from apps.notifications import notify
@@ -642,8 +643,8 @@ class Brand(BaseModel):
 
     # @property
     # def shop_id(self):
-    #     if len(self.tmall_link) > 0:
-    #         o = urlparse(self.tmall_link)
+    # if len(self.tmall_link) > 0:
+    # o = urlparse(self.tmall_link)
     #         qs = parse_qs(o.query)
     #         return qs['shop_id'][0]
     #     return ''
@@ -704,8 +705,8 @@ class Entity(BaseModel):
             return self.images[1:]
             # res = list()
             # for row in self.images[1:]:
-            #     if image_host in row:
-            #         res.append(row.replace('imgcdn', 'image'))
+            # if image_host in row:
+            # res.append(row.replace('imgcdn', 'image'))
             #     else:
             #         res.append(row)
             # return res
@@ -776,12 +777,6 @@ class Entity(BaseModel):
     @property
     def mobile_url(self):
         return 'guoku://entity/' + str(self.id) + '/'
-
-    @property
-    def selected_related_articles(self):
-        related_selection_articles = Selection_Article.objects.published().filter(
-            article__in=self.related_articles.all())
-        return related_selection_articles
 
     def innr_like(self):
         key = 'entity:like:%d' % self.pk
@@ -1119,8 +1114,8 @@ class Note_Poke(models.Model):
 
 #
 # class Tag(models.Model):
-#     tag = models.CharField(max_length = 128, null = False, unique = True, db_index = True)
-#     tag_hash = models.CharField(max_length = 32, unique = True, db_index = True)
+# tag = models.CharField(max_length = 128, null = False, unique = True, db_index = True)
+# tag_hash = models.CharField(max_length = 32, unique = True, db_index = True)
 #     status = models.IntegerField(default = 0, db_index = True)
 #     creator = models.ForeignKey(GKUser, related_name='tags')
 #     # entity = models.ForeignKey(Entity, related_name='tag')
@@ -1692,26 +1687,101 @@ class Friendly_Link(BaseModel):
     def logo_url(self):
         return "%s%s" % (image_host, self.logo)
 
+class EDM(BaseModel):
+    (
+        waiting_for_sd_verify,
+        sd_verifying,
+        sd_verify_succeed,
+        sd_verify_failed,
+        send_completed,
+    ) = xrange(5)
 
-from celery.task import task
-from apps.core.tasks import BaseTask
+    EDM_STATUS_CHOICE = [
+        (waiting_for_sd_verify, _('waiting for sd verify')),
+        (sd_verifying, _('sd verifying')),
+        (sd_verify_succeed, _('sd verify succeed')),
+        (sd_verify_failed, _('sd verify failed')),
+        (send_completed, _('send completed')),
+    ]
+
+    title = models.CharField(default=u'本月果库上不可错过的精彩内容，已为你准备好'
+                                     u' - 果库 | 精英消费指南',
+                             max_length=255)
+    created = models.DateTimeField()
+    modified = models.DateTimeField()
+    status = models.IntegerField(choices=EDM_STATUS_CHOICE,
+                                 default=waiting_for_sd_verify)
+    publish_time = models.DateTimeField(default=datetime.now, null=False)
+    cover_image = models.CharField(max_length=255, null=False)
+    cover_hype_link = models.CharField(max_length=255, null=False)
+    cover_description = models.TextField(null=False)
+    sd_template_invoke_name = models.CharField(max_length=255, null=True)
+    display = models.BooleanField(default=True)
+    selection_articles = models.ManyToManyField(Selection_Article, null=False)
+    sd_task_id = models.CharField(max_length=45, null=True)
+
+    def __unicode__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        """ On save, update timestamps """
+        if not self.id and not self.pk:
+            self.created = datetime.now()
+        self.modified = datetime.now()
+        return super(EDM, self).save(*args, **kwargs)
+
+    @property
+    def cover(self):
+        cover_image = self.cover_image
+        if type(self.cover_image) == list:
+            cover_image = self.cover_image[0]
+
+        if 'http' in cover_image:
+            return cover_image
+        else:
+            return "%s%s" % (image_host, cover_image)
+
+
+
 class Search_History(BaseModel):
     user = models.ForeignKey(GKUser, null=True)
     key_words = models.CharField(max_length=255, null=False, blank=False)
     search_time = models.DateTimeField(null=True, blank=False)
 
-    @classmethod
-    @task(base=BaseTask)
-    def record(cls, user_id, **kwargs):
-        if user_id and isinstance(user_id, AnonymousUser):
-            user_id = None
-
-        key_words = kwargs.pop('key_words')
-        footpoint = cls(user=user_id, key_words=key_words, search_time=datetime.now())
-        footpoint.save()
-
 
 ################################################################################
+@receiver(post_save, sender=User_Profile)
+def add_email_to_sd_maillist(sender, instance, created, raw, using,
+                            update_fields, **kwargs):
+    if created:
+        try:
+            member_addr = instance.user.email
+            sd_list = SendCloudAddressList(mail_list_addr=settings.MAIL_LIST,
+                                           member_addr=member_addr)
+            sd_list.add_member(name=instance.nickname, upsert='false')
+        except BaseException, e:
+            log.error("Error: add user email to sd error: %s",
+                      e.message)
+    else:
+        user = GKUser.objects.get(pk=instance.user.id)
+        if user.email != instance.user.email or user.nickname != instance.nickname:
+            try:
+                name = instance.nickname
+                member_addr = instance.user.email
+                # delete old email from SendCloud.
+                sd_list = SendCloudAddressList(mail_list_addr=settings.MAIL_LIST,
+                                               member_addr=user.email)
+                sd_list.delete_member()
+
+                # update name or email.
+                sd_list = SendCloudAddressList(mail_list_addr=settings.MAIL_LIST,
+                                               member_addr=member_addr)
+                sd_list.add_member(name=name, upsert='true')
+
+            except BaseException, e:
+                log.error("Error: update user info to sd error: %s",
+                          e.message)
+
 
 # TODO: model post save
 def create_or_update_entity(sender, instance, created, **kwargs):

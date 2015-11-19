@@ -79,6 +79,11 @@ RESET_PASSWORD_TEMPLATE = 'forget_password'
 VERFICATION_EMAIL_TEMPLATE = 'verify_email'
 INTERVAL_OF_SELECTION = 24
 
+
 IMAGE_HOST = 'http://127.0.0.1:8000/'
 LOCAL_IMG_DEBUG=True
-INTRANET_IMAGE_SERVER = 'http://localhost:8001/'
+INTRANET_IMAGE_SERVER = 'http://127.0.0.1:8001/'
+
+# mail
+MAIL_LIST_ADDR='test_edm'
+MAIL_LIST = 'test_edm@maillist.sendcloud.org'
