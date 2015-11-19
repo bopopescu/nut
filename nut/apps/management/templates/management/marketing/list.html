@@ -1,0 +1,50 @@
+{% extends 'management/management_base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <section class="content-header">
+        <h1>{% trans 'launch image' %}</h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+{#            <li><a href="#">Tables</a></li>#}
+            <li class="active">{% trans 'launch image' %}</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <a class="btn btn-primary" href="{% url 'management_create_launch_image' %}">{% trans 'new' %}</a>
+                    </div>
+
+                    <div class="box-body table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>{% trans 'image' %}</th>
+                                    <th>{% trans 'title' %}</th>
+                                    <th>{% trans 'description' %}</th>
+                                    <th>{% trans 'status' %}</th>
+                                    <th>{% trans 'action' %}</th>
+                                    <th>{% trans 'created datetime' %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in object_list %}
+
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="box-footer">
+                        {% include "management/paginator.html" with objects=object_list url=request.path %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

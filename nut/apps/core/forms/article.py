@@ -38,7 +38,6 @@ class BaseSelectionArticleForm(forms.Form):
         _the_article = self.get_article_obj()
         _is_published = self.cleaned_data.get('is_published', False)
         _pub_time = self.cleaned_data.get('pub_time', None)
-
         selection_article = Selection_Article(is_published=_is_published, pub_time=_pub_time)
         selection_article.article = _the_article
         try :
@@ -66,14 +65,14 @@ class EditSelectionArticleForm(BaseSelectionArticleForm):
         label=_('is_published'),
         choices=YES_OR_NO,
         widget=forms.Select(attrs={'class':'form-control'}),
-        help_text=_(''),
+
         initial=1,
     )
 
     pub_time = forms.DateTimeField(
         label=_('publish datetime'),
         widget=forms.DateTimeInput(attrs={'class':'form-control'}),
-        help_text=_(''),
+
         initial=datetime.now()
     )
 
@@ -113,27 +112,26 @@ class BaseArticleForms(forms.Form):
     title = forms.CharField(
         label=_('title'),
         widget=forms.TextInput(attrs={'class':'form-control'}),
-        help_text = _(''),
     )
 
     tags = forms.CharField(
         label=_('tags'),
         widget=forms.TextInput(attrs={'class':'form-control'}),
-        help_text=_(''),
+
         required=False,
     )
 
     content = forms.CharField(
         label=_('content'),
         widget=forms.Textarea(attrs={'class':'form-control', 'id':'summernote'}),
-        help_text=_(''),
+
     )
 
     is_publish = forms.ChoiceField(
         label=_('publish'),
         choices=Article.ARTICLE_STATUS_CHOICES,
         widget=forms.Select(attrs={'class':'form-control'}),
-        help_text=_(''),
+
         initial=Article.draft,
     )
 
@@ -145,7 +143,7 @@ class BaseArticleForms(forms.Form):
             label=_('author'),
             choices=user_choices,
             widget=forms.Select(attrs={'class':'form-control'}),
-            help_text=_(''),
+
         )
 
     def cleaned_is_publish(self):
@@ -221,7 +219,7 @@ class EditArticleForms(BaseArticleForms):
             choices=Article.ARTICLE_STATUS_CHOICES,
             widget=forms.Select(attrs={'class':'form-control', 'disabled':''}),
             required=False,
-            # help_text=_(''),
+            #
             # initial=Article.draft,
         )
 

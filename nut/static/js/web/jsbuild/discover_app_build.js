@@ -744,7 +744,7 @@ define('utils/EntityLike',['libs/Class','subapp/account','jquery','fastdom'],
     var AppEntityLike = Class.extend({
         init: function(){
 
-            $('#selection, #discover_entity_list').on('click' ,'.btn-like, .like-action', this.handleLike.bind(this));
+            $('#selection, #discover_entity_list, #category-entity-list').on('click' ,'.btn-like, .like-action', this.handleLike.bind(this));
             console.log('app entity like functions');
             console.log(fastdom);
         },

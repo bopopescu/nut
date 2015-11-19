@@ -16,16 +16,13 @@
 {% endblock %}
 {% block title %}{{ sub_category.title }} - {{ sub_category.group }} | 精英消费指南 | 果库{% endblock %}
 
-{##}
-{#{% block title %}品类 － {{ sub_category.title }} - 【精英消费指南】{% endblock %}{% block suffix %} - 果库 {% endblock %}#}
-{#{% block keyword %}{{ sub_category.title }}{% endblock %}#}
 
 {% block content %}
     {% url 'web_category_detail_olike' cid as sort_like_url %}
     {% url 'web_category_detail' cid as sort_time_url %}
 
     <div class="container">
-        <div class="row" id="category-entity-list">
+        <div class="row" id="category-entity-list" data-refresh="{{ refresh_datetime }}">
             <div class="col-md-12">
                 <div class="category-header">
                     <span class="category-name"> {{ sub_category.title|show_category }}</span>
@@ -49,23 +46,28 @@
                 </div>
             </div>
             {% for entity in entities %}
-{#                {{ entity }}#}
                 {% include 'web/main/partial/entity.html' with entity=entity %}
             {% endfor %}
         </div>
+        {% if entities.has_next %}
+            <div class="row" >
+                <div class="col-xs-12 loading-icon">
+                    <img src="{% static 'images/widgets/loading.gif' %}" height="32px" width="32px">
+                </div>
+            </div>
+        {% endif %}
 
+        <div class="row hidden-xs">
+            <div class="col-sm-offset-12">
+                <a class="btn-top" href="javascript:;"  title="回到顶部" target="_self"><i class="fa fa-angle-up fa-lg"></i></a>
+            </div>
+        </div>
         {% include "web/main/partial/paginator.html" with objects=entities url=request.path %}
     </div>
 {% endblock %}
+{% block basic_script %}
+    <script data-main="{% static 'js/web/jsbuild/category_entity_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+{% endblock %}
 
-{#                <div class="category-header">#}
-{#                    <p>{{ sub_category.title|show_category }}#}
-{##}
-{#                    <span>#}
-
-{#                            <a class="sort_link" href="{{  sort_like_url }}">按喜爱排序</a>#}
-{#                        {% else %}#}
-{#                            <a class="sort_link" href="{{ sort_time_url }}">按加入时间排序</a>#}
-{#                        {% endif %}#}
-{#                    </span>#}
-{#                    </p>#}
+{% block script %}
+{% endblock %}

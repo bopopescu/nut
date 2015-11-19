@@ -134,6 +134,14 @@
                         </a>
                     </li>
 
+                    {% url 'management_marketing' as management_marketing_url %}
+                    <li {% if management_marketing_url == request.path %}class="active"{% endif %}>
+                        <a href="{{ management_marketing_url }}">
+                            <i class="fa fa-coffee"></i> <span>{% trans 'marketing' %}</span>
+                        </a>
+                    </li>
+
+
                     {% url 'management_report_list' as management_report_list_url %}
                     <li {% if management_report_list_url in request.path %}class="active"{% endif %}>
                         <a href="{{ management_report_list_url }}">
@@ -180,6 +188,13 @@
                     <li {% if management_comment_list_url in request.path %}class="active"{% endif %}>
                         <a href="{{ management_comment_list_url }}">
                             <i class="fa fa-comment-o"></i>&nbsp;<span>{% trans 'comment' %}</span>
+                        </a>
+                    </li>
+
+                    {% url 'management_edm_list' as management_edm_list_url %}
+                    <li {% if management_edm_list_url in request.path %}class="active"{% endif %}>
+                        <a href="{{ management_edm_list_url }}">
+                            <i class="fa fa-envelope"></i>&nbsp;<span>{% trans 'EDM' %}</span>
                         </a>
                     </li>
 

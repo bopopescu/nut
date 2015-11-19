@@ -8,6 +8,7 @@ from django.template import loader
 from django.template import RequestContext
 from haystack.generic_views import SearchView
 
+from apps.core.tasks.recorder import record_search
 from apps.tag.models import Tags
 from apps.core.models import Entity, Search_History
 from apps.core.models import Entity_Like
@@ -136,7 +137,7 @@ class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin, ListView):
         return JSONResponse(
             data={
                 'data': _data,
-                'status': 1,
+                'status': 1
             },
             content_type='text/html; charset=utf-8',
         )
@@ -212,7 +213,7 @@ class GKSearchView(SearchView):
                 'user_entity_likes': el,
             })
         key_words = form.cleaned_data.get(self.search_field)
-        Search_History.record(user_id=self.request.user, key_words=key_words)
+        record_search(gk_user=self.request.user, key_words=key_words)
         return self.render_to_response(context)
 
     def get(self, request, *args, **kwargs):

@@ -108,6 +108,7 @@ class EntityLikeQuerySet(models.query.QuerySet):
     def popular(self, scale):
         dt = datetime.now()
         weekly_days = 7
+        monthly_days = 30
         # local test db  has NOT enough entity like data
         # this is a temp workaround for local testing
 
@@ -115,6 +116,8 @@ class EntityLikeQuerySet(models.query.QuerySet):
             weekly_days = 700
         if scale == 'weekly':
             days = timedelta(days=weekly_days)
+        elif scale == 'monthly':
+            days = timedelta(days=monthly_days)
         else:
             days = timedelta(days=1)
 
@@ -153,7 +156,7 @@ class EntityLikeManager(models.Manager):
         cache.set(key, res, timeout=86400)
         return list(res)
 
-    def popular_random(self, scale='weekly'):
+    def popular_random(self, scale='weekly', out_count=60):
         key = 'entity:popular:random:%s' % scale
         # popular_list = self.popular()
         res = cache.get(key)
@@ -161,7 +164,6 @@ class EntityLikeManager(models.Manager):
         if res:
             return res
         source = self.popular(scale)
-        out_count = 60
         if isTestEnv():
             out_count = 6
         try:
