@@ -1807,6 +1807,17 @@ define('subapp/note/notecomment',['libs/Class', 'jquery'], function(Class, $){
     return CommentManager;
 
 });
+define('utils/io',[],function(){
+    var io={
+        clearUserInputString: function(str){
+            str = str.replace(/(\s+)/mg,' ');
+            str = str.replace(/([><:$*&%])/mg, '');
+            return str.trim();
+        },
+    };
+
+    return io;
+});
 define('libs/csrf',['jquery'],function($){
 
     function getCookie(name) {
@@ -1848,6 +1859,7 @@ define('subapp/note/usernote',[
     'subapp/note/notepoke',
     'subapp/note/notecomment',
     'libs/fastdom',
+    'utils/io',
     'libs/csrf'
 
 
@@ -1857,7 +1869,8 @@ define('subapp/note/usernote',[
     TagManager,
     PokeManager,
     CommentManager,
-    fastdom
+    fastdom,
+    io
 ){
     var UserNote = Class.extend({
         init: function(){
@@ -1937,8 +1950,39 @@ define('subapp/note/usernote',[
             var $form = $(event.currentTarget);
             var url = $form.attr('action');
             var $note_text = $form.find("textarea");
+            var note_content_text = $.trim($note_text[0].value);
+                note_content_text = io.clearUserInputString(note_content_text);
 
+             if (note_content_text.length > 0) {
+                 $.when(
+                     $.ajax({
+                        method: 'POST',
+                        url : $form.attr('action'),
+                        data: $form.serialize(),
+                        dataType: 'json',
+                     })
+                 ).then(
+                     this._noteUpdateSuccess.bind(this),
+                     this._noteUpdateFail.bind(this)
+                 );
+             }
 
+            event.preventDefault();
+            return false;
+        },
+
+        _noteUpdateSuccess: function(data){
+             var $noteEle = $noteEle || this.getCurrentUserNoteElement();
+            var $note_content = $noteEle.find(".comment_word.content");
+            var $note_update_form = $noteEle.find(".update-note-form");
+             if (parseInt(data.result) === 1) {
+                 $note_content.html(data.note);
+                 $note_update_form.hide();
+                 $note_content.show();
+             }
+             this.tagManager.displayTag($noteEle);
+        },
+        _noteUpdateFail:function(){
 
         },
         initNoteUpdateDisplay: function($noteEle){
@@ -1980,7 +2024,7 @@ define('subapp/note/usernote',[
         },
 
         postNoteFail: function(data){
-            console.log('post note fail');
+            console.log('post note fail!');
         },
         initUserNotePost: function(){
             var $note = $(".post-note");
@@ -2018,9 +2062,7 @@ define('subapp/note/usernote',[
             });
         }
     });
-
     return UserNote;
-
 });
 require([
         'libs/polyfills',
