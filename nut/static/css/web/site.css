@@ -1920,6 +1920,8 @@ html {
   content: '';
   display: block;
   clear: both;
+  margin: 0 auto;
+  width: 100%;
 }
 #selection .selection-box {
   float: left;
