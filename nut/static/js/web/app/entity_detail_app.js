@@ -7,7 +7,7 @@ require([
         'subapp/detailsidebar',
         'subapp/entitylike',
         'subapp/entityreport',
-        'subapp/usernote',
+        'subapp/note/usernote',
         'libs/csrf'
 
     ],
