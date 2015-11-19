@@ -20,7 +20,7 @@ urlpatterns = patterns(
 
 
 # TODO: launch image at mobile
-    url(r'^marketing$',include('apps.management.urls.marketing') ),
+    url(r'^marketing/',include('apps.management.urls.marketing') ),
 
 
     url(r'^brand/', include('apps.management.urls.brand')),

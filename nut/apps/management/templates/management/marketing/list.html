@@ -16,11 +16,33 @@
             <div class="col-xs-12">
                 <div class="box box-info">
                     <div class="box-header">
-                        <a class="btn btn-primary" href="#">{% trans 'new' %}</a>
+                        <a class="btn btn-primary" href="{% url 'management_create_launch_image' %}">{% trans 'new' %}</a>
                     </div>
-                </div>
-                <div>
 
+                    <div class="box-body table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>{% trans 'image' %}</th>
+                                    <th>{% trans 'title' %}</th>
+                                    <th>{% trans 'description' %}</th>
+                                    <th>{% trans 'status' %}</th>
+                                    <th>{% trans 'action' %}</th>
+                                    <th>{% trans 'created datetime' %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in object_list %}
+
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="box-footer">
+                        {% include "management/paginator.html" with objects=object_list url=request.path %}
+                    </div>
                 </div>
             </div>
         </div>
