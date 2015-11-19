@@ -4,4 +4,4 @@ from apps.mobile.models import LaunchBoard
 
 class LaunchBoardListView(ListView):
     model = LaunchBoard
-    template_name = ""
+    template_name = "management/marketing/list.html"
