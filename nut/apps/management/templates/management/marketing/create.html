@@ -14,14 +14,29 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                <div class="box box-info">
-                    <div class="box-header">
+                <div class="box box-primary">
+{#                    <div class="box-header">#}
 
-                    </div>
+{#                    </div>#}
                     <form class="form-horizontal" method="post" action="{% url 'management_create_launch_image' %}">
                         {% csrf_token %}
-                        <div class="box box-body">
-                            
+                        <div class="box-body">
+                            {% for field in form %}
+                                <div class="form-group {% if field.errors %}has-error{% endif %}">
+                                    <label class="control-label col-sm-2">{{ field.label }}&nbsp;:</label>
+                                    <div class="col-sm-5">
+                                    {{ field }}
+                                    </div>
+                                    {% if field.errors %}
+                                        {% for error in field.errors %}
+                                            <span class="help-block">{{ error }}</span>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="box-footer">
+                            <button class="btn btn-primary" type="submit">{% trans 'submit' %}</button>
                         </div>
                     </form>
                 </div>
