@@ -18,6 +18,8 @@ urlpatterns = patterns(
     url(r'^comment/', include('apps.management.urls.comments')),
 
 
+# TODO: launch image at mobile
+    url(r'^marketing$',include('apps.management.urls.marketing') ),
 
 
     url(r'^brand/', include('apps.management.urls.brand')),
