@@ -1,0 +1,28 @@
+{% extends 'management/management_base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <section class="content-header">
+        <h1>{% trans 'launch image' %}</h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+{#            <li><a href="#">Tables</a></li>#}
+            <li class="active">{% trans 'launch image' %}</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <a class="btn btn-primary" href="#">{% trans 'new' %}</a>
+                    </div>
+                </div>
+                <div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

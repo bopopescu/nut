@@ -134,9 +134,10 @@
                         </a>
                     </li>
 
-                    <li {% if management_dashboard_url == request.path %}class="active"{% endif %}>
-                        <a href="{{ management_dashboard_url }}">
-                            <i class="fa fa-dashboard"></i> <span>{% trans 'dashboard' %}</span>
+                    {% url 'management_marketing' as management_marketing_url %}
+                    <li {% if management_marketing_url == request.path %}class="active"{% endif %}>
+                        <a href="{{ management_marketing_url }}">
+                            <i class="fa fa-coffee"></i> <span>{% trans 'marketing' %}</span>
                         </a>
                     </li>
 
