@@ -23,12 +23,12 @@ class UserSettingsForm(forms.Form):
 
     email = forms.EmailField(label=_('email'),
                              widget=forms.TextInput(attrs={'class':'td', 'type':'email'}),
-                             help_text=_(''),
+
                              required=False)
 
     nickname = forms.CharField(label=_('nickname'),
                                widget=forms.TextInput(attrs={'class':'td'}),
-                               help_text=_(''))
+                               )
 
     location = forms.CharField(
         widget=forms.Select(attrs={"name" : "location", "class" : "location"}),
@@ -45,19 +45,17 @@ class UserSettingsForm(forms.Form):
     gender = forms.ChoiceField(label=_('gender'),
                                 choices=User_Profile.GENDER_CHOICES,
                                 # widget=forms.Select(attrs={'class':'form-control'}),
-                                widget=forms.Select(attrs={'class':'sex td'}),
-                                help_text=_(''))
+                                widget=forms.Select(attrs={'class':'sex td'}))
 
     bio = forms.CharField(label=_('bio'),
                           widget=forms.Textarea(attrs={'class':'td'}),
                           required=False,
-                          max_length=200,
-                          help_text=_(''))
+                          max_length=200
+                          )
 
     website = forms.URLField(label=_('website'),
                              widget=forms.URLInput(attrs={'class':'form-control'}),
-                             required=False,
-                             help_text=_(''))
+                             required=False)
     def clean_nickname(self):
         _nickname = self.cleaned_data.get('nickname')
         _nickname = clean_user_text(_nickname)
