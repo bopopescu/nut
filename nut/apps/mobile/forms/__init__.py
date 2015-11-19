@@ -10,13 +10,13 @@ class LaunchBoardForm(forms.Form):
     )
 
     launchImage = forms.FileField(widget=forms.FileInput())
-    title = forms.CharField(widget=forms.TextInput())
-    description = forms.CharField(widget=forms.TextInput())
+    title = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    description = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     action = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     status = forms.ChoiceField(
         label=_('enable'),
         choices=YES_OR_NO,
-        widget=forms.TextInput( attrs={'class':'form-control'}, ),
+        widget=forms.Select( attrs={'class':'form-control'}, ),
         required=False,
         help_text=_(''),
         initial=0,
