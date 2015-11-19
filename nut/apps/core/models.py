@@ -21,7 +21,7 @@ from django.db.models import Count
 from django.db.models.signals import post_save
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth.models import AbstractBaseUser, AnonymousUser
+from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 
 from settings import GUOKU_MAIL, GUOKU_NAME
@@ -1693,32 +1693,10 @@ class Friendly_Link(BaseModel):
         return "%s%s" % (image_host, self.logo)
 
 
-from celery.task import task
-from apps.core.tasks import BaseTask
 class Search_History(BaseModel):
     user = models.ForeignKey(GKUser, null=True)
     key_words = models.CharField(max_length=255, null=False, blank=False)
     search_time = models.DateTimeField(null=True, blank=False)
-
-    @classmethod
-    @task(base=BaseTask)
-    def record(cls, gk_user, **kwargs):
-        """
-        Record search history.
-        Args:
-            kwargs: search key words.
-            gk_user: GKUser object or id of a GKUser.
-        """
-        if gk_user and isinstance(gk_user, AnonymousUser):
-            gk_user = None
-
-        key_words = kwargs.pop('key_words')
-        if not key_words:
-            return
-        footprint = cls(user=gk_user,
-                        key_words=key_words,
-                        search_time=datetime.now())
-        footprint.save()
 
 
 ################################################################################

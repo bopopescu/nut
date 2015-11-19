@@ -1,7 +1,9 @@
 from celery.utils.log import get_task_logger
 from celery import Task
 
+
 logger = get_task_logger(__name__)
+
 
 class DebugTask(Task):
     abstract = True
@@ -23,6 +25,7 @@ from apps.core.tasks.entity import fetch_image, like_task, unlike_task
 from apps.core.tasks.selection import set_publish_time
 from apps.core.tasks.note import post_note_task, depoke_note_task
 from apps.core.tasks.usite import usite_published
+from apps.core.tasks.recorder import record_search
 
 
 __author__ = 'edison'
