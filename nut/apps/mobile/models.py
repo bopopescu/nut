@@ -8,6 +8,9 @@ from django.utils.log import getLogger
 
 log = getLogger('django')
 
+from django.conf import settings
+image_host = getattr(settings, 'IMAGE_HOST', None)
+
 
 
 class APIUser(GKUser):
@@ -87,7 +90,20 @@ class V3_User(GKUser):
         proxy = True
 
 
-# class Luanc
+class LaunchBoard(models.Model):
+    launchImage = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
+    description = models.CharField(max_length=1024)
+    status = models.BooleanField(default=False)
+    action = models.CharField(max_length=255)
+    created_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    def __unicode__(self):
+        return "{0} - {1}".format(self.title, self.description)
+
+    @property
+    def launch_image_url(self):
+        return "{0}{1}".format(image_host, self.launchImage)
 
 
 
