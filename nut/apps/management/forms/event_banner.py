@@ -18,34 +18,34 @@ class BaseEventBannerForm(forms.Form):
     link = forms.URLField(
         label=_('link'),
         widget=forms.TextInput(attrs={'class':'form-control'}),
-        help_text=_(''),
+
         required=False
     )
     event_banner_image = forms.FileField(
         label=_('event banner image'),
         widget=forms.FileInput(attrs={'class':'controls'}),
-        help_text=_(''),
+
         required=True,
     )
 
     user_id = forms.CharField(
         label=_('taobao user id'),
         widget=forms.TextInput(attrs={'class':'form-control'}),
-        help_text=_(''),
+
         required=False,
     )
 
     event_banner_background_image=forms.FileField(
         label=_('event banner background image'),
         widget=forms.FileInput(attrs={'class':'controls'}),
-        help_text=_(''),
+
         required=False,
     )
 
     event_banner_background_color = forms.CharField(
         label=_('event banner background color'),
         widget=forms.TextInput(attrs={'class':'form-control'}),
-        help_text=_(''),
+
         required=False,
     )
 
@@ -57,7 +57,7 @@ class BaseEventBannerForm(forms.Form):
             label= _('banner type'),
             choices=Event_Banner.BANNER_TYPE__CHOICES,
             widget=forms.Select(attrs={'class':'form-control'}),
-            help_text=_(''),
+
         )
         # (none, first, second, third, fourth, fifth) = (0, 1, 2, 3, 4, 5)
         # BANNER_POSITION_CHOICES = (
@@ -71,7 +71,7 @@ class BaseEventBannerForm(forms.Form):
         # self.fields['position'] = forms.ChoiceField(label=_('position'),
         #                                           choices=BANNER_POSITION_CHOICES,
         #                                           widget=forms.Select(attrs={'class':'form-control',}),
-        #                                           help_text=_(''))
+        #                                           )
 
 
         events = Event.objects.all()
@@ -87,7 +87,7 @@ class BaseEventBannerForm(forms.Form):
             label=_('event'),
             choices=events_choices,
             widget=forms.Select(attrs={'class':'form-control',}),
-            help_text=_(''),
+
             required=False
         )
     #
@@ -101,12 +101,12 @@ class CreateEventBannerForms(BaseEventBannerForm):
     # link = forms.URLField(
     #     label=_('link'),
     #     widget=forms.TextInput(attrs={'class':'form-control'}),
-    #     help_text=_(''),
+    #
     # )
     # event_banner_image = forms.FileField(
     #     label=_('event banner image'),
     #     widget=forms.FileInput(attrs={'class':'controls'}),
-    #     help_text=_(''),
+    #
     # )
 
     def save(self):
@@ -158,7 +158,7 @@ class EditEventBannerForms(BaseEventBannerForm):
     event_banner_image = forms.FileField(
         label=_('event banner image'),
         widget=forms.FileInput(attrs={'class':'controls'}),
-        help_text=_(''),
+
         required=False,
     )
 
@@ -181,7 +181,7 @@ class EditEventBannerForms(BaseEventBannerForm):
                 self.fields['position'] = forms.ChoiceField(label=_('position'),
                                                   choices=position_choices,
                                                   widget=forms.Select(attrs={'class':'form-control',}),
-                                                  help_text=_(''))
+                                                  )
             except KeyError:
                 pass
         # if self.banner.has_show_banner:

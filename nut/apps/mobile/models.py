@@ -8,6 +8,9 @@ from django.utils.log import getLogger
 
 log = getLogger('django')
 
+from django.conf import settings
+image_host = getattr(settings, 'IMAGE_HOST', None)
+
 
 
 class APIUser(GKUser):
@@ -46,7 +49,7 @@ class APIUser(GKUser):
         return res
 
 
-
+# TODO: mobile models
 class Apps(models.Model):
     user = models.ForeignKey(GKUser)
     app_name = models.CharField(u'application name', max_length=30, unique=True)
@@ -62,7 +65,6 @@ class Apps(models.Model):
     def __unicode__(self):
         # app_label = 'mobile'
         return self.app_name
-
 
 class Session_Key(models.Model):
     user = models.ForeignKey(APIUser, related_name = "mobile_client_session")
@@ -87,6 +89,21 @@ class V3_User(GKUser):
     class Meta:
         proxy = True
 
+
+class LaunchBoard(models.Model):
+    launchImage = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
+    description = models.CharField(max_length=1024)
+    status = models.BooleanField(default=False)
+    action = models.CharField(max_length=255)
+    created_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    def __unicode__(self):
+        return "{0} - {1}".format(self.title, self.description)
+
+    @property
+    def launch_image_url(self):
+        return "{0}{1}".format(image_host, self.launchImage)
 
 
 
