@@ -1790,9 +1790,16 @@ def add_email_to_sd_maillist(sender, instance, created, raw, using,
             try:
                 name = instance.nickname
                 member_addr = instance.user.email
+                # delete old email from SendCloud.
+                sd_list = SendCloudAddressList(mail_list_addr=settings.MAIL_LIST,
+                                               member_addr=user.email)
+                sd_list.delete_member()
+
+                # update name or email.
                 sd_list = SendCloudAddressList(mail_list_addr=settings.MAIL_LIST,
                                                member_addr=member_addr)
                 sd_list.add_member(name=name, upsert='true')
+
             except BaseException, e:
                 log.error("Error: update user info to sd error: %s",
                           e.message)

@@ -1,4 +1,7 @@
 1. 合并EDM到dev
+2. 调整EDM内容样式
+3. SD地址列表成员更新信息不能用update接口，需要先delete再add
+4. EDM上线前需要先更新线上环境的django-sendcloud
 
 ===== 2015 - 11 - 12 =======
 
