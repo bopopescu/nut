@@ -1332,91 +1332,6 @@ function getQueryStrings() {
         }
     };
 
-    var selection = {
-        loadData: function () {
-
-            var $selection = $('#selection');
-            var page = $selection.parent().find('.pager');
-            var counter = 1;
-            page.hide();
-
-
-            if ($selection[0]) {
-                var flag = false;
-           //     console.log(counter);
-                $(window).scroll(function () {
-
-                    if (counter % 3 == 0 ) {
-                        page.show();
-                    } else {
-                        page.hide();
-                    }
-                    //这里临时不采用自动加载，换成分页
-
-                    if (($(window).height() + $(window).scrollTop()) >= ($(document).height()-25) && flag == false && counter % 3 != 0) {
-                      //        console.log("okokokokoko");
-                      //        page.hide();
-                        flag = true;
-                      //        var url = window.location.href;
-                        var aQuery = window.location.href.split('?');
-
-                        var url = aQuery[0];
-                        var p = 1; var c = 0;
-                        if (aQuery.length > 1) {
-                            var param = aQuery[1].split('&');
-                            var param_p;
-                      //            console.log(param);
-                            if (param.length > 1) {
-                      //                param_c = param[0].split('=');
-                      //                c = parseInt(param_c[1]);
-                                param_p = param[0].split('=');
-                                p = parseInt(param_p[1]);
-                            }
-                        }
-
-                      //        var last_entity = $selection.find('.entity-selection:last');
-                      //        var time = last_entity.find(".timestr").attr("name");
-                        var time = $selection.attr('data-refresh');
-                        var data = {
-                            'p': p+counter,
-                            'page': p+counter,
-                            't':time
-                        };
-
-                        if (c != 0 ){
-                            data['c'] = c;
-                        }
-                      //        console.log(data);
-                      //        console.log(time);
-                        $.ajax({
-                            url: url,
-                            type: "GET",
-                            data: data,
-                            dataType:'json',
-                            success: function(data) {
-                      //                result =  $.parseJSON(data);
-                      //                var status = parseInt(result.status);
-                                if (data.status === 1) {
-                                    var $html = $(data.data);
-                      //                    $html.each(function () {
-                      //                        util.showEntityTitle($(this));
-                      //                    });
-                                    util.like($html);
-                                    $html.appendTo($selection);
-                                    counter ++;
-                                    flag = false;
-                                }
-                            }
-                        });
-                    }
-                });
-            }
-           // var entities = $selection.find('.entity-selection');
-           // console.log(entities);
-        }
-
-    };
-
     function sendReport(){
         var _form = $('#report_form_wrapper form');
         if (_form.length){
@@ -1743,7 +1658,6 @@ function getQueryStrings() {
 
         util.like($('body'));
         util.follower();
-        util.initTag();
         util.gotop();
         util.handlePageScroll();
 
@@ -1751,7 +1665,6 @@ function getQueryStrings() {
         createNewEntity.BrandAndTitle();
            //   createNewEntity.changeChiefImage();
         createNewEntity.postNewEntity();
-        selection.loadData();
 
         detail.detailImageHover();
         detail.shareWeibo();
