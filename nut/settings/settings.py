@@ -61,7 +61,6 @@ INSTALLED_APPS = (
     'apps.counter',
     'apps.tag',
 
-
     'captcha',
 )
 
