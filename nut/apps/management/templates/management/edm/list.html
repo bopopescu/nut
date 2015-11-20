@@ -1,0 +1,143 @@
+{% extends "management/management_base.html" %}
+{% load i18n %}
+
+
+{% block content %}
+    <section class="content-header">
+        <h1>
+            {% trans 'EDM' %}
+            <small>{% trans 'EDM' %}</small>
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}
+            </a></li>
+            <li class="active">{% trans 'EDM' %}</li>
+        </ol>
+        <span class="text-warning">⚠ 审核成功后再次编辑内容，需要再次提交审核；审核时间：工作日（周一至周五9:00-18:00）一小时以内审核；非工作日上午和下午定时审核一次。</span>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <a target="_blank" class="btn btn-primary"
+                           href="{% url 'management_edm_create' %}">{% trans 'add' %}</a>
+                    </div>
+                    <div class="box-body table-responsive">
+                        {% include "management/edm/table.html" with entities=entities %}
+                    </div>
+                    <div class="box-footer">
+                        {% include "management/paginator.html" with objects=entities url=request.path %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="WarningModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="WarningModal" aria-hidden="true">
+       <div class="modal-dialog">
+          <div class="modal-content">
+             <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                   aria-hidden="true">×
+                </button>
+            <h4 class="modal-title" id="myModalLabel">
+               Something went wrong...
+            </h4>
+         </div>
+         <div class="modal-body">
+         </div>
+      </div><!-- /.modal-content -->
+   </div><!-- /.modal-dialog -->
+</div>
+
+{% endblock %}
+{% block user_script %}
+    <script type="text/javascript">
+        var wm = $('#WarningModal');
+        var wm_content = wm.find('.modal-body');
+
+        $('.edm_submit_verify').on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: 'approval/' + $(this).attr('id').split('_')[1],
+                success: function (json) {
+                    if (json.result == 'failed')
+                    {
+                        wm_content.text(json.message);
+                        wm.modal({keyboard: true});
+                    }
+                    else{
+                        location.reload()
+                    }
+                },
+                error: function (xhr, errmsg, err) {
+                    wm_content.text(errmsg + ": " + err);
+                    wm.modal({keyboard: true});
+                }
+            })
+        });
+        $('.edm_send').on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: 'send/' + $(this).attr('id').split('_')[1],
+                success: function (json) {
+                    if (json.result == 'failed')
+                    {
+                        wm_content.text(json.message);
+                        wm.modal({keyboard: true});
+                    }
+                    else{
+                        location.reload()
+                    }
+                },
+                error: function (xhr, errmsg, err) {
+                    wm_content.text(errmsg + ": " + err);
+                    wm.modal({keyboard: true});
+                }
+            })
+        });
+        $('.edm_check_verify').on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: 'sync/' + $(this).attr('id').split('_')[1],
+                success: function (json) {
+                    if (json.result == 'failed')
+                    {
+                        wm_content.text(json.message);
+                        wm.modal({keyboard: true});
+                    }
+                    else{
+                        location.reload()
+                    }
+                },
+                error: function (xhr, errmsg, err) {
+                    wm_content.text(errmsg + ": " + err);
+                    wm.modal({keyboard: true});
+                }
+            })
+        });
+        $('.edm_delete_edm').on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: 'delete/' + $(this).$(this).attr('id').split('_')[1],
+                success: function (json) {
+                    if (json.result == 'failed')
+                    {
+                        wm_content.text(json.message);
+                        wm.modal({keyboard: true});
+                    }
+                    else{
+                        location.reload()
+                    }
+                },
+                error: function (xhr, errmsg, err) {
+                    wm_content.text(errmsg + ": " + err);
+                    wm.modal({keyboard: true});
+                }
+            })
+        });
+    </script>
+{% endblock %}

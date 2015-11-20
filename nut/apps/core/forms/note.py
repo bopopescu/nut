@@ -20,23 +20,23 @@ class NoteForm(forms.Form):
 
     note_id = forms.IntegerField(label=_('note_id'),
                                  widget=forms.NumberInput(attrs={'class':'form-control', 'readonly':''}),
-                                 help_text=_(''))
+                                 )
 
     creator = forms.CharField(label=_('creator'),
                               widget=forms.TextInput(attrs={'class':'form-control', 'readonly':''}),
-                              help_text=_(''))
+                              )
 
     content = forms.CharField(label=_('content'),
                               widget=forms.Textarea(attrs={'class':'form-control'}),
-                              help_text=_(''))
+                              )
 
     post_time = forms.DateTimeField(label=_('post_time'),
                                     widget=forms.DateTimeInput(attrs={'class':'form-control', 'readonly':''}),
-                                    help_text=_(''))
+                                    )
 
     updated_time = forms.DateTimeField(label=_('updated time'),
                                        widget=forms.DateTimeInput(attrs={'class':'form-control'}),
-                                       help_text=_(''))
+                                       )
 
     def __init__(self, note, *args, **kwargs):
         super(NoteForm, self).__init__(*args, **kwargs)
@@ -44,7 +44,7 @@ class NoteForm(forms.Form):
         self.fields['status'] = forms.ChoiceField(label=_('status'),
                                                   choices=Note.NOTE_STATUS_CHOICES,
                                                   widget=forms.Select(attrs={'class':'form-control'}),
-                                                  help_text=_(''))
+                                                  )
 
     def clean_content(self):
         _note_text = self.cleaned_data.get('content')
@@ -72,14 +72,14 @@ class CreateNoteForm(forms.Form):
     content = forms.CharField(
         label=_('content'),
         widget=forms.Textarea(attrs={'class':'form-control' }),
-        help_text=_(''),
+
     )
 
     is_top = forms.ChoiceField(
         label=_('is_top'),
         choices=YES_OR_NO,
         widget=forms.Select(attrs={'class':'form-control'}),
-        help_text=_(''),
+
         initial=0,
     )
 
@@ -92,7 +92,7 @@ class CreateNoteForm(forms.Form):
             label=_('user'),
             choices=user_choices,
             widget=forms.Select(attrs={'class':'form-control'}),
-            help_text=_(''),
+
         )
 
 

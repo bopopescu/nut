@@ -1,3 +1,21 @@
+1. 合并EDM到dev
+2. 调整EDM内容样式
+3. SD地址列表成员更新信息不能用update接口，需要先delete再add
+4. EDM上线前需要先更新线上环境的django-sendcloud
+
+===== 2015 - 11 - 12 =======
+
+
+
+1. 把记录搜索的方法record_search改成了用delay调用。
+
+===== 2015 - 11 - 19 =======
+
+
+1. 给module Search_History的record方法加了一点注释。
+
+===== 2015 - 11 - 12 =======
+
 
 
 TODO : 现在移动端的标签还都是个人标签，是否需要改成全局标签
