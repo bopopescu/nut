@@ -18,7 +18,7 @@
 {#                    <div class="box-header">#}
 
 {#                    </div>#}
-                    <form class="form-horizontal" method="post" action="{% url 'management_create_launch_image' %}">
+                    <form class="form-horizontal" method="post" action="{% url 'management_create_launch_image' %}" {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
                         {% csrf_token %}
                         <div class="box-body">
                             {% for field in form %}
