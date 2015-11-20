@@ -1615,62 +1615,7 @@ function getQueryStrings() {
             });
         },
 
-        postNote: function (){
-            var $note = $(".post-note");
-            var $form = $note.find("form");
-            var $textarea = $form.find("textarea");
-            //console.log($textarea.value);
-            $textarea.on('focus', function(){
-                $form.addClass('active');
-            });
-            //console.log($note);
 
-            var $cancel = $form.find('.btn-cancel');
-           //     console.log($cancel);
-            $cancel.on('click', function() {
-           //     console.log(this);
-                $form.removeClass('active');
-            });
-
-            $form.on('submit', function (e) {
-                if ($.trim($textarea[0].value).length === 0) {
-                    $textarea[0].value = '';
-                    $textarea.focus();
-                } else {
-                    //console.log($form.serialize());
-                    $.post(this.action, $form.serialize(), function (result){
-                        result = $.parseJSON(result);
-                        var status = parseInt(result.status);
-                        if (status === 1) {
-                            var $html = $(result.data);
-
-                            detail.clickComment($html);
-
-                       //            console.log($html);
-                      //            self.poke();
-                      //            $('<div class="sep"></div>').appendTo($notes);
-                            $html.appendTo($(".common-note-list"));
-
-                            //TODO : beware , if the dom operation is slow ,\
-                            // detail.update($html.parent()) may not find the parent element
-                            //
-                            detail.updateNote($html.find('.comment_operate'));
-
-
-                            $note.parent().remove();
-                            util.initTag();
-                        } else if (status === 0) {
-                            // error
-                        }
-                    });
-                }
-
-           //     console.log("OKOKOKO");
-                 e.preventDefault();
-                 return false ;
-
-            });
-        },
 
         noteAction: function () {
 
