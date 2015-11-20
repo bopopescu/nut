@@ -2,11 +2,10 @@
  * Created by edison on 14-9-21.
  */
 
-
-
 // index Of polly fill
 // Production steps of ECMA-262, Edition 5, 15.4.4.14
 // Reference: http://es5.github.io/#x15.4.4.14
+
 if (!Array.prototype.indexOf) {
   Array.prototype.indexOf = function(searchElement, fromIndex) {
 
@@ -1616,7 +1615,7 @@ function getQueryStrings() {
             });
         },
 
-        postNote: function () {
+        postNote: function (){
             var $note = $(".post-note");
             var $form = $note.find("form");
             var $textarea = $form.find("textarea");
@@ -1921,7 +1920,7 @@ function getQueryStrings() {
                             poke_icon.removeClass('fa-thumbs-up');
 
                             if (count === 0) {
-                                poke.find('span').remove();
+
                             } else {
                                 counter.html(count);
                             }

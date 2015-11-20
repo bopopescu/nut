@@ -270,6 +270,7 @@ def entity_note_comment(request, nid,
     return JSONResponse(
         data={
             'data': _data,
+            'note_id': nid
         },
         content_type='text/html; charset=utf-8',
     )
