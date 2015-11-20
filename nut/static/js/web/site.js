@@ -1511,47 +1511,8 @@ function getQueryStrings() {
     };
 
     var detail = {
-            initReportButton: function(){
-                $('#report_trigger').click(function(){
-                    var url = $(this).attr('report-url');
-                    $.when($.ajax({
-                        url: url,
-                        method: 'GET',
-                    })).then(
-                        function(htmltext){
-                            //this call will return a  rendered template
-                            bootbox.dialog({
-                               title: '举报商品',
-                               message: htmltext,
-                                buttons: {
-                                    success:{
-                                        label:'发送',
-                                        className:'btn-primary',
-                                        callback: sendReport
-                                    },
-                                }
-                            });
-                        },function(){
-                            console.log('get report form fail! ');
-                        });
-                });
-            },
-            initVisitorNote:function(){
-                $('#visitor_note').click(function(){
-                    $.when(
-                        $.ajax({
-                            url: '/login/'
-                        })
-                    ).then(
-                        function success(data){
-                            var html = $(data);
-                            util.modalSignIn(html);
-                        },
-                        function fail(){}
-                    );
 
-                });
-            },
+
             detailImageHover: function () {
             // 鼠标放细节图上后效果
                 function findThumbImages(){
