@@ -1758,50 +1758,270 @@ define(
         return TagManager;
 
 });
-define('subapp/note/notepoke',['libs/Class', 'jquery'], function(){
-
-    var PokeManager = Class.extend({
+define('subapp/note/notepoke',['libs/Class',
+        'jquery',
+        'subapp/account'],
+    function(
+        Class,
+        $,
+        AccountApp
+){
+        var PokeManager = Class.extend({
         init:function(){
+            this.accountApp = new AccountApp();
             this.setupPokeEvents();
         },
-        setupPokeEvents: function(ele){
+            setupPokeEvents: function(ele){
             var that = this;
             var ele = ele || document.body;
-            var pokeButtons = $(ele).find('.poke[data-note]');
-            pokeButtons.each(function(index, pokeLink){
-                $(pokeLink).on('click', that.doPoke )
-            });
+            var $pokeButtons = $(ele).find('.poke[data-note]');
+
+            $pokeButtons.on('click', this.doPoke.bind(this));
         },
         handleNoteEle: function(ele){
             this.setupPokeEvents(ele);
         },
         doPoke: function(event){
-            console.log(event.currentTarget);
-            console.log(this);
-        }
+
+            var $poke = $(event.currentTarget);
+            var note_id =$poke.attr('data-note');
+            var $counter = $poke.find('span.poke-count');
+            var $poker_icon = $poke.find('i');
+
+            var url  = '/note/' + note_id + '/poke/';
+
+            $.when(
+                $.ajax({
+                    method: 'POST',
+                    dataType: 'json',
+                    url : url
+                })
+            ).then(
+                    this.pokeSuccess.bind(this),
+                    this.pokeFail.bind(this)
+                );
+
+        },
+        pokeSuccess:function(data){
+            var result = parseInt(data.result);
+            var poked_note_id = data.note_id;
+
+            var $poke = $('.poke[data-note="'+ poked_note_id +'"]');
+            var $count = $poke.find('span.poke-count');
+            var numberCount  = parseInt($count.html()) || 0 ;
+            var $poke_icon = $poke.find('i.fa');
+
+
+            if(result === 1){// poke , Not unpoke
+                numberCount++;
+                $poke_icon.addClass('fa-thumbs-up');
+                $poke_icon.removeClass('fa-thumbs-o-up');
+
+                if(numberCount === 1){
+                    $('<span class="poke-count">' + numberCount + '</span>').appendTo($poke);
+
+                }else{
+                    $count.html(numberCount);
+
+                }
+                $count.show();
+
+            }else if(result === 0){// unpoke
+
+                numberCount--;
+                $poke_icon.addClass('fa-thumbs-o-up');
+                $poke_icon.removeClass('fa-thumbs-up');
+
+                if (numberCount <= 0){
+                    $poke.find('span').remove();
+                }else{
+                    $count.html(numberCount);
+                }
+
+            }else{
+                var html = $(data);
+                this.accountApp.modalSignIn(html);
+            }
+
+        },
+        pokeFail:function(data){
+            var html = data.responseText;
+                this.accountApp.modalSignIn(html);
+            }
+        });
+
+         return  PokeManager;
     });
-    return  PokeManager;
-});
-define('subapp/note/notecomment',['libs/Class', 'jquery'], function(Class, $){
+
+
+
+
+
+
+define('subapp/note/notecomment',['libs/Class', 'jquery', 'subapp/account'],
+    function(Class, $, AccountApp){
 
     var CommentManager = Class.extend({
         init: function(){
             this.setupCommentEvents();
+            this.accountApp = new AccountApp();
         },
         setupCommentEvents: function(ele){
             var that = this;
             var ele = ele || document.body;
             var commentButtons = $(ele).find('.add-comment');
-                commentButtons.on('click', that.doAddComment);
+                commentButtons.on('click', that.triggerComment.bind(this));
         },
 
         handleNoteEle: function($ele){
             this.setupCommentEvents($ele);
         },
-        doAddComment: function(event){
-            console.log(event.currentTarget);
-            console.log(this);
+
+        getCommentContainerByButton : function(addButton){
+            return $(addButton).parent().parent().find('.note-comment-list');
+        },
+        triggerComment: function(event){
+            var note_id = $(event.currentTarget).attr('data-note');
+            var $commentContainer = this.getCommentContainerByButton(event.currentTarget);
+            if ($commentContainer[0]){
+                $commentContainer.slideToggle('fast');
+            }else{
+                var url = '/entity/note/' + note_id + '/comment/' ;
+                $.when($.ajax({
+                    url : url ,
+                    method: 'GET'
+                })).then(
+                    this.loadCommentSuccess.bind(this),
+                    this.loadCommentFail.bind(this)
+                );
+            }
+        },
+        loadCommentSuccess: function(data){
+            var result = $.parseJSON(data);
+            var note_id = result.note_id;
+            var $html = $(result.data);
+            this.handleCommentAction($html);
+
+            console.log(note_id);
+            var $note = $('.note-content[data-note-id="'+ note_id + '"]');
+            if($note[0]){
+                $html.appendTo($note);
+                $html.slideToggle('fast');
+            }
+        },
+        handleCommentAction: function($comment){
+            var that = this;
+            // still ugly and stinky here :(
+            // todo : refactor!!!!
+            var form = $comment.find('form');
+            var commentText = form.find('.comment-content');
+            var replyToUser = '';
+            var replyToComment = '';
+            $comment.find('.btn-cancel').on('click', function(){
+                $comment.slideToggle('fast');
+            });
+
+
+            function reply(commentItem) {
+           //     console.log(commentItem.find('.reply'));
+                commentItem.find('.reply').on('click', function (e) {
+
+                    var commentContent = commentItem.find('.comment-content');
+                    var nickname = commentItem.find('.nickname');
+                      //    console.log(nickname);
+                    commentText.val('回复 ' + $.trim(nickname.text()) + ': ');
+                    commentText.focus();
+                    replyToUser = commentContent.attr('data-creator');
+                    replyToComment = commentContent.attr('data-comment');
+                      //    }
+                    return false;
+                });
+
+                commentItem.find('.close').on('click', function (e) {
+                    var comment_id = $(this).attr('data-comment');
+                    var url = '/entity/note/comment/' + comment_id + '/delete/';
+                      //    console.log(comment_id);
+                    $.ajax({
+                        url:url,
+                        type: 'post',
+                        dataType:'json',
+                        success: function(data){
+                      //            console.log(data);
+                            if (data.status === 1) {
+                                commentItem.remove();
+                            }
+                        }
+                    });
+
+                    return false;
+                });
+            }
+
+
+
+            $comment.find('.media').each(function () {
+                reply($(this));
+            });
+
+
+
+            form.on('submit', function(e) {
+                var input = commentText[0];
+                var text = input.value;
+
+                text = text.replace(/^回复.*[:：]/, function (str, index) {
+                    //replace start "回复" with ''
+                    if (index === 0) {
+                        return '';
+                    }
+                    return str;
+                });
+                text = $.trim(text);
+                if (text.length > 0) {
+                    var url = form[0].action;
+                    var data = {
+                        'content': text,
+                        'reply_to_user_id': replyToUser,
+                        'reply_to_comment_id': replyToComment
+                    };
+
+                    $.ajax({
+                        type:"post",
+                        url:url,
+                        data:data,
+                        success: function(result) {
+                       // WTF is the following code  ?
+                      //            console.log(result);
+                            try {
+                                result = $.parseJSON(result);
+                      //                var status = parseInt(result.status);
+                      //                if (status === 1) {
+                                var $html = $(result.data);
+                                reply($html);
+                                $html.insertBefore(form);
+                      //                }
+                                commentText.val('');
+                            } catch (err) {
+                                var html = $(result);
+                                that.accountApp.modalSignIn(html);
+                            }
+                        }
+                    });
+                } else {
+                    input.value = '';
+                    input.focus();
+                }
+                e.preventDefault();
+                return false;
+            });
+
+
+
+        },
+        loadCommentFail: function(data){
+            console.log('comment load fa!il')
         }
+
     });
 
     return CommentManager;
@@ -2086,8 +2306,6 @@ require([
               EntityLike,
               EntityReport,
               UserNote
-
-
     ){
         var page = new Page();
         var menu = new Menu();

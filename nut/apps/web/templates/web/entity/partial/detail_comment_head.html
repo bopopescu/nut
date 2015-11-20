@@ -6,7 +6,7 @@
         <a class="pull-left" href="{% url 'web_user_index' the_top_note.user.pk %}" target="_blank">
             <img src="{{ the_top_note.user.profile.avatar_url }}" alt="{{ the_top_note.user.profile.nickname }}" class="head_pic">
         </a>
-        <div class="comment_detail note-content">
+        <div class="comment_detail note-content" data-note-id="{{ the_top_note.pk }}">
             <div class="user_name">
                 <a href="{% url 'web_user_index' the_top_note.user.pk %}" target="_blank">{{ the_top_note.user.profile.nickname }}</a>
                 <a href="javascript:;" class="favorite fc_favor"><i class="fa fa-star"></i></a>

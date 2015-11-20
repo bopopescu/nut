@@ -20,8 +20,6 @@ require([
               EntityLike,
               EntityReport,
               UserNote
-
-
     ){
         var page = new Page();
         var menu = new Menu();
