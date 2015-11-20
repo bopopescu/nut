@@ -34,12 +34,12 @@ class UserSignInForm(forms.Form):
     email = forms.EmailField(
         label=_('Email'),
         widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder': _('Email')}),
-        help_text=_('')
+
     )
     password = forms.CharField(
         label=_('Password'),
         widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder': _('Password')}),
-        help_text=_(''),
+
 
     )
 
@@ -225,14 +225,14 @@ class UserSignUpBioForm(forms.Form):
     bio = forms.CharField(
         label=_('bio'),
         widget=forms.Textarea(attrs={'class':'form-control', 'rows':'4', 'style':'resize: none;'}),
-        help_text=_(''),
+
         required=False,
     )
     gender = forms.ChoiceField(
         widget = forms.Select(attrs={'class':'form-control'}),
         choices=User_Profile.GENDER_CHOICES,
         label=_('gender'),
-        help_text=_(''),
+
         required=False,
         initial=User_Profile.Man,
     )

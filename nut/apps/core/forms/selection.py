@@ -14,7 +14,7 @@ class SelectionForm(forms.Form):
     pub_time = forms.DateTimeField(
         label=_('publish datetime'),
         widget=forms.DateTimeInput(attrs={'class':'form-control'}),
-        help_text=_(''),
+
         initial=datetime.now()
     )
 
@@ -22,7 +22,7 @@ class SelectionForm(forms.Form):
         label=_('is_published'),
         choices=YES_OR_NO,
         widget=forms.Select(attrs={'class':'form-control'}),
-        help_text=_(''),
+
         initial=1,
     )
 

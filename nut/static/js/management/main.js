@@ -316,4 +316,5 @@
         selection.check_all();
 //        note.post();
     })();
+
 })(jQuery, document, window);

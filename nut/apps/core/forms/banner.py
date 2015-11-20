@@ -28,7 +28,7 @@ class BaseBannerForm(forms.Form):
         self.fields['position'] = forms.ChoiceField(label=_('position'),
                                                   choices=BANNER_POSITION_CHOICES,
                                                   widget=forms.Select(attrs={'class':'form-control',}),
-                                                  help_text=_(''))
+                                                  )
 
     def clean_position(self):
         _position = self.cleaned_data.get('position')
@@ -42,16 +42,16 @@ class CreateBannerForm(BaseBannerForm):
                                     label=_('content_type'),
                                     choices=Banner.CONTENT_TYPE_CHOICES,
                                     widget=forms.Select(attrs={'class':'form-control'}),
-                                    help_text=_(''),
+
                                 )
     key = forms.CharField(label=_('key'),
                           widget=forms.TextInput(attrs={'class':'form-control'}),
-                          help_text=_(''))
+                          )
     banner_image = forms.ImageField(
                         label=_('banner image'),
                         widget=forms.FileInput(attrs={'class':'controls'}),
                         # required=False,
-                        help_text=_(''),
+
                     )
 
 
@@ -68,7 +68,7 @@ class CreateBannerForm(BaseBannerForm):
     #     self.fields['position'] = forms.ChoiceField(label=_('position'),
     #                                               choices=BANNER_POSITION_CHOICES,
     #                                               widget=forms.Select(attrs={'class':'form-control',}),
-    #                                               help_text=_(''))
+    #                                               )
 
 
     def save(self):
@@ -106,15 +106,15 @@ class EditBannerForm(BaseBannerForm):
     content_type = forms.ChoiceField(label=_('content_type'),
                                     choices=Banner.CONTENT_TYPE_CHOICES,
                                    widget=forms.Select(attrs={'class':'form-control'}),
-                                   help_text=_(''))
+                                   )
     key = forms.CharField(label=_('key'),
                           widget=forms.TextInput(attrs={'class':'form-control'}),
-                          help_text=_(''))
+                          )
     banner_image = forms.ImageField(
                                     label=_('banner image'),
                                     widget=forms.FileInput(attrs={'class':'controls'}),
                                     required=False,
-                                    help_text=_(''),
+
                                 )
 
     def __init__(self, banner, *args, **kwargs):
@@ -132,7 +132,7 @@ class EditBannerForm(BaseBannerForm):
             self.fields['position'] = forms.ChoiceField(label=_('position'),
                                                   choices=BANNER_POSITION_CHOICES,
                                                   widget=forms.Select(attrs={'class':'form-control',}),
-                                                  help_text=_(''))
+                                                  )
 
     def save(self):
         banner_image = self.cleaned_data.get('banner_image')
