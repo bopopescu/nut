@@ -34,7 +34,15 @@
                             </thead>
                             <tbody>
                                 {% for row in object_list %}
-
+                                    <tr>
+                                        <td>{{ row.pk }}</td>
+                                        <td><img src="{{ row.launch_image_url }}" width="128"></td>
+                                        <td>{{ row.title }}</td>
+                                        <td>{{ row.description }}</td>
+                                        <td>{{ row.status|yesno }}</td>
+                                        <td>{{ row.action }}</td>
+                                        <td>{{ row.created_datetime|date:"Y-m-d" }}</td>
+                                    </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
