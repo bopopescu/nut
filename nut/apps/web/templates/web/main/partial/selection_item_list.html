@@ -14,7 +14,9 @@
             </a>
         </div>
         <div class="caption">
-            <p class="note">{{ entity.top_note|truncatechars:70 }}</p>
+            {% if entity.top_note %}
+                <p class="note">{{ entity.top_note|truncatechars:70 }}</p>
+            {% endif  %}
         </div>
         <div class="info">
             <a class="btn btn-like pull-left" href="javascript:;" data-entity="{{ entity.id }}" rel="nofollow"
