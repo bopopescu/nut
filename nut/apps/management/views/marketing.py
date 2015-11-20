@@ -1,6 +1,7 @@
-from django.views.generic import FormView, ListView, CreateView
+from django.views.generic import FormView, ListView
 from apps.mobile.models import LaunchBoard
 from apps.mobile.forms import LaunchBoardForm
+# from django.core.urlresolvers import reverse
 
 
 class LaunchBoardListView(ListView):
@@ -11,8 +12,7 @@ class LaunchBoardListView(ListView):
 class NewLaunchBoardView(FormView):
     form_class = LaunchBoardForm
     template_name = "management/marketing/create.html"
-    # model = LaunchBoard
-
+    success_url = "/management/marketing/"
 
 
 class EditLaunchBoardView(FormView):
