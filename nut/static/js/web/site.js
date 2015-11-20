@@ -1617,78 +1617,7 @@ function getQueryStrings() {
 
 
 
-        noteAction: function () {
 
-            var noteDetail = $(".comment_operate");
-            noteDetail.each(function(){
-           //     var $this = $(this);
-           //     console.log($(this));
-                detail.clickComment($(this));
-                detail.updateNote($(this));
-                detail.poke($(this));
-            });
-        },
-
-        updateNote: function (noteItem) {
-           // console.log(noteItem);
-
-            //console.warn('the following line , can not find note_content for new note (just added to page via ajax call)')
-            var note_content = noteItem.parent().find(".comment_word.content");
-            var note_update_form = noteItem.find(".update-note-form");
-            var note_text = note_update_form.find('textarea');
-            //console.log(note_text);
-            var origin_text = note_content.html() || '';
-
-            //var htmltag = "<a href=\"\" target=\"_blank\">";
-            origin_text = origin_text.replace(/<(.|\n)+?>/gi, "");
-            noteItem.find(".update-note").on('click', function() {
-           //     var form = noteItem.find();
-                console.log(origin_text);
-                if (note_update_form.css('display') != 'block') {
-                    note_content.hide();
-                    note_update_form.show();
-                    note_text.html(origin_text);
-                      //    console.log(origin_text);
-                      //    return;
-                } else {
-                    note_update_form.hide();
-                    note_content.show();
-                }
-            });
-
-            note_update_form.find('.btn-cancel').on('click', function() {
-                note_update_form.hide();
-                note_content.show();
-            });
-            note_update_form.on('submit', function(e) {
-                      //   鸶te note_text[0].value;
-                      //    var url = note_update_form[0].action;
-                      //    console.log(note_text[0].value);
-                var note_content_text = $.trim(note_text[0].value);
-                    note_content_text = clearUserInputString(note_content_text);
-
-                if (note_content_text.length > 0) {
-                        $.ajax({
-                            type: 'post',
-                            dataType:'json',
-                            url: note_update_form[0].action,
-                            data: $(this).serialize(),
-                            success: function (data) {
-                                if (parseInt(data.result) === 1) {
-                                    note_content.html(note_content_text);
-                                    note_update_form.hide();
-                                    note_content.show();
-                                }
-                                util.initTag();
-                            }
-                        });
-                    } else {
-                    note_text.focus();
-                    // TODO: handle empty input
-                }
-                e.preventDefault();
-            });
-        },
 
         commentAction: function(comment) {
             var form = comment.find('form');
@@ -2136,8 +2065,6 @@ function getQueryStrings() {
 
         detail.detailImageHover();
         detail.shareWeibo();
-        detail.postNote();
-        detail.noteAction();
         detail.initVisitorNote();
         detail.initReportButton();
 
