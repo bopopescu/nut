@@ -20,7 +20,7 @@
                             <img src="{{ object.launch_image_url }}" class="img-responsive" width="300">
                         </div>
                     </div>
-                    <form class="form-horizontal" method="post" action="{% url 'management_create_launch_image' %}"
+                    <form class="form-horizontal" method="post" action=""
                           {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
                         {% csrf_token %}
                         <div class="box-body">
