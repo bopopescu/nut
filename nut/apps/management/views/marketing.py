@@ -1,5 +1,5 @@
 from django.http import Http404
-from django.views.generic import FormView, ListView
+from django.views.generic import FormView, ListView, UpdateView
 from apps.mobile.models import LaunchBoard
 from apps.mobile.forms import LaunchBoardForm, CreateLaunchBoardForm, EditLaunchBoardForm
 # from django.core.urlresolvers import reverse
@@ -23,6 +23,12 @@ class NewLaunchBoardView(FormView):
 class EditLaunchBoardView(FormView):
     form_class = EditLaunchBoardForm
     template_name = "management/marketing/edit.html"
+    success_url = "/management/marketing/"
+    model = LaunchBoard
+
+    def form_valid(self, form):
+        form.save()
+        return super(EditLaunchBoardView, self).form_valid(form)
 
     def get_object(self):
         try:
@@ -31,10 +37,12 @@ class EditLaunchBoardView(FormView):
             raise Http404
         return obj
 
-    # def get_form_kwargs(self):
-    #
-    #
-    #     return
+    def get_form_kwargs(self):
+        kwargs = super(EditLaunchBoardView, self).get_form_kwargs()
+        kwargs.update({
+            "launch": self.object
+        })
+        return kwargs
 
     def get_initial(self):
         initial = super(EditLaunchBoardView, self).get_initial()
@@ -57,7 +65,7 @@ class EditLaunchBoardView(FormView):
         return kwargs
 
     def get(self, request, *args, **kwargs):
-        self.lid = kwargs.pop('lid', None)
+        self.lid = kwargs.pop('pk', None)
         assert self.lid is not None
         self.object = self.get_object()
 

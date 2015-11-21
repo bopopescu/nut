@@ -18,7 +18,7 @@ class LaunchBoardForm(forms.Form):
         (1, _('yes')),
     )
     # forms.EmailField
-    launchImage = forms.ImageField(widget=forms.FileInput(attrs={'class':'controls'}))
+    launchImage = forms.ImageField(widget=forms.FileInput(attrs={'class':'controls'}), required=False)
     title = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     description = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     action = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
@@ -62,11 +62,28 @@ class CreateLaunchBoardForm(LaunchBoardForm):
 
 class EditLaunchBoardForm(LaunchBoardForm):
 
+
+    def __init__(self, launch, *args, **kwargs):
+        self.launch = launch
+        super(EditLaunchBoardForm, self).__init__(*args, **kwargs)
+
     def save(self):
         _image = self.cleaned_data.get('launchImage')
         _title = self.cleaned_data.get('title')
         _description = self.cleaned_data.get('description')
         _action = self.cleaned_data.get('action')
         _status = self.cleaned_data.get('status')
+
+        if _image:
+            launch_image = HandleImage(_image)
+            image_name = image_path + "%s.jpg" % launch_image.name
+            default_storage.save(image_name, ContentFile(launch_image.image_data))
+            self.launch.launchImage = image_name
+
+        self.launch.title = _title
+        self.launch.description = _description
+        self.launch.action = _action
+        self.launch.status = _status
+        self.launch.save()
 
 __author__ = 'edison7500'
