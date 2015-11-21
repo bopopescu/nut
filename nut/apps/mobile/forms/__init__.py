@@ -63,6 +63,10 @@ class CreateLaunchBoardForm(LaunchBoardForm):
 class EditLaunchBoardForm(LaunchBoardForm):
 
     def save(self):
-        pass
+        _image = self.cleaned_data.get('launchImage')
+        _title = self.cleaned_data.get('title')
+        _description = self.cleaned_data.get('description')
+        _action = self.cleaned_data.get('action')
+        _status = self.cleaned_data.get('status')
 
 __author__ = 'edison7500'
