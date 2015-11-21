@@ -68,7 +68,7 @@ class EditLaunchBoardForm(LaunchBoardForm):
         super(EditLaunchBoardForm, self).__init__(*args, **kwargs)
 
     def save(self):
-        _image = self.cleaned_data.get('launchImage')
+        _image = self.cleaned_data.get('launchImage', None)
         _title = self.cleaned_data.get('title')
         _description = self.cleaned_data.get('description')
         _action = self.cleaned_data.get('action')

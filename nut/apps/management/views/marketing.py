@@ -46,6 +46,7 @@ class EditLaunchBoardView(FormView):
 
     def get_initial(self):
         initial = super(EditLaunchBoardView, self).get_initial()
+        # if self.object is not None:
         initial.update(
             {
                 "title": self.object.title,
@@ -70,3 +71,9 @@ class EditLaunchBoardView(FormView):
         self.object = self.get_object()
 
         return super(EditLaunchBoardView, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.lid = kwargs.pop('pk', None)
+        assert self.lid is not None
+        self.object = self.get_object()
+        return super(EditLaunchBoardView, self).post(request, *args, **kwargs)
