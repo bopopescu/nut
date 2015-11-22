@@ -9,6 +9,77 @@ log = getLogger('django')
 
 import  re
 
+
+class FeedCounterBridge(object):
+    updated_feed_article_read_id_set_key = 'updated_feed_article_read_id_set'
+
+    @classmethod
+    def get_store(cls):
+        return cache
+
+    @classmethod
+    def get_need_update_article_id_set(cls):
+        res = cls.get_store().get(cls.updated_feed_article_read_id_set_key)
+        if res is None:
+            res = set()
+        return res
+
+    @classmethod
+    def add_id_to_need_updated_article_id_set(cls, id):
+        theSet = cls.get_need_update_article_id_set()
+        theSet.add(id)
+        cls.get_store().set(cls.updated_feed_article_read_id_set_key, theSet, timeout=None)
+        return
+
+    @classmethod
+    def clear_need_update_article_id_set(cls):
+        cls.get_store().set(cls.updated_feed_article_read_id_set_key, set(), timeout=None)
+        return
+
+    @classmethod
+    def get_feed_count_value_from_sql(cls, id):
+        article = Article.objects.get(pk=id)
+        return article.feed_read_count or 1
+
+    @classmethod
+    def save_feed_count_value_to_sql(cls, id, count):
+        article = Article.objects.get(pk=id)
+        article.feed_read_count = count
+        return
+
+    @classmethod
+    def get_article_feed_read_count_key(cls, article_id):
+        return 'feed_article_read_count_%s' % article_id
+
+    @classmethod
+    def get_article_feed_read_count(cls, id):
+        key = cls.get_article_feed_read_count_key(id)
+        try :
+            count = cls.get_store().get(key)
+        except ValueError:
+            count = 1
+        return count
+
+    @classmethod
+    def incr_article_feed_read_count(cls, id):
+        key = cls.get_article_feed_read_count_key(id)
+        counter_store = cls.get_store()
+        try :
+            counter_store.incr(key)
+        except ValueError:
+            try :
+                count = cls.get_feed_count_value_from_sql(id)
+            except Exception as e:
+                count = 1
+            counter_store.set(key, count, timeout=None)
+
+        except Exception as e:
+            raise CounterException('image counter error')
+
+        cls.add_id_to_need_updated_article_id_set(id)
+        return
+
+
 class CounterException(Exception):
     pass
 
