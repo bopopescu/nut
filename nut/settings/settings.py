@@ -240,6 +240,9 @@ AUTH_USER_MODEL = 'core.GKUser'
 
 IMAGE_HOST = 'http://imgcdn.guoku.com/'
 
+#img counter for article feeds
+IMG_COUNTER_HOST = 'http://www.guoku.com'
+
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 # IMAGE_SIZE = [128, 310, 640]
 

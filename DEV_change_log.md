@@ -1,5 +1,5 @@
-
-
+3.
+2. need deploy article_feed_counter_save.py to crontab
 1. feed read count , need run sql 
 
 ALTER TABLE `core`.`core_article` 
