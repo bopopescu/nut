@@ -80,6 +80,9 @@ class EditLaunchBoardForm(LaunchBoardForm):
             default_storage.save(image_name, ContentFile(launch_image.image_data))
             self.launch.launchImage = image_name
 
+        if _status:
+            LaunchBoard.objects.filter(status=True).update(status = False)
+
         self.launch.title = _title
         self.launch.description = _description
         self.launch.action = _action
