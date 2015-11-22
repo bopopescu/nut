@@ -98,6 +98,9 @@ class LaunchBoard(models.Model):
     action = models.CharField(max_length=255)
     created_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
 
+    class Meta:
+        ordering = ["-created_datetime"]
+
     def __unicode__(self):
         return "{0} - {1}".format(self.title, self.description)
 
