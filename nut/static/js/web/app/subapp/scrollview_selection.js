@@ -1,6 +1,5 @@
 define(['jquery','libs/Class','libs/fastdom','masonry','jquery_bridget', 'images_loaded'],
-    function($,Class,fastdom,Masonry,imagesLoaded){
-        //imagesLoaded.makeJQueryPlugin($);
+    function($,Class,fastdom,Masonry){
         $.bridget('masonry', Masonry);
         var ScrollEntity = Class.extend({
             init: function () {
@@ -12,18 +11,18 @@ define(['jquery','libs/Class','libs/fastdom','masonry','jquery_bridget', 'images
                 this.counter = 1;
             },
 
-            initialize : function () {
+            initialize:function () {
                 var $grid = this.$selection.masonry({
                     isFitWidth:true,
-                    resizeable:true,
                     itemSelector: '.selection-box',
-                    animate: true,
-                    saveOptions: true
+                    animate: false,
+                    isAnimated: false,
+                    saveOptions: true,
+                    transitionDuration: 0
                 });
-                $grid.imagesLoaded().progress( function() {
-                    $grid.masonry();
-                });
+                $grid.masonry('layout');
                 this.$grid = $grid;
+
                 $(window).scroll(this.onScroll.bind(this));
                 $(window).resize(this.onResize.bind(this));
             },
@@ -40,9 +39,6 @@ define(['jquery','libs/Class','libs/fastdom','masonry','jquery_bridget', 'images
             },
 
             onResize: function () {
-                this.$grid.imagesLoaded().progress( function() {
-                    this.$grid.masonry('layout');
-                });
             },
 
             doClear : function(){
@@ -120,11 +116,7 @@ define(['jquery','libs/Class','libs/fastdom','masonry','jquery_bridget', 'images
             attachNewSelections: function(elemList, status){
                 var that = this;
                 fastdom.defer(function(){
-                    that.$grid.append( elemList ).masonry('appended', elemList,
-                        {saveOptions: true});
-                    that.$grid.imagesLoaded().progress( function() {
-                        that.$grid.masonry();
-                    });
+                    that.$grid.append( elemList ).masonry('appended', elemList, false);
                 });
 
                 fastdom.defer(function(){

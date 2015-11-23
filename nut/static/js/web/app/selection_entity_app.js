@@ -7,7 +7,7 @@ require([
         'subapp/scrollview_selection',
         'masonry',
         'jquery_bridget',
-        'images_loaded'
+        'images_loaded',
     ],
 
     function (polyfill,

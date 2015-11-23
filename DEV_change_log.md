@@ -21,7 +21,7 @@
 2. 把category下的页面加入RequireJS，并作为滚动到页底自动加载
 3. 在model research_history里的记录搜索函数，判断用户是否为游客的时候，换为一种更加安全的方式
 
-===== 2015 - 11 - 12 =======
+===== 2015 - 11 - 12Ish =======
 
 
 2. remove 1111 gif on header 
