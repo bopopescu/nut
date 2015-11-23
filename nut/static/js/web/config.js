@@ -16,7 +16,7 @@ requirejs.config({
         cookie: 'libs/jquery.cookie',
         masonry: 'libs/masonry',
         jquery_bridget: 'libs/jquery.bridget',
-        images_loaded: 'libs/imagesloaded.min'
+        images_loaded: 'libs/imagesloaded.min',
     },
 
     shim: {
