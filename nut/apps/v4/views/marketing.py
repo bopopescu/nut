@@ -9,9 +9,11 @@ class LaunchBoardView(BaseJsonView):
         res = {}
         launch = LaunchBoard.objects.filter(status = True).first()
         if launch:
+            res['launch_id'] = launch.pk
             res['title'] = launch.title
             res['description'] = launch.description
             res['action'] = launch.action
+
         return res
 
     # @check_sign
