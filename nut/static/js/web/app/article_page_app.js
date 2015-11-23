@@ -32,6 +32,7 @@ require([
         var entityCardRender = new EntityCardRender();
         var sidebar = new SideBarManager();
         var relatedArticleLoader = new RelatedArticleLoader();
-        console.log("article list init!！");
+
+
 });
 

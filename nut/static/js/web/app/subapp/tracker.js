@@ -1,6 +1,4 @@
 // singleton instance few.
-var instance = null;
-
 define(['libs/Class'], function (Class) {
     //singleton for tracker
 
@@ -12,6 +10,6 @@ define(['libs/Class'], function (Class) {
             }
         }
     });
-    instance = instance || new Tracker();
+    var instance =  new Tracker();
     return instance;
 });

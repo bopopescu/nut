@@ -198,7 +198,7 @@ def entity_post_note(request, eid,
                     'status': 1,
                     'data': _data,
                 },
-                content_type='text/html; charset=utf-8',
+                content_type='application/json; charset=utf-8',
             )
     raise HttpResponseNotAllowed
 
@@ -210,7 +210,7 @@ def entity_update_note(request, nid):
         _forms = NoteForm(request.POST, user=_user, nid=nid)
         if _forms.is_valid():
             note = _forms.update()
-            return JSONResponse(data={'result': '1'})
+            return JSONResponse(data={'result': '1', 'note':note.note})
     # else:
     return HttpResponseNotAllowed
 
@@ -270,6 +270,7 @@ def entity_note_comment(request, nid,
     return JSONResponse(
         data={
             'data': _data,
+            'note_id': nid
         },
         content_type='text/html; charset=utf-8',
     )

@@ -1,0 +1,24 @@
+{
+  "name": "GKFront",
+  "description": "guoku web frontend web dependency",
+  "main": "none",
+  "authors": [
+    "An"
+  ],
+  "license": "BSD-2-Clause",
+  "keywords": [
+    "guoku",
+    "frontend",
+    "bower"
+  ],
+  "homepage": "https://github.com/guoku/nut",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
