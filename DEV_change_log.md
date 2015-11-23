@@ -1,4 +1,4 @@
-3.
+3. m.guoku.com article page , wechat access , all link direct to http://www.guoku.com/download/
 2. need deploy article_feed_counter_save.py to crontab
 1. feed read count , need run sql 
 
@@ -34,6 +34,10 @@ TODO : 现在移动端的标签还都是个人标签，是否需要改成全局�
 2. 调整EDM内容样式
 3. SD地址列表成员更新信息不能用update接口，需要先delete再add
 4. EDM上线前需要先更新线上环境的django-sendcloud
+
+
+
+************** merged to master 2015-11-12 ******************
 
 ===== 2015 - 11 - 12 =======
 

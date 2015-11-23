@@ -16,6 +16,9 @@ IMAGE_HOST = 'http://imgcdn.guoku.com/'
 IMG_COUNTER_HOST = 'http://127.0.0.1:9766'
 
 
+#for mobile access simulation
+ANT_SIMULATE_MOBILE = True
+
 #for local solr search
 
 HAYSTACK_CONNECTIONS = {
@@ -27,9 +30,6 @@ HAYSTACK_CONNECTIONS = {
         # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
     }
 }
-
-#for mobile access simulation
-# ANT_SIMULATE_MOBILE = True
 
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
