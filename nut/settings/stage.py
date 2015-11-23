@@ -15,7 +15,7 @@ USE_TZ = False
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test',
+        'NAME': 'core',
         'USER': 'guoku',
         'PASSWORD': 'guoku!@#',
         'HOST': '10.0.2.90',
@@ -28,7 +28,7 @@ DATABASES = {
     },
     'slave': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test',
+        'NAME': 'core',
         'USER': 'guoku',
         'PASSWORD': 'guoku!@#',
         'HOST': '10.0.2.90',
