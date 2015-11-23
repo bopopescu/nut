@@ -49,9 +49,11 @@ from apps.web.utils.datatools import get_entity_list_from_article_content
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
+
 # if define avatar_host , then use avata_host , for local development .
 avatar_host = getattr(settings, 'AVATAR_HOST', image_host)
 
+feed_img_counter_host =  getattr(settings, 'IMG_COUNTER_HOST' , None)
 
 class BaseModel(models.Model):
     class Meta:
@@ -1248,6 +1250,7 @@ class Article(BaseModel):
     updated_datetime = models.DateTimeField()
     showcover = models.BooleanField(default=False)
     read_count = models.IntegerField(default=0)
+    feed_read_count = models.IntegerField(default=0)
     # entity cars in in article content
     related_entities = models.ManyToManyField(Entity,
                                               related_name='related_articles')
@@ -1313,6 +1316,12 @@ class Article(BaseModel):
     def bleached_content(self):
         cover_html = '<img class="article-cover img-responsive" src="%s">' % self.cover_url
         return cover_html + contentBleacher(self.content)
+
+    @property
+    def feed_content(self):
+        feed_count_img_url = feed_img_counter_host + reverse('article_image_count', args=[self.pk])
+        feed_count_img_html = '<div>&nbsp;</div><img src="%s">' % feed_count_img_url
+        return  self.bleached_content + feed_count_img_html
 
     @property
     def digest(self):

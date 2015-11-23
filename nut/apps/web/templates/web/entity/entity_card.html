@@ -2,7 +2,11 @@
 {% load common guoku %}
 
 <div guoku_ele="True" class="guoku-card container-fluid hover-light" data_entity_hash="{{ entity.entity_hash }}">
-    {% if isFromMobile %}<a href="{{ entity.mobile_url }}">{% else %}<a href="{{ entity.absolute_url }}">{% endif %}
+    {% if isFromMobile %}
+        <a class="mobile-entity-link" href="{{ entity.mobile_url }}">
+    {% else %}
+        <a href="{{ entity.absolute_url }}">
+    {% endif %}
     <img src="{{ entity.chief_image|resize:'240' }}" >
     <p class="entity-brand info">
             <span>
@@ -18,7 +22,11 @@
             </span>
     </p>
     </a>
-    {% if isFromMobile %}<a href="{{ entity.mobile_url }}">{% else %}<a href="{{ entity.absolute_url }}">{% endif %}
+    {% if isFromMobile %}
+        <a class="mobile-entity-link" href="{{ entity.mobile_url }}">
+    {% else %}
+        <a href="{{ entity.absolute_url }}">
+    {% endif %}
     <p class="entity-link">查看详情</p>
     </a>
 

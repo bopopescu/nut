@@ -2,11 +2,10 @@
  * Created by edison on 14-9-21.
  */
 
-
-
 // index Of polly fill
 // Production steps of ECMA-262, Edition 5, 15.4.4.14
 // Reference: http://es5.github.io/#x15.4.4.14
+
 if (!Array.prototype.indexOf) {
   Array.prototype.indexOf = function(searchElement, fromIndex) {
 
@@ -804,7 +803,7 @@ function getQueryStrings() {
         },
         _shouldLoad: function(){
             return (!isMobile) && this._super();
-        },
+        }
     });
 
     var ArticleLoader = AjaxLoader.extend({
@@ -909,11 +908,12 @@ function getQueryStrings() {
             $('.nav-user-actions .round').css({display:'inline-block'});
             $('.setting-list .round').css({display: 'inline-block'});
     };
+
     function hide_sns_page_dot(){
             $('.nav-user-actions .round').css({display:'none'});
             $('.setting-list .round').css({display: 'none'});
-
     };
+
     var util = {
         handlePageScroll: function(){
             var last_scroll = 0 ;
@@ -1026,33 +1026,6 @@ function getQueryStrings() {
         //    }
         //},
         //初始化 tag
-        initTag: function () {
-            //TODO : re initTag after user post note  by an
-            var array = $(".with-tag");
-            for (var i=0; i<array.length; i++) {
-                // replace <br> with \n
-                var str = array.eq(i).html(array.eq(i).html().replace(/\<br[!>]*\>/g, "\n")).text();
-                if (str == undefined)
-                    continue;
-                //reg to match all legal charactor in tag
-                var ereg = /[#＃][0-9a-zA-Z\u4e00-\u9fff\u3040-\u30FF\u30A0-\u30FF]+/g;
-
-                var cut = str.match(ereg);
-                if (cut == null){
-                    array.eq(i).html(str.replace(/\n/g, "<br>"));
-                    continue;
-                }
-
-                //for (var j in cut){
-                // will interate on array's property in old browser!!!!
-
-                for (var j=0, len=cut.length;j<len; j++){
-                    str = str.replace(cut[j], "<a class='btn-link' rel='nofollow' href='/tag/name/"+encodeURI(cut[j].replace(/[#＃]/,""))+"' >"+cut[j]+"</a>&nbsp;");
-                }
-
-                array.eq(i).html(str.replace(/\n/g, "<br>"));
-            }
-        },
 
         like: function (object) {
             // 喜爱 like entity
@@ -1066,27 +1039,10 @@ function getQueryStrings() {
             //  var status = 0;
                 var url ;
                 if (heart.hasClass("fa-heart-o")) {
-                    url = "/entity/" + entity_id + '/like/';
+                    url = "/entity/" + entity_id + '/like/' ;
                 } else {
                     url = "/entity/" + entity_id + '/unlike/';
                 }
-            // url = url.replace(/\/[01]\//,"/"+status+"/");
-            // console.log(url);
-            //    $.when($.ajax(
-            //        {
-            //            url: url,
-            //            type: 'get',
-            //            dataType:'json',
-            //            cache: false,
-            //        }
-            //    )).then(
-            //        function(data){
-            //            console.log(data);
-            //        },
-            //        function(data){
-            //            console.log(data);
-            //        });
-
 
                 $.ajax({
                     url: url,
@@ -1171,37 +1127,7 @@ function getQueryStrings() {
                     var html = $(error.responseText);
                     util.modalSignIn(html);
                 });
-                //$.ajax({
-                //    url: action_url,
-                //    dataType:'json',
-                //    method: 'post',
-                //    success: function(data){
-                //        //console.log(data);
-                //
-                //        if (data.status == 1) {
-                //
-                //            $this.html('<i class="fa fa-check fa-lg"></i>&nbsp; 取消关注');
-                //            $this.attr('data-status', '1');
-                //            $this.removeClass("button-blue").addClass("btn-cancel");
-                //
-                //        }else if (data.status == 2){
-                //            console.log('mutual !!!');
-                //             $this.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关柱');
-                //             $this.removeClass('button-blue').addClass('btn-cancel');
-                //             $this.attr('data-status','1');
-                //
-                //        }else if (data.status == 0) {
-                //            $this.html('<i class="fa fa-plus"></i>&nbsp; 关注');
-                //        //$this.html('<span class="img_follow"></span><b>关注</b>');
-                //            $this.removeClass("btn-cancel").addClass("button-blue");
-                //            $this.attr('data-status', '0');
-                //        } else {
-                //            var html = $(data);
-                //            util.modalSignIn(html);
-                //        }
-                //    }
-                //});
-                //e.preventDefault();
+
             })
         },
 
@@ -1406,91 +1332,6 @@ function getQueryStrings() {
         }
     };
 
-    var selection = {
-        loadData: function () {
-
-            var $selection = $('#selection');
-            var page = $selection.parent().find('.pager');
-            var counter = 1;
-            page.hide();
-
-
-            if ($selection[0]) {
-                var flag = false;
-           //     console.log(counter);
-                $(window).scroll(function () {
-
-                    if (counter % 3 == 0 ) {
-                        page.show();
-                    } else {
-                        page.hide();
-                    }
-                    //这里临时不采用自动加载，换成分页
-
-                    if (($(window).height() + $(window).scrollTop()) >= ($(document).height()-25) && flag == false && counter % 3 != 0) {
-                      //        console.log("okokokokoko");
-                      //        page.hide();
-                        flag = true;
-                      //        var url = window.location.href;
-                        var aQuery = window.location.href.split('?');
-
-                        var url = aQuery[0];
-                        var p = 1; var c = 0;
-                        if (aQuery.length > 1) {
-                            var param = aQuery[1].split('&');
-                            var param_p;
-                      //            console.log(param);
-                            if (param.length > 1) {
-                      //                param_c = param[0].split('=');
-                      //                c = parseInt(param_c[1]);
-                                param_p = param[0].split('=');
-                                p = parseInt(param_p[1]);
-                            }
-                        }
-
-                      //        var last_entity = $selection.find('.entity-selection:last');
-                      //        var time = last_entity.find(".timestr").attr("name");
-                        var time = $selection.attr('data-refresh');
-                        var data = {
-                            'p': p+counter,
-                            'page': p+counter,
-                            't':time
-                        };
-
-                        if (c != 0 ){
-                            data['c'] = c;
-                        }
-                      //        console.log(data);
-                      //        console.log(time);
-                        $.ajax({
-                            url: url,
-                            type: "GET",
-                            data: data,
-                            dataType:'json',
-                            success: function(data) {
-                      //                result =  $.parseJSON(data);
-                      //                var status = parseInt(result.status);
-                                if (data.status === 1) {
-                                    var $html = $(data.data);
-                      //                    $html.each(function () {
-                      //                        util.showEntityTitle($(this));
-                      //                    });
-                                    util.like($html);
-                                    $html.appendTo($selection);
-                                    counter ++;
-                                    flag = false;
-                                }
-                            }
-                        });
-                    }
-                });
-            }
-           // var entities = $selection.find('.entity-selection');
-           // console.log(entities);
-        }
-
-    };
-
     function sendReport(){
         var _form = $('#report_form_wrapper form');
         if (_form.length){
@@ -1511,47 +1352,8 @@ function getQueryStrings() {
     };
 
     var detail = {
-            initReportButton: function(){
-                $('#report_trigger').click(function(){
-                    var url = $(this).attr('report-url');
-                    $.when($.ajax({
-                        url: url,
-                        method: 'GET',
-                    })).then(
-                        function(htmltext){
-                            //this call will return a  rendered template
-                            bootbox.dialog({
-                               title: '举报商品',
-                               message: htmltext,
-                                buttons: {
-                                    success:{
-                                        label:'发送',
-                                        className:'btn-primary',
-                                        callback: sendReport
-                                    },
-                                }
-                            });
-                        },function(){
-                            console.log('get report form fail ');
-                        });
-                });
-            },
-            initVisitorNote:function(){
-                $('#visitor_note').click(function(){
-                    $.when(
-                        $.ajax({
-                            url: '/login/'
-                        })
-                    ).then(
-                        function success(data){
-                            var html = $(data);
-                            util.modalSignIn(html);
-                        },
-                        function fail(){}
-                    );
 
-                });
-            },
+
             detailImageHover: function () {
             // 鼠标放细节图上后效果
                 function findThumbImages(){
@@ -1614,329 +1416,6 @@ function getQueryStrings() {
                 window.open(link);
             });
         },
-
-        postNote: function () {
-            var $note = $(".post-note");
-            var $form = $note.find("form");
-            var $textarea = $form.find("textarea");
-            //console.log($textarea.value);
-            $textarea.on('focus', function(){
-                $form.addClass('active');
-            });
-            //console.log($note);
-
-            var $cancel = $form.find('.btn-cancel');
-           //     console.log($cancel);
-            $cancel.on('click', function() {
-           //     console.log(this);
-                $form.removeClass('active');
-            });
-
-            $form.on('submit', function (e) {
-                if ($.trim($textarea[0].value).length === 0) {
-                    $textarea[0].value = '';
-                    $textarea.focus();
-                } else {
-                    //console.log($form.serialize());
-                    $.post(this.action, $form.serialize(), function (result){
-                        result = $.parseJSON(result);
-                        var status = parseInt(result.status);
-                        if (status === 1) {
-                            var $html = $(result.data);
-
-                            detail.clickComment($html);
-
-                       //            console.log($html);
-                      //            self.poke();
-                      //            $('<div class="sep"></div>').appendTo($notes);
-                            $html.appendTo($(".common-note-list"));
-
-                            //TODO : beware , if the dom operation is slow ,\
-                            // detail.update($html.parent()) may not find the parent element
-                            //
-                            detail.updateNote($html.find('.comment_operate'));
-
-
-                            $note.parent().remove();
-                            util.initTag();
-                        } else if (status === 0) {
-                            // error
-                        }
-                    });
-                }
-
-           //     console.log("OKOKOKO");
-                 e.preventDefault();
-                 return false ;
-
-            });
-        },
-
-        noteAction: function () {
-
-            var noteDetail = $(".comment_operate");
-            noteDetail.each(function(){
-           //     var $this = $(this);
-           //     console.log($(this));
-                detail.clickComment($(this));
-                detail.updateNote($(this));
-                detail.poke($(this));
-            });
-        },
-
-        updateNote: function (noteItem) {
-           // console.log(noteItem);
-
-            //console.warn('the following line , can not find note_content for new note (just added to page via ajax call)')
-            var note_content = noteItem.parent().find(".comment_word.content");
-            var note_update_form = noteItem.find(".update-note-form");
-            var note_text = note_update_form.find('textarea');
-            //console.log(note_text);
-            var origin_text = note_content.html() || '';
-
-            //var htmltag = "<a href=\"\" target=\"_blank\">";
-            origin_text = origin_text.replace(/<(.|\n)+?>/gi, "");
-            noteItem.find(".update-note").on('click', function() {
-           //     var form = noteItem.find();
-                console.log(origin_text);
-                if (note_update_form.css('display') != 'block') {
-                    note_content.hide();
-                    note_update_form.show();
-                    note_text.html(origin_text);
-                      //    console.log(origin_text);
-                      //    return;
-                } else {
-                    note_update_form.hide();
-                    note_content.show();
-                }
-            });
-
-            note_update_form.find('.btn-cancel').on('click', function() {
-                note_update_form.hide();
-                note_content.show();
-            });
-            note_update_form.on('submit', function(e) {
-                      //   鸶te note_text[0].value;
-                      //    var url = note_update_form[0].action;
-                      //    console.log(note_text[0].value);
-                var note_content_text = $.trim(note_text[0].value);
-                    note_content_text = clearUserInputString(note_content_text);
-
-                if (note_content_text.length > 0) {
-                        $.ajax({
-                            type: 'post',
-                            dataType:'json',
-                            url: note_update_form[0].action,
-                            data: $(this).serialize(),
-                            success: function (data) {
-                                if (parseInt(data.result) === 1) {
-                                    note_content.html(note_content_text);
-                                    note_update_form.hide();
-                                    note_content.show();
-                                }
-                                util.initTag();
-                            }
-                        });
-                    } else {
-                    note_text.focus();
-                    // TODO: handle empty input
-                }
-                e.preventDefault();
-            });
-        },
-
-        commentAction: function(comment) {
-            var form = comment.find('form');
-            var commentText = form.find('.comment-content');
-            var replyToUser = '';
-            var replyToComment = '';
-           // console.log(commentText);
-            comment.find('.btn-cancel').on('click', function() {
-
-                comment.slideToggle('fast');
-                //commentText.val('');
-            });
-
-            function reply(commentItem) {
-           //     console.log(commentItem.find('.reply'));
-                commentItem.find('.reply').on('click', function (e) {
-
-                    var commentContent = commentItem.find('.comment-content');
-                    var nickname = commentItem.find('.nickname');
-                      //    console.log(nickname);
-                    commentText.val('回复 ' + $.trim(nickname.text()) + ': ');
-                    commentText.focus();
-                    replyToUser = commentContent.attr('data-creator');
-                    replyToComment = commentContent.attr('data-comment');
-                      //    }
-                    return false;
-                });
-
-                commentItem.find('.close').on('click', function (e) {
-                    var comment_id = $(this).attr('data-comment');
-                    var url = '/entity/note/comment/' + comment_id + '/delete/';
-                      //    console.log(comment_id);
-                    $.ajax({
-                        url:url,
-                        type: 'post',
-                        dataType:'json',
-                        success: function(data){
-                      //            console.log(data);
-                            if (data.status === 1) {
-                                commentItem.remove();
-                            }
-                        }
-                    });
-
-                    return false;
-                });
-            }
-
-            comment.find('.media').each(function () {
-                reply($(this));
-            });
-
-           // var commentItem = commentItem;
-            form.on('submit', function(e) {
-                var input = commentText[0];
-                var text = input.value;
-
-                text = text.replace(/^回复.*[:：]/, function (str, index) {
-                    if (index === 0) {
-                        return '';
-                    }
-                    return str;
-                });
-                text = $.trim(text);
-                if (text.length > 0) {
-                    var url = form[0].action;
-                    var data = {
-                        'content': text,
-                        'reply_to_user_id': replyToUser,
-                        'reply_to_comment_id': replyToComment
-                    };
-
-                    $.ajax({
-                        type:"post",
-                        url:url,
-                        data:data,
-                        success: function(result) {
-                      //            console.log(result);
-                            try {
-                                result = $.parseJSON(result);
-                      //                var status = parseInt(result.status);
-                      //                if (status === 1) {
-                                var $html = $(result.data);
-                                reply($html);
-                                $html.insertBefore(form);
-                      //                }
-                                commentText.val('');
-                            } catch (err) {
-                                var html = $(result);
-                                util.modalSignIn(html);
-                            }
-                        }
-                    });
-                } else {
-                    input.value = '';
-                    input.focus();
-                }
-                e.preventDefault();
-            });
-        },
-
-        clickComment: function (note) {
-
-           // console.log(noteDetail);
-           // console.log(note);
-            // TODO : none login user's  note comment will lost in login process , to an
-            note.find('.add-comment').on('click', function (e) {
-                var comments = note.parent().find('.note-comment-list');
-                var notecontent = note.parent();
-           //     console.log(notecontent);
-                if(comments[0]) {
-                    comments.slideToggle('fast');
-                } else {
-
-                    var url = '/entity/note/' + $(this).attr('data-note') + '/comment/';
-                      //    console.log(url);
-                    $.ajax({
-                        url: url,
-                        type: 'GET',
-                        async: false,
-                        success: function(data){
-                            result =  $.parseJSON(data);
-                            var $html = $(result.data);
-                      //            self.noteComment($html);
-                            detail.commentAction($html);
-                            $html.appendTo(notecontent);
-                            // TODO : ant is here !!!
-                            $html.slideToggle('fast');
-                      //            initTag();
-                        },
-                        error: function(ajaxContext) {
-                             console.log(ajaxContext['responseText']);
-                        }
-                    });
-                    return false;
-                }
-            });
-        },
-
-        poke : function (note) {
-           // 给评论点赞
-           //console.log("OKOKOKOKO");
-            note.find('.poke').on('click', function (e) {
-           //     console.log($(this));
-                var poke = $(this);
-                var note_id = poke.attr('data-note');
-                var counter = poke.find('span');
-                var poke_icon = poke.find('i');
-                var url = '/note/' + note_id + '/poke/';
-
-                $.ajax({
-                    type:'post',
-                    dataType:'json',
-                    url: url,
-                    success: function (data){
-                        var count = parseInt(counter.html()) || 0;
-                        var result = parseInt(data.result);
-
-                        if (result === 1) {
-                            count++;
-                      //            $counter.text(count).addClass("count_blue");
-                            poke_icon.addClass('fa-thumbs-up');
-                            poke_icon.removeClass('fa-thumbs-o-up');
-
-                            if (count === 1) {
-                                $('<span class="poke-count">' + count + '</span>').appendTo(poke);
-                            } else {
-                                counter.html(count);
-                            }
-                        } else if (result === 0) {
-                            count--;
-                      //            $counter.text(count).removeClass("count_blue");
-                            poke_icon.addClass('fa-thumbs-o-up');
-                            poke_icon.removeClass('fa-thumbs-up');
-
-                            if (count === 0) {
-                                poke.find('span').remove();
-                            } else {
-                                counter.html(count);
-                            }
-                        } else {
-                            var html = $(data);
-                            util.modalSignIn(html);
-                        }
-                    },
-                    error: function(data){
-                         var html=$(data.responseText);
-                         util.modalSignIn(html);
-                    }
-
-                });
-            })
-        }
     };
 
     var message = {
@@ -2179,7 +1658,6 @@ function getQueryStrings() {
 
         util.like($('body'));
         util.follower();
-        util.initTag();
         util.gotop();
         util.handlePageScroll();
 
@@ -2187,14 +1665,9 @@ function getQueryStrings() {
         createNewEntity.BrandAndTitle();
            //   createNewEntity.changeChiefImage();
         createNewEntity.postNewEntity();
-        selection.loadData();
 
         detail.detailImageHover();
         detail.shareWeibo();
-        detail.postNote();
-        detail.noteAction();
-        detail.initVisitorNote();
-        detail.initReportButton();
 
         message.loadData();
         event.loadData();
