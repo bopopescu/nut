@@ -1,25 +1,44 @@
+3. m.guoku.com article page , wechat access , all link direct to http://www.guoku.com/download/
+2. need deploy article_feed_counter_save.py to crontab
+1. feed read count , need run sql  ,( already excuted on 10.0.2.90 core )
+
+==ACTION : run sql , ( already run on 10.0.2.90   core )
+
+ALTER TABLE `core`.`core_article` 
+CHANGE COLUMN `read_count` `read_count` INT(10) UNSIGNED ZEROFILL NULL DEFAULT 0 ,
+ADD COLUMN `feed_read_count` INT(10) UNSIGNED ZEROFILL NULL DEFAULT 0 AFTER `read_count`;
+
+
+===ACTION : need run on production server FOR  sendCloud  : 
+
+sudo pip install git+git://github.com/guoku/django-sendcloud@master
+
+=== 2015 - 11 - 21 ====
+1. 把记录搜索的方法record_search改成了用delay调用。
+
+
+TODO : 现在移动端的标签还都是个人标签，是否需要改成全局标签
+
+====  2015 - 11 -18 =====
+2. new front-end for entity-detail page
+1. add placeholder bug  quick fix for register page on IE8 
+
+==== 2015 - 11  - 17  =====
+0. 给module Search_History的record方法加了一点注释。
+1. 把tag/articles下的页面加入RequireJS
+2. 把category下的页面加入RequireJS，并作为滚动到页底自动加载
+3. 在model research_history里的记录搜索函数，判断用户是否为游客的时候，换为一种更加安全的方式
+
+
+
 1. 合并EDM到dev
 2. 调整EDM内容样式
 3. SD地址列表成员更新信息不能用update接口，需要先delete再add
 4. EDM上线前需要先更新线上环境的django-sendcloud
 
-===== 2015 - 11 - 12 =======
+************* start 2015-11-13 *************************
 
-
-
-1. 把记录搜索的方法record_search改成了用delay调用。
-
-===== 2015 - 11 - 19 =======
-
-
-1. 给module Search_History的record方法加了一点注释。
-
-===== 2015 - 11 - 12 =======
-
-
-1. 把tag/articles下的页面加热RequireJS
-2. 把category下的页面加入RequireJS，并作为滚动到页底自动加载
-3. 在model research_history里的记录搜索函数，判断用户是否为游客的时候，换为一种更加安全的方式
+************** merged to master 2015-11-12 ******************
 
 ===== 2015 - 11 - 12 =======
 

@@ -13,11 +13,15 @@ requirejs.config({
         fastdom: 'libs/fastdom.ant',
         csrf:'libs/csrf',
         underscore:'libs/underscore.ant',
-        cookie: 'libs/jquery.cookie'
+        cookie: 'libs/jquery.cookie',
+        bootbox: 'libs/bootbox.min'
     },
 
     shim: {
 // shim won't handle script load , you still need require script in your source
+        'bootbox':{
+            deps: ['jquery', 'bootstrap']
+        },
         'cookie':{
             deps:['jquery']
         },

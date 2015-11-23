@@ -63,7 +63,16 @@ docs/_build/
 #nut/settings/
 # Node tools
 node_modules
+
+
+#local image test file and folder for ant
 nut/images/
+ant_image/
+ant_image/*
+ant_image/avatar/*
+
+
+
 
 nut/db.sqlite3
 

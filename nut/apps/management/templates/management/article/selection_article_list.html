@@ -40,6 +40,7 @@
                                     </th>
                                     <th class="person-link" >{% trans 'author' %}</th>
                                     <th class="read-count">文章阅读数</th>
+                                    <th class="read-count">FEED阅读数</th>
                                     <th class="tags">文章标签</th>
                                     <th class="cell-boolean" >文章状态</th>
                                     <th class="date-time">入精选时间</th>
@@ -57,7 +58,7 @@
                             <tbody>
                                 {% for sla in selection_article_list %}
                                     <tr>
-                                        <td>{{ sla.pk }}</td>
+                                        <td>{{ sla.article.pk }}</td>
                                         <td><a href="{% url 'web_article_page' sla.article.pk %}" target="_blank"><img class="img-thumbnail img-responsive" src="{{ sla.article.cover_url|resize:'90' }}"></a></td>
                                         <td>{{ sla.article.title }}</td>
                                         <td>
@@ -66,6 +67,7 @@
                                             </a>
                                         </td>
                                         <td>{{ sla.article.read_count }}</td>
+                                        <td>{{ sla.article.feed_read_count }}</td>
                                         <td> {{ sla.article|article_tag_string }}</td>
                                         <td>{{ sla.article.get_publish_display }}</td>
 

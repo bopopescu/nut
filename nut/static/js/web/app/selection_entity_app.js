@@ -35,7 +35,7 @@ requirejs.config({
 require([
         'libs/polyfills',
         'jquery',
-        'utils/EntityLike',
+        'subapp/entitylike',
         'subapp/topmenu',
         'subapp/loadentity',
         'subapp/gotop',
