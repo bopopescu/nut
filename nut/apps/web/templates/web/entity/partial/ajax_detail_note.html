@@ -5,7 +5,7 @@
      <a class="pull-left" href="{% url 'web_user_index' note.user.pk %}" target="_blank" >
         <img class="media-object img-circle" src="{{ note.user.profile.avatar_url }}" alt="{{ note.user.profile.nick }}" width='50' height='50'>
     </a>
-    <div class="comment_detail note-content">
+    <div class="comment_detail note-content" data-note-id="{{ note.pk }}">
         <div class="user_name">
             <a href="{% url 'web_user_index' note.user.pk %}" target="_blank">{{ note.user.profile.nick }}</a>
         </div>

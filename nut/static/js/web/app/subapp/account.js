@@ -1,4 +1,4 @@
-define(['libs/Class','jquery'],function(Class, $){
+define(['libs/Class','jquery','bootstrap'],function(Class, $){
 
     var AccountApp = Class.extend({
         init: function(){
