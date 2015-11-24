@@ -59,6 +59,11 @@
                 </div>
             </div>
         </div>
+        <div class="row hidden-xs">
+            <div class="col-sm-offset-12">
+                <a class="btn-top" href="javascript:;"  title="回到顶部" target="_self"><i class="fa fa-angle-up fa-lg"></i></a>
+            </div>
+        </div>
        {% if request.user.is_staff %}
         <div class="row user-admin-link-wrapper">
             <a href="{% url 'management_user_edit' current_user.id %}" target="_blank"><i class="fa fa-edit"></i></a>
