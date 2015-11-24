@@ -115,8 +115,7 @@ if (!Array.prototype.indexOf) {
     return -1;
   };
 }
-
-console.log('pollyFill ');
+;
 define("libs/polyfills", function(){});
 
 /*! jQuery v1.11.1 | (c) 2005, 2014 jQuery Foundation, Inc. | jquery.org/license */
@@ -1599,7 +1598,16 @@ define('utils/browser',[], function () {
                 }
             }
             return assoc;
+        },
+        is_weixin: function(){
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.match(/MicroMessenger/i)=="micromessenger") {
+                return true;
+            } else {
+                return false;
+            }
         }
+
     };
 
     return browser

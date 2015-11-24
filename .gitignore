@@ -58,13 +58,21 @@ log.txt
 docs/_build/
 
 # PyCharm
-
 .idea/
 
-nut/settings/
+#nut/settings/
 # Node tools
 node_modules
+
+
+#local image test file and folder for ant
 nut/images/
+ant_image/
+ant_image/*
+ant_image/avatar/*
+
+
+
 
 nut/db.sqlite3
 
@@ -78,6 +86,6 @@ log.txt
 
 # spider 
 spider/log.txt
-spider/dbs/*
-spider/items/*
+spider/dbs/
+spider/items/
 *.pid
