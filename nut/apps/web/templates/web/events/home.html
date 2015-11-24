@@ -146,7 +146,7 @@
 
         <div class="row " >
             {% for show_editor in show_editor_recommendations %}
-                <div class="col-xs-12 col-sm-3">
+                <div class="col-xs-6 col-sm-3 recommendation-wrapper">
                     <div class="recommendation-item ">
                         {% if isFromMobile %}
                         <a href="{{ show_editor.recommendation.link|mobile_link }}">

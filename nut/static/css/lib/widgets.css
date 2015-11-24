@@ -1,3 +1,4 @@
+(node) util.print is deprecated. Use console.log instead.
 .v-helper {
   display: inline-block;
   height: 100%;
@@ -130,6 +131,12 @@
   opacity: 0.8!important;
   color: #fff!important;
 }
+.price-tag-widget {
+  font-size: 22px;
+  font-family: Georgia,serif;
+  color: #357ebd;
+  margin: 20px 0px;
+}
 .primary-button {
   width: 100px;
 }
@@ -183,6 +190,36 @@
   width: 100%;
   max-height: 100%;
   max-width: 100%;
+}
+.event-entity-item .img-box a {
+  padding: 8px;
+}
+.event-entity-item .section-info {
+  height: 140px;
+}
+.event-entity-item .section-info div {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  text-align: center;
+}
+.event-entity-item .section-info .entity-brand {
+  font-weight: 600;
+}
+.event-entity-item .section-info .entity-title {
+  margin-bottom: 0px;
+}
+.event-entity-item .section-info .entity-price {
+  font-size: 22px;
+  font-family: Georgia,serif;
+  color: #357ebd;
+  margin: 20px 0px;
+  margin: 10px 0;
+}
+.event-entity-item .section-buy {
+  text-align: center;
+  height: 40px;
 }
 .entity-four .img-box img:hover,
 .entity-selection .img-box img:hover,
