@@ -1,15 +1,17 @@
 from django.views.generic.base import View, TemplateResponseMixin, ContextMixin
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
-from apps.core.utils.http import JSONResponse
+from apps.core.utils.http import JSONResponse, ErrorJsonResponse
 
 
 class JSONResponseMixin(object):
     def render_to_json_response(self, context, **response_kwargs):
-        return JSONResponse(
-            self.get_data(context),
-            **response_kwargs
-        )
+        if context:
+            return JSONResponse(
+                self.get_data(context),
+                **response_kwargs
+            )
+        return ErrorJsonResponse(status=404)
 
     def get_data(self, context):
         return context
