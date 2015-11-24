@@ -74,7 +74,7 @@ class EditLaunchBoardForm(LaunchBoardForm):
         _image = self.cleaned_data.get('launchImage', None)
         _title = self.cleaned_data.get('title')
         _description = self.cleaned_data.get('description')
-        _action_title = self.cleaned_date.get('action_title')
+        _action_title = self.cleaned_data.get('action_title')
         _action = self.cleaned_data.get('action')
         _status = self.cleaned_data.get('status')
 
