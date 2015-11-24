@@ -1,7 +1,7 @@
 require([
         'libs/polyfills',
         'jquery',
-        'utils/EntityLike',
+        'subapp/entitylike',
         'subapp/topmenu',
         'subapp/gotop',
         'subapp/scrollview_selection',

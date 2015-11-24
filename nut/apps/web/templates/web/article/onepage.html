@@ -118,7 +118,7 @@
                                         <a href="{% url 'web_user_index' article.creator.pk %}" class="for-browser">
                                             <img class="user-avatar" src="{{ article.creator.profile.avatar_url|resize:'180' }}" />
                                         </a>
-                                         <a href="{{ article.creator.mobile_url }}" class="for-mobile">
+                                         <a href="{{ article.creator.mobile_url }}" class="for-mobile mobile-user-link">
                                             <img class="user-avatar" src="{{ article.creator.profile.avatar_url|resize:'180' }}" />
                                         </a>
                                     </div>
@@ -130,7 +130,7 @@
                                         </a>
                                     </div>
                                     <div class="writer-name for-mobile">
-                                        <a href="{{ article.creator.mobile_url }}">
+                                        <a href="{{ article.creator.mobile_url }}" class="mobile-user-link">
                                          {{ article.creator.profile.nickname }}
                                         </a>
                                     </div>

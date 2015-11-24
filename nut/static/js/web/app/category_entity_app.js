@@ -1,7 +1,7 @@
 require([
         'libs/polyfills',
         'jquery',
-        'utils/EntityLike',
+        'subapp/entitylike',
         'subapp/topmenu',
         'subapp/load_category_entity',
         'subapp/gotop',
@@ -18,6 +18,4 @@ require([
         var app_like = new AppEntityLike();
         var app_load_category_entity = new LoadCategoryEntity();
         var goto = new GoTop();
-
-        console.log('it works!');
     });

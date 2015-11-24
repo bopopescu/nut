@@ -1,16 +1,23 @@
 from stage import *
 DEBUG = True
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-#
+
 IMAGE_HOST = 'http://imgcdn.guoku.com/'
+
+
 #
+
 # LOCAL_IMG_DEBUG=True
 # IMAGE_HOST = 'http://127.0.0.1:9766/'
 # INTRANET_IMAGE_SERVER = 'http://images.hello.new/'
+# MEDIA_ROOT='../ant_image/'
+# AVATAR_HOST = IMAGE_HOST
 
-AVATAR_HOST = IMAGE_HOST
+IMG_COUNTER_HOST = 'http://127.0.0.1:9766'
 
 
+#for mobile access simulation
+# ANT_SIMULATE_MOBILE = True
 
 #for local solr search
 
@@ -23,9 +30,6 @@ HAYSTACK_CONNECTIONS = {
         # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
     }
 }
-
-#for mobile access simulation
-# ANT_SIMULATE_MOBILE = True
 
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"

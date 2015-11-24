@@ -1,10 +1,12 @@
-define(['jquery', 'libs/Class'],
-    function($, Class){
+define(['jquery', 'libs/Class', 'subapp/article/article_page_link_manager'],
+    function($, Class, ArticlePageLinkManager){
         var CardRender = Class.extend({
             init: function(){
                 this.renderEntityCards();
+                this.articlePageLinkManager = new ArticlePageLinkManager();
             },
             renderEntityCards: function(){
+                var that = this ;
                 var cardList = $('.guoku-card');
                  $.map(cardList, function(ele, index){
                     var hash = $(ele).attr('data_entity_hash');
@@ -18,17 +20,18 @@ define(['jquery', 'libs/Class'],
                                 //console.log("load card success");
                                 if(data.error == 0){
                                     //console.log('card data ok ');
-                                    var newInnerHtml = $(data.html).html()
+                                    var newInnerHtml = $(data.html).html();
                                     //console.log(newInnerHtml);
                                     $(ele).html(newInnerHtml);
-                                    //console.log('card rendered');
+                                    that.articlePageLinkManager.handleWeixinPageLink(ele);
+                                    console.log('card rendered');
                                 }
                                 else{
                                     console.log('card data error');
                                 }
 
                             },function fail(){
-                                console.log("load card fail");
+                                console.log("load card fail!!");
                             });
                     }
                 });

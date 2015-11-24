@@ -17,10 +17,14 @@ requirejs.config({
         masonry: 'libs/masonry',
         jquery_bridget: 'libs/jquery.bridget',
         images_loaded: 'libs/imagesloaded.min',
+        bootbox: 'libs/bootbox.min'
     },
 
     shim: {
         // shim won't handle script load , you still need require script in your source
+        'bootbox':{
+            deps: ['jquery', 'bootstrap']
+        },
         'cookie':{
             deps:['jquery']
         },

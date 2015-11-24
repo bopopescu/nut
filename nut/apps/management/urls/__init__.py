@@ -19,6 +19,8 @@ urlpatterns = patterns(
     url(r'^edm/', include('apps.management.urls.edm')),
 
 
+# TODO: launch image at mobile
+    url(r'^marketing/',include('apps.management.urls.marketing') ),
 
 
     url(r'^brand/', include('apps.management.urls.brand')),

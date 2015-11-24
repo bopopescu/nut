@@ -4,7 +4,7 @@ from settings import *
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-STATIC_URL = 'http://static.guoku.com/static/v4/fee41d42319cb3d70be477e214d1fb1486d1df79/'
+STATIC_URL = 'http://static.guoku.com/static/v4/2962d45adf3713d6f4c57b7fc045f73e94f8613f/'
 
 LANGUAGE_CODE = 'zh-cn'
 
@@ -41,7 +41,6 @@ DATABASES = {
         }
     },
 }
-
 
 
 INSTALLED_APPS += (

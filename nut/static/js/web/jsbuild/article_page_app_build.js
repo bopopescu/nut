@@ -115,8 +115,7 @@ if (!Array.prototype.indexOf) {
     return -1;
   };
 }
-
-console.log('pollyFill ');
+;
 define("libs/polyfills", function(){});
 
 /*! jQuery v1.11.1 | (c) 2005, 2014 jQuery Foundation, Inc. | jquery.org/license */
@@ -1486,7 +1485,7 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 
     return GoTop;
 });
-define('subapp/account',['libs/Class','jquery'],function(Class, $){
+define('subapp/account',['libs/Class','jquery','bootstrap'],function(Class, $){
 
     var AccountApp = Class.extend({
         init: function(){
@@ -1654,13 +1653,72 @@ define('subapp/articlepagecounter',['jquery', 'libs/Class'], function(jQuery, Cl
     return ArticleCounter;
 
 });
-define('subapp/entitycard',['jquery', 'libs/Class'],
-    function($, Class){
+define('utils/browser',[], function () {
+    //all helper function for browser operation here,
+    //
+    var browser = {
+        getQueryStrings: function () {
+            var assoc = {};
+            var decode = function (s) {
+                return decodeURIComponent(s.replace(/\+/g, " "));
+            };
+            var queryString = location.search.substring(1);
+            var keyValues = queryString.split('&');
+
+            //for(var i in keyValues) {
+            for (var i = 0, len = keyValues.length; i < len; i++) {
+                var key = keyValues[i].split('=');
+                if (key.length > 1) {
+                    assoc[decode(key[0])] = decode(key[1]);
+                }
+            }
+            return assoc;
+        },
+        is_weixin: function(){
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.match(/MicroMessenger/i)=="micromessenger") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+    };
+
+    return browser
+
+});
+define('subapp/article/article_page_link_manager',['libs/Class','utils/browser', 'jquery'],
+    function(Class, browser, $){
+
+        var ArticlePageLinkManager = Class.extend({
+            init: function(){
+                this.handleWeixinPageLink();
+                console.log('')
+            },
+            handleWeixinPageLink: function(ele){
+                var ele = ele || document.body;
+
+                if (browser.is_weixin()){
+                    $(ele).find('.mobile-entity-link, .mobile-user-link')
+                    .attr('href', 'http://www.guoku.com/download/');
+                }
+            }
+
+        });
+
+        return ArticlePageLinkManager;
+
+});
+define('subapp/entitycard',['jquery', 'libs/Class', 'subapp/article/article_page_link_manager'],
+    function($, Class, ArticlePageLinkManager){
         var CardRender = Class.extend({
             init: function(){
                 this.renderEntityCards();
+                this.articlePageLinkManager = new ArticlePageLinkManager();
             },
             renderEntityCards: function(){
+                var that = this ;
                 var cardList = $('.guoku-card');
                  $.map(cardList, function(ele, index){
                     var hash = $(ele).attr('data_entity_hash');
@@ -1674,17 +1732,18 @@ define('subapp/entitycard',['jquery', 'libs/Class'],
                                 //console.log("load card success");
                                 if(data.error == 0){
                                     //console.log('card data ok ');
-                                    var newInnerHtml = $(data.html).html()
+                                    var newInnerHtml = $(data.html).html();
                                     //console.log(newInnerHtml);
                                     $(ele).html(newInnerHtml);
-                                    //console.log('card rendered');
+                                    that.articlePageLinkManager.handleWeixinPageLink(ele);
+                                    console.log('card rendered');
                                 }
                                 else{
                                     console.log('card data error');
                                 }
 
                             },function fail(){
-                                console.log("load card fail");
+                                console.log("load card fail!!");
                             });
                     }
                 });
@@ -1978,7 +2037,8 @@ require([
         var entityCardRender = new EntityCardRender();
         var sidebar = new SideBarManager();
         var relatedArticleLoader = new RelatedArticleLoader();
-        console.log("article list init!！");
+
+
 });
 
 

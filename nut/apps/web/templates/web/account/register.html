@@ -73,3 +73,14 @@
     </div>
 </div>
 {% endblock %}
+
+{% block script %}
+    <!--[if lt IE 9]>
+        <script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
+        <script language='javascript'>
+            $(document).ready(function(){
+                $('input, textarea').placeholder();
+            });
+        </script>
+    <![endif]-->
+{% endblock %}
