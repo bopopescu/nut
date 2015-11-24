@@ -1,4 +1,5 @@
 {% extends 'web/base.html' %}
+{% load i18n staticfiles %}
 {% load i18n %}
 
  {% block meta-og %}
@@ -69,4 +70,7 @@
         {% endif %}
 
     </div>
+{% endblock %}
+{% block basic_script %}
+    <script data-main="{% static 'js/web/jsbuild/search_result_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
 {% endblock %}
