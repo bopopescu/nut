@@ -58,6 +58,7 @@
   }
 }
 
+
 .button-white{
   background-color: #fff;
   color: @common-gray;
@@ -133,7 +134,14 @@
     color:#fff!important;
   }
 }
+// for price display
 
+.price-tag-widget{
+  font-size: 22px;
+  font-family: Georgia,serif;
+  color: #357ebd;
+  margin: 20px 0px;
+}
 
 .primary-button{
   width: 100px;
@@ -188,6 +196,41 @@
       max-height: 100%;
       max-width: 100%;
     }
+  }
+}
+
+.event-entity-item{
+
+  .img-box{
+    a{
+       padding: 8px;
+    }
+  }
+  .section-info{
+     height: 140px;
+     div {
+       margin-left: 0;
+       margin-right: 0;
+       margin-top:10px;
+       margin-bottom:0px;
+       text-align: center;
+     }
+     .entity-brand{
+        font-weight:600;
+
+     }
+    .entity-title{
+       margin-bottom:0px;
+    }
+    .entity-price{
+        .price-tag-widget;
+        margin:10px 0;
+    }
+
+  }
+  .section-buy{
+     text-align: center;
+     height: 40px;
   }
 }
 
