@@ -11,9 +11,9 @@
 
 === 2015 11 24 ===
 
-3. article_feed_read_counter deploy doc
+3. article_feed_read_counter deploy to 48 , cron tab 
 2. fix API user like  500 error when user has no likes
-1. restore entity page's related article , (a @property is lost when merge with judy's commit )
+1. entity detail page bug fix  , (a @property is lost when merge with judy's commit )
 
 ====== start 2015-11-23 ====
 

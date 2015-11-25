@@ -19,12 +19,10 @@
             </div>
 
             <div class="section-info">
-                <div class="entity-brand">{{ entity.brand }}</div>
+                <div class="entity-brand">&nbsp;&nbsp;{{ entity.brand }}</div>
 
                 <div class="entity-title">{{ entity.title }}</div>
                 <div class="entity-price">￥{{ entity.price }}</div>
-                <div class="button-wrapper">
-                </div>
             </div>
             <div class="section-buy">
               {% with row=entity.default_buy_link %}

@@ -1667,7 +1667,7 @@ class Show_Editor_Recommendation(models.Model):
 
     RECOMMENDATION_SECTION_CHOICE = [
         ('entity','编辑推荐'),
-        ('fair','活动推荐'),
+        ('fair','活动一览'),
         ('shop','店铺推荐')]
 
     recommendation = models.OneToOneField(Editor_Recommendation,
