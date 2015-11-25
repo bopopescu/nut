@@ -160,6 +160,7 @@ class EditEditorRecommendForms(BaseRecommendationForm):
         editor_recommend_image = self.cleaned_data.get('editor_recommend_image')
         link = self.cleaned_data.get('link')
         position = self.clean_position()
+        section = self.cleaned_data.get('section')
         event = self.cleaned_data.get('event')
 
 
@@ -179,6 +180,7 @@ class EditEditorRecommendForms(BaseRecommendationForm):
             try:
                 show = Show_Editor_Recommendation.objects.get(recommendation = self.recommendation)
                 show.event_id = event
+                show.section = section
                 show.save()
             except Show_Editor_Recommendation.DoesNotExist, e:
                 Show_Editor_Recommendation.objects.create(
