@@ -1,3 +1,16 @@
+2. event page add new recommendation section 
+##Action remote/local db : need run sql  
+        ALTER TABLE `core`.`core_show_editor_recommendation` 
+        ADD COLUMN `section` VARCHAR(64) NOT NULL DEFAULT 'entity' AFTER `created_time`;
+
+1. event page display update 
+
+##Action local :merge master to dev -> launch pad functions 
+##Action local :  ./manage.py syncdb --settings=......
+   
+
+=== 2015 11 24 ===
+
 3. article_feed_read_counter deploy doc
 2. fix API user like  500 error when user has no likes
 1. restore entity page's related article , (a @property is lost when merge with judy's commit )

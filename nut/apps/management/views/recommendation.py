@@ -88,6 +88,7 @@ def edit(request, event_banner_id, template='management/recommendation/edit.html
         # 'key': _banner.key,
         'link': _editor_recommendation.link,
         'position':_editor_recommendation.position,
+        # 'section': _editor_recommendation.section,
         'event': event_id,
     }
 

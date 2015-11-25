@@ -1632,6 +1632,15 @@ class Editor_Recommendation(models.Model):
         return "%s%s" % (image_host, self.image)
 
     @property
+    def section(self):
+        try :
+            return self.show.section
+        except Exception as e :
+            # default value , see Show_Editor_Recommendation
+            return 'entity'
+
+
+    @property
     def position(self):
         try:
             return self.show.position
@@ -1655,10 +1664,19 @@ class Editor_Recommendation(models.Model):
 
 
 class Show_Editor_Recommendation(models.Model):
+
+    RECOMMENDATION_SECTION_CHOICE = [
+        ('entity','编辑推荐'),
+        ('fair','活动推荐'),
+        ('shop','店铺推荐')]
+
     recommendation = models.OneToOneField(Editor_Recommendation,
                                           related_name='show', unique=False)
     event = models.ForeignKey(Event, related_name='recommendation', null=True)
     position = models.IntegerField(default=0)
+    section = models.CharField(max_length=64,
+                               choices=RECOMMENDATION_SECTION_CHOICE,
+                               default='entity')
     created_time = models.DateTimeField(auto_now_add=True, editable=False,
                                         db_index=True)
 
