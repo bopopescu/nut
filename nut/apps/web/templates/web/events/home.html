@@ -131,8 +131,41 @@
         </div>
         {% endblock %}
 
-    {% if event.has_recommendation %}
-        <div class="row" style="margin-top:20px;">
+{#     {% if event.has_recommendation %}#}
+{#        <div class="row" style="margin-top:20px;">#}
+{#            <div class="col-sm-12">#}
+{#                <p class="pull-left">#}
+{#                    {% if event.slug == '20151111' %}#}
+{#                        推荐店铺<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></p>#}
+{#                    {% else %}#}
+{#                        编辑推荐#}
+{#                    {% endif %}#}
+{##}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#        <div class="row " >#}
+{#            {% for show_editor in show_editor_recommendations %}#}
+{#                <div class="col-xs-6 col-sm-3 recommendation-wrapper">#}
+{#                    <div class="recommendation-item ">#}
+{#                        {% if isFromMobile %}#}
+{#                        <a href="{{ show_editor.recommendation.link|mobile_link }}">#}
+{#                            <img class="img-responsive" src="{{ show_editor.recommendation.image_url }}" >#}
+{#                        </a>#}
+{#                        {% else %}#}
+{#                        <a href="{{ show_editor.recommendation.link }}">#}
+{#                            <img class="img-responsive" src="{{ show_editor.recommendation.image_url }}" >#}
+{#                        </a>#}
+{#                        {% endif %}#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
+{#        {% endif %}#}
+
+
+        {% if show_editor_recommendations_entity|length > 0 %}
+            <div class="row" style="margin-top:20px;">
             <div class="col-sm-12">
                 <p class="pull-left">
                     {% if event.slug == '20151111' %}
@@ -145,7 +178,64 @@
         </div>
 
         <div class="row " >
-            {% for show_editor in show_editor_recommendations %}
+            {% for show_editor in show_editor_recommendations_entity %}
+                <div class="col-xs-6 col-sm-3 recommendation-wrapper">
+                    <div class="recommendation-item ">
+                        {% if isFromMobile %}
+                        <a href="{{ show_editor.recommendation.link|mobile_link }}">
+                            <img class="img-responsive" src="{{ show_editor.recommendation.image_url }}" >
+                        </a>
+                        {% else %}
+                        <a href="{{ show_editor.recommendation.link }}">
+                            <img class="img-responsive" src="{{ show_editor.recommendation.image_url }}" >
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+{# =============  fair recommend here    ===============#}
+        {% if show_editor_recommendations_fair|length > 0 %}
+            <div class="row" style="margin-top:20px;">
+            <div class="col-sm-12">
+                <p class="pull-left">
+                        活动推荐
+                </p>
+            </div>
+        </div>
+
+        <div class="row " >
+            {% for show_editor in show_editor_recommendations_fair %}
+                <div class="col-xs-6 col-sm-3 recommendation-wrapper">
+                    <div class="recommendation-item ">
+                        {% if isFromMobile %}
+                        <a href="{{ show_editor.recommendation.link|mobile_link }}">
+                            <img class="img-responsive" src="{{ show_editor.recommendation.image_url }}" >
+                        </a>
+                        {% else %}
+                        <a href="{{ show_editor.recommendation.link }}">
+                            <img class="img-responsive" src="{{ show_editor.recommendation.image_url }}" >
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+{# =============  fair recommend here    ===============#}
+
+        {% if show_editor_recommendations_shop|length > 0  %}
+            <div class="row" style="margin-top:20px;">
+                <div class="col-sm-12">
+                    <p class="pull-left">
+                            店铺推荐
+                    </p>
+                </div>
+            </div>
+
+        <div class="row " >
+            {% for show_editor in show_editor_recommendations_shop %}
                 <div class="col-xs-6 col-sm-3 recommendation-wrapper">
                     <div class="recommendation-item ">
                         {% if isFromMobile %}

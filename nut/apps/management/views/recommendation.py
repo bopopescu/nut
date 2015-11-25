@@ -33,7 +33,7 @@ def list(request, template='management/recommendation/list.html'):
 @staff_only
 def show_list(request, rid, template='management/recommendation/show_list.html'):
     _event = Event.objects.get(pk = rid)
-    _show_recommendations = Show_Editor_Recommendation.objects.filter(event_id = rid)
+    _show_recommendations = Show_Editor_Recommendation.objects.filter(event_id = rid).order_by('section', '-position')
 
     return render_to_response(
         template,
@@ -88,7 +88,7 @@ def edit(request, event_banner_id, template='management/recommendation/edit.html
         # 'key': _banner.key,
         'link': _editor_recommendation.link,
         'position':_editor_recommendation.position,
-        # 'section': _editor_recommendation.section,
+        'section': _editor_recommendation.section,
         'event': event_id,
     }
 
@@ -96,6 +96,10 @@ def edit(request, event_banner_id, template='management/recommendation/edit.html
         _forms = EditEditorRecommendForms(_editor_recommendation, request.POST, request.FILES)
         if _forms.is_valid():
             _forms.save()
+            return HttpResponseRedirect(reverse('management_event_show_recommendation', args=[event_id]))
+
+        else :
+            pass
     else:
         _forms = EditEditorRecommendForms(_editor_recommendation, data=data)
 
