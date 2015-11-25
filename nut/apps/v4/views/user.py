@@ -510,7 +510,7 @@ class APIUserLikeView(BaseJsonView):
         self.count = int(request.GET.get('count', '30'))
         return super(APIUserLikeView, self).get(request, *args, **kwargs)
 
-    # @check_sign
+    @check_sign
     def dispatch(self, request, *args, **kwargs):
         return super(APIUserLikeView, self).dispatch(request, *args, **kwargs)
 
