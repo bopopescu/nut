@@ -3,12 +3,25 @@
 @import "../../lib/widgets.less";
 //for xs screen , and all screen NOT sx
 @media(max-width: 767px){
-  .event-item{
-    padding:5px 5px 5px 5px;
+//  for event detail page
+  .event-wrapper{
+    .event-item{
+      padding:5px 5px 5px 5px;
+    }
+    .recommendation-wrapper{
+        padding-left:4px;
+       padding-right:4px;
+    }
+    .event-entity-item{
+       padding-left:4px;
+       padding-right:4px;
+    }
   }
+
 }
 
 @media(max-width: 767px){
+
     #selection_article_list{
       .selection-article-item{
         .article-title{
