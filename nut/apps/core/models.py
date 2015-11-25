@@ -234,7 +234,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return len(t)
 
     @property
-    def article_cout(self):
+    def article_count(self):
         return self.articles.count()
 
     @property
@@ -779,6 +779,12 @@ class Entity(BaseModel):
     @property
     def mobile_url(self):
         return 'guoku://entity/' + str(self.id) + '/'
+
+    @property
+    def selected_related_articles(self):
+        related_selection_articles = Selection_Article.objects.published().filter(article__in=self.related_articles.all())
+        return  related_selection_articles
+
 
     def innr_like(self):
         key = 'entity:like:%d' % self.pk
