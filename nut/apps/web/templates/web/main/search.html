@@ -1,4 +1,5 @@
 {% extends 'web/base.html' %}
+{% load i18n staticfiles %}
 {% load i18n %}
 
  {% block meta-og %}
@@ -67,6 +68,14 @@
         {% if page_obj %}
             {% include "web/main/partial/search/paginator.html" with objects=page_obj type=type url=request.path keyword=query %}
         {% endif %}
+        <div class="row hidden-xs">
+            <div class="col-sm-offset-12">
+                <a class="btn-top" href="javascript:;"  title="回到顶部" target="_self"><i class="fa fa-angle-up fa-lg"></i></a>
+            </div>
+        </div>
 
     </div>
+{% endblock %}
+{% block basic_script %}
+    <script data-main="{% static 'js/web/jsbuild/search_result_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
 {% endblock %}

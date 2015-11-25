@@ -1,3 +1,9 @@
+1. 把用户页（喜爱，点评，文章，标签）加入requireJS
+2. 搜索结果页加入requireJS
+
+===== 2015 - 11 - 24 =======
+
+
 3. m.guoku.com article page , wechat access , all link direct to http://www.guoku.com/download/
 2. need deploy article_feed_counter_save.py to crontab
 1. feed read count , need run sql  ,( already excuted on 10.0.2.90 core )
