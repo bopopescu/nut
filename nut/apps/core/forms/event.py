@@ -142,7 +142,7 @@ class EditEventForm(BaseEventForm):
     def save(self):
         _title = self.cleaned_data.get('title')
         _tag = self.cleaned_data.get('tag')
-        # _toptag = self.cleaned_data.get('toptag', '')
+        # _toptag = self.cleaned_data.get('toptag')
         _slug = self.cleaned_data.get('slug')
         _status = self.cleaned_data.get('status', False)
         # _status = int(_status)
