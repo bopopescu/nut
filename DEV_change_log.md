@@ -1,3 +1,9 @@
+1.修复django-sendcloud不能直接从setting读取配置的问题
+2.补全丢失的settings信息
+
+===== 2015 - 11 - 25 =======
+
+
 2. event page add new recommendation section 
 ##Action remote/local db : need run sql  
         ALTER TABLE `core`.`core_show_editor_recommendation` 
