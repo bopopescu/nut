@@ -1,3 +1,24 @@
+2. event page add new recommendation section 
+##Action remote/local db : need run sql  
+        ALTER TABLE `core`.`core_show_editor_recommendation` 
+        ADD COLUMN `section` VARCHAR(64) NOT NULL DEFAULT 'entity' AFTER `created_time`;
+
+1. event page display update 
+
+##Action local :merge master to dev -> launch pad functions 
+##Action local :  ./manage.py syncdb --settings=......
+   
+
+=== 2015 11 24 ===
+
+3. article_feed_read_counter deploy to 48 , cron tab 
+2. fix API user like  500 error when user has no likes
+1. entity detail page bug fix  , (a @property is lost when merge with judy's commit )
+
+====== start 2015-11-23 ====
+
+### merged to master  2015-11-23
+
 1. 把用户页（喜爱，点评，文章，标签）加入requireJS
 2. 搜索结果页加入requireJS
 
