@@ -1,5 +1,7 @@
 1.修复django-sendcloud不能直接从setting读取配置的问题
 2.补全丢失的settings信息
+3.创建专题的时候隐藏top_tag，默认值为''
+4.修改专题时隐藏top_tag
 
 ===== 2015 - 11 - 25 =======
 
