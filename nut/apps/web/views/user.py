@@ -371,7 +371,7 @@ class UserTagView(UserDetailBase):
     context_object_name = 'current_user_tags'
     def get_queryset(self):
         _user = self.get_showing_user()
-        tag_list = Content_Tags.objects.query_user_tags(_user)
+        tag_list = Content_Tags.objects.user_tags_unique(_user)
         return tag_list
 
 
@@ -481,7 +481,7 @@ class UserIndex(DetailView):
 
         context_data['followings'] = current_user.followings.all()[:7]
         context_data['fans'] = current_user.fans.all()[:7]
-        context_data['tags']= Content_Tags.objects.query_user_tags(current_user.pk)[0:5]
+        context_data['tags']= Content_Tags.objects.user_tags_unique(current_user)[0:5]
         context_data['pronoun'] = self.get_pronoun()
         return context_data
 
