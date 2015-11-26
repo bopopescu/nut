@@ -26,7 +26,7 @@ class LaunchBoardView(BaseJsonView):
             return res
         return None
 
-    # @check_sign
+    @check_sign
     def dispatch(self, request, *args, **kwargs):
         return super(LaunchBoardView, self).dispatch(request, *args, **kwargs)
 
