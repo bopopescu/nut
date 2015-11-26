@@ -1352,14 +1352,39 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 
     return GoTop;
 });
-define('subapp/user_follow',['libs/Class','jquery'], function(Class,$){
+define('subapp/account',['libs/Class','jquery','bootstrap'],function(Class, $){
+
+    var AccountApp = Class.extend({
+        init: function(){
+
+        },
+        modalSignIn:function(html){
+            var signModal = $('#SignInModal');
+            var signContent = signModal.find('.modal-content');
+            if (signContent.find('.row')[0]) {
+                signModal.modal('show');
+            } else {
+                $(html).appendTo(signContent);
+                signModal.modal('show');
+            }
+        }
+    });
+    return AccountApp;
+});
+define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(Class,$,AccountApp){
     var UserFollow = Class.extend({
         init: function () {
             this.$follow = $(".follow");
             this.$follow.on('click', this.handleFollow.bind(this));
         },
 
+        getAccountApp:function(){
+            this.AccountApp = this.AccountApp || new AccountApp();
+            return this.AccountApp;
+        },
+
         handleFollow: function (e) {
+            var that = this;
             var $followButton = $(e.currentTarget);
             var uid = $followButton.attr('data-user-id');
             var status = $followButton.attr('data-status');
@@ -1397,11 +1422,10 @@ define('subapp/user_follow',['libs/Class','jquery'], function(Class,$){
                 } else {
                     console.log('did not response with valid data');
                 }
-
             }, function fail(error) {
                 console.log('failed' + error);
                 var html = $(error.responseText);
-                util.modalSignIn(html);
+                that.getAccountApp().modalSignIn(html);
             });
         }
     });
