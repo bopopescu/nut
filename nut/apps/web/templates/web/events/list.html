@@ -58,7 +58,10 @@
 {% endblock %}
 
 
-{% block script %}
+{% block basic_script %}
+{#<script data-main="{% static 'js/web/app/article_list_app.js' %}" src="{% static 'js/web/app/require.js' %}"></script>#}
+    <script data-main="{% static 'js/web/jsbuild/event_page_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+
 {% endblock %}
 
 

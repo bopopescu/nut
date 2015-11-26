@@ -788,8 +788,6 @@ define('subapp/topmenu',['bootstrap', 'libs/Class','underscore','jquery', 'fastd
             //$(window).scroll(_.debounce(this.show.bind(this), 100));
         },
         scheduleHeaderMove:function(){
-
-
             var that = this;
             if (!this.read){
                 this.read = fastdom.read(function(){
@@ -802,11 +800,6 @@ define('subapp/topmenu',['bootstrap', 'libs/Class','underscore','jquery', 'fastd
             }
 
             this.write = fastdom.write(this.moveHeader.bind(this));
-
-            //console.log('onscroll');
-            //var t = new Date();
-            //console.log(t.getMilliseconds());
-            //console.log()
         },
         moveHeader:function(){
             //console.log('move header');
@@ -1352,17 +1345,103 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 
     return GoTop;
 });
+define('subapp/account',['libs/Class','jquery','bootstrap'],function(Class, $){
+
+    var AccountApp = Class.extend({
+        init: function(){
+
+        },
+        modalSignIn:function(html){
+            var signModal = $('#SignInModal');
+            var signContent = signModal.find('.modal-content');
+            if (signContent.find('.row')[0]) {
+                signModal.modal('show');
+            } else {
+                $(html).appendTo(signContent);
+                signModal.modal('show');
+            }
+        }
+    });
+    return AccountApp;
+});
+define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(Class,$,AccountApp){
+    var UserFollow = Class.extend({
+        init: function () {
+            this.$follow = $(".follow");
+            this.$follow.on('click', this.handleFollow.bind(this));
+        },
+
+        getAccountApp:function(){
+            this.AccountApp = this.AccountApp || new AccountApp();
+            return this.AccountApp;
+        },
+
+        handleFollow: function (e) {
+            var that = this;
+            var $followButton = $(e.currentTarget);
+            var uid = $followButton.attr('data-user-id');
+            var status = $followButton.attr('data-status');
+            var action_url = "/u/" + uid;
+
+            if (status == 1) {
+                action_url += "/unfollow/";
+
+            } else {
+                action_url += "/follow/";
+            }
+
+            $.when($.ajax({
+                url: action_url,
+                dataType: 'json',
+                method: 'POST'
+            })).then(function success(data) {
+                console.log('success');
+                console.log(data);
+                if (data.status == 1) {
+                    $followButton.html('<i class="fa fa-check fa-lg"></i>&nbsp; 取消关注');
+                    $followButton.attr('data-status', '1');
+                    $followButton.removeClass("button-blue").addClass("btn-cancel");
+
+                } else if (data.status == 2) {
+                    console.log('mutual !!!');
+                    $followButton.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关柱');
+                    $followButton.removeClass('button-blue').addClass('btn-cancel');
+                    $followButton.attr('data-status', '1');
+
+                } else if (data.status == 0) {
+                    $followButton.html('<i class="fa fa-plus"></i>&nbsp; 关注');
+                    $followButton.removeClass("btn-cancel").addClass("button-blue");
+                    $followButton.attr('data-status', '0');
+                } else {
+                    console.log('did not response with valid data');
+                }
+            }, function fail(error) {
+                console.log('failed' + error);
+                var html = $(error.responseText);
+                that.getAccountApp().modalSignIn(html);
+            });
+        }
+    });
+    return UserFollow;
+});
+
+
+
 require([
         'jquery',
         'subapp/topmenu',
-        'subapp/gotop'
+        'subapp/gotop',
+        'subapp/user_follow'
     ],
+
     function (
         jQuery,
         Menu,
+        UserFollow,
         GoTop) {
         var menu = new Menu();
         var goto = new GoTop();
+        var user_follow = new UserFollow();
     });
 
 define("gkuser_profile_app", function(){});

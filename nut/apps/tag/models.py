@@ -24,7 +24,15 @@ def dictfetchall(cursor):
 
 class ContentTagQuerySet(models.query.QuerySet):
     def user_tags(self, user):
-        return self.using('slave').filter(creator=user).select_related('tag').annotate(tcount=Count('tag')).order_by('-tcount')
+        # deprecated , need add deprecate warnign
+        content_tags  = self.using('slave').filter(creator=user).select_related('tag').annotate(tcount=Count('tag')).order_by('-tcount')
+        return content_tags
+
+    def user_tags_unique(self, user):
+        content_tags  = self.using('slave').filter(creator=user).select_related('tag').annotate(tcount=Count('tag')).order_by('-tcount')
+        tags = [ct.tag for ct in content_tags]
+        tags = set(tags)
+        return list(tags)
 
     def popular(self):
         return self.annotate(tcount=Count('tag')).order_by('-tcount')[:300]
@@ -38,6 +46,9 @@ class ContentTagQuerySet(models.query.QuerySet):
         return list(set(list(_tag_list)))
 
 class ContentTagManager(models.Manager):
+
+    def user_tags_unique(self, _user):
+        return self.get_queryset().user_tags_unique(_user)
 
     def popular_entity_tag(self):
         key = 'new_entity_tag_popular_all'

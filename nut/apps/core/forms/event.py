@@ -25,11 +25,11 @@ class BaseEventForm(forms.Form):
 
     )
 
-    toptag = forms.CharField(
-        label=_('Top_Tag'),
-        widget=forms.TextInput(attrs={'class':'form-control'}),
-        help_text=_('')
-    )
+    # toptag = forms.CharField(
+    #     label=_('Top_Tag'),
+    #     widget=forms.TextInput(attrs={'class':'form-control'}),
+    #     help_text=_('')
+    # )
 
     slug = forms.CharField(
         label=_('slug'),
@@ -102,7 +102,7 @@ class CreateEventForm(BaseEventForm):
     def save(self):
         _title = self.cleaned_data.get('title')
         _tag = self.cleaned_data.get('tag')
-        _toptag = self.cleaned_data.get('toptag')
+        _toptag = self.cleaned_data.get('toptag', '')
         _slug = self.cleaned_data.get('slug')
         _status = self.cleaned_data.get('status')
         _is_top = self.cleaned_data.get('is_top')
@@ -142,7 +142,7 @@ class EditEventForm(BaseEventForm):
     def save(self):
         _title = self.cleaned_data.get('title')
         _tag = self.cleaned_data.get('tag')
-        _toptag = self.cleaned_data.get('toptag')
+        # _toptag = self.cleaned_data.get('toptag')
         _slug = self.cleaned_data.get('slug')
         _status = self.cleaned_data.get('status', False)
         # _status = int(_status)
@@ -161,7 +161,7 @@ class EditEventForm(BaseEventForm):
 
         self.event.title = _title
         self.event.tag = _tag
-        self.event.toptag = _toptag
+        # self.event.toptag = _toptag
         self.event.slug = _slug
         self.event.status = _status
         self.event.event_status.is_published = _is_published
