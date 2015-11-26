@@ -2,7 +2,6 @@ from stage import *
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
-IMAGE_HOST = 'http://127.0.0.1:8000/'
 DEBUG = True
 
 
@@ -100,6 +99,8 @@ RESET_PASSWORD_TEMPLATE = 'forget_password'
 VERFICATION_EMAIL_TEMPLATE = 'verify_email'
 INTERVAL_OF_SELECTION = 24
 INTRANET_IMAGE_SERVER = 'http://127.0.0.1:8001/'
+LOCAL_IMG_DEBUG=True
+IMAGE_HOST = 'http://127.0.0.1:8000/'
 
 # mail
 MAIL_LIST_ADDR='test_edm'

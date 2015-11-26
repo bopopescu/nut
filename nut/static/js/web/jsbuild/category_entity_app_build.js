@@ -750,8 +750,7 @@ define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
 
     var AppEntityLike = Class.extend({
         init: function(){
-
-            $('#selection, #discover_entity_list, #category-entity-list').on('click' ,'.btn-like, .like-action', this.handleLike.bind(this));
+            $('#selection, #discover_entity_list, #category-entity-list, #tag-entity-list').on('click' ,'.btn-like, .like-action', this.handleLike.bind(this));
             $('.guoku-button .like-action').on('click', this.handleLike.bind(this));
             console.log('app entity like functions');
             console.log(fastdom);
@@ -1629,10 +1628,6 @@ define('subapp/loadentity',['jquery','libs/Class','libs/fastdom'],
     return LoadEntity;
 //test
 });
-/**
- * Created by judy on 13/11/15.
- */
-
 define('subapp/load_category_entity',['jquery','libs/Class','libs/fastdom','subapp/loadentity'],
     function($,Class, fastdom, LoadEntity){
 
