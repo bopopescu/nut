@@ -593,7 +593,8 @@ ul li {
 .img-holder a:hover,
 .selection-article-item .img-holder:hover,
 .thumbnail.category img:hover,
-.hover-light:hover {
+.hover-light:hover,
+.recommendation-item img:hover {
   opacity: 0.7;
 }
 .hover-light a:hover,
@@ -3213,7 +3214,7 @@ body .for-mobile {
 .mobile-body .for-mobile {
   display: block;
 }
-.test {
-  color: black;
+.gk_test {
+  color: red;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
