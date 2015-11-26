@@ -1,11 +1,17 @@
-define(['libs/Class','jquery'], function(Class,$){
+define(['libs/Class','jquery', 'subapp/account'], function(Class,$,AccountApp){
     var UserFollow = Class.extend({
         init: function () {
             this.$follow = $(".follow");
             this.$follow.on('click', this.handleFollow.bind(this));
         },
 
+        getAccountApp:function(){
+            this.AccountApp = this.AccountApp || new AccountApp();
+            return this.AccountApp;
+        },
+
         handleFollow: function (e) {
+            var that = this;
             var $followButton = $(e.currentTarget);
             var uid = $followButton.attr('data-user-id');
             var status = $followButton.attr('data-status');
@@ -43,11 +49,10 @@ define(['libs/Class','jquery'], function(Class,$){
                 } else {
                     console.log('did not response with valid data');
                 }
-
             }, function fail(error) {
                 console.log('failed' + error);
                 var html = $(error.responseText);
-                util.modalSignIn(html);
+                that.getAccountApp().modalSignIn(html);
             });
         }
     });
