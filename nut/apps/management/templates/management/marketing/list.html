@@ -27,6 +27,7 @@
                                     <th>{% trans 'image' %}</th>
                                     <th>{% trans 'title' %}</th>
                                     <th>{% trans 'description' %}</th>
+                                    <th>{% trans 'device' %}</th>
                                     <th>{% trans 'status' %}</th>
                                     <th>{% trans 'action_title' %}</th>
                                     <th>{% trans 'action' %}</th>
@@ -41,6 +42,7 @@
                                         <td><img src="{{ row.launch_image_url }}" width="128"></td>
                                         <td>{{ row.title }}</td>
                                         <td>{{ row.description }}</td>
+                                        <td>{{ row.get_device_display }}</td>
                                         <td>{{ row.status|yesno }}</td>
                                         <td>{{ row.action_title }}</td>
                                         <td>{{ row.action }}</td>
