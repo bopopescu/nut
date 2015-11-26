@@ -1,3 +1,10 @@
+5. fix broken links on tag/hash-code
+4. fix user tag list dup bug
+3. fix user page follow/unfollow action bug 
+2. event list page require js management 
+1. event page require js management 
+=== 2015 - 11 - 26 ======
+
 1.修复django-sendcloud不能直接从setting读取配置的问题
 2.补全丢失的settings信息
 3.创建专题的时候隐藏top_tag，默认值为''

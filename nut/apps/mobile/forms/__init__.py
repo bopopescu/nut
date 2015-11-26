@@ -21,6 +21,7 @@ class LaunchBoardForm(forms.Form):
     launchImage = forms.ImageField(widget=forms.FileInput(attrs={'class':'controls'}), required=False)
     title = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     description = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    action_title = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     action = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     status = forms.ChoiceField(
         label=_('enable'),
@@ -45,6 +46,7 @@ class CreateLaunchBoardForm(LaunchBoardForm):
         _image = self.cleaned_data.get('launchImage')
         _title = self.cleaned_data.get('title')
         _description = self.cleaned_data.get('description')
+        _action_title = self.cleaned_date.get('action_title')
         _action = self.cleaned_data.get('action')
         _status = self.cleaned_data.get('status')
         # print _image
@@ -55,6 +57,7 @@ class CreateLaunchBoardForm(LaunchBoardForm):
         launch.launchImage = image_name
         launch.title = _title
         launch.description = _description
+        launch.action_title = _action_title
         launch.action = _action
         launch.status = _status
         launch.save()
@@ -71,6 +74,7 @@ class EditLaunchBoardForm(LaunchBoardForm):
         _image = self.cleaned_data.get('launchImage', None)
         _title = self.cleaned_data.get('title')
         _description = self.cleaned_data.get('description')
+        _action_title = self.cleaned_data.get('action_title')
         _action = self.cleaned_data.get('action')
         _status = self.cleaned_data.get('status')
 
@@ -85,6 +89,7 @@ class EditLaunchBoardForm(LaunchBoardForm):
 
         self.launch.title = _title
         self.launch.description = _description
+        self.launch.action_title = _action_title
         self.launch.action = _action
         self.launch.status = _status
         self.launch.save()

@@ -28,6 +28,7 @@
                                     <th>{% trans 'title' %}</th>
                                     <th>{% trans 'description' %}</th>
                                     <th>{% trans 'status' %}</th>
+                                    <th>{% trans 'action_title' %}</th>
                                     <th>{% trans 'action' %}</th>
                                     <th>{% trans 'created datetime' %}</th>
                                     <th>{% trans 'operation' %}</th>
@@ -41,6 +42,7 @@
                                         <td>{{ row.title }}</td>
                                         <td>{{ row.description }}</td>
                                         <td>{{ row.status|yesno }}</td>
+                                        <td>{{ row.action_title }}</td>
                                         <td>{{ row.action }}</td>
                                         <td>{{ row.created_datetime|date:"Y-m-d" }}</td>
                                         <td><a href="{% url 'management_edit_launch_image' row.pk %}" class="btn btn-primary">{% trans 'edit' %}</a></td>
