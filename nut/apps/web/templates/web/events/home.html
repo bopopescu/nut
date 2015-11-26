@@ -302,11 +302,14 @@
     </div>
 {% endblock %}
 
+
 {% block basic_script %}
+{#<script data-main="{% static 'js/web/app/article_list_app.js' %}" src="{% static 'js/web/app/require.js' %}"></script>#}
     <script src="{% static 'js/jquery-1.11.1.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.335.js' %}"></script>
-    <script src="{% static 'js/web/site.js' %}"></script>
+    <script data-main="{% static 'js/web/jsbuild/event_page_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+
 {% endblock %}
+
 
 
 {% block script %}

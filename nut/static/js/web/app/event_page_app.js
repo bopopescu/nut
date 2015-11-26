@@ -1,12 +1,13 @@
 require(['jquery',
          'subapp/topmenu',
-          'subapp/gotop'],
-    function($,Menu,GoTop){
-
-
+          'subapp/gotop',
+          'subapp/event/event_entity_loader',
+          'bootstrap'
+    ],
+    function($,Menu,GoTop,EventEntityLoader){
 
         var menu = new Menu();
-        var goto = new GoTop();
-
+        var gotop = new GoTop();
+        var eventEntityLoader = new EventEntityLoader();
 
     });
