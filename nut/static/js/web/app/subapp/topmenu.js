@@ -61,8 +61,6 @@ define(['bootstrap', 'libs/Class','underscore','jquery', 'fastdom','cookie'],fun
             //$(window).scroll(_.debounce(this.show.bind(this), 100));
         },
         scheduleHeaderMove:function(){
-
-
             var that = this;
             if (!this.read){
                 this.read = fastdom.read(function(){
@@ -75,11 +73,6 @@ define(['bootstrap', 'libs/Class','underscore','jquery', 'fastdom','cookie'],fun
             }
 
             this.write = fastdom.write(this.moveHeader.bind(this));
-
-            //console.log('onscroll');
-            //var t = new Date();
-            //console.log(t.getMilliseconds());
-            //console.log()
         },
         moveHeader:function(){
             //console.log('move header');

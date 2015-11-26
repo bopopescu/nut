@@ -236,7 +236,8 @@
 .img-holder a:hover,
 .selection-article-item .img-holder:hover,
 .thumbnail.category img:hover,
-.hover-light:hover {
+.hover-light:hover,
+.recommendation-item img:hover {
   opacity: 0.7;
 }
 .hover-light a:hover,
@@ -1587,6 +1588,9 @@ a:hover {
   background-clip: padding-box;
 }
 @media (max-width: 767px) {
+  body.event-body {
+    background: #f8f8f8;
+  }
   #detail_content_left .guess-wrapper {
     margin: 0px 0px;
   }
@@ -1598,10 +1602,10 @@ a:hover {
     padding: 3px;
   }
 }
-body.gray-body {
-  background-color: #f8f8f8;
-}
 @media (min-width: 768px) {
+  body.gray-body {
+    background-color: #f8f8f8;
+  }
   body.white-bogy {
     background-color: #fff;
   }
@@ -1950,6 +1954,6 @@ body.gray-body {
   margin-bottom: 10px;
 }
 .test {
-  color: black;
+  color: red;
 }
 /*# sourceMappingURL=site.less.css.map */

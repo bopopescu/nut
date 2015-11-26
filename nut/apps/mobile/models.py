@@ -95,6 +95,7 @@ class LaunchBoard(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=1024)
     status = models.BooleanField(default=False)
+    action_title = models.CharField(max_length=255)
     action = models.CharField(max_length=255)
     created_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
 

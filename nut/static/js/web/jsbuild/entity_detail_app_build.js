@@ -921,8 +921,6 @@ define('subapp/topmenu',['bootstrap', 'libs/Class','underscore','jquery', 'fastd
             //$(window).scroll(_.debounce(this.show.bind(this), 100));
         },
         scheduleHeaderMove:function(){
-
-
             var that = this;
             if (!this.read){
                 this.read = fastdom.read(function(){
@@ -935,11 +933,6 @@ define('subapp/topmenu',['bootstrap', 'libs/Class','underscore','jquery', 'fastd
             }
 
             this.write = fastdom.write(this.moveHeader.bind(this));
-
-            //console.log('onscroll');
-            //var t = new Date();
-            //console.log(t.getMilliseconds());
-            //console.log()
         },
         moveHeader:function(){
             //console.log('move header');
