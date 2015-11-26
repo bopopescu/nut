@@ -1587,6 +1587,9 @@ a:hover {
   background-clip: padding-box;
 }
 @media (max-width: 767px) {
+  body.event-body {
+    background: #f8f8f8;
+  }
   #detail_content_left .guess-wrapper {
     margin: 0px 0px;
   }
@@ -1598,10 +1601,10 @@ a:hover {
     padding: 3px;
   }
 }
-body.gray-body {
-  background-color: #f8f8f8;
-}
 @media (min-width: 768px) {
+  body.gray-body {
+    background-color: #f8f8f8;
+  }
   body.white-bogy {
     background-color: #fff;
   }
