@@ -1,13 +1,18 @@
-from django.views.generic import ListView
-from django.http import Http404
-from apps.tag.models import Tags, Content_Tags
-from apps.core.extend.paginator import ExtentPaginator
-from apps.core.models import Entity_Like, Note
-from django.utils.log import getLogger
-from django.shortcuts import get_object_or_404
-from django.db.models import Count
-from braces.views import JSONResponseMixin, AjaxResponseMixin
 import urllib
+
+from datetime import datetime
+from apps.core.models import Article
+from apps.core.models import Entity_Like, Note
+from apps.core.extend.paginator import ExtentPaginator
+from apps.tag.models import Tags, Content_Tags
+from apps.counter.utils.data import RedisCounterMachine
+from django.http import Http404
+from django.db.models import Count
+from django.utils.log import getLogger
+from django.views.generic import ListView
+from django.shortcuts import get_object_or_404
+from django.template import loader, RequestContext
+from braces.views import JSONResponseMixin, AjaxResponseMixin
 
 
 log = getLogger('django')
@@ -79,13 +84,13 @@ class TagEntitiesByHashView(AjaxResponseMixin, JSONResponseMixin, ListView):
         return context
 
 
-class TagEntityView(ListView):
+class TagEntityView(TagEntitiesByHashView):
     http_method_names = ['get']
-    template_name = 'tag/entities.html'
-    paginate_by = 20
-    paginator_class = ExtentPaginator
 
     def get_queryset(self):
+        self.tag_name = self.kwargs.pop('tag_name', None)
+        assert self.tag_name is not None
+        self.tag_name = self.tag_name.lower()
         try:
             self.tag = Tags.objects.get(name=self.tag_name)
         except Tags.DoesNotExist:
@@ -94,76 +99,8 @@ class TagEntityView(ListView):
                                                     target_content_type_id=24)
         return self.queryset
 
-    def get_context_data(self, **kwargs):
-        res = super(TagEntityView, self).get_context_data(**kwargs)
-        contenttag_list = res['object_list']
-        el = []
-        if self.request.user.is_authenticated():
-            note_id_list = contenttag_list.values_list("target_object_id",
-                                                       flat=True)
-            eid_list = Note.objects.filter(
-                pk__in=list(note_id_list)).values_list('entity_id', flat=True)
-            el = Entity_Like.objects.filter(entity_id__in=list(eid_list),
-                                            user=self.request.user).values_list(
-                'entity_id', flat=True)
 
-        res.update(
-            {
-                'tag': self.tag,
-                'user_entity_likes': el,
-            }
-        )
-        return res
-
-    def get(self, request, *args, **kwargs):
-        self.tag_name = kwargs.pop('tag_name', None)
-        assert self.tag_name is not None
-
-        self.tag_name = self.tag_name.lower()
-        return super(TagEntityView, self).get(request, *args, **kwargs)
-        # return self.render_to_response(context={})
-
-
-class TagArticleView(ListView):
-    http_method_names = ['get']
-    template_name = 'tag/articles.html'
-    paginate_by = 20
-    paginator_class = ExtentPaginator
-
-    def get_queryset(self):
-        try:
-            self.tag = Tags.objects.get(name=self.tag_name)
-        except Tags.DoesNotExist:
-            raise Http404
-        self.queryset = Content_Tags.objects.filter(tag=self.tag,
-                                                    target_content_type_id=31)
-        return self.queryset
-
-    def get_context_data(self, **kwargs):
-        res = super(TagArticleView, self).get_context_data(**kwargs)
-        res.update(
-            {
-                'tag': self.tag,
-            }
-        )
-        return res
-
-    def get(self, request, *args, **kwargs):
-        self.tag_name = kwargs.pop('tag_name', None)
-        self.tag_name = urllib.unquote(str(self.tag_name)).decode('utf-8')
-
-        assert self.tag_name is not None
-
-        return super(TagArticleView, self).get(request, *args, **kwargs)
-
-
-from django.template import loader, RequestContext
-from apps.core.models import Article
-from datetime import datetime
-from apps.counter.utils.data import RedisCounterMachine
-
-
-class NewTagArticleView(JSONResponseMixin, AjaxResponseMixin, ListView):
+class TagArticleView(JSONResponseMixin, AjaxResponseMixin, ListView):
     template_name = 'tag/tag_articles.html'
     ajax_template_name = 'tag/partial/ajax_article_item_list_new.html'
     paginate_by = 12
@@ -210,7 +147,7 @@ class NewTagArticleView(JSONResponseMixin, AjaxResponseMixin, ListView):
         return counts_dic
 
     def get_context_data(self, **kwargs):
-        context = super(NewTagArticleView, self).get_context_data(**kwargs)
+        context = super(TagArticleView, self).get_context_data(**kwargs)
         context['refresh_time'] = self.get_refresh_time()
         context['has_next_page'] = context['page_obj'].has_next()
         context['top_article_tags'] = Tags.objects.top_article_tags()
