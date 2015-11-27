@@ -1,3 +1,4 @@
+(node) util.print is deprecated. Use console.log instead.
 .guoku-btn {
   font-size: 16px;
   height: 35px;
@@ -195,6 +196,12 @@
   opacity: 0.8!important;
   color: #fff!important;
 }
+.price-tag-widget {
+  font-size: 22px;
+  font-family: Georgia,serif;
+  color: #357ebd;
+  margin: 20px 0px;
+}
 .primary-button {
   width: 100px;
 }
@@ -249,6 +256,39 @@
   max-height: 100%;
   max-width: 100%;
 }
+.event-entity-item .img-box a {
+  padding: 8px;
+}
+.event-entity-item .section-info {
+  height: 97px;
+}
+.event-entity-item .section-info div {
+  font-size: 14px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 7px;
+  margin-bottom: 0px;
+  text-align: center;
+}
+.event-entity-item .section-info .entity-brand {
+  margin-top: 15px;
+}
+.event-entity-item .section-info .entity-title {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+.event-entity-item .section-info .entity-price {
+  font-size: 22px;
+  font-family: Georgia,serif;
+  color: #357ebd;
+  margin: 20px 0px;
+  margin: 7px 0;
+  font-size: 16px;
+}
+.event-entity-item .section-buy {
+  text-align: center;
+  height: 40px;
+}
 .entity-four .img-box img:hover,
 .entity-selection .img-box img:hover,
 .guoku-button:hover,
@@ -261,7 +301,8 @@
 .img-holder a:hover,
 .selection-article-item .img-holder:hover,
 .thumbnail.category img:hover,
-.hover-light:hover {
+.hover-light:hover,
+.recommendation-item img:hover {
   opacity: 0.7;
 }
 .hover-light a:hover,

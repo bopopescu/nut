@@ -4,7 +4,7 @@ from settings import *
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-STATIC_URL = 'http://static.guoku.com/static/v4/2962d45adf3713d6f4c57b7fc045f73e94f8613f/'
+STATIC_URL = 'http://static.guoku.com/static/v4/14cd8b9bd398c4f56237e976ae2aad22e7f78fdc/'
 
 LANGUAGE_CODE = 'zh-cn'
 
