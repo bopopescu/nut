@@ -8,7 +8,14 @@ class LaunchBoardView(BaseJsonView):
 
     def get_data(self, context):
         res = {}
-        launch = LaunchBoard.objects.filter(status = True).first()
+        agent_string = self.request.META.get('HTTP_USER_AGENT', None)
+        if 'guoku-client' in agent_string:
+            launch = LaunchBoard.objects.filter(device=LaunchBoard.android, status=True).first()
+        elif 'orange' in agent_string:
+            launch = LaunchBoard.objects.filter(device=LaunchBoard.ios, status = True).first()
+        else:
+            launch = LaunchBoard.objects.filter(device=LaunchBoard.all, status=True).first()
+
         if launch:
             res['launch_id'] = launch.pk
             res['title'] = launch.title

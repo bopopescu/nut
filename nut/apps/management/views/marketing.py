@@ -53,6 +53,7 @@ class EditLaunchBoardView(FormView):
                 "description": self.object.description,
                 "action_title": self.object.action_title,
                 "action": self.object.action,
+                "device": self.object.device,
                 "status": int(self.object.status),
             }
         )
