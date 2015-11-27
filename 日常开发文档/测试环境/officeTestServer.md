@@ -12,4 +12,7 @@
     brew install pip 
     pip install -r requirements
  
-5.     
+5. brew install redis
+    bash > redis-server &
+    
+6. f
