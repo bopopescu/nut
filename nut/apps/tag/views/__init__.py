@@ -90,8 +90,7 @@ class TagEntityView(ListView):
             self.tag = Tags.objects.get(name=self.tag_name)
         except Tags.DoesNotExist:
             raise Http404
-        self.queryset = Content_Tags.objects.filter(tag=self.tag,
-                                                    target_content_type_id=24)
+        self.queryset = Content_Tags.objects.filter(tag=self.tag,target_content_type_id=24)
         return self.queryset
 
     def get_context_data(self, **kwargs):
