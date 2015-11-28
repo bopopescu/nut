@@ -19,7 +19,7 @@ urlpatterns = patterns(
 
     url(r'^(?P<user_id>\d+)/$', UserIndex.as_view(), name='web_user_index'),
     url(r'^(?P<user_id>\d+)/like/$', UserLikeView.as_view(), name='web_user_entity_like'),
-    url(r'^(?P<user_id>\d+)/like/(?P<cid>\d+)/category$', UserLikeView.as_view(), name='web_user_entity_like_cate'),
+    url(r'^(?P<user_id>\d+)/like/(?P<cid>\d+)/category/$', UserLikeView.as_view(), name='web_user_entity_like_by_category'),
 
     url(r'^(?P<user_id>\d+)/note/$', UserNoteView.as_view(), name='web_user_post_note'),
     url(r'^(?P<user_id>\d+)/tags/$', UserTagView.as_view(), name='web_user_tag'),

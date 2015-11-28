@@ -239,20 +239,14 @@ def articles(request,user_id, template="web/user/user_published_articles.html"):
          context_instance = RequestContext(request),
         )
 
+class UserPageMixin(object):
 
-
-class UserDetailBase(ListView):
-    '''
-        abstract view for user views
-    '''
-    paginate_by = 30
-    paginator_class = Jpaginator
-    context_object_name = 'articles'
-    def get_showing_user(self):
+     def get_showing_user(self):
         user_id =  self.kwargs['user_id']
         _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
         return _user
-    def get_pronoun(self):
+
+     def get_pronoun(self):
         _current_user = self.get_showing_user()
         try:
             if self.request.user == _current_user:
@@ -264,15 +258,28 @@ class UserDetailBase(ListView):
         except Exception as e:
             return _('His')
 
+     def get_user_like_categories(self):
+        _user = self.get_showing_user()
+        return _user.entity_liked_categories
+
+
+
+class UserDetailBase(UserPageMixin, ListView):
+    '''
+        abstract view for user views
+    '''
+    paginate_by = 30
+    paginator_class = Jpaginator
+    context_object_name = 'articles'
+
+
     def get_context_data(self, **kwargs):
         context_data = super(UserDetailBase, self).get_context_data(**kwargs)
         context_data['current_user'] = self.get_showing_user()
         context_data['pronoun'] = self.get_pronoun()
         return context_data
 
-    def get_user_like_categories(self):
-        _user = self.get_showing_user()
-        return _user.entity_liked_categories
+
 
 
 from apps.web.forms.user import UserLikeEntityFilterForm
@@ -284,15 +291,16 @@ class UserLikeView(UserDetailBase):
         context_data = super(UserLikeView, self).get_context_data(**kwargs)
         context_data['entity_filter_form'] = UserLikeEntityFilterForm(initial={'entityCategory': '0', 'entityBuyLinkStatus':'3'})
         context_data['user_like_top_categories']= self.get_user_like_categories()
+        context_data['current_category'] =  self.get_current_category()
         return context_data
 
     def get_current_category(self):
-        _cid = getattr(self.kwargs, 'cid' , None)
+        _cid = self.kwargs.get('cid', None)
         if _cid is None:
             return None
         else:
             try:
-                _category = Category.objects.filter(pk=_cid)
+                _category = Category.objects.get(pk=_cid)
                 return _category
             except Category.DoesNotExist:
                 return None
@@ -400,33 +408,12 @@ class UserFollowingsView(UserDetailBase):
         return _user.followings.all()
 
 
-class UserIndex(DetailView):
+class UserIndex(UserPageMixin, DetailView):
 
     template_name = 'web/user/user_index.html'
     model = GKUser
     pk_url_kwarg = 'user_id'
     context_object_name = 'current_user'
-
-    def get_user_like_categories(self):
-        _user = self.get_showing_user()
-        return _user.entity_liked_categories
-
-    def get_showing_user(self):
-        user_id =  self.kwargs['user_id']
-        _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
-        return _user
-
-    def get_pronoun(self):
-        _current_user = self.get_showing_user()
-        if not _current_user.profile:
-            return _('His')
-
-        if self.request.user == _current_user:
-            return _('My')
-        elif _current_user.profile.gender == User_Profile.Woman:
-            return _('Hers')
-        else:
-            return _('His')
 
     def get_context_data(self,**kwargs):
         context_data = super(UserIndex, self).get_context_data(**kwargs)
