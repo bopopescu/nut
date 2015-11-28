@@ -19,6 +19,8 @@ urlpatterns = patterns(
 
     url(r'^(?P<user_id>\d+)/$', UserIndex.as_view(), name='web_user_index'),
     url(r'^(?P<user_id>\d+)/like/$', UserLikeView.as_view(), name='web_user_entity_like'),
+    url(r'^(?P<user_id>\d+)/like/(?P<cid>\d+)/category$', UserLikeView.as_view(), name='web_user_entity_like_cate'),
+
     url(r'^(?P<user_id>\d+)/note/$', UserNoteView.as_view(), name='web_user_post_note'),
     url(r'^(?P<user_id>\d+)/tags/$', UserTagView.as_view(), name='web_user_tag'),
 
@@ -30,13 +32,6 @@ urlpatterns = patterns(
     url(r'^(?P<user_id>\d+)/fans/$', UserFansView.as_view(), name='web_user_fans'),
     url(r'^(?P<user_id>\d+)/followings/$', UserFollowingsView.as_view(), name='web_user_followings'),
 
-    # url(r'^(?P<user_id>\d+)/new_front/$', UserIndex.as_view(), name='web_user_index_new'),
-    # url(r'^(?P<user_id>\d+)/like/new_front/$', UserLikeView.as_view(), name='web_user_entity_like_new'),
-    # url(r'^(?P<user_id>\d+)/note/new_front/$', UserNoteView.as_view(), name='web_user_post_note_new'),
-    # url(r'^(?P<user_id>\d+)/tags/new_front/$', UserTagView.as_view(), name='web_user_tag_new'),
-    # url(r'^(?P<user_id>\d+)/articles/new_front/$', UserArticleView.as_view(), name='web_user_article_new'),
-    # url(r'^(?P<user_id>\d+)/fans/new_front/$', UserFansView.as_view(), name='web_user_fans_new'),
-    # url(r'^(?P<user_id>\d+)/followings/new_front/$', UserFollowingsView.as_view(), name='web_user_followings_new'),
 
     # url(r'^(?P<user_id>\d+)/$',      'index', name='web_user_index' ),
     # url(r'^(?P<user_id>\d+)/like/$', 'entity_like', name='web_user_entity_like'),
