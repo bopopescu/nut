@@ -2021,6 +2021,14 @@ body.compact-body {
   float: left;
   margin-right: 10px;
 }
+.guoku-content.user-page .content-panel .panel-row .category-list-wrapper .category-list .category-filter-item.current,
+.guoku-content.index-page .content-panel .panel-row .category-list-wrapper .category-list .category-filter-item.current {
+  font-weight: 600;
+}
+.guoku-content.user-page .content-panel .panel-row .category-list-wrapper .category-list .category-filter-item.current a,
+.guoku-content.index-page .content-panel .panel-row .category-list-wrapper .category-list .category-filter-item.current a {
+  color: #9d9e9f;
+}
 .guoku-content.user-page .content-panel .panel-content-wrapper,
 .guoku-content.index-page .content-panel .panel-content-wrapper {
   padding-left: 10px;
