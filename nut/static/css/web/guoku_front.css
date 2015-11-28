@@ -362,6 +362,12 @@ ul li {
   vertical-align: middle;
   width: 0px;
 }
+.clearfix:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+}
 .little-gray-font {
   font-size: 13px;
   color: #9d9d9d;
@@ -2002,6 +2008,18 @@ body.compact-body {
   font-size: 13px;
   position: relative;
   right: 15px;
+}
+.guoku-content.user-page .content-panel .panel-row .category-list-wrapper .category-list:after,
+.guoku-content.index-page .content-panel .panel-row .category-list-wrapper .category-list:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+}
+.guoku-content.user-page .content-panel .panel-row .category-list-wrapper .category-list .category-filter-item,
+.guoku-content.index-page .content-panel .panel-row .category-list-wrapper .category-list .category-filter-item {
+  float: left;
+  margin-right: 10px;
 }
 .guoku-content.user-page .content-panel .panel-content-wrapper,
 .guoku-content.index-page .content-panel .panel-content-wrapper {
