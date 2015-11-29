@@ -1,5 +1,6 @@
 1. ip 
     initial : 10.0.9.136
+    ## to be changed 
     
 2. user / pass
     root / guoku!@#
@@ -14,8 +15,6 @@
     brew install freetype imagemagick
     pip install -r requirements
     pip install qrcode 
-    
-    
     
  
 5. brew install redis
