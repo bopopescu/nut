@@ -616,13 +616,37 @@ body.compact-body{
           min-height: 140px;
         }
         .social-cell{
+          .user-item{
+             border-bottom:@common-border;
+             margin-bottom:20px;
+          }
+          .user-info-wrapper{
+             padding-left:10px;
+             padding-bottom:20px;
+             margin-bottom: 0px;
+             width:200px;
+          }
+          .user-icon{
+             padding-left:10px;
+             img{
+
+               width:80px;
+              height:80px;
+            }
+          }
+          .entity-list{
+              .entity-item{
+                  float:right;
+                  width: 100px;
+                  height:100px;
+              }
+          }
           .user-name{
             font-size: @subtitle-size;
           }
           .user-social-status{
             color: @common-gray;
             font-size: @mini-size;
-            position: absolute;
             padding-top: 10px;
           }
         }

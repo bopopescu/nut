@@ -2097,6 +2097,33 @@ body.compact-body {
   padding: 20px 10px;
   min-height: 140px;
 }
+.guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-item,
+.guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .user-item {
+  border-bottom: 1px solid #f8f8f8;
+  margin-bottom: 20px;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-info-wrapper,
+.guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .user-info-wrapper {
+  padding-left: 10px;
+  padding-bottom: 20px;
+  margin-bottom: 0px;
+  width: 200px;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-icon,
+.guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .user-icon {
+  padding-left: 10px;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-icon img,
+.guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .user-icon img {
+  width: 80px;
+  height: 80px;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .entity-list .entity-item,
+.guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .entity-list .entity-item {
+  float: right;
+  width: 100px;
+  height: 100px;
+}
 .guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-name,
 .guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .user-name {
   font-size: 18px;
@@ -2105,7 +2132,6 @@ body.compact-body {
 .guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .user-social-status {
   color: #9d9e9f;
   font-size: 13px;
-  position: absolute;
   padding-top: 10px;
 }
 .guoku-content.user-page .content-panel .panel-content-wrapper .empty-panel-content,

@@ -240,6 +240,16 @@ def articles(request,user_id, template="web/user/user_published_articles.html"):
         )
 
 class UserPageMixin(object):
+     def get_current_category(self):
+        _cid = self.kwargs.get('cid', None)
+        if _cid is None:
+            return None
+        else:
+            try:
+                _category = Category.objects.get(pk=_cid)
+                return _category
+            except Category.DoesNotExist:
+                return None
 
      def get_showing_user(self):
         user_id =  self.kwargs['user_id']
@@ -294,16 +304,7 @@ class UserLikeView(UserDetailBase):
         context_data['current_category'] =  self.get_current_category()
         return context_data
 
-    def get_current_category(self):
-        _cid = self.kwargs.get('cid', None)
-        if _cid is None:
-            return None
-        else:
-            try:
-                _category = Category.objects.get(pk=_cid)
-                return _category
-            except Category.DoesNotExist:
-                return None
+
 
 
 
@@ -434,6 +435,9 @@ class UserIndex(UserPageMixin, DetailView):
         context_data['fans'] = current_user.fans.all()[:7]
         context_data['tags']= Content_Tags.objects.user_tags_unique(current_user)[0:5]
         context_data['pronoun'] = self.get_pronoun()
+
+        context_data['user_like_top_categories']= self.get_user_like_categories()
+        context_data['current_category'] =  self.get_current_category()
 
         return context_data
 

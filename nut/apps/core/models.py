@@ -282,6 +282,12 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return set(_category_list)
 
     @property
+    def recent_likes(self):
+        rlikes = Entity_Like.objects.active_entity_likes().filter(user=self).order_by()
+        return rlikes[:3]
+
+
+    @property
     def avatar_url(self):
         if hasattr(self, 'profile'):
             return self.profile.avatar_url
