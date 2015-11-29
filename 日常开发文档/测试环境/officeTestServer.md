@@ -34,7 +34,33 @@
   make sure your mysql server has user/pass same as the office.py settings file 
   
   
+8. code in /data/www/nut 
+   
+9. deploy 
   
-  
+   in deploy folder, run : 
+
+   fab -f upload_local_test.py upload 
+   
+   ### ip address and folder setup see local_test_config.ini
+
+10. start server 
+
+    in /data/www/nut 
+    run: 
+    sudo , or su 
+    
+    gunicorn -b 0.0.0.0:8000 office -w 3 &
+    
+    
+    
+reference : 
+
+https://www.digitalocean.com/community/tutorials/how-to-deploy-python-wsgi-apps-using-gunicorn-http-server-behind-nginx
+    
+    
+    
+    
+   
  
  
