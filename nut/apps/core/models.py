@@ -202,8 +202,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         except :
             cache.set(key, self.digs.count())
 
-
-
     def incr_like(self):
         key = 'user:like:%s', self.pk
         try:
