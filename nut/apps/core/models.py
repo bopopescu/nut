@@ -158,6 +158,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.articles.filter(publish=Article.draft).count()
 
     @property
+    def absolute_url(self):
+        return reverse('web_user_index' , args=[self.pk])
+
+    @property
     def mobile_url(self):
         return 'guoku://user/' + str(self.id) + '/'
 

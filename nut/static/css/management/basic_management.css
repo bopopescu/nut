@@ -625,6 +625,11 @@ p.boolean-false {
 .carousel-inner .item img {
   display: inline-block !important;
 }
+.transparent-holder {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
 .batch-selection-modal {
   -webkit-user-select: none;
   -moz-user-select: none;
