@@ -560,6 +560,11 @@ p.boolean-false {
 .carousel-inner .item img {
   display: inline-block !important;
 }
+.transparent-holder {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
   padding: 0px;

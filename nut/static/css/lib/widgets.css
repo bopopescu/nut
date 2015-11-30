@@ -560,4 +560,9 @@ p.boolean-false {
 .carousel-inner .item img {
   display: inline-block !important;
 }
+.transparent-holder {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
 /*# sourceMappingURL=widgets.less.css.map */

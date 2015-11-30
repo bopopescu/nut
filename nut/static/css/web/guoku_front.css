@@ -917,6 +917,11 @@ p.boolean-false {
 .carousel-inner .item img {
   display: inline-block !important;
 }
+.transparent-holder {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
   color: #9d9e9f;
@@ -2107,7 +2112,7 @@ body.compact-body {
   padding-left: 10px;
   padding-bottom: 20px;
   margin-bottom: 0px;
-  width: 200px;
+  float: left;
 }
 .guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-icon,
 .guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .user-icon {
@@ -2118,11 +2123,19 @@ body.compact-body {
   width: 80px;
   height: 80px;
 }
+.guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .entity-list,
+.guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .entity-list {
+  float: right;
+}
 .guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .entity-list .entity-item,
 .guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .entity-list .entity-item {
+  background-size: cover;
+  background-position: center center;
   float: right;
   width: 100px;
   height: 100px;
+  margin-left: 10px;
+  border: 1px solid #f8f8f8;
 }
 .guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-name,
 .guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .user-name {
@@ -3016,6 +3029,9 @@ body.compact-body {
     padding-left: 4px;
     padding-right: 4px;
   }
+  .social-list .social-cell .entity-list .entity-item {
+    display: none;
+  }
 }
 @media (max-width: 767px) {
   #selection_article_list .selection-article-item .article-title {
@@ -3238,6 +3254,15 @@ body.compact-body {
   }
   .guoku-content.user-page .user-info .user-bio {
     margin: 0 auto ;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .social-list .social-cell .entity-list .entity-item:last-child {
+    display: none;
+  }
+  .social-list .social-cell .entity-list .entity-item {
+    height: 80px!important;
+    width: 80px!important;
   }
 }
 @media (max-width: 1170px) {
