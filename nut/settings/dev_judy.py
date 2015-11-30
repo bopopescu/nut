@@ -75,9 +75,10 @@ DATABASES = {
         'HOST': Current_Dbhost,
         'PORT': '3306',
         'OPTIONS': {
-            'use_unicode':'utf-8',
-            'init_command':'SET storage_engine=INNODB',
-            }
+            'use_unicode': 'utf-8',
+            'init_command': 'SET storage_engine=INNODB'
+            },
+        # 'TEST_MIRROR': 'default'
     },
     }
 
