@@ -8,6 +8,15 @@
   width:0px;
 }
 
+.clearfix{
+  &:after {
+     content: " ";
+     display: block;
+     height: 0;
+     clear: both;
+  }
+}
+
 .little-gray-font{
   font-size: @mini-size;
   color: @light-gray
@@ -532,4 +541,11 @@ p.boolean-false{
     a,img{
       display:inline-block!important;
     }
+}
+
+
+.transparent-holder{
+   display: block;
+   height: 100%;
+   width: 100%;
 }
