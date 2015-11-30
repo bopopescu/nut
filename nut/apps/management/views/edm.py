@@ -86,8 +86,10 @@ def send_edm(request, edm_id):
         to = settings.MAIL_LIST
         sd_tm = SendCloudTemplate(invoke_name=invoke_name,
                                   edm_user=settings.MAIL_EDM_USER)
-        result = sd_tm.send_to_list(u'本月果库上不可错过的精彩内容，已为你准备好 - 果库 | 精英消费指南',
-                                    settings.GUOKU_MAIL, settings.GUOKU_NAME, to)
+        result = sd_tm.send_to_list(edm.title,
+                                    settings.GUOKU_MAIL,
+                                    settings.GUOKU_NAME,
+                                    to)
         if not result or result['message'] != 'success':
             response_data['result'] = 'failed'
             response_data['message'] = ';'.join(result['errors'])
@@ -137,7 +139,6 @@ def approval_edm(request, edm_id):
         sd_tm = SendCloudTemplate(invoke_name=invoke_name,
                                   edm_user=settings.MAIL_EDM_USER)
         t = loader.get_template('management/edm/preview.html')
-        edm = get_object_or_404(EDM, pk=edm_id)
         popular_list = Entity_Like.objects.popular_random('monthly', 9)
         entities = Entity.objects.filter(id__in=popular_list)
         site_host = request.get_host()
