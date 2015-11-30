@@ -18,7 +18,7 @@ DATABASES = {
         'NAME': 'test',
         'USER': 'guoku',
         'PASSWORD': 'guoku!@#',
-        'HOST': '10.0.2.90',
+        'HOST': '10.0.2.125',
         'PORT': '',
         'OPTIONS': {
             # 'use_unicode':'utf-8',
@@ -31,7 +31,7 @@ DATABASES = {
         'NAME': 'test',
         'USER': 'guoku',
         'PASSWORD': 'guoku!@#',
-        'HOST': '10.0.2.90',
+        'HOST': '10.0.2.125',
         'PORT': '',
         'OPTIONS': {
             # 'use_unicode':'utf-8',
