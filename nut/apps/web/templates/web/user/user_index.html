@@ -25,19 +25,40 @@
                         <div class="row panel-header">
                             <div class="panel-name">{{ pronoun }}{% trans 'Like' %}</div>
                             <div class="more-link">
-                                {% if recent_likes %}
-                                <a href="{% url 'web_user_entity_like' current_user.pk %}">
-                                    {% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
-                                </a>
-                                {% endif %}
+{#                                {% if recent_likes %}#}
+{#                                <a href="{% url 'web_user_entity_like' current_user.pk %}">#}
+{#                                    {% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>#}
+{#                                </a>#}
+{#                                {% endif %}#}
                             </div>
                         </div>
+                        {% if recent_likes %}
+                        <div class="row panel-row" >
+
+                            <div class="col-xs-12 category-list-wrapper">
+                                    <ul class="category-list">
+                                           <li class="category-filter-item">
+                                            <a href="{% url 'web_user_entity_like' current_user.pk %}">
+                                               全部
+                                            </a>
+                                           </li>
+                                       {% for top_category in user_like_top_categories  %}
+                                           <li class="category-filter-item {% if current_category == top_category %}current{% endif %}">
+                                            <a href="{% url 'web_user_entity_like_by_category' current_user.pk top_category.pk %}">
+                                               {{ top_category.title_cn }}
+                                            </a>
+                                           </li>
+                                       {% endfor %}
+                                    </ul>
+                            </div>
+                       </div>
+                        {% endif %}
                         <div class="row panel-content-wrapper ">
                                 {% for elike in recent_likes %}
                                 <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3 entity-cell cell">
                                    <div class="img-box">
                                        <a href="{{ elike.entity.absolute_url }}">
-                                           <img class="img-responsive" src="{{ elike.entity.chief_image|resize:'240'}}" />
+                                           <img class="img-responsive" title="{{ elike.entity.title }}" src="{{ elike.entity.chief_image|resize:'240'}}" />
                                        </a>
                                    </div>
                                 </div>
@@ -59,6 +80,7 @@
                                 {% endif %}
                             </div>
                         </div>
+
                         <div class="row panel-content-wrapper ">
                                 {% for noteObj in recent_notes %}
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 note-cell cell">

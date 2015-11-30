@@ -5,6 +5,12 @@
   vertical-align: middle;
   width: 0px;
 }
+.clearfix:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+}
 .little-gray-font {
   font-size: 13px;
   color: #9d9d9d;
@@ -554,6 +560,11 @@ p.boolean-false {
 .carousel-inner .item img {
   display: inline-block !important;
 }
+.transparent-holder {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
 @media (max-width: 767px) {
   .event-wrapper .event-item {
     padding: 5px 5px 5px 5px;
@@ -565,6 +576,9 @@ p.boolean-false {
   .event-wrapper .event-entity-item {
     padding-left: 4px;
     padding-right: 4px;
+  }
+  .social-list .social-cell .entity-list .entity-item {
+    display: none;
   }
 }
 @media (max-width: 767px) {

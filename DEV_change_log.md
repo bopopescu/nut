@@ -1,3 +1,11 @@
+
+
+1. user index page minor fix 
+
+==== start 2015-11-28 ====
+
+## merged to master 2015-11-27
+
 5. fix broken links on tag/hash-code
 4. fix user tag list dup bug
 3. fix user page follow/unfollow action bug 

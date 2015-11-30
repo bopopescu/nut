@@ -362,6 +362,12 @@ ul li {
   vertical-align: middle;
   width: 0px;
 }
+.clearfix:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+}
 .little-gray-font {
   font-size: 13px;
   color: #9d9d9d;
@@ -910,6 +916,11 @@ p.boolean-false {
 .carousel-inner .item a,
 .carousel-inner .item img {
   display: inline-block !important;
+}
+.transparent-holder {
+  display: block;
+  height: 100%;
+  width: 100%;
 }
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
@@ -2003,6 +2014,26 @@ body.compact-body {
   position: relative;
   right: 15px;
 }
+.guoku-content.user-page .content-panel .panel-row .category-list-wrapper .category-list:after,
+.guoku-content.index-page .content-panel .panel-row .category-list-wrapper .category-list:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+}
+.guoku-content.user-page .content-panel .panel-row .category-list-wrapper .category-list .category-filter-item,
+.guoku-content.index-page .content-panel .panel-row .category-list-wrapper .category-list .category-filter-item {
+  float: left;
+  margin-right: 10px;
+}
+.guoku-content.user-page .content-panel .panel-row .category-list-wrapper .category-list .category-filter-item.current,
+.guoku-content.index-page .content-panel .panel-row .category-list-wrapper .category-list .category-filter-item.current {
+  font-weight: 600;
+}
+.guoku-content.user-page .content-panel .panel-row .category-list-wrapper .category-list .category-filter-item.current a,
+.guoku-content.index-page .content-panel .panel-row .category-list-wrapper .category-list .category-filter-item.current a {
+  color: #9d9e9f;
+}
 .guoku-content.user-page .content-panel .panel-content-wrapper,
 .guoku-content.index-page .content-panel .panel-content-wrapper {
   padding-left: 10px;
@@ -2071,6 +2102,41 @@ body.compact-body {
   padding: 20px 10px;
   min-height: 140px;
 }
+.guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-item,
+.guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .user-item {
+  border-bottom: 1px solid #f8f8f8;
+  margin-bottom: 20px;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-info-wrapper,
+.guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .user-info-wrapper {
+  padding-left: 10px;
+  padding-bottom: 20px;
+  margin-bottom: 0px;
+  float: left;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-icon,
+.guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .user-icon {
+  padding-left: 10px;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-icon img,
+.guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .user-icon img {
+  width: 80px;
+  height: 80px;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .entity-list,
+.guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .entity-list {
+  float: right;
+}
+.guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .entity-list .entity-item,
+.guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .entity-list .entity-item {
+  background-size: cover;
+  background-position: center center;
+  float: right;
+  width: 100px;
+  height: 100px;
+  margin-left: 10px;
+  border: 1px solid #f8f8f8;
+}
 .guoku-content.user-page .content-panel .panel-content-wrapper .social-cell .user-name,
 .guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .user-name {
   font-size: 18px;
@@ -2079,7 +2145,6 @@ body.compact-body {
 .guoku-content.index-page .content-panel .panel-content-wrapper .social-cell .user-social-status {
   color: #9d9e9f;
   font-size: 13px;
-  position: absolute;
   padding-top: 10px;
 }
 .guoku-content.user-page .content-panel .panel-content-wrapper .empty-panel-content,
@@ -2964,6 +3029,9 @@ body.compact-body {
     padding-left: 4px;
     padding-right: 4px;
   }
+  .social-list .social-cell .entity-list .entity-item {
+    display: none;
+  }
 }
 @media (max-width: 767px) {
   #selection_article_list .selection-article-item .article-title {
@@ -3186,6 +3254,15 @@ body.compact-body {
   }
   .guoku-content.user-page .user-info .user-bio {
     margin: 0 auto ;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .social-list .social-cell .entity-list .entity-item:last-child {
+    display: none;
+  }
+  .social-list .social-cell .entity-list .entity-item {
+    height: 80px!important;
+    width: 80px!important;
   }
 }
 @media (max-width: 1170px) {
