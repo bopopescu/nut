@@ -360,7 +360,8 @@
 .normal-round-tag a {
   color: #424242;
 }
-.normal-round-tag:hover {
+.normal-round-tag:hover,
+.normal-round-tag.current {
   background-color: #dddddd;
 }
 .bottom-bordered {
