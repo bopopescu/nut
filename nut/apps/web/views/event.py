@@ -28,7 +28,9 @@ def home(request):
     if len(events) > 0:
         event = events[0]
         return HttpResponseRedirect(reverse('web_event', args=[event.slug]))
-    raise Http404
+    else:
+        return HttpResponseRedirect(reverse('web_event_list'))
+
 
 def _fill_banners_into_event_list(event_list):
     for ev in event_list:
@@ -127,6 +129,16 @@ def event(request, slug, template='web/events/home'):
     _show_event_banners = Show_Event_Banner.objects.filter(event=event, position__gt=0)
     _show_editor_recommendations = Show_Editor_Recommendation.objects.filter(event=event, position__gt=0)
 
+    _show_editor_recommendations_entity = Show_Editor_Recommendation.objects\
+                                          .filter(event=event,section='entity', position__gt=0).order_by('position')
+
+    _show_editor_recommendations_fair = Show_Editor_Recommendation.objects\
+                                          .filter(event=event,section='fair', position__gt=0).order_by('position')
+
+    _show_editor_recommendations_shop = Show_Editor_Recommendation.objects\
+                                          .filter(event=event,section='shop', position__gt=0).order_by('position')
+
+
     if request.is_ajax():
         _ret = {
             'status' : 0,
@@ -167,6 +179,11 @@ def event(request, slug, template='web/events/home'):
             'tag_text': event.tag,
             'show_event_banners': _show_event_banners,
             'show_editor_recommendations': _show_editor_recommendations,
+
+            'show_editor_recommendations_entity': _show_editor_recommendations_entity,
+            'show_editor_recommendations_shop': _show_editor_recommendations_shop,
+            'show_editor_recommendations_fair': _show_editor_recommendations_fair,
+
             'entities': _entities,
             'user_entity_likes': el,
             'from_app':request.GET.get('from','normal') == 'app'

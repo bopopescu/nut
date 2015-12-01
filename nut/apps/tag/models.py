@@ -24,7 +24,15 @@ def dictfetchall(cursor):
 
 class ContentTagQuerySet(models.query.QuerySet):
     def user_tags(self, user):
-        return self.using('slave').filter(creator=user).select_related('tag').annotate(tcount=Count('tag')).order_by('-tcount')
+        # deprecated , need add deprecate warnign
+        content_tags  = self.using('slave').filter(creator=user).select_related('tag').annotate(tcount=Count('tag')).order_by('-tcount')
+        return content_tags
+
+    def user_tags_unique(self, user):
+        content_tags  = self.using('slave').filter(creator=user).select_related('tag').annotate(tcount=Count('tag')).order_by('-tcount')
+        tags = [ct.tag for ct in content_tags]
+        tags = set(tags)
+        return list(tags)
 
     def popular(self):
         return self.annotate(tcount=Count('tag')).order_by('-tcount')[:300]
@@ -38,6 +46,9 @@ class ContentTagQuerySet(models.query.QuerySet):
         return list(set(list(_tag_list)))
 
 class ContentTagManager(models.Manager):
+
+    def user_tags_unique(self, _user):
+        return self.get_queryset().user_tags_unique(_user)
 
     def popular_entity_tag(self):
         key = 'new_entity_tag_popular_all'
@@ -128,6 +139,7 @@ class TagsQueryset(models.query.QuerySet):
                                  # .annotate(acount=Count('content_tags')).order_by('-acount')
         return res
 
+
 class TagsManager(models.Manager):
     def get_queryset(self):
         return TagsQueryset(self.model, using = self._db)
@@ -138,8 +150,8 @@ class TagsManager(models.Manager):
         # tag_list = self.get_queryset().filter(isTopArticleTag=True)
         # content_tags = Content_Tags.objects.filter(tag__in=tag_list, target_content_type_id=31).group_by('target_object_id')
 
-
         return tags
+
 
 class Tags(BaseModel):
     name = models.CharField(max_length=100, unique=True, db_index=True)
@@ -160,7 +172,6 @@ class Tags(BaseModel):
     @property
     def quoted_tag_name(self):
         return quote(self.name.encode('utf-8'))
-
 
     @property
     def tag_hash(self):

@@ -158,6 +158,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.articles.filter(publish=Article.draft).count()
 
     @property
+    def absolute_url(self):
+        return reverse('web_user_index' , args=[self.pk])
+
+    @property
     def mobile_url(self):
         return 'guoku://user/' + str(self.id) + '/'
 
@@ -202,8 +206,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         except :
             cache.set(key, self.digs.count())
 
-
-
     def incr_like(self):
         key = 'user:like:%s', self.pk
         try:
@@ -234,7 +236,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return len(t)
 
     @property
-    def article_cout(self):
+    def article_count(self):
         return self.articles.count()
 
     @property
@@ -272,6 +274,22 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return ''
 
     @property
+    def entity_liked_categories(self):
+        _category_id_list = Entity_Like.objects.select_related('entity__category__group')\
+                            .filter(user=self, entity__status__gte=Entity.freeze)\
+                            .annotate(category_count=Count('entity__category__group'))\
+                            .values_list('entity__category__group', flat=True)
+
+        _category_list = Category.objects.filter(pk__in=_category_id_list)
+        return set(_category_list)
+
+    @property
+    def recent_likes(self):
+        rlikes = Entity_Like.objects.active_entity_likes().filter(user=self).order_by()
+        return rlikes[:3]
+
+
+    @property
     def avatar_url(self):
         if hasattr(self, 'profile'):
             return self.profile.avatar_url
@@ -280,6 +298,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def set_admin(self):
         self.is_admin = True
         self.save()
+
 
     def v3_toDict(self, visitor=None):
         key = "user:v3:%s" % self.id
@@ -779,6 +798,12 @@ class Entity(BaseModel):
     @property
     def mobile_url(self):
         return 'guoku://entity/' + str(self.id) + '/'
+
+    @property
+    def selected_related_articles(self):
+        related_selection_articles = Selection_Article.objects.published().filter(article__in=self.related_articles.all())
+        return  related_selection_articles
+
 
     def innr_like(self):
         key = 'entity:like:%d' % self.pk
@@ -1626,6 +1651,15 @@ class Editor_Recommendation(models.Model):
         return "%s%s" % (image_host, self.image)
 
     @property
+    def section(self):
+        try :
+            return self.show.section
+        except Exception as e :
+            # default value , see Show_Editor_Recommendation
+            return 'entity'
+
+
+    @property
     def position(self):
         try:
             return self.show.position
@@ -1649,10 +1683,19 @@ class Editor_Recommendation(models.Model):
 
 
 class Show_Editor_Recommendation(models.Model):
+
+    RECOMMENDATION_SECTION_CHOICE = [
+        ('entity','编辑推荐'),
+        ('fair','活动一览'),
+        ('shop','店铺推荐')]
+
     recommendation = models.OneToOneField(Editor_Recommendation,
                                           related_name='show', unique=False)
     event = models.ForeignKey(Event, related_name='recommendation', null=True)
     position = models.IntegerField(default=0)
+    section = models.CharField(max_length=64,
+                               choices=RECOMMENDATION_SECTION_CHOICE,
+                               default='entity')
     created_time = models.DateTimeField(auto_now_add=True, editable=False,
                                         db_index=True)
 

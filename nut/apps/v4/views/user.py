@@ -470,7 +470,7 @@ class APIUserLikeView(BaseJsonView):
 
         last = len(entities) - 1
         if last < 0:
-            return SuccessJsonResponse(res)
+            return res
         res['timestamp'] = time.mktime(entities[last].created_time.timetuple())
         try:
             _session = Session_Key.objects.get(session_key=self.key)
