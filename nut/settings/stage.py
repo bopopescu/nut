@@ -17,7 +17,11 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'core',
         'USER': 'guoku',
+<<<<<<< HEAD
         'PASSWORD': 'guoku1@#',
+=======
+        'PASSWORD': 'guoku!@#',
+>>>>>>> d3b89b6740d8ada5043600083e669962e26b6318
         'HOST': '10.0.2.125',
         'PORT': '',
         'OPTIONS': {
@@ -30,7 +34,11 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'core',
         'USER': 'guoku',
+<<<<<<< HEAD
         'PASSWORD': 'guoku1@#',
+=======
+        'PASSWORD': 'guoku!@#',
+>>>>>>> d3b89b6740d8ada5043600083e669962e26b6318
         'HOST': '10.0.2.125',
         'PORT': '',
         'OPTIONS': {

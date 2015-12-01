@@ -184,7 +184,6 @@ class CategoryDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
         context['user_entity_likes'] = el
         context['sub_category'] = sub_category
         context['refresh_datetime'] = self.get_refresh_time()
-        print '>>> ', entities.has_previous(), entities.has_next()
         return context
 
 

@@ -1,3 +1,16 @@
+
+5. FIX tag list page  paging function bug
+4. event list page is now the default event link target
+3. user likes page category filter 
+2. user following/fans page refactor , add followee/follower recent likes 
+1. user index page minor fix 
+0. a office test server setting/deploying files 
+
+==== start 2015-11-28 ====
+
+## merged to master 2015-11-27
+
+5. fix broken links on tag/hash-code
 4. fix user tag list dup bug
 3. fix user page follow/unfollow action bug 
 2. event list page require js management 

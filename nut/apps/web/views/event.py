@@ -28,7 +28,9 @@ def home(request):
     if len(events) > 0:
         event = events[0]
         return HttpResponseRedirect(reverse('web_event', args=[event.slug]))
-    raise Http404
+    else:
+        return HttpResponseRedirect(reverse('web_event_list'))
+
 
 def _fill_banners_into_event_list(event_list):
     for ev in event_list:

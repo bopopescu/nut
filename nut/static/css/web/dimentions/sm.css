@@ -1,9 +1,19 @@
+(node) util.print is deprecated. Use console.log instead.
 @media (max-width: 991px) {
   .guoku-content.user-page .user-info .user-nick-block {
     margin: 0 auto ;
   }
   .guoku-content.user-page .user-info .user-bio {
     margin: 0 auto ;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .social-list .social-cell .entity-list .entity-item:last-child {
+    display: none;
+  }
+  .social-list .social-cell .entity-list .entity-item {
+    height: 80px!important;
+    width: 80px!important;
   }
 }
 /*# sourceMappingURL=sm.less.css.map */
