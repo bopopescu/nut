@@ -25,11 +25,11 @@
                         <div class="row panel-header">
                             <div class="panel-name">{{ pronoun }}{% trans 'Like' %}</div>
                             <div class="more-link">
-{#                                {% if recent_likes %}#}
-{#                                <a href="{% url 'web_user_entity_like' current_user.pk %}">#}
-{#                                    {% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>#}
-{#                                </a>#}
-{#                                {% endif %}#}
+                                {% if recent_likes %}
+                                <a href="{% url 'web_user_entity_like' current_user.pk %}">
+                                    {% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
+                                </a>
+                                {% endif %}
                             </div>
                         </div>
                         {% if recent_likes %}
@@ -37,11 +37,6 @@
 
                             <div class="col-xs-12 category-list-wrapper">
                                     <ul class="category-list">
-                                           <li class="category-filter-item">
-                                            <a href="{% url 'web_user_entity_like' current_user.pk %}">
-                                               全部
-                                            </a>
-                                           </li>
                                        {% for top_category in user_like_top_categories  %}
                                            <li class="category-filter-item {% if current_category == top_category %}current{% endif %}">
                                             <a href="{% url 'web_user_entity_like_by_category' current_user.pk top_category.pk %}">

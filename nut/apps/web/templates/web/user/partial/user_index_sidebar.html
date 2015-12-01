@@ -4,7 +4,7 @@
 
 <ul class="section-list user-right">
    {%  if followings %}
-    <li class="section">
+    <li class="section user-following">
         <div class="section-title">{% trans 'Following' %}<span class="more-link"><a href="{% url 'web_user_followings' current_user.pk %}">{% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></span></div>
         <div class="section-content">
             <ul class="following-list user-icon-list">
@@ -16,7 +16,7 @@
     </li>
     {% endif %}
     {% if  fans %}
-    <li class="section">
+    <li class="section user-fans">
         <div class="section-title">{% trans 'Fans' %}<span class="more-link"><a href="{% url 'web_user_fans' current_user.pk %}">{% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></span></div>
         <div class="section-content">
             <ul class="fans-list user-icon-list">
@@ -28,7 +28,7 @@
     </li>
     {% endif %}
     {% if tags %}
-    <li class="section">
+    <li class="section user-tag-list">
         <div class="section-title">{% trans 'Contributed Tags' %}<span class="more-link"><a href="{% url 'web_user_tag' current_user.pk %}">{% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></span></div>
         <div class="section-content">
             <ul class="tag-list">
@@ -41,7 +41,7 @@
         </div>
     </li>
     {% endif %}
-    <li class="section">
+    <li class="section section-download">
         <div class="section-title">{% trans "Download App" %}</div>
         <div class="section-content">
             <div class="text-holder">

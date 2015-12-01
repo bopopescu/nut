@@ -60,11 +60,11 @@
                        <div class="row panel-row" >
                             <div class="col-xs-12 category-list-wrapper">
                                     <ul class="category-list">
-                                           <li class="category-filter-item {% if not current_category %}current{% endif %}">
-                                            <a href="{% url 'web_user_entity_like' current_user.pk %}">
-                                               全部
-                                            </a>
-                                           </li>
+{#                                           <li class="category-filter-item {% if not current_category %}current{% endif %}">#}
+{#                                            <a href="{% url 'web_user_entity_like' current_user.pk %}">#}
+{#                                               全部#}
+{#                                            </a>#}
+{#                                           </li>#}
                                        {% for top_category in user_like_top_categories  %}
                                            <li class="category-filter-item {% if current_category == top_category %}current{% endif %}">
                                             <a href="{% url 'web_user_entity_like_by_category' current_user.pk top_category.pk %}">
