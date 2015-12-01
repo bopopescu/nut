@@ -253,7 +253,7 @@ Avatar_Image_Path = 'avatar/'
 
 CELERY_RESULT_BACKEND = "redis://10.0.2.125:6379/0"
 BROKER_TRANSPORT = "librabbitmq"
-BROKER_HOST = "10.0.2.95"
+BROKER_HOST = "10.0.2.125"
 BROKER_USER = "raspberry"
 BROKER_PASSWORD = "raspberry1@#"
 BROKER_VHOST = "raspberry"
