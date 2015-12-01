@@ -1,4 +1,3 @@
-
 from apps.core.models import Selection_Article, Article
 from apps.notifications.models import JpushToken
 from apps.notifications import notify
