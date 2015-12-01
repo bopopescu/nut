@@ -4,7 +4,7 @@
 3. user likes page category filter 
 2. user following/fans page refactor , add followee/follower recent likes 
 1. user index page minor fix 
-0. a test server setting/deploying files 
+0. a office test server setting/deploying files 
 
 ==== start 2015-11-28 ====
 
