@@ -1,9 +1,12 @@
 1. ip 
-    initial : 10.0.9.136
+    initial : 10.0.5.198
     ## to be changed 
     
 2. user / pass
     root / guoku!@#
+    Jiaxiaoke / 1
+    
+    
 
 3. mysql (install mysql )
     user / pass
@@ -27,7 +30,7 @@
  
    
 7. start mysql  , 
- 
+  su first or ...
   sudo /usr/local/mysql/support-files/mysql.server start
   
   make sure your mysql server has user/pass same as the office.py settings file 
@@ -49,7 +52,27 @@
     run: 
     sudo , or su 
     
-    gunicorn -b 0.0.0.0:8000 office -w 3 &
+    gunicorn -b 0.0.0.0:80 office -w 3 &
+
+    
+    stop server 
+    need dig out ..... 
+    
+    current just
+     a. ps aux | grep gunicorn 
+     b. kill -9 pid of the process last command showed 
+     
+     
+    
+11, 办公室果库＋ for TEST SERVER 
+    a. in chrome add a bookmark 
+    b. edit the bookmark's address to :
+        javascript:window.open(%27http://10.0.5.198/management/entity/new/%3Furl%3D%27 %2BencodeURIComponent(location.href), %27_blank%27)%3B
+    
+    c. goto a taobao entity page 
+    d. press  办公室果库＋  
+    F. you should able to add entity now 
+    
     
     
     
