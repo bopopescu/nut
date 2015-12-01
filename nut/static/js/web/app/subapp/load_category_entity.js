@@ -1,7 +1,3 @@
-/**
- * Created by judy on 13/11/15.
- */
-
 define(['jquery','libs/Class','libs/fastdom','subapp/loadentity'],
     function($,Class, fastdom, LoadEntity){
 

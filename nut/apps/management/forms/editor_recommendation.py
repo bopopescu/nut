@@ -26,6 +26,12 @@ class BaseRecommendationForm(forms.Form):
         required=False,
     )
 
+    section =  forms.ChoiceField(
+        choices=Show_Editor_Recommendation.RECOMMENDATION_SECTION_CHOICE,
+        required=False,
+    )
+
+
     def __init__(self, *args, **kwargs):
         super(BaseRecommendationForm, self).__init__(*args, **kwargs)
         # (none, first, second, third, fourth) = (0, 1, 2, 3, 4)
@@ -70,6 +76,7 @@ class CreateEditorRecommendForms(BaseRecommendationForm):
         link = self.cleaned_data.get('link')
         editor_recommend_image = self.cleaned_data.get('editor_recommend_image')
         event = self.cleaned_data.get('event')
+        section = self.cleaned_data.get('section')
         # position = self.clean_position()
         # log.info(event_banner_image)
         _image = HandleImage(editor_recommend_image)
@@ -107,6 +114,7 @@ class CreateEditorRecommendForms(BaseRecommendationForm):
                 Show_Editor_Recommendation.objects.create(
                     recommendation = _recommendation,
                     event_id = event,
+                    section = section
                 )
 
         return _recommendation
@@ -152,6 +160,7 @@ class EditEditorRecommendForms(BaseRecommendationForm):
         editor_recommend_image = self.cleaned_data.get('editor_recommend_image')
         link = self.cleaned_data.get('link')
         position = self.clean_position()
+        section = self.cleaned_data.get('section')
         event = self.cleaned_data.get('event')
 
 
@@ -171,6 +180,7 @@ class EditEditorRecommendForms(BaseRecommendationForm):
             try:
                 show = Show_Editor_Recommendation.objects.get(recommendation = self.recommendation)
                 show.event_id = event
+                show.section = section
                 show.save()
             except Show_Editor_Recommendation.DoesNotExist, e:
                 Show_Editor_Recommendation.objects.create(

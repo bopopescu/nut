@@ -62,9 +62,10 @@ DATABASES = {
         'HOST': Current_Dbhost,
         'PORT': '3306',
         'OPTIONS': {
-            'use_unicode':'utf-8',
-            'init_command':'SET storage_engine=INNODB',
-            }
+            'use_unicode': 'utf-8',
+            'init_command': 'SET storage_engine=INNODB'
+            },
+        # 'TEST_MIRROR': 'default'
     },
     }
 
@@ -83,6 +84,8 @@ INTERVAL_OF_SELECTION = 24
 IMAGE_HOST = 'http://127.0.0.1:8000/'
 LOCAL_IMG_DEBUG=True
 INTRANET_IMAGE_SERVER = 'http://127.0.0.1:8001/'
+LOCAL_IMG_DEBUG=True
+IMAGE_HOST = 'http://127.0.0.1:8000/'
 
 # mail
 MAIL_LIST_ADDR='test_edm'

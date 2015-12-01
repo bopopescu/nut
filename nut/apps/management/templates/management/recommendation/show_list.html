@@ -31,7 +31,10 @@
                                     <th>#</th>
                                     <th>{% trans 'link' %}</th>
                                     <th>{% trans 'image' %}</th>
+                                    <th>{% trans 'Recommend Section' %}</th>
+
                                     <th>{% trans 'position' %}</th>
+
                                     <th>{% trans 'operation' %}</th>
                                 </tr>
                             </thead>
@@ -41,6 +44,7 @@
                                     <td>{{ show.pk }}</td>
                                     <td>{{ show.recommendation.link }}</td>
                                     <td><img class="img-responsive img-polaroid" src="{{ show.recommendation.image_url }}" width="150" height="150"></td>
+                                    <td>{{ show.get_section_display }}</td>
                                     <td>{{ show.position }}</td>
                                     <td><a target="_blank" class="btn btn-default" href="{% url 'management_recommend_edit' show.recommendation.pk %}">{% trans 'edit' %}</a></td>
                                 </tr>

@@ -1,4 +1,3 @@
-
 from apps.core.models import Selection_Article, Article
 from apps.notifications.models import JpushToken
 from apps.notifications import notify
@@ -96,7 +95,7 @@ class APIUser(GKUser):
         res['tag_count'] = self.tags_count
         res['fan_count'] = self.fans_count
         res['following_count'] = self.following_count
-        res['article_count'] = self.article_cout
+        res['article_count'] = self.article_count
 
         try:
             res['sina_screen_name'] = self.weibo.screen_name
