@@ -1,28 +1,73 @@
+<<<<<<< Updated upstream
+define(['jquery','libs/fastdom','subapp/loadentity','masonry','jquery_bridget','images_loaded' ],
+    function($,fastdom, LoadEntity, Masonry){
+        $.bridget('masonry', Masonry);
+        var LoadTagEntity = LoadEntity.extend({
+=======
 define(['jquery','libs/Class','libs/fastdom','masonry','jquery_bridget', 'images_loaded'],
     function($,Class,fastdom,Masonry){
         $.bridget('masonry', Masonry);
+
         var ScrollEntity = Class.extend({
+>>>>>>> Stashed changes
             init: function () {
                 this.$selection = $('#selection');
+                this.page = $('.pager');
                 this.loading_icon = $('.loading-icon');
                 this.shouldLoad = true;
                 this.loading = false;
-                this.initialize();
                 this.counter = 1;
+<<<<<<< Updated upstream
+                this.page.hide();
+                this.initialize();
+                this.setupLoadWatcher();
             },
 
             initialize:function () {
-                var $grid = this.$selection.masonry({
-                    isFitWidth:true,
-                    itemSelector: '.selection-box',
-                    animate: false,
-                    isAnimated: false,
-                    saveOptions: true,
-                    transitionDuration: 0
-                });
-                $grid.masonry('layout');
-                this.$grid = $grid;
+            var $grid = this.$selection.masonry({
+                isFitWidth:true,
+                itemSelector: '.selection-box',
+                animate: false,
+                isAnimated: false,
+                saveOptions: true,
+                transitionDuration: 0,
+                isInitLayout: true
+            });
 
+            $grid.imagesLoaded().progress( function() {
+                $grid.masonry('layout')
+            });
+            this.$grid = $grid;
+            $(window).scroll(this.onScroll.bind(this));
+        },
+
+        attachNewSelections: function(elemList, status){
+            var that = this;
+            fastdom.defer(function(){
+                that.$grid.append( elemList ).masonry('appended', elemList);
+                that.$grid.imagesLoaded().progress( function() {
+                    that.$grid.masonry();
+                });
+            });
+=======
+            },
+
+            initialize : function () {
+                var $grid = this.$selection.masonry({
+                    isFitWidth: true,
+                    resizeable: false,
+                    isAnimated: false,
+                    animate: false,
+                    saveOptions: true,
+                    percentPosition: true,
+                    isResizeBound: true,
+                    itemSelector: '.selection-box',
+                    isInitLayout: true,
+                });
+                $grid.imagesLoaded().progress( function() {
+                    $grid.masonry();
+                });
+                this.$grid = $grid;
                 $(window).scroll(this.onScroll.bind(this));
                 $(window).resize(this.onResize.bind(this));
             },
@@ -39,70 +84,29 @@ define(['jquery','libs/Class','libs/fastdom','masonry','jquery_bridget', 'images
             },
 
             onResize: function () {
+                //this.$grid.imagesLoaded().progress( function() {
+                //    this.$grid.masonry('layout');
+                //});
             },
 
             doClear : function(){
                 this.scrollTop = this.windowHeight = this.footerHeight = this.docHeight = null;
                 this.read = null;
             },
+>>>>>>> Stashed changes
 
-            doRead:function(){
-                this.scrollTop = $(window).scrollTop();
-                this.windowHeight = $(window).height();
-                this.footerHeight = $('#guoku_footer').height();
-                this.docHeight = $(document).height();
-                this.isOverScrolled =(this.windowHeight + this.scrollTop) >  (this.docHeight - this.footerHeight);
-            },
-
-            doWrite:function(){
-                var that = this;
-                if(!this.loading_icon || this.loading_icon.length <= 0){
-                    this.loading = true
+            fastdom.defer(function(){
+                that.counter++;
+                that.doClear();
+                if(status!==1) {
+                    that.loading_icon.hide();
                 }
-                this.shouldLoad = this.isOverScrolled && (!this.loading);
-                if(!this.shouldLoad){
-                    this.doClear();
-                }else{
-                    this.loading = true;
-
-                    fastdom.defer(function(){
-                        that.loading_icon.show();
-                    });
-
-                    var aQuery = window.location.href.split('?');
-                    var url = aQuery[0];
-                    var p = 1, c = 0 ;
-                    if(aQuery.length > 1){
-                        var param = aQuery[1].split('&');
-                        var param_p ;
-                        if(param.length >1){
-                            param_p = param[0].split('=');
-                            p = parseInt(param_p[1]);
-                        }
-                    }
-                    var time = this.$selection.attr('data-refresh');
-                    var data = {
-                        'p': p+this.counter,
-                        'page':p+this.counter,
-                        't':time
-                    };
-                    if(c !== 0){
-                        data['c'] = c;
-                    }
-                    // defer to get loading_icon
-                    fastdom.defer(30, function(){
-                        $.when($.ajax({
-                            url: url,
-                            method: "GET",
-                            data: data,
-                            dataType:'json'
-
-                        })).then(
-                            that.loadSuccess.bind(that),
-                            that.loadFail.bind(that)
-                        );
-                    });
-                }
+<<<<<<< Updated upstream
+                that.loading = false;
+            });
+        }
+    });
+=======
             },
 
             loadSuccess: function(res){
@@ -116,7 +120,10 @@ define(['jquery','libs/Class','libs/fastdom','masonry','jquery_bridget', 'images
             attachNewSelections: function(elemList, status){
                 var that = this;
                 fastdom.defer(function(){
-                    that.$grid.append( elemList ).masonry('appended', elemList, false);
+                    that.$grid.append( elemList ).masonry('appended', elemList);
+                    that.$grid.imagesLoaded().progress( function() {
+                        that.$grid.masonry();
+                    });
                 });
 
                 fastdom.defer(function(){
@@ -129,7 +136,8 @@ define(['jquery','libs/Class','libs/fastdom','masonry','jquery_bridget', 'images
                 });
             }
         });
+>>>>>>> Stashed changes
 
-    return ScrollEntity;
+    return LoadTagEntity;
 });
 
