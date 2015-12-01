@@ -251,7 +251,7 @@ Avatar_Image_Path = 'avatar/'
 # CELERY_TASK_SERIALIZER = 'json'
 # CELERY_RESULT_SERIALIZER = 'json'
 
-CELERY_RESULT_BACKEND = "redis://10.0.2.95:6379/0"
+CELERY_RESULT_BACKEND = "redis://10.0.2.125:6379/0"
 BROKER_TRANSPORT = "librabbitmq"
 BROKER_HOST = "10.0.2.95"
 BROKER_USER = "raspberry"
