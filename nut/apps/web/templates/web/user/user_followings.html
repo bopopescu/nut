@@ -16,65 +16,81 @@
 
 {% block title %}{{ current_user.profile.nick }} | 精英消费指南 | 果库{% endblock %}
 {% block user_content_detail %}
-        <div class="row content-wrapper" id="user-main-content">
-            <div class="content-right col-xs-12 hidden-sm hidden-md hidden-lg" id="detail_content_right" >
-                {% include "web/user/partial/user_detail_sidebar.html" %}
-            </div>
-            <div class="content-left col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                <div class="container-fluid content-panel" id="user-tag-panel">
-                        <div class="row panel-header">
-                            <div class="panel-name">关注</div>
-{#                            <div class="more-link">#}
-{#                                <a href="">#}
-{#                                查看全部#}
-{#                                <i class="fa fa-angle-right"></i>#}
-{#                                <i class="fa fa-angle-right"></i>#}
-{#                                </a>#}
-{#                            </div>#}
-                        </div>
-                        <div class="row panel-content-wrapper social-list ">
-
-                                    {% for f in current_user_followings  %}
-
-                                        <div class="social-cell col-xs-12 col-sm-12 col-md-12 col-lg-6">
-                                               <div class="thumbnail" style="padding: 10px;padding-top:20px;height: 100px;">
-                                                    <div class="media">
-                                                        <a class="pull-left" href="{% url 'web_user_index' f.followee_id %}" target="_blank">
-                                                            <img class="media-object img-circle" src="{{ f.followee.profile.avatar_url|resize:'180' }}" width="60" height="60" style="width:60px;height:60px;">
-                                                        </a>
-                                {#                    {{ reqeust.user }}#}
-                                                    {% if f.followee_id == request.user.id %}
-                                                        <a href="#" class="btn btn-cancel pull-right disabled">&nbsp; <b>{% trans 'Myself' %}</b></a>
-                                                    {% elif f.followee_id in request.user.concren %}
-                                                        <a data-status="1" data-user-id="{{ f.followee_id }}" href="javascript:;" class="follow is-fan guoku-button btn-cancel pull-right"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                                                    {% elif f.followee_id in request.user.following_list %}
-                                {#                    {% elif f.followee_id in request.user.following_list  %}#}
-                                                        <a data-status="1" data-user-id="{{ f.followee_id }}" href="javascript:;" class="follow guoku-button btn-cancel pull-right"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                                                    {% elif f.followee_id in request.user.fans_list %}
-                                                        <a data-status="0" data-user-id="{{ f.followee_id }}" href="javascript:;" class="follow guoku-button button-blue pull-right"><i class="fa fa-plus fa-lg"></i>&nbsp; {% trans 'Follow' %}</a>
-                                                    {% else %}
-                                                        <a data-status="0" data-user-id="{{ f.followee_id }}" href="javascript:;" class="follow guoku-button button-blue pull-right"><i class="fa fa-plus fa-lg"></i>&nbsp; {% trans 'Follow' %}</a>
-                                                    {% endif %}
-
-                                                    <div class="media-body" style="padding-top:5px;">
-                                                        <h4 class="media-heading user-name">{{ f.followee.profile.nickname }}</h4>
-                                                        <p class="user-social-status">
-                                                            <span>{{ f.followee.fans_count }}</span>&nbsp;{% trans 'Fans' %}
-                                                            <span>{{ f.followee.following_count }}</span>&nbsp;{% trans 'Followed' %}
-                                                        </p>
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                        </div>
-                                    {% endfor %}
-                        </div>
+    <div class="row content-wrapper" id="user-main-content">
+        <div class="content-right col-xs-12 hidden-sm hidden-md hidden-lg" id="detail_content_right" >
+            {% include "web/user/partial/user_detail_sidebar.html" %}
+        </div>
+        <div class="content-left col-xs-12 col-sm-8 col-md-8 col-lg-8">
+            <div class="container-fluid content-panel" >
+                <div class="row panel-header">
+                    <div class="panel-name">关注</div>
+                    {#                            <div class="more-link">#}
+                    {#                                <a href="">#}
+                    {#                                查看全部#}
+                    {#                                <i class="fa fa-angle-right"></i>#}
+                    {#                                <i class="fa fa-angle-right"></i>#}
+                    {#                                </a>#}
+                    {#                            </div>#}
                 </div>
-                <div class="pager-wrapper">
-                    {% include 'web/user/partial/pager.html'  %}
+                <div class="row panel-content-wrapper social-list ">
+
+                    {% for f in current_user_followings  %}
+
+                        <div class="social-cell col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="clearfix user-item" >
+                                <div class="media clearfix">
+                                    <a class="pull-left user-icon" href="{% url 'web_user_index' f.followee_id %}" target="_blank">
+                                        <img class="media-object img-circle" src="{{ f.followee.profile.avatar_url|resize:'180' }}">
+                                    </a>
+                                    {#                    {{ reqeust.user }}#}
+
+
+                                    <div class="media-body user-info-wrapper clearfix" style="padding-top:5px;">
+                                        <h4 class="media-heading user-name">
+                                            <a href="{{ f.followee.absolute_url }}">
+                                            {{ f.followee.profile.nickname }}
+                                            </a>
+                                        </h4>
+                                        <p class="user-social-status">
+                                            <span>{{ f.followee.fans_count }}</span>&nbsp;{% trans 'Fans' %}
+                                            <span>{{ f.followee.following_count }}</span>&nbsp;{% trans 'Followed' %}
+                                        </p>
+
+                                        {% if f.followee_id == request.user.id %}
+                                            <a href="#" class="btn btn-cancel disabled">&nbsp; <b>{% trans 'Myself' %}</b></a>
+                                        {% elif f.followee_id in request.user.concren %}
+                                            <a data-status="1" data-user-id="{{ f.followee_id }}" href="javascript:;" class="follow is-fan guoku-button btn-cancel "><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                                        {% elif f.followee_id in request.user.following_list %}
+                                            {#                    {% elif f.followee_id in request.user.following_list  %}#}
+                                            <a data-status="1" data-user-id="{{ f.followee_id }}" href="javascript:;" class="follow guoku-button btn-cancel "><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                                        {% elif f.followee_id in request.user.fans_list %}
+                                            <a data-status="0" data-user-id="{{ f.followee_id }}" href="javascript:;" class="follow guoku-button button-blue "><i class="fa fa-plus fa-lg"></i>&nbsp; {% trans 'Follow' %}</a>
+                                        {% else %}
+                                            <a data-status="0" data-user-id="{{ f.followee_id }}" href="javascript:;" class="follow guoku-button button-blue "><i class="fa fa-plus fa-lg"></i>&nbsp; {% trans 'Follow' %}</a>
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="entity-list clearfix">
+                                        {% for entity_like in f.followee.recent_likes.all %}
+                                            <div class="entity-item" style="background-image:url('{{  entity_like.entity.chief_image|resize:'128' }}')">
+                                              <a href="{{ entity_like.entity.absolute_url }}" target="_blank">
+                                              <img class="transparent-holder" src="{% static 'images/trans.png' %}" alt="{{ entity_like.entity.title }}"  title="{{ entity_like.entity.title }}" >
+                                              </a>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
-            <div class="content-right hidden-xs col-sm-4 col-md-4 col-lg-4" id="detail_content_right" >
-                 {% include "web/user/partial/user_detail_sidebar.html" %}
+            <div class="pager-wrapper">
+                {% include 'web/user/partial/pager.html'  %}
             </div>
         </div>
+        <div class="content-right hidden-xs col-sm-4 col-md-4 col-lg-4" id="detail_content_right" >
+            {% include "web/user/partial/user_detail_sidebar.html" %}
+        </div>
+    </div>
 {% endblock %}

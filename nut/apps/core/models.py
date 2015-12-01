@@ -158,6 +158,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.articles.filter(publish=Article.draft).count()
 
     @property
+    def absolute_url(self):
+        return reverse('web_user_index' , args=[self.pk])
+
+    @property
     def mobile_url(self):
         return 'guoku://user/' + str(self.id) + '/'
 
@@ -272,6 +276,22 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return ''
 
     @property
+    def entity_liked_categories(self):
+        _category_id_list = Entity_Like.objects.select_related('entity__category__group')\
+                            .filter(user=self, entity__status__gte=Entity.freeze)\
+                            .annotate(category_count=Count('entity__category__group'))\
+                            .values_list('entity__category__group', flat=True)
+
+        _category_list = Category.objects.filter(pk__in=_category_id_list)
+        return set(_category_list)
+
+    @property
+    def recent_likes(self):
+        rlikes = Entity_Like.objects.active_entity_likes().filter(user=self).order_by()
+        return rlikes[:3]
+
+
+    @property
     def avatar_url(self):
         if hasattr(self, 'profile'):
             return self.profile.avatar_url
@@ -280,6 +300,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def set_admin(self):
         self.is_admin = True
         self.save()
+
 
     def v3_toDict(self, visitor=None):
         key = "user:v3:%s" % self.id

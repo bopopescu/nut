@@ -518,6 +518,7 @@ body.compact-body{
     .content-panel{
       .panel;
        margin-bottom: 20px;
+
       .panel-header{
         height:30px;
         .panel-name, .more-link{
@@ -538,6 +539,26 @@ body.compact-body{
           right: 15px;
         }
         margin-bottom: 10px;
+      }
+      .panel-row{
+          .category-list-wrapper{
+             .category-list{
+                .clearfix;
+                .category-filter-item{
+                    .normal-round-tag;
+                    .border-radius(40px);
+                    padding: 0 9px;
+                    height: 32px;
+                    line-height: 32px;
+                    a{
+                      text-decoration: none;
+                    }
+                    float: left;
+                    margin-right: 5px;
+
+                }
+             }
+          }
       }
       .panel-content-wrapper{
         padding-left: 10px;
@@ -597,13 +618,42 @@ body.compact-body{
           min-height: 140px;
         }
         .social-cell{
+          .user-item{
+             border-bottom:@common-border;
+             margin-bottom:20px;
+          }
+          .user-info-wrapper{
+             padding-left:10px;
+             padding-bottom:20px;
+             margin-bottom: 0px;
+             float:left;
+          }
+          .user-icon{
+             padding-left:10px;
+             img{
+
+               width:80px;
+              height:80px;
+            }
+          }
+          .entity-list{
+              float: right;
+              .entity-item{
+                  background-size: cover;
+                  background-position: center center;
+                  float:right;
+                  width: 100px;
+                  height:100px;
+                  margin-left: 10px;
+                  border: @common-border;
+              }
+          }
           .user-name{
             font-size: @subtitle-size;
           }
           .user-social-status{
             color: @common-gray;
             font-size: @mini-size;
-            position: absolute;
             padding-top: 10px;
           }
         }
@@ -1547,6 +1597,6 @@ body{
 }
 
 .gk_test{
-  color:red;
+  color:black;
 }
 

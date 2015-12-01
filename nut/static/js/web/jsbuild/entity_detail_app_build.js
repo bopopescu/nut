@@ -1574,8 +1574,7 @@ define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
 
     var AppEntityLike = Class.extend({
         init: function(){
-
-            $('#selection, #discover_entity_list, #category-entity-list').on('click' ,'.btn-like, .like-action', this.handleLike.bind(this));
+            $('#selection, #discover_entity_list, #category-entity-list, #tag-entity-list').on('click' ,'.btn-like, .like-action', this.handleLike.bind(this));
             $('.guoku-button .like-action').on('click', this.handleLike.bind(this));
             console.log('app entity like functions');
             console.log(fastdom);
@@ -1729,7 +1728,7 @@ define(
                 var tagContainers = $(ele).find(".with-tag");
                 var ereg = /[#＃][0-9a-zA-Z\u4e00-\u9fff\u3040-\u30FF\u30A0-\u30FF]+/g;
 
-                for (var i= 0, len=tagContainers.length; i<len;i++){
+                for (var i= 0, tlen=tagContainers.length; i<tlen;i++){
                      var str = tagContainers.eq(i).html(tagContainers.eq(i).html().replace(/\<br[!>]*\>/g, "\n")).text();
                      if (str == undefined){continue;}
                      var cut = str.match(ereg);

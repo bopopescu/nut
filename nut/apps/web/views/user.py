@@ -11,7 +11,7 @@ from django.utils.translation import ugettext as _
 from apps.web.forms.user import UserSettingsForm, UserChangePasswordForm
 from apps.core.utils.http import JSONResponse, ErrorJsonResponse
 # from apps.core.utils.image import HandleImage
-from apps.core.models import Note, GKUser
+from apps.core.models import Note, GKUser , Category
 from apps.core.forms.user import AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.models import Entity, Entity_Like, \
@@ -192,74 +192,6 @@ def unfollow_action(request, user_id):
 
 
 
-# prepare to retire this view -- anchen
-def entity_like(request, user_id, template="web/user/like.html"):
-
-    _page = request.GET.get('page', 1)
-
-    # _user = get_user_model()._default_manager.get(pk=user_id, is_active__gte = 0)
-    _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
-    # log.info(_user)
-    # ids = Entity.objects.filter(status__gte=Entity.freeze)
-    entity_like_list = Entity_Like.objects.filter(user=_user, entity__status__gte=Entity.freeze)
-    entity_likes = get_paged_list(entity_like_list,_page,20)
-
-    el = list()
-    if request.user.is_authenticated():
-        el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(entity_likes.object_list.values_list('entity_id', flat=True)))
-
-    return render_to_response(
-        template,
-        {
-            'user': _user,
-            'entities':entity_likes,
-            # 'el':likes,
-            'user_entity_likes':el,
-        },
-        context_instance = RequestContext(request),
-    )
-
-
-def post_note(request, user_id, template="web/user/post_note.html"):
-
-    page = request.GET.get('page', 1)
-
-    _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
-    # _user = get_user_model()._default_manager.get(pk=user_id)
-
-    # log.info(_user.note_count)
-    # note_list = _user.note.all().values_list('entity_id', flat=True)
-    # note_list = _user.note.exclude(status=-1)
-    note_list = Note.objects.filter(user=_user, entity__status__gt=Entity.remove,).exclude(status=Note.remove).order_by("-post_time")
-    log.info(note_list)
-    paginator = ExtentPaginator(note_list, 20)
-
-    try:
-        notes = paginator.page(page)
-    except PageNotAnInteger:
-        notes = paginator.page(1)
-    except EmptyPage:
-        raise Http404
-
-    # log.info(notes.object_list)
-    # _entities = Entity.objects.filter(id__in=list(notes.object_list))
-
-    el = list()
-    if request.user.is_authenticated():
-        # _user = request.user
-        el = Entity_Like.objects.user_like_list(user=request.user, entity_list=list(notes.object_list.values_list('entity_id', flat=True)))
-
-    return render_to_response(
-        template,
-        {
-            'user':_user,
-            # 'entities': _entities,
-            'notes':notes,
-            'user_entity_likes': el,
-        },
-        context_instance = RequestContext(request),
-    )
-
 
 def tag(request, user_id, template="web/user/tag.html"):
 
@@ -307,20 +239,24 @@ def articles(request,user_id, template="web/user/user_published_articles.html"):
          context_instance = RequestContext(request),
         )
 
+class UserPageMixin(object):
+     def get_current_category(self):
+        _cid = self.kwargs.get('cid', None)
+        if _cid is None:
+            return None
+        else:
+            try:
+                _category = Category.objects.get(pk=_cid)
+                return _category
+            except Category.DoesNotExist:
+                return None
 
-
-class UserDetailBase(ListView):
-    '''
-        abstract view for user views
-    '''
-    paginate_by = 30
-    paginator_class = Jpaginator
-    context_object_name = 'articles'
-    def get_showing_user(self):
+     def get_showing_user(self):
         user_id =  self.kwargs['user_id']
         _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
         return _user
-    def get_pronoun(self):
+
+     def get_pronoun(self):
         _current_user = self.get_showing_user()
         try:
             if self.request.user == _current_user:
@@ -332,11 +268,29 @@ class UserDetailBase(ListView):
         except Exception as e:
             return _('His')
 
+     def get_user_like_categories(self):
+        _user = self.get_showing_user()
+        return _user.entity_liked_categories
+
+
+
+class UserDetailBase(UserPageMixin, ListView):
+    '''
+        abstract view for user views
+    '''
+    paginate_by = 30
+    paginator_class = Jpaginator
+    context_object_name = 'articles'
+
+
     def get_context_data(self, **kwargs):
         context_data = super(UserDetailBase, self).get_context_data(**kwargs)
         context_data['current_user'] = self.get_showing_user()
         context_data['pronoun'] = self.get_pronoun()
         return context_data
+
+
+
 
 from apps.web.forms.user import UserLikeEntityFilterForm
 class UserLikeView(UserDetailBase):
@@ -346,13 +300,26 @@ class UserLikeView(UserDetailBase):
     def get_context_data(self, **kwargs):
         context_data = super(UserLikeView, self).get_context_data(**kwargs)
         context_data['entity_filter_form'] = UserLikeEntityFilterForm(initial={'entityCategory': '0', 'entityBuyLinkStatus':'3'})
+        context_data['user_like_top_categories']= self.get_user_like_categories()
+        context_data['current_category'] =  self.get_current_category()
         return context_data
+
+
+
 
 
     def get_queryset(self):
         _user = self.get_showing_user()
-        _like_list = Entity_Like.objects.filter(user=_user, entity__status__gte=Entity.freeze)
+        _category = self.get_current_category()
+        if _category is None:
+            _like_list = Entity_Like.objects.filter(user=_user, entity__status__gte=Entity.freeze)
+        else:
+            _like_list = Entity_Like.objects.filter(user=_user, entity__status__gte=Entity.freeze)\
+                                            .filter(entity__category__group=_category)
+
         return _like_list
+
+
 
 
 class UserNoteView(UserDetailBase):
@@ -442,27 +409,12 @@ class UserFollowingsView(UserDetailBase):
         return _user.followings.all()
 
 
-class UserIndex(DetailView):
+class UserIndex(UserPageMixin, DetailView):
+
     template_name = 'web/user/user_index.html'
     model = GKUser
     pk_url_kwarg = 'user_id'
     context_object_name = 'current_user'
-    def get_showing_user(self):
-        user_id =  self.kwargs['user_id']
-        _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
-        return _user
-
-    def get_pronoun(self):
-        _current_user = self.get_showing_user()
-        if not _current_user.profile:
-            return _('His')
-
-        if self.request.user == _current_user:
-            return _('My')
-        elif _current_user.profile.gender == User_Profile.Woman:
-            return _('Hers')
-        else:
-            return _('His')
 
     def get_context_data(self,**kwargs):
         context_data = super(UserIndex, self).get_context_data(**kwargs)
@@ -483,6 +435,10 @@ class UserIndex(DetailView):
         context_data['fans'] = current_user.fans.all()[:7]
         context_data['tags']= Content_Tags.objects.user_tags_unique(current_user)[0:5]
         context_data['pronoun'] = self.get_pronoun()
+
+        context_data['user_like_top_categories']= self.get_user_like_categories()
+        context_data['current_category'] =  self.get_current_category()
+
         return context_data
 
 def user_tag_detail(request, user_id, tag_name, template="web/user/tag_detail.html"):
