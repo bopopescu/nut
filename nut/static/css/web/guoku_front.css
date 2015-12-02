@@ -472,6 +472,14 @@ ul li {
 .button-cancel i {
   color: #9d9e9f;
 }
+.button-sharp {
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
 .disabled-button {
   cursor: default;
 }
@@ -3326,6 +3334,6 @@ body .for-mobile {
   display: block;
 }
 .gk_test {
-  color: black;
+  color: red;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
