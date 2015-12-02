@@ -1,4 +1,9 @@
 
+1. add some tests for tag(It's not enough).
+ 
+==== 2015-12-02 ====
+
+
 5. FIX tag list page  paging function bug
 4. event list page is now the default event link target
 3. user likes page category filter 
