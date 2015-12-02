@@ -1047,7 +1047,7 @@ class Note(BaseModel):
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         key = "note:v3:%s" % self.id
-        print key
+        # print key
         cache.delete(key)
         return super(Note, self).save(force_insert=False, force_update=False,
                                       using=None,
