@@ -3,7 +3,7 @@
 {% load guoku %}
 {#{% load entity web_common %}#}
 
-<div class="selection-box">
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 selection-item">
     <div class="thumbnail entity-selection">
         <div class="img-box">
             <a href="{% url 'web_entity_detail' entity.entity_hash %}"
@@ -15,26 +15,29 @@
         </div>
         <div class="caption">
             {% if entity.top_note %}
-{#                <p class="note">{{ entity.top_note|truncatechars:70 }}</p>#}
-                <p class="note">{{ entity.top_note }}</p>
-            {% endif  %}
+                <p class="note">{{ entity.top_note|truncatechars:70 }}</p>
+            {% endif %}
         </div>
         <div class="info">
-            <a class="btn btn-like pull-left" href="javascript:;" data-entity="{{ entity.id }}" rel="nofollow"
-                {% if entity.id in user_entity_likes %}
-                    onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
-                    <i class="fa fa-heart"></i>
-                {% else %}
-                    onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
-                    <i class="fa fa-heart-o"></i>
-                {% endif %}
-                <div class="bubble like-count">{{ entity.like_count | format_like_num }}</div>
+            <a class="btn btn-like pull-left" href="javascript:;"
+               data-entity="{{ entity.id }}" rel="nofollow"
+                    {% if entity.id in user_entity_likes %}
+               onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);"
+                        >
+                        <i class="fa fa-heart"></i>
+                    {% else %}
+                        onclick="_hmt.push(['_trackEvent', 'entity', 'like', '
+                        {{ entity.title }}']);">
+                        <i class="fa fa-heart-o"></i>
+                    {% endif %}
+            <div class="bubble like-count">{{ entity.like_count | format_like_num }}</div>
             </a>
+
             <div class="pull-right posttime">
                 <i class="fa fa-clock-o"></i>
-                <span class="timestr">
-                    {{ entity.selection_entity.pub_time|format_time|cut:" " }}
-                </span>
+                    <span class="timestr">
+                        {{ entity.selection_entity.pub_time|format_time|cut:" " }}
+                    </span>
             </div>
         </div>
     </div>

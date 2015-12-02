@@ -22,7 +22,7 @@
 {% block content %}
     <div class="container">
         <h2 class="sr-only">精选商品，精英消费指南</h2>
-        <div id="selection" class="row selection-masonry" data-refresh="{{ refresh_datetime }}">
+        <div id="selection" class="row" data-refresh="{{ refresh_datetime }}">
             {% for selection in selections %}
                 {% include "web/main/partial/selection_item_list.html" with entity=selection.entity %}
             {% endfor %}
