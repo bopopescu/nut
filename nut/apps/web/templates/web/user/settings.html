@@ -33,11 +33,11 @@
 {#    {% elif  %}    #}
     {% endif %}
         <div class="row">
-            <div class="col-sm-3 col-xs-3 slide">
+            <div class="col-sm-3 col-xs-12 slide">
                 {% include 'web/user/partial/settings_slide.html' %}
             </div>
             {% block main %}
-            <div class="col-sm-9 col-xs-9 introduce">
+            <div class="col-sm-9 col-xs-12 introduce">
 
                     <p class="fs_24 fc_2 tab_way">编辑个人资料</p>
                     <div class="head">
@@ -48,49 +48,129 @@
 {#                {% endif %}#}
                     <form method="post" action="{% url 'web_user_settings' %}" class="form-horizontal">{% csrf_token %}
                         <div class="edit_info_area">
-                            <div class="edit_info clear">
+                            <div class="edit_info clear container-fluid">
                                 <div class="form-group" style="display: none;">
                                     <p id="default_location_value">{{ profile_form.location.value }}</p>
                                     <p id="default_city_value">{{ profile_form.city.value }}</p>
                                 </div>
-                                <ul>
-                                    <li class="fs_16 fc_2 table">
-                                        <span class="title td">{{ profile_form.nickname.label }}</span>
+                                <div class="row">
+                                    <span class="input-title">
+                                        {{ profile_form.nickname.label }}
+                                    </span>
+                                    <span class="input-element">
                                         {{ profile_form.nickname }}
-                                    </li>
-                                    <li class="error-msg" id="username_error_msg">
-                                        {{ profile_form.nickname.errors }}
-                                    </li>
-                                    <li class="fs_16 fc_2 table">
-                                        <span class="title td">{{ profile_form.email.label }}</span>
-                                        {{ profile_form.email }}
-                                    </li>
-                                    <li class="error-msg">
-                                         {{ profile_form.email.errors }}
-                                    </li>
-                                    <li class="fs_16 fc_2 intor table">
-                                        <span class="title td">{{ profile_form.bio.label }}</span>
+                                    </span>
+                                    <span class="input-info"></span>
+                                </div>
+
+                                <div class="row">
+                                    <span class="input-title">
+                                        {{ profile_form.nickname.label }}
+                                    </span>
+                                    <span class="input-element">
+                                        {{ profile_form.nickname }}
+                                    </span>
+                                    <span class="input-info">{{ profile_form.nickname.errors }}</span>
+                                </div>
+
+                                <div class="row">
+                                 <span class="input-title">
+                                        {{ profile_form.email.label }}
+                                    </span>
+                                    <span class="input-element">
+                                         {{ profile_form.email }}
+                                    </span>
+                                    <span class="input-info">
+                                        {{ profile_form.email.errors }}
+                                    </span>
+                                    <span class="email-verify">
+                                        <span class="guoku-button button-blue button-sharp mail-verify">验证邮箱</span>
+                                    </span>
+                                </div>
+
+                                <div class="row">
+                                 <span class="input-title">
+                                        {{ profile_form.bio.label }}
+                                    </span>
+                                    <span class="input-element">
                                         {{ profile_form.bio }}
-                                    </li>
-                                    <li class="error-msg" id="bio_error_msg">
+                                    </span>
+                                    <span class="input-info">
                                         {{ profile_form.bio.errors }}
-                                    </li>
+                                    </span>
+                                </div>
 
+                                <div class="row">
+                                 <span class="input-title">
+                                        {{ profile_form.bio.label }}
+                                    </span>
+                                    <span class="input-element">
+                                        {{ profile_form.bio }}
+                                    </span>
+                                    <span class="input-info">
+                                        {{ profile_form.bio.errors }}
+                                    </span>
+                                </div>
 
-                                    <li class="fs_16 fc_2 address table"><span class="title td">{{ profile_form.location.label }}</span>
-                                        <div class="select_area td">
-                                            {{ profile_form.location }}
-                                            {{ profile_form.city }}
-                                        </div>
-                                    </li>
-                                    <li class="fs_16 fc_2 table"><span class="title td">{{ profile_form.gender.label  }}</span>
-                                        {{ profile_form.gender }}
-                                    </li>
+                                <div class="row">
+                                    <span class="input-title">
+                                        {{ profile_form.location.label }}
+                                    </span>
+                                    <span class="input-element">
+                                         {{ profile_form.location }}
+                                         {{ profile_form.city }}
+                                    </span>
+                                </div>
+
+                                <div class="row">
+                                    <span class="input-title">
+                                        {{ profile_form.gender.label  }}                                    </span>
+                                    <span class="input-element">
+                                         {{ profile_form.gender }}
+                                    </span>
+                                </div>
+
+                                <ul  class="field-list">
+{#                                    <li class="fs_16 fc_2 table">#}
+{#                                        <span class="title td">{{ profile_form.nickname.label }}</span>#}
+{#                                        {{ profile_form.nickname }}#}
+{#                                    </li>#}
+{#                                    #}
+{#                                    <li class="error-msg" id="username_error_msg">#}
+{#                                        {{ profile_form.nickname.errors }}#}
+{#                                    </li>#}
+{#                                    <li class="fs_16 fc_2 table">#}
+{#                                        <span class="title td">{{ profile_form.email.label }}</span>#}
+{#                                        {{ profile_form.email }}#}
+{#                                        <span class="td verify-wrapper">#}
+{#                                            <span class="guoku-button button-blue button-sharp mail-verify">验证邮箱</span>#}
+{#                                        </span>#}
+{#                                    </li>#}
+{#                                    <li class="error-msg">#}
+{#                                         {{ profile_form.email.errors }}#}
+{#                                    </li>#}
+{#                                    <li class="fs_16 fc_2 intor table">#}
+{#                                        <span class="title td">{{ profile_form.bio.label }}</span>#}
+{#                                        {{ profile_form.bio }}#}
+{#                                    </li>#}
+{#                                    <li class="error-msg" id="bio_error_msg">#}
+{#                                        {{ profile_form.bio.errors }}#}
+{#                                    </li>#}
+
+{#                                    <li class="fs_16 fc_2 address table"><span class="title td">{{ profile_form.location.label }}</span>#}
+{#                                        <div class="select_area td">#}
+{#                                            {{ profile_form.location }}#}
+{#                                            {{ profile_form.city }}#}
+{#                                        </div>#}
+{#                                    </li>#}
+{#                                    <li class="fs_16 fc_2 table"><span class="title td">{{ profile_form.gender.label  }}</span>#}
+{#                                        {{ profile_form.gender }}#}
+{#                                    </li>#}
                                 </ul>
                             </div>
                         </div>
                         <div class="submit_info clear">
-                            <button type="submit" class="bg_c_blue fs_16 fc_4 button_loca">{% trans "update profile" %}</button>
+                            <button type="submit" class="bg_c_blue fs_16 fc_4 button_local">{% trans "update profile" %}</button>
                         </div>
                      </form>
                 </div>

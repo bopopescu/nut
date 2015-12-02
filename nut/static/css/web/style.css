@@ -1,3 +1,4 @@
+(node) util.print is deprecated. Use console.log instead.
 body,
 h1,
 h2,
@@ -504,14 +505,6 @@ a:hover {
   font-size: 16px;
   line-height: 1.5;
 }
-.edit_profile {
-  margin-top: 110px;
-}
-.change_password,
-.binding_page,
-.notice_page {
-  margin-top: 110px;
-}
 .slide a {
   color: #414243;
 }
@@ -573,37 +566,37 @@ a:hover {
 .edit_info_area {
   width: 100%;
 }
-.edit_info ul li {
+.edit_info ul.field-list li {
   height: 40px;
   line-height: 40px;
   margin-bottom: 20px;
-  width: 404px;
 }
-.edit_info ul li.intor {
-  height: 124px;
+.edit_info ul.field-list li input {
+  padding: 0 12px;
+  height: 38px;
 }
-.edit_info ul li span {
+.edit_info ul.field-list li textarea {
+  height: 123px;
+}
+.edit_info ul.field-list li input,
+.edit_info ul.field-list li textarea {
+  padding: 0 12px;
+  width: 325px;
+  border: 1px solid #E6E6E6;
+}
+.edit_info ul.field-list li span:first-child {
   width: 104px;
 }
-.edit_info ul li input {
-  height: 39px;
-  width: 100%;
-  padding: 0 12px;
-  border: 1px solid #E6E6E6;
+.edit_info ul.field-list li .intro {
+  height: 124px;
 }
-.edit_info ul li textarea {
-  height: 123px;
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #E6E6E6;
-}
-.edit_info ul li select {
+.edit_info ul.field-list li select {
   height: 40px;
   width: 140px;
   padding: 0 12px;
   border: 1px solid #E6E6E6;
 }
-.edit_info ul li select.city {
+.edit_info ul.field-list li select.city {
   margin-left: 15px;
 }
 .edit_info ul li select.notice {
@@ -620,7 +613,7 @@ a:hover {
 .submit_info button:hover {
   background: #3071a9;
 }
-.submit_info .button_loca {
+.submit_info .button_local {
   margin-left: 104px;
   position: relative;
 }
@@ -676,7 +669,7 @@ a:hover {
 .notice_page .edit_info ul li {
   width: 466px;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .edit_info ul li {
     width: 100%;
   }
@@ -734,22 +727,8 @@ a:hover {
     left: 50%;
     margin-left: -70px;
   }
-  .edit_profile .slide {
-    position: absolute;
-    top: 937px;
-    width: 200px;
-    margin-bottom: 40px;
-  }
   .binding {
     width: 100%;
-  }
-  .binding_page .slide,
-  .change_password .slide,
-  .notice_page .slide {
-    position: absolute;
-    top: 460px;
-    width: 200px;
-    margin-bottom: 40px;
   }
   .binding ul .binding_btn button {
     width: 140px;
@@ -1101,7 +1080,7 @@ a:hover {
   }
 }
 .test {
-  color: black;
+  color: red;
 }
 /*add by An End*/
 /*# sourceMappingURL=style.less.css.map */
