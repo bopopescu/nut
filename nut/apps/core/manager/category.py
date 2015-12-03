@@ -13,7 +13,7 @@ log = getLogger('django')
 class CategoryQuerySet(models.query.QuerySet):
 
     def popular(self):
-        pass
+        popular_list = get_entity_like_model().objects.popular()
 
 class CategoryManager(models.Manager):
 
@@ -88,7 +88,7 @@ class SubCategoryManager(models.Manager):
         return self.get_queryset().popular()
 
     def popular_random(self, total=11):
-        key_string = "popular_category"
+        key_string = "entity:category:popular"
         key = md5(key_string.encode('utf-8')).hexdigest()
         res = cache.get(key)
         if res:
