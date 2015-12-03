@@ -3353,7 +3353,9 @@ body .for-mobile {
   display: block;
 }
 .message-body,
-.static-body {
+.static-body,
+.download-body,
+.entity-body {
   padding-top: 0px;
 }
 .gk_test {
