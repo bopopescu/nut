@@ -99,20 +99,47 @@
         init: function(){
             var $mail_verify_button = $('.mail-verify-button');
             if($mail_verify_button[0]){
-                $mail_verify_button.on('click', this.handleMailVerify);
+                $mail_verify_button.on('click', this.handleMailVerify.bind(this));
             }
         },
         handleMailVerify: function(event){
             bootbox.dialog({
                 message: "正在发送验证邮件，请稍等......",
                 title: "邮件验证"
-
             });
-            window.setTimeout(this.doSendVerifyMail, 1000);
+            window.setTimeout(this.doSendVerifyMail.bind(this), 1000);
         },
         doSendVerifyMail: function(){
-            var url = '/u/sendmail/'
-        }
+            var url = '/u/sendverifymail/';
+            $.when(
+                $.ajax({
+                    url: url
+                })
+            ).then(
+                this.sendSuccess.bind(this),
+                this.sendFail.bind(this)
+            )
+        },
+        sendSuccess: function(data){
+             console.log('send success');
+             bootbox.hideAll();
+             window.setTimeout(this.showSuccessMessage.bind(this), 1000);
+        },
+        sendFail: function(data){
+            console.log('send fail');
+            bootbox.hideAll();
+            window.setTimeout(this.showFailMessage.bind(this), 1000);
+
+        },
+        showSuccessMessage: function(){
+            bootbox.alert('验证邮件已经发送, 点击验证链接后，请刷新本页。')
+
+        },
+        showFailMessage: function(){
+            bootbox.alert('验证邮件发送失败。')
+
+        },
+
     };
 
     (function init() {

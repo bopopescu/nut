@@ -29,21 +29,42 @@ from django.utils.log import getLogger
 
 from braces.views import AjaxResponseMixin, JSONResponseMixin
 
-
+from django.core.cache import cache
 
 log = getLogger('django')
 
 
-class SendVerifyMail(AjaxResponseMixin,JSONResponseMixin, View):
+class UserSendVerifyMail(LoginRequiredMixin,AjaxResponseMixin,JSONResponseMixin, View):
+
+
     def get_ajax(self, request, *args, **kwargs):
         _user = request.user
-        if not _user.profile.email_verified:
-            _user.send
-        mail_address = request.user.mail
-        data = {
-            'error', 0
+        _time_key = 'user_last_verify_time_%s'% _user.id
+        if not cache.get(_time_key) is None:
+            data = {
+                'error': 1,
+                'reason': 'time too close'
+            }
+            return self.render_json_response(data, 400)
 
-        }
+        try :
+            if not _user.profile.email_verified:
+                _user.send_verification_mail()
+            else:
+                pass
+
+            data = {
+                'error':0,
+                'email': request.user.email
+            }
+            return  self.render_json_response(data)
+        except Exception as e :
+
+            data = {
+                'error':1,
+                'reason': 'server error'
+            }
+            return  self.render_json_response(data, 500)
 
 
 
