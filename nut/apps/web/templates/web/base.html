@@ -118,6 +118,21 @@ window.location.href = url;</script><![endif]-->
 
 {% endblock %}
 
+
+
+{% block baidu_script %}
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?5ad5f89777e93197294d9c4c6724e915";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+{% endblock %}
+
+
 {% block ga_script %}
     <!-- Google Analytics -->
     <script>
@@ -131,18 +146,6 @@ window.location.href = url;</script><![endif]-->
     ga('send', 'pageview');
     ga('set', '&uid', '412916' )
 
-    </script>
-{% endblock %}
-
-{% block baidu_script %}
-    <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?5ad5f89777e93197294d9c4c6724e915";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
     </script>
 {% endblock %}
 
