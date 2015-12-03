@@ -115,6 +115,14 @@
 .button-cancel i {
   color: #9d9e9f;
 }
+.button-sharp {
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
 .disabled-button {
   cursor: default;
 }
@@ -567,6 +575,9 @@ p.boolean-false {
   width: 100%;
 }
 @media (max-width: 767px) {
+  #settings .edit_info .input-element {
+    max-width: 300px;
+  }
   .event-wrapper .event-item {
     padding: 5px 5px 5px 5px;
   }
@@ -769,6 +780,12 @@ p.boolean-false {
   }
 }
 @media (min-width: 768px) {
+  #settings .edit_info .input-title {
+    max-width: 80px;
+  }
+  #settings .edit_info .input-element {
+    max-width: 360px;
+  }
   #detail_content_left .detail-pic-left {
     max-width: 360px;
   }

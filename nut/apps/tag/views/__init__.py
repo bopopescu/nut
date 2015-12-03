@@ -1,11 +1,6 @@
 import urllib
 
 from datetime import datetime
-from apps.core.models import Article
-from apps.core.models import Entity_Like, Note
-from apps.core.extend.paginator import ExtentPaginator
-from apps.tag.models import Tags, Content_Tags
-from apps.counter.utils.data import RedisCounterMachine
 from django.http import Http404
 from django.db.models import Count
 from django.utils.log import getLogger
@@ -13,6 +8,12 @@ from django.views.generic import ListView
 from django.shortcuts import get_object_or_404
 from django.template import loader, RequestContext
 from braces.views import JSONResponseMixin, AjaxResponseMixin
+
+from apps.core.models import Article
+from apps.core.models import Entity_Like, Note
+from apps.core.extend.paginator import ExtentPaginator
+from apps.tag.models import Tags, Content_Tags
+from apps.counter.utils.data import RedisCounterMachine
 
 
 log = getLogger('django')
@@ -167,6 +168,3 @@ class TagArticleView(JSONResponseMixin, AjaxResponseMixin, ListView):
             log.info(e.message)
 
         return context
-
-
-__author__ = 'xiejiaxin'

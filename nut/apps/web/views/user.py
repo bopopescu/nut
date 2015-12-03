@@ -22,15 +22,50 @@ from apps.tag.models import Content_Tags, Tags
 from ..utils.viewtools import get_paged_list
 
 # from apps.notifications import notify
-from django.views.generic import ListView, DetailView, FormView
+from django.views.generic import ListView, DetailView, FormView, View
 from apps.core.views import LoginRequiredMixin
 from hashlib import md5
 from django.utils.log import getLogger
 
+from braces.views import AjaxResponseMixin, JSONResponseMixin
 
-
+from django.core.cache import cache
 
 log = getLogger('django')
+
+
+class UserSendVerifyMail(LoginRequiredMixin,AjaxResponseMixin,JSONResponseMixin, View):
+
+
+    def get_ajax(self, request, *args, **kwargs):
+        _user = request.user
+        _time_key = 'user_last_verify_time_%s'% _user.id
+        if not cache.get(_time_key) is None:
+            data = {
+                'error': 1,
+                'reason': 'time too close'
+            }
+            return self.render_json_response(data, 400)
+
+        try :
+            if not _user.profile.email_verified:
+                _user.send_verification_mail()
+            else:
+                pass
+
+            data = {
+                'error':0,
+                'email': request.user.email
+            }
+            return  self.render_json_response(data)
+        except Exception as e :
+
+            data = {
+                'error':1,
+                'reason': 'server error'
+            }
+            return  self.render_json_response(data, 500)
+
 
 
 @login_required
@@ -60,6 +95,7 @@ def settings(request, template="web/user/settings.html"):
         {
             'user':_user,
             'profile_form':_profile_form,
+            'email_verified': _user.profile.email_verified,
             # 'password_form':_password_form,
         },
         context_instance = RequestContext(request),

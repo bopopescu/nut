@@ -59,7 +59,7 @@
             for (var i = 0; i < l.length; i++) {
                 var $option = $('<option>').val(l[i])
                     .text(l[i])
-                .appendTo(location);
+                    .appendTo(location);
 
                 if (currP === l[i]) {
                     $option[0].selected = true;
@@ -67,36 +67,53 @@
                 }
             }
 
-        var cities = c[selectedP];
-
-        for (var i = 0; i < cities.length; i++) {
-            var $option = $('<option>').val(cities[i])
-                .text(cities[i])
-                .appendTo(city);
-
-            if (currC === cities[i]) {
-                $option[0].selected = true;
-            }
-        }
-
-        location.change(function () {
-            var currP = $(this).val();
-            var selectedP = l.indexOf(currP);
             var cities = c[selectedP];
-            city.html('');
 
             for (var i = 0; i < cities.length; i++) {
-                $('<option>').val(cities[i])
+                var $option = $('<option>').val(cities[i])
                     .text(cities[i])
                     .appendTo(city);
+
+                if (currC === cities[i]) {
+                    $option[0].selected = true;
+                }
             }
-        });
+
+            location.change(function () {
+                var currP = $(this).val();
+                var selectedP = l.indexOf(currP);
+                var cities = c[selectedP];
+                city.html('');
+
+                for (var i = 0; i < cities.length; i++) {
+                    $('<option>').val(cities[i])
+                        .text(cities[i])
+                        .appendTo(city);
+                }
+            });
         }
     };
 
 
+    var verifyMail = {
+        init: function(){
+            var $mail_verify_button = $('.mail-verify-button');
+            if($mail_verify_button[0]){
+                $mail_verify_button.on('click', this.handleMailVerify);
+            }
+        },
+        handleMailVerify: function(event){
+            bootbox.dialog({
+                message: "正在发送验证邮件，请稍等......",
+                title: "邮件验证"
+
+            });
+        }
+    };
+
     (function init() {
         settings.setAddress();
+        verifyMail.init();
     })();
 
 })(jQuery, document, window);

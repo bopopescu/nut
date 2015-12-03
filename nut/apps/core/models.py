@@ -206,8 +206,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         except :
             cache.set(key, self.digs.count())
 
-
-
     def incr_like(self):
         key = 'user:like:%s', self.pk
         try:
@@ -376,7 +374,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         reverse_url = reverse('register_confirm',
                               kwargs={'uidb64': uidb64,
                                       'token': token})
-        verify_link = "{0:s}{1:s}".format(settings.SITE_DOMAIN, reverse_url)
+        verify_link = "http://{0:s}{1:s}".format(settings.SITE_DOMAIN, reverse_url)
         sub_vars = {'%verify_link%': (verify_link,)}
         mail_message.template_invoke_name = template_invoke_name
         mail_message.from_name = GUOKU_NAME

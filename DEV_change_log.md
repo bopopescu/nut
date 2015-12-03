@@ -1,4 +1,14 @@
 
+
+5.修改edm收件地址列表，从测试列表改为正式列表。修改settings所以需要重启服务
+4. article page weixin share url move to m.guoku.com 
+3. user email verify functions 
+2. user setting pages css refactor  
+1. add some tests for tag(It's not enough). by judy 
+ 
+==== 2015-12-02 ====
+## merged to master 2015 - 11 -30
+
 5. FIX tag list page  paging function bug
 4. event list page is now the default event link target
 3. user likes page category filter 
