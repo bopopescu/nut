@@ -3352,6 +3352,10 @@ body .for-mobile {
 .mobile-body .for-mobile {
   display: block;
 }
+.message-body,
+.static-body {
+  padding-top: 0px;
+}
 .gk_test {
   color: #ff0000;
 }
