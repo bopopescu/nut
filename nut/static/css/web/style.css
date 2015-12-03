@@ -594,7 +594,8 @@ a:hover {
   height: 123px;
 }
 .edit_info .input-title,
-.edit_info input {
+.edit_info input,
+.edit_info .verify-info {
   text-align: left;
   height: 40px;
   line-height: 40px;

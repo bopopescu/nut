@@ -103,9 +103,10 @@
             }
         },
         handleMailVerify: function(event){
-            bootbox.dialog({
+            bootbox.alert({
+                size:'small',
                 message: "正在发送验证邮件，请稍等......",
-                title: "邮件验证"
+                className: "mail-dialog"
             });
             window.setTimeout(this.doSendVerifyMail.bind(this), 1000);
         },
@@ -132,11 +133,28 @@
 
         },
         showSuccessMessage: function(){
-            bootbox.alert('验证邮件已经发送, 点击验证链接后，请刷新本页。')
+            bootbox.alert(
+                {
+                    size:'small',
+                    message:'验证邮件已经发送, 请阅读邮件，点击邮件中的验证链接后，刷新本页。',
+                    className: 'mail-dialog',
+                    callback:function(){
+
+                        var host = location.host;
+                        var path = location.pathname;
+                        window.location = 'http://' + host + path ;
+                    }
+                }
+               );
 
         },
         showFailMessage: function(){
-            bootbox.alert('验证邮件发送失败。')
+            bootbox.alert(
+                {
+                    size:'small',
+                    message: '验证邮件发送失败，请稍后再尝试',
+                    className :'mail-dialog'
+                });
 
         },
 
