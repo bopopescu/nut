@@ -1,3 +1,7 @@
+1.修改edm收件地址列表，从测试列表改为正式列表。修改settings所以需要重启服务
+
+=== 2015-12-03 ====
+
 
 1. add some tests for tag(It's not enough).
  
