@@ -1275,6 +1275,16 @@ p.boolean-false {
 .main-article .divider {
   margin: 30px 0px;
 }
+.article-body {
+  padding-top: 0px!important;
+}
+.article-list-body {
+  padding-top: 80px!important;
+}
+.mobile-body.article-list-body,
+.mobile-body.article-body {
+  padding-top: 0px!important;
+}
 .mobile-body #main_article .writer-wrapper {
   padding-bottom: 20px;
 }
@@ -2898,7 +2908,7 @@ body.compact-body {
   margin-top: 110px;
 }
 .main-content.near-top {
-  margin-top: 90px;
+  margin-top: 0px;
 }
 .guoku-app,
 .mobile-body {
