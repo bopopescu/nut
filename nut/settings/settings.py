@@ -137,7 +137,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-SITE_DOMAIN = 'guoku.com'
+SITE_DOMAIN = 'www.guoku.com'
 # USE_TZ = True
 
 LOCALE_PATHS = (
