@@ -147,6 +147,7 @@ def register_mail_confirm(request,
         user.profile.email_verified = True
         user.profile.save()
         verified = 1
+
     return render_to_response(
         template,
         {

@@ -23,7 +23,7 @@ urlpatterns = patterns(
         },
         name='web_password_rest_complete'),
 
-    url(r'^send/verify/mail/$', 'send_verification_mail', name='send_verification_mail'),
+    # url(r'^send/verify/mail/$', 'send_verification_mail', name='send_verification_mail'),
     url(r'^user/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$', 'register_mail_confirm',
         name='register_confirm')
 )
