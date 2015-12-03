@@ -53,125 +53,83 @@
                                     <p id="default_location_value">{{ profile_form.location.value }}</p>
                                     <p id="default_city_value">{{ profile_form.city.value }}</p>
                                 </div>
+
                                 <div class="row">
-                                    <span class="input-title">
+                                    <span class="input-title col-xs-12 col-sm-3">
                                         {{ profile_form.nickname.label }}
                                     </span>
-                                    <span class="input-element">
+                                    <span class="input-element col-xs-12 col-sm-7">
                                         {{ profile_form.nickname }}
                                     </span>
-                                    <span class="input-info"></span>
+                                    <span class="input-info col-xs-12 col-sm-2">
+                                         {{ profile_form.nickname.errors }}
+                                    </span>
                                 </div>
 
                                 <div class="row">
-                                    <span class="input-title">
-                                        {{ profile_form.nickname.label }}
-                                    </span>
-                                    <span class="input-element">
-                                        {{ profile_form.nickname }}
-                                    </span>
-                                    <span class="input-info">{{ profile_form.nickname.errors }}</span>
-                                </div>
-
-                                <div class="row">
-                                 <span class="input-title">
+                                 <span class="input-title col-xs-12 col-sm-3">
                                         {{ profile_form.email.label }}
                                     </span>
-                                    <span class="input-element">
+                                    <span class="input-element col-xs-10 col-sm-7">
                                          {{ profile_form.email }}
                                     </span>
-                                    <span class="input-info">
-                                        {{ profile_form.email.errors }}
+                                    {% if not user.profile.email_verified %}
+                                    <span class=" col-xs-2 col-sm-2">
+                                        <span class="guoku-button button-blue button-sharp mail-verify-button">验证邮箱</span>
                                     </span>
-                                    <span class="email-verify">
-                                        <span class="guoku-button button-blue button-sharp mail-verify">验证邮箱</span>
-                                    </span>
+                                    {% endif %}
+
+                                        <span class="input-info col-xs-12">
+                                           {{ profile_form.email.errors }}
+                                        </span>
+
                                 </div>
 
-                                <div class="row">
-                                 <span class="input-title">
+
+                                <div class="row ">
+                                 <span class="input-title col-xs-12 col-sm-3">
                                         {{ profile_form.bio.label }}
                                     </span>
-                                    <span class="input-element">
+                                    <span class="input-element col-xs-12 col-sm-7">
                                         {{ profile_form.bio }}
                                     </span>
-                                    <span class="input-info">
+                                    <span class="input-info col-xs-12">
                                         {{ profile_form.bio.errors }}
                                     </span>
                                 </div>
 
-                                <div class="row">
-                                 <span class="input-title">
-                                        {{ profile_form.bio.label }}
-                                    </span>
-                                    <span class="input-element">
-                                        {{ profile_form.bio }}
-                                    </span>
-                                    <span class="input-info">
-                                        {{ profile_form.bio.errors }}
-                                    </span>
-                                </div>
-
-                                <div class="row">
-                                    <span class="input-title">
+                                <div class="row ">
+                                    <span class="input-title col-xs-12 col-sm-3">
                                         {{ profile_form.location.label }}
                                     </span>
-                                    <span class="input-element">
+                                    <span class="input-element col-xs-12 col-sm-7">
                                          {{ profile_form.location }}
                                          {{ profile_form.city }}
                                     </span>
                                 </div>
 
                                 <div class="row">
-                                    <span class="input-title">
-                                        {{ profile_form.gender.label  }}                                    </span>
-                                    <span class="input-element">
+                                    <span class="input-title col-xs-12 col-sm-3">
+                                        {{ profile_form.gender.label  }}
+                                    </span>
+                                    <span class="input-element col-xs-12 col-sm-7">
                                          {{ profile_form.gender }}
                                     </span>
                                 </div>
 
-                                <ul  class="field-list">
-{#                                    <li class="fs_16 fc_2 table">#}
-{#                                        <span class="title td">{{ profile_form.nickname.label }}</span>#}
-{#                                        {{ profile_form.nickname }}#}
-{#                                    </li>#}
-{#                                    #}
-{#                                    <li class="error-msg" id="username_error_msg">#}
-{#                                        {{ profile_form.nickname.errors }}#}
-{#                                    </li>#}
-{#                                    <li class="fs_16 fc_2 table">#}
-{#                                        <span class="title td">{{ profile_form.email.label }}</span>#}
-{#                                        {{ profile_form.email }}#}
-{#                                        <span class="td verify-wrapper">#}
-{#                                            <span class="guoku-button button-blue button-sharp mail-verify">验证邮箱</span>#}
-{#                                        </span>#}
-{#                                    </li>#}
-{#                                    <li class="error-msg">#}
-{#                                         {{ profile_form.email.errors }}#}
-{#                                    </li>#}
-{#                                    <li class="fs_16 fc_2 intor table">#}
-{#                                        <span class="title td">{{ profile_form.bio.label }}</span>#}
-{#                                        {{ profile_form.bio }}#}
-{#                                    </li>#}
-{#                                    <li class="error-msg" id="bio_error_msg">#}
-{#                                        {{ profile_form.bio.errors }}#}
-{#                                    </li>#}
+                                <div class="row">
+                                    <span class="input-title col-xs-12 col-sm-3">
 
-{#                                    <li class="fs_16 fc_2 address table"><span class="title td">{{ profile_form.location.label }}</span>#}
-{#                                        <div class="select_area td">#}
-{#                                            {{ profile_form.location }}#}
-{#                                            {{ profile_form.city }}#}
-{#                                        </div>#}
-{#                                    </li>#}
-{#                                    <li class="fs_16 fc_2 table"><span class="title td">{{ profile_form.gender.label  }}</span>#}
-{#                                        {{ profile_form.gender }}#}
-{#                                    </li>#}
-                                </ul>
+                                    </span>
+
+                                    <span class="input-element col-xs-12 col-sm-7">
+                                    <button type="submit" class="guoku-button button-blue button-sharp submit-button">{% trans "update profile" %}</button>
+                                    </span>
+                                </div>
+
                             </div>
                         </div>
-                        <div class="submit_info clear">
-                            <button type="submit" class="bg_c_blue fs_16 fc_4 button_local">{% trans "update profile" %}</button>
-                        </div>
+
                      </form>
                 </div>
 
@@ -186,6 +144,7 @@
     <script src="{% static 'js/web/jquery.ui.widget.js' %}"></script>
     <script src="{% static 'js/web/jquery.iframe-transport.js' %}"></script>
     <script src="{% static 'js/web/jquery.fileupload.js' %}"></script>
+    <script src="{% static 'js/bootbox.js' %}"></script>
     <script src="{% static 'js/web/account.js' %}"></script>
     <script>
 $(function () {
@@ -201,4 +160,9 @@ $(function () {
     });
 });
 </script>
+
+<script language="javascript">
+
+</script>
+
 {% endblock %}

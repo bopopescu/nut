@@ -22,15 +22,29 @@ from apps.tag.models import Content_Tags, Tags
 from ..utils.viewtools import get_paged_list
 
 # from apps.notifications import notify
-from django.views.generic import ListView, DetailView, FormView
+from django.views.generic import ListView, DetailView, FormView, View
 from apps.core.views import LoginRequiredMixin
 from hashlib import md5
 from django.utils.log import getLogger
 
+from braces.views import AjaxResponseMixin, JSONResponseMixin
 
 
 
 log = getLogger('django')
+
+
+class SendVerifyMail(AjaxResponseMixin,JSONResponseMixin, View):
+    def get_ajax(self, request, *args, **kwargs):
+        _user = request.user
+        if not _user.profile.email_verified:
+            _user.send
+        mail_address = request.user.mail
+        data = {
+            'error', 0
+
+        }
+
 
 
 @login_required
@@ -60,6 +74,7 @@ def settings(request, template="web/user/settings.html"):
         {
             'user':_user,
             'profile_form':_profile_form,
+            'email_verified': _user.profile.email_verified,
             # 'password_form':_password_form,
         },
         context_instance = RequestContext(request),
