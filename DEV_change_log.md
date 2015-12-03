@@ -6,7 +6,7 @@
 2. user setting pages css refactor  
 1. add some tests for tag(It's not enough). by judy 
  
-==== 2015-12-02 ====
+==== 2015-12-03 ====
 ## merged to master 2015 - 11 -30
 
 5. FIX tag list page  paging function bug
