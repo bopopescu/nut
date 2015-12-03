@@ -3050,6 +3050,9 @@ body.compact-body {
   height: auto;
 }
 @media (max-width: 767px) {
+  #settings .edit_info .input-element {
+    max-width: 300px;
+  }
   .event-wrapper .event-item {
     padding: 5px 5px 5px 5px;
   }
@@ -3252,6 +3255,12 @@ body.compact-body {
   }
 }
 @media (min-width: 768px) {
+  #settings .edit_info .input-title {
+    max-width: 80px;
+  }
+  #settings .edit_info .input-element {
+    max-width: 360px;
+  }
   #detail_content_left .detail-pic-left {
     max-width: 360px;
   }

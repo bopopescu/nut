@@ -566,38 +566,54 @@ a:hover {
 .edit_info_area {
   width: 100%;
 }
-.edit_info ul.field-list li {
+.edit_info .button-style {
   height: 40px;
   line-height: 40px;
-  margin-bottom: 20px;
+  text-align: center!important;
+  margin: 10px 0;
+  border: none;
 }
-.edit_info ul.field-list li input {
-  padding: 0 12px;
-  height: 38px;
+.edit_info .submit-button {
+  height: 40px;
+  line-height: 40px;
+  text-align: center!important;
+  margin: 10px 0;
+  border: none;
 }
-.edit_info ul.field-list li textarea {
-  height: 123px;
-}
-.edit_info ul.field-list li input,
-.edit_info ul.field-list li textarea {
+.edit_info input,
+.edit_info textarea {
   padding: 0 12px;
   width: 325px;
   border: 1px solid #E6E6E6;
+  line-height: 40px;
 }
-.edit_info ul.field-list li span:first-child {
-  width: 104px;
+.edit_info input {
+  heigth: 40px;
 }
-.edit_info ul.field-list li .intro {
-  height: 124px;
+.edit_info textarea {
+  height: 123px;
 }
-.edit_info ul.field-list li select {
+.edit_info .input-title,
+.edit_info input {
+  text-align: left;
   height: 40px;
-  width: 140px;
-  padding: 0 12px;
+  line-height: 40px;
+  margin: 10px 0px;
+}
+.edit_info .mail-verify-button {
+  height: 40px;
+  line-height: 40px;
+  text-align: center!important;
+  margin: 10px 0;
+}
+.edit_info select {
+  height: 40px;
+  line-height: 40px;
+  margin: 10px 0px;
   border: 1px solid #E6E6E6;
 }
-.edit_info ul.field-list li select.city {
-  margin-left: 15px;
+.edit_info .row span {
+  text-align: left;
 }
 .edit_info ul li select.notice {
   width: 300px;
@@ -670,9 +686,6 @@ a:hover {
   width: 466px;
 }
 @media screen and (max-width: 768px) {
-  .edit_info ul li {
-    width: 100%;
-  }
   .tab_way {
     text-align: center;
   }
@@ -691,38 +704,7 @@ a:hover {
     margin-left: -70px;
     top: 215px;
   }
-  .edit_info_area {
-    overflow: hidden;
-    height: 460px;
-  }
-  .edit_info ul li input {
-    margin-left: 0px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  .edit_info ul li .title {
-    width: 63px;
-  }
-  .password ul li .title {
-    width: 80px;
-  }
-  .edit_info ul li.intor textarea {
-    margin-left: 0px;
-    width: 100%;
-    outline: none;
-  }
-  .edit_info ul li select.select_area {
-    margin-left: 64px;
-    margin-top: 20px;
-  }
-  .edit_info ul li select.city {
-    margin-left: 0;
-    margin-top: 20px;
-  }
-  .edit_info ul li.address {
-    height: auto;
-  }
-  .submit_info button.button_loca {
+  .submit_info button.button_local {
     position: absolute;
     left: 50%;
     margin-left: -70px;
@@ -1080,7 +1062,7 @@ a:hover {
   }
 }
 .test {
-  color: red;
+  color: black;
 }
 /*add by An End*/
 /*# sourceMappingURL=style.less.css.map */

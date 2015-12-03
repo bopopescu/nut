@@ -153,49 +153,56 @@ a:hover{text-decoration:none;}
 .edit_info_area{width: 100%;}
 
 .edit_info {
-
-
-  ul.field-list{
-      li{
-        height: 40px;
-        line-height: 40px;
-        margin-bottom: 20px;
-
-        input{
-          padding: 0 12px;
-          height:38px;
-        }
-
-        textarea{
-          height: 123px
-        }
-
-        input,textarea{
-
-            padding: 0 12px;
-            width: 325px;
-            border: 1px solid #E6E6E6;
-        }
-        span:first-child{
-          width:104px;
-        }
-        .intro{
-           height: 124px;
-        }
-        select{
-          height: 40px;
-          width: 140px;
-          padding: 0 12px;
-          border: 1px solid #E6E6E6;
-          &.city{
-            margin-left: 15px;
-          }
-        }
-
-      }
+  .button-style{
+    height: 40px;
+    line-height: 40px;
+    text-align: center!important;
+    margin:10px 0;
+    border: none;
+  }
+  .submit-button{
+       .button-style;
 
   }
+  input, textarea{
+      padding: 0 12px;
+      width: 325px;
+      border: 1px solid #E6E6E6;
+      line-height: 40px;
+  }
+  input{
+     heigth: 40px;
+  }
+  textarea{
+     height: 123px;
+  }
 
+  .input-title, input{
+    text-align: left;
+    height: 40px;
+    line-height: 40px;
+    margin: 10px 0px;
+  }
+
+  .mail-verify-button{
+
+    height: 40px;
+    line-height: 40px;
+    text-align: center!important;
+    margin:10px 0;
+  }
+
+  select{
+    height: 40px;
+    line-height: 40px;
+    margin: 10px 0px;
+    border: 1px solid #E6E6E6;
+  }
+
+  .row span{
+     text-align: left;
+
+  }
 }
 .edit_info ul li select.notice{width: 300px;margin-left: 31px;}
 .submit_info button{width: 140px;height: 40px;text-align: center;line-height: 40px;border: none;}
@@ -215,21 +222,11 @@ a:hover{text-decoration:none;}
 .notice_page .edit_info ul li{width: 466px;}
 
 @media screen and (max-width: 768px) {
-    .edit_info ul li{width: 100%;}
     .tab_way{text-align: center;}
     .head{overflow: hidden;height: 178px;}
     .head .head_pic{position: absolute;left: 50%;margin-left: -60px;}
     .head .change_head{position: absolute;left: 50%;margin-left: -70px;top: 215px;}
-    .edit_info_area{overflow: hidden;height: 460px;}
-    .edit_info ul li input{margin-left: 0px;width: 100%;box-sizing:border-box;}
-    .edit_info ul li .title{width: 63px;}
-    .password ul li .title{width: 80px;}
-    .edit_info ul li.intor textarea{margin-left: 0px;width: 100%;outline:none}
-    .edit_info ul li select.select_area{margin-left: 64px;margin-top: 20px;}
-    .edit_info ul li select.city{margin-left: 0;margin-top: 20px;}
-    .edit_info ul li.address{height: auto;}
-    .edit_info ul li select.sex{}
-    .submit_info button.button_loca{position: absolute;left: 50%;margin-left: -70px;}
+    .submit_info button.button_local{position: absolute;left: 50%;margin-left: -70px;}
     .binding{width: 100%;}
     .binding ul .binding_btn button{width: 140px;}
     .binding ul li .icon{margin-right: 20px;width: 46px;}
@@ -497,6 +494,6 @@ a:hover{text-decoration:none;}
 
 
 .test{
-  color:red;
+  color:black;
 }
 /*add by An End*/
