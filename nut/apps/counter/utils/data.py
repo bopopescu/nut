@@ -57,7 +57,11 @@ class FeedCounterBridge(object):
         try :
             count = cls.get_store().get(key)
         except ValueError:
-            count = 1
+            try :
+                count = cls.get_feed_count_value_from_sql(id)
+            except Exception as e:
+                count = 1
+
         return count
 
     @classmethod

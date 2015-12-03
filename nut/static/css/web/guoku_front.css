@@ -472,6 +472,14 @@ ul li {
 .button-cancel i {
   color: #9d9e9f;
 }
+.button-sharp {
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
 .disabled-button {
   cursor: default;
 }
@@ -3042,6 +3050,9 @@ body.compact-body {
   height: auto;
 }
 @media (max-width: 767px) {
+  #settings .edit_info .input-element {
+    max-width: 300px;
+  }
   .event-wrapper .event-item {
     padding: 5px 5px 5px 5px;
   }
@@ -3244,6 +3255,12 @@ body.compact-body {
   }
 }
 @media (min-width: 768px) {
+  #settings .edit_info .input-title {
+    max-width: 80px;
+  }
+  #settings .edit_info .input-element {
+    max-width: 360px;
+  }
   #detail_content_left .detail-pic-left {
     max-width: 360px;
   }
@@ -3326,6 +3343,6 @@ body .for-mobile {
   display: block;
 }
 .gk_test {
-  color: black;
+  color: red;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
