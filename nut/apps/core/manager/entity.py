@@ -9,8 +9,6 @@ from django.contrib.auth import get_user_model
 from datetime import datetime, timedelta
 
 
-
-
 log = getLogger('django')
 
 
