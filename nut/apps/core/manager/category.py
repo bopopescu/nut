@@ -65,6 +65,7 @@ class CategoryManager(models.Manager):
         for gid in gids:
             r =self.get(pk = gid)
             res.append(r)
+        cache.set(key, res, timeout=86400)
         return res
 
 class SubCategoryQuerySet(models.query.QuerySet):
