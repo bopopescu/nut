@@ -56,16 +56,16 @@ class CategoryManager(models.Manager):
         return res
 
     def popular(self):
-        gids = self.get_queryset().popular()
         key = "group:popular"
-        res = cache.get(key)
-        if res:
-            return res
+        gids = cache.get(key)
+        if gids is None:
+            gids = self.get_queryset().popular()
+            cache.set(key, gids, timeout=86400)
+
         res = []
         for gid in gids:
-            r =self.get(pk = gid)
+            r = self.get(pk = gid)
             res.append(r)
-        cache.set(key, res, timeout=86400)
         return res
 
 class SubCategoryQuerySet(models.query.QuerySet):

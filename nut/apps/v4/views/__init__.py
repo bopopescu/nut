@@ -157,9 +157,10 @@ class DiscoverView(BaseJsonView):
         res['categories'] = list()
         # categories = APICategory.objects.filter(status=True)
         categories = APICategory.objects.popular()
+        log.info(categories)
         for row in categories:
             r = {
-            'category': row.v4_toDict(),
+                'category': row.v4_toDict(),
             }
             res['categories'].append(r)
         return res
