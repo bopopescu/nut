@@ -40,4 +40,13 @@ class NestingUserSerializer(serializers.ModelSerializer):
         fields = ('id','profile','email')
 
 
+
+#   the following serializer is for WebEntitySerializer only , for web 's entity detail page
+class WebUserSerializer(serializers.ModelSerializer):
+    #nickname = serializers.CharField(source='nickname')
+    class Meta:
+        model = GKUser
+        fields = ('id','email','nickname','absolute_url','avatar_url')
+
+
 __author__ = 'edison7500'
