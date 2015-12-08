@@ -1,5 +1,9 @@
+import sys
 from stage import *
 DEBUG = True
+
+DEBUG = True
+TESTING = len(sys.argv) > 0 and sys.argv[0].endswith('py.test')
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 IMAGE_HOST = 'http://imgcdn.guoku.com/'

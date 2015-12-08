@@ -198,16 +198,14 @@ class UserSignUpForm(forms.Form):
 
         _user = GKUser.objects.create_user(
             email=_email,
-            password = _confirm_password,
+            password=_confirm_password,
             is_active=GKUser.active,
         )
 
         User_Profile.objects.create(
-            user = _user,
-            nickname = _nickname,
-
+            user=_user,
+            nickname=_nickname,
         )
-        _user.send_verification_mail()
         return _user
 
     def login(self, request, user):
