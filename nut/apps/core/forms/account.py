@@ -158,9 +158,10 @@ class UserPasswordResetForm(PasswordResetForm):
                              help_text=_('please register email'),)
     email.validators.append(validate_user_status)
 
-    captcha = CaptchaField(label=_("Please Input Captcha"))
     if hasattr(settings, 'TESTING') and settings.TESTING:
         captcha = CaptchaField(label=_("Please Input Captcha"), required=False)
+    else:
+        captcha = CaptchaField(label=_("Please Input Captcha"))
 
     def __init__(self, *args, **kwargs):
         super(UserPasswordResetForm, self).__init__(*args, **kwargs)

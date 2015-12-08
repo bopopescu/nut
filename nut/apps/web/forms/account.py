@@ -1,20 +1,15 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
-# from django.contrib.auth import
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth import login as auth_login
 from django.core.urlresolvers import reverse
-from django.core.files.storage import default_storage
-from django.core.files.base import ContentFile
+from django.utils.log import getLogger
+from django.conf import settings
 
 from apps.core.models import GKUser, User_Profile
 from apps.core.utils.image import HandleImage
-
 from apps.web.fields import Wizard_CaptchaField
 from apps.web.utils.formtools import clean_user_text
-
-from django.utils.log import getLogger
-from django.conf import settings
 
 log = getLogger('django')
 avatar_path = getattr(settings, 'Avatar_Image_Path', 'avatar/')
@@ -140,13 +135,14 @@ class UserSignUpForm(forms.Form):
     )
 
     # we have captcha field now !
-    captcha = Wizard_CaptchaField()
-
+    if hasattr(settings, 'TESTING') and settings.TESTING:
+        captcha = Wizard_CaptchaField(required=False)
+    else:
+        captcha = Wizard_CaptchaField()
     agree_tos = forms.BooleanField(widget=forms.CheckboxInput(attrs={'checked' : 'checked'}), initial=True)
 
     def __init__(self, *args, **kwargs):
         super(UserSignUpForm, self).__init__(*args, **kwargs)
-
 
     def clean_nickname(self):
         _nickname = self.cleaned_data.get('nickname')
