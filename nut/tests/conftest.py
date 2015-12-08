@@ -24,15 +24,32 @@ def gk_user(db):
     return user
 
 
+@pytest.fixture
+def gk_user_removed(db):
+    """ Create a gk user for test.
+    Args:
+        db: test database.
+    """
+    user = GKUser.objects.create_user(email='guoku_robot_removed@robot.com',
+                                      password='top_secret',
+                                      is_active=GKUser.remove)
+    assert user.is_active == GKUser.remove
+
+    gk_profile = User_Profile(user=user,
+                              nickname='guoku_test_robot_removed')
+    gk_profile.save()
+    return user
+
+
 class GuokuClient(Client):
 
-    def login(self, email, password):
+    def gk_login(self, email, password):
         login_url = reverse("web_login")
         response = self.post(login_url, data={'email': email,
                                               'password': password})
         return response
 
-    def logout(self):
+    def gk_logout(self):
         logout_url = reverse("web_logout")
         response = self.get(logout_url)
         return response

@@ -16,6 +16,8 @@ from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from django.contrib.auth import authenticate, get_user_model
 
 from captcha.fields import CaptchaField
+
+from apps.core.tasks.edm import send_forget_password_mail
 from settings import GUOKU_MAIL, GUOKU_NAME
 
 
@@ -144,7 +146,7 @@ def validate_user_status(email):
     if not user:
         raise ValidationError(_('This email has not been registered on Guoku.'))
     user = user[0]
-    if user.is_blocked:
+    if user.is_removed:
         raise ValidationError(_('Your account has been deleted, '
                                 'please contact %s.' % settings.GUOKU_MAIL))
 
@@ -157,7 +159,9 @@ class UserPasswordResetForm(PasswordResetForm):
                              help_text=_('please register email'),)
     email.validators.append(validate_user_status)
 
-    captcha = CaptchaField(label=_("Please Input Captcha"), )
+    captcha = CaptchaField(label=_("Please Input Captcha"))
+    if hasattr(settings, 'TESTING') and settings.TESTING:
+        captcha = CaptchaField(label=_("Please Input Captcha"), required=False)
 
     def __init__(self, *args, **kwargs):
         super(UserPasswordResetForm, self).__init__(*args, **kwargs)
@@ -181,7 +185,7 @@ class UserPasswordResetForm(PasswordResetForm):
         user_model = get_user_model()
         email = self.cleaned_data["email"]
         active_users = user_model._default_manager.filter(
-            email__iexact=email, is_active=True)
+            email__iexact=email, is_active__gte=GKUser.blocked)
         for user in active_users:
             if not user.has_usable_password():
                 continue
@@ -190,20 +194,11 @@ class UserPasswordResetForm(PasswordResetForm):
                 domain = current_site.domain
             else:
                 domain = domain_override
-            uid = urlsafe_base64_encode(force_bytes(user.pk))
-            user = user
-            token = token_generator.make_token(user)
-            mail_message = EmailMessage(to=(email,),
-                                        from_email=GUOKU_MAIL,)
-            reverse_url = reverse('web_password_reset_confirm',
-                                  kwargs={'uidb64': uid, 'token': token})
-            reset_link = "{0:s}{1:s}".format(domain, reverse_url)
-            sub_vars = {'%name%': (user.nickname,),
-                        '%reset_link%': (reset_link,)}
-            mail_message.template_invoke_name = template_invoke_name
-            mail_message.sub_vars = sub_vars
-            mail_message.from_name = GUOKU_NAME
-            mail_message.send()
+
+            if hasattr(settings, 'TESTING') and not settings.TESTING:
+                send_forget_password_mail(gk_user=user, domain=domain,
+                                          template_invoke_name=template_invoke_name,
+                                          token_generator=token_generator)
 
 
 class UserSetPasswordForm(SetPasswordForm):
