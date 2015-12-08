@@ -4,7 +4,6 @@ from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.models import get_current_site
 from django.core.exceptions import ValidationError
-from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
 from django.template.defaulttags import url
 from django.utils.encoding import force_bytes
@@ -195,10 +194,9 @@ class UserPasswordResetForm(PasswordResetForm):
             else:
                 domain = domain_override
 
-            if hasattr(settings, 'TESTING') and not settings.TESTING:
-                send_forget_password_mail(gk_user=user, domain=domain,
-                                          template_invoke_name=template_invoke_name,
-                                          token_generator=token_generator)
+            send_forget_password_mail(gk_user=user, domain=domain,
+                                      template_invoke_name=template_invoke_name,
+                                      token_generator=token_generator)
 
 
 class UserSetPasswordForm(SetPasswordForm):

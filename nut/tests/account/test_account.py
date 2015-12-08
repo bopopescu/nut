@@ -4,8 +4,7 @@
 from bs4 import BeautifulSoup
 from django.core.urlresolvers import reverse
 from django.core import mail
-
-from apps.core.models import email_change_signal
+from apps.core.models import GKUser, User_Profile
 from apps.core.tasks import send_activation_mail
 from apps.core.tasks import send_forget_password_mail
 from settings import GUOKU_MAIL
@@ -60,29 +59,71 @@ def test_recovery_password_view(client, gk_user, gk_user_removed):
     assert response.status_code == 302
 
 
-def test_send_recover_password_mail(client, gk_user):
+def test_send_recover_password_mail(gk_user):
     send_forget_password_mail(gk_user)
     assert len(mail.outbox) > 0
     assert mail.outbox[0].to[0] == gk_user.email
     assert mail.outbox[0].from_email == GUOKU_MAIL
 
 
-def test_send_activation_mail(client, gk_user):
+def test_send_activation_mail(gk_user):
     send_activation_mail(gk_user)
     assert len(mail.outbox) > 0
     assert mail.outbox[0].to[0] == gk_user.email
     assert mail.outbox[0].from_email == GUOKU_MAIL
 
 
-def test_email_change_signal(client):
-    # create a new user profile
-    #
-    # when session.commit:
-    #     assert mail.outbox[0]
-    #
-    # change;
-    # check outbox;
-    pass
+def test_email_change_signal(db, sd_address_lists, patch_send_cloud_address_list):
+    """ Test email_change_signal of User_Profile:
+        When a user registers, should send an activation email;
+        When a user updates nickname, updates name in a address list;
+        When a user updates email address, deletes this email in a address list,
+        Then send an activation email.
+    """
+    new_guy = GKUser.objects.create_user(email='guoku_robot_new_guy@robot.com',
+                                         password='top_secret')
+    gk_profile = User_Profile(user=new_guy,
+                              nickname='guoku_test_robot_new_guy')
+
+    gk_profile.save()
+    assert len(mail.outbox) == 1
+    assert mail.outbox[0].to[0] == new_guy.email
+    assert mail.outbox[0].from_email == GUOKU_MAIL
+
+    patch_send_cloud_address_list.get.return_value = send_cloud_get_member_success_result
+    gk_profile.nickname = 'guoku_test_robot_new_guy_has_new_name'
+    gk_profile.save()
+    assert patch_send_cloud_address_list.get.called
+    assert patch_send_cloud_address_list.add_member.called
+
+    patch_send_cloud_address_list.reset_mock()
+    patch_send_cloud_address_list.get.return_value = None
+    gk_profile.nickname = 'guoku_test_robot_new_guy'
+    gk_profile.save()
+    assert patch_send_cloud_address_list.get.called
+    assert patch_send_cloud_address_list.add_member.called is False
+
+    patch_send_cloud_address_list.reset_mock()
+    patch_send_cloud_address_list.get.return_value = None
+    gk_profile.user.email = 'guoku_robot_new_guy_has_new_email@robot.com'
+    gk_profile.user.save()
+    assert patch_send_cloud_address_list.get.called
+    assert patch_send_cloud_address_list.delete_member.called is False
+    assert len(mail.outbox) == 2
+    assert mail.outbox[1].to[0] == new_guy.email
+    assert mail.outbox[1].from_email == GUOKU_MAIL
+
+    patch_send_cloud_address_list.reset_mock()
+    patch_send_cloud_address_list.get.return_value = send_cloud_get_member_success_result
+    gk_profile.user.email = 'guoku_robot_new_guy@robot.com'
+    gk_profile.user.save()
+    assert patch_send_cloud_address_list.get.called
+    assert patch_send_cloud_address_list.delete_member.called
+    assert len(mail.outbox) == 3
+    assert mail.outbox[2].to[0] == new_guy.email
+    assert mail.outbox[2].from_email == GUOKU_MAIL
+
+    assert gk_profile.email_verified == False
 
 
 def test_change_password(guoku_client):
@@ -98,3 +139,22 @@ def test_logout(guoku_client):
     user_setting_url = reverse('web_user_settings')
     response = guoku_client.get(user_setting_url)
     assert response.status_code == 302
+
+
+send_cloud_get_member_success_result = {
+  "statusCode": 200,
+  "message": u"请求成功",
+  "result": 'true',
+  "info": {
+    "dataList": [
+      {
+        "gmtCreated": "2015-04-30 11:15:43",
+        "gmtUpdated": "2015-04-30 11:15:43",
+        "address": "fake_info",
+        "member": "fake@fake.com",
+        "vars": ""
+      }
+    ],
+    "count": 1
+  }
+}

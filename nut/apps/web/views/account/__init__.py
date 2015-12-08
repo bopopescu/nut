@@ -10,6 +10,7 @@ from django.utils.http import urlsafe_base64_decode
 
 from apps.core.forms.account import UserPasswordResetForm
 from apps.core.models import GKUser
+from apps.core.tasks import send_activation_mail, add_user_to_list
 from apps.core.utils.commons import verification_token_generator
 from apps.web.forms.account import UserSignInForm, UserSignUpForm
 from celery import group
@@ -125,7 +126,7 @@ def send_verification_mail(request,
                      template="web/account/send_mail.html"):
     try:
         user = request.user
-        user.send_verification_mail()
+        send_activation_mail(user)
         return render_to_response(
             template,
             {
@@ -147,6 +148,7 @@ def register_mail_confirm(request,
         user.profile.email_verified = True
         user.profile.save()
         verified = 1
+        add_user_to_list(user)
 
     return render_to_response(
         template,

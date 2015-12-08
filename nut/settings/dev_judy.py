@@ -1,8 +1,11 @@
+import sys
 from stage import *
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 DEBUG = True
+TESTING = len(sys.argv) > 0 and sys.argv[0].endswith('py.test')
+CELERY_ALWAYS_EAGER = True
 
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
