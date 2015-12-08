@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import pytest
+from mock import Mock
 from django.core.urlresolvers import reverse
 from django.test.client import Client
-
+from apps.core.models import SD_Address_List
 from apps.core.models import GKUser, User_Profile
 
 
@@ -14,7 +15,7 @@ def gk_user(db):
     Args:
         db: test database.
     """
-    user = GKUser.objects.create_user(email='guoku_robot@robot.com',
+    user = GKUser.objects.create_user(email='guoku_robot@guoku-robot.com',
                                       password='top_secret')
     assert user.is_active == GKUser.active
 
@@ -30,7 +31,7 @@ def gk_user_removed(db):
     Args:
         db: test database.
     """
-    user = GKUser.objects.create_user(email='guoku_robot_removed@robot.com',
+    user = GKUser.objects.create_user(email='guoku_robot_removed@guoku-robot.com',
                                       password='top_secret',
                                       is_active=GKUser.remove)
     assert user.is_active == GKUser.remove
@@ -58,3 +59,25 @@ class GuokuClient(Client):
 @pytest.fixture
 def guoku_client(db):
     return GuokuClient()
+
+
+@pytest.fixture
+def patch_send_cloud_address_list(monkeypatch):
+    sd_address_list = Mock()
+    monkeypatch.setattr('sendcloud.address_list.SendCloudAddressList',
+                        sd_address_list)
+    return sd_address_list.return_value
+
+
+@pytest.fixture
+def sd_address_lists(db):
+    for i in xrange(5):
+        sd_name = 'test_%d' % i
+        sd_list = SD_Address_List(
+            address='%s@sd_test.com' % sd_name,
+            name=sd_name,
+            description=sd_name,
+            members_count=i * 20000
+        )
+        sd_list.save()
+    return SD_Address_List.objects

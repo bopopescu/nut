@@ -57,11 +57,13 @@ def update_user_name_from_list(gk_user):
 
 @task(base=BaseTask, name='add_user_to_list')
 def _add_user_to_list(gk_user):
-    addr_list = _get_available_list()
+    addr_list = get_available_list()
     sd_list = address_list.SendCloudAddressList(
         mail_list_addr=addr_list.address,
         member_addr=gk_user.email)
     sd_list.add_member(name=gk_user.nickname, upsert='true')
+    addr_list.members_count += 1
+    addr_list.save()
 
 
 @task(base=BaseTask, name='send_verification_mail')
@@ -104,10 +106,12 @@ def _send_forget_password_mail(gk_user, domain=None, token_generator=None,
     mail_message.send()
 
 
-def _get_available_list():
+def get_available_list():
     largest_list = SD_Address_List.objects.filter(members_count__lt=100000) \
-        .order_by('-members_count')[0]
-    if not largest_list:
+        .order_by('members_count')
+    if largest_list:
+        largest_list = largest_list[0]
+    else:
         return _create_list()
     return largest_list
 

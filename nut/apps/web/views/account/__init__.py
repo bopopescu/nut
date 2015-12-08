@@ -1,4 +1,3 @@
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
@@ -10,7 +9,7 @@ from django.utils.http import urlsafe_base64_decode
 
 from apps.core.forms.account import UserPasswordResetForm
 from apps.core.models import GKUser
-from apps.core.tasks import send_activation_mail, add_user_to_list
+from apps.core.tasks import add_user_to_list
 from apps.core.utils.commons import verification_token_generator
 from apps.web.forms.account import UserSignInForm, UserSignUpForm
 from celery import group
@@ -115,27 +114,9 @@ def send_mail_finished(request,
     return render_to_response(
         template,
         {
-
         },
         context_instance=RequestContext(request),
     )
-
-
-@login_required
-def send_verification_mail(request,
-                     template="web/account/send_mail.html"):
-    try:
-        user = request.user
-        send_activation_mail(user)
-        return render_to_response(
-            template,
-            {
-                'verified': 2
-            },
-            context_instance=RequestContext(request),
-        )
-    except:
-        raise 500
 
 
 def register_mail_confirm(request,
