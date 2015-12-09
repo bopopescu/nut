@@ -5,7 +5,7 @@ from apps.v4.views.marketing import LaunchBoardView
 
 urlpatterns = patterns(
     'apps.v4.views',
-    url(r'^launch/$', LaunchBoardView.as_view(), name="v4_launch"),
+    url(r'^launchboard/$', LaunchBoardView.as_view(), name="v4_launch"),
     url(r'^homepage/$', 'homepage', name='v4_homepage'),
     url(r'^home/$', HomeView.as_view(), name='v4_home'),
     url(r'^selection/$', 'selection', name='v4_selection'),
