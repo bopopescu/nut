@@ -104,6 +104,7 @@ class LaunchBoard(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=1024)
     device = models.IntegerField(choices=DEVICE_TYPE, default=all)
+    version = models.CharField(max_length=10)
     status = models.BooleanField(default=False)
     action_title = models.CharField(max_length=255)
     action = models.CharField(max_length=255)
