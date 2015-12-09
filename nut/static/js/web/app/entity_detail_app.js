@@ -9,6 +9,7 @@ require([
         'subapp/entityreport',
         'subapp/note/usernote',
         'subapp/detailimage',
+        'subapp/entity/liker',
         'libs/csrf'
 
     ],
@@ -21,7 +22,9 @@ require([
               EntityLike,
               EntityReport,
               UserNote,
-              EntityImageHandler
+              EntityImageHandler,
+              LikerAppController,
+
 
     ){
         var page = new Page();
@@ -32,5 +35,6 @@ require([
         var entityReport = new EntityReport();
         var userNote = new UserNote();
         var imgHandler = new EntityImageHandler();
+        var likerApp = new LikerAppController();
         console.log("entity detail init");
 });
