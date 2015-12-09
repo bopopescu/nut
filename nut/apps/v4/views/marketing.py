@@ -20,6 +20,7 @@ class LaunchBoardView(BaseJsonView):
             res['launch_id'] = launch.pk
             res['title'] = launch.title
             res['description'] = launch.description
+            res['version'] = launch.version
             res['action_title'] = launch.action_title
             res['action'] = launch.action
             res['launch_image_url'] = launch.launch_image_url
