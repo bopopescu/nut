@@ -9,7 +9,7 @@ import gc
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR + '../')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
-# os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_judy'
+#os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_judy'
 
 from apps.core.models import GKUser
 
@@ -40,7 +40,7 @@ user_step = 100000
 
 out_file = open('/Users/judy/Desktop/address_lists/test_%d.txt' % file_count, 'w')
 # all_gkusers = GKUser.objects
-all_gkusers = GKUser.objects.filter(is_active__gt=GKUser.remove)
+all_gkusers = GKUser.objects.filter(is_active__gt=GKUser.remove, profile__email_verified=True)
 for user in queryset_iterator(all_gkusers):
     if user_count == user_step or (user_count > user_step and user_count % user_step == 0):
         out_file.close()

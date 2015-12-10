@@ -8,7 +8,7 @@ from apps.core.models import EDM, Article, Selection_Article
 
 
 @pytest.fixture
-def fixtrue_selection_articles(db, gk_user):
+def fixture_selection_articles(db, gk_user):
     for i in xrange(20):
         article = Article(
             creator=gk_user,
@@ -31,18 +31,18 @@ def fixtrue_selection_articles(db, gk_user):
 @pytest.fixture
 def fixture_send_cloud_template(monkeypatch):
     sd_template = Mock()
-    monkeypatch.setattr('sendcloud.address_list.SendCloudTemplate',
+    monkeypatch.setattr('sendcloud.template.SendCloudTemplate',
                         sd_template)
     return sd_template.return_value
 
 
 @pytest.fixture
-def edm_robot(db, fixtrue_selection_articles):
+def edm_robot(db, fixture_selection_articles):
     edm = EDM(
         cover_image='imageurl.jpg',
         cover_hype_link='www.guoku.com',
         cover_description='I am a robot.',
-        selection_articles=fixtrue_selection_articles.all()[:5]
     )
     edm.save()
+    edm.selection_articles.add(*fixture_selection_articles.all()[:5])
     return edm

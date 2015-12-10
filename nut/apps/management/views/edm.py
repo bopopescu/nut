@@ -13,7 +13,7 @@ from django.views.generic import ListView, CreateView, UpdateView
 from apps.core.models import EDM, Entity_Like, Entity, SD_Address_List
 from apps.management.decorators import staff_only
 from apps.management.forms.edm import EDMDetailForm
-from sendcloud.template import SendCloudTemplate
+from sendcloud import template as sd_template
 
 
 log = getLogger('django')
@@ -77,6 +77,7 @@ def preview_edm(request, edm_id, template='management/edm/preview.html'):
 @login_required
 @staff_only
 def send_edm(request, edm_id):
+    import pdb; pdb.set_trace()
     response_data = {'result': 'succeed', 'message': ''}
     edm = get_object_or_404(EDM, pk=edm_id)
     if edm.status != edm.sd_verify_succeed:
@@ -88,7 +89,7 @@ def send_edm(request, edm_id):
         for address in all_addr_list:
             to = address.address
             invoke_name = edm.sd_template_invoke_name
-            sd_tm = SendCloudTemplate(invoke_name=invoke_name,
+            sd_tm = sd_template.SendCloudTemplate(invoke_name=invoke_name,
                                       edm_user=settings.MAIL_EDM_USER)
             result = sd_tm.send_to_list(edm.title,
                                         settings.GUOKU_MAIL,
@@ -146,7 +147,7 @@ def approval_edm(request, edm_id):
             edm.sd_template_invoke_name = invoke_name
             edm.save()
 
-        sd_tm = SendCloudTemplate(invoke_name=invoke_name,
+        sd_tm = sd_template.SendCloudTemplate(invoke_name=invoke_name,
                                   edm_user=settings.MAIL_EDM_USER)
         t = loader.get_template('management/edm/preview.html')
         popular_list = Entity_Like.objects.popular_random('monthly', 9)
@@ -182,8 +183,9 @@ def sync_verify_status(request, edm_id):
         response_data['result'] = 'failed'
         response_data['message'] = "This edm can't sync status."
     else:
-        sd_tm = SendCloudTemplate(invoke_name=edm.sd_template_invoke_name,
-                                  edm_user=settings.MAIL_EDM_USER)
+        sd_tm = sd_template.SendCloudTemplate(
+            invoke_name=edm.sd_template_invoke_name,
+            edm_user=settings.MAIL_EDM_USER)
         status = sd_tm.get_status()
         if status == 1:
             edm.status = edm.sd_verify_succeed
