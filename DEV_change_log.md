@@ -1,26 +1,30 @@
-nee run SQL:
+Things to do before deployment:
 
-    CREATE TABLE `core_sd_address_list` (
+  * update django-sendcloud: 
+
+        sudo pip install git+git://github.com/guoku/django-sendcloud@master
+          
+        
+  * update db: 
+
+        CREATE TABLE `core_sd_address_list` (
         `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
         `address` varchar(45) NOT NULL,
         `name` varchar(45) NOT NULL,
         `description` varchar(45) NOT NULL,
         `created` datetime NOT NULL,
         `members_count` integer NOT NULL
-    );
+        );
 
-    INSERT INTO `core`.`core_sd_address_list` (`address`, `name`, `description`, `members_count`) VALUES ('all_gkusers@maillist.sendcloud.org', 'all_gkusers', 'all_gkusers', '209');
-    
-    INSERT INTO `core`.`core_sd_address_list` (`address`, `name`, `description`, `members_count`) VALUES ('all_gkusers_1@maillist.sendcloud.org', 'all_gkusers_1', 'all_gkusers_1', '99671');
-    
-    INSERT INTO `core`.`core_sd_address_list` (`address`, `name`, `description`, `members_count`) VALUES ('all_gkusers_2@maillist.sendcloud.org', 'all_gkusers_2', 'all_gkusers_2', '99400');
-    
-    INSERT INTO `core`.`core_sd_address_list` (`address`, `name`, `description`, `members_count`) VALUES ('all_gkusers_3@maillist.sendcloud.org', 'all_gkusers_3', 'all_gkusers_3', '99579');
-    
-    INSERT INTO `core`.`core_sd_address_list` (`address`, `name`, `description`, `members_count`) VALUES ('all_gkusers_4@maillist.sendcloud.org', 'all_gkusers_4', 'all_gkusers_4', '65098');
+        INSERT INTO `core`.`core_sd_address_list` (`address`, `name`, `description`, `members_count`) VALUES ('gk_users_1@maillist.sendcloud.org', 'gk_users_1', 'gk_users_1', '11017');
 
+---
 
-==== 2015-12-04 ====
+1. 用户注册、激活、需改信息..时，对SendCloud的操作改为使用celery;
+2. 动态获取和创建SendCloud地址列表;
+3. 开始着手写test，写了一些关于account和edm的。
+
+==== 2015-12-10 ====
 
 
 5.修改edm收件地址列表，从测试列表改为正式列表。修改settings所以需要重启服务
