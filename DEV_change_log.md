@@ -1,6 +1,7 @@
-
-2.  
-1.  Action , run sql 
+4.  minor bug fix 
+3.  user liker app in entity detail page (not finished) 
+2.  add analysis.guoku.com's tracking code 
+1.  Action , run sql ,
 
 
 ### ACTION
