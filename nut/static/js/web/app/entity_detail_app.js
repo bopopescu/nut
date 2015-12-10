@@ -42,13 +42,13 @@ require([
         var imgHandler = new EntityImageHandler();
 
         /// begin entity liker app
-        if (_.isUndefined(current_entity_id)){
-            throw new Error('can not find current entity id ');
-            return ;
-        }
-        var entity = new EntityModel();
-            entity.set('id', current_entity_id);
-
-        var likerApp = new LikerAppController(entity);
+        //if (_.isUndefined(current_entity_id)){
+        //    throw new Error('can not find current entity id ');
+        //    return ;
+        //}
+        //var entity = new EntityModel();
+        //    entity.set('id', current_entity_id);
+        //
+        //var likerApp = new LikerAppController(entity);
         console.log("entity detail init");
 });
