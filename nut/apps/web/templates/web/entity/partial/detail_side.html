@@ -39,11 +39,15 @@
     </ul>
 {% endif %}
 {#entity like user list --- start#}
+{% if is_entity_detail %}
+<ul class="section-list entity-liker-sidebar-wrapper">
+    <li class="section">
+        <ul class="user-like-list">
 
-<ul class="section-list user-like-list">
-
+        </ul>
+    </li>
 </ul>
-
+{% endif %}
 {#entity like user list -- end#}
 
 <ul class="section-list">
