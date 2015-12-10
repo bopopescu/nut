@@ -118,7 +118,7 @@ def get_available_list():
 
 def _create_list():
     last_id = SD_Address_List.objects.order_by('-pk')[0].pk
-    new_name = 'all_gkusers_%d' % (last_id + 1)
+    new_name = 'gk_users_%d' % (last_id + 1)
     new_list = SD_Address_List(address='%s@maillist.sendcloud.org' % new_name,
                                name=new_name,
                                description=new_name)

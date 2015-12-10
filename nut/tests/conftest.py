@@ -10,6 +10,23 @@ from apps.core.models import GKUser, User_Profile
 
 
 @pytest.fixture
+def gk_admin_user(db):
+    """ Create a gk user for test.
+    Args:
+        db: test database.
+    """
+    user = GKUser.objects.create_user(email='guoku_admin_robot@guoku-robot.com',
+                                      password='top_secret',
+                                      is_admin=True)
+    assert user.is_active == GKUser.active
+
+    gk_profile = User_Profile(user=user,
+                              nickname='guoku_admin_robot')
+    gk_profile.save()
+    return user
+
+
+@pytest.fixture
 def gk_user(db):
     """ Create a gk user for test.
     Args:

@@ -1,15 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 import json
+
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext, loader, Context
 from django.utils.log import getLogger
-from django.views.decorators.csrf import csrf_exempt
 from django.core.urlresolvers import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, UpdateView
+
 from apps.core.models import EDM, Entity_Like, Entity, SD_Address_List
 from apps.management.decorators import staff_only
 from apps.management.forms.edm import EDMDetailForm
@@ -77,7 +80,6 @@ def preview_edm(request, edm_id, template='management/edm/preview.html'):
 @login_required
 @staff_only
 def send_edm(request, edm_id):
-    import pdb; pdb.set_trace()
     response_data = {'result': 'succeed', 'message': ''}
     edm = get_object_or_404(EDM, pk=edm_id)
     if edm.status != edm.sd_verify_succeed:
