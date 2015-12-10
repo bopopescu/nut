@@ -4,7 +4,8 @@ define(['Backbone', 'libs/Class'],function(Backbone, Class){
         urlRoot: '/api/webentity/',
         getLikeUserCollection : function(){
             try {
-                return this.get('limited_likers.results');
+                var liker_list =  this.get('limited_likers')['results'];
+                return new Backbone.Collection(liker_list);
             }
             catch(e){
                 return [];

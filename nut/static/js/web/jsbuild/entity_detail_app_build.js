@@ -2304,7 +2304,8 @@ define('models/Entity',['Backbone', 'libs/Class'],function(Backbone, Class){
         urlRoot: '/api/webentity/',
         getLikeUserCollection : function(){
             try {
-                return this.get('limited_likers.results');
+                var liker_list =  this.get('limited_likers')['results'];
+                return new Backbone.Collection(liker_list);
             }
             catch(e){
                 return [];
@@ -2321,7 +2322,7 @@ define('models/Entity',['Backbone', 'libs/Class'],function(Backbone, Class){
 
 
 });
-define('views/base/ListView',['Backbone','libs/underscore'],
+define('views/base/ListView',['Backbone','underscore'],
     function(
         Backbone,
         _
@@ -2338,12 +2339,11 @@ define('views/base/ListView',['Backbone','libs/underscore'],
             if (_.isNull(collection)){
                 throw Error('can not find collection for render');
             }
-            _.each(collection, this.renderItem.bind(this));
-
+            collection.each(this.renderItem.bind(this));
         },
         renderItem: function(model){
-            var itemViewClass = _.result(this,'itemView', null);
-            if(_.isNull(itemViewClass)){
+            var itemViewClass = this.itemView;
+            if(_.isUndefined(itemViewClass)){
                 throw Error('can not find itemView Class');
             }
             var itemView = new itemViewClass({
@@ -2392,6 +2392,11 @@ define('views/base/ItemView',['Backbone','libs/underscore'], function(
 ){
 
     var ItemView = Backbone.View.extend({
+
+        render : function(){
+            this.$el.html(this.template(this.model.toJSON()));
+            return this;
+        }
     });
 
     return ItemView;
@@ -2400,7 +2405,10 @@ define('views/base/ItemView',['Backbone','libs/underscore'], function(
 define('views/Entity/UserItemView',['views/base/ItemView'], function(
     ItemView
 ){
-    var UserItemView = ItemView.extend({});
+    var UserItemView = ItemView.extend({
+        template:'#user_cell_template',
+        tagName: 'li',
+    });
     return UserItemView;
 
 });
@@ -2433,8 +2441,9 @@ define('subapp/entity/liker',[
 
             this.likerCollection = this.getLikerCollection();
             this.likerViewSidebar = new EntityLikerViewSidebar({
-                model: this.likerCollection,
-                el: '.entity-liker-sidebar-wrapper'
+                collection: this.likerCollection,
+                el: '.entity-liker-sidebar-wrapper',
+                itemView : UserItemView,
             });
             this.likerViewSidebar.render();
             console.log('entity sync');

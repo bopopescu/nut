@@ -27,8 +27,9 @@ define([
 
             this.likerCollection = this.getLikerCollection();
             this.likerViewSidebar = new EntityLikerViewSidebar({
-                model: this.likerCollection,
-                el: '.entity-liker-sidebar-wrapper'
+                collection: this.likerCollection,
+                el: '.entity-liker-sidebar-wrapper',
+                itemView : UserItemView,
             });
             this.likerViewSidebar.render();
             console.log('entity sync');
