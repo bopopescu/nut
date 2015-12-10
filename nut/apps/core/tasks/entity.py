@@ -37,8 +37,6 @@ def fetch_image(images, entity_id, *args, **kwargs):
         pass
     # return
 
-
-
 @task(base=BaseTask)
 def like_task(uid, eid, **kwargs):
 

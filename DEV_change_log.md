@@ -1,12 +1,27 @@
+4.  minor bug fix 
+3.  user liker app in entity detail page (not finished) 
+2.  add analysis.guoku.com's tracking code 
+1.  Action , run sql ,
 
 
+### ACTION
+ALTER TABLE `core`.`core_article` 
+CHANGE COLUMN `read_count` `read_count` INT(32) UNSIGNED ZEROFILL NULL DEFAULT 0 ,
+CHANGE COLUMN `feed_read_count` `feed_read_count` INT(32) UNSIGNED ZEROFILL NULL DEFAULT 0 ;
+
+
+
+
+## merged to master 2015 - 12 - 3
 5.修改edm收件地址列表，从测试列表改为正式列表。修改settings所以需要重启服务
 4. article page weixin share url move to m.guoku.com 
 3. user email verify functions 
 2. user setting pages css refactor  
 1. add some tests for tag(It's not enough). by judy 
  
-==== 2015-12-03 ====
+==== 2015-12-03 ==== start 
+
+
 ## merged to master 2015 - 11 -30
 
 5. FIX tag list page  paging function bug
@@ -67,14 +82,14 @@
 2. need deploy article_feed_counter_save.py to crontab
 1. feed read count , need run sql  ,( already excuted on 10.0.2.90 core )
 
-==ACTION : run sql , ( already run on 10.0.2.90   core )
+##ACTION : run sql , ( already run on 10.0.2.90   core )
 
 ALTER TABLE `core`.`core_article` 
 CHANGE COLUMN `read_count` `read_count` INT(10) UNSIGNED ZEROFILL NULL DEFAULT 0 ,
 ADD COLUMN `feed_read_count` INT(10) UNSIGNED ZEROFILL NULL DEFAULT 0 AFTER `read_count`;
 
 
-===ACTION : need run on production server FOR  sendCloud  : 
+##ACTION : need run on production server FOR  sendCloud  : 
 
 sudo pip install git+git://github.com/guoku/django-sendcloud@master
 
@@ -103,7 +118,7 @@ TODO : 现在移动端的标签还都是个人标签，是否需要改成全局�
 
 ************* start 2015-11-13 *************************
 
-************** merged to master 2015-11-12 ******************
+### merged to master 2015-11-12 
 
 ===== 2015 - 11 - 12 =======
 
@@ -177,7 +192,7 @@ TODO : 现在移动端的标签还都是个人标签，是否需要改成全局�
 
 给创建商品页添加了chosen插件。
 
-=== 2015-11-02 ===  merged to master =============================
+### 2015-11-02 ===  merged to master =============================
 
 
 6. IE8 compatible fix  -- done 
@@ -215,7 +230,8 @@ note: the great performance leap(scroll frame rate) is to add backface-visibilit
    b. add search for brand and entity title 
     
 ======== 2015 - 10 -18  start ===========
-========= 2015 - 10 -18 submmmit to master ========
+
+### 2015 - 10 -18 submmmit to master ========
 
 
 1. 精选商品页中的待发布和已下架完全区分开；
@@ -244,7 +260,7 @@ note: the great performance leap(scroll frame rate) is to add backface-visibilit
 === 2015 - 10 - 12 === start =================
 
 
-==== 2015-10-12  =========== MERGED TO  MASTER 
+### 2015-10-12   MERGED TO  MASTER 
 8. view optimize : use selected_related , prefetch_related to reduce sql hits.
 
 7. block ISP ad injection

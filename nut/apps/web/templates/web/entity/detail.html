@@ -2,7 +2,7 @@
 {% load i18n staticfiles %}
 {% load common guoku %}
 
- {% block meta-og %}
+{% block meta-og %}
     <meta property="og:title" content="果库商品 | 精英消费指南 | 理想生活主张" >
     <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
     <meta property="og:description" content="果库的商品详情页，网友们参与分享的互联网上可购买得到的商品信息，罗列商品相关的品牌介绍、分类属性、客观中立的点评及精彩评论、被贴上的人气标签、关联的消费图文、相似商品及图文推荐。">
@@ -26,11 +26,11 @@
 {% endblock %}
 {% block keyword %}{% if entity.brand|length != 0 %}{{ entity.brand }},{% endif %}{{ entity.title }},{{ entity.category }}{% endblock %}
 {% block description %}
-{#    {{ entity.category }},#}
+    {#    {{ entity.category }},#}
     {{ entity.category }},
     {{ entity.title }}
     {% if entity.intro|length > 0 %}
-    {{ entity.intro }}
+        {{ entity.intro }}
     {% endif %}
 {% endblock %}
 
@@ -47,64 +47,64 @@
             <div id="detail_content_left" class="container-fluid col-lg-8 col-md-8 col-sm-11 col-xs-12" itemscope itemtype="http://data-vocabulary.org/Product">
 
                 <div class="entity-wrapper">
-                     <div class="row">
+                    <div class="row">
                         <div class="detail-pic-left col-xs-12 col-sm-6 col-md-7 col-lg-7">
-                             {% include "web/entity/partial/detail_pic.html" %}
-                             {% include 'web/entity/partial/entity_other_pic.html' %}
+                            {% include "web/entity/partial/detail_pic.html" %}
+                            {% include 'web/entity/partial/entity_other_pic.html' %}
                         </div>
                         <div class="detail-info-center col-xs-12 col-sm-6 col-md-5 col-lg-5">
-                             {% include "web/entity/partial/detail_info_center.html" %}
+                            {% include "web/entity/partial/detail_info_center.html" %}
                         </div>
                     </div>
-    {#                <div class="detail_pic">#}
-    {#                    {% include "web/entity/partial/detail_pic.html" %}#}
-    {#                </div>#}
-    {#                 <div class="detail_middle">#}
-    {#                    {% include "web/entity/partial/detail_middle.html" %}#}
-    {#                </div>#}
+                    {#                <div class="detail_pic">#}
+                    {#                    {% include "web/entity/partial/detail_pic.html" %}#}
+                    {#                </div>#}
+                    {#                 <div class="detail_middle">#}
+                    {#                    {% include "web/entity/partial/detail_middle.html" %}#}
+                    {#                </div>#}
                     <div class="share-wrapper share-wrapper-short">
-                            <div class="report-wrapper" id="report_trigger" report-url="/entity/{{ entity.pk }}/report/">
-                                <i class="fa fa-flag-o"></i>
-                            </div>
+                        <div class="report-wrapper" id="report_trigger" report-url="/entity/{{ entity.pk }}/report/">
+                            <i class="fa fa-flag-o"></i>
+                        </div>
 
-                            <div class="jiathis_style">
-                                <a class="jiathis_button_tsina"></a>
-                                <a class="jiathis_button_weixin"></a>
-                                <a class="jiathis_button_qzone"></a>
-                                <a class="jiathis_button_tqq"></a>
-                                <a class="jiathis_button_tieba"></a>
-                                <a href="http://www.jiathis.com/share?uid=2038803" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-                            </div>
-                            <span class="share-intro-entity">分享到&nbsp;&nbsp;</span>
+                        <div class="jiathis_style">
+                            <a class="jiathis_button_tsina"></a>
+                            <a class="jiathis_button_weixin"></a>
+                            <a class="jiathis_button_qzone"></a>
+                            <a class="jiathis_button_tqq"></a>
+                            <a class="jiathis_button_tieba"></a>
+                            <a href="http://www.jiathis.com/share?uid=2038803" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+                        </div>
+                        <span class="share-intro-entity">分享到&nbsp;&nbsp;</span>
                     </div>
                     <div class="divider"></div>
-{#                    {% if entity_brand and entity_brand.intro %}#}
-{#                        <div class="brand-intro">#}
-{#                            <div class="brand-name">#}
-{#                                {{ entity_brand.name }}#}
-{#                            </div>#}
-{#                            <div class="brand-intro-words">#}
-{#                                {% autoescape off %}#}
-{#                                    {{ entity_brand.intro|striptags|handle_brand_intro }}#}
-{#                                {% endautoescape  %}#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    <div class="divider"></div>#}
-{#                    {% endif %}#}
+                    {#                    {% if entity_brand and entity_brand.intro %}#}
+                    {#                        <div class="brand-intro">#}
+                    {#                            <div class="brand-name">#}
+                    {#                                {{ entity_brand.name }}#}
+                    {#                            </div>#}
+                    {#                            <div class="brand-intro-words">#}
+                    {#                                {% autoescape off %}#}
+                    {#                                    {{ entity_brand.intro|striptags|handle_brand_intro }}#}
+                    {#                                {% endautoescape  %}#}
+                    {#                            </div>#}
+                    {#                        </div>#}
+                    {#                    <div class="divider"></div>#}
+                    {#                    {% endif %}#}
 
 
                 </div>
 
                 <div class="note-wrapper-title">
-                用户点评
+                    用户点评
                 </div>
 
                 <div class="note-wrapper">
                     <div  class="row comment_list">
-                         <ul class="common-note-list">
-                             {% include "web/entity/partial/detail_comment_head.html" %}
-                             {% include "web/entity/partial/detail_note.html" with notes=entity.notes note_forms=note_forms %}
-                         </ul>
+                        <ul class="common-note-list">
+                            {% include "web/entity/partial/detail_comment_head.html" %}
+                            {% include "web/entity/partial/detail_note.html" with notes=entity.notes note_forms=note_forms %}
+                        </ul>
                     </div>
 
                     <div class="row" id="login_user_comment">
@@ -112,7 +112,7 @@
                     </div>
                 </div>
 
-                 {% if entity.selected_related_articles %}
+                {% if entity.selected_related_articles %}
 
                     <div class="related-article-wrapper-title">
                         关联图文
@@ -120,7 +120,7 @@
                     <div class="related-article-wrapper">
                         {% for selection_article  in entity.selected_related_articles %}
                             {% with  selection_article.article as r_article %}
-                            {% include 'web/article/partial/article_recommend_item.html' %}
+                                {% include 'web/article/partial/article_recommend_item.html' %}
                             {% endwith %}
                         {% endfor %}
                     </div>
@@ -131,27 +131,27 @@
 
                 <div class="guess-wrapper">
                     <div class="row" id="guess_list">
-                         {% for entity in guess_entities %}
+                        {% for entity in guess_entities %}
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 guess-img">
 
-                                 <div class="img-holder">
+                                <div class="img-holder">
                                     <a href="{% url 'web_entity_detail' entity.entity_hash %}#from=recommend" target="_blank" class="">
                                         <div class="img-frame" style="background-image:url({{ entity.chief_image|resize:'240' }})"></div>
-{#                                        <img class="recommend-img img-responsive"#}
-{#                                             src="{{ entity.chief_image|resize:'240' }}"#}
-{#                                             alt="{{ entity.title }}"#}
-{#                                             title="{{ entity.brand }}  {{ entity.title }}"#}
-{#                                                width="240" height="240">#}
+                                        {#                                        <img class="recommend-img img-responsive"#}
+                                        {#                                             src="{{ entity.chief_image|resize:'240' }}"#}
+                                        {#                                             alt="{{ entity.title }}"#}
+                                        {#                                             title="{{ entity.brand }}  {{ entity.title }}"#}
+                                        {#                                                width="240" height="240">#}
                                     </a>
-                                  </div>
+                                </div>
                             </div>
-                         {% endfor %}
+                        {% endfor %}
                     </div>
 
                 </div>
             </div>
             <div  id="detail_content_right" class="hidden-print   col-lg-4 col-md-4 hidden-sm hidden-xs">
-                 {% include "web/entity/partial/detail_side.html" %}
+                {% include "web/entity/partial/detail_side.html" %}
             </div>
         </div>
         <div class="row hidden-xs">
@@ -161,54 +161,71 @@
         </div>
 
 
-{#        <div class="row" id="detail_recommendation">#}
-{#            <div class="col-sm-8 col-md-8 col-xs-12 guess_Ulike">#}
-{#                {% include "web/entity/partial/detail_recommendation.html" %}#}
-{#            </div>#}
-{#        </div>#}
-{#        <div  class="row" id="detail_report">#}
-{#            <div class="col-sm-8 col-md-8 col-xs-12">#}
-{#                <a href="#" class="report_link fc_1 hidden-sm hidden-md hidden-lg"><i class="fa fa-flag-o"></i> 举报</a>#}
-{#            </div>#}
-{#        </div>#}
+        {#        <div class="row" id="detail_recommendation">#}
+        {#            <div class="col-sm-8 col-md-8 col-xs-12 guess_Ulike">#}
+        {#                {% include "web/entity/partial/detail_recommendation.html" %}#}
+        {#            </div>#}
+        {#        </div>#}
+        {#        <div  class="row" id="detail_report">#}
+        {#            <div class="col-sm-8 col-md-8 col-xs-12">#}
+        {#                <a href="#" class="report_link fc_1 hidden-sm hidden-md hidden-lg"><i class="fa fa-flag-o"></i> 举报</a>#}
+        {#            </div>#}
+        {#        </div>#}
     </div>
     <div id="ReportModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="ReportModal" aria-hidden="true">
         <div class="modal-dialog report">
             <div class="modal-content" style="border-radius: 0"></div>
         </div>
     </div>
+
+
+    {#  ===  template for js  ===#}
+    {% if is_entity_detail %}
+        <script language="javascript">
+            var current_entity_id={{ entity.pk }};
+        </script>
+        <script type="text/html" id="user_cell_template">
+            <li class="user-icon-cell">
+                <a class='user-link' href="">
+                    <div class="user-icon-holder"></div>
+                </a>
+            </li>
+        </script>
+    {% endif %}
+    {#  ===  template for js  end ===#}
+
 {% endblock %}
 
 {% block basic_script %}
-{#<script data-main="{% static 'js/web/app/article_list_app.js' %}" src="{% static 'js/web/app/require.js' %}"></script>#}
+    {#<script data-main="{% static 'js/web/app/article_list_app.js' %}" src="{% static 'js/web/app/require.js' %}"></script>#}
     <script data-main="{% static 'js/web/jsbuild/entity_detail_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
 {% endblock %}
 
 
 {% block script %}
-<script type="text/javascript">
-    (function(win,doc){
-        var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
-        if (!win.alimamatk_show) {
-            s.charset = "gbk";
-            s.async = true;
-            s.src = "http://a.alimama.cn/tkapi.js";
-            h.insertBefore(s, h.firstChild);
-        }
-        var o = {
-            pid: "mm_28514026_4132785_24810648",/*推广单元ID，用于区分不同的推广渠道*/
-            appkey: "12313170",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/
-            unid: "", /*自定义统计字段*/
-{#            type:"click"#}
-        };
-        win.alimamatk_onload = win.alimamatk_onload || [];
-        win.alimamatk_onload.push(o);
-    })(window,document);
-</script>
-{#<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>#}
+    <script type="text/javascript">
+        (function(win,doc){
+            var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+            if (!win.alimamatk_show) {
+                s.charset = "gbk";
+                s.async = true;
+                s.src = "http://a.alimama.cn/tkapi.js";
+                h.insertBefore(s, h.firstChild);
+            }
+            var o = {
+                pid: "mm_28514026_4132785_24810648",/*推广单元ID，用于区分不同的推广渠道*/
+                appkey: "12313170",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/
+                unid: "", /*自定义统计字段*/
+                {#            type:"click"#}
+            };
+            win.alimamatk_onload = win.alimamatk_onload || [];
+            win.alimamatk_onload.push(o);
+        })(window,document);
+    </script>
+    {#<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>#}
 
 
- <script type="text/javascript">
+    <script type="text/javascript">
         var jiathis_config = {
             url: "http://www.guoku.com{{ request.path }}",
             title: "{{ entity.selection_hover_word }}：",
