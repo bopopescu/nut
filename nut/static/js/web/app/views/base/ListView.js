@@ -1,4 +1,4 @@
-define(['Backbone','libs/underscore'],
+define(['Backbone','underscore'],
     function(
         Backbone,
         _
@@ -15,12 +15,11 @@ define(['Backbone','libs/underscore'],
             if (_.isNull(collection)){
                 throw Error('can not find collection for render');
             }
-            _.each(collection, this.renderItem.bind(this));
-
+            collection.each(this.renderItem.bind(this));
         },
         renderItem: function(model){
-            var itemViewClass = _.result(this,'itemView', null);
-            if(_.isNull(itemViewClass)){
+            var itemViewClass = this.itemView;
+            if(_.isUndefined(itemViewClass)){
                 throw Error('can not find itemView Class');
             }
             var itemView = new itemViewClass({
