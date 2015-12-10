@@ -13,7 +13,7 @@
     <meta name="keywords" content="{{ event.title }},专题,消费专题,编辑推荐,精选图文,精选商品,果库、guoku、果库网、果库应用、精英消费指南、消费指南、精品导购应用、导购、购物指南、购物分享、淘宝网购物、淘宝网精选、精品推荐">
     <meta name="description" content="{{ event.title }},{{ tag_text }},果库专题针对网友们关注的日常生活话题展开，精选的图文、商品，关联的品牌、标签，深度解读消费文化和现象。">
 {% endblock %}
-{% block title %}{{ event.title }} - 专题 | 精英消费指南 | 果库{% endblock %}
+{% block title %}{{ event.title }} {% if not isFromMobile  %}- 专题 | 精英消费指南 | 果库 {% endif %}{% endblock %}
 
 
 {#{% block title %}{{ event.title }} - 【精英消费指南】{% endblock %}{% block suffix %} - 果库{% endblock %}#}
