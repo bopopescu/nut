@@ -1,0 +1,24 @@
+define(['Backbone', 'libs/Class'],function(Backbone, Class){
+
+    var EntityModel = Backbone.Model.extend({
+        urlRoot: '/api/webentity/',
+        getLikeUserCollection : function(){
+            try {
+                var liker_list =  this.get('limited_likers')['results'];
+                return new Backbone.Collection(liker_list);
+            }
+            catch(e){
+                return [];
+            }
+
+        },
+        parse: function(data){
+            return data;
+        },
+
+    });
+
+    return EntityModel;
+
+
+});
