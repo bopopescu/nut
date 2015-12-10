@@ -9,6 +9,9 @@ require([
         'subapp/entityreport',
         'subapp/note/usernote',
         'subapp/detailimage',
+
+        // entity liker part
+        'models/Entity',
         'subapp/entity/liker',
         'libs/csrf'
 
@@ -23,6 +26,8 @@ require([
               EntityReport,
               UserNote,
               EntityImageHandler,
+              //entity liker part
+              EntityModel,
               LikerAppController,
 
 
@@ -35,6 +40,16 @@ require([
         var entityReport = new EntityReport();
         var userNote = new UserNote();
         var imgHandler = new EntityImageHandler();
-        var likerApp = new LikerAppController();
+
+        /// begin entity liker app
+        if (_.isUndefined(current_entity_id)){
+            throw new Error('can not find current entity id ');
+            return ;
+        }
+        var entity = new EntityModel();
+            entity.set('id', current_entity_id);
+
+        var likerApp = new LikerAppController(entity);
+            entity.fetch();
         console.log("entity detail init");
 });
