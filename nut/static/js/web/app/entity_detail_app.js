@@ -28,7 +28,7 @@ require([
               EntityImageHandler,
               //entity liker part
               EntityModel,
-              LikerAppController,
+              LikerAppController
 
 
     ){
@@ -50,6 +50,5 @@ require([
             entity.set('id', current_entity_id);
 
         var likerApp = new LikerAppController(entity);
-            entity.fetch();
         console.log("entity detail init");
 });

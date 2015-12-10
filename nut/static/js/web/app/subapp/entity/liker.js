@@ -1,28 +1,36 @@
-define(['models/Entity',
+define([
+        'Backbone',
+        'models/Entity',
         'views/Entity/EntityLikerViewSidebar',
         'views/Entity/EntityLikerViewMobile',
-        'view/Entity/UserItemView'
+        'views/Entity/UserItemView'
     ],
     function(
+        Backbone,
         EntityModel,
         EntityLikerViewSidebar,
         EntityLikerViewMobile,
         UserItemView
 ){
 
-    var EntityLikerController = Class.extend({
+    var EntityLikerController = Class.extend(
+        {
+
         init: function(entity){
             this.entityModel = entity || this.getEntityModel;
-            this.likerCollection = this.getLikerCollection();
-            this.listenTo(entity, 'sync', this.entitySync.bind(this));
-            this.likerViewSidebar = new EntityLikerViewSidebar({
-                model: this.likerCollection,
-                el: '.entity-liker-sidebar-wrapper'
-            });
+            entity.on('sync',this.entitySync.bind(this));
+            entity.fetch();
             //this.likerViewMobile  = new EntityLikerViewMobile({model: this.likerCollection});
 
         },
         entitySync: function(){
+
+            this.likerCollection = this.getLikerCollection();
+            this.likerViewSidebar = new EntityLikerViewSidebar({
+                model: this.likerCollection,
+                el: '.entity-liker-sidebar-wrapper'
+            });
+            this.likerViewSidebar.render();
             console.log('entity sync');
         },
 
@@ -34,8 +42,9 @@ define(['models/Entity',
             return this.entityModel.getLikeUserCollection();
         }
 
-
-
-
     });
+
+    //_.extend(EntityLikerController.prototype, Backbone.Events);
+
+    return EntityLikerController;
 });
