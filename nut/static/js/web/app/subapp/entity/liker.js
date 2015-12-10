@@ -11,12 +11,19 @@ define(['models/Entity',
 ){
 
     var EntityLikerController = Class.extend({
-        init: function(EntityModel){
-            this.entityModel = EntityModel || this.getEntityModel;
-            this.likerCollection = this.getLikerCollection()
-            this.likerViewSidebar = new EntityLikerViewSidebar({model: this.likerCollection});
-            this.likerViewMobile  = new EntityLikerViewMobile({model: this.likerCollection});
+        init: function(entity){
+            this.entityModel = entity || this.getEntityModel;
+            this.likerCollection = this.getLikerCollection();
+            this.listenTo(entity, 'sync', this.entitySync.bind(this));
+            this.likerViewSidebar = new EntityLikerViewSidebar({
+                model: this.likerCollection,
+                el: '.entity-liker-sidebar-wrapper'
+            });
+            //this.likerViewMobile  = new EntityLikerViewMobile({model: this.likerCollection});
 
+        },
+        entitySync: function(){
+            console.log('entity sync');
         },
 
         getEntityModel: function(){
@@ -24,7 +31,7 @@ define(['models/Entity',
         },
 
         getLikerCollection:function(){
-            return this.entityModel.getLikeUserColel
+            return this.entityModel.getLikeUserCollection();
         }
 
 
