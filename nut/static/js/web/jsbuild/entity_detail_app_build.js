@@ -2355,7 +2355,7 @@ define('views/base/ListView',['Backbone','underscore'],
         },
         getListContainer: function(){
             //this is a default behavior ,
-            return this.$el.find('bb-list-container');
+            return this.$el.find('.bb-list-container');
         }
     });
 
@@ -2402,12 +2402,18 @@ define('views/base/ItemView',['Backbone','libs/underscore'], function(
     return ItemView;
 
 });
-define('views/Entity/UserItemView',['views/base/ItemView'], function(
-    ItemView
+define('views/Entity/UserItemView',['views/base/ItemView', 'jquery', 'underscore'], function(
+    ItemView,
+    $,
+    _
 ){
     var UserItemView = ItemView.extend({
-        template:'#user_cell_template',
         tagName: 'li',
+        className: 'user-icon-cell',
+        template: _.template($('#user_cell_template').html()),
+        initialize: function(){
+        }
+
     });
     return UserItemView;
 
@@ -2507,14 +2513,15 @@ require([
         var imgHandler = new EntityImageHandler();
 
         /// begin entity liker app
-        //if (_.isUndefined(current_entity_id)){
-        //    throw new Error('can not find current entity id ');
-        //    return ;
-        //}
-        //var entity = new EntityModel();
-        //    entity.set('id', current_entity_id);
-        //
-        //var likerApp = new LikerAppController(entity);
+        if (_.isUndefined(current_entity_id)){
+            throw new Error('can not find current entity id ');
+            return ;
+        }
+        var entity = new EntityModel();
+            entity.set('id', current_entity_id);
+
+        var likerApp = new LikerAppController(entity);
+
         console.log("entity detail init");
 });
 

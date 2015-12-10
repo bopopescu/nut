@@ -1,7 +1,10 @@
-4.  minor bug fix 
-3.  user liker app in entity detail page (not finished) 
+
+### merged to master 2015-12-10
+
+4.  minor display bug fix 
+3.  user liker app in entity detail page / restful API 
 2.  add analysis.guoku.com's tracking code 
-1.  Action , run sql ,
+1.  make sure this is no overflow in counter values.
 
 
 ### ACTION
