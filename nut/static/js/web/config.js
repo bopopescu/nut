@@ -22,6 +22,10 @@ requirejs.config({
 
     shim: {
         // shim won't handle script load , you still need require script in your source
+        'Backbone':{
+            deps:['underscore',],
+            exports:'Backbone'
+        },
         'bootbox':{
             deps: ['jquery', 'bootstrap']
         },

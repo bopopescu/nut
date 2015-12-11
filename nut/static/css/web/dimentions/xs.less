@@ -3,6 +3,17 @@
 @import "../../lib/widgets.less";
 //for xs screen , and all screen NOT sx
 @media(max-width: 767px){
+
+// for setting page
+
+  #settings{
+    .edit_info{
+        .input-element{
+          max-width: 300px;
+        }
+    }
+  }
+
 //  for event detail page
   .event-wrapper{
     .event-item{
@@ -298,6 +309,24 @@
 }
 
 @media(min-width: 768px)  {
+
+
+//  for setting page
+  #settings{
+    .edit_info{
+        .input-title{
+           max-width: 80px;
+        }
+      
+        .input-element{
+          max-width: 360px;
+        }
+    }
+  }
+
+
+//-----------
+
   // reuse parts
   #detail_content_left{
     .detail-pic-left{

@@ -10,6 +10,7 @@
 
   }
 }
+
 body{
   padding-top: 100px;
   color: @common-text-color;
@@ -1404,8 +1405,9 @@ body.compact-body{
 }
 
 .main-content.near-top{
-  margin-top:90px;
+  margin-top:0px;
 }
+
 
 
 .guoku-app,.mobile-body{
@@ -1573,6 +1575,8 @@ body.compact-body{
 
     }
   }
+
+
 }
 
 @import "dimentions/xs.less";
@@ -1594,6 +1598,12 @@ body{
       .for-mobile{
          display:block;
       }
+}
+
+
+//temp fix for article body
+.message-body,.static-body,.download-body, .entity-body{
+  padding-top: 0px;
 }
 
 .gk_test{

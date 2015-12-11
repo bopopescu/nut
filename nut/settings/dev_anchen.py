@@ -1,12 +1,16 @@
+import sys
 from stage import *
 DEBUG = True
+
+DEBUG = True
+TESTING = len(sys.argv) > 0 and sys.argv[0].endswith('py.test')
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 IMAGE_HOST = 'http://imgcdn.guoku.com/'
 
 
-#
-#
+
+
 # LOCAL_IMG_DEBUG=True
 # IMAGE_HOST = 'http://127.0.0.1:9766/'
 # INTRANET_IMAGE_SERVER = 'http://images.hello.new/'
@@ -121,7 +125,6 @@ DEFAULT_POPULAR_SCALE = 200
 #             "Undefined variable or unknown value for: \"%s\"" % other)
 #
 # TEMPLATE_STRING_IF_INVALID = "****************** %s ****************"
-
 
 
 __author__ = 'an chen '

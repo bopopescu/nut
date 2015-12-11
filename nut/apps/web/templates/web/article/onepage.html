@@ -33,7 +33,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container goods_detail article-onepage">
+    <div class="container goods_detail near-top article-onepage">
         <h2 class="sr-only">{{ article.content|striptags|truncatewords:150 }}</h2>
         <div id="share_img" style="display:none"><img src="{{ article.cover_url }}"></div>
 {#     <div class="row" id="detail_breadcrumb">#}
@@ -195,7 +195,7 @@
     {% if not isFromMobile %}
     <script type="text/javascript">
         var jiathis_config = {
-            url: "http://www.guoku.com{{ request.path }}",
+            url: "http://m.guoku.com{{ request.path }}",
             title: "{{ article.title }}：",
             appkey:{
                 "tsina":'2830558576',
