@@ -26,6 +26,9 @@ from apps.core.tasks.selection import set_publish_time
 from apps.core.tasks.note import post_note_task, depoke_note_task
 from apps.core.tasks.usite import usite_published
 from apps.core.tasks.recorder import record_search
+from apps.core.tasks.edm import add_user_to_list
+from apps.core.tasks.edm import send_activation_mail
+from apps.core.tasks.edm import send_forget_password_mail
 
 
 __author__ = 'edison'
