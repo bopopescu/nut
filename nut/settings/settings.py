@@ -25,6 +25,7 @@ SECRET_KEY = 'zl4j09adh-*tv7-b5&(zu!nkudhry*yy1b9--$%)&yh^4caq_7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+TESTING = False
 
 TEMPLATE_DEBUG = DEBUG
 
@@ -137,7 +138,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-SITE_DOMAIN = 'guoku.com'
+SITE_DOMAIN = 'www.guoku.com'
 # USE_TZ = True
 
 LOCALE_PATHS = (
@@ -205,8 +206,8 @@ REST_FRAMEWORK = {
 EMAIL_BACKEND = 'sendcloud.SendCloudBackend'
 MAIL_APP_USER = 'guoku_hi'
 MAIL_APP_KEY = 'DLq9W6TiDZAWOLNv'
-MAIL_LIST = 'test_edm@maillist.sendcloud.org'
-# MAIL_LIST = 'all_gkusers@maillist.sendcloud.org'
+# MAIL_LIST = 'test_edm@maillist.sendcloud.org'
+MAIL_LIST = 'all_gkusers@maillist.sendcloud.org'
 GUOKU_MAIL = 'hi@mail.guoku.com'
 GUOKU_NAME = u'果库'
 MAIL_EDM_USER = 'guoku_edm3'

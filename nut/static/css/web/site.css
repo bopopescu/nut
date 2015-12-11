@@ -114,6 +114,14 @@
 .button-cancel i {
   color: #9D9E9F;
 }
+.button-sharp {
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
 .disabled-button {
   cursor: default;
 }

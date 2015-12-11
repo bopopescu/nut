@@ -67,12 +67,11 @@
 11, 办公室果库＋ for TEST SERVER 
     a. in chrome add a bookmark 
     b. edit the bookmark's address to :
-        javascript:window.open(%27http://10.0.5.198/management/entity/new/%3Furl%3D%27 %2BencodeURIComponent(location.href), %27_blank%27)%3B
+
     
     c. goto a taobao entity page 
     d. press  办公室果库＋  
     F. you should able to add entity now 
-    
     
     
     

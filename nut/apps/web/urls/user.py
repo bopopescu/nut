@@ -4,7 +4,8 @@ from apps.web.views.user import UserIndex,\
                                 UserLikeView, UserNoteView,\
                                 UserTagView, UserArticleView,\
                                 UserFansView, UserFollowingsView,\
-                                UserPublishedArticleView,UserPublishedSelectionArticleView
+                                UserPublishedArticleView,UserPublishedSelectionArticleView,\
+                                UserSendVerifyMail
 
 from apps.web.views.user import ChangePasswdFormView
 
@@ -14,6 +15,7 @@ urlpatterns = patterns(
     url(r'^change/password/$', ChangePasswdFormView.as_view(), name='web_user_change_password'),
     url(r'^bind/sns/$', 'bind_sns', name='web_user_bind_sns'),
     url(r'^upload/avatar/$', 'upload_avatar', name='web_user_upload_avatar'),
+    url(r'^sendverifymail/$',UserSendVerifyMail.as_view() , name='web_user_mail_verify'),
 
     # tmpl user page
 

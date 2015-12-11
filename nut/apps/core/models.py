@@ -7,13 +7,10 @@ import HTMLParser
 from hashlib import md5
 from datetime import datetime
 from django.core import serializers
-from django.core.mail import EmailMessage
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.dispatch import receiver
 from django.utils import timezone
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import ugettext_lazy as _
 from django.utils.log import getLogger
 from django.db import models
@@ -23,13 +20,9 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
-from sendcloud.address_list import SendCloudAddressList
-
-from settings import GUOKU_MAIL, GUOKU_NAME
 from apps.notifications import notify
 from apps.core.utils.image import HandleImage
 from apps.core.utils.articlecontent import contentBleacher
-from apps.core.utils.commons import verification_token_generator
 from apps.core.extend.fields.listfield import ListObjectField
 from apps.core.manager.account import GKUserManager
 from apps.core.manager.entity import SelectionEntityManager
@@ -134,6 +127,12 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     @property
     def is_blocked(self):
         if self.is_active == GKUser.blocked or self.is_active == GKUser.remove:
+            return True
+        return False
+
+    @property
+    def is_removed(self):
+        if self.is_active == GKUser.remove:
             return True
         return False
 
@@ -361,25 +360,16 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return res
 
     def save(self, *args, **kwargs):
+        from apps.core.tasks import send_activation_mail
+        from apps.core.tasks.edm import delete_user_from_list
+        if self.pk is not None:
+            user = GKUser.objects.get(pk=self.pk)
+            if user.email != self.email:
+                delete_user_from_list(user)
+                send_activation_mail(self)
         super(GKUser, self).save(*args, **kwargs)
         key = "user:v3:%s" % self.id
         cache.delete(key)
-
-    def send_verification_mail(self):
-        template_invoke_name = settings.VERFICATION_EMAIL_TEMPLATE
-        mail_message = EmailMessage(to=(self.email,),
-                                    from_email=GUOKU_MAIL, )
-        uidb64 = urlsafe_base64_encode(force_bytes(self.id))
-        token = verification_token_generator.make_token(self)
-        reverse_url = reverse('register_confirm',
-                              kwargs={'uidb64': uidb64,
-                                      'token': token})
-        verify_link = "{0:s}{1:s}".format(settings.SITE_DOMAIN, reverse_url)
-        sub_vars = {'%verify_link%': (verify_link,)}
-        mail_message.template_invoke_name = template_invoke_name
-        mail_message.from_name = GUOKU_NAME
-        mail_message.sub_vars = sub_vars
-        mail_message.send()
 
 
 class User_Profile(BaseModel):
@@ -424,6 +414,12 @@ class User_Profile(BaseModel):
             return "%s%s" % (settings.STATIC_URL, 'images/avatar/man.png')
 
     def save(self, *args, **kwargs):
+        from apps.core.tasks.edm import update_user_name_from_list
+        if self.pk is not None:
+            profile = User_Profile.objects.get(pk=self.pk)
+            if profile.nickname != self.nickname:
+                update_user_name_from_list(self.user)
+
         super(User_Profile, self).save(*args, **kwargs)
         key = "user:v3:%s" % self.user.id
         cache.delete(key)
@@ -1739,6 +1735,7 @@ class Friendly_Link(BaseModel):
     def logo_url(self):
         return "%s%s" % (image_host, self.logo)
 
+
 class EDM(BaseModel):
     (
         waiting_for_sd_verify,
@@ -1794,45 +1791,30 @@ class EDM(BaseModel):
             return "%s%s" % (image_host, cover_image)
 
 
-
 class Search_History(BaseModel):
     user = models.ForeignKey(GKUser, null=True)
     key_words = models.CharField(max_length=255, null=False, blank=False)
     search_time = models.DateTimeField(null=True, blank=False)
 
 
+class SD_Address_List(BaseModel):
+    address = models.CharField(max_length=45)
+    name = models.CharField(max_length=45)
+    description = models.CharField(max_length=45)
+    created = models.DateTimeField(default=datetime.now())
+    members_count = models.IntegerField(default=0)
+
+
 ################################################################################
+
 @receiver(post_save, sender=User_Profile)
-def add_email_to_sd_maillist(sender, instance, created, raw, using,
-                            update_fields, **kwargs):
+def register_signal(sender, instance, created, raw, using,
+                        update_fields, **kwargs):
+    """ Send a verification email when user registers.
+    """
+    from apps.core.tasks import send_activation_mail
     if created:
-        try:
-            member_addr = instance.user.email
-            sd_list = SendCloudAddressList(mail_list_addr=settings.MAIL_LIST,
-                                           member_addr=member_addr)
-            sd_list.add_member(name=instance.nickname, upsert='false')
-        except BaseException, e:
-            log.error("Error: add user email to sd error: %s",
-                      e.message)
-    else:
-        user = GKUser.objects.get(pk=instance.user.id)
-        if user.email != instance.user.email or user.nickname != instance.nickname:
-            try:
-                name = instance.nickname
-                member_addr = instance.user.email
-                # delete old email from SendCloud.
-                sd_list = SendCloudAddressList(mail_list_addr=settings.MAIL_LIST,
-                                               member_addr=user.email)
-                sd_list.delete_member()
-
-                # update name or email.
-                sd_list = SendCloudAddressList(mail_list_addr=settings.MAIL_LIST,
-                                               member_addr=member_addr)
-                sd_list.add_member(name=name, upsert='true')
-
-            except BaseException, e:
-                log.error("Error: update user info to sd error: %s",
-                          e.message)
+        send_activation_mail(instance.user)
 
 
 # TODO: model post save
@@ -1895,8 +1877,6 @@ post_save.connect(user_like_notification, sender=Entity_Like,
                   dispatch_uid="user_like_action_notification")
 
 from apps.tag.tasks import generator_tag
-
-
 def user_post_note_notification(sender, instance, created, **kwargs):
     data = serializers.serialize('json', [instance])
     generator_tag.delay(data=data)

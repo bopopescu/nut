@@ -14,9 +14,6 @@
         
         in nut there is 2 places 
         after the formtools package is installed ,pycharm will resolve the formtools.wizard automaticly 
-        
-      
-      
 
 2. celery 升级
 
