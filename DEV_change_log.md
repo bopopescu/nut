@@ -22,7 +22,8 @@ Things to do before deployment:
 
 1. 用户注册、激活、需改信息..时，对SendCloud的操作改为使用celery;
 2. 动态获取和创建SendCloud地址列表;
-3. 开始着手写test，写了一些关于account和edm的。
+3. 只有激活了的邮箱才会加入到sendcloud地址列表；
+4. 开始着手写test，写了一些关于account和edm的。
 
 ==== 2015-12-10 ====
 
