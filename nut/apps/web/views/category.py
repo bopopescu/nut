@@ -76,31 +76,6 @@ class CategoryGroupListView(TemplateResponseMixin, ContextMixin, View):
         return self.render_to_response(context)
 
 
-# TODO : already move this function to viewtools
-# TODO : swith the viewtools version
-def _get_paged_list(the_list, page_num=1, item_per_page=24):
-    paginator = ExtentPaginator(the_list, item_per_page)
-    try:
-        _entities = paginator.page(page_num)
-    except PageNotAnInteger:
-        _entities = paginator.page(1)
-    except EmptyPage:
-        raise Http404
-    return _entities
-
-
-# TODO : already move this function to viewtools
-# TODO : swith the viewtools version
-def _get_entity_like_list(entity_list, request):
-    el = []
-    if request.user.is_authenticated():
-        e = entity_list.object_list
-        el = Entity_Like.objects.filter(entity_id__in=tuple(e),
-                                        user=request.user).values_list(
-            'entity_id', flat=True)
-    return el
-
-
 class OldCategory(RedirectView):
     permanent = True
     pattern_name = 'web_category_detail'
@@ -135,10 +110,19 @@ class CategoryDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
         cid = self.kwargs.get('cid', None)
         return int(cid)
 
+    def get_order_by(self):
+        order_by = self.kwargs.get('order_by', 'pub_time')
+        return order_by
+
     def get_queryset(self):
         cid = self.get_category_id()
+        order_by_like = False
+        if self.get_order_by() == 'olike':
+            order_by_like = True
         self.cid = cid
-        entity_list = Entity.objects.sort(category_id=cid, like=False)
+        entity_list = Entity.objects.sort(category_id=cid,
+                                          like=order_by_like).exclude(
+            selection_entity__is_published=False)
         return entity_list
 
     def get_ajax(self, request, *args, **kwargs):
@@ -166,44 +150,23 @@ class CategoryDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
         )
 
     def get_context_data(self, **kwargs):
+        order_by = self.get_order_by()
         context = super(CategoryDetailView, self).get_context_data(**kwargs)
         entities = context['page_obj']
         el = list()
         sub_category = Sub_Category.objects.get(pk=self.cid)
         if self.request.user.is_authenticated():
-            e = entities.object_list
+            if order_by == 'olike':
+                e_ids = [r[0] for r in entities.object_list.values_list('id', 'lnumber')]
+            else:
+                e_ids = list(entities.object_list.values_list('id'))
             el = Entity_Like.objects.user_like_list(user=self.request.user,
-                                                    entity_list=list(
-                                                        e.values_list(
-                                                            'id',
-                                                            flat=True))
+                                                    entity_list=e_ids
                                                     ).using('slave')
         context['cid'] = self.cid
         context['entities'] = entities
-        context['sort_method'] = 'pub_time'
+        context['sort_method'] = order_by
         context['user_entity_likes'] = el
         context['sub_category'] = sub_category
         context['refresh_datetime'] = self.get_refresh_time()
         return context
-
-
-@require_GET
-def detail_like(request, cid, template='web/category/detail.html'):
-    _cid = cid
-    _page = request.GET.get('page', 1)
-    _entity_list = Entity.objects.sort(category_id=cid, like=True).exclude(
-        selection_entity__is_published=False)
-    _sub_category = Sub_Category.objects.get(pk=_cid)
-    _entities = _get_paged_list(_entity_list, _page, 24)
-    _user_like_list = _get_entity_like_list(_entities, request)
-    return render_to_response(
-        template,
-        {
-            'sub_category': _sub_category,
-            'entities': _entities,
-            'user_entity_likes': _user_like_list,
-            'sort_method': 'likes_count',
-            'cid': _cid,
-        },
-        context_instance=RequestContext(request),
-    )

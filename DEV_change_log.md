@@ -1,3 +1,8 @@
+1. fix bug: category entities order by olike can't load more entity when screen scroll to bottom.
+
+====2015-12-11====
+
+
 4.  minor bug fix 
 3.  user liker app in entity detail page (not finished) 
 2.  add analysis.guoku.com's tracking code 
