@@ -83,6 +83,7 @@ class APIUser(GKUser):
                 res['website'] = self.profile.website
                 res['avatar_large'] = self.profile.avatar_url
                 res['avatar_small'] = self.profile.avatar_url
+                res['mail_verified'] = self.profile.email_verified
 
             # res['verified'] = self.profile.email_verified
             except Exception, e:
