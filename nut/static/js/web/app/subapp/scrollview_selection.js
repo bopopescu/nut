@@ -15,24 +15,24 @@ define(['jquery','libs/fastdom','subapp/loadentity','masonry','jquery_bridget','
             },
 
             initialize:function () {
-                var $container = this.$selection;
-                var grid = $container.masonry({
-                    columnWidth: '.selection-item',
-                    isAnimated: false,
-                    saveOptions: true,
-                    transitionDuration: 0,
-                    Selector: '.selection-item'
+                var $grid = this.$selection.imagesLoaded().progress( function() {
+                    $grid.masonry({
+                        columnWidth: '.selection-item',
+                        isAnimated: false,
+                        saveOptions: true,
+                        transitionDuration: 0,
+                        Selector: '.selection-item'
+                    });
                 });
-
-                this.grid = grid
+                this.$grid = $grid
             },
 
         attachNewSelections: function(elemList, status){
             var that = this;
             fastdom.defer(function(){
-                that.grid.append( elemList ).masonry('appended', elemList);
-                that.grid.imagesLoaded().progress( function() {
-                    that.grid.masonry();
+                that.$grid.append( elemList ).masonry('appended', elemList);
+                that.$grid.imagesLoaded().progress( function() {
+                    that.$grid.masonry();
                 });
             });
 

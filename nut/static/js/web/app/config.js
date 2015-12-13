@@ -17,7 +17,8 @@ requirejs.config({
         masonry: 'libs/masonry',
         jquery_bridget: 'libs/jquery.bridget',
         images_loaded: 'libs/imagesloaded.min',
-        bootbox: 'libs/bootbox.min'
+        bootbox: 'libs/bootbox.min',
+        Backbone: 'libs/backbone.min'
     },
 
     shim: {
