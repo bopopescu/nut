@@ -17,8 +17,8 @@ define(['views/base/ItemView', 'jquery', 'underscore'], function(
         sizingAvatar: function(){
             var user = this.model.get('user');
             var avatar = user['avatar_url'];
-            if ('imgcdn.guoku.com' in avatar){
-                avatar = avatar.replace('/avatar','/avatar/180');
+            if (/imgcdn.guoku.com/.test(avatar)){
+                avatar = avatar.replace('/avatar','/avatar/50');
                 user['avatar_url'] = avatar;
                 this.model.set('user', user);
             }

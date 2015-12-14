@@ -26,11 +26,14 @@ define([
         entitySync: function(){
 
             this.likerCollection = this.getLikerCollection();
+            this.likerCount = this.getLikerCount();
+
             this.likerViewSidebar = new EntityLikerViewSidebar({
                 collection: this.likerCollection,
                 el: '.entity-liker-sidebar-wrapper',
                 itemView : UserItemView,
             });
+
             this.likerViewSidebar.render();
             console.log('entity sync');
         },
@@ -41,6 +44,10 @@ define([
 
         getLikerCollection:function(){
             return this.entityModel.getLikeUserCollection();
+        },
+
+        getLikerCount: function(){
+            return this.entityModel.getLikerCount()
         }
 
     });
