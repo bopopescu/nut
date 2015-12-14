@@ -1,4 +1,5 @@
-@media (min-width: 1170px) {
+(node) util.print is deprecated. Use console.log instead.
+@media (min-width: 1200px) {
   .event_wrapper {
     width: 1170px;
   }
