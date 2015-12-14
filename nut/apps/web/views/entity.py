@@ -22,7 +22,7 @@ from apps.tag.models import Content_Tags
 
 from django.views.generic.detail import DetailView
 
-from django.views.generic import RedirectView,
+from django.views.generic import RedirectView, ListView
 from braces.views import AjaxResponseMixin, JSONResponseMixin
 
 from django.conf import settings
@@ -41,15 +41,28 @@ class EntityDetailMixin(object):
                                      status__gte=Entity.freeze)
         return _entity
 
-class EntityLikersView(EntityDetailMixin,DetailView):
+class EntityLikersView(EntityDetailMixin,ListView):
     template_name = 'web/entity/entity_likers_list.html'
+    paginate_by = 12
+    context_object_name = 'entity_likes'
+
+    def get_queryset(self):
+        entity = self.get_object()
+        return entity.likes.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(EntityLikersView, self).get_context_data()
+        context['entity'] = self.get_object()
+        context = add_side_bar_context_data(context)
+        return context
+
+
 
 
 class EntityCard(AjaxResponseMixin, JSONResponseMixin, EntityDetailMixin, DetailView):
     template_name = 'web/entity/entity_card.html'
 
     def get(self, request, *args, **kwargs):
-
         _entity_hash = self.kwargs.get('entity_hash', None)
         return HttpResponseRedirect(
             reverse('web_entity_detail', args=[_entity_hash]))
