@@ -1,4 +1,14 @@
 
+3. event page, m.guoku.com, simple title (not finish)
+2. add seller management files
+1. add seller model 
+
+### Action  
+need syncdb  
+for new seller table
+
+===== 2015-12-11 start 
+
 ### merged to master 2015-12-10
 
 4.  minor display bug fix 
@@ -11,9 +21,6 @@
 ALTER TABLE `core`.`core_article` 
 CHANGE COLUMN `read_count` `read_count` INT(32) UNSIGNED ZEROFILL NULL DEFAULT 0 ,
 CHANGE COLUMN `feed_read_count` `feed_read_count` INT(32) UNSIGNED ZEROFILL NULL DEFAULT 0 ;
-
-
-
 
 ## merged to master 2015 - 12 - 3
 5.修改edm收件地址列表，从测试列表改为正式列表。修改settings所以需要重启服务
