@@ -1,3 +1,4 @@
+(node) util.print is deprecated. Use console.log instead.
 body,
 h1,
 h2,
@@ -205,10 +206,8 @@ a:hover {
 /*消息页面*/
 .message_page {
   width: 941px;
-  margin-top: 75px;
 }
 .message_page .title {
-  margin-top: 40px;
   margin-left: 2px;
   padding-bottom: 25px;
   border-bottom: 1px solid #E6E6E6;
@@ -355,10 +354,10 @@ a:hover {
   border-right: none;
 }
 .download .star_c {
-  color: #FF9600;
+  color: #ff9600;
 }
 .download .tags_c {
-  color: #BA7E32;
+  color: #ba7e32;
 }
 @media screen and (max-width: 960px) {
   .download {
@@ -739,9 +738,6 @@ a:hover {
   text-align: center;
   background: #F7F7F7;
 }
-.goods_detail {
-  margin-top: 80px;
-}
 .goods_detail a:hover {
   text-decoration: none;
 }
@@ -1065,3 +1061,4 @@ a:hover {
   color: black;
 }
 /*add by An End*/
+/*# sourceMappingURL=style.less.css.map */
