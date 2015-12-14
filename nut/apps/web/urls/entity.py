@@ -9,6 +9,8 @@ urlpatterns = patterns(
     url(r'^note/(?P<nid>\d+)/comment/$', 'entity_note_comment', name='web_entity_note_comment'),
     url(r'^note/comment/(?P<comment_id>\d+)/delete/$', 'entity_note_comment_delete', name='web_entity_note_comment_delete'),
     # url(r'^note/(?P<nid>\d+)/comment/$')
+
+
     url(r'^(?P<eid>\d+)/like/$', 'entity_like', name='web_entity_like'),
     url(r'^(?P<eid>\d+)/unlike/$', 'entity_unlike', name='web_entity_unlike'),
 
