@@ -23,6 +23,10 @@ urlpatterns = patterns(
 # reset password
     url(r'reset/password/$', 'rest_password', name='v4_user_reset_password'),
 
+# verified mail
+#     url()
+
+
 #   user relationship
     url(r'^(?P<user_id>\d+)/following/$', 'following_list', name='v4_user_following'),
     url(r'^(?P<user_id>\d+)/fan/$', 'fans_list', name='v4_user_fans'),
