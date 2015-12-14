@@ -54,7 +54,7 @@ class WebEntitySerializer(serializers.ModelSerializer):
 
     def limited_likers_method(self, obj):
         # already sorted by created date,
-        thePage = Paginator(obj.likes.all(), 30).page(1)
+        thePage = Paginator(obj.likes.all(), 21).page(1)
         serializer = PaginatedEntityLikeSerializer(thePage)
 
         return serializer.data

@@ -2312,6 +2312,18 @@ define('models/Entity',['Backbone', 'libs/Class'],function(Backbone, Class){
             }
 
         },
+
+        getLikerCount: function(){
+            try{
+                var liker_count = this.get('limited_likers')['count'];
+                return liker_count
+            }
+            catch(e){
+                console.warn('can not get liker count');
+                return 0;
+            }
+
+        },
         parse: function(data){
             return data;
         },
@@ -2368,6 +2380,16 @@ define('views/Entity/EntityLikerViewSidebar',['views/base/ListView'],function(
 
   var EntityLikerViewSidebar = ListView.extend({
 
+        render: function(){
+            var res = ListView.prototype.render.apply(this);
+            this.displayCounter();
+            return res;
+        },
+        displayCounter: function(){
+
+            this.$el.find('.liker-counter').html(this.likerCount);
+        }
+
   });
 
   return EntityLikerViewSidebar;
@@ -2422,7 +2444,7 @@ define('views/Entity/UserItemView',['views/base/ItemView', 'jquery', 'underscore
             var user = this.model.get('user');
             var avatar = user['avatar_url'];
             if (/imgcdn.guoku.com/.test(avatar)){
-                avatar = avatar.replace('/avatar','/avatar/180');
+                avatar = avatar.replace('/avatar','/avatar/50');
                 user['avatar_url'] = avatar;
                 this.model.set('user', user);
             }
@@ -2460,11 +2482,14 @@ define('subapp/entity/liker',[
         entitySync: function(){
 
             this.likerCollection = this.getLikerCollection();
+            this.likerCount = this.getLikerCount();
+
             this.likerViewSidebar = new EntityLikerViewSidebar({
                 collection: this.likerCollection,
                 el: '.entity-liker-sidebar-wrapper',
                 itemView : UserItemView,
             });
+            this.likerViewSidebar.likerCount = this.likerCount;
             this.likerViewSidebar.render();
             console.log('entity sync');
         },
@@ -2475,6 +2500,10 @@ define('subapp/entity/liker',[
 
         getLikerCollection:function(){
             return this.entityModel.getLikeUserCollection();
+        },
+
+        getLikerCount: function(){
+            return this.entityModel.getLikerCount()
         }
 
     });
