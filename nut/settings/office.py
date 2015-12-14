@@ -2,18 +2,12 @@ from stage import *
 DEBUG = True
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
-IMAGE_HOST = 'http://imgcdn.guoku.com/'
-
-
-#
-#
-# LOCAL_IMG_DEBUG=True
-# IMAGE_HOST = 'http://127.0.0.1:9766/'
-# INTRANET_IMAGE_SERVER = 'http://images.hello.new/'
+INTRANET_IMAGE_SERVER = 'http://10.0.5.198:8001/'
+LOCAL_IMG_DEBUG=True
+IMAGE_HOST = 'http://10.0.5.198/'
+AVATAR_HOST = IMAGE_HOST
+IMG_COUNTER_HOST = 'http://10.0.5.198'
 # MEDIA_ROOT='../ant_image/'
-# AVATAR_HOST = IMAGE_HOST
-
-IMG_COUNTER_HOST = 'http://127.0.0.1:8000'
 
 
 #for mobile access simulation
@@ -36,13 +30,12 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
 
 # http://docs.celeryproject.org/en/2.5/getting-started/brokers/redis.html#broker-redis
-
 # CELERY #################################
 BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 #celery end  #############################
-# import djcelery
-# djcelery.setup_loader()
+import djcelery
+djcelery.setup_loader()
 
 # CACHES = {
 #     "default": {
