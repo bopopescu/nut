@@ -22,7 +22,7 @@ from apps.tag.models import Content_Tags
 
 from django.views.generic.detail import DetailView
 
-from django.views.generic import RedirectView
+from django.views.generic import RedirectView,
 from braces.views import AjaxResponseMixin, JSONResponseMixin
 
 from django.conf import settings
@@ -32,9 +32,7 @@ from django.utils.log import getLogger
 log = getLogger('django')
 
 
-class EntityCard(AjaxResponseMixin, JSONResponseMixin, DetailView):
-    template_name = 'web/entity/entity_card.html'
-
+class EntityDetailMixin(object):
     def get_object(self, queryset=None):
         _entity_hash = self.kwargs.get('entity_hash', None)
         if _entity_hash is None:
@@ -42,6 +40,13 @@ class EntityCard(AjaxResponseMixin, JSONResponseMixin, DetailView):
         _entity = Entity.objects.get(entity_hash=_entity_hash,
                                      status__gte=Entity.freeze)
         return _entity
+
+class EntityLikersView(EntityDetailMixin,DetailView):
+    template_name = 'web/entity/entity_likers_list.html'
+
+
+class EntityCard(AjaxResponseMixin, JSONResponseMixin, EntityDetailMixin, DetailView):
+    template_name = 'web/entity/entity_card.html'
 
     def get(self, request, *args, **kwargs):
 

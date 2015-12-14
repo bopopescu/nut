@@ -2843,6 +2843,10 @@ body.compact-body {
 #detail_content_right .section-list .section-title {
   margin-bottom: 10px;
 }
+#detail_content_right .section-list .section-title .link-all {
+  vertical-align: middle;
+  padding-right: 18px;
+}
 #discover_entity_list .fa,
 #category-entity-list .fa,
 .search-entity-item .fa,
