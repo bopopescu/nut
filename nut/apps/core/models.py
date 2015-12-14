@@ -116,6 +116,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.is_writer or self.is_editor or self.is_staff
 
     @property
+    def is_seller(self):
+        return hasattr(self, 'seller_profile')
+
+    @property
     def is_writer(self):
         return self.is_active == GKUser.writer
 

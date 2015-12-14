@@ -3326,7 +3326,10 @@ body.compact-body {
     width: 80px!important;
   }
 }
-@media (max-width: 1170px) {
+@media (max-width: 1199px) {
+  .article-list-body .container {
+    width: 100%!important;
+  }
   #selection_article_list .selection-article-item .article-title {
     font-size: 18px!important;
     font-weight: 600;
@@ -3335,7 +3338,7 @@ body.compact-body {
     display: none;
   }
 }
-@media (min-width: 1170px) {
+@media (min-width: 1200px) {
   .event_wrapper {
     width: 1170px;
   }

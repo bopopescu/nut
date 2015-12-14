@@ -60,6 +60,7 @@ INSTALLED_APPS = (
     'apps.report',
     'apps.counter',
     'apps.tag',
+    'apps.seller',
 
     'captcha',
 )
