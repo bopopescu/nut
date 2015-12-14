@@ -1,5 +1,5 @@
 from django.conf.urls import url, patterns
-from apps.v4.views.user import APIUserSearchView, APIUserIndexView, APIUserNotesView, APIUserLikeView
+from apps.v4.views.user import APIUserSearchView, APIUserIndexView, APIUserNotesView, APIUserLikeView, APIUserVerifiedView
 
 urlpatterns = patterns(
     'apps.v4.views.user',
@@ -21,11 +21,10 @@ urlpatterns = patterns(
     url(r'^update/email/$', 'update_email', name='v4_user_update_email'),
 
 # reset password
-    url(r'reset/password/$', 'rest_password', name='v4_user_reset_password'),
+    url(r'^reset/password/$', 'rest_password', name='v4_user_reset_password'),
 
 # verified mail
-#     url()
-
+    url(r'^email/verified/$', APIUserVerifiedView.as_view(), name='v4_user_email_verified'),
 
 #   user relationship
     url(r'^(?P<user_id>\d+)/following/$', 'following_list', name='v4_user_following'),

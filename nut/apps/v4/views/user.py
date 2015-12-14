@@ -513,12 +513,25 @@ class APIUserVerifiedView(BaseJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
+        res = dict()
+        if self.user.profile.email_verified:
+            self.user.send_verification_mail()
+        else:
+            pass
 
-        return
+        res = {
+                'error':0,
+                'email': self.user.email
+        }
+        return res
 
     def get(self, request, *args, **kwargs):
         _key = request.GET.get('session', None)
-
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+            self.user = _session.user
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=404)
         return super(APIUserVerifiedView, self).get(request, *args, **kwargs)
 
     @check_sign
