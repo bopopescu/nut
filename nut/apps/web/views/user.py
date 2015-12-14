@@ -36,7 +36,6 @@ log = getLogger('django')
 
 class UserSendVerifyMail(LoginRequiredMixin,AjaxResponseMixin,JSONResponseMixin, View):
 
-
     def get_ajax(self, request, *args, **kwargs):
         _user = request.user
         _time_key = 'user_last_verify_time_%s'% _user.id
@@ -57,14 +56,14 @@ class UserSendVerifyMail(LoginRequiredMixin,AjaxResponseMixin,JSONResponseMixin,
                 'error':0,
                 'email': request.user.email
             }
-            return  self.render_json_response(data)
+            return self.render_json_response(data)
         except Exception as e :
 
             data = {
                 'error':1,
                 'reason': 'server error'
             }
-            return  self.render_json_response(data, 500)
+            return self.render_json_response(data, 500)
 
 
 
@@ -339,10 +338,6 @@ class UserLikeView(UserDetailBase):
         context_data['user_like_top_categories']= self.get_user_like_categories()
         context_data['current_category'] =  self.get_current_category()
         return context_data
-
-
-
-
 
     def get_queryset(self):
         _user = self.get_showing_user()
