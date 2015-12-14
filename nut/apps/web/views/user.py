@@ -11,7 +11,7 @@ from django.utils.translation import ugettext as _
 from apps.web.forms.user import UserSettingsForm, UserChangePasswordForm
 from apps.core.utils.http import JSONResponse, ErrorJsonResponse
 # from apps.core.utils.image import HandleImage
-from apps.core.models import Note, GKUser , Category
+from apps.core.models import Note, GKUser, Category
 from apps.core.forms.user import AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.models import Entity, Entity_Like, \
@@ -349,8 +349,6 @@ class UserLikeView(UserDetailBase):
                                             .filter(entity__category__group=_category)
 
         return _like_list
-
-
 
 
 class UserNoteView(UserDetailBase):
