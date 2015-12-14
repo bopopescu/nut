@@ -83,13 +83,13 @@ class APIUser(GKUser):
                 res['website'] = self.profile.website
                 res['avatar_large'] = self.profile.avatar_url
                 res['avatar_small'] = self.profile.avatar_url
-                res['mail_verified'] = self.profile.email_verified
+
 
             # res['verified'] = self.profile.email_verified
             except Exception, e:
                 log.error("Error: user id %s %s", (self.id,e.message))
             cache.set(key, res, timeout=86400)
-
+        res['mail_verified'] = self.profile.email_verified
         res['relation'] = 0
         res['like_count'] = self.like_count
         res['entity_note_count'] = self.post_note_count
