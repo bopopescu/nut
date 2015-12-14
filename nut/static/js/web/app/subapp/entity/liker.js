@@ -34,6 +34,8 @@ define([
                 itemView : UserItemView,
             });
 
+            //TODO : remove data bind on view !!!!
+            this.likerViewSidebar.likerCount = this.likerCount;
             this.likerViewSidebar.render();
             console.log('entity sync');
         },

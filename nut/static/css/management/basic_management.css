@@ -1,3 +1,4 @@
+(node) util.print is deprecated. Use console.log instead.
 .guoku-btn {
   font-size: 16px;
   height: 35px;
@@ -133,13 +134,13 @@
 }
 .button-white {
   background-color: #fff;
-  color: #9D9E9F;
+  color: #9d9e9f;
 }
 .button-white .fa {
-  color: #9D9E9F;
+  color: #9d9e9f;
 }
 .button-white:hover {
-  color: #9D9E9F;
+  color: #9d9e9f;
 }
 .blue-button {
   font-size: 14px;
@@ -152,7 +153,7 @@
   margin-top: 20px;
 }
 .button-gray {
-  background-color: #9D9E9F;
+  background-color: #9d9e9f;
 }
 .seller-button {
   margin-top: 10px;
@@ -177,7 +178,7 @@
 }
 .btn-cancel i,
 .button-cancel i {
-  color: #9D9E9F;
+  color: #9d9e9f;
 }
 .button-sharp {
   -webkit-border-radius: 0px;
@@ -191,13 +192,13 @@
   cursor: default;
 }
 .button-disabled {
-  background-color: #9D9E9F;
-  color: #F8F8F8;
+  background-color: #9d9e9f;
+  color: #f8f8f8;
 }
 .button-disabled:hover,
 .button-disabled:focus {
-  background-color: #9D9E9F;
-  color: #F8F8F8;
+  background-color: #9d9e9f;
+  color: #f8f8f8;
 }
 .entity-report-button {
   width: 120px;
@@ -226,7 +227,7 @@
   border: 1px solid #e6e6e6;
 }
 .panel {
-  background-color: #fff;
+  background-color: #ffffff;
   padding: 18px 18px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -234,21 +235,21 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 2px #ddd;
-  -moz-box-shadow: 0px 0px 2px #ddd;
-  box-shadow: 0px 0px 2px #ddd;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
 }
 .panel-no-padding {
-  background-color: #fff;
+  background-color: #ffffff;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 2px #ddd;
-  -moz-box-shadow: 0px 0px 2px #ddd;
-  box-shadow: 0px 0px 2px #ddd;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
   overflow: hidden;
 }
 .img-box {
@@ -345,7 +346,7 @@
   color: #424242;
 }
 .little-round-tag:hover {
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
 }
 .normal-round-tag {
   -webkit-border-radius: 40px;
@@ -369,7 +370,7 @@
 }
 .normal-round-tag:hover,
 .normal-round-tag.current {
-  background-color: #ddd;
+  background-color: #dddddd;
 }
 .bottom-bordered {
   border-bottom: 1px solid #e6e6e6;
@@ -388,7 +389,7 @@
   border-radius: 3px;
   /*text-align:center;*/
   /*color:#ff1f77;*/
-  background-color: #FF1F77;
+  background-color: #ff1f77;
   text-decoration: none;
 }
 .b_day {
@@ -427,16 +428,16 @@ p .b_day {
   border: none;
   margin-bottom: 60px;
   padding: 0px 0px 16px 0px;
-  background-color: #fff;
+  background-color: #ffffff;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 2px #ddd;
-  -moz-box-shadow: 0px 0px 2px #ddd;
-  box-shadow: 0px 0px 2px #ddd;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
   overflow: hidden;
 }
 .entity-four.thumbnail .img-box {
@@ -649,23 +650,23 @@ p.boolean-false {
 }
 .batch-selection-modal .modal-dialog .modal-content {
   overflow-y: scroll;
-  background-color: #F8F8F8;
+  background-color: #f8f8f8;
 }
 .batch-selection-modal .modal-dialog .modal-content .content-list {
   list-style: none;
 }
 .batch-selection-modal .modal-dialog .modal-content .content-list li {
   cursor: pointer;
-  background-color: #fff;
+  background-color: #ffffff;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 2px #ddd;
-  -moz-box-shadow: 0px 0px 2px #ddd;
-  box-shadow: 0px 0px 2px #ddd;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
   overflow: hidden;
   margin: 10px;
 }
@@ -705,3 +706,4 @@ p.boolean-false {
 #test {
   color: red;
 }
+/*# sourceMappingURL=basic_management.less.css.map */
