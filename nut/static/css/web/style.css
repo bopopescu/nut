@@ -738,11 +738,11 @@ a:hover {
   text-align: center;
   background: #F7F7F7;
 }
+.goods_detail .tips {
+  margin-bottom: 20px;
+}
 .goods_detail a:hover {
   text-decoration: none;
-}
-.goods_detail .tips {
-  height: 37px;
 }
 .goods_detail .tips ul li {
   float: left;
