@@ -557,3 +557,29 @@ p.boolean-false{
    height: 100%;
    width: 100%;
 }
+
+.user-icon-widget{
+          float:left;
+          display: inline-block;
+          width: @sidebar-user-icon-size;
+          height:@sidebar-user-icon-size;
+          margin-right: 5px;
+          margin-top:10px;
+          a {
+            display: block;
+            img{
+                width:@sidebar-user-icon-size;
+                height:@sidebar-user-icon-size;
+            }
+          }
+          img{
+            border-radius : 50%;
+          }
+}
+
+.user-icon-list{
+        .clearfix;
+        li{
+          .user-icon-widget;
+        }
+}

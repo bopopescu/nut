@@ -43,9 +43,7 @@
         </div>
 
         <div class="row" id="detail_content">
-
             <div id="detail_content_left" class="container-fluid col-lg-8 col-md-8 col-sm-11 col-xs-12 ">
-
                 <div class="user-list-wrapper">
                     <div class="content-panel">
                         <div class=" panel-header">
@@ -100,16 +98,27 @@
 
                         </div>
                     </div>
-
                 </div>
 
-
+                <div class="col-xs-12">
+                    {% spaceless %}
+                        <div class="row clearfix">
+                            <ul class="pager">
+                                {#    {{ paginator.num_pages }}#}
+                                {% if page_obj.has_previous %}
+                                    <li><a href="{{ url }}?page={{ page_obj.previous_page_number }}">上一页</a></li>
+                                {% endif %}
+                                {%  if page_obj.has_next %}
+                                    <li><a href="{{ url }}?page={{ page_obj.next_page_number}}">下一页</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    {% endspaceless %}
+                </div>
             </div>
             <div  id="detail_content_right" class="hidden-print   col-lg-4 col-md-4 hidden-sm hidden-xs">
                 {% include "web/entity/partial/detail_side.html" %}
             </div>
         </div>
-
-
     </div>
 {% endblock %}
