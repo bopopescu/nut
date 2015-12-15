@@ -5,7 +5,6 @@ define(['views/base/ListView'],function(
 
         render: function(){
             var res = ListView.prototype.render.apply(this);
-            this.displayCounter();
             return res;
         },
         displayCounter: function(likerCount){
