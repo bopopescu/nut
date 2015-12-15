@@ -1,6 +1,7 @@
 from django.conf.urls import url, patterns
 from apps.v4.views.user import APIUserSearchView, APIUserIndexView, APIUserNotesView, APIUserLikeView, APIUserVerifiedView
 
+
 urlpatterns = patterns(
     'apps.v4.views.user',
 
