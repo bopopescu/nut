@@ -1,15 +1,117 @@
 {% extends 'management/management_base.html' %}
-
 {% load i18n %}
-
-
 
 {% block content %}
 
-    <form action="" method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Create" />
-    </form>
+{#    <form action="" method="post">{% csrf_token %}#}
+{#    {{ form.as_p }}#}
+{#    <input type="submit" value="Create" />#}
+{#    </form>#}
+
+    <section class="content-header">
+        <h1>
+            Create Seller
+            <small>create seller</small>
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+            <li class="active">create seller</li>
+        </ol>
+    </section>
+
+    <section class="content" id="create-seller">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Seller Form</h3>
+                    </div>
+                    <form class="form-horizontal" method="post">
+                        {% csrf_token %}
+                        <div class="box-body">
+                           <div class="form-group">
+                                  <label for="seller-user-id" class="col-sm-2 control-label">Seller user id:</label>
+                                  <div class="col-sm-10">
+                                      <input type="text" class="form-control" id="seller-user-id">
+                                   </div>
+                           </div>
+
+                            <div class="form-group">
+                                   <label for="seller-name" class="col-sm-2 control-label">Seller name:</label>
+                                   <div class="col-sm-10">
+                                       <input type="text" class="form-control" id="seller-name">
+                                   </div>
+                            </div>
+{# upload seller-logo and show it.#}
+
+                            <img class="profile-user-img img-responsive img-circle" src="/static/images/avatar/woman.png" alt="seller logo">
+
+                            <div class="form-group">
+                                   <label for="seller-logo-img" class="col-sm-2 control-label">Logo:</label>
+                                   <div class="col-sm-10">
+                                       <input type="file" id="seller-logo-img">
+                                   </div>
+                             </div>
+
+
+                            <div class="form-group">
+                                   <label for="seller-shop-title" class="col-sm-2 control-label">Shop title:</label>
+                                   <div class="col-sm-10">
+                                       <input type="text" class="form-control" id="seller-shop-title">
+                                   </div>
+                            </div>
+
+                            <div class="form-group">
+                                   <label for="shop-link" class="col-sm-2 control-label">Seller user id:</label>
+                                   <div class="col-sm-10">
+                                       <input type="text" class="form-control" id="shop-link">
+                                   </div>
+                            </div>
+
+                            <div class="form-group">
+                                   <label for="shop-desc" class="col-sm-2 control-label">Shop desc:</label>
+                                   <div class="col-sm-10">
+                                       <textarea class="form-control" rows="3"></textarea>
+                                   </div>
+                            </div>
+
+                            <div class="form-group">
+                                   <label for="shop-status" class="col-sm-2 control-label">Status:</label>
+                                   <div class="col-sm-10">
+                                       <select class="form-control">
+                                           <option selected>正常卖家</option>
+                                           <option>冻结卖家</option>
+                                       </select>
+                                   </div>
+                            </div>
+
+                            <div class="form-group">
+                                   <label for="business-section" class="col-sm-2 control-label">Business section:</label>
+                                   <div class="col-sm-10">
+                                       <select class="form-control">
+                                           <option selected>空白</option>
+                                           <option>服饰</option>
+                                           <option>文化</option>
+                                           <option>美食</option>
+                                           <option>生活</option>
+                                       </select>
+                                   </div>
+                            </div>
+
+                        </div>
+                        <div class="box-footer">
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-md-offset-2 col-sm-offset-2 col-xs-offset-2">
+                                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 
 {% endblock %}
 
