@@ -243,6 +243,8 @@
     {#        </div>#}
     {#    </li>#}
 </ul>
+{% if not is_entity_detail %}
+
 <ul class="section-list" id="sidebar_fix">
         <li class="section  need-bottom-border">
         <div class="section-title">热门品类</div>
@@ -294,4 +296,6 @@
         </ul>
     </li>
 </ul>
+
+{% endif %}
 

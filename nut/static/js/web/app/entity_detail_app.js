@@ -53,5 +53,4 @@ require([
 
         var likerApp = new LikerAppController(entity);
 
-        console.log("entity detail init");
 });

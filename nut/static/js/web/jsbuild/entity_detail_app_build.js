@@ -2563,7 +2563,9 @@ require([
         var page = new Page();
         var menu = new Menu();
         var goto = new GoTop();
-        var sidebar = new SideBarManager();
+        // disable sidebar scroll effect
+        // TODO: fix the bug of flashing footer
+        //var sidebar = new SideBarManager();
         var entityLike  =new EntityLike();
         var entityReport = new EntityReport();
         var userNote = new UserNote();
@@ -2579,7 +2581,6 @@ require([
 
         var likerApp = new LikerAppController(entity);
 
-        console.log("entity detail init");
 });
 
 define("entity_detail_app", function(){});
