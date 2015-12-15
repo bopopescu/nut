@@ -2385,11 +2385,12 @@ define('views/Entity/EntityLikerViewSidebar',['views/base/ListView'],function(
             this.displayCounter();
             return res;
         },
-        displayCounter: function(){
-
-            this.$el.find('.liker-counter').html(this.likerCount);
+        displayCounter: function(likerCount){
+            this.$el.find('.liker-counter').html(likerCount);
+        },
+        setLikesCount: function(likerCount){
+            this.displayCounter(likerCount);
         }
-
   });
 
   return EntityLikerViewSidebar;
@@ -2489,7 +2490,9 @@ define('subapp/entity/liker',[
                 el: '.entity-liker-sidebar-wrapper',
                 itemView : UserItemView,
             });
-            this.likerViewSidebar.likerCount = this.likerCount;
+
+            //TODO : remove data bind on view !!!!
+            this.likerViewSidebar.setLikesCount(this.likerCount) ;
             this.likerViewSidebar.render();
             console.log('entity sync');
         },
