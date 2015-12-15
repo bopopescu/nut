@@ -76,8 +76,53 @@
       }
     }
     }
+  }
+}
+
+#sellers-table{
+  &.table-bordered{
+    thead{
+      tr{
+        th{
+          word-break: keep-all;
+        }
+
+      }
+    }
 
   }
+}
+
+@media screen and(max-width: 767px){
+  .box-body{
+    //解决在小布局时,顶部单元格有缝隙的问题
+    padding:0px;
+    &.table-responsive{
+    #sellers-table{
+      &.table{
+        thead{
+          tr{
+            #shop-desc{
+              min-width:200px;
+              white-space: normal;
+            }
+          }
+        }
+        tbody{
+          tr{
+            td{
+              min-width:200px;
+              white-space:normal;
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+  }
+
 }
 
 #test{
