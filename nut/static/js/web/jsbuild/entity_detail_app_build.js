@@ -2376,13 +2376,10 @@ define('views/base/ListView',['Backbone','underscore'],
 define('views/Entity/EntityLikerViewSidebar',['views/base/ListView'],function(
     ListView
 ){
-
-
   var EntityLikerViewSidebar = ListView.extend({
 
         render: function(){
             var res = ListView.prototype.render.apply(this);
-            this.displayCounter();
             return res;
         },
         displayCounter: function(likerCount){
@@ -2392,9 +2389,7 @@ define('views/Entity/EntityLikerViewSidebar',['views/base/ListView'],function(
             this.displayCounter(likerCount);
         }
   });
-
   return EntityLikerViewSidebar;
-
 });
 define('views/Entity/EntityLikerViewMobile',['views/base/ListView'],function(
     ListView
@@ -2403,6 +2398,10 @@ define('views/Entity/EntityLikerViewMobile',['views/base/ListView'],function(
 
 
   var   EntityLikerViewMobile = ListView.extend({
+
+      setLikesCount: function(likeCount){
+          this.$el.find('.liker-counter').html(likeCount);
+      },
 
   });
 
@@ -2444,10 +2443,11 @@ define('views/Entity/UserItemView',['views/base/ItemView', 'jquery', 'underscore
         sizingAvatar: function(){
             var user = this.model.get('user');
             var avatar = user['avatar_url'];
-            if (/imgcdn.guoku.com/.test(avatar)){
+            if (/imgcdn.guoku.com/.test(avatar) && (!this.model.get('avatar_resized'))){
                 avatar = avatar.replace('/avatar','/avatar/50');
                 user['avatar_url'] = avatar;
                 this.model.set('user', user);
+                this.model.set('avatar_resized', true);
             }
         }
 
@@ -2491,9 +2491,20 @@ define('subapp/entity/liker',[
                 itemView : UserItemView,
             });
 
+            this.likerViewMobile = new EntityLikerViewMobile({
+                collection: this.likerCollection,
+                el: '.entity-liker-mobile-wrapper',
+                itemView: UserItemView,
+            });
+
+            this.likerViewMobile.render();
+            this.likerViewSidebar.render();
+
             //TODO : remove data bind on view !!!!
             this.likerViewSidebar.setLikesCount(this.likerCount) ;
-            this.likerViewSidebar.render();
+            this.likerViewMobile.setLikesCount(this.likerCount);
+
+
             console.log('entity sync');
         },
 

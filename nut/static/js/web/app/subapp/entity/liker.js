@@ -34,9 +34,20 @@ define([
                 itemView : UserItemView,
             });
 
+            this.likerViewMobile = new EntityLikerViewMobile({
+                collection: this.likerCollection,
+                el: '.entity-liker-mobile-wrapper',
+                itemView: UserItemView,
+            });
+
+            this.likerViewMobile.render();
+            this.likerViewSidebar.render();
+
             //TODO : remove data bind on view !!!!
             this.likerViewSidebar.setLikesCount(this.likerCount) ;
-            this.likerViewSidebar.render();
+            this.likerViewMobile.setLikesCount(this.likerCount);
+
+
             console.log('entity sync');
         },
 
