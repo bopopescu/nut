@@ -38,7 +38,7 @@
     {% spaceless %}<h2 class="sr-only">喜爱{{ entity.title }}的用户列表,{% if tags|length > 0 %}{% for tag in tags %},{{ tag.tag.name }}{% endfor %}{% endif %}</h2>{% endspaceless %}
 
     <div class="container goods_detail liker-page">
-        <div class="row" id="detail_breadcrumb">
+        <div class="row breadcrumb-wrapper" id="detail_breadcrumb">
             {% include "web/entity/partial/detail_breadcrumb_likers.html" %}
         </div>
 
