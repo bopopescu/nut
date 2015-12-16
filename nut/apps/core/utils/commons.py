@@ -88,6 +88,24 @@ def currency_converting(convert_from, amount):
     return round(amount*rate, 2)
 
 
+def get_user_agent(request):
+    if not request:
+        return
+    return request.META['HTTP_USER_AGENT']
+
+
+def get_client_ip(request):
+    if not request:
+        return
+
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
 class VerifyUserTokenGenerator(PasswordResetTokenGenerator):
     def _make_token_with_timestamp(self, user, timestamp):
         ts_b36 = int_to_base36(timestamp)

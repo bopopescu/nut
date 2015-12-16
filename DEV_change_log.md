@@ -1,7 +1,19 @@
+
+
 2015-12-16
 ===
+3. 搜索记录同时记录用户的ip和agent
 2. 首页瀑布流
 1. update redis key user_last_verify_time_id to user_last_verify_time:id
+
+### action
+
+    ALTER TABLE `core`.`core_search_history` 
+    ADD COLUMN `ip` VARCHAR(45) NULL COMMENT '' AFTER `search_time`,
+    ADD COLUMN `agent` VARCHAR(255) NULL COMMENT '' AFTER `ip`;
+    
+    ALTER TABLE `core`.`core_sd_address_list` 
+    ADD UNIQUE INDEX `address_UNIQUE` (`address` ASC)  COMMENT '';
 
 ---
 

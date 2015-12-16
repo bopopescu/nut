@@ -9,6 +9,7 @@ from django.template import RequestContext
 from haystack.generic_views import SearchView
 
 from apps.core.tasks.recorder import record_search
+from apps.core.utils.commons import get_client_ip, get_user_agent
 from apps.tag.models import Tags
 from apps.core.models import Entity, Search_History
 from apps.core.models import Entity_Like
@@ -213,7 +214,10 @@ class GKSearchView(SearchView):
                 'user_entity_likes': el,
             })
         key_words = form.cleaned_data.get(self.search_field)
-        record_search(gk_user=self.request.user, key_words=key_words)
+        ip_address = get_client_ip(self.request)
+        user_agent = get_user_agent(self.request)
+        record_search(gk_user=self.request.user, key_words=key_words,
+                      ip_address=ip_address, user_agent=user_agent)
         return self.render_to_response(context)
 
     def get(self, request, *args, **kwargs):
