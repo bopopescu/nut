@@ -26,12 +26,28 @@ define([
         entitySync: function(){
 
             this.likerCollection = this.getLikerCollection();
+            this.likerCount = this.getLikerCount();
+
             this.likerViewSidebar = new EntityLikerViewSidebar({
                 collection: this.likerCollection,
                 el: '.entity-liker-sidebar-wrapper',
                 itemView : UserItemView,
             });
+
+            this.likerViewMobile = new EntityLikerViewMobile({
+                collection: this.likerCollection,
+                el: '.entity-liker-mobile-wrapper',
+                itemView: UserItemView,
+            });
+
+            this.likerViewMobile.render();
             this.likerViewSidebar.render();
+
+            //TODO : remove data bind on view !!!!
+            this.likerViewSidebar.setLikesCount(this.likerCount) ;
+            this.likerViewMobile.setLikesCount(this.likerCount);
+
+
             console.log('entity sync');
         },
 
@@ -41,6 +57,10 @@ define([
 
         getLikerCollection:function(){
             return this.entityModel.getLikeUserCollection();
+        },
+
+        getLikerCount: function(){
+            return this.entityModel.getLikerCount()
         }
 
     });

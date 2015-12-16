@@ -1,0 +1,124 @@
+{% extends 'web/base.html' %}
+{% load i18n staticfiles %}
+{% load common guoku %}
+
+{% block meta-og %}
+    <meta property="og:title" content="果库商品喜爱用户列表 | 精英消费指南 | 理想生活主张" >
+    <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
+    <meta property="og:description" content="果库的商品喜爱用户列表，网友们参与分享的互联网上可购买得到的商品信息，罗列商品相关的品牌介绍、分类属性、客观中立的点评及精彩评论、被贴上的人气标签、关联的消费图文、相似商品及图文推荐。">
+{% endblock %}
+
+{% block meta-common %}
+    <meta name="title"  content="{%  if entity.brand|length != 0 %}{{ entity.brand }} - {% endif %}{{ entity.title }} - {{ entity.category }} - {{ entity.category.group }} 用户喜爱列表| 精英消费指南 | 果库">
+    <meta name="keywords" content="果库、guoku、果库网、果库应用、精英消费指南、消费指南、精品导购应用、导购、购物指南、购物分享、淘宝网购物、淘宝网精选、精品推荐、{%  if entity.brand|length != 0 %}{{ entity.brand }}、{% endif %}{{ entity.category }}、{{ entity.category.group }}、{{ entity.title }}、{% if tags|length > 0 %}{% for row in tags %}{{ row.tag__name|truncatechars:8 }}、{% endfor %}{% endif %}">
+    <meta name="description" content="{%  if entity.brand|length != 0 %}{{ entity.brand }},{% endif %}{{ entity.title }}喜爱用户列表,{% if entity.has_top_note %}{{ entity.top_note.note }}{% endif %}  ，由果库网友分享的互联网上可购买得到的商品信息，透过网友们自发的喜爱、客观中立的点评，帮助你更便捷地发现好物，更高效地做出消费决策。">
+{% endblock %}
+
+{% block title %}{%  if entity.brand|length != 0 %}{{ entity.brand }} - {% endif %}{{ entity.title }} 喜爱用户列表 - {{ entity.category }} - {{ entity.category.group }} | 精英消费指南 | 果库{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/web/style.css' %}">
+{% endblock %}
+
+{% block body_class %}
+    gray-body entity-likers－body
+{% endblock %}
+
+{% block keyword %}{% if entity.brand|length != 0 %}{{ entity.brand }},{% endif %}{{ entity.title }},{{ entity.category }}{% endblock %}
+
+{% block description %}
+    {#    {{ entity.category }},#}
+    {{ entity.category }},
+    {{ entity.title }}
+    喜爱用户列表
+{% endblock %}
+
+{% block h1 %} 喜爱用户列表 , {% if entity.brand|length > 0 %}喜爱{{ entity.brand }}的用户,{% endif %}喜爱{{ entity.title }}的用户{% if tags|length > 0 %}喜爱{% for row in tags %},{{ row.tag__name }}{% endfor %}的用户{% endif %}{% endblock %}
+
+{% block content %}
+    {% spaceless %}<h2 class="sr-only">喜爱{{ entity.title }}的用户列表,{% if tags|length > 0 %}{% for tag in tags %},{{ tag.tag.name }}{% endfor %}{% endif %}</h2>{% endspaceless %}
+
+    <div class="container goods_detail liker-page">
+        <div class="row breadcrumb-wrapper" id="detail_breadcrumb">
+            {% include "web/entity/partial/detail_breadcrumb_likers.html" %}
+        </div>
+
+        <div class="row" id="detail_content">
+            <div id="detail_content_left" class="container-fluid col-lg-8 col-md-8 col-sm-11 col-xs-12 ">
+                <div class="user-list-wrapper">
+                    <div class="content-panel">
+                        <div class=" panel-header">
+                        </div>
+                        <div class="row panel-content-wrapper social-list ">
+
+                            {% for f in entity_likes  %}
+                                <div class="social-cell col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="clearfix user-item" >
+                                        <div class="media clearfix">
+                                            <a class="pull-left user-icon" href="{% url 'web_user_index' f.user.id %}" target="_blank">
+                                                <img class="media-object img-circle" src="{{ f.user.profile.avatar_url|resize:'180' }}" >
+                                            </a>
+
+
+                                            <div class="media-body user-info-wrapper clearfix" >
+                                                <h4 class="media-heading user-name">
+                                                    <a href="{{ f.user.absolute_url }}">
+                                                        {{ f.user.profile.nick }}
+                                                    </a>
+                                                </h4>
+                                                <p class="user-social-status">
+                                                    <span>{{ f.user.fans_count }}</span>&nbsp;{% trans 'Fans' %}
+                                                    <span>{{ f.user.following_count }}</span>&nbsp;{% trans 'Followed' %}
+                                                </p>
+                                                {% if f.user.id == request.user.id %}
+                                                    <a href="#" class="btn btn-cancel pull-right disabled">&nbsp; <b>{% trans 'Myself' %}</b></a>
+                                                {% elif f.user.id in request.user.concren %}
+                                                    <a data-status="1" data-user-id="{{ f.user.id }}" href="javascript:;" class="follow is-fan guoku-button btn-cancel "><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans "Unfollow" %}</a>
+                                                    {#                        <a href="#" class="follow is-fan btn btn-primary pull-right"><i class="fa fa-plus fa-lg" style="color: #fff"></i>&nbsp; <b>关注</b></a>#}
+                                                {% elif f.user.id in request.user.following_list %}
+                                                    <a data-status="1" data-user-id="{{ f.user.id }}" href="javascript:;" class="follow guoku-button btn-cancel "><i class="fa fa-check fa-lg"></i>&nbsp; {% trans "Unfollow" %}</a>
+                                                {% elif f.user.id in request.user.fans_list %}
+                                                    <a data-status="0" data-user-id="{{ f.user.id }}" href="javascript:;" class="follow guoku-button button-blue "><i class="fa fa-plus fa-lg"></i>&nbsp; {% trans 'Follow' %}</a>
+                                                {% else %}
+                                                    <a data-status="0" data-user-id="{{ f.user.id }}" href="javascript:;" class="follow guoku-button button-blue "><i class="fa fa-plus fa-lg"></i>&nbsp; {% trans 'Follow' %}</a>
+                                                {% endif %}
+                                            </div>
+                                            <div class="entity-list clearfix">
+                                                {% for entity_like in f.user.recent_likes.all %}
+                                                    <div class="entity-item" style="background-image:url('{{  entity_like.entity.chief_image|resize:'128' }}')">
+                                                        <a href="{{ entity_like.entity.absolute_url }}" target="_blank">
+                                                            <img class="transparent-holder" src="{% static 'images/trans.png' %}" alt="{{ entity_like.entity.title }}"  title="{{ entity_like.entity.title }}" >
+                                                        </a>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12">
+                    {% spaceless %}
+                        <div class="row clearfix">
+                            <ul class="pager">
+                                {#    {{ paginator.num_pages }}#}
+                                {% if page_obj.has_previous %}
+                                    <li><a href="{{ url }}?page={{ page_obj.previous_page_number }}">上一页</a></li>
+                                {% endif %}
+                                {%  if page_obj.has_next %}
+                                    <li><a href="{{ url }}?page={{ page_obj.next_page_number}}">下一页</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    {% endspaceless %}
+                </div>
+            </div>
+            <div  id="detail_content_right" class="hidden-print   col-lg-4 col-md-4 hidden-sm hidden-xs">
+                {% include "web/entity/partial/detail_side.html" %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

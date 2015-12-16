@@ -12,7 +12,7 @@ def tag(db):
     Args:
         db: test database.
     """
-    user = Tags.objects.create_user(email='guoku_robot@robot.com',
+    user = Tags.objects.create_user(email='guoku_robot@guoku-robot.com',
                                       password='top_secret')
     assert user.is_active == Tags.active
 

@@ -51,6 +51,7 @@
                             {% include "web/entity/partial/detail_pic.html" %}
                             {% include 'web/entity/partial/entity_other_pic.html' %}
                         </div>
+
                         <div class="detail-info-center col-xs-12 col-sm-6 col-md-5 col-lg-5">
                             {% include "web/entity/partial/detail_info_center.html" %}
                         </div>
@@ -185,7 +186,7 @@
         </script>
         <script type="text/html" id="user_cell_template">
                 <a class='user-link' href="<%=user.absolute_url%>">
-                    <div class="user-icon-holder"><img src="<%=user.avatar_url%>"></div>
+                    <img class="img-responsive" src="<%=user.avatar_url%>">
                 </a>
         </script>
     {% endif %}

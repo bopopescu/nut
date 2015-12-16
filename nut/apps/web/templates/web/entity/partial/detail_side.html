@@ -39,13 +39,19 @@
     </ul>
 {% endif %}
 {#entity like user list --- start#}
-{% if is_entity_detail %}
+{% if is_entity_detail and entity.like_count > 0 %}
 <ul class="section-list entity-liker-sidebar-wrapper">
     <li class="section">
+        <div class="section-title">
+            <span class="liker-counter"></span>人喜爱
+            <span class="pull-right link-all">
+                <a href="{% url 'web_entity_likers_list' entity.entity_hash %}">全部&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></span></div>
+        <div class="section-content">
 {#        bb stand for backbone     #}
-        <ul class="user-like-list bb-list-container">
+        <ul class="user-like-list bb-list-container user-icon-list">
 
         </ul>
+        </div>
     </li>
 </ul>
 {% endif %}
@@ -73,6 +79,7 @@
             </div>
         </li>
     {% endif %}
+
     <li class="section  need-bottom-border">
         <div class="section-title">热门品类</div>
         <div class="section-content">
@@ -236,6 +243,8 @@
     {#        </div>#}
     {#    </li>#}
 </ul>
+{% if not is_entity_detail %}
+
 <ul class="section-list" id="sidebar_fix">
         <li class="section  need-bottom-border">
         <div class="section-title">热门品类</div>
@@ -287,4 +296,6 @@
         </ul>
     </li>
 </ul>
+
+{% endif %}
 

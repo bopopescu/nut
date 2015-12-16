@@ -18,4 +18,4 @@ clean-pyc:
 	find . -name '*~' -exec rm -f {} +
 
 test: clean
-	python -m pytest tests
+	py.test tests
