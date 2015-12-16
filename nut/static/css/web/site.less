@@ -72,12 +72,12 @@
 
 @media (min-width: 768px){
   .caption .note {
-    height: 120px;
+    //height: 120px;
   }
 }
 @media (min-width: 992px){
   .caption .note {
-    height: 96px;
+    //height: 96px;
   }
 }
 
@@ -248,7 +248,7 @@
        text-decoration: none;
      }
   }
-  .fa-thumbs-o-up,.fa-comment-o,.add-comment,.add-comment span,.poke .poke-count,{
+  .fa-thumbs-o-up,.fa-comment-o,.add-comment,.add-comment span,.poke .poke-count{
       color: @common-gray;
       text-decoration: none;
       &:hover,&:focus,&:active{
@@ -689,7 +689,7 @@
       font-size: 16px;
       line-height: 24px;
     }
-    .article-source,{
+    .article-source{
       .little-gray-font;
       margin-left: 10px;
     }
@@ -927,7 +927,7 @@ a:hover{text-decoration:underline;}
     }
     .info-wrapper{
       .info{
-        float:right;
+        //float:right;
         padding-right: 20px;
         font-size:@mini-size;
         color: @common-gray;
@@ -1392,4 +1392,16 @@ a:hover{text-decoration:underline;}
 
 .test{
   color: red;
+  //color: black;
+}
+
+html { overflow-y: scroll; }
+
+
+// maonsonry
+.entity-selection{
+  .img-box{
+    height: auto;
+    padding: 0;
+  }
 }

@@ -153,8 +153,6 @@ TODO : 现在移动端的标签还都是个人标签，是否需要改成全局�
 2. 把category下的页面加入RequireJS，并作为滚动到页底自动加载
 3. 在model research_history里的记录搜索函数，判断用户是否为游客的时候，换为一种更加安全的方式
 
-
-
 1. 合并EDM到dev
 2. 调整EDM内容样式
 3. SD地址列表成员更新信息不能用update接口，需要先delete再add
