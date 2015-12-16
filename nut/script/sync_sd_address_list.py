@@ -8,8 +8,8 @@ import gc
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR + '../')
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
-#os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_judy'
+# os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_judy'
 
 from apps.core.models import GKUser
 
