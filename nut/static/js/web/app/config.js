@@ -5,7 +5,6 @@ requirejs.config({
     paths: {
         libs: './libs',
         utils: './utils',
-        bower: 'bower_components',
         component:'./component',
         subapp: './subapp',
         jquery: 'libs/jquery-1.11.1.min',
