@@ -23,8 +23,7 @@
         `members_count` integer NOT NULL
         );
 
-        INSERT INTO `core`.`core_sd_address_list` (`address`, `name`, `description`, `members_count`) VALUES ('gk_users_1@maillist.sendcloud.org', 'gk_users_1', 'gk_users_1', '11017');
-
+INSERT INTO `core`.`core_sd_address_list` (`address`, `name`, `description`, `members_count`, `created`) VALUES ('gk_users_1@maillist.sendcloud.org', 'gk_users_1', 'gk_users_1', '11017', '2015-12-16 17:04:21');
 
 ####Changelog:
 1. 用户注册、激活、需改信息..时，对SendCloud的操作改为使用celery;
@@ -37,8 +36,7 @@
 
 
 4.  minor bug fix 
-3.  user liker app in entity detail page (not finished) 
-
+3.  user liker app in entity detail page
 3. event page, m.guoku.com, simple title (not finish)
 2. add seller management files
 1. add seller model 

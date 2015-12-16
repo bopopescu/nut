@@ -4,7 +4,8 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 INTRANET_IMAGE_SERVER = 'http://10.0.5.198:8001/'
 LOCAL_IMG_DEBUG=True
-IMAGE_HOST = 'http://10.0.5.198/'
+# IMAGE_HOST = 'http://10.0.5.198/'
+IMAGE_HOST = 'http://imgcdn.guoku.com/'
 AVATAR_HOST = IMAGE_HOST
 IMG_COUNTER_HOST = 'http://10.0.5.198'
 # MEDIA_ROOT='../ant_image/'
