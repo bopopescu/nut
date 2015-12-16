@@ -73,7 +73,7 @@
                                     <span class="input-element col-xs-10 col-sm-7">
                                          {{ profile_form.email }}
                                     </span>
-                                    {% if not user.profile.email_verified %}
+                                    {% if user.need_verify_mail %}
                                     <span class=" col-xs-2 col-sm-2">
                                         <span class="guoku-button button-blue button-sharp mail-verify-button">验证邮箱</span>
                                     </span>

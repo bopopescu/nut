@@ -104,6 +104,14 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def __unicode__(self):
         return self.email
 
+
+    def has_guoku_email(self):
+        return '@guoku.com' in self.email
+
+    @property
+    def need_verify_mail(self):
+        return (not self.profile.email_verified) and ( not self.has_guoku_email())
+
     @property
     def can_write(self):
         return self.is_writer or self.is_editor or self.is_staff
