@@ -1,4 +1,9 @@
+2015-12-16
+===
+2. 首页瀑布流
+1. update redis key user_last_verify_time_id to user_last_verify_time:id
 
+---
 
 2015-12-11
 ====
