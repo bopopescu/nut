@@ -131,5 +131,4 @@ define(['jquery','libs/Class','libs/fastdom'],
     });
 
     return LoadEntity;
-//test
 });
