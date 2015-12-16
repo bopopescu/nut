@@ -453,8 +453,8 @@ body.compact-body{
     }
   }
 }
-.guoku-content{
-  &.user-page,&.index-page{
+.guoku-content, .entity-likers－body{
+  &.user-page,&.index-page,.liker-page{
     .user-info-wrapper{
       margin-bottom: 40px;
       .user-icon{
@@ -1162,25 +1162,7 @@ body.compact-body{
           }
         }
       }
-      .user-icon-list{
 
-        li{
-          display: inline-block;
-          width: 27px;
-          height:27px;
-          a {
-            display: block;
-            img{
-                width: 27px;
-                height:27px;
-            }
-          }
-          img{
-            border-radius : 50%;
-            margin: 0px 5px 5px 0px;
-          }
-        }
-      }
       .tag-list{
         list-style: none ;
         li{
@@ -1319,6 +1301,10 @@ body.compact-body{
     }
     .section-title{
       margin-bottom:10px;
+      .link-all{
+        vertical-align: middle;
+        padding-right: 18px;
+      }
     }
 
   }
@@ -1598,12 +1584,15 @@ body{
          display:block;
       }
 }
+//temp resolution on mobile entity-liker list
 
-
-//temp fix for article body
-.message-body,.static-body,.download-body, .entity-body{
-  padding-top: 0px;
+.entity-liker-mobile-wrapper{
+    .user-like-list{
+       height: 43px;
+       overflow: hidden;
+    }
 }
+
 
 .gk_test{
   color:red;
