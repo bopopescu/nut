@@ -1,4 +1,3 @@
-(node) util.print is deprecated. Use console.log instead.
 body,
 h1,
 h2,
@@ -206,10 +205,8 @@ a:hover {
 /*消息页面*/
 .message_page {
   width: 941px;
-  margin-top: 75px;
 }
 .message_page .title {
-  margin-top: 40px;
   margin-left: 2px;
   padding-bottom: 25px;
   border-bottom: 1px solid #E6E6E6;
@@ -356,10 +353,10 @@ a:hover {
   border-right: none;
 }
 .download .star_c {
-  color: #ff9600;
+  color: #FF9600;
 }
 .download .tags_c {
-  color: #ba7e32;
+  color: #BA7E32;
 }
 @media screen and (max-width: 960px) {
   .download {
@@ -466,7 +463,7 @@ a:hover {
 .follow {
   margin-top: 16px;
   width: 50%;
-  text-align: right;
+  text-align: center;
   float: left;
 }
 .fans {
@@ -740,14 +737,11 @@ a:hover {
   text-align: center;
   background: #F7F7F7;
 }
-.goods_detail {
-  margin-top: 80px;
+.goods_detail .tips {
+  margin-bottom: 20px;
 }
 .goods_detail a:hover {
   text-decoration: none;
-}
-.goods_detail .tips {
-  height: 37px;
 }
 .goods_detail .tips ul li {
   float: left;
@@ -1066,4 +1060,3 @@ a:hover {
   color: black;
 }
 /*add by An End*/
-/*# sourceMappingURL=style.less.css.map */

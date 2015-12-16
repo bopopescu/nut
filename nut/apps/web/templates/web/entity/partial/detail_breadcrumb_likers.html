@@ -1,0 +1,30 @@
+{% load i18n staticfiles %}
+{% load common guoku %}
+<div class="col-xs-12 tips clear-fix">
+    <ul>
+        {% with group_pk=entity.category.group.pk category_title=entity.category.title %}
+            {% if entity.is_in_selection %}
+                <li >
+                    <a href="{% url 'web_selection' %}">
+                        {% trans 'selection' %}
+                    </a>&nbsp;&nbsp;
+                    <i class="fa fa-angle-right fc_angle_right"></i>&nbsp;&nbsp;</li>
+            {% endif %}
+            {% if not group_pk == 23  %}
+                <li><a href="{% url 'web_category_group' entity.category.group.pk %}">{{ entity.category.group.title_cn }}</a>&nbsp;&nbsp;<i class="fa fa-angle-right fc_angle_right"></i>&nbsp;&nbsp;</li>
+                {% if not category_title == '+' %}
+                    <li><a href="{% url 'web_category_detail' entity.category_id %}">{{ entity.category.title|show_category }}</a>&nbsp;&nbsp;<i class="fa fa-angle-right fc_angle_right"></i>&nbsp;&nbsp;</li>
+                {% endif %}
+            {% endif %}
+            <li >
+                <a href="{{ entity.absolute_url }}"  >
+                    {% if entity.brand|length != 0 %}{{ entity.brand }} - {% endif %}{{ entity.title }}
+                </a>
+                <i class="fa fa-angle-right fc_angle_right"></i>&nbsp;&nbsp;</li>
+            </li>
+            <li >
+                喜爱用户列表
+            </li>
+        {% endwith %}
+    </ul>
+</div>
