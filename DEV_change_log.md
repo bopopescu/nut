@@ -38,8 +38,6 @@ INSERT INTO `core`.`core_sd_address_list` (`address`, `name`, `description`, `me
 
 ---
 
-
-
 4.  minor bug fix 
 3.  user liker app in entity detail page
 3. event page, m.guoku.com, simple title (not finish)
