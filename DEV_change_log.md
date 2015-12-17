@@ -1,16 +1,6 @@
-2015-12-16
-===
-2. 首页瀑布流
-1. update redis key user_last_verify_time_id to user_last_verify_time:id
-
----
-
-2015-12-11
-====
 
 
-  fix bug: category entities order by olike can't load more entity when screen scroll to bottom.
-
+  
 #### Action
   * update django-sendcloud: 
 
@@ -31,12 +21,25 @@
 INSERT INTO `core`.`core_sd_address_list` (`address`, `name`, `description`, `members_count`, `created`) VALUES ('gk_users_1@maillist.sendcloud.org', 'gk_users_1', 'gk_users_1', '11017', '2015-12-16 17:04:21');
 
 ####Changelog:
+
+1. fix feed read counter bug
+
+
+2. 首页瀑布流
+1. update redis key user_last_verify_time_id to user_last_verify_time:id
+
+-------
+
+fix bug: category entities order by olike can't load more entity when screen scroll to bottom.
+
+-------
+
 1. 用户注册、激活、需改信息..时，对SendCloud的操作改为使用celery;
 2. 动态获取和创建SendCloud地址列表;
 3. 只有激活了的邮箱才会加入到sendcloud地址列表；
 4. 开始着手写test，写了一些关于account和edm的。
 
----
+-------
 
 4.  minor bug fix 
 3.  user liker app in entity detail page
