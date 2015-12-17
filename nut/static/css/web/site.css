@@ -1947,7 +1947,7 @@ a:hover {
 html {
   overflow-y: scroll;
 }
-.entity-selection .img-box {
+.entity-selection-body .entity-selection .img-box {
   height: auto;
   padding: 0;
 }
