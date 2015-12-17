@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
-import os
-import sys
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-sys.path.append(BASE_DIR)
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
 
 import six
 import redis
 import requests
 
-from django.conf import settings
+try:
+    from django.conf import settings
+except:
+    import os
+    import sys
+    BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+    sys.path.append(BASE_DIR)
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
+    from django.conf import settings
+
 from django.utils.crypto import salted_hmac
 from django.utils.http import int_to_base36
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
@@ -30,7 +34,9 @@ def update_rate(convert_from_list, convert_to='CNY'):
     Base default value is CNY.
     Then set the rate to redis.
 
-    Args: None
+    Args:
+        convert_from_list:
+        convert_to:
     Returns: None
     """
     for convert_from in convert_from_list:

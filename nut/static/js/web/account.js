@@ -59,7 +59,7 @@
             for (var i = 0; i < l.length; i++) {
                 var $option = $('<option>').val(l[i])
                     .text(l[i])
-                .appendTo(location);
+                    .appendTo(location);
 
                 if (currP === l[i]) {
                     $option[0].selected = true;
@@ -67,36 +67,102 @@
                 }
             }
 
-        var cities = c[selectedP];
-
-        for (var i = 0; i < cities.length; i++) {
-            var $option = $('<option>').val(cities[i])
-                .text(cities[i])
-                .appendTo(city);
-
-            if (currC === cities[i]) {
-                $option[0].selected = true;
-            }
-        }
-
-        location.change(function () {
-            var currP = $(this).val();
-            var selectedP = l.indexOf(currP);
             var cities = c[selectedP];
-            city.html('');
 
             for (var i = 0; i < cities.length; i++) {
-                $('<option>').val(cities[i])
+                var $option = $('<option>').val(cities[i])
                     .text(cities[i])
                     .appendTo(city);
+
+                if (currC === cities[i]) {
+                    $option[0].selected = true;
+                }
             }
-        });
+
+            location.change(function () {
+                var currP = $(this).val();
+                var selectedP = l.indexOf(currP);
+                var cities = c[selectedP];
+                city.html('');
+
+                for (var i = 0; i < cities.length; i++) {
+                    $('<option>').val(cities[i])
+                        .text(cities[i])
+                        .appendTo(city);
+                }
+            });
         }
     };
 
 
+    var verifyMail = {
+        init: function(){
+            var $mail_verify_button = $('.mail-verify-button');
+            if($mail_verify_button[0]){
+                $mail_verify_button.on('click', this.handleMailVerify.bind(this));
+            }
+        },
+        handleMailVerify: function(event){
+            bootbox.alert({
+                size:'small',
+                message: "正在发送验证邮件，请稍等......",
+                className: "mail-dialog"
+            });
+            window.setTimeout(this.doSendVerifyMail.bind(this), 1000);
+        },
+        doSendVerifyMail: function(){
+            var url = '/u/sendverifymail/';
+            $.when(
+                $.ajax({
+                    url: url
+                })
+            ).then(
+                this.sendSuccess.bind(this),
+                this.sendFail.bind(this)
+            )
+        },
+        sendSuccess: function(data){
+             console.log('send success');
+             bootbox.hideAll();
+             window.setTimeout(this.showSuccessMessage.bind(this), 1000);
+        },
+        sendFail: function(data){
+            console.log('send fail');
+            bootbox.hideAll();
+            window.setTimeout(this.showFailMessage.bind(this), 1000);
+
+        },
+        showSuccessMessage: function(){
+            bootbox.alert(
+                {
+                    size:'small',
+                    message:'验证邮件已经发送, 请阅读邮件，点击邮件中的验证链接后，刷新本页。',
+                    className: 'mail-dialog',
+                    callback:function(){
+
+                        var host = location.host;
+                        var path = location.pathname;
+                        window.location = 'http://' + host + path ;
+                    }
+                }
+               );
+
+        },
+        showFailMessage: function(){
+            bootbox.alert(
+                {
+                    size:'small',
+                    message: '验证邮件发送失败，请稍后再尝试',
+                    className :'mail-dialog'
+                });
+
+        },
+
+    };
+
     (function init() {
         settings.setAddress();
+        verifyMail.init();
     })();
 
 })(jQuery, document, window);

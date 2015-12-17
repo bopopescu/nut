@@ -21,7 +21,6 @@ def dbsafe_decode(value):
     _value = deepcopy(loads(value))
     return _value
 
-
 class ListObjectField(models.Field):
 
     __metaclass__ = models.SubfieldBase

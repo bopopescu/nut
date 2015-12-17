@@ -139,6 +139,7 @@ class TagsQueryset(models.query.QuerySet):
                                  # .annotate(acount=Count('content_tags')).order_by('-acount')
         return res
 
+
 class TagsManager(models.Manager):
     def get_queryset(self):
         return TagsQueryset(self.model, using = self._db)
@@ -149,8 +150,8 @@ class TagsManager(models.Manager):
         # tag_list = self.get_queryset().filter(isTopArticleTag=True)
         # content_tags = Content_Tags.objects.filter(tag__in=tag_list, target_content_type_id=31).group_by('target_object_id')
 
-
         return tags
+
 
 class Tags(BaseModel):
     name = models.CharField(max_length=100, unique=True, db_index=True)
@@ -171,7 +172,6 @@ class Tags(BaseModel):
     @property
     def quoted_tag_name(self):
         return quote(self.name.encode('utf-8'))
-
 
     @property
     def tag_hash(self):

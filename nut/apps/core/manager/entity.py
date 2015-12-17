@@ -142,10 +142,13 @@ class EntityLikeQuerySet(models.query.QuerySet):
         # def sort_with_list(self, category_id):
         # return self.using('slave').filter(entity__category = category_id).values_list('entity', flat=True).annotate(dcount=models.Count('entity')).order_by('-dcount')
 
-
 class EntityLikeManager(models.Manager):
     def get_query_set(self):
         return EntityLikeQuerySet(self.model, using=self._db)
+
+    def active_entity_likes(self):
+        #TODO: maybe filter out some deactived user's like ?
+        return self.get_queryset().filter(entity__status__gte=-1)
 
     def popular(self, scale='weekly'):
         key = 'entity:popular:%s' % scale

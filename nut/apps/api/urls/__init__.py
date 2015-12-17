@@ -44,6 +44,8 @@ urlpatterns += patterns(
     url(r'^sla/', include('apps.api.urls.sla')),
     url(r'^flink/', include('apps.api.urls.flink')),
     url(r'^event/', include('apps.api.urls.event')),
+    url(r'^webentity/', include('apps.api.urls.entity')),
+
 
 )
 

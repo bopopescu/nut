@@ -17,5 +17,4 @@ def get_category_choices():
     return res
 
 
-
 __author__ = 'edison7500'

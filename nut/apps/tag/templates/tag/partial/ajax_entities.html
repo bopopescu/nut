@@ -1,0 +1,30 @@
+{% load i18n %}
+{% load guoku %}
+{% load common %}
+
+{% for obj in object_list %}
+    {% with entity=obj.target.entity %}
+    <div class="col-xs-6 col-sm-3 search-entity-item">
+        <div class="thumbnail entity-four">
+            <div class="img-box">
+                <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
+                    <img class="img-responsive" alt="{{ entity.title }}" title="{{ entity.title }}" src="{{ entity.chief_image|resize:'310' }}">
+                </a>
+            </div>
+            <div class="caption">
+                <div class="info">
+                    {% if entity.id in user_entity_likes %}
+                        <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
+                        <i class="fa fa-heart"></i>
+                    {% else %}
+                        <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
+                        <i class="fa fa-heart-o"></i>
+                    {% endif %}
+                    <div class="bubble like-count">{{ entity.like_count|format_like_num }}</div>                    </a>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endwith %}
+{% endfor %}
