@@ -1,7 +1,70 @@
+
+
+  
+#### Action
+  * update django-sendcloud: 
+
+        sudo pip install git+git://github.com/guoku/django-sendcloud@master
+          
+        
+  * update db: 
+
+        CREATE TABLE `core_sd_address_list` (
+        `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+        `address` varchar(45) NOT NULL,
+        `name` varchar(45) NOT NULL,
+        `description` varchar(45) NOT NULL,
+        `created` datetime NOT NULL,
+        `members_count` integer NOT NULL
+        );
+
+INSERT INTO `core`.`core_sd_address_list` (`address`, `name`, `description`, `members_count`, `created`) VALUES ('gk_users_1@maillist.sendcloud.org', 'gk_users_1', 'gk_users_1', '11017', '2015-12-16 17:04:21');
+
+####Changelog:
+
+1. fix feed read counter bug
+
+
+2. 首页瀑布流
+1. update redis key user_last_verify_time_id to user_last_verify_time:id
+
+-------
+
+fix bug: category entities order by olike can't load more entity when screen scroll to bottom.
+
+-------
+
+1. 用户注册、激活、需改信息..时，对SendCloud的操作改为使用celery;
+2. 动态获取和创建SendCloud地址列表;
+3. 只有激活了的邮箱才会加入到sendcloud地址列表；
+4. 开始着手写test，写了一些关于account和edm的。
+
+-------
+
 4.  minor bug fix 
-3.  user liker app in entity detail page (not finished) 
+3.  user liker app in entity detail page
+3. event page, m.guoku.com, simple title (not finish)
+2. add seller management files
+1. add seller model 
+
+### Action  
+need syncdb  
+for new seller table
+
+
+
+
+=================================
+=================================
+### merged to master 2015-12-10
+=================================
+=================================
+
+
+4.  minor display bug fix 
+3.  user liker app in entity detail page / restful API 
 2.  add analysis.guoku.com's tracking code 
-1.  Action , run sql ,
+1.  make sure this is no overflow in counter values.
 
 
 ### ACTION
@@ -12,7 +75,13 @@ CHANGE COLUMN `feed_read_count` `feed_read_count` INT(32) UNSIGNED ZEROFILL NULL
 
 
 
+
+=================================
+=================================
 ## merged to master 2015 - 12 - 3
+=================================
+=================================
+
 5.修改edm收件地址列表，从测试列表改为正式列表。修改settings所以需要重启服务
 4. article page weixin share url move to m.guoku.com 
 3. user email verify functions 
@@ -108,8 +177,6 @@ TODO : 现在移动端的标签还都是个人标签，是否需要改成全局�
 1. 把tag/articles下的页面加入RequireJS
 2. 把category下的页面加入RequireJS，并作为滚动到页底自动加载
 3. 在model research_history里的记录搜索函数，判断用户是否为游客的时候，换为一种更加安全的方式
-
-
 
 1. 合并EDM到dev
 2. 调整EDM内容样式

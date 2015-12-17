@@ -2312,6 +2312,18 @@ define('models/Entity',['Backbone', 'libs/Class'],function(Backbone, Class){
             }
 
         },
+
+        getLikerCount: function(){
+            try{
+                var liker_count = this.get('limited_likers')['count'];
+                return liker_count
+            }
+            catch(e){
+                console.warn('can not get liker count');
+                return 0;
+            }
+
+        },
         parse: function(data){
             return data;
         },
@@ -2355,7 +2367,7 @@ define('views/base/ListView',['Backbone','underscore'],
         },
         getListContainer: function(){
             //this is a default behavior ,
-            return this.$el.find('bb-list-container');
+            return this.$el.find('.bb-list-container');
         }
     });
 
@@ -2364,14 +2376,20 @@ define('views/base/ListView',['Backbone','underscore'],
 define('views/Entity/EntityLikerViewSidebar',['views/base/ListView'],function(
     ListView
 ){
-
-
   var EntityLikerViewSidebar = ListView.extend({
 
+        render: function(){
+            var res = ListView.prototype.render.apply(this);
+            return res;
+        },
+        displayCounter: function(likerCount){
+            this.$el.find('.liker-counter').html(likerCount);
+        },
+        setLikesCount: function(likerCount){
+            this.displayCounter(likerCount);
+        }
   });
-
   return EntityLikerViewSidebar;
-
 });
 define('views/Entity/EntityLikerViewMobile',['views/base/ListView'],function(
     ListView
@@ -2380,6 +2398,10 @@ define('views/Entity/EntityLikerViewMobile',['views/base/ListView'],function(
 
 
   var   EntityLikerViewMobile = ListView.extend({
+
+      setLikesCount: function(likeCount){
+          this.$el.find('.liker-counter').html(likeCount);
+      },
 
   });
 
@@ -2402,12 +2424,33 @@ define('views/base/ItemView',['Backbone','libs/underscore'], function(
     return ItemView;
 
 });
-define('views/Entity/UserItemView',['views/base/ItemView'], function(
-    ItemView
+define('views/Entity/UserItemView',['views/base/ItemView', 'jquery', 'underscore'], function(
+    ItemView,
+    $,
+    _
 ){
     var UserItemView = ItemView.extend({
-        template:'#user_cell_template',
         tagName: 'li',
+        className: 'user-icon-cell',
+        template: _.template($('#user_cell_template').html()),
+        initialize: function(){
+        },
+        render:function(){
+            this.sizingAvatar();
+            return ItemView.prototype.render.call(this);
+
+        },
+        sizingAvatar: function(){
+            var user = this.model.get('user');
+            var avatar = user['avatar_url'];
+            if (/imgcdn.guoku.com/.test(avatar) && (!this.model.get('avatar_resized'))){
+                avatar = avatar.replace('/avatar','/avatar/50');
+                user['avatar_url'] = avatar;
+                this.model.set('user', user);
+                this.model.set('avatar_resized', true);
+            }
+        }
+
     });
     return UserItemView;
 
@@ -2440,12 +2483,28 @@ define('subapp/entity/liker',[
         entitySync: function(){
 
             this.likerCollection = this.getLikerCollection();
+            this.likerCount = this.getLikerCount();
+
             this.likerViewSidebar = new EntityLikerViewSidebar({
                 collection: this.likerCollection,
                 el: '.entity-liker-sidebar-wrapper',
                 itemView : UserItemView,
             });
+
+            this.likerViewMobile = new EntityLikerViewMobile({
+                collection: this.likerCollection,
+                el: '.entity-liker-mobile-wrapper',
+                itemView: UserItemView,
+            });
+
+            this.likerViewMobile.render();
             this.likerViewSidebar.render();
+
+            //TODO : remove data bind on view !!!!
+            this.likerViewSidebar.setLikesCount(this.likerCount) ;
+            this.likerViewMobile.setLikesCount(this.likerCount);
+
+
             console.log('entity sync');
         },
 
@@ -2455,6 +2514,10 @@ define('subapp/entity/liker',[
 
         getLikerCollection:function(){
             return this.entityModel.getLikeUserCollection();
+        },
+
+        getLikerCount: function(){
+            return this.entityModel.getLikerCount()
         }
 
     });
@@ -2500,22 +2563,24 @@ require([
         var page = new Page();
         var menu = new Menu();
         var goto = new GoTop();
-        var sidebar = new SideBarManager();
+        // disable sidebar scroll effect
+        // TODO: fix the bug of flashing footer
+        //var sidebar = new SideBarManager();
         var entityLike  =new EntityLike();
         var entityReport = new EntityReport();
         var userNote = new UserNote();
         var imgHandler = new EntityImageHandler();
 
         /// begin entity liker app
-        //if (_.isUndefined(current_entity_id)){
-        //    throw new Error('can not find current entity id ');
-        //    return ;
-        //}
-        //var entity = new EntityModel();
-        //    entity.set('id', current_entity_id);
-        //
-        //var likerApp = new LikerAppController(entity);
-        console.log("entity detail init");
+        if (_.isUndefined(current_entity_id)){
+            throw new Error('can not find current entity id ');
+            return ;
+        }
+        var entity = new EntityModel();
+            entity.set('id', current_entity_id);
+
+        var likerApp = new LikerAppController(entity);
+
 });
 
 define("entity_detail_app", function(){});

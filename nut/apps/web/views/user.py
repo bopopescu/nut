@@ -1,13 +1,14 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 # from django.core.urlresolvers import reverse
-from django.http import HttpResponseNotAllowed, Http404, HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseNotAllowed, Http404
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext as _
 
+from apps.core.tasks import send_activation_mail
 from apps.web.forms.user import UserSettingsForm, UserChangePasswordForm
 from apps.core.utils.http import JSONResponse, ErrorJsonResponse
 # from apps.core.utils.image import HandleImage
@@ -18,9 +19,7 @@ from apps.core.models import Entity, Entity_Like, \
     User_Follow,Article,User_Profile,Selection_Article
 
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
-from apps.tag.models import Content_Tags, Tags
-from ..utils.viewtools import get_paged_list
-
+from apps.tag.models import Content_Tags
 # from apps.notifications import notify
 from django.views.generic import ListView, DetailView, FormView, View
 from apps.core.views import LoginRequiredMixin
@@ -38,7 +37,7 @@ class UserSendVerifyMail(LoginRequiredMixin,AjaxResponseMixin,JSONResponseMixin,
 
     def get_ajax(self, request, *args, **kwargs):
         _user = request.user
-        _time_key = 'user_last_verify_time_%s'% _user.id
+        _time_key = 'user_last_verify_time:%s' % _user.id
         if not cache.get(_time_key) is None:
             data = {
                 'error': 1,
@@ -46,25 +45,24 @@ class UserSendVerifyMail(LoginRequiredMixin,AjaxResponseMixin,JSONResponseMixin,
             }
             return self.render_json_response(data, 400)
 
-        try :
+        try:
             if not _user.profile.email_verified:
-                _user.send_verification_mail()
+                send_activation_mail(_user)
             else:
                 pass
 
             data = {
-                'error':0,
+                'error': 0,
                 'email': request.user.email
             }
             return self.render_json_response(data)
-        except Exception as e :
+        except Exception as e:
 
             data = {
-                'error':1,
+                'error': 1,
                 'reason': 'server error'
             }
             return self.render_json_response(data, 500)
-
 
 
 @login_required
@@ -119,6 +117,7 @@ def settings(request, template="web/user/settings.html"):
 #         },
 #         context_instance = RequestContext(request),
 #     )
+
 
 class ChangePasswdFormView(LoginRequiredMixin, FormView):
     form_class = UserChangePasswordForm

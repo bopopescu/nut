@@ -103,6 +103,28 @@
 
    </div>
 
+  {% if is_entity_detail and entity.like_count > 0 %}
+
+      <div class="row">
+       <div class="col-xs-12 hidden-sm hidden-md hidden-lg clear-fix entity-liker-mobile-wrapper">
+            <div class="title-wrapper">
+                <span class="liker-counter">{{ entity.like_count }}</span>人喜爱
+                <span class="pull-right link-all">
+                    <a href="{% url 'web_entity_likers_list' entity.entity_hash %}">
+                    <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
+                    </a>
+                </span>
+            </div>
+            <ul class="user-like-list bb-list-container user-icon-list clear-fix">
+
+            </ul>
+       </div>
+
+        </div>
+
+  {% endif %}
+
+
 
 {#    <div class="row">#}
 {#        {% for row in entity.buy_links.all %}#}
