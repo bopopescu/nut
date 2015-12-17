@@ -21,11 +21,12 @@ class LaunchBoardForm(forms.Form):
     launchImage = forms.ImageField(widget=forms.FileInput(attrs={'class':'controls'}), required=False)
     title = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     description = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
-    device = forms.ChoiceField(label=_('devic'),
+    device = forms.ChoiceField(label=_('device'),
                                choices=LaunchBoard.DEVICE_TYPE,
                                widget=forms.Select(attrs={'class':'form-control'}),
                                initial=LaunchBoard.all,
                                help_text=_(''))
+    version = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}), required=False)
     action_title = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     action = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     status = forms.ChoiceField(
@@ -56,6 +57,7 @@ class CreateLaunchBoardForm(LaunchBoardForm):
         _title = self.cleaned_data.get('title')
         _description = self.cleaned_data.get('description')
         _device = self.cleaned_data.get('device')
+        _version = self.cleaned_data.get('version')
         _action_title = self.cleaned_date.get('action_title')
         _action = self.cleaned_data.get('action')
         _status = self.cleaned_data.get('status')
@@ -68,6 +70,7 @@ class CreateLaunchBoardForm(LaunchBoardForm):
         launch.title = _title
         launch.description = _description
         launch.device = _device
+        launch.version = _version
         launch.action_title = _action_title
         launch.action = _action
         launch.status = _status
@@ -86,6 +89,7 @@ class EditLaunchBoardForm(LaunchBoardForm):
         _title = self.cleaned_data.get('title')
         _description = self.cleaned_data.get('description')
         _device = self.cleaned_data.get('device')
+        _version = self.cleaned_data.get('version')
         _action_title = self.cleaned_data.get('action_title')
         _action = self.cleaned_data.get('action')
         _status = self.cleaned_data.get('status')
@@ -103,6 +107,7 @@ class EditLaunchBoardForm(LaunchBoardForm):
         self.launch.description = _description
         self.launch.action_title = _action_title
         self.launch.device = _device
+        self.version = _version
         self.launch.action = _action
         self.launch.status = _status
         self.launch.save()

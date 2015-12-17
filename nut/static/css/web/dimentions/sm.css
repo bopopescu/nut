@@ -7,4 +7,13 @@
     margin: 0 auto ;
   }
 }
+@media (min-width: 768px) and (max-width: 991px) {
+  .social-list .social-cell .entity-list .entity-item:last-child {
+    display: none;
+  }
+  .social-list .social-cell .entity-list .entity-item {
+    height: 80px!important;
+    width: 80px!important;
+  }
+}
 /*# sourceMappingURL=sm.less.css.map */

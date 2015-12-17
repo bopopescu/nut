@@ -8,6 +8,15 @@
   width:0px;
 }
 
+.clearfix{
+  &:after {
+     content: " ";
+     display: block;
+     height: 0;
+     clear: both;
+  }
+}
+
 .little-gray-font{
   font-size: @mini-size;
   color: @light-gray
@@ -111,6 +120,11 @@
   }
 }
 
+
+.button-sharp{
+
+  .border-radius(0px);
+}
 .disabled-button{
   cursor: default;
 }
@@ -286,6 +300,7 @@
   }
 }
 
+
 .normal-round-tag{
   .border-radius(40px);
   padding: 0 10px;
@@ -301,10 +316,12 @@
   a{
     color: @common-text-color;
   }
-  &:hover{
+  &:hover,&.current{
     background-color: @tag-hover-background-dark;
   }
 }
+
+
 
 .bottom-bordered{
   border-bottom: 1px solid #e6e6e6;
@@ -532,4 +549,11 @@ p.boolean-false{
     a,img{
       display:inline-block!important;
     }
+}
+
+
+.transparent-holder{
+   display: block;
+   height: 100%;
+   width: 100%;
 }

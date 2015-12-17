@@ -111,7 +111,7 @@ CACHES = {
         "LOCATION": [
             "redis://10.0.2.46:6379/1",
             "redis://10.0.2.47:6379/1",
-            "redis://10.0.2.200:6379/1",
+            "redis://10.0.2.49:6379/1",
         ],
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.ShardClient",
@@ -137,7 +137,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-SITE_DOMAIN = 'guoku.com'
+SITE_DOMAIN = 'www.guoku.com'
 # USE_TZ = True
 
 LOCALE_PATHS = (
@@ -205,8 +205,8 @@ REST_FRAMEWORK = {
 EMAIL_BACKEND = 'sendcloud.SendCloudBackend'
 MAIL_APP_USER = 'guoku_hi'
 MAIL_APP_KEY = 'DLq9W6TiDZAWOLNv'
-MAIL_LIST = 'test_edm@maillist.sendcloud.org'
-# MAIL_LIST = 'all_gkusers@maillist.sendcloud.org'
+# MAIL_LIST = 'test_edm@maillist.sendcloud.org'
+MAIL_LIST = 'all_gkusers@maillist.sendcloud.org'
 GUOKU_MAIL = 'hi@mail.guoku.com'
 GUOKU_NAME = u'果库'
 MAIL_EDM_USER = 'guoku_edm3'
@@ -251,9 +251,9 @@ Avatar_Image_Path = 'avatar/'
 # CELERY_TASK_SERIALIZER = 'json'
 # CELERY_RESULT_SERIALIZER = 'json'
 
-CELERY_RESULT_BACKEND = "redis://10.0.2.95:6379/0"
+CELERY_RESULT_BACKEND = "redis://10.0.2.125:6379/0"
 BROKER_TRANSPORT = "librabbitmq"
-BROKER_HOST = "10.0.2.95"
+BROKER_HOST = "10.0.2.125"
 BROKER_USER = "raspberry"
 BROKER_PASSWORD = "raspberry1@#"
 BROKER_VHOST = "raspberry"

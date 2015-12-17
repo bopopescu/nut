@@ -1,3 +1,4 @@
+(node) util.print is deprecated. Use console.log instead.
 /*---------------------------------------------------
     LESS Elements 0.9
   ---------------------------------------------------
@@ -517,9 +518,6 @@
 }
 .btn-group {
   border-right: 1px solid #f1f2f3;
-}
-#editor-container {
-  margin-top: 100px;
 }
 #editor-container .editor_wrap {
   display: block;

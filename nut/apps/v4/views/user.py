@@ -192,55 +192,6 @@ def tag_detail(request, user_id, tag):
     return SuccessJsonResponse(res)
 
 
-# @check_sign
-# def entity_like(request, user_id):
-#     # log.info(request.GET)
-#     try:
-#         _user = GKUser.objects.get(pk=user_id)
-#     except GKUser.DoesNotExist:
-#         return ErrorJsonResponse(status=404)
-#
-#     _key = request.GET.get('session')
-#     _timestamp = request.GET.get('timestamp', datetime.now())
-#     if _timestamp != None:
-#         _timestamp = datetime.fromtimestamp(float(_timestamp))
-#     else:
-#         _timestamp = datetime.now()
-#     # _offset = int(request.GET.get('offset', '0'))
-#     _count = int(request.GET.get('count', '30'))
-#     log.info(_timestamp)
-#     # _offset = _offset / _count + 1
-#
-#     res = {}
-#     # res['timestamp'] = time.mktime(_timestamp.timetuple())
-#     res['entity_list'] = []
-#
-#     entities = Entity_Like.objects.filter(user=_user, entity__status__gte=APIEntity.freeze, created_time__lt=_timestamp)[:_count]
-#
-#     last = len(entities) - 1
-#     # log.info("last %s" % last)
-#     if last < 0:
-#         return SuccessJsonResponse(res)
-#     res['timestamp'] = time.mktime(entities[last].created_time.timetuple())
-#
-#     try:
-#         _session = Session_Key.objects.get(session_key=_key)
-#         el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(entities.values_list('entity_id', flat=True)))
-#     except Session_Key.DoesNotExist:
-#         el = None
-#
-#     for like in entities:
-#         try:
-#             e = like.entity.v3_toDict(el)
-#         except Exception, e:
-#             log.error("Error: %s" % e.message)
-#             continue
-#         res['entity_list'].append(
-#             e
-#         )
-#
-#     return SuccessJsonResponse(res)
-
 
 @check_sign
 def entity_note(request, user_id):
@@ -555,6 +506,37 @@ class APIUserNotesView(BaseJsonView):
     @check_sign
     def dispatch(self, request, *args, **kwargs):
         return super(APIUserNotesView, self).dispatch(request, *args, **kwargs)
+
+
+#TODO: verified email
+class APIUserVerifiedView(BaseJsonView):
+    http_method_names = ['get']
+
+    def get_data(self, context):
+        res = dict()
+        if self.user.profile.email_verified:
+            self.user.send_verification_mail()
+        else:
+            pass
+
+        res = {
+                'error':0,
+                'email': self.user.email
+        }
+        return res
+
+    def get(self, request, *args, **kwargs):
+        _key = request.GET.get('session', None)
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+            self.user = _session.user
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=404)
+        return super(APIUserVerifiedView, self).get(request, *args, **kwargs)
+
+    @check_sign
+    def dispatch(self, request, *args, **kwargs):
+        return super(APIUserVerifiedView, self).dispatch(request, *args, **kwargs)
 
 
 class APIUserSearchView(SearchView, JSONResponseMixin):

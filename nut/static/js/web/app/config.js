@@ -14,11 +14,16 @@ requirejs.config({
         csrf:'libs/csrf',
         underscore:'libs/underscore.ant',
         cookie: 'libs/jquery.cookie',
-        bootbox: 'libs/bootbox.min'
+        bootbox: 'libs/bootbox.min',
+        Backbone: 'libs/backbone.min'
     },
 
     shim: {
 // shim won't handle script load , you still need require script in your source
+        'Backbone':{
+            deps:['underscore',],
+            exports:'Backbone'
+        },
         'bootbox':{
             deps: ['jquery', 'bootstrap']
         },

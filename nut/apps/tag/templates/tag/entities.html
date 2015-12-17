@@ -1,25 +1,38 @@
 {% extends 'web/base.html' %}
 {% load i18n %}
-
+{% load static %}
 
 {% block title %}{{ tag }}{% endblock %}
+
 {% block content %}
     <div class="container">
-        <div class="row">
+        <div class="row" id="tag-entity-list" data-refresh="{{ refresh_time }}">
             <div class="col-md-12">
                 <div class="category-header">
                     <p>#{{ tag }}</p>
                 </div>
-
-                {% for obj in object_list %}
-{#                    {{ obj.target }}#}
-
-                     {% include 'web/main/partial/entity.html' with entity=obj.target.entity %}
-{#                    {% include 'web/common/entity.html' with entity=obj.target.entity %}#}
-
-                {% endfor %}
+                {% include 'tag/partial/ajax_entities.html' with object_list=entities %}
             </div>
         </div>
+        {% if entities.has_next %}
+            <div class="row" id="main_loading_indicator">
+                <div class="col-xs-12 loading-icon">
+                    <img src="{% static 'images/widgets/loading.gif' %}" height="32px" width="32px">
+                </div>
+            </div>
+        {% endif %}
         {% include "web/main/partial/paginator.html" with objects=page_obj url=request.path %}
+        <div class="row hidden-xs">
+            <div class="col-sm-offset-12">
+                <a class="btn-top" href="javascript:;"  title="回到顶部" target="_self"><i class="fa fa-angle-up fa-lg"></i></a>
+            </div>
+        </div>
     </div>
+{% endblock %}
+
+{% block basic_script %}
+    <script data-main="{% static 'js/web/jsbuild/tag_entities_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+{% endblock %}
+
+{% block script %}
 {% endblock %}
