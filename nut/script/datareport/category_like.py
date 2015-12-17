@@ -15,7 +15,8 @@ sub_categorys = Sub_Category.objects.all()
 sub_category_like_count_list = []
 
 for sub_category in sub_categorys:
-    sub_c_count = Entity_Like.objects.using('slave').filter(entity__category=sub_category).count()
+    sub_c_count = Entity_Like.objects.using('slave')\
+                 .filter(entity__category=sub_category).count()
     sub_category_like_count_list.append((sub_category.title , sub_c_count))
 
 sorted(sub_category_like_count_list, key=lambda cat: cat[2])
