@@ -1944,14 +1944,14 @@ a:hover {
 .contact-list {
   margin-bottom: 10px;
 }
-.test {
-  color: red;
-}
 html {
   overflow-y: scroll;
 }
 .entity-selection .img-box {
   height: auto;
   padding: 0;
+}
+.test {
+  color: red;
 }
 /*# sourceMappingURL=site.less.css.map */
