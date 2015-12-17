@@ -1,6 +1,4 @@
 
-1. 
-
 
 =================================
 =================================
@@ -8,6 +6,8 @@
 =================================
 =================================
 
+2. fix event page selection entity css broken bug 
+1. fix liker list page css broken bug 
   
 #### Action
   * update django-sendcloud: 
