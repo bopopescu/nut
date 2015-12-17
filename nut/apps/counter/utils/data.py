@@ -61,7 +61,6 @@ class FeedCounterBridge(object):
         try :
             count = cls.get_store().get(key)
             if count is None:
-                print 'none is the key'
                 try :
                     count = cls.get_feed_count_value_from_sql(id)
                 except Exception as e :
