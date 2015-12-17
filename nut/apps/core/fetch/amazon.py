@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from urlparse import urljoin
-from hashlib import md5
 import re
+from hashlib import md5
+from urlparse import urljoin
 
-from apps.core.utils.fetch.spider import Spider
+from apps.core.fetch.spider import Spider
 from apps.core.utils.commons import currency_converting
 from settings import CURRENCY_SYMBOLS
 

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from urlparse import urljoin
-from apps.core.utils.fetch.spider import Spider
+from apps.core.fetch.spider import Spider
 
 class Booking(Spider):
 

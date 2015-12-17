@@ -1,30 +1,30 @@
 # -*- coding: utf-8 -*-
 
 import re
-
-from django import forms
-from django.forms import ChoiceField
-from django.utils.translation import gettext_lazy as _
-from django.utils.log import getLogger
-from django.core.files.storage import default_storage
-from django.core.files.base import ContentFile
-from django.conf import settings
-from urlparse import urlparse
-from hashlib import md5
 from datetime import datetime
+from hashlib import md5
+from urlparse import urlparse
 
-from apps.core.tasks.entity import fetch_image
-from apps.core.forms import get_admin_user_choices
-from apps.core.utils.image import HandleImage
-from apps.core.utils.fetch.jd import JD
-from apps.core.utils.fetch.kaola import Kaola
-from apps.core.utils.fetch.taobao import TaoBao
-from apps.core.utils.fetch.booking import Booking
-from apps.core.utils.fetch.amazon import Amazon
-from apps.core.utils.fetch.six_pm import SixPM
-from apps.core.utils.fetch import parse_taobao_id_from_url, \
+from apps.core.fetch import parse_taobao_id_from_url, \
     parse_jd_id_from_url, parse_kaola_id_from_url
+from apps.core.fetch.amazon import Amazon
+from apps.core.fetch.booking import Booking
+from apps.core.fetch.kaola import Kaola
+from apps.core.fetch.six_pm import SixPM
+from apps.core.fetch.taobao import TaoBao
+from django import forms
+from django.conf import settings
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
+from django.forms import ChoiceField
+from django.utils.log import getLogger
+from django.utils.translation import gettext_lazy as _
+
+from apps.core.fetch.jd import JD
+from apps.core.forms import get_admin_user_choices
 from apps.core.models import Entity, Sub_Category, Category, Buy_Link, Note
+from apps.core.tasks.entity import fetch_image
+from apps.core.utils.image import HandleImage
 
 
 

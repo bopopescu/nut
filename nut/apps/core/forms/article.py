@@ -1,21 +1,19 @@
+import json
+import re
+
+from datetime import datetime
 from django import forms
-from django.utils.translation import gettext_lazy as _
 from django.utils.log import getLogger
-# from django.core.exceptions import ObjectDoesNotExist
-# from django.core import serializers
+from django.utils.translation import gettext_lazy as _
 
 from apps.core.models import Article, Selection_Article
 from apps.core.utils.image import HandleImage
-from apps.core.forms import get_admin_user_choices , get_author_choices
-from datetime import datetime
-import json
-import re
-# from hashlib import md5
+from apps.core.forms import get_author_choices
 from apps.tag.tasks import generator_article_tag
 
 
-
 log = getLogger('django')
+
 
 class BaseSelectionArticleForm(forms.Form):
     article_id = forms.CharField(required=False)
@@ -27,22 +25,23 @@ class BaseSelectionArticleForm(forms.Form):
 
     def clean_article(self):
         article_id = self.cleaned_data['article_id']
-        try :
+        try:
             Article.objects.get(pk=article_id, publish=Article.published)
         except Article.DoesNotExist:
             raise forms.ValidationError(_('can not find article'),
-                                         code='invalid_article_id ')
+                                        code='invalid_article_id ')
         return article_id
 
     def save(self):
         _the_article = self.get_article_obj()
         _is_published = self.cleaned_data.get('is_published', False)
         _pub_time = self.cleaned_data.get('pub_time', None)
-        selection_article = Selection_Article(is_published=_is_published, pub_time=_pub_time)
+        selection_article = Selection_Article(is_published=_is_published,
+                                              pub_time=_pub_time)
         selection_article.article = _the_article
-        try :
+        try:
             selection_article.save()
-        except Exception as e :
+        except Exception as e:
             log(e)
         return selection_article.id
 
@@ -58,22 +57,23 @@ class EditSelectionArticleForm(BaseSelectionArticleForm):
     )
 
     article_id = forms.CharField(
-            widget=forms.TextInput(attrs={'class':'form-control', 'disabled':''}),
+            widget=forms.TextInput(
+                attrs={'class': 'form-control', 'disabled': ''}),
             required=False,
-        )
+    )
     is_published = forms.ChoiceField(
-        label=_('is_published'),
-        choices=YES_OR_NO,
-        widget=forms.Select(attrs={'class':'form-control'}),
+            label=_('is_published'),
+            choices=YES_OR_NO,
+            widget=forms.Select(attrs={'class': 'form-control'}),
 
-        initial=1,
+            initial=1,
     )
 
     pub_time = forms.DateTimeField(
-        label=_('publish datetime'),
-        widget=forms.DateTimeInput(attrs={'class':'form-control'}),
+            label=_('publish datetime'),
+            widget=forms.DateTimeInput(attrs={'class': 'form-control'}),
 
-        initial=datetime.now()
+            initial=datetime.now()
     )
 
     def __init__(self, sla, *args, **kwargs):
@@ -96,43 +96,43 @@ class EditSelectionArticleForm(BaseSelectionArticleForm):
         #     log(e)
         return self.sla
 
+
 class RemoveSelectionArticleForm(BaseSelectionArticleForm):
     pass
 
 
-
-
 class BaseArticleForms(forms.Form):
     cover = forms.CharField(
-        label = _('cover'),
-        widget=forms.TextInput(attrs={'class':'cover-input'}),
-        required=False,
+            label=_('cover'),
+            widget=forms.TextInput(attrs={'class': 'cover-input'}),
+            required=False,
     )
 
     title = forms.CharField(
-        label=_('title'),
-        widget=forms.TextInput(attrs={'class':'form-control'}),
+            label=_('title'),
+            widget=forms.TextInput(attrs={'class': 'form-control'}),
     )
 
     tags = forms.CharField(
-        label=_('tags'),
-        widget=forms.TextInput(attrs={'class':'form-control'}),
+            label=_('tags'),
+            widget=forms.TextInput(attrs={'class': 'form-control'}),
 
-        required=False,
+            required=False,
     )
 
     content = forms.CharField(
-        label=_('content'),
-        widget=forms.Textarea(attrs={'class':'form-control', 'id':'summernote'}),
+            label=_('content'),
+            widget=forms.Textarea(
+                attrs={'class': 'form-control', 'id': 'summernote'}),
 
     )
 
     is_publish = forms.ChoiceField(
-        label=_('publish'),
-        choices=Article.ARTICLE_STATUS_CHOICES,
-        widget=forms.Select(attrs={'class':'form-control'}),
+            label=_('publish'),
+            choices=Article.ARTICLE_STATUS_CHOICES,
+            widget=forms.Select(attrs={'class': 'form-control'}),
 
-        initial=Article.draft,
+            initial=Article.draft,
     )
 
     def __init__(self, *args, **kwargs):
@@ -140,9 +140,9 @@ class BaseArticleForms(forms.Form):
         # user_choices = get_admin_user_choices()
         user_choices = get_author_choices()
         self.fields['author'] = forms.ChoiceField(
-            label=_('author'),
-            choices=user_choices,
-            widget=forms.Select(attrs={'class':'form-control'}),
+                label=_('author'),
+                choices=user_choices,
+                widget=forms.Select(attrs={'class': 'form-control'}),
 
         )
 
@@ -162,8 +162,8 @@ class BaseArticleForms(forms.Form):
             res.append(row)
         return res
 
-class CreateArticleForms(BaseArticleForms):
 
+class CreateArticleForms(BaseArticleForms):
     # cover = forms.ImageField(
     #     label=_('cover'),
     #     widget=forms.FileInput(),
@@ -174,7 +174,6 @@ class CreateArticleForms(BaseArticleForms):
         self.user_cache = user
         super(CreateArticleForms, self).__init__(*args, **kwargs)
 
-
     def save(self):
         _title = self.cleaned_data.get('title')
         _content = self.cleaned_data.get('content')
@@ -182,8 +181,8 @@ class CreateArticleForms(BaseArticleForms):
         _cover = self.cleaned_data.get('cover')
 
         article = Article(
-            title = _title,
-            content = _content,
+                title=_title,
+                content=_content,
         )
         article.creator = self.user_cache
         article.publish = _is_publish
@@ -199,7 +198,7 @@ class CreateArticleForms(BaseArticleForms):
         tags = self.cleaned_data.get('tags')
         if tags:
             data = {
-                'tags':tags,
+                'tags': tags,
                 'article': self.article.pk
             }
             generator_article_tag(data=json.dumps(data))
@@ -207,22 +206,20 @@ class CreateArticleForms(BaseArticleForms):
         return article
 
 
-
 class EditArticleForms(BaseArticleForms):
-
     def __init__(self, article, *args, **kwargs):
         self.article = article
         super(EditArticleForms, self).__init__(*args, **kwargs)
         if self.article.is_published:
             self.fields['is_publish'] = forms.ChoiceField(
-            label=_('publish'),
-            choices=Article.ARTICLE_STATUS_CHOICES,
-            widget=forms.Select(attrs={'class':'form-control', 'disabled':''}),
-            required=False,
-            #
-            # initial=Article.draft,
-        )
-
+                    label=_('publish'),
+                    choices=Article.ARTICLE_STATUS_CHOICES,
+                    widget=forms.Select(
+                        attrs={'class': 'form-control', 'disabled': ''}),
+                    required=False,
+                    #
+                    # initial=Article.draft,
+            )
 
     def save(self):
         title = self.cleaned_data.get('title')
@@ -242,7 +239,7 @@ class EditArticleForms(BaseArticleForms):
 
         if tags:
             data = {
-                'tags':tags,
+                'tags': tags,
                 'article': self.article.pk
             }
             generator_article_tag(data=json.dumps(data))
@@ -252,7 +249,7 @@ class EditArticleForms(BaseArticleForms):
 
 class UploadCoverForms(forms.Form):
     cover_file = forms.ImageField(
-        widget=forms.FileInput()
+            widget=forms.FileInput()
     )
 
     def __init__(self, article, *args, **kwargs):
@@ -268,5 +265,6 @@ class UploadCoverForms(forms.Form):
         self.article_cache.save()
 
         return self.article_cache.cover_url
+
 
 __author__ = 'edison'

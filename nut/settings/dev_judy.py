@@ -93,3 +93,7 @@ IMAGE_HOST = 'http://127.0.0.1:8000/'
 # mail
 MAIL_LIST_ADDR='test_edm'
 MAIL_LIST = 'test_edm@maillist.sendcloud.org'
+
+# phantom
+PHANTOM_SERVER_HOST = 'localhost'
+PHANTOM_SERVER_PORT = 5000

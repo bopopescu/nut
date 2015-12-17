@@ -1,28 +1,26 @@
 # -*- coding: utf-8 -*-
-from django import forms
-from django.core.exceptions import ObjectDoesNotExist
-from django.utils.translation import gettext_lazy as _
-
-from django.core.cache import cache
-
-from apps.core.models import Entity, Note, Buy_Link
-from apps.core.utils.fetch.taobao import TaoBao
-from apps.core.utils.fetch.jd import JD
-from apps.core.utils.fetch.tmall_new import Tmall
-from apps.core.utils.fetch.amazon import Amazon
-from apps.core.utils.fetch import parse_jd_id_from_url, \
-    parse_taobao_id_from_url
-from apps.core.tasks.entity import fetch_image
-
-from apps.report.models import Report
-
-from urlparse import urlparse
 import re
 from datetime import datetime
 from hashlib import md5
+from urlparse import urlparse
 
+from apps.core.fetch import parse_jd_id_from_url, \
+    parse_taobao_id_from_url
+from apps.core.fetch.amazon import Amazon
+from apps.core.fetch.taobao import TaoBao
+from apps.core.fetch.tmall_new import Tmall
+from django import forms
 from django.conf import settings
+from django.core.cache import cache
+from django.core.exceptions import ObjectDoesNotExist
 from django.utils.log import getLogger
+from django.utils.translation import gettext_lazy as _
+
+from apps.core.fetch.jd import JD
+from apps.core.models import Entity, Note, Buy_Link
+from apps.core.tasks.entity import fetch_image
+from apps.report.models import Report
+
 
 log = getLogger('django')
 

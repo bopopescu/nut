@@ -4,10 +4,12 @@
 # from hashlib import md5
 # from bs4 import BeautifulSoup
 # from django.core.cache import cache
-from django.utils.log import getLogger
 import re
 
-from apps.core.utils.fetch.spider import Spider
+from django.utils.log import getLogger
+
+from apps.core.fetch.spider import Spider
+
 
 log = getLogger('django')
 

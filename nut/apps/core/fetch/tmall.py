@@ -16,6 +16,9 @@ origin_headers = {
     'Referer': 'http://detail.tmall.com/item.htm?id=44691754172'
     }
 
+class Tmall(object):
+    pass
+
 
 def get_tmall_header():
     tmall_header = {
