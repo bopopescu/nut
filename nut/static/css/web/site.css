@@ -574,6 +574,48 @@ p.boolean-false {
   height: 100%;
   width: 100%;
 }
+.user-icon-widget {
+  float: left;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+.user-icon-widget a {
+  display: block;
+}
+.user-icon-widget a img {
+  width: 32px;
+  height: 32px;
+}
+.user-icon-widget img {
+  border-radius: 50%;
+}
+.user-icon-list:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+}
+.user-icon-list li {
+  float: left;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+.user-icon-list li a {
+  display: block;
+}
+.user-icon-list li a img {
+  width: 32px;
+  height: 32px;
+}
+.user-icon-list li img {
+  border-radius: 50%;
+}
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
   padding: 0px;
@@ -632,16 +674,6 @@ p.boolean-false {
 @media (min-width: 992px) {
   .note-avatar {
     width: 50px;
-  }
-}
-@media (min-width: 768px) {
-  .caption .note {
-    height: 120px;
-  }
-}
-@media (min-width: 992px) {
-  .caption .note {
-    height: 96px;
   }
 }
 @media (max-width: 768px) {
@@ -1117,9 +1149,6 @@ p.boolean-false {
 }
 /*for detail button */
 /*for static content*/
-.main_static {
-  margin-top: 110px;
-}
 .main_static h3 {
   font-size: 22px;
   font-weight: 600;
@@ -1341,63 +1370,6 @@ a:hover {
   width: 100px;
   border-radius: 0;
 }
-/*消息页面*/
-.message_page {
-  width: 941px;
-}
-.message_page .title {
-  margin-top: 40px;
-  margin-left: 2px;
-  padding-bottom: 25px;
-  border-bottom: 1px solid #E6E6E6;
-}
-.message_page .message_list {
-  padding-top: 40px;
-  width: 100%;
-}
-.message_page .message_list li {
-  margin-bottom: 40px;
-}
-.message_page .list_detail {
-  display: inline-block;
-}
-.message_page .header {
-  height: 48px;
-  width: 100%;
-  margin-right: 20px;
-}
-.message_page .header img {
-  height: 48px;
-  width: 48px;
-  border-radius: 24px;
-}
-.message_page .id {
-  margin-right: 5px;
-}
-.message_page .button {
-  width: 120px;
-  height: 40px;
-  line-height: 40px;
-  font-weight: 600;
-  text-align: center;
-  float: right;
-  margin-top: 4px;
-}
-.message_page .imgs {
-  margin-left: 68px;
-  margin-top: 5px;
-}
-.message_page .imgs img {
-  width: 100%;
-  border: 1px solid #e6e6e6;
-  margin: 15px 0;
-}
-.message_page .borderbottom_none {
-  border-bottom: none;
-}
-.message_page .early {
-  margin-top: 80px;
-}
 .right_part {
   margin-top: 78px;
 }
@@ -1536,7 +1508,6 @@ a:hover {
   font-size: 18px;
 }
 #user_article .user-article-item .info-wrapper .info {
-  float: right;
   padding-right: 20px;
   font-size: 13px;
   color: #9d9e9f;
@@ -1975,5 +1946,12 @@ a:hover {
 }
 .test {
   color: red;
+}
+html {
+  overflow-y: scroll;
+}
+.entity-selection .img-box {
+  height: auto;
+  padding: 0;
 }
 /*# sourceMappingURL=site.less.css.map */

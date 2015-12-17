@@ -31,7 +31,7 @@ define(['Backbone','underscore'],
         },
         getListContainer: function(){
             //this is a default behavior ,
-            return this.$el.find('bb-list-container');
+            return this.$el.find('.bb-list-container');
         }
     });
 

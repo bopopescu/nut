@@ -35,20 +35,22 @@ require([
         var page = new Page();
         var menu = new Menu();
         var goto = new GoTop();
-        var sidebar = new SideBarManager();
+        // disable sidebar scroll effect
+        // TODO: fix the bug of flashing footer
+        //var sidebar = new SideBarManager();
         var entityLike  =new EntityLike();
         var entityReport = new EntityReport();
         var userNote = new UserNote();
         var imgHandler = new EntityImageHandler();
 
         /// begin entity liker app
-        //if (_.isUndefined(current_entity_id)){
-        //    throw new Error('can not find current entity id ');
-        //    return ;
-        //}
-        //var entity = new EntityModel();
-        //    entity.set('id', current_entity_id);
-        //
-        //var likerApp = new LikerAppController(entity);
-        console.log("entity detail init");
+        if (_.isUndefined(current_entity_id)){
+            throw new Error('can not find current entity id ');
+            return ;
+        }
+        var entity = new EntityModel();
+            entity.set('id', current_entity_id);
+
+        var likerApp = new LikerAppController(entity);
+
 });

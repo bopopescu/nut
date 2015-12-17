@@ -17,6 +17,7 @@ urlpatterns = patterns(
     url(r'^note/', include('apps.management.urls.note')),
     url(r'^comment/', include('apps.management.urls.comments')),
     url(r'^edm/', include('apps.management.urls.edm')),
+    url(r'^seller/', include('apps.management.urls.seller')),
 
 
 # TODO: launch image at mobile

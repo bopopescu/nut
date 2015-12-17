@@ -11,12 +11,16 @@
                         <i class="fa fa-angle-right fc_angle_right"></i>&nbsp;&nbsp;</li>
                     {% endif %}
                     {% if not group_pk == 23  %}
-                    <li><a href="{% url 'web_category_group' entity.category.group.pk %}">{{ entity.category.group.title }}</a>&nbsp;&nbsp;<i class="fa fa-angle-right fc_angle_right"></i>&nbsp;&nbsp;</li>
+                    <li><a href="{% url 'web_category_group' entity.category.group.pk %}">{{ entity.category.group.title_cn }}</a>&nbsp;&nbsp;<i class="fa fa-angle-right fc_angle_right"></i>&nbsp;&nbsp;</li>
                           {% if not category_title == '+' %}
                                 <li><a href="{% url 'web_category_detail' entity.category_id %}">{{ entity.category.title|show_category }}</a>&nbsp;&nbsp;<i class="fa fa-angle-right fc_angle_right"></i>&nbsp;&nbsp;</li>
                           {% endif %}
                    {% endif %}
-                    <li >{% if entity.brand|length != 0 %}{{ entity.brand }} - {% endif %}{{ entity.title }}</li>
+                    <li >
+
+                        {% if entity.brand|length != 0 %}{{ entity.brand }} - {% endif %}{{ entity.title }}
+
+                    </li>
 
                    {% endwith %}
                 </ul>

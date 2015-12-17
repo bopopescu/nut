@@ -574,6 +574,48 @@ p.boolean-false {
   height: 100%;
   width: 100%;
 }
+.user-icon-widget {
+  float: left;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+.user-icon-widget a {
+  display: block;
+}
+.user-icon-widget a img {
+  width: 32px;
+  height: 32px;
+}
+.user-icon-widget img {
+  border-radius: 50%;
+}
+.user-icon-list:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+}
+.user-icon-list li {
+  float: left;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+.user-icon-list li a {
+  display: block;
+}
+.user-icon-list li a img {
+  width: 32px;
+  height: 32px;
+}
+.user-icon-list li img {
+  border-radius: 50%;
+}
 @media (max-width: 767px) {
   #settings .edit_info .input-element {
     max-width: 300px;
