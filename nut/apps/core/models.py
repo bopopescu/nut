@@ -380,7 +380,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
                 delete_user_from_list(user)
                 send_activation_mail(self)
         super(GKUser, self).save(*args, **kwargs)
-        key = "user:v3:%s" % self.id
+        key = "user:v4:%s" % self.id
         cache.delete(key)
 
 
