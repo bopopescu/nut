@@ -433,7 +433,7 @@ class User_Profile(BaseModel):
                 update_user_name_from_list(self.user)
 
         super(User_Profile, self).save(*args, **kwargs)
-        key = "user:v3:%s" % self.user.id
+        key = "user:v4:%s" % self.user.id
         cache.delete(key)
 
 
