@@ -677,6 +677,7 @@ p.boolean-false {
     min-height: 320px;
     max-height: 320px;
     overflow: hidden;
+    background: red;
   }
 }
 .container .section-floor-wrapper .section-desc-wrapper {
