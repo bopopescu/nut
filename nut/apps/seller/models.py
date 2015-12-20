@@ -4,6 +4,13 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from apps.core.models import BaseModel, GKUser, Article
 
+
+class Seller_Section(BaseModel):
+    title=models.CharField(max_length=32,db_index=True)
+    position = models.IntegerField(default=10)
+    active = models.BooleanField(default=True)
+
+
 class Seller_Profile(BaseModel):
     (active,deactive) = (1,0)
 
