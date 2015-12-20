@@ -138,7 +138,7 @@
           margin: 0 auto;
           max-width:600px;
           padding-top:10px;
-          font-size: 14px;
+          font-size: @smaller-primary;
        }
 
 
@@ -160,6 +160,9 @@
                 padding-right: 5px;
               }
              a{
+               &:hover{
+                 cursor: pointer;
+               }
                img{
                  width:100px;
                  height:100px;
@@ -180,6 +183,29 @@
 
      }
      .sellers-wrapper{
+       a{
+         .sellers-logo{
+            width:100%;
+            height:0;
+            padding-bottom: 100%;
+            background-position: center center;
+            background-size: cover;
+         }
+
+       }
+       .sellers-desc{
+         p{
+           font-size: @smaller-primary;
+           height:63px;
+           overflow: hidden;
+           text-overflow: ellipsis;
+         }
+
+       }
+       .score{
+         text-align: center;
+
+       }
 
      }
 
