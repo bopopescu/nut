@@ -1,5 +1,5 @@
 require(['jquery',
-         'subapp/topmenu',
+          'subapp/topmenu',
           'subapp/gotop',
           'subapp/event/event_entity_loader',
           'bootstrap'
