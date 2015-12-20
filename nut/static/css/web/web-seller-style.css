@@ -642,7 +642,7 @@ p.boolean-false {
   text-align: center;
   border: 1px solid #4188DC;
   color: #4188DC;
-  border-radius: 20px;
+  border-radius: 30px;
 }
 .event-cross-screen .event-banner-wrapper .share-btn-wrapper a.share-btn:hover {
   color: #ffffff;
@@ -653,12 +653,19 @@ p.boolean-false {
   padding: 0;
   margin: 0;
 }
+@media screen and (max-width: 768px) {
+  .event-cross-screen .event-banner-wrapper .sections-titles-wrapper {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    z-index: 1000;
+  }
+}
 .event-cross-screen .event-banner-wrapper .sections-titles-wrapper .sections-titles-nav {
   text-align: center;
 }
 .event-cross-screen .event-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li {
   display: inline-block;
-  padding: 0 10px;
 }
 .event-cross-screen .event-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li a {
   color: #9D9E9F;
@@ -671,9 +678,28 @@ p.boolean-false {
 .event-cross-screen .event-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li a:hover {
   cursor: pointer;
 }
+@media screen and (min-width: 768px) {
+  .event-cross-screen .event-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li a.section-title.section-first-title:after {
+    content: " DELICACY";
+  }
+  .event-cross-screen .event-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li a.section-title.section-second-title:after {
+    content: " CULTURE";
+  }
+  .event-cross-screen .event-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li a.section-title.section-third-title:after {
+    content: " LOOKS";
+  }
+  .event-cross-screen .event-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li a.section-title.section-forth-title:after {
+    content: " LIFESTYLE";
+  }
+}
 .event-cross-screen .event-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li span {
-  padding-left: 10px;
+  padding: 0 10px;
   color: #F8E71C;
+}
+@media screen and (max-width: 768px) {
+  .event-cross-screen .event-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li span {
+    padding: 0 5px;
+  }
 }
 .seller-page-container {
   margin: 0 auto;
