@@ -184,6 +184,9 @@
      }
      .sellers-wrapper{
        a{
+         &:hover{
+           cursor: pointer;
+         }
          .sellers-logo{
             width:100%;
             height:0;
@@ -204,10 +207,79 @@
        }
        .score{
          text-align: center;
+         height:20px;
+         margin-top:15px;
+         margin-bottom: 20px;
+         ul{
+           li{
+             display: inline-block;
+             i{
+               color: @common-gray;
 
+             }
+           }
+         }
        }
+       .sellers-share{
+         display: none;
+         height:20px;
+         margin-top:15px;
+         margin-bottom: 20px;
+       }
+       &:hover{
+         .score-hidden{
+           display: none;
+         }
+
+       .sellers-share-visible{
+         display: block;
+         text-align: center;
+         ul{
+           li{
+             display: inline-block;
+             a{
+               &:hover{
+                 cursor: pointer;
+               }
+               i{
+                 color: @light-gray;
+                 margin-right: 5px;
+
+                  &.fa-qq:hover{
+                     &.qq-hover{
+                      color: #3199DD;
+
+                 }
+
+                   }
+                  &.fa-weibo:hover{
+                     &.weibo-hover{
+                     color: #E90D24;
+
+                 }
+
+                   }
+                 &.fa-wechat:hover{
+                   &.wechat-hover{
+                   color: #51C332;
+                 }
+
+
+
+                 }
+
+
+
+               }
+             }
+           }
+         }
+       }
+     }
 
      }
+
+
 
    }
 
