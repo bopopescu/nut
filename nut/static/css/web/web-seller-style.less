@@ -8,10 +8,9 @@
 .event-cross-screen{
   margin-top:-50px;
   height:450px;
-   //@media screen and (max-width:768px){
-   //  height:200px;
-   //  background-color: #fff;
-   //   }
+   @media screen and (max-width:768px){
+     height:auto;
+      }
   .event-banner-wrapper{
     //solve the horizontal scroll bar
     margin:0;
@@ -115,175 +114,109 @@
 }
 
 
-
+//main content's style
 
 .seller-page-container{
-   margin:0 auto;
-   .section-floor-wrapper{
-     @media screen and (min-width:970px){
-       min-height:320px;
-       max-height:320px;
-       overflow:hidden;
+   //margin:0 auto;
+   .sections-item-wrapper{
+     padding-top: 60px;
+      @media screen and (max-width:768px){
 
-      }
-     .section-desc-wrapper{
-       //display:table-cell;
-       background-color: #fff;
-       padding:15px 25px 35px;
-       border-radius: 4px;
+         }
 
-
-       .section-floor-title{
-         border-bottom:3px solid #000000;
-         padding-top:15px;
-         padding-bottom: 15px;
+     .sections-item-title{
+       text-align: center;
+       h3{
+         font-size: @title-size;
+         text-decoration: underline;
        }
-       .section-floor-desc{
-         margin-top:10px;
-         p{
-           //max-height:192px;
+
+     }
+     .sections-item-desc{
+       margin-bottom: 50px;
+       p{
+          margin: 0 auto;
+          max-width:600px;
+          padding-top:10px;
+          font-size: 14px;
+       }
+
+
+     }
+     .goods-wrapper{
+       //text-align: center;
+       padding:0;
+       .goods-container{
+         //display: inline-block;
+         ul{
+           li{
+             width:110px;
+             height:110px;
+             display: inline-block;
+             padding-right: 10px;
+              @media screen and (max-width:768px){
+                width:70px;
+                height:70px;
+                padding-right: 5px;
+              }
+             a{
+               img{
+                 width:100px;
+                 height:100px;
+                 @media screen and (max-width:768px){
+                 width:60px;
+                 height:60px;
+              }
+                 border-radius: 2px;
+
+               }
+             }
+           }
+       }
+
+
+       }
+
+
+     }
+     .sellers-wrapper{
+
+     }
+
+   }
+
+
+
+
+
+
+
+
+}
+
+      //max-height:192px;
            //min-height:100px;
          //超出的文字用...代替
          //  white-space: nowrap;
          //  width:100%;
          //  overflow: hidden;
          //  text-overflow: ellipsis;
-         }
-
-       }
-     }
-     .section-item-wrapper{
-       //display: table-cell;
-       //background-color: pink;  //test
-       @media screen and (max-width:970px){
-         width:100%;
-         max-height:310px;
-         overflow:hidden;
-         //padding:0 20px;
-      }
-
-       ul{
-         overflow:hidden;
-         @media screen and (max-width:970px){
-           padding-left:15px;
-           padding-right:15px;
-      }
-         li{
-           float:left;
-           margin-right:10px;
-           margin-bottom:10px;
-           @media screen and (max-width:375px){
-           margin-right:5px;
-      }
-           a{
-             img{
-               width:100px;
-               height:100px;
-               border-radius: 4px;
-             }
-           }
-         }
-       }
-     }
-   }
-  .section-title-wrapper{
-    p{
-       margin-top:30px;
-       width:100px;
-       height:30px;
-       line-height:30px;
-       background-color: #000;
-       color: #ffffff;
-      @media screen and (max-width:970px){
-        margin-left:15px;
-      }
-    }
-  }
-  //.review-items-wrapper{
-  //  .review-item-wrapper{
-  //    background-color: #fff;
-  //    margin-bottom: 8px;
-  //    padding:10px 10px 25px 10px;
-  //    min-height:380px; //
-  //    max-height:380px; //
-  //    border-radius: 4px;
-  //    .review-item-pic{
-  //    max-height:200px;
-  //    overflow: hidden;
-  //    }
-  //    .review-item-desc{
-  //      margin-top:10px;
-  //      margin-bottom: 20px;
-  //
-  //    }
-  //    .review-item-date{
-  //
-  //       //position:absolute;
-  //       //bottom:30px;
-  //       text-align: center;
-  //    }
-  //    .item-operations{
-  //
-  //    }
-  //  }
-  //}
-
-  .review-item-wrapper{
-    .review-item-pannel{
-      width:100%;
-      overflow:hidden;
-      padding:15px 15px 25px;
-      margin-bottom: 25px;
-      background-color: #ffffff;
-      border-radius: @global-box-radius;
-        a{
-         // a hack that the picture show width:height=1:1
-         .review-item-pic{
-            width:100%;
-            height:0;
-            padding-bottom: 100%;
-            background-position: center center;
-            background-size: cover;
-           &.rectangle-pic{
-             //to realise horizontal alignment
-             padding-bottom: 43%;
-           }
-        }
-   }
-    .review-item-desc{
-          margin:15px 10px;
-
-          p{
-            margin-top:10px;
-            overflow: hidden;
-            @media screen and (min-width:750px){
-            max-height:100px;
-            min-height:100px;
-           }
-          }
-        }
-    .review-item-date{
-          min-height:30px;
-          //text-align: center;
-        }
-
-    .item-operations{
-          height:30px;
-          ul{
-            overflow: hidden;
-            li{
-              float: left;
-            }
-          }
-        }
+   //     a{
+   //      // a hack that the picture show width:height=1:1
+   //      .review-item-pic{
+   //         width:100%;
+   //         height:0;
+   //         padding-bottom: 100%;
+   //         background-position: center center;
+   //         background-size: cover;
+   //        &.rectangle-pic{
+   //          //to realise horizontal alignment
+   //          padding-bottom: 43%;
+   //        }
+   //     }
+   //}
 
 
-
-
-    }
-
-  }
-}
 
 
 

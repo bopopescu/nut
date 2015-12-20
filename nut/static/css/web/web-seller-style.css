@@ -619,6 +619,11 @@ p.boolean-false {
   margin-top: -50px;
   height: 450px;
 }
+@media screen and (max-width: 768px) {
+  .event-cross-screen {
+    height: auto;
+  }
+}
 .event-cross-screen .event-banner-wrapper {
   margin: 0;
 }
@@ -701,113 +706,49 @@ p.boolean-false {
     padding: 0 5px;
   }
 }
-.seller-page-container {
+.seller-page-container .sections-item-wrapper {
+  padding-top: 60px;
+}
+.seller-page-container .sections-item-wrapper .sections-item-title {
+  text-align: center;
+}
+.seller-page-container .sections-item-wrapper .sections-item-title h3 {
+  font-size: 22px;
+  text-decoration: underline;
+}
+.seller-page-container .sections-item-wrapper .sections-item-desc {
+  margin-bottom: 50px;
+}
+.seller-page-container .sections-item-wrapper .sections-item-desc p {
   margin: 0 auto;
+  max-width: 600px;
+  padding-top: 10px;
+  font-size: 14px;
 }
-@media screen and (min-width: 970px) {
-  .seller-page-container .section-floor-wrapper {
-    min-height: 320px;
-    max-height: 320px;
-    overflow: hidden;
+.seller-page-container .sections-item-wrapper .goods-wrapper {
+  padding: 0;
+}
+.seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li {
+  width: 110px;
+  height: 110px;
+  display: inline-block;
+  padding-right: 10px;
+}
+@media screen and (max-width: 768px) {
+  .seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li {
+    width: 70px;
+    height: 70px;
+    padding-right: 5px;
   }
 }
-.seller-page-container .section-floor-wrapper .section-desc-wrapper {
-  background-color: #fff;
-  padding: 15px 25px 35px;
-  border-radius: 4px;
-}
-.seller-page-container .section-floor-wrapper .section-desc-wrapper .section-floor-title {
-  border-bottom: 3px solid #000000;
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
-.seller-page-container .section-floor-wrapper .section-desc-wrapper .section-floor-desc {
-  margin-top: 10px;
-}
-@media screen and (max-width: 970px) {
-  .seller-page-container .section-floor-wrapper .section-item-wrapper {
-    width: 100%;
-    max-height: 310px;
-    overflow: hidden;
-  }
-}
-.seller-page-container .section-floor-wrapper .section-item-wrapper ul {
-  overflow: hidden;
-}
-@media screen and (max-width: 970px) {
-  .seller-page-container .section-floor-wrapper .section-item-wrapper ul {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-.seller-page-container .section-floor-wrapper .section-item-wrapper ul li {
-  float: left;
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-@media screen and (max-width: 375px) {
-  .seller-page-container .section-floor-wrapper .section-item-wrapper ul li {
-    margin-right: 5px;
-  }
-}
-.seller-page-container .section-floor-wrapper .section-item-wrapper ul li a img {
+.seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li a img {
   width: 100px;
   height: 100px;
-  border-radius: 4px;
+  border-radius: 2px;
 }
-.seller-page-container .section-title-wrapper p {
-  margin-top: 30px;
-  width: 100px;
-  height: 30px;
-  line-height: 30px;
-  background-color: #000;
-  color: #ffffff;
-}
-@media screen and (max-width: 970px) {
-  .seller-page-container .section-title-wrapper p {
-    margin-left: 15px;
+@media screen and (max-width: 768px) {
+  .seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li a img {
+    width: 60px;
+    height: 60px;
   }
-}
-.seller-page-container .review-item-wrapper .review-item-pannel {
-  width: 100%;
-  overflow: hidden;
-  padding: 15px 15px 25px;
-  margin-bottom: 25px;
-  background-color: #ffffff;
-  border-radius: 4px;
-}
-.seller-page-container .review-item-wrapper .review-item-pannel a .review-item-pic {
-  width: 100%;
-  height: 0;
-  padding-bottom: 100%;
-  background-position: center center;
-  background-size: cover;
-}
-.seller-page-container .review-item-wrapper .review-item-pannel a .review-item-pic.rectangle-pic {
-  padding-bottom: 43%;
-}
-.seller-page-container .review-item-wrapper .review-item-pannel .review-item-desc {
-  margin: 15px 10px;
-}
-.seller-page-container .review-item-wrapper .review-item-pannel .review-item-desc p {
-  margin-top: 10px;
-  overflow: hidden;
-}
-@media screen and (min-width: 750px) {
-  .seller-page-container .review-item-wrapper .review-item-pannel .review-item-desc p {
-    max-height: 100px;
-    min-height: 100px;
-  }
-}
-.seller-page-container .review-item-wrapper .review-item-pannel .review-item-date {
-  min-height: 30px;
-}
-.seller-page-container .review-item-wrapper .review-item-pannel .item-operations {
-  height: 30px;
-}
-.seller-page-container .review-item-wrapper .review-item-pannel .item-operations ul {
-  overflow: hidden;
-}
-.seller-page-container .review-item-wrapper .review-item-pannel .item-operations ul li {
-  float: left;
 }
