@@ -2,72 +2,86 @@
 @import "../lib/var.less";
 @import "../lib/widgets.less";
 
-.web-seller-btn{
-  display:inline-block;
-  height:32px;
-  line-height: 32px;
-  padding:0 30px;
-  border-radius:20px;
-}
+//year-selller page share-btn
+@seller-btn-color:#4188DC;
 
 .event-cross-screen{
   margin-top:-50px;
+  height:450px;
+   //@media screen and (max-width:768px){
+   //  height:200px;
+   //  background-color: #fff;
+   //   }
   .event-banner-wrapper{
-    margin: 0;
+    //solve the horizontal scroll bar
+    margin:0;
+    .banner-bgpic-wrapper{
+      margin-top:120px;
+      text-align: center;
+      img{
+
+      }
+    }
+    .share-btn-wrapper{
+      margin-top:30px;
+      margin-bottom: 60px;
+      text-align: center;
+      a{
+        text-decoration: none;
+        &.share-btn{
+          display:inline-block;
+          width:120px;
+          height:46px;
+          line-height: 46px;
+          text-align: center;
+          border:1px solid @seller-btn-color;
+          color:@seller-btn-color;
+          border-radius:20px;
+          &:hover{
+            color:#ffffff;
+            background-color: @seller-btn-color;
+            cursor: pointer;
+          }
+      }
+      }
+
+    }
     .sections-titles-wrapper{
-      position:fixed;
-      top:80px;
-      left:0;
-      //transform: translateX(-50%);
-      z-index:1000;
-      //text-align:center;
-      //将UL居中显示需要调整
-        .sections-titles-nav{
-          width:80%;
-          margin:0 auto;
-          ul{
-            overflow: hidden;
-            text-align: center;
-            li{
-            //浮动元素会在小屏幕分辨率下存在bug
-              float:left;
-              width:20%;
-              @media screen and (min-width:750px){
-              //margin-right:10%;
+      padding:0;
+      margin:0;
+      .sections-titles-nav{
+        text-align:center;
+        ul{
+
+          li{
+            display: inline-block;
+            padding:0 10px;
+            //font-weight:700;
+            a{
+              color: @common-gray;
+              @media screen and (max-width:768px){
+               color:@common-text-color;
               }
-              .section-title{
-                .web-seller-btn;
-                background-color: @foot-bg-color;
+              &:hover{
+                cursor: pointer;
+              }
+            }
+            span{
+              padding-left: 10px;
+              color:#F8E71C;
+
             }
           }
         }
       }
+
     }
 
-    .banner-img{
-      //text-align:center;
-      overflow:hidden;
-      width:100%;
-      height:0;
-      padding-bottom: 450px;
-      background-position: center center;
-      background-size: cover;
-    }
   }
 }
 
-.share-btn-wrapper{
-  background-color: #ffffff;
-  width:100%;
-  height:50px;
-  text-align:center;
-  margin-bottom: 30px;
-  .btn-primary{
-    .web-seller-btn;
-    transform: translateY(-20px);
-  }
 
-}
+
 
 .seller-page-container{
    margin:0 auto;
