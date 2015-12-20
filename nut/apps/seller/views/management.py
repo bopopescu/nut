@@ -3,7 +3,9 @@ from django.forms import ModelForm, TextInput
 from django.forms.fields import IntegerField
 from django.forms.widgets import TextInput
 from django.core.exceptions import ValidationError
-from apps.seller.models import Seller_Profile
+from django.core.urlresolvers import reverse
+
+from apps.seller.models import Seller_Profile, Seller_Section
 from apps.core.models import GKUser
 
 
@@ -36,22 +38,46 @@ class SellerForm(ModelForm):
 
 
 
-
-
-
 class SellerCreateForm(SellerForm):
     pass
 
+
 class SellerCreateView(CreateView):
+    success_url = '/'
     form_class = SellerCreateForm
-    template_name = 'management/create.html'
+    template_name = 'management/seller/create.html'
     model = Seller_Profile
 
 
 
 
 class SellerListView(ListView):
-    pass
+    model = Seller_Profile
+    template_name = '/management/seller/section_list.html'
+    def get_queryset(self):
+        return Seller_Profile.objects.filter(status=Seller_Profile.active)
+
 
 class SellerUpdateView(UpdateView):
     pass
+
+
+# ====================
+# ==== seller section management =====
+
+
+
+class SellerSectionCreateView(CreateView):
+    template_name = 'management/seller/create_section.html'
+
+
+class SellerSectionListView(ListView):
+    model = Seller_Section
+    def get_queryset(self):
+        return Seller_Section.objects.filter(active=True)
+
+
+
+class SellerSectionUpdateView(UpdateView):
+    pass
+
