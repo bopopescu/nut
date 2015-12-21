@@ -10,4 +10,5 @@ require(['jquery',
         var gotop = new GoTop();
         var eventEntityLoader = new EventEntityLoader();
 
+
     });

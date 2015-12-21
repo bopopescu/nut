@@ -13,14 +13,28 @@ from apps.core.models import GKUser
 
 
 class SellerForm(ModelForm):
-    seller_user_id = IntegerField(required=False)
+    seller_user_id = IntegerField(required=False)\
+
+    def __init__(self, *args, **kwargs):
+        super(SellerForm, self).__init__(*args, **kwargs)
+        self.fields['seller_user_id'].widget.attrs.update({'class':'user-id-input form-control'})
+        self.fields['seller_name'].widget.attrs.update({'class':'form-control'})
+        self.fields['logo'].widget.attrs.update({'class':'form-control'})
+        self.fields['shop_title'].widget.attrs.update({'class':'form-control'})
+        self.fields['shop_link'].widget.attrs.update({'class':'form-control'})
+        self.fields['shop_desc'].widget.attrs.update({'class':'form-control'})
+        self.fields['status'].widget.attrs.update({'class':'form-control'})
+        self.fields['business_section'].widget.attrs.update({'class':'form-control'})
+
     class Meta:
         model = Seller_Profile
-        fields = ['seller_user_id','seller_name','logo','shop_title', 'shop_link', 'shop_desc', 'status', 'business_section']
-        widgets = {
-            'seller_user_id': TextInput(attrs={'class': 'user-id-input'}),
-            'logo': TextInput(attrs={'class': 'seller-logo-input'})
-        }
+        fields = ['seller_user_id','seller_name','logo','shop_title',\
+                  'shop_link', 'shop_desc', 'status', 'business_section']
+
+        # widgets = {
+        #     'seller_user_id': TextInput(attrs={'class': 'user-id-input form-control'}),
+        #     'logo': TextInput(attrs={'class': 'seller-logo-input'})
+        # }
 
     def clean_sell_user_id(self):
         _user_id = self.cleaned_data.get('seller_user_id')
@@ -44,6 +58,7 @@ class SellerCreateForm(SellerForm):
 
 class SellerCreateView(CreateView):
     success_url = '/'
+
     form_class = SellerCreateForm
     template_name = 'management/seller/create.html'
     model = Seller_Profile
