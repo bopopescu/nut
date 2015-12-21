@@ -905,8 +905,9 @@ p.boolean-false {
   background-size: cover;
 }
 .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-desc p {
+  padding-top: 10px;
   font-size: 14px;
-  height: 63px;
+  height: 73px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
