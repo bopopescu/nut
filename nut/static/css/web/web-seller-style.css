@@ -681,6 +681,7 @@ p.boolean-false {
 @media screen and (max-width: 768px) {
   .event-cross-screen .event-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li a {
     color: #424242;
+    font-size: 14px;
   }
 }
 .event-cross-screen .event-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li a:hover {
@@ -795,32 +796,103 @@ p.boolean-false {
 }
 .seller-page-container .sections-item-wrapper .goods-wrapper {
   padding: 0;
-}
-.seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li {
-  width: 110px;
-  height: 110px;
-  display: inline-block;
-  padding-right: 10px;
+  margin-bottom: 50px;
 }
 @media screen and (max-width: 768px) {
-  .seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li {
-    width: 70px;
-    height: 70px;
-    padding-right: 5px;
+  .seller-page-container .sections-item-wrapper .goods-wrapper {
+    margin-bottom: 20px;
   }
+}
+@media screen and (min-width: 1200px) {
+  .seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul {
+    width: 1170px;
+    margin: 0 auto;
+  }
+  .seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li {
+    width: 107px;
+    height: 107px;
+    margin-right: 5px;
+  }
+}
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+  .seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul {
+    width: 970px;
+  }
+  .seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li {
+    width: 85px;
+    height: 85px;
+    margin-right: 5px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul {
+    width: 750px;
+    margin: 0 auto;
+  }
+  .seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li {
+    width: 140px;
+    height: 140px;
+    margin-right: 3px;
+  }
+}
+@media screen and (min-width: 650px) and (max-width: 768px) {
+  .seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li {
+    width: 120px;
+    height: 120px;
+    margin-right: 3px;
+  }
+}
+@media screen and (min-width: 510px) and (max-width: 650px) {
+  .seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li {
+    width: 95px;
+    height: 95px;
+    margin-right: 3px;
+  }
+}
+@media screen and (min-width: 460px) and (max-width: 510px) {
+  .seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li {
+    width: 85px;
+    height: 85px;
+  }
+}
+@media screen and (min-width: 410px) and (max-width: 460px) {
+  .seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul {
+    text-align: center;
+  }
+  .seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li {
+    width: 75px;
+    height: 75px;
+  }
+}
+@media screen and (min-width: 355px) and (max-width: 410px) {
+  .seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li {
+    width: 65px;
+    height: 65px;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 355px) {
+  .seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li {
+    width: 58px;
+    height: 58px;
+  }
+}
+.seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul {
+  text-align: center;
+}
+.seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li {
+  display: inline-block;
+}
+.seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
 }
 .seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li a:hover {
   cursor: pointer;
 }
 .seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li a img {
-  width: 100px;
-  height: 100px;
-}
-@media screen and (max-width: 768px) {
-  .seller-page-container .sections-item-wrapper .goods-wrapper .goods-container ul li a img {
-    width: 60px;
-    height: 60px;
-  }
+  width: 100%;
+  height: 100%;
 }
 .seller-page-container .sections-item-wrapper .sellers-wrapper a:hover {
   cursor: pointer;
