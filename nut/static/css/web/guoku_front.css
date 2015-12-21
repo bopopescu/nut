@@ -3279,6 +3279,18 @@ body.compact-body {
   height: auto;
 }
 @media (max-width: 767px) {
+  .entity-selection-body {
+    background-color: #f8f8f8;
+  }
+  .entity-selection-body .selection-item {
+    padding: 0px 2px;
+  }
+  .entity-selection-body .entity-selection {
+    margin-bottom: 4px!important;
+  }
+  .entity-selection-body .entity-selection .posttime {
+    display: none;
+  }
   #settings .edit_info .input-element {
     max-width: 300px;
   }
@@ -3579,6 +3591,6 @@ body .for-mobile {
   overflow: hidden;
 }
 .gk_test {
-  color: red;
+  color: blacksite;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
