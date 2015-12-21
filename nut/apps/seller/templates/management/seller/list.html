@@ -1,6 +1,6 @@
 {% extends 'management/management_base.html' %}
 {% load i18n %}
-
+{% load guoku %}
 {% block content %}
 
  <section class="content-header">
@@ -28,6 +28,11 @@
                     </div>
 
                     <div class="box-body table-responsive">
+                       <div class="">
+                           <hr>
+                            <button class="btn btn-primary">新卖家</button>
+                            <hr>
+                       </div>
 
                         {#                        {% include "management/table.html"%}#}
 
@@ -55,7 +60,7 @@
                                 <td>{{  seller.seller_name }}</td>
                                 <td>
                                     <a href="" target="_blank">
-                                        <img class="img-responsive img-thumbnail" src="/static/images/avatar/woman.png" style="max-height:100px;max-width:100px;">
+                                        <img class="img-responsive img-thumbnail" src="{{ seller.logo_url|resize:'100' }}" style="max-height:100px;max-width:100px;">
                                     </a>
                                 </td>
                                 <td>{{ seller.shop_title }}</td>
@@ -72,34 +77,7 @@
                                 </td>
                                 <td><a class="btn btn-default" href="{% url 'management_seller_update' seller.pk %}">编辑</a></td>
                             </tr>
-                                {{ seller.seller_name }}
                             {% endfor %}
-
-
-
-                            {#the second line datas#}
-                            <tr>
-                                <td>222222</td>
-                                <td>马云</td>
-                                <td>
-                                    <a href="" target="_blank">
-                                        <img class="img-responsive img-thumbnail" src="/static/images/avatar/woman.png" style="max-height:100px;max-width:100px;">
-                                    </a>
-                                </td>
-                                <td>淘宝店铺</td>
-                                <td>
-                                    <a href="" target="_blank">taobao.com</a>
-                                </td>
-                                <td class="shop-desc">
-                                    淘宝网 - 亚洲最大、最安全的网上交易平台
-                                </td>
-                                <td>服饰</td>
-                                <td>
-                                    {#冻结状态#}
-                                    <span class="label label-danger">冻结</span>
-                                </td>
-                                <td><a class="btn btn-default" href="">编辑</a></td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>

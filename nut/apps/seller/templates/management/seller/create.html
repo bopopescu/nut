@@ -23,7 +23,7 @@
                         <h3 class="box-title">Seller_Section Form</h3>
                     </div>
 
-                        <form class="form-horizontal" action="" method="post">
+                        <form class="form-horizontal" enctype="multipart/form-data" action="" method="post">
                             {% csrf_token %}
                             <div class="box-body">
                             {% for field in form %}
@@ -42,9 +42,6 @@
 
                             {% endfor %}
                             </div>
-
-
-
 
                             <div class="box-footer">
                             <div class="col-xs-10 col-sm-10 col-md-10 col-md-offset-2 col-sm-offset-2 col-xs-offset-2">
