@@ -709,6 +709,12 @@ p.boolean-false {
 .seller-page-container .sections-item-wrapper {
   padding-top: 60px;
 }
+@media screen and (max-width: 768px) {
+  .seller-page-container .sections-item-wrapper {
+    padding-top: 0px;
+    margin-bottom: 30px;
+  }
+}
 .seller-page-container .sections-item-wrapper .sections-item-title {
   text-align: center;
 }
