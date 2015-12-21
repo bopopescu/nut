@@ -73,6 +73,7 @@
               color: @common-gray;
               @media screen and (max-width:768px){
                color:@common-text-color;
+                font-size: @smaller-primary;
               }
               &:hover{
                 cursor: pointer;
@@ -222,31 +223,127 @@
      .goods-wrapper{
        //text-align: center;
        padding:0;
+       margin-bottom: 50px;
+       @media screen and (max-width: 768px){
+         margin-bottom: 20px;
+       }
        .goods-container{
          //display: inline-block;
-         ul{
-           li{
-             width:110px;
-             height:110px;
-             display: inline-block;
-             padding-right: 10px;
-              @media screen and (max-width:768px){
-                width:70px;
-                height:70px;
-                padding-right: 5px;
+          @media screen and (min-width:1200px){
+            ul{
+              width:1170px;
+              margin:0 auto;
+              li{
+                width:107px;
+                height:107px;
+                margin-right: 5px;
+
+                  }
+                }
               }
+
+           @media screen and (min-width:992px) and(max-width: 1200px){
+            ul{
+              width:970px;
+              li{
+                width:85px;
+                height:85px;
+                margin-right: 5px;
+
+                  }
+                }
+              }
+
+
+          @media screen and (min-width:768px) and (max-width: 992px){
+            ul{
+              width:750px;
+              margin:0 auto;
+              li{
+                width: 140px;
+                height:140px;
+                margin-right: 3px;
+              }
+            }
+
+              }
+
+          @media screen and (min-width:650px) and (max-width:768px){
+            ul{
+              li{
+                width:120px;
+                height:120px;
+                margin-right: 3px;
+
+                  }
+                }
+              }
+
+         @media screen and (min-width:510px) and (max-width:650px){
+            ul{
+              li{
+                width:95px;
+                height:95px;
+                margin-right: 3px;
+                  }
+                }
+              }
+
+         @media screen and (min-width:460px) and (max-width:510px){
+            ul{
+              li{
+                width:85px;
+                height:85px;
+                  }
+                }
+              }
+
+          @media screen and (min-width:410px) and (max-width:460px){
+            ul{
+              text-align: center;
+              li{
+                width:75px;
+                height:75px;
+                  }
+                }
+              }
+
+          @media screen and (min-width:355px) and (max-width:410px){
+            ul{
+              li{
+                width:65px;
+                height:65px;
+                  }
+                }
+              }
+
+         @media screen and (min-width:320px) and (max-width:355px){
+            ul{
+              li{
+                width:58px;
+                height:58px;
+                  }
+                }
+              }
+
+         ul{
+           text-align: center;
+           li{
+             display: inline-block;
              a{
+               display: inline-block;
+               width: 100%;
+               height:100%;
                &:hover{
                  cursor: pointer;
                }
                img{
-                 width:100px;
-                 height:100px;
-                 @media screen and (max-width:768px){
-                 width:60px;
-                 height:60px;
-              }
-
+                 width:100%;
+                 height:100%;
+              //   @media screen and (max-width:768px){
+              //   width:60px;
+              //   height:60px;
+              //}
                }
              }
            }
@@ -258,6 +355,7 @@
 
      }
      .sellers-wrapper{
+       //padding-left: 0px;
        a{
          &:hover{
            cursor: pointer;
