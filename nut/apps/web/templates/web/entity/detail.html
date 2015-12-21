@@ -56,12 +56,6 @@
                             {% include "web/entity/partial/detail_info_center.html" %}
                         </div>
                     </div>
-                    {#                <div class="detail_pic">#}
-                    {#                    {% include "web/entity/partial/detail_pic.html" %}#}
-                    {#                </div>#}
-                    {#                 <div class="detail_middle">#}
-                    {#                    {% include "web/entity/partial/detail_middle.html" %}#}
-                    {#                </div>#}
                     <div class="share-wrapper share-wrapper-short">
                         <div class="report-wrapper" id="report_trigger" report-url="/entity/{{ entity.pk }}/report/">
                             <i class="fa fa-flag-o"></i>
@@ -78,6 +72,7 @@
                         <span class="share-intro-entity">分享到&nbsp;&nbsp;</span>
                     </div>
                     <div class="divider"></div>
+
                     {#                    {% if entity_brand and entity_brand.intro %}#}
                     {#                        <div class="brand-intro">#}
                     {#                            <div class="brand-name">#}
@@ -137,11 +132,6 @@
                                 <div class="img-holder">
                                     <a href="{% url 'web_entity_detail' entity.entity_hash %}#from=recommend" target="_blank" class="">
                                         <div class="img-frame" style="background-image:url({{ entity.chief_image|resize:'240' }})"></div>
-                                        {#                                        <img class="recommend-img img-responsive"#}
-                                        {#                                             src="{{ entity.chief_image|resize:'240' }}"#}
-                                        {#                                             alt="{{ entity.title }}"#}
-                                        {#                                             title="{{ entity.brand }}  {{ entity.title }}"#}
-                                        {#                                                width="240" height="240">#}
                                     </a>
                                 </div>
                             </div>
@@ -160,17 +150,6 @@
             </div>
         </div>
 
-
-        {#        <div class="row" id="detail_recommendation">#}
-        {#            <div class="col-sm-8 col-md-8 col-xs-12 guess_Ulike">#}
-        {#                {% include "web/entity/partial/detail_recommendation.html" %}#}
-        {#            </div>#}
-        {#        </div>#}
-        {#        <div  class="row" id="detail_report">#}
-        {#            <div class="col-sm-8 col-md-8 col-xs-12">#}
-        {#                <a href="#" class="report_link fc_1 hidden-sm hidden-md hidden-lg"><i class="fa fa-flag-o"></i> 举报</a>#}
-        {#            </div>#}
-        {#        </div>#}
     </div>
     <div id="ReportModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="ReportModal" aria-hidden="true">
         <div class="modal-dialog report">

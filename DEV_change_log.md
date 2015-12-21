@@ -1,4 +1,30 @@
+7. user page side bar (not user index page side bar) , 
+    disable user article link if user do not have article 
+     
+6. user page, display user article when user has article 
+    (currently only display when user can write)
+    
+5. xs screen selection_entity page bg-color : #f8f8f8 （done）
+4. display 2 entity in a row (done)
+3. display all note on selection entity page.(done)
+2. friendly link , new style 
+1. in wechat browser , if product is from taobao/tmall , 
+    buy button jump to app download page (NOT finished)
 
+--------- seller related -------
+
+2. add seller section management views and templates
+1. add seller section model 
+
+### Action 
+
+need Sync DB
+for seller_section table 
+
+
+---
+
+2015-12-20 
 
 =================================
 =================================
