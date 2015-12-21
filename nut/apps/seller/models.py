@@ -1,8 +1,11 @@
 # coding=utf-8
-
+from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from apps.core.models import BaseModel, GKUser, Article
+
+
+image_host = getattr(settings, 'IMAGE_HOST', None)
 
 
 class Seller_Section(BaseModel):
@@ -45,3 +48,7 @@ class Seller_Profile(BaseModel):
     gk_stars = models.IntegerField(choices=GKSTAR_CHOICE, default=5)
 
     related_articles = models.ManyToManyField(Article, related_name='related_seller')
+
+    @property
+    def logo_url(self):
+        return '%s%s' %(image_host, self.logo)
