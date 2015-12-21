@@ -43,7 +43,7 @@ class Seller_Profile(BaseModel):
     seller_name = models.CharField(max_length=255, db_index=True)
     shop_desc = models.TextField(max_length=255)
     status = models.IntegerField(choices=SELLER_STATUS_CHOICE, default=active)
-    logo = models.CharField(max_length=255)
+    logo = models.CharField(max_length=255, blank=True)
     business_section = models.IntegerField(choices=BUS_SECTION_CHOICE, default=blank)
     gk_stars = models.IntegerField(choices=GKSTAR_CHOICE, default=5)
 
