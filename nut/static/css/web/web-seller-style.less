@@ -17,11 +17,16 @@
     .banner-bgpic-wrapper{
       margin-top:120px;
       text-align: center;
+      //@media screen and (min-width:1200px){
+      //   background-image: url("/static/images/event/year-seller-title-group.png");
+      //   background-repeat: no-repeat;
+      //   background-position: center center;
+      //   padding-top: 667px;
+      //}
       img{
         &.img-control{
           margin:0 auto;
         }
-
       }
     }
     .share-btn-wrapper{
@@ -116,6 +121,72 @@
   }
 }
 
+//fixed share sidebar
+.seller-sidebar-wrapper{
+  @media screen and (max-width: 768px){
+    &.seller-sidebar-hidden{
+      display: none;
+    }
+  }
+  position:fixed;
+  bottom:100px;
+  right:0;
+  width:86px;
+  height:240px;
+  background-color: #fff;
+  padding:5px;
+  z-index: 1000;
+  .border-radius;
+  .drop-shadow;
+
+  .seller-sidebar{
+    width:100%;
+    height:100%;
+    ul{
+      li{
+        width:100%;
+        height:46px;
+        line-height: 46px;
+        text-align: center;
+        border-radius: 2px;
+        &.list-item-google ,&.list-item-weibo{
+          a{
+            color: @like-color;
+          }
+
+        }
+
+        a{
+          display: inline-block;
+          width: 100%;
+          .border-radius;
+          &:hover{
+            cursor: pointer;
+            color:#fff;
+            background-color: @light-blue;
+            text-decoration: none;
+          }
+           i{
+             font-size: @subtitle-size;
+             margin-right:10px;
+
+          }
+         span{
+
+         }
+
+        }
+
+
+      }
+    }
+
+
+ }
+
+}
+
+
 
 //main content's style
 
@@ -175,7 +246,6 @@
                  width:60px;
                  height:60px;
               }
-                 border-radius: 2px;
 
                }
              }
