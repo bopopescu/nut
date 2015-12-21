@@ -26,6 +26,14 @@ class Seller_Profile(BaseModel):
         (life,"生活")
     ]
 
+    GKSTAR_CHOICE=[
+                (1, "1星"),
+                (2, "2星"),
+                (3, "3星"),
+                (4, "4星"),
+                (5, "5星"),
+                ]
+
     user = models.OneToOneField(GKUser, related_name='seller_profile', null=True)
     shop_title = models.CharField(max_length=255, db_index=True)
     shop_link = models.URLField(max_length=255)
@@ -34,6 +42,6 @@ class Seller_Profile(BaseModel):
     status = models.IntegerField(choices=SELLER_STATUS_CHOICE, default=active)
     logo = models.CharField(max_length=255)
     business_section = models.IntegerField(choices=BUS_SECTION_CHOICE, default=blank)
-
+    gk_stars = models.IntegerField(choices=GKSTAR_CHOICE, default=5)
 
     related_articles = models.ManyToManyField(Article, related_name='related_seller')
