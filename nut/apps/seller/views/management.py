@@ -1,12 +1,14 @@
 import re
 
-from django.views.generic import CreateView, UpdateView, ListView
+from django.views.generic import CreateView, UpdateView, ListView, DeleteView
 from django.forms import ModelForm, TextInput
 from django.forms.fields import IntegerField,ImageField, URLField
 from django.forms.widgets import TextInput
 from django.core.exceptions import ValidationError, ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
+
+from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 
 
 from apps.core.models import Article
@@ -93,7 +95,7 @@ class SellerForm(ModelForm):
         if not self.cleaned_data.get('seller_logo_image'):
             return
         _image = HandleImage(image_file=self.cleaned_data.get('seller_logo_image'))
-        _image_path = _image.save()
+        _image_path = _image.icon_save()
         self.instance.logo = _image_path
         return
 
@@ -125,6 +127,8 @@ class SellerCreateView(CreateView):
 
 
 class SellerListView(ListView):
+    paginate_by = 25
+    paginator_class = ExtentPaginator
     model = Seller_Profile
     template_name = 'management/seller/list.html'
     context_object_name = 'sellers'
@@ -140,4 +144,7 @@ class SellerUpdateView(UpdateView):
     template_name = 'management/seller/edit.html'
 
 
-
+# class SellerDeleteView(DeleteView):
+#     model = Seller_Profile
+#     def get_success_url(self):
+#         return reverse('management_seller_list')

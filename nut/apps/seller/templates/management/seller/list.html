@@ -22,8 +22,8 @@
                     <div class="box-header">
                         <ul class="nav nav-pills" role="tablist">
                             <li class="active"><a href="">所有</a></li>
-                            <li><a href="">正常卖家</a></li>
-                            <li><a href="">冻结卖家</a></li>
+{#                            <li><a href="">正常卖家</a></li>#}
+{#                            <li><a href="">冻结卖家</a></li>#}
                         </ul>
                     </div>
 
@@ -66,12 +66,19 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <div>{{ seller.shop_title }}</div>
+                                    <div>店铺名称：{{ seller.shop_title }}</div>
                                     <div>
-                                        <a href="{{ seller.shop_link }}" target="_blank">
+                                       店铺链接： <a href="{{ seller.shop_link }}" target="_blank">
                                         {{ seller.shop_link }}
                                         </a>
                                     </div>
+                                    {% if seller.related_article %}
+                                    <div>
+                                       专访： <a href="{% url 'web_article_page' seller.related_article.id %}" target="_blank">
+                                        {{ seller.related_article.title }}
+                                        </a>
+                                    </div>
+                                    {% endif %}
 
                                 </td>
 
@@ -91,15 +98,17 @@
                         </table>
                     </div>
 
+                    <div class="box-footer">
+                         {% include "management/paginator.html" with objects=page_obj url=request.path %}
+
+                    </div>
 
                 </div>
             </div>
         </div>
     </section>
 
-
 {% endblock %}
-
 
 {% block user_script %}
 
