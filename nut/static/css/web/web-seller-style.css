@@ -769,6 +769,13 @@ p.boolean-false {
   font-size: 18px;
   margin-right: 10px;
 }
+@media screen and (max-width: 768px) {
+  .seller-page-container {
+    background-color: #F8F8F8;
+    margin-bottom: -40px;
+    padding-bottom: 40px;
+  }
+}
 .seller-page-container .sections-item-wrapper {
   padding-top: 60px;
 }
@@ -894,15 +901,19 @@ p.boolean-false {
   width: 100%;
   height: 100%;
 }
+.seller-page-container .sections-item-wrapper .sellers-wrapper {
+  padding-bottom: 30px;
+}
+.seller-page-container .sections-item-wrapper .sellers-wrapper a {
+  display: inline-block;
+  width: 100%;
+  height: auto;
+}
 .seller-page-container .sections-item-wrapper .sellers-wrapper a:hover {
   cursor: pointer;
 }
 .seller-page-container .sections-item-wrapper .sellers-wrapper a .sellers-logo {
-  width: 100%;
-  height: 0;
-  padding-bottom: 100%;
-  background-position: center center;
-  background-size: cover;
+  margin: 0 auto;
 }
 .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-desc p {
   padding-top: 10px;
