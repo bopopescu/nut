@@ -10,6 +10,4 @@ urlpatterns = patterns(
     url(r'^edit/(?P<pk>\d+)/$', SellerUpdateView.as_view() , name='management_seller_update'),
     url(r'^new/$', SellerCreateView.as_view() , name='management_seller_create'),
 
-
-
 )

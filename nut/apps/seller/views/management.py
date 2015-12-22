@@ -1,11 +1,15 @@
+import re
+
 from django.views.generic import CreateView, UpdateView, ListView
 from django.forms import ModelForm, TextInput
-from django.forms.fields import IntegerField,ImageField
+from django.forms.fields import IntegerField,ImageField, URLField
 from django.forms.widgets import TextInput
 from django.core.exceptions import ValidationError, ImproperlyConfigured
 from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404
 
 
+from apps.core.models import Article
 from apps.core.utils.image import HandleImage
 from apps.seller.models import Seller_Profile
 from apps.core.models import GKUser
@@ -19,6 +23,7 @@ from apps.core.models import GKUser
 class SellerForm(ModelForm):
     # seller_user_id = IntegerField(required=False)
     seller_logo_image = ImageField(label='seller_logo_image', help_text='for Seller logo', required=False)
+    related_article_url = URLField(label='interview article address', help_text='FOR SELLER  interview article', required=False)
 
     def __init__(self, *args, **kwargs):
         super(SellerForm, self).__init__(*args, **kwargs)
@@ -34,6 +39,7 @@ class SellerForm(ModelForm):
         self.fields['status'].widget.attrs.update({'class':'form-control'})
         self.fields['business_section'].widget.attrs.update({'class':'form-control'})
         self.fields['gk_stars'].widget.attrs.update({'class':'form-control'})
+        self.fields['related_article_url'].widget.attrs.update({'class':'form-control'})
 
     class Meta:
         model = Seller_Profile
@@ -41,8 +47,46 @@ class SellerForm(ModelForm):
                 # 'seller_user_id',\
                   'seller_name','seller_logo_image',\
                   'shop_title','shop_link', 'shop_desc', 'status', 'business_section',\
-                  'gk_stars'
+                  'gk_stars', 'related_article_url'
                   ]
+
+
+
+    def clean_related_article_url(self):
+        url = self.cleaned_data.get('related_article_url')
+        if not url:
+            return None
+        p = re.compile(r'articles/(\d+)')
+        k = p.search(url)
+        if k is None:
+            raise ValidationError('can not find article id in URL')
+            return None
+
+        article_id = k.group(1)
+        try :
+            article = Article.objects.get(pk=article_id)
+        except Article.DoesNotExist:
+            raise ValidationError('can not find article object')
+            return None
+
+        return url
+
+
+
+
+
+    def handle_related_article_url(self):
+
+        url = self.cleaned_data.get('related_article_url')
+        if not url :
+            return
+
+        p = re.compile(r'articles/(\d+)')
+        k = p.search(url)
+        article_id = k.group(1)
+        article = Article.objects.get(pk=article_id)
+        self.instance.related_article = article
+
 
 
     def handle_logo_image(self):
@@ -56,6 +100,7 @@ class SellerForm(ModelForm):
 
     def save(self, commit=True,*args,**kwargs):
         self.handle_logo_image()
+        self.handle_related_article_url()
         seller_profile = super(SellerForm,self).save(commit=True,*args,**kwargs)
 
 
@@ -93,5 +138,6 @@ class SellerUpdateView(UpdateView):
     form_class = SellerUpdateForm
     model = Seller_Profile
     template_name = 'management/seller/edit.html'
+
 
 

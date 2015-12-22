@@ -8,11 +8,6 @@ from apps.core.models import BaseModel, GKUser, Article
 image_host = getattr(settings, 'IMAGE_HOST', None)
 
 
-class Seller_Section(BaseModel):
-    title=models.CharField(max_length=32,db_index=True)
-    position = models.IntegerField(default=10)
-    active = models.BooleanField(default=True)
-
 
 class Seller_Profile(BaseModel):
     (active,deactive) = (1,0)
@@ -46,9 +41,12 @@ class Seller_Profile(BaseModel):
     logo = models.CharField(max_length=255, blank=True)
     business_section = models.IntegerField(choices=BUS_SECTION_CHOICE, default=blank)
     gk_stars = models.IntegerField(choices=GKSTAR_CHOICE, default=5)
+    related_article = models.OneToOneField(Article, related_name='related_seller',null=True, blank=True)
 
-    related_articles = models.ManyToManyField(Article, related_name='related_seller')
+    def __unicode__(self):
+        return '%s_%s' %(self.seller_name, self.shop_title)
 
     @property
     def logo_url(self):
         return '%s%s' %(image_host, self.logo)
+

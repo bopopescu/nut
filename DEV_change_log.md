@@ -13,13 +13,17 @@
 
 --------- seller related -------
 
-2. add seller section management views and templates
-1. add seller section model 
 
-### Action 
+1. add seller section management views and templates
 
-need Sync DB
-for seller_section table 
+
+
+### Action
+1. drop table seller_seller_profile
+2. drop table seller_seller_profile_related_articles   
+3 .need Sync DB 
+
+
 
 ---
 
