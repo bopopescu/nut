@@ -927,11 +927,12 @@ p.boolean-false {
   height: 20px;
   margin-top: 15px;
   margin-bottom: 20px;
+  padding-right: 40px;
 }
-.seller-page-container .sections-item-wrapper .sellers-wrapper .score ul li {
+.seller-page-container .sections-item-wrapper .sellers-wrapper .score ol li {
   display: inline-block;
 }
-.seller-page-container .sections-item-wrapper .sellers-wrapper .score ul li i {
+.seller-page-container .sections-item-wrapper .sellers-wrapper .score ol li i {
   color: #9D9E9F;
 }
 .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share {
