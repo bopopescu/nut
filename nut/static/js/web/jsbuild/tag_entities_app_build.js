@@ -731,7 +731,6 @@ define('subapp/loadentity',['jquery','libs/Class','libs/fastdom'],
     });
 
     return LoadEntity;
-//test
 });
 define('subapp/load_tag_entity',['jquery', 'subapp/loadentity'],function($,LoadEntity)
 {

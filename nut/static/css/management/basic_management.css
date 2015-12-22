@@ -745,6 +745,25 @@ p.boolean-false {
   max-width: 250px;
   word-wrap: break-word;
 }
+#create-seller .row .box.box-primary .form-horizontal .box-body .form-control {
+  max-width: 400px;
+}
+#sellers-table.table-bordered thead tr th {
+  word-break: keep-all;
+}
+@media screen and (max-width: 767px) {
+  .box-body {
+    padding: 0px;
+  }
+  .box-body.table-responsive #sellers-table.table thead tr #shop-desc {
+    min-width: 200px;
+    white-space: normal;
+  }
+  .box-body.table-responsive #sellers-table.table tbody tr td {
+    min-width: 200px;
+    white-space: normal;
+  }
+}
 #test {
   color: red;
 }
