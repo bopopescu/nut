@@ -41,6 +41,8 @@ class FeedCounterBridge(object):
         try :
             article = Article.objects.get(pk=id)
             count = article.feed_read_count
+            if count is None:
+                count = 1
         except Exception as e:
             count = 1
         return count
@@ -81,19 +83,15 @@ class FeedCounterBridge(object):
         counter_store = cls.get_store()
         try :
             counter_store.incr(key)
-        except ValueError:
+        except Exception as e :
             try :
                 count = cls.get_feed_count_value_from_sql(id)
             except Exception as e:
                 count = 1
             counter_store.set(key, count, timeout=None)
 
-        except Exception as e:
-            raise CounterException('image counter error')
-
         cls.add_id_to_need_updated_article_id_set(id)
         return
-
 
 class CounterException(Exception):
     pass

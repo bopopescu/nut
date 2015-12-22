@@ -10,7 +10,7 @@ IMAGE_HOST = 'http://imgcdn.guoku.com/'
 
 
 
-#
+
 # LOCAL_IMG_DEBUG=True
 # IMAGE_HOST = 'http://127.0.0.1:9766/'
 # INTRANET_IMAGE_SERVER = 'http://images.hello.new/'
@@ -81,7 +81,7 @@ INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
 # )
 LOCAL_TEST_DB = True
 
-Current_Dbhost = 'localhost'
+Current_Dbhost = '192.168.1.107'
 # Current_Dbhost = '10.0.1.110'
 # Current_Dbhost = '10.0.2.90'
 
@@ -89,8 +89,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'core',
-        'USER': 'guoku',
-        'PASSWORD': 'guoku!@#',
+        'USER': 'root',
+        'PASSWORD': 'mypass',
         'HOST': Current_Dbhost,
         'PORT': '',
         'OPTIONS': {
@@ -101,8 +101,8 @@ DATABASES = {
     'slave': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'core',
-        'USER': 'guoku',
-        'PASSWORD': 'guoku!@#',
+        'USER': 'root',
+        'PASSWORD': 'mypass',
         'HOST': Current_Dbhost,
         'PORT': '',
         'OPTIONS': {
