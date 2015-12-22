@@ -17,10 +17,15 @@ requirejs.config({
         jquery_bridget: 'libs/jquery.bridget',
         images_loaded: 'libs/imagesloaded.min',
         bootbox: 'libs/bootbox.min',
-        Backbone: 'libs/backbone.min'
+        Backbone: 'libs/backbone.min',
+        snowFall: 'libs/jquery.snow',
     },
 
     shim: {
+        'snowFall':{
+            deps:['jquery'],
+            exports:'snowFall'
+        },
         // shim won't handle script load , you still need require script in your source
         'Backbone':{
             deps:['underscore',],
