@@ -17,7 +17,6 @@ require(['jquery',
                  $(document).snowfall('clear');
                  $(document).snowfall({shadow : false, round : true,  minSize: 5, maxSize:8,flakeCount : 180});
             }
-
         }
 
     });
