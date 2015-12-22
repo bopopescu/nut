@@ -3590,7 +3590,12 @@ body .for-mobile {
   height: 43px;
   overflow: hidden;
 }
+#guoku_main_nav .guoku-logo {
+  position: relative;
+  top: -8px;
+  left: 3px;
+}
 .gk_test {
-  color: blacksite;
+  color: black;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
