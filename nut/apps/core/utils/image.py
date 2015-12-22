@@ -169,6 +169,7 @@ class HandleImage(object):
         return filename
 
 
+
 class LimitedImage(HandleImage):
     def __init__(self, image_file):
         super(LimitedImage,self).__init__(image_file)
