@@ -7,34 +7,5 @@
 {% for entity in entities %}
 
      {% include "web/events/partial/event_entity_item.html" with entity=entity %}
-{#    <div class="col-xs-12 col-sm-3 col-md-3">#}
-{#        <div class="thumbnail entity-selection">#}
-{#            <div class="img-box">#}
-{#                <a  href="{% url 'web_entity_detail' entity.entity_hash %}">#}
-{#                    <img class="img-responsive" alt="{{ entity.title }}" title="{{ entity.title }}" src="{{ entity.chief_image|resize:'310' }}" width='310' height='310'>#}
-{#                </a>#}
-{#            </div>#}
-{#            <div class="caption">#}
-{#                <p class="note">{{ entity.top_note|truncatechars:70 }}</p>#}
-{#            </div>#}
-{#            <div style="white-space:nowrap;overflow:hidden;">#}
-{#                {% if entity.id in user_entity_likes %}#}
-{#                    <a class="btn btn-like pull-left" href="javascript:;" data-entity="{{ entity.id }}" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">#}
-{#                    <i class="fa fa-heart"></i>#}
-{#                {% else %}#}
-{#                    <a class="btn btn-like pull-left" href="javascript:;" data-entity="{{ entity.id }}" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">#}
-{#                    <i class="fa fa-heart-o"></i>#}
-{#                {% endif %}#}
-{#                        {% trans 'Like' %} <span class="like-count"> {{ entity.like_count }}</span>#}
-{#                    </a>#}
-{#                    <div class="pull-right posttime">#}
-{#                        <i class="fa fa-clock-o"></i>#}
-{#                        <span class="timestr">#}
-{#                            {{ entity.enter_selection_time|format_time|cut:" " }}#}
-{#                        </span>#}
-{##}
-{#                    </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
+
 {% endfor %}

@@ -113,6 +113,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return (not self.profile.email_verified) and ( not self.has_guoku_email())
 
     @property
+    def has_published_article(self):
+        count = self.articles.filter(publish=True).count()
+        return count > 0
+
+    @property
     def can_write(self):
         return self.is_writer or self.is_editor or self.is_staff
 
