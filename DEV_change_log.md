@@ -1,5 +1,5 @@
-
-4. 
+5. snow adjustment 
+4. article detail page 404 redirect to selection article page 
 3. user index page , fix (show removed entity's note) bug
 2. add category_logo for seller data 
 1. fix event page display bug 
