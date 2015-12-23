@@ -2,230 +2,494 @@
 @import "../lib/var.less";
 @import "../lib/widgets.less";
 
-.web-seller-btn{
-  display:inline-block;
-  height:32px;
-  line-height: 32px;
-  padding:0 30px;
-  border-radius:20px;
-}
+//year-selller page share-btn
+@seller-btn-color:#4188DC;
 
 .event-cross-screen{
   margin-top:-50px;
-  .event-banner-wrapper{
-    .sections-titles-wrapper{
-      position:fixed;
-      top:80px;
-      left:0;
-      //transform: translateX(-50%);
-      z-index:1000;
-      //text-align:center;
-      //将UL居中显示需要调整
-        .sections-titles-nav{
-          width:80%;
-          margin:0 auto;
-      ul{
-        overflow: hidden;
-        text-align: center;
-        li{
-          //浮动元素会在小屏幕分辨率下存在bug
-          float:left;
-          width:20%;
-             @media screen and (min-width:750px){
-              //margin-right:10%;
+  height:450px;
+   @media screen and (max-width:768px){
+     height:auto;
       }
-          .section-title{
-            .web-seller-btn;
-            background-color: @foot-bg-color;
+  .event-banner-wrapper{
+    //solve the horizontal scroll bar
+    margin:0;
+    .banner-bgpic-wrapper{
+      margin-top:120px;
+      text-align: center;
+      //@media screen and (min-width:1200px){
+      //   background-image: url("/static/images/event/year-seller-title-group.png");
+      //   background-repeat: no-repeat;
+      //   background-position: center center;
+      //   padding-top: 667px;
+      //}
+      img{
+        &.img-control{
+          margin:0 auto;
+        }
+      }
+    }
+    .share-btn-wrapper{
+      margin-top:30px;
+      margin-bottom: 60px;
+      text-align: center;
+      a{
+        text-decoration: none;
+        &.share-btn{
+          display:inline-block;
+          width:120px;
+          height:46px;
+          line-height: 46px;
+          text-align: center;
+          border:1px solid @seller-btn-color;
+          color:@seller-btn-color;
+          border-radius:30px;
+          &:hover{
+            color:#ffffff;
+            background-color: @seller-btn-color;
+            cursor: pointer;
+          }
+      }
+      }
+
+    }
+    .sections-titles-wrapper{
+      padding:0;
+      margin:0;
+       @media screen and (max-width:768px){
+         position:fixed;
+         top:70px;
+         left:0;
+         z-index: 1000;
+              }
+      .sections-titles-nav{
+        text-align:center;
+        ul{
+
+          li{
+            display: inline-block;
+            //font-weight:700;
+            a{
+              color: @common-gray;
+              @media screen and (max-width:768px){
+               color:@common-text-color;
+                font-size: @smaller-primary;
+              }
+              &:hover{
+                cursor: pointer;
+              }
+              &.section-title{
+                @media screen and (min-width:768px){
+                  &.section-first-title{
+                    &:after{
+                      content: " DELICACY";
+                    }
+                  }
+                  &.section-second-title{
+                    &:after{
+                      content: " CULTURE";
+                    }
+                  }
+                  &.section-third-title{
+                    &:after{
+                      content: " LOOKS";
+                    }
+                  }
+                  &.section-forth-title{
+                    &:after{
+                      content: " LIFESTYLE";
+                    }
+                  }
+
+              }
+
+              }
+
+            }
+            span{
+              padding: 0 10px;
+              color:#F8E71C;
+              @media screen and (max-width:768px){
+               padding:0 5px;
+              }
             }
           }
         }
       }
+
     }
 
-    .banner-img{
-      //text-align:center;
-      //overflow:hidden;
-      width:100%;
-      height:0;
-      padding-bottom: 450px;
-      background-position: center center;
-      background-size: cover;
-    }
   }
 }
 
-.share-btn-wrapper{
-  text-align:center;
-  .btn-primary{
-    .web-seller-btn;
-    transform: translateY(-20px);
+//fixed share sidebar
+.seller-sidebar-wrapper{
+  @media screen and (max-width: 768px){
+    &.seller-sidebar-hidden{
+      display: none;
+    }
   }
+  position:fixed;
+  bottom:100px;
+  right:0;
+  width:86px;
+  height:240px;
+  background-color: #fff;
+  padding:5px;
+  z-index: 1000;
+  .border-radius;
+  .drop-shadow;
 
-}
+  .seller-sidebar{
+    width:100%;
+    height:100%;
+    ul{
+      li{
+        width:100%;
+        height:46px;
+        line-height: 46px;
+        text-align: center;
+        border-radius: 2px;
+        &.list-item-google ,&.list-item-weibo{
+          a{
+            color: @like-color;
+          }
 
-.container{
-   margin:0 auto;
-   .section-floor-wrapper{
-     @media screen and (min-width:970px){
-       min-height:320px;
-       max-height:320px;
-       overflow:hidden;
-       background: red;
+        }
+
+        a{
+          display: inline-block;
+          width: 100%;
+          .border-radius;
+          &:hover{
+            cursor: pointer;
+            color:#fff;
+            background-color: @light-blue;
+            text-decoration: none;
+          }
+           i{
+             font-size: @subtitle-size;
+             margin-right:10px;
+
+          }
+         span{
+
+         }
+
+        }
+
+
       }
-     .section-desc-wrapper{
-       //display:table-cell;
-       background-color: #fff;
-       padding:15px 25px 35px;
-       border-radius: 4px;
+    }
 
 
-       .section-floor-title{
-         border-bottom:3px solid #000000;
-         padding-top:15px;
-         padding-bottom: 15px;
+ }
+
+}
+
+
+
+//main content's style
+
+.seller-page-container{
+   //margin:0 auto;
+  @media screen and (max-width:768px){
+       background-color: @very-light-gray;
+       //to solve the bug that max-width:768px ,the footer has margin-top:40px;the color is white,not light gray.
+       margin-bottom: -40px;
+       //use padding to make 40px light gray distance.
+       padding-bottom: 40px;
+         }
+
+   .sections-item-wrapper{
+           padding-top: 60px;
+      @media screen and (max-width:768px){
+         padding-top: 0px;
+         margin-bottom: 30px;
+         }
+
+     .sections-item-title{
+       text-align: center;
+       h3{
+         font-size: @title-size;
+         text-decoration: underline;
        }
-       .section-floor-desc{
-         margin-top:10px;
-         p{
-           //max-height:192px;
-           //min-height:100px;
-         //超出的文字用...代替
-         //  white-space: nowrap;
-         //  width:100%;
-         //  overflow: hidden;
-         //  text-overflow: ellipsis;
+
+     }
+     .sections-item-desc{
+       margin-bottom: 50px;
+       p{
+          margin: 0 auto;
+          max-width:600px;
+          padding-top:10px;
+          font-size: @smaller-primary;
+       }
+
+
+     }
+     .goods-wrapper{
+       //text-align: center;
+       padding:0;
+       margin-bottom: 50px;
+       @media screen and (max-width: 768px){
+         margin-bottom: 20px;
+       }
+       .goods-container{
+         //display: inline-block;
+          @media screen and (min-width:1200px){
+            ul{
+              width:1170px;
+              margin:0 auto;
+              li{
+                width:107px;
+                height:107px;
+                margin-right: 5px;
+
+                  }
+                }
+              }
+
+           @media screen and (min-width:992px) and(max-width: 1200px){
+            ul{
+              width:970px;
+              li{
+                width:85px;
+                height:85px;
+                margin-right: 5px;
+
+                  }
+                }
+              }
+
+
+          @media screen and (min-width:768px) and (max-width: 992px){
+            ul{
+              width:750px;
+              margin:0 auto;
+              li{
+                width: 140px;
+                height:140px;
+                margin-right: 3px;
+              }
+            }
+
+              }
+
+          @media screen and (min-width:650px) and (max-width:768px){
+            ul{
+              li{
+                width:120px;
+                height:120px;
+                margin-right: 3px;
+
+                  }
+                }
+              }
+
+         @media screen and (min-width:510px) and (max-width:650px){
+            ul{
+              li{
+                width:95px;
+                height:95px;
+                margin-right: 3px;
+                  }
+                }
+              }
+
+         @media screen and (min-width:460px) and (max-width:510px){
+            ul{
+              li{
+                width:85px;
+                height:85px;
+                  }
+                }
+              }
+
+          @media screen and (min-width:410px) and (max-width:460px){
+            ul{
+              text-align: center;
+              li{
+                width:75px;
+                height:75px;
+                  }
+                }
+              }
+
+          @media screen and (min-width:355px) and (max-width:410px){
+            ul{
+              li{
+                width:65px;
+                height:65px;
+                  }
+                }
+              }
+
+         @media screen and (min-width:320px) and (max-width:355px){
+            ul{
+              li{
+                width:58px;
+                height:58px;
+                  }
+                }
+              }
+
+         ul{
+           text-align: center;
+           li{
+             display: inline-block;
+             a{
+               display: inline-block;
+               width: 100%;
+               height:100%;
+               &:hover{
+                 cursor: pointer;
+               }
+               img{
+                 width:100%;
+                 height:100%;
+              //   @media screen and (max-width:768px){
+              //   width:60px;
+              //   height:60px;
+              //}
+               }
+             }
+           }
+       }
+
+
+       }
+
+
+     }
+     .sellers-wrapper{
+       //padding-left: 0px;
+       padding-bottom:30px;
+       a{
+         display: inline-block;
+         width:100%;
+         height:auto;
+         &:hover{
+           cursor: pointer;
+         }
+         .sellers-logo{
+            //width:100%;
+            //height:0;
+            //padding-bottom: 100%;
+            //background-position: center center;
+            //background-size: cover;
+            //background-image: url("/static/images/year-seller/mzgf.png");
+           margin:0 auto;
+
          }
 
        }
-     }
-     .section-item-wrapper{
-       //display: table-cell;
-       //background-color: pink;  //test
-       @media screen and (max-width:970px){
-         width:100%;
-         max-height:310px;
-         overflow:hidden;
-         //padding:0 20px;
-      }
+       .sellers-desc{
+         p{
+           padding-top:10px;
+           font-size: @smaller-primary;
+           height:73px;
+           overflow: hidden;
+           text-overflow: ellipsis;
+         }
 
-       ul{
-         overflow:hidden;
-         @media screen and (max-width:970px){
-           padding-left:15px;
-           padding-right:15px;
-      }
-         li{
-           float:left;
-           margin-right:10px;
-           margin-bottom:10px;
-           @media screen and (max-width:375px){
-           margin-right:5px;
-      }
-           a{
-             img{
-               width:100px;
-               height:100px;
-               border-radius: 4px;
+       }
+       .score{
+         text-align: center;
+         height:20px;
+         margin-top:15px;
+         margin-bottom: 20px;
+         ul{
+           li{
+             display: inline-block;
+             i{
+               color: @common-gray;
+
+             }
+           }
+         }
+       }
+       .sellers-share{
+         display: none;
+         height:20px;
+         margin-top:15px;
+         margin-bottom: 20px;
+       }
+       &:hover{
+         .score-hidden{
+           display: none;
+         }
+
+       .sellers-share-visible{
+         display: block;
+         text-align: center;
+         ul{
+           li{
+             display: inline-block;
+             a{
+               &:hover{
+                 cursor: pointer;
+               }
+               i{
+                 color: @light-gray;
+                 margin-right: 5px;
+
+                  &.fa-qq:hover{
+                     &.qq-hover{
+                      color: #3199DD;
+
+                 }
+
+                   }
+                  &.fa-weibo:hover{
+                     &.weibo-hover{
+                     color: #E90D24;
+
+                 }
+
+                   }
+                 &.fa-wechat:hover{
+                   &.wechat-hover{
+                   color: #51C332;
+                 }
+
+                 }
+               }
              }
            }
          }
        }
      }
+     }
+       &.second-sections-item{
+         @media screen and (min-width:1200px){
+           background-image: url("/static/images/event/delicacy.png");
+           background-repeat: no-repeat;
+         }
+     }
    }
-  .section-title-wrapper{
-    p{
-       margin-top:30px;
-       width:100px;
-       height:30px;
-       line-height:30px;
-       background-color: #000;
-       color: #ffffff;
-      @media screen and (max-width:970px){
-        margin-left:15px;
-      }
-    }
-  }
-  //.review-items-wrapper{
-  //  .review-item-wrapper{
-  //    background-color: #fff;
-  //    margin-bottom: 8px;
-  //    padding:10px 10px 25px 10px;
-  //    min-height:380px; //
-  //    max-height:380px; //
-  //    border-radius: 4px;
-  //    .review-item-pic{
-  //    max-height:200px;
-  //    overflow: hidden;
-  //    }
-  //    .review-item-desc{
-  //      margin-top:10px;
-  //      margin-bottom: 20px;
-  //
-  //    }
-  //    .review-item-date{
-  //
-  //       //position:absolute;
-  //       //bottom:30px;
-  //       text-align: center;
-  //    }
-  //    .item-operations{
-  //
-  //    }
-  //  }
-  //}
 
-  .review-item-wrapper{
-    .review-item-pannel{
-      width:100%;
-      overflow:hidden;
-      padding:15px 15px 25px;
-      margin-bottom: 25px;
-      background-color: #ffffff;
-      border-radius: @global-box-radius;
-        a{
-         .review-item-pic{
-            width:100%;
-            height:0;
-            padding-bottom: 60%;
-            background-position: center center;
-            background-size: cover;
-        }
-   }
-    .review-item-desc{
-          margin:15px 10px;
-
-          p{
-            margin-top:10px;
-            overflow: hidden;
-            @media screen and (min-width:750px){
-            max-height:100px;
-            min-height:100px;
-           }
-          }
-        }
-    .review-item-date{
-          min-height:30px;
-          //text-align: center;
-        }
-
-    .item-operations{
-          height:30px;
-          ul{
-            overflow: hidden;
-            li{
-              float: left;
-            }
-          }
-        }
-
-
-
-
-    }
-
-  }
 }
+         //超出的文字用...代替
+         //  white-space: nowrap;
+         //  width:100%;
+         //  overflow: hidden;
+         //  text-overflow: ellipsis;
+   //     a{
+   //      // a hack that the picture show width:height=1:1
+   //      .review-item-pic{
+   //         width:100%;
+   //         height:0;
+   //         padding-bottom: 100%;
+   //         background-position: center center;
+   //         background-size: cover;
+   //        &.rectangle-pic{
+   //          //to realise horizontal alignment
+   //          padding-bottom: 43%;
+   //        }
+   //     }
+   //}
+
+
 
 
 
