@@ -1,5 +1,24 @@
 
 
+
+2. add category_logo for seller data 
+1. fix event page display bug 
+
+
+### Action
+run sql : 
+
+ALTER TABLE `core`.`seller_seller_profile` 
+ADD COLUMN `category_logo` VARCHAR(255) NOT NULL AFTER `logo`;
+
+
+=================================
+=================================
+### merged to master 2015-12-17
+=================================
+=================================
+
+
 7. user page side bar (not user index page side bar) , 
     disable user article link if user do not have article (done)
      

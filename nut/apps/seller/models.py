@@ -39,6 +39,7 @@ class Seller_Profile(BaseModel):
     shop_desc = models.TextField(max_length=255)
     status = models.IntegerField(choices=SELLER_STATUS_CHOICE, default=active)
     logo = models.CharField(max_length=255, blank=True)
+    category_logo = models.CharField(max_length=255, blank=True)
     business_section = models.IntegerField(choices=BUS_SECTION_CHOICE, default=blank)
     gk_stars = models.IntegerField(choices=GKSTAR_CHOICE, default=5)
     related_article = models.OneToOneField(Article, related_name='related_seller',null=True, blank=True)
@@ -49,4 +50,9 @@ class Seller_Profile(BaseModel):
     @property
     def logo_url(self):
         return '%s%s' %(image_host, self.logo)
+
+    @property
+    def category_logo_url(self):
+        return '%s%s' %(image_host, self.category_logo)
+
 
