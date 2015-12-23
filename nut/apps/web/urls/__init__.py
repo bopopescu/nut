@@ -117,10 +117,10 @@ urlpatterns += patterns('',
         )
 
 
-# from apps.seller.views.web import SellerView
-# urlpatterns += patterns('',
-#             url(r'^year_seller/', SellerView.as_view(), name='web_year_seller_2015'),
-#         )
+from apps.seller.views.web import SellerView
+urlpatterns += patterns('',
+            url(r'^year_seller/', SellerView.as_view(), name='web_year_seller_2015'),
+        )
 
 
 __author__ = 'edison7500'
