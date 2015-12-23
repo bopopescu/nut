@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.config.from_pyfile('../config/default.py')
 
 
-def handel(keyword):
+def handel(keyword, **kwargs):
     app_key = app.config.get('APP_KEY')
     app_secret = app.config.get('APP_SECRET')
 
@@ -18,9 +18,12 @@ def handel(keyword):
     req.appid=2587
     req.call_source="TOP_BC"
 
+    istk = kwargs.pop('istk')
+
     params = {
         "keyword": keyword,
-        "istk": "true",
+        "istk": True,
+        "mall": False,
         "count":    "20",
     }
 
