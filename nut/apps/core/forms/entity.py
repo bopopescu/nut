@@ -1,34 +1,31 @@
 # -*- coding: utf-8 -*-
 
+import re
+
 from django import forms
 from django.forms import ChoiceField
 from django.utils.translation import gettext_lazy as _
+from django.utils.log import getLogger
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
-
-from apps.core.models import Entity, Selection_Entity, Sub_Category, Category, \
-    Buy_Link, Note
-from apps.core.utils.image import HandleImage
-from apps.core.utils.fetch import parse_taobao_id_from_url, \
-    parse_jd_id_from_url, parse_kaola_id_from_url, parse_booking_id_from_url
-
-from apps.core.tasks.entity import fetch_image
-from apps.core.forms import get_admin_user_choices
-
-from apps.core.utils.fetch.taobao import TaoBao
-from apps.core.utils.fetch.jd import JD
-from apps.core.utils.fetch.kaola import Kaola
-from apps.core.utils.fetch.booking import Booking
-from apps.core.utils.fetch.amazon import Amazon
-from apps.core.utils.fetch.six_pm import SixPM
-
 from django.conf import settings
 from urlparse import urlparse
-import re
 from hashlib import md5
 from datetime import datetime
 
-from django.utils.log import getLogger
+from apps.core.tasks.entity import fetch_image
+from apps.core.forms import get_admin_user_choices
+from apps.core.utils.image import HandleImage
+from apps.core.utils.fetch.jd import JD
+from apps.core.utils.fetch.kaola import Kaola
+from apps.core.utils.fetch.taobao import TaoBao
+from apps.core.utils.fetch.booking import Booking
+from apps.core.utils.fetch.amazon import Amazon
+from apps.core.utils.fetch.six_pm import SixPM
+from apps.core.utils.fetch import parse_taobao_id_from_url, \
+    parse_jd_id_from_url, parse_kaola_id_from_url
+from apps.core.models import Entity, Sub_Category, Category, Buy_Link, Note
+
 
 
 log = getLogger('django')
@@ -368,6 +365,7 @@ class SubCategoryField(ChoiceField):
     def validate(self, value):
         return value
 
+
 class CreateEntityForm(forms.Form):
     origin_id = forms.CharField(
         label=_('origin id'),
@@ -407,7 +405,7 @@ class CreateEntityForm(forms.Form):
 
     # content = forms.CharField(
     #     label=_('note'),
-    #     widget=forms.Textarea(attrs={'class':'form-control'}),
+    #     widget=forms.Textarea(attrs={'class': 'form-control'}),
     #
     # )
 

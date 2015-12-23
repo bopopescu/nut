@@ -113,7 +113,7 @@ CACHES = {
         "LOCATION": [
             "redis://10.0.2.46:6379/1",
             "redis://10.0.2.47:6379/1",
-            "redis://10.0.2.200:6379/1",
+            "redis://10.0.2.49:6379/1",
         ],
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.ShardClient",
@@ -253,9 +253,9 @@ Avatar_Image_Path = 'avatar/'
 # CELERY_TASK_SERIALIZER = 'json'
 # CELERY_RESULT_SERIALIZER = 'json'
 
-CELERY_RESULT_BACKEND = "redis://10.0.2.95:6379/0"
+CELERY_RESULT_BACKEND = "redis://10.0.2.125:6379/0"
 BROKER_TRANSPORT = "librabbitmq"
-BROKER_HOST = "10.0.2.95"
+BROKER_HOST = "10.0.2.125"
 BROKER_USER = "raspberry"
 BROKER_PASSWORD = "raspberry1@#"
 BROKER_VHOST = "raspberry"

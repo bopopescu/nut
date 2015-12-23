@@ -13,7 +13,9 @@ log = getLogger('django')
 class CategoryQuerySet(models.query.QuerySet):
 
     def popular(self):
-        pass
+        popular_list = get_entity_like_model().objects.popular()
+        gids = get_entity_model().objects.filter(pk__in=popular_list).values_list('category__group', flat=True).annotate(dcount=Count('category__group')).order_by('-dcount')
+        return gids
 
 class CategoryManager(models.Manager):
 
@@ -54,8 +56,17 @@ class CategoryManager(models.Manager):
         return res
 
     def popular(self):
-        return self.get_queryset().popular()
+        key = "group:popular"
+        gids = cache.get(key)
+        if gids is None:
+            gids = self.get_queryset().popular()
+            cache.set(key, gids, timeout=86400)
 
+        res = []
+        for gid in gids:
+            r = self.get(pk = gid)
+            res.append(r)
+        return res
 
 class SubCategoryQuerySet(models.query.QuerySet):
 
@@ -88,8 +99,8 @@ class SubCategoryManager(models.Manager):
         return self.get_queryset().popular()
 
     def popular_random(self, total=11):
-        key_string = "popular_category"
-        key = md5(key_string.encode('utf-8')).hexdigest()
+        key = "entity:category:popular"
+        # key = md5(key_string.encode('utf-8')).hexdigest()
         res = cache.get(key)
         if res:
             return res

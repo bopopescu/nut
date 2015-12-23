@@ -1,11 +1,47 @@
 
 
-2015-12-11
-====
+7. user page side bar (not user index page side bar) , 
+    disable user article link if user do not have article (done)
+     
+6. user page, display user article when user has article 
+    (currently only display when user can write) (done)
+    
+5. xs screen selection_entity page bg-color : #f8f8f8 （done）
+4. display 2 entity in a row (done)
+3. display all note on selection entity page.(done)
 
 
-  fix bug: category entities order by olike can't load more entity when screen scroll to bottom.
+------  not finished  ---- 
+2. friendly link , new style (NOT finished )
+1. in wechat browser , if product is from taobao/tmall , 
+    buy button jump to app download page (NOT finished)
+----------------
 
+
+1. add seller section management views and templates
+
+
+
+### Action
+1.  drop table : seller_seller_profile
+2.  drop table : seller_seller_profile_related_articles   
+3.  need Sync DB 
+
+
+
+---
+
+2015-12-20 
+
+=================================
+=================================
+### merged to master 2015-12-17
+=================================
+=================================
+
+2. fix event page selection entity css broken bug 
+1. fix liker list page css broken bug 
+  
 #### Action
   * update django-sendcloud: 
 
@@ -23,22 +59,31 @@
         `members_count` integer NOT NULL
         );
 
-        INSERT INTO `core`.`core_sd_address_list` (`address`, `name`, `description`, `members_count`) VALUES ('gk_users_1@maillist.sendcloud.org', 'gk_users_1', 'gk_users_1', '11017');
-
+INSERT INTO `core`.`core_sd_address_list` (`address`, `name`, `description`, `members_count`, `created`) VALUES ('gk_users_1@maillist.sendcloud.org', 'gk_users_1', 'gk_users_1', '11017', '2015-12-16 17:04:21');
 
 ####Changelog:
+
+1. fix feed read counter bug
+
+
+2. 首页瀑布流
+1. update redis key user_last_verify_time_id to user_last_verify_time:id
+
+-------
+
+fix bug: category entities order by olike can't load more entity when screen scroll to bottom.
+
+-------
+
 1. 用户注册、激活、需改信息..时，对SendCloud的操作改为使用celery;
 2. 动态获取和创建SendCloud地址列表;
 3. 只有激活了的邮箱才会加入到sendcloud地址列表；
 4. 开始着手写test，写了一些关于account和edm的。
 
----
-
-
+-------
 
 4.  minor bug fix 
-3.  user liker app in entity detail page (not finished) 
-
+3.  user liker app in entity detail page
 3. event page, m.guoku.com, simple title (not finish)
 2. add seller management files
 1. add seller model 
@@ -173,8 +218,6 @@ TODO : 现在移动端的标签还都是个人标签，是否需要改成全局�
 1. 把tag/articles下的页面加入RequireJS
 2. 把category下的页面加入RequireJS，并作为滚动到页底自动加载
 3. 在model research_history里的记录搜索函数，判断用户是否为游客的时候，换为一种更加安全的方式
-
-
 
 1. 合并EDM到dev
 2. 调整EDM内容样式

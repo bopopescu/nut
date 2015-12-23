@@ -17,7 +17,9 @@
                 </li>
                 <li><a href="{% url 'web_user_post_note' current_user.pk %}">{% trans 'Note' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
                 <li><a href="{% url 'web_user_tag' current_user.pk %}">{% trans 'Tags' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
-                <li><a href="{% url 'web_user_article_published' current_user.pk %}">{% trans 'Articles' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
+                {% if current_user.has_published_article %}
+                    <li><a href="{% url 'web_user_article_published' current_user.pk %}">{% trans 'Articles' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
+                {% endif %}
             </ul>
         </div>
     </li>

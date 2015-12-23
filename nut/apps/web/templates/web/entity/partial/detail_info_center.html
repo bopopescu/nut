@@ -30,44 +30,21 @@
            {% if like_status %}
             <a class="like-action fc_333" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
                 <i class="fa fa-heart fc_heart"></i>&nbsp;&nbsp;{% trans 'Like' %}&nbsp;
-{#                <span class="like-count">#}
-{#                    {% if entity.like_count > 0 %}#}
-{#                      {{ entity.like_count  }}#}
-{#                    {% endif %}#}
-{#                </span>#}
             </a>
         {% else %}
             <a class="like-action fc_333" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
                 <i class="fa fa-heart-o "></i>&nbsp;&nbsp;{% trans 'Like' %}&nbsp;
-{#                <span class="like-count">#}
-{#                    {% if entity.like_count > 0 %}#}
-{#                      {{ entity.like_count  }}#}
-{#                    {% endif %}#}
-{#                </span>#}
-            </a>
-        {% endif %}
+            </a>         {% endif %}
        </div>
    </div>
    <div class="row ">
-{#            {% for row in entity.buy_links.all %}#}
                {% with row=entity.default_buy_link %}
                 {% if row.status == 2 %}
                      <div class="col-xs-12 col-sm-10  guoku-button buy-btn">
                      {% if row.origin_source == "taobao.com" or row.origin_source == "tmail.com" %}
-{#                {% if row.status != 0 %}#}
                         <a class="buy-button" rel="nofollow" href="http://detail.tmall.com/item.htm?id={{ row.origin_id }}" target="_blank" biz-itemid="{{ row.origin_id }}" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity.title }}-taobao'])">
-        {#                    <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;{% trans 'Buy' %}<span itemprop="price"></span>#}
                             <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;{% trans 'Buy' %}<span itemprop="price"></span>
                         </a>
-{#                {% endif %}#}
-{#                    {% elif row.origin_source == "jd.com"%}#}
-{#                        <a class="buy-button" rel="nofollow" href="{% url 'web_entity_buy_url' row.id %}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-jd', '{{ entity.title }}-jd'])">#}
-{#                            <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;{% trans 'Buy' %}<span itemprop="price"></span>#}
-{#                        </a>#}
-{#                    {% elif "amazon" in row.origin_source %}#}
-{#                        <a class="buy-button" rel="nofollow" href="{% url 'web_entity_buy_url' row.id %}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-amazon', '{{ entity.title }}-amazon'])">#}
-{#                            <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;{% trans 'Buy' %}<span itemprop="price"></span>#}
-{#                        </a>#}
                     {% else %}
                         <a class="buy-button" rel="nofollow" href="{% url 'web_entity_buy_url' row.id %}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy', '{{ entity.title }}-{{ row.origin_souce }}'])">
                             <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;{% trans 'Buy' %}<span itemprop="price"></span>
@@ -80,27 +57,6 @@
                     </div>
                 {% endif %}
                 {% endwith %}
-{#                {% if row.status == 1 %}#}
-{#                    <div class="col-sm-10  guoku-button gray-button disabled-button">#}
-{#                        {% trans 'Sold Out' %}#}
-{#                    </div>#}
-{#                {% endif %}    #}
-{#                {% if row.status == 0 %}#}
-{#                    <div class="col-sm-10  guoku-button gray-button disabled-button">#}
-{#                       {% trans 'product removed' %}#}
-{#                    </div>#}
-{#                {% endif %}#}
-{#                 {% if row.shop_link %}#}
-{#                     <div class="col-sm-10  guoku-button buy-btn seller-button">#}
-{#                      <a class="buy-button"  biz-sellerid="{{ row.seller }}" href="{{ row.shop_link }}" target="_blank">#}
-{#                       {% trans 'seller' %}#}
-{#                      </a>#}
-{#                    </div>#}
-{#                 {% endif %}#}
-
-{#        {% endfor %}#}
-
-
    </div>
 
   {% if is_entity_detail and entity.like_count > 0 %}
