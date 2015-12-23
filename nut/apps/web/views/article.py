@@ -250,8 +250,17 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
     context_object_name = 'article'
     template_name = 'web/article/onepage.html'
 
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object is None:
+            return redirect('web_selection_articles')
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+
     def get_queryset(self):
         return Article.objects.filter(publish=Article.published)
+
+
 
     def get_object(self, queryset=None):
         pk = self.kwargs.get(self.pk_url_kwarg, None)
@@ -262,8 +271,7 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
             # Get the single item from the filtered queryset
             obj = queryset.get()
         except ObjectDoesNotExist:
-            raise Http404(("No %(verbose_name)s found matching the query") %
-                          {'verbose_name': queryset.model._meta.verbose_name})
+            return None
         return obj
 
 

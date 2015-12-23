@@ -30,7 +30,7 @@ class Seller_Profile(BaseModel):
                 (3, "3星"),
                 (4, "4星"),
                 (5, "5星"),
-                ]
+            ]
 
     user = models.OneToOneField(GKUser, related_name='seller_profile', null=True)
     shop_title = models.CharField(max_length=255, db_index=True)
