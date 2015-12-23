@@ -1,3 +1,9 @@
+=================================
+=================================
+### merged to master 2015-12-23
+=================================
+=================================
+
 5. snow adjustment 
 4. article detail page 404 redirect to selection article page 
 3. user index page , fix (show removed entity's note) bug
@@ -14,7 +20,7 @@ ADD COLUMN `category_logo` VARCHAR(255) NOT NULL AFTER `logo`;
 
 =================================
 =================================
-### merged to master 2015-12-17
+### merged to master 2015-12-22
 =================================
 =================================
 
