@@ -349,7 +349,7 @@ td,
 th {
   padding: 0;
 }
-ul {
+ul,ol{
   padding: 0px;
 }
 ul li {
