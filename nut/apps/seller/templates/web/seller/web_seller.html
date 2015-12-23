@@ -1,5 +1,4 @@
 {% extends 'web/base.html' %}
-
 {% load i18n staticfiles %}
 
  {% block meta-og %}
@@ -24,11 +23,18 @@
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/web/web-seller-style.css' %}">
 {% endblock %}
+{#give body element a more class:seller-body#}
+{% block body_class %} gray-body seller-body {% endblock %}
+
+{#    remove the header from the base template#}
+{% block header %}
+
+{% endblock %}
 
 {% block content %}
 {#big banner#}
-    <div class="event-cross-screen">
-      <div class="row event-banner-wrapper">
+    <div class="seller-cross-screen">
+      <div class="row seller-banner-wrapper">
           <div class="col-xs-12 col-sm-12 col-md-12 banner-bgpic-wrapper">
               <img src="/static/images/event/year-seller-title.png" class="img-responsive img-control">
           </div>
@@ -1202,5 +1208,10 @@
 
     </div>
 
+
+{% endblock %}
+
+{#    remove the footer from the base template#}
+{% block footer %}
 
 {% endblock %}
