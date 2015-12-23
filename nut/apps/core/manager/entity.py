@@ -9,8 +9,6 @@ from django.contrib.auth import get_user_model
 from datetime import datetime, timedelta
 
 
-
-
 log = getLogger('django')
 
 
@@ -115,7 +113,7 @@ class EntityLikeQuerySet(models.query.QuerySet):
         # this is a temp workaround for local testing
 
         if isTestEnv():
-            weekly_days = 700
+            weekly_days = 7
         if scale == 'weekly':
             days = timedelta(days=weekly_days)
         elif scale == 'monthly':

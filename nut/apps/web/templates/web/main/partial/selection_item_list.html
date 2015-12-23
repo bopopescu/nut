@@ -3,36 +3,43 @@
 {% load guoku %}
 {#{% load entity web_common %}#}
 
-{#{% for entity in entities %}#}
-    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 selection-item">
-        <div class="thumbnail entity-selection">
-            <div class="img-box">
-                <a  href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
-                    <img class="img-responsive" alt=" {{ entity.title }}" title="{{ entity.selection_hover_word }}" src="{{ entity.chief_image|resize:'310' }}">
-                </a>
+<div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 selection-item">
+    <div class="thumbnail entity-selection">
+        <div class="img-box">
+            <a href="{% url 'web_entity_detail' entity.entity_hash %}"
+               target="_blank">
+                <img class="img-responsive" alt=" {{ entity.title }}"
+                     title="{{ entity.selection_hover_word }}"
+                     src="{{ entity.chief_image|resize:'310' }}">
+            </a>
+        </div>
+        <div class="caption">
+            {% if entity.top_note %}
+{#                <p class="note">{{ entity.top_note|truncatechars:70 }}</p>#}
+                <p class="note">{{ entity.top_note}}</p>
+            {% endif %}
+        </div>
+        <div class="info">
+            <a class="btn btn-like pull-left" href="javascript:;"
+               data-entity="{{ entity.id }}" rel="nofollow"
+                    {% if entity.id in user_entity_likes %}
+               onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);"
+                        >
+                        <i class="fa fa-heart"></i>
+                    {% else %}
+                        onclick="_hmt.push(['_trackEvent', 'entity', 'like', '
+                        {{ entity.title }}']);">
+                        <i class="fa fa-heart-o"></i>
+                    {% endif %}
+            <div class="bubble like-count">{{ entity.like_count | format_like_num }}</div>
+            </a>
+
+            <div class="pull-right posttime">
+                <i class="fa fa-clock-o"></i>
+                    <span class="timestr">
+                        {{ entity.selection_entity.pub_time|format_time|cut:" " }}
+                    </span>
             </div>
-            <div class="caption">
-                <p class="note">{{ entity.top_note|truncatechars:70 }}</p>
-            </div>
-            <div class="info">
-                {% if entity.id in user_entity_likes %}
-                    <a class="btn btn-like pull-left" href="javascript:;" data-entity="{{ entity.id }}" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
-                    <i class="fa fa-heart"></i>
-                {% else %}
-                    <a class="btn btn-like pull-left" href="javascript:;" data-entity="{{ entity.id }}" rel="nofollow" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
-                    <i class="fa fa-heart-o"></i>
-                {% endif %}
-{#                {% trans 'Like' %} #}
-{#                <span class="like-count"> {{ entity.like_count | format_like_num }}</span>#}
-                <div class="bubble like-count">{{ entity.like_count | format_like_num }}</div>
-                    </a>
-                    <div class="pull-right posttime">
-                        <i class="fa fa-clock-o"></i>
-                        <span class="timestr">
-                            {{ entity.selection_entity.pub_time|format_time|cut:" " }}
-                        </span>
-                    </div>
-                </div>
         </div>
     </div>
-{#{% endfor %}#}
+</div>

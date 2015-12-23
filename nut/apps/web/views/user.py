@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 # from django.core.urlresolvers import reverse
-from django.http import HttpResponseNotAllowed, Http404, HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseNotAllowed, Http404
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
@@ -12,16 +12,14 @@ from apps.core.tasks import send_activation_mail
 from apps.web.forms.user import UserSettingsForm, UserChangePasswordForm
 from apps.core.utils.http import JSONResponse, ErrorJsonResponse
 # from apps.core.utils.image import HandleImage
-from apps.core.models import Note, GKUser , Category
+from apps.core.models import Note, GKUser, Category
 from apps.core.forms.user import AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.models import Entity, Entity_Like, \
     User_Follow,Article,User_Profile,Selection_Article
 
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
-from apps.tag.models import Content_Tags, Tags
-from ..utils.viewtools import get_paged_list
-
+from apps.tag.models import Content_Tags
 # from apps.notifications import notify
 from django.views.generic import ListView, DetailView, FormView, View
 from apps.core.views import LoginRequiredMixin
@@ -39,7 +37,7 @@ class UserSendVerifyMail(LoginRequiredMixin,AjaxResponseMixin,JSONResponseMixin,
 
     def get_ajax(self, request, *args, **kwargs):
         _user = request.user
-        _time_key = 'user_last_verify_time_%s'% _user.id
+        _time_key = 'user_last_verify_time:%s' % _user.id
         if not cache.get(_time_key) is None:
             data = {
                 'error': 1,
@@ -340,10 +338,6 @@ class UserLikeView(UserDetailBase):
         context_data['current_category'] =  self.get_current_category()
         return context_data
 
-
-
-
-
     def get_queryset(self):
         _user = self.get_showing_user()
         _category = self.get_current_category()
@@ -354,8 +348,6 @@ class UserLikeView(UserDetailBase):
                                             .filter(entity__category__group=_category)
 
         return _like_list
-
-
 
 
 class UserNoteView(UserDetailBase):

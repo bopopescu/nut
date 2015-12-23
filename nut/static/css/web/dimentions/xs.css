@@ -616,6 +616,18 @@ p.boolean-false {
   border-radius: 50%;
 }
 @media (max-width: 767px) {
+  .entity-selection-body {
+    background-color: #F8F8F8;
+  }
+  .entity-selection-body .selection-item {
+    padding: 0px 2px;
+  }
+  .entity-selection-body .entity-selection {
+    margin-bottom: 4px!important;
+  }
+  .entity-selection-body .entity-selection .posttime {
+    display: none;
+  }
   #settings .edit_info .input-element {
     max-width: 300px;
   }

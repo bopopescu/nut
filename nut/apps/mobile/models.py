@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.cache import cache
+from django.utils.translation import ugettext_lazy as _
+
 from apps.core.models import GKUser
 from apps.mobile.manager.mobile_manager import SessionKeyManager, AppsManager
 from hashlib import md5
@@ -91,9 +93,18 @@ class V3_User(GKUser):
 
 
 class LaunchBoard(models.Model):
+    (all, ios, android) = xrange(3)
+    DEVICE_TYPE = [
+        (all, ("all")),
+        (ios, _("ios")),
+        (android, _("android"))
+    ]
+
     launchImage = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=1024)
+    device = models.IntegerField(choices=DEVICE_TYPE, default=all)
+    version = models.CharField(max_length=10)
     status = models.BooleanField(default=False)
     action_title = models.CharField(max_length=255)
     action = models.CharField(max_length=255)
