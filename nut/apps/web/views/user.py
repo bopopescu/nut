@@ -356,7 +356,7 @@ class UserNoteView(UserDetailBase):
     context_object_name = 'current_user_notes'
     def get_queryset(self):
         _user = self.get_showing_user()
-        _note_list = Note.objects.filter(user=_user, status__gte=0 ,entity__status__gt=Entity.remove,).order_by("-post_time")
+        _note_list = Note.objects.filter(user=_user, status__gte=0 ,entity__status__gt=Entity.remove).order_by("-post_time")
         return _note_list
 
 
