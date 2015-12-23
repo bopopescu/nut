@@ -448,7 +448,7 @@ class UserIndex(UserPageMixin, DetailView):
         context_data = super(UserIndex, self).get_context_data(**kwargs)
         current_user = context_data['object']
         context_data['recent_likes'] = current_user.likes.all()[:12]
-        context_data['recent_notes'] = current_user.note.all().filter(status__gte=0).order_by("-post_time")[:6]
+        context_data['recent_notes'] = current_user.note.all().filter(status__gte=0,entity__status__gt=Entity.remove).order_by("-post_time")[:6]
         # get user published selection article list
 
         # _article_list = Article.objects.get_published_by_user(current_user).order_by('-updated_datetime')[0:6]
