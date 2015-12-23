@@ -919,8 +919,10 @@ p.boolean-false {
   padding-top: 10px;
   font-size: 14px;
   height: 73px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 .seller-page-container .sections-item-wrapper .sellers-wrapper .score {
   text-align: center;

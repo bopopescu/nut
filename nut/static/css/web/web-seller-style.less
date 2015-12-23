@@ -386,11 +386,15 @@
        .sellers-desc{
          p{
            padding-top:10px;
-
            font-size: @smaller-primary;
            height:73px;
+           //solve several lines'texts overflow
+           //only support webkit browser
+           display: -webkit-box;
+           -webkit-line-clamp: 3;
+           -webkit-box-orient: vertical;
            overflow: hidden;
-           text-overflow: ellipsis;
+
          }
 
        }
@@ -472,13 +476,9 @@
    }
 
 }
-         //超出的文字用...代替
-         //  white-space: nowrap;
-         //  width:100%;
-         //  overflow: hidden;
-         //  text-overflow: ellipsis;
+
    //     a{
-   //      // a hack that the picture show width:height=1:1
+   //      // a hack that the picture show width:height=1:1……
    //      .review-item-pic{
    //         width:100%;
    //         height:0;
