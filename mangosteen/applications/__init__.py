@@ -16,7 +16,9 @@ def recommend():
     keyword = request.args.get('keyword')
     istk = request.args.get('tk', True)
     ismall = request.args.get('mall', False)
-    res = handel(keyword=keyword, istk=istk, ismall=ismall)
+    count = request.args.get('count', 20)
+
+    res = handel(keyword=keyword, istk=istk, ismall=ismall, count=count)
     # print res
     return Response(res, mimetype="application/json")
     # return jsonify(res['alibaba_orp_recommend_response']['recommend'])
