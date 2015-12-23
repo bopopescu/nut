@@ -14,7 +14,9 @@ def recommend():
     assert request.method == "GET"
 
     keyword = request.args.get('keyword')
-    res = handel(keyword)
+    istk = request.args.get('tk', True)
+    ismall = request.args.get('mall', False)
+    res = handel(keyword=keyword, istk=istk, ismall=ismall)
     # print res
     return Response(res, mimetype="application/json")
     # return jsonify(res['alibaba_orp_recommend_response']['recommend'])
