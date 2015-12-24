@@ -835,6 +835,48 @@ ol {
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper:hover .sellers-share-visible ul li a i.fa-wechat:hover.wechat-hover {
   color: #51C332;
 }
+.seller-body .seller-page-container .popular-shops-title-wrapper {
+  margin-top: 60px;
+}
+.seller-body .seller-page-container .popular-shops-title-wrapper .popular-shops-title p {
+  font-size: 24px;
+  text-align: center;
+}
+.seller-body .seller-page-container .popular-shops-wrapper {
+  margin-bottom: 60px;
+}
+.seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper {
+  margin-bottom: 10px;
+}
+.seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item {
+  padding: 10px 15px;
+  background-color: #ffffff;
+  background-clip: padding-box;
+  border-radius: 4px;
+  box-shadow: 0 0 2px #e6e6e6;
+  text-align: center;
+}
+.seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-logo-wrapper {
+  display: inline-block;
+  width: 52px;
+  height: 52px;
+  vertical-align: middle;
+}
+.seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-logo-wrapper .popular-shop-logo {
+  margin: 0 auto;
+}
+.seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info {
+  display: inline-block;
+  height: 52px;
+  vertical-align: middle;
+  margin-left: 15px;
+}
+.seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info .star-level ol {
+  text-align: left;
+}
+.seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info .star-level ol li {
+  display: inline-block;
+}
 @media screen and (min-width: 1200px) {
   .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul {
     width: 1170px;
