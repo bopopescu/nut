@@ -1,55 +1,105 @@
 {% extends "management/management_base.html" %}
-{% load i18n management %}
+{% load i18n %}
 
 {% block content %}
-    <div class="container">
-{#        <div class="row">#}
-{#            {% for show in show_editor_recommendations %}#}
-{#                <div class="col-sm-6">#}
-{#                    <div class="thumbnail">#}
-{#                        <img class="img-responsive" src="{{ show.recommendation.image_url }}">#}
-{#                    </div>#}
-{#                </div>#}
-{#            {% endfor %}#}
-{#        </div>#}
+    <section class="content-header">
+        <h1>
+            {% trans 'recommendation' %}
+            <small>{% trans 'recommendation' %}</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+{#            <li><a href="#">Tables</a></li>#}
+            <li class="active">{% trans 'recommendation' %}</li>
+        </ol>
+    </section>
 
-        <div class="row" style="margin-top: 20px;">
-            <ul class="nav nav-pills" role="tablist">
-                <li><a target="_blank" class="btn btn-primary" href="{% url 'management_recommend_create' %}">{% trans 'add' %}</a></li>
-            </ul>
-        </div>
+
+    <section class="content">
         <div class="row">
-            <div class="table-responsive" style="margin: 20px 0 20px 0;">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>{% trans 'images' %}</th>
-                            <th>{% trans 'link' %}</th>
-                            <th>{% trans 'position' %}</th>
-                            <th>{% trans 'operation' %}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for recommend in editor_recommendations %}
-                            <tr>
-                                <td>{{ recommend.pk }}</td>
-                                <td><img class="img-polaroid" style="max-height:150px;max-width:150px;" src="{{ recommend.image_url }}"></td>
-                                <td>{{ recommend.link }}</td>
-                                <td>
-                                    {% if recommend.position %}
-                                        <span class="label label-info">{{ recommend.position }}</span>
-                                    {% else %}
-                                        <span class="label label-default">{{ recommend.position }}</span>
-                                    {% endif %}
-                                </td>
-                                <td><a target="_blank" class="btn btn-default" href="{% url 'management_recommend_edit' recommend.pk %}">{% trans 'edit' %}</a></td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <ul class="nav nav-pills" role="tablist">
+                            <li><a target="_blank" class="btn btn-primary" href="{% url 'management_recommend_create' %}">{% trans 'add' %}</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="box-body table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>{% trans 'images' %}</th>
+                                    <th>{% trans 'link' %}</th>
+                                    <th>{% trans 'position' %}</th>
+                                    <th>{% trans 'operation' %}</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for recommend in editor_recommendations %}
+                                    <tr>
+                                        <td>{{ recommend.pk }}</td>
+                                        <td><img class="img-polaroid" style="max-height:150px;max-width:150px;" src="{{ recommend.image_url }}"></td>
+                                        <td>{{ recommend.link }}</td>
+                                        <td>
+                                            {% if recommend.position %}
+                                                <span class="label label-info">{{ recommend.position }}</span>
+                                            {% else %}
+                                                <span class="label label-default">{{ recommend.position }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td><a target="_blank" class="btn btn-default" href="{% url 'management_recommend_edit' recommend.pk %}">{% trans 'edit' %}</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
+
+
+{#    <div class="container">#}
+{#        <div class="row" style="margin-top: 20px;">#}
+{#            <ul class="nav nav-pills" role="tablist">#}
+{#                <li><a target="_blank" class="btn btn-primary" href="{% url 'management_recommend_create' %}">{% trans 'add' %}</a></li>#}
+{#            </ul>#}
+{#        </div>#}
+{#        <div class="row">#}
+{#            <div class="table-responsive" style="margin: 20px 0 20px 0;">#}
+{#                <table class="table table-striped">#}
+{#                    <thead>#}
+{#                        <tr>#}
+{#                            <th>#</th>#}
+{#                            <th>{% trans 'images' %}</th>#}
+{#                            <th>{% trans 'link' %}</th>#}
+{#                            <th>{% trans 'position' %}</th>#}
+{#                            <th>{% trans 'operation' %}</th>#}
+{#                        </tr>#}
+{#                    </thead>#}
+{#                    <tbody>#}
+{#                        {% for recommend in editor_recommendations %}#}
+{#                            <tr>#}
+{#                                <td>{{ recommend.pk }}</td>#}
+{#                                <td><img class="img-polaroid" style="max-height:150px;max-width:150px;" src="{{ recommend.image_url }}"></td>#}
+{#                                <td>{{ recommend.link }}</td>#}
+{#                                <td>#}
+{#                                    {% if recommend.position %}#}
+{#                                        <span class="label label-info">{{ recommend.position }}</span>#}
+{#                                    {% else %}#}
+{#                                        <span class="label label-default">{{ recommend.position }}</span>#}
+{#                                    {% endif %}#}
+{#                                </td>#}
+{#                                <td><a target="_blank" class="btn btn-default" href="{% url 'management_recommend_edit' recommend.pk %}">{% trans 'edit' %}</a></td>#}
+{#                            </tr>#}
+{#                        {% endfor %}#}
+{#                    </tbody>#}
+{#                </table>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
 
 {% endblock %}
