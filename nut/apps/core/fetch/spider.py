@@ -1,79 +1,52 @@
-import requests
-from bs4 import BeautifulSoup
-from urlparse import urlparse, urljoin
-from hashlib import md5
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-try:
-    from django.core.cache import cache
-except Exception, e:
-    print e.message
-
-
-origin_headers = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36',
-    # 'Referer': 'http://detail.tmall.com/item.htm?id=44691754172'
-    }
-
-class Spider(object):
-
-    def __init__(self, url):
-        # self._url = url
-        self.urlobj = urlparse(url)
-        # self.html = self.fetch_html(self.url)
-        try:
-            self.html = self.fetch_html_cache(self.url)
-        except NameError:
-            self.html = self.fetch_html(self.url)
-        self.soup = BeautifulSoup(self.html, from_encoding="UTF-8")
-
-    @property
-    def origin_id(self):
-        key = md5(self.url).hexdigest()
-        return key
-
-    @property
-    def url(self):
-        url = "http://%s%s" % (self.urlobj.hostname, self.urlobj.path)
-        return url
-        # url = urljoin(url, ' ')
-        # return url.rstrip()
-    #
-    # @property
-    # def buy_link(self):
-    #     return "%s?%s" % (self.url, 'tag=guoku-23')
-
-    @property
-    def hostname(self):
-        return self.urlobj.hostname
-
-    def fetch_html_cache(self, url):
-        key = md5(self.url).hexdigest()
-
-        res = cache.get(key)
-        if res:
-            # log.info(res)
-            self._headers = res['header']
-            return res['body']
-
-        try:
-            f = requests.get(url, headers = origin_headers,)
-        except Exception, e:
-            # log.error(e.message)
-            raise
-
-        # f = requests.get(url)
-        self._headers = f.headers
-
-        res = f.content
-        cache.set(key, {'body':res, 'header':self._headers})
-        return res
-
-    def fetch_html(self, url):
-        f = requests.get(url)
-        self._headers = f.headers
-        res = f.content
-        return res
+from apps.core.fetch.jd import JD
+from apps.core.fetch.tmall import Tmall
+from apps.core.fetch.kaola import Kaola
+from apps.core.fetch.six_pm import SixPM
+from apps.core.fetch.taobao import TaoBao
+from apps.core.fetch.amazon import Amazon
+from apps.core.fetch.booking import Booking
+from apps.core.fetch import get_origin_source_by_url
 
 
+def get_entity_info(item_url, keys=None):
+    """
+    :param keys:
+    :param item_url: just a url of an entity.
+    :returns return a dictionary with keys.
+    """
 
-__author__ = 'xiejiaxin'
+    provider = get_provider(item_url)
+    entity_info = provider(item_url)
+    result = dict().fromkeys(keys, [entity_info.get(key, None) for key in keys])
+    print result
+
+
+def get_provider(item_url):
+    host_name = get_origin_source_by_url(item_url)
+    source_keys = host_name.split('.')
+    if source_keys[-2] == 'com':
+        source_key = source_keys[-3]
+    else:
+        source_key = source_keys[-2]
+
+    if source_key and source_key not in spider_map:
+        return
+    return spider_map[source_key]
+
+
+################################################################################
+spider_map = {
+    'jd': JD,
+    '360buy': JD,
+    'taobao': TaoBao,
+    '95095': TaoBao,
+    'yao': TaoBao,
+    'tmall': Tmall,
+    'amazon': Amazon,
+    'kaola': Kaola,
+    'booking': Booking,
+    '6pm': SixPM
+}

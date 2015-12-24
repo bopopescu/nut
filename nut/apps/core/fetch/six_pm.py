@@ -1,7 +1,7 @@
-from spider import Spider
+from apps.core.fetch.fetcher import Fetcher
 from hashlib import md5
 
-class SixPM(Spider):
+class SixPM(Fetcher):
 
     def __init__(self, url):
         super(SixPM, self).__init__(url)

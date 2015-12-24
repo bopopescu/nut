@@ -2,17 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import re
+import requests
 
 from urlparse import urlparse
-from urllib import unquote_plus
+from django.conf import settings
 from django.utils.log import getLogger
-from apps.core.fetch.jd import JD
-from apps.core.fetch.tmall import Tmall
-from apps.core.fetch.kaola import Kaola
-from apps.core.fetch.six_pm import SixPM
-from apps.core.fetch.taobao import TaoBao
-from apps.core.fetch.amazon import Amazon
-from apps.core.fetch.booking import Booking
 
 
 log = getLogger('django')
@@ -32,14 +26,14 @@ def parse_taobao_id_from_url(url):
         tokens = param.split("=")
         if len(tokens) >= 2 and (tokens[0] == "id" or tokens[0] == "item_id"):
             return tokens[1]
-    # url = unquote_plus(url)
-    # params = url.split("?")[1]
-    # for param in params.split("&"):
-    #     tokens = param.split("=")
-    #     if len(tokens) >= 2 and (tokens[0] == "id"
-    #                              or tokens[0] == "item_id"
-    #                              or tokens[1] == 'itemid'):
-    #         return tokens[-1]
+            # url = unquote_plus(url)
+            # params = url.split("?")[1]
+            # for param in params.split("&"):
+            #     tokens = param.split("=")
+            #     if len(tokens) >= 2 and (tokens[0] == "id"
+            #                              or tokens[0] == "item_id"
+            #                              or tokens[1] == 'itemid'):
+            #         return tokens[-1]
 
 
 def parse_jd_id_from_url(url):
@@ -62,14 +56,21 @@ def parse_booking_id_from_url(url):
             return tokens[1]
 
 
-def get_key(item_url):
-    assert item_url is not None
-    origin_source_key = urlparse(item_url).hostname.split('.')[1]
-    return origin_source_key
+def get_key(hostname):
+    if not hostname:
+        return
+
+    if len(hostname) > 2 and hostname.split('.')[-2] == 'com':
+        return '.'.join(hostname.split('.')[-3:])
+    return '.'.join(hostname.split('.')[-2:])
 
 
 def get_origin_id_by_url(item_url):
-    origin_source_key = get_key(item_url)
+    if not item_url:
+        return
+
+    origin_source = get_origin_source_by_url(item_url)
+    origin_source_key = get_key(origin_source)
     if origin_source_key in parse_map:
         parse = parse_map[origin_source_key]
         origin_id = parse(item_url)
@@ -77,18 +78,27 @@ def get_origin_id_by_url(item_url):
 
 
 def get_origin_source_by_url(item_url):
+    if not item_url:
+        return
+
     hostname = urlparse(item_url).hostname
-    print '>>>>>> host: ', hostname
     if not hostname:
         return
-    if re.search(r"\b(taobao|tmall|95095)\.(com|hk)$", hostname) is not None:
-        return 'taobao.com'
-    if re.search(r"\b(amazon)\.w+$", hostname) is not None:
-        return 'amazon.com'
-    if hostname.endswith('jd.com'):
-        return 'jd.com'
-    else:
-        return hostname
+
+    white_list = ('yao.95095.com',)
+    for host_str in white_list:
+        if hostname.find(host_str) >= 0:
+            return host_str
+
+    if len(hostname) > 2 and hostname.split('.')[-2] == 'com':
+        return '.'.join(hostname.split('.')[-3:])
+    return '.'.join(hostname.split('.')[-2:])
+
+
+def get_phantom_status():
+    phantom_url = settings.PHANTOM_SERVER_SERVER
+    phantom_status = requests.get(phantom_url).status_code
+    return phantom_status == 405
 
 
 parse_map = {
@@ -98,16 +108,4 @@ parse_map = {
     'amazon': parse_amazon_id_from_url,
     'kaola': parse_kaola_id_from_url,
     'booking': parse_booking_id_from_url
-}
-
-spider_map = {
-    'jd': JD,
-    '360buy': JD,
-    'taobao': TaoBao,
-    '95095': TaoBao,
-    'tmall': Tmall,
-    'amazon': Amazon,
-    'kaola': Kaola,
-    'booking': Booking,
-    '6pm': SixPM
 }

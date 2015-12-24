@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from apps.core.fetch.spider import Spider
+from apps.core.fetch.fetcher import Fetcher
 
-class Booking(Spider):
+
+class Booking(Fetcher):
 
     # @property
     # def url(self):

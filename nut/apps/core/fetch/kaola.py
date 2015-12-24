@@ -7,15 +7,14 @@
 import re
 
 from django.utils.log import getLogger
-
-from apps.core.fetch.spider import Spider
+from apps.core.fetch.fetcher import Fetcher
 
 
 log = getLogger('django')
 
 IMG_POSTFIX = "_\d+_\d+.*\.jpg|_b\.jpg"
 
-class Kaola(Spider):
+class Kaola(Fetcher):
 
     @property
     def origin_id(self):

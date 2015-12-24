@@ -8,7 +8,7 @@ from apps.core.fetch import parse_jd_id_from_url, \
     parse_taobao_id_from_url
 from apps.core.fetch.amazon import Amazon
 from apps.core.fetch.taobao import TaoBao
-from apps.core.fetch.tmall_new import Tmall
+from apps.core.fetch.tmall import Tmall
 from django import forms
 from django.conf import settings
 from django.core.cache import cache

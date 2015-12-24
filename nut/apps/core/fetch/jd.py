@@ -8,12 +8,15 @@ from hashlib import md5
 from django.core.cache import cache
 from django.utils.log import getLogger
 
+from apps.core.fetch.fetcher import Fetcher
+
+
 log = getLogger('django')
 
 
 
 
-class JD():
+class JD(Fetcher):
 
     def __init__(self, item_id):
         self.item_id = item_id

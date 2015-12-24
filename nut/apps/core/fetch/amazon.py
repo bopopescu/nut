@@ -4,12 +4,12 @@ import re
 from hashlib import md5
 from urlparse import urljoin
 
-from apps.core.fetch.spider import Spider
+from apps.core.fetch.fetcher import Fetcher
 from apps.core.utils.commons import currency_converting
 from settings import CURRENCY_SYMBOLS
 
 
-class Amazon(Spider):
+class Amazon(Fetcher):
     def __init__(self, url):
         self.high_resolution_pattern = re.compile('hiRes"[\s]*:[\s]*"([^";]+)')
         self.large_resolution_pattern = re.compile('large"[\s]*:[\s]*"([^";]+)')
