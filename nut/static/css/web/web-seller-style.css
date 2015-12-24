@@ -618,17 +618,14 @@ p.boolean-false {
 ol {
   padding: 0;
 }
-.seller-page-link-hover a:hover {
-  cursor: pointer;
-}
 .seller-body {
   padding: 0;
-  background-color: #F8F8F8;
 }
 .seller-body .seller-cross-screen {
-  margin-top: 60px;
+  padding-top: 60px;
   width: 100%;
   height: auto;
+  background-color: #fff;
 }
 .seller-body .seller-cross-screen .seller-banner-wrapper {
   margin: 0;
@@ -720,19 +717,18 @@ ol {
   background-clip: padding-box;
 }
 .seller-body .seller-sidebar-wrapper .seller-sidebar .list-item a:hover {
+  cursor: pointer;
   color: #fff;
   background-color: #5ba4cf;
   text-decoration: none;
-}
-.seller-body .seller-sidebar-wrapper .seller-sidebar .list-item a:hover a:hover {
-  cursor: pointer;
 }
 .seller-body .seller-sidebar-wrapper .seller-sidebar .list-item a i {
   font-size: 18px;
   margin-right: 10px;
 }
-.seller-body .seller-page-container .sections-item-wrapper {
-  padding-top: 60px;
+.seller-body .seller-page-container {
+  margin-top: 60px;
+  background-color: #F8F8F8;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-title-wrapper .sections-item-title {
   text-align: center;
@@ -840,12 +836,6 @@ ol {
   color: #51C332;
 }
 @media screen and (min-width: 1200px) {
-  .seller-body .seller-page-container .sections-item-wrapper.second-sections-item {
-    background-image: url("/static/images/event/delicacy.png");
-    background-repeat: no-repeat;
-  }
-}
-@media screen and (min-width: 1200px) {
   .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul {
     width: 1170px;
     margin: 0 auto;
@@ -855,8 +845,12 @@ ol {
     height: 107px;
     margin-right: 5px;
   }
+  .seller-page-container #culture {
+    background-image: url("/static/images/year-seller/delicacy.png");
+    background-repeat: no-repeat;
+  }
 }
-@media screen and (min-width: 992px) and (max-width: 1200px) {
+@media screen and (min-width: 991px) and (max-width: 1200px) {
   .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul {
     width: 970px;
   }
@@ -866,7 +860,7 @@ ol {
     margin-right: 5px;
   }
 }
-@media screen and (min-width: 768px) and (max-width: 992px) {
+@media screen and (min-width: 768px) and (max-width: 991px) {
   .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul {
     width: 750px;
     margin: 0 auto;
@@ -875,6 +869,11 @@ ol {
     width: 140px;
     height: 140px;
     margin-right: 3px;
+  }
+  .seller-page-container .sections-item-wrapper .sections-item-sellers-wrapper .sellers-wrapper .sellers-desc p {
+    padding-left: 40px;
+    padding-right: 40px;
+    color: red;
   }
 }
 @media screen and (min-width: 650px) and (max-width: 768px) {
@@ -950,7 +949,6 @@ ol {
     display: none;
   }
   .seller-page-container {
-    background-color: #F8F8F8;
     margin-bottom: -40px;
     padding-bottom: 40px;
   }

@@ -12,24 +12,16 @@ ol{
 
 //year-seller page common class
 
-.seller-page-link-hover{
-  a{
-    &:hover{
-      cursor: pointer;
-    }
-  }
-}
-
-
-
 .seller-body{
   padding:0;
-  background-color: @very-light-gray;
+  //background-color: @very-light-gray;
 
   .seller-cross-screen{
-    margin-top:60px;
+    //to make the white distance,so use padding instead of margin
+    padding-top:60px;
     width:100%;
     height:auto;
+    background-color: #fff;
    .seller-banner-wrapper{
     //solve the horizontal scroll bar
     margin:0;
@@ -72,7 +64,11 @@ ol{
             display: inline-block;
             .section-title{
               color: @common-gray;
-              .seller-page-link-hover;
+              a{
+                &:hover{
+                  cursor: pointer;
+                }
+              }
             }
             span{
               padding: 0 10px;
@@ -120,7 +116,7 @@ ol{
           width: 100%;
           .border-radius;
           &:hover{
-            .seller-page-link-hover;
+            cursor:pointer;
             color:#fff;
             background-color: @light-blue;
             text-decoration: none;
@@ -139,8 +135,9 @@ ol{
 //main content's style
 
 .seller-page-container{
+  margin-top:60px;
+  background-color: @very-light-gray;
    .sections-item-wrapper{
-       padding-top: 60px;
      .sections-item-title-wrapper{
          .sections-item-title{
            text-align: center;
@@ -291,12 +288,6 @@ ol{
        }
      }
      }
-       &.second-sections-item{
-         @media screen and (min-width:1200px){
-           background-image: url("/static/images/event/delicacy.png");
-           background-repeat: no-repeat;
-         }
-     }
    }
 
 }
@@ -320,16 +311,18 @@ ol{
 
                   }
                 }
-
-
         }
       }
+    }
+    #culture{
+        background-image: url("/static/images/year-seller/delicacy.png");
+        background-repeat: no-repeat;
     }
   }
 
 }
 
- @media screen and (min-width:992px) and(max-width: 1200px){
+ @media screen and (min-width:991px) and(max-width: 1200px){
    .seller-page-container{
     .sections-item-wrapper{
       .sections-item-goods-wrapper{
@@ -351,7 +344,7 @@ ol{
   }
 }
 
- @media screen and (min-width:768px) and (max-width: 992px){
+ @media screen and (min-width:768px) and (max-width: 991px){
    .seller-page-container{
     .sections-item-wrapper{
       .sections-item-goods-wrapper{
@@ -366,6 +359,19 @@ ol{
               }
             }
         }
+      }
+      .sections-item-sellers-wrapper{
+        .sellers-wrapper{
+          .sellers-desc{
+          p{
+            padding-left:40px;
+            padding-right:40px;
+            color:red;
+          }
+        }
+
+        }
+
       }
     }
   }
@@ -387,6 +393,8 @@ ol{
                 }
         }
       }
+
+
     }
   }
  }
@@ -536,7 +544,7 @@ ol{
     }
 
     .seller-page-container{
-       background-color: @very-light-gray;
+       //background-color: @very-light-gray;
        //to solve the bug that max-width:768px ,the footer has margin-top:40px;the color is white,not light gray.
        margin-bottom: -40px;
        //use padding to make 40px light gray distance.
