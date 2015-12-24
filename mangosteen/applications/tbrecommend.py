@@ -18,14 +18,27 @@ def handel(keyword, **kwargs):
     req.appid=2587
     req.call_source="TOP_BC"
 
-    istk = kwargs.pop('istk')
+    istk = kwargs.pop('istk', True)
+    ismall = kwargs.pop('ismall', False)
+    count = kwargs.pop('count', 20)
+    # print type(ismall)
 
     params = {
         "keyword": keyword,
-        "istk": True,
-        "mall": False,
-        "count":    "20",
+        # "istk": True,
+        # "mall": False,
+        # "count":    "20",
     }
+
+    params.update(
+        {
+            "istk":     str(istk),
+            "mall":     str(ismall),
+            "count":    int(count),
+        }
+    )
+
+    print params
 
     # req.params={"keyword":"nike",      "istk":"true",      "count":"20" }
     req.params = params
