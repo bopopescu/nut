@@ -837,6 +837,7 @@ ol {
 }
 .seller-body .seller-page-container .popular-shops-title-wrapper {
   margin-top: 60px;
+  margin-bottom: 50px;
 }
 .seller-body .seller-page-container .popular-shops-title-wrapper .popular-shops-title p {
   font-size: 24px;
@@ -917,14 +918,14 @@ ol {
     padding-right: 40px;
   }
 }
-@media screen and (min-width: 678px) and (max-width: 768px) {
+@media screen and (min-width: 679px) and (max-width: 768px) {
   .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul li {
     width: 120px;
     height: 120px;
     margin-right: 3px;
   }
 }
-@media screen and (min-width: 656px) and (max-width: 678px) {
+@media screen and (min-width: 656px) and (max-width: 679px) {
   .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul li {
     width: 95px;
     height: 95px;
