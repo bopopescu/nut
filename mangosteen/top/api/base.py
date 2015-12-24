@@ -8,13 +8,14 @@ Created on 2012-7-3
 try: import httplib
 except ImportError:
     import http.client as httplib
-import urllib
-import time
 import hashlib
-import json
-import top
 import itertools
+import json
 import mimetypes
+import time
+import urllib
+
+import top
 
 '''
 定义一些系统变量
