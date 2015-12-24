@@ -41,7 +41,8 @@ urlpatterns = patterns(
     url(r'^report/', include('apps.management.urls.report')),
     # url(r'^wechat/', include('apps.management.urls.wechat')),
 
-
+# TODO: entity recommendation from taobao
+    url(r'^tbrecommend/', include('apps.management.urls.tbrecommend')),
 )
 
 urlpatterns += patterns(
