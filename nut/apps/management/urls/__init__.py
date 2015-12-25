@@ -43,6 +43,9 @@ urlpatterns = patterns(
 
 # TODO: entity recommendation from taobao
     url(r'^tbrecommend/', include('apps.management.urls.tbrecommend')),
+
+# TODO: statistics
+    url(r'^statistics/', include('apps.management.urls.statistics')),
 )
 
 urlpatterns += patterns(
