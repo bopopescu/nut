@@ -8,4 +8,11 @@ from apps.core.models import GKUser
 
 
 class SellerView(TemplateView):
+
     template_name = 'web/seller/web_seller.html'
+
+    def get_context_data(self, **kwargs):
+        super(SellerView, self).get_context_data(**kwargs)
+
+
+
