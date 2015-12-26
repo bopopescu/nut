@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from flask import Flask
 # from top import api
 import top.api
@@ -38,10 +40,10 @@ def handel(keyword, **kwargs):
         }
     )
 
-    print params
+    # print params
 
     # req.params={"keyword":"nike",      "istk":"true",      "count":"20" }
-    req.params = params
+    req.params = json.dumps( params )
 
     try:
         resp= req.getResponse()
