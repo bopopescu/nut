@@ -13,7 +13,7 @@ def recommend():
     assert request.path == '/recommend'
     assert request.method == "GET"
 
-    keyword = request.args.get('keyword', '')
+    keyword = request.args.get('keyword', None)
     itemId = request.args.get('itemid', None)
     istk = request.args.get('tk', True)
     ismall = request.args.get('mall', False)
