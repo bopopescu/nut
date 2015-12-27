@@ -9,7 +9,7 @@ class SellerView(TemplateView):
     template_name = 'web/seller/web_seller.html'
 
     def get_seller_by_business_section(self,section):
-        return Seller_Profile.objects.filter(business_section=section)
+        return Seller_Profile.objects.filter(business_section=section).select_related('related_article__url')
 
     def get_seller_entities(self, seller_queryset):
         article_list = Article.objects.filter(related_seller__in=seller_queryset)
