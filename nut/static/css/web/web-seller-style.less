@@ -308,12 +308,13 @@ ol{
     .popular-shop-item-wrapper{
       margin-bottom: 10px;
       .popular-shop-item{
-        padding:10px 15px;
-        background-color: #ffffff;
-        background-clip: padding-box;
-        border-radius: 4px;
-        box-shadow: 0 0 2px @border-gray;
-        text-align: center;
+          .panel;
+//        padding:10px 15px;
+//        background-color: #ffffff;
+//        background-clip: padding-box;
+//        border-radius: 4px;
+//        box-shadow: 0 0 2px @border-gray;
+//        text-align: center;
       //padding:20px 30px;
       .popular-shop-logo-wrapper{
         display: inline-block;
@@ -326,12 +327,16 @@ ol{
 
       }
       .popular-shop-info{
-        display: inline-block;
+        width:70%;
+        float:right;
         height:52px;
         vertical-align: middle;
         margin-left: 15px;
+        text-align: center;
         .popular-shop-name{
-          //font-size: @title-size;
+           text-overflow:ellipsis;
+           overflow: hidden;
+           white-space: nowrap;
         }
         .star-level{
          //margin-top:15px;
@@ -397,8 +402,6 @@ ol{
 
                   }
                 }
-
-
         }
       }
     }
@@ -458,6 +461,17 @@ ol{
     }
   }
  }
+
+@media screen and (max-width:580px){
+    .seller-boy{
+      .popular-shop-item{
+        .popular-shop-info{
+           float: none!important;
+        }
+      }
+    }
+
+}
  @media screen and (min-width:656px) and (max-width:679px){
 
      .seller-page-container{

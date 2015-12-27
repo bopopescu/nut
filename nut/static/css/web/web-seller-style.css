@@ -851,12 +851,17 @@ ol {
   margin-bottom: 10px;
 }
 .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item {
-  padding: 10px 15px;
   background-color: #ffffff;
-  background-clip: padding-box;
+  padding: 18px 18px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
   border-radius: 4px;
-  box-shadow: 0 0 2px #e6e6e6;
-  text-align: center;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
 }
 .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-logo-wrapper {
   display: inline-block;
@@ -868,10 +873,17 @@ ol {
   margin: 0 auto;
 }
 .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info {
-  display: inline-block;
+  width: 70%;
+  float: right;
   height: 52px;
   vertical-align: middle;
   margin-left: 15px;
+  text-align: center;
+}
+.seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info .popular-shop-name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info .star-level ol {
   text-align: left;
@@ -924,6 +936,11 @@ ol {
     width: 120px;
     height: 120px;
     margin-right: 3px;
+  }
+}
+@media screen and (max-width: 580px) {
+  .seller-boy .popular-shop-item .popular-shop-info {
+    float: none!important;
   }
 }
 @media screen and (min-width: 656px) and (max-width: 679px) {
