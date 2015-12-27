@@ -103,7 +103,7 @@ def load_entity_info(url):
             }
         except Buy_Link.DoesNotExist:
             # log.info("OKOKOKO")
-            t = TaoBao(_taobao_id)
+            t = TaoBao(_link)
             # log.info(t.res())
             # res = t.res()
             _data = {
@@ -756,7 +756,7 @@ class BuyLinkForm(forms.Form):
                 #     'entity_hash': buy_link.entity.entity_hash,
                 # }
             except Buy_Link.DoesNotExist:
-                t = TaoBao(_taobao_id)
+                t = TaoBao(_link)
                 # log.info(t.res())
                 # res = t.res()
                 # log.info(res)

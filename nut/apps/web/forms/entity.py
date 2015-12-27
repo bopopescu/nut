@@ -122,7 +122,7 @@ class EntityURLFrom(forms.Form):
                 }
             except Buy_Link.DoesNotExist:
                 # log.info("OKOKOKO")
-                t = Tmall(_tmall_id)
+                t = Tmall(_link)
                 # log.info(t.res())
                 res = t.res()
                 _data.update({
@@ -157,7 +157,7 @@ class EntityURLFrom(forms.Form):
                 }
             except (Buy_Link.DoesNotExist, Entity.DoesNotExist):
                 log.info("OKOKOKO")
-                t = TaoBao(_origin_id)
+                t = TaoBao(_link)
                 # log.info(t.res())
                 res = t.res()
                 _data.update({

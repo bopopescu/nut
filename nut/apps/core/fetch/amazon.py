@@ -1,56 +1,58 @@
 # -*- coding: utf-8 -*-
 
 import re
-from hashlib import md5
-from urlparse import urljoin
 
+from apps.core.fetch import get_key
+from apps.core.fetch import clean_price_string
 from apps.core.fetch.fetcher import Fetcher
 from apps.core.utils.commons import currency_converting
-from settings import CURRENCY_SYMBOLS
 
 
 class Amazon(Fetcher):
-    def __init__(self, url):
+    def __init__(self, entity_url):
+        Fetcher.__init__(self, entity_url)
         self.high_resolution_pattern = re.compile('hiRes"[\s]*:[\s]*"([^";]+)')
         self.large_resolution_pattern = re.compile('large"[\s]*:[\s]*"([^";]+)')
         self.price_pattern = re.compile(u'(?:￥|\$)\s?(?P<price>\d+\.\d+)')
-        self.foreign_price = None
-        super(Amazon, self).__init__(url)
+        self.foreign_price = 0.0
+        self.entity_url = entity_url
+        self.origin_id = self.get_origin_id
+        self.expected_element = self.get_expected_element()
+        self.shop_link = self.hostname
+        self.nick = self.get_nick()
 
     @property
-    def origin_id(self):
-        key = md5(self.url).hexdigest()
-        # print "url %s" % self.url
-        # m =  re.search(r"gp\/product\/(\w+)\/?", self.url)
-        # print m.group(1)
-        return key
-
-    @property
-    def headers(self):
-        return self._headers
+    def get_origin_id(self):
+        parts = self.entity_url.split('/')
+        if u'product' in parts:
+            return parts[parts.index(u'product') + 1]
+        if u'dp' in parts:
+            return parts[parts.index(u'dp') + 1]
 
     @property
     def desc(self):
         _desc = self.soup.select("#productTitle")
-        # return _desc[0].string
         if len(_desc):
             return _desc[0].string
         _desc = self.soup.title.string.split(':')
         return _desc[0]
 
-    @property
-    def nick(self):
-        return 'amazon'
+    def get_nick(self):
+        return get_key(self.hostname)
 
-    @property
-    def shop_link(self):
-        return self.hostname
+    def get_expected_element(self):
+        if self.hostname.endswith('cn'):
+            return 'div#centerCol'
+        elif self.hostname.endswith('au'):
+            return 'div.buying'
+        elif self.hostname.endswith('br'):
+            return 'div#divsinglecolumnminwidth'
+        return 'body'
 
     @property
     def cid(self):
         cate = self.soup.select(
-            "#wayfinding-breadcrumbs_feature_div .a-link-normal")
-        # print '>>> cate: ',  cate
+                "#wayfinding-breadcrumbs_feature_div .a-link-normal")
         if len(cate) > 0:
             href = cate[0].attrs.get('href')
             return href.split('=')[-1]
@@ -58,89 +60,65 @@ class Amazon(Fetcher):
 
     @property
     def price(self):
-        f_price = self.get_price_tag()
-        if not f_price:
-            return 0.0
+        return self._get_price()
 
+    def _get_price(self):
+        """ Get lowest price and converting currency.
+        """
+        price = 0.0
+        prices = self._get_prices()
+        if not prices:
+            return price
+
+        if len(prices) > 1:
+            prices.sort()
+        origin_price = prices[0]
         if not self.hostname.endswith('.cn'):
             cny_price = 0
-            self.foreign_price = f_price
+            self.foreign_price = origin_price
             if self.hostname.endswith('.com'):
-                cny_price = currency_converting('USD', f_price)
+                cny_price = currency_converting('USD', origin_price)
             elif self.hostname.endswith('.jp'):
-                cny_price = currency_converting('JPY', f_price)
+                cny_price = currency_converting('JPY', origin_price)
             return cny_price
-        return f_price
+        return origin_price
 
-    def get_price_tag(self):
-        f_price = 0
-        pricetag = self.soup.select("#priceblock_dealprice")
-        if len(pricetag) > 0:
-            price = pricetag[0]
-            f_price = float(price.string[1:].replace(',', ''))
-            return f_price
+    def _get_prices(self):
+        """ Find all tags of price.
+        """
+        prices = []
 
-        pricetag = self.soup.select("#priceblock_ourprice")
-        if len(pricetag) > 0:
-            price = pricetag[0].string
-            if price.find('-') >= 0:
-                price = price.split('-')[1].strip()
-            f_price = float(price[1:].replace(',', ''))
-            return f_price
+        # normal price tags
+        price_tags = (
+            'span#priceblock_ourprice',
+            '#priceblock_dealpric',
+            '#priceblock_saleprice',
+            '#soldByThirdParty span',
+            'span#ags_price_loca',
+            'b.priceLarge',
+            'div#soldByThirdParty > span.a-color-price'
+        )
+        for tag_name in price_tags:
+            price_tags = self.soup.select(tag_name)
+            if price_tags:
+                prices_list = [clean_price_string(price_tag.text) for
+                               price_tag in price_tags]
+                prices_list = [tag for tag in prices_list if tag]
+                prices.extend(prices_list)
+                break
 
-        pricetag = self.soup.select("#priceblock_saleprice")
-        if len(pricetag) > 0:
-            price = pricetag[0]
-            f_price = float(price.string[1:].replace(',', ''))
-            return f_price
-
-        pricetag = self.soup.select("#soldByThirdParty span")
-        if len(pricetag) > 0:
-            price = 0
-            for tag in pricetag:
-                if tag.string.startswith(CURRENCY_SYMBOLS):
-                    price = tag.string
-            price = price.strip()
-            f_price = float(price[1:].replace(',', ''))
-            return f_price
-
-        pricetag = self.soup.select("div#tmmSwatches ul")
-        if len(pricetag) > 0:
-            prices = self.price_pattern.findall(pricetag[0].text,
-                                                re.MULTILINE)
-            if len(prices) == 1:
-                return prices[0]
-            prices = [float(price) for price in prices]
-            prices.sort()
-            return prices[0]
-
-        pricetag = self.soup.select("span#ags_price_local")
-        if len(pricetag) > 0:
-            price = pricetag[0].string
-            price = price.strip()
-            f_price = float(price[1:].replace(',', ''))
-            return f_price
-
-        pricetag = self.soup.select("table.product")
-        if len(pricetag) > 0:
-            prices = self.price_pattern.findall(pricetag[0].text,
-                                                re.MULTILINE)
-            if len(prices) == 1:
-                return prices[0]
-            prices = [float(price) for price in prices]
-            prices.sort()
-            return prices[0]
-        return f_price
+        # some special tags
+        if not prices:
+            price_tag = self.soup.select("table.product, div#tmmSwatches ul")
+            if price_tag:
+                price_tags = self.price_pattern.findall(price_tag[0].text,
+                                                        re.MULTILINE)
+                prices.extend(clean_price_string(price_tags))
+        return prices
 
     @property
     def url(self):
-        url = "http://%s%s" % (self.urlobj.hostname, self.urlobj.path)
-        if 'ref' in url:
-            url = urljoin(url, ' ')
-        url = url.rstrip()
-        match = re.search('\/$', url)
-        if match is None:
-            url += '/'
+        url = "http://%s/dp/%s" % (self.hostname, self.origin_id)
         return url
 
     @property
@@ -149,12 +127,12 @@ class Amazon(Fetcher):
         image_js = self.soup.select("div#imageBlock_feature_div")
         if image_js:
             hires_images = self.high_resolution_pattern.findall(
-                image_js[0].text)
+                    image_js[0].text)
             if hires_images:
                 images = hires_images
             else:
                 large_images = self.large_resolution_pattern.findall(
-                    image_js[0].text)
+                        image_js[0].text)
                 if large_images:
                     images = large_images
         else:
@@ -195,11 +173,6 @@ class Amazon(Fetcher):
                 images.append(res.replace('..', '.'))
             return images
 
-            # amazon jp
-            # optimages = self.soup.select("#altImages .a-spacing-small ")
-            # print optimages
-
-
     @property
     def brand(self):
         optbrands = self.soup.select('#brandByline_feature_div div a')
@@ -213,20 +186,4 @@ class Amazon(Fetcher):
             another_try = self.soup.select("a#brand")
             if another_try:
                 return another_try[0]
-
-
-if __name__ == "__main__":
-    # a = Amazon("http://www.amazon.co.jp/%E3%83%95%E3%82%A3%E3%83%AA%E3%83%83%E3%83%97%E3%82%B9-%E5%85%89%E7%BE%8E%E5%AE%B9%E5%99%A8-%E3%82%A8%E3%83%83%E3%82%BB%E3%83%B3%E3%82%B7%E3%83%A3%E3%83%AB-SC1991-00/dp/B00SB014CE")
-    a = Amazon(
-        "http://www.amazon.cn/Borghese%E8%B4%9D%E4%BD%B3%E6%96%AF%E6%B4%BB%E5%8A%9B%E4%BA%AE%E9%87%87%E7%BE%8E%E8%82%A4%E6%B3%A5%E6%B5%86%E9%9D%A2%E8%86%9C430ml/dp/B00554AJ02")
-    print a.hostname
-    print a.url
-    print a.price
-    print a.cid
-    print a.images
-    # print a.buy_link
-    print a.desc
-    print a.price, a.images
-    print a.desc
-
 

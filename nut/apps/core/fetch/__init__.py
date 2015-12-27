@@ -4,36 +4,14 @@
 import re
 import requests
 
-from urlparse import urlparse
+from urlparse import urlparse, urljoin
 from django.conf import settings
 from django.utils.log import getLogger
 
+from settings import CURRENCY_SYMBOLS
+
 
 log = getLogger('django')
-
-
-def parse_amazon_id_from_url(url):
-    parts = url.split('/')
-    if u'product' in parts:
-        return parts[parts.index(u'product') + 1]
-    if u'dp' in parts:
-        return parts[parts.index(u'product') + 1]
-
-
-def parse_taobao_id_from_url(url):
-    params = url.split("?")[1]
-    for param in params.split("&"):
-        tokens = param.split("=")
-        if len(tokens) >= 2 and (tokens[0] == "id" or tokens[0] == "item_id"):
-            return tokens[1]
-            # url = unquote_plus(url)
-            # params = url.split("?")[1]
-            # for param in params.split("&"):
-            #     tokens = param.split("=")
-            #     if len(tokens) >= 2 and (tokens[0] == "id"
-            #                              or tokens[0] == "item_id"
-            #                              or tokens[1] == 'itemid'):
-            #         return tokens[-1]
 
 
 def parse_jd_id_from_url(url):
@@ -96,16 +74,47 @@ def get_origin_source_by_url(item_url):
 
 
 def get_phantom_status():
-    phantom_url = settings.PHANTOM_SERVER_SERVER
-    phantom_status = requests.get(phantom_url).status_code
-    return phantom_status == 405
+    phantom_health_url = urljoin(settings.PHANTOM_SERVER, '_health')
+    phantom_status = requests.get(phantom_health_url).status_code
+    return phantom_status == 200
+
+
+def clean_price_string(prices_string):
+    price = None
+    if not prices_string:
+        return price
+
+    if prices_string.find('-') >= 0:
+        price_list = prices_string.split('-')
+    else:
+        price_list = [prices_string]
+
+    prices = []
+    for price_string in price_list:
+        price_string = price_string.strip()
+
+        for symbol in CURRENCY_SYMBOLS:
+            symbol_index = price_string.find(symbol)
+            if symbol_index >= 0:
+                price_string = price_string[len(symbol):]
+                break
+
+        price_string = price_string.replace(',', '')
+        try:
+            prices.append(float(price_string))
+        except ValueError:
+            return
+
+    if len(prices) > 1:
+        prices.sort()
+    return prices[0]
 
 
 parse_map = {
     'jd': parse_jd_id_from_url,
-    'taobao': parse_taobao_id_from_url,
-    'tmall': parse_taobao_id_from_url,
-    'amazon': parse_amazon_id_from_url,
+    # 'taobao': parse_taobao_id_from_url,
+    # 'tmall': parse_taobao_id_from_url,
+    # 'amazon': parse_amazon_id_from_url,
     'kaola': parse_kaola_id_from_url,
     'booking': parse_booking_id_from_url
 }

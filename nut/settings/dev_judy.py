@@ -93,4 +93,4 @@ MAIL_LIST_ADDR='test_edm'
 MAIL_LIST = 'test_edm@maillist.sendcloud.org'
 
 # phantom
-PHANTOM_SERVER_SERVER = 'http://192.168.99.100:5000/'
+PHANTOM_SERVER = 'http://192.168.99.100:5000/'
