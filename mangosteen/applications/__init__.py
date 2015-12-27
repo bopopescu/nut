@@ -13,12 +13,13 @@ def recommend():
     assert request.path == '/recommend'
     assert request.method == "GET"
 
-    keyword = request.args.get('keyword')
+    keyword = request.args.get('keyword', '')
+    itemId = request.args.get('itemid', None)
     istk = request.args.get('tk', True)
     ismall = request.args.get('mall', False)
     count = request.args.get('count', 20)
 
-    res = handel(keyword=keyword, istk=istk, ismall=ismall, count=count)
+    res = handel(keyword=keyword, itemId=itemId, istk=istk, ismall=ismall, count=count)
     # print res
     return Response(res, mimetype="application/json")
     # return jsonify(res['alibaba_orp_recommend_response']['recommend'])
