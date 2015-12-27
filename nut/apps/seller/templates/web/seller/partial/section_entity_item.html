@@ -1,11 +1,11 @@
 {% load guoku common %}
-
+{#  https://css-tricks.com/fighting-the-space-between-inline-block-elements/ #}
 {% for entity in section_entities %}
     {% if forloop.counter < 31 %}
         <li>
             <a href="{{ entity.absolute_url }}" target="_blank">
                 <img src="{{ entity.chief_image|resize:'128' }}" alt="{{ entity.title }}" title="{{ entity.title }}" class="img-responsive">
             </a>
-        </li>
+{#        </li>#}
     {% endif %}
 {% endfor %}

@@ -106,9 +106,7 @@ window.location.href = url;</script><![endif]-->
 {% endblock %}
 
 {% block basic_script %}
-    <script type="text/html" id="flink_item">
-       <li><a href="<%=link%>"  target="_blank"><%=name%></a></li>
-    </script>
+
     <script src="{% static 'js/jquery-1.11.1.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/web/site.js' %}"></script>
