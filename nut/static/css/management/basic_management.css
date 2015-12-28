@@ -749,7 +749,7 @@ p.boolean-false {
   max-width: 400px;
 }
 #sellers-table .link-block {
-  width: 300px;
+  width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
