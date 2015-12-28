@@ -40,6 +40,7 @@ function handleSearch(e){
     console.log('field:' + filterfield + ' value:' + filtervalue);
     params['filterfield'] = filterfield;
     params['filtervalue'] = filtervalue;
+    params['page'] = 1;
     window.location.href =  location.protocol + '//' + location.host + location.pathname  + paramToQueryString(params);
 
 }
