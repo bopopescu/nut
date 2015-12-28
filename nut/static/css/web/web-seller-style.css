@@ -674,6 +674,11 @@ ol {
   color: #F8E71C;
 }
 .seller-body .seller-sidebar-wrapper {
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
   position: fixed;
   bottom: 100px;
   right: 0;
@@ -753,6 +758,7 @@ ol {
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul {
   text-align: center;
+  line-height: 12px;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul li {
   display: inline-block;
@@ -897,7 +903,6 @@ ol {
   .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul {
     width: 1170px;
     margin: 0 auto;
-    line-height: 12px;
   }
   .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul li {
     width: 107px;
@@ -909,6 +914,14 @@ ol {
     background-repeat: no-repeat;
   }
 }
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+  .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul {
+    width: 100%;
+  }
+  .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul li {
+    width: 10%;
+  }
+}
 @media screen and (max-width: 767px) {
   .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul {
     width: 100%;
@@ -918,18 +931,9 @@ ol {
     width: 20%;
   }
   .seller-page-container .sections-item-wrapper .sections-item-sellers-wrapper .sellers-wrapper .sellers-desc p {
-    padding-left: 40px;
-    padding-right: 40px;
-  }
-}
-@media screen and (min-width: 990px) and (max-width: 1200px) {
-  .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul {
-    width: 970px;
-  }
-  .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul li {
-    width: 85px;
-    height: 85px;
-    margin-right: 5px;
+    width: 100%;
+    padding-left: 4%;
+    padding-right: 4%;
   }
 }
 @media screen and (min-width: 768px) {
