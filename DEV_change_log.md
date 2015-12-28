@@ -1,3 +1,9 @@
+
+4.  no more christmas logo
+3.  fix management search paging bug
+2.  seller web page 
+1.  seller management update
+
 =================================
 =================================
 ### merged to master 2015-12-23
