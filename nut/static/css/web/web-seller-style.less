@@ -7,6 +7,10 @@ ol{
   padding:0;
 }
 
+//.white-space-fix{
+//  margin-right:-4px;
+//}
+
 //year-selller page share-btn
 @seller-btn-color:#4188DC;
 
@@ -379,7 +383,7 @@ ol{
               li{
                 width:107px;
                 height:107px;
-                margin-right: 5px;
+                //margin-right: 5px;
 
                   }
                 }
@@ -445,11 +449,6 @@ ol{
 }
 
 
-
-
-
-
-
 @media screen and (min-width:768px) {
 
     .section-title {
@@ -479,7 +478,6 @@ ol{
   }
 
 
-
   @media screen and (max-width:768px){
     .sections-titles-wrapper{
 
@@ -507,7 +505,7 @@ ol{
        padding-bottom: 40px;
 
       .sections-item-wrapper{
-         padding-top: 0px;
+         padding-top: 0;
          margin-bottom: 30px;
 
         .sections-item-goods-wrapper{
@@ -525,10 +523,67 @@ ol{
 
 }
 
+ //fix popular shops responsive bug
+ @media screen and (min-width: 768px) and (max-width: 992px){
+   .seller-body{
+     .seller-page-container{
+       .popular-shops-wrapper{
+         .popular-shop-item-wrapper{
+           .popular-shop-item{
+             text-align: center;
+             .popular-shop-info{
+               margin-left:0;
+               width:100%;
 
-.test{
-  color:black;
+             }
+
+             .popular-shop-logo-wrapper{
+               margin:0 auto;
+               margin-top:10px;
+             }
+           }
+         }
+       }
+     }
+   }
+
+ }
+
+@media screen and (min-width: 580px) and (max-width: 768px){
+  .seller-body{
+    .seller-page-container{
+      .popular-shops-wrapper{
+        .popular-shop-item-wrapper{
+          .popular-shop-item{
+            padding:18px 35px;
+          }
+        }
+      }
+    }
+  }
 }
 
+@media screen and (max-width: 580px){
+  .seller-body{
+    .seller-page-container{
+      .popular-shops-wrapper{
+        .popular-shop-item-wrapper{
+          .popular-shop-item{
+            text-align: center;
+            .popular-shop-info{
+              margin-left:0;
+              width:100%;
 
+            }
 
+            .popular-shop-logo-wrapper{
+              margin:0 auto;
+              margin-top:10px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
