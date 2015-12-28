@@ -17,14 +17,13 @@ from apps.seller.models import Seller_Profile
 from apps.core.models import GKUser
 
 
-
-
 # TODO : seller is a GKUser,
 #        make the connection in UI
 
 class SellerForm(ModelForm):
     # seller_user_id = IntegerField(required=False)
     seller_logo_image = ImageField(label='seller_logo_image', help_text='for Seller logo', required=False)
+    seller_category_logo_image = ImageField(label='seller Category logo ', help_text='for Seller category logo', required=False)
     related_article_url = URLField(label='interview article address', help_text='FOR SELLER  interview article', required=False)
 
     def __init__(self, *args, **kwargs):
@@ -34,6 +33,7 @@ class SellerForm(ModelForm):
 
         # self.fields['logo'].widget.attrs.update({'class':'form-control'})
         self.fields['seller_logo_image'].widget.attrs.update({'class':'form-control'})
+        self.fields['seller_category_logo_image'].widget.attrs.update({'class':'form-control'})
 
         self.fields['shop_title'].widget.attrs.update({'class':'form-control'})
         self.fields['shop_link'].widget.attrs.update({'class':'form-control'})
@@ -47,7 +47,7 @@ class SellerForm(ModelForm):
         model = Seller_Profile
         fields = [
                 # 'seller_user_id',\
-                  'seller_name','seller_logo_image',\
+                  'seller_name','seller_logo_image','seller_category_logo_image',\
                   'shop_title','shop_link', 'shop_desc', 'status', 'business_section',\
                   'gk_stars', 'related_article_url'
                   ]
@@ -89,19 +89,40 @@ class SellerForm(ModelForm):
         article = Article.objects.get(pk=article_id)
         self.instance.related_article = article
 
+    def handle_post_image_by_name(self,image_name):
+        _image = HandleImage(image_file=self.cleaned_data.get(image_name))
+        _image_path = _image.icon_save()
+        return _image_path
+
+
+    def handle_category_logo_image(self):
+        image_name = 'seller_category_logo_image'
+        if not self.cleaned_data.get(image_name):
+            return
+
+        _image_path = self.handle_post_image_by_name(image_name)
+
+        self.instance.category_logo = _image_path
+
+        return
+
 
 
     def handle_logo_image(self):
-        if not self.cleaned_data.get('seller_logo_image'):
+        image_name =  'seller_logo_image'
+
+        if not self.cleaned_data.get(image_name):
             return
-        _image = HandleImage(image_file=self.cleaned_data.get('seller_logo_image'))
-        _image_path = _image.icon_save()
+
+        _image_path = self.handle_post_image_by_name(image_name)
         self.instance.logo = _image_path
+
         return
 
 
     def save(self, commit=True,*args,**kwargs):
         self.handle_logo_image()
+        self.handle_category_logo_image()
         self.handle_related_article_url()
         seller_profile = super(SellerForm,self).save(commit=True,*args,**kwargs)
 
@@ -110,10 +131,12 @@ class SellerForm(ModelForm):
 
 class SellerCreateForm(SellerForm):
     seller_logo_image = ImageField(label='seller_logo_image', help_text='for Seller logo', required=True)
+    seller_category_logo_image = ImageField(label='seller Category logo ', help_text='for Seller category logo', required=True)
 
 
 class SellerUpdateForm(SellerForm):
     seller_logo_image = ImageField(label='seller_logo_image', help_text='for Seller logo', required=False)
+    seller_category_logo_image = ImageField(label='seller Category logo ', help_text='for Seller category logo', required=False)
 
 
 class SellerCreateView(CreateView):
@@ -122,9 +145,6 @@ class SellerCreateView(CreateView):
     form_class = SellerCreateForm
     template_name = 'management/seller/create.html'
     model = Seller_Profile
-
-
-
 
 class SellerListView(ListView):
     paginate_by = 25

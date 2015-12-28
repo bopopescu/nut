@@ -84,7 +84,7 @@ ol{
 
 //fixed share sidebar
 .seller-sidebar-wrapper{
-
+  .acc-layer;
   position:fixed;
   bottom:100px;
   right:0;
@@ -135,7 +135,7 @@ ol{
 //main content's style
 
 .seller-page-container{
-  margin-top:60px;
+  padding-top:60px;
   background-color: @very-light-gray;
    .sections-item-wrapper{
      .sections-item-title-wrapper{
@@ -166,10 +166,14 @@ ol{
        margin-bottom: 50px;
        padding:0;
        .goods-container{
+
          ul{
            text-align: center;
+           line-height:12px;
            li{
              display: inline-block;
+             padding:2px;
+             background-color:@very-light-gray;
              a{
                display: inline-block;
                width: 100%;
@@ -308,12 +312,13 @@ ol{
     .popular-shop-item-wrapper{
       margin-bottom: 10px;
       .popular-shop-item{
-        padding:10px 15px;
-        background-color: #ffffff;
-        background-clip: padding-box;
-        border-radius: 4px;
-        box-shadow: 0 0 2px @border-gray;
-        text-align: center;
+          .panel;
+//        padding:10px 15px;
+//        background-color: #ffffff;
+//        background-clip: padding-box;
+//        border-radius: 4px;
+//        box-shadow: 0 0 2px @border-gray;
+//        text-align: center;
       //padding:20px 30px;
       .popular-shop-logo-wrapper{
         display: inline-block;
@@ -326,18 +331,22 @@ ol{
 
       }
       .popular-shop-info{
-        display: inline-block;
+        width:60%;
+        float:right;
         height:52px;
         vertical-align: middle;
         margin-left: 15px;
+        text-align: center;
         .popular-shop-name{
-          //font-size: @title-size;
+           text-overflow:ellipsis;
+           overflow: hidden;
+           white-space: nowrap;
         }
         .star-level{
          //margin-top:15px;
          //margin-bottom: 20px;
          ol{
-           text-align: left;
+           text-align: center;
            li{
              display: inline-block;
            }
@@ -365,6 +374,8 @@ ol{
             ul{
               width:1170px;
               margin:0 auto;
+
+
               li{
                 width:107px;
                 height:107px;
@@ -383,40 +394,35 @@ ol{
 
 }
 
- @media screen and (min-width:990px) and(max-width: 1200px){
+
+@media screen and (min-width:768px) and(max-width: 1200px){
    .seller-page-container{
     .sections-item-wrapper{
       .sections-item-goods-wrapper{
         .goods-container{
              ul{
-              width:970px;
+              width:100%;
               li{
-                width:85px;
-                height:85px;
-                margin-right: 5px;
+                width:10%;
 
                   }
-                }
-
-
+             }
         }
       }
     }
   }
 }
 
- @media screen and (min-width:768px) and (max-width: 990px){
-   .seller-page-container{
+@media screen and (max-width: 767px){
+  .seller-page-container{
     .sections-item-wrapper{
       .sections-item-goods-wrapper{
         .goods-container{
               ul{
-              width:750px;
+              width:100%;
               margin:0 auto;
               li{
-                width: 140px;
-                height:140px;
-                margin-right: 3px;
+                width: 20%;
               }
             }
         }
@@ -425,8 +431,9 @@ ol{
         .sellers-wrapper{
           .sellers-desc{
           p{
-            padding-left:40px;
-            padding-right:40px;
+            width:100%;
+            padding-left:4%;
+            padding-right:4%;
           }
         }
 
@@ -435,159 +442,13 @@ ol{
       }
     }
   }
- }
-
-@media screen and (min-width:679px) and (max-width:768px){
-
-  .seller-page-container{
-    .sections-item-wrapper{
-      .sections-item-goods-wrapper{
-        .goods-container{
-           ul{
-              li{
-                width:120px;
-                height:120px;
-                margin-right: 3px;
-
-                  }
-                }
-        }
-      }
-
-
-    }
-  }
- }
- @media screen and (min-width:656px) and (max-width:679px){
-
-     .seller-page-container{
-    .sections-item-wrapper{
-      .sections-item-goods-wrapper{
-        .goods-container{
-            ul{
-              li{
-                width:95px;
-                height:95px;
-                margin-right: 3px;
-                  }
-                }
-        }
-      }
-    }
-  }
 }
 
- @media screen and (min-width:579px) and (max-width:656px){
-   .seller-page-container{
-    .sections-item-wrapper{
-      .sections-item-goods-wrapper{
-        .goods-container{
-          ul{
-              li{
-                width:85px;
-                height:85px;
-                  }
-                }
-        }
-      }
-    }
-  }
-
- }
-
-@media screen and (min-width:518px) and (max-width:579px){
-    .seller-page-container{
-    .sections-item-wrapper{
-      .sections-item-goods-wrapper{
-        .goods-container{
-          ul{
-              text-align: center;
-              li{
-                width:75px;
-                height:75px;
-                  }
-                }
-        }
-      }
-    }
-  }
-}
-
-@media screen and (min-width:458px) and (max-width:518px){
-     .seller-page-container{
-    .sections-item-wrapper{
-      .sections-item-goods-wrapper{
-        .goods-container{
-           ul{
-              li{
-                width:65px;
-                height:65px;
-                  }
-                }
-        }
-      }
 
 
-    }
-  }
 
 
-}
 
- @media screen and (min-width:417px) and (max-width:458px){
-   .seller-page-container{
-    .sections-item-wrapper{
-      .sections-item-goods-wrapper{
-        .goods-container{
-      ul{
-              li{
-                width:58px;
-                height:58px;
-                  }
-                }
-        }
-      }
-
-    }
-  }
-
-}
-
- @media screen and (min-width:353px) and (max-width:417px){
-   .seller-page-container{
-    .sections-item-wrapper{
-      .sections-item-goods-wrapper{
-        .goods-container{
-      ul{
-              li{
-                width:58px;
-                height:58px;
-                  }
-                }
-        }
-      }
-    }
-  }
-
-}
-
-@media screen and (min-width:320px) and (max-width:353px){
-   .seller-page-container{
-    .sections-item-wrapper{
-      .sections-item-goods-wrapper{
-        .goods-container{
-      ul{
-              li{
-                width:50px;
-                height:50px;
-                  }
-                }
-        }
-      }
-    }
-  }
-
-}
 
 @media screen and (min-width:768px) {
 
@@ -621,10 +482,7 @@ ol{
 
   @media screen and (max-width:768px){
     .sections-titles-wrapper{
-         position:fixed;
-         top:70px;
-         left:0;
-         z-index: 1000;
+
       .section-title{
          color:@common-text-color;
          font-size: @smaller-primary;
