@@ -30,6 +30,7 @@ function paramToQueryString(param){
         }
 
 function handleSearch(e){
+    //TODO : this search is  for one input , update to suite  multi input
     console.log(location);
     var path = location.pathname
     var queryString = location.href.split('?')[1];
