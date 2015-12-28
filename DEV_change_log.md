@@ -1,3 +1,28 @@
+=================================
+=================================
+### merged to master 2015-12-23
+=================================
+=================================
+
+5. snow adjustment 
+4. article detail page 404 redirect to selection article page 
+3. user index page , fix (show removed entity's note) bug
+2. add category_logo for seller data 
+1. fix event page display bug 
+
+
+### Action
+run sql : 
+
+ALTER TABLE `core`.`seller_seller_profile` 
+ADD COLUMN `category_logo` VARCHAR(255) NOT NULL AFTER `logo`;
+
+
+=================================
+=================================
+### merged to master 2015-12-22
+=================================
+=================================
 
 
 7. user page side bar (not user index page side bar) , 
