@@ -13,7 +13,7 @@ Config.read('local_test_config.ini')
 
 root_dir = os.path.join(os.getcwd(), '..')
 
-env.hosts = ['10.0.5.198']
+env.hosts = ['192.168.1.107']
 
 env.user = Config.get('global', 'user')
 #env.key = os.path.join(root_dir, Config.get('global', 'key'))

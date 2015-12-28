@@ -35,7 +35,6 @@ def messages(request, template='notifications/messages/message.html'):
 
     _categories = Sub_Category.objects.filter(id__in=list(cids), status=True)
 
-
     # remove_user_list = GKUser.objects.deactive_user_list()
     # remove_user_list.append(_user.id)
     # remove_user_list = list(remove_user_list)

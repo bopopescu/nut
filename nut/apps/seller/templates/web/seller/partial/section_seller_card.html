@@ -1,0 +1,33 @@
+{% load common guoku %}
+{% for seller in sellers %}
+    <a href="{{ seller.shop_link }}" target="_blank">
+
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 popular-shop-item-wrapper">
+            <div class="popular-shop-item">
+
+                <div class="popular-shop-info">
+                    <p class="popular-shop-name">{{ seller.shop_title }}</p>
+                    <div class="star-level">
+                        <ol>
+                            {% for star in star_range %}
+                                <li>
+                                    {% if forloop.counter >  seller.gk_stars %}
+                                        <i class="fa fa-star-o"></i>
+                                    {% else %}
+                                        <i class="fa fa-star"></i>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </div>
+
+
+                <div class="popular-shop-logo-wrapper">
+                    <img class="img-responsive popular-shop-logo" src="{{ seller.category_logo_url|resize:'128' }}">
+                </div>
+            </div>
+        </div>
+
+    </a>
+{% endfor %}
