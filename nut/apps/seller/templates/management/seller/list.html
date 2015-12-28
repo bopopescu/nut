@@ -45,8 +45,8 @@
                                 <th>卖家名称</th>
                                 <th>Logo</th>
                                 <th>Category_LOGO</th>
-                                <th>店铺名称/链接</th>
-                                <th id="shop-desc">描述</th>
+                                <th class="data-link">店铺名称/链接</th>
+                                <th id="shop-desc" class="shop-desc">描述</th>
                                 <th>经营品类</th>
                                 <th>星级</th>
                                 <th>状态</th>
@@ -73,7 +73,7 @@
                                 </td>
                                 <td>
                                     <div>店铺名称：{{ seller.shop_title }}</div>
-                                    <div>
+                                    <div class="year-seller-shop-link-control link-block">
                                        店铺链接： <a href="{{ seller.shop_link }}" target="_blank">
                                         {{ seller.shop_link }}
                                         </a>

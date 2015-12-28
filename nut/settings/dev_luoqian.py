@@ -84,6 +84,7 @@ LOCAL_TEST_DB = True
 Current_Dbhost = '192.168.1.107'
 # Current_Dbhost = '10.0.1.110'
 # Current_Dbhost = '10.0.2.90'
+# Current_Dbhost = 'localhost'
 
 DATABASES = {
     'default': {
@@ -92,7 +93,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'mypass',
         'HOST': Current_Dbhost,
-        'PORT': '',
+        'PORT': '3306',
         'OPTIONS': {
             'use_unicode':'utf-8',
             'init_command':'SET storage_engine=INNODB',
@@ -104,7 +105,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'mypass',
         'HOST': Current_Dbhost,
-        'PORT': '',
+        'PORT': '3306',
         'OPTIONS': {
             'use_unicode':'utf-8',
             'init_command':'SET storage_engine=INNODB',

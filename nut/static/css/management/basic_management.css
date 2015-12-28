@@ -748,6 +748,15 @@ p.boolean-false {
 #create-seller .row .box.box-primary .form-horizontal .box-body .form-control {
   max-width: 400px;
 }
+#sellers-table .link-block {
+  width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+#sellers-table .shop-desc {
+  width: 400px;
+}
 #sellers-table.table-bordered thead tr th {
   word-break: keep-all;
 }
