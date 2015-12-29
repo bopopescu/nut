@@ -702,7 +702,7 @@ ol {
   bottom: 100px;
   right: 0;
   width: 86px;
-  height: 240px;
+  height: 148px;
   background-color: #fff;
   padding: 5px;
   z-index: 1000;
@@ -727,9 +727,23 @@ ol {
   text-align: center;
   border-radius: 2px;
 }
-.seller-body .seller-sidebar-wrapper .seller-sidebar .list-item.list-item-google a,
+.seller-body .seller-sidebar-wrapper .seller-sidebar .list-item.list-item-weixin a {
+  color: #51C332;
+}
+.seller-body .seller-sidebar-wrapper .seller-sidebar .list-item.list-item-weixin a:hover {
+  background-color: #51C332;
+}
 .seller-body .seller-sidebar-wrapper .seller-sidebar .list-item.list-item-weibo a {
-  color: #FF1F77;
+  color: #E90D24;
+}
+.seller-body .seller-sidebar-wrapper .seller-sidebar .list-item.list-item-weibo a:hover {
+  background-color: #E90D24;
+}
+.seller-body .seller-sidebar-wrapper .seller-sidebar .list-item.list-item-qq a {
+  color: #3199DD;
+}
+.seller-body .seller-sidebar-wrapper .seller-sidebar .list-item.list-item-qq a:hover {
+  background-color: #3199DD;
 }
 .seller-body .seller-sidebar-wrapper .seller-sidebar .list-item a {
   display: inline-block;
@@ -744,12 +758,10 @@ ol {
 .seller-body .seller-sidebar-wrapper .seller-sidebar .list-item a:hover {
   cursor: pointer;
   color: #fff;
-  background-color: #5ba4cf;
   text-decoration: none;
 }
 .seller-body .seller-sidebar-wrapper .seller-sidebar .list-item a i {
   font-size: 18px;
-  margin-right: 10px;
 }
 .seller-body .seller-page-container {
   padding-top: 60px;
