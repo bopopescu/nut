@@ -31,7 +31,7 @@ ol{
 
   .seller-cross-screen{
     //to make the white distance,so use padding instead of margin
-    padding-top:60px;
+    padding-top:90px;
     width:100%;
     height:auto;
     background-color: #fff;
@@ -410,19 +410,22 @@ ol{
 
 @media screen and (min-width:1200px){
   .seller-page-container{
+    width:100%;
+    max-width:1280px;
+
     .sections-item-wrapper{
       .sections-item-goods-wrapper{
         .goods-container{
             ul{
               //width:1170px;
+              width:100%;
               margin:0 auto;
-
-
               li{
+                width:10%
                 //width:107px;
                 //height:107px;
-                width:110px;
-                height:110px;
+                //width:110px;
+                //height:110px;
                 //margin-right: 5px;
                   }
                 }
@@ -430,6 +433,8 @@ ol{
       }
 
       .sections-item-sellers-wrapper{
+        width:1170px;
+        margin:0 auto;
         .sellers-wrapper{
           .sellers-logo{
             max-width: 245px;
@@ -446,6 +451,10 @@ ol{
     #culture{
         background-image: url("/static/images/year-seller/delicacy.png");
         background-repeat: no-repeat;
+    }
+    .popular-shops-wrapper{
+      width:1170px;
+      margin:0 auto;
     }
   }
 
