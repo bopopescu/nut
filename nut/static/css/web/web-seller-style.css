@@ -905,6 +905,7 @@ ol {
   text-align: center;
 }
 .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info .popular-shop-name {
+  color: #424242;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -914,6 +915,10 @@ ol {
 }
 .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info .star-level ol li {
   display: inline-block;
+}
+.seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info .star-level ol li .popular-shop-star {
+  color: #FFD700;
+  font-size: 14px;
 }
 @media screen and (min-width: 1200px) {
   .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul {
