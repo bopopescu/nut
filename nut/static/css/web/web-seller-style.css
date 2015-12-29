@@ -657,6 +657,23 @@ ol {
 .seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper {
   margin-top: 60px;
 }
+.seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper.detach {
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  position: fixed;
+  background: #fff;
+  z-index: 100;
+  top: 0px;
+  margin: 0;
+  padding: 20px 0px 0px;
+  -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 1px 3px #ddd;
+}
 .seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper .sections-titles-nav {
   text-align: center;
 }
