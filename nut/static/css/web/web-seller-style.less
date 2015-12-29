@@ -7,6 +7,12 @@ ol{
   padding:0;
 }
 
+@wechat-hover-color:#51C332;
+
+@weibo-hover-color:#E90D24;
+
+@qq-hover-color:#3199DD;
+
 //.white-space-fix{
 //  margin-right:-4px;
 //}
@@ -107,7 +113,7 @@ ol{
   bottom:100px;
   right:0;
   width:86px;
-  height:240px;
+  height:148px;
   background-color: #fff;
   padding:5px;
   z-index: 1000;
@@ -123,12 +129,30 @@ ol{
         line-height: 46px;
         text-align: center;
         border-radius: 2px;
-        &.list-item-google ,&.list-item-weibo{
+        &.list-item-weixin{
           a{
-            color: @like-color;
+            color:@wechat-hover-color;
+            &:hover{
+              background-color: @wechat-hover-color;
+            }
           }
         }
-
+        &.list-item-weibo{
+          a{
+            color:@weibo-hover-color;
+            &:hover{
+            background-color: @weibo-hover-color;
+          }
+          }
+        }
+        &.list-item-qq{
+          a{
+            color:@qq-hover-color;
+            &:hover{
+              background-color: @qq-hover-color;
+            }
+          }
+        }
         a{
           display: inline-block;
           width: 100%;
@@ -136,14 +160,13 @@ ol{
           &:hover{
             cursor:pointer;
             color:#fff;
-            background-color: @light-blue;
             text-decoration: none;
           }
            i{
              font-size: @subtitle-size;
-             margin-right:10px;
           }
         }
+
       }
  }
 }
@@ -278,21 +301,21 @@ ol{
                  margin-right: 5px;
                                  &.fa-qq:hover{
                      &.qq-hover{
-                      color: #3199DD;
+                      color: @qq-hover-color;
 
                  }
 
                    }
                   &.fa-weibo:hover{
                      &.weibo-hover{
-                     color: #E90D24;
+                     color: @weibo-hover-color;
 
                  }
 
                    }
                  &.fa-wechat:hover{
                    &.wechat-hover{
-                   color: #51C332;
+                     color:@wechat-hover-color;
                  }
 
                  }
