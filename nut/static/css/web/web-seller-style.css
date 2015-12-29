@@ -814,6 +814,8 @@ ol {
   padding-top: 10px;
   font-size: 14px;
   height: 73px;
+  max-width: 245px;
+  margin: 0 auto;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -949,11 +951,6 @@ ol {
   }
   .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul li {
     width: 20%;
-  }
-  .seller-page-container .sections-item-wrapper .sections-item-sellers-wrapper .sellers-wrapper .sellers-desc p {
-    width: 100%;
-    padding-left: 4%;
-    padding-right: 4%;
   }
 }
 @media screen and (min-width: 768px) {
