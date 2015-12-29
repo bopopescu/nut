@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.views.generic import FormView, ListView, UpdateView
 from apps.mobile.models import LaunchBoard
-from apps.mobile.forms import LaunchBoardForm, CreateLaunchBoardForm, EditLaunchBoardForm
+from apps.mobile.forms import  CreateLaunchBoardForm, EditLaunchBoardForm
 # from django.core.urlresolvers import reverse
 
 
