@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 
+from datetime import datetime
+from hashlib import md5
+
 from django import forms
 from django.conf import settings
 from django.core.cache import cache
 from django.utils.log import getLogger
 from django.utils.translation import gettext_lazy as _
 
-from hashlib import md5
-from datetime import datetime
-from apps.report.models import Report
-from apps.core.fetch import get_url_meta
-from apps.core.tasks.entity import fetch_image
-from apps.core.fetch.spider import get_entity_info
 from apps.core.models import Entity, Note, Buy_Link
+from apps.core.tasks.entity import fetch_image
+from apps.fetch.spider import get_entity_info
+from apps.fetch.common import get_url_meta
+from apps.report.models import Report
 
 
 log = getLogger('django')

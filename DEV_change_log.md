@@ -1,5 +1,77 @@
 
+4.  no more christmas logo
+3.  fix management search paging bug
+2.  seller web page 
+1.  seller management update
 
+=================================
+=================================
+### merged to master 2015-12-23
+=================================
+=================================
+
+5. snow adjustment 
+4. article detail page 404 redirect to selection article page 
+3. user index page , fix (show removed entity's note) bug
+2. add category_logo for seller data 
+1. fix event page display bug 
+
+
+### Action
+run sql : 
+
+ALTER TABLE `core`.`seller_seller_profile` 
+ADD COLUMN `category_logo` VARCHAR(255) NOT NULL AFTER `logo`;
+
+
+=================================
+=================================
+### merged to master 2015-12-22
+=================================
+=================================
+
+
+7. user page side bar (not user index page side bar) , 
+    disable user article link if user do not have article (done)
+     
+6. user page, display user article when user has article 
+    (currently only display when user can write) (done)
+    
+5. xs screen selection_entity page bg-color : #f8f8f8 （done）
+4. display 2 entity in a row (done)
+3. display all note on selection entity page.(done)
+
+
+------  not finished  ---- 
+2. friendly link , new style (NOT finished )
+1. in wechat browser , if product is from taobao/tmall , 
+    buy button jump to app download page (NOT finished)
+----------------
+
+
+1. add seller section management views and templates
+
+
+
+### Action
+1.  drop table : seller_seller_profile
+2.  drop table : seller_seller_profile_related_articles   
+3.  need Sync DB 
+
+
+
+---
+
+2015-12-20 
+
+=================================
+=================================
+### merged to master 2015-12-17
+=================================
+=================================
+
+2. fix event page selection entity css broken bug 
+1. fix liker list page css broken bug 
   
 #### Action
   * update django-sendcloud: 

@@ -2,9 +2,9 @@
 
 import re
 
-from apps.core.fetch import get_key
-from apps.core.fetch import clean_price_string
-from apps.core.fetch.fetcher import Fetcher
+from apps.fetch.fetcher import Fetcher
+from apps.fetch.common import clean_price_string
+from apps.fetch.common import get_key
 from apps.core.utils.commons import currency_converting
 
 

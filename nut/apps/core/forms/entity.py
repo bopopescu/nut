@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from hashlib import md5
-from django import forms
 from datetime import datetime
+from hashlib import md5
+
+from django import forms
 from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
@@ -10,12 +11,12 @@ from django.forms import ChoiceField
 from django.utils.log import getLogger
 from django.utils.translation import gettext_lazy as _
 
-from apps.core.fetch import get_url_meta
-from apps.core.fetch.spider import get_entity_info
 from apps.core.forms import get_admin_user_choices
 from apps.core.models import Entity, Sub_Category, Category, Buy_Link, Note
 from apps.core.tasks.entity import fetch_image
 from apps.core.utils.image import HandleImage
+from apps.fetch import get_entity_info
+from apps.fetch import get_url_meta
 
 
 log = getLogger('django')

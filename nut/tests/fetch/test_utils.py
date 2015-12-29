@@ -3,15 +3,15 @@
 
 import pytest
 
-from apps.core.fetch import get_origin_source_by_url, clean_price_string
-from apps.core.fetch.amazon import Amazon
-from apps.core.fetch.booking import Booking
-from apps.core.fetch.jd import JD
-from apps.core.fetch.kaola import Kaola
-from apps.core.fetch.six_pm import SixPM
-from apps.core.fetch.spider import get_provider
-from apps.core.fetch.taobao import TaoBao
-from apps.core.fetch.tmall import Tmall
+from apps.fetch import Amazon
+from apps.fetch import JD
+from apps.fetch import Kaola
+from apps.fetch import SixPM
+from apps.fetch import TaoBao
+from apps.fetch import Tmall
+from apps.fetch import Booking
+from apps.fetch.common import get_origin_source_by_url, clean_price_string, \
+    get_provider
 
 
 @pytest.mark.parametrize('provider,hostname,key', (

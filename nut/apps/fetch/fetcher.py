@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
-import codecs
 
 from hashlib import md5
 
 import requests
 from bs4 import BeautifulSoup
 from django.conf import settings
-from django.utils.log import getLogger
 from django.core.cache import cache
+from django.utils.log import getLogger
 
-from apps.core.fetch import get_phantom_status, get_origin_source_by_url
+from apps.fetch.common import get_phantom_status, get_origin_source_by_url
 
 
 log = getLogger('django')
@@ -28,15 +27,16 @@ class Fetcher(object):
         return BeautifulSoup(self.html_source)
 
     def fetch(self, timeout=20):
-        # html_cache = self.get_html_cache()
-        # if html_cache:
-        #     return html_cache
+        html_cache = self.get_html_cache()
+        if html_cache:
+            return html_cache
 
         if self.use_phantom and get_phantom_status():
-            response = requests.post(settings.PHANTOM_SERVER,
-                                     data={'url': self.url or self.entity_url,
-                                           'expected_element': self.expected_element,
-                                           'time_out': timeout})
+            response = requests.post(
+                    settings.PHANTOM_SERVER,
+                    data={'url': self.link or self.entity_url,
+                          'expected_element': self.expected_element,
+                          'time_out': timeout})
             self.set_html_cache(response=response)
             self.html_source = response.content
 

@@ -1,0 +1,121 @@
+{% extends 'management/management_base.html' %}
+{% load i18n %}
+{% load guoku %}
+{% block content %}
+
+ <section class="content-header">
+        <h1>
+            Sellers
+            <small>sellers</small>
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+            <li class="active">sellers</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <ul class="nav nav-pills" role="tablist">
+                            <li class="active"><a href="">所有</a></li>
+{#                            <li><a href="">正常卖家</a></li>#}
+{#                            <li><a href="">冻结卖家</a></li>#}
+                        </ul>
+                    </div>
+
+                    <div class="box-body table-responsive">
+                       <div class="">
+                           <hr>
+                           <a href="{% url 'management_seller_create' %}">
+                             <button class="btn btn-primary">新卖家</button>
+                           </a>
+                           <hr>
+                       </div>
+
+                        {#                        {% include "management/table.html"%}#}
+
+                        <table class="table table-bordered table-hover table-condensed" id="sellers-table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>卖家名称</th>
+                                <th>Logo</th>
+                                <th>Category_LOGO</th>
+                                <th class="data-link">店铺名称/链接</th>
+                                <th id="shop-desc" class="shop-desc">描述</th>
+                                <th>经营品类</th>
+                                <th>星级</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {#            the first line datas#}
+
+                            {% for seller in sellers %}
+
+                                <tr>
+                                <td>{{ seller.id  }}</td>
+                                <td>{{  seller.seller_name }}</td>
+                                <td>
+                                    <a href="" target="_blank">
+                                        <img class="img-responsive img-thumbnail" src="{{ seller.logo_url|resize:'100' }}" style="max-height:100px;max-width:100px;">
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="" target="_blank">
+                                        <img class="img-responsive img-thumbnail" src="{{ seller.category_logo_url|resize:'50' }}" style="max-height:100px;max-width:100px;">
+                                    </a>
+                                </td>
+                                <td>
+                                    <div>店铺名称：{{ seller.shop_title }}</div>
+                                    <div class="year-seller-shop-link-control link-block">
+                                       店铺链接： <a href="{{ seller.shop_link }}" target="_blank">
+                                        {{ seller.shop_link }}
+                                        </a>
+                                    </div>
+                                    {% if seller.related_article %}
+                                    <div>
+                                       专访： <a href="{% url 'web_article_page' seller.related_article.id %}" target="_blank">
+                                        {{ seller.related_article.title }}
+                                        </a>
+                                    </div>
+                                    {% endif %}
+
+                                </td>
+
+                                <td class="shop-desc">
+                                    {{ seller.shop_desc }}
+                                </td>
+                                <td>{{ seller.get_business_section_display }}</td>
+                                <td>{{ seller.get_gk_stars_display }}</td>
+                                <td>
+                                    {#正常状态#}
+                                    <span class="label label-info">{{ seller.get_status_display }}</span>
+                                </td>
+                                <td><a class="btn btn-default" href="{% url 'management_seller_update' seller.pk %}">编辑</a></td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="box-footer">
+                         {% include "management/paginator.html" with objects=page_obj url=request.path %}
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block user_script %}
+
+{% endblock %}

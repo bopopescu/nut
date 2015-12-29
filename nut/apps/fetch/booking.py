@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from apps.core.fetch.fetcher import Fetcher
+from apps.fetch.fetcher import Fetcher
 
 
 class Booking(Fetcher):
@@ -56,16 +56,3 @@ class Booking(Fetcher):
     @property
     def brand(self):
         return ""
-
-
-if __name__=="__main__":
-
-    b = Booking("http://www.booking.com/hotel/lk/jetwing-yala.zh-cn.html?sid=f271448c6b6abfb4f7124664d3c56cff")
-    print b.url
-    # r = b.fetch_html()
-    # print r
-    # print b.content
-    print b.origin_id, b.price, b.shop_link, b.desc
-    # print b.desc
-
-__author__ = 'edison'

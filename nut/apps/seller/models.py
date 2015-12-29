@@ -1,8 +1,13 @@
 # coding=utf-8
-
+from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from apps.core.models import BaseModel, GKUser, Article
+
+
+image_host = getattr(settings, 'IMAGE_HOST', None)
+
+
 
 class Seller_Profile(BaseModel):
     (active,deactive) = (1,0)
@@ -19,14 +24,35 @@ class Seller_Profile(BaseModel):
         (life,"生活")
     ]
 
+    GKSTAR_CHOICE=[
+                (1, "1星"),
+                (2, "2星"),
+                (3, "3星"),
+                (4, "4星"),
+                (5, "5星"),
+            ]
+
     user = models.OneToOneField(GKUser, related_name='seller_profile', null=True)
     shop_title = models.CharField(max_length=255, db_index=True)
     shop_link = models.URLField(max_length=255)
     seller_name = models.CharField(max_length=255, db_index=True)
     shop_desc = models.TextField(max_length=255)
     status = models.IntegerField(choices=SELLER_STATUS_CHOICE, default=active)
-    logo = models.CharField(max_length=255)
+    logo = models.CharField(max_length=255, blank=True)
+    category_logo = models.CharField(max_length=255, blank=True)
     business_section = models.IntegerField(choices=BUS_SECTION_CHOICE, default=blank)
+    gk_stars = models.IntegerField(choices=GKSTAR_CHOICE, default=5)
+    related_article = models.OneToOneField(Article, related_name='related_seller',null=True, blank=True)
+
+    def __unicode__(self):
+        return '%s_%s' %(self.seller_name, self.shop_title)
+
+    @property
+    def logo_url(self):
+        return '%s%s' %(image_host, self.logo)
+
+    @property
+    def category_logo_url(self):
+        return '%s%s' %(image_host, self.category_logo)
 
 
-    related_articles = models.ManyToManyField(Article, related_name='related_seller')

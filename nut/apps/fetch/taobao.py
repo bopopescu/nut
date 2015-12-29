@@ -3,10 +3,9 @@
 import re
 
 from urllib import unquote
-from django.core.cache import cache
 from django.utils.log import getLogger
 
-from apps.core.fetch.fetcher import Fetcher
+from apps.fetch.fetcher import Fetcher
 
 IMG_POSTFIX = "_\d+x\d+.*\.jpg|_b\.jpg"
 log = getLogger('django')

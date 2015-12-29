@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
-from urllib import unquote
 
-import requests
 import re
-import json
 
-from time import time
+from urllib import unquote
 from django.utils.log import getLogger
 
-from apps.core.fetch import clean_price_string
-from apps.core.fetch.fetcher import Fetcher
+from apps.fetch.common import clean_price_string
+from apps.fetch.fetcher import Fetcher
 
 
 log = getLogger('django')

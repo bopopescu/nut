@@ -1,38 +1,36 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import re
 import requests
 
-from urlparse import urlparse, urljoin
 from django.conf import settings
 from django.utils.log import getLogger
+from urlparse import urlparse, urljoin
 
-from apps.core.fetch.spider import get_provider
 from settings import CURRENCY_SYMBOLS
 
 
 log = getLogger('django')
 
 
-def parse_jd_id_from_url(url):
-    ids = re.findall(r'\d+', url)
-    if len(ids) > 0:
-        return ids[0]
-
-
-def parse_kaola_id_from_url(url):
-    ids = re.findall(r'\d+', url)
-    if len(ids) > 0:
-        return ids[0]
-
-
-def parse_booking_id_from_url(url):
-    params = url.split("?")[1]
-    for param in params.split(";"):
-        tokens = param.split("=")
-        if len(tokens) >= 2 and tokens[0] == "sid":
-            return tokens[1]
+# def parse_jd_id_from_url(url):
+#     ids = re.findall(r'\d+', url)
+#     if len(ids) > 0:
+#         return ids[0]
+#
+#
+# def parse_kaola_id_from_url(url):
+#     ids = re.findall(r'\d+', url)
+#     if len(ids) > 0:
+#         return ids[0]
+#
+#
+# def parse_booking_id_from_url(url):
+#     params = url.split("?")[1]
+#     for param in params.split(";"):
+#         tokens = param.split("=")
+#         if len(tokens) >= 2 and tokens[0] == "sid":
+#             return tokens[1]
 
 
 def get_key(hostname):
@@ -125,11 +123,15 @@ def get_origin_source(item_url):
     return '.'.join(hostname.split('.')[-2:])
 
 
-parse_map = {
-    'jd': parse_jd_id_from_url,
-    # 'taobao': parse_taobao_id_from_url,
-    # 'tmall': parse_taobao_id_from_url,
-    # 'amazon': parse_amazon_id_from_url,
-    'kaola': parse_kaola_id_from_url,
-    'booking': parse_booking_id_from_url
-}
+def get_provider(item_url):
+    from apps.fetch import spider_map
+    host_name = get_origin_source(item_url)
+    source_keys = host_name.split('.')
+    if source_keys[-2] == 'com':
+        source_key = source_keys[-3]
+    else:
+        source_key = source_keys[-2]
+
+    if source_key and source_key not in spider_map:
+        return
+    return spider_map[source_key]

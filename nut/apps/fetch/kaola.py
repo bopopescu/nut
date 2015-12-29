@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
 
-# import requests
-# from hashlib import md5
-# from bs4 import BeautifulSoup
-# from django.core.cache import cache
 import re
 
 from django.utils.log import getLogger
-from apps.core.fetch.fetcher import Fetcher
+
+from apps.fetch.fetcher import Fetcher
 
 
 log = getLogger('django')
 
 IMG_POSTFIX = "_\d+_\d+.*\.jpg|_b\.jpg"
+
 
 class Kaola(Fetcher):
 

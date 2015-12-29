@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
 
-import urllib2 
-from bs4 import BeautifulSoup
-import re 
+import re
 import json
+import urllib2
+
 from hashlib import md5
+from bs4 import BeautifulSoup
 from django.core.cache import cache
 from django.utils.log import getLogger
 
-from apps.core.fetch.fetcher import Fetcher
+from apps.fetch.fetcher import Fetcher
 
 
 log = getLogger('django')
-
-
 
 
 class JD(Fetcher):

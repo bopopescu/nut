@@ -3,17 +3,13 @@
 
 import os
 import codecs
-from time import sleep
-
 import pytest
 
-from apps.core.fetch.jd import JD
-from apps.core.fetch.kaola import Kaola
-from apps.core.fetch.tmall import Tmall
-from apps.core.fetch.six_pm import SixPM
-from apps.core.fetch.amazon import Amazon
-from apps.core.fetch.taobao import TaoBao
-from apps.core.fetch.booking import Booking
+from time import sleep
+
+from apps.fetch import Amazon
+from apps.fetch import TaoBao
+from apps.fetch import Tmall
 
 
 base_dir = os.path.dirname(os.path.dirname(__file__))
@@ -67,7 +63,7 @@ def test_amazon_cn_fetch(link, origin_id, price, brand, url):
     assert provider.price == price
     assert provider.brand == brand
     assert provider.foreign_price == 0.0
-    assert provider.url == url
+    assert provider.link == url
 
 #
 # @pytest.mark.parametrize('link,origin_id,foreign_price,brand,url', (
@@ -95,7 +91,7 @@ def test_amazon_cn_fetch(link, origin_id, price, brand, url):
 #     assert provider.price is not 0.00
 #     assert provider.price is True
 #     assert provider.brand == brand
-#     assert provider.url == url
+#     assert provider.link == url
 
 
 @pytest.mark.parametrize('link,origin_id,price,brand,url', (
@@ -125,7 +121,7 @@ def test_taobao_fetch(link, origin_id, price, brand, url):
     assert provider.origin_id == origin_id
     assert provider.price == price
     assert provider.brand == brand
-    assert provider.url == url
+    assert provider.link == url
 
 
 @pytest.mark.parametrize('link,origin_id,price,brand,url', (
@@ -151,4 +147,4 @@ def test_tmall_fetch(link, origin_id, price, brand, url):
     assert provider.origin_id == origin_id
     assert provider.price == price
     assert provider.brand == brand
-    assert provider.url == url
+    assert provider.link == url
