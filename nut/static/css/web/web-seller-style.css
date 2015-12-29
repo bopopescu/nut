@@ -926,6 +926,9 @@ ol {
     width: 107px;
     height: 107px;
   }
+  .seller-page-container .sections-item-wrapper .sections-item-sellers-wrapper .sellers-wrapper .sellers-logo {
+    max-width: 245px;
+  }
   .seller-page-container #culture {
     background-image: url("/static/images/year-seller/delicacy.png");
     background-repeat: no-repeat;
