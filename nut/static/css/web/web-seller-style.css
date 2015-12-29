@@ -618,6 +618,9 @@ p.boolean-false {
 ol {
   padding: 0;
 }
+.fa-star-o-size {
+  font-size: 14px;
+}
 .seller-body {
   padding: 0;
 }
@@ -829,35 +832,29 @@ ol {
   color: #9D9E9F;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share {
-  display: none;
+  display: block;
   height: 20px;
   margin-top: 15px;
   margin-bottom: 20px;
-}
-.seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper:hover .score-hidden {
-  display: none;
-}
-.seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper:hover .sellers-share-visible {
-  display: block;
   text-align: center;
 }
-.seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper:hover .sellers-share-visible ul li {
+.seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share ul li {
   display: inline-block;
 }
-.seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper:hover .sellers-share-visible ul li a:hover {
+.seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share ul li a:hover {
   cursor: pointer;
 }
-.seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper:hover .sellers-share-visible ul li a i {
+.seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share ul li a i {
   color: #9d9d9d;
   margin-right: 5px;
 }
-.seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper:hover .sellers-share-visible ul li a i.fa-qq:hover.qq-hover {
+.seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share ul li a i.fa-qq:hover.qq-hover {
   color: #3199DD;
 }
-.seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper:hover .sellers-share-visible ul li a i.fa-weibo:hover.weibo-hover {
+.seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share ul li a i.fa-weibo:hover.weibo-hover {
   color: #E90D24;
 }
-.seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper:hover .sellers-share-visible ul li a i.fa-wechat:hover.wechat-hover {
+.seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share ul li a i.fa-wechat:hover.wechat-hover {
   color: #51C332;
 }
 .seller-body .seller-page-container .popular-shops-title-wrapper {
@@ -968,6 +965,15 @@ ol {
   }
   .section-title.section-forth-title:after {
     content: " LIFESTYLE";
+  }
+  .seller-body .seller-page-container .sections-item-sellers-wrapper .sellers-wrapper .sellers-share-visible {
+    display: none;
+  }
+  .seller-body .seller-page-container .sections-item-sellers-wrapper .sellers-wrapper:hover .score-hidden {
+    display: none;
+  }
+  .seller-body .seller-page-container .sections-item-sellers-wrapper .sellers-wrapper:hover .sellers-share-visible {
+    display: block;
   }
 }
 @media screen and (max-width: 768px) {

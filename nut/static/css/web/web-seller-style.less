@@ -15,6 +15,9 @@ ol{
 @seller-btn-color:#4188DC;
 
 //year-seller page common class
+.fa-star-o-size{
+  font-size:14px;
+}
 
 .seller-body{
   padding:0;
@@ -256,31 +259,22 @@ ol{
          }
        }
        .sellers-share{
-         display: none;
+         display: block;
          height:20px;
          margin-top:15px;
          margin-bottom: 20px;
-       }
-       &:hover{
-         .score-hidden{
-           display: none;
-         }
-
-       .sellers-share-visible{
-         display: block;
          text-align: center;
          ul{
            li{
              display: inline-block;
              a{
                &:hover{
-                 cursor: pointer;
+                 cursor:pointer;
                }
                i{
-                 color: @light-gray;
+                 color:@light-gray;
                  margin-right: 5px;
-
-                  &.fa-qq:hover{
+                                 &.fa-qq:hover{
                      &.qq-hover{
                       color: #3199DD;
 
@@ -300,12 +294,64 @@ ol{
                  }
 
                  }
+
+
+
                }
              }
            }
          }
        }
-     }
+
+
+       //&:hover{
+       //  .score-hidden{
+       //    display: none;
+       //  }
+
+       //.sellers-share-visible{
+       //  display: block;
+       //  text-align: center;
+         //ul{
+         //  li{
+         //    display: inline-block;
+         //    a{
+         //      &:hover{
+         //        cursor: pointer;
+         //      }
+         //      i{
+         //        color: @light-gray;
+         //        margin-right: 5px;
+         //
+         //         &.fa-qq:hover{
+         //            &.qq-hover{
+         //             color: #3199DD;
+         //
+         //        }
+         //
+         //          }
+         //         &.fa-weibo:hover{
+         //            &.weibo-hover{
+         //            color: #E90D24;
+         //
+         //        }
+         //
+         //          }
+         //        &.fa-wechat:hover{
+         //          &.wechat-hover{
+         //          color: #51C332;
+         //        }
+         //
+         //        }
+         //      }
+         //    }
+         //  }
+         //}
+       //}
+     //}
+
+
+
      }
    }
 
@@ -490,6 +536,33 @@ ol{
       }
 
     }
+
+  //   change the sellers style
+  .seller-body{
+    .seller-page-container{
+
+       .sections-item-sellers-wrapper{
+    .sellers-wrapper{
+      .sellers-share-visible{
+        display: none;
+      }
+
+      &:hover{
+        .score-hidden{
+          display: none;
+        }
+
+        .sellers-share-visible{
+          display: block;
+        }
+
+      }
+    }
+  }
+    }
+  }
+
+
 
   }
 
