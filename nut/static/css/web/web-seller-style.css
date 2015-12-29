@@ -921,12 +921,11 @@ ol {
 }
 @media screen and (min-width: 1200px) {
   .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul {
-    width: 1170px;
     margin: 0 auto;
   }
   .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul li {
-    width: 107px;
-    height: 107px;
+    width: 110px;
+    height: 110px;
   }
   .seller-page-container .sections-item-wrapper .sections-item-sellers-wrapper .sellers-wrapper .sellers-logo {
     max-width: 245px;
