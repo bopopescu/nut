@@ -1,13 +1,8 @@
 # -*- coding: utf-8 -*-
-from urllib import unquote
 
-import urllib2
-import cookielib
 import re
 
-from hashlib import md5
-from bs4 import BeautifulSoup
-# from urlparse import parse_qs, urlparse
+from urllib import unquote
 from django.core.cache import cache
 from django.utils.log import getLogger
 
@@ -45,9 +40,9 @@ class TaoBao(Fetcher):
         #         return tokens[-1]
 
     @property
-    def url(self):
-        url = 'http://item.taobao.com/item.htm?id=%s' % self.origin_id
-        return url
+    def link(self):
+        link = 'http://item.taobao.com/item.htm?id=%s' % self.origin_id
+        return link
 
     @property
     def nick(self):

@@ -117,9 +117,9 @@ class Amazon(Fetcher):
         return prices
 
     @property
-    def url(self):
-        url = "http://%s/dp/%s" % (self.hostname, self.origin_id)
-        return url
+    def link(self):
+        link = "http://%s/dp/%s" % (self.hostname, self.origin_id)
+        return link
 
     @property
     def images(self):

@@ -8,6 +8,7 @@ from urlparse import urlparse, urljoin
 from django.conf import settings
 from django.utils.log import getLogger
 
+from apps.core.fetch.spider import get_provider
 from settings import CURRENCY_SYMBOLS
 
 
@@ -41,18 +42,6 @@ def get_key(hostname):
     if len(hostname) > 2 and hostname.split('.')[-2] == 'com':
         return '.'.join(hostname.split('.')[-3:])
     return '.'.join(hostname.split('.')[-2:])
-
-
-def get_origin_id_by_url(item_url):
-    if not item_url:
-        return
-
-    origin_source = get_origin_source_by_url(item_url)
-    origin_source_key = get_key(origin_source)
-    if origin_source_key in parse_map:
-        parse = parse_map[origin_source_key]
-        origin_id = parse(item_url)
-        return origin_id
 
 
 def get_origin_source_by_url(item_url):
@@ -108,6 +97,32 @@ def clean_price_string(prices_string):
     if len(prices) > 1:
         prices.sort()
     return prices[0]
+
+
+def get_url_meta(entity_url, keys=('origin_id', 'origin_source', 'link')):
+    provider = get_provider(entity_url)
+    values = []
+    for key in keys:
+        values.append(provider.get(key, ''))
+    return values
+
+
+def get_origin_source(item_url):
+    if not item_url:
+        return
+
+    hostname = urlparse(item_url).hostname
+    if not hostname:
+        return
+
+    white_list = ('yao.95095.com',)
+    for host_str in white_list:
+        if hostname.find(host_str) >= 0:
+            return host_str
+
+    if len(hostname) > 2 and hostname.split('.')[-2] == 'com':
+        return '.'.join(hostname.split('.')[-3:])
+    return '.'.join(hostname.split('.')[-2:])
 
 
 parse_map = {

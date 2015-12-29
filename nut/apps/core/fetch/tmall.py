@@ -36,9 +36,9 @@ class Tmall(Fetcher):
         return unquote(self._nick)
 
     @property
-    def url(self):
-        url = 'http://detail.tmall.com/item.htm?id=%s' % self.origin_id
-        return url
+    def link(self):
+        link = 'http://detail.tmall.com/item.htm?id=%s' % self.origin_id
+        return link
 
     def get_origin_id(self):
         params = self.entity_url.split("?")[1]

@@ -21,23 +21,26 @@ def links():
 @pytest.fixture
 def taobao_links():
     return {
-        'https://item.taobao.com/item.htm?spm=a21bo.7724922.8446.2.oi90zh&scm=1007.10325.17076.0&id=43352358270':'43352358270',
-        'https://item.taobao.com/item.htm?spm=5704.2075955.1998837601.98.GHug7u&id=522087255299':'522087255299',
-        'https://item.taobao.com/item.htm?spm=a219e.7778345.24768.9.oIZ6TF&id=37353406383':'37353406383',
-        'https://item.taobao.com/item.htm?spm=a1z0d.6639537.1997196601.3.jdEeMZ&id=524659592741':'524659592741',
-        'https://item.taobao.com/item.htm?spm=a1z0d.6639537.1997196601.132.2Wnn8I&id=524447761628':'524447761628',
-        'https://item.taobao.com/item.htm?spm=a1z09.2.0.0.NMMzy2&id=45074255719&_u=r82e7qs23aa':'45074255719',
-        'https://item.taobao.com/item.htm?spm=a1z0k.7386009.1997989141.25.ZHDCRp&id=525579185481&_u=&pvid=&scm=':'525579185481'}
+    'https://item.taobao.com/item.htm?spm=a21bo.7724922.8446.2.oi90zh&scm=1007.10325.17076.0&id=43352358270':'43352358270',
+    'https://item.taobao.com/item.htm?spm=5704.2075955.1998837601.98.GHug7u&id=522087255299':'522087255299',
+    'https://item.taobao.com/item.htm?spm=a219e.7778345.24768.9.oIZ6TF&id=37353406383':'37353406383',
+    'https://item.taobao.com/item.htm?spm=a1z0d.6639537.1997196601.3.jdEeMZ&id=524659592741':'524659592741',
+    'https://item.taobao.com/item.htm?spm=a1z0d.6639537.1997196601.132.2Wnn8I&id=524447761628':'524447761628',
+    'https://item.taobao.com/item.htm?spm=a1z09.2.0.0.NMMzy2&id=45074255719&_u=r82e7qs23aa':'45074255719',
+    'https://item.taobao.com/item.htm?spm=a1z0k.7386009.1997989141.25.ZHDCRp&id=525579185481&_u=&pvid=&scm=':'525579185481',
+    'https://item.taobao.com/item.htm?spm=a1z0k.7385961.1997985097.d4918997.V7o5pD&id=22070372914&_u=s82e7qsa0b9':'22070372914',
+    }
 
 
 @pytest.fixture
 def tmall_links():
     return {
-        'https://detail.tmall.com/item.htm?spm=608.7065813.ne.1.Qy6vnN&id=522022069242&tracelog=jubuybigpic':'522022069242',
-        'https://detail.tmall.com/item.htm?id=525566206070&spm=a1z0k.7386009.1997989141.7.ZHDCRp':'525566206070',
-        'https://detail.tmall.com/item.htm?spm=a1z10.5-b.w4011-6947701451.28.gkW48M&id=524854465546&rn=28e1186d09057bfe346db810d1baafbe&abbucket=17':'524854465546',
-        'https://detail.tmall.com/item.htm?spm=a230r.1.14.51.hQrvPf&id=21361619524&ns=1&_u=hfgvk8386d7&abbucket=8':'21361619524',
-        'https://detail.tmall.com/item.htm?spm=a220o.1000855.1998025129.1.FSm5pB&id=524201323414&pvid=a84033e0-237f-4095-9d0e-70376408af82&abbucket=_AB-M32_B10&acm=03054.1003.1.609376&aldid=oMPo8uD5&abtest=_AB-LR32-PV32_2410&scm=1007.12559.18851.100200300000000&pos=1':'524201323414',
+    'https://detail.tmall.com/item.htm?spm=608.7065813.ne.1.Qy6vnN&id=522022069242&tracelog=jubuybigpic':'522022069242',
+    'https://detail.tmall.com/item.htm?id=525566206070&spm=a1z0k.7386009.1997989141.7.ZHDCRp':'525566206070',
+    'https://detail.tmall.com/item.htm?spm=a1z10.5-b.w4011-6947701451.28.gkW48M&id=524854465546&rn=28e1186d09057bfe346db810d1baafbe&abbucket=17':'524854465546',
+    'https://detail.tmall.com/item.htm?spm=a230r.1.14.51.hQrvPf&id=21361619524&ns=1&_u=hfgvk8386d7&abbucket=8':'21361619524',
+    'https://detail.tmall.com/item.htm?spm=a1z10.1-b.w5003-13095458026.26.bs1ggb&id=520847275617&scene=taobao_shop':'520847275617',
+    'https://detail.tmall.com/item.htm?spm=a220o.1000855.1998025129.1.FSm5pB&id=524201323414&pvid=a84033e0-237f-4095-9d0e-70376408af82&abbucket=_AB-M32_B10&acm=03054.1003.1.609376&aldid=oMPo8uD5&abtest=_AB-LR32-PV32_2410&scm=1007.12559.18851.100200300000000&pos=1':'524201323414',
     }
 
 
