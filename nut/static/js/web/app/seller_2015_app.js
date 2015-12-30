@@ -1,12 +1,21 @@
 require([
         'libs/polyfills',
         'jquery',
-        'subapp/topmenu'
+        'subapp/yearseller/header',
+        'subapp/yearseller/linkscroll',
+        'subapp/yearseller/share'
     ],
     function(polyfill,
-             jQuery
+             $,
+             YearSellerHeader,
+             AnchorScroller,
+             ShareHanlder
+
     ){
 
-        console.log('');
+        var sellerHeader = new YearSellerHeader();
+        var anchorScroller = new AnchorScroller('.sections-titles-wrapper li a');
+        var shareHandler = new ShareHanlder();
+        console.log('in year seller app');
 
     });
