@@ -13,6 +13,25 @@ ol{
 
 @qq-hover-color:#3199DD;
 
+@year-seller-share-btn-border-radius:30px;
+
+.year-seller-modal-share-btn{
+  width:200px;
+  height:46px;
+  line-height: 46px;
+  text-align: center;
+  color:#ffffff;
+  font-size: @primary-size;
+  border-radius: @year-seller-share-btn-border-radius;
+}
+
+.small-year-seller-modal-share-btn{
+  width:100px;
+  height:35px;
+  line-height:35px;
+  font-size:12px;
+}
+
 //.white-space-fix{
 //  margin-right:-4px;
 //}
@@ -59,7 +78,7 @@ ol{
           text-align: center;
           border:1px solid @seller-btn-color;
           color:@seller-btn-color;
-          border-radius:30px;
+          border-radius:@year-seller-share-btn-border-radius;
           &:hover{
             text-decoration: none;
             color:#ffffff;
@@ -428,6 +447,65 @@ ol{
 
 }
 
+
+//modal style
+.page-share-dialog{
+  .modal-dialog{
+    .modal-content{
+      .modal-header{
+        display: none;
+
+      }
+      .modal-body{
+        .share-modal-wrapper{
+          background-size: cover;
+          background-position:center;
+
+          text-align:center;
+          .qr-code-wrapper-control{
+            //horizontal alignment
+            position:absolute;
+            top:33.3%;
+            left:50%;
+            transform: translateX(-50%);
+          }
+          .weibo-share-btn-wrapper-control{
+            //position:absolute;
+            //top:68%;
+            //left:50%;
+            //transform: translateX(-50%);
+          }
+
+          .qq-share-btn-wrapper-control{
+            //position:absolute;
+            //top:78%;
+            //left:50%;
+            //transform: translateX(-50%);
+          }
+
+          .share-btn-wrapper{
+            .pg-weibo-share-btn{
+              &.pg-weibo-share-btn-bgc{
+                background-color: @weibo-hover-color;
+
+              }
+
+            }
+            .pg-qq-share-btn{
+              &.pg-qq-share-btn-bgc{
+                background-color: @qq-hover-color;
+              }
+            }
+          }
+        }
+
+      }
+    }
+  }
+
+}
+
+
 //put media query at bottom
 
 @media screen and (min-width:992px) and (max-width:1200px){
@@ -541,6 +619,42 @@ ol{
       //}
     }
   }
+  //model style
+  .page-share-dialog{
+  .modal-dialog{
+     //modal dialog style
+  //should add a new dialog class,the modal-dialog class is bs's
+
+    width:80%;
+    margin:10%;
+
+    .modal-content{
+      .modal-body{
+        .share-modal-wrapper{
+          .share-btn-wrapper{
+            .pg-weibo-share-btn{
+              &.year-seller-modal-share-btn{
+                 .small-year-seller-modal-share-btn;
+              }
+            }
+
+            .pg-qq-share-btn{
+              &.year-seller-modal-share-btn{
+                 .small-year-seller-modal-share-btn;
+              }
+
+            }
+
+          }
+        }
+
+      }
+    }
+  }
+
+}
+
+
 }
 
 
@@ -592,6 +706,8 @@ ol{
     }
   }
     }
+
+
 
 
 
@@ -700,6 +816,30 @@ ol{
       }
     }
   }
+
+  //model style
+
+  .page-share-dialog{
+  .modal-dialog{
+    .modal-content{
+      .modal-body{
+        .share-modal-wrapper{
+          .weibo-share-btn-wrapper-control{
+            top:80%;
+          }
+
+          .qq-share-btn-wrapper-control{
+            top:90%;
+          }
+        }
+
+      }
+    }
+  }
+
+}
+
+
 }
 
 @media screen and (max-width: 580px){
@@ -724,5 +864,48 @@ ol{
       }
     }
   }
+
+  //model style
+
+  .page-share-dialog{
+  .modal-dialog{
+    .modal-content{
+      .modal-header{
+        display: none;
+
+      }
+      .modal-body{
+        .share-modal-wrapper{
+          .weibo-share-btn-wrapper-control{
+            top:80%;
+          }
+
+          .qq-share-btn-wrapper-control{
+            top:90%;
+          }
+
+          .share-btn-wrapper{
+            .pg-weibo-share-btn{
+              &.year-seller-modal-share-btn{
+                 .small-year-seller-modal-share-btn;
+              }
+
+            }
+
+            .pg-qq-share-btn{
+              &.year-seller-modal-share-btn{
+                 .small-year-seller-modal-share-btn;
+              }
+
+            }
+
+          }
+        }
+
+      }
+    }
+  }
+
+}
 
 }
