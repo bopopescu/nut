@@ -49,9 +49,7 @@ def handel(keyword, **kwargs):
             'itemid': itemId,
         })
 
-    # print params
-
-    # req.params={"keyword":"nike",      "istk":"true",      "count":"20" }
+    app.logger.info(params)
     req.params = json.dumps( params )
 
     try:
@@ -60,5 +58,6 @@ def handel(keyword, **kwargs):
         res = resp['alibaba_orp_recommend_response']['recommend']
         return json.loads(res)
     except Exception, e:
-        print(e)
+        app.logger.error(e.message)
+        return None
 
