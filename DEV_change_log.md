@@ -12,8 +12,8 @@
     ADD COLUMN `ip` VARCHAR(45) NULL COMMENT '' AFTER `search_time`,
     ADD COLUMN `agent` VARCHAR(255) NULL COMMENT '' AFTER `ip`;
     
-    ALTER TABLE `core`.`core_sd_address_list` 
-    ADD UNIQUE INDEX `address_UNIQUE` (`address` ASC)  COMMENT '';
+    ALTER TABLE `core`.`core_search_history` 
+    CHANGE COLUMN `key_words` `key_words` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL COMMENT '' ;
 
 ---
 
