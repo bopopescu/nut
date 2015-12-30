@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import Response, request, jsonify
+from flask import Response, request, abort
 
 from tbrecommend import handel
 # from top import api
@@ -21,6 +21,8 @@ def recommend():
 
     res = handel(keyword=keyword, itemId=itemId, istk=istk, ismall=ismall, count=count)
     # print res
+    if res is None:
+        abort(404)
     return Response(res, mimetype="application/json")
     # return jsonify(res['alibaba_orp_recommend_response']['recommend'])
 
