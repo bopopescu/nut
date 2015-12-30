@@ -842,7 +842,6 @@ ol {
   color: #9D9E9F;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share {
-  display: block;
   height: 20px;
   margin-top: 15px;
   margin-bottom: 20px;
@@ -985,13 +984,13 @@ ol {
   .section-title.section-forth-title:after {
     content: " LIFESTYLE";
   }
-  .seller-body .seller-page-container .sections-item-sellers-wrapper .sellers-wrapper .sellers-share-visible {
+  .seller-page-container .sections-item-sellers-wrapper .sellers-wrapper .sellers-share-visible {
     display: none;
   }
-  .seller-body .seller-page-container .sections-item-sellers-wrapper .sellers-wrapper:hover .score-hidden {
+  .seller-page-container .sections-item-sellers-wrapper .sellers-wrapper:hover .score-hidden {
     display: none;
   }
-  .seller-body .seller-page-container .sections-item-sellers-wrapper .sellers-wrapper:hover .sellers-share-visible {
+  .seller-page-container .sections-item-sellers-wrapper .sellers-wrapper:hover .sellers-share-visible {
     display: block;
   }
 }
@@ -1016,6 +1015,12 @@ ol {
   }
   .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper {
     margin-bottom: 20px;
+  }
+  .seller-page-container .sections-item-wrapper .sections-item-sellers-wrapper .sellers-wrapper .score-hidden {
+    display: none;
+  }
+  .seller-page-container .sections-item-wrapper .sections-item-sellers-wrapper .sellers-wrapper .sellers-share-visible {
+    display: block;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 992px) {

@@ -287,7 +287,6 @@ ol{
          }
        }
        .sellers-share{
-         display: block;
          height:20px;
          margin-top:15px;
          margin-bottom: 20px;
@@ -302,7 +301,7 @@ ol{
                i{
                  color:@light-gray;
                  margin-right: 5px;
-                                 &.fa-qq:hover{
+                  &.fa-qq:hover{
                      &.qq-hover{
                       color: @qq-hover-color;
 
@@ -541,7 +540,6 @@ ol{
     }
 
   //   change the sellers style
-  .seller-body{
     .seller-page-container{
 
        .sections-item-sellers-wrapper{
@@ -563,7 +561,6 @@ ol{
     }
   }
     }
-  }
 
 
 
@@ -607,11 +604,17 @@ ol{
 
 
         }
-        //.sections-item-sellers-wrapper{
-        //  .sellers-wrapper{
-        //
-        //  }
-        //}
+        .sections-item-sellers-wrapper{
+          .sellers-wrapper{
+            .score-hidden{
+              display: none;
+            }
+            .sellers-share-visible{
+              display: block;
+            }
+
+          }
+        }
 
       }
 
