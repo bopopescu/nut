@@ -173,8 +173,9 @@
 
             <div class="row sections-item-intro-wrapper">
 
-                <img src="/static/images/year-seller/culture.jpg" class="img-responsive img-handle">
+                <div class="section-intro-bg-layer" style="background-image: url('/static/images/year-seller/culture.jpg')">
 
+                </div>
                 <div class="col-xs-12 sections-item-title">
                     <h3>文艺漫游 CULTURE</h3>
                 </div>
@@ -208,7 +209,8 @@
 
             <div class="row sections-item-intro-wrapper">
 
-                <img src="/static/images/year-seller/looks.jpg" class="img-responsive img-handle">
+                <div class="section-intro-bg-layer" style="background-image: url('/static/images/year-seller/looks.jpg')">
+                </div>
 
                 <div class="col-xs-12 sections-item-title">
                     <h3>衣衫配饰 LOOKS</h3>
@@ -244,8 +246,9 @@
 
             <div class="row sections-item-intro-wrapper">
 
-                <img src="/static/images/year-seller/lifestyle.jpg" class="img-responsive img-handle">
+                <div class="section-intro-bg-layer" style="background-image: url('/static/images/year-seller/lifestyle.jpg')">
 
+                </div>
                 <div class="col-xs-12 sections-item-title">
                     <h3>生活榜样 LIFESTYLE</h3>
                 </div>
@@ -315,4 +318,9 @@
 {% endblock %}
 {% block basic_script %}
     <script data-main="{% static 'js/web/jsbuild/seller_2015_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+{% endblock %}
+
+{% block ga_script %}
+    <!-- Google Analytics -->
+
 {% endblock %}

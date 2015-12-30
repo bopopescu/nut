@@ -192,12 +192,13 @@ ol{
   background-color: @very-light-gray;
    .sections-item-wrapper{
      .sections-item-intro-wrapper{
-
+       overflow: hidden;
        .section-intro-bg-layer{
+//         transition: all 0.5s;
          position: absolute;
          left: 0px;
          top: 0px;
-         width: 100%;
+         width: 140%;
          height: 200%;
          .acc-layer;
          background-position: center;
@@ -734,6 +735,9 @@ ol{
 @media screen and (max-width: 580px){
   .seller-body{
     .seller-page-container{
+      .sections-item-desc{
+         display:none;
+      }
       .popular-shops-wrapper{
         .popular-shop-item-wrapper{
           .popular-shop-item{

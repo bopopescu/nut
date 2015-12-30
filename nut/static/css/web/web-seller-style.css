@@ -768,6 +768,7 @@ ol {
   background-color: #f8f8f8;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper {
+  overflow: hidden;
   position: relative;
   margin-bottom: 30px;
   height: 400px;
@@ -777,7 +778,7 @@ ol {
   position: absolute;
   left: 0px;
   top: 0px;
-  width: 100%;
+  width: 140%;
   height: 200%;
   backface-visibility: hidden;
   -webkit-transform: translate3d(0, 0, 0);
@@ -1090,6 +1091,9 @@ ol {
   }
 }
 @media screen and (max-width: 580px) {
+  .seller-body .seller-page-container .sections-item-desc {
+    display: none;
+  }
   .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item {
     text-align: center;
   }
