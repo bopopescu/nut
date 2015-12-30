@@ -448,7 +448,7 @@ ol{
 }
 
 
-//modal style
+//model style
 .page-share-dialog{
   .modal-dialog{
     .modal-content{
@@ -457,31 +457,35 @@ ol{
 
       }
       .modal-body{
+        padding:0px;
         .share-modal-wrapper{
           background-size: cover;
-          background-position:center;
+          //add a media query
+          //background-position:center;
+          padding-top:200px;
 
-          text-align:center;
-          .qr-code-wrapper-control{
-            //horizontal alignment
-            position:absolute;
-            top:33.3%;
-            left:50%;
-            transform: translateX(-50%);
+          .qr-code-wrapper{
+
+             .img-control{
+              margin:0 auto;
           }
+
+          }
+
           .weibo-share-btn-wrapper-control{
-            //position:absolute;
-            //top:68%;
-            //left:50%;
-            //transform: translateX(-50%);
+            .pg-weibo-share-btn{
+              margin:0 auto;
+              margin-bottom:10px;
+            }
           }
 
           .qq-share-btn-wrapper-control{
-            //position:absolute;
-            //top:78%;
-            //left:50%;
-            //transform: translateX(-50%);
+            .pg-qq-share-btn{
+              margin:0 auto;
+              margin-bottom:20px;
+            }
           }
+
 
           .share-btn-wrapper{
             .pg-weibo-share-btn{
@@ -620,39 +624,39 @@ ol{
     }
   }
   //model style
-  .page-share-dialog{
-  .modal-dialog{
-     //modal dialog style
-  //should add a new dialog class,the modal-dialog class is bs's
-
-    width:80%;
-    margin:10%;
-
-    .modal-content{
-      .modal-body{
-        .share-modal-wrapper{
-          .share-btn-wrapper{
-            .pg-weibo-share-btn{
-              &.year-seller-modal-share-btn{
-                 .small-year-seller-modal-share-btn;
-              }
-            }
-
-            .pg-qq-share-btn{
-              &.year-seller-modal-share-btn{
-                 .small-year-seller-modal-share-btn;
-              }
-
-            }
-
-          }
-        }
-
-      }
-    }
-  }
-
-}
+//  .page-share-dialog{
+//  .modal-dialog{
+//    //modal dialog style
+//    //should add a new dialog class,the modal-dialog class is bs's
+//
+//    width:80%;
+//    margin:10%;
+//
+//    .modal-content{
+//      .modal-body{
+//        .share-modal-wrapper{
+//          .share-btn-wrapper{
+//            .pg-weibo-share-btn{
+//              &.year-seller-modal-share-btn{
+//                 .small-year-seller-modal-share-btn;
+//              }
+//            }
+//
+//            .pg-qq-share-btn{
+//              &.year-seller-modal-share-btn{
+//                 .small-year-seller-modal-share-btn;
+//              }
+//
+//            }
+//
+//          }
+//        }
+//
+//      }
+//    }
+//  }
+//
+//}
 
 
 }
@@ -707,6 +711,40 @@ ol{
   }
     }
 
+    //model style
+//  .page-share-dialog{
+//  .modal-dialog{
+//    //modal dialog style
+//    //should add a new dialog class,the modal-dialog class is bs's
+//
+//    width:580px;
+//    margin:580px;
+//
+//    .modal-content{
+//      .modal-body{
+//        .share-modal-wrapper{
+//          .share-btn-wrapper{
+//            .pg-weibo-share-btn{
+//              &.year-seller-modal-share-btn{
+//                 .small-year-seller-modal-share-btn;
+//              }
+//            }
+//
+//            .pg-qq-share-btn{
+//              &.year-seller-modal-share-btn{
+//                 .small-year-seller-modal-share-btn;
+//              }
+//
+//            }
+//
+//          }
+//        }
+//
+//      }
+//    }
+//  }
+//
+//}
 
 
 
@@ -817,29 +855,6 @@ ol{
     }
   }
 
-  //model style
-
-  .page-share-dialog{
-  .modal-dialog{
-    .modal-content{
-      .modal-body{
-        .share-modal-wrapper{
-          .weibo-share-btn-wrapper-control{
-            top:80%;
-          }
-
-          .qq-share-btn-wrapper-control{
-            top:90%;
-          }
-        }
-
-      }
-    }
-  }
-
-}
-
-
 }
 
 @media screen and (max-width: 580px){
@@ -864,48 +879,5 @@ ol{
       }
     }
   }
-
-  //model style
-
-  .page-share-dialog{
-  .modal-dialog{
-    .modal-content{
-      .modal-header{
-        display: none;
-
-      }
-      .modal-body{
-        .share-modal-wrapper{
-          .weibo-share-btn-wrapper-control{
-            top:80%;
-          }
-
-          .qq-share-btn-wrapper-control{
-            top:90%;
-          }
-
-          .share-btn-wrapper{
-            .pg-weibo-share-btn{
-              &.year-seller-modal-share-btn{
-                 .small-year-seller-modal-share-btn;
-              }
-
-            }
-
-            .pg-qq-share-btn{
-              &.year-seller-modal-share-btn{
-                 .small-year-seller-modal-share-btn;
-              }
-
-            }
-
-          }
-        }
-
-      }
-    }
-  }
-
-}
 
 }

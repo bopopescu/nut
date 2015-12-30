@@ -958,16 +958,23 @@ ol {
 .page-share-dialog .modal-dialog .modal-content .modal-header {
   display: none;
 }
+.page-share-dialog .modal-dialog .modal-content .modal-body {
+  padding: 0px;
+}
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper {
   background-size: cover;
-  background-position: center;
-  text-align: center;
+  padding-top: 200px;
 }
-.page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper .qr-code-wrapper-control {
-  position: absolute;
-  top: 33.3%;
-  left: 50%;
-  transform: translateX(-50%);
+.page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper .qr-code-wrapper .img-control {
+  margin: 0 auto;
+}
+.page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper .weibo-share-btn-wrapper-control .pg-weibo-share-btn {
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+.page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper .qq-share-btn-wrapper-control .pg-qq-share-btn {
+  margin: 0 auto;
+  margin-bottom: 20px;
 }
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper .share-btn-wrapper .pg-weibo-share-btn.pg-weibo-share-btn-bgc {
   background-color: #E90D24;
@@ -1025,22 +1032,6 @@ ol {
   }
   .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul li {
     width: 20%;
-  }
-  .page-share-dialog .modal-dialog {
-    width: 80%;
-    margin: 10%;
-  }
-  .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper .share-btn-wrapper .pg-weibo-share-btn.year-seller-modal-share-btn {
-    width: 100px;
-    height: 35px;
-    line-height: 35px;
-    font-size: 12px;
-  }
-  .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper .share-btn-wrapper .pg-qq-share-btn.year-seller-modal-share-btn {
-    width: 100px;
-    height: 35px;
-    line-height: 35px;
-    font-size: 12px;
   }
 }
 @media screen and (min-width: 768px) {
@@ -1115,12 +1106,6 @@ ol {
   .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item {
     padding: 18px 35px;
   }
-  .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper .weibo-share-btn-wrapper-control {
-    top: 80%;
-  }
-  .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper .qq-share-btn-wrapper-control {
-    top: 90%;
-  }
 }
 @media screen and (max-width: 580px) {
   .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item {
@@ -1133,26 +1118,5 @@ ol {
   .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-logo-wrapper {
     margin: 0 auto;
     margin-top: 10px;
-  }
-  .page-share-dialog .modal-dialog .modal-content .modal-header {
-    display: none;
-  }
-  .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper .weibo-share-btn-wrapper-control {
-    top: 80%;
-  }
-  .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper .qq-share-btn-wrapper-control {
-    top: 90%;
-  }
-  .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper .share-btn-wrapper .pg-weibo-share-btn.year-seller-modal-share-btn {
-    width: 100px;
-    height: 35px;
-    line-height: 35px;
-    font-size: 12px;
-  }
-  .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper .share-btn-wrapper .pg-qq-share-btn.year-seller-modal-share-btn {
-    width: 100px;
-    height: 35px;
-    line-height: 35px;
-    font-size: 12px;
   }
 }
