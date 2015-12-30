@@ -1,34 +1,36 @@
-from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect, \
-    HttpResponse
-from django.shortcuts import render_to_response
-from django.template import RequestContext
-from django.core.urlresolvers import reverse
-# from django.views.generic.list import ListView
-# from django.core.paginator import Paginator, EmptyPage, InvalidPage
-from django.utils.log import getLogger
-# from django.core.files.storage import default_storage
-from django.views.decorators.csrf import csrf_exempt
-from django.core.cache import cache
-from django.contrib.auth.decorators import login_required
-from apps.management.decorators import staff_only
-
-from apps.core.models import Entity, Buy_Link
-from apps.core.forms.entity import EditEntityForm, EntityImageForm, \
-    CreateEntityForm, load_entity_info, BuyLinkForm, EditBuyLinkForm
-from apps.core.extend.paginator import ExtentPaginator, EmptyPage, \
-    PageNotAnInteger
-from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.tasks.entity import fetch_image
-
-# for entity list view class
-from django.views.generic.list import ListView
-from apps.core.mixins.views import SortMixin, FilterMixin
-from apps.core.extend.paginator import ExtentPaginator as Jpaginator
-
 import requests
 
-# from django.utils import timezone
+from hashlib import md5
+from django.core.cache import cache
+from django.core.urlresolvers import reverse
+from django.http import Http404
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from django.http import HttpResponseNotAllowed
+from django.utils.log import getLogger
+from django.template import RequestContext
+from django.shortcuts import render_to_response
+from django.views.generic.list import ListView
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
+from apps.core.extend.paginator import EmptyPage
+from apps.core.extend.paginator import ExtentPaginator
+from apps.core.extend.paginator import PageNotAnInteger
+from apps.core.forms.entity import EditEntityForm
+from apps.core.forms.entity import EntityImageForm
+from apps.core.forms.entity import CreateEntityForm
+from apps.core.forms.entity import load_entity_info
+from apps.core.forms.entity import BuyLinkForm
+from apps.core.forms.entity import EditBuyLinkForm
+from apps.core.mixins.views import FilterMixin
+from apps.core.models import Entity, Buy_Link
+from apps.core.tasks.entity import fetch_image
+from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
+from apps.management.decorators import staff_only
+
+
+log = getLogger('django')
 
 
 class EntityListView(FilterMixin, ListView):
@@ -36,16 +38,17 @@ class EntityListView(FilterMixin, ListView):
     model = Entity
     paginate_by = 30
     context_object_name = 'entities'
-    paginator_class = Jpaginator
+    paginator_class = ExtentPaginator
 
     def get_queryset(self):
-        qs = super(EntityListView,self).get_queryset()
-        status =  self.request.GET.get('status', None)
+        qs = super(EntityListView, self).get_queryset()
+        status = self.request.GET.get('status', None)
         if status is None:
             return qs
         else:
-            entity_list = qs.filter(status=int(status)).order_by('-updated_time')
-        return  entity_list
+            entity_list = qs.filter(status=int(status)).order_by(
+                    '-updated_time')
+        return entity_list
 
     # TODO: need clear input  in filter Mixin
     def filter_queryset(self, qs, filter_param):
@@ -58,34 +61,10 @@ class EntityListView(FilterMixin, ListView):
             pass
         return qs
 
-
     def get_context_data(self, *args, **kwargs):
         context = super(EntityListView, self).get_context_data(*args, **kwargs)
-        context['status'] =  self.request.GET.get('status', None)
+        context['status'] = self.request.GET.get('status', None)
         return context
-
-# entity list view class end
-
-
-
-from hashlib import md5
-
-log = getLogger('django')
-
-#
-# class EntityListView(ListView):
-# model = Entity
-# template_name = 'management/entities/list.html'
-# context_object_name = "entities"
-#     paginate_by = 30
-#     http_method_names = [u'get',]
-#
-#     def get_queryset(self):
-#         page = self.request.GET.get('page', 1)
-#         status = self.request.GET.get('status', None)
-
-
-
 
 
 @login_required
@@ -95,9 +74,10 @@ def list(request, template='management/entities/list.html'):
     page = request.GET.get('page', 1)
 
     if status is None:
-        entity_list  = Entity.objects.all()
+        entity_list = Entity.objects.all()
     else:
-        entity_list = Entity.objects.filter(status=int(status)).order_by('-updated_time')
+        entity_list = Entity.objects.filter(status=int(status)).order_by(
+                '-updated_time')
 
     paginator = ExtentPaginator(entity_list, 30)
 
@@ -107,15 +87,13 @@ def list(request, template='management/entities/list.html'):
         entities = paginator.page(1)
     except EmptyPage:
         raise Http404
-    # log.info(paginator.page_range)
     return render_to_response(
-        template,
-        {
-            'entities': entities,
-            # 'page_range': paginator.page_range_ext,
-            'status': status,
-        },
-        context_instance=RequestContext(request)
+            template,
+            {
+                'entities': entities,
+                'status': status,
+            },
+            context_instance=RequestContext(request)
     )
 
 
@@ -129,7 +107,6 @@ def edit(request, entity_id, template='management/entities/edit.html'):
         raise Http404
 
     data = {
-        # 'id':entity.pk,
         'creator': entity.user.profile.nickname,
         'brand': entity.brand,
         'title': entity.title,
@@ -141,9 +118,9 @@ def edit(request, entity_id, template='management/entities/edit.html'):
 
     if request.method == "POST":
         _forms = EditEntityForm(
-            entity,
-            request.POST,
-            initial=data
+                entity,
+                request.POST,
+                initial=data
         )
         _update = 1
 
@@ -152,20 +129,19 @@ def edit(request, entity_id, template='management/entities/edit.html'):
             _update = 0
 
     else:
-        # log.info(entity.category)
         _forms = EditEntityForm(
-            entity=entity,
-            initial=data
+                entity=entity,
+                initial=data
         )
 
     return render_to_response(
-        template,
-        {
-            'entity': entity,
-            'forms': _forms,
-            'update': _update,
-        },
-        context_instance=RequestContext(request)
+            template,
+            {
+                'entity': entity,
+                'forms': _forms,
+                'update': _update,
+            },
+            context_instance=RequestContext(request)
     )
 
 
@@ -176,48 +152,40 @@ def create(request, template='management/entities/new.html'):
 
     if _url is None:
         raise Http404
-        # print(_url)
     res = load_entity_info(_url)
-    # log.info("OKOKO %s", len(res))
 
     if res.has_key('entity_id'):
         return HttpResponseRedirect(
-            reverse('management_entity_edit', args=[res['entity_id']]))
+                reverse('management_entity_edit', args=[res['entity_id']]))
 
     if len(res) == 0:
         return HttpResponse('not support')
 
     if request.method == "POST":
-        # log.info(request.POST)
         _forms = CreateEntityForm(request=request, data=request.POST,
                                   initial=res)
-        # _forms = EntityURLFrom(request=request, data=request.POST)
         if _forms.is_valid():
             entity = _forms.save()
             return HttpResponseRedirect(
-                reverse('management_entity_edit', args=[entity.pk]))
+                    reverse('management_entity_edit', args=[entity.pk]))
     else:
 
-        # log.info("category %s %s" % (res['cid'], res['origin_source']))
         key_string = "%s%s" % (res['cid'], res['origin_source'])
-        # log.info(ke)
         key = md5(key_string.encode('utf-8')).hexdigest()
         category_id = cache.get(key)
-        # res.update('category_id', category_id)
         if category_id:
             res['category_id'] = category_id
         else:
             res['category_id'] = 300
-        # log.info("%s %s" % (key, category_id))
         _forms = CreateEntityForm(request=request, initial=res)
 
     return render_to_response(
-        template,
-        {
-            'res': res,
-            'forms': _forms,
-        },
-        context_instance=RequestContext(request)
+            template,
+            {
+                'res': res,
+                'forms': _forms,
+            },
+            context_instance=RequestContext(request)
     )
 
 
@@ -242,18 +210,18 @@ def buy_link(request, entity_id, template='management/entities/buy_link.html'):
         if _forms.is_valid():
             _forms.save()
             return HttpResponseRedirect(
-                reverse('management_entity_edit', args=[entity_id]))
+                    reverse('management_entity_edit', args=[entity_id]))
     else:
         _forms = BuyLinkForm(entity=_entity)
 
     return render_to_response(
-        template,
-        {
-            'entity': _entity,
-            'forms': _forms,
-            # 'buy_link_list': _buy_link_list,
-        },
-        context_instance=RequestContext(request)
+            template,
+            {
+                'entity': _entity,
+                'forms': _forms,
+                # 'buy_link_list': _buy_link_list,
+            },
+            context_instance=RequestContext(request)
     )
 
 
@@ -271,7 +239,8 @@ def edit_buy_link(request, bid,
         if _forms.is_valid():
             buy_link = _forms.save()
             return HttpResponseRedirect(
-                reverse('management_entity_edit', args=[buy_link.entity_id]))
+                    reverse('management_entity_edit',
+                            args=[buy_link.entity_id]))
     else:
         # log.info(int(buy.default))
         _forms = EditBuyLinkForm(buy_link=buy, initial={
@@ -280,12 +249,12 @@ def edit_buy_link(request, bid,
         })
 
     return render_to_response(
-        template,
-        {
-            'entity': buy.entity,
-            'forms': _forms,
-        },
-        context_instance=RequestContext(request))
+            template,
+            {
+                'entity': buy.entity,
+                'forms': _forms,
+            },
+            context_instance=RequestContext(request))
 
 
 @csrf_exempt
@@ -322,6 +291,7 @@ def check_buy_link(request, bid):
     res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
     # return res.json()
     return SuccessJsonResponse(data=res.json())
+
 
 # TODO:
 '''
@@ -360,12 +330,12 @@ def image(request, entity_id,
         _forms = EntityImageForm(entity=_entity)
 
     return render_to_response(
-        template,
-        {
-            'entity': _entity,
-            'forms': _forms,
-        },
-        context_instance=RequestContext(request)
+            template,
+            {
+                'entity': _entity,
+                'forms': _forms,
+            },
+            context_instance=RequestContext(request)
     )
 
 

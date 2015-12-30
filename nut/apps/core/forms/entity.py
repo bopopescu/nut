@@ -16,7 +16,7 @@ from apps.core.models import Entity, Sub_Category, Category, Buy_Link, Note
 from apps.core.tasks.entity import fetch_image
 from apps.core.utils.image import HandleImage
 from apps.fetch import get_entity_info
-from apps.fetch import get_url_meta
+from apps.fetch.common import get_url_meta
 
 
 log = getLogger('django')

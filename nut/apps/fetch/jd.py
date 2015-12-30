@@ -5,27 +5,37 @@ import json
 import urllib2
 
 from hashlib import md5
-from bs4 import BeautifulSoup
 from django.core.cache import cache
 from django.utils.log import getLogger
 
-from apps.fetch.fetcher import Fetcher
+from apps.fetch.base import BaseFetcher
 
 
 log = getLogger('django')
 
 
-class JD(Fetcher):
+class JD(BaseFetcher):
 
-    def __init__(self, item_id):
-        self.item_id = item_id
-        self.html = self.fetch_html()
-        self.soup = BeautifulSoup(self.html, from_encoding="gb18030")
-        self.price_json = self.fetch_price()
-        # self.price_link = "http://p.3.cn/prices/get?skuid=J_%d&type=1&area=1_72_4137&callback=cnp" % self.item_id
+    def __init__(self, entity_url):
+
+        BaseFetcher.__init__(self, entity_url)
+        self.high_resolution_pattern = re.compile('hiRes"[\s]*:[\s]*"([^";]+)')
+        self.large_resolution_pattern = re.compile('large"[\s]*:[\s]*"([^";]+)')
+        self.price_pattern = re.compile(u'(?:￥|\$)\s?(?P<price>\d+\.\d+)')
+        self.foreign_price = 0.0
+        self.entity_url = entity_url
+        self.origin_id = self.get_origin_id()
+        self.expected_element = 'span.tm-price'
+        self.shop_link = self.get_shop_link()
+        self.shop_nick = self.get_nick()
+
+    def get_origin_id(self):
+        ids = re.findall(r'\d+', self.entity_url)
+        if len(ids) > 0:
+            return ids[0]
 
     def fetch_html(self):
-        url = 'http://item.jd.com/%s.html' % self.item_id
+        url = 'http://item.jd.com/%s.html' % self.origin_id
         key = md5(url).hexdigest()
         res = cache.get(key)
         if res:
@@ -37,25 +47,20 @@ class JD(Fetcher):
             raise
 
         self._headers = f.headers
-
         res = f.read()
-
         cache.set(key, res)
-
         return res
 
     def fetch_price(self):
-        price_link = "http://p.3.cn/prices/get?skuid=J_%s&type=1&area=1_72_4137&callback=cnp" % self.item_id
+        price_link = "http://p.3.cn/prices/get?skuid=J_%s&type=1&area=1_72_4137&callback=cnp" % self.origin_id
         resp = urllib2.urlopen(price_link)
         data = resp.read()
         data = data[5:-4]
-        # pj = json.loads(data)
         return json.loads(data)
 
     @property
     def title(self):
         self._title = self.soup.title.string
-        # print self._title
         return self._title
 
     @property
@@ -77,8 +82,7 @@ class JD(Fetcher):
         # print category
         return category[-1]
 
-    @property
-    def shop_link(self):
+    def get_shop_link(self):
         tmp = re.findall(r'店铺.*>(.+)</a>', self.html)
         # _shop_link = ""
         if len(tmp)>0:

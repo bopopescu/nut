@@ -4,7 +4,7 @@ import re
 
 from django.utils.log import getLogger
 
-from apps.fetch.fetcher import Fetcher
+from apps.fetch.base import BaseFetcher
 
 
 log = getLogger('django')
@@ -12,13 +12,13 @@ log = getLogger('django')
 IMG_POSTFIX = "_\d+_\d+.*\.jpg|_b\.jpg"
 
 
-class Kaola(Fetcher):
+class Kaola(BaseFetcher):
 
-    @property
-    def origin_id(self):
-        p = re.compile('\d+')
-        m = p.search(self.urlobj.path)
-        return m.group()
+
+    def get_origin_id(url):
+        ids = re.findall(r'\d+', url)
+        if len(ids) > 0:
+            return ids[0]
 
     @property
     def nick(self):

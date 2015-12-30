@@ -10,7 +10,7 @@ from apps.fetch import SixPM
 from apps.fetch import TaoBao
 from apps.fetch import Tmall
 from apps.fetch import Booking
-from apps.fetch.common import get_origin_source_by_url, clean_price_string, \
+from apps.fetch.common import get_origin_source, clean_price_string, \
     get_provider
 
 
@@ -27,21 +27,21 @@ from apps.fetch.common import get_origin_source_by_url, clean_price_string, \
 ))
 def test_get_provider_and_source(provider, hostname, key, links):
     for link in links[key].keys():
-        assert get_origin_source_by_url(link) == hostname
+        assert get_origin_source(link) == hostname
         assert get_provider(link) == provider
 
 
 def test_get_origin_source_by_url():
     test_url = 'http://www.baidu.com'
-    assert get_origin_source_by_url(test_url) == 'baidu.com'
+    assert get_origin_source(test_url) == 'baidu.com'
     assert get_provider(test_url) is None
 
     test_url = 'http://www.weibo.com'
-    assert get_origin_source_by_url(test_url) == 'weibo.com'
+    assert get_origin_source(test_url) == 'weibo.com'
     assert get_provider(test_url) is None
 
     test_url = 'http://www.ele.me'
-    assert get_origin_source_by_url(test_url) == 'ele.me'
+    assert get_origin_source(test_url) == 'ele.me'
     assert get_provider(test_url) is None
 
 

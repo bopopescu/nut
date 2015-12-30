@@ -11,7 +11,7 @@ from django.utils.translation import gettext_lazy as _
 
 from apps.core.models import Entity, Note, Buy_Link
 from apps.core.tasks.entity import fetch_image
-from apps.fetch.spider import get_entity_info
+from apps.fetch import get_entity_info
 from apps.fetch.common import get_url_meta
 from apps.report.models import Report
 

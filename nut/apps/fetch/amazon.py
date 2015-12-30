@@ -2,15 +2,15 @@
 
 import re
 
-from apps.fetch.fetcher import Fetcher
+from apps.fetch.base import BaseFetcher
 from apps.fetch.common import clean_price_string
 from apps.fetch.common import get_key
 from apps.core.utils.commons import currency_converting
 
 
-class Amazon(Fetcher):
+class Amazon(BaseFetcher):
     def __init__(self, entity_url):
-        Fetcher.__init__(self, entity_url)
+        BaseFetcher.__init__(self, entity_url)
         self.high_resolution_pattern = re.compile('hiRes"[\s]*:[\s]*"([^";]+)')
         self.large_resolution_pattern = re.compile('large"[\s]*:[\s]*"([^";]+)')
         self.price_pattern = re.compile(u'(?:￥|\$)\s?(?P<price>\d+\.\d+)')
@@ -19,7 +19,7 @@ class Amazon(Fetcher):
         self.origin_id = self.get_origin_id
         self.expected_element = self.get_expected_element()
         self.shop_link = self.hostname
-        self.nick = self.get_nick()
+        self.shop_nick = self.get_nick()
 
     @property
     def get_origin_id(self):

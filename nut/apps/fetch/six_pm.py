@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from hashlib import md5
-from apps.fetch.fetcher import Fetcher
+from apps.fetch.base import BaseFetcher
 
 
-class SixPM(Fetcher):
+class SixPM(BaseFetcher):
 
     def __init__(self, url):
         super(SixPM, self).__init__(url)
-
 
     @property
     def origin_id(self):

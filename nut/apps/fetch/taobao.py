@@ -5,15 +5,15 @@ import re
 from urllib import unquote
 from django.utils.log import getLogger
 
-from apps.fetch.fetcher import Fetcher
+from apps.fetch.base import BaseFetcher
 
 IMG_POSTFIX = "_\d+x\d+.*\.jpg|_b\.jpg"
 log = getLogger('django')
 
 
-class TaoBao(Fetcher):
+class TaoBao(BaseFetcher):
     def __init__(self, entity_url):
-        Fetcher.__init__(self, entity_url)
+        BaseFetcher.__init__(self, entity_url)
         self.high_resolution_pattern = re.compile('hiRes"[\s]*:[\s]*"([^";]+)')
         self.large_resolution_pattern = re.compile('large"[\s]*:[\s]*"([^";]+)')
         self.price_pattern = re.compile(u'(?:￥|\$)\s?(?P<price>\d+\.\d+)')
@@ -22,6 +22,7 @@ class TaoBao(Fetcher):
         self.origin_id = self.get_origin_id()
         self.expected_element = 'ul.tb-promo-meta'
         self.shop_link = self.hostname
+        self.shop_nick = self.get_nick()
 
     def get_origin_id(self):
         params = self.entity_url.split("?")[1]
@@ -159,3 +160,6 @@ class TaoBao(Fetcher):
             for brand_li in seller_soup:
                 if brand_li.text.find(u'品牌') >= 0:
                     return brand_li.text.split(u':')[1].strip()
+
+    def get_nick(self):
+        pass

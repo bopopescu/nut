@@ -6,16 +6,16 @@ from urllib import unquote
 from django.utils.log import getLogger
 
 from apps.fetch.common import clean_price_string
-from apps.fetch.fetcher import Fetcher
+from apps.fetch.base import BaseFetcher
 
 
 log = getLogger('django')
 IMG_POSTFIX = "_\d+x\d+.*\.jpg|_b\.jpg"
 
 
-class Tmall(Fetcher):
+class Tmall(BaseFetcher):
     def __init__(self, entity_url):
-        Fetcher.__init__(self, entity_url)
+        BaseFetcher.__init__(self, entity_url)
         self.high_resolution_pattern = re.compile('hiRes"[\s]*:[\s]*"([^";]+)')
         self.large_resolution_pattern = re.compile('large"[\s]*:[\s]*"([^";]+)')
         self.price_pattern = re.compile(u'(?:￥|\$)\s?(?P<price>\d+\.\d+)')
@@ -23,10 +23,10 @@ class Tmall(Fetcher):
         self.entity_url = entity_url
         self.origin_id = self.get_origin_id()
         self.expected_element = 'span.tm-price'
-        self.shop_link = self.hostname
+        self.shop_link = self.get_shop_link()
+        self.shop_nick = self.get_nick()
 
-    @property
-    def nick(self):
+    def get_nick(self):
         self._nick = self._headers.get('at_nick')
         if not self._nick:
             return ""
@@ -118,11 +118,10 @@ class Tmall(Fetcher):
             _images.append(optimg)
         return _images
 
-    @property
-    def shoplink(self):
-        shopidtag = re.findall('shopId:"(\d+)', self.html)
+    def get_shop_link(self):
+        shop_id_tag = re.findall('shopId:"(\d+)', self.html)
 
-        if len(shopidtag) > 0:
-            shoplink = "http://shop"+shopidtag[0]+".taobao.com"
-            return shoplink
+        if len(shop_id_tag) > 0:
+            shop_link = "http://shop"+shop_id_tag[0]+".taobao.com"
+            return shop_link
         return "http://chaoshi.tmall.com/"

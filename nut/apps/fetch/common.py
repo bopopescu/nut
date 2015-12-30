@@ -13,26 +13,6 @@ from settings import CURRENCY_SYMBOLS
 log = getLogger('django')
 
 
-# def parse_jd_id_from_url(url):
-#     ids = re.findall(r'\d+', url)
-#     if len(ids) > 0:
-#         return ids[0]
-#
-#
-# def parse_kaola_id_from_url(url):
-#     ids = re.findall(r'\d+', url)
-#     if len(ids) > 0:
-#         return ids[0]
-#
-#
-# def parse_booking_id_from_url(url):
-#     params = url.split("?")[1]
-#     for param in params.split(";"):
-#         tokens = param.split("=")
-#         if len(tokens) >= 2 and tokens[0] == "sid":
-#             return tokens[1]
-
-
 def get_key(hostname):
     if not hostname:
         return
@@ -42,7 +22,7 @@ def get_key(hostname):
     return '.'.join(hostname.split('.')[-2:])
 
 
-def get_origin_source_by_url(item_url):
+def get_origin_source(item_url):
     if not item_url:
         return
 
@@ -103,24 +83,6 @@ def get_url_meta(entity_url, keys=('origin_id', 'origin_source', 'link')):
     for key in keys:
         values.append(provider.get(key, ''))
     return values
-
-
-def get_origin_source(item_url):
-    if not item_url:
-        return
-
-    hostname = urlparse(item_url).hostname
-    if not hostname:
-        return
-
-    white_list = ('yao.95095.com',)
-    for host_str in white_list:
-        if hostname.find(host_str) >= 0:
-            return host_str
-
-    if len(hostname) > 2 and hostname.split('.')[-2] == 'com':
-        return '.'.join(hostname.split('.')[-3:])
-    return '.'.join(hostname.split('.')[-2:])
 
 
 def get_provider(item_url):

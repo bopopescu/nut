@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from apps.fetch.fetcher import Fetcher
+from apps.fetch.base import BaseFetcher
 
 
-class Booking(Fetcher):
+class Booking(BaseFetcher):
 
     # @property
     # def url(self):
@@ -13,6 +13,13 @@ class Booking(Fetcher):
     # @property
     # def headers(self):
     #     return self._headers
+
+    def parse_booking_id_from_url(url):
+        params = url.split("?")[1]
+        for param in params.split(";"):
+            tokens = param.split("=")
+            if len(tokens) >= 2 and tokens[0] == "sid":
+                return tokens[1]
 
     @property
     def nick(self):

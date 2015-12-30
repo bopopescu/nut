@@ -8,13 +8,13 @@ from django.conf import settings
 from django.core.cache import cache
 from django.utils.log import getLogger
 
-from apps.fetch.common import get_phantom_status, get_origin_source_by_url
+from apps.fetch.common import get_phantom_status, get_origin_source
 
 
 log = getLogger('django')
 
 
-class Fetcher(object):
+class BaseFetcher(object):
     def __init__(self, entity_url, use_phantom=True):
         self.entity_url = entity_url
         self.use_phantom = use_phantom
@@ -54,4 +54,4 @@ class Fetcher(object):
             return result
 
     def get_hostname(self):
-        return get_origin_source_by_url(self.entity_url)
+        return get_origin_source(self.entity_url)
