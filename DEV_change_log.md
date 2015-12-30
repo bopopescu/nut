@@ -1,4 +1,26 @@
 
+
+3. 搜索记录同时记录用户的ip和agent
+2. 首页瀑布流
+1. update redis key user_last_verify_time_id to user_last_verify_time:id
+
+### action
+
+    ALTER TABLE `core`.`core_search_history` 
+    ADD COLUMN `ip` VARCHAR(45) NULL COMMENT '' AFTER `search_time`,
+    ADD COLUMN `agent` VARCHAR(255) NULL COMMENT '' AFTER `ip`;
+    
+    ALTER TABLE `core`.`core_search_history` 
+    CHANGE COLUMN `key_words` `key_words` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL COMMENT '' ;
+    
+2015-12-30
+===
+    
+---    
+
+
+
+
 4.  no more christmas logo
 3.  fix management search paging bug
 2.  seller web page 
@@ -7,27 +29,6 @@
 =================================
 =================================
 ### merged to master 2015-12-23
-=================================
-=================================
-
-5. snow adjustment 
-4. article detail page 404 redirect to selection article page 
-3. user index page , fix (show removed entity's note) bug
-2. add category_logo for seller data 
-1. fix event page display bug 
-
-
-### Action
-run sql : 
-
-ALTER TABLE `core`.`seller_seller_profile` 
-ADD COLUMN `category_logo` VARCHAR(255) NOT NULL AFTER `logo`;
-
-
-=================================
-=================================
-### merged to master 2015-12-22
-=================================
 =================================
 
 
@@ -58,9 +59,6 @@ ADD COLUMN `category_logo` VARCHAR(255) NOT NULL AFTER `logo`;
 2.  drop table : seller_seller_profile_related_articles   
 3.  need Sync DB 
 
-
-
----
 
 2015-12-20 
 
