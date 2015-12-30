@@ -725,7 +725,9 @@ define('subapp/yearseller/header',['jquery','libs/Class','fastdom'], function($,
             this._navEle = $('.seller-banner-wrapper');
             this._fixTitle = this._navEle.find('.detach_nav');
             this.sectionIntros = $('.sections-item-intro-wrapper');
-            this.setupScrollEventHandler()
+            this.setupScrollEventHandler();
+            this.initSectionBackgrounds();
+
         },
 
         setupScrollEventHandler:function(){
@@ -760,22 +762,32 @@ define('subapp/yearseller/header',['jquery','libs/Class','fastdom'], function($,
             this.moveSectionBackground();
         },
 
+        initSectionBackgrounds: function(){
+            this.sectionIntros.each(this.moveIntroBg.bind(this));
+            this.sectionIntros.each(this.fadeinIntro.bind(this));
+        },
+        fadeinIntro: function(index, ele){
+            $(ele).fadeIn();
+        },
         moveSectionBackground: function(){
             this.sectionIntros.each(this.moveIntroBg.bind(this));
         },
 
         moveIntroBg: function(index, ele){
             var ele_bottom = ele.getBoundingClientRect().bottom;
+            var ele_top = ele.getBoundingClientRect().top;
+            var $bg_layer = ele.$bg_layer || (ele.$bg_layer = $(ele).find('.section-intro-bg-layer'));
+
             var window_height = this.getWindowHeight();
-            if (ele_bottom > 0 && ele_bottom<window_height){
+            if  (!((ele_top > window_height) || (ele_bottom < 0))){
                 var bg_pos_y = this.calculateBgPosY(ele_bottom, window_height)
-                $(ele).css({'background-position-y': bg_pos_y});
+                $bg_layer.css({'transform': 'translateY('+ bg_pos_y +'px)'});
             }else{
                 return ;
             }
         },
         calculateBgPosY: function(bottom,w_height){
-            return -200 * (bottom/w_height);
+            return  -200 * (bottom/w_height);
         },
 
 
