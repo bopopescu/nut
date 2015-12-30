@@ -37,7 +37,7 @@ define(['jquery','libs/Class','fastdom'], function($,Class, fastdom){
                 this.hideFixTitle();
             }
 
-            this.moveSectionBackground();
+            //this.moveSectionBackground();
         },
 
         moveSectionBackground: function(){

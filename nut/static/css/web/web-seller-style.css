@@ -768,14 +768,26 @@ ol {
   background-color: #f8f8f8;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper {
-  background-position: center;
-  background-size: 150%;
-  background-repeat: no-repeat;
-  background-position-y: 0px;
   position: relative;
   margin-bottom: 30px;
   height: 400px;
   color: #ffffff;
+}
+.seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .section-intro-bg-layer {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 200%;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  background-position: center;
+  background-size: 150%;
+  background-repeat: no-repeat;
+  background-position-y: 0px;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .img-handle {
   position: absolute;
