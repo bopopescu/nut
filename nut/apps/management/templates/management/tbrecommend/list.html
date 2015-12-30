@@ -44,7 +44,7 @@
 {#                                        <td><a href="{{ row.url }}" target="_blank">{% trans 'goto' %}</a></td>#}
                                         <td>{{ row.price }}</td>
                                         <td>{{ row.promotionPrice }}</td>
-                                        <td><a class="btn btn-primary">{% trans 'add' %}</a></td>
+                                        <td><a class="btn btn-primary" href="http://admin.guoku.com/management/entity/new/?url=https:{{ row.url|urlencode }}">{% trans 'add' %}</a></td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
