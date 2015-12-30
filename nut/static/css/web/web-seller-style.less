@@ -179,10 +179,26 @@ ol{
 //main content's style
 
 .seller-page-container{
-  padding-top:60px;
+  //为了横屏布局,只能覆盖BOOTSTRAP里的container
+  width:100%;
+  //padding-top:60px;
   background-color: @very-light-gray;
    .sections-item-wrapper{
-     .sections-item-title-wrapper{
+     .sections-item-intro-wrapper{
+       position:relative;
+       margin-bottom:30px;
+       padding-top:10%;
+       height:400px;
+       color:#ffffff;
+
+       .img-handle{
+         position:absolute;
+         left:0;
+         top:0;
+         width:100%;
+         height:100%;
+
+       }
          .sections-item-title{
            text-align: center;
           h3{
@@ -191,20 +207,17 @@ ol{
          }
        }
 
-     }
-
-     .sections-item-desc-wrapper{
-       margin-bottom: 50px;
        .sections-item-desc{
-       p{
+        p{
           margin: 0 auto;
           max-width:600px;
           padding-top:10px;
           font-size: @smaller-primary;
-       }
+        }
      }
 
      }
+
 
      .sections-item-goods-wrapper{
        margin-bottom: 50px;
@@ -333,6 +346,9 @@ ol{
      }
    }
 
+  //add sctions-item-background-pic
+
+
   .popular-shops-title-wrapper{
     margin-top:60px;
     margin-bottom: 50px;
@@ -410,16 +426,29 @@ ol{
 
 //put media query at bottom
 
+@media screen and (min-width:992px) and (max-width:1200px){
+  .seller-page-container{
+    width:970px;
+    .sections-item-goods-wrapper,.sections-item-sellers-wrapper,.popular-shops-wrapper{
+      //width:970px;
+      margin:0 auto;
+    }
+
+  }
+}
+
 @media screen and (min-width:1200px){
   .seller-page-container{
-    width:100%;
-    max-width:1280px;
+    //width:100%;
+    //max-width:1280px;
 
     .sections-item-wrapper{
       .sections-item-goods-wrapper{
+        width:100%;
+        max-width:1280px;
+        margin:0 auto;
         .goods-container{
             ul{
-              //width:1170px;
               width:100%;
               margin:0 auto;
               li{
@@ -450,10 +479,6 @@ ol{
         }
       }
     }
-    #culture{
-        background-image: url("/static/images/year-seller/delicacy.png");
-        background-repeat: no-repeat;
-    }
     .popular-shops-wrapper{
       width:1170px;
       margin:0 auto;
@@ -463,7 +488,9 @@ ol{
 }
 
 
-@media screen and (min-width:768px) and(max-width: 1200px){
+
+
+@media screen and (min-width:768px) and (max-width: 1200px){
    .seller-page-container{
     .sections-item-wrapper{
       .sections-item-goods-wrapper{
@@ -568,7 +595,8 @@ ol{
 
 
   @media screen and (max-width:768px){
-    .sections-titles-wrapper{
+    .seller-body{
+       .sections-titles-wrapper{
 
       .section-title{
          color:@common-text-color;
@@ -580,13 +608,13 @@ ol{
       }
     }
 
-    .seller-sidebar-wrapper{
+       .seller-sidebar-wrapper{
       &.seller-sidebar-hidden{
         display: none;
       }
     }
 
-    .seller-page-container{
+       .seller-page-container{
        //background-color: @very-light-gray;
        //to solve the bug that max-width:768px ,the footer has margin-top:40px;the color is white,not light gray.
        margin-bottom: -40px;
@@ -596,6 +624,10 @@ ol{
       .sections-item-wrapper{
          padding-top: 0;
          margin-bottom: 30px;
+        .sections-item-intro-wrapper{
+          height:240px;
+
+        }
 
         .sections-item-goods-wrapper{
 
@@ -619,6 +651,9 @@ ol{
       }
 
     }
+
+    }
+
 
 
 }
