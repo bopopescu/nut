@@ -23,12 +23,7 @@ def handel(keyword, **kwargs):
     istk = kwargs.pop('istk', True)
     ismall = kwargs.pop('ismall', False)
     count = kwargs.pop('count', 20)
-    itemId = kwargs.pop('itemId', None)
-    # print type(ismall)
 
-    # params = {
-    #     "keyword": keyword,
-    # }
     params = dict()
 
     params.update(
@@ -43,11 +38,11 @@ def handel(keyword, **kwargs):
         params.update({
             'keyword':keyword,
         })
-
-    if itemId:
-        params.update({
-            'itemid': itemId,
-        })
+    #
+    # if itemId:
+    #     params.update({
+    #         'itemid': itemId,
+    #     })
 
     app.logger.info(params)
     req.params = json.dumps( params )
