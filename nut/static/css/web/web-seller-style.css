@@ -768,9 +768,12 @@ ol {
   background-color: #f8f8f8;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper {
+  background-position: center;
+  background-size: 150%;
+  background-repeat: no-repeat;
+  background-position-y: 0px;
   position: relative;
   margin-bottom: 30px;
-  padding-top: 10%;
   height: 400px;
   color: #ffffff;
 }
@@ -782,17 +785,22 @@ ol {
   height: 100%;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .sections-item-title {
+  margin-top: 100px;
   text-align: center;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .sections-item-title h3 {
-  font-size: 22px;
-  text-decoration: underline;
+  font-size: 32px;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px #333333;
+}
+.seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .sections-item-desc {
+  margin-top: 50px;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .sections-item-desc p {
   margin: 0 auto;
-  max-width: 600px;
-  padding-top: 10px;
+  max-width: 400px;
   font-size: 14px;
+  text-shadow: 1px 1px 1px #333333;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper {
   margin-bottom: 50px;
@@ -1036,7 +1044,10 @@ ol {
     margin-bottom: 30px;
   }
   .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper {
-    height: 240px;
+    height: 400px;
+  }
+  .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .sections-item-desc p {
+    padding: 0px 30px;
   }
   .seller-body .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper {
     margin-bottom: 20px;
