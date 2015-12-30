@@ -1077,7 +1077,7 @@ define('subapp/yearseller/share',['libs/Class', 'jquery', 'underscore','bootbox'
                 backdrop:true,
                 closeButton: true,
                 animate: true,
-                className: 'seller-share-dialog',
+                className: 'page-share-dialog',
                 message:this.share_modal_content,
             });
         },
