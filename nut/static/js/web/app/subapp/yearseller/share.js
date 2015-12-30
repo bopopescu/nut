@@ -40,7 +40,7 @@ define(['libs/Class', 'jquery', 'underscore','bootbox'], function(Class,$,_,boot
                 backdrop:true,
                 closeButton: true,
                 animate: true,
-                className: 'seller-share-dialog',
+                className: 'page-share-dialog',
                 message:this.share_modal_content,
             });
         },
