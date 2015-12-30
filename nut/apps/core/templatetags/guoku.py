@@ -12,6 +12,7 @@ register = template.Library()
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
 
+
 def enumerate_list(value):
     return enumerate(value)
 register.filter(enumerate_list)
@@ -27,10 +28,7 @@ def resize(value, size=None):
             uri = value.replace(host, '')
             # log.info(uri)
             params = uri.split('/')
-            if params[0] == 'images':
-                params.insert(1, size)
-            else:
-                params.insert(0, size)
+            params.insert(1, size)
             uri_string = '/'.join(params)
             return host + uri_string
     return value
