@@ -1100,6 +1100,8 @@ define('subapp/yearseller/share',['libs/Class', 'jquery', 'underscore','bootbox'
             //$('.seller-cross-screen .share-btn')
             //    .each(this.setupWeiboSharePageBtn.bind(this));
 
+            $('')
+
             $('.sellers-share .share-btn-wb')
                 .each(this.setupWeiboShareSellerBtn.bind(this));
 
