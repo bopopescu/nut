@@ -1057,10 +1057,14 @@ ol {
     margin-bottom: 30px;
   }
   .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper {
-    height: 400px;
+    height: 240px;
+  }
+  .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .sections-item-title {
+    margin-top: 80px;
   }
   .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .sections-item-desc p {
     padding: 0px 30px;
+    display: none;
   }
   .seller-body .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper {
     margin-bottom: 20px;
