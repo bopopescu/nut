@@ -28,13 +28,6 @@ ol{
   border-radius: @year-seller-share-btn-border-radius;
 }
 
-.small-year-seller-modal-share-btn{
-  width:100px;
-  height:35px;
-  line-height:35px;
-  font-size:12px;
-}
-
 //.white-space-fix{
 //  margin-right:-4px;
 //}
@@ -483,16 +476,18 @@ ol{
       .modal-body{
         padding:0px;
         .share-modal-wrapper{
-          background-size: cover;
-          //add a media query
+
+          &.share-modal-wrapper-control{
+
+             background-size: cover;
           //background-position:center;
           padding-top:200px;
 
           .qr-code-wrapper{
 
-             .img-control{
-              margin:0 auto;
-          }
+            &.qr-code-control{
+              text-align: center;
+            }
 
           }
 
@@ -525,6 +520,8 @@ ol{
               }
             }
           }
+
+          }
         }
 
       }
@@ -545,10 +542,10 @@ ol{
 
      .qr-code-wrapper{
 
-    text-align:center;
-
+       &.qr-code-control{
+         text-align:center;
+       }
   }
-
   }
 
 }
@@ -876,9 +873,14 @@ ol{
     .modal-content{
       .modal-body{
         .share-modal-wrapper{
-          background-position:center top;
 
-          padding-top:37%;
+          &.share-modal-wrapper-control{
+
+            background-position:center top;
+            padding-top:37%;
+
+          }
+
         }
 
       }
