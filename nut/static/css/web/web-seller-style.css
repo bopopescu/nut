@@ -982,6 +982,16 @@ ol {
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper .share-btn-wrapper .pg-qq-share-btn.pg-qq-share-btn-bgc {
   background-color: #3199DD;
 }
+.seller-share-wx-dialog .modal-dialog {
+  width: 250px;
+  margin-top: 150px;
+}
+.seller-share-wx-dialog .modal-dialog .modal-header {
+  display: none;
+}
+.seller-share-wx-dialog .modal-dialog .qr-code-wrapper {
+  text-align: center;
+}
 @media screen and (min-width: 992px) and (max-width: 1200px) {
   .seller-page-container {
     width: 970px;
@@ -1032,6 +1042,9 @@ ol {
   }
   .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul li {
     width: 20%;
+  }
+  .seller-share-wx-dialog .modal-dialog {
+    margin: 150px auto;
   }
 }
 @media screen and (min-width: 768px) {
