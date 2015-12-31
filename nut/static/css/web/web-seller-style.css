@@ -782,11 +782,27 @@ ol {
   background-color: #F8F8F8;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper {
+  overflow: hidden;
   position: relative;
   margin-bottom: 30px;
-  padding-top: 10%;
   height: 400px;
   color: #ffffff;
+}
+.seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .section-intro-bg-layer {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 140%;
+  height: 200%;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  background-position: center;
+  background-size: 150%;
+  background-repeat: no-repeat;
+  background-position-y: 0px;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .img-handle {
   position: absolute;
@@ -796,17 +812,22 @@ ol {
   height: 100%;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .sections-item-title {
+  margin-top: 100px;
   text-align: center;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .sections-item-title h3 {
-  font-size: 22px;
-  text-decoration: underline;
+  font-size: 32px;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px #333;
+}
+.seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .sections-item-desc {
+  margin-top: 50px;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .sections-item-desc p {
   margin: 0 auto;
-  max-width: 600px;
-  padding-top: 10px;
+  max-width: 400px;
   font-size: 14px;
+  text-shadow: 1px 1px 1px #333;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper {
   margin-bottom: 50px;
@@ -1090,7 +1111,10 @@ ol {
     margin-bottom: 30px;
   }
   .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper {
-    height: 240px;
+    height: 400px;
+  }
+  .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .sections-item-desc p {
+    padding: 0px 30px;
   }
   .seller-body .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper {
     margin-bottom: 20px;
@@ -1121,6 +1145,9 @@ ol {
   }
 }
 @media screen and (max-width: 580px) {
+  .seller-body .seller-page-container .sections-item-desc {
+    display: none;
+  }
   .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item {
     text-align: center;
   }

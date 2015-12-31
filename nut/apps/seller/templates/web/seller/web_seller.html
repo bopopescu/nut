@@ -128,8 +128,9 @@
 
             <div class="row sections-item-intro-wrapper">
 
-                <img src="/static/images/year-seller/delicacy.jpg" class="img-responsive img-handle">
+                <div class="section-intro-bg-layer" style="background-image: url('/static/images/year-seller/delicacy.jpg')">
 
+                </div>
                 <div class="col-xs-12 sections-item-title">
                     <h3>美味佳肴 DELICACY</h3>
                 </div>
@@ -172,8 +173,9 @@
 
             <div class="row sections-item-intro-wrapper">
 
-                <img src="/static/images/year-seller/culture.jpg" class="img-responsive img-handle">
+                <div class="section-intro-bg-layer" style="background-image: url('/static/images/year-seller/culture.jpg')">
 
+                </div>
                 <div class="col-xs-12 sections-item-title">
                     <h3>文艺漫游 CULTURE</h3>
                 </div>
@@ -183,8 +185,6 @@
                         对于精神食粮，我们不妨做个挑食的人，挑认真的、新鲜的、经典的。比如遇到一位自己真心欣赏的艺术家，家里再不放不知所谓的画。比如知道奇谭俱乐部，比如找到让自己着迷的墨水。
                     </p>
                   </div>
-
-
             </div>
 
             <div class="row sections-item-goods-wrapper">
@@ -209,7 +209,8 @@
 
             <div class="row sections-item-intro-wrapper">
 
-                <img src="/static/images/year-seller/looks.jpg" class="img-responsive img-handle">
+                <div class="section-intro-bg-layer" style="background-image: url('/static/images/year-seller/looks.jpg')">
+                </div>
 
                 <div class="col-xs-12 sections-item-title">
                     <h3>衣衫配饰 LOOKS</h3>
@@ -245,8 +246,9 @@
 
             <div class="row sections-item-intro-wrapper">
 
-                <img src="/static/images/year-seller/lifestyle.jpg" class="img-responsive img-handle">
+                <div class="section-intro-bg-layer" style="background-image: url('/static/images/year-seller/lifestyle.jpg')">
 
+                </div>
                 <div class="col-xs-12 sections-item-title">
                     <h3>生活榜样 LIFESTYLE</h3>
                 </div>
@@ -317,4 +319,9 @@
 {% endblock %}
 {% block basic_script %}
     <script data-main="{% static 'js/web/jsbuild/seller_2015_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+{% endblock %}
+
+{% block ga_script %}
+    <!-- Google Analytics -->
+
 {% endblock %}

@@ -4,7 +4,10 @@ define(['jquery','libs/Class','fastdom'], function($,Class, fastdom){
         init: function(){
             this._navEle = $('.seller-banner-wrapper');
             this._fixTitle = this._navEle.find('.detach_nav');
-            this.setupScrollEventHandler()
+            this.sectionIntros = $('.sections-item-intro-wrapper');
+            this.setupScrollEventHandler();
+            this.initSectionBackgrounds();
+
         },
 
         setupScrollEventHandler:function(){
@@ -29,12 +32,44 @@ define(['jquery','libs/Class','fastdom'], function($,Class, fastdom){
         //   pass , do nothing
         },
         writeChange :  function(){
+
             if (this.needDisplayFixNav()){
                 this.displayFixTitle();
             }else{
                 this.hideFixTitle();
             }
+
+            this.moveSectionBackground();
         },
+
+        initSectionBackgrounds: function(){
+            this.sectionIntros.each(this.moveIntroBg.bind(this));
+            this.sectionIntros.each(this.fadeinIntro.bind(this));
+        },
+        fadeinIntro: function(index, ele){
+            $(ele).fadeIn();
+        },
+        moveSectionBackground: function(){
+            this.sectionIntros.each(this.moveIntroBg.bind(this));
+        },
+
+        moveIntroBg: function(index, ele){
+            var ele_bottom = ele.getBoundingClientRect().bottom;
+            var ele_top = ele.getBoundingClientRect().top;
+            var $bg_layer = ele.$bg_layer || (ele.$bg_layer = $(ele).find('.section-intro-bg-layer'));
+
+            var window_height = this.getWindowHeight();
+            if  (!((ele_top > window_height) || (ele_bottom < 0))){
+                var bg_pos_y = this.calculateBgPosY(ele_bottom, window_height)
+                $bg_layer.css({'transform': 'translateY('+ bg_pos_y +'px)'});
+            }else{
+                return ;
+            }
+        },
+        calculateBgPosY: function(bottom,w_height){
+            return  -200 * (bottom/w_height);
+        },
+
 
         needDisplayFixNav: function(){
             this._nav_bottom = this._navEle[0].getBoundingClientRect().bottom;

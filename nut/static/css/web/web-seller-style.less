@@ -2,6 +2,9 @@
 @import "../lib/var.less";
 @import "../lib/widgets.less";
 
+
+@section-title-size: 32px;
+@common-text-shadow: 1px 1px 1px #333;
 //reset
 ol{
   padding:0;
@@ -208,9 +211,27 @@ ol{
   background-color: @very-light-gray;
    .sections-item-wrapper{
      .sections-item-intro-wrapper{
+       overflow: hidden;
+       .section-intro-bg-layer{
+//         transition: all 0.5s;
+         position: absolute;
+         left: 0px;
+         top: 0px;
+         width: 140%;
+         height: 200%;
+         .acc-layer;
+         background-position: center;
+         background-size:150%;
+         background-repeat: no-repeat;
+         background-position-y: 0px;
+       }
+
+
+
        position:relative;
        margin-bottom:30px;
-       padding-top:10%;
+
+
        height:400px;
        color:#ffffff;
 
@@ -223,19 +244,22 @@ ol{
 
        }
          .sections-item-title{
+           margin-top: 100px;
            text-align: center;
           h3{
-           font-size: @title-size;
-           text-decoration: underline;
+           font-size: @section-title-size;
+           text-decoration: none;
+            text-shadow: @common-text-shadow;
          }
        }
 
        .sections-item-desc{
+          margin-top:50px;
         p{
           margin: 0 auto;
-          max-width:600px;
-          padding-top:10px;
+          max-width:400px;
           font-size: @smaller-primary;
+          text-shadow: @common-text-shadow;
         }
      }
 
@@ -740,7 +764,13 @@ ol{
          padding-top: 0;
          margin-bottom: 30px;
         .sections-item-intro-wrapper{
-          height:240px;
+          height:400px;
+          .sections-item-desc{
+              p{
+                padding:0px 30px;
+              }
+
+          }
 
         }
 
@@ -817,6 +847,9 @@ ol{
 @media screen and (max-width: 580px){
   .seller-body{
     .seller-page-container{
+      .sections-item-desc{
+         display:none;
+      }
       .popular-shops-wrapper{
         .popular-shop-item-wrapper{
           .popular-shop-item{
