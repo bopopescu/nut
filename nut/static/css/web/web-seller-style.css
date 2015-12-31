@@ -1094,9 +1094,6 @@ ol {
     color: #424242;
     font-size: 14px;
   }
-  .seller-body .sections-titles-wrapper span {
-    padding: 0 1px;
-  }
   .seller-body .seller-sidebar-wrapper.seller-sidebar-hidden {
     display: none;
   }
@@ -1143,6 +1140,9 @@ ol {
   }
 }
 @media screen and (max-width: 580px) {
+  .seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li span {
+    padding: 0 1px;
+  }
   .seller-body .seller-page-container .sections-item-desc {
     display: none;
   }
