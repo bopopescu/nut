@@ -12,6 +12,7 @@ define(['jquery','libs/Class','fastdom'], function($,Class, fastdom){
 
         setupScrollEventHandler:function(){
             $(window).scroll(this.handleScroll.bind(this));
+            $(document).touchmove(this.handleScroll.bind(this));
         },
         handleScroll: function(){
             this.handleNavDisplay();
