@@ -732,6 +732,7 @@ define('subapp/yearseller/header',['jquery','libs/Class','fastdom'], function($,
 
         setupScrollEventHandler:function(){
             $(window).scroll(this.handleScroll.bind(this));
+            $(document).touchmove(this.handleScroll.bind(this));
         },
         handleScroll: function(){
             this.handleNavDisplay();
