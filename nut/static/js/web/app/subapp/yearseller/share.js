@@ -7,25 +7,49 @@ define(['libs/Class', 'jquery', 'underscore','bootbox'], function(Class,$,_,boot
         init: function(){
 
             this.weibo_share_service_url = 'http://service.weibo.com/share/share.php';
-            this.QQ_share_service_url = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey';
+            this.qq_share_service_url = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey';
             this.share_modal_content = $('#share_modal_content').html();
             this.share_weixin_modal_content = $('#share_weixin_modal_content').html();
 
+            this.shareTitle = '#果库2015年度消费报告# 果库君一直努力为你发现最有趣、最实用的好商品，同时，也带你降落在最人气、最独特的店铺里。'
+            this.sharePic = share_pic;
+
             this.weiboShareOptions = {
                 url: location.href,
+                title: this.shareTitle,
                 type:'6',
                 count:'0',
                 appkey:'1459383851',
                 ralateUid:'2179686555',
                 language:'zh_cn',
+                pic: this.sharePic,
                 rnd : new Date().valueOf(),
+            };
+
+            this.qqShareOptions ={
+                url: location.href,
+                showcount: 0 ,
+                desc: this.shareTitle,
+                summary: '最受欢迎淘宝店铺100家',
+                title: '#果库2015年度消费报告#',
+                site: '果库网',
+                pics: this.sharePic
             };
 
             this.weixinShareOptions ={
 
+            };
+
+            this.section_dic  = {
+                '1': '衣衫配饰',
+                '2': '文艺漫游',
+                '3': '美味佳肴',
+                '4': '生活榜样'
             }
+
             this.setupShareTrigger();
             this.setupShareBox();
+            this.setupPageShareLinks();
 
         },
         setupShareBox: function(){
@@ -43,6 +67,16 @@ define(['libs/Class', 'jquery', 'underscore','bootbox'], function(Class,$,_,boot
                 className: 'page-share-dialog',
                 message:this.share_modal_content,
             });
+
+
+            this.setupPageShareLinks();
+
+        },
+
+        setupPageShareLinks: function(){
+            $('.pg-weibo-share-btn,.sidebar_weibo_share_btn').attr({href:this.getPageWeiboShareUrl()});
+            $('.pg-qq-share-btn,.sidebar_qq_share_btn').attr({href:this.getPageQQShareUrl()})
+
         },
 
         showWeixinShareDialog: function(){
@@ -60,10 +94,8 @@ define(['libs/Class', 'jquery', 'underscore','bootbox'], function(Class,$,_,boot
         },
         setupShareTrigger: function(){
 
-            //$('.seller-cross-screen .share-btn')
-            //    .each(this.setupWeiboSharePageBtn.bind(this));
-
-            $('')
+            $('.sidebar_weixin_share_btn')
+                .each(this.setupWeixinShareSellerBtn.bind(this));
 
             $('.sellers-share .share-btn-wb')
                 .each(this.setupWeiboShareSellerBtn.bind(this));
@@ -84,13 +116,17 @@ define(['libs/Class', 'jquery', 'underscore','bootbox'], function(Class,$,_,boot
             return  '?' + paramList.join('&');
         },
 
-        setupWeiboSharePageBtn: function(index,ele){
+        getPageWeiboShareUrl: function(){
             var options = _.clone(this.weiboShareOptions);
-                options.title = 'this is page sharing title';
-                options.pic = 'http://static.guoku.com/static/v4/6f848cd0324e89b80d3c2c776a9d29c5ebee4005/images/gklogo2015.png';
-            ele.href = this.weibo_share_service_url + this.makeUrlQueryString(options);
-            return;
+                options.pic = this.sharePic;
+                return this.weibo_share_service_url + this.makeUrlQueryString(options);
         },
+        getPageQQShareUrl: function(){
+            var options = _.clone(this.qqShareOptions);
+            return  this.qq_share_service_url + this.makeUrlQueryString(options);
+
+        },
+
         setupWeiboShareSellerBtn: function(index,ele){
             var options = _.clone(this.weiboShareOptions);
                 options.title = this.getSellerShareTitle(ele);
@@ -105,21 +141,28 @@ define(['libs/Class', 'jquery', 'underscore','bootbox'], function(Class,$,_,boot
         setupQQShareSellerBtn: function(index,ele){
             var options = _.clone(this.weiboShareOptions);
                 options.showCount = 0;
-                options.desc = 'wx desc';
-                options.summary = 'qq 分享 summary';
-                options.title =  'QQ 分享 title';
+                options.desc = this.getSellerShareTitle(ele);
+                options.summary = '#2015果库消费报告';
+                options.title =  this.shareTitle;
                 options.site = '果库网';
-                options.pics = 'QQ分享图片.jpg';
+                options.pics = this.getSellerSharePic(ele);
 
-                ele.href = this.QQ_share_service_url + this.makeUrlQueryString(options);
+                ele.href = this.qq_share_service_url + this.makeUrlQueryString(options);
 
         },
         getSellerShareTitle: function(ele){
-            return 'test title';
+            var shop_title = $(ele).attr('data_shop_title');
+            var shop_section = this.getSectionNameFromNumberString($(ele).attr('data_shop_section'));
+            var title = '「'+ shop_title+ '」'+'入选了2015果库'+shop_section + '！果库年度消费报告，最受欢迎的淘宝店铺都在这里。';
+            return title ;
         },
         getSellerSharePic: function(ele){
-            return 'test pic';
-        }
+            return $(ele).attr('data_shop_pic');
+        },
+        getSectionNameFromNumberString : function(number_string){
+                return this.section_dic[number_string];
+        },
+
 
     });
     return ShareHanlder

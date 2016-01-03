@@ -95,21 +95,21 @@
         <div class="seller-sidebar">
             <ul>
                 <li class="list-item list-item-weixin">
-                    <a>
+                    <a class="sidebar_weixin_share_btn">
                         <i class="fa fa-wechat"></i>
                     </a>
 
                 </li>
 
                 <li class="list-item list-item-weibo">
-                    <a>
+                    <a class="sidebar_weibo_share_btn" target="_blank">
                         <i class="fa fa-weibo"></i>
                     </a>
 
                 </li>
 
                 <li class="list-item list-item-qq">
-                    <a>
+                    <a class="sidebar_qq_share_btn" target="_blank">
                         <i class="fa fa-qq"></i>
                     </a>
 
@@ -299,11 +299,12 @@
             </div>
 
             <div class="share-btn-wrapper weibo-share-btn-wrapper-control">
-                <div class="pg-weibo-share-btn pg-weibo-share-btn-bgc year-seller-modal-share-btn">分享到微博</div>
+
+                <a class="pg-weibo-share-btn pg-weibo-share-btn-bgc year-seller-modal-share-btn" target="_blank">分享到微博</a>
             </div>
 
             <div class="share-btn-wrapper qq-share-btn-wrapper-control">
-                <div class="pg-qq-share-btn pg-qq-share-btn-bgc year-seller-modal-share-btn">分享到QQ</div>
+                <a class="pg-qq-share-btn pg-qq-share-btn-bgc year-seller-modal-share-btn" target="_blank">分享到QQ</a>
             </div>
 
         </div>
@@ -320,7 +321,11 @@
 
 {% endblock %}
 {% block basic_script %}
+    <script language="javascript">
+        var share_pic = location.host + '{% static 'images/year-seller/share_weibo.jpg' %}';
+    </script>
     <script data-main="{% static 'js/web/jsbuild/seller_2015_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+
 {% endblock %}
 
 {% block ga_script %}

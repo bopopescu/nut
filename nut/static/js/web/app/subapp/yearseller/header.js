@@ -12,7 +12,10 @@ define(['jquery','libs/Class','fastdom'], function($,Class, fastdom){
 
         setupScrollEventHandler:function(){
             $(window).scroll(this.handleScroll.bind(this));
-            $(document).touchmove(this.handleScroll.bind(this));
+            //$(document).on('touchmove',this.handleScroll.bind(this));
+            //$(document).on('touchmove', function(){
+            //    console.log("touch move");
+            //});
         },
         handleScroll: function(){
             this.handleNavDisplay();
@@ -98,9 +101,7 @@ define(['jquery','libs/Class','fastdom'], function($,Class, fastdom){
             this._write = null ;
         }
 
-
  });
-
 
     return YearSellerHeader;
 });
