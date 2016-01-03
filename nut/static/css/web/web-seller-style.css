@@ -989,12 +989,22 @@ ol {
   text-align: center;
 }
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .weibo-share-btn-wrapper-control .pg-weibo-share-btn {
+  display: block;
+  cursor: pointer;
   margin: 0 auto;
   margin-bottom: 10px;
 }
+.page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .weibo-share-btn-wrapper-control .pg-weibo-share-btn:hover {
+  color: white;
+}
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .qq-share-btn-wrapper-control .pg-qq-share-btn {
+  display: block;
+  cursor: pointer;
   margin: 0 auto;
   margin-bottom: 20px;
+}
+.page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .qq-share-btn-wrapper-control .pg-qq-share-btn:hover {
+  color: white;
 }
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .share-btn-wrapper .pg-weibo-share-btn.pg-weibo-share-btn-bgc {
   background-color: #e90d24;
