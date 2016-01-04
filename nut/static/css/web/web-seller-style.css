@@ -959,13 +959,14 @@ ol {
   text-align: center;
 }
 .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info .popular-shop-name {
+  text-align: left;
   color: #424242;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info .star-level ol {
-  text-align: center;
+  text-align: left;
 }
 .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info .star-level ol li {
   display: inline-block;
@@ -1051,13 +1052,6 @@ ol {
   .seller-page-container .sections-item-wrapper .sections-item-sellers-wrapper .sellers-wrapper .sellers-logo {
     max-width: 245px;
   }
-  .seller-page-container .popular-shops-title-wrapper .popular-shops-title p {
-    letter-spacing: 12px;
-  }
-  .seller-page-container .popular-shops-wrapper {
-    width: 1170px;
-    margin: 0 auto;
-  }
 }
 @media screen and (min-width: 768px) and (max-width: 1200px) {
   .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul {
@@ -1100,6 +1094,9 @@ ol {
   }
   .seller-page-container .sections-item-sellers-wrapper .sellers-wrapper:hover .sellers-share-visible {
     display: block;
+  }
+  .seller-page-container .popular-shops-title-wrapper .popular-shops-title p {
+    letter-spacing: 12px;
   }
 }
 @media screen and (max-width: 768px) {
@@ -1146,6 +1143,12 @@ ol {
     margin-left: 0;
     width: 100%;
   }
+  .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info .popular-shop-name {
+    text-align: center;
+  }
+  .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info .star-level ol {
+    text-align: center;
+  }
   .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-logo-wrapper {
     margin: 0 auto;
     margin-top: 10px;
@@ -1169,6 +1172,12 @@ ol {
   .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info {
     margin-left: 0;
     width: 100%;
+  }
+  .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info .popular-shop-name {
+    text-align: center;
+  }
+  .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info .star-level ol {
+    text-align: center;
   }
   .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-logo-wrapper {
     margin: 0 auto;
