@@ -6,6 +6,9 @@
 @import "../lib/article.less";
 @import "../lib/egypt.less";
 
+
+@import "top_add.less";
+
 *{
   &:active,&:focus{
 
@@ -90,9 +93,10 @@ body.compact-body{
 
 #guoku_main_nav{
   .acc-layer;
+
   &.hidden-header{
     .animate-header;
-    .transform(translateY(-60px));
+    .transform(translateY(-160px));
   }
 
   &.shown-header{
@@ -1606,4 +1610,6 @@ body{
 .gk_test{
   color:black;
 }
+
+
 

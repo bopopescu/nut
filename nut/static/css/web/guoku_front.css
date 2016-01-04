@@ -1525,6 +1525,27 @@ textarea {
   cursor: not-allowed;
   color: #fff;
 }
+.top-ad {
+  display: none;
+  height: 50px;
+  width: 100%;
+  background: none;
+}
+.top-ad .ad-wrapper {
+  width: 100%;
+  height: 100%;
+}
+.top-ad .close-button {
+  z-index: 999;
+  position: absolute;
+  right: 20px;
+  height: 20px;
+  width: 20px;
+  top: 20px;
+  color: #000;
+  line-height: 20px;
+  font-size: 20px;
+}
 body {
   padding-top: 80px;
   color: #424242;
@@ -1617,10 +1638,10 @@ body.compact-body {
   -moz-transition: all 0.4s ease-in;
   -ms-transition: all 0.4s ease-in;
   -o-transition: all 0.4s ease-in;
-  -webkit-transform: translateY(-60px);
-  -moz-transform: translateY(-60px);
-  -ms-transform: translateY(-60px);
-  -o-transform: translateY(-60px);
+  -webkit-transform: translateY(-160px);
+  -moz-transform: translateY(-160px);
+  -ms-transform: translateY(-160px);
+  -o-transform: translateY(-160px);
 }
 #guoku_main_nav.shown-header {
   -webkit-transition: all 0.4s ease-in;

@@ -858,7 +858,47 @@ define("bootstrap", ["jquery"], function(){});
 	};
 
 }));
-define('subapp/topmenu',['bootstrap', 'libs/Class','underscore','jquery', 'fastdom','cookie'],function(boot, Class,_,$,fastdom,cookie){
+define('subapp/top_ad/top_ad',['libs/Class', 'jquery'], function(Class, $){
+
+    var store2015UrlReg = /store2015/;
+    var store2015CookieKey = 'store_2015_cookie_key'
+
+    var TopAd = Class.extend({
+        init: function(){
+            this.handleTrackerCookie();
+            this.handleTopAdDisplay();
+        },
+        handleTrackerCookie: function(){
+            if(store2015UrlReg.test(location.href)){
+                console.log('access page');
+                $.cookie(store2015CookieKey, 'visited', { expires: 7, path: '/' });
+            }
+        },
+
+        handleTopAdDisplay:function(){
+            if($.cookie(store2015CookieKey) === 'visited'){
+                console.log('page visited');
+            }else{
+                this.displayTopAd();
+            }
+        },
+        displayTopAd: function(){
+            $('.top-ad').slideDown();
+        }
+
+    });
+
+    return TopAd;
+});
+define('subapp/topmenu',['bootstrap',
+        'libs/Class',
+        'underscore',
+        'jquery',
+        'fastdom',
+        'cookie',
+        'subapp/top_ad/top_ad'
+    ],
+    function(boot, Class,_,$,fastdom,cookie,TopAd){
 
     // cookie is a shim resource , it will attch to jquery objects.
 
@@ -889,6 +929,7 @@ define('subapp/topmenu',['bootstrap', 'libs/Class','underscore','jquery', 'fastd
             this.setupScrollMenu();
             this.checkSNSBindVisit();
             this.checkEventRead();
+            this.topAd = new TopAd();
 
         },
         checkEventRead:function(){

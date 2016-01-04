@@ -86,6 +86,9 @@ window.location.href = url;</script><![endif]-->
 {% block header %}
     {% include "web/partial/header_new.html" %}
 {% endblock %}
+{#  add same ad block as header , so the content is not covered by extended header #}
+
+<div class="top-ad"></div>
 
 {% block content %}
 
