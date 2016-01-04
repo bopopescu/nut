@@ -983,7 +983,11 @@ ol {
 }
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control {
   background-size: cover;
-  padding-top: 200px;
+  padding-top: 190px;
+  margin-bottom: 60px;
+}
+.page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .qr-code-wrapper {
+  margin-bottom: 10px;
 }
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .qr-code-wrapper.qr-code-control {
   text-align: center;
@@ -1158,6 +1162,10 @@ ol {
   .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item {
     padding: 18px 35px;
   }
+  .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control {
+    padding-top: 30%;
+    margin-bottom: 10%;
+  }
 }
 @media screen and (max-width: 580px) {
   .seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li span {
@@ -1184,7 +1192,8 @@ ol {
     margin-top: 10px;
   }
   .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control {
-    background-position: center top;
     padding-top: 37%;
+    margin-bottom: 14%;
+    background-position: center top;
   }
 }
