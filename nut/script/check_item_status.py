@@ -21,6 +21,7 @@ def crawl(spider, **parameters):
     data = {
         'project': 'default',
         'setting': 'DOWNLOAD_DELAY=2',
+        'spider':   spider,
     }
     data.update(parameters)
     res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
