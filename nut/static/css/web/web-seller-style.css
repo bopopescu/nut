@@ -1051,6 +1051,9 @@ ol {
   .seller-page-container .sections-item-wrapper .sections-item-sellers-wrapper .sellers-wrapper .sellers-logo {
     max-width: 245px;
   }
+  .seller-page-container .popular-shops-title-wrapper .popular-shops-title p {
+    letter-spacing: 12px;
+  }
   .seller-page-container .popular-shops-wrapper {
     width: 1170px;
     margin: 0 auto;
