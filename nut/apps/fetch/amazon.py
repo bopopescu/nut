@@ -13,6 +13,7 @@ class Amazon(BaseFetcher):
         BaseFetcher.__init__(self, entity_url)
         self.high_resolution_pattern = re.compile('hiRes"[\s]*:[\s]*"([^";]+)')
         self.large_resolution_pattern = re.compile('large"[\s]*:[\s]*"([^";]+)')
+        self.main_resolution_pattern = re.compile('mainUrl"[\s]*:[\s]*"([^";]+)')
         self.price_pattern = re.compile(u'(?:￥|\$)\s?(?P<price>\d+\.\d+)')
         self.foreign_price = 0.0
         self.entity_url = entity_url
@@ -30,7 +31,7 @@ class Amazon(BaseFetcher):
             return parts[parts.index(u'dp') + 1]
 
     @property
-    def desc(self):
+    def title(self):
         _desc = self.soup.select("#productTitle")
         if len(_desc):
             return _desc[0].string
@@ -42,7 +43,7 @@ class Amazon(BaseFetcher):
 
     def get_expected_element(self):
         if self.hostname.endswith('cn'):
-            return 'div#centerCol'
+            return 'div#wayfinding-breadcrumbs_container'
         elif self.hostname.endswith('au'):
             return 'div.buying'
         elif self.hostname.endswith('br'):
@@ -51,12 +52,34 @@ class Amazon(BaseFetcher):
 
     @property
     def cid(self):
-        cate = self.soup.select(
-                "#wayfinding-breadcrumbs_feature_div .a-link-normal")
-        if len(cate) > 0:
-            href = cate[0].attrs.get('href')
-            return href.split('=')[-1]
-        return 0
+        cate_div = self.soup.find('div', id='wayfinding-breadcrumbs_feature_div')
+        if cate_div:
+            cate_tags = cate_div.select('a.a-link-normal')
+            if cate_tags:
+                href = cate_tags[-1].attrs.get('href')
+                return href.split('=')[-1]
+
+        cate_div = self.soup.find('li', id='SalesRank')
+        if cate_div:
+            cate_tags = cate_div.find_all('li')[-1].select('a')
+            if cate_tags:
+                href = cate_tags[-1].attrs.get('href')
+                return href.split('/')[-1]
+
+        cate_div = self.soup.select('div.bucket > div.content > ul > li')
+        if cate_div:
+            cate_tags = cate_div[-1].select('a')
+            if cate_tags:
+                href = cate_tags[-1].attrs.get('href')
+                return href.split('=')[-1][4:]
+
+        cate_div = self.soup.find('div', id='nav-subnav')
+        if cate_div:
+            cate_tags = cate_div.select('a.nav-a')
+            if cate_tags:
+                href = cate_tags[0].attrs.get('href')
+                return href.split('=')[-1]
+        return '0'
 
     @property
     def price(self):
@@ -118,7 +141,7 @@ class Amazon(BaseFetcher):
 
     @property
     def link(self):
-        link = "http://%s/dp/%s" % (self.hostname, self.origin_id)
+        link = "http://{0:s}/dp/{1:s}".format(self.hostname, self.origin_id)
         return link
 
     @property
@@ -136,15 +159,21 @@ class Amazon(BaseFetcher):
                 if large_images:
                     images = large_images
         else:
-            images = self.get_medium_images()
+            image_js = self.soup.select("div#booksImageBlock_feature_div")
+            hires_images = self.main_resolution_pattern.findall(
+                    image_js[0].text)
+            if hires_images:
+                images = hires_images
+
+        medium_images = self.get_medium_images()
+        images.extend(medium_images)
         return images
 
     def get_medium_images(self):
         images = list()
-        optimages = self.soup.select("#altImages ul .a-list-item span img")
-        # return opt
-        if len(optimages) > 0:
-            for row in optimages:
+        image_tags = self.soup.select("#altImages ul .a-list-item span img")
+        if len(image_tags) > 0:
+            for row in image_tags:
                 img_link = row.attrs.get('src')
                 if len(img_link) == 0:
                     continue
@@ -153,9 +182,9 @@ class Amazon(BaseFetcher):
                 images.append(res.replace('..', '.'))
             return images
 
-        optimages = self.soup.select("#imageBlockThumbs div img")
-        if len(optimages) > 0:
-            for row in optimages:
+        image_tags = self.soup.select("#imageBlockThumbs div img")
+        if len(image_tags) > 0:
+            for row in image_tags:
                 img_link = row.attrs.get('src')
                 if len(img_link) == 0:
                     continue
@@ -164,9 +193,9 @@ class Amazon(BaseFetcher):
                 images.append(res.replace('..', '.'))
             return images
 
-        optimages = self.soup.select("#main-image")
-        if len(optimages) > 0:
-            for row in optimages:
+        image_tags = self.soup.select("#main-image")
+        if len(image_tags) > 0:
+            for row in image_tags:
                 img_link = row.attrs.get('src')
                 array = img_link.split('_')
                 res = "%s%s" % (array[0], array[-1])
@@ -175,10 +204,10 @@ class Amazon(BaseFetcher):
 
     @property
     def brand(self):
-        optbrands = self.soup.select('#brandByline_feature_div div a')
-        if optbrands:
+        rand_tags = self.soup.select('#brandByline_feature_div div a')
+        if rand_tags:
             try:
-                brand = optbrands[0].string
+                brand = rand_tags[0].string
                 return brand
             except IndexError:
                 return ''
@@ -186,4 +215,3 @@ class Amazon(BaseFetcher):
             another_try = self.soup.select("a#brand")
             if another_try:
                 return another_try[0]
-

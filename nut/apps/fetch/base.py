@@ -20,23 +20,23 @@ class BaseFetcher(object):
         self.use_phantom = use_phantom
         self.hostname = self.get_hostname()
         self.html_source = None
-        self.excepted_element = 'body'
+        self.expected_element = 'body'
 
     @property
     def soup(self):
         return BeautifulSoup(self.html_source)
 
     def fetch(self, timeout=20):
-        html_cache = self.get_html_cache()
-        if html_cache:
-            return html_cache
+        # html_cache = self.get_html_cache()
+        # if html_cache:
+        #     return html_cache
 
         if self.use_phantom and get_phantom_status():
             response = requests.post(
                     settings.PHANTOM_SERVER,
                     data={'url': self.link or self.entity_url,
                           'expected_element': self.expected_element,
-                          'time_out': timeout})
+                          'timeout': 90})
             self.set_html_cache(response=response)
             self.html_source = response.content
 

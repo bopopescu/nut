@@ -119,7 +119,7 @@ class Tmall(BaseFetcher):
         return _images
 
     def get_shop_link(self):
-        shop_id_tag = re.findall('shopId:"(\d+)', self.html)
+        shop_id_tag = re.findall('shopId:"(\d+)', self.html_source)
 
         if len(shop_id_tag) > 0:
             shop_link = "http://shop"+shop_id_tag[0]+".taobao.com"
