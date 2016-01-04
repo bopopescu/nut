@@ -440,16 +440,16 @@ ol{
         margin-left: 15px;
         text-align: center;
         .popular-shop-name{
+          //
+          text-align:left;
           color:@common-text-color;
            text-overflow:ellipsis;
            overflow: hidden;
            white-space: nowrap;
         }
         .star-level{
-         //margin-top:15px;
-         //margin-bottom: 20px;
          ol{
-           text-align: center;
+           text-align:left;
            li{
              display: inline-block;
              .popular-shop-star{
@@ -577,7 +577,6 @@ ol{
       //width:970px;
       margin:0 auto;
     }
-
   }
 }
 
@@ -623,17 +622,13 @@ ol{
         }
       }
     }
-    .popular-shops-title-wrapper{
-      .popular-shops-title{
-        p{
-          letter-spacing: 12px;
-        }
-      }
-    }
-    .popular-shops-wrapper{
-      width:1170px;
-      margin:0 auto;
-    }
+    //.popular-shops-title-wrapper{
+    //  .popular-shops-title{
+    //    p{
+    //      letter-spacing: 12px;
+    //    }
+    //  }
+    //}
   }
 
 }
@@ -749,6 +744,13 @@ ol{
       }
     }
   }
+       .popular-shops-title-wrapper{
+         .popular-shops-title{
+           p{
+             letter-spacing: 12px;
+          }
+        }
+      }
     }
 
   }
@@ -831,6 +833,14 @@ ol{
              .popular-shop-info{
                margin-left:0;
                width:100%;
+               .popular-shop-name{
+                 text-align: center;
+               }
+               .star-level{
+                 ol{
+                   text-align: center;
+                 }
+               }
 
              }
 
@@ -891,6 +901,15 @@ ol{
             .popular-shop-info{
               margin-left:0;
               width:100%;
+              .popular-shop-name{
+                text-align: center;
+              }
+              .star-level{
+                ol{
+                  text-align: center;
+                }
+              }
+
 
             }
 
