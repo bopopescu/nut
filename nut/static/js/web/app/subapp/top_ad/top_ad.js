@@ -7,7 +7,12 @@ define(['libs/Class', 'jquery'], function(Class, $){
         init: function(){
             this.handleTrackerCookie();
             this.handleTopAdDisplay();
+            this.initCloseButton();
         },
+        initCloseButton: function(){
+            $('.top-ad .close-button').click(this.hideTopAd.bind(this));
+        },
+
         handleTrackerCookie: function(){
             if(store2015UrlReg.test(location.href)){
                 console.log('access page');
@@ -25,7 +30,11 @@ define(['libs/Class', 'jquery'], function(Class, $){
         },
         displayTopAd: function(){
             $('.top-ad').slideDown();
-        }
+        },
+        hideTopAd: function(event){
+            $('.top-ad .close-button').hide();
+            $('.top-ad').slideUp();
+        },
 
     });
 
