@@ -640,9 +640,10 @@ ol {
   height: auto;
   background-color: #fff;
   background-image: url('/static/images/year-seller/banner_bg.jpg');
-  -webkit-background-size: cover;
-  background-size: cover;
-  background-position: center;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-position: 0 0;
+  background-repeat: no-repeat;
 }
 .seller-body .seller-cross-screen .seller-banner-wrapper {
   margin: 0;
@@ -1037,6 +1038,10 @@ ol {
   }
 }
 @media screen and (min-width: 1200px) {
+  .seller-body .seller-cross-screen {
+    background-size: cover;
+    -webkit-background-size: cover;
+  }
   .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper {
     width: 100%;
     max-width: 1280px;

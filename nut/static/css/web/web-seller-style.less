@@ -53,9 +53,11 @@ ol{
     background-color: #fff;
 
     background-image: url('/static/images/year-seller/banner_bg.jpg');
-    -webkit-background-size:cover;
-    background-size:cover;
-    background-position: center;
+    -webkit-background-size:contain;
+    background-size:contain;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+
 
    .seller-banner-wrapper{
 
@@ -568,6 +570,20 @@ ol{
 }
 
 @media screen and (min-width:1200px){
+
+  .seller-body{
+
+    .seller-cross-screen{
+
+      background-size:cover;
+      -webkit-background-size:cover;
+    }
+
+  }
+
+
+
+
   .seller-page-container{
     //width:100%;
     //max-width:1280px;
@@ -600,12 +616,6 @@ ol{
           .sellers-logo{
             max-width: 245px;
           }
-          //.sellers-desc{
-          //  p{
-          //    max-width: 245px;
-          //    margin:0 auto;
-          //  }
-          //}
         }
       }
     }
