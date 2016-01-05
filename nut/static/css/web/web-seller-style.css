@@ -1032,6 +1032,10 @@ ol {
   text-align: center;
 }
 @media screen and (min-width: 992px) and (max-width: 1200px) {
+  .seller-body .seller-cross-screen {
+    background-size: cover;
+    -webkit-background-size: cover;
+  }
   .seller-page-container {
     width: 970px;
   }
