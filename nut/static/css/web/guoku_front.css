@@ -1553,6 +1553,7 @@ textarea {
   width: 20px;
   top: 15px;
   color: #ffffff;
+  opacity: 0.7;
   line-height: 20px;
   font-size: 20px;
 }
