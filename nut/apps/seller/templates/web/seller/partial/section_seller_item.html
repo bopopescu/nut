@@ -9,14 +9,13 @@
 
         <div class="sellers-desc">
             <p>{{ seller.shop_desc }}</p>
-
         </div>
         <div class="score score-hidden">
             <ol>
                 {% for star in star_range %}
                     <li>
                     {% if forloop.counter >  seller.gk_stars %}
-                         <i class="fa fa-star-o"></i>
+                         <i class="fa fa-star-o fa-star-o-size"></i>
                     {% else %}
                         <i class="fa fa-star"></i>
                     {% endif %}
@@ -27,17 +26,19 @@
         <div class="sellers-share sellers-share-visible">
             <ul>
                 <li>
-                    <a><i class="fa fa-wechat wechat-hover"></i></a>
+                    <a class="share-btn-wx">
+                        <i class="fa fa-wechat wechat-hover"></i>
+                    </a>
                 </li>
                 <li>
-                    <a><i class="fa fa-weibo weibo-hover"></i></a>
+                    <a class="share-btn-wb" data_shop_pic="{{ seller.logo_url  }}"  data_shop_title="{{ seller.shop_title }}" data_shop_section="{{ seller.business_section }}" target="_blank"><i class="fa fa-weibo weibo-hover"></i></a>
                 </li>
                 <li>
-                    <a><i class="fa fa-qq qq-hover"></i></a>
+                    <a class="share-btn-qq" data_shop_pic="{{ seller.logo_url  }}"  data_shop_title="{{ seller.shop_title }}" data_shop_section="{{ seller.business_section }}"  target="_blank">
+                        <i class="fa fa-qq qq-hover"></i>
+                    </a>
                 </li>
             </ul>
-
         </div>
-
     </div>
 {% endfor %}

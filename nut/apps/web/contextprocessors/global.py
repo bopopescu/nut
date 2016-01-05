@@ -48,7 +48,7 @@ def isFromMobile(request):
         res = 'm.guoku.com' in host_str
 
     return {
-        'isFromMobile' : res
+        'isFromMobile' : res,
     }
 
 
