@@ -24,7 +24,7 @@ def crawl(spider, **parameters):
         'spider':   spider,
     }
     data.update(parameters)
-    res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
+    res = requests.post('http://10.0.2.49:6800/schedule.json', data=data)
     return res.json()
 
 
