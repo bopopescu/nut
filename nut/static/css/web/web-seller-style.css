@@ -1,3 +1,4 @@
+(node) util.print is deprecated. Use console.log instead.
 .v-helper {
   display: inline-block;
   height: 100%;
@@ -68,13 +69,13 @@
 }
 .button-white {
   background-color: #fff;
-  color: #9D9E9F;
+  color: #9d9e9f;
 }
 .button-white .fa {
-  color: #9D9E9F;
+  color: #9d9e9f;
 }
 .button-white:hover {
-  color: #9D9E9F;
+  color: #9d9e9f;
 }
 .blue-button {
   font-size: 14px;
@@ -87,7 +88,7 @@
   margin-top: 20px;
 }
 .button-gray {
-  background-color: #9D9E9F;
+  background-color: #9d9e9f;
 }
 .seller-button {
   margin-top: 10px;
@@ -112,7 +113,7 @@
 }
 .btn-cancel i,
 .button-cancel i {
-  color: #9D9E9F;
+  color: #9d9e9f;
 }
 .button-sharp {
   -webkit-border-radius: 0px;
@@ -126,13 +127,13 @@
   cursor: default;
 }
 .button-disabled {
-  background-color: #9D9E9F;
-  color: #F8F8F8;
+  background-color: #9d9e9f;
+  color: #f8f8f8;
 }
 .button-disabled:hover,
 .button-disabled:focus {
-  background-color: #9D9E9F;
-  color: #F8F8F8;
+  background-color: #9d9e9f;
+  color: #f8f8f8;
 }
 .entity-report-button {
   width: 120px;
@@ -161,7 +162,7 @@
   border: 1px solid #e6e6e6;
 }
 .panel {
-  background-color: #fff;
+  background-color: #ffffff;
   padding: 18px 18px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -169,21 +170,21 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 2px #ddd;
-  -moz-box-shadow: 0px 0px 2px #ddd;
-  box-shadow: 0px 0px 2px #ddd;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
 }
 .panel-no-padding {
-  background-color: #fff;
+  background-color: #ffffff;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 2px #ddd;
-  -moz-box-shadow: 0px 0px 2px #ddd;
-  box-shadow: 0px 0px 2px #ddd;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
   overflow: hidden;
 }
 .img-box {
@@ -280,7 +281,7 @@
   color: #424242;
 }
 .little-round-tag:hover {
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
 }
 .normal-round-tag {
   -webkit-border-radius: 40px;
@@ -304,7 +305,7 @@
 }
 .normal-round-tag:hover,
 .normal-round-tag.current {
-  background-color: #ddd;
+  background-color: #dddddd;
 }
 .bottom-bordered {
   border-bottom: 1px solid #e6e6e6;
@@ -323,7 +324,7 @@
   border-radius: 3px;
   /*text-align:center;*/
   /*color:#ff1f77;*/
-  background-color: #FF1F77;
+  background-color: #ff1f77;
   text-decoration: none;
 }
 .b_day {
@@ -362,16 +363,16 @@ p .b_day {
   border: none;
   margin-bottom: 60px;
   padding: 0px 0px 16px 0px;
-  background-color: #fff;
+  background-color: #ffffff;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 2px #ddd;
-  -moz-box-shadow: 0px 0px 2px #ddd;
-  box-shadow: 0px 0px 2px #ddd;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
   overflow: hidden;
 }
 .entity-four.thumbnail .img-box {
@@ -662,14 +663,14 @@ ol {
   height: 46px;
   line-height: 46px;
   text-align: center;
-  border: 1px solid #4188DC;
-  color: #4188DC;
+  border: 1px solid #4188dc;
+  color: #4188dc;
   border-radius: 30px;
 }
 .seller-body .seller-cross-screen .seller-banner-wrapper .share-btn-wrapper a.share-btn:hover {
   text-decoration: none;
   color: #ffffff;
-  background-color: #4188DC;
+  background-color: #4188dc;
   cursor: pointer;
 }
 .seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper {
@@ -742,22 +743,22 @@ ol {
   border-radius: 2px;
 }
 .seller-body .seller-sidebar-wrapper .seller-sidebar .list-item.list-item-weixin a {
-  color: #51C332;
+  color: #51c332;
 }
 .seller-body .seller-sidebar-wrapper .seller-sidebar .list-item.list-item-weixin a:hover {
-  background-color: #51C332;
+  background-color: #51c332;
 }
 .seller-body .seller-sidebar-wrapper .seller-sidebar .list-item.list-item-weibo a {
-  color: #E90D24;
+  color: #e90d24;
 }
 .seller-body .seller-sidebar-wrapper .seller-sidebar .list-item.list-item-weibo a:hover {
-  background-color: #E90D24;
+  background-color: #e90d24;
 }
 .seller-body .seller-sidebar-wrapper .seller-sidebar .list-item.list-item-qq a {
-  color: #3199DD;
+  color: #3199dd;
 }
 .seller-body .seller-sidebar-wrapper .seller-sidebar .list-item.list-item-qq a:hover {
-  background-color: #3199DD;
+  background-color: #3199dd;
 }
 .seller-body .seller-sidebar-wrapper .seller-sidebar .list-item a {
   display: inline-block;
@@ -779,7 +780,7 @@ ol {
 }
 .seller-body .seller-page-container {
   width: 100%;
-  background-color: #F8F8F8;
+  background-color: #f8f8f8;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper {
   overflow: hidden;
@@ -818,7 +819,7 @@ ol {
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .sections-item-title h3 {
   font-size: 32px;
   text-decoration: none;
-  text-shadow: 1px 1px 1px #333;
+  text-shadow: 1px 1px 1px #333333;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .sections-item-desc {
   margin-top: 50px;
@@ -827,7 +828,7 @@ ol {
   margin: 0 auto;
   max-width: 400px;
   font-size: 14px;
-  text-shadow: 1px 1px 1px #333;
+  text-shadow: 1px 1px 1px #333333;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper {
   margin-bottom: 50px;
@@ -840,7 +841,7 @@ ol {
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul li {
   display: inline-block;
   padding: 2px;
-  background-color: #F8F8F8;
+  background-color: #f8f8f8;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul li a {
   display: inline-block;
@@ -889,7 +890,7 @@ ol {
   display: inline-block;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .score ol li i {
-  color: #9D9E9F;
+  color: #9d9e9f;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share {
   height: 20px;
@@ -908,13 +909,13 @@ ol {
   margin-right: 5px;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share ul li a i.fa-qq:hover.qq-hover {
-  color: #3199DD;
+  color: #3199dd;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share ul li a i.fa-weibo:hover.weibo-hover {
-  color: #E90D24;
+  color: #e90d24;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share ul li a i.fa-wechat:hover.wechat-hover {
-  color: #51C332;
+  color: #51c332;
 }
 .seller-body .seller-page-container .popular-shops-title-wrapper {
   margin-top: 60px;
@@ -931,7 +932,7 @@ ol {
   margin-bottom: 30px;
 }
 .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item {
-  background-color: #fff;
+  background-color: #ffffff;
   padding: 18px 18px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -939,9 +940,9 @@ ol {
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 2px #ddd;
-  -moz-box-shadow: 0px 0px 2px #ddd;
-  box-shadow: 0px 0px 2px #ddd;
+  -webkit-box-shadow: 0px 0px 2px #dddddd;
+  -moz-box-shadow: 0px 0px 2px #dddddd;
+  box-shadow: 0px 0px 2px #dddddd;
 }
 .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-logo-wrapper {
   display: inline-block;
@@ -1016,10 +1017,10 @@ ol {
   color: white;
 }
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .share-btn-wrapper .pg-weibo-share-btn.pg-weibo-share-btn-bgc {
-  background-color: #E90D24;
+  background-color: #e90d24;
 }
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .share-btn-wrapper .pg-qq-share-btn.pg-qq-share-btn-bgc {
-  background-color: #3199DD;
+  background-color: #3199dd;
 }
 .seller-share-wx-dialog .modal-dialog {
   width: 250px;
@@ -1214,3 +1215,4 @@ ol {
     background-position: center top;
   }
 }
+/*# sourceMappingURL=web-seller-style.less.css.map */
