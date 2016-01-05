@@ -1097,11 +1097,11 @@ define('subapp/yearseller/share',['libs/Class', 'jquery', 'underscore','bootbox'
                 ralateUid:'2179686555',
                 language:'zh_cn',
                 pic: this.sharePic,
-                rnd : new Date().valueOf(),
+                rnd : new Date().valueOf()
             };
 
             this.qqShareOptions ={
-                url: location.href,
+                url: this.getShareUrl(),
                 showcount: 0 ,
                 desc: this.shareTitle,
                 summary: '最受欢迎淘宝店铺100家',
@@ -1128,7 +1128,7 @@ define('subapp/yearseller/share',['libs/Class', 'jquery', 'underscore','bootbox'
         },
 
         getShareUrl: function(){
-            return location.href.replace('/m.guoku.com|test.guoku.com/', 'www.guoku.com');
+            return location.href.replace(/m\.guoku\.com|test\.guoku\.com/, 'www.guoku.com');
         },
         setupShareBox: function(){
             $('.seller-cross-screen .share-btn').click(this.showShareDialog.bind(this));
@@ -1362,7 +1362,7 @@ define('subapp/yearseller/share',['libs/Class', 'jquery', 'underscore','bootbox'
 }));
 define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class, $){
 
-    var store2015UrlReg = /store2015/;
+    var  store2015UrlReg = /store2015/;
     var store2015CookieKey = 'store_2015_cookie_key'
     // here we use a global var isFromMobile, which is bootstraped in base.html (template)
 
