@@ -34,7 +34,7 @@ class SixPM(BaseFetcher):
 
     @property
     def shop_link(self):
-        return self.hostname
+        return self.origin_source
 
     @property
     def price(self):

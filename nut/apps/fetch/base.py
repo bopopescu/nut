@@ -8,6 +8,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.utils.log import getLogger
 
+from apps.core.tasks import get_html_source
 from apps.fetch.common import get_phantom_status, get_origin_source
 
 
@@ -15,10 +16,9 @@ log = getLogger('django')
 
 
 class BaseFetcher(object):
-    def __init__(self, entity_url, use_phantom=True):
+    def __init__(self, entity_url):
         self.entity_url = entity_url
-        self.use_phantom = use_phantom
-        self.hostname = self.get_hostname()
+        self.origin_source = self.get_origin_source()
         self.html_source = None
         self.expected_element = 'body'
 
@@ -31,14 +31,19 @@ class BaseFetcher(object):
         # if html_cache:
         #     return html_cache
 
-        if self.use_phantom and get_phantom_status():
-            response = requests.post(
-                    settings.PHANTOM_SERVER,
-                    data={'url': self.link or self.entity_url,
-                          'expected_element': self.expected_element,
-                          'timeout': 90})
-            self.set_html_cache(response=response)
-            self.html_source = response.content
+        # if get_phantom_status():
+        #     response = requests.post(
+        #             settings.PHANTOM_SERVER,
+        #             data={'url': self.link or self.entity_url,
+        #                   'expected_element': self.expected_element,
+        #                   'timeout': 10})
+        #     self.set_html_cache(response=response)
+        #     self.html_source = response.content
+        data={'url': self.link or self.entity_url,
+              'expected_element': self.expected_element,
+              'timeout': 10}
+        result = get_html_source.delay(**data)
+        self.html_source = result.get()
 
     def set_html_cache(self, response):
         if not response:
@@ -53,5 +58,5 @@ class BaseFetcher(object):
         if result:
             return result
 
-    def get_hostname(self):
+    def get_origin_source(self):
         return get_origin_source(self.entity_url)

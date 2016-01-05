@@ -34,9 +34,10 @@ def get_entity_info(entity_url, keys=('title', 'brand', 'price', 'origin_id',
     """
 
     provider = get_provider(entity_url)
-    provider.fetch()
+    provider_instance = provider(entity_url)
+    provider_instance.fetch()
 
     entity_info = {}
     for key in keys:
-        entity_info[key] = provider.get(key, '')
+        entity_info[key] = getattr(provider_instance, key, '')
     return entity_info

@@ -19,7 +19,7 @@ class Amazon(BaseFetcher):
         self.entity_url = entity_url
         self.origin_id = self.get_origin_id
         self.expected_element = self.get_expected_element()
-        self.shop_link = self.hostname
+        self.shop_link = self.origin_source
         self.shop_nick = self.get_nick()
 
     @property
@@ -39,14 +39,14 @@ class Amazon(BaseFetcher):
         return _desc[0]
 
     def get_nick(self):
-        return get_key(self.hostname)
+        return get_key(self.origin_source)
 
     def get_expected_element(self):
-        if self.hostname.endswith('cn'):
+        if self.origin_source.endswith('cn'):
             return 'div#wayfinding-breadcrumbs_container'
-        elif self.hostname.endswith('au'):
+        elif self.origin_source.endswith('au'):
             return 'div.buying'
-        elif self.hostname.endswith('br'):
+        elif self.origin_source.endswith('br'):
             return 'div#divsinglecolumnminwidth'
         return 'body'
 
@@ -96,12 +96,12 @@ class Amazon(BaseFetcher):
         if len(prices) > 1:
             prices.sort()
         origin_price = prices[0]
-        if not self.hostname.endswith('.cn'):
+        if not self.origin_source.endswith('.cn'):
             cny_price = 0
             self.foreign_price = origin_price
-            if self.hostname.endswith('.com'):
+            if self.origin_source.endswith('.com'):
                 cny_price = currency_converting('USD', origin_price)
-            elif self.hostname.endswith('.jp'):
+            elif self.origin_source.endswith('.jp'):
                 cny_price = currency_converting('JPY', origin_price)
             return cny_price
         return origin_price
@@ -141,7 +141,7 @@ class Amazon(BaseFetcher):
 
     @property
     def link(self):
-        link = "http://{0:s}/dp/{1:s}".format(self.hostname, self.origin_id)
+        link = "http://{0:s}/dp/{1:s}".format(self.origin_source, self.origin_id)
         return link
 
     @property

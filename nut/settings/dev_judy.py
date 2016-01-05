@@ -5,7 +5,7 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 DEBUG = True
 TESTING = len(sys.argv) > 0 and sys.argv[0].endswith('py.test')
-CELERY_ALWAYS_EAGER = True
+# CELERY_ALWAYS_EAGER = True
 
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
@@ -93,4 +93,5 @@ MAIL_LIST_ADDR='test_edm'
 MAIL_LIST = 'test_edm@maillist.sendcloud.org'
 
 # phantom
-PHANTOM_SERVER = 'http://192.168.99.100:5000/'
+PHANTOM_SERVER = 'http://10.0.2.49:5000/'
+# PHANTOM_SERVER = 'http://192.168.99.100:5000/'

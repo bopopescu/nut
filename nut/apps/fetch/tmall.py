@@ -16,21 +16,23 @@ IMG_POSTFIX = "_\d+x\d+.*\.jpg|_b\.jpg"
 class Tmall(BaseFetcher):
     def __init__(self, entity_url):
         BaseFetcher.__init__(self, entity_url)
-        self.high_resolution_pattern = re.compile('hiRes"[\s]*:[\s]*"([^";]+)')
-        self.large_resolution_pattern = re.compile('large"[\s]*:[\s]*"([^";]+)')
-        self.price_pattern = re.compile(u'(?:￥|\$)\s?(?P<price>\d+\.\d+)')
         self.foreign_price = 0.0
         self.entity_url = entity_url
         self.origin_id = self.get_origin_id()
-        self.expected_element = 'span.tm-price'
-        self.shop_link = self.get_shop_link()
-        self.shop_nick = self.get_nick()
+        self.expected_element = 'div#J_DetailMeta'
 
-    def get_nick(self):
-        self._nick = self._headers.get('at_nick')
-        if not self._nick:
-            return ""
-        return unquote(self._nick)
+        self.cid_pattern = re.compile(u'"rootCatId":"(?P<cid>\d*)')
+
+    @property
+    def shop_nick(self):
+        nick_tags = ('a.slogo-shopname strong',
+                     'li.shopkeeper a',
+                     'input[name="seller_nickname"]')
+        for nick_tag_name in nick_tags:
+            nick_tag = self.soup.select(nick_tag_name)
+            if nick_tag:
+                return nick_tag[0].text or nick_tag[0].attrs['value']
+        return ''
 
     @property
     def link(self):
@@ -41,21 +43,26 @@ class Tmall(BaseFetcher):
         params = self.entity_url.split("?")[1]
         for param in params.split("&"):
             tokens = param.split("=")
-            if len(tokens) >= 2 and (tokens[0] == "id" or tokens[0] == "item_id"):
+            if len(tokens) >= 2 and (tokens[0] == "id" or
+                                     tokens[0] == "item_id"):
                 return tokens[1]
 
     @property
     def cid(self):
-        cat = self.headers.get('X-Category')
-        try:
-            _cid = cat.split('/')
-            return _cid[-1]
-        except AttributeError, e:
-            log.error("Error: %s", e.message)
-        return 0
+        cid_tag = self.soup.select('input[name="rootCatId"]')
+        if cid_tag:
+            return cid_tag[0].attrs['value']
+
+        all_scripts = self.soup.select('div#J_DetailMeta script')
+        if all_scripts:
+            for script in all_scripts:
+                cid_tag = self.cid_pattern.findall(script.text)
+                if cid_tag:
+                    return cid_tag[0]
+        return '0'
 
     @property
-    def desc(self):
+    def title(self):
         return self.soup.title.string[0:-12]
 
     @property
@@ -92,35 +99,48 @@ class Tmall(BaseFetcher):
 
     @property
     def images(self):
-        _images = list()
-        fimg = self.soup.select("#J_ImgBooth")
+        image_list = list()
+        img_tags = self.soup.select("#J_ImgBooth")
+        if img_tags:
+            img_tag = img_tags[0].attrs.get('data-src')
+            if not img_tag:
+                img_tag = img_tags[0].attrs.get('src')
+            img_tag = re.sub(IMG_POSTFIX, "", img_tag)
+            if "http" not in img_tag:
+                img_tag = "http:" + img_tag
+            if img_tag.startswith('//'):
+                img_tag = 'http:'+img_tag
+            image_list.append(img_tag)
 
-        fjpg = fimg[0].attrs.get('data-src')
-        if not fjpg:
-            fjpg = fimg[0].attrs.get('src')
-
-        fjpg = re.sub(IMG_POSTFIX, "", fjpg)
-
-        if "http" not in fjpg:
-            fjpg = "http:" + fjpg
-
-        _images.append(fjpg)
-
-        optimgs = self.soup.select("ul#J_UlThumb li a img")
-
-        for op in optimgs:
+        img_tags = self.soup.select("ul#J_UlThumb li a img")
+        for op in img_tags:
             try:
-                optimg = re.sub(IMG_POSTFIX, "", op.attrs.get('src'))
-            except TypeError, e:
-                optimg = re.sub(IMG_POSTFIX, "", op.attrs.get('data-src'))
-            if optimg in _images:
+                img_src = re.sub(IMG_POSTFIX, "", op.attrs.get('src'))
+            except TypeError:
+                img_src = re.sub(IMG_POSTFIX, "", op.attrs.get('data-src'))
+            if img_src in image_list:
                 continue
-            _images.append(optimg)
-        return _images
+            if img_src.startswith('//'):
+                img_src = 'http:'+img_src
+            image_list.append(img_src)
+        return image_list
 
-    def get_shop_link(self):
+    @property
+    def shop_link(self):
+        shop_link_tags = ('a.slogo-shopname',
+                          'a.enter-shop',
+                          'input#J_ShopSearchUrl')
+        for shop_link_tag_name in shop_link_tags:
+            shop_link_tag = self.soup.select(shop_link_tag_name)
+            if shop_link_tag:
+                shop_link = shop_link_tag[0].attrs['href']
+                if not shop_link:
+                    shop_link = shop_link_tag[0].attrs['value']
+                if shop_link.startswith('//'):
+                    shop_link = 'http:' + shop_link
+                return shop_link
+
         shop_id_tag = re.findall('shopId:"(\d+)', self.html_source)
-
         if len(shop_id_tag) > 0:
             shop_link = "http://shop"+shop_id_tag[0]+".taobao.com"
             return shop_link

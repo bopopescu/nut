@@ -362,7 +362,6 @@ def entity_create(request, template="web/entity/new.html"):
         _forms = CreateEntityForm(request=request, data=request.POST)
         if _forms.is_valid():
             entity = _forms.save()
-
             return HttpResponseRedirect(
                 reverse('web_entity_detail', args=[entity.entity_hash, ]))
         log.info(_forms.errors)

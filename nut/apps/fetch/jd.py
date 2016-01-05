@@ -4,8 +4,6 @@ import re
 import json
 import urllib2
 
-from hashlib import md5
-from django.core.cache import cache
 from django.utils.log import getLogger
 
 from apps.fetch.base import BaseFetcher
@@ -17,41 +15,24 @@ log = getLogger('django')
 class JD(BaseFetcher):
 
     def __init__(self, entity_url):
-
         BaseFetcher.__init__(self, entity_url)
-        self.high_resolution_pattern = re.compile('hiRes"[\s]*:[\s]*"([^";]+)')
-        self.large_resolution_pattern = re.compile('large"[\s]*:[\s]*"([^";]+)')
-        self.price_pattern = re.compile(u'(?:￥|\$)\s?(?P<price>\d+\.\d+)')
+        self.expected_element = 'span.tm-price'
         self.foreign_price = 0.0
         self.entity_url = entity_url
         self.origin_id = self.get_origin_id()
-        self.expected_element = 'span.tm-price'
-        self.shop_link = self.get_shop_link()
-        self.shop_nick = self.get_nick()
 
     def get_origin_id(self):
         ids = re.findall(r'\d+', self.entity_url)
         if len(ids) > 0:
             return ids[0]
 
-    def fetch_html(self):
+    @property
+    def link(self):
         url = 'http://item.jd.com/%s.html' % self.origin_id
-        key = md5(url).hexdigest()
-        res = cache.get(key)
-        if res:
-            return res
-        try:
-            f = urllib2.urlopen(url)
-        except Exception, e:
-            log.error("ERROR: %s" % e.message)
-            raise
+        return url
 
-        self._headers = f.headers
-        res = f.read()
-        cache.set(key, res)
-        return res
-
-    def fetch_price(self):
+    @property
+    def price(self):
         price_link = "http://p.3.cn/prices/get?skuid=J_%s&type=1&area=1_72_4137&callback=cnp" % self.origin_id
         resp = urllib2.urlopen(price_link)
         data = resp.read()
@@ -60,8 +41,8 @@ class JD(BaseFetcher):
 
     @property
     def title(self):
-        self._title = self.soup.title.string
-        return self._title
+        title = self.soup.title.string
+        return title
 
     @property
     def brand(self):
@@ -82,7 +63,8 @@ class JD(BaseFetcher):
         # print category
         return category[-1]
 
-    def get_shop_link(self):
+    @property
+    def shop_link(self):
         tmp = re.findall(r'店铺.*>(.+)</a>', self.html)
         # _shop_link = ""
         if len(tmp)>0:
@@ -96,7 +78,11 @@ class JD(BaseFetcher):
         return _shop_link
 
     @property
-    def imgs(self):
+    def shop_nick(self):
+        return ''
+
+    @property
+    def images(self):
         imgtags = self.soup.select("html body div.w div#product-intro \
                 div#preview div#spec-list div.spec-items ul li img")
         imgs = []
@@ -109,7 +95,6 @@ class JD(BaseFetcher):
 
     @property
     def price(self):
-
         return float(self.price_json['p'])
 
 

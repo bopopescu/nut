@@ -41,9 +41,12 @@ def get_origin_source(item_url):
 
 
 def get_phantom_status():
-    phantom_health_url = urljoin(settings.PHANTOM_SERVER, '_health')
-    phantom_status = requests.get(phantom_health_url).status_code
-    return phantom_status == 200
+    # phantom_health_url = urljoin(settings.PHANTOM_SERVER, '_health')
+    # phantom_status = requests.get(phantom_health_url).status_code
+    # return phantom_status == 200
+    phantom_url = settings.PHANTOM_SERVER
+    phantom_status = requests.get(phantom_url).status_code
+    return phantom_status == 405
 
 
 def clean_price_string(prices_string):
@@ -79,9 +82,10 @@ def clean_price_string(prices_string):
 
 def get_url_meta(entity_url, keys=('origin_id', 'origin_source', 'link')):
     provider = get_provider(entity_url)
+    provider_instance = provider(entity_url)
     values = []
     for key in keys:
-        values.append(provider.get(key, ''))
+        values.append(getattr(provider_instance, key, ''))
     return values
 
 

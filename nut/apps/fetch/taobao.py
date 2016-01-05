@@ -16,7 +16,7 @@ class TaoBao(BaseFetcher):
         BaseFetcher.__init__(self, entity_url)
         self.nick_pattern = re.compile(u'掌\s+柜：(?P<nick>.*)',
                                        re.MULTILINE | re.UNICODE)
-        self.cid_pattern = re.compile(u'cid\s+:\s+(?P<cid>)\d*')
+        self.cid_pattern = re.compile(u'cid\s+:\s+(?P<cid>\d*)')
         self.foreign_price = 0.0
         self.entity_url = entity_url
         self.origin_id = self.get_origin_id()
@@ -100,34 +100,33 @@ class TaoBao(BaseFetcher):
 
     @property
     def images(self):
-        _images = list()
+        image_list = list()
         img_tags = self.soup.select("#J_ImgBooth")
         if not img_tags:
             img_tags = self.soup.select("#J_ThumbContent img")
 
-        fjpg = img_tags[0].attrs.get('data-src')
-        if not fjpg:
-            fjpg = img_tags[0].attrs.get('src')
+        image_src = img_tags[0].attrs.get('data-src')
+        if not image_src:
+            image_src = img_tags[0].attrs.get('src')
 
-        fjpg = re.sub(IMG_POSTFIX, "", fjpg)
+        image_src = re.sub(IMG_POSTFIX, "", image_src)
 
-        if "http" not in fjpg:
-            fjpg = "http:" + fjpg
-        _images.append(fjpg)
+        if "http" not in image_src:
+            image_src = "http:" + image_src
+        image_list.append(image_src)
 
-        optimgs = self.soup.select("ul#J_UlThumb li a img")
-
-        for op in optimgs:
+        img_tags = self.soup.select("ul#J_UlThumb li a img")
+        for op in img_tags:
             try:
-                optimg = re.sub(IMG_POSTFIX, "", op.attrs.get('src'))
+                img_tag = re.sub(IMG_POSTFIX, "", op.attrs.get('src'))
             except TypeError:
-                optimg = re.sub(IMG_POSTFIX, "", op.attrs.get('data-src'))
-            if "http" not in optimg:
-                optimg = "http:" + optimg
-            if optimg in _images:
+                img_tag = re.sub(IMG_POSTFIX, "", op.attrs.get('data-src'))
+            if "http" not in img_tag:
+                img_tag = "http:" + img_tag
+            if img_tag in image_list:
                 continue
-            _images.append(optimg)
-        return _images
+            image_list.append(img_tag)
+        return image_list
 
     @property
     def shop_link(self):

@@ -57,7 +57,7 @@ class Booking(BaseFetcher):
 
     @property
     def shop_link(self):
-        return self.hostname
+        return self.origin_source
     #     return self.urlobj.hostname
 
     @property

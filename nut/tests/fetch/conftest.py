@@ -87,7 +87,11 @@ def help_me_links():
 @pytest.fixture
 def kaola_links(): 
     return {
-        'http://www.kaola.com/product/29310.html?referId=brand&from=page1&position=15&istext=0': '29310'
+        'http://www.kaola.com/product/29310.html?referId=brand&from=page1&position=15&istext=0': '29310',
+        'http://www.kaola.com/product/11250.html?referId=brand&from=page1&position=0&istext=0':'11250',
+        'http://www.kaola.com/product/15529.html?referId=brand&from=page1&position=4&istext=0':'15529',
+        'http://www.kaola.com/product/10065.html?from=%E6%AF%8D%E5%A9%B4%E4%B8%93%E5%8C%BA&block=3&location=1&position=6':'10065',
+        'http://www.kaola.com/product/22743.html?from=%E6%9C%8D%E9%A5%B0%E9%9E%8B%E5%8C%85&block=3&location=6&position=11':'22743'
     }
 
 
