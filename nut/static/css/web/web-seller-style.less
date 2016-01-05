@@ -472,6 +472,9 @@ ol{
 .page-share-dialog{
   .modal-dialog{
     .modal-content{
+      //bs's modal-content has 6px border-radius
+      //to solve the background pic blocks the border-radius
+      overflow:hidden;
       .modal-header{
         display: none;
       }
