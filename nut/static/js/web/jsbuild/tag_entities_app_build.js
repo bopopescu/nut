@@ -1389,10 +1389,12 @@ define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
 	};
 
 }));
-define('subapp/top_ad/top_ad',['libs/Class', 'jquery'], function(Class, $){
+define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class, $){
 
     var store2015UrlReg = /store2015/;
     var store2015CookieKey = 'store_2015_cookie_key'
+    // here we use a global var isFromMobile, which is bootstraped in base.html (template)
+
 
     var TopAd = Class.extend({
         init: function(){
@@ -1420,7 +1422,10 @@ define('subapp/top_ad/top_ad',['libs/Class', 'jquery'], function(Class, $){
             }
         },
         displayTopAd: function(){
-            $('.top-ad').slideDown();
+            if (!isFromMobile){
+                 $('.top-ad').slideDown();
+            }
+
         },
         hideTopAd: function(event){
             $('.top-ad .close-button').hide();
