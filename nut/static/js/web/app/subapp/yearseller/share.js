@@ -23,11 +23,11 @@ define(['libs/Class', 'jquery', 'underscore','bootbox'], function(Class,$,_,boot
                 ralateUid:'2179686555',
                 language:'zh_cn',
                 pic: this.sharePic,
-                rnd : new Date().valueOf(),
+                rnd : new Date().valueOf()
             };
 
             this.qqShareOptions ={
-                url: location.href,
+                url: this.getShareUrl(),
                 showcount: 0 ,
                 desc: this.shareTitle,
                 summary: '最受欢迎淘宝店铺100家',
