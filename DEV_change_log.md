@@ -12,12 +12,19 @@
     
     ALTER TABLE `core`.`core_search_history` 
     CHANGE COLUMN `key_words` `key_words` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL COMMENT '' ;
+
+    
+1 ： 果库Top 100 淘宝卖家    
     
 2015-12-30
 ===
     
 ---    
-
+=================================
+=================================
+### merged to master 2015-12-28
+=================================
+=================================
 
 
 
@@ -30,7 +37,7 @@
 =================================
 ### merged to master 2015-12-23
 =================================
-
+=================================
 
 7. user page side bar (not user index page side bar) , 
     disable user article link if user do not have article (done)
