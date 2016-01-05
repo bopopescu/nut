@@ -86,6 +86,9 @@ window.location.href = url;</script><![endif]-->
 {% block header %}
     {% include "web/partial/header_new.html" %}
 {% endblock %}
+{#  add same ad block as header , so the content is not covered by extended header #}
+
+<div class="top-ad"></div>
 
 {% block content %}
 
@@ -105,6 +108,15 @@ window.location.href = url;</script><![endif]-->
     {% endif %}
 {% endblock %}
 
+{% block global_js_var %}
+    <script language="javascript">
+        {% if isFromMobile %}
+            var isFromMobile = true;
+        {% else %}
+            var isFromMobile = false;
+        {% endif %}
+    </script>
+{% endblock %}
 {% block basic_script %}
 
     <script src="{% static 'js/jquery-1.11.1.js' %}"></script>

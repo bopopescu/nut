@@ -6,6 +6,9 @@
 @import "../lib/article.less";
 @import "../lib/egypt.less";
 
+
+@import "top_add.less";
+
 *{
   &:active,&:focus{
 
@@ -13,7 +16,7 @@
 }
 
 body{
-  padding-top: 100px;
+  padding-top: 80px;
   color: @common-text-color;
   font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
   font-size: @primary-size;
@@ -90,9 +93,10 @@ body.compact-body{
 
 #guoku_main_nav{
   .acc-layer;
+
   &.hidden-header{
     .animate-header;
-    .transform(translateY(-60px));
+    .transform(translateY(-360px));
   }
 
   &.shown-header{
@@ -1606,4 +1610,6 @@ body{
 .gk_test{
   color:red;
 }
+
+
 
