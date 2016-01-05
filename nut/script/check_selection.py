@@ -25,7 +25,6 @@ def crawl(buy_link):
         'setting': 'DOWNLOAD_DELAY=2',
         'item_id': buy_link.origin_id,
         'update_selection_status': True,
-        'spider': ''
     }
     spider = ''
     if buy_link.origin_source == 'taobao.com':
@@ -36,7 +35,7 @@ def crawl(buy_link):
         data['domain'] = buy_link.origin_source
     data['spider'] = spider
 
-    res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
+    res = requests.post('http://10.0.2.49:6800/schedule.json', data=data)
     return res.json()
 
 
