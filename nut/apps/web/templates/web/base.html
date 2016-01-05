@@ -108,6 +108,15 @@ window.location.href = url;</script><![endif]-->
     {% endif %}
 {% endblock %}
 
+{% block global_js_var %}
+    <script language="javascript">
+        {% if isFromMobile %}
+            var isFromMobile = true;
+        {% else %}
+            var isFromMobile = false;
+        {% endif %}
+    </script>
+{% endblock %}
 {% block basic_script %}
 
     <script src="{% static 'js/jquery-1.11.1.js' %}"></script>

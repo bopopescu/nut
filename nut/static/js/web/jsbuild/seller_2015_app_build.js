@@ -1089,7 +1089,7 @@ define('subapp/yearseller/share',['libs/Class', 'jquery', 'underscore','bootbox'
             this.sharePic = share_pic;
 
             this.weiboShareOptions = {
-                url: location.href,
+                url: this.getShareUrl(),
                 title: this.shareTitle,
                 type:'6',
                 count:'0',
@@ -1097,11 +1097,11 @@ define('subapp/yearseller/share',['libs/Class', 'jquery', 'underscore','bootbox'
                 ralateUid:'2179686555',
                 language:'zh_cn',
                 pic: this.sharePic,
-                rnd : new Date().valueOf(),
+                rnd : new Date().valueOf()
             };
 
             this.qqShareOptions ={
-                url: location.href,
+                url: this.getShareUrl(),
                 showcount: 0 ,
                 desc: this.shareTitle,
                 summary: '最受欢迎淘宝店铺100家',
@@ -1125,6 +1125,10 @@ define('subapp/yearseller/share',['libs/Class', 'jquery', 'underscore','bootbox'
             this.setupShareBox();
             this.setupPageShareLinks();
 
+        },
+
+        getShareUrl: function(){
+            return location.href.replace(/m\.guoku\.com|test\.guoku\.com/, 'www.guoku.com');
         },
         setupShareBox: function(){
             $('.seller-cross-screen .share-btn').click(this.showShareDialog.bind(this));
@@ -1356,10 +1360,19 @@ define('subapp/yearseller/share',['libs/Class', 'jquery', 'underscore','bootbox'
 	};
 
 }));
+<<<<<<< HEAD
 define('subapp/top_ad/top_ad',['libs/Class', 'jquery'], function(Class, $){
 
     var store2015UrlReg = /store2015/;
     var store2015CookieKey = 'store_2015_cookie_key'
+=======
+define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class, $){
+
+    var  store2015UrlReg = /store2015/;
+    var store2015CookieKey = 'store_2015_cookie_key'
+    // here we use a global var isFromMobile, which is bootstraped in base.html (template)
+
+>>>>>>> 85b4cd1385e5fd235bec0803dd33f7058b05eda4
 
     var TopAd = Class.extend({
         init: function(){
@@ -1387,7 +1400,14 @@ define('subapp/top_ad/top_ad',['libs/Class', 'jquery'], function(Class, $){
             }
         },
         displayTopAd: function(){
+<<<<<<< HEAD
             $('.top-ad').slideDown();
+=======
+            if (!isFromMobile){
+                 $('.top-ad').slideDown();
+            }
+
+>>>>>>> 85b4cd1385e5fd235bec0803dd33f7058b05eda4
         },
         hideTopAd: function(event){
             $('.top-ad .close-button').hide();

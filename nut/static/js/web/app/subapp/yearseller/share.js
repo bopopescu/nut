@@ -15,7 +15,7 @@ define(['libs/Class', 'jquery', 'underscore','bootbox'], function(Class,$,_,boot
             this.sharePic = share_pic;
 
             this.weiboShareOptions = {
-                url: location.href,
+                url: this.getShareUrl(),
                 title: this.shareTitle,
                 type:'6',
                 count:'0',
@@ -23,11 +23,11 @@ define(['libs/Class', 'jquery', 'underscore','bootbox'], function(Class,$,_,boot
                 ralateUid:'2179686555',
                 language:'zh_cn',
                 pic: this.sharePic,
-                rnd : new Date().valueOf(),
+                rnd : new Date().valueOf()
             };
 
             this.qqShareOptions ={
-                url: location.href,
+                url: this.getShareUrl(),
                 showcount: 0 ,
                 desc: this.shareTitle,
                 summary: '最受欢迎淘宝店铺100家',
@@ -51,6 +51,10 @@ define(['libs/Class', 'jquery', 'underscore','bootbox'], function(Class,$,_,boot
             this.setupShareBox();
             this.setupPageShareLinks();
 
+        },
+
+        getShareUrl: function(){
+            return location.href.replace(/m\.guoku\.com|test\.guoku\.com/, 'www.guoku.com');
         },
         setupShareBox: function(){
             $('.seller-cross-screen .share-btn').click(this.showShareDialog.bind(this));
