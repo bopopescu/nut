@@ -725,10 +725,19 @@ define('libs/Class',[], function(){
 	};
 
 }));
+<<<<<<< HEAD
 define('subapp/top_ad/top_ad',['libs/Class', 'jquery'], function(Class, $){
 
     var store2015UrlReg = /store2015/;
     var store2015CookieKey = 'store_2015_cookie_key'
+=======
+define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class, $){
+
+    var  store2015UrlReg = /store2015/;
+    var store2015CookieKey = 'store_2015_cookie_key'
+    // here we use a global var isFromMobile, which is bootstraped in base.html (template)
+
+>>>>>>> 85b4cd1385e5fd235bec0803dd33f7058b05eda4
 
     var TopAd = Class.extend({
         init: function(){
@@ -756,7 +765,14 @@ define('subapp/top_ad/top_ad',['libs/Class', 'jquery'], function(Class, $){
             }
         },
         displayTopAd: function(){
+<<<<<<< HEAD
             $('.top-ad').slideDown();
+=======
+            if (!isFromMobile){
+                 $('.top-ad').slideDown();
+            }
+
+>>>>>>> 85b4cd1385e5fd235bec0803dd33f7058b05eda4
         },
         hideTopAd: function(event){
             $('.top-ad .close-button').hide();
