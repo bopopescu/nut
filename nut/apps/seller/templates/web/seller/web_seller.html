@@ -27,6 +27,14 @@
 {#give body element a more class:seller-body#}
 {% block body_class %} gray-body seller-body {% endblock %}
 
+{% block weixin_share_img %}
+{#    must be first img in body #}
+    <div id='wx_logo' style='margin:0 auto;display:none;'>
+        <img src="{% static 'images/year-seller/share_weibo.jpg' %}" />
+    </div>
+
+{% endblock %}
+
 {#    remove the header from the base template#}
 {% block header %}
 

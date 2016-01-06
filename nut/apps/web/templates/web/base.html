@@ -74,12 +74,14 @@ window.location.href = url;</script><![endif]-->
     </script>
 </head>
 <body class="{% block body_class %} gray-body {% endblock %} {% if isFromMobile %} mobile-body {% endif %}">
+{% block weixin_share_img %}
+{% endblock %}
 {% url 'web_download' as web_download_url %}
 {% url 'web_selection' as web_selection_url %}
 {% block global_links %}
-{% if web_selection_url in request.path %}
-    <a class="round-link acc-layer guoku-weixin" href="{{ web_download_url }}" target="_blank"><img class="img-responsive " src="{% static 'images/download_icon.png' %}"></a>
-{% endif %}
+    {% if web_selection_url in request.path %}
+        <a class="round-link acc-layer guoku-weixin" href="{{ web_download_url }}" target="_blank"><img class="img-responsive " src="{% static 'images/download_icon.png' %}"></a>
+    {% endif %}
 {% endblock %}
 <h1 class="hidden sr-only">{% block h1 %}果库,精英消费指南,精英,消费指南,专访{% endblock %}</h1>
 
