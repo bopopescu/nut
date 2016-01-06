@@ -54,7 +54,7 @@ define(['libs/Class', 'jquery', 'underscore','bootbox'], function(Class,$,_,boot
         },
 
         getShareUrl: function(){
-            return location.href.replace(/m\.guoku\.com|test\.guoku\.com/, 'www.guoku.com');
+            return location.href.replace(/m\.guoku\.com/, 'www.guoku.com');
         },
         setupShareBox: function(){
             $('.seller-cross-screen .share-btn').click(this.showShareDialog.bind(this));
