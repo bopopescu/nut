@@ -12,6 +12,7 @@ register = template.Library()
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
 
+
 def enumerate_list(value):
     return enumerate(value)
 register.filter(enumerate_list)
