@@ -890,7 +890,7 @@ ol {
   display: inline-block;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .score ol li i {
-  color: #9d9e9f;
+  color: #ffd700;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share {
   height: 20px;
@@ -900,9 +900,6 @@ ol {
 }
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share ul li {
   display: inline-block;
-}
-.seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share ul li a:hover {
-  cursor: pointer;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share ul li a i {
   color: #9d9d9d;
@@ -926,7 +923,7 @@ ol {
   text-align: center;
 }
 .seller-body .seller-page-container .popular-shops-wrapper {
-  margin-bottom: 60px;
+  margin-bottom: 70px;
 }
 .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper {
   margin-bottom: 30px;
@@ -975,8 +972,45 @@ ol {
   display: inline-block;
 }
 .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info .star-level ol li .popular-shop-star {
-  color: #FFD700;
+  color: #ffd700;
   font-size: 14px;
+}
+.seller-body .seller-page-container .download-intro-wrapper .download-intro {
+  text-align: center;
+  font-size: 14px;
+  color: #414243;
+}
+.seller-body .seller-page-container .download-guoku-qrcode-wrapper {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.seller-body .seller-page-container .download-guoku-qrcode-wrapper .download-guoku-qrcode {
+  width: 140px;
+  height: 140px;
+}
+.seller-body .seller-page-container .download-app-intro-wrapper .download-app-intro {
+  text-align: center;
+  font-size: 14px;
+  color: #414243;
+}
+.seller-body .seller-page-container .download-app-addr-wrapper {
+  margin-bottom: 50px;
+}
+.seller-body .seller-page-container .download-app-addr-wrapper .download-app-addr {
+  text-align: center;
+}
+.seller-body .seller-page-container .download-app-addr-wrapper .download-app-addr ul li {
+  display: inline-block;
+  font-size: 14px;
+  color: #4188dc;
+}
+.seller-body .seller-page-container .download-app-addr-wrapper .download-app-addr ul li a:hover {
+  text-decoration: none;
+}
+.seller-body .seller-page-container .download-app-addr-wrapper .download-app-addr ul li span {
+  padding: 0 3px;
+  color: #9d9e9f;
 }
 .page-share-dialog .modal-dialog .modal-content {
   overflow: hidden;
@@ -1003,6 +1037,7 @@ ol {
   cursor: pointer;
   margin: 0 auto;
   margin-bottom: 10px;
+  text-decoration: none;
 }
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .weibo-share-btn-wrapper-control .pg-weibo-share-btn:hover {
   color: white;
@@ -1012,6 +1047,7 @@ ol {
   cursor: pointer;
   margin: 0 auto;
   margin-bottom: 20px;
+  text-decoration: none;
 }
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .qq-share-btn-wrapper-control .pg-qq-share-btn:hover {
   color: white;
@@ -1019,8 +1055,14 @@ ol {
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .share-btn-wrapper .pg-weibo-share-btn.pg-weibo-share-btn-bgc {
   background-color: #e90d24;
 }
+.page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .share-btn-wrapper .pg-weibo-share-btn.pg-weibo-share-btn-bgc:hover {
+  background-color: #f14460;
+}
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .share-btn-wrapper .pg-qq-share-btn.pg-qq-share-btn-bgc {
   background-color: #3199dd;
+}
+.page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .share-btn-wrapper .pg-qq-share-btn.pg-qq-share-btn-bgc:hover {
+  background-color: #58abe1;
 }
 .seller-share-wx-dialog .modal-dialog {
   width: 250px;
@@ -1214,5 +1256,8 @@ ol {
     margin-bottom: 14%;
     background-position: center top;
   }
+}
+.test {
+  background-color: red;
 }
 /*# sourceMappingURL=web-seller-style.less.css.map */

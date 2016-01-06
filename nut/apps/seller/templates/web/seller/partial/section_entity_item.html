@@ -4,11 +4,11 @@
     {% if forloop.counter < 31 %}
         <li>
             {% if isFromMobile %}
-                 <a href="{{ entity.mobile_url }}">
+                 <a href="{{ entity.mobile_url }}" class="recommendation-item">
                     <img src="{{ entity.chief_image|resize:'128' }}" alt="{{ entity.title }}" title="{{ entity.title }}" class="img-responsive">
                 </a>
             {% else %}
-                 <a href="{{ entity.absolute_url }}" target="_blank">
+                 <a href="{{ entity.absolute_url }}" target="_blank" class="recommendation-item">
                     <img src="{{ entity.chief_image|resize:'128' }}" alt="{{ entity.title }}" title="{{ entity.title }}" class="img-responsive">
                 </a>
             {% endif %}
