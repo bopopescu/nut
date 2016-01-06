@@ -22,7 +22,8 @@
 
 {% block body_class %}
     gray-body article-body
-{% endblock %}{% block description %}{{ article.content|striptags|truncatechars:150 }}{% endblock %}
+{% endblock %}
+{% block description %}{{ article.content|striptags|truncatechars:150 }}{% endblock %}
 
 {% block h1 %}{{ article.title }} － 精英消费指南{% endblock %}
 
