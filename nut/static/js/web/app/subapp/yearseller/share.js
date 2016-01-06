@@ -11,7 +11,7 @@ define(['libs/Class', 'jquery', 'underscore','bootbox'], function(Class,$,_,boot
             this.share_modal_content = $('#share_modal_content').html();
             this.share_weixin_modal_content = $('#share_weixin_modal_content').html();
 
-            this.shareTitle = '#果库2015年度消费报告# 果库君一直努力为你发现最有趣、最实用的好商品，同时，也带你降落在最人气、最独特的店铺里。'
+            this.shareTitle = '#果库2015年度最受欢迎淘宝店铺100家# 过去这一年，在发现最有趣、最实用 #果库好商品# 的同时，果库君筛选出 #最受欢迎淘宝店铺#，充满剁手智慧的百家经验谈，想说的都在这里...'
             this.sharePic = share_pic;
 
             this.weiboShareOptions = {
@@ -146,7 +146,7 @@ define(['libs/Class', 'jquery', 'underscore','bootbox'], function(Class,$,_,boot
             var options = _.clone(this.weiboShareOptions);
                 options.showCount = 0;
                 options.desc = this.getSellerShareTitle(ele);
-                options.summary = '#2015果库消费报告';
+                options.summary = '#果库2015年度消费报告';
                 options.title =  this.shareTitle;
                 options.site = '果库网';
                 options.pics = this.getSellerSharePic(ele);
@@ -157,7 +157,15 @@ define(['libs/Class', 'jquery', 'underscore','bootbox'], function(Class,$,_,boot
         getSellerShareTitle: function(ele){
             var shop_title = $(ele).attr('data_shop_title');
             var shop_section = this.getSectionNameFromNumberString($(ele).attr('data_shop_section'));
-            var title = '「'+ shop_title+ '」'+'入选了2015果库'+shop_section + '！果库年度消费报告，最受欢迎的淘宝店铺都在这里。';
+            var shop_desc = $(ele).attr('data_shop_desc');
+            var title = '「'+ shop_title+ '」'+'入选 '
+                        + '＃果库2015年度最受欢迎淘宝店铺100家＃ 之'
+                        + shop_section + '篇：'
+                        + shop_desc
+                        + ' 还有99家精彩店铺等你来发现。'
+                        + '';
+
+            //var title = '「'+ shop_title+ '」'+'入选了2015果库'+shop_section + '！果库年度消费报告，最受欢迎的淘宝店铺都在这里。';
             return title ;
         },
         getSellerSharePic: function(ele){
