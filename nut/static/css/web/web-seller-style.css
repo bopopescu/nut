@@ -1036,6 +1036,7 @@ ol {
   cursor: pointer;
   margin: 0 auto;
   margin-bottom: 10px;
+  text-decoration: none;
 }
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .weibo-share-btn-wrapper-control .pg-weibo-share-btn:hover {
   color: white;
@@ -1045,6 +1046,7 @@ ol {
   cursor: pointer;
   margin: 0 auto;
   margin-bottom: 20px;
+  text-decoration: none;
 }
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .qq-share-btn-wrapper-control .pg-qq-share-btn:hover {
   color: white;
@@ -1052,8 +1054,14 @@ ol {
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .share-btn-wrapper .pg-weibo-share-btn.pg-weibo-share-btn-bgc {
   background-color: #E90D24;
 }
+.page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .share-btn-wrapper .pg-weibo-share-btn.pg-weibo-share-btn-bgc:hover {
+  background-color: #F14460;
+}
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .share-btn-wrapper .pg-qq-share-btn.pg-qq-share-btn-bgc {
   background-color: #3199DD;
+}
+.page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .share-btn-wrapper .pg-qq-share-btn.pg-qq-share-btn-bgc:hover {
+  background-color: #58ABE1;
 }
 .seller-share-wx-dialog .modal-dialog {
   width: 250px;
