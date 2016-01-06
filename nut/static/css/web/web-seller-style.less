@@ -16,6 +16,10 @@ ol{
 
 @qq-hover-color:#3199DD;
 
+@download-intro-text-color:#414243;
+
+@download-app-text-color:#4188DC;
+
 @year-seller-share-btn-border-radius:30px;
 
 .year-seller-modal-share-btn{
@@ -407,7 +411,7 @@ ol{
   }
 
   .popular-shops-wrapper{
-    margin-bottom:60px;
+    margin-bottom:70px;
     .popular-shop-item-wrapper{
       margin-bottom: 30px;
       .popular-shop-item{
@@ -460,6 +464,56 @@ ol{
       }
     }
       }
+  }
+
+  .download-intro-wrapper{
+    .download-intro{
+      text-align: center;
+      font-size: @smaller-primary;
+      color: @download-intro-text-color;
+    }
+  }
+
+  .download-guoku-qrcode-wrapper{
+    margin-top:20px;
+    margin-bottom:30px;
+    text-align: center;
+    .download-guoku-qrcode{
+      width:140px;
+      height:140px;
+    }
+  }
+
+  .download-app-intro-wrapper{
+    .download-app-intro{
+       text-align: center;
+       font-size: @smaller-primary;
+       color: @download-intro-text-color;
+    }
+  }
+
+  .download-app-addr-wrapper{
+    margin-bottom: 50px;
+    .download-app-addr{
+      text-align: center;
+      ul{
+        li{
+          display: inline-block;
+          font-size: @smaller-primary;
+          color:@download-app-text-color;
+          a{
+            &:hover{
+              text-decoration: none;
+            }
+          }
+          span{
+            padding:0 3px;
+            color:@common-gray;
+          }
+        }
+      }
+    }
+
   }
 }
 }

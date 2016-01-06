@@ -922,7 +922,7 @@ ol {
   text-align: center;
 }
 .seller-body .seller-page-container .popular-shops-wrapper {
-  margin-bottom: 60px;
+  margin-bottom: 70px;
 }
 .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper {
   margin-bottom: 30px;
@@ -973,6 +973,43 @@ ol {
 .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info .star-level ol li .popular-shop-star {
   color: #FFD700;
   font-size: 14px;
+}
+.seller-body .seller-page-container .download-intro-wrapper .download-intro {
+  text-align: center;
+  font-size: 14px;
+  color: #414243;
+}
+.seller-body .seller-page-container .download-guoku-qrcode-wrapper {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.seller-body .seller-page-container .download-guoku-qrcode-wrapper .download-guoku-qrcode {
+  width: 140px;
+  height: 140px;
+}
+.seller-body .seller-page-container .download-app-intro-wrapper .download-app-intro {
+  text-align: center;
+  font-size: 14px;
+  color: #414243;
+}
+.seller-body .seller-page-container .download-app-addr-wrapper {
+  margin-bottom: 50px;
+}
+.seller-body .seller-page-container .download-app-addr-wrapper .download-app-addr {
+  text-align: center;
+}
+.seller-body .seller-page-container .download-app-addr-wrapper .download-app-addr ul li {
+  display: inline-block;
+  font-size: 14px;
+  color: #4188DC;
+}
+.seller-body .seller-page-container .download-app-addr-wrapper .download-app-addr ul li a:hover {
+  text-decoration: none;
+}
+.seller-body .seller-page-container .download-app-addr-wrapper .download-app-addr ul li span {
+  padding: 0 3px;
+  color: #9D9E9F;
 }
 .page-share-dialog .modal-dialog .modal-content {
   overflow: hidden;
