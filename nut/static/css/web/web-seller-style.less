@@ -22,6 +22,9 @@ ol{
 
 @year-seller-share-btn-border-radius:30px;
 
+@modal-weibo-share-btn-hover-bg:#F14460;
+@modal-qq-share-btn-hover-bg:#58ABE1;
+
 .year-seller-modal-share-btn{
   width:200px;
   height:46px;
@@ -549,6 +552,7 @@ ol{
               cursor:pointer;
               margin:0 auto;
               margin-bottom:10px;
+              text-decoration: none;
               &:hover{
                 color:white;
               }
@@ -560,6 +564,7 @@ ol{
               cursor: pointer;
               margin:0 auto;
               margin-bottom:20px;
+              text-decoration: none;
               &:hover{
                 color:white;
               }
@@ -569,13 +574,19 @@ ol{
             .pg-weibo-share-btn{
               &.pg-weibo-share-btn-bgc{
                 background-color: @weibo-hover-color;
-
+                
+                &:hover{
+                  background-color: @modal-weibo-share-btn-hover-bg;
+                }
               }
 
             }
             .pg-qq-share-btn{
               &.pg-qq-share-btn-bgc{
                 background-color: @qq-hover-color;
+                &:hover{
+                  background-color: @modal-qq-share-btn-hover-bg;
+                }
               }
             }
           }
