@@ -900,9 +900,6 @@ ol {
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share ul li {
   display: inline-block;
 }
-.seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share ul li a:hover {
-  cursor: pointer;
-}
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share ul li a i {
   color: #9d9d9d;
   margin-right: 5px;
