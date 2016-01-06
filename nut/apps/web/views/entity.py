@@ -384,7 +384,6 @@ def entity_load(request):
         _forms = EntityURLFrom(request=request, data=request.POST)
         if _forms.is_valid():
             _item_info = _forms.load()
-            # log.info(_item_info)
             if 'entity_hash' in _item_info:
                 _res = {
                     'status': 'EXIST',

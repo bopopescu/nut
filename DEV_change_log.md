@@ -1,3 +1,21 @@
+#### action:
+
+    sudo apt-get update
+    
+    sudo apt-get install build-essential chrpath git-core libssl-dev libfontconfig1-dev libxft-dev
+
+    cd /tmp
+    
+    git clone git://github.com/ariya/phantomjs.git
+    
+    cd phantomjs
+    
+    git checkout 2.0
+    
+    ./build.sh
+    
+
+### Recoding
 
 4.  no more christmas logo
 3.  fix management search paging bug

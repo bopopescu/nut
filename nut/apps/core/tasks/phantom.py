@@ -17,12 +17,13 @@ class DriverFactory(object):
         if not cls.__instance:
             print('initialize phantom webdriver')
             cls.__instance = webdriver.PhantomJS(
+                executable_path='/usr/local/bin/phantomjs',
                 service_args='--disk-cache true --load-images false'.split()
             )
         return cls.__instance
 
 
-@task(name='get_html_source')
+# @task(name='get_html_source')
 def get_html_source(url, expected_element, timeout=20):
     driver = DriverFactory.get()
     driver.get(url)
