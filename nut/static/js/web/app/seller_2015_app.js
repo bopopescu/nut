@@ -5,7 +5,8 @@ require([
         'subapp/yearseller/linkscroll',
         'subapp/yearseller/share',
         'cookie',
-        'subapp/top_ad/top_ad'
+        'subapp/top_ad/top_ad',
+        'utils/browser'
     ],
     function(polyfill,
              $,
@@ -13,7 +14,8 @@ require([
              AnchorScroller,
              ShareHanlder,
              cookie,
-             TopAd
+             TopAd,
+             browser
 
     ){
 
@@ -21,6 +23,13 @@ require([
         var anchorScroller = new AnchorScroller('.sections-titles-wrapper li a');
         var shareHandler = new ShareHanlder();
         var topAd = new TopAd();
+
+        // for weixin  access redirect entity link to  app download
+        if (browser.is_weixin()){
+            $('a.seller-entity-link').attr('href','http://www.guoku.com/download/');
+        }
+
+
         console.log('in year seller app');
 
     });
