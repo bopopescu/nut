@@ -1,8 +1,12 @@
 
-
+4. store 2015 front
 3. 搜索记录同时记录用户的ip和agent
 2. 首页瀑布流
 1. update redis key user_last_verify_time_id to user_last_verify_time:id
+
+### 翻译有更新
+  需要  compilemessages
+  是否需要重启 reload ?  
 
 ### action
 
