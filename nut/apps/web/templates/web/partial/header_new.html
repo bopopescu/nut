@@ -38,8 +38,6 @@
                     <li {% if web_discover_url in request.path %}class="active"{% endif %}>
                         <a href="{{ web_discover_url }}">{% trans 'Discover' %}</a>
                     </li>
-
-
                     {% url 'web_event_home' as web_event_home_url %}
                     <li {% if web_event_home_url in request.path %}class="active" {% endif %}>
                         <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="round"></span></a>
@@ -48,8 +46,7 @@
 
                     {% url 'year_store_2015' as store_2015_url %}
                     <li {% if store_2015_url in request.path %}class="active" {% endif %}>
-                        <a href="{{ store_2015_url }}" class="img-menu"><img src="{% static 'images/year-seller/2015_store_menu_btn.png' %}"  height="38px"></a>
-{#                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></a>#}
+                        <a href="{{ store_2015_url }}" class="">{% trans 'Store Of The Year' %}<span class="b_day"><img src="{% static 'images/year-seller/2015.gif' %}" width="25px"></span></a>
                     </li>
 
                 </ul>

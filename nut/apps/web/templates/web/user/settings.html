@@ -73,17 +73,29 @@
                                     <span class="input-element col-xs-10 col-sm-7">
                                          {{ profile_form.email }}
                                     </span>
-                                    {% if user.need_verify_mail %}
-                                    <span class=" col-xs-2 col-sm-2">
-                                        <span class="guoku-button button-blue button-sharp mail-verify-button">验证邮箱</span>
-                                    </span>
-                                    {% else %}
-                                        <span class=" col-xs-2 col-sm-2 verify-info">
-                                            <span class="">
-                                             邮箱已验证
+                                    {% if user.need_change_mail %}
+                                            <span class=" col-xs-2 col-sm-2 verify-info">
+                                                <span class="action-alert">
+                                                    请您更改邮箱
+                                                </span>
                                             </span>
-                                        </span>
+
+                                    {% else %}
+
+                                        {% if user.need_verify_mail %}
+                                            <span class=" col-xs-2 col-sm-2">
+                                                <span class="guoku-button button-blue button-sharp mail-verify-button">验证邮箱</span>
+                                            </span>
+                                        {% else %}
+                                            <span class=" col-xs-2 col-sm-2 verify-info">
+                                                <span class="">
+                                                 邮箱已验证
+                                                </span>
+                                            </span>
+                                        {% endif %}
+
                                     {% endif %}
+
 
                                         <span class="input-info col-xs-12">
                                            {{ profile_form.email.errors }}
