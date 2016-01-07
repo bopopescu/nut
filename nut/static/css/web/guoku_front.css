@@ -3514,6 +3514,12 @@ body.compact-body {
   }
 }
 @media (min-width: 768px) and (max-width: 990px) {
+  #guoku_main_nav .main-list li > a {
+    padding: 15px 9px!important;
+  }
+  #guoku_main_nav .search .search-input {
+    width: 135px;
+  }
   .container {
     width: 100%;
   }
