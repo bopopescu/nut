@@ -1,8 +1,10 @@
- <div class="top-ad">
-     <div class="ad-wrapper">
+{% load i18n staticfiles %}
+
+<div class="top-ad">
+     <div class="ad-wrapper" style="background-image:url('{% static 'images/year-seller/entrance_bg.jpg' %}')">
            <a href="{% url 'year_store_2015' %}" target="_blank" >
                <div class="top-ad-title-wrapper">
-                   <img src="/static/images/year-seller/entrance_title.png" class="top-ad-title-control">
+                   <img src="{% static 'images/year-seller/entrance_title.png' %}" class="top-ad-title-control">
                </div>
            </a>
      </div>
