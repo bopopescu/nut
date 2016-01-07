@@ -1758,6 +1758,7 @@ body.compact-body {
   color: #9d9e9f;
 }
 #guoku_main_nav .search .search-input {
+  width: 135px;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -3299,6 +3300,9 @@ body.compact-body {
 .search-result-container {
   min-height: 570px;
 }
+#settings.edit_profile .action-alert {
+  color: #d91920;
+}
 #settings.edit_profile .edit_info ul li {
   position: relative;
   height: auto;
@@ -3513,7 +3517,10 @@ body.compact-body {
     display: none;
   }
 }
-@media (min-width: 768px) and (max-width: 990px) {
+@media (min-width: 768px) and (max-width: 991px) {
+  #guoku_main_nav .main-list li > a {
+    padding: 15px 9px!important;
+  }
   .container {
     width: 100%;
   }
@@ -3634,6 +3641,6 @@ body .for-mobile {
   left: 3px;
 }
 .gk_test {
-  color: black;
+  color: red;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
