@@ -45,7 +45,7 @@
     <div class="seller-cross-screen" style="background-image: url({% static 'images/year-seller/banner_bg.jpg' %})">
         <div class="row seller-banner-wrapper">
             <div class="col-xs-12 banner-bgpic-wrapper">
-                <img src="/static/images/year-seller/banner-title.png" class="img-responsive img-control">
+                <img src="{% static 'images/year-seller/banner-title.png' %}" class="img-responsive img-control">
             </div>
 
             <div class="col-xs-12 share-btn-wrapper">
@@ -169,7 +169,6 @@
             </div>
 
             <div class="row sections-item-sellers-wrapper">
-涩ller
                 {% with section_sellers=food_sellers  %}
                     {% include 'web/seller/partial/section_seller_item.html' %}
                 {% endwith  %}
