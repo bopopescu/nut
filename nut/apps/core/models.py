@@ -105,12 +105,16 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.email
 
 
-    def has_guoku_email(self):
-        return '@guoku.com' in self.email
+    def has_guoku_assigned_email(self):
+        return ('@guoku.com' in self.email ) and (len(self.email) > 29)
 
     @property
     def need_verify_mail(self):
-        return (not self.profile.email_verified) and ( not self.has_guoku_email())
+        return (not self.profile.email_verified ) and (not self.need_change_mail)
+
+    @property
+    def need_change_mail(self):
+        return ('@guoku.com' in self.email ) and (len(self.email) > 29)
 
     @property
     def has_published_article(self):
