@@ -1,4 +1,4 @@
-
+5. guoku assigned email , no verify , alert to change mail . 
 4. store 2015 front
 3. 搜索记录同时记录用户的ip和agent
 2. 首页瀑布流
