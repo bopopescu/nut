@@ -6,7 +6,7 @@
 
 ### 翻译有更新
   需要  compilemessages
-  是否需要重启 reload ?  
+  需要重新启动 让翻译生效  
 
 ### action
 
