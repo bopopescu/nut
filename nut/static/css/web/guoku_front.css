@@ -3300,6 +3300,9 @@ body.compact-body {
 .search-result-container {
   min-height: 570px;
 }
+#settings.edit_profile .action-alert {
+  color: #d91920;
+}
 #settings.edit_profile .edit_info ul li {
   position: relative;
   height: auto;
