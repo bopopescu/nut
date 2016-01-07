@@ -14,13 +14,13 @@ IMG_POSTFIX = "_\d+x\d+.*\.jpg|_b\.jpg"
 
 
 class Tmall(BaseFetcher):
-    def __init__(self, entity_url):
+    def __init__(self, entity_url, use_phantom=True):
         BaseFetcher.__init__(self, entity_url)
+        self.use_phantom = use_phantom
         self.foreign_price = 0.0
         self.entity_url = entity_url
         self.origin_id = self.get_origin_id()
         self.expected_element = 'div#J_DetailMeta'
-
         self.cid_pattern = re.compile(u'"rootCatId":"(?P<cid>\d*)')
 
     @property

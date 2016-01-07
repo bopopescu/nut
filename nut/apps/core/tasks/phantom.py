@@ -23,7 +23,7 @@ class DriverFactory(object):
         return cls.__instance
 
 
-# @task(name='get_html_source')
+@task(name='get_html_source')
 def get_html_source(url, expected_element, timeout=20):
     driver = DriverFactory.get()
     driver.get(url)

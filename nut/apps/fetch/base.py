@@ -16,36 +16,37 @@ faker = Faker()
 
 
 class BaseFetcher(object):
-    def __init__(self, entity_url):
+    def __init__(self, entity_url, use_phantom=False):
         self.entity_url = entity_url
         self.origin_source = self.get_origin_source()
         self.html_source = None
         self.headers = None
         self.expected_element = 'body'
+        self.use_phantom = use_phantom
 
     @property
     def soup(self):
         return BeautifulSoup(self.html_source)
 
-    def fetch(self, timeout=20, use_phantom=False):
+    def fetch(self, timeout=20):
         html_source = ''
         headers = ''
 
         # get html from cache
-        html_cache = self.get_html_cache()
-        if html_cache:
-            headers = html_cache['header']
-            html_source = html_cache['body']
+        # html_cache = self.get_html_cache()
+        # if html_cache:
+        #     headers = html_cache['header']
+        #     html_source = html_cache['body']
 
         url = self.link or self.entity_url
 
-        if use_phantom:
+        if self.use_phantom:
             # get html from phantom
             data = {'url': url,
                     'expected_element': self.expected_element,
                     'timeout': timeout}
-            # result = get_html_source.delay(**data)
-            result = get_html_source(**data)
+            result = get_html_source.delay(**data)
+            # result = get_html_source(**data)
             html_source = result.get()
         else:
             # get html from requests
@@ -61,6 +62,10 @@ class BaseFetcher(object):
 
         self.set_html_cache(headers=headers, content=html_source)
         self.html_source = html_source
+        file = open('/Users/judy/Desktop/phantom.html', 'wb')
+        file.write(html_source)
+        file.close()
+
         self.headers = headers
 
     def set_html_cache(self, headers, content):
