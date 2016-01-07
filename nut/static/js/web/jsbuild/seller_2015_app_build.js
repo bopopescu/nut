@@ -1416,6 +1416,41 @@ define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class,
 
     return TopAd;
 });
+define('utils/browser',[], function () {
+    //all helper function for browser operation here,
+    //
+    var browser = {
+        getQueryStrings: function () {
+            var assoc = {};
+            var decode = function (s) {
+                return decodeURIComponent(s.replace(/\+/g, " "));
+            };
+            var queryString = location.search.substring(1);
+            var keyValues = queryString.split('&');
+
+            //for(var i in keyValues) {
+            for (var i = 0, len = keyValues.length; i < len; i++) {
+                var key = keyValues[i].split('=');
+                if (key.length > 1) {
+                    assoc[decode(key[0])] = decode(key[1]);
+                }
+            }
+            return assoc;
+        },
+        is_weixin: function(){
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.match(/MicroMessenger/i)=="micromessenger") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+    };
+
+    return browser
+
+});
 require([
         'libs/polyfills',
         'jquery',
@@ -1423,7 +1458,8 @@ require([
         'subapp/yearseller/linkscroll',
         'subapp/yearseller/share',
         'cookie',
-        'subapp/top_ad/top_ad'
+        'subapp/top_ad/top_ad',
+        'utils/browser'
     ],
     function(polyfill,
              $,
@@ -1431,7 +1467,8 @@ require([
              AnchorScroller,
              ShareHanlder,
              cookie,
-             TopAd
+             TopAd,
+             browser
 
     ){
 
@@ -1439,6 +1476,13 @@ require([
         var anchorScroller = new AnchorScroller('.sections-titles-wrapper li a');
         var shareHandler = new ShareHanlder();
         var topAd = new TopAd();
+
+        // for weixin  access redirect entity link to  app download
+        if (browser.is_weixin()){
+            $('a.seller-entity-link').attr('href','http://www.guoku.com/download/');
+        }
+
+
         console.log('in year seller app');
 
     });
