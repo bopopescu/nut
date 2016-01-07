@@ -1236,7 +1236,7 @@ define('subapp/yearseller/share',['libs/Class', 'jquery', 'underscore','bootbox'
                         + '＃果库2015年度最受欢迎淘宝店铺100家＃ 之'
                         + shop_section + '篇：'
                         + shop_desc
-                        + ' 还有99家精彩店铺等你来发现。'
+                        + ' 还有 99 家店铺等你来发现。'
                         + '';
 
             //var title = '「'+ shop_title+ '」'+'入选了2015果库'+shop_section + '！果库年度消费报告，最受欢迎的淘宝店铺都在这里。';
