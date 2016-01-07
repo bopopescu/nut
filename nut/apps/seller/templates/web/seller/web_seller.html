@@ -42,7 +42,7 @@
 
 {% block content %}
     {#big banner#}
-    <div class="seller-cross-screen">
+    <div class="seller-cross-screen" style="background-image: url({% static 'images/year-seller/banner_bg.jpg' %})">
         <div class="row seller-banner-wrapper">
             <div class="col-xs-12 banner-bgpic-wrapper">
                 <img src="/static/images/year-seller/banner-title.png" class="img-responsive img-control">
@@ -136,7 +136,7 @@
 
             <div class="row sections-item-intro-wrapper">
 
-                <div class="section-intro-bg-layer" style="background-image: url('/static/images/year-seller/delicacy.jpg')">
+                <div class="section-intro-bg-layer" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">
 
                 </div>
                 <div class="col-xs-12 sections-item-title">
@@ -169,7 +169,7 @@
             </div>
 
             <div class="row sections-item-sellers-wrapper">
-
+涩ller
                 {% with section_sellers=food_sellers  %}
                     {% include 'web/seller/partial/section_seller_item.html' %}
                 {% endwith  %}
@@ -181,7 +181,7 @@
 
             <div class="row sections-item-intro-wrapper">
 
-                <div class="section-intro-bg-layer" style="background-image: url('/static/images/year-seller/culture.jpg')">
+                <div class="section-intro-bg-layer" style="background-image: url({% static 'images/year-seller/culture.jpg' %})">
 
                 </div>
                 <div class="col-xs-12 sections-item-title">
@@ -217,7 +217,7 @@
 
             <div class="row sections-item-intro-wrapper">
 
-                <div class="section-intro-bg-layer" style="background-image: url('/static/images/year-seller/looks.jpg')">
+                <div class="section-intro-bg-layer" style="background-image: url({% static 'images/year-seller/looks.jpg' %})">
                 </div>
 
                 <div class="col-xs-12 sections-item-title">
@@ -254,7 +254,7 @@
 
             <div class="row sections-item-intro-wrapper">
 
-                <div class="section-intro-bg-layer" style="background-image: url('/static/images/year-seller/lifestyle.jpg')">
+                <div class="section-intro-bg-layer" style="background-image: url({% static 'images/year-seller/lifestyle.jpg' %})">
 
                 </div>
                 <div class="col-xs-12 sections-item-title">
@@ -306,7 +306,7 @@
 
         <div class="row download-guoku-qrcode-wrapper">
             <div class="col-xs-12">
-                <img src="/static/images/year-seller/DL_guoku.jpg" class="download-guoku-qrcode">
+                <img src="{% static 'images/year-seller/DL_guoku.jpg' %}" class="download-guoku-qrcode">
             </div>
         </div>
 
@@ -350,10 +350,10 @@
 
 
     <script type="text/html" id="share_modal_content">
-        <div class="share-modal-wrapper share-modal-wrapper-control" style="background-image:url('/static/images/year-seller/share_bg.jpg')">
+        <div class="share-modal-wrapper share-modal-wrapper-control" style="background-image:url({% static 'images/year-seller/share_bg.jpg' %})">
 
             <div class="qr-code-wrapper qr-code-control">
-                <img src="/static/images/year-seller/store2015_QRcode.jpg" width="200px" height="200px"/>
+                <img src="{% static 'images/year-seller/store2015_QRcode.jpg' %}" width="200px" height="200px"/>
             </div>
 
             <div class="share-btn-wrapper weibo-share-btn-wrapper-control">
@@ -371,7 +371,7 @@
     <script type="text/html" id="share_weixin_modal_content">
         <div class="share-modal-wrapper share-modal-wrapper-control">
             <div class="qr-code-wrapper qr-code-control">
-                <img src="/static/images/year-seller/store2015_QRcode.jpg" width="200px" height="200px"/>
+                <img src="{% static 'images/year-seller/store2015_QRcode.jpg' %}" width="200px" height="200px"/>
             </div>
         </div>
     </script>
