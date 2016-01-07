@@ -9,7 +9,7 @@ class SellerView(TemplateView):
     template_name = 'web/seller/web_seller.html'
 
     def get_seller_by_business_section(self,section):
-        return Seller_Profile.objects.filter(business_section=section).select_related('related_article__url')
+        return Seller_Profile.objects.ordered_profile().filter(business_section=section).select_related('related_article__url')
 
     def get_seller_entities(self, seller_queryset):
         article_list = Article.objects.filter(related_seller__in=seller_queryset)
@@ -40,7 +40,7 @@ class SellerView(TemplateView):
         context['blank_sellers'] = self.get_seller_by_business_section(Seller_Profile.blank)
         context['blank_entities'] = self.get_seller_section_entities(Seller_Profile.blank)
 
-        context['sellers'] = Seller_Profile.objects.all().order_by('-gk_stars')
+        context['sellers'] = Seller_Profile.objects.ordered_all_profile()
         context['star_range'] = xrange(5)
 
         return context
