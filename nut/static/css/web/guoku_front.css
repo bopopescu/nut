@@ -1694,6 +1694,11 @@ body.compact-body {
   font-weight: 600;
   background: none;
 }
+#guoku_main_nav .main-list .img-menu {
+  padding: 0px 0px;
+  position: relative;
+  top: 5px;
+}
 #guoku_main_nav .nav-add-product .add_goods {
   display: none;
   position: absolute;
@@ -3629,6 +3634,6 @@ body .for-mobile {
   left: 3px;
 }
 .gk_test {
-  color: red;
+  color: black;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
