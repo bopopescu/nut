@@ -45,6 +45,13 @@
                         <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="round"></span></a>
 {#                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></a>#}
                     </li>
+
+                    {% url 'year_store_2015' as store_2015_url %}
+                    <li {% if store_2015_url in request.path %}class="active" {% endif %}>
+                        <a href="{{ store_2015_url }}">{% trans 'Store2015' %}</a>
+{#                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></a>#}
+                    </li>
+
                 </ul>
 
                 {% url 'web_login' as web_login_url %}
