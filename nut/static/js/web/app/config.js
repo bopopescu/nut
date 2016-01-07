@@ -19,9 +19,14 @@ requirejs.config({
         bootbox: 'libs/bootbox.min',
         Backbone: 'libs/backbone.min',
         snowFall: 'libs/jquery.snow',
+        jqueryeasing:'libs/jqueryeasing'
     },
 
     shim: {
+        'jqueryeasing': {
+            deps:['jquery'],
+            exports: 'jqueryeasing'
+        },
         'snowFall':{
             deps:['jquery'],
             exports:'snowFall'
