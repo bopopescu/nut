@@ -379,7 +379,7 @@
 {% endblock %}
 {% block basic_script %}
     <script language="javascript">
-        var share_pic = location.host + '{% static 'images/year-seller/share_weibo.jpg' %}';
+        var share_pic = '{% static 'images/year-seller/share_weibo.jpg' %}';
     </script>
     <script data-main="{% static 'js/web/jsbuild/seller_2015_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
 
