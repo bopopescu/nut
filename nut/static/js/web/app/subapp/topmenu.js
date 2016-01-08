@@ -1,4 +1,12 @@
-define(['bootstrap', 'libs/Class','underscore','jquery', 'fastdom','cookie'],function(boot, Class,_,$,fastdom,cookie){
+define(['bootstrap',
+        'libs/Class',
+        'underscore',
+        'jquery',
+        'fastdom',
+        'cookie',
+        'subapp/top_ad/top_ad'
+    ],
+    function(boot, Class,_,$,fastdom,cookie,TopAd){
 
     // cookie is a shim resource , it will attch to jquery objects.
 
@@ -29,6 +37,7 @@ define(['bootstrap', 'libs/Class','underscore','jquery', 'fastdom','cookie'],fun
             this.setupScrollMenu();
             this.checkSNSBindVisit();
             this.checkEventRead();
+            this.topAd = new TopAd();
 
         },
         checkEventRead:function(){
