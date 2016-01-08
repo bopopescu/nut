@@ -1,5 +1,5 @@
 from django.conf.urls import url, patterns
-from apps.web.views.entity import gotoBuyView
+from apps.web.views.entity import gotoBuyView, TaobaoRecommendationView
 
 
 urlpatterns = patterns(
@@ -18,6 +18,9 @@ urlpatterns = patterns(
     url(r'^load/item/', 'entity_load', name='web_load_item_info'),
     url(r'^(?P<eid>\d+)/report/$', 'report', name='web_entity_report'),
     url(r'^go/(?P<buy_id>\d+)/', gotoBuyView.as_view(), name='web_entity_buy_url'),
+
+
+    url('^taobao/recommendation/$', TaobaoRecommendationView.as_view(), name='taobao_recommendation_url'),
 )
 
 
