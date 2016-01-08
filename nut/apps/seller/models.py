@@ -1,11 +1,24 @@
 # coding=utf-8
 from django.conf import settings
 from django.db import models
+
 from django.utils.translation import ugettext_lazy as _
 from apps.core.models import BaseModel, GKUser, Article
 
 
 image_host = getattr(settings, 'IMAGE_HOST', None)
+
+
+class Seller_Profile_Manager(models.Manager):
+    def ordered_profile(self):
+        return self.extra(select={'converted_title': 'CONVERT(shop_title USING gbk)'},
+                          order_by=['converted_title'])
+
+
+    def ordered_all_profile(self):
+        return self.extra(select={'converted_title': 'CONVERT(shop_title USING gbk)'},
+                          order_by=['-gk_stars','converted_title'])
+
 
 
 
@@ -44,6 +57,8 @@ class Seller_Profile(BaseModel):
     gk_stars = models.IntegerField(choices=GKSTAR_CHOICE, default=5)
     related_article = models.OneToOneField(Article, related_name='related_seller',null=True, blank=True)
 
+    objects = Seller_Profile_Manager()
+
     def __unicode__(self):
         return '%s_%s' %(self.seller_name, self.shop_title)
 
@@ -54,5 +69,6 @@ class Seller_Profile(BaseModel):
     @property
     def category_logo_url(self):
         return '%s%s' %(image_host, self.category_logo)
+
 
 

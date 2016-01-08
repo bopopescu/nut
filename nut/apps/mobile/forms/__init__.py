@@ -58,7 +58,7 @@ class CreateLaunchBoardForm(LaunchBoardForm):
         _description = self.cleaned_data.get('description')
         _device = self.cleaned_data.get('device')
         _version = self.cleaned_data.get('version')
-        _action_title = self.cleaned_date.get('action_title')
+        _action_title = self.cleaned_data.get('action_title')
         _action = self.cleaned_data.get('action')
         _status = self.cleaned_data.get('status')
         # print _image

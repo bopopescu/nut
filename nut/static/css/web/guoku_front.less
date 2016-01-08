@@ -6,6 +6,9 @@
 @import "../lib/article.less";
 @import "../lib/egypt.less";
 
+
+@import "top_add.less";
+
 *{
   &:active,&:focus{
 
@@ -13,7 +16,7 @@
 }
 
 body{
-  padding-top: 100px;
+  padding-top: 80px;
   color: @common-text-color;
   font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
   font-size: @primary-size;
@@ -90,9 +93,10 @@ body.compact-body{
 
 #guoku_main_nav{
   .acc-layer;
+
   &.hidden-header{
     .animate-header;
-    .transform(translateY(-60px));
+    .transform(translateY(-360px));
   }
 
   &.shown-header{
@@ -133,6 +137,12 @@ body.compact-body{
         font-weight: 600;
         background: none;
       }
+    }
+
+    .img-menu{
+       padding: 0px 0px;
+       position: relative;
+       top: 5px;
     }
   }
   .nav-add-product{
@@ -196,6 +206,7 @@ body.compact-body{
 
   .search{
     .search-input{
+      width: 135px;
       .box-shadow(none);
       border: 1px solid #e3e3e3;
       .border-radius(32px);
@@ -1539,6 +1550,9 @@ body.compact-body{
 }
 
 #settings.edit_profile{
+  .action-alert{
+    color: #d91920;
+  }
   .edit_info{
     ul li{
       position: relative;
@@ -1604,6 +1618,8 @@ body{
 }
 
 .gk_test{
-  color:red;
+  color:black;
 }
+
+
 

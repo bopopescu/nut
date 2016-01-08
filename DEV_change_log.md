@@ -1,8 +1,24 @@
 
 
+3. fast click optimize for mobile browsers 
+2. m.guoku.com store2015 page , weixin browser , entity click to app download 
+1. fix store 2015 weibo share page pic bug
+
+2016－1-8 start
+
+=================================
+=================================
+### merged to master 2016 － 1 － 7 
+
+5. guoku assigned email , no verify , alert to change mail . 
+4. store 2015 front
 3. 搜索记录同时记录用户的ip和agent
 2. 首页瀑布流
 1. update redis key user_last_verify_time_id to user_last_verify_time:id
+
+### 翻译有更新
+  需要  compilemessages
+  需要重新启动 让翻译生效 
 
 ### action
 
