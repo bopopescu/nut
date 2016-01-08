@@ -1,4 +1,9 @@
 
+=================================
+=================================
+### merged to master 2016 － 1 － 8
+=================================
+=================================
 
 3. fast click optimize for mobile browsers 
 2. m.guoku.com store2015 page , weixin browser , entity click to app download 
@@ -8,7 +13,9 @@
 
 =================================
 =================================
-### merged to master 2016 － 1 － 7 
+### merged to master 2016 － 1 － 7
+=================================
+=================================
 
 5. guoku assigned email , no verify , alert to change mail . 
 4. store 2015 front
