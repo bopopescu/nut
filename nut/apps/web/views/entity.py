@@ -468,7 +468,7 @@ class TaobaoRecommendationView(BaseJsonView):
         }
         r = requests.get(taobao_recommendation_url, params=payload)
         data = r.json()
-        print data
+        # print data
         # context.update(
         #     {
         #         'object_list': data['result'],
