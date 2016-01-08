@@ -26,17 +26,22 @@ def test_cache_data(we_chat_id_list):
             sleep(5)
 
 
-
 @pytest.mark.parametrize('account_id,account_url', (
-    ('shenyebagua818', 'http://weixin.sogou.com/gzh?openid=oIWsFtyGRm3FRZuQbcDquZOI5N_E&ext=meTK-Q6CgYT-DHYcIW5N0QuLU0A0H8QrFacyt8v_4EFWeLmCEODO-76hqX7M_eqC'),
-    ('a529597', 'http://weixin.sogou.com/gzh?openid=oIWsFt9wW05QWFFlh954q_SV0sno&ext=meTK-Q6CgYTnmA-kFXWE58-NoW1u7Az0c_t_0ikjl3T-19yoGNYbJlB8Nz39oXd3'),
-    ('bb2b2bb', 'http://weixin.sogou.com/gzh?openid=oIWsFt1sT7UB3WgapFp74dPEOHLI&ext=meTK-Q6CgYTzZWuCBqVglE9aohPlWezOYL4Z84eWtkwsazuwG4XLUg6XHmeCX9tX'),
-    ('cctvnewscenter', 'http://weixin.sogou.com/gzh?openid=oIWsFt_IC706OXjJP2sn_T5MxVfs&ext=meTK-Q6CgYQMurv9tdWeCmKXvijwLV51TYLhH5_MLMu8-_qivMTUYMJffEFCEzgG'),
-    ('woshitongdao', 'http://weixin.sogou.com/gzh?openid=oIWsFt6Jz41fAg2eQHTA1wIbSp0Y&ext=meTK-Q6CgYQiHRHfpAoUgrf3ZB6pO_uo82mkdfw6Ht40TYbBSvx1o8e1XtFGhyXB'),
+    ('shenyebagua818',
+     'http://weixin.sogou.com/gzh?openid=oIWsFtyGRm3FRZuQbcDquZOI5N_E&ext=meTK-Q6CgYT-DHYcIW5N0QuLU0A0H8QrFacyt8v_4EFWeLmCEODO-76hqX7M_eqC'),
+    ('a529597',
+     'http://weixin.sogou.com/gzh?openid=oIWsFt9wW05QWFFlh954q_SV0sno&ext=meTK-Q6CgYTnmA-kFXWE58-NoW1u7Az0c_t_0ikjl3T-19yoGNYbJlB8Nz39oXd3'),
+    ('bb2b2bb',
+     'http://weixin.sogou.com/gzh?openid=oIWsFt1sT7UB3WgapFp74dPEOHLI&ext=meTK-Q6CgYTzZWuCBqVglE9aohPlWezOYL4Z84eWtkwsazuwG4XLUg6XHmeCX9tX'),
+    ('cctvnewscenter',
+     'http://weixin.sogou.com/gzh?openid=oIWsFt_IC706OXjJP2sn_T5MxVfs&ext=meTK-Q6CgYQMurv9tdWeCmKXvijwLV51TYLhH5_MLMu8-_qivMTUYMJffEFCEzgG'),
+    ('woshitongdao',
+     'http://weixin.sogou.com/gzh?openid=oIWsFt6Jz41fAg2eQHTA1wIbSp0Y&ext=meTK-Q6CgYQiHRHfpAoUgrf3ZB6pO_uo82mkdfw6Ht40TYbBSvx1o8e1XtFGhyXB'),
 ))
 def test_fetch_account(account_id, account_list_url):
     we_chat_fetcher = WeChatArticle(account_id)
-    source_file = open('%s/%s_%s.html' % (data_dir, 'wechat_search', account_id), 'r')
+    source_file = open(
+        '%s/%s_%s.html' % (data_dir, 'wechat_search', account_id), 'r')
     html_source = source_file.read()
     we_chat_fetcher.search_page = html_source
     source_file.close()
