@@ -1556,6 +1556,69 @@ textarea {
   line-height: 20px;
   font-size: 20px;
 }
+.notification-rect-pic {
+  width: 52px;
+  height: 52px;
+}
+.notification-list .notification-menu {
+  padding-bottom: 25px;
+  min-width: 368px;
+  height: auto;
+  max-height: 556px;
+  overflow-y: auto;
+}
+.notification-list .notification-menu .notification-list-item {
+  position: relative;
+  width: 100%;
+  min-height: 85px;
+  padding: 15px 10px;
+  border-bottom: 1px solid #F8F8F8;
+  font-size: 14px;
+}
+.notification-list .notification-menu .notification-list-item .notification-user-logo-wrapper {
+  position: absolute;
+  top: 15px;
+  left: 10px;
+  width: 52px;
+  height: 52px;
+}
+.notification-list .notification-menu .notification-list-item .notification-user-logo-wrapper .notification-user-logo {
+  width: 52px;
+  height: 52px;
+}
+.notification-list .notification-menu .notification-list-item .main-notification {
+  margin-left: 62px;
+  margin-right: 62px;
+}
+.notification-list .notification-menu .notification-list-item .main-notification .main-notification-title .notification-user-name:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
+.notification-list .notification-menu .notification-list-item .main-notification .main-notification-title span {
+  padding-left: 5px;
+  color: #9D9E9F;
+}
+.notification-list .notification-menu .notification-list-item .main-notification .main-notification-intro {
+  margin-top: 10px;
+}
+.notification-list .notification-menu .notification-list-item .main-notification .main-notification-intro i {
+  color: #EBEBEB;
+}
+.notification-list .notification-menu .notification-list-item .notification-goods-wrapper {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  width: 54px;
+  height: 54px;
+  border: 1px solid #f2f2f2;
+}
+.notification-list .notification-menu .notification-list-item .notification-goods-wrapper .notification-goods {
+  width: 52px;
+  height: 52px;
+}
+.test {
+  background-color: black;
+}
 body {
   padding-top: 80px;
   color: #424242;

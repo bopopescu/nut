@@ -1,0 +1,87 @@
+@import "../lib/mixin.less";
+@import "../lib/var.less";
+@import "../lib/widgets.less";
+
+// user notification list
+@notification-goods-border-color:#f2f2f2;
+@notification-quote-color:#EBEBEB;
+//common class
+.notification-rect-pic{
+  width:52px;
+  height:52px;
+}
+
+
+.notification-list{
+  .notification-menu{
+    //.pannel;
+    padding-bottom: 25px;
+    min-width:368px;
+    height:auto;
+    max-height:556px;
+    overflow-y: auto;
+
+    .notification-list-item{
+      position:relative;
+      width:100%;
+      min-height:85px;
+      padding:15px 10px;
+      border-bottom: @common-border;
+      font-size: @smaller-primary;
+
+      .notification-user-logo-wrapper{
+        position:absolute;
+        top:15px;
+        left:10px;
+        width:52px;
+        height:52px;
+        .notification-user-logo{
+         .notification-rect-pic;
+        }
+      }
+      .main-notification{
+        margin-left:62px;
+        margin-right:62px;
+        .main-notification-title{
+          .notification-user-name{
+            &:hover{
+              cursor: pointer;
+              text-decoration: none;
+            }
+          }
+          span{
+            padding-left:5px;
+            color:@common-gray;
+          }
+
+        }
+
+        .main-notification-intro{
+          margin-top:10px;
+          i{
+            color:@notification-quote-color;
+          }
+        }
+      }
+      .notification-goods-wrapper{
+        position: absolute;
+        top:15px;
+        right: 10px;
+        width:54px;
+        height:54px;
+        border:1px solid @notification-goods-border-color;
+        .notification-goods{
+         .notification-rect-pic;
+      }
+      }
+    }
+
+  }
+
+
+}
+
+
+.test{
+  background-color: black;
+}
