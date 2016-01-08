@@ -28,9 +28,9 @@ require([
 
 
         // for weixin  access redirect entity link to  app download
-        //if (browser.is_weixin()){
-        //    $('a.seller-entity-link').attr('href','http://www.guoku.com/download/');
-        //}
+        if (browser.is_weixin()){
+            $('a.seller-entity-link').attr('href','http://www.guoku.com/download/');
+        }
         FastClick.attach(document.body);
 
         console.log('in year seller app');
