@@ -25,9 +25,9 @@ require([
         var topAd = new TopAd();
 
         // for weixin  access redirect entity link to  app download
-        if (browser.is_weixin()){
-            $('a.seller-entity-link').attr('href','http://www.guoku.com/download/');
-        }
+        //if (browser.is_weixin()){
+        //    $('a.seller-entity-link').attr('href','http://www.guoku.com/download/');
+        //}
 
 
         console.log('in year seller app');
