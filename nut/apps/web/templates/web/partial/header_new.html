@@ -64,13 +64,6 @@
                     </ul>
                 {% endif %}
 
-                <form class="navbar-form navbar-right" action="{% url 'web_search' %}" method="get" role="form" style="margin-top: 11px;">
-                    <div class="input-group search">
-                        <input class="form-control search-input" name="q" type="search" placeholder="&nbsp;{% trans 'Search' %}" value="{{ keyword }}" >
-                        <i class="fa fa-search"></i>
-                    </div>
-                </form>
-
                 {% if web_login_url not in request.path and web_register_url not in request.path %}
                 <ul class="nav navbar-nav nav-add-product navbar-right hidden-sm hidden-xs">
                     <li>
@@ -82,6 +75,14 @@
 
                 </ul>
                 {% endif %}
+
+                <form class="navbar-form navbar-right" action="{% url 'web_search' %}" method="get" role="form" style="margin-top: 11px;">
+                    <div class="input-group search">
+                        <input class="form-control search-input" name="q" type="search" placeholder="&nbsp;{% trans 'Search' %}" value="{{ keyword }}" >
+                        <i class="fa fa-search"></i>
+                    </div>
+                </form>
+
             </div>
         </div>
     </header>
