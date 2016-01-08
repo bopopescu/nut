@@ -20,7 +20,7 @@ from apps.core.views import JSONResponseMixin, BaseJsonView
 from apps.v4.forms.search import APIUserSearchForm
 from haystack.generic_views import SearchView
 # from apps.v4.models import APIUser
-
+from apps.core.tasks import send_activation_mail
 
 log = getLogger('django')
 
@@ -514,8 +514,9 @@ class APIUserVerifiedView(BaseJsonView):
 
     def get_data(self, context):
         res = dict()
-        if self.user.profile.email_verified:
-            self.user.send_verification_mail()
+        if not self.user.profile.email_verified:
+            # self.user.send_verification_mail()
+            send_activation_mail(self.user)
         else:
             pass
 
