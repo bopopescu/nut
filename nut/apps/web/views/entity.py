@@ -463,18 +463,12 @@ class TaobaoRecommendationView(BaseJsonView):
         # context = super(TaobaoRecommendationView, self).get_context_data(**kwargs)
 
         payload = {
-            'keyword':self.keyword,
-            'mall':self.mall,
+            'keyword': self.keyword,
+            'mall': self.mall,
+            'count': self.count,
         }
         r = requests.get(taobao_recommendation_url, params=payload)
         data = r.json()
-        # print data
-        # context.update(
-        #     {
-        #         'object_list': data['result'],
-        #         'keyword': self.keyword,
-        #     }
-        # )
         return data
 
     def get(self, request, *args, **kwargs):
@@ -482,6 +476,7 @@ class TaobaoRecommendationView(BaseJsonView):
         self.keyword = request.GET.get('keyword', None)
         assert self.keyword is not None
         self.mall = request.GET.get('mall', False)
+        self.count = request.GET.get('count', 12)
         # self.mall = kwargs.pop('mall', False)
         return super(TaobaoRecommendationView, self).get(requests, *args, **kwargs)
 
