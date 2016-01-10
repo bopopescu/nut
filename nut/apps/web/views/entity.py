@@ -464,7 +464,7 @@ class TaobaoRecommendationView(BaseJsonView):
 
         payload = {
             'keyword': self.keyword,
-            'mall': self.mall,
+            'mall':self.mall,
             'count': self.count,
         }
         r = requests.get(taobao_recommendation_url, params=payload)
