@@ -30,7 +30,7 @@ def handel(keyword, **kwargs):
         {
             "istk":     str(istk),
             "mall":     str(ismall),
-            "count":    int(count),
+            "count":    count,
         }
     )
 
@@ -44,6 +44,7 @@ def handel(keyword, **kwargs):
     #         'itemid': itemId,
     #     })
 
+    # print params
     app.logger.info(params)
     req.params = json.dumps( params )
 
