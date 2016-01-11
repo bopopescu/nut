@@ -1,4 +1,8 @@
-
+3. in guoku editor 
+   a. if article's change is not saved , user can not leave page without passthrough a confirmation dialog;
+   b. 
+2. fix register page word error (Have an Account? )
+1. fix user can not send verify mail , if user location is not in default list (app reged user)
 =================================
 =================================
 ### merged to master 2016 － 1 － 8
