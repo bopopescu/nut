@@ -5,6 +5,7 @@
 // user notification list
 @notification-goods-border-color:#f2f2f2;
 @notification-quote-color:#EBEBEB;
+
 //common class
 .notification-rect-pic{
   width:52px;
@@ -12,14 +13,36 @@
 }
 
 
-.notification-list{
-  .notification-menu{
-    //.pannel;
+.notification-menu{
+  position:relative;
+  .notification-bell-wrapper{
+    &:after{
+        content: "";
+        position: absolute;
+        top:35px;
+        right: 25px;
+        border-style: solid;
+        border-width: 10px;
+        border-color: transparent transparent @tag-hover-background-dark transparent;
+        display: block;
+        width: 0;
+        z-index: 10000;
+
+    }
+  }
+  .notification-list{
+    position:absolute;
+    top:45px;
+    right:0;
+    z-index:1000;
+    margin-top:10px;
     padding-bottom: 25px;
-    min-width:368px;
+    min-width:360px;
     height:auto;
     max-height:556px;
     overflow-y: auto;
+    background-color: @panel-background-color;
+    .panel-no-padding;
 
     .notification-list-item{
       position:relative;
@@ -35,7 +58,7 @@
         left:10px;
         width:52px;
         height:52px;
-        .notification-user-logo{
+          .notification-user-logo{
          .notification-rect-pic;
         }
       }
@@ -58,9 +81,18 @@
 
         .main-notification-intro{
           margin-top:10px;
-          i{
+          .notification-user-mark{
+            color:@common-text-color;
+            &:hover{
+              cursor: pointer;
+              color:@link-color;
+              text-decoration: none;
+            }
+             i{
             color:@notification-quote-color;
           }
+          }
+
         }
       }
       .notification-goods-wrapper{
@@ -81,6 +113,26 @@
 
 }
 
+@media screen and(max-width:767px){
+  .notification-menu{
+    float: right;
+    .notification-list{
+
+    }
+  }
+}
+
+@media screen and(max-width:580px){
+  .notification-menu{
+    float: right;
+    .notification-list{
+      min-width: 290px;
+      right:-50px;
+
+
+    }
+  }
+}
 
 .test{
   background-color: black;

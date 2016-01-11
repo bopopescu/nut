@@ -16,6 +16,144 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+
+{# the message bell may be put here                #}
+
+                 <ul class="nav navbar-nav navbar-right notification-menu">
+                     <li class="notification-bell-wrapper">
+                         <a href="#">
+                             <i class="fa fa-bell" style="color: #9D9E9F;font-size:18px;"></i>
+                             <span class="round" style="display: inline-block"></span>
+                         </a>
+                     </li>
+                     <ul class="notification-list">
+                             <li class="notification-list-item">
+
+                                 <div class="notification-user-logo-wrapper">
+                                        <img src="{% static 'images/avatar/woman.png'%}" class="notification-user-logo img-circle">
+                                 </div>
+
+                                 <div class="main-notification">
+
+                                     <div class="main-notification-title">
+                                         <a class="notification-user-name">Nothing</a>
+                                         开始关注你了
+                                         <span>3小时前</span>
+                                     </div>
+                                 </div>
+
+                             </li>
+
+                             <li class="notification-list-item">
+
+                                 <div class="notification-user-logo-wrapper">
+                                     <img src="{% static 'images/avatar/woman.png'%}" class="notification-user-logo img-circle">
+                                 </div>
+
+                                 <div class="main-notification">
+                                     <div class="main-notification-title">
+                                         <a class="notification-user-name">Nothing</a>
+                                         点评了你的商品
+                                         <span>1天前</span>
+                                     </div>
+
+                                     <div class="main-notification-intro">
+                                         <a class="notification-user-mark">
+                                             <p>
+                                               <i class="fa fa-quote-left"></i>
+                                               可以模仿的鸟音，类型有云雀、鹡鸰、绿头鸭、小猫头鹰、杜鹃、画眉、花园莺、
+                                               鸫、黑水鸡、斑鸠…… 好的，从明天起你就是一个职业鸟人。
+                                               <i class="fa fa-quote-right"></i>
+                                         </p>
+                                         </a>
+
+                                     </div>
+
+                                 </div>
+
+                                 <div class="notification-goods-wrapper">
+                                     <img src="{% static 'images/event/cal.jpg'%}" class="notification-goods img-circle">
+                                 </div>
+
+                             </li>
+
+                             <li class="notification-list-item">
+
+                                 <div class="notification-user-logo-wrapper">
+                                     <img src="{% static 'images/avatar/woman.png'%}" class="notification-user-logo img-circle">
+                                 </div>
+
+                                 <div class="main-notification">
+                                     <div class="main-notification-title">
+                                         <a class="notification-user-name">AzureRay</a>
+                                        喜爱了你添加的商品
+                                         <span>1天前</span>
+                                     </div>
+                                 </div>
+
+                                 <div class="notification-goods-wrapper">
+                                     <img src="{% static 'images/event/cal.jpg'%}" class="notification-goods img-circle">
+                                 </div>
+
+                             </li>
+
+                             <li class="notification-list-item">
+
+                                 <div class="notification-user-logo-wrapper">
+                                     <img src="{% static 'images/avatar/woman.png'%}" class="notification-user-logo img-circle">
+                                 </div>
+
+                                 <div class="main-notification">
+                                     <div class="main-notification-title">
+                                         <a class="notification-user-name">Nothing</a>
+                                         点评了你的商品
+                                         <span>1天前</span>
+                                     </div>
+
+                                     <div class="main-notification-intro">
+                                         <a class="notification-user-mark">
+                                             <p>
+                                               <i class="fa fa-quote-left"></i>
+                                               可以模仿的鸟音，类型有云雀、鹡鸰、绿头鸭、小猫头鹰、杜鹃、画眉、花园莺、
+                                               鸫、黑水鸡、斑鸠…… 好的，从明天起你就是一个职业鸟人。
+                                               <i class="fa fa-quote-right"></i>
+                                         </p>
+                                         </a>
+
+                                     </div>
+
+                                 </div>
+
+                                 <div class="notification-goods-wrapper">
+                                     <img src="{% static 'images/event/cal.jpg'%}" class="notification-goods img-circle">
+                                 </div>
+
+                             </li>
+
+                             <li class="notification-list-item">
+
+                                 <div class="notification-user-logo-wrapper">
+                                     <img src="{% static 'images/avatar/woman.png'%}" class="notification-user-logo img-circle">
+                                 </div>
+
+                                 <div class="main-notification">
+                                     <div class="main-notification-title">
+                                         <a class="notification-user-name">AzureRay</a>
+                                        喜爱了你添加的商品
+                                         <span>1天前</span>
+                                     </div>
+                                 </div>
+
+                                 <div class="notification-goods-wrapper">
+                                     <img src="{% static 'images/event/cal.jpg'%}" class="notification-goods img-circle">
+                                 </div>
+
+                             </li>
+
+                         </ul>
+                 </ul>
+
+
                 <a class="navbar-brand" href="{% url 'web_selection' %}">
 {#                    <img alt="{% trans 'guoku' %}" class="visible-xs"  src="{% static 'images/logo2.png' %}" width="46"  style="margin-top: 2px">#}
 {#                    <img alt="{% trans 'guoku' %}" class="guoku-logo" src="{% static 'images/xmas_logo.png' %}" width="52" >#}
@@ -68,126 +206,85 @@
 
 {# begin notification list #}
 
-                 <ul class="nav navbar-nav navbar-right notification-list">
-                     <li class="dropdown open">
-                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                             <i class="fa fa-bell" style="color: #9D9E9F;font-size:18px;"></i>
-                             <span class="round" style="display: inline-block"></span>
-                         </a>
-
-                         <ul class="dropdown-menu notification-menu" role="menu">
-                             <li class="notification-list-item">
-
-                                 <div class="notification-user-logo-wrapper">
-                                     <img src="{% static 'images/avatar/woman.png'%}" class="notification-user-logo img-circle">
-                                 </div>
-
-                                 <div class="main-notification">
-
-                                     <div class="main-notification-title">
-                                         <a class="notification-user-name">Nothing</a>
-                                         开始关注你了
-                                         <span>3小时前</span>
-                                     </div>
-                                 </div>
-
-                             </li>
-
-                             <li class="notification-list-item">
-
-                                 <div class="notification-user-logo-wrapper">
-                                     <img src="{% static 'images/avatar/woman.png'%}" class="notification-user-logo img-circle">
-                                 </div>
-
-                                 <div class="main-notification">
-                                     <div class="main-notification-title">
-                                         <a class="notification-user-name">Nothing</a>
-                                         点评了你的商品
-                                         <span>1天前</span>
-                                     </div>
-
-                                     <div class="main-notification-intro">
-                                         <p>
-                                             <i class="fa fa-quote-left"></i>
-                                             可以模仿的鸟音，类型有云雀、鹡鸰、绿头鸭、小猫头鹰、杜鹃、画眉、花园莺、
-                                             鸫、黑水鸡、斑鸠…… 好的，从明天起你就是一个职业鸟人。
-                                             <i class="fa fa-quote-right"></i>
-                                         </p>
-                                     </div>
-
-                                 </div>
-
-                                 <div class="notification-goods-wrapper">
-                                     <img src="{% static 'images/event/cal.jpg'%}" class="notification-goods img-circle">
-                                 </div>
-
-                             </li>
-
-                             <li class="notification-list-item">
-
-                                 <div class="notification-user-logo-wrapper">
-                                     <img src="{% static 'images/avatar/woman.png'%}" class="notification-user-logo img-circle">
-                                 </div>
-
-                                 <div class="main-notification">
-                                     <div class="main-notification-title">
-                                         <a class="notification-user-name">AzureRay</a>
-                                        喜爱了你添加的商品
-                                         <span>1天前</span>
-                                     </div>
-                                 </div>
-
-                                 <div class="notification-goods-wrapper">
-                                     <img src="{% static 'images/event/cal.jpg'%}" class="notification-goods img-circle">
-                                 </div>
-
-                             </li>
-
-                              <li class="notification-list-item">
-
-                                 <div class="notification-user-logo-wrapper">
-                                     <img src="{% static 'images/avatar/woman.png'%}" class="notification-user-logo img-circle">
-                                 </div>
-
-                                 <div class="main-notification">
-                                     <div class="main-notification-title">
-                                         <a class="notification-user-name">取个什么名字好呢</a>
-                                        喜爱了你添加的商品
-                                         <span>1天前</span>
-                                     </div>
-                                 </div>
-
-                                 <div class="notification-goods-wrapper">
-                                     <img src="{% static 'images/event/cal.jpg'%}" class="notification-goods img-circle">
-                                 </div>
-
-                             </li>
-
-                              <li class="notification-list-item">
-
-                                 <div class="notification-user-logo-wrapper">
-                                     <img src="{% static 'images/avatar/woman.png'%}" class="notification-user-logo img-circle">
-                                 </div>
-
-                                 <div class="main-notification">
-                                     <div class="main-notification-title">
-                                         <a class="notification-user-name">果库君</a>
-                                        喜爱了你添加的商品
-                                         <span>1天前</span>
-                                     </div>
-                                 </div>
-
-                                 <div class="notification-goods-wrapper">
-                                     <img src="{% static 'images/event/cal.jpg'%}" class="notification-goods img-circle">
-                                 </div>
-
-                             </li>
-
-
-                         </ul>
-
-                     </li>
-                 </ul>
+{#                 <ul class="nav navbar-nav navbar-right notification-list">#}
+{#                     <li class="dropdown open">#}
+{#                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">#}
+{#                             <i class="fa fa-bell" style="color: #9D9E9F;font-size:18px;"></i>#}
+{#                             <span class="round" style="display: inline-block"></span>#}
+{#                         </a>#}
+{##}
+{#                         <ul class="dropdown-menu notification-menu" role="menu">#}
+{#                             <li class="notification-list-item">#}
+{##}
+{#                                 <div class="notification-user-logo-wrapper">#}
+{#                                     <img src="{% static 'images/avatar/woman.png'%}" class="notification-user-logo img-circle">#}
+{#                                 </div>#}
+{##}
+{#                                 <div class="main-notification">#}
+{##}
+{#                                     <div class="main-notification-title">#}
+{#                                         <a class="notification-user-name">Nothing</a>#}
+{#                                         开始关注你了#}
+{#                                         <span>3小时前</span>#}
+{#                                     </div>#}
+{#                                 </div>#}
+{##}
+{#                             </li>#}
+{##}
+{#                             <li class="notification-list-item">#}
+{##}
+{#                                 <div class="notification-user-logo-wrapper">#}
+{#                                     <img src="{% static 'images/avatar/woman.png'%}" class="notification-user-logo img-circle">#}
+{#                                 </div>#}
+{##}
+{#                                 <div class="main-notification">#}
+{#                                     <div class="main-notification-title">#}
+{#                                         <a class="notification-user-name">Nothing</a>#}
+{#                                         点评了你的商品#}
+{#                                         <span>1天前</span>#}
+{#                                     </div>#}
+{##}
+{#                                     <div class="main-notification-intro">#}
+{#                                         <p>#}
+{#                                             <i class="fa fa-quote-left"></i>#}
+{#                                             可以模仿的鸟音，类型有云雀、鹡鸰、绿头鸭、小猫头鹰、杜鹃、画眉、花园莺、#}
+{#                                             鸫、黑水鸡、斑鸠…… 好的，从明天起你就是一个职业鸟人。#}
+{#                                             <i class="fa fa-quote-right"></i>#}
+{#                                         </p>#}
+{#                                     </div>#}
+{##}
+{#                                 </div>#}
+{##}
+{#                                 <div class="notification-goods-wrapper">#}
+{#                                     <img src="{% static 'images/event/cal.jpg'%}" class="notification-goods img-circle">#}
+{#                                 </div>#}
+{##}
+{#                             </li>#}
+{##}
+{#                             <li class="notification-list-item">#}
+{##}
+{#                                 <div class="notification-user-logo-wrapper">#}
+{#                                     <img src="{% static 'images/avatar/woman.png'%}" class="notification-user-logo img-circle">#}
+{#                                 </div>#}
+{##}
+{#                                 <div class="main-notification">#}
+{#                                     <div class="main-notification-title">#}
+{#                                         <a class="notification-user-name">AzureRay</a>#}
+{#                                        喜爱了你添加的商品#}
+{#                                         <span>1天前</span>#}
+{#                                     </div>#}
+{#                                 </div>#}
+{##}
+{#                                 <div class="notification-goods-wrapper">#}
+{#                                     <img src="{% static 'images/event/cal.jpg'%}" class="notification-goods img-circle">#}
+{#                                 </div>#}
+{##}
+{#                             </li>#}
+{#                             #}
+{#                         </ul>#}
+{##}
+{#                     </li>#}
+{#                 </ul>#}
 {# end notification list #}
 
                 {% if web_login_url not in request.path and web_register_url not in request.path %}

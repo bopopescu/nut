@@ -1560,14 +1560,45 @@ textarea {
   width: 52px;
   height: 52px;
 }
-.notification-list .notification-menu {
+.notification-menu {
+  position: relative;
+}
+.notification-menu .notification-bell-wrapper:after {
+  content: "";
+  position: absolute;
+  top: 35px;
+  right: 25px;
+  border-style: solid;
+  border-width: 10px;
+  border-color: transparent transparent #ddd transparent;
+  display: block;
+  width: 0;
+  z-index: 10000;
+}
+.notification-menu .notification-list {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  z-index: 1000;
+  margin-top: 10px;
   padding-bottom: 25px;
-  min-width: 368px;
+  min-width: 360px;
   height: auto;
   max-height: 556px;
   overflow-y: auto;
+  background-color: #fff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 2px #ddd;
+  -moz-box-shadow: 0px 0px 2px #ddd;
+  box-shadow: 0px 0px 2px #ddd;
+  overflow: hidden;
 }
-.notification-list .notification-menu .notification-list-item {
+.notification-menu .notification-list .notification-list-item {
   position: relative;
   width: 100%;
   min-height: 85px;
@@ -1575,36 +1606,44 @@ textarea {
   border-bottom: 1px solid #F8F8F8;
   font-size: 14px;
 }
-.notification-list .notification-menu .notification-list-item .notification-user-logo-wrapper {
+.notification-menu .notification-list .notification-list-item .notification-user-logo-wrapper {
   position: absolute;
   top: 15px;
   left: 10px;
   width: 52px;
   height: 52px;
 }
-.notification-list .notification-menu .notification-list-item .notification-user-logo-wrapper .notification-user-logo {
+.notification-menu .notification-list .notification-list-item .notification-user-logo-wrapper .notification-user-logo {
   width: 52px;
   height: 52px;
 }
-.notification-list .notification-menu .notification-list-item .main-notification {
+.notification-menu .notification-list .notification-list-item .main-notification {
   margin-left: 62px;
   margin-right: 62px;
 }
-.notification-list .notification-menu .notification-list-item .main-notification .main-notification-title .notification-user-name:hover {
+.notification-menu .notification-list .notification-list-item .main-notification .main-notification-title .notification-user-name:hover {
   cursor: pointer;
   text-decoration: none;
 }
-.notification-list .notification-menu .notification-list-item .main-notification .main-notification-title span {
+.notification-menu .notification-list .notification-list-item .main-notification .main-notification-title span {
   padding-left: 5px;
   color: #9D9E9F;
 }
-.notification-list .notification-menu .notification-list-item .main-notification .main-notification-intro {
+.notification-menu .notification-list .notification-list-item .main-notification .main-notification-intro {
   margin-top: 10px;
 }
-.notification-list .notification-menu .notification-list-item .main-notification .main-notification-intro i {
+.notification-menu .notification-list .notification-list-item .main-notification .main-notification-intro .notification-user-mark {
+  color: #424242;
+}
+.notification-menu .notification-list .notification-list-item .main-notification .main-notification-intro .notification-user-mark:hover {
+  cursor: pointer;
+  color: #357ebd;
+  text-decoration: none;
+}
+.notification-menu .notification-list .notification-list-item .main-notification .main-notification-intro .notification-user-mark i {
   color: #EBEBEB;
 }
-.notification-list .notification-menu .notification-list-item .notification-goods-wrapper {
+.notification-menu .notification-list .notification-list-item .notification-goods-wrapper {
   position: absolute;
   top: 15px;
   right: 10px;
@@ -1612,9 +1651,23 @@ textarea {
   height: 54px;
   border: 1px solid #f2f2f2;
 }
-.notification-list .notification-menu .notification-list-item .notification-goods-wrapper .notification-goods {
+.notification-menu .notification-list .notification-list-item .notification-goods-wrapper .notification-goods {
   width: 52px;
   height: 52px;
+}
+@media screen and (max-width: 767px) {
+  .notification-menu {
+    float: right;
+  }
+}
+@media screen and (max-width: 580px) {
+  .notification-menu {
+    float: right;
+  }
+  .notification-menu .notification-list {
+    min-width: 290px;
+    right: -50px;
+  }
 }
 .test {
   background-color: black;
