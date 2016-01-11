@@ -12,15 +12,19 @@
   height:52px;
 }
 
-
-.notification-menu{
-  position:relative;
+.nav-header{
+  position: relative;
+}
   .notification-bell-wrapper{
+    float: right;
+    margin-top:15px;
+    margin-right: 5px;
+    //两个三角遮挡形成带边框的三角
     &:before{
         content: "";
         position: absolute;
         top:34px;
-        right: 25px;
+        right: 13px;
         border-style: solid;
         border-width: 10px;
         border-color: transparent transparent #ddd transparent;
@@ -34,7 +38,7 @@
         content: "";
         position: absolute;
         top:35px;
-        right: 25px;
+        right: 13px;
         border-style: solid;
         border-width: 10px;
         border-color: transparent transparent @panel-background-color transparent;
@@ -44,19 +48,24 @@
 
     }
   }
-  .notification-list{
+  .notification-list-wrapper{
     position:absolute;
     top:45px;
-    right:0;
+    right:-15px;
     z-index:1000;
     margin-top:10px;
     padding-bottom: 25px;
-    min-width:360px;
+    width:360px;
     height:auto;
     max-height:500px;
     background-color: @panel-background-color;
     .panel-no-padding;
      overflow-y: auto;
+
+     .notification-list{
+    // why I can't put the triangle here T T the header nav will blocking them.
+
+
 
     .notification-list-item{
       position:relative;
@@ -124,27 +133,33 @@
 
   }
 
+  }
 
-}
+
+
 
 @media screen and(max-width:767px){
-  .notification-menu{
-    float: right;
-    .notification-list{
-
+  .notification-bell-wrapper{
+    &:before{
+      right:74px;
+    }
+    &:after{
+      right: 74px;
     }
   }
+
+  .notification-list-wrapper{
+    width:100%;
+    margin-left:15px;
+    margin-right:15px;
+  }
+
 }
 
 @media screen and(max-width:580px){
-  .notification-menu{
-    float: right;
     .notification-list{
-      min-width: 290px;
-      right:-50px;
 
 
-    }
   }
 }
 

@@ -619,14 +619,19 @@ p.boolean-false {
   width: 52px;
   height: 52px;
 }
-.notification-menu {
+.nav-header {
   position: relative;
 }
-.notification-menu .notification-bell-wrapper:before {
+.notification-bell-wrapper {
+  float: right;
+  margin-top: 15px;
+  margin-right: 5px;
+}
+.notification-bell-wrapper:before {
   content: "";
   position: absolute;
   top: 34px;
-  right: 25px;
+  right: 13px;
   border-style: solid;
   border-width: 10px;
   border-color: transparent transparent #ddd transparent;
@@ -634,11 +639,11 @@ p.boolean-false {
   width: 0;
   z-index: 10000;
 }
-.notification-menu .notification-bell-wrapper:after {
+.notification-bell-wrapper:after {
   content: "";
   position: absolute;
   top: 35px;
-  right: 25px;
+  right: 13px;
   border-style: solid;
   border-width: 10px;
   border-color: transparent transparent #fff transparent;
@@ -646,14 +651,14 @@ p.boolean-false {
   width: 0;
   z-index: 10000;
 }
-.notification-menu .notification-list {
+.notification-list-wrapper {
   position: absolute;
   top: 45px;
-  right: 0;
+  right: -15px;
   z-index: 1000;
   margin-top: 10px;
   padding-bottom: 25px;
-  min-width: 360px;
+  width: 360px;
   height: auto;
   max-height: 500px;
   background-color: #fff;
@@ -669,7 +674,7 @@ p.boolean-false {
   overflow: hidden;
   overflow-y: auto;
 }
-.notification-menu .notification-list .notification-list-item {
+.notification-list-wrapper .notification-list .notification-list-item {
   position: relative;
   width: 100%;
   min-height: 85px;
@@ -677,44 +682,44 @@ p.boolean-false {
   border-bottom: 1px solid #F8F8F8;
   font-size: 14px;
 }
-.notification-menu .notification-list .notification-list-item .notification-user-logo-wrapper {
+.notification-list-wrapper .notification-list .notification-list-item .notification-user-logo-wrapper {
   position: absolute;
   top: 15px;
   left: 10px;
   width: 52px;
   height: 52px;
 }
-.notification-menu .notification-list .notification-list-item .notification-user-logo-wrapper .notification-user-logo {
+.notification-list-wrapper .notification-list .notification-list-item .notification-user-logo-wrapper .notification-user-logo {
   width: 52px;
   height: 52px;
 }
-.notification-menu .notification-list .notification-list-item .main-notification {
+.notification-list-wrapper .notification-list .notification-list-item .main-notification {
   margin-left: 62px;
   margin-right: 62px;
 }
-.notification-menu .notification-list .notification-list-item .main-notification .main-notification-title .notification-user-name:hover {
+.notification-list-wrapper .notification-list .notification-list-item .main-notification .main-notification-title .notification-user-name:hover {
   cursor: pointer;
   text-decoration: none;
 }
-.notification-menu .notification-list .notification-list-item .main-notification .main-notification-title span {
+.notification-list-wrapper .notification-list .notification-list-item .main-notification .main-notification-title span {
   padding-left: 5px;
   color: #9D9E9F;
 }
-.notification-menu .notification-list .notification-list-item .main-notification .main-notification-intro {
+.notification-list-wrapper .notification-list .notification-list-item .main-notification .main-notification-intro {
   margin-top: 10px;
 }
-.notification-menu .notification-list .notification-list-item .main-notification .main-notification-intro .notification-user-mark {
+.notification-list-wrapper .notification-list .notification-list-item .main-notification .main-notification-intro .notification-user-mark {
   color: #424242;
 }
-.notification-menu .notification-list .notification-list-item .main-notification .main-notification-intro .notification-user-mark:hover {
+.notification-list-wrapper .notification-list .notification-list-item .main-notification .main-notification-intro .notification-user-mark:hover {
   cursor: pointer;
   color: #357ebd;
   text-decoration: none;
 }
-.notification-menu .notification-list .notification-list-item .main-notification .main-notification-intro .notification-user-mark i {
+.notification-list-wrapper .notification-list .notification-list-item .main-notification .main-notification-intro .notification-user-mark i {
   color: #EBEBEB;
 }
-.notification-menu .notification-list .notification-list-item .notification-goods-wrapper {
+.notification-list-wrapper .notification-list .notification-list-item .notification-goods-wrapper {
   position: absolute;
   top: 15px;
   right: 10px;
@@ -722,22 +727,21 @@ p.boolean-false {
   height: 54px;
   border: 1px solid #f2f2f2;
 }
-.notification-menu .notification-list .notification-list-item .notification-goods-wrapper .notification-goods {
+.notification-list-wrapper .notification-list .notification-list-item .notification-goods-wrapper .notification-goods {
   width: 52px;
   height: 52px;
 }
 @media screen and (max-width: 767px) {
-  .notification-menu {
-    float: right;
+  .notification-bell-wrapper:before {
+    right: 74px;
   }
-}
-@media screen and (max-width: 580px) {
-  .notification-menu {
-    float: right;
+  .notification-bell-wrapper:after {
+    right: 74px;
   }
-  .notification-menu .notification-list {
-    min-width: 290px;
-    right: -50px;
+  .notification-list-wrapper {
+    width: 100%;
+    margin-left: 15px;
+    margin-right: 15px;
   }
 }
 .test {
