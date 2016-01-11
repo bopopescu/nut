@@ -1563,6 +1563,18 @@ textarea {
 .notification-menu {
   position: relative;
 }
+.notification-menu .notification-bell-wrapper:before {
+  content: "";
+  position: absolute;
+  top: 34px;
+  right: 25px;
+  border-style: solid;
+  border-width: 10px;
+  border-color: transparent transparent #ddd transparent;
+  display: block;
+  width: 0;
+  z-index: 10000;
+}
 .notification-menu .notification-bell-wrapper:after {
   content: "";
   position: absolute;
@@ -1570,7 +1582,7 @@ textarea {
   right: 25px;
   border-style: solid;
   border-width: 10px;
-  border-color: transparent transparent #ddd transparent;
+  border-color: transparent transparent #fff transparent;
   display: block;
   width: 0;
   z-index: 10000;
@@ -1584,8 +1596,7 @@ textarea {
   padding-bottom: 25px;
   min-width: 360px;
   height: auto;
-  max-height: 556px;
-  overflow-y: auto;
+  max-height: 500px;
   background-color: #fff;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -1597,6 +1608,7 @@ textarea {
   -moz-box-shadow: 0px 0px 2px #ddd;
   box-shadow: 0px 0px 2px #ddd;
   overflow: hidden;
+  overflow-y: auto;
 }
 .notification-menu .notification-list .notification-list-item {
   position: relative;
