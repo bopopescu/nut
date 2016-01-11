@@ -6,12 +6,6 @@
 @notification-goods-border-color:#f2f2f2;
 @notification-quote-color:#EBEBEB;
 
-//common class
-.notification-rect-pic{
-  width:52px;
-  height:52px;
-}
-
 .nav-header{
   position: relative;
 }
@@ -31,7 +25,6 @@
         display: block;
         width: 0;
         z-index: 10000;
-
     }
 
     &:after{
@@ -49,6 +42,9 @@
     }
   }
   .notification-list-wrapper{
+    //两个三角遮挡形成带边框的三角
+     // why I can't put the triangle here T T the header nav will blocking them.
+
     position:absolute;
     top:45px;
     right:-15px;
@@ -63,11 +59,7 @@
      overflow-y: auto;
 
      .notification-list{
-    // why I can't put the triangle here T T the header nav will blocking them.
-
-
-
-    .notification-list-item{
+      .notification-list-item{
       position:relative;
       width:100%;
       min-height:85px;
@@ -82,7 +74,10 @@
         width:52px;
         height:52px;
           .notification-user-logo{
-         .notification-rect-pic;
+            width:52px;
+            height:52px;
+
+
         }
       }
       .main-notification{
@@ -126,25 +121,23 @@
         height:54px;
         border:1px solid @notification-goods-border-color;
         .notification-goods{
-         .notification-rect-pic;
+         width:52px;
+         height:52px;
       }
       }
     }
-
   }
-
   }
-
-
-
 
 @media screen and(max-width:767px){
   .notification-bell-wrapper{
     &:before{
       right:74px;
+      //display: none;
     }
     &:after{
       right: 74px;
+      //display:none;
     }
   }
 
@@ -154,15 +147,4 @@
     margin-right:15px;
   }
 
-}
-
-@media screen and(max-width:580px){
-    .notification-list{
-
-
-  }
-}
-
-.test{
-  background-color: black;
 }
