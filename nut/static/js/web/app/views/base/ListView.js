@@ -18,6 +18,9 @@ define(['Backbone','underscore'],
             collection.each(this.renderItem.bind(this));
         },
         renderItem: function(model){
+            if(_.isNull(model)){
+                console.warn('can not render template with null model');
+            }
             var itemViewClass = this.itemView;
             if(_.isUndefined(itemViewClass)){
                 throw Error('can not find itemView Class');

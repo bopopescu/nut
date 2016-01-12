@@ -55,6 +55,7 @@
             <div class="col-xs-12 sections-titles-wrapper detach_nav hidden_nav detach">
                 <div class="sections-titles-nav">
                     <ul>
+
                         <li>
                             <a class="section-title section-first-title" href="#delicacy">美味佳肴</a>
                             <span>·</span>
@@ -69,6 +70,10 @@
                         </li>
                         <li>
                             <a class="section-title section-forth-title" href="#life">生活榜样</a>
+                            <span>·</span>
+                        </li>
+                         <li>
+                            <a class="section-title" href="{% url 'web_home' %}">果库首页</a>
                         </li>
                     </ul>
                 </div>
@@ -77,6 +82,7 @@
             <div class="col-xs-12 sections-titles-wrapper">
                 <div class="sections-titles-nav">
                     <ul>
+
                         <li>
                             <a class="section-title section-first-title" href="#delicacy">美味佳肴</a>
                             <span>·</span>
@@ -379,7 +385,7 @@
 {% endblock %}
 {% block basic_script %}
     <script language="javascript">
-        var share_pic = location.host + '{% static 'images/year-seller/share_weibo.jpg' %}';
+        var share_pic = '{% static 'images/year-seller/share_weibo.jpg' %}';
     </script>
     <script data-main="{% static 'js/web/jsbuild/seller_2015_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
 
@@ -387,5 +393,6 @@
 
 {% block ga_script %}
     <!-- Google Analytics -->
+    <!--- remove ga for load speed -->
 
 {% endblock %}

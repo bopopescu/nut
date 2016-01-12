@@ -19,6 +19,9 @@ class EntityQuerySet(models.query.QuerySet):
     def new(self):
         return self.filter(status=0)
 
+    def active(self):
+        return self.using('slave').filter(status__gte=-1)
+
     def new_or_selection(self, category_id):
         if category_id:
             return self.using('slave').filter(category_id=category_id,
@@ -66,6 +69,8 @@ class EntityManager(models.Manager):
     #         # key = 'entity:%s' % entity_hash
     #         cache.set(key, res, timeout=86400)
     #         return res
+    def active(self):
+        return self.get_queryset().active();
 
     def selection(self):
         return self.get_query_set().selection()

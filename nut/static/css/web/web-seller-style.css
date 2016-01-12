@@ -844,14 +844,11 @@ ol {
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul li a {
   display: inline-block;
   width: 100%;
-  height: 100%;
+  height: 0;
+  padding-bottom: 100%;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul li a:hover {
   cursor: pointer;
-}
-.seller-body .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul li a img {
-  width: 100%;
-  height: 100%;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper {
   padding-bottom: 30px;
@@ -1256,5 +1253,5 @@ ol {
   }
 }
 .test {
-  background-color: red;
+  background-color: black;
 }

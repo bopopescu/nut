@@ -36,11 +36,24 @@
         this.fillSummernote();
         this.updateEditableHeight();
         this.renderEntityCard();
+        this.initWindowUnloadEvent();
         //TODO: implement a method for determin if the article is changed
         // this method should compare data in the real form , and data in the summernote, title , cover , and show-cover
     }
 
     EditorApp.prototype={
+        initWindowUnloadEvent: function(){
+            $(window).bind('beforeunload',this.handleUnload.bind(this));
+        },
+        handleUnload:function(e){
+            var confirmationMessage='有更改没有保存，确定离开编辑页面吗？';
+            if (this.contentChanged){
+                (e || window.event).returnValue = confirmationMessage;
+                return confirmationMessage;
+            }else{
+                return undefined;
+            }
+        },
         renderEntityCard:function(){
             var cardList = $('.guoku-card');
             $.map(cardList, function(ele, index){

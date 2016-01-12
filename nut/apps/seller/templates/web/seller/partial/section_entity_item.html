@@ -4,7 +4,7 @@
     {% if forloop.counter < 31 %}
         <li>
             {% if isFromMobile %}
-                 <a href="{{ entity.mobile_url }}" class="recommendation-item">
+                 <a href="{{ entity.mobile_url }}" class="recommendation-item seller-entity-link">
                     <img src="{{ entity.chief_image|resize:'128' }}" alt="{{ entity.title }}" title="{{ entity.title }}" class="img-responsive">
                 </a>
             {% else %}
