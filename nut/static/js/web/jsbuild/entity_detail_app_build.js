@@ -2411,6 +2411,9 @@ define('views/base/ListView',['Backbone','underscore'],
             collection.each(this.renderItem.bind(this));
         },
         renderItem: function(model){
+            if(_.isNull(model)){
+                console.warn('can not render template with null model');
+            }
             var itemViewClass = this.itemView;
             if(_.isUndefined(itemViewClass)){
                 throw Error('can not find itemView Class');
@@ -2473,7 +2476,14 @@ define('views/base/ItemView',['Backbone','libs/underscore'], function(
     var ItemView = Backbone.View.extend({
 
         render : function(){
-            this.$el.html(this.template(this.model.toJSON()));
+            if(this.model) {
+                try {
+                    this.$el.html(this.template(this.model.toJSON()));
+                } catch(e){
+                    console.log(e);
+                }
+
+            }
             return this;
         }
     });
@@ -2499,6 +2509,7 @@ define('views/Entity/UserItemView',['views/base/ItemView', 'jquery', 'underscore
         },
         sizingAvatar: function(){
             var user = this.model.get('user');
+            if (!user) return ;
             var avatar = user['avatar_url'];
             if (/imgcdn.guoku.com/.test(avatar) && (!this.model.get('avatar_resized'))){
                 avatar = avatar.replace('/avatar','/avatar/50');
