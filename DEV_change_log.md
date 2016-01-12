@@ -1,5 +1,7 @@
 5. store2015 entity list display bug fix
+
 4. freeze entity liker won't display bug fix 
+
 3. in guoku editor 
    a. if article's change is not saved , user can not leave page without passthrough a confirmation dialog;
    b. removeFormat button now working ok 
@@ -8,6 +10,10 @@
 2. fix register page word error (Have an Account? )
 1. fix user can not send verify mail , if user location is not in default list (app reged user)
 
+###action 
+### 翻译有更新
+  需要  compilemessages
+  需要重新启动 让翻译生效 
 
 =================================
 =================================
