@@ -120,6 +120,7 @@
         width:54px;
         height:54px;
         border:1px solid @notification-goods-border-color;
+        background-color: #ffffff;
         .notification-goods{
          width:52px;
          height:52px;
@@ -132,19 +133,38 @@
 @media screen and(max-width:767px){
   .notification-bell-wrapper{
     &:before{
-      right:74px;
-      //display: none;
+      //right:74px;
+      display: none;
     }
     &:after{
-      right: 74px;
-      //display:none;
+      //right: 74px;
+      display:none;
     }
   }
 
   .notification-list-wrapper{
+    position:fixed;
+    top:0;
+    left:0;
+    margin-top:0;
     width:100%;
-    margin-left:15px;
-    margin-right:15px;
+    background-color: @foot-bg-color;
+    .notification-list{
+      .notification-list-item{
+        color: #ffffff;
+        border-bottom-color: @common-gray;
+        .main-notification{
+          .main-notification-intro{
+            .notification-user-mark{
+              color: #ffffff;
+            }
+          }
+
+        }
+      }
+    }
+
+
   }
 
 }

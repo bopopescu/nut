@@ -722,6 +722,7 @@ p.boolean-false {
   width: 54px;
   height: 54px;
   border: 1px solid #f2f2f2;
+  background-color: #ffffff;
 }
 .notification-list-wrapper .notification-list .notification-list-item .notification-goods-wrapper .notification-goods {
   width: 52px;
@@ -729,14 +730,24 @@ p.boolean-false {
 }
 @media screen and (max-width: 767px) {
   .notification-bell-wrapper:before {
-    right: 74px;
+    display: none;
   }
   .notification-bell-wrapper:after {
-    right: 74px;
+    display: none;
   }
   .notification-list-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-top: 0;
     width: 100%;
-    margin-left: 15px;
-    margin-right: 15px;
+    background-color: #232323;
+  }
+  .notification-list-wrapper .notification-list .notification-list-item {
+    color: #ffffff;
+    border-bottom-color: #9D9E9F;
+  }
+  .notification-list-wrapper .notification-list .notification-list-item .main-notification .main-notification-intro .notification-user-mark {
+    color: #ffffff;
   }
 }
