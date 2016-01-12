@@ -17,7 +17,7 @@ define([
         {
 
         init: function(entity){
-            this.entityModel = entity || this.getEntityModel;
+            this.entityModel = entity || this.getEntityModel();
             entity.on('sync',this.entitySync.bind(this));
             entity.fetch();
             //this.likerViewMobile  = new EntityLikerViewMobile({model: this.likerCollection});
