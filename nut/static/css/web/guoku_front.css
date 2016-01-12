@@ -1674,6 +1674,7 @@ textarea {
     left: 0;
     margin-top: 0;
     width: 100%;
+    min-height: 805px;
     background-color: #232323;
   }
   .notification-list-wrapper .notification-list .notification-list-item {

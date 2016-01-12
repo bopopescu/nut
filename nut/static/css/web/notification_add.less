@@ -39,7 +39,6 @@
         display: block;
         width: 0;
         z-index: 10000;
-
     }
   }
   .notification-list-wrapper{
@@ -123,11 +122,9 @@
 @media screen and(max-width:767px){
   .notification-bell-wrapper{
     &:before{
-      //right:74px;
       display: none;
     }
     &:after{
-      //right: 74px;
       display:none;
     }
   }
@@ -138,6 +135,7 @@
     left:0;
     margin-top:0;
     width:100%;
+    min-height:805px;
     background-color: @foot-bg-color;
     .notification-list{
       .notification-list-item{
@@ -149,12 +147,8 @@
               color: #ffffff;
             }
           }
-
         }
       }
     }
-
-
   }
-
 }
