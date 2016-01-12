@@ -1626,10 +1626,6 @@ textarea {
   width: 52px;
   height: 52px;
 }
-.notification-list-wrapper .notification-list .notification-list-item .notification-user-logo-wrapper .notification-user-logo {
-  width: 52px;
-  height: 52px;
-}
 .notification-list-wrapper .notification-list .notification-list-item .main-notification {
   margin-left: 62px;
   margin-right: 62px;
@@ -1638,7 +1634,7 @@ textarea {
   cursor: pointer;
   text-decoration: none;
 }
-.notification-list-wrapper .notification-list .notification-list-item .main-notification .main-notification-title span {
+.notification-list-wrapper .notification-list .notification-list-item .main-notification .main-notification-title .notification-time {
   padding-left: 5px;
   color: #9D9E9F;
 }
@@ -1664,10 +1660,6 @@ textarea {
   height: 54px;
   border: 1px solid #f2f2f2;
   background-color: #ffffff;
-}
-.notification-list-wrapper .notification-list .notification-list-item .notification-goods-wrapper .notification-goods {
-  width: 52px;
-  height: 52px;
 }
 @media screen and (max-width: 767px) {
   .notification-bell-wrapper:before {
