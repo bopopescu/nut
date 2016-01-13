@@ -1298,7 +1298,6 @@ class Article(BaseModel):
         _tag_list = Content_Tags.objects.article_tags(self.id)
         return _tag_list
 
-
     @property
     def bleached_content(self):
         cover_html = '<img class="article-cover img-responsive" src="%s">' % self.cover_url
