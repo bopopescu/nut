@@ -1,0 +1,65 @@
+@import "../lib/mixin.less";
+@import "../lib/var.less";
+@import "../lib/widgets.less";
+
+//common class
+.user-article-panel{
+  .panel-no-padding;
+  width:100%;
+  margin-bottom:25px;
+
+  .user-article-img{
+    width:100%;
+    height:0;
+    padding-bottom: 55%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .user-article-title-wrapper{
+    font-size: @primary-size;
+    color:@common-text-color;
+    margin: 15px 10px;
+    min-height: 30px;
+    max-height:30px;
+    line-height: 1.3;
+     a{
+       color: @common-text-color;
+       &:hover{
+         text-decoration: none;
+         cursor: pointer;
+            }
+       }
+  }
+
+  .user-article-info-wrapper{
+           min-height:30px;
+           .user-article-time{
+             float:right;
+             padding-right: 10px;
+             color: @common-gray;
+             font-size:@mini-size;
+             .fa{
+               margin-right:5px;
+             }
+           }
+        }
+}
+
+.user-article-item-general{
+  .user-article-panel{
+    .user-article-title-wrapper{
+      font-size: 12px;
+    }
+  }
+}
+
+//clear float and use the bootstrap row
+.user-article-top-wrapper,
+.user-article-latest-wrapper,
+.user-article-items-wrapper{
+  overflow: hidden;
+  margin-left:0;
+  margin-right:0;
+}

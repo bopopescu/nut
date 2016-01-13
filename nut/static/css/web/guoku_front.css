@@ -1556,6 +1556,66 @@ textarea {
   line-height: 20px;
   font-size: 20px;
 }
+.user-article-panel {
+  background-color: #fff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 2px #ddd;
+  -moz-box-shadow: 0px 0px 2px #ddd;
+  box-shadow: 0px 0px 2px #ddd;
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: 25px;
+}
+.user-article-panel .user-article-img {
+  width: 100%;
+  height: 0;
+  padding-bottom: 55%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.user-article-panel .user-article-title-wrapper {
+  font-size: 16px;
+  color: #424242;
+  margin: 15px 10px;
+  min-height: 30px;
+  max-height: 30px;
+  line-height: 1.3;
+}
+.user-article-panel .user-article-title-wrapper a {
+  color: #424242;
+}
+.user-article-panel .user-article-title-wrapper a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+.user-article-panel .user-article-info-wrapper {
+  min-height: 30px;
+}
+.user-article-panel .user-article-info-wrapper .user-article-time {
+  float: right;
+  padding-right: 10px;
+  color: #9D9E9F;
+  font-size: 13px;
+}
+.user-article-panel .user-article-info-wrapper .user-article-time .fa {
+  margin-right: 5px;
+}
+.user-article-item-general .user-article-panel .user-article-title-wrapper {
+  font-size: 12px;
+}
+.user-article-top-wrapper,
+.user-article-latest-wrapper,
+.user-article-items-wrapper {
+  overflow: hidden;
+  margin-left: 0;
+  margin-right: 0;
+}
 body {
   padding-top: 80px;
   color: #424242;
