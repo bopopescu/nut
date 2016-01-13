@@ -6,7 +6,15 @@ define(['Backbone','libs/underscore'], function(
     var ItemView = Backbone.View.extend({
 
         render : function(){
-            this.$el.html(this.template(this.model.toJSON()));
+            if(this.model) {
+                //prepare for dirty data
+                try {
+                    this.$el.html(this.template(this.model.toJSON()));
+                } catch(e){
+                    console.log(e);
+                }
+
+            }
             return this;
         }
     });

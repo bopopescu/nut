@@ -83,6 +83,15 @@ class SelectionArticleQuerySet(models.query.QuerySet):
         end_date = start_date - timedelta(days=3)
         return self.filter(is_published=True, pub_time__range=(end_date, start_date)).order_by('-article__read_count')
 
+    def published_from(self, from_time=None):
+        if from_time is None:
+            from_time = datetime.now()-timedelta(days=30)
+
+        return self.using('slave')\
+                   .select_related('article')\
+                   .filter(is_published=True, pub_time__lte=datetime.now(), pub_time__gte=from_time)\
+                   .order_by('-article__read_count')
+
 
 class SelectionArticleManager(models.Manager):
 
@@ -93,14 +102,21 @@ class SelectionArticleManager(models.Manager):
         return self.get_queryset().discover()
 
     def get_popular(self):
+        #  article in recent week 50%
+        #  most read article in recent month 50%
+        #  combine them together
+        #  shuffle the list
         key = self.get_popular_cache_key()
         merged =  cache.get(key)
         if merged:
             return merged
         # most read article
         # most recent article
-        pop_articles = list(self.published().order_by('-article__read_count')[:8])
-        recent_articles = list(self.published()[:16])
+        last_month = datetime.now() - timedelta(days=14)
+        last_week =  datetime.now() - timedelta(days=7)
+
+        pop_articles = list(self.published_from(from_time=last_month).order_by('-article__read_count')[:16])
+        recent_articles = list(self.published_from(from_time=last_week)[:4])
         merged = list(set(pop_articles + recent_articles))
         shuffle(merged)
         #set cache timeout longer to 6 hour
@@ -116,6 +132,8 @@ class SelectionArticleManager(models.Manager):
         key = 'related_article_for_%s' % article.pk
         return key
 
+
+
     def published(self,until_time=None):
         return self.published_until()
 
@@ -130,6 +148,10 @@ class SelectionArticleManager(models.Manager):
             until_time = datetime.now()
         return self.get_queryset().select_related('article').filter(is_published=True, pub_time__lte=until_time).order_by('-pub_time')
 
+    def published_from(self, from_time=None):
+        if from_time is None:
+             from_time = datetime.now() - timedelta(days=30)
+        return self.get_queryset().published_from(from_time=from_time)
 
     def article_related(self, article, request_page=1):
         '''

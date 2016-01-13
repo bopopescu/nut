@@ -3,7 +3,7 @@
     <div class="col-xs-6 col-sm-3 col-md-3 sellers-wrapper">
 
 
-        <a href="{{ seller.related_article.url }}" target="_blank">
+        <a href="{{ seller.related_article.url }}" target="_blank" class="recommendation-item">
             <img class="img-responsive sellers-logo" src="{{ seller.logo_url}}">
         </a>
 
@@ -31,10 +31,10 @@
                     </a>
                 </li>
                 <li>
-                    <a class="share-btn-wb" data_shop_pic="{{ seller.logo_url  }}"  data_shop_title="{{ seller.shop_title }}" data_shop_section="{{ seller.business_section }}" target="_blank"><i class="fa fa-weibo weibo-hover"></i></a>
+                    <a class="share-btn-wb" data_shop_desc="{{ seller.shop_desc|truncatechars:45 }}" data_shop_pic="{{ seller.logo_url  }}"  data_shop_title="{{ seller.shop_title }}" data_shop_section="{{ seller.business_section }}" target="_blank"><i class="fa fa-weibo weibo-hover"></i></a>
                 </li>
                 <li>
-                    <a class="share-btn-qq" data_shop_pic="{{ seller.logo_url  }}"  data_shop_title="{{ seller.shop_title }}" data_shop_section="{{ seller.business_section }}"  target="_blank">
+                    <a class="share-btn-qq" data_shop_desc="{{ seller.shop_desc|truncatechars:45 }}" data_shop_pic="{{ seller.logo_url  }}"  data_shop_title="{{ seller.shop_title }}" data_shop_section="{{ seller.business_section }}"  target="_blank">
                         <i class="fa fa-qq qq-hover"></i>
                     </a>
                 </li>

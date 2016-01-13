@@ -813,7 +813,16 @@ p.boolean-false {
     display: none;
   }
 }
-@media (min-width: 768px) and (max-width: 990px) {
+@media (min-width: 768px) and (max-width: 991px) {
+  #guoku_main_nav .main-list.left-list li > a {
+    padding: 15px 9px!important;
+  }
+  #guoku_main_nav .search-form {
+    padding-left: 0px;
+  }
+  #guoku_main_nav .search .search-input {
+    width: 100px;
+  }
   .container {
     width: 100%;
   }

@@ -1534,7 +1534,16 @@ textarea {
 .top-ad .ad-wrapper {
   width: 100%;
   height: 100%;
-  background: red;
+  background-size: cover;
+  background-position: center;
+}
+.top-ad .ad-wrapper a .top-ad-title-wrapper {
+  text-align: center;
+}
+.top-ad .ad-wrapper a .top-ad-title-wrapper .top-ad-title-control {
+  width: 217px;
+  height: 40px;
+  margin: 5px auto;
 }
 .top-ad .close-button {
   dislay: none;
@@ -1543,7 +1552,8 @@ textarea {
   height: 20px;
   width: 20px;
   top: 15px;
-  color: #000;
+  color: #ffffff;
+  opacity: 0.7;
   line-height: 20px;
   font-size: 20px;
 }
@@ -1683,6 +1693,11 @@ body.compact-body {
   font-weight: 600;
   background: none;
 }
+#guoku_main_nav .main-list .img-menu {
+  padding: 0px 0px;
+  position: relative;
+  top: 5px;
+}
 #guoku_main_nav .nav-add-product .add_goods {
   display: none;
   position: absolute;
@@ -1742,6 +1757,7 @@ body.compact-body {
   color: #9d9e9f;
 }
 #guoku_main_nav .search .search-input {
+  width: 135px;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -3283,6 +3299,9 @@ body.compact-body {
 .search-result-container {
   min-height: 570px;
 }
+#settings.edit_profile .action-alert {
+  color: #d91920;
+}
 #settings.edit_profile .edit_info ul li {
   position: relative;
   height: auto;
@@ -3497,7 +3516,16 @@ body.compact-body {
     display: none;
   }
 }
-@media (min-width: 768px) and (max-width: 990px) {
+@media (min-width: 768px) and (max-width: 991px) {
+  #guoku_main_nav .main-list.left-list li > a {
+    padding: 15px 9px!important;
+  }
+  #guoku_main_nav .search-form {
+    padding-left: 0px;
+  }
+  #guoku_main_nav .search .search-input {
+    width: 100px;
+  }
   .container {
     width: 100%;
   }
@@ -3618,6 +3646,6 @@ body .for-mobile {
   left: 3px;
 }
 .gk_test {
-  color: red;
+  color: black;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */

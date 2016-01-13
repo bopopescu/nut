@@ -16,7 +16,16 @@ ol{
 
 @qq-hover-color:#3199DD;
 
+@download-intro-text-color:#414243;
+
+@download-app-text-color:#4188DC;
+
 @year-seller-share-btn-border-radius:30px;
+
+@modal-weibo-share-btn-hover-bg:#F14460;
+@modal-qq-share-btn-hover-bg:#58ABE1;
+
+@year-seller-star-color:#FFD700;
 
 .year-seller-modal-share-btn{
   width:200px;
@@ -27,6 +36,8 @@ ol{
   font-size: @primary-size;
   border-radius: @year-seller-share-btn-border-radius;
 }
+
+
 
 //.white-space-fix{
 //  margin-right:-4px;
@@ -47,12 +58,11 @@ ol{
   .seller-cross-screen{
     //to make the white distance,so use padding instead of margin
     padding-top:90px;
-    padding-bottom:30px;
+    padding-bottom:20px;
     width:100%;
     height:auto;
     background-color: #fff;
 
-    background-image: url('/static/images/year-seller/banner_bg.jpg');
     -webkit-background-size:contain;
     background-size:contain;
     background-position: 0 0;
@@ -98,7 +108,7 @@ ol{
       &.hidden_nav{
         display:none;
       }
-      margin-top: 60px;
+      margin-top: 30px;
       &.detach{
             .acc-layer;
             position: fixed;
@@ -284,13 +294,15 @@ ol{
              a{
                display: inline-block;
                width: 100%;
-               height:100%;
+               height: 0;
+               padding-bottom:100%;
+
                &:hover{
                  cursor: pointer;
                }
                img{
-                 width:100%;
-                 height:100%;
+
+
                }
              }
            }
@@ -343,7 +355,7 @@ ol{
            li{
              display: inline-block;
              i{
-               color: @common-gray;
+               color: @year-seller-star-color;
 
              }
            }
@@ -358,9 +370,6 @@ ol{
            li{
              display: inline-block;
              a{
-               &:hover{
-                 cursor:pointer;
-               }
                i{
                  color:@light-gray;
                  margin-right: 5px;
@@ -384,9 +393,6 @@ ol{
                  }
 
                  }
-
-
-
                }
              }
            }
@@ -411,10 +417,9 @@ ol{
   }
 
   .popular-shops-wrapper{
-    margin-bottom:60px;
-
+    margin-bottom:70px;
     .popular-shop-item-wrapper{
-      margin-bottom: 10px;
+      margin-bottom: 30px;
       .popular-shop-item{
           .panel;
 //        padding:10px 15px;
@@ -455,7 +460,7 @@ ol{
            li{
              display: inline-block;
              .popular-shop-star{
-               color:#FFD700;
+               color:@year-seller-star-color;
                font-size:14px;
              }
            }
@@ -465,6 +470,56 @@ ol{
       }
     }
       }
+  }
+
+  .download-intro-wrapper{
+    .download-intro{
+      text-align: center;
+      font-size: @smaller-primary;
+      color: @download-intro-text-color;
+    }
+  }
+
+  .download-guoku-qrcode-wrapper{
+    margin-top:20px;
+    margin-bottom:30px;
+    text-align: center;
+    .download-guoku-qrcode{
+      width:140px;
+      height:140px;
+    }
+  }
+
+  .download-app-intro-wrapper{
+    .download-app-intro{
+       text-align: center;
+       font-size: @smaller-primary;
+       color: @download-intro-text-color;
+    }
+  }
+
+  .download-app-addr-wrapper{
+    margin-bottom: 50px;
+    .download-app-addr{
+      text-align: center;
+      ul{
+        li{
+          display: inline-block;
+          font-size: @smaller-primary;
+          color:@download-app-text-color;
+          a{
+            &:hover{
+              text-decoration: none;
+            }
+          }
+          span{
+            padding:0 3px;
+            color:@common-gray;
+          }
+        }
+      }
+    }
+
   }
 }
 }
@@ -500,6 +555,7 @@ ol{
               cursor:pointer;
               margin:0 auto;
               margin-bottom:10px;
+              text-decoration: none;
               &:hover{
                 color:white;
               }
@@ -511,6 +567,7 @@ ol{
               cursor: pointer;
               margin:0 auto;
               margin-bottom:20px;
+              text-decoration: none;
               &:hover{
                 color:white;
               }
@@ -520,13 +577,19 @@ ol{
             .pg-weibo-share-btn{
               &.pg-weibo-share-btn-bgc{
                 background-color: @weibo-hover-color;
-
+                
+                &:hover{
+                  background-color: @modal-weibo-share-btn-hover-bg;
+                }
               }
 
             }
             .pg-qq-share-btn{
               &.pg-qq-share-btn-bgc{
                 background-color: @qq-hover-color;
+                &:hover{
+                  background-color: @modal-qq-share-btn-hover-bg;
+                }
               }
             }
           }
@@ -564,6 +627,14 @@ ol{
 //put media query at bottom
 
 @media screen and (min-width:992px) and (max-width:1200px){
+
+  .seller-body{
+    .seller-cross-screen{
+      background-size:cover;
+      -webkit-background-size:cover;
+    }
+  }
+
   .seller-page-container{
     width:970px;
     .sections-item-goods-wrapper,.sections-item-sellers-wrapper,.popular-shops-wrapper{
@@ -576,17 +647,11 @@ ol{
 @media screen and (min-width:1200px){
 
   .seller-body{
-
     .seller-cross-screen{
-
       background-size:cover;
       -webkit-background-size:cover;
     }
-
   }
-
-
-
 
   .seller-page-container{
     //width:100%;
@@ -622,6 +687,10 @@ ol{
           }
         }
       }
+    }
+    .popular-shops-wrapper{
+      max-width: 1170px;
+      margin:0 auto;
     }
     //.popular-shops-title-wrapper{
     //  .popular-shops-title{
@@ -934,4 +1003,8 @@ ol{
     }
   }
 }
+}
+
+.test{
+  background-color: black;
 }

@@ -31,7 +31,7 @@ class SelectionViewSet(viewsets.ModelViewSet):
 class WebEntityDetailView(generics.RetrieveAPIView):
     permission_classes = (permissions.AllowAny,)
     serializer_class = WebEntitySerializer
-    queryset = Entity.objects.new_or_selection()
+    queryset = Entity.objects.active()
 
 
 
