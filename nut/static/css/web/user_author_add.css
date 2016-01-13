@@ -671,7 +671,6 @@ p.boolean-false {
 .user-article-top-wrapper,
 .user-article-latest-wrapper,
 .user-article-items-wrapper {
-  overflow: hidden;
   margin-left: 0;
   margin-right: 0;
 }
