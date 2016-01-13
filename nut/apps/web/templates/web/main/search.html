@@ -48,7 +48,11 @@
         <div class="row" id="selection_article_list">
             {% if type == 'u' %}
                 {% for row in object_list %}
-                    {% include 'web/main/partial/user.html' with user_context=row.object %}
+                    {% if row.object %}
+                        {% include 'web/main/partial/user.html' with user_context=row.object %}#
+                    {% endif %}
+{#                    {{ row.object }}#}
+{#                    {% include 'web/main/partial/user.html' with user_context=row.object %}#}
                 {% endfor %}
             {% elif type == 't' %}
                 {% for row in object_list %}
@@ -60,7 +64,9 @@
                 {% endfor %}
             {% else %}
                 {% for row in object_list %}
-                    {% include 'web/main/partial/entity.html' with entity=row.object %}
+                    {% if row.object %}
+                        {% include 'web/main/partial/entity.html' with entity=row.object %}
+                    {% endif %}
                 {% endfor %}
             {% endif %}
         </div>
