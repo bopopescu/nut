@@ -6,9 +6,10 @@ from bs4 import BeautifulSoup
 from django.core.cache import cache
 from django.utils.log import getLogger
 from hashlib import md5
+from selenium.common.exceptions import TimeoutException
 
 from apps.core.tasks import get_html_source
-from apps.fetch.common import get_origin_source
+from apps.fetch.common import get_origin_source, clean_images
 
 
 log = getLogger('django')
@@ -24,9 +25,16 @@ class BaseFetcher(object):
         self.expected_element = 'body'
         self.use_phantom = use_phantom
 
+        self._soup = None
+        self._images = []
+        self._chief_image = None
+        self._link = None
+
     @property
     def soup(self):
-        return BeautifulSoup(self.html_source)
+        if not self._soup:
+            self._soup = BeautifulSoup(self.html_source, from_encoding='utf8')
+        return self._soup
 
     def fetch(self, timeout=20):
         html_source = ''
@@ -41,15 +49,17 @@ class BaseFetcher(object):
         url = self.link or self.entity_url
 
         if self.use_phantom:
-            # get html from phantom
             data = {'url': url,
                     'expected_element': self.expected_element,
                     'timeout': timeout}
             result = get_html_source.delay(**data)
-            # result = get_html_source(**data)
-            html_source = result.get()
+
+            try:
+                html_source = result.get()
+            except TimeoutException, e:
+                print e.message
+                print u'说点啥!!'
         else:
-            # get html from requests
             random_agent = faker.user_agent()
             try:
                 response = requests.get(url,
@@ -62,10 +72,6 @@ class BaseFetcher(object):
 
         self.set_html_cache(headers=headers, content=html_source)
         self.html_source = html_source
-        file = open('/Users/judy/Desktop/phantom.html', 'wb')
-        file.write(html_source)
-        file.close()
-
         self.headers = headers
 
     def set_html_cache(self, headers, content):
@@ -83,3 +89,14 @@ class BaseFetcher(object):
 
     def get_origin_source(self):
         return get_origin_source(self.entity_url)
+
+    @property
+    def chief_image(self):
+        if self._chief_image:
+            return self._chief_image
+
+        if self._images:
+            self._chief_image = self._images[0]
+            return self._chief_image
+
+        return []

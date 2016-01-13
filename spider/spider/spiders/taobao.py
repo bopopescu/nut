@@ -145,5 +145,4 @@ class TaobaoSpider(scrapy.Spider):
             '//strong[@class="sold-out-tit"]/text()').extract()
         if len(soldout) > 0:
             return 1
-
         return 2

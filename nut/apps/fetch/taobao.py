@@ -12,8 +12,9 @@ log = getLogger('django')
 
 
 class TaoBao(BaseFetcher):
-    def __init__(self, entity_url):
+    def __init__(self, entity_url, use_phantom=True):
         BaseFetcher.__init__(self, entity_url)
+        self.use_phantom = use_phantom
         self.nick_pattern = re.compile(u'掌\s+柜：(?P<nick>.*)',
                                        re.MULTILINE | re.UNICODE)
         self.cid_pattern = re.compile(u'cid\s+:\s+(?P<cid>\d*)')
@@ -33,7 +34,7 @@ class TaoBao(BaseFetcher):
 
     @property
     def link(self):
-        link = 'http://item.taobao.com/item.htm?id=%s' % self.origin_id
+        link = 'https://item.taobao.com/item.htm?id=%s' % self.origin_id
         return link
 
     @property
@@ -98,8 +99,7 @@ class TaoBao(BaseFetcher):
                     if price_tag.text:
                         return price_tag.text
 
-    @property
-    def images(self):
+    def get_images(self):
         image_list = list()
         img_tags = self.soup.select("#J_ImgBooth")
         if not img_tags:
@@ -111,8 +111,8 @@ class TaoBao(BaseFetcher):
 
         image_src = re.sub(IMG_POSTFIX, "", image_src)
 
-        if "http" not in image_src:
-            image_src = "http:" + image_src
+        if not image_src.startswith('http') and not image_src.startswith('https'):
+            image_src = "https:" + image_src
         image_list.append(image_src)
 
         img_tags = self.soup.select("ul#J_UlThumb li a img")
@@ -121,11 +121,16 @@ class TaoBao(BaseFetcher):
                 img_tag = re.sub(IMG_POSTFIX, "", op.attrs.get('src'))
             except TypeError:
                 img_tag = re.sub(IMG_POSTFIX, "", op.attrs.get('data-src'))
-            if "http" not in img_tag:
-                img_tag = "http:" + img_tag
+            if not img_tag.startswith('http') and not img_tag.startswith('https'):
+                img_tag = "https:" + img_tag
             if img_tag in image_list:
                 continue
             image_list.append(img_tag)
+        if image_list:
+            self._chief_image = image_list[0]
+
+        image_list = list(set(image_list))
+        self._images = image_list
         return image_list
 
     @property

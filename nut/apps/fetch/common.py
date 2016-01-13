@@ -101,3 +101,19 @@ def get_provider(item_url):
     if source_key and source_key not in spider_map:
         return
     return spider_map[source_key]
+
+
+def clean_images(img_list, protocol='https'):
+    if not img_list:
+        return []
+    cleaned_img_list = list()
+    id_list = list()
+    for img_src in img_list:
+        id_string = img_src.split('/')
+        if id_string in id_list:
+            break
+        if not img_src.startswith('http') and not img_src.startswith('https'):
+            img_src = protocol+img_src
+        id_list.append(id_string)
+        cleaned_img_list.append(img_src)
+    return cleaned_img_list

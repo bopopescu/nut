@@ -51,7 +51,7 @@ def load_entity_info(url):
         entity_info = get_entity_info(url,
                                       keys=('link', 'brand', 'title', 'cid',
                                             'shop_link', 'shop_nick',
-                                            'price', 'thumb_images'))
+                                            'price', 'images'))
         entity_data.update(entity_info)
     return entity_data
 
@@ -205,7 +205,7 @@ class CreateEntityForm(forms.Form):
             help_text=_(''),
     )
 
-    cand_url = forms.URLField(
+    link = forms.URLField(
             widget=forms.URLInput(attrs={'class': 'form-control'}),
             show_hidden_initial=True,
             required=False,
@@ -216,7 +216,7 @@ class CreateEntityForm(forms.Form):
         super(CreateEntityForm, self).__init__(*args, **kwargs)
 
         self.initial = kwargs.get('initial')
-        img_count = len(self.initial['thumb_images'])
+        img_count = len(self.initial['images'])
         img_choices = map(lambda x: (x, x + 1), xrange(img_count))
 
         self.fields['main_image'] = forms.ChoiceField(
@@ -285,9 +285,9 @@ class CreateEntityForm(forms.Form):
                 _origin_id + _title + self.initial['shop_nick'])
         log.info("main image %s" % _main_image)
 
-        images = self.initial['thumb_images']
+        images = self.initial['images']
         if _main_image != 0:
-            images = self.initial['thumb_images']
+            images = self.initial['images']
             tmp = images.pop(int(_main_image))
             images.insert(0, tmp)
             log.info(images)
@@ -320,7 +320,7 @@ class CreateEntityForm(forms.Form):
                 origin_id=_origin_id,
                 cid=self.initial['cid'],
                 origin_source=_origin_source,
-                link=self.initial.link,
+                link=self.initial['link'],
                 price=_price,
                 default=True,
         )

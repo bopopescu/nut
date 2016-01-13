@@ -41,6 +41,7 @@ class EntityDetailMixin(object):
                                      status__gte=Entity.freeze)
         return _entity
 
+
 class EntityLikersView(EntityDetailMixin,ListView):
     template_name = 'web/entity/entity_likers_list.html'
     paginate_by = 12
@@ -55,8 +56,6 @@ class EntityLikersView(EntityDetailMixin,ListView):
         context['entity'] = self.get_object()
         context = add_side_bar_context_data(context)
         return context
-
-
 
 
 class EntityCard(AjaxResponseMixin, JSONResponseMixin, EntityDetailMixin, DetailView):
@@ -365,7 +364,7 @@ def entity_create(request, template="web/entity/new.html"):
             return HttpResponseRedirect(
                 reverse('web_entity_detail', args=[entity.entity_hash, ]))
         log.info(_forms.errors)
-        raise 500
+        raise ValueError
     else:
         _url_froms = EntityURLFrom(request)
 

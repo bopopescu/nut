@@ -1218,28 +1218,31 @@ function getQueryStrings() {
             //                    addEntity.find(".title").text(title);
             //                    addEntity.find("input[name=title]").val(title);
             //                }
-                            addEntity.find(".entity-chief-img").attr('src', data.data.chief_image_url);
+                            addEntity.find(".entity-chief-img").attr('src', data.data.chief_image);
                             imageThumbails.html("");
                             var html_string = "";
-                            for(var i=0; i < data.data.thumb_images.length; i++) {
+                            for(var i=0; i < data.data.images.length; i++) {
             //  console.log(data.data.thumb_images[i]);
-                                var fix = data.data.taobao_id == undefined ? "" : "_64x64.jpg";
+                                var fix = "";
+                                if (data.data.origin_source == 'taobao.com') {
+                                    fix = data.data.origin_id == undefined ? "" : "_64x64.jpg";
+                                }
                                 if (i == 0) {
                                     html_string = "<div class='col-xs-3 col-sm-2'><div class='current-image thumbnail'><img class='img-responsive' src="
-                                        + data.data.thumb_images[i] + fix + "></div></div>";
+                                        + data.data.images[i] + fix + "></div></div>";
             //  imageThumbails.append(html_string);
                                     $(html_string).appendTo(imageThumbails);
 
                                 } else {
                                     html_string = "<div class='col-xs-3 col-sm-2'><div class='thumbnail'><img class='img-responsive' src="
-                                        + data.data.thumb_images[i] + fix + "></div></div>";
+                                        + data.data.images[i] + fix + "></div></div>";
                                     $(html_string).appendTo(imageThumbails);
             //imageThumbails.append(html_string);
             //createNewEntity.changeChiefImage($(html_string));
             //console.log("okokoko");
                                 }
 
-                                $('<input name="thumb_images" type="hidden" value='+data.data.thumb_images[i]+'>').appendTo($(".add-entity-note form"));
+                                $('<input name="thumb_images" type="hidden" value='+data.data.images[i]+'>').appendTo($(".add-entity-note form"));
                             }
                             createNewEntity.changeChiefImage(imageThumbails);
 
@@ -1258,7 +1261,7 @@ function getQueryStrings() {
                                 '<input type="hidden" name="shop_nick" value="'+data.data.shop_nick+'">' +
                                 '<input type="hidden" name="url" value="'+data.data.cand_url+'">' +
                                 '<input type="hidden" name="price" value="'+data.data.price+'">' +
-                                '<input type="hidden" name="chief_image_url" value="'+data.data.chief_image_url+'">' +
+                                '<input type="hidden" name="chief_image_url" value="'+data.data.chief_image+'">' +
                                 '<input type="hidden" name="cid" value="'+data.data.cid+'">' +
                                 //'<input type="hidden" name="selected_category_id" value="'+data.data.selected_category_id+'">' +
                                 '<input type="hidden" name="cand_url" value="'+data.data.cand_url+'">' +

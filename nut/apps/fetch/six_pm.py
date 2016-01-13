@@ -6,13 +6,18 @@ from apps.fetch.base import BaseFetcher
 
 class SixPM(BaseFetcher):
 
-    def __init__(self, url):
-        super(SixPM, self).__init__(url)
+    def __init__(self, entity_url):
+        BaseFetcher.__init__(self, entity_url)
+        self.entity_url = entity_url
 
     @property
     def origin_id(self):
-        key = md5(self.url).hexdigest()
+        key = md5(self.entity_url).hexdigest()
         return key
+
+    @property
+    def link(self):
+        return self.entity_url
 
     @property
     def nick(self):
@@ -43,7 +48,7 @@ class SixPM(BaseFetcher):
         return round(float(price) * 6.2, 2)
 
     @property
-    def images(self):
+    def get_images(self):
         images = list()
         optimages = self.soup.select("#productImages ul li a span img")
         if len(optimages) > 0:

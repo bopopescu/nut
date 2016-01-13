@@ -21,7 +21,13 @@ class Tmall(BaseFetcher):
         self.entity_url = entity_url
         self.origin_id = self.get_origin_id()
         self.expected_element = 'div#J_DetailMeta'
+
         self.cid_pattern = re.compile(u'"rootCatId":"(?P<cid>\d*)')
+        self.price_pattern_a = re.compile(
+            u'{"name":"品牌","value":"(?P<brand>[^"]*)"',
+            re.MULTILINE | re.UNICODE)
+        self.price_pattern_b = re.compile(
+            u'brand=(?P<brand>[^&]*)', re.MULTILINE | re.UNICODE)
 
     @property
     def shop_nick(self):
@@ -36,7 +42,7 @@ class Tmall(BaseFetcher):
 
     @property
     def link(self):
-        link = 'http://detail.tmall.com/item.htm?id=%s' % self.origin_id
+        link = 'https://detail.tmall.com/item.htm?id=%s' % self.origin_id
         return link
 
     def get_origin_id(self):
@@ -44,7 +50,7 @@ class Tmall(BaseFetcher):
         for param in params.split("&"):
             tokens = param.split("=")
             if len(tokens) >= 2 and (tokens[0] == "id" or
-                                     tokens[0] == "item_id"):
+                                             tokens[0] == "item_id"):
                 return tokens[1]
 
     @property
@@ -91,14 +97,26 @@ class Tmall(BaseFetcher):
         seller_soup = self.soup.select("ul.attributes-list li")
         if not seller_soup:
             seller_soup = self.soup.select("ul#J_AttrUL li")
-        if seller_soup > 0:
+        if seller_soup:
             for brand_li in seller_soup:
                 if brand_li.text.find(u'品牌') >= 0:
                     return brand_li.text.split(u':')[1].strip()
+
+        seller_soup = self.soup.select("div#J_DetailMeta script")
+        if seller_soup:
+            for script in seller_soup:
+                if script.text:
+                    price_tag = self.price_pattern_a.findall(script.text)
+                    if price_tag:
+                        return price_tag[0]
+
+                    price_tag = self.price_pattern_b.findall(script.text)
+                    if price_tag:
+                        return price_tag[0]
+
         return ''
 
-    @property
-    def images(self):
+    def get_images(self):
         image_list = list()
         img_tags = self.soup.select("#J_ImgBooth")
         if img_tags:
@@ -106,10 +124,8 @@ class Tmall(BaseFetcher):
             if not img_tag:
                 img_tag = img_tags[0].attrs.get('src')
             img_tag = re.sub(IMG_POSTFIX, "", img_tag)
-            if "http" not in img_tag:
-                img_tag = "http:" + img_tag
-            if img_tag.startswith('//'):
-                img_tag = 'http:'+img_tag
+            if not img_tag.startswith('http') and not img_tag.startswith('https'):
+                img_tag = "https:" + img_tag
             image_list.append(img_tag)
 
         img_tags = self.soup.select("ul#J_UlThumb li a img")
@@ -120,9 +136,13 @@ class Tmall(BaseFetcher):
                 img_src = re.sub(IMG_POSTFIX, "", op.attrs.get('data-src'))
             if img_src in image_list:
                 continue
-            if img_src.startswith('//'):
-                img_src = 'http:'+img_src
+            if not img_src.startswith('http') and not img_src.startswith('https'):
+                img_src = "https:" + img_src
             image_list.append(img_src)
+        image_list = list(set(image_list))
+        self._images = image_list
+        if image_list:
+            self._chief_image = image_list[0]
         return image_list
 
     @property
@@ -142,6 +162,6 @@ class Tmall(BaseFetcher):
 
         shop_id_tag = re.findall('shopId:"(\d+)', self.html_source)
         if len(shop_id_tag) > 0:
-            shop_link = "http://shop"+shop_id_tag[0]+".taobao.com"
+            shop_link = "http://shop" + shop_id_tag[0] + ".taobao.com"
             return shop_link
         return "http://chaoshi.tmall.com/"

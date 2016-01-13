@@ -144,8 +144,7 @@ class Amazon(BaseFetcher):
         link = "http://{0:s}/dp/{1:s}".format(self.origin_source, self.origin_id)
         return link
 
-    @property
-    def images(self):
+    def get_images(self):
         images = []
         image_js = self.soup.select("div#imageBlock_feature_div")
         if image_js:
@@ -165,8 +164,13 @@ class Amazon(BaseFetcher):
             if hires_images:
                 images = hires_images
 
-        medium_images = self.get_medium_images()
-        images.extend(medium_images)
+        if not images:
+            medium_images = self.get_medium_images()
+            images.extend(medium_images)
+
+        self._images = images
+        if images:
+            self._chief_image = images[0]
         return images
 
     def get_medium_images(self):
@@ -214,4 +218,4 @@ class Amazon(BaseFetcher):
         else:
             another_try = self.soup.select("a#brand")
             if another_try:
-                return another_try[0]
+                return another_try[0].text

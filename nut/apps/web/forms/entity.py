@@ -85,25 +85,32 @@ class CreateEntityForm(forms.Form):
     cand_url = forms.URLField(
             widget=forms.URLInput(),
     )
+
     shop_nick = forms.CharField(
             widget=forms.TextInput()
     )
+
     shop_link = forms.URLField(
             widget=forms.URLInput()
     )
+
     title = forms.CharField(
             widget=forms.TextInput()
     )
+
     brand = forms.CharField(
             widget=forms.TextInput(),
             required=False,
     )
+
     price = forms.FloatField(
             widget=forms.TextInput(),
     )
+
     chief_image_url = forms.URLField(
             widget=forms.URLInput(),
     )
+
     note_text = forms.CharField(
             widget=forms.Textarea(),
     )
@@ -129,7 +136,6 @@ class CreateEntityForm(forms.Form):
         _cand_url = self.cleaned_data.get('cand_url')
         _chief_image_url = self.cleaned_data.get('chief_image_url')
         _images = self.data.getlist('thumb_images')
-
         _note_text = self.cleaned_data.get('note_text')
         _entity_hash = cal_entity_hash(_origin_id + _title + _shop_nick)
         key_string = "%s%s" % (_origin_id, _origin_source)
