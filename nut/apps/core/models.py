@@ -104,6 +104,8 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def __unicode__(self):
         return self.email
 
+    def get_short_name(self):
+        return self.profile.nickname
 
     def has_guoku_assigned_email(self):
         return ('@guoku.com' in self.email ) and (len(self.email) > 29)

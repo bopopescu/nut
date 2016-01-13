@@ -5,8 +5,17 @@ from apps.web.feeds import SelectionFeeds, ArticlesFeeds,ArticlesInterviewFeeds
 
 
 urlpatterns = staticfiles_urlpatterns()
+
+# temp enable admin , by Anchen
+
 # from django.contrib import admin
 # admin.autodiscover()
+#
+# urlpatterns += patterns('',
+#     (r'^admin/', include(admin.site.urls)),
+# )
+
+# temp enable admin end , by Anchen
 
 
 handler500 = 'apps.web.views.page_error'
