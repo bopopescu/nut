@@ -56,7 +56,7 @@
             var currP = $.trim($("#default_location_value").text()) || '北京';
             var currC = $.trim($("#default_city_value").text());
             var selectedP;
-            for (var i = 0; i < l.length; i++) {
+            for (var i = 0; l && i < l.length; i++) {
                 var $option = $('<option>').val(l[i])
                     .text(l[i])
                     .appendTo(location);
@@ -69,7 +69,7 @@
 
             var cities = c[selectedP];
 
-            for (var i = 0; i < cities.length; i++) {
+            for (var i = 0; cities && i < cities.length; i++) {
                 var $option = $('<option>').val(cities[i])
                     .text(cities[i])
                     .appendTo(city);

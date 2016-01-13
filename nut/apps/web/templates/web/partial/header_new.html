@@ -22,7 +22,7 @@
                 </a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav main-list">
+                <ul class="nav navbar-nav main-list left-list">
 {#                    {% url 'web_selection' as web_selection_url %}#}
                      <li {% if web_selection_url in request.path %}class="active"{% endif %}>
 {#                        <a href="{{ web_selection_url }}">{% trans 'Selected' %}</a>#}
@@ -38,13 +38,17 @@
                     <li {% if web_discover_url in request.path %}class="active"{% endif %}>
                         <a href="{{ web_discover_url }}">{% trans 'Discover' %}</a>
                     </li>
-
-
                     {% url 'web_event_home' as web_event_home_url %}
                     <li {% if web_event_home_url in request.path %}class="active" {% endif %}>
                         <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="round"></span></a>
 {#                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></a>#}
                     </li>
+
+                    {% url 'year_store_2015' as store_2015_url %}
+                    <li {% if store_2015_url in request.path %}class="active" {% endif %}>
+                        <a href="{{ store_2015_url }}" class="">{% trans 'Store Of The Year' %}<span class="b_day"><img src="{% static 'images/year-seller/2015.gif' %}" width="25px"></span></a>
+                    </li>
+
                 </ul>
 
                 {% url 'web_login' as web_login_url %}
@@ -60,7 +64,7 @@
                     </ul>
                 {% endif %}
 
-                <form class="navbar-form navbar-right" action="{% url 'web_search' %}" method="get" role="form" style="margin-top: 11px;">
+                <form class="navbar-form navbar-right search-form" action="{% url 'web_search' %}" method="get" role="form" style="margin-top: 11px;">
                     <div class="input-group search">
                         <input class="form-control search-input" name="q" type="search" placeholder="&nbsp;{% trans 'Search' %}" value="{{ keyword }}" >
                         <i class="fa fa-search"></i>

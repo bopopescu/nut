@@ -636,11 +636,10 @@ ol {
 }
 .seller-body .seller-cross-screen {
   padding-top: 90px;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
   width: 100%;
   height: auto;
   background-color: #fff;
-  background-image: url('/static/images/year-seller/banner_bg.jpg');
   -webkit-background-size: contain;
   background-size: contain;
   background-position: 0 0;
@@ -674,7 +673,7 @@ ol {
   cursor: pointer;
 }
 .seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper {
-  margin-top: 60px;
+  margin-top: 30px;
 }
 .seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper.hidden_nav {
   display: none;
@@ -846,14 +845,11 @@ ol {
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul li a {
   display: inline-block;
   width: 100%;
-  height: 100%;
+  height: 0;
+  padding-bottom: 100%;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul li a:hover {
   cursor: pointer;
-}
-.seller-body .seller-page-container .sections-item-wrapper .sections-item-goods-wrapper .goods-container ul li a img {
-  width: 100%;
-  height: 100%;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper {
   padding-bottom: 30px;
@@ -890,7 +886,7 @@ ol {
   display: inline-block;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .score ol li i {
-  color: #9d9e9f;
+  color: #ffd700;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share {
   height: 20px;
@@ -900,9 +896,6 @@ ol {
 }
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share ul li {
   display: inline-block;
-}
-.seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share ul li a:hover {
-  cursor: pointer;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share ul li a i {
   color: #9d9d9d;
@@ -926,10 +919,10 @@ ol {
   text-align: center;
 }
 .seller-body .seller-page-container .popular-shops-wrapper {
-  margin-bottom: 60px;
+  margin-bottom: 70px;
 }
 .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper {
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item {
   background-color: #ffffff;
@@ -975,8 +968,45 @@ ol {
   display: inline-block;
 }
 .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-info .star-level ol li .popular-shop-star {
-  color: #FFD700;
+  color: #ffd700;
   font-size: 14px;
+}
+.seller-body .seller-page-container .download-intro-wrapper .download-intro {
+  text-align: center;
+  font-size: 14px;
+  color: #414243;
+}
+.seller-body .seller-page-container .download-guoku-qrcode-wrapper {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.seller-body .seller-page-container .download-guoku-qrcode-wrapper .download-guoku-qrcode {
+  width: 140px;
+  height: 140px;
+}
+.seller-body .seller-page-container .download-app-intro-wrapper .download-app-intro {
+  text-align: center;
+  font-size: 14px;
+  color: #414243;
+}
+.seller-body .seller-page-container .download-app-addr-wrapper {
+  margin-bottom: 50px;
+}
+.seller-body .seller-page-container .download-app-addr-wrapper .download-app-addr {
+  text-align: center;
+}
+.seller-body .seller-page-container .download-app-addr-wrapper .download-app-addr ul li {
+  display: inline-block;
+  font-size: 14px;
+  color: #4188dc;
+}
+.seller-body .seller-page-container .download-app-addr-wrapper .download-app-addr ul li a:hover {
+  text-decoration: none;
+}
+.seller-body .seller-page-container .download-app-addr-wrapper .download-app-addr ul li span {
+  padding: 0 3px;
+  color: #9d9e9f;
 }
 .page-share-dialog .modal-dialog .modal-content {
   overflow: hidden;
@@ -1003,6 +1033,7 @@ ol {
   cursor: pointer;
   margin: 0 auto;
   margin-bottom: 10px;
+  text-decoration: none;
 }
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .weibo-share-btn-wrapper-control .pg-weibo-share-btn:hover {
   color: white;
@@ -1012,6 +1043,7 @@ ol {
   cursor: pointer;
   margin: 0 auto;
   margin-bottom: 20px;
+  text-decoration: none;
 }
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .qq-share-btn-wrapper-control .pg-qq-share-btn:hover {
   color: white;
@@ -1019,8 +1051,14 @@ ol {
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .share-btn-wrapper .pg-weibo-share-btn.pg-weibo-share-btn-bgc {
   background-color: #e90d24;
 }
+.page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .share-btn-wrapper .pg-weibo-share-btn.pg-weibo-share-btn-bgc:hover {
+  background-color: #f14460;
+}
 .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .share-btn-wrapper .pg-qq-share-btn.pg-qq-share-btn-bgc {
   background-color: #3199dd;
+}
+.page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control .share-btn-wrapper .pg-qq-share-btn.pg-qq-share-btn-bgc:hover {
+  background-color: #58abe1;
 }
 .seller-share-wx-dialog .modal-dialog {
   width: 250px;
@@ -1033,6 +1071,10 @@ ol {
   text-align: center;
 }
 @media screen and (min-width: 992px) and (max-width: 1200px) {
+  .seller-body .seller-cross-screen {
+    background-size: cover;
+    -webkit-background-size: cover;
+  }
   .seller-page-container {
     width: 970px;
   }
@@ -1065,6 +1107,10 @@ ol {
   }
   .seller-page-container .sections-item-wrapper .sections-item-sellers-wrapper .sellers-wrapper .sellers-logo {
     max-width: 245px;
+  }
+  .seller-page-container .popular-shops-wrapper {
+    max-width: 1170px;
+    margin: 0 auto;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 1200px) {
@@ -1206,5 +1252,8 @@ ol {
     margin-bottom: 14%;
     background-position: center top;
   }
+}
+.test {
+  background-color: black;
 }
 /*# sourceMappingURL=web-seller-style.less.css.map */
