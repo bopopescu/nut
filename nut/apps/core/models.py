@@ -384,14 +384,19 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     # for set user as authorized author
     # see docs : 授权图文用户
+    def has_author_group(self):
+        author_group = self.get_author_group()
+        return author_group in self.groups.all()
+
     def get_author_group(self):
-        return Group.objects.get_or_create(name="Author")
+        author_group, created =  Group.objects.get_or_create(name="Author")
+        return author_group
 
     def refresh_user_permission(self):
         pass
 
     def setAuthor(self, isAuthor):
-        author_group , created = self.get_author_group()
+        author_group = self.get_author_group()
         if isAuthor:
             self.groups.add(author_group)
         else:
