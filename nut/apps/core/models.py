@@ -387,12 +387,17 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def get_author_group(self):
         return Group.objects.get_or_create(name="Author")
 
+    def refresh_user_permission(self):
+        pass
+
     def setAuthor(self, isAuthor):
-        author_group = self.get_author_group()
+        author_group , created = self.get_author_group()
         if isAuthor:
             self.groups.add(author_group)
         else:
             self.groups.remove(author_group)
+
+        self.refresh_user_permission()
 
 
 
