@@ -32,23 +32,25 @@ class UserAuthorSetForm(ModelForm):
         super(UserAuthorSetForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
-        user = self.instance
-        user.setAuthor(self.cleaned_data.get('isAuthor'))
+        _user = self.instance
+        _user.setAuthor(self.cleaned_data.get('isAuthor'))
 
     class Meta:
         model = GKUser
         fields = ['isAuthor']
 
 
-class UserAuthorSetView(AjaxResponseMixin, JSONResponseMixin, UpdateView):
+class UserAuthorSetView(JSONResponseMixin, UpdateView):
     pk_url_kwarg = 'user_id'
     form_class = UserAuthorSetForm
+    model = GKUser
 
     def form_valid(self, form):
         form.save()
         return self.render_json_response({'error': 0},status=200)
 
-
+    def form_invalid(self, form):
+        return self.render_json_response({'error':1, 'message':'invalid form'}, status=500)
 
 @login_required
 @admin_only
