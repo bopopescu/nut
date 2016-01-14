@@ -79,7 +79,7 @@ class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
-        return reverse('management_user_editAuthor' , args=[self.get_pk()])
+        return reverse('management_user_edit' , args=[self.get_pk()])
 
 
     def get_context_data(self,*args, **kwargs):
