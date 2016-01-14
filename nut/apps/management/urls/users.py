@@ -1,5 +1,5 @@
 from django.conf.urls import url, patterns
-from apps.management.views.users import MediaListView
+from apps.management.views.users import MediaListView, UserAuthorSetView
 
 urlpatterns = patterns(
     'apps.management.views.users',
@@ -11,6 +11,7 @@ urlpatterns = patterns(
     url(r'^(?P<user_id>\d+)/upload-avatar/$', 'upload_avatar', name='management_user_upload_avatar'),
     url(r'^(?P<user_id>\d+)/post/$', 'post', name='management_user_post'),
     url(r'^(?P<user_id>\d+)/notes/$', 'notes', name='management_user_notes'),
+    url(r'^(?P<user_id>\d+)/setAuthor/$', UserAuthorSetView.as_view(), name='management_user_setAuthor'),
 )
 
 __author__ = 'edison'

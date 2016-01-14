@@ -19,7 +19,7 @@ from django.db.models.signals import post_save, pre_save
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import AbstractBaseUser
-from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.models import PermissionsMixin, Group
 from apps.notifications import notify
 from apps.core.utils.image import HandleImage
 from apps.core.utils.articlecontent import contentBleacher
@@ -382,7 +382,25 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
                 res['relation'] = 2
         return res
 
+    # for set user as authorized author
+    # see docs : 授权图文用户
+    def get_author_group(self):
+        return Group.objects.get_or_create(name="Author")
+
+    def setAuthor(self, isAuthor):
+        author_group = self.get_author_group()
+        if isAuthor:
+            self.groups.add(author_group)
+        else:
+            self.groups.remove(author_group)
+
+
+
+
+
     def save(self, *args, **kwargs):
+        #TODO  @huanghuang refactor following email related lines into a subroutine
+        #
         from apps.core.tasks import send_activation_mail
         from apps.core.tasks.edm import delete_user_from_list
         if self.pk is not None:
@@ -415,6 +433,19 @@ class User_Profile(BaseModel):
     website = models.CharField(max_length=1024, null=True, blank=True)
     avatar = models.CharField(max_length=255)
     email_verified = models.BooleanField(default=False)
+
+    # additional column for Authorized Author
+    # see  日常开发文档－》授权图文用户
+    weixin_id = models.CharField(max_length=255, null=True, blank=True)
+    weixin_nick = models.CharField(max_length=255, null=True, blank=True)
+    weixin_qrcode_img = models.CharField(max_length=255)
+    author_website = models.CharField(max_length=1024, null=True, blank=True)
+    weibo_id = models.CharField(max_length=255, null=True, blank=True)
+    weibo_nick = models.CharField(max_length=255, null=True, blank=True)
+
+    @property
+    def weibo_link(self):
+        return "http://weibo.com/u/%s/"%self.weibo_id
 
     def __unicode__(self):
         return self.nick

@@ -68,6 +68,18 @@
                     </div>
                 </div>
 
+               <div class="box box-info">
+                    <div class="box-body">
+                        <div class="btn-group">
+
+                            <input type="checkbox" data-id="{{ user.pk }}" class="js-switch" />
+
+                            <a href="{% url 'management_user_upload_avatar' user.pk %}" class="btn btn-primary">{% trans 'upload avatar' %}</a>
+
+                        </div>
+                    </div>
+                </div>
+
                 <div class="box box-primary">
                     <div class="box-header">
                         <ul class="nav nav-pills" role="tablist">
@@ -120,85 +132,15 @@
                         </div>
                     </form>
                 </div>
-{#                <div class="nav-tabs-custom">#}
-{#                    <ul class="nav nav-tabs">#}
-{#                        <li class="active">#}
-{#                            <a data-toggle="tab" href="#settings" aria-expanded="true">{% trans 'settings' %}</a>#}
-{#                        </li>#}
-{#                        <li>#}
-{#                            <a data-toggle="tab" href="#password" aria-expanded="false">{% trans 'reset password' %}</a>#}
-{#                        </li>#}
-{#                    </ul>#}
-{#                    <div class="tab-content">#}
-{#                        <div class="tab-pane active" id="settings">#}
-{#                            <form class="form-horizontal" method="post">#}
-{#                                {% csrf_token %}#}
-{#                                <div class="box-body">#}
-{#                                {% for field in forms %}#}
-{#                                    {% if field.html_name == 'is_admin' %}#}
-{#                                         <div class="checkbox">#}
-{#                                            <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>#}
-{#                                            <div class="col-sm-10">#}
-{#                                                {{ field }}#}
-{#                                            </div>#}
-{#                                         </div>#}
-{#                                    {% elif field.html_name == 'gender' %}#}
-{#                                         <div class="form-group">#}
-{#                                            <label class="col-sm-2 control-label" for="{{ field.id_for_label  }}">{{ field.label  }}</label>#}
-{#                                            <div class="col-xs-8 col-sm-4">#}
-{#                                                {{ profile_form.gender }}#}
-{#                                                {% for radio in field %}#}
-{#                                                <label class="checkbox-inline">{{ radio.choice_label }} {{ radio.tag }}&nbsp; </label>#}
-{#                                                {% endfor %}#}
-{#                                            </div>#}
-{#                                        </div>#}
-{#                                    {% else %}#}
-{##}
-{#                                    <div class="form-group">#}
-{#                                        <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>#}
-{#                                        <div class="col-sm-10">#}
-{#                                            {{ field }}#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                    {% endif %}#}
-{#                                {% endfor %}#}
-{#                                </div>#}
-{#                                <div class="box-footer">#}
-{#                                    <div class="col-sm-offset-2 col-sm-10">#}
-{#                                        <button type="submit" class="btn btn-primary btn-lg">{% trans 'update' %}</button>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </form>#}
-{#                        </div>#}
-{##}
-{#                        <div class="tab-pane" id="password">#}
-{#                            <form action="{% url 'management_user_reset_password' user.pk %}" class="form-horizontal" method="post">#}
-{#                            {% csrf_token %}#}
-{#                                <div class="box-body">#}
-{#                                    {% for field in forms %}#}
-{#                                        <div class="form-group">#}
-{#                                            <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>#}
-{#                                            <div class="col-sm-5">#}
-{#                                                {{ field }}#}
-{#                                            </div>#}
-{#                                        </div>#}
-{#                                    {% endfor %}#}
-{#                                </div>#}
-{##}
-{#                                <div class="box-footer">#}
-{#                                    <div class="col-sm-offset-2 col-sm-10">#}
-{#                                        <button type="submit" class="btn btn-primary btn-lg">{% trans 'update' %}</button>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </form>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
             </div>
         </div>
     </section>
 {% endblock %}
 
 {% block user_script %}
+{#    switchery css is already in AdminLTE#}
+     <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
+     <script src="{% static 'js/management/user/user.js' %}" type="application/javascript"></script>
+
 
 {% endblock %}

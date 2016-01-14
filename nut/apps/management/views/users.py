@@ -2,7 +2,11 @@ from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView
+from django.views.generic import ListView, UpdateView
+
+from django.forms import ModelForm ,BooleanField
+
+from braces.views import AjaxResponseMixin,JSONResponseMixin
 
 from apps.core.models import GKUser, Media
 from apps.core.forms.user import UserForm, GuokuSetPasswordForm, AvatarForm
@@ -20,6 +24,30 @@ from rest_framework import generics
 class RESTfulUserListView(generics.ListCreateAPIView):
         queryset = GKUser.objects.all()
         serializer_class = GKUserSerializer
+
+
+class UserAuthorSetForm(ModelForm):
+    isAuthor = BooleanField()
+    def __init__(self,*args, **kwargs):
+        super(UserAuthorSetForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        user = self.instance
+        user.setAuthor(self.cleaned_data.get('isAuthor'))
+
+    class Meta:
+        model = GKUser
+        fields = ['isAuthor']
+
+
+class UserAuthorSetView(AjaxResponseMixin, JSONResponseMixin, UpdateView):
+    pk_url_kwarg = 'user_id'
+    form_class = UserAuthorSetForm
+
+    def form_valid(self, form):
+        form.save()
+        return self.render_json_response({'error': 0},status=200)
+
 
 
 @login_required
