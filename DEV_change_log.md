@@ -1,7 +1,19 @@
-
-2. 
-1. a bookmark for youzhan's taobao product adding , not for web
+3. baichuan recommendation 
+2. user set to author 
+1. a bookmark for youzhan's taobao product adding , not for webfront
    but put in doc anyway
+
+##action 
+ 
+ALTER TABLE `core`.`core_user_profile` 
+ADD COLUMN `weixin_id` VARCHAR(255) NULL DEFAULT NULL AFTER `email_verified`,
+ADD COLUMN `weixin_nick` VARCHAR(255) NULL DEFAULT NULL AFTER `weixin_id`,
+ADD COLUMN `weixin_qrcode_img` VARCHAR(255) NULL DEFAULT NULL AFTER `weixin_nick`,
+ADD COLUMN `author_website` VARCHAR(1024) NULL DEFAULT NULL AFTER `weixin_qrcode_img`,
+ADD COLUMN `weibo_id` VARCHAR(255) NULL DEFAULT NULL AFTER `author_website`,
+ADD COLUMN `weibo_nick` VARCHAR(255) NULL DEFAULT NULL AFTER `weibo_id`;
+
+2016-1-13 start 
 
 =================================
 =================================
@@ -61,12 +73,19 @@
     
     ALTER TABLE `core`.`core_search_history` 
     CHANGE COLUMN `key_words` `key_words` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL COMMENT '' ;
+
+    
+1 ： 果库Top 100 淘宝卖家    
     
 2015-12-30
 ===
     
 ---    
-
+=================================
+=================================
+### merged to master 2015-12-28
+=================================
+=================================
 
 
 
@@ -79,7 +98,7 @@
 =================================
 ### merged to master 2015-12-23
 =================================
-
+=================================
 
 7. user page side bar (not user index page side bar) , 
     disable user article link if user do not have article (done)
