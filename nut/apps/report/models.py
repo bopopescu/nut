@@ -83,7 +83,7 @@ def process_report(sender, instance, created, **kwargs):
                     'item_id': row.origin_id,
                 }
                 # print data
-                res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
+                res = requests.post('http://10.0.2.49:6800/schedule.json', data=data)
             # instance.process = Report.progress
             # instance.save()
 

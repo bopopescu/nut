@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from flask import Flask
 # from top import api
 import top.api
@@ -21,27 +23,30 @@ def handel(keyword, **kwargs):
     istk = kwargs.pop('istk', True)
     ismall = kwargs.pop('ismall', False)
     count = kwargs.pop('count', 20)
-    # print type(ismall)
 
-    params = {
-        "keyword": keyword,
-        # "istk": True,
-        # "mall": False,
-        # "count":    "20",
-    }
+    params = dict()
 
     params.update(
         {
             "istk":     str(istk),
             "mall":     str(ismall),
-            "count":    int(count),
+            "count":    count,
         }
     )
 
-    print params
+    if keyword:
+        params.update({
+            'keyword':keyword,
+        })
+    #
+    # if itemId:
+    #     params.update({
+    #         'itemid': itemId,
+    #     })
 
-    # req.params={"keyword":"nike",      "istk":"true",      "count":"20" }
-    req.params = params
+    # print params
+    app.logger.info(params)
+    req.params = json.dumps( params )
 
     try:
         resp= req.getResponse()
@@ -49,5 +54,6 @@ def handel(keyword, **kwargs):
         res = resp['alibaba_orp_recommend_response']['recommend']
         return json.loads(res)
     except Exception, e:
-        print(e)
+        app.logger.error(e.message)
+        return None
 

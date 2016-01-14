@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.views.generic import FormView, ListView, UpdateView
 from apps.mobile.models import LaunchBoard
-from apps.mobile.forms import LaunchBoardForm, CreateLaunchBoardForm, EditLaunchBoardForm
+from apps.mobile.forms import  CreateLaunchBoardForm, EditLaunchBoardForm
 # from django.core.urlresolvers import reverse
 
 
@@ -54,6 +54,7 @@ class EditLaunchBoardView(FormView):
                 "action_title": self.object.action_title,
                 "action": self.object.action,
                 "device": self.object.device,
+                "version": self.object.version,
                 "status": int(self.object.status),
             }
         )

@@ -76,7 +76,6 @@ class ArticleImageCounter(View):
         self.feedCounterBridge.incr_article_feed_read_count(id)
 
 
-
     def get(self, *args ,**kwargs):
         id = self.kwargs.pop("aid")
         img_data = self.get_img_data()

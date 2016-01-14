@@ -74,18 +74,23 @@ window.location.href = url;</script><![endif]-->
     </script>
 </head>
 <body class="{% block body_class %} gray-body {% endblock %} {% if isFromMobile %} mobile-body {% endif %}">
+{% block weixin_share_img %}
+{% endblock %}
 {% url 'web_download' as web_download_url %}
 {% url 'web_selection' as web_selection_url %}
 {% block global_links %}
-{% if web_selection_url in request.path %}
-    <a class="round-link acc-layer guoku-weixin" href="{{ web_download_url }}" target="_blank"><img class="img-responsive " src="{% static 'images/download_icon.png' %}"></a>
-{% endif %}
+    {% if web_selection_url in request.path %}
+        <a class="round-link acc-layer guoku-weixin" href="{{ web_download_url }}" target="_blank"><img class="img-responsive " src="{% static 'images/download_icon.png' %}"></a>
+    {% endif %}
 {% endblock %}
 <h1 class="hidden sr-only">{% block h1 %}果库,精英消费指南,精英,消费指南,专访{% endblock %}</h1>
 
 {% block header %}
     {% include "web/partial/header_new.html" %}
 {% endblock %}
+{#  add same ad block as header , so the content is not covered by extended header #}
+
+<div class="top-ad"></div>
 
 {% block content %}
 
@@ -105,10 +110,17 @@ window.location.href = url;</script><![endif]-->
     {% endif %}
 {% endblock %}
 
-{% block basic_script %}
-    <script type="text/html" id="flink_item">
-       <li><a href="<%=link%>"  target="_blank"><%=name%></a></li>
+{% block global_js_var %}
+    <script language="javascript">
+        {% if isFromMobile %}
+            var isFromMobile = true;
+        {% else %}
+            var isFromMobile = false;
+        {% endif %}
     </script>
+{% endblock %}
+{% block basic_script %}
+
     <script src="{% static 'js/jquery-1.11.1.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/web/site.js' %}"></script>
@@ -151,7 +163,7 @@ window.location.href = url;</script><![endif]-->
 
 {% block ga_script %}
     <!-- Google Analytics -->
-    <script>
+    <script language="javascript">
 
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
