@@ -389,10 +389,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             if user.email != self.email:
                 delete_user_from_list(user)
                 send_activation_mail(self)
-        super(GKUser, self).save(*args, **kwargs)
         key = "user:v4:%s" % self.id
         cache.delete(key)
-
+        key = "user:v3:%s" % self.id
+        cache.delete(key)
+        super(GKUser, self).save(*args, **kwargs)
 
 class User_Profile(BaseModel):
     Man = u'M'
@@ -442,9 +443,11 @@ class User_Profile(BaseModel):
             if profile.nickname != self.nickname:
                 update_user_name_from_list(self.user)
 
-        super(User_Profile, self).save(*args, **kwargs)
         key = "user:v4:%s" % self.user.id
         cache.delete(key)
+        key = "user:v3:%s" % self.user.id
+        cache.delete(key)
+        super(User_Profile, self).save(*args, **kwargs)
 
 
 class User_Follow(models.Model):
