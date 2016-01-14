@@ -1,14 +1,14 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, UpdateView
-
+from django.core.urlresolvers import reverse
 from django.forms import ModelForm ,BooleanField
 
 from braces.views import AjaxResponseMixin,JSONResponseMixin, UserPassesTestMixin
 
-from apps.core.models import GKUser, Media
+from apps.core.models import GKUser, Media , User_Profile
 from apps.core.forms.user import UserForm, GuokuSetPasswordForm, AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 from apps.management.decorators import admin_only
@@ -25,6 +25,22 @@ class RESTfulUserListView(generics.ListCreateAPIView):
         queryset = GKUser.objects.all()
         serializer_class = GKUserSerializer
 
+class UserAuthorInfoForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(UserAuthorInfoForm, self).__init__(*args, **kwargs)
+        self.fields['weixin_id'].widget.attrs.update({'class':'form-control'})
+        self.fields['weixin_nick'].widget.attrs.update({'class':'form-control'})
+        self.fields['author_website'].widget.attrs.update({'class':'form-control'})
+        self.fields['weibo_id'].widget.attrs.update({'class':'form-control'})
+        self.fields['weibo_nick'].widget.attrs.update({'class':'form-control'})
+
+    class Meta:
+        model = User_Profile
+        fields = [
+                  'weixin_id', 'weixin_nick','weixin_qrcode_img',\
+                  'author_website','weibo_id','weibo_nick'
+                  ]
 
 class UserAuthorSetForm(ModelForm):
     isAuthor = BooleanField(required=False)
@@ -39,6 +55,45 @@ class UserAuthorSetForm(ModelForm):
     class Meta:
         model = GKUser
         fields = ['isAuthor']
+
+class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):
+    template_name = 'management/users/edit_author.html'
+    form_class=UserAuthorInfoForm
+    pk_url_kwarg = 'user_id'
+    model = User_Profile
+
+    def get_pk(self):
+        return self.kwargs.get(self.pk_url_kwarg, None)
+
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get(self.pk_url_kwarg, None)
+        try:
+            profile = User_Profile.objects.get(user__id=pk)
+        except User_Profile.DoesNotExist:
+            return Http404
+
+        return profile
+
+    def form_valid(self, form):
+        form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('management_user_editAuthor' , args=[self.get_pk()])
+
+
+    def get_context_data(self,*args, **kwargs):
+        context = super(UserAuthorInfoEditView, self).get_context_data(*args, **kwargs)
+        pk = self.kwargs.get(self.pk_url_kwarg, None)
+        profile = User_Profile.objects.get(user__id=pk)
+        context['current_user'] = profile.user
+        return context
+
+
+    def test_func(self, user):
+        return user.is_admin
+
+
 
 
 class UserAuthorSetView(UserPassesTestMixin,JSONResponseMixin, UpdateView):
