@@ -75,6 +75,7 @@ AuthorManager.prototype={
     postSuccess: function(data){
         console.log('set author success');
         console.log(data);
+        location.reload();
 
     },
     postFail: function(data){

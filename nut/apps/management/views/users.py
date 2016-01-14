@@ -6,7 +6,7 @@ from django.views.generic import ListView, UpdateView
 
 from django.forms import ModelForm ,BooleanField
 
-from braces.views import AjaxResponseMixin,JSONResponseMixin
+from braces.views import AjaxResponseMixin,JSONResponseMixin, UserPassesTestMixin
 
 from apps.core.models import GKUser, Media
 from apps.core.forms.user import UserForm, GuokuSetPasswordForm, AvatarForm
@@ -27,7 +27,8 @@ class RESTfulUserListView(generics.ListCreateAPIView):
 
 
 class UserAuthorSetForm(ModelForm):
-    isAuthor = BooleanField()
+    isAuthor = BooleanField(required=False)
+    # http://stackoverflow.com/questions/31349584/appending-formdata-field-with-value-as-a-boolean-false-causes-the-function-to-fa
     def __init__(self,*args, **kwargs):
         super(UserAuthorSetForm, self).__init__(*args, **kwargs)
 
@@ -40,7 +41,7 @@ class UserAuthorSetForm(ModelForm):
         fields = ['isAuthor']
 
 
-class UserAuthorSetView(JSONResponseMixin, UpdateView):
+class UserAuthorSetView(UserPassesTestMixin,JSONResponseMixin, UpdateView):
     pk_url_kwarg = 'user_id'
     form_class = UserAuthorSetForm
     model = GKUser
@@ -51,6 +52,9 @@ class UserAuthorSetView(JSONResponseMixin, UpdateView):
 
     def form_invalid(self, form):
         return self.render_json_response({'error':1, 'message':'invalid form'}, status=500)
+
+    def test_func(self,user):
+        return  user.is_admin
 
 @login_required
 @admin_only

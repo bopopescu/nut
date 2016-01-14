@@ -70,13 +70,21 @@
 
                <div class="box box-info">
                     <div class="box-body">
-                        <div class="btn-group">
 
-                            <input type="checkbox" data-id="{{ user.pk }}" class="js-switch" />
+                           <div class="switch_lable">授权图文作者:
+                           <input type="checkbox"
+                                    data-id="{{ user.pk }}"
+                                    class="js-switch"
+                                   {% if user.has_author_group %}checked{% endif %} />
+                           </div>
+                          <div class="btn-group">
+                            <a href="{% url 'management_user_upload_avatar' user.pk %}"
+                               class="btn btn-primary"> 授权作者信息 编辑
 
-                            <a href="{% url 'management_user_upload_avatar' user.pk %}" class="btn btn-primary">{% trans 'upload avatar' %}</a>
-
+                            </a>
                         </div>
+
+
                     </div>
                 </div>
 
