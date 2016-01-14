@@ -18,11 +18,13 @@ class CategoryIndex(indexes.SearchIndex, indexes.Indexable):
 class EntityIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     entity_id = indexes.IntegerField(model_attr='id')
+    # hash = indexes.CharField(model_attr='entity_hash')
     title = indexes.CharField(model_attr='title', boost=1.25, faceted=True)
     user = indexes.CharField(model_attr='user')
     created_time = indexes.DateTimeField(model_attr='created_time')
     price = indexes.FloatField(model_attr='price')
     like_count = indexes.IntegerField(model_attr='like_count')
+    # images = indexes.CharField(model_attr='chief_image')
 
     title_auto = indexes.EdgeNgramField(model_attr='title')
 
@@ -30,7 +32,7 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
         return Entity
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.filter(status__gt=Entity.freeze).using('slave').filter(buy_links__status=2).distinct()
+        return self.get_model().objects.filter(status__gt=Entity.new).using('slave').filter(buy_links__status=2).distinct()
 
 
 class UserIndex(indexes.SearchIndex, indexes.Indexable):

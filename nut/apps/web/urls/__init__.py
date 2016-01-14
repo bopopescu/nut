@@ -116,11 +116,11 @@ urlpatterns += patterns('',
             url(r'^captcha/', include('captcha.urls')),
         )
 
-#
-# from apps.seller.views.web import SellerView
-# urlpatterns += patterns('',
-#             url(r'^year_seller/', SellerView.as_view(), name='web_year_seller_2015'),
-#         )
+
+from apps.seller.views.web import SellerView
+urlpatterns += patterns('',
+            url(r'^store2015/', SellerView.as_view(), name='year_store_2015'),
+        )
 
 
 __author__ = 'edison7500'

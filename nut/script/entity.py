@@ -55,7 +55,6 @@ for row in cursor.fetchall():
             detail_images = detail_images.split('#')
             # print detail_images
 
-
             for i in detail_images:
                 if len(i) == 0:
                     continue

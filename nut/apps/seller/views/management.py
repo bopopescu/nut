@@ -17,8 +17,6 @@ from apps.seller.models import Seller_Profile
 from apps.core.models import GKUser
 
 
-
-
 # TODO : seller is a GKUser,
 #        make the connection in UI
 

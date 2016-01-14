@@ -813,7 +813,10 @@ p.boolean-false {
     display: none;
   }
 }
-@media (min-width: 768px) and (max-width: 990px) {
+@media (min-width: 768px) and (max-width: 991px) {
+  #guoku_main_nav .main-list li > a {
+    padding: 15px 9px!important;
+  }
   .container {
     width: 100%;
   }

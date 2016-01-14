@@ -1525,8 +1525,40 @@ textarea {
   cursor: not-allowed;
   color: #fff;
 }
+.top-ad {
+  display: none;
+  height: 50px;
+  width: 100%;
+  background: none;
+}
+.top-ad .ad-wrapper {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+.top-ad .ad-wrapper a .top-ad-title-wrapper {
+  text-align: center;
+}
+.top-ad .ad-wrapper a .top-ad-title-wrapper .top-ad-title-control {
+  width: 217px;
+  height: 40px;
+  margin: 5px auto;
+}
+.top-ad .close-button {
+  dislay: none;
+  position: absolute;
+  right: 20px;
+  height: 20px;
+  width: 20px;
+  top: 15px;
+  color: #ffffff;
+  opacity: 0.7;
+  line-height: 20px;
+  font-size: 20px;
+}
 body {
-  padding-top: 100px;
+  padding-top: 80px;
   color: #424242;
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
   font-size: 16px;
@@ -1617,10 +1649,10 @@ body.compact-body {
   -moz-transition: all 0.4s ease-in;
   -ms-transition: all 0.4s ease-in;
   -o-transition: all 0.4s ease-in;
-  -webkit-transform: translateY(-60px);
-  -moz-transform: translateY(-60px);
-  -ms-transform: translateY(-60px);
-  -o-transform: translateY(-60px);
+  -webkit-transform: translateY(-360px);
+  -moz-transform: translateY(-360px);
+  -ms-transform: translateY(-360px);
+  -o-transform: translateY(-360px);
 }
 #guoku_main_nav.shown-header {
   -webkit-transition: all 0.4s ease-in;
@@ -1660,6 +1692,11 @@ body.compact-body {
   color: #424242 !important;
   font-weight: 600;
   background: none;
+}
+#guoku_main_nav .main-list .img-menu {
+  padding: 0px 0px;
+  position: relative;
+  top: 5px;
 }
 #guoku_main_nav .nav-add-product .add_goods {
   display: none;
@@ -1720,6 +1757,7 @@ body.compact-body {
   color: #9d9e9f;
 }
 #guoku_main_nav .search .search-input {
+  width: 135px;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -3261,6 +3299,9 @@ body.compact-body {
 .search-result-container {
   min-height: 570px;
 }
+#settings.edit_profile .action-alert {
+  color: #d91920;
+}
 #settings.edit_profile .edit_info ul li {
   position: relative;
   height: auto;
@@ -3475,7 +3516,10 @@ body.compact-body {
     display: none;
   }
 }
-@media (min-width: 768px) and (max-width: 990px) {
+@media (min-width: 768px) and (max-width: 991px) {
+  #guoku_main_nav .main-list li > a {
+    padding: 15px 9px!important;
+  }
   .container {
     width: 100%;
   }
@@ -3596,6 +3640,6 @@ body .for-mobile {
   left: 3px;
 }
 .gk_test {
-  color: red;
+  color: black;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
