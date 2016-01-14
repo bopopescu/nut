@@ -1,7 +1,17 @@
+
+2. 
+1. a bookmark for youzhan's taobao product adding , not for web
+   but put in doc anyway
+
+=================================
+=================================
+### merged to master 2016 － 1 － 12
+=================================
+=================================
+
+6. add home link in store2015 page 
 5. store2015 entity list display bug fix
-
-4. freeze entity liker won't display bug fix 
-
+4. freeze entity liker won't display bug fix
 3. in guoku editor 
    a. if article's change is not saved , user can not leave page without passthrough a confirmation dialog;
    b. removeFormat button now working ok 
