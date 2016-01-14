@@ -1,13 +1,30 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import json
-from time import sleep
+import os
+import sys
 
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+sys.path.append(BASE_DIR)
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_judy'
+
+import json
+import random
+import time
+import urllib
+import redis
 import requests
 
-from bs4 import BeautifulSoup
+from time import sleep
 from faker import Faker
+from bs4 import BeautifulSoup
+from django.conf import settings
+
+from apps.core.tasks import get_cookies
+from apps.fetch.common import process_eqs, process_jsonp
+from settings import WEIXIN_KEY, WEIXIN_URL
 
 
 try:
@@ -16,6 +33,9 @@ except ImportError:
     import xml.etree.ElementTree as ET
 
 faker = Faker()
+r = redis.Redis(host=settings.CONFIG_REDIS_HOST,
+                port=settings.CONFIG_REDIS_PORT,
+                db=settings.CONFIG_REDIS_DB)
 
 
 def clean_xml(xml_str):
@@ -33,7 +53,7 @@ def clean_xml(xml_str):
     return xml_str
 
 
-class WeChatArticle(object):
+class WeChat(object):
     def __init__(self, we_chat_id, we_chat_name=None):
         self.we_chat_id = we_chat_id
         self.we_chat_name = we_chat_name
@@ -44,12 +64,24 @@ class WeChatArticle(object):
         self.__ext = None
         self.__open_id = None
         self.__headers = None
+        self._cookie = None
 
     @property
     def headers(self):
         if not self.__headers:
-            self.__headers = faker.user_agent()
+            headers = {'UserAgent': faker.user_agent(),
+                     'Referer': 'http://weixin.sogou.com/gzhjs?openid=oIWsFtyGRm3FRZuQbcDquZOI5N_E&ext=OVYz1E9f6Gt5FGRk_uyaS3KVGUGG7_T36lFlj3QAjhzRTxfkv-uNb06TRTVsdBB3&cb=sogou.weixin_gzhcb&page=1&',
+                     'Cookie': self.cookie,
+                     }
+            self.__headers = headers
         return self.__headers
+
+    @property
+    def cookie(self):
+        if not self._cookie:
+            cookie = get_cookies('we_chat')
+            self._cookie = cookie
+        return self._cookie
 
     @property
     def ext(self):
@@ -100,10 +132,7 @@ class WeChatArticle(object):
         params = dict(type='1', ie='utf8', query=self.we_chat_id, page=page)
         response = requests.get(url=self.search_api_url,
                                 params=params,
-                                headers={'UserAgent': self.headers,
-                                         'Referer': 'http://weixin.sogou.com/gzhjs?openid=oIWsFtyGRm3FRZuQbcDquZOI5N_E&ext=OVYz1E9f6Gt5FGRk_uyaS3KVGUGG7_T36lFlj3QAjhzRTxfkv-uNb06TRTVsdBB3&cb=sogou.weixin_gzhcb&page=1&',
-                                         'Cookie': 'SUID=15C2C23C4418920A0000000056188452; SUV=00452E91726FA77D562CADD6CB4F4317; CXID=5EA449CB6EE00CF81A5B306EF225746E; ssuid=309320514; ad=MrpZFyllll2Qa3TmlllllVB@AzllllllzAKWayllll9lllllpZlll5@@@@@@@@@@; ld=ayllllllll2QWOmTlllllVzjwh9lllllNU@oikllll9lllll4voll5@@@@@@@@@@; ABTEST=0|1451369253|v1; weixinIndexVisited=1; IPLOC=CN1100; SNUID=0B799695E8EDC02489C18394E9E07165; wapsogou_qq_nickname=; sct=23; PHPSESSID=mlnvb0bpj4hjeecr127r1pdih1; SUIR=0B799695E8EDC02489C18394E9E07165; seccodeRight=success; successCount=1|Fri, 08 Jan 2016 10:17:02 GMT; refresh=1',
-                                         })
+                                headers=self.headers)
 
         source_result = response.content.rstrip('\n')
         if source_result.startswith('weixin('):
@@ -116,10 +145,7 @@ class WeChatArticle(object):
                       ext=self.ext, cb='sogou.weixin_gzhcb')
         response = requests.get(url=self.articles_api_url,
                                 params=params,
-                                headers={'UserAgent': self.headers,
-                                         'Referer': 'http://weixin.sogou.com/gzhjs?openid=oIWsFtyGRm3FRZuQbcDquZOI5N_E&ext=OVYz1E9f6Gt5FGRk_uyaS3KVGUGG7_T36lFlj3QAjhzRTxfkv-uNb06TRTVsdBB3&cb=sogou.weixin_gzhcb&page=1&',
-                                         'Cookie': 'SUID=15C2C23C4418920A0000000056188452; SUV=00452E91726FA77D562CADD6CB4F4317; CXID=5EA449CB6EE00CF81A5B306EF225746E; ssuid=309320514; ad=MrpZFyllll2Qa3TmlllllVB@AzllllllzAKWayllll9lllllpZlll5@@@@@@@@@@; ld=ayllllllll2QWOmTlllllVzjwh9lllllNU@oikllll9lllll4voll5@@@@@@@@@@; ABTEST=0|1451369253|v1; weixinIndexVisited=1; IPLOC=CN1100; SNUID=0B799695E8EDC02489C18394E9E07165; wapsogou_qq_nickname=; sct=23; PHPSESSID=mlnvb0bpj4hjeecr127r1pdih1; SUIR=0B799695E8EDC02489C18394E9E07165; seccodeRight=success; successCount=1|Fri, 08 Jan 2016 10:17:02 GMT; refresh=1',
-                                         })
+                                headers=self.headers)
 
         source_result = response.content.rstrip('\n')
         if source_result.startswith('sogou.weixin_gzhcb('):
@@ -132,7 +158,6 @@ class WeChatArticle(object):
             print '        * ', article_soup.title1.string
         print ''
         sleep(3)
-        # print result
 
         total_pages = int(result['totalPages'])
         for page in xrange(2, total_pages + 1):
@@ -140,10 +165,7 @@ class WeChatArticle(object):
                           ext=self.ext, cb='sogou.weixin_gzhcb')
             response = requests.get(url=self.articles_api_url,
                                     params=params,
-                                    headers={'UserAgent': self.headers,
-                                             'Referer': 'http://weixin.sogou.com/gzhjs?openid=oIWsFtyGRm3FRZuQbcDquZOI5N_E&ext=OVYz1E9f6Gt5FGRk_uyaS3KVGUGG7_T36lFlj3QAjhzRTxfkv-uNb06TRTVsdBB3&cb=sogou.weixin_gzhcb&page=1&',
-                                             'Cookie': 'SUID=15C2C23C4418920A0000000056188452; SUV=00452E91726FA77D562CADD6CB4F4317; CXID=5EA449CB6EE00CF81A5B306EF225746E; ssuid=309320514; ad=MrpZFyllll2Qa3TmlllllVB@AzllllllzAKWayllll9lllllpZlll5@@@@@@@@@@; ld=ayllllllll2QWOmTlllllVzjwh9lllllNU@oikllll9lllll4voll5@@@@@@@@@@; ABTEST=0|1451369253|v1; weixinIndexVisited=1; IPLOC=CN1100; SNUID=0B799695E8EDC02489C18394E9E07165; wapsogou_qq_nickname=; sct=23; PHPSESSID=mlnvb0bpj4hjeecr127r1pdih1; SUIR=0B799695E8EDC02489C18394E9E07165; seccodeRight=success; successCount=1|Fri, 08 Jan 2016 10:17:02 GMT; refresh=1',
-                                             })
+                                    headers=self.headers)
 
             source_result = response.content.rstrip('\n')
             if source_result.startswith('sogou.weixin_gzhcb('):
@@ -155,7 +177,7 @@ class WeChatArticle(object):
                 article_soup = BeautifulSoup(article, 'xml')
                 print '        * ', article_soup.title1.string
             print ''
-            sleep(3)
+            sleep(10)
 
     def fetch_article(self):
         pass
@@ -164,10 +186,46 @@ class WeChatArticle(object):
         # Todo(judy): add reference
         pass
 
+    def craw_article(self, article_link):
+        # get article
+        sleep(10)
+        response = requests.get(url=article_link, headers=self.headers)
+        return response
+
+    def crawl(self):
+        headers = self.headers
+        open_id = self.open_id
+
+        key = r.get('sougou:key')
+        eqs = process_eqs(key[0], open_id, key[2])
+
+        url = WEIXIN_URL.format(id=open_id, eqs=urllib.quote(eqs), ekv=key[1], t=int(time.time()*1000)) # 生成api url
+
+        # 访问api url,获取公众号文章列表
+        response = requests.get(url=url, headers=headers)
+
+        if not response.status_code == 200:
+            # Todo(judy): retry
+            pass
+
+        jsonp = response.content.decode('utf-8')
+        items = process_jsonp(jsonp)
+        for item in items:
+            self.craw_article(item['link'])
+
+        if not items:
+            pass
+
+        responses = [self.craw_article(i['link']) for i in items]
+        for response in responses:
+            if response.status_code != 200:
+                pass
+
 
 if __name__ == '__main__':
-    wechat = WeChatArticle('shenyebagua818')
-    print '> open id: ', wechat.open_id
-    print '> ext: ', wechat.ext
+    wechat = WeChat('shenyebagua818')
     print '> articles: '
-    wechat.get_article_list()
+    # wechat.get_article_list()
+    print wechat.crawl()
+    print '>> happy ending!'
+

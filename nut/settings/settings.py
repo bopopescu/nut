@@ -317,4 +317,10 @@ CONFIG_REDIS_DB = 1
 
 INTERVAL_OF_SELECTION = 24
 
+# fetch articles
+WEIXIN_KEY = 'http://weixin.sogou.com/gzh?openid={id}'
+WEIXIN_COOKIE = 'http://weixin.sogou.com/weixin?query={q}'
+WEIXIN_URL = 'http://weixin.sogou.com/gzhjs?cb=sogou.weixin.gzhcb&openid={id}&eqs={eqs}&ekv={ekv}&page=1&t={t}'
+WEIXIN_EXPIRES = 24*60*60 # 微信公众号缓存1天
+
 CURRENCY_SYMBOLS = (u'$', u'￥')

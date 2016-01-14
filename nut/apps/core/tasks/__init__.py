@@ -29,6 +29,9 @@ from apps.core.tasks.recorder import record_search
 from apps.core.tasks.edm import add_user_to_list
 from apps.core.tasks.edm import send_activation_mail
 from apps.core.tasks.edm import send_forget_password_mail
+from apps.core.tasks.fetch import set_key
+from apps.core.tasks.fetch import set_cookies
+from apps.core.tasks.fetch import get_cookies
 
 
 __author__ = 'edison'
