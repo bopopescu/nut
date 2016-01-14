@@ -2,6 +2,7 @@
 {% load i18n static %}
 
 {% block content %}
+    {% with user=current_user %}
     <section class="content-header">
         <h1>
             {{ user.profile.nickname }}
@@ -70,22 +71,11 @@
 
                <div class="box box-info">
                     <div class="box-body">
-
-                           <div class="switch_lable">授权图文作者:
-                           <input type="checkbox"
-                                    data-id="{{ user.pk }}"
-                                    class="js-switch"
-                                   {% if user.has_author_group %}checked{% endif %} />
-
-                            {% if user.has_author_group %}
-                                <a href="{% url 'management_user_editAuthor' user.pk %}"
-                                   class="btn btn-primary pull-right"> 授权作者信息 编辑
-
+                           <div>
+                                <a href="{% url 'management_user_edit' user.pk %}"
+                                   class="btn btn-primary pull-left"> 编辑用户基本信息
                                 </a>
-                           {% endif %}
                            </div>
-
-
 
                     </div>
                 </div>
@@ -106,33 +96,15 @@
                     <form class="form-horizontal" method="post">
                         {% csrf_token %}
                         <div class="box-body">
-                        {% for field in forms %}
-                            {% if field.html_name == 'is_admin' %}
-                                 <div class="checkbox">
-                                    <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                                    <div class="col-sm-10">
-                                        {{ field }}
-                                    </div>
-                                 </div>
-                            {% elif field.html_name == 'gender' %}
-                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="{{ field.id_for_label  }}">{{ field.label  }}</label>
-                                    <div class="col-xs-8 col-sm-4">
-                                        {{ profile_form.gender }}
-                                        {% for radio in field %}
-                                        <label class="checkbox-inline">{{ radio.choice_label }} {{ radio.tag }}&nbsp; </label>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            {% else %}
-
+                        {% for field in form %}
                             <div class="form-group">
-                                <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                                <div class="col-sm-10">
-                                    {{ field }}
-                                </div>
+                              <label  class="col-sm-2 control-label" for="{{ field.id_for_label  }}">{{ field.label  }}</label>
+                              <div class="col-xs-8 col-sm-4">
+                                   {{ field }}
+                              </div>
+                              <div class="error">{{ field.error }}</div>
+
                             </div>
-                            {% endif %}
                         {% endfor %}
                         </div>
                         <div class="box-footer">
@@ -145,6 +117,7 @@
             </div>
         </div>
     </section>
+    {% endwith %}
 {% endblock %}
 
 {% block user_script %}
