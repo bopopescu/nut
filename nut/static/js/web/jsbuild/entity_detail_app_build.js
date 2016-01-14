@@ -2477,6 +2477,7 @@ define('views/base/ItemView',['Backbone','libs/underscore'], function(
 
         render : function(){
             if(this.model) {
+                //prepare for dirty data
                 try {
                     this.$el.html(this.template(this.model.toJSON()));
                 } catch(e){
@@ -2542,7 +2543,7 @@ define('subapp/entity/liker',[
         {
 
         init: function(entity){
-            this.entityModel = entity || this.getEntityModel;
+            this.entityModel = entity || this.getEntityModel();
             entity.on('sync',this.entitySync.bind(this));
             entity.fetch();
             //this.likerViewMobile  = new EntityLikerViewMobile({model: this.likerCollection});
@@ -2594,6 +2595,24 @@ define('subapp/entity/liker',[
 
     return EntityLikerController;
 });
+define('subapp/entity/baichuan',['libs/underscore','jquery', 'libs/Class'], function(
+    _,
+    $,
+    Class
+){
+    var BaichuanManager = Class.extend({
+        init: function(){
+            this.initLoadEvent();
+        },
+        initLoadEvent: function(){
+            console.log("not implement");
+        },
+
+    });
+
+    return BaichuanManager;
+
+});
 require([
         'libs/polyfills',
         'jquery',
@@ -2609,6 +2628,8 @@ require([
         // entity liker part
         'models/Entity',
         'subapp/entity/liker',
+        'subapp/entity/baichuan',
+
         'libs/csrf'
 
     ],
@@ -2624,7 +2645,8 @@ require([
               EntityImageHandler,
               //entity liker part
               EntityModel,
-              LikerAppController
+              LikerAppController,
+              BaichuanManager
 
 
     ){
@@ -2638,6 +2660,7 @@ require([
         var entityReport = new EntityReport();
         var userNote = new UserNote();
         var imgHandler = new EntityImageHandler();
+        var baichuanManager = new BaichuanManager();
 
         /// begin entity liker app
         if (_.isUndefined(current_entity_id)){
