@@ -55,13 +55,18 @@ AuthorManager.prototype={
         this.setAuthorState(userid=$(ele).attr('data-id'), authorState=$(ele).prop('checked'));
 
     },
+
+    getRequestUrl: function(userid){
+        return '/management/user/'+ userid+'/setAuthor/';
+    },
     setAuthorState: function(userid, authorState){
         var url = this.getRequestUrl(userid, authorState);
         var data ={
             isAuthor: authorState
         };
         $.when($.ajax({
-            url:'/management/user/'+ userid+'/setAuthor/',
+            method: 'POST',
+            url: url,
             data: data
         })).then(
             this.postSuccess.bind(this),
