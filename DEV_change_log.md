@@ -3,26 +3,9 @@
 1. a bookmark for youzhan's taobao product adding , not for web 
    but put in doc anyway
 
-##action 
- 
-ALTER TABLE `core`.`core_user_profile` 
-ADD COLUMN `weixin_id` VARCHAR(255) NULL DEFAULT NULL AFTER `email_verified`,
-ADD COLUMN `weixin_nick` VARCHAR(255) NULL DEFAULT NULL AFTER `weixin_id`,
-ADD COLUMN `weixin_qrcode_img` VARCHAR(255) NULL DEFAULT NULL AFTER `weixin_nick`,
-ADD COLUMN `author_website` VARCHAR(1024) NULL DEFAULT NULL AFTER `weixin_qrcode_img`,
-ADD COLUMN `weibo_id` VARCHAR(255) NULL DEFAULT NULL AFTER `author_website`,
-ADD COLUMN `weibo_nick` VARCHAR(255) NULL DEFAULT NULL AFTER `weibo_id`;
+##action  
 
-revert : 
-
-ALTER TABLE `core`.`core_user_profile` 
-DROP COLUMN `weibo_nick`,
-DROP COLUMN `weibo_id`,
-DROP COLUMN `author_website`,
-DROP COLUMN `weixin_qrcode_img`,
-DROP COLUMN `weixin_nick`,
-DROP COLUMN `weixin_id`;
-
+need syncdb 
 
 
 2016-1-13 start 
