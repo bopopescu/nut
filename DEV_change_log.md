@@ -1,6 +1,6 @@
-3. baichuan recommendation 
+3. baichuan recommendation （HIDDEN, NOT FINISHED）
 2. user set to author 
-1. a bookmark for youzhan's taobao product adding , not for webfront
+1. a bookmark for youzhan's taobao product adding , not for web 
    but put in doc anyway
 
 ##action 
