@@ -47,7 +47,7 @@ class EntityListView(FilterMixin, ListView):
             return qs
         else:
             entity_list = qs.filter(status=int(status)).order_by(
-                    '-updated_time')
+                '-updated_time')
         return entity_list
 
     # TODO: need clear input  in filter Mixin
@@ -77,7 +77,7 @@ def list(request, template='management/entities/list.html'):
         entity_list = Entity.objects.all()
     else:
         entity_list = Entity.objects.filter(status=int(status)).order_by(
-                '-updated_time')
+            '-updated_time')
 
     paginator = ExtentPaginator(entity_list, 30)
 
@@ -88,12 +88,12 @@ def list(request, template='management/entities/list.html'):
     except EmptyPage:
         raise Http404
     return render_to_response(
-            template,
-            {
-                'entities': entities,
-                'status': status,
-            },
-            context_instance=RequestContext(request)
+        template,
+        {
+            'entities': entities,
+            'status': status,
+        },
+        context_instance=RequestContext(request)
     )
 
 
@@ -118,9 +118,9 @@ def edit(request, entity_id, template='management/entities/edit.html'):
 
     if request.method == "POST":
         _forms = EditEntityForm(
-                entity,
-                request.POST,
-                initial=data
+            entity,
+            request.POST,
+            initial=data
         )
         _update = 1
 
@@ -130,18 +130,18 @@ def edit(request, entity_id, template='management/entities/edit.html'):
 
     else:
         _forms = EditEntityForm(
-                entity=entity,
-                initial=data
+            entity=entity,
+            initial=data
         )
 
     return render_to_response(
-            template,
-            {
-                'entity': entity,
-                'forms': _forms,
-                'update': _update,
-            },
-            context_instance=RequestContext(request)
+        template,
+        {
+            'entity': entity,
+            'forms': _forms,
+            'update': _update,
+        },
+        context_instance=RequestContext(request)
     )
 
 
@@ -154,9 +154,9 @@ def create(request, template='management/entities/new.html'):
         raise Http404
     res = load_entity_info(_url)
 
-    if res.has_key('entity_id'):
+    if 'entity_id' in res:
         return HttpResponseRedirect(
-                reverse('management_entity_edit', args=[res['entity_id']]))
+            reverse('management_entity_edit', args=[res['entity_id']]))
 
     if len(res) == 0:
         return HttpResponse('not support')
@@ -167,7 +167,7 @@ def create(request, template='management/entities/new.html'):
         if _forms.is_valid():
             entity = _forms.save()
             return HttpResponseRedirect(
-                    reverse('management_entity_edit', args=[entity.pk]))
+                reverse('management_entity_edit', args=[entity.pk]))
     else:
 
         key_string = "%s%s" % (res['cid'], res['origin_source'])
@@ -180,12 +180,12 @@ def create(request, template='management/entities/new.html'):
         _forms = CreateEntityForm(request=request, initial=res)
 
     return render_to_response(
-            template,
-            {
-                'res': res,
-                'forms': _forms,
-            },
-            context_instance=RequestContext(request)
+        template,
+        {
+            'res': res,
+            'forms': _forms,
+        },
+        context_instance=RequestContext(request)
     )
 
 
@@ -210,18 +210,18 @@ def buy_link(request, entity_id, template='management/entities/buy_link.html'):
         if _forms.is_valid():
             _forms.save()
             return HttpResponseRedirect(
-                    reverse('management_entity_edit', args=[entity_id]))
+                reverse('management_entity_edit', args=[entity_id]))
     else:
         _forms = BuyLinkForm(entity=_entity)
 
     return render_to_response(
-            template,
-            {
-                'entity': _entity,
-                'forms': _forms,
-                # 'buy_link_list': _buy_link_list,
-            },
-            context_instance=RequestContext(request)
+        template,
+        {
+            'entity': _entity,
+            'forms': _forms,
+            # 'buy_link_list': _buy_link_list,
+        },
+        context_instance=RequestContext(request)
     )
 
 
@@ -239,8 +239,8 @@ def edit_buy_link(request, bid,
         if _forms.is_valid():
             buy_link = _forms.save()
             return HttpResponseRedirect(
-                    reverse('management_entity_edit',
-                            args=[buy_link.entity_id]))
+                reverse('management_entity_edit',
+                        args=[buy_link.entity_id]))
     else:
         # log.info(int(buy.default))
         _forms = EditBuyLinkForm(buy_link=buy, initial={
@@ -249,12 +249,12 @@ def edit_buy_link(request, bid,
         })
 
     return render_to_response(
-            template,
-            {
-                'entity': buy.entity,
-                'forms': _forms,
-            },
-            context_instance=RequestContext(request))
+        template,
+        {
+            'entity': buy.entity,
+            'forms': _forms,
+        },
+        context_instance=RequestContext(request))
 
 
 @csrf_exempt
@@ -330,12 +330,12 @@ def image(request, entity_id,
         _forms = EntityImageForm(entity=_entity)
 
     return render_to_response(
-            template,
-            {
-                'entity': _entity,
-                'forms': _forms,
-            },
-            context_instance=RequestContext(request)
+        template,
+        {
+            'entity': _entity,
+            'forms': _forms,
+        },
+        context_instance=RequestContext(request)
     )
 
 

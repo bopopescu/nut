@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import re
 import json
+import re
 import urllib2
 
+from apps.fetch.entity.base import BaseFetcher
 from django.utils.log import getLogger
 
-from apps.fetch.base import BaseFetcher
 from apps.fetch.common import clean_price_string
 
 
@@ -16,14 +16,15 @@ log = getLogger('django')
 class JD(BaseFetcher):
     def __init__(self, entity_url, use_phantom=True):
         BaseFetcher.__init__(self, entity_url)
+        self.entity_url = entity_url
         self.use_phantom = use_phantom
         self.expected_element = 'span.tm-price'
         self.foreign_price = 0.0
-        self.entity_url = entity_url
         self.origin_id = self.get_origin_id()
-
         self.brand_pattern = re.compile(u'品牌： (?P<brand>\w+&\w)',
                                         re.UNICODE | re.MULTILINE)
+
+        self._link = ''
 
     def get_origin_id(self):
         ids = re.findall(r'\d+', self.entity_url)
@@ -32,8 +33,9 @@ class JD(BaseFetcher):
 
     @property
     def link(self):
-        url = 'http://item.jd.com/%s.html' % self.origin_id
-        return url
+        if not self._link:
+            self._link = 'http://item.jd.com/%s.html' % self.origin_id
+        return self._link
 
     @property
     def title(self):
@@ -135,7 +137,7 @@ class JD(BaseFetcher):
         if price_tag:
             price = price_tag[0].text
 
-        if not price_tag:
+        if not price:
             price = self.price_json['p']
 
         price = clean_price_string(price)

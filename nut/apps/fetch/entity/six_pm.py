@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from hashlib import md5
-from apps.fetch.base import BaseFetcher
+
+from apps.fetch.entity.base import BaseFetcher
 
 
 class SixPM(BaseFetcher):

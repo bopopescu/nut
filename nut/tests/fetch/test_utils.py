@@ -4,12 +4,12 @@
 import pytest
 
 from apps.fetch import Amazon
+from apps.fetch import Booking
 from apps.fetch import JD
 from apps.fetch import Kaola
 from apps.fetch import SixPM
 from apps.fetch import TaoBao
 from apps.fetch import Tmall
-from apps.fetch import Booking
 from apps.fetch.common import get_origin_source, clean_price_string, \
     get_provider
 

@@ -2,11 +2,10 @@
 
 import re
 
-from urllib import unquote
+from apps.fetch.entity.base import BaseFetcher
 from django.utils.log import getLogger
 
 from apps.fetch.common import clean_price_string
-from apps.fetch.base import BaseFetcher
 
 
 log = getLogger('django')
@@ -21,6 +20,7 @@ class Tmall(BaseFetcher):
         self.entity_url = entity_url
         self.origin_id = self.get_origin_id()
         self.expected_element = 'div#J_DetailMeta'
+        self.timeout = 20
 
         self.cid_pattern = re.compile(u'"rootCatId":"(?P<cid>\d*)')
         self.price_pattern_a = re.compile(
@@ -116,7 +116,8 @@ class Tmall(BaseFetcher):
 
         return ''
 
-    def get_images(self):
+    @property
+    def images(self):
         image_list = list()
         img_tags = self.soup.select("#J_ImgBooth")
         if img_tags:

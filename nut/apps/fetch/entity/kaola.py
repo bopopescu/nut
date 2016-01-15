@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import re
+from urlparse import urlparse
 
 from django.utils.log import getLogger
 
-from apps.fetch.base import BaseFetcher
+from apps.fetch.entity.base import BaseFetcher
 
 
 log = getLogger('django')
@@ -15,9 +16,10 @@ class Kaola(BaseFetcher):
     def __init__(self, entity_url):
         BaseFetcher.__init__(self, entity_url)
         self.entity_url = entity_url
+        self.origin_id = self.get_origin_id()
 
-    def get_origin_id(url):
-        ids = re.findall(r'\d+', url)
+    def get_origin_id(self):
+        ids = re.findall(r'\d+', self.entity_url)
         if len(ids) > 0:
             return ids[0]
 
@@ -31,9 +33,11 @@ class Kaola(BaseFetcher):
 
     @property
     def link(self):
-        return "http://%s%s" % (self.urlobj.hostname, self.urlobj.path)
+        url_obj = urlparse(self.entity_url)
+        return "http://%s%s" % (url_obj.hostname, url_obj.path)
 
-    def get_images(self):
+    @property
+    def images(self):
         _images = list()
         optimgs = self.soup.select("#litimgUl li a img")
 
@@ -59,7 +63,7 @@ class Kaola(BaseFetcher):
     def brand(self):
         _brand = self.soup.select("#goodsDetail > ul > li")
         if len(_brand) > 0:
-            return  _brand[0].string.replace(u'商品品牌：', '')
+            return _brand[0].string.replace(u'商品品牌：', '')
         return ''
 
     @property

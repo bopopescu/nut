@@ -1,21 +1,29 @@
 # -*- coding: utf-8 -*-
+from urlparse import urlparse
 
-from apps.fetch.base import BaseFetcher
+from apps.fetch.entity.base import BaseFetcher
 
 
 class Booking(BaseFetcher):
 
-    # @property
-    # def url(self):
-    #     url = "http://%s%s" % (self.urlobj.hostname, self.urlobj.path)
-    #     return url.rstrip()
+    def __init__(self, entity_url):
+        BaseFetcher.__init__(self, entity_url)
+        self.entity_url = entity_url
+        self.origin_id = self.get_origin_id()
+        self._headers = None
 
-    # @property
-    # def headers(self):
-    #     return self._headers
+    @property
+    def link(self):
+        url_obj = urlparse(self.entity_url)
+        url = "http://%s%s" % (url_obj.hostname, url_obj.path)
+        return url.rstrip()
 
-    def parse_booking_id_from_url(url):
-        params = url.split("?")[1]
+    @property
+    def headers(self):
+        return self._headers
+
+    def get_origin_id(self):
+        params = self.entity_url.split("?")[1]
         for param in params.split(";"):
             tokens = param.split("=")
             if len(tokens) >= 2 and tokens[0] == "sid":
@@ -35,8 +43,6 @@ class Booking(BaseFetcher):
 
         if len(rooms) > 0:
             room = rooms[0]
-            # print i(room.string
-            # room_price = re.match(r"(\d+)", room.string)
             room_price = room.string.replace(u'起价：', '').replace(u'元', '')
             return float(room_price)
         return 0
@@ -45,7 +51,6 @@ class Booking(BaseFetcher):
     def images(self):
         _images = list()
         optimgs = self.soup.select(".hotel_thumbs_sprite")
-        # print optimgs
         for op in optimgs[0:6]:
             optimg = op.attrs.get('data-resized')
             _images.append( optimg )
@@ -58,7 +63,6 @@ class Booking(BaseFetcher):
     @property
     def shop_link(self):
         return self.origin_source
-    #     return self.urlobj.hostname
 
     @property
     def brand(self):

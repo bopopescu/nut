@@ -29,7 +29,7 @@ from apps.core.tasks.recorder import record_search
 from apps.core.tasks.edm import add_user_to_list
 from apps.core.tasks.edm import send_activation_mail
 from apps.core.tasks.edm import send_forget_password_mail
-from apps.core.tasks.phantom import get_html_source
+from apps.core.tasks.fetch import get_html_source
 
 
 __author__ = 'edison'

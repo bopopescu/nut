@@ -4,7 +4,7 @@ import re
 
 from django.utils.log import getLogger
 
-from apps.fetch.base import BaseFetcher
+from apps.fetch.entity.base import BaseFetcher
 
 
 IMG_POSTFIX = "_\d+x\d+.*\.jpg|_b\.jpg"
@@ -99,7 +99,8 @@ class TaoBao(BaseFetcher):
                     if price_tag.text:
                         return price_tag.text
 
-    def get_images(self):
+    @property
+    def images(self):
         image_list = list()
         img_tags = self.soup.select("#J_ImgBooth")
         if not img_tags:

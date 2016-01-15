@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import random
+import re
 
-import requests
-
-from django.conf import settings
+import time
 from django.utils.log import getLogger
-from urlparse import urlparse, urljoin
+from urlparse import urlparse
 
 from settings import CURRENCY_SYMBOLS
 
 
 log = getLogger('django')
+_COOKIE_RE = re.compile(r'(ABTEST=\S+?|SNUID=\S+?|IPLOC=\S+?|SUID=\S+?|black_passportid=\S+?);')
 
 
 def get_key(hostname):
@@ -38,15 +39,6 @@ def get_origin_source(item_url):
     if len(hostname) > 2 and hostname.split('.')[-2] == 'com':
         return '.'.join(hostname.split('.')[-3:])
     return '.'.join(hostname.split('.')[-2:])
-
-
-def get_phantom_status():
-    # phantom_health_url = urljoin(settings.PHANTOM_SERVER, '_health')
-    # phantom_status = requests.get(phantom_health_url).status_code
-    # return phantom_status == 200
-    phantom_url = settings.PHANTOM_SERVER
-    phantom_status = requests.get(phantom_url).status_code
-    return phantom_status == 405
 
 
 def clean_price_string(prices_string):
@@ -117,3 +109,13 @@ def clean_images(img_list, protocol='https'):
         id_list.append(id_string)
         cleaned_img_list.append(img_src)
     return cleaned_img_list
+
+
+def process_cookie(cookie):
+    l = _COOKIE_RE.findall(cookie)
+    l.append(_get_suv())
+    return {'Cookie': '; '.join(l)}
+
+
+def _get_suv():
+    return '='.join(['SUV', str(int(time.time()*1000000) + random.randint(0, 1000))])

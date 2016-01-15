@@ -2,10 +2,10 @@
 
 import re
 
-from apps.fetch.base import BaseFetcher
+from apps.fetch.entity.base import BaseFetcher
+from apps.core.utils.commons import currency_converting
 from apps.fetch.common import clean_price_string
 from apps.fetch.common import get_key
-from apps.core.utils.commons import currency_converting
 
 
 class Amazon(BaseFetcher):
@@ -17,12 +17,9 @@ class Amazon(BaseFetcher):
         self.price_pattern = re.compile(u'(?:￥|\$)\s?(?P<price>\d+\.\d+)')
         self.foreign_price = 0.0
         self.entity_url = entity_url
-        self.origin_id = self.get_origin_id
+        self.origin_id = self.get_origin_id()
         self.expected_element = self.get_expected_element()
-        self.shop_link = self.origin_source
-        self.shop_nick = self.get_nick()
 
-    @property
     def get_origin_id(self):
         parts = self.entity_url.split('/')
         if u'product' in parts:
@@ -37,9 +34,6 @@ class Amazon(BaseFetcher):
             return _desc[0].string
         _desc = self.soup.title.string.split(':')
         return _desc[0]
-
-    def get_nick(self):
-        return get_key(self.origin_source)
 
     def get_expected_element(self):
         if self.origin_source.endswith('cn'):
@@ -144,7 +138,8 @@ class Amazon(BaseFetcher):
         link = "http://{0:s}/dp/{1:s}".format(self.origin_source, self.origin_id)
         return link
 
-    def get_images(self):
+    @property
+    def images(self):
         images = []
         image_js = self.soup.select("div#imageBlock_feature_div")
         if image_js:
@@ -159,10 +154,11 @@ class Amazon(BaseFetcher):
                     images = large_images
         else:
             image_js = self.soup.select("div#booksImageBlock_feature_div")
-            hires_images = self.main_resolution_pattern.findall(
-                    image_js[0].text)
-            if hires_images:
-                images = hires_images
+            if image_js:
+                hires_images = self.main_resolution_pattern.findall(
+                        image_js[0].text)
+                if hires_images:
+                    images = hires_images
 
         if not images:
             medium_images = self.get_medium_images()
@@ -219,3 +215,11 @@ class Amazon(BaseFetcher):
             another_try = self.soup.select("a#brand")
             if another_try:
                 return another_try[0].text
+
+    @property
+    def shop_link(self):
+        return self.origin_source
+
+    @property
+    def shop_nick(self):
+        return get_key(self.origin_source)

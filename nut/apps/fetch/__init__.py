@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from apps.fetch.amazon import Amazon
+from apps.fetch.entity.amazon import Amazon
+from apps.fetch.entity.booking import Booking
+from apps.fetch.entity.jd import JD
+from apps.fetch.entity.kaola import Kaola
+from apps.fetch.entity.six_pm import SixPM
+from apps.fetch.entity.taobao import TaoBao
+from apps.fetch.entity.tmall import Tmall
 from apps.fetch.common import get_provider
-from apps.fetch.jd import JD
-from apps.fetch.kaola import Kaola
-from apps.fetch.six_pm import SixPM
-from apps.fetch.taobao import TaoBao
-from apps.fetch.tmall import Tmall
-from apps.fetch.booking import Booking
 
 
 spider_map = {
