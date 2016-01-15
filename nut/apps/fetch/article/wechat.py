@@ -3,9 +3,6 @@
 
 import os
 import sys
-
-
-
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_judy'
@@ -70,9 +67,8 @@ class WeChat(object):
     def headers(self):
         if not self.__headers:
             headers = {'UserAgent': faker.user_agent(),
-                     'Referer': 'http://weixin.sogou.com/gzhjs?openid=oIWsFtyGRm3FRZuQbcDquZOI5N_E&ext=OVYz1E9f6Gt5FGRk_uyaS3KVGUGG7_T36lFlj3QAjhzRTxfkv-uNb06TRTVsdBB3&cb=sogou.weixin_gzhcb&page=1&',
-                     'Cookie': self.cookie,
-                     }
+                       'Referer': 'http://weixin.sogou.com/gzhjs?openid=oIWsFtyGRm3FRZuQbcDquZOI5N_E&ext=OVYz1E9f6Gt5FGRk_uyaS3KVGUGG7_T36lFlj3QAjhzRTxfkv-uNb06TRTVsdBB3&cb=sogou.weixin_gzhcb&page=1&',
+                       'Cookie': self.cookie}
             self.__headers = headers
         return self.__headers
 
@@ -98,35 +94,43 @@ class WeChat(object):
     def get_keys(self):
         result = self.fetch_search_page()
         items = result['items']
-        open_id, ext_id = self.parse_id_and_ext(items)
-        found = (open_id and ext_id)
-        if found:
-            self.__open_id = open_id
-            self.__ext = ext_id
-            return
-
-        total_pages = int(result['totalPages'].string)
-        for page in xrange(2, total_pages + 1):
-            result = self.fetch_search_page(page=page)
-            items = result['items']
-            open_id, ext_id = self.parse_id_and_ext(items)
-            found = open_id and ext_id
-            if found:
-                self.__open_id = open_id
-                self.__ext = ext_id
-                return
-
-    def parse_id_and_ext(self, item_list):
-        open_id = None
         ext_id = None
-        for item in item_list:
+        open_id = None
+        for item in items:
             item = clean_xml(item)
             item_soup = BeautifulSoup(item, 'xml')
             if item_soup.weixinhao.string == self.we_chat_id:
                 ext_id = item_soup.ext.string.strip()
                 open_id = item_soup.id.string.strip()
                 break
-        return open_id, ext_id
+
+        found = (open_id and ext_id)
+        if found:
+            self.__open_id = open_id
+            self.__ext = ext_id
+
+        # total_pages = int(result['totalPages'].string)
+        # for page in xrange(2, total_pages + 1):
+        #     result = self.fetch_search_page(page=page)
+        #     items = result['items']
+        #     open_id, ext_id = self.parse_id_and_ext(items)
+        #     found = open_id and ext_id
+        #     if found:
+        #         self.__open_id = open_id
+        #         self.__ext = ext_id
+        #         return
+
+    # def parse_id_and_ext(self, item_list):
+    #     open_id = None
+    #     ext_id = None
+    #     for item in item_list:
+    #         item = clean_xml(item)
+    #         item_soup = BeautifulSoup(item, 'xml')
+    #         if item_soup.weixinhao.string == self.we_chat_id:
+    #             ext_id = item_soup.ext.string.strip()
+    #             open_id = item_soup.id.string.strip()
+    #             break
+    #     return open_id, ext_id
 
     def fetch_search_page(self, page=1):
         params = dict(type='1', ie='utf8', query=self.we_chat_id, page=page)
@@ -201,7 +205,6 @@ class WeChat(object):
 
         url = WEIXIN_URL.format(id=open_id, eqs=urllib.quote(eqs), ekv=key[1], t=int(time.time()*1000)) # 生成api url
 
-        # 访问api url,获取公众号文章列表
         response = requests.get(url=url, headers=headers)
 
         if not response.status_code == 200:
