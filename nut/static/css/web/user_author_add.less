@@ -82,7 +82,24 @@
 //user-author-page style
 
 .user-latest-actions-wrapper{
-  .user-latest-actions-sidebar{
+  .latest-actions-sidebar-wrapper{
+    max-height:100%;
+    overflow-y: auto;
+    overflow: hidden;
+    .latest-actions-list{
+      ul{
+        li{
+          margin-bottom: 10px;
+          font-size:@smaller-primary;
+          a{
+            &:hover{
+              cursor: pointer;
+              color: #428bca;
+            }
+          }
+        }
+      }
+    }
 
   }
 

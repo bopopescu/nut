@@ -20,22 +20,113 @@
 {# begin #}
             <div class="row user-latest-actions-wrapper">
 
-                <div class="user-article-cell user-latest-actions-sidebar col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">
-                    <ul class="section-list user-right">
-                    {% if tags %}
+                <div class="user-article-cell latest-actions-sidebar-wrapper col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">
+                    <ul class="section-list user-right latest-actions-list">
                        <li class="section user-tag-list">
-                          <div class="section-title">{% trans 'Contributed Tags' %}<span class="more-link"><a href="{% url 'web_user_tag' current_user.pk %}">{% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></span></div>
+                          <div class="section-title">
+                              最近更新
+                          </div>
                           <div class="section-content">
                            <ul class="tag-list">
-                              {% for tag in tags %}
-                               <li><a href="{% url 'tag_entities_url' tag.hash %}">
-                                   #{{ tag.name }}
-                                  </a></li>
-                               {% endfor %}
+                               <li>
+                                   <span>
+                                       2015.12.22 | 点评了商品
+                                   </span>
+                                   <a>
+                                       黑法师 teapigs 茶猪猪 Rooibos Caramel 路易博士奶油焦糖茶
+                                   </a>
+                               </li>
+                               <li>
+                                   <span>
+                                       2015.12.22 | 喜爱了商品
+                                   </span>
+                                   <a>
+                                       黑法师 teapigs 茶猪猪 Rooibos Caramel 路易博士奶油焦糖茶
+                                   </a>
+                               </li>
+                               <li>
+                                   <span>
+                                       2015.12.22 | 发布了商品
+                                   </span>
+                                   <a>
+                                       黑法师 teapigs 茶猪猪 Rooibos Caramel 路易博士奶油焦糖茶
+                                   </a>
+                               </li>
+                               <li>
+                                   <span>
+                                       2015.12.22 | 点评了图文
+                                   </span>
+                                   <a>
+                                       这周有个黑色星期五
+                                   </a>
+                               </li>
+                               <li>
+                                   <span>
+                                       2015.12.22 | 点评了图文
+                                   </span>
+                                   <a>
+                                       这周有个黑色星期五
+                                   </a>
+                               </li>
+                               <li>
+                                   <span>
+                                       2015.12.22 | 点评了商品
+                                   </span>
+                                   <a>
+                                       终于等到万圣节,黑法师糖果好派起来了!
+                                   </a>
+                               </li>
+                               <li>
+                                   <span>
+                                       2015.12.22 | 点评了商品
+                                   </span>
+                                   <a>
+                                       黑法师 teapigs 茶猪猪 Rooibos Caramel 路易博士奶油焦糖茶
+                                   </a>
+                               </li>
+                               <li>
+                                   <span>
+                                       2015.12.22 | 关注了
+                                   </span>
+                                   <a>
+                                       GUOKU
+                                   </a>
+                               </li>
+                               <li>
+                                   <span>
+                                       2015.12.22 | 点评了图文
+                                   </span>
+                                   <a>
+                                       这周有个黑色星期五
+                                   </a>
+                               </li>
+                               <li>
+                                   <span>
+                                       2015.12.22 | 点评了商品
+                                   </span>
+                                   <a>
+                                       终于等到万圣节,黑法师糖果好派起来了!
+                                   </a>
+                               </li>
+                               <li>
+                                   <span>
+                                       2015.12.22 | 点评了商品
+                                   </span>
+                                   <a>
+                                       黑法师 teapigs 茶猪猪 Rooibos Caramel 路易博士奶油焦糖茶
+                                   </a>
+                               </li>
+                               <li>
+                                   <span>
+                                       2015.12.22 | 关注了
+                                   </span>
+                                   <a>
+                                       GUOKU
+                                   </a>
+                               </li>
                            </ul>
                          </div>
                        </li>
-                    {% endif %}
                     </ul>
             </div>
 
@@ -239,6 +330,65 @@
                 </div>
             </div>
 
+            </div>
+
+            <div class="row content-wrapper" id="user-main-content">
+              <div class="content-left col-xs-12 user-article-cell">
+                <div class="container-fluid content-panel" id="user-like-panel">
+                        <div class="row panel-header">
+                            <div class="panel-name">喜爱商品</div>
+                            <div class="more-link">
+                                <a>
+                                   更多
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row panel-content-wrapper ">
+                             <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 entity-cell cell">
+                                   <div class="img-box">
+                                       <a>
+                                           <img class="img-responsive" src="http://gd2.alicdn.com/bao/uploaded/i2/17128028521422598/T11Ym7FfNbXXXXXXXX_!!0-item_pic.jpg" />
+                                       </a>
+                                   </div>
+                                </div>
+                             <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 entity-cell cell">
+                                   <div class="img-box">
+                                       <a>
+                                           <img class="img-responsive" src="http://gd2.alicdn.com/bao/uploaded/i2/17128028521422598/T11Ym7FfNbXXXXXXXX_!!0-item_pic.jpg" />
+                                       </a>
+                                   </div>
+                                </div>
+                             <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 entity-cell cell">
+                                   <div class="img-box">
+                                       <a>
+                                           <img class="img-responsive" src="http://gd2.alicdn.com/bao/uploaded/i2/17128028521422598/T11Ym7FfNbXXXXXXXX_!!0-item_pic.jpg" />
+                                       </a>
+                                   </div>
+                                </div>
+                             <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 entity-cell cell">
+                                   <div class="img-box">
+                                       <a>
+                                           <img class="img-responsive" src="http://gd2.alicdn.com/bao/uploaded/i2/17128028521422598/T11Ym7FfNbXXXXXXXX_!!0-item_pic.jpg" />
+                                       </a>
+                                   </div>
+                                </div>
+                             <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 entity-cell cell">
+                                   <div class="img-box">
+                                       <a>
+                                           <img class="img-responsive" src="http://gd2.alicdn.com/bao/uploaded/i2/17128028521422598/T11Ym7FfNbXXXXXXXX_!!0-item_pic.jpg" />
+                                       </a>
+                                   </div>
+                                </div>
+                             <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 entity-cell cell">
+                                   <div class="img-box">
+                                       <a>
+                                           <img class="img-responsive" src="http://gd2.alicdn.com/bao/uploaded/i2/17128028521422598/T11Ym7FfNbXXXXXXXX_!!0-item_pic.jpg" />
+                                       </a>
+                                   </div>
+                                </div>
+                        </div>
+                </div>
+            </div>
             </div>
 
 {# end #}

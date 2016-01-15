@@ -1631,6 +1631,19 @@ textarea {
   text-align: center;
   line-height: 52px;
 }
+.user-latest-actions-wrapper .latest-actions-sidebar-wrapper {
+  max-height: 100%;
+  overflow-y: auto;
+  overflow: hidden;
+}
+.user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+.user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li a:hover {
+  cursor: pointer;
+  color: #428bca;
+}
 .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-info-wrapper {
   height: 52px;
   margin: 25px 15px;
