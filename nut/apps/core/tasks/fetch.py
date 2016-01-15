@@ -40,7 +40,7 @@ def get_cookies(source):
 
 
 @task(base=BaseTask)
-def set_cookies(source):
+def set_cookies_and_keys(source):
     cookies = []
     for i in xrange(10):
 
@@ -52,6 +52,9 @@ def set_cookies(source):
         time.sleep(10)
         cookie = process_cookie(response.headers['set-cookie']['Cookie'])
         cookies.append(cookie)
+
+        key, level, setting = process_key(response.content.decode('utf-8'))
+        r.set('key:%s' % source, (key, level, setting))
 
     if cookies:
         r.lpush('cookie:%s' % source, cookies)
