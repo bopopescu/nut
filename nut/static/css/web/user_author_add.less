@@ -27,6 +27,7 @@
     font-size: @big-title-size;
     font-weight: 600;
     color:@common-text-color;
+    overflow: hidden;
      a{
        color: @common-text-color;
        &:hover{
@@ -42,6 +43,7 @@
     margin:15px;
     font-size:@smaller-primary;
     color:@common-gray;
+    overflow: hidden;
 
   }
 
@@ -71,3 +73,53 @@
 
 //user-author-page style
 
+.user-latest-actions-wrapper{
+  .user-latest-actions-sidebar{
+
+  }
+
+  .user-latest-article-wrapper{
+    .user-latest-article-info-wrapper{
+      height:52px;
+      margin:25px 15px;
+      overflow: hidden;
+
+      .rect-decoration{
+        float:left;
+        margin-right:15px;
+
+      }
+      .user-latest-article-title-wrapper{
+        margin-left:67px;
+        min-height:52px;
+        max-height:52px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+
+        .user-info-section-title{
+          font-size: @more-mini-size;
+        }
+        a{
+          &.user-latest-article-title{
+            font-size:@big-title-size;
+            color: @common-text-color;
+            //width: 100%;
+            //white-space: nowrap;
+            //overflow: hidden;
+            //text-overflow: ellipsis;
+            &:hover{
+              text-decoration: none;
+              cursor: pointer;
+            }
+
+          }
+        }
+
+
+      }
+    }
+
+  }
+
+}
