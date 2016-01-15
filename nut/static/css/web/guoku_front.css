@@ -1556,6 +1556,10 @@ textarea {
   line-height: 20px;
   font-size: 20px;
 }
+.user-article-cell {
+  padding: 0 10px;
+  margin-bottom: 20px;
+}
 .user-article-panel {
   background-color: #fff;
   -webkit-border-radius: 4px;
@@ -1569,7 +1573,6 @@ textarea {
   box-shadow: 0px 0px 2px #ddd;
   overflow: hidden;
   width: 100%;
-  margin-bottom: 20px;
 }
 .user-article-panel .user-article-img {
   width: 100%;
@@ -1578,6 +1581,9 @@ textarea {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+.user-article-panel .user-article-img:hover {
+  cursor: pointer;
 }
 .user-article-panel .user-article-title-wrapper {
   margin: 25px 15px 15px;
@@ -1641,6 +1647,7 @@ textarea {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  font-weight: 600;
 }
 .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-info-wrapper .user-latest-article-title-wrapper .user-info-section-title {
   font-size: 12px;
