@@ -17,8 +17,8 @@ def handel(keyword, **kwargs):
 
     req = top.api.AlibabaOrpRecommendRequest()
     req.set_app_info(top.appinfo(app_key, app_secret))
-    req.appid=2587
-    req.call_source="TOP_BC"
+    req.appid=2750
+    req.call_source="TOP_GUOKU"
 
     istk = kwargs.pop('istk', True)
     ismall = kwargs.pop('ismall', False)
