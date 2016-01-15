@@ -70,8 +70,8 @@ class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):
         except Authorized_User_Profile.DoesNotExist:
             profile = Authorized_User_Profile.objects.create(user_id=pk)
         except Authorized_User_Profile.MultipleObjectsReturned:
+            # one user , one or zero Authorized_User_Profile
             raise HttpResponseBadRequest
-
         return profile
 
     def form_valid(self, form):
@@ -85,8 +85,8 @@ class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):
     def get_context_data(self,*args, **kwargs):
         context = super(UserAuthorInfoEditView, self).get_context_data(*args, **kwargs)
         pk = self.get_pk()
-        profile = Authorized_User_Profile.objects.get(user__id=pk)
-        context['current_user'] = profile.user
+        _user = GKUser.objects.get(id=pk)
+        context['current_user'] = _user
         return context
 
 
