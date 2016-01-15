@@ -160,7 +160,9 @@
     {#  ===  template for js  ===#}
     {% if is_entity_detail %}
         <script language="javascript">
-            var current_entity_id={{ entity.pk }};
+            var current_entity_id="{{ entity.pk }}";
+            var current_entity_origin_source = "{{ entity.default_buy_link.origin_source }}";
+            var current_entity_title="{{ entity.title }}";
         </script>
         <script type="text/html" id="user_cell_template">
                 <a class='user-link' href="<%=user.absolute_url%>">
