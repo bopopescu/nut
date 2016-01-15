@@ -13,6 +13,18 @@ ADD COLUMN `author_website` VARCHAR(1024) NULL DEFAULT NULL AFTER `weixin_qrcode
 ADD COLUMN `weibo_id` VARCHAR(255) NULL DEFAULT NULL AFTER `author_website`,
 ADD COLUMN `weibo_nick` VARCHAR(255) NULL DEFAULT NULL AFTER `weibo_id`;
 
+revert : 
+
+ALTER TABLE `core`.`core_user_profile` 
+DROP COLUMN `weibo_nick`,
+DROP COLUMN `weibo_id`,
+DROP COLUMN `author_website`,
+DROP COLUMN `weixin_qrcode_img`,
+DROP COLUMN `weixin_nick`,
+DROP COLUMN `weixin_id`;
+
+
+
 2016-1-13 start 
 
 =================================
