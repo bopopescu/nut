@@ -16,13 +16,9 @@
 {% block title %}{{ current_user.profile.nick }} | 精英消费指南 | 果库{% endblock %}
 
 {% block user_content_detail %}
-        <div class="row content-wrapper" id="user-main-content">
-            <div class="content-right col-xs-12 hidden-sm hidden-md hidden-lg" id="detail_content_right" >
-                {% include "web/user/partial/user_index_sidebar.html" %}
-            </div>
 
-{#        begin#}
-            <div class="row user-article-top-wrapper">
+{# begin #}
+            <div class="row user-latest-article-wrapper">
 
                 <div class="user-article-sidebar col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">
                     <ul class="section-list user-right">
@@ -42,29 +38,33 @@
                     {% endif %}
                     </ul>
             </div>
+
                 <div class="user-article-item-wrapper col-xs-12 col-sm-8 col-md-8 col-lg-8">
                 <div class="user-article-panel">
                     <a>
                         <div class="hover-light user-article-img" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">
                         </div>
-
                     </a>
 
-                    <div class="user-article-title-wrapper">
-                        <a>first big pic 总结2015年度值得你用钱包去深爱的100家好店</a>
+                    <div class="user-latest-article-info-wrapper">
+                        <div class="rect-decoration">
+                            NEW
+                        </div>
+
+                         <div class="user-article-title-wrapper">
+                             <span>最新图文</span>
+
+                        <a>黑法师 × KREUZZZ 联合出品，Artist 系列马卡龙上架</a>
                     </div>
 
-                    <div class="user-article-info-wrapper">
-                        <span class="user-article-time">
-                            <i class="fa fa-clock-o"></i>刚刚发布
-                        </span>
                     </div>
+
 
                 </div>
             </div>
             </div>
 
-            <div class="row user-article-latest-wrapper">
+            <div class="row user-article-wrapper">
                 <div class="user-article-item-wrapper col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="user-article-panel">
                     <a>
@@ -74,7 +74,16 @@
                     </a>
 
                     <div class="user-article-title-wrapper">
-                        <a>总结2015年度值得你用钱包去深爱的100家好店</a>
+                        <a>果库专访 | 黑法师：欢迎来到黑暗世界</a>
+                    </div>
+
+                    <div class="user-article-intro-wrapper">
+                        <p class="user-article-intro">
+                            这里黑暗而不阴恹。这里有最黑的牛轧糖、最黑的马卡龙、
+                            最黑的西饼，以及最酷的创意。黑法师背后的黑法师是 zhuyi
+                            和 dewpearl 夫妇，从品牌创意到完成整...
+                        </p>
+
                     </div>
 
                     <div class="user-article-info-wrapper">
@@ -94,7 +103,16 @@
                     </a>
 
                     <div class="user-article-title-wrapper">
-                        <a>总结2015年度值得你用钱包去深爱的100家好店</a>
+                        <a>这周有个黑色星期五</a>
+                    </div>
+
+                    <div class="user-article-intro-wrapper">
+                        <p class="user-article-intro">
+                            对于中国喜欢收藏的 sneakerhead 来说，平时和同好们的交流大都集中在网上，
+                            很难有机会能够面对面的交流。但在国外，一年一度的 Sneaker Con 可说是鞋
+                            很多年后，他和JJ为了怀念少年时用的超级8摄影机，拍摄...
+                        </p>
+
                     </div>
 
                     <div class="user-article-info-wrapper">
@@ -114,7 +132,15 @@
                     </a>
 
                     <div class="user-article-title-wrapper">
-                        <a>总结2015年度值得你用钱包去深爱的100家好店</a>
+                        <a>终于等到万圣节,黑法师糖果好派起来了!</a>
+                    </div>
+
+                    <div class="user-article-intro-wrapper">
+                        <p class="user-article-intro">
+                            斯皮尔伯格的电影人生始于8岁时，父亲送给他一部8毫米布朗尼摄影机作为生日礼物。
+                            这种眷恋体现在很多年后，他和JJ为了怀念少年时用的超级8摄影机，拍摄...
+                        </p>
+
                     </div>
 
                     <div class="user-article-info-wrapper">
@@ -125,10 +151,7 @@
 
                 </div>
             </div>
-            </div>
-
-            <div class="row user-article-items-wrapper">
-                <div class="user-article-item-wrapper user-article-item-general col-sm-2 col-md-2 col-lg-2 hidden-xs">
+                <div class="user-article-item-wrapper col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="user-article-panel">
                     <a>
                         <div class="hover-light user-article-img" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">
@@ -137,15 +160,27 @@
                     </a>
 
                     <div class="user-article-title-wrapper">
-                        <a>总结2015年度值得你用钱包去深爱的100家好店</a>
+                        <a>果库专访 | 黑法师：欢迎来到黑暗世界</a>
+                    </div>
+
+                    <div class="user-article-intro-wrapper">
+                        <p class="user-article-intro">
+                            这里黑暗而不阴恹。这里有最黑的牛轧糖、最黑的马卡龙、
+                            最黑的西饼，以及最酷的创意。黑法师背后的黑法师是 zhuyi
+                            和 dewpearl 夫妇，从品牌创意到完成整...
+                        </p>
+
                     </div>
 
                     <div class="user-article-info-wrapper">
+                        <span class="user-article-time">
+                            <i class="fa fa-clock-o"></i>刚刚发布
+                        </span>
                     </div>
 
                 </div>
             </div>
-                <div class="user-article-item-wrapper user-article-item-general col-sm-2 col-md-2 col-lg-2 hidden-xs">
+                <div class="user-article-item-wrapper col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="user-article-panel">
                     <a>
                         <div class="hover-light user-article-img" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">
@@ -154,15 +189,27 @@
                     </a>
 
                     <div class="user-article-title-wrapper">
-                        <a>总结2015年度值得你用钱包去深爱的100家好店</a>
+                        <a>这周有个黑色星期五</a>
+                    </div>
+
+                    <div class="user-article-intro-wrapper">
+                        <p class="user-article-intro">
+                            对于中国喜欢收藏的 sneakerhead 来说，平时和同好们的交流大都集中在网上，
+                            很难有机会能够面对面的交流。但在国外，一年一度的 Sneaker Con 可说是鞋
+                            很多年后，他和JJ为了怀念少年时用的超级8摄影机，拍摄...
+                        </p>
+
                     </div>
 
                     <div class="user-article-info-wrapper">
+                        <span class="user-article-time">
+                            <i class="fa fa-clock-o"></i>刚刚发布
+                        </span>
                     </div>
 
                 </div>
             </div>
-                <div class="user-article-item-wrapper user-article-item-general col-sm-2 col-md-2 col-lg-2 hidden-xs">
+                <div class="user-article-item-wrapper col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="user-article-panel">
                     <a>
                         <div class="hover-light user-article-img" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">
@@ -171,61 +218,21 @@
                     </a>
 
                     <div class="user-article-title-wrapper">
-                        <a>总结2015年度值得你用钱包去深爱的100家好店</a>
+                        <a>终于等到万圣节,黑法师糖果好派起来了!</a>
+                    </div>
+
+                    <div class="user-article-intro-wrapper">
+                        <p class="user-article-intro">
+                            斯皮尔伯格的电影人生始于8岁时，父亲送给他一部8毫米布朗尼摄影机作为生日礼物。
+                            这种眷恋体现在很多年后，他和JJ为了怀念少年时用的超级8摄影机，拍摄...
+                        </p>
+
                     </div>
 
                     <div class="user-article-info-wrapper">
-                    </div>
-
-                </div>
-            </div>
-                <div class="user-article-item-wrapper user-article-item-general col-sm-2 col-md-2 col-lg-2 hidden-xs">
-                <div class="user-article-panel">
-                    <a>
-                        <div class="hover-light user-article-img" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">
-                        </div>
-
-                    </a>
-
-                    <div class="user-article-title-wrapper">
-                        <a>总结2015年度值得你用钱包去深爱的100家好店</a>
-                    </div>
-
-                    <div class="user-article-info-wrapper">
-                    </div>
-
-                </div>
-            </div>
-                <div class="user-article-item-wrapper user-article-item-general col-sm-2 col-md-2 col-lg-2 hidden-xs">
-                <div class="user-article-panel">
-                    <a>
-                        <div class="hover-light user-article-img" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">
-                        </div>
-
-                    </a>
-
-                    <div class="user-article-title-wrapper">
-                        <a>总结2015年度值得你用钱包去深爱的100家好店</a>
-                    </div>
-
-                    <div class="user-article-info-wrapper">
-                    </div>
-
-                </div>
-            </div>
-                <div class="user-article-item-wrapper user-article-item-general col-sm-2 col-md-2 col-lg-2 hidden-xs">
-                <div class="user-article-panel">
-                    <a>
-                        <div class="hover-light user-article-img" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">
-                        </div>
-
-                    </a>
-
-                    <div class="user-article-title-wrapper">
-                        <a>总结2015年度值得你用钱包去深爱的100家好店</a>
-                    </div>
-
-                    <div class="user-article-info-wrapper">
+                        <span class="user-article-time">
+                            <i class="fa fa-clock-o"></i>刚刚发布
+                        </span>
                     </div>
 
                 </div>
@@ -233,96 +240,12 @@
 
             </div>
 
-            <div class="row user-article-items-wrapper">
-                <div class="user-article-item-wrapper user-article-item-general col-sm-2 col-md-2 col-lg-2 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 hidden-xs">
-                <div class="user-article-panel">
-                    <a>
-                        <div class="hover-light user-article-img" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">
-                        </div>
+{# end #}
 
-                    </a>
-
-                    <div class="user-article-title-wrapper">
-                        <a>总结2015年度值得你用钱包去深爱的100家好店</a>
-                    </div>
-
-                    <div class="user-article-info-wrapper">
-                    </div>
-
-                </div>
+        <div class="row content-wrapper" id="user-main-content">
+            <div class="content-right col-xs-12 hidden-sm hidden-md hidden-lg" id="detail_content_right" >
+                {% include "web/user/partial/user_index_sidebar.html" %}
             </div>
-                <div class="user-article-item-wrapper user-article-item-general col-sm-2 col-md-2 col-lg-2 hidden-xs">
-                <div class="user-article-panel">
-                    <a>
-                        <div class="hover-light user-article-img" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">
-                        </div>
-
-                    </a>
-
-                    <div class="user-article-title-wrapper">
-                        <a>总结2015年度值得你用钱包去深爱的100家好店</a>
-                    </div>
-
-                    <div class="user-article-info-wrapper">
-                    </div>
-
-                </div>
-            </div>
-                <div class="user-article-item-wrapper user-article-item-general col-sm-2 col-md-2 col-lg-2 hidden-xs">
-                <div class="user-article-panel">
-                    <a>
-                        <div class="hover-light user-article-img" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">
-                        </div>
-
-                    </a>
-
-                    <div class="user-article-title-wrapper">
-                        <a>总结2015年度值得你用钱包去深爱的100家好店</a>
-                    </div>
-
-                    <div class="user-article-info-wrapper">
-                    </div>
-
-                </div>
-            </div>
-                <div class="user-article-item-wrapper user-article-item-general col-sm-2 col-md-2 col-lg-2 hidden-xs">
-                <div class="user-article-panel">
-                    <a>
-                        <div class="hover-light user-article-img" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">
-                        </div>
-
-                    </a>
-
-                    <div class="user-article-title-wrapper">
-                        <a>总结2015年度值得你用钱包去深爱的100家好店</a>
-                    </div>
-
-                    <div class="user-article-info-wrapper">
-                    </div>
-
-                </div>
-            </div>
-                <div class="user-article-item-wrapper user-article-item-general col-sm-2 col-md-2 col-lg-2 hidden-xs">
-                <div class="user-article-panel">
-                    <a>
-                        <div class="hover-light user-article-img" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">
-                        </div>
-
-                    </a>
-
-                    <div class="user-article-title-wrapper">
-                        <a>总结2015年度值得你用钱包去深爱的100家好店</a>
-                    </div>
-
-                    <div class="user-article-info-wrapper">
-                    </div>
-
-                </div>
-            </div>
-            </div>
-
-{#          end #}
-
             <div class="content-left col-xs-12 col-sm-8 col-md-8 col-lg-8">
                 <div class="container-fluid content-panel" id="user-like-panel">
                         <div class="row panel-header">
