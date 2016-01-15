@@ -1,21 +1,64 @@
-#### action:
+5. store2015 entity list display bug fix
 
-    sudo apt-get update
-    
-    sudo apt-get install build-essential chrpath git-core libssl-dev libfontconfig1-dev libxft-dev
+4. freeze entity liker won't display bug fix 
 
-    cd /tmp
-    
-    git clone git://github.com/ariya/phantomjs.git
-    
-    cd phantomjs
-    
-    git checkout 2.0
-    
-    ./build.sh
-    
+3. in guoku editor 
+   a. if article's change is not saved , user can not leave page without passthrough a confirmation dialog;
+   b. removeFormat button now working ok 
+   c. after past html , the style in other content won't be removed
+  
+2. fix register page word error (Have an Account? )
+1. fix user can not send verify mail , if user location is not in default list (app reged user)
 
-### Recoding
+###action 
+### 翻译有更新
+  需要  compilemessages
+  需要重新启动 让翻译生效 
+
+=================================
+=================================
+### merged to master 2016 － 1 － 8
+=================================
+=================================
+
+3. fast click optimize for mobile browsers 
+2. m.guoku.com store2015 page , weixin browser , entity click to app download 
+1. fix store 2015 weibo share page pic bug
+
+2016－1-8 start
+
+=================================
+=================================
+### merged to master 2016 － 1 － 7
+=================================
+=================================
+
+5. guoku assigned email , no verify , alert to change mail . 
+4. store 2015 front
+3. 搜索记录同时记录用户的ip和agent
+2. 首页瀑布流
+1. update redis key user_last_verify_time_id to user_last_verify_time:id
+
+### 翻译有更新
+  需要  compilemessages
+  需要重新启动 让翻译生效 
+
+### action
+
+    ALTER TABLE `core`.`core_search_history` 
+    ADD COLUMN `ip` VARCHAR(45) NULL COMMENT '' AFTER `search_time`,
+    ADD COLUMN `agent` VARCHAR(255) NULL COMMENT '' AFTER `ip`;
+    
+    ALTER TABLE `core`.`core_search_history` 
+    CHANGE COLUMN `key_words` `key_words` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL COMMENT '' ;
+    
+2015-12-30
+===
+    
+---    
+
+
+
 
 4.  no more christmas logo
 3.  fix management search paging bug
@@ -25,27 +68,6 @@
 =================================
 =================================
 ### merged to master 2015-12-23
-=================================
-=================================
-
-5. snow adjustment 
-4. article detail page 404 redirect to selection article page 
-3. user index page , fix (show removed entity's note) bug
-2. add category_logo for seller data 
-1. fix event page display bug 
-
-
-### Action
-run sql : 
-
-ALTER TABLE `core`.`seller_seller_profile` 
-ADD COLUMN `category_logo` VARCHAR(255) NOT NULL AFTER `logo`;
-
-
-=================================
-=================================
-### merged to master 2015-12-22
-=================================
 =================================
 
 
@@ -76,9 +98,6 @@ ADD COLUMN `category_logo` VARCHAR(255) NOT NULL AFTER `logo`;
 2.  drop table : seller_seller_profile_related_articles   
 3.  need Sync DB 
 
-
-
----
 
 2015-12-20 
 

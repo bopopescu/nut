@@ -1,28 +1,31 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import requests
 
 from hashlib import md5
+from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.http import HttpResponse
-from django.http import HttpResponseRedirect
 from django.http import HttpResponseNotAllowed
-from django.utils.log import getLogger
-from django.template import RequestContext
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
-from django.views.generic.list import ListView
+from django.template import RequestContext
+from django.utils.log import getLogger
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
+from django.views.generic import View
+from django.views.generic.list import ListView
 
 from apps.core.extend.paginator import EmptyPage
 from apps.core.extend.paginator import ExtentPaginator
 from apps.core.extend.paginator import PageNotAnInteger
+from apps.core.forms.entity import BuyLinkForm
+from apps.core.forms.entity import CreateEntityForm
+from apps.core.forms.entity import EditBuyLinkForm
 from apps.core.forms.entity import EditEntityForm
 from apps.core.forms.entity import EntityImageForm
-from apps.core.forms.entity import CreateEntityForm
 from apps.core.forms.entity import load_entity_info
-from apps.core.forms.entity import BuyLinkForm
-from apps.core.forms.entity import EditBuyLinkForm
 from apps.core.mixins.views import FilterMixin
 from apps.core.models import Entity, Buy_Link
 from apps.core.tasks.entity import fetch_image
@@ -281,16 +284,45 @@ def check_buy_link(request, bid):
     except Buy_Link.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
-    # def crawl(item_id):
     data = {
         'project': 'default',
         'spider': 'taobao',
         'setting': 'DOWNLOAD_DELAY=2',
         'item_id': b.origin_id,
     }
-    res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
-    # return res.json()
-    return SuccessJsonResponse(data=res.json())
+    res = requests.post('http://10.0.2.49:6800/schedule.json', data=data)
+    if res.status_code == 200:
+        return SuccessJsonResponse(data=res.json())
+    else:
+        raise Http404
+
+
+class CheckBuyLinkView(View):
+    def get_context_data(self, **kwargs):
+        try:
+            b = Buy_Link.objects.get(pk = self.bid)
+        except Buy_Link.DoesNotExist:
+            raise Http404
+
+        data = {
+            'project': 'default',
+            'spider': 'taobao',
+            'setting': 'DOWNLOAD_DELAY=2',
+            'item_id': b.origin_id,
+        }
+        res = requests.post('http://10.0.2.49:6800/schedule.json', data=data)
+        if res.status_code == 200:
+            return SuccessJsonResponse(data=res.json())
+        else:
+            raise Http404
+
+    def get(self, request, *args, **kwargs):
+        self.bid = kwargs.pop('bid', None)
+        assert self.bid is not None
+        return self.get_context_data(**kwargs)
+
+    def dispatch(self, request, *args, **kwargs):
+        return super(CheckBuyLinkView, self).dispatch(request, *args, **kwargs)
 
 
 # TODO:

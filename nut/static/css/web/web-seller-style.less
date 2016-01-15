@@ -2,10 +2,42 @@
 @import "../lib/var.less";
 @import "../lib/widgets.less";
 
+
+@section-title-size: 32px;
+@common-text-shadow: 1px 1px 1px #333;
 //reset
 ol{
   padding:0;
 }
+
+@wechat-hover-color:#51C332;
+
+@weibo-hover-color:#E90D24;
+
+@qq-hover-color:#3199DD;
+
+@download-intro-text-color:#414243;
+
+@download-app-text-color:#4188DC;
+
+@year-seller-share-btn-border-radius:30px;
+
+@modal-weibo-share-btn-hover-bg:#F14460;
+@modal-qq-share-btn-hover-bg:#58ABE1;
+
+@year-seller-star-color:#FFD700;
+
+.year-seller-modal-share-btn{
+  width:200px;
+  height:46px;
+  line-height: 46px;
+  text-align: center;
+  color:#ffffff;
+  font-size: @primary-size;
+  border-radius: @year-seller-share-btn-border-radius;
+}
+
+
 
 //.white-space-fix{
 //  margin-right:-4px;
@@ -15,6 +47,9 @@ ol{
 @seller-btn-color:#4188DC;
 
 //year-seller page common class
+.fa-star-o-size{
+  font-size:14px;
+}
 
 .seller-body{
   padding:0;
@@ -22,17 +57,27 @@ ol{
 
   .seller-cross-screen{
     //to make the white distance,so use padding instead of margin
-    padding-top:60px;
+    padding-top:90px;
+    padding-bottom:20px;
     width:100%;
     height:auto;
     background-color: #fff;
+
+    -webkit-background-size:contain;
+    background-size:contain;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+
+
    .seller-banner-wrapper{
+
     //solve the horizontal scroll bar
     margin:0;
     .banner-bgpic-wrapper{
       img{
         &.img-control{
           margin:0 auto;
+          width:518px;
         }
       }
     }
@@ -48,7 +93,7 @@ ol{
           text-align: center;
           border:1px solid @seller-btn-color;
           color:@seller-btn-color;
-          border-radius:30px;
+          border-radius:@year-seller-share-btn-border-radius;
           &:hover{
             text-decoration: none;
             color:#ffffff;
@@ -60,14 +105,29 @@ ol{
 
     }
     .sections-titles-wrapper{
-      margin-top: 60px;
+      &.hidden_nav{
+        display:none;
+      }
+      margin-top: 30px;
+      &.detach{
+            .acc-layer;
+            position: fixed;
+            background: #fff;
+            z-index: 100;
+            top: 0px;
+            margin: 0;
+            padding: 20px 0px 0px;
+            .box-shadow(@global-box-shadow);
+            box-shadow: 1px 1px 3px #ddd;
+      }
       .sections-titles-nav{
         text-align:center;
         ul{
           li{
             display: inline-block;
             .section-title{
-              color: @common-gray;
+
+              color:@common-text-color;
               a{
                 &:hover{
                   cursor: pointer;
@@ -76,7 +136,7 @@ ol{
             }
             span{
               padding: 0 10px;
-              color:#F8E71C;
+              //color:#F8E71C;
             }
           }
         }
@@ -93,11 +153,13 @@ ol{
   bottom:100px;
   right:0;
   width:86px;
-  height:240px;
+  height:148px;
   background-color: #fff;
   padding:5px;
   z-index: 1000;
-  .border-radius;
+  //.border-radius;
+  border-top-left-radius: @global-box-radius;
+  border-bottom-left-radius: @global-box-radius;
   .drop-shadow;
 
   .seller-sidebar{
@@ -109,12 +171,30 @@ ol{
         line-height: 46px;
         text-align: center;
         border-radius: 2px;
-        &.list-item-google ,&.list-item-weibo{
+        &.list-item-weixin{
           a{
-            color: @like-color;
+            color:@wechat-hover-color;
+            &:hover{
+              background-color: @wechat-hover-color;
+            }
           }
         }
-
+        &.list-item-weibo{
+          a{
+            color:@weibo-hover-color;
+            &:hover{
+            background-color: @weibo-hover-color;
+          }
+          }
+        }
+        &.list-item-qq{
+          a{
+            color:@qq-hover-color;
+            &:hover{
+              background-color: @qq-hover-color;
+            }
+          }
+        }
         a{
           display: inline-block;
           width: 100%;
@@ -122,14 +202,13 @@ ol{
           &:hover{
             cursor:pointer;
             color:#fff;
-            background-color: @light-blue;
             text-decoration: none;
           }
            i{
              font-size: @subtitle-size;
-             margin-right:10px;
           }
         }
+
       }
  }
 }
@@ -139,32 +218,66 @@ ol{
 //main content's style
 
 .seller-page-container{
-  padding-top:60px;
+  //为了横屏布局,只能覆盖BOOTSTRAP里的container
+  width:100%;
+  //padding-top:60px;
   background-color: @very-light-gray;
    .sections-item-wrapper{
-     .sections-item-title-wrapper{
+     .sections-item-intro-wrapper{
+       overflow: hidden;
+       .section-intro-bg-layer{
+//         transition: all 0.5s;
+         position: absolute;
+         left: 0px;
+         top: 0px;
+         width: 140%;
+         height: 200%;
+         .acc-layer;
+         background-position: center;
+         background-size:150%;
+         background-repeat: no-repeat;
+         background-position-y: 0px;
+       }
+
+
+
+       position:relative;
+       margin-bottom:30px;
+
+
+       height:400px;
+       color:#ffffff;
+
+       .img-handle{
+         position:absolute;
+         left:0;
+         top:0;
+         width:100%;
+         height:100%;
+
+       }
          .sections-item-title{
+           margin-top: 100px;
            text-align: center;
           h3{
-           font-size: @title-size;
-           text-decoration: underline;
+           font-size: @section-title-size;
+           text-decoration: none;
+            text-shadow: @common-text-shadow;
          }
        }
 
-     }
-
-     .sections-item-desc-wrapper{
-       margin-bottom: 50px;
        .sections-item-desc{
-       p{
+          margin-top:50px;
+        p{
           margin: 0 auto;
-          max-width:600px;
-          padding-top:10px;
+          max-width:400px;
           font-size: @smaller-primary;
-       }
+          text-shadow: @common-text-shadow;
+        }
      }
 
      }
+
 
      .sections-item-goods-wrapper{
        margin-bottom: 50px;
@@ -181,13 +294,15 @@ ol{
              a{
                display: inline-block;
                width: 100%;
-               height:100%;
+               height: 0;
+               padding-bottom:100%;
+
                &:hover{
                  cursor: pointer;
                }
                img{
-                 width:100%;
-                 height:100%;
+
+
                }
              }
            }
@@ -217,6 +332,8 @@ ol{
            padding-top:10px;
            font-size: @smaller-primary;
            height:73px;
+           max-width:245px;
+           margin:0 auto;
            //solve several lines'texts overflow
            //only support webkit browser
            display: -webkit-box;
@@ -238,54 +355,41 @@ ol{
            li{
              display: inline-block;
              i{
-               color: @common-gray;
+               color: @year-seller-star-color;
 
              }
            }
          }
        }
        .sellers-share{
-         display: none;
          height:20px;
          margin-top:15px;
          margin-bottom: 20px;
-       }
-       &:hover{
-         .score-hidden{
-           display: none;
-         }
-
-       .sellers-share-visible{
-         display: block;
          text-align: center;
          ul{
            li{
              display: inline-block;
              a{
-               &:hover{
-                 cursor: pointer;
-               }
                i{
-                 color: @light-gray;
+                 color:@light-gray;
                  margin-right: 5px;
-
                   &.fa-qq:hover{
                      &.qq-hover{
-                      color: #3199DD;
+                      color: @qq-hover-color;
 
                  }
 
                    }
                   &.fa-weibo:hover{
                      &.weibo-hover{
-                     color: #E90D24;
+                     color: @weibo-hover-color;
 
                  }
 
                    }
                  &.fa-wechat:hover{
                    &.wechat-hover{
-                   color: #51C332;
+                     color:@wechat-hover-color;
                  }
 
                  }
@@ -294,9 +398,11 @@ ol{
            }
          }
        }
-     }
+
      }
    }
+
+  //add sctions-item-background-pic
 
   .popular-shops-title-wrapper{
     margin-top:60px;
@@ -311,10 +417,9 @@ ol{
   }
 
   .popular-shops-wrapper{
-    margin-bottom:60px;
-
+    margin-bottom:70px;
     .popular-shop-item-wrapper{
-      margin-bottom: 10px;
+      margin-bottom: 30px;
       .popular-shop-item{
           .panel;
 //        padding:10px 15px;
@@ -342,64 +447,263 @@ ol{
         margin-left: 15px;
         text-align: center;
         .popular-shop-name{
+          //
+          text-align:left;
+          color:@common-text-color;
            text-overflow:ellipsis;
            overflow: hidden;
            white-space: nowrap;
         }
         .star-level{
-         //margin-top:15px;
-         //margin-bottom: 20px;
          ol{
-           text-align: center;
+           text-align:left;
            li{
              display: inline-block;
+             .popular-shop-star{
+               color:@year-seller-star-color;
+               font-size:14px;
+             }
            }
          }
         }
 
       }
-
     }
       }
+  }
 
+  .download-intro-wrapper{
+    .download-intro{
+      text-align: center;
+      font-size: @smaller-primary;
+      color: @download-intro-text-color;
+    }
+  }
+
+  .download-guoku-qrcode-wrapper{
+    margin-top:20px;
+    margin-bottom:30px;
+    text-align: center;
+    .download-guoku-qrcode{
+      width:140px;
+      height:140px;
+    }
+  }
+
+  .download-app-intro-wrapper{
+    .download-app-intro{
+       text-align: center;
+       font-size: @smaller-primary;
+       color: @download-intro-text-color;
+    }
+  }
+
+  .download-app-addr-wrapper{
+    margin-bottom: 50px;
+    .download-app-addr{
+      text-align: center;
+      ul{
+        li{
+          display: inline-block;
+          font-size: @smaller-primary;
+          color:@download-app-text-color;
+          a{
+            &:hover{
+              text-decoration: none;
+            }
+          }
+          span{
+            padding:0 3px;
+            color:@common-gray;
+          }
+        }
+      }
+    }
+
+  }
+}
+}
+
+//model style
+.page-share-dialog{
+  .modal-dialog{
+    .modal-content{
+      //bs's modal-content has 6px border-radius
+      //to solve the background pic blocks the border-radius
+      overflow:hidden;
+      .modal-header{
+        display: none;
+      }
+      .modal-body{
+        padding:0px;
+        .share-modal-wrapper{
+          &.share-modal-wrapper-control{
+            background-size: cover;
+            //background-position:center;
+            padding-top:190px;
+            margin-bottom: 60px;
+          .qr-code-wrapper{
+            margin-bottom: 10px;
+            &.qr-code-control{
+              text-align: center;
+            }
+
+          }
+          .weibo-share-btn-wrapper-control{
+            .pg-weibo-share-btn{
+              display: block;
+              cursor:pointer;
+              margin:0 auto;
+              margin-bottom:10px;
+              text-decoration: none;
+              &:hover{
+                color:white;
+              }
+            }
+          }
+          .qq-share-btn-wrapper-control{
+            .pg-qq-share-btn{
+              display:block;
+              cursor: pointer;
+              margin:0 auto;
+              margin-bottom:20px;
+              text-decoration: none;
+              &:hover{
+                color:white;
+              }
+            }
+          }
+          .share-btn-wrapper{
+            .pg-weibo-share-btn{
+              &.pg-weibo-share-btn-bgc{
+                background-color: @weibo-hover-color;
+                
+                &:hover{
+                  background-color: @modal-weibo-share-btn-hover-bg;
+                }
+              }
+
+            }
+            .pg-qq-share-btn{
+              &.pg-qq-share-btn-bgc{
+                background-color: @qq-hover-color;
+                &:hover{
+                  background-color: @modal-qq-share-btn-hover-bg;
+                }
+              }
+            }
+          }
+
+          }
+        }
+
+      }
+    }
   }
 
 }
 
+.seller-share-wx-dialog{
+  .modal-dialog{
+
+    width:250px;
+    margin-top:150px;
+
+     .modal-header{
+    display: none;
+  }
+
+     .qr-code-wrapper{
+
+       &.qr-code-control{
+         text-align:center;
+       }
+  }
+  }
+
 }
+
 
 //put media query at bottom
 
-@media screen and (min-width:1200px){
+@media screen and (min-width:992px) and (max-width:1200px){
+
+  .seller-body{
+    .seller-cross-screen{
+      background-size:cover;
+      -webkit-background-size:cover;
+    }
+  }
+
   .seller-page-container{
+    width:970px;
+    .sections-item-goods-wrapper,.sections-item-sellers-wrapper,.popular-shops-wrapper{
+      //width:970px;
+      margin:0 auto;
+    }
+  }
+}
+
+@media screen and (min-width:1200px){
+
+  .seller-body{
+    .seller-cross-screen{
+      background-size:cover;
+      -webkit-background-size:cover;
+    }
+  }
+
+  .seller-page-container{
+    //width:100%;
+    //max-width:1280px;
+
     .sections-item-wrapper{
       .sections-item-goods-wrapper{
+        width:100%;
+        max-width:1280px;
+        margin:0 auto;
         .goods-container{
             ul{
-              width:1170px;
+              width:100%;
               margin:0 auto;
-
-
               li{
-                width:107px;
-                height:107px;
+                width:10%
+                //width:107px;
+                //height:107px;
+                //width:110px;
+                //height:110px;
                 //margin-right: 5px;
-
                   }
                 }
         }
       }
+
+      .sections-item-sellers-wrapper{
+        width:1170px;
+        margin:0 auto;
+        .sellers-wrapper{
+          .sellers-logo{
+            max-width: 245px;
+          }
+        }
+      }
     }
-    #culture{
-        background-image: url("/static/images/year-seller/delicacy.png");
-        background-repeat: no-repeat;
+    .popular-shops-wrapper{
+      max-width: 1170px;
+      margin:0 auto;
     }
+    //.popular-shops-title-wrapper{
+    //  .popular-shops-title{
+    //    p{
+    //      letter-spacing: 12px;
+    //    }
+    //  }
+    //}
   }
 
 }
 
-
-@media screen and (min-width:768px) and(max-width: 1200px){
+@media screen and (min-width:768px) and (max-width: 1200px){
    .seller-page-container{
     .sections-item-wrapper{
       .sections-item-goods-wrapper{
@@ -431,23 +735,18 @@ ol{
             }
         }
       }
-      .sections-item-sellers-wrapper{
-        .sellers-wrapper{
-          .sellers-desc{
-          p{
-            width:100%;
-            padding-left:4%;
-            padding-right:4%;
-          }
-        }
-
-        }
-
-      }
     }
   }
-}
 
+  //weixin modal dialog
+
+  .seller-share-wx-dialog{
+  .modal-dialog{
+    margin:150px auto;
+  }
+
+  }
+}
 
 @media screen and (min-width:768px) {
 
@@ -475,29 +774,54 @@ ol{
 
     }
 
-  }
+  //   change the sellers style
+    .seller-page-container{
 
-
-  @media screen and (max-width:768px){
-    .sections-titles-wrapper{
-
-      .section-title{
-         color:@common-text-color;
-         font-size: @smaller-primary;
+       .sections-item-sellers-wrapper{
+    .sellers-wrapper{
+      .sellers-share-visible{
+        display: none;
       }
 
-      span{
-        padding:0 5px;
+      &:hover{
+        .score-hidden{
+          display: none;
+        }
+
+        .sellers-share-visible{
+          display: block;
+        }
+
+      }
+    }
+  }
+       .popular-shops-title-wrapper{
+         .popular-shops-title{
+           p{
+             letter-spacing: 12px;
+          }
+        }
       }
     }
 
-    .seller-sidebar-wrapper{
+  }
+
+@media screen and (max-width:768px){
+    .seller-body{
+      .sections-titles-wrapper{
+        .section-title{
+          color:@common-text-color;
+          font-size: @smaller-primary;
+        }
+      }
+
+       .seller-sidebar-wrapper{
       &.seller-sidebar-hidden{
         display: none;
       }
     }
 
-    .seller-page-container{
+       .seller-page-container{
        //background-color: @very-light-gray;
        //to solve the bug that max-width:768px ,the footer has margin-top:40px;the color is white,not light gray.
        margin-bottom: -40px;
@@ -507,6 +831,20 @@ ol{
       .sections-item-wrapper{
          padding-top: 0;
          margin-bottom: 30px;
+        .sections-item-intro-wrapper{
+          height:240px;
+          .sections-item-title{
+            margin-top:80px;
+          }
+          .sections-item-desc{
+              p{
+                padding:0px 30px;
+                display :none;
+              }
+
+          }
+
+        }
 
         .sections-item-goods-wrapper{
 
@@ -515,16 +853,27 @@ ol{
 
 
         }
+        .sections-item-sellers-wrapper{
+          .sellers-wrapper{
+            .score-hidden{
+              display: none;
+            }
+            .sellers-share-visible{
+              display: block;
+            }
+
+          }
+        }
 
       }
 
     }
-
+    }
 
 }
 
  //fix popular shops responsive bug
- @media screen and (min-width: 768px) and (max-width: 992px){
+@media screen and (min-width: 768px) and (max-width: 992px){
    .seller-body{
      .seller-page-container{
        .popular-shops-wrapper{
@@ -534,6 +883,14 @@ ol{
              .popular-shop-info{
                margin-left:0;
                width:100%;
+               .popular-shop-name{
+                 text-align: center;
+               }
+               .star-level{
+                 ol{
+                   text-align: center;
+                 }
+               }
 
              }
 
@@ -561,11 +918,47 @@ ol{
       }
     }
   }
+
+  //model style
+.page-share-dialog{
+  .modal-dialog{
+    .modal-content{
+      .modal-body{
+        .share-modal-wrapper{
+          &.share-modal-wrapper-control{
+            padding-top:30%;
+            margin-bottom: 10%;
+          }
+        }
+      }
+    }
+  }
+}
 }
 
 @media screen and (max-width: 580px){
   .seller-body{
+
+    .seller-cross-screen{
+      .seller-banner-wrapper{
+        .sections-titles-wrapper{
+          .sections-titles-nav{
+            ul{
+              li{
+                span{
+                  padding:0 1px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
     .seller-page-container{
+      .sections-item-desc{
+         display:none;
+      }
       .popular-shops-wrapper{
         .popular-shop-item-wrapper{
           .popular-shop-item{
@@ -573,6 +966,15 @@ ol{
             .popular-shop-info{
               margin-left:0;
               width:100%;
+              .popular-shop-name{
+                text-align: center;
+              }
+              .star-level{
+                ol{
+                  text-align: center;
+                }
+              }
+
 
             }
 
@@ -585,5 +987,24 @@ ol{
       }
     }
   }
+  //model style
+.page-share-dialog{
+  .modal-dialog{
+    .modal-content{
+      .modal-body{
+        .share-modal-wrapper{
+          &.share-modal-wrapper-control{
+            padding-top:37%;
+            margin-bottom: 14%;
+            background-position:center top;
+          }
+        }
+      }
+    }
+  }
+}
+}
 
+.test{
+  background-color: black;
 }

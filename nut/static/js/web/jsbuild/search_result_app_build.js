@@ -818,7 +818,63 @@ define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
 	};
 
 }));
-define('subapp/topmenu',['bootstrap', 'libs/Class','underscore','jquery', 'fastdom','cookie'],function(boot, Class,_,$,fastdom,cookie){
+
+define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class, $){
+
+    var  store2015UrlReg = /store2015/;
+    var store2015CookieKey = 'store_2015_cookie_key'
+    // here we use a global var isFromMobile, which is bootstraped in base.html (template)
+
+    var TopAd = Class.extend({
+        init: function(){
+            this.handleTrackerCookie();
+            this.handleTopAdDisplay();
+            this.initCloseButton();
+        },
+        initCloseButton: function(){
+            $('.top-ad .close-button').click(this.hideTopAd.bind(this));
+        },
+
+        handleTrackerCookie: function(){
+            if(store2015UrlReg.test(location.href)){
+                console.log('access page');
+                $.cookie(store2015CookieKey, 'visited', { expires: 7, path: '/' });
+            }
+        },
+
+        handleTopAdDisplay:function(){
+            if($.cookie(store2015CookieKey) === 'visited'){
+                return ;
+                //console.log('store 2015 page visited');
+            }else{
+                this.displayTopAd();
+            }
+        },
+        displayTopAd: function(){
+
+            if (!isFromMobile){
+                 $('.top-ad').slideDown();
+            }
+
+        },
+        hideTopAd: function(event){
+            $('.top-ad .close-button').hide();
+            $('.top-ad').slideUp();
+        },
+
+    });
+
+    return TopAd;
+});
+define('subapp/topmenu',['bootstrap',
+        'libs/Class',
+        'underscore',
+        'jquery',
+        'fastdom',
+        'cookie',
+        'subapp/top_ad/top_ad'
+    ],
+    function(boot, Class,_,$,fastdom,cookie,TopAd){
 
     // cookie is a shim resource , it will attch to jquery objects.
 
@@ -849,6 +905,7 @@ define('subapp/topmenu',['bootstrap', 'libs/Class','underscore','jquery', 'fastd
             this.setupScrollMenu();
             this.checkSNSBindVisit();
             this.checkEventRead();
+            this.topAd = new TopAd();
 
         },
         checkEventRead:function(){

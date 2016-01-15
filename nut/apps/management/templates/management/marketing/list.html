@@ -31,6 +31,7 @@
                                     <th>{% trans 'status' %}</th>
                                     <th>{% trans 'action_title' %}</th>
                                     <th>{% trans 'action' %}</th>
+                                    <th>{% trans 'version' %}</th>
                                     <th>{% trans 'created datetime' %}</th>
                                     <th>{% trans 'operation' %}</th>
                                 </tr>
@@ -46,6 +47,7 @@
                                         <td>{{ row.status|yesno }}</td>
                                         <td>{{ row.action_title }}</td>
                                         <td>{{ row.action }}</td>
+                                        <td>{{ row.version }}</td>
                                         <td>{{ row.created_datetime|date:"Y-m-d" }}</td>
                                         <td><a href="{% url 'management_edit_launch_image' row.pk %}" class="btn btn-primary">{% trans 'edit' %}</a></td>
                                     </tr>
