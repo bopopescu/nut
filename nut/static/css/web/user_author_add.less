@@ -2,11 +2,13 @@
 @import "../lib/var.less";
 @import "../lib/widgets.less";
 
+//color vaiables
+@article-rect-decoration-bgcolor:#414243;
 //common class
 .user-article-panel{
   .panel-no-padding;
   width:100%;
-  margin-bottom:25px;
+  margin-bottom:20px;
 
   .user-article-img{
     width:100%;
@@ -18,12 +20,13 @@
   }
 
   .user-article-title-wrapper{
-    font-size: @primary-size;
-    color:@common-text-color;
-    margin: 15px 10px;
-    min-height: 30px;
-    max-height:30px;
+    margin: 25px 15px 15px;
+    min-height: 60px;
+    max-height:60px;
     line-height: 1.3;
+    font-size: @big-title-size;
+    font-weight: 600;
+    color:@common-text-color;
      a{
        color: @common-text-color;
        &:hover{
@@ -33,13 +36,22 @@
        }
   }
 
+  .user-article-intro-wrapper{
+    min-height:84px;
+    max-height:84px;
+    margin:15px;
+    font-size:@smaller-primary;
+    color:@common-gray;
+
+  }
+
   .user-article-info-wrapper{
-           min-height:30px;
+           min-height:15px;
+           margin:15px;
            .user-article-time{
              float:right;
-             padding-right: 10px;
+             font-size:@more-mini-size;
              color: @common-gray;
-             font-size:@mini-size;
              .fa{
                margin-right:5px;
              }
@@ -47,20 +59,15 @@
         }
 }
 
-.user-article-item-general{
-  .user-article-panel{
-    .user-article-title-wrapper{
-      font-size: 12px;
-    }
-  }
+.rect-decoration{
+  width:52px;
+  height:52px;
+  background-color:@article-rect-decoration-bgcolor ;
+  font-size:@primary-size;
+  color:#ffffff;
+  text-align: center;
+  line-height:52px;
 }
 
-//clear float
-.user-article-top-wrapper,
-.user-article-latest-wrapper,
-.user-article-items-wrapper{
-  //overflow: hidden;
-  margin-left:0;
-  margin-right:0;
-  //float:left;
-}
+//user-author-page style
+
