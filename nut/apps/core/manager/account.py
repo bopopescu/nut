@@ -10,6 +10,7 @@ from django.utils import timezone
 # from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import ugettext_lazy as _
 from django.core.cache import cache
+from django.contrib.auth.models import Group, GroupManager
 # import random
 
 
@@ -38,6 +39,9 @@ class GKUserQuerySet(models.query.QuerySet):
     def admin(self):
         return self.filter(is_admin=True)
 
+    def authorized_author(self):
+        return Group.objects.get(name='Author').user_set.all()
+
 
 class GKUserManager(BaseUserManager):
 
@@ -61,6 +65,9 @@ class GKUserManager(BaseUserManager):
 
     def deactive(self):
         return self.get_query_set().deactive()
+
+    def authorized_author(self):
+        return self.get_queryset().authorized_author();
 
     def deactive_user_list(self):
         user_list = cache.get('deactive_user_list')

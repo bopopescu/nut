@@ -432,7 +432,7 @@ class Authorized_User_Profile(BaseModel):
     # see  日常开发文档－》授权图文用户
     weixin_id = models.CharField(max_length=255, null=True, blank=True)
     weixin_nick = models.CharField(max_length=255, null=True, blank=True)
-    weixin_qrcode_img = models.CharField(max_length=255)
+    weixin_qrcode_img = models.CharField(max_length=255, null=True, blank=True)
     author_website = models.CharField(max_length=1024, null=True, blank=True)
     weibo_id = models.CharField(max_length=255, null=True, blank=True)
     weibo_nick = models.CharField(max_length=255, null=True, blank=True)
