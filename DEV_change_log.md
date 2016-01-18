@@ -1,4 +1,12 @@
 
+1. show baichuan recommend
+
+=================================
+=================================
+### merged to master 2016 － 1 － 18
+=================================
+=================================
+
 5. use CBV for user list 
 4. user list search
 3. baichuan recommendation  (hide for now)
