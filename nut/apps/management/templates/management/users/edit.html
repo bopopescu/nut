@@ -18,6 +18,11 @@
                         <h3 class="profile-username text-center">{{ user.profile.nick }}</h3>
                         <p class="text-muted text-center">{{ user.profile.bio }}</p>
                         <ul class="list-group list-group-unbordered">
+
+                            <li class="list-group-item">
+                                <b>{% trans 'join time' %}</b>
+                                <a class="pull-right">{{ user.date_joined|date }}</a>
+                            </li>
                             <li class="list-group-item">
                                 <b>{% trans 'follower' %}</b>
                                 <a class="pull-right">{{ user.fans_count }}</a>
