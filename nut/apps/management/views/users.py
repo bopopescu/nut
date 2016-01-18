@@ -123,7 +123,7 @@ class UserManagementListView(UserPassesTestMixin, FilterMixin, SortMixin,ListVie
     default_sort_params = ('date_joined' , 'desc')
 
     def getActiveStatus(self):
-        return self.kwargs.get('active', 1)
+        return self.kwargs.get('active', '1')
 
     def get_queryset(self):
         active = self.getActiveStatus()
@@ -146,7 +146,10 @@ class UserManagementListView(UserPassesTestMixin, FilterMixin, SortMixin,ListVie
             user_list= []
         return user_list
 
-
+    def get_context_data(self, *args, **kwargs):
+        context = super(UserManagementListView, self).get_context_data()
+        context['active'] = self.getActiveStatus()
+        return context
 
     def test_func(self, user):
         return user.is_admin
