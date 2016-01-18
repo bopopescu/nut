@@ -6,11 +6,7 @@
         <h1>
             {{ user.profile.nickname }}
         </h1>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
-            <li><a href="#"><i class="fa fa-users"></i>{% trans 'users' %}</a></li>
-            <li class="active">{{ user.profile.nickname }}</li>
-        </ol>
+        {% include 'management/users/partial/user_breadcrumb.html' %}
     </section>
 
     <section class="content" id="user-edit">
