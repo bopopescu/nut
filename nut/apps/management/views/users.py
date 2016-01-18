@@ -126,6 +126,8 @@ class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListVie
         filter_field, filter_value = filter_param
         if filter_field == 'email':
             qs = qs.filter(email__icontains=filter_value)
+        elif filter_field == 'nickname':
+            qs = qs.filter(profile__nickname__icontains=filter_value)
         else:
             pass
 
