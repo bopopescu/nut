@@ -138,6 +138,24 @@
                         {% endfor %}
                     </div>
                 </div>
+
+                <div class="guess-title">{% trans 'Related Items' %}</div>
+
+                  <div class="guess-wrapper">
+                    <div class="row" id="guess_list">
+                        {% for entity in guess_entities %}
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 guess-img">
+
+                                <div class="img-holder">
+                                    <a href="{% url 'web_entity_detail' entity.entity_hash %}#from=recommend" target="_blank" class="">
+                                        <div class="img-frame" style="background-image:url({{ entity.chief_image|resize:'240' }})"></div>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
             </div>
             <div  id="detail_content_right" class="hidden-print   col-lg-4 col-md-4 hidden-sm hidden-xs">
                 {% include "web/entity/partial/detail_side.html" %}
