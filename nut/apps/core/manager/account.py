@@ -40,7 +40,7 @@ class GKUserQuerySet(models.query.QuerySet):
         return self.filter(is_admin=True)
 
     def authorized_author(self):
-        return Group.objects.get(name='Author').user_set.all()
+        return Group.objects.get(name='Author').user_set.filter(id__in=self)
 
 
 class GKUserManager(BaseUserManager):

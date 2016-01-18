@@ -114,7 +114,7 @@ class UserAuthorSetView(UserPassesTestMixin,JSONResponseMixin, UpdateView):
         return  user.is_admin
 
 
-class UserManagementListView(UserPassesTestMixin, FilterMixin, SortMixin,ListView):
+class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListView):
     template_name = 'management/users/list.html'
     model = GKUser
     paginate_by = 30
@@ -122,28 +122,41 @@ class UserManagementListView(UserPassesTestMixin, FilterMixin, SortMixin,ListVie
     context_object_name = 'users'
     default_sort_params = ('date_joined' , 'desc')
 
+    def filter_queryset(self, qs, filter_param):
+        filter_field, filter_value = filter_param
+        if filter_field == 'email':
+            qs = qs.filter(email__icontains=filter_value)
+        else:
+            pass
+
+        return qs
+
     def getActiveStatus(self):
         return self.kwargs.get('active', '1')
 
     def get_queryset(self):
+        querySet = super(UserManagementListView,self).get_queryset()
+
         active = self.getActiveStatus()
+
         if active == '2':
-            user_list = GKUser.objects.editor().using('slave')
+            user_list = querySet.editor().using('slave')
         elif active == '1':
-            user_list = GKUser.objects.active().using('slave').order_by("-date_joined")
+            user_list = querySet.active().using('slave').order_by("-date_joined")
         elif active == '0':
-            user_list = GKUser.objects.blocked().using('slave')
+            user_list = querySet.blocked().using('slave')
         # elif active == '999':
         elif active == '3':
-            user_list = GKUser.objects.writer().using('slave')
+            user_list = querySet.writer().using('slave')
         elif active == '999':
-            user_list = GKUser.objects.deactive().using('slave')
+            user_list = querySet.deactive().using('slave')
         elif active == '888':
-            user_list = GKUser.objects.authorized_author().using('slave')
+            user_list = querySet.authorized_author().using('slave')
         elif active == '777':
-            user_list = GKUser.objects.admin().using('slave')
+            user_list = querySet.admin().using('slave')
         else:
             user_list= []
+
         return user_list
 
     def get_context_data(self, *args, **kwargs):
@@ -155,31 +168,12 @@ class UserManagementListView(UserPassesTestMixin, FilterMixin, SortMixin,ListVie
         return user.is_admin
 
 
-
+# deprecated , prepare to remove
 @login_required
 @admin_only
 def list(request, active='1', template="management/users/list.html"):
 
     page = request.GET.get('page', 1)
-    # active = request.GET.get('active', '1')
-    # admin = request.GET.get('admin', None)
-    # if admin:
-    #     user_list = GKUser.objects.admin().using('slave')
-    #     paginator = ExtentPaginator(user_list, 30)
-    #     try:
-    #         users = paginator.page(page)
-    #     except InvalidPage:
-    #         users = paginator.page(1)
-    #     except EmptyPage:
-    #         raise Http404
-    #
-    #     return render_to_response(template,
-    #                         {
-    #                             'users':users,
-    #                             'active':None,
-    #                             'admin':admin,
-    #                         },
-    #                         context_instance = RequestContext(request))
 
     if active == '2':
         user_list = GKUser.objects.editor().using('slave')
