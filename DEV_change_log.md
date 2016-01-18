@@ -1,4 +1,7 @@
-3. baichuan recommendation （HIDDEN, NOT FINISHED）
+
+5. use CBV for user list 
+4. user list search
+3. baichuan recommendation 
 2. user set to author 
 1. a bookmark for youzhan's taobao product adding , not for web 
    but put in doc anyway
