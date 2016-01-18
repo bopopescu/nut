@@ -14,6 +14,8 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 from apps.management.decorators import admin_only
 from apps.core.serializers.users import GKUserSerializer
 from apps.core.views import LoginRequiredMixin
+from apps.core.mixins.views import SortMixin, FilterMixin
+from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
 
 from django.utils.log import getLogger
@@ -111,30 +113,70 @@ class UserAuthorSetView(UserPassesTestMixin,JSONResponseMixin, UpdateView):
     def test_func(self,user):
         return  user.is_admin
 
+
+class UserManagementListView(UserPassesTestMixin, FilterMixin, SortMixin,ListView):
+    template_name = 'management/users/list.html'
+    model = GKUser
+    paginate_by = 30
+    paginator_class = Jpaginator
+    context_object_name = 'users'
+    default_sort_params = ('date_joined' , 'desc')
+
+    def getActiveStatus(self):
+        return self.kwargs.get('active', 1)
+
+    def get_queryset(self):
+        active = self.getActiveStatus()
+        if active == '2':
+            user_list = GKUser.objects.editor().using('slave')
+        elif active == '1':
+            user_list = GKUser.objects.active().using('slave').order_by("-date_joined")
+        elif active == '0':
+            user_list = GKUser.objects.blocked().using('slave')
+        # elif active == '999':
+        elif active == '3':
+            user_list = GKUser.objects.writer().using('slave')
+        elif active == '999':
+            user_list = GKUser.objects.deactive().using('slave')
+        elif active == '888':
+            user_list = GKUser.objects.authorized_author().using('slave')
+        elif active == '777':
+            user_list = GKUser.objects.admin().using('slave')
+        else:
+            user_list= []
+        return user_list
+
+
+
+    def test_func(self, user):
+        return user.is_admin
+
+
+
 @login_required
 @admin_only
 def list(request, active='1', template="management/users/list.html"):
 
     page = request.GET.get('page', 1)
     # active = request.GET.get('active', '1')
-    admin = request.GET.get('admin', None)
-    if admin:
-        user_list = GKUser.objects.admin().using('slave')
-        paginator = ExtentPaginator(user_list, 30)
-        try:
-            users = paginator.page(page)
-        except InvalidPage:
-            users = paginator.page(1)
-        except EmptyPage:
-            raise Http404
-
-        return render_to_response(template,
-                            {
-                                'users':users,
-                                'active':None,
-                                'admin':admin,
-                            },
-                            context_instance = RequestContext(request))
+    # admin = request.GET.get('admin', None)
+    # if admin:
+    #     user_list = GKUser.objects.admin().using('slave')
+    #     paginator = ExtentPaginator(user_list, 30)
+    #     try:
+    #         users = paginator.page(page)
+    #     except InvalidPage:
+    #         users = paginator.page(1)
+    #     except EmptyPage:
+    #         raise Http404
+    #
+    #     return render_to_response(template,
+    #                         {
+    #                             'users':users,
+    #                             'active':None,
+    #                             'admin':admin,
+    #                         },
+    #                         context_instance = RequestContext(request))
 
     if active == '2':
         user_list = GKUser.objects.editor().using('slave')
@@ -149,6 +191,8 @@ def list(request, active='1', template="management/users/list.html"):
         user_list = GKUser.objects.deactive().using('slave')
     elif active == '888':
         user_list = GKUser.objects.authorized_author().using('slave')
+    elif active == '777':
+        user_list = GKUser.objects.admin().using('slave')
     else:
         pass
 
@@ -169,7 +213,7 @@ def list(request, active='1', template="management/users/list.html"):
                             {
                                 'users':users,
                                 'active':active,
-                                'admin':admin,
+                                # 'admin':admin,
                             },
                             context_instance = RequestContext(request))
 
