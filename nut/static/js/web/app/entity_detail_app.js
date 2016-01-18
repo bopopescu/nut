@@ -45,7 +45,8 @@ require([
         var entityReport = new EntityReport();
         var userNote = new UserNote();
         var imgHandler = new EntityImageHandler();
-        var baichuanManager = new BaichuanManager();
+
+        //var baichuanManager = new BaichuanManager();
 
         /// begin entity liker app
         if (_.isUndefined(current_entity_id)){

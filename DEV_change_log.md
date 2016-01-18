@@ -1,17 +1,15 @@
+
+5. use CBV for user list 
+4. user list search
 3. baichuan recommendation 
 2. user set to author 
-1. a bookmark for youzhan's taobao product adding , not for webfront
+1. a bookmark for youzhan's taobao product adding , not for web 
    but put in doc anyway
 
-##action 
- 
-ALTER TABLE `core`.`core_user_profile` 
-ADD COLUMN `weixin_id` VARCHAR(255) NULL DEFAULT NULL AFTER `email_verified`,
-ADD COLUMN `weixin_nick` VARCHAR(255) NULL DEFAULT NULL AFTER `weixin_id`,
-ADD COLUMN `weixin_qrcode_img` VARCHAR(255) NULL DEFAULT NULL AFTER `weixin_nick`,
-ADD COLUMN `author_website` VARCHAR(1024) NULL DEFAULT NULL AFTER `weixin_qrcode_img`,
-ADD COLUMN `weibo_id` VARCHAR(255) NULL DEFAULT NULL AFTER `author_website`,
-ADD COLUMN `weibo_nick` VARCHAR(255) NULL DEFAULT NULL AFTER `weibo_id`;
+##action  
+
+need syncdb 
+
 
 2016-1-13 start 
 
