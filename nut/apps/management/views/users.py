@@ -145,9 +145,12 @@ def list(request, active='1', template="management/users/list.html"):
     # elif active == '999':
     elif active == '3':
         user_list = GKUser.objects.writer().using('slave')
-    else:
+    elif active == '999':
         user_list = GKUser.objects.deactive().using('slave')
-    # else:
+    elif active == '888':
+        user_list = GKUser.objects.authorized_author().using('slave')
+    else:
+        pass
 
 
     # else:
