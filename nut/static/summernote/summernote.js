@@ -6,7 +6,7 @@
  * Copyright 2013-2015 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
- * Date: 2016-01-11T15:21Z
+ * Date: 2016-01-15T07:44Z
  */
 (function (factory) {
   /* global define */
@@ -3375,17 +3375,7 @@
         //    this.walkChildrenSkipGuoku($editable[0], this._removeNodeClass)
         //},
         _removeNodeStyle: function(node){
-            if(dom.isImg(node)){
-                var float = $(node).css('float');
-                if(float){
-                    $(node).removeAttr('style')
-                        .css({'float':float});
-                }
-
-            }else{
-                jQuery(node).removeAttr('style');
-            }
-
+             jQuery(node).removeAttr('style');
         },
         _removeNodeClass: function(node){
             jQuery(node).removeAttr('class');

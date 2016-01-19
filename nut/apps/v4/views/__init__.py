@@ -268,6 +268,10 @@ def selection(request):
         r = {
             'entity':selection.entity.v3_toDict(user_like_list=el),
             'note':selection.entity.top_note.v3_toDict(),
+<<<<<<< HEAD
+=======
+            # 'note': None
+>>>>>>> 1b2b6c4c19a770e4ddd4c45fee7bfbb97ddd26b3
         }
 
         res.append({
