@@ -150,9 +150,3 @@ class JD(BaseFetcher):
         data = resp.read()
         data = data[5:-4]
         return json.loads(data)
-
-
-if __name__ == '__main__':
-    result = JD(210347)
-
-    print result.title

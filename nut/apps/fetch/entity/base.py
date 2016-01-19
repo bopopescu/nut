@@ -51,33 +51,39 @@ class BaseFetcher(object):
         headers = ''
 
         # get html from cache
-        # html_cache = self.get_html_cache()
-        # if html_cache:
-        #     headers = html_cache['header']
-        #     html_source = html_cache['body']
+        html_cache = self.get_html_cache()
+        if html_cache:
+            headers = html_cache['header']
+            html_source = html_cache['body']
 
         url = self.link
 
         if self.use_phantom:
-            html_source = self.phantom_fetch(self.timeout)
+            html_source = self.phantom_fetch()
 
         if not html_source or not self.use_phantom:
-            random_agent = faker.user_agent()
-            try:
-                response = requests.get(url,
-                                        headers={'User-Agent': random_agent})
-                headers = response.headers
-                html_source = response.content
-            except Exception, e:
-                log.error(e.message)
-                raise
+            self.fetch_html()
+            headers, html_source = self.fetch_html()
 
         self.set_html_cache(headers=self.headers, content=html_source)
         self.html_source = html_source
         self._headers = headers
         self._referer = url
 
+    def fetch_html(self):
+        random_agent = faker.user_agent()
+        try:
+            response = requests.get(self.link,
+                                    headers={'User-Agent': random_agent})
+            headers = response.headers
+            html_source = response.content
+            return headers, html_source
+        except Exception, e:
+            log.error(e.message)
+            raise
+
     def phantom_fetch(self, timeout=15):
+        timeout = self.timeout or timeout
         data = {'url': self.link,
                 'expected_element': self.expected_element,
                 'timeout': timeout}

@@ -24,7 +24,7 @@ class Kaola(BaseFetcher):
             return ids[0]
 
     @property
-    def nick(self):
+    def shop_nick(self):
         return u"考拉海购"
 
     @property

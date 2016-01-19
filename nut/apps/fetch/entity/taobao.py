@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import re
 
 from django.utils.log import getLogger
@@ -12,12 +11,14 @@ log = getLogger('django')
 
 
 class TaoBao(BaseFetcher):
+
     def __init__(self, entity_url, use_phantom=True):
         BaseFetcher.__init__(self, entity_url)
         self.use_phantom = use_phantom
         self.nick_pattern = re.compile(u'掌\s+柜：(?P<nick>.*)',
                                        re.MULTILINE | re.UNICODE)
         self.cid_pattern = re.compile(u'cid\s+:\s+(?P<cid>\d*)')
+        self._headers = None
         self.foreign_price = 0.0
         self.entity_url = entity_url
         self.origin_id = self.get_origin_id()
@@ -168,3 +169,4 @@ class TaoBao(BaseFetcher):
             for brand_li in seller_soup:
                 if brand_li.text.find(u'品牌') >= 0:
                     return brand_li.text.split(u':')[1].strip()
+        return ''

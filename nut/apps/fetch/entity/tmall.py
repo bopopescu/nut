@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
-
+import json
 import re
+from time import time
+
+import requests
 
 from apps.fetch.entity.base import BaseFetcher
 from django.utils.log import getLogger
@@ -113,7 +116,6 @@ class Tmall(BaseFetcher):
                     price_tag = self.price_pattern_b.findall(script.text)
                     if price_tag:
                         return price_tag[0]
-
         return ''
 
     @property
@@ -125,7 +127,8 @@ class Tmall(BaseFetcher):
             if not img_tag:
                 img_tag = img_tags[0].attrs.get('src')
             img_tag = re.sub(IMG_POSTFIX, "", img_tag)
-            if not img_tag.startswith('http') and not img_tag.startswith('https'):
+            if not img_tag.startswith('http') and not img_tag.startswith(
+                'https'):
                 img_tag = "https:" + img_tag
             image_list.append(img_tag)
 
@@ -137,7 +140,8 @@ class Tmall(BaseFetcher):
                 img_src = re.sub(IMG_POSTFIX, "", op.attrs.get('data-src'))
             if img_src in image_list:
                 continue
-            if not img_src.startswith('http') and not img_src.startswith('https'):
+            if not img_src.startswith('http') and not img_src.startswith(
+                'https'):
                 img_src = "https:" + img_src
             image_list.append(img_src)
         image_list = list(set(image_list))
@@ -166,3 +170,75 @@ class Tmall(BaseFetcher):
             shop_link = "http://shop" + shop_id_tag[0] + ".taobao.com"
             return shop_link
         return "http://chaoshi.tmall.com/"
+
+    def fetch_html(self):
+        tmall_header = {
+            'Cookie': 'cna=C6IRC8X/ODgCAd6BFDvWbabx; swfstore=293511; whl=-1%260%260%260; CNZZDATA1000279581=2084491831-1431329588-http%253A%252F%252Fsubject.tmall.com%252F%7C1432794651; lzstat_uv=11965390701316469673|2934243@2674749@3576861; lzstat_ss=140379413_3_1398070003_2934243|815277699_0_1422723118_2674749|2999861223_2_1434841102_3576861; ucn=center; tkmb=e=zGU0g6e1d7xnyW5i7tVTF34AiQ6j29rfKzBnvRc7iWAKnIJfZf8qogh3jq5OecGVnIZVGJ6iJNJUooZBX7Ci3Kb86eKaBMLWSFMJq3gfdbiOtqM14m8TUixr3LK%2FQUevmmOcDn3qcCAD0AiwnIeHDgP50F2QwFA5ztriqzRqqT9%2Fh3aZffAL0k6U0Q%3D%3D&iv=0&et=1436260677; ck1=; _tb_token_=e3eab0131bee0; uc3=nk2=F5fFAGakplCe&id2=UU21bCqQ9jo%3D&vt3=F8dASM2ebvybuPH%2FldI%3D&lg2=WqG3DMC9VAQiUQ%3D%3D; lgc=tayaktaka; tracknick=tayaktaka; cookie2=2c4c3d08862516f8b17f01d55c31d074; skt=7b0c61cad5da6b2f; t=5070ce985c3f11b15a524d6788515bf0; tk_trace=1; pnm_cku822=172UW5TcyMNYQwiAiwQRHhBfEF8QXtHcklnMWc%3D%7CUm5OcktyTnpCdkJ%2BRXxIfSs%3D%7CU2xMHDJ7G2AHYg8hAS8WKQcnCU4nTGI0Yg%3D%3D%7CVGhXd1llXGVZbVVhVWlSa19qXWBCe05zR3xDf0p%2BS3JKcEl0QW85%7CVWldfS0TMw8wDzAQLg4gdlNlSx1L%7CVmhIGCEdPRwgFCsUNAgxDDAQLhsvFjYKPgE8HCAdKBU1CT0CPx8jHiYcShw%3D%7CV25Tbk5zU2xMcEl1VWtTaUlwJg%3D%3D; cq=ccp%3D1; l=AgkJbJ5afOfrqhFMGy4g0hBRmTtjVv2I; isg=E67B4BE00CF880E3F80FAD48EBEE149E',
+            'Referer': 'http://detail.tmall.com/item.htm?id=44691754172',
+            'User-Agent': 'Mozilla/5.0 (Macintosh Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36'
+        }
+        html = ''
+        with requests.Session() as s:
+            r = s.get(self.link, verify=False, headers=tmall_header, cookies={})
+            html = r.text
+            self._headers = r.headers
+            script_url = self.fix_script_url(
+                self.extract_price_script_url(html))
+            price_script_response = s.get(script_url, headers=tmall_header).text
+            self._price = self.process_price_response(price_script_response)
+        return r.headers, html
+
+    def process_price_response(self, price_script_response):
+        reg = re.compile('\((.*)\)')
+        m = reg.search(price_script_response)
+        price_json = json.loads(m.group(1))
+        price = self.get_price_by_price_json(price_json)
+
+        return price
+
+    def get_price_by_price_json(self, entity_info):
+        price = 0
+        prices = []
+        if entity_info['isSuccess']:
+            try:
+                priceInfo = entity_info['defaultModel']['itemPriceResultDO'][
+                    'priceInfo']
+                for k, v in priceInfo.iteritems():
+                    prices.append(priceInfo[k]['price'])
+                    # may be there is multiple promotionList ... TODO
+                    if priceInfo[k]['promotionList'] and len(
+                        priceInfo[k]['promotionList']):
+                        for promo in priceInfo[k]['promotionList']:
+                            try:
+                                prices.append(promo['price'])
+                                prices.append(promo['extraPromPrice'])
+                            except KeyError:
+                                continue
+            except Exception as e:
+                # TODO: log error
+                pass
+                # print e.message
+                # log.error(e.message)
+            finally:
+                if len(prices) > 0:
+                    price = min(map(float, prices))
+                else:
+                    price = 0
+        else:
+            price = 0
+        return price
+
+    def extract_price_script_url(self, html_str):
+        reg = re.compile('url=\'(\S*)\'')
+        m = reg.search(html_str)
+        return m.group(1)
+
+    def fix_script_url(self, script_url):
+        script_url = script_url.replace('mdskip.taobao.com', 'mdskip.tmall.com')
+        l = list()
+        prepend = ''
+        if not 'http:' in script_url:
+            prepend = 'http:'
+        l.append("callback=setMdskip")
+        l.append("timestamp=%d" % int(time()))
+        return "%s%s&%s" % (prepend, script_url, '&'.join(l))
