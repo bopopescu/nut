@@ -28,7 +28,9 @@
                             <li {% if active == '1' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '1' %}">{% trans 'active' %}</a></li>
                             <li {% if active == '0' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '0' %}">{% trans 'blocked' %}</a></li>
                             <li {% if active == '999' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '999' %}">{% trans 'remove' %}</a></li>
-                            <li {% if admin %}class="active" {% endif %}><a href="{% url 'management_user_list' %}?admin=1">{% trans 'admin' %}</a></li>
+                            <li {% if active == '888' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '888' %}">{% trans 'Authorized Author' %}</a></li>
+                            <li {% if active == '777' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '777' %}">{% trans 'admin' %}</a></li>
+{#                            <li {% if admin %}class="active" {% endif %}><a href="{% url 'management_user_list' %}?admin=1">{% trans 'admin' %}</a></li>#}
                         </ul>
                     </div>
                     <div class="box-body">
@@ -36,7 +38,7 @@
                     </div>
 
                     <div  class="box-footer">
-                        {% include "management/paginator.html" with objects=users url=request.path %}
+                        {% include "management/entities/paginator_new.html"  with objects=users url=request.path %}
                     </div>
                 </div>
             </div>
@@ -45,5 +47,6 @@
 {% endblock %}
 
 {% block user_script %}
-{#    <script type="application/javascript" src="{% static 'js/management/users.js' %}">#}
+
+    <script type="application/javascript" src="{% static 'js/management/manage_search.js' %}"></script>
 {% endblock %}

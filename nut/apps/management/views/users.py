@@ -1,15 +1,21 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView
+from django.views.generic import ListView, UpdateView
+from django.core.urlresolvers import reverse
+from django.forms import ModelForm ,BooleanField
 
-from apps.core.models import GKUser, Media
+from braces.views import AjaxResponseMixin,JSONResponseMixin, UserPassesTestMixin
+
+from apps.core.models import GKUser, Media , User_Profile , Authorized_User_Profile
 from apps.core.forms.user import UserForm, GuokuSetPasswordForm, AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 from apps.management.decorators import admin_only
 from apps.core.serializers.users import GKUserSerializer
 from apps.core.views import LoginRequiredMixin
+from apps.core.mixins.views import SortMixin, FilterMixin
+from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
 
 from django.utils.log import getLogger
@@ -21,31 +27,155 @@ class RESTfulUserListView(generics.ListCreateAPIView):
         queryset = GKUser.objects.all()
         serializer_class = GKUserSerializer
 
+class UserAuthorInfoForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(UserAuthorInfoForm, self).__init__(*args, **kwargs)
+        self.fields['weixin_id'].widget.attrs.update({'class':'form-control'})
+        self.fields['weixin_nick'].widget.attrs.update({'class':'form-control'})
+        self.fields['author_website'].widget.attrs.update({'class':'form-control'})
+        self.fields['weibo_id'].widget.attrs.update({'class':'form-control'})
+        self.fields['weibo_nick'].widget.attrs.update({'class':'form-control'})
+    class Meta:
+        model = Authorized_User_Profile
+        fields = [
+                  'weixin_id', 'weixin_nick','weixin_qrcode_img',\
+                  'author_website','weibo_id','weibo_nick'
+                  ]
 
+class UserAuthorSetForm(ModelForm):
+    isAuthor = BooleanField(required=False)
+    # http://stackoverflow.com/questions/31349584/appending-formdata-field-with-value-as-a-boolean-false-causes-the-function-to-fa
+    def __init__(self,*args, **kwargs):
+        super(UserAuthorSetForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        _user = self.instance
+        _user.setAuthor(self.cleaned_data.get('isAuthor'))
+
+    class Meta:
+        model = GKUser
+        fields = ['isAuthor']
+
+class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):
+    template_name = 'management/users/edit_author.html'
+    form_class=UserAuthorInfoForm
+    pk_url_kwarg = 'user_id'
+    model = Authorized_User_Profile
+
+    def get_pk(self):
+        return self.kwargs.get(self.pk_url_kwarg, None)
+
+    def get_object(self, queryset=None):
+        pk = self.get_pk()
+        try:
+            profile = Authorized_User_Profile.objects.get(user__id=pk)
+        except Authorized_User_Profile.DoesNotExist:
+            profile = Authorized_User_Profile.objects.create(user_id=pk)
+        except Authorized_User_Profile.MultipleObjectsReturned:
+            # one user , one or zero Authorized_User_Profile
+            raise HttpResponseBadRequest
+        return profile
+
+    def form_valid(self, form):
+        form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('management_user_edit' , args=[self.get_pk()])
+
+
+    def get_context_data(self,*args, **kwargs):
+        context = super(UserAuthorInfoEditView, self).get_context_data(*args, **kwargs)
+        pk = self.get_pk()
+        _user = GKUser.objects.get(id=pk)
+        context['current_user'] = _user
+        return context
+
+
+    def test_func(self, user):
+        return user.is_admin
+
+
+
+
+class UserAuthorSetView(UserPassesTestMixin,JSONResponseMixin, UpdateView):
+    pk_url_kwarg = 'user_id'
+    form_class = UserAuthorSetForm
+    model = GKUser
+
+    def form_valid(self, form):
+        form.save()
+        return self.render_json_response({'error': 0},status=200)
+
+    def form_invalid(self, form):
+        return self.render_json_response({'error':1, 'message':'invalid form'}, status=500)
+
+    def test_func(self,user):
+        return  user.is_admin
+
+
+class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListView):
+    template_name = 'management/users/list.html'
+    model = GKUser
+    paginate_by = 30
+    paginator_class = Jpaginator
+    context_object_name = 'users'
+    default_sort_params = ('date_joined' , 'desc')
+
+    def filter_queryset(self, qs, filter_param):
+        filter_field, filter_value = filter_param
+        if filter_field == 'email':
+            qs = qs.filter(email__icontains=filter_value)
+        elif filter_field == 'nickname':
+            qs = qs.filter(profile__nickname__icontains=filter_value)
+        else:
+            pass
+
+        return qs
+
+    def getActiveStatus(self):
+        return self.kwargs.get('active', '1')
+
+    def get_queryset(self):
+        querySet = super(UserManagementListView,self).get_queryset()
+
+        active = self.getActiveStatus()
+
+        if active == '2':
+            user_list = querySet.editor().using('slave')
+        elif active == '1':
+            user_list = querySet.active().using('slave').order_by("-date_joined")
+        elif active == '0':
+            user_list = querySet.blocked().using('slave')
+        # elif active == '999':
+        elif active == '3':
+            user_list = querySet.writer().using('slave')
+        elif active == '999':
+            user_list = querySet.deactive().using('slave')
+        elif active == '888':
+            user_list = querySet.authorized_author().using('slave')
+        elif active == '777':
+            user_list = querySet.admin().using('slave')
+        else:
+            user_list= []
+
+        return user_list
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UserManagementListView, self).get_context_data()
+        context['active'] = self.getActiveStatus()
+        return context
+
+    def test_func(self, user):
+        return user.is_admin
+
+
+# deprecated , prepare to remove
 @login_required
 @admin_only
 def list(request, active='1', template="management/users/list.html"):
 
     page = request.GET.get('page', 1)
-    # active = request.GET.get('active', '1')
-    admin = request.GET.get('admin', None)
-    if admin:
-        user_list = GKUser.objects.admin().using('slave')
-        paginator = ExtentPaginator(user_list, 30)
-        try:
-            users = paginator.page(page)
-        except InvalidPage:
-            users = paginator.page(1)
-        except EmptyPage:
-            raise Http404
-
-        return render_to_response(template,
-                            {
-                                'users':users,
-                                'active':None,
-                                'admin':admin,
-                            },
-                            context_instance = RequestContext(request))
 
     if active == '2':
         user_list = GKUser.objects.editor().using('slave')
@@ -56,9 +186,14 @@ def list(request, active='1', template="management/users/list.html"):
     # elif active == '999':
     elif active == '3':
         user_list = GKUser.objects.writer().using('slave')
-    else:
+    elif active == '999':
         user_list = GKUser.objects.deactive().using('slave')
-    # else:
+    elif active == '888':
+        user_list = GKUser.objects.authorized_author().using('slave')
+    elif active == '777':
+        user_list = GKUser.objects.admin().using('slave')
+    else:
+        pass
 
 
     # else:
@@ -77,7 +212,7 @@ def list(request, active='1', template="management/users/list.html"):
                             {
                                 'users':users,
                                 'active':active,
-                                'admin':admin,
+                                # 'admin':admin,
                             },
                             context_instance = RequestContext(request))
 
