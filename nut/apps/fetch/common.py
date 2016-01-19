@@ -1,19 +1,62 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import json
+import os
+import sys
+
+from bs4 import BeautifulSoup
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+sys.path.append(BASE_DIR)
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_judy'
+import random
+import redis
+import requests
 import time
 import re, datetime, pytz
 import lxml
 
 
-from Crypto.Cipher import AES
+from django.conf import settings
 from django.utils.baseconv import base64
+from settings import WEIXIN_COOKIE
+from Crypto.Cipher import AES
 
 
 _RE_WEIBO = re.compile(ur'\d{1,2}')
-
-
 _COVER_RE = re.compile(r'cover = "(http://.+)";')
+_COOKIE_RE = re.compile(r'(ABTEST=\S+?|SNUID=\S+?|IPLOC=\S+?|SUID=\S+?|black_passportid=\S+?);')
+
+r = redis.Redis(host=settings.CONFIG_REDIS_HOST,
+                port=settings.CONFIG_REDIS_PORT,
+                db=settings.CONFIG_REDIS_DB)
+
+
+def parse_article_link(result_json):
+    article_link_list = []
+    for article in result_json['items']:
+        article = clean_xml(article)
+        article_soup = BeautifulSoup(article, 'xml')
+        print '        * ', article_soup.title1.string
+        article_link_list.append('http://weixin.sogou.com'+article_soup.url.string)
+    return article_link_list
+
+
+def clean_xml(xml_str):
+    xml_str = xml_str.rstrip('\n')
+    replaces = (
+        ('<?xml version="1.0" encoding="gbk"?>',
+         '<xml version="1.0" encoding="gbk">'),
+        ('\\', ''),)
+
+    for from_str, to_str in replaces:
+        xml_str = xml_str.replace(from_str, to_str)
+
+    if not xml_str.endswith('</xml>'):
+        xml_str += '</xml>'
+
+    return xml_str
 
 
 def process_jsonp(r):
@@ -128,3 +171,68 @@ def _to_unicode(text):
 def process_eqs(key, secret, setting):
     eqs = _cipher_eqs(key, secret, setting)
     return eqs
+
+
+def _get_suv():
+    return '='.join(['SUV', str(int(time.time()*1000000) + random.randint(0, 1000))])
+
+
+def get_cookies(source):
+    cookies = r.lrange('cookie:%s' % source, 0, -1)
+    if not cookies:
+        cookies = set_cookies(source)
+    cookie = random.choice(cookies)
+    return cookie
+
+
+def get_key(source, url=''):
+    key = r.get('key:%s' % source)
+    if not key:
+        key = set_key(source, url)
+    return key
+
+
+def set_cookies(source):
+    cookies = []
+    for i in xrange(10):
+
+        url = WEIXIN_COOKIE.format(
+            q=random.choice('abcdefghijklmnopqrstuvwxyz'))
+
+        # get SNUID
+        response = requests.request('GET', url=url)
+        time.sleep(10)
+        cookie = process_cookie(response.headers['set-cookie']['Cookie'])
+        cookies.append(cookie)
+
+        key, level, setting = process_key(response.content.decode('utf-8'))
+        r.set('key:%s' % source, (key, level, setting))
+
+    if cookies:
+        r.lpush('cookie:%s' % source, cookies)
+    return cookies
+
+
+def set_key(source, url=''):
+    url = url or 'http://weixin.sogou.com/'
+    response = requests.request(method='GET', url=url)
+    html = response.content.decode('utf-8')
+    key, level, setting = process_key(html)
+    r.set('key:%s' % source, (key, level, setting))
+
+
+def process_cookie(cookie):
+    l = _COOKIE_RE.findall(cookie)
+    l.append(_get_suv())
+    return {'Cookie': '; '.join(l)}
+
+
+def process_key(html):
+    pattern = (
+        r'SogouEncrypt.setKv\("(\w+)","(\d)"\)'
+        r'.*?'
+        r'SogouEncrypt.encryptquery\("(\w+)","(\w+)"\)'
+    )
+    m = re.findall(pattern, html, re.S)
+    key, level, secret, setting = m[0]
+    return key, level, setting
