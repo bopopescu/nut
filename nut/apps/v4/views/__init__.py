@@ -267,8 +267,8 @@ def selection(request):
         # if (selection.entity.tio)
         r = {
             'entity':selection.entity.v3_toDict(user_like_list=el),
-            # 'note':selection.entity.top_note.v3_toDict(),
-            'note': None
+            'note':selection.entity.top_note.v3_toDict(),
+            # 'note': None
         }
 
         res.append({
