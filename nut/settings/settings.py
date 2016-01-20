@@ -254,6 +254,7 @@ Avatar_Image_Path = 'avatar/'
 # CELERY_RESULT_SERIALIZER = 'json'
 
 CELERY_RESULT_BACKEND = "redis://10.0.2.125:6379/0"
+CELERY_IGNORE_RESULT = False
 BROKER_TRANSPORT = "librabbitmq"
 BROKER_HOST = "10.0.2.125"
 BROKER_USER = "raspberry"
@@ -321,8 +322,7 @@ INTERVAL_OF_SELECTION = 24
 WEIXIN_COOKIE = 'http://weixin.sogou.com/weixin?query={q}'
 WEIXIN_URL = 'http://weixin.sogou.com/gzhjs?cb=sogou.weixin.gzhcb&openid={id}&eqs={eqs}&ekv={ekv}&page=1&t={t}'
 WEIXIN_EXPIRES = 24*60*60 # 微信公众号缓存1天
-SOUGOU_USERNAME = 'asortafairytale'
 SOUGOU_PASSWORD = 'guoku1@#'
-SOUGOU_EMAIL = 'asortafairytale@fleckens.hu'
+SOUGOU_USERS = ('Waser1959@gustr.com', 'asortafairytale@fleckens.hu', 'Adisaid@jourrapide.com')
 
 CURRENCY_SYMBOLS = (u'$', u'￥')

@@ -6,6 +6,7 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DEBUG = True
 TESTING = len(sys.argv) > 0 and sys.argv[0].endswith('py.test')
 CELERY_ALWAYS_EAGER = True
+CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
 
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
@@ -87,8 +88,6 @@ INTERVAL_OF_SELECTION = 24
 IMAGE_HOST = 'http://127.0.0.1:8000/'
 LOCAL_IMG_DEBUG=True
 INTRANET_IMAGE_SERVER = 'http://127.0.0.1:8001/'
-LOCAL_IMG_DEBUG=True
-IMAGE_HOST = 'http://127.0.0.1:8000/'
 
 # mail
 MAIL_LIST_ADDR='test_edm'
