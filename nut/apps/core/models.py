@@ -394,6 +394,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return author_group
 
     def refresh_user_permission(self):
+        # TODO:  refresh user permission cache here
         pass
 
     def setAuthor(self, isAuthor):
@@ -404,10 +405,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             self.groups.remove(author_group)
 
         self.refresh_user_permission()
-
-
-
-
 
     def save(self, *args, **kwargs):
         #TODO  @huanghuang refactor following email related lines into a subroutine
@@ -436,6 +433,12 @@ class Authorized_User_Profile(BaseModel):
     author_website = models.CharField(max_length=1024, null=True, blank=True)
     weibo_id = models.CharField(max_length=255, null=True, blank=True)
     weibo_nick = models.CharField(max_length=255, null=True, blank=True)
+    personal_domain_name = models.CharField(max_length=64, null=True, blank=True)
+
+
+
+
+
 
 
 class User_Profile(BaseModel):
