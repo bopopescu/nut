@@ -1,4 +1,45 @@
 
+5. use CBV for user list 
+4. user list search
+3. baichuan recommendation 
+2. user set to author 
+1. a bookmark for youzhan's taobao product adding , not for web 
+   but put in doc anyway
+
+##action  
+
+need syncdb 
+
+
+2016-1-13 start 
+
+=================================
+=================================
+### merged to master 2016 － 1 － 12
+=================================
+=================================
+
+6. add home link in store2015 page 
+5. store2015 entity list display bug fix
+4. freeze entity liker won't display bug fix
+3. in guoku editor 
+   a. if article's change is not saved , user can not leave page without passthrough a confirmation dialog;
+   b. removeFormat button now working ok 
+   c. after past html , the style in other content won't be removed
+  
+2. fix register page word error (Have an Account? )
+1. fix user can not send verify mail , if user location is not in default list (app reged user)
+
+###action 
+### 翻译有更新
+  需要  compilemessages
+  需要重新启动 让翻译生效 
+
+=================================
+=================================
+### merged to master 2016 － 1 － 8
+=================================
+=================================
 
 3. fast click optimize for mobile browsers 
 2. m.guoku.com store2015 page , weixin browser , entity click to app download 
@@ -8,7 +49,9 @@
 
 =================================
 =================================
-### merged to master 2016 － 1 － 7 
+### merged to master 2016 － 1 － 7
+=================================
+=================================
 
 5. guoku assigned email , no verify , alert to change mail . 
 4. store 2015 front
@@ -28,12 +71,19 @@
     
     ALTER TABLE `core`.`core_search_history` 
     CHANGE COLUMN `key_words` `key_words` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL COMMENT '' ;
+
+    
+1 ： 果库Top 100 淘宝卖家    
     
 2015-12-30
 ===
     
 ---    
-
+=================================
+=================================
+### merged to master 2015-12-28
+=================================
+=================================
 
 
 
@@ -46,7 +96,7 @@
 =================================
 ### merged to master 2015-12-23
 =================================
-
+=================================
 
 7. user page side bar (not user index page side bar) , 
     disable user article link if user do not have article (done)

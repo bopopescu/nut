@@ -22,12 +22,15 @@ from apps.core.tasks.entity import fetch_image
 
 # for entity list view class
 from django.views.generic.list import ListView
+from django.views.generic import TemplateView, View
 from apps.core.mixins.views import SortMixin, FilterMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
 import requests
 
 # from django.utils import timezone
+from hashlib import md5
+log = getLogger('django')
 
 
 
@@ -65,24 +68,6 @@ class EntityListView(FilterMixin, ListView):
         return context
 
 # entity list view class end
-
-
-
-from hashlib import md5
-
-log = getLogger('django')
-
-#
-# class EntityListView(ListView):
-# model = Entity
-# template_name = 'management/entities/list.html'
-# context_object_name = "entities"
-#     paginate_by = 30
-#     http_method_names = [u'get',]
-#
-#     def get_queryset(self):
-#         page = self.request.GET.get('page', 1)
-#         status = self.request.GET.get('status', None)
 
 
 
@@ -319,9 +304,45 @@ def check_buy_link(request, bid):
         'setting': 'DOWNLOAD_DELAY=2',
         'item_id': b.origin_id,
     }
-    res = requests.post('http://10.0.2.48:6800/schedule.json', data=data)
+    res = requests.post('http://10.0.2.49:6800/schedule.json', data=data)
+    if res.status_code == 200:
     # return res.json()
-    return SuccessJsonResponse(data=res.json())
+        return SuccessJsonResponse(data=res.json())
+    else:
+        raise Http404
+
+class CheckBuyLinkView(View):
+
+    # http_method_names = ['GET']
+
+    def get_context_data(self, **kwargs):
+        try:
+            b = Buy_Link.objects.get(pk = self.bid)
+        except Buy_Link.DoesNotExist:
+            raise Http404
+
+        data = {
+            'project': 'default',
+            'spider': 'taobao',
+            'setting': 'DOWNLOAD_DELAY=2',
+            'item_id': b.origin_id,
+        }
+        res = requests.post('http://10.0.2.49:6800/schedule.json', data=data)
+        if res.status_code == 200:
+            return SuccessJsonResponse(data=res.json())
+        else:
+            raise Http404
+
+    def get(self, request, *args, **kwargs):
+        self.bid = kwargs.pop('bid', None)
+        assert self.bid is not None
+        return self.get_context_data(**kwargs)
+
+
+    def dispatch(self, request, *args, **kwargs):
+        return super(CheckBuyLinkView, self).dispatch(request, *args, **kwargs)
+
+
 
 # TODO:
 '''

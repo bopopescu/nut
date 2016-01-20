@@ -2,31 +2,29 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
+from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
 from apps.core.models import Event, Show_Editor_Recommendation, Editor_Recommendation
 from apps.management.forms.editor_recommendation import CreateEditorRecommendForms, EditEditorRecommendForms
 from apps.management.decorators import staff_only
-# from utils.authority import staff_only
+
+from django.views.generic import ListView
 
 from django.utils.log import getLogger
 log = getLogger('django')
 
 
-@login_required
-@staff_only
-def list(request, template='management/recommendation/list.html'):
 
-    _show_editor_recommendations = Show_Editor_Recommendation.objects.all()
-    _editor_recommendations = Editor_Recommendation.objects.all()
-    return render_to_response(
-        template,
-        {
-            'show_editor_recommendations':_show_editor_recommendations,
-            'editor_recommendations': _editor_recommendations,
-        },
-        context_instance=RequestContext(request)
-    )
+class RecommendListView(ListView):
+    template_name = 'management/recommendation/list.html'
+    model = Editor_Recommendation
+    # queryset = Editor_Recommendation.objects.all()
+
+    @method_decorator(login_required)
+    @method_decorator(staff_only)
+    def dispatch(self, request, *args, **kwargs):
+        return super(RecommendListView, self).dispatch(request, *args, **kwargs)
 
 
 @login_required
