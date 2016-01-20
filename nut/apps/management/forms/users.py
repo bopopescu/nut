@@ -1,8 +1,12 @@
+# -*- coding: utf-8 -*-
+import re
 from django import forms
 from django.forms import ModelForm ,BooleanField
 
 
 from apps.core.models import GKUser, Authorized_User_Profile
+
+
 
 class UserAuthorInfoForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -22,10 +26,33 @@ class UserAuthorInfoForm(ModelForm):
 
     def clean_personal_domain_name(self):
 
-        data = self.cleaned_data['personal_domain_name']
-        if len(data) < 5 or len(data) >15 :
+        person_domain = self.cleaned_data['personal_domain_name']
+
+        if len(person_domain) < 5 or len(person_domain) >15 :
             raise forms.ValidationError('personal domain length must between 5-15')
-        return data
+
+        if re.match(r"^[a-z][a-z0-9]{4,14}$", person_domain) is None:
+            raise forms.ValidationError('personal domain must be all english char or digit,and  NOT start with a digit')
+
+        try:
+            profile = Authorized_User_Profile.objects.get(personal_domain_name=person_domain, )
+        except Authorized_User_Profile.DoesNotExist as e:
+        #     ok here no duplicate; clean!!!!
+            return person_domain
+        except Authorized_User_Profile.MultipleObjectsReturned as e:
+        #     not good  , already has the same domain
+            raise forms.ValidationError('domain already exist !!! try another one')
+
+        # already have the domain in profile ,
+        #  is it the users currnet one?
+        if self.instance.personal_domain_name == person_domain:
+            # same as before , just ok and return
+            return person_domain
+        else:
+            # domain changed and collide with other's domain
+            raise forms.ValidationError('domain already exist!!! try another one')
+
+        return person_domain
 
 class UserAuthorSetForm(ModelForm):
     isAuthor = BooleanField(required=False)
