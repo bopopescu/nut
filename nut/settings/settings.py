@@ -14,6 +14,10 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
+from celery.schedules import crontab
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -255,6 +259,7 @@ Avatar_Image_Path = 'avatar/'
 
 CELERY_RESULT_BACKEND = "redis://10.0.2.125:6379/0"
 CELERY_IGNORE_RESULT = False
+CELERY_TIMEZONE = 'Asia/Shanghai'
 BROKER_TRANSPORT = "librabbitmq"
 BROKER_HOST = "10.0.2.125"
 BROKER_USER = "raspberry"
@@ -319,11 +324,14 @@ CONFIG_REDIS_DB = 1
 INTERVAL_OF_SELECTION = 24
 
 # fetch articles
-WEIXIN_COOKIE = 'http://weixin.sogou.com/weixin?query={q}'
-WEIXIN_URL = 'http://weixin.sogou.com/gzhjs?cb=sogou.weixin.gzhcb&openid={id}&eqs={eqs}&ekv={ekv}&page=1&t={t}'
-WEIXIN_EXPIRES = 24*60*60 # 微信公众号缓存1天
-SOUGOU_PASSWORD = 'guoku1@#'
-SOUGOU_USERS = ('Waser1959@gustr.com', 'asortafairytale@fleckens.hu', 'Adisaid@jourrapide.com')
+SOGOU_PASSWORD = 'guoku1@#'
+SOGOU_USERS = ('Waser1959@gustr.com', 'asortafairytale@fleckens.hu', 'Adisaid@jourrapide.com')
+CELERYBEAT_SCHEDULE = {
+    'crawl_articles': {
+        'task': 'crawl_sogou_articles',
+        'schedule': crontab(minute=10, hour=1)
+    }
+}
 
 CURRENCY_SYMBOLS = (u'$', u'￥')
 

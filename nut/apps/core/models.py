@@ -322,7 +322,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         self.is_admin = True
         self.save()
 
-
     def v3_toDict(self, visitor=None):
         key = "user:v3:%s" % self.id
         res = cache.get(key)
@@ -405,10 +404,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
         self.refresh_user_permission()
 
-
-
-
-
     def save(self, *args, **kwargs):
         #TODO  @huanghuang refactor following email related lines into a subroutine
         #
@@ -432,6 +427,7 @@ class Authorized_User_Profile(BaseModel):
     # see  日常开发文档－》授权图文用户
     weixin_id = models.CharField(max_length=255, null=True, blank=True)
     weixin_nick = models.CharField(max_length=255, null=True, blank=True)
+    weixin_openid = models.CharField(max_length=255, null=True, blank=True)
     weixin_qrcode_img = models.CharField(max_length=255, null=True, blank=True)
     author_website = models.CharField(max_length=1024, null=True, blank=True)
     weibo_id = models.CharField(max_length=255, null=True, blank=True)

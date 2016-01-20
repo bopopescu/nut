@@ -1,21 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+
 import json
 import os
 import random
 import sys
-from urlparse import urljoin, urlparse
-
 import requests
-from requests.exceptions import ReadTimeout, ConnectionError
 
-from apps.fetch.article import RequestsTask
+from apps.fetch.article import RequestsTask, Retry
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_judy'
 
+from urlparse import urljoin, urlparse
 from faker import Faker
 from django.conf import settings
 from celery.task import task
@@ -24,34 +24,32 @@ from django.utils.log import getLogger
 from time import sleep
 from datetime import datetime
 from bs4 import BeautifulSoup
-IMAGE_DIR = os.path.join(settings.BASE_DIR, 'images')
-print IMAGE_DIR
+from requests.exceptions import ReadTimeout, ConnectionError
 
-from apps.core.models import Article, GKUser, Media
-from apps.fetch.common import clean_xml
+from apps.core.models import Article, Media, Authorized_User_Profile
+from apps.fetch.common import clean_xml, queryset_iterator
 
 
 faker = Faker()
+IMAGE_DIR = os.path.join(settings.BASE_DIR, 'images')
+print IMAGE_DIR
 search_api = 'http://weixin.sogou.com/weixinjs'
 article_list_api = 'http://weixin.sogou.com/gzhjs'
 login_url = 'https://account.sogou.com/web/login'
 account_url = 'https://account.sogou.com/web/userinfo/getuserinfo'
-FETCH_INTERVAL = 10
+FETCH_INTERVAL = 1
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
 
 
-raise TypeError
-
 class WeiXinClient(requests.Session):
-    def __init__(self, format_json=True):
+    def __init__(self):
         super(WeiXinClient, self).__init__()
         self._ext = None
         self.login_url = 'https://account.sogou.com/web/login'
         self.logout_url = 'https://account.sogou.com/web/logout_js?client_id=2006'
         self.account_url = 'https://account.sogou.com/web/userinfo/getuserinfo'
         self.search_api_url = 'http://weixin.sogou.com/weixinjs'
-        self.format_json = format_json
         self._headers = ''
 
     def request(self, method, url,
@@ -69,7 +67,8 @@ class WeiXinClient(requests.Session):
                 verify=None,
                 cert=None,
                 json=None,
-                ext=False):
+                ext=False,
+                format_json=False):
         if ext:
             params['ext'] = self.ext
         try:
@@ -79,28 +78,30 @@ class WeiXinClient(requests.Session):
                                                      proxies, hooks, stream, verify,
                                                      cert, json)
         except ConnectionError:
-            raise FetchError
+            raise Retry
         except ReadTimeout:
-            raise FetchError
-        if not self.cookies:
-            self.login()
+            raise Retry
         if stream:
             return resp
+        if not self.cookies:
+            self.login()
         result = resp.content.decode('utf-8')
         result = result.rstrip('\n')
         if result.find(u'当前请求已过期') >= 0:
             self.login()
             self.get_ext()
-            raise FetchError
+            log.warning(u'ext不正确. url: %s', url)
+            raise Retry
         elif result.find(u'您的访问过于频繁') >= 0:
+            log.warning(u'访问的过于频繁. url: %s', url)
             self.logout()
             self.login()
-            raise FetchError
-        if self.format_json:
+            raise Retry(7200)
+        if format_json:
             result = self.json_response(resp)
             if 'code' in result and result['code'] == "needlogin":
                 self.login()
-                raise FetchError
+                raise Retry
         sleep(FETCH_INTERVAL)
         return result
 
@@ -119,8 +120,8 @@ class WeiXinClient(requests.Session):
         self._ext = account_xml.ext.string
 
     def login(self):
-        username = random.choice(settings.SOUGOU_USERS)
-        password = settings.SOUGOU_PASSWORD
+        username = random.choice(settings.SOGOU_USERS)
+        password = settings.SOGOU_PASSWORD
         headers = {
             'Referer': 'http://news.sogou.com/?p=40030300&kw=',
             'Origin': 'http://news.sogou.com',
@@ -138,8 +139,7 @@ class WeiXinClient(requests.Session):
                     client_id='2006',
                     xd='http://news.sogou.com/jump.htm',
                     )
-        self.format_json = False
-        resp = self.request('POST',
+        self.request('POST',
                      self.login_url, data=data, headers=headers)
 
     @classmethod
@@ -159,80 +159,61 @@ class WeiXinClient(requests.Session):
         self.get(self.logout_url)
 
 
-class FetchError(Exception):
-    def __init__(self):
-        self.message = 'Fetch error, need to login or get new token.'
-
-
 weixin_client = WeiXinClient()
 
 
-def crawl_we_chat_articles():
-    weixin_id_list = {1: {'weixin_id': 'shenyebagua818', 'id': 1},
-                      2: {'weixin_id': 'cctvnewscenter', 'id': 2},
-                      3: {'weixin_id': 'bb2b2bb', 'id': 3},
-                      4: {'weixin_id': 'a529597', 'id': 4},
-                      5: {'weixin_id': 'woshitongdao', 'id': 5},
-                      6: {'weixin_id': 'vicechina', 'id': 6},
-                      }
-    for item in weixin_id_list.items():
-        get_article_list(item[1])
+@task(base=RequestsTask, name='crawl_sogou_articles')
+def crawl_articles():
+    all_authorized_user = Authorized_User_Profile.objects.\
+        filter(weixin_id__isnull=False)
+    for user in queryset_iterator(all_authorized_user):
+        get_user_articles.delay(user)
 
 
-def get_article_list(gk_user):
-    print '> start to fetch user: %s.' % gk_user['weixin_id']
-    # if gk_user.open_id:
-    if 'open_id' in gk_user and gk_user['open_id']:
-        # open_id = gk_user.open_id
-        open_id = gk_user['open_id']
+@task(base=RequestsTask, name='get_user_articles')
+def get_user_articles(gk_user):
+    if gk_user.weixin_openid:
+        open_id = gk_user.open_id
     else:
-        open_id = get_open_id(gk_user['weixin_id'])
-        # gk_user.open_id = open_id
-        gk_user['open_id'] = open_id
+        open_id = get_open_id(gk_user.weixin_id)
+        gk_user.open_id = open_id
+        gk_user.save()
 
+    # get total pages number first
     total_pages = get_list_total_pages(open_id)
+    print '> Start to crawl articles of %s. Total pages %d.' % \
+          (gk_user.weixin_id, total_pages)
     for page in xrange(1, total_pages + 1):
-        _get_article_list.delay(open_id, gk_user, page)
+        fetch_article_list.delay(gk_user, page)
 
 
-@task(base=RequestsTask)
-def _get_article_list(open_id, gk_user, page=1):
-    # 合并后不需要再传open_id,而是从gk_user里取.
-    print '    page: %s' % page
-    params = {'openid': open_id, 'page': page}
-    try:
-        weixin_client.format_json = True
-        response = weixin_client.request("GET", article_list_api,
-                                         params=params, ext=True)
-        article_items = response['items']
-        for article_item in article_items:
-            get_article(article_item, gk_user)
-
-    except FetchError, e:
-        _get_article_list.retry(exc=e, countdown=30)
-        # _get_article_list.retry(xargs={'open_id': open_id,
-        #                                'gk_user': gk_user,
-        #                                'page': page},
-        #                         exc=e, countdown=30)
+@task(base=RequestsTask, name='fetch_article_list')
+def fetch_article_list(gk_user, page=1):
+    params = {'openid': gk_user.open_id, 'page': page}
+    response = weixin_client.request("GET", article_list_api,
+                                     params=params,
+                                     ext=True,
+                                     format_json=True)
+    article_items = response['items']
+    for article_item in article_items:
+        get_article(article_item, gk_user)
 
 
 def get_article(article_item, gk_user):
     article_item_xml = clean_xml(article_item)
     article_item_xml = BeautifulSoup(article_item_xml, 'xml')
-    gkuser = GKUser.objects.get(pk=gk_user['id'])
     cover = article_item_xml.imglink.string
     if cover:
-        image_result = fetch_article_image.delay(cover)
+        image_result = fetch_article_images.delay(cover)
         cover = image_result.get()
     article_link = article_item_xml.url.string
     article_data = {'cover': cover}
-    crawl_article.delay(article_link, gkuser, article_data)
+    crawl_article.delay(article_link, gk_user, article_data)
 
 
-@task(base=RequestsTask)
-def crawl_article(article_link, gkuser, article_data):
+@task(base=RequestsTask, name='crawl_article')
+def crawl_article(article_link, gk_user, article_data):
     try:
-        weixin_client.format_json = False
         url = urljoin('http://weixin.sogou.com/', article_link)
         html_source = weixin_client.request('GET', url=url)
         article_soup = BeautifulSoup(html_source)
@@ -258,7 +239,7 @@ def crawl_article(article_link, gkuser, article_data):
         article_info = dict(title=title,
                             content=content,
                             created_datetime=published_time,
-                            creator=gkuser,
+                            creator=gk_user.user,
                             publish=Article.published
                             )
         article_info.update(article_data)
@@ -266,12 +247,6 @@ def crawl_article(article_link, gkuser, article_data):
             article_info['cover'] = chief_image
         article = Article(**article_info)
         article.save()
-    except FetchError, e:
-        # crawl_article.retry(xargs={'article_link': article_link,
-        #                            'gkuer':gkuser,
-        #                            'article_data':article_data},
-        #                         exc=e, countdown=30)
-        crawl_article.retry(exc=e, countdown=30)
     except BaseException, e:
         log.error(e.message)
 
@@ -288,8 +263,7 @@ def parse_article_content(content):
             if img_src:
                 img_src_list.append(img_src)
 
-        # fetch_images = group(fetch_article_image.s(img_src_list))
-        fetch_images = group(fetch_article_image.s(img_src)
+        fetch_images = group(fetch_article_images.s(img_src)
                              for img_src in img_src_list)
         image_urls = fetch_images.delay().get()
         for img_tag, img_url in zip(image_tags, image_urls):
@@ -301,51 +275,50 @@ def parse_article_content(content):
 
 
 def get_open_id(weixin_id):
-    total_pages, open_id = _get_open_id(weixin_id)
+    result = fetch_open_id.delay(weixin_id)
+    total_pages, open_id = result.get()
     if not open_id:
         for page in xrange(2, total_pages + 1):
-            total_pages, open_id = _get_open_id(weixin_id)
+            result = fetch_open_id.delay(weixin_id)
+            total_pages, open_id = result.get()
             if open_id:
                 break
     return open_id
 
 
-def _get_open_id(weixin_id, page=1):
+@task(base=RequestsTask, name='fetch_open_id')
+def fetch_open_id(weixin_id, page=1):
     open_id = None
+    total_pages = 1
     params = dict(type='1', ie='utf8', query=weixin_id, page=page)
     response = weixin_client.request('GET',
-                                     url=search_api, params=params)
+                                     url=search_api,
+                                     params=params,
+                                     format_json=True)
     for item in response['items']:
         item_xml = clean_xml(item)
         item_xml = BeautifulSoup(item_xml, 'xml')
         if item_xml.weixinhao.string == weixin_id:
             open_id = item_xml.id.string
             break
-    return open_id
-    # except FetchError, e:
-        # _get_open_id.retry(xargs={'weixin_id': weixin_id, 'page': page},
-        #                         exc=e, countdown=30)
-        # _get_open_id.retry(exc=e, countdown=30)
+    if page == 1:
+        total_pages = int(response['totalPages'])
+    return open_id, total_pages
 
 
 def get_list_total_pages(open_id):
     params = {'openid': open_id}
-    try:
-        weixin_client.format_json = True
-        response = weixin_client.request("GET", article_list_api,
-                                         params=params, ext=True)
-        total_pages = int(response['totalPages'])
-        return total_pages
-    except FetchError:
-        return get_list_total_pages(open_id)
+    response = weixin_client.request("GET", article_list_api,
+                                     params=params,
+                                     ext=True,
+                                     format_json=True)
+    total_pages = int(response['totalPages'])
+    return total_pages
 
 
-from apps.core.tasks import BaseTask
-from apps.core.utils.image import HandleImage
-
-
-@task(base=RequestsTask)
-def fetch_article_image(image_url):
+@task(base=RequestsTask, name='fetch_article_images')
+def fetch_article_images(image_url):
+    from apps.core.utils.image import HandleImage
     image_url = fix_image_url(image_url)
     r = requests.get(image_url, stream=True)
     image_full_name = ''
@@ -376,4 +349,4 @@ def fix_image_url(image_url):
 
 
 if __name__ == '__main__':
-    crawl_we_chat_articles()
+    crawl_articles.delay()

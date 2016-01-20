@@ -1,3 +1,9 @@
+##action
+    ALTER TABLE `core`.`core_authorized_user_profile` 
+    ADD COLUMN `weixin_openid` VARCHAR(255) NULL COMMENT '' AFTER `weibo_nick`;
+
+---
+
 
 5. use CBV for user list 
 4. user list search
