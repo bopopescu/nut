@@ -1,5 +1,19 @@
 
-1. show baichuan recommend
+
+3. Entity 's related Selection Article 
+
+   Entity has a property: 
+                selected_related_articles
+   contains all Entity's related Selection_Article  (NOT Article!)
+                published before called time
+
+2. add tags_string  property for Article model
+   
+   Article.tags_string 
+      : get Articles Tag joined into a string by ',' 
+   
+   
+1. still hide baichuan recommend
 
 =================================
 =================================
