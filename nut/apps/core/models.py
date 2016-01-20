@@ -1354,6 +1354,10 @@ class Article(BaseModel):
         return _tag_list
 
     @property
+    def tags_string(self):
+        return ','.join(self.tag_list)
+
+    @property
     def bleached_content(self):
         cover_html = '<img class="article-cover img-responsive" src="%s">' % self.cover_url
         return cover_html + contentBleacher(self.content)
