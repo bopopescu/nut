@@ -4,7 +4,7 @@ import json
 import os
 import random
 import sys
-from urlparse import urljoin, urlsplit, urlparse
+from urlparse import urljoin, urlparse
 
 import requests
 from requests.exceptions import ReadTimeout, ConnectionError
@@ -24,6 +24,8 @@ from django.utils.log import getLogger
 from time import sleep
 from datetime import datetime
 from bs4 import BeautifulSoup
+IMAGE_DIR = os.path.join(settings.BASE_DIR, 'images')
+print IMAGE_DIR
 
 from apps.core.models import Article, GKUser, Media
 from apps.fetch.common import clean_xml
@@ -38,6 +40,8 @@ FETCH_INTERVAL = 10
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
 
+
+raise TypeError
 
 class WeiXinClient(requests.Session):
     def __init__(self, format_json=True):
@@ -347,7 +351,7 @@ def fetch_article_image(image_url):
     image_full_name = ''
     try:
         image = HandleImage(r.raw)
-        image_name = image.save()
+        image_name = image.save(path=IMAGE_DIR)
         image_full_name = "%s%s" % (image_host, image_name)
         Media.objects.create(
             file_path=image_name,
