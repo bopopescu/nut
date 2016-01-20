@@ -6,7 +6,7 @@
  * Copyright 2013-2015 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
- * Date: 2015-07-28T06:50Z
+ * Date: 2016-01-15T07:44Z
  */
 (function (factory) {
   /* global define */
@@ -3356,23 +3356,26 @@
 
     };
     Guoku.prototype = {
-        clearHtml : function($editable){
-            dom.walkChildren($editable[0],this._removeNodeStyle);
-            this.walkChildrenSkipGuoku($editable[0], this._removeNodeClass)
+
+        clearHtml: function(htmlStr){
+           var el = $('<div>'+htmlStr+'</div>')[0];
+
+            dom.walkChildren(el,this.clearNode.bind(this));
+            return  $(el).html();
         },
+
+        clearNode: function(node){
+            this._removeNodeStyle(node);
+            this._removeNodeClass(node);
+        },
+
+        //clearHtml : function($editable){
+        //
+        //    dom.walkChildren($editable[0],this._removeNodeStyle);
+        //    this.walkChildrenSkipGuoku($editable[0], this._removeNodeClass)
+        //},
         _removeNodeStyle: function(node){
-            if(dom.isImg(node)){
-                var float = $(node).css('float');
-                if(float){
-                    $(node).removeAttr('style')
-                           .css({'float':float});
-                }
-
-            }else{
-
-                jQuery(node).removeAttr('style');
-            }
-
+             jQuery(node).removeAttr('style');
         },
         _removeNodeClass: function(node){
             jQuery(node).removeAttr('class');
@@ -3679,9 +3682,7 @@
       this[commands[idx]] = (function (sCmd) {
         return function ($editable, value) {
           beforeCommand($editable);
-          if (sCmd == 'removeFormat'){
-              guoku.clearHtml($editable);
-          }
+
           document.execCommand(sCmd, false, value);
           afterCommand($editable, true);
         };
@@ -5270,11 +5271,23 @@
             }
 
             // clear html on each past,
-            window.setTimeout(function(){
-                guoku.clearHtml($editable);
-            },16);
+            //window.setTimeout(function(){
+            //    guoku.clearHtml($editable);
+            //},16);
+            var html = clipboardData.getData('text/html');
+                html = guoku.clearHtml(html);
+
+            //var text = clipboardData.getData('text');
+
+            handler.invoke('editor.beforeCommand', $editable);
+
+            var contents = range.create().pasteHTML(html);
+            range.createFromNodeAfter(list.last(contents)).select();
+            //var textNode = range.create().insertNode(dom.createText(text));
+            //    range.create(textNode, dom.nodeLength(textNode)).select();
 
             handler.invoke('editor.afterCommand', $editable);
+            return false;
         };
     };
 

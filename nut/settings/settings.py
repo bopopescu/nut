@@ -75,7 +75,7 @@ HAYSTACK_CONNECTIONS = {
         # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
     }
 }
-
+# HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 HAYSTACK_DEFAULT_OPERATOR = 'AND'
 
 MIDDLEWARE_CLASSES = (
@@ -113,7 +113,7 @@ CACHES = {
         "LOCATION": [
             "redis://10.0.2.46:6379/1",
             "redis://10.0.2.47:6379/1",
-            "redis://10.0.2.49:6379/1",
+            "redis://10.0.2.115:6379/1",
         ],
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.ShardClient",
@@ -326,3 +326,6 @@ SOUGOU_PASSWORD = 'guoku1@#'
 SOUGOU_USERS = ('Waser1959@gustr.com', 'asortafairytale@fleckens.hu', 'Adisaid@jourrapide.com')
 
 CURRENCY_SYMBOLS = (u'$', u'￥')
+
+
+TAOBAO_RECOMMEND_URL = 'http://10.0.2.115:10050/recommend'

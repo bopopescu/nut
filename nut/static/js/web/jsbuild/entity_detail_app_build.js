@@ -2411,6 +2411,9 @@ define('views/base/ListView',['Backbone','underscore'],
             collection.each(this.renderItem.bind(this));
         },
         renderItem: function(model){
+            if(_.isNull(model)){
+                console.warn('can not render template with null model');
+            }
             var itemViewClass = this.itemView;
             if(_.isUndefined(itemViewClass)){
                 throw Error('can not find itemView Class');
@@ -2473,7 +2476,15 @@ define('views/base/ItemView',['Backbone','libs/underscore'], function(
     var ItemView = Backbone.View.extend({
 
         render : function(){
-            this.$el.html(this.template(this.model.toJSON()));
+            if(this.model) {
+                //prepare for dirty data
+                try {
+                    this.$el.html(this.template(this.model.toJSON()));
+                } catch(e){
+                    console.log(e);
+                }
+
+            }
             return this;
         }
     });
@@ -2499,6 +2510,7 @@ define('views/Entity/UserItemView',['views/base/ItemView', 'jquery', 'underscore
         },
         sizingAvatar: function(){
             var user = this.model.get('user');
+            if (!user) return ;
             var avatar = user['avatar_url'];
             if (/imgcdn.guoku.com/.test(avatar) && (!this.model.get('avatar_resized'))){
                 avatar = avatar.replace('/avatar','/avatar/50');
@@ -2531,7 +2543,7 @@ define('subapp/entity/liker',[
         {
 
         init: function(entity){
-            this.entityModel = entity || this.getEntityModel;
+            this.entityModel = entity || this.getEntityModel();
             entity.on('sync',this.entitySync.bind(this));
             entity.fetch();
             //this.likerViewMobile  = new EntityLikerViewMobile({model: this.likerCollection});
@@ -2583,6 +2595,92 @@ define('subapp/entity/liker',[
 
     return EntityLikerController;
 });
+define('subapp/entity/baichuan',['underscore','jquery', 'libs/Class'], function(
+    _,
+    $,
+    Class
+){
+    var BaichuanManager = Class.extend({
+        init: function(){
+            this.template = this.get_template();
+            this.entityListWrapper = $('#baichuan_list');
+            this.retry = false ;
+            this.initLoadEvent();
+        },
+        get_template: function(){
+            return _.template($('#baichuan_entity_list_template').html());
+        },
+        initLoadEvent: function(){
+            window.setTimeout(this.loadBaichuanProducts.bind(this),500)
+
+        },
+        loadBaichuanProducts: function(url){
+
+            var url = url || this.getRequestUrl();
+            $.when($.ajax({
+                method: 'GET',
+                url: url,
+            }))
+                .then(this.getSuccess.bind(this), this.getFail.bind(this));
+            console.log('in load baichuan products');
+        },
+
+        getSuccess: function(data){
+            console.log(data);
+            var entityList = data['result'];
+            if ((!entityList || !entityList.length) && !this.retry){
+                  this.retry = true;
+                  var url = this.getRequestUrl(true);
+                  this.loadBaichuanProducts(url);
+
+            }else{
+                 this.renderList(entityList);
+            }
+
+        },
+
+        renderList: function(elist){
+            if (!elist || !elist.length){
+                this.hideGuessTitle();
+                return ;
+            }else{
+                this.entityListWrapper
+                .html(this.template({list: elist}));
+            }
+
+        },
+
+        hideGuessTitle: function(){
+            $('#baichuan_guess_title').hide();
+        },
+        getFail: function(data){
+            console.log(data);
+        },
+
+        getRequestUrl: function(isFromTitle){
+            //current_entity_id, source, title already bootstraped in page
+            //var current_entity_id = current_entity_id;
+            //var current_entity_origin_source = current_entity_origin_source;
+            //var current_entity_title = current_entity_title;
+
+            if (this.isTaobaoEntity() && !isFromTitle){
+                url = '/entity/taobao/recommendation/?keyword='+current_entity_taobao_id+'&count=9';
+            }else{
+                url = '/entity/taobao/recommendation/?keyword='+current_entity_title+'&count=9';
+            }
+
+            return url ;
+
+        },
+        isTaobaoEntity: function(){
+            return /taobao/.test(current_entity_origin_source)
+                   || /tmall/.test(current_entity_origin_source)
+        }
+    });
+
+    return BaichuanManager;
+
+});
 require([
         'libs/polyfills',
         'jquery',
@@ -2598,6 +2696,8 @@ require([
         // entity liker part
         'models/Entity',
         'subapp/entity/liker',
+        'subapp/entity/baichuan',
+
         'libs/csrf'
 
     ],
@@ -2613,7 +2713,8 @@ require([
               EntityImageHandler,
               //entity liker part
               EntityModel,
-              LikerAppController
+              LikerAppController,
+              BaichuanManager
 
 
     ){
@@ -2627,6 +2728,8 @@ require([
         var entityReport = new EntityReport();
         var userNote = new UserNote();
         var imgHandler = new EntityImageHandler();
+
+        var baichuanManager = new BaichuanManager();
 
         /// begin entity liker app
         if (_.isUndefined(current_entity_id)){

@@ -71,6 +71,11 @@ def removeDebugToolBar(theList):
 
 INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
 
+INSTALLED_APPS +=(
+        'django.contrib.sessions',
+        'django.contrib.admin'
+)
+
 #-------------------------debug end --------------------
 
 

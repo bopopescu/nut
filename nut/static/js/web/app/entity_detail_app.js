@@ -13,6 +13,8 @@ require([
         // entity liker part
         'models/Entity',
         'subapp/entity/liker',
+        'subapp/entity/baichuan',
+
         'libs/csrf'
 
     ],
@@ -28,7 +30,8 @@ require([
               EntityImageHandler,
               //entity liker part
               EntityModel,
-              LikerAppController
+              LikerAppController,
+              BaichuanManager
 
 
     ){
@@ -42,6 +45,8 @@ require([
         var entityReport = new EntityReport();
         var userNote = new UserNote();
         var imgHandler = new EntityImageHandler();
+
+        var baichuanManager = new BaichuanManager();
 
         /// begin entity liker app
         if (_.isUndefined(current_entity_id)){

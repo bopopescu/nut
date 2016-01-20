@@ -1,0 +1,57 @@
+{% extends 'management/management_base.html' %}
+{% load staticfiles i18n %}
+{% load guoku %}
+
+
+{% block content %}
+    <section class="content-header">
+        <h1>
+            {{ keyword }}
+            <small>{% trans 'taobao recommendation' %}</small>
+        </h1>
+    </section>
+
+    <section class="content">
+        <div class="row">
+           <div class="col-xs-12">
+               <div class="box box-info">
+                   <div class="box-header">
+                        <ul class="nav nav-pills" role="tablist">
+                            <li><a class="btn btn-primary" href="{% url 'tb_recommendation' %}?keyword={{ keyword }}&mall=true">{% trans 'tmall' %}</a></li>
+                        </ul>
+                   </div>
+
+                   <div class="box-body table-responsive">
+                       <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>itemId</th>
+                                    <th>{% trans 'name' %}</th>
+                                    <th>{% trans 'images' %}</th>
+{#                                    <th>{% trans 'link' %}</th>#}
+                                    <th>{% trans 'price' %}</th>
+                                    <th>{% trans 'promotion price' %}</th>
+                                    <th>{% trans 'operation' %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in object_list %}
+                                    <tr>
+                                        <td>{{ row.itemId }}</td>
+                                        <td>{{ row.itemName }}</td>
+                                        <td><a href="{{ row.url }}" target="_blank"> <img src="{{ row.pic }}" class="img-responsive" width="240" height="240"></a></td>
+{#                                        <td><a href="{{ row.url }}" target="_blank">{% trans 'goto' %}</a></td>#}
+                                        <td>{{ row.price }}</td>
+                                        <td>{{ row.promotionPrice }}</td>
+                                        <td><a class="btn btn-primary" href="http://admin.guoku.com/management/entity/new/?url=https:{{ row.url|urlencode }}">{% trans 'add' %}</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                       </table>
+                   </div>
+               </div>
+           </div>
+        </div>
+    </section>
+
+{% endblock %}
