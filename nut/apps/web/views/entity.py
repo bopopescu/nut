@@ -57,8 +57,6 @@ class EntityLikersView(EntityDetailMixin,ListView):
         return context
 
 
-
-
 class EntityCard(AjaxResponseMixin, JSONResponseMixin, EntityDetailMixin, DetailView):
     template_name = 'web/entity/entity_card.html'
 
@@ -362,7 +360,6 @@ def entity_create(request, template="web/entity/new.html"):
         # user = request.user
         # if user.is_active < 1:
         #     return HttpResponse("你妹")
-
 
         _forms = CreateEntityForm(request=request, data=request.POST)
         if _forms.is_valid():

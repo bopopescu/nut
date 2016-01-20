@@ -1275,7 +1275,6 @@ class Article(BaseModel):
         except Exception:
             cache.set(key, self.digs.count())
 
-
     def __unicode__(self):
         return self.title
 
@@ -1296,7 +1295,6 @@ class Article(BaseModel):
     def tag_list(self):
         _tag_list = Content_Tags.objects.article_tags(self.id)
         return _tag_list
-
 
     @property
     def bleached_content(self):

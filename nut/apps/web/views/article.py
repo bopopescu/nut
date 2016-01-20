@@ -144,12 +144,11 @@ class NewSelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
         return context
 
 
-
 class EditorDraftList(UserPassesTestMixin,ListView):
     def test_func(self, user):
         if not hasattr(user, 'can_write'):
             return False
-        return  user.can_write
+        return user.can_write
 
     def handle_no_permission(self, request):
         return redirect('web_selection')
@@ -159,6 +158,7 @@ class EditorDraftList(UserPassesTestMixin,ListView):
     paginate_by = 5
     paginator_class = Jpaginator
     context_object_name = 'articles'
+
     def get_queryset(self):
         return Article.objects.filter(creator=self.request.user,publish=Article.draft)
 
@@ -260,8 +260,6 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
     def get_queryset(self):
         return Article.objects.filter(publish=Article.published)
 
-
-
     def get_object(self, queryset=None):
         pk = self.kwargs.get(self.pk_url_kwarg, None)
         queryset = self.get_queryset()
@@ -274,7 +272,6 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
             return None
         return obj
 
-
     def get_context_data(self,**kwargs):
         context = super(ArticleDetail, self).get_context_data(**kwargs)
 
@@ -282,10 +279,10 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
         context['from_app'] = self.request.GET.get('from','normal') == 'app'
         context['is_article_detail'] = True
         context['is_article_creator'] = self.request.user == self.object.creator
-        context['can_show_edit'] =  (not article.is_selection) and (self.request.user == article.creator)
+        context['can_show_edit'] = (not article.is_selection) and (self.request.user == article.creator)
 
         dig_status = 0
-        if  self.request.user.is_authenticated():
+        if self.request.user.is_authenticated():
             try:
                 article.digs.get(user=self.request.user)
                 dig_status = 1
@@ -293,10 +290,7 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
                 pass
 
         context['dig_status'] = dig_status
-
         context = add_side_bar_context_data(context)
-
-
         return context
 
     def get_ajax(self, request, *args, **kwargs):
