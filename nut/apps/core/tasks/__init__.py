@@ -1,3 +1,4 @@
+import requests
 from celery.utils.log import get_task_logger
 from celery import Task
 
@@ -18,6 +19,12 @@ class BaseTask(Task):
     compression = 'gzip'
     send_error_emails = True
     default_retry_delay = 20
+
+from apps.fetch.article.weixin import crawl_articles
+from apps.fetch.article.weixin import fetch_article_list
+from apps.fetch.article.weixin import crawl_article
+from apps.fetch.article.weixin import fetch_open_id
+from apps.fetch.article.weixin import fetch_article_images
 
 
 from apps.core.tasks.account import fetch_avatar, update_token
