@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm ,BooleanField
 
 
-from apps.core.models import GKUser, Authorized_User_Profile,
+from apps.core.models import GKUser, Authorized_User_Profile
 
 class UserAuthorInfoForm(ModelForm):
     def __init__(self, *args, **kwargs):
