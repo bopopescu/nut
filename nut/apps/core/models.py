@@ -1304,6 +1304,7 @@ class Article(BaseModel):
     def get_dig_key(self):
         return 'article:dig:%d' % self.pk
 
+
     @property
     def dig_count(self):
         key = self.get_dig_key()
