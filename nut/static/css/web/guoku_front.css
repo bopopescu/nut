@@ -3489,7 +3489,7 @@ body.compact-body {
   .guoku-content.user-page .content-panel .note-cell {
     margin-bottom: 10px;
   }
-  #main_article .article-wrapper img {
+  #main_article .article-wrapper .content-wrapper img {
     max-width: 110%;
     width: 110%;
     position: relative;
@@ -3659,6 +3659,6 @@ body .for-mobile {
   left: 3px;
 }
 .gk_test {
-  color: black;
+  color: red;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
