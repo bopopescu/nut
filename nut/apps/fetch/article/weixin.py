@@ -168,34 +168,25 @@ class WeiXinClient(requests.Session):
     def logout(self):
         self.get(self.logout_url)
 weixin_client = WeiXinClient()
+weixin_client.login()
 
 
-@task(base=RequestsTask, naem='sogou.crawl_articles')
 def crawl_articles():
     all_authorized_user = Authorized_User_Profile.objects.\
         filter(weixin_id__isnull=False)
     for user in queryset_iterator(all_authorized_user):
-        get_user_articles.delay(user)
+        get_user_articles(user)
 
 
-@task(base=RequestsTask, naem='sogou.get_user_articles')
 def get_user_articles(gk_user):
-    if gk_user.weixin_openid:
-        open_id = gk_user.weixin_openid
-    else:
+    if not gk_user.weixin_openid:
         open_id = get_open_id(gk_user.weixin_id)
         gk_user.weixin_openid = open_id
         gk_user.save()
 
-    # get total pages number first
-    # total_pages = get_list_total_pages(open_id)
-    # print '> Start to crawl articles of %s. Total pages %d.' % \
-    #       (gk_user.weixin_id, total_pages)
-    # for page in xrange(1, total_pages + 1):
-    fetch_article_list.delay(gk_user)
+    fetch_article_list(gk_user)
 
 
-@task(base=RequestsTask, naem='sogou.fetch_article_list')
 def fetch_article_list(gk_user):
     page = 1
     total_pages = 1
@@ -239,20 +230,18 @@ def fetch_article_list(gk_user):
 def get_article(article_item, gk_user):
     cover = article_item.imglink.string
     if cover:
-        image_result = fetch_images.delay(fix_image_url(cover))
-        cover = image_result.get()
+        cover = fetch_images(fix_image_url(cover))
     article_link = article_item.url.string
     article_data = {'cover': cover}
-    crawl_article.delay(article_link, gk_user, article_data)
+    crawl_article(article_link, gk_user, article_data)
 
 
-@task(base=RequestsTask, naem='sogou.crawl_article')
 def crawl_article(article_link, gk_user, article_data):
     try:
         url = urljoin('http://weixin.sogou.com/', article_link)
         html_source = weixin_client.request('GET', url=url)
         article_soup = BeautifulSoup(html_source)
-        get_qr_code.delay(gk_user, article_soup)
+        get_qr_code(gk_user, article_soup)
 
         title = article_soup.select('h2.rich_media_title')[0].text
         published_time = article_soup.select('em#post-date')[0].text
@@ -288,9 +277,11 @@ def parse_article_content(content):
             if img_src:
                 img_src_list.append(fix_image_url(img_src))
 
-        fetch_image_group = group(fetch_images.s(img_src)
-                             for img_src in img_src_list)
-        image_urls = fetch_image_group.delay().get()
+        image_urls = []
+        for img_src in img_src_list:
+            image_url = fetch_images(img_src)
+            image_urls.append(image_url)
+
         for img_tag, img_url in zip(image_tags, image_urls):
             img_tag['src'] = img_url
             img_tag['data-src'] = img_url
@@ -300,20 +291,15 @@ def parse_article_content(content):
 
 
 def get_open_id(weixin_id):
-    json_result = fetch_open_id.delay(weixin_id)
-    open_id, total_pages = json_result.get()
-    # open_id, total_pages = fetch_open_id(weixin_id)
+    open_id, total_pages = fetch_open_id(weixin_id)
     if not open_id:
         for page in xrange(2, total_pages + 1):
-            json_result = fetch_open_id.delay(weixin_id)
-            open_id, total_pages = json_result.get()
-            # open_id, total_pages = fetch_open_id(weixin_id, page)
+            open_id, total_pages = fetch_open_id(weixin_id, page)
             if open_id:
                 break
     return open_id
 
 
-@task(base=RequestsTask, naem='sogou.fetch_open_id')
 def fetch_open_id(weixin_id, page=1):
     open_id = None
     total_pages = 1
@@ -333,17 +319,6 @@ def fetch_open_id(weixin_id, page=1):
     return open_id, total_pages
 
 
-def get_list_total_pages(open_id):
-    params = {'openid': open_id}
-    response = weixin_client.request("GET", article_list_api,
-                                     params=params,
-                                     ext=True,
-                                     format_json=True)
-    total_pages = int(response['totalPages'])
-    return total_pages
-
-
-@task(base=RequestsTask, naem='sogou.fetch_images')
 def fetch_images(image_url):
     from apps.core.utils.image import HandleImage
     r = weixin_client.request('GET',
@@ -365,7 +340,6 @@ def fetch_images(image_url):
     return image_full_name
 
 
-@task(base=RequestsTask, naem='sogou.get_qr_code')
 def get_qr_code(gk_user, article_soup):
     if not gk_user.weixin_qrcode_img:
         scripts = article_soup.select('script')
@@ -383,8 +357,7 @@ def get_qr_code(gk_user, article_soup):
         scene = random.randrange(10000001, 10000007)
         qr_code_url = 'http://mp.weixin.qq.com/mp/qrcode?scene=%s__biz=%s' %\
                       (scene, biz)
-        qr_code_result = fetch_images.delay(qr_code_url)
-        qr_code_image = qr_code_result.get()
+        qr_code_image = fetch_images(qr_code_url)
         gk_user.weixin_qrcode_img = qr_code_image
         gk_user.save()
 
@@ -401,5 +374,4 @@ def fix_image_url(image_url):
 
 
 if __name__ == '__main__':
-    from apps.fetch.article.weixin import crawl_articles
-    crawl_articles.delay()
+    crawl_articles()
