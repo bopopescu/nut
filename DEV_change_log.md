@@ -1,4 +1,4 @@
-
+4. add a field on authorized user profile 
 
 3. Entity 's related Selection Article 
 
@@ -12,8 +12,15 @@
    Article.tags_string 
       : get Articles Tag joined into a string by ',' 
    
-   
 1. still hide baichuan recommend
+
+
+##action
+
+ALTER TABLE `core`.`core_authorized_user_profile` 
+ADD COLUMN `personal_domain_name` VARCHAR(64) NULL DEFAULT NULL AFTER `weibo_nick`;
+
+
 
 =================================
 =================================
