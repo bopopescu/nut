@@ -314,7 +314,7 @@ JPUSH_SECRET = 'a0529d3efa544d1da51405b7'
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs','captcha.helpers.noise_dots',)
 CAPTCHA_LENGTH = 5
 # for debug server popular  category test
-DEFAULT_POPULAR_SCALE =  7
+DEFAULT_POPULAR_SCALE = 7
 
 # config of site in redis.
 CONFIG_REDIS_HOST = 'localhost'
@@ -325,14 +325,16 @@ INTERVAL_OF_SELECTION = 24
 
 # fetch articles
 SOGOU_PASSWORD = 'guoku1@#'
-SOGOU_USERS = ('Waser1959@gustr.com', 'asortafairytale@fleckens.hu', 'Adisaid@jourrapide.com')
-CELERYBEAT_SCHEDULE = {
-    'crawl_articles': {
-        'task': 'crawl_sogou_articles',
-        'schedule': crontab(minute=10, hour=1)
-    }
-}
+SOGOU_USERS = ('Waser1959@gustr.com', 'asortafairytale@fleckens.hu', 'Adisaid@jourrapide.com',
+               'Rathe1981@rhyta.com', 'Andurn@fleckens.hu','sanyuanmilk@fleckens.hu')
+# CELERYBEAT_SCHEDULE = {
+#     'crawl_articles': {
+#         'task': 'crawl_sogou_articles',
+#         'schedule': crontab(minute=10, hour=1)
+#     }
+# }
 
+FETCH_INTERVAL = 20
 CURRENCY_SYMBOLS = (u'$', u'￥')
 
 

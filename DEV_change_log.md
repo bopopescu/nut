@@ -1,6 +1,15 @@
 ##action
     ALTER TABLE `core`.`core_authorized_user_profile` 
     ADD COLUMN `weixin_openid` VARCHAR(255) NULL COMMENT '' AFTER `weibo_nick`;
+    
+    ./manage.py celery beat-loglevel=DEBUG  --settings="settings.dev_judy"
+
+    ALTER TABLE `core`.`core_article` 
+ADD COLUMN `get_user_articles` VARCHAR(255) NULL COMMENT '' AFTER `feed_read_count`;
+
+ALTER TABLE `core`.`core_article` 
+ADD COLUMN `origin_source` VARCHAR(255) NULL COMMENT '' AFTER `get_user_articles`;
+
 
 ---
 

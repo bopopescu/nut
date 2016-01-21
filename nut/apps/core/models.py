@@ -1289,6 +1289,7 @@ class Article(BaseModel):
     related_entities = models.ManyToManyField(Entity,
                                               related_name='related_articles')
 
+    origin_source = models.CharField(max_length=255, null=True, blank=True)
     objects = ArticleManager()
 
     class Meta:
