@@ -11,8 +11,10 @@
 {#                        </a>#}
 {#                    </div>#}
 {#                </div>#}
-                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 footer-part">
-                    <div class="list-wrapper">
+
+{#                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 footer-part">#}
+                <div class="col-xs-12 footer-part">
+                    <div class="list-wrapper list-wrapper-align-center">
                         <ul>
                             <li><a href="{% url 'web_about' %}" target="_blank">{% trans 'about' %}</a></li>
                             <li><a href="{% url 'web_jobs' %}" target="_blank">{% trans 'jobs' %}</a></li>
@@ -86,7 +88,7 @@
 {#                    </div>#}
                 </div>
             </div>
-            <div class="row footer-line foot-line-hidden">
+            <div class="row footer-line footer-line-hidden">
 
                 <div class="list-wrapper">
                         <ul id="flink_list">
@@ -100,14 +102,14 @@
 
             </div>
             <div class="row footer-bottom">
-                <div class="footer-bottom-left">
+                <div class="footer-bottom-left footer-bottom-left-show">
                     <ul>
                       <li>@ 果库 2015</li>
                       <li><a target="_blank" href="http://www.miibeian.gov.cn/">京ICP备14054029号</a></li>
                       <li>京公网安备11010502019958</li>
                     </ul>
                 </div>
-                <div class="footer-bottom-right">
+                <div class="footer-bottom-right footer-bottom-right-control">
                     <ul class="logo-list">
                         <li><a class="font-logo-link logo-weibo" href="http://weibo.com/guoku" target="_blank"><i class="fa fa-weibo" ></i></a></li>
                         <li><a class="img-logo-link" href="http://site.douban.com/130280/" target="_blank"><img src="{% static 'images/footer/douban.png' %}"></a></li>

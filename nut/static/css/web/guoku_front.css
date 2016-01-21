@@ -1950,6 +1950,9 @@ body.compact-body {
 #guoku_footer .list-wrapper li.no-padding-right {
   padding-right: 0px;
 }
+#guoku_footer .list-wrapper.list-wrapper-align-center {
+  text-align: center;
+}
 #guoku_footer li a {
   opacity: 0.6;
 }
@@ -2046,9 +2049,18 @@ body.compact-body {
   margin-right: 10px;
   display: inline-block;
 }
+#guoku_footer .footer-bottom .footer-bottom-left.footer-bottom-left-show {
+  display: block;
+  float: none;
+  text-align: center;
+}
 #guoku_footer .footer-bottom .footer-bottom-right {
   margin-bottom: 10px;
   float: right;
+}
+#guoku_footer .footer-bottom .footer-bottom-right.footer-bottom-right-control {
+  float: none;
+  text-align: center;
 }
 #guoku_footer .footer-bottom .footer-bottom-right .logo-list li {
   margin-left: 10px;
