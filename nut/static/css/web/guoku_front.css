@@ -2045,6 +2045,9 @@ body.compact-body {
 #guoku_footer .footer-bottom {
   padding: 20px 10px 10px 10px;
 }
+#guoku_footer .footer-bottom.shares-wrapper {
+  margin-bottom: -2px;
+}
 #guoku_footer .footer-bottom.copyright-info-wrapper {
   padding: 0;
   margin-bottom: 10px;
@@ -3618,6 +3621,9 @@ body.compact-body {
     text-align: center;
     margin-bottom: 20px;
   }
+  #guoku_footer .footer-part .list-wrapper.list-wrapper-align-center {
+    margin-bottom: 0;
+  }
   #guoku_footer .footer-part .list-wrapper ul {
     display: inline-block;
   }
@@ -3643,6 +3649,14 @@ body.compact-body {
     float: none;
     margin: 0 auto;
     padding-top: 20px;
+  }
+  #guoku_footer .footer-bottom .footer-bottom-left.footer-bottom-left-show,
+  #guoku_footer .footer-bottom .footer-bottom-right.footer-bottom-left-show {
+    padding-top: 6px;
+  }
+  #guoku_footer .footer-bottom .footer-bottom-left.footer-bottom-right-control,
+  #guoku_footer .footer-bottom .footer-bottom-right.footer-bottom-right-control {
+    padding-top: 0;
   }
   #guoku_footer .footer-bottom .footer-bottom-left .font-logo-link.logo-weibo,
   #guoku_footer .footer-bottom .footer-bottom-right .font-logo-link.logo-weibo {
