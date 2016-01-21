@@ -19,25 +19,26 @@ from django.db.models.signals import post_save, pre_save
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import AbstractBaseUser
-from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.models import PermissionsMixin, Group
 from apps.notifications import notify
 from apps.core.utils.image import HandleImage
 from apps.core.utils.articlecontent import contentBleacher
 from apps.core.extend.fields.listfield import ListObjectField
-from apps.core.manager.account import GKUserManager
-from apps.core.manager.entity import SelectionEntityManager
-from apps.core.manager.entity import EntityLikeManager
-from apps.core.manager.entity import EntityManager
-from apps.core.manager.note import NoteManager, NotePokeManager
-from apps.core.manager.category import SubCategoryManager
-from apps.core.manager.category import CategoryManager
-from apps.core.manager.comment import CommentManager
-from apps.core.manager.event import ShowEventBannerManager
-from apps.core.manager.article import SelectionArticleManager
-from apps.core.manager.article import ArticleManager
-from apps.core.manager.article import ArticleDigManager
-from apps.core.manager.sidebar_banner import SidebarBannerManager
+# from apps.core.manager.account import GKUserManager
+# from apps.core.manager.entity import SelectionEntityManager
+# from apps.core.manager.entity import EntityLikeManager
+# from apps.core.manager.entity import EntityManager
+# from apps.core.manager.note import NoteManager, NotePokeManager
+# from apps.core.manager.category import SubCategoryManager
+# from apps.core.manager.category import CategoryManager
+# from apps.core.manager.comment import CommentManager
+# from apps.core.manager.event import ShowEventBannerManager
+# from apps.core.manager.article import SelectionArticleManager
+# from apps.core.manager.article import ArticleManager
+# from apps.core.manager.article import ArticleDigManager
+# from apps.core.manager.sidebar_banner import SidebarBannerManager
 from apps.web.utils.datatools import get_entity_list_from_article_content
+from apps.core.manager import *
 
 
 log = getLogger('django')
@@ -104,6 +105,8 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def __unicode__(self):
         return self.email
 
+    def get_short_name(self):
+        return self.profile.nickname
 
     def has_guoku_assigned_email(self):
         return ('@guoku.com' in self.email ) and (len(self.email) > 29)
@@ -380,7 +383,35 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
                 res['relation'] = 2
         return res
 
+    # for set user as authorized author
+    # see docs : 授权图文用户
+    def has_author_group(self):
+        author_group = self.get_author_group()
+        return author_group in self.groups.all()
+
+    def get_author_group(self):
+        author_group, created =  Group.objects.get_or_create(name="Author")
+        return author_group
+
+    def refresh_user_permission(self):
+        pass
+
+    def setAuthor(self, isAuthor):
+        author_group = self.get_author_group()
+        if isAuthor:
+            self.groups.add(author_group)
+        else:
+            self.groups.remove(author_group)
+
+        self.refresh_user_permission()
+
+
+
+
+
     def save(self, *args, **kwargs):
+        #TODO  @huanghuang refactor following email related lines into a subroutine
+        #
         from apps.core.tasks import send_activation_mail
         from apps.core.tasks.edm import delete_user_from_list
         if self.pk is not None:
@@ -388,9 +419,23 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             if user.email != self.email:
                 delete_user_from_list(user)
                 send_activation_mail(self)
-        super(GKUser, self).save(*args, **kwargs)
         key = "user:v4:%s" % self.id
         cache.delete(key)
+        key = "user:v3:%s" % self.id
+        cache.delete(key)
+        super(GKUser, self).save(*args, **kwargs)
+
+
+class Authorized_User_Profile(BaseModel):
+    user = models.OneToOneField(GKUser, related_name='authorized_profile')
+    # additional column for Authorized Author
+    # see  日常开发文档－》授权图文用户
+    weixin_id = models.CharField(max_length=255, null=True, blank=True)
+    weixin_nick = models.CharField(max_length=255, null=True, blank=True)
+    weixin_qrcode_img = models.CharField(max_length=255, null=True, blank=True)
+    author_website = models.CharField(max_length=1024, null=True, blank=True)
+    weibo_id = models.CharField(max_length=255, null=True, blank=True)
+    weibo_nick = models.CharField(max_length=255, null=True, blank=True)
 
 
 class User_Profile(BaseModel):
@@ -413,6 +458,11 @@ class User_Profile(BaseModel):
     website = models.CharField(max_length=1024, null=True, blank=True)
     avatar = models.CharField(max_length=255)
     email_verified = models.BooleanField(default=False)
+
+
+    @property
+    def weibo_link(self):
+        return "http://weibo.com/u/%s/"%self.weibo_id
 
     def __unicode__(self):
         return self.nick
@@ -441,9 +491,11 @@ class User_Profile(BaseModel):
             if profile.nickname != self.nickname:
                 update_user_name_from_list(self.user)
 
-        super(User_Profile, self).save(*args, **kwargs)
         key = "user:v4:%s" % self.user.id
         cache.delete(key)
+        key = "user:v3:%s" % self.user.id
+        cache.delete(key)
+        super(User_Profile, self).save(*args, **kwargs)
 
 
 class User_Follow(models.Model):
@@ -1296,7 +1348,6 @@ class Article(BaseModel):
     def tag_list(self):
         _tag_list = Content_Tags.objects.article_tags(self.id)
         return _tag_list
-
 
     @property
     def bleached_content(self):

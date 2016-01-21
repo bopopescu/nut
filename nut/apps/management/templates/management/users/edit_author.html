@@ -1,0 +1,125 @@
+{% extends "management/management_base.html" %}
+{% load i18n static %}
+
+{% block content %}
+    {% with user=current_user %}
+    <section class="content-header">
+        <h1>
+            {{ user.profile.nickname }}
+        </h1>
+        {% include 'management/users/partial/user_breadcrumb.html' %}
+    </section>
+
+    <section class="content" id="user-edit">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        <img class="profile-user-img img-responsive img-circle" alt="180x180" src="{{ user.profile.avatar_url }}" style="max-height:180px;max-width:180px;">
+                        <h3 class="profile-username text-center">{{ user.profile.nick }}</h3>
+                        <p class="text-muted text-center">{{ user.profile.bio }}</p>
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>{% trans 'follower' %}</b>
+                                <a class="pull-right">{{ user.fans_count }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>{% trans 'following' %}</b>
+                                <a class="pull-right">{{ user.following_count }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>{% trans 'articles' %}</b>
+                                <a class="pull-right">{{ user.articles.all|length }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>{% trans 'media' %}</b>
+                                <a class="pull-right" href="{% url 'management_user_media' user.pk %}">{{ user.media_entries.all|length }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{% trans 'about me' %}</h3>
+                    </div>
+                    <div class="box-body">
+                        <strong>
+                            <i class="fa fa-map-marker margin-r-5"></i>
+                            {% trans 'Location' %}
+                        </strong>
+                        <p class="text-muted">{{ user.profile.location }} {{ user.profile.city }}</p>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="box box-info">
+                    <div class="box-body">
+                        <div class="btn-group">
+                            <a href="{% url 'management_user_upload_avatar' user.pk %}" class="btn btn-primary">{% trans 'upload avatar' %}</a>
+                            <a href="{% url 'management_user_reset_password' user.pk %}" class="btn btn-danger">{% trans 'reset password' %}</a>
+                            <a href="{% url 'web_user_index' user.pk %}" class="btn btn-success" target="_blank">{% trans 'go to' %}</a>
+                        </div>
+                    </div>
+                </div>
+
+               <div class="box box-info">
+                    <div class="box-body">
+                           <div>
+                                <a href="{% url 'management_user_edit' user.pk %}"
+                                   class="btn btn-primary pull-left"> 编辑用户基本信息
+                                </a>
+                           </div>
+
+                    </div>
+                </div>
+
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <ul class="nav nav-pills" role="tablist">
+                            <li role="presentation">
+                                <a href="{% url 'management_user_post' user.pk %}">添加 <span class="badge">{{ user.create_entity_count }}</span></a>
+                            </li>
+                            <li role="presentation"><a href="">喜欢&nbsp;<span class="badge">{{ user.like_count }}</span></a></li>
+                            <li role="presentation">
+                                <a href="{% url 'management_user_notes' user.pk %}">点评 <span class="badge">{{ user.post_note_count }}</span></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <form class="form-horizontal" method="post">
+                        {% csrf_token %}
+                        <div class="box-body">
+                        {% for field in form %}
+                            <div class="form-group">
+                              <label  class="col-sm-2 control-label" for="{{ field.id_for_label  }}">{{ field.label  }}</label>
+                              <div class="col-xs-8 col-sm-4">
+                                   {{ field }}
+                              </div>
+                              <div class="error">{{ field.errors }}</div>
+
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <div class="box-footer">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary btn-lg">{% trans 'update' %}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endwith %}
+{% endblock %}
+
+{% block user_script %}
+{#    switchery css is already in AdminLTE#}
+     <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
+     <script src="{% static 'js/management/user/user.js' %}" type="application/javascript"></script>
+
+
+{% endblock %}

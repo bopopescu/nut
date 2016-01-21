@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.utils.http import JSONResponse
+from apps.core.views import BaseJsonView
 
 from apps.core.models import Entity, Entity_Like, Note, Note_Comment, \
     Note_Poke, Brand, Buy_Link
@@ -21,15 +22,17 @@ from apps.web.utils.viewtools import add_side_bar_context_data
 from apps.tag.models import Content_Tags
 
 from django.views.generic.detail import DetailView
-
 from django.views.generic import RedirectView, ListView
 from braces.views import AjaxResponseMixin, JSONResponseMixin
 
 from django.conf import settings
 from django.utils.log import getLogger
 
+import requests
+
 
 log = getLogger('django')
+taobao_recommendation_url = getattr(settings, 'TAOBAO_RECOMMEND_URL', None)
 
 
 class EntityDetailMixin(object):
@@ -55,8 +58,6 @@ class EntityLikersView(EntityDetailMixin,ListView):
         context['entity'] = self.get_object()
         context = add_side_bar_context_data(context)
         return context
-
-
 
 
 class EntityCard(AjaxResponseMixin, JSONResponseMixin, EntityDetailMixin, DetailView):
@@ -343,6 +344,8 @@ def entity_like(request, eid):
 def entity_unlike(request, eid):
         if request.is_ajax():
             _user = request.user
+        else:
+            return HttpResponseNotAllowed
         try:
             if settings.DEBUG:
                 el = Entity_Like.objects.get(entity_id=eid, user=_user)
@@ -353,7 +356,7 @@ def entity_unlike(request, eid):
         except Entity_Like.DoesNotExist:
             raise Http404
 
-        return HttpResponseNotAllowed
+        # return HttpResponseNotAllowed
 
 
 @login_required
@@ -450,6 +453,33 @@ class gotoBuyView(RedirectView):
         self.buy_id = kwargs.pop('buy_id', None)
         assert self.buy_id is not None
         return super(gotoBuyView, self).get(request, *args, **kwargs)
+
+
+# TODO: taobao recommendation api
+class TaobaoRecommendationView(BaseJsonView):
+    # http_method_names = ['GET']
+
+    def get_data(self, context):
+        # context = super(TaobaoRecommendationView, self).get_context_data(**kwargs)
+
+        payload = {
+            'keyword': self.keyword,
+            'mall':self.mall,
+            'count': self.count,
+        }
+        r = requests.get(taobao_recommendation_url, params=payload)
+        data = r.json()
+        return data
+
+    def get(self, request, *args, **kwargs):
+        # self.keyword = kwargs.pop('keyword', None)
+        self.keyword = request.GET.get('keyword', None)
+        assert self.keyword is not None
+        self.mall = request.GET.get('mall', False)
+        self.count = request.GET.get('count', 12)
+        # self.mall = kwargs.pop('mall', False)
+        return super(TaobaoRecommendationView, self).get(requests, *args, **kwargs)
+
 
 
 __author__ = 'edison'
