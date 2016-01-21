@@ -6,11 +6,7 @@
         <h1>
             {{ user.profile.nickname }}
         </h1>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
-            <li><a href="#"><i class="fa fa-users"></i>{% trans 'users' %}</a></li>
-            <li class="active">{{ user.profile.nickname }}</li>
-        </ol>
+        {% include 'management/users/partial/user_breadcrumb.html' %}
     </section>
 
     <section class="content" id="user-edit">
@@ -22,6 +18,11 @@
                         <h3 class="profile-username text-center">{{ user.profile.nick }}</h3>
                         <p class="text-muted text-center">{{ user.profile.bio }}</p>
                         <ul class="list-group list-group-unbordered">
+
+                            <li class="list-group-item">
+                                <b>{% trans 'join time' %}</b>
+                                <a class="pull-right">{{ user.date_joined|date }}</a>
+                            </li>
                             <li class="list-group-item">
                                 <b>{% trans 'follower' %}</b>
                                 <a class="pull-right">{{ user.fans_count }}</a>
@@ -65,6 +66,28 @@
                             <a href="{% url 'management_user_reset_password' user.pk %}" class="btn btn-danger">{% trans 'reset password' %}</a>
                             <a href="{% url 'web_user_index' user.pk %}" class="btn btn-success" target="_blank">{% trans 'go to' %}</a>
                         </div>
+                    </div>
+                </div>
+
+               <div class="box box-info">
+                    <div class="box-body">
+
+                           <div class="switch_lable">授权图文作者:
+                           <input type="checkbox"
+                                    data-id="{{ user.pk }}"
+                                    class="js-switch"
+                                   {% if user.has_author_group %}checked{% endif %} />
+
+                            {% if user.has_author_group %}
+                                <a href="{% url 'management_user_editAuthor' user.pk %}"
+                                   class="btn btn-primary pull-right"> 授权作者信息 编辑
+
+                                </a>
+                           {% endif %}
+                           </div>
+
+
+
                     </div>
                 </div>
 
@@ -120,85 +143,15 @@
                         </div>
                     </form>
                 </div>
-{#                <div class="nav-tabs-custom">#}
-{#                    <ul class="nav nav-tabs">#}
-{#                        <li class="active">#}
-{#                            <a data-toggle="tab" href="#settings" aria-expanded="true">{% trans 'settings' %}</a>#}
-{#                        </li>#}
-{#                        <li>#}
-{#                            <a data-toggle="tab" href="#password" aria-expanded="false">{% trans 'reset password' %}</a>#}
-{#                        </li>#}
-{#                    </ul>#}
-{#                    <div class="tab-content">#}
-{#                        <div class="tab-pane active" id="settings">#}
-{#                            <form class="form-horizontal" method="post">#}
-{#                                {% csrf_token %}#}
-{#                                <div class="box-body">#}
-{#                                {% for field in forms %}#}
-{#                                    {% if field.html_name == 'is_admin' %}#}
-{#                                         <div class="checkbox">#}
-{#                                            <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>#}
-{#                                            <div class="col-sm-10">#}
-{#                                                {{ field }}#}
-{#                                            </div>#}
-{#                                         </div>#}
-{#                                    {% elif field.html_name == 'gender' %}#}
-{#                                         <div class="form-group">#}
-{#                                            <label class="col-sm-2 control-label" for="{{ field.id_for_label  }}">{{ field.label  }}</label>#}
-{#                                            <div class="col-xs-8 col-sm-4">#}
-{#                                                {{ profile_form.gender }}#}
-{#                                                {% for radio in field %}#}
-{#                                                <label class="checkbox-inline">{{ radio.choice_label }} {{ radio.tag }}&nbsp; </label>#}
-{#                                                {% endfor %}#}
-{#                                            </div>#}
-{#                                        </div>#}
-{#                                    {% else %}#}
-{##}
-{#                                    <div class="form-group">#}
-{#                                        <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>#}
-{#                                        <div class="col-sm-10">#}
-{#                                            {{ field }}#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                    {% endif %}#}
-{#                                {% endfor %}#}
-{#                                </div>#}
-{#                                <div class="box-footer">#}
-{#                                    <div class="col-sm-offset-2 col-sm-10">#}
-{#                                        <button type="submit" class="btn btn-primary btn-lg">{% trans 'update' %}</button>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </form>#}
-{#                        </div>#}
-{##}
-{#                        <div class="tab-pane" id="password">#}
-{#                            <form action="{% url 'management_user_reset_password' user.pk %}" class="form-horizontal" method="post">#}
-{#                            {% csrf_token %}#}
-{#                                <div class="box-body">#}
-{#                                    {% for field in forms %}#}
-{#                                        <div class="form-group">#}
-{#                                            <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>#}
-{#                                            <div class="col-sm-5">#}
-{#                                                {{ field }}#}
-{#                                            </div>#}
-{#                                        </div>#}
-{#                                    {% endfor %}#}
-{#                                </div>#}
-{##}
-{#                                <div class="box-footer">#}
-{#                                    <div class="col-sm-offset-2 col-sm-10">#}
-{#                                        <button type="submit" class="btn btn-primary btn-lg">{% trans 'update' %}</button>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </form>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
             </div>
         </div>
     </section>
 {% endblock %}
 
 {% block user_script %}
+{#    switchery css is already in AdminLTE#}
+     <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
+     <script src="{% static 'js/management/user/user.js' %}" type="application/javascript"></script>
+
 
 {% endblock %}

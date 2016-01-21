@@ -6,8 +6,18 @@
                 <tr>
                     <th>#</th>
                     <th>{% trans 'avatar' %}</th>
-                    <th>{% trans 'email' %}</th>
-                    <th>{% trans 'nickname' %}</th>
+                    <th>
+                        {% trans 'email' %}
+                        <input class="guoku_search_input"
+                               data-search-field="email"
+                               type="text">
+
+                    </th>
+                    <th>{% trans 'nickname' %}
+                        <input class="guoku_search_input"
+                               data-search-field="nickname"
+                               type="text">
+                    </th>
                     <th>{% trans 'gender' %}</th>
                     <th>{% trans 'join datetime' %}</th>
                     <th>{% trans 'is_active' %}</th>

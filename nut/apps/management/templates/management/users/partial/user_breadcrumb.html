@@ -1,0 +1,7 @@
+{% load i18n static %}
+
+<ol class="breadcrumb">
+            <li><a href="{% url 'management_dashboard' %}"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+            <li><a href="{% url 'management_user_list' %}"><i class="fa fa-users"></i>{% trans 'users' %}</a></li>
+            <li class="active">{{ user.profile.nickname }}</li>
+</ol>

@@ -122,6 +122,8 @@
 
                 {% endif %}
 
+
+
                 <div class="guess-title">{% trans 'Related Items' %}</div>
 
                 <div class="guess-wrapper">
@@ -137,8 +139,14 @@
                             </div>
                         {% endfor %}
                     </div>
+                </div>
+{#    hide bai chuan for now #}
+{#                <div class="guess-title" id="baichuan_guess_title">{{ '猜你喜爱' }}</div>#}
+
+                <div class="guess-wrapper" id="baichuan_list">
 
                 </div>
+
             </div>
             <div  id="detail_content_right" class="hidden-print   col-lg-4 col-md-4 hidden-sm hidden-xs">
                 {% include "web/entity/partial/detail_side.html" %}
@@ -161,12 +169,32 @@
     {#  ===  template for js  ===#}
     {% if is_entity_detail %}
         <script language="javascript">
-            var current_entity_id={{ entity.pk }};
+            var current_entity_id="{{ entity.pk }}";
+            var current_entity_origin_source = "{{ entity.default_buy_link.origin_source }}";
+            var current_entity_taobao_id = "{{ entity.default_buy_link.origin_id }}";
+            var current_entity_title="{{ entity.title }}";
+        </script>
+        <script type="text/html" id="baichuan_entity_list_template">
+
+            <div class="row" id="guess_list">
+                <% for (var i= 0 ; i< list.length ; i++) { %>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 guess-img">
+                    <div class="img-holder">
+                        <a href="http://detail.tmall.com/item.htm?id=<%=list[i].itemId%>" target="_blank" title="<%=list[i].itemName%>" class="">
+                            <div class="img-frame" style="background-image:url(<%=list[i].pic%>)"></div>
+                        </a>
+                    </div>
+                </div>
+                <% } %>
+
+
+            </div>
+
         </script>
         <script type="text/html" id="user_cell_template">
-                <a class='user-link' href="<%=user.absolute_url%>">
-                    <img class="img-responsive" src="<%=user.avatar_url%>">
-                </a>
+            <a class='user-link' href="<%=user.absolute_url%>">
+                <img class="img-responsive" src="<%=user.avatar_url%>">
+            </a>
         </script>
     {% endif %}
     {#  ===  template for js  end ===#}

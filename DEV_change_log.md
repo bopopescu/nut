@@ -1,7 +1,17 @@
 
-2. 
-1. a bookmark for youzhan's taobao product adding , not for web
+5. use CBV for user list 
+4. user list search
+3. baichuan recommendation  (hide for now)
+2. user set to author 
+1. a bookmark for youzhan's taobao product adding , not for web 
    but put in doc anyway
+
+##action  
+
+need syncdb 
+
+
+2016-1-13 start 
 
 =================================
 =================================
