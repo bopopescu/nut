@@ -1,11 +1,10 @@
 
-4. Authorized Author article list in Article list 
 
 3. Entity 's related Selection Article 
 
    Entity has a property: 
                 selected_related_articles
-   contains all Entity's related Selection_Article  (NOT Article!)
+   contains all Entity's related Selection_Article instance  (NOT Article!)
                 published before called time
 
 2. add tags_string  property for Article model
