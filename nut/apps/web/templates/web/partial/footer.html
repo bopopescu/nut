@@ -7,11 +7,26 @@
              <div class="row footer-bottom">
                 <div class="footer-bottom-right footer-bottom-right-control">
                     <ul class="logo-list">
-                        <li><a class="font-logo-link logo-weibo" href="http://weibo.com/guoku" target="_blank"><i class="fa fa-weibo" ></i></a></li>
-                        <li><a class="img-logo-link" href="http://site.douban.com/130280/" target="_blank"><img src="{% static 'images/footer/douban.png' %}"></a></li>
-                        <li><a class="font-logo-link logo-twitter" href="http://twitter.com/guokuapp" target="_blank"><i class="fa fa-twitter" ></i></a></li>
-                        <li><a class="font-logo-link logo-facebook" href="http://www.facebook.com/172009339558352" target="_blank"><i class="fa fa-facebook" ></i></a></li>
-                        <li><a class="font-logo-link logo-instagram" href="http://instagram.com/guoku/" target="_blank"><i class="fa fa-instagram" ></i></a></li>
+                        <li class="wechat-share-wrapper">
+                            <a class="font-logo-link logo-wechat">
+                                <i class="fa fa-wechat" ></i>
+                                <div class="wechat-qrcode-wrapper display-toggle">
+                                  <img src="{%  static 'images/footer/QR-code.jpg' %}" class="wechat-qrcode-img">
+                                  <div class="wechat-qr-text">微信公众平台</div>
+                                  <span class="bottom-bot"></span>
+                            </div>
+                            </a>
+{#                            <div class="wechat-qrcode-wrapper display-toggle">#}
+{#                                <img src="{%  static 'images/footer/QR-code.jpg' %}" class="wechat-qrcode-img">#}
+{#                                <div class="wechat-qr-text">微信公众平台</div>#}
+{#                                <span class="bottom-bot"></span>#}
+{#                            </div>#}
+                        </li>
+                        <li><a class="font-logo-link logo-weibo font-logo-link-control" href="http://weibo.com/guoku" target="_blank"><i class="fa fa-weibo" ></i></a></li>
+                        <li><a class="img-logo-link font-logo-link-control" href="http://site.douban.com/130280/" target="_blank"><img src="{% static 'images/footer/douban.png' %}"></a></li>
+                        <li><a class="font-logo-link logo-twitter font-logo-link-control" href="http://twitter.com/guokuapp" target="_blank"><i class="fa fa-twitter" ></i></a></li>
+                        <li><a class="font-logo-link logo-facebook font-logo-link-control" href="http://www.facebook.com/172009339558352" target="_blank"><i class="fa fa-facebook" ></i></a></li>
+                        <li><a class="font-logo-link logo-instagram font-logo-link-control" href="http://instagram.com/guoku/" target="_blank"><i class="fa fa-instagram" ></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -119,7 +134,7 @@
             <div class="row footer-bottom copyright-info-wrapper">
                 <div class="footer-bottom-left footer-bottom-left-show">
                     <ul>
-                      <li>@ 果库 2015</li>
+                      <li>© 2016 果库</li>
                       <li><a target="_blank" href="http://www.miibeian.gov.cn/">京ICP备14054029号</a></li>
                       <li>京公网安备11010502019958</li>
                     </ul>
