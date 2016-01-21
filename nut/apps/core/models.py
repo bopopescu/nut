@@ -394,6 +394,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return author_group
 
     def refresh_user_permission(self):
+        # TODO:  refresh user permission cache here
         pass
 
     def setAuthor(self, isAuthor):
@@ -404,10 +405,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             self.groups.remove(author_group)
 
         self.refresh_user_permission()
-
-
-
-
 
     def save(self, *args, **kwargs):
         #TODO  @huanghuang refactor following email related lines into a subroutine
@@ -436,6 +433,12 @@ class Authorized_User_Profile(BaseModel):
     author_website = models.CharField(max_length=1024, null=True, blank=True)
     weibo_id = models.CharField(max_length=255, null=True, blank=True)
     weibo_nick = models.CharField(max_length=255, null=True, blank=True)
+    personal_domain_name = models.CharField(max_length=64, null=True, blank=True)
+
+
+
+
+
 
 
 class User_Profile(BaseModel):
@@ -1301,6 +1304,7 @@ class Article(BaseModel):
     def get_dig_key(self):
         return 'article:dig:%d' % self.pk
 
+
     @property
     def dig_count(self):
         key = self.get_dig_key()
@@ -1348,6 +1352,10 @@ class Article(BaseModel):
     def tag_list(self):
         _tag_list = Content_Tags.objects.article_tags(self.id)
         return _tag_list
+
+    @property
+    def tags_string(self):
+        return ','.join(self.tag_list)
 
     @property
     def bleached_content(self):
