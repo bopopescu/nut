@@ -1,8 +1,21 @@
 {% load i18n staticfiles %}
 {% load notifications_tags %}
 {% load flink_tags %}
-<footer class="footer" id="guoku_footer">
+<footer class="footer new-footer" id="guoku_footer">
         <div class="container">
+
+             <div class="row footer-bottom">
+                <div class="footer-bottom-right footer-bottom-right-control">
+                    <ul class="logo-list">
+                        <li><a class="font-logo-link logo-weibo" href="http://weibo.com/guoku" target="_blank"><i class="fa fa-weibo" ></i></a></li>
+                        <li><a class="img-logo-link" href="http://site.douban.com/130280/" target="_blank"><img src="{% static 'images/footer/douban.png' %}"></a></li>
+                        <li><a class="font-logo-link logo-twitter" href="http://twitter.com/guokuapp" target="_blank"><i class="fa fa-twitter" ></i></a></li>
+                        <li><a class="font-logo-link logo-facebook" href="http://www.facebook.com/172009339558352" target="_blank"><i class="fa fa-facebook" ></i></a></li>
+                        <li><a class="font-logo-link logo-instagram" href="http://instagram.com/guoku/" target="_blank"><i class="fa fa-instagram" ></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
             <div class="row footer-main">
 {#                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 footer-part logo-wrapper">#}
 {#                    <div class="footer-content">#}
@@ -13,7 +26,7 @@
 {#                </div>#}
 
 {#                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 footer-part">#}
-                <div class="col-xs-12 footer-part">
+                <div class="col-xs-12 footer-part foot-part-control">
                     <div class="list-wrapper list-wrapper-align-center">
                         <ul>
                             <li><a href="{% url 'web_about' %}" target="_blank">{% trans 'about' %}</a></li>
@@ -101,21 +114,14 @@
                     </div>
 
             </div>
-            <div class="row footer-bottom">
+
+
+            <div class="row footer-bottom copyright-info-wrapper">
                 <div class="footer-bottom-left footer-bottom-left-show">
                     <ul>
                       <li>@ 果库 2015</li>
                       <li><a target="_blank" href="http://www.miibeian.gov.cn/">京ICP备14054029号</a></li>
                       <li>京公网安备11010502019958</li>
-                    </ul>
-                </div>
-                <div class="footer-bottom-right footer-bottom-right-control">
-                    <ul class="logo-list">
-                        <li><a class="font-logo-link logo-weibo" href="http://weibo.com/guoku" target="_blank"><i class="fa fa-weibo" ></i></a></li>
-                        <li><a class="img-logo-link" href="http://site.douban.com/130280/" target="_blank"><img src="{% static 'images/footer/douban.png' %}"></a></li>
-                        <li><a class="font-logo-link logo-twitter" href="http://twitter.com/guokuapp" target="_blank"><i class="fa fa-twitter" ></i></a></li>
-                        <li><a class="font-logo-link logo-facebook" href="http://www.facebook.com/172009339558352" target="_blank"><i class="fa fa-facebook" ></i></a></li>
-                        <li><a class="font-logo-link logo-instagram" href="http://instagram.com/guoku/" target="_blank"><i class="fa fa-instagram" ></i></a></li>
                     </ul>
                 </div>
             </div>

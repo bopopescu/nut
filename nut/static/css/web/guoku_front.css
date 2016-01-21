@@ -1912,6 +1912,10 @@ body.compact-body {
   background: #232323;
   color: #9D9E9F;
 }
+#guoku_footer.new-footer {
+  min-height: 1px;
+  height: auto;
+}
 #guoku_footer a,
 #guoku_footer a:hover,
 #guoku_footer a:focus,
@@ -1968,6 +1972,9 @@ body.compact-body {
 }
 #guoku_footer .footer-part {
   margin-top: 40px;
+}
+#guoku_footer .footer-part.foot-part-control {
+  margin-top: 0;
 }
 #guoku_footer .footer-part.qr-container-hidden {
   display: none;
@@ -2036,6 +2043,9 @@ body.compact-body {
 }
 #guoku_footer .footer-bottom {
   padding: 20px 10px 10px 10px;
+}
+#guoku_footer .footer-bottom.copyright-info-wrapper {
+  padding: 0;
 }
 #guoku_footer .footer-bottom .footer-bottom-left {
   float: left;

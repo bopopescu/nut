@@ -234,6 +234,10 @@ body.compact-body{
   margin-top: 40px;
   background: @foot-bg-color;
   color: @common-gray;
+  &.new-footer{
+    min-height:1px;
+    height:auto;
+  }
   a,a:hover,a:focus,a:active{
     color: @common-gray;
     text-decoration: none;
@@ -293,6 +297,9 @@ body.compact-body{
 
   .footer-part{
     margin-top:40px;
+    &.foot-part-control{
+      margin-top:0;
+    }
     &.logo-wrapper{
     }
 
@@ -366,6 +373,10 @@ body.compact-body{
   }
   .footer-bottom{
     padding:20px 10px 10px 10px;
+    &.copyright-info-wrapper{
+      padding:0;
+
+    }
     .footer-bottom-left{
       float:left;
       ul{
@@ -435,6 +446,7 @@ body.compact-body{
 
     }
   }
+
 }
 
 .guoku-content.index-page{
