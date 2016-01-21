@@ -1,3 +1,6 @@
+5. minor fix 
+    (pc article page add ga, xs screen article pic cross full screen)
+
 4. add a field on authorized user profile 
 
 3. Entity 's related Selection Article 
