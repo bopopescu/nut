@@ -2157,17 +2157,19 @@ body.compact-body {
 #guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.logo-wechat:hover .display-toggle {
   display: block;
 }
-#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link-control.logo-weibo {
-  padding-left: 0px;
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link-control {
+  line-height: 1.4;
 }
-#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link-control.logo-twitter {
-  padding-left: 0px;
-}
-#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link-control.logo-facebook {
-  padding-left: 0px;
-}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link-control.logo-weibo,
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link-control.logo-twitter,
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link-control.logo-facebook,
 #guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link-control.logo-instagram {
   padding-left: 0px;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link-control.logo-wechat i,
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link-control.logo-weibo i,
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link-control.logo-instagram i {
+  font-size: 16px;
 }
 #guoku_footer .footer-bottom .footer-bottom-right .logo-list li img {
   width: 28px;
