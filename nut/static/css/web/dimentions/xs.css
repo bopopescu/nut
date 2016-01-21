@@ -786,7 +786,7 @@ p.boolean-false {
   .guoku-content.user-page .content-panel .note-cell {
     margin-bottom: 10px;
   }
-  #main_article .article-wrapper img {
+  #main_article .article-wrapper .content-wrapper img {
     max-width: 110%;
     width: 110%;
     position: relative;
