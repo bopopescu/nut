@@ -1,3 +1,35 @@
+5. minor fix 
+    (pc article page add ga, xs screen article pic cross full screen)
+
+4. add a field on authorized user profile 
+
+3. Entity 's related Selection Article 
+
+   Entity has a property: 
+                selected_related_articles
+   contains all Entity's related Selection_Article instance  (NOT Article!)
+                published before called time
+
+2. add tags_string  property for Article model
+   
+   Article.tags_string 
+      : get Articles Tag joined into a string by ',' 
+   
+1. still hide baichuan recommend
+
+
+##action
+
+ALTER TABLE `core`.`core_authorized_user_profile` 
+ADD COLUMN `personal_domain_name` VARCHAR(64) NULL DEFAULT NULL AFTER `weibo_nick`;
+
+
+
+=================================
+=================================
+### merged to master 2016 － 1 － 18
+=================================
+=================================
 
 5. use CBV for user list 
 4. user list search
