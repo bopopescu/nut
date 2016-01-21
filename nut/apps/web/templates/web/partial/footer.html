@@ -8,7 +8,7 @@
                 <div class="footer-bottom-right footer-bottom-right-control">
                     <ul class="logo-list">
                         <li class="wechat-share-wrapper">
-                            <a class="font-logo-link logo-wechat">
+                            <a class="font-logo-link logo-wechat font-logo-link-control">
                                 <i class="fa fa-wechat" ></i>
                                 <div class="wechat-qrcode-wrapper display-toggle">
                                   <img src="{%  static 'images/footer/QR-code.jpg' %}" class="wechat-qrcode-img">
@@ -46,13 +46,16 @@
                         <ul>
                             <li><a href="{% url 'web_about' %}" target="_blank">关于果库</a></li>
 {#                          <li><a href="{% url 'web_about' %}" target="_blank">{% trans 'about' %}</a></li>#}
+
                             <li><a href="{% url 'web_download' %}" target="_blank">{% trans 'Download App' %}</a></li>
                             <li><a href="{% url 'web_agreement' %}" target="_blank">{% trans 'agreement' %}</a></li>
+
                             <li><a href="{% url 'web_jobs' %}" target="_blank">工作机会</a></li>
 {#                          <li><a href="{% url 'web_jobs' %}" target="_blank">{% trans 'jobs' %}</a></li>#}
+
                             <li><a href="{% url 'web_faq' %}" target="_blank">{% trans 'faq' %}</a></li>
                             <li><a href="mailto:hi@guoku.com" target="_blank">意见反馈</a></li>
-                            <li><a href="" target="_blank">友情链接</a></li>
+                            <li><a href="{% url 'web_links' %}" target="_blank">友情链接</a></li>
 
 {#                          <li><a href="{% url 'web_sitemap_url' %}" target="_blank">{% trans 'sitemap' %}</a></li>#}
 
