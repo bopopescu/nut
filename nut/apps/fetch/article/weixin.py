@@ -188,39 +188,52 @@ def get_user_articles(gk_user):
         gk_user.save()
 
     # get total pages number first
-    total_pages = get_list_total_pages(open_id)
-    print '> Start to crawl articles of %s. Total pages %d.' % \
-          (gk_user.weixin_id, total_pages)
-    for page in xrange(1, total_pages + 1):
-        fetch_article_list.delay(gk_user, page)
+    # total_pages = get_list_total_pages(open_id)
+    # print '> Start to crawl articles of %s. Total pages %d.' % \
+    #       (gk_user.weixin_id, total_pages)
+    # for page in xrange(1, total_pages + 1):
+    fetch_article_list.delay(gk_user)
 
 
 @task(base=RequestsTask, naem='sogou.fetch_article_list')
-def fetch_article_list(gk_user, page=1):
-    params = {'openid': gk_user.weixin_openid, 'page': page}
-    response = weixin_client.request("GET", article_list_api,
-                                     params=params,
-                                     ext=True,
-                                     format_json=True)
-    json_items = response['items']
+def fetch_article_list(gk_user):
+    page = 1
+    total_pages = 1
+    go_next = True
 
-    item_dict = {}
-    for article_item in json_items:
-        article_item_xml = clean_xml(article_item)
-        article_item_xml = BeautifulSoup(article_item_xml, 'xml')
-        article_link = article_item_xml.url.string
-        url = urljoin('http://weixin.sogou.com/', article_link)
-        item_dict[url] = article_item_xml
+    while go_next:
+        params = {'openid': gk_user.weixin_openid, 'page': page}
+        response = weixin_client.request("GET", article_list_api,
+                                         params=params,
+                                         ext=True,
+                                         format_json=True)
+        json_items = response['items']
+        if total_pages == 1:
+            total_pages = int(response['totalPages'])
 
-    existed = Article.objects.values_list('origin_source').\
-        filter(origin_source__in=item_dict.keys())
-    if existed:
-        existed = [item[0] for item in existed]
-    article_items = [article_item for url, article_item in item_dict.items()
-                     if url not in existed]
-    if article_items:
-        for article_item in article_items:
-            get_article(article_item, gk_user)
+        item_dict = {}
+        for article_item in json_items:
+            article_item_xml = clean_xml(article_item)
+            article_item_xml = BeautifulSoup(article_item_xml, 'xml')
+            article_link = article_item_xml.url.string
+            url = urljoin('http://weixin.sogou.com/', article_link)
+            item_dict[url] = article_item_xml
+
+        existed = Article.objects.values_list('origin_source').\
+            filter(origin_source__in=item_dict.keys())
+        if existed:
+            existed = [item[0] for item in existed]
+            go_next = False
+
+        article_items = [article_item for url, article_item in item_dict.items()
+                         if url not in existed]
+        if article_items:
+            for article_item in article_items:
+                get_article(article_item, gk_user)
+
+        page += 1
+        if total_pages == page:
+            go_next = False
 
 
 def get_article(article_item, gk_user):
