@@ -1,3 +1,4 @@
+from django.forms import HiddenInput
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -246,9 +247,11 @@ class RemoveSelectionArticle(UserPassesTestMixin, JSONResponseMixin, View):
 
 
 class ArticleList(UserPassesTestMixin,SortMixin,ListView):
+    class Meta:
+        widgets = {'weixin_openid': HiddenInput()}
 
     def test_func(self, user):
-        return  user.is_chief_editor
+        return user.is_chief_editor
 
     template_name = 'management/article/list.html'
     model = Article
@@ -262,7 +265,7 @@ class ArticleList(UserPassesTestMixin,SortMixin,ListView):
 class DraftArticleList(UserPassesTestMixin, SortMixin, ListView):
 
     def test_func(self, user):
-        return  user.is_chief_editor
+        return user.is_chief_editor
 
     template_name = 'management/article/draft_list.html'
     model = Article
