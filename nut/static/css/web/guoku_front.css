@@ -1966,6 +1966,9 @@ body.compact-body {
 #guoku_footer .footer-part {
   margin-top: 40px;
 }
+#guoku_footer .footer-part.qr-container-hidden {
+  display: none;
+}
 #guoku_footer .footer-part .qr-wrapper {
   float: right;
 }
@@ -2024,6 +2027,9 @@ body.compact-body {
   margin-top: 20px;
   padding-top: 20px;
   border-top: 1px solid #333;
+}
+#guoku_footer .footer-line.footer-line-hidden {
+  display: none;
 }
 #guoku_footer .footer-bottom {
   padding: 20px 10px 10px 10px;
