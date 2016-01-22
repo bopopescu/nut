@@ -268,7 +268,7 @@ BROKER_VHOST = "raspberry"
 BROKER_POOL_LIMIT = 10
 CELERY_ACKS_LATE = True
 CELERYD_PREFETCH_MULTIPLIER = 1
-CELERY_DISABLE_RATE_LIMITS = True
+CELERY_DISABLE_RATE_LIMITS = False
 # CELERY_ACCEPT_CONTENT = ['json']
 # CELERY_TASK_SERIALIZER = 'json'
 # CELERY_RESULT_SERIALIZER = 'json'
@@ -330,7 +330,7 @@ SOGOU_USERS = ('Waser1959@gustr.com', 'asortafairytale@fleckens.hu', 'Adisaid@jo
 CELERYBEAT_SCHEDULE = {
     'crawl_articles': {
         'task': 'sogou.crawl_articles',
-        'schedule': crontab(minute=1, hour=1)
+        'schedule': crontab(minute=31, hour=17)
     }
 }
 
