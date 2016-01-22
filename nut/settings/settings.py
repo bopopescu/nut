@@ -330,7 +330,7 @@ SOGOU_USERS = ('Waser1959@gustr.com', 'asortafairytale@fleckens.hu', 'Adisaid@jo
 CELERYBEAT_SCHEDULE = {
     'crawl_articles': {
         'task': 'sogou.crawl_articles',
-        'schedule': crontab(minute=48, hour=14)
+        'schedule': crontab(minute=1, hour=1)
     }
 }
 
