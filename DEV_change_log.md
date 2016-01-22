@@ -1,22 +1,59 @@
-##action
+
+###action
+
     ALTER TABLE `core`.`core_authorized_user_profile` 
     ADD COLUMN `weixin_openid` VARCHAR(255) NULL COMMENT '' AFTER `weibo_nick`;
     
-    ./manage.py celery beat-loglevel=DEBUG  --settings="settings.dev_judy"
-
     ALTER TABLE `core`.`core_article` 
-ADD COLUMN `get_user_articles` VARCHAR(255) NULL COMMENT '' AFTER `feed_read_count`;
+    CHANGE COLUMN `origin_source` `origin_source` TEXT NULL DEFAULT NULL COMMENT '' ;
 
-ALTER TABLE `core`.`core_article` 
-ADD COLUMN `origin_source` VARCHAR(255) NULL COMMENT '' AFTER `get_user_articles`;
+    ./manage.py celery beat-loglevel=ERROR  --settings="settings.production"
+    
+    sudo pip install fake-factory
 
+##2016-02-22 Fetch wixin articles
 
 ---
 
+    
+    
+=======
+5. minor fix 
+    (pc article page add ga, xs screen article pic cross full screen)
+
+4. add a field on authorized user profile 
+
+3. Entity 's related Selection Article 
+
+   Entity has a property: 
+                selected_related_articles
+   contains all Entity's related Selection_Article instance  (NOT Article!)
+                published before called time
+
+2. add tags_string  property for Article model
+   
+   Article.tags_string 
+      : get Articles Tag joined into a string by ',' 
+   
+1. still hide baichuan recommend
+
+
+##action
+
+ALTER TABLE `core`.`core_authorized_user_profile` 
+ADD COLUMN `personal_domain_name` VARCHAR(64) NULL DEFAULT NULL AFTER `weibo_nick`;
+
+
+
+=================================
+=================================
+### merged to master 2016 － 1 － 18
+=================================
+=================================
 
 5. use CBV for user list 
 4. user list search
-3. baichuan recommendation 
+3. baichuan recommendation  (hide for now)
 2. user set to author 
 1. a bookmark for youzhan's taobao product adding , not for web 
    but put in doc anyway

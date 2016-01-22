@@ -3176,7 +3176,7 @@ body.compact-body {
 }
 .guoku-app .goods_detail,
 .mobile-body .goods_detail {
-  margin-top: 20px;
+  margin-top: 0px;
 }
 .guoku-app .main-content,
 .mobile-body .main-content {
@@ -3487,6 +3487,19 @@ body.compact-body {
   }
   .guoku-content.user-page .content-panel .note-cell {
     margin-bottom: 10px;
+  }
+  #main_article .article-wrapper .content-wrapper img {
+    max-width: 110%;
+    width: 110%;
+    position: relative;
+    left: -5%;
+    display: block;
+  }
+  #main_article .article-wrapper .guoku-card img {
+    max-width: 100%;
+    width: 100%;
+    left: 0;
+    position: relative;
   }
   #main_article .article-wrapper .title-wrapper h2 {
     font-size: 28px;

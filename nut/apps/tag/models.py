@@ -24,7 +24,7 @@ def dictfetchall(cursor):
 
 class ContentTagQuerySet(models.query.QuerySet):
     def user_tags(self, user):
-        # deprecated , need add deprecate warnign
+        # deprecated , need add deprecate WARNING
         content_tags  = self.using('slave').filter(creator=user).select_related('tag').annotate(tcount=Count('tag')).order_by('-tcount')
         return content_tags
 
