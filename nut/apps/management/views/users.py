@@ -17,6 +17,7 @@ from apps.core.views import LoginRequiredMixin
 from apps.core.mixins.views import SortMixin, FilterMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
+from apps.management.forms.users import UserAuthorInfoForm , UserAuthorSetForm
 
 from django.utils.log import getLogger
 log = getLogger('django')
@@ -27,39 +28,6 @@ from rest_framework import generics
 class RESTfulUserListView(generics.ListCreateAPIView):
         queryset = GKUser.objects.all()
         serializer_class = GKUserSerializer
-
-
-class UserAuthorInfoForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(UserAuthorInfoForm, self).__init__(*args, **kwargs)
-        self.fields['weixin_id'].widget.attrs.update({'class':'form-control'})
-        self.fields['weixin_nick'].widget.attrs.update({'class':'form-control'})
-        self.fields['author_website'].widget.attrs.update({'class':'form-control'})
-        self.fields['weibo_id'].widget.attrs.update({'class':'form-control'})
-        self.fields['weibo_nick'].widget.attrs.update({'class':'form-control'})
-
-    class Meta:
-        model = Authorized_User_Profile
-        fields = [
-                  'weixin_id', 'weixin_nick','weixin_qrcode_img',\
-                  'author_website','weibo_id','weibo_nick'
-                  ]
-        widgets = {'weixin_openid': HiddenInput()}
-
-
-class UserAuthorSetForm(ModelForm):
-    isAuthor = BooleanField(required=False)
-    # http://stackoverflow.com/questions/31349584/appending-formdata-field-with-value-as-a-boolean-false-causes-the-function-to-fa
-    def __init__(self,*args, **kwargs):
-        super(UserAuthorSetForm, self).__init__(*args, **kwargs)
-
-    def save(self, commit=True):
-        _user = self.instance
-        _user.setAuthor(self.cleaned_data.get('isAuthor'))
-
-    class Meta:
-        model = GKUser
-        fields = ['isAuthor']
 
 
 class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):

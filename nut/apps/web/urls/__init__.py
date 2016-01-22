@@ -118,6 +118,8 @@ urlpatterns += patterns('',
         )
 
 
+
+# for seller 2015 page
 from apps.seller.views.web import SellerView
 urlpatterns += patterns('',
             url(r'^store2015/', SellerView.as_view(), name='year_store_2015'),
