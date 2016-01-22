@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 # from django.core.urlresolvers import reverse
 from django.http import HttpResponseNotAllowed, Http404, HttpResponseServerError
@@ -445,6 +445,14 @@ class UserIndex(UserPageMixin, DetailView):
     model = GKUser
     pk_url_kwarg = 'user_id'
     context_object_name = 'current_user'
+
+    def get(self, *args, **kwargs):
+        # this is a quick fix for  www.guoku.com/download page can not be accessed
+        user_domain = self.kwargs.get('user_domain', None)
+        if user_domain == 'download':
+            return redirect('web_download')
+
+        return super(UserIndex, self).get(*args, **kwargs)
 
     def get_object(self, queryset=None):
         return self.get_showing_user()
