@@ -255,3 +255,7 @@ def fix_image_url(image_url):
             fix_path += '/'
         image_url = url_parts._replace(path=fix_path, query=query).geturl()
     return image_url
+
+
+if __name__ == '__main__':
+    crawl_articles.delay()
