@@ -327,12 +327,12 @@ INTERVAL_OF_SELECTION = 24
 SOGOU_PASSWORD = 'guoku1@#'
 SOGOU_USERS = ('Waser1959@gustr.com', 'asortafairytale@fleckens.hu', 'Adisaid@jourrapide.com',
                'Rathe1981@rhyta.com', 'Andurn@fleckens.hu','sanyuanmilk@fleckens.hu')
-# CELERYBEAT_SCHEDULE = {
-#     'crawl_articles': {
-#         'task': 'crawl_sogou_articles',
-#         'schedule': crontab(minute=10, hour=1)
-#     }
-# }
+CELERYBEAT_SCHEDULE = {
+    'crawl_articles': {
+        'task': 'crawl_articles',
+        'schedule': crontab(minute=1, hour=1)
+    }
+}
 
 FETCH_INTERVAL = 20
 CURRENCY_SYMBOLS = (u'$', u'￥')
