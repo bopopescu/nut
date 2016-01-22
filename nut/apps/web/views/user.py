@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 # from django.core.urlresolvers import reverse
-from django.http import HttpResponseNotAllowed, Http404
+from django.http import HttpResponseNotAllowed, Http404, HttpResponseServerError
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
@@ -437,12 +437,36 @@ class UserFollowingsView(UserDetailBase):
         return _user.followings.all()
 
 
+from apps.core.models import Authorized_User_Profile
+
 class UserIndex(UserPageMixin, DetailView):
 
     template_name = 'web/user/user_index.html'
     model = GKUser
     pk_url_kwarg = 'user_id'
     context_object_name = 'current_user'
+
+    def get_object(self, queryset=None):
+        return self.get_showing_user()
+
+    def get_showing_user_by_domain(self,domain):
+        try :
+            profile = Authorized_User_Profile.objects.get(personal_domain_name=domain)
+        except Authorized_User_Profile.DoesNotExist as e:
+            raise Http404
+        except Authorized_User_Profile.MultipleObjectsReturned as e:
+            raise HttpResponseServerError
+
+        return profile.user
+
+
+
+    def get_showing_user(self):
+        user_domain = self.kwargs.get('user_domain', None)
+        if user_domain is not None:
+            return self.get_showing_user_by_domain(user_domain)
+        else:
+            return super(UserIndex, self).get_showing_user()
 
     def get_context_data(self,**kwargs):
         context_data = super(UserIndex, self).get_context_data(**kwargs)
