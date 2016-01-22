@@ -127,10 +127,10 @@ def crawl_article(article_link, gk_user, article_data):
     article = Article(**article_info)
     article.save()
     log.info('Insert article. succeed')
-    parse_article_content(article.pk).delay()
+    parse_article_content.delay(article.pk)
 
 
-@task(base=RequestsTask, name='sogou.parse_article', rate_limit='5/m')
+@task(base=RequestsTask, name='sogou.parse_article_content', rate_limit='5/m')
 def parse_article_content(article_id):
     article = Article.objects.get(pk=article_id)
     content = article.content

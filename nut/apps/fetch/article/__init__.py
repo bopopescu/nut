@@ -88,7 +88,7 @@ class WeiXinClient(requests.Session):
         if result.find(u'您的访问过于频繁') >= 0:
             log.warning(u'访问的过于频繁. url: %s', url)
             self.cookies.clear()
-            self.headers['Cookie'] = random.choice(cookies.values)
+            self.headers['Cookie'] = random.choice(cookies.values())
             self.headers['User-Agent'] = faker.user_agent()
             self.headers['Referer'] = random.choice(referers)
             raise Retry

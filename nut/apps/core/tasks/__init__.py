@@ -24,7 +24,6 @@ from apps.fetch.article.weixin import crawl_articles
 from apps.fetch.article.weixin import fetch_article_list
 from apps.fetch.article.weixin import crawl_article
 from apps.fetch.article.weixin import fetch_open_id
-from apps.fetch.article.weixin import fetch_images
 from apps.core.tasks.account import fetch_avatar, update_token
 from apps.core.tasks.entity import fetch_image, like_task, unlike_task
 from apps.core.tasks.selection import set_publish_time
