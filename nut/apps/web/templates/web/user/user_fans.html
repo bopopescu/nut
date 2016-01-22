@@ -50,8 +50,12 @@
                                                              </a>
                                                         </h4>
                                                         <p class="user-social-status">
-                                                            <span>{{ f.follower.fans_count }}</span>&nbsp;{% trans 'Fans' %}
-                                                            <span>{{ f.follower.following_count }}</span>&nbsp;{% trans 'Followed' %}
+                                                             {% trans 'Following' %}&nbsp;<span>{{ f.follower.following_count }}</span>
+                                                             &nbsp;
+                                                             {% trans 'Fans' %}&nbsp;<span>{{ f.follower.fans_count }}</span>
+
+{#                                                            <span>{{ f.follower.fans_count }}</span>&nbsp;{% trans 'Fans' %}#}
+{#                                                            <span>{{ f.follower.following_count }}</span>&nbsp;{% trans 'Followed' %}#}
                                                         </p>
                                                     {% if f.follower_id == request.user.id %}
                                                         <a href="#" class="btn btn-cancel pull-right disabled">&nbsp; <b>{% trans 'Myself' %}</b></a>
