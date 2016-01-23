@@ -46,6 +46,11 @@ def crawl_articles():
 @task(base=RequestsTask, name='sogou.get_user_articles', rate_limit='5/m')
 def get_user_articles(gk_user):
     open_id, ext = get_open_id(gk_user['weixin_id'])
+    if not open_id:
+        log.warning("skip user %s: cannot find open_id. Is weixin_id correct?",
+                    gk_user['weixin_id'])
+        return
+
     gk_user['weixin_openid'] = open_id
     gk_user_instance = Authorized_User_Profile.objects.get(pk=gk_user['pk'])
     gk_user_instance.weixin_openid = open_id
@@ -161,22 +166,9 @@ def parse_article_content(article_id):
 
 def get_open_id(weixin_id):
     log.info('get open_id for %s', weixin_id)
-    open_id, ext, total_pages = fetch_open_id(weixin_id)
-    if not open_id:
-        log.warning('cannot find open_id on page 1')
-        for page in xrange(2, total_pages + 1):
-            open_id, ext, total_pages = fetch_open_id(weixin_id)
-            if open_id:
-                break
-    return open_id, ext
-
-
-def fetch_open_id(weixin_id, page=1):
-    log.info('fetch open_id for %s', weixin_id)
     open_id = None
     ext = None
-    total_pages = 1
-    params = dict(type='1', ie='utf8', query=weixin_id, page=page)
+    params = dict(type='1', ie='utf8', query=weixin_id)
     response = weixin_client.request('GET',
                                      url=SEARCH_API,
                                      params=params,
@@ -188,9 +180,10 @@ def fetch_open_id(weixin_id, page=1):
             open_id = item_xml.id.string
             ext = item_xml.ext.string
             break
-    if page == 1:
-        total_pages = int(response['totalPages'])
-    return open_id, ext, total_pages
+
+    if open_id:
+        return open_id, ext
+    log.warning('cannot find open_id for weixin_id: %s.', weixin_id)
 
 
 def fetch_image(image_url):
