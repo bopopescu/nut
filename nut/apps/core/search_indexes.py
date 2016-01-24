@@ -63,14 +63,15 @@ class TagIndex(indexes.SearchIndex, indexes.Indexable):
 #
 #
 class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
-    text = indexes.CharField(document=True, use_template=True)
-    article_id = indexes.IntegerField(model_attr='id')
-    author = indexes.CharField(model_attr='creator')
-    title = indexes.CharField(model_attr='title', boost=1.125)
-    read_count = indexes.IntegerField(model_attr='read_count')
-    is_selection = indexes.BooleanField(model_attr='is_selection')
+    text            = indexes.CharField(document=True, use_template=True)
+    article_id      = indexes.IntegerField(model_attr='id')
+    author          = indexes.CharField(model_attr='creator')
+    title           = indexes.CharField(model_attr='title', boost=1.125)
+    tags            = indexes.CharField(model_attr='tags_string', boost=1.25)
+    read_count      = indexes.IntegerField(model_attr='read_count')
+    is_selection    = indexes.BooleanField(model_attr='is_selection')
 
-    title_auto = indexes.EdgeNgramField(model_attr='title')
+    title_auto      = indexes.EdgeNgramField(model_attr='title')
 
     def get_model(self):
         return Article
