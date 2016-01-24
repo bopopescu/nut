@@ -100,7 +100,11 @@ class ArticleTagListView(LoginRequiredMixin, ListView):
 
     def get(self, request, *args, **kwargs):
         self.tag_name = kwargs.pop('tag_name', None)
-        self.tag_name = unquote(str(self.tag_name)).decode('utf-8')
+        try :
+            self.tag_name = unquote(str(self.tag_name)).decode('utf-8')
+        except UnicodeEncodeError:
+            pass
+
         assert self.tag_name is not None
         return super(ArticleTagListView, self).get(request, *args, **kwargs)
 
