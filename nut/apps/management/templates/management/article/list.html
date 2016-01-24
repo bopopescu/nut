@@ -66,7 +66,7 @@
                                     <td>{{ row.read_count }}</td>
                                     <td>
                                         <div class="btn-group">
-                                            <a class="btn btn-default" href="{% url 'management_article_edit' row.pk %}" target="_blank">{% trans 'edit' %}</a>
+                                            <a class="btn btn-default" href="{% url 'management_article_edit' row.pk %}?prev={{ request.path }}" >{% trans 'edit' %}</a>
                                             <a class="btn btn-success" href="{% url 'web_article_page' row.pk %}" target="_blank">{% trans 'goto' %}</a>
                                         </div>
                                     </td>
