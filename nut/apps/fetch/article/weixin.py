@@ -7,7 +7,7 @@ import sys
 import random
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_judy'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_anchen'
 
 from django.conf import settings
 from urlparse import urljoin, urlparse
@@ -16,7 +16,7 @@ from django.utils.log import getLogger
 from datetime import datetime
 from bs4 import BeautifulSoup
 
-from apps.core.models import Article, Media, Authorized_User_Profile
+from apps.core.models import GKUser, Article, Media, Authorized_User_Profile
 from apps.fetch.common import clean_xml, queryset_iterator
 from apps.fetch.article import RequestsTask, WeiXinClient
 
@@ -34,7 +34,7 @@ image_host = getattr(settings, 'IMAGE_HOST', None)
 @task(base=RequestsTask, name='sogou.crawl_articles', rate_limit='5/m')
 def crawl_articles():
     all_authorized_user = Authorized_User_Profile.objects. \
-        filter(weixin_id__isnull=False)
+        filter(weixin_id__isnull=False,user__in=GKUser.objects.authorized_author())
     for user in queryset_iterator(all_authorized_user):
         gk_user = {'weixin_openid': user.weixin_openid,
                    'weixin_id': user.weixin_id,
