@@ -209,6 +209,7 @@
                             console.log('success');
                             console.log(data);
                             alert('加入精选成功');
+                            location.reload();
 
                         },
                         function fail(data){

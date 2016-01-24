@@ -1,5 +1,5 @@
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
@@ -372,6 +372,8 @@ def edit(request, article_id, template="management/article/edit.html"):
         # log.info(_forms)
         if _forms.is_valid():
             _article = _forms.save()
+            return redirect('management_article_list')
+
 
     else:
         _forms = EditArticleForms(_article, data=data)
