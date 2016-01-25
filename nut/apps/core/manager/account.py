@@ -30,6 +30,9 @@ class GKUserQuerySet(models.query.QuerySet):
     def active(self):
         return self.filter(is_active=1)
 
+    def visible(self):
+        return self.filter(is_active__gte=0)
+
     def blocked(self):
         return self.filter(is_active=0)
 
@@ -44,6 +47,7 @@ class GKUserQuerySet(models.query.QuerySet):
 
 
 class GKUserManager(BaseUserManager):
+    # use_for_related_fields = True
 
     def get_queryset(self):
         return GKUserQuerySet(self.model, using = self._db)
@@ -59,6 +63,9 @@ class GKUserManager(BaseUserManager):
 
     def active(self):
         return self.get_query_set().active()
+
+    def visible(self):
+        return self.get_queryset().visible()
 
     def blocked(self):
         return self.get_query_set().blocked()
