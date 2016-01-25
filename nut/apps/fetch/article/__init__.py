@@ -16,7 +16,6 @@ from faker import Faker
 from celery import Task
 from django.conf import settings
 from django.utils.log import getLogger
-from requests.utils import cookiejar_from_dict
 from requests.exceptions import ReadTimeout
 from requests.exceptions import ConnectionError
 
@@ -31,6 +30,10 @@ class Retry(Exception):
     def __init__(self, countdown=5):
         self.countdown = countdown
         self.message = 'Fetch error, need to login or get new token.'
+
+
+class Expired(Exception):
+    pass
 
 
 class RequestsTask(Task):
@@ -55,7 +58,7 @@ class WeiXinClient(requests.Session):
         super(WeiXinClient, self).__init__()
         self.login_url = 'https://account.sogou.com/web/login'
         self.search_api_url = 'http://weixin.sogou.com/weixinjs'
-        self.cookies = cookiejar_from_dict(random.choice(sogou_cookies.values()))
+        self.refresh_cookies()
 
     def request(self, method, url,
                 params=None,
@@ -89,15 +92,15 @@ class WeiXinClient(requests.Session):
         result = result.rstrip('\n')
         if result.find(u'您的访问过于频繁') >= 0:
             log.warning(u'访问的过于频繁. url: %s', url)
-            self.cookies.clear()
-            self.cookies = cookiejar_from_dict(random.choice(sogou_cookies.values()))
-            self.headers['User-Agent'] = faker.user_agent()
-            self.headers['Referer'] = random.choice(sogou_referers)
+            self.refresh_cookies()
             raise Retry
+        if result.find(u'当前请求已过期') >= 0:
+            log.warning(u'当前请求已过期. url: %s', url)
+            raise Expired('link expired: %s' % url)
         if format_json:
             result = self.json_response(resp)
             if 'code' in result and result['code'] == "needlogin":
-                self.login()
+                self.refresh_cookies()
                 raise Retry
         return result
 
@@ -124,6 +127,13 @@ class WeiXinClient(requests.Session):
         self.request('POST',
                      self.login_url, data=data, headers=headers)
 
+    def refresh_cookies(self):
+        self.cookies.clear()
+        self.headers['Cookie'] = random.choice(sogou_cookies)
+        self.headers['User-Agent'] = faker.user_agent()
+        self.headers['Referer'] = random.choice(sogou_referers)
+        # self.login()
+
     @classmethod
     def json_response(cls, response):
         result = response.content.decode('utf-8')
@@ -140,14 +150,17 @@ class WeiXinClient(requests.Session):
 
 
 #############  Cookies  #############
-sogou_cookies = {
-    'Waser1959@gustr.com': {'ppmdig': '1453397330000000c83c143bec3f757d06144cf1697d4f4a', 'ad': 'vHEdKZllll2QoSqJlllllVzPVU7lllllLcfbOlllll6lllllVgDll5@@@@@@@@@@', 'SUID': '949B8EDB2A10950A0000000056A11548', 'ppinf': '5|1453397320|1454606920|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzMzk3MzIwfHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoxOTp3YXNlcjE5NTlAZ3VzdHIuY29tfHVuaXFuYW1lOjA6fA', 'SNUID': '2E213561BBBF9261CAAE5201BB372A72;', 'ABTEST': '0|1453397330|v1', 'CXID': 'CEF4CCEAE4C33B94EBE0CBB26CA8A603', 'SUV': '0043744ADB8E9B9456A115489E542674', 'PHPSESSID': 'u7lmaa86vrl9lesn6c5a6ecgb3', 'SUIR': '1453397330', 'pprdig': 'B3_zIgFj-XJHeEWSYu5UjbBcJtHlcQHQP8z4ZB5eD4ipwngIKggwrl3J9XCYaIANjHpCv9oS28JFBFkOaR4HAXP7Plv4SIBslWnBfkCUk_ZyKzPZwx3oI-SuxGEpXiynpOIZIz-IRcbwhkdbadgjF8KtU4DhrV987raKEOiwc8o', 'IPLOC': 'CN1100'},
-    'asortafairytale@fleckens.hu': {'SNUID': '76796F3AE1E4CB3BD751771CE2BCC396', 'ABTEST': '0|1453386418|v1', 'IPLOC': 'CN1100', 'ad': 'sHEdJZllll2Qon@@@@@@@@@@', 'SUID': '949B8EDB2A10950A0000000056A0EAB7', 'pprdig': 'rztHrGmvYAKsxEuSFoku0TqqMXacNMaSZqGxISh4XoT0ELieC6GGLpB7RoawOQvavrTDCxJu6VcsXJ2s8HGKkOXWok1k2nVbC2oaApIhAy0AzHvk2G0zdzBRKpZMJOKA2CBUONZ5q6IWWvtsJBWm3KOIWm2p48MFHlE2wrpTuR4', 'SUIR': '1453387763', 'sct': '9', 'CXID': 'DA3B77DAF66D29E3DEF0A1A773218CD2', 'SUV': '00161002DB8E9B9456A0EA01A7B25989', 'weixinIndexVisited': '1', 'ppinf': '5|1453396731|1454606331|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzMzk2NzMxfHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoyNzphc29ydGFmYWlyeXRhbGVAZmxlY2tlbnMuaHV8dW5pcW5hbWU6MDp8'},
-    'Adisaid@jourrapide.com': {'ppinf': '5|1453396873|1454606473|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzMzk2ODczfHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoyMjphZGlzYWlkQGpvdXJyYXBpZGUuY29tfHVuaXFuYW1lOjA6fA', 'pprdig': 'sWjqVRUbvsuMsnWg65ckxpFh8_JgPDB1-N5iclB3rvuTtC2V-hSyBKXLuAqL-wuYXxNR-BX56OmZLEVs9OjyISfB4di9-Yh33_OV1BfQTDmRGk6CqqOAMKW6EG_H0yOpHxvwfyBBgwMXEM8tMuPEIExT933kKa85yU9l_k_BbtE', 'seccodeRight': 'success', 'ppmdig': '145339674200000047be4ee76732a6aa8db180f0c46ab2d0', 'SNUID': '0F0712479B99B547CE4BE8469C2477E5', 'IPLOC': 'CN1100', 'PHPSESSID': 'bevobnbosau8picf198jcag1u2', 'successCount': '1', 'ad': 'eYENXlllll2QoSn3lllllVzP9i6lllllLcfbOllllxwlllllVgDll5@@@@@@@@@@', 'SUV': '00E0744CDB8E9B9456A1138ABCF2C154', 'weixinIndexVisited': '1', 'ABTEST': '0|1453386418|v1', 'SUID': '949B8EDB2A10950A0000000056A1138A', 'SUIR': '1453396879', 'CXID': '2CEBBC1F1DA02CB2DEAA08803805603F'},
-    'Rathe1981@rhyta.com': {'SUIR': '1453397078', 'ppinf': '5|1453397066|1454606666|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzMzk3MDY2fHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoxOTpyYXRoZTE5ODFAcmh5dGEuY29tfHVuaXFuYW1lOjA6fA', 'SUID': '949B8EDB2A10950A0000000056A11436', 'pprdig': 'i750ZJmx4IQxB4PsekxTvD4hgG91bmY1JfmMjSU_jlfHkRwGjntPZR183ouiPgDpDN0n8TRmZ8PZR0yrUcyWuvqUsA9fcBlWG6P5BTmswEjL4Mux2ezSriM3Wghw8v97PdpHM6vOFmLZtcnz-3ft-GhYZ-gQ2XjEWJGWJRLG2SE', 'seccodeRight': 'success', 'CXID': 'AB66F8187F49EDF50455ED71921AC8B2', 'SUV': '0034744DDB8E9B9456A11436756E7141', 'ppmdig': '145339674200000057f320ac8be269d9502639450dd8264a', 'SNUID': '67687C29F3F7DB29930ED0D0F395C810', 'ABTEST': '0|1453386418|v1', 'IPLOC': 'CN1100', 'ad': 'D@@@@@@@@@@', 'weixinIndexVisited': '1', 'PHPSESSID': 'bevobnbosau8picf198jcag1u2'},
-    'Andurn@fleckens.hu': {'ppmdig': '1453396742000000532ba8fcfa8e01b934ba03e2909ddac2', 'ad': 'hIidKyllll2QoSv1lllllVzPVatlllllLcfbOlllllolllllVgDll5@@@@@@@@@@', 'SUIR': '1453397175', 'SUID': '949B8EDB2A10950A0000000056A114B4', 'pprdig': 'w7qeRmbO5xtfoCTOJMpTl_oy8vEytQvDD4rJ41c8DLHhpE8rbMj0kMB4xXZaTkriME9mj-3G0rBGSH3cmaHE45P3WSujz5LWcFx5ariiKsjpCpDr-AlCuBAt9shxDR57_Rhq_skjOztBqAKaUmn1kT5ujPKCzO5AQKyds-koLq4', 'SNUID': '303E2B7EA5A18C7FC34ADA49A5B77A0D;', 'ABTEST': '0|1453386418|v1', 'CXID': 'D51D5E600468B0E90F70573937FB3A3E', 'SUV': '0096744BDB8E9B9456A114B4D9568399', 'PHPSESSID': 'bevobnbosau8picf198jcag1u2', 'IPLOC': 'CN1100', 'ppinf': '5|1453397172|1454606772|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzMzk3MTcyfHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoxODphbmR1cm5AZmxlY2tlbnMuaHV8dW5pcW5hbWU6MDp8', 'refresh': '1', 'weixinIndexVisited': '1'},
-    'sanyuanmilk@fleckens.hu': {'ppmdig': '1453396742000000f86d8b8b97a1eadaaaa73bf1af62a9ff', 'ad': 'ZYENXlllll2QoSF@lllllVzPVyGlllllLcfbOlllll6lllllVgDll5@@@@@@@@@@', 'SUIR': '1453397255', 'SUID': '949B8EDB2A10950A0000000056A114FE', 'pprdig': 'GDxSWxb_kipE0dBTgkYhCqDZH7ULWhsgiTp5N3EdouWQTYZNb64VlWzfwvUQtpTrU5X1rojFYH5094M1zNxkEgyjV-L-roRFL9dJXX4_wy8ZTYIsUIX7j2DGRNvRp9G8EfpnDMQ61HE5a5mMarfRPpPItvmZNzceoj1b1BsznAI', 'SNUID': 'A1AEB8ED36331FED5DB5229336853F78;', 'ABTEST': '0|1453386418|v1', 'CXID': 'B4B21B3D4BB68FCB64219E2B3F3EC19F', 'SUV': '0034744DDB8E9B9456A114FE76464532', 'PHPSESSID': 'bevobnbosau8picf198jcag1u2', 'IPLOC': 'CN1100', 'ppinf': '5|1453397246|1454606846|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzMzk3MjQ2fHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoyMzpzYW55dWFubWlsa0BmbGVja2Vucy5odXx1bmlxbmFtZTowOnw', 'weixinIndexVisited': '1'},
-}
+sogou_cookies = (
+    # "ABTEST=0|1453548272|v1; SNUID=6EB8716D1E1B37E08A6F8B5E1F2450EB; IPLOC=CN1100; SUID=70A76F722624930A0000000056A362F0; SUV=00AE23E7726FA77056A36302D20F7531; SUID=70A76F72523A900A0000000056A36302; CXID=8C34EE0853B2F483AD898F12B3CF930B; ppinf=5|1453548293|1454757893|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzNTQ4MjkzfHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoxODphbmR1cm5AZmxlY2tlbnMuaHV8dW5pcW5hbWU6MDp8; pprdig=un7vDTDdsS7WFK81iNlIc6vXJyQZard_Auc5L52-DKNhDjyFQcuK82MvhATuv6RG1GfJMWTxiId4dd7-xDO0npsZiA32Wl_qYU84YtKpsv2vwR2uff5j1DS8kVrF_pOT8YXmO43qM8cWXq7p4Qd65emyRr3DFPCzZ1klK4pFTBs; ad=brcPwkllll2QoLGRlllllVz0YhZlllllzAKWwlllljUlllllVTDll5@@@@@@@@@@",
+    # "IPLOC=CN1100; SUV=00DD23E4726FA77056A36385C26FF582; SUID=70A76F72523A900A0000000056A36385; CXID=428F7227DC297F7350FCE2DD518F2C4A; ppinf=5|1453548429|1454758029|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzNTQ4NDI5fHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoxODphbmR1cm5AZmxlY2tlbnMuaHV8dW5pcW5hbWU6MDp8; pprdig=aT1m4JkxNWh8PYDWqi3PWYbJaI3VNP85bU6jiRaDn1xvyTymoOrRzzKt0EHPhjTI_0EKbHqT8UkJRqlwDZz6W1S5UurnQFiqjKMUeopAS2ZL6yKOgVScNt3MbYAjCThaBlUNSxWP_xaN0LFqE6cxvWI7pFsImV_GuRqgc0lQZCM; ad=@HEdjZllll2QoLnVlllllVz0YcclllllzAKWwlllll7lllllVTDll5@@@@@@@@@@",
+    # "IPLOC=CN1100; SUV=00DD23E4726FA77056A36404C2DC9318; SUID=70A76F72523A900A0000000056A36404; CXID=0AC090DC88F924223AAFD97F33FC7DC0; ppinf=5|1453548606|1454758206|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzNTQ4NjA2fHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoyMzpzYW55dWFubWlsa0BmbGVja2Vucy5odXx1bmlxbmFtZTowOnw; pprdig=vYgD15Qj9nDZ2lPcL8Sw7vHe7uC4Biod6LjvAW2NgMnf0xDn2PbulNa_j_3jwAzRMi1TsGIbj4byo4kJY5zLvRuE08I5TBB3_M66lCYk_5bO0Pz8HcJF8V7Jkmw2s3B1eCOSCx9lsg7vyBYRucbtuyiCmXwD5K2AkCBpEXcldqk; ad=X4fO7kllll2QoLyVlllllVz0B9lllllltuMXtllllxwlllllVTDll5@@@@@@@@@@",
+    # "ABTEST=0|1453397330|v1; PHPSESSID=u7lmaa86vrl9lesn6c5a6ecgb3; SUV=0043744ADB8E9B9456A116DDA028B542; SUID=949B8EDB2A10950A0000000056A116DD; CXID=FC0093A199000C2FE6E765E1003C6F3C; ppinf=5|1453397741|1454607341|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzMzk3NzQxfHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoxOTp3YXNlcjE5NTlAZ3VzdHIuY29tfHVuaXFuYW1lOjA6fA; pprdig=CJi7Tuix5HauM6vA3bJNUk0Dg7fbqaZ6HXquUkUHlBmoo6fhLqWRW0sel0tjQKQCVjMb19Ep5VLB9uKpo4Qo07SoM5g96XpakviRkZC3AyI6k5J0fO2S3bZEkqWUO7nKj4UuHgkayQ4iB6CaCMkoB75k3z4VUwoVu_BONkfLSsk; ad=ZEfdKkllll2QoSbNlllllVzPVsllllllLcfbOllllxGlllllVgDll5@@@@@@@@@@; SUIR=1453397763; weixinIndexVisited=1; cid=wx2ww; ssuid=2499230992; SNUID=86A797D0505478B7D76E14D6515507F0; ppmdig=1453540590000000e9aff680f424fb8bf4fb3389e526144e; sct=1; IPLOC=CN1100",
+    # "ABTEST=0|1453548274|v1; IPLOC=CN1100; SUV=008F17DE3CFDB1BE56A36374EB1A1590; SUID=BEB1FD3C3428950A0000000056A36374; CXID=37438510B1E7633E3B70D100FB458781; ppinf=5|1453548420|1454758020|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzNTQ4NDIwfHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoxOTp3YXNlcjE5NTlAZ3VzdHIuY29tfHVuaXFuYW1lOjA6fA; pprdig=V164tKv2TebB7l9ZQVICO7maVsIzUoQW7DuKg1q3Nldu5P3-OayOvzeR-aEtNHn13QxzzO0qiNPFVZIiVZyPLPiXZ-m0XkEZDYVJ04UQjVHkBQPlJrmIsdX2GfkZ4JeyjCKKfyi4-cxkOVLPTf2sr8DKH8oQdPmfvuPBqHF8RHw; ad=X2EdQZllll2QoL21lllllVz0Yctlllll55LesklllxwlllllVTDll5@@@@@@@@@@; SNUID=D1DF93536E6A4790F2DA07326FC29438; ppmdig=1453548274000000f9ea7bdf7ad4f1f624758340e5de4902",
+    # "ABTEST=0|1453548274|v1; SNUID=D1DF93536E6A4790F2DA07326FC29438; ppmdig=1453548274000000f9ea7bdf7ad4f1f624758340e5de4902; IPLOC=CN1100; SUV=00E317DC3CFDB1BE56A363AFA64D7409; SUID=BEB1FD3C3428950A0000000056A363AF; CXID=C72CBB7F14F979A5D6826389C1CC31D7; ppinf=5|1453548476|1454758076|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzNTQ4NDc2fHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoyNzphc29ydGFmYWlyeXRhbGVAZmxlY2tlbnMuaHV8dW5pcW5hbWU6MDp8; pprdig=I12Z-hk_5skvB6CvcLgnNw2evMwJLohx1gW8QAr4kfqxDJSysMq6lGdgO9ZNwkG8-LhG1Ari9oRw12HWUyteSw6_nEVn0pli5KX05v0664Zm7fyOluj312oSrbtBKGQKAyz2nkJDyQ56J1gESl6oA_cJSxxeSdGpz7TDPk_rRqY; ad=oTfO7kllll2QoLnslllllVz0YEDlllll55LesklllxwlllllVTDll5@@@@@@@@@@"
+    # 'ABTEST=0|1453397330|v1; PHPSESSID=u7lmaa86vrl9lesn6c5a6ecgb3; SUV=0043744ADB8E9B9456A116DDA028B542; SUID=949B8EDB2A10950A0000000056A116DD; CXID=FC0093A199000C2FE6E765E1003C6F3C; ppinf=5|1453397741|1454607341|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzMzk3NzQxfHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoxOTp3YXNlcjE5NTlAZ3VzdHIuY29tfHVuaXFuYW1lOjA6fA; pprdig=CJi7Tuix5HauM6vA3bJNUk0Dg7fbqaZ6HXquUkUHlBmoo6fhLqWRW0sel0tjQKQCVjMb19Ep5VLB9uKpo4Qo07SoM5g96XpakviRkZC3AyI6k5J0fO2S3bZEkqWUO7nKj4UuHgkayQ4iB6CaCMkoB75k3z4VUwoVu_BONkfLSsk; ad=ZEfdKkllll2QoSbNlllllVzPVsllllllLcfbOllllxGlllllVgDll5@@@@@@@@@@; SUIR=1453397763; weixinIndexVisited=1; cid=wx2ww; ssuid=2499230992; SNUID=86A797D0505478B7D76E14D6515507F0; ppmdig=1453540590000000e9aff680f424fb8bf4fb3389e526144e; sct=1; IPLOC=CN1100; LSTMV=428%2C92; LCLKINT=71417',
+    # 'ABTEST=0|1453548274|v1; weixinIndexVisited=1; ppinf=5|1453551229|1454760829|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzNTUxMjI5fHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoyNzphc29ydGFmYWlyeXRhbGVAZmxlY2tlbnMuaHV8dW5pcW5hbWU6MDp8; pprdig=X4Am8NNTpogMzmMjx7xRW33Rw16qJhaoRouPESLARi59sUsbx0lcVOep2qKwSFGqoYH3Tw7ylMNLcFOIHiyMYsuh4z7m5LrrJLx43va_9SU_f7gfUWhwnUVIfz4e6ya09hdtB1YqwC651Nf-qfERRhmaoA9n3sRBmQX0V2U1sUU; IPLOC=CN1100; SUV=00E317DC3CFDB1BE56A36E7DAC4AD431; SUID=BEB1FD3C3428950A0000000056A36E7D; CXID=291918D768260E6E165593A156BEE78C; ad=eNEd6Zllll2QoLiMlllllVz0bollllll55Leskllll6lllllVTDll5@@@@@@@@@@; SNUID=8B84C80A35301FC970676F14360413FC; ppmdig=145355123900000012839edaa4e12351fe4aec4ed6fa1923',
+    'ABTEST=0|1453548274|v1; weixinIndexVisited=1; ppinf=5|1453551361|1454760961|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzNTUxMzYxfHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoyMjphZGlzYWlkQGpvdXJyYXBpZGUuY29tfHVuaXFuYW1lOjA6fA; pprdig=JUy6ve-X1fdWDQWGEMH9jMV448YiF-NHG5dm3MTSPNmJasMDtuvfo5rgYQIEpTUqmfY3jghcimxj6zxC9sqt5KOf3r-6uT3lfkBCa_z6NSYMsW1FkL1wB1WkVmoAeNkp2rMIGKTOLYyuR0T_go2uxP8S_uCq0kNpW0N3AIRu9D0; IPLOC=CN1100; SUV=008F17DE3CFDB1BE56A36F01F1E13976; SUID=BEB1FD3C3428950A0000000056A36F01; CXID=1F9E4F4E2D3ED2C0479B94D78E6DF27D; ad=xNEdQZllll2QoLDjlllllVz0bZUlllll55Leskllll6lllllVTDll5@@@@@@@@@@; SNUID=DCD09F5E6167489E2C75BEAB6279B4C7; ppmdig=1453551239000000d1141a1665f46262d892708762c9ff19',
+)
 
 
 sogou_referers = ('http://weixin.sogou.com/',
