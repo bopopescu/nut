@@ -425,7 +425,7 @@ class UserFansView(UserDetailBase):
     context_object_name = 'current_user_fans'
     def get_queryset(self):
         _user = self.get_showing_user()
-        return _user.fans.all()
+        return _user.fans.filter(follower__is_active__gte=0)
 
 
 class UserFollowingsView(UserDetailBase):
@@ -434,7 +434,7 @@ class UserFollowingsView(UserDetailBase):
     context_object_name = 'current_user_followings'
     def get_queryset(self):
         _user = self.get_showing_user()
-        return _user.followings.all()
+        return _user.followings.filter(followee__is_active__gte=0)
 
 
 from apps.core.models import Authorized_User_Profile
