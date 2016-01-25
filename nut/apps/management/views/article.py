@@ -1,6 +1,6 @@
 from django.forms import HiddenInput
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
@@ -352,14 +352,14 @@ def edit(request, article_id, template="management/article/edit.html"):
         log.error("Error: %s", e.message)
         raise Http404
 
-    tids = Content_Tags.objects.filter(target_content_type=31, target_object_id=_article.id).values_list('tag_id', flat=True)
-    # print tids
-    tags = Tags.objects.filter(pk__in=tids)
-    tag_list = []
-    for row in tags:
-        tag_list.append(row.name)
+    # tids = Content_Tags.objects.filter(target_content_type=31, target_object_id=_article.id).values_list('tag_id', flat=True)
+    # # print tids
+    # tags = Tags.objects.filter(pk__in=tids)
+    # tag_list = []
+    # for row in tags:
+    #     tag_list.append(row.name)
 
-    tag_string = ",".join(tag_list)
+    tag_string = _article.tags_string
 
     data = {
         "title": _article.title,
@@ -375,6 +375,8 @@ def edit(request, article_id, template="management/article/edit.html"):
         # log.info(_forms)
         if _forms.is_valid():
             _article = _forms.save()
+            return HttpResponseRedirect(request.GET.get('prev', request.path))
+
 
     else:
         _forms = EditArticleForms(_article, data=data)
