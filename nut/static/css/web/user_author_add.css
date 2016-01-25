@@ -693,7 +693,6 @@ p.boolean-false {
 }
 .guoku-content.user-page .user-latest-actions-wrapper .latest-actions-sidebar-wrapper {
   height: 100%;
-  overflow-y: auto;
 }
 .guoku-content.user-page .user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list {
   border-bottom: 0 !important;
