@@ -82,17 +82,21 @@
 //--------------------------
 //user-author-page style
 
-.user-latest-actions-wrapper{
+.guoku-content.user-page{
+  .user-latest-actions-wrapper{
   //height:520px;
 
   //授权用户动态边栏 复用原来的
   .latest-actions-sidebar-wrapper{
     height:100%;
-    overflow-y: auto;
+    //overflow-y: auto;
 
     .latest-actions-list{
       .user-tag-list{
         border-bottom: 0 !important;
+        .section-title.section-title-control{
+          border-left-color:#ffffff;
+        }
       }
       ul{
         li{
@@ -150,6 +154,26 @@
 
 }
 
+  .content-panel{
+    .panel-header{
+      .panel-name.panel-name-control{
+        border-left-color: #ffffff;
+        left:-3px;
+      }
+      .more-link.more-link-control{
+        a{
+          &:hover{
+            cursor:pointer;
+
+          }
+        }
+      }
+    }
+  }
+
+}
+
+
 //media query
 //@media screen and (max-width: 768px) {
 //  .user-latest-actions-wrapper{
@@ -190,6 +214,21 @@
   .user-article-panel{
     .user-article-title-wrapper{
       font-size: @big-title-size;
+    }
+  }
+}
+
+
+@media screen and (max-width: 767px){
+  .user-article-wrapper{
+    .user-article-item-wrapper{
+      &.user-article-cell{
+        .user-article-panel{
+          .user-article-title-wrapper,.user-article-intro-wrapper{
+            min-height:0 !important;
+          }
+        }
+      }
     }
   }
 }

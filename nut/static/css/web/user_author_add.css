@@ -690,31 +690,33 @@ p.boolean-false {
   text-align: center;
   line-height: 52px;
 }
-.user-latest-actions-wrapper .latest-actions-sidebar-wrapper {
+.guoku-content.user-page .user-latest-actions-wrapper .latest-actions-sidebar-wrapper {
   height: 100%;
-  overflow-y: auto;
 }
-.user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list {
+.guoku-content.user-page .user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list {
   border-bottom: 0 !important;
 }
-.user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li {
+.guoku-content.user-page .user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-title.section-title-control {
+  border-left-color: #ffffff;
+}
+.guoku-content.user-page .user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li {
   margin-bottom: 10px;
   font-size: 14px;
 }
-.user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li a:hover {
+.guoku-content.user-page .user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li a:hover {
   cursor: pointer;
   color: #428bca;
 }
-.user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper {
+.guoku-content.user-page .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper {
   height: 52px;
   margin: 25px 15px;
   overflow: hidden;
 }
-.user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .rect-decoration {
+.guoku-content.user-page .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .rect-decoration {
   float: left;
   margin-right: 15px;
 }
-.user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper {
+.guoku-content.user-page .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper {
   margin-left: 67px;
   min-height: 52px;
   max-height: 52px;
@@ -723,15 +725,22 @@ p.boolean-false {
   overflow: hidden;
   white-space: nowrap;
 }
-.user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper .user-info-section-title {
+.guoku-content.user-page .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper .user-info-section-title {
   font-size: 12px;
 }
-.user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a.user-latest-article-title {
+.guoku-content.user-page .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a.user-latest-article-title {
   font-size: 18px;
   color: #424242;
 }
-.user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a:hover {
+.guoku-content.user-page .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a:hover {
   text-decoration: none;
+  cursor: pointer;
+}
+.guoku-content.user-page .content-panel .panel-header .panel-name.panel-name-control {
+  border-left-color: #ffffff;
+  left: -3px;
+}
+.guoku-content.user-page .content-panel .panel-header .more-link.more-link-control a:hover {
   cursor: pointer;
 }
 @media screen and (min-width: 1200px) {
@@ -740,5 +749,11 @@ p.boolean-false {
   }
   .user-article-panel .user-article-title-wrapper {
     font-size: 24px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .user-article-wrapper .user-article-item-wrapper.user-article-cell .user-article-panel .user-article-title-wrapper,
+  .user-article-wrapper .user-article-item-wrapper.user-article-cell .user-article-panel .user-article-intro-wrapper {
+    min-height: 0 !important;
   }
 }
