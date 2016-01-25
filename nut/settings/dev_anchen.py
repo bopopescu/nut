@@ -5,15 +5,19 @@ DEBUG = True
 DEBUG = True
 TESTING = len(sys.argv) > 0 and sys.argv[0].endswith('py.test')
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
+# for article related celery task
+CELERY_ALWAYS_EAGER = False
+CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
 #
-# IMAGE_HOST = 'http://imgcdn.guoku.com/'
-
-
-LOCAL_IMG_DEBUG=True
-IMAGE_HOST = 'http://127.0.0.1:9766/'
-INTRANET_IMAGE_SERVER = 'http://images.hello.new/'
-MEDIA_ROOT='../ant_image/'
-AVATAR_HOST = IMAGE_HOST
+IMAGE_HOST = 'http://imgcdn.guoku.com/'
+#
+#
+# LOCAL_IMG_DEBUG=True
+# IMAGE_HOST = 'http://127.0.0.1:9766/'
+# INTRANET_IMAGE_SERVER = 'http://images.hello.new/'
+# MEDIA_ROOT='../ant_image/'
+# AVATAR_HOST = IMAGE_HOST
 
 IMG_COUNTER_HOST = 'http://127.0.0.1:9766'
 
