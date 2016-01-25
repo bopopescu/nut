@@ -1805,7 +1805,6 @@ body.compact-body {
 }
 #guoku_main_nav .main-list li.active a {
   color: #424242;
-  font-weight: 600;
 }
 #guoku_main_nav .main-list li.divider {
   background-color: #9d9d9d;
@@ -1816,7 +1815,6 @@ body.compact-body {
 #guoku_main_nav .main-list a:hover,
 #guoku_main_nav .main-list a:focus {
   color: #424242 !important;
-  font-weight: 600;
   background: none;
 }
 #guoku_main_nav .main-list .img-menu {
