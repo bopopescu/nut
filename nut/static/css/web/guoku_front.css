@@ -1680,6 +1680,7 @@ textarea {
 }
 .guoku-content.user-page .content-panel .panel-header .panel-name.panel-name-control {
   border-left-color: #ffffff;
+  left: -3px;
 }
 .guoku-content.user-page .content-panel .panel-header .more-link.more-link-control a:hover {
   cursor: pointer;
