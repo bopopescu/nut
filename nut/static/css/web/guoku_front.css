@@ -1683,6 +1683,12 @@ textarea {
     font-size: 24px;
   }
 }
+@media screen and (max-width: 767px) {
+  .user-article-wrapper .user-article-item-wrapper.user-article-cell .user-article-panel .user-article-title-wrapper,
+  .user-article-wrapper .user-article-item-wrapper.user-article-cell .user-article-panel .user-article-intro-wrapper {
+    min-height: 0 !important;
+  }
+}
 body {
   padding-top: 80px;
   color: #424242;
