@@ -6,19 +6,16 @@ import os
 import sys
 import random
 
-from wand.exceptions import WandError, WandException
-
-
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_judy'
 
+from wand.exceptions import WandException
 from django.conf import settings
 from urlparse import urljoin, urlparse
 from celery.task import task
 from django.utils.log import getLogger
 from datetime import datetime
-import time
 from bs4 import BeautifulSoup
 
 from apps.core.models import Article, Media, Authorized_User_Profile
@@ -50,7 +47,7 @@ def crawl_articles():
 
 @task(base=RequestsTask, name='sogou.get_user_articles', rate_limit='1/m')
 def get_user_articles(gk_user):
-    open_id, ext = get_open_id(gk_user['weixin_id'])
+    open_id, ext, sg_cookie = get_token(gk_user['weixin_id'])
     if not open_id:
         log.warning("skip user %s: cannot find open_id. Is weixin_id correct?",
                     gk_user['weixin_id'])
@@ -60,11 +57,19 @@ def get_user_articles(gk_user):
     gk_user_instance = Authorized_User_Profile.objects.get(pk=gk_user['pk'])
     gk_user_instance.weixin_openid = open_id
     gk_user_instance.save()
-    fetch_article_list.delay(gk_user, open_id, ext)
+    fetch_article_list.delay(gk_user=gk_user, open_id=open_id, ext=ext,
+                             sg_cookie=sg_cookie)
 
 
 @task(base=RequestsTask, name='sogou.fetch_article_list', rate_limit='1/m')
-def fetch_article_list(gk_user, open_id, ext, page=1):
+def fetch_article_list(gk_user, open_id, ext, sg_cookie, page=1):
+    print
+    print
+    print '-' * 80
+    print sg_cookie
+    print '-' * 80
+    print
+    print
     go_next = True
     params = {
         'openid': open_id,
@@ -73,6 +78,7 @@ def fetch_article_list(gk_user, open_id, ext, page=1):
         'cb': 'sogou.weixin_gzhcb',
         'type': 1,
     }
+    weixin_client.headers['Cookie'] = sg_cookie
     response = weixin_client.request("GET", ARTICLE_LIST_API,
                                      params=params,
                                      format_json=True)
@@ -99,7 +105,7 @@ def fetch_article_list(gk_user, open_id, ext, page=1):
                      if url not in existed]
     if article_items:
         for article_item in article_items:
-            get_article(article_item, gk_user)
+            get_article(article_item, gk_user, sg_cookie)
 
     page += 1
     if total_pages < page:
@@ -108,23 +114,25 @@ def fetch_article_list(gk_user, open_id, ext, page=1):
 
     if go_next:
         log.info('prepare to get next page: %d', page)
-        fetch_article_list.delay(gk_user, open_id, ext, page)
+        fetch_article_list.delay(gk_user=gk_user, open_id=open_id, ext=ext,
+                                 sg_cookie=sg_cookie)
 
 
-def get_article(article_item, gk_user):
+def get_article(article_item, gk_user, sg_cookie):
     cover = article_item.imglink.string
     article_data = dict()
     if cover:
         article_data = {'cover': cover}
     article_link = article_item.url.string
-    crawl_article.delay(article_link, gk_user, article_data)
+    crawl_article.delay(article_link, gk_user, article_data, sg_cookie)
 
 
 @task(base=RequestsTask, name='sogou.crawl_article', rate_limit='1/m')
-def crawl_article(article_link, gk_user, article_data):
+def crawl_article(article_link, gk_user, article_data, sg_cookie):
+    weixin_client.headers['Cookie'] = sg_cookie
     url = urljoin('http://weixin.sogou.com/', article_link)
     html_source = weixin_client.request('GET', url=url)
-    article_soup = BeautifulSoup(html_source)
+    article_soup = BeautifulSoup(html_source.decode('utf8'))
     # todo: no need to send whole html to task; parse qr_code url first
     if not gk_user['weixin_qrcode_img']:
         get_qr_code.delay(gk_user, parse_qr_code_url(article_soup))
@@ -143,7 +151,7 @@ def crawl_article(article_link, gk_user, article_data):
                         origin_source=url
                         )
     article_info.update(article_data)
-    log.info('Insert article. %s', article_info)
+    log.info('Insert article. %s', article_info['title'])
     article = Article(**article_info)
     article.save()
     log.info('Insert article. succeed')
@@ -181,15 +189,17 @@ def parse_article_content(article_id):
             article.save()
 
 
-def get_open_id(weixin_id):
+def get_token(weixin_id):
     log.info('get open_id for %s', weixin_id)
     open_id = None
     ext = None
     params = dict(type='1', ie='utf8', query=weixin_id)
+    weixin_client.refresh_cookies()
     response = weixin_client.request('GET',
                                      url=SEARCH_API,
                                      params=params,
                                      format_json=True)
+    sg_cookie = weixin_client.headers.get('Cookie', '')
     for item in response['items']:
         item_xml = clean_xml(item)
         item_xml = BeautifulSoup(item_xml, 'xml')
@@ -199,10 +209,10 @@ def get_open_id(weixin_id):
             break
 
     if open_id:
-        return open_id, ext
+        return open_id, ext, sg_cookie
     else:
         log.warning('cannot find open_id for weixin_id: %s.', weixin_id)
-        return None, None
+        return None, None, None
 
 
 def fetch_image(image_url):
@@ -278,11 +288,4 @@ def fix_image_url(image_url):
 
 
 if __name__ == '__main__':
-    # crawl_articles.delay()
-    gk_user = {'pk': 1,
-    'weixin_id': u'shenyebagua818',
-    'weixin_openid': None,
-    'weixin_qrcode_img': u'images/89ff3b39797b0f2a429319f2fca00081.jpg'}
-    openid = 'oIWsFtyGRm3FRZuQbcDquZOI5N_E'
-    ext = 'zBO3BL4RDTQCk5VnTFARJ9CxHUokEvDjyG97ZTG9sp4asGGQ_mNo6oMnlSzSPZO6'
-    resp = fetch_article_list(gk_user, openid, ext)
+    crawl_articles.delay()
