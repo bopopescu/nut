@@ -14,11 +14,19 @@
 
 ##2016-02-22 Fetch wixin articles
 
----
 
-    
-    
-=======
+5. article mng list page change
+4. article mng edit page change 
+3. entity liker list and fan following list template fix 
+2. download page url , without ending slash , access 
+1. hide deleted user in user fan/following list
+
+=================================
+=================================
+### merged to master 2016 － 1 － 21
+=================================
+=================================
+
 5. minor fix 
     (pc article page add ga, xs screen article pic cross full screen)
 
