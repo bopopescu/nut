@@ -216,16 +216,30 @@ body.compact-body{
       height: 28px;
       background: none;
       padding:0px 8px;
+
+      &.search-input-control{
+        width:200px;
+        height:32px;
+        line-height: 32px;
+        padding:0 10px 0 12px;
+        border:none;
+        background-color: @tag-hover-background;
+      }
+
     }
     .fa{
       position: absolute;
       right: 5px;
       top: 5px;
       color:@common-gray;
+
+      &.fa-search-control{
+        z-index: 1000;
+        right:10px;
+        top:7px;
+      }
     }
   }
-
-
 
 }
 

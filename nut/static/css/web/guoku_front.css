@@ -1898,11 +1898,24 @@ body.compact-body {
   background: none;
   padding: 0px 8px;
 }
+#guoku_main_nav .search .search-input.search-input-control {
+  width: 200px;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 10px 0 12px;
+  border: none;
+  background-color: #F0F0F0;
+}
 #guoku_main_nav .search .fa {
   position: absolute;
   right: 5px;
   top: 5px;
   color: #9D9E9F;
+}
+#guoku_main_nav .search .fa.fa-search-control {
+  z-index: 1000;
+  right: 10px;
+  top: 7px;
 }
 #guoku_footer {
   min-height: 200px;
