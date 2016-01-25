@@ -78,7 +78,7 @@ class ArticleUndig(JSONResponseMixin,LoginRequiredMixin,AjaxResponseMixin,View):
 class NewSelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
     template_name = template_name = 'web/article/selection_list_new.html'
     ajax_template_name = 'web/article/partial/selection_ajax_list_new.html'
-    paginate_by = 12
+    paginate_by = 24
     model = Selection_Article
     paginator_class = Jpaginator
     context_object_name = 'selection_articles'
