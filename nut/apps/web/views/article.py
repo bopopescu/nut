@@ -185,12 +185,17 @@ class EditorArticleEdit(AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,
     model = Article
 
     def test_func(self, user):
-        return user.can_write
+        the_article = self.get_article()
+        return user.can_write or (user.is_authorized_author and the_article.creator == user)
+
+    def get_article(self):
+        pk = self.kwargs['pk']
+        the_article =  get_object_or_404(Article,pk=pk)
+        return the_article
 
     def get(self,request, *args, **kwargs):
-        pk = kwargs['pk']
-        the_article =  get_object_or_404(Article,pk=pk)
-
+        pk = self.kwargs['pk']
+        the_article =  self.get_article()
         if request.user.is_writer:
             if the_article.creator != request.user:
                 raise Http404('没有找到对应文章，你是作者吗？')
