@@ -436,7 +436,6 @@ class UserFollowingsView(UserDetailBase):
         _user = self.get_showing_user()
         return _user.followings.filter(followee__is_active__gte=0)
 
-
 from apps.core.models import Authorized_User_Profile
 
 class UserIndex(UserPageMixin, DetailView):
