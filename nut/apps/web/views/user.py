@@ -490,8 +490,8 @@ class UserIndex(UserPageMixin, DetailView):
 
         context_data['articles'] = _article_list
 
-        context_data['followings'] = current_user.followings.all()[:7]
-        context_data['fans'] = current_user.fans.all()[:7]
+        context_data['followings'] = current_user.followings.filter(followee__is_active__gte=0)[:7]
+        context_data['fans'] = current_user.fans.filter(follower__is_active__gte=0)[:7]
         context_data['tags']= Content_Tags.objects.user_tags_unique(current_user)[0:5]
         context_data['pronoun'] = self.get_pronoun()
 
