@@ -108,12 +108,7 @@ register.filter(handle_brand_intro)
 
 
 def article_tag_string(article):
-        tids = Content_Tags.objects.filter(target_content_type=31, target_object_id=article.pk).values_list('tag_id', flat=True)
-        tags = Tags.objects.filter(pk__in=tids)
-        tag_list=[]
-        for row in tags:
-            tag_list.append(row.name)
-        tag_string = ",".join(tag_list)
+        tag_string = article.tags_string
         return tag_string
 register.filter(article_tag_string)
 
