@@ -1,4 +1,4 @@
-{% extends 'web/base_new.html' %}
+{% extends 'web/base.html' %}
 {% load i18n static %}
 {% load guoku common %}
 {% block meta-og %}
@@ -40,7 +40,7 @@
 {#                        <span class="action guoku-button button-white"><i class="fa fa-edit"></i>编辑个人资料</span>#}
                     </div>
                 </div>
-                <div class="user-bio"><span class="bio-text">{{ current_user.bio }}</span></div>
+                <div class="user-bio"><span class="bio-text">{{ current_user.bio|truncatechars:200 }}</span></div>
                 {% if current_user.weibo %}
                 <div class="user-binding">
                     <a href="{{ current_user.weibo.weibo_link }}" target="_blank"><i class="fa fa-weibo user-binding-icon"></i></a>
