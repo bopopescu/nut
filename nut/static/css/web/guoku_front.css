@@ -1678,6 +1678,12 @@ textarea {
   text-decoration: none;
   cursor: pointer;
 }
+.guoku-content.user-page .content-panel .panel-header .panel-name.panel-name-control {
+  border-left-color: #ffffff;
+}
+.guoku-content.user-page .content-panel .panel-header .more-link.more-link-control a:hover {
+  cursor: pointer;
+}
 @media screen and (min-width: 1200px) {
   .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a.user-latest-article-title {
     font-size: 24px;
