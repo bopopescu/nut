@@ -78,11 +78,12 @@ def fetch_article_list(gk_user, open_id, ext, sg_cookie, page=1):
         'cb': 'sogou.weixin_gzhcb',
         'type': 1,
     }
-    weixin_client.headers['Cookie'] = sg_cookie
-    response = weixin_client.request("GET", ARTICLE_LIST_API,
-                                     params=params,
-                                     format_json=True)
+    response = weixin_client.get(ARTICLE_LIST_API,
+                                 params=params,
+                                 format_json=True,
+                                 headers={'Cookie': sg_cookie})
     json_items = response['items']
+    # weixin_client.headers['Referer'] = response.url
     total_pages = int(response['totalPages'])
 
     item_dict = {}
@@ -129,10 +130,9 @@ def get_article(article_item, gk_user, sg_cookie):
 
 @task(base=RequestsTask, name='sogou.crawl_article', rate_limit='1/m')
 def crawl_article(article_link, gk_user, article_data, sg_cookie):
-    weixin_client.headers['Cookie'] = sg_cookie
     url = urljoin('http://weixin.sogou.com/', article_link)
-    html_source = weixin_client.request('GET', url=url)
-    article_soup = BeautifulSoup(html_source.decode('utf8'))
+    html_source = weixin_client.get(url=url, headers={'Cookie': sg_cookie})
+    article_soup = BeautifulSoup(html_source, from_encoding='utf8')
     # todo: no need to send whole html to task; parse qr_code url first
     if not gk_user['weixin_qrcode_img']:
         get_qr_code.delay(gk_user, parse_qr_code_url(article_soup))
@@ -155,16 +155,11 @@ def crawl_article(article_link, gk_user, article_data, sg_cookie):
     article = Article(**article_info)
     article.save()
     log.info('Insert article. succeed')
-    parse_article_content.delay(article.pk)
 
-
-@task(base=RequestsTask, name='sogou.parse_article_content')
-def parse_article_content(article_id):
-    article = Article.objects.get(pk=article_id)
     content = article.content
     cover = article.cover
     if cover:
-        cover = fetch_image(cover)
+        cover = fetch_image(cover, sg_cookie)
         if cover:
             article.cover = cover
             article.save()
@@ -177,8 +172,8 @@ def parse_article_content(article_id):
                 image_tag.attrs.get('src') or image_tag.attrs.get('data-src')
             )
             if img_src:
-                log.info('fetch_image for article %d: %s', article_id, img_src)
-                gk_img_rc = fetch_image(img_src)
+                log.info('fetch_image for article %d: %s', article.id, img_src)
+                gk_img_rc = fetch_image(img_src, sg_cookie)
                 if gk_img_rc:
                     image_tag['src'] = gk_img_rc
                     image_tag['data-src'] = gk_img_rc
@@ -194,11 +189,9 @@ def get_token(weixin_id):
     open_id = None
     ext = None
     params = dict(type='1', ie='utf8', query=weixin_id)
-    weixin_client.refresh_cookies()
-    response = weixin_client.request('GET',
-                                     url=SEARCH_API,
-                                     params=params,
-                                     format_json=True)
+    response = weixin_client.get(url=SEARCH_API,
+                                 params=params,
+                                 format_json=True)
     sg_cookie = weixin_client.headers.get('Cookie', '')
     for item in response['items']:
         item_xml = clean_xml(item)
@@ -215,7 +208,7 @@ def get_token(weixin_id):
         return None, None, None
 
 
-def fetch_image(image_url):
+def fetch_image(image_url, sg_cookie):
     # log.info('original image url: %s; fixing..', image_url)
     # image_url = fix_image_url(image_url)
     # log.info('fixed image url: %s', image_url)
@@ -228,7 +221,8 @@ def fetch_image(image_url):
         log.info('image url is not from mmbiz.qpic.cn; skip: %s', image_url)
         return
     from apps.core.utils.image import HandleImage
-    r = weixin_client.get(url=image_url, stream=True)
+    r = weixin_client.get(url=image_url, stream=True,
+                          headers={'Cookie': sg_cookie})
     try:
         try:
             content_type = r.headers['Content-Type']
@@ -264,8 +258,8 @@ def parse_qr_code_url(article_soup):
 
 
 @task(base=RequestsTask, name='sogou.get_qr_code', rate_limit='1/m')
-def get_qr_code(gk_user, qr_code_url):
-    qr_code_image = fetch_image(qr_code_url)
+def get_qr_code(gk_user, qr_code_url, sg_cookie):
+    qr_code_image = fetch_image(qr_code_url, sg_cookie)
     gk_user_instance = Authorized_User_Profile.objects.get(pk=gk_user['pk'])
     gk_user_instance.weixin_qrcode_img = qr_code_image
     gk_user_instance.save()
