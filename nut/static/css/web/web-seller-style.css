@@ -615,6 +615,10 @@ p.boolean-false {
 .user-icon-list li img {
   border-radius: 50%;
 }
+.guoku-normal-col {
+  padding: 0 5px;
+  margin-bottom: 10px;
+}
 ol {
   padding: 0;
 }

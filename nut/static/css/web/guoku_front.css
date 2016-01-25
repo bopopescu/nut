@@ -972,6 +972,10 @@ p.boolean-false {
 .user-icon-list li img {
   border-radius: 50%;
 }
+.guoku-normal-col {
+  padding: 0 5px;
+  margin-bottom: 10px;
+}
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
   color: #9D9E9F;
@@ -1914,7 +1918,6 @@ body.compact-body {
   padding: 0px 8px;
 }
 #guoku_main_nav .search .search-input.search-input-control {
-  width: 200px;
   height: 32px;
   line-height: 32px;
   padding: 0 10px 0 12px;
