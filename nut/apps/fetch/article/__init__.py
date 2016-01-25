@@ -27,9 +27,9 @@ log = getLogger('django')
 
 
 class Retry(Exception):
-    def __init__(self, countdown=5):
+    def __init__(self, countdown=5, message=u''):
         self.countdown = countdown
-        self.message = 'Fetch error, need to login or get new token.'
+        self.message = 'Fetch error, need to login or get new token.' + message
 
 
 class Expired(Exception):
@@ -83,9 +83,9 @@ class WeiXinClient(requests.Session):
                                                      proxies, hooks, stream, verify,
                                                      cert, json)
         except ConnectionError:
-            raise Retry
+            raise Retry(message=u'ConnectionError.')
         except ReadTimeout:
-            raise Retry
+            raise Retry(message=u'ReadTimeout')
         if stream:
             return resp
         result = resp.content.decode('utf-8')
@@ -93,7 +93,7 @@ class WeiXinClient(requests.Session):
         if result.find(u'您的访问过于频繁') >= 0:
             log.warning(u'访问的过于频繁. url: %s', url)
             self.refresh_cookies()
-            raise Retry
+            raise Retry(message=u'访问的过于频繁.')
         if result.find(u'当前请求已过期') >= 0:
             log.warning(u'当前请求已过期. url: %s', url)
             raise Expired('link expired: %s' % url)
@@ -101,7 +101,7 @@ class WeiXinClient(requests.Session):
             result = self.json_response(resp)
             if 'code' in result and result['code'] == "needlogin":
                 self.refresh_cookies()
-                raise Retry
+                raise Retry(message=u'need login.')
         return result
 
     def login(self):
@@ -131,7 +131,7 @@ class WeiXinClient(requests.Session):
         self.cookies.clear()
         self.headers['Cookie'] = random.choice(sogou_cookies)
         self.headers['User-Agent'] = faker.user_agent()
-        self.headers['Referer'] = random.choice(sogou_referers)
+        return self.headers['Cookie']
 
     @classmethod
     def json_response(cls, response):
@@ -151,8 +151,7 @@ class WeiXinClient(requests.Session):
 #############  Cookies  #############
 sogou_cookies = (
     "ABTEST=0|1453548272|v1; SNUID=6EB8716D1E1B37E08A6F8B5E1F2450EB; IPLOC=CN1100; SUID=70A76F722624930A0000000056A362F0; SUV=00AE23E7726FA77056A36302D20F7531; SUID=70A76F72523A900A0000000056A36302; CXID=8C34EE0853B2F483AD898F12B3CF930B; ppinf=5|1453548293|1454757893|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzNTQ4MjkzfHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoxODphbmR1cm5AZmxlY2tlbnMuaHV8dW5pcW5hbWU6MDp8; pprdig=un7vDTDdsS7WFK81iNlIc6vXJyQZard_Auc5L52-DKNhDjyFQcuK82MvhATuv6RG1GfJMWTxiId4dd7-xDO0npsZiA32Wl_qYU84YtKpsv2vwR2uff5j1DS8kVrF_pOT8YXmO43qM8cWXq7p4Qd65emyRr3DFPCzZ1klK4pFTBs; ad=brcPwkllll2QoLGRlllllVz0YhZlllllzAKWwlllljUlllllVTDll5@@@@@@@@@@",
-    "IPLOC=CN1100; SUV=00DD23E4726FA77056A36385C26FF582; SUID=70A76F72523A900A0000000056A36385; CXID=428F7227DC297F7350FCE2DD518F2C4A; ppinf=5|1453548429|1454758029|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzNTQ4NDI5fHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoxODphbmR1cm5AZmxlY2tlbnMuaHV8dW5pcW5hbWU6MDp8; pprdig=aT1m4JkxNWh8PYDWqi3PWYbJaI3VNP85bU6jiRaDn1xvyTymoOrRzzKt0EHPhjTI_0EKbHqT8UkJRqlwDZz6W1S5UurnQFiqjKMUeopAS2ZL6yKOgVScNt3MbYAjCThaBlUNSxWP_xaN0LFqE6cxvWI7pFsImV_GuRqgc0lQZCM; ad=@HEdjZllll2QoLnVlllllVz0YcclllllzAKWwlllll7lllllVTDll5@@@@@@@@@@",
-    "IPLOC=CN1100; SUV=00DD23E4726FA77056A36404C2DC9318; SUID=70A76F72523A900A0000000056A36404; CXID=0AC090DC88F924223AAFD97F33FC7DC0; ppinf=5|1453548606|1454758206|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzNTQ4NjA2fHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoyMzpzYW55dWFubWlsa0BmbGVja2Vucy5odXx1bmlxbmFtZTowOnw; pprdig=vYgD15Qj9nDZ2lPcL8Sw7vHe7uC4Biod6LjvAW2NgMnf0xDn2PbulNa_j_3jwAzRMi1TsGIbj4byo4kJY5zLvRuE08I5TBB3_M66lCYk_5bO0Pz8HcJF8V7Jkmw2s3B1eCOSCx9lsg7vyBYRucbtuyiCmXwD5K2AkCBpEXcldqk; ad=X4fO7kllll2QoLyVlllllVz0B9lllllltuMXtllllxwlllllVTDll5@@@@@@@@@@",
+    "SUV=00DD23E4726FA77056A36404C2DC9318; SUID=70A76F72523A900A0000000056A36404; CXID=0AC090DC88F924223AAFD97F33FC7DC0; ppinf=5|1453548606|1454758206|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzNTQ4NjA2fHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoyMzpzYW55dWFubWlsa0BmbGVja2Vucy5odXx1bmlxbmFtZTowOnw; pprdig=vYgD15Qj9nDZ2lPcL8Sw7vHe7uC4Biod6LjvAW2NgMnf0xDn2PbulNa_j_3jwAzRMi1TsGIbj4byo4kJY5zLvRuE08I5TBB3_M66lCYk_5bO0Pz8HcJF8V7Jkmw2s3B1eCOSCx9lsg7vyBYRucbtuyiCmXwD5K2AkCBpEXcldqk; ad=8XfO7kllll2QoLyVlllllVz0B9lllllltuMXtllllxGlllllVTDll5@@@@@@@@@@; SNUID=6EBA716C1E1834E0B564EEE61E0DB9F2; 3Q58_wfJO1-eTthByZnvfyNbIi_s15hWissXIico6-4rqWrI4lnEbq6sCXtbQDfg=; ABTEST=0|1453548274|v1; weixinIndexVisited=1; ppinf=5|1453551361|1454760961|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzNTUxMzYxfHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoyMjphZGlzYWlkQGpvdXJyYXBpZGUuY29tfHVuaXFuYW1lOjA6fA; pprdig=JUy6ve-X1fdWDQWGEMH9jMV448YiF-NHG5dm3MTSPNmJasMDtuvfo5rgYQIEpTUqmfY3jghcimxj6zxC9sqt5KOf3r-6uT3lfkBCa_z6NSYMsW1FkL1wB1WkVmoAeNkp2rMIGKTOLYyuR0T_go2uxP8S_uCq0kNpW0N3AIRu9D0; SUV=008F17DE3CFDB1BE56A36F01F1E13976; SUID=BEB1FD3C3428950A0000000056A36F01; CXID=1F9E4F4E2D3ED2C0479B94D78E6DF27D; ad=xNEdQZllll2QoLDjlllllVz0bZUlllll55Leskllll6lllllVTDll5@@@@@@@@@@; SNUID=DCD09F5E6167489E2C75BEAB6279B4C7; sct=2; PHPSESSID=evqkjrk7sv6h521nd377oanlj3; SUIR=DCD09F5E6167489E2C75BEAB6279B4C7; LSTMV=431%2C256; LCLKINT=1476; IPLOC=EU; ppmdig=14537166010000005bae0a96f8630d57299fed3e6ff4a503; sct=11; IPLOC=CN1100; LSTMV=129%2C258; LCLKINT=2373",
     "ABTEST=0|1453397330|v1; PHPSESSID=u7lmaa86vrl9lesn6c5a6ecgb3; SUV=0043744ADB8E9B9456A116DDA028B542; SUID=949B8EDB2A10950A0000000056A116DD; CXID=FC0093A199000C2FE6E765E1003C6F3C; ppinf=5|1453397741|1454607341|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzMzk3NzQxfHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoxOTp3YXNlcjE5NTlAZ3VzdHIuY29tfHVuaXFuYW1lOjA6fA; pprdig=CJi7Tuix5HauM6vA3bJNUk0Dg7fbqaZ6HXquUkUHlBmoo6fhLqWRW0sel0tjQKQCVjMb19Ep5VLB9uKpo4Qo07SoM5g96XpakviRkZC3AyI6k5J0fO2S3bZEkqWUO7nKj4UuHgkayQ4iB6CaCMkoB75k3z4VUwoVu_BONkfLSsk; ad=ZEfdKkllll2QoSbNlllllVzPVsllllllLcfbOllllxGlllllVgDll5@@@@@@@@@@; SUIR=1453397763; weixinIndexVisited=1; cid=wx2ww; ssuid=2499230992; SNUID=86A797D0505478B7D76E14D6515507F0; ppmdig=1453540590000000e9aff680f424fb8bf4fb3389e526144e; sct=1; IPLOC=CN1100",
     "ABTEST=0|1453548274|v1; IPLOC=CN1100; SUV=008F17DE3CFDB1BE56A36374EB1A1590; SUID=BEB1FD3C3428950A0000000056A36374; CXID=37438510B1E7633E3B70D100FB458781; ppinf=5|1453548420|1454758020|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzNTQ4NDIwfHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoxOTp3YXNlcjE5NTlAZ3VzdHIuY29tfHVuaXFuYW1lOjA6fA; pprdig=V164tKv2TebB7l9ZQVICO7maVsIzUoQW7DuKg1q3Nldu5P3-OayOvzeR-aEtNHn13QxzzO0qiNPFVZIiVZyPLPiXZ-m0XkEZDYVJ04UQjVHkBQPlJrmIsdX2GfkZ4JeyjCKKfyi4-cxkOVLPTf2sr8DKH8oQdPmfvuPBqHF8RHw; ad=X2EdQZllll2QoL21lllllVz0Yctlllll55LesklllxwlllllVTDll5@@@@@@@@@@; SNUID=D1DF93536E6A4790F2DA07326FC29438; ppmdig=1453548274000000f9ea7bdf7ad4f1f624758340e5de4902",
     "ABTEST=0|1453548274|v1; SNUID=D1DF93536E6A4790F2DA07326FC29438; ppmdig=1453548274000000f9ea7bdf7ad4f1f624758340e5de4902; IPLOC=CN1100; SUV=00E317DC3CFDB1BE56A363AFA64D7409; SUID=BEB1FD3C3428950A0000000056A363AF; CXID=C72CBB7F14F979A5D6826389C1CC31D7; ppinf=5|1453548476|1454758076|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzNTQ4NDc2fHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoyNzphc29ydGFmYWlyeXRhbGVAZmxlY2tlbnMuaHV8dW5pcW5hbWU6MDp8; pprdig=I12Z-hk_5skvB6CvcLgnNw2evMwJLohx1gW8QAr4kfqxDJSysMq6lGdgO9ZNwkG8-LhG1Ari9oRw12HWUyteSw6_nEVn0pli5KX05v0664Zm7fyOluj312oSrbtBKGQKAyz2nkJDyQ56J1gESl6oA_cJSxxeSdGpz7TDPk_rRqY; ad=oTfO7kllll2QoLnslllllVz0YEDlllll55LesklllxwlllllVTDll5@@@@@@@@@@"
