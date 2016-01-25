@@ -2,13 +2,16 @@ from django.views.decorators.http import require_GET
 from django.utils.log import getLogger
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.models import Category, Sub_Category, Entity, Entity_Like, Note, Selection_Entity
+from apps.core.models import Category, Sub_Category, \
+    Entity, Entity_Like, Note, Selection_Entity, \
+    Article
 # from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
-from apps.v4.models import APIEntity, APICategory
+from apps.v4.models import APIEntity, APICategory, APIArticle
 
 from apps.core.views import BaseJsonView
+from haystack.query import SearchQuerySet
 
 
 log = getLogger('django')
@@ -42,12 +45,13 @@ class GroupListView(BaseJsonView):
     def dispatch(self, request, *args, **kwargs):
         return super(GroupListView, self).dispatch(request, *args, **kwargs)
 
+
 class CategorySelectionView(BaseJsonView):
 
-    http_method_names = 'get'
+    http_method_names = ['get']
 
     def get_data(self, context):
-        group = Category.objects.filter(pk=self.group_id)
+        group = Category.objects.get(pk=self.group_id)
         cids = Sub_Category.objects.filter(group=group).values_list('id', flat=True)
         if self.sort == "like":
             selection_list = Selection_Entity.objects.category_sort_like(category_ids=cids)
@@ -63,6 +67,7 @@ class CategorySelectionView(BaseJsonView):
             return res
 
         el = None
+        # print group.title.split(' ')
         if self.session is not None:
             entity_ids = map(lambda  x: x['entity_id'], selections.object_list.values())
             el = Entity_Like.objects.user_like_list(user=self.session.user, entity_list=entity_ids)
@@ -85,7 +90,7 @@ class CategorySelectionView(BaseJsonView):
             self.session = Session_Key.objects.get(session_key=_key)
             # Selection_Entity.objects.set_user_refresh_datetime(session=self.session.session_key)
         except Session_Key.DoesNotExist, e:
-            log.info(e.message)
+            # log.info(e.message)
             self.session = None
         assert self.group_id is not None
         return super(CategorySelectionView, self).get(request, *args, **kwargs)
@@ -94,6 +99,54 @@ class CategorySelectionView(BaseJsonView):
     def dispatch(self, request, *args, **kwargs):
         return super(CategorySelectionView, self).dispatch(request, *args, **kwargs)
 
+
+class CategoryArticlesView(BaseJsonView):
+
+    http_method_names = ['get']
+
+    def get_data(self, context):
+        group = Category.objects.get(pk=self.group_id)
+        self.keyword = group.title.split(' ')[0]
+
+        res = {
+            'articles' : []
+        }
+        print self.keyword
+        sqs = SearchQuerySet().models(Article).filter(tags=self.keyword)
+
+        paginator = Paginator(sqs, self.size)
+        try:
+            articles = paginator.page(self.page)
+        except Exception:
+            return res
+        article_ids = map(lambda x: x.article_id, articles.object_list)
+        for row in APIArticle.objects.filter(pk__in=article_ids):
+            res['articles'].append(
+                row.v4_toDict()
+            )
+        res.update(
+            {
+                'stat' : {
+                    'all_count' : sqs.count(),
+                },
+            }
+        )
+        return res
+
+    def get(self, request, *args, **kwargs):
+        self.group_id = kwargs.pop('group_id', None)
+        # self.sid = kwargs.pop('sid', None)
+        self.page = request.GET.get('page', 1)
+        self.size = request.GET.get('size', 30)
+
+        # print self.sid
+        assert self.group_id is not None
+        return super(CategoryArticlesView, self).get(request, *args, **kwargs)
+
+
+    # @check_sign
+    def dispatch(self, request, *args, **kwargs):
+        return super(CategoryArticlesView, self).dispatch(request, *args, **kwargs)
 
 
 @require_GET

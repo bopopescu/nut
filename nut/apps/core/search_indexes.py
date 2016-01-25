@@ -20,6 +20,7 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
     entity_id = indexes.IntegerField(model_attr='id')
     # hash = indexes.CharField(model_attr='entity_hash')
     title = indexes.CharField(model_attr='title', boost=1.25, faceted=True)
+    brand = indexes.CharField(model_attr='brand', boost=1.50, faceted=True)
     user = indexes.CharField(model_attr='user')
     created_time = indexes.DateTimeField(model_attr='created_time')
     price = indexes.FloatField(model_attr='price')
@@ -50,7 +51,7 @@ class UserIndex(indexes.SearchIndex, indexes.Indexable):
 
 class TagIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    name = indexes.CharField(model_attr='name', boost=1.125)
+    name = indexes.CharField(model_attr='name', boost=1.125, faceted=True)
     note_count = indexes.IntegerField(model_attr='note_count')
 
     tag_auto = indexes.EdgeNgramField(model_attr='name')
