@@ -615,6 +615,10 @@ p.boolean-false {
 .user-icon-list li img {
   border-radius: 50%;
 }
+.guoku-normal-col {
+  padding: 0 5px;
+  margin-bottom: 10px;
+}
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
   padding: 0px;
@@ -695,6 +699,9 @@ p.boolean-false {
 .category {
   background: #FFF ;
   border: none;
+}
+.category-control {
+  margin-bottom: 0px;
 }
 .category > a {
   padding: 20px 5px 0px 5px;
