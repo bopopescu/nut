@@ -5,7 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.db import models
 from django.db.models.signals import post_save
-from django.utils.timezone import utc
+# from django.utils.timezone import utc
 
 import jpush
 from .signals import notify

@@ -100,7 +100,7 @@ class CategorySelectionView(BaseJsonView):
         return super(CategorySelectionView, self).dispatch(request, *args, **kwargs)
 
 
-class CategoryArticlesView(BaseJsonView):
+class GroupArticlesView(BaseJsonView):
 
     http_method_names = ['get']
 
@@ -135,18 +135,14 @@ class CategoryArticlesView(BaseJsonView):
 
     def get(self, request, *args, **kwargs):
         self.group_id = kwargs.pop('group_id', None)
-        # self.sid = kwargs.pop('sid', None)
         self.page = request.GET.get('page', 1)
         self.size = request.GET.get('size', 30)
-
-        # print self.sid
         assert self.group_id is not None
-        return super(CategoryArticlesView, self).get(request, *args, **kwargs)
-
+        return super(GroupArticlesView, self).get(request, *args, **kwargs)
 
     # @check_sign
     def dispatch(self, request, *args, **kwargs):
-        return super(CategoryArticlesView, self).dispatch(request, *args, **kwargs)
+        return super(GroupArticlesView, self).dispatch(request, *args, **kwargs)
 
 
 @require_GET
