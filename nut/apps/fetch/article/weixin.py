@@ -12,13 +12,13 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_judy'
 
 from wand.exceptions import WandException
 from django.conf import settings
-from urlparse import urljoin, urlparse
+from urlparse import urljoin
 from celery.task import task
 from django.utils.log import getLogger
 from datetime import datetime
 from bs4 import BeautifulSoup
 
-from apps.core.models import Article, Media, Authorized_User_Profile
+from apps.core.models import Article, Media, Authorized_User_Profile, GKUser
 from apps.fetch.common import clean_xml, queryset_iterator
 from apps.fetch.article import RequestsTask, WeiXinClient
 
@@ -44,24 +44,9 @@ def crawl_articles():
             'weixin_id': user.weixin_id,
             'pk': user.pk,
             'weixin_qrcode_img': user.weixin_qrcode_img,
+            'gk_user_pk': user.user.pk
         }
         fetch_article_list.delay(gk_user)
-
-
-# @task(base=RequestsTask, name='sogou.get_user_articles', rate_limit='1/m')
-# def get_user_articles(gk_user):
-#     open_id, ext, sg_cookie = get_tokens(gk_user['weixin_id'])
-#     if not open_id:
-#         log.warning("skip user %s: cannot find open_id. Is weixin_id correct?",
-#                     gk_user['weixin_id'])
-#         return
-#
-#     gk_user['weixin_openid'] = open_id
-#     gk_user_instance = Authorized_User_Profile.objects.get(pk=gk_user['pk'])
-#     gk_user_instance.weixin_openid = open_id
-#     gk_user_instance.save()
-#     fetch_article_list.delay(gk_user=gk_user, open_id=open_id, ext=ext,
-#                              sg_cookie=sg_cookie)
 
 
 @task(base=RequestsTask, name='sogou.fetch_article_list')
@@ -91,30 +76,28 @@ def fetch_article_list(gk_user, page=1):
                                  params=params,
                                  jsonp_callback=jsonp_callback,
                                  headers={'Cookie': sg_cookie})
-    # weixin_client.headers['Referer'] = response.url
 
     item_dict = {}
     for article_item in response.jsonp['items']:
         article_item_xml = clean_xml(article_item)
         article_item_xml = BeautifulSoup(article_item_xml, 'xml')
-        article_link = article_item_xml.url.string
-        url = urljoin('http://weixin.sogou.com/', article_link)
-        item_dict[url] = article_item_xml
+        item_dict[article_item_xml.title.string] = article_item_xml
 
     existed = Article.objects.values_list(
-        'origin_source'
+        "title"
     ).filter(
-        # todo: use open_id to tell if we have crawled the article
-        origin_source__in=item_dict.keys()
+        title__in=item_dict.keys(),
+        creator=gk_user['gk_user_pk']
     )
+
     if existed:
         existed = [item[0] for item in existed]
         log.info('some items on the page already exists in db; '
                  'no need to go to next page')
         go_next = False
 
-    for url, article_item in item_dict.items():
-        if url not in existed:
+    for title, article_item in item_dict.items():
+        if title not in existed:
             crawl_article.delay(
                 article_link=article_item.url.string,
                 gk_user=gk_user,
@@ -146,21 +129,22 @@ def crawl_article(article_link, gk_user, article_data, sg_cookie):
     published_time = article_soup.select('em#post-date')[0].text
     published_time = datetime.strptime(published_time, '%Y-%m-%d')
     content = article_soup.find('div', id='js_content')
-    creator = Authorized_User_Profile.objects.get(pk=gk_user['pk']).user
+    creator = GKUser.objects.get(pk=gk_user['gk_user_pk'])
 
-    article_info = dict(
+    article, created = Article.objects.get_or_create(
         title=title,
-        content=content.decode_contents(formatter="html"),
-        created_datetime=published_time,
         creator=creator,
-        publish=Article.published,
-        origin_source=url
     )
-    article_info.update(article_data)
-    # todo: instead of saving new object here, we should upsert
-    article = Article(**article_info)
-    article.save()
-    log.info('Insert article. %s', article_info['title'])
+    if created:
+        article_info = dict(
+            content=content.decode_contents(formatter="html"),
+            created_datetime=published_time,
+            publish=Article.published,
+        )
+        article_info.update(article_data)
+        article.update(**article_info)
+        article.save()
+        log.info('insert article. %s', article_info['title'])
 
     cover = fetch_image(article.cover)
     if cover:
@@ -213,10 +197,6 @@ def get_tokens(weixin_id):
 
 
 def fetch_image(image_url):
-    # log.info('original image url: %s; fixing..', image_url)
-    # image_url = fix_image_url(image_url)
-    # log.info('fixed image url: %s', image_url)
-    # image_name = ''
     log.info('fetch_image %s', image_url)
     if not image_url:
         log.info('empty image url; skip')
@@ -233,7 +213,6 @@ def fetch_image(image_url):
             content_type = 'image/jpeg'
         image = HandleImage(r.raw)
         image_name = image.save()
-        # image_full_name = "%s%s" % (image_host, image_name)
         Media.objects.create(
             file_path=image_name,
             content_type=content_type)
@@ -266,22 +245,6 @@ def get_qr_code(gk_user, qr_code_url):
     gk_user_instance = Authorized_User_Profile.objects.get(pk=gk_user['pk'])
     gk_user_instance.weixin_qrcode_img = qr_code_image
     gk_user_instance.save()
-
-
-def fix_image_url(image_url):
-    # todo: is it necessary to fix?
-    url_parts = urlparse(image_url)
-    path_parts = url_parts.path.split('/')
-    if path_parts[-1] == '0':
-        fix_path = '/'.join(path_parts[:-1])
-        query = url_parts.query
-        if query:
-            query_parts = query.split('&')
-            query = [query for query in query_parts if query.startswith('wx_fmt=')][0]
-        if not fix_path.endswith('/'):
-            fix_path += '/'
-        image_url = url_parts._replace(path=fix_path, query=query).geturl()
-    return image_url
 
 
 if __name__ == '__main__':
