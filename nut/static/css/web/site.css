@@ -684,6 +684,14 @@ p.boolean-false {
     padding-left: 0px;
   }
 }
+/*发现页*/
+#discover_container .section-title-wrapper {
+  margin-bottom: 14px;
+}
+#discover_container .category-wrapper .section-title-wrapper,
+#discover_container #discover_entity_list .section-title-wrapper {
+  margin-top: 30px;
+}
 /*发现页-推荐用户*/
 .recommend-user-wrapper .recommend-user-item {
   margin-left: 10px;
