@@ -83,10 +83,10 @@ class WeiXinClient(requests.Session):
                                                      timeout, allow_redirects,
                                                      proxies, hooks, stream, verify,
                                                      cert, json)
-        except ConnectionError:
-            raise Retry(message=u'ConnectionError.')
-        except ReadTimeout:
-            raise Retry(message=u'ReadTimeout')
+        except ConnectionError as e:
+            raise Retry(message=u'ConnectionError. %s' % e.message)
+        except ReadTimeout as e:
+            raise Retry(message=u'ReadTimeout. %s' % e.message)
         if stream:
             return resp
 
