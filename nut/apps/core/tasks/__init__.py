@@ -21,10 +21,8 @@ class BaseTask(Task):
 
 
 from apps.fetch.article.weixin import crawl_articles
-from apps.fetch.article.weixin import get_user_articles
 from apps.fetch.article.weixin import fetch_article_list
 from apps.fetch.article.weixin import crawl_article
-# from apps.fetch.article.weixin import parse_article_content
 from apps.fetch.article.weixin import get_qr_code
 from apps.core.tasks.account import fetch_avatar, update_token
 from apps.core.tasks.entity import fetch_image, like_task, unlike_task

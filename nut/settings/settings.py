@@ -269,6 +269,20 @@ BROKER_POOL_LIMIT = 10
 CELERY_ACKS_LATE = True
 CELERYD_PREFETCH_MULTIPLIER = 1
 CELERY_DISABLE_RATE_LIMITS = False
+CELERY_ANNOTATIONS = {
+    'sogou.crawl_articles': {
+        'rate_limit': '1.2/m',
+    },
+    'sogou.crawl_article': {
+        'rate_limit': '1.2/m',
+    },
+    'sogou.fetch_article_list': {
+        'rate_limit': '1.2/m',
+    },
+    'sogou.get_qr_code': {
+        'rate_limit': '1.2/m',
+    }
+}
 # CELERY_ACCEPT_CONTENT = ['json']
 # CELERY_TASK_SERIALIZER = 'json'
 # CELERY_RESULT_SERIALIZER = 'json'
