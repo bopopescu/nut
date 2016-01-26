@@ -3879,6 +3879,10 @@ body.compact-body {
   .guoku-content.index-page .category-cell.col-lg-2 {
     width: 12.5%;
   }
+  #guoku_main_nav .search .search-input {
+    width: 200px;
+    box-sizing: border-box;
+  }
 }
 body .for-mobile {
   display: none;
