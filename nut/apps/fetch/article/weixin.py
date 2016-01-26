@@ -168,9 +168,10 @@ def crawl_article(article_link, gk_user, article_data, sg_cookie, page):
             publish=Article.published,
         )
         article_info.update(article_data)
-        article.update(**article_info)
+        for (key, value) in article_info.items():
+            setattr(article, key, value)
         article.save()
-        log.info('insert article. %s', article_info['title'])
+        log.info('insert article. %s', title)
 
     cover = fetch_image(article.cover)
     if cover:
