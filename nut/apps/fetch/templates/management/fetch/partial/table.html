@@ -1,0 +1,24 @@
+{% load i18n %}
+
+<div class="box-body table-responsive">
+        <table class="table table-bordered table-hover" id="user">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>{% trans 'cookie' %}</th>
+                    <th>
+                        {% trans 'add time' %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cookie in cookies %}
+                    <tr>
+                        <td>{{ cookie.cookie_string }}</td>
+                        <td>{{ cookie.create_time }}</td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
