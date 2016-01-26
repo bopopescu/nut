@@ -695,6 +695,7 @@ p.boolean-false {
   .category-list .col-sm-3 {
     width: 14%;
   }
+  .recommend-user-wrapper .col-sm-2,
   .category-wrapper .col-sm-2 {
     width: 12.5%;
   }
