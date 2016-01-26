@@ -20,6 +20,8 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, Group
+
+from apps.fetch.common import clean_title
 from apps.notifications import notify
 from apps.core.utils.image import HandleImage
 from apps.core.utils.articlecontent import contentBleacher
@@ -1282,6 +1284,7 @@ class Article(BaseModel):
 
     creator = models.ForeignKey(GKUser, related_name="articles")
     title = models.CharField(max_length=64)
+    cleaned_title = models.TextField(null=True, blank=True)
     cover = models.CharField(max_length=255, blank=True)
     content = models.TextField()
     publish = models.IntegerField(choices=ARTICLE_STATUS_CHOICES, default=draft)
@@ -1294,7 +1297,6 @@ class Article(BaseModel):
     related_entities = models.ManyToManyField(Entity,
                                               related_name='related_articles')
 
-    origin_source = models.TextField(null=True, blank=True)
     objects = ArticleManager()
 
     class Meta:
@@ -1344,6 +1346,9 @@ class Article(BaseModel):
             self.related_entities = entity_list
         else:
             self.related_entities = []
+
+        if not self.cleaned_title:
+            self.cleaned_title = clean_title(self.title)
         return res
 
     @property
