@@ -89,11 +89,12 @@ class WeiXinClient(requests.Session):
             raise Retry(message=u'ReadTimeout')
         if stream:
             return resp
+
+        cookie_user = sogou_cookies.get(self.headers['Cookie'])
         resp.utf8_content = resp.content.decode('utf-8')
         resp.utf8_content = resp.utf8_content.rstrip('\n')
         if resp.utf8_content.find(u'您的访问过于频繁') >= 0:
-            # Todo: except outside. do different things in different task.
-            log.warning(u'访问的过于频繁. url: %s', url)
+            log.warning(u'访问的过于频繁. 用户: %s, url: %s', cookie_user, url)
             raise ToManyRequests(message=u'访问的过于频繁.')
         if resp.utf8_content.find(u'当前请求已过期') >= 0:
             log.warning(u'当前请求已过期. url: %s', url)
@@ -130,7 +131,7 @@ class WeiXinClient(requests.Session):
 
     def refresh_cookies(self):
         self.cookies.clear()
-        self.headers['Cookie'] = random.choice(sogou_cookies)
+        self.headers['Cookie'] = random.choice(sogou_cookies.keys())
         self.headers['User-Agent'] = faker.user_agent()
         return self.headers['Cookie']
 
@@ -148,10 +149,10 @@ class WeiXinClient(requests.Session):
 
 
 #############  Cookies  #############
-# sogou_cookies = dict(
-#     "",
-# )
-sogou_cookies = ('',)
+sogou_cookies = {'ABTEST=0|1453548274|v1; weixinIndexVisited=1; ppinf=5|1453551361|1454760961|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzNTUxMzYxfHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoyMjphZGlzYWlkQGpvdXJyYXBpZGUuY29tfHVuaXFuYW1lOjA6fA; pprdig=JUy6ve-X1fdWDQWGEMH9jMV448YiF-NHG5dm3MTSPNmJasMDtuvfo5rgYQIEpTUqmfY3jghcimxj6zxC9sqt5KOf3r-6uT3lfkBCa_z6NSYMsW1FkL1wB1WkVmoAeNkp2rMIGKTOLYyuR0T_go2uxP8S_uCq0kNpW0N3AIRu9D0; SUV=008F17DE3CFDB1BE56A36F01F1E13976; SUID=BEB1FD3C3428950A0000000056A36F01; CXID=1F9E4F4E2D3ED2C0479B94D78E6DF27D; ad=xNEdQZllll2QoLDjlllllVz0bZUlllll55Leskllll6lllllVTDll5@@@@@@@@@@; sct=2; PHPSESSID=evqkjrk7sv6h521nd377oanlj3; SUIR=DCD09F5E6167489E2C75BEAB6279B4C7; LSTMV=431%2C256; LCLKINT=1476; IPLOC=EU; CXID=D42B30640BDD38A628347F75EFBB9E5B; SUV=003723E580C7F7D656A70D986485B572; SUID=D6F7C780523A900A0000000056A70D98; ppinf=5|1453788602|1454998202|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzNzg4NjAyfHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoxOTp3YXNlcjE5NTlAZ3VzdHIuY29tfHVuaXFuYW1lOjA6fA; pprdig=ji90mg8ByUNXzAHoE71mnB-ApnysVzD4uWwG_Xo7rYBfzFXpyE814mdDhYiJRuF1UWvyBv1YC62SL71n3wbRGlcyXHMcoe8CN-ieYGVU9IoaQqrD0uWBOFh2EIa0vufVPHFCJmhItCXlklJtzSTyGRbhXzHv9GwXrweHVoHWLIc; ad=eafdVkllll2QIZLglllllVzXRbclllllkGKTCkllllDlllllpXDll5@@@@@@@@@@; SNUID=79E98D88F4F6DEC568CE713BF4792A96; sct=3; ppmdig=145379222800000094c21b48ddf0b2e0117abaca07ca5e2a; IPLOC=CN1100':'Waser1959@gustr.com',
+                 'IPLOC=CN1100; SUV=00A315937B791A8A56A71C7895F14815; CXID=7757854367D862007DE377A7D381F88C; ppinf=5|1453792401|1455002001|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzNzkyNDAxfHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoyNzphc29ydGFmYWlyeXRhbGVAZmxlY2tlbnMuaHV8dW5pcW5hbWU6MDp8; pprdig=R-XFwnmDi1iP3lGN3HFq2-wn0bkTzGOtolSBclzQsrkWrwdGxCsLmWwoJtig6xax7kMX7U2E0r0tDk2DBi3XgCYHpOc0pq7n98L0h8cuU8a9qlPAPK_BM8dwJ-USb1luYF3MSZHIU2vt_2ke_bFylJ1gGNcc_sVhiE7t6VI6i1g; ad=cHEd4Zllll2QIeeclllllVzX43UlllllWT6zAklllxolllllpXDll5@@@@@@@@@@; ABTEST=0|1453792423|v1; SNUID=40D0B0B2CACFE3FDA63D0628CA90CDC3; ppmdig=145379242300000014dea59a6d656f3bbbd624469da68057; SUID=8A1A797B533A900A0000000056A71C78':'asortafairytale@fleckens.hu',
+                 'SUV=000A70C87B791A8A56A71CCD90777265; IPLOC=CN1100; SUID=8A1A797B533A900A0000000056A71CCD; CXID=3F0824E3515037BAB2AAEB9569A295FE; ppinf=5|1453792478|1455002078|Y2xpZW50aWQ6NDoyMDA2fGNydDoxMDoxNDUzNzkyNDc4fHJlZm5pY2s6MDp8dHJ1c3Q6MToxfHVzZXJpZDoyMjphZGlzYWlkQGpvdXJyYXBpZGUuY29tfHVuaXFuYW1lOjA6fA; pprdig=xXmHla9VnIeOV8Wn3hephnCoIdA2y_MOkAEuRLHFwGx0-5IWkVSoGxiAfL6mU0VGY0Uk2dP1Vst7qstqosQVwFdskA32OkEIDAeYoVsJM1xZjOSA2JxVEWTPuBkKn81v8QgJYAP-m4jKfXBFeaBWHBFJGrfHBDJr9Z3B5H_pYlA; ad=v5EQalllll2QIe8nlllllVzX4nwlllllWT6zAklllxGlllllpXDll5@@@@@@@@@@; ABTEST=8|1453792482|v1; SNUID=1282E0E2989DB3AFE818578F995E32FA; ppmdig=14537924820000004b1aec42e9958698eaf1810dd0caac0e':'Adisaid@jourrapide.com',
+                 }
 
 
 sogou_referers = ('http://weixin.sogou.com/',
