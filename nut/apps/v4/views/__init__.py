@@ -51,7 +51,14 @@ def decorate_taobao_url(url, ttid=None, sid=None, outer_code=None, sche=None):
     return url
 
 
-class HomeView(BaseJsonView):
+class APIJsonView(BaseJsonView):
+
+    @check_sign
+    def dispatch(self, request, *args, **kwargs):
+        super(APIJsonView, self).dispatch(request, *args, **kwargs)
+
+
+class HomeView(APIJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
@@ -107,9 +114,9 @@ class HomeView(BaseJsonView):
 
         return super(HomeView, self).get(request, *args, **kwargs)
 
-    @check_sign
-    def dispatch(self, request, *args, **kwargs):
-        return super(HomeView, self).dispatch(request, *args, **kwargs)
+    # @check_sign
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(HomeView, self).dispatch(request, *args, **kwargs)
 
 
 class DiscoverView(BaseJsonView):

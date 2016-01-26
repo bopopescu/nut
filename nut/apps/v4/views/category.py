@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from django.views.decorators.http import require_GET
 from django.utils.log import getLogger
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -101,7 +103,10 @@ class CategorySelectionView(BaseJsonView):
 
 
 class GroupArticlesView(BaseJsonView):
-
+    '''
+        获取一级分类下的图文.
+        使用 solr 接口,通过对标签的搜索实现.
+    '''
     http_method_names = ['get']
 
     def get_data(self, context):
