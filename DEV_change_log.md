@@ -1,5 +1,17 @@
 
-###action
+6. add a cookie store for sogou spider use 
+-----------------------
+5. article mng list page change
+4. article mng edit page change 
+3. entity liker list and fan following list template fix 
+2. download page url , without ending slash , access 
+1. hide deleted user in user fan/following list 
+
+#action 
+ need sync db 
+ 
+ 
+ ###action
 
     sudo pip install fake-factory
 
@@ -14,12 +26,8 @@
 
 ##2016-02-22 Fetch wixin articles
 
+ 
 
-5. article mng list page change
-4. article mng edit page change 
-3. entity liker list and fan following list template fix 
-2. download page url , without ending slash , access 
-1. hide deleted user in user fan/following list
 
 =================================
 =================================
