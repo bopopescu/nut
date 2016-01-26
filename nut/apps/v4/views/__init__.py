@@ -55,7 +55,7 @@ class APIJsonView(BaseJsonView):
 
     @check_sign
     def dispatch(self, request, *args, **kwargs):
-        super(APIJsonView, self).dispatch(request, *args, **kwargs)
+        return super(APIJsonView, self).dispatch(request, *args, **kwargs)
 
 
 class HomeView(APIJsonView):
@@ -119,7 +119,7 @@ class HomeView(APIJsonView):
     #     return super(HomeView, self).dispatch(request, *args, **kwargs)
 
 
-class DiscoverView(BaseJsonView):
+class DiscoverView(APIJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
