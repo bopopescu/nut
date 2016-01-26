@@ -684,7 +684,11 @@ p.boolean-false {
     padding-left: 0px;
   }
 }
-/* */
+/*发现页-推荐用户*/
+.recommend-user-wrapper .recommend-user-item {
+  margin-left: 10px;
+  margin-right: 10px;
+}
 /* 品类*/
 @media (min-width: 992px) {
   .category-list .col-md-2 {
