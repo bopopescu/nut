@@ -619,6 +619,10 @@ p.boolean-false {
   padding: 0 5px;
   margin-bottom: 10px;
 }
+.guoku-middle-col {
+  padding: 0 10px;
+  margin-bottom: 20px;
+}
 @media (max-width: 767px) {
   .entity-selection-body {
     background-color: #F8F8F8;

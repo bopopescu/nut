@@ -684,6 +684,10 @@ p.boolean-false {
   padding: 0 5px;
   margin-bottom: 10px;
 }
+.guoku-middle-col {
+  padding: 0 10px;
+  margin-bottom: 20px;
+}
 @-moz-document url-prefix() {
   fieldset {
     display: table-cell;

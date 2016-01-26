@@ -619,6 +619,10 @@ p.boolean-false {
   padding: 0 5px;
   margin-bottom: 10px;
 }
+.guoku-middle-col {
+  padding: 0 10px;
+  margin-bottom: 20px;
+}
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
   padding: 0px;
@@ -689,8 +693,11 @@ p.boolean-false {
   margin-bottom: 14px;
 }
 #discover_container .category-wrapper .section-title-wrapper,
-#discover_container #discover_entity_list .section-title-wrapper {
+#discover_container #selection_article_list .section-title-wrapper {
   margin-top: 30px;
+}
+#discover_container #discover_entity_list .section-title-wrapper {
+  margin-top: -5px;
 }
 /*发现页-推荐用户*/
 .recommend-user-wrapper .recommend-user-item {
