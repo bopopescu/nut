@@ -2,8 +2,12 @@
 # -*- coding: utf-8 -*-
 import sys
 import gc
+import unicodedata
 
 from bs4 import BeautifulSoup
+
+tbl = dict.fromkeys(i for i in xrange(sys.maxunicode) if
+                    unicodedata.category(unichr(i)).startswith('P'))
 
 
 def parse_article_link(result_json):
@@ -52,3 +56,11 @@ def queryset_iterator(queryset, chunk_size=100):
             pk = row.pk
             yield row
         gc.collect()
+
+
+def clean_title(artile_title):
+    if not artile_title:
+        return
+    artile_title = artile_title.strip()
+    artile_title = artile_title.translate(tbl)
+    return artile_title
