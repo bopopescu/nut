@@ -148,23 +148,10 @@ class WeiXinClient(requests.Session):
 
 
 #############  Cookies  #############
-sogou_cookies = dict(
-
-    "
-    ABTEST=
-    CXID=
-    IPLOC=
-    SNUID=
-    SUID=
-    SUV=
-    ad=
-    ppinf=
-    ppmdig=
-    pprdig=
-    weixinIndexVisited=
-    ",
-
-)
+# sogou_cookies = dict(
+#     "",
+# )
+sogou_cookies = ('',)
 
 
 sogou_referers = ('http://weixin.sogou.com/',
