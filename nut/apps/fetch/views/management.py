@@ -19,7 +19,7 @@ class AddCookieView(UserPassesTestMixin, View):
             cookie = SogouCookies.objects.get(cookie_string=cookie_string)
         except SogouCookies.DoesNotExist as e:
         #     good create
-            cookie = SogouCookies.create(cookie_string=cookie_string)
+            cookie = SogouCookies.objects.create(cookie_string=cookie_string)
             cookie.save()
             return redirect('management_cookie_list')
 
@@ -34,7 +34,7 @@ class AddCookieView(UserPassesTestMixin, View):
 class CookieListView(UserPassesTestMixin, ListView):
 
     model = SogouCookies
-    template_name = '/management/fetch/cookie_list.html'
+    template_name = 'management/fetch/cookie_list.html'
     context_object_name = 'cookies'
 
     def test_func(self, user):
