@@ -1715,6 +1715,12 @@ textarea {
   background-color: #0A0A1B;
   opacity: 0.9;
 }
+.top-ad.bottom-ad .ad-wrapper.bottom-ad-wrapper {
+  width: auto;
+  position: relative;
+  margin-left: 80px;
+  margin-right: 80px;
+}
 body {
   padding-top: 80px;
   color: #424242;
