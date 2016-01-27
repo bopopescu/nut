@@ -33,11 +33,13 @@ class Retry(Exception):
 
 
 class Expired(Exception):
-    pass
+    def __init__(self, message=u''):
+        self.message = message
 
 
 class ToManyRequests(Exception):
-    pass
+    def __init__(self, message=u''):
+        self.message = message
 
 
 class RequestsTask(Task):
@@ -95,7 +97,7 @@ class WeiXinClient(requests.Session):
         resp.utf8_content = resp.utf8_content.rstrip('\n')
         if resp.utf8_content.find(u'您的访问过于频繁') >= 0:
             log.warning(u'访问的过于频繁. 用户: %s, url: %s', cookie_user, url)
-            raise ToManyRequests(message=u'访问的过于频繁.')
+            raise ToManyRequests(message=u'too many requests.')
         if resp.utf8_content.find(u'当前请求已过期') >= 0:
             log.warning(u'当前请求已过期. url: %s', url)
             raise Expired('link expired: %s' % url)
