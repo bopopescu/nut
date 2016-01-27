@@ -1,13 +1,12 @@
 from apps.core.views import BaseJsonView, JSONResponseMixin
 from apps.core.utils.http import ErrorJsonResponse
-
 from apps.tag.models import Content_Tags, Tags
-
-from apps.v4.models import APISeletion_Articles, APIArticle
-from apps.v4.forms.search import APIArticleSearchForm
-
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
+from apps.v4.models import APISeletion_Articles, APIArticle
+from apps.v4.forms.search import APIArticleSearchForm
+from apps.v4.views import APIJsonView
+
 
 from haystack.generic_views import SearchView
 from django.core.paginator import Paginator
@@ -16,7 +15,7 @@ import time
 
 
 
-class ArticlesListView(BaseJsonView):
+class ArticlesListView(APIJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
@@ -53,9 +52,9 @@ class ArticlesListView(BaseJsonView):
             self.timestamp = datetime.fromtimestamp(float(self.timestamp))
         return super(ArticlesListView, self).get(request, *args, **kwargs)
 
-    @check_sign
-    def dispatch(self, request, *args, **kwargs):
-        return super(ArticlesListView, self).dispatch(request, *args, **kwargs)
+    # @check_sign
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(ArticlesListView, self).dispatch(request, *args, **kwargs)
 
 
 class ArticleSearchView(SearchView, JSONResponseMixin):
@@ -104,7 +103,7 @@ class ArticleSearchView(SearchView, JSONResponseMixin):
         return super(ArticleSearchView, self).dispatch(request, *args, **kwargs)
 
 
-class ArticleTagView(BaseJsonView):
+class ArticleTagView(APIJsonView):
 
     http_method_names = ['get']
 
@@ -142,8 +141,10 @@ class ArticleTagView(BaseJsonView):
 
         return super(ArticleTagView, self).get(request, *args, **kwargs)
 
-    @check_sign
-    def dispatch(self, request, *args, **kwargs):
-        return super(ArticleTagView, self).dispatch(request, *args, **kwargs)
+    # @check_sign
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(ArticleTagView, self).dispatch(request, *args, **kwargs)
+
+
 
 __author__ = 'xiejiaxin'
