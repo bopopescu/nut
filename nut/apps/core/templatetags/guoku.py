@@ -21,7 +21,7 @@ register.filter(enumerate_list)
 def resize(value, size=None):
     host = image_host
     # log.info(value)
-    value = value.replace('//', '/')
+    value = value.replace('//images', '/images')
     if value is None or host not in value:
         return value
     if size:
