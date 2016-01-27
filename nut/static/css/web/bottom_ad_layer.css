@@ -1,4 +1,4 @@
-.top-ad.bottom-ad {
+.bottom-ad {
   height: 220px;
   position: fixed;
   bottom: 0;
@@ -7,28 +7,54 @@
   background-color: #0A0A1B;
   opacity: 0.9;
 }
-.top-ad.bottom-ad .ad-wrapper.bottom-ad-wrapper {
+.bottom-ad .ad-wrapper.bottom-ad-wrapper {
   width: auto;
   margin-left: 80px;
   margin-right: 80px;
 }
-.top-ad.bottom-ad .ad-wrapper.bottom-ad-wrapper .guoku-logo {
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .guoku-logo {
   width: 210px;
   height: 60px;
   margin-top: 80px;
 }
-.top-ad.bottom-ad .ad-wrapper.bottom-ad-wrapper .wechat-wrapper,
-.top-ad.bottom-ad .ad-wrapper.bottom-ad-wrapper .download-wrapper {
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .wechat-wrapper,
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .download-wrapper {
   float: right;
   margin-top: 30px;
 }
-.top-ad.bottom-ad .ad-wrapper.bottom-ad-wrapper .wechat-wrapper p,
-.top-ad.bottom-ad .ad-wrapper.bottom-ad-wrapper .download-wrapper p {
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .wechat-wrapper p,
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .download-wrapper p {
   margin-top: 16px;
   font-size: 14px;
   color: #ffffff;
   text-align: center;
 }
-.top-ad.bottom-ad .ad-wrapper.bottom-ad-wrapper .wechat-wrapper {
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .wechat-wrapper {
   margin-right: 30px;
+}
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .download-btn-control {
+  float: right;
+  margin-top: 15px;
+}
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .download-btn-control:hover {
+  color: #ffffff;
+}
+@media screen and (max-width: 767px) {
+  .bottom-ad {
+    height: auto;
+  }
+  .bottom-ad .ad-wrapper.bottom-ad-wrapper {
+    margin: 20px 10px 20px 40px;
+  }
+  .bottom-ad .ad-wrapper.bottom-ad-wrapper .guoku-logo {
+    margin-top: 0px;
+  }
+  .bottom-ad .ad-wrapper.bottom-ad-wrapper .wechat-wrapper,
+  .bottom-ad .ad-wrapper.bottom-ad-wrapper .download-wrapper {
+    display: none;
+  }
+  .close-button.close-button-control {
+    left: 10px;
+    top: 40px;
+  }
 }
