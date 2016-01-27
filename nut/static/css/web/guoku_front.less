@@ -465,18 +465,56 @@ body.compact-body{
     }
   }
 }
+
+.user-page{
+  .authorized_author_info{
+      text-align: center;
+      .user-icon{
+          display: inline-block;
+          .user-icon-large;
+
+      }
+      .user-nick{
+           margin-top:10px;
+          .nick{
+            .user-nick-large;
+          }
+      }
+      .user-action{
+           margin-top: 10px;
+      }
+      .user-bio-wrapper{
+        margin-top:10px;
+      }
+      .user-bio{
+
+           display: block;
+           padding: 0px 30px;
+           max-width: 500px;
+           width:70%;
+           margin:0 auto;
+           font-size: @smaller-primary;
+      }
+      .user-binding{
+            margin-top:10px;
+
+      }
+      .user-social-wrapper{
+           margin-top: 10px;
+           .user-count{
+              color: @link-color;
+              font-weight: 600;
+           }
+      }
+  }
+
+}
 .guoku-content, .entity-likers-body{
   &.user-page,&.index-page,.liker-page{
     .user-info-wrapper{
       margin-bottom: 40px;
       .user-icon{
-        img{
-          display: block;
-          margin: 0 auto ;
-          width: 120px;
-          height: 120px;
-          .border-radius(100px);
-        }
+         .user-icon-large;
       }
       .user-info{
         .user-nick-block{
@@ -484,10 +522,7 @@ body.compact-body{
           .center-wrapper{
           }
           .nick{
-            font-size: 32px;
-            font-weight: 500;
-            margin-right:12px;
-
+             .user-nick-large;
           }
 
           .guoku-button{
@@ -1620,7 +1655,7 @@ body{
 
 
 .gk_test{
-  color:red;
+  color:black;
 }
 
 

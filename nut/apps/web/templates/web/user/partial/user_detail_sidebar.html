@@ -2,6 +2,8 @@
 {% load common guoku %}
 {% load static %}
 
+
+
 <ul class="section-list user-right">
     <li class="section">
         <div class="section-content">
@@ -11,6 +13,8 @@
                         <i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i>&nbsp;{% trans 'Personal Home' %}
                     </a>
                 </li>
+
+            {% if not current_user.is_authorized_author %}
                 <li><a href="{% url 'web_user_entity_like' current_user.pk %}">
                     {% trans 'Like' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
                     </a>
@@ -20,6 +24,8 @@
                 {% if current_user.has_published_article %}
                     <li><a href="{% url 'web_user_article_published' current_user.pk %}">{% trans 'Articles' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
                 {% endif %}
+
+            {% endif %}
             </ul>
         </div>
     </li>
@@ -34,3 +40,4 @@
         </div>
     </li>
 </ul>
+
