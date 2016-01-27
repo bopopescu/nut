@@ -384,6 +384,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         # TODO:  refresh user permission cache here
         pass
 
+    @property
+    def is_authorized_author(self):
+        return self.has_author_group()
+
     def setAuthor(self, isAuthor):
         author_group = self.get_author_group()
         if isAuthor:

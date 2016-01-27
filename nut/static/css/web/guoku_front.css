@@ -1320,12 +1320,19 @@ p.boolean-false {
 .article-list-body {
   padding-top: 80px!important;
 }
+.mobile-body {
+  padding-bottom: 20px!important;
+}
 .mobile-body.article-list-body,
 .mobile-body.article-body {
   padding-top: 0px!important;
 }
+.mobile-body #main_article .share-wrapper {
+  display: none;
+}
 .mobile-body #main_article .writer-wrapper {
-  padding-bottom: 20px;
+  padding-bottom: 0px;
+  padding-top: 0px;
 }
 @-moz-document url-prefix() {
   fieldset {
@@ -3659,6 +3666,6 @@ body .for-mobile {
   left: 3px;
 }
 .gk_test {
-  color: red;
+  color: black;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */

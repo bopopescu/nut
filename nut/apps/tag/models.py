@@ -41,9 +41,10 @@ class ContentTagQuerySet(models.query.QuerySet):
         return self.using('slave').filter(target_object_id__in=nid_list).values('tag','tag__name','tag__hash').annotate(ncount=Count('tag')).order_by('-ncount')
 
     def article_tags(self, article_id):
-        _tag_list =  self.using('slave').filter(target_object_id=article_id, target_content_type_id=31)\
-                   .values_list('tag__name', flat=True)
-        return list(set(list(_tag_list)))
+        _tag_list =  self.using('slave')\
+                    .filter(target_object_id=article_id, target_content_type_id=31)\
+                    .values_list('tag__name', flat=True)
+        return sorted(list(set(list(_tag_list))))
 
 class ContentTagManager(models.Manager):
 
