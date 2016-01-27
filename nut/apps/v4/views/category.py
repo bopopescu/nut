@@ -204,7 +204,6 @@ def stat(request, category_id):
     try:
         _session = Session_Key.objects.get(session_key = _key)
         el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=entities.values_list('id', flat=True))
-        # Entity.objects.filter()
         res['like_count'] = el.count()
     except Session_Key.DoesNotExist:
         res['like_count'] = 0
