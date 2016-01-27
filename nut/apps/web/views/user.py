@@ -440,17 +440,22 @@ from apps.core.models import Authorized_User_Profile
 
 class UserIndex(UserPageMixin, DetailView):
 
-    template_name = 'web/user/user_index.html'
+    # template_name = 'web/user/user_index.html'
     model = GKUser
     pk_url_kwarg = 'user_id'
     context_object_name = 'current_user'
 
+    def get_template_names(self):
+        if self._current_user.is_authorized_author:
+            return 'web/user/authorized_author_index.html'
+        return 'web/user/user_index.html'
+
     def get(self, *args, **kwargs):
+        self._current_user = self.get_object()
         # this is a quick fix for  www.guoku.com/download page can not be accessed
         user_domain = self.kwargs.get('user_domain', None)
         if user_domain == 'download':
             return redirect('web_download')
-
         return super(UserIndex, self).get(*args, **kwargs)
 
     def get_object(self, queryset=None):
@@ -487,6 +492,9 @@ class UserIndex(UserPageMixin, DetailView):
         # _common_article_ids    = Article.objects.get_published_by_user(current_user).exclude(pk_in=list(_selection_article_ids)).values_list("pk",flat=True)
         _article_list = Article.objects.get_published_by_user(current_user).filter(selections__isnull = False)\
                                        .filter(pk__in=list(_selection_article_ids))[:6]
+
+        if current_user.is_authorized_author:
+            context_data['author_articles'] = Article.objects.get_published_by_user(current_user)
 
         context_data['articles'] = _article_list
 
