@@ -271,16 +271,16 @@ CELERYD_PREFETCH_MULTIPLIER = 1
 CELERY_DISABLE_RATE_LIMITS = False
 CELERY_ANNOTATIONS = {
     'sogou.crawl_articles': {
-        'rate_limit': '1.2/m',
+        'rate_limit': '1.1/m',
     },
     'sogou.crawl_article': {
-        'rate_limit': '1.2/m',
+        'rate_limit': '1.1/m',
     },
     'sogou.fetch_article_list': {
-        'rate_limit': '1.2/m',
+        'rate_limit': '1.1/m',
     },
     'sogou.get_qr_code': {
-        'rate_limit': '1.2/m',
+        'rate_limit': '1.1/m',
     }
 }
 # CELERY_ACCEPT_CONTENT = ['json']
