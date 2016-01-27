@@ -748,7 +748,8 @@ p.boolean-false {
     font-size: 24px;
   }
   .user-article-panel .user-article-title-wrapper {
-    font-size: 24px;
+    font-size: 22px;
+    font-weight: normal;
   }
 }
 @media screen and (max-width: 767px) {
