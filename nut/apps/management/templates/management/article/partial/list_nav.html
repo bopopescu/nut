@@ -1,0 +1,7 @@
+{% load i18n static %}
+
+<ul class="nav nav-pills" role="tablist">
+                            <li><a class="btn btn-primary" target="_blank" href="{% url 'management_article_list' %}">{% trans 'guoku writer articles' %}</a></li>
+                            <li><a class="btn btn-success" target="_blank" href="{% url 'management_author_article_list' %}">{% trans 'Authorized Author Articles' %}</a></li>
+                            <li><a class="btn btn-warning" target="_blank" href="{% url 'management_article_draft' %}">{% trans 'draft' %}</a></li>
+                        </ul>

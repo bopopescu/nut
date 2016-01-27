@@ -2,29 +2,27 @@
 # -*- coding: utf-8 -*-
 
 import re
-import os
-import sys
+import os, sys
 import random
-
-from django.core.exceptions import MultipleObjectsReturned
-
-
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_anchen'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_judy'
 
-from wand.exceptions import WandException
-from django.conf import settings
+
 from urlparse import urljoin
 from celery.task import task
-from django.utils.log import getLogger
 from datetime import datetime
 from bs4 import BeautifulSoup
+from django.conf import settings
+from django.utils.log import getLogger
+from wand.exceptions import WandException
+from django.core.exceptions import MultipleObjectsReturned
 
-from apps.core.models import Article, Media, Authorized_User_Profile, GKUser
+from apps.core.models import Authorized_User_Profile as Profile
+from apps.core.models import Article, Media
 from apps.fetch.common import clean_xml, queryset_iterator, clean_title
-from apps.fetch.article import RequestsTask, WeiXinClient, ToManyRequests, \
-    Expired
+from apps.fetch.article import RequestsTask, WeiXinClient, ToManyRequests
+from apps.fetch.article import Expired
 
 
 SEARCH_API = 'http://weixin.sogou.com/weixinjs'
@@ -39,34 +37,25 @@ image_host = getattr(settings, 'IMAGE_HOST', None)
 
 @task(base=RequestsTask, name='sogou.crawl_articles')
 def crawl_articles():
-    all_authorized_user = Authorized_User_Profile.objects.filter(
-        weixin_id__isnull=False,
-        user__in=GKUser.objects.authorized_author()
+    all_authorized_user = Profile.objects.filter(
+        weixin_id__isnull=False
     )
     for user in queryset_iterator(all_authorized_user):
-        gk_user = {
-            'weixin_openid': user.weixin_openid,
-            'weixin_id': user.weixin_id,
-            'pk': user.pk,
-            'weixin_qrcode_img': user.weixin_qrcode_img,
-            'gk_user_pk': user.user.pk
-        }
-        fetch_article_list.delay(gk_user)
+        fetch_article_list.delay(user.pk)
 
 
 @task(base=RequestsTask, name='sogou.fetch_article_list')
-def fetch_article_list(gk_user, page=1):
-    open_id, ext, sg_cookie = get_tokens(gk_user['weixin_id'])
+def fetch_article_list(authorized_user_pk, page=1):
+    authorized_user = Profile.objects.get(pk=authorized_user_pk)
+    open_id, ext, sg_cookie = get_tokens(authorized_user.weixin_id)
     if not open_id:
         log.warning("skip user %s: cannot find open_id. Is weixin_id correct?",
-                    gk_user['weixin_id'])
+                    authorized_user.weixin_id)
         return
-    if not gk_user.get('weixin_openid'):
+    if not authorized_user.weixin_openid:
         # save open_id if it's not set already
-        gk_user_instance = Authorized_User_Profile.objects.get(pk=gk_user['pk'])
-        gk_user_instance.weixin_openid = open_id
-        gk_user_instance.save()
-        gk_user['weixin_openid'] = open_id
+        authorized_user.weixin_openid = open_id
+        authorized_user.save()
 
     go_next = True
     jsonp_callback = 'sogou.weixin_gzhcb'
@@ -95,7 +84,7 @@ def fetch_article_list(gk_user, page=1):
             "title"
         ).filter(
             cleaned_title__startswith=item,
-            creator=gk_user['gk_user_pk']
+            creator=authorized_user.user
         )
         if article:
             existed.append(item)
@@ -110,7 +99,7 @@ def fetch_article_list(gk_user, page=1):
     for article_item in item_dict.values():
         crawl_article.delay(
             article_link=article_item.url.string,
-            gk_user=gk_user,
+            authorized_user_pk=authorized_user.pk,
             article_data=dict(cover=article_item.imglink.string),
             sg_cookie=sg_cookie,
             page=page,
@@ -123,30 +112,33 @@ def fetch_article_list(gk_user, page=1):
 
     if go_next:
         log.info('prepare to get next page: %d', page)
-        fetch_article_list.delay(gk_user=gk_user, page=page)
+        fetch_article_list.delay(authorized_user_pk=authorized_user.pk,
+                                 page=page)
 
 
 @task(base=RequestsTask, name='sogou.crawl_article')
-def crawl_article(article_link, gk_user, article_data, sg_cookie, page):
+def crawl_article(article_link, authorized_user_pk, article_data, sg_cookie, page):
     url = urljoin('http://weixin.sogou.com/', article_link)
+    authorized_user = Profile.objects.get(pk=authorized_user_pk)
     try:
         resp = weixin_client.get(
             url=url, headers={'Cookie': sg_cookie})
     except (ToManyRequests, Expired) as e:
         # if too frequent error, re-crawl the page the current article is on
         log.warning("too many requests or request expired. %s", e.message)
-        fetch_article_list.delay(gk_user=gk_user, page=page)
+        fetch_article_list.delay(authorized_user_pk=authorized_user.pk,
+                                 page=page)
         return
 
     article_soup = BeautifulSoup(resp.utf8_content, from_encoding='utf8')
-    if not gk_user['weixin_qrcode_img']:
-        get_qr_code.delay(gk_user, parse_qr_code_url(article_soup))
+    if not authorized_user.weixin_qrcode_img:
+        get_qr_code.delay(authorized_user.pk, parse_qr_code_url(article_soup))
 
     title = article_soup.select('h2.rich_media_title')[0].text
     published_time = article_soup.select('em#post-date')[0].text
     published_time = datetime.strptime(published_time, '%Y-%m-%d')
     content = article_soup.find('div', id='js_content')
-    creator = GKUser.objects.get(pk=gk_user['gk_user_pk'])
+    creator = authorized_user.user
 
     try:
         article, created = Article.objects.get_or_create(
@@ -188,10 +180,11 @@ def crawl_article(article_link, gk_user, article_data, sg_cookie, page):
             )
             if img_src:
                 log.info('fetch_image for article %d: %s', article.id, img_src)
-                gk_img_rc = fetch_image(img_src)
+                gk_img_rc = fetch_image(img_src, full=False)
                 if gk_img_rc:
-                    image_tag['src'] = gk_img_rc
-                    image_tag['data-src'] = gk_img_rc
+                    full_path = "%s%s" % (image_host, gk_img_rc)
+                    image_tag['src'] = full_path
+                    image_tag['data-src'] = full_path
                     if not cover and not article.cover and i == 0:
                         article.cover = gk_img_rc
             content_html = article_soup.decode_contents(formatter="html")
@@ -205,11 +198,11 @@ def get_tokens(weixin_id):
     ext = None
     params = dict(type='1', ie='utf8', query=weixin_id)
     weixin_client.refresh_cookies()
+    sg_cookie = weixin_client.headers.get('Cookie')
     response = weixin_client.get(url=SEARCH_API,
                                  params=params,
                                  jsonp_callback='weixin',
-                                 headers={'Cookie':weixin_client.headers.get('Cookie')})
-    sg_cookie = weixin_client.headers.get('Cookie')
+                                 headers={'Cookie': sg_cookie})
     for item in response.jsonp['items']:
         item_xml = clean_xml(item)
         item_xml = BeautifulSoup(item_xml, 'xml')
@@ -225,7 +218,7 @@ def get_tokens(weixin_id):
         return None, None, None
 
 
-def fetch_image(image_url):
+def fetch_image(image_url, full=True):
     log.info('fetch_image %s', image_url)
     if not image_url:
         log.info('empty image url; skip')
@@ -245,7 +238,9 @@ def fetch_image(image_url):
         Media.objects.create(
             file_path=image_name,
             content_type=content_type)
-        return '/'+image_name
+        if full:
+            return "%s%s" % (image_host, image_name)
+        return image_name
 
     except (AttributeError, WandException) as e:
         log.error('handle image(%s) Error: %s', image_url, e.message)
@@ -269,11 +264,12 @@ def parse_qr_code_url(article_soup):
 
 
 @task(base=RequestsTask, name='sogou.get_qr_code')
-def get_qr_code(gk_user, qr_code_url):
-    qr_code_image = fetch_image(qr_code_url)
-    gk_user_instance = Authorized_User_Profile.objects.get(pk=gk_user['pk'])
-    gk_user_instance.weixin_qrcode_img = qr_code_image
-    gk_user_instance.save()
+def get_qr_code(authorized_user_pk, qr_code_url):
+    authorized_user = Profile.objects.get(pk=authorized_user_pk)
+    if not authorized_user.weixin_qrcode_img:
+        qr_code_image = fetch_image(qr_code_url)
+        authorized_user.weixin_qrcode_img = qr_code_image
+        authorized_user.save()
 
 
 if __name__ == '__main__':
