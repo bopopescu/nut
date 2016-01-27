@@ -39,6 +39,7 @@ image_host = getattr(settings, 'IMAGE_HOST', None)
 def crawl_articles():
     all_authorized_user = Profile.objects.filter(
         weixin_id__isnull=False
+
     )
     for user in queryset_iterator(all_authorized_user):
         fetch_article_list.delay(user.pk)
