@@ -119,10 +119,13 @@ urlpatterns += patterns('',
 
 
 
-# for seller 2015 page
+# for seller 2015 page and happy new year page
 from apps.seller.views.web import SellerView
+from apps.web.views import HappyNYView
 urlpatterns += patterns('',
             url(r'^store2015/', SellerView.as_view(), name='year_store_2015'),
+            url(r'^store/', SellerView.as_view(), name='year_store'),
+            url(r'^happynewyear/', HappyNYView.as_view(), name='new_year_2015'),
         )
 
 
