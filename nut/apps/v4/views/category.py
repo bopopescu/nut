@@ -12,14 +12,15 @@ from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 from apps.v4.models import APIEntity, APICategory, APIArticle
 
-from apps.core.views import BaseJsonView
+# from apps.core.views import BaseJsonView
 from haystack.query import SearchQuerySet
+from apps.v4.views import APIJsonView
 
 
 log = getLogger('django')
 
 
-class CategoryListView(BaseJsonView):
+class CategoryListView(APIJsonView):
 
     http_method_names = 'get'
     def get_data(self, context):
@@ -31,7 +32,7 @@ class CategoryListView(BaseJsonView):
         return super(CategoryListView, self).dispatch(request, *args, **kwargs)
 
 
-class GroupListView(BaseJsonView):
+class GroupListView(APIJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
@@ -43,12 +44,12 @@ class GroupListView(BaseJsonView):
             )
         return res
 
-    @check_sign
-    def dispatch(self, request, *args, **kwargs):
-        return super(GroupListView, self).dispatch(request, *args, **kwargs)
+    # @check_sign
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(GroupListView, self).dispatch(request, *args, **kwargs)
 
 
-class CategorySelectionView(BaseJsonView):
+class CategorySelectionView(APIJsonView):
 
     http_method_names = ['get']
 
@@ -97,12 +98,12 @@ class CategorySelectionView(BaseJsonView):
         assert self.group_id is not None
         return super(CategorySelectionView, self).get(request, *args, **kwargs)
 
-    @check_sign
-    def dispatch(self, request, *args, **kwargs):
-        return super(CategorySelectionView, self).dispatch(request, *args, **kwargs)
+    # @check_sign
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(CategorySelectionView, self).dispatch(request, *args, **kwargs)
 
 
-class GroupArticlesView(BaseJsonView):
+class GroupArticlesView(APIJsonView):
     '''
         获取一级分类下的图文.
         使用 solr 接口,通过对标签的搜索实现.
@@ -116,7 +117,7 @@ class GroupArticlesView(BaseJsonView):
         res = {
             'articles' : []
         }
-        print self.keyword
+        # print self.keyword
         sqs = SearchQuerySet().models(Article).filter(tags=self.keyword)
 
         paginator = Paginator(sqs, self.size)
@@ -146,8 +147,48 @@ class GroupArticlesView(BaseJsonView):
         return super(GroupArticlesView, self).get(request, *args, **kwargs)
 
     # @check_sign
-    def dispatch(self, request, *args, **kwargs):
-        return super(GroupArticlesView, self).dispatch(request, *args, **kwargs)
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(GroupArticlesView, self).dispatch(request, *args, **kwargs)
+
+
+class CategoryArticlesView(APIJsonView):
+
+    def get_data(self, context):
+        category = Sub_Category.objects.get(pk = self.sid)
+
+        self.keyword = category.title
+        res = {
+            'articles' : []
+        }
+        sqs = SearchQuerySet().models(Article).filter(tags=self.keyword)
+
+        paginator = Paginator(sqs, self.size)
+
+        try:
+            articles = paginator.page(self.page)
+        except Exception:
+            return res
+        article_ids = map(lambda x: x.article_id, articles.object_list)
+        for row in APIArticle.objects.filter(pk__in=article_ids):
+            res['articles'].append(
+                row.v4_toDict()
+            )
+        res.update(
+            {
+                'stat' : {
+                    'all_count' : sqs.count(),
+                },
+            }
+        )
+        return res
+
+    def get(self, request, *args, **kwargs):
+        self.sid = kwargs.pop('category_id', None)
+        self.page = request.GET.get('page', 1)
+        self.size = request.GET.get('size', 30)
+
+        assert self.sid is not None
+        return super(CategoryArticlesView, self).get(request, *args, **kwargs)
 
 
 @require_GET

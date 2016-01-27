@@ -1,5 +1,6 @@
 from django.conf.urls import url, patterns
-from apps.v4.views.category import CategoryListView, CategorySelectionView, GroupListView, GroupArticlesView
+from apps.v4.views.category import CategoryListView, CategorySelectionView, \
+    GroupListView, GroupArticlesView, CategoryArticlesView
 
 
 urlpatterns = patterns(
@@ -14,7 +15,7 @@ urlpatterns = patterns(
 
     url(r'^(?P<group_id>\d+)/selection/$', CategorySelectionView.as_view(), name='v4_category_selection'),
     url(r'^(?P<group_id>\d+)/articles/$', GroupArticlesView.as_view(), name='v4_group_articles'),
-    # url(r'^sub/(?P<category_id>/articles)/$')
+    url(r'^sub/(?P<category_id>\d+)/articles/$', CategoryArticlesView.as_view(), name='v4_category_articles'),
 )
 
 __author__ = 'edison'
