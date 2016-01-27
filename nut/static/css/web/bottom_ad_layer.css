@@ -9,7 +9,26 @@
 }
 .top-ad.bottom-ad .ad-wrapper.bottom-ad-wrapper {
   width: auto;
-  position: relative;
   margin-left: 80px;
   margin-right: 80px;
+}
+.top-ad.bottom-ad .ad-wrapper.bottom-ad-wrapper .guoku-logo {
+  width: 210px;
+  height: 60px;
+  margin-top: 80px;
+}
+.top-ad.bottom-ad .ad-wrapper.bottom-ad-wrapper .wechat-wrapper,
+.top-ad.bottom-ad .ad-wrapper.bottom-ad-wrapper .download-wrapper {
+  float: right;
+  margin-top: 30px;
+}
+.top-ad.bottom-ad .ad-wrapper.bottom-ad-wrapper .wechat-wrapper p,
+.top-ad.bottom-ad .ad-wrapper.bottom-ad-wrapper .download-wrapper p {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #ffffff;
+  text-align: center;
+}
+.top-ad.bottom-ad .ad-wrapper.bottom-ad-wrapper .wechat-wrapper {
+  margin-right: 30px;
 }
