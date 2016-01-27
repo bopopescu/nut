@@ -1,4 +1,4 @@
-.top-ad.bottom-ad{
+.bottom-ad{
   height:220px;
   position:fixed;
   bottom:0;
@@ -28,5 +28,33 @@
     .wechat-wrapper{
       margin-right:30px;
     }
+    .download-btn-control{
+      float:right;
+      margin-top:15px;
+      &:hover{
+        color:#ffffff;
+      }
+    }
+  }
+}
+
+@media screen and (max-width:767px){
+  .bottom-ad{
+    height:auto;
+    .ad-wrapper.bottom-ad-wrapper{
+      margin:20px 10px 20px 40px;
+      .guoku-logo{
+        margin-top:0px;
+      }
+    .wechat-wrapper,.download-wrapper{
+      display: none;
+        }
+    }
+  }
+
+  .close-button.close-button-control{
+    left:10px;
+    top:40px;
+
   }
 }
