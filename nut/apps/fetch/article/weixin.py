@@ -180,10 +180,11 @@ def crawl_article(article_link, authorized_user_pk, article_data, sg_cookie, pag
             )
             if img_src:
                 log.info('fetch_image for article %d: %s', article.id, img_src)
-                gk_img_rc = fetch_image(img_src)
+                gk_img_rc = fetch_image(img_src, full=False)
                 if gk_img_rc:
-                    image_tag['src'] = gk_img_rc
-                    image_tag['data-src'] = gk_img_rc
+                    full_path = "%s%s" % (image_host, gk_img_rc)
+                    image_tag['src'] = full_path
+                    image_tag['data-src'] = full_path
                     if not cover and not article.cover and i == 0:
                         article.cover = gk_img_rc
             content_html = article_soup.decode_contents(formatter="html")
@@ -217,7 +218,7 @@ def get_tokens(weixin_id):
         return None, None, None
 
 
-def fetch_image(image_url):
+def fetch_image(image_url, full=True):
     log.info('fetch_image %s', image_url)
     if not image_url:
         log.info('empty image url; skip')
@@ -237,7 +238,9 @@ def fetch_image(image_url):
         Media.objects.create(
             file_path=image_name,
             content_type=content_type)
-        return '/' + image_name
+        if full:
+            return "%s%s" % (image_host, image_name)
+        return image_name
 
     except (AttributeError, WandException) as e:
         log.error('handle image(%s) Error: %s', image_url, e.message)
