@@ -7,12 +7,10 @@ from apps.v4.models import APISeletion_Articles, APIArticle
 from apps.v4.forms.search import APIArticleSearchForm
 from apps.v4.views import APIJsonView
 
-
 from haystack.generic_views import SearchView
 from django.core.paginator import Paginator
 from datetime import datetime
 import time
-
 
 
 class ArticlesListView(APIJsonView):
@@ -51,10 +49,6 @@ class ArticlesListView(APIJsonView):
         if self.timestamp != None:
             self.timestamp = datetime.fromtimestamp(float(self.timestamp))
         return super(ArticlesListView, self).get(request, *args, **kwargs)
-
-    # @check_sign
-    # def dispatch(self, request, *args, **kwargs):
-    #     return super(ArticlesListView, self).dispatch(request, *args, **kwargs)
 
 
 class ArticleSearchView(SearchView, JSONResponseMixin):
