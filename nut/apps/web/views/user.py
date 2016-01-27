@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 # from django.core.urlresolvers import reverse
 from django.http import HttpResponseNotAllowed, Http404, HttpResponseServerError
@@ -425,7 +425,7 @@ class UserFansView(UserDetailBase):
     context_object_name = 'current_user_fans'
     def get_queryset(self):
         _user = self.get_showing_user()
-        return _user.fans.all()
+        return _user.fans.filter(follower__is_active__gte=0)
 
 
 class UserFollowingsView(UserDetailBase):
@@ -434,8 +434,7 @@ class UserFollowingsView(UserDetailBase):
     context_object_name = 'current_user_followings'
     def get_queryset(self):
         _user = self.get_showing_user()
-        return _user.followings.all()
-
+        return _user.followings.filter(followee__is_active__gte=0)
 
 from apps.core.models import Authorized_User_Profile
 
@@ -445,6 +444,14 @@ class UserIndex(UserPageMixin, DetailView):
     model = GKUser
     pk_url_kwarg = 'user_id'
     context_object_name = 'current_user'
+
+    def get(self, *args, **kwargs):
+        # this is a quick fix for  www.guoku.com/download page can not be accessed
+        user_domain = self.kwargs.get('user_domain', None)
+        if user_domain == 'download':
+            return redirect('web_download')
+
+        return super(UserIndex, self).get(*args, **kwargs)
 
     def get_object(self, queryset=None):
         return self.get_showing_user()
@@ -483,8 +490,8 @@ class UserIndex(UserPageMixin, DetailView):
 
         context_data['articles'] = _article_list
 
-        context_data['followings'] = current_user.followings.all()[:7]
-        context_data['fans'] = current_user.fans.all()[:7]
+        context_data['followings'] = current_user.followings.filter(followee__is_active__gte=0)[:7]
+        context_data['fans'] = current_user.fans.filter(follower__is_active__gte=0)[:7]
         context_data['tags']= Content_Tags.objects.user_tags_unique(current_user)[0:5]
         context_data['pronoun'] = self.get_pronoun()
 
