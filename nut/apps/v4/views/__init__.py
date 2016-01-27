@@ -53,7 +53,7 @@ def decorate_taobao_url(url, ttid=None, sid=None, outer_code=None, sche=None):
 
 class APIJsonView(BaseJsonView):
 
-    # @check_sign
+    @check_sign
     def dispatch(self, request, *args, **kwargs):
         return super(APIJsonView, self).dispatch(request, *args, **kwargs)
 
