@@ -1,3 +1,4 @@
+(node) util.print is deprecated. Use console.log instead.
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -325,10 +326,10 @@ a:hover {
   border-right: none;
 }
 .download .star_c {
-  color: #FF9600;
+  color: #ff9600;
 }
 .download .tags_c {
-  color: #BA7E32;
+  color: #ba7e32;
 }
 @media screen and (max-width: 960px) {
   .download {
@@ -1032,3 +1033,4 @@ a:hover {
   color: black;
 }
 /*add by An End*/
+/*# sourceMappingURL=style.less.css.map */
