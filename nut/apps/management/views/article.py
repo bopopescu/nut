@@ -9,7 +9,7 @@ from django.utils.log import getLogger
 from django.utils.translation import gettext_lazy as _
 
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
-from apps.core.models import Article
+from apps.core.models import Article, GKUser
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.management.decorators import staff_only
 
@@ -245,27 +245,35 @@ class RemoveSelectionArticle(UserPassesTestMixin, JSONResponseMixin, View):
         res['selection_article_id'] = selection_article_id
         return self.render_json_response(res)
 
+# TODO : use a parent class for 3 article list  view
 
-class ArticleList(UserPassesTestMixin,SortMixin,ListView):
-    class Meta:
-        widgets = {'weixin_openid': HiddenInput()}
-
-    def test_func(self, user):
-        return user.is_chief_editor
-
+class BaseManagementArticleListView(UserPassesTestMixin, SortMixin, ListView):
     template_name = 'management/article/list.html'
     model = Article
-    queryset = Article.objects.filter(publish=Article.published)
     paginate_by = 30
     paginator_class = Jpaginator
     context_object_name = 'articles'
     default_sort_params = ('updated_dateime', 'desc')
+    def test_func(self, user):
+        return user.is_editor
+
+
+class AuthorArticleList(BaseManagementArticleListView):
+    def get_queryset(self):
+        authorized_authors = GKUser.objects.authorized_author()
+        return  Article.objects.filter(publish=Article.published, creator__in=authorized_authors)
+
+
+class ArticleList(BaseManagementArticleListView):
+    def get_queryset(self):
+        authorized_authors = GKUser.objects.authorized_author()
+        return Article.objects.filter(publish=Article.published).exclude(creator__in=authorized_authors)
 
 
 class DraftArticleList(UserPassesTestMixin, SortMixin, ListView):
 
     def test_func(self, user):
-        return user.is_chief_editor
+        return user.is_editor
 
     template_name = 'management/article/draft_list.html'
     model = Article
