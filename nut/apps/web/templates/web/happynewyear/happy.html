@@ -1,1 +1,86 @@
-HAPPY NEW YEAR
+{% load i18n staticfiles %}
+{% load notifications_tags%}
+{% load cache %}
+{% get_current_language as LANGUAGE_CODE %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+{#    <meta charset="utf-8">#}
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    {% notifications_unread as unread_count %}
+    <title>{% if unread_count %}({{ unread_count }})&nbsp;{% endif %}{% block prefix %}{% endblock %}{% block title %}{% endblock %}{% block suffix %}{% endblock %}</title>
+
+{# og metas #}
+   <meta property="og:image" content="{% static 'images/guoku-logo.png' %}">
+
+ {% block meta-og %}
+    <meta property="og:title" content="果库精选商品 | 精英消费指南 | 理想生活主张" >
+    <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
+    <meta property="og:description" content="果库精选商品每日更新，恪守选品标准和美学格调，推荐有趣、有用、有价值的国内外优质优惠的网购商品。尽收世上好物。">
+{% endblock %}
+
+{% block meta-common %}
+    <meta name="title"  content="果库精选商品 | 精英消费指南 | 理想生活主张">
+    <meta name="keywords" content="精选商品,精选,尽收世上好物,果库、guoku、果库网、果库应用、精英消费指南、消费指南、精品导购应用、导购、购物指南、购物分享、淘宝网购物、淘宝网精选、精品推荐">
+    <meta name="description" content="果库精选商品每日更新，恪守选品标准和美学格调，推荐有趣、有用、有价值的国内外优质优惠的网购商品。尽收世上好物。">
+{% endblock %}
+    {% block owner_auth %}
+    <meta name="msvalidate.01" content="AC5BC2B7EE50E9FED342DC08F3BA6BAC" />
+    <meta name="360-site-verification" content="7c3351c76f5ddce0bf24427040d88bd5" />
+    {% endblock %}
+    {% block css_basic %}
+        <link rel="icon" type="image/ico" href="{% static 'images/favicon.ico' %}">
+        <link rel="apple-touch-icon-precomposed" href="{% static 'images/touch-icon-precomposed.png' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/font-awesome/css/font-awesome.min.css' %}">
+    {% endblock %}
+    {% block css %}
+    {% endblock %}
+
+</head>
+<body class="{% block body_class %} gray-body {% endblock %} {% if isFromMobile %} mobile-body {% endif %}">
+{% block weixin_share_img %}
+{% endblock %}
+{% url 'web_download' as web_download_url %}
+{% url 'web_selection' as web_selection_url %}
+{% block global_links %}
+    {% if web_selection_url in request.path %}
+        <a class="round-link acc-layer guoku-weixin" href="{{ web_download_url }}" target="_blank"><img class="img-responsive " src="{% static 'images/download_icon.png' %}"></a>
+    {% endif %}
+{% endblock %}
+<h1 class="hidden sr-only">{% block h1 %}果库,精英消费指南,精英,消费指南,专访{% endblock %}</h1>
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+    happy new year.
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
+
+{% block basic_script %}
+
+    <script src="{% static 'js/jquery-1.11.1.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/web/site.js' %}"></script>
+{% endblock %}
+
+{% block script %}
+     <script>
+    (function() {
+        alert('happy new year,lq');
+
+    })();
+    </script>
+{% endblock %}
+
+    </body>
+</html>
