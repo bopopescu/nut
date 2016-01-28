@@ -1,4 +1,3 @@
-(node) util.print is deprecated. Use console.log instead.
 .guoku-btn {
   font-size: 16px;
   height: 35px;
@@ -134,13 +133,13 @@
 }
 .button-white {
   background-color: #fff;
-  color: #9d9e9f;
+  color: #9D9E9F;
 }
 .button-white .fa {
-  color: #9d9e9f;
+  color: #9D9E9F;
 }
 .button-white:hover {
-  color: #9d9e9f;
+  color: #9D9E9F;
 }
 .blue-button {
   font-size: 14px;
@@ -153,7 +152,7 @@
   margin-top: 20px;
 }
 .button-gray {
-  background-color: #9d9e9f;
+  background-color: #9D9E9F;
 }
 .seller-button {
   margin-top: 10px;
@@ -178,7 +177,7 @@
 }
 .btn-cancel i,
 .button-cancel i {
-  color: #9d9e9f;
+  color: #9D9E9F;
 }
 .button-sharp {
   -webkit-border-radius: 0px;
@@ -192,13 +191,13 @@
   cursor: default;
 }
 .button-disabled {
-  background-color: #9d9e9f;
-  color: #f8f8f8;
+  background-color: #9D9E9F;
+  color: #F8F8F8;
 }
 .button-disabled:hover,
 .button-disabled:focus {
-  background-color: #9d9e9f;
-  color: #f8f8f8;
+  background-color: #9D9E9F;
+  color: #F8F8F8;
 }
 .entity-report-button {
   width: 120px;
@@ -227,7 +226,7 @@
   border: 1px solid #e6e6e6;
 }
 .panel {
-  background-color: #ffffff;
+  background-color: #fff;
   padding: 18px 18px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -235,21 +234,21 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 2px #dddddd;
-  -moz-box-shadow: 0px 0px 2px #dddddd;
-  box-shadow: 0px 0px 2px #dddddd;
+  -webkit-box-shadow: 0px 0px 2px #ddd;
+  -moz-box-shadow: 0px 0px 2px #ddd;
+  box-shadow: 0px 0px 2px #ddd;
 }
 .panel-no-padding {
-  background-color: #ffffff;
+  background-color: #fff;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 2px #dddddd;
-  -moz-box-shadow: 0px 0px 2px #dddddd;
-  box-shadow: 0px 0px 2px #dddddd;
+  -webkit-box-shadow: 0px 0px 2px #ddd;
+  -moz-box-shadow: 0px 0px 2px #ddd;
+  box-shadow: 0px 0px 2px #ddd;
   overflow: hidden;
 }
 .img-box {
@@ -346,7 +345,7 @@
   color: #424242;
 }
 .little-round-tag:hover {
-  background-color: #f0f0f0;
+  background-color: #F0F0F0;
 }
 .normal-round-tag {
   -webkit-border-radius: 40px;
@@ -370,7 +369,7 @@
 }
 .normal-round-tag:hover,
 .normal-round-tag.current {
-  background-color: #dddddd;
+  background-color: #ddd;
 }
 .bottom-bordered {
   border-bottom: 1px solid #e6e6e6;
@@ -389,7 +388,7 @@
   border-radius: 3px;
   /*text-align:center;*/
   /*color:#ff1f77;*/
-  background-color: #ff1f77;
+  background-color: #FF1F77;
   text-decoration: none;
 }
 .b_day {
@@ -428,16 +427,16 @@ p .b_day {
   border: none;
   margin-bottom: 60px;
   padding: 0px 0px 16px 0px;
-  background-color: #ffffff;
+  background-color: #fff;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 2px #dddddd;
-  -moz-box-shadow: 0px 0px 2px #dddddd;
-  box-shadow: 0px 0px 2px #dddddd;
+  -webkit-box-shadow: 0px 0px 2px #ddd;
+  -moz-box-shadow: 0px 0px 2px #ddd;
+  box-shadow: 0px 0px 2px #ddd;
   overflow: hidden;
 }
 .entity-four.thumbnail .img-box {
@@ -721,23 +720,23 @@ p.boolean-false {
 }
 .batch-selection-modal .modal-dialog .modal-content {
   overflow-y: scroll;
-  background-color: #f8f8f8;
+  background-color: #F8F8F8;
 }
 .batch-selection-modal .modal-dialog .modal-content .content-list {
   list-style: none;
 }
 .batch-selection-modal .modal-dialog .modal-content .content-list li {
   cursor: pointer;
-  background-color: #ffffff;
+  background-color: #fff;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 2px #dddddd;
-  -moz-box-shadow: 0px 0px 2px #dddddd;
-  box-shadow: 0px 0px 2px #dddddd;
+  -webkit-box-shadow: 0px 0px 2px #ddd;
+  -moz-box-shadow: 0px 0px 2px #ddd;
+  box-shadow: 0px 0px 2px #ddd;
   overflow: hidden;
   margin: 10px;
 }
@@ -805,4 +804,3 @@ p.boolean-false {
 #test {
   color: red;
 }
-/*# sourceMappingURL=basic_management.less.css.map */
