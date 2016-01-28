@@ -1,3 +1,4 @@
+(node) util.print is deprecated. Use console.log instead.
 .guoku-btn {
   font-size: 16px;
   height: 35px;
@@ -63,3 +64,4 @@
 .guoku-btn-normal:active {
   border: none;
 }
+/*# sourceMappingURL=component.less.css.map */
