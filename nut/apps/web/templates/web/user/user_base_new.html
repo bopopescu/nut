@@ -14,9 +14,11 @@
 {% endblock %}
 {% block title %}{{ current_user.profile.nick }} | 精英消费指南 | 果库{% endblock %}
 {% block content %}
+
      {% url 'web_user_followings' current_user.pk as web_user_followings_url %}
      {% url 'web_user_fans' current_user.pk as web_user_fans_url %}
     <div class="guoku-content container user-page">
+       {% block user_header %}
         <div class="row user-info-wrapper">
             <div class="col-xs-12 col-sm-3 user-icon">
                 <img src="{{ current_user.avatar_url|resize:'180' }}"/>
@@ -59,11 +61,14 @@
                 </div>
             </div>
         </div>
+       {% endblock %}
+
         <div class="row hidden-xs">
             <div class="col-sm-offset-12">
                 <a class="btn-top" href="javascript:;"  title="回到顶部" target="_self"><i class="fa fa-angle-up fa-lg"></i></a>
             </div>
         </div>
+
        {% if request.user.is_staff %}
         <div class="row user-admin-link-wrapper">
             <a href="{% url 'management_user_edit' current_user.id %}" target="_blank"><i class="fa fa-edit"></i></a>

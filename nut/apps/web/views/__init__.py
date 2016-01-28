@@ -20,6 +20,9 @@ def webpage_not_found(request):
 # class TestView(TemplateView):
 #     template_name = 'web/index.html'
 
+class HappyNYView(TemplateView):
+    template_name = 'web/happynewyear/happy.html'
+
 class AboutView(TemplateView):
     template_name = "web/about.html"
 
