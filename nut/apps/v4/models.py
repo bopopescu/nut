@@ -108,6 +108,11 @@ class APIUser(GKUser):
         except Taobao_Token.DoesNotExist, e:
             log.info("info: %s", e.message)
 
+        try:
+            res['wechat_nick'] = self.weixin.nickname
+        except WeChat_Token.DoesNotExist, e:
+            log.info("info: %s", e.message)
+
         if visitor:
             if self.id == visitor.id:
                 res['relation'] = 4
