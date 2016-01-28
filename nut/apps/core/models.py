@@ -342,6 +342,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
                 log.error("Error: user id %s %s", (self.id, e.message))
             cache.set(key, res, timeout=86400)
 
+        res['mail_verified'] = self.profile.email_verified
         res['like_count'] = self.like_count
         res['entity_note_count'] = self.post_note_count
         res['tag_count'] = self.tags_count
@@ -358,6 +359,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             res['taobao_nick'] = self.taobao.screen_name
             res['taobao_token_expires_in'] = self.taobao.expires_in
         except Taobao_Token.DoesNotExist, e:
+            log.info("info: %s", e.message)
+
+        try:
+            res['wechat_nick'] = self.weixin.nickname
+        except WeChat_Token.DoesNotExist, e:
             log.info("info: %s", e.message)
 
         if visitor:
