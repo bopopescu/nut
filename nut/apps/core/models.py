@@ -1338,6 +1338,8 @@ class Article(BaseModel):
     def save(self, *args, **kwargs):
         if not kwargs.pop('skip_updatetime', False):
             self.updated_datetime = datetime.now()
+        if not self.cleaned_title:
+            self.cleaned_title = clean_title(self.title)
         res = super(Article, self).save(*args, **kwargs)
         # add article related entities,
         hash_list = get_entity_list_from_article_content(self.content)
@@ -1346,9 +1348,6 @@ class Article(BaseModel):
             self.related_entities = entity_list
         else:
             self.related_entities = []
-
-        if not self.cleaned_title:
-            self.cleaned_title = clean_title(self.title)
         return res
 
     @property
