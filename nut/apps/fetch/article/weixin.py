@@ -4,6 +4,11 @@
 import re
 import os, sys
 import random
+
+import redis
+import requests
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_judy'
@@ -33,6 +38,9 @@ qr_code_patterns = (re.compile('biz\s*=\s*"(?P<qr_url>[^"]*)'),
                     re.compile('fakeid\s*=\s*"(?P<qr_url>[^"]*)'),
                     re.compile('appuin\s*=\s*"(?P<qr_url>[^"]*)'))
 image_host = getattr(settings, 'IMAGE_HOST', None)
+r = redis.Redis(host=settings.CONFIG_REDIS_HOST,
+                port=settings.CONFIG_REDIS_PORT,
+                db=settings.CONFIG_REDIS_DB)
 
 
 @task(base=RequestsTask, name='sogou.crawl_articles')
@@ -43,6 +51,28 @@ def crawl_articles():
     )
     for user in queryset_iterator(all_authorized_user):
         fetch_article_list.delay(user.pk)
+
+
+def prepare_cookies():
+    check_url = urljoin(settings.PHANTOM_SERVER, '_health')
+    resp = requests.get(check_url)
+    ready = resp.status_code == 200
+    if ready:
+        emails = settings.SOGOU_USERS
+        for sg_email in emails:
+            set_user_cookie.delay(sg_email)
+    else:
+        log.error("phantom web server is unavailable!!!!!!")
+
+
+@task(base=RequestsTask, name='sogou.set_user_cookie')
+def set_user_cookie(sg_email):
+    get_url = urljoin(settings.PHANTOM_SERVER, '_sg_cookie')
+    resp = requests.post(get_url, data={'email': sg_email})
+    cookie = resp.json()['sg_cookie']
+    key = 'sogou.cookie.%s' % sg_email
+    key = key.lower()
+    r.set(key, cookie)
 
 
 @task(base=RequestsTask, name='sogou.fetch_article_list')
@@ -200,10 +230,17 @@ def get_tokens(weixin_id):
     params = dict(type='1', ie='utf8', query=weixin_id)
     weixin_client.refresh_cookies()
     sg_cookie = weixin_client.headers.get('Cookie')
-    response = weixin_client.get(url=SEARCH_API,
-                                 params=params,
-                                 jsonp_callback='weixin',
-                                 headers={'Cookie': sg_cookie})
+    try:
+        response = weixin_client.get(url=SEARCH_API,
+                                     params=params,
+                                     jsonp_callback='weixin',
+                                     headers={'Cookie': sg_cookie})
+    except (ToManyRequests, Expired) as e:
+        log.warning("too many requests or request expired when get tokens. "
+                    "%s. updating cookies...", e.message)
+
+        return
+
     for item in response.jsonp['items']:
         item_xml = clean_xml(item)
         item_xml = BeautifulSoup(item_xml, 'xml')
@@ -274,4 +311,5 @@ def get_qr_code(authorized_user_pk, qr_code_url):
 
 
 if __name__ == '__main__':
-    crawl_articles.delay()
+    # crawl_articles.delay()
+    prepare_cookies()
