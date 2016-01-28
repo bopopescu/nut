@@ -344,7 +344,7 @@ PHANTOM_SERVER = 'http://10.0.2.49:5000/'
 # fetch articles
 SOGOU_PASSWORD = 'guoku1@#'
 SOGOU_USERS = ('waser1959@gustr.com', 'asortafairytale@fleckens.hu', 'adisaid@jourrapide.com',
-               'rathe1981@rhyta.com', 'andurn@fleckens.hu','sanyuanmilk@fleckens.hu',
+               'rathe1981@rhyta.com', 'andurn@fleckens.hu', 'sanyuanmilk@fleckens.hu',
                'yundaexpress@rhyta.com', 'sunstarorabreathfine@jourrapide.com',
                'indonesiamandheling@einrot.com', 'charlottewalkforshame@dayrep.com')
 CELERYBEAT_SCHEDULE = {
