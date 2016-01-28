@@ -338,14 +338,19 @@ CONFIG_REDIS_DB = 1
 
 INTERVAL_OF_SELECTION = 24
 
+# phantom
+PHANTOM_SERVER = 'http://10.0.2.49:5000/'
+
 # fetch articles
 SOGOU_PASSWORD = 'guoku1@#'
-SOGOU_USERS = ('Waser1959@gustr.com', 'asortafairytale@fleckens.hu', 'Adisaid@jourrapide.com',
-               'Rathe1981@rhyta.com', 'Andurn@fleckens.hu','sanyuanmilk@fleckens.hu')
+SOGOU_USERS = ('waser1959@gustr.com', 'asortafairytale@fleckens.hu', 'adisaid@jourrapide.com',
+               'rathe1981@rhyta.com', 'andurn@fleckens.hu','sanyuanmilk@fleckens.hu',
+               'yundaexpress@rhyta.com', 'sunstarorabreathfine@jourrapide.com',
+               'indonesiamandheling@einrot.com', 'charlottewalkforshame@dayrep.com')
 CELERYBEAT_SCHEDULE = {
     'crawl_articles': {
         'task': 'sogou.crawl_articles',
-        'schedule': crontab(minute=10, hour=23)
+        'schedule': crontab(minute=1, hour=1)
     }
 }
 
