@@ -1331,6 +1331,8 @@ class Article(BaseModel):
     def save(self, *args, **kwargs):
         if not kwargs.pop('skip_updatetime', False):
             self.updated_datetime = datetime.now()
+        if not self.cleaned_title:
+            self.cleaned_title = clean_title(self.title)
         res = super(Article, self).save(*args, **kwargs)
         # add article related entities,
         hash_list = get_entity_list_from_article_content(self.content)
@@ -1834,13 +1836,6 @@ def register_signal(sender, instance, created, raw, using,
     from apps.core.tasks import send_activation_mail
     if created:
         send_activation_mail(instance.user)
-
-
-@receiver(post_save, sender=Article)
-def add_cleaned_title(sender, instance, created, **kwargs):
-    if created:
-        if instance.title and not instance.cleaned_title:
-            instance.cleaned_title = clean_title(instance.title)
 
 
 # TODO: model post save

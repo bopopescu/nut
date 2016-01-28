@@ -1,3 +1,10 @@
+### fix can not create article error:
+
+#action
+
+    ALTER TABLE `core`.`core_article` DROP INDEX `cleaned_title_UNIQUE` ;
+
+
 
 6. add a cookie store for sogou spider use 
 -----------------------
