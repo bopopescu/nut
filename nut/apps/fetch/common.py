@@ -58,9 +58,11 @@ def queryset_iterator(queryset, chunk_size=100):
         gc.collect()
 
 
-def clean_title(artile_title):
-    if not artile_title:
+def clean_title(article_title):
+    if not article_title:
         return
-    artile_title = artile_title.strip()
-    artile_title = artile_title.translate(tbl)
-    return artile_title
+    if not isinstance(article_title, unicode):
+        article_title = unicode(article_title, 'utf-8')
+    article_title = article_title.strip()
+    article_title = article_title.translate(tbl)
+    return article_title
