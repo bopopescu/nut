@@ -16,17 +16,16 @@
  ###action
 
     sudo pip install fake-factory
+    
+    ./manage.py celery beat --loglevel=ERROR  --settings="settings.production"
+    
 
     ALTER TABLE `core`.`core_authorized_user_profile` 
     ADD COLUMN `weixin_openid` VARCHAR(255) NULL COMMENT '' AFTER `weibo_nick`;
-    
-    ALTER TABLE `core`.`core_article` 
-    DROP COLUMN `origin_source`,
+   
     
     ADD COLUMN `cleaned_title` VARCHAR(255) NULL COMMENT '' AFTER `feed_read_count`,
     ADD UNIQUE INDEX `cleaned_title_UNIQUE` (`cleaned_title` ASC)  COMMENT '';
-    
-    ./manage.py celery beat --loglevel=ERROR  --settings="settings.production"
     
 
 ##2016-02-22 Fetch wixin articles
