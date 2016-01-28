@@ -24,6 +24,7 @@
     ADD COLUMN `weixin_openid` VARCHAR(255) NULL COMMENT '' AFTER `weibo_nick`;
    
     
+    ALTER TABLE `core`.`core_article` 
     ADD COLUMN `cleaned_title` VARCHAR(255) NULL COMMENT '' AFTER `feed_read_count`,
     ADD UNIQUE INDEX `cleaned_title_UNIQUE` (`cleaned_title` ASC)  COMMENT '';
     
