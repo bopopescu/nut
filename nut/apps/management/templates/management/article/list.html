@@ -29,11 +29,11 @@
                             <thead>
                             <tr>
                                 <th class="id">#</th>
+                                <th class="cover">{% trans 'cover' %}</th>
                                 <th class="title">{% trans 'title' %}</th>
                                 <th class="person-link" >{% trans 'author' %}</th>
-                                <th class="cell-boolean" >文章状态</th>
-                                <th class="date-time">最后修改时间</th>
                                 <th class="read-count">阅读</th>
+                                <th class="read-count">文章标签</th>
                                 <th class="edit-operation">{% trans 'operation' %}</th>
                                 <th class="cell-number">加入精选次数</th>
                                 <th class="date-time" >上次精选发布时间</th>
@@ -45,9 +45,13 @@
                                 <tr>
                                     <td>{{ row.pk }}</td>
                                     <td>
+                                        <a href="{% url 'web_article_page' row.pk %}" target="_blank">
+                                            <img src="{{ row.cover_url|resize:'100' }}"/>
+                                        </a>
+                                    </td>
+                                    <td>
                                         {{ row.title }}
                                         <br>
-                                        <img src="{{ row.cover_url|resize:'100' }}"/>
                                     </td>
                                     <td >
                                         <a class="user-block" href="{% url 'management_user_edit' row.creator_id %}" target="_blank">
@@ -55,11 +59,14 @@
 
                                             {{ row.creator.profile.nickname }}
                                         </a>
+                                        <div > <span class="badge bg-green"> {{ row.get_publish_display  }}</span></div>
+                                        <div> <span class="badge bg-orange">{{ row.created_datetime|date:"m/d/Y"}} 文章创建 </span></div>
+                                        <div> <span class="badge bg-blue">{{ row.updated_datetime|format_time}} 最后修改 </span></div>
                                         <br>
                                     </td>
-                                    <td>{{ row.get_publish_display  }}</td>
-                                    <td>{{ row.updated_datetime|format_time}}</td>
+
                                     <td>{{ row.read_count }}</td>
+                                    <td>{{ row.tags_string}}</td>
                                     <td>
                                         <div class="btn-group">
                                             <a class="btn btn-default" href="{% url 'management_article_edit' row.pk %}?prev={{ request.path }}" >{% trans 'edit' %}</a>
