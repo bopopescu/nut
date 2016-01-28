@@ -25,6 +25,20 @@
                     </div>
 
                     <div class="box-body table-responsive action-table">
+                       {% if for_author %}
+                        <ul class="inline-list author-list">
+                            {% for author in authorized_authors %}
+                            <li>
+                                <div class="user-block">
+                                <a href="{% url 'management_author_article_person_list' author.pk %}">
+                                    <img class="img-circle" src="{{ author.avatar_url|resize:'100' }}" alt="user image">
+                                    <span class="username"> {{ author.nickname }} </span></a>
+                                </a>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
                         <table class="table table-striped table-hover">
                             <thead>
                             <tr>
