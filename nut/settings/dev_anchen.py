@@ -24,7 +24,7 @@ IMG_COUNTER_HOST = 'http://127.0.0.1:9766'
 
 
 #for mobile access simulation
-# ANT_SIMULATE_MOBILE = True
+ANT_SIMULATE_MOBILE = True
 
 #for local solr search
 
