@@ -9,6 +9,8 @@
 
 #action 
  need sync db 
+ need  manage.py compilemessages 
+ need restart server  (new translation items )
  
  
  ###action
@@ -20,6 +22,7 @@
     
     ALTER TABLE `core`.`core_article` 
     DROP COLUMN `origin_source`,
+    
     ADD COLUMN `cleaned_title` VARCHAR(255) NULL COMMENT '' AFTER `feed_read_count`,
     ADD UNIQUE INDEX `cleaned_title_UNIQUE` (`cleaned_title` ASC)  COMMENT '';
     
