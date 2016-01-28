@@ -269,7 +269,7 @@ class AuthorArticlePersonList(BaseManagementArticleListView):
             raise  Http404
         else:
             return Article.objects.filter(publish=Article.published,creator__id=_user_id)\
-                    .order_by('-created_datetime')
+                    .order_by('-updated_datetime')
 
     def get_context_data(self, *args, **kwargs):
         context = super(AuthorArticlePersonList, self).get_context_data(*args, **kwargs)
@@ -280,7 +280,7 @@ class AuthorArticleList(BaseManagementArticleListView):
     def get_queryset(self):
         authorized_authors = GKUser.objects.authorized_author()
         return  Article.objects.filter(publish=Article.published, creator__in=authorized_authors)\
-                        .order_by('-created_datetime')
+                        .order_by('-updated_datetime')
 
     def get_context_data(self, *args, **kwargs):
         context = super(AuthorArticleList, self).get_context_data(*args, **kwargs)
