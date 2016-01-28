@@ -10,7 +10,7 @@
 #action 
  need sync db 
  need  manage.py compilemessages 
- need restart server  (new translation items )
+ need  restart server  (new translation items )
  
  
  ###action
