@@ -1339,9 +1339,6 @@ class Article(BaseModel):
             self.related_entities = entity_list
         else:
             self.related_entities = []
-
-        if not self.cleaned_title:
-            self.cleaned_title = clean_title(self.title)
         return res
 
     @property
@@ -1837,6 +1834,13 @@ def register_signal(sender, instance, created, raw, using,
     from apps.core.tasks import send_activation_mail
     if created:
         send_activation_mail(instance.user)
+
+
+@receiver(post_save, sender=Article)
+def add_cleaned_title(sender, instance, created, **kwargs):
+    if created:
+        if instance.title and not instance.cleaned_title:
+            instance.cleaned_title = clean_title(instance.title)
 
 
 # TODO: model post save
