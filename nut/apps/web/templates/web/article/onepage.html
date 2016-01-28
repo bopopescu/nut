@@ -113,6 +113,34 @@
 {#                                <div class="write-pre col-xs-12 col-sm-12">#}
 {#                                </div>#}
 {#                            </div>#}
+                            {% if article.creator.is_authorized_author %}
+                                <div class="author-info">
+                                 <div class="user-icon">
+                                        <a href="{% url 'web_user_index' article.creator.pk %}" class="for-browser">
+                                           <img src="{{ article.creator.avatar_url|resize:'120' }}"/>
+                                        </a>
+
+                                         <a href="{{ article.creator.mobile_url }}" class="for-mobile mobile-user-link">
+                                          <img src="{{ article.creator.avatar_url|resize:'120' }}"/>
+                                        </a>
+                                 </div>
+                                 <div class="user-title">
+                                       <span class="for-browser" >
+                                           <a href="{% url 'web_user_index' article.creator.pk %}">
+                                           {{ article.creator.nickname }}
+                                            </a>
+                                       </span>
+                                       <span class="for-mobile" >
+                                           <a href="{{ article.creator.mobile_url }}" class="mobile-user-link">
+                                           {{ article.creator.nickname }}
+                                           </a>
+                                       </span>
+                                 </div>
+                                 <div class="user-bio">
+                                     <span class="bio-block">{{ article.creator.bio }}</span>
+                                 </div>
+                                </div>
+                            {% else %}
                             <div class="row">
                                 <div class="writer-avatar col-xs-2 col-sm-2">
                                     <div class="avatar-wrapper">
@@ -124,7 +152,8 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="writer-intro col-xs-10 col-sm-10">
+
+                                     <div class="writer-intro col-xs-10 col-sm-10">
                                     <div class="writer-name for-browser">
                                         <a href="{% url 'web_user_index' article.creator.pk %}">
                                          {{ article.creator.profile.nickname }}
@@ -137,7 +166,10 @@
                                     </div>
                                     <div class="writer-bio">{{ article.creator.profile.bio|truncatechars:200 }}</div>
                                 </div>
+
+
                             </div>
+                            {% endif %}
 
                         </div>
                     </div>
