@@ -20,6 +20,8 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, Group
+
+from apps.fetch.common import clean_title
 from apps.notifications import notify
 from apps.core.utils.image import HandleImage
 from apps.core.utils.articlecontent import contentBleacher
@@ -322,7 +324,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         self.is_admin = True
         self.save()
 
-
     def v3_toDict(self, visitor=None):
         key = "user:v3:%s" % self.id
         res = cache.get(key)
@@ -433,16 +434,12 @@ class Authorized_User_Profile(BaseModel):
     # see  日常开发文档－》授权图文用户
     weixin_id = models.CharField(max_length=255, null=True, blank=True)
     weixin_nick = models.CharField(max_length=255, null=True, blank=True)
+    weixin_openid = models.CharField(max_length=255, null=True, blank=True)
     weixin_qrcode_img = models.CharField(max_length=255, null=True, blank=True)
     author_website = models.CharField(max_length=1024, null=True, blank=True)
     weibo_id = models.CharField(max_length=255, null=True, blank=True)
     weibo_nick = models.CharField(max_length=255, null=True, blank=True)
     personal_domain_name = models.CharField(max_length=64, null=True, blank=True)
-
-
-
-
-
 
 
 class User_Profile(BaseModel):
@@ -1287,11 +1284,11 @@ class Article(BaseModel):
 
     creator = models.ForeignKey(GKUser, related_name="articles")
     title = models.CharField(max_length=64)
+    cleaned_title = models.TextField(null=True, blank=True)
     cover = models.CharField(max_length=255, blank=True)
     content = models.TextField()
     publish = models.IntegerField(choices=ARTICLE_STATUS_CHOICES, default=draft)
-    created_datetime = models.DateTimeField(auto_now_add=True, db_index=True,
-                                            null=True, editable=False)
+    created_datetime = models.DateTimeField(db_index=True, null=True)
     updated_datetime = models.DateTimeField()
     showcover = models.BooleanField(default=False)
     read_count = models.IntegerField(default=0)
@@ -1334,7 +1331,6 @@ class Article(BaseModel):
             cache.decr(key)
         except Exception:
             cache.set(key, self.digs.count())
-
 
     def __unicode__(self):
         return self.title
@@ -1845,6 +1841,13 @@ def register_signal(sender, instance, created, raw, using,
     from apps.core.tasks import send_activation_mail
     if created:
         send_activation_mail(instance.user)
+
+
+@receiver(post_save, sender=Article)
+def add_cleaned_title(sender, instance, created, **kwargs):
+    if created:
+        if instance.title and not instance.cleaned_title:
+            instance.cleaned_title = clean_title(instance.title)
 
 
 # TODO: model post save

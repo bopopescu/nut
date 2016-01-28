@@ -32,7 +32,7 @@ def upload_code():
             remote_dir = env.project_root,
             local_dir = env.local_root,
             delete = True,
-            extra_opts = "--password-file='guoku.pass' "
+            extra_opts = "--password-file='guoku.pass' --exclude='images' "
         )
 
 # script_dir = Config.get('server', 'script_dir')
