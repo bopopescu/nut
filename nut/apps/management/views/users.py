@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, UpdateView
 from django.core.urlresolvers import reverse
-from django.forms import ModelForm ,BooleanField
+from django.forms import ModelForm ,BooleanField, HiddenInput
 
 from braces.views import AjaxResponseMixin,JSONResponseMixin, UserPassesTestMixin
 
@@ -24,10 +24,10 @@ log = getLogger('django')
 
 from rest_framework import generics
 
+
 class RESTfulUserListView(generics.ListCreateAPIView):
         queryset = GKUser.objects.all()
         serializer_class = GKUserSerializer
-
 
 
 class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):
@@ -57,14 +57,12 @@ class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):
     def get_success_url(self):
         return reverse('management_user_edit' , args=[self.get_pk()])
 
-
     def get_context_data(self,*args, **kwargs):
         context = super(UserAuthorInfoEditView, self).get_context_data(*args, **kwargs)
         pk = self.get_pk()
         _user = GKUser.objects.get(id=pk)
         context['current_user'] = _user
         return context
-
 
     def test_func(self, user):
         return user.is_admin
@@ -83,7 +81,7 @@ class UserAuthorSetView(UserPassesTestMixin,JSONResponseMixin, UpdateView):
         return self.render_json_response({'error':1, 'message':'invalid form'}, status=500)
 
     def test_func(self,user):
-        return  user.is_admin
+        return user.is_admin
 
 
 class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListView):
