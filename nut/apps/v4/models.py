@@ -84,7 +84,6 @@ class APIUser(GKUser):
                 res['avatar_large'] = self.profile.avatar_url
                 res['avatar_small'] = self.profile.avatar_url
 
-
             # res['verified'] = self.profile.email_verified
             except Exception, e:
                 log.error("Error: user id %s %s", (self.id,e.message))
