@@ -245,7 +245,7 @@ class EditArticleForms(BaseArticleForms):
                 'tags':tags,
                 'article': self.article.pk
             }
-            generator_article_tag.delay(data=json.dumps(data))
+            generator_article_tag(data=json.dumps(data))
 
         return self.article
 
