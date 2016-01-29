@@ -26,7 +26,8 @@ from django.core.exceptions import MultipleObjectsReturned
 from apps.core.models import Authorized_User_Profile as Profile, GKUser
 from apps.core.models import Article, Media
 from apps.fetch.common import clean_xml, queryset_iterator, clean_title
-from apps.fetch.article import RequestsTask, WeiXinClient, ToManyRequests
+from apps.fetch.article import RequestsTask, WeiXinClient, ToManyRequests, \
+    update_user_cookie
 from apps.fetch.article import Expired
 
 
@@ -60,19 +61,9 @@ def prepare_cookies():
     if ready:
         emails = settings.SOGOU_USERS
         for sg_email in emails:
-            set_user_cookie.delay(sg_email)
+            update_user_cookie.delay(sg_user=sg_email)
     else:
         log.error("phantom web server is unavailable!!!!!!")
-
-
-@task(base=RequestsTask, name='sogou.set_user_cookie')
-def set_user_cookie(sg_email):
-    get_url = urljoin(settings.PHANTOM_SERVER, '_sg_cookie')
-    resp = requests.post(get_url, data={'email': sg_email})
-    cookie = resp.json()['sg_cookie']
-    key = 'sogou.cookie.%s' % sg_email
-    key = key.lower()
-    r.set(key, cookie)
 
 
 @task(base=RequestsTask, name='sogou.fetch_article_list')
@@ -238,7 +229,7 @@ def get_tokens(weixin_id):
     except (ToManyRequests, Expired) as e:
         log.warning("too many requests or request expired when get tokens. "
                     "%s. updating cookies...", e.message)
-
+        weixin_client.refresh_cookies(update=True)
         return
 
     for item in response.jsonp['items']:

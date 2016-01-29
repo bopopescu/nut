@@ -5,7 +5,11 @@ import os
 import sys
 import json
 import random
+from urlparse import urljoin
+
+import redis
 import requests
+from celery.task import task
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -24,6 +28,9 @@ faker = Faker()
 search_api = 'http://weixin.sogou.com/weixinjs'
 login_url = 'https://account.sogou.com/web/login'
 log = getLogger('django')
+r = redis.Redis(host=settings.CONFIG_REDIS_HOST,
+                port=settings.CONFIG_REDIS_PORT,
+                db=settings.CONFIG_REDIS_DB)
 
 
 class Retry(Exception):
@@ -59,6 +66,7 @@ class RequestsTask(Task):
 class WeiXinClient(requests.Session):
     def __init__(self):
         super(WeiXinClient, self).__init__()
+        self._sg_user = None
         self.login_url = 'https://account.sogou.com/web/login'
         self.search_api_url = 'http://weixin.sogou.com/weixinjs'
         self.refresh_cookies()
@@ -131,11 +139,23 @@ class WeiXinClient(requests.Session):
         self.request('POST',
                      self.login_url, data=data, headers=headers)
 
-    def refresh_cookies(self):
+    def refresh_cookies(self, update=False):
         self.cookies.clear()
-        self.headers['Cookie'] = random.choice(sogou_cookies.keys())
+        if update:
+            update_user_cookie.delay(self.sg_user)
+
+        sg_user = random.choice(
+            list(settings.SOGOU_USERS).remove(self.sg_user)
+        )
+        self._sg_user = sg_user
+        sg_cookie = r.get('sogou.cookie.%s' % sg_user)
+        self.headers['Cookie'] = sg_cookie
         self.headers['User-Agent'] = faker.user_agent()
-        return self.headers['Cookie']
+        yield self.headers['Cookie']
+
+    @property
+    def sg_user(self):
+        return self._sg_user
 
     @classmethod
     def parse_jsonp(cls, utf8_content, callback):
@@ -187,3 +207,14 @@ sogou_referers = ('http://weixin.sogou.com/',
                   'http://mp.weixin.qq.com/s?__biz=MTI0MDU3NDYwMQ==&mid=406976557&idx=3&sn=e2749cff6e7fbf1379f4d7ee5829a5aa&3rd=MzA3MDU4NTYzMw==&scene=6#rd',
                   'http://weixin.sogou.com/weixin?type=1&query=a&ie=utf8'
                   )
+
+
+@task(base=RequestsTask, name="sogou.update_user_cookie")
+def update_user_cookie(sg_user):
+    if not sg_user:
+        return
+    get_url = urljoin(settings.PHANTOM_SERVER, '_sg_cookie')
+    resp = requests.post(get_url, data={'email': sg_user})
+    cookie = resp.json()['sg_cookie']
+    key = 'sogou.cookie.%s' % sg_user
+    r.set(key, cookie)
