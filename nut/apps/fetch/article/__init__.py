@@ -51,7 +51,7 @@ class RequestsTask(Task):
     def __call__(self, *args, **kwargs):
         try:
             return super(RequestsTask, self).__call__(*args, **kwargs)
-        except (requests.Timeout, requests.ConnectionError) as e:
+        except (requests.Timeout, requests.ConnectionError, Retry) as e:
             raise self.retry(exc=e)
 
 
@@ -135,14 +135,14 @@ class WeiXinClient(requests.Session):
         if update:
             update_user_cookie.delay(self.sg_user)
 
-        sg_user = random.choice(
-            list(settings.SOGOU_USERS).remove(self.sg_user)
-        )
+        sg_users = list(settings.SOGOU_USERS)
+        if self.sg_user:
+            sg_users.remove(self.sg_user)
+        sg_user = random.choice(sg_users)
         self._sg_user = sg_user
         sg_cookie = r.get('sogou.cookie.%s' % sg_user)
         self.headers['Cookie'] = sg_cookie
         self.headers['User-Agent'] = faker.user_agent()
-        yield self.headers['Cookie']
 
     @property
     def sg_user(self):

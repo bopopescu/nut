@@ -2,16 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import re
-import os, sys
 import random
-
 import redis
 import requests
-
-
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-sys.path.append(BASE_DIR)
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_judy'
 
 
 from urlparse import urljoin
@@ -27,7 +20,7 @@ from apps.core.models import Authorized_User_Profile as Profile, GKUser
 from apps.core.models import Article, Media
 from apps.fetch.common import clean_xml, queryset_iterator, clean_title
 from apps.fetch.article import RequestsTask, WeiXinClient, ToManyRequests, \
-    update_user_cookie
+    update_user_cookie, Retry
 from apps.fetch.article import Expired
 
 
@@ -111,10 +104,10 @@ def fetch_article_list(authorized_user_pk, page=1):
         if article:
             existed.append(item)
 
-    if existed:
-        log.info('some items on the page already exists in db; '
-                 'no need to go to next page')
-        go_next = False
+    # if existed:
+    #     log.info('some items on the page already exists in db; '
+    #              'no need to go to next page')
+    #     go_next = False
 
     item_dict = {key: value for key, value
                  in item_dict.items() if key not in existed}
@@ -154,7 +147,7 @@ def crawl_article(article_link, authorized_user_pk, article_data, sg_cookie, pag
 
     article_soup = BeautifulSoup(resp.utf8_content, from_encoding='utf8')
     if not authorized_user.weixin_qrcode_img:
-        get_qr_code.delay(authorized_user.pk, parse_qr_code_url(article_soup))
+        get_qr_code(authorized_user.pk, parse_qr_code_url(article_soup))
 
     title = article_soup.select('h2.rich_media_title')[0].text
     published_time = article_soup.select('em#post-date')[0].text
@@ -230,7 +223,7 @@ def get_tokens(weixin_id):
         log.warning("too many requests or request expired when get tokens. "
                     "%s. updating cookies...", e.message)
         weixin_client.refresh_cookies(update=True)
-        return
+        raise Retry
 
     for item in response.jsonp['items']:
         item_xml = clean_xml(item)
@@ -292,15 +285,9 @@ def parse_qr_code_url(article_soup):
     return 'http://mp.weixin.qq.com/mp/qrcode?scene=%s&__biz=%s' % (scene, biz)
 
 
-@task(base=RequestsTask, name='sogou.get_qr_code')
 def get_qr_code(authorized_user_pk, qr_code_url):
     authorized_user = Profile.objects.get(pk=authorized_user_pk)
     if not authorized_user.weixin_qrcode_img:
         qr_code_image = fetch_image(qr_code_url)
         authorized_user.weixin_qrcode_img = qr_code_image
         authorized_user.save()
-
-
-if __name__ == '__main__':
-    # prepare_cookies()
-    crawl_articles.delay()
