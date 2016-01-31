@@ -276,7 +276,6 @@ CELERY_ROUTES = {
     'sogou.crawl_articles': {'queue': 'sogou'},
     'sogou.crawl_article': {'queue': 'sogou'},
     'sogou.fetch_article_list': {'queue': 'sogou'},
-    'sogou.get_qr_code': {'queue': 'sogou'},
 }
 
 CELERY_ANNOTATIONS = {
@@ -289,9 +288,6 @@ CELERY_ANNOTATIONS = {
     'sogou.fetch_article_list': {
         'rate_limit': '1.1/m',
     },
-    'sogou.get_qr_code': {
-        'rate_limit': '1.1/m',
-    }
 }
 # CELERY_ACCEPT_CONTENT = ['json']
 # CELERY_TASK_SERIALIZER = 'json'
@@ -352,10 +348,8 @@ PHANTOM_SERVER = 'http://10.0.2.49:5000/'
 
 # fetch articles
 SOGOU_PASSWORD = 'guoku1@#'
-SOGOU_USERS = ('waser1959@gustr.com', 'asortafairytale@fleckens.hu', 'adisaid@jourrapide.com',
-               'rathe1981@rhyta.com', 'andurn@fleckens.hu', 'sanyuanmilk@fleckens.hu',
-               'yundaexpress@rhyta.com', 'sunstarorabreathfine@jourrapide.com',
-               'indonesiamandheling@einrot.com', 'charlottewalkforshame@dayrep.com')
+SOGOU_USERS = ('shoemah55@superrito.com',
+               )
 CELERYBEAT_SCHEDULE = {
     'crawl_articles': {
         'task': 'sogou.crawl_articles',
