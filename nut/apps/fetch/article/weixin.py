@@ -302,5 +302,5 @@ def get_qr_code(authorized_user_pk, qr_code_url):
 
 
 if __name__ == '__main__':
-    # crawl_articles.delay()
-    prepare_cookies()
+    # prepare_cookies()
+    crawl_articles.delay()
