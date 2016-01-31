@@ -15,7 +15,7 @@ from apps.management.views.article import SelectionArticleList,\
 
 urlpatterns = patterns(
     'apps.management.views.article',
-    url(r'^all/$',ArticleList.as_view() , name="management_article_list"),
+    url(r'^all/$', ArticleList.as_view(), name="management_article_list"),
     url(r'^draft/$', DraftArticleList.as_view(), name='management_article_draft'),
     url(r'^authorized_author/$', AuthorArticleList.as_view(), name='management_author_article_list'),
     url(r'^authorized_author/(?P<pk>\d+)/$', AuthorArticlePersonList.as_view(), name='management_author_article_person_list'),

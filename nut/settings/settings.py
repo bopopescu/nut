@@ -269,7 +269,16 @@ BROKER_VHOST = "raspberry"
 BROKER_POOL_LIMIT = 10
 CELERY_ACKS_LATE = True
 CELERYD_PREFETCH_MULTIPLIER = 1
+
+# Fetch articles.
 CELERY_DISABLE_RATE_LIMITS = False
+CELERY_ROUTES = {
+    'sogou.crawl_articles': {'queue': 'sogou'},
+    'sogou.crawl_article': {'queue': 'sogou'},
+    'sogou.fetch_article_list': {'queue': 'sogou'},
+    'sogou.get_qr_code': {'queue': 'sogou'},
+}
+
 CELERY_ANNOTATIONS = {
     'sogou.crawl_articles': {
         'rate_limit': '1.1/m',
