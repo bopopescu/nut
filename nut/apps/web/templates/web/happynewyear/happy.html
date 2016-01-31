@@ -30,23 +30,25 @@
 {% endblock %}
 
 {% block content %}
-    <h1 id="theme-title">WELCOME!</h1>
+    <h1 id="theme-title">没想到你是这种猴!</h1>
     <hr>
     <div class="container-fluid" id="first-layer">
         <div class="form-wrapper">
             <form id="form" method="get" action="" onsubmit="return validate_form(this);">
-                <p>What is your name?</p>
+                <p>请输入你的名字,看看你是哪种猴!</p>
                 <input type="text" name="username" id="username">
-                <p>Say something to your friends?</p>
-                <input type="text" name="wish" id="wish">
+{#                <input type="hidden" name="monkey" id="monkey">#}
                 <input type="submit" name="submit" class="submit" value="Submit">
             </form>
         </div>
     </div>
 
     <div class="container-fluid" id="second-layer">
-        <a href="" target="_self" id="go-back">我要去制作个性新年祝福</a>
+        <a href="" target="_self" id="go-back">看看我是哪种猴</a>
     </div>
+
+
+
 
 {% endblock %}
 
@@ -63,23 +65,43 @@
 
 {% block script %}
     <script>
-
         (function() {
             var currentUserName = getQueryVariable("username");
-            var currentWish = getQueryVariable("wish");
 
             if(currentUserName.length !=0){
                 var currentLayer = document.getElementById("first-layer");
                 currentLayer.style.display = "none";
-
                 var nextLayer = document.getElementById("second-layer");
                 nextLayer.style.display = "block";
-                var currentWish = document.createTextNode(currentUserName+"给您送上新年祝福:"+currentWish);
+
+                var monkeyName;
+                var monkeyLists = ["kangkang","bingshenhou","noritake","fuluhou","mujihou"];
+                var currentMonkey = document.createElement('img');
+                var i = Math.floor(Math.random() * monkeyLists.length+ 1)-1;
+                switch (i) {
+                    case 0:
+                        monkeyName="康康";
+                        break;
+                    case 1:
+                        monkeyName="丙申猴";
+                        break;
+                    case 2:
+                        monkeyName="noritake";
+                        break;
+                    case 3:
+                        monkeyName="福禄猴";
+                        break;
+                    case 4:
+                        monkeyName="MUJI猴";
+                        break;
+                }
+
+                currentMonkey.src = "{% static 'images/chunjie/'%}"+monkeyLists[i]+".jpg";
+                var currentTexts = document.createTextNode(currentUserName+"抽到了一只"+monkeyName);
                 var goback = document.getElementById("go-back");
                 goback.href=document.referrer;
-                nextLayer.insertBefore(currentWish,goback);
-
-                document.title = currentUserName+"给您送上新年祝福";
+                nextLayer.insertBefore(currentTexts,goback);
+                nextLayer.insertBefore(currentMonkey,goback);
             }
         })();
 
@@ -97,17 +119,12 @@
 
         function validate_form(thisform)
         {
-            {#         var userName= document.getElementById('username').value;#}
-            {#         var userWish = document.getElementById('wish').value;#}
-            {#         if(userName.length === 0){#}
-            {#             alert('please enter your name.');#}
-            {#             return false;#}
-            {#         }#}
-            {#         var total = userName+"给你写了一份新年祝福:"+userWish;#}
-            {#         alert(total);#}
+            var userName= document.getElementById('username').value;
+            if(userName.length === 0){
+                alert('亲爱的果库粉,请输入你的大名~');
+                return false;
+            }
         }
-
-
 
     </script>
 {% endblock %}
