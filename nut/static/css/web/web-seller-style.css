@@ -386,7 +386,7 @@ p .b_day {
   color: #9d9e9f;
 }
 .entity-four.thumbnail .caption {
-  height: 60px;
+  height: 80px;
   padding: 0px;
   margin-top: 12px;
   border: none;
@@ -401,6 +401,14 @@ p .b_day {
 }
 .entity-four.thumbnail .caption .price {
   margin-top: 10px;
+}
+.entity-four.thumbnail .action {
+  height: 30px;
+}
+.entity-four.thumbnail .action .info {
+  color: #9d9e9f;
+  text-align: center;
+  font-size: 14px;
 }
 .btn-top {
   backface-visibility: hidden;

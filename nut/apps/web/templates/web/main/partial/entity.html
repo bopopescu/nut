@@ -19,17 +19,20 @@
             <div class="price">
                 &#65509;{{ entity.default_buy_link.price }}
             </div>
-{#            <div class="info">#}
-{#                {% if entity.id in user_entity_likes %}#}
-{#                    <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">#}
-{#                        <i class="fa fa-heart"></i>#}
-{#                {% else %}#}
-{#                    <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">#}
-{#                        <i class="fa fa-heart-o"></i>#}
-{#                {% endif %}#}
+
+        </div>
+        <div class="action">
+            <div class="info">
+                {% if entity.id in user_entity_likes %}
+                    <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
+                        <i class="fa fa-heart"></i>
+                {% else %}
+                    <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
+                        <i class="fa fa-heart-o"></i>
+                {% endif %}
 {#                    <div class="bubble like-count">{{ entity.like_count|format_like_num }}</div>                    </a>#}
-{#                    </a>#}
-{#            </div>#}
+                    </a>
+            </div>
         </div>
     </div>
 </div>
