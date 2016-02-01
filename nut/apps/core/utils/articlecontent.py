@@ -4,9 +4,10 @@ from bs4 import BeautifulSoup
 
 articleContentAllowedTags = ['p', 'em', 'strong', 'div', 'ul', \
                              'ol', 'li','a','br','span','img', \
-                             'b','blockquote','h3']
+                             'b','blockquote','h3', 'h1','h2',\
+                             'h4','dd','dt','center','video']
 allowedAttrs = {
-    '*': ['class'],
+    '*': ['class','style'],
     'a': ['href', 'rel'],
     'img': ['src', 'alt'],
 }
@@ -37,6 +38,16 @@ def contentBleacher(content):
     return bleach.clean(content, tags=articleContentAllowedTags,\
                                  attributes=allowedAttrs,\
                                  strip_comments=True, strip=True)
+
+
+wechat_allowed_styles=['font-weight', 'font-style','font-family','color']
+from apps.core.utils.bleach import bleach_whitelist as white_lists
+def wechatArticleBleacher(content):
+    return bleach.clean(content,
+                        tags=white_lists.generally_xss_safe,
+                        attributes=allowedAttrs,
+                        styles=wechat_allowed_styles
+                        )
 
 
 
