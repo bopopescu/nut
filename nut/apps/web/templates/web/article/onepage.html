@@ -164,7 +164,17 @@
                                          {{ article.creator.profile.nickname }}
                                         </a>
                                     </div>
-                                    <div class="writer-bio">{{ article.creator.profile.bio|truncatechars:200 }}</div>
+                                    <div class="writer-bio">
+                                        {% if article.creator.is_authorized_author %}
+                                            <span class="weixin-id">
+                                            微信号：{{ article.creator.authorized_profile.weixin_id }}
+                                            </span>
+                                            <br>
+                                        {% endif %}
+                                        <span>
+                                        {{ article.creator.profile.bio|truncatechars:200 }}
+                                        </span>
+                                    </div>
                                 </div>
 
 

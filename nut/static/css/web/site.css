@@ -1766,9 +1766,11 @@ a:hover {
   font-size: 18px;
 }
 .main-article .writer-wrapper .writer-intro .writer-bio {
-  margin-top: 10px;
   color: #9d9e9f;
   font-size: 13px;
+}
+.main-article .writer-wrapper .writer-intro .writer-bio .weixin-id {
+  line-height: 30px;
 }
 @media (max-width: 400px) {
   .main-article .writer-avatar {
