@@ -89,6 +89,6 @@ if settings.DEBUG:
 
 from apps.web.views.user import UserIndex
 urlpatterns += patterns('',
-               url(r'^(?P<user_domain>\w+)$',  UserIndex.as_view(), name='user_domain_link'),
+               url(r'^(?P<user_domain>\w+/)$',  UserIndex.as_view(), name='user_domain_link'),
                )
 
