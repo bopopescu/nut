@@ -11,10 +11,12 @@
         </div>
         <div class="caption">
             <div class="brand">
-                {{ entity.brand|truncatechars:12 }}
+                {{ entity.brand|truncatechars:12 }}&nbsp;
             </div>
             <div class="title">
-                {{ entity.title|truncatechars:12 }}
+                <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
+                    {{ entity.title|truncatechars:12 }}
+                </a>
             </div>
             <div class="price">
                 &#65509;{{ entity.default_buy_link.price }}
