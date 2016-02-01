@@ -1001,11 +1001,27 @@ p.boolean-false {
   font-weight: 500;
   margin-right: 12px;
 }
+.happy-common-btn {
+  display: block;
+  width: 200px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  background-color: transparent;
+  font-size: 24px;
+  border-radius: 30px;
+}
+.happy-btn-control {
+  margin: 0 auto;
+  margin-top: 60px;
+}
 .user-icon-responsive img {
   display: block;
   margin: 0 auto;
-  width: 30%;
-  height: 30%;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
 }
 .happy-body .bg-layer {
@@ -1014,12 +1030,22 @@ p.boolean-false {
   left: 0;
   width: 100%;
   height: 100%;
-  background-size: cover;
+  background-size: contain;
 }
 .happy-body .happy-layer {
   position: relative;
   text-align: center;
 }
+#first-layer #username {
+  border: none;
+  width: 200px;
+  height: 50px;
+  line-height: 50px;
+}
 #second-layer {
   display: none;
+}
+#second-layer a:hover {
+  text-decoration: none;
+  color: #ffffff;
 }

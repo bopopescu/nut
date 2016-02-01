@@ -36,24 +36,21 @@
     <div class="bg-layer" style="background-image: url({% static 'images/chunjie/pattn.jpg' %})"></div>
 
     <div class="container-fluid happy-layer" id="first-layer">
-    <h1 id="theme-title">没想到你是这种猴!</h1>
-    <hr>
+    <h1 id="theme-title">没想到你是这种猴</h1>
         <div class="form-wrapper">
             <form id="form" method="get" action="" onsubmit="return validate_form(this);">
-                <p>请输入你的名字,看看你是哪种猴!</p>
-                <input type="text" name="username" id="username">
+{#                <p>请输入你的名字,看看你是哪种猴!</p>#}
+                <input type="text" name="username" id="username" placeholder="在这里输入你的名字">
 {#                <input type="hidden" name="monkey" id="monkey">#}
-                <input type="submit" name="submit" class="submit" value="Submit">
+                <input type="submit" name="submit" class="happy-common-btn happy-btn-control" value="去看看">
+{#                <button type="submit" name="submit" class="submit happy-common-btn" value="去看看">去看看</button>#}
             </form>
         </div>
     </div>
 
     <div class="container-fluid happy-layer user-icon-responsive" id="second-layer">
-        <a href="" target="_self" id="go-back">看看我是哪种猴</a>
+        <a href="" target="_self" id="go-back" class="happy-common-btn happy-btn-control">我也去看看</a>
     </div>
-
-
-
 
 {% endblock %}
 
@@ -105,8 +102,8 @@
                 var currentTexts = document.createTextNode(currentUserName+"抽到了一只"+monkeyName);
                 var goback = document.getElementById("go-back");
                 goback.href=document.referrer;
-                nextLayer.insertBefore(currentTexts,goback);
                 nextLayer.insertBefore(currentMonkey,goback);
+                nextLayer.insertBefore(currentTexts,goback);
             }
         })();
 
