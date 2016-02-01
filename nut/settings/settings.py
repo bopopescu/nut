@@ -280,13 +280,13 @@ CELERY_ROUTES = {
 
 CELERY_ANNOTATIONS = {
     'sogou.crawl_articles': {
-        'rate_limit': '1.1/m',
+        'rate_limit': '1/m',
     },
     'sogou.crawl_article': {
-        'rate_limit': '1.1/m',
+        'rate_limit': '1/m',
     },
     'sogou.fetch_article_list': {
-        'rate_limit': '1.1/m',
+        'rate_limit': '1/m',
     },
 }
 # CELERY_ACCEPT_CONTENT = ['json']
@@ -349,6 +349,15 @@ PHANTOM_SERVER = 'http://10.0.2.49:5000/'
 # fetch articles
 SOGOU_PASSWORD = 'guoku1@#'
 SOGOU_USERS = ('shoemah55@superrito.com',
+               'monan1977@fleckens.hu',
+               'obsomed1977@jourrapide.com',
+               'finighboy78@superrito.com',
+               'artimessill1959@einrot.com',
+               'suildrued41@dayrep.com',
+               'ater1954@teleworm.us',
+               'duad1937@jourrapide.com',
+               'drecur44@superrito.com',
+               'paboy1973@superrito.com'
                )
 CELERYBEAT_SCHEDULE = {
     'crawl_articles': {
