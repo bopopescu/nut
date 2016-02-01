@@ -1,4 +1,9 @@
-<<<<<<< HEAD
+
+3. 
+2. Article model created_datetime auto_add 
+1.  article writer bio update
+
+
 =================================
 =================================
 ### merged to master 2016 － 1 － 27
@@ -11,8 +16,6 @@
 
     ALTER TABLE `core`.`core_article` DROP INDEX `cleaned_title_UNIQUE` ;
 
-
->>>>>>> efcf03891cc2d8eeb2c5d27c3adeb3fea0958d87
 
 7. article mobile page css adjust 
 6. add a cookie store for sogou spider use 
