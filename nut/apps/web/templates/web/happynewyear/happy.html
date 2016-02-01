@@ -3,23 +3,25 @@
 {% load i18n staticfiles %}
 
 
-    {% block meta-og %}
-        <meta property="og:title" content="果库精选商品 | 精英消费指南 | 理想生活主张" >
-        <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
-        <meta property="og:description" content="果库精选商品每日更新，恪守选品标准和美学格调，推荐有趣、有用、有价值的国内外优质优惠的网购商品。尽收世上好物。">
-    {% endblock %}
+{% block meta-og %}
+    <meta property="og:title" content="果库精选商品 | 精英消费指南 | 理想生活主张" >
+    <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
+    <meta property="og:description" content="果库精选商品每日更新，恪守选品标准和美学格调，推荐有趣、有用、有价值的国内外优质优惠的网购商品。尽收世上好物。">
+{% endblock %}
 
-    {% block meta-common %}
-        <meta name="title"  content="果库精选商品 | 精英消费指南 | 理想生活主张">
-        <meta name="keywords" content="精选商品,精选,尽收世上好物,果库、guoku、果库网、果库应用、精英消费指南、消费指南、精品导购应用、导购、购物指南、购物分享、淘宝网购物、淘宝网精选、精品推荐">
-        <meta name="description" content="果库精选商品每日更新，恪守选品标准和美学格调，推荐有趣、有用、有价值的国内外优质优惠的网购商品。尽收世上好物。">
-    {% endblock %}
+{% block meta-common %}
+    <meta name="title"  content="果库精选商品 | 精英消费指南 | 理想生活主张">
+    <meta name="keywords" content="精选商品,精选,尽收世上好物,果库、guoku、果库网、果库应用、精英消费指南、消费指南、精品导购应用、导购、购物指南、购物分享、淘宝网购物、淘宝网精选、精品推荐">
+    <meta name="description" content="果库精选商品每日更新，恪守选品标准和美学格调，推荐有趣、有用、有价值的国内外优质优惠的网购商品。尽收世上好物。">
+{% endblock %}
 
-    {% block css %}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/web/happy.css' %}">
+{% block title %}没想到你是这种猴{% endblock %}
 
-    {% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/web/happy.css' %}">
+{% endblock %}
 
+{% block body_class %} gray-body happy-body {% endblock %}
 
 {% block weixin_share_img %}
 {% endblock %}
@@ -30,9 +32,12 @@
 {% endblock %}
 
 {% block content %}
+
+    <div class="bg-layer" style="background-image: url({% static 'images/chunjie/pattn.jpg' %})"></div>
+
+    <div class="container-fluid happy-layer" id="first-layer">
     <h1 id="theme-title">没想到你是这种猴!</h1>
     <hr>
-    <div class="container-fluid" id="first-layer">
         <div class="form-wrapper">
             <form id="form" method="get" action="" onsubmit="return validate_form(this);">
                 <p>请输入你的名字,看看你是哪种猴!</p>
@@ -43,7 +48,7 @@
         </div>
     </div>
 
-    <div class="container-fluid" id="second-layer">
+    <div class="container-fluid happy-layer user-icon-responsive" id="second-layer">
         <a href="" target="_self" id="go-back">看看我是哪种猴</a>
     </div>
 
