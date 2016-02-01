@@ -75,7 +75,7 @@ HAYSTACK_CONNECTIONS = {
     'default': {
         # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://10.0.2.110:8983/solr/',
+        'URL': 'http://10.0.2.115:8983/solr/',
         'INCLUDE_SPELLING': True,
         # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
     }
@@ -269,21 +269,21 @@ BROKER_VHOST = "raspberry"
 BROKER_POOL_LIMIT = 10
 CELERY_ACKS_LATE = True
 CELERYD_PREFETCH_MULTIPLIER = 1
-CELERY_DISABLE_RATE_LIMITS = False
-CELERY_ANNOTATIONS = {
-    'sogou.crawl_articles': {
-        'rate_limit': '1.1/m',
-    },
-    'sogou.crawl_article': {
-        'rate_limit': '1.1/m',
-    },
-    'sogou.fetch_article_list': {
-        'rate_limit': '1.1/m',
-    },
-    'sogou.get_qr_code': {
-        'rate_limit': '1.1/m',
-    }
-}
+CELERY_DISABLE_RATE_LIMITS = True
+# CELERY_ANNOTATIONS = {
+#     'sogou.crawl_articles': {
+#         'rate_limit': '1.1/m',
+#     },
+#     'sogou.crawl_article': {
+#         'rate_limit': '1.1/m',
+#     },
+#     'sogou.fetch_article_list': {
+#         'rate_limit': '1.1/m',
+#     },
+#     'sogou.get_qr_code': {
+#         'rate_limit': '1.1/m',
+#     }
+# }
 # CELERY_ACCEPT_CONTENT = ['json']
 # CELERY_TASK_SERIALIZER = 'json'
 # CELERY_RESULT_SERIALIZER = 'json'
