@@ -1,7 +1,7 @@
 
-3. 
+3. category entity list item style update
 2. Article model created_datetime auto_add 
-1.  article writer bio update
+1. article writer bio update
 
 
 =================================
