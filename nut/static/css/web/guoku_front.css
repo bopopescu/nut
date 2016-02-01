@@ -1395,6 +1395,11 @@ p.boolean-false {
 .main-article .divider {
   margin: 30px 0px;
 }
+.main-article .disclaimer {
+  font-size: 14px;
+  color: #9d9e9f;
+  float: right;
+}
 .article-list-body {
   padding-top: 80px!important;
 }
