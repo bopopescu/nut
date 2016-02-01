@@ -119,8 +119,7 @@ def fetch_article_list(authorized_user_pk, page=1):
         crawl_article.delay(
             article_link=article_item.url.string,
             authorized_user_pk=authorized_user.pk,
-            article_data=dict(cover=article_item.imglink.string,
-                              cleaned_title = cleaned_title),
+            article_data=dict(cover=article_item.imglink.string),
             sg_cookie=sg_cookie,
             page=page,
         )
@@ -163,7 +162,7 @@ def crawl_article(article_link, authorized_user_pk, article_data, sg_cookie, pag
 
     try:
         article, created = Article.objects.get_or_create(
-            cleaned_titile = cleaned_title,
+            cleaned_title=cleaned_title,
             creator=creator,
         )
     except MultipleObjectsReturned as e:
