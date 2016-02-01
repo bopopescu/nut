@@ -98,10 +98,6 @@ class CategorySelectionView(APIJsonView):
         assert self.group_id is not None
         return super(CategorySelectionView, self).get(request, *args, **kwargs)
 
-    # @check_sign
-    # def dispatch(self, request, *args, **kwargs):
-    #     return super(CategorySelectionView, self).dispatch(request, *args, **kwargs)
-
 
 class GroupArticlesView(APIJsonView):
     '''
@@ -134,6 +130,7 @@ class GroupArticlesView(APIJsonView):
             {
                 'stat' : {
                     'all_count' : sqs.count(),
+                    'is_sub'    : False,
                 },
             }
         )
@@ -177,6 +174,7 @@ class CategoryArticlesView(APIJsonView):
             {
                 'stat' : {
                     'all_count' : sqs.count(),
+                    'is_sub'    : True,
                 },
             }
         )
