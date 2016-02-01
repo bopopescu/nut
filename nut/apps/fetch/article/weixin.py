@@ -5,6 +5,11 @@ import re
 import random
 import redis
 import requests
+import os, sys
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+sys.path.append(BASE_DIR)
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_judy'
 
 
 from urlparse import urljoin
@@ -19,8 +24,7 @@ from django.core.exceptions import MultipleObjectsReturned
 from apps.core.models import Authorized_User_Profile as Profile, GKUser
 from apps.core.models import Article, Media
 from apps.fetch.common import clean_xml, queryset_iterator, clean_title
-from apps.fetch.article import RequestsTask, WeiXinClient, ToManyRequests, \
-    update_user_cookie, Retry
+from apps.fetch.article import RequestsTask, WeiXinClient, ToManyRequests
 from apps.fetch.article import Expired
 
 
@@ -47,16 +51,16 @@ def crawl_articles():
         fetch_article_list.delay(user.pk)
 
 
-def prepare_cookies():
-    check_url = urljoin(settings.PHANTOM_SERVER, '_health')
-    resp = requests.get(check_url)
-    ready = resp.status_code == 200
-    if ready:
-        emails = settings.SOGOU_USERS
-        for sg_email in emails:
-            update_user_cookie.delay(sg_user=sg_email)
-    else:
-        log.error("phantom web server is unavailable!!!!!!")
+# def prepare_cookies():
+#     check_url = urljoin(settings.PHANTOM_SERVER, '_health')
+#     resp = requests.get(check_url)
+#     ready = resp.status_code == 200
+#     if ready:
+#         emails = settings.SOGOU_USERS
+#         for sg_email in emails:
+#             update_user_cookie.delay(sg_user=sg_email)
+#     else:
+#         log.error("phantom web server is unavailable!!!!!!")
 
 
 @task(base=RequestsTask, name='sogou.fetch_article_list')
@@ -111,11 +115,12 @@ def fetch_article_list(authorized_user_pk, page=1):
 
     item_dict = {key: value for key, value
                  in item_dict.items() if key not in existed}
-    for article_item in item_dict.values():
+    for cleaned_title, article_item in item_dict.items():
         crawl_article.delay(
             article_link=article_item.url.string,
             authorized_user_pk=authorized_user.pk,
-            article_data=dict(cover=article_item.imglink.string),
+            article_data=dict(cover=article_item.imglink.string,
+                              cleaned_title = cleaned_title),
             sg_cookie=sg_cookie,
             page=page,
         )
@@ -154,10 +159,11 @@ def crawl_article(article_link, authorized_user_pk, article_data, sg_cookie, pag
     published_time = datetime.strptime(published_time, '%Y-%m-%d')
     content = article_soup.find('div', id='js_content')
     creator = authorized_user.user
+    cleaned_title = clean_title(title)
 
     try:
         article, created = Article.objects.get_or_create(
-            title=title,
+            cleaned_titile = cleaned_title,
             creator=creator,
         )
     except MultipleObjectsReturned as e:
@@ -171,6 +177,7 @@ def crawl_article(article_link, authorized_user_pk, article_data, sg_cookie, pag
 
     if created:
         article_info = dict(
+            title=title,
             content=content.decode_contents(formatter="html"),
             created_datetime=published_time,
             publish=Article.published,
@@ -214,21 +221,15 @@ def get_tokens(weixin_id):
     params = dict(type='1', ie='utf8', query=weixin_id)
     weixin_client.refresh_cookies()
     sg_cookie = weixin_client.headers.get('Cookie')
-    try:
-        response = weixin_client.get(url=SEARCH_API,
-                                     params=params,
-                                     jsonp_callback='weixin',
-                                     headers={'Cookie': sg_cookie})
-    except (ToManyRequests, Expired) as e:
-        log.warning("too many requests or request expired when get tokens. "
-                    "%s. updating cookies...", e.message)
-        weixin_client.refresh_cookies(update=True)
-        raise Retry
+    response = weixin_client.get(url=SEARCH_API,
+                                 params=params,
+                                 jsonp_callback='weixin',
+                                 headers={'Cookie': sg_cookie})
 
     for item in response.jsonp['items']:
         item_xml = clean_xml(item)
         item_xml = BeautifulSoup(item_xml, 'xml')
-        if item_xml.weixinhao.string == weixin_id:
+        if item_xml.weixinhao.string.lower() == weixin_id.lower():
             open_id = item_xml.id.string
             ext = item_xml.ext.string
             break
@@ -245,7 +246,8 @@ def fetch_image(image_url, full=True):
     if not image_url:
         log.info('empty image url; skip')
         return
-    if not image_url.find('mmbiz.qpic.cn') >= 0:
+    if (not image_url.find('mmbiz.qpic.cn') >= 0 and
+            not image_url.find('mp.weixin.qq.com') >= 0):
         log.info('image url is not from mmbiz.qpic.cn; skip: %s', image_url)
         return
     from apps.core.utils.image import HandleImage
@@ -291,3 +293,8 @@ def get_qr_code(authorized_user_pk, qr_code_url):
         qr_code_image = fetch_image(qr_code_url)
         authorized_user.weixin_qrcode_img = qr_code_image
         authorized_user.save()
+
+
+if __name__ == '__main__':
+    # prepare_cookies()
+    crawl_articles.delay()
