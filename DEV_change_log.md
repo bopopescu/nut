@@ -1,3 +1,15 @@
+
+3. category entity list item style update
+2. Article model created_datetime auto_add 
+1. article writer bio update
+
+
+=================================
+=================================
+### merged to master 2016 － 1 － 27
+=================================
+=================================
+=======
 ### fix can not create article error:
 
 #action
@@ -5,7 +17,7 @@
     ALTER TABLE `core`.`core_article` DROP INDEX `cleaned_title_UNIQUE` ;
 
 
-
+7. article mobile page css adjust 
 6. add a cookie store for sogou spider use 
 -----------------------
 5. article mng list page change
@@ -16,6 +28,8 @@
 
 #action 
  need sync db 
+ 
+ 
  need  manage.py compilemessages 
  need  restart server  (new translation items )
  
