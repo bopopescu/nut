@@ -288,6 +288,13 @@ CELERY_DISABLE_RATE_LIMITS = True
 # CELERY_TASK_SERIALIZER = 'json'
 # CELERY_RESULT_SERIALIZER = 'json'
 
+CELERY_ROUTES = {
+    'sogou.crawl_articles': {'queue': 'sogou'},
+    'sogou.crawl_article': {'queue': 'sogou'},
+    'sogou.fetch_article_list': {'queue': 'sogou'},
+}
+
+
 # taobao
 APP_HOST = "http://www.guoku.com"
 TAOBAO_APP_KEY = '12313170'
