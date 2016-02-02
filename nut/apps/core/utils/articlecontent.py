@@ -41,7 +41,7 @@ def contentBleacher(content):
 
 
 wechat_allowed_styles=['font-weight', 'font-style','font-family','color']
-from apps.core.utils.bleach import bleach_whitelist as white_lists
+from apps.core.utils.bleach_util import bleach_whitelist as white_lists
 def wechatArticleBleacher(content):
     return bleach.clean(content,
                         tags=white_lists.generally_xss_safe,
