@@ -36,19 +36,21 @@
     <div class="bg-layer" style="background-image: url({% static 'images/chunjie/pattn.jpg' %})"></div>
 
     <div class="container-fluid happy-layer" id="first-layer">
-    <h1 id="theme-title">没想到你是这种猴</h1>
+        <h3 id="theme-title">没想到你是这种猴</h3>
         <div class="form-wrapper">
             <form id="form" method="get" action="" onsubmit="return validate_form(this);">
                 <input type="text" name="username" id="username" placeholder="在这里输入你的名字">
 {#                <input type="hidden" name="monkeyIndex" id="monkeyIndex">#}
+{#                <input type="hidden" name="status" id="status" value="0">#}
                 <input type="submit" name="submit" class="happy-common-btn happy-btn-control" value="去看看">
-{#                <button type="submit" name="submit" class="submit happy-common-btn" value="去看看">去看看</button>#}
             </form>
         </div>
     </div>
 
     <div class="container-fluid happy-layer user-icon-responsive" id="second-layer">
-        <a href="" target="_self" id="go-back" class="happy-common-btn happy-btn-control">分享到朋友圈</a>
+{#        <a href="" target="_self" id="share" class="happy-common-btn happy-btn-control">分享给好友</a>#}
+        <a href="" target="_self" id="go-back" class="happy-common-btn happy-btn-control">去看看</a>
+
     </div>
 
 {% endblock %}
@@ -68,56 +70,60 @@
     <script>
         (function() {
             var currentUserName = getQueryVariable("username");
-
             if(currentUserName.length !=0){
                 var currentLayer = document.getElementById("first-layer");
                 currentLayer.style.display = "none";
                 var nextLayer = document.getElementById("second-layer");
                 nextLayer.style.display = "block";
 
-                var monkeyName,wish;
+                var monkeyName,wish,monkeyIntro;
                 var monkeyLists = ["kangkang","bingshenhou","noritake","fuluhou","mujihou"];
                 var currentMonkey = document.createElement('img');
                 var i = Math.floor(Math.random() * monkeyLists.length+ 1)-1;
                 switch (i) {
                     case 0:
                         monkeyName="康康";
-                        wish="「康康的配图文字.」";
+                        monkeyIntro = "来自某某笔下的猴";
+                        wish="「回顾旧日的生活经历，描绘新年的美好愿景。」";
                         break;
                     case 1:
                         monkeyName="丙申猴";
-                            wish="「丙申猴的配图文字.」";
-
+                        monkeyIntro = "来自某某笔下的猴";
+                        wish="「回顾旧日的生活经历，描绘新年的美好愿景。」";
                         break;
                     case 2:
                         monkeyName="noritake";
-                            wish="「NORTITAKE的配图文字.」";
+                        monkeyIntro = "来自某某笔下的猴";
+                        wish="「回顾旧日的生活经历，描绘新年的美好愿景。」";
                         break;
                     case 3:
                         monkeyName="福禄猴";
-                            wish="「福禄猴的配图文字.」";
+                        monkeyIntro = "来自某某笔下的猴";
+                        wish="「回顾旧日的生活经历，描绘新年的美好愿景。」";
                         break;
                     case 4:
-                        monkeyName="来自MUJI中国官网的猴";
-                        wish="「回顾旧日的生活经历,描绘新年的美好愿景.」";
+                        monkeyName="奇怪猴";
+                        monkeyIntro = "来自MUJI中国官网的猴";
+                        wish="「回顾旧日的生活经历，描绘新年的美好愿景。」";
                         break;
                 }
 
                 currentMonkey.src = "{% static 'images/chunjie/'%}"+monkeyLists[i]+".jpg";
-                var currentTexts = document.createTextNode(currentUserName+"抽到了一只"+monkeyName);
-{#                var currentWish = document.createTextNode(wish);#}
+                var currentIntro = document.createElement('p');
+                var introNode = document.createTextNode(monkeyIntro);
+                currentIntro.appendChild(introNode);
+                var decoration = document.createTextNode('──');
                 var currentWish = document.createElement('p');
                 var wishNode = document.createTextNode(wish);
                 currentWish.appendChild(wishNode);
                 var goback = document.getElementById("go-back");
                 goback.href=document.referrer;
                 nextLayer.insertBefore(currentMonkey,goback);
-                nextLayer.insertBefore(currentTexts,goback);
+                nextLayer.insertBefore(currentIntro,goback);
+                nextLayer.insertBefore(decoration,goback);
                 nextLayer.insertBefore(currentWish,goback);
 
-{#                var newUrl = window.location.href + "&monkeyIndex=" + i;#}
-{#                location.assign(newUrl);#}
-{#                location.replace(newUrl);#}
+{#                  location.href = location.href + "&monkeyIndex=" + i;#}
             }
         })();
 
@@ -136,10 +142,16 @@
         function validate_form(thisform)
         {
             var userName= document.getElementById('username').value;
+            var status = document.getElementById('status').value;
+
             if(userName.length === 0){
                 alert('亲爱的果库粉,请输入你的大名~');
                 return false;
             }
+{#            else{#}
+{#                status.value = 1;#}
+{#                alert(status.value);#}
+{#            }#}
         }
 
     </script>
