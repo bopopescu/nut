@@ -120,6 +120,8 @@
                 var wishNode = document.createTextNode(wish);
                 currentWish.appendChild(wishNode);
 
+{#                document.referrer在微信朋友圈打开时,是不能回退的.因为不是通过一个超链接打开 T T #}
+{#If the current document was not opened through a link (for example, through a bookmark), an empty string is returned.#}
                 goback.href=document.referrer;
 
                 nextLayer.insertBefore(currentMonkey,nextLayer.childNodes[0]);
@@ -168,6 +170,7 @@
 {#            解决空格转化为加号的问题#}
 {#            currentUser.value = userName.replace(/\+/g,'%2B');#}
 
+            currentUser.value = userName;
             var status = document.getElementById('status');
             var monkeyIndex = document.getElementById('monkeyIndex');
 
@@ -176,7 +179,7 @@
                 return false;
             }
             else{
-                status.value = 1;
+{#                status.value = 1;#}
 
                 var monkeyLists = ["kangkang","bingshenhou","noritake","fuluhou","mujihou"];
                 var i = Math.floor(Math.random() * monkeyLists.length+ 1)-1;
