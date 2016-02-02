@@ -4,20 +4,21 @@
 @import "../lib/widgets.less";
 
 .happy-common-btn{
+  -webkit-appearance: none;
   display: block;
-  width:200px;
-  height:50px;
-  line-height: 50px;
+  width:225px;
+  height:80px;
+  line-height: 80px;
   text-align: center;
-  color:#ffffff;
-  border:1px solid #ffffff;
+  color:@star-color;
+  border:1px solid @star-color;
   background-color: transparent;
-  font-size: 24px;
-  border-radius: 30px;
+  font-size: @mobile-title-size;
+  border-radius: 45px;
 }
 .happy-btn-control{
     margin:0 auto;
-    margin-top:60px;
+    margin-top:40px;
   }
 
 .user-icon-responsive{
@@ -27,7 +28,6 @@
     width:200px;
     height:200px;
     border-radius:50%;
-
   }
 }
 
@@ -50,20 +50,50 @@
 }
 
 #first-layer{
-  #username{
+  margin-top:60px;
+  #theme-title{
+    color:@star-color;
+  }
+
+  .form-wrapper{
+    margin-top:30px;
+
+    #username{
     border:none;
     width:200px;
-    height:50px;
-    line-height: 50px;
+    height:45px;
+    line-height: 45px;
+    }
   }
+
 }
+
+
 #second-layer{
   display: none;
+  margin-top:-30px;
+  color: #ffffff;
+  img{
+    margin-bottom: 20px;
+  }
+  p:nth-child(even){
+    font-size: @title-size;
+    margin-bottom: 0;
+
+  }
+  p:nth-child(odd){
+    width:250px;
+    height:auto;
+    margin:0 auto;
+    font-size:@primary-size;
+  }
   a{
     &:hover{
       text-decoration: none;
-      color:#ffffff;
+      color:@star-color;
     }
 
   }
 }
+
+
