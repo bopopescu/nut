@@ -161,12 +161,15 @@
 
         function validate_form(thisform)
         {
-            var userName= document.getElementById('username').value;
+            var currentUser = document.getElementById('username');
+{#            清理字符串首尾的空格#}
+            var userName= currentUser.value.replace(/^\s+|\s+$/gm,'');
+            currentUser.value = userName;
             var status = document.getElementById('status');
             var monkeyIndex = document.getElementById('monkeyIndex');
 
             if(userName.length === 0){
-                alert('亲爱的果库粉,请输入你的大名~');
+{#                alert('亲爱的果库粉,请输入你的大名~');#}
                 return false;
             }
             else{
