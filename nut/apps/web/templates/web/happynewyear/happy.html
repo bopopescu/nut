@@ -61,86 +61,89 @@
 
     <script src="{% static 'js/jquery-1.11.1.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/web/site.js' %}"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script data-main="{% static 'js/web/jsbuild/chunjie_app_build.js'%}" src="{% static 'js/web/app/require.js' %}"></script>
+
+
 {% endblock %}
 
 {% block script %}
     <script>
-        (function() {
-            var currentUserName = getQueryVariable("username");
-
-            if(currentUserName.length !=0){
-                var currentLayer = document.getElementById("first-layer");
-                currentLayer.style.display = "none";
-                var nextLayer = document.getElementById("second-layer");
-                nextLayer.style.display = "block";
-
-                var monkeyName,wish;
-                var monkeyLists = ["kangkang","bingshenhou","noritake","fuluhou","mujihou"];
-                var currentMonkey = document.createElement('img');
-                var i = Math.floor(Math.random() * monkeyLists.length+ 1)-1;
-                switch (i) {
-                    case 0:
-                        monkeyName="康康";
-                        wish="「康康的配图文字.」";
-                        break;
-                    case 1:
-                        monkeyName="丙申猴";
-                            wish="「丙申猴的配图文字.」";
-
-                        break;
-                    case 2:
-                        monkeyName="noritake";
-                            wish="「NORTITAKE的配图文字.」";
-                        break;
-                    case 3:
-                        monkeyName="福禄猴";
-                            wish="「福禄猴的配图文字.」";
-                        break;
-                    case 4:
-                        monkeyName="来自MUJI中国官网的猴";
-                        wish="「回顾旧日的生活经历,描绘新年的美好愿景.」";
-                        break;
-                }
-
-                currentMonkey.src = "{% static 'images/chunjie/'%}"+monkeyLists[i]+".jpg";
-                var currentTexts = document.createTextNode(currentUserName+"抽到了一只"+monkeyName);
+{#        (function() {#}
+{#            var currentUserName = getQueryVariable("username");#}
+{##}
+{#            if(currentUserName.length !=0){#}
+{#                var currentLayer = document.getElementById("first-layer");#}
+{#                currentLayer.style.display = "none";#}
+{#                var nextLayer = document.getElementById("second-layer");#}
+{#                nextLayer.style.display = "block";#}
+{##}
+{#                var monkeyName,wish;#}
+{#                var monkeyLists = ["kangkang","bingshenhou","noritake","fuluhou","mujihou"];#}
+{#                var currentMonkey = document.createElement('img');#}
+{#                var i = Math.floor(Math.random() * monkeyLists.length+ 1)-1;#}
+{#                switch (i) {#}
+{#                    case 0:#}
+{#                        monkeyName="康康";#}
+{#                        wish="「康康的配图文字.」";#}
+{#                        break;#}
+{#                    case 1:#}
+{#                        monkeyName="丙申猴";#}
+{#                            wish="「丙申猴的配图文字.」";#}
+{##}
+{#                        break;#}
+{#                    case 2:#}
+{#                        monkeyName="noritake";#}
+{#                            wish="「NORTITAKE的配图文字.」";#}
+{#                        break;#}
+{#                    case 3:#}
+{#                        monkeyName="福禄猴";#}
+{#                            wish="「福禄猴的配图文字.」";#}
+{#                        break;#}
+{#                    case 4:#}
+{#                        monkeyName="来自MUJI中国官网的猴";#}
+{#                        wish="「回顾旧日的生活经历,描绘新年的美好愿景.」";#}
+{#                        break;#}
+{#                }#}
+{##}
+{#                currentMonkey.src = "{% static 'images/chunjie/'%}"+monkeyLists[i]+".jpg";#}
+{#                var currentTexts = document.createTextNode(currentUserName+"抽到了一只"+monkeyName);#}
 {#                var currentWish = document.createTextNode(wish);#}
-                var currentWish = document.createElement('p');
-                var wishNode = document.createTextNode(wish);
-                currentWish.appendChild(wishNode);
-                var goback = document.getElementById("go-back");
-                goback.href=document.referrer;
-                nextLayer.insertBefore(currentMonkey,goback);
-                nextLayer.insertBefore(currentTexts,goback);
-                nextLayer.insertBefore(currentWish,goback);
-
+{#                var currentWish = document.createElement('p');#}
+{#                var wishNode = document.createTextNode(wish);#}
+{#                currentWish.appendChild(wishNode);#}
+{#                var goback = document.getElementById("go-back");#}
+{#                goback.href=document.referrer;#}
+{#                nextLayer.insertBefore(currentMonkey,goback);#}
+{#                nextLayer.insertBefore(currentTexts,goback);#}
+{#                nextLayer.insertBefore(currentWish,goback);#}
+{##}
 {#                var newUrl = window.location.href + "&monkeyIndex=" + i;#}
 {#                location.assign(newUrl);#}
 {#                location.replace(newUrl);#}
-            }
-        })();
-
-        //a method to get url variables'value
-        function getQueryVariable(variable) {
-            var query = window.location.search.substring(1);
-            var vars = query.split('&');
-            for (var i = 0; i < vars.length; i++) {
-                var pair = vars[i].split('=');
-                if (decodeURIComponent(pair[0]) == variable) {
-                    return decodeURIComponent(pair[1]);
-                }
-            }
-        }
-
-        function validate_form(thisform)
-        {
-            var userName= document.getElementById('username').value;
-            if(userName.length === 0){
-                alert('亲爱的果库粉,请输入你的大名~');
-                return false;
-            }
-        }
+{#            }#}
+{#        })();#}
+{##}
+{#        //a method to get url variables'value#}
+{#        function getQueryVariable(variable) {#}
+{#            var query = window.location.search.substring(1);#}
+{#            var vars = query.split('&');#}
+{#            for (var i = 0; i < vars.length; i++) {#}
+{#                var pair = vars[i].split('=');#}
+{#                if (decodeURIComponent(pair[0]) == variable) {#}
+{#                    return decodeURIComponent(pair[1]);#}
+{#                }#}
+{#            }#}
+{#        }#}
+{##}
+{#        function validate_form(thisform)#}
+{#        {#}
+{#            var userName= document.getElementById('username').value;#}
+{#            if(userName.length === 0){#}
+{#                alert('亲爱的果库粉,请输入你的大名~');#}
+{#                return false;#}
+{#            }#}
+{#        }#}
 
     </script>
 {% endblock %}
