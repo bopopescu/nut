@@ -6,7 +6,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
 from apps.core.models import Entity, Brand
 
 
-brands = Brand.objects.filter(icon__isnull=False)
+brands = Brand.objects.filter(icon__isnull=False).order_by('name')
 
 for row in brands:
     print row.name
