@@ -162,9 +162,12 @@
         function validate_form(thisform)
         {
             var currentUser = document.getElementById('username');
+
 {#            清理字符串首尾的空格#}
             var userName= currentUser.value.replace(/^\s+|\s+$/gm,'');
-            currentUser.value = userName;
+{#            解决空格转化为加号的问题#}
+{#            currentUser.value = userName.replace(/\+/g,'%2B');#}
+
             var status = document.getElementById('status');
             var monkeyIndex = document.getElementById('monkeyIndex');
 
