@@ -1,3 +1,6 @@
+2. disable like action for search result 
+1. fix rss bug
+
 =================================
 =================================
 ### merged to master 2016 － 2 － 1
