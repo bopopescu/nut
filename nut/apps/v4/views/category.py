@@ -175,6 +175,7 @@ class CategoryArticlesView(APIJsonView):
                 'stat' : {
                     'all_count' : sqs.count(),
                     'is_sub'    : True,
+                    'group_id'  : category.group_id,
                 },
             }
         )
