@@ -1,3 +1,8 @@
+=================================
+=================================
+### merged to master 2016 － 2 － 1
+=================================
+=================================
 
 3. category entity list item style update
 2. fix Article model created_datetime auto_add 
