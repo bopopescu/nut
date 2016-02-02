@@ -40,8 +40,8 @@
         <div class="form-wrapper">
             <form id="form" method="get" action="" onsubmit="return validate_form(this);">
                 <input type="text" name="username" id="username" placeholder="在这里输入你的名字">
-{#                <input type="hidden" name="monkeyIndex" id="monkeyIndex">#}
-{#                <input type="hidden" name="status" id="status" value="0">#}
+                <input type="hidden" name="monkeyIndex" id="monkeyIndex" value="0">
+                <input type="hidden" name="status" id="status" value="0">
                 <input type="submit" name="submit" class="happy-common-btn happy-btn-control" value="去看看">
             </form>
         </div>
@@ -70,6 +70,9 @@
     <script>
         (function() {
             var currentUserName = getQueryVariable("username");
+            var i = parseInt(getQueryVariable("monkeyIndex"));
+            var currentStatus = getQueryVariable("status");
+
             if(currentUserName.length !=0){
                 var currentLayer = document.getElementById("first-layer");
                 currentLayer.style.display = "none";
@@ -79,7 +82,7 @@
                 var monkeyName,wish,monkeyIntro;
                 var monkeyLists = ["kangkang","bingshenhou","noritake","fuluhou","mujihou"];
                 var currentMonkey = document.createElement('img');
-                var i = Math.floor(Math.random() * monkeyLists.length+ 1)-1;
+
                 switch (i) {
                     case 0:
                         monkeyName="康康";
@@ -107,7 +110,6 @@
                         wish="「回顾旧日的生活经历，描绘新年的美好愿景。」";
                         break;
                 }
-
                 currentMonkey.src = "{% static 'images/chunjie/'%}"+monkeyLists[i]+".jpg";
                 var currentIntro = document.createElement('p');
                 var introNode = document.createTextNode(monkeyIntro);
@@ -122,8 +124,6 @@
                 nextLayer.insertBefore(currentIntro,goback);
                 nextLayer.insertBefore(decoration,goback);
                 nextLayer.insertBefore(currentWish,goback);
-
-{#                  location.href = location.href + "&monkeyIndex=" + i;#}
             }
         })();
 
@@ -142,16 +142,20 @@
         function validate_form(thisform)
         {
             var userName= document.getElementById('username').value;
-            var status = document.getElementById('status').value;
+            var status = document.getElementById('status');
+            var monkeyIndex = document.getElementById('monkeyIndex');
 
             if(userName.length === 0){
                 alert('亲爱的果库粉,请输入你的大名~');
                 return false;
             }
-{#            else{#}
-{#                status.value = 1;#}
-{#                alert(status.value);#}
-{#            }#}
+            else{
+                status.value = 1;
+
+                var monkeyLists = ["kangkang","bingshenhou","noritake","fuluhou","mujihou"];
+                var i = Math.floor(Math.random() * monkeyLists.length+ 1)-1;
+                monkeyIndex.value = i;
+            }
         }
 
     </script>
