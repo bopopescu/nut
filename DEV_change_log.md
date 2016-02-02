@@ -1,6 +1,14 @@
+2. disable like action for search result 
+1. fix rss bug
+
+=================================
+=================================
+### merged to master 2016 － 2 － 1
+=================================
+=================================
 
 3. category entity list item style update
-2. Article model created_datetime auto_add 
+2. fix Article model created_datetime auto_add 
 1. article writer bio update
 
 
