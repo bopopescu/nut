@@ -37,10 +37,10 @@
 
 {% block content %}
 
-    <div class="bg-layer" style="background-image: url({% static 'images/chunjie/pattn.jpg' %})"></div>
+    <div class="bg-layer" style="background-image: url({% static 'images/chunjie/cover.gif' %})"></div>
 
     <div class="container-fluid happy-layer" id="first-layer">
-        <h3 id="theme-title">没想到你是这种猴</h3>
+        <h3 id="theme-title"></h3>
         <div class="form-wrapper">
             <form id="form" method="get" action="" onsubmit="return validate_form(this);">
                 <input type="text" name="username" id="username" placeholder="在这里输入你的名字">
@@ -183,12 +183,8 @@
         function validate_form(thisform)
         {
             var currentUser = document.getElementById('username');
-
 {#            清理字符串首尾的空格#}
             var userName= currentUser.value.replace(/^\s+|\s+$/gm,'');
-{#            解决空格转化为加号的问题#}
-{#            currentUser.value = userName.replace(/\+/g,'%2B');#}
-
             currentUser.value = userName;
             var status = document.getElementById('status');
             var monkeyIndex = document.getElementById('monkeyIndex');
@@ -198,8 +194,6 @@
                 return false;
             }
             else{
-{#                status.value = 1;#}
-
                 var monkeyLists = ["kangkang","bingshenhou","noritake","fuluhou","mujihou"];
                 var i = Math.floor(Math.random() * monkeyLists.length+ 1)-1;
                 monkeyIndex.value = i;
