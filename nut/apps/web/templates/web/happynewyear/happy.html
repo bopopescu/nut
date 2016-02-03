@@ -122,7 +122,11 @@
 
 {#                document.referrer在微信朋友圈打开时,是不能回退的.因为不是通过一个超链接打开 T T #}
 {#If the current document was not opened through a link (for example, through a bookmark), an empty string is returned.#}
-                goback.href=document.referrer;
+{#                goback.href=document.referrer;#}
+                var currentAddress = location.href;
+                var num = currentAddress.indexOf('?');
+                var str = currentAddress.substr(num);
+                goback.href = currentAddress.replace(str,'');
 
                 nextLayer.insertBefore(currentMonkey,nextLayer.childNodes[0]);
                 nextLayer.insertBefore(currentIntro,currentMonkey.nextSibling);
