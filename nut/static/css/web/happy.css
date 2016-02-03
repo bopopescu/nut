@@ -1025,7 +1025,7 @@ p.boolean-false {
   height: 200px;
   border-radius: 50%;
 }
-.happy-body .bg-layer {
+.happy-body #first-bg-layer {
   position: absolute;
   top: 0;
   left: 0;
@@ -1034,13 +1034,22 @@ p.boolean-false {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: #9c0a15;
+}
+.happy-body #second-bg-layer {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
 }
 .happy-body .happy-layer {
   position: relative;
   text-align: center;
 }
 #first-layer {
+  display: none;
   margin-top: 60px;
 }
 #first-layer #theme-title {

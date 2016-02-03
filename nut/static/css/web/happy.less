@@ -34,7 +34,7 @@
 .happy-body{
  //padding-top:0px;
  // color:@year-seller-star-color;
-  .bg-layer{
+  #first-bg-layer{
     position:absolute;
     top:0;
     left:0;
@@ -43,7 +43,17 @@
     background-size:cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #9c0a15;
+    //background-color: #9c0a15;
+  }
+
+  #second-bg-layer{
+    display: none;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-size:cover;
   }
 
   .happy-layer{
@@ -53,6 +63,7 @@
 }
 
 #first-layer{
+  display: none;
   margin-top:60px;
   #theme-title{
     color:@star-color;

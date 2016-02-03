@@ -37,7 +37,8 @@
 
 {% block content %}
 
-    <div class="bg-layer" style="background-image: url({% static 'images/chunjie/cover.gif' %})"></div>
+    <div id="first-bg-layer" style="background-image: url({% static 'images/chunjie/cover.gif' %})"></div>
+     <div id="second-bg-layer" style="background-image: url({% static 'images/chunjie/pattn.jpg' %})"></div>
 
     <div class="container-fluid happy-layer" id="first-layer">
         <h3 id="theme-title"></h3>
@@ -76,17 +77,35 @@
 
 {% block script %}
     <script>
+
         (function() {
             var currentUserName = getQueryVariable("username");
             var i = parseInt(getQueryVariable("monkeyIndex"));
             var currentStatus = getQueryVariable("status");
             var goback = document.getElementById("go-back");
+            var firstBgLayer = document.getElementById("first-bg-layer");
+            var secondBgLayer = document.getElementById("second-bg-layer");
+            var firstLayer = document.getElementById("first-layer");
+
+            {#            begin add cover    #}
+            if(currentUserName == null){
+                setTimeout(function(){
+            firstBgLayer.style.display = "none";
+            secondBgLayer.style.display = "block";
+            firstLayer.style.display = "block";
+        },2000);
+            }
+            {#                end add cover#}
 
             if(currentUserName.length !=0){
+
                 var currentLayer = document.getElementById("first-layer");
                 currentLayer.style.display = "none";
                 var nextLayer = document.getElementById("second-layer");
                 nextLayer.style.display = "block";
+
+                firstBgLayer.style.display = "none";
+                secondBgLayer.style.display = "block";
 
                 var monkeyName,wish,monkeyIntro;
                 var monkeyLists = ["kangkang","bingshenhou","noritake","fuluhou","mujihou"];
