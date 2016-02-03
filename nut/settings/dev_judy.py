@@ -21,9 +21,12 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 import djcelery
 djcelery.setup_loader()
 
+# phantom
+PHANTOM_SERVER = 'http://192.168.99.100:5000/'
+
 # config of site in redis.
-config_redis_host = 'localhost'
-config_redis_port = 6379
+CONFIG_REDIS_HOST = 'localhost'
+CONFIG_REDIS_PORT = 6379
 
 CACHES = {
     "default": {

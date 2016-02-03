@@ -45,14 +45,12 @@
             </div>
         </nav>
 
-        <div class="row" id="selection_article_list">
+        <div class="row search-result-list" id="selection_article_list">
             {% if type == 'u' %}
                 {% for row in object_list %}
                     {% if row.object %}
-                        {% include 'web/main/partial/user.html' with user_context=row.object %}#
+                        {% include 'web/main/partial/user.html' with user_context=row.object %}
                     {% endif %}
-{#                    {{ row.object }}#}
-{#                    {% include 'web/main/partial/user.html' with user_context=row.object %}#}
                 {% endfor %}
             {% elif type == 't' %}
                 {% for row in object_list %}

@@ -80,6 +80,10 @@
                             {% endautoescape %}
                         </div>
 
+{#                        <div class="disclaimer">#}
+{#                                本文系作者授权果库发表，未经许可，不得转载。#}
+{#                        </div>#}
+
                         <div class="share-wrapper share-wrapper-short ">
 {#                             TEMP REMOVE BY ANCHEN #}
 {#                            <span class="dig-wrapper">#}
@@ -92,7 +96,6 @@
 {#                                    <span class="dig-word">赞</span>#}
 {#                                </span>#}
 {#                            </span>#}
-
                          <!-- JiaThis Button BEGIN -->
                             <div class="jiathis_style for-browser">
                                 <a class="jiathis_button_tsina"></a>
@@ -107,40 +110,40 @@
 
                             <!-- JiaThis Button END -->
                         </div>
-                        <div class="divider"></div>
+                        <div class="divider article-divider"></div>
                         <div class="writer-wrapper">
 {#                            <div class="row">#}
 {#                                <div class="write-pre col-xs-12 col-sm-12">#}
 {#                                </div>#}
 {#                            </div>#}
-                            {% if article.creator.is_authorized_author %}
-                                <div class="author-info">
-                                 <div class="user-icon">
-                                        <a href="{% url 'web_user_index' article.creator.pk %}" class="for-browser">
-                                           <img src="{{ article.creator.avatar_url|resize:'120' }}"/>
-                                        </a>
-
-                                         <a href="{{ article.creator.mobile_url }}" class="for-mobile mobile-user-link">
-                                          <img src="{{ article.creator.avatar_url|resize:'120' }}"/>
-                                        </a>
-                                 </div>
-                                 <div class="user-title">
-                                       <span class="for-browser" >
-                                           <a href="{% url 'web_user_index' article.creator.pk %}">
-                                           {{ article.creator.nickname }}
-                                            </a>
-                                       </span>
-                                       <span class="for-mobile" >
-                                           <a href="{{ article.creator.mobile_url }}" class="mobile-user-link">
-                                           {{ article.creator.nickname }}
-                                           </a>
-                                       </span>
-                                 </div>
-                                 <div class="user-bio">
-                                     <span class="bio-block">{{ article.creator.bio }}</span>
-                                 </div>
-                                </div>
-                            {% else %}
+{#                            {% if article.creator.is_authorized_author %}#}
+{#                                <div class="author-info">#}
+{#                                 <div class="user-icon">#}
+{#                                        <a href="{% url 'web_user_index' article.creator.pk %}" class="for-browser">#}
+{#                                           <img src="{{ article.creator.avatar_url|resize:'120' }}"/>#}
+{#                                        </a>#}
+{##}
+{#                                         <a href="{{ article.creator.mobile_url }}" class="for-mobile mobile-user-link">#}
+{#                                          <img src="{{ article.creator.avatar_url|resize:'120' }}"/>#}
+{#                                        </a>#}
+{#                                 </div>#}
+{#                                 <div class="user-title">#}
+{#                                       <span class="for-browser" >#}
+{#                                           <a href="{% url 'web_user_index' article.creator.pk %}">#}
+{#                                           {{ article.creator.nickname }}#}
+{#                                            </a>#}
+{#                                       </span>#}
+{#                                       <span class="for-mobile" >#}
+{#                                           <a href="{{ article.creator.mobile_url }}" class="mobile-user-link">#}
+{#                                           {{ article.creator.nickname }}#}
+{#                                           </a>#}
+{#                                       </span>#}
+{#                                 </div>#}
+{#                                 <div class="user-bio">#}
+{#                                     <span class="bio-block">{{ article.creator.bio }}</span>#}
+{#                                 </div>#}
+{#                                </div>#}
+{#                            {% else %}#}
                             <div class="row">
                                 <div class="writer-avatar col-xs-2 col-sm-2">
                                     <div class="avatar-wrapper">
@@ -164,12 +167,22 @@
                                          {{ article.creator.profile.nickname }}
                                         </a>
                                     </div>
-                                    <div class="writer-bio">{{ article.creator.profile.bio|truncatechars:200 }}</div>
+                                    <div class="writer-bio">
+                                        {% if article.creator.is_authorized_author %}
+                                            <span class="weixin-id">
+                                            微信号：{{ article.creator.authorized_profile.weixin_id }}
+                                            </span>
+                                            <br>
+                                        {% endif %}
+                                        <span>
+                                        {{ article.creator.profile.bio|truncatechars:200 }}
+                                        </span>
+                                    </div>
                                 </div>
 
 
                             </div>
-                            {% endif %}
+{#                            {% endif %}#}
 
                         </div>
                     </div>
