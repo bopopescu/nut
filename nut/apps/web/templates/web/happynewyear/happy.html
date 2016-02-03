@@ -54,7 +54,7 @@
 
     <div class="container-fluid happy-layer user-icon-responsive" id="second-layer">
 
-        <button id="share" class="happy-common-btn happy-btn-control" onclick="alert('点击又上角分享给好友吧')">分享给好友</button>
+        <button id="share" class="happy-common-btn happy-btn-control" onclick="bootbox.alert('点击又上角分享给好友吧')">分享给好友</button>
 
 {#        <a href="" target="_self" id="share" class="happy-common-btn happy-btn-control" >分享给好友</a>#}
 
@@ -73,7 +73,12 @@
     <script src="{% static 'js/jquery-1.11.1.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/web/site.js' %}"></script>
+
+{#    bootbox code#}
+    <script src="{% static 'js/web/bootbox.js' %}"></script>
+
 {% endblock %}
+
 
 {% block script %}
     <script>
@@ -216,7 +221,7 @@
             var monkeyIndex = document.getElementById('monkeyIndex');
 
             if(userName.length === 0){
-{#                alert('亲爱的果库粉,请输入你的大名~');#}
+                bootbox.alert('请输入你的大名~');
                 return false;
             }
             else{
