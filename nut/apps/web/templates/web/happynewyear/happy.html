@@ -15,7 +15,7 @@
     <meta name="description" content="果库精选商品每日更新，恪守选品标准和美学格调，推荐有趣、有用、有价值的国内外优质优惠的网购商品。尽收世上好物。">
 {% endblock %}
 
-{% block title %}没想到你是这种猴{% endblock %}
+{% block title %}祝你新年「猴」{% endblock %}
 
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/web/happy.css' %}">
@@ -44,10 +44,10 @@
         <h3 id="theme-title"></h3>
         <div class="form-wrapper">
             <form id="form" method="get" action="" onsubmit="return validate_form(this);">
-                <input type="text" name="username" id="username" placeholder="在这里输入你的名字">
+                <input type="text" name="username" id="username" placeholder="输入名字">
                 <input type="hidden" name="monkeyIndex" id="monkeyIndex" value="0">
                 <input type="hidden" name="status" id="status" value="0">
-                <input type="submit" name="submit" class="happy-common-btn happy-btn-control" value="去看看">
+                <input type="submit" name="submit" class="happy-common-btn happy-btn-control" value="生成我的「猴」页">
             </form>
         </div>
     </div>
@@ -98,7 +98,7 @@
                      $("#first-bg-layer").fadeOut();
                      $("#second-bg-layer").fadeIn();
                      $("#first-layer").fadeIn();
-        },2000);
+        },3000);
             }
             {#                end #}
 
