@@ -7,7 +7,8 @@ from apps.management.views.article import SelectionArticleList,\
     DraftArticleList, \
     RemoveSelectionArticle,\
     UpdateArticleView,\
-    AuthorArticleList
+    AuthorArticleList,\
+    AuthorArticlePersonList
 
 
 
@@ -17,6 +18,7 @@ urlpatterns = patterns(
     url(r'^all/$',ArticleList.as_view() , name="management_article_list"),
     url(r'^draft/$', DraftArticleList.as_view(), name='management_article_draft'),
     url(r'^authorized_author/$', AuthorArticleList.as_view(), name='management_author_article_list'),
+    url(r'^authorized_author/(?P<pk>\d+)/$', AuthorArticlePersonList.as_view(), name='management_author_article_person_list'),
     url(r'^create/$', 'create', name="management_article_create"),
     url(r'^(?P<article_id>\d+)/edit/$', 'edit', name='management_article_edit'),
 

@@ -1,4 +1,31 @@
+2. disable like action for search result 
+1. fix rss bug
 
+=================================
+=================================
+### merged to master 2016 － 2 － 1
+=================================
+=================================
+
+3. category entity list item style update
+2. fix Article model created_datetime auto_add 
+1. article writer bio update
+
+
+=================================
+=================================
+### merged to master 2016 － 1 － 27
+=================================
+=================================
+
+### fix can not create article error:
+
+#action
+
+    ALTER TABLE `core`.`core_article` DROP INDEX `cleaned_title_UNIQUE` ;
+
+
+7. article mobile page css adjust 
 6. add a cookie store for sogou spider use 
 -----------------------
 5. article mng list page change
@@ -11,19 +38,20 @@
  need sync db 
  
  
+ need  manage.py compilemessages 
+ need  restart server  (new translation items )
+ 
+ 
  ###action
 
     sudo pip install fake-factory
 
     ALTER TABLE `core`.`core_authorized_user_profile` 
     ADD COLUMN `weixin_openid` VARCHAR(255) NULL COMMENT '' AFTER `weibo_nick`;
-    
+   
     ALTER TABLE `core`.`core_article` 
-    DROP COLUMN `origin_source`,
     ADD COLUMN `cleaned_title` VARCHAR(255) NULL COMMENT '' AFTER `feed_read_count`,
     ADD UNIQUE INDEX `cleaned_title_UNIQUE` (`cleaned_title` ASC)  COMMENT '';
-    
-    ./manage.py celery beat --loglevel=ERROR  --settings="settings.production"
     
 
 ##2016-02-22 Fetch wixin articles

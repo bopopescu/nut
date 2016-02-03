@@ -81,7 +81,7 @@ HAYSTACK_CONNECTIONS = {
     }
 }
 # HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
-HAYSTACK_DEFAULT_OPERATOR = 'AND'
+HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -269,24 +269,31 @@ BROKER_VHOST = "raspberry"
 BROKER_POOL_LIMIT = 10
 CELERY_ACKS_LATE = True
 CELERYD_PREFETCH_MULTIPLIER = 1
-CELERY_DISABLE_RATE_LIMITS = False
-CELERY_ANNOTATIONS = {
-    'sogou.crawl_articles': {
-        'rate_limit': '1.1/m',
-    },
-    'sogou.crawl_article': {
-        'rate_limit': '1.1/m',
-    },
-    'sogou.fetch_article_list': {
-        'rate_limit': '1.1/m',
-    },
-    'sogou.get_qr_code': {
-        'rate_limit': '1.1/m',
-    }
-}
+CELERY_DISABLE_RATE_LIMITS = True
+# CELERY_ANNOTATIONS = {
+#     'sogou.crawl_articles': {
+#         'rate_limit': '1.1/m',
+#     },
+#     'sogou.crawl_article': {
+#         'rate_limit': '1.1/m',
+#     },
+#     'sogou.fetch_article_list': {
+#         'rate_limit': '1.1/m',
+#     },
+#     'sogou.get_qr_code': {
+#         'rate_limit': '1.1/m',
+#     }
+# }
 # CELERY_ACCEPT_CONTENT = ['json']
 # CELERY_TASK_SERIALIZER = 'json'
 # CELERY_RESULT_SERIALIZER = 'json'
+
+CELERY_ROUTES = {
+    'sogou.crawl_articles': {'queue': 'sogou'},
+    'sogou.crawl_article': {'queue': 'sogou'},
+    'sogou.fetch_article_list': {'queue': 'sogou'},
+}
+
 
 # taobao
 APP_HOST = "http://www.guoku.com"
@@ -338,14 +345,19 @@ CONFIG_REDIS_DB = 1
 
 INTERVAL_OF_SELECTION = 24
 
+# phantom
+PHANTOM_SERVER = 'http://10.0.2.49:5000/'
+
 # fetch articles
 SOGOU_PASSWORD = 'guoku1@#'
-SOGOU_USERS = ('Waser1959@gustr.com', 'asortafairytale@fleckens.hu', 'Adisaid@jourrapide.com',
-               'Rathe1981@rhyta.com', 'Andurn@fleckens.hu','sanyuanmilk@fleckens.hu')
+SOGOU_USERS = ('waser1959@gustr.com', 'asortafairytale@fleckens.hu', 'adisaid@jourrapide.com',
+               'rathe1981@rhyta.com', 'andurn@fleckens.hu', 'sanyuanmilk@fleckens.hu',
+               'yundaexpress@rhyta.com', 'sunstarorabreathfine@jourrapide.com',
+               'indonesiamandheling@einrot.com', 'charlottewalkforshame@dayrep.com')
 CELERYBEAT_SCHEDULE = {
     'crawl_articles': {
         'task': 'sogou.crawl_articles',
-        'schedule': crontab(minute=10, hour=23)
+        'schedule': crontab(minute=1, hour=1)
     }
 }
 

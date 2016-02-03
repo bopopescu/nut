@@ -56,8 +56,8 @@ import djcelery
 djcelery.setup_loader()
 
 # config of site in redis.
-config_redis_host = 'localhost'
-config_redis_port = 6379
+CONFIG_REDIS_HOST = 'localhost'
+CONFIG_REDIS_PORT = 6379
 
 DEBUG_TOOLBAR_CONFIG = {
     'JQUERY_URL': '//libs.baidu.com/jquery/2.1.4//jquery.min.js'
@@ -111,7 +111,7 @@ MOGILEFS_TRACKERS = ['10.0.2.50:7001']
 MOGILEFS_MEDIA_URL = 'images/'
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 LOCAL_IMG_DEBUG = True
-IMAGE_HOST = 'http://test.guoku.com/'
+IMAGE_HOST = 'http://imgcdn.guoku.com/'
 INTRANET_IMAGE_SERVER = 'http://localhost:5556/'
 # DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 # IMAGE_SIZE = [128, 310, 640]
