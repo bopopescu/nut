@@ -30,7 +30,7 @@ def get_wechat_access_token():
         return token
 
     url = get_token_request_url()
-    res = requests.get(url)
+    res = requests.get(url,verify=False)
     token = res.json()['access_token']
     expires = res.json()['expires_in']
 
@@ -46,7 +46,7 @@ def get_jsapi_ticket():
         return ticket
 
     token = get_wechat_access_token()
-    res = requests.get(get_jsapi_ticket_request_url(token))
+    res = requests.get(get_jsapi_ticket_request_url(token),verify=False)
     ticket = res.json()['ticket']
     errcode = res.json()['errcode']
     expires = res.json()['expires_in']
