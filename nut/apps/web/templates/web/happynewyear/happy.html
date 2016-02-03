@@ -145,7 +145,7 @@
                 }
                 currentMonkey.src = "{% static 'images/chunjie/'%}"+monkeyLists[i]+".jpg";
                 var currentIntro = document.createElement('p');
-                var introNode = document.createTextNode(monkeyIntro);
+                var introNode = document.createTextNode(currentUserName+"派来一只"+monkeyName+"给您送祝福");
                 currentIntro.appendChild(introNode);
                 var decoration = document.createTextNode('──');
                 var currentWish = document.createElement('p');
@@ -174,7 +174,7 @@
 
 {#               begin  动态修改微信浏览器中的title#}
                 var $body = $('body');
-                document.title = currentUserName + "是一只" + monkeyName;
+                document.title = currentUserName + "派来一只" + monkeyName +"给您拜年咯!";
                 var $iframe = $('<iframe src="/favicon.ico"></iframe>');
                 $iframe.on('load',function() {
                     setTimeout(function() {
@@ -208,7 +208,9 @@
         {
             var currentUser = document.getElementById('username');
 {#            清理字符串首尾的空格#}
-            var userName= currentUser.value.replace(/^\s+|\s+$/gm,'');
+{#            var userName= currentUser.value.replace(/^\s+|\s+$/gm,'');#}
+{#            清理所有的空格#}
+            var userName = currentUser.value.replace(/\s+/g,"");
             currentUser.value = userName;
             var status = document.getElementById('status');
             var monkeyIndex = document.getElementById('monkeyIndex');
