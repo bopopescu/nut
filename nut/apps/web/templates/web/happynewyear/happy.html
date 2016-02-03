@@ -87,15 +87,20 @@
             var secondBgLayer = document.getElementById("second-bg-layer");
             var firstLayer = document.getElementById("first-layer");
 
-            {#            begin add cover    #}
+            {#            begin 添加转场封面    #}
+
             if(currentUserName == null){
+
                 setTimeout(function(){
-            firstBgLayer.style.display = "none";
-            secondBgLayer.style.display = "block";
-            firstLayer.style.display = "block";
+{#            firstBgLayer.style.display = "none";#}
+{#            secondBgLayer.style.display = "block";#}
+{#            firstLayer.style.display = "block";#}
+                     $("#first-bg-layer").fadeOut();
+                     $("#second-bg-layer").fadeIn();
+                     $("#first-layer").fadeIn();
         },2000);
             }
-            {#                end add cover#}
+            {#                end #}
 
             if(currentUserName.length !=0){
 
