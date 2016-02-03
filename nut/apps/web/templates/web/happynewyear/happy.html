@@ -133,10 +133,10 @@
                 goback.href = currentAddress.replace(str,'');
 {#                change status#}
                 var backAddress = document.referrer;
-                if(Boolean(backAddress.indexOf('?'))){
-                    currentStatus = 0;
+                if(backAddress == ""){
+                    currentStatus =0;
                 }else{
-                    currentStatus = 1;
+                    currentStatus =1;
                 }
 
                 nextLayer.insertBefore(currentMonkey,nextLayer.childNodes[0]);
