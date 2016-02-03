@@ -1,4 +1,7 @@
 import  requests
+from datetime import datetime
+import random
+import hashlib
 from django.core.cache import cache
 
 
@@ -28,8 +31,8 @@ def get_wechat_access_token():
 
     url = get_token_request_url()
     res = requests.get(url)
-    token = res.json().access_token
-    expires = res.json().expires_in
+    token = res.json()['access_token']
+    expires = res.json()['expires_in']
 
     cache.set(key, token , expires-100)
 
@@ -44,14 +47,55 @@ def get_jsapi_ticket():
 
     token = get_wechat_access_token()
     res = requests.get(get_jsapi_ticket_request_url(token))
-    ticket = res.json().ticket
-    errcode = res.json().errcode
-    expires = res.json().expires_in
+    ticket = res.json()['ticket']
+    errcode = res.json()['errcode']
+    expires = res.json()['expires_in']
     if errcode == 0:
         cache.set(key, ticket, expires-100)
         return ticket
     else:
         raise Exception('get wechat jsapi ticket error')
+
+
+def get_nonce_str():
+    charList = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    strLen = 16
+    randStr = ''
+    for i in xrange(strLen):
+        randStr += charList[random.randrange(len(charList))]
+    return randStr
+
+
+def get_js_sdk_signature_obj(sig_url=None,):
+    if sig_url is None:
+        raise Exception('need sig_url param , for url of the page need to be signed')
+
+    sig_obj = {
+                'noncestr': get_nonce_str()
+               ,'jsapi_ticket':get_jsapi_ticket()
+               ,'timestamp':datetime.now().strftime('%s')
+               ,'url':sig_url
+               }
+    queryString  = ''
+    keys = sig_obj.keys()
+    keys.sort()
+    for key in keys:
+        queryString += (key + '=' + sig_obj[key] + '&')
+    queryString = queryString[0:-1]
+    sigSha1 = hashlib.sha1()
+    sigSha1.update(queryString)
+    sig_obj['signature'] = sigSha1.hexdigest()
+    return sig_obj
+
+
+
+
+
+
+
+
+
+
 
 
 
