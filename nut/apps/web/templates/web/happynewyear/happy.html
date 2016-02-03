@@ -54,13 +54,24 @@
 
     <div class="container-fluid happy-layer user-icon-responsive" id="second-layer">
 
-        <button id="share" class="happy-common-btn happy-btn-control" onclick="bootbox.alert('点击又上角分享给好友吧')">分享给好友</button>
+{#        <button id="share" class="happy-common-btn happy-btn-control" onclick="bootbox.alert('点击又上角分享给好友吧')">分享给好友</button>#}
+
+         <button id="share" class="happy-common-btn happy-btn-control">分享给好友</button>
 
 {#        <a href="" target="_self" id="share" class="happy-common-btn happy-btn-control" >分享给好友</a>#}
 
         <a href="" target="_self" id="go-back" class="happy-common-btn happy-btn-control">去看看</a>
 
     </div>
+
+{#    add share dialog #}
+    <script type="text/html" id="share_friends_modal_content">
+        <div class="share-modal-wrapper share-modal-wrapper-control">
+            <div class="tips-wrapper tips-control">
+                <img src="{% static 'images/chunjie/share.png' %}" width="200px" height="200px"/>
+            </div>
+        </div>
+    </script>
 
 {% endblock %}
 
@@ -76,12 +87,21 @@
 
 {#    bootbox code#}
     <script src="{% static 'js/web/bootbox.js' %}"></script>
+    <script src="{% static 'js/web/app/views/happy_new_year.js' %}"></script>
 
 {% endblock %}
 
 
 {% block script %}
     <script>
+
+{#    begin add share dialog#}
+{#$("#share").on("click", ".alert", function(e) {#}
+{#            bootbox.alert("share with your friends", function() {#}
+{#                console.log("Alert Callback");#}
+{#            });#}
+{#        });#}
+{#end add #}
 
         (function() {
             var currentUserName = getQueryVariable("username");
