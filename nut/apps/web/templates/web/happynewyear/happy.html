@@ -44,9 +44,9 @@
         <h3 id="theme-title"></h3>
         <div class="form-wrapper">
             <form id="form" method="get" action="" onsubmit="return validate_form(this);">
-                <input type="text" name="username" id="username" placeholder="填写姓名">
+                <input type="text" name="username" id="username" placeholder="填写姓名" style="background-image: url({% static 'images/chunjie/underline.jpg' %})">
                 <input type="hidden" name="monkeyIndex" id="monkeyIndex" value="0">
-                <input type="submit" name="submit" class="happy-common-btn happy-btn-control" value="生成我的「猴」页">
+                <input type="submit" name="submit" class="happy-common-btn happy-btn-control create-btn" value="生成我的「猴」页" style="background-image: url({% static 'images/chunjie/create.jpg' %})">
             </form>
         </div>
 
@@ -58,9 +58,10 @@
 
     <div class="container-fluid happy-layer user-icon-responsive" id="second-layer">
 
-         <button id="share" class="happy-common-btn happy-btn-control" onclick="shareToFriends()">分享给好友</button>
+          <a href="" target="_self" id="go-back" class="happy-common-btn happy-btn-control share-btn" style="background-image: url({% static 'images/chunjie/create.jpg' %})">生成我的「猴」页</a>
 
-        <a href="" target="_self" id="go-back" class="happy-common-btn happy-btn-control">生成我的「猴」页</a>
+         <button id="share" class="happy-common-btn happy-btn-control share-btn" onclick="shareToFriends()" style="background-image: url({% static 'images/chunjie/common-btn.jpg' %})">分享</button>
+
 
         <div class="happy-footer-wrapper">
              <a href="{% url 'web_selection' %}" target="_blank">guoku.com</a>
@@ -113,7 +114,7 @@
 
         (function() {
             var currentUserName = getQueryVariable("username");
-            var monkeyLists = ["01-MK","02-MK","03-MK","04-MK","05-MK"];
+            var monkeyLists = ["01-MK","02-MK","03-MK","04-MK","05-MK","06-MK","07-MK","08-MK"];
             var i = parseInt(getQueryVariable("monkeyIndex"));
             var currentStatus = 0;
             var goback = document.getElementById("go-back");
@@ -147,29 +148,42 @@
 
                 switch (i) {
                     case 0:
-                        wish="新年「猴」厉害！";
+                        wish="01-note";
                         break;
                     case 1:
-                        wish="「猴」来，学会如何去爱…";
+                        wish="02-note";
                         break;
                     case 2:
-                        wish="阖家幸福，「猴」开森！";
+                         wish="03-note";
                         break;
                     case 3:
-                        wish="「猴」运当头，兴旺发财！";
+                         wish="04-note";
                         break;
                     case 4:
-                        wish="亲友相聚，「猴猴」哈嘿！";
+                         wish="05-note";
+                        break;
+                     case 5:
+                         wish="06-note";
+                        break;
+                    case 6:
+                         wish="07-note";
+                        break;
+                    case 7:
+                         wish="08-note";
                         break;
                 }
                 currentMonkey.src = "{% static 'images/chunjie/'%}"+monkeyLists[i]+".gif";
                 var currentIntro = document.createElement('p');
                 var introNode = document.createTextNode("["+currentUserName+"]"+" 领猴子猴孙们齐拜年!");
                 currentIntro.appendChild(introNode);
-                var decoration = document.createTextNode('──');
-                var currentWish = document.createElement('p');
-                var wishNode = document.createTextNode(wish);
-                currentWish.appendChild(wishNode);
+                var decoration = document.createTextNode('祝你:');
+                var currentWish = document.createElement('img');
+                currentWish.src= "{% static 'images/chunjie/'%}"+wish+".jpg";
+
+                currentWish.style.width = "250px";
+                currentWish.style.height = "auto";
+                currentWish.style.marginTop = "10px";
+
 
 {#                document.referrer在微信朋友圈打开时,是不能回退的.因为不是通过一个超链接打开 T T #}
 {#If the current document was not opened through a link (for example, through a bookmark), an empty string is returned.#}
@@ -207,9 +221,16 @@
 
             if(currentStatus ==1){
                 var shareBtn = document.getElementById("share");
-                shareBtn.style.display = "block";
+                shareBtn.style.display = "inline-block";
                 goback.innerHTML = "再来一次"
-                goback.style.display = "block";
+                goback.style.display = "inline-block";
+                goback.style.backgroundImage = "url({% static 'images/chunjie/common-btn.jpg' %}";
+                goback.style.width = "100px";
+                goback.style.height = "60px";
+                goback.style.lineHeight = "60px";
+                goback.style.backgroundSize = "100px";
+
+
             }
         })();
 
@@ -240,7 +261,7 @@
                 return false;
             }
             else{
-                var monkeyLists = ["01-MK","02-MK","03-MK","04-MK","05-MK"];
+                var monkeyLists = ["01-MK","02-MK","03-MK","04-MK","05-MK","06-MK","07-MK","08-MK"];
                 var i = Math.floor(Math.random() * monkeyLists.length+ 1)-1;
                 monkeyIndex.value = i;
             }
