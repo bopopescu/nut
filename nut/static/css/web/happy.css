@@ -1151,7 +1151,7 @@ a:hover {
   height: auto;
   margin: 0 auto;
 }
-.share-friends-dialog .modal-backdrop {
+.modal-backdrop.in {
   opacity: 0.75;
 }
 .share-friends-dialog .modal-dialog {
