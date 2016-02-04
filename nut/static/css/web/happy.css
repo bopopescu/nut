@@ -1008,21 +1008,46 @@ p.boolean-false {
   height: 50px;
   line-height: 50px;
   text-align: center;
-  color: #FF9500;
-  border: 1px solid #FF9500;
+  color: #e5a95c;
+  border: none;
   background-color: transparent;
-  font-size: 18px;
   border-radius: 45px;
 }
 .happy-btn-control {
   margin: 0 auto;
   margin-top: 40px;
 }
+.create-btn {
+  background-size: 200px;
+  margin-top: 30px;
+}
+.share-btn {
+  display: inline-block;
+  width: 100px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  background-size: 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+#go-back {
+  width: 200px;
+  height: 50px;
+  line-height: 50px;
+  background-size: 200px;
+}
 .user-icon-responsive img {
   display: block;
   margin: 0 auto;
   width: 200px;
   height: 200px;
+}
+.happy-body {
+  font-size: 16px;
+  color: #e5a95c;
 }
 .happy-body #first-bg-layer {
   position: absolute;
@@ -1052,27 +1077,37 @@ p.boolean-false {
   height: auto;
   position: fixed;
   left: 0;
-  bottom: 5px;
+  bottom: 30px;
 }
 .happy-footer-wrapper a {
-  font-size: 13px;
-  color: #9d9d9d;
+  color: #e5a95c;
+}
+a {
+  color: #e5a95c;
+}
+a:hover {
+  text-decoration: none;
+  color: #e5a95c;
 }
 #first-layer {
   display: none;
   margin-top: 60px;
 }
 #first-layer #theme-title {
-  color: #FF9500;
+  color: #e5a95c;
 }
 #first-layer .form-wrapper {
   margin-top: 30px;
 }
 #first-layer .form-wrapper #username {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: bottom;
   border: none;
-  width: 200px;
+  width: 240px;
   height: 45px;
   line-height: 45px;
+  padding-bottom: 30px;
 }
 #second-layer {
   display: none;
@@ -1083,21 +1118,15 @@ p.boolean-false {
   display: none;
 }
 #second-layer img {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 #second-layer p:nth-child(even) {
-  font-size: 22px;
   margin-bottom: 0;
 }
 #second-layer p:nth-child(odd) {
   width: 250px;
   height: auto;
   margin: 0 auto;
-  font-size: 16px;
-}
-#second-layer a:hover {
-  text-decoration: none;
-  color: #FF9500;
 }
 .share-friends-dialog .modal-dialog {
   width: 100%;
