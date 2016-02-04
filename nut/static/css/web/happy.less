@@ -10,16 +10,22 @@
   height:50px;
   line-height: 50px;
   text-align: center;
-  color:@star-color;
-  border:1px solid @star-color;
+  //color: @gold-color;
+  //border:1px solid @gold-color;
+  border:none;
   background-color: transparent;
-  font-size: @subtitle-size;
+  //font-size: @subtitle-size;
   border-radius: 45px;
 }
 .happy-btn-control{
     margin:0 auto;
     margin-top:40px;
   }
+
+.create-btn{
+  background-size: 200px;
+  margin-top:30px;
+}
 
 .user-icon-responsive{
   img{
@@ -31,6 +37,8 @@
 }
 
 .happy-body{
+   font-size:@primary-size;
+  color: @gold-color;
  //padding-top:0px;
   #first-bg-layer{
     position:absolute;
@@ -67,28 +75,32 @@
   height:auto;
   position:fixed;
   left:0;
-  bottom:5px;
+  bottom:30px;
   a{
-    font-size: @mini-size;
-    color:@light-gray;
+    color:@gold-color;
   }
 }
+
 
 #first-layer{
   display: none;
   margin-top:60px;
   #theme-title{
-    color:@star-color;
+    color: @gold-color;
   }
 
   .form-wrapper{
     margin-top:30px;
 
     #username{
+      background-color: transparent;
+      background-repeat: no-repeat;
+      background-position: bottom;
     border:none;
-    width:200px;
+    width:240px;
     height:45px;
     line-height: 45px;
+      padding-bottom: 30px;
     }
 
   }
@@ -104,10 +116,10 @@
     display: none;
   }
   img{
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
   p:nth-child(even){
-    font-size: @title-size;
+    //font-size: @title-size;
     margin-bottom: 0;
 
   }
@@ -115,12 +127,12 @@
     width:250px;
     height:auto;
     margin:0 auto;
-    font-size:@primary-size;
+    //font-size:@primary-size;
   }
   a{
     &:hover{
       text-decoration: none;
-      color:@star-color;
+      color:@gold-color;
     }
 
   }
