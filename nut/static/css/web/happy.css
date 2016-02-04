@@ -1004,14 +1004,14 @@ p.boolean-false {
 .happy-common-btn {
   -webkit-appearance: none;
   display: block;
-  width: 250px;
-  height: 80px;
-  line-height: 80px;
+  width: 200px;
+  height: 50px;
+  line-height: 50px;
   text-align: center;
   color: #FF9500;
   border: 1px solid #FF9500;
   background-color: transparent;
-  font-size: 28px;
+  font-size: 18px;
   border-radius: 45px;
 }
 .happy-btn-control {
@@ -1076,7 +1076,7 @@ p.boolean-false {
 }
 #second-layer {
   display: none;
-  margin-top: -30px;
+  margin-top: -70px;
   color: #ffffff;
 }
 #second-layer #share {
