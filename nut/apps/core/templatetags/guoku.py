@@ -21,8 +21,14 @@ register.filter(enumerate_list)
 def resize(value, size=None):
     host = image_host
     # log.info(value)
+    if value is None:
+        return value
 
-    if value is None or host not in value:
+    if 'taobaocdn.com' in value or 'alicdn.com' in value:
+        value = value+'_'+size+'x'+size+'.jpg'
+        return value
+
+    if host not in value:
         return value
 
     if size:
