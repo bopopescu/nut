@@ -75,6 +75,8 @@ def get_js_sdk_signature_obj(sig_url=None,):
                ,'jsapi_ticket':get_jsapi_ticket()
                ,'timestamp':datetime.now().strftime('%s')
                ,'url':sig_url
+               ,'appid':APPID
+
                }
     queryString  = ''
     keys = sig_obj.keys()
@@ -82,24 +84,6 @@ def get_js_sdk_signature_obj(sig_url=None,):
     for key in keys:
         queryString += (key + '=' + sig_obj[key] + '&')
     queryString = queryString[0:-1]
-    sigSha1 = hashlib.sha1()
-    sigSha1.update(queryString)
-    sig_obj['signature'] = sigSha1.hexdigest()
+    sig = hashlib.sha1(queryString.encode('utf-8')).hexdigest()
+    sig_obj['signature'] = sig
     return sig_obj
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

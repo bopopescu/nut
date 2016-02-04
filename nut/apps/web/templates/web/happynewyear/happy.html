@@ -65,12 +65,13 @@
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script language="javascript">
-    var signature_obj = {
+    window.signature_obj = {
         'noncestr': '{{ signature_obj.noncestr }}',
         'jsapi_ticket': '{{ signature_obj.jsapi_ticket }}',
         'timestamp':'{{ signature_obj.timestamp }}',
         'url':'{{ signature_obj.url }}',
-        'signature': '{{ signature_obj.signature }}'
+        'signature': '{{ signature_obj.signature }}',
+        'appid': '{{ signature_obj.appid }}'
     };
 
     </script>
