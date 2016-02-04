@@ -1089,3 +1089,24 @@ p.boolean-false {
   text-decoration: none;
   color: #FF9500;
 }
+.share-friends-dialog .modal-dialog {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.share-friends-dialog .modal-dialog .modal-content {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+.share-friends-dialog .modal-dialog .modal-header {
+  display: none;
+}
+.share-friends-dialog .modal-dialog .modal-body {
+  padding: 0;
+}
