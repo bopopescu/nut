@@ -10,7 +10,7 @@
   height:50px;
   line-height: 50px;
   text-align: center;
-  //color: @gold-color;
+  color: @gold-color;
   //border:1px solid @gold-color;
   border:none;
   background-color: transparent;
@@ -25,6 +25,24 @@
 .create-btn{
   background-size: 200px;
   margin-top:30px;
+}
+
+.share-btn{
+  display: inline-block;
+  width:100px;
+  height:60px;
+  line-height: 60px;
+  text-align: center;
+  background-size: 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#go-back{
+  width:200px;
+  height:50px;
+  line-height: 50px;
+  background-size: 200px;
 }
 
 .user-icon-responsive{
@@ -81,6 +99,15 @@
   }
 }
 
+a{
+  color:@gold-color;
+    &:hover{
+      text-decoration: none;
+      color:@gold-color;
+    }
+
+  }
+
 
 #first-layer{
   display: none;
@@ -128,13 +155,6 @@
     height:auto;
     margin:0 auto;
     //font-size:@primary-size;
-  }
-  a{
-    &:hover{
-      text-decoration: none;
-      color:@gold-color;
-    }
-
   }
 }
 
