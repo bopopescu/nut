@@ -1143,7 +1143,8 @@ a:hover {
   margin-bottom: 32px;
 }
 #second-layer p:nth-child(even) {
-  margin-bottom: 0;
+  margin-bottom: 6px;
+  font-size: 20px;
 }
 #second-layer p:nth-child(odd) {
   width: 250px;
