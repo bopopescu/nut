@@ -56,51 +56,6 @@
   }
 }
 
-.happy-body{
-   font-size:@primary-size;
-  color: @gold-color;
- //padding-top:0px;
-  #first-bg-layer{
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background-size:cover;
-    background-position-x: center;
-    //background-position: center bottom;
-    background-repeat: no-repeat;
-    //background-color: #9c0a15;
-
-  }
-
-  #second-bg-layer{
-    display: none;
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background-size:cover;
-  }
-
-  .happy-layer{
-    position: relative;
-    text-align: center;
-  }
-}
-
-.happy-footer-wrapper{
-  width:100%;
-  height:auto;
-  position:fixed;
-  left:0;
-  bottom:30px;
-  a{
-    color:@gold-color;
-  }
-}
-
 a{
   color:@gold-color;
     &:hover{
@@ -110,6 +65,54 @@ a{
 
   }
 
+.happy-body{
+  font-size:@primary-size;
+  color: @gold-color;
+  //padding-top:0px;
+  background-color: @festival-red;
+
+  #first-bg-layer{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-size:cover;
+    background-position-x: center;
+    background-repeat: no-repeat;
+  }
+
+  #second-bg-layer{
+    display: none;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:500px;
+    background-size:cover;
+  }
+
+  .happy-layer{
+    width:100%;
+    height:500px;
+    position: relative;
+    text-align: center;
+    margin-bottom: 50px;
+
+  }
+
+  .happy-footer-wrapper{
+  width:100%;
+  height:30px;
+  //position:fixed;
+  //left:0;
+  //bottom:10px;
+  text-align: center;
+  a{
+    color:@gold-color;
+  }
+}
+}
 
 #first-layer{
   display: none;
@@ -131,6 +134,11 @@ a{
     height:45px;
     line-height: 45px;
       padding-bottom: 30px;
+
+      &::-webkit-input-placeholder{
+        color:rgba(182,71,77,1);
+        font-weight: 300;
+      }
     }
 
   }
@@ -149,7 +157,6 @@ a{
     margin-bottom: 32px;
   }
   p:nth-child(even){
-    //font-size: @title-size;
     margin-bottom: 6px;
     font-size:20px;
 
@@ -158,7 +165,6 @@ a{
     width:250px;
     height:auto;
     margin:0 auto;
-    //font-size:@primary-size;
   }
 }
 
@@ -190,6 +196,19 @@ a{
       padding:0;
     }
   }
+}
+
+@media (min-width: 768px){
+  body.happy-body{
+
+    background-color: @festival-red;
+
+  }
+}
+
+
+.test{
+  background: #000000;
 }
 
 
