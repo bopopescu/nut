@@ -44,9 +44,9 @@
         <h3 id="theme-title"></h3>
         <div class="form-wrapper">
             <form id="form" method="get" action="" onsubmit="return validate_form(this);">
-                <input type="text" name="username" id="username" placeholder="填写姓名">
+                <input type="text" name="username" id="username" placeholder="填写姓名" style="background-image: url({% static 'images/chunjie/underline.jpg' %})">
                 <input type="hidden" name="monkeyIndex" id="monkeyIndex" value="0">
-                <input type="submit" name="submit" class="happy-common-btn happy-btn-control" value="生成我的「猴」页">
+                <input type="submit" name="submit" class="happy-common-btn happy-btn-control create-btn" value="生成我的「猴」页" style="background-image: url({% static 'images/chunjie/create.jpg' %})">
             </form>
         </div>
 
