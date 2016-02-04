@@ -16,12 +16,14 @@ from django.utils.log import getLogger
 log = getLogger('django')
 
 
+
 APPID = 'wx7b445b01ad2bfe9e'
 APPSECRET = '37b28c446bd2187d99588ce85fc8b5a6'
 RedirectURI = 'http://www.guoku.com/weixin/auth/'
 
 AccessTokenURL = 'https://api.weixin.qq.com/sns/oauth2/access_token'
 UserInfoURL = 'https://api.weixin.qq.com/sns/userinfo'
+
 
 
 def get_user_info(access_token, openid):

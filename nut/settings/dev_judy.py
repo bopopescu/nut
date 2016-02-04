@@ -6,6 +6,7 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DEBUG = True
 TESTING = len(sys.argv) > 0 and sys.argv[0].endswith('py.test')
 CELERY_ALWAYS_EAGER = True
+CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
 
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
@@ -20,9 +21,12 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 import djcelery
 djcelery.setup_loader()
 
+# phantom
+PHANTOM_SERVER = 'http://192.168.99.100:5000/'
+
 # config of site in redis.
-config_redis_host = 'localhost'
-config_redis_port = 6379
+CONFIG_REDIS_HOST = 'localhost'
+CONFIG_REDIS_PORT = 6379
 
 CACHES = {
     "default": {
@@ -85,10 +89,9 @@ INTERVAL_OF_SELECTION = 24
 
 
 IMAGE_HOST = 'http://127.0.0.1:8000/'
-LOCAL_IMG_DEBUG=True
+MOGILEFS_MEDIA_URL = 'images/'
+LOCAL_IMG_DEBUG = True
 INTRANET_IMAGE_SERVER = 'http://127.0.0.1:8001/'
-LOCAL_IMG_DEBUG=True
-IMAGE_HOST = 'http://127.0.0.1:8000/'
 
 # mail
 MAIL_LIST_ADDR='test_edm'

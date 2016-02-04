@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, UpdateView
 from django.core.urlresolvers import reverse
-from django.forms import ModelForm ,BooleanField
+from django.forms import ModelForm ,BooleanField, HiddenInput
 
 from braces.views import AjaxResponseMixin,JSONResponseMixin, UserPassesTestMixin
 
@@ -17,44 +17,18 @@ from apps.core.views import LoginRequiredMixin
 from apps.core.mixins.views import SortMixin, FilterMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
+from apps.management.forms.users import UserAuthorInfoForm , UserAuthorSetForm
 
 from django.utils.log import getLogger
 log = getLogger('django')
 
 from rest_framework import generics
 
+
 class RESTfulUserListView(generics.ListCreateAPIView):
         queryset = GKUser.objects.all()
         serializer_class = GKUserSerializer
 
-class UserAuthorInfoForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(UserAuthorInfoForm, self).__init__(*args, **kwargs)
-        self.fields['weixin_id'].widget.attrs.update({'class':'form-control'})
-        self.fields['weixin_nick'].widget.attrs.update({'class':'form-control'})
-        self.fields['author_website'].widget.attrs.update({'class':'form-control'})
-        self.fields['weibo_id'].widget.attrs.update({'class':'form-control'})
-        self.fields['weibo_nick'].widget.attrs.update({'class':'form-control'})
-    class Meta:
-        model = Authorized_User_Profile
-        fields = [
-                  'weixin_id', 'weixin_nick','weixin_qrcode_img',\
-                  'author_website','weibo_id','weibo_nick'
-                  ]
-
-class UserAuthorSetForm(ModelForm):
-    isAuthor = BooleanField(required=False)
-    # http://stackoverflow.com/questions/31349584/appending-formdata-field-with-value-as-a-boolean-false-causes-the-function-to-fa
-    def __init__(self,*args, **kwargs):
-        super(UserAuthorSetForm, self).__init__(*args, **kwargs)
-
-    def save(self, commit=True):
-        _user = self.instance
-        _user.setAuthor(self.cleaned_data.get('isAuthor'))
-
-    class Meta:
-        model = GKUser
-        fields = ['isAuthor']
 
 class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):
     template_name = 'management/users/edit_author.html'
@@ -83,7 +57,6 @@ class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):
     def get_success_url(self):
         return reverse('management_user_edit' , args=[self.get_pk()])
 
-
     def get_context_data(self,*args, **kwargs):
         context = super(UserAuthorInfoEditView, self).get_context_data(*args, **kwargs)
         pk = self.get_pk()
@@ -91,11 +64,8 @@ class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):
         context['current_user'] = _user
         return context
 
-
     def test_func(self, user):
         return user.is_admin
-
-
 
 
 class UserAuthorSetView(UserPassesTestMixin,JSONResponseMixin, UpdateView):
@@ -111,7 +81,7 @@ class UserAuthorSetView(UserPassesTestMixin,JSONResponseMixin, UpdateView):
         return self.render_json_response({'error':1, 'message':'invalid form'}, status=500)
 
     def test_func(self,user):
-        return  user.is_admin
+        return user.is_admin
 
 
 class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListView):

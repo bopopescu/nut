@@ -108,6 +108,24 @@
   }
 }
 
+.inline-list{
+  list-style:none;
+  li{
+     float:left;
+     display: inline-block;
+     border:1px solid @border-gray;
+     border-radius: 40px;
+     margin-left: 10px;
+     padding-right:20px;
+  }
+}
+
+.author-list{
+   .username{
+      padding-top: 8px;
+   }
+}
+
 @media screen and(max-width: 767px){
   .box-body{
     //解决在小布局时,顶部单元格有缝隙的问题
@@ -141,5 +159,5 @@
 }
 
 #test{
-  color:red;
+  color:black;
 }
