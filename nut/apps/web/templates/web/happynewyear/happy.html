@@ -26,7 +26,7 @@
 {% block weixin_share_img %}
     <div id='wx_logo' style='margin:0 auto;display:none;'>
 {#    分享入口页面时展示的图片#}
-        <img src="{% static 'images/chunjie/mujihou.jpg' %}" />
+        <img src="{% static 'images/chunjie/entrance.jpg' %}" />
     </div>
 {% endblock %}
 
@@ -44,12 +44,17 @@
         <h3 id="theme-title"></h3>
         <div class="form-wrapper">
             <form id="form" method="get" action="" onsubmit="return validate_form(this);">
-                <input type="text" name="username" id="username" placeholder="输入名字">
+                <input type="text" name="username" id="username" placeholder="填写姓名">
                 <input type="hidden" name="monkeyIndex" id="monkeyIndex" value="0">
                 <input type="hidden" name="status" id="status" value="0">
                 <input type="submit" name="submit" class="happy-common-btn happy-btn-control" value="生成我的「猴」页">
             </form>
         </div>
+
+        <div class="happy-footer-wrapper">
+             <a href="guoku.com" target="_blank">guoku.com</a>
+        </div>
+
     </div>
 
     <div class="container-fluid happy-layer user-icon-responsive" id="second-layer">
@@ -58,9 +63,11 @@
 
          <button id="share" class="happy-common-btn happy-btn-control" onclick="shareToFriends()">分享给好友</button>
 
-{#        <a href="" target="_self" id="share" class="happy-common-btn happy-btn-control" >分享给好友</a>#}
+        <a href="" target="_self" id="go-back" class="happy-common-btn happy-btn-control">生成我的「猴」页</a>
 
-        <a href="" target="_self" id="go-back" class="happy-common-btn happy-btn-control">去看看</a>
+        <div class="happy-footer-wrapper">
+             <a href="guoku.com" target="_blank">guoku.com</a>
+        </div>
 
     </div>
 
@@ -85,19 +92,18 @@
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/web/site.js' %}"></script>
 
-{#    bootbox code#}
-    <script src="{% static 'js/web/bootbox.js' %}"></script>
-
-{#    <script src="{% static 'js/web/app/views/happy_new_year.js' %}"></script>#}
-
 {% endblock %}
 
 
 {% block script %}
+    {#    bootbox code#}
+    <script src="{% static 'js/web/bootbox.js' %}"></script>
+
     <script>
 
         (function() {
             var currentUserName = getQueryVariable("username");
+            var monkeyLists = ["01-MK","02-MK","03-MK","04-MK","05-MK"];
             var i = parseInt(getQueryVariable("monkeyIndex"));
             var currentStatus = getQueryVariable("status");
             var goback = document.getElementById("go-back");
@@ -130,40 +136,29 @@
                 firstBgLayer.style.display = "none";
                 secondBgLayer.style.display = "block";
 
-                var monkeyName,wish,monkeyIntro;
-                var monkeyLists = ["kangkang","bingshenhou","noritake","fuluhou","mujihou"];
+                var wish;
                 var currentMonkey = document.createElement('img');
 
                 switch (i) {
                     case 0:
-                        monkeyName="康康";
-                        monkeyIntro = "来自某某笔下的猴";
-                        wish="「回顾旧日的生活经历，描绘新年的美好愿景。」";
+                        wish="新年「猴」厉害！";
                         break;
                     case 1:
-                        monkeyName="丙申猴";
-                        monkeyIntro = "来自某某笔下的猴";
-                        wish="「回顾旧日的生活经历，描绘新年的美好愿景。」";
+                        wish="「猴」来，学会如何去爱…";
                         break;
                     case 2:
-                        monkeyName="noritake";
-                        monkeyIntro = "来自某某笔下的猴";
-                        wish="「回顾旧日的生活经历，描绘新年的美好愿景。」";
+                        wish="阖家幸福，「猴」开森！";
                         break;
                     case 3:
-                        monkeyName="福禄猴";
-                        monkeyIntro = "来自某某笔下的猴";
-                        wish="「回顾旧日的生活经历，描绘新年的美好愿景。」";
+                        wish="「猴」运当头，兴旺发财！";
                         break;
                     case 4:
-                        monkeyName="奇怪猴";
-                        monkeyIntro = "来自MUJI中国官网的猴";
-                        wish="「回顾旧日的生活经历，描绘新年的美好愿景。」";
+                        wish="亲友相聚，「猴猴」哈嘿！";
                         break;
                 }
-                currentMonkey.src = "{% static 'images/chunjie/'%}"+monkeyLists[i]+".jpg";
+                currentMonkey.src = "{% static 'images/chunjie/'%}"+monkeyLists[i]+".gif";
                 var currentIntro = document.createElement('p');
-                var introNode = document.createTextNode(currentUserName+"派来一只"+monkeyName+"给您送祝福");
+                var introNode = document.createTextNode("["+currentUserName+"]"+"领猴子猴狲们齐拜年!");
                 currentIntro.appendChild(introNode);
                 var decoration = document.createTextNode('──');
                 var currentWish = document.createElement('p');
@@ -192,7 +187,7 @@
 
 {#               begin  动态修改微信浏览器中的title#}
                 var $body = $('body');
-                document.title = currentUserName + "派来一只" + monkeyName +"给您拜年咯!";
+                document.title = "["+currentUserName+"]"+"领猴子猴狲们齐拜年!";
                 var $iframe = $('<iframe src="/favicon.ico"></iframe>');
                 $iframe.on('load',function() {
                     setTimeout(function() {
@@ -206,7 +201,8 @@
             if(currentStatus ==1){
                 var shareBtn = document.getElementById("share");
                 shareBtn.style.display = "block";
-                goback.style.display = "none";
+                goback.innerHTML = "再来一次"
+                goback.style.display = "block";
             }
         })();
 
@@ -238,7 +234,7 @@
                 return false;
             }
             else{
-                var monkeyLists = ["kangkang","bingshenhou","noritake","fuluhou","mujihou"];
+                var monkeyLists = ["01-MK","02-MK","03-MK","04-MK","05-MK"];
                 var i = Math.floor(Math.random() * monkeyLists.length+ 1)-1;
                 monkeyIndex.value = i;
             }

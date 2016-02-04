@@ -1023,7 +1023,6 @@ p.boolean-false {
   margin: 0 auto;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
 }
 .happy-body #first-bg-layer {
   position: absolute;
@@ -1047,6 +1046,17 @@ p.boolean-false {
 .happy-body .happy-layer {
   position: relative;
   text-align: center;
+}
+.happy-footer-wrapper {
+  width: 100%;
+  height: auto;
+  position: fixed;
+  left: 0;
+  bottom: 5px;
+}
+.happy-footer-wrapper a {
+  font-size: 13px;
+  color: #9d9d9d;
 }
 #first-layer {
   display: none;
