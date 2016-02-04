@@ -318,6 +318,7 @@
       }
     }
   }
+
 }
 
 .main-article{
@@ -364,8 +365,37 @@
 
      }
   }
+  .writer-wrapper{
+    .author-info{
+       .user-icon{
+         .user-icon-middle;
+       }
+       .user-title{
+         font-weight: 600;
+       }
+       .user-title, .user-bio{
+          margin-top: 5px;
+          text-align:center;
+       }
+       .user-bio{
+          .bio-block{
+            display:block;
+            width: 70%;
+            max-width:300px;
+            margin:0 auto ;
+
+          }
+          font-size:@smaller-primary;
+       }
+    }
+  }
   .divider{
     margin:30px 0px;
+  }
+  .disclaimer{
+      font-size:@smaller-primary;
+    color: @common-gray;
+    float:right;
   }
 
 
@@ -377,12 +407,17 @@
 }
 
 .mobile-body{
+  padding-bottom: 20px!important;
   &.article-list-body, &.article-body{
     padding-top: 0px!important;
   }
   #main_article{
+    .share-wrapper{
+       display: none;
+    }
     .writer-wrapper{
-      padding-bottom:20px;
+      padding-bottom:0px;
+      padding-top:0px;
     }
   }
 }

@@ -74,9 +74,6 @@ class SellerForm(ModelForm):
         return url
 
 
-
-
-
     def handle_related_article_url(self):
 
         url = self.cleaned_data.get('related_article_url')

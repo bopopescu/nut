@@ -1,5 +1,5 @@
 {% load common %}
 
 {{ object.title }}
-{{ object|article_tag_string }}
+{{ object.tags_string }}
 {{ object.content|striptags|safe }}

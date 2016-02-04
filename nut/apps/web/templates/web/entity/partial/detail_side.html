@@ -28,6 +28,12 @@
                             </a>
 
                             <div class="writer-bio">
+                                         {% if article.creator.is_authorized_author %}
+                                            <span class="weixin-id" style="line-height:30px;">
+                                            微信号：{{ article.creator.authorized_profile.weixin_id }}
+                                            </span>
+                                            <br>
+                                        {% endif %}
                                 {{ article.creator.profile.bio|truncatechars:60 }}
                             </div>
                         </div>

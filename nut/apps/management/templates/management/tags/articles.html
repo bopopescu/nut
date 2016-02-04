@@ -44,7 +44,7 @@
                                         <td>{{ row.target.updated_datetime|format_time}}</td>
                                         <td>
                                             <div class="btn-group">
-                                                <a class="btn btn-default" href="{% url 'management_article_edit' row.target.pk %}" target="_blank">{% trans 'edit' %}</a>
+                                                <a class="btn btn-default" href="{% url 'management_article_edit' row.target.pk %}?prev={{ request.path|urlencode }}" target="_blank">{% trans 'edit' %}</a>
                                                 <a class="btn btn-success" href="{% url 'web_article_page' row.target.pk %}" target="_blank">{% trans 'goto' %}</a>
                                             </div>
                                         </td>

@@ -1,3 +1,102 @@
+2. disable like action for search result 
+1. fix rss bug
+
+=================================
+=================================
+### merged to master 2016 － 2 － 1
+=================================
+=================================
+
+3. category entity list item style update
+2. fix Article model created_datetime auto_add 
+1. article writer bio update
+
+
+=================================
+=================================
+### merged to master 2016 － 1 － 27
+=================================
+=================================
+
+### fix can not create article error:
+
+#action
+
+    ALTER TABLE `core`.`core_article` DROP INDEX `cleaned_title_UNIQUE` ;
+
+
+7. article mobile page css adjust 
+6. add a cookie store for sogou spider use 
+-----------------------
+5. article mng list page change
+4. article mng edit page change 
+3. entity liker list and fan following list template fix 
+2. download page url , without ending slash , access 
+1. hide deleted user in user fan/following list 
+
+#action 
+ need sync db 
+ 
+ 
+ need  manage.py compilemessages 
+ need  restart server  (new translation items )
+ 
+ 
+ ###action
+
+    sudo pip install fake-factory
+
+    ALTER TABLE `core`.`core_authorized_user_profile` 
+    ADD COLUMN `weixin_openid` VARCHAR(255) NULL COMMENT '' AFTER `weibo_nick`;
+   
+    ALTER TABLE `core`.`core_article` 
+    ADD COLUMN `cleaned_title` VARCHAR(255) NULL COMMENT '' AFTER `feed_read_count`,
+    ADD UNIQUE INDEX `cleaned_title_UNIQUE` (`cleaned_title` ASC)  COMMENT '';
+    
+
+##2016-02-22 Fetch wixin articles
+
+ 
+
+
+=================================
+=================================
+### merged to master 2016 － 1 － 21
+=================================
+=================================
+
+5. minor fix 
+    (pc article page add ga, xs screen article pic cross full screen)
+
+4. add a field on authorized user profile 
+
+3. Entity 's related Selection Article 
+
+   Entity has a property: 
+                selected_related_articles
+   contains all Entity's related Selection_Article instance  (NOT Article!)
+                published before called time
+
+2. add tags_string  property for Article model
+   
+   Article.tags_string 
+      : get Articles Tag joined into a string by ',' 
+   
+1. still hide baichuan recommend
+
+
+##action
+
+ALTER TABLE `core`.`core_authorized_user_profile` 
+ADD COLUMN `personal_domain_name` VARCHAR(64) NULL DEFAULT NULL AFTER `weibo_nick`;
+
+
+
+=================================
+=================================
+### merged to master 2016 － 1 － 18
+=================================
+=================================
 
 5. use CBV for user list 
 4. user list search

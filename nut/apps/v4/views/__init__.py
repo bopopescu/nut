@@ -51,7 +51,14 @@ def decorate_taobao_url(url, ttid=None, sid=None, outer_code=None, sche=None):
     return url
 
 
-class HomeView(BaseJsonView):
+class APIJsonView(BaseJsonView):
+
+    @check_sign
+    def dispatch(self, request, *args, **kwargs):
+        return super(APIJsonView, self).dispatch(request, *args, **kwargs)
+
+
+class HomeView(APIJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
@@ -107,12 +114,12 @@ class HomeView(BaseJsonView):
 
         return super(HomeView, self).get(request, *args, **kwargs)
 
-    @check_sign
-    def dispatch(self, request, *args, **kwargs):
-        return super(HomeView, self).dispatch(request, *args, **kwargs)
+    # @check_sign
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(HomeView, self).dispatch(request, *args, **kwargs)
 
 
-class DiscoverView(BaseJsonView):
+class DiscoverView(APIJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
@@ -255,7 +262,7 @@ def selection(request):
         _session = Session_Key.objects.get(session_key=_key)
         # log.info("session %s" % _session)
         el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(ids))
-        # log.info(_session.session_key)
+        log.info(_session.session_key)
         Selection_Entity.objects.set_user_refresh_datetime(session=_session.session_key)
     except Session_Key.DoesNotExist, e:
         # log.info(e.message)
@@ -267,8 +274,7 @@ def selection(request):
         # if (selection.entity.tio)
         r = {
             'entity':selection.entity.v3_toDict(user_like_list=el),
-            # 'note':selection.entity.top_note.v3_toDict(),
-            'note': None
+            'note':selection.entity.top_note.v3_toDict(),
         }
 
         res.append({
@@ -359,12 +365,12 @@ def visit_item(request, item_id):
     _outer_code = request.GET.get("outer_code", None)
     _sche = request.GET.get("sche", None)
 
-    b = Buy_Link.objects.filter(origin_id=item_id)[0]
+    b = Buy_Link.objects.filter(origin_id=item_id).first()
 
     if "taobao.com" in b.origin_source:
-        _taobaoke_info = taobaoke_mobile_item_convert(b.origin_id)
-        if _taobaoke_info and _taobaoke_info.has_key('click_url'):
-            return HttpResponseRedirect(decorate_taobao_url(_taobaoke_info['click_url'], _ttid, _sid, _outer_code, _sche))
+        # _taobaoke_info = taobaoke_mobile_item_convert(b.origin_id)
+        # if _taobaoke_info and _taobaoke_info.has_key('click_url'):
+        #     return HttpResponseRedirect(decorate_taobao_url(_taobaoke_info['click_url'], _ttid, _sid, _outer_code, _sche))
         return HttpResponseRedirect(decorate_taobao_url(get_taobao_url(b.origin_id, True), _ttid, _sid, _outer_code, _sche))
     if "jd.com" in b.origin_source:
         _jd_url = "http://item.m.jd.com/product/%s.html" % b.origin_id

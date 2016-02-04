@@ -20,23 +20,12 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, Group
+
+from apps.fetch.common import clean_title
 from apps.notifications import notify
 from apps.core.utils.image import HandleImage
 from apps.core.utils.articlecontent import contentBleacher
 from apps.core.extend.fields.listfield import ListObjectField
-# from apps.core.manager.account import GKUserManager
-# from apps.core.manager.entity import SelectionEntityManager
-# from apps.core.manager.entity import EntityLikeManager
-# from apps.core.manager.entity import EntityManager
-# from apps.core.manager.note import NoteManager, NotePokeManager
-# from apps.core.manager.category import SubCategoryManager
-# from apps.core.manager.category import CategoryManager
-# from apps.core.manager.comment import CommentManager
-# from apps.core.manager.event import ShowEventBannerManager
-# from apps.core.manager.article import SelectionArticleManager
-# from apps.core.manager.article import ArticleManager
-# from apps.core.manager.article import ArticleDigManager
-# from apps.core.manager.sidebar_banner import SidebarBannerManager
 from apps.web.utils.datatools import get_entity_list_from_article_content
 from apps.core.manager import *
 
@@ -322,7 +311,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         self.is_admin = True
         self.save()
 
-
     def v3_toDict(self, visitor=None):
         key = "user:v3:%s" % self.id
         res = cache.get(key)
@@ -354,6 +342,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
                 log.error("Error: user id %s %s", (self.id, e.message))
             cache.set(key, res, timeout=86400)
 
+        res['mail_verified'] = self.profile.email_verified
         res['like_count'] = self.like_count
         res['entity_note_count'] = self.post_note_count
         res['tag_count'] = self.tags_count
@@ -370,6 +359,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             res['taobao_nick'] = self.taobao.screen_name
             res['taobao_token_expires_in'] = self.taobao.expires_in
         except Taobao_Token.DoesNotExist, e:
+            log.info("info: %s", e.message)
+
+        try:
+            res['wechat_nick'] = self.weixin.nickname
+        except WeChat_Token.DoesNotExist, e:
             log.info("info: %s", e.message)
 
         if visitor:
@@ -394,7 +388,12 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return author_group
 
     def refresh_user_permission(self):
+        # TODO:  refresh user permission cache here
         pass
+
+    @property
+    def is_authorized_author(self):
+        return self.has_author_group()
 
     def setAuthor(self, isAuthor):
         author_group = self.get_author_group()
@@ -404,10 +403,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             self.groups.remove(author_group)
 
         self.refresh_user_permission()
-
-
-
-
 
     def save(self, *args, **kwargs):
         #TODO  @huanghuang refactor following email related lines into a subroutine
@@ -432,10 +427,12 @@ class Authorized_User_Profile(BaseModel):
     # see  日常开发文档－》授权图文用户
     weixin_id = models.CharField(max_length=255, null=True, blank=True)
     weixin_nick = models.CharField(max_length=255, null=True, blank=True)
+    weixin_openid = models.CharField(max_length=255, null=True, blank=True)
     weixin_qrcode_img = models.CharField(max_length=255, null=True, blank=True)
     author_website = models.CharField(max_length=1024, null=True, blank=True)
     weibo_id = models.CharField(max_length=255, null=True, blank=True)
     weibo_nick = models.CharField(max_length=255, null=True, blank=True)
+    personal_domain_name = models.CharField(max_length=64, null=True, blank=True)
 
 
 class User_Profile(BaseModel):
@@ -1280,11 +1277,11 @@ class Article(BaseModel):
 
     creator = models.ForeignKey(GKUser, related_name="articles")
     title = models.CharField(max_length=64)
+    cleaned_title = models.TextField(null=True, blank=True)
     cover = models.CharField(max_length=255, blank=True)
     content = models.TextField()
     publish = models.IntegerField(choices=ARTICLE_STATUS_CHOICES, default=draft)
-    created_datetime = models.DateTimeField(auto_now_add=True, db_index=True,
-                                            null=True, editable=False)
+    created_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True)
     updated_datetime = models.DateTimeField()
     showcover = models.BooleanField(default=False)
     read_count = models.IntegerField(default=0)
@@ -1300,6 +1297,7 @@ class Article(BaseModel):
 
     def get_dig_key(self):
         return 'article:dig:%d' % self.pk
+
 
     @property
     def dig_count(self):
@@ -1327,13 +1325,14 @@ class Article(BaseModel):
         except Exception:
             cache.set(key, self.digs.count())
 
-
     def __unicode__(self):
         return self.title
 
     def save(self, *args, **kwargs):
         if not kwargs.pop('skip_updatetime', False):
             self.updated_datetime = datetime.now()
+        if not self.cleaned_title:
+            self.cleaned_title = clean_title(self.title)
         res = super(Article, self).save(*args, **kwargs)
         # add article related entities,
         hash_list = get_entity_list_from_article_content(self.content)
@@ -1348,6 +1347,10 @@ class Article(BaseModel):
     def tag_list(self):
         _tag_list = Content_Tags.objects.article_tags(self.id)
         return _tag_list
+
+    @property
+    def tags_string(self):
+        return ','.join(self.tag_list)
 
     @property
     def bleached_content(self):
