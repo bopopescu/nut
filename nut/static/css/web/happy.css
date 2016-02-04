@@ -1034,10 +1034,10 @@ p.boolean-false {
   margin-right: 10px;
 }
 #go-back {
-  width: 225px;
-  height: 100px;
-  line-height: 100px;
-  background-size: 150px;
+  width: 200px;
+  height: 50px;
+  line-height: 50px;
+  background-size: 200px;
 }
 .user-icon-responsive img {
   display: block;
