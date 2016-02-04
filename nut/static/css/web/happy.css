@@ -1030,10 +1030,9 @@ p.boolean-false {
   left: 0;
   width: 100%;
   height: 100%;
-  background-size: contain;
-  background-position: center bottom;
+  background-size: cover;
+  background-position-x: center;
   background-repeat: no-repeat;
-  background-color: #9c0a15;
 }
 .happy-body #second-bg-layer {
   display: none;
