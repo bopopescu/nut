@@ -1,32 +1,71 @@
 {% load i18n staticfiles %}
 {% load notifications_tags %}
 {% load flink_tags %}
-<footer class="footer" id="guoku_footer">
+<footer class="footer new-footer" id="guoku_footer">
         <div class="container">
-            <div class="row footer-main">
-                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 footer-part logo-wrapper">
-                    <div class="footer-content">
-                        <a href="{% url 'web_home' %}">
-                        <img class="main-logo" src="{% static 'images/footer/logo.png' %}" width="69px"/>
-                        </a>
-                    </div>
+
+             <div class="row footer-bottom shares-wrapper">
+                <div class="footer-bottom-right footer-bottom-right-control">
+                    <ul class="logo-list">
+                        <li class="wechat-share-wrapper">
+                            <a class="font-logo-link logo-wechat font-logo-link-control">
+                                <i class="fa fa-wechat" ></i>
+                                <div class="wechat-qrcode-wrapper display-toggle">
+                                  <img src="{%  static 'images/footer/QR-code.jpg' %}" class="wechat-qrcode-img">
+                                  <div class="wechat-qr-text">微信公众平台</div>
+                                  <span class="bottom-bot"></span>
+                            </div>
+                            </a>
+{#                            <div class="wechat-qrcode-wrapper display-toggle">#}
+{#                                <img src="{%  static 'images/footer/QR-code.jpg' %}" class="wechat-qrcode-img">#}
+{#                                <div class="wechat-qr-text">微信公众平台</div>#}
+{#                                <span class="bottom-bot"></span>#}
+{#                            </div>#}
+                        </li>
+                        <li><a class="font-logo-link logo-weibo font-logo-link-control" href="http://weibo.com/guoku" target="_blank"><i class="fa fa-weibo" ></i></a></li>
+                        <li><a class="img-logo-link font-logo-link-control" href="http://site.douban.com/130280/" target="_blank"><img src="{% static 'images/footer/douban.png' %}"></a></li>
+                        <li><a class="font-logo-link logo-twitter font-logo-link-control" href="http://twitter.com/guokuapp" target="_blank"><i class="fa fa-twitter" ></i></a></li>
+                        <li><a class="font-logo-link logo-facebook font-logo-link-control" href="http://www.facebook.com/172009339558352" target="_blank"><i class="fa fa-facebook" ></i></a></li>
+                        <li><a class="font-logo-link logo-instagram font-logo-link-control" href="http://instagram.com/guoku/" target="_blank"><i class="fa fa-instagram" ></i></a></li>
+                    </ul>
                 </div>
-                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 footer-part">
-                    <div class="list-wrapper">
+            </div>
+
+            <div class="row footer-main">
+{#                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 footer-part logo-wrapper">#}
+{#                    <div class="footer-content">#}
+{#                        <a href="{% url 'web_home' %}">#}
+{#                        <img class="main-logo" src="{% static 'images/footer/logo.png' %}" width="69px"/>#}
+{#                        </a>#}
+{#                    </div>#}
+{#                </div>#}
+
+{#                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 footer-part">#}
+                <div class="col-xs-12 footer-part foot-part-control">
+                    <div class="list-wrapper list-wrapper-align-center">
                         <ul>
-                            <li><a href="{% url 'web_about' %}" target="_blank">{% trans 'about' %}</a></li>
-                            <li><a href="{% url 'web_jobs' %}" target="_blank">{% trans 'jobs' %}</a></li>
-                            <li><a href="{% url 'web_faq' %}" target="_blank">{% trans 'faq' %}</a></li>
-                            <li><a href="{% url 'web_agreement' %}" target="_blank">{% trans 'agreement' %}</a></li>
-                            <li><a href="{% url 'web_sitemap_url' %}" target="_blank">{% trans 'sitemap' %}</a></li>
+                            <li><a href="{% url 'web_about' %}" target="_blank">关于果库</a></li>
+{#                          <li><a href="{% url 'web_about' %}" target="_blank">{% trans 'about' %}</a></li>#}
+
                             <li><a href="{% url 'web_download' %}" target="_blank">{% trans 'Download App' %}</a></li>
+                            <li><a href="{% url 'web_agreement' %}" target="_blank">{% trans 'agreement' %}</a></li>
+
+                            <li><a href="{% url 'web_jobs' %}" target="_blank">工作机会</a></li>
+{#                          <li><a href="{% url 'web_jobs' %}" target="_blank">{% trans 'jobs' %}</a></li>#}
+
+                            <li><a href="{% url 'web_faq' %}" target="_blank">{% trans 'faq' %}</a></li>
+                            <li><a href="mailto:hi@guoku.com" target="_blank">意见反馈</a></li>
+                            <li><a href="{% url 'web_links' %}" target="_blank">友情链接</a></li>
+
+{#                          <li><a href="{% url 'web_sitemap_url' %}" target="_blank">{% trans 'sitemap' %}</a></li>#}
+
                         </ul>
                     </div>
-                    <div class="list-wrapper">
-                        <ul>
-                            <li class="feed-back-text"><span>意见反馈 :</span> <a href="mailto:hi@guoku.com">hi@guoku.com</a></li>
-                        </ul>
-                    </div>
+{#                    <div class="list-wrapper">#}
+{#                        <ul>#}
+{#                            <li class="feed-back-text"><span>意见反馈 :</span> <a href="mailto:hi@guoku.com">hi@guoku.com</a></li>#}
+{#                        </ul>#}
+{#                    </div>#}
 
 {#                    <div class="container-fluid footer-columns">#}
 {#                        <div class="row">#}
@@ -68,7 +107,7 @@
 {#                        </div>#}
 {#                    </div>#}
                 </div>
-                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 footer-part qr-container">
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 footer-part qr-container qr-container-hidden">
                      <div class="qr-wrapper">
                          <img src="{%  static 'images/footer/QR-code.jpg' %}" width="80px">
                          <div class="qr-text">扫描关注微信公众平台</div>
@@ -86,7 +125,7 @@
 {#                    </div>#}
                 </div>
             </div>
-            <div class="row footer-line">
+            <div class="row footer-line footer-line-hidden">
 
                 <div class="list-wrapper">
                         <ul id="flink_list">
@@ -99,21 +138,14 @@
                     </div>
 
             </div>
-            <div class="row footer-bottom">
-                <div class="footer-bottom-left">
+
+
+            <div class="row footer-bottom copyright-info-wrapper">
+                <div class="footer-bottom-left footer-bottom-left-show">
                     <ul>
-                      <li>@ 果库 2015</li>
+                      <li>© 2016 果库</li>
                       <li><a target="_blank" href="http://www.miibeian.gov.cn/">京ICP备14054029号</a></li>
                       <li>京公网安备11010502019958</li>
-                    </ul>
-                </div>
-                <div class="footer-bottom-right">
-                    <ul class="logo-list">
-                        <li><a class="font-logo-link logo-weibo" href="http://weibo.com/guoku" target="_blank"><i class="fa fa-weibo" ></i></a></li>
-                        <li><a class="img-logo-link" href="http://site.douban.com/130280/" target="_blank"><img src="{% static 'images/footer/douban.png' %}"></a></li>
-                        <li><a class="font-logo-link logo-twitter" href="http://twitter.com/guokuapp" target="_blank"><i class="fa fa-twitter" ></i></a></li>
-                        <li><a class="font-logo-link logo-facebook" href="http://www.facebook.com/172009339558352" target="_blank"><i class="fa fa-facebook" ></i></a></li>
-                        <li><a class="font-logo-link logo-instagram" href="http://instagram.com/guoku/" target="_blank"><i class="fa fa-instagram" ></i></a></li>
                     </ul>
                 </div>
             </div>
