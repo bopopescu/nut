@@ -1121,6 +1121,7 @@ a:hover {
   margin-top: 30px;
 }
 #first-layer .form-wrapper #username {
+  background-size: 100%;
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: bottom;
