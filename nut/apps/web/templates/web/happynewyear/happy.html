@@ -58,7 +58,7 @@
 
     <div class="container-fluid happy-layer user-icon-responsive" id="second-layer">
 
-          <a href="" target="_self" id="go-back" class="happy-common-btn happy-btn-control share-btn" style="background-image: url({% static 'images/chunjie/common-btn.jpg' %})">生成我的「猴」页</a>
+          <a href="" target="_self" id="go-back" class="happy-common-btn happy-btn-control share-btn" style="background-image: url({% static 'images/chunjie/create.jpg' %})">生成我的「猴」页</a>
 
          <button id="share" class="happy-common-btn happy-btn-control share-btn" onclick="shareToFriends()" style="background-image: url({% static 'images/chunjie/common-btn.jpg' %})">分享</button>
 
@@ -198,6 +198,7 @@
                 shareBtn.style.display = "inline-block";
                 goback.innerHTML = "再来一次"
                 goback.style.display = "inline-block";
+                goback.style.backgroundImage = "url({% static 'images/chunjie/common-btn.jpg' %}";
                 goback.style.width = "100px";
                 goback.style.height = "60px";
                 goback.style.lineHeight = "60px";
