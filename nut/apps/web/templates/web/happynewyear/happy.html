@@ -56,7 +56,7 @@
 
 {#        <button id="share" class="happy-common-btn happy-btn-control" onclick="bootbox.alert('点击又上角分享给好友吧')">分享给好友</button>#}
 
-         <button id="share" class="happy-common-btn happy-btn-control">分享给好友</button>
+         <button id="share" class="happy-common-btn happy-btn-control" onclick="shareToFriends()">分享给好友</button>
 
 {#        <a href="" target="_self" id="share" class="happy-common-btn happy-btn-control" >分享给好友</a>#}
 
@@ -87,21 +87,14 @@
 
 {#    bootbox code#}
     <script src="{% static 'js/web/bootbox.js' %}"></script>
-    <script src="{% static 'js/web/app/views/happy_new_year.js' %}"></script>
+
+{#    <script src="{% static 'js/web/app/views/happy_new_year.js' %}"></script>#}
 
 {% endblock %}
 
 
 {% block script %}
     <script>
-
-{#    begin add share dialog#}
-{#$("#share").on("click", ".alert", function(e) {#}
-{#            bootbox.alert("share with your friends", function() {#}
-{#                console.log("Alert Callback");#}
-{#            });#}
-{#        });#}
-{#end add #}
 
         (function() {
             var currentUserName = getQueryVariable("username");
@@ -249,6 +242,22 @@
                 var i = Math.floor(Math.random() * monkeyLists.length+ 1)-1;
                 monkeyIndex.value = i;
             }
+        }
+
+        function shareToFriends(){
+
+             bootbox.hideAll();
+             bootbox.dialog({
+                title: '分享给好友',
+                onEscape: true,
+                backdrop:true,
+                closeButton: true,
+                animate: true,
+                className: 'share-friends-dialog',
+                message: $('#share_friends_modal_content').html(),
+
+            });
+
         }
 
     </script>
