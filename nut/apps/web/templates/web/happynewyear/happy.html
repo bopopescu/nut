@@ -101,7 +101,7 @@
 
         (function() {
             var currentUserName = getQueryVariable("username");
-            var monkeyLists = ["01-MK","02-MK","03-MK","04-MK","05-MK"];
+            var monkeyLists = ["01-MK","02-MK","03-MK","04-MK","05-MK","06-MK","07-MK","08-MK"];
             var i = parseInt(getQueryVariable("monkeyIndex"));
             var currentStatus = 0;
             var goback = document.getElementById("go-back");
@@ -135,19 +135,28 @@
 
                 switch (i) {
                     case 0:
-                        wish="新年「猴」厉害！";
+                        wish="01-note";
                         break;
                     case 1:
-                        wish="「猴」来，学会如何去爱…";
+                        wish="02-note";
                         break;
                     case 2:
-                        wish="阖家幸福，「猴」开森！";
+                         wish="03-note";
                         break;
                     case 3:
-                        wish="「猴」运当头，兴旺发财！";
+                         wish="04-note";
                         break;
                     case 4:
-                        wish="亲友相聚，「猴猴」哈嘿！";
+                         wish="05-note";
+                        break;
+                     case 5:
+                         wish="06-note";
+                        break;
+                    case 6:
+                         wish="07-note";
+                        break;
+                    case 7:
+                         wish="08-note";
                         break;
                 }
                 currentMonkey.src = "{% static 'images/chunjie/'%}"+monkeyLists[i]+".gif";
@@ -155,9 +164,13 @@
                 var introNode = document.createTextNode("["+currentUserName+"]"+" 领猴子猴孙们齐拜年!");
                 currentIntro.appendChild(introNode);
                 var decoration = document.createTextNode('祝你:');
-                var currentWish = document.createElement('p');
-                var wishNode = document.createTextNode(wish);
-                currentWish.appendChild(wishNode);
+                var currentWish = document.createElement('img');
+                currentWish.src= "{% static 'images/chunjie/'%}"+wish+".jpg";
+
+                currentWish.style.width = "250px";
+                currentWish.style.height = "auto";
+                currentWish.style.marginTop = "10px";
+
 
 {#                document.referrer在微信朋友圈打开时,是不能回退的.因为不是通过一个超链接打开 T T #}
 {#If the current document was not opened through a link (for example, through a bookmark), an empty string is returned.#}
@@ -235,7 +248,7 @@
                 return false;
             }
             else{
-                var monkeyLists = ["01-MK","02-MK","03-MK","04-MK","05-MK"];
+                var monkeyLists = ["01-MK","02-MK","03-MK","04-MK","05-MK","06-MK","07-MK","08-MK"];
                 var i = Math.floor(Math.random() * monkeyLists.length+ 1)-1;
                 monkeyIndex.value = i;
             }
