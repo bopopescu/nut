@@ -1036,7 +1036,7 @@ p.boolean-false {
 }
 .happy-btn-control {
   margin: 0 auto;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 .create-btn {
   background-size: 200px;
@@ -1140,7 +1140,7 @@ a:hover {
   display: none;
 }
 #second-layer img {
-  margin-bottom: 16px;
+  margin-bottom: 32px;
 }
 #second-layer p:nth-child(even) {
   margin-bottom: 0;
