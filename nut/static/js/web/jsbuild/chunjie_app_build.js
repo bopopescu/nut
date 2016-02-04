@@ -187,13 +187,34 @@ define('subapp/chunjie/chunjie',['libs/Class'], function(
     var ChunjieApp = Class.extend({
         init: function(){
             console.log('chunjieApp init');
-        }
+            this.configWX();
+            wx.ready(function(){
+                alert('wx ready');
+            });
+
+        },
+        configWX: function(){
+            wx.config({
+                debug: true,
+                appId: signature_obj.appid,
+                timestamp: signature_obj.timestamp,
+                nonceStr : signature_obj.noncestr,
+                signature : signature_obj.signature,
+                jsApiList: ['onMenuShareTimeline',
+                            'onMenuShareAppMessage',
+                            'onMenuShareWeibo',
+                            'hideOptionMenu',
+                            'showOptionMenu'
+                ]
+
+            });
+        },
     });
 
     return ChunjieApp;
 });
 require(['jquery', 'subapp/chunjie/chunjie'], function($,Chunjie){
-    var chunjie_app_controller = new Chunjie();
+    var chunjie_app = new Chunjie();
     console.log('chunjie start');
 });
 
