@@ -161,7 +161,7 @@
                 }
                 currentMonkey.src = "{% static 'images/chunjie/'%}"+monkeyLists[i]+".gif";
                 var currentIntro = document.createElement('p');
-                var introNode = document.createTextNode("["+currentUserName+"]"+" 领猴子猴孙们齐拜年!");
+                var introNode = document.createTextNode(currentUserName+" 领猴子猴孙们齐拜年!");
                 currentIntro.appendChild(introNode);
                 var decoration = document.createTextNode('祝你:');
                 var currentWish = document.createElement('img');
@@ -195,7 +195,7 @@
 
 {#               begin  动态修改微信浏览器中的title#}
                 var $body = $('body');
-                document.title = "["+currentUserName+"]"+" 领猴子猴孙们齐拜年!";
+                document.title = currentUserName+" 领猴子猴孙们齐拜年!";
                 var $iframe = $('<iframe src="/favicon.ico"></iframe>');
                 $iframe.on('load',function() {
                     setTimeout(function() {
