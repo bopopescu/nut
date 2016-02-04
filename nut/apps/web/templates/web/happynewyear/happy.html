@@ -73,7 +73,7 @@
     <script type="text/html" id="share_friends_modal_content">
         <div class="share-modal-wrapper share-modal-wrapper-control">
             <div class="tips-wrapper tips-control">
-                <img src="{% static 'images/chunjie/share.png' %}" width="200px" height="200px"/>
+                <img src="{% static 'images/chunjie/share.png' %}" width="200px" height="89px"/>
             </div>
         </div>
     </script>
@@ -174,7 +174,7 @@
                 }
                 currentMonkey.src = "{% static 'images/chunjie/'%}"+monkeyLists[i]+".gif";
                 var currentIntro = document.createElement('p');
-                var introNode = document.createTextNode("["+currentUserName+"]"+" 领猴子猴孙们齐拜年!");
+                var introNode = document.createTextNode(currentUserName+" 领猴子猴孙们齐拜年!");
                 currentIntro.appendChild(introNode);
                 var decoration = document.createTextNode('祝你:');
                 var currentWish = document.createElement('img');
@@ -208,7 +208,7 @@
 
 {#               begin  动态修改微信浏览器中的title#}
                 var $body = $('body');
-                document.title = "["+currentUserName+"]"+" 领猴子猴孙们齐拜年!";
+                document.title = currentUserName+" 领猴子猴孙们齐拜年!";
                 var $iframe = $('<iframe src="/favicon.ico"></iframe>');
                 $iframe.on('load',function() {
                     setTimeout(function() {
@@ -224,7 +224,7 @@
                 shareBtn.style.display = "inline-block";
                 goback.innerHTML = "再来一次"
                 goback.style.display = "inline-block";
-                goback.style.backgroundImage = "url({% static 'images/chunjie/common-btn.jpg' %}";
+                goback.style.backgroundImage = "url({% static 'images/chunjie/common-btn.jpg' %})";
                 goback.style.width = "100px";
                 goback.style.height = "60px";
                 goback.style.lineHeight = "60px";
