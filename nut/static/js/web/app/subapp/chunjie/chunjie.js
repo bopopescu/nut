@@ -6,14 +6,15 @@ define(['libs/Class'], function(
         init: function(){
             console.log('chunjieApp init');
             this.configWX();
-            wx.ready(function(){
-                alert('wx ready');
-                wx.hideOptionMenu();
-
-            });
+            //wx.ready(function(){
+            //    alert('wx ready');
+            //    wx.hideOptionMenu();
+            //
+            //});
             wx.error(function(e){
                 alert(e);
             });
+
 
         },
         configWX: function(){
@@ -31,7 +32,7 @@ define(['libs/Class'], function(
                 ]
 
             });
-        },
+        }
     });
 
     return ChunjieApp;
