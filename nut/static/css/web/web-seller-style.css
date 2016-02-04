@@ -1110,8 +1110,8 @@ ol {
   background-color: #58abe1;
 }
 .seller-share-wx-dialog .modal-dialog {
-  width: 250px;
-  margin-top: 150px;
+  width: 100%;
+  height: auto;
 }
 .seller-share-wx-dialog .modal-dialog .modal-header {
   display: none;

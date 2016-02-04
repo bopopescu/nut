@@ -15,7 +15,7 @@
     <meta name="description" content="果库精选商品每日更新，恪守选品标准和美学格调，推荐有趣、有用、有价值的国内外优质优惠的网购商品。尽收世上好物。">
 {% endblock %}
 
-{% block title %}没想到你是这种猴{% endblock %}
+{% block title %}祝你新年「猴」{% endblock %}
 
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/web/happy.css' %}">
@@ -24,6 +24,10 @@
 {% block body_class %} gray-body happy-body {% endblock %}
 
 {% block weixin_share_img %}
+    <div id='wx_logo' style='margin:0 auto;display:none;'>
+{#    分享入口页面时展示的图片#}
+        <img src="{% static 'images/chunjie/entrance.jpg' %}" />
+    </div>
 {% endblock %}
 
 
@@ -33,25 +37,45 @@
 
 {% block content %}
 
-    <div class="bg-layer" style="background-image: url({% static 'images/chunjie/pattn.jpg' %})"></div>
+    <div id="first-bg-layer" style="background-image: url({% static 'images/chunjie/cover.gif' %})"></div>
+     <div id="second-bg-layer" style="background-image: url({% static 'images/chunjie/pattn.jpg' %})"></div>
 
     <div class="container-fluid happy-layer" id="first-layer">
-        <h3 id="theme-title">没想到你是这种猴</h3>
+        <h3 id="theme-title"></h3>
         <div class="form-wrapper">
             <form id="form" method="get" action="" onsubmit="return validate_form(this);">
-                <input type="text" name="username" id="username" placeholder="在这里输入你的名字">
+                <input type="text" name="username" id="username" placeholder="填写姓名">
                 <input type="hidden" name="monkeyIndex" id="monkeyIndex" value="0">
-                <input type="hidden" name="status" id="status" value="0">
-                <input type="submit" name="submit" class="happy-common-btn happy-btn-control" value="去看看">
+                <input type="submit" name="submit" class="happy-common-btn happy-btn-control" value="生成我的「猴」页">
             </form>
         </div>
+
+        <div class="happy-footer-wrapper">
+             <a href="{% url 'web_selection' %}" target="_blank">guoku.com</a>
+        </div>
+
     </div>
 
     <div class="container-fluid happy-layer user-icon-responsive" id="second-layer">
-        <a href="" target="_self" id="share" class="happy-common-btn happy-btn-control">分享给好友</a>
-        <a href="" target="_self" id="go-back" class="happy-common-btn happy-btn-control">去看看</a>
+
+         <button id="share" class="happy-common-btn happy-btn-control" onclick="shareToFriends()">分享给好友</button>
+
+        <a href="" target="_self" id="go-back" class="happy-common-btn happy-btn-control">生成我的「猴」页</a>
+
+        <div class="happy-footer-wrapper">
+             <a href="{% url 'web_selection' %}" target="_blank">guoku.com</a>
+        </div>
 
     </div>
+
+{#    add share dialog #}
+    <script type="text/html" id="share_friends_modal_content">
+        <div class="share-modal-wrapper share-modal-wrapper-control">
+            <div class="tips-wrapper tips-control">
+                <img src="{% static 'images/chunjie/share.png' %}" width="200px" height="200px"/>
+            </div>
+        </div>
+    </script>
 
 {% endblock %}
 
@@ -80,61 +104,88 @@
 
 {% endblock %}
 
+
 {% block script %}
+    {#    bootbox code#}
+    <script src="{% static 'js/web/bootbox.js' %}"></script>
+
     <script>
+
         (function() {
             var currentUserName = getQueryVariable("username");
+            var monkeyLists = ["01-MK","02-MK","03-MK","04-MK","05-MK"];
             var i = parseInt(getQueryVariable("monkeyIndex"));
-            var currentStatus = getQueryVariable("status");
+            var currentStatus = 0;
             var goback = document.getElementById("go-back");
+            var firstBgLayer = document.getElementById("first-bg-layer");
+            var secondBgLayer = document.getElementById("second-bg-layer");
+
+            {#            begin 添加转场封面    #}
+
+            if(currentUserName == null){
+
+                setTimeout(function(){
+                     $("#first-bg-layer").fadeOut();
+                     $("#second-bg-layer").fadeIn();
+                     $("#first-layer").fadeIn();
+        },3000);
+            }
+            {#                end #}
 
             if(currentUserName.length !=0){
+
                 var currentLayer = document.getElementById("first-layer");
                 currentLayer.style.display = "none";
                 var nextLayer = document.getElementById("second-layer");
                 nextLayer.style.display = "block";
 
-                var monkeyName,wish,monkeyIntro;
-                var monkeyLists = ["kangkang","bingshenhou","noritake","fuluhou","mujihou"];
+                firstBgLayer.style.display = "none";
+                secondBgLayer.style.display = "block";
+
+                var wish;
                 var currentMonkey = document.createElement('img');
 
                 switch (i) {
                     case 0:
-                        monkeyName="康康";
-                        monkeyIntro = "来自某某笔下的猴";
-                        wish="「回顾旧日的生活经历，描绘新年的美好愿景。」";
+                        wish="新年「猴」厉害！";
                         break;
                     case 1:
-                        monkeyName="丙申猴";
-                        monkeyIntro = "来自某某笔下的猴";
-                        wish="「回顾旧日的生活经历，描绘新年的美好愿景。」";
+                        wish="「猴」来，学会如何去爱…";
                         break;
                     case 2:
-                        monkeyName="noritake";
-                        monkeyIntro = "来自某某笔下的猴";
-                        wish="「回顾旧日的生活经历，描绘新年的美好愿景。」";
+                        wish="阖家幸福，「猴」开森！";
                         break;
                     case 3:
-                        monkeyName="福禄猴";
-                        monkeyIntro = "来自某某笔下的猴";
-                        wish="「回顾旧日的生活经历，描绘新年的美好愿景。」";
+                        wish="「猴」运当头，兴旺发财！";
                         break;
                     case 4:
-                        monkeyName="奇怪猴";
-                        monkeyIntro = "来自MUJI中国官网的猴";
-                        wish="「回顾旧日的生活经历，描绘新年的美好愿景。」";
+                        wish="亲友相聚，「猴猴」哈嘿！";
                         break;
                 }
-                currentMonkey.src = "{% static 'images/chunjie/'%}"+monkeyLists[i]+".jpg";
+                currentMonkey.src = "{% static 'images/chunjie/'%}"+monkeyLists[i]+".gif";
                 var currentIntro = document.createElement('p');
-                var introNode = document.createTextNode(monkeyIntro);
+                var introNode = document.createTextNode("["+currentUserName+"]"+" 领猴子猴孙们齐拜年!");
                 currentIntro.appendChild(introNode);
                 var decoration = document.createTextNode('──');
                 var currentWish = document.createElement('p');
                 var wishNode = document.createTextNode(wish);
                 currentWish.appendChild(wishNode);
 
-                goback.href=document.referrer;
+{#                document.referrer在微信朋友圈打开时,是不能回退的.因为不是通过一个超链接打开 T T #}
+{#If the current document was not opened through a link (for example, through a bookmark), an empty string is returned.#}
+{#                goback.href=document.referrer;#}
+                var currentAddress = location.href;
+                var num = currentAddress.indexOf('?');
+                var str = currentAddress.substr(num);
+                goback.href = currentAddress.replace(str,'');
+
+{#                change status#}
+                var backAddress = document.referrer;
+                if(backAddress == ""){
+                    currentStatus =0;
+                }else{
+                    currentStatus =1;
+                }
 
                 nextLayer.insertBefore(currentMonkey,nextLayer.childNodes[0]);
                 nextLayer.insertBefore(currentIntro,currentMonkey.nextSibling);
@@ -143,7 +194,7 @@
 
 {#               begin  动态修改微信浏览器中的title#}
                 var $body = $('body');
-                document.title = currentUserName + "是一只" + monkeyName;
+                document.title = "["+currentUserName+"]"+" 领猴子猴孙们齐拜年!";
                 var $iframe = $('<iframe src="/favicon.ico"></iframe>');
                 $iframe.on('load',function() {
                     setTimeout(function() {
@@ -157,7 +208,8 @@
             if(currentStatus ==1){
                 var shareBtn = document.getElementById("share");
                 shareBtn.style.display = "block";
-                goback.style.display = "none";
+                goback.innerHTML = "再来一次"
+                goback.style.display = "block";
             }
         })();
 
@@ -175,21 +227,39 @@
 
         function validate_form(thisform)
         {
-            var userName= document.getElementById('username').value;
-            var status = document.getElementById('status');
+            var currentUser = document.getElementById('username');
+{#            清理字符串首尾的空格#}
+{#            var userName= currentUser.value.replace(/^\s+|\s+$/gm,'');#}
+{#            清理所有的空格#}
+            var userName = currentUser.value.replace(/\s+/g,"");
+            currentUser.value = userName;
             var monkeyIndex = document.getElementById('monkeyIndex');
 
             if(userName.length === 0){
-                alert('亲爱的果库粉,请输入你的大名~');
+                bootbox.alert('请输入你的大名~');
                 return false;
             }
             else{
-                status.value = 1;
-
-                var monkeyLists = ["kangkang","bingshenhou","noritake","fuluhou","mujihou"];
+                var monkeyLists = ["01-MK","02-MK","03-MK","04-MK","05-MK"];
                 var i = Math.floor(Math.random() * monkeyLists.length+ 1)-1;
                 monkeyIndex.value = i;
             }
+        }
+
+        function shareToFriends(){
+
+             bootbox.hideAll();
+             bootbox.dialog({
+                title: '分享给好友',
+                onEscape: true,
+                backdrop:true,
+                closeButton: true,
+                animate: true,
+                className: 'share-friends-dialog',
+                message: $('#share_friends_modal_content').html(),
+
+            });
+
         }
 
     </script>
