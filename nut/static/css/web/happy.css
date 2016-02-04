@@ -1015,7 +1015,7 @@ p.boolean-false {
 }
 .happy-btn-control {
   margin: 0 auto;
-  margin-top: 40px;
+  margin-top: 60px;
 }
 .create-btn {
   background-size: 200px;
@@ -1030,12 +1030,14 @@ p.boolean-false {
   background-size: 100px;
   background-repeat: no-repeat;
   background-position: center;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 #go-back {
-  width: 200px;
-  height: 50px;
-  line-height: 50px;
-  background-size: 200px;
+  width: 225px;
+  height: 100px;
+  line-height: 100px;
+  background-size: 150px;
 }
 .user-icon-responsive img {
   display: block;
