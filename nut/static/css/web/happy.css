@@ -1008,6 +1008,7 @@ p.boolean-false {
   height: 50px;
   line-height: 50px;
   text-align: center;
+  color: #e5a95c;
   border: none;
   background-color: transparent;
   border-radius: 45px;
@@ -1019,6 +1020,22 @@ p.boolean-false {
 .create-btn {
   background-size: 200px;
   margin-top: 30px;
+}
+.share-btn {
+  display: inline-block;
+  width: 100px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  background-size: 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#go-back {
+  width: 200px;
+  height: 50px;
+  line-height: 50px;
+  background-size: 200px;
 }
 .user-icon-responsive img {
   display: block;
@@ -1063,6 +1080,13 @@ p.boolean-false {
 .happy-footer-wrapper a {
   color: #e5a95c;
 }
+a {
+  color: #e5a95c;
+}
+a:hover {
+  text-decoration: none;
+  color: #e5a95c;
+}
 #first-layer {
   display: none;
   margin-top: 60px;
@@ -1101,10 +1125,6 @@ p.boolean-false {
   width: 250px;
   height: auto;
   margin: 0 auto;
-}
-#second-layer a:hover {
-  text-decoration: none;
-  color: #e5a95c;
 }
 .share-friends-dialog .modal-dialog {
   width: 100%;
