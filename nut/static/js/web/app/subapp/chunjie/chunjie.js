@@ -8,6 +8,11 @@ define(['libs/Class'], function(
             this.configWX();
             wx.ready(function(){
                 alert('wx ready');
+                wx.hideOptionMenu();
+
+            });
+            wx.error(function(e){
+                alert(e);
             });
 
         },

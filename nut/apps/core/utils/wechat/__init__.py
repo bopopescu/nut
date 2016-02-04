@@ -1,13 +1,18 @@
+# coding=utf-8
+
 import  requests
 from datetime import datetime
 import random
 import hashlib
 from django.core.cache import cache
 
+# 开发者ID
+# AppID(应用ID)wx728e94cbff8094df
+# AppSecret(应用密钥)d841a90cf90d00f145ca22b82e12a500 隐藏 重置
 
 
-APPID = 'wx7b445b01ad2bfe9e'
-APPSECRET = '37b28c446bd2187d99588ce85fc8b5a6'
+APPID = 'wx728e94cbff8094df'
+APPSECRET = 'd841a90cf90d00f145ca22b82e12a500'
 
 
 def get_token_request_url(appid=APPID, appsec=APPSECRET):
@@ -22,6 +27,14 @@ def get_jsapi_ticket_request_url(token):
 def get_jsapi_ticket_key():
     return 'wechat:jsapi_ticket:for:%s' % APPID
 
+def clear_cached_wechat_values():
+    token_key = get_access_token_cache_key()
+    jsapi_ticket_key = get_jsapi_ticket_key()
+    cache.set(token_key, None)
+    cache.set(jsapi_ticket_key, None)
+
+
+
 def get_wechat_access_token():
     key  = get_access_token_cache_key()
 
@@ -31,6 +44,12 @@ def get_wechat_access_token():
 
     url = get_token_request_url()
     res = requests.get(url,verify=False)
+
+    if hasattr(res.json(), 'errcode')  and res.json()['errcode'] != 0:
+        clear_cached_wechat_values()
+        raise Exception('token need refresh')
+        return None
+
     token = res.json()['access_token']
     expires = res.json()['expires_in']
 
@@ -47,6 +66,12 @@ def get_jsapi_ticket():
 
     token = get_wechat_access_token()
     res = requests.get(get_jsapi_ticket_request_url(token),verify=False)
+
+    if  hasattr(res.json(), 'errcode')  and  res.json()['errcode'] != 0:
+        clear_cached_wechat_values()
+        raise Exception('jsapi need refresh')
+        return None
+
     ticket = res.json()['ticket']
     errcode = res.json()['errcode']
     expires = res.json()['expires_in']
@@ -75,8 +100,6 @@ def get_js_sdk_signature_obj(sig_url=None,):
                ,'jsapi_ticket':get_jsapi_ticket()
                ,'timestamp':datetime.now().strftime('%s')
                ,'url':sig_url
-               ,'appid':APPID
-
                }
     queryString  = ''
     keys = sig_obj.keys()
@@ -86,4 +109,5 @@ def get_js_sdk_signature_obj(sig_url=None,):
     queryString = queryString[0:-1]
     sig = hashlib.sha1(queryString.encode('utf-8')).hexdigest()
     sig_obj['signature'] = sig
+    sig_obj['appid'] = APPID
     return sig_obj
