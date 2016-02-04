@@ -1048,6 +1048,7 @@ p.boolean-false {
 .happy-body {
   font-size: 16px;
   color: #e5a95c;
+  background-color: #9c0a15;
 }
 .happy-body #first-bg-layer {
   position: absolute;
@@ -1065,19 +1066,20 @@ p.boolean-false {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 500px;
   background-size: cover;
 }
 .happy-body .happy-layer {
+  width: 100%;
+  height: 500px;
   position: relative;
   text-align: center;
+  margin-bottom: 50px;
 }
 .happy-footer-wrapper {
   width: 100%;
-  height: auto;
-  position: fixed;
-  left: 0;
-  bottom: 30px;
+  height: 30px;
+  text-align: center;
 }
 .happy-footer-wrapper a {
   color: #e5a95c;
@@ -1150,4 +1152,9 @@ a:hover {
 }
 .share-friends-dialog .modal-dialog .modal-body {
   padding: 0;
+}
+@media (min-width: 768px) {
+  body.happy-body {
+    background-color: #9c0a15;
+  }
 }
