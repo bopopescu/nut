@@ -2019,6 +2019,11 @@ body.compact-body {
   background: #232323;
   color: #9d9e9f;
 }
+#guoku_footer.new-footer {
+  min-height: 1px;
+  height: auto;
+  margin-top: 150px;
+}
 #guoku_footer a,
 #guoku_footer a:hover,
 #guoku_footer a:focus,
@@ -2057,6 +2062,9 @@ body.compact-body {
 #guoku_footer .list-wrapper li.no-padding-right {
   padding-right: 0px;
 }
+#guoku_footer .list-wrapper.list-wrapper-align-center {
+  text-align: center;
+}
 #guoku_footer li a {
   opacity: 0.6;
 }
@@ -2072,6 +2080,12 @@ body.compact-body {
 }
 #guoku_footer .footer-part {
   margin-top: 40px;
+}
+#guoku_footer .footer-part.foot-part-control {
+  margin-top: 0;
+}
+#guoku_footer .footer-part.qr-container-hidden {
+  display: none;
 }
 #guoku_footer .footer-part .qr-wrapper {
   float: right;
@@ -2132,8 +2146,18 @@ body.compact-body {
   padding-top: 20px;
   border-top: 1px solid #333333;
 }
+#guoku_footer .footer-line.footer-line-hidden {
+  display: none;
+}
 #guoku_footer .footer-bottom {
   padding: 20px 10px 10px 10px;
+}
+#guoku_footer .footer-bottom.shares-wrapper {
+  margin-bottom: -2px;
+}
+#guoku_footer .footer-bottom.copyright-info-wrapper {
+  padding: 0;
+  margin-bottom: 10px;
 }
 #guoku_footer .footer-bottom .footer-bottom-left {
   float: left;
@@ -2147,14 +2171,57 @@ body.compact-body {
   margin-right: 10px;
   display: inline-block;
 }
+#guoku_footer .footer-bottom .footer-bottom-left.footer-bottom-left-show {
+  display: block;
+  float: none;
+  text-align: center;
+}
 #guoku_footer .footer-bottom .footer-bottom-right {
   margin-bottom: 10px;
   float: right;
+}
+#guoku_footer .footer-bottom .footer-bottom-right.footer-bottom-right-control {
+  float: none;
+  text-align: center;
 }
 #guoku_footer .footer-bottom .footer-bottom-right .logo-list li {
   margin-left: 10px;
   position: relative;
   display: inline-block;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li.wechat-share-wrapper {
+  position: relative;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li.wechat-share-wrapper .wechat-qrcode-wrapper {
+  position: absolute;
+  bottom: 35px;
+  left: -50%;
+  transform: translateX(-20%);
+  padding: 10px 9px;
+  background-color: #fff;
+  box-shadow: 0px 0px 2px #dddddd;
+  display: none;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li.wechat-share-wrapper .wechat-qrcode-wrapper .wechat-qrcode-img {
+  width: 80px;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li.wechat-share-wrapper .wechat-qrcode-wrapper .wechat-qr-text {
+  font-size: 13px;
+  color: #414243;
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li.wechat-share-wrapper .wechat-qrcode-wrapper .bottom-bot {
+  position: absolute;
+  bottom: -10px;
+  left: 46%;
+  transform: translateX(-20%);
+  width: 0;
+  height: 0;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
 }
 #guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.img-logo-link {
   display: block;
@@ -2190,6 +2257,26 @@ body.compact-body {
 }
 #guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link.logo-instagram {
   padding-left: 6px;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.logo-wechat:hover {
+  cursor: pointer;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.logo-wechat:hover .display-toggle {
+  display: block;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link-control {
+  line-height: 1.4;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link-control.logo-weibo,
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link-control.logo-twitter,
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link-control.logo-facebook,
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link-control.logo-instagram {
+  padding-left: 0px;
+}
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link-control.logo-wechat i,
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link-control.logo-weibo i,
+#guoku_footer .footer-bottom .footer-bottom-right .logo-list li a.font-logo-link-control.logo-instagram i {
+  font-size: 16px;
 }
 #guoku_footer .footer-bottom .footer-bottom-right .logo-list li img {
   width: 28px;
@@ -3692,6 +3779,9 @@ body.compact-body {
     text-align: center;
     margin-bottom: 20px;
   }
+  #guoku_footer .footer-part .list-wrapper.list-wrapper-align-center {
+    margin-bottom: 0;
+  }
   #guoku_footer .footer-part .list-wrapper ul {
     display: inline-block;
   }
@@ -3717,6 +3807,14 @@ body.compact-body {
     float: none;
     margin: 0 auto;
     padding-top: 20px;
+  }
+  #guoku_footer .footer-bottom .footer-bottom-left.footer-bottom-left-show,
+  #guoku_footer .footer-bottom .footer-bottom-right.footer-bottom-left-show {
+    padding-top: 6px;
+  }
+  #guoku_footer .footer-bottom .footer-bottom-left.footer-bottom-right-control,
+  #guoku_footer .footer-bottom .footer-bottom-right.footer-bottom-right-control {
+    padding-top: 0;
   }
   #guoku_footer .footer-bottom .footer-bottom-left .font-logo-link.logo-weibo,
   #guoku_footer .footer-bottom .footer-bottom-right .font-logo-link.logo-weibo {
@@ -3944,6 +4042,6 @@ body .for-mobile {
   left: 3px;
 }
 .gk_test {
-  color: black;
+  color: red;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
