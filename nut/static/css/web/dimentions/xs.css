@@ -360,7 +360,7 @@ p .b_day {
 }
 .entity-four.thumbnail {
   border: none;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   padding: 0px 0px 16px 0px;
   background-color: #fff;
   -webkit-border-radius: 4px;
@@ -385,9 +385,29 @@ p .b_day {
   color: #9d9e9f;
 }
 .entity-four.thumbnail .caption {
+  height: 80px;
   padding: 0px;
   margin-top: 12px;
   border: none;
+}
+.entity-four.thumbnail .caption .title,
+.entity-four.thumbnail .caption .price,
+.entity-four.thumbnail .caption .info,
+.entity-four.thumbnail .caption .brand {
+  color: #9d9e9f;
+  text-align: center;
+  font-size: 14px;
+}
+.entity-four.thumbnail .caption .price {
+  margin-top: 10px;
+}
+.entity-four.thumbnail .action {
+  height: 30px;
+}
+.entity-four.thumbnail .action .info {
+  color: #9d9e9f;
+  text-align: center;
+  font-size: 14px;
 }
 .btn-top {
   backface-visibility: hidden;
@@ -615,6 +635,35 @@ p.boolean-false {
 .user-icon-list li img {
   border-radius: 50%;
 }
+.user-icon-large img {
+  display: block;
+  margin: 0 auto ;
+  width: 100px;
+  height: 100px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.user-icon-middle img {
+  display: block;
+  margin: 0 auto ;
+  width: 60px;
+  height: 60px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.user-nick-large {
+  font-size: 32px;
+  font-weight: 500;
+  margin-right: 12px;
+}
 @media (max-width: 767px) {
   .entity-selection-body {
     background-color: #F8F8F8;
@@ -706,6 +755,9 @@ p.boolean-false {
     text-align: center;
     margin-bottom: 20px;
   }
+  #guoku_footer .footer-part .list-wrapper.list-wrapper-align-center {
+    margin-bottom: 0;
+  }
   #guoku_footer .footer-part .list-wrapper ul {
     display: inline-block;
   }
@@ -731,6 +783,14 @@ p.boolean-false {
     float: none;
     margin: 0 auto;
     padding-top: 20px;
+  }
+  #guoku_footer .footer-bottom .footer-bottom-left.footer-bottom-left-show,
+  #guoku_footer .footer-bottom .footer-bottom-right.footer-bottom-left-show {
+    padding-top: 6px;
+  }
+  #guoku_footer .footer-bottom .footer-bottom-left.footer-bottom-right-control,
+  #guoku_footer .footer-bottom .footer-bottom-right.footer-bottom-right-control {
+    padding-top: 0;
   }
   #guoku_footer .footer-bottom .footer-bottom-left .font-logo-link.logo-weibo,
   #guoku_footer .footer-bottom .footer-bottom-right .font-logo-link.logo-weibo {
@@ -784,6 +844,19 @@ p.boolean-false {
   }
   .guoku-content.user-page .content-panel .note-cell {
     margin-bottom: 10px;
+  }
+  #main_article .article-wrapper .content-wrapper img {
+    max-width: 110%;
+    width: 110%;
+    position: relative;
+    left: -5%;
+    display: block;
+  }
+  #main_article .article-wrapper .guoku-card img {
+    max-width: 100%;
+    width: 100%;
+    left: 0;
+    position: relative;
   }
   #main_article .article-wrapper .title-wrapper h2 {
     font-size: 28px;

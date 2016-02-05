@@ -1,0 +1,3 @@
+--2016-01-07 18:14:50--  https://raw.githubusercon-tent.com/nvbn/thefuck/master/install.sh
+Resolving raw.githubusercon-tent.com... failed: nodename nor servname provided, or not known.
+wget: unable to resolve host address 'raw.githubusercon-tent.com'

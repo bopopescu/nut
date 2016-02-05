@@ -19,6 +19,7 @@ urlpatterns = patterns(
     url(r'^edm/', include('apps.management.urls.edm')),
     # url(r'^seller/', include('apps.management.urls.seller')),
     url(r'^seller/', include('apps.seller.urls.management')),
+    url(r'^fetch/', include('apps.fetch.urls.management')),
 
 
 # TODO: launch image at mobile
