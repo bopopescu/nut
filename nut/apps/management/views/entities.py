@@ -66,7 +66,6 @@ class EntityListView(FilterMixin, ListView):
         context['status'] =  self.request.GET.get('status', None)
         return context
 
-    # @login_required
     @staff_only
     def dispatch(self, request, *args, **kwargs):
         return super(EntityListView, self).dispatch(request, *args, **kwargs)
