@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
@@ -71,17 +72,22 @@ class BrandListView(BaseListView):
 
 class BrandEntityListView(BaseListView):
     template_name = 'management/brand/entities.html'
+    _brand = u''
+
+    @property
+    def brand(self):
+        brand = self._brand.split()
+        return ''.join(brand)
 
     def get_queryset(self, **kwargs):
         name = kwargs.pop('brand_name')
-        # return Entity.objects.filter(brand__contains=name).exclude(status=Entity.remove)
-
         sqs = SearchQuerySet().models(Entity).filter(brand=name)
-        print sqs.count()
         return sqs
 
-    def get(self, request, brand):
-        _entity_list = self.get_queryset(brand_name=brand)
+    def get(self, request, **kwargs):
+        self._brand = kwargs.pop('brand')
+        assert self._brand is not None
+        _entity_list = self.get_queryset(brand_name=self.brand)
         page = request.GET.get('page', 1)
 
         paginator = ExtentPaginator(_entity_list, 30)
@@ -94,7 +100,7 @@ class BrandEntityListView(BaseListView):
             raise Http404
 
         context = {
-            'brand': brand,
+            'brand': self.brand,
             'entities': _entities,
         }
         return self.render_to_response(context)
