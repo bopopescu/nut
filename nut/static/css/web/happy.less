@@ -1,0 +1,214 @@
+@import "../lib/mixin.less";
+@import "../lib/var.less";
+@import "../lib/normal.less";
+@import "../lib/widgets.less";
+
+.happy-common-btn{
+  -webkit-appearance: none;
+  display: block;
+  width:200px;
+  height:50px;
+  line-height: 50px;
+  text-align: center;
+  color: @gold-color;
+  //border:1px solid @gold-color;
+  border:none;
+  background-color: transparent;
+  //font-size: @subtitle-size;
+  border-radius: 45px;
+}
+.happy-btn-control{
+    margin:0 auto;
+    margin-top:20px;
+  }
+
+.create-btn{
+  background-size: 200px;
+  margin-top:30px;
+}
+
+.share-btn{
+  display: inline-block;
+  width:100px;
+  height:60px;
+  line-height: 60px;
+  text-align: center;
+  background-size: 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left:10px;
+  margin-right: 10px;
+}
+
+#go-back{
+  width:200px;
+  height:50px;
+  line-height: 50px;
+  background-size: 200px;
+}
+
+.user-icon-responsive{
+  img{
+    display: block;
+    margin:0 auto;
+    width:200px;
+    height:200px;
+  }
+}
+
+a{
+  color:@gold-color;
+    &:hover{
+      text-decoration: none;
+      color:@gold-color;
+    }
+
+  }
+
+.happy-body{
+  font-size:@primary-size;
+  color: @gold-color;
+  //padding-top:0px;
+  background-color: @festival-red;
+
+  #first-bg-layer{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-size:cover;
+    background-position-x: center;
+    background-repeat: no-repeat;
+  }
+
+  #second-bg-layer{
+    display: none;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:500px;
+    background-size:cover;
+  }
+
+  .happy-layer{
+    width:100%;
+    height:500px;
+    position: relative;
+    text-align: center;
+    margin-bottom: 50px;
+
+  }
+
+  .happy-footer-wrapper{
+  width:100%;
+  height:30px;
+  //position:fixed;
+  //left:0;
+  //bottom:10px;
+  text-align: center;
+  a{
+    color:@gold-color;
+  }
+}
+}
+
+#first-layer{
+  display: none;
+  margin-top:60px;
+  #theme-title{
+    color: @gold-color;
+  }
+
+  .form-wrapper{
+    margin-top:30px;
+
+    #username{
+      background-size: 100%;
+      background-color: transparent;
+      background-repeat: no-repeat;
+      background-position: bottom;
+    border:none;
+    width:240px;
+    height:45px;
+    line-height: 45px;
+      padding-bottom: 30px;
+
+      &::-webkit-input-placeholder{
+        color:rgba(182,71,77,1);
+        font-weight: 300;
+      }
+    }
+
+  }
+
+}
+
+
+#second-layer{
+  display: none;
+  margin-top:-70px;
+  color: #ffffff;
+  #share{
+    display: none;
+  }
+  img{
+    margin-bottom: 32px;
+  }
+  p:nth-child(even){
+    margin-bottom: 6px;
+    font-size:20px;
+
+  }
+  p:nth-child(odd){
+    width:250px;
+    height:auto;
+    margin:0 auto;
+  }
+}
+
+.modal-backdrop.in{
+    opacity: 0.75;
+  }
+.share-friends-dialog{
+
+  .modal-dialog{
+    width:100%;
+    //height can not set 100%,or the dialog can not close
+    height:auto;
+    margin:0;
+    .modal-content{
+      width:200px;
+      height:200px;
+      position:absolute;
+      top:0;
+      right:10px;
+      background-color: transparent;
+      border:none;
+      box-shadow: none;
+    }
+     .modal-header{
+    display: none;
+  }
+
+    .modal-body{
+      padding:0;
+    }
+  }
+}
+
+@media (min-width: 768px){
+  body.happy-body{
+
+    background-color: @festival-red;
+
+  }
+}
+
+
+.test{
+  background: #000000;
+}
+
+

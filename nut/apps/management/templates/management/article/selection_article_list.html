@@ -78,7 +78,7 @@
                                         <td>
                                             <div class="btn-group">
                                                 <a class="btn btn-default"
-                                                   href="{% url 'management_article_edit' sla.article.pk %}" target="_blank">
+                                                   href="{% url 'management_article_edit' sla.article.pk %}?prev={{ request.path }}" target="_blank">
                                                     {% trans 'edit' %}
                                                 </a>
 {#                                                {% if request.path == '/management/article/selections/pending/' %}#}
@@ -100,17 +100,17 @@
                                                 </a>
                                             </div>
                                         </td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a class="btn btn-primary selection-publish">
-                                                    发布文章到前端精选流
-                                                </a>
+{#                                        <td>#}
+{#                                            <div class="btn-group">#}
+{#                                                <a class="btn btn-primary selection-publish">#}
+{#                                                    发布文章到前端精选流#}
+{#                                                </a>#}
 {#                                                <a class="btn btn-primary"#}
 {#                                                   href="{% url 'management_selection_article_edit' sla.pk %}" target="_blank">#}
 {#                                                    {% trans 'edit publish datetime' %}#}
 {#                                                </a>#}
-                                            </div>
-                                        </td>
+{#                                            </div>#}
+{#                                        </td>#}
                                         {% endif %}
                                     </tr>
                                 {% endfor %}

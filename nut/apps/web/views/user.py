@@ -1,7 +1,7 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 # from django.core.urlresolvers import reverse
-from django.http import HttpResponseNotAllowed, Http404
+from django.http import HttpResponseNotAllowed, Http404, HttpResponseServerError
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
@@ -425,7 +425,7 @@ class UserFansView(UserDetailBase):
     context_object_name = 'current_user_fans'
     def get_queryset(self):
         _user = self.get_showing_user()
-        return _user.fans.all()
+        return _user.fans.filter(follower__is_active__gte=0)
 
 
 class UserFollowingsView(UserDetailBase):
@@ -434,15 +434,60 @@ class UserFollowingsView(UserDetailBase):
     context_object_name = 'current_user_followings'
     def get_queryset(self):
         _user = self.get_showing_user()
-        return _user.followings.all()
+        return _user.followings.filter(followee__is_active__gte=0)
 
+from apps.core.models import Authorized_User_Profile
 
 class UserIndex(UserPageMixin, DetailView):
 
-    template_name = 'web/user/user_index.html'
+    # template_name = 'web/user/user_index.html'
     model = GKUser
     pk_url_kwarg = 'user_id'
     context_object_name = 'current_user'
+
+    def setup_template_name(self):
+        if self._current_user.is_authorized_author:
+            return 'web/user/authorized_author_index.html'
+        return 'web/user/user_index.html'
+
+    def get(self, *args, **kwargs):
+
+        # this is a quick fix for  www.guoku.com/download page can not be accessed
+        user_domain = self.kwargs.get('user_domain', None)
+        if user_domain == 'download':
+            return redirect('web_download')
+        elif  user_domain == 'popular':
+            return redirect('web_popular')
+        else:
+            pass
+
+        self._current_user = self.get_object()
+        self.template_name = self.setup_template_name()
+
+
+        return super(UserIndex, self).get(*args, **kwargs)
+
+    def get_object(self, queryset=None):
+        return self.get_showing_user()
+
+    def get_showing_user_by_domain(self,domain):
+        try :
+            profile = Authorized_User_Profile.objects.get(personal_domain_name=domain)
+        except Authorized_User_Profile.DoesNotExist as e:
+            raise Http404
+        except Authorized_User_Profile.MultipleObjectsReturned as e:
+            raise HttpResponseServerError
+
+        return profile.user
+
+
+
+    def get_showing_user(self):
+        user_domain = self.kwargs.get('user_domain', None)
+        if user_domain is not None:
+            return self.get_showing_user_by_domain(user_domain)
+        else:
+            return super(UserIndex, self).get_showing_user()
 
     def get_context_data(self,**kwargs):
         context_data = super(UserIndex, self).get_context_data(**kwargs)
@@ -457,10 +502,22 @@ class UserIndex(UserPageMixin, DetailView):
         _article_list = Article.objects.get_published_by_user(current_user).filter(selections__isnull = False)\
                                        .filter(pk__in=list(_selection_article_ids))[:6]
 
+        if current_user.is_authorized_author:
+            author_article_list = Article.objects.get_published_by_user(current_user)
+            _page = self.request.GET.get('page', 1)
+            paginator = ExtentPaginator(author_article_list,24)
+            try :
+                _author_articles = paginator.page(_page)
+            except PageNotAnInteger:
+                _author_articles = paginator.page(1)
+            except EmptyPage:
+                raise Http404
+            context_data['author_articles'] = _author_articles
+
         context_data['articles'] = _article_list
 
-        context_data['followings'] = current_user.followings.all()[:7]
-        context_data['fans'] = current_user.fans.all()[:7]
+        context_data['followings'] = current_user.followings.filter(followee__is_active__gte=0)[:7]
+        context_data['fans'] = current_user.fans.filter(follower__is_active__gte=0)[:7]
         context_data['tags']= Content_Tags.objects.user_tags_unique(current_user)[0:5]
         context_data['pronoun'] = self.get_pronoun()
 
