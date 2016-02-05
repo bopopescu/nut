@@ -18,7 +18,7 @@ from django.utils.log import getLogger
 from wand.exceptions import WandException
 from django.core.exceptions import MultipleObjectsReturned
 
-from apps.core.models import Authorized_User_Profile as Profile
+from apps.core.models import Authorized_User_Profile as Profile, GKUser
 from apps.core.models import Article, Media
 from apps.fetch.common import clean_xml, queryset_iterator, clean_title
 from apps.fetch.article import RequestsTask, WeiXinClient, ToManyRequests
@@ -38,8 +38,8 @@ image_host = getattr(settings, 'IMAGE_HOST', None)
 @task(base=RequestsTask, name='sogou.crawl_articles')
 def crawl_articles():
     all_authorized_user = Profile.objects.filter(
-        weixin_id__isnull=False
-
+        weixin_id__isnull=False,
+        user__in=GKUser.objects.authorized_author()
     )
     for user in queryset_iterator(all_authorized_user):
         fetch_article_list.delay(user.pk)

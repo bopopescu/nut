@@ -257,11 +257,35 @@ class BaseManagementArticleListView(UserPassesTestMixin, SortMixin, ListView):
     def test_func(self, user):
         return user.is_editor
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(BaseManagementArticleListView, self).get_context_data(*args, **kwargs)
+        context['authorized_authors'] = GKUser.objects.authorized_author()
+        return context
+
+class AuthorArticlePersonList(BaseManagementArticleListView):
+    def get_queryset(self):
+        _user_id = self.kwargs.pop('pk', None)
+        if _user_id is None :
+            raise  Http404
+        else:
+            return Article.objects.filter(publish=Article.published,creator__id=_user_id)\
+                    .order_by('-updated_datetime')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(AuthorArticlePersonList, self).get_context_data(*args, **kwargs)
+        context['for_author'] = True
+        return context
 
 class AuthorArticleList(BaseManagementArticleListView):
     def get_queryset(self):
         authorized_authors = GKUser.objects.authorized_author()
-        return  Article.objects.filter(publish=Article.published, creator__in=authorized_authors)
+        return  Article.objects.filter(publish=Article.published, creator__in=authorized_authors)\
+                        .order_by('-updated_datetime')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(AuthorArticleList, self).get_context_data(*args, **kwargs)
+        context['for_author'] = True
+        return context
 
 
 class ArticleList(BaseManagementArticleListView):

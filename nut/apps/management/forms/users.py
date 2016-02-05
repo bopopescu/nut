@@ -28,8 +28,8 @@ class UserAuthorInfoForm(ModelForm):
 
         person_domain = self.cleaned_data['personal_domain_name']
 
-        if len(person_domain) < 5 or len(person_domain) >15 :
-            raise forms.ValidationError('personal domain length must between 5-15')
+        if len(person_domain) < 5 or len(person_domain) >30 :
+            raise forms.ValidationError('personal domain length must between 5-30')
 
         if re.match(r"^[a-z][a-z0-9]{4,14}$", person_domain) is None:
             raise forms.ValidationError('personal domain must be all english char or digit,and  NOT start with a digit')

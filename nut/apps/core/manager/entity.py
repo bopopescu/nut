@@ -70,7 +70,7 @@ class EntityManager(models.Manager):
     #         cache.set(key, res, timeout=86400)
     #         return res
     def active(self):
-        return self.get_queryset().active();
+        return self.get_queryset().active()
 
     def selection(self):
         return self.get_query_set().selection()

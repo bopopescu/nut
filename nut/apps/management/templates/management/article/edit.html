@@ -43,7 +43,8 @@
                                     <div class="form-group">
                                     <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
                                     <div class="col-sm-10">
-                                        <a class="btn btn-primary " href="{% url 'web_editor_article_edit' article.pk %}">编辑文章内容</a>
+                                        <a class="btn btn-success " href="{% url 'web_article_page' article.pk %}" target="_blank">GOTO</a>
+                                        <a class="btn btn-primary " href="{% url 'web_editor_article_edit' article.pk %}" target="_blank">编辑文章内容</a>
                                         <div class="hidden">
                                              {{ field }}
                                         </div>
