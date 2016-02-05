@@ -1,5 +1,5 @@
 
-4. chunjie h5 
+4. 春节 h5 
 3. new footer
 2. show baichuan recommend products
 1. fix  '//images....' replace bug caused by None img field
