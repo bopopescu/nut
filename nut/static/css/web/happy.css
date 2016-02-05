@@ -1180,6 +1180,10 @@ a:hover {
 .share-friends-dialog .modal-dialog .modal-body {
   padding: 0;
 }
+.little-frame {
+  width: 1px;
+  height: 1px;
+}
 @media (min-width: 768px) {
   body.happy-body {
     background-color: #9c0a15;
