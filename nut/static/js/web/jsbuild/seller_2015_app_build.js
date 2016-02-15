@@ -2318,9 +2318,7 @@ require([
         var sellerHeader = new YearSellerHeader();
         var anchorScroller = new AnchorScroller('.sections-titles-wrapper li a');
         var shareHandler = new ShareHanlder();
-        var topAd = new TopAd();
-
-
+        //var topAd = new TopAd();
         // for weixin  access redirect entity link to  app download
         if (browser.is_weixin()){
             $('a.seller-entity-link').attr('href','http://www.guoku.com/download/');

@@ -2019,6 +2019,18 @@ define('subapp/related_article_loader',['component/ajaxloader', 'jquery', 'libs/
 
     return RelatedArticleLoader;
 });
+define('subapp/article/article_share',['jquery', 'libs/Class'], function(
+    $, Class
+){
+
+    var ArticleShareApp= Class.extend({
+        init: function(){
+            //console.log('hello share class!');
+        }
+    });
+
+    return ArticleShareApp;
+});
 define('libs/csrf',['jquery'],function($){
 
     function getCookie(name) {
@@ -2064,7 +2076,9 @@ require([
         'subapp/entitycard',
         'subapp/detailsidebar',
         'subapp/related_article_loader',
+        'subapp/article/article_share',
         'libs/csrf',
+
 
     ],
     function (polyfill,
@@ -2076,7 +2090,8 @@ require([
               ArticlePageCounter,
               EntityCardRender,
               SideBarManager,
-              RelatedArticleLoader
+              RelatedArticleLoader,
+              ArticleShareApp
 
     ){
         var page = new Page();
@@ -2087,6 +2102,7 @@ require([
         var entityCardRender = new EntityCardRender();
         var sidebar = new SideBarManager();
         var relatedArticleLoader = new RelatedArticleLoader();
+        var shareApp = new ArticleShareApp();
 
 
 });
