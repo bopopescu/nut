@@ -1,4 +1,3 @@
-(node) util.print is deprecated. Use console.log instead.
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -326,10 +325,10 @@ a:hover {
   border-right: none;
 }
 .download .star_c {
-  color: #ff9600;
+  color: #FF9600;
 }
 .download .tags_c {
-  color: #ba7e32;
+  color: #BA7E32;
 }
 @media screen and (max-width: 960px) {
   .download {
