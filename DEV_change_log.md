@@ -1,5 +1,5 @@
-
-2.
+3. 
+2. fix seller page bug
 1. header css adjust
 
 =================================
