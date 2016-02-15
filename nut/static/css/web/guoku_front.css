@@ -2016,14 +2016,11 @@ body.compact-body {
   right: 5px;
   top: 5px;
   color: #9D9E9F;
-<<<<<<< HEAD
-=======
 }
 #guoku_main_nav .search .fa.fa-search-control {
   z-index: 1000;
   right: 10px;
   top: 7px;
->>>>>>> daily_web_bug
 }
 #guoku_footer {
   min-height: 200px;
