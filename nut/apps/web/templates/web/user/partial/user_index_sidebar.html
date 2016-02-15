@@ -27,6 +27,7 @@
         </div>
     </li>
     {% endif %}
+
     {% if tags %}
     <li class="section user-tag-list">
         <div class="section-title">{% trans 'Contributed Tags' %}<span class="more-link"><a href="{% url 'web_user_tag' current_user.pk %}">{% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></span></div>

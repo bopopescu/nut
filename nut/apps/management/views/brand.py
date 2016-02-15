@@ -7,6 +7,7 @@ from apps.core.views import BaseListView, BaseFormView
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 from apps.management.forms.brand import EditBrandForm, CreateBrandForm
 
+from haystack.query import SearchQuerySet
 from django.utils.log import getLogger
 
 log = getLogger('django')
@@ -73,7 +74,11 @@ class BrandEntityListView(BaseListView):
 
     def get_queryset(self, **kwargs):
         name = kwargs.pop('brand_name')
-        return Entity.objects.filter(brand__contains=name).exclude(status=Entity.remove)
+        # return Entity.objects.filter(brand__contains=name).exclude(status=Entity.remove)
+
+        sqs = SearchQuerySet().models(Entity).filter(brand=name)
+        print sqs.count()
+        return sqs
 
     def get(self, request, brand):
         _entity_list = self.get_queryset(brand_name=brand)

@@ -374,7 +374,7 @@ p .b_day{
 }
 .entity-four.thumbnail{
   border:none;
-  margin-bottom:60px;
+  margin-bottom:30px;
   padding:0px 0px 16px 0px;
 
   .panel-no-padding;
@@ -388,10 +388,32 @@ p .b_day{
     height: 14px;
     color: #9d9e9f;
   }
-  .caption{
+
+  .caption {
+    height: 80px;
     padding: 0px;
     margin-top: 12px;
     border: none;
+    .title, .price, .info, .brand {
+      color: @common-gray;
+      text-align: center;
+      font-size: @smaller-primary;
+    }
+    .price {
+      margin-top: 10px;
+    }
+  }
+  .action{
+    height:30px;
+    .info{
+
+      color: @common-gray;
+      text-align: center;
+      font-size: @smaller-primary;
+
+
+    }
+
   }
 }
 
@@ -585,3 +607,32 @@ p.boolean-false{
         }
 }
 
+
+.user-icon-large{
+  img{
+            display: block;
+            margin: 0 auto ;
+            width: 100px;
+            height: 100px;
+            .border-radius(50px);
+
+  }
+}
+
+.user-icon-middle{
+  img{
+            display: block;
+            margin: 0 auto ;
+            width: 60px;
+            height: 60px;
+            .border-radius(30px);
+
+  }
+}
+
+.user-nick-large{
+
+            font-size: 32px;
+            font-weight: 500;
+            margin-right:12px;
+}

@@ -366,7 +366,6 @@ def entity_create(request, template="web/entity/new.html"):
         # if user.is_active < 1:
         #     return HttpResponse("你妹")
 
-
         _forms = CreateEntityForm(request=request, data=request.POST)
         if _forms.is_valid():
             entity = _forms.save()

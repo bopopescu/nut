@@ -273,6 +273,10 @@
                 return false;
             }
 
+            //beautify it
+            var content = html_beautify(data['content']);
+            data['content'] = content;
+
             return true;
         },
 

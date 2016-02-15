@@ -21,22 +21,33 @@
             <div class="col-xs-12">
                 <div class="box box-info">
                     <div class="box-header">
-                        <ul class="nav nav-pills" role="tablist">
-                            <li><a class="btn btn-primary" target="_blank" href="{% url 'management_article_list' %}">{% trans 'published' %}</a></li>
-                            <li><a class="btn btn-default" target="_blank" href="{% url 'management_article_draft' %}">{% trans 'draft' %}</a></li>
-                        </ul>
+                        {% include 'management/article/partial/list_nav.html' %}
                     </div>
 
                     <div class="box-body table-responsive action-table">
+                       {% if for_author %}
+                        <ul class="inline-list author-list">
+                            {% for author in authorized_authors %}
+                            <li>
+                                <div class="user-block">
+                                <a href="{% url 'management_author_article_person_list' author.pk %}">
+                                    <img class="img-circle" src="{{ author.avatar_url|resize:'100' }}" alt="user image">
+                                    <span class="username"> {{ author.nickname }} </span></a>
+                                </a>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
                         <table class="table table-striped table-hover">
                             <thead>
                             <tr>
                                 <th class="id">#</th>
+                                <th class="cover">{% trans 'cover' %}</th>
                                 <th class="title">{% trans 'title' %}</th>
                                 <th class="person-link" >{% trans 'author' %}</th>
-                                <th class="cell-boolean" >文章状态</th>
-                                <th class="date-time">最后修改时间</th>
                                 <th class="read-count">阅读</th>
+                                <th class="read-count">文章标签</th>
                                 <th class="edit-operation">{% trans 'operation' %}</th>
                                 <th class="cell-number">加入精选次数</th>
                                 <th class="date-time" >上次精选发布时间</th>
@@ -47,14 +58,32 @@
                             {% for row in articles %}
                                 <tr>
                                     <td>{{ row.pk }}</td>
-                                    <td>{{ row.title }}</td>
-                                    <td><a href="{% url 'management_user_edit' row.creator_id %}" target="_blank">{{ row.creator.profile.nickname }}</a></td>
-                                    <td>{{ row.get_publish_display  }}</td>
-                                    <td>{{ row.updated_datetime|format_time}}</td>
+                                    <td>
+                                        <a href="{% url 'web_article_page' row.pk %}" target="_blank">
+                                            <img src="{{ row.cover_url|resize:'100' }}"/>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {{ row.title }}
+                                        <br>
+                                    </td>
+                                    <td >
+                                        <a class="user-block" href="{% url 'management_user_edit' row.creator_id %}" target="_blank">
+{#                                            <img src='{{ row.creator.avatar_url|resize:'128' }}' class="img-circle img-bordered-sm"/>#}
+
+                                            {{ row.creator.profile.nickname }}
+                                        </a>
+{#                                        <div > <span class="badge bg-green"> {{ row.get_publish_display  }}</span></div>#}
+{#                                        <div> <span class="badge bg-orange">{{ row.created_datetime|date:"m/d/Y"}} 文章创建 </span></div>#}
+{#                                        <div> <span class="badge bg-blue">{{ row.updated_datetime|format_time}} 最后修改 </span></div>#}
+                                        <br>
+                                    </td>
+
                                     <td>{{ row.read_count }}</td>
+                                    <td>{{ row.tags_string}}</td>
                                     <td>
                                         <div class="btn-group">
-                                            <a class="btn btn-default" href="{% url 'management_article_edit' row.pk %}" target="_blank">{% trans 'edit' %}</a>
+                                            <a class="btn btn-default" href="{% url 'management_article_edit' row.pk %}?prev={{ request.path }}" >{% trans 'edit' %}</a>
                                             <a class="btn btn-success" href="{% url 'web_article_page' row.pk %}" target="_blank">{% trans 'goto' %}</a>
                                         </div>
                                     </td>
@@ -88,74 +117,5 @@
             </div>
         </div>
     </section>
-{#    <h1 class="page-header">{% trans 'article' %}</h1>#}
-{##}
-{#    <div class="row">#}
-{#        <ul class="nav nav-pills" role="tablist">#}
-{#            <li><a class="btn btn-primary" target="_blank" href="{% url 'management_article_list' %}">{% trans 'published' %}</a></li>#}
-{#            <li><a class="btn btn-default" target="_blank" href="{% url 'management_article_draft' %}">{% trans 'draft' %}</a></li>#}
-{#        </ul>#}
-{#    </div>#}
-{##}
-{##}
-{#    <div class="table-responsive action-table">#}
-{#        <table class="table table-striped">#}
-{#            <thead>#}
-{#                <tr>#}
-{#                    <th class="id">#</th>#}
-{#                    <th class="title">{% trans 'title' %}</th>#}
-{#                    <th class="person-link" >{% trans 'author' %}</th>#}
-{#                    <th class="cell-boolean" >文章状态</th>#}
-{#                    <th class="date-time">最后修改时间</th>#}
-{#                    <th class="read-count">阅读</th>#}
-{#                    <th class="edit-operation">{% trans 'operation' %}</th>#}
-{#                    <th class="cell-number">加入精选次数</th>#}
-{#                    <th class="date-time" >上次精选发布时间</th>#}
-{##}
-{#                    <th class="edit-operation">精选操作</th>#}
-{#                </tr>#}
-{#            </thead>#}
-{#            <tbody>#}
-{#                {% for row in articles %}#}
-{#                    <tr>#}
-{#                        <td>{{ row.pk }}</td>#}
-{#                        <td>{{ row.title }}</td>#}
-{#                        <td><a href="{% url 'management_user_edit' row.creator_id %}" target="_blank">{{ row.creator.profile.nickname }}</a></td>#}
-{#                        <td>{{ row.get_publish_display  }}</td>#}
-{#                        <td>{{ row.updated_datetime|format_time}}</td>#}
-{#                        <td>{{ row.read_count }}</td>#}
-{#                        <td>#}
-{#                            <div class="btn-group">#}
-{#                                <a class="btn btn-default" href="{% url 'management_article_edit' row.pk %}" target="_blank">{% trans 'edit' %}</a>#}
-{#                                <a class="btn btn-success" href="{% url 'web_article_page' row.pk %}" target="_blank">{% trans 'goto' %}</a>#}
-{#                            </div>#}
-{#                        </td>#}
-{#                        <td>{{ row.selection_count}}</td>#}
-{#                        <td>{{ row.last_selection_time }}</td>#}
-{#                        <td>#}
-{#                            <div class="btn-group">#}
-{#                                {% if row.selections.count %}#}
-{#                                    <a class="btn btn-default disabled" href="javascript:;">#}
-{#                                        已加入精选#}
-{#                                    </a>#}
-{#                                {% else %}#}
-{#                                    <a class="btn btn-primary add-selection" href="javascript:;"#}
-{#                                    url = "{% url 'management_create_selection_article' row.pk %}"#}
-{#                                    article_id="{{  row.pk  }}">#}
-{##}
-{#                                    加入精选#}
-{#                                    </a>#}
-{#                                {% endif %}#}
-{#                            </div>#}
-{##}
-{#                        </td>#}
-{#                    </tr>#}
-{#                {% endfor %}#}
-{#            </tbody>#}
-{#        </table>#}
-{#    </div>#}
-{##}
-{#    {% include "management/entities/paginator_new.html" with page_obj=page_obj url=request.path %}#}
-
 
 {% endblock %}
