@@ -21,8 +21,16 @@ register.filter(enumerate_list)
 def resize(value, size=None):
     host = image_host
     # log.info(value)
-    if value is None or host not in value:
+    if value is None:
         return value
+
+    if 'taobaocdn.com' in value or 'alicdn.com' in value:
+        value = value+'_'+size+'x'+size+'.jpg'
+        return value
+
+    if host not in value:
+        return value
+
     if size:
         if host in value:
             uri = value.replace(host, '')
@@ -31,7 +39,10 @@ def resize(value, size=None):
             params.insert(1, size)
             uri_string = '/'.join(params)
             return host + uri_string
+
+    value = value.replace('//images', '/images')
     return value
+
 register.filter(resize)
 
 

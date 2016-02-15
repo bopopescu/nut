@@ -360,7 +360,7 @@ p .b_day {
 }
 .entity-four.thumbnail {
   border: none;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   padding: 0px 0px 16px 0px;
   background-color: #fff;
   -webkit-border-radius: 4px;
@@ -385,9 +385,29 @@ p .b_day {
   color: #9d9e9f;
 }
 .entity-four.thumbnail .caption {
+  height: 80px;
   padding: 0px;
   margin-top: 12px;
   border: none;
+}
+.entity-four.thumbnail .caption .title,
+.entity-four.thumbnail .caption .price,
+.entity-four.thumbnail .caption .info,
+.entity-four.thumbnail .caption .brand {
+  color: #9D9E9F;
+  text-align: center;
+  font-size: 14px;
+}
+.entity-four.thumbnail .caption .price {
+  margin-top: 10px;
+}
+.entity-four.thumbnail .action {
+  height: 30px;
+}
+.entity-four.thumbnail .action .info {
+  color: #9D9E9F;
+  text-align: center;
+  font-size: 14px;
 }
 .btn-top {
   backface-visibility: hidden;
@@ -615,6 +635,35 @@ p.boolean-false {
 .user-icon-list li img {
   border-radius: 50%;
 }
+.user-icon-large img {
+  display: block;
+  margin: 0 auto ;
+  width: 100px;
+  height: 100px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.user-icon-middle img {
+  display: block;
+  margin: 0 auto ;
+  width: 60px;
+  height: 60px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.user-nick-large {
+  font-size: 32px;
+  font-weight: 500;
+  margin-right: 12px;
+}
 .user-article-cell {
   padding: 0 10px;
   margin-bottom: 20px;
@@ -690,31 +739,33 @@ p.boolean-false {
   text-align: center;
   line-height: 52px;
 }
-.user-latest-actions-wrapper .latest-actions-sidebar-wrapper {
+.guoku-content.user-page .user-latest-actions-wrapper .latest-actions-sidebar-wrapper {
   height: 100%;
-  overflow-y: auto;
 }
-.user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list {
+.guoku-content.user-page .user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list {
   border-bottom: 0 !important;
 }
-.user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li {
+.guoku-content.user-page .user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-title.section-title-control {
+  border-left-color: #ffffff;
+}
+.guoku-content.user-page .user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li {
   margin-bottom: 10px;
   font-size: 14px;
 }
-.user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li a:hover {
+.guoku-content.user-page .user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li a:hover {
   cursor: pointer;
   color: #428bca;
 }
-.user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper {
+.guoku-content.user-page .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper {
   height: 52px;
   margin: 25px 15px;
   overflow: hidden;
 }
-.user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .rect-decoration {
+.guoku-content.user-page .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .rect-decoration {
   float: left;
   margin-right: 15px;
 }
-.user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper {
+.guoku-content.user-page .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper {
   margin-left: 67px;
   min-height: 52px;
   max-height: 52px;
@@ -723,15 +774,22 @@ p.boolean-false {
   overflow: hidden;
   white-space: nowrap;
 }
-.user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper .user-info-section-title {
+.guoku-content.user-page .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper .user-info-section-title {
   font-size: 12px;
 }
-.user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a.user-latest-article-title {
+.guoku-content.user-page .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a.user-latest-article-title {
   font-size: 18px;
   color: #424242;
 }
-.user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a:hover {
+.guoku-content.user-page .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a:hover {
   text-decoration: none;
+  cursor: pointer;
+}
+.guoku-content.user-page .content-panel .panel-header .panel-name.panel-name-control {
+  border-left-color: #ffffff;
+  left: -3px;
+}
+.guoku-content.user-page .content-panel .panel-header .more-link.more-link-control a:hover {
   cursor: pointer;
 }
 @media screen and (min-width: 1200px) {
@@ -739,7 +797,14 @@ p.boolean-false {
     font-size: 24px;
   }
   .user-article-panel .user-article-title-wrapper {
-    font-size: 24px;
+    font-size: 22px;
+    font-weight: normal;
+  }
+}
+@media screen and (max-width: 767px) {
+  .user-article-wrapper .user-article-item-wrapper.user-article-cell .user-article-panel .user-article-title-wrapper,
+  .user-article-wrapper .user-article-item-wrapper.user-article-cell .user-article-panel .user-article-intro-wrapper {
+    min-height: 0 !important;
   }
 }
 /*# sourceMappingURL=user_author_add.less.css.map */

@@ -41,6 +41,24 @@ DATABASES = {
     },
 }
 
+# CELERY #################################
+BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERYD_CONCURRENCY = 2
+CELERY_DISABLE_RATE_LIMITS = False
+# CELERY_ROUTES = {
+#     'sogou.parse_article_content': {
+#         'queue': 'images',
+#     }
+# }
+#celery end  #############################
+import djcelery
+djcelery.setup_loader()
+
+# config of site in redis.
+CONFIG_REDIS_HOST = 'localhost'
+CONFIG_REDIS_PORT = 6379
+
 DEBUG_TOOLBAR_CONFIG = {
     'JQUERY_URL': '//libs.baidu.com/jquery/2.1.4//jquery.min.js'
 }
@@ -91,9 +109,13 @@ SESSION_FILE_PATH = '/tmp/'
 MOGILEFS_DOMAIN = 'prod'
 MOGILEFS_TRACKERS = ['10.0.2.50:7001']
 MOGILEFS_MEDIA_URL = 'images/'
-DEFAULT_FILE_STORAGE = 'storages.backends.mogile.MogileFSStorage'
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+LOCAL_IMG_DEBUG = True
+IMAGE_HOST = 'http://imgcdn.guoku.com/'
+INTRANET_IMAGE_SERVER = 'http://localhost:5556/'
 # DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 # IMAGE_SIZE = [128, 310, 640]
+
 
 Avatar_Image_Path = 'avatar/'
 # Avatar_Image_Size = [180, 50]
@@ -177,5 +199,6 @@ HAYSTACK_CONNECTIONS = {
         # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
     }
 }
+
 
 __author__ = 'edison7500'
