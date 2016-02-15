@@ -1911,7 +1911,6 @@ body.compact-body {
 }
 #guoku_main_nav .main-list li.active a {
   color: #424242;
-  font-weight: 600;
 }
 #guoku_main_nav .main-list li.divider {
   background-color: #9d9d9d;
@@ -1922,7 +1921,6 @@ body.compact-body {
 #guoku_main_nav .main-list a:hover,
 #guoku_main_nav .main-list a:focus {
   color: #424242 !important;
-  font-weight: 600;
   background: none;
 }
 #guoku_main_nav .main-list .img-menu {
@@ -2006,11 +2004,23 @@ body.compact-body {
   background: none;
   padding: 0px 8px;
 }
+#guoku_main_nav .search .search-input.search-input-control {
+  height: 32px;
+  line-height: 32px;
+  padding: 0 10px 0 12px;
+  border: none;
+  background-color: #F0F0F0;
+}
 #guoku_main_nav .search .fa {
   position: absolute;
   right: 5px;
   top: 5px;
   color: #9D9E9F;
+}
+#guoku_main_nav .search .fa.fa-search-control {
+  z-index: 1000;
+  right: 10px;
+  top: 7px;
 }
 #guoku_footer {
   min-height: 200px;
@@ -4017,6 +4027,10 @@ body.compact-body {
   }
   .guoku-content.index-page .category-cell.col-lg-2 {
     width: 12.5%;
+  }
+  #guoku_main_nav .search .search-input {
+    width: 200px;
+    box-sizing: border-box;
   }
 }
 body .for-mobile {
