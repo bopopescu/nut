@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from haystack import indexes
 from apps.core.models import Entity, GKUser, Article, Sub_Category
 from apps.tag.models import Tags
@@ -31,6 +33,13 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
 
     def get_model(self):
         return Entity
+
+    def prepare_brand(self, obj):
+        brand = u''
+        if 'brand' in self.prepared_data:
+            brand_list = self.prepared_data['brand'].split()
+            brand = ''.join(brand_list)
+        return brand
 
     def index_queryset(self, using=None):
         return self.get_model().objects.filter(status__gt=Entity.new).using('slave').filter(buy_links__status=2).distinct()

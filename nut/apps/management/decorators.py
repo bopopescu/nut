@@ -2,10 +2,14 @@ from django.http import Http404
 
 
 def staff_only(func=None):
-    def staff_wrapped(request, *args, **kwargs):
+    def staff_wrapped(*args, **kwargs):
+        if len(args) == 2:
+            request = args[1]
+        else:
+            request = args[0]
         if not request.user.is_staff or not request.user.editor:
             raise Http404
-        return func(request, *args, **kwargs)
+        return func(*args, **kwargs)
     return staff_wrapped
 
 

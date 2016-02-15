@@ -4,7 +4,7 @@ define(['jquery', 'libs/Class'], function(
 
     var ArticleShareApp= Class.extend({
         init: function(){
-            console.log('hello share class!');
+            //console.log('hello share class!');
         }
     });
 

@@ -2019,11 +2019,16 @@ define('subapp/related_article_loader',['component/ajaxloader', 'jquery', 'libs/
 
     return RelatedArticleLoader;
 });
-define('subapp/article/article_share',['jquery'], function(){
+define('subapp/article/article_share',['jquery', 'libs/Class'], function(
+    $, Class
+){
 
-    var ArticleShareApp= function(){
-        console.log('hello share!');
-    };
+    var ArticleShareApp= Class.extend({
+        init: function(){
+            //console.log('hello share class!');
+        }
+    });
+
     return ArticleShareApp;
 });
 define('libs/csrf',['jquery'],function($){
