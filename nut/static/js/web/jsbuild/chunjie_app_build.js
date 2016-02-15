@@ -214,7 +214,7 @@ define('subapp/chunjie/chunjie',['libs/Class'], function(
                 ]
 
             });
-        },
+        }
     });
 
     return ChunjieApp;
