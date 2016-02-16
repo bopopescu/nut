@@ -35,7 +35,6 @@ define(['jquery', 'libs/Class','underscore','bootbox'], function(
             };
 
             this.setupShareTrigger();
-            this.setupShareBox();
 
         },
 
