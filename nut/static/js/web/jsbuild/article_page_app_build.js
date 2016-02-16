@@ -2062,7 +2062,6 @@ define('subapp/article/article_share',['jquery', 'libs/Class','underscore','boot
             };
 
             this.setupShareTrigger();
-            this.setupShareBox();
 
         },
 
@@ -2088,7 +2087,6 @@ define('subapp/article/article_share',['jquery', 'libs/Class','underscore','boot
 
             $('.article-share .share-btn-weibo').each(this.setupWeiboShareBtn.bind(this));
             $('.article-share .share-btn-qq').each(this.setupQQShareBtn.bind(this));
-            $('.article-share .share-btn-wx').each(this.setupWeixinShareSellerBtn(this));
 
             $('.article-sidebar-wrapper .sidebar_weibo_share_btn').each(this.setupWeiboShareBtn.bind(this));
             $('.article-sidebar-wrapper .sidebar_qq_share_btn').each(this.setupQQShareBtn.bind(this));
