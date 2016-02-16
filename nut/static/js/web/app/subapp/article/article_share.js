@@ -7,6 +7,7 @@ define(['jquery', 'libs/Class','underscore','bootbox'], function(
              //console.log('hello rose!');
             this.weibo_share_service_url = 'http://service.weibo.com/share/share.php';
             this.qq_share_service_url = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey';
+            this.share_weixin_modal_content = $('#share_weixin_modal_content').html();
 
             this.shareTitle = '真实的图文记录，帮助你更高效地做出消费决策，养成正向的消费价值观。';
             this.sharePic = '';
@@ -34,11 +35,26 @@ define(['jquery', 'libs/Class','underscore','bootbox'], function(
             };
 
             this.setupShareTrigger();
+            this.setupShareBox();
 
         },
 
         getShareUrl: function(){
             return location.href.replace(/m\.guoku\.com/, 'www.guoku.com');
+        },
+
+        showWeixinShareDialog: function(){
+            bootbox.hideAll();
+            bootbox.dialog({
+                title: '分享 精选图文 微信 modal title',
+                onEscape: true,
+                backdrop:true,
+                closeButton: true,
+                animate: true,
+                className: 'article-share-wx-dialog',
+                message: this.share_weixin_modal_content,
+
+            });
         },
 
         setupShareTrigger: function(){
@@ -48,7 +64,7 @@ define(['jquery', 'libs/Class','underscore','bootbox'], function(
 
             $('.article-sidebar-wrapper .sidebar_weibo_share_btn').each(this.setupWeiboShareBtn.bind(this));
             $('.article-sidebar-wrapper .sidebar_qq_share_btn').each(this.setupQQShareBtn.bind(this));
-
+            $('.article-sidebar-wrapper .sidebar_weixin_share_btn').each(this.setupWeixinShareSellerBtn.bind(this));
 
         },
 
@@ -79,6 +95,10 @@ define(['jquery', 'libs/Class','underscore','bootbox'], function(
 
                 ele.href = this.qq_share_service_url + this.makeUrlQueryString(options);
 
+        },
+
+        setupWeixinShareSellerBtn: function(index, ele){
+                $(ele).click(this.showWeixinShareDialog.bind(this));
         },
 
          getShareTitle: function(ele){
