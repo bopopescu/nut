@@ -46,8 +46,8 @@ require([
         var userNote = new UserNote();
         var imgHandler = new EntityImageHandler();
 
-        // hide baichuan recommend for now
-        //var baichuanManager = new BaichuanManager()
+        var baichuanManager = new BaichuanManager()
+
         /// begin entity liker app
         if (_.isUndefined(current_entity_id)){
             throw new Error('can not find current entity id ');

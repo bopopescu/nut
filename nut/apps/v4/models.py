@@ -84,7 +84,6 @@ class APIUser(GKUser):
                 res['avatar_large'] = self.profile.avatar_url
                 res['avatar_small'] = self.profile.avatar_url
 
-
             # res['verified'] = self.profile.email_verified
             except Exception, e:
                 log.error("Error: user id %s %s", (self.id,e.message))
@@ -107,6 +106,11 @@ class APIUser(GKUser):
             res['taobao_nick'] = self.taobao.screen_name
             res['taobao_token_expires_in'] = self.taobao.expires_in
         except Taobao_Token.DoesNotExist, e:
+            log.info("info: %s", e.message)
+
+        try:
+            res['wechat_nick'] = self.weixin.nickname
+        except WeChat_Token.DoesNotExist, e:
             log.info("info: %s", e.message)
 
         if visitor:

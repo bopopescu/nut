@@ -20,7 +20,13 @@ def webpage_not_found(request):
 # class TestView(TemplateView):
 #     template_name = 'web/index.html'
 
+from apps.core.utils.wechat import  get_js_sdk_signature_obj
 class HappyNYView(TemplateView):
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super(HappyNYView , self).get_context_data(*args, **kwargs)
+    #     context['signature_obj'] =  get_js_sdk_signature_obj(\
+    #                                 sig_url=self.request.build_absolute_uri())
+    #     return context
     template_name = 'web/happynewyear/happy.html'
 
 class AboutView(TemplateView):

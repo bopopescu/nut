@@ -81,7 +81,7 @@ HAYSTACK_CONNECTIONS = {
     }
 }
 # HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
-HAYSTACK_DEFAULT_OPERATOR = 'AND'
+HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -292,6 +292,13 @@ CELERY_ANNOTATIONS = {
 # CELERY_ACCEPT_CONTENT = ['json']
 # CELERY_TASK_SERIALIZER = 'json'
 # CELERY_RESULT_SERIALIZER = 'json'
+
+CELERY_ROUTES = {
+    'sogou.crawl_articles': {'queue': 'sogou'},
+    'sogou.crawl_article': {'queue': 'sogou'},
+    'sogou.fetch_article_list': {'queue': 'sogou'},
+}
+
 
 # taobao
 APP_HOST = "http://www.guoku.com"

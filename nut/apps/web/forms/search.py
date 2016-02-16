@@ -2,7 +2,8 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 # from haystack.forms import SearchForm
 from django.utils.log import getLogger
-from apps.core.models import GKUser, Entity, Tag
+from apps.core.models import GKUser, Entity
+from apps.tag.models import Tags
 
 #
 log = getLogger('django')
@@ -24,7 +25,7 @@ class SearchForm(forms.Form):
         _order = self.cleaned_data.get('o', 'time')
 
         if _type == "t":
-            self.res = Tag.search.query(_keyword)
+            self.res = Tags.search.query(_keyword)
         elif _type == "u":
             self.res = GKUser.search.query(_keyword).order_by('@weight', '-date_joined')
         else:
@@ -44,7 +45,7 @@ class SearchForm(forms.Form):
         return res.count()
 
     def get_tag_count(self):
-        res = Tag.search.query(self.keyword)
+        res = Tags.search.query(self.keyword)
         return res.count()
 
 __author__ = 'edison'
