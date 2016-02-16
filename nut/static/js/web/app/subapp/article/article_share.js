@@ -6,8 +6,9 @@ define(['jquery', 'libs/Class','underscore','bootbox'], function(
         init: function(){
              //console.log('hello rose!');
             this.weibo_share_service_url = 'http://service.weibo.com/share/share.php';
+            this.qq_share_service_url = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey';
 
-            this.shareTitle = '我是图文分享对应的动态标题啦。';
+            this.shareTitle = '真实的图文记录，帮助你更高效地做出消费决策，养成正向的消费价值观。';
             this.sharePic = '';
 
             this.weiboShareOptions = {
@@ -22,6 +23,16 @@ define(['jquery', 'libs/Class','underscore','bootbox'], function(
                 rnd : new Date().valueOf()
             };
 
+             this.qqShareOptions ={
+                url: this.getShareUrl(),
+                showcount: 0 ,
+                desc: this.shareTitle,
+                summary: '果库精选图文概要',
+                title: '#果库精选图文标题#',
+                site: '果库网',
+                pics: this.sharePic
+            };
+
             this.setupShareTrigger();
 
         },
@@ -33,7 +44,11 @@ define(['jquery', 'libs/Class','underscore','bootbox'], function(
         setupShareTrigger: function(){
 
             $('.article-share .share-btn-weibo').each(this.setupWeiboShareBtn.bind(this));
+            $('.article-share .share-btn-qq').each(this.setupQQShareBtn.bind(this));
+
             $('.article-sidebar-wrapper .sidebar_weibo_share_btn').each(this.setupWeiboShareBtn.bind(this));
+            $('.article-sidebar-wrapper .sidebar_qq_share_btn').each(this.setupQQShareBtn.bind(this));
+
 
         },
 
@@ -47,17 +62,30 @@ define(['jquery', 'libs/Class','underscore','bootbox'], function(
 
         setupWeiboShareBtn: function(index,ele){
             var options = _.clone(this.weiboShareOptions);
-                options.title = this.getSellerShareTitle(ele);
-                options.pic = this.getSellerSharePic(ele);
+                options.title = this.getShareTitle(ele);
+                options.pic = this.getSharePic(ele);
 
                 ele.href = this.weibo_share_service_url + this.makeUrlQueryString(options);
         },
 
-         getSellerShareTitle: function(ele){
+        setupQQShareBtn: function(index,ele){
+            var options = _.clone(this.qqShareOptions);
+                options.showCount = 0;
+                options.desc = this.getShareTitle(ele);
+                options.summary = '#果库精选图文';
+                options.title =  this.shareTitle;
+                options.site = '果库网';
+                options.pics = this.getSharePic(ele);
+
+                ele.href = this.qq_share_service_url + this.makeUrlQueryString(options);
+
+        },
+
+         getShareTitle: function(ele){
 
             return $(ele).attr('data_article_title');
         },
-        getSellerSharePic: function(ele){
+        getSharePic: function(ele){
 
             return $(ele).attr('data_article_cover');
         }
