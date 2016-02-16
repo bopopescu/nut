@@ -1548,6 +1548,17 @@ p.boolean-false {
 .article-sidebar-wrapper .article-sidebar .list-item a i {
   font-size: 18px;
 }
+.article-share-wx-dialog .modal-dialog {
+  width: 250px;
+  height: auto;
+  margin-top: 150px;
+}
+.article-share-wx-dialog .modal-dialog .modal-header {
+  display: none;
+}
+.article-share-wx-dialog .modal-dialog .qr-code-wrapper.qr-code-control {
+  text-align: center;
+}
 @media screen and (max-width: 768px) {
   .article-sidebar-wrapper.article-sidebar-hidden {
     display: none;
