@@ -17,7 +17,8 @@ from apps.core.views import LoginRequiredMixin
 from apps.core.mixins.views import SortMixin, FilterMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
-from apps.management.forms.users import UserAuthorInfoForm , UserAuthorSetForm
+from apps.management.forms.users import UserAuthorInfoForm , UserAuthorSetForm ,\
+                                        UserSellerSetForm
 
 from django.utils.log import getLogger
 log = getLogger('django')
@@ -82,6 +83,22 @@ class UserAuthorSetView(UserPassesTestMixin,JSONResponseMixin, UpdateView):
 
     def test_func(self,user):
         return user.is_admin
+
+
+class UserSellerSetView(UserPassesTestMixin, JSONResponseMixin, UpdateView):
+    pk_url_kwarg = 'user_id'
+    form_class = UserSellerSetForm
+    model = GKUser
+    def form_valid(self, form):
+        form.save()
+        return self.render_json_response({'error': 0},status=200)
+
+    def form_invalid(self, form):
+        return self.render_json_response({'error':1, 'message':'invalid form'}, status=500)
+
+    def test_func(self, user):
+        return user.is_admin
+
 
 
 class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListView):
