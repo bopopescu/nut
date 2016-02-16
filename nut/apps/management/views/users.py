@@ -1,5 +1,5 @@
 from django.http import Http404, HttpResponseRedirect, HttpResponseBadRequest
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, UpdateView
@@ -99,7 +99,25 @@ class UserSellerSetView(UserPassesTestMixin, JSONResponseMixin, UpdateView):
     def test_func(self, user):
         return user.is_admin
 
+class SellerShopListView(ListView):
+    model = GKUser
+    template_name = 'management/users/seller_shop_list.html'
+    context_object_name = 'shops'
+    paginate_by = 20
+    paginator_class = Jpaginator
 
+    def get_user(self):
+        _user_id = self.kwargs.get('user_id', None)
+        _user = get_object_or_404(GKUser, pk=_user_id)
+        return _user
+
+    def get_queryset(self):
+        return self.get_user().shops
+
+    def get_context_data(self, **kwargs):
+        context = super(SellerShopListView, self).get_context_data()
+        context['current_user'] = self.get_user()
+        return context
 
 class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListView):
     template_name = 'management/users/list.html'
@@ -143,6 +161,8 @@ class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListVie
             user_list = querySet.authorized_author().using('slave')
         elif active == '777':
             user_list = querySet.admin().using('slave')
+        elif active == '666':
+            user_list = querySet.authorized_seller().using('slave')
         else:
             user_list= []
 
