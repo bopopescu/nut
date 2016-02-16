@@ -67,3 +67,13 @@ class UserAuthorSetForm(ModelForm):
     class Meta:
         model = GKUser
         fields = ['isAuthor']
+
+class UserSellerSetForm(ModelForm):
+    isSeller = BooleanField(required=False)
+    class Meta:
+        model = GKUser
+        fields = ['isSeller']
+
+    def save(self,commit=True):
+        _user = self.instance
+        _user.setSeller(self.cleaned_data.get('isSeller'))
