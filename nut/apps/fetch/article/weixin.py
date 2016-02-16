@@ -3,6 +3,9 @@
 
 import re
 import random
+from _mysql import Warning, Error
+from time import sleep
+
 import redis
 import requests
 import os, sys
@@ -105,24 +108,35 @@ def fetch_article_list(authorized_user_pk, page=1):
             cleaned_title__startswith=item,
             creator=authorized_user.user
         )
+        log.info("filter sql is: %s", article.query)
         if article:
             existed.append(item)
 
-    # if existed:
-    #     log.info('some items on the page already exists in db; '
-    #              'no need to go to next page')
-    #     go_next = False
-
+    log.info("those articles are existed: %s", existed)
+    if existed:
+        log.info('some items on the page already exists in db; '
+                 'no need to go to next page')
+        go_next = False
     item_dict = {key: value for key, value
                  in item_dict.items() if key not in existed}
     for cleaned_title, article_item in item_dict.items():
-        crawl_article.delay(
-            article_link=article_item.url.string,
-            authorized_user_pk=authorized_user.pk,
-            article_data=dict(cover=article_item.imglink.string),
-            sg_cookie=sg_cookie,
-            page=page,
-        )
+        try:
+            crawl_article(
+                article_link=article_item.url.string,
+                authorized_user_pk=authorized_user.pk,
+                article_data=dict(cover=article_item.imglink.string),
+                sg_cookie=sg_cookie,
+                page=page,
+            )
+        except (Warning, Error) as e:
+            log.error(
+                'unexpected error in crawl_article - user pk: %d; ' +
+                'title: %s; page: %d - %s',
+                authorized_user_pk,
+                cleaned_title,
+                page,
+                e,
+                exc_info=True)
 
     page += 1
     if int(response.jsonp['totalPages']) < page:
@@ -135,7 +149,7 @@ def fetch_article_list(authorized_user_pk, page=1):
                                  page=page)
 
 
-@task(base=RequestsTask, name='sogou.crawl_article')
+# @task(base=RequestsTask, name='sogou.crawl_article')
 def crawl_article(article_link, authorized_user_pk, article_data, sg_cookie, page):
     url = urljoin('http://weixin.sogou.com/', article_link)
     authorized_user = Profile.objects.get(pk=authorized_user_pk)
@@ -165,6 +179,8 @@ def crawl_article(article_link, authorized_user_pk, article_data, sg_cookie, pag
             cleaned_title=cleaned_title,
             creator=creator,
         )
+        log.info("created article id: %s. title: %s. cleaned_title: %s",
+                 article.pk, title, cleaned_title)
     except MultipleObjectsReturned as e:
         log.error("duplicate articles, title: %s."
                   " will use the first one. %s", title, e.message)
@@ -211,6 +227,8 @@ def crawl_article(article_link, authorized_user_pk, article_data, sg_cookie, pag
             content_html = article_soup.decode_contents(formatter="html")
             article.content = content_html
             article.save()
+    log.info('article %s finished.', article.pk)
+    print '-' * 80
 
 
 def get_tokens(weixin_id):

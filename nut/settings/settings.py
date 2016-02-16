@@ -274,7 +274,7 @@ CELERYD_PREFETCH_MULTIPLIER = 1
 CELERY_DISABLE_RATE_LIMITS = False
 CELERY_ROUTES = {
     'sogou.crawl_articles': {'queue': 'sogou'},
-    'sogou.crawl_article': {'queue': 'sogou'},
+    # 'sogou.crawl_article': {'queue': 'sogou'},
     'sogou.fetch_article_list': {'queue': 'sogou'},
 }
 
@@ -282,9 +282,9 @@ CELERY_ANNOTATIONS = {
     'sogou.crawl_articles': {
         'rate_limit': '1/m',
     },
-    'sogou.crawl_article': {
-        'rate_limit': '1/m',
-    },
+    # 'sogou.crawl_article': {
+    #     'rate_limit': '1/m',
+    # },
     'sogou.fetch_article_list': {
         'rate_limit': '1/m',
     },
