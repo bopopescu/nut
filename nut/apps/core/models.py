@@ -26,19 +26,6 @@ from apps.notifications import notify
 from apps.core.utils.image import HandleImage
 from apps.core.utils.articlecontent import contentBleacher
 from apps.core.extend.fields.listfield import ListObjectField
-# from apps.core.manager.account import GKUserManager
-# from apps.core.manager.entity import SelectionEntityManager
-# from apps.core.manager.entity import EntityLikeManager
-# from apps.core.manager.entity import EntityManager
-# from apps.core.manager.note import NoteManager, NotePokeManager
-# from apps.core.manager.category import SubCategoryManager
-# from apps.core.manager.category import CategoryManager
-# from apps.core.manager.comment import CommentManager
-# from apps.core.manager.event import ShowEventBannerManager
-# from apps.core.manager.article import SelectionArticleManager
-# from apps.core.manager.article import ArticleManager
-# from apps.core.manager.article import ArticleDigManager
-# from apps.core.manager.sidebar_banner import SidebarBannerManager
 from apps.web.utils.datatools import get_entity_list_from_article_content
 from apps.core.manager import *
 
@@ -355,6 +342,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
                 log.error("Error: user id %s %s", (self.id, e.message))
             cache.set(key, res, timeout=86400)
 
+        res['mail_verified'] = self.profile.email_verified
         res['like_count'] = self.like_count
         res['entity_note_count'] = self.post_note_count
         res['tag_count'] = self.tags_count
@@ -371,6 +359,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             res['taobao_nick'] = self.taobao.screen_name
             res['taobao_token_expires_in'] = self.taobao.expires_in
         except Taobao_Token.DoesNotExist, e:
+            log.info("info: %s", e.message)
+
+        try:
+            res['wechat_nick'] = self.weixin.nickname
+        except WeChat_Token.DoesNotExist, e:
             log.info("info: %s", e.message)
 
         if visitor:
@@ -1288,7 +1281,7 @@ class Article(BaseModel):
     cover = models.CharField(max_length=255, blank=True)
     content = models.TextField()
     publish = models.IntegerField(choices=ARTICLE_STATUS_CHOICES, default=draft)
-    created_datetime = models.DateTimeField(db_index=True, null=True)
+    created_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True)
     updated_datetime = models.DateTimeField()
     showcover = models.BooleanField(default=False)
     read_count = models.IntegerField(default=0)

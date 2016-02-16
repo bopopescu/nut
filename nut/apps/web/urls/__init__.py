@@ -125,7 +125,7 @@ from apps.web.views import HappyNYView
 urlpatterns += patterns('',
             url(r'^store2015/', SellerView.as_view(), name='year_store_2015'),
             url(r'^store/', SellerView.as_view(), name='web_store'),
-            url(r'^happynewyear/', HappyNYView.as_view(), name='new_year_2015'),
+            url(r'^hou/', HappyNYView.as_view(), name='new_year_2015'),
         )
 
 

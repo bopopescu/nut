@@ -361,7 +361,7 @@ p .b_day {
 }
 .entity-four.thumbnail {
   border: none;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   padding: 0px 0px 16px 0px;
   background-color: #ffffff;
   -webkit-border-radius: 4px;
@@ -386,9 +386,29 @@ p .b_day {
   color: #9d9e9f;
 }
 .entity-four.thumbnail .caption {
+  height: 80px;
   padding: 0px;
   margin-top: 12px;
   border: none;
+}
+.entity-four.thumbnail .caption .title,
+.entity-four.thumbnail .caption .price,
+.entity-four.thumbnail .caption .info,
+.entity-four.thumbnail .caption .brand {
+  color: #9d9e9f;
+  text-align: center;
+  font-size: 14px;
+}
+.entity-four.thumbnail .caption .price {
+  margin-top: 10px;
+}
+.entity-four.thumbnail .action {
+  height: 30px;
+}
+.entity-four.thumbnail .action .info {
+  color: #9d9e9f;
+  text-align: center;
+  font-size: 14px;
 }
 .btn-top {
   backface-visibility: hidden;
@@ -736,6 +756,9 @@ p.boolean-false {
     text-align: center;
     margin-bottom: 20px;
   }
+  #guoku_footer .footer-part .list-wrapper.list-wrapper-align-center {
+    margin-bottom: 0;
+  }
   #guoku_footer .footer-part .list-wrapper ul {
     display: inline-block;
   }
@@ -761,6 +784,14 @@ p.boolean-false {
     float: none;
     margin: 0 auto;
     padding-top: 20px;
+  }
+  #guoku_footer .footer-bottom .footer-bottom-left.footer-bottom-left-show,
+  #guoku_footer .footer-bottom .footer-bottom-right.footer-bottom-left-show {
+    padding-top: 6px;
+  }
+  #guoku_footer .footer-bottom .footer-bottom-left.footer-bottom-right-control,
+  #guoku_footer .footer-bottom .footer-bottom-right.footer-bottom-right-control {
+    padding-top: 0;
   }
   #guoku_footer .footer-bottom .footer-bottom-left .font-logo-link.logo-weibo,
   #guoku_footer .footer-bottom .footer-bottom-right .font-logo-link.logo-weibo {

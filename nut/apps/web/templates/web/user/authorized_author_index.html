@@ -148,7 +148,9 @@
 
                 <div class="user-article-intro-wrapper">
                     <p class="user-article-intro">
+                        {% autoescape off %}
                         {{ article.content|striptags|truncatechars:120 }}
+                        {% endautoescape %}
                     </p>
 
                 </div>

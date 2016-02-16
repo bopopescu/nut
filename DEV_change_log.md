@@ -1,3 +1,36 @@
+
+4. 春节 h5 
+3. new footer
+2. show baichuan recommend products
+1. fix  '//images....' replace bug caused by None img field
+0.5  alicdn and taobaocdn image resize 
+
+=================================
+=================================
+### merged to master 2016 － 2 － 2
+=================================
+=================================
+
+2. disable like action for search result 
+1. fix rss bug
+
+=================================
+=================================
+### merged to master 2016 － 2 － 1
+=================================
+=================================
+
+3. category entity list item style update
+2. fix Article model created_datetime auto_add 
+1. article writer bio update
+
+
+=================================
+=================================
+### merged to master 2016 － 1 － 27
+=================================
+=================================
+
 ### fix can not create article error:
 
 #action
@@ -5,7 +38,7 @@
     ALTER TABLE `core`.`core_article` DROP INDEX `cleaned_title_UNIQUE` ;
 
 
-
+7. article mobile page css adjust 
 6. add a cookie store for sogou spider use 
 -----------------------
 5. article mng list page change
@@ -16,6 +49,8 @@
 
 #action 
  need sync db 
+ 
+ 
  need  manage.py compilemessages 
  need  restart server  (new translation items )
  
