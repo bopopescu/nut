@@ -2035,7 +2035,7 @@ define('subapp/article/article_share',['jquery', 'libs/Class','underscore','boot
             this.weibo_share_service_url = 'http://service.weibo.com/share/share.php';
 
             this.shareTitle = '我是图文分享对应的动态标题啦。';
-            this.sharePic = share_pic;
+            this.sharePic = '';
 
             this.weiboShareOptions = {
                 url: this.getShareUrl(),
@@ -2058,7 +2058,8 @@ define('subapp/article/article_share',['jquery', 'libs/Class','underscore','boot
         },
 
         setupShareTrigger: function(){
-            $('.article-share .share-btn-weibo').setupWeiboShareBtn.bind(this);
+
+            $('.article-share .share-btn-weibo').each(this.setupWeiboShareBtn.bind(this));
         },
 
         makeUrlQueryString : function(options){
