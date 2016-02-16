@@ -130,7 +130,7 @@
                                         </a>
                                     </li>
                                     <li class="list-item list-item-qq">
-                                        <a target="_blank" class="share-btn-weixin">
+                                        <a target="_blank" class="share-btn-weixin" data_article_title="{{ article.title }}" data_article_cover="{{ article.cover_url }}">
                                             <i class="fa fa-qq"></i>
                                         </a>
                                     </li>
@@ -261,14 +261,14 @@
                 </li>
 
                 <li class="list-item list-item-weibo">
-                    <a class="sidebar_weibo_share_btn" target="_blank">
+                    <a class="sidebar_weibo_share_btn" target="_blank" data_article_title="{{ article.title }}" data_article_cover="{{ article.cover_url }}">
                         <i class="fa fa-weibo"></i>
                     </a>
 
                 </li>
 
                 <li class="list-item list-item-qq">
-                    <a class="sidebar_qq_share_btn" target="_blank">
+                    <a class="sidebar_qq_share_btn" target="_blank" data_article_title="{{ article.title }}" data_article_cover="{{ article.cover_url }}">
                         <i class="fa fa-qq"></i>
                     </a>
 
