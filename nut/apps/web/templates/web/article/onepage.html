@@ -116,7 +116,7 @@
                                     <li class="list-item share-text">分享到</li>
 
                                     <li class="list-item list-item-weixin">
-                                        <a class="logo-weichat">
+                                        <a class="logo-wechat">
                                             <i class="fa fa-wechat"></i>
                                             <div class="wechat-qrcode-wrapper display-toggle">
                                                 <img src="{%  static 'images/footer/QR-code.jpg' %}" class="wechat-qrcode-img">
@@ -125,12 +125,12 @@
                                         </a>
                                     </li>
                                     <li class="list-item list-item-weibo">
-                                        <a target="_blank">
+                                        <a target="_blank" class="share-btn-weibo" data_article_title="{{ article.title }}" data_article_cover="{{ article.cover_url }}">
                                             <i class="fa fa-weibo"></i>
                                         </a>
                                     </li>
                                     <li class="list-item list-item-qq">
-                                        <a target="_blank">
+                                        <a target="_blank" class="share-btn-weixin">
                                             <i class="fa fa-qq"></i>
                                         </a>
                                     </li>
