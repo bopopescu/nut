@@ -80,7 +80,13 @@
                                     data-id="{{ user.pk }}"
                                     data-group="author"
                                     class="js-switch"
-                                   {% if user.has_author_group %}checked{% endif %} /></td>
+                                   {% if user.has_author_group %}checked{% endif %} />
+                                  </td>
+                                  <td>
+                                      {% if user.is_authorized_author %}
+                                          <a href="{% url 'management_author_article_person_list' user.pk %}"  class="btn btn-success">  作者图文列表  </a>
+                                      {% endif %}
+                                  </td>
                               </tr>
                               <tr>
                                   <td>授权卖家:</td>
@@ -90,6 +96,11 @@
                                     data-group="seller"
                                     class="js-switch"
                                    {% if user.is_authorized_seller %}checked{% endif %} />
+                                  </td>
+                                  <td>
+                                      {% if user.is_authorized_seller %}
+                                          <a href="{% url 'management_user_shop_list' user.pk %}"  class="btn btn-success">  管理卖家店铺  </a>
+                                      {% endif %}
                                   </td>
                               </tr>
                           </table>

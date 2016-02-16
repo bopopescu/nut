@@ -67,6 +67,7 @@ INSTALLED_APPS = (
     'apps.tag',
     'apps.seller',
     'apps.fetch',
+    'apps.shop',
 
     'captcha',
 )

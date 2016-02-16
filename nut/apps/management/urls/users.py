@@ -3,7 +3,9 @@ from apps.management.views.users import MediaListView, \
                                         UserAuthorSetView,\
                                         UserAuthorInfoEditView,\
                                         UserManagementListView,\
-                                        UserSellerSetView
+                                        UserSellerSetView,\
+                                        SellerShopListView
+
 
 urlpatterns = patterns(
     'apps.management.views.users',
@@ -22,6 +24,8 @@ urlpatterns = patterns(
 
 
     url(r'^(?P<user_id>\d+)/editAuthorInfo/$', UserAuthorInfoEditView.as_view(), name='management_user_editAuthor'),
+    url(r'^(?P<user_id>\d+)/shops/$', SellerShopListView.as_view(), name='management_user_shop_list'),
+
 )
 
 __author__ = 'edison'
