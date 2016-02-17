@@ -6,8 +6,6 @@ from django.db import models
 from django.db.models import Q
 from django.contrib.auth.models import BaseUserManager
 from django.utils import timezone
-# from django.utils.encoding import force_bytes
-# from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import ugettext_lazy as _
 from django.core.cache import cache
 from django.contrib.auth.models import Group, GroupManager
@@ -108,5 +106,11 @@ class GKUserManager(BaseUserManager):
 
     def create_superuser(self, email, password, **extra_fields):
         return self._create_user(email, password, True, True, **extra_fields)
+
+
+class AuthorizedUserQuerySet(models.query.QuerySet):
+    def popular(self):
+        return
+
 
 __author__ = 'edison7500'
