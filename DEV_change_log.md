@@ -2,6 +2,11 @@
 2. fix seller page bug
 1. header css adjust
 
+##action:
+
+need syncdb
+#add shops_shop new model
+
 =================================
 =================================
 ### merged to master 2016 － 2 － 5
