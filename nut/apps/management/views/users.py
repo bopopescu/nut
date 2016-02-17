@@ -112,7 +112,7 @@ class SellerShopListView(ListView):
         return _user
 
     def get_queryset(self):
-        return self.get_user().shops
+        return self.get_user().shops.all()
 
     def get_context_data(self, **kwargs):
         context = super(SellerShopListView, self).get_context_data()
