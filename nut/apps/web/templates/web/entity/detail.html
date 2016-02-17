@@ -69,6 +69,31 @@
 {#                            <a class="jiathis_button_tieba"></a>#}
 {#                            <a href="http://www.jiathis.com/share?uid=2038803" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>#}
 {#                        </div>#}
+
+                         <div class="entity-share-wrapper">
+                                <ul>
+                                    <li class="list-item list-item-weixin">
+                                        <a class="logo-wechat">
+                                            <i class="fa fa-wechat"></i>
+                                            <div class="wechat-qrcode-wrapper display-toggle">
+                                                <img src="{%  static 'images/footer/QR-code.jpg' %}" class="wechat-qrcode-img">
+                                                <span class="bottom-bot"></span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="list-item list-item-weibo">
+                                        <a target="_blank" class="share-btn-weibo" data_article_title="{{ article.title }}" data_article_cover="{{ article.cover_url }}">
+                                            <i class="fa fa-weibo"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-item list-item-qq">
+                                        <a target="_blank" class="share-btn-qq" data_article_title="{{ article.title }}" data_article_cover="{{ article.cover_url }}">
+                                            <i class="fa fa-qq"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
                         <span class="share-intro-entity">分享到&nbsp;&nbsp;</span>
                     </div>
                     <div class="divider"></div>
