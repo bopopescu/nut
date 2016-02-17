@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 from django import forms
-from django.forms import ModelForm ,BooleanField, TextInput
+from django.forms import ModelForm ,BooleanField, CharField
 
 
 from apps.core.models import GKUser, Authorized_User_Profile
@@ -79,7 +79,7 @@ class UserSellerSetForm(ModelForm):
         _user.setSeller(self.cleaned_data.get('isSeller'))
 
 class SellerShopForm(ModelForm):
-    owner =  TextInput(required=True)
+    owner =  CharField(required=True)
     class Meta:
         model = Shop
         fields = ['owner','shop_title', 'shop_link', 'shop_desc', 'shop_brands']
