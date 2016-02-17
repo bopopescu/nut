@@ -2,7 +2,7 @@ from django import template
 from django.utils.log import getLogger
 from django.conf import settings
 
-from 
+from apps.qrcodeService.models import UrlQrcode
 
 import hashlib
 import time
@@ -83,6 +83,7 @@ register.filter(entity_qr)
 
 def qrimg(url):
     hash = hashlib.sha1(url).hexdigest()
+
 
 
 
