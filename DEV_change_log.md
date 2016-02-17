@@ -1,4 +1,8 @@
-3. 
+7. Qrcode app for share use
+6. share Entity (not finished)
+5. share article
+4. management : manage seller shops
+3. management : set user to seller
 2. fix seller page bug
 1. header css adjust
 
