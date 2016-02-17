@@ -2681,6 +2681,19 @@ define('subapp/entity/baichuan',['underscore','jquery', 'libs/Class'], function(
     return BaichuanManager;
 
 });
+define('subapp/entity/entity_share',['jquery', 'libs/Class','underscore','bootbox'], function(
+    $, Class,_,bootbox
+){
+
+    var EntityShareApp= Class.extend({
+        init: function(){
+             console.log('hello rose rose rose!');
+        }
+    });
+
+    return EntityShareApp;
+});
+
 require([
         'libs/polyfills',
         'jquery',
@@ -2698,6 +2711,8 @@ require([
         'subapp/entity/liker',
         'subapp/entity/baichuan',
 
+        'subapp/entity/entity_share',
+
         'libs/csrf'
 
     ],
@@ -2714,7 +2729,8 @@ require([
               //entity liker part
               EntityModel,
               LikerAppController,
-              BaichuanManager
+              BaichuanManager,
+              EntityShareApp
 
 
     ){
@@ -2729,7 +2745,9 @@ require([
         var userNote = new UserNote();
         var imgHandler = new EntityImageHandler();
 
-        var baichuanManager = new BaichuanManager()
+        var baichuanManager = new BaichuanManager();
+
+         var shareApp = new EntityShareApp();
 
         /// begin entity liker app
         if (_.isUndefined(current_entity_id)){
