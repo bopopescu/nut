@@ -2764,7 +2764,7 @@ define('subapp/entity/entity_share',['jquery', 'libs/Class','underscore','bootbo
             var entity_brand = $(ele).attr('data_entity_brand');
             var entity_title = $(ele).attr('data_entity_title');
             var entity_comment = $(ele).attr('data_entity_comment');
-            var title = entity_brand + entity_title + ' ：'
+            var title = entity_brand + ' ' + entity_title + ' ：'
                         + entity_comment;
 
             return title ;
