@@ -2140,6 +2140,10 @@ define('subapp/article/article_share',['jquery', 'libs/Class','underscore','boot
 
     return ArticleShareApp;
 });
+
+
+
+
 define('libs/csrf',['jquery'],function($){
 
     function getCookie(name) {
