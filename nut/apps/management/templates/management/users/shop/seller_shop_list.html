@@ -8,7 +8,7 @@
     </div>
     <div class="box-body">
         <div class="btn-group">
-            <a class="btn btn-success" href="{ }">{% trans 'Add Shop' %}</a>
+            <a class="btn btn-success" href="{% url 'management_user_shop_create' current_user.pk %} ">{% trans 'Add Shop' %}</a>
             <a class="btn btn-primary" href="{% url 'management_user_edit'  current_user.pk %}">{% trans 'Back User Info Edit' %}</a>
         </div>
         <div class="box-pane">&nbsp;</div>
