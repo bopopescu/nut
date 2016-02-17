@@ -2,6 +2,9 @@ from django import template
 from django.utils.log import getLogger
 from django.conf import settings
 
+from 
+
+import hashlib
 import time
 import qrcode
 import StringIO
@@ -77,6 +80,9 @@ def entity_qr(value):
     # output.close()
     return content.encode('base64').replace("\n", "")
 register.filter(entity_qr)
+
+def qrimg(url):
+    hash = hashlib.sha1(url).hexdigest()
 
 
 
