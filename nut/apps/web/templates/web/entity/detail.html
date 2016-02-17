@@ -61,14 +61,14 @@
                             <i class="fa fa-flag-o"></i>
                         </div>
 
-                        <div class="jiathis_style">
-                            <a class="jiathis_button_tsina"></a>
-                            <a class="jiathis_button_weixin"></a>
-                            <a class="jiathis_button_qzone"></a>
-                            <a class="jiathis_button_tqq"></a>
-                            <a class="jiathis_button_tieba"></a>
-                            <a href="http://www.jiathis.com/share?uid=2038803" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-                        </div>
+{#                        <div class="jiathis_style">#}
+{#                            <a class="jiathis_button_tsina"></a>#}
+{#                            <a class="jiathis_button_weixin"></a>#}
+{#                            <a class="jiathis_button_qzone"></a>#}
+{#                            <a class="jiathis_button_tqq"></a>#}
+{#                            <a class="jiathis_button_tieba"></a>#}
+{#                            <a href="http://www.jiathis.com/share?uid=2038803" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>#}
+{#                        </div>#}
                         <span class="share-intro-entity">分享到&nbsp;&nbsp;</span>
                     </div>
                     <div class="divider"></div>
@@ -230,19 +230,19 @@
     {#<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>#}
 
 
-    <script type="text/javascript">
-        var jiathis_config = {
-            url: "http://www.guoku.com{{ request.path }}",
-            title: "{{ entity.selection_hover_word }}：",
-            appkey:{
-                "tsina":'2830558576',
-            },
-            imageWidth:150,
-            marginTop:150,
-            pic:"{{ entity.chief_image  }}",
-            summary:"{{ entity.top_note.note|truncatechars:50}} （分享自 @果库）",
-            data_track_clickback:'true'
-        };
-    </script>
-    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2038803" charset="utf-8"></script>
+{#    <script type="text/javascript">#}
+{#        var jiathis_config = {#}
+{#            url: "http://www.guoku.com{{ request.path }}",#}
+{#            title: "{{ entity.selection_hover_word }}：",#}
+{#            appkey:{#}
+{#                "tsina":'2830558576',#}
+{#            },#}
+{#            imageWidth:150,#}
+{#            marginTop:150,#}
+{#            pic:"{{ entity.chief_image  }}",#}
+{#            summary:"{{ entity.top_note.note|truncatechars:50}} （分享自 @果库）",#}
+{#            data_track_clickback:'true'#}
+{#        };#}
+{#    </script>#}
+{#    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2038803" charset="utf-8"></script>#}
 {% endblock %}
