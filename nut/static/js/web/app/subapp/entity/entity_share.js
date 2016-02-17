@@ -78,8 +78,13 @@ define(['jquery', 'libs/Class','underscore','bootbox'], function(
         },
 
         getShareTitle: function(ele){
+            var entity_brand = $(ele).attr('data_entity_brand');
+            var entity_title = $(ele).attr('data_entity_title');
+            var entity_comment = $(ele).attr('data_entity_comment');
+            var title = entity_brand + entity_title + ' ：'
+                        + entity_comment;
 
-            return $(ele).attr('data_entity_title');
+            return title ;
         },
         getSharePic: function(ele){
 
