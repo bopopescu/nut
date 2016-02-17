@@ -503,14 +503,14 @@
 }
 
 //fixed share sidebar
-.seller-sidebar-wrapper{
+.article-sidebar-wrapper{
   .acc-layer;
   position:fixed;
   bottom:100px;
   left:0;
   width:86px;
   height:148px;
-  background-color: #fff;
+  background-color: #ffffff;
   padding:5px;
   z-index: 1000;
   //.border-radius;
@@ -518,7 +518,7 @@
   border-bottom-left-radius: @global-box-radius;
   .drop-shadow;
 
-  .seller-sidebar{
+  .article-sidebar{
     width:100%;
     height:100%;
       .list-item{
@@ -569,9 +569,31 @@
  }
 }
 
+//wechat dialog
+
+.article-share-wx-dialog{
+  .modal-dialog{
+    width:250px;
+    height:auto;
+    margin-top:150px;
+
+     .modal-header{
+    display: none;
+  }
+
+     .qr-code-wrapper{
+
+       &.qr-code-control{
+         text-align:center;
+       }
+  }
+  }
+
+}
+
 @media screen and (max-width:768px){
-  .seller-sidebar-wrapper{
-      &.seller-sidebar-hidden{
+  .article-sidebar-wrapper{
+      &.article-sidebar-hidden{
         display: none;
       }
     }
