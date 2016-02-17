@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, UpdateView , CreateView
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms import ModelForm ,BooleanField, HiddenInput
 
 from braces.views import AjaxResponseMixin,JSONResponseMixin, UserPassesTestMixin
@@ -122,9 +122,23 @@ class SellerShopListView(SellerContextMixin,ListView):
     def get_queryset(self):
         return self.get_user().shops.all()
 
+from apps.management.forms.users import SellerShopForm
+from apps.shop.models import Shop
 class SellerShopCreateView(SellerContextMixin,CreateView):
     template_name =  'management/users/shop/seller_shop_create.html'
-    pass
+    model = Shop
+    form_class =  SellerShopForm
+    fields = ['owner','shop_title','shop_link','shop_desc','shop_brands']
+
+    def get_initial(self):
+        initial = super(CreateView, self).get_initial()
+        owner_pk = self.kwargs.get('user_id')
+        initial['owner'] = owner_pk
+
+    def get_success_url(self):
+        _user = self.get_user()
+        return reverse_lazy('management_user_shop_list',args={'user_id':_user.pk})
+
 
 class SellerShopUpdateView(SellerContextMixin,UpdateView):
     template_name = 'management/users/shop/seller_shop_update.html'
