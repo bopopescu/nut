@@ -116,7 +116,7 @@
                                     <li class="list-item share-text">分享到</li>
 
                                     <li class="list-item list-item-weixin">
-                                        <a class="logo-weichat">
+                                        <a class="logo-wechat">
                                             <i class="fa fa-wechat"></i>
                                             <div class="wechat-qrcode-wrapper display-toggle">
                                                 <img src="{%  static 'images/footer/QR-code.jpg' %}" class="wechat-qrcode-img">
@@ -125,12 +125,12 @@
                                         </a>
                                     </li>
                                     <li class="list-item list-item-weibo">
-                                        <a target="_blank">
+                                        <a target="_blank" class="share-btn-weibo" data_article_title="{{ article.title }}" data_article_cover="{{ article.cover_url }}">
                                             <i class="fa fa-weibo"></i>
                                         </a>
                                     </li>
                                     <li class="list-item list-item-qq">
-                                        <a target="_blank">
+                                        <a target="_blank" class="share-btn-qq" data_article_title="{{ article.title }}" data_article_cover="{{ article.cover_url }}">
                                             <i class="fa fa-qq"></i>
                                         </a>
                                     </li>
@@ -250,8 +250,8 @@
 
     </div>
    {#    fixed share sidebar#}
-    <div class="seller-sidebar-wrapper seller-sidebar-hidden">
-        <div class="seller-sidebar">
+    <div class="article-sidebar-wrapper article-sidebar-hidden">
+        <div class="article-sidebar">
             <ul>
                 <li class="list-item list-item-weixin">
                     <a class="sidebar_weixin_share_btn">
@@ -261,14 +261,14 @@
                 </li>
 
                 <li class="list-item list-item-weibo">
-                    <a class="sidebar_weibo_share_btn" target="_blank">
+                    <a class="sidebar_weibo_share_btn" target="_blank" data_article_title="{{ article.title }}" data_article_cover="{{ article.cover_url }}">
                         <i class="fa fa-weibo"></i>
                     </a>
 
                 </li>
 
                 <li class="list-item list-item-qq">
-                    <a class="sidebar_qq_share_btn" target="_blank">
+                    <a class="sidebar_qq_share_btn" target="_blank" data_article_title="{{ article.title }}" data_article_cover="{{ article.cover_url }}">
                         <i class="fa fa-qq"></i>
                     </a>
 
@@ -279,6 +279,14 @@
 
     {#    fixed share sidebar end --- #}
 
+
+  <script type="text/html" id="share_weixin_modal_content">
+        <div class="share-modal-wrapper share-modal-wrapper-control">
+            <div class="qr-code-wrapper qr-code-control">
+                <img src="{% static 'images/year-seller/store2015_QRcode.jpg' %}" width="200px" height="200px"/>
+            </div>
+        </div>
+  </script>
 
 
 {% endblock %}
