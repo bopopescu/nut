@@ -1,0 +1,33 @@
+{% extends 'management/users/user_edit_base.html' %}
+{% load i18n static %}
+{% block user_edit_block %}
+    <div class="box box-info">
+    <div class="box-header">
+         {% trans 'Seller Shop List'  %}
+
+    </div>
+    <div class="box-body">
+        <div >
+            <a class="btn btn-primary" href="{ %}">{% trans 'Add Shop' %}</a>
+        </div>
+        <table class="table table-responsive table-bordered">
+            <tr>
+                <th>{% trans 'Shop Owner' %}</th>
+                <th>{% trans 'Shop Title' %}</th>
+                <th>{% trans 'Shop Link' %}</th>
+                <th>{% trans 'Shop Desc' %}</th>
+                <th>{% trans 'Brand List' %}</th>
+            </tr>
+            {% for shop in shops  %}
+            <tr>
+                <td>{{ shop.owner.title }}</td>
+                <td>{{ shop.title }}</td>
+                <td>{{ shop.shop_link|truncatechars:'30' }}</td>
+                <td>{{ shop.desc }}</td>
+                <td>{{ shop.brans }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </div>
+{% endblock %}
