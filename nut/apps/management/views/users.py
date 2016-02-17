@@ -2,7 +2,7 @@ from django.http import Http404, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, UpdateView
+from django.views.generic import ListView, UpdateView , CreateView
 from django.core.urlresolvers import reverse
 from django.forms import ModelForm ,BooleanField, HiddenInput
 
@@ -99,25 +99,39 @@ class UserSellerSetView(UserPassesTestMixin, JSONResponseMixin, UpdateView):
     def test_func(self, user):
         return user.is_admin
 
-class SellerShopListView(ListView):
-    model = GKUser
-    template_name = 'management/users/seller_shop_list.html'
-    context_object_name = 'shops'
-    paginate_by = 20
-    paginator_class = Jpaginator
-
+class SellerContextMixin(object):
     def get_user(self):
         _user_id = self.kwargs.get('user_id', None)
         _user = get_object_or_404(GKUser, pk=_user_id)
         return _user
 
+    def get_context_data(self, **kwargs):
+        context = super(SellerContextMixin, self).get_context_data()
+        context['current_user'] = self.get_user()
+        return context
+
+# Start seller shop manangement
+
+class SellerShopListView(SellerContextMixin,ListView):
+    model = GKUser
+    template_name = 'management/users/shop/seller_shop_list.html'
+    context_object_name = 'shops'
+    paginate_by = 20
+    paginator_class = Jpaginator
+
     def get_queryset(self):
         return self.get_user().shops.all()
 
-    def get_context_data(self, **kwargs):
-        context = super(SellerShopListView, self).get_context_data()
-        context['current_user'] = self.get_user()
-        return context
+class SellerShopCreateView(SellerContextMixin,CreateView):
+    template_name =  'management/users/shop/seller_shop_create.html'
+    pass
+
+class SellerShopUpdateView(SellerContextMixin,UpdateView):
+    template_name = 'management/users/shop/seller_shop_update.html'
+    pass
+
+
+#Seller shop management End ======================
 
 class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListView):
     template_name = 'management/users/list.html'
