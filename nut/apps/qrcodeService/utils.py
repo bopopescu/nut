@@ -18,9 +18,9 @@ def createQrcodeItem(url):
     gkImg  = HandleImage(img)
     imgPath = gkImg.save()
 
-    urlimg  = UrlQrcode.objects.create(url=url, url_hash=getUrlHash(url), qrCodeImg=imgPath)
-    urlimg.save()
-    return urlimg
+    urlQrcodeItem  = UrlQrcode.objects.create(url=url, url_hash=getUrlHash(url), qrCodeImg=imgPath)
+    urlQrcodeItem.save()
+    return urlQrcodeItem
 
 
 def getUrlHash(url):
@@ -39,6 +39,9 @@ def get_qrcode_img_url(url):
 
     return qrcode.qrCodeImg
 
+if __name__ == '__main__':
+    pass
+    # createQrcodeItem('http://127.0.0.1:9766/')
 
 
 
