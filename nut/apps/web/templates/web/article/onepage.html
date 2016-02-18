@@ -111,7 +111,7 @@
                             <!-- JiaThis Button END -->
 
 {#                            add article share button begin#}
-                            <div class="article-share">
+                            <div class="article-share for-browser">
                                 <ul>
                                     <li class="list-item share-text">分享到</li>
 
@@ -119,7 +119,7 @@
                                         <a class="logo-wechat">
                                             <i class="fa fa-wechat"></i>
                                             <div class="wechat-qrcode-wrapper display-toggle">
-                                                <img src="{%  static 'images/footer/QR-code.jpg' %}" class="wechat-qrcode-img">
+                                                <img src="{{ share_url|qrimg }}" class="wechat-qrcode-img">
                                                 <span class="bottom-bot"></span>
                                             </div>
                                         </a>
@@ -283,7 +283,7 @@
   <script type="text/html" id="share_weixin_modal_content">
         <div class="share-modal-wrapper share-modal-wrapper-control">
             <div class="qr-code-wrapper qr-code-control">
-                <img src="{% static 'images/year-seller/store2015_QRcode.jpg' %}" width="200px" height="200px"/>
+                <img src="{{ share_url|qrimg }}" width="200px" height="200px"/>
             </div>
         </div>
   </script>

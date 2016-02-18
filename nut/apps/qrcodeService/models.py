@@ -1,5 +1,6 @@
 from django.db import  models
 from django.conf import settings
+image_host = getattr(settings, 'IMAGE_HOST', None)
 
 
 class UrlQrcode(models.Model):
@@ -9,5 +10,5 @@ class UrlQrcode(models.Model):
 
     @property
     def qrCodeImg_url(self):
-        return '%s%s' %()
+        return '%s%s' %(image_host, self.qrCodeImg)
 
