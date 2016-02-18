@@ -1,7 +1,10 @@
 from apps.qrcodeService.models import UrlQrcode
 from apps.core.utils.image import HandleImage
 from django.core.files.storage import default_storage
+
 from django.conf import  settings
+
+import  StringIO
 
 image_path = getattr(settings, 'MOGILEFS_MEDIA_URL', 'images/')
 
@@ -28,7 +31,7 @@ def createQrcodeItem(url):
     qrImage = createQrImage(url)
     fileName = getQrImageFileName(url)
     fd = default_storage.open(fileName, 'w')
-    qrImage.save(fd )
+    qrImage.save(fd)
     urlQrcodeItem  = UrlQrcode.objects.create(url=url, url_hash=getUrlHash(url), qrCodeImg=fileName)
     urlQrcodeItem.save()
     return urlQrcodeItem

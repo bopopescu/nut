@@ -1,7 +1,7 @@
 8. fix entity detail image small for ali/taobao cdn bug
-7. Qrcode app for share use
+7. Qrcode app for share use (save file need more work)
 6. share Entity (not finished)
-5. share article
+5. share article ( not finished )
 4. management : manage seller shops (not finished)
 3. management : set user to seller
 2. fix seller page bug
