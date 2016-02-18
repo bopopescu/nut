@@ -459,12 +459,6 @@ class Authorized_User_Profile(BaseModel):
     personal_domain_name = models.CharField(max_length=64, null=True, blank=True)
 
 
-
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 7567dcefa2fb313c52f5bc4c80dccceacc2a02f3
 class User_Profile(BaseModel):
     Man = u'M'
     Woman = u'F'
