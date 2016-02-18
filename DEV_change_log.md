@@ -1,4 +1,30 @@
 
+9. remove qrcodeService , use js render qrcode instead
+
+------------------
+8. fix entity detail image small for ali/taobao cdn bug
+7. Qrcode service for share use (save file need more work , hidden )
+6. share Entity (not finished / branch merged )
+5. share article ( not finished/ branch not merged )
+4. management : manage seller shops (not finished )
+3. management : set user to seller (add 'Seller' group to user's group list)
+2. fix seller page bug
+1. header css adjust
+
+##action:
+
+need syncdb
+
+#add shops_shop new model
+#add qrcodeService model
+
+=================================
+=================================
+### merged to master 2016 － 2 － 5
+=================================
+=================================
+
+
 4. 春节 h5 
 3. new footer
 2. show baichuan recommend products

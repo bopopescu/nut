@@ -1085,7 +1085,7 @@ define('subapp/yearseller/share',['libs/Class', 'jquery', 'underscore','bootbox'
             this.share_modal_content = $('#share_modal_content').html();
             this.share_weixin_modal_content = $('#share_weixin_modal_content').html();
 
-            this.shareTitle = '#果库2015年度最受欢迎淘宝店铺100家# 过去这一年，在发现最有趣、最实用 #果库好商品# 的同时，果库君筛选出 #最受欢迎淘宝店铺#，充满剁手智慧的百家经验谈，想说的都在这里...'
+            this.shareTitle = '#果库2015年度最受欢迎淘宝店铺100家# 过去这一年，在发现最有趣、最实用 #果库好商品# 的同时，果库君筛选出 #最受欢迎淘宝店铺#，充满剁手智慧的百家经验谈，想说的都在这里...';
             this.sharePic = share_pic;
 
             this.weiboShareOptions = {
@@ -2318,9 +2318,7 @@ require([
         var sellerHeader = new YearSellerHeader();
         var anchorScroller = new AnchorScroller('.sections-titles-wrapper li a');
         var shareHandler = new ShareHanlder();
-        var topAd = new TopAd();
-
-
+        //var topAd = new TopAd();
         // for weixin  access redirect entity link to  app download
         if (browser.is_weixin()){
             $('a.seller-entity-link').attr('href','http://www.guoku.com/download/');

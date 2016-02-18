@@ -1,3 +1,6 @@
+@import "../lib/mixin.less";
+@import "../lib/var.less";
+@import "../lib/widgets.less";
 
 #editor-articles{
   .editor-action-list{
@@ -364,6 +367,83 @@
         }
 
      }
+    .article-share{
+      ul{
+        text-align: center;
+        li.share-text{
+          color:@common-gray;
+        }
+        li.list-item{
+          display: inline-block;
+          text-decoration: none;
+          margin-left:10px;
+          a{
+            &:hover{
+              cursor: pointer;
+            }
+          }
+        }
+        li.list-item-weixin{
+          position: relative;
+          a{
+            &:hover{
+              .display-toggle{
+                display: block;
+              }
+            }
+             color: @wechat-hover-color;
+            .wechat-qrcode-wrapper{
+               //暂时无法给三角形添加box-shadow,所以又画了一个三角形,设置了border颜色和阴影颜色相同.但是设计感觉不好...
+               &:after{
+                 content: "";
+                 position:absolute;
+                bottom:-9px;
+                left:46%;
+                transform: translateX(-20%);
+                width:0;
+                height:0;
+                border-width:5px;
+                border-style:solid;
+                  border-color: #ffffff transparent transparent transparent;
+
+                }
+              position:absolute;
+              bottom:35px;
+              left:-50%;
+              transform: translateX(-30%);
+              padding:10px 9px;
+              background-color: #fff;
+              box-shadow: @panel-shaddow;
+              display: none;
+              .wechat-qrcode-img{
+                width:80px;
+              }
+              .bottom-bot{
+                position:absolute;
+                bottom:-10px;
+                left:46%;
+                transform: translateX(-20%);
+                width:0;
+                height:0;
+                border-width:5px;
+                border-style:solid;
+                border-color:#ddd transparent transparent transparent;
+              }
+            }
+
+          }
+        }
+
+        li.list-item-weibo a{
+            color: @weibo-hover-color;
+        }
+        li.list-item-qq a{
+            color: @qq-hover-color;
+        }
+
+
+      }
+    }
   }
   .writer-wrapper{
     .author-info{
@@ -420,4 +500,102 @@
       padding-top:0px;
     }
   }
+}
+
+//fixed share sidebar
+.article-sidebar-wrapper{
+  .acc-layer;
+  position:fixed;
+  bottom:100px;
+  left:0;
+  width:86px;
+  height:148px;
+  background-color: #ffffff;
+  padding:5px;
+  z-index: 1000;
+  //.border-radius;
+  border-top-left-radius: @global-box-radius;
+  border-bottom-left-radius: @global-box-radius;
+  .drop-shadow;
+
+  .article-sidebar{
+    width:100%;
+    height:100%;
+      .list-item{
+        width:100%;
+        height:46px;
+        line-height: 46px;
+        text-align: center;
+        border-radius: 2px;
+        &.list-item-weixin{
+          a{
+            color:@wechat-hover-color;
+            &:hover{
+              background-color: @wechat-hover-color;
+            }
+          }
+        }
+        &.list-item-weibo{
+          a{
+            color:@weibo-hover-color;
+            &:hover{
+            background-color: @weibo-hover-color;
+          }
+          }
+        }
+        &.list-item-qq{
+          a{
+            color:@qq-hover-color;
+            &:hover{
+              background-color: @qq-hover-color;
+            }
+          }
+        }
+        a{
+          display: inline-block;
+          width: 100%;
+          .border-radius;
+          &:hover{
+            cursor:pointer;
+            color:#fff;
+            text-decoration: none;
+          }
+           i{
+             font-size: @subtitle-size;
+          }
+        }
+
+      }
+ }
+}
+
+//wechat dialog
+
+.article-share-wx-dialog{
+  .modal-dialog{
+    width:250px;
+    height:auto;
+    margin-top:150px;
+
+     .modal-header{
+    display: none;
+  }
+
+     .qr-code-wrapper{
+
+       &.qr-code-control{
+         text-align:center;
+       }
+  }
+  }
+
+}
+
+@media screen and (max-width:768px){
+  .article-sidebar-wrapper{
+      &.article-sidebar-hidden{
+        display: none;
+      }
+    }
+
 }
