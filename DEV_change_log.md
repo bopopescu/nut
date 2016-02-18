@@ -16,7 +16,8 @@
 need syncdb
 
 #add shops_shop new model
-#add qrcodeService model
+
+notice : qrcodeService model removed
 
 =================================
 =================================
