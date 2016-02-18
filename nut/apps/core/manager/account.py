@@ -43,6 +43,9 @@ class GKUserQuerySet(models.query.QuerySet):
     def authorized_author(self):
         return Group.objects.get(name='Author').user_set.all()
 
+    def authorized_seller(self):
+        return Group.objects.get(name='Seller').user_set.all()
+
 
 class GKUserManager(BaseUserManager):
     # use_for_related_fields = True

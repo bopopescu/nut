@@ -1,6 +1,4 @@
-function AuthorManager(){
-    this.init();
-}
+
 
 
 function getCookie(name) {
@@ -32,8 +30,11 @@ $.ajaxSetup({
     }
 });
 
+function AuthorizeManager(){
+    this.init();
+}
 
-AuthorManager.prototype={
+AuthorizeManager.prototype={
     init: function(){
         this.drawSwitchery();
     },
@@ -50,20 +51,17 @@ AuthorManager.prototype={
         ele = e.target;
         console.log(ele);
         //console.log(this['data-id']); this will return undefined
-        console.log($(ele).prop('checked'));
-        console.log($(ele).attr('data-id'));
-        this.setAuthorState(userid=$(ele).attr('data-id'), authorState=$(ele).prop('checked'));
+        var group = $(ele).attr('data-group');
+        var userid= $(ele).attr('data-id');
+        var state = $(ele).prop('checked');
+        this.setUserGroup(userid=userid, state=state, group=group);
 
     },
 
-    getRequestUrl: function(userid){
-        return '/management/user/'+ userid+'/setAuthor/';
-    },
-    setAuthorState: function(userid, authorState){
-        var url = this.getRequestUrl(userid, authorState);
-        var data ={
-            isAuthor: authorState
-        };
+    setUserGroup: function(userid, state, group) {
+        var url = this.getRequestUrl(userid, group);
+        var data = this.getRequestData(group, state);
+
         $.when($.ajax({
             method: 'POST',
             url: url,
@@ -72,14 +70,46 @@ AuthorManager.prototype={
             this.postSuccess.bind(this),
             this.postFail.bind(this));
     },
+
+    getRequestData: function(group, state){
+        var data = {};
+        if (group === 'author'){
+            data = {
+                isAuthor: state,
+            }
+        }else if(group === 'seller'){
+             data = {
+                 isSeller : state,
+             }
+        }else{
+            throw new Error('can not determine request data');
+        }
+        return data;
+    },
+
+    getRequestUrl: function(userid, group){
+        var ending = '';
+        if(group==='author'){
+            ending = '/setAuthor/';
+        }else if(group ==='seller' ){
+            ending = '/setSeller/';
+        }else{
+            throw new Error('can not determin request url');
+        }
+
+        return '/management/user/'+ userid + ending;
+    },
+
+
+
     postSuccess: function(data){
-        console.log('set author success');
+        console.log('set group success');
         console.log(data);
         location.reload();
 
     },
     postFail: function(data){
-        console.log('set author fail! ');
+        console.log('set group fail! ');
         console.log(data);
     }
 
@@ -87,4 +117,4 @@ AuthorManager.prototype={
 }
 
 
-var anthorManager = new AuthorManager();
+var anthorizeManager = new AuthorizeManager();

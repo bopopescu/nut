@@ -124,7 +124,7 @@ body.compact-body{
         border-bottom: 2px solid @like-color;
         a{
           color: @common-text-color;
-          font-weight: 600;
+          //font-weight: 600;
         }
       }
     }
@@ -135,7 +135,7 @@ body.compact-body{
       color: @common-gray;
       &:hover, &:focus{
         color:@common-text-color!important;
-        font-weight: 600;
+        //font-weight: 600;
         background: none;
       }
     }
@@ -216,16 +216,30 @@ body.compact-body{
       height: 28px;
       background: none;
       padding:0px 8px;
+
+      &.search-input-control{
+        //width:200px;
+        height:32px;
+        line-height: 32px;
+        padding:0 10px 0 12px;
+        border:none;
+        background-color: @tag-hover-background;
+      }
+
     }
     .fa{
       position: absolute;
       right: 5px;
       top: 5px;
       color:@common-gray;
+
+      &.fa-search-control{
+        z-index: 1000;
+        right:10px;
+        top:7px;
+      }
     }
   }
-
-
 
 }
 
@@ -237,7 +251,6 @@ body.compact-body{
   &.new-footer{
     min-height:1px;
     height:auto;
-    margin-top:150px;
   }
   a,a:hover,a:focus,a:active{
     color: @common-gray;
@@ -1756,7 +1769,7 @@ body{
 }
 
 .gk_test{
-  color:red;
+  color:black;
 }
 
 
