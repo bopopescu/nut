@@ -1,5 +1,5 @@
 8. fix entity detail image small for ali/taobao cdn bug
-7. Qrcode app for share use (save file need more work , hidden )
+7. Qrcode service for share use (save file need more work , hidden )
 6. share Entity (not finished / branch merged )
 5. share article ( not finished/ branch not merged )
 4. management : manage seller shops (not finished )
@@ -13,8 +13,6 @@ need syncdb
 
 #add shops_shop new model
 #add qrcodeService model
-
-
 
 =================================
 =================================
