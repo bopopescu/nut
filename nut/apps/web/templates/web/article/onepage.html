@@ -111,15 +111,17 @@
                             <!-- JiaThis Button END -->
 
 {#                            add article share button begin#}
-                            <div class="article-share for-browser hidden">
+                            <div class="article-share for-browser ">
                                 <ul>
 
                                     <li class="list-item list-item-weixin">
                                         <a class="logo-wechat">
                                             <i class="fa fa-wechat"></i>
                                             <div class="wechat-qrcode-wrapper display-toggle">
-{#                                                hidden by anchen #}
-{#                                                <img src="{{ share_url|qrimg }}" class="wechat-qrcode-img">#}
+                                                <div id="qr_code">
+
+                                                </div>
+
                                                 <span class="bottom-bot"></span>
                                             </div>
                                         </a>
@@ -251,7 +253,7 @@
     </div>
    {#    fixed share sidebar#}
    {#    hidden by anchen #}
-    <div class="article-sidebar-wrapper article-sidebar-hidden hidden">
+    <div class="article-sidebar-wrapper article-sidebar-hidden">
         <div class="article-sidebar">
             <ul>
                 <li class="list-item list-item-weixin">
@@ -283,9 +285,8 @@
 
   <script type="text/html" id="share_weixin_modal_content">
         <div class="share-modal-wrapper share-modal-wrapper-control">
-            <div class="qr-code-wrapper qr-code-control">
-{#                hidden by an chen #}
-{#                <img src="{{ share_url|qrimg }}" width="200px" height="200px"/>#}
+            <div class="qr-code-wrapper qr-code-control" >
+                <div id="qr_code_window"></div>
             </div>
         </div>
   </script>

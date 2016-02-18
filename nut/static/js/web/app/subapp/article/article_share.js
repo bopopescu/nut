@@ -1,9 +1,10 @@
-define(['jquery', 'libs/Class','underscore','bootbox'], function(
+define(['jquery', 'libs/Class','underscore','bootbox', 'libs/qrcode'], function(
     $, Class,_,bootbox
 ){
 
     var ArticleShareApp= Class.extend({
         init: function(){
+            this.initQrcodeImage();
              //console.log('hello rose!');
             this.weibo_share_service_url = 'http://service.weibo.com/share/share.php';
             this.qq_share_service_url = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey';
@@ -38,6 +39,18 @@ define(['jquery', 'libs/Class','underscore','bootbox'], function(
 
         },
 
+        initQrcodeImage: function(){
+            var url = this.getShareUrl();
+
+            new QRCode(document.getElementById('qr_code'),
+                {
+                    text: url,
+                    width: 128,
+                    height: 128,
+                    }
+                );
+
+        },
         getShareUrl: function(){
             return location.href.replace(/m\.guoku\.com/, 'www.guoku.com');
         },
@@ -54,6 +67,18 @@ define(['jquery', 'libs/Class','underscore','bootbox'], function(
                 message: this.share_weixin_modal_content,
 
             });
+            // need create a qrcode for share when bootbox showup
+            var url = this.getShareUrl();
+            window.setTimeout(function(){
+                new QRCode(document.getElementById('qr_code_window'),
+                    {
+                        text: url,
+                        width: 218,
+                        height: 218,
+                    }
+                );
+            }, 1);
+
         },
 
         setupShareTrigger: function(){

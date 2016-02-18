@@ -68,7 +68,6 @@ INSTALLED_APPS = (
     'apps.seller',
     'apps.fetch',
     'apps.shop',
-    'apps.qrcodeService',
 
     'captcha',
 )
