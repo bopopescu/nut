@@ -2,7 +2,6 @@ from django import template
 from django.utils.log import getLogger
 from django.conf import settings
 
-from apps.qrcodeService.utils import get_qrcode_img_url
 import hashlib
 import time
 import qrcode
@@ -80,9 +79,12 @@ def entity_qr(value):
     return content.encode('base64').replace("\n", "")
 register.filter(entity_qr)
 
-def qrimg(url):
-    return get_qrcode_img_url(url)
-register.filter(qrimg)
+#
+# # deprecated
+# def qrimg(url):
+#     return 'deprecated'
+#     # return get_qrcode_img_url(url)
+# register.filter(qrimg)
 
 
 
