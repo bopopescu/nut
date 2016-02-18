@@ -285,6 +285,7 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
         context['is_article_detail'] = True
         context['is_article_creator'] = self.request.user == self.object.creator
         context['can_show_edit'] = (not article.is_selection) and (self.request.user == article.creator)
+        context['share_url'] = self.request.build_absolute_uri().replace('m.guoku.com', 'www.guoku.com')
 
         dig_status = 0
         if self.request.user.is_authenticated():
