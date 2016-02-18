@@ -349,6 +349,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         # res['article_count'] = self.article_cout
         res['fan_count'] = self.fans_count
         res['following_count'] = self.following_count
+        res['is_authorized'] = self.is_authorized_author
 
         try:
             res['sina_screen_name'] = self.weibo.screen_name
