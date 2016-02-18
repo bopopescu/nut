@@ -1,3 +1,7 @@
+
+9. remove qrcodeService , use js render qrcode instead
+
+------------------
 8. fix entity detail image small for ali/taobao cdn bug
 7. Qrcode service for share use (save file need more work , hidden )
 6. share Entity (not finished / branch merged )
