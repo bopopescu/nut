@@ -1,9 +1,9 @@
 8. fix entity detail image small for ali/taobao cdn bug
-7. Qrcode app for share use (save file need more work)
-6. share Entity (not finished)
-5. share article ( not finished )
-4. management : manage seller shops (not finished)
-3. management : set user to seller
+7. Qrcode app for share use (save file need more work , hidden )
+6. share Entity (not finished / branch merged )
+5. share article ( not finished/ branch not merged )
+4. management : manage seller shops (not finished )
+3. management : set user to seller (add 'Seller' group to user's group list)
 2. fix seller page bug
 1. header css adjust
 
