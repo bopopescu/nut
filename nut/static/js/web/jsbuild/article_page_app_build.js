@@ -2128,8 +2128,11 @@ define('subapp/article/article_share',['jquery', 'libs/Class','underscore','boot
         },
 
          getShareTitle: function(ele){
+             var article_title = $(ele).attr('data_article_title');
+             var article_summary = $(ele).attr('data_article_summary');
+             var title = article_title + '： '+article_summary;
 
-            return $(ele).attr('data_article_title');
+            return title;
         },
         getSharePic: function(ele){
 
