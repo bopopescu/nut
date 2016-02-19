@@ -4,6 +4,7 @@ define(['jquery', 'libs/Class','underscore','bootbox','libs/qrcode'], function(
 
     var EntityShareApp= Class.extend({
         init: function(){
+             //console.log('hello rose!');
             this.initQrcodeImage();
             this.weibo_share_service_url = 'http://service.weibo.com/share/share.php';
             this.qq_share_service_url = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey';
@@ -67,6 +68,7 @@ define(['jquery', 'libs/Class','underscore','bootbox','libs/qrcode'], function(
                 message: this.share_weixin_modal_content
 
             });
+
             // need create a qrcode for share when bootbox showup
             var url = this.getShareUrl();
             window.setTimeout(function(){
@@ -86,7 +88,7 @@ define(['jquery', 'libs/Class','underscore','bootbox','libs/qrcode'], function(
             $('.entity-share-wrapper .share-btn-weibo').each(this.setupWeiboShareBtn.bind(this));
             $('.entity-share-wrapper .share-btn-qq').each(this.setupQQShareBtn.bind(this));
 
-             $('.entity-share-wrapper .list-item-weixin').each(this.setupWeixinShareBtn(this));
+             $('.entity-share-wrapper .logo-wechat').each(this.setupWeixinShareBtn(this));
         },
 
         makeUrlQueryString : function(options){
