@@ -1029,7 +1029,6 @@ p.boolean-false {
   text-align: center;
   border-radius: 5px;
   font-size: 18px;
-  color: #ffffff;
 }
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
@@ -1383,8 +1382,10 @@ p.boolean-false {
   text-decoration: none;
   margin-left: 0px;
 }
-.main-article .share-wrapper .article-share ul li.list-item a:hover {
+.main-article .share-wrapper .article-share ul li.list-item a {
   color: #ffffff;
+}
+.main-article .share-wrapper .article-share ul li.list-item a:hover {
   cursor: pointer;
 }
 .main-article .share-wrapper .article-share ul li.list-item-weixin {
