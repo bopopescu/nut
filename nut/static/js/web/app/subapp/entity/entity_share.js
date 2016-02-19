@@ -7,6 +7,7 @@ define(['jquery', 'libs/Class','underscore','bootbox','libs/qrcode'], function(
             this.initQrcodeImage();
             this.weibo_share_service_url = 'http://service.weibo.com/share/share.php';
             this.qq_share_service_url = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey';
+            this.share_weixin_modal_content = $('#share_weixin_modal_content').html();
 
             this.shareTitle = '由果库网友分享的互联网上可购买得到的商品信息，透过网友们自发的喜爱、客观中立的点评，帮助你更便捷地发现好物，更高效地做出消费决策。';
             this.sharePic = '';
@@ -54,12 +55,38 @@ define(['jquery', 'libs/Class','underscore','bootbox','libs/qrcode'], function(
             return location.href.replace(/m\.guoku\.com/, 'www.guoku.com');
         },
 
+        showWeixinShareDialog: function(){
+            bootbox.hideAll();
+            bootbox.dialog({
+                title: '分享 精选商品 微信 modal title',
+                onEscape: true,
+                backdrop:true,
+                closeButton: true,
+                animate: true,
+                className: 'entity-share-wx-dialog',
+                message: this.share_weixin_modal_content
+
+            });
+            // need create a qrcode for share when bootbox showup
+            var url = this.getShareUrl();
+            window.setTimeout(function(){
+                new QRCode(document.getElementById('qr_code_window'),
+                    {
+                        text: url,
+                        width: 218,
+                        height: 218
+                    }
+                );
+            }, 1);
+
+        },
+
         setupShareTrigger: function(){
 
             $('.entity-share-wrapper .share-btn-weibo').each(this.setupWeiboShareBtn.bind(this));
             $('.entity-share-wrapper .share-btn-qq').each(this.setupQQShareBtn.bind(this));
 
-
+             $('.entity-share-wrapper .list-item-weixin').each(this.setupWeixinShareBtn(this));
         },
 
         makeUrlQueryString : function(options){
@@ -89,6 +116,10 @@ define(['jquery', 'libs/Class','underscore','bootbox','libs/qrcode'], function(
 
                 ele.href = this.qq_share_service_url + this.makeUrlQueryString(options);
 
+        },
+
+        setupWeixinShareBtn: function(index, ele){
+                $(ele).click(this.showWeixinShareDialog.bind(this));
         },
 
         getShareTitle: function(ele){
