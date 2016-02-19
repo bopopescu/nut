@@ -1021,6 +1021,16 @@ p.boolean-false {
   font-weight: 500;
   margin-right: 12px;
 }
+.normal-share-btn {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 18px;
+  color: #ffffff;
+}
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
   color: #9D9E9F;
@@ -1374,13 +1384,14 @@ p.boolean-false {
   margin-left: 10px;
 }
 .main-article .share-wrapper .article-share ul li.list-item a:hover {
+  color: #ffffff;
   cursor: pointer;
 }
 .main-article .share-wrapper .article-share ul li.list-item-weixin {
   position: relative;
 }
 .main-article .share-wrapper .article-share ul li.list-item-weixin a {
-  color: #51C332;
+  background-color: #51C332;
 }
 .main-article .share-wrapper .article-share ul li.list-item-weixin a:hover .display-toggle {
   display: block;
@@ -1422,10 +1433,10 @@ p.boolean-false {
   border-color: #ddd transparent transparent transparent;
 }
 .main-article .share-wrapper .article-share ul li.list-item-weibo a {
-  color: #E90D24;
+  background-color: #E90D24;
 }
 .main-article .share-wrapper .article-share ul li.list-item-qq a {
-  color: #3199DD;
+  background-color: #3199DD;
 }
 .main-article .writer-wrapper .author-info .user-icon img {
   display: block;
