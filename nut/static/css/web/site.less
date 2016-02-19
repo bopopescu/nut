@@ -1122,7 +1122,7 @@ a:hover{text-decoration:underline;}
         li.list-item{
           display: inline-block;
           text-decoration: none;
-          margin-left:10px;
+          //margin-left:10px;
           a{
             &:hover{
               cursor: pointer;
@@ -1137,7 +1137,6 @@ a:hover{text-decoration:underline;}
                 display: block;
               }
             }
-             color: @wechat-hover-color;
             .wechat-qrcode-wrapper{
                //暂时无法给三角形添加box-shadow,所以又画了一个三角形,设置了border颜色和阴影颜色相同.但是设计感觉不好...
                &:after{
@@ -1178,13 +1177,6 @@ a:hover{text-decoration:underline;}
             }
 
           }
-        }
-
-        li.list-item-weibo a{
-            color: @weibo-hover-color;
-        }
-        li.list-item-qq a{
-            color: @qq-hover-color;
         }
 
 
