@@ -114,7 +114,7 @@
                             <div class="article-share for-browser ">
                                 <ul>
 
-                                    <li class="list-item list-item-weixin">
+                                    <li class="list-item list-item-weixin img-holder">
                                         <a class="logo-wechat normal-share-btn">
                                             <i class="fa fa-wechat"></i>
                                             <div class="wechat-qrcode-wrapper display-toggle">
@@ -126,12 +126,12 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="list-item list-item-weibo">
+                                    <li class="list-item list-item-weibo img-holder">
                                         <a target="_blank" class="share-btn-weibo normal-share-btn" data_article_title="{{ article.title }}" data_article_summary="{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}}" data_article_cover="{{ article.cover_url }}">
                                             <i class="fa fa-weibo"></i>
                                         </a>
                                     </li>
-                                    <li class="list-item list-item-qq">
+                                    <li class="list-item list-item-qq img-holder">
                                         <a target="_blank" class="share-btn-qq normal-share-btn" data_article_title="{{ article.title }}" data_article_summary="{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}}" data_article_cover="{{ article.cover_url }}">
                                             <i class="fa fa-qq"></i>
                                         </a>
