@@ -1381,7 +1381,7 @@ p.boolean-false {
 .main-article .share-wrapper .article-share ul li.list-item {
   display: inline-block;
   text-decoration: none;
-  margin-left: 10px;
+  margin-left: 0px;
 }
 .main-article .share-wrapper .article-share ul li.list-item a:hover {
   color: #ffffff;
