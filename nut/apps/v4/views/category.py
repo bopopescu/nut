@@ -114,7 +114,7 @@ class GroupArticlesView(APIJsonView):
             'articles' : []
         }
         # print self.keyword
-        sqs = SearchQuerySet().models(Article).filter(tags=self.keyword)
+        sqs = SearchQuerySet().models(Article).filter(tags=self.keyword, is_selection=True)
 
         paginator = Paginator(sqs, self.size)
         try:
@@ -157,7 +157,7 @@ class CategoryArticlesView(APIJsonView):
         res = {
             'articles' : []
         }
-        sqs = SearchQuerySet().models(Article).filter(tags=self.keyword)
+        sqs = SearchQuerySet().models(Article).filter(tags=self.keyword, is_selection=True)
 
         paginator = Paginator(sqs, self.size)
 

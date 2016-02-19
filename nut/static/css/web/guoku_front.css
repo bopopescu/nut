@@ -1021,6 +1021,15 @@ p.boolean-false {
   font-weight: 500;
   margin-right: 12px;
 }
+.normal-share-btn {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 18px;
+}
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
   color: #9D9E9F;
@@ -1363,7 +1372,7 @@ p.boolean-false {
   margin: 0px 6px;
 }
 .main-article .share-wrapper .article-share ul {
-  text-align: center;
+  text-align: right;
 }
 .main-article .share-wrapper .article-share ul li.share-text {
   color: #9D9E9F;
@@ -1371,7 +1380,10 @@ p.boolean-false {
 .main-article .share-wrapper .article-share ul li.list-item {
   display: inline-block;
   text-decoration: none;
-  margin-left: 10px;
+  margin-left: 0px;
+}
+.main-article .share-wrapper .article-share ul li.list-item a {
+  color: #ffffff;
 }
 .main-article .share-wrapper .article-share ul li.list-item a:hover {
   cursor: pointer;
@@ -1380,16 +1392,16 @@ p.boolean-false {
   position: relative;
 }
 .main-article .share-wrapper .article-share ul li.list-item-weixin a {
-  color: #51C332;
+  background-color: #51C332;
 }
 .main-article .share-wrapper .article-share ul li.list-item-weixin a:hover .display-toggle {
   display: block;
 }
 .main-article .share-wrapper .article-share ul li.list-item-weixin a .wechat-qrcode-wrapper {
   position: absolute;
-  bottom: 35px;
+  bottom: 47px;
   left: -50%;
-  transform: translateX(-30%);
+  transform: translateX(-20%);
   padding: 10px 9px;
   background-color: #fff;
   box-shadow: 0px 0px 2px #ddd;
@@ -1422,10 +1434,10 @@ p.boolean-false {
   border-color: #ddd transparent transparent transparent;
 }
 .main-article .share-wrapper .article-share ul li.list-item-weibo a {
-  color: #E90D24;
+  background-color: #E90D24;
 }
 .main-article .share-wrapper .article-share ul li.list-item-qq a {
-  color: #3199DD;
+  background-color: #3199DD;
 }
 .main-article .writer-wrapper .author-info .user-icon img {
   display: block;
@@ -1459,6 +1471,9 @@ p.boolean-false {
 .main-article .divider {
   margin: 30px 0px;
 }
+.main-article .divider.divider-control {
+  margin-top: 40px;
+}
 .main-article .disclaimer {
   font-size: 14px;
   color: #9D9E9F;
@@ -1482,6 +1497,7 @@ p.boolean-false {
   padding-top: 0px;
 }
 .article-sidebar-wrapper {
+  display: none;
   backface-visibility: hidden;
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
@@ -2179,7 +2195,6 @@ body.compact-body {
 #guoku_footer.new-footer {
   min-height: 1px;
   height: auto;
-  margin-top: 150px;
 }
 #guoku_footer a,
 #guoku_footer a:hover,
@@ -4203,5 +4218,5 @@ body .for-mobile {
   left: 3px;
 }
 .gk_test {
-  color: red;
+  color: black;
 }

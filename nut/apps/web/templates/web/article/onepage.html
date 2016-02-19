@@ -84,7 +84,7 @@
 {#                                本文系作者授权果库发表，未经许可，不得转载。#}
 {#                        </div>#}
 
-                        <div class="share-wrapper share-wrapper-short ">
+                        <div class="share-wrapper share-wrapper-short share-wrapper-control">
 {#                             TEMP REMOVE BY ANCHEN #}
 {#                            <span class="dig-wrapper">#}
 {#                                <span class="{% if dig_status %} digged {% else %} undigged {% endif %} dig-action" data-article-id="{{ article.pk }}">#}
@@ -111,26 +111,28 @@
                             <!-- JiaThis Button END -->
 
 {#                            add article share button begin#}
-                            <div class="article-share">
+                            <div class="article-share for-browser ">
                                 <ul>
-                                    <li class="list-item share-text">分享到</li>
 
-                                    <li class="list-item list-item-weixin">
-                                        <a class="logo-wechat">
+                                    <li class="list-item list-item-weixin img-holder">
+                                        <a class="logo-wechat normal-share-btn">
                                             <i class="fa fa-wechat"></i>
                                             <div class="wechat-qrcode-wrapper display-toggle">
-                                                <img src="{%  static 'images/footer/QR-code.jpg' %}" class="wechat-qrcode-img">
+                                                <div id="qr_code">
+
+                                                </div>
+
                                                 <span class="bottom-bot"></span>
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="list-item list-item-weibo">
-                                        <a target="_blank" class="share-btn-weibo" data_article_title="{{ article.title }}" data_article_cover="{{ article.cover_url }}">
+                                    <li class="list-item list-item-weibo img-holder">
+                                        <a target="_blank" class="share-btn-weibo normal-share-btn" data_article_title="{{ article.title }}" data_article_summary="{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}}" data_article_cover="{{ article.cover_url }}">
                                             <i class="fa fa-weibo"></i>
                                         </a>
                                     </li>
-                                    <li class="list-item list-item-qq">
-                                        <a target="_blank" class="share-btn-qq" data_article_title="{{ article.title }}" data_article_cover="{{ article.cover_url }}">
+                                    <li class="list-item list-item-qq img-holder">
+                                        <a target="_blank" class="share-btn-qq normal-share-btn" data_article_title="{{ article.title }}" data_article_summary="{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}}" data_article_cover="{{ article.cover_url }}">
                                             <i class="fa fa-qq"></i>
                                         </a>
                                     </li>
@@ -138,7 +140,7 @@
                             </div>
 {#                            article share button end#}
                         </div>
-                        <div class="divider article-divider"></div>
+                        <div class="divider article-divider divider-control"></div>
                         <div class="writer-wrapper">
 {#                            <div class="row">#}
 {#                                <div class="write-pre col-xs-12 col-sm-12">#}
@@ -250,6 +252,7 @@
 
     </div>
    {#    fixed share sidebar#}
+   {#    hidden by anchen #}
     <div class="article-sidebar-wrapper article-sidebar-hidden">
         <div class="article-sidebar">
             <ul>
@@ -261,14 +264,14 @@
                 </li>
 
                 <li class="list-item list-item-weibo">
-                    <a class="sidebar_weibo_share_btn" target="_blank" data_article_title="{{ article.title }}" data_article_cover="{{ article.cover_url }}">
+                    <a class="sidebar_weibo_share_btn" target="_blank" data_article_title="{{ article.title }}" data_article_summary="{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}}" data_article_cover="{{ article.cover_url }}">
                         <i class="fa fa-weibo"></i>
                     </a>
 
                 </li>
 
                 <li class="list-item list-item-qq">
-                    <a class="sidebar_qq_share_btn" target="_blank" data_article_title="{{ article.title }}" data_article_cover="{{ article.cover_url }}">
+                    <a class="sidebar_qq_share_btn" target="_blank" data_article_title="{{ article.title }}" data_article_summary="{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}}" data_article_cover="{{ article.cover_url }}">
                         <i class="fa fa-qq"></i>
                     </a>
 
@@ -282,8 +285,8 @@
 
   <script type="text/html" id="share_weixin_modal_content">
         <div class="share-modal-wrapper share-modal-wrapper-control">
-            <div class="qr-code-wrapper qr-code-control">
-                <img src="{% static 'images/year-seller/store2015_QRcode.jpg' %}" width="200px" height="200px"/>
+            <div class="qr-code-wrapper qr-code-control" >
+                <div id="qr_code_window"></div>
             </div>
         </div>
   </script>
