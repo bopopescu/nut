@@ -1102,6 +1102,9 @@ p.boolean-false {
 .main-article .divider {
   margin: 30px 0px;
 }
+.main-article .divider.divider-control {
+  margin-top: 40px;
+}
 .main-article .disclaimer {
   font-size: 14px;
   color: #9D9E9F;
