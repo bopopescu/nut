@@ -1799,9 +1799,9 @@ a:hover {
 }
 #detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weixin a .wechat-qrcode-wrapper {
   position: absolute;
-  bottom: 30px;
+  bottom: 50px;
   left: -50%;
-  transform: translateX(-34%);
+  transform: translateX(-5%);
   padding: 10px 9px;
   background-color: #fff;
   box-shadow: 0px 0px 2px #ddd;
