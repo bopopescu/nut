@@ -1828,6 +1828,11 @@ a:hover {
 #detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-qq a {
   color: #3199DD;
 }
+#detail_content .share-wrapper-control {
+  margin-top: 40px;
+  padding-top: 0;
+  height: auto;
+}
 #detail_content .divider {
   margin-bottom: 20px;
   height: 2px;
@@ -2065,5 +2070,5 @@ html {
   padding: 0;
 }
 .test {
-  color: red;
+  color: black;
 }
