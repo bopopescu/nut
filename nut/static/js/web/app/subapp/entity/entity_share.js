@@ -1,9 +1,10 @@
-define(['jquery', 'libs/Class','underscore','bootbox'], function(
+define(['jquery', 'libs/Class','underscore','bootbox','libs/qrcode'], function(
     $, Class,_,bootbox
 ){
 
     var EntityShareApp= Class.extend({
         init: function(){
+            this.initQrcodeImage();
             this.weibo_share_service_url = 'http://service.weibo.com/share/share.php';
             this.qq_share_service_url = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey';
 
@@ -33,6 +34,19 @@ define(['jquery', 'libs/Class','underscore','bootbox'], function(
             };
 
             this.setupShareTrigger();
+
+        },
+
+        initQrcodeImage: function(){
+            var url = this.getShareUrl();
+
+            new QRCode(document.getElementById('qr_code'),
+                {
+                    text: url,
+                    width: 128,
+                    height: 128,
+                    }
+                );
 
         },
 
