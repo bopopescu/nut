@@ -1782,6 +1782,9 @@ a:hover {
   display: inline-block;
   text-decoration: none;
 }
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item a {
+  color: #ffffff;
+}
 #detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item a:hover {
   cursor: pointer;
 }
@@ -1789,7 +1792,7 @@ a:hover {
   position: relative;
 }
 #detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weixin a {
-  color: #51C332;
+  background-color: #51C332;
 }
 #detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weixin a:hover .display-toggle {
   display: block;
@@ -1831,10 +1834,10 @@ a:hover {
   border-color: #ddd transparent transparent transparent;
 }
 #detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weibo a {
-  color: #E90D24;
+  background-color: #E90D24;
 }
 #detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-qq a {
-  color: #3199DD;
+  background-color: #3199DD;
 }
 #detail_content .share-wrapper-control {
   margin-top: 40px;
