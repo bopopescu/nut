@@ -1,10 +1,10 @@
 from django.http import Http404, HttpResponseRedirect, HttpResponseBadRequest
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, UpdateView
-from django.core.urlresolvers import reverse
-from django.forms import ModelForm ,BooleanField
+from django.views.generic import ListView, UpdateView , CreateView
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.forms import ModelForm ,BooleanField, HiddenInput
 
 from braces.views import AjaxResponseMixin,JSONResponseMixin, UserPassesTestMixin
 
@@ -17,44 +17,19 @@ from apps.core.views import LoginRequiredMixin
 from apps.core.mixins.views import SortMixin, FilterMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
+from apps.management.forms.users import UserAuthorInfoForm , UserAuthorSetForm ,\
+                                        UserSellerSetForm
 
 from django.utils.log import getLogger
 log = getLogger('django')
 
 from rest_framework import generics
 
+
 class RESTfulUserListView(generics.ListCreateAPIView):
         queryset = GKUser.objects.all()
         serializer_class = GKUserSerializer
 
-class UserAuthorInfoForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(UserAuthorInfoForm, self).__init__(*args, **kwargs)
-        self.fields['weixin_id'].widget.attrs.update({'class':'form-control'})
-        self.fields['weixin_nick'].widget.attrs.update({'class':'form-control'})
-        self.fields['author_website'].widget.attrs.update({'class':'form-control'})
-        self.fields['weibo_id'].widget.attrs.update({'class':'form-control'})
-        self.fields['weibo_nick'].widget.attrs.update({'class':'form-control'})
-    class Meta:
-        model = Authorized_User_Profile
-        fields = [
-                  'weixin_id', 'weixin_nick','weixin_qrcode_img',\
-                  'author_website','weibo_id','weibo_nick'
-                  ]
-
-class UserAuthorSetForm(ModelForm):
-    isAuthor = BooleanField(required=False)
-    # http://stackoverflow.com/questions/31349584/appending-formdata-field-with-value-as-a-boolean-false-causes-the-function-to-fa
-    def __init__(self,*args, **kwargs):
-        super(UserAuthorSetForm, self).__init__(*args, **kwargs)
-
-    def save(self, commit=True):
-        _user = self.instance
-        _user.setAuthor(self.cleaned_data.get('isAuthor'))
-
-    class Meta:
-        model = GKUser
-        fields = ['isAuthor']
 
 class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):
     template_name = 'management/users/edit_author.html'
@@ -83,7 +58,6 @@ class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):
     def get_success_url(self):
         return reverse('management_user_edit' , args=[self.get_pk()])
 
-
     def get_context_data(self,*args, **kwargs):
         context = super(UserAuthorInfoEditView, self).get_context_data(*args, **kwargs)
         pk = self.get_pk()
@@ -91,11 +65,8 @@ class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):
         context['current_user'] = _user
         return context
 
-
     def test_func(self, user):
         return user.is_admin
-
-
 
 
 class UserAuthorSetView(UserPassesTestMixin,JSONResponseMixin, UpdateView):
@@ -111,8 +82,70 @@ class UserAuthorSetView(UserPassesTestMixin,JSONResponseMixin, UpdateView):
         return self.render_json_response({'error':1, 'message':'invalid form'}, status=500)
 
     def test_func(self,user):
-        return  user.is_admin
+        return user.is_admin
 
+
+class UserSellerSetView(UserPassesTestMixin, JSONResponseMixin, UpdateView):
+    pk_url_kwarg = 'user_id'
+    form_class = UserSellerSetForm
+    model = GKUser
+    def form_valid(self, form):
+        form.save()
+        return self.render_json_response({'error': 0},status=200)
+
+    def form_invalid(self, form):
+        return self.render_json_response({'error':1, 'message':'invalid form'}, status=500)
+
+    def test_func(self, user):
+        return user.is_admin
+
+class SellerContextMixin(object):
+    def get_user(self):
+        _user_id = self.kwargs.get('user_id', None)
+        _user = get_object_or_404(GKUser, pk=_user_id)
+        return _user
+
+    def get_context_data(self, **kwargs):
+        context = super(SellerContextMixin, self).get_context_data()
+        context['current_user'] = self.get_user()
+        return context
+
+# Start seller shop manangement
+
+class SellerShopListView(SellerContextMixin,ListView):
+    model = GKUser
+    template_name = 'management/users/shop/seller_shop_list.html'
+    context_object_name = 'shops'
+    paginate_by = 20
+    paginator_class = Jpaginator
+
+    def get_queryset(self):
+        return self.get_user().shops.all()
+
+from apps.management.forms.users import SellerShopForm
+from apps.shop.models import Shop
+class SellerShopCreateView(SellerContextMixin,CreateView):
+    template_name =  'management/users/shop/seller_shop_create.html'
+    model = Shop
+    form_class =  SellerShopForm
+    fields = ['owner','shop_title','shop_link','shop_desc','shop_brands']
+
+    def get_initial(self):
+        initial = super(CreateView, self).get_initial()
+        owner_pk = self.kwargs.get('user_id')
+        initial['owner'] = owner_pk
+
+    def get_success_url(self):
+        _user = self.get_user()
+        return reverse_lazy('management_user_shop_list',args={'user_id':_user.pk})
+
+
+class SellerShopUpdateView(SellerContextMixin,UpdateView):
+    template_name = 'management/users/shop/seller_shop_update.html'
+    pass
+
+
+#Seller shop management End ======================
 
 class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListView):
     template_name = 'management/users/list.html'
@@ -156,6 +189,8 @@ class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListVie
             user_list = querySet.authorized_author().using('slave')
         elif active == '777':
             user_list = querySet.admin().using('slave')
+        elif active == '666':
+            user_list = querySet.authorized_seller().using('slave')
         else:
             user_list= []
 

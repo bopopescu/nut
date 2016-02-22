@@ -2,6 +2,7 @@ from django import template
 from django.utils.log import getLogger
 from django.conf import settings
 
+import hashlib
 import time
 import qrcode
 import StringIO
@@ -21,8 +22,16 @@ register.filter(enumerate_list)
 def resize(value, size=None):
     host = image_host
     # log.info(value)
-    if value is None or host not in value:
+    if value is None:
         return value
+
+    if 'taobaocdn.com' in value or 'alicdn.com' in value:
+        value = value+'_'+size+'x'+size+'.jpg'
+        return value
+
+    if host not in value:
+        return value
+
     if size:
         if host in value:
             uri = value.replace(host, '')
@@ -31,7 +40,10 @@ def resize(value, size=None):
             params.insert(1, size)
             uri_string = '/'.join(params)
             return host + uri_string
+
+    value = value.replace('//images', '/images')
     return value
+
 register.filter(resize)
 
 
@@ -66,6 +78,15 @@ def entity_qr(value):
     # output.close()
     return content.encode('base64').replace("\n", "")
 register.filter(entity_qr)
+
+#
+# # deprecated
+# def qrimg(url):
+#     return 'deprecated'
+#     # return get_qrcode_img_url(url)
+# register.filter(qrimg)
+
+
 
 
 

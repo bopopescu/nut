@@ -80,6 +80,10 @@
                             {% endautoescape %}
                         </div>
 
+{#                        <div class="disclaimer">#}
+{#                                本文系作者授权果库发表，未经许可，不得转载。#}
+{#                        </div>#}
+
                         <div class="share-wrapper share-wrapper-short ">
 {#                             TEMP REMOVE BY ANCHEN #}
 {#                            <span class="dig-wrapper">#}
@@ -92,27 +96,84 @@
 {#                                    <span class="dig-word">赞</span>#}
 {#                                </span>#}
 {#                            </span>#}
-
                          <!-- JiaThis Button BEGIN -->
-                            <div class="jiathis_style for-browser">
-                                <a class="jiathis_button_tsina"></a>
-                                <a class="jiathis_button_weixin"></a>
-                                <a class="jiathis_button_qzone"></a>
-                                <a class="jiathis_button_tqq"></a>
-                                <a class="jiathis_button_tieba"></a>
-                                <a href="http://www.jiathis.com/share?uid=2038803" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-                            </div>
-                            <span class="share-intro-entity for-browser">分享到&nbsp;&nbsp;</span>
+{#                            <div class="jiathis_style for-browser">#}
+{#                                <a class="jiathis_button_tsina"></a>#}
+{#                                <a class="jiathis_button_weixin"></a>#}
+{#                                <a class="jiathis_button_qzone"></a>#}
+{#                                <a class="jiathis_button_tqq"></a>#}
+{#                                <a class="jiathis_button_tieba"></a>#}
+{#                                <a href="http://www.jiathis.com/share?uid=2038803" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>#}
+{#                            </div>#}
+{#                            <span class="share-intro-entity for-browser">分享到&nbsp;&nbsp;</span>#}
 
 
                             <!-- JiaThis Button END -->
+
+{#                            add article share button begin#}
+                            <div class="article-share for-browser ">
+                                <ul>
+
+                                    <li class="list-item list-item-weixin">
+                                        <a class="logo-wechat">
+                                            <i class="fa fa-wechat"></i>
+                                            <div class="wechat-qrcode-wrapper display-toggle">
+                                                <div id="qr_code">
+
+                                                </div>
+
+                                                <span class="bottom-bot"></span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="list-item list-item-weibo">
+                                        <a target="_blank" class="share-btn-weibo" data_article_title="{{ article.title }}" data_article_summary="{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}}" data_article_cover="{{ article.cover_url }}">
+                                            <i class="fa fa-weibo"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-item list-item-qq">
+                                        <a target="_blank" class="share-btn-qq" data_article_title="{{ article.title }}" data_article_summary="{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}}" data_article_cover="{{ article.cover_url }}">
+                                            <i class="fa fa-qq"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+{#                            article share button end#}
                         </div>
-                        <div class="divider"></div>
+                        <div class="divider article-divider"></div>
                         <div class="writer-wrapper">
 {#                            <div class="row">#}
 {#                                <div class="write-pre col-xs-12 col-sm-12">#}
 {#                                </div>#}
 {#                            </div>#}
+{#                            {% if article.creator.is_authorized_author %}#}
+{#                                <div class="author-info">#}
+{#                                 <div class="user-icon">#}
+{#                                        <a href="{% url 'web_user_index' article.creator.pk %}" class="for-browser">#}
+{#                                           <img src="{{ article.creator.avatar_url|resize:'120' }}"/>#}
+{#                                        </a>#}
+{##}
+{#                                         <a href="{{ article.creator.mobile_url }}" class="for-mobile mobile-user-link">#}
+{#                                          <img src="{{ article.creator.avatar_url|resize:'120' }}"/>#}
+{#                                        </a>#}
+{#                                 </div>#}
+{#                                 <div class="user-title">#}
+{#                                       <span class="for-browser" >#}
+{#                                           <a href="{% url 'web_user_index' article.creator.pk %}">#}
+{#                                           {{ article.creator.nickname }}#}
+{#                                            </a>#}
+{#                                       </span>#}
+{#                                       <span class="for-mobile" >#}
+{#                                           <a href="{{ article.creator.mobile_url }}" class="mobile-user-link">#}
+{#                                           {{ article.creator.nickname }}#}
+{#                                           </a>#}
+{#                                       </span>#}
+{#                                 </div>#}
+{#                                 <div class="user-bio">#}
+{#                                     <span class="bio-block">{{ article.creator.bio }}</span>#}
+{#                                 </div>#}
+{#                                </div>#}
+{#                            {% else %}#}
                             <div class="row">
                                 <div class="writer-avatar col-xs-2 col-sm-2">
                                     <div class="avatar-wrapper">
@@ -124,7 +185,8 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="writer-intro col-xs-10 col-sm-10">
+
+                                     <div class="writer-intro col-xs-10 col-sm-10">
                                     <div class="writer-name for-browser">
                                         <a href="{% url 'web_user_index' article.creator.pk %}">
                                          {{ article.creator.profile.nickname }}
@@ -135,9 +197,22 @@
                                          {{ article.creator.profile.nickname }}
                                         </a>
                                     </div>
-                                    <div class="writer-bio">{{ article.creator.profile.bio|truncatechars:200 }}</div>
+                                    <div class="writer-bio">
+                                        {% if article.creator.is_authorized_author %}
+                                            <span class="weixin-id">
+                                            微信号：{{ article.creator.authorized_profile.weixin_id }}
+                                            </span>
+                                            <br>
+                                        {% endif %}
+                                        <span>
+                                        {{ article.creator.profile.bio|truncatechars:200 }}
+                                        </span>
+                                    </div>
                                 </div>
+
+
                             </div>
+{#                            {% endif %}#}
 
                         </div>
                     </div>
@@ -174,7 +249,48 @@
                 <a class="btn-top" href="javascript:;"  title="回到顶部" target="_self"><i class="fa fa-angle-up fa-lg"></i></a>
             </div>
         </div>
+
     </div>
+   {#    fixed share sidebar#}
+   {#    hidden by anchen #}
+    <div class="article-sidebar-wrapper article-sidebar-hidden">
+        <div class="article-sidebar">
+            <ul>
+                <li class="list-item list-item-weixin">
+                    <a class="sidebar_weixin_share_btn">
+                        <i class="fa fa-wechat"></i>
+                    </a>
+
+                </li>
+
+                <li class="list-item list-item-weibo">
+                    <a class="sidebar_weibo_share_btn" target="_blank" data_article_title="{{ article.title }}" data_article_summary="{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}}" data_article_cover="{{ article.cover_url }}">
+                        <i class="fa fa-weibo"></i>
+                    </a>
+
+                </li>
+
+                <li class="list-item list-item-qq">
+                    <a class="sidebar_qq_share_btn" target="_blank" data_article_title="{{ article.title }}" data_article_summary="{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}}" data_article_cover="{{ article.cover_url }}">
+                        <i class="fa fa-qq"></i>
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    {#    fixed share sidebar end --- #}
+
+
+  <script type="text/html" id="share_weixin_modal_content">
+        <div class="share-modal-wrapper share-modal-wrapper-control">
+            <div class="qr-code-wrapper qr-code-control" >
+                <div id="qr_code_window"></div>
+            </div>
+        </div>
+  </script>
+
 
 {% endblock %}
 
@@ -186,33 +302,48 @@
 {#{% block counter_script %}#}
 {#        <script src="{% static 'js/counter/counter.js' %}"></script>#}
 {#{% endblock %}#}
-{% if isFromMobile %}
+
     {% block ga_script %}
-        <!-- disable GA-->
+        {% if not isFromMobile %}
+          <script language="javascript">
+
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-24696872-5', 'auto');
+            ga('send', 'pageview');
+            ga('set', '&uid', '412916' )
+
+            </script>
+        {% else %}
+            <!--  no ga for app user -->
+        {% endif %}
     {% endblock %}
-{% endif %}
+
 {% block script %}
 
-    {% if not isFromMobile %}
-    <script type="text/javascript">
-        var jiathis_config = {
-            url: "http://m.guoku.com{{ request.path }}",
-            title: "{{ article.title }}：",
-            appkey:{
-                "tsina":'2830558576',
-            },
-            imageWidth:150,
-            marginTop:150,
-            pic:"{{ article.cover_url }}",
-        {% autoescape off %}
-            summary:"{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}} （分享自 @果库）",
-        {% endautoescape %}
-            data_track_clickback:'true',
-
-        };
-    </script>
-    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2038803" charset="utf-8"></script>
-    {% endif %}
+{#    {% if not isFromMobile %}#}
+{#    <script type="text/javascript">#}
+{#        var jiathis_config = {#}
+{#            url: "http://m.guoku.com{{ request.path }}",#}
+{#            title: "{{ article.title }}：",#}
+{#            appkey:{#}
+{#                "tsina":'2830558576',#}
+{#            },#}
+{#            imageWidth:150,#}
+{#            marginTop:150,#}
+{#            pic:"{{ article.cover_url }}",#}
+{#        {% autoescape off %}#}
+{#            summary:"{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}} （分享自 @果库）",#}
+{#        {% endautoescape %}#}
+{#            data_track_clickback:'true',#}
+{##}
+{#        };#}
+{#    </script>#}
+{#    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2038803" charset="utf-8"></script>#}
+{#    {% endif %}#}
     {#    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>#}
     {#    <script>#}
     {#        wx.config({#}
