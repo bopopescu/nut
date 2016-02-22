@@ -21,6 +21,13 @@
     {% url 'web_category_detail' cid as sort_url %}
 
     <div class="container">
+        <div class="row selection_article_container">
+            {% for article in related_articles %}
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
+
+            </div>
+            {% endfor %}
+        </div>
         <div class="row" id="category-entity-list" data-refresh="{{ refresh_datetime }}">
             <div class="col-md-12">
                 <div class="category-header">

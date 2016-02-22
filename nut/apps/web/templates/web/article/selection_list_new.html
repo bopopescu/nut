@@ -50,7 +50,9 @@
         </div>
         <div class="row selection-article-container" id="selection_article_list" refresh-time="{{ refresh_time }}" >
                 {% for sla in selection_articles %}
-                    {% include 'web/article/partial/article_item_new.html' %}
+                    {% with sla.article as article %}
+                        {% include 'web/article/partial/article_item_new.html' %}
+                    {% endwith %}
                 {% endfor %}
         </div>
          <div class="row" id="main_loading_indicator">
