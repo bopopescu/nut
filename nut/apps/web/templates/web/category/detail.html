@@ -21,15 +21,8 @@
     {% url 'web_category_detail' cid as sort_url %}
 
     <div class="container">
-        <div class="row selection_article_container">
-            {% for article in related_articles %}
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
-
-            </div>
-            {% endfor %}
-        </div>
-        <div class="row" id="category-entity-list" data-refresh="{{ refresh_datetime }}">
-            <div class="col-md-12">
+        <div class="row">
+             <div class="col-md-12">
                 <div class="category-header">
                     <span class="category-name"> {{ sub_category.title|show_category }}</span>
                     <span class="dropdown-toggle category-action pull-right">
@@ -50,6 +43,14 @@
                     </span>
                 </div>
             </div>
+        </div>
+        <div class="row selection_article_container" id="selection_article_list">
+            {% for article in related_articles %}
+             {% include 'web/main/partial/article.html' %}
+            {% endfor %}
+        </div>
+        <div class="row" id="category-entity-list" data-refresh="{{ refresh_datetime }}">
+
             {% for entity in entities %}
                 {% include 'web/main/partial/entity.html' with entity=entity %}
             {% endfor %}
