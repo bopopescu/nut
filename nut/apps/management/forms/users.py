@@ -82,4 +82,4 @@ class SellerShopForm(ModelForm):
     owner =  CharField(required=True)
     class Meta:
         model = Shop
-        fields = ['owner','shop_title', 'shop_link', 'shop_desc', 'shop_brands']
+        fields = ['owner','shop_title', 'shop_link']
