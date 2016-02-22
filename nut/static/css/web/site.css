@@ -664,6 +664,14 @@ p.boolean-false {
   font-weight: 500;
   margin-right: 12px;
 }
+.guoku-normal-col {
+  padding: 0 5px;
+  margin-bottom: 10px;
+}
+.guoku-middle-col {
+  padding: 0 10px;
+  margin-bottom: 20px;
+}
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
   padding: 0px;
