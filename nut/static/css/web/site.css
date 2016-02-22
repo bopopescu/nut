@@ -1814,6 +1814,9 @@ a:hover {
 .main-article .writer-wrapper .writer-intro .writer-name {
   font-size: 18px;
 }
+.main-article .writer-wrapper .writer-intro .writer-authorized {
+  margin-left: 8px;
+}
 .main-article .writer-wrapper .writer-intro .writer-bio {
   color: #9D9E9F;
   font-size: 13px;

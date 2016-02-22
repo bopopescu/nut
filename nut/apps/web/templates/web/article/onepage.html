@@ -191,11 +191,13 @@
                                         <a href="{% url 'web_user_index' article.creator.pk %}">
                                          {{ article.creator.profile.nickname }}
                                         </a>
+                                        <img src="{% static 'images/author/official_media.png' %}" width="16px" height="16px" class="writer-authorized"/>
                                     </div>
                                     <div class="writer-name for-mobile">
                                         <a href="{{ article.creator.mobile_url }}" class="mobile-user-link">
                                          {{ article.creator.profile.nickname }}
                                         </a>
+                                        <img src="{% static 'images/author/official_media.png' %}" width="16px" height="16px" class="writer-au"/>
                                     </div>
                                     <div class="writer-bio">
                                         {% if article.creator.is_authorized_author %}
