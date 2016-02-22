@@ -2523,6 +2523,10 @@ body.compact-body {
   font-weight: 500;
   margin-right: 12px;
 }
+.user-page .authorized_author_info .official-media {
+  margin-left: -4px;
+  transform: translateY(-50%);
+}
 .user-page .authorized_author_info .user-action {
   margin-top: 10px;
 }
