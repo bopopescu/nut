@@ -186,12 +186,15 @@
                                     </div>
                                 </div>
 
-                                <div class="writer-intro col-xs-8 col-sm-8">
+                                <div class="writer-intro col-xs-10 col-sm-10">
                                     <div class="writer-name for-browser">
                                         <a href="{% url 'web_user_index' article.creator.pk %}">
                                          {{ article.creator.profile.nickname }}
                                         </a>
                                         <img src="{% static 'images/author/official_media.png' %}" width="16px" height="16px" class="writer-authorized"/>
+
+                                        <a class="guoku-button button-blue" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+
                                     </div>
                                     <div class="writer-name for-mobile">
                                         <a href="{{ article.creator.mobile_url }}" class="mobile-user-link">
@@ -199,7 +202,7 @@
                                         </a>
                                         <img src="{% static 'images/author/official_media.png' %}" width="16px" height="16px" class="writer-au"/>
                                     </div>
-                                    <div class="writer-bio">
+                                    <div class="writer-bio writer-bio-control">
                                         {% if article.creator.is_authorized_author %}
                                             <span class="weixin-id">
                                             微信号：{{ article.creator.authorized_profile.weixin_id }}
@@ -212,10 +215,10 @@
                                     </div>
                                 </div>
 
-                                <div class="writer-action col-xs-2 col-sm-2">
-                                    <a class="guoku-button button-blue" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
-
-                                </div>
+{#                                <div class="writer-action col-xs-2 col-sm-2">#}
+{#                                    <a class="guoku-button button-blue" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>#}
+{##}
+{#                                </div>#}
 
                             </div>
 {#                            {% endif %}#}

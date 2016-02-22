@@ -1826,6 +1826,9 @@ a:hover {
   color: #9D9E9F;
   font-size: 13px;
 }
+.main-article .writer-wrapper .writer-intro .writer-bio.writer-bio-control {
+  max-width: 460px;
+}
 .main-article .writer-wrapper .writer-intro .writer-bio .weixin-id {
   line-height: 30px;
 }
