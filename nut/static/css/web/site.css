@@ -1819,9 +1819,6 @@ a:hover {
   border-style: solid;
   border-color: #ffffff transparent transparent transparent;
 }
-#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weixin a .wechat-qrcode-wrapper .wechat-qrcode-img {
-  width: 128px;
-}
 #detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weixin a .wechat-qrcode-wrapper .bottom-bot {
   position: absolute;
   bottom: -10px;

@@ -1419,9 +1419,6 @@ p.boolean-false {
   border-style: solid;
   border-color: #ffffff transparent transparent transparent;
 }
-.main-article .share-wrapper .article-share ul li.list-item-weixin a .wechat-qrcode-wrapper .wechat-qrcode-img {
-  width: 80px;
-}
 .main-article .share-wrapper .article-share ul li.list-item-weixin a .wechat-qrcode-wrapper .bottom-bot {
   position: absolute;
   bottom: -10px;
