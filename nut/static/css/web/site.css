@@ -2079,6 +2079,17 @@ html {
   height: auto;
   padding: 0;
 }
+.entity-share-wx-dialog .modal-dialog {
+  width: 250px;
+  height: auto;
+  margin-top: 150px;
+}
+.entity-share-wx-dialog .modal-dialog .modal-header {
+  display: none;
+}
+.entity-share-wx-dialog .modal-dialog .qr-code-wrapper.qr-code-control {
+  text-align: center;
+}
 .test {
   color: red;
 }
