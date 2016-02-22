@@ -1,0 +1,19 @@
+{% extends 'management/users/user_edit_base.html' %}
+{% load i18n static %}
+{% block user_edit_block %}
+    <div class="box box-info">
+    <div class="box-header">
+         {% trans 'Seller Shop Create'  %}
+    </div>
+    <div class="box-body">
+        <div class="btn-group">
+            <a class="btn btn-primary" href="{% url 'management_user_shop_list'  current_user.pk %}">{% trans 'Back User Shop List' %}</a>
+            <a class="btn btn-primary" href="{% url 'management_user_edit'  current_user.pk %}">{% trans 'Back User Info Edit' %}</a>
+        </div>
+        <div class="box-pane">&nbsp;</div>
+        <div >
+            {{ form.as_p }}
+        </div>
+    </div>
+    </div>
+{% endblock %}

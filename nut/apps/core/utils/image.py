@@ -13,8 +13,10 @@ image_path = getattr(settings, 'MOGILEFS_MEDIA_URL', 'images/')
 avatar_path = getattr(settings, 'Avatar_Image_Path', 'avatar/')
 # avatar_size = getattr(settings, 'Avatar_Image_Size', [50, 180])
 
+
 class GImageException(Exception):
     pass
+
 
 class HandleImage(object):
     path = image_path
@@ -34,7 +36,11 @@ class HandleImage(object):
         image_file.close()
         log.info('init HandleImage obj---')
         self._name = None
-        self.img = WandImage(blob=self._image_data)
+        try:
+            self.img = WandImage(blob=self._image_data)
+        except BaseException:
+            self.img = WandImage(file=image_file)
+
 
     @property
     def image_data(self):
@@ -112,10 +118,8 @@ class HandleImage(object):
         # _img.resize(_width, _height)
         # return _img.make_blob()
 
-
     def save(self, path = None, resize=False, square=False):
         # log.info('begin save -----')
-
         if self.ext_name == 'png':
             # _img = WandImage(blob = self._image_data)
             # _img.format = 'jpeg'
@@ -173,7 +177,6 @@ class HandleImage(object):
 class LimitedImage(HandleImage):
     def __init__(self, image_file):
         super(LimitedImage,self).__init__(image_file)
-
 
     def handleWidth(self, maxWidth):
         try :

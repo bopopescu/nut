@@ -61,47 +61,47 @@ class EntityListView(FilterMixin, ListView):
             pass
         return qs
 
-
     def get_context_data(self, *args, **kwargs):
         context = super(EntityListView, self).get_context_data(*args, **kwargs)
         context['status'] =  self.request.GET.get('status', None)
         return context
 
+    @staff_only
+    def dispatch(self, request, *args, **kwargs):
+        return super(EntityListView, self).dispatch(request, *args, **kwargs)
 # entity list view class end
 
 
 
-
-
-@login_required
-@staff_only
-def list(request, template='management/entities/list.html'):
-    status = request.GET.get('status', None)
-    page = request.GET.get('page', 1)
-
-    if status is None:
-        entity_list  = Entity.objects.all()
-    else:
-        entity_list = Entity.objects.filter(status=int(status)).order_by('-updated_time')
-
-    paginator = ExtentPaginator(entity_list, 30)
-
-    try:
-        entities = paginator.page(page)
-    except PageNotAnInteger:
-        entities = paginator.page(1)
-    except EmptyPage:
-        raise Http404
-    # log.info(paginator.page_range)
-    return render_to_response(
-        template,
-        {
-            'entities': entities,
-            # 'page_range': paginator.page_range_ext,
-            'status': status,
-        },
-        context_instance=RequestContext(request)
-    )
+# @login_required
+# @staff_only
+# def list(request, template='management/entities/list.html'):
+#     status = request.GET.get('status', None)
+#     page = request.GET.get('page', 1)
+#
+#     if status is None:
+#         entity_list  = Entity.objects.all()
+#     else:
+#         entity_list = Entity.objects.filter(status=int(status)).order_by('-updated_time')
+#
+#     paginator = ExtentPaginator(entity_list, 30)
+#
+#     try:
+#         entities = paginator.page(page)
+#     except PageNotAnInteger:
+#         entities = paginator.page(1)
+#     except EmptyPage:
+#         raise Http404
+#     # log.info(paginator.page_range)
+#     return render_to_response(
+#         template,
+#         {
+#             'entities': entities,
+#             # 'page_range': paginator.page_range_ext,
+#             'status': status,
+#         },
+#         context_instance=RequestContext(request)
+#     )
 
 
 @login_required
@@ -288,28 +288,28 @@ def remove_buy_link(request, bid):
     return SuccessJsonResponse()
 
 
-@csrf_exempt
-@login_required
-@staff_only
-def check_buy_link(request, bid):
-    try:
-        b = Buy_Link.objects.get(pk=bid)
-    except Buy_Link.DoesNotExist:
-        return ErrorJsonResponse(status=404)
-
-    # def crawl(item_id):
-    data = {
-        'project': 'default',
-        'spider': 'taobao',
-        'setting': 'DOWNLOAD_DELAY=2',
-        'item_id': b.origin_id,
-    }
-    res = requests.post('http://10.0.2.49:6800/schedule.json', data=data)
-    if res.status_code == 200:
-    # return res.json()
-        return SuccessJsonResponse(data=res.json())
-    else:
-        raise Http404
+# @csrf_exempt
+# @login_required
+# @staff_only
+# def check_buy_link(request, bid):
+#     try:
+#         b = Buy_Link.objects.get(pk=bid)
+#     except Buy_Link.DoesNotExist:
+#         return ErrorJsonResponse(status=404)
+#
+#     # def crawl(item_id):
+#     data = {
+#         'project': 'default',
+#         'spider': 'taobao',
+#         'setting': 'DOWNLOAD_DELAY=2',
+#         'item_id': b.origin_id,
+#     }
+#     res = requests.post('http://10.0.2.49:6800/schedule.json', data=data)
+#     if res.status_code == 200:
+#     # return res.json()
+#         return SuccessJsonResponse(data=res.json())
+#     else:
+#         raise Http404
 
 class CheckBuyLinkView(View):
 
@@ -338,7 +338,7 @@ class CheckBuyLinkView(View):
         assert self.bid is not None
         return self.get_context_data(**kwargs)
 
-
+    @staff_only
     def dispatch(self, request, *args, **kwargs):
         return super(CheckBuyLinkView, self).dispatch(request, *args, **kwargs)
 

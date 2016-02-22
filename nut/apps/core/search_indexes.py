@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from haystack import indexes
 from apps.core.models import Entity, GKUser, Article, Sub_Category
 from apps.tag.models import Tags
@@ -20,6 +22,7 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
     entity_id = indexes.IntegerField(model_attr='id')
     # hash = indexes.CharField(model_attr='entity_hash')
     title = indexes.CharField(model_attr='title', boost=1.25, faceted=True)
+    brand = indexes.CharField(model_attr='brand', boost=1.50, faceted=True)
     user = indexes.CharField(model_attr='user')
     created_time = indexes.DateTimeField(model_attr='created_time')
     price = indexes.FloatField(model_attr='price')
@@ -30,6 +33,13 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
 
     def get_model(self):
         return Entity
+
+    def prepare_brand(self, obj):
+        brand = u''
+        if 'brand' in self.prepared_data:
+            brand_list = self.prepared_data['brand'].split()
+            brand = ''.join(brand_list)
+        return brand
 
     def index_queryset(self, using=None):
         return self.get_model().objects.filter(status__gt=Entity.new).using('slave').filter(buy_links__status=2).distinct()
@@ -50,7 +60,7 @@ class UserIndex(indexes.SearchIndex, indexes.Indexable):
 
 class TagIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    name = indexes.CharField(model_attr='name', boost=1.125)
+    name = indexes.CharField(model_attr='name', boost=1.125, faceted=True)
     note_count = indexes.IntegerField(model_attr='note_count')
 
     tag_auto = indexes.EdgeNgramField(model_attr='name')
@@ -63,14 +73,15 @@ class TagIndex(indexes.SearchIndex, indexes.Indexable):
 #
 #
 class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
-    text = indexes.CharField(document=True, use_template=True)
-    article_id = indexes.IntegerField(model_attr='id')
-    author = indexes.CharField(model_attr='creator')
-    title = indexes.CharField(model_attr='title', boost=1.125)
-    read_count = indexes.IntegerField(model_attr='read_count')
-    is_selection = indexes.BooleanField(model_attr='is_selection')
+    text            = indexes.CharField(document=True, use_template=True)
+    article_id      = indexes.IntegerField(model_attr='id')
+    author          = indexes.CharField(model_attr='creator')
+    title           = indexes.CharField(model_attr='title', boost=1.125)
+    tags            = indexes.CharField(model_attr='tags_string', boost=1.25)
+    read_count      = indexes.IntegerField(model_attr='read_count')
+    is_selection    = indexes.BooleanField(model_attr='is_selection')
 
-    title_auto = indexes.EdgeNgramField(model_attr='title')
+    title_auto      = indexes.EdgeNgramField(model_attr='title')
 
     def get_model(self):
         return Article

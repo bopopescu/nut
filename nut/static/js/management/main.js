@@ -209,6 +209,7 @@
                             console.log('success');
                             console.log(data);
                             alert('加入精选成功');
+                            location.reload();
 
                         },
                         function fail(data){
@@ -223,18 +224,25 @@
         //    use delegate : )
             jQuery('.action-table')
                 .delegate('.remove-selection','click', function(){
+                    if (!window.confirm('确定要移除精选码？')){
+                        return ;
+                    }
                     var url = $(this).attr('url');
                     var selection_article_id = $(this).attr('selection_article_id');
                     $.when(
                         $.ajax(url)
                     ).then(
                         function success(data){
+                            alert('移除精选成功');
                             console.log('success');
                             console.log(data);
+                            location.reload();
                         },
                         function fail(data){
+                            alert('移除精选失败');
                             console.log('failed');
                             console.log('data');
+                            location.reload();
                         }
                     );
                 });

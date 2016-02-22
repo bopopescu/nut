@@ -1,10 +1,8 @@
 from apps.mobile.models import LaunchBoard
-from apps.core.views import BaseJsonView
-from apps.mobile.lib.sign import check_sign
-# from apps.core.utils.http import ErrorJsonResponse
+from apps.v4.views import APIJsonView
 
 
-class LaunchBoardView(BaseJsonView):
+class LaunchBoardView(APIJsonView):
 
     def get_data(self, context):
         res = {}
@@ -27,8 +25,5 @@ class LaunchBoardView(BaseJsonView):
             return res
         return None
 
-    @check_sign
-    def dispatch(self, request, *args, **kwargs):
-        return super(LaunchBoardView, self).dispatch(request, *args, **kwargs)
 
 __author__ = 'edison'

@@ -15,12 +15,9 @@ SPIDER_MODULES = ['spider.spiders']
 NEWSPIDER_MODULE = 'spider.spiders'
 
 # config of site in redis.
-config_redis_host = '10.0.2.95'
-config_redis_port = 6379
-config_redis_db = 10
-# config_redis_host = '10.0.2.95'
-# config_redis_port = 6379
-# config_redis_db = 10
+CONFIG_REDIS_HOST = '10.0.2.95'
+CONFIG_REDIS_PORT = 6379
+CONFIG_REDIS_DB = 10
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
