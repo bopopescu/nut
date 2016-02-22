@@ -135,9 +135,6 @@ class ArticleTagView(APIJsonView):
 
         return super(ArticleTagView, self).get(request, *args, **kwargs)
 
-    # @check_sign
-    # def dispatch(self, request, *args, **kwargs):
-    #     return super(ArticleTagView, self).dispatch(request, *args, **kwargs)
 
 
 
