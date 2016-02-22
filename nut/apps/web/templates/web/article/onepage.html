@@ -186,7 +186,7 @@
                                     </div>
                                 </div>
 
-                                     <div class="writer-intro col-xs-10 col-sm-10">
+                                <div class="writer-intro col-xs-8 col-sm-8">
                                     <div class="writer-name for-browser">
                                         <a href="{% url 'web_user_index' article.creator.pk %}">
                                          {{ article.creator.profile.nickname }}
@@ -212,6 +212,10 @@
                                     </div>
                                 </div>
 
+                                <div class="writer-action col-xs-2 col-sm-2">
+                                    <a class="guoku-button button-blue" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+
+                                </div>
 
                             </div>
 {#                            {% endif %}#}
