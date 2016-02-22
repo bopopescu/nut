@@ -1,5 +1,6 @@
 #coding=utf-8
 from django.http import HttpResponseRedirect
+from django.core.paginator import Paginator
 
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
@@ -8,7 +9,6 @@ from apps.core.models import Show_Banner, \
     Buy_Link, Selection_Entity, Entity, \
     Entity_Like, Sub_Category
 
-from apps.core.utils.taobaoapi.utils import taobaoke_mobile_item_convert
 from apps.v4.models import APISelection_Entity, APIEntity, APICategory, APISeletion_Articles, APIAuthorized_User_Profile
 from apps.v4.forms.pushtoken import PushForm
 from datetime import datetime, timedelta
@@ -114,10 +114,6 @@ class HomeView(APIJsonView):
 
         return super(HomeView, self).get(request, *args, **kwargs)
 
-    # @check_sign
-    # def dispatch(self, request, *args, **kwargs):
-    #     return super(HomeView, self).dispatch(request, *args, **kwargs)
-
 
 class DiscoverView(APIJsonView):
     http_method_names = ['get']
@@ -185,7 +181,7 @@ class DiscoverView(APIJsonView):
         get authorizeduser
         '''
         res['authorizeduser'] = list()
-        auth_users = APIAuthorized_User_Profile.objects.all()
+        auth_users = APIAuthorized_User_Profile.objects.all()[:8]
 
         for row in auth_users:
             r = {
@@ -196,9 +192,44 @@ class DiscoverView(APIJsonView):
             # print row.user.v4_toDict()
         return res
 
-    # @check_sign
-    # def dispatch(self, request, *args, **kwargs):
-    #     return super(DiscoverView, self).dispatch(request, *args, **kwargs)
+
+class AuthorizedUser(APIJsonView):
+
+    http_method_names = ['get']
+
+    def get_data(self, context):
+        _key = self.request.GET.get('session')
+        self.visitor = None
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+            self.visitor = _session.user
+        except Session_Key.DoesNotExist, e:
+            log.info(e.message)
+            self.visitor = None
+
+        res = dict()
+        res['authorized_user'] = list()
+        res['page'] = self.page
+        # res['size'] = self.size
+        user_list = APIAuthorized_User_Profile.objects.all()
+        res['count'] = user_list.count()
+
+        paginator = Paginator(user_list, self.size)
+        try:
+            auth_users = paginator.page(self.page)
+        except Exception:
+            return res
+
+        for row in auth_users.object_list:
+            res['authorized_user'].append(
+                row.user.v4_toDict(self.visitor)
+            )
+        return res
+
+    def get(self, request, *args, **kwargs):
+        self.page = request.GET.get('page', 1)
+        self.size = request.GET.get('size', 15)
+        return super(AuthorizedUser, self).get(request, *args, **kwargs)
 
 
 @check_sign
