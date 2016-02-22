@@ -109,9 +109,8 @@ SESSION_FILE_PATH = '/tmp/'
 MOGILEFS_DOMAIN = 'prod'
 MOGILEFS_TRACKERS = ['10.0.2.50:7001']
 MOGILEFS_MEDIA_URL = 'images/'
-DEFAULT_FILE_STORAGE = 'storages.backends.mogile.MogileFSStorage'
-
-# DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+# DEFAULT_FILE_STORAGE = 'storages.backends.mogile.MogileFSStorage'
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 LOCAL_IMG_DEBUG = True
 IMAGE_HOST = 'http://imgcdn.guoku.com/'
 INTRANET_IMAGE_SERVER = 'http://localhost:5556/'
@@ -197,10 +196,13 @@ HAYSTACK_CONNECTIONS = {
     'default': {
         # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr/',
+        'URL': 'http://10.0.2.115:8983/solr/',
+        'INCLUDE_SPELLING': True,
         # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
     }
 }
+# HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
 
 __author__ = 'edison7500'

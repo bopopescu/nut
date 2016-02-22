@@ -8,8 +8,5 @@ from apps.core.models import BaseModel, \
 
 class Shop(BaseModel):
     owner = models.ForeignKey(GKUser, related_name='shops')
-    shop_title = models.CharField(max_length=255, db_index=True)
+    shop_title = models.CharField(max_length=255)
     shop_link = models.URLField(max_length=255)
-    shop_desc = models.CharField(max_length=511)
-    shop_brands = models.CharField(max_length=255)
-    pass
