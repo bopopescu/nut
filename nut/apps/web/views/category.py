@@ -177,5 +177,5 @@ class CategoryDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
 
         article_id_list = SearchQuerySet().models(Article).filter(tags=category_title).values_list('pk', flat=True)
         articles = Article.objects.filter(id__in=article_id_list)
-        context['related_articles'] = articles[:4]
+        context['related_articles'] = articles[:3]
         return context
