@@ -17,12 +17,13 @@ from braces.views import JSONResponseMixin
 from apps.core.models import Category
 from apps.core.models import Sub_Category
 from apps.core.models import Entity
-from apps.core.models import Entity_Like
+from apps.core.models import Entity_Like, Article
 from apps.core.extend.paginator import EmptyPage
 from apps.core.extend.paginator import PageNotAnInteger
 from apps.core.extend.paginator import ExtentPaginator
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 from apps.core.utils.http import JSONResponse
+from haystack.query import SearchQuerySet
 
 
 log = getLogger('django')
@@ -169,6 +170,10 @@ class CategoryDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
         context['user_entity_likes'] = el
         context['sub_category'] = sub_category
         context['refresh_datetime'] = self.get_refresh_time()
+        context = self.add_related_article(context, sub_category.title)
+        return context
 
-
+    def add_related_article(self, context, category_title):
+        sqs = SearchQuerySet().models(Article).filter(tags=category_title)
+        context['related_articles'] = sqs
         return context
