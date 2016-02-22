@@ -86,7 +86,7 @@ define(['jquery', 'libs/Class','underscore','bootbox','libs/qrcode'], function(
             $('.entity-share-wrapper .share-btn-weibo').each(this.setupWeiboShareBtn.bind(this));
             $('.entity-share-wrapper .share-btn-qq').each(this.setupQQShareBtn.bind(this));
 
-             $('.entity-share-wrapper .list-item-weixin').each(this.setupWeixinShareBtn(this));
+             $('.entity-share-wrapper .list-item-weixin').each(this.setupWeixinShareBtn.bind(this));
         },
 
         makeUrlQueryString : function(options){
