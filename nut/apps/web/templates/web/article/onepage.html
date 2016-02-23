@@ -192,7 +192,9 @@
                                          {{ article.creator.profile.nickname }}
                                         </a>
                                         {#  认证图标:需要判断一下用户是不是认证用户,是就显示认证图标,不是就隐藏咯  #}
-                                        <img src="{% static 'images/author/official_media.png' %}" width="16px" height="16px" class="writer-authorized"/>
+                                        {% if article.creator.is_authorized_author %}
+                                          <img src="{% static 'images/author/official_media.png' %}" width="16px" height="16px" class="writer-authorized"/>
+                                        {% endif %}
 
                                         {#                                        关注按钮#}
                                         {% if article.creator.is_blocked %}
@@ -213,13 +215,6 @@
                                         <a href="{{ article.creator.mobile_url }}" class="mobile-user-link">
                                          {{ article.creator.profile.nickname }}
                                         </a>
-
-{#                                        认证图标#}
-                                        <img src="{% static 'images/author/official_media.png' %}" width="16px" height="16px" class="writer-au"/>
-
-{#                                        关注按钮#}
-
-
                                     </div>
                                     <div class="writer-bio writer-bio-control">
                                         {% if article.creator.is_authorized_author %}
