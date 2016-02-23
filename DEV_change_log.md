@@ -1,8 +1,4 @@
-
-
 1. 
-
-
 ##action 
 
 ALTER TABLE `core`.`core_authorized_user_profile` 

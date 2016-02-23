@@ -23,8 +23,7 @@ class UserAuthorInfoForm(ModelForm):
         model = Authorized_User_Profile
         fields = [
                   'weixin_id', 'weixin_nick','weixin_qrcode_img',\
-                  # 'author_website','rss_url',\
-                  'author_website',\
+                  'author_website','rss_url',\
                   'weibo_id','weibo_nick','personal_domain_name',\
                   'points','is_recommended_user',
                   ]
