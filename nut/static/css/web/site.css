@@ -1819,6 +1819,12 @@ a:hover {
 .main-article .writer-wrapper .writer-intro .writer-name {
   font-size: 18px;
 }
+.main-article .writer-wrapper .writer-intro .article-user-follow {
+  margin-top: 0;
+  margin-left: 8px;
+  width: auto;
+  float: none;
+}
 .main-article .writer-wrapper .writer-intro .writer-authorized {
   margin-left: 8px;
 }
