@@ -3,7 +3,7 @@
 
 import re
 import random
-from _mysql import Warning, Error
+from _mysql import Warning, Error, OperationalError
 from time import sleep
 
 import redis
@@ -189,6 +189,10 @@ def crawl_article(article_link, authorized_user_pk, article_data, sg_cookie, pag
             creator=creator,
         ).first()
         created = False
+    except OperationalError as e:
+        log.error("title: %s, creator: %s. %s",
+                  cleaned_title, creator, e.message)
+        return
 
     if created:
         article_info = dict(
