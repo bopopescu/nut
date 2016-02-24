@@ -458,7 +458,7 @@ class Authorized_User_Profile(BaseModel):
     weibo_nick = models.CharField(max_length=255, null=True, blank=True)
     personal_domain_name = models.CharField(max_length=64, null=True, blank=True)
 
-    rss_url = models.URLField(null=True, blank=True)
+    rss_url = models.URLField(max_length=255 ,null=True, blank=True)
     points=models.IntegerField(default=0)
     is_recommended_user = models.BooleanField(default=False, db_index=True)
 

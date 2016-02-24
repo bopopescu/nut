@@ -18,7 +18,7 @@ class UserAuthorInfoForm(ModelForm):
         self.fields['weibo_nick'].widget.attrs.update({'class':'form-control'})
         self.fields['personal_domain_name'].widget.attrs.update({'class':'form-control'})
         self.fields['points'].widget.attrs.update({'class':'form-control'})
-        # self.fields['is_recommended_user'].widget.attrs.update({'class':'form-control'})
+        self.fields['rss_url'].widget.attrs.update({'class':'form-control'})
     class Meta:
         model = Authorized_User_Profile
         fields = [

@@ -7,6 +7,9 @@ ADD COLUMN `points` INT(32) NOT NULL DEFAULT 0 AFTER `personal_domain_name`;
 ALTER TABLE `core`.`core_authorized_user_profile` 
 ADD COLUMN `is_recommended_user` TINYINT(1) NOT NULL DEFAULT 0 AFTER `points`;
 
+ALTER TABLE `core`.`core_authorized_user_profile` 
+ADD COLUMN `rss_url` VARCHAR(255) NULL AFTER `is_recommended_user`;
+
 =================================
 # merged to master 2016 － 2 － 22
 =================================
