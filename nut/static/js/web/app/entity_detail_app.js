@@ -15,6 +15,8 @@ require([
         'subapp/entity/liker',
         'subapp/entity/baichuan',
 
+        'subapp/entity/entity_share',
+
         'libs/csrf'
 
     ],
@@ -31,7 +33,8 @@ require([
               //entity liker part
               EntityModel,
               LikerAppController,
-              BaichuanManager
+              BaichuanManager,
+              EntityShareApp
 
 
     ){
@@ -46,7 +49,9 @@ require([
         var userNote = new UserNote();
         var imgHandler = new EntityImageHandler();
 
-        var baichuanManager = new BaichuanManager()
+        var baichuanManager = new BaichuanManager();
+
+         var shareApp = new EntityShareApp();
 
         /// begin entity liker app
         if (_.isUndefined(current_entity_id)){

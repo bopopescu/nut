@@ -379,13 +379,25 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     # for set user as authorized author
     # see docs : 授权图文用户
-    def has_author_group(self):
-        author_group = self.get_author_group()
-        return author_group in self.groups.all()
 
     def get_author_group(self):
         author_group, created =  Group.objects.get_or_create(name="Author")
         return author_group
+
+    def has_author_group(self):
+        author_group = self.get_author_group()
+        return author_group in self.groups.all()
+
+    # for set user as authorized seller
+
+    def get_seller_group(self):
+        seller_group, created = Group.objects.get_or_create(name="Seller")
+        return seller_group
+
+    def has_seller_group(self):
+        seller_group = self.get_seller_group()
+        return seller_group in self.groups.all()
+
 
     def refresh_user_permission(self):
         # TODO:  refresh user permission cache here
@@ -395,14 +407,26 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def is_authorized_author(self):
         return self.has_author_group()
 
+    @property
+    def is_authorized_seller(self):
+        return self.has_seller_group()
+
+    def setSeller(self, isSeller):
+        seller_group = self.get_seller_group()
+        if isSeller:
+            self.groups.add(seller_group)
+        else:
+            self.groups.remove(seller_group)
+        self.refresh_user_permission()
+
     def setAuthor(self, isAuthor):
         author_group = self.get_author_group()
         if isAuthor:
             self.groups.add(author_group)
         else:
             self.groups.remove(author_group)
-
         self.refresh_user_permission()
+
 
     def save(self, *args, **kwargs):
         #TODO  @huanghuang refactor following email related lines into a subroutine
@@ -433,6 +457,9 @@ class Authorized_User_Profile(BaseModel):
     weibo_id = models.CharField(max_length=255, null=True, blank=True)
     weibo_nick = models.CharField(max_length=255, null=True, blank=True)
     personal_domain_name = models.CharField(max_length=64, null=True, blank=True)
+
+
+
 
 
 class User_Profile(BaseModel):

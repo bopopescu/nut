@@ -2,7 +2,6 @@ import sys
 from stage import *
 DEBUG = True
 
-DEBUG = True
 TESTING = len(sys.argv) > 0 and sys.argv[0].endswith('py.test')
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
@@ -16,7 +15,7 @@ IMAGE_HOST = 'http://imgcdn.guoku.com/'
 # LOCAL_IMG_DEBUG=True
 # IMAGE_HOST = 'http://127.0.0.1:9766/'
 # INTRANET_IMAGE_SERVER = 'http://images.hello.new/'
-# MEDIA_ROOT='../ant_image/'
+# MEDIA_ROOT='/media/upload/'
 # AVATAR_HOST = IMAGE_HOST
 
 
@@ -32,11 +31,13 @@ HAYSTACK_CONNECTIONS = {
     'default': {
         # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://localhost:8983/solr/',
+        'URL': 'http://10.0.2.115:8983/solr/',
         'INCLUDE_SPELLING': True,
         # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
     }
 }
+# HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
