@@ -104,6 +104,9 @@
             <div class="col-sm-12 section-title-wrapper">
                 <p>推荐品类</p>
             </div>
+
+            {#            old category begin#}
+
 {#            <div class="col-md-10 col-xs-12" >#}
 {#            {% for category in categories %}#}
 {#                <div class="col-xs-4 col-sm-2">#}
@@ -120,94 +123,101 @@
 {#            {% endfor %}#}
 
 
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="thumbnail category category-control">
-                        <a href="">
-                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">
-                            <p>复合维生素</p>
+{#            old category end #}
 
-                        </a>
-                    </div>
-                </div>
 
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="thumbnail category category-control">
-                        <a href="">
-                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">
-                            <p>复合维生素</p>
+{#            new category begin#}
 
-                        </a>
-                    </div>
-                </div>
+{#            <div class="col-xs-3 col-sm-2 guoku-normal-col">#}
+{#                    <div class="thumbnail category category-control">#}
+{#                        <a href="">#}
+{#                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">#}
+{#                            <p>复合维生素</p>#}
+{##}
+{#                        </a>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            <div class="col-xs-3 col-sm-2 guoku-normal-col">#}
+{#                    <div class="thumbnail category category-control">#}
+{#                        <a href="">#}
+{#                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">#}
+{#                            <p>复合维生素</p>#}
+{##}
+{#                        </a>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            <div class="col-xs-3 col-sm-2 guoku-normal-col">#}
+{#                    <div class="thumbnail category category-control">#}
+{#                        <a href="">#}
+{#                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">#}
+{#                            <p>复合维生素</p>#}
+{##}
+{#                        </a>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            <div class="col-xs-3 col-sm-2 guoku-normal-col">#}
+{#                    <div class="thumbnail category category-control">#}
+{#                        <a href="">#}
+{#                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">#}
+{#                            <p>复合维生素</p>#}
+{##}
+{#                        </a>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            <div class="col-xs-3 col-sm-2 guoku-normal-col">#}
+{#                    <div class="thumbnail category category-control">#}
+{#                        <a href="">#}
+{#                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">#}
+{#                            <p>复合维生素</p>#}
+{##}
+{#                        </a>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            <div class="col-xs-3 col-sm-2 guoku-normal-col">#}
+{#                    <div class="thumbnail category category-control">#}
+{#                        <a href="">#}
+{#                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">#}
+{#                            <p>复合维生素</p>#}
+{##}
+{#                        </a>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            <div class="col-xs-3 col-sm-2 guoku-normal-col">#}
+{#                    <div class="thumbnail category category-control">#}
+{#                        <a href="">#}
+{#                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">#}
+{#                            <p>复合维生素</p>#}
+{##}
+{#                        </a>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            <div class="col-xs-3 col-sm-2 guoku-normal-col">#}
+{#                    <div class="thumbnail category category-control">#}
+{#                        <a href="">#}
+{#                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">#}
+{#                            <p>复合维生素</p>#}
+{##}
+{#                        </a>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            <div class="col-xs-3 col-sm-2 guoku-normal-col">#}
+{#                <div class="thumbnail category category-control">#}
+{#                    <a href="{% url 'web_category_list' %}">#}
+{#                        <img class="img-responsive" src="{% static 'images/more.png' %}" width="64" height="64">#}
+{#                        <p>查看全部</p>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
 
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="thumbnail category category-control">
-                        <a href="">
-                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">
-                            <p>复合维生素</p>
-
-                        </a>
-                    </div>
-                </div>
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="thumbnail category category-control">
-                        <a href="">
-                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">
-                            <p>复合维生素</p>
-
-                        </a>
-                    </div>
-                </div>
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="thumbnail category category-control">
-                        <a href="">
-                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">
-                            <p>复合维生素</p>
-
-                        </a>
-                    </div>
-                </div>
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="thumbnail category category-control">
-                        <a href="">
-                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">
-                            <p>复合维生素</p>
-
-                        </a>
-                    </div>
-                </div>
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="thumbnail category category-control">
-                        <a href="">
-                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">
-                            <p>复合维生素</p>
-
-                        </a>
-                    </div>
-                </div>
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="thumbnail category category-control">
-                        <a href="">
-                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">
-                            <p>复合维生素</p>
-
-                        </a>
-                    </div>
-                </div>
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                <div class="thumbnail category category-control">
-                    <a href="{% url 'web_category_list' %}">
-                        <img class="img-responsive" src="{% static 'images/more.png' %}" width="64" height="64">
-                        <p>查看全部</p>
-                    </a>
-                </div>
-            </div>
+            {#            new category end#}
         </div>
 
         <div class="row hot-articles-wrapper" id="selection_article_list">
