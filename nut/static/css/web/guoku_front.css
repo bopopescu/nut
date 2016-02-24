@@ -3071,6 +3071,10 @@ body.compact-body {
 #top_article_tags_container .tag-current {
   background-color: #ddd;
 }
+#selection .selection-item,
+#event .selection-item {
+  padding: 0px 9px;
+}
 #selection .entity-selection.thumbnail,
 #event .entity-selection.thumbnail {
   background-color: #fff;
@@ -3085,7 +3089,7 @@ body.compact-body {
   box-shadow: 0px 0px 2px #ddd;
   overflow: hidden;
   padding: 0px;
-  margin-bottom: 30px;
+  margin-bottom: 18px;
   padding-bottom: 10px;
   border: none;
 }
