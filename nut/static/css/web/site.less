@@ -1115,6 +1115,82 @@ a:hover{text-decoration:underline;}
     .jiathis_style{
       float:right;
     }
+    .entity-share-wrapper{
+      float: right;
+      font-size:@smaller-primary;
+      ul{
+        li.list-item{
+          display: inline-block;
+          text-decoration: none;
+          a{
+            color:#ffffff;
+            &:hover{
+              cursor: pointer;
+            }
+          }
+        }
+        li.list-item-weixin{
+          position: relative;
+          a{
+            &:hover{
+              .display-toggle{
+                display: block;
+              }
+            }
+            background-color: @wechat-hover-color;
+            .wechat-qrcode-wrapper{
+               //暂时无法给三角形添加box-shadow,所以又画了一个三角形,设置了border颜色和阴影颜色相同.但是设计感觉不好...
+               &:after{
+                 content: "";
+                 position:absolute;
+                bottom:-9px;
+                left:46%;
+                transform: translateX(-20%);
+                width:0;
+                height:0;
+                border-width:5px;
+                border-style:solid;
+                  border-color: #ffffff transparent transparent transparent;
+
+                }
+              position:absolute;
+              bottom:50px;
+              left:-50%;
+              transform: translateX(-22%);
+              padding:10px 9px;
+              background-color: #fff;
+              box-shadow: @panel-shaddow;
+              display: none;
+              .bottom-bot{
+                position:absolute;
+                bottom:-10px;
+                left:46%;
+                transform: translateX(-20%);
+                width:0;
+                height:0;
+                border-width:5px;
+                border-style:solid;
+                border-color:#ddd transparent transparent transparent;
+              }
+            }
+
+          }
+        }
+
+        li.list-item-weibo a{
+            background-color: @weibo-hover-color;
+        }
+        li.list-item-qq a{
+            background-color: @qq-hover-color;
+        }
+
+
+      }
+    }
+  }
+  .share-wrapper-control{
+    margin-top:40px;
+    padding-top:0;
   }
   .divider{
     margin-bottom: 20px;
@@ -1393,6 +1469,24 @@ html { overflow-y: scroll; }
 }
 
 
+//entity detail wechat share dialog
+.entity-share-wx-dialog{
+  .modal-dialog{
+    width:250px;
+    height:auto;
+    margin-top:150px;
+    .modal-header{
+    display: none;
+  }
+     .qr-code-wrapper{
+       &.qr-code-control{
+         text-align:center;
+       }
+     }
+  }
+
+}
+
 .test{
-  color: red;
+  color: black;
 }
