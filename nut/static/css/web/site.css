@@ -672,6 +672,15 @@ p.boolean-false {
   padding: 0 10px;
   margin-bottom: 20px;
 }
+.normal-share-btn {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 18px;
+}
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
   padding: 0px;
@@ -2121,6 +2130,6 @@ html {
   text-align: center;
 }
 .test {
-  color: black;
+  color: red;
 }
 /*# sourceMappingURL=site.less.css.map */

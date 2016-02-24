@@ -672,4 +672,13 @@ p.boolean-false {
   padding: 0 10px;
   margin-bottom: 20px;
 }
+.normal-share-btn {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 18px;
+}
 /*# sourceMappingURL=widgets.less.css.map */
