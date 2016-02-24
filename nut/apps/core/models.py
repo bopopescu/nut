@@ -349,6 +349,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         # res['article_count'] = self.article_cout
         res['fan_count'] = self.fans_count
         res['following_count'] = self.following_count
+        res['is_authorized'] = self.is_authorized_author
 
         try:
             res['sina_screen_name'] = self.weibo.screen_name
@@ -461,9 +462,6 @@ class Authorized_User_Profile(BaseModel):
     rss_url = models.URLField(max_length=255 ,null=True, blank=True)
     points=models.IntegerField(default=0)
     is_recommended_user = models.BooleanField(default=False, db_index=True)
-
-
-
 
 
 class User_Profile(BaseModel):
