@@ -374,9 +374,11 @@ class APIUserIndexView(APIJsonView):
 
         _last_like = Entity_Like.objects.filter(user=_user, entity__status__gte=APIEntity.freeze)
         _last_note = APINote.objects.filter(user=_user).order_by('-post_time')
+        _last_article = APIArticle.objects.filter(creator=_user, publish=True).order_by('-created_datetime')
         res['user'] = _user.v4_toDict(self.visitor)
         res['last_user_like'] = []
         res['last_post_note'] = []
+        res['last_post_article'] = []
         for row in _last_like[:10]:
             res['last_user_like'].append(
                 row.entity.v3_toDict()
@@ -384,6 +386,10 @@ class APIUserIndexView(APIJsonView):
         for row in _last_note[:10]:
             res['last_post_note'].append(
                 row.v4_toDict(has_entity=True)
+            )
+        for row in _last_article[:10]:
+            res['last_post_article'].append(
+                row.v4_toDict()
             )
 
         return res
