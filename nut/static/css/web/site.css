@@ -664,6 +664,7 @@ p.boolean-false {
   font-weight: 500;
   margin-right: 12px;
 }
+<<<<<<< HEAD
 .guoku-normal-col {
   padding: 0 5px;
   margin-bottom: 10px;
@@ -671,6 +672,16 @@ p.boolean-false {
 .guoku-middle-col {
   padding: 0 10px;
   margin-bottom: 20px;
+=======
+.normal-share-btn {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 18px;
+>>>>>>> dev
 }
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
@@ -1795,10 +1806,71 @@ a:hover {
 #detail_content .share-wrapper-short .jiathis_style {
   float: right;
 }
+#detail_content .share-wrapper-short .entity-share-wrapper {
+  float: right;
+  font-size: 14px;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item {
+  display: inline-block;
+  text-decoration: none;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item a {
+  color: #ffffff;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item a:hover {
+  cursor: pointer;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weixin {
+  position: relative;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weixin a {
+  background-color: #51C332;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weixin a:hover .display-toggle {
+  display: block;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weixin a .wechat-qrcode-wrapper {
+  position: absolute;
+  bottom: 50px;
+  left: -50%;
+  transform: translateX(-22%);
+  padding: 10px 9px;
+  background-color: #fff;
+  box-shadow: 0px 0px 2px #ddd;
+  display: none;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weixin a .wechat-qrcode-wrapper:after {
+  content: "";
+  position: absolute;
+  bottom: -9px;
+  left: 46%;
+  transform: translateX(-20%);
+  width: 0;
+  height: 0;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weixin a .wechat-qrcode-wrapper .bottom-bot {
+  position: absolute;
+  bottom: -10px;
+  left: 46%;
+  transform: translateX(-20%);
+  width: 0;
+  height: 0;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #ddd transparent transparent transparent;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weibo a {
+  background-color: #E90D24;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-qq a {
+  background-color: #3199DD;
+}
 #detail_content .share-wrapper-control {
   margin-top: 40px;
   padding-top: 0;
-  height: auto;
 }
 #detail_content .divider {
   margin-bottom: 20px;
@@ -2048,6 +2120,18 @@ html {
   height: auto;
   padding: 0;
 }
+.entity-share-wx-dialog .modal-dialog {
+  width: 250px;
+  height: auto;
+  margin-top: 150px;
+}
+.entity-share-wx-dialog .modal-dialog .modal-header {
+  display: none;
+}
+.entity-share-wx-dialog .modal-dialog .qr-code-wrapper.qr-code-control {
+  text-align: center;
+}
 .test {
   color: black;
 }
+/*# sourceMappingURL=site.less.css.map */

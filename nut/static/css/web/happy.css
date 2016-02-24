@@ -1021,6 +1021,7 @@ p.boolean-false {
   font-weight: 500;
   margin-right: 12px;
 }
+<<<<<<< HEAD
 .guoku-normal-col {
   padding: 0 5px;
   margin-bottom: 10px;
@@ -1028,6 +1029,16 @@ p.boolean-false {
 .guoku-middle-col {
   padding: 0 10px;
   margin-bottom: 20px;
+=======
+.normal-share-btn {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 18px;
+>>>>>>> dev
 }
 .happy-common-btn {
   -webkit-appearance: none;
