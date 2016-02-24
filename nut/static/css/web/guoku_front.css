@@ -1029,15 +1029,6 @@ p.boolean-false {
   padding: 0 10px;
   margin-bottom: 20px;
 }
-.normal-share-btn {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  text-align: center;
-  border-radius: 5px;
-  font-size: 18px;
-}
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
   color: #9D9E9F;
@@ -1426,9 +1417,6 @@ p.boolean-false {
   border-width: 5px;
   border-style: solid;
   border-color: #ffffff transparent transparent transparent;
-}
-.main-article .share-wrapper .article-share ul li.list-item-weixin a .wechat-qrcode-wrapper .wechat-qrcode-img {
-  width: 80px;
 }
 .main-article .share-wrapper .article-share ul li.list-item-weixin a .wechat-qrcode-wrapper .bottom-bot {
   position: absolute;
@@ -3092,6 +3080,10 @@ body.compact-body {
 #top_article_tags_container .tag-current {
   background-color: #ddd;
 }
+#selection .selection-item,
+#event .selection-item {
+  padding: 0px 9px;
+}
 #selection .entity-selection.thumbnail,
 #event .entity-selection.thumbnail {
   background-color: #fff;
@@ -3106,7 +3098,7 @@ body.compact-body {
   box-shadow: 0px 0px 2px #ddd;
   overflow: hidden;
   padding: 0px;
-  margin-bottom: 30px;
+  margin-bottom: 18px;
   padding-bottom: 10px;
   border: none;
 }
@@ -4238,3 +4230,4 @@ body .for-mobile {
 .gk_test {
   color: red;
 }
+/*# sourceMappingURL=guoku_front.less.css.map */
