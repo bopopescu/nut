@@ -770,8 +770,8 @@ p.boolean-false {
   width: 81px;
   height: 81px;
   margin-top: 0;
-  margin-right: 18px;
-  margin-bottom: 18px;
+  margin-right: 10px;
+  margin-bottom: 10px;
   margin-left: 0;
 }
 .user-icon-list.recommend-user-list li a {
@@ -783,6 +783,28 @@ p.boolean-false {
 }
 .user-icon-list.recommend-user-list li img {
   border-radius: 50%;
+}
+@media (max-width: 580px) {
+  .user-icon-list.recommend-user-list li {
+    float: left;
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    margin-top: 0;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    margin-left: 0;
+  }
+  .user-icon-list.recommend-user-list li a {
+    display: block;
+  }
+  .user-icon-list.recommend-user-list li a img {
+    width: 70px;
+    height: 70px;
+  }
+  .user-icon-list.recommend-user-list li img {
+    border-radius: 50%;
+  }
 }
 /* 品类*/
 @media (min-width: 992px) {
