@@ -17,11 +17,15 @@ class UserAuthorInfoForm(ModelForm):
         self.fields['weibo_id'].widget.attrs.update({'class':'form-control'})
         self.fields['weibo_nick'].widget.attrs.update({'class':'form-control'})
         self.fields['personal_domain_name'].widget.attrs.update({'class':'form-control'})
+        self.fields['points'].widget.attrs.update({'class':'form-control'})
+        self.fields['rss_url'].widget.attrs.update({'class':'form-control'})
     class Meta:
         model = Authorized_User_Profile
         fields = [
                   'weixin_id', 'weixin_nick','weixin_qrcode_img',\
-                  'author_website','weibo_id','weibo_nick','personal_domain_name'
+                  'author_website','rss_url',\
+                  'weibo_id','weibo_nick','personal_domain_name',\
+                  'points','is_recommended_user',
                   ]
 
     def clean_personal_domain_name(self):
@@ -82,4 +86,4 @@ class SellerShopForm(ModelForm):
     owner =  CharField(required=True)
     class Meta:
         model = Shop
-        fields = ['owner','shop_title', 'shop_link', 'shop_desc', 'shop_brands']
+        fields = ['owner','shop_title', 'shop_link']

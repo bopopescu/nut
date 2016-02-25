@@ -664,6 +664,23 @@ p.boolean-false {
   font-weight: 500;
   margin-right: 12px;
 }
+.guoku-normal-col {
+  padding: 0 5px;
+  margin-bottom: 10px;
+}
+.guoku-middle-col {
+  padding: 0 10px;
+  margin-bottom: 20px;
+}
+.normal-share-btn {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 18px;
+}
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
   padding: 0px;
@@ -729,7 +746,66 @@ p.boolean-false {
     padding-left: 0px;
   }
 }
-/* */
+/*发现页*/
+#discover_container .section-title-wrapper {
+  margin-bottom: 14px;
+}
+#discover_container .category-wrapper .section-title-wrapper,
+#discover_container #selection_article_list .section-title-wrapper {
+  margin-top: 30px;
+}
+#discover_container #discover_entity_list .section-title-wrapper {
+  margin-top: -5px;
+}
+/*发现页-推荐用户*/
+.user-icon-list.recommend-user-list:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+}
+.user-icon-list.recommend-user-list li {
+  float: left;
+  display: inline-block;
+  width: 81px;
+  height: 81px;
+  margin-top: 0;
+  margin-right: 18px;
+  margin-bottom: 10px;
+  margin-left: 0;
+}
+.user-icon-list.recommend-user-list li a {
+  display: block;
+}
+.user-icon-list.recommend-user-list li a img {
+  width: 81px;
+  height: 81px;
+}
+.user-icon-list.recommend-user-list li img {
+  border-radius: 50%;
+}
+@media (max-width: 768px) {
+  .user-icon-list.recommend-user-list li {
+    float: left;
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    margin-top: 0;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    margin-left: 0;
+  }
+  .user-icon-list.recommend-user-list li a {
+    display: block;
+  }
+  .user-icon-list.recommend-user-list li a img {
+    width: 70px;
+    height: 70px;
+  }
+  .user-icon-list.recommend-user-list li img {
+    border-radius: 50%;
+  }
+}
 /* 品类*/
 @media (min-width: 992px) {
   .category-list .col-md-2 {
@@ -740,10 +816,17 @@ p.boolean-false {
   .category-list .col-sm-3 {
     width: 14%;
   }
+  .recommend-user-wrapper .col-sm-2,
+  .category-wrapper .col-sm-2 {
+    width: 12.5%;
+  }
 }
 .category {
   background: #FFF ;
   border: none;
+}
+.category-control {
+  margin-bottom: 0px;
 }
 .category > a {
   padding: 20px 5px 0px 5px;
@@ -1765,6 +1848,72 @@ a:hover {
 #detail_content .share-wrapper-short .jiathis_style {
   float: right;
 }
+#detail_content .share-wrapper-short .entity-share-wrapper {
+  float: right;
+  font-size: 14px;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item {
+  display: inline-block;
+  text-decoration: none;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item a {
+  color: #ffffff;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item a:hover {
+  cursor: pointer;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weixin {
+  position: relative;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weixin a {
+  background-color: #51C332;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weixin a:hover .display-toggle {
+  display: block;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weixin a .wechat-qrcode-wrapper {
+  position: absolute;
+  bottom: 50px;
+  left: -50%;
+  transform: translateX(-22%);
+  padding: 10px 9px;
+  background-color: #fff;
+  box-shadow: 0px 0px 2px #ddd;
+  display: none;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weixin a .wechat-qrcode-wrapper:after {
+  content: "";
+  position: absolute;
+  bottom: -9px;
+  left: 46%;
+  transform: translateX(-20%);
+  width: 0;
+  height: 0;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weixin a .wechat-qrcode-wrapper .bottom-bot {
+  position: absolute;
+  bottom: -10px;
+  left: 46%;
+  transform: translateX(-20%);
+  width: 0;
+  height: 0;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #ddd transparent transparent transparent;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-weibo a {
+  background-color: #E90D24;
+}
+#detail_content .share-wrapper-short .entity-share-wrapper ul li.list-item-qq a {
+  background-color: #3199DD;
+}
+#detail_content .share-wrapper-control {
+  margin-top: 40px;
+  padding-top: 0;
+}
 #detail_content .divider {
   margin-bottom: 20px;
   height: 2px;
@@ -1784,9 +1933,21 @@ a:hover {
 .main-article .writer-wrapper .writer-intro .writer-name {
   font-size: 18px;
 }
+.main-article .writer-wrapper .writer-intro .article-user-follow {
+  margin-top: 0;
+  margin-left: 8px;
+  width: auto;
+  float: none;
+}
+.main-article .writer-wrapper .writer-intro .writer-authorized {
+  margin-left: 8px;
+}
 .main-article .writer-wrapper .writer-intro .writer-bio {
   color: #9D9E9F;
   font-size: 13px;
+}
+.main-article .writer-wrapper .writer-intro .writer-bio.writer-bio-control {
+  max-width: 460px;
 }
 .main-article .writer-wrapper .writer-intro .writer-bio .weixin-id {
   line-height: 30px;
@@ -2001,6 +2162,17 @@ html {
   height: auto;
   padding: 0;
 }
+.entity-share-wx-dialog .modal-dialog {
+  width: 250px;
+  height: auto;
+  margin-top: 150px;
+}
+.entity-share-wx-dialog .modal-dialog .modal-header {
+  display: none;
+}
+.entity-share-wx-dialog .modal-dialog .qr-code-wrapper.qr-code-control {
+  text-align: center;
+}
 .test {
-  color: black;
+  color: red;
 }
