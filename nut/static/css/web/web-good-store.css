@@ -749,6 +749,7 @@ p.boolean-false {
   display: inline-block;
 }
 .store-body .consumption-report-wrapper {
+  width: 100%;
   height: 50px;
   line-height: 50px;
   background-color: #ffffff;
@@ -756,4 +757,7 @@ p.boolean-false {
 .store-body .consumption-report-wrapper .consumption-report {
   margin-left: 15px;
   float: right;
+}
+.store-body .consumption-report-wrapper .consumption-report:after {
+  content: "";
 }
