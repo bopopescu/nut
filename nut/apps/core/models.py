@@ -427,6 +427,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         else:
             self.groups.remove(author_group)
         self.refresh_user_permission()
+    @property
+    def is_authorized_user(self):
+        return self.is_authorized_author or self.is_authorized_seller
+
 
 
     def save(self, *args, **kwargs):

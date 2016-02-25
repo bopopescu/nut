@@ -425,7 +425,7 @@ p .b_day {
 }
 .entity-four.thumbnail {
   border: none;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   padding: 0px 0px 16px 0px;
   background-color: #fff;
   -webkit-border-radius: 4px;
@@ -855,3 +855,4 @@ p.boolean-false {
 #test {
   color: black;
 }
+/*# sourceMappingURL=basic_management.less.css.map */

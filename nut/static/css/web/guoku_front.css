@@ -717,7 +717,7 @@ p .b_day {
 }
 .entity-four.thumbnail {
   border: none;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   padding: 0px 0px 16px 0px;
   background-color: #fff;
   -webkit-border-radius: 4px;
@@ -3660,6 +3660,12 @@ body.compact-body {
   vertical-align: middle;
   padding-right: 18px;
 }
+#discover_entity_list,
+#category-entity-list,
+.search-entity-item,
+.search-tag-item {
+  padding: 0px 9px;
+}
 #discover_entity_list .fa,
 #category-entity-list .fa,
 .search-entity-item .fa,
@@ -3770,6 +3776,7 @@ body.compact-body {
 #selection_article_list .selection-article-item {
   display: inline-block;
   position: relative;
+  padding: 0 9px;
 }
 #selection_article_list .selection-article-item .article-panel {
   background-color: #fff;
@@ -4239,3 +4246,4 @@ body .for-mobile {
 .gk_test {
   color: black;
 }
+/*# sourceMappingURL=guoku_front.less.css.map */
