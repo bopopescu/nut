@@ -27,6 +27,7 @@
                             <li {% ifequal status '0' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=0">{% trans 'new' %}</a></li>
                             <li {% ifequal status '-1' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=-1">{% trans 'freeze' %}</a></li>
                             <li {% ifequal status '-2' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=-2">{% trans 'remove' %}</a></li>
+                            <li {% ifequal status '999' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=999">{% trans 'amazon entities' %}</a></li>
                         </ul>
                     </div>
                     <div class="box-body table-responsive">
