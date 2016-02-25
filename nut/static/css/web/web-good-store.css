@@ -681,8 +681,64 @@ p.boolean-false {
   border-radius: 5px;
   font-size: 18px;
 }
+.store-row {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
 .store-body .store-top-banner {
   margin-top: -30px;
   width: 100%;
   height: 120px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.store-body .latest-actions-wrapper {
+  width: 100%;
+  height: 332px;
+}
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper {
+  height: 100%;
+}
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list {
+  border-bottom: 0 !important;
+}
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-title.section-title-control {
+  border-left-color: #ffffff;
+}
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li a:hover {
+  cursor: pointer;
+  color: #428bca;
+}
+.store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper {
+  height: 52px;
+  margin: 25px 15px;
+  overflow: hidden;
+}
+.store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .rect-decoration {
+  float: left;
+  margin-right: 15px;
+}
+.store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper {
+  margin-left: 67px;
+  min-height: 52px;
+  max-height: 52px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper .user-info-section-title {
+  font-size: 12px;
+}
+.store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a.user-latest-article-title {
+  font-size: 18px;
+  color: #424242;
+}
+.store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a:hover {
+  text-decoration: none;
+  cursor: pointer;
 }
