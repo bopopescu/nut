@@ -48,5 +48,7 @@ class SellerView(TemplateView):
 
 
 
+class StoreView(TemplateView):
 
+    template_name = 'web/seller/good_store.html'
 
