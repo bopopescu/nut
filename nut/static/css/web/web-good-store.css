@@ -748,3 +748,12 @@ p.boolean-false {
 .store-body .select-condition-wrapper .select-condition .type-item {
   display: inline-block;
 }
+.store-body .consumption-report-wrapper {
+  height: 50px;
+  line-height: 50px;
+  background-color: #ffffff;
+}
+.store-body .consumption-report-wrapper .consumption-report {
+  margin-left: 15px;
+  float: right;
+}
