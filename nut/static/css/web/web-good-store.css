@@ -692,10 +692,6 @@ p.boolean-false {
   background-size: cover;
   background-repeat: no-repeat;
 }
-.store-body .latest-actions-wrapper {
-  width: 100%;
-  height: 332px;
-}
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper {
   height: 100%;
 }
