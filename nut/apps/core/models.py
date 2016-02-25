@@ -467,8 +467,6 @@ class Authorized_User_Profile(BaseModel):
     points=models.IntegerField(default=0)
     is_recommended_user = models.BooleanField(default=False, db_index=True)
 
-    objects = AuthorizedUserManager()
-
 
 class User_Profile(BaseModel):
     Man = u'M'
