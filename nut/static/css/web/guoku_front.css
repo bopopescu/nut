@@ -3385,6 +3385,9 @@ body.compact-body {
 #detail_content_right {
   padding-left: 10px;
 }
+#detail_content_right .sidebar-follow-wrapper {
+  overflow: auto;
+}
 #detail_content_right .section {
   background-color: #fff;
   padding: 18px 18px;

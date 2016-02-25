@@ -28,7 +28,7 @@ from apps.core.utils.articlecontent import contentBleacher
 from apps.core.extend.fields.listfield import ListObjectField
 from apps.web.utils.datatools import get_entity_list_from_article_content
 from apps.core.manager import *
-
+from apps.core.manager.account import  AuthorizedUserManager
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -466,6 +466,8 @@ class Authorized_User_Profile(BaseModel):
     rss_url = models.URLField(max_length=255 ,null=True, blank=True)
     points=models.IntegerField(default=0)
     is_recommended_user = models.BooleanField(default=False, db_index=True)
+
+    objects = AuthorizedUserManager()
 
 
 class User_Profile(BaseModel):
