@@ -46,6 +46,12 @@ class GKUserQuerySet(models.query.QuerySet):
     def authorized_seller(self):
         return Group.objects.get(name='Seller').user_set.all()
 
+    def authorized_user(self):
+        return self.filter(groups__name__in=['Author', 'Seller']).distinct()
+
+    def recommended_user(self):
+        return self.authorized_user().filter(authorized_profile__is_recommended_user=True)
+
 
 class GKUserManager(BaseUserManager):
     # use_for_related_fields = True
@@ -75,7 +81,16 @@ class GKUserManager(BaseUserManager):
         return self.get_query_set().deactive()
 
     def authorized_author(self):
-        return self.get_queryset().authorized_author();
+        return self.get_queryset().authorized_author()
+
+    def authorized_seller(self):
+        return self.get_queryset().authorized_seller()
+
+    def authorized_user(self):
+        return self.get_queryset().authorized_user()
+
+    def recommended_user(self):
+        return self.get_queryset().recommended_user()
 
     def deactive_user_list(self):
         user_list = cache.get('deactive_user_list')
@@ -111,9 +126,22 @@ class GKUserManager(BaseUserManager):
         return self._create_user(email, password, True, True, **extra_fields)
 
 
+
+
 class AuthorizedUserQuerySet(models.query.QuerySet):
     def popular(self):
         return
+
+    def recommended_authorized_users(self):
+        return self.filter(is_recommended_user=True)
+
+
+class AuthorizedUserManager(models.Manager):
+    def get_queryset(self):
+        return AuthorizedUserQuerySet(self.model, using = self._db)
+
+    def recommended_authorized_users(self):
+        return self.get_queryset().recommended_authorized_users()
 
 
 __author__ = 'edison7500'
