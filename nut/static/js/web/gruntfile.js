@@ -22,6 +22,19 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     requirejs: requirejsOptions,
+    less: {
+        clean:{
+            options:{
+                path:['../../css/web/']
+            },
+            files:{
+                '../../css/web/build/guoku_front.css':'../../css/web/guoku_front.less',
+                '../../css/web/build/style.css':'../../css/web/style.less',
+                '../../css/web/build/site.css':'../../css/web/site.less',
+                '../../css/web/build/web-seller-style.css':'../../css/web/web-seller-style.less',
+            }
+        }
+    },
     jshint: {
       files: ['*.js', '!gruntFile.js'],
       options: {
@@ -49,6 +62,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-less');
+
 
   // Default task(s).
   grunt.registerTask('default', ['jshint']);
