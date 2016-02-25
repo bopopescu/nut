@@ -19,8 +19,9 @@
 
 {% block content %}
     <div class="container" id="discover_container">
-
+        {% if recommended_user %}
         <div class="row recommend-user-wrapper">
+
             <div class="col-sm-12 section-title-wrapper">
                 <p>
                     推荐用户
@@ -36,59 +37,18 @@
 
             <div class="col-sm-12">
                 <ul class="user-icon-list recommend-user-list">
+                    {% for user in recommended_user %}
                     <li>
-                        <a href="" target="_blank">
-                            <img class="img-responsive" src="{% static 'images/year-seller/looks.jpg' %}">
+                        <a href="{{ user.absolute_url }}" target="_blank">
+                            <img class="img-responsive" src="{{ user.avatar_url|resize:'128' }}" title="{{ user.nickname }}" alt="{{ user.nickname }}">
                         </a>
                     </li>
+                    {% endfor %}
 
-                    <li>
-                        <a href="" target="_blank">
-                            <img class="img-responsive" src="{% static 'images/year-seller/looks.jpg' %}">
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="" target="_blank">
-                            <img class="img-responsive" src="{% static 'images/year-seller/looks.jpg' %}">
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="" target="_blank">
-                            <img class="img-responsive" src="{% static 'images/year-seller/looks.jpg' %}">
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="" target="_blank">
-                            <img class="img-responsive" src="{% static 'images/year-seller/looks.jpg' %}">
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="" target="_blank">
-                            <img class="img-responsive" src="{% static 'images/year-seller/looks.jpg' %}">
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="" target="_blank">
-                            <img class="img-responsive" src="{% static 'images/year-seller/looks.jpg' %}">
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="" target="_blank">
-                            <img class="img-responsive" src="{% static 'images/year-seller/looks.jpg' %}">
-                        </a>
-                    </li>
                 </ul>
             </div>
-
-
-
         </div>
+      {% endif %}
 
         <div class="row category-wrapper">
             <div class="col-sm-12 section-title-wrapper">

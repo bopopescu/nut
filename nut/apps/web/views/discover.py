@@ -2,7 +2,8 @@
 from django.views.generic.base import View, TemplateResponseMixin, ContextMixin
 # import random
 from django.db.models import Count
-from apps.core.models import Entity, Entity_Like, Sub_Category, Selection_Article
+from apps.core.models import Entity, Entity_Like, Sub_Category,\
+                             Selection_Article, GKUser
 from django.utils.log import getLogger
 
 log = getLogger('django')
@@ -23,13 +24,15 @@ class DiscoverView(TemplateResponseMixin, ContextMixin, View):
         # _categories = Sub_Category.objects.filter(id__in=list(cids), status=True)
         _categories = Sub_Category.objects.popular_random()
         _selection_articles = Selection_Article.objects.discover()[:3]
+        _recommended_user = GKUser.objects.recommended_user()[:8]
+
         log.info(_categories)
         context = {
             'entities':_entities,
             'user_entity_likes': el,
             'categories': _categories[:15],
             'selection_articles':_selection_articles,
-
+            'recommended_user': _recommended_user
         }
         return self.render_to_response(context)
 
