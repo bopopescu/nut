@@ -738,3 +738,13 @@ p.boolean-false {
   text-decoration: none;
   cursor: pointer;
 }
+.store-body .select-condition-wrapper.select-condition {
+  padding: 16px 20px;
+  background-color: #f3f3f3;
+}
+.store-body .category-title,
+.store-body .category-item,
+.store-body .type-title,
+.store-body .type-item {
+  display: inline-block;
+}
