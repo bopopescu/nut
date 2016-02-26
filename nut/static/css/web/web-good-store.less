@@ -79,7 +79,7 @@
 
   }
 
-  //授权用户最新一篇文章
+  //授权用户最新文章
   .user-latest-article-wrapper{
     .user-latest-article-intro-wrapper{
       height:52px;
@@ -129,15 +129,27 @@
     .category-title,.category-item,.type-title,.type-item{
       display: inline-block;
   }
+    .tag-element{
+      &:hover{
+        cursor: pointer;
+      }
+    }
 
   }
 
   .select-result-wrapper{
-    ul li{
+    .result-item-wrapper{
+      padding-left:20px;
+      a{
+        color:@common-text-color;
+        font-size:@smaller-primary;
+        &:hover{
+          text-decoration: underline;
+        }
+      }
 
     }
   }
-
 
   .consumption-report-wrapper{
     margin-bottom: -40px;
