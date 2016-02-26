@@ -1,8 +1,12 @@
-5.  discover page , recommended user 
-4.  authorized user profile add 3 field (points, is_recommended_user, rss_url)
-3.  discover page add popular article 
-2.  article page user info update
-1.  article page add user follow
+=================================
+# merged to master 2016 － 2 － 25
+=================================
+
+4.  discover page , recommended user 
+3.  authorized user profile add 3 field (points, is_recommended_user, rss_url)
+2.  discover page add popular article 
+1.  article page user info update
+    article page add user follow
 
 ##action 
 
