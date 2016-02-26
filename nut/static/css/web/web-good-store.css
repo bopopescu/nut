@@ -786,6 +786,19 @@ p.boolean-false {
 .store-body .select-condition-wrapper .select-condition .type-item {
   display: inline-block;
 }
+.store-body .select-condition-wrapper .select-condition .tag-element:hover {
+  cursor: pointer;
+}
+.store-body .select-result-wrapper .result-item-wrapper {
+  padding-left: 20px;
+}
+.store-body .select-result-wrapper .result-item-wrapper a {
+  color: #424242;
+  font-size: 14px;
+}
+.store-body .select-result-wrapper .result-item-wrapper a:hover {
+  text-decoration: underline;
+}
 .store-body .consumption-report-wrapper {
   margin-bottom: -40px;
   width: 100%;
