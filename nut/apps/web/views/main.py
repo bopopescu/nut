@@ -208,7 +208,7 @@ class GKSearchView(SearchView):
             'article_count': self.queryset.models(Article).count(),
         })
         if self.type == "e" and self.request.user.is_authenticated():
-            entity_id_list = map(lambda x: x.object.pk, context['page_obj'])
+            entity_id_list = map(lambda x: x.entity_id, context['page_obj'])
             # log.info(entity_id_list)
             el = Entity_Like.objects.user_like_list(user=self.request.user,
                                                     entity_list=entity_id_list)
