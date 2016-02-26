@@ -714,6 +714,14 @@ p.boolean-false {
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-title.section-title-control {
   border-left-color: #ffffff;
 }
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-content .publish-time,
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-content .publish-info {
+  display: table-cell;
+}
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-content .publish-time {
+  width: 70px;
+  padding-right: 10px;
+}
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li {
   margin-bottom: 10px;
   font-size: 14px;
