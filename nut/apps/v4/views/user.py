@@ -521,14 +521,20 @@ class APIUserArticlesView(APIJsonView):
         res = dict()
 
         articles = APIArticle.objects.filter(creator=self.user_id)
+        res.update(
+            {
+                'count': articles.count(),
+                'page': self.page,
+            }
+        )
         paginator = Paginator(articles, self.size)
         try:
             article_list = paginator.page(self.page)
         except Exception:
             return res
-        res['articles'] = list
+        res['articles'] = list()
         for row in article_list.object_list:
-            res['articles'].append(row.v4_toDict)
+            res['articles'].append(row.v4_toDict())
         return res
 
     def get(self, request, *args, **kwargs):
@@ -536,7 +542,7 @@ class APIUserArticlesView(APIJsonView):
         assert self.user_id is not None
 
         self.page = request.GET.get('page', 1)
-        self.size = request.GET.get('size', 30)
+        self.size = request.GET.get('size', 15)
         return super(APIUserArticlesView, self).get(request, *args, **kwargs)
 
 
