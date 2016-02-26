@@ -775,10 +775,10 @@ p.boolean-false {
   margin-bottom: 0px;
 }
 .store-body .select-condition-wrapper .select-condition .category-wrapper {
-  margin: 16px 0px 20px 20px;
+  padding: 16px 0 20px 20px;
 }
 .store-body .select-condition-wrapper .select-condition .type-wrapper {
-  margin: 20px 0px 16px 20px;
+  padding: 0px 0px 16px 20px;
 }
 .store-body .select-condition-wrapper .select-condition .category-title,
 .store-body .select-condition-wrapper .select-condition .category-item,
