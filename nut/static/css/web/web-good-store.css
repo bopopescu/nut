@@ -749,20 +749,20 @@ p.boolean-false {
 .store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper {
   min-height: 52px;
   max-height: 52px;
-  font-weight: 600;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 .store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper .user-info-section-title {
   font-size: 12px;
+  color: #9d9d9d;
 }
 .store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a.user-latest-article-title {
   font-size: 18px;
   color: #424242;
 }
 .store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a:hover {
-  text-decoration: none;
+  text-decoration: underline;
   cursor: pointer;
 }
 .store-body .select-condition-wrapper .select-condition {
