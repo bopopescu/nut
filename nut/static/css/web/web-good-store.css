@@ -820,3 +820,8 @@ p.boolean-false {
 .store-body .consumption-report-wrapper .consumption-report:after {
   content: "";
 }
+@media (min-width: 768px) {
+  .store-body .consumption-report-wrapper {
+    margin-top: 50px;
+  }
+}
