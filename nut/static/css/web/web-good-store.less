@@ -164,12 +164,14 @@
     line-height:50px;
     background-color: #ffffff;
 
-    .consumption-report{
+    a.consumption-report-item{
+      color: @common-text-color;
       margin-left:15px;
       float: right;
-      &:after{
-        content:"";
-
+      &:hover{
+        color:@light-gray;
+        text-decoration: none;
+        cursor: pointer;
       }
     }
 
