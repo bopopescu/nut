@@ -766,6 +766,9 @@ p.boolean-false {
   text-decoration: underline;
   cursor: pointer;
 }
+.store-body .hot-section-wrapper a:hover {
+  cursor: pointer;
+}
 .store-body .select-condition-wrapper .select-condition {
   padding: 0 10px;
   background-clip: content-box;
