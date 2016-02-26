@@ -746,12 +746,7 @@ p.boolean-false {
   margin: 25px 15px;
   overflow: hidden;
 }
-.store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .rect-decoration {
-  float: left;
-  margin-right: 15px;
-}
 .store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper {
-  margin-left: 67px;
   min-height: 52px;
   max-height: 52px;
   font-weight: 600;
