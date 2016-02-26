@@ -708,6 +708,13 @@ p.boolean-false {
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper {
   height: 100%;
 }
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list {
+  background-color: #ffffff;
+  padding: 18px;
+  border-radius: 4px;
+  background-clip: padding-box;
+  box-shadow: 0 0 2px #ddd;
+}
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list {
   border-bottom: 0 !important;
 }
