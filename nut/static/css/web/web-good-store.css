@@ -719,7 +719,7 @@ p.boolean-false {
   display: table-cell;
 }
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-content .publish-time {
-  width: 70px;
+  min-width: 81px;
   padding-right: 10px;
 }
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li {
