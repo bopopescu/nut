@@ -718,9 +718,13 @@ p.boolean-false {
   margin-bottom: 10px;
   font-size: 14px;
 }
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li a {
+  color: #9d9d9d;
+}
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li a:hover {
   cursor: pointer;
-  color: #428bca;
+  color: #424242;
+  text-decoration: underline;
 }
 .store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper {
   height: 52px;
