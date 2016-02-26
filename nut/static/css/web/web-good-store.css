@@ -791,6 +791,9 @@ p.boolean-false {
 }
 .store-body .select-result-wrapper .result-item-wrapper {
   padding-left: 20px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .store-body .select-result-wrapper .result-item-wrapper a {
   color: #424242;
