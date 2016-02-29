@@ -141,7 +141,7 @@
 {#                            article share button end#}
                         </div>
                         <div class="divider article-divider divider-control"></div>
-                        <div class="writer-wrapper">
+                        <div class="writer-wrapper writer-wrapper-control">
 {#                            <div class="row">#}
 {#                                <div class="write-pre col-xs-12 col-sm-12">#}
 {#                                </div>#}
@@ -196,19 +196,6 @@
                                           <img src="{% static 'images/author/official_media.png' %}" width="16px" height="16px" class="writer-authorized"/>
                                         {% endif %}
 
-                                        {#                                        关注按钮#}
-                                        {% if article.creator.is_blocked %}
-                                                <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
-                                                {% elif article.creator == request.user %}
-
-                                                {% elif request.user.id in article.creator.concren %}
-                                                <a class="follow article-user-follow guoku-button btn-cancel" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                                                {% elif request.user.id in article.creator.fans_list %}
-                                                <a class="follow article-user-follow guoku-button btn-cancel" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                                                {% else %}
-                                                <a class="follow article-user-follow guoku-button button-blue" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
-                                            {% endif %}
-
                                     </div>
 
                                     <div class="writer-name for-mobile">
@@ -235,6 +222,18 @@
 {#                                </div>#}
 
                             </div>
+                            {#                                        关注按钮#}
+                            {% if article.creator.is_blocked %}
+                                <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
+                                {% elif article.creator == request.user %}
+
+                            {% elif request.user.id in article.creator.concren %}
+                                <a class="follow article-user-follow guoku-button btn-cancel" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                                {% elif request.user.id in article.creator.fans_list %}
+                                <a class="follow article-user-follow guoku-button btn-cancel" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                            {% else %}
+                                <a class="follow article-user-follow guoku-button button-blue" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+                            {% endif %}
 {#                            {% endif %}#}
 
                         </div>
