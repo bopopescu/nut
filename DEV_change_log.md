@@ -1,5 +1,4 @@
-4.  
-3.  authorized seller shop manange
+3.  authorized seller shop management
 2.  api user article list bug fig 
 1.  article writer follow button position 
 
