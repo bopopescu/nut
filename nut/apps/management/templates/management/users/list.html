@@ -30,6 +30,7 @@
                             <li {% if active == '999' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '999' %}">{% trans 'remove' %}</a></li>
                             <li {% if active == '888' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '888' %}">{% trans 'Authorized Author' %}</a></li>
                             <li {% if active == '666' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '666' %}">{% trans 'Authorized Seller' %}</a></li>
+                            <li {% if active == '789' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '789' %}">{% trans '所有授权用户' %}</a></li>
                             <li {% if active == '777' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '777' %}">{% trans 'admin' %}</a></li>
 {#                            <li {% if admin %}class="active" {% endif %}><a href="{% url 'management_user_list' %}?admin=1">{% trans 'admin' %}</a></li>#}
                         </ul>

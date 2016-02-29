@@ -10,6 +10,7 @@
 @import "top_add.less";
 @import "user_author_add.less";
 
+
 *{
   &:active,&:focus{
 
@@ -587,6 +588,11 @@ body.compact-body{
             .user-nick-large;
           }
       }
+      .official-media{
+        margin-left:-4px;
+        transform: translateY(-50%);
+      }
+
       .user-action{
            margin-top: 10px;
       }
@@ -1195,6 +1201,10 @@ body.compact-body{
 
 #detail_content_right{
   padding-left: 10px;
+  .sidebar-follow-wrapper{
+    overflow:auto;
+  }
+
 
   .section{
     .panel;
@@ -1471,6 +1481,7 @@ body.compact-body{
 
 #discover_entity_list,#category-entity-list,
 .search-entity-item,.search-tag-item {
+  padding:0px 9px;
   .fa {
     font-size: 24px;
   }
@@ -1602,6 +1613,7 @@ body.compact-body{
    .selection-article-item{
      display: inline-block;
      position:relative;
+     padding:0 9px;
      .article-panel{
         .panel-no-padding;
         width:100%;
@@ -1774,7 +1786,7 @@ body{
 }
 
 .gk_test{
-  color:black;
+  color:red;
 }
 
 

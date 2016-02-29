@@ -1,4 +1,9 @@
-1. 
+5.  discover page , recommended user 
+4.  authorized user profile add 3 field (points, is_recommended_user, rss_url)
+3.  discover page add popular article 
+2.  article page user info update
+1.  article page add user follow
+
 ##action 
 
 ALTER TABLE `core`.`core_authorized_user_profile` 

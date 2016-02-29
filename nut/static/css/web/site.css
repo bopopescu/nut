@@ -360,7 +360,7 @@ p .b_day {
 }
 .entity-four.thumbnail {
   border: none;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   padding: 0px 0px 16px 0px;
   background-color: #fff;
   -webkit-border-radius: 4px;
@@ -664,6 +664,14 @@ p.boolean-false {
   font-weight: 500;
   margin-right: 12px;
 }
+.guoku-normal-col {
+  padding: 0 5px;
+  margin-bottom: 10px;
+}
+.guoku-middle-col {
+  padding: 0 10px;
+  margin-bottom: 20px;
+}
 .normal-share-btn {
   display: inline-block;
   width: 40px;
@@ -738,7 +746,66 @@ p.boolean-false {
     padding-left: 0px;
   }
 }
-/* */
+/*发现页*/
+#discover_container .section-title-wrapper {
+  margin-bottom: 14px;
+}
+#discover_container .category-wrapper .section-title-wrapper,
+#discover_container #selection_article_list .section-title-wrapper {
+  margin-top: 10px;
+}
+#discover_container #discover_entity_list .section-title-wrapper {
+  margin-top: -5px;
+}
+/*发现页-推荐用户*/
+.user-icon-list.recommend-user-list:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+}
+.user-icon-list.recommend-user-list li {
+  float: left;
+  display: inline-block;
+  width: 81px;
+  height: 81px;
+  margin-top: 0;
+  margin-right: 18px;
+  margin-bottom: 10px;
+  margin-left: 0;
+}
+.user-icon-list.recommend-user-list li a {
+  display: block;
+}
+.user-icon-list.recommend-user-list li a img {
+  width: 81px;
+  height: 81px;
+}
+.user-icon-list.recommend-user-list li img {
+  border-radius: 50%;
+}
+@media (max-width: 768px) {
+  .user-icon-list.recommend-user-list li {
+    float: left;
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    margin-top: 0;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    margin-left: 0;
+  }
+  .user-icon-list.recommend-user-list li a {
+    display: block;
+  }
+  .user-icon-list.recommend-user-list li a img {
+    width: 70px;
+    height: 70px;
+  }
+  .user-icon-list.recommend-user-list li img {
+    border-radius: 50%;
+  }
+}
 /* 品类*/
 @media (min-width: 992px) {
   .category-list .col-md-2 {
@@ -749,10 +816,17 @@ p.boolean-false {
   .category-list .col-sm-3 {
     width: 14%;
   }
+  .recommend-user-wrapper .col-sm-2,
+  .category-wrapper .col-sm-2 {
+    width: 12.5%;
+  }
 }
 .category {
   background: #FFF ;
   border: none;
+}
+.category-control {
+  margin-bottom: 0px;
 }
 .category > a {
   padding: 20px 5px 0px 5px;
@@ -1859,9 +1933,21 @@ a:hover {
 .main-article .writer-wrapper .writer-intro .writer-name {
   font-size: 18px;
 }
+.main-article .writer-wrapper .writer-intro .article-user-follow {
+  margin-top: 0;
+  margin-left: 8px;
+  width: auto;
+  float: none;
+}
+.main-article .writer-wrapper .writer-intro .writer-authorized {
+  margin-left: 8px;
+}
 .main-article .writer-wrapper .writer-intro .writer-bio {
   color: #9D9E9F;
   font-size: 13px;
+}
+.main-article .writer-wrapper .writer-intro .writer-bio.writer-bio-control {
+  max-width: 460px;
 }
 .main-article .writer-wrapper .writer-intro .writer-bio .weixin-id {
   line-height: 30px;

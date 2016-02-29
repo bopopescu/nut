@@ -191,6 +191,8 @@ class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListVie
             user_list = querySet.admin().using('slave')
         elif active == '666':
             user_list = querySet.authorized_seller().using('slave')
+        elif active == '789':
+            user_list = querySet.authorized_user().using('slave')
         else:
             user_list= []
 
@@ -199,6 +201,7 @@ class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListVie
     def get_context_data(self, *args, **kwargs):
         context = super(UserManagementListView, self).get_context_data()
         context['active'] = self.getActiveStatus()
+
         return context
 
     def test_func(self, user):

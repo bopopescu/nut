@@ -717,7 +717,7 @@ p .b_day {
 }
 .entity-four.thumbnail {
   border: none;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   padding: 0px 0px 16px 0px;
   background-color: #fff;
   -webkit-border-radius: 4px;
@@ -1020,6 +1020,14 @@ p.boolean-false {
   font-size: 32px;
   font-weight: 500;
   margin-right: 12px;
+}
+.guoku-normal-col {
+  padding: 0 5px;
+  margin-bottom: 10px;
+}
+.guoku-middle-col {
+  padding: 0 10px;
+  margin-bottom: 20px;
 }
 .normal-share-btn {
   display: inline-block;
@@ -1950,6 +1958,12 @@ textarea {
     min-height: 0 !important;
   }
 }
+@media screen and (max-width: 767px) {
+  .user-article-wrapper .user-article-item-wrapper.user-article-cell .user-article-panel .user-article-title-wrapper,
+  .user-article-wrapper .user-article-item-wrapper.user-article-cell .user-article-panel .user-article-intro-wrapper {
+    min-height: 0 !important;
+  }
+}
 body {
   padding-top: 80px;
   color: #424242;
@@ -2521,6 +2535,10 @@ body.compact-body {
   font-size: 32px;
   font-weight: 500;
   margin-right: 12px;
+}
+.user-page .authorized_author_info .official-media {
+  margin-left: -4px;
+  transform: translateY(-50%);
 }
 .user-page .authorized_author_info .user-action {
   margin-top: 10px;
@@ -3367,6 +3385,9 @@ body.compact-body {
 #detail_content_right {
   padding-left: 10px;
 }
+#detail_content_right .sidebar-follow-wrapper {
+  overflow: auto;
+}
 #detail_content_right .section {
   background-color: #fff;
   padding: 18px 18px;
@@ -3642,6 +3663,12 @@ body.compact-body {
   vertical-align: middle;
   padding-right: 18px;
 }
+#discover_entity_list,
+#category-entity-list,
+.search-entity-item,
+.search-tag-item {
+  padding: 0px 9px;
+}
 #discover_entity_list .fa,
 #category-entity-list .fa,
 .search-entity-item .fa,
@@ -3752,6 +3779,7 @@ body.compact-body {
 #selection_article_list .selection-article-item {
   display: inline-block;
   position: relative;
+  padding: 0 9px;
 }
 #selection_article_list .selection-article-item .article-panel {
   background-color: #fff;
@@ -4219,6 +4247,6 @@ body .for-mobile {
   left: 3px;
 }
 .gk_test {
-  color: black;
+  color: red;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
