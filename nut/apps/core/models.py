@@ -28,7 +28,7 @@ from apps.core.utils.articlecontent import contentBleacher
 from apps.core.extend.fields.listfield import ListObjectField
 from apps.web.utils.datatools import get_entity_list_from_article_content
 from apps.core.manager import *
-
+from apps.core.manager.account import  AuthorizedUserManager
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -427,6 +427,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         else:
             self.groups.remove(author_group)
         self.refresh_user_permission()
+    @property
+    def is_authorized_user(self):
+        return self.is_authorized_author or self.is_authorized_seller
+
 
 
     def save(self, *args, **kwargs):

@@ -87,17 +87,58 @@
   }
 }
 
-/* */
+/*发现页*/
+#discover_container{
+  .section-title-wrapper{
+    margin-bottom: 14px;
+    //padding-left:10px;
+  }
+  .category-wrapper,#selection_article_list{
+     .section-title-wrapper{
+       margin-top:10px;
+     }
+  }
+  #discover_entity_list .section-title-wrapper{
+    margin-top:-5px;
+  }
+
+}
+/*发现页-推荐用户*/
+.user-icon-list.recommend-user-list{
+  .clearfix;
+        li{
+          .recommend-user-icon-widget(81px,0,18px,10px,0);
+        }
+}
+
+@media (max-width:768px){
+  .user-icon-list.recommend-user-list{
+        li{
+          .recommend-user-icon-widget(70px,0,15px,10px,0);
+        }
+  }
+
+}
 
 /* 品类*/
+
 @media (min-width: 992px){
   .category-list .col-md-2{width: 13%;}
+
 }
 @media (min-width: 768px){
   .category-list  .col-sm-3 {width: 14%;}
+
+  .recommend-user-wrapper .col-sm-2,.category-wrapper .col-sm-2{
+    width:12.5%;
+  }
+
 }
 
 .category{background: #FFF ;border: none;}
+.category-control{
+  margin-bottom: 0px;
+}
 .category >a{padding: 20px 5px 0px 5px;display: block;}
 .category >a > img{
   width: 56px;
@@ -1219,7 +1260,19 @@ a:hover{text-decoration:underline;}
       .writer-name{
         font-size: @subtitle-size;
       }
+      .article-user-follow{
+        margin-top:0;
+        margin-left:8px;
+        width:auto;
+        float: none;
+      }
+      .writer-authorized{
+        margin-left:8px;
+      }
       .writer-bio{
+        &.writer-bio-control{
+          max-width:460px;
+        }
         .weixin-id{
             line-height:30px;
           }

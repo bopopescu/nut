@@ -18,26 +18,69 @@
 {% block title %}发现 | 精英消费指南 | 果库{% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container" id="discover_container">
+        {% if recommended_user %}
+        <div class="row recommend-user-wrapper">
 
-        <div class="row">
+            <div class="col-sm-12 section-title-wrapper">
+                <p>
+                    推荐用户
+{#                    <span class="pull-right">#}
+{#                    <a href="" target="_blank">#}
+{#                        查看更多#}
+{#                        <i class="fa fa-angle-right"></i>#}
+{#                    </a>#}
+{#                </span>#}
+                </p>
+
+            </div>
+
             <div class="col-sm-12">
+                <ul class="user-icon-list recommend-user-list">
+                    {% for user in recommended_user %}
+                    <li>
+                        <a href="{{ user.absolute_url }}" target="_blank">
+                            <img class="img-responsive" src="{{ user.avatar_url|resize:'128' }}" title="{{ user.nickname }}" alt="{{ user.nickname }}">
+                        </a>
+                    </li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+      {% endif %}
+
+        <div class="row category-wrapper">
+            <div class="col-sm-12 section-title-wrapper">
                 <p>推荐品类</p>
             </div>
+
 {#            <div class="col-md-10 col-xs-12" >#}
+{#            {% for category in categories %}#}
+{#                <div class="col-xs-4 col-sm-2">#}
+{#                    <div class="thumbnail category category-control">#}
+{#                        <a href="{% url 'web_category_detail' category.id %}">#}
+{#                            <img class="img-responsive" alt="{{ category.title }}" src="{{ category.icon_large_url }}"  width="64" height="64">#}
+{#                            <p>{{ category.title|show_category }}</p>#}
+{##}
+{#                        </a>#}
+{#                    {{ category }}#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endfor %}#}
+
             {% for category in categories %}
-                <div class="col-xs-4 col-sm-2">
-                    <div class="thumbnail category">
+                <div class="col-xs-3 col-sm-2 guoku-normal-col">
+                    <div class="thumbnail category category-control">
                         <a href="{% url 'web_category_detail' category.id %}">
-                            <img class="img-responsive" alt="{{ category.title }}" src="{{ category.icon_large_url }}"  width="64" height="64">
+                             <img class="img-responsive" alt="{{ category.title }}" src="{{ category.icon_large_url }}" width="64" height="64">
                             <p>{{ category.title|show_category }}</p>
                         </a>
-{#                    {{ category }}#}
                     </div>
                 </div>
             {% endfor %}
-            <div class="col-xs-4 col-sm-2">
-                <div class="thumbnail category">
+            <div class="col-xs-3 col-sm-2 guoku-normal-col">
+                <div class="thumbnail category category-control">
                     <a href="{% url 'web_category_list' %}">
                         <img class="img-responsive" src="{% static 'images/more.png' %}" width="64" height="64">
                         <p>查看全部</p>
@@ -46,9 +89,21 @@
             </div>
         </div>
 
+        <div class="row hot-articles-wrapper" id="selection_article_list">
+            <div class="col-sm-12 section-title-wrapper">
+                <p>热门图文</p>
+            </div>
+            {% for sla in selection_articles %}
+                {% with sla.article as article %}
+                     {% include 'web/article/partial/article_item_new.html' %}
+                {% endwith %}
+            {% endfor %}
+        </div>
+
+
 
         <div class="row " id="discover_entity_list">
-            <div class="col-sm-12">
+            <div class="col-sm-12 section-title-wrapper">
                 <p>热门商品</p>
             </div>
             {% for entity in entities %}

@@ -360,7 +360,7 @@ p .b_day {
 }
 .entity-four.thumbnail {
   border: none;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   padding: 0px 0px 16px 0px;
   background-color: #fff;
   -webkit-border-radius: 4px;
@@ -663,6 +663,14 @@ p.boolean-false {
   font-size: 32px;
   font-weight: 500;
   margin-right: 12px;
+}
+.guoku-normal-col {
+  padding: 0 5px;
+  margin-bottom: 10px;
+}
+.guoku-middle-col {
+  padding: 0 10px;
+  margin-bottom: 20px;
 }
 .normal-share-btn {
   display: inline-block;

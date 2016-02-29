@@ -9,7 +9,7 @@ from apps.core.models import Show_Banner, \
     Buy_Link, Selection_Entity, Entity, \
     Entity_Like, Sub_Category
 
-from apps.v4.models import APISelection_Entity, APIEntity, APICategory, APISeletion_Articles, APIAuthorized_User_Profile
+from apps.v4.models import APIUser, APISelection_Entity, APIEntity, APICategory, APISeletion_Articles, APIAuthorized_User_Profile
 from apps.v4.forms.pushtoken import PushForm
 from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
@@ -181,11 +181,20 @@ class DiscoverView(APIJsonView):
         get authorizeduser
         '''
         res['authorizeduser'] = list()
-        auth_users = APIAuthorized_User_Profile.objects.all()[:8]
 
-        for row in auth_users:
+        auth_users = APIUser.objects.recommended_user()
+
+        # user APIUser -> GKUser ->  GKUserManager interface query
+
+        # a user in Authorized_User_Profile table does not mean he is a authorized user .
+        # a user in Author or Seller group mean he is a authorized user
+
+        # auth_users = APIAuthorized_User_Profile\
+        #                 .objects.recommended_authorized_users()[:8]
+
+        for user in auth_users:
             r = {
-                'user': row.user.v4_toDict()
+                'user': user.v4_toDict()
             }
             # print r
             res['authorizeduser'].append(r)
