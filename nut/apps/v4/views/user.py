@@ -17,6 +17,7 @@ from django.utils.log import getLogger
 from datetime import datetime
 import time
 
+from apps.core.models import Article
 from apps.tag.models import Content_Tags
 from apps.core.views import JSONResponseMixin
 from apps.core.tasks import send_activation_mail
@@ -520,7 +521,7 @@ class APIUserArticlesView(APIJsonView):
     def get_data(self, context):
         res = dict()
 
-        articles = APIArticle.objects.filter(creator=self.user_id, publish=True)
+        articles = APIArticle.objects.filter(creator=self.user_id, publish=Article.published)
         res.update(
             {
                 'count': articles.count(),
