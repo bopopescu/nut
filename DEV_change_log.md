@@ -1,3 +1,7 @@
+4.  
+3.  authorized seller shop manange
+2.  api user article list bug fig 
+1.  article writer follow button position 
 =================================
 # merged to master 2016 － 2 － 25
 =================================
