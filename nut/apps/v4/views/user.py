@@ -520,7 +520,7 @@ class APIUserArticlesView(APIJsonView):
     def get_data(self, context):
         res = dict()
 
-        articles = APIArticle.objects.filter(creator=self.user_id)
+        articles = APIArticle.objects.filter(creator=self.user_id, publish=True)
         res.update(
             {
                 'count': articles.count(),
@@ -558,10 +558,10 @@ class APIUserVerifiedView(APIJsonView):
         else:
             pass
 
-        res = {
+        res.update( {
                 'error':0,
                 'email': self.user.email
-        }
+        })
         return res
 
     def get(self, request, *args, **kwargs):
