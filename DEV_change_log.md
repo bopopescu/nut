@@ -2,6 +2,19 @@
 3.  authorized seller shop manange
 2.  api user article list bug fig 
 1.  article writer follow button position 
+
+#action 
+
+ALTER TABLE `core`.`shop_shop` 
+CHANGE COLUMN `shop_desc` `shop_desc` VARCHAR(511) CHARACTER SET 'utf8mb4' NULL ,
+CHANGE COLUMN `shop_brands` `shop_brands` VARCHAR(255) CHARACTER SET 'utf8mb4' NULL ;
+
+ALTER TABLE `core`.`shop_shop` 
+ADD COLUMN `shop_style` INT(8) NULL DEFAULT 0 AFTER `shop_brands`,
+ADD COLUMN `shop_type` INT(8) NULL DEFAULT 0 AFTER `shop_style`;
+
+
+
 =================================
 # merged to master 2016 － 2 － 25
 =================================

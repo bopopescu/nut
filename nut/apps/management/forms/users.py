@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import re
 from django import forms
-from django.forms import ModelForm ,BooleanField, CharField
+from django.forms import ModelForm ,BooleanField, CharField, HiddenInput
+
 
 
 from apps.core.models import GKUser, Authorized_User_Profile
@@ -83,7 +84,18 @@ class UserSellerSetForm(ModelForm):
         _user.setSeller(self.cleaned_data.get('isSeller'))
 
 class SellerShopForm(ModelForm):
-    owner =  CharField(required=True)
+    owner =  CharField(required=True, widget=HiddenInput())
+
+    def __init__(self, *args, **kwargs):
+        super(SellerShopForm, self).__init__(*args, **kwargs)
+        for key , field in self.fields.items():
+            field.widget.attrs.update({'class':'form-control'})
+
+    def clean_owner(self):
+        _owner_id = self.cleaned_data.get('owner')
+        _owner = GKUser.objects.get(pk=_owner_id)
+        return _owner
+
     class Meta:
         model = Shop
-        fields = ['owner','shop_title', 'shop_link']
+        fields = ['owner','shop_title', 'shop_link', 'shop_style', 'shop_type']
