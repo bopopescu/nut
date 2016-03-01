@@ -35,7 +35,7 @@
                                         {% trans 'title' %}
                                         <input class="guoku_search_input" data-search-field="title" type="text">
                                     </th>
-                                    <th>{% trans 'creator' %}</th>
+{#                                    <th>{% trans 'creator' %}</th>#}
                                     <th>{% trans 'category' %}</th>
                                     <th>{% trans 'created_time' %}</th>
                                     <th>{% trans 'price' %}</th>
@@ -58,10 +58,11 @@
                                         <td class="product-title">
                                             {{ entity.title }}
                                         </td>
-                                        <td class="creator">
-                                            <a href="{% url 'management_user_edit' entity.object.user_id %}" target="_blank">
-                                                {{ entity.object.user.profile.nickname }}
-                                            </a></td>
+{#                                        <td class="creator">#}
+{#                                            <a href="{% url 'management_user_edit' entity.object.user_id %}" target="_blank">#}
+{#                                                {{ entity.object.user.profile.nickname }}#}
+{#                                            </a>#}
+{#                                        </td>#}
                                         <td class="product-category">
                                             <a href="#">{{ entity.object.category }}
                                             </a>
@@ -71,7 +72,7 @@
                                         <td class="product-price">
                                             {{ entity.price }}</td>
                                         <td class="product-thumb-img">
-                                            <a href="{% url 'web_entity_detail' entity.object.entity_hash %}" target="_blank">
+                                            <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
                                                 <img class="img-thumbnail img-responsive" src="{{ entity.object.chief_image|resize:'310' }}" width="128" height="128">
                                             </a>
                                         </td>
