@@ -9,6 +9,8 @@ from django.db.models import Count
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.core.models import Entity_Like, Entity, Sub_Category, GKUser
 from apps.core.utils.http import JSONResponse
+from apps.core.extend.paginator import ExtentPaginator as Jpaginator
+from apps.web.utils.viewtools import add_side_bar_context_data
 
 from datetime import datetime
 import random
@@ -17,6 +19,52 @@ import random
 from django.utils.log import getLogger
 
 log = getLogger('django')
+
+from braces.views import AjaxResponseMixin, JSONResponseMixin,LoginRequiredMixin
+from django.views.generic import ListView
+
+class MessageListView(LoginRequiredMixin, AjaxResponseMixin,JSONResponseMixin, ListView):
+    template_name = 'notifications/messages/message.html'
+    ajax_template_name = 'notifications/messages/partial/ajax_notification.html'
+    paginator_class =  Jpaginator
+    paginate_by = 15
+    context_object_name = 'messages'
+
+    def get_ajax(self, request, *args, **kwargs):
+        self.object_list = getattr(self,'object_list', self.get_queryset())
+        context = self.get_context_data()
+        _template = self.ajax_template_name
+        _t = loader.get_template(_template)
+        _c = RequestContext(request, context)
+        _html = _t.render(_c)
+        res = {'status': 1,
+                'data': _html
+               }
+        return self.render_json_response(res)
+
+    def get_queryset(self):
+        _timestamp = self.get_timestamp()
+        remove_user_list = [self.request.user.pk]
+        message_list =  self.request.user.notifications.filter(timestamp__lt=_timestamp)\
+                       .exclude(actor_object_id__in=remove_user_list)
+        # mark all message as read
+        self.request.user.notifications.mark_all_as_read()
+
+        return message_list
+
+    def get_context_data(self, **kwargs):
+        context = super(MessageListView, self).get_context_data(**kwargs)
+        context = add_side_bar_context_data(context)
+        return context
+
+    def get_timestamp(self):
+        _ts = self.request.GET.get('timestamp', None)
+        if _ts is None:
+            return datetime.now()
+        else:
+            return datetime.fromtimestamp(float(_ts))
+
+
 
 
 @require_GET

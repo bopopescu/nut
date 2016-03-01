@@ -1,7 +1,6 @@
 {% load guoku exloop common %}
-
-{% if messages %}
-    <ul class="message_list fs_14">
+    {% if messages %}
+        <ul class="message_list fs_14">
     {% for row in messages %}
         {% if row.action_object == None %}
             {{ forloop|continue }}
