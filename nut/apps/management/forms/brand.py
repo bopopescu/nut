@@ -18,6 +18,23 @@ class EditBrandForm(BrandForm):
         self.brand_cache = brand
         super(EditBrandForm, self).__init__(*args, **kwargs)
 
+    def clean_name(self):
+        _name = self.cleaned_data.get('name')
+        _name = _name.strip(' \t\n\r')
+
+        if self.brand_cache.name == _name:
+            return _name
+
+        try:
+            Brand.objects.get(name=_name)
+        except Brand.DoesNotExist:
+            return _name
+
+        raise forms.ValidationError(
+            self.error_messages['duplicate_brand_name'],
+            code='duplicate_brand_name',
+        )
+
     def save(self):
         _name = self.cleaned_data.get('name')
         _alias = self.cleaned_data.get('alias')
