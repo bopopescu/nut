@@ -2,7 +2,7 @@
     {% if messages %}
         <ul class="message_list fs_14">
     {% for row in messages %}
-        {% if row.action_object == None %}
+        {% if row.action_object == None or row.actor.is_blocked %}
             {{ forloop|continue }}
         {% endif %}
         <li class="timestr" timestamp="{{ row.timestamp|timestamp }}">
@@ -39,7 +39,7 @@
         {% elif row.action_object_content_type.model == 'selection_entity' %}
 
              <p class="list_detail">
-                    <span class="media-heading">你添加的商品被收录精选</span>
+                    <span class="media-heading">你添加的商品被收录精选</span>&nbsp;<span class="fc_1">{{ row.timestamp|format_time|cut:" " }}</span>
               </p>
             <div class="row imgs">
                     <div class="col-xs-4 col-sm-4 col-md-3">
