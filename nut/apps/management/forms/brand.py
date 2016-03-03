@@ -22,7 +22,7 @@ class EditBrandForm(BrandForm):
         _name = self.cleaned_data.get('name')
         _name = _name.strip(' \t\n\r')
 
-        if self.brand_cache.name == _name:
+        if self.brand_cache.name.lower() == _name.lower():
             return _name
 
         try:
