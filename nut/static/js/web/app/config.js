@@ -19,7 +19,9 @@ requirejs.config({
         bootbox: 'libs/bootbox.min',
         Backbone: 'libs/backbone.min',
         snowFall: 'libs/jquery.snow',
+        slick:'././././thirdparty/slick/slick/slick.js',
         jqueryeasing:'libs/jqueryeasing'
+
     },
 
     shim: {
@@ -31,6 +33,11 @@ requirejs.config({
             deps:['jquery'],
             exports:'snowFall'
         },
+        'slick':{
+            deps:['jquery'],
+            exports:'slick'
+        },
+
         // shim won't handle script load , you still need require script in your source
         'Backbone':{
             deps:['underscore',],
