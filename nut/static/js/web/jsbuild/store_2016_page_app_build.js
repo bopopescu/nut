@@ -118,8 +118,8 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
 	};
 
 }));
-require(['jquery'],
-    function($){
+require(['jquery'],'subapp/topmenu',
+    function($,Menu){
         console.log('in store 2016 page app!!!');
 
     });
