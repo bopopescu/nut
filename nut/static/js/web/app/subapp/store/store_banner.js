@@ -1,24 +1,24 @@
-requirejs.config({
-    baseUrl:base_url,
-    paths: {
-        slick: '/libs/slick'
+//requirejs.config({
+//    baseUrl:base_url,
+//    paths: {
+//        slick: '/libs/slick'
+//
+//    },
+//
+//    shim: {
+//        'slick':{
+//            deps:['jquery']
+//        }
+//    }
+//});
 
-    },
 
-    shim: {
-        'slick':{
-            deps:['jquery']
-        }
-    }
-});
-
-
-define(['jquery', 'libs/Class'], function(
+define(['jquery', 'libs/Class','libs/slick'], function(
     $, Class
 ){
     var StoreBanner= Class.extend({
         init: function(){
-            console.log('hello lq,hello good store!');
+            console.log('hello lqqqqqq,hello good store!');
 
         }
     });
