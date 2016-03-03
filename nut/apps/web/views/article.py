@@ -36,20 +36,8 @@ class ArticleDig(LoginRequiredMixin,JSONResponseMixin,AjaxResponseMixin, View ):
         if _aid is None:
             return http.Http404
         try:
-            if settings.DEBUG:
-                try:
-                    Article_Dig.objects.get(user_id=_user.id, article_id=_aid)
-                except Article_Dig.DoesNotExist as e:
-                    obj = Article_Dig.objects.create(
-                                    user_id = _user.id,
-                                    article_id = _aid,
-                                )
-                    obj.article.incr_dig()
-                    obj.user.incr_dig()
-            else:
-                dig_task.delay(uid=_user.id, aid=_aid)
+            dig_task.delay(uid=_user.id, aid=_aid)
             return self.render_json_response({'status': 1, 'article_id': _aid})
-
         except Exception as e :
             log.error("ERROR : %s ", e.message)
             return http.HttpResponseServerError
@@ -62,13 +50,7 @@ class ArticleUndig(JSONResponseMixin,LoginRequiredMixin,AjaxResponseMixin,View):
         if _aid is None:
             return http.Http404
         try:
-            if settings.DEBUG:
-                el = Article_Dig.objects.get(article_id=_aid, user=_user)
-                el.delete()
-                el.article.decr_dig()
-                el.user.decr_dig()
-            else:
-                undig_task.delay(uid=_user.id, aid=_aid)
+            undig_task.delay(uid=_user.id, aid=_aid)
             return self.render_json_response({'status':0, 'article_id':_aid})
         except Exception as e:
             log.error("ERROR: %s", e.message)
