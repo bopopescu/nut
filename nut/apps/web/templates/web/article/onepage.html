@@ -112,7 +112,18 @@
 
 {#                            add article share button begin#}
                             <div class="article-share for-browser ">
-                                <ul>
+
+                             <span class="dig-wrapper">
+                                <span class="{% if dig_status %} digged {% else %} undigged {% endif %} dig-action" data-article-id="{{ article.pk }}">
+                                    <img class="dig-img dig" src="{% static 'images/article/dig.png' %}" >
+                                    <img class="dig-img undig" src="{% static 'images/article/undig.png' %}" >
+                                </span>
+                                <span class="dig-info">
+                                    <span class="dig-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>
+                                    <span class="dig-word">赞</span>
+                                </span>
+                            </span>
+                                <ul class="share-bt-list">
 
                                     <li class="list-item list-item-weixin img-holder">
                                         <a class="logo-wechat normal-share-btn">
@@ -216,10 +227,6 @@
                                     </div>
                                 </div>
 
-{#                                <div class="writer-action col-xs-2 col-sm-2">#}
-{#                                    <a class="guoku-button button-blue" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>#}
-{##}
-{#                                </div>#}
 
                             </div>
                             {#                                        关注按钮#}
