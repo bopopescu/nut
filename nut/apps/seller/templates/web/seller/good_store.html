@@ -23,6 +23,8 @@
 
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/web/web-good-store.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick-theme.css' %}"/>
 {% endblock %}
 
 {# to avoid css pollution,I still give body element a more class temporarily#}
@@ -111,12 +113,10 @@
                           {#                        <div class="hover-light user-article-img" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">#}
                           {#                        </div>#}
                           <div class="banner-wrapper" id="index-banners">
-                              {% for banner in banners %}
                                   <div class="banner-image-cell">
-                                      <div class="banner-image-wrapper" style="background-image: url('{{ banner.img }}')">
+                                      <div class="banner-image-wrapper" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">
                                       </div>
                                   </div>
-                              {% endfor %}
                           </div>
                     </a>
 
@@ -358,8 +358,9 @@
 
 {#    <script data-main="{% static 'js/web/jsbuild/seller_2015_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>#}
 
-    <script type="text/javascript" src="{% static 'thirdparty/slick/slick/slick.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/web/index_slider.js' %}"></script>
+    <script data-main="{% static 'thirdparty/slick/slick/slick.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+
+    <script data-main="{% static 'js/web/index_slider.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
 
 {% endblock %}
 
