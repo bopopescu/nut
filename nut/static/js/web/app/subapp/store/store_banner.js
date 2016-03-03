@@ -4,7 +4,7 @@ define(['jquery', 'libs/Class'], function(
 
     var StoreBanner= Class.extend({
         init: function(){
-             console.log('hello rose,hello good store!');
+             console.log('hello lq,hello good store!');
 
         }
     });
