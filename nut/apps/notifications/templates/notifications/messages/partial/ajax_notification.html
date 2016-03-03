@@ -5,10 +5,13 @@
         {% if row.action_object == None or row.actor.is_blocked %}
             {{ forloop|continue }}
         {% endif %}
+
+
         <li class="timestr" timestamp="{{ row.timestamp|timestamp }}">
             <a href="{% url 'web_user_index' row.actor.id %}" class="header" target="_blank">
                 <img src="{{ row.actor.profile.avatar_url|resize:'50' }}" alt="{{ row.actor.profile.nickname }}" />
             </a>
+
         {% if row.action_object_content_type.model == 'user_follow' %}
 
             <p class="list_detail">
@@ -122,6 +125,18 @@
                                 <p class="message-time">{{ row.timestamp|format_time|cut:" " }}</p>
                     </div>
             </div>
+        {% elif row.action_object_content_type.model == 'article_dig' %}
+              <p class="list_detail">
+                    <a href="{% url 'web_user_index' row.actor.id %}" class="id" target="_blank">{{ row.actor.profile.nick }}</a> 赞了你发布的图文 <span class="fc_1">{{ row.timestamp|format_time|cut:" " }}</span>
+                </p>
+
+            <div class="row imgs">
+                    <div class="col-xs-4 col-sm-4 col-md-3">
+                        <a target="_blank" href="{% url 'web_article_page' row.target.pk %}">
+                            <img src="{{ row.target.cover_url|resize:'240' }}" alt="{{ row.target.title }}" />
+                        </a>
+                    </div>
+                </div>
         {% elif row.action_object_content_type.model == 'entity_like' %}
     {#        <li>#}
     {#            <a href="{% url 'web_user_entity_like' row.actor.id %}" class="header" target="_blank"><img src="{{ row.actor.profile.avatar_url }}" alt="{{ row.actor.profile.nickname }}" /></a>#}
