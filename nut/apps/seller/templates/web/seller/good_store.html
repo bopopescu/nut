@@ -108,8 +108,16 @@
                 <div class="guoku-middle-col user-latest-article-wrapper col-xs-12 col-sm-8 col-md-8 col-lg-8">
                   <div class="user-article-panel">
                       <a>
-                        <div class="hover-light user-article-img" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">
-                        </div>
+                          {#                        <div class="hover-light user-article-img" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">#}
+                          {#                        </div>#}
+                          <div class="banner-wrapper" id="index-banners">
+                              {% for banner in banners %}
+                                  <div class="banner-image-cell">
+                                      <div class="banner-image-wrapper" style="background-image: url('{{ banner.img }}')">
+                                      </div>
+                                  </div>
+                              {% endfor %}
+                          </div>
                     </a>
 
                       <div class="user-latest-article-intro-wrapper">
@@ -349,6 +357,9 @@
 
 
 {#    <script data-main="{% static 'js/web/jsbuild/seller_2015_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>#}
+
+    <script type="text/javascript" src="{% static 'thirdparty/slick/slick/slick.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/web/index_slider.js' %}"></script>
 
 {% endblock %}
 
