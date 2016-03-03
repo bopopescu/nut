@@ -32,7 +32,7 @@
                             {% endif %}
 
                             <div class="writer-bio">
-                                {% if article.creator.is_authorized_author %}
+                                {% if article.creator.is_authorized_author  and article.creator.authorized_profile.weixin_id %}
                                     <span class="weixin-id" style="line-height:30px;">
                                             微信号：{{ article.creator.authorized_profile.weixin_id }}
                                             </span>

@@ -199,6 +199,7 @@ def push_notification(sender, instance, created, **kwargs):
                 push.notification = jpush.notification(alert=verb.encode('utf8'), ios=ios_msg)
                 push.options = {"time_to_live":86400, "apns_production":_production}
                 push.send()
+
         elif instance.action_object_content_type.model == 'note_poke':
             verb = instance.actor.profile.nick + u' 赞了你撰写的点评'
             for reg in instance.recipient.jpush_token.all():
