@@ -1,3 +1,5 @@
+
+
 require([
         'jquery',
         'subapp/store/store_banner'
