@@ -118,18 +118,9 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
 	};
 
 }));
-require([
-
-        'jquery'
-
-    ],
-    function(
-             $
-
-
-    ){
-
-        console.log('in store 2016 page app');
+require(['jquery'],
+    function($){
+        console.log('in store 2016 page app!!!');
 
     });
 

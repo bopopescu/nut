@@ -19,7 +19,7 @@ requirejs.config({
         bootbox: 'libs/bootbox.min',
         Backbone: 'libs/backbone.min',
         snowFall: 'libs/jquery.snow',
-        slick:'././././thirdparty/slick/slick/slick.js',
+        slick:'libs//slick.js',
         jqueryeasing:'libs/jqueryeasing'
 
     },
