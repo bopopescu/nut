@@ -15,14 +15,15 @@
 .slick-next {
   position: absolute;
   display: block;
-  height: 332px;
-  width: 154px;
+  /*height: 332px;*/
+  /*width: 154px;*/
   line-height: 0px;
   font-size: 0px;
   cursor: pointer;
   background: transparent;
   top: 0;
-  margin-top: -10px;
+  /*margin-top: -10px;*/
+  margin-top:18%;
   padding: 0;
   border: none;
   outline: none;
@@ -51,19 +52,19 @@
   -moz-osx-font-smoothing: grayscale; }
 
 .slick-prev {
-  left: 25px; }
+  left: 20px; }
   [dir="rtl"] .slick-prev {
     left: auto;
-    right: 25px; }
+    right: 20px; }
   .slick-prev:before {
     content: "←"; }
     [dir="rtl"] .slick-prev:before {
       content: "→"; }
 
 .slick-next {
-  right: 25px; }
+  right: 20px; }
   [dir="rtl"] .slick-next {
-    left: 25px;
+    left: 20px;
     right: auto; }
   .slick-next:before {
     content: "→"; }
