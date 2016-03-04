@@ -705,6 +705,9 @@ p.boolean-false {
   font-size: 14px;
   letter-spacing: 3px;
 }
+.store-body .latest-actions-wrapper {
+  margin-bottom: 23px;
+}
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper {
   height: 100%;
 }
