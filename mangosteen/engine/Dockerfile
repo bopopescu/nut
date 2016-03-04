@@ -8,4 +8,4 @@ RUN         pip install -U flask requests gunicorn gevent \
 COPY        supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 WORKDIR     /data/www/mangosteen
 EXPOSE 		5000
-<!--CMD         ["/usr/bin/supervisord"]-->
+#CMD         ["/usr/bin/supervisord"]
