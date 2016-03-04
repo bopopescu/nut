@@ -2654,7 +2654,7 @@
   //slidesToShow: 3,
   responsive: [
     {
-      breakpoint: 768,
+      breakpoint: 10000,
       settings: {
          centerMode:false,
          slidesToShow:1,
