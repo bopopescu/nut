@@ -796,9 +796,8 @@ p.boolean-false {
 .store-body .select-condition-wrapper .select-condition .type-title {
   min-width: 35px;
 }
-.store-body .select-condition-wrapper .select-condition .tag-element a:hover {
+.store-body .select-condition-wrapper .select-condition .tag-element:hover {
   cursor: pointer;
-  text-decoration: none;
 }
 .store-body .select-result-wrapper .result-item-wrapper {
   padding-left: 20px;
