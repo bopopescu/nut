@@ -2830,7 +2830,7 @@ define('libs/Class',[], function(){
   arrows: true,
   slidesToShow: 1,
   centerPadding:'15%',
-  dots:true,
+  dots:false,
 
   //centerPadding: '60px',
   //slidesToShow: 3,
