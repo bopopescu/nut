@@ -3601,20 +3601,25 @@ define('subapp/store/store_banner',['jquery', 'libs/Class','libs/slick'], functi
             this.sameHeightFrame();
 
         },
+
         sameHeightFrame: function () {
-            var leftChild = document.getElementById("user-latest-article");
-            var rightChild = document.getElementById("latest-actions-sidebar");
-            var leftChildHeight = leftChild.offsetHeight;
-            var rightChildHeight = rightChild.offsetHeight;
-            console.log('left height:' + leftChildHeight);
-            console.log('right height:' + rightChildHeight);
+
+            var leftChildHeight = this.getElementHeight('user-latest-article');
+            var rightChildHeight = this.getElementHeight('latest-actions-sidebar');
+            var rightChild = this.getElement('latest-actions-sidebar');
 
             if (rightChildHeight > leftChildHeight) {
-                console.log('previous right child height:' + rightChildHeight);
-                rightChild.style.height = leftChild.offsetHeight + "px";
-                console.log('new right child height:' + rightChildHeight);
+                rightChild.style.height = leftChildHeight + "px";
             }
+        },
+        getElement:function(id){
+            return document.getElementById(id);
+        },
+        getElementHeight:function(id){
+            return this.getElement(id).offsetHeight;
+
         }
+
     });
     return StoreBanner;
 });
