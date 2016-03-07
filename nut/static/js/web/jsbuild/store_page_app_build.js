@@ -3602,11 +3602,14 @@ define('subapp/store/store_banner',['jquery', 'libs/Class','libs/slick'], functi
 
         },
         sameHeightFrame:function(leftChildId,rightChildId){
-            var leftChildHeight = this.getElementHeight(leftChildId);
-            var rightChildHeight = this.getElementHeight(rightChildId);
-            if(rightChildHeight > leftChildHeight){
-                console.log('right child height is more than left child');
+            if(this.getScreenWidth > 767){
+                console.log('screen width is more than 767px');
+                if(rightChildHeight > leftChildHeight){
+                    console.log('right child height is more than left child');
+                var leftChildHeight = this.getElementHeight(leftChildId);
+                var rightChildHeight = this.getElementHeight(rightChildId);
                 this.getElement(rightChildId).style.height = leftChildHeight + "px";
+                }
             }
         },
         getElementHeight:function(id){
@@ -3614,6 +3617,9 @@ define('subapp/store/store_banner',['jquery', 'libs/Class','libs/slick'], functi
         },
         getElement:function(id){
             return document.getElementById(id);
+        },
+        getScreenWidth:function(){
+            return document.body.clientWidth;
         }
     });
     return StoreBanner;
