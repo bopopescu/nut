@@ -5,15 +5,15 @@ define(['jquery', 'libs/Class','libs/slick'], function(
     var StoreBanner= Class.extend({
         init: function () {
             console.log('subapp good store start !');
-            this.sameHeightFrame();
+            this.sameHeightFrame('user-latest-article','latest-actions-sidebar');
 
         },
 
-        sameHeightFrame: function () {
+        sameHeightFrame: function (leftId,rightId) {
 
-            var leftChildHeight = this.getElementHeight('user-latest-article');
-            var rightChildHeight = this.getElementHeight('latest-actions-sidebar');
-            var rightChild = this.getElement('latest-actions-sidebar');
+            var leftChildHeight = this.getElementHeight(leftId);
+            var rightChildHeight = this.getElementHeight(rightId);
+            var rightChild = this.getElement(rightId);
 
             if (rightChildHeight > leftChildHeight) {
                 rightChild.style.height = leftChildHeight + "px";
