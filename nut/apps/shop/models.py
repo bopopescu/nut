@@ -7,6 +7,9 @@ from apps.core.models import BaseModel, \
 
 from django.utils.translation import ugettext_lazy as _
 
+class StorePageBanners(BaseModel):
+    pass
+
 
 class Shop(BaseModel):
     (other_style, dress, home, culture, sport, tec, food, mother, cosmetic, health) = range(10)
