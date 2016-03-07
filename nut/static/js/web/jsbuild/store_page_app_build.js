@@ -3596,22 +3596,23 @@ define('subapp/store/store_banner',['jquery', 'libs/Class','libs/slick'], functi
     $, Class
 ){
     var StoreBanner= Class.extend({
-        init: function(){
+        init: function () {
             console.log('subapp good store start !');
             this.sameHeightFrame();
 
         },
-        sameHeightFrame:function(){
-            var rightChild = document.getElementById('latest-actions-sidebar');
+        sameHeightFrame: function () {
+            var leftChild = document.getElementById("user-latest-article");
+            var rightChild = document.getElementById("latest-actions-sidebar");
+            var leftChildHeight = leftChild.offsetHeight;
             var rightChildHeight = rightChild.offsetHeight;
-            var leftChildHeight = document.getElementById('user-latest-article').offsetHeight;
+            console.log('left height:' + leftChildHeight);
+            console.log('right height:' + rightChildHeight);
 
-            if(document.body.clientWidth > 767){
-                console.log('more than 767');
-                if(rightChildHeight > leftChildHeight){
-                    console.log('more than height');
-                    rightChild.style.height = leftChildHeight+"px";
-                }
+            if (rightChildHeight > leftChildHeight) {
+                console.log('previous right child height:' + rightChildHeight);
+                rightChild.style.height = leftChild.offsetHeight + "px";
+                console.log('new right child height:' + rightChildHeight);
             }
         }
     });
