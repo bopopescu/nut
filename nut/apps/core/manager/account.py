@@ -50,7 +50,9 @@ class GKUserQuerySet(models.query.QuerySet):
         return self.filter(groups__name__in=['Author', 'Seller']).distinct()
 
     def recommended_user(self):
-        return self.authorized_user().filter(authorized_profile__is_recommended_user=True)
+        return self.authorized_user()\
+                   .filter(authorized_profile__is_recommended_user=True)\
+                   .order_by('-points')
 
 
 class GKUserManager(BaseUserManager):
