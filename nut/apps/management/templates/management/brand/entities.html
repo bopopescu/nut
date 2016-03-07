@@ -72,7 +72,7 @@
                                         <td class="product-price">
                                             {{ entity.price }}</td>
                                         <td class="product-thumb-img">
-                                            <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
+                                            <a href="{% url 'web_entity_detail' entity.object.entity_hash %}" target="_blank">
                                                 <img class="img-thumbnail img-responsive" src="{{ entity.object.chief_image|resize:'310' }}" width="128" height="128">
                                             </a>
                                         </td>
