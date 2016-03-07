@@ -220,7 +220,7 @@ class AuthorizedUser(APIJsonView):
         res['authorized_user'] = list()
         res['page'] = self.page
         # res['size'] = self.size
-        user_list = APIAuthorized_User_Profile.objects.all()
+        user_list = APIUser.objects.recommended_user()
         res['count'] = user_list.count()
 
         paginator = Paginator(user_list, self.size)
@@ -229,9 +229,9 @@ class AuthorizedUser(APIJsonView):
         except Exception:
             return res
 
-        for row in auth_users.object_list:
+        for user in auth_users.object_list:
             res['authorized_user'].append(
-                row.user.v4_toDict(self.visitor)
+                user.v4_toDict(self.visitor)
             )
         return res
 
