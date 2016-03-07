@@ -717,6 +717,7 @@ p.boolean-false {
   border-radius: 4px;
   background-clip: padding-box;
   box-shadow: 0 0 2px #ddd;
+  overflow-y: scroll;
 }
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list {
   border-bottom: 0 !important;
