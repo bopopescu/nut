@@ -474,6 +474,9 @@ p .b_day {
   text-align: center;
   font-size: 14px;
 }
+.entity-four.thumbnail-control {
+  padding: 16px;
+}
 .btn-top {
   backface-visibility: hidden;
   -webkit-transform: translate3d(0, 0, 0);
