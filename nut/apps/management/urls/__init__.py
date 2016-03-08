@@ -40,7 +40,12 @@ urlpatterns = patterns(
     url(r'^search/', include('apps.management.urls.search')),
 
     url(r'^report/', include('apps.management.urls.report')),
+
+    url(r'^shop/', include('apps.shop.urls.management')),
+
     # url(r'^wechat/', include('apps.management.urls.wechat')),
+
+
 
 # TODO: entity recommendation from taobao
     url(r'^tbrecommend/', include('apps.management.urls.tbrecommend')),
