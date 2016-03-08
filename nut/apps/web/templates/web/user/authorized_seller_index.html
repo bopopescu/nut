@@ -1,0 +1,237 @@
+{% extends 'web/user/user_base_new.html' %}
+{% load i18n staticfiles%}
+{% load common guoku %}
+{% load static %}
+
+{% block meta-og %}
+    <meta property="og:title" content="{{ current_user.profile.nick }}果库页 | 精英消费指南 | 理想生活主张" >
+    <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
+    <meta property="og:description" content="{{ current_user.profile.nick }}果库的个人页，展现个人的兴趣爱好、消费倾向及擅长领域，包括个人在果库喜爱过、点评过的商品、为商品贴过的标签、撰写过、赞过的图文等。">
+{% endblock %}
+{% block meta-common %}
+    <meta name="title"  content="{{ current_user.profile.nick }} | 精英消费指南 | 果库">
+    <meta name="keywords" content="{{ current_user.profile.nick }},个人主页,喜爱,点评,标签,图文,消费经验,擅长领域,精英消费指南,果库">
+    <meta name="description" content="{{ current_user.profile.nick }},{{ current_user.profile.bio|truncatechars:'50' }},喜爱过的商品、点评过的商品、撰写过的图文、为商品贴过的标签，做理想消费精英，提理想生活主张，个人兴趣爱好、消费倾向及擅长领域，做消费的自己。">
+{% endblock %}
+{% block title %}{{ current_user.profile.nick }} | 精英消费指南 | 果库{% endblock %}
+
+        {% block user_header %}
+            <div class='authorized_author_info'>
+                    <div class="user-icon">
+                        <img src="{{ current_user.avatar_url|resize:'180' }}"/>
+                    </div>
+                    <div class="user-nick">
+                         <span class="nick">{{ current_user.nickname }}</span>
+                         <img src="{% static 'images/author/seller.png' %}" width="16px" height="24px" class="official-media seller-media"/>
+                    </div>
+                    <div class="user-action">
+                          {% if current_user.is_blocked %}
+                                <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
+                            {% elif current_user == request.user %}
+                                <a class="guoku-button button-blue" href="{% url 'web_user_settings' %}">
+                                    <i class="fa fa-cog fa-lg"></i>&nbsp;{% trans _('Edit Profile') %}</a>
+                            {% elif request.user.id in current_user.concren %}
+                                <a class="follow guoku-button btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                            {% elif request.user.id in current_user.fans_list %}
+                                <a class="follow guoku-button btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                            {% else %}
+                                <a class="follow guoku-button button-blue" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+                            {% endif %}
+                    </div>
+                    <div class="user-bio-wrapper">
+                        <span class="user-bio">
+                            {{ current_user.bio|truncatechars:200 }}
+                        </span>
+                    </div>
+
+                    {% if current_user.weibo %}
+                     <div class="user-binding">
+                             <a href="{{ current_user.weibo.weibo_link }}" target="_blank"><i class="fa fa-weibo user-binding-icon"></i></a>
+                     </div>
+                        {% endif %}
+                    <div class="user-social-wrapper">
+                        <p class="user-social">
+                        <a style="color: #414243" href="{{ web_user_followings_url }}">
+                        <span>{% trans 'Following' %}&nbsp; <span class="user-count">{{ current_user.following_count }}</span></span>
+                         </a>
+                        <span style="margin-left: 15px; margin-right: 15px;">|</span>
+                        <a style="color: #414243" href="{{ web_user_fans_url }}">
+                        <span>{% trans 'Fans' %}&nbsp; <span class="user-count">{{ current_user.fans_count }}</span></span>
+                        </a>
+                    </p>
+                    </div>
+            </div>
+       {% endblock %}
+
+
+{% block user_content_detail %}
+
+    {# begin #}
+            <div class="row user-latest-actions-wrapper">
+
+{#                <div class="user-article-cell latest-actions-sidebar-wrapper col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">#}
+{#                    <ul class="section-list user-right latest-actions-list">#}
+{#                       <li class="section user-tag-list">#}
+{#                          <div class="section-title section-title-control">#}
+{#                              最近更新#}
+{#                          </div>#}
+{#                          <div class="section-content">#}
+{#                           <ul class="tag-list">#}
+{#                               <li>#}
+{#                                   <span>#}
+{#                                       2015.12.22 | 点评了商品#}
+{#                                   </span>#}
+{#                                   <a>#}
+{#                                       黑法师 teapigs 茶猪猪 Rooibos Caramel 路易博士奶油焦糖茶#}
+{#                                   </a>#}
+{#                               </li>#}
+{#                               <li>#}
+{#                                   <span>#}
+{#                                       2015.12.22 | 喜爱了商品#}
+{#                                   </span>#}
+{#                                   <a>#}
+{#                                      终于等到万圣节,黑法师糖果好派起来了!#}
+{#                                   </a>#}
+{#                               </li>#}
+{#                               <li>#}
+{#                                   <span>#}
+{#                                       2015.12.22 | 发布了商品#}
+{#                                   </span>#}
+{#                                   <a>#}
+{#                                       黑法师 teapigs 茶猪猪 Rooibos Caramel 路易博士奶油焦糖茶#}
+{#                                   </a>#}
+{#                               </li>#}
+{#                           </ul>#}
+{#                         </div>#}
+{#                       </li>#}
+{#                    </ul>#}
+{#                </div>#}
+
+{#                <div class="user-article-cell user-latest-article-wrapper col-xs-12 col-sm-8 col-md-8 col-lg-8">#}
+{#                  <div class="user-article-panel">#}
+{#                      <a>#}
+{#                        <div class="hover-light user-article-img" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">#}
+{#                        </div>#}
+{#                    </a>#}
+{##}
+{#                      <div class="user-latest-article-intro-wrapper">#}
+{#                        <div class="rect-decoration">#}
+{#                            NEW#}
+{#                        </div>#}
+{##}
+{#                         <div class="user-latest-article-title-wrapper">#}
+{#                             <div class="user-info-section-title">#}
+{#                                 最新图文#}
+{#                             </div>#}
+{#                             <a class="user-latest-article-title">#}
+{#                                 黑法师 × KREUZZZ 联合出品，Artist 系列马卡龙上架最新图文1#}
+{#                             </a>#}
+{#                         </div>#}
+{##}
+{#                    </div>#}
+{#                  </div>#}
+{#                </div>#}
+            </div>
+
+    <div class="row user-article-wrapper">
+      {% for article in author_articles  %}
+        <div class="user-article-item-wrapper user-article-cell col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-article-panel">
+                <a href="{{ article.url }}" target="_blank">
+                    <div class="hover-light user-article-img" style="background-image: url({{ article.cover_url|resize:'450' }})">
+                    </div>
+
+                </a>
+
+                <div class="user-article-title-wrapper">
+                    <a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
+                </div>
+
+                <div class="user-article-intro-wrapper">
+                    <p class="user-article-intro">
+                        {% autoescape off %}
+                        {{ article.content|striptags|truncatechars:120 }}
+                        {% endautoescape %}
+                    </p>
+
+                </div>
+
+                <div class="user-article-info-wrapper">
+                        <span class="user-article-time">
+                            <i class="fa fa-clock-o"></i>{{ article.created_datetime|format_time }}
+                        </span>
+                </div>
+
+            </div>
+        </div>
+      {% endfor %}
+
+
+    </div>
+
+{#            <div class="row content-wrapper" id="user-main-content">#}
+{#              <div class="content-left col-xs-12 user-article-cell">#}
+{#                <div class="container-fluid content-panel" id="user-like-panel">#}
+{#                        <div class="row panel-header">#}
+{#                            <div class="panel-name panel-name-control">喜爱商品</div>#}
+{#                            <div class="more-link more-link-control">#}
+{#                                <a>#}
+{#                                   更多#}
+{#                                </a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="row panel-content-wrapper ">#}
+{#                             <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 entity-cell cell">#}
+{#                                   <div class="img-box">#}
+{#                                       <a>#}
+{#                                           <img class="img-responsive" src="http://gd2.alicdn.com/bao/uploaded/i2/17128028521422598/T11Ym7FfNbXXXXXXXX_!!0-item_pic.jpg" />#}
+{#                                       </a>#}
+{#                                   </div>#}
+{#                                </div>#}
+{#                             <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 entity-cell cell">#}
+{#                                   <div class="img-box">#}
+{#                                       <a>#}
+{#                                           <img class="img-responsive" src="http://gd2.alicdn.com/bao/uploaded/i2/17128028521422598/T11Ym7FfNbXXXXXXXX_!!0-item_pic.jpg" />#}
+{#                                       </a>#}
+{#                                   </div>#}
+{#                                </div>#}
+{#                             <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 entity-cell cell">#}
+{#                                   <div class="img-box">#}
+{#                                       <a>#}
+{#                                           <img class="img-responsive" src="http://gd2.alicdn.com/bao/uploaded/i2/17128028521422598/T11Ym7FfNbXXXXXXXX_!!0-item_pic.jpg" />#}
+{#                                       </a>#}
+{#                                   </div>#}
+{#                                </div>#}
+{#                             <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 entity-cell cell">#}
+{#                                   <div class="img-box">#}
+{#                                       <a>#}
+{#                                           <img class="img-responsive" src="http://gd2.alicdn.com/bao/uploaded/i2/17128028521422598/T11Ym7FfNbXXXXXXXX_!!0-item_pic.jpg" />#}
+{#                                       </a>#}
+{#                                   </div>#}
+{#                                </div>#}
+{#                             <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 entity-cell cell">#}
+{#                                   <div class="img-box">#}
+{#                                       <a>#}
+{#                                           <img class="img-responsive" src="http://gd2.alicdn.com/bao/uploaded/i2/17128028521422598/T11Ym7FfNbXXXXXXXX_!!0-item_pic.jpg" />#}
+{#                                       </a>#}
+{#                                   </div>#}
+{#                                </div>#}
+{#                             <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 entity-cell cell">#}
+{#                                   <div class="img-box">#}
+{#                                       <a>#}
+{#                                           <img class="img-responsive" src="http://gd2.alicdn.com/bao/uploaded/i2/17128028521422598/T11Ym7FfNbXXXXXXXX_!!0-item_pic.jpg" />#}
+{#                                       </a>#}
+{#                                   </div>#}
+{#                                </div>#}
+{#                        </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            </div>#}
+
+{# end #}
+
+
+
+
+    {% include 'web/main/partial/number_paginator.html' with objects=author_articles url=request.path %}
+{% endblock %}
