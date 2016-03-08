@@ -509,6 +509,7 @@ p .b_day {
   height: 80px;
   float: left;
   margin: 0;
+  font-size: 14px;
 }
 .entity-four.new-thumbnail .entity-four-info .caption .brand,
 .entity-four.new-thumbnail .entity-four-info .caption .title {
@@ -516,12 +517,14 @@ p .b_day {
   overflow: hidden;
   white-space: nowrap;
 }
-.entity-four.new-thumbnail .entity-four-info .caption .title,
-.entity-four.new-thumbnail .entity-four-info .caption .price,
-.entity-four.new-thumbnail .entity-four-info .caption .info,
 .entity-four.new-thumbnail .entity-four-info .caption .brand {
   color: #9D9E9F;
-  font-size: 14px;
+}
+.entity-four.new-thumbnail .entity-four-info .caption .title a {
+  color: #424242;
+}
+.entity-four.new-thumbnail .entity-four-info .caption .price {
+  color: #357ebd;
 }
 .entity-four.new-thumbnail .entity-four-info .action {
   height: 30px;
