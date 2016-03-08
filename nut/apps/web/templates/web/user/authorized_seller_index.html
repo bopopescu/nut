@@ -70,42 +70,42 @@
           <p>商品</p>
       </div>
     </div>
-    <div class="row">
-      <div class="col-xs-6 col-sm-3 search-entity-item">
-          <div class="thumbnail-control thumbnail entity-four">
-              <div class="img-box">
-                  <a href="" target="_blank">
-                      <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/c1113ee97896388f5ef0d9428f3d34b4.jpg" alt="" title="">
-                  </a>
-              </div>
-              <div class="entity-four-info">
-                  <div class="caption">
-                      <div class="brand">Karel Capek</div>
-                      <div class="title">
-                          <a href="" target="_blank">
-                             名侦探柯南 限定变色茶
-                          </a>
-                      </div>
-                      <div class="price">
-                          &#65509;138.00
-                      </div>
-                  </div>
-                  <div class="action">
-                      <div class="info">
-                          {% if entity.id in user_entity_likes %}
-                              <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
-                              <i class="fa fa-heart"></i>
-                          {% else %}
-                              <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
-                              <i class="fa fa-heart-o"></i>
-                          {% endif %}
-                          </a>
-                      </div>
+    <div class="row entity-wrapper">
+        <div class="col-xs-6 col-sm-3 search-entity-item">
+            <div class="new-thumbnail entity-four">
+                <div class="img-box">
+                    <a href="" target="_blank">
+                        <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/c1113ee97896388f5ef0d9428f3d34b4.jpg" alt="" title="">
+                    </a>
+                </div>
+                <div class="entity-four-info">
+                    <div class="caption">
+                        <div class="brand">Karel Capek</div>
+                        <div class="title">
+                            <a href="" target="_blank">
+                                名侦探柯南 限定变色茶
+                            </a>
+                        </div>
+                        <div class="price">
+                            &#65509;138.00
+                        </div>
+                    </div>
+                    <div class="action">
+                        <div class="info">
+                            {% if entity.id in user_entity_likes %}
+                                <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
+                                <i class="fa fa-heart"></i>
+                            {% else %}
+                                <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
+                                <i class="fa fa-heart-o"></i>
+                            {% endif %}
+                            </a>
+                        </div>
 
-                  </div>
-              </div>
-          </div>
-      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 

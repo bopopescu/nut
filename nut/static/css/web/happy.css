@@ -766,8 +766,57 @@ p .b_day {
   text-align: center;
   font-size: 14px;
 }
-.entity-four.thumbnail-control {
+.entity-four.new-thumbnail {
   padding: 16px;
+  border: none;
+  margin-bottom: 20px;
+  background-color: #fff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 2px #ddd;
+  -moz-box-shadow: 0px 0px 2px #ddd;
+  box-shadow: 0px 0px 2px #ddd;
+  overflow: hidden;
+}
+.entity-four.new-thumbnail .img-box {
+  border: none;
+}
+.entity-four.new-thumbnail .btn-like {
+  padding: 0px;
+  line-height: 14px;
+  font-size: 14px;
+  height: 14px;
+  color: #9d9e9f;
+}
+.entity-four.new-thumbnail .entity-four-info {
+  margin-top: 16px;
+  overflow: hidden;
+}
+.entity-four.new-thumbnail .entity-four-info .caption {
+  width: 60%;
+  height: auto;
+  float: left;
+  margin: 0;
+}
+.entity-four.new-thumbnail .entity-four-info .caption .title,
+.entity-four.new-thumbnail .entity-four-info .caption .price,
+.entity-four.new-thumbnail .entity-four-info .caption .info,
+.entity-four.new-thumbnail .entity-four-info .caption .brand {
+  color: #9D9E9F;
+  font-size: 14px;
+}
+.entity-four.new-thumbnail .entity-four-info .action {
+  width: 20%;
+  float: right;
+}
+.entity-four.new-thumbnail .entity-four-info .action .info {
+  color: #9D9E9F;
+  text-align: center;
+  font-size: 14px;
 }
 .btn-top {
   backface-visibility: hidden;

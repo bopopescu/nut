@@ -417,8 +417,49 @@ p .b_day{
   }
 }
 //in authorized seller page,the thumbnail design has been modified.
-.entity-four.thumbnail-control{
+.entity-four.new-thumbnail{
   padding:16px;
+  border:none;
+  margin-bottom:20px;
+  .panel-no-padding;
+  .img-box{
+    border:none;
+  }
+  .btn-like{
+    padding: 0px;
+    line-height: 14px;
+    font-size: 14px;
+    height: 14px;
+    color: #9d9e9f;
+  }
+  .entity-four-info{
+    margin-top:16px;
+    overflow: hidden;
+    .caption {
+      width:60%;
+      height:auto;
+      float:left;
+      margin:0;
+      .title, .price, .info, .brand {
+        color: @common-gray;
+        //text-align: center;
+        font-size: @smaller-primary;
+      }
+      .price {
+        //margin-top: 10px;
+      }
+    }
+    .action{
+      width:20%;
+      float: right;
+      .info{
+        color: @common-gray;
+        text-align: center;
+        font-size: @smaller-primary;
+      }
+  }
+   }
+
 }
 
 
