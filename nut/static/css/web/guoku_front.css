@@ -2625,6 +2625,10 @@ body.compact-body {
   color: #357ebd;
   font-weight: 600;
 }
+.authorized-seller-body .section-title-wrapper {
+  margin-top: 20px;
+  margin-bottom: 14px;
+}
 .guoku-content.user-page .user-info-wrapper,
 .entity-likers-body.user-page .user-info-wrapper,
 .guoku-content.index-page .user-info-wrapper,
