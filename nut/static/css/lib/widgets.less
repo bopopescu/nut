@@ -440,18 +440,20 @@ p .b_day{
       height:80px;
       float:left;
       margin:0;
+      font-size: @smaller-primary;
       .brand,.title{
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
       }
-      .title, .price, .info, .brand {
+      .brand{
         color: @common-gray;
-        //text-align: center;
-        font-size: @smaller-primary;
+      }
+      .title a{
+        color:@common-text-color;
       }
       .price {
-        //margin-top: 10px;
+        color:@link-color;
       }
     }
     .action{
