@@ -441,9 +441,15 @@ p .b_day {
 }
 .entity-four.new-thumbnail .entity-four-info .caption {
   width: 60%;
-  height: auto;
+  height: 80px;
   float: left;
   margin: 0;
+}
+.entity-four.new-thumbnail .entity-four-info .caption .brand,
+.entity-four.new-thumbnail .entity-four-info .caption .title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .entity-four.new-thumbnail .entity-four-info .caption .title,
 .entity-four.new-thumbnail .entity-four-info .caption .price,
@@ -454,6 +460,7 @@ p .b_day {
 }
 .entity-four.new-thumbnail .entity-four-info .action {
   width: 20%;
+  height: 30px;
   float: right;
 }
 .entity-four.new-thumbnail .entity-four-info .action .info {

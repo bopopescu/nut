@@ -437,9 +437,14 @@ p .b_day{
     overflow: hidden;
     .caption {
       width:60%;
-      height:auto;
+      height:80px;
       float:left;
       margin:0;
+      .brand,.title{
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
       .title, .price, .info, .brand {
         color: @common-gray;
         //text-align: center;
@@ -451,6 +456,7 @@ p .b_day{
     }
     .action{
       width:20%;
+      height:30px;
       float: right;
       .info{
         color: @common-gray;
