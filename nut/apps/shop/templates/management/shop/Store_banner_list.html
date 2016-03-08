@@ -1,0 +1,18 @@
+{% extends 'management/management_base.html' %}
+{% load i18n %}
+{% load guoku %}
+{% block content %}
+
+  <section class="content-header">
+        <h1>
+            {% trans 'Store Page Banner' %}
+            <small>{% trans 'Store Page Banner' %}</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{% url 'management_dashboard' %}"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+{#            <li><a href="#">Tables</a></li>#}
+            <li class="active">{% trans 'event' %}</li>
+        </ol>
+    </section>
+
+{% endblock %}
