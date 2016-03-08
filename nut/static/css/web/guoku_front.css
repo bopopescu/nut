@@ -2631,6 +2631,14 @@ body.compact-body {
 .authorized-seller-body .section-title-wrapper {
   margin-top: 20px;
   margin-bottom: 14px;
+  overflow: hidden;
+}
+.authorized-seller-body .section-title-wrapper .section-title .section-name {
+  float: left;
+}
+.authorized-seller-body .section-title-wrapper .section-title .more-link {
+  float: right;
+  font-size: 14px;
 }
 .guoku-content.user-page .user-info-wrapper,
 .entity-likers-body.user-page .user-info-wrapper,
