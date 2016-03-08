@@ -325,3 +325,7 @@
 
     {% include 'web/main/partial/number_paginator.html' with objects=author_articles url=request.path %}
 {% endblock %}
+
+{% block basic_script %}
+    <script data-main="{% static 'js/web/jsbuild/seller_page_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+{% endblock %}
