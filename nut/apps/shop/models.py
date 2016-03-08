@@ -4,10 +4,16 @@ from django.conf import settings
 from django.db import models
 from apps.core.models import BaseModel, \
                              GKUser
+from apps.banners.models import BaseBanner
+
 
 from django.utils.translation import ugettext_lazy as _
 
-class StorePageBanners(BaseModel):
+
+class StorePageBanners(BaseBanner):
+    pass
+
+class StorPageRecommend(BaseBanner):
     pass
 
 
