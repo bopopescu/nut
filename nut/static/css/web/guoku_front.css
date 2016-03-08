@@ -2540,6 +2540,9 @@ body.compact-body {
   margin-left: -4px;
   transform: translateY(-50%);
 }
+.user-page .authorized_author_info .seller-media {
+  margin-top: 10px;
+}
 .user-page .authorized_author_info .user-action {
   margin-top: 10px;
 }
