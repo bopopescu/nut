@@ -1,4 +1,5 @@
 from base import db
+from HTMLParser import HTMLParser
 # from sqlalchemy.dialects.mysql import INTEGER, SMALLINT, TINYINT
 
 
@@ -25,4 +26,18 @@ class Article(db.Model):
     read_count          = db.Column(db.Integer(), default=0)
     feed_read_count     = db.Column(db.Integer(), default=0)
 
+    def __repr__(self):
+        return "<Article %r>" % self.title
 
+
+    @property
+    def strip_content(self):
+        html_string = self.content.strip()
+        html_string = html_string.strip('\n')
+        res = []
+        parser = HTMLParser()
+        parser.handle_data = res.append
+        parser.feed(html_string)
+        parser.close()
+        content_string = ''.join(res)
+        return content_string.encode('utf-8')
