@@ -1099,6 +1099,65 @@ p.boolean-false {
   border-radius: 5px;
   font-size: 18px;
 }
+.message_page {
+  width: 941px;
+}
+.message_page .title {
+  margin-left: 2px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #E6E6E6;
+}
+.message_page .message_list {
+  padding-top: 40px;
+  width: 100%;
+}
+.message_page .message_list li {
+  margin-bottom: 40px;
+}
+.message_page .list_detail {
+  display: inline-block;
+}
+.message_page .header {
+  height: 48px;
+  width: 100%;
+  margin-right: 20px;
+}
+.message_page .header img {
+  height: 48px;
+  width: 48px;
+  border-radius: 24px;
+}
+.message_page .id {
+  margin-right: 5px;
+}
+.message_page .button {
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+  font-weight: 600;
+  text-align: center;
+  float: right;
+  margin-top: 4px;
+}
+.message_page .imgs {
+  margin-left: 68px;
+  margin-top: 5px;
+}
+.message_page .imgs img {
+  width: 100%;
+  border: 1px solid #e6e6e6;
+  margin: 15px 0;
+}
+.message_page .borderbottom_none {
+  border-bottom: none;
+}
+.message_page .early {
+  margin-top: 80px;
+}
+.message_page .message_comment {
+  margin-left: 72px;
+  line-height: 24px;
+}
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
   color: #9D9E9F;
@@ -1440,33 +1499,38 @@ p.boolean-false {
 .main-article .share-wrapper .dig-wrapper .dig-info .dig-count {
   margin: 0px 6px;
 }
-.main-article .share-wrapper .article-share ul {
+.main-article .share-wrapper .article-share .dig-wrapper {
+  float: left;
+  line-height: 40px;
+  padding-top: 4px;
+}
+.main-article .share-wrapper .article-share ul.share-bt-list {
   text-align: right;
 }
-.main-article .share-wrapper .article-share ul li.share-text {
+.main-article .share-wrapper .article-share ul.share-bt-list li.share-text {
   color: #9D9E9F;
 }
-.main-article .share-wrapper .article-share ul li.list-item {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item {
   display: inline-block;
   text-decoration: none;
   margin-left: 0px;
 }
-.main-article .share-wrapper .article-share ul li.list-item a {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item a {
   color: #ffffff;
 }
-.main-article .share-wrapper .article-share ul li.list-item a:hover {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item a:hover {
   cursor: pointer;
 }
-.main-article .share-wrapper .article-share ul li.list-item-weixin {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weixin {
   position: relative;
 }
-.main-article .share-wrapper .article-share ul li.list-item-weixin a {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weixin a {
   background-color: #51C332;
 }
-.main-article .share-wrapper .article-share ul li.list-item-weixin a:hover .display-toggle {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weixin a:hover .display-toggle {
   display: block;
 }
-.main-article .share-wrapper .article-share ul li.list-item-weixin a .wechat-qrcode-wrapper {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weixin a .wechat-qrcode-wrapper {
   position: absolute;
   bottom: 47px;
   left: -50%;
@@ -1476,7 +1540,7 @@ p.boolean-false {
   box-shadow: 0px 0px 2px #ddd;
   display: none;
 }
-.main-article .share-wrapper .article-share ul li.list-item-weixin a .wechat-qrcode-wrapper:after {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weixin a .wechat-qrcode-wrapper:after {
   content: "";
   position: absolute;
   bottom: -9px;
@@ -1488,7 +1552,7 @@ p.boolean-false {
   border-style: solid;
   border-color: #ffffff transparent transparent transparent;
 }
-.main-article .share-wrapper .article-share ul li.list-item-weixin a .wechat-qrcode-wrapper .bottom-bot {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weixin a .wechat-qrcode-wrapper .bottom-bot {
   position: absolute;
   bottom: -10px;
   left: 46%;
@@ -1499,10 +1563,10 @@ p.boolean-false {
   border-style: solid;
   border-color: #ddd transparent transparent transparent;
 }
-.main-article .share-wrapper .article-share ul li.list-item-weibo a {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weibo a {
   background-color: #E90D24;
 }
-.main-article .share-wrapper .article-share ul li.list-item-qq a {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-qq a {
   background-color: #3199DD;
 }
 .main-article .writer-wrapper .author-info .user-icon img {
@@ -4331,5 +4395,5 @@ body .for-mobile {
   left: 3px;
 }
 .gk_test {
-  color: black;
+  color: red;
 }

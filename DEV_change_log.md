@@ -1,3 +1,15 @@
+
+5.  article hide weixin id when author don't have it 
+4.  shop style and type choice update (management )
+3.  show article dig message in message page 
+2.  article dig 
+1.  fix web message page bug (new selection)
+
+=================================
+# merged to master 2016 － 2 － 29
+=================================
+
+
 3.  authorized seller shop management
 2.  api user article list bug fig 
 1.  article writer follow button position 
