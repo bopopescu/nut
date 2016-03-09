@@ -1083,33 +1083,38 @@ p.boolean-false {
 .main-article .share-wrapper .dig-wrapper .dig-info .dig-count {
   margin: 0px 6px;
 }
-.main-article .share-wrapper .article-share ul {
+.main-article .share-wrapper .article-share .dig-wrapper {
+  float: left;
+  line-height: 40px;
+  padding-top: 4px;
+}
+.main-article .share-wrapper .article-share ul.share-bt-list {
   text-align: right;
 }
-.main-article .share-wrapper .article-share ul li.share-text {
+.main-article .share-wrapper .article-share ul.share-bt-list li.share-text {
   color: #9D9E9F;
 }
-.main-article .share-wrapper .article-share ul li.list-item {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item {
   display: inline-block;
   text-decoration: none;
   margin-left: 0px;
 }
-.main-article .share-wrapper .article-share ul li.list-item a {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item a {
   color: #ffffff;
 }
-.main-article .share-wrapper .article-share ul li.list-item a:hover {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item a:hover {
   cursor: pointer;
 }
-.main-article .share-wrapper .article-share ul li.list-item-weixin {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weixin {
   position: relative;
 }
-.main-article .share-wrapper .article-share ul li.list-item-weixin a {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weixin a {
   background-color: #51C332;
 }
-.main-article .share-wrapper .article-share ul li.list-item-weixin a:hover .display-toggle {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weixin a:hover .display-toggle {
   display: block;
 }
-.main-article .share-wrapper .article-share ul li.list-item-weixin a .wechat-qrcode-wrapper {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weixin a .wechat-qrcode-wrapper {
   position: absolute;
   bottom: 47px;
   left: -50%;
@@ -1119,7 +1124,7 @@ p.boolean-false {
   box-shadow: 0px 0px 2px #ddd;
   display: none;
 }
-.main-article .share-wrapper .article-share ul li.list-item-weixin a .wechat-qrcode-wrapper:after {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weixin a .wechat-qrcode-wrapper:after {
   content: "";
   position: absolute;
   bottom: -9px;
@@ -1131,7 +1136,7 @@ p.boolean-false {
   border-style: solid;
   border-color: #ffffff transparent transparent transparent;
 }
-.main-article .share-wrapper .article-share ul li.list-item-weixin a .wechat-qrcode-wrapper .bottom-bot {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weixin a .wechat-qrcode-wrapper .bottom-bot {
   position: absolute;
   bottom: -10px;
   left: 46%;
@@ -1142,10 +1147,10 @@ p.boolean-false {
   border-style: solid;
   border-color: #ddd transparent transparent transparent;
 }
-.main-article .share-wrapper .article-share ul li.list-item-weibo a {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weibo a {
   background-color: #E90D24;
 }
-.main-article .share-wrapper .article-share ul li.list-item-qq a {
+.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-qq a {
   background-color: #3199DD;
 }
 .main-article .writer-wrapper .author-info .user-icon img {
