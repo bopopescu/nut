@@ -144,6 +144,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return False
 
     @property
+    def not_blocked(self):
+        return not self.is_blocked
+
+    @property
     def is_removed(self):
         if self.is_active == GKUser.remove:
             return True
@@ -1929,6 +1933,19 @@ def user_like_notification(sender, instance, created, **kwargs):
 
 post_save.connect(user_like_notification, sender=Entity_Like,
                   dispatch_uid="user_like_action_notification")
+
+
+def user_dig_notification(sender, instance, created, **kwargs):
+    if issubclass(sender, Article_Dig) and created:
+        if instance.user.is_blocked:
+            return
+        if instance.user !=  instance.article.creator:
+            notify.send(instance.user, recipient=instance.article.creator, \
+                        action_object=instance, verb='dig article',\
+                        target = instance.article)
+
+post_save.connect(user_dig_notification, sender=Article_Dig, \
+                  dispatch_uid="user_dig_action_notification")
 
 from apps.tag.tasks import generator_tag
 def user_post_note_notification(sender, instance, created, **kwargs):

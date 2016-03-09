@@ -44,9 +44,11 @@ class MessageListView(LoginRequiredMixin, AjaxResponseMixin,JSONResponseMixin, L
 
     def get_queryset(self):
         _timestamp = self.get_timestamp()
+
         remove_user_list = [self.request.user.pk]
         message_list =  self.request.user.notifications.filter(timestamp__lt=_timestamp)\
                        .exclude(actor_object_id__in=remove_user_list)
+
         # mark all message as read
         self.request.user.notifications.mark_all_as_read()
 
@@ -82,6 +84,7 @@ def messages(request, template='notifications/messages/message.html'):
     cids = Entity.objects.filter(pk__in=list(el)).annotate(dcount=Count('category')).values_list('category_id', flat=True)
 
     _categories = Sub_Category.objects.filter(id__in=list(cids), status=True)
+    # too expensive ???
 
     # remove_user_list = GKUser.objects.deactive_user_list()
     # remove_user_list.append(_user.id)

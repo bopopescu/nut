@@ -33,6 +33,7 @@ from apps.core.tasks.recorder import record_search
 from apps.core.tasks.edm import add_user_to_list
 from apps.core.tasks.edm import send_activation_mail
 from apps.core.tasks.edm import send_forget_password_mail
+from apps.core.tasks.article import dig_task, undig_task
 
 
 __author__ = 'edison'
