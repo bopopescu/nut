@@ -21,7 +21,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, Group
 
-from apps.fetch.common import clean_title
 from apps.notifications import notify
 from apps.core.utils.image import HandleImage
 from apps.core.utils.articlecontent import contentBleacher
@@ -1314,7 +1313,7 @@ class Article(BaseModel):
 
     creator = models.ForeignKey(GKUser, related_name="articles")
     title = models.CharField(max_length=64)
-    cleaned_title = models.TextField(null=True, blank=True)
+    identity_code = models.TextField(null=True, blank=True)
     cover = models.CharField(max_length=255, blank=True)
     content = models.TextField()
     publish = models.IntegerField(choices=ARTICLE_STATUS_CHOICES, default=draft)
@@ -1368,8 +1367,6 @@ class Article(BaseModel):
     def save(self, *args, **kwargs):
         if not kwargs.pop('skip_updatetime', False):
             self.updated_datetime = datetime.now()
-        if not self.cleaned_title:
-            self.cleaned_title = clean_title(self.title)
         res = super(Article, self).save(*args, **kwargs)
         # add article related entities,
         hash_list = get_entity_list_from_article_content(self.content)
