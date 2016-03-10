@@ -20,7 +20,6 @@ urlpatterns = patterns(
 
     url(r'^popular/$', PopularView.as_view(), name='web_popular'),
     url(r'^discover/$', DiscoverView.as_view(), name='web_discover'),
-    # url(r'^search/$', 'main.search', name='web_search'),
     url(r'^search/?$', GKSearchView.as_view(), name='web_search'),
 
     url(r'^sitemap/$', SiteMapView.as_view(), name='web_sitemap_url'),
