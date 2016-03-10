@@ -105,7 +105,7 @@ def fetch_article_list(authorized_user_pk, page=1):
         article = Article.objects.values_list(
             "title"
         ).filter(
-            cleaned_title__startswith=item,
+            identity_code__startswith=item,
             creator=authorized_user.user
         )
         log.info("filter sql is: %s", article.query)
