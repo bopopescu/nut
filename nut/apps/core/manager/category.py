@@ -98,7 +98,7 @@ class SubCategoryManager(models.Manager):
     def popular(self):
         return self.get_queryset().popular()
 
-    def popular_random(self, total=11):
+    def popular_random(self, total=20):
         key = "entity:category:popular"
         # key = md5(key_string.encode('utf-8')).hexdigest()
         res = cache.get(key)

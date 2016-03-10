@@ -112,7 +112,18 @@
 
 {#                            add article share button begin#}
                             <div class="article-share for-browser ">
-                                <ul>
+
+                             <span class="dig-wrapper">
+                                <span class="{% if dig_status %} digged {% else %} undigged {% endif %} dig-action" data-article-id="{{ article.pk }}">
+                                    <img class="dig-img dig" src="{% static 'images/article/dig.png' %}" >
+                                    <img class="dig-img undig" src="{% static 'images/article/undig.png' %}" >
+                                </span>
+                                <span class="dig-info">
+                                    <span class="dig-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>
+                                    <span class="dig-word">赞</span>
+                                </span>
+                            </span>
+                                <ul class="share-bt-list">
 
                                     <li class="list-item list-item-weixin img-holder">
                                         <a class="logo-wechat normal-share-btn">
@@ -141,7 +152,7 @@
 {#                            article share button end#}
                         </div>
                         <div class="divider article-divider divider-control"></div>
-                        <div class="writer-wrapper">
+                        <div class="writer-wrapper writer-wrapper-control">
 {#                            <div class="row">#}
 {#                                <div class="write-pre col-xs-12 col-sm-12">#}
 {#                                </div>#}
@@ -186,19 +197,25 @@
                                     </div>
                                 </div>
 
-                                     <div class="writer-intro col-xs-10 col-sm-10">
+                                <div class="writer-intro col-xs-10 col-sm-10">
                                     <div class="writer-name for-browser">
                                         <a href="{% url 'web_user_index' article.creator.pk %}">
                                          {{ article.creator.profile.nickname }}
                                         </a>
+                                        {#  认证图标:需要判断一下用户是不是认证用户,是就显示认证图标,不是就隐藏咯  #}
+                                        {% if article.creator.is_authorized_author %}
+                                          <img src="{% static 'images/author/official_media.png' %}" width="16px" height="16px" class="writer-authorized"/>
+                                        {% endif %}
+
                                     </div>
+
                                     <div class="writer-name for-mobile">
                                         <a href="{{ article.creator.mobile_url }}" class="mobile-user-link">
                                          {{ article.creator.profile.nickname }}
                                         </a>
                                     </div>
-                                    <div class="writer-bio">
-                                        {% if article.creator.is_authorized_author %}
+                                    <div class="writer-bio writer-bio-control">
+                                        {% if article.creator.is_authorized_author and  article.creator.authorized_profile.weixin_id %}
                                             <span class="weixin-id">
                                             微信号：{{ article.creator.authorized_profile.weixin_id }}
                                             </span>
@@ -212,6 +229,18 @@
 
 
                             </div>
+                            {#                                        关注按钮#}
+                            {% if article.creator.is_blocked %}
+                                <a  class="guoku-button button-disabled for-browser" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
+                                {% elif article.creator == request.user %}
+
+                            {% elif request.user.id in article.creator.concren %}
+                                <a class="follow article-user-follow guoku-button btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                            {% elif request.user.id in article.creator.fans_list %}
+                                <a class="follow article-user-follow guoku-button btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                            {% else %}
+                                <a class="follow article-user-follow guoku-button button-blue for-browser" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+                            {% endif %}
 {#                            {% endif %}#}
 
                         </div>

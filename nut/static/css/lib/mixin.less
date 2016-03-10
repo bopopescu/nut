@@ -143,3 +143,26 @@
   -ms-user-select:@value;
   user-select: @value;
 }
+
+//just use this mixin in discover page,don't modify the user-icon-widget in widgets.less temporarily.
+.recommend-user-icon-widget(@user-icon-size,@top,@right,@bottom,@left){
+          float:left;
+          display: inline-block;
+          width: @user-icon-size;
+          height:@user-icon-size;
+	      margin-top:@top;
+          margin-right: @right;
+          margin-bottom:@bottom;
+	      margin-left:@left;
+          a {
+            display: block;
+            img{
+                width:@user-icon-size;
+                height:@user-icon-size;
+            }
+          }
+          img{
+            border-radius : 50%;
+          }
+}
+

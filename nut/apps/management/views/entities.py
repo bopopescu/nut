@@ -41,11 +41,20 @@ class EntityListView(FilterMixin, ListView):
     context_object_name = 'entities'
     paginator_class = Jpaginator
 
+    def get_amazon_entities(self, qs):
+        amazon_entity_ids = Buy_Link.objects\
+                                    .filter(origin_source__icontains='amazon')\
+                                    .values_list('entity_id', flat=True)
+        return qs.filter(pk__in=amazon_entity_ids)
+
+
     def get_queryset(self):
         qs = super(EntityListView,self).get_queryset()
         status =  self.request.GET.get('status', None)
         if status is None:
             return qs
+        elif status == '999':
+            entity_list  = self.get_amazon_entities(qs)
         else:
             entity_list = qs.filter(status=int(status)).order_by('-updated_time')
         return  entity_list

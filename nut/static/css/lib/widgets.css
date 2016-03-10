@@ -360,7 +360,7 @@ p .b_day {
 }
 .entity-four.thumbnail {
   border: none;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   padding: 0px 0px 16px 0px;
   background-color: #fff;
   -webkit-border-radius: 4px;
@@ -664,6 +664,14 @@ p.boolean-false {
   font-weight: 500;
   margin-right: 12px;
 }
+.guoku-normal-col {
+  padding: 0 5px;
+  margin-bottom: 10px;
+}
+.guoku-middle-col {
+  padding: 0 10px;
+  margin-bottom: 20px;
+}
 .normal-share-btn {
   display: inline-block;
   width: 40px;
@@ -673,3 +681,4 @@ p.boolean-false {
   border-radius: 5px;
   font-size: 18px;
 }
+/*# sourceMappingURL=widgets.less.css.map */

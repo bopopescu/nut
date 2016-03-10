@@ -1448,7 +1448,7 @@ function getQueryStrings() {
                             data: {'timestamp':timestamp},
                             success: function(data){
                       //                console.log(data);
-                                var result = $.parseJSON(data);
+                                var result = data;
                                 var status = parseInt(result.status);
                                 if (status == 1 ) {
                                     var html = $(result.data);
