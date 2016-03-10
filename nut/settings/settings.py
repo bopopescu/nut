@@ -367,3 +367,4 @@ CURRENCY_SYMBOLS = (u'$', u'￥')
 
 
 TAOBAO_RECOMMEND_URL = 'http://10.0.2.120:10150/recommend'
+ARTICLE_TEXTRANK_URL = 'http://10.0.2.120:10150/article/'
