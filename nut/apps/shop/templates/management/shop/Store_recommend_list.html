@@ -5,8 +5,8 @@
 
   <section class="content-header">
         <h1>
-            {% trans 'Store Page Banner' %}
-            <small>{% trans 'Store Page Banner' %}</small>
+            {% trans 'Store Page Recommend' %}
+            <small>{% trans 'Store Page Recommend' %}</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{% url 'management_dashboard' %}"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
@@ -30,13 +30,13 @@
                     <div class="box-body table-responsive">
                        <div class="">
                            <hr>
-                           <a href="{% url 'manage_store_banners_create' %}">
-                             <button class="btn btn-primary">+ 新建bannner</button>
+                           <a href="{% url 'manage_store_recommends_create' %}">
+                             <button class="btn btn-primary">+ 新建 好店页 推荐</button>
                            </a>
                            <hr>
                        </div>
 
-                        {% include "management/shop/partial/table.html"%}
+                        {% include "management/shop/partial/table_recommend.html"%}
 
                     </div>
 

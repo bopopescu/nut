@@ -12,9 +12,9 @@ image_host = getattr(settings, 'IMAGE_HOST', None)
 class BaseBanner(BaseModel):
     (removed, disabled, enabled) = xrange(3)
     BANNER_STATUS_CHOICE = [
-        (removed, _('banner removed')),
-        (disabled, _('banner disabled')),
-        (enabled, _('banner enabled'))
+        (removed, _('removed')),
+        (disabled, _('disabled')),
+        (enabled, _('enabled'))
     ]
 
     image = models.CharField(max_length=255, null=False)
@@ -23,8 +23,8 @@ class BaseBanner(BaseModel):
                                         db_index=True)
     updated_time = models.DateTimeField(auto_now=True, editable=False,
                                         db_index=True)
-    link = models.CharField(max_length=255, null=False)
-    applink = models.CharField(max_length=255, null=False)
+    link = models.CharField(max_length=255, null=False, help_text='web site link')
+    applink = models.CharField(max_length=255, null=True, blank=True , help_text='in app link')
     position = models.IntegerField(null=False, default=1, blank=False)
     status = models.IntegerField(choices=BANNER_STATUS_CHOICE,default=disabled)
 
