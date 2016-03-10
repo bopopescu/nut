@@ -1,13 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import sys
 import gc
-import unicodedata
 
 from bs4 import BeautifulSoup
-
-tbl = dict.fromkeys(i for i in xrange(sys.maxunicode) if
-                    unicodedata.category(unichr(i)).startswith('P'))
 
 
 def parse_article_link(result_json):
@@ -56,13 +51,3 @@ def queryset_iterator(queryset, chunk_size=100):
             pk = row.pk
             yield row
         gc.collect()
-
-
-def clean_title(article_title):
-    if not article_title:
-        return
-    if not isinstance(article_title, unicode):
-        article_title = unicode(article_title, 'utf-8')
-    article_title = article_title.strip()
-    article_title = article_title.translate(tbl)
-    return article_title
