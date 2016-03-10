@@ -19,8 +19,9 @@ def get_textrank(article_id):
 
     article = Article.query.get(article_id)
     # print article
+    title = jieba.analyse.textrank(article.title, topK=3, withWeight=True)
+    print title
+    content = jieba.analyse.textrank(article.strip_content, topK=20, withWeight=True, allowPOS=('ns', 'n'))
 
-    res = jieba.analyse.textrank(article.strip_content, topK=20, withWeight=True, allowPOS=('ns', 'n'))
-
-    return res
+    return title, content
 
