@@ -247,6 +247,7 @@ class RemoveSelectionArticle(UserPassesTestMixin, JSONResponseMixin, View):
 
 # TODO : use a parent class for 3 article list  view
 
+
 class BaseManagementArticleListView(UserPassesTestMixin, SortMixin, ListView):
     template_name = 'management/article/list.html'
     model = Article
@@ -254,6 +255,7 @@ class BaseManagementArticleListView(UserPassesTestMixin, SortMixin, ListView):
     paginator_class = Jpaginator
     context_object_name = 'articles'
     default_sort_params = ('updated_dateime', 'desc')
+
     def test_func(self, user):
         return user.is_editor
 
@@ -261,6 +263,7 @@ class BaseManagementArticleListView(UserPassesTestMixin, SortMixin, ListView):
         context = super(BaseManagementArticleListView, self).get_context_data(*args, **kwargs)
         context['authorized_authors'] = GKUser.objects.authorized_author()
         return context
+
 
 class AuthorArticlePersonList(BaseManagementArticleListView):
     def get_queryset(self):
