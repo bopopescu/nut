@@ -20,7 +20,7 @@ class CategoryIndex(indexes.SearchIndex, indexes.Indexable):
 class EntityIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     entity_id = indexes.IntegerField(model_attr='id')
-    # hash = indexes.CharField(model_attr='entity_hash')
+    entity_hash = indexes.CharField(model_attr='entity_hash')
     title = indexes.CharField(model_attr='title', boost=1.25, faceted=True)
     brand = indexes.CharField(model_attr='brand', boost=1.50, faceted=True)
     user = indexes.CharField(model_attr='user')
