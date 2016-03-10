@@ -13,7 +13,7 @@ from django.utils.translation import ugettext_lazy as _
 class StorePageBanners(BaseBanner):
     pass
 
-class StorPageRecommend(BaseBanner):
+class StorePageRecommend(BaseBanner):
     pass
 
 

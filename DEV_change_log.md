@@ -1,3 +1,12 @@
+#action 
+
+need syncdb 
+
+
+=================================
+# merged to master 2016 － 3 － 4
+=================================
+
 
 5.  article hide weixin id when author don't have it 
 4.  shop style and type choice update (management )

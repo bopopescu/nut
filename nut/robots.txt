@@ -7,5 +7,4 @@ Disallow: /sina/
 Disallow: /taobao/
 Disallow: /visit_shop/
 Disallow: /wechat/
-Disallow: /brand/
 Sitemap: http://www.guoku.com/sitemap.xml
