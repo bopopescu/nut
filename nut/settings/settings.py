@@ -66,9 +66,7 @@ INSTALLED_APPS = (
     'apps.counter',
     'apps.tag',
     'apps.seller',
-    'apps.fetch',
     'apps.shop',
-
     'captcha',
 )
 
@@ -270,21 +268,26 @@ BROKER_VHOST = "raspberry"
 BROKER_POOL_LIMIT = 10
 CELERY_ACKS_LATE = True
 CELERYD_PREFETCH_MULTIPLIER = 1
-CELERY_DISABLE_RATE_LIMITS = True
-# CELERY_ANNOTATIONS = {
-#     'sogou.crawl_articles': {
-#         'rate_limit': '1.1/m',
-#     },
-#     'sogou.crawl_article': {
-#         'rate_limit': '1.1/m',
-#     },
-#     'sogou.fetch_article_list': {
-#         'rate_limit': '1.1/m',
-#     },
-#     'sogou.get_qr_code': {
-#         'rate_limit': '1.1/m',
-#     }
-# }
+
+# Fetch articles.
+CELERY_DISABLE_RATE_LIMITS = False
+CELERY_ROUTES = {
+    'sogou.crawl_articles': {'queue': 'sogou'},
+    # 'sogou.crawl_article': {'queue': 'sogou'},
+    'sogou.fetch_article_list': {'queue': 'sogou'},
+}
+
+CELERY_ANNOTATIONS = {
+    'sogou.crawl_articles': {
+        'rate_limit': '1/m',
+    },
+    # 'sogou.crawl_article': {
+    #     'rate_limit': '1/m',
+    # },
+    'sogou.fetch_article_list': {
+        'rate_limit': '1/m',
+    },
+}
 # CELERY_ACCEPT_CONTENT = ['json']
 # CELERY_TASK_SERIALIZER = 'json'
 # CELERY_RESULT_SERIALIZER = 'json'
@@ -351,10 +354,17 @@ PHANTOM_SERVER = 'http://10.0.2.49:5000/'
 
 # fetch articles
 SOGOU_PASSWORD = 'guoku1@#'
-SOGOU_USERS = ('waser1959@gustr.com', 'asortafairytale@fleckens.hu', 'adisaid@jourrapide.com',
-               'rathe1981@rhyta.com', 'andurn@fleckens.hu', 'sanyuanmilk@fleckens.hu',
-               'yundaexpress@rhyta.com', 'sunstarorabreathfine@jourrapide.com',
-               'indonesiamandheling@einrot.com', 'charlottewalkforshame@dayrep.com')
+SOGOU_USERS = ('shoemah55@superrito.com',
+               'monan1977@fleckens.hu',
+               'obsomed1977@jourrapide.com',
+               'finighboy78@superrito.com',
+               'artimessill1959@einrot.com',
+               'suildrued41@dayrep.com',
+               'ater1954@teleworm.us',
+               'duad1937@jourrapide.com',
+               'drecur44@superrito.com',
+               'paboy1973@superrito.com'
+               )
 CELERYBEAT_SCHEDULE = {
     'crawl_articles': {
         'task': 'sogou.crawl_articles',
