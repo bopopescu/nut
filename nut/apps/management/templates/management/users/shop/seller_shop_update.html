@@ -1,0 +1,46 @@
+{% extends 'management/users/user_edit_base.html' %}
+{% load i18n static %}
+{% block user_edit_block %}
+    <div class="box box-info">
+        <div class="box-header">
+            {% trans 'Seller Shop Update'  %}
+        </div>
+        <div class="box-body">
+            <div class="btn-group">
+                <a class="btn btn-primary" href="{% url 'management_user_shop_list'  current_user.pk %}">{% trans 'Back To User Shop List' %}</a>
+                <a class="btn btn-primary" href="{% url 'management_user_edit'  current_user.pk %}">{% trans 'Back To User Info Edit' %}</a>
+            </div>
+            <div class="box-pane">&nbsp;</div>
+            <div >
+                <form class="form-horizontal" enctype="multipart/form-data" action="" method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}" class="col-sm-2 control-label">{{ field.label }}</label>
+                            <div class="col-sm-10">
+                                {{ field }}<span class="field-errors">{{ field.errors }}</span>
+                            </div>
+                            {#                                        {{ field.errors }}#}
+                            {#                                        {{ field.label_tag }} {{ field }}#}
+                            {#                                        {% if field.help_text %}#}
+                            {#                                            <p class="help">{{ field.help_text|safe }}</p>#}
+                            {#                                        {% endif %}#}
+                        </div>
+                        <div class="form-error">
+
+                        </div>
+
+                    {% endfor %}
+                    <div class="box-footer">
+                        <div class="col-xs-10 col-sm-10 col-md-10 col-md-offset-2 col-sm-offset-2 col-xs-offset-2">
+                            <button type="submit" class="btn btn-primary btn-lg">Update</button>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

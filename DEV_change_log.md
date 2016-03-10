@@ -1,4 +1,79 @@
 
+# remove fetch_article module.
+
+### action
+
+    ALTER TABLE `core`.`core_article` 
+    CHANGE COLUMN `cleaned_title` `identity_code` VARCHAR(255) NULL     DEFAULT NULL COMMENT '' ;
+
+===
+
+
+
+
+5.  article hide weixin id when author don't have it 
+4.  shop style and type choice update (management )
+3.  show article dig message in message page 
+2.  article dig 
+1.  fix web message page bug (new selection)
+
+=================================
+# merged to master 2016 － 2 － 29
+=================================
+
+
+3.  authorized seller shop management
+2.  api user article list bug fig 
+1.  article writer follow button position 
+
+#action 
+
+ALTER TABLE `core`.`shop_shop` 
+CHANGE COLUMN `shop_desc` `shop_desc` VARCHAR(511) CHARACTER SET 'utf8mb4' NULL ,
+CHANGE COLUMN `shop_brands` `shop_brands` VARCHAR(255) CHARACTER SET 'utf8mb4' NULL ;
+
+ALTER TABLE `core`.`shop_shop` 
+ADD COLUMN `shop_style` INT(8) NULL DEFAULT 0 AFTER `shop_brands`,
+ADD COLUMN `shop_type` INT(8) NULL DEFAULT 0 AFTER `shop_style`;
+
+
+
+=================================
+# merged to master 2016 － 2 － 25
+=================================
+
+4.  discover page , recommended user 
+3.  authorized user profile add 3 field (points, is_recommended_user, rss_url)
+2.  discover page add popular article 
+1.  article page user info update
+    article page add user follow
+
+##action 
+
+ALTER TABLE `core`.`core_authorized_user_profile` 
+ADD COLUMN `points` INT(32) NOT NULL DEFAULT 0 AFTER `personal_domain_name`;
+
+ALTER TABLE `core`.`core_authorized_user_profile` 
+ADD COLUMN `is_recommended_user` TINYINT(1) NOT NULL DEFAULT 0 AFTER `points`;
+
+ALTER TABLE `core`.`core_authorized_user_profile` 
+ADD COLUMN `rss_url` VARCHAR(255) NULL AFTER `is_recommended_user`;
+
+=================================
+# merged to master 2016 － 2 － 22
+=================================
+
+5. remove 好店 导航入口
+4. minor bug fix 
+3. category detail page related article 
+2. add entity share 
+1.  update article share
+
+
+=================================
+# merged to master 2016 － 2 － 19
+=================================
+
 9. remove qrcodeService , use js render qrcode instead
 
 ------------------
@@ -15,7 +90,7 @@
 
 need syncdb
 
-#add shops_shop new model
+###add shops_shop new model
 
 notice : qrcodeService model removed
 
@@ -33,18 +108,14 @@ notice : qrcodeService model removed
 0.5  alicdn and taobaocdn image resize 
 
 =================================
-=================================
-### merged to master 2016 － 2 － 2
-=================================
+#merged to master 2016 － 2 － 2
 =================================
 
 2. disable like action for search result 
 1. fix rss bug
 
 =================================
-=================================
-### merged to master 2016 － 2 － 1
-=================================
+# merged to master 2016 － 2 － 1
 =================================
 
 3. category entity list item style update
@@ -53,14 +124,12 @@ notice : qrcodeService model removed
 
 
 =================================
-=================================
-### merged to master 2016 － 1 － 27
-=================================
+# merged to master 2016 － 1 － 27
 =================================
 
 ### fix can not create article error:
 
-#action
+##action
 
     ALTER TABLE `core`.`core_article` DROP INDEX `cleaned_title_UNIQUE` ;
 
@@ -74,7 +143,7 @@ notice : qrcodeService model removed
 2. download page url , without ending slash , access 
 1. hide deleted user in user fan/following list 
 
-#action 
+##action 
  need sync db 
  
  
@@ -82,7 +151,7 @@ notice : qrcodeService model removed
  need  restart server  (new translation items )
  
  
- ###action
+ ##action
 
     sudo pip install fake-factory
 
@@ -99,11 +168,11 @@ notice : qrcodeService model removed
  
 
 
+
 =================================
+# merged to master 2016 － 1 － 21
 =================================
-### merged to master 2016 － 1 － 21
-=================================
-=================================
+
 
 5. minor fix 
     (pc article page add ga, xs screen article pic cross full screen)

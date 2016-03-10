@@ -17,6 +17,7 @@ from django.utils.log import getLogger
 from datetime import datetime
 import time
 
+from apps.core.models import Article
 from apps.tag.models import Content_Tags
 from apps.core.views import JSONResponseMixin
 from apps.core.tasks import send_activation_mail
@@ -374,9 +375,11 @@ class APIUserIndexView(APIJsonView):
 
         _last_like = Entity_Like.objects.filter(user=_user, entity__status__gte=APIEntity.freeze)
         _last_note = APINote.objects.filter(user=_user).order_by('-post_time')
+        _last_article = APIArticle.objects.filter(creator=_user, publish=True).order_by('-created_datetime')
         res['user'] = _user.v4_toDict(self.visitor)
         res['last_user_like'] = []
         res['last_post_note'] = []
+        res['last_post_article'] = []
         for row in _last_like[:10]:
             res['last_user_like'].append(
                 row.entity.v3_toDict()
@@ -384,6 +387,10 @@ class APIUserIndexView(APIJsonView):
         for row in _last_note[:10]:
             res['last_post_note'].append(
                 row.v4_toDict(has_entity=True)
+            )
+        for row in _last_article[:10]:
+            res['last_post_article'].append(
+                row.v4_toDict()
             )
 
         return res
@@ -514,15 +521,21 @@ class APIUserArticlesView(APIJsonView):
     def get_data(self, context):
         res = dict()
 
-        articles = APIArticle.objects.filter(creator=self.user_id)
+        articles = APIArticle.objects.filter(creator=self.user_id, publish=Article.published)
+        res.update(
+            {
+                'count': articles.count(),
+                'page': self.page,
+            }
+        )
         paginator = Paginator(articles, self.size)
         try:
             article_list = paginator.page(self.page)
         except Exception:
             return res
-        res['articles'] = list
+        res['articles'] = list()
         for row in article_list.object_list:
-            res['articles'].append(row.v4_toDict)
+            res['articles'].append(row.v4_toDict())
         return res
 
     def get(self, request, *args, **kwargs):
@@ -530,7 +543,7 @@ class APIUserArticlesView(APIJsonView):
         assert self.user_id is not None
 
         self.page = request.GET.get('page', 1)
-        self.size = request.GET.get('size', 30)
+        self.size = request.GET.get('size', 15)
         return super(APIUserArticlesView, self).get(request, *args, **kwargs)
 
 
@@ -546,10 +559,10 @@ class APIUserVerifiedView(APIJsonView):
         else:
             pass
 
-        res = {
+        res.update( {
                 'error':0,
                 'email': self.user.email
-        }
+        })
         return res
 
     def get(self, request, *args, **kwargs):

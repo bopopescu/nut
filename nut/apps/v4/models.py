@@ -10,7 +10,7 @@ from hashlib import md5
 
 from apps.mobile.models import Session_Key
 from apps.core.models import Entity, Buy_Link, Note, \
-    GKUser, Selection_Entity, Sina_Token, \
+    GKUser, Authorized_User_Profile, Selection_Entity, Sina_Token, \
     Taobao_Token, WeChat_Token, User_Follow, Category
 
 from django.conf import settings
@@ -96,6 +96,7 @@ class APIUser(GKUser):
         res['fan_count'] = self.fans_count
         res['following_count'] = self.following_count
         res['article_count'] = self.article_count
+        res['authorized_author'] = self.is_authorized_author
 
         try:
             res['sina_screen_name'] = self.weibo.screen_name
@@ -123,6 +124,15 @@ class APIUser(GKUser):
             elif self.id in visitor.fans_list:
                 res['relation'] = 2
         return res
+
+class APIAuthorized_User_Profile(Authorized_User_Profile):
+
+    @property
+    def user(self):
+        return APIUser.objects.get(pk=self.user_id)
+
+    class Meta:
+        proxy = True
 
 
 class APIUser_Follow(User_Follow):
