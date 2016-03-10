@@ -5,9 +5,12 @@
     <tr>
         <th>#</th>
         <th>主图</th>
+        <th>title/ desc </th>
+
         <th>排名/位置</th>
         <th>网页链接</th>
         <th>APP 链接</th>
+
         <th>状态</th>
         <th>操作</th>
     </tr>
@@ -20,6 +23,11 @@
         <tr>
             <td>{{ banner.id  }}</td>
             <td><img src="{{  banner.image_url|resize:'200' }}" ></td>
+            <td>
+                title : {{ banner.banner_title  }}
+                <br>
+                description : {{ banner.banner_desc }}
+            </td>
             <td>{{ banner.position  }}</td>
             <td>{{ banner.link  }}</td>
             <td>{{ banner.applink  }}</td>

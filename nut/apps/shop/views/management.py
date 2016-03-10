@@ -13,12 +13,12 @@ from braces.views import StaffuserRequiredMixin
 class StoreBannerCreateForm(BaseBannerCreateForm):
     class Meta:
         model = StorePageBanners
-        fields = BaseBannerForm.default_banner_fields
+        fields = BaseBannerForm.default_banner_fields + ['banner_title', 'banner_desc']
 
 class StoreBannerUpdateForm(BaseBannerUpdateForm):
     class Meta:
         model = StorePageBanners
-        fields = BaseBannerForm.default_banner_fields
+        fields = BaseBannerForm.default_banner_fields + ['banner_title', 'banner_desc']
 
 
 class StoreRecommendCreateForm(BaseBannerCreateForm):
