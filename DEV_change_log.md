@@ -1,4 +1,16 @@
 
+# remove fetch_article module.
+
+### action
+
+    ALTER TABLE `core`.`core_article` 
+    CHANGE COLUMN `cleaned_title` `identity_code` VARCHAR(255) NULL     DEFAULT NULL COMMENT '' ;
+
+===
+
+
+
+
 5.  article hide weixin id when author don't have it 
 4.  shop style and type choice update (management )
 3.  show article dig message in message page 
