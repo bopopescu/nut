@@ -58,8 +58,9 @@ def textrank():
 from textrank import get_textrank
 @app.route('/article/<int:article_id>', methods=['GET'])
 def article_textrank(article_id):
-    res = get_textrank(article_id)
-    return json_response(content = res)
+    title, content = get_textrank(article_id)
+
+    return json_response(title=title, content = content)
     # return "ok"
 
 
