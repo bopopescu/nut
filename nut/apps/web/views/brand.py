@@ -8,6 +8,9 @@ from apps.core.models import Brand
 class BrandListView(ListView):
     model = Brand
     template_name = 'web/brand/list.html'
+    context_object_name = 'brands'
+    def get_queryset(self):
+        return Brand.objects.all()
 
 
 class BrandDetailView(DetailView):
