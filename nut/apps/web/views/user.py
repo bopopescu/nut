@@ -504,7 +504,9 @@ class UserIndex(UserPageMixin, DetailView):
         # _common_article_ids    = Article.objects.get_published_by_user(current_user).exclude(pk_in=list(_selection_article_ids)).values_list("pk",flat=True)
         _article_list = Article.objects.get_published_by_user(current_user).filter(selections__isnull = False)\
                                        .filter(pk__in=list(_selection_article_ids))[:6]
-        _entity_list = Entity.objects
+        # get current seller's the first eight published selection entities
+
+        _entity_list = Entity.objects.get_published_by_seller(current_user)[:8]
 
         if current_user.is_authorized_author:
             author_article_list = Article.objects.get_published_by_user(current_user)
@@ -519,6 +521,7 @@ class UserIndex(UserPageMixin, DetailView):
             context_data['author_articles'] = _author_articles
 
         context_data['articles'] = _article_list
+        context_data['entities'] = _entity_list
 
         context_data['followings'] = current_user.followings.filter(followee__is_active__gte=0)[:7]
         context_data['fans'] = current_user.fans.filter(follower__is_active__gte=0)[:7]

@@ -50,9 +50,10 @@ class EntityQuerySet(models.query.QuerySet):
 
 
 class EntityManager(models.Manager):
-    # entity status: new:0
+    # entity status: new:0,selection:1
+    # get the current seller's selection entities and order by created-time.
     def get_published_by_seller(self,seller):
-        return self.get_query_set().using('slave').filter(status=0, user=seller).order_by('-created_time')
+        return self.get_query_set().using('slave').filter(status=1, user=seller).order_by('-created_time')
 
     def get_query_set(self):
         return EntityQuerySet(self.model, using=self._db)
