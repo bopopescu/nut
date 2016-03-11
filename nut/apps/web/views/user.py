@@ -504,6 +504,7 @@ class UserIndex(UserPageMixin, DetailView):
         # _common_article_ids    = Article.objects.get_published_by_user(current_user).exclude(pk_in=list(_selection_article_ids)).values_list("pk",flat=True)
         _article_list = Article.objects.get_published_by_user(current_user).filter(selections__isnull = False)\
                                        .filter(pk__in=list(_selection_article_ids))[:6]
+        _entity_list = Entity.objects
 
         if current_user.is_authorized_author:
             author_article_list = Article.objects.get_published_by_user(current_user)
