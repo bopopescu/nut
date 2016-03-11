@@ -28,6 +28,9 @@ from apps.core.extend.fields.listfield import ListObjectField
 from apps.web.utils.datatools import get_entity_list_from_article_content
 from apps.core.manager import *
 from apps.core.manager.account import  AuthorizedUserManager
+from haystack.query import SearchQuerySet
+
+
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -763,6 +766,10 @@ class Brand(BaseModel):
         if self.icon:
             return "%s%s" % (image_host, self.icon)
         return None
+
+    @property
+    def entities(self):
+        return SearchQuerySet().models(Entity).filter(brand=self.name)
 
     # @property
     # def shop_id(self):
