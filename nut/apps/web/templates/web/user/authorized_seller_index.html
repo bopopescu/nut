@@ -79,43 +79,50 @@
     </div>
     <div class="row entity-wrapper">
 
-    {% for entity in seller_entities %}
-        <div class="col-xs-6 col-sm-3 search-entity-item">
-            <div class="new-thumbnail entity-four">
-                <div class="img-box">
-                    <a href="" target="_blank">
-                        <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/c1113ee97896388f5ef0d9428f3d34b4.jpg" alt="" title="">
-                    </a>
-                </div>
-                <div class="entity-four-info">
-                    <div class="caption">
-                        <div class="brand">Karel Capek</div>
-                        <div class="title">
-                            <a href="" target="_blank">
-                                名侦探柯南 限定变色茶
-                            </a>
-                        </div>
-                        <div class="price">
-                            &#65509;138.00
-                        </div>
+        {% for entity in seller_entities %}
+            <div class="col-xs-6 col-sm-3 search-entity-item">
+                <div class="new-thumbnail entity-four">
+                    <div class="img-box">
+                        <a href="{{ entity.absolute_url }}" target="_blank">
+                            <img class="img-responsive" alt="{{ entity.title }}" title="{{ entity.title }}" src="{{ entity.chief_image|resize:'310'}}">
+                        </a>
                     </div>
-                    <div class="action">
-                        <div class="info">
-                            {% if entity.id in user_entity_likes %}
-                                <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
-                                <i class="fa fa-heart"></i>
-                            {% else %}
-                                <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
-                                <i class="fa fa-heart-o"></i>
-                            {% endif %}
-                            </a>
+                    <div class="entity-four-info">
+                        <div class="caption">
+                            <div class="brand">
+                                {{ entity.brand|truncatechars:12 }}&nbsp;
+                            </div>
+                            <div class="title">
+                                <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
+                                    {{ entity.title|truncatechars:12 }}
+                                </a>
+                            </div>
+                            <div class="price">
+                                &#65509;{{ entity.default_buy_link.price }}
+                            </div>
                         </div>
+                        <div class="action">
+                            <div class="info">
+                                {% if entity.id in user_entity_likes %}
+                                    <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
+                                    <i class="fa fa-heart"></i>
+                                {% else %}
+                                    <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
+                                    <i class="fa fa-heart-o"></i>
+                                {% endif %}
+                                </a>
+                            </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+            {% empty %}
+            <div class="empty-panel-content">
+                <span>暂无商品</span>
+            </div>
+        {% endfor %}
+
 
     </div>
 
