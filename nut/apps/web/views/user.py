@@ -521,7 +521,7 @@ class UserIndex(UserPageMixin, DetailView):
             context_data['author_articles'] = _author_articles
 
         context_data['articles'] = _article_list
-        context_data['entities'] = _entity_list
+        context_data['seller_entities'] = _entity_list
 
         context_data['followings'] = current_user.followings.filter(followee__is_active__gte=0)[:7]
         context_data['fans'] = current_user.fans.filter(follower__is_active__gte=0)[:7]
