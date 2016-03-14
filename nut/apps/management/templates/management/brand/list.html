@@ -1,5 +1,5 @@
 {% extends 'management/management_base.html' %}
-{% load i18n %}
+{% load i18n static guoku %}
 
 
 {% block content %}
@@ -23,9 +23,9 @@
                         <ul class="nav nav-pills" role="tablist">
                             <li><a class="btn btn-primary" href="{% url 'management_brand_stat' %}" target="_blank">{% trans 'brand stat' %}</a></li>
                             <li><a class="btn btn-primary" href="{% url 'management_brand_create' %}" target="_blank">{% trans 'add' %}</a></li>
-                            <li><a class="btn btn-primary" href="{% url 'management_brand_list' %}" target="_blank">{% trans 'All brands' %}</a></li>
-                            <li><a class="btn btn-primary" href="{% url 'management_brand_list' %}?status=1" target="_blank">{% trans 'published brands' %}</a></li>
-                            <li><a class="btn btn-primary" href="{% url 'management_brand_list' %}?status=2" target="_blank">{% trans 'promotion brands' %}</a></li>
+                            <li><a class="btn {% if not status %}btn-success{% else %}btn-primary{% endif %}" href="{% url 'management_brand_list' %}" target="_blank">{% trans 'All brands' %}</a></li>
+                            <li><a class="btn {% if status == '1' %}btn-success{% else %}btn-primary{% endif %}" href="{% url 'management_brand_list' %}?status=1" target="_blank">{% trans 'published brands' %}</a></li>
+                            <li><a class="btn {% if status == '2' %}btn-success{% else %}btn-primary{% endif %}" href="{% url 'management_brand_list' %}?status=2" target="_blank">{% trans 'promotion brands' %}</a></li>
                         </ul>
 
                     </div>
@@ -36,12 +36,10 @@
                                 <tr>
                                     <th>#</th>
                                     <th>{% trans 'icon' %}</th>
-                                    <th>{% trans 'name' %}</th>
-                                    <th>{% trans 'company' %}</th>
-                                    <th>{% trans 'national' %}</th>
-                                    <th>{% trans 'website' %}</th>
+                                    <th>{% trans 'name' %}<input class="guoku_search_input" data-search-field="brand_name" type="text"></th>
+                                    <th>{% trans 'company' %}/{% trans 'national' %}/{% trans 'website' %}</th>
                                     <th>{% trans 'tmall' %}</th>
-                                    <th>{% trans 'status' %}</th>
+                                    <th class="status">{% trans 'status' %}</th>
                                     <th>{% trans 'score' %}</th>
                                     <th>{% trans 'operation' %}</th>
                                 </tr>
@@ -50,11 +48,19 @@
                                 {% for brand in brands %}
                                     <tr>
                                         <td>{{ brand.pk }}</td>
-                                        <td><img class="img-polaroid" style="max-height:150px;max-width:150px;"  src="{{ brand.icon_url }}"></td>
+                                        <td><img class="img-polaroid" style="max-height:150px;max-width:150px;"  src="{{ brand.icon_url|resize:100 }}"></td>
                                         <td>{{ brand.name }}</td>
-                                        <td>{{ brand.company }}</td>
-                                        <td>{{ brand.national }}</td>
-                                        <td>{{ brand.website }}</td>
+                                        <td>
+                                            <ul>
+                                                <li>{% trans 'company' %}: {{ brand.company }} </li>
+                                                <li>{% trans 'national' %} : {{ brand.national }}</li>
+                                                {% if brand.website %}
+                                                <li>{% trans 'website' %} :
+                                                    <a href="{{ brand.website }}">{{ brand.website|truncatechars:'30' }}</a></li>
+                                                {% endif %}
+                                            </ul>
+
+                                        </td>
                                         <td><a href="{{ brand.tmall_link }}">{{ brand.tmall_link }}</a></td>
                                         <td>{{ brand.get_status_display }}</td>
                                         <td>{{ brand.score }}</td>
@@ -126,4 +132,7 @@
 {#    </div>#}
 {#    </div>#}
 {#    {% include "management/paginator.html" with objects=brands url=request.path %}#}
+{% endblock %}
+{% block user_script %}
+        <script src="{% static 'js/management/manage_search.js' %}" type="application/javascript"></script>
 {% endblock %}

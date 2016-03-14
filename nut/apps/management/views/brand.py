@@ -3,6 +3,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views.generic import ListView
 from django.shortcuts import  redirect
+from django.utils.log import getLogger
 
 from apps.core.models import Brand
 from apps.core.models import Entity
@@ -11,7 +12,7 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 from apps.management.forms.brand import EditBrandForm, CreateBrandForm
 
 from haystack.query import SearchQuerySet
-from django.utils.log import getLogger
+from apps.core.mixins.views import SortMixin, FilterMixin
 
 log = getLogger('django')
 
@@ -45,16 +46,27 @@ class BrandStatView(BaseListView):
         return self.render_to_response(context)
 
 
-class BrandListView(ListView):
+class BrandListView(FilterMixin, ListView):
     template_name = "management/brand/list.html"
     context_object_name = 'brands'
     paginate_by = 30
     paginator_class = ExtentPaginator
+    model =  Brand
     # queryset = Brand.objects.all()
 
-    def get_queryset(self):
+    def filter_queryset(self, qs, filter_param):
+        filter_field , filter_value = filter_param
+        if filter_field == 'brand_name':
+            qs = qs.filter(name__icontains=filter_value.strip())
+        else:
+            pass
+        return qs
+
+
+    def get_queryset(self,*args, **kwargs):
+        qs = super(BrandListView, self).get_queryset(*args, **kwargs)
         status = self.request.GET.get('status', None)
-        qs = Brand.objects.all().order_by('-status','-score','-icon')
+        qs = qs.order_by('-status','-score','-icon')
 
         if not status is None:
             status = int(status)
@@ -65,6 +77,11 @@ class BrandListView(ListView):
             else:
                 pass
         return qs
+
+    def get_context_data(self, *args, **kwargs):
+        context  = super(BrandListView, self).get_context_data(*args, **kwargs)
+        context['status'] =  self.request.GET.get('status', None)
+        return context
 
 
 
