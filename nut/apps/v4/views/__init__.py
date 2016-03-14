@@ -405,21 +405,21 @@ def toppopular(request):
 
     return SuccessJsonResponse(res)
 
-@check_sign
-def unread(request):
-
-    _key = request.GET.get('session')
-
-    try:
-        _session = Session_Key.objects.get(session_key = _key)
-    except Session_Key.DoesNotExist:
-        return ErrorJsonResponse(status=403)
-
-    res = {
-        'unread_message_count': _session.user.notifications.read().count(),
-        'unread_selection_count': Selection_Entity.objects.get_user_unread(session=_session.session_key),
-    }
-    return SuccessJsonResponse(res)
+# @check_sign
+# def unread(request):
+#
+#     _key = request.GET.get('session')
+#
+#     try:
+#         _session = Session_Key.objects.get(session_key = _key)
+#     except Session_Key.DoesNotExist:
+#         return ErrorJsonResponse(status=403)
+#
+#     res = {
+#         'unread_message_count': _session.user.notifications.read().count(),
+#         'unread_selection_count': Selection_Entity.objects.get_user_unread(session=_session.session_key),
+#     }
+#     return SuccessJsonResponse(res)
 
 class UnreadView(APIJsonView):
 
