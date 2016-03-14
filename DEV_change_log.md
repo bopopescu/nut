@@ -1,4 +1,82 @@
-1. 
+3.
+2. brand mng list search 
+1. add brand score for control recommend brand order 
+## need run sql 
+ALTER TABLE `core`.`core_brand` 
+ADD COLUMN `score` INT(32) NULL DEFAULT 0 AFTER `tmall_link`;
+
+
+### add  a column  'score' on Brand model ,
+
+    for fine control the brand order 
+
+==================================
+# merged to master 2016 3 - 10 
+==================================
+
+2. store page recommend mng
+1. store page banner mng 
+0. article dig js update
+
+#action 
+
+need syncdb 
+
+
+=================================
+# merged to master 2016 － 3 － 4
+=================================
+
+
+# remove fetch_article module.
+
+### action
+
+    ALTER TABLE `core`.`core_article` 
+    CHANGE COLUMN `cleaned_title` `identity_code` VARCHAR(255) NULL     DEFAULT NULL COMMENT '' ;
+
+===
+
+
+
+
+5.  article hide weixin id when author don't have it 
+4.  shop style and type choice update (management )
+3.  show article dig message in message page 
+2.  article dig 
+1.  fix web message page bug (new selection)
+
+=================================
+# merged to master 2016 － 2 － 29
+=================================
+
+
+3.  authorized seller shop management
+2.  api user article list bug fig 
+1.  article writer follow button position 
+
+#action 
+
+ALTER TABLE `core`.`shop_shop` 
+CHANGE COLUMN `shop_desc` `shop_desc` VARCHAR(511) CHARACTER SET 'utf8mb4' NULL ,
+CHANGE COLUMN `shop_brands` `shop_brands` VARCHAR(255) CHARACTER SET 'utf8mb4' NULL ;
+
+ALTER TABLE `core`.`shop_shop` 
+ADD COLUMN `shop_style` INT(8) NULL DEFAULT 0 AFTER `shop_brands`,
+ADD COLUMN `shop_type` INT(8) NULL DEFAULT 0 AFTER `shop_style`;
+
+
+
+=================================
+# merged to master 2016 － 2 － 25
+=================================
+
+4.  discover page , recommended user 
+3.  authorized user profile add 3 field (points, is_recommended_user, rss_url)
+2.  discover page add popular article 
+1.  article page user info update
+    article page add user follow
+
 ##action 
 
 ALTER TABLE `core`.`core_authorized_user_profile` 

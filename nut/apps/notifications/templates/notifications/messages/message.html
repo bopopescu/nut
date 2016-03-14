@@ -19,22 +19,21 @@
             {% include 'notifications/messages/partial/ajax_notification.html' with messages=messages %}
         </div>
 
-
-        <div class="hidden-xs col-sm-4 right_part fs_14">
-            <p class="fc_2">热门分类</p>
-            <ul class="right_list fc_3">
-                {% for category in categories %}
-					<li><a target="_blank" href="{% url 'web_category_detail' category.id %}">{{ category.title|show_category }}</a></li>
-                {% endfor %}
-			</ul>
-            <div class="download_part">
-					<p class="fc_2">应用下载</p>
-					<div class="download_link">
-						<img src="{% static 'images/download/Android_download.png' %}" alt="" />
-						<p class="fc_1">与「甄选好物」结缘，与「有识之士」为伍，发现生活之美。<br /><a href="{% url 'web_download' %}" class="fc_3">查看详情 »</a></p>
-					</div>
-			</div>
-        </div>
+{#        <div class="hidden-xs col-sm-4 right_part fs_14">#}
+{#            <p class="fc_2">热门分类</p>#}
+{#            <ul class="right_list fc_3">#}
+{#                {% for category in categories %}#}
+{#					<li><a target="_blank" href="{% url 'web_category_detail' category.id %}">{{ category.title|show_category }}</a></li>#}
+{#                {% endfor %}#}
+{#			</ul>#}
+{#            <div class="download_part">#}
+{#					<p class="fc_2">应用下载</p>#}
+{#					<div class="download_link">#}
+{#						<img src="{% static 'images/download/Android_download.png' %}" alt="" />#}
+{#						<p class="fc_1">与「甄选好物」结缘，与「有识之士」为伍，发现生活之美。<br /><a href="{% url 'web_download' %}" class="fc_3">查看详情 »</a></p>#}
+{#					</div>#}
+{#			</div>#}
+{#        </div>#}
         <div class="row hidden-xs">
             <div class="col-sm-offset-12">
                 <a class="btn-top" href="javascript:;"  title="回到顶部" target="_self"><i class="fa fa-angle-up fa-lg"></i></a>

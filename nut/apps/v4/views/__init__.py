@@ -1,5 +1,6 @@
 #coding=utf-8
 from django.http import HttpResponseRedirect
+from django.core.paginator import Paginator
 
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
@@ -8,8 +9,7 @@ from apps.core.models import Show_Banner, \
     Buy_Link, Selection_Entity, Entity, \
     Entity_Like, Sub_Category
 
-from apps.core.utils.taobaoapi.utils import taobaoke_mobile_item_convert
-from apps.v4.models import APISelection_Entity, APIEntity, APICategory, APISeletion_Articles
+from apps.v4.models import APIUser, APISelection_Entity, APIEntity, APICategory, APISeletion_Articles, APIAuthorized_User_Profile
 from apps.v4.forms.pushtoken import PushForm
 from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
@@ -114,10 +114,6 @@ class HomeView(APIJsonView):
 
         return super(HomeView, self).get(request, *args, **kwargs)
 
-    # @check_sign
-    # def dispatch(self, request, *args, **kwargs):
-    #     return super(HomeView, self).dispatch(request, *args, **kwargs)
-
 
 class DiscoverView(APIJsonView):
     http_method_names = ['get']
@@ -136,15 +132,9 @@ class DiscoverView(APIJsonView):
                 }
             )
 
-        popular_list = Entity_Like.objects.popular_random()
-        _entities = APIEntity.objects.filter(id__in=popular_list, status=Entity.selection)
-        try:
-            _session = Session_Key.objects.get(session_key=_key)
-            el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=_entities)
-        except Session_Key.DoesNotExist, e:
-            # log.info(e.message)
-            el = None
-
+        '''
+        get Popular Articles List
+        '''
         res['articles'] = list()
         popular_articles = APISeletion_Articles.objects.discover()[:3]
         for row in popular_articles:
@@ -154,6 +144,18 @@ class DiscoverView(APIJsonView):
             }
             res['articles'].append(r)
 
+        '''
+        get Popular Entity List
+        '''
+        popular_list = Entity_Like.objects.popular_random()
+        _entities = APIEntity.objects.filter(id__in=popular_list, status=Entity.selection)
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+            el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=_entities)
+        except Session_Key.DoesNotExist, e:
+            # log.info(e.message)
+            el = None
+
         res['entities'] = list()
         for e in _entities:
             r = {
@@ -161,6 +163,9 @@ class DiscoverView(APIJsonView):
             }
             res['entities'].append(r)
 
+        '''
+        get Category
+        '''
         res['categories'] = list()
         # categories = APICategory.objects.filter(status=True)
         categories = APICategory.objects.popular()
@@ -170,11 +175,70 @@ class DiscoverView(APIJsonView):
                 'category': row.v4_toDict(),
             }
             res['categories'].append(r)
+
+
+        '''
+        get authorizeduser
+        '''
+        res['authorizeduser'] = list()
+
+        auth_users = APIUser.objects.recommended_user()
+
+        # user APIUser -> GKUser ->  GKUserManager interface query
+
+        # a user in Authorized_User_Profile table does not mean he is a authorized user .
+        # a user in Author or Seller group mean he is a authorized user
+
+        # auth_users = APIAuthorized_User_Profile\
+        #                 .objects.recommended_authorized_users()[:8]
+
+        for user in auth_users:
+            r = {
+                'user': user.v4_toDict()
+            }
+            # print r
+            res['authorizeduser'].append(r)
+            # print row.user.v4_toDict()
         return res
 
-    @check_sign
-    def dispatch(self, request, *args, **kwargs):
-        return super(DiscoverView, self).dispatch(request, *args, **kwargs)
+
+class AuthorizedUser(APIJsonView):
+
+    http_method_names = ['get']
+
+    def get_data(self, context):
+        _key = self.request.GET.get('session')
+        self.visitor = None
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+            self.visitor = _session.user
+        except Session_Key.DoesNotExist, e:
+            log.info(e.message)
+            self.visitor = None
+
+        res = dict()
+        res['authorized_user'] = list()
+        res['page'] = self.page
+        # res['size'] = self.size
+        user_list = APIUser.objects.recommended_user()
+        res['count'] = user_list.count()
+
+        paginator = Paginator(user_list, self.size)
+        try:
+            auth_users = paginator.page(self.page)
+        except Exception:
+            return res
+
+        for user in auth_users.object_list:
+            res['authorized_user'].append(
+                user.v4_toDict(self.visitor)
+            )
+        return res
+
+    def get(self, request, *args, **kwargs):
+        self.page = request.GET.get('page', 1)
+        self.size = request.GET.get('size', 15)
+        return super(AuthorizedUser, self).get(request, *args, **kwargs)
 
 
 @check_sign

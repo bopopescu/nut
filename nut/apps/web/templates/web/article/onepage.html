@@ -85,34 +85,26 @@
 {#                        </div>#}
 
                         <div class="share-wrapper share-wrapper-short share-wrapper-control">
-{#                             TEMP REMOVE BY ANCHEN #}
-{#                            <span class="dig-wrapper">#}
-{#                                <span class="{% if dig_status %} digged {% else %} undigged {% endif %} dig-action" data-article-id="{{ article.pk }}">#}
-{#                                    <img class="dig-img dig" src="{% static 'images/article/dig.png' %}" >#}
-{#                                    <img class="dig-img undig" src="{% static 'images/article/undig.png' %}" >#}
-{#                                </span>#}
-{#                                <span class="dig-info">#}
-{#                                    <span class="dig-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>#}
-{#                                    <span class="dig-word">赞</span>#}
-{#                                </span>#}
-{#                            </span>#}
-                         <!-- JiaThis Button BEGIN -->
-{#                            <div class="jiathis_style for-browser">#}
-{#                                <a class="jiathis_button_tsina"></a>#}
-{#                                <a class="jiathis_button_weixin"></a>#}
-{#                                <a class="jiathis_button_qzone"></a>#}
-{#                                <a class="jiathis_button_tqq"></a>#}
-{#                                <a class="jiathis_button_tieba"></a>#}
-{#                                <a href="http://www.jiathis.com/share?uid=2038803" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>#}
-{#                            </div>#}
-{#                            <span class="share-intro-entity for-browser">分享到&nbsp;&nbsp;</span>#}
-
-
-                            <!-- JiaThis Button END -->
 
 {#                            add article share button begin#}
                             <div class="article-share for-browser ">
-                                <ul>
+
+                             <span class="dig-wrapper">
+                                <span class="{% if dig_status %} digged {% else %} undigged {% endif %} dig-action" data-article-id="{{ article.pk }}">
+                                    <img class="dig-img dig" src="{% static 'images/article/dig.png' %}" >
+                                    <img class="dig-img undig" src="{% static 'images/article/undig.png' %}" >
+                                </span>
+                                <span class="dig-info">
+                                    <span class="dig-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>
+
+                                    <span class="dig-word">
+                                    {% if not article.dig_count %}
+                                        赞
+                                    {% endif %}
+                                    </span>
+                                </span>
+                            </span>
+                                <ul class="share-bt-list">
 
                                     <li class="list-item list-item-weixin img-holder">
                                         <a class="logo-wechat normal-share-btn">
@@ -141,7 +133,7 @@
 {#                            article share button end#}
                         </div>
                         <div class="divider article-divider divider-control"></div>
-                        <div class="writer-wrapper">
+                        <div class="writer-wrapper writer-wrapper-control">
 {#                            <div class="row">#}
 {#                                <div class="write-pre col-xs-12 col-sm-12">#}
 {#                                </div>#}
@@ -196,19 +188,6 @@
                                           <img src="{% static 'images/author/official_media.png' %}" width="16px" height="16px" class="writer-authorized"/>
                                         {% endif %}
 
-                                        {#                                        关注按钮#}
-                                        {% if article.creator.is_blocked %}
-                                                <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
-                                                {% elif article.creator == request.user %}
-
-                                                {% elif request.user.id in article.creator.concren %}
-                                                <a class="follow article-user-follow guoku-button btn-cancel" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                                                {% elif request.user.id in article.creator.fans_list %}
-                                                <a class="follow article-user-follow guoku-button btn-cancel" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                                                {% else %}
-                                                <a class="follow article-user-follow guoku-button button-blue" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
-                                            {% endif %}
-
                                     </div>
 
                                     <div class="writer-name for-mobile">
@@ -217,7 +196,7 @@
                                         </a>
                                     </div>
                                     <div class="writer-bio writer-bio-control">
-                                        {% if article.creator.is_authorized_author %}
+                                        {% if article.creator.is_authorized_author and  article.creator.authorized_profile.weixin_id %}
                                             <span class="weixin-id">
                                             微信号：{{ article.creator.authorized_profile.weixin_id }}
                                             </span>
@@ -229,12 +208,20 @@
                                     </div>
                                 </div>
 
-{#                                <div class="writer-action col-xs-2 col-sm-2">#}
-{#                                    <a class="guoku-button button-blue" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>#}
-{##}
-{#                                </div>#}
 
                             </div>
+                            {#                                        关注按钮#}
+                            {% if article.creator.is_blocked %}
+                                <a  class="guoku-button button-disabled for-browser" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
+                                {% elif article.creator == request.user %}
+
+                            {% elif request.user.id in article.creator.concren %}
+                                <a class="follow article-user-follow guoku-button btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                            {% elif request.user.id in article.creator.fans_list %}
+                                <a class="follow article-user-follow guoku-button btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                            {% else %}
+                                <a class="follow article-user-follow guoku-button button-blue for-browser" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+                            {% endif %}
 {#                            {% endif %}#}
 
                         </div>

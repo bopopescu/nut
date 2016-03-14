@@ -31,22 +31,8 @@
                                 <img src="{% static 'images/author/official_media.png' %}" width="16px" height="16px" class="sidebar-writer-authorized"/>
                             {% endif %}
 
-                          <div class="sidebar-follow-wrapper">
-                              {% if article.creator.is_blocked %}
-                                  <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
-                                  {% elif article.creator == request.user %}
-
-                              {% elif request.user.id in article.creator.concren %}
-                                  <a class="follow sidebar-user-follow guoku-button btn-cancel" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                                  {% elif request.user.id in article.creator.fans_list %}
-                                  <a class="follow sidebar-user-follow guoku-button btn-cancel" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                              {% else %}
-                                  <a class="follow sidebar-user-follow guoku-button button-blue" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
-                              {% endif %}
-                          </div>
-
                             <div class="writer-bio">
-                                {% if article.creator.is_authorized_author %}
+                                {% if article.creator.is_authorized_author  and article.creator.authorized_profile.weixin_id %}
                                     <span class="weixin-id" style="line-height:30px;">
                                             微信号：{{ article.creator.authorized_profile.weixin_id }}
                                             </span>

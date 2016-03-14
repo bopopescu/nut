@@ -21,13 +21,15 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, Group
 
-from apps.fetch.common import clean_title
 from apps.notifications import notify
 from apps.core.utils.image import HandleImage
 from apps.core.utils.articlecontent import contentBleacher
 from apps.core.extend.fields.listfield import ListObjectField
 from apps.web.utils.datatools import get_entity_list_from_article_content
 from apps.core.manager import *
+from apps.core.manager.account import  AuthorizedUserManager
+from haystack.query import SearchQuerySet
+
 
 
 log = getLogger('django')
@@ -142,6 +144,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         if self.is_active == GKUser.blocked or self.is_active == GKUser.remove:
             return True
         return False
+
+    @property
+    def not_blocked(self):
+        return not self.is_blocked
 
     @property
     def is_removed(self):
@@ -349,6 +355,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         # res['article_count'] = self.article_cout
         res['fan_count'] = self.fans_count
         res['following_count'] = self.following_count
+        res['authorized_author'] = self.is_authorized_author
 
         try:
             res['sina_screen_name'] = self.weibo.screen_name
@@ -426,6 +433,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         else:
             self.groups.remove(author_group)
         self.refresh_user_permission()
+    @property
+    def is_authorized_user(self):
+        return self.is_authorized_author or self.is_authorized_seller
+
 
 
     def save(self, *args, **kwargs):
@@ -461,9 +472,6 @@ class Authorized_User_Profile(BaseModel):
     rss_url = models.URLField(max_length=255 ,null=True, blank=True)
     points=models.IntegerField(default=0)
     is_recommended_user = models.BooleanField(default=False, db_index=True)
-
-
-
 
 
 class User_Profile(BaseModel):
@@ -748,6 +756,7 @@ class Brand(BaseModel):
     national = models.CharField(max_length=100, null=True, default=None)
     intro = models.TextField()
     status = models.IntegerField(choices=BRAND_STATUS_CHOICES, default=pending)
+    score =  models.IntegerField(default=0, null=False, blank=False)
     created_date = models.DateTimeField(auto_now=True, db_index=True)
 
     class Meta:
@@ -758,6 +767,10 @@ class Brand(BaseModel):
         if self.icon:
             return "%s%s" % (image_host, self.icon)
         return None
+
+    @property
+    def entities(self):
+        return SearchQuerySet().models(Entity).filter(brand=self.name)
 
     # @property
     # def shop_id(self):
@@ -1308,7 +1321,7 @@ class Article(BaseModel):
 
     creator = models.ForeignKey(GKUser, related_name="articles")
     title = models.CharField(max_length=64)
-    cleaned_title = models.TextField(null=True, blank=True)
+    identity_code = models.TextField(null=True, blank=True)
     cover = models.CharField(max_length=255, blank=True)
     content = models.TextField()
     publish = models.IntegerField(choices=ARTICLE_STATUS_CHOICES, default=draft)
@@ -1362,8 +1375,6 @@ class Article(BaseModel):
     def save(self, *args, **kwargs):
         if not kwargs.pop('skip_updatetime', False):
             self.updated_datetime = datetime.now()
-        if not self.cleaned_title:
-            self.cleaned_title = clean_title(self.title)
         res = super(Article, self).save(*args, **kwargs)
         # add article related entities,
         hash_list = get_entity_list_from_article_content(self.content)
@@ -1927,6 +1938,19 @@ def user_like_notification(sender, instance, created, **kwargs):
 
 post_save.connect(user_like_notification, sender=Entity_Like,
                   dispatch_uid="user_like_action_notification")
+
+
+def user_dig_notification(sender, instance, created, **kwargs):
+    if issubclass(sender, Article_Dig) and created:
+        if instance.user.is_blocked:
+            return
+        if instance.user !=  instance.article.creator:
+            notify.send(instance.user, recipient=instance.article.creator, \
+                        action_object=instance, verb='dig article',\
+                        target = instance.article)
+
+post_save.connect(user_dig_notification, sender=Article_Dig, \
+                  dispatch_uid="user_dig_action_notification")
 
 from apps.tag.tasks import generator_tag
 def user_post_note_notification(sender, instance, created, **kwargs):

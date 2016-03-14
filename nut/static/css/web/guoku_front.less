@@ -3,6 +3,7 @@
 @import "../lib/normal.less";
 @import "../lib/widgets.less";
 @import "../lib/entity.less";
+@import "../lib/message.less";
 @import "../lib/article.less";
 @import "../lib/egypt.less";
 
@@ -1207,6 +1208,10 @@ body.compact-body{
 
 #detail_content_right{
   padding-left: 10px;
+  .sidebar-follow-wrapper{
+    overflow:auto;
+  }
+
 
   .section{
     .panel;
@@ -1483,6 +1488,7 @@ body.compact-body{
 
 #discover_entity_list,#category-entity-list,
 .search-entity-item,.search-tag-item {
+  padding:0px 9px;
   .fa {
     font-size: 24px;
   }
@@ -1614,6 +1620,7 @@ body.compact-body{
    .selection-article-item{
      display: inline-block;
      position:relative;
+     padding:0 9px;
      .article-panel{
         .panel-no-padding;
         width:100%;

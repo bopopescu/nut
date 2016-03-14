@@ -6,7 +6,8 @@ from apps.management.views.users import MediaListView, \
                                         UserSellerSetView,\
                                         SellerShopListView,\
                                         SellerShopCreateView,\
-                                        SellerShopUpdateView
+                                        SellerShopUpdateView,\
+                                        SellerShopDeleteView
 
 
 urlpatterns = patterns(
@@ -24,14 +25,13 @@ urlpatterns = patterns(
     url(r'^(?P<user_id>\d+)/setAuthor/$', UserAuthorSetView.as_view(), name='management_user_setAuthor'),
     url(r'^(?P<user_id>\d+)/setSeller/$', UserSellerSetView.as_view(), name='management_user_setSeller'),
 
-
     url(r'^(?P<user_id>\d+)/editAuthorInfo/$', UserAuthorInfoEditView.as_view(), name='management_user_editAuthor'),
 
     # for seller shop management
     url(r'^(?P<user_id>\d+)/shops/$', SellerShopListView.as_view(), name='management_user_shop_list'),
     url(r'^(?P<user_id>\d+)/shops/new/$', SellerShopCreateView.as_view(), name='management_user_shop_create'),
     url(r'^(?P<user_id>\d+)/shops/(?P<shop_id>\d+)/update/$', SellerShopUpdateView.as_view(), name='management_user_shop_update'),
-
+    url(r'^(?P<user_id>\d+)/shops/(?P<shop_id>\d+)/delete/$', SellerShopDeleteView.as_view(), name='management_user_shop_delete'),
 
 )
 
