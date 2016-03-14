@@ -1,6 +1,8 @@
 # coding=utf-8
 from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.views.generic import ListView
+from django.shortcuts import  redirect
 
 from apps.core.models import Brand
 from apps.core.models import Entity
@@ -43,31 +45,28 @@ class BrandStatView(BaseListView):
         return self.render_to_response(context)
 
 
-class BrandListView(BaseListView):
+class BrandListView(ListView):
     template_name = "management/brand/list.html"
+    context_object_name = 'brands'
+    paginate_by = 30
+    paginator_class = ExtentPaginator
     # queryset = Brand.objects.all()
 
     def get_queryset(self):
+        status = self.request.GET.get('status', None)
+        qs = Brand.objects.all().order_by('-status','-score','-icon')
 
-        return Brand.objects.all()
+        if not status is None:
+            status = int(status)
+            if status == Brand.publish:
+                qs = qs.filter(status=Brand.publish)
+            elif status == Brand.promotion:
+                qs = qs.filter(status=Brand.promotion)
+            else:
+                pass
+        return qs
 
-    def get(self, request):
-        _brand_list = self.get_queryset()
-        page = request.GET.get('page', 1)
 
-        paginator = ExtentPaginator(_brand_list, 30)
-
-        try:
-            _banrds = paginator.page(page)
-        except InvalidPage:
-            _banrds = paginator.page(1)
-        except EmptyPage:
-            raise Http404
-
-        context = {
-            'brands':_banrds,
-        }
-        return self.render_to_response(context)
 
 
 class BrandEntityListView(BaseListView):
@@ -104,6 +103,8 @@ class BrandEntityListView(BaseListView):
             'entities': _entities,
         }
         return self.render_to_response(context)
+
+
 
 
 class BrandEditView(BaseFormView):
@@ -146,6 +147,8 @@ class BrandEditView(BaseFormView):
         form = self.get_form_class(brand=brand)
         if form.is_valid():
             brand = form.save()
+            return redirect('management_brand_list')
+
 
         context = {
             'form':form,

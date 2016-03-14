@@ -157,7 +157,7 @@ msgstr "发布"
 
 #: apps/core/models.py:715
 msgid "promotion"
-msgstr "操作"
+msgstr "推荐"
 
 #: apps/core/models.py:754 apps/core/forms/entity.py:258
 #: apps/management/templates/management/category/entity/category_entity_list.html:24
@@ -193,7 +193,7 @@ msgstr "冻结"
 #: apps/core/models.py:1019
 #: apps/management/templates/management/buy_link/list.html:13
 msgid "sale"
-msgstr ""
+msgstr "热卖"
 
 #: apps/core/models.py:1020
 #: apps/management/templates/management/buy_link/list.html:14
@@ -204,13 +204,13 @@ msgstr "商品下架"
 #: apps/management/templates/management/notes/list.html:26
 #: apps/management/templates/management/users/notes.html:18
 msgid "top"
-msgstr ""
+msgstr "置顶"
 
 #: apps/core/models.py:1075
 #: apps/management/templates/management/notes/list.html:27
 #: apps/management/templates/management/users/notes.html:19
 msgid "normal"
-msgstr ""
+msgstr "普通"
 
 #: apps/core/models.py:1280
 #: apps/management/templates/management/article/selection_article_list.html:24
@@ -581,7 +581,7 @@ msgstr "简介"
 
 #: apps/core/forms/brand.py:75
 msgid "300 - 1000 words"
-msgstr ""
+msgstr "300到1000字"
 
 #: apps/core/forms/category.py:104 apps/core/forms/category.py:154
 msgid "parent category"
@@ -710,7 +710,7 @@ msgstr ""
 
 #: apps/core/forms/event.py:41
 msgid "is_on_top"
-msgstr "置顶"
+msgstr "是否置顶"
 
 #: apps/core/forms/event.py:54
 msgid "is the event published ?"
