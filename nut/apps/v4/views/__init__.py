@@ -421,6 +421,26 @@ def unread(request):
     }
     return SuccessJsonResponse(res)
 
+class UnreadView(APIJsonView):
+
+    def get_data(self, context):
+        try:
+            _session = Session_Key.objects.get(session_key = _key)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
+        res = {
+            ' unread_message_count': _session.user.notifications.read().count(),
+            'unread_selection_count': Selection_Entity.objects.get_user_unread(session=_session.session_key),
+        }
+        return res
+
+
+    def get(self, request, *args, **kwargs):
+        self.key = request.GET.get('session', None)
+        if self.key is None:
+          return ErrorJsonResponse(status=403)
+        return super(UnreadView, self).get(request, *args, **kwargs)
+
 
 def visit_item(request, item_id):
     _ttid = request.GET.get("ttid", None)
