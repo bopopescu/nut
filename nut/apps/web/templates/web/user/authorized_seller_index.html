@@ -118,7 +118,7 @@
 {#            </div>#}
             {% include 'web/main/partial/entity.html' with entity=entity%}
             {% empty %}
-            <div class="empty-panel-content">
+            <div class="col-xs-6 col-sm-3 search-entity-item new-empty-panel-content">
                 <span>暂无商品</span>
             </div>
         {% endfor %}
@@ -130,7 +130,7 @@
       </div>
     </div>
     <div class="row user-article-wrapper">
-{#      {% for article in author_articles  %}#}
+
         <div class="user-article-item-wrapper user-article-cell col-xs-12 col-sm-4 col-md-4 col-lg-4">
             <div class="user-article-panel">
                 <a href="http://www.guoku.com/articles/4058/" target="_blank">
@@ -145,9 +145,9 @@
 
                 <div class="user-article-intro-wrapper">
                     <p class="user-article-intro">
-{#                        {% autoescape off %}#}
-{#                        {{ article.content|striptags|truncatechars:120 }}#}
-{#                        {% endautoescape %}#}
+                        {% autoescape off %}
+                        {{ article.content|striptags|truncatechars:120 }}
+                        {% endautoescape %}
                           2016年，植觉招募新的小伙伴点击上方图片进入寻人详情一个字太重！图源网络：植觉编撰转载请注明出处：植觉intuition
                     </p>
 
@@ -156,7 +156,7 @@
                 <div class="user-article-info-wrapper">
                         <span class="user-article-time">
                             <i class="fa fa-clock-o"></i>
-{#                            {{ article.created_datetime|format_time }}#}
+                            {{ article.created_datetime|format_time }}
                               三天前
                         </span>
                 </div>
@@ -179,9 +179,9 @@
 
                 <div class="user-article-intro-wrapper">
                     <p class="user-article-intro">
-{#                        {% autoescape off %}#}
-{#                        {{ article.content|striptags|truncatechars:120 }}#}
-{#                        {% endautoescape %}#}
+                        {% autoescape off %}
+                        {{ article.content|striptags|truncatechars:120 }}
+                        {% endautoescape %}
                           2016年，植觉招募新的小伙伴点击上方图片进入寻人详情一个字太重！图源网络：植觉编撰转载请注明出处：植觉intuition
                     </p>
 
@@ -190,7 +190,7 @@
                 <div class="user-article-info-wrapper">
                         <span class="user-article-time">
                             <i class="fa fa-clock-o"></i>
-{#                            {{ article.created_datetime|format_time }}#}
+                            {{ article.created_datetime|format_time }}
                               三天前
                         </span>
                 </div>
@@ -211,9 +211,9 @@
 
                 <div class="user-article-intro-wrapper">
                     <p class="user-article-intro">
-{#                        {% autoescape off %}#}
-{#                        {{ article.content|striptags|truncatechars:120 }}#}
-{#                        {% endautoescape %}#}
+                        {% autoescape off %}
+                        {{ article.content|striptags|truncatechars:120 }}
+                        {% endautoescape %}
                           2016年，植觉招募新的小伙伴点击上方图片进入寻人详情一个字太重！图源网络：植觉编撰转载请注明出处：植觉intuition
                     </p>
 
@@ -222,7 +222,7 @@
                 <div class="user-article-info-wrapper">
                         <span class="user-article-time">
                             <i class="fa fa-clock-o"></i>
-{#                            {{ article.created_datetime|format_time }}#}
+                            {{ article.created_datetime|format_time }}
                               三天前
                         </span>
                 </div>
@@ -230,7 +230,10 @@
             </div>
         </div>
 
-{#      {% endfor %}#}
+{#        {% empty %}#}
+{#        <div class="col-xs-6 col-sm-3 search-entity-item new-empty-panel-content">#}
+{#            <span>暂无图文</span>#}
+{#        </div>#}
     </div>
 
     {% include 'web/main/partial/number_paginator.html' with objects=author_articles url=request.path %}
