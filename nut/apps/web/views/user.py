@@ -643,4 +643,12 @@ def following(request, user_id, templates="web/user/following.html"):
         context_instance = RequestContext(request),
     )
 
+
+
+class UserEntitiesView(UserDetailBase):
+
+    template_name = 'web/user/user_note.html'
+    context_object_name = 'current_user_entities'
+
+
 __author__ = 'edison'
