@@ -1,9 +1,11 @@
 ## need run sql 
+ALTER TABLE `core`.`core_brand` 
+ADD COLUMN `score` INT(32) NULL DEFAULT 0 AFTER `tmall_link`;
 
-ALTER TABLE `core`.`shop_storepagebanners` 
-ADD COLUMN `banner_title` VARCHAR(127) NULL AFTER `status`,
-ADD COLUMN `banner_desc` VARCHAR(255) NULL AFTER `banner_title`;
 
+### add  a column  'score' on Brand model ,
+
+    for fine control the brand order 
 
 ==================================
 # merged to master 2016 3 - 10 

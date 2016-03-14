@@ -23,7 +23,11 @@
                         <ul class="nav nav-pills" role="tablist">
                             <li><a class="btn btn-primary" href="{% url 'management_brand_stat' %}" target="_blank">{% trans 'brand stat' %}</a></li>
                             <li><a class="btn btn-primary" href="{% url 'management_brand_create' %}" target="_blank">{% trans 'add' %}</a></li>
+                            <li><a class="btn btn-primary" href="{% url 'management_brand_list' %}" target="_blank">{% trans 'All brands' %}</a></li>
+                            <li><a class="btn btn-primary" href="{% url 'management_brand_list' %}?status=1" target="_blank">{% trans 'published brands' %}</a></li>
+                            <li><a class="btn btn-primary" href="{% url 'management_brand_list' %}?status=2" target="_blank">{% trans 'promotion brands' %}</a></li>
                         </ul>
+
                     </div>
 
                     <div class="box-body table-responsive">
@@ -37,6 +41,8 @@
                                     <th>{% trans 'national' %}</th>
                                     <th>{% trans 'website' %}</th>
                                     <th>{% trans 'tmall' %}</th>
+                                    <th>{% trans 'status' %}</th>
+                                    <th>{% trans 'score' %}</th>
                                     <th>{% trans 'operation' %}</th>
                                 </tr>
                             </thead>
@@ -50,6 +56,8 @@
                                         <td>{{ brand.national }}</td>
                                         <td>{{ brand.website }}</td>
                                         <td><a href="{{ brand.tmall_link }}">{{ brand.tmall_link }}</a></td>
+                                        <td>{{ brand.get_status_display }}</td>
+                                        <td>{{ brand.score }}</td>
                                         <td>
                                             <div class="btn-group">
                                                 <a class="btn btn-success" href="{% url 'management_brand_entity_list' brand.name %}" target="_blank">{% trans 'entity' %}</a>

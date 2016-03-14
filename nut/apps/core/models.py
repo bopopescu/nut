@@ -756,6 +756,7 @@ class Brand(BaseModel):
     national = models.CharField(max_length=100, null=True, default=None)
     intro = models.TextField()
     status = models.IntegerField(choices=BRAND_STATUS_CHOICES, default=pending)
+    score =  models.IntegerField(default=0, null=False, blank=False)
     created_date = models.DateTimeField(auto_now=True, db_index=True)
 
     class Meta:
