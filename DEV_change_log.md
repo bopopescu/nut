@@ -1,4 +1,5 @@
-2. 
+3.
+2. brand mng list search 
 1. add brand score for control recommend brand order 
 ## need run sql 
 ALTER TABLE `core`.`core_brand` 
