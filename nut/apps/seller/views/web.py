@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView, ListView
 from apps.seller.models import Seller_Profile
-from apps.core.models import Entity, Article
+from apps.core.models import Entity, Article , GKUser
 
 
 
@@ -46,9 +46,4 @@ class SellerView(TemplateView):
         return context
 
 
-
-
-class StoreView(TemplateView):
-
-    template_name = 'web/seller/good_store.html'
 
