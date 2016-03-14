@@ -807,6 +807,15 @@ p.boolean-false {
   border-radius: 5px;
   font-size: 18px;
 }
+.new-empty-panel-content {
+  display: block;
+  width: 100%;
+  min-height: 180px;
+  line-height: 180px;
+  text-align: center;
+  border: 1px solid #ebebeb;
+  color: #9D9E9F;
+}
 .batch-selection-modal {
   -webkit-user-select: none;
   -moz-user-select: none;
