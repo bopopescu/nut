@@ -392,9 +392,12 @@ class UserPublishedSelectionArticleView(UserDetailBase):
 
 # add seller entities view
 class UserEntitiesView(UserDetailBase):
+    model = GKUser
+    pk_url_kwarg = 'user_id'
 
     template_name = 'web/user/authorized_seller_entities.html'
     context_object_name = 'current_user_entities'
+
 
 from apps.web.forms.user import UserArticleStatusFilterForm
 class UserArticleView(UserDetailBase):
