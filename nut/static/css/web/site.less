@@ -95,7 +95,7 @@
   }
   .category-wrapper,#selection_article_list{
      .section-title-wrapper{
-       margin-top:30px;
+       margin-top:10px;
      }
   }
   #discover_entity_list .section-title-wrapper{
@@ -1126,6 +1126,9 @@ a:hover{text-decoration:underline;}
       }
     }
   }
+  #main_article .writer-wrapper.writer-wrapper-control{
+    padding-top:0;
+  }
 }
 
 
@@ -1252,19 +1255,23 @@ a:hover{text-decoration:underline;}
 
 .main-article{
 
-  .writer-wrapper{
+  .writer-wrapper.writer-wrapper-control{
+    position:relative;
+    .article-user-follow{
+        position:absolute;
+      right:0;
+      top:0;
+        margin-top:0;
+        margin-left:8px;
+        width:auto;
+        float: none;
+    }
     .write-pre{
       margin-bottom: 10px;
     }
     .writer-intro{
       .writer-name{
         font-size: @subtitle-size;
-      }
-      .article-user-follow{
-        margin-top:0;
-        margin-left:8px;
-        width:auto;
-        float: none;
       }
       .writer-authorized{
         margin-left:8px;

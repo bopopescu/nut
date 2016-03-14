@@ -360,7 +360,7 @@ p .b_day {
 }
 .entity-four.thumbnail {
   border: none;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   padding: 0px 0px 16px 0px;
   background-color: #fff;
   -webkit-border-radius: 4px;
@@ -752,7 +752,7 @@ p.boolean-false {
 }
 #discover_container .category-wrapper .section-title-wrapper,
 #discover_container #selection_article_list .section-title-wrapper {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 #discover_container #discover_entity_list .section-title-wrapper {
   margin-top: -5px;
@@ -1820,6 +1820,9 @@ a:hover {
   .entity-selection .img-box a {
     width: 100%;
   }
+  #main_article .writer-wrapper.writer-wrapper-control {
+    padding-top: 0;
+  }
 }
 #detail_content .share-wrapper {
   margin-top: 60px;
@@ -1927,29 +1930,35 @@ a:hover {
   color: #9D9E9F;
   margin-bottom: 10px;
 }
-.main-article .writer-wrapper .write-pre {
-  margin-bottom: 10px;
+.main-article .writer-wrapper.writer-wrapper-control {
+  position: relative;
 }
-.main-article .writer-wrapper .writer-intro .writer-name {
-  font-size: 18px;
-}
-.main-article .writer-wrapper .writer-intro .article-user-follow {
+.main-article .writer-wrapper.writer-wrapper-control .article-user-follow {
+  position: absolute;
+  right: 0;
+  top: 0;
   margin-top: 0;
   margin-left: 8px;
   width: auto;
   float: none;
 }
-.main-article .writer-wrapper .writer-intro .writer-authorized {
+.main-article .writer-wrapper.writer-wrapper-control .write-pre {
+  margin-bottom: 10px;
+}
+.main-article .writer-wrapper.writer-wrapper-control .writer-intro .writer-name {
+  font-size: 18px;
+}
+.main-article .writer-wrapper.writer-wrapper-control .writer-intro .writer-authorized {
   margin-left: 8px;
 }
-.main-article .writer-wrapper .writer-intro .writer-bio {
+.main-article .writer-wrapper.writer-wrapper-control .writer-intro .writer-bio {
   color: #9D9E9F;
   font-size: 13px;
 }
-.main-article .writer-wrapper .writer-intro .writer-bio.writer-bio-control {
+.main-article .writer-wrapper.writer-wrapper-control .writer-intro .writer-bio.writer-bio-control {
   max-width: 460px;
 }
-.main-article .writer-wrapper .writer-intro .writer-bio .weixin-id {
+.main-article .writer-wrapper.writer-wrapper-control .writer-intro .writer-bio .weixin-id {
   line-height: 30px;
 }
 @media (max-width: 400px) {
@@ -2176,3 +2185,4 @@ html {
 .test {
   color: red;
 }
+/*# sourceMappingURL=site.less.css.map */

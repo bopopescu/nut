@@ -2,7 +2,7 @@ from django.http import Http404, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, UpdateView , CreateView
+from django.views.generic import ListView, UpdateView , CreateView, DeleteView
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms import ModelForm ,BooleanField, HiddenInput
 
@@ -105,8 +105,8 @@ class SellerContextMixin(object):
         _user = get_object_or_404(GKUser, pk=_user_id)
         return _user
 
-    def get_context_data(self, **kwargs):
-        context = super(SellerContextMixin, self).get_context_data()
+    def get_context_data(self,*args, **kwargs):
+        context = super(SellerContextMixin, self).get_context_data(*args, **kwargs)
         context['current_user'] = self.get_user()
         return context
 
@@ -128,21 +128,44 @@ class SellerShopCreateView(SellerContextMixin,CreateView):
     template_name =  'management/users/shop/seller_shop_create.html'
     model = Shop
     form_class =  SellerShopForm
-    fields = ['owner','shop_title','shop_link','shop_desc','shop_brands']
 
-    def get_initial(self):
-        initial = super(CreateView, self).get_initial()
+    def get_initial(self, *args, **kwargs):
+        initial = super(SellerShopCreateView, self).get_initial(*args, **kwargs)
         owner_pk = self.kwargs.get('user_id')
         initial['owner'] = owner_pk
+        return initial
 
     def get_success_url(self):
         _user = self.get_user()
-        return reverse_lazy('management_user_shop_list',args={'user_id':_user.pk})
+        return reverse_lazy('management_user_shop_list', kwargs={'user_id':_user.pk})
 
 
 class SellerShopUpdateView(SellerContextMixin,UpdateView):
+    # use save template with create view for now
     template_name = 'management/users/shop/seller_shop_update.html'
-    pass
+    model = Shop
+    form_class =  SellerShopForm
+    pk_url_kwarg = 'shop_id'
+
+    def get_initial(self, *args, **kwargs):
+        initial = super(SellerShopUpdateView, self).get_initial(*args, **kwargs)
+        owner_pk = self.kwargs.get('user_id')
+        initial['owner'] = owner_pk
+        return initial
+
+    def get_success_url(self):
+        _user = self.get_user()
+        return reverse_lazy('management_user_shop_list', kwargs={'user_id':_user.pk})
+
+
+class SellerShopDeleteView(SellerContextMixin, DeleteView):
+    template_name = 'management/users/shop/seller_shop_delete.html'
+    model = Shop
+    pk_url_kwarg = 'shop_id'
+    def get_success_url(self):
+        _user = self.get_user()
+        return reverse_lazy('management_user_shop_list', kwargs={'user_id':_user.pk})
+
 
 
 #Seller shop management End ======================
@@ -191,6 +214,8 @@ class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListVie
             user_list = querySet.admin().using('slave')
         elif active == '666':
             user_list = querySet.authorized_seller().using('slave')
+        elif active == '789':
+            user_list = querySet.authorized_user().using('slave')
         else:
             user_list= []
 
@@ -199,6 +224,7 @@ class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListVie
     def get_context_data(self, *args, **kwargs):
         context = super(UserManagementListView, self).get_context_data()
         context['active'] = self.getActiveStatus()
+
         return context
 
     def test_func(self, user):
