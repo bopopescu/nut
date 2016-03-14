@@ -5,7 +5,8 @@ from apps.web.views.user import UserIndex,\
                                 UserTagView, UserArticleView,\
                                 UserFansView, UserFollowingsView,\
                                 UserPublishedArticleView,UserPublishedSelectionArticleView,\
-                                UserSendVerifyMail
+                                UserSendVerifyMail,\
+                                UserEntitiesView
 
 from apps.web.views.user import ChangePasswdFormView
 
@@ -47,7 +48,7 @@ urlpatterns = patterns(
     # Azure thinks the user's goods link below is an abandon link.
     url(r'^(?P<user_id>\d+)/goods/$', 'user_goods', name='web_user_goods'),
     # create a goods link for seller
-    # url(r'^(?P<user_id>\d+)/entities/$', 'UserEntitiesView.as_view()', name='web_user_entities'),
+    url(r'^(?P<user_id>\d+)/entities/$', UserEntitiesView.as_view(), name='web_user_entities'),
 
 
     url(r'^(?P<user_id>\d+)/follow/$', 'follow_action', name='web_user_follow_action'),

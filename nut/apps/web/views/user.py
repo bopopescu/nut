@@ -390,6 +390,12 @@ class UserPublishedSelectionArticleView(UserDetailBase):
         return _article_list
 
 
+# add seller entities view
+class UserEntitiesView(UserDetailBase):
+
+    template_name = 'web/user/authorized_seller_entities.html'
+    context_object_name = 'current_user_entities'
+
 from apps.web.forms.user import UserArticleStatusFilterForm
 class UserArticleView(UserDetailBase):
     template_name =  'web/user/user_article.html'
@@ -645,10 +651,6 @@ def following(request, user_id, templates="web/user/following.html"):
 
 
 
-# class UserEntitiesView(UserDetailBase):
-#
-#     template_name = 'web/user/authorized_seller_entities.html'
-#     context_object_name = 'current_user_entities'
 
 
 __author__ = 'edison'
