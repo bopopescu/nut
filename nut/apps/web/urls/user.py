@@ -44,7 +44,10 @@ urlpatterns = patterns(
     # url(r'^(?P<user_id>\d+)/fans/$', 'fans', name='web_user_fans'),
     # url(r'^(?P<user_id>\d+)/followings/$', 'following', name='web_user_followings'),
 
+    # Azure thinks the user's goods link below is an abandon link.
     url(r'^(?P<user_id>\d+)/goods/$', 'user_goods', name='web_user_goods'),
+    # create a goods link for seller
+    url(r'^(?P<user_id>\d+)/entities/$', 'user_entities', name='web_user_entities'),
 
 
     url(r'^(?P<user_id>\d+)/follow/$', 'follow_action', name='web_user_follow_action'),
