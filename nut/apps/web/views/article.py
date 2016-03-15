@@ -329,6 +329,7 @@ class ArticleTextRankView(BaseJsonView):
 
     def get_data(self, context):
         article_textrank_url = "%s%s" % (textrank_url, self.article_id)
+        log.info(article_textrank_url)
         r = requests.get(article_textrank_url)
         return r.json()
 

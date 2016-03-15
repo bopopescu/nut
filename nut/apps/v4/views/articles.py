@@ -47,6 +47,17 @@ class ArticlesListView(APIJsonView):
         self.page = request.GET.get('page', 1)
         self.size = request.GET.get('size', 10)
         self.timestamp = request.GET.get('timestamp', None)
+
+        _key = request.GET.get('session', None)
+        self.visitor = None
+        if _key is not None:
+            try:
+                _session = Session_Key.objects.get(session_key=_key)
+                self.visitor = _session.user
+            except Session_Key.DoesNotExist:
+                pass
+
+
         if self.timestamp != None:
             self.timestamp = datetime.fromtimestamp(float(self.timestamp))
         return super(ArticlesListView, self).get(request, *args, **kwargs)
