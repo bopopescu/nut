@@ -4,8 +4,19 @@ from django.conf import settings
 from django.db import models
 from apps.core.models import BaseModel, \
                              GKUser
+from apps.banners.models import BaseBanner
+
 
 from django.utils.translation import ugettext_lazy as _
+
+
+class StorePageBanners(BaseBanner):
+    banner_title = models.CharField(max_length=128, null=True, blank=True)
+    banner_desc  = models.CharField(max_length=128, null=True, blank=True)
+    pass
+
+class StorePageRecommend(BaseBanner):
+    pass
 
 
 class Shop(BaseModel):

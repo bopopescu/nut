@@ -13,6 +13,7 @@ from apps.core.models import Article,Selection_Article, Article_Dig
 from apps.tag.models import Tags
 from apps.core.mixins.views import SortMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
+from apps.core.views import BaseJsonView
 
 
 from apps.web.utils.viewtools import add_side_bar_context_data
@@ -26,6 +27,11 @@ from datetime import datetime
 
 from apps.core.tasks.article import dig_task, undig_task
 from django import  http
+import requests
+
+
+textrank_url = getattr(settings, 'ARTICLE_TEXTRANK_URL', None)
+
 log = getLogger('django')
 
 
@@ -316,5 +322,24 @@ class ArticleDelete(UserPassesTestMixin, View):
         the_article.publish = Article.remove
         the_article.save()
         return redirect('web_editor_article_list')
+
+
+
+class ArticleTextRankView(BaseJsonView):
+
+    def get_data(self, context):
+        article_textrank_url = "%s%s" % (textrank_url, self.article_id)
+        r = requests.get(article_textrank_url)
+        return r.json()
+
+
+    def get(self, request, *args, **kwargs):
+        self.article_id = kwargs.pop('pk', None)
+        assert self.article_id is not None
+
+        return super(ArticleTextRankView, self).get(request, *args, **kwargs)
+
+
+
 
 __author__ = 'edison'
