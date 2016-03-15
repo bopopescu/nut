@@ -3,38 +3,39 @@
 {% load common %}
 
 <div class="col-xs-6 col-sm-3 search-entity-item">
-    <div class="thumbnail entity-four">
+    <div class="thumbnail entity-four new-thumbnail">
         <div class="img-box">
             <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
                 <img class="img-responsive" alt="{{ entity.title }}" title="{{ entity.title }}" src="{{ entity.chief_image|resize:'310' }}">
             </a>
         </div>
-        <div class="caption">
-            <div class="brand">
-                {{ entity.brand|truncatechars:12 }}&nbsp;
-            </div>
-            <div class="title">
-                <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
-                    {{ entity.title|truncatechars:12 }}
-                </a>
-            </div>
-            <div class="price">
-                &#65509;{{ entity.default_buy_link.price }}
-            </div>
+         <div class="entity-four-info">
+                        <div class="caption">
+                            <div class="brand">
+                                {{ entity.brand|truncatechars:12 }}&nbsp;
+                            </div>
+                            <div class="title">
+                                <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
+                                    {{ entity.title|truncatechars:12 }}
+                                </a>
+                            </div>
+                            <div class="price">
+                                &#65509;{{ entity.default_buy_link.price }}
+                            </div>
+                        </div>
+                        <div class="action">
+                            <div class="info">
+                                {% if entity.id in user_entity_likes %}
+                                    <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
+                                    <i class="fa fa-heart"></i>
+                                {% else %}
+                                    <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
+                                    <i class="fa fa-heart-o"></i>
+                                {% endif %}
+                                </a>
+                            </div>
 
-        </div>
-        <div class="action">
-            <div class="info">
-                {% if entity.id in user_entity_likes %}
-                    <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
-                        <i class="fa fa-heart"></i>
-                {% else %}
-                    <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
-                        <i class="fa fa-heart-o"></i>
-                {% endif %}
-{#                    <div class="bubble like-count">{{ entity.like_count|format_like_num }}</div>                    </a>#}
-                    </a>
-            </div>
-        </div>
+                        </div>
+                    </div>
     </div>
 </div>
