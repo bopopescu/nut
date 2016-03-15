@@ -285,8 +285,8 @@ class APIWeChatToken(WeChat_Token):
     def __unicode__(self):
         return self.unionid
 
-# TODO Selection Articles
 
+# TODO Selection Articles
 class APISeletion_Articles(Selection_Article):
 
     class Meta:
@@ -295,7 +295,6 @@ class APISeletion_Articles(Selection_Article):
     @property
     def api_article(self):
         return  APIArticle.objects.get(pk=self.article_id)
-        # return APIArticle(self.article)
 
 
 import HTMLParser
