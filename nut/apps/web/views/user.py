@@ -396,7 +396,7 @@ class UserEntitiesView(UserDetailBase):
     pk_url_kwarg = 'user_id'
 
     template_name = 'web/user/authorized_seller_entities.html'
-    context_object_name = 'current_user_entities'
+    context_object_name = 'current_seller_entities'
     # def get_context_data(self,**kwargs):
     # context_data = super(UserIndex, self).get_context_data(**kwargs)
     #     current_user = context_data['object']
