@@ -375,7 +375,7 @@ class APIUserIndexView(APIJsonView):
 
         _last_like = Entity_Like.objects.filter(user=_user, entity__status__gte=APIEntity.freeze)
         _last_note = APINote.objects.filter(user=_user).order_by('-post_time')
-        _last_article = APIArticle.objects.filter(creator=_user, publish=True).order_by('-created_datetime')
+        _last_article = APIArticle.objects.filter(creator=_user, publish=APIArticle.published).order_by('-created_datetime')
         res['user'] = _user.v4_toDict(self.visitor)
         res['last_user_like'] = []
         res['last_post_note'] = []

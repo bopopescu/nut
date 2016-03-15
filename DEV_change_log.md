@@ -1,3 +1,39 @@
+## need run sql 
+
+ALTER TABLE `core`.`shop_storepagebanners` 
+ADD COLUMN `banner_title` VARCHAR(127) NULL AFTER `status`,
+ADD COLUMN `banner_desc` VARCHAR(255) NULL AFTER `banner_title`;
+
+
+==================================
+# merged to master 2016 3 - 10 
+==================================
+
+2. store page recommend mng
+1. store page banner mng 
+0. article dig js update
+
+#action 
+
+need syncdb 
+
+
+=================================
+# merged to master 2016 － 3 － 4
+=================================
+
+
+# remove fetch_article module.
+
+### action
+
+    ALTER TABLE `core`.`core_article` 
+    CHANGE COLUMN `cleaned_title` `identity_code` VARCHAR(255) NULL     DEFAULT NULL COMMENT '' ;
+
+===
+
+
+
 
 5.  article hide weixin id when author don't have it 
 4.  shop style and type choice update (management )

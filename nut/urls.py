@@ -52,7 +52,10 @@ urlpatterns += patterns('',
 )
 
 
-
+# sitemap
+'''
+    guoku sitemap urls
+'''
 from apps.web.sitemaps import UserSitemap, \
     EntitySitemap, \
     TagSitemap, \
