@@ -3,7 +3,7 @@ from apps.core.utils.http import ErrorJsonResponse
 from apps.tag.models import Content_Tags, Tags
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
-from apps.v4.models import APISeletion_Articles, APIArticle
+from apps.v4.models import APISeletion_Articles, APIArticle, APIArticle_Dig
 from apps.v4.forms.search import APIArticleSearchForm
 from apps.v4.views import APIJsonView
 from apps.core.tasks.article import dig_task, undig_task
@@ -30,8 +30,12 @@ class ArticlesListView(APIJsonView):
         except Exception:
             return res
 
+        articles_list = list()
+        if self.visitor:
+            articles_list = APIArticle_Dig.objects.filter(user=self.visitor).values_list('article_id', flat=True)
+
         for row in sla.object_list:
-            a = row.api_article.v4_toDict()
+            a = row.api_article.v4_toDict(articles_list=articles_list)
             a.update(
                 {
                     'pub_time': time.mktime(row.pub_time.timetuple()),
