@@ -397,6 +397,16 @@ class UserEntitiesView(UserDetailBase):
 
     template_name = 'web/user/authorized_seller_entities.html'
     context_object_name = 'current_user_entities'
+    # def get_context_data(self,**kwargs):
+    # context_data = super(UserIndex, self).get_context_data(**kwargs)
+    #     current_user = context_data['object']
+    #
+    #
+    #     _entity_list = Entity.objects.get_published_by_seller(current_user)[:8]
+    #
+    #     context_data['seller_entities'] = _entity_list
+    #
+    #     return context_data
 
 
 from apps.web.forms.user import UserArticleStatusFilterForm
