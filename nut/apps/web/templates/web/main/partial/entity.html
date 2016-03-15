@@ -3,7 +3,7 @@
 {% load common %}
 
 <div class="col-xs-6 col-sm-3 search-entity-item">
-    <div class="thumbnail entity-four new-thumbnail">
+    <div class="entity-four new-thumbnail">
         <div class="img-box">
             <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
                 <img class="img-responsive" alt="{{ entity.title }}" title="{{ entity.title }}" src="{{ entity.chief_image|resize:'310' }}">
