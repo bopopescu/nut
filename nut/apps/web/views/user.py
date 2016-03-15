@@ -394,19 +394,12 @@ class UserPublishedSelectionArticleView(UserDetailBase):
 class UserEntitiesView(UserDetailBase):
     model = GKUser
     pk_url_kwarg = 'user_id'
-
     template_name = 'web/user/authorized_seller_entities.html'
     context_object_name = 'current_seller_entities'
-    # def get_context_data(self,**kwargs):
-    # context_data = super(UserIndex, self).get_context_data(**kwargs)
-    #     current_user = context_data['object']
-    #
-    #
-    #     _entity_list = Entity.objects.get_published_by_seller(current_user)[:8]
-    #
-    #     context_data['seller_entities'] = _entity_list
-    #
-    #     return context_data
+
+    def get_context_data(self, **kwargs):
+      context_data = super(UserEntitiesView, self).get_context_data(**kwargs)
+      return context_data
 
 
 from apps.web.forms.user import UserArticleStatusFilterForm
