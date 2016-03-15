@@ -1,4 +1,4 @@
-from apps.core.models import Selection_Article, Article
+from apps.core.models import Selection_Article, Article, Article_Dig
 from apps.notifications.models import JpushToken
 from apps.notifications import notify
 from django.core.urlresolvers import reverse
@@ -309,7 +309,7 @@ class APIArticle(Article):
     def strip_tags_content(self):
         return h_parser.unescape(strip_tags(self.content))
 
-    def v4_toDict(self, visitor = None):
+    def v4_toDict(self, articles_list=None):
         res = self.toDict()
         res.pop('id', None)
         res.pop('creator_id')
@@ -321,10 +321,19 @@ class APIArticle(Article):
         res['url'] = self.get_absolute_url()
         res['creator'] = self.creator.v3_toDict()
         res['dig_count'] = self.dig_count
+        res['is_dig'] = False
+        if self.id in articles_list:
+            res['is_dig'] = True
         return res
 
 
-# TODO API JPUSH
+class APIArticle_Dig(Article_Dig):
+
+    class Meta:
+        proxy = True
+
+
+# TODO: API JPUSH
 class APIJpush(JpushToken):
 
     class Meta:

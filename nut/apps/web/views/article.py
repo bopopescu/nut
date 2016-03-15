@@ -333,7 +333,6 @@ class ArticleTextRankView(BaseJsonView):
         r = requests.get(article_textrank_url)
         return r.json()
 
-
     def get(self, request, *args, **kwargs):
         self.article_id = kwargs.pop('pk', None)
         assert self.article_id is not None
