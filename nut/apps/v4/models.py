@@ -309,7 +309,7 @@ class APIArticle(Article):
     def strip_tags_content(self):
         return h_parser.unescape(strip_tags(self.content))
 
-    def v4_toDict(self):
+    def v4_toDict(self, visitor = None):
         res = self.toDict()
         res.pop('id', None)
         res.pop('creator_id')
@@ -320,6 +320,7 @@ class APIArticle(Article):
         res['content'] = self.strip_tags_content
         res['url'] = self.get_absolute_url()
         res['creator'] = self.creator.v3_toDict()
+        res['dig_count'] = self.dig_count
         return res
 
 
