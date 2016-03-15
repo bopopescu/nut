@@ -41,7 +41,6 @@ class Shop(BaseModel):
         (tmall , '天猫'),
         (glbuy, '全球购'),
         (tinter, '天猫国际'),
-        (jiyoujia,'极有家')
     ]
 
 

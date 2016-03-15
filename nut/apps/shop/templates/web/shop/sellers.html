@@ -240,52 +240,18 @@
                                     全部
                                 </div>
                             </a>
-
                         </div>
+                        {% for style in shop_style_filters %}
+                            <div class="top-article-tag">
+                                <a>
+                                    <div class="tag-element">
+                                        {{ style.1 }}
+                                    </div>
+                                </a>
 
-                        <div class="top-article-tag">
-                            <a>
-                                <div class="tag-element">
-                                    美食
-                                </div>
-                            </a>
+                            </div>
+                        {% endfor %}
 
-                        </div>
-
-                        <div class="top-article-tag">
-                            <a>
-                                <div class="tag-element">
-                                    服饰
-                                </div>
-                            </a>
-
-                        </div>
-
-                        <div class="top-article-tag">
-                            <a>
-                                <div class="tag-element">
-                                    家居
-                                </div>
-                            </a>
-
-                        </div>
-
-                        <div class="top-article-tag">
-                            <a>
-                                <div class="tag-element">
-                                    美妆
-                                </div>
-                            </a>
-
-                        </div>
-
-                        <div class="top-article-tag">
-                            <a>
-                                <div class="tag-element">
-                                    文化
-                                </div>
-                            </a>
-                        </div>
 
                     </div>
 
@@ -304,93 +270,29 @@
                                 </div>
                             </a>
                         </div>
-
+                        {% for type in shop_type_filters %}
                         <div class="top-article-tag">
                             <a>
                                 <div class="tag-element">
-                                    天猫
+                                    {{ type.1 }}
                                 </div>
                             </a>
 
                         </div>
-
-                        <div class="top-article-tag">
-                            <a>
-                                <div class="tag-element">
-                                    淘宝
-                                </div>
-                            </a>
-
-                        </div>
-
-                        <div class="top-article-tag">
-                            <a>
-                                <div class="tag-element">
-                                    全球购
-                                </div>
-                            </a>
-
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="row good-store-row select-result-wrapper">
-
-            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 guoku-middle-col">
-                <div class="result-item-wrapper">
-                    <a href="" target="_blank">袋表作</a>
+            {% for seller in sellers %}
+                 <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 guoku-middle-col">
+                    <div class="result-item-wrapper">
+                        <a href="{% url 'web_user_index' seller.pk %}" target="_blank">{{ seller.nickname }}</a>
+                    </div>
                 </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 guoku-middle-col">
-                <div class="result-item-wrapper">
-                    <a href="" target="_blank">SUMAYZOY 素面造</a>
-                </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 guoku-middle-col">
-                <div class="result-item-wrapper">
-                    <a href="" target="_blank">ZUMU SHOW 祖母秀堂</a>
-                </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 guoku-middle-col">
-                <div class="result-item-wrapper">
-                    <a href="" target="_blank">韩澳咖啡事务所</a>
-                </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 guoku-middle-col">
-                <div class="result-item-wrapper">
-                    <a href="" target="_blank">小奥丁 Little Ondine</a>
-                </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 guoku-middle-col">
-                <div class="result-item-wrapper">
-                    <a href="" target="_blank">JOYDIVISION VINTAGE</a>
-                </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 guoku-middle-col">
-                <div class="result-item-wrapper">
-                    <a href="" target="_blank">TWELVE MOONS</a>
-                </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 guoku-middle-col">
-                <div class="result-item-wrapper">
-                    <a href="" target="_blank">新当铺PawnStar</a>
-                </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 guoku-middle-col">
-                <div class="result-item-wrapper">
-                    <a href="" target="_blank">巴拉巴拉巴拉巴拉巴拉巴拉名字要很长</a>
-                </div>
-            </div>
+            {% endfor %}
 
         </div>
     </div>
@@ -399,17 +301,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <a class="consumption-report-item">
+                    <a href="{% url 'year_store_2015' %}" class="consumption-report-item">
                         2015年度消费报告
                         <i class="fa fa-caret-right"></i>
                     </a>
-
-                    <a class="consumption-report-item">
-                        2016年度消费报告
-                        <i class="fa fa-caret-right"></i>
-                    </a>
-
-
                 </div>
             </div>
         </div>

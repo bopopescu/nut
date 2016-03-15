@@ -1,6 +1,6 @@
 1. ip 
-    initial : 10.0.5.198
-    ## to be changed 
+    initial : 192.168.1.243
+        ## to be changed 
     
 2. user / pass
     root / guoku!@#
