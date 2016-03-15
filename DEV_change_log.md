@@ -1,4 +1,4 @@
-
+4. 
 3. article dig count cache time 
 2. brand mng list search 
 1. add brand score for control recommend brand order 
