@@ -5,7 +5,7 @@ def get_author_choices():
     author_list = list(
                     set(
                         list(GKUser.objects.author())
-                        # list(GKUser.objects.authorized_author())
+                         # list(GKUser.objects.authorized_author())
                         )
                     )
     res = map(lambda x: (x.pk, x.profile.nickname), author_list)
