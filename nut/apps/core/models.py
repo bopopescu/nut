@@ -1343,7 +1343,6 @@ class Article(BaseModel):
             return res
         else:
             res = self.digs.count()
-            # TODO : set timeout to  3600*24
             cache.set(key, res, timeout=3600*24)
             return res
 
