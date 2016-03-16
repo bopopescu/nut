@@ -1,0 +1,8 @@
+{% extends 'web/base.html' %}
+{% load static i18n guoku %}
+{% block content %}
+{% for brand in brands %}
+    {{ brand.name }}
+
+    {% endfor %}
+{% endblock %}
