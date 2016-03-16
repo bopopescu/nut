@@ -2,115 +2,80 @@
 {% load i18n staticfiles %}
 {% load guoku %}
 {% block content %}
-{#    {{ brand.name }}#}
-{#    {{ brand.company }}#}
-{#    {{ brand.website }}#}
-{#    {{ brand.tmall_link }}#}
-{#    {{ brand.national }}#}
-{#    {{ brand.intro }}#}
-{#    {{ brand.status }}#}
+    {#    {{ brand.name }}#}
+    {#    {{ brand.company }}#}
+    {#    {{ brand.website }}#}
+    {#    {{ brand.tmall_link }}#}
+    {#    {{ brand.national }}#}
+    {#    {{ brand.intro }}#}
+    {#    {{ brand.status }}#}
 
     <div class='authorized_author_info'>
-                    <div class="user-icon">
-                        <img src="{{ current_user.avatar_url|resize:'180' }}"/>
-                    </div>
-                    <div class="user-nick">
-                         <span class="nick">{{ current_user.nickname }}</span>
-                         <img src="{% static 'images/author/seller.png' %}" width="16px" height="24px" class="official-media seller-media"/>
-                    </div>
-                    <div class="user-action">
-                          {% if current_user.is_blocked %}
-                                <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
-                            {% elif current_user == request.user %}
-                                <a class="guoku-button button-blue" href="{% url 'web_user_settings' %}">
-                                    <i class="fa fa-cog fa-lg"></i>&nbsp;{% trans _('Edit Profile') %}</a>
-                            {% elif request.user.id in current_user.concren %}
-                                <a class="follow guoku-button btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                            {% elif request.user.id in current_user.fans_list %}
-                                <a class="follow guoku-button btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                            {% else %}
-                                <a class="follow guoku-button button-blue" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
-                            {% endif %}
-                    </div>
-                    <div class="user-bio-wrapper">
-                        <span class="user-bio">
-                            {{ current_user.bio|truncatechars:200 }}
-                        </span>
-                    </div>
-
-                    {% if current_user.weibo %}
-                     <div class="user-binding">
-                             <a href="{{ current_user.weibo.weibo_link }}" target="_blank"><i class="fa fa-weibo user-binding-icon"></i></a>
-                     </div>
-                        {% endif %}
-                    <div class="user-social-wrapper">
-                        <p class="user-social">
-                        <a style="color: #414243" href="{{ web_user_followings_url }}">
-                        <span>{% trans 'Following' %}&nbsp; <span class="user-count">{{ current_user.following_count }}</span></span>
-                         </a>
-                        <span style="margin-left: 15px; margin-right: 15px;">|</span>
-                        <a style="color: #414243" href="{{ web_user_fans_url }}">
-                        <span>{% trans 'Fans' %}&nbsp; <span class="user-count">{{ current_user.fans_count }}</span></span>
-                        </a>
-                    </p>
-                    </div>
-            </div>
-    <div class="row hidden-xs">
-            <div class="col-sm-offset-12">
-                <a class="btn-top" href="javascript:;"  title="回到顶部" target="_self"><i class="fa fa-angle-up fa-lg"></i></a>
-            </div>
+        <div class="user-icon">
+            <img src="http://imgcdn.guoku.com/images/310/9b18c1d96641c9b811e147fb88530478.jpg"/>
         </div>
+        <div class="user-nick">
+            <span class="nick">品牌的名字</span>
+            <img src="{% static 'images/author/seller.png' %}" width="16px" height="24px" class="official-media seller-media"/>
+        </div>
+        <div class="user-bio-wrapper">
+            <span class="user-bio">
+                {{ brand.intro|truncatechars:200 }}
+            </span>
+        </div>
+    </div>
+    <div class="row hidden-xs">
+        <div class="col-sm-offset-12">
+            <a class="btn-top" href="javascript:;"  title="回到顶部" target="_self"><i class="fa fa-angle-up fa-lg"></i></a>
+        </div>
+    </div>
     {% if request.user.is_staff %}
         <div class="row user-admin-link-wrapper">
             <a href="{% url 'management_user_edit' current_user.id %}" target="_blank"><i class="fa fa-edit"></i></a>
         </div>
-        {% endif %}
+    {% endif %}
     <div class="row entity-wrapper">
 
-        {% for entity in seller_entities %}
-            <div class="col-xs-6 col-sm-3 search-entity-item">
-                <div class="new-thumbnail entity-four">
-                    <div class="img-box">
-                        <a href="{{ entity.absolute_url }}" target="_blank">
-                            <img class="img-responsive" alt="{{ entity.title }}" title="{{ entity.title }}" src="{{ entity.chief_image|resize:'310'}}">
-                        </a>
+        {#        {% for entity in seller_entities %}#}
+        <div class="col-xs-6 col-sm-3 search-entity-item">
+            <div class="new-thumbnail entity-four">
+                <div class="img-box">
+                    <a href="" target="_blank">
+                        <img class="img-responsive" alt="" title="" src="http://imgcdn.guoku.com/images/310/9b18c1d96641c9b811e147fb88530478.jpg">
+                    </a>
+                </div>
+                <div class="entity-four-info">
+                    <div class="caption">
+                        <div class="brand">
+                            商品的品牌
+                        </div>
+                        <div class="title">
+                            <a href="" target="_blank">
+                                商品的标题
+                            </a>
+                        </div>
+                        <div class="price">
+                            &#65509;价格
+                        </div>
                     </div>
-                    <div class="entity-four-info">
-                        <div class="caption">
-                            <div class="brand">
-                                {{ entity.brand|truncatechars:12 }}&nbsp;
-                            </div>
-                            <div class="title">
-                                <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
-                                    {{ entity.title|truncatechars:12 }}
-                                </a>
-                            </div>
-                            <div class="price">
-                                &#65509;{{ entity.default_buy_link.price }}
-                            </div>
+                    <div class="action">
+                        <div class="info">
+                            {#                                {% if entity.id in user_entity_likes %}#}
+                            <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
+                                <i class="fa fa-heart"></i>
+                                {#                                {% else %}#}
+                                {#                                    <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">#}
+                                {#                                    <i class="fa fa-heart-o"></i>#}
+                                {#                                {% endif %}#}
+                            </a>
                         </div>
-                        <div class="action">
-                            <div class="info">
-                                {% if entity.id in user_entity_likes %}
-                                    <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
-                                    <i class="fa fa-heart"></i>
-                                {% else %}
-                                    <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
-                                    <i class="fa fa-heart-o"></i>
-                                {% endif %}
-                                </a>
-                            </div>
 
-                        </div>
                     </div>
                 </div>
             </div>
-{#            {% include 'web/main/partial/entity.html' with entity=entity%}#}
-            {% empty %}
-            <div class="col-xs-6 col-sm-3 search-entity-item new-empty-panel-content">
-                <span>暂无商品</span>
-            </div>
-        {% endfor %}
+        </div>
+        {#            {% include 'web/main/partial/entity.html' with entity=entity%}#}
+        {#        {% endfor %}#}
     </div>
 
 {% endblock %}
