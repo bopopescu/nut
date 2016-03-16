@@ -713,7 +713,6 @@ p.boolean-false {
 }
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list {
   height: 100%;
-  overflow-y: auto;
   background-color: #ffffff;
   padding: 18px;
   border-radius: 4px;
@@ -721,10 +720,15 @@ p.boolean-false {
   box-shadow: 0 0 2px #ddd;
 }
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list {
+  height: 100%;
   border-bottom: 0 !important;
 }
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-title.section-title-control {
   border-left-color: #ffffff;
+}
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-content {
+  height: 90%;
+  overflow-y: auto;
 }
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-content .publish-time,
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-content .publish-info {
