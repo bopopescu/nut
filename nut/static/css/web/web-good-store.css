@@ -710,9 +710,10 @@ p.boolean-false {
 }
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper {
   height: 100%;
-  overflow-y: auto;
 }
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list {
+  height: 100%;
+  overflow-y: auto;
   background-color: #ffffff;
   padding: 18px;
   border-radius: 4px;
