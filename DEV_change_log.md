@@ -1,4 +1,4 @@
-5. 
+5. good store page 
 4. mng article creator choice method update
 3. article dig count cache time 
 2. brand mng list search 
