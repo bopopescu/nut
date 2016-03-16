@@ -3,7 +3,7 @@
 {% load common guoku %}
 
 {% block meta-og %}
-    <meta property="og:title" content="good store title" >
+    <meta property="og:title" content="果库 " >
     <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
     <meta property="og:description" content="good store description">
 {% endblock %}
@@ -235,21 +235,25 @@
 
                     <div class="category-item" id="top_article_tags_container">
                         <div class="top-article-tag">
-                            <a>
+                            <a data_filter="shop_style" data_value="-1">
                                 <div class="tag-element tag-current">
                                     全部
                                 </div>
                             </a>
                         </div>
                         {% for style in shop_style_filters %}
-                            <div class="top-article-tag">
-                                <a>
-                                    <div class="tag-element">
-                                        {{ style.1 }}
-                                    </div>
-                                </a>
+                            {% if forloop.counter == 1 %}
 
-                            </div>
+                            {% else %}
+                                <div class="top-article-tag">
+                                    <a data_filter="shop_style" data_value="{{ style.0 }}">
+                                        <div class="tag-element">
+                                            {{ style.1 }}
+                                        </div>
+                                    </a>
+
+                                </div>
+                            {% endif %}
                         {% endfor %}
 
 
@@ -264,21 +268,26 @@
 
                     <div class="type-item" id="top_article_tags_container">
                         <div class="top-article-tag">
-                            <a>
+                            <a data_filter="shop_type" data_value="-1">
                                 <div class="tag-element tag-current">
                                     全部
                                 </div>
                             </a>
                         </div>
                         {% for type in shop_type_filters %}
-                        <div class="top-article-tag">
-                            <a>
-                                <div class="tag-element">
-                                    {{ type.1 }}
-                                </div>
-                            </a>
+                            {% if forloop.counter == 1 %}
 
-                        </div>
+                            {% else %}
+                                <div class="top-article-tag">
+                                    <a data_filter="shop_type" data_value="{{ type.0 }}">
+                                        <div class="tag-element">
+
+                                            {{ type.1 }}
+                                        </div>
+                                    </a>
+
+                                </div>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
