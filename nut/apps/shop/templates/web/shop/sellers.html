@@ -68,96 +68,20 @@
                         </div>
                         <div class="section-content">
                             <ul class="tag-list">
+                                {% for article in recent_articles %}
+
                                 <li>
                                     <div class="publish-time">
-                                        刚刚
+                                        {{ article.created_datetime|format_time }}
                                     </div>
                                     <div class="publish-info">
-                                        <a href="">黑法师</a>
-                                        发布了商品
-                                        <a href="">黑巧克力</a>
+                                        <a href="">{{ article.creator.nickname }}</a>
+                                        发表了图文
+                                        <a href="">{{ article.title }}</a>
                                     </div>
                                 </li>
-                                <li>
-                                    <div class="publish-time">
-                                        1小时前
-                                    </div>
-                                    <div class="publish-info">
-                                        <a href="">够得到的B格</a>
-                                        发布了图文
-                                        <a href="">熊小默'S Pick:"人无我有"的满足感</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="publish-time">
-                                        2016.01.01
-                                    </div>
-                                    <div class="publish-info">
-                                        <a href="">rose</a>
-                                        发布了商品
-                                        <a href="">冰淇淋</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="publish-time">
-                                        刚刚
-                                    </div>
-                                    <div class="publish-info">
-                                        <a href="">黑法师</a>
-                                        发布了商品
-                                        <a href="">黑巧克力</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="publish-time">
-                                        1小时前
-                                    </div>
-                                    <div class="publish-info">
-                                        <a href="">够得到的B格</a>
-                                        发布了图文
-                                        <a href="">熊小默'S Pick:"人无我有"的满足感</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="publish-time">
-                                        2016.01.01
-                                    </div>
-                                    <div class="publish-info">
-                                        <a href="">rose</a>
-                                        发布了商品
-                                        <a href="">冰淇淋</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="publish-time">
-                                        刚刚
-                                    </div>
-                                    <div class="publish-info">
-                                        <a href="">黑法师</a>
-                                        发布了商品
-                                        <a href="">黑巧克力</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="publish-time">
-                                        1小时前
-                                    </div>
-                                    <div class="publish-info">
-                                        <a href="">够得到的B格</a>
-                                        发布了图文
-                                        <a href="">熊小默'S Pick:"人无我有"的满足感</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="publish-time">
-                                        2016.01.01
-                                    </div>
-                                    <div class="publish-info">
-                                        <a href="">rose</a>
-                                        发布了商品
-                                        <a href="">冰淇淋</a>
-                                    </div>
-                                </li>
+                                {% endfor %}
+
                             </ul>
                         </div>
                     </li>
@@ -172,23 +96,25 @@
                     <div class="banner-wrapper" id="index-banners">
                         {% for banner in banners %}
                         <div class="banner-image-cell banner-image-cell-control">
-                            <div class="banner-image-wrapper" style="background-image: url({{ banner.image_url }})">
-                            </div>
-                             <div class="user-latest-article-intro-wrapper">
-                            {#                        <div class="rect-decoration">#}
-                            {#                            NEW#}
-                            {#                        </div>#}
-
-                                <div class="user-latest-article-title-wrapper">
-                                    <a class="user-latest-article-title">
-                                        黑法师 × KREUZZZ 联合出品，Artist 系列马卡龙上架最新图文巴啦巴拉巴拉
-                                    </a>
-                                    <div class="user-info-section-title">
-                                        Voicer发布于 2016.02.21
-                                    </div>
+                            <a href="{{ banner.link }}" target="_blank">
+                                <div class="banner-image-wrapper" style="background-image: url({{ banner.image_url }})">
                                 </div>
+                                 <div class="user-latest-article-intro-wrapper">
+                                {#                        <div class="rect-decoration">#}
+                                {#                            NEW#}
+                                {#                        </div>#}
 
-                            </div>
+                                    <div class="user-latest-article-title-wrapper">
+                                        <a class="user-latest-article-title">
+                                            {{ banner.banner_title }}
+                                        </a>
+                                        <div class="user-info-section-title">
+                                            {{ banner.banner_desc }}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </a>
                         </div>
 
 
@@ -209,21 +135,24 @@
 
         <div class="row hot-section-wrapper" id="selection_article_list">
             {% for rec in recommends %}
+
             <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 guoku-middle-col selection-article-item hot-section-item">
-                <div class="article-panel">
-                    <a>
-                        <div class="img-holder" style="background-image: url({{ rec.image_url }})">
-                        </div>
-                    </a>
-                </div>
+                <a href="{{ rec.link }}" target="_blank">
+                    <div class="article-panel">
+                            <div class="img-holder" style="background-image: url({{ rec.image_url }})">
+                            </div>
+                    </div>
+                </a>
             </div>
             {% endfor %}
         </div>
 
         <div class="row section-title-wrapper">
+            <a name="sellers">
             <div class="col-sm-12">
                 <p>全部好店</p>
             </div>
+            </a>
         </div>
 
         <div class="row select-condition-wrapper">
@@ -235,8 +164,8 @@
 
                     <div class="category-item" id="top_article_tags_container">
                         <div class="top-article-tag">
-                            <a data_filter="shop_style" data_value="-1">
-                                <div class="tag-element tag-current">
+                            <a  href="{{ base_url }}?{{ 'shop_type'|filter_builder:current_shop_type }}&{{ 'shop_style'|filter_builder:-1 }}#sellers" data_filter="shop_style" data_value="-1">
+                                <div class="tag-element {% if current_shop_style == -1 %} tag-current{% endif %}">
                                     全部
                                 </div>
                             </a>
@@ -246,8 +175,8 @@
 
                             {% else %}
                                 <div class="top-article-tag">
-                                    <a data_filter="shop_style" data_value="{{ style.0 }}">
-                                        <div class="tag-element">
+                                    <a href="{{ base_url }}?{{ 'shop_type'|filter_builder:current_shop_type }}&{{ 'shop_style'|filter_builder:style.0 }}#sellers" data_filter="shop_style" data_value="{{ style.0 }}">
+                                        <div class="tag-element {% if current_shop_style == style.0 %}tag-current{% endif %}">
                                             {{ style.1 }}
                                         </div>
                                     </a>
@@ -255,10 +184,7 @@
                                 </div>
                             {% endif %}
                         {% endfor %}
-
-
                     </div>
-
                 </div>
 
                 <div class="type-wrapper">
@@ -268,8 +194,8 @@
 
                     <div class="type-item" id="top_article_tags_container">
                         <div class="top-article-tag">
-                            <a data_filter="shop_type" data_value="-1">
-                                <div class="tag-element tag-current">
+                            <a  href="{{ base_url }}?{{ 'shop_type'|filter_builder:-1 }}&{{ 'shop_style'|filter_builder:current_shop_style }}#sellers" data_filter="shop_type" data_value="-1">
+                                <div class="tag-element {% if current_shop_type == -1  %} tag-current {% endif %}">
                                     全部
                                 </div>
                             </a>
@@ -279,8 +205,8 @@
 
                             {% else %}
                                 <div class="top-article-tag">
-                                    <a data_filter="shop_type" data_value="{{ type.0 }}">
-                                        <div class="tag-element">
+                                    <a href="{{ base_url }}?{{ 'shop_type'|filter_builder:type.0 }}&{{ 'shop_style'|filter_builder:current_shop_style }}#sellers" data_filter="shop_type" data_value="{{ type.0 }}">
+                                        <div class="tag-element {% if current_shop_type == type.0 %}  tag-current {% endif %}">
 
                                             {{ type.1 }}
                                         </div>
@@ -298,7 +224,9 @@
             {% for seller in sellers %}
                  <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 guoku-middle-col">
                     <div class="result-item-wrapper">
-                        <a href="{% url 'web_user_index' seller.pk %}" target="_blank">{{ seller.nickname }}</a>
+                        <a href="{% url 'web_user_index' seller.pk %}" target="_blank">
+                            {{ seller.nickname }}
+                        </a>
                     </div>
                 </div>
             {% endfor %}
