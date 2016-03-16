@@ -1,17 +1,26 @@
 from django.views.generic import ListView
+from django.core.urlresolvers import reverse_lazy
 
 from apps.core.models import GKUser
 from apps.shop.models import StorePageBanners, StorePageRecommend
 from apps.core.mixins.views import  FilterMixin, SortMixin
 from apps.shop.models import Shop
+
 class SellerStoreListView(FilterMixin, ListView):
     template_name = 'web/shop/sellers.html'
-    model = GKUser
     context_object_name = 'sellers'
-    def get_queryset(self):
-        return GKUser.objects.authorized_seller()
 
-    def filter_queryset(self, qs, filter_param):
+    def get_queryset(self):
+        shop_style  = self.get_current_shop_style()
+        shop_type = self.get_current_shop_type()
+        shops =  Shop.objects.all()
+        if shop_style != -1:
+            shops = shops.filter(shop_style=shop_style)
+        if shop_type  != -1:
+            shops = shops.filter(shop_type=shop_type)
+
+        seller_ids = list(shops.values_list('owner__pk', flat=True))
+        qs = GKUser.objects.authorized_seller().filter(pk__in=seller_ids)
 
         return qs
 
@@ -29,7 +38,7 @@ class SellerStoreListView(FilterMixin, ListView):
         _shop_type =  self.request.GET.get('shop_type', None)
         try:
             _shop_type = int(_shop_type)
-        except  ValueError or TypeError as e:
+        except  Exception as e:
             _shop_type = -1
 
         return _shop_type
@@ -38,7 +47,7 @@ class SellerStoreListView(FilterMixin, ListView):
         _shop_style = self.request.GET.get('shop_style', None)
         try:
             _shop_style = int(_shop_style)
-        except ValueError or TypeError as e:
+        except Exception as  e:
             _shop_style = -1
 
         return _shop_style
@@ -55,7 +64,7 @@ class SellerStoreListView(FilterMixin, ListView):
         context['shop_style_filters'] = Shop.SHOP_STYLE_CHOICES
         context['current_shop_type'] = self.get_current_shop_type()
         context['current_shop_style'] = self.get_current_shop_style()
-        context['base_url'] = self.request.build_absolute_uri
+        context['base_url'] = reverse_lazy('good_store')
 
         return context
 
