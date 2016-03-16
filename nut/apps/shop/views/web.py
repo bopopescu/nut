@@ -3,7 +3,6 @@ from django.core.urlresolvers import reverse_lazy
 
 from apps.core.models import GKUser , Article , Entity
 from apps.shop.models import StorePageBanners, StorePageRecommend
-from apps.core.mixins.views import  FilterMixin, SortMixin
 from apps.shop.models import Shop
 
 class SellerStoreListView(ListView):
@@ -70,6 +69,3 @@ class SellerStoreListView(ListView):
         context['recent_articles'] = self.get_recent_articles()
 
         return context
-
-
-    pass
