@@ -45,8 +45,7 @@ class ArticleDigManager(models.Manager):
             return list(res)
         else:
             res = self.get_queryset().popular(scale)
-            # TODO: set timeout to 3600 *24
-            cache.set(key, res, timeout=20)
+            cache.set(key, res, timeout=3600*24)
             return res
 
     def popular_random(self, scale='weekly'):
@@ -59,13 +58,15 @@ class ArticleDigManager(models.Manager):
             out_count= 60
             try :
                 res = random.sample(source, out_count)
-                #TODO : set timeout to 3600 * 24
-                cache.set(key, res, timeout=20)
+                cache.set(key, res, timeout=3600*24)
             except ValueError:
                 res = source
             return res
 
 class ArticleManager(models.Manager):
+    def published(self):
+        return self.get_queryset().filter(publish=2).order_by('-created_datetime')
+
     def get_published_by_user(self,user):
         # publish = 2   because  Article.published = 2, user 2 to avoid circular reference
         return self.get_queryset().using('slave').filter(publish=2, creator=user).order_by('-created_datetime')

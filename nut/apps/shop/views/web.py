@@ -1,12 +1,12 @@
 from django.views.generic import ListView
 from django.core.urlresolvers import reverse_lazy
 
-from apps.core.models import GKUser
+from apps.core.models import GKUser , Article , Entity
 from apps.shop.models import StorePageBanners, StorePageRecommend
 from apps.core.mixins.views import  FilterMixin, SortMixin
 from apps.shop.models import Shop
 
-class SellerStoreListView(FilterMixin, ListView):
+class SellerStoreListView(ListView):
     template_name = 'web/shop/sellers.html'
     context_object_name = 'sellers'
 
@@ -30,9 +30,6 @@ class SellerStoreListView(FilterMixin, ListView):
     def get_recommends(self):
         return StorePageRecommend.objects.filter(status=StorePageRecommend.enabled)
 
-    def get_storepage_message(self):
-        return None
-
     def get_current_shop_type(self):
 
         _shop_type =  self.request.GET.get('shop_type', None)
@@ -52,19 +49,25 @@ class SellerStoreListView(FilterMixin, ListView):
 
         return _shop_style
 
+    def get_recent_articles(self):
+        sellers_ids = GKUser.objects.authorized_seller().values_list('pk', flat=True)
+        recent_articles = Article.objects.published().filter(creator__in=sellers_ids)[:50]
+        # entities_recent = Entity.objects.active().filter(user__in=sellers_ids)[:10]
+        return recent_articles
 
 
     def get_context_data(self, *args, **kwargs):
         context = super(SellerStoreListView, self).get_context_data(*args, **kwargs)
         context['banners'] = self.get_banners()
         context['recommends'] = self.get_recommends()
-        context['messages'] = self.get_storepage_message()
 
         context['shop_type_filters'] = Shop.SHOP_TYPE_CHOICES
         context['shop_style_filters'] = Shop.SHOP_STYLE_CHOICES
         context['current_shop_type'] = self.get_current_shop_type()
         context['current_shop_style'] = self.get_current_shop_style()
         context['base_url'] = reverse_lazy('good_store')
+
+        context['recent_articles'] = self.get_recent_articles()
 
         return context
 
