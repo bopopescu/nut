@@ -221,9 +221,11 @@
         </div>
 
         <div class="row section-title-wrapper">
+            <a name="sellers">
             <div class="col-sm-12">
                 <p>全部好店</p>
             </div>
+            </a>
         </div>
 
         <div class="row select-condition-wrapper">
@@ -235,8 +237,8 @@
 
                     <div class="category-item" id="top_article_tags_container">
                         <div class="top-article-tag">
-                            <a data_filter="shop_style" data_value="-1">
-                                <div class="tag-element tag-current">
+                            <a  href="{{ base_url }}?{{ 'shop_type'|filter_builder:current_shop_type }}&{{ 'shop_style'|filter_builder:-1 }}#sellers" data_filter="shop_style" data_value="-1">
+                                <div class="tag-element {% if current_shop_style == -1 %} tag-current{% endif %}">
                                     全部
                                 </div>
                             </a>
@@ -246,8 +248,8 @@
 
                             {% else %}
                                 <div class="top-article-tag">
-                                    <a data_filter="shop_style" data_value="{{ style.0 }}">
-                                        <div class="tag-element">
+                                    <a href="{{ base_url }}?{{ 'shop_type'|filter_builder:current_shop_type }}&{{ 'shop_style'|filter_builder:style.0 }}#sellers" data_filter="shop_style" data_value="{{ style.0 }}">
+                                        <div class="tag-element {% if current_shop_style == style.0 %}tag-current{% endif %}">
                                             {{ style.1 }}
                                         </div>
                                     </a>
@@ -268,8 +270,8 @@
 
                     <div class="type-item" id="top_article_tags_container">
                         <div class="top-article-tag">
-                            <a data_filter="shop_type" data_value="-1">
-                                <div class="tag-element tag-current">
+                            <a  href="{{ base_url }}?{{ 'shop_type'|filter_builder:-1 }}&{{ 'shop_style'|filter_builder:current_shop_style }}#sellers" data_filter="shop_type" data_value="-1">
+                                <div class="tag-element {% if current_shop_type == -1  %} tag-current {% endif %}">
                                     全部
                                 </div>
                             </a>
@@ -279,8 +281,8 @@
 
                             {% else %}
                                 <div class="top-article-tag">
-                                    <a data_filter="shop_type" data_value="{{ type.0 }}">
-                                        <div class="tag-element">
+                                    <a href="{{ base_url }}?{{ 'shop_type'|filter_builder:type.0 }}&{{ 'shop_style'|filter_builder:current_shop_style }}#sellers" data_filter="shop_type" data_value="{{ type.0 }}">
+                                        <div class="tag-element {% if current_shop_type == type.0 %}  tag-current {% endif %}">
 
                                             {{ type.1 }}
                                         </div>
