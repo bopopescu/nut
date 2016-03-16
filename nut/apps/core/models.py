@@ -28,6 +28,9 @@ from apps.core.extend.fields.listfield import ListObjectField
 from apps.web.utils.datatools import get_entity_list_from_article_content
 from apps.core.manager import *
 from apps.core.manager.account import  AuthorizedUserManager
+from haystack.query import SearchQuerySet
+
+
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -753,6 +756,7 @@ class Brand(BaseModel):
     national = models.CharField(max_length=100, null=True, default=None)
     intro = models.TextField()
     status = models.IntegerField(choices=BRAND_STATUS_CHOICES, default=pending)
+    score =  models.IntegerField(default=0, null=False, blank=False)
     created_date = models.DateTimeField(auto_now=True, db_index=True)
 
     class Meta:
@@ -763,6 +767,10 @@ class Brand(BaseModel):
         if self.icon:
             return "%s%s" % (image_host, self.icon)
         return None
+
+    @property
+    def entities(self):
+        return SearchQuerySet().models(Entity).filter(brand=self.name)
 
     # @property
     # def shop_id(self):
@@ -1343,8 +1351,7 @@ class Article(BaseModel):
             return res
         else:
             res = self.digs.count()
-            # TODO : set timeout to  3600*24
-            cache.set(key, res, timeout=20)
+            cache.set(key, res, timeout=3600*24)
             return res
 
     def incr_dig(self):

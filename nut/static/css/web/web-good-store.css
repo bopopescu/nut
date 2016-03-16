@@ -681,152 +681,158 @@ p.boolean-false {
   border-radius: 5px;
   font-size: 18px;
 }
-.user-article-cell {
-  padding: 0 10px;
-  margin-bottom: 20px;
+.good-store-row {
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
-.user-article-panel {
-  background-color: #fff;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 2px #ddd;
-  -moz-box-shadow: 0px 0px 2px #ddd;
-  box-shadow: 0px 0px 2px #ddd;
-  overflow: hidden;
+.store-body .store-top-banner {
+  margin-top: -30px;
   width: 100%;
-}
-.user-article-panel .user-article-img {
-  width: 100%;
-  height: 0;
-  padding-bottom: 55%;
-  background-position: center;
+  height: 120px;
   background-size: cover;
   background-repeat: no-repeat;
-}
-.user-article-panel .user-article-img:hover {
-  cursor: pointer;
-}
-.user-article-panel .user-article-title-wrapper {
-  margin: 25px 15px 15px;
-  min-height: 60px;
-  max-height: 60px;
-  line-height: 1.3;
-  font-size: 18px;
-  font-weight: 600;
-  color: #424242;
-  overflow: hidden;
-}
-.user-article-panel .user-article-title-wrapper a {
-  color: #424242;
-}
-.user-article-panel .user-article-title-wrapper a:hover {
-  text-decoration: none;
-  cursor: pointer;
-}
-.user-article-panel .user-article-intro-wrapper {
-  min-height: 84px;
-  max-height: 84px;
-  margin: 15px;
-  font-size: 14px;
-  color: #9D9E9F;
-  overflow: hidden;
-}
-.user-article-panel .user-article-info-wrapper {
-  min-height: 15px;
-  margin: 15px;
-}
-.user-article-panel .user-article-info-wrapper .user-article-time {
-  float: right;
-  font-size: 12px;
-  color: #9D9E9F;
-}
-.user-article-panel .user-article-info-wrapper .user-article-time .fa {
-  margin-right: 5px;
-}
-.rect-decoration {
-  width: 52px;
-  height: 52px;
-  background-color: #414243;
-  font-size: 16px;
-  color: #ffffff;
   text-align: center;
-  line-height: 52px;
 }
-.guoku-content.user-page .user-latest-actions-wrapper .latest-actions-sidebar-wrapper {
+.store-body .store-top-banner .store-banner-wrapper {
+  display: inline-block;
+  margin-top: 30px;
+}
+.store-body .store-top-banner .store-banner-wrapper .banner-title-wrapper {
+  font-size: 24px;
+}
+.store-body .store-top-banner .store-banner-wrapper .banner-slogan-wrapper {
+  margin-top: 8px;
+  font-size: 14px;
+  letter-spacing: 3px;
+}
+.store-body .latest-actions-wrapper {
+  margin-bottom: 23px;
+}
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper {
   height: 100%;
+  overflow-y: auto;
 }
-.guoku-content.user-page .user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list {
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list {
+  background-color: #ffffff;
+  padding: 18px;
+  border-radius: 4px;
+  background-clip: padding-box;
+  box-shadow: 0 0 2px #ddd;
+}
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list {
   border-bottom: 0 !important;
 }
-.guoku-content.user-page .user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-title.section-title-control {
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-title.section-title-control {
   border-left-color: #ffffff;
 }
-.guoku-content.user-page .user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li {
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-content .publish-time,
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-content .publish-info {
+  display: table-cell;
+}
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-content .publish-time {
+  min-width: 81px;
+  padding-right: 10px;
+}
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li {
   margin-bottom: 10px;
   font-size: 14px;
 }
-.guoku-content.user-page .user-latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li a:hover {
-  cursor: pointer;
-  color: #428bca;
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li a {
+  color: #9d9d9d;
 }
-.guoku-content.user-page .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper {
+.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li a:hover {
+  cursor: pointer;
+  color: #424242;
+  text-decoration: underline;
+}
+.store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper {
   height: 52px;
   margin: 25px 15px;
   overflow: hidden;
 }
-.guoku-content.user-page .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .rect-decoration {
-  float: left;
-  margin-right: 15px;
-}
-.guoku-content.user-page .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper {
-  margin-left: 67px;
+.store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper {
   min-height: 52px;
   max-height: 52px;
-  font-weight: 600;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
-.guoku-content.user-page .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper .user-info-section-title {
+.store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper .user-info-section-title {
+  margin-top: 5px;
   font-size: 12px;
+  color: #9d9d9d;
 }
-.guoku-content.user-page .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a.user-latest-article-title {
+.store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a.user-latest-article-title {
   font-size: 18px;
   color: #424242;
 }
-.guoku-content.user-page .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a:hover {
+.store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.store-body .hot-section-wrapper a:hover {
+  cursor: pointer;
+}
+.store-body .select-condition-wrapper .select-condition {
+  padding: 0 10px;
+  background-clip: content-box;
+  background-color: #f3f3f3;
+}
+.store-body .select-condition-wrapper .select-condition #top_article_tags_container {
+  margin-bottom: 0px;
+}
+.store-body .select-condition-wrapper .select-condition .category-wrapper {
+  padding: 16px 0 20px 20px;
+}
+.store-body .select-condition-wrapper .select-condition .type-wrapper {
+  padding: 0px 0px 16px 20px;
+}
+.store-body .select-condition-wrapper .select-condition .category-title,
+.store-body .select-condition-wrapper .select-condition .category-item,
+.store-body .select-condition-wrapper .select-condition .type-title,
+.store-body .select-condition-wrapper .select-condition .type-item {
+  display: table-cell;
+}
+.store-body .select-condition-wrapper .select-condition .category-title,
+.store-body .select-condition-wrapper .select-condition .type-title {
+  min-width: 35px;
+}
+.store-body .select-condition-wrapper .select-condition .tag-element:hover {
+  cursor: pointer;
+}
+.store-body .select-result-wrapper .result-item-wrapper {
+  padding-left: 20px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.store-body .select-result-wrapper .result-item-wrapper a {
+  color: #424242;
+  font-size: 14px;
+}
+.store-body .select-result-wrapper .result-item-wrapper a:hover {
+  text-decoration: underline;
+}
+.store-body .consumption-report-wrapper {
+  margin-bottom: -40px;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  background-color: #ffffff;
+}
+.store-body .consumption-report-wrapper a.consumption-report-item {
+  color: #424242;
+  margin-left: 15px;
+  float: right;
+}
+.store-body .consumption-report-wrapper a.consumption-report-item:hover {
+  color: #9d9d9d;
   text-decoration: none;
   cursor: pointer;
 }
-.guoku-content.user-page .content-panel .panel-header .panel-name.panel-name-control {
-  border-left-color: #ffffff;
-  left: -3px;
-}
-.guoku-content.user-page .content-panel .panel-header .more-link.more-link-control a:hover {
-  cursor: pointer;
-}
-@media screen and (min-width: 1200px) {
-  .user-latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a.user-latest-article-title {
-    font-size: 24px;
-  }
-  .user-article-panel .user-article-title-wrapper {
-    font-size: 22px;
-    font-weight: normal;
+@media (min-width: 768px) {
+  .store-body .consumption-report-wrapper {
+    margin-top: 80px;
   }
 }
-@media screen and (max-width: 767px) {
-  .user-article-wrapper .user-article-item-wrapper.user-article-cell .user-article-panel .user-article-title-wrapper,
-  .user-article-wrapper .user-article-item-wrapper.user-article-cell .user-article-panel .user-article-intro-wrapper {
-    min-height: 0 !important;
-  }
-}
-@media screen and (max-width: 767px) {
-  .user-article-wrapper .user-article-item-wrapper.user-article-cell .user-article-panel .user-article-title-wrapper,
-  .user-article-wrapper .user-article-item-wrapper.user-article-cell .user-article-panel .user-article-intro-wrapper {
-    min-height: 0 !important;
-  }
-}
+/*# sourceMappingURL=web-good-store.less.css.map */
