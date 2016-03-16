@@ -12,6 +12,7 @@ class SellerStoreListView(FilterMixin, ListView):
         return GKUser.objects.authorized_seller()
 
     def filter_queryset(self, qs, filter_param):
+
         return qs
 
     def get_banners(self):
@@ -24,10 +25,24 @@ class SellerStoreListView(FilterMixin, ListView):
         return None
 
     def get_current_shop_type(self):
-        return self.request.GET.get('shop_type', None)
+
+        _shop_type =  self.request.GET.get('shop_type', None)
+        try:
+            _shop_type = int(_shop_type)
+        except  ValueError or TypeError as e:
+            _shop_type = -1
+
+        return _shop_type
 
     def get_current_shop_style(self):
-        return self.request.GET.get('shop_style', None)
+        _shop_style = self.request.GET.get('shop_style', None)
+        try:
+            _shop_style = int(_shop_style)
+        except ValueError or TypeError as e:
+            _shop_style = -1
+
+        return _shop_style
+
 
 
     def get_context_data(self, *args, **kwargs):
@@ -40,6 +55,7 @@ class SellerStoreListView(FilterMixin, ListView):
         context['shop_style_filters'] = Shop.SHOP_STYLE_CHOICES
         context['current_shop_type'] = self.get_current_shop_type()
         context['current_shop_style'] = self.get_current_shop_style()
+        context['base_url'] = self.request.build_absolute_uri
 
         return context
 
