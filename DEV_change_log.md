@@ -1,9 +1,18 @@
+5. 
+4. mng article creator choice method update
+3. article dig count cache time 
+2. brand mng list search 
+1. add brand score for control recommend brand order 
+
 ## need run sql 
 
-ALTER TABLE `core`.`shop_storepagebanners` 
-ADD COLUMN `banner_title` VARCHAR(127) NULL AFTER `status`,
-ADD COLUMN `banner_desc` VARCHAR(255) NULL AFTER `banner_title`;
+ALTER TABLE `core`.`core_brand` 
+ADD COLUMN `score` INT(32) NULL DEFAULT 0 AFTER `tmall_link`;
 
+
+### add  a column  'score' on Brand model ,
+
+    for fine control the brand order 
 
 ==================================
 # merged to master 2016 3 - 10 

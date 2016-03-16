@@ -11,7 +11,7 @@ from django.template import RequestContext, loader,Context
 
 from apps.core.models import Article,Selection_Article, Article_Dig
 from apps.tag.models import Tags
-from apps.core.mixins.views import SortMixin
+# from apps.core.mixins.views import SortMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 from apps.core.views import BaseJsonView
 
