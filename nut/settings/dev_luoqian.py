@@ -81,10 +81,10 @@ INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
 # )
 LOCAL_TEST_DB = True
 
-# Current_Dbhost = '192.168.1.101'
+Current_Dbhost = '192.168.1.243'
 # Current_Dbhost = '10.0.1.110'
 # Current_Dbhost = '10.0.2.90'
-Current_Dbhost = 'localhost'
+# Current_Dbhost = 'localhost'
 
 DATABASES = {
     'default': {
