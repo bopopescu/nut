@@ -26,7 +26,7 @@
                 {% endif %}
 
                 <li>
-                    <a href="">赞过的图文&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
+                    <a href="{% url 'web_user_article_like' current_user.pk %}">赞过的图文&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
                 </li>
 
             {% endif %}
