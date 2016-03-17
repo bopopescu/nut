@@ -1,7 +1,11 @@
-3.
+5. good store page 
+4. mng article creator choice method update
+3. article dig count cache time 
 2. brand mng list search 
 1. add brand score for control recommend brand order 
+
 ## need run sql 
+
 ALTER TABLE `core`.`core_brand` 
 ADD COLUMN `score` INT(32) NULL DEFAULT 0 AFTER `tmall_link`;
 
