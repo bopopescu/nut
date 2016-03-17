@@ -699,6 +699,8 @@ p.boolean-false {
 }
 .store-body .store-top-banner .store-banner-wrapper .banner-title-wrapper {
   font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 8px;
 }
 .store-body .store-top-banner .store-banner-wrapper .banner-slogan-wrapper {
   margin-top: 8px;
