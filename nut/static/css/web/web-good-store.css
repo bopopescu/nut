@@ -809,10 +809,12 @@ p.boolean-false {
   white-space: nowrap;
 }
 .store-body .select-result-wrapper .result-item-wrapper a {
-  color: #424242;
+  color: #9d9d9d;
   font-size: 14px;
 }
 .store-body .select-result-wrapper .result-item-wrapper a:hover {
+  cursor: pointer;
+  color: #424242;
   text-decoration: underline;
 }
 .store-body .consumption-report-wrapper {
