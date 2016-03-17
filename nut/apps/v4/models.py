@@ -308,7 +308,7 @@ class APIArticle(Article):
     def strip_tags_content(self):
         return h_parser.unescape(strip_tags(self.content))
 
-    def v4_toDict(self, articles_list=None):
+    def v4_toDict(self, articles_list=list()):
         res = self.toDict()
         res.pop('id', None)
         res.pop('creator_id')
@@ -331,6 +331,9 @@ class APIArticle_Dig(Article_Dig):
     class Meta:
         proxy = True
 
+    @property
+    def article(self):
+        return APIArticle.objects.get(pk=self.article_id)
 
 # TODO: API JPUSH
 class APIJpush(JpushToken):
