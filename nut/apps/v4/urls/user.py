@@ -1,6 +1,6 @@
 from django.conf.urls import url, patterns
 from apps.v4.views.user import APIUserSearchView, APIUserIndexView, \
-    APIUserNotesView, APIUserLikeView, APIUserVerifiedView, APIUserArticlesView
+    APIUserNotesView, APIUserLikeView, APIUserVerifiedView, APIUserArticlesView, APIUserDigArticlesView
 
 
 urlpatterns = patterns(
@@ -14,6 +14,8 @@ urlpatterns = patterns(
     url(r'^(?P<user_id>\d+)/like/$', APIUserLikeView.as_view(), name='v4_user_entity_like'),
     url(r'^(?P<user_id>\d+)/entity/note/$', 'entity_note', name='v4_user_entity_note'),
     url(r'^(?P<user_id>\d+)/notes/$', APIUserNotesView.as_view(), name='v4_user_notes'),
+    url(r'^(?P<user_id>\d+)/dig/articles/$', APIUserDigArticlesView.as_view(), name='v4_dig_articles'),
+
     url(r'^(?P<user_id>\d+)/articles/$', APIUserArticlesView.as_view(), name='v4_user_articles'),
 
     url(r'^search/$', APIUserSearchView.as_view(), name='v4_user_search'),

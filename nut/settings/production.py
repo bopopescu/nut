@@ -1,7 +1,7 @@
 from settings import *
 
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 STATIC_URL = 'http://static.guoku.com/static/v4/dafb5059ae45f18b0eff711a38de3d59b95bad4c/'
