@@ -1,5 +1,5 @@
 from django.conf.urls import url, patterns, include
-from apps.v4.views import DiscoverView, HomeView, AuthorizedUser
+from apps.v4.views import DiscoverView, HomeView, AuthorizedUser, UnreadView
 from apps.v4.views.marketing import LaunchBoardView
 
 
@@ -16,7 +16,8 @@ urlpatterns = patterns(
 
     url(r'^toppopular/$', 'toppopular', name='v4_toppopular'),
 
-    url(r'^unread/$', 'unread', name='v4_unread'),
+    # url(r'^unread/$', 'unread', name='v4_unread'),
+    url(r'^unread/$', UnreadView.as_view(), name='v4_unread'),
     url(r'^item/(?P<item_id>\w+)/$', 'visit_item', name='v4_visit_item'),
 
     url(r'^apns/token/$', 'apns_token', name='v4_apns_token'),

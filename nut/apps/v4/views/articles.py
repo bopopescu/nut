@@ -1,4 +1,4 @@
-from apps.core.views import BaseJsonView, JSONResponseMixin
+from apps.core.views import JSONResponseMixin
 from apps.core.utils.http import ErrorJsonResponse
 from apps.tag.models import Content_Tags, Tags
 from apps.mobile.lib.sign import check_sign
@@ -6,6 +6,7 @@ from apps.mobile.models import Session_Key
 from apps.v4.models import APISeletion_Articles, APIArticle
 from apps.v4.forms.search import APIArticleSearchForm
 from apps.v4.views import APIJsonView
+from apps.core.tasks.article import dig_task, undig_task
 
 from haystack.generic_views import SearchView
 from django.core.paginator import Paginator
@@ -135,6 +136,48 @@ class ArticleTagView(APIJsonView):
 
         return super(ArticleTagView, self).get(request, *args, **kwargs)
 
+
+class ArticleDigView(APIJsonView):
+
+    http_method_names = ['post']
+
+    def get_data(self, context):
+        dig_task.delay(uid=self.session.user_id, aid=self.article_id)
+        return {'status': 1, 'article_id': self.article_id}
+
+    def post(self, request, *args, **kwargs):
+        _key = request.POST.get('session', None)
+        self.article_id = request.POST.get('aid', None)
+        assert self.article_id is not None
+        try:
+            self.session = Session_Key.objects.get(session_key=_key)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
+        return super(ArticleDigView, self).post(request, *args, **kwargs)
+    # def get(self, request, *args, **kwargs):
+
+        # return super(ArticleDigView, self).get(request, *args, **kwargs)
+
+
+
+class ArticleUnDigView(APIJsonView):
+    http_method_names = ['post']
+
+    def get_data(self, context):
+        undig_task.delay(uid=self.session.user_id, aid=self.article_id)
+        return {'status': 0, 'article_id':self.article_id}
+
+    def post(self, request, *args, **kwargs):
+        _key = request.POST.get('session', None)
+        self.article_id = request.POST.get('aid', None)
+        assert self.article_id is not None
+        try:
+            self.session = Session_Key.objects.get(session_key=_key)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
+        return super(ArticleUnDigView, self).post(request, *args, **kwargs)
+    # def get(self, request, *args, **kwargs):
+    #     return super(ArticleUnDigView, self).get(request, *args, **kwargs)
 
 
 __author__ = 'xiejiaxin'

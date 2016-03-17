@@ -76,8 +76,10 @@ define(['libs/Class',
 
                 if(currentCount<=0){
                     $counterEle.html('  ');
+                    $counterEle.parent().find('.dig-word').show();
                 }else{
                     $counterEle.html(currentCount + ' ');
+                    $counterEle.parent().find('.dig-word').hide();
                 }
 
 
