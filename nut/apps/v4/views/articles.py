@@ -171,8 +171,6 @@ class ArticleDigView(APIJsonView):
         return super(ArticleDigView, self).post(request, *args, **kwargs)
     # def get(self, request, *args, **kwargs):
 
-        # return super(ArticleDigView, self).get(request, *args, **kwargs)
-
 
 
 class ArticleUnDigView(APIJsonView):
