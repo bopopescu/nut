@@ -41,7 +41,6 @@ class Shop(BaseModel):
         (tmall , '天猫'),
         (glbuy, '全球购'),
         (tinter, '天猫国际'),
-        (jiyoujia,'极有家')
     ]
 
 
@@ -50,3 +49,6 @@ class Shop(BaseModel):
     shop_link = models.URLField(max_length=255)
     shop_style = models.IntegerField(choices=SHOP_STYLE_CHOICES, default=dress )
     shop_type = models.IntegerField(choices=SHOP_TYPE_CHOICES, default= taobao)
+
+    def __unicode__(self):
+        return '%s:%s'%(self.owner, self.shop_title)
