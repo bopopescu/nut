@@ -844,3 +844,8 @@ p.boolean-false {
     margin-top: 80px;
   }
 }
+@media (max-width: 767px) {
+  .store-body .store-page-container .good-store-row.latest-actions-wrapper {
+    margin-top: 10px;
+  }
+}
