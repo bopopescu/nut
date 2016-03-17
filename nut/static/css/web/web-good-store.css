@@ -685,6 +685,10 @@ p.boolean-false {
   margin-top: 40px;
   margin-bottom: 40px;
 }
+.slick-prev-control,
+.slick-next-control {
+  top: 40%;
+}
 .store-body .store-top-banner {
   margin-top: -30px;
   width: 100%;
