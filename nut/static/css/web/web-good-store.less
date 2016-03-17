@@ -8,6 +8,18 @@
   margin-bottom:40px;
 }
 
+//the scroll banner is use slick thirdparty.but this page's sroll banner structure is special,so the position is mistaken.
+// but I don't plan to modify the slick-theme.css
+//so this btn position change put here to protect the third party.
+.store-body{
+  #index-banners{
+    .slick-prev, .slick-next{
+      top:40%;
+    }
+  }
+}
+
+
 .store-body{
   .store-top-banner{
     margin-top:-30px;
@@ -23,6 +35,8 @@
       margin-top:30px;
       .banner-title-wrapper{
         font-size:@big-title-size;
+        font-weight: bold;
+        letter-spacing: 8px;
       }
       .banner-slogan-wrapper{
         margin-top:8px;
@@ -41,20 +55,25 @@
   //授权用户动态边栏 复用原来的
   .latest-actions-sidebar-wrapper{
     height:100%;
-    overflow-y: auto;
+    //overflow-y: auto;
 
     .latest-actions-list{
+      height:100%;
+      overflow-y: auto;
       background-color: #ffffff;
       padding: 18px;
       border-radius: 4px;
       background-clip: padding-box;
       box-shadow: 0 0 2px #ddd;
       .user-tag-list{
+        height:100%;
         border-bottom: 0 !important;
         .section-title.section-title-control{
           border-left-color:#ffffff;
         }
         .section-content{
+          //height:90%;
+          //overflow-y: auto;
           .publish-time,.publish-info{
             display: table-cell;
           }
@@ -143,6 +162,7 @@
       min-width:35px;
     }
     .tag-element{
+      background-color: @default-background;
       &:hover{
         cursor: pointer;
       }
@@ -160,10 +180,11 @@
         color:@common-text-color;
         font-size:@smaller-primary;
         &:hover{
+          cursor: pointer;
+          color: @common-text-color;
           text-decoration: underline;
         }
       }
-
     }
   }
 
@@ -192,5 +213,15 @@
 @media (min-width:768px){
   .store-body .consumption-report-wrapper{
     margin-top:80px;
+  }
+}
+
+@media (max-width:767px){
+  .store-body{
+    .store-page-container{
+      .good-store-row.latest-actions-wrapper{
+        margin-top:10px;
+      }
+    }
   }
 }

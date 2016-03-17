@@ -3554,41 +3554,6 @@ define('subapp/topmenu',['bootstrap',
         return _;
     };
 
-////    add index_slider.js at bottom
-//    $('#index-banners').slick({
-//
-//
-//        centerMode: true,
-//        arrows: true,
-//        slidesToShow: 1,
-//        centerPadding:'15%',
-//        dots:false,
-//
-//        //centerPadding: '60px',
-//        //slidesToShow: 3,
-//        responsive: [
-//            {
-//                breakpoint: 10000,
-//                settings: {
-//                    centerMode:false,
-//                    slidesToShow:1,
-//                    slidesToScroll:1,
-//                    infinite: true
-//                }
-//            },
-//        ]
-//        //  {
-//        //    breakpoint: 480,
-//        //    settings: {
-//        //      arrows: false,
-//        //      centerMode: true,
-//        //      centerPadding: '40px',
-//        //      slidesToShow: 1
-//        //    }
-//        //  }
-//        //]
-//    });
-
 }));
 
 
@@ -3597,10 +3562,33 @@ define('subapp/store/store_banner',['jquery', 'libs/Class','libs/slick'], functi
 ){
     var StoreBanner= Class.extend({
         init: function () {
+            this.init_slick();
             console.log('subapp good store start !');
             this.sameHeightFrame('user-latest-article','latest-actions-sidebar');
         },
+        init_slick:function(){
+            $('#index-banners').slick({
+                centerMode: true,
+                arrows: true,
+                slidesToShow: 1,
+                centerPadding:'15%',
+                dots:false,
 
+                //centerPadding: '60px',
+                //slidesToShow: 3,
+                responsive: [
+                    {
+                        breakpoint: 10000,
+                        settings: {
+                            centerMode:false,
+                            slidesToShow:1,
+                            slidesToScroll:1,
+                            infinite: true
+                        }
+                    },
+                ]
+            });
+        },
         sameHeightFrame: function (leftId,rightId) {
             var leftChildHeight = this.getElementHeight(leftId);
             var rightChildHeight = this.getElementHeight(rightId);
