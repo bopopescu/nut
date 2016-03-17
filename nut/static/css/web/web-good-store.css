@@ -799,6 +799,9 @@ p.boolean-false {
 .store-body .select-condition-wrapper .select-condition .type-title {
   min-width: 35px;
 }
+.store-body .select-condition-wrapper .select-condition .tag-element {
+  background-color: #fff;
+}
 .store-body .select-condition-wrapper .select-condition .tag-element:hover {
   cursor: pointer;
 }
@@ -809,7 +812,7 @@ p.boolean-false {
   white-space: nowrap;
 }
 .store-body .select-result-wrapper .result-item-wrapper a {
-  color: #9d9d9d;
+  color: #424242;
   font-size: 14px;
 }
 .store-body .select-result-wrapper .result-item-wrapper a:hover {
