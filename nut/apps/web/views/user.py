@@ -389,6 +389,13 @@ class UserPublishedSelectionArticleView(UserDetailBase):
         _article_list = Article.objects.get_published_by_user(_user).filter(selections__isnull = False).filter(pk__in=list(_selection_article_ids))
         return _article_list
 
+class UserLikeArticleView(UserDetailBase):
+    model = GKUser
+    template_name =  'web/user/user_like_articles.html'
+    paginate_by = 12
+    context_object_name = 'current_user_like_articles'
+
+
 
 from apps.web.forms.user import UserArticleStatusFilterForm
 class UserArticleView(UserDetailBase):
