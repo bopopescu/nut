@@ -8,7 +8,7 @@
 
 ## careful 
    测试服务器出现中文 store page banner title 不能提交的问题
-   不一定要运行,生产服务器已经
+   不一定要运行,生产服务器已经OK 
    
     ALTER TABLE `core`.`shop_storepagebanners` 
 CHANGE COLUMN `banner_title` `banner_title` VARCHAR(128) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
