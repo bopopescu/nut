@@ -4,6 +4,19 @@
 2. brand mng list search 
 1. add brand score for control recommend brand order 
 
+## careful 
+   测试服务器出现中文 store page banner title 不能提交的问题
+   
+    ALTER TABLE `core`.`shop_storepagebanners` 
+CHANGE COLUMN `banner_title` `banner_title` VARCHAR(128) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
+CHANGE COLUMN `banner_desc` `banner_desc` VARCHAR(128) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ;
+
+    if there is no score for brand table 
+    
+    ALTER TABLE `core`.`core_brand` 
+ADD COLUMN `score` INT(32) NULL DEFAULT 0 AFTER `tmall_link`;
+
+
 ## need run sql 
 
 ALTER TABLE `core`.`core_brand` 

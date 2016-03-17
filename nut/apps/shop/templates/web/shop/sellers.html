@@ -75,9 +75,9 @@
                                         {{ article.created_datetime|format_time }}
                                     </div>
                                     <div class="publish-info">
-                                        <a href="">{{ article.creator.nickname }}</a>
+                                        <a href="{% url 'web_user_index' article.creator.pk %}" target="_blank">{{ article.creator.nickname }}</a>
                                         发表了图文
-                                        <a href="">{{ article.title }}</a>
+                                        <a href="{% url 'web_article_page' article.pk  %}" target="_blank">{{ article.title }}</a>
                                     </div>
                                 </li>
                                 {% endfor %}
