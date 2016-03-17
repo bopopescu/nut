@@ -1,3 +1,60 @@
+5. good store page 
+4. mng article creator choice method update
+3. article dig count cache time 
+2. brand mng list search 
+1. add brand score for control recommend brand order 
+
+## need run sql 
+
+ALTER TABLE `core`.`core_brand` 
+ADD COLUMN `score` INT(32) NULL DEFAULT 0 AFTER `tmall_link`;
+
+
+### add  a column  'score' on Brand model ,
+
+    for fine control the brand order 
+
+==================================
+# merged to master 2016 3 - 10 
+==================================
+
+2. store page recommend mng
+1. store page banner mng 
+0. article dig js update
+
+#action 
+
+need syncdb 
+
+
+=================================
+# merged to master 2016 － 3 － 4
+=================================
+
+
+# remove fetch_article module.
+
+### action
+
+    ALTER TABLE `core`.`core_article` 
+    CHANGE COLUMN `cleaned_title` `identity_code` VARCHAR(255) NULL     DEFAULT NULL COMMENT '' ;
+
+===
+
+
+
+
+5.  article hide weixin id when author don't have it 
+4.  shop style and type choice update (management )
+3.  show article dig message in message page 
+2.  article dig 
+1.  fix web message page bug (new selection)
+
+=================================
+# merged to master 2016 － 2 － 29
+=================================
+
+
 3.  authorized seller shop management
 2.  api user article list bug fig 
 1.  article writer follow button position 

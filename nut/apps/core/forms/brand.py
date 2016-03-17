@@ -18,6 +18,7 @@ class BrandForm(forms.Form):
         # 'password_mismatch': _("The two password fields didn't match."),
     }
 
+
     icon = forms.FileField(
         label=_('icon'),
         widget=forms.FileInput(),
@@ -70,6 +71,11 @@ class BrandForm(forms.Form):
                                 widget=forms.Select(attrs={'class':'form-control'}),
                                 initial=Brand.pending,
                                 help_text=_('status'))
+
+    score = forms.IntegerField(label=_('brand score'),
+                                 initial= 0 ,
+                                 help_text=_('input a score of the brand')
+                                )
 
     intro = forms.CharField(
         label=_('intro'),

@@ -1,0 +1,13 @@
+{% extends 'web/base.html' %}
+{% load i18n staticfiles %}
+{% load guoku %}
+{% block content %}
+    {{ brand.name }}
+    {{ brand.company }}
+    {{ brand.website }}
+    {{ brand.tmall_link }}
+    {{ brand.national }}
+    {{ brand.intro }}
+    {{ brand.status }}
+
+{% endblock %}
