@@ -111,9 +111,9 @@
                                         {{ article.created_datetime|format_time }}
                                     </div>
                                     <div class="publish-info">
-                                        <a href="">{{ article.creator.nickname }}</a>
+                                        <a href="{% url 'web_user_index' article.creator.pk %}">{{ article.creator.nickname }}</a>
                                         发表了图文
-                                        <a href="">{{ article.title }}</a>
+                                        <a href="{% url 'web_article_page' article.pk %}">{{ article.title }}</a>
                                     </div>
                                 </li>
                                 {% endfor %}
@@ -146,11 +146,11 @@
         </div>
 
         <div class="row section-title-wrapper">
-{#            <a name="sellers">#}
+            <a name="sellers">
             <div class="col-sm-12">
                 <p>全部好店</p>
             </div>
-{#            </a>#}
+            </a>
         </div>
 
         <div class="row select-condition-wrapper">

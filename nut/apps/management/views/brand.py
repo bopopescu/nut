@@ -5,6 +5,8 @@ from django.views.generic import ListView
 from django.shortcuts import  redirect
 from django.utils.log import getLogger
 
+from braces.views import StaffuserRequiredMixin
+
 from apps.core.models import Brand
 from apps.core.models import Entity
 from apps.core.views import BaseListView, BaseFormView
@@ -46,7 +48,7 @@ class BrandStatView(BaseListView):
         return self.render_to_response(context)
 
 
-class BrandListView(FilterMixin, ListView):
+class BrandListView(StaffuserRequiredMixin, FilterMixin, ListView):
     template_name = "management/brand/list.html"
     context_object_name = 'brands'
     paginate_by = 30
