@@ -582,11 +582,23 @@ class APIUserDigArticlesView(APIJsonView):
     def get_data(self, context):
 
         articles = APIArticle_Dig.objects.filter(user_id=self.user_id)
+
+
+
         da = articles.values_list('article_id', flat=True)
         res = dict()
         res['count'] = articles.count()
         res['articles'] = list()
-        for row in articles:
+        res['page'] = self.page
+        res['size'] = self.size
+
+        paginator = Paginator(articles, self.size)
+        try:
+            article_list = paginator.page(self.page)
+        except Exception:
+            return res
+
+        for row in article_list.object_list:
             obj = row.article.v4_toDict(articles_list=da)
             res['articles'].append(
                 obj
@@ -599,6 +611,8 @@ class APIUserDigArticlesView(APIJsonView):
         print self.user_id
         assert self.user_id is not None
         _key = request.GET.get('session', None)
+        self.page = request.GET.get('page', 1)
+        self.size = request.GET.get('size', 30)
         self.visitor = None
         try:
             _session = Session_Key.objects.get(session_key=_key)
