@@ -1,9 +1,28 @@
+6. GKUser.digs 实现方式 
+
+5. good store page 
+4. mng article creator choice method update
+3. article dig count cache time 
+2. brand mng list search 
+1. add brand score for control recommend brand order 
+
+## careful 
+   测试服务器出现中文 store page banner title 不能提交的问题
+   不一定要运行,生产服务器已经OK 
+   
+    ALTER TABLE `core`.`shop_storepagebanners` 
+CHANGE COLUMN `banner_title` `banner_title` VARCHAR(128) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
+CHANGE COLUMN `banner_desc` `banner_desc` VARCHAR(128) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ;
+
 ## need run sql 
 
-ALTER TABLE `core`.`shop_storepagebanners` 
-ADD COLUMN `banner_title` VARCHAR(127) NULL AFTER `status`,
-ADD COLUMN `banner_desc` VARCHAR(255) NULL AFTER `banner_title`;
+ALTER TABLE `core`.`core_brand` 
+ADD COLUMN `score` INT(32) NULL DEFAULT 0 AFTER `tmall_link`;
 
+
+### add  a column  'score' on Brand model ,
+
+    for fine control the brand order 
 
 ==================================
 # merged to master 2016 3 - 10 
