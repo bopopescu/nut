@@ -15,6 +15,8 @@ register = template.Library()
 log = getLogger('django')
 
 def format_time(value):
+    if value is None:
+        return ''
     if type(value) is str:
         return value
     before_time = time.mktime(value.timetuple())
@@ -38,7 +40,7 @@ def format_time(value):
     else:
         return "%d周前"%(time_interval/(60*60*24*7))
     # NEVER GO HERE
-    return "很久很久以前"
+    return u"很久很久以前"
 
 register.filter(format_time)
 
