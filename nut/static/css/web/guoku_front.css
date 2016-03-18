@@ -1425,6 +1425,7 @@ p.boolean-false {
   left: 0px;
   top: -5px;
   height: 32px;
+  cursor: pointer;
 }
 .main-article .share-wrapper .dig-wrapper .digged img.dig {
   display: none;
