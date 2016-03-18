@@ -40,6 +40,7 @@ coverage.xml
 
 # Translations
 #*.mo
+*.csv
 
 # Mr Developer
 .mr.developer.cfg

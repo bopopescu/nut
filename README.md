@@ -28,7 +28,7 @@ brew install imagemagick
  ```
  virtualenv guoku-v4
  source /path/to/guoku-v4/bin/active
- pip install -r requirements.txt
+ pip install -r requirements
  ```
 
 
