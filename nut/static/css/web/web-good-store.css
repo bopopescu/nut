@@ -781,6 +781,12 @@ p.boolean-false {
 .store-body .hot-section-wrapper a:hover {
   cursor: pointer;
 }
+.store-body a.good-stores {
+  color: #424242;
+}
+.store-body a.good-stores:hover {
+  color: #424242;
+}
 .store-body .select-condition-wrapper .select-condition {
   padding: 0 10px;
   background-clip: content-box;
