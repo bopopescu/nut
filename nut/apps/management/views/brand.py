@@ -1,6 +1,11 @@
 # coding=utf-8
 from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.views.generic import ListView
+from django.shortcuts import  redirect
+from django.utils.log import getLogger
+
+from braces.views import StaffuserRequiredMixin
 
 from apps.core.models import Brand
 from apps.core.models import Entity
@@ -9,7 +14,7 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 from apps.management.forms.brand import EditBrandForm, CreateBrandForm
 
 from haystack.query import SearchQuerySet
-from django.utils.log import getLogger
+from apps.core.mixins.views import SortMixin, FilterMixin
 
 log = getLogger('django')
 
@@ -43,31 +48,44 @@ class BrandStatView(BaseListView):
         return self.render_to_response(context)
 
 
-class BrandListView(BaseListView):
+class BrandListView(StaffuserRequiredMixin, FilterMixin, ListView):
     template_name = "management/brand/list.html"
+    context_object_name = 'brands'
+    paginate_by = 30
+    paginator_class = ExtentPaginator
+    model =  Brand
     # queryset = Brand.objects.all()
 
-    def get_queryset(self):
+    def filter_queryset(self, qs, filter_param):
+        filter_field , filter_value = filter_param
+        if filter_field == 'brand_name':
+            qs = qs.filter(name__icontains=filter_value.strip())
+        else:
+            pass
+        return qs
 
-        return Brand.objects.all()
 
-    def get(self, request):
-        _brand_list = self.get_queryset()
-        page = request.GET.get('page', 1)
+    def get_queryset(self,*args, **kwargs):
+        qs = super(BrandListView, self).get_queryset(*args, **kwargs)
+        status = self.request.GET.get('status', None)
+        qs = qs.order_by('-status','-score','-icon')
 
-        paginator = ExtentPaginator(_brand_list, 30)
+        if not status is None:
+            status = int(status)
+            if status == Brand.publish:
+                qs = qs.filter(status=Brand.publish)
+            elif status == Brand.promotion:
+                qs = qs.filter(status=Brand.promotion)
+            else:
+                pass
+        return qs
 
-        try:
-            _banrds = paginator.page(page)
-        except InvalidPage:
-            _banrds = paginator.page(1)
-        except EmptyPage:
-            raise Http404
+    def get_context_data(self, *args, **kwargs):
+        context  = super(BrandListView, self).get_context_data(*args, **kwargs)
+        context['status'] =  self.request.GET.get('status', None)
+        return context
 
-        context = {
-            'brands':_banrds,
-        }
-        return self.render_to_response(context)
+
 
 
 class BrandEntityListView(BaseListView):
@@ -104,6 +122,8 @@ class BrandEntityListView(BaseListView):
             'entities': _entities,
         }
         return self.render_to_response(context)
+
+
 
 
 class BrandEditView(BaseFormView):
@@ -146,6 +166,8 @@ class BrandEditView(BaseFormView):
         form = self.get_form_class(brand=brand)
         if form.is_valid():
             brand = form.save()
+            return redirect('management_brand_list')
+
 
         context = {
             'form':form,
