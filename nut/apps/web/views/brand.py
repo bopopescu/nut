@@ -13,7 +13,10 @@ class BrandListView(ListView):
         return Brand.objects.all()
 
 
-class BrandDetailView(DetailView):
-    model = Brand
+class BrandDetailView(ListView):
     template_name = 'web/brand/detail.html'
-    context_object_name = 'brand'
+
+    def get_queryset(self):
+        pass
+
+

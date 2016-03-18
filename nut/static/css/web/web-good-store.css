@@ -755,6 +755,10 @@ p.boolean-false {
   margin-top: 40px;
   margin-bottom: 40px;
 }
+.store-body #index-banners .slick-prev,
+.store-body #index-banners .slick-next {
+  top: 40%;
+}
 .store-body .store-top-banner {
   margin-top: -30px;
   width: 100%;
@@ -769,6 +773,8 @@ p.boolean-false {
 }
 .store-body .store-top-banner .store-banner-wrapper .banner-title-wrapper {
   font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 8px;
 }
 .store-body .store-top-banner .store-banner-wrapper .banner-slogan-wrapper {
   margin-top: 8px;
@@ -780,9 +786,10 @@ p.boolean-false {
 }
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper {
   height: 100%;
-  overflow-y: auto;
 }
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list {
+  height: 100%;
+  overflow-y: auto;
   background-color: #ffffff;
   padding: 18px;
   border-radius: 4px;
@@ -790,6 +797,7 @@ p.boolean-false {
   box-shadow: 0 0 2px #ddd;
 }
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list {
+  height: 100%;
   border-bottom: 0 !important;
 }
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-title.section-title-control {
@@ -867,6 +875,9 @@ p.boolean-false {
 .store-body .select-condition-wrapper .select-condition .type-title {
   min-width: 35px;
 }
+.store-body .select-condition-wrapper .select-condition .tag-element {
+  background-color: #fff;
+}
 .store-body .select-condition-wrapper .select-condition .tag-element:hover {
   cursor: pointer;
 }
@@ -881,6 +892,8 @@ p.boolean-false {
   font-size: 14px;
 }
 .store-body .select-result-wrapper .result-item-wrapper a:hover {
+  cursor: pointer;
+  color: #424242;
   text-decoration: underline;
 }
 .store-body .consumption-report-wrapper {
@@ -903,5 +916,10 @@ p.boolean-false {
 @media (min-width: 768px) {
   .store-body .consumption-report-wrapper {
     margin-top: 80px;
+  }
+}
+@media (max-width: 767px) {
+  .store-body .store-page-container .good-store-row.latest-actions-wrapper {
+    margin-top: 10px;
   }
 }
