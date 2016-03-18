@@ -159,6 +159,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def is_verified(self):
         return self.profile.email_verified
 
+    # @property
+    # def digged_articles(self):
+    #     return self.digs
+
     @property
     def published_articles(self):
         return self.articles.filter(publish=Article.published)
