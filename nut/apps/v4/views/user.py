@@ -583,8 +583,6 @@ class APIUserDigArticlesView(APIJsonView):
 
         articles = APIArticle_Dig.objects.filter(user_id=self.user_id)
 
-
-
         da = articles.values_list('article_id', flat=True)
         res = dict()
         res['count'] = articles.count()
