@@ -4,10 +4,23 @@ import os,sys
 sys.path.append('/new_sand/guoku/nut/nut')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_anchen'
 
+# sys.path.append('/data/www/nut')
+# os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
+
+
 from apps.core.models import Buy_Link, Entity
 import csv
 
 def run():
+    '''
+    python amazon_entities.py >  amazon.csv
+
+    if you want run it in production env
+    use the production  sys.path and os.environ !
+
+
+    :return:
+    '''
     amazon_entity_ids = Buy_Link.objects\
                                 .filter(origin_source__icontains='amazon')\
                                 .values_list('entity_id', flat=True)
