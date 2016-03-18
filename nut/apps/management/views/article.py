@@ -2,7 +2,7 @@ from django.forms import HiddenInput
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse , reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.log import getLogger
@@ -422,6 +422,7 @@ def edit(request, article_id, template="management/article/edit.html"):
         {
             "article": _article,
             "forms": _forms,
+            "tag_url": reverse_lazy('web_article_textrank', _article.pk)
         },
         context_instance = RequestContext(request)
     )
