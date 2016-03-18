@@ -14,7 +14,6 @@
             <li class="active">{% trans 'brand' %}</li>
         </ol>
     </section>
-
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
@@ -66,7 +65,7 @@
                                         <td>{{ brand.score }}</td>
                                         <td>
                                             <div class="btn-group">
-                                                <a class="btn btn-save" href="{% url 'web_brand_detail' brand.pk %}" target="_blank">{% trans 'GOTO' %}</a>
+{#                                                <a class="btn btn-save" href="{% url 'web_brand_detail' brand.pk %}" target="_blank">{% trans 'GOTO' %}</a>#}
                                                 <a class="btn btn-success" href="{% url 'management_brand_entity_list' brand.name %}" target="_blank">{% trans 'entity' %}</a>
                                                 <a class="btn btn-default" href="{% url 'management_brand_edit' brand.pk %}" target="_blank">{% trans 'edit' %}</a>
                                             </div>

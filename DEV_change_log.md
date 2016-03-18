@@ -1,3 +1,5 @@
+6. GKUser.digs 实现方式 
+
 5. good store page 
 4. mng article creator choice method update
 3. article dig count cache time 
@@ -6,16 +8,11 @@
 
 ## careful 
    测试服务器出现中文 store page banner title 不能提交的问题
+   不一定要运行,生产服务器已经OK 
    
     ALTER TABLE `core`.`shop_storepagebanners` 
 CHANGE COLUMN `banner_title` `banner_title` VARCHAR(128) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
 CHANGE COLUMN `banner_desc` `banner_desc` VARCHAR(128) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ;
-
-    if there is no score for brand table 
-    
-    ALTER TABLE `core`.`core_brand` 
-ADD COLUMN `score` INT(32) NULL DEFAULT 0 AFTER `tmall_link`;
-
 
 ## need run sql 
 
