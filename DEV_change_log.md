@@ -1,3 +1,10 @@
+
+2.  viewport position adjust 
+1.  remove baichuan rec for now 
+
+==================================
+# merged to master 2016 3 - 17
+==================================
 6. GKUser.digs 实现方式 
 
 5. good store page 
