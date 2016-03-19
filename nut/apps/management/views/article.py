@@ -422,7 +422,7 @@ def edit(request, article_id, template="management/article/edit.html"):
         {
             "article": _article,
             "forms": _forms,
-            "tag_url": reverse_lazy('web_article_textrank', _article.pk)
+            "tag_url": reverse_lazy('web_article_textrank',args=[_article.pk])
         },
         context_instance = RequestContext(request)
     )

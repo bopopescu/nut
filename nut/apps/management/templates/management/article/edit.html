@@ -29,25 +29,43 @@
                         <div class="col-sm-6 col-sm-offset-3">
                             <img class="img-responsive" id='article-cover' src="{{ article.cover_url|resize:'600' }}" width="" height="">
                         </div>
-                        <span class="btn btn-primary fileinput-button pull-right">
-                            <i class="fa fa-plus fa-lg"></i>&nbsp; <span>点击选择图片</span>
-                            <input id="fileupload" type="file" multiple="" name="cover_file" data-url="{% url 'management_article_cover_upload' article.pk %}">
-                        </span>
+{#                        <span class="btn btn-primary fileinput-button pull-right">#}
+{#                            <i class="fa fa-plus fa-lg"></i>&nbsp; <span>点击选择图片</span>#}
+{#                            <input id="fileupload" type="file" multiple="" name="cover_file" data-url="{% url 'management_article_cover_upload' article.pk %}">#}
+{#                        </span>#}
                     </div>
 
                     <form class="form-horizontal article-form" method="post" >
                     {% csrf_token %}
                         <div class="box-body">
                             {% for field in forms %}
+
                                 {% if field.name  == 'content' %}
                                     <div class="form-group">
                                     <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
                                     <div class="col-sm-10">
                                         <a class="btn btn-success " href="{% url 'web_article_page' article.pk %}" target="_blank">GOTO</a>
                                         <a class="btn btn-primary " href="{% url 'web_editor_article_edit' article.pk %}" target="_blank">编辑文章内容</a>
-                                        <div class="hidden">
-                                             {{ field }}
+                                        <div class="">
+                                            {% autoescape off %}
+                                             {{ field.data|striptags }}
+                                            {% endautoescape %}
                                         </div>
+                                    </div>
+                                </div>
+                                {% elif field.name == 'cover' %}
+{#                                     pass for cover now#}
+                                {% elif field.name == 'tags' %}
+                                    <div class="form-group">
+                                       <label class="col-sm-2 control-label"> 备选 tags</label>
+                                      <ul class="tag-btn-list">
+                                          <li class="tag-btn"></li>
+                                      </ul>
+                                    </div>
+                                    <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                                    <div class="col-sm-10">
+                                        {{ field }}
                                     </div>
                                 </div>
                                 {% else %}
@@ -76,7 +94,10 @@
 {% endblock %}
 
 {% block user_script %}
-{#    var tag_url = {{ tag_url }};#}
+    <script language="javascript">
+    var tag_url = "{{ tag_url }}";
+    </script>
+
   <script language="javascript" src="{% static 'js/management/article/article_tag.js' %}">
 
   </script>
