@@ -1,7 +1,7 @@
 
-2.  viewport position adjust 
+ 
 1.  remove baichuan rec for now 
-
+0.  article tag editing (unfinished)
 ==================================
 # merged to master 2016 3 - 17
 ==================================
