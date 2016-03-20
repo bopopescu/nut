@@ -852,6 +852,12 @@ p.boolean-false {
     white-space: normal;
   }
 }
+.mng-article-edit .article-tag-btn {
+  background-color: #ddd!important;
+  color: #000;
+  margin-right: 5px;
+  margin-top: 5px;
+}
 #test {
   color: black;
 }

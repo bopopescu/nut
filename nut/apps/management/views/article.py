@@ -279,9 +279,9 @@ class AuthorArticlePersonList(BaseManagementArticleListView):
         context['for_author'] = True
         return context
 
+
 class AuthorArticleList(BaseManagementArticleListView):
     def get_queryset(self):
-
         authorized_authors = GKUser.objects.authorized_author()
         return  Article.objects.filter(publish=Article.published, creator__in=authorized_authors)\
                         .order_by('-updated_datetime')
