@@ -1,6 +1,5 @@
-4. 
-3. last day authorized user article list 
-2. article tag recommendation 
+
+2. article tag recommendation  
 1. Entity add top note cache  , reduce 40 query per page 
 
 ==================================
