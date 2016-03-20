@@ -279,9 +279,9 @@ class AuthorArticlePersonList(BaseManagementArticleListView):
         context['for_author'] = True
         return context
 
+
 class AuthorArticleList(BaseManagementArticleListView):
     def get_queryset(self):
-
         authorized_authors = GKUser.objects.authorized_author()
         return  Article.objects.filter(publish=Article.published, creator__in=authorized_authors)\
                         .order_by('-updated_datetime')
@@ -422,7 +422,7 @@ def edit(request, article_id, template="management/article/edit.html"):
         {
             "article": _article,
             "forms": _forms,
-            "tag_url": reverse_lazy('web_article_textrank', _article.pk)
+            "tag_url": reverse_lazy('web_article_textrank',args=[_article.pk])
         },
         context_instance = RequestContext(request)
     )

@@ -1,7 +1,13 @@
 
-2.  viewport position adjust 
-1.  remove baichuan rec for now 
+2. article tag recommendation  
+1. Entity add top note cache  , reduce 40 query per page 
 
+==================================
+# merged to master 2016 3 - 19
+==================================
+ 
+1.  remove baichuan rec for now 
+0.  article tag editing (unfinished)
 ==================================
 # merged to master 2016 3 - 17
 ==================================
