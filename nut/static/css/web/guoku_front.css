@@ -4412,6 +4412,34 @@ body .for-mobile {
   top: -8px;
   left: 3px;
 }
+.brand-page .brand-info {
+  text-align: center;
+}
+.brand-page .brand-info .brand-icon {
+  display: inline-block;
+  width: 140px;
+  height: 140px;
+  border: 1px solid #ebebeb;
+}
+.brand-page .brand-info .brand-name {
+  margin-top: 40px;
+}
+.brand-page .brand-info .brand-name .nick {
+  font-size: 32px;
+  font-weight: 500;
+  margin-right: 12px;
+  font-size: 24px;
+}
+.brand-page .brand-info .brand-basic-info {
+  margin-top: 16px;
+  font-size: 14px;
+}
+.brand-page .brand-info .brand-basic-info ul {
+  overflow: hidden;
+}
+.brand-page .brand-info .brand-basic-info ul li {
+  display: inline-block;
+}
 .gk_test {
   color: red;
 }
