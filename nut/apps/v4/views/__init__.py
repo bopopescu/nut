@@ -199,12 +199,23 @@ class DiscoverView(APIJsonView):
 
         for user in auth_users:
             r = {
-                'user': user.v4_toDict()
+                'user': user.v4_toDict(visitor=self.visitor)
             }
             # print r
             res['authorizeduser'].append(r)
             # print row.user.v4_toDict()
         return res
+
+    def get(self, request, *args, **kwargs):
+        _key = request.GET.get('session', None)
+        self.visitor = None
+        if _key is not None:
+            try:
+                _session = Session_Key.objects.get(session_key=_key)
+                self.visitor = _session.user
+            except Session_Key.DoesNotExist:
+                pass
+        return super(DiscoverView, self).get(request, *args, **kwargs)
 
 
 class AuthorizedUser(APIJsonView):
