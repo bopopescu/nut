@@ -4439,6 +4439,8 @@ body .for-mobile {
 }
 .brand-page .brand-info .brand-basic-info ul li {
   display: inline-block;
+  margin-right: 5px;
+  color: #9d9d9d;
 }
 .gk_test {
   color: red;
