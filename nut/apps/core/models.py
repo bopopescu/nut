@@ -356,7 +356,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         res['like_count'] = self.like_count
         res['entity_note_count'] = self.post_note_count
         res['tag_count'] = self.tags_count
-        # res['article_count'] = self.article_cout
+        res['dig_count'] = self.dig_count
         res['fan_count'] = self.fans_count
         res['following_count'] = self.following_count
         res['authorized_author'] = self.is_authorized_author
