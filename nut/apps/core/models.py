@@ -353,13 +353,15 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             cache.set(key, res, timeout=86400)
 
         res['mail_verified'] = self.profile.email_verified
+        res['authorized_author'] = self.is_authorized_author
+
+        # TODO: 各种计数
         res['like_count'] = self.like_count
         res['entity_note_count'] = self.post_note_count
         res['tag_count'] = self.tags_count
         res['dig_count'] = self.dig_count
         res['fan_count'] = self.fans_count
         res['following_count'] = self.following_count
-        res['authorized_author'] = self.is_authorized_author
 
         try:
             res['sina_screen_name'] = self.weibo.screen_name
