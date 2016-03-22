@@ -898,6 +898,11 @@ p.boolean-false {
   line-height: 50px;
   background-color: #ffffff;
 }
+.store-body .consumption-report-wrapper.fixed-ele {
+  position: fixed;
+  bottom: 40px;
+  left: 0;
+}
 .store-body .consumption-report-wrapper a.consumption-report-item {
   color: #424242;
   margin-left: 15px;
