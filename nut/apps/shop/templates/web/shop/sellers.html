@@ -140,17 +140,17 @@
                         <div class="img-holder" style="background-image: url({{ rec.image_url }})">
                         </div>
                         <div class="new-user-action">
-                            {% if current_user.is_blocked %}
-
-                                {% elif current_user == request.user %}
-
-                                {% elif request.user.id in current_user.concren %}
-                                <a class="square-follow-btn btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i></a>
-                                {% elif request.user.id in current_user.fans_list %}
-                                <a class="square-follow-btn btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i></a>
-                            {% else %}
-                                <a class="square-follow-btn" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i></a>
-                            {% endif %}
+{#                            {% if current_user.is_blocked %}#}
+{##}
+{#                                {% elif current_user == request.user %}#}
+{##}
+{#                                {% elif request.user.id in current_user.concren %}#}
+{#                                <a class="square-follow-btn btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange"></i></a>#}
+{#                                {% elif request.user.id in current_user.fans_list %}#}
+                                <a class="square-follow-btn btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check"></i></a>
+{#                            {% else %}#}
+{#                                <a class="square-follow-btn" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i></a>#}
+{#                            {% endif %}#}
 
                         </div>
                     </div>
