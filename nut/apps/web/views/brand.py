@@ -1,6 +1,6 @@
 from django.http import Http404
 from django.views.generic import ListView
-from haystack.query import SearchQuerySet
+# from haystack.query import SearchQuerySet
 from django.shortcuts import get_object_or_404
 from apps.core.models import Brand, Entity
 
@@ -22,9 +22,15 @@ class BrandDetailView(ListView):
     context_object_name = 'entities'
 
     def get_queryset(self):
-        brand_pk= self.kwargs.pop('pk')
+        brand_pk= self.kwargs.get('pk')
         brand = get_object_or_404(Brand, pk=brand_pk)
-        sqs = SearchQuerySet().models(Entity).filter(brand=brand.name)
+        sqs = brand.entities
 
         return sqs
+
+    def get_context_data(self, **kwargs):
+        brand_pk = self.kwargs.get('pk')
+        context = super(BrandDetailView, self).get_context_data(**kwargs)
+        context['brand'] = get_object_or_404(Brand, pk=brand_pk)
+        return context
 
