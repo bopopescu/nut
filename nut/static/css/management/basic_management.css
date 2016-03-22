@@ -858,6 +858,12 @@ p.boolean-false {
   margin-right: 5px;
   margin-top: 5px;
 }
+.author-article-mng .current-author {
+  background: #0a6ebd;
+  color: #fff!important;
+  font-size: 32px;
+  text-align: center ;
+}
 #test {
   color: black;
 }
