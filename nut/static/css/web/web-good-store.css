@@ -778,6 +778,15 @@ p.boolean-false {
   text-decoration: underline;
   cursor: pointer;
 }
+.store-body .hot-section-wrapper .hot-section-item .article-panel {
+  position: relative;
+}
+.store-body .hot-section-wrapper .hot-section-item .article-panel .new-user-action {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
 .store-body .hot-section-wrapper a:hover {
   cursor: pointer;
 }
