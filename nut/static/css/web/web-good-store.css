@@ -816,14 +816,30 @@ p.boolean-false {
 .store-body .hot-section-wrapper .hot-section-item .article-panel {
   position: relative;
 }
+.store-body .hot-section-wrapper .hot-section-item .article-panel .img-holder.img-holder-control:hover {
+  opacity: 1;
+}
+.store-body .hot-section-wrapper .hot-section-item .article-panel .bg-layer {
+  display: none;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.18);
+}
 .store-body .hot-section-wrapper .hot-section-item .article-panel .new-user-action {
   position: absolute;
   top: 10px;
   right: 10px;
   z-index: 1000;
 }
-.store-body .hot-section-wrapper a:hover {
+.store-body .hot-section-wrapper .hot-section-item .article-panel a:hover {
   cursor: pointer;
+}
+.store-body .hot-section-wrapper .hot-section-item .article-panel a:hover .bg-layer {
+  display: block;
 }
 .store-body a.good-stores {
   color: #424242;
