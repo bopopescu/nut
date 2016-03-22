@@ -1062,10 +1062,6 @@ p.boolean-false {
 .square-follow-btn i.fa-plus {
   color: #6192FF;
 }
-.square-follow-btn:hover,
-.square-follow-btn:focus {
-  text-decoration: none!important;
-}
 .square-follow-btn:hover i.fa-plus,
 .square-follow-btn:focus i.fa-plus {
   color: #3F6FF0;
