@@ -138,6 +138,11 @@
   .hot-section-wrapper{
     .hot-section-item{
       .article-panel{
+        &:hover{
+          .bg-layer{
+            display: block;
+          }
+        }
         position:relative;
         .img-holder.img-holder-control{
           &:hover{
@@ -163,9 +168,9 @@
         a{
           &:hover{
             cursor:pointer;
-            .bg-layer{
-              display: block;
-            }
+            //.bg-layer{
+            //  display: block;
+            //}
           }
         }
       }
