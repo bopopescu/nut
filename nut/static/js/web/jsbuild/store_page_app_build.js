@@ -3610,6 +3610,21 @@ define('subapp/store/store_banner',['jquery', 'libs/Class','libs/slick'], functi
 
 
 
+
+define('subapp/store/annual_report',['jquery', 'libs/Class','libs/slick'], function(
+    $, Class
+){
+    var AnnualReport= Class.extend({
+        init: function () {
+            console.log('hello rose.write codes here');
+        }
+    });
+    return AnnualReport;
+});
+
+
+
+
 define('subapp/account',['libs/Class','jquery','bootstrap'],function(Class, $){
 
     var AccountApp = Class.extend({
@@ -3696,17 +3711,20 @@ require([
         'jquery',
         'subapp/topmenu',
         'subapp/store/store_banner',
+        'subapp/store/annual_report',
         'subapp/user_follow'
     ],
     function (
               jQuery,
               Menu,
               StoreBanner,
+              AnnualReport,
               UserFollow
 
     ){
         var menu = new Menu();
         var store_banner = new StoreBanner();
+        var annual_report = new AnnualReport();
         var user_follow = new UserFollow();
 
 });
