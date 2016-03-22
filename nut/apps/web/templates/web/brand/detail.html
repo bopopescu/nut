@@ -7,67 +7,32 @@
 
         <div class='brand-info'>
             <div class="brand-icon">
-                <img class="img-responsive" src="{{ brand.icon_url }}"/>
+                {% if brand.icon_url %}<img class="img-responsive" src="{{ brand.icon_url }}"/>{% endif %}
             </div>
 
             <div class="brand-name">
-                <span class="nick">{{ brand.name }}</span>
+                {% if brand.name %}<span class="nick">{{ brand.name }}</span>{% endif %}
             </div>
 
             <div class="brand-basic-info">
                 <ul>
-                    <li>又名:&nbsp;{{ brand.alias }}&nbsp;|</li>
-                    <li>&nbsp;国家:&nbsp;{{ brand.country }}&nbsp;|</li>
-                    <li>&nbsp;官网:&nbsp;<a href="" target="_blank">&nbsp;{{ brand.website }}</a></li>
+                    {% if brand.alias %}<li>又名:&nbsp;{{ brand.alias }}&nbsp;|</li>{% endif %}
+                    {% if brand.country %}<li>&nbsp;国家:&nbsp;{{ brand.country }}&nbsp;|</li>{% endif %}
+                    {% if brand.website %}<li>&nbsp;官网:&nbsp;<a href="" target="_blank">&nbsp;{{ brand.website }}</a></li>{% endif %}
                 </ul>
             </div>
 
             <div class="brand-intro-wrapper">
-                <p>{{ brand.intro }}</p>
+                {% if brand.intro %}<p>{{ brand.intro }}</p>{% endif %}
                 <br>
             </div>
         </div>
 
         <div class="row entity-wrapper">
             {% for entity in entities %}
-            <div class="col-xs-6 col-sm-3 search-entity-item">
-                <div class="new-thumbnail entity-four">
-                    <div class="img-box">
-                        <a href="" target="_blank">
-                            <img class="img-responsive" alt="" title="" src="{{ entity.object.chief_image|resize:'310' }}">
-                        </a>
-                    </div>
-                    <div class="entity-four-info">
-                        <div class="caption">
-                            <div class="brand">
-                                {{ entity.brand }}
-                            </div>
-                            <div class="title">
-                                <a href="" target="_blank">
-                                    {{ entity.title }}
-                                </a>
-                            </div>
-                            <div class="price">
-                                &#65509;{{ entity.price }}
-                            </div>
-                        </div>
-                        <div class="action">
-                            <div class="info">
-                                {% if entity.id in user_entity_likes %}
-                                    <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);"></a>
-                                    <i class="fa fa-heart"></i>
-                                {% else %}
-                                    <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);"></a>
-                                    <i class="fa fa-heart-o"></i>
-                                {% endif %}
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+                {% include 'web/main/partial/entity.html' with entity=entity.object %}
             {% endfor %}
-         </div>
+        </div>
 
     </div>
 
