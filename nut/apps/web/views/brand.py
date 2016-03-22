@@ -21,10 +21,20 @@ class BrandDetailView(ListView):
     paginate_by = 40
     context_object_name = 'entities'
 
+
+
     def get_queryset(self):
-        brand_pk= self.kwargs.pop('pk')
+        brand_pk= self.kwargs.get('pk')
         brand = get_object_or_404(Brand, pk=brand_pk)
         sqs = SearchQuerySet().models(Entity).filter(brand=brand.name)
 
         return sqs
+
+    def get_context_data(self, **kwargs):
+        context = super(BrandDetailView, self).get_context_data(**kwargs)
+        context['brand_id'] =  self.kwargs.get('pk')
+        return context
+
+
+
 

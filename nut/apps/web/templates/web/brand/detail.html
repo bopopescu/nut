@@ -2,9 +2,10 @@
 {% load i18n staticfiles %}
 {% load guoku %}
 {% block content %}
+{% for entity in entities %}
+    <img src="{{ entity.object.chief_image|resize:'200' }}">
 
-
-  {{ entities }}
+    {% endfor %}
 
 {% endblock %}
 
