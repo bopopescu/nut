@@ -13,8 +13,6 @@ define(['jquery', 'libs/Class','libs/slick'], function(
         hideReport:function(){
             var pageHeight = this.getPageHeight();
             var scrollHeight = this.getScrollHeight();
-            var bottomHeight = this.getFooterHeight('guoku_footer');
-            console.log(bottomHeight);
             var bottomHeight = this.getFooterHeight('guoku_footer') + 50;
             console.log(bottomHeight);
         },
