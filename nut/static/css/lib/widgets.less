@@ -658,22 +658,35 @@ p.boolean-false{
 }
 
 //new square follow btn
-.square-btn{
+.square-follow-btn{
+  display: inline-block;
   width:32px;
   height:32px;
   line-height:32px;
   text-align: center;
   font-size:@primary-size;
-  border-radius: @global-box-radius;
   background-color: #ffffff;
-  display: inline-block;
-  color: #fff;
   padding: 0px 6px;
+  .border-radius(4px);
   cursor: pointer;
   text-decoration:none;
+  i.fa-plus{
+     color: @btn-blue;
+  }
   &:hover,&:focus{
     text-decoration:none!important;
+    i.fa-plus{
+       color:@btn-blue-dark;
+    }
   }
-
+  &.btn-cancel{
+    background-color:@btn-blue;
+    i.fa-check{
+       color: #ffffff;
+    }
+    &:hover,&:focus{
+      background: @btn-blue-dark;
+    }
+  }
 
 }
