@@ -902,6 +902,9 @@ p.boolean-false {
   position: fixed;
   bottom: 40px;
   left: 0;
+  -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
 }
 .store-body .consumption-report-wrapper a.consumption-report-item {
   color: #424242;
