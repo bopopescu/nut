@@ -59,9 +59,6 @@
         <div class="row good-store-row latest-actions-wrapper">
             <div id="user-latest-article" class="guoku-middle-col user-latest-article-wrapper col-xs-12 col-sm-8 col-md-8 col-lg-8">
                 <div class="user-article-panel">
-                    {#                      <a>#}
-                    {#                        <div class="hover-light user-article-img" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">#}
-                    {#                        </div>#}
                     <div class="banner-wrapper" id="index-banners">
                         {% for banner in banners %}
                             <div class="banner-image-cell banner-image-cell-control">
@@ -69,10 +66,6 @@
                                     <div class="banner-image-wrapper" style="background-image: url({{ banner.image_url }})">
                                     </div>
                                     <div class="user-latest-article-intro-wrapper">
-                                        {#                        <div class="rect-decoration">#}
-                                        {#                            NEW#}
-                                        {#                        </div>#}
-
                                         <div class="user-latest-article-title-wrapper">
                                             <a class="user-latest-article-title">
                                                 {{ banner.banner_title }}
