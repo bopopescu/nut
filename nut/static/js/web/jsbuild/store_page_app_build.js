@@ -4074,17 +4074,15 @@ define('subapp/store/annual_report',['jquery','libs/underscore','libs/Class','li
                 if (!this.scrollTop){return ;}
                 if (this.leftCondition > this.rightCondition){
                     fastdom.write(function(){
-                          console.log('hide');
-                       that.fixedReport.removeClass('shown-report');
-                         that.fixedReport.addClass('hidden-report');
+                        that.fixedReport.removeClass('shown-report');
+                        that.fixedReport.addClass('hidden-report');
                         that.fixedReport.hide();
                     });
 
                 }else{
                     fastdom.write(function(){
-                        console.log('show');
                         that.fixedReport.removeClass('hidden-report');
-                         that.fixedReport.addClass('shown-report');
+                        that.fixedReport.addClass('shown-report');
                         that.fixedReport.show();
                     });
                 }
