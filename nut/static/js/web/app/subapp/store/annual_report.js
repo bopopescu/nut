@@ -1,17 +1,52 @@
+define(['jquery','libs/underscore','libs/Class','libs/fastdom'],
+    function($,_,Class,fastdom){
 
-define(['jquery', 'libs/Class','libs/slick'], function(
-    $, Class
-){
-    var AnnualReport= Class.extend({
-        init: function () {
-            console.log('hello rose.write codes here');
+        var AnnualReport = Class.extend({
+            init: function(){
+                console.log('annual report');
+                this.fixedReport = $('.fixed-ele');
+                if (this.fixedReport.length > 0){
+                    this.setupWatcher();
+                }else{
+                    return ;
+                }
+            },
+            setupWatcher:function(){
+                $(window).scroll(this.onScroll.bind(this));
+            },
+            onScroll:function(){
+                if(this.read){
+                    fastdom.clear(this.read);
+                }
+                this.read = fastdom.read(this.doRead.bind(this));
+                if(this.write){
+                    fastdom.clear(this.write);
+                }
+                this.write = fastdom.write(this.doWrite.bind(this));
+            },
+            doRead: function(){
+                this.scrollTop = $(window).scrollTop();
+                this.pageHeight = document.body.scrollHeight;
+                //this.btnRect = this.fixedReport[0].getBoundingClientRect()
 
+                this.footerRect = $('#guoku_footer')[0].getBoundingClientRect()
+            },
+            doWrite: function(){
+                var that = this ;
+                if (!this.scrollTop){return ;}
+                if (this.scrollTop > 400){
+                    fastdom.write(function(){
+                        console.log('hide');
+                        that.fixedReport.hide();
+                    });
 
-        },
-
+                }else{
+                    fastdom.write(function(){
+                        console.log('show');
+                        that.fixedReport.show();
+                    });
+                }
+            }
+        });
+        return AnnualReport;
     });
-    return AnnualReport;
-});
-
-
-
