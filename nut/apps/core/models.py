@@ -21,7 +21,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, Group
 
-from apps.fetch.common import clean_title
 from apps.notifications import notify
 from apps.core.utils.image import HandleImage
 from apps.core.utils.articlecontent import contentBleacher
@@ -29,6 +28,9 @@ from apps.core.extend.fields.listfield import ListObjectField
 from apps.web.utils.datatools import get_entity_list_from_article_content
 from apps.core.manager import *
 from apps.core.manager.account import  AuthorizedUserManager
+from haystack.query import SearchQuerySet
+
+
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -156,6 +158,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     @property
     def is_verified(self):
         return self.profile.email_verified
+
+    # @property
+    # def digged_articles(self):
+    #     return self.digs
 
     @property
     def published_articles(self):
@@ -353,7 +359,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         # res['article_count'] = self.article_cout
         res['fan_count'] = self.fans_count
         res['following_count'] = self.following_count
-        res['is_authorized'] = self.is_authorized_author
+        res['authorized_author'] = self.is_authorized_author
 
         try:
             res['sina_screen_name'] = self.weibo.screen_name
@@ -754,6 +760,7 @@ class Brand(BaseModel):
     national = models.CharField(max_length=100, null=True, default=None)
     intro = models.TextField()
     status = models.IntegerField(choices=BRAND_STATUS_CHOICES, default=pending)
+    score =  models.IntegerField(default=0, null=False, blank=False)
     created_date = models.DateTimeField(auto_now=True, db_index=True)
 
     class Meta:
@@ -764,6 +771,10 @@ class Brand(BaseModel):
         if self.icon:
             return "%s%s" % (image_host, self.icon)
         return None
+
+    @property
+    def entities(self):
+        return SearchQuerySet().models(Entity).filter(brand=self.name)
 
     # @property
     # def shop_id(self):
@@ -879,13 +890,20 @@ class Entity(BaseModel):
         buy_link = self.buy_links.filter(default=True).first()
         return buy_link
 
+    def get_top_note_cache_key(self):
+        return 'entity:%s:topnote' % self.pk
     @property
     def top_note(self):
         # try:
-        notes = self.notes.filter(status=1).order_by('-post_time')
-        if len(notes) > 0:
-            return notes[0]
-        return None
+        cache_key = self.get_top_note_cache_key()
+        _tn = cache.get(cache_key,None)
+        if _tn is None:
+            notes = self.notes.filter(status=1).order_by('-post_time')
+            if len(notes) > 0:
+                _tn =  notes[0]
+                cache.set(cache_key, _tn , 24*3600)
+        return _tn
+
 
     @property
     def top_note_string(self):
@@ -998,12 +1016,17 @@ class Entity(BaseModel):
             return "%s - %s" % (self.brand, self.title)
         return self.title
 
+    def invalid_top_note_cache(self):
+        cache.delete(self.get_top_note_cache_key())
+
     def save(self, *args, **kwargs):
         super(Entity, self).save(*args, **kwargs)
         key = "entity:dict:v3:%s" % self.id
         # key_string = "entity_v3_%s" % self.id
         # key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
+        self.invalid_top_note_cache()
+
 
     def fetch_image(self):
         image_list = list()
@@ -1150,6 +1173,9 @@ class Note(BaseModel):
         key = "note:v3:%s" % self.id
         # print key
         cache.delete(key)
+        # need update entity topnote cache
+        self.entity.invalid_top_note_cache()
+
         return super(Note, self).save(force_insert=False, force_update=False,
                                       using=None,
                                       update_fields=None)
@@ -1314,7 +1340,7 @@ class Article(BaseModel):
 
     creator = models.ForeignKey(GKUser, related_name="articles")
     title = models.CharField(max_length=64)
-    cleaned_title = models.TextField(null=True, blank=True)
+    identity_code = models.TextField(null=True, blank=True)
     cover = models.CharField(max_length=255, blank=True)
     content = models.TextField()
     publish = models.IntegerField(choices=ARTICLE_STATUS_CHOICES, default=draft)
@@ -1344,8 +1370,7 @@ class Article(BaseModel):
             return res
         else:
             res = self.digs.count()
-            # TODO : set timeout to  3600*24
-            cache.set(key, res, timeout=20)
+            cache.set(key, res, timeout=3600*24)
             return res
 
     def incr_dig(self):
@@ -1368,8 +1393,6 @@ class Article(BaseModel):
     def save(self, *args, **kwargs):
         if not kwargs.pop('skip_updatetime', False):
             self.updated_datetime = datetime.now()
-        if not self.cleaned_title:
-            self.cleaned_title = clean_title(self.title)
         res = super(Article, self).save(*args, **kwargs)
         # add article related entities,
         hash_list = get_entity_list_from_article_content(self.content)

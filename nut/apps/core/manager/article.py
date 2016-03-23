@@ -45,8 +45,7 @@ class ArticleDigManager(models.Manager):
             return list(res)
         else:
             res = self.get_queryset().popular(scale)
-            # TODO: set timeout to 3600 *24
-            cache.set(key, res, timeout=20)
+            cache.set(key, res, timeout=3600*24)
             return res
 
     def popular_random(self, scale='weekly'):
@@ -59,13 +58,15 @@ class ArticleDigManager(models.Manager):
             out_count= 60
             try :
                 res = random.sample(source, out_count)
-                #TODO : set timeout to 3600 * 24
-                cache.set(key, res, timeout=20)
+                cache.set(key, res, timeout=3600*24)
             except ValueError:
                 res = source
             return res
 
 class ArticleManager(models.Manager):
+    def published(self):
+        return self.get_queryset().filter(publish=2).order_by('-created_datetime')
+
     def get_published_by_user(self,user):
         # publish = 2   because  Article.published = 2, user 2 to avoid circular reference
         return self.get_queryset().using('slave').filter(publish=2, creator=user).order_by('-created_datetime')
@@ -81,7 +82,7 @@ class SelectionArticleQuerySet(models.query.QuerySet):
     def discover(self):
         start_date = datetime.now()
         end_date = start_date - timedelta(days=3)
-        return self.filter(is_published=True, pub_time__range=(end_date, start_date)).order_by('-article__read_count')
+        return self.using('slave').filter(is_published=True, pub_time__range=(end_date, start_date)).order_by('-article__read_count')
 
     def published_from(self, from_time=None):
         if from_time is None:
@@ -96,7 +97,7 @@ class SelectionArticleQuerySet(models.query.QuerySet):
 class SelectionArticleManager(models.Manager):
 
     def get_queryset(self):
-        return SelectionArticleQuerySet(self.model, using=self._db)
+        return SelectionArticleQuerySet(self.model)
 
     def discover(self):
         return self.get_queryset().discover()
@@ -141,7 +142,7 @@ class SelectionArticleManager(models.Manager):
         return self.published_until().filter(article__creator = user)
 
     def pending(self):
-        return self.get_queryset().filter(is_published=False).using('slave')
+        return self.get_queryset().filter(is_published=False)
 
     def published_until(self,until_time=None):
         if until_time is None:

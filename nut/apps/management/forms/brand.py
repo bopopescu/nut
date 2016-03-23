@@ -18,6 +18,23 @@ class EditBrandForm(BrandForm):
         self.brand_cache = brand
         super(EditBrandForm, self).__init__(*args, **kwargs)
 
+    def clean_name(self):
+        _name = self.cleaned_data.get('name')
+        _name = _name.strip(' \t\n\r')
+
+        if self.brand_cache.name.lower() == _name.lower():
+            return _name
+
+        try:
+            Brand.objects.get(name=_name)
+        except Brand.DoesNotExist:
+            return _name
+
+        raise forms.ValidationError(
+            self.error_messages['duplicate_brand_name'],
+            code='duplicate_brand_name',
+        )
+
     def save(self):
         _name = self.cleaned_data.get('name')
         _alias = self.cleaned_data.get('alias')
@@ -28,6 +45,7 @@ class EditBrandForm(BrandForm):
         _intro = self.cleaned_data.get('intro')
         _icon_file = self.cleaned_data.get('icon')
         _status = self.cleaned_data.get('status')
+        _score = self.cleaned_data.get('score')
 
         self.brand_cache.name = _name
         self.brand_cache.alias = _alias
@@ -36,6 +54,7 @@ class EditBrandForm(BrandForm):
         self.brand_cache.website = _website
         self.brand_cache.tmall_link = _tmall_link
         self.brand_cache.status = _status
+        self.brand_cache.score = _score
 
         if _intro:
             self.brand_cache.intro = _intro
@@ -67,6 +86,7 @@ class CreateBrandForm(BrandForm):
         _intro = self.cleaned_data.get('intro')
         _icon_file = self.cleaned_data.get('icon')
         _status = self.cleaned_data.get('status')
+        _score = self.cleaned_data.get('score')
 
         brand = Brand()
         brand.name = _name
@@ -75,6 +95,7 @@ class CreateBrandForm(BrandForm):
         brand.company = _company
         brand.website = _website
         brand.tmall_link = _tmall_link
+        brand.score = _score
 
         if _intro:
             brand.intro = _intro

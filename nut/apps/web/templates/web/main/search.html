@@ -58,7 +58,7 @@
                 {% endfor %}
             {% elif type == 'a' %}
                 {% for row in object_list %}
-                    {% include 'web/main/partial/article.html' with article=row.object%}
+                    {% include 'web/main/partial/search/article.html' with obj=row %}
                 {% endfor %}
             {% else %}
                 {% for row in object_list %}

@@ -32,7 +32,16 @@ class BaseListView(LoginRequiredMixin, TemplateResponseMixin, ContextMixin,
         return self.queryset
 
 
-class BaseJsonView(JSONResponseMixin, TemplateView):
+class BaseJsonView(JSONResponseMixin, ContextMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
+
     def render_to_response(self, context, **response_kwargs):
         return self.render_to_json_response(context, **response_kwargs)
 

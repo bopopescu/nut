@@ -138,6 +138,7 @@ class BaseArticleForms(forms.Form):
     def __init__(self, *args, **kwargs):
         super(BaseArticleForms, self).__init__(*args, **kwargs)
         # user_choices = get_admin_user_choices()
+        # _origin_creator = self.article.creator
         user_choices = get_author_choices()
         self.fields['author'] = forms.ChoiceField(
             label=_('author'),
@@ -221,6 +222,16 @@ class EditArticleForms(BaseArticleForms):
             required=False,
             #
             # initial=Article.draft,
+        )
+
+        # user_choices = get_admin_user_choices()
+        # _origin_creator = self.article.creator
+        user_choices = get_author_choices() + [(self.article.creator.pk , self.article.creator.nickname)]
+        self.fields['author'] = forms.ChoiceField(
+            label=_('author'),
+            choices=user_choices,
+            widget=forms.Select(attrs={'class':'form-control'}),
+
         )
 
 

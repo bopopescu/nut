@@ -202,9 +202,13 @@ class APIEntitySearchView(SearchView, JSONResponseMixin):
             el = Entity_Like.objects.user_like_list(user = self.visitor, entity_list=_entity_id_list)
             # log.info(el)
         for row in context[self.offset:self.offset+self.count]:
-            res['entity_list'].append(
-                row.object.v3_toDict(user_like_list=el)
-            )
+            try:
+                res['entity_list'].append(
+                    row.object.v3_toDict(user_like_list=el)
+                )
+            except AttributeError, e:
+                log.error(e.message)
+                continue
         if el:
             res['stat']['like_count'] = len(el)
 
@@ -255,5 +259,6 @@ def report(request, entity_id):
     r = Report(reporter=_session.user, type=_type, comment=_comment, content_object=entity)
     r.save()
     return SuccessJsonResponse({ "status" : 1 })
+
 
 __author__ = 'edison'
