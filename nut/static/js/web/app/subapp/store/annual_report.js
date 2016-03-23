@@ -33,17 +33,21 @@ define(['jquery','libs/underscore','libs/Class','libs/fastdom'],
             doWrite: function(){
                 var that = this ;
                 if (!this.scrollTop){return ;}
-                if (this.scrollTop > 50){
-                    console.log(this.scrollTop);
-                    console.log(this.condition);
+                if (this.scrollTop > 140){
+                    //console.log(this.scrollTop);
+                    //console.log(this.condition);
                     fastdom.write(function(){
                           console.log('hide');
+                       that.fixedReport.removeClass('shown-report');
+                         that.fixedReport.addClass('hidden-report');
                         that.fixedReport.hide();
                     });
 
                 }else{
                     fastdom.write(function(){
-                          console.log('show');
+                        console.log('show');
+                        that.fixedReport.removeClass('hidden-report');
+                         that.fixedReport.addClass('shown-report');
                         that.fixedReport.show();
                     });
                 }
