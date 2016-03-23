@@ -1,8 +1,10 @@
-2.  
+2. 
 1. move article read query to slave  
 
-
-
+#note
+ 
+ 如果出现锁表,家欣哥可以发导致锁表的SQL给我, 我再调整.
+ 
 
 ==================================
 # merged to master 2016 3 - 20
