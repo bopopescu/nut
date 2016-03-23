@@ -4067,7 +4067,7 @@ define('subapp/store/annual_report',['jquery','libs/underscore','libs/Class','li
                 this.pageHeight = document.body.scrollHeight;
                 this.footerHeight = $('#guoku_footer')[0].getBoundingClientRect().height;
                 this.leftCondition = this.screenHeight + this.scrollTop;
-                this.rightCondition = this.pageHeight - this.footerHeight - 50;
+                this.rightCondition = this.pageHeight - this.footerHeight + 90;
             },
             doWrite: function(){
                 var that = this ;
