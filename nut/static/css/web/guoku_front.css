@@ -2713,6 +2713,13 @@ body.compact-body {
   float: right;
   font-size: 14px;
 }
+.authorized-seller-body .more-nav-wrapper {
+  margin: 40px 0;
+}
+.authorized-seller-body .more-nav-wrapper .more-nav .nav-list-item {
+  float: left;
+  margin-right: 24px;
+}
 .guoku-content.user-page .user-info-wrapper,
 .entity-likers-body.user-page .user-info-wrapper,
 .guoku-content.index-page .user-info-wrapper,
