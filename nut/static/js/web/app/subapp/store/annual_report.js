@@ -30,7 +30,8 @@ define(['jquery','libs/underscore','libs/Class','libs/fastdom'],
                 this.pageHeight = document.body.scrollHeight;
                 this.footerHeight = $('#guoku_footer')[0].getBoundingClientRect().height;
                 this.leftCondition = this.screenHeight + this.scrollTop;
-                this.rightCondition = this.pageHeight - this.footerHeight - 50;
+                //where is the 90, I calculate it.but I don't know where is it from
+                this.rightCondition = this.pageHeight - this.footerHeight + 90;
             },
             doWrite: function(){
                 var that = this ;
