@@ -1,3 +1,12 @@
+2.  
+1. move article read query to slave  
+
+
+
+
+==================================
+# merged to master 2016 3 - 20
+==================================
 
 2. article tag recommendation  
 1. Entity add top note cache  , reduce 40 query per page 
