@@ -37,9 +37,9 @@ define(['jquery','libs/underscore','libs/Class','libs/fastdom'],
                 if (!this.scrollTop){return ;}
                 if (this.leftCondition > this.rightCondition){
                     fastdom.write(function(){
-                          console.log('hide');
-                       that.fixedReport.removeClass('shown-report');
-                         that.fixedReport.addClass('hidden-report');
+                        console.log('hide');
+                        that.fixedReport.removeClass('shown-report');
+                        that.fixedReport.addClass('hidden-report');
                         that.fixedReport.hide();
                     });
 
@@ -47,7 +47,7 @@ define(['jquery','libs/underscore','libs/Class','libs/fastdom'],
                     fastdom.write(function(){
                         console.log('show');
                         that.fixedReport.removeClass('hidden-report');
-                         that.fixedReport.addClass('shown-report');
+                        that.fixedReport.addClass('shown-report');
                         that.fixedReport.show();
                     });
                 }
