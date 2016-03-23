@@ -84,7 +84,7 @@ class NewSelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
         qs = Selection_Article.objects\
                               .published_until(until_time=self.get_refresh_time())\
                               .order_by('-pub_time')\
-                              .select_related('article')
+                              .select_related('article').using('slave')
                               # .defer('article__content')
 
         return qs
