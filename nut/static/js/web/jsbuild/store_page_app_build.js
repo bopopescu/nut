@@ -4063,16 +4063,16 @@ define('subapp/store/annual_report',['jquery','libs/underscore','libs/Class','li
             },
             doRead: function(){
                 this.scrollTop = $(window).scrollTop();
+                this.screenHeight = window.screen.height;
                 this.pageHeight = document.body.scrollHeight;
                 this.footerHeight = $('#guoku_footer')[0].getBoundingClientRect().height;
-                this.condition = this.pageHeight - this.footerHeight - 50;
+                this.leftCondition = this.screenHeight + this.scrollTop;
+                this.rightCondition = this.pageHeight - this.footerHeight - 50;
             },
             doWrite: function(){
                 var that = this ;
                 if (!this.scrollTop){return ;}
-                if (this.scrollTop > 140){
-                    //console.log(this.scrollTop);
-                    //console.log(this.condition);
+                if (this.leftCondition > this.rightCondition){
                     fastdom.write(function(){
                           console.log('hide');
                        that.fixedReport.removeClass('shown-report');
