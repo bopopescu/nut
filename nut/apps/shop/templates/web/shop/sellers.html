@@ -41,23 +41,21 @@
 {% block content %}
 
     {#    top banner#}
-{#    <div class="cross-screen store-top-banner">#}
-{#        <div class="row store-banner-wrapper">#}
-{#            <div class="col-xs-12 banner-title-wrapper">#}
-{#                好店#}
-{#            </div>#}
-{##}
-{#            <div class="col-xs-12 banner-slogan-wrapper">#}
-{#                在超过100家好店挑选好物#}
-{#            </div>#}
-{##}
-{#        </div>#}
-{#    </div>#}
+    {#    <div class="cross-screen store-top-banner">#}
+    {#        <div class="row store-banner-wrapper">#}
+    {#            <div class="col-xs-12 banner-title-wrapper">#}
+    {#                好店#}
+    {#            </div>#}
+    {##}
+    {#            <div class="col-xs-12 banner-slogan-wrapper">#}
+    {#                在超过100家好店挑选好物#}
+    {#            </div>#}
+    {##}
+    {#        </div>#}
+    {#    </div>#}
 
     {#    main-content#}
-
     <div class="container store-page-container">
-
         <div class="row good-store-row latest-actions-wrapper">
             <div id="user-latest-article" class="guoku-middle-col user-latest-article-wrapper col-xs-12 col-sm-8 col-md-8 col-lg-8">
                 <div class="user-article-panel">
@@ -66,27 +64,27 @@
                     {#                        </div>#}
                     <div class="banner-wrapper" id="index-banners">
                         {% for banner in banners %}
-                        <div class="banner-image-cell banner-image-cell-control">
-                            <a href="{{ banner.link }}" target="_blank">
-                                <div class="banner-image-wrapper" style="background-image: url({{ banner.image_url }})">
-                                </div>
-                                 <div class="user-latest-article-intro-wrapper">
-                                {#                        <div class="rect-decoration">#}
-                                {#                            NEW#}
-                                {#                        </div>#}
-
-                                    <div class="user-latest-article-title-wrapper">
-                                        <a class="user-latest-article-title">
-                                            {{ banner.banner_title }}
-                                        </a>
-                                        <div class="user-info-section-title">
-                                            {{ banner.banner_desc }}
-                                        </div>
+                            <div class="banner-image-cell banner-image-cell-control">
+                                <a href="{{ banner.link }}" target="_blank">
+                                    <div class="banner-image-wrapper" style="background-image: url({{ banner.image_url }})">
                                     </div>
+                                    <div class="user-latest-article-intro-wrapper">
+                                        {#                        <div class="rect-decoration">#}
+                                        {#                            NEW#}
+                                        {#                        </div>#}
 
-                                </div>
-                            </a>
-                        </div>
+                                        <div class="user-latest-article-title-wrapper">
+                                            <a class="user-latest-article-title">
+                                                {{ banner.banner_title }}
+                                            </a>
+                                            <div class="user-info-section-title">
+                                                {{ banner.banner_desc }}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </a>
+                            </div>
 
 
                         {% endfor %}
@@ -106,16 +104,16 @@
                             <ul class="tag-list">
                                 {% for article in recent_articles %}
 
-                                <li>
-                                    <div class="publish-time">
-                                        {{ article.created_datetime|format_time }}
-                                    </div>
-                                    <div class="publish-info">
-                                        <a href="{% url 'web_user_index' article.creator.pk %}">{{ article.creator.nickname }}</a>
-                                        发表了图文
-                                        <a href="{% url 'web_article_page' article.pk %}">{{ article.title }}</a>
-                                    </div>
-                                </li>
+                                    <li>
+                                        <div class="publish-time">
+                                            {{ article.created_datetime|format_time }}
+                                        </div>
+                                        <div class="publish-info">
+                                            <a href="{% url 'web_user_index' article.creator.pk %}">{{ article.creator.nickname }}</a>
+                                            发表了图文
+                                            <a href="{% url 'web_article_page' article.pk %}">{{ article.title }}</a>
+                                        </div>
+                                    </li>
                                 {% endfor %}
 
                             </ul>
@@ -124,51 +122,45 @@
                 </ul>
             </div>
         </div>
-
         <div class="row section-title-wrapper">
             <div class="col-sm-12">
                 <p>推荐关注</p>
             </div>
         </div>
-
         <div class="row hot-section-wrapper" id="selection_article_list">
             {% for rec in recommends %}
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 guoku-middle-col selection-article-item hot-section-item">
+                    <a href="{{ rec.link }}" target="_blank">
+                        <div class="article-panel">
+                            <div class="img-holder img-holder-control" style="background-image: url({{ rec.image_url }})">
+                            </div>
+                            <div class="bg-layer"></div>
+                            {# hidden temporarily #}
+                            <div class="new-user-action">
+                                {% if current_user.is_blocked %}
 
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 guoku-middle-col selection-article-item hot-section-item">
-                <a href="{{ rec.link }}" target="_blank">
-                    <div class="article-panel">
-                        <div class="img-holder img-holder-control" style="background-image: url({{ rec.image_url }})">
+                                {% elif current_user == request.user %}
+
+                                {% elif request.user.id in current_user.concren %}
+                                    <a class="square-follow-btn btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange"></i></a>
+                                {% elif request.user.id in current_user.fans_list %}
+                                    <a class="square-follow-btn btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check"></i></a>
+                                {% else %}
+                                    <a class="square-follow-btn" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i></a>
+                                {% endif %}
+                            </div>
                         </div>
-                        <div class="bg-layer">
-
-                        </div>
-                        <div class="new-user-action">
-                            {% if current_user.is_blocked %}
-
-                            {% elif current_user == request.user %}
-
-                            {% elif request.user.id in current_user.concren %}
-                                <a class="square-follow-btn btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange"></i></a>
-                            {% elif request.user.id in current_user.fans_list %}
-                                <a class="square-follow-btn btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check"></i></a>
-                            {% else %}
-                                <a class="square-follow-btn" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i></a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
             {% endfor %}
         </div>
-
         <div class="row section-title-wrapper">
             <a name="sellers" class="good-stores">
-            <div class="col-sm-12">
-                <p>全部好店</p>
-            </div>
+                <div class="col-sm-12">
+                    <p>全部好店</p>
+                </div>
             </a>
         </div>
-
         <div class="row select-condition-wrapper">
             <div class="col-sm-12 select-condition">
                 <div class="category-wrapper">
@@ -233,10 +225,9 @@
                 </div>
             </div>
         </div>
-
         <div class="row good-store-row select-result-wrapper">
             {% for seller in sellers %}
-                 <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 guoku-middle-col">
+                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 guoku-middle-col">
                     <div class="result-item-wrapper">
                         <a href="{% url 'web_user_index' seller.pk %}" target="_blank">
                             {{ seller.nickname }}
@@ -259,7 +250,6 @@
             </div>
         </div>
     </div>
-
     <div class="consumption-report-wrapper fixed-ele">
         <div class="container">
             <div class="row">
