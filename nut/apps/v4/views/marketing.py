@@ -25,5 +25,11 @@ class LaunchBoardView(APIJsonView):
             return res
         return None
 
+    def get(self, request, *args, **kwargs):
+        _key = request.GET.get('session', None)
+        if _key is not None:
+            pass
+        return super(LaunchBoardView, self).get(request, *args, **kwargs)
+
 
 __author__ = 'edison'
