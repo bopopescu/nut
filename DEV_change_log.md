@@ -1,3 +1,82 @@
+2. 
+1. move article read query to slave  
+
+#note
+ 
+ 如果出现锁表,家欣哥可以发导致锁表的SQL给我, 我再调整.
+ 
+
+==================================
+# merged to master 2016 3 - 20
+==================================
+
+2. article tag recommendation  
+1. Entity add top note cache  , reduce 40 query per page 
+
+==================================
+# merged to master 2016 3 - 19
+==================================
+ 
+1.  remove baichuan rec for now 
+0.  article tag editing (unfinished)
+==================================
+# merged to master 2016 3 - 17
+==================================
+6. GKUser.digs 实现方式 
+
+5. good store page 
+4. mng article creator choice method update
+3. article dig count cache time 
+2. brand mng list search 
+1. add brand score for control recommend brand order 
+
+## careful 
+   测试服务器出现中文 store page banner title 不能提交的问题
+   不一定要运行,生产服务器已经OK 
+   
+    ALTER TABLE `core`.`shop_storepagebanners` 
+CHANGE COLUMN `banner_title` `banner_title` VARCHAR(128) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
+CHANGE COLUMN `banner_desc` `banner_desc` VARCHAR(128) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ;
+
+## need run sql 
+
+ALTER TABLE `core`.`core_brand` 
+ADD COLUMN `score` INT(32) NULL DEFAULT 0 AFTER `tmall_link`;
+
+
+### add  a column  'score' on Brand model ,
+
+    for fine control the brand order 
+
+==================================
+# merged to master 2016 3 - 10 
+==================================
+
+2. store page recommend mng
+1. store page banner mng 
+0. article dig js update
+
+#action 
+
+need syncdb 
+
+
+=================================
+# merged to master 2016 － 3 － 4
+=================================
+
+
+# remove fetch_article module.
+
+### action
+
+    ALTER TABLE `core`.`core_article` 
+    CHANGE COLUMN `cleaned_title` `identity_code` VARCHAR(255) NULL     DEFAULT NULL COMMENT '' ;
+
+===
+
+
+
 
 5.  article hide weixin id when author don't have it 
 4.  shop style and type choice update (management )

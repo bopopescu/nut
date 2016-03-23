@@ -458,10 +458,10 @@ class UserIndex(UserPageMixin, DetailView):
     context_object_name = 'current_user'
 
     def setup_template_name(self):
-        if self._current_user.is_authorized_author:
-            return 'web/user/authorized_author_index.html'
-        elif self._current_user.is_authorized_seller:
+        if self._current_user.is_authorized_seller:
             return 'web/user/authorized_seller_index.html'
+        elif self._current_user.is_authorized_author:
+            return 'web/user/authorized_author_index.html'
         else:
             return 'web/user/user_index.html'
 

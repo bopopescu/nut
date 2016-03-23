@@ -795,8 +795,8 @@ p.boolean-false {
   margin-bottom: 10px;
 }
 .guoku-middle-col {
-  padding: 0 10px;
-  margin-bottom: 20px;
+  padding: 0 9px;
+  margin-bottom: 17px;
 }
 .normal-share-btn {
   display: inline-block;
@@ -922,6 +922,19 @@ p.boolean-false {
     white-space: normal;
   }
 }
+.mng-article-edit .article-tag-btn {
+  background-color: #ddd!important;
+  color: #000;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+.author-article-mng .current-author {
+  background: #0a6ebd;
+  color: #fff!important;
+  font-size: 32px;
+  text-align: center ;
+}
 #test {
   color: black;
 }
+/*# sourceMappingURL=basic_management.less.css.map */

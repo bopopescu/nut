@@ -195,7 +195,6 @@ class GKSearchView(SearchView):
             res = self.queryset.models(Article).order_by('-score', '-read_count')
         else:
             res = self.queryset.models(Entity).order_by('-like_count')
-        log.info(res)
         # print self.queryset.models(Article).count()
         context = self.get_context_data(**{
             self.form_name: form,

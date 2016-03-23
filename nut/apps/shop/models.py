@@ -4,8 +4,19 @@ from django.conf import settings
 from django.db import models
 from apps.core.models import BaseModel, \
                              GKUser
+from apps.banners.models import BaseBanner
+
 
 from django.utils.translation import ugettext_lazy as _
+
+
+class StorePageBanners(BaseBanner):
+    banner_title = models.CharField(max_length=128, null=True, blank=True)
+    banner_desc  = models.CharField(max_length=128, null=True, blank=True)
+    pass
+
+class StorePageRecommend(BaseBanner):
+    pass
 
 
 class Shop(BaseModel):
@@ -30,7 +41,6 @@ class Shop(BaseModel):
         (tmall , '天猫'),
         (glbuy, '全球购'),
         (tinter, '天猫国际'),
-        (jiyoujia,'极有家')
     ]
 
 
@@ -39,3 +49,6 @@ class Shop(BaseModel):
     shop_link = models.URLField(max_length=255)
     shop_style = models.IntegerField(choices=SHOP_STYLE_CHOICES, default=dress )
     shop_type = models.IntegerField(choices=SHOP_TYPE_CHOICES, default= taobao)
+
+    def __unicode__(self):
+        return '%s:%s'%(self.owner, self.shop_title)
