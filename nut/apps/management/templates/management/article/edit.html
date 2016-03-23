@@ -21,7 +21,7 @@
         </ol>
     </section>
 
-    <section class="content">
+    <section class="content mng-article-edit">
         <div class="row management-wrapper article-management">
             <div class="col-xs-12">
                 <div class="box box-primary">
@@ -29,25 +29,46 @@
                         <div class="col-sm-6 col-sm-offset-3">
                             <img class="img-responsive" id='article-cover' src="{{ article.cover_url|resize:'600' }}" width="" height="">
                         </div>
-                        <span class="btn btn-primary fileinput-button pull-right">
-                            <i class="fa fa-plus fa-lg"></i>&nbsp; <span>点击选择图片</span>
-                            <input id="fileupload" type="file" multiple="" name="cover_file" data-url="{% url 'management_article_cover_upload' article.pk %}">
-                        </span>
+{#                        <span class="btn btn-primary fileinput-button pull-right">#}
+{#                            <i class="fa fa-plus fa-lg"></i>&nbsp; <span>点击选择图片</span>#}
+{#                            <input id="fileupload" type="file" multiple="" name="cover_file" data-url="{% url 'management_article_cover_upload' article.pk %}">#}
+{#                        </span>#}
                     </div>
 
                     <form class="form-horizontal article-form" method="post" >
                     {% csrf_token %}
                         <div class="box-body">
                             {% for field in forms %}
+
                                 {% if field.name  == 'content' %}
                                     <div class="form-group">
                                     <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
                                     <div class="col-sm-10">
                                         <a class="btn btn-success " href="{% url 'web_article_page' article.pk %}" target="_blank">GOTO</a>
                                         <a class="btn btn-primary " href="{% url 'web_editor_article_edit' article.pk %}" target="_blank">编辑文章内容</a>
-                                        <div class="hidden">
-                                             {{ field }}
+                                        <div class="">
+                                            {% autoescape off %}
+                                             {{ field.data|striptags }}
+                                            {% endautoescape %}
                                         </div>
+                                        <div class="hidden">
+                                            {{ field }}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% elif field.name == 'cover' %}
+{#                                     pass for cover now#}
+                                {% elif field.name == 'tags' %}
+                                    <div class="form-group">
+                                       <label class="col-sm-2 control-label"> 备选 tags</label>
+                                       <div class="col-sm-10" id="tag_btn_list">
+                                       </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                                    <div class="col-sm-10">
+                                        {{ field }}
                                     </div>
                                 </div>
                                 {% else %}
@@ -72,197 +93,15 @@
             </div>
         </div>
     </section>
-{#    <div class="row management-wrapper article-management">#}
-{#     <div class="manage-section article-info-container col-xs-12">#}
-{#         <div class="section-header">文章基本信息</div>#}
-{#         <div class="section-content container-fluid">#}
-{#             <div class="row">#}
-{#                 <div class="content-left col-xs-4">#}
-{#                     <div class="article-cover">#}
-{#                         <img class="img-responsive" src="{{ article.cover }}">#}
-{#                     </div>#}
-{#                     <div class="edit-button-wrapper">#}
-{#                         <span class="guoku-btn-blue">编辑内容</span>#}
-{#                     </div>#}
-{#                 </div>#}
-{#                 <div class="content-right col-xs-8">#}
-{#                     <div class="article-status-wrapper container-fluid">#}
-{#                        <div class="row">#}
-{#                            <div class="article-title col-xs-12">#}
-{#                                {{ article.title }}#}
-{#                            </div>#}
-{#                        </div>#}
-{#                         <div class="row">#}
-{#                             <table class="status-table col-xs-12 table-striped">#}
-{#                                 <tr class="status-row">#}
-{#                                     <td class="status-title">发布</td>#}
-{#                                     <td class="status"><i class="fa fa-check"></i></td>#}
-{#                                     <td class="status-action"></td>#}
-{#                                 </tr>#}
-{#                                 <tr class="status-row">#}
-{#                                     <td class="status-title">精选</td>#}
-{#                                     <td class="status"><i class="fa fa-check"></i></td>#}
-{#                                     <td class="status-action"></td>#}
-{#                                 </tr>#}
-{#                                 <tr class="status-row">#}
-{#                                     <td class="status-title">入精选次数</td>#}
-{#                                     <td class="status">1</td>#}
-{#                                     <td class="status-action"></td>#}
-{#                                 </tr>#}
-{#                                 <tr class="status-row">#}
-{#                                     <td class="status-title">上次入精选时间</td>#}
-{#                                     <td class="status">1</td>#}
-{#                                     <td class="status-action"></td>#}
-{#                                 </tr>#}
-{##}
-{#                             </table>#}
-{#                         </div>#}
-{#                     </div>#}
-{#                 </div>#}
-{#             </div>#}
-{#         </div>#}
-{#     </div>#}
-{#     <div class="manage-section article-status-container col-xs-12">#}
-{#         <div class="section-header">文章属性设置</div>#}
-{#         <div class="section-content container-fluid">#}
-{#             <div class="row">#}
-{#                 <table class="action-table col-xs-12" >#}
-{#                                 <tr class="action-row">#}
-{#                                     <td class="action-title">文章阅读数</td>#}
-{#                                     <td class="action-input"><input type="text" id="article_read_count"  name="article_read_count" size="28" maxlength="64" value="66"> </td>#}
-{#                                     <td class="action-button"><span class="guoku-btn-blue">修改</span></td>#}
-{#                                 </tr>#}
-{#                                 <tr class="action-row">#}
-{#                                     <td class="action-title">文章Tag</td>#}
-{#                                     <td class="action-input"><textarea  id="article_tags" rows="2" name="article_tags" size="28" maxlength="64" >中国，日本，台湾，马来</textarea> </td>#}
-{#                                     <td class="action-button"><span class="guoku-btn-blue">修改</span></td>#}
-{#                                 </tr>#}
-{#                                 <tr class="action-row">#}
-{#                                      <td class="action-title">文章作者</td>#}
-{#                                      <td class="action-input">#}
-{#                                          <select>#}
-{#                                              <option value="1"> 毛泽东</option>#}
-{#                                              <option value="2"> 邓稼先</option>#}
-{#                                              <option value="3"> 博古</option>#}
-{#                                              <option value="4"> 李德 </option>#}
-{#                                      </select></td>#}
-{#                                     <td class="action-button"><span class="guoku-btn-blue">修改</span></td>#}
-{#                                 </tr>#}
-{#                 </table>#}
-{##}
-{#                 <div class="article-status col-xs-12"></div>#}
-{#                 <div class="action col-xs-12"></div>#}
-{#             </div>#}
-{#         </div>#}
-{#     </div>#}
-{#        <div class="manage-section article-status-container col-xs-12">#}
-{#         <div class="section-header">精选管理</div>#}
-{#         <div class="section-content container-fluid">#}
-{#             <div class="row">#}
-{#                 <table class="action-table col-xs-12">#}
-{#                     <tr class="action-row">#}
-{#                         <td>精选发布时间</td>#}
-{#                         <td>精选操作</td>#}
-{#                     </tr>#}
-{#                     <tr class="action-row">#}
-{#                         <td class="action-input"><input type="text"  value="2015-05-21  19:23" ></td>#}
-{#                         <td><span class="guoku-btn-blue">更新精选时间</span></td>#}
-{#                         <td><span class="guoku-btn-blue">移除精选</span></td>#}
-{#                     </tr>#}
-{#                     <tr class="action-row">#}
-{#                         <td class="action-input"><input type="text"  value="2015-05-21  19:23" ></td>#}
-{#                         <td><span class="guoku-btn-blue">更新精选时间</span></td>#}
-{#                         <td><span class="guoku-btn-blue">移除精选</span></td>#}
-{#                     </tr>#}
-{#                     <tr class="action-row">#}
-{#                         <td class="action-input"><input type="text"  value="2015-05-21  19:23" ></td>#}
-{#                         <td><span class="guoku-btn-blue">更新精选时间</span></td>#}
-{#                         <td><span class="guoku-btn-blue">移除精选</span></td>#}
-{#                     </tr>#}
-{##}
-{#                 </table>#}
-{#             </div>#}
-{#         </div>#}
-{#     </div>#}
-{##}
-{##}
-{#    </div>#}
-{##}
-{#    <div class="row">#}
-{#        <div class="thumbnail">#}
-{#            <img class="img-responsive" id='article-cover' src="{{ article.cover_url }}" width="" height="">#}
-{#        </div>#}
-{#        <span class="btn btn-primary fileinput-button pull-right">#}
-{#            <i class="fa fa-plus fa-lg"></i>&nbsp; <span>点击选择图片</span>#}
-{#            <input id="fileupload" type="file" multiple="" name="cover_file" data-url="{% url 'management_article_cover_upload' article.pk %}">#}
-{#        </span>#}
-{#    </div>#}
-{#    <div class="row">#}
-{#        <form class="well form-horizontal" method="post">#}
-{#        {% csrf_token %}#}
-{#            <fieldset>#}
-{#                {% for field in forms %}#}
-{#                    <div class="form-group">#}
-{#                        <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>#}
-{#                        <div class="col-sm-10">#}
-{#                            {{ field }}#}
-{#                        </div>#}
-{#                    </div>#}
-{#                {% endfor %}#}
-{#            </fieldset>#}
-{##}
-{#            <div class="form-group">#}
-{#                <div class="col-sm-offset-2 col-sm-10">#}
-{#                        <button type="submit" class="btn btn-primary btn-lg">{% trans 'save' %}</button>#}
-{#                        <a class="btn btn-default btn-lg" target="_blank" href="{% url 'management_article_preview' article.pk %}">{% trans 'preview' %}</a>#}
-{#                </div>#}
-{#            </div>#}
-{#        </form>#}
-{#    </div>#}
+
 {% endblock %}
 
 {% block user_script %}
-    <script>
-    $(document).ready(function() {
-        function sendFile(file, editor, welEditable) {
-            data = new FormData();
-            data.append("file", file[0]);
-            $.ajax({
-                data: data,
-                type: "POST",
-                url: "{% url 'management_upload_image' %}",
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function(url) {
-                    editor.insertImage(welEditable, url);
-{#                    editor.insertImage(welEditable, url);#}
-{#                    console.log(welEditable);#}
-                }
-            });
-        }
-    });
+    <script language="javascript">
+    var tag_url = "{{ tag_url }}";
     </script>
-{#{% block script %}#}
-{#    <script src="https://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>#}
-    <script src="{% static 'js/web/jquery.ui.widget.js' %}"></script>
-    <script src="{% static 'js/web/jquery.iframe-transport.js' %}"></script>
-    <script src="{% static 'js/web/jquery.fileupload.js' %}"></script>
-{#    <script src="{% static 'js/web/account.js' %}"></script>#}
-    <script>
-$(function () {
-    $('#fileupload').fileupload({
-        dataType: 'json',
-        disableImageResize: /Android(?!.*Chrome)|Opera/.test(window.navigator && navigator.userAgent),
-        imageMaxWidth: 757,
-        imageMaxHeight: 355,
-        imageCrop: true, // Force cropped images
-        done: function (e, data) {
-            console.log(data.result.cover_url);
-            $('#article-cover').attr('src', data.result.cover_url);
-        }
-    });
-});
-</script>
-{#{% endblock %}#}
+
+  <script language="javascript" src="{% static 'js/management/article/article_tag.js' %}">
+
+  </script>
 {% endblock %}

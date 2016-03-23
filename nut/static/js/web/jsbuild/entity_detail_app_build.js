@@ -3491,7 +3491,9 @@ require([
         var userNote = new UserNote();
         var imgHandler = new EntityImageHandler();
 
-        var baichuanManager = new BaichuanManager();
+        // hide baichuan recommend , for service is down now
+        // by an, 2016, 3-19 .
+        //var baichuanManager = new BaichuanManager();
 
          var shareApp = new EntityShareApp();
 
