@@ -4064,26 +4064,28 @@ define('subapp/store/annual_report',['jquery','libs/underscore','libs/Class','li
             doRead: function(){
                 this.scrollTop = $(window).scrollTop();
                 this.pageHeight = document.body.scrollHeight;
-                //this.btnRect = this.fixedReport[0].getBoundingClientRect()
-
-                this.footerRect = $('#guoku_footer')[0].getBoundingClientRect()
+                this.footerHeight = $('#guoku_footer')[0].getBoundingClientRect().height;
+                this.condition = this.pageHeight - this.footerHeight - 50;
             },
             doWrite: function(){
                 var that = this ;
                 if (!this.scrollTop){return ;}
-                if (this.scrollTop > 400){
+                if (this.scrollTop > 50){
+                    console.log(this.scrollTop);
+                    console.log(this.condition);
                     fastdom.write(function(){
-                        console.log('hide');
+                          console.log('hide');
                         that.fixedReport.hide();
                     });
 
                 }else{
                     fastdom.write(function(){
-                        console.log('show');
+                          console.log('show');
                         that.fixedReport.show();
                     });
                 }
             }
+
         });
         return AnnualReport;
     });
