@@ -2716,9 +2716,13 @@ body.compact-body {
 .authorized-seller-body .more-nav-wrapper {
   margin: 40px 0;
 }
+.authorized-seller-body .more-nav-wrapper .more-nav {
+  font-size: 14px;
+  text-align: center;
+}
 .authorized-seller-body .more-nav-wrapper .more-nav .nav-list-item {
-  float: left;
-  margin-right: 24px;
+  display: inline-block;
+  margin-right: 21px;
 }
 .guoku-content.user-page .user-info-wrapper,
 .entity-likers-body.user-page .user-info-wrapper,
@@ -4051,6 +4055,9 @@ body.compact-body {
   }
   .authorized-seller-body .entity-four.new-thumbnail .entity-four-info .action {
     float: left;
+  }
+  .authorized-seller-body .more-nav-wrapper .more-nav .nav-list-item {
+    margin-right: 3px;
   }
 }
 @media (max-width: 767px) {
