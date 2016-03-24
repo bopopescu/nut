@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block content %}
-{#    <h1 class="page-header">{% trans 'brand stat' %}</h1>#}
+
     <section class="content-header">
         <h1>
             {% trans 'brand stat' %}
@@ -14,32 +14,46 @@
         </ol>
     </section>
 
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-{#                    <th>#</th>#}
-                    <th>{% trans 'brand' %}</th>
-                    <th>{% trans 'entity count' %}</th>
-                    <th>{% trans 'operation' %}</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for stat in brand_stat %}
-                    <tr>
-                        <td>{{ stat.brand }}</td>
-                        <td>{{ stat.b }}</td>
-                        <td>
-                            <div class="btn-group">
-                                <a class="btn btn-success" href="{% url 'management_brand_entity_list' stat.brand %}" target="_blank">{% trans 'entity' %}</a>
-                                <a class="btn btn-default" href="{% url 'management_brand_name_edit' stat.brand %}" target="_blank">{% trans 'edit' %}</a>
-                            </div>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-header">
 
-    {% include "management/paginator.html" with objects=brand_stat url=request.path %}
+                    </div>
+
+                    <div class="box-body table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>{% trans 'brand' %}<input class="guoku_search_input" data-search-field="brand_name" type="text"></th>
+                                    <th>{% trans 'entity count' %}</th>
+                                    <th>{% trans 'operation' %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for stat in brand_stat %}
+                                    <tr>
+                                        <td>{{ stat.brand }}</td>
+                                        <td>{{ stat.b }}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a class="btn btn-success" href="{% url 'management_brand_entity_list' stat.brand %}" target="_blank">{% trans 'entity' %}</a>
+                                                <a class="btn btn-default" href="{% url 'management_brand_name_edit' stat.brand %}" target="_blank">{% trans 'edit' %}</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="box-footer">
+                        {% include "management/paginator.html" with objects=brand_stat url=request.path %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 {% endblock %}
