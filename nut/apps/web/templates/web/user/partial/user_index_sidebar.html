@@ -46,24 +46,15 @@
     <li class="section user-tag-list">
         <div class="section-title">赞过的图文<span class="more-link"><a href="{% url 'web_user_article_like' current_user.pk %}">{% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></span></div>
         <div class="section-content">
+            {% for article in current_user_like_articles %}
             <ul class="tag-list">
                 <li>
-                    <a href="">
-                        果库专访 | PIDAN STUDIO：模范铲屎官的选择
+                    <a href="{% url 'web_article_page' article.pk %}#from=recommend"">
+                        {{ article.title }}
                     </a>
                 </li>
-                <li>
-                    <a href="">
-                        从这本城市指南，看艺术家眼中的香港是怎样的
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        Hiking Boots，空气里全是靴子和大地摩擦的声音
-                    </a>
-                </li>
-
             </ul>
+            {% endfor %}
         </div>
     </li>
 

@@ -3,18 +3,16 @@
 <div class="more-article-wrapper">
      <div class="title-wrapper">
           <a href="{% url 'web_article_page' r_article.pk %}#from=recommend">
-             <div class="title">
-                 {{ r_article.title|truncatechars:22 }}
-                 {% if r_article.is_selection %}
-                            <span class="status article-selection tip-trigger">
-                                <i class="fa fa-star"></i>
-                                <span class="tip-content">
-
-                                </span>
-                            </span>
-
-               {% endif %}
-             </div>
+            <div class="title">
+             {{ r_article.title|truncatechars:22 }}
+             {% if r_article.is_selection %}
+                <span class="status article-selection tip-trigger">
+                    <i class="fa fa-star"></i>
+                    <span class="tip-content">
+                    </span>
+                </span>
+            {% endif %}
+            </div>
           </a>
           <div class="article-digest">
               {{ r_article.content|striptags|truncatechars:50 }}
