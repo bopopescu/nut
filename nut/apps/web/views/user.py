@@ -12,7 +12,7 @@ from apps.core.tasks import send_activation_mail
 from apps.web.forms.user import UserSettingsForm, UserChangePasswordForm
 from apps.core.utils.http import JSONResponse, ErrorJsonResponse
 # from apps.core.utils.image import HandleImage
-from apps.core.models import Note, GKUser, Category
+from apps.core.models import Note, GKUser, Category, Article_Dig
 from apps.core.forms.user import AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 from apps.core.models import Entity, Entity_Like, \
@@ -286,7 +286,7 @@ class UserPageMixin(object):
                 return None
 
      def get_showing_user(self):
-        user_id =  self.kwargs['user_id']
+        user_id = self.kwargs['user_id']
         _user = get_object_or_404(get_user_model(), pk=user_id, is_active__gte = 0)
         return _user
 
@@ -301,6 +301,19 @@ class UserPageMixin(object):
                 return _('His')
         except Exception as e:
             return _('His')
+
+     def get_pronoun_nominative(self):
+        _current_user = self.get_showing_user()
+        try:
+            if self.request.user == _current_user:
+                return _('I')
+            elif _current_user.profile.gender == User_Profile.Woman:
+                return _('She')
+            else:
+                return _('He')
+        except Exception as e:
+            return _('He')
+
 
      def get_user_like_categories(self):
         _user = self.get_showing_user()
@@ -321,6 +334,7 @@ class UserDetailBase(UserPageMixin, ListView):
         context_data = super(UserDetailBase, self).get_context_data(**kwargs)
         context_data['current_user'] = self.get_showing_user()
         context_data['pronoun'] = self.get_pronoun()
+        context_data['pronoun_nominative'] = self.get_pronoun_nominative()
         return context_data
 
 
@@ -390,11 +404,18 @@ class UserPublishedSelectionArticleView(UserDetailBase):
         return _article_list
 
 class UserLikeArticleView(UserDetailBase):
-    model = GKUser
-    template_name =  'web/user/user_like_articles.html'
+    model = Article
+    template_name = 'web/user/user_like_articles.html'
     paginate_by = 12
     context_object_name = 'current_user_like_articles'
 
+    def get_queryset(self):
+        user = self.get_showing_user()
+        current_user_like_articles = Article_Dig.objects.get_queryset().user_dig_list(user=user, article_list=Article.objects.all()).order_by("-created_time")
+        articles = list()
+        for id in current_user_like_articles:
+            articles.append(Article.objects.get(pk=id))
+        return articles
 
 
 from apps.web.forms.user import UserArticleStatusFilterForm
@@ -520,6 +541,15 @@ class UserIndex(UserPageMixin, DetailView):
             except EmptyPage:
                 raise Http404
             context_data['author_articles'] = _author_articles
+
+        current_user_like_articles = Article_Dig.objects.get_queryset().user_dig_list(user=current_user, article_list=Article.objects.all())[:3]
+        like_articles = list()
+        for article_id in current_user_like_articles:
+            like_articles.append(Article.objects.get(pk=article_id))
+
+        context_data['current_user_like_articles'] = like_articles
+
+
 
         context_data['articles'] = _article_list
 

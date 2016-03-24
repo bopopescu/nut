@@ -24,132 +24,17 @@
             <div class="content-left col-xs-12 col-sm-8 col-md-8 col-lg-8">
                 <div class="container-fluid content-panel" id="user-article-panel">
                         <div class="row panel-header">
-                            <div class="panel-name">我|她|他|它赞过的图文</div>
+                            <div class="panel-name">
+                            {{ pronoun_nominative }}赞过的图文
+                            </div>
                         </div>
-{#                        <div class="row panel-filter">#}
-{#                            <ul class="filter-list">#}
-{#                                <li>#}
-{#                                    <a href="{% url 'web_user_article_selection' current_user.pk %}">#}
-{#                                        精选#}
-{#                                    </a>#}
-{#                                </li>#}
-{#                                <li>#}
-{#                                    <a href="{% url 'web_user_article_published' current_user.pk %}">#}
-{#                                        发布#}
-{#                                    </a>#}
-{#                                </li>#}
-{#                                {% for radio in article_filter_form.articleType  %}#}
-{#                                    <li>#}
-{#                                        <a href="{{ request.path|add:'?articleType='|add:radio.choice_value}}">#}
-{#                                            {{ radio.choice_label }}#}
-{#                                        </a>#}
-{#                                    </li>#}
-{#                                {% endfor %}#}
-{#                                    {% if request.user == current_user %}#}
-{#                                     <li>#}
-{#                                        <a href="{% url 'web_editor_article_list' %}">#}
-{#                                            草稿#}
-{#                                        </a>#}
-{#                                    </li>#}
-{#                                    {% endif %}#}
-{#                            </ul>#}
-{#                        </div>#}
+
                     <div class="row panel-content-wrapper ">
-                        {#                                  {% for article in current_user_articles %}#}
-                        {#                                    {% with article as r_article %}#}
-                        {#                                            {% include 'web/user/partial/user_article_item.html' %}#}
-                        <div class="more-article-wrapper">
-                            <div class="title-wrapper">
-                                <a href="">
-                                    <div class="title">
-                                        点赞过的图文的标题...
-{#                                        {% if r_article.is_selection %}#}
-                                            <span class="status article-selection tip-trigger">
-                                <i class="fa fa-star"></i>
-                                <span class="tip-content">
-
-                                </span>
-                            </span>
-
-{#                                        {% endif %}#}
-                                    </div>
-                                </a>
-                                <div class="article-digest">
-                                    图文的简短内容...
-{#                                    {% if 'publish' in request.path %}#}
-{#                                        <div class="created-date">{{ r_article.created_datetime|date:'Y-m-d' }}</div>#}
-{#                                    {% endif %}#}
-
-                                </div>
-                            </div>
-                            <div class="cover-wrapper">
-                                <a href="">
-                                    <img  src="http://imgcdn.guoku.com/images/450/05574cc3f168c4435a149772918a3473.jpeg">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="more-article-wrapper">
-                            <div class="title-wrapper">
-                                <a href="">
-                                    <div class="title">
-                                        点赞过的图文的标题...
-{#                                        {% if r_article.is_selection %}#}
-                                            <span class="status article-selection tip-trigger">
-                                <i class="fa fa-star"></i>
-                                <span class="tip-content">
-
-                                </span>
-                            </span>
-
-{#                                        {% endif %}#}
-                                    </div>
-                                </a>
-                                <div class="article-digest">
-                                    图文的简短内容...
-{#                                    {% if 'publish' in request.path %}#}
-{#                                        <div class="created-date">{{ r_article.created_datetime|date:'Y-m-d' }}</div>#}
-{#                                    {% endif %}#}
-
-                                </div>
-                            </div>
-                            <div class="cover-wrapper">
-                                <a href="">
-                                    <img  src="http://imgcdn.guoku.com/images/450/05574cc3f168c4435a149772918a3473.jpeg">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="more-article-wrapper">
-                            <div class="title-wrapper">
-                                <a href="">
-                                    <div class="title">
-                                        点赞过的图文的标题...
-{#                                        {% if r_article.is_selection %}#}
-                                            <span class="status article-selection tip-trigger">
-                                <i class="fa fa-star"></i>
-                                <span class="tip-content">
-
-                                </span>
-                            </span>
-
-{#                                        {% endif %}#}
-                                    </div>
-                                </a>
-                                <div class="article-digest">
-                                    图文的简短内容...
-{#                                    {% if 'publish' in request.path %}#}
-{#                                        <div class="created-date">{{ r_article.created_datetime|date:'Y-m-d' }}</div>#}
-{#                                    {% endif %}#}
-
-                                </div>
-                            </div>
-                            <div class="cover-wrapper">
-                                <a href="">
-                                    <img  src="http://imgcdn.guoku.com/images/450/05574cc3f168c4435a149772918a3473.jpeg">
-                                </a>
-                            </div>
-                        </div>
-                        {#                                    {% endwith  %}#}
-                        {#                                  {% endfor %}#}
+                    {% for article in current_user_like_articles %}
+                        {% with article as r_article %}
+                            {% include 'web/user/partial/user_article_item.html' %}
+                        {% endwith  %}
+                    {% endfor %}
 
                     </div>
                 </div>
