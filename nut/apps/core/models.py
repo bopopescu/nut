@@ -890,13 +890,20 @@ class Entity(BaseModel):
         buy_link = self.buy_links.filter(default=True).first()
         return buy_link
 
+    def get_top_note_cache_key(self):
+        return 'entity:%s:topnote' % self.pk
     @property
     def top_note(self):
         # try:
-        notes = self.notes.filter(status=1).order_by('-post_time')
-        if len(notes) > 0:
-            return notes[0]
-        return None
+        cache_key = self.get_top_note_cache_key()
+        _tn = cache.get(cache_key,None)
+        if _tn is None:
+            notes = self.notes.filter(status=1).order_by('-post_time')
+            if len(notes) > 0:
+                _tn =  notes[0]
+                cache.set(cache_key, _tn , 24*3600)
+        return _tn
+
 
     @property
     def top_note_string(self):
@@ -1009,12 +1016,17 @@ class Entity(BaseModel):
             return "%s - %s" % (self.brand, self.title)
         return self.title
 
+    def invalid_top_note_cache(self):
+        cache.delete(self.get_top_note_cache_key())
+
     def save(self, *args, **kwargs):
         super(Entity, self).save(*args, **kwargs)
         key = "entity:dict:v3:%s" % self.id
         # key_string = "entity_v3_%s" % self.id
         # key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
+        self.invalid_top_note_cache()
+
 
     def fetch_image(self):
         image_list = list()
@@ -1161,6 +1173,9 @@ class Note(BaseModel):
         key = "note:v3:%s" % self.id
         # print key
         cache.delete(key)
+        # need update entity topnote cache
+        self.entity.invalid_top_note_cache()
+
         return super(Note, self).save(force_insert=False, force_update=False,
                                       using=None,
                                       update_fields=None)

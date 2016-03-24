@@ -5,7 +5,7 @@ from apps.core.models import GKUser, Entity_Like, Note, User_Follow, Sub_Categor
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 # from apps.mobile.forms.search import UserSearchForm
-from apps.v4.models import APIEntity, APIUser, APINote, APIUser_Follow, APIArticle
+from apps.v4.models import APIEntity, APIUser, APINote, APIUser_Follow, APIArticle, APIArticle_Dig
 from apps.v4.forms.user import MobileUserProfileForm
 from apps.v4.forms.account import MobileUserRestPassword, MobileUserUpdateEmail, MobileRestPassword
 from apps.v4.forms.search import APIUserSearchForm
@@ -574,9 +574,51 @@ class APIUserVerifiedView(APIJsonView):
             return ErrorJsonResponse(status=404)
         return super(APIUserVerifiedView, self).get(request, *args, **kwargs)
 
-    # @check_sign
-    # def dispatch(self, request, *args, **kwargs):
-    #     return super(APIUserVerifiedView, self).dispatch(request, *args, **kwargs)
+
+class APIUserDigArticlesView(APIJsonView):
+
+    http_method_names = ['get']
+
+    def get_data(self, context):
+
+        articles = APIArticle_Dig.objects.filter(user_id=self.user_id)
+
+        da = articles.values_list('article_id', flat=True)
+        res = dict()
+        res['count'] = articles.count()
+        res['articles'] = list()
+        res['page'] = self.page
+        res['size'] = self.size
+
+        paginator = Paginator(articles, self.size)
+        try:
+            article_list = paginator.page(self.page)
+        except Exception:
+            return res
+
+        for row in article_list.object_list:
+            obj = row.article.v4_toDict(articles_list=da)
+            res['articles'].append(
+                obj
+            )
+        return res
+
+    def get(self, request, *args, **kwargs):
+
+        self.user_id = kwargs.pop('user_id', None)
+        print self.user_id
+        assert self.user_id is not None
+        _key = request.GET.get('session', None)
+        self.page = request.GET.get('page', 1)
+        self.size = request.GET.get('size', 30)
+        self.visitor = None
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+            self.visitor = _session.user
+        except Session_Key.DoesNotExist:
+            pass
+        return super(APIUserDigArticlesView, self).get(request, *args, **kwargs)
+
 
 
 class APIUserSearchView(SearchView, JSONResponseMixin):

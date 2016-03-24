@@ -28,7 +28,7 @@ urlpatterns = patterns(
     url(r'^(?P<pk>\d+)/related/$', ArticleRelated.as_view(),name='web_article_related'),
 
 
-    url(r'^(?P<pk>\d+)/textrank/?', ArticleTextRankView.as_view(), name='web_article_textrank')
+    url(r'^(?P<pk>\d+)/textrank/$', ArticleTextRankView.as_view(), name='web_article_textrank')
 )
 
 __author__ = 'edison'
