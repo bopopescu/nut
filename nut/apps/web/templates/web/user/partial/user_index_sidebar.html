@@ -51,7 +51,7 @@
             <ul class="tag-list">
                 <li>
                     <a href="{% url 'web_article_page' article.pk %}#from=recommend"">
-                        {{ article.title }}
+                        {{ article.title|truncatechars:20 }}
                     </a>
                 </li>
             </ul>
