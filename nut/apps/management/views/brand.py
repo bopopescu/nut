@@ -22,14 +22,6 @@ log = getLogger('django')
 class BrandStatView(BaseListView):
     template_name = "management/brand/stat.html"
 
-    def filter_queryset(self, qs, filter_param):
-        filter_field , filter_value = filter_param
-        if filter_field == 'brand_name':
-            qs = qs.filter(name__icontains=filter_value.strip())
-        else:
-            pass
-        return qs
-
     def get_queryset(self):
 
         entities_stat = Entity.objects.raw("select id, brand, count(*) as b  from core_entity where brand !='' and status != -1  group by brand ORDER BY b DESC")
