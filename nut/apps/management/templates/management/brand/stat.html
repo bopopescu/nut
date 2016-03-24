@@ -2,7 +2,17 @@
 {% load i18n %}
 
 {% block content %}
-    <h1 class="page-header">{% trans 'brand stat' %}</h1>
+{#    <h1 class="page-header">{% trans 'brand stat' %}</h1>#}
+    <section class="content-header">
+        <h1>
+            {% trans 'brand stat' %}
+            <small>{% trans 'brand stat' %}</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+            <li class="active">{% trans 'brand stat' %}</li>
+        </ol>
+    </section>
 
     <div class="table-responsive">
         <table class="table table-striped">
