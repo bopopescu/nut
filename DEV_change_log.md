@@ -1,4 +1,8 @@
-2. 
+
+5. brand page (no entry)
+4. user digged article page 
+3. seller user page 
+2. good store page update (no entry ) 
 1. move article read query to slave  
 
 #note
