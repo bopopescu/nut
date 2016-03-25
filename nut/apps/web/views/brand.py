@@ -1,16 +1,7 @@
-from django.core.paginator import EmptyPage
-from django.http import Http404
 from django.views.generic import ListView
 from django.shortcuts import get_object_or_404
 from apps.core.models import Brand, Entity_Like
-from braces.views import AjaxResponseMixin
-from braces.views import JSONResponseMixin
-from django.template import loader
-from django.template import RequestContext
-from apps.core.utils.http import JSONResponse
 
-# TODO Brand front end view
-from core.extend.paginator import ExtentPaginator, PageNotAnInteger
 
 
 class BrandListView(ListView):
