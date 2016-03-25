@@ -55,6 +55,12 @@ class EntityManager(models.Manager):
     def get_published_by_seller(self,seller):
         return self.get_query_set().using('slave').filter(status=1, user=seller).order_by('-created_time')
 
+    def get_user_added_entities(self, seller):
+        return self.get_read_queryset().filter(status__gte=-1, user=seller).order_by('-created_time')
+
+    def get_read_queryset(self):
+        return EntityQuerySet(self.model).using('slave')
+
     def get_query_set(self):
         return EntityQuerySet(self.model, using=self._db)
 

@@ -393,13 +393,34 @@ class UserPublishedSelectionArticleView(UserDetailBase):
 # add seller entities view
 class UserEntitiesView(UserDetailBase):
     model = GKUser
+    paginate_by = 36
+    context_object_name = 'entities'
     pk_url_kwarg = 'user_id'
     template_name = 'web/user/authorized_seller_entities.html'
-    # context_object_name = 'current_seller_entities'
-    #
-    # def get_context_data(self, **kwargs):
-    #   context_data = super(UserEntitiesView, self).get_context_data(**kwargs)
-    #   return context_data
+
+    def get_queryset(self):
+        _seller = self.get_showing_user()
+        _user_entities = Entity.objects.get_user_added_entities(_seller)
+        return _user_entities
+
+    def get_user_entity_likes(self, entities):
+        like_list = list()
+        if not self.request.user.is_authenticated():
+            return like_list
+        else:
+            e = entities.values_list('id', flat=True)
+            el = Entity_Like.objects.filter(entity_id__in=tuple(e),
+                                            user=self.request.user)\
+                                    .values_list('entity_id', flat=True)
+            return el
+
+
+    def get_context_data(self, **kwargs):
+        context = super(UserEntitiesView, self).get_context_data()
+        entities = context['entities']
+        context['user_entity_likes'] = self.get_user_entity_likes(entities)
+        return context
+
 
 
 from apps.web.forms.user import UserArticleStatusFilterForm
@@ -458,10 +479,10 @@ class UserIndex(UserPageMixin, DetailView):
     context_object_name = 'current_user'
 
     def setup_template_name(self):
-        if self._current_user.is_authorized_author:
-            return 'web/user/authorized_author_index.html'
-        elif self._current_user.is_authorized_seller:
+        if self._current_user.is_authorized_seller:
             return 'web/user/authorized_seller_index.html'
+        elif self._current_user.is_authorized_author:
+            return 'web/user/authorized_author_index.html'
         else:
             return 'web/user/user_index.html'
 
@@ -504,6 +525,34 @@ class UserIndex(UserPageMixin, DetailView):
         else:
             return super(UserIndex, self).get_showing_user()
 
+    def get_author_articles(self, author):
+        if author.is_authorized_author:
+            author_article_list = Article.objects.get_published_by_user(author)
+            _page = int(self.request.GET.get('page', 1))
+            paginator = ExtentPaginator(author_article_list,24)
+            try :
+                _author_articles = paginator.page(_page)
+            except PageNotAnInteger:
+                _author_articles = paginator.page(1)
+            except EmptyPage:
+                raise Http404
+
+            return _author_articles
+
+
+
+    def get_user_entity_likes(self, entities):
+        like_list = list()
+        if not self.request.user.is_authenticated():
+            return like_list
+        else:
+            e = entities.values_list('id', flat=True)
+            el = Entity_Like.objects.filter(entity_id__in=tuple(e),
+                                            user=self.request.user)\
+                                    .values_list('entity_id', flat=True)
+            return el
+
+
     def get_context_data(self,**kwargs):
         context_data = super(UserIndex, self).get_context_data(**kwargs)
         current_user = context_data['object']
@@ -518,22 +567,13 @@ class UserIndex(UserPageMixin, DetailView):
                                        .filter(pk__in=list(_selection_article_ids))[:6]
         # get current seller's the first eight published selection entities
 
-        _entity_list = Entity.objects.get_published_by_seller(current_user)[:8]
+        _entity_list = Entity.objects.get_user_added_entities(current_user)[:8]
 
-        if current_user.is_authorized_author:
-            author_article_list = Article.objects.get_published_by_user(current_user)
-            _page = self.request.GET.get('page', 1)
-            paginator = ExtentPaginator(author_article_list,24)
-            try :
-                _author_articles = paginator.page(_page)
-            except PageNotAnInteger:
-                _author_articles = paginator.page(1)
-            except EmptyPage:
-                raise Http404
-            context_data['author_articles'] = _author_articles
+        context_data['author_articles'] = self.get_author_articles(current_user)
 
         context_data['articles'] = _article_list
         context_data['seller_entities'] = _entity_list
+        context_data['user_entity_likes']  = self.get_user_entity_likes(_entity_list)
 
         context_data['followings'] = current_user.followings.filter(followee__is_active__gte=0)[:7]
         context_data['fans'] = current_user.fans.filter(follower__is_active__gte=0)[:7]
