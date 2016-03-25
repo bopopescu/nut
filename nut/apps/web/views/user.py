@@ -393,13 +393,16 @@ class UserPublishedSelectionArticleView(UserDetailBase):
 # add seller entities view
 class UserEntitiesView(UserDetailBase):
     model = GKUser
+    paginate_by = 36
+    context_object_name = 'entities'
     pk_url_kwarg = 'user_id'
     template_name = 'web/user/authorized_seller_entities.html'
-    # context_object_name = 'current_seller_entities'
-    #
-    # def get_context_data(self, **kwargs):
-    #   context_data = super(UserEntitiesView, self).get_context_data(**kwargs)
-    #   return context_data
+
+    def get_queryset(self):
+        _seller = self.get_showing_user()
+        _user_entities = Entity.objects.get_user_added_entities(_seller)
+        return _user_entities
+
 
 
 from apps.web.forms.user import UserArticleStatusFilterForm
@@ -518,11 +521,11 @@ class UserIndex(UserPageMixin, DetailView):
                                        .filter(pk__in=list(_selection_article_ids))[:6]
         # get current seller's the first eight published selection entities
 
-        _entity_list = Entity.objects.get_published_by_seller(current_user)[:8]
+        _entity_list = Entity.objects.get_user_added_entities(current_user)[:8]
 
         if current_user.is_authorized_author:
             author_article_list = Article.objects.get_published_by_user(current_user)
-            _page = self.request.GET.get('page', 1)
+            _page = int(self.request.GET.get('page', 1))
             paginator = ExtentPaginator(author_article_list,24)
             try :
                 _author_articles = paginator.page(_page)
