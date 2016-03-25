@@ -1,5 +1,6 @@
 from apps.mobile.models import LaunchBoard
 from apps.v4.views import APIJsonView
+from apps.mobile.models import Session_Key
 
 
 class LaunchBoardView(APIJsonView):
@@ -23,12 +24,17 @@ class LaunchBoardView(APIJsonView):
             res['action'] = launch.action
             res['launch_image_url'] = launch.launch_image_url
             return res
+        
         return None
 
     def get(self, request, *args, **kwargs):
         _key = request.GET.get('session', None)
         if _key is not None:
-            pass
+            try:
+                _session = Session_Key.objects.get(session_key=_key)
+                self.visitor = _session.user
+            except Session_Key.DoesNotExist:
+                self.visitor = None
         return super(LaunchBoardView, self).get(request, *args, **kwargs)
 
 
