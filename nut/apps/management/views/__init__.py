@@ -45,7 +45,9 @@ def dashboard(request, template='management/dashboard.html'):
     authorized_authors  = GKUserManager().authorized_author()
     yesterday_finish_detail = {}
     for author in authorized_authors:
-        yesterday_finish_detail[author.profile.nickname] = get_yesterday_update(author)
+        finish_num = get_yesterday_update(author)
+        if finish_num > 0:
+            yesterday_finish_detail[author.profile.nickname] = finish_num
 
     # if request.is_ajax():
     #     res = {}
