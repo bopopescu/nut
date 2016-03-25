@@ -339,7 +339,4 @@ class ArticleTextRankView(BaseJsonView):
 
         return super(ArticleTextRankView, self).get(request, *args, **kwargs)
 
-
-
-
 __author__ = 'edison'
