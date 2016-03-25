@@ -418,6 +418,18 @@ class UserLikeArticleView(UserDetailBase):
         return articles
 
 
+# add seller entities view
+class UserEntitiesView(UserDetailBase):
+    model = GKUser
+    pk_url_kwarg = 'user_id'
+    template_name = 'web/user/authorized_seller_entities.html'
+    # context_object_name = 'current_seller_entities'
+    #
+    # def get_context_data(self, **kwargs):
+    #   context_data = super(UserEntitiesView, self).get_context_data(**kwargs)
+    #   return context_data
+
+
 from apps.web.forms.user import UserArticleStatusFilterForm
 class UserArticleView(UserDetailBase):
     template_name =  'web/user/user_article.html'
@@ -476,7 +488,10 @@ class UserIndex(UserPageMixin, DetailView):
     def setup_template_name(self):
         if self._current_user.is_authorized_author:
             return 'web/user/authorized_author_index.html'
-        return 'web/user/user_index.html'
+        elif self._current_user.is_authorized_seller:
+            return 'web/user/authorized_seller_index.html'
+        else:
+            return 'web/user/user_index.html'
 
     def get(self, *args, **kwargs):
 
@@ -529,6 +544,9 @@ class UserIndex(UserPageMixin, DetailView):
         # _common_article_ids    = Article.objects.get_published_by_user(current_user).exclude(pk_in=list(_selection_article_ids)).values_list("pk",flat=True)
         _article_list = Article.objects.get_published_by_user(current_user).filter(selections__isnull = False)\
                                        .filter(pk__in=list(_selection_article_ids))[:6]
+        # get current seller's the first eight published selection entities
+
+        _entity_list = Entity.objects.get_published_by_seller(current_user)[:8]
 
         if current_user.is_authorized_author:
             author_article_list = Article.objects.get_published_by_user(current_user)
@@ -552,6 +570,7 @@ class UserIndex(UserPageMixin, DetailView):
 
 
         context_data['articles'] = _article_list
+        context_data['seller_entities'] = _entity_list
 
         context_data['followings'] = current_user.followings.filter(followee__is_active__gte=0)[:7]
         context_data['fans'] = current_user.fans.filter(follower__is_active__gte=0)[:7]
@@ -672,5 +691,9 @@ def following(request, user_id, templates="web/user/following.html"):
         },
         context_instance = RequestContext(request),
     )
+
+
+
+
 
 __author__ = 'edison'

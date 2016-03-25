@@ -254,10 +254,10 @@ class BaseManagementArticleListView(UserPassesTestMixin, SortMixin, ListView):
     paginate_by = 30
     paginator_class = Jpaginator
     context_object_name = 'articles'
-    default_sort_params = ('updated_dateime', 'desc')
+    default_sort_params = ('updated_datetime', 'desc')
 
     def test_func(self, user):
-        return user.is_editor
+        return user.is_editor or user.is_staff
 
     def get_context_data(self, *args, **kwargs):
         context = super(BaseManagementArticleListView, self).get_context_data(*args, **kwargs)
@@ -281,6 +281,7 @@ class AuthorArticlePersonList(BaseManagementArticleListView):
 
 class AuthorArticleList(BaseManagementArticleListView):
     def get_queryset(self):
+
         authorized_authors = GKUser.objects.authorized_author()
         return  Article.objects.filter(publish=Article.published, creator__in=authorized_authors)\
                         .order_by('-updated_datetime')
