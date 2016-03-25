@@ -11,7 +11,7 @@ CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
 #
 IMAGE_HOST = 'http://imgcdn.guoku.com/'
 #
-
+#
 # LOCAL_IMG_DEBUG=True
 # IMAGE_HOST = 'http://127.0.0.1:9766/'
 # INTRANET_IMAGE_SERVER = 'http://images.hello.new/'
@@ -90,17 +90,16 @@ INSTALLED_APPS +=(
 # )
 LOCAL_TEST_DB = True
 
-# Current_Dbhost = '192.168.1.243'
+Current_Dbhost = 'localhost'
 # Current_Dbhost = '10.0.1.110'
 # Current_Dbhost = '10.0.2.90'
-Current_Dbhost = 'localhost'
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'core',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'z',
         'HOST': Current_Dbhost,
         'PORT': '',
         'OPTIONS': {
@@ -112,7 +111,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'core',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'z',
         'HOST': Current_Dbhost,
         'PORT': '',
         'OPTIONS': {

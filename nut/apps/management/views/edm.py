@@ -109,7 +109,6 @@ def send_edm(request, edm_id):
                 edm.status = edm.send_completed
                 edm.sd_task_id = result['mail_list_task_id_list']
                 edm.save()
-                sd_tm.delete()
     return HttpResponse(json.dumps(response_data),
                         content_type="application/json")
 #
