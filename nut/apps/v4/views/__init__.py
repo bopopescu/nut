@@ -383,7 +383,6 @@ def popular(request):
         log.info(e.message)
         el = None
 
-
     res = dict()
     res['content'] = list()
     res['scale'] = _scale
