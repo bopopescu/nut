@@ -22,7 +22,7 @@ class BrandListView(ListView):
         return Brand.objects.all()
 
 
-class BrandDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
+class BrandDetailView(ListView):
     template_name = 'web/brand/detail.html'
     paginate_by = 24
     context_object_name = 'entities'
@@ -47,15 +47,5 @@ class BrandDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
                                                     entity_list=e_ids
                                                     ).using('slave')
         context['user_entity_likes'] = el
-
-        _page = self.request.GET.get('page', 1)
-        paginator = ExtentPaginator(sqs, 24)
-        try:
-            _entities = paginator.page(_page)
-        except PageNotAnInteger:
-            _entities = paginator.page(1)
-        except EmptyPage:
-            raise Http404
-        context['brand_entities'] = _entities
 
         return context
