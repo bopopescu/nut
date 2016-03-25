@@ -561,11 +561,11 @@ class UserIndex(UserPageMixin, DetailView):
             context_data['author_articles'] = _author_articles
 
         current_user_like_articles = Article_Dig.objects.get_queryset().user_dig_list(user=current_user, article_list=Article.objects.all())[:3]
-        like_articles = list()
+        dig_articles = list()
         for article_id in current_user_like_articles:
-            like_articles.append(Article.objects.get(pk=article_id))
+            dig_articles.append(Article.objects.get(pk=article_id))
 
-        context_data['current_user_like_articles'] = like_articles
+        context_data['current_user_like_articles'] = dig_articles
 
 
 
