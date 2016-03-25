@@ -742,6 +742,7 @@ p.boolean-false {
   border-radius: 5px;
   font-size: 18px;
 }
+<<<<<<< HEAD
 .new-empty-panel-content {
   display: block;
   width: 100%;
@@ -751,3 +752,6 @@ p.boolean-false {
   border: 1px solid #ebebeb;
   color: #9D9E9F;
 }
+=======
+/*# sourceMappingURL=widgets.less.css.map */
+>>>>>>> dev

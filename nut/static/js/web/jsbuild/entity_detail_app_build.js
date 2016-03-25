@@ -1631,7 +1631,7 @@ define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
 
     var AppEntityLike = Class.extend({
         init: function(){
-            $('#selection, #discover_entity_list, #category-entity-list, #tag-entity-list ,.search-result-list').on('click' ,'.btn-like, .like-action', this.handleLike.bind(this));
+            $('#selection, #discover_entity_list, #category-entity-list, #tag-entity-list ,.search-result-list,.authorized-seller-body').on('click' ,'.btn-like, .like-action', this.handleLike.bind(this));
             $('.guoku-button .like-action').on('click', this.handleLike.bind(this));
             console.log('app entity like functions');
             console.log(fastdom);
@@ -3491,7 +3491,9 @@ require([
         var userNote = new UserNote();
         var imgHandler = new EntityImageHandler();
 
-        var baichuanManager = new BaichuanManager();
+        // hide baichuan recommend , for service is down now
+        // by an, 2016, 3-19 .
+        //var baichuanManager = new BaichuanManager();
 
          var shareApp = new EntityShareApp();
 

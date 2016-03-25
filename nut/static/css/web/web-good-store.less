@@ -2,12 +2,21 @@
 @import "../lib/var.less";
 @import "../lib/widgets.less";
 
+
 //common class
 .good-store-row{
   margin-top:40px;
   margin-bottom:40px;
 }
 
+.hidden-report{
+  .animate-header;
+  .transform(translateY(-40px));
+}
+.shown-report{
+  .animate-header;
+  .transform(translateY(0px));
+}
 //the scroll banner is use slick thirdparty.but this page's sroll banner structure is special,so the position is mistaken.
 // but I don't plan to modify the slick-theme.css
 //so this btn position change put here to protect the third party.
@@ -135,11 +144,53 @@
 
 }
   .hot-section-wrapper{
-    a{
-      &:hover{
-        cursor:pointer;
+    .hot-section-item{
+      .article-panel{
+        &:hover{
+          .bg-layer{
+            display: block;
+          }
+        }
+        position:relative;
+        .img-holder.img-holder-control{
+          &:hover{
+            opacity: 1;
+          }
+        }
+        .bg-layer{
+          display: none;
+          width:100%;
+          height:0;
+          padding-bottom: 100%;
+          position:absolute;
+          top:0;
+          left:0;
+          background-color: rgba(0,0,0,0.18);
+        }
+        .new-user-action{
+          display: none;
+          position:absolute;
+          top:10px;
+          right:10px;
+          //z-index:1000;
+        }
+        a{
+          &:hover{
+            cursor:pointer;
+            //.bg-layer{
+            //  display: block;
+            //}
+          }
+        }
       }
     }
+  }
+  a.good-stores{
+    color:@common-text-color;
+    &:hover{
+      color:@common-text-color;
+    }
+
   }
   .select-condition-wrapper .select-condition{
     //needs to adjust
@@ -189,6 +240,14 @@
   }
 
   .consumption-report-wrapper{
+    &.fixed-ele{
+      position:fixed;
+      //why is 40 not 0?
+      bottom:40px;
+      left:0;
+      .box-shadow(@global-box-shadow);
+      z-index:1000;
+    }
     margin-bottom: -40px;
     width:100%;
     height:50px;

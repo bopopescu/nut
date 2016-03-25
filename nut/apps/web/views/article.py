@@ -84,7 +84,7 @@ class NewSelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
         qs = Selection_Article.objects\
                               .published_until(until_time=self.get_refresh_time())\
                               .order_by('-pub_time')\
-                              .select_related('article')
+                              .select_related('article').using('slave')
                               # .defer('article__content')
 
         return qs
@@ -329,17 +329,14 @@ class ArticleTextRankView(BaseJsonView):
 
     def get_data(self, context):
         article_textrank_url = "%s%s" % (textrank_url, self.article_id)
+        log.info(article_textrank_url)
         r = requests.get(article_textrank_url)
         return r.json()
-
 
     def get(self, request, *args, **kwargs):
         self.article_id = kwargs.pop('pk', None)
         assert self.article_id is not None
 
         return super(ArticleTextRankView, self).get(request, *args, **kwargs)
-
-
-
 
 __author__ = 'edison'
