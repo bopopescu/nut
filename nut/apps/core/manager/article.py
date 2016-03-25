@@ -38,6 +38,9 @@ class ArticleDigManager(models.Manager):
     def get_queryset(self):
         return ArticleDigQuerySet(self.model, using=self._db)
 
+    def user_dig_list(self, user, article_list):
+        return self.get_queryset().user_dig_list(user, article_list)
+
     def popular(self, scale='weekly'):
         key = 'article:popular:%s' % scale
         res = cache.get(key)
