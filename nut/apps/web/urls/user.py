@@ -5,13 +5,9 @@ from apps.web.views.user import UserIndex,\
                                 UserTagView, UserArticleView,\
                                 UserFansView, UserFollowingsView,\
                                 UserPublishedArticleView,UserPublishedSelectionArticleView,\
-<<<<<<< HEAD
                                 UserLikeArticleView,\
-                                UserSendVerifyMail
-=======
                                 UserSendVerifyMail,\
                                 UserEntitiesView
->>>>>>> brand_page
 
 from apps.web.views.user import ChangePasswdFormView
 
