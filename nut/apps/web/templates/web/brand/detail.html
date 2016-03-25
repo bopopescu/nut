@@ -36,7 +36,7 @@
 
     </div>
 
-    {% include 'web/main/partial/number_paginator.html' with objects=brand_entities url=request.path %}
+    {% include 'web/main/partial/number_paginator.html' with objects=page_obj url=request.path %}
 
 {% endblock %}
 
