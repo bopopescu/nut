@@ -260,4 +260,5 @@ def report(request, entity_id):
     r.save()
     return SuccessJsonResponse({ "status" : 1 })
 
+
 __author__ = 'edison'

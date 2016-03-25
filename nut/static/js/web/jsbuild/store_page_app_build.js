@@ -4067,6 +4067,7 @@ define('subapp/store/annual_report',['jquery','libs/underscore','libs/Class','li
                 this.pageHeight = document.body.scrollHeight;
                 this.footerHeight = $('#guoku_footer')[0].getBoundingClientRect().height;
                 this.leftCondition = this.screenHeight + this.scrollTop;
+                //where is the 90, I calculate it.but I don't know where is it from
                 this.rightCondition = this.pageHeight - this.footerHeight + 90;
             },
             doWrite: function(){
