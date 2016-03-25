@@ -1,0 +1,30 @@
+{% load i18n staticfiles%}
+{% load common guoku %}
+{% load static %}
+ <div class="user-article-item-wrapper user-article-cell col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <div class="user-article-panel">
+                <a href="{{ article.url }}" target="_blank">
+                    <div class="hover-light user-article-img" style="background-image: url({{ article.cover_url|resize:'450' }})">
+                    </div>
+                </a>
+                <div class="user-article-title-wrapper">
+                    <a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
+                </div>
+
+                <div class="user-article-intro-wrapper">
+                    <p class="user-article-intro">
+                        {% autoescape off %}
+                        {{ article.content|striptags|truncatechars:120 }}
+                        {% endautoescape %}
+                    </p>
+
+                </div>
+
+                <div class="user-article-info-wrapper">
+                        <span class="user-article-time">
+                            <i class="fa fa-clock-o"></i>{{ article.created_datetime|format_time }}
+                        </span>
+                </div>
+
+            </div>
+        </div>
