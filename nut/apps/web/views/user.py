@@ -411,7 +411,7 @@ class UserLikeArticleView(UserDetailBase):
 
     def get_queryset(self):
         user = self.get_showing_user()
-        current_user_like_articles = Article_Dig.objects.get_queryset().user_dig_list(user=user, article_list=Article.objects.all()).order_by("-created_time")
+        current_user_like_articles = Article_Dig.objects.get_queryset().user_dig_list(user=user, article_list=Article.objects.published()).order_by("-created_time")
         articles = list()
         for id in current_user_like_articles:
             articles.append(Article.objects.get(pk=id))
@@ -599,7 +599,9 @@ class UserIndex(UserPageMixin, DetailView):
 
         context_data['author_articles'] = self.get_author_articles(current_user)
 
-        current_user_like_articles = Article_Dig.objects.get_queryset().user_dig_list(user=current_user, article_list=Article.objects.all())[:3]
+        current_user_like_articles = Article_Dig.objects\
+                                               .user_dig_list(user=current_user,\
+                                                              article_list=Article.objects.published())[:3]
         like_articles = list()
         for article_id in current_user_like_articles:
             like_articles.append(Article.objects.get(pk=article_id))
