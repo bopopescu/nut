@@ -50,7 +50,7 @@
             {% for article in current_user_like_articles %}
             <ul class="tag-list">
                 <li>
-                    <a href="{% url 'web_article_page' article.pk %}#from=recommend"">
+                    <a href="{% url 'web_article_page' article.pk %}">
                         {{ article.title|truncatechars:17 }}
                     </a>
                 </li>
