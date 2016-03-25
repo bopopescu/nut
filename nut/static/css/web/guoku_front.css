@@ -4478,6 +4478,13 @@ body .for-mobile {
   margin-right: 5px;
   color: #9d9d9d;
 }
+.brand-page .brand-info .brand-intro-wrapper p {
+  width: 80%;
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 14px;
+  text-align: left;
+}
 .gk_test {
   color: black;
 }
