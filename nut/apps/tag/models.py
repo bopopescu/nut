@@ -35,7 +35,7 @@ class ContentTagQuerySet(models.query.QuerySet):
         return list(tags)
 
     def popular(self):
-        return self.annotate(tcount=Count('tag')).order_by('-tcount')[:300]
+        return self.using('slave').annotate(tcount=Count('tag')).order_by('-tcount')[:300]
 
     def entity_tags(self, nid_list):
         return self.using('slave').filter(target_object_id__in=nid_list).values('tag','tag__name','tag__hash').annotate(ncount=Count('tag')).order_by('-ncount')

@@ -1,3 +1,27 @@
+2. 
+1. move article read query to slave  
+
+#note
+ 
+ 如果出现锁表,家欣哥可以发导致锁表的SQL给我, 我再调整.
+ 
+
+==================================
+# merged to master 2016 3 - 20
+==================================
+
+2. article tag recommendation  
+1. Entity add top note cache  , reduce 40 query per page 
+
+==================================
+# merged to master 2016 3 - 19
+==================================
+ 
+1.  remove baichuan rec for now 
+0.  article tag editing (unfinished)
+==================================
+# merged to master 2016 3 - 17
+==================================
 6. GKUser.digs 实现方式 
 
 5. good store page 
