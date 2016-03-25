@@ -90,16 +90,10 @@ INSTALLED_APPS +=(
 # )
 LOCAL_TEST_DB = True
 
-<<<<<<< HEAD
 # Current_Dbhost = '192.168.1.243'
 # Current_Dbhost = '10.0.1.110'
 # Current_Dbhost = '10.0.2.90'
 Current_Dbhost = 'localhost'
-=======
-Current_Dbhost = 'localhost'
-# Current_Dbhost = '10.0.1.110'
-# Current_Dbhost = '10.0.2.90'
->>>>>>> brand_page
 
 DATABASES = {
     'default': {
