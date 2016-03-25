@@ -599,6 +599,9 @@ body.compact-body{
         margin-left:-4px;
         transform: translateY(-50%);
       }
+      .seller-media{
+        margin-top:10px;
+      }
 
       .user-action{
            margin-top: 10px;
@@ -628,6 +631,23 @@ body.compact-body{
       }
   }
 
+}
+//authorized seller page style
+.authorized-seller-body{
+  .section-title-wrapper{
+    margin-top:20px;
+    margin-bottom:14px;
+    overflow: hidden;
+    .section-title {
+      .section-name{
+        float: left;
+      }
+      .more-link{
+        float: right;
+        font-size:@smaller-primary;
+    }
+    }
+  }
 }
 .guoku-content, .entity-likers-body{
   &.user-page,&.index-page,.liker-page{
@@ -874,6 +894,9 @@ body.compact-body{
     .normal-round-tag;
 //    text-align: center;
 //    margin-bottom: 10px;
+  }
+  .new-tag-element{
+
   }
   .tag-current{
     background-color: @tag-hover-background-dark;
@@ -1792,8 +1815,55 @@ body{
   }
 }
 
+//brand page style
+.brand-page{
+  .brand-info{
+      text-align: center;
+    .brand-icon{
+      display: inline-block;
+      width: 140px;
+      height: 140px;
+      border:1px solid #ebebeb;
+      }
+      .brand-name{
+           margin-top:40px;
+          .nick{
+            //here the widget should be updated
+            .user-nick-large;
+            font-size:@big-title-size;
+          }
+      }
+    .brand-basic-info{
+      margin-top:16px;
+      font-size:@smaller-primary;
+      ul{
+        overflow: hidden;
+        li{
+        display: inline-block;
+          margin-right:5px;
+          color:@light-gray;
+      }
+
+      }
+
+    }
+    .brand-intro-wrapper{
+      p{
+        width:80%;
+        max-width:900px;
+        margin:0 auto;
+        font-size:@smaller-primary;
+        text-align:left;
+      }
+
+    }
+
+  }
+
+}
+
 .gk_test{
-  color:black;
+  color:red;
 }
 
 
