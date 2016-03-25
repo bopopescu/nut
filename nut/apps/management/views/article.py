@@ -1,6 +1,6 @@
 from django.forms import HiddenInput
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from django.core.urlresolvers import reverse , reverse_lazy
 from django.contrib.auth.decorators import login_required
@@ -267,16 +267,22 @@ class BaseManagementArticleListView(UserPassesTestMixin, SortMixin, ListView):
 
 class AuthorArticlePersonList(BaseManagementArticleListView):
     def get_queryset(self):
-        _user_id = self.kwargs.pop('pk', None)
+        _user_id = self.kwargs.get('pk', None)
         if _user_id is None :
             raise  Http404
         else:
             return Article.objects.filter(publish=Article.published,creator__id=_user_id)\
-                    .order_by('-updated_datetime')
+                    .order_by('-updated_datetime', '-created_datetime')
+
+    def get_current_author(self):
+        _user_id = self.kwargs.get('pk', None)
+        return get_object_or_404(GKUser, pk=_user_id)
+
 
     def get_context_data(self, *args, **kwargs):
         context = super(AuthorArticlePersonList, self).get_context_data(*args, **kwargs)
         context['for_author'] = True
+        context['current_author'] = self.get_current_author()
         return context
 
 

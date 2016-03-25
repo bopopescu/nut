@@ -416,6 +416,58 @@ p .b_day{
 
   }
 }
+//in authorized seller page,the thumbnail design has been modified.
+.entity-four.new-thumbnail{
+  padding:16px;
+  border:none;
+  margin-bottom:20px;
+  .panel-no-padding;
+  .img-box{
+    border:none;
+  }
+  .btn-like{
+    padding: 0px;
+    line-height: 14px;
+    font-size: 14px;
+    height: 14px;
+    color: #9d9e9f;
+  }
+  .entity-four-info{
+    margin-top:16px;
+    overflow: hidden;
+    .caption {
+      width:60%;
+      height:80px;
+      float:left;
+      margin:0;
+      font-size: @smaller-primary;
+      .brand,.title{
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .brand{
+        color: @common-gray;
+      }
+      .title a{
+        color:@common-text-color;
+      }
+      .price {
+        color:@link-color;
+      }
+    }
+    .action{
+      height:30px;
+      float: right;
+      .info{
+        color: @common-gray;
+        text-align: center;
+        font-size: @smaller-primary;
+      }
+  }
+   }
+
+}
 
 
 .btn-top {
@@ -657,3 +709,46 @@ p.boolean-false{
   font-size:18px;
 }
 
+.new-empty-panel-content{
+  display:block;
+  width:100%;
+  min-height: 180px;
+  line-height: 180px;
+  text-align: center;
+  border:1px solid #ebebeb;
+  //box-shadow: 0 0 2px #ebebeb;
+  color: @common-gray;
+}
+
+
+.square-follow-btn{
+  display: inline-block;
+  width:32px;
+  height:32px;
+  line-height:32px;
+  text-align: center;
+  font-size:@primary-size;
+  background-color: #ffffff;
+  padding: 0px 6px;
+  .border-radius(4px);
+  cursor: pointer;
+  text-decoration:none;
+  i.fa-plus{
+     color: @btn-blue;
+  }
+  &:hover,&:focus{
+    i.fa-plus{
+       color:@btn-blue-dark;
+    }
+  }
+  &.btn-cancel{
+    background-color:@btn-blue;
+    i.fa-check{
+       color: #ffffff;
+    }
+    &:hover,&:focus{
+      background-color: @btn-blue-dark;
+    }
+  }
+
+}
