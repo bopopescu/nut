@@ -65,6 +65,7 @@
        {% endblock %}
 
 {% block user_content_detail %}
+    {% if seller_entities %}
     <div class="row section-title-wrapper">
       <div class="col-sm-12 section-title">
           <p class="section-name">商品</p>
@@ -78,6 +79,7 @@
           </div>
       </div>
     </div>
+
     <div class="row entity-wrapper">
 
         {% for entity in seller_entities %}
@@ -118,7 +120,6 @@
                     </div>
                 </div>
             </div>
-{#            {% include 'web/main/partial/entity.html' with entity=entity%}#}
             {% empty %}
             <div class="col-xs-6 col-sm-3 search-entity-item new-empty-panel-content">
                 <span>暂无商品</span>
@@ -126,111 +127,16 @@
         {% endfor %}
     </div>
 
+    {% endif %}
     <div class="row section-title-wrapper">
       <div class="col-sm-12 section-title">
           <p>图文</p>
       </div>
     </div>
     <div class="row user-article-wrapper">
-
-        <div class="user-article-item-wrapper user-article-cell col-xs-12 col-sm-4 col-md-4 col-lg-4">
-            <div class="user-article-panel">
-                <a href="http://www.guoku.com/articles/4058/" target="_blank">
-                    <div class="hover-light user-article-img" style="background-image: url('http://imgcdn.guoku.com/images/450/ffb6661209a6ed670f0ec445dcbd6f0d.jpg')">
-                    </div>
-
-                </a>
-
-                <div class="user-article-title-wrapper">
-                    <a href="http://www.guoku.com/articles/4058/" target="_blank">以石为器</a>
-                </div>
-
-                <div class="user-article-intro-wrapper">
-                    <p class="user-article-intro">
-                        {% autoescape off %}
-                        {{ article.content|striptags|truncatechars:120 }}
-                        {% endautoescape %}
-                          2016年，植觉招募新的小伙伴点击上方图片进入寻人详情一个字太重！图源网络：植觉编撰转载请注明出处：植觉intuition
-                    </p>
-
-                </div>
-
-                <div class="user-article-info-wrapper">
-                        <span class="user-article-time">
-                            <i class="fa fa-clock-o"></i>
-                            {{ article.created_datetime|format_time }}
-                              三天前
-                        </span>
-                </div>
-
-            </div>
-        </div>
-        <div class="user-article-item-wrapper user-article-cell col-xs-12 col-sm-4 col-md-4 col-lg-4">
-            <div class="user-article-panel">
-                <a href="http://www.guoku.com/articles/4058/" target="_blank">
-                    <div class="hover-light user-article-img" style="background-image: url('http://imgcdn.guoku.com/images/450/ffb6661209a6ed670f0ec445dcbd6f0d.jpg')">
-                    </div>
-
-                </a>
-
-                <div class="user-article-title-wrapper">
-                    <a href="http://www.guoku.com/articles/4058/" target="_blank">
-                        带上以一敌十的神器，来一场说走就走的旅行
-                    </a>
-                </div>
-
-                <div class="user-article-intro-wrapper">
-                    <p class="user-article-intro">
-                        {% autoescape off %}
-                        {{ article.content|striptags|truncatechars:120 }}
-                        {% endautoescape %}
-                          2016年，植觉招募新的小伙伴点击上方图片进入寻人详情一个字太重！图源网络：植觉编撰转载请注明出处：植觉intuition
-                    </p>
-
-                </div>
-
-                <div class="user-article-info-wrapper">
-                        <span class="user-article-time">
-                            <i class="fa fa-clock-o"></i>
-                            {{ article.created_datetime|format_time }}
-                              三天前
-                        </span>
-                </div>
-
-            </div>
-        </div>
-        <div class="user-article-item-wrapper user-article-cell col-xs-12 col-sm-4 col-md-4 col-lg-4">
-            <div class="user-article-panel">
-                <a href="http://www.guoku.com/articles/4058/" target="_blank">
-                    <div class="hover-light user-article-img" style="background-image: url('http://imgcdn.guoku.com/images/450/ffb6661209a6ed670f0ec445dcbd6f0d.jpg')">
-                    </div>
-
-                </a>
-
-                <div class="user-article-title-wrapper">
-                    <a href="http://www.guoku.com/articles/4058/" target="_blank">以石为器</a>
-                </div>
-
-                <div class="user-article-intro-wrapper">
-                    <p class="user-article-intro">
-                        {% autoescape off %}
-                        {{ article.content|striptags|truncatechars:120 }}
-                        {% endautoescape %}
-                          2016年，植觉招募新的小伙伴点击上方图片进入寻人详情一个字太重！图源网络：植觉编撰转载请注明出处：植觉intuition
-                    </p>
-
-                </div>
-
-                <div class="user-article-info-wrapper">
-                        <span class="user-article-time">
-                            <i class="fa fa-clock-o"></i>
-                            {{ article.created_datetime|format_time }}
-                              三天前
-                        </span>
-                </div>
-
-            </div>
-        </div>
+     {% for article in author_articles  %}
+              {% include 'web/user/partial/author_article_item.html' %}
+     {% endfor %}
 
 {#        {% empty %}#}
 {#        <div class="col-xs-6 col-sm-3 search-entity-item new-empty-panel-content">#}
