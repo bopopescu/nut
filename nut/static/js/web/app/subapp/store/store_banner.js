@@ -6,7 +6,7 @@ define(['jquery', 'libs/Class','libs/slick'], function(
         init: function () {
             this.init_slick();
             console.log('subapp good store start !');
-            this.sameHeightFrame('user-latest-article','latest-actions-sidebar');
+            //this.sameHeightFrame('user-latest-article','latest-actions-sidebar');
         },
         init_slick:function(){
             $('#index-banners').slick({
@@ -20,7 +20,7 @@ define(['jquery', 'libs/Class','libs/slick'], function(
                 //slidesToShow: 3,
                 responsive: [
                     {
-                        breakpoint: 10000,
+                        breakpoint: 768,
                         settings: {
                             centerMode:false,
                             slidesToShow:1,
@@ -31,20 +31,20 @@ define(['jquery', 'libs/Class','libs/slick'], function(
                 ]
             });
         },
-        sameHeightFrame: function (leftId,rightId) {
-            var leftChildHeight = this.getElementHeight(leftId);
-            var rightChildHeight = this.getElementHeight(rightId);
-            var rightChild = this.getElement(rightId);
-            if (rightChildHeight > leftChildHeight) {
-                rightChild.style.height = leftChildHeight + "px";
-            }
-        },
-        getElement:function(id){
-            return document.getElementById(id);
-        },
-        getElementHeight:function(id){
-            return this.getElement(id).offsetHeight;
-        }
+        //sameHeightFrame: function (leftId,rightId) {
+        //    var leftChildHeight = this.getElementHeight(leftId);
+        //    var rightChildHeight = this.getElementHeight(rightId);
+        //    var rightChild = this.getElement(rightId);
+        //    if (rightChildHeight > leftChildHeight) {
+        //        rightChild.style.height = leftChildHeight + "px";
+        //    }
+        //},
+        //getElement:function(id){
+        //    return document.getElementById(id);
+        //},
+        //getElementHeight:function(id){
+        //    return this.getElement(id).offsetHeight;
+        //}
     });
     return StoreBanner;
 });

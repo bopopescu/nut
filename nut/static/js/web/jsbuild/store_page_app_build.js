@@ -3564,7 +3564,7 @@ define('subapp/store/store_banner',['jquery', 'libs/Class','libs/slick'], functi
         init: function () {
             this.init_slick();
             console.log('subapp good store start !');
-            this.sameHeightFrame('user-latest-article','latest-actions-sidebar');
+            //this.sameHeightFrame('user-latest-article','latest-actions-sidebar');
         },
         init_slick:function(){
             $('#index-banners').slick({
@@ -3578,7 +3578,7 @@ define('subapp/store/store_banner',['jquery', 'libs/Class','libs/slick'], functi
                 //slidesToShow: 3,
                 responsive: [
                     {
-                        breakpoint: 10000,
+                        breakpoint: 768,
                         settings: {
                             centerMode:false,
                             slidesToShow:1,
@@ -3589,20 +3589,20 @@ define('subapp/store/store_banner',['jquery', 'libs/Class','libs/slick'], functi
                 ]
             });
         },
-        sameHeightFrame: function (leftId,rightId) {
-            var leftChildHeight = this.getElementHeight(leftId);
-            var rightChildHeight = this.getElementHeight(rightId);
-            var rightChild = this.getElement(rightId);
-            if (rightChildHeight > leftChildHeight) {
-                rightChild.style.height = leftChildHeight + "px";
-            }
-        },
-        getElement:function(id){
-            return document.getElementById(id);
-        },
-        getElementHeight:function(id){
-            return this.getElement(id).offsetHeight;
-        }
+        //sameHeightFrame: function (leftId,rightId) {
+        //    var leftChildHeight = this.getElementHeight(leftId);
+        //    var rightChildHeight = this.getElementHeight(rightId);
+        //    var rightChild = this.getElement(rightId);
+        //    if (rightChildHeight > leftChildHeight) {
+        //        rightChild.style.height = leftChildHeight + "px";
+        //    }
+        //},
+        //getElement:function(id){
+        //    return document.getElementById(id);
+        //},
+        //getElementHeight:function(id){
+        //    return this.getElement(id).offsetHeight;
+        //}
     });
     return StoreBanner;
 });
@@ -4067,6 +4067,7 @@ define('subapp/store/annual_report',['jquery','libs/underscore','libs/Class','li
                 this.pageHeight = document.body.scrollHeight;
                 this.footerHeight = $('#guoku_footer')[0].getBoundingClientRect().height;
                 this.leftCondition = this.screenHeight + this.scrollTop;
+                //where is the 90, I calculate it.but I don't know where is it from
                 this.rightCondition = this.pageHeight - this.footerHeight + 90;
             },
             doWrite: function(){
