@@ -1,4 +1,19 @@
 
+5. brand page (no entry)
+4. user digged article page 
+3. seller user page 
+2. good store page update (no entry ) 
+1. move article read query to slave  
+
+#note
+ 
+ 如果出现锁表,家欣哥可以发导致锁表的SQL给我, 我再调整.
+ 
+
+==================================
+# merged to master 2016 3 - 20
+==================================
+
 2. article tag recommendation  
 1. Entity add top note cache  , reduce 40 query per page 
 
