@@ -3571,7 +3571,7 @@ define('subapp/store/store_banner',['jquery', 'libs/Class','libs/slick'], functi
                 centerMode: true,
                 arrows: true,
                 slidesToShow: 1,
-                centerPadding:'22%',
+                centerPadding:'18%',
                 dots:false,
 
                 //centerPadding: '60px',

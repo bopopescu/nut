@@ -13,7 +13,7 @@ define(['jquery', 'libs/Class','libs/slick'], function(
                 centerMode: true,
                 arrows: true,
                 slidesToShow: 1,
-                centerPadding:'22%',
+                centerPadding:'18%',
                 dots:false,
 
                 //centerPadding: '60px',
