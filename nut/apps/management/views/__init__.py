@@ -4,7 +4,7 @@ from django.template import RequestContext
 # from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.contrib.auth.decorators import  login_required
 
-from apps.core.models import Show_Banner, GKUser, Entity, Note, Entity_Like, Selection_Entity
+from apps.core.models import Show_Banner, GKUser, Entity, Note, Entity_Like, Selection_Entity, Article
 # from apps.core.utils.http import SuccessJsonResponse
 # from apps.report.models import Selection
 from apps.management.decorators import staff_only
@@ -12,42 +12,33 @@ from datetime import datetime, timedelta, date, time
 
 from django.utils.log import getLogger
 # import binascii
-from apps.core.manager.account import GKUserManager
-from apps.core.models import Article
 
 log = getLogger('django')
-
-yesterday_start_time= datetime.combine(
-    date.today() - timedelta(days=1),
-    time.min
-)
-today_start_time = datetime.combine(
-    date.today(),
-    time.min
-)
+today = datetime.today()
 
 
 @login_required
 @staff_only
 def dashboard(request, template='management/dashboard.html'):
-    now = datetime.now()
-    range_date = now - timedelta(days=1)
-    like_count = Entity_Like.objects.filter(created_time__range=(range_date.strftime("%Y-%m-%d"),
-                                                                 now.strftime("%Y-%m-%d"))).count()
+
+    # range_date = now - timedelta(days=1)
+    range_date = days_ago(1)
+    like_count = Entity_Like.objects.filter(created_time__range=(range_date,
+                                                                 today)).count()
     reg_count = GKUser.objects.filter(date_joined__range=(range_date.strftime("%Y-%m-%d"),
-                                                                 now.strftime("%Y-%m-%d"))).count()
+                                                                 today)).count()
 
-    sel_count = Selection_Entity.objects.filter(is_published=True, pub_time__range=(range_date.strftime("%Y-%m-%d"),
-                                                                 now.strftime("%Y-%m-%d"))).count()
+    sel_count = Selection_Entity.objects.filter(is_published=True, pub_time__range=(range_date,
+                                                                 today)).count()
 
-    note_count = Note.objects.filter(post_time__range=(range_date.strftime("%Y-%m-%d"),
-                                                                 now.strftime("%Y-%m-%d"))).count()
-    authorized_authors  = GKUserManager().authorized_author()
+    note_count = Note.objects.filter(post_time__range=(range_date,
+                                                                 today)).count()
+    authorized_authors  = GKUser.objects.authorized_author()
     yesterday_finish_detail = {}
     for author in authorized_authors:
-        finish_num = get_yesterday_update(author)
-        if finish_num > 0:
-            yesterday_finish_detail[author.profile.nickname] = finish_num
+        finish_num = get_update(author)
+        if finish_num[0] > 0:
+            yesterday_finish_detail[author] = finish_num
 
     # if request.is_ajax():
     #     res = {}
@@ -112,7 +103,7 @@ def dashboard(request, template='management/dashboard.html'):
                                     'sel_count': sel_count,
                                     'note_count': note_count,
                                     # 'selection_entities': selection_entities,
-                                    'yesterday_finish_detail': yesterday_finish_detail
+                                    'yesterday_finish_detail': yesterday_finish_detail,
                                 },
                                 context_instance = RequestContext(request))
 
@@ -121,10 +112,16 @@ def dashboard(request, template='management/dashboard.html'):
 # @staff_only
 # def
 
-def get_yesterday_update(author):
+def get_update(author):
 
-    yesterday_finish_num = Article.objects.filter(creator=author.id, updated_datetime__gte=yesterday_start_time,
-                                                  updated_datetime__lt=today_start_time).count()
-    return yesterday_finish_num
+    yesterday_finish_num = Article.objects.filter(creator=author.id,
+                                                  updated_datetime__range=(days_ago(1),today)).count()
+    last_week_num = Article.objects.filter(creator=author.id, updated_datetime__range=(days_ago(7),today)).count()
+    last_month_num = Article.objects.filter(creator=author.id, updated_datetime__range=(days_ago(30),today)).count()
+
+    return yesterday_finish_num, last_week_num, last_month_num
+
+def days_ago(days_num):
+    return date.today() - timedelta(days=days_num)
 
 __author__ = 'edison7500'
