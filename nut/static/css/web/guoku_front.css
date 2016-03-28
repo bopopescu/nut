@@ -2135,6 +2135,7 @@ body.compact-body {
 }
 #index-banners .banner-image-cell.banner-image-cell-control {
   padding: 0 5px;
+  position: relative;
 }
 #index-banners .banner-image-cell .banner-image-wrapper {
   height: 0;

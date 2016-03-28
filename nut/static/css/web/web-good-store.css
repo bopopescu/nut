@@ -813,8 +813,13 @@ p.boolean-false {
   text-decoration: underline;
 }
 .store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  width: 100%;
   height: 52px;
-  margin: 25px 15px;
   overflow: hidden;
 }
 .store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper {
@@ -827,14 +832,13 @@ p.boolean-false {
 .store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper .user-info-section-title {
   margin-top: 5px;
   font-size: 12px;
-  color: #9d9d9d;
+  color: #ffffff;
 }
 .store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a.user-latest-article-title {
   font-size: 18px;
-  color: #424242;
+  color: #ffffff;
 }
 .store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a:hover {
-  text-decoration: underline;
   cursor: pointer;
 }
 .store-body .hot-section-wrapper .hot-section-item .article-panel {
