@@ -740,6 +740,9 @@ p.boolean-false {
   -ms-transform: translateY(0px);
   -o-transform: translateY(0px);
 }
+.store-body {
+  padding-top: 51px;
+}
 .store-body #index-banners .slick-prev,
 .store-body #index-banners .slick-next {
   top: 40%;
@@ -767,6 +770,7 @@ p.boolean-false {
   letter-spacing: 3px;
 }
 .store-body .latest-actions-wrapper {
+  margin-top: 0;
   margin-bottom: 23px;
 }
 .store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper {
