@@ -818,15 +818,16 @@ p.boolean-false {
   bottom: 0;
   color: #ffffff;
   width: 100%;
-  height: 52px;
+  height: 102px;
   overflow: hidden;
 }
 .store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper {
+  padding: 25px 15px;
   margin-left: 5px;
   margin-right: 5px;
   background-color: rgba(0, 0, 0, 0.6);
-  min-height: 52px;
-  max-height: 52px;
+  min-height: 102px;
+  max-height: 102px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -842,6 +843,7 @@ p.boolean-false {
 }
 .store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a:hover {
   cursor: pointer;
+  text-decoration: none;
 }
 .store-body .hot-section-wrapper .hot-section-item .article-panel {
   position: relative;
