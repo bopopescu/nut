@@ -743,10 +743,6 @@ p.boolean-false {
 .store-body {
   padding-top: 51px;
 }
-.store-body #index-banners .slick-prev,
-.store-body #index-banners .slick-next {
-  top: 40%;
-}
 .store-body .store-top-banner {
   margin-top: -30px;
   width: 100%;
