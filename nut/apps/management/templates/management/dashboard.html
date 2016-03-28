@@ -147,9 +147,7 @@
                                     <thead>
                                         <tr>
                                             <th>作者</th>
-                                            <th>昨天</th>
-                                            <th>近七天</th>
-                                            <th>近30天</th>
+                                            <th>数量</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -157,8 +155,6 @@
                                             <tr>
                                                 <td><a href="{% url 'management_author_article_person_list' author.id %}">{{ author.profile.nickname }}</a></td>
                                                 <td>{{ count.0 }}</td>
-                                                <td>{{ count.1 }}</td>
-                                                <td>{{ count.2 }}</td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>
