@@ -3587,8 +3587,12 @@ define('subapp/store/store_banner',['jquery', 'libs/Class','libs/slick'], functi
                         }
                     },
                 ]
-            });
+            }).on(
+                'beforeChange',function(event,slick,currentSlide,nextSlide){
+                    console.log(nextSlide);
+                });
         },
+
         //sameHeightFrame: function (leftId,rightId) {
         //    var leftChildHeight = this.getElementHeight(leftId);
         //    var rightChildHeight = this.getElementHeight(rightId);
