@@ -115,8 +115,14 @@
   //授权用户最新文章
   .user-latest-article-wrapper{
     .user-latest-article-intro-wrapper{
+      position:absolute;
+      left:0;
+      bottom:0;
+      background-color: rgba(0,0,0,0.6);
+      color:#ffffff;
+      width:100%;
       height:52px;
-      margin:25px 15px;
+      //margin:25px 15px;
       overflow: hidden;
       .user-latest-article-title-wrapper{
         min-height:52px;
@@ -127,15 +133,14 @@
         .user-info-section-title{
           margin-top:5px;
           font-size: @more-mini-size;
-          color:@light-gray;
+          color:#ffffff;
         }
         a{
           &.user-latest-article-title{
             font-size:@subtitle-size;
-            color: @common-text-color;
+            color: #ffffff;
           }
           &:hover{
-              text-decoration: underline;
               cursor: pointer;
             }
         }
