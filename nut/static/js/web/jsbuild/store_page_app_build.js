@@ -3589,8 +3589,16 @@ define('subapp/store/store_banner',['jquery', 'libs/Class','libs/slick'], functi
                 ]
             }).on(
                 'beforeChange',function(event,slick,currentSlide,nextSlide){
+                    console.log('before change,currentSlide:');
+                    console.log(currentSlide);
+                    console.log('before change,nextSlide:');
                     console.log(nextSlide);
-                });
+                }).on(
+                'afterChange',function(event,slick,currentSlide){
+                    console.log('after change,currentSlide:');
+                    console.log(currentSlide);
+                }
+            );
         },
 
         //sameHeightFrame: function (leftId,rightId) {
