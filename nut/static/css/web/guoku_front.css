@@ -10,6 +10,9 @@ html {
   -webkit-text-size-adjust: 100%;
   /* 2 */
 }
+@-ms-viewport {
+  width: device-width;
+}
 /**
  * Remove default margin.
  */
@@ -1087,8 +1090,8 @@ p.boolean-false {
   margin-bottom: 10px;
 }
 .guoku-middle-col {
-  padding: 0 10px;
-  margin-bottom: 20px;
+  padding: 0 9px;
+  margin-bottom: 17px;
 }
 .normal-share-btn {
   display: inline-block;
@@ -1491,7 +1494,7 @@ p.boolean-false {
   position: relative;
   left: 0px;
   top: -5px;
-  height: 24px;
+  height: 32px;
 }
 .main-article .share-wrapper .dig-wrapper .digged img.dig {
   display: none;
@@ -2164,6 +2167,12 @@ body.compact-body {
 }
 #index-banners .banner-image-cell {
   padding: 0 10px;
+}
+#index-banners .banner-image-cell.banner-image-cell-control {
+  padding: 0;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  overflow: hidden;
 }
 #index-banners .banner-image-cell .banner-image-wrapper {
   height: 0;

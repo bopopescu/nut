@@ -236,7 +236,7 @@ class SelectionEntityManager(models.Manager):
     def get_user_unread(self, session):
         # _key = "%s_selection" % session
         refresh_datetime = cache.get(session)
-        log.info(type(refresh_datetime))
+        log.info(refresh_datetime)
         if refresh_datetime is None:
             return 0
 

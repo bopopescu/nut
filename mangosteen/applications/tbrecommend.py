@@ -38,19 +38,11 @@ def handel(keyword, **kwargs):
         params.update({
             'keyword':keyword,
         })
-    #
-    # if itemId:
-    #     params.update({
-    #         'itemid': itemId,
-    #     })
-
-    # print params
     app.logger.info(params)
     req.params = json.dumps( params )
 
     try:
         resp= req.getResponse()
-        # print(resp)
         res = resp['alibaba_orp_recommend_response']['recommend']
         return json.loads(res)
     except Exception, e:

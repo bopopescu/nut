@@ -1632,8 +1632,10 @@ define('subapp/articledig',['libs/Class',
 
                 if(currentCount<=0){
                     $counterEle.html('  ');
+                    $counterEle.parent().find('.dig-word').show();
                 }else{
                     $counterEle.html(currentCount + ' ');
+                    $counterEle.parent().find('.dig-word').hide();
                 }
 
 
@@ -2829,7 +2831,7 @@ define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(
 
                 } else if (data.status == 2) {
                     console.log('mutual !!!');
-                    $followButton.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关柱');
+                    $followButton.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关注');
                     $followButton.removeClass('button-blue').addClass('btn-cancel');
                     $followButton.attr('data-status', '1');
 
