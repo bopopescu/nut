@@ -38,6 +38,9 @@ class ArticleDigManager(models.Manager):
     def get_queryset(self):
         return ArticleDigQuerySet(self.model, using=self._db)
 
+    def user_dig_list(self, user, article_list):
+        return self.get_queryset().user_dig_list(user, article_list)
+
     def popular(self, scale='weekly'):
         key = 'article:popular:%s' % scale
         res = cache.get(key)
@@ -82,7 +85,7 @@ class SelectionArticleQuerySet(models.query.QuerySet):
     def discover(self):
         start_date = datetime.now()
         end_date = start_date - timedelta(days=3)
-        return self.filter(is_published=True, pub_time__range=(end_date, start_date)).order_by('-article__read_count')
+        return self.using('slave').filter(is_published=True, pub_time__range=(end_date, start_date)).order_by('-article__read_count')
 
     def published_from(self, from_time=None):
         if from_time is None:
@@ -97,7 +100,7 @@ class SelectionArticleQuerySet(models.query.QuerySet):
 class SelectionArticleManager(models.Manager):
 
     def get_queryset(self):
-        return SelectionArticleQuerySet(self.model, using=self._db)
+        return SelectionArticleQuerySet(self.model)
 
     def discover(self):
         return self.get_queryset().discover()
@@ -142,7 +145,7 @@ class SelectionArticleManager(models.Manager):
         return self.published_until().filter(article__creator = user)
 
     def pending(self):
-        return self.get_queryset().filter(is_published=False).using('slave')
+        return self.get_queryset().filter(is_published=False)
 
     def published_until(self,until_time=None):
         if until_time is None:

@@ -163,9 +163,12 @@
 {#                         </div>#}
 {#                </div>#}
                 <div class="box box-info">
+                         <div class="box-header with-border">
+                            <h3 class="box-title">图文抓取统计</h3>
+                        </div>
                         <ul class="nav nav-pills" role="tablist">
 {#        {{ status }}#}
-                            <li {% ifequal status None %}class="active"{% endifequal %}><a href="{% url 'management_dashboard' %}">{% trans 'yestoday' %}</a></li>
+                            <li {% ifequal status '1' %}class="active"{% endifequal %}><a href="{% url 'management_dashboard' %}?status=1">{% trans 'yestoday' %}</a></li>
                             <li {% ifequal status '0' %}class="active"{% endifequal %}><a href="{% url 'management_dashboard' %}?status=0">{% trans 'lastweek' %}</a></li>
                             <li {% ifequal status '-1' %}class="active"{% endifequal %}><a href="{% url 'management_dashboard' %}?status=-1">{% trans 'lastmonth' %}</a></li>
                         </ul>
