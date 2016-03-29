@@ -18,8 +18,9 @@
                     <tbody>
                         {% for author, count in yesterday_finish_detail.items %}
                             <tr>
-                                <td>{{ author}}</td>
+                                <td><a href="{% url 'management_author_article_person_list' author.id %}">{{ author.profile.nickname }}</a></td>
                                 <td>{{ count }}</td>
+
                             </tr>
                         {% endfor %}
                     </tbody>
