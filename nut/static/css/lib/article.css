@@ -755,6 +755,10 @@ p.boolean-false {
   text-align: center;
   margin-top: 40px;
 }
+.check-icon-wrapper .message {
+  margin-top: 30px;
+  font-size: 32px;
+}
 .check-icon-wrapper .check-well-icon {
   color: #4FB832;
 }
