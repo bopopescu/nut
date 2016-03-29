@@ -155,7 +155,15 @@
 
     <div class="row section-title-wrapper">
       <div class="col-sm-12 section-title">
-          <p>图文</p>
+                    <p class="section-name">图文</p>
+           <div class="more-link">
+{#               {% if recent_likes %}#}
+                   <a href="%}">
+                       {% trans 'All' %}&nbsp;<i class="fa fa-caret-right"></i>
+                   </a>
+{#               {% endif %}#}
+
+          </div>
       </div>
     </div>
     <div class="row user-article-wrapper">
