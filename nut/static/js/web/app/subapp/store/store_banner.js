@@ -35,18 +35,7 @@ define(['jquery', 'libs/Class','libs/slick'], function(
                     console.log(currentSlide);
                     console.log('before change,nextSlide:');
                     console.log(nextSlide);
-                    //console.log(nextSlide instanceof jQuery);
-                    //console.log(nextSlide.innerHTML);
-                    //var currentSlideToo = $('#index-banners').slick('slickCurrentSlide');
-                    //console.log(currentSlideToo);
-                    //console.log(currentSlideToo.innerHTML);
-                    // $('#index-banners .banner-image-cell').each(function(){
-                    //     if($(this).data('data-slick-index') !== currentSlide){
-                    //         $(this).children('div.user-latest-article-intro-wrapper').addClass('hidden');
-                    //     } else{
-                    //           $(this).children('div.user-latest-article-intro-wrapper').addClass('show');
-                    //     }
-                    // });
+
 
                 }).on(
                 'afterChange',function(event,slick,currentSlide){

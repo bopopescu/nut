@@ -61,7 +61,7 @@
                 <div class="user-article-panel">
                     <div class="banner-wrapper" id="index-banners">
                         {% for banner in banners %}
-                            <div class="banner-image-cell banner-image-cell-control">
+                            <div class="banner-image-cell banner-image-cell-control gk_slid_{{ forloop.counter0 }}">
                                 <a href="{{ banner.link }}" target="_blank">
                                     <div class="banner-image-wrapper" style="background-image: url({{ banner.image_url }})">
                                     </div>
