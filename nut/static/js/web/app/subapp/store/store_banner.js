@@ -35,11 +35,17 @@ define(['jquery', 'libs/Class','libs/slick'], function(
                     console.log(currentSlide);
                     console.log('before change,nextSlide:');
                     console.log(nextSlide);
-                    console.log(nextSlide instanceof jQuery);
-                    console.log(nextSlide.innerHTML);
-                    var currentSlideToo = $('#index-banners').slick('slickCurrentSlide');
-                    console.log(currentSlideToo);
-                    console.log(currentSlideToo.innerHTML);
+                    //console.log(nextSlide instanceof jQuery);
+                    //console.log(nextSlide.innerHTML);
+                    //var currentSlideToo = $('#index-banners').slick('slickCurrentSlide');
+                    //console.log(currentSlideToo);
+                    //console.log(currentSlideToo.innerHTML);
+                     $('#index-banners .banner-image-cell').each(function(){
+                         if(this.data('data-slick-index') !== currentSlide){
+                             this.style.display = "none";
+                         }
+                     });
+
                 }).on(
                 'afterChange',function(event,slick,currentSlide){
                     console.log('after change,currentSlide:');
