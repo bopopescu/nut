@@ -168,9 +168,9 @@
                         </div>
                         <ul class="nav nav-pills" role="tablist">
 {#        {{ status }}#}
-                            <li {% ifequal status '0' %}class="active"{% endifequal %}><a href="{% url 'management_dashboard' %}?status=1">{% trans 'yestoday' %}</a></li>
-                            <li {% ifequal status '1' %}class="active"{% endifequal %}><a href="{% url 'management_dashboard' %}?status=0">{% trans 'lastweek' %}</a></li>
-                            <li {% ifequal status '2' %}class="active"{% endifequal %}><a href="{% url 'management_dashboard' %}?status=-1">{% trans 'lastmonth' %}</a></li>
+                            <li {% ifequal status None %}class="active"{% endifequal %}><a href="{% url 'management_dashboard' %}">{% trans 'yestoday' %}</a></li>
+                            <li {% ifequal status '1' %}class="active"{% endifequal %}><a href="{% url 'management_dashboard' %}?status=1">{% trans 'lastweek' %}</a></li>
+                            <li {% ifequal status '2' %}class="active"{% endifequal %}><a href="{% url 'management_dashboard' %}?status=2">{% trans 'lastmonth' %}</a></li>
                         </ul>
                         <div class="box-body table-responsive">
                         {% include "management/dashboard_table.html" %}
