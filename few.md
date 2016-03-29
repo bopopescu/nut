@@ -1,1 +1,16 @@
-~/.profile PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/local/bin:‌​/opt/local/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/usr/bin:/bin:/usr/sbin 
+产品经理
+
+工作内容： 
+
+1. 持续优化产品的用户体验，提升用户留存
+2. 收集产品使用数据，找出产品改进方向，反馈改进效果
+3. 了解竞争对手产品特色， 跟踪流行互动模式，不断更新产品理念
+
+
+任职资格： 
+
+1. 一年以上产品经理工作经验
+2. 熟悉WEB, IOS, Android 界面交互设计
+3. 熟悉Photoshop、Visio、Axure等等常用设计软件，能够快速构建高质量的信息构架、流程图、线框图
+4. 善于和设计与技术开发同仁进行沟通，有时间控制技巧
+5. 有阅读类产品，移动广告产品经验者优先
