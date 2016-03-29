@@ -716,8 +716,11 @@ p.boolean-false {
 .square-follow-btn.btn-cancel:focus {
   background-color: #3F6FF0;
 }
-.change {
-  background-color: red;
+.hidden {
+  display: none;
+}
+.show {
+  display: block;
 }
 .good-store-row {
   margin-top: 40px;
