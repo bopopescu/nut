@@ -38,8 +38,9 @@ def dashboard(request, template='management/dashboard.html'):
     date_range = request.GET.get('status', 0)
     for author in authorized_authors:
         finish_num = get_update(author)
-        # if finish_num[0] > 0:
-        yesterday_finish_detail[author] = finish_num[int(date_range)]
+        finish_num = finish_num[int(date_range)]
+        if finish_num > 0:
+            yesterday_finish_detail[author] = finish_num
 
 
 
