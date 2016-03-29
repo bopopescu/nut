@@ -26,10 +26,21 @@ class APIUserSearchForm(haystackSearchForm):
 class APIArticleSearchForm(haystackSearchForm):
 
     def search(self):
-        sqs = super(APIArticleSearchForm, self).search()
+        # sqs = super(APIArticleSearchForm, self).search()
         if not self.is_valid():
             return self.no_query_found()
 
-        return sqs.models(Article).filter(is_selection=True).order_by('-read_count')
+        if not self.cleaned_data.get('q'):
+            return self.no_query_found()
+
+        sqs = self.searchqueryset.filter(content=self.cleaned_data['q'], is_selection=True)
+
+        if self.load_all:
+            sqs = sqs.load_all()
+
+
+        # sqs = sqs.filter(is_selection=True)
+
+        return sqs.models(Article).order_by('-read_count')
 
 __author__ = 'edison'
