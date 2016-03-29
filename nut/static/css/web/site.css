@@ -755,6 +755,10 @@ p.boolean-false {
   text-align: center;
   margin-top: 40px;
 }
+.check-icon-wrapper .message {
+  margin-top: 30px;
+  font-size: 32px;
+}
 .check-icon-wrapper .check-well-icon {
   color: #4FB832;
 }
@@ -1669,10 +1673,6 @@ a:hover {
 .mail-result .status,
 .mail-result h3 {
   margin-left: 30px;
-}
-.mail-result .check-icon-wrapper .message {
-  margin-top: 30px;
-  font-size: 32px;
 }
 .user-block .button-action {
   color: #357ebd;
