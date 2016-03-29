@@ -36,8 +36,10 @@ define(['jquery', 'libs/Class','libs/slick'], function(
                     console.log('before change,nextSlide:');
                     console.log(nextSlide);
                     console.log(nextSlide instanceof jQuery);
+                    console.log(nextSlide.innerHTML);
                     var currentSlideToo = $('#index-banners').slick('slickCurrentSlide');
                     console.log(currentSlideToo);
+                    console.log(currentSlideToo.innerHTML);
                 }).on(
                 'afterChange',function(event,slick,currentSlide){
                     console.log('after change,currentSlide:');
