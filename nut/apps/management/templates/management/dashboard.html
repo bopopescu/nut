@@ -137,30 +137,41 @@
                 </div>
             </div>
             <div class="col-sm-4">
+{#                <div class="box box-info">#}
+{#                        <div class="box-header with-border">#}
+{#                            <h3 class="box-title">昨天图文抓取数量</h3>#}
+{#                        </div>#}
+{#                        <div class="box-body">#}
+{#                            <div class="table-responsive">#}
+{#                                <table class="table no-margin">#}
+{#                                    <thead>#}
+{#                                        <tr>#}
+{#                                            <th>作者</th>#}
+{#                                            <th>数量</th>#}
+{#                                        </tr>#}
+{#                                    </thead>#}
+{#                                    <tbody>#}
+{#                                        {% for author, count in yesterday_finish_detail.items %}#}
+{#                                            <tr>#}
+{#                                                <td>{{ author}}</td>#}
+{#                                                <td>{{ count }}</td>#}
+{#                                            </tr>#}
+{#                                        {% endfor %}#}
+{#                                    </tbody>#}
+{#                                </table>#}
+{#                            </div>#}
+{#                         </div>#}
+{#                </div>#}
                 <div class="box box-info">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">昨天图文抓取数量</h3>
+                        <ul class="nav nav-pills" role="tablist">
+{#        {{ status }}#}
+                            <li {% ifequal status None %}class="active"{% endifequal %}><a href="{% url 'management_dashboard' %}">{% trans 'yestoday' %}</a></li>
+                            <li {% ifequal status '0' %}class="active"{% endifequal %}><a href="{% url 'management_dashboard' %}?status=0">{% trans 'lastweek' %}</a></li>
+                            <li {% ifequal status '-1' %}class="active"{% endifequal %}><a href="{% url 'management_dashboard' %}?status=-1">{% trans 'lastmonth' %}</a></li>
+                        </ul>
+                        <div class="box-body table-responsive">
+                        {% include "management/dashboard_table.html" %}
                         </div>
-                        <div class="box-body">
-                            <div class="table-responsive">
-                                <table class="table no-margin">
-                                    <thead>
-                                        <tr>
-                                            <th>作者</th>
-                                            <th>数量</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for author, count in yesterday_finish_detail.items %}
-                                            <tr>
-                                                <td>{{ author}}</td>
-                                                <td>{{ count }}</td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                         </div>
                 </div>
                 <div class="box box-primary" id="recently-entities">
                     <div class="box-header with-border">

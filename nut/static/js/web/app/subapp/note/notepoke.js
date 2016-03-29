@@ -45,7 +45,7 @@ define(['libs/Class',
         pokeSuccess:function(data){
             var result = parseInt(data.result);
             var poked_note_id = data.note_id;
-
+            console.log('poke:', data);
             var $poke = $('.poke[data-note="'+ poked_note_id +'"]');
             var $count = $poke.find('span.poke-count');
             var numberCount  = parseInt($count.html()) || 0 ;
@@ -56,7 +56,6 @@ define(['libs/Class',
                 numberCount++;
                 $poke_icon.addClass('fa-thumbs-up');
                 $poke_icon.removeClass('fa-thumbs-o-up');
-
                 if(numberCount === 1){
                     $('<span class="poke-count">' + numberCount + '</span>').appendTo($poke);
 
