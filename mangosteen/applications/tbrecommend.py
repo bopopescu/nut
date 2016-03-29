@@ -5,6 +5,7 @@ from flask import Flask
 import top.api
 import top
 import json
+import time
 
 
 app = Flask(__name__)
@@ -42,10 +43,11 @@ def handel(keyword, **kwargs):
     req.params = json.dumps( params )
 
     try:
-        resp= req.getResponse()
+        # access_time = time.time()
+        resp= req.getResponse(timeout=5)
         res = resp['alibaba_orp_recommend_response']['recommend']
-        return json.loads(res)
+        return res
     except Exception, e:
-        app.logger.error(e.message)
+        app.logger.error(e)
         return None
 

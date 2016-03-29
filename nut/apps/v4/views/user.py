@@ -581,7 +581,7 @@ class APIUserDigArticlesView(APIJsonView):
 
     def get_data(self, context):
 
-        articles = APIArticle_Dig.objects.filter(user_id=self.user_id)
+        articles = APIArticle_Dig.objects.filter(user=self.visitor)
 
         da = articles.values_list('article_id', flat=True)
         res = dict()
