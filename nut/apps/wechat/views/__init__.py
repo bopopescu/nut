@@ -77,7 +77,7 @@ class WeChatView(View):
                 _items = handle_event(msg)
                 if _items is None:
                     # request.session['open_id'] = msg['FromUserName']
-                    log.info("open id %s" % msg['FromUserName'])
+                    # log.info("open id %s" % msg['FromUserName'])
                     return render_to_response(
                         'wechat/replybind.xml',
                         {
@@ -86,9 +86,17 @@ class WeChatView(View):
                         },
                         mimetype="application/xml",
                     )
+
             else:
                 _items = handle_reply(msg['Content'])
-            log.info(_items)
+                if isinstance(_items, unicode):
+                    return render_to_response(
+                        'wechat/replymsg.xml',
+                        {
+                            'msg':msg,
+                            'timestamp': int(_timestamp),
+                        }
+                    )
             return render_to_response(
                 'wechat/replyitems.xml',
                 {
