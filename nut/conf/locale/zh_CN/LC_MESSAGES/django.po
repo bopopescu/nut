@@ -2599,6 +2599,20 @@ msgstr "她的"
 msgid "His"
 msgstr "他的"
 
+
+#: apps/web/views/user.py:299
+msgid "I"
+msgstr "我"
+
+#: apps/web/views/user.py:311
+msgid "She"
+msgstr "她"
+
+#: apps/web/views/user.py:313 apps/web/views/user.py:315
+msgid "He"
+msgstr "他"
+
+
 #: apps/wechat/templates/wechat/bind.html:34
 msgid "bind"
 msgstr "绑定"
