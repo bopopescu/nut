@@ -10,7 +10,8 @@ from apps.core.models import Show_Banner, \
     Entity_Like, Sub_Category
 
 from apps.v4.models import APIUser, APISelection_Entity, APIEntity,\
-    APICategory, APISeletion_Articles, APIArticle, APIArticle_Dig
+                            APICategory, APISeletion_Articles, \
+                            APIArticle, APIArticle_Dig
 from apps.v4.forms.pushtoken import PushForm
 from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
