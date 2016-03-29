@@ -38,9 +38,6 @@ class APIArticleSearchForm(haystackSearchForm):
         if self.load_all:
             sqs = sqs.load_all()
 
-
-        # sqs = sqs.filter(is_selection=True)
-
         return sqs.models(Article).order_by('-read_count')
 
 __author__ = 'edison'
