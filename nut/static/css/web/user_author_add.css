@@ -751,6 +751,19 @@ p.boolean-false {
   border: 1px solid #ebebeb;
   color: #9D9E9F;
 }
+.check-icon-wrapper {
+  text-align: center;
+  margin-top: 40px;
+}
+.check-icon-wrapper .check-well-icon {
+  color: #4FB832;
+}
+.check-icon-wrapper .big-check-icon {
+  font-size: 132px;
+}
+.check-icon-wrapper .small-check-icon {
+  font-size: 80px;
+}
 .user-article-cell {
   padding: 0 10px;
   margin-bottom: 20px;

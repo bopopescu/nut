@@ -1111,6 +1111,19 @@ p.boolean-false {
   border: 1px solid #ebebeb;
   color: #9D9E9F;
 }
+.check-icon-wrapper {
+  text-align: center;
+  margin-top: 40px;
+}
+.check-icon-wrapper .check-well-icon {
+  color: #4FB832;
+}
+.check-icon-wrapper .big-check-icon {
+  font-size: 132px;
+}
+.check-icon-wrapper .small-check-icon {
+  font-size: 80px;
+}
 .message_page {
   width: 941px;
 }
@@ -4111,6 +4124,12 @@ body.compact-body {
   }
 }
 @media (max-width: 767px) {
+  .mail-result .check-icon-wrapper .big-check-icon {
+    font-size: 80px;
+  }
+  .mail-result .check-icon-wrapper .message {
+    font-size: 14px;
+  }
   #selection_article_list .selection-article-item .article-title {
     min-height: 0px!important;
   }

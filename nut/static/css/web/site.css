@@ -751,6 +751,19 @@ p.boolean-false {
   border: 1px solid #ebebeb;
   color: #9D9E9F;
 }
+.check-icon-wrapper {
+  text-align: center;
+  margin-top: 40px;
+}
+.check-icon-wrapper .check-well-icon {
+  color: #4FB832;
+}
+.check-icon-wrapper .big-check-icon {
+  font-size: 132px;
+}
+.check-icon-wrapper .small-check-icon {
+  font-size: 80px;
+}
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
   padding: 0px;
@@ -1656,6 +1669,10 @@ a:hover {
 .mail-result .status,
 .mail-result h3 {
   margin-left: 30px;
+}
+.mail-result .check-icon-wrapper .message {
+  margin-top: 30px;
+  font-size: 32px;
 }
 .user-block .button-action {
   color: #357ebd;
