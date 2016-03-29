@@ -3,22 +3,22 @@
 {% load common guoku %}
 
 {% block meta-og %}
-    <meta property="og:title" content="果库 " >
+    <meta property="og:title" content="好店 | 精英消费指南" >
     <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
-    <meta property="og:description" content="good store description">
+    <meta property="og:description" content="果库精选商品每日更新，恪守选品标准和美学格调，推荐有趣、有用、有价值的国内外优质优惠的网购商品。尽收世上好物。">
 {% endblock %}
 
 {% block meta-common %}
-    <meta name="title"  content="good store title">
-    <meta name="keywords" content="good store keywords">
-    <meta name="description" content="good store description">
+    <meta name="title"  content="好店 | 精英消费指南">
+    <meta name="keywords" content="好店推荐 精选店铺">
+    <meta name="description" content="果库精选商品每日更新，恪守选品标准和美学格调，推荐有趣、有用、有价值的国内外优质优惠的网购商品。尽收世上好物。">
 {% endblock %}
 
 {% load i18n %}
 
-{% block title %}好店{% endblock %}
+{% block title %}好店 | 精英消费指南{% endblock %}
 
-{% block h1 %}好店{% endblock %}
+{% block h1 %}好店 | 精英消费指南{% endblock %}
 
 
 {% block css %}
@@ -41,52 +41,43 @@
 {% block content %}
 
     {#    top banner#}
-    <div class="cross-screen store-top-banner" style="background-image: url({% static 'images/year-seller/banner_bg.jpg' %})">
-        <div class="row store-banner-wrapper">
-            <div class="col-xs-12 banner-title-wrapper">
-                好店
-            </div>
-
-            <div class="col-xs-12 banner-slogan-wrapper">
-                在超过100家好店挑选好物
-            </div>
-
-        </div>
-    </div>
+    {#    <div class="cross-screen store-top-banner">#}
+    {#        <div class="row store-banner-wrapper">#}
+    {#            <div class="col-xs-12 banner-title-wrapper">#}
+    {#                好店#}
+    {#            </div>#}
+    {##}
+    {#            <div class="col-xs-12 banner-slogan-wrapper">#}
+    {#                在超过100家好店挑选好物#}
+    {#            </div>#}
+    {##}
+    {#        </div>#}
+    {#    </div>#}
 
     {#    main-content#}
-
     <div class="container store-page-container">
-
         <div class="row good-store-row latest-actions-wrapper">
             <div id="user-latest-article" class="guoku-middle-col user-latest-article-wrapper col-xs-12 col-sm-8 col-md-8 col-lg-8">
                 <div class="user-article-panel">
-                    {#                      <a>#}
-                    {#                        <div class="hover-light user-article-img" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">#}
-                    {#                        </div>#}
                     <div class="banner-wrapper" id="index-banners">
                         {% for banner in banners %}
-                        <div class="banner-image-cell banner-image-cell-control">
-                            <a href="{{ banner.link }}" target="_blank">
-                                <div class="banner-image-wrapper" style="background-image: url({{ banner.image_url }})">
-                                </div>
-                                 <div class="user-latest-article-intro-wrapper">
-                                {#                        <div class="rect-decoration">#}
-                                {#                            NEW#}
-                                {#                        </div>#}
-
-                                    <div class="user-latest-article-title-wrapper">
-                                        <a class="user-latest-article-title">
-                                            {{ banner.banner_title }}
-                                        </a>
-                                        <div class="user-info-section-title">
-                                            {{ banner.banner_desc }}
-                                        </div>
+                            <div class="banner-image-cell banner-image-cell-control">
+                                <a href="{{ banner.link }}" target="_blank">
+                                    <div class="banner-image-wrapper" style="background-image: url({{ banner.image_url }})">
                                     </div>
+                                    <div class="user-latest-article-intro-wrapper">
+                                        <div class="user-latest-article-title-wrapper">
+                                            <a class="user-latest-article-title" href="{{ banner.link }}" target="_blank">
+                                                {{ banner.banner_title }}
+                                            </a>
+                                            <div class="user-info-section-title">
+                                                {{ banner.banner_desc }}
+                                            </div>
+                                        </div>
 
-                                </div>
-                            </a>
-                        </div>
+                                    </div>
+                                </a>
+                            </div>
 
 
                         {% endfor %}
@@ -106,16 +97,16 @@
                             <ul class="tag-list">
                                 {% for article in recent_articles %}
 
-                                <li>
-                                    <div class="publish-time">
-                                        {{ article.created_datetime|format_time }}
-                                    </div>
-                                    <div class="publish-info">
-                                        <a href="{% url 'web_user_index' article.creator.pk %}">{{ article.creator.nickname }}</a>
-                                        发表了图文
-                                        <a href="{% url 'web_article_page' article.pk %}">{{ article.title }}</a>
-                                    </div>
-                                </li>
+                                    <li>
+                                        <div class="publish-time">
+                                            {{ article.created_datetime|format_time }}
+                                        </div>
+                                        <div class="publish-info">
+                                            <a href="{% url 'web_user_index' article.creator.pk %}">{{ article.creator.nickname }}</a>
+                                            发表了图文
+                                            <a href="{% url 'web_article_page' article.pk %}">{{ article.title }}</a>
+                                        </div>
+                                    </li>
                                 {% endfor %}
 
                             </ul>
@@ -124,35 +115,45 @@
                 </ul>
             </div>
         </div>
-
         <div class="row section-title-wrapper">
             <div class="col-sm-12">
-                <p>果库 HOT</p>
+                <p>推荐关注</p>
             </div>
         </div>
-
         <div class="row hot-section-wrapper" id="selection_article_list">
             {% for rec in recommends %}
-
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 guoku-middle-col selection-article-item hot-section-item">
-                <a href="{{ rec.link }}" target="_blank">
-                    <div class="article-panel">
-                            <div class="img-holder" style="background-image: url({{ rec.image_url }})">
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 guoku-middle-col selection-article-item hot-section-item">
+                    <a href="{{ rec.link }}" target="_blank">
+                        <div class="article-panel">
+                            <div class="img-holder img-holder-control" style="background-image: url({{ rec.image_url }})">
                             </div>
-                    </div>
-                </a>
-            </div>
+                            <div class="bg-layer"></div>
+                            {# hidden temporarily #}
+                            <div class="new-user-action">
+                                {% if current_user.is_blocked %}
+
+                                {% elif current_user == request.user %}
+
+                                {% elif request.user.id in current_user.concren %}
+                                    <a class="square-follow-btn btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange"></i></a>
+                                {% elif request.user.id in current_user.fans_list %}
+                                    <a class="square-follow-btn btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check"></i></a>
+                                {% else %}
+                                    <a class="square-follow-btn" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                </div>
             {% endfor %}
         </div>
-
         <div class="row section-title-wrapper">
-            <a name="sellers">
-            <div class="col-sm-12">
-                <p>全部好店</p>
-            </div>
+            <a name="sellers" class="good-stores">
+                <div class="col-sm-12">
+                    <p>全部好店</p>
+                </div>
             </a>
         </div>
-
         <div class="row select-condition-wrapper">
             <div class="col-sm-12 select-condition">
                 <div class="category-wrapper">
@@ -217,10 +218,9 @@
                 </div>
             </div>
         </div>
-
         <div class="row good-store-row select-result-wrapper">
             {% for seller in sellers %}
-                 <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 guoku-middle-col">
+                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 guoku-middle-col">
                     <div class="result-item-wrapper">
                         <a href="{% url 'web_user_index' seller.pk %}" target="_blank">
                             {{ seller.nickname }}
@@ -231,8 +231,19 @@
 
         </div>
     </div>
-
     <div class="consumption-report-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <a href="{% url 'year_store_2015' %}" class="consumption-report-item">
+                        2015年度消费报告
+                        <i class="fa fa-caret-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="consumption-report-wrapper fixed-ele">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">

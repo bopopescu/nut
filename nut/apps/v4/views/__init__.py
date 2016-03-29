@@ -10,7 +10,7 @@ from apps.core.models import Show_Banner, \
     Entity_Like, Sub_Category
 
 from apps.v4.models import APIUser, APISelection_Entity, APIEntity,\
-    APICategory, APISeletion_Articles, APIAuthorized_User_Profile, APIArticle_Dig
+    APICategory, APISeletion_Articles, APIArticle, APIArticle_Dig
 from apps.v4.forms.pushtoken import PushForm
 from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
@@ -121,30 +121,47 @@ class DiscoverView(APIJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
-        _key = self.request.GET.get('session')
+        # _key = self.request.GET.get('session')
+
+        da = APIArticle_Dig.objects.filter(user=self.visitor).values_list('article_id', flat=True)
 
         res = dict()
         shows = Show_Banner.objects.all()
         res['banner'] = []
         for row in shows:
-            res['banner'].append(
-                {
-                    'url':row.banner.url,
-                    'img':row.banner.image_url
-                }
-            )
+            if row.banner.url.startswith('http://m.guoku.com/articles/'):
+                url = row.banner.url.split('?')
+                uri = url[0]
+                article_id = uri.split('/')[-2]
+                article = APIArticle.objects.get(pk = article_id)
 
-        self.visitor = None
-        try:
-            _session = Session_Key.objects.get(session_key=_key)
-            self.visitor = _session.user
-        except Session_Key.DoesNotExist, e:
-            pass
+
+                res['banner'].append(
+                    {
+                        'url':row.banner.url,
+                        'img':row.banner.image_url,
+                        'article': article.v4_toDict(da)
+                    }
+                )
+            else:
+
+                res['banner'].append(
+                    {
+                        'url':row.banner.url,
+                        'img':row.banner.image_url
+                    }
+                )
+
+        # self.visitor = None
+        # try:
+        #     _session = Session_Key.objects.get(session_key=_key)
+        #     self.visitor = _session.user
+        # except Session_Key.DoesNotExist, e:
+        #     pass
             # el = None
         '''
         get Popular Articles List
         '''
-        da = APIArticle_Dig.objects.filter(user=self.visitor).values_list('article_id', flat=True)
         res['articles'] = list()
         popular_articles = APISeletion_Articles.objects.discover()[:3]
         for row in popular_articles:
@@ -199,12 +216,23 @@ class DiscoverView(APIJsonView):
 
         for user in auth_users:
             r = {
-                'user': user.v4_toDict()
+                'user': user.v4_toDict(visitor=self.visitor)
             }
             # print r
             res['authorizeduser'].append(r)
             # print row.user.v4_toDict()
         return res
+
+    def get(self, request, *args, **kwargs):
+        _key = request.GET.get('session', None)
+        self.visitor = None
+        if _key is not None:
+            try:
+                _session = Session_Key.objects.get(session_key=_key)
+                self.visitor = _session.user
+            except Session_Key.DoesNotExist:
+                pass
+        return super(DiscoverView, self).get(request, *args, **kwargs)
 
 
 class AuthorizedUser(APIJsonView):
