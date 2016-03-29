@@ -3593,6 +3593,9 @@ define('subapp/store/store_banner',['jquery', 'libs/Class','libs/slick'], functi
                     console.log(currentSlide);
                     console.log('before change,nextSlide:');
                     console.log(nextSlide);
+                    console.log(nextSlide instanceof jQuery);
+                    var currentSlideToo = $('#index-banners').slick('slickCurrentSlide');
+                    console.log(currentSlideToo);
                 }).on(
                 'afterChange',function(event,slick,currentSlide){
                     console.log('after change,currentSlide:');
