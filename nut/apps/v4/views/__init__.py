@@ -9,7 +9,8 @@ from apps.core.models import Show_Banner, \
     Buy_Link, Selection_Entity, Entity, \
     Entity_Like, Sub_Category
 
-from apps.v4.models import APIUser, APISelection_Entity, APIEntity, APICategory, APISeletion_Articles, APIAuthorized_User_Profile
+from apps.v4.models import APIUser, APISelection_Entity, APIEntity,\
+    APICategory, APISeletion_Articles, APIAuthorized_User_Profile, APIArticle_Dig
 from apps.v4.forms.pushtoken import PushForm
 from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
@@ -53,6 +54,7 @@ def decorate_taobao_url(url, ttid=None, sid=None, outer_code=None, sche=None):
 
 class APIJsonView(BaseJsonView):
 
+    @csrf_exempt
     @check_sign
     def dispatch(self, request, *args, **kwargs):
         return super(APIJsonView, self).dispatch(request, *args, **kwargs)
@@ -132,15 +134,23 @@ class DiscoverView(APIJsonView):
                 }
             )
 
+        self.visitor = None
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+            self.visitor = _session.user
+        except Session_Key.DoesNotExist, e:
+            pass
+            # el = None
         '''
         get Popular Articles List
         '''
+        da = APIArticle_Dig.objects.filter(user=self.visitor).values_list('article_id', flat=True)
         res['articles'] = list()
         popular_articles = APISeletion_Articles.objects.discover()[:3]
         for row in popular_articles:
-            print type(row)
+            # print type(row)
             r = {
-                'article': row.api_article.v4_toDict()
+                'article': row.api_article.v4_toDict(articles_list=da)
             }
             res['articles'].append(r)
 
@@ -149,12 +159,7 @@ class DiscoverView(APIJsonView):
         '''
         popular_list = Entity_Like.objects.popular_random()
         _entities = APIEntity.objects.filter(id__in=popular_list, status=Entity.selection)
-        try:
-            _session = Session_Key.objects.get(session_key=_key)
-            el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=_entities)
-        except Session_Key.DoesNotExist, e:
-            # log.info(e.message)
-            el = None
+        el = Entity_Like.objects.user_like_list(user=self.visitor, entity_list=_entities)
 
         res['entities'] = list()
         for e in _entities:
@@ -220,7 +225,7 @@ class AuthorizedUser(APIJsonView):
         res['authorized_user'] = list()
         res['page'] = self.page
         # res['size'] = self.size
-        user_list = APIAuthorized_User_Profile.objects.all()
+        user_list = APIUser.objects.recommended_user()
         res['count'] = user_list.count()
 
         paginator = Paginator(user_list, self.size)
@@ -229,9 +234,9 @@ class AuthorizedUser(APIJsonView):
         except Exception:
             return res
 
-        for row in auth_users.object_list:
+        for user in auth_users.object_list:
             res['authorized_user'].append(
-                row.user.v4_toDict(self.visitor)
+                user.v4_toDict(self.visitor)
             )
         return res
 
@@ -405,21 +410,40 @@ def toppopular(request):
 
     return SuccessJsonResponse(res)
 
-@check_sign
-def unread(request):
+# @check_sign
+# def unread(request):
+#
+#     _key = request.GET.get('session')
+#
+#     try:
+#         _session = Session_Key.objects.get(session_key = _key)
+#     except Session_Key.DoesNotExist:
+#         return ErrorJsonResponse(status=403)
+#
+#     res = {
+#         'unread_message_count': _session.user.notifications.read().count(),
+#         'unread_selection_count': Selection_Entity.objects.get_user_unread(session=_session.session_key),
+#     }
+#     return SuccessJsonResponse(res)
 
-    _key = request.GET.get('session')
+class UnreadView(APIJsonView):
 
-    try:
-        _session = Session_Key.objects.get(session_key = _key)
-    except Session_Key.DoesNotExist:
-        return ErrorJsonResponse(status=403)
+    def get_data(self, context):
+        try:
+            _session = Session_Key.objects.get(session_key = self.key)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
+        res = {
+            'unread_message_count': _session.user.notifications.read().count(),
+            'unread_selection_count': Selection_Entity.objects.get_user_unread(session=_session.session_key),
+        }
+        return res
 
-    res = {
-        'unread_message_count': _session.user.notifications.read().count(),
-        'unread_selection_count': Selection_Entity.objects.get_user_unread(session=_session.session_key),
-    }
-    return SuccessJsonResponse(res)
+    def get(self, request, *args, **kwargs):
+        self.key = request.GET.get('session', None)
+        if self.key is None:
+          return ErrorJsonResponse(status=403)
+        return super(UnreadView, self).get(request, *args, **kwargs)
 
 
 def visit_item(request, item_id):

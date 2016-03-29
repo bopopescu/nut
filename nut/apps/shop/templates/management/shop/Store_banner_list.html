@@ -1,0 +1,54 @@
+{% extends 'management/management_base.html' %}
+{% load i18n %}
+{% load guoku %}
+{% block content %}
+
+  <section class="content-header">
+        <h1>
+            {% trans 'Store Page Banner' %}
+            <small>{% trans 'Store Page Banner' %}</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{% url 'management_dashboard' %}"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+{#            <li><a href="#">Tables</a></li>#}
+            <li class="active">{% trans 'event' %}</li>
+        </ol>
+    </section>
+
+
+     <section class="content">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="box box-info">
+{#                    <div class="box-header">#}
+{#                        <ul class="nav nav-pills" role="tablist">#}
+{#                            <li class="active"><a href="">所有</a></li>#}
+{#                            <li><a href="">正常卖家</a></li>#}
+{#                        </ul>#}
+{#                    </div>#}
+
+                    <div class="box-body table-responsive">
+                       <div class="">
+                           <hr>
+                           <a href="{% url 'manage_store_banners_create' %}">
+                             <button class="btn btn-primary">+ 新建bannner</button>
+                           </a>
+                           <hr>
+                       </div>
+
+                        {% include "management/shop/partial/table.html"%}
+
+                    </div>
+
+                    <div class="box-footer">
+                         {% include "management/paginator.html" with objects=page_obj url=request.path %}
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

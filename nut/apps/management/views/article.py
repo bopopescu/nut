@@ -2,7 +2,7 @@ from django.forms import HiddenInput
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse , reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.log import getLogger
@@ -247,20 +247,23 @@ class RemoveSelectionArticle(UserPassesTestMixin, JSONResponseMixin, View):
 
 # TODO : use a parent class for 3 article list  view
 
+
 class BaseManagementArticleListView(UserPassesTestMixin, SortMixin, ListView):
     template_name = 'management/article/list.html'
     model = Article
     paginate_by = 30
     paginator_class = Jpaginator
     context_object_name = 'articles'
-    default_sort_params = ('updated_dateime', 'desc')
+    default_sort_params = ('updated_datetime', 'desc')
+
     def test_func(self, user):
-        return user.is_editor
+        return user.is_editor or user.is_staff
 
     def get_context_data(self, *args, **kwargs):
         context = super(BaseManagementArticleListView, self).get_context_data(*args, **kwargs)
         context['authorized_authors'] = GKUser.objects.authorized_author()
         return context
+
 
 class AuthorArticlePersonList(BaseManagementArticleListView):
     def get_queryset(self):
@@ -275,6 +278,7 @@ class AuthorArticlePersonList(BaseManagementArticleListView):
         context = super(AuthorArticlePersonList, self).get_context_data(*args, **kwargs)
         context['for_author'] = True
         return context
+
 
 class AuthorArticleList(BaseManagementArticleListView):
     def get_queryset(self):
@@ -418,6 +422,7 @@ def edit(request, article_id, template="management/article/edit.html"):
         {
             "article": _article,
             "forms": _forms,
+            "tag_url": reverse_lazy('web_article_textrank',args=[_article.pk])
         },
         context_instance = RequestContext(request)
     )

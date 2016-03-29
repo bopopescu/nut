@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView, ListView
 from apps.seller.models import Seller_Profile
-from apps.core.models import Entity, Article
+from apps.core.models import Entity, Article , GKUser
 
 
 
@@ -44,9 +44,6 @@ class SellerView(TemplateView):
         context['star_range'] = xrange(5)
 
         return context
-
-
-
 
 
 

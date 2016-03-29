@@ -57,6 +57,12 @@ def timestamp(value):
     return time.mktime(value.timetuple())
 register.filter('timestamp', timestamp)
 
+def filter_builder(filter_name, filter_value):
+    return '%s=%s' %(filter_name, filter_value)
+register.filter('filter_builder',filter_builder )
+
+
+# deprecate !! performance hitter
 def entity_qr(value):
     url = "%s%s" % ('http://www.guoku.com', value)
     qr = qrcode.QRCode(

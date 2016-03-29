@@ -49,6 +49,8 @@
                                 <th class="read-count">阅读</th>
                                 <th class="read-count">文章标签</th>
                                 <th class="edit-operation">{% trans 'operation' %}</th>
+
+                                <th class="cell-datetime">创建时间 </th>
                                 <th class="cell-number">加入精选次数</th>
                                 <th class="date-time" >上次精选发布时间</th>
                                 <th class="edit-operation">精选操作</th>
@@ -87,6 +89,7 @@
                                             <a class="btn btn-success" href="{% url 'web_article_page' row.pk %}" target="_blank">{% trans 'goto' %}</a>
                                         </div>
                                     </td>
+                                   <td> {{ row.created_datetime|format_time }}</td>
                                     <td>{{ row.selection_count}}</td>
                                     <td>{{ row.last_selection_time|date:'Y-m-d H:i:s' }}</td>
                                     <td>

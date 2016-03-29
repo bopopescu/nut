@@ -1,4 +1,4 @@
-from apps.core.models import Selection_Article, Article
+from apps.core.models import Selection_Article, Article, Article_Dig
 from apps.notifications.models import JpushToken
 from apps.notifications import notify
 from django.core.urlresolvers import reverse
@@ -95,7 +95,7 @@ class APIUser(GKUser):
         res['tag_count'] = self.tags_count
         res['fan_count'] = self.fans_count
         res['following_count'] = self.following_count
-        res['article_count'] = self.article_count
+        res['article_count'] = self.published_article_count
         res['authorized_author'] = self.is_authorized_author
 
         try:
@@ -124,6 +124,7 @@ class APIUser(GKUser):
             elif self.id in visitor.fans_list:
                 res['relation'] = 2
         return res
+
 
 class APIAuthorized_User_Profile(Authorized_User_Profile):
 
@@ -284,8 +285,8 @@ class APIWeChatToken(WeChat_Token):
     def __unicode__(self):
         return self.unionid
 
-# TODO Selection Articles
 
+# TODO Selection Articles
 class APISeletion_Articles(Selection_Article):
 
     class Meta:
@@ -294,7 +295,6 @@ class APISeletion_Articles(Selection_Article):
     @property
     def api_article(self):
         return  APIArticle.objects.get(pk=self.article_id)
-        # return APIArticle(self.article)
 
 
 import HTMLParser
@@ -308,7 +308,7 @@ class APIArticle(Article):
     def strip_tags_content(self):
         return h_parser.unescape(strip_tags(self.content))
 
-    def v4_toDict(self):
+    def v4_toDict(self, articles_list=list()):
         res = self.toDict()
         res.pop('id', None)
         res.pop('creator_id')
@@ -319,10 +319,23 @@ class APIArticle(Article):
         res['content'] = self.strip_tags_content
         res['url'] = self.get_absolute_url()
         res['creator'] = self.creator.v3_toDict()
+        res['dig_count'] = self.dig_count
+        res['is_dig'] = False
+        if self.id in articles_list:
+            res['is_dig'] = True
         return res
 
 
-# TODO API JPUSH
+class APIArticle_Dig(Article_Dig):
+
+    class Meta:
+        proxy = True
+
+    @property
+    def article(self):
+        return APIArticle.objects.get(pk=self.article_id)
+
+# TODO: API JPUSH
 class APIJpush(JpushToken):
 
     class Meta:
