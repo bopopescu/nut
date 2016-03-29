@@ -40,18 +40,25 @@ define(['jquery', 'libs/Class','libs/slick'], function(
                     //var currentSlideToo = $('#index-banners').slick('slickCurrentSlide');
                     //console.log(currentSlideToo);
                     //console.log(currentSlideToo.innerHTML);
-                     $('#index-banners .banner-image-cell').each(function(){
-                         if(this.data('data-slick-index') !== currentSlide){
-                             this.style.display = "none";
-                         }
-                     });
+                    // $('#index-banners .banner-image-cell').each(function(){
+                    //     if($(this).data('data-slick-index') !== currentSlide){
+                    //         $(this).children('div.user-latest-article-intro-wrapper').addClass('hidden');
+                    //     } else{
+                    //           $(this).children('div.user-latest-article-intro-wrapper').addClass('show');
+                    //     }
+                    // });
 
                 }).on(
                 'afterChange',function(event,slick,currentSlide){
                     console.log('after change,currentSlide:');
                     console.log(currentSlide);
-                }
-            );
+                    $('#index-banners .banner-image-cell').each(function(){
+                        if($(this).data('data-slick-index') == currentSlide){
+                            $(this).children('div.user-latest-article-intro-wrapper').addClass('show');
+                        } else{
+                              $(this).children('div.user-latest-article-intro-wrapper').addClass('hidden');
+                }       }
+            );      });
         },
 
         //sameHeightFrame: function (leftId,rightId) {
