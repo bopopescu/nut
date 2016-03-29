@@ -35,10 +35,13 @@ def dashboard(request, template='management/dashboard.html'):
                                                                  today)).count()
     authorized_authors  = GKUser.objects.authorized_author()
     yesterday_finish_detail = {}
+    date_range = request.GET.get('status', 0)
     for author in authorized_authors:
         finish_num = get_update(author)
-        if finish_num[0] > 0:
-            yesterday_finish_detail[author] = finish_num
+        # if finish_num[0] > 0:
+        yesterday_finish_detail[author] = finish_num[int(date_range)]
+
+
 
     # if request.is_ajax():
     #     res = {}
