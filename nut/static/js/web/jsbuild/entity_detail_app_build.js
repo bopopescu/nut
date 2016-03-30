@@ -1820,6 +1820,7 @@ define('subapp/note/notepoke',['libs/Class',
         init:function(){
             this.accountApp = new AccountApp();
             this.setupPokeEvents();
+            this.ispoking = false;
         },
             setupPokeEvents: function(ele){
             var that = this;
@@ -1832,14 +1833,16 @@ define('subapp/note/notepoke',['libs/Class',
             this.setupPokeEvents(ele);
         },
         doPoke: function(event){
-
+            if (this.ispoking === true) {
+                return ;
+            }
             var $poke = $(event.currentTarget);
             var note_id =$poke.attr('data-note');
             var $counter = $poke.find('span.poke-count');
             var $poker_icon = $poke.find('i');
 
             var url  = '/note/' + note_id + '/poke/';
-
+            this.ispoking = true;
             $.when(
                 $.ajax({
                     method: 'POST',
@@ -1853,6 +1856,7 @@ define('subapp/note/notepoke',['libs/Class',
 
         },
         pokeSuccess:function(data){
+            this.ispoking = false;
             var result = parseInt(data.result);
             var poked_note_id = data.note_id;
             console.log('poke:', data);
@@ -1894,6 +1898,7 @@ define('subapp/note/notepoke',['libs/Class',
 
         },
         pokeFail:function(data){
+            this.ispoking = false;
             var html = data.responseText;
                 this.accountApp.modalSignIn(html);
             }
