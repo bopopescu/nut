@@ -129,9 +129,14 @@
 
     {% endif %}
     <div class="row section-title-wrapper">
-      <div class="col-sm-12 section-title">
-          <p>图文</p>
-      </div>
+        <div class="col-sm-12 section-title">
+            <p>图文</p>
+            <div class="more-link">
+            <a href="{% url 'web_user_article' current_user.pk %}">
+            {% trans 'All' %}&nbsp;<i class="fa fa-caret-right"></i>
+            </a>
+            </div>
+        </div>
     </div>
     <div class="row user-article-wrapper">
      {% for article in author_articles  %}

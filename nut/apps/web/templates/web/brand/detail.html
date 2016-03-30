@@ -4,6 +4,26 @@
 {% block content %}
 
     <div class="guoku-content container brand-page">
+        {% url 'web_brand_detail' pk as sort_url %}
+
+        <div>
+            <span class="dropdown-toggle category-action pull-right">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                   aria-haspopup="false" role="button" aria-expanded="false">
+                    {% if sort_method == 'pub_time' %}
+                        时间
+                    {% else %}
+                        喜爱
+                    {% endif %}
+                    <span class="caret"></span>
+                </a>
+                <ul  id="sort_dropdown" class="dropdown-menu" role="menu"  >
+                    <li ><a href="{{ sort_url }}">时间</a></li>
+                    <li  class="divider"></li>
+                    <li ><a href="{{ sort_url }}olike/">喜爱</a></li>
+                </ul>
+            </span>
+        </div>
 
         <div class='brand-info'>
             <div class="brand-icon">
@@ -27,6 +47,7 @@
                 <br>
             </div>
         </div>
+
 
         <div class="row entity-wrapper">
             {% for entity in entities %}
