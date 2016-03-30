@@ -1,3 +1,5 @@
+@import "../../lib/mixin.less";
+
 .bottom-ad{
   height:220px;
   width: 100%;
@@ -8,6 +10,13 @@
   //background-color: #0A0A1B;
   //opacity: 0.9;
   background-color: rgba(10,10,27,0.9);
+  .transition(all 1s ease-in-out);
+  .transform(translateY(220px));
+
+  &.showing{
+    .transform(translateY(0px))!important;
+  }
+
   .ad-wrapper.bottom-ad-wrapper{
     width:auto;
     margin-left:80px;
