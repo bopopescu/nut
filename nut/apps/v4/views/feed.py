@@ -27,7 +27,7 @@ def activity(request):
 
     _offset = _offset / _count + 1
 
-    # visitor = None
+    visitor = None
     try:
         _session = Session_Key.objects.get(session_key = _key)
         visitor = _session.user
@@ -43,7 +43,7 @@ def activity(request):
                                             action_object_content_type__in=[note_model, entity_list_models, user_follow, article_dig],
                                             timestamp__lt=_timestamp)
 
-    log.info(feed_list.query)
+    # log.info(feed_list.query)
 
     paginator = ExtentPaginator(feed_list, _count)
     try:
@@ -58,7 +58,7 @@ def activity(request):
         if row.action_object is None:
             continue
 
-        log.info(row.action_object_content_type)
+        # log.info(row.action_object_content_type)
         if isinstance(row.action_object, Note):
             res.append(
                 {
