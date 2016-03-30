@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import Flask
 from flask import Response, request, abort
 from flask_json import FlaskJSON, json_response
@@ -41,7 +42,6 @@ def recommend():
     count = request.args.get('count', 20)
 
     res = handel(keyword=keyword, istk=istk, ismall=ismall, count=count)
-    # print res
     if res is None:
         abort(404)
     return Response(res, mimetype="application/json")

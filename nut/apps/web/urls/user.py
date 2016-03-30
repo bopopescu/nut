@@ -5,6 +5,7 @@ from apps.web.views.user import UserIndex,\
                                 UserTagView, UserArticleView,\
                                 UserFansView, UserFollowingsView,\
                                 UserPublishedArticleView,UserPublishedSelectionArticleView,\
+                                UserLikeArticleView,\
                                 UserSendVerifyMail,\
                                 UserEntitiesView
 
@@ -31,6 +32,8 @@ urlpatterns = patterns(
 
     url(r'^(?P<user_id>\d+)/articles/selection/$', UserPublishedSelectionArticleView.as_view(), name='web_user_article_selection'),
     url(r'^(?P<user_id>\d+)/articles/published/$', UserPublishedArticleView.as_view(), name='web_user_article_published'),
+    # the list articles which the user likes
+    url(r'^(?P<user_id>\d+)/articles/like/$', UserLikeArticleView.as_view(), name='web_user_article_like'),
 
     url(r'^(?P<user_id>\d+)/fans/$', UserFansView.as_view(), name='web_user_fans'),
     url(r'^(?P<user_id>\d+)/followings/$', UserFollowingsView.as_view(), name='web_user_followings'),

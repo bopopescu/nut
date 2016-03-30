@@ -1201,8 +1201,9 @@ define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
 
     var AppEntityLike = Class.extend({
         init: function(){
-            $('#selection, #discover_entity_list, #category-entity-list, #tag-entity-list ,.search-result-list').on('click' ,'.btn-like, .like-action', this.handleLike.bind(this));
+            $('#selection, #discover_entity_list, #category-entity-list, #tag-entity-list ,.search-result-list,.authorized-seller-body,.search-entity-item').on('click' ,'.btn-like, .like-action', this.handleLike.bind(this));
             $('.guoku-button .like-action').on('click', this.handleLike.bind(this));
+
             console.log('app entity like functions');
             console.log(fastdom);
         },

@@ -1111,6 +1111,41 @@ p.boolean-false {
   border: 1px solid #ebebeb;
   color: #9D9E9F;
 }
+.square-follow-btn {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 16px;
+  background-color: #ffffff;
+  padding: 0px 6px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  cursor: pointer;
+  text-decoration: none;
+}
+.square-follow-btn i.fa-plus {
+  color: #6192FF;
+}
+.square-follow-btn:hover i.fa-plus,
+.square-follow-btn:focus i.fa-plus {
+  color: #3F6FF0;
+}
+.square-follow-btn.btn-cancel {
+  background-color: #6192FF;
+}
+.square-follow-btn.btn-cancel i.fa-check {
+  color: #ffffff;
+}
+.square-follow-btn.btn-cancel:hover,
+.square-follow-btn.btn-cancel:focus {
+  background-color: #3F6FF0;
+}
 .check-icon-wrapper {
   text-align: center;
   margin-top: 40px;
@@ -1512,6 +1547,7 @@ p.boolean-false {
   left: 0px;
   top: -5px;
   height: 32px;
+  cursor: pointer;
 }
 .main-article .share-wrapper .dig-wrapper .digged img.dig {
   display: none;
@@ -4448,6 +4484,43 @@ body .for-mobile {
   position: relative;
   top: -8px;
   left: 3px;
+}
+.brand-page .brand-info {
+  text-align: center;
+}
+.brand-page .brand-info .brand-icon {
+  display: inline-block;
+  width: 140px;
+  height: 140px;
+  border: 1px solid #ebebeb;
+}
+.brand-page .brand-info .brand-name {
+  margin-top: 40px;
+}
+.brand-page .brand-info .brand-name .nick {
+  font-size: 32px;
+  font-weight: 500;
+  margin-right: 12px;
+  font-size: 24px;
+}
+.brand-page .brand-info .brand-basic-info {
+  margin-top: 16px;
+  font-size: 14px;
+}
+.brand-page .brand-info .brand-basic-info ul {
+  overflow: hidden;
+}
+.brand-page .brand-info .brand-basic-info ul li {
+  display: inline-block;
+  margin-right: 5px;
+  color: #9d9d9d;
+}
+.brand-page .brand-info .brand-intro-wrapper p {
+  width: 80%;
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 14px;
+  text-align: left;
 }
 .gk_test {
   color: red;
