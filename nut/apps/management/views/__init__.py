@@ -34,15 +34,10 @@ def dashboard(request, template='management/dashboard.html'):
     note_count = Note.objects.filter(post_time__range=(range_date,
                                                                  today)).count()
     authorized_authors  = GKUser.objects.authorized_author()
-    yesterday_finish_detail = {}
-    # data_range and status has different meanning
-    # naming is wrong
-    date_range = int(request.GET.get('status', 0))
+    yesterday_finish_detail = []
     for author in authorized_authors:
         finish_num = get_update(author)
-        finish_num = finish_num[int(date_range)]
-        if finish_num > 0:
-            yesterday_finish_detail[author] = finish_num
+        yesterday_finish_detail.append([author, author.profile.nickname, finish_num])
 
 
 
@@ -110,7 +105,6 @@ def dashboard(request, template='management/dashboard.html'):
                                     'note_count': note_count,
                                     # 'selection_entities': selection_entities,
                                     'yesterday_finish_detail': yesterday_finish_detail,
-                                    'status':date_range,
                                 },
                                 context_instance = RequestContext(request))
 
