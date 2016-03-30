@@ -95,6 +95,7 @@ class APIUser(GKUser):
         res['tag_count'] = self.tags_count
         res['fan_count'] = self.fans_count
         res['following_count'] = self.following_count
+        res['dig_count'] = self.dig_count
         res['article_count'] = self.published_article_count
         res['authorized_author'] = self.is_authorized_author
 
