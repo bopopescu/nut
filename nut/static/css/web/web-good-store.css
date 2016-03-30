@@ -769,22 +769,22 @@ p.boolean-false {
   cursor: pointer;
   text-decoration: none;
 }
-.square-follow-btn i.fa-plus {
-  color: #6192FF;
+.check-icon-wrapper {
+  text-align: center;
+  margin-top: 40px;
 }
-.square-follow-btn:hover i.fa-plus,
-.square-follow-btn:focus i.fa-plus {
-  color: #3F6FF0;
+.check-icon-wrapper .message {
+  margin-top: 30px;
+  font-size: 32px;
 }
-.square-follow-btn.btn-cancel {
-  background-color: #6192FF;
+.check-icon-wrapper .check-well-icon {
+  color: #4FB832;
 }
-.square-follow-btn.btn-cancel i.fa-check {
-  color: #ffffff;
+.check-icon-wrapper .big-check-icon {
+  font-size: 132px;
 }
-.square-follow-btn.btn-cancel:hover,
-.square-follow-btn.btn-cancel:focus {
-  background-color: #3F6FF0;
+.check-icon-wrapper .small-check-icon {
+  font-size: 80px;
 }
 .good-store-row {
   margin-top: 40px;
@@ -903,32 +903,7 @@ p.boolean-false {
   text-decoration: underline;
   cursor: pointer;
 }
-.store-body .hot-section-wrapper .hot-section-item .article-panel {
-  position: relative;
-}
-.store-body .hot-section-wrapper .hot-section-item .article-panel:hover .bg-layer {
-  display: block;
-}
-.store-body .hot-section-wrapper .hot-section-item .article-panel .img-holder.img-holder-control:hover {
-  opacity: 1;
-}
-.store-body .hot-section-wrapper .hot-section-item .article-panel .bg-layer {
-  display: none;
-  width: 100%;
-  height: 0;
-  padding-bottom: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.18);
-}
-.store-body .hot-section-wrapper .hot-section-item .article-panel .new-user-action {
-  display: none;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-.store-body .hot-section-wrapper .hot-section-item .article-panel a:hover {
+.store-body .hot-section-wrapper a:hover {
   cursor: pointer;
 }
 .store-body a.good-stores {
