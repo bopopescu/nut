@@ -234,10 +234,10 @@ class SelectionEntityManager(models.Manager):
     def pending_and_removed(self):
         return self.get_queryset().pending_and_removed()
 
-    def set_user_refresh_datetime(self, session):
-        # log.info(datetime.now())
+    def set_user_refresh_datetime(self, session, refresh_datetime=datetime.now()):
+        log.info(refresh_datetime)
         # _key = "%s_selection" % session
-        cache.set(session, datetime.now())
+        cache.set(session, refresh_datetime, timeout=8640000)
 
     def get_user_unread(self, session):
         # _key = "%s_selection" % session

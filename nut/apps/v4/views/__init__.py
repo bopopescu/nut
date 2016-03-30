@@ -316,7 +316,7 @@ def selection(request):
 
     _count = int(request.GET.get('count'))
     _rcat = request.GET.get('rcat', None)
-    log.info("rcat %s" % _rcat)
+    # log.info("rcat %s" % _rcat)
 
     if _rcat == '1':
         innqs = Sub_Category.objects.map(group_id_list=[13, 15, 17])
@@ -358,12 +358,12 @@ def selection(request):
 
     try:
         _session = Session_Key.objects.get(session_key=_key)
-        # log.info("session %s" % _session)
+        log.info("session %s" % _session)
         el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(ids))
-        log.info(_session.session_key)
+        # log.info(_session.session_key)
         Selection_Entity.objects.set_user_refresh_datetime(session=_session.session_key)
     except Session_Key.DoesNotExist, e:
-        # log.info(e.message)
+        log.info(e.message)
         el = None
     # log.info(el)
     res = list()
