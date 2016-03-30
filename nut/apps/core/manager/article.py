@@ -149,7 +149,7 @@ class SelectionArticleManager(models.Manager):
     def published_until(self,until_time=None):
         if until_time is None:
             until_time = datetime.now()
-        return self.get_queryset().select_related('article').using('slave').filter(is_published=True, pub_time__lte=until_time).order_by('-pub_time')
+        return self.get_queryset().select_related('article').filter(is_published=True, pub_time__lte=until_time).order_by('-pub_time')
 
     def published_from(self, from_time=None):
         if from_time is None:
