@@ -1,7 +1,8 @@
 .bottom-ad {
   height: 220px;
+  width: 100%;
   position: fixed;
-  bottom: 0;
+  bottom: -3px;
   left: 0;
   z-index: 1000;
   background-color: rgba(10, 10, 27, 0.9);
@@ -60,5 +61,7 @@
   .close-button.close-button-control {
     left: 10px;
     top: 25px;
+    position: absolute;
   }
 }
+/*# sourceMappingURL=bottom_ad_layer.less.css.map */

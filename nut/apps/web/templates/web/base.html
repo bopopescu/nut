@@ -98,6 +98,12 @@ window.location.href = url;</script><![endif]-->
 
 {% endblock %}
 
+{% block  bottom_bar %}
+
+    {% if not isFromMobile %}
+     {% include 'web/partial/bottom_ad_layer.html' %}
+    {% endif %}
+{% endblock %}
 {% block footer %}
     {% include 'web/partial/footer.html' %}
 {% endblock %}
