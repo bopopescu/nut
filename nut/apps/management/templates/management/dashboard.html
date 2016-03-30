@@ -166,14 +166,60 @@
                          <div class="box-header with-border">
                             <h3 class="box-title">图文抓取统计</h3>
                         </div>
-                        <ul class="nav nav-pills" role="tablist">
-{#        {{ status }}#}
-                            <li {% ifequal status None %}class="active"{% endifequal %}><a href="{% url 'management_dashboard' %}">{% trans 'yestoday' %}</a></li>
-                            <li {% ifequal status '1' %}class="active"{% endifequal %}><a href="{% url 'management_dashboard' %}?status=1">{% trans 'lastweek' %}</a></li>
-                            <li {% ifequal status '2' %}class="active"{% endifequal %}><a href="{% url 'management_dashboard' %}?status=2">{% trans 'lastmonth' %}</a></li>
+                        <ul class="nav nav-tabs" role="tablist">
+{#       {{ status }}#}
+                            <li class="active" role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab" href="#article_yesterday">{% trans 'yesterday' %}</a></li>
+                            <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab" href="#article_lastweek">{% trans 'lastweek' %}</a></li>
+                            <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab" href="#article_lastmonth">{% trans 'lastmonth' %}</a></li>
                         </ul>
+
                         <div class="box-body table-responsive">
-                        {% include "management/dashboard_table.html" %}
+                             <div class="box-body">
+                                <div class="table-responsive">
+                                    <table class="table no-margin">
+                                        <thead>
+                                            <tr>
+                                                <th>作者</th>
+                                                <th>数量</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tab-content">
+                                             <tr role="tabpanel" class="tab-pane active" id="article_yesterday">
+                                                 <td>1111</td>
+                                             </tr>
+                                             <tr role="tabpanel" class="tab-pane" id="article_lastweek">
+                                                 <td>2222</td>
+                                             </tr>
+                                             <tr role="tabpanel" class="tab-pane" id="article_lastmonth">
+                                                 <td>3333</td>
+                                             </tr>
+
+{#                                            {% for author, count in yesterday_finish_detail.item %}#}
+{#                                                <tr >#}
+{#                                                    <td><a href="{% url 'management_author_article_person_list' author.id %}">{{ 1 }}</a></td>#}
+{#                                                    <td>{{ 0 }}</td>#}
+{##}
+{#                                                </tr>#}
+{#                                            {% endfor %}#}
+{#                                            {% for author, count in yesterday_finish_detail.item %}#}
+{#                                                    <tr role="tabpanel" class="tab-pane" id="article_lastweek">#}
+{#                                                        <td><a href="{% url 'management_author_article_person_list' author.id %}">{{ author.profile.nickname }}</a></td>#}
+{#                                                        <td>{{ 1 }}</td>#}
+{##}
+{#                                                    </tr>#}
+{#                                                {% endfor %}#}
+{#                                            {% for author, count in yesterday_finish_detail.item %}#}
+{#                                                    <tr role="tabpanel" class="tab-pane" id="article_lastmonth">#}
+{#                                                        <td><a href="{% url 'management_author_article_person_list' author.id %}">{{ author.profile.nickname }}</a></td>#}
+{#                                                        <td>{{ 2 }}</td>#}
+{##}
+{#                                                    </tr>#}
+{#                                            {% endfor %}#}
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                             </div>
                         </div>
                 </div>
                 <div class="box box-primary" id="recently-entities">
