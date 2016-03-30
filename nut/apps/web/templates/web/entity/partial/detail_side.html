@@ -27,7 +27,17 @@
                                 {{ article.creator.profile.nickname }}
                             </a>
 
+                            {% if article.creator.is_authorized_author %}
+                                <img src="{% static 'images/author/official_media.png' %}" width="16px" height="16px" class="sidebar-writer-authorized"/>
+                            {% endif %}
+
                             <div class="writer-bio">
+                                {% if article.creator.is_authorized_author  and article.creator.authorized_profile.weixin_id %}
+                                    <span class="weixin-id" style="line-height:30px;">
+                                            微信号：{{ article.creator.authorized_profile.weixin_id }}
+                                            </span>
+                                    <br>
+                                {% endif %}
                                 {{ article.creator.profile.bio|truncatechars:60 }}
                             </div>
                         </div>
@@ -40,20 +50,20 @@
 {% endif %}
 {#entity like user list --- start#}
 {% if is_entity_detail and entity.like_count > 0 %}
-<ul class="section-list entity-liker-sidebar-wrapper">
-    <li class="section">
-        <div class="section-title">
-            <span class="liker-counter"></span>人喜爱
+    <ul class="section-list entity-liker-sidebar-wrapper">
+        <li class="section">
+            <div class="section-title">
+                <span class="liker-counter"></span>人喜爱
             <span class="pull-right link-all">
                 <a href="{% url 'web_entity_likers_list' entity.entity_hash %}">全部&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></span></div>
-        <div class="section-content">
-{#        bb stand for backbone     #}
-        <ul class="user-like-list bb-list-container user-icon-list">
+            <div class="section-content">
+                {#        bb stand for backbone     #}
+                <ul class="user-like-list bb-list-container user-icon-list">
 
-        </ul>
-        </div>
-    </li>
-</ul>
+                </ul>
+            </div>
+        </li>
+    </ul>
 {% endif %}
 {#entity like user list -- end#}
 
@@ -113,7 +123,7 @@
                         <div class="img-holder">
                             <a href="{% url 'web_entity_detail' ent.entity_hash %}">
                                 <div class="img-frame" style="background-image:url({{ ent.chief_image|resize:'128' }})"></div>
-{#                                <img width="52px" height="52px" src="{{ ent.chief_image|resize:'128' }}"/>#}
+                                {#                                <img width="52px" height="52px" src="{{ ent.chief_image|resize:'128' }}"/>#}
                             </a>
                         </div>
 
@@ -151,10 +161,10 @@
                                 {#                                    {% endautoescape %}#}
                                 {#                                </div>#}
                             </div>
-                             <div class="img-holder">
+                            <div class="img-holder">
                                 <a href="{% url 'web_article_page' h_article.pk %}">
                                     <div class="img-frame" style="background-image:url({{ h_article.cover_url|resize:'200' }})"></div>
-{#                                    <img width="269"  src="{{ h_article.cover|resize:'270' }}"/>#}
+                                    {#                                    <img width="269"  src="{{ h_article.cover|resize:'270' }}"/>#}
                                 </a>
                             </div>
                         </div>
@@ -166,11 +176,11 @@
 
     {% for banner in sidebar_banners %}
         <li class="section banner-holder">
-        <div class="section-banner">
-            <a class="banner-link" href="{{ banner.link }}">
-                <img class="img-responsive" src="{{ banner.image_url }}">
-            </a>
-        </div>
+            <div class="section-banner">
+                <a class="banner-link" href="{{ banner.link }}">
+                    <img class="img-responsive" src="{{ banner.image_url }}">
+                </a>
+            </div>
         </li>
     {% endfor %}
 
@@ -183,7 +193,7 @@
             <div class="icon-holder">
                 <a >
                     <div class="img-frame" style="background-image:url({% static "images/side_bar/QRcode64.jpg" %})"></div>
-{#                <img width="64px" src="{% static "images/side_bar/QRcode64.jpg" %}"/>#}
+                    {#                <img width="64px" src="{% static "images/side_bar/QRcode64.jpg" %}"/>#}
                 </a>
             </div>
 
@@ -204,7 +214,7 @@
             <div class="icon-holder">
                 <a href="{% url "web_download" %}">
                     <div class="img-frame" style="background-image:url({% static "images/side_bar/icon64.png" %})"></div>
-{#                    <img width="64px" src="{% static "images/side_bar/icon64.png" %}"/>#}
+                    {#                    <img width="64px" src="{% static "images/side_bar/icon64.png" %}"/>#}
                 </a>
             </div>
 
@@ -245,57 +255,57 @@
 </ul>
 {% if not is_entity_detail %}
 
-<ul class="section-list" id="sidebar_fix">
+    <ul class="section-list" id="sidebar_fix">
         <li class="section  need-bottom-border">
-        <div class="section-title">热门品类</div>
-        <div class="section-content">
-            <ul class="cate-list-all">
-                {% for cate in pop_categories %}
+            <div class="section-title">热门品类</div>
+            <div class="section-content">
+                <ul class="cate-list-all">
+                    {% for cate in pop_categories %}
+                        <li>
+                            <a href="{% url 'web_category_group' cate.id %}">{{ cate.title_cn }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </li>
+        <li class="section remove-ready">
+            <div class="section-title">热门商品</div>
+            <ul class="pop-entity-list">
+                {% for ent in pop_entities %}
                     <li>
-                        <a href="{% url 'web_category_group' cate.id %}">{{ cate.title_cn }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </li>
-    <li class="section remove-ready">
-        <div class="section-title">热门商品</div>
-        <ul class="pop-entity-list">
-            {% for ent in pop_entities %}
-                <li>
-                    <div class="pop-entity-wrapper">
-                        <div class="entity-content">
-                            <div class="entity-name">
+                        <div class="pop-entity-wrapper">
+                            <div class="entity-content">
+                                <div class="entity-name">
+                                    <a href="{% url 'web_entity_detail' ent.entity_hash %}">
+                                        {{ ent.title|truncatechars:20 }}
+                                    </a>
+                                </div>
+                                {#                            <div class="entity-intro">#}
+                                {#                                <a href="{% url 'web_entity_detail' ent.entity_hash %}">#}
+                                {#                                    {{ ent.top_note|truncatechars:42 }}#}
+                                {#                                </a>#}
+                                {#                            </div>#}
+                            </div>
+                            <div class="img-holder">
                                 <a href="{% url 'web_entity_detail' ent.entity_hash %}">
-                                    {{ ent.title|truncatechars:20 }}
+                                    <div class="img-frame" style="background-image:url({{ ent.chief_image|resize:'128' }})"></div>
+                                    {#                                <img width="52px" height="52px" src="{{ ent.chief_image|resize:'128' }}"/>#}
                                 </a>
                             </div>
-                            {#                            <div class="entity-intro">#}
-                            {#                                <a href="{% url 'web_entity_detail' ent.entity_hash %}">#}
-                            {#                                    {{ ent.top_note|truncatechars:42 }}#}
-                            {#                                </a>#}
-                            {#                            </div>#}
-                        </div>
-                        <div class="img-holder">
-                            <a href="{% url 'web_entity_detail' ent.entity_hash %}">
-                                <div class="img-frame" style="background-image:url({{ ent.chief_image|resize:'128' }})"></div>
-{#                                <img width="52px" height="52px" src="{{ ent.chief_image|resize:'128' }}"/>#}
-                            </a>
-                        </div>
 
+                        </div>
+                    </li>
+                {% endfor %}
+                <li class="more-entity-wrapper">
+                    <div class="more-popular-entity">
+                        <a href="{% url 'web_popular' %}">
+                            查看更多&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
+                        </a>
                     </div>
                 </li>
-            {% endfor %}
-            <li class="more-entity-wrapper">
-                <div class="more-popular-entity">
-                    <a href="{% url 'web_popular' %}">
-                        查看更多&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
-                    </a>
-                </div>
-            </li>
-        </ul>
-    </li>
-</ul>
+            </ul>
+        </li>
+    </ul>
 
 {% endif %}
 

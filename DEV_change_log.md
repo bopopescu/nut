@@ -1,4 +1,289 @@
 
+1. fix mng brand state page bug 
+
+==================================
+# merged to master 2016 3 - 25
+==================================
+
+5. brand page (no entry)
+4. user digged article page 
+3. seller user page 
+2. good store page update (no entry ) 
+1. move article read query to slave  
+
+#note
+ 
+ 如果出现锁表,家欣哥可以发导致锁表的SQL给我, 我再调整.
+ 
+
+==================================
+# merged to master 2016 3 - 20
+==================================
+
+2. article tag recommendation  
+1. Entity add top note cache  , reduce 40 query per page 
+
+==================================
+# merged to master 2016 3 - 19
+==================================
+ 
+1.  remove baichuan rec for now 
+0.  article tag editing (unfinished)
+==================================
+# merged to master 2016 3 - 17
+==================================
+6. GKUser.digs 实现方式 
+
+5. good store page 
+4. mng article creator choice method update
+3. article dig count cache time 
+2. brand mng list search 
+1. add brand score for control recommend brand order 
+
+## careful 
+   测试服务器出现中文 store page banner title 不能提交的问题
+   不一定要运行,生产服务器已经OK 
+   
+    ALTER TABLE `core`.`shop_storepagebanners` 
+CHANGE COLUMN `banner_title` `banner_title` VARCHAR(128) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
+CHANGE COLUMN `banner_desc` `banner_desc` VARCHAR(128) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ;
+
+## need run sql 
+
+ALTER TABLE `core`.`core_brand` 
+ADD COLUMN `score` INT(32) NULL DEFAULT 0 AFTER `tmall_link`;
+
+
+### add  a column  'score' on Brand model ,
+
+    for fine control the brand order 
+
+==================================
+# merged to master 2016 3 - 10 
+==================================
+
+2. store page recommend mng
+1. store page banner mng 
+0. article dig js update
+
+#action 
+
+need syncdb 
+
+
+=================================
+# merged to master 2016 － 3 － 4
+=================================
+
+
+# remove fetch_article module.
+
+### action
+
+    ALTER TABLE `core`.`core_article` 
+    CHANGE COLUMN `cleaned_title` `identity_code` VARCHAR(255) NULL     DEFAULT NULL COMMENT '' ;
+
+===
+
+
+
+
+5.  article hide weixin id when author don't have it 
+4.  shop style and type choice update (management )
+3.  show article dig message in message page 
+2.  article dig 
+1.  fix web message page bug (new selection)
+
+=================================
+# merged to master 2016 － 2 － 29
+=================================
+
+
+3.  authorized seller shop management
+2.  api user article list bug fig 
+1.  article writer follow button position 
+
+#action 
+
+ALTER TABLE `core`.`shop_shop` 
+CHANGE COLUMN `shop_desc` `shop_desc` VARCHAR(511) CHARACTER SET 'utf8mb4' NULL ,
+CHANGE COLUMN `shop_brands` `shop_brands` VARCHAR(255) CHARACTER SET 'utf8mb4' NULL ;
+
+ALTER TABLE `core`.`shop_shop` 
+ADD COLUMN `shop_style` INT(8) NULL DEFAULT 0 AFTER `shop_brands`,
+ADD COLUMN `shop_type` INT(8) NULL DEFAULT 0 AFTER `shop_style`;
+
+
+
+=================================
+# merged to master 2016 － 2 － 25
+=================================
+
+4.  discover page , recommended user 
+3.  authorized user profile add 3 field (points, is_recommended_user, rss_url)
+2.  discover page add popular article 
+1.  article page user info update
+    article page add user follow
+
+##action 
+
+ALTER TABLE `core`.`core_authorized_user_profile` 
+ADD COLUMN `points` INT(32) NOT NULL DEFAULT 0 AFTER `personal_domain_name`;
+
+ALTER TABLE `core`.`core_authorized_user_profile` 
+ADD COLUMN `is_recommended_user` TINYINT(1) NOT NULL DEFAULT 0 AFTER `points`;
+
+ALTER TABLE `core`.`core_authorized_user_profile` 
+ADD COLUMN `rss_url` VARCHAR(255) NULL AFTER `is_recommended_user`;
+
+=================================
+# merged to master 2016 － 2 － 22
+=================================
+
+5. remove 好店 导航入口
+4. minor bug fix 
+3. category detail page related article 
+2. add entity share 
+1.  update article share
+
+
+=================================
+# merged to master 2016 － 2 － 19
+=================================
+
+9. remove qrcodeService , use js render qrcode instead
+
+------------------
+8. fix entity detail image small for ali/taobao cdn bug
+7. Qrcode service for share use (save file need more work , hidden )
+6. share Entity (not finished / branch merged )
+5. share article ( not finished/ branch not merged )
+4. management : manage seller shops (not finished )
+3. management : set user to seller (add 'Seller' group to user's group list)
+2. fix seller page bug
+1. header css adjust
+
+##action:
+
+need syncdb
+
+###add shops_shop new model
+
+notice : qrcodeService model removed
+
+=================================
+=================================
+### merged to master 2016 － 2 － 5
+=================================
+=================================
+
+
+4. 春节 h5 
+3. new footer
+2. show baichuan recommend products
+1. fix  '//images....' replace bug caused by None img field
+0.5  alicdn and taobaocdn image resize 
+
+=================================
+#merged to master 2016 － 2 － 2
+=================================
+
+2. disable like action for search result 
+1. fix rss bug
+
+=================================
+# merged to master 2016 － 2 － 1
+=================================
+
+3. category entity list item style update
+2. fix Article model created_datetime auto_add 
+1. article writer bio update
+
+
+=================================
+# merged to master 2016 － 1 － 27
+=================================
+
+### fix can not create article error:
+
+##action
+
+    ALTER TABLE `core`.`core_article` DROP INDEX `cleaned_title_UNIQUE` ;
+
+
+7. article mobile page css adjust 
+6. add a cookie store for sogou spider use 
+-----------------------
+5. article mng list page change
+4. article mng edit page change 
+3. entity liker list and fan following list template fix 
+2. download page url , without ending slash , access 
+1. hide deleted user in user fan/following list 
+
+##action 
+ need sync db 
+ 
+ 
+ need  manage.py compilemessages 
+ need  restart server  (new translation items )
+ 
+ 
+ ##action
+
+    sudo pip install fake-factory
+
+    ALTER TABLE `core`.`core_authorized_user_profile` 
+    ADD COLUMN `weixin_openid` VARCHAR(255) NULL COMMENT '' AFTER `weibo_nick`;
+   
+    ALTER TABLE `core`.`core_article` 
+    ADD COLUMN `cleaned_title` VARCHAR(255) NULL COMMENT '' AFTER `feed_read_count`,
+    ADD UNIQUE INDEX `cleaned_title_UNIQUE` (`cleaned_title` ASC)  COMMENT '';
+    
+
+##2016-02-22 Fetch wixin articles
+
+ 
+
+
+
+=================================
+# merged to master 2016 － 1 － 21
+=================================
+
+
+5. minor fix 
+    (pc article page add ga, xs screen article pic cross full screen)
+
+4. add a field on authorized user profile 
+
+3. Entity 's related Selection Article 
+
+   Entity has a property: 
+                selected_related_articles
+   contains all Entity's related Selection_Article instance  (NOT Article!)
+                published before called time
+
+2. add tags_string  property for Article model
+   
+   Article.tags_string 
+      : get Articles Tag joined into a string by ',' 
+   
+1. still hide baichuan recommend
+
+
+##action
+
+ALTER TABLE `core`.`core_authorized_user_profile` 
+ADD COLUMN `personal_domain_name` VARCHAR(64) NULL DEFAULT NULL AFTER `weibo_nick`;
+
+
+
+=================================
+=================================
+### merged to master 2016 － 1 － 18
+=================================
+=================================
+
 5. use CBV for user list 
 4. user list search
 3. baichuan recommendation  (hide for now)

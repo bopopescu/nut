@@ -22,7 +22,72 @@
                     </div>
 
                     <div class="box-body">
-                         {% include 'management/entities/table.html' with entities=entities %}
+{#                         {% include 'management/entities/table.html' with entities=entities %}#}
+                        <table class="table table-small-font table-hover table-bordered">
+                            <thead>
+                                <tr>
+                {#                    <th>#</th>#}
+                                    <th>
+                                        {% trans 'brand' %}
+                                        <input class="guoku_search_input" data-search-field="brand" type="text" >
+                                    </th>
+                                    <th>
+                                        {% trans 'title' %}
+                                        <input class="guoku_search_input" data-search-field="title" type="text">
+                                    </th>
+{#                                    <th>{% trans 'creator' %}</th>#}
+                                    <th>{% trans 'category' %}</th>
+                                    <th>{% trans 'created_time' %}</th>
+                                    <th>{% trans 'price' %}</th>
+                                    <th>{% trans 'image' %} <span class="info">点击图片看详情</span></th>
+                                    <th>{% trans 'status' %} </th>
+
+                                    <th>{% trans 'operation' %}</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for entity in entities %}
+                                    <tr>
+
+                {#                        <td class="product-id">{{ entity.id }}</td>#}
+                                        <td class="product-brand">
+                                            {{ entity.brand }}
+                                        </td>
+                                        <td class="product-title">
+                                            {{ entity.title }}
+                                        </td>
+{#                                        <td class="creator">#}
+{#                                            <a href="{% url 'management_user_edit' entity.object.user_id %}" target="_blank">#}
+{#                                                {{ entity.object.user.profile.nickname }}#}
+{#                                            </a>#}
+{#                                        </td>#}
+                                        <td class="product-category">
+                                            <a href="#">{{ entity.object.category }}
+                                            </a>
+                                        </td>
+                                        <td class="product-created-time">
+                                            {{ entity.created_time|date:'Y-m-d H:i:s' }}</td>
+                                        <td class="product-price">
+                                            {{ entity.price }}</td>
+                                        <td class="product-thumb-img">
+{#                                            {{ entity.entity_hash }}#}
+                                            <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
+                                                <img class="img-thumbnail img-responsive" src="{{ entity.object.chief_image|resize:'310' }}" width="128" height="128">
+                                            </a>
+                                        </td>
+                                        <td class="product-status">
+                                            {{ entity.object.get_status_display }}</td>
+                                        <td class="product-actions">
+                                            <div class="btn-group">
+                                                <a class="btn btn-default" href="{% url 'management_entity_edit' entity.pk %}" target="_blank">{% trans 'edit' %}</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
 
                     <div class="box-footer">

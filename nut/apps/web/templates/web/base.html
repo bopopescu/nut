@@ -20,12 +20,13 @@ window.location.href = url;</script><![endif]-->
 {#<html lang="zh-cn">#}
 <head>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0{% if isFromMobile %}, user-scalable=no, maximum-scale=1.0{% endif %}" >
 {#    <meta charset="utf-8">#}
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     {% notifications_unread as unread_count %}
     <title>{% if unread_count %}({{ unread_count }})&nbsp;{% endif %}{% block prefix %}{% endblock %}{% block title %}{% endblock %}{% block suffix %}{% endblock %}</title>
+
 
 {# og metas #}
    <meta property="og:image" content="{% static 'images/guoku-logo.png' %}">
@@ -75,6 +76,7 @@ window.location.href = url;</script><![endif]-->
 </head>
 <body class="{% block body_class %} gray-body {% endblock %} {% if isFromMobile %} mobile-body {% endif %}">
 {% block weixin_share_img %}
+
 {% endblock %}
 {% url 'web_download' as web_download_url %}
 {% url 'web_selection' as web_selection_url %}

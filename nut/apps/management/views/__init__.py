@@ -8,12 +8,23 @@ from apps.core.models import Show_Banner, GKUser, Entity, Note, Entity_Like, Sel
 # from apps.core.utils.http import SuccessJsonResponse
 # from apps.report.models import Selection
 from apps.management.decorators import staff_only
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date, time
 
 from django.utils.log import getLogger
 # import binascii
+from apps.core.manager.account import GKUserManager
+from apps.core.models import Article
 
 log = getLogger('django')
+
+yesterday_start_time= datetime.combine(
+    date.today() - timedelta(days=1),
+    time.min
+)
+today_start_time = datetime.combine(
+    date.today(),
+    time.min
+)
 
 
 @login_required
@@ -31,6 +42,13 @@ def dashboard(request, template='management/dashboard.html'):
 
     note_count = Note.objects.filter(post_time__range=(range_date.strftime("%Y-%m-%d"),
                                                                  now.strftime("%Y-%m-%d"))).count()
+    authorized_authors  = GKUserManager().authorized_author()
+    yesterday_finish_detail = {}
+    for author in authorized_authors:
+        finish_num = get_yesterday_update(author)
+        if finish_num > 0:
+            yesterday_finish_detail[author.profile.nickname] = finish_num
+
     # if request.is_ajax():
     #     res = {}
     #
@@ -94,6 +112,7 @@ def dashboard(request, template='management/dashboard.html'):
                                     'sel_count': sel_count,
                                     'note_count': note_count,
                                     # 'selection_entities': selection_entities,
+                                    'yesterday_finish_detail': yesterday_finish_detail
                                 },
                                 context_instance = RequestContext(request))
 
@@ -101,5 +120,11 @@ def dashboard(request, template='management/dashboard.html'):
 # @login_required
 # @staff_only
 # def
+
+def get_yesterday_update(author):
+
+    yesterday_finish_num = Article.objects.filter(creator=author.id, updated_datetime__gte=yesterday_start_time,
+                                                  updated_datetime__lt=today_start_time).count()
+    return yesterday_finish_num
 
 __author__ = 'edison7500'

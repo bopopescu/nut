@@ -213,7 +213,23 @@
 
   .user-article-panel{
     .user-article-title-wrapper{
-      font-size: @big-title-size;
+      font-size: @title-size;
+      font-weight:normal;
+    }
+  }
+}
+
+
+@media screen and (max-width: 767px){
+  .user-article-wrapper{
+    .user-article-item-wrapper{
+      &.user-article-cell{
+        .user-article-panel{
+          .user-article-title-wrapper,.user-article-intro-wrapper{
+            min-height:0 !important;
+          }
+        }
+      }
     }
   }
 }

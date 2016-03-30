@@ -2,6 +2,23 @@
 @import "../../lib/var.less";
 @import "../../lib/widgets.less";
 //for xs screen , and all screen NOT sx
+
+//add 580px style for authorized seller
+@media (max-width:580px){
+.authorized-seller-body{
+  .entity-four.new-thumbnail{
+    .entity-four-info{
+      .caption{
+        width:100%;
+      }
+      .action{
+        float: left;
+      }
+    }
+  }
+
+}
+}
 @media(max-width: 767px){
 
 
@@ -256,6 +273,21 @@
 
   #main_article{
     .article-wrapper{
+      .content-wrapper img{
+        max-width:110%;
+        width:110%;
+        position: relative;
+        left : -5%;
+        display: block;
+
+      }
+      .guoku-card img, {
+        max-width:100%;
+        width:100%;
+        left:0;
+        position:relative;
+
+      }
       .title-wrapper{
         h2{
           font-size: @mobile-title-size;

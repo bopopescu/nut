@@ -20,25 +20,16 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, Group
+
 from apps.notifications import notify
 from apps.core.utils.image import HandleImage
 from apps.core.utils.articlecontent import contentBleacher
 from apps.core.extend.fields.listfield import ListObjectField
-# from apps.core.manager.account import GKUserManager
-# from apps.core.manager.entity import SelectionEntityManager
-# from apps.core.manager.entity import EntityLikeManager
-# from apps.core.manager.entity import EntityManager
-# from apps.core.manager.note import NoteManager, NotePokeManager
-# from apps.core.manager.category import SubCategoryManager
-# from apps.core.manager.category import CategoryManager
-# from apps.core.manager.comment import CommentManager
-# from apps.core.manager.event import ShowEventBannerManager
-# from apps.core.manager.article import SelectionArticleManager
-# from apps.core.manager.article import ArticleManager
-# from apps.core.manager.article import ArticleDigManager
-# from apps.core.manager.sidebar_banner import SidebarBannerManager
 from apps.web.utils.datatools import get_entity_list_from_article_content
 from apps.core.manager import *
+from apps.core.manager.account import  AuthorizedUserManager
+from haystack.query import SearchQuerySet
+
 
 
 log = getLogger('django')
@@ -155,6 +146,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return False
 
     @property
+    def not_blocked(self):
+        return not self.is_blocked
+
+    @property
     def is_removed(self):
         if self.is_active == GKUser.remove:
             return True
@@ -163,6 +158,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     @property
     def is_verified(self):
         return self.profile.email_verified
+
+    # @property
+    # def digged_articles(self):
+    #     return self.digs
 
     @property
     def published_articles(self):
@@ -322,7 +321,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         self.is_admin = True
         self.save()
 
-
     def v3_toDict(self, visitor=None):
         key = "user:v3:%s" % self.id
         res = cache.get(key)
@@ -354,10 +352,14 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
                 log.error("Error: user id %s %s", (self.id, e.message))
             cache.set(key, res, timeout=86400)
 
+        res['mail_verified'] = self.profile.email_verified
+        res['authorized_author'] = self.is_authorized_author
+
+        # TODO: 各种计数
         res['like_count'] = self.like_count
         res['entity_note_count'] = self.post_note_count
         res['tag_count'] = self.tags_count
-        # res['article_count'] = self.article_cout
+        res['dig_count'] = self.dig_count
         res['fan_count'] = self.fans_count
         res['following_count'] = self.following_count
 
@@ -370,6 +372,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             res['taobao_nick'] = self.taobao.screen_name
             res['taobao_token_expires_in'] = self.taobao.expires_in
         except Taobao_Token.DoesNotExist, e:
+            log.info("info: %s", e.message)
+
+        try:
+            res['wechat_nick'] = self.weixin.nickname
+        except WeChat_Token.DoesNotExist, e:
             log.info("info: %s", e.message)
 
         if visitor:
@@ -385,16 +392,45 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     # for set user as authorized author
     # see docs : 授权图文用户
-    def has_author_group(self):
-        author_group = self.get_author_group()
-        return author_group in self.groups.all()
 
     def get_author_group(self):
         author_group, created =  Group.objects.get_or_create(name="Author")
         return author_group
 
+    def has_author_group(self):
+        author_group = self.get_author_group()
+        return author_group in self.groups.all()
+
+    # for set user as authorized seller
+
+    def get_seller_group(self):
+        seller_group, created = Group.objects.get_or_create(name="Seller")
+        return seller_group
+
+    def has_seller_group(self):
+        seller_group = self.get_seller_group()
+        return seller_group in self.groups.all()
+
+
     def refresh_user_permission(self):
+        # TODO:  refresh user permission cache here
         pass
+
+    @property
+    def is_authorized_author(self):
+        return self.has_author_group()
+
+    @property
+    def is_authorized_seller(self):
+        return self.has_seller_group()
+
+    def setSeller(self, isSeller):
+        seller_group = self.get_seller_group()
+        if isSeller:
+            self.groups.add(seller_group)
+        else:
+            self.groups.remove(seller_group)
+        self.refresh_user_permission()
 
     def setAuthor(self, isAuthor):
         author_group = self.get_author_group()
@@ -402,10 +438,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             self.groups.add(author_group)
         else:
             self.groups.remove(author_group)
-
         self.refresh_user_permission()
-
-
+    @property
+    def is_authorized_user(self):
+        return self.is_authorized_author or self.is_authorized_seller
 
 
 
@@ -432,10 +468,16 @@ class Authorized_User_Profile(BaseModel):
     # see  日常开发文档－》授权图文用户
     weixin_id = models.CharField(max_length=255, null=True, blank=True)
     weixin_nick = models.CharField(max_length=255, null=True, blank=True)
+    weixin_openid = models.CharField(max_length=255, null=True, blank=True)
     weixin_qrcode_img = models.CharField(max_length=255, null=True, blank=True)
     author_website = models.CharField(max_length=1024, null=True, blank=True)
     weibo_id = models.CharField(max_length=255, null=True, blank=True)
     weibo_nick = models.CharField(max_length=255, null=True, blank=True)
+    personal_domain_name = models.CharField(max_length=64, null=True, blank=True)
+
+    rss_url = models.URLField(max_length=255 ,null=True, blank=True)
+    points=models.IntegerField(default=0)
+    is_recommended_user = models.BooleanField(default=False, db_index=True)
 
 
 class User_Profile(BaseModel):
@@ -720,6 +762,7 @@ class Brand(BaseModel):
     national = models.CharField(max_length=100, null=True, default=None)
     intro = models.TextField()
     status = models.IntegerField(choices=BRAND_STATUS_CHOICES, default=pending)
+    score =  models.IntegerField(default=0, null=False, blank=False)
     created_date = models.DateTimeField(auto_now=True, db_index=True)
 
     class Meta:
@@ -730,6 +773,10 @@ class Brand(BaseModel):
         if self.icon:
             return "%s%s" % (image_host, self.icon)
         return None
+
+    @property
+    def entities(self):
+        return SearchQuerySet().models(Entity).filter(brand=self.name)
 
     # @property
     # def shop_id(self):
@@ -845,13 +892,20 @@ class Entity(BaseModel):
         buy_link = self.buy_links.filter(default=True).first()
         return buy_link
 
+    def get_top_note_cache_key(self):
+        return 'entity:%s:topnote' % self.pk
     @property
     def top_note(self):
         # try:
-        notes = self.notes.filter(status=1).order_by('-post_time')
-        if len(notes) > 0:
-            return notes[0]
-        return None
+        cache_key = self.get_top_note_cache_key()
+        _tn = cache.get(cache_key,None)
+        if _tn is None:
+            notes = self.notes.filter(status=1).order_by('-post_time')
+            if len(notes) > 0:
+                _tn =  notes[0]
+                cache.set(cache_key, _tn , 24*3600)
+        return _tn
+
 
     @property
     def top_note_string(self):
@@ -964,12 +1018,17 @@ class Entity(BaseModel):
             return "%s - %s" % (self.brand, self.title)
         return self.title
 
+    def invalid_top_note_cache(self):
+        cache.delete(self.get_top_note_cache_key())
+
     def save(self, *args, **kwargs):
         super(Entity, self).save(*args, **kwargs)
         key = "entity:dict:v3:%s" % self.id
         # key_string = "entity_v3_%s" % self.id
         # key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
+        self.invalid_top_note_cache()
+
 
     def fetch_image(self):
         image_list = list()
@@ -1116,6 +1175,9 @@ class Note(BaseModel):
         key = "note:v3:%s" % self.id
         # print key
         cache.delete(key)
+        # need update entity topnote cache
+        self.entity.invalid_top_note_cache()
+
         return super(Note, self).save(force_insert=False, force_update=False,
                                       using=None,
                                       update_fields=None)
@@ -1280,11 +1342,11 @@ class Article(BaseModel):
 
     creator = models.ForeignKey(GKUser, related_name="articles")
     title = models.CharField(max_length=64)
+    identity_code = models.TextField(null=True, blank=True)
     cover = models.CharField(max_length=255, blank=True)
     content = models.TextField()
     publish = models.IntegerField(choices=ARTICLE_STATUS_CHOICES, default=draft)
-    created_datetime = models.DateTimeField(auto_now_add=True, db_index=True,
-                                            null=True, editable=False)
+    created_datetime = models.DateTimeField(auto_now_add=True, db_index=True, null=True)
     updated_datetime = models.DateTimeField()
     showcover = models.BooleanField(default=False)
     read_count = models.IntegerField(default=0)
@@ -1301,6 +1363,7 @@ class Article(BaseModel):
     def get_dig_key(self):
         return 'article:dig:%d' % self.pk
 
+
     @property
     def dig_count(self):
         key = self.get_dig_key()
@@ -1309,8 +1372,7 @@ class Article(BaseModel):
             return res
         else:
             res = self.digs.count()
-            # TODO : set timeout to  3600*24
-            cache.set(key, res, timeout=20)
+            cache.set(key, res, timeout=3600*24)
             return res
 
     def incr_dig(self):
@@ -1326,7 +1388,6 @@ class Article(BaseModel):
             cache.decr(key)
         except Exception:
             cache.set(key, self.digs.count())
-
 
     def __unicode__(self):
         return self.title
@@ -1348,6 +1409,10 @@ class Article(BaseModel):
     def tag_list(self):
         _tag_list = Content_Tags.objects.article_tags(self.id)
         return _tag_list
+
+    @property
+    def tags_string(self):
+        return ','.join(self.tag_list)
 
     @property
     def bleached_content(self):
@@ -1893,6 +1958,19 @@ def user_like_notification(sender, instance, created, **kwargs):
 
 post_save.connect(user_like_notification, sender=Entity_Like,
                   dispatch_uid="user_like_action_notification")
+
+
+def user_dig_notification(sender, instance, created, **kwargs):
+    if issubclass(sender, Article_Dig) and created:
+        if instance.user.is_blocked:
+            return
+        if instance.user !=  instance.article.creator:
+            notify.send(instance.user, recipient=instance.article.creator, \
+                        action_object=instance, verb='dig article',\
+                        target = instance.article)
+
+post_save.connect(user_dig_notification, sender=Article_Dig, \
+                  dispatch_uid="user_dig_action_notification")
 
 from apps.tag.tasks import generator_tag
 def user_post_note_notification(sender, instance, created, **kwargs):

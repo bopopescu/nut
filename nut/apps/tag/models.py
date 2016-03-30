@@ -24,7 +24,7 @@ def dictfetchall(cursor):
 
 class ContentTagQuerySet(models.query.QuerySet):
     def user_tags(self, user):
-        # deprecated , need add deprecate warnign
+        # deprecated , need add deprecate WARNING
         content_tags  = self.using('slave').filter(creator=user).select_related('tag').annotate(tcount=Count('tag')).order_by('-tcount')
         return content_tags
 
@@ -35,15 +35,16 @@ class ContentTagQuerySet(models.query.QuerySet):
         return list(tags)
 
     def popular(self):
-        return self.annotate(tcount=Count('tag')).order_by('-tcount')[:300]
+        return self.using('slave').annotate(tcount=Count('tag')).order_by('-tcount')[:300]
 
     def entity_tags(self, nid_list):
         return self.using('slave').filter(target_object_id__in=nid_list).values('tag','tag__name','tag__hash').annotate(ncount=Count('tag')).order_by('-ncount')
 
     def article_tags(self, article_id):
-        _tag_list =  self.using('slave').filter(target_object_id=article_id, target_content_type_id=31)\
-                   .values_list('tag__name', flat=True)
-        return list(set(list(_tag_list)))
+        _tag_list =  self.using('slave')\
+                    .filter(target_object_id=article_id, target_content_type_id=31)\
+                    .values_list('tag__name', flat=True)
+        return sorted(list(set(list(_tag_list))))
 
 class ContentTagManager(models.Manager):
 

@@ -1,0 +1,298 @@
+{% extends 'web/base.html' %}
+
+{% load i18n staticfiles %}
+
+
+{% block meta-og %}
+    <meta property="og:title" content="新年「猴」!" >
+    <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
+    <meta property="og:description" content="新年「猴」!">
+{% endblock %}
+
+{% block meta-common %}
+    <meta name="title"  content="祝你新年「猴」!">
+    <meta name="keywords" content="祝你新年「猴」!">
+    <meta name="description" content="祝你新年「猴」!">
+{% endblock %}
+
+{% block title %}祝你新年「猴」{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/web/happy.css' %}">
+{% endblock %}
+
+{% block body_class %} gray-body happy-body {% endblock %}
+
+{% block weixin_share_img %}
+    <div id='wx_logo' style='margin:0 auto;display:none;'>
+{#    分享入口页面时展示的图片#}
+        <img src="{% static 'images/chunjie/entrance.jpg' %}" />
+    </div>
+{% endblock %}
+
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+
+    <div id="first-bg-layer" style="background-image: url({% static 'images/chunjie/cover.gif' %})"></div>
+     <div id="second-bg-layer" style="background-image: url({% static 'images/chunjie/pattn.jpg' %})"></div>
+
+    <div class="container-fluid happy-layer" id="first-layer">
+        <h3 id="theme-title"></h3>
+        <div class="form-wrapper">
+            <form id="form" method="get" action="" onsubmit="return validate_form(this);">
+                <input type="text" name="username" id="username" maxlength="20" size="20" placeholder="填写姓名" style="background-image: url({% static 'images/chunjie/underline.jpg' %})">
+                <input type="hidden" name="monkeyIndex" id="monkeyIndex" value="0">
+                <input type="submit" name="submit" class="happy-common-btn happy-btn-control create-btn" value="生成我的「猴」页" style="background-image: url({% static 'images/chunjie/create.jpg' %})">
+            </form>
+        </div>
+
+    </div>
+
+    <div class="container-fluid happy-layer user-icon-responsive" id="second-layer">
+
+          <a href="" target="_self" id="go-back" class="happy-common-btn happy-btn-control share-btn" style="background-image: url({% static 'images/chunjie/create.jpg' %})">生成我的「猴」页</a>
+
+         <button id="share" class="happy-common-btn happy-btn-control share-btn" onclick="shareToFriends()" style="background-image: url({% static 'images/chunjie/common-btn.jpg' %})">分享</button>
+    </div>
+
+     <div class="happy-footer-wrapper">
+             <a href="{% url 'web_selection' %}" target="_blank">guoku.com</a>
+     </div>
+
+{#    add share dialog #}
+    <script type="text/html" id="share_friends_modal_content">
+        <div class="share-modal-wrapper share-modal-wrapper-control">
+            <div class="tips-wrapper tips-control">
+                <img src="{% static 'images/chunjie/share.png' %}" width="200px" height="89px"/>
+            </div>
+        </div>
+    </script>
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
+
+{% block basic_script %}
+
+    <script src="{% static 'js/jquery-1.11.1.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+{#    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>#}
+{#    <script language="javascript">#}
+{#    window.signature_obj = {#}
+{#        'noncestr': '{{ signature_obj.noncestr }}',#}
+{#        'jsapi_ticket': '{{ signature_obj.jsapi_ticket }}',#}
+{#        'timestamp':'{{ signature_obj.timestamp }}',#}
+{#        'url':'{{ signature_obj.url }}',#}
+{#        'signature': '{{ signature_obj.signature }}',#}
+{#        'appid': '{{ signature_obj.appid }}'#}
+{#    };#}
+{##}
+{#    </script>#}
+{#    <script data-main="{% static 'js/web/jsbuild/chunjie_app_build.js'%}" src="{% static 'js/web/app/require.js' %}"></script>#}
+
+
+{% endblock %}
+
+
+{% block script %}
+    {#    bootbox code#}
+    <script src="{% static 'js/web/bootbox.js' %}"></script>
+
+    <script>
+
+        (function() {
+            var currentUserName = getQueryVariable("username");
+            var monkeyLists = ["01-MK","02-MK","03-MK","04-MK","05-MK","06-MK","07-MK","08-MK"];
+            var i = parseInt(getQueryVariable("monkeyIndex"));
+            var currentStatus = 0;
+            var goback = document.getElementById("go-back");
+            var firstBgLayer = document.getElementById("first-bg-layer");
+            var secondBgLayer = document.getElementById("second-bg-layer");
+
+            {#            begin 添加转场封面    #}
+
+            if(currentUserName == null){
+
+                setTimeout(function(){
+                     $("#first-bg-layer").fadeOut();
+                     $("#second-bg-layer").fadeIn();
+                     $("#first-layer").fadeIn();
+        },3000);
+            }
+            {#                end #}
+
+            if(currentUserName && currentUserName.length !=0){
+
+                var currentLayer = document.getElementById("first-layer");
+                currentLayer.style.display = "none";
+                var nextLayer = document.getElementById("second-layer");
+                nextLayer.style.display = "block";
+
+                firstBgLayer.style.display = "none";
+                secondBgLayer.style.display = "block";
+
+                var wish;
+                var currentMonkey = document.createElement('img');
+
+                switch (i) {
+                    case 0:
+                        wish="01-note";
+                        break;
+                    case 1:
+                        wish="02-note";
+                        break;
+                    case 2:
+                         wish="03-note";
+                        break;
+                    case 3:
+                         wish="04-note";
+                        break;
+                    case 4:
+                         wish="05-note";
+                        break;
+                     case 5:
+                         wish="06-note";
+                        break;
+                    case 6:
+                         wish="07-note";
+                        break;
+                    case 7:
+                         wish="08-note";
+                        break;
+                }
+                currentMonkey.src = "{% static 'images/chunjie/'%}"+monkeyLists[i]+".gif";
+                var currentIntro = document.createElement('p');
+                var introNode = document.createTextNode(currentUserName);
+                currentIntro.appendChild(introNode);
+                var decoration = document.createTextNode('领猴子猴孙们向你拜年!');
+                var currentWish = document.createElement('img');
+                currentWish.src= "{% static 'images/chunjie/'%}"+wish+".jpg";
+
+                currentWish.style.width = "250px";
+                currentWish.style.height = "auto";
+                currentWish.style.marginTop = "10px";
+
+
+{#                document.referrer在微信朋友圈打开时,是不能回退的.因为不是通过一个超链接打开 T T #}
+{#If the current document was not opened through a link (for example, through a bookmark), an empty string is returned.#}
+{#                goback.href=document.referrer;#}
+                var currentAddress = location.href;
+                var num = currentAddress.indexOf('?');
+                var str = currentAddress.substr(num);
+                goback.href = currentAddress.replace(str,'');
+
+{#                change status#}
+                var backAddress = document.referrer;
+                if(backAddress == ""){
+                    currentStatus =0;
+                }else{
+                    currentStatus =1;
+                }
+
+                nextLayer.insertBefore(currentMonkey,nextLayer.childNodes[0]);
+                nextLayer.insertBefore(currentIntro,currentMonkey.nextSibling);
+                nextLayer.insertBefore(decoration,currentIntro.nextSibling);
+                nextLayer.insertBefore(currentWish,decoration.nextSibling);
+
+{#               begin  动态修改微信浏览器中的title#}
+                var $body = $('body');
+                document.title = currentUserName+" 领猴子猴孙们向你拜年!";
+                var $iframe = $('<iframe class="little-frame" src="{% static 'images/favicon.ico' %}"></iframe>');
+                $iframe.on('load',function() {
+                    setTimeout(function() {
+                        $iframe.off('load').remove();
+                    }, 0);
+                }).appendTo($body);
+{#                end #}
+
+            }
+
+            if(currentStatus ==1){
+                var shareBtn = document.getElementById("share");
+                shareBtn.style.display = "inline-block";
+                goback.innerHTML = "再来一次"
+                goback.style.display = "inline-block";
+                goback.style.backgroundImage = "url({% static 'images/chunjie/common-btn.jpg' %})";
+                goback.style.width = "100px";
+                goback.style.height = "60px";
+                goback.style.lineHeight = "60px";
+                goback.style.backgroundSize = "100px";
+
+
+            }
+        })();
+
+        //a method to get url variables'value
+        function getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split('&');
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split('=');
+                if (decodeURIComponent(pair[0]) == variable) {
+                    return decodeURIComponent(pair[1]);
+                }
+            }
+        }
+
+        function validate_form(thisform)
+        {
+            var currentUser = document.getElementById('username');
+{#            清理字符串首尾的空格#}
+{#            var userName= currentUser.value.replace(/^\s+|\s+$/gm,'');#}
+{#            清理所有的空格#}
+            var userName = currentUser.value.replace(/\s+/g,"");
+            currentUser.value = userName;
+            var monkeyIndex = document.getElementById('monkeyIndex');
+
+            if(userName.length === 0){
+                return false;
+            }
+            else{
+                var monkeyLists = ["01-MK","02-MK","03-MK","04-MK","05-MK","06-MK","07-MK","08-MK"];
+                var i = Math.floor(Math.random() * monkeyLists.length+ 1)-1;
+                monkeyIndex.value = i;
+            }
+        }
+
+        function shareToFriends(){
+
+             bootbox.hideAll();
+             bootbox.dialog({
+                title: '分享给好友',
+                onEscape: true,
+                backdrop:true,
+                closeButton: true,
+                animate: true,
+                className: 'share-friends-dialog',
+                message: $('#share_friends_modal_content').html(),
+
+            });
+
+        }
+
+    </script>
+{% endblock %}
+
+
+{% block ga_script %}
+    <!-- Google Analytics -->
+{#    <script language="javascript">#}
+{##}
+{#    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){#}
+{#    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),#}
+{#    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)#}
+{#    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');#}
+{##}
+{#    ga('create', 'UA-24696872-5', 'auto');#}
+{#    ga('send', 'pageview');#}
+{#    ga('set', '&uid', '412916' )#}
+{##}
+{#    </script>#}
+{% endblock %}
+

@@ -1,14 +1,15 @@
+from django.forms import HiddenInput
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse , reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.log import getLogger
 from django.utils.translation import gettext_lazy as _
 
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
-from apps.core.models import Article
+from apps.core.models import Article, GKUser
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.management.decorators import staff_only
 
@@ -244,25 +245,69 @@ class RemoveSelectionArticle(UserPassesTestMixin, JSONResponseMixin, View):
         res['selection_article_id'] = selection_article_id
         return self.render_json_response(res)
 
+# TODO : use a parent class for 3 article list  view
 
-class ArticleList(UserPassesTestMixin,SortMixin,ListView):
 
-    def test_func(self, user):
-        return  user.is_chief_editor
-
+class BaseManagementArticleListView(UserPassesTestMixin, SortMixin, ListView):
     template_name = 'management/article/list.html'
     model = Article
-    queryset = Article.objects.filter(publish=Article.published)
     paginate_by = 30
     paginator_class = Jpaginator
     context_object_name = 'articles'
-    default_sort_params = ('updated_dateime', 'desc')
+    default_sort_params = ('updated_datetime', 'desc')
+
+    def test_func(self, user):
+        return user.is_editor or user.is_staff
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(BaseManagementArticleListView, self).get_context_data(*args, **kwargs)
+        context['authorized_authors'] = GKUser.objects.authorized_author()
+        return context
+
+
+class AuthorArticlePersonList(BaseManagementArticleListView):
+    def get_queryset(self):
+        _user_id = self.kwargs.get('pk', None)
+        if _user_id is None :
+            raise  Http404
+        else:
+            return Article.objects.filter(publish=Article.published,creator__id=_user_id)\
+                    .order_by('-updated_datetime', '-created_datetime')
+
+    def get_current_author(self):
+        _user_id = self.kwargs.get('pk', None)
+        return get_object_or_404(GKUser, pk=_user_id)
+
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(AuthorArticlePersonList, self).get_context_data(*args, **kwargs)
+        context['for_author'] = True
+        context['current_author'] = self.get_current_author()
+        return context
+
+
+class AuthorArticleList(BaseManagementArticleListView):
+    def get_queryset(self):
+        authorized_authors = GKUser.objects.authorized_author()
+        return  Article.objects.filter(publish=Article.published, creator__in=authorized_authors)\
+                        .order_by('-updated_datetime')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(AuthorArticleList, self).get_context_data(*args, **kwargs)
+        context['for_author'] = True
+        return context
+
+
+class ArticleList(BaseManagementArticleListView):
+    def get_queryset(self):
+        authorized_authors = GKUser.objects.authorized_author()
+        return Article.objects.filter(publish=Article.published).exclude(creator__in=authorized_authors)
 
 
 class DraftArticleList(UserPassesTestMixin, SortMixin, ListView):
 
     def test_func(self, user):
-        return  user.is_chief_editor
+        return user.is_editor
 
     template_name = 'management/article/draft_list.html'
     model = Article
@@ -349,14 +394,14 @@ def edit(request, article_id, template="management/article/edit.html"):
         log.error("Error: %s", e.message)
         raise Http404
 
-    tids = Content_Tags.objects.filter(target_content_type=31, target_object_id=_article.id).values_list('tag_id', flat=True)
-    # print tids
-    tags = Tags.objects.filter(pk__in=tids)
-    tag_list = []
-    for row in tags:
-        tag_list.append(row.name)
+    # tids = Content_Tags.objects.filter(target_content_type=31, target_object_id=_article.id).values_list('tag_id', flat=True)
+    # # print tids
+    # tags = Tags.objects.filter(pk__in=tids)
+    # tag_list = []
+    # for row in tags:
+    #     tag_list.append(row.name)
 
-    tag_string = ",".join(tag_list)
+    tag_string = _article.tags_string
 
     data = {
         "title": _article.title,
@@ -372,6 +417,8 @@ def edit(request, article_id, template="management/article/edit.html"):
         # log.info(_forms)
         if _forms.is_valid():
             _article = _forms.save()
+            return HttpResponseRedirect(request.GET.get('prev', request.path))
+
 
     else:
         _forms = EditArticleForms(_article, data=data)
@@ -381,6 +428,7 @@ def edit(request, article_id, template="management/article/edit.html"):
         {
             "article": _article,
             "forms": _forms,
+            "tag_url": reverse_lazy('web_article_textrank',args=[_article.pk])
         },
         context_instance = RequestContext(request)
     )

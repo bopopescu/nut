@@ -5,9 +5,14 @@ from apps.wechat.models import Token
 from datetime import datetime
 from django.utils.log import getLogger
 from haystack.query import SearchQuerySet
+import re
 
 log = getLogger('django')
 
+
+def regex(content, pattern):
+    pobj = re.compile(pattern)
+    return pobj.search(content.decode('utf-8'))
 
 def handle_reply(content):
     # log.info(content.decode('utf-8'))
@@ -23,6 +28,8 @@ def handle_reply(content):
         popular_list = Entity_Like.objects.popular_random()
         entities = Entity.objects.filter(id__in=popular_list)
         res = entities[:5]
+    elif regex(content, u'活动'):
+        return u'感谢您的参与，请稍等一会儿，看福利和运气哪个先到。我们将在4月5日统一公布获奖名单'
     else:
         # _entities = Entity.search.query(content.decode('utf-8')).order_by('@weight', '-created_time')
         sqs = SearchQuerySet()
