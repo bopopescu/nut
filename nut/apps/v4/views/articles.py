@@ -67,6 +67,30 @@ class ArticlesListView(APIJsonView):
         return super(ArticlesListView, self).get(request, *args, **kwargs)
 
 
+class ArticleView(APIJsonView):
+
+    def get_data(self, context):
+        article = APIArticle.objects.get(pk = self.article_id)
+        da = list()
+        if self.visitor:
+            da = APIArticle_Dig.objects.filter(user=self.visitor).values_list('article_id', flat=True)
+        return article.v4_toDict(articles_list=da)
+
+    def get(self, request, *args, **kwargs):
+
+        self.article_id = kwargs.pop('article_id', None)
+        assert self.article_id is not None
+
+        _key = request.get.GET('session', None)
+        self.visitor = None
+        try:
+            session = Session_Key.objects.get(session_key=_key)
+            self.visitor = session.user
+        except Session_Key.DoesNotExist, e:
+            pass
+
+        return super(ArticleView, self).get(request, *args, **kwargs)
+
 class ArticleSearchView(SearchView, JSONResponseMixin):
     http_method_names = ['get']
     form_class = APIArticleSearchForm
