@@ -19,91 +19,42 @@
 
 {% block content %}
     <div class="container" id="discover_container">
-
+        {% if recommended_user %}
         <div class="row recommend-user-wrapper">
+
             <div class="col-sm-12 section-title-wrapper">
                 <p>
                     推荐用户
-                    <span class="pull-right">
-                    <a href="" target="_blank">
-                        查看更多
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                </span>
+{#                    <span class="pull-right">#}
+{#                    <a href="" target="_blank">#}
+{#                        查看更多#}
+{#                        <i class="fa fa-angle-right"></i>#}
+{#                    </a>#}
+{#                </span>#}
                 </p>
 
             </div>
 
-             <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="recommend-user-item">
-                        <a href="">
-                             <img class="img-responsive img-circle" alt="" src="http://imgcdn.guoku.com/avatar/180/2267f7ea1b7a250ee89951900463e115.jpg"  width="120" height="120">
+            <div class="col-sm-12">
+                <ul class="user-icon-list recommend-user-list">
+                    {% for user in recommended_user %}
+                    <li>
+                        <a href="{{ user.absolute_url }}" target="_blank">
+                            <img class="img-responsive" src="{{ user.avatar_url|resize:'128' }}" title="{{ user.nickname }}" alt="{{ user.nickname }}">
                         </a>
-                    </div>
-             </div>
+                    </li>
+                    {% endfor %}
 
-             <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="recommend-user-item">
-                        <a href="">
-                             <img class="img-responsive img-circle" alt="" src="http://imgcdn.guoku.com/avatar/180/2267f7ea1b7a250ee89951900463e115.jpg"  width="120" height="120">
-                        </a>
-                    </div>
-             </div>
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="recommend-user-item">
-                        <a href="">
-                             <img class="img-responsive img-circle" alt="" src="http://imgcdn.guoku.com/avatar/180/2267f7ea1b7a250ee89951900463e115.jpg"  width="120" height="120">
-                        </a>
-                    </div>
-             </div>
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="recommend-user-item">
-                        <a href="">
-                             <img class="img-responsive img-circle" alt="" src="http://imgcdn.guoku.com/avatar/180/2267f7ea1b7a250ee89951900463e115.jpg"  width="120" height="120">
-                        </a>
-                    </div>
-             </div>
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="recommend-user-item">
-                        <a href="">
-                             <img class="img-responsive img-circle" alt="" src="http://imgcdn.guoku.com/avatar/180/2267f7ea1b7a250ee89951900463e115.jpg"  width="120" height="120">
-                        </a>
-                    </div>
-             </div>
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="recommend-user-item">
-                        <a href="">
-                             <img class="img-responsive img-circle" alt="" src="http://imgcdn.guoku.com/avatar/180/2267f7ea1b7a250ee89951900463e115.jpg"  width="120" height="120">
-                        </a>
-                    </div>
-             </div>
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="recommend-user-item">
-                        <a href="">
-                             <img class="img-responsive img-circle" alt="" src="http://imgcdn.guoku.com/avatar/180/2267f7ea1b7a250ee89951900463e115.jpg"  width="120" height="120">
-                        </a>
-                    </div>
-             </div>
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="recommend-user-item">
-                        <a href="">
-                             <img class="img-responsive img-circle" alt="" src="http://imgcdn.guoku.com/avatar/180/2267f7ea1b7a250ee89951900463e115.jpg"  width="120" height="120">
-                        </a>
-                    </div>
-             </div>
-
+                </ul>
+            </div>
         </div>
+      {% endif %}
 
         <div class="row category-wrapper">
             <div class="col-sm-12 section-title-wrapper">
                 <p>推荐品类</p>
             </div>
+
 {#            <div class="col-md-10 col-xs-12" >#}
 {#            {% for category in categories %}#}
 {#                <div class="col-xs-4 col-sm-2">#}
@@ -111,7 +62,6 @@
 {#                        <a href="{% url 'web_category_detail' category.id %}">#}
 {#                            <img class="img-responsive" alt="{{ category.title }}" src="{{ category.icon_large_url }}"  width="64" height="64">#}
 {#                            <p>{{ category.title|show_category }}</p>#}
-{#                            <p>复合维生素</p>#}
 {##}
 {#                        </a>#}
 {#                    {{ category }}#}
@@ -119,87 +69,16 @@
 {#                </div>#}
 {#            {% endfor %}#}
 
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
+            {% for category in categories %}
+                <div class="col-xs-3 col-sm-2 guoku-normal-col">
                     <div class="thumbnail category category-control">
-                        <a href="">
-                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">
-                            <p>复合维生素</p>
-
+                        <a href="{% url 'web_category_detail' category.id %}">
+                             <img class="img-responsive" alt="{{ category.title }}" src="{{ category.icon_large_url }}" width="64" height="64">
+                            <p>{{ category.title|show_category }}</p>
                         </a>
                     </div>
                 </div>
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="thumbnail category category-control">
-                        <a href="">
-                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">
-                            <p>复合维生素</p>
-
-                        </a>
-                    </div>
-                </div>
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="thumbnail category category-control">
-                        <a href="">
-                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">
-                            <p>复合维生素</p>
-
-                        </a>
-                    </div>
-                </div>
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="thumbnail category category-control">
-                        <a href="">
-                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">
-                            <p>复合维生素</p>
-
-                        </a>
-                    </div>
-                </div>
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="thumbnail category category-control">
-                        <a href="">
-                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">
-                            <p>复合维生素</p>
-
-                        </a>
-                    </div>
-                </div>
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="thumbnail category category-control">
-                        <a href="">
-                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">
-                            <p>复合维生素</p>
-
-                        </a>
-                    </div>
-                </div>
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="thumbnail category category-control">
-                        <a href="">
-                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">
-                            <p>复合维生素</p>
-
-                        </a>
-                    </div>
-                </div>
-
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="thumbnail category category-control">
-                        <a href="">
-                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/72dcb2ff03a5a36aaec445595d0693ec.png"  width="64" height="64">
-                            <p>复合维生素</p>
-
-                        </a>
-                    </div>
-                </div>
-
+            {% endfor %}
             <div class="col-xs-3 col-sm-2 guoku-normal-col">
                 <div class="thumbnail category category-control">
                     <a href="{% url 'web_category_list' %}">
@@ -214,61 +93,11 @@
             <div class="col-sm-12 section-title-wrapper">
                 <p>热门图文</p>
             </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item guoku-middle-col">
-                <div class="article-panel">
-                    <a class="img-link" href="">
-                        <div class="img-holder" style="background-image:url('http://imgcdn.guoku.com/images/450/9ce85a5034853e867ed31b13b63aa596.jpeg')">
-                        </div>
-                    </a>
-                    <div class="article-title">
-                        <a href="">
-                            日本奈良「遊 中川」，你我的解忧杂货店
-                        </a>
-
-                    </div>
-                    <div class="article-intro">
-                         2016 年，中川政七商店迎来 300 周年庆。这个来自日本古都奈良的老铺，选择了与世界第一桌游「大富翁」联名的形...
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item guoku-middle-col">
-                <div class="article-panel">
-                    <a class="img-link" href="">
-                        <div class="img-holder" style="background-image:url('http://imgcdn.guoku.com/images/450/9ce85a5034853e867ed31b13b63aa596.jpeg')">
-                        </div>
-                    </a>
-                    <div class="article-title">
-                        <a href="">
-                            日本奈良「遊 中川」，你我的解忧杂货店
-                        </a>
-
-                    </div>
-                    <div class="article-intro">
-                         2016 年，中川政七商店迎来 300 周年庆。这个来自日本古都奈良的老铺，选择了与世界第一桌游「大富翁」联名的形...
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item guoku-middle-col">
-                <div class="article-panel">
-                    <a class="img-link" href="">
-                        <div class="img-holder" style="background-image:url('http://imgcdn.guoku.com/images/450/9ce85a5034853e867ed31b13b63aa596.jpeg')">
-                        </div>
-                    </a>
-                    <div class="article-title">
-                        <a href="">
-                            日本奈良「遊 中川」，你我的解忧杂货店
-                        </a>
-
-                    </div>
-                    <div class="article-intro">
-                         2016 年，中川政七商店迎来 300 周年庆。这个来自日本古都奈良的老铺，选择了与世界第一桌游「大富翁」联名的形...
-                    </div>
-                </div>
-
-            </div>
-
+            {% for sla in selection_articles %}
+                {% with sla.article as article %}
+                     {% include 'web/article/partial/article_item_new.html' %}
+                {% endwith %}
+            {% endfor %}
         </div>
 
 

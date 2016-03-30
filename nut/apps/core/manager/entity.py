@@ -50,6 +50,17 @@ class EntityQuerySet(models.query.QuerySet):
 
 
 class EntityManager(models.Manager):
+    # entity status: new:0,selection:1
+    # get the current seller's selection entities and order by created-time.
+    def get_published_by_seller(self,seller):
+        return self.get_query_set().using('slave').filter(status=1, user=seller).order_by('-created_time')
+
+    def get_user_added_entities(self, seller):
+        return self.get_read_queryset().filter(status__gte=-1, user=seller).order_by('-created_time')
+
+    def get_read_queryset(self):
+        return EntityQuerySet(self.model).using('slave')
+
     def get_query_set(self):
         return EntityQuerySet(self.model, using=self._db)
 
@@ -70,7 +81,7 @@ class EntityManager(models.Manager):
     #         cache.set(key, res, timeout=86400)
     #         return res
     def active(self):
-        return self.get_queryset().active();
+        return self.get_queryset().active()
 
     def selection(self):
         return self.get_query_set().selection()
@@ -231,7 +242,7 @@ class SelectionEntityManager(models.Manager):
     def get_user_unread(self, session):
         # _key = "%s_selection" % session
         refresh_datetime = cache.get(session)
-        log.info(type(refresh_datetime))
+        log.info(refresh_datetime)
         if refresh_datetime is None:
             return 0
 

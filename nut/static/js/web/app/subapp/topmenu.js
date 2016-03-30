@@ -37,7 +37,7 @@ define(['bootstrap',
             this.setupScrollMenu();
             this.checkSNSBindVisit();
             this.checkEventRead();
-            this.topAd = new TopAd();
+            //this.topAd = new TopAd();
 
         },
         checkEventRead:function(){

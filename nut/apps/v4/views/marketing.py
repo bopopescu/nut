@@ -1,10 +1,9 @@
 from apps.mobile.models import LaunchBoard
-from apps.core.views import BaseJsonView
-from apps.mobile.lib.sign import check_sign
-# from apps.core.utils.http import ErrorJsonResponse
+from apps.v4.views import APIJsonView
+from apps.mobile.models import Session_Key
 
 
-class LaunchBoardView(BaseJsonView):
+class LaunchBoardView(APIJsonView):
 
     def get_data(self, context):
         res = {}
@@ -25,10 +24,18 @@ class LaunchBoardView(BaseJsonView):
             res['action'] = launch.action
             res['launch_image_url'] = launch.launch_image_url
             return res
+        
         return None
 
-    @check_sign
-    def dispatch(self, request, *args, **kwargs):
-        return super(LaunchBoardView, self).dispatch(request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        _key = request.GET.get('session', None)
+        if _key is not None:
+            try:
+                _session = Session_Key.objects.get(session_key=_key)
+                self.visitor = _session.user
+            except Session_Key.DoesNotExist:
+                self.visitor = None
+        return super(LaunchBoardView, self).get(request, *args, **kwargs)
+
 
 __author__ = 'edison'

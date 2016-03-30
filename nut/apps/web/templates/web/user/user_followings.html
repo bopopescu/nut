@@ -52,8 +52,10 @@
                                             </a>
                                         </h4>
                                         <p class="user-social-status">
-                                            <span>{{ f.followee.fans_count }}</span>&nbsp;{% trans 'Fans' %}
-                                            <span>{{ f.followee.following_count }}</span>&nbsp;{% trans 'Followed' %}
+                                            {% trans 'Following' %}&nbsp;<span>{{ f.followee.following_count }}</span>
+                                            &nbsp;
+                                            {% trans 'Fans' %}&nbsp;<span>{{ f.followee.fans_count }}</span>
+
                                         </p>
 
                                         {% if f.followee_id == request.user.id %}

@@ -44,10 +44,10 @@
 {#                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="b_day"><img src="{% static 'images/event/1111.gif' %}"></span></a>#}
                     </li>
 
-                    {% url 'year_store_2015' as store_2015_url %}
-                    <li {% if store_2015_url in request.path %}class="active" {% endif %}>
-                        <a href="{{ store_2015_url }}" class="">{% trans 'Store Of The Year' %}<span class="b_day"><img src="{% static 'images/year-seller/2015.gif' %}" width="25px"></span></a>
-                    </li>
+                    {% url 'web_store' as store_url %}
+{#                    <li {% if store_url in request.path %}class="active" {% endif %}>#}
+{#                        <a href="{{ store_url }}" class="">{% trans 'Store' %}</a>#}
+{#                    </li>#}
 
                 </ul>
 

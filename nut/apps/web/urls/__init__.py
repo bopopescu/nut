@@ -20,7 +20,6 @@ urlpatterns = patterns(
 
     url(r'^popular/$', PopularView.as_view(), name='web_popular'),
     url(r'^discover/$', DiscoverView.as_view(), name='web_discover'),
-    # url(r'^search/$', 'main.search', name='web_search'),
     url(r'^search/?$', GKSearchView.as_view(), name='web_search'),
 
     url(r'^sitemap/$', SiteMapView.as_view(), name='web_sitemap_url'),
@@ -102,6 +101,10 @@ urlpatterns += patterns(
     # url(r'^t/', include('apps.web.urls.tag')),
     # url(r'^tag/(?P<tag_text>\w+)/$', 'tag.text_to_detail', name='web_tag_text',),
     url(r'^articles/',include('apps.web.urls.article')),
+    url(r'^brand/',include('apps.web.urls.brand')),
+    url(r'^store/', include('apps.shop.urls.web')),
+
+
 )
 
 # old url 301
@@ -118,9 +121,16 @@ urlpatterns += patterns('',
         )
 
 
+
+# for seller 2015 page and happy new year page
+# this is temp, for single page app only
+#  do not add more url here
 from apps.seller.views.web import SellerView
+from apps.web.views import HappyNYView
 urlpatterns += patterns('',
             url(r'^store2015/', SellerView.as_view(), name='year_store_2015'),
+            # url(r'^store/', SellerView.as_view(), name='web_store'),
+            url(r'^hou/', HappyNYView.as_view(), name='new_year_2015'),
         )
 
 

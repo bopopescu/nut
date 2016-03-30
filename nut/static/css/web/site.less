@@ -95,7 +95,7 @@
   }
   .category-wrapper,#selection_article_list{
      .section-title-wrapper{
-       margin-top:30px;
+       margin-top:10px;
      }
   }
   #discover_entity_list .section-title-wrapper{
@@ -104,9 +104,20 @@
 
 }
 /*发现页-推荐用户*/
-.recommend-user-wrapper .recommend-user-item{
-  margin-left:10px;
-  margin-right:10px;
+.user-icon-list.recommend-user-list{
+  .clearfix;
+        li{
+          .recommend-user-icon-widget(81px,0,18px,10px,0);
+        }
+}
+
+@media (max-width:768px){
+  .user-icon-list.recommend-user-list{
+        li{
+          .recommend-user-icon-widget(70px,0,15px,10px,0);
+        }
+  }
+
 }
 
 /* 品类*/
@@ -1115,6 +1126,9 @@ a:hover{text-decoration:underline;}
       }
     }
   }
+  #main_article .writer-wrapper.writer-wrapper-control{
+    padding-top:0;
+  }
 }
 
 
@@ -1145,6 +1159,82 @@ a:hover{text-decoration:underline;}
     .jiathis_style{
       float:right;
     }
+    .entity-share-wrapper{
+      float: right;
+      font-size:@smaller-primary;
+      ul{
+        li.list-item{
+          display: inline-block;
+          text-decoration: none;
+          a{
+            color:#ffffff;
+            &:hover{
+              cursor: pointer;
+            }
+          }
+        }
+        li.list-item-weixin{
+          position: relative;
+          a{
+            &:hover{
+              .display-toggle{
+                display: block;
+              }
+            }
+            background-color: @wechat-hover-color;
+            .wechat-qrcode-wrapper{
+               //暂时无法给三角形添加box-shadow,所以又画了一个三角形,设置了border颜色和阴影颜色相同.但是设计感觉不好...
+               &:after{
+                 content: "";
+                 position:absolute;
+                bottom:-9px;
+                left:46%;
+                transform: translateX(-20%);
+                width:0;
+                height:0;
+                border-width:5px;
+                border-style:solid;
+                  border-color: #ffffff transparent transparent transparent;
+
+                }
+              position:absolute;
+              bottom:50px;
+              left:-50%;
+              transform: translateX(-22%);
+              padding:10px 9px;
+              background-color: #fff;
+              box-shadow: @panel-shaddow;
+              display: none;
+              .bottom-bot{
+                position:absolute;
+                bottom:-10px;
+                left:46%;
+                transform: translateX(-20%);
+                width:0;
+                height:0;
+                border-width:5px;
+                border-style:solid;
+                border-color:#ddd transparent transparent transparent;
+              }
+            }
+
+          }
+        }
+
+        li.list-item-weibo a{
+            background-color: @weibo-hover-color;
+        }
+        li.list-item-qq a{
+            background-color: @qq-hover-color;
+        }
+
+
+      }
+    }
+  }
+  .share-wrapper-control{
+    margin-top:40px;
+    padding-top:0;
   }
   .divider{
     margin-bottom: 20px;
@@ -1165,7 +1255,17 @@ a:hover{text-decoration:underline;}
 
 .main-article{
 
-  .writer-wrapper{
+  .writer-wrapper.writer-wrapper-control{
+    position:relative;
+    .article-user-follow{
+        position:absolute;
+      right:0;
+      top:0;
+        margin-top:0;
+        margin-left:8px;
+        width:auto;
+        float: none;
+    }
     .write-pre{
       margin-bottom: 10px;
     }
@@ -1173,8 +1273,16 @@ a:hover{text-decoration:underline;}
       .writer-name{
         font-size: @subtitle-size;
       }
+      .writer-authorized{
+        margin-left:8px;
+      }
       .writer-bio{
-        margin-top: 10px;
+        &.writer-bio-control{
+          max-width:460px;
+        }
+        .weixin-id{
+            line-height:30px;
+          }
         color: @common-gray;
         font-size:@mini-size;
 
@@ -1421,6 +1529,24 @@ html { overflow-y: scroll; }
 }
 
 
+//entity detail wechat share dialog
+.entity-share-wx-dialog{
+  .modal-dialog{
+    width:250px;
+    height:auto;
+    margin-top:150px;
+    .modal-header{
+    display: none;
+  }
+     .qr-code-wrapper{
+       &.qr-code-control{
+         text-align:center;
+       }
+     }
+  }
+
+}
+
 .test{
-  color: red;
+  color: gray;
 }

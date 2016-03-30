@@ -11,8 +11,9 @@ from django.template import RequestContext, loader,Context
 
 from apps.core.models import Article,Selection_Article, Article_Dig
 from apps.tag.models import Tags
-from apps.core.mixins.views import SortMixin
+# from apps.core.mixins.views import SortMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
+from apps.core.views import BaseJsonView
 
 
 from apps.web.utils.viewtools import add_side_bar_context_data
@@ -26,6 +27,11 @@ from datetime import datetime
 
 from apps.core.tasks.article import dig_task, undig_task
 from django import  http
+import requests
+
+
+textrank_url = getattr(settings, 'ARTICLE_TEXTRANK_URL', None)
+
 log = getLogger('django')
 
 
@@ -36,20 +42,8 @@ class ArticleDig(LoginRequiredMixin,JSONResponseMixin,AjaxResponseMixin, View ):
         if _aid is None:
             return http.Http404
         try:
-            if settings.DEBUG:
-                try:
-                    Article_Dig.objects.get(user_id=_user.id, article_id=_aid)
-                except Article_Dig.DoesNotExist as e:
-                    obj = Article_Dig.objects.create(
-                                    user_id = _user.id,
-                                    article_id = _aid,
-                                )
-                    obj.article.incr_dig()
-                    obj.user.incr_dig()
-            else:
-                dig_task.delay(uid=_user.id, aid=_aid)
+            dig_task.delay(uid=_user.id, aid=_aid)
             return self.render_json_response({'status': 1, 'article_id': _aid})
-
         except Exception as e :
             log.error("ERROR : %s ", e.message)
             return http.HttpResponseServerError
@@ -62,13 +56,7 @@ class ArticleUndig(JSONResponseMixin,LoginRequiredMixin,AjaxResponseMixin,View):
         if _aid is None:
             return http.Http404
         try:
-            if settings.DEBUG:
-                el = Article_Dig.objects.get(article_id=_aid, user=_user)
-                el.delete()
-                el.article.decr_dig()
-                el.user.decr_dig()
-            else:
-                undig_task.delay(uid=_user.id, aid=_aid)
+            undig_task.delay(uid=_user.id, aid=_aid)
             return self.render_json_response({'status':0, 'article_id':_aid})
         except Exception as e:
             log.error("ERROR: %s", e.message)
@@ -78,7 +66,7 @@ class ArticleUndig(JSONResponseMixin,LoginRequiredMixin,AjaxResponseMixin,View):
 class NewSelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
     template_name = template_name = 'web/article/selection_list_new.html'
     ajax_template_name = 'web/article/partial/selection_ajax_list_new.html'
-    paginate_by = 12
+    paginate_by = 24
     model = Selection_Article
     paginator_class = Jpaginator
     context_object_name = 'selection_articles'
@@ -96,7 +84,7 @@ class NewSelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
         qs = Selection_Article.objects\
                               .published_until(until_time=self.get_refresh_time())\
                               .order_by('-pub_time')\
-                              .select_related('article')
+                              .select_related('article').using('slave')
                               # .defer('article__content')
 
         return qs
@@ -144,12 +132,11 @@ class NewSelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
         return context
 
 
-
 class EditorDraftList(UserPassesTestMixin,ListView):
     def test_func(self, user):
         if not hasattr(user, 'can_write'):
             return False
-        return  user.can_write
+        return user.can_write
 
     def handle_no_permission(self, request):
         return redirect('web_selection')
@@ -159,6 +146,7 @@ class EditorDraftList(UserPassesTestMixin,ListView):
     paginate_by = 5
     paginator_class = Jpaginator
     context_object_name = 'articles'
+
     def get_queryset(self):
         return Article.objects.filter(creator=self.request.user,publish=Article.draft)
 
@@ -185,12 +173,17 @@ class EditorArticleEdit(AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,
     model = Article
 
     def test_func(self, user):
-        return user.can_write
+        the_article = self.get_article()
+        return user.can_write or (user.is_authorized_author and the_article.creator == user)
+
+    def get_article(self):
+        pk = self.kwargs['pk']
+        the_article =  get_object_or_404(Article,pk=pk)
+        return the_article
 
     def get(self,request, *args, **kwargs):
-        pk = kwargs['pk']
-        the_article =  get_object_or_404(Article,pk=pk)
-
+        pk = self.kwargs['pk']
+        the_article =  self.get_article()
         if request.user.is_writer:
             if the_article.creator != request.user:
                 raise Http404('没有找到对应文章，你是作者吗？')
@@ -260,8 +253,6 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
     def get_queryset(self):
         return Article.objects.filter(publish=Article.published)
 
-
-
     def get_object(self, queryset=None):
         pk = self.kwargs.get(self.pk_url_kwarg, None)
         queryset = self.get_queryset()
@@ -274,7 +265,6 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
             return None
         return obj
 
-
     def get_context_data(self,**kwargs):
         context = super(ArticleDetail, self).get_context_data(**kwargs)
 
@@ -282,10 +272,11 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
         context['from_app'] = self.request.GET.get('from','normal') == 'app'
         context['is_article_detail'] = True
         context['is_article_creator'] = self.request.user == self.object.creator
-        context['can_show_edit'] =  (not article.is_selection) and (self.request.user == article.creator)
+        context['can_show_edit'] = (not article.is_selection) and (self.request.user == article.creator)
+        context['share_url'] = self.request.build_absolute_uri().replace('m.guoku.com', 'www.guoku.com')
 
         dig_status = 0
-        if  self.request.user.is_authenticated():
+        if self.request.user.is_authenticated():
             try:
                 article.digs.get(user=self.request.user)
                 dig_status = 1
@@ -293,10 +284,7 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
                 pass
 
         context['dig_status'] = dig_status
-
         context = add_side_bar_context_data(context)
-
-
         return context
 
     def get_ajax(self, request, *args, **kwargs):
@@ -334,5 +322,21 @@ class ArticleDelete(UserPassesTestMixin, View):
         the_article.publish = Article.remove
         the_article.save()
         return redirect('web_editor_article_list')
+
+
+
+class ArticleTextRankView(BaseJsonView):
+
+    def get_data(self, context):
+        article_textrank_url = "%s%s" % (textrank_url, self.article_id)
+        log.info(article_textrank_url)
+        r = requests.get(article_textrank_url)
+        return r.json()
+
+    def get(self, request, *args, **kwargs):
+        self.article_id = kwargs.pop('pk', None)
+        assert self.article_id is not None
+
+        return super(ArticleTextRankView, self).get(request, *args, **kwargs)
 
 __author__ = 'edison'

@@ -1,5 +1,6 @@
 #coding=utf-8
 from django.http import HttpResponseRedirect
+from django.core.paginator import Paginator
 
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
@@ -8,8 +9,8 @@ from apps.core.models import Show_Banner, \
     Buy_Link, Selection_Entity, Entity, \
     Entity_Like, Sub_Category
 
-from apps.core.utils.taobaoapi.utils import taobaoke_mobile_item_convert
-from apps.v4.models import APISelection_Entity, APIEntity, APICategory, APISeletion_Articles
+from apps.v4.models import APIUser, APISelection_Entity, APIEntity,\
+    APICategory, APISeletion_Articles, APIArticle, APIArticle_Dig
 from apps.v4.forms.pushtoken import PushForm
 from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
@@ -51,7 +52,15 @@ def decorate_taobao_url(url, ttid=None, sid=None, outer_code=None, sche=None):
     return url
 
 
-class HomeView(BaseJsonView):
+class APIJsonView(BaseJsonView):
+
+    @csrf_exempt
+    @check_sign
+    def dispatch(self, request, *args, **kwargs):
+        return super(APIJsonView, self).dispatch(request, *args, **kwargs)
+
+
+class HomeView(APIJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
@@ -107,45 +116,67 @@ class HomeView(BaseJsonView):
 
         return super(HomeView, self).get(request, *args, **kwargs)
 
-    @check_sign
-    def dispatch(self, request, *args, **kwargs):
-        return super(HomeView, self).dispatch(request, *args, **kwargs)
 
-
-class DiscoverView(BaseJsonView):
+class DiscoverView(APIJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
-        _key = self.request.GET.get('session')
+        # _key = self.request.GET.get('session')
+
+        da = APIArticle_Dig.objects.filter(user=self.visitor).values_list('article_id', flat=True)
 
         res = dict()
         shows = Show_Banner.objects.all()
         res['banner'] = []
         for row in shows:
-            res['banner'].append(
-                {
-                    'url':row.banner.url,
-                    'img':row.banner.image_url
-                }
-            )
+            if row.banner.url.startswith('http://m.guoku.com/articles/'):
+                url = row.banner.url.split('?')
+                uri = url[0]
+                article_id = uri.split('/')[-2]
+                article = APIArticle.objects.get(pk = article_id)
 
-        popular_list = Entity_Like.objects.popular_random()
-        _entities = APIEntity.objects.filter(id__in=popular_list, status=Entity.selection)
-        try:
-            _session = Session_Key.objects.get(session_key=_key)
-            el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=_entities)
-        except Session_Key.DoesNotExist, e:
-            # log.info(e.message)
-            el = None
 
+                res['banner'].append(
+                    {
+                        'url':row.banner.url,
+                        'img':row.banner.image_url,
+                        'article': article.v4_toDict(da)
+                    }
+                )
+            else:
+
+                res['banner'].append(
+                    {
+                        'url':row.banner.url,
+                        'img':row.banner.image_url
+                    }
+                )
+
+        # self.visitor = None
+        # try:
+        #     _session = Session_Key.objects.get(session_key=_key)
+        #     self.visitor = _session.user
+        # except Session_Key.DoesNotExist, e:
+        #     pass
+            # el = None
+        '''
+        get Popular Articles List
+        '''
         res['articles'] = list()
         popular_articles = APISeletion_Articles.objects.discover()[:3]
         for row in popular_articles:
-            print type(row)
+            # print type(row)
             r = {
-                'article': row.api_article.v4_toDict()
+                'article': row.api_article.v4_toDict(articles_list=da)
             }
             res['articles'].append(r)
+
+        '''
+        get Popular Entity List
+        '''
+        popular_list = Entity_Like.objects.popular_random()
+        _entities = APIEntity.objects.filter(id__in=popular_list, status=Entity.selection)
+        el = Entity_Like.objects.user_like_list(user=self.visitor, entity_list=_entities)
 
         res['entities'] = list()
         for e in _entities:
@@ -154,6 +185,9 @@ class DiscoverView(BaseJsonView):
             }
             res['entities'].append(r)
 
+        '''
+        get Category
+        '''
         res['categories'] = list()
         # categories = APICategory.objects.filter(status=True)
         categories = APICategory.objects.popular()
@@ -163,11 +197,81 @@ class DiscoverView(BaseJsonView):
                 'category': row.v4_toDict(),
             }
             res['categories'].append(r)
+
+
+        '''
+        get authorizeduser
+        '''
+        res['authorizeduser'] = list()
+
+        auth_users = APIUser.objects.recommended_user()
+
+        # user APIUser -> GKUser ->  GKUserManager interface query
+
+        # a user in Authorized_User_Profile table does not mean he is a authorized user .
+        # a user in Author or Seller group mean he is a authorized user
+
+        # auth_users = APIAuthorized_User_Profile\
+        #                 .objects.recommended_authorized_users()[:8]
+
+        for user in auth_users:
+            r = {
+                'user': user.v4_toDict(visitor=self.visitor)
+            }
+            # print r
+            res['authorizeduser'].append(r)
+            # print row.user.v4_toDict()
         return res
 
-    @check_sign
-    def dispatch(self, request, *args, **kwargs):
-        return super(DiscoverView, self).dispatch(request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        _key = request.GET.get('session', None)
+        self.visitor = None
+        if _key is not None:
+            try:
+                _session = Session_Key.objects.get(session_key=_key)
+                self.visitor = _session.user
+            except Session_Key.DoesNotExist:
+                pass
+        return super(DiscoverView, self).get(request, *args, **kwargs)
+
+
+class AuthorizedUser(APIJsonView):
+
+    http_method_names = ['get']
+
+    def get_data(self, context):
+        _key = self.request.GET.get('session')
+        self.visitor = None
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+            self.visitor = _session.user
+        except Session_Key.DoesNotExist, e:
+            log.info(e.message)
+            self.visitor = None
+
+        res = dict()
+        res['authorized_user'] = list()
+        res['page'] = self.page
+        # res['size'] = self.size
+        user_list = APIUser.objects.recommended_user()
+        res['count'] = user_list.count()
+
+        paginator = Paginator(user_list, self.size)
+        try:
+            auth_users = paginator.page(self.page)
+        except Exception:
+            return res
+
+        for user in auth_users.object_list:
+            res['authorized_user'].append(
+                user.v4_toDict(self.visitor)
+            )
+        return res
+
+    def get(self, request, *args, **kwargs):
+        self.page = request.GET.get('page', 1)
+        self.size = request.GET.get('size', 15)
+        return super(AuthorizedUser, self).get(request, *args, **kwargs)
 
 
 @check_sign
@@ -255,7 +359,7 @@ def selection(request):
         _session = Session_Key.objects.get(session_key=_key)
         # log.info("session %s" % _session)
         el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(ids))
-        # log.info(_session.session_key)
+        log.info(_session.session_key)
         Selection_Entity.objects.set_user_refresh_datetime(session=_session.session_key)
     except Session_Key.DoesNotExist, e:
         # log.info(e.message)
@@ -267,8 +371,7 @@ def selection(request):
         # if (selection.entity.tio)
         r = {
             'entity':selection.entity.v3_toDict(user_like_list=el),
-            # 'note':selection.entity.top_note.v3_toDict(),
-            'note': None
+            'note':selection.entity.top_note.v3_toDict(),
         }
 
         res.append({
@@ -335,21 +438,40 @@ def toppopular(request):
 
     return SuccessJsonResponse(res)
 
-@check_sign
-def unread(request):
+# @check_sign
+# def unread(request):
+#
+#     _key = request.GET.get('session')
+#
+#     try:
+#         _session = Session_Key.objects.get(session_key = _key)
+#     except Session_Key.DoesNotExist:
+#         return ErrorJsonResponse(status=403)
+#
+#     res = {
+#         'unread_message_count': _session.user.notifications.read().count(),
+#         'unread_selection_count': Selection_Entity.objects.get_user_unread(session=_session.session_key),
+#     }
+#     return SuccessJsonResponse(res)
 
-    _key = request.GET.get('session')
+class UnreadView(APIJsonView):
 
-    try:
-        _session = Session_Key.objects.get(session_key = _key)
-    except Session_Key.DoesNotExist:
-        return ErrorJsonResponse(status=403)
+    def get_data(self, context):
+        try:
+            _session = Session_Key.objects.get(session_key = self.key)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
+        res = {
+            'unread_message_count': _session.user.notifications.read().count(),
+            'unread_selection_count': Selection_Entity.objects.get_user_unread(session=_session.session_key),
+        }
+        return res
 
-    res = {
-        'unread_message_count': _session.user.notifications.read().count(),
-        'unread_selection_count': Selection_Entity.objects.get_user_unread(session=_session.session_key),
-    }
-    return SuccessJsonResponse(res)
+    def get(self, request, *args, **kwargs):
+        self.key = request.GET.get('session', None)
+        if self.key is None:
+          return ErrorJsonResponse(status=403)
+        return super(UnreadView, self).get(request, *args, **kwargs)
 
 
 def visit_item(request, item_id):
@@ -359,12 +481,12 @@ def visit_item(request, item_id):
     _outer_code = request.GET.get("outer_code", None)
     _sche = request.GET.get("sche", None)
 
-    b = Buy_Link.objects.filter(origin_id=item_id)[0]
+    b = Buy_Link.objects.filter(origin_id=item_id).first()
 
     if "taobao.com" in b.origin_source:
-        _taobaoke_info = taobaoke_mobile_item_convert(b.origin_id)
-        if _taobaoke_info and _taobaoke_info.has_key('click_url'):
-            return HttpResponseRedirect(decorate_taobao_url(_taobaoke_info['click_url'], _ttid, _sid, _outer_code, _sche))
+        # _taobaoke_info = taobaoke_mobile_item_convert(b.origin_id)
+        # if _taobaoke_info and _taobaoke_info.has_key('click_url'):
+        #     return HttpResponseRedirect(decorate_taobao_url(_taobaoke_info['click_url'], _ttid, _sid, _outer_code, _sche))
         return HttpResponseRedirect(decorate_taobao_url(get_taobao_url(b.origin_id, True), _ttid, _sid, _outer_code, _sche))
     if "jd.com" in b.origin_source:
         _jd_url = "http://item.m.jd.com/product/%s.html" % b.origin_id

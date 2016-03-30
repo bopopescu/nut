@@ -14,6 +14,10 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
+from celery.schedules import crontab
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -62,7 +66,7 @@ INSTALLED_APPS = (
     'apps.counter',
     'apps.tag',
     'apps.seller',
-
+    'apps.shop',
     'captcha',
 )
 
@@ -70,13 +74,13 @@ HAYSTACK_CONNECTIONS = {
     'default': {
         # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://10.0.2.110:8983/solr/',
+        'URL': 'http://10.0.2.115:8983/solr/',
         'INCLUDE_SPELLING': True,
         # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
     }
 }
 # HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
-HAYSTACK_DEFAULT_OPERATOR = 'AND'
+HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -254,6 +258,8 @@ Avatar_Image_Path = 'avatar/'
 # CELERY_RESULT_SERIALIZER = 'json'
 
 CELERY_RESULT_BACKEND = "redis://10.0.2.125:6379/0"
+CELERY_IGNORE_RESULT = False
+CELERY_TIMEZONE = 'Asia/Shanghai'
 BROKER_TRANSPORT = "librabbitmq"
 BROKER_HOST = "10.0.2.125"
 BROKER_USER = "raspberry"
@@ -262,10 +268,36 @@ BROKER_VHOST = "raspberry"
 BROKER_POOL_LIMIT = 10
 CELERY_ACKS_LATE = True
 CELERYD_PREFETCH_MULTIPLIER = 1
-CELERY_DISABLE_RATE_LIMITS = True
+
+# Fetch articles.
+CELERY_DISABLE_RATE_LIMITS = False
+CELERY_ROUTES = {
+    'sogou.crawl_articles': {'queue': 'sogou'},
+    # 'sogou.crawl_article': {'queue': 'sogou'},
+    'sogou.fetch_article_list': {'queue': 'sogou'},
+}
+
+CELERY_ANNOTATIONS = {
+    'sogou.crawl_articles': {
+        'rate_limit': '1/m',
+    },
+    # 'sogou.crawl_article': {
+    #     'rate_limit': '1/m',
+    # },
+    'sogou.fetch_article_list': {
+        'rate_limit': '1/m',
+    },
+}
 # CELERY_ACCEPT_CONTENT = ['json']
 # CELERY_TASK_SERIALIZER = 'json'
 # CELERY_RESULT_SERIALIZER = 'json'
+
+CELERY_ROUTES = {
+    'sogou.crawl_articles': {'queue': 'sogou'},
+    'sogou.crawl_article': {'queue': 'sogou'},
+    'sogou.fetch_article_list': {'queue': 'sogou'},
+}
+
 
 # taobao
 APP_HOST = "http://www.guoku.com"
@@ -308,7 +340,7 @@ JPUSH_SECRET = 'a0529d3efa544d1da51405b7'
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs','captcha.helpers.noise_dots',)
 CAPTCHA_LENGTH = 5
 # for debug server popular  category test
-DEFAULT_POPULAR_SCALE =  7
+DEFAULT_POPULAR_SCALE = 7
 
 # config of site in redis.
 CONFIG_REDIS_HOST = 'localhost'
@@ -317,7 +349,32 @@ CONFIG_REDIS_DB = 1
 
 INTERVAL_OF_SELECTION = 24
 
+# phantom
+PHANTOM_SERVER = 'http://10.0.2.49:5000/'
+
+# fetch articles
+SOGOU_PASSWORD = 'guoku1@#'
+SOGOU_USERS = ('shoemah55@superrito.com',
+               'monan1977@fleckens.hu',
+               'obsomed1977@jourrapide.com',
+               'finighboy78@superrito.com',
+               'artimessill1959@einrot.com',
+               'suildrued41@dayrep.com',
+               'ater1954@teleworm.us',
+               'duad1937@jourrapide.com',
+               'drecur44@superrito.com',
+               'paboy1973@superrito.com'
+               )
+CELERYBEAT_SCHEDULE = {
+    'crawl_articles': {
+        'task': 'sogou.crawl_articles',
+        'schedule': crontab(minute=1, hour=1)
+    }
+}
+
+FETCH_INTERVAL = 20
 CURRENCY_SYMBOLS = (u'$', u'￥')
 
 
-TAOBAO_RECOMMEND_URL = 'http://10.0.2.115:10050/recommend'
+TAOBAO_RECOMMEND_URL = 'http://10.0.2.120:10150/recommend'
+ARTICLE_TEXTRANK_URL = 'http://10.0.2.120:10150/article/'

@@ -190,11 +190,12 @@ class GKSearchView(SearchView):
         elif 't' in self.type:
             res = self.queryset.models(Tags).order_by('-note_count')
         elif 'a' in self.type:
-            res = self.queryset.models(Article).filter(
-                is_selection=True).order_by('-score', '-read_count')
+            # res = self.queryset.models(Article).filter(
+            #     is_selection=True).order_by('-score', '-read_count')
+            res = self.queryset.models(Article).order_by('-score', '-read_count')
         else:
             res = self.queryset.models(Entity).order_by('-like_count')
-        log.info(res)
+        # print self.queryset.models(Article).count()
         context = self.get_context_data(**{
             self.form_name: form,
             'query': form.cleaned_data.get(self.search_field),
@@ -206,7 +207,7 @@ class GKSearchView(SearchView):
             'article_count': self.queryset.models(Article).count(),
         })
         if self.type == "e" and self.request.user.is_authenticated():
-            entity_id_list = map(lambda x: x.object.pk, context['page_obj'])
+            entity_id_list = map(lambda x: x.entity_id, context['page_obj'])
             # log.info(entity_id_list)
             el = Entity_Like.objects.user_like_list(user=self.request.user,
                                                     entity_list=entity_id_list)

@@ -1,20 +1,26 @@
+# coding=utf-8
+
 from django.views.decorators.http import require_GET
 from django.utils.log import getLogger
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.models import Category, Sub_Category, Entity, Entity_Like, Note, Selection_Entity
+from apps.core.models import Category, Sub_Category, \
+    Entity, Entity_Like, Note, Selection_Entity, \
+    Article
 # from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
-from apps.v4.models import APIEntity, APICategory
+from apps.v4.models import APIEntity, APICategory, APIArticle
 
-from apps.core.views import BaseJsonView
+# from apps.core.views import BaseJsonView
+from haystack.query import SearchQuerySet
+from apps.v4.views import APIJsonView
 
 
 log = getLogger('django')
 
 
-class CategoryListView(BaseJsonView):
+class CategoryListView(APIJsonView):
 
     http_method_names = 'get'
     def get_data(self, context):
@@ -26,7 +32,7 @@ class CategoryListView(BaseJsonView):
         return super(CategoryListView, self).dispatch(request, *args, **kwargs)
 
 
-class GroupListView(BaseJsonView):
+class GroupListView(APIJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
@@ -38,16 +44,17 @@ class GroupListView(BaseJsonView):
             )
         return res
 
-    @check_sign
-    def dispatch(self, request, *args, **kwargs):
-        return super(GroupListView, self).dispatch(request, *args, **kwargs)
+    # @check_sign
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(GroupListView, self).dispatch(request, *args, **kwargs)
 
-class CategorySelectionView(BaseJsonView):
 
-    http_method_names = 'get'
+class CategorySelectionView(APIJsonView):
+
+    http_method_names = ['get']
 
     def get_data(self, context):
-        group = Category.objects.filter(pk=self.group_id)
+        group = Category.objects.get(pk=self.group_id)
         cids = Sub_Category.objects.filter(group=group).values_list('id', flat=True)
         if self.sort == "like":
             selection_list = Selection_Entity.objects.category_sort_like(category_ids=cids)
@@ -63,6 +70,7 @@ class CategorySelectionView(BaseJsonView):
             return res
 
         el = None
+        # print group.title.split(' ')
         if self.session is not None:
             entity_ids = map(lambda  x: x['entity_id'], selections.object_list.values())
             el = Entity_Like.objects.user_like_list(user=self.session.user, entity_list=entity_ids)
@@ -85,15 +93,101 @@ class CategorySelectionView(BaseJsonView):
             self.session = Session_Key.objects.get(session_key=_key)
             # Selection_Entity.objects.set_user_refresh_datetime(session=self.session.session_key)
         except Session_Key.DoesNotExist, e:
-            log.info(e.message)
+            # log.info(e.message)
             self.session = None
         assert self.group_id is not None
         return super(CategorySelectionView, self).get(request, *args, **kwargs)
 
-    @check_sign
-    def dispatch(self, request, *args, **kwargs):
-        return super(CategorySelectionView, self).dispatch(request, *args, **kwargs)
 
+class GroupArticlesView(APIJsonView):
+    '''
+        获取一级分类下的图文.
+        使用 solr 接口,通过对标签的搜索实现.
+    '''
+    http_method_names = ['get']
+
+    def get_data(self, context):
+        group = Category.objects.get(pk=self.group_id)
+        self.keyword = group.title.split(' ')[0]
+
+        res = {
+            'articles' : []
+        }
+        # print self.keyword
+        sqs = SearchQuerySet().models(Article).filter(tags=self.keyword, is_selection=True)
+
+        paginator = Paginator(sqs, self.size)
+        try:
+            articles = paginator.page(self.page)
+        except Exception:
+            return res
+        article_ids = map(lambda x: x.article_id, articles.object_list)
+        for row in APIArticle.objects.filter(pk__in=article_ids):
+            res['articles'].append(
+                row.v4_toDict()
+            )
+        res.update(
+            {
+                'stat' : {
+                    'all_count' : sqs.count(),
+                    'is_sub'    : False,
+                },
+            }
+        )
+        return res
+
+    def get(self, request, *args, **kwargs):
+        self.group_id = kwargs.pop('group_id', None)
+        self.page = request.GET.get('page', 1)
+        self.size = request.GET.get('size', 30)
+        assert self.group_id is not None
+        return super(GroupArticlesView, self).get(request, *args, **kwargs)
+
+    # @check_sign
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(GroupArticlesView, self).dispatch(request, *args, **kwargs)
+
+
+class CategoryArticlesView(APIJsonView):
+
+    def get_data(self, context):
+        category = Sub_Category.objects.get(pk = self.sid)
+
+        self.keyword = category.title
+        res = {
+            'articles' : []
+        }
+        sqs = SearchQuerySet().models(Article).filter(tags=self.keyword, is_selection=True)
+
+        paginator = Paginator(sqs, self.size)
+
+        try:
+            articles = paginator.page(self.page)
+        except Exception:
+            return res
+        article_ids = map(lambda x: x.article_id, articles.object_list)
+        for row in APIArticle.objects.filter(pk__in=article_ids):
+            res['articles'].append(
+                row.v4_toDict()
+            )
+        res.update(
+            {
+                'stat' : {
+                    'all_count' : sqs.count(),
+                    'is_sub'    : True,
+                    'group_id'  : category.group_id,
+                },
+            }
+        )
+        return res
+
+    def get(self, request, *args, **kwargs):
+        self.sid = kwargs.pop('category_id', None)
+        self.page = request.GET.get('page', 1)
+        self.size = request.GET.get('size', 30)
+
+        assert self.sid is not None
+        return super(CategoryArticlesView, self).get(request, *args, **kwargs)
 
 
 @require_GET
@@ -109,7 +203,6 @@ def stat(request, category_id):
     try:
         _session = Session_Key.objects.get(session_key = _key)
         el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=entities.values_list('id', flat=True))
-        # Entity.objects.filter()
         res['like_count'] = el.count()
     except Session_Key.DoesNotExist:
         res['like_count'] = 0

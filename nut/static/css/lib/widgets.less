@@ -271,7 +271,6 @@
   }
 }
 
-
 .entity-four .img-box img,
 .entity-selection .img-box img,
 .guoku-button,
@@ -286,6 +285,7 @@
 .thumbnail.category img,
 .hover-light,
 .recommendation-item img
+
 {
 //   .transition(all 0.35s);
    &:hover{
@@ -394,7 +394,7 @@ p .b_day{
 }
 .entity-four.thumbnail{
   border:none;
-  margin-bottom:60px;
+  margin-bottom:20px;
   padding:0px 0px 16px 0px;
 
   .panel-no-padding;
@@ -408,11 +408,85 @@ p .b_day{
     height: 14px;
     color: #9d9e9f;
   }
-  .caption{
+
+  .caption {
+    height: 80px;
     padding: 0px;
     margin-top: 12px;
     border: none;
+    .title, .price, .info, .brand {
+      color: @common-gray;
+      text-align: center;
+      font-size: @smaller-primary;
+    }
+    .price {
+      margin-top: 10px;
+    }
   }
+  .action{
+    height:30px;
+    .info{
+
+      color: @common-gray;
+      text-align: center;
+      font-size: @smaller-primary;
+
+
+    }
+
+  }
+}
+//in authorized seller page,the thumbnail design has been modified.
+.entity-four.new-thumbnail{
+  padding:16px;
+  border:none;
+  margin-bottom:20px;
+  .panel-no-padding;
+  .img-box{
+    border:none;
+  }
+  .btn-like{
+    padding: 0px;
+    line-height: 14px;
+    font-size: 14px;
+    height: 14px;
+    color: #9d9e9f;
+  }
+  .entity-four-info{
+    margin-top:16px;
+    overflow: hidden;
+    .caption {
+      width:60%;
+      height:80px;
+      float:left;
+      margin:0;
+      font-size: @smaller-primary;
+      .brand,.title{
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .brand{
+        color: @common-gray;
+      }
+      .title a{
+        color:@common-text-color;
+      }
+      .price {
+        color:@link-color;
+      }
+    }
+    .action{
+      height:30px;
+      float: right;
+      .info{
+        color: @common-gray;
+        text-align: center;
+        font-size: @smaller-primary;
+      }
+  }
+   }
+
 }
 
 
@@ -579,6 +653,7 @@ p.boolean-false{
    width: 100%;
 }
 
+//ROSE writes a mixin instead of  using this widget.
 .user-icon-widget{
           float:left;
           display: inline-block;
@@ -605,14 +680,95 @@ p.boolean-false{
         }
 }
 
-//new guoku normal col style
-.guoku-normal-col{
-  padding:0 5px;
-  margin-bottom:10px;
+
+.user-icon-large{
+  img{
+            display: block;
+            margin: 0 auto ;
+            width: 100px;
+            height: 100px;
+            .border-radius(50px);
+
+  }
 }
 
-.guoku-middle-col{
-  padding:0 10px;
-  margin-bottom:20px;
+.user-icon-middle{
+  img{
+            display: block;
+            margin: 0 auto ;
+            width: 60px;
+            height: 60px;
+            .border-radius(30px);
+
+  }
 }
 
+.user-nick-large{
+
+            font-size: 32px;
+            font-weight: 500;
+            margin-right:12px;
+}
+
+.guoku-normal-col {
+  padding: 0 5px;
+  margin-bottom: 10px;
+}
+.guoku-middle-col {
+  padding: 0 9px;
+  margin-bottom: 17px;
+}
+
+.normal-share-btn{
+  display: inline-block;
+  width:40px;
+  height:40px;
+  line-height:40px;
+  text-align: center;
+  border-radius:5px;
+  font-size:18px;
+}
+
+.new-empty-panel-content{
+  display:block;
+  width:100%;
+  min-height: 180px;
+  line-height: 180px;
+  text-align: center;
+  border:1px solid #ebebeb;
+  //box-shadow: 0 0 2px #ebebeb;
+  color: @common-gray;
+}
+
+
+.square-follow-btn{
+  display: inline-block;
+  width:32px;
+  height:32px;
+  line-height:32px;
+  text-align: center;
+  font-size:@primary-size;
+  background-color: #ffffff;
+  padding: 0px 6px;
+  .border-radius(4px);
+  cursor: pointer;
+  text-decoration:none;
+  i.fa-plus{
+     color: @btn-blue;
+  }
+  &:hover,&:focus{
+    i.fa-plus{
+       color:@btn-blue-dark;
+    }
+  }
+  &.btn-cancel{
+    background-color:@btn-blue;
+    i.fa-check{
+       color: #ffffff;
+    }
+    &:hover,&:focus{
+      background-color: @btn-blue-dark;
+    }
+  }
+
+}

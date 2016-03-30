@@ -9,7 +9,10 @@ require([
         'subapp/entitycard',
         'subapp/detailsidebar',
         'subapp/related_article_loader',
-        'libs/csrf',
+        'subapp/article/article_share',
+        'subapp/user_follow',
+        'libs/csrf'
+
 
     ],
     function (polyfill,
@@ -21,7 +24,9 @@ require([
               ArticlePageCounter,
               EntityCardRender,
               SideBarManager,
-              RelatedArticleLoader
+              RelatedArticleLoader,
+              UserFollow,
+              ArticleShareApp
 
     ){
         var page = new Page();
@@ -32,7 +37,8 @@ require([
         var entityCardRender = new EntityCardRender();
         var sidebar = new SideBarManager();
         var relatedArticleLoader = new RelatedArticleLoader();
-
+        var user_follow = new UserFollow();
+        var shareApp = new ArticleShareApp();
 
 });
 

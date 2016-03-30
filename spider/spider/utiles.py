@@ -4,9 +4,9 @@
 import redis
 from spider import settings
 
-r = redis.Redis(host=settings.config_redis_host,
-                port=settings.config_redis_port,
-                db=settings.config_redis_db)
+r = redis.Redis(host=settings.CONFIG_REDIS_HOST,
+                port=settings.CONFIG_REDIS_PORT,
+                db=settings.CONFIG_REDIS_DB)
 
 
 def currency_converting(convert_from, amount):

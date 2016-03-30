@@ -13,6 +13,11 @@ from urlparse import urlparse, parse_qs
 
 
 class BrandForm(forms.Form):
+    error_messages = {
+        'duplicate_brand_name': _("Brand name already exists."),
+        # 'password_mismatch': _("The two password fields didn't match."),
+    }
+
 
     icon = forms.FileField(
         label=_('icon'),
@@ -67,6 +72,11 @@ class BrandForm(forms.Form):
                                 initial=Brand.pending,
                                 help_text=_('status'))
 
+    score = forms.IntegerField(label=_('brand score'),
+                                 initial= 0 ,
+                                 help_text=_('input a score of the brand')
+                                )
+
     intro = forms.CharField(
         label=_('intro'),
         widget=forms.Textarea(attrs={'class':'form-control'}),
@@ -78,7 +88,17 @@ class BrandForm(forms.Form):
 
     def clean_name(self):
         _name = self.cleaned_data.get('name')
-        return _name.strip(' \t\n\r')
+        _name = _name.strip(' \t\n\r')
+
+        try:
+            Brand.objects.get(name=_name)
+        except Brand.DoesNotExist:
+            return _name
+
+        raise forms.ValidationError(
+            self.error_messages['duplicate_brand_name'],
+            code='duplicate_brand_name',
+        )
 
     def cleaned_alias(self):
         _alias = self.cleaned_data.get('alias')

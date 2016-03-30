@@ -41,6 +41,19 @@ DATABASES = {
     },
 }
 
+# CELERY #################################
+BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERYD_CONCURRENCY = 2
+CELERY_DISABLE_RATE_LIMITS = False
+#celery end  #############################
+import djcelery
+djcelery.setup_loader()
+
+# config of site in redis.
+CONFIG_REDIS_HOST = 'localhost'
+CONFIG_REDIS_PORT = 6379
+
 DEBUG_TOOLBAR_CONFIG = {
     'JQUERY_URL': '//libs.baidu.com/jquery/2.1.4//jquery.min.js'
 }
@@ -80,7 +93,6 @@ CACHES = {
         'LOCATION': '/tmp/django_cache',
     }
 }
-
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 SESSION_ENGINE = 'django.contrib.sessions.backends.file'
 SESSION_FILE_PATH = '/tmp/'
@@ -93,7 +105,9 @@ MOGILEFS_TRACKERS = ['10.0.2.50:7001']
 MOGILEFS_MEDIA_URL = 'images/'
 DEFAULT_FILE_STORAGE = 'storages.backends.mogile.MogileFSStorage'
 # DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-# IMAGE_SIZE = [128, 310, 640]
+LOCAL_IMG_DEBUG = True
+IMAGE_HOST = 'http://imgcdn.guoku.com/'
+INTRANET_IMAGE_SERVER = 'http://localhost:5556/'
 
 Avatar_Image_Path = 'avatar/'
 # Avatar_Image_Size = [180, 50]
@@ -173,9 +187,12 @@ HAYSTACK_CONNECTIONS = {
     'default': {
         # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr/',
+        'URL': 'http://10.0.2.115:8983/solr/',
+        'INCLUDE_SPELLING': True,
         # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
     }
 }
+# HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
 __author__ = 'edison7500'

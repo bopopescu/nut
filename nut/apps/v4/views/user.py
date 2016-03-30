@@ -5,9 +5,11 @@ from apps.core.models import GKUser, Entity_Like, Note, User_Follow, Sub_Categor
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 # from apps.mobile.forms.search import UserSearchForm
-from apps.v4.models import APIEntity, APIUser, APINote, APIUser_Follow
+from apps.v4.models import APIEntity, APIUser, APINote, APIUser_Follow, APIArticle, APIArticle_Dig
 from apps.v4.forms.user import MobileUserProfileForm
 from apps.v4.forms.account import MobileUserRestPassword, MobileUserUpdateEmail, MobileRestPassword
+from apps.v4.forms.search import APIUserSearchForm
+from apps.v4.views import APIJsonView
 
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage
@@ -15,12 +17,11 @@ from django.utils.log import getLogger
 from datetime import datetime
 import time
 
+from apps.core.models import Article
 from apps.tag.models import Content_Tags
-from apps.core.views import JSONResponseMixin, BaseJsonView
-from apps.v4.forms.search import APIUserSearchForm
-from haystack.generic_views import SearchView
-# from apps.v4.models import APIUser
+from apps.core.views import JSONResponseMixin
 from apps.core.tasks import send_activation_mail
+from haystack.generic_views import SearchView
 
 log = getLogger('django')
 
@@ -362,7 +363,7 @@ def follow_action(request, user_id, target_status):
     return SuccessJsonResponse(res)
 
 
-class APIUserIndexView(BaseJsonView):
+class APIUserIndexView(APIJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
@@ -374,9 +375,11 @@ class APIUserIndexView(BaseJsonView):
 
         _last_like = Entity_Like.objects.filter(user=_user, entity__status__gte=APIEntity.freeze)
         _last_note = APINote.objects.filter(user=_user).order_by('-post_time')
+        _last_article = APIArticle.objects.filter(creator=_user, publish=APIArticle.published).order_by('-created_datetime')
         res['user'] = _user.v4_toDict(self.visitor)
         res['last_user_like'] = []
         res['last_post_note'] = []
+        res['last_post_article'] = []
         for row in _last_like[:10]:
             res['last_user_like'].append(
                 row.entity.v3_toDict()
@@ -384,6 +387,10 @@ class APIUserIndexView(BaseJsonView):
         for row in _last_note[:10]:
             res['last_post_note'].append(
                 row.v4_toDict(has_entity=True)
+            )
+        for row in _last_article[:10]:
+            res['last_post_article'].append(
+                row.v4_toDict()
             )
 
         return res
@@ -400,12 +407,12 @@ class APIUserIndexView(BaseJsonView):
 
         return super(APIUserIndexView, self).get(request, *args, **kwargs)
 
-    @check_sign
-    def dispatch(self, request, *args, **kwargs):
-        return super(APIUserIndexView, self).dispatch(request, *args, **kwargs)
+    # @check_sign
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(APIUserIndexView, self).dispatch(request, *args, **kwargs)
 
 
-class APIUserLikeView(BaseJsonView):
+class APIUserLikeView(APIJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
@@ -461,12 +468,12 @@ class APIUserLikeView(BaseJsonView):
         self.count = int(request.GET.get('count', '30'))
         return super(APIUserLikeView, self).get(request, *args, **kwargs)
 
-    @check_sign
-    def dispatch(self, request, *args, **kwargs):
-        return super(APIUserLikeView, self).dispatch(request, *args, **kwargs)
+    # @check_sign
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(APIUserLikeView, self).dispatch(request, *args, **kwargs)
 
 
-class APIUserNotesView(BaseJsonView):
+class APIUserNotesView(APIJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
@@ -503,13 +510,45 @@ class APIUserNotesView(BaseJsonView):
 
         return super(APIUserNotesView, self).get(request, *args, **kwargs)
 
-    @check_sign
-    def dispatch(self, request, *args, **kwargs):
-        return super(APIUserNotesView, self).dispatch(request, *args, **kwargs)
+    # @check_sign
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(APIUserNotesView, self).dispatch(request, *args, **kwargs)
+
+# Todo: User Articles
+class APIUserArticlesView(APIJsonView):
+    http_method_names = ['get']
+
+    def get_data(self, context):
+        res = dict()
+
+        articles = APIArticle.objects.filter(creator=self.user_id, publish=Article.published)
+        res.update(
+            {
+                'count': articles.count(),
+                'page': self.page,
+            }
+        )
+        paginator = Paginator(articles, self.size)
+        try:
+            article_list = paginator.page(self.page)
+        except Exception:
+            return res
+        res['articles'] = list()
+        for row in article_list.object_list:
+            res['articles'].append(row.v4_toDict())
+        return res
+
+    def get(self, request, *args, **kwargs):
+        self.user_id = kwargs.pop('user_id', None)
+        assert self.user_id is not None
+
+        self.page = request.GET.get('page', 1)
+        self.size = request.GET.get('size', 15)
+        return super(APIUserArticlesView, self).get(request, *args, **kwargs)
 
 
 #TODO: verified email
-class APIUserVerifiedView(BaseJsonView):
+class APIUserVerifiedView(APIJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
@@ -520,10 +559,10 @@ class APIUserVerifiedView(BaseJsonView):
         else:
             pass
 
-        res = {
+        res.update( {
                 'error':0,
                 'email': self.user.email
-        }
+        })
         return res
 
     def get(self, request, *args, **kwargs):
@@ -535,9 +574,51 @@ class APIUserVerifiedView(BaseJsonView):
             return ErrorJsonResponse(status=404)
         return super(APIUserVerifiedView, self).get(request, *args, **kwargs)
 
-    @check_sign
-    def dispatch(self, request, *args, **kwargs):
-        return super(APIUserVerifiedView, self).dispatch(request, *args, **kwargs)
+
+class APIUserDigArticlesView(APIJsonView):
+
+    http_method_names = ['get']
+
+    def get_data(self, context):
+
+        articles = APIArticle_Dig.objects.filter(user=self.visitor)
+
+        da = articles.values_list('article_id', flat=True)
+        res = dict()
+        res['count'] = articles.count()
+        res['articles'] = list()
+        res['page'] = self.page
+        res['size'] = self.size
+
+        paginator = Paginator(articles, self.size)
+        try:
+            article_list = paginator.page(self.page)
+        except Exception:
+            return res
+
+        for row in article_list.object_list:
+            obj = row.article.v4_toDict(articles_list=da)
+            res['articles'].append(
+                obj
+            )
+        return res
+
+    def get(self, request, *args, **kwargs):
+
+        self.user_id = kwargs.pop('user_id', None)
+        print self.user_id
+        assert self.user_id is not None
+        _key = request.GET.get('session', None)
+        self.page = request.GET.get('page', 1)
+        self.size = request.GET.get('size', 30)
+        self.visitor = None
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+            self.visitor = _session.user
+        except Session_Key.DoesNotExist:
+            pass
+        return super(APIUserDigArticlesView, self).get(request, *args, **kwargs)
+
 
 
 class APIUserSearchView(SearchView, JSONResponseMixin):

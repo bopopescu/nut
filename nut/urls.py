@@ -52,7 +52,10 @@ urlpatterns += patterns('',
 )
 
 
-
+# sitemap
+'''
+    guoku sitemap urls
+'''
 from apps.web.sitemaps import UserSitemap, \
     EntitySitemap, \
     TagSitemap, \
@@ -82,3 +85,13 @@ if settings.DEBUG:
     urlpatterns += patterns('',
         url(r'^__debug__/', include(debug_toolbar.urls)),
     )
+
+
+# for personal domain function
+# put this pattern at LAST!
+
+from apps.web.views.user import UserIndex
+urlpatterns += patterns('',
+               url(r'^(?P<user_domain>\w+)/$',  UserIndex.as_view(), name='user_domain_link'),
+               )
+

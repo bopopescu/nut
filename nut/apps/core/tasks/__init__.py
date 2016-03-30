@@ -19,7 +19,6 @@ class BaseTask(Task):
     send_error_emails = True
     default_retry_delay = 20
 
-
 from apps.core.tasks.account import fetch_avatar, update_token
 from apps.core.tasks.entity import fetch_image, like_task, unlike_task
 from apps.core.tasks.selection import set_publish_time
@@ -29,6 +28,7 @@ from apps.core.tasks.recorder import record_search
 from apps.core.tasks.edm import add_user_to_list
 from apps.core.tasks.edm import send_activation_mail
 from apps.core.tasks.edm import send_forget_password_mail
+from apps.core.tasks.article import dig_task, undig_task
 
 
 __author__ = 'edison'
