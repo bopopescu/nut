@@ -598,7 +598,7 @@ class UserIndex(UserPageMixin, DetailView):
         _entity_list = Entity.objects.get_user_added_entities(current_user)[:8]
 
         context_data['author_articles'] = self.get_author_articles(current_user)
-
+        context_data['author_articles_main_page'] = self.get_author_articles(current_user)[:12]
         current_user_like_articles = Article_Dig.objects\
                                                .user_dig_list(user=current_user,\
                                                               article_list=Article.objects.published())[:3]

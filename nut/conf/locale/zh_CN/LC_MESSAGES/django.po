@@ -187,6 +187,7 @@ msgstr "推荐"
 msgid "selection"
 msgstr "商品"
 
+
 #: apps/core/models.py:792 apps/core/models.py:798
 #: apps/core/forms/entity.py:257
 #: apps/management/templates/management/category/entity/category_entity_list.html:26
@@ -2616,6 +2617,20 @@ msgstr "他"
 #: apps/wechat/templates/wechat/bind.html:34
 msgid "bind"
 msgstr "绑定"
+
+
+
+#: apps/web/templates/web/user/partial/user_detail_sidebar.html: 32
+msgid "Entity"
+msgstr "商品"
+
+
+#: apps/web/templates/web/user/partial/user_detail_sidebar.html: 41
+msgid "Article Digged"
+msgstr "赞过的图文"
+
+
+
 
 #~ msgid "Sogou Cookie"
 #~ msgstr "搜狗COOKIE"
