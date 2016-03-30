@@ -35,7 +35,9 @@ def dashboard(request, template='management/dashboard.html'):
                                                                  today)).count()
     authorized_authors  = GKUser.objects.authorized_author()
     yesterday_finish_detail = {}
-    date_range = request.GET.get('status', 0)
+    # data_range and status has different meanning
+    # naming is wrong
+    date_range = int(request.GET.get('status', 0))
     for author in authorized_authors:
         finish_num = get_update(author)
         finish_num = finish_num[int(date_range)]
@@ -108,6 +110,7 @@ def dashboard(request, template='management/dashboard.html'):
                                     'note_count': note_count,
                                     # 'selection_entities': selection_entities,
                                     'yesterday_finish_detail': yesterday_finish_detail,
+                                    'status':date_range,
                                 },
                                 context_instance = RequestContext(request))
 
