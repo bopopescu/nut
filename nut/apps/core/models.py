@@ -1510,7 +1510,7 @@ class Article(BaseModel):
         res.pop('updated_datetime', None)
         res['article_id'] = self.id
         res['tags'] = self.tag_list
-        res['content'] = self.strip_tags_content
+        res['content'] = self.content
         res['url'] = self.get_absolute_url()
         res['creator'] = self.creator.v3_toDict()
         res['dig_count'] = self.dig_count

@@ -310,20 +310,20 @@ class APIArticle(Article):
         return h_parser.unescape(strip_tags(self.content))
 
     def v4_toDict(self, articles_list=list()):
-        res = self.toDict()
-        res.pop('id', None)
-        res.pop('creator_id')
-        res.pop('created_datetime', None)
-        res.pop('updated_datetime', None)
-        res['article_id'] = self.id
-        res['tags'] = self.tag_list
+        res = self.v4_toDict(articles_list=articles_list)
+        # res.pop('id', None)
+        # res.pop('creator_id')
+        # res.pop('created_datetime', None)
+        # res.pop('updated_datetime', None)
+        # res['article_id'] = self.id
+        # res['tags'] = self.tag_list
         res['content'] = self.strip_tags_content
-        res['url'] = self.get_absolute_url()
-        res['creator'] = self.creator.v3_toDict()
-        res['dig_count'] = self.dig_count
-        res['is_dig'] = False
-        if self.id in articles_list:
-            res['is_dig'] = True
+        # res['url'] = self.get_absolute_url()
+        # res['creator'] = self.creator.v3_toDict()
+        # res['dig_count'] = self.dig_count
+        # res['is_dig'] = False
+        # if self.id in articles_list:
+        #     res['is_dig'] = True
         return res
 
 
