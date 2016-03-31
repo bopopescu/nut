@@ -374,6 +374,29 @@ ul li {
   font-size: 13px;
   color: #9d9d9d;
 }
+.new-guoku-blue-btn {
+  font-size: 14px;
+  width: 60px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: #4188Dc;
+  display: inline-block;
+  color: #fff;
+  padding: 0px 6px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.new-guoku-blue-btn:hover,
+.new-guoku-blue-btn:focus {
+  text-decoration: none!important;
+}
 .guoku-btn-normal {
   font-size: 14px;
   height: 32px;
@@ -2135,6 +2158,86 @@ textarea {
   .user-article-wrapper .user-article-item-wrapper.user-article-cell .user-article-panel .user-article-title-wrapper,
   .user-article-wrapper .user-article-item-wrapper.user-article-cell .user-article-panel .user-article-intro-wrapper {
     min-height: 0 !important;
+  }
+}
+.bottom-ad {
+  height: 220px;
+  width: 100%;
+  position: fixed;
+  bottom: -3px;
+  left: 0;
+  z-index: 1000;
+  background-color: rgba(10, 10, 27, 0.9);
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -ms-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  -webkit-transform: translateY(220px);
+  -moz-transform: translateY(220px);
+  -ms-transform: translateY(220px);
+  -o-transform: translateY(220px);
+}
+.bottom-ad.showing {
+  -webkit-transform: translateY(0px) !important;
+  -moz-transform: translateY(0px) !important;
+  -ms-transform: translateY(0px) !important;
+  -o-transform: translateY(0px) !important;
+}
+.bottom-ad .ad-wrapper.bottom-ad-wrapper {
+  width: auto;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .guoku-logo {
+  width: 210px;
+  height: 60px;
+  margin-top: 80px;
+}
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .wechat-wrapper,
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .download-wrapper {
+  float: right;
+  margin-top: 30px;
+}
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .wechat-wrapper p,
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .download-wrapper p {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #ffffff;
+  text-align: center;
+}
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .wechat-wrapper {
+  margin-right: 30px;
+}
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .download-btn-control {
+  float: right;
+  margin-top: 15px;
+}
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .download-btn-control:hover {
+  color: #ffffff;
+}
+@media screen and (max-width: 767px) {
+  .bottom-ad {
+    height: auto;
+  }
+  .bottom-ad .ad-wrapper.bottom-ad-wrapper {
+    margin: 20px 10px 20px 40px;
+  }
+  .bottom-ad .ad-wrapper.bottom-ad-wrapper .guoku-logo {
+    width: 105px;
+    height: 30px;
+    margin-top: 0px;
+  }
+  .bottom-ad .ad-wrapper.bottom-ad-wrapper .wechat-wrapper,
+  .bottom-ad .ad-wrapper.bottom-ad-wrapper .download-wrapper {
+    display: none;
+  }
+  .bottom-ad .ad-wrapper.bottom-ad-wrapper .download-btn-control {
+    margin-top: 0;
+  }
+  .close-button.close-button-control {
+    left: 10px;
+    top: 25px;
+    position: absolute;
   }
 }
 body {
@@ -4486,6 +4589,6 @@ body .for-mobile {
   text-align: left;
 }
 .gk_test {
-  color: red;
+  color: black;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
