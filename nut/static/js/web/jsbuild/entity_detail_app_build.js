@@ -933,8 +933,8 @@ define('subapp/topmenu',['bootstrap',
         init: function(){
 
             ///////////////////////////
-            console.log('in Menu init, ');
-            console.log(jQuery);
+            //console.log('in Menu init, ');
+            //console.log(jQuery);
             ////////////////////////////
 
             this.$menu = $('#guoku_main_nav');
@@ -946,7 +946,13 @@ define('subapp/topmenu',['bootstrap',
             this.checkSNSBindVisit();
             this.checkEventRead();
             //this.topAd = new TopAd();
+            this.setupBottomCloseButton();
 
+        },
+        setupBottomCloseButton: function(){
+            $('.bottom-ad .close-button').click(function(){
+                $('.bottom-ad').addClass('hidden');
+            });
         },
         checkEventRead:function(){
             // add by an , for event link status check , remove the red dot if event is read.
@@ -1026,6 +1032,7 @@ define('subapp/topmenu',['bootstrap',
             this.$menu.removeClass('hidden-header');
             this.$menu.addClass('shown-header');
             $('.round-link').show();
+            $('.bottom-ad').addClass('showing');
             //console.log((new Date()).getMilliseconds());
 
         },
@@ -1034,12 +1041,9 @@ define('subapp/topmenu',['bootstrap',
             this.$menu.removeClass('shown-header');
             this.$menu.addClass('hidden-header');
             $('.round-link').hide();
-
+            $('.bottom-ad').removeClass('showing');
             //console.log((new Date()).getMilliseconds());
-
         }
-
-
     });
 
     return  Menu;
@@ -1820,6 +1824,7 @@ define('subapp/note/notepoke',['libs/Class',
         init:function(){
             this.accountApp = new AccountApp();
             this.setupPokeEvents();
+            this.ispoking = false;
         },
             setupPokeEvents: function(ele){
             var that = this;
@@ -1832,14 +1837,16 @@ define('subapp/note/notepoke',['libs/Class',
             this.setupPokeEvents(ele);
         },
         doPoke: function(event){
-
+            if (this.ispoking === true) {
+                return ;
+            }
             var $poke = $(event.currentTarget);
             var note_id =$poke.attr('data-note');
             var $counter = $poke.find('span.poke-count');
             var $poker_icon = $poke.find('i');
 
             var url  = '/note/' + note_id + '/poke/';
-
+            this.ispoking = true;
             $.when(
                 $.ajax({
                     method: 'POST',
@@ -1853,9 +1860,10 @@ define('subapp/note/notepoke',['libs/Class',
 
         },
         pokeSuccess:function(data){
+            this.ispoking = false;
             var result = parseInt(data.result);
             var poked_note_id = data.note_id;
-
+            console.log('poke:', data);
             var $poke = $('.poke[data-note="'+ poked_note_id +'"]');
             var $count = $poke.find('span.poke-count');
             var numberCount  = parseInt($count.html()) || 0 ;
@@ -1866,7 +1874,6 @@ define('subapp/note/notepoke',['libs/Class',
                 numberCount++;
                 $poke_icon.addClass('fa-thumbs-up');
                 $poke_icon.removeClass('fa-thumbs-o-up');
-
                 if(numberCount === 1){
                     $('<span class="poke-count">' + numberCount + '</span>').appendTo($poke);
 
@@ -1895,6 +1902,7 @@ define('subapp/note/notepoke',['libs/Class',
 
         },
         pokeFail:function(data){
+            this.ispoking = false;
             var html = data.responseText;
                 this.accountApp.modalSignIn(html);
             }
@@ -3494,7 +3502,7 @@ require([
 
         // hide baichuan recommend , for service is down now
         // by an, 2016, 3-19 .
-        //var baichuanManager = new BaichuanManager();
+        var baichuanManager = new BaichuanManager();
 
          var shareApp = new EntityShareApp();
 
