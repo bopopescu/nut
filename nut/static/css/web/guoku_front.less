@@ -8,8 +8,10 @@
 @import "../lib/egypt.less";
 
 
-@import "top_add.less";
-@import "user_author_add.less";
+
+@import "sub/top_add.less";
+@import "sub/user_author_add.less";
+@import "sub/bottom_ad_layer.less";
 
 
 *{
@@ -84,15 +86,16 @@ body.compact-body{
   .banner-image-cell{
      padding: 0 10px;
     &.banner-image-cell-control{
-      padding:0;
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
-      overflow: hidden;
+      padding:0 5px;
+      position:relative;
+      //border-top-left-radius: 4px;
+      //border-top-right-radius: 4px;
+      //overflow: hidden;
     }
     .banner-image-wrapper{
        height: 0;
        width: 100%;
-       padding-bottom: 40%;
+       padding-bottom: 55.56%;
        background-size: cover;
        background-position: center center;
     }
@@ -1863,7 +1866,7 @@ body{
 }
 
 .gk_test{
-  color:red;
+  color:black;
 }
 
 

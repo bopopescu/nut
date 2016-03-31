@@ -79,6 +79,29 @@
   font-size: 13px;
   color: #9d9d9d;
 }
+.new-guoku-blue-btn {
+  font-size: 14px;
+  width: 60px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: #4188Dc;
+  display: inline-block;
+  color: #fff;
+  padding: 0px 6px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.new-guoku-blue-btn:hover,
+.new-guoku-blue-btn:focus {
+  text-decoration: none!important;
+}
 .guoku-btn-normal {
   font-size: 14px;
   height: 32px;
@@ -1222,3 +1245,4 @@ body {
 .event-article-modal .event-title {
   size: 22px;
 }
+/*# sourceMappingURL=main.less.css.map */

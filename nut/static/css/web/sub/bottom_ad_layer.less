@@ -1,0 +1,76 @@
+@import "../../lib/mixin.less";
+
+.bottom-ad{
+  height:220px;
+  width: 100%;
+  position:fixed;
+  bottom:-3px;
+  left:0;
+  z-index:1000;
+  //background-color: #0A0A1B;
+  //opacity: 0.9;
+  background-color: rgba(10,10,27,0.9);
+  .transition(all 1s ease-in-out);
+  .transform(translateY(220px));
+
+  &.showing{
+    .transform(translateY(0px))!important;
+  }
+
+  .ad-wrapper.bottom-ad-wrapper{
+    width:auto;
+    margin-left:80px;
+    margin-right:80px;
+    .guoku-logo{
+      width:210px;
+      height:60px;
+      margin-top:80px;
+    }
+    .wechat-wrapper,.download-wrapper{
+      float: right;
+      margin-top:30px;
+      p{
+        margin-top:16px;
+        font-size: 14px;
+        color:#ffffff;
+        text-align: center;
+      }
+    }
+    .wechat-wrapper{
+      margin-right:30px;
+    }
+    .download-btn-control{
+      float:right;
+      margin-top:15px;
+      &:hover{
+        color:#ffffff;
+      }
+    }
+  }
+}
+
+@media screen and (max-width:767px){
+  .bottom-ad{
+    height:auto;
+    .ad-wrapper.bottom-ad-wrapper{
+      margin:20px 10px 20px 40px;
+      .guoku-logo{
+        width:105px;
+        height:30px;
+        margin-top:0px;
+      }
+    .wechat-wrapper,.download-wrapper{
+      display: none;
+        }
+      .download-btn-control{
+        margin-top:0;
+      }
+    }
+  }
+
+  .close-button.close-button-control{
+    left:10px;
+    top:25px;
+    position: absolute;
+  }
+}
