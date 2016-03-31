@@ -769,67 +769,6 @@ p .b_day {
   text-align: center;
   font-size: 14px;
 }
-.entity-four.new-thumbnail {
-  padding: 16px;
-  border: none;
-  margin-bottom: 20px;
-  background-color: #fff;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  -webkit-box-shadow: 0px 0px 2px #ddd;
-  -moz-box-shadow: 0px 0px 2px #ddd;
-  box-shadow: 0px 0px 2px #ddd;
-  overflow: hidden;
-}
-.entity-four.new-thumbnail .img-box {
-  border: none;
-}
-.entity-four.new-thumbnail .btn-like {
-  padding: 0px;
-  line-height: 14px;
-  font-size: 14px;
-  height: 14px;
-  color: #9d9e9f;
-}
-.entity-four.new-thumbnail .entity-four-info {
-  margin-top: 16px;
-  overflow: hidden;
-}
-.entity-four.new-thumbnail .entity-four-info .caption {
-  width: 60%;
-  height: 80px;
-  float: left;
-  margin: 0;
-  font-size: 14px;
-}
-.entity-four.new-thumbnail .entity-four-info .caption .brand,
-.entity-four.new-thumbnail .entity-four-info .caption .title {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.entity-four.new-thumbnail .entity-four-info .caption .brand {
-  color: #9D9E9F;
-}
-.entity-four.new-thumbnail .entity-four-info .caption .title a {
-  color: #424242;
-}
-.entity-four.new-thumbnail .entity-four-info .caption .price {
-  color: #357ebd;
-}
-.entity-four.new-thumbnail .entity-four-info .action {
-  height: 30px;
-  float: right;
-}
-.entity-four.new-thumbnail .entity-four-info .action .info {
-  color: #9D9E9F;
-  text-align: center;
-  font-size: 14px;
-}
 .btn-top {
   backface-visibility: hidden;
   -webkit-transform: translate3d(0, 0, 0);
@@ -1101,32 +1040,6 @@ p.boolean-false {
   text-align: center;
   border-radius: 5px;
   font-size: 18px;
-}
-.new-empty-panel-content {
-  display: block;
-  width: 100%;
-  min-height: 180px;
-  line-height: 180px;
-  text-align: center;
-  border: 1px solid #ebebeb;
-  color: #9D9E9F;
-}
-.check-icon-wrapper {
-  text-align: center;
-  margin-top: 40px;
-}
-.check-icon-wrapper .message {
-  margin-top: 30px;
-  font-size: 32px;
-}
-.check-icon-wrapper .check-well-icon {
-  color: #4FB832;
-}
-.check-icon-wrapper .big-check-icon {
-  font-size: 132px;
-}
-.check-icon-wrapper .small-check-icon {
-  font-size: 80px;
 }
 .message_page {
   width: 941px;
@@ -1512,6 +1425,7 @@ p.boolean-false {
   left: 0px;
   top: -5px;
   height: 32px;
+  cursor: pointer;
 }
 .main-article .share-wrapper .dig-wrapper .digged img.dig {
   display: none;
@@ -4449,6 +4363,43 @@ body .for-mobile {
   top: -8px;
   left: 3px;
 }
+.brand-page .brand-info {
+  text-align: center;
+}
+.brand-page .brand-info .brand-icon {
+  display: inline-block;
+  width: 140px;
+  height: 140px;
+  border: 1px solid #ebebeb;
+}
+.brand-page .brand-info .brand-name {
+  margin-top: 40px;
+}
+.brand-page .brand-info .brand-name .nick {
+  font-size: 32px;
+  font-weight: 500;
+  margin-right: 12px;
+  font-size: 24px;
+}
+.brand-page .brand-info .brand-basic-info {
+  margin-top: 16px;
+  font-size: 14px;
+}
+.brand-page .brand-info .brand-basic-info ul {
+  overflow: hidden;
+}
+.brand-page .brand-info .brand-basic-info ul li {
+  display: inline-block;
+  margin-right: 5px;
+  color: #9d9d9d;
+}
+.brand-page .brand-info .brand-intro-wrapper p {
+  width: 80%;
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 14px;
+  text-align: left;
+}
 .gk_test {
-  color: red;
+  color: black;
 }
