@@ -839,9 +839,7 @@ p.boolean-false {
   border: 1px solid #6192FF;
 }
 .new-btn-cancel:hover,
-.new-button-cancel:hover,
-.new-btn-cancel:focus,
-.new-button-cancel:focus {
+.new-button-cancel:hover {
   background-color: #3F6FF0;
   border: 1px solid #3F6FF0;
   color: #ffffff;
@@ -849,6 +847,8 @@ p.boolean-false {
 .new-btn-cancel:focus,
 .new-button-cancel:focus {
   background-color: #6192FF;
+  color: #ffffff;
+  border: 1px solid #6192FF;
 }
 .new-btn-cancel i,
 .new-button-cancel i,
