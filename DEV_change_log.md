@@ -1,4 +1,5 @@
-3. 
+4. 
+3. kaola image get fix 
 2. bottom download bar for mobile access
 1. fix mng brand state page bug 
 
