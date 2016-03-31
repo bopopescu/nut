@@ -310,7 +310,8 @@ class APIArticle(Article):
         return h_parser.unescape(strip_tags(self.content))
 
     def v4_toDict(self, articles_list=list()):
-        res = self.v4_toDict(articles_list=articles_list)
+        res = super(APIArticle, self).v4_toDict(articles_list=articles_list)
+        # res = self.v4_toDict(articles_list=articles_list)
         # res.pop('id', None)
         # res.pop('creator_id')
         # res.pop('created_datetime', None)
