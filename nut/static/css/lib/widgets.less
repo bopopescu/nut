@@ -798,12 +798,18 @@ p.boolean-false{
   background-color:@btn-blue;
   color: #ffffff;
   border: 1px solid @btn-blue;
-  &:hover,&:focus{
+  &:hover{
     background-color: @btn-blue-dark;
     border: 1px solid @btn-blue-dark;
     color:#ffffff;
   }
-  i.fa-plus{
+  &:focus{
+    background-color: @btn-blue;
+    color:#ffffff;
+     border: 1px solid @btn-blue;
+  }
+
+  i,i.fa-plus{
     color: #ffffff;
   }
 }
@@ -813,12 +819,17 @@ p.boolean-false{
   border:1px solid @btn-blue;
   background-color: #ffffff;
   color: @btn-blue;
-  &:hover, &:focus{
+  &:hover{
     color:@btn-blue-dark;
     border:1px solid @btn-blue-dark;
     i.fa-plus{
       color: @btn-blue-dark;
     }
+  }
+  &:focus{
+    background: #ffffff;
+    color:@btn-blue;
+
   }
    i.fa-plus{
     color: @btn-blue;
