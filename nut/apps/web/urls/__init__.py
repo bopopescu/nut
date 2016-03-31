@@ -1,6 +1,6 @@
 from django.conf.urls import url, include, patterns
 from django.views.generic import RedirectView
-from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, DownloadView
+from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, DownloadView, CooperateView
 from apps.web.views.discover import DiscoverView
 from apps.web.views.main import SelectionEntityList, SiteMapView
 from apps.web.views.entity import EntityCard, EntityLikersView
@@ -79,6 +79,7 @@ urlpatterns += patterns(
     'apps.web.views',
 
     url(r'^about/$', AboutView.as_view(), name='web_about'),
+    url(r'^cooperate/$', CooperateView.as_view(), name='web_cooperate'),
     url(r'^jobs/$', JobsView.as_view(), name='web_jobs'),
     url(r'^agreement/$', Agreement.as_view(), name='web_agreement'),
     url(r'^links/$', FriendlyLinkListView.as_view(), name='web_links'),

@@ -374,6 +374,29 @@ ul li {
   font-size: 13px;
   color: #9d9d9d;
 }
+.new-guoku-blue-btn {
+  font-size: 14px;
+  width: 60px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: #4188Dc;
+  display: inline-block;
+  color: #fff;
+  padding: 0px 6px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.new-guoku-blue-btn:hover,
+.new-guoku-blue-btn:focus {
+  text-decoration: none!important;
+}
 .guoku-btn-normal {
   font-size: 14px;
   height: 32px;
@@ -1145,6 +1168,72 @@ p.boolean-false {
 .square-follow-btn.btn-cancel:hover,
 .square-follow-btn.btn-cancel:focus {
   background-color: #3F6FF0;
+}
+.new-guoku-button {
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: #ffffff;
+  display: inline-block;
+  color: #6192FF;
+  padding: 0px 6px;
+  cursor: pointer;
+  text-decoration: none;
+  min-width: 110px;
+}
+.new-guoku-button:hover,
+.new-guoku-button:focus {
+  text-decoration: none!important;
+}
+.new-btn-cancel,
+.new-button-cancel {
+  background-color: #6192FF;
+  color: #ffffff;
+  border: 1px solid #6192FF;
+}
+.new-btn-cancel:hover,
+.new-button-cancel:hover {
+  background-color: #3F6FF0;
+  border: 1px solid #3F6FF0;
+  color: #ffffff;
+}
+.new-btn-cancel:focus,
+.new-button-cancel:focus {
+  background-color: #6192FF;
+  color: #ffffff;
+  border: 1px solid #6192FF;
+}
+.new-btn-cancel i,
+.new-button-cancel i,
+.new-btn-cancel i.fa-plus,
+.new-button-cancel i.fa-plus {
+  color: #ffffff;
+}
+.newest-button-blue {
+  border: 1px solid #6192FF;
+  background-color: #ffffff;
+  color: #6192FF;
+}
+.newest-button-blue:hover {
+  color: #3F6FF0;
+  border: 1px solid #3F6FF0;
+}
+.newest-button-blue:hover i.fa-plus {
+  color: #3F6FF0;
+}
+.newest-button-blue:focus {
+  background: #ffffff;
+  color: #6192FF;
+}
+.newest-button-blue i.fa-plus {
+  color: #6192FF;
 }
 .message_page {
   width: 941px;
@@ -2137,6 +2226,86 @@ textarea {
     min-height: 0 !important;
   }
 }
+.bottom-ad {
+  height: 220px;
+  width: 100%;
+  position: fixed;
+  bottom: -3px;
+  left: 0;
+  z-index: 1000;
+  background-color: rgba(10, 10, 27, 0.9);
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -ms-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  -webkit-transform: translateY(220px);
+  -moz-transform: translateY(220px);
+  -ms-transform: translateY(220px);
+  -o-transform: translateY(220px);
+}
+.bottom-ad.showing {
+  -webkit-transform: translateY(0px) !important;
+  -moz-transform: translateY(0px) !important;
+  -ms-transform: translateY(0px) !important;
+  -o-transform: translateY(0px) !important;
+}
+.bottom-ad .ad-wrapper.bottom-ad-wrapper {
+  width: auto;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .guoku-logo {
+  width: 210px;
+  height: 60px;
+  margin-top: 80px;
+}
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .wechat-wrapper,
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .download-wrapper {
+  float: right;
+  margin-top: 30px;
+}
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .wechat-wrapper p,
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .download-wrapper p {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #ffffff;
+  text-align: center;
+}
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .wechat-wrapper {
+  margin-right: 30px;
+}
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .download-btn-control {
+  float: right;
+  margin-top: 15px;
+}
+.bottom-ad .ad-wrapper.bottom-ad-wrapper .download-btn-control:hover {
+  color: #ffffff;
+}
+@media screen and (max-width: 767px) {
+  .bottom-ad {
+    height: auto;
+  }
+  .bottom-ad .ad-wrapper.bottom-ad-wrapper {
+    margin: 20px 10px 20px 40px;
+  }
+  .bottom-ad .ad-wrapper.bottom-ad-wrapper .guoku-logo {
+    width: 105px;
+    height: 30px;
+    margin-top: 0px;
+  }
+  .bottom-ad .ad-wrapper.bottom-ad-wrapper .wechat-wrapper,
+  .bottom-ad .ad-wrapper.bottom-ad-wrapper .download-wrapper {
+    display: none;
+  }
+  .bottom-ad .ad-wrapper.bottom-ad-wrapper .download-btn-control {
+    margin-top: 0;
+  }
+  .close-button.close-button-control {
+    left: 10px;
+    top: 25px;
+    position: absolute;
+  }
+}
 body {
   padding-top: 80px;
   color: #424242;
@@ -2205,15 +2374,13 @@ body.compact-body {
   padding: 0 10px;
 }
 #index-banners .banner-image-cell.banner-image-cell-control {
-  padding: 0;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  overflow: hidden;
+  padding: 0 5px;
+  position: relative;
 }
 #index-banners .banner-image-cell .banner-image-wrapper {
   height: 0;
   width: 100%;
-  padding-bottom: 40%;
+  padding-bottom: 55.56%;
   background-size: cover;
   background-position: center center;
 }
@@ -2757,6 +2924,17 @@ body.compact-body {
 .authorized-seller-body .section-title-wrapper .section-title .more-link {
   float: right;
   font-size: 14px;
+}
+.authorized-seller-body .more-nav-wrapper {
+  margin: 40px 0;
+}
+.authorized-seller-body .more-nav-wrapper .more-nav {
+  font-size: 14px;
+  text-align: center;
+}
+.authorized-seller-body .more-nav-wrapper .more-nav .nav-list-item {
+  display: inline-block;
+  margin-right: 21px;
 }
 .guoku-content.user-page .user-info-wrapper,
 .entity-likers-body.user-page .user-info-wrapper,
@@ -4090,6 +4268,9 @@ body.compact-body {
   .authorized-seller-body .entity-four.new-thumbnail .entity-four-info .action {
     float: left;
   }
+  .authorized-seller-body .more-nav-wrapper .more-nav .nav-list-item {
+    margin-right: 3px;
+  }
 }
 @media (max-width: 767px) {
   .entity-selection-body {
@@ -4133,6 +4314,12 @@ body.compact-body {
   }
 }
 @media (max-width: 767px) {
+  .mail-result .check-icon-wrapper .big-check-icon {
+    font-size: 80px;
+  }
+  .mail-result .check-icon-wrapper .message {
+    font-size: 14px;
+  }
   #selection_article_list .selection-article-item .article-title {
     min-height: 0px!important;
   }
@@ -4486,5 +4673,5 @@ body .for-mobile {
   text-align: left;
 }
 .gk_test {
-  color: red;
+  color: black;
 }
