@@ -170,7 +170,8 @@
                             </a>
                         </div>
                         {% for style in shop_style_filters %}
-                            {% if forloop.counter == 1 %}
+{#                            skip  #9 and  #10  shop style , for now #}
+                            {% if forloop.counter == 1 or forloop.counter == 9 or forloop.counter == 10  %}
 
                             {% else %}
                                 <div class="top-article-tag">
@@ -186,36 +187,36 @@
                     </div>
                 </div>
 
-                <div class="type-wrapper">
-                    <div class="type-title">
-                        类型
-                    </div>
-
-                    <div class="type-item" id="top_article_tags_container">
-                        <div class="top-article-tag">
-                            <a  href="{{ base_url }}?{{ 'shop_type'|filter_builder:-1 }}&{{ 'shop_style'|filter_builder:current_shop_style }}#sellers" data_filter="shop_type" data_value="-1">
-                                <div class="tag-element {% if current_shop_type == -1  %} tag-current {% endif %}">
-                                    全部
-                                </div>
-                            </a>
-                        </div>
-                        {% for type in shop_type_filters %}
-                            {% if forloop.counter == 1 %}
-
-                            {% else %}
-                                <div class="top-article-tag">
-                                    <a href="{{ base_url }}?{{ 'shop_type'|filter_builder:type.0 }}&{{ 'shop_style'|filter_builder:current_shop_style }}#sellers" data_filter="shop_type" data_value="{{ type.0 }}">
-                                        <div class="tag-element {% if current_shop_type == type.0 %}  tag-current {% endif %}">
-
-                                            {{ type.1 }}
-                                        </div>
-                                    </a>
-
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
+{#                <div class="type-wrapper">#}
+{#                    <div class="type-title">#}
+{#                        类型#}
+{#                    </div>#}
+{##}
+{#                    <div class="type-item" id="top_article_tags_container">#}
+{#                        <div class="top-article-tag">#}
+{#                            <a  href="{{ base_url }}?{{ 'shop_type'|filter_builder:-1 }}&{{ 'shop_style'|filter_builder:current_shop_style }}#sellers" data_filter="shop_type" data_value="-1">#}
+{#                                <div class="tag-element {% if current_shop_type == -1  %} tag-current {% endif %}">#}
+{#                                    全部#}
+{#                                </div>#}
+{#                            </a>#}
+{#                        </div>#}
+{#                        {% for type in shop_type_filters %}#}
+{#                            {% if forloop.counter == 1 %}#}
+{##}
+{#                            {% else %}#}
+{#                                <div class="top-article-tag">#}
+{#                                    <a href="{{ base_url }}?{{ 'shop_type'|filter_builder:type.0 }}&{{ 'shop_style'|filter_builder:current_shop_style }}#sellers" data_filter="shop_type" data_value="{{ type.0 }}">#}
+{#                                        <div class="tag-element {% if current_shop_type == type.0 %}  tag-current {% endif %}">#}
+{##}
+{#                                            {{ type.1 }}#}
+{#                                        </div>#}
+{#                                    </a>#}
+{##}
+{#                                </div>#}
+{#                            {% endif %}#}
+{#                        {% endfor %}#}
+{#                    </div>#}
+{#                </div>#}
             </div>
         </div>
         <div class="row good-store-row select-result-wrapper">
