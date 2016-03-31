@@ -41,8 +41,6 @@ def message(request):
     # log.info(_messages.query)
     res = []
     for row in _messages[:_count]:
-        # log.info(row.action_object.__class__.__name__)
-        # log.info(row.actor.profile.nickname)
         if isinstance(row.action_object, User_Follow):
             _context = {
                 'type' : 'user_follow',
