@@ -33,7 +33,7 @@
                         <a href="{% url 'web_user_entities' current_user.pk %}">{% trans 'Entity' %}&nbsp;<i class="fa fa-caret-right"></i></a>
                     </li>
                     <li>
-                        <a href="{% url 'web_user_article' current_user.pk %}">{% trans 'Article' %}&nbsp;<i class="fa fa-caret-right"></i></a>
+                        <a href="{% url 'web_user_article_published' current_user.pk %}">{% trans 'Article' %}&nbsp;<i class="fa fa-caret-right"></i></a>
                     </li>
                 {% endif %}
 

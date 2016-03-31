@@ -2633,6 +2633,17 @@ msgstr "他"
 msgid "bind"
 msgstr "绑定"
 
+
+#: apps/web/templates/web/user/partial/user_detail_sidebar.html: 32
+msgid "Entity"
+msgstr "商品"
+
+
+#: apps/web/templates/web/user/partial/user_detail_sidebar.html: 41
+msgid "Article Digged"
+msgstr "赞过的图文"
+
+
 #~ msgid "Sogou Cookie"
 #~ msgstr "搜狗COOKIE"
 
