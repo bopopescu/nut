@@ -14,10 +14,7 @@ from django.views.generic.base import TemplateResponseMixin
 from django.views.generic.base import ContextMixin
 from braces.views import AjaxResponseMixin
 from braces.views import JSONResponseMixin
-from apps.core.models import Category
-from apps.core.models import Sub_Category
-from apps.core.models import Entity
-from apps.core.models import Entity_Like, Article
+from apps.core.models import Entity, Entity_Like, Article,Selection_Article,Selection_Entity, Sub_Category, Category
 from apps.core.extend.paginator import EmptyPage
 from apps.core.extend.paginator import PageNotAnInteger
 from apps.core.extend.paginator import ExtentPaginator
@@ -121,6 +118,8 @@ class CategoryDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
         if self.get_order_by() == 'olike':
             order_by_like = True
         self.cid = cid
+        # e_ids = Selection_Entity.objects.published().filter(entity__category_id=cid).values_list('entity_id', flat=True)
+        # entity_list =  Entity.objects.filter(pk__in=e_ids).sort(category_id=cid,like=order_by_like)
         entity_list = Entity.objects.sort(category_id=cid,
                                           like=order_by_like).exclude(
             selection_entity__is_published=False)

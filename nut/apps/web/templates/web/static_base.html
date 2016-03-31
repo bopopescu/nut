@@ -21,6 +21,7 @@
             {% url 'web_links' as web_links_url %}
             {% url 'web_agreement' as web_agreement_url %}
             {% url 'web_faq' as web_faq_url %}
+            {% url 'web_cooperate' as web_cooperate_url %}
             {% block sidebar %}
                 <ul class="nav-sidebar fs_14 fc_2">
 
@@ -52,6 +53,12 @@
                     <a href="{{ web_links_url }}">
                          <i class="fa fa-arrow-circle-right"></i>
                         <span>LINKS {% trans 'links' %}</span>
+                    </a>
+                </li>
+                <li class="fc_5 {% if web_cooperate_url in request.path %}check{% endif %}">
+                    <a href="{{ web_cooperate_url }}">
+                         <i class="fa fa-arrow-circle-right"></i>
+                        <span>LINKS {% trans '果库合作' %}</span>
                     </a>
                 </li>
                 <li class="fc_5 {% if web_agreement_url in request.path %}check{% endif %}">

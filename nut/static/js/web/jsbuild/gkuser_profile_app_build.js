@@ -800,8 +800,8 @@ define('subapp/topmenu',['bootstrap',
         init: function(){
 
             ///////////////////////////
-            console.log('in Menu init, ');
-            console.log(jQuery);
+            //console.log('in Menu init, ');
+            //console.log(jQuery);
             ////////////////////////////
 
             this.$menu = $('#guoku_main_nav');
@@ -813,7 +813,13 @@ define('subapp/topmenu',['bootstrap',
             this.checkSNSBindVisit();
             this.checkEventRead();
             //this.topAd = new TopAd();
+            this.setupBottomCloseButton();
 
+        },
+        setupBottomCloseButton: function(){
+            $('.bottom-ad .close-button').click(function(){
+                $('.bottom-ad').addClass('hidden');
+            });
         },
         checkEventRead:function(){
             // add by an , for event link status check , remove the red dot if event is read.
@@ -893,6 +899,7 @@ define('subapp/topmenu',['bootstrap',
             this.$menu.removeClass('hidden-header');
             this.$menu.addClass('shown-header');
             $('.round-link').show();
+            $('.bottom-ad').addClass('showing');
             //console.log((new Date()).getMilliseconds());
 
         },
@@ -901,12 +908,9 @@ define('subapp/topmenu',['bootstrap',
             this.$menu.removeClass('shown-header');
             this.$menu.addClass('hidden-header');
             $('.round-link').hide();
-
+            $('.bottom-ad').removeClass('showing');
             //console.log((new Date()).getMilliseconds());
-
         }
-
-
     });
 
     return  Menu;
@@ -1433,8 +1437,26 @@ define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(
             return this.AccountApp;
         },
 
-        followSuccess: function(data){
-             console.log('success');
+        handleFollow: function (e) {
+            var that = this;
+            var $followButton = $(e.currentTarget);
+            var uid = $followButton.attr('data-user-id');
+            var status = $followButton.attr('data-status');
+            var action_url = "/u/" + uid;
+
+            if (status == 1) {
+                action_url += "/unfollow/";
+
+            } else {
+                action_url += "/follow/";
+            }
+
+            $.when($.ajax({
+                url: action_url,
+                dataType: 'json',
+                method: 'POST'
+            })).then(function success(data) {
+                console.log('success');
                 console.log(data);
                 if (data.status == 1) {
                     $followButton.html('<i class="fa fa-check fa-lg"></i>&nbsp; 取消关注');
@@ -1454,39 +1476,15 @@ define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(
                 } else {
                     console.log('did not response with valid data');
                 }
-        },
-        followFail: function(data){
-             console.log('failed' + error);
+            }, function fail(error) {
+                console.log('failed' + error);
                 var html = $(error.responseText);
                 that.getAccountApp().modalSignIn(html);
-        },
-
-
-        handleFollow: function (e) {
-            var that = this;
-            var $followButton = $(e.currentTarget);
-            var uid = $followButton.attr('data-user-id');
-            var status = $followButton.attr('data-status');
-            var action_url = "/u/" + uid;
-
-            if (status == 1) {
-                action_url += "/unfollow/";
-
-            } else {
-                action_url += "/follow/";
-            }
-
-            $.when($.ajax({
-                url: action_url,
-                dataType: 'json',
-                method: 'POST'
-            })).then(that.followSuccess.bind(this), that.followFail.bind(this));
+            });
         }
     });
     return UserFollow;
 });
-
-
 
 require([
         'jquery',

@@ -47,6 +47,9 @@ class LinksView(TemplateView):
         return  context
     template_name = "web/links.html"
 
+class CooperateView(TemplateView):
+    template_name = 'web/base_cooperate.html'
+
 
 class DownloadView(TemplateView):
     template_name = "web/download.html"
