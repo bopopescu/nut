@@ -17,11 +17,6 @@ class MessageView(APIJsonView):
 
     def get_data(self, context):
         remove_user_list = []
-        # remove_user_list = V3_User.objects.deactive_user_list()
-        # log.info(remove_user_list)
-        # actor_object_id
-        #
-        # log.info(request.GET)
         _messages = self.user.notifications.filter(timestamp__lt=self.timestamp).exclude(
             actor_object_id__in=remove_user_list)
         da = Article_Dig.objects.filter(user=self.user).values_list('article_id', flat=True)
