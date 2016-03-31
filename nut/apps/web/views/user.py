@@ -598,11 +598,13 @@ class UserIndex(UserPageMixin, DetailView):
         _entity_list = Entity.objects.get_user_added_entities(current_user)[:8]
 
         context_data['author_articles'] = self.get_author_articles(current_user)
-        if self.get_author_articles(current_user):
-            if len(self.get_author_articles(current_user)) >= 12:
-                context_data['author_articles_main_page'] = self.get_author_articles(current_user)[:12]
-            else:
-                context_data['author_articles_main_page'] = self.get_author_articles(current_user)
+
+        if self.get_author_articles(current_user) and len(self.get_author_articles(current_user)) >= 12:
+            context_data['author_articles_main_page'] = self.get_author_articles(current_user)[:12]
+        else:
+            context_data['author_articles_main_page'] = self.get_author_articles(current_user)
+
+
 
         current_user_like_articles = Article_Dig.objects\
                                                .user_dig_list(user=current_user,\
