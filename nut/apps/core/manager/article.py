@@ -137,7 +137,6 @@ class SelectionArticleManager(models.Manager):
         return key
 
 
-
     def published(self,until_time=None):
         return self.published_until()
 
@@ -155,7 +154,7 @@ class SelectionArticleManager(models.Manager):
     def published_from(self, from_time=None):
         if from_time is None:
              from_time = datetime.now() - timedelta(days=30)
-        return self.get_queryset().published_from(from_time=from_time)
+        return self.get_queryset().using('slave').published_from(from_time=from_time)
 
     def article_related(self, article, request_page=1):
         '''
