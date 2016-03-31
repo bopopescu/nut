@@ -1,5 +1,6 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.models import Selection_Entity, Entity_Like, User_Follow, Note, Note_Comment, Note_Poke, Article
+from apps.core.models import Selection_Entity, Entity_Like, User_Follow, Note, \
+    Note_Comment, Note_Poke, Article, Article_Dig
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 
@@ -35,7 +36,7 @@ def message(request):
     #
     # log.info(request.GET)
     _messages = _session.user.notifications.filter(timestamp__lt=_timestamp).exclude(actor_object_id__in=remove_user_list)
-
+    da = Article_Dig.objects.filter(user=_session.user).values_list('article_id', flat=True)
 
     # log.info(_messages.query)
     res = []
@@ -109,7 +110,7 @@ def message(request):
                 'created_time': time.mktime(row.timestamp.timetuple()),
                 'content' : {
                     'digger'  : row.actor.v3_toDict(),
-                    'article' : row.target.v4_toDict(),
+                    'article' : row.target.v4_toDict(articles_list=da),
                 }
             }
             res.append(_context)

@@ -27,7 +27,7 @@ def activity(request):
 
     _offset = _offset / _count + 1
 
-    visitor = None
+    # visitor = None
     try:
         _session = Session_Key.objects.get(session_key = _key)
         visitor = _session.user
@@ -38,6 +38,8 @@ def activity(request):
     entity_list_models = ContentType.objects.get_for_model(Entity_Like)
     user_follow = ContentType.objects.get_for_model(User_Follow)
     article_dig = ContentType.objects.get_for_model(Article_Dig)
+
+    da = Article_Dig.objects.filter(user=visitor).values_list('article_id', flat=True)
 
     feed_list = Notification.objects.filter(actor_object_id__in=_session.user.following_list,
                                             action_object_content_type__in=[note_model, entity_list_models, user_follow, article_dig],
@@ -97,7 +99,7 @@ def activity(request):
                 'created_time' : time.mktime(row.timestamp.timetuple()),
                 'content': {
                     'digger': row.actor.v3_toDict(),
-                    'article': row.target.v4_toDict(),
+                    'article': row.target.v4_toDict(articles_list=da),
                 }
             }
             res.append(_context)
