@@ -78,6 +78,7 @@
     text-decoration:none!important;
   }
 }
+
 //buttons
 .button-blue{
   background-color: @link-color;
@@ -771,4 +772,55 @@ p.boolean-false{
     }
   }
 
+}
+
+//add by rose
+.new-guoku-button{
+  font-size:@smaller-primary;
+  height: 32px;
+  border-radius: @global-box-radius;
+  line-height: 32px;
+  text-align: center;
+  .border-radius(4px);
+  background-color:#ffffff;
+  display: inline-block;
+  color: @btn-blue;
+  padding: 0px 6px;
+  cursor: pointer;
+  text-decoration:none;
+  min-width:110px;
+  &:hover,&:focus{
+    text-decoration:none!important;
+  }
+}
+
+.new-btn-cancel,.new-button-cancel {
+  background-color:@btn-blue;
+  color: #ffffff;
+  border: 1px solid @btn-blue;
+  &:hover,&:focus{
+    background-color: @btn-blue-dark;
+    border: 1px solid @btn-blue-dark;
+    color:#ffffff;
+  }
+  i.fa-plus{
+    color: #ffffff;
+  }
+}
+
+
+.newest-button-blue{
+  border:1px solid @btn-blue;
+  background-color: #ffffff;
+  color: @btn-blue;
+  &:hover, &:focus{
+    color:@btn-blue-dark;
+    border:1px solid @btn-blue-dark;
+    i.fa-plus{
+      color: @btn-blue-dark;
+    }
+  }
+   i.fa-plus{
+    color: @btn-blue;
+  }
 }
