@@ -158,7 +158,7 @@
           <p class="section-name">图文</p>
           {% if author_articles_main_page %}
            <div class="more-link">
-               <a href="{% url 'web_user_article' current_user.pk %}">
+               <a href="{% url 'web_user_article_published' current_user.pk %}">
                    {% trans 'All' %}&nbsp;<i class="fa fa-caret-right"></i>
                </a>
            </div>
