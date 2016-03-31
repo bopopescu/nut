@@ -69,55 +69,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="row sorting-wrapper">
-             <div class="col-md-12">
-                <div class="category-header category-header-control">
-                    <span class="dropdown-toggle category-action pull-right">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                           aria-haspopup="false" role="button" aria-expanded="false">
-                            {% if sort_method == 'pub_time' %}
-                                按时间
-                            {% else %}
-                                按喜爱
-                            {% endif %}
-                            <span class="caret"></span>
-                        </a>
-                        <ul  id="sort_dropdown" class="dropdown-menu dropdown-menu-control" role="menu"  >
-                            <li ><a href="{{ sort_url }}">按时间</a></li>
-                            <li  class="divider"></li>
-                            <li ><a href="{{ sort_url }}olike/">按喜爱</a></li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row sorting-wrapper">
-             <div class="col-md-12">
-                <div class="category-header category-header-control">
-                    <span class="dropdown-toggle category-action pull-right">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                           aria-haspopup="false" role="button" aria-expanded="false">
-                            {% if sort_method == 'pub_time' %}
-                                按时间
-                            {% else %}
-                                按喜爱
-                            {% endif %}
-                            <span class="caret"></span>
-                        </a>
-                        <ul  id="sort_dropdown" class="dropdown-menu dropdown-menu-control" role="menu"  >
-                            <li ><a href="{{ sort_url }}">按时间</a></li>
-                            <li  class="divider"></li>
-                            <li ><a href="{{ sort_url }}olike/">按喜爱</a></li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
-        </div>
-
-
         <div class="row entity-wrapper">
             {% for entity in entities %}
                 {% include 'web/main/partial/entity.html' with entity=entity.object %}
