@@ -894,8 +894,8 @@ define('subapp/topmenu',['bootstrap',
         init: function(){
 
             ///////////////////////////
-            console.log('in Menu init, ');
-            console.log(jQuery);
+            //console.log('in Menu init, ');
+            //console.log(jQuery);
             ////////////////////////////
 
             this.$menu = $('#guoku_main_nav');
@@ -907,7 +907,13 @@ define('subapp/topmenu',['bootstrap',
             this.checkSNSBindVisit();
             this.checkEventRead();
             //this.topAd = new TopAd();
+            this.setupBottomCloseButton();
 
+        },
+        setupBottomCloseButton: function(){
+            $('.bottom-ad .close-button').click(function(){
+                $('.bottom-ad').addClass('hidden');
+            });
         },
         checkEventRead:function(){
             // add by an , for event link status check , remove the red dot if event is read.
@@ -987,6 +993,7 @@ define('subapp/topmenu',['bootstrap',
             this.$menu.removeClass('hidden-header');
             this.$menu.addClass('shown-header');
             $('.round-link').show();
+            $('.bottom-ad').addClass('showing');
             //console.log((new Date()).getMilliseconds());
 
         },
@@ -995,6 +1002,7 @@ define('subapp/topmenu',['bootstrap',
             this.$menu.removeClass('shown-header');
             this.$menu.addClass('hidden-header');
             $('.round-link').hide();
+            $('.bottom-ad').removeClass('showing');
 
             //console.log((new Date()).getMilliseconds());
 
