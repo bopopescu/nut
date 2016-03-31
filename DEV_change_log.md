@@ -1,9 +1,17 @@
-6. 
+7. 
+6. crawl article report update       -- shuailong , zuoning 
 5. fix poke multi post bug           -- zuoning 
 4. reinstall baichuan recommend      -- An
 3. kaola image get fix               -- shuailong 
 2. bottom download bar for mobile access  -- Luoqian
 1. fix mng brand state page bug           -- Luoqian
+
+## action 
+
+   有翻译更新  需要 
+   ./manage.py compilemessages
+   
+   和重启SERVER 
 
 ==================================
 # merged to master 2016 3 - 25
