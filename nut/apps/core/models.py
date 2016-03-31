@@ -424,6 +424,15 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def is_authorized_seller(self):
         return self.has_seller_group()
 
+    @property
+    def main_shop_link(self):
+        link = ''
+        try:
+            link = self.shops.all()[0].shop_link
+        except Exception as e :
+            pass
+        return link
+
     def setSeller(self, isSeller):
         seller_group = self.get_seller_group()
         if isSeller:

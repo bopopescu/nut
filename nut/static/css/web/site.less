@@ -178,7 +178,18 @@
   border: 1px solid #eee;
   height: 40px;
   margin-bottom: 30px;
+  &.category-header-control{
+    background-color: transparent;
+    border:none;
+    .dropdown-menu-control{
+      min-width: 120px;
+      li{
+        text-align: center;
+      }
+    }
+  }
 }
+
 .category-header > p {
   padding-left: 20px;
   font-size: 16px;
@@ -1555,5 +1566,5 @@ html { overflow-y: scroll; }
 }
 
 .test{
-  color: gray;
+  color: black;
 }

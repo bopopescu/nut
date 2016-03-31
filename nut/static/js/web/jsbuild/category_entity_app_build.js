@@ -1123,12 +1123,8 @@ define('subapp/topmenu',['bootstrap',
             this.$menu.addClass('hidden-header');
             $('.round-link').hide();
             $('.bottom-ad').removeClass('showing');
-
             //console.log((new Date()).getMilliseconds());
-
         }
-
-
     });
 
     return  Menu;

@@ -1,4 +1,5 @@
-7. 
+8. good_store update, seller index page update --luoqian, zhaoxu 
+7. new cooperate static page         -- zuoning
 6. crawl article report update       -- shuailong , zuoning 
 5. fix poke multi post bug           -- zuoning 
 4. reinstall baichuan recommend      -- An
