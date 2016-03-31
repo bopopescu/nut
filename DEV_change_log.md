@@ -1,3 +1,12 @@
+5. 
+4. reinstall baichuan recommend
+3. kaola image get fix 
+2. bottom download bar for mobile access
+1. fix mng brand state page bug 
+
+==================================
+# merged to master 2016 3 - 25
+==================================
 
 5. brand page (no entry)
 4. user digged article page 
