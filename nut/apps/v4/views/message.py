@@ -102,7 +102,7 @@ def message(request):
                 }
             }
             res.append(_context)
-        elif isinstance(row.action_object, Article):
+        elif isinstance(row.action_object, Article_Dig):
             _context = {
                 'type' : 'dig_article_message',
                 'created_time': time.mktime(row.timestamp.timetuple()),
