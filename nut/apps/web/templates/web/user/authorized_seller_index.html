@@ -109,7 +109,6 @@
           {% endif %}
       </div>
     </div>
-
     <div class="row entity-wrapper">
         {% for entity in seller_entities %}
             <div class="col-xs-6 col-sm-3 search-entity-item">
@@ -149,6 +148,7 @@
                     </div>
                 </div>
             </div>
+{#            {% include 'web/main/partial/entity.html' with entity=entity%}#}
             {% empty %}
             <div class="col-xs-6 col-sm-3 search-entity-item new-empty-panel-content">
                 <span>暂无商品</span>

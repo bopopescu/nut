@@ -2644,6 +2644,16 @@ msgid "Article Digged"
 msgstr "赞过的图文"
 
 
+#: apps/web/templates/web/user/partial/user_detail_sidebar.html
+msgid "All Entity"
+msgstr "全部商品"
+
+
+#: apps/web/templates/web/user/partial/user_detail_sidebar.html
+msgid "All Article"
+msgstr "全部图文"
+
+
 #~ msgid "Sogou Cookie"
 #~ msgstr "搜狗COOKIE"
 
