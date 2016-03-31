@@ -1,7 +1,7 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.models import Selection_Entity, Entity_Like, User_Follow, Note, Note_Comment, Note_Poke
+from apps.core.models import Selection_Entity, Entity_Like, User_Follow, Note, Note_Comment, Note_Poke, Article
 from apps.mobile.lib.sign import check_sign
-from apps.mobile.models import Session_Key, V3_User
+from apps.mobile.models import Session_Key
 
 
 from datetime import datetime
@@ -103,6 +103,18 @@ def message(request):
                 }
             }
             res.append(_context)
+        elif isinstance(row.action_object, Article):
+            _context = {
+                'type' : 'dig_article_message',
+                'created_time': time.mktime(row.timestamp.timetuple()),
+                'content' : {
+                    'digger'  : row.actor.v3_toDict(),
+                    'article' : row.target.v4_toDict(),
+                }
+            }
+            res.append(_context)
+
+
     _session.user.notifications.mark_all_as_read()
     return SuccessJsonResponse(res)
 

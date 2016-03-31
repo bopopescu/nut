@@ -97,7 +97,7 @@ def activity(request):
                 'created_time' : time.mktime(row.timestamp.timetuple()),
                 'content': {
                     'digger': row.actor.v3_toDict(),
-                    'article': row.target.toDict(),
+                    'article': row.target.v4_toDict(),
                 }
             }
             res.append(_context)
