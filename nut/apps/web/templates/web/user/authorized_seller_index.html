@@ -27,17 +27,21 @@
                     </div>
                     <div class="user-action">
                           {% if current_user.is_blocked %}
-                                <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
+                                <a  class="new-guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
                             {% elif current_user == request.user %}
-                                <a class="guoku-button button-blue" href="{% url 'web_user_settings' %}">
+                                <a class="new-guoku-button newest-button-blue" href="{% url 'web_user_settings' %}">
                                     <i class="fa fa-cog fa-lg"></i>&nbsp;{% trans _('Edit Profile') %}</a>
                             {% elif request.user.id in current_user.concren %}
-                                <a class="follow guoku-button btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                                <a class="follow new-guoku-button new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
                             {% elif request.user.id in current_user.fans_list %}
-                                <a class="follow guoku-button btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                                <a class="follow new-guoku-button new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
                             {% else %}
-                                <a class="follow guoku-button button-blue" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+                                <a class="follow new-guoku-button newest-button-blue" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
                             {% endif %}
+
+                          <a class="new-guoku-button newest-button-blue" href="{{ current_user.main_shop_link }}" target="_blank">
+                              去店铺
+                          </a>
                     </div>
                     <div class="user-bio-wrapper">
                         <span class="user-bio">
@@ -65,23 +69,48 @@
        {% endblock %}
 
 {% block user_content_detail %}
-    {% if seller_entities %}
+    <div class="row more-nav-wrapper">
+        <div class="col-sm-12 more-nav">
+            <ul>
+                 {% if recent_likes %}
+                <li class="nav-list-item">
+                    <a href="{% url 'web_user_entity_like' current_user.pk %}" target="_blank">{{ pronoun }}{% trans 'Like' %}&nbsp;<i class="fa fa-caret-right"></i></a>
+                </li>
+                {% endif %}
+
+            {% if recent_notes %}
+                <li class="nav-list-item">
+                    <a href="{% url 'web_user_post_note' current_user.pk %}" target="_blank">{{ pronoun }}{% trans 'Note' %}&nbsp;<i class="fa fa-caret-right"></i></a>
+                </li>
+            {% endif %}
+
+            {% if tags %}
+                <li class="nav-list-item">
+                    <a href="{% url 'web_user_tag' current_user.pk %}" target="_blank">参与的标签&nbsp;<i class="fa fa-caret-right"></i></a>
+                </li>
+            {% endif %}
+                <li class="nav-list-item">
+                    <a href="" target="_blank">赞过的图文&nbsp;<i class="fa fa-caret-right"></i></a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
     <div class="row section-title-wrapper">
       <div class="col-sm-12 section-title">
           <p class="section-name">商品</p>
+          {% if seller_entities %}
            <div class="more-link">
-{#               {% if recent_likes %}#}
-                   <a href="{% url 'web_user_entities' current_user.pk %}">
-                       {% trans 'All' %}&nbsp;<i class="fa fa-caret-right"></i>
-                   </a>
-{#               {% endif %}#}
-
+               <a href="{% url 'web_user_entities' current_user.pk %}">
+                   {% trans 'All' %}&nbsp;<i class="fa fa-caret-right"></i>
+               </a>
           </div>
+          {% endif %}
       </div>
     </div>
 
     <div class="row entity-wrapper">
-
         {% for entity in seller_entities %}
             <div class="col-xs-6 col-sm-3 search-entity-item">
                 <div class="new-thumbnail entity-four">
@@ -127,26 +156,54 @@
         {% endfor %}
     </div>
 
-    {% endif %}
+
     <div class="row section-title-wrapper">
       <div class="col-sm-12 section-title">
-          <p>图文</p>
+          <p class="section-name">图文</p>
+          {% if author_articles_main_page %}
+           <div class="more-link">
+               <a href="{% url 'web_user_article_published' current_user.pk %}">
+                   {% trans 'All' %}&nbsp;<i class="fa fa-caret-right"></i>
+               </a>
+           </div>
+          {% endif %}
       </div>
     </div>
-    <div class="row user-article-wrapper">
-     {% for article in author_articles  %}
-              {% include 'web/user/partial/author_article_item.html' %}
-     {% endfor %}
 
-{#        {% empty %}#}
-{#        <div class="col-xs-6 col-sm-3 search-entity-item new-empty-panel-content">#}
-{#            <span>暂无图文</span>#}
-{#        </div>#}
+    <div class="row user-article-wrapper">
+     {% for article in author_articles_main_page  %}
+         {% include 'web/user/partial/author_article_item.html' %}
+         {% empty %}
+            <div class="col-xs-6 col-sm-3 search-entity-item new-empty-panel-content">
+                <span>暂无图文</span>
+            </div>
+     {% endfor %}
     </div>
 
-    {% include 'web/main/partial/number_paginator.html' with objects=author_articles url=request.path %}
 {% endblock %}
 
 {% block basic_script %}
     <script data-main="{% static 'js/web/jsbuild/seller_page_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        (function(win,doc){
+            var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+            if (!win.alimamatk_show) {
+                s.charset = "gbk";
+                s.async = true;
+                s.src = "http://a.alimama.cn/tkapi.js";
+                h.insertBefore(s, h.firstChild);
+            }
+            var o = {
+                pid: "mm_28514026_4132785_24810648",/*推广单元ID，用于区分不同的推广渠道*/
+                appkey: "12313170",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/
+                unid: "", /*自定义统计字段*/
+                {#            type:"click"#}
+            };
+            win.alimamatk_onload = win.alimamatk_onload || [];
+            win.alimamatk_onload.push(o);
+        })(window,document);
+    </script>
 {% endblock %}
