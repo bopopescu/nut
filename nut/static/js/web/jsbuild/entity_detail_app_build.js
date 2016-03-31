@@ -1042,12 +1042,8 @@ define('subapp/topmenu',['bootstrap',
             this.$menu.addClass('hidden-header');
             $('.round-link').hide();
             $('.bottom-ad').removeClass('showing');
-
             //console.log((new Date()).getMilliseconds());
-
         }
-
-
     });
 
     return  Menu;
@@ -3502,7 +3498,7 @@ require([
 
         // hide baichuan recommend , for service is down now
         // by an, 2016, 3-19 .
-        //var baichuanManager = new BaichuanManager();
+        var baichuanManager = new BaichuanManager();
 
          var shareApp = new EntityShareApp();
 
