@@ -426,7 +426,12 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def main_shop_link(self):
-        return self.shops.all()[0].shop_link
+        link = ''
+        try:
+            link = self.shops.all()[0].shop_link
+        except Exception as e :
+            pass
+        return link
 
     def setSeller(self, isSeller):
         seller_group = self.get_seller_group()
