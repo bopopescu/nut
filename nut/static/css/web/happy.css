@@ -1206,6 +1206,10 @@ p.boolean-false {
   border: 1px solid #3F6FF0;
   color: #ffffff;
 }
+.new-btn-cancel:focus,
+.new-button-cancel:focus {
+  background-color: #6192FF;
+}
 .new-btn-cancel i,
 .new-button-cancel i,
 .new-btn-cancel i.fa-plus,
@@ -1217,15 +1221,16 @@ p.boolean-false {
   background-color: #ffffff;
   color: #6192FF;
 }
-.newest-button-blue:hover,
-.newest-button-blue:focus {
+.newest-button-blue:hover {
   color: #3F6FF0;
-  background-color: #3F6FF0;
   border: 1px solid #3F6FF0;
 }
-.newest-button-blue:hover i.fa-plus,
-.newest-button-blue:focus i.fa-plus {
+.newest-button-blue:hover i.fa-plus {
   color: #3F6FF0;
+}
+.newest-button-blue:focus {
+  background: #ffffff;
+  color: #6192FF;
 }
 .newest-button-blue i.fa-plus {
   color: #6192FF;
