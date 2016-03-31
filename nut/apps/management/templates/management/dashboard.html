@@ -248,7 +248,7 @@
                    {% for item in yesterday_finish_detail %}
                        {% if item.2.0 > 0 %}
                            <tr >
-                               <td><a href="">{{ item.1 }}</a></td>
+                               <td><a href="{% url 'management_author_article_person_list' item.0.id %}">{{ item.1 }}</a></td>
                                <td>{{ item.2.0 }}</td>
 
                            </tr>
@@ -270,7 +270,7 @@
                           {% for item in yesterday_finish_detail %}
                               {% if item.2.1 > 0 %}
                            <tr >
-                               <td><a href="">{{ item.1 }}</a></td>
+                               <td><a href="{% url 'management_author_article_person_list' item.0.id %}">{{ item.1 }}</a></td>
                                <td>{{ item.2.1 }}</td>
                               {% endif %}
 
@@ -292,7 +292,7 @@
                    {% for item in yesterday_finish_detail %}
                        {% if item.2.2 > 0 %}
                            <tr >
-                               <td><a href="">{{ item.1 }}</a></td>
+                               <td><a href="{% url 'management_author_article_person_list' item.0.id %}">{{ item.1 }}</a></td>
                                <td>{{ item.2.2 }}</td>
 
                            </tr>
