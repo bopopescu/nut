@@ -4,6 +4,12 @@
 
 
 //common class
+.hidden{
+  display: none;
+}
+.show{
+  display: block;
+}
 .good-store-row{
   margin-top:40px;
   margin-bottom:40px;
@@ -20,16 +26,17 @@
 //the scroll banner is use slick thirdparty.but this page's sroll banner structure is special,so the position is mistaken.
 // but I don't plan to modify the slick-theme.css
 //so this btn position change put here to protect the third party.
-.store-body{
-  #index-banners{
-    .slick-prev, .slick-next{
-      top:40%;
-    }
-  }
-}
+//.store-body{
+//  #index-banners{
+//    .slick-prev, .slick-next{
+//      top:40%;
+//    }
+//  }
+//}
 
 
 .store-body{
+  padding-top:51px;
   .store-top-banner{
     margin-top:-30px;
     width:100%;
@@ -55,53 +62,97 @@
       }
     }
 
-}
+  }
   .latest-actions-wrapper{
     //40px - 17px(pannel's margin-bottom)
     //this may be not a good way
+    margin-top:0;
     margin-bottom:23px;
 
-  //授权用户动态边栏 复用原来的
-  .latest-actions-sidebar-wrapper{
-    height:100%;
-    //overflow-y: auto;
-
-    .latest-actions-list{
+    //授权用户动态边栏 复用原来的
+    .latest-actions-sidebar-wrapper{
       height:100%;
-      overflow-y: auto;
-      background-color: #ffffff;
-      padding: 18px;
-      border-radius: 4px;
-      background-clip: padding-box;
-      box-shadow: 0 0 2px #ddd;
-      .user-tag-list{
+      //overflow-y: auto;
+
+      .latest-actions-list{
         height:100%;
-        border-bottom: 0 !important;
-        .section-title.section-title-control{
-          border-left-color:#ffffff;
-        }
-        .section-content{
-          //height:90%;
-          //overflow-y: auto;
-          .publish-time,.publish-info{
-            display: table-cell;
+        overflow-y: auto;
+        background-color: #ffffff;
+        padding: 18px;
+        border-radius: 4px;
+        background-clip: padding-box;
+        box-shadow: 0 0 2px #ddd;
+        .user-tag-list{
+          height:100%;
+          border-bottom: 0 !important;
+          .section-title.section-title-control{
+            border-left-color:#ffffff;
           }
-          .publish-time{
-            min-width:81px;
-            padding-right:10px;
+          .section-content{
+            //height:90%;
+            //overflow-y: auto;
+            .publish-time,.publish-info{
+              display: table-cell;
+            }
+            .publish-time{
+              min-width:81px;
+              padding-right:10px;
+            }
+          }
+        }
+        ul{
+          li{
+            margin-bottom: 10px;
+            font-size:@smaller-primary;
+            a{
+              color: @light-gray;
+              &:hover{
+                cursor: pointer;
+                color: @common-text-color;
+                text-decoration: underline;
+              }
+            }
           }
         }
       }
-      ul{
-        li{
-          margin-bottom: 10px;
-          font-size:@smaller-primary;
+
+    }
+
+
+    //授权用户最新文章
+    .user-latest-article-wrapper{
+      .user-latest-article-intro-wrapper{
+        position:absolute;
+        left:0;
+        bottom:0;
+        color:#ffffff;
+        width:100%;
+        height:102px;
+        //margin:25px 15px;
+        overflow: hidden;
+        .user-latest-article-title-wrapper{
+          padding:25px 15px;
+          margin-left:5px;
+          margin-right:5px;
+          background-color: rgba(0,0,0,0.6);
+          min-height:102px;
+          max-height:102px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          .user-info-section-title{
+            margin-top:5px;
+            font-size: @more-mini-size;
+            color:#ffffff;
+          }
           a{
-            color: @light-gray;
+            &.user-latest-article-title{
+              font-size:@subtitle-size;
+              color: #ffffff;
+            }
             &:hover{
               cursor: pointer;
-              color: @common-text-color;
-              text-decoration: underline;
+              text-decoration: none;
             }
           }
         }
@@ -109,40 +160,6 @@
     }
 
   }
-
-  //授权用户最新文章
-  .user-latest-article-wrapper{
-    .user-latest-article-intro-wrapper{
-      height:52px;
-      margin:25px 15px;
-      overflow: hidden;
-      .user-latest-article-title-wrapper{
-        min-height:52px;
-        max-height:52px;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-        .user-info-section-title{
-          margin-top:5px;
-          font-size: @more-mini-size;
-          color:@light-gray;
-        }
-        a{
-          &.user-latest-article-title{
-            font-size:@subtitle-size;
-            color: @common-text-color;
-          }
-          &:hover{
-              text-decoration: underline;
-              cursor: pointer;
-            }
-        }
-      }
-    }
-
-  }
-
-}
   .hot-section-wrapper{
     .hot-section-item{
       .article-panel{
@@ -208,7 +225,7 @@
     }
     .category-title,.category-item,.type-title,.type-item{
       display: table-cell;
-  }
+    }
     .category-title,.type-title{
       min-width:35px;
     }
@@ -224,9 +241,9 @@
   .select-result-wrapper{
     .result-item-wrapper{
       padding-left:20px;
-       text-overflow:ellipsis;
-       overflow: hidden;
-       white-space: nowrap;
+      text-overflow:ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
       a{
         color:@common-text-color;
         font-size:@smaller-primary;
@@ -269,9 +286,46 @@
 
 }
 
+
+
 @media (min-width:768px){
-  .store-body .consumption-report-wrapper{
-    margin-top:80px;
+  .user-latest-article-wrapper{
+    .user-latest-article-intro-wrapper{
+      position:absolute;
+      left:0;
+      bottom:0;
+      color:#ffffff;
+      width:100%;
+      height:102px;
+      //margin:25px 15px;
+      overflow: hidden;
+      .user-latest-article-title-wrapper{
+        padding:25px 15px;
+        margin-left:5px;
+        margin-right:5px;
+        background-color: rgba(0,0,0,0.6);
+        min-height:102px;
+        max-height:102px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        .user-info-section-title{
+          margin-top:5px;
+          font-size: @more-mini-size;
+          color:#ffffff;
+        }
+        a{
+          &.user-latest-article-title{
+            font-size:@subtitle-size;
+            color: #ffffff;
+          }
+          &:hover{
+            cursor: pointer;
+            text-decoration: none;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -282,5 +336,34 @@
         margin-top:10px;
       }
     }
+    .latest-actions-wrapper{
+      .user-latest-article-wrapper{
+        .user-latest-article-intro-wrapper{
+          height:60px;
+          .user-latest-article-title-wrapper{
+            min-height:60px;
+            max-height:60px;
+            margin:0;
+            padding:4px 15px;
+          }
+        }
+      }
+    }
   }
 }
+
+.banner-image-cell{
+  .user-latest-article-intro-wrapper{
+    .transition(all 1s ease-in-out);
+    .transform(translateY(102px));
+  }
+
+}
+
+.gk-slide-current{
+  .user-latest-article-intro-wrapper{
+    .transform(translateY(0px))!important;
+  }
+}
+
+
