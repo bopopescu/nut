@@ -108,6 +108,13 @@
   .clearfix;
         li{
           .recommend-user-icon-widget(81px,0,18px,10px,0);
+          .img-frame{
+              width: 100%;
+              height: 0;
+              padding-bottom: 100%;
+              background-size:cover;
+              background-position: center center;
+            }
         }
 }
 
@@ -171,7 +178,18 @@
   border: 1px solid #eee;
   height: 40px;
   margin-bottom: 30px;
+  &.category-header-control{
+    background-color: transparent;
+    border:none;
+    .dropdown-menu-control{
+      min-width: 120px;
+      li{
+        text-align: center;
+      }
+    }
+  }
 }
+
 .category-header > p {
   padding-left: 20px;
   font-size: 16px;
@@ -1548,5 +1566,5 @@ html { overflow-y: scroll; }
 }
 
 .test{
-  color: gray;
+  color: red;
 }

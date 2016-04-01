@@ -30,12 +30,15 @@
 {#                for authorized seller ,only show entities link and articles link temporarily#}
                 {% if current_user.is_authorized_seller %}
                     <li>
-                        <a href="{% url 'web_user_entities' current_user.pk %}">商品&nbsp;<i class="fa fa-caret-right"></i></a>
+                        <a href="{% url 'web_user_entities' current_user.pk %}">{% trans 'Seller Entity' %}&nbsp;<i class="fa fa-caret-right"></i></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'web_user_article_published' current_user.pk %}">{% trans 'Published Article' %}&nbsp;<i class="fa fa-caret-right"></i></a>
                     </li>
                 {% endif %}
 
                 <li>
-                    <a href="{% url 'web_user_article_like' current_user.pk %}">赞过的图文&nbsp;<i class="fa fa-caret-right"></i></a>
+                    <a href="{% url 'web_user_article_like' current_user.pk %}">{% trans 'Article Digged' %}&nbsp;<i class="fa fa-caret-right"></i></a>
 
                 </li>
             </ul>
