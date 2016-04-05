@@ -4,13 +4,13 @@ define(['libs/Class'], function (Class) {
 
     var Tracker = Class.extend({
         init: function (tracker_list) {
-            tracker_list.map(function(item){
-                  var selector = item.selector;
-                   var event = item.event;
-                  $(selector).on(event, function(){
-                     _hmt.push('_trackEvent', '')
-                  })
-            });
+            //tracker_list.map(function(item){
+            //      var selector = item.selector;
+            //       var event = item.event;
+            //      $(selector).on(event, function(){
+            //         _hmt.push('_trackEvent', '')
+            //      })
+            //});
         }
     });
     return Tracker;
