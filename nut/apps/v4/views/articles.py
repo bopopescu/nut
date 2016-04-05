@@ -91,6 +91,7 @@ class ArticleView(APIJsonView):
 
         return super(ArticleView, self).get(request, *args, **kwargs)
 
+
 class ArticleSearchView(SearchView, JSONResponseMixin):
     http_method_names = ['get']
     form_class = APIArticleSearchForm

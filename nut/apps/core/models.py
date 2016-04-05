@@ -424,6 +424,15 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def is_authorized_seller(self):
         return self.has_seller_group()
 
+    @property
+    def main_shop_link(self):
+        link = ''
+        try:
+            link = self.shops.all()[0].shop_link
+        except Exception as e :
+            pass
+        return link
+
     def setSeller(self, isSeller):
         seller_group = self.get_seller_group()
         if isSeller:
@@ -1501,7 +1510,24 @@ class Article(BaseModel):
     def url(self):
         return self.get_absolute_url()
 
-        # will cause circuler reference
+# TODO: model to dict
+    def v4_toDict(self, articles_list=list()):
+        res = self.toDict()
+        res.pop('id', None)
+        res.pop('creator_id')
+        res.pop('created_datetime', None)
+        res.pop('updated_datetime', None)
+        res['article_id'] = self.id
+        res['tags'] = self.tag_list
+        res['content'] = self.content
+        res['url'] = self.get_absolute_url()
+        res['creator'] = self.creator.v3_toDict()
+        res['dig_count'] = self.dig_count
+        res['is_dig'] = False
+        if self.id in articles_list:
+            res['is_dig'] = True
+        return res
+    # will cause circuler reference
         # def tag_string(self):
         #     tids = Content_Tags.objects.filter(target_content_type=31, target_object_id=self.pk).values_list('tag_id', flat=True)
         #     tags = Tags.objects.filter(pk__in=tids)
