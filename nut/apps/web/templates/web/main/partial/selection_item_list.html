@@ -21,7 +21,7 @@
         </div>
         <div class="info">
             <a class="btn btn-like pull-left" href="javascript:;"
-               data-entity="{{ entity.id }}" rel="nofollow"
+               data-entity="{{ entity.id }}" data-entity-title="{{ entity.title }}" rel="nofollow"
                     {% if entity.id in user_entity_likes %}
                onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', encodeURIComponent('{{ entity.title }}')]);"
                         >
