@@ -71,6 +71,7 @@ class MessageView(APIJsonView):
                         'entity': row.target.v3_toDict(),
                     }
                 }
+
                 res.append(_context)
             elif isinstance(row.action_object, Selection_Entity):
                 _context = {
@@ -116,7 +117,6 @@ class MessageView(APIJsonView):
         self.count = int(request.GET.get('count', 10))
 
         return super(MessageView, self).get(request, *args, **kwargs)
-
 
 
 __author__ = 'edison'
