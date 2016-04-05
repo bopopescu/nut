@@ -1,7 +1,7 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.models import Selection_Entity, Entity_Like, User_Follow, Note, Note_Comment, Note_Poke
+from apps.core.models import Selection_Entity, Entity_Like, User_Follow, Note, Note_Comment, Note_Poke, Article_Dig
 from apps.mobile.lib.sign import check_sign
-from apps.mobile.models import Session_Key, V3_User
+from apps.mobile.models import Session_Key
 
 
 from datetime import datetime
@@ -100,6 +100,16 @@ def message(request):
                     # 'note' : MobileNote(_message.note_id).read(_request_user_id),
                     'note': row.target.top_note.v3_toDict(),
                     'entity' : row.target.v3_toDict(),
+                }
+            }
+            res.append(_context)
+        elif isinstance(row.action_object, Article_Dig):
+            _context = {
+                'type' : 'article_dig_message',
+                'created_time' : time.mktime(row.timestamp.timetuple()),
+                'content' : {
+                    'liker' : row.actor.v3_toDict(),
+                    'article' : row.target.toDict(),
                 }
             }
             res.append(_context)
