@@ -68,9 +68,9 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  background-color: #357ebd;
+  background-color: #ffffff;
   display: inline-block;
-  color: #fff;
+  color: #6192FF;
   padding: 0px 6px;
   cursor: pointer;
   text-decoration: none;
@@ -81,13 +81,23 @@
   text-decoration: none!important;
 }
 .button-blue {
-  background-color: #357ebd;
-  color: #fff;
+  border: 1px solid #6192FF;
+  background-color: #ffffff;
+  color: #6192FF;
 }
-.button-blue:hover,
+.button-blue:hover {
+  color: #3F6FF0;
+  border: 1px solid #3F6FF0;
+}
+.button-blue:hover i.fa-plus {
+  color: #3F6FF0;
+}
 .button-blue:focus {
-  color: #fff;
-  background-color: #357ebd;
+  background: #ffffff;
+  color: #6192FF;
+}
+.button-blue i.fa-plus {
+  color: #6192FF;
 }
 .button-white {
   background-color: #fff;
@@ -121,21 +131,27 @@
 }
 .btn-cancel,
 .button-cancel {
-  background-color: #f8f8f8;
-  color: #999;
-  border: 1px solid #eee;
+  background-color: #6192FF;
+  color: #ffffff;
+  border: 1px solid #6192FF;
 }
 .btn-cancel:hover,
-.button-cancel:hover,
+.button-cancel:hover {
+  background-color: #3F6FF0;
+  border: 1px solid #3F6FF0;
+  color: #ffffff;
+}
 .btn-cancel:focus,
 .button-cancel:focus {
-  background-color: #f8f8f8;
-  color: #999;
-  border: 1px solid #eee;
+  background-color: #6192FF;
+  color: #ffffff;
+  border: 1px solid #6192FF;
 }
 .btn-cancel i,
-.button-cancel i {
-  color: #9D9E9F;
+.button-cancel i,
+.btn-cancel i.fa-plus,
+.button-cancel i.fa-plus {
+  color: #ffffff;
 }
 .button-sharp {
   -webkit-border-radius: 0px;
@@ -808,72 +824,6 @@ p.boolean-false {
 .square-follow-btn.btn-cancel:hover,
 .square-follow-btn.btn-cancel:focus {
   background-color: #3F6FF0;
-}
-.new-guoku-button {
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  text-align: center;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  background-color: #ffffff;
-  display: inline-block;
-  color: #6192FF;
-  padding: 0px 6px;
-  cursor: pointer;
-  text-decoration: none;
-  min-width: 110px;
-}
-.new-guoku-button:hover,
-.new-guoku-button:focus {
-  text-decoration: none!important;
-}
-.new-btn-cancel,
-.new-button-cancel {
-  background-color: #6192FF;
-  color: #ffffff;
-  border: 1px solid #6192FF;
-}
-.new-btn-cancel:hover,
-.new-button-cancel:hover {
-  background-color: #3F6FF0;
-  border: 1px solid #3F6FF0;
-  color: #ffffff;
-}
-.new-btn-cancel:focus,
-.new-button-cancel:focus {
-  background-color: #6192FF;
-  color: #ffffff;
-  border: 1px solid #6192FF;
-}
-.new-btn-cancel i,
-.new-button-cancel i,
-.new-btn-cancel i.fa-plus,
-.new-button-cancel i.fa-plus {
-  color: #ffffff;
-}
-.newest-button-blue {
-  border: 1px solid #6192FF;
-  background-color: #ffffff;
-  color: #6192FF;
-}
-.newest-button-blue:hover {
-  color: #3F6FF0;
-  border: 1px solid #3F6FF0;
-}
-.newest-button-blue:hover i.fa-plus {
-  color: #3F6FF0;
-}
-.newest-button-blue:focus {
-  background: #ffffff;
-  color: #6192FF;
-}
-.newest-button-blue i.fa-plus {
-  color: #6192FF;
 }
 ol {
   padding: 0;
