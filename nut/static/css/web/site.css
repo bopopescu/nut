@@ -165,12 +165,12 @@
   cursor: default;
 }
 .button-disabled {
-  background-color: #9D9E9F;
+  background-color: #BDBDBD;
   color: #F8F8F8;
 }
 .button-disabled:hover,
 .button-disabled:focus {
-  background-color: #9D9E9F;
+  background-color: #BDBDBD;
   color: #F8F8F8;
 }
 .entity-report-button {
