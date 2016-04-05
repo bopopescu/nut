@@ -40,7 +40,7 @@
                     {% for user in recommended_user %}
                     <li>
                         <a href="{{ user.absolute_url }}" target="_blank">
-                            <img class="img-responsive" src="{{ user.avatar_url|resize:'128' }}" title="{{ user.nickname }}" alt="{{ user.nickname }}">
+                            <img class="img-responsive img-frame" style="background-image: url({{ user.avatar_url|resize:'128' }})" />
                         </a>
                     </li>
                     {% endfor %}
