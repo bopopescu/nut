@@ -31,11 +31,16 @@ require([
                 event:'click',
                 category: 'entity',
                 action: 'like',
-                label: 'data-entity-name',
+                label: 'data-entity-title',
                 value: 'data-entity'
             },
             {
                 selector: 'btn-unlike'
+                event:'click',
+                category: 'entity',
+                action: 'unlike',
+                label: 'data-entity-title',
+                value: 'data-entity'
             }
         ];
 
