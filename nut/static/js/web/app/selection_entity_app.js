@@ -38,6 +38,6 @@ require([
                 selector: 'btn-unlike'
             }
         ];
-
-        var tracer = new Tracker(tracker_list);
+// TODO: to be continued
+//        var tracer = new Tracker(tracker_list);
     });
