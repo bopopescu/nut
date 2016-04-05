@@ -35,8 +35,7 @@ require([
               EntityModel,
               LikerAppController,
               BaichuanManager,
-              EntityShareApp,
-              Tracker,
+              EntityShareApp
 
 
     ){
