@@ -19,7 +19,7 @@ class BrandDetailView(ListView):
     context_object_name = 'entities'
 
     def get_order_by(self):
-        order_by = self.request.GET.get("order_by", 'pub_time')
+        order_by = self.kwargs.get('order_by', 'pub_time')
         return order_by
 
     def get_queryset(self):
