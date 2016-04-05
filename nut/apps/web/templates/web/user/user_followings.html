@@ -59,7 +59,7 @@
                                         </p>
 
                                         {% if f.followee_id == request.user.id %}
-                                            <a href="#" class="btn btn-cancel disabled">&nbsp; <b>{% trans 'Myself' %}</b></a>
+                                            <a href="#" class="guoku-button button-disabled disabled-button"><b>{% trans 'Myself' %}</b></a>
                                         {% elif f.followee_id in request.user.concren %}
                                             <a data-status="1" data-user-id="{{ f.followee_id }}" href="javascript:;" class="follow is-fan guoku-button btn-cancel "><i class="fa fa-exchange"></i>&nbsp; {% trans 'Unfollow' %}</a>
                                         {% elif f.followee_id in request.user.following_list %}
