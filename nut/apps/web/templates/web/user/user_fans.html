@@ -60,10 +60,10 @@
                                                     {% if f.follower_id == request.user.id %}
                                                         <a href="#" class="guoku-button button-disabled disabled-button"><b>{% trans 'Myself' %}</b></a>
                                                     {% elif f.follower_id in request.user.concren %}
-                                                        <a data-status="1" data-user-id="{{ f.follower_id }}" href="javascript:;" class="follow is-fan guoku-button btn-cancel "><i class="fa fa-exchange"></i>&nbsp; {% trans "Unfollow" %}</a>
+                                                        <a data-status="1" data-user-id="{{ f.follower_id }}" href="javascript:;" class="follow is-fan guoku-button btn-cancel "><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans "Unfollow" %}</a>
                                 {#                        <a href="#" class="follow is-fan btn btn-primary pull-right"><i class="fa fa-plus fa-lg" style="color: #fff"></i>&nbsp; <b>关注</b></a>#}
                                                     {% elif f.follower_id in request.user.following_list %}
-                                                        <a data-status="1" data-user-id="{{ f.follower_id }}" href="javascript:;" class="follow guoku-button btn-cancel "><i class="fa fa-check"></i>&nbsp; {% trans "Unfollow" %}</a>
+                                                        <a data-status="1" data-user-id="{{ f.follower_id }}" href="javascript:;" class="follow guoku-button btn-cancel "><i class="fa fa-check fa-lg"></i>&nbsp; {% trans "Unfollow" %}</a>
                                                     {% elif f.follower_id in request.user.fans_list %}
                                                         <a data-status="0" data-user-id="{{ f.follower_id }}" href="javascript:;" class="follow guoku-button button-blue "><i class="fa fa-plus"></i>&nbsp; {% trans 'Follow' %}</a>
                                                     {% else %}
