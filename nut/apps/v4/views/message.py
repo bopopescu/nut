@@ -1,15 +1,9 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-<<<<<<< HEAD
-from apps.core.models import Selection_Entity, Entity_Like, User_Follow, Note, Note_Comment, Note_Poke, Article_Dig
-from apps.mobile.lib.sign import check_sign
-from apps.mobile.models import Session_Key
-=======
 from apps.core.models import Selection_Entity, Entity_Like, User_Follow, Note, \
     Note_Comment, Note_Poke, Article_Dig
 # from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 from apps.v4.views import APIJsonView
->>>>>>> 6153f2aa8c52e21f2d5acc7dbfe2e993f40b4d1f
 
 
 from datetime import datetime
@@ -77,22 +71,7 @@ class MessageView(APIJsonView):
                         'entity': row.target.v3_toDict(),
                     }
                 }
-<<<<<<< HEAD
-            }
-            res.append(_context)
-        elif isinstance(row.action_object, Article_Dig):
-            _context = {
-                'type' : 'article_dig_message',
-                'created_time' : time.mktime(row.timestamp.timetuple()),
-                'content' : {
-                    'liker' : row.actor.v3_toDict(),
-                    'article' : row.target.toDict(),
-                }
-            }
-            res.append(_context)
-    _session.user.notifications.mark_all_as_read()
-    return SuccessJsonResponse(res)
-=======
+
                 res.append(_context)
             elif isinstance(row.action_object, Selection_Entity):
                 _context = {
@@ -139,7 +118,5 @@ class MessageView(APIJsonView):
 
         return super(MessageView, self).get(request, *args, **kwargs)
 
-
->>>>>>> 6153f2aa8c52e21f2d5acc7dbfe2e993f40b4d1f
 
 __author__ = 'edison'
