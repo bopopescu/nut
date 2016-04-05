@@ -1459,13 +1459,13 @@ define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(
                 console.log('success');
                 console.log(data);
                 if (data.status == 1) {
-                    $followButton.html('<i class="fa fa-check"></i>&nbsp; 取消关注');
+                    $followButton.html('<i class="fa fa-check fa-lg"></i>&nbsp; 取消关注');
                     $followButton.attr('data-status', '1');
                     $followButton.removeClass("button-blue").addClass("btn-cancel");
 
                 } else if (data.status == 2) {
                     console.log('mutual !!!');
-                    $followButton.html('<i class="fa fa-exchange"></i>&nbsp; 取消关注');
+                    $followButton.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关注');
                     $followButton.removeClass('button-blue').addClass('btn-cancel');
                     $followButton.attr('data-status', '1');
 
