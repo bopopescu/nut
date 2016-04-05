@@ -31,7 +31,7 @@
                                 <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
                             {% elif current_user == request.user %}
                                 <a class="guoku-button button-blue" href="{% url 'web_user_settings' %}">
-                                    <i class="fa fa-cog fa-lg"></i>&nbsp;{% trans _('Edit Profile') %}</a>
+                                    <i class="fa fa-cog"></i>&nbsp;{% trans _('Edit Profile') %}</a>
                             {% elif request.user.id in current_user.concren %}
                                 <a class="follow guoku-button btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange"></i>&nbsp; {% trans 'Unfollow' %}</a>
                             {% elif request.user.id in current_user.fans_list %}
