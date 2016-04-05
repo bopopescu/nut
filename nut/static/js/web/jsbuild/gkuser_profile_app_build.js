@@ -1462,19 +1462,16 @@ define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(
                     $followButton.html('<i class="fa fa-check"></i>&nbsp; 取消关注');
                     $followButton.attr('data-status', '1');
                     $followButton.removeClass("button-blue").addClass("btn-cancel");
-                    $followButton.removeClass("newest-button-blue").addClass("new-btn-cancel");
 
                 } else if (data.status == 2) {
                     console.log('mutual !!!');
                     $followButton.html('<i class="fa fa-exchange"></i>&nbsp; 取消关注');
                     $followButton.removeClass('button-blue').addClass('btn-cancel');
-                     $followButton.removeClass("newest-button-blue").addClass("new-btn-cancel");
                     $followButton.attr('data-status', '1');
 
                 } else if (data.status == 0) {
                     $followButton.html('<i class="fa fa-plus"></i>&nbsp; 关注');
                     $followButton.removeClass("btn-cancel").addClass("button-blue");
-                    $followButton.removeClass("new-btn-cancel").addClass("newest-button-blue");
                     $followButton.attr('data-status', '0');
                 } else {
                     console.log('did not response with valid data');
