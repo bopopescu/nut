@@ -888,6 +888,9 @@ p.boolean-false {
 .check-icon-wrapper .small-check-icon {
   font-size: 80px;
 }
+.check-icon-wrapper p.message {
+  margin-top: 30px;
+}
 #editor-articles .editor-action-list .editor-action {
   font-size: 22px;
   color: #9D9E9F;

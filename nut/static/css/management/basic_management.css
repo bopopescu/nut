@@ -953,6 +953,9 @@ p.boolean-false {
 .check-icon-wrapper .small-check-icon {
   font-size: 80px;
 }
+.check-icon-wrapper p.message {
+  margin-top: 30px;
+}
 .batch-selection-modal {
   -webkit-user-select: none;
   -moz-user-select: none;
