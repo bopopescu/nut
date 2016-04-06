@@ -2,7 +2,7 @@
 require([
         'libs/polyfills',
         'jquery',
-        'subapp/entitylike',
+        'subapp/entitylike'
     ],
     function(polyfill,
              jQuery,
