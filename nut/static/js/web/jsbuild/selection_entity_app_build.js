@@ -5145,6 +5145,26 @@ define('subapp/scrollview_selection',['jquery','libs/fastdom','subapp/loadentity
 });
 
 
+define('subapp/tracker',['libs/Class'], function (Class) {
+    var Tracker = Class.extend({
+        init: function (tracker_list) {
+            tracker_list.map(function(ele){
+                  var selector = ele.selector;
+                  var event = ele.event;
+                  $(selector).on(event, function(event){
+                      var target = event.currentTarget;
+                      var category = $(target).attr(ele.category);
+                      var action = $(target).attr(ele.action);
+                      var opt_label = $(target).attr(ele.label);
+                      var opt_value = $(target).attr(ele.value);
+                      // 闭包
+                     _hmt.push('_trackEvent', category, action, opt_label, opt_value);
+                  });
+            })(item);
+        }
+    });
+    return Tracker;
+});
 require([
         'libs/polyfills',
         'jquery',
@@ -5155,6 +5175,7 @@ require([
         'masonry',
         'jquery_bridget',
         'images_loaded',
+        'subapp/tracker'
     ],
 
     function (polyfill,
@@ -5162,13 +5183,41 @@ require([
               AppEntityLike,
               Menu,
               ScrollEntity,
-              GoTop) {
+              GoTop,
+              Tracker
+    ) {
 // TODO : check if csrf work --
 // TODO : make sure bind is usable
         var menu = new Menu();
         var app_like = new AppEntityLike();
         var app_scrollentity = new ScrollEntity();
         var goto = new GoTop();
+        var tracker_list = [
+            {
+                selector : 'btn-like',
+                event: 'click',
+                category: 'entity',
+                action: 'like',
+                label: 'data-entity-title',
+                value: 'data-entity'
+            }, {
+                selector: 'btn-unlike',
+                event: 'click',
+                category: 'entity',
+                action: 'unlike',
+                label: 'data-entity-title',
+                value: 'data-entity'
+            }, {
+                selector: 'entity_img_link',
+                event: 'click',
+                category: 'entity',
+                action: 'like',
+                label: 'data-entity-title',
+                value: 'data-entity'
+            }
+        ];
+
+        var tracker = new Tracker(tracker_list);
     });
 
 define("selection_entity_app", function(){});

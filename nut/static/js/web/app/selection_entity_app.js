@@ -28,21 +28,27 @@ require([
         var tracker_list = [
             {
                 selector : 'btn-like',
-                event:'click',
+                event: 'click',
                 category: 'entity',
                 action: 'like',
                 label: 'data-entity-title',
                 value: 'data-entity'
-            },
-            {
-                selector: 'btn-unlike'
-                event:'click',
+            }, {
+                selector: 'btn-unlike',
+                event: 'click',
                 category: 'entity',
                 action: 'unlike',
+                label: 'data-entity-title',
+                value: 'data-entity'
+            }, {
+                selector: 'entity_img_link',
+                event: 'click',
+                category: 'entity',
+                action: 'like',
                 label: 'data-entity-title',
                 value: 'data-entity'
             }
         ];
 
-        var tracer = new Tracker(tracker_list);
+        var tracker = new Tracker(tracker_list);
     });
