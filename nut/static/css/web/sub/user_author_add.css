@@ -875,6 +875,19 @@ p.boolean-false {
 .newest-button-blue i.fa-plus {
   color: #6192FF;
 }
+.check-icon-wrapper {
+  text-align: center;
+  margin-top: 40px;
+}
+.check-icon-wrapper .check-well-icon {
+  color: #4FB832;
+}
+.check-icon-wrapper .big-check-icon {
+  font-size: 132px;
+}
+.check-icon-wrapper .small-check-icon {
+  font-size: 80px;
+}
 .user-article-cell {
   padding: 0 10px;
   margin-bottom: 20px;
