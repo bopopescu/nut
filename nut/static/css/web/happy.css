@@ -1223,6 +1223,7 @@ p.boolean-false {
 .newest-button-blue:hover {
   color: #3F6FF0;
   border: 1px solid #3F6FF0;
+  background-color: #ffffff;
 }
 .newest-button-blue:hover i.fa-plus {
   color: #3F6FF0;
