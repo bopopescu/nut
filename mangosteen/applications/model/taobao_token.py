@@ -6,6 +6,7 @@ class TaobaoToken(db.Model):
 
     id              = db.Column(db.Integer(), primary_key=True)
     user_id         = db.Column(db.Integer())
+    taobao_id       = db.Column(db.Integer())
     screen_name     = db.Column(db.VARCHAR(64))
     open_uid        = db.Column(db.VARCHAR(64))
     isv_uid         = db.Column(db.VARCHAR(64))

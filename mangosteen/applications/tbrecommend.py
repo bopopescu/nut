@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask
-# from top import api
 import top.api
 import top
 import json
 # import time
 
+from model.taobao_token import TaobaoToken
 
 app = Flask(__name__)
 app.config.from_pyfile('../config/default.py')
@@ -24,8 +24,17 @@ def handel(keyword, **kwargs):
     istk = kwargs.pop('istk', True)
     ismall = kwargs.pop('ismall', False)
     count = kwargs.pop('count', 20)
-
+    user_id = kwargs.pop('user_id', None)
     params = dict()
+
+    if user_id:
+        taobao = TaobaoToken.query.filter_by(user_id=user_id).first()
+        print "taobao %s screen_name %s" %  (taobao.open_uid, taobao.screen_name)
+        params.update({
+            'userid': taobao.taobao_id,
+            # 'userid': taobao.isv_uid
+        })
+
 
     params.update(
         {

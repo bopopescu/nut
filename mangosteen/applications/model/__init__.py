@@ -1,2 +1,2 @@
 from article import Article
-from user import User
+from taobao_token import TaobaoToken
