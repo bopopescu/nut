@@ -888,6 +888,9 @@ p.boolean-false {
 .check-icon-wrapper .small-check-icon {
   font-size: 80px;
 }
+.check-icon-wrapper p.message {
+  margin-top: 30px;
+}
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
   padding: 0px;
