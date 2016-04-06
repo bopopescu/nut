@@ -469,7 +469,7 @@ class TaobaoRecommendationView(BaseJsonView):
         }
         if self.user_id:
             payload.update({
-                'user_id':self.user_id,
+                'uid':self.user_id,
             })
         r = requests.get(taobao_recommendation_url, params=payload)
         try:
