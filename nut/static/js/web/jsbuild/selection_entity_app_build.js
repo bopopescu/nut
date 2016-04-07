@@ -1620,6 +1620,32 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 
     return GoTop;
 });
+define('subapp/tracker',['libs/Class'], function (Class) {
+    var Tracker = Class.extend({
+        init: function (tracker_list) {
+            //console.log('in tracker init');
+            tracker_list.map(function(ele){
+                  var selector = ele.selector;
+                  var trigger = ele.trigger;
+                  $('.'+ selector).on(trigger, function(){
+                      return trackerItem(ele);
+                  });
+                  function trackerItem(ele) {
+                      console.log('ele', ele);
+                      var target = event.currentTarget;
+                      console.log(target);
+                      var category = $(target).attr(ele.category);
+                      var action = $(target).attr(ele.action);
+                      var opt_label = $(target).attr(ele.label);
+                      var opt_value = $(target).attr(ele.value);
+                       //闭包
+                     _hmt.push('_trackEvent', category, action, opt_label, opt_value);
+                  }
+            });
+        }
+    });
+    return Tracker;
+});
 define('subapp/loadentity',['jquery','libs/Class','libs/fastdom'],
     function($,Class,fastdom){
 
@@ -5145,52 +5171,18 @@ define('subapp/scrollview_selection',['jquery','libs/fastdom','subapp/loadentity
 });
 
 
-define('subapp/tracker',['libs/Class'], function (Class) {
-    var Tracker = Class.extend({
-        init: function (tracker_list) {
-            tracker_list.map(function(ele){
-                  var selector = ele.selector;
-                  var trigger = ele.trigger;
-                  $('.'+ selector).on(trigger, function(){
-
-
-                      return trackerItem(ele);
-                     //console.log('event');
-                      //var target = event.currentTarget;
-                      //var category = $(target).attr(ele.category);
-                      //var action = $(target).attr(ele.action);
-                      //var opt_label = $(target).attr(ele.label);
-                      //var opt_value = $(target).attr(ele.value);
-                      // 闭包
-                     //_hmt.push('_trackEvent', category, action, opt_label, opt_value);
-                  });
-                  function trackerItem(ele) {
-                      console.log('ele', ele);
-                       var target = event.currentTarget;
-                      var category = $(target).attr(ele.category);
-                      var action = $(target).attr(ele.action);
-                      var opt_label = $(target).attr(ele.label);
-                      var opt_value = $(target).attr(ele.value);
-                       //闭包
-                     _hmt.push('_trackEvent', category, action, opt_label, opt_value);
-                  }
-            });
-        }
-    });
-    return Tracker;
-});
 require([
         'libs/polyfills',
         'jquery',
         'subapp/entitylike',
         'subapp/topmenu',
         'subapp/gotop',
+        'subapp/tracker',
         'subapp/scrollview_selection',
         'subapp/tracker',
         'masonry',
         'jquery_bridget',
         'images_loaded'
-
     ],
 
     function (polyfill,
@@ -5198,8 +5190,8 @@ require([
               AppEntityLike,
               Menu,
               GoTop,
-              ScrollEntity,
-              Tracker
+              Tracker,
+              ScrollEntity
     ) {
 // TODO : check if csrf work --
 // TODO : make sure bind is usable

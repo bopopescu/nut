@@ -4,12 +4,12 @@ require([
         'subapp/entitylike',
         'subapp/topmenu',
         'subapp/gotop',
+        'subapp/tracker',
         'subapp/scrollview_selection',
         'subapp/tracker',
         'masonry',
         'jquery_bridget',
         'images_loaded'
-
     ],
 
     function (polyfill,
@@ -17,8 +17,8 @@ require([
               AppEntityLike,
               Menu,
               GoTop,
-              ScrollEntity,
-              Tracker
+              Tracker,
+              ScrollEntity
     ) {
 // TODO : check if csrf work --
 // TODO : make sure bind is usable
