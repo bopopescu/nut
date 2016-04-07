@@ -179,6 +179,29 @@
 .category-detail-container{
   margin-top:30px;
 }
+#sort_header-wrapper{
+  .category-breadcrumb-wrapper{
+    overflow:hidden;
+    font-size: @smaller-primary;
+    ul li{
+      float:left;
+      a:hover{
+        text-decoration: none;
+      }
+      .fa{
+         margin-left:10px;
+        margin-right:10px;
+      }
+    }
+    ul li:last-child,.fa{
+      color:@common-gray;
+    }
+  }
+  .select-sort-wrapper{
+    font-size: @smaller-primary;
+  }
+
+}
 .category-sort-wrapper{
   width:100%;
   height:50px;
