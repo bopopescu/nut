@@ -51,6 +51,7 @@
                         <div class="row panel-content-wrapper social-list ">
 
                             {% for f in entity_likes  %}
+                                {% if f.user.absolute_url %}
                                 <div class="social-cell col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="clearfix user-item" >
                                         <div class="media clearfix">
@@ -95,6 +96,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                {% endif %}
                             {% endfor %}
 
                         </div>

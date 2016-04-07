@@ -855,17 +855,6 @@ p.boolean-false {
 .new-button-cancel i.fa-plus {
   color: #ffffff;
 }
-.newest-btn-primary {
-  border: 1px solid #6192FF;
-  background-color: #6192FF;
-  color: #ffffff;
-}
-.newest-btn-primary:hover,
-.newest-btn-primary:focus {
-  border: 1px solid #3F6FF0;
-  background-color: #3F6FF0;
-  color: #ffffff;
-}
 .newest-button-blue {
   border: 1px solid #6192FF;
   background-color: #ffffff;
@@ -886,30 +875,6 @@ p.boolean-false {
 .newest-button-blue i.fa-plus {
   color: #6192FF;
 }
-.check-icon-wrapper {
-  text-align: center;
-  margin-top: 40px;
-}
-.check-icon-wrapper .check-well-icon {
-  color: #4FB832;
-}
-.check-icon-wrapper .check-wrong-icon {
-  color: #9D9E9F;
-}
-.check-icon-wrapper .big-check-icon {
-  font-size: 132px;
-}
-.check-icon-wrapper .small-check-icon {
-  font-size: 80px;
-}
-.check-icon-wrapper .message {
-  margin-top: 30px;
-  font-size: 32px;
-}
-.check-icon-wrapper .more-message {
-  font-size: 16px;
-  color: #9D9E9F;
-}
 @media (max-width: 580px) {
   .authorized-seller-body .entity-four.new-thumbnail .entity-four-info .caption {
     width: 100%;
@@ -922,6 +887,9 @@ p.boolean-false {
   }
 }
 @media (max-width: 767px) {
+  .round-link {
+    display: none!important;
+  }
   .entity-selection-body {
     background-color: #F8F8F8;
   }
@@ -963,11 +931,10 @@ p.boolean-false {
   }
 }
 @media (max-width: 767px) {
-  .check-icon-wrapper .big-check-icon {
+  .mail-result .check-icon-wrapper .big-check-icon {
     font-size: 80px;
   }
-  .check-icon-wrapper .message,
-  .check-icon-wrapper .more-message {
+  .mail-result .check-icon-wrapper .message {
     font-size: 14px;
   }
   #selection_article_list .selection-article-item .article-title {
@@ -1223,3 +1190,4 @@ p.boolean-false {
     max-width: 200px;
   }
 }
+/*# sourceMappingURL=xs.less.css.map */
