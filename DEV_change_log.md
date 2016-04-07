@@ -1,10 +1,10 @@
-6. 
+
+6. reset password page refactor  --zhaoxu, luoqian 
 5. fix entity liker 500 bug (see bug discussion below) --anchen
 4. brand page style update    -- luoqian 
 3. hidden pink button when media widh< 768 -- luoqian 
 2. baidu tracker selection page -- zuoning (not finished)
 1. kaola margin link generate   -- shuailong 
-
 
 #action 
 
