@@ -5,18 +5,19 @@ require([
         'subapp/topmenu',
         'subapp/gotop',
         'subapp/scrollview_selection',
+        'subapp/tracker',
         'masonry',
         'jquery_bridget',
-        'images_loaded',
-        'subapp/tracker'
+        'images_loaded'
+
     ],
 
     function (polyfill,
               jQuery,
               AppEntityLike,
               Menu,
-              ScrollEntity,
               GoTop,
+              ScrollEntity,
               Tracker
     ) {
 // TODO : check if csrf work --
@@ -28,21 +29,21 @@ require([
         var tracker_list = [
             {
                 selector : 'btn-like',
-                event: 'click',
+                trigger: 'click',
                 category: 'entity',
                 action: 'like',
                 label: 'data-entity-title',
                 value: 'data-entity'
             }, {
                 selector: 'btn-unlike',
-                event: 'click',
+                trigger: 'click',
                 category: 'entity',
                 action: 'unlike',
                 label: 'data-entity-title',
                 value: 'data-entity'
             }, {
-                selector: 'entity_img_link',
-                event: 'click',
+                selector: 'img-entity-link',
+                trigger: 'click',
                 category: 'entity',
                 action: 'like',
                 label: 'data-entity-title',
