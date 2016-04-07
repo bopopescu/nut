@@ -855,6 +855,17 @@ p.boolean-false {
 .new-button-cancel i.fa-plus {
   color: #ffffff;
 }
+.newest-btn-primary {
+  border: 1px solid #6192FF;
+  background-color: #6192FF;
+  color: #ffffff;
+}
+.newest-btn-primary:hover,
+.newest-btn-primary:focus {
+  border: 1px solid #3F6FF0;
+  background-color: #3F6FF0;
+  color: #ffffff;
+}
 .newest-button-blue {
   border: 1px solid #6192FF;
   background-color: #ffffff;
@@ -882,14 +893,22 @@ p.boolean-false {
 .check-icon-wrapper .check-well-icon {
   color: #4FB832;
 }
+.check-icon-wrapper .check-wrong-icon {
+  color: #9D9E9F;
+}
 .check-icon-wrapper .big-check-icon {
   font-size: 132px;
 }
 .check-icon-wrapper .small-check-icon {
   font-size: 80px;
 }
-.check-icon-wrapper p.message {
+.check-icon-wrapper .message {
   margin-top: 30px;
+  font-size: 32px;
+}
+.check-icon-wrapper .more-message {
+  font-size: 16px;
+  color: #9D9E9F;
 }
 .hidden {
   display: none;
