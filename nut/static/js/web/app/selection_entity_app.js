@@ -43,6 +43,6 @@ require([
                 value: 'data-entity'
             }
         ];
-
-        var tracer = new Tracker(tracker_list);
+// TODO: to be continued
+//        var tracer = new Tracker(tracker_list);
     });
