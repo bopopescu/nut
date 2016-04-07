@@ -4274,7 +4274,7 @@ body.compact-body {
 }
 @media (max-width: 767px) {
   .round-link {
-    display: none;
+    display: none!important;
   }
   .entity-selection-body {
     background-color: #F8F8F8;
