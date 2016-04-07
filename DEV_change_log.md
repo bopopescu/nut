@@ -1,6 +1,7 @@
-
-3
- 
+5. 
+4. brand page style update    -- luoqian 
+3. hidden pink button when media widh< 768 -- luoqian 
+2. baidu tracker selection page -- zuoning (not finished)
 1. kaola margin link generate   -- shuailong 
 ==================================
 # merged to master 2016 3 - 31
