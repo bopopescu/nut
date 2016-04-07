@@ -5150,17 +5150,31 @@ define('subapp/tracker',['libs/Class'], function (Class) {
         init: function (tracker_list) {
             tracker_list.map(function(ele){
                   var selector = ele.selector;
-                  var event = ele.event;
-                  $(selector).on(event, function(event){
-                      var target = event.currentTarget;
+                  var trigger = ele.trigger;
+                  $('.'+ selector).on(trigger, function(){
+
+
+                      return trackerItem(ele);
+                     //console.log('event');
+                      //var target = event.currentTarget;
+                      //var category = $(target).attr(ele.category);
+                      //var action = $(target).attr(ele.action);
+                      //var opt_label = $(target).attr(ele.label);
+                      //var opt_value = $(target).attr(ele.value);
+                      // 闭包
+                     //_hmt.push('_trackEvent', category, action, opt_label, opt_value);
+                  });
+                  function trackerItem(ele) {
+                      console.log('ele', ele);
+                       var target = event.currentTarget;
                       var category = $(target).attr(ele.category);
                       var action = $(target).attr(ele.action);
                       var opt_label = $(target).attr(ele.label);
                       var opt_value = $(target).attr(ele.value);
-                      // 闭包
+                       //闭包
                      _hmt.push('_trackEvent', category, action, opt_label, opt_value);
-                  });
-            })(item);
+                  }
+            });
         }
     });
     return Tracker;
@@ -5172,18 +5186,19 @@ require([
         'subapp/topmenu',
         'subapp/gotop',
         'subapp/scrollview_selection',
+        'subapp/tracker',
         'masonry',
         'jquery_bridget',
-        'images_loaded',
-        'subapp/tracker'
+        'images_loaded'
+
     ],
 
     function (polyfill,
               jQuery,
               AppEntityLike,
               Menu,
-              ScrollEntity,
               GoTop,
+              ScrollEntity,
               Tracker
     ) {
 // TODO : check if csrf work --
@@ -5195,21 +5210,21 @@ require([
         var tracker_list = [
             {
                 selector : 'btn-like',
-                event: 'click',
+                trigger: 'click',
                 category: 'entity',
                 action: 'like',
                 label: 'data-entity-title',
                 value: 'data-entity'
             }, {
                 selector: 'btn-unlike',
-                event: 'click',
+                trigger: 'click',
                 category: 'entity',
                 action: 'unlike',
                 label: 'data-entity-title',
                 value: 'data-entity'
             }, {
-                selector: 'entity_img_link',
-                event: 'click',
+                selector: 'img-entity-link',
+                trigger: 'click',
                 category: 'entity',
                 action: 'like',
                 label: 'data-entity-title',
