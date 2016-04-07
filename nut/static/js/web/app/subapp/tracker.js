@@ -5,8 +5,6 @@ define(['libs/Class'], function (Class) {
                   var selector = ele.selector;
                   var trigger = ele.trigger;
                   $('.'+ selector).on(trigger, function(){
-
-
                       return trackerItem(ele);
                      //console.log('event');
                       //var target = event.currentTarget;
@@ -19,7 +17,7 @@ define(['libs/Class'], function (Class) {
                   });
                   function trackerItem(ele) {
                       console.log('ele', ele);
-                       var target = event.currentTarget;
+                      var target = event.currentTarget;
                       var category = $(target).attr(ele.category);
                       var action = $(target).attr(ele.action);
                       var opt_label = $(target).attr(ele.label);
