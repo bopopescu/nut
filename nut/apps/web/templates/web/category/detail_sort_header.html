@@ -1,0 +1,44 @@
+{% load i18n staticfiles %}
+{% load common guoku %}
+<div class="col-md-10 tips hidden-xs">
+                <ul>
+
+                    <li >
+                        <a href="{% url 'web_selection' %}">{% trans 'selection' %}</a>
+                        &nbsp;&nbsp;<i class="fa fa-angle-right fc_angle_right"></i>&nbsp;&nbsp;
+                    </li>
+                    <li>
+                        <a href="">一级品类名称</a>
+                        &nbsp;&nbsp;<i class="fa fa-angle-right fc_angle_right"></i>&nbsp;&nbsp;
+                    </li>
+                    <li>
+                        <a href="">二级品类名称</a>
+                        &nbsp;&nbsp;<i class="fa fa-angle-right fc_angle_right"></i>&nbsp;&nbsp;
+                    </li>
+                    <li >
+                        品牌名字 - 商品名字
+                    </li>
+                </ul>
+</div>
+
+<div class="col-md-2 hidden-xs">
+                <div>
+                    <span class="category-name"> {{ sub_category.title|show_category }}</span>
+                    <span class="dropdown-toggle category-action pull-right">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                           aria-haspopup="false" role="button" aria-expanded="false">
+                            {% if sort_method == 'pub_time' %}
+                                按时间
+                            {% else %}
+                                按喜爱
+                            {% endif %}
+                            <span class="caret"></span>
+                        </a>
+                        <ul  id="sort_dropdown" class="dropdown-menu" role="menu"  >
+                            <li ><a href="{{ sort_url }}">按时间</a></li>
+                            <li  class="divider"></li>
+                            <li ><a href="{{ sort_url }}olike/">按喜爱</a></li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
