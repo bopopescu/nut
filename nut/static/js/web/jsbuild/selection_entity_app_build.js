@@ -5145,6 +5145,23 @@ define('subapp/scrollview_selection',['jquery','libs/fastdom','subapp/loadentity
 });
 
 
+// singleton instance few.
+define('subapp/tracker',['libs/Class'], function (Class) {
+    //singleton for tracker
+
+    var Tracker = Class.extend({
+        init: function (tracker_list) {
+            //tracker_list.map(function(item){
+            //      var selector = item.selector;
+            //       var event = item.event;
+            //      $(selector).on(event, function(){
+            //         _hmt.push('_trackEvent', '')
+            //      })
+            //});
+        }
+    });
+    return Tracker;
+});
 require([
         'libs/polyfills',
         'jquery',
@@ -5155,6 +5172,7 @@ require([
         'masonry',
         'jquery_bridget',
         'images_loaded',
+        'subapp/tracker'
     ],
 
     function (polyfill,
@@ -5162,13 +5180,30 @@ require([
               AppEntityLike,
               Menu,
               ScrollEntity,
-              GoTop) {
+              GoTop,
+              Tracker
+    ) {
 // TODO : check if csrf work --
 // TODO : make sure bind is usable
         var menu = new Menu();
         var app_like = new AppEntityLike();
         var app_scrollentity = new ScrollEntity();
         var goto = new GoTop();
+        var tracker_list = [
+            {
+                selector : 'btn-like',
+                event:'click',
+                category: 'entity',
+                action: 'like',
+                label: 'data-entity-name',
+                value: 'data-entity'
+            },
+            {
+                selector: 'btn-unlike'
+            }
+        ];
+// TODO: to be continued
+//        var tracer = new Tracker(tracker_list);
     });
 
 define("selection_entity_app", function(){});
