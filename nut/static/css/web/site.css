@@ -1156,6 +1156,27 @@ p.boolean-false {
 .category-detail-container {
   margin-top: 30px;
 }
+#sort_header-wrapper .category-breadcrumb-wrapper {
+  overflow: hidden;
+  font-size: 14px;
+}
+#sort_header-wrapper .category-breadcrumb-wrapper ul li {
+  float: left;
+}
+#sort_header-wrapper .category-breadcrumb-wrapper ul li a:hover {
+  text-decoration: none;
+}
+#sort_header-wrapper .category-breadcrumb-wrapper ul li .fa {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+#sort_header-wrapper .category-breadcrumb-wrapper ul li:last-child,
+#sort_header-wrapper .category-breadcrumb-wrapper .fa {
+  color: #9D9E9F;
+}
+#sort_header-wrapper .select-sort-wrapper {
+  font-size: 14px;
+}
 .category-sort-wrapper {
   width: 100%;
   height: 50px;
