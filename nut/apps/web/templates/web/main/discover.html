@@ -69,24 +69,35 @@
 {#                </div>#}
 {#            {% endfor %}#}
 
-            {% for category in categories %}
-                <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="thumbnail category category-control">
-                        <a href="{% url 'web_category_detail' category.id %}">
-                             <img class="img-responsive" alt="{{ category.title }}" src="{{ category.icon_large_url }}" width="64" height="64">
-                            <p>{{ category.title|show_category }}</p>
-                        </a>
-                    </div>
-                </div>
-            {% endfor %}
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                <div class="thumbnail category category-control">
-                    <a href="{% url 'web_category_list' %}">
-                        <img class="img-responsive" src="{% static 'images/more.png' %}" width="64" height="64">
-                        <p>查看全部</p>
+{#            {% for category in categories %}#}
+{#                <div class="col-xs-3 col-sm-2 guoku-normal-col">#}
+{#                    <div class="thumbnail category category-control">#}
+{#                        <a href="{% url 'web_category_detail' category.id %}">#}
+{#                             <img class="img-responsive" alt="{{ category.title }}" src="{{ category.icon_large_url }}" width="64" height="64">#}
+{#                            <p>{{ category.title|show_category }}</p>#}
+{#                        </a>#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#            <div class="col-xs-3 col-sm-2 guoku-normal-col">#}
+{#                <div class="thumbnail category category-control">#}
+{#                    <a href="{% url 'web_category_list' %}">#}
+{#                        <img class="img-responsive" src="{% static 'images/more.png' %}" width="64" height="64">#}
+{#                        <p>查看全部</p>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+        </div>
+        <div class="row hot-section-wrapper" id="selection_article_list">
+                <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-normal-col selection-article-item hot-section-item">
+                    <a href="" target="_blank">
+                        <div class="article-panel">
+                            <div class="img-holder img-holder-control" style="background-image: url('http://imgcdn.guoku.com/images/150/91cf56bcc708c6e68948a20f3442ed9a.jpeg')">
+                            </div>
+                            <div class="bg-layer"></div>
+                        </div>
                     </a>
                 </div>
-            </div>
         </div>
 
         <div class="row hot-articles-wrapper" id="selection_article_list">
