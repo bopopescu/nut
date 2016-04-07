@@ -509,12 +509,12 @@ ul li {
   cursor: default;
 }
 .button-disabled {
-  background-color: #9D9E9F;
+  background-color: #BDBDBD;
   color: #F8F8F8;
 }
 .button-disabled:hover,
 .button-disabled:focus {
-  background-color: #9D9E9F;
+  background-color: #BDBDBD;
   color: #F8F8F8;
 }
 .entity-report-button {
@@ -622,7 +622,6 @@ ul li {
 }
 .entity-four .img-box img:hover,
 .entity-selection .img-box img:hover,
-.guoku-button:hover,
 #detail_content_right .section-list .section-banner img:hover,
 .guess_img .img-box img:hover,
 .article-wrapper .cover-wrapper a img:hover,
@@ -1216,6 +1215,17 @@ p.boolean-false {
 .new-button-cancel i.fa-plus {
   color: #ffffff;
 }
+.newest-btn-primary {
+  border: 1px solid #6192FF;
+  background-color: #6192FF;
+  color: #ffffff;
+}
+.newest-btn-primary:hover,
+.newest-btn-primary:focus {
+  border: 1px solid #3F6FF0;
+  background-color: #3F6FF0;
+  color: #ffffff;
+}
 .newest-button-blue {
   border: 1px solid #6192FF;
   background-color: #ffffff;
@@ -1224,6 +1234,7 @@ p.boolean-false {
 .newest-button-blue:hover {
   color: #3F6FF0;
   border: 1px solid #3F6FF0;
+  background-color: #ffffff;
 }
 .newest-button-blue:hover i.fa-plus {
   color: #3F6FF0;
@@ -1234,6 +1245,30 @@ p.boolean-false {
 }
 .newest-button-blue i.fa-plus {
   color: #6192FF;
+}
+.check-icon-wrapper {
+  text-align: center;
+  margin-top: 40px;
+}
+.check-icon-wrapper .check-well-icon {
+  color: #4FB832;
+}
+.check-icon-wrapper .check-wrong-icon {
+  color: #9D9E9F;
+}
+.check-icon-wrapper .big-check-icon {
+  font-size: 132px;
+}
+.check-icon-wrapper .small-check-icon {
+  font-size: 80px;
+}
+.check-icon-wrapper .message {
+  margin-top: 30px;
+  font-size: 32px;
+}
+.check-icon-wrapper .more-message {
+  font-size: 16px;
+  color: #9D9E9F;
 }
 .message_page {
   width: 941px;
@@ -2989,14 +3024,6 @@ body.compact-body {
   top: -5px;
   padding: 0px 15px;
 }
-.guoku-content.user-page .user-info-wrapper .user-info .user-nick-block .guoku-button.btn-cancel,
-.entity-likers-body.user-page .user-info-wrapper .user-info .user-nick-block .guoku-button.btn-cancel,
-.guoku-content.index-page .user-info-wrapper .user-info .user-nick-block .guoku-button.btn-cancel,
-.entity-likers-body.index-page .user-info-wrapper .user-info .user-nick-block .guoku-button.btn-cancel,
-.guoku-content .liker-page .user-info-wrapper .user-info .user-nick-block .guoku-button.btn-cancel,
-.entity-likers-body .liker-page .user-info-wrapper .user-info .user-nick-block .guoku-button.btn-cancel {
-  background-color: #fff;
-}
 .guoku-content.user-page .user-info-wrapper .user-info .user-bio,
 .entity-likers-body.user-page .user-info-wrapper .user-info .user-bio,
 .guoku-content.index-page .user-info-wrapper .user-info .user-bio,
@@ -4273,6 +4300,9 @@ body.compact-body {
   }
 }
 @media (max-width: 767px) {
+  .round-link {
+    display: none!important;
+  }
   .entity-selection-body {
     background-color: #F8F8F8;
   }
@@ -4314,10 +4344,11 @@ body.compact-body {
   }
 }
 @media (max-width: 767px) {
-  .mail-result .check-icon-wrapper .big-check-icon {
+  .check-icon-wrapper .big-check-icon {
     font-size: 80px;
   }
-  .mail-result .check-icon-wrapper .message {
+  .check-icon-wrapper .message,
+  .check-icon-wrapper .more-message {
     font-size: 14px;
   }
   #selection_article_list .selection-article-item .article-title {
@@ -4673,6 +4704,6 @@ body .for-mobile {
   text-align: left;
 }
 .gk_test {
-  color: red;
+  color: black;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */

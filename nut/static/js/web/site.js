@@ -1106,17 +1106,20 @@ function getQueryStrings() {
                             $this.html('<i class="fa fa-check fa-lg"></i>&nbsp; 取消关注');
                             $this.attr('data-status', '1');
                             $this.removeClass("button-blue").addClass("btn-cancel");
+                             $this.removeClass("newest-button-blue").addClass("new-btn-cancel");
 
                         }else if (data.status == 2){
                             console.log('mutual !!!');
                              $this.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关柱');
                              $this.removeClass('button-blue').addClass('btn-cancel');
+                             $this.removeClass("newest-button-blue").addClass("new-btn-cancel");
                              $this.attr('data-status','1');
 
                         }else if (data.status == 0) {
                             $this.html('<i class="fa fa-plus"></i>&nbsp; 关注');
                         //$this.html('<span class="img_follow"></span><b>关注</b>');
                             $this.removeClass("btn-cancel").addClass("button-blue");
+                            $this.removeClass("new-btn-cancel").addClass("newest-button-blue");
                             $this.attr('data-status', '0');
                         }else{
                           console.log('did not response with valid data');

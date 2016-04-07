@@ -442,6 +442,8 @@ class gotoBuyView(RedirectView):
 
         if "amazon" in b.origin_source:
             return b.amazon_url
+        elif "kaola" in b.origin_source:
+            return b.kaola_url
         return b.link
 
     def get(self, request, *args, **kwargs):
