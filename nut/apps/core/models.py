@@ -1232,7 +1232,6 @@ class Note(BaseModel):
 
         return res
 
-
 class Note_Comment(BaseModel):
     note = models.ForeignKey(Note, related_name='comments')
     user = models.ForeignKey(GKUser, related_name='note_comment')
