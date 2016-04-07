@@ -1,18 +1,19 @@
-// singleton instance few.
 define(['libs/Class'], function (Class) {
-    //singleton for tracker
-
     var Tracker = Class.extend({
         init: function (tracker_list) {
-            tracker_list.map(function(item){
-                  var selector = item.selector;
-                   var event = item.event;
-
+            //console.log('in tracker init');
+            tracker_list.map(function(ele){
+                  var selector = ele.selector;
+                  var event = ele.event;
                   $(selector).on(event, function(event){
                       var target = event.currentTarget;
-                      var lable = $(target).attr(item.label);
+                      console.log(target);
+                      var category = $(target).attr(ele.category);
+                      var action = $(target).attr(ele.action);
+                      var opt_label = $(target).attr(ele.label);
+                      var opt_value = $(target).attr(ele.value);
                       // 闭包
-                     _hmt.push('_trackEvent', '')
+                     _hmt.push('_trackEvent', category, action, opt_label, opt_value);
                   });
             });
         }
