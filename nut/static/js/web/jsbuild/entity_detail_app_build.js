@@ -3449,6 +3449,23 @@ define('subapp/entity/entity_share',['jquery', 'libs/Class','underscore','bootbo
 
     return EntityShareApp;
 });
+// singleton instance few.
+define('subapp/tracker',['libs/Class'], function (Class) {
+    //singleton for tracker
+
+    var Tracker = Class.extend({
+        init: function (tracker_list) {
+            //tracker_list.map(function(item){
+            //      var selector = item.selector;
+            //       var event = item.event;
+            //      $(selector).on(event, function(){
+            //         _hmt.push('_trackEvent', '')
+            //      })
+            //});
+        }
+    });
+    return Tracker;
+});
 require([
         'libs/polyfills',
         'jquery',
@@ -3468,7 +3485,8 @@ require([
 
         'subapp/entity/entity_share',
 
-        'libs/csrf'
+        'libs/csrf',
+         'subapp/tracker'
 
     ],
     function (polyfill,

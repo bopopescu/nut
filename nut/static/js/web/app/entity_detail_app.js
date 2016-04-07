@@ -17,7 +17,8 @@ require([
 
         'subapp/entity/entity_share',
 
-        'libs/csrf'
+        'libs/csrf',
+         'subapp/tracker'
 
     ],
     function (polyfill,
