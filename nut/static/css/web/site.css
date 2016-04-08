@@ -1215,6 +1215,15 @@ p.boolean-false {
   line-height: 38px;
   /*color: rgb(102, 102, 102);*/
 }
+.second-level-category-wrapper .second-list-wrapper .category {
+  posiiton: relative;
+}
+.second-level-category-wrapper .second-list-wrapper .category .category-item-name {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
 /* 搜索页面 */
 .navbar-search {
   background-color: #F8F8F8;
