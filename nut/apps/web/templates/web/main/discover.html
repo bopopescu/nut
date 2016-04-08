@@ -48,203 +48,30 @@
                 </ul>
             </div>
         </div>
-      {% endif %}
+        {% endif %}
 
         <div class="row category-wrapper">
             <div class="col-sm-12 section-title-wrapper">
                 <p>推荐品类</p>
             </div>
-
-{#            <div class="col-md-10 col-xs-12" >#}
-{#            {% for category in categories %}#}
-{#                <div class="col-xs-4 col-sm-2">#}
-{#                    <div class="thumbnail category category-control">#}
-{#                        <a href="{% url 'web_category_detail' category.id %}">#}
-{#                            <img class="img-responsive" alt="{{ category.title }}" src="{{ category.icon_large_url }}"  width="64" height="64">#}
-{#                            <p>{{ category.title|show_category }}</p>#}
-{##}
-{#                        </a>#}
-{#                    {{ category }}#}
-{#                    </div>#}
-{#                </div>#}
-{#            {% endfor %}#}
-
-{#            {% for category in categories %}#}
-{#                <div class="col-xs-3 col-sm-2 guoku-normal-col">#}
-{#                    <div class="thumbnail category category-control">#}
-{#                        <a href="{% url 'web_category_detail' category.id %}">#}
-{#                             <img class="img-responsive" alt="{{ category.title }}" src="{{ category.icon_large_url }}" width="64" height="64">#}
-{#                            <p>{{ category.title|show_category }}</p>#}
-{#                        </a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            {% endfor %}#}
-{#            <div class="col-xs-3 col-sm-2 guoku-normal-col">#}
-{#                <div class="thumbnail category category-control">#}
-{#                    <a href="{% url 'web_category_list' %}">#}
-{#                        <img class="img-responsive" src="{% static 'images/more.png' %}" width="64" height="64">#}
-{#                        <p>查看全部</p>#}
-{#                    </a>#}
-{#                </div>#}
-{#            </div>#}
         </div>
+
+
         <div class="row dark-section-wrapper">
+            {% for category in categories %}
              <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col dark-section-item">
-                    <a href="" target="_blank">
+                    <a href="{% url 'web_category_group' category.id %}" target="_blank">
                         <div class="section-panel">
-                            <div class="bg-pic" style="background-image: url('http://imgcdn.guoku.com/images/150/91cf56bcc708c6e68948a20f3442ed9a.jpeg')">
+                            <div class="bg-pic" style="background-image: url('{{ category.cover_url }}')">
                             </div>
-                             <div class="section-name">
-                                <p>居家</p>
-                                <span>LIVING</span>
+                             <div class="section-name" style="width:68px">
+                                <p>{{ category }}
                             </div>
                             <div class="bg-layer"></div>
                         </div>
                     </a>
-                </div>
-            <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col dark-section-item">
-                    <a href="" target="_blank">
-                        <div class="section-panel">
-                            <div class="bg-pic" style="background-image: url('http://imgcdn.guoku.com/images/150/91cf56bcc708c6e68948a20f3442ed9a.jpeg')">
-                            </div>
-                             <div class="section-name">
-                                <p>居家</p>
-                                <span>LIVING</span>
-                            </div>
-                            <div class="bg-layer"></div>
-                        </div>
-                    </a>
-                </div>
-            <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col dark-section-item">
-                    <a href="" target="_blank">
-                        <div class="section-panel">
-                            <div class="bg-pic" style="background-image: url('http://imgcdn.guoku.com/images/150/91cf56bcc708c6e68948a20f3442ed9a.jpeg')">
-                            </div>
-                             <div class="section-name">
-                                <p>居家</p>
-                                <span>LIVING</span>
-                            </div>
-                            <div class="bg-layer"></div>
-                        </div>
-                    </a>
-                </div>
-            <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col dark-section-item">
-                    <a href="" target="_blank">
-                        <div class="section-panel">
-                            <div class="bg-pic" style="background-image: url('http://imgcdn.guoku.com/images/150/91cf56bcc708c6e68948a20f3442ed9a.jpeg')">
-                            </div>
-                             <div class="section-name">
-                                <p>居家</p>
-                                <span>LIVING</span>
-                            </div>
-                            <div class="bg-layer"></div>
-                        </div>
-                    </a>
-                </div>
-            <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col dark-section-item">
-                    <a href="" target="_blank">
-                        <div class="section-panel">
-                            <div class="bg-pic" style="background-image: url('http://imgcdn.guoku.com/images/150/91cf56bcc708c6e68948a20f3442ed9a.jpeg')">
-                            </div>
-                             <div class="section-name">
-                                <p>居家</p>
-                                <span>LIVING</span>
-                            </div>
-                            <div class="bg-layer"></div>
-                        </div>
-                    </a>
-                </div>
-            <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col dark-section-item">
-                    <a href="" target="_blank">
-                        <div class="section-panel">
-                            <div class="bg-pic" style="background-image: url('http://imgcdn.guoku.com/images/150/91cf56bcc708c6e68948a20f3442ed9a.jpeg')">
-                            </div>
-                             <div class="section-name">
-                                <p>居家</p>
-                                <span>LIVING</span>
-                            </div>
-                            <div class="bg-layer"></div>
-                        </div>
-                    </a>
-                </div>
-            <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col dark-section-item">
-                    <a href="" target="_blank">
-                        <div class="section-panel">
-                            <div class="bg-pic" style="background-image: url('http://imgcdn.guoku.com/images/150/91cf56bcc708c6e68948a20f3442ed9a.jpeg')">
-                            </div>
-                             <div class="section-name">
-                                <p>居家</p>
-                                <span>LIVING</span>
-                            </div>
-                            <div class="bg-layer"></div>
-                        </div>
-                    </a>
-                </div>
-            <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col dark-section-item">
-                    <a href="" target="_blank">
-                        <div class="section-panel">
-                            <div class="bg-pic" style="background-image: url('http://imgcdn.guoku.com/images/150/91cf56bcc708c6e68948a20f3442ed9a.jpeg')">
-                            </div>
-                             <div class="section-name">
-                                <p>居家</p>
-                                <span>LIVING</span>
-                            </div>
-                            <div class="bg-layer"></div>
-                        </div>
-                    </a>
-                </div>
-            <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col dark-section-item">
-                    <a href="" target="_blank">
-                        <div class="section-panel">
-                            <div class="bg-pic" style="background-image: url('http://imgcdn.guoku.com/images/150/91cf56bcc708c6e68948a20f3442ed9a.jpeg')">
-                            </div>
-                             <div class="section-name">
-                                <p>居家</p>
-                                <span>LIVING</span>
-                            </div>
-                            <div class="bg-layer"></div>
-                        </div>
-                    </a>
-                </div>
-            <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col dark-section-item">
-                    <a href="" target="_blank">
-                        <div class="section-panel">
-                            <div class="bg-pic" style="background-image: url('http://imgcdn.guoku.com/images/150/91cf56bcc708c6e68948a20f3442ed9a.jpeg')">
-                            </div>
-                             <div class="section-name">
-                                <p>居家</p>
-                                <span>LIVING</span>
-                            </div>
-                            <div class="bg-layer"></div>
-                        </div>
-                    </a>
-                </div>
-            <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col dark-section-item">
-                    <a href="" target="_blank">
-                        <div class="section-panel">
-                            <div class="bg-pic" style="background-image: url('http://imgcdn.guoku.com/images/150/91cf56bcc708c6e68948a20f3442ed9a.jpeg')">
-                            </div>
-                             <div class="section-name">
-                                <p>居家</p>
-                                <span>LIVING</span>
-                            </div>
-                            <div class="bg-layer"></div>
-                        </div>
-                    </a>
-                </div>
-            <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col dark-section-item">
-                    <a href="" target="_blank">
-                        <div class="section-panel">
-                            <div class="bg-pic" style="background-image: url('http://imgcdn.guoku.com/images/150/91cf56bcc708c6e68948a20f3442ed9a.jpeg')">
-                            </div>
-                             <div class="section-name">
-                                <p>居家</p>
-                                <span>LIVING</span>
-                            </div>
-                            <div class="bg-layer"></div>
-                        </div>
-                    </a>
-                </div>
+             </div>
+            {% endfor %}
         </div>
 
 
