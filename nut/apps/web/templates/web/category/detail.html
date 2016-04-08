@@ -28,8 +28,24 @@
         </div>
         </div>
     </div>
-
     <div class="container category-detail-container">
+        <div class="row" id="top_article_tags_container">
+            <div class="top-article-tag">
+                    <a href="">
+                        <div class="tag-element tag-current">
+                            便当盒
+                        </div>
+                    </a>
+                </div>
+            <div class="top-article-tag">
+                    <a href="">
+                        <div class="tag-element">
+                            台灯
+                        </div>
+                    </a>
+                </div>
+            <a href="" class="more-link">查看全部</a>
+    </div>
         <div class="row selection_article_container" id="selection_article_list">
             {% for article in related_articles %}
              {% include 'web/article/partial/article_item_new.html' %}
