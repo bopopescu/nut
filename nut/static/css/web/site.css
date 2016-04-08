@@ -1156,6 +1156,12 @@ p.boolean-false {
 .category-detail-container {
   margin-top: 30px;
 }
+.category-detail-container #top_article_tags_container a.more-link {
+  font-size: 14px;
+}
+.category-detail-container #top_article_tags_container a.more-link:hover {
+  text-decoration: none;
+}
 #sort_header-wrapper .category-breadcrumb-wrapper {
   overflow: hidden;
   float: left;
