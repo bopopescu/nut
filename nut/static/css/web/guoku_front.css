@@ -3562,9 +3562,7 @@ body.compact-body {
   display: block;
   width: 100%;
   height: 100%;
-}
-#detail_content_left #guess_list .guess-img .img-holder a .img-frame {
-  heigth: 0;
+  height: 0;
   padding-bottom: 100%;
   background-position: center center;
   background-size: contain;
@@ -3711,13 +3709,11 @@ body.compact-body {
   display: block;
   width: 100%;
   height: 100%;
-}
-#detail_content_right .section-list li.section .section-content .icon-holder a .img-frame {
-  width: 100%;
-  height: 0 ;
+  height: 0;
   padding-bottom: 100%;
-  background-size: cover;
   background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 #detail_content_right .section-list li.section .section-content .download-link i {
   color: #357ebd;
@@ -3758,13 +3754,11 @@ body.compact-body {
   display: block;
   width: 100%;
   height: 100%;
-}
-#detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .img-holder a .img-frame {
-  width: 100%;
-  height: 0 ;
+  height: 0;
   padding-bottom: 100%;
-  background-size: cover;
   background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .entity-content {
   width: 77% ;
@@ -3813,13 +3807,11 @@ body.compact-body {
   display: block;
   width: 100%;
   height: 100%;
-}
-#detail_content_right .section-list li.section .pop-article-list .pop-article .img-holder a .img-frame {
-  width: 100%;
-  height: 0 ;
+  height: 0;
   padding-bottom: 100%;
-  background-size: cover;
   background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 #detail_content_right .section-list li.section .pop-article-list .pop-article .article-content {
   display: inline-block;
@@ -4487,4 +4479,11 @@ body .for-mobile {
 }
 .gk_test {
   color: red;
+}
+.img-frame {
+  height: 0;
+  padding-bottom: 100%;
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
