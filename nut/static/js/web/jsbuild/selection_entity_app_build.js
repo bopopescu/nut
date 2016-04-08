@@ -1624,21 +1624,23 @@ define('subapp/tracker',['libs/Class'], function (Class) {
     var Tracker = Class.extend({
         init: function (tracker_list) {
             tracker_list.map(function(ele){
+                  var wrapper = ele.wrapper;
                   var selector = ele.selector;
                   var trigger = ele.trigger;
-                  $('.'+ selector).on(trigger, function(){
-                      return trackerItem(ele);
+                  $(wrapper).on(trigger, selector, function(event){
+                      return (function() {
+                              var target = event.currentTarget;
+                              console.log(target);
+                              var category = ele.category;
+                              var action = ele.action;
+                              var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
+                              var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
+                               //闭包
+                             _hmt.push('_trackEvent', category, action, opt_label, opt_value);
+                      })();
+
                   });
-                  function trackerItem(ele) {
-                      var target = event.currentTarget;
-                      console.log(target);
-                      var category = $(target).attr(ele.category);
-                      var action = $(target).attr(ele.action);
-                      var opt_label = $(target).attr(ele.label);
-                      var opt_value = $(target).attr(ele.value);
-                       //闭包
-                     _hmt.push('_trackEvent', category, action, opt_label, opt_value);
-                  }
+
             });
         }
     });
@@ -5199,26 +5201,29 @@ require([
         var goto = new GoTop();
         var tracker_list = [
             {
-                selector : 'btn-like',
+                selector : '.fa-heart-o',
                 trigger: 'click',
                 category: 'entity',
                 action: 'like',
                 label: 'data-entity-title',
-                value: 'data-entity'
+                value: 'data-entity',
+                wrapper: '#selection'
             }, {
-                selector: 'btn-unlike',
+                selector: '.fa-heart',
                 trigger: 'click',
                 category: 'entity',
                 action: 'unlike',
                 label: 'data-entity-title',
-                value: 'data-entity'
+                value: 'data-entity',
+                wrapper: '#selection'
             }, {
-                selector: 'img-entity-link',
+                selector: '.img-entity-link',
                 trigger: 'click',
                 category: 'entity',
                 action: 'like',
                 label: 'data-entity-title',
-                value: 'data-entity'
+                vae: 'data-entity-id',
+                wrapper: '#selection'
             }
         ];
 

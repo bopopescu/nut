@@ -28,26 +28,29 @@ require([
         var goto = new GoTop();
         var tracker_list = [
             {
-                selector : 'btn-like',
+                selector : '.fa-heart-o',
                 trigger: 'click',
                 category: 'entity',
                 action: 'like',
                 label: 'data-entity-title',
-                value: 'data-entity'
+                value: 'data-entity',
+                wrapper: '#selection'
             }, {
-                selector: 'btn-unlike',
+                selector: '.fa-heart',
                 trigger: 'click',
                 category: 'entity',
                 action: 'unlike',
                 label: 'data-entity-title',
-                value: 'data-entity'
+                value: 'data-entity',
+                wrapper: '#selection'
             }, {
-                selector: 'img-entity-link',
+                selector: '.img-entity-link',
                 trigger: 'click',
                 category: 'entity',
                 action: 'like',
                 label: 'data-entity-title',
-                value: 'data-entity'
+                vae: 'data-entity-id',
+                wrapper: '#selection'
             }
         ];
 
