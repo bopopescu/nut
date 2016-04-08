@@ -1219,6 +1219,10 @@ p.boolean-false {
 .second-level-category-wrapper .second-list-wrapper .category {
   posiiton: relative;
 }
+.second-level-category-wrapper .second-list-wrapper .category .blank-rect {
+  width: 56px;
+  height: 56px;
+}
 .second-level-category-wrapper .second-list-wrapper .category .category-item-name {
   position: absolute;
   top: 50%;
