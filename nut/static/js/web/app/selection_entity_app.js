@@ -47,9 +47,9 @@ require([
                 selector: '.img-entity-link',
                 trigger: 'click',
                 category: 'entity',
-                action: 'like',
+                action: 'entity_detail',
                 label: 'data-entity-title',
-                vae: 'data-entity-id',
+                value: 'data-entity-id',
                 wrapper: '#selection'
             }
         ];
