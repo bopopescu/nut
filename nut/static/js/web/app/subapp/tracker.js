@@ -1,7 +1,6 @@
 define(['libs/Class'], function (Class) {
     var Tracker = Class.extend({
         init: function (tracker_list) {
-            //console.log('in tracker init');
             tracker_list.map(function(ele){
                   var selector = ele.selector;
                   var trigger = ele.trigger;
@@ -9,7 +8,6 @@ define(['libs/Class'], function (Class) {
                       return trackerItem(ele);
                   });
                   function trackerItem(ele) {
-                      console.log('ele', ele);
                       var target = event.currentTarget;
                       console.log(target);
                       var category = $(target).attr(ele.category);
