@@ -13,38 +13,108 @@
     <meta name="description" content="居家,美容,文化,美食,女装,男装,配饰,户外,科技,玩乐,母婴,保健,大杂烩,果库推荐品类，按照类目细分商品，聚合单一品类的商品排行榜，寻找好物不再盲目。发现更好商品，一目了然。">
 {% endblock %}
 
-{% block title %}推荐品类 | 精英消费指南 | 果库{% endblock %}
+{% block title %}品类 | 精英消费指南 | 果库{% endblock %}
 {#{% block keyword %}果库品类,分类检索,生活日常,收纳洗晒,家庭清洁,室内装饰,家具,家电,烹饪厨具,个人养护,外出旅行,文具,图书,食品,餐具水具,品质生活,消费指南{% endblock %}#}
 {#{% block description %}果库品类，按照品类细分商品，寻找好物不再盲目。{% endblock %}#}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-xs-12" >
-                {% for category in categories %}
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h5>{{ category.title }}</h5>
-                        </div>
-                    </div>
-
-                <div class="row category-list">
-                    {% for sub in category.sub_categories.all %}
-                        {% if sub.status != 0 %}
-                        <div class="col-xs-4 col-sm-3 col-md-2">
-                            <div class="thumbnail category">
-                                <a href="{% url 'web_category_detail' sub.id %}">
-                                    <img class="img-responsive" alt="{{ sub.title }}" src="{{ sub.icon_large_url }}"  width="40" height="40">
-                                    <p>{{ sub.title|show_category }}</p>
-                                </a>
-                            </div>
-                        </div>
-                        {% endif %}
-                    {% endfor %}
-
-                </div>
-                {% endfor %}
+    <div class="container second-level-category-wrapper">
+        <div class="row category-name-wrapper">
+            <div class="col-sm-12">
+                <h5>配饰 ACCESSORIES</h5>
             </div>
+        </div>
+
+        <div class="row category-wrapper first-list-wrapper">
+{#                    {% for sub in category.sub_categories.all %}#}
+{#                        {% if sub.status != 0 %}#}
+{#                        <div class="col-xs-4 col-sm-3 col-md-2">#}
+{#                            <div class="thumbnail category">#}
+{#                                <a href="{% url 'web_category_detail' sub.id %}">#}
+{#                                    <img class="img-responsive" alt="{{ sub.title }}" src="{{ sub.icon_large_url }}"  width="40" height="40">#}
+{#                                    <p>{{ sub.title|show_category }}</p>#}
+{#                                </a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        {% endif %}#}
+{#                    {% endfor %}#}
+            <div class="col-xs-3 col-sm-2 guoku-normal-col">
+                <div class="thumbnail category category-control">
+                    <a href="" target="_blank">
+                        <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/93746baa08ad33a12138d91a880411b2.png" width="64" height="64">
+                        <p>水彩颜料</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-2 guoku-normal-col">
+                <div class="thumbnail category category-control">
+                    <a href="" target="_blank">
+                        <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/93746baa08ad33a12138d91a880411b2.png" width="64" height="64">
+                        <p>水彩颜料</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-2 guoku-normal-col">
+                <div class="thumbnail category category-control">
+                    <a href="" target="_blank">
+                        <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/93746baa08ad33a12138d91a880411b2.png" width="64" height="64">
+                        <p>水彩颜料</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-2 guoku-normal-col">
+                <div class="thumbnail category category-control">
+                    <a href="" target="_blank">
+                        <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/93746baa08ad33a12138d91a880411b2.png" width="64" height="64">
+                        <p>水彩颜料</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-2 guoku-normal-col">
+                <div class="thumbnail category category-control">
+                    <a href="" target="_blank">
+                        <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/93746baa08ad33a12138d91a880411b2.png" width="64" height="64">
+                        <p>水彩颜料</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-2 guoku-normal-col">
+                <div class="thumbnail category category-control">
+                    <a href="" target="_blank">
+                        <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/93746baa08ad33a12138d91a880411b2.png" width="64" height="64">
+                        <p>水彩颜料</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-2 guoku-normal-col">
+                <div class="thumbnail category category-control">
+                    <a href="" target="_blank">
+                        <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/93746baa08ad33a12138d91a880411b2.png" width="64" height="64">
+                        <p>水彩颜料</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-2 guoku-normal-col">
+                <div class="thumbnail category category-control">
+                    <a href="" target="_blank">
+                        <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/93746baa08ad33a12138d91a880411b2.png" width="64" height="64">
+                        <p>水彩颜料</p>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <div class="row category-wrapper second-list-wrapper">
+            <div class="col-xs-3 col-sm-2 guoku-normal-col">
+                 <div class="thumbnail category category-control">
+                    <a href="" target="_blank">
+{#                        <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/images/200/93746baa08ad33a12138d91a880411b2.png" width="64" height="64">#}
+
+                        <p>水彩颜料</p>
+                    </a>
+                </div>
+            </div>
+
         </div>
 
         <div class="row hidden-xs">
