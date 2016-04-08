@@ -34,6 +34,25 @@ class CategoryListView(ListView):
     context_object_name = "categories"
 
 
+class SubCategoryListView(ListView):
+    model = Sub_Category
+    template_name = "web/category/list.html"
+    context_object_name = "sub_categories"
+
+    def get_queryset(self):
+        gid = self.kwargs.get('gid')
+        sub_categories = Sub_Category.objects.filter(group=gid)
+        return sub_categories
+
+    def get_context_data(self, *args, **kwargs):
+        gid = self.kwargs.get('gid')
+        context = super(SubCategoryListView, self).get_context_data(*args, **kwargs)
+        context['category'] = Category.objects.get(pk=gid)
+        return context
+
+
+
+
 class CategoryGroupListView(TemplateResponseMixin, ContextMixin, View):
     http_method_names = ['get']
     template_name = 'web/category/detail.html'
@@ -44,11 +63,13 @@ class CategoryGroupListView(TemplateResponseMixin, ContextMixin, View):
         gid = kwargs.pop('gid', None)
         _page = request.GET.get('page', 1)
         category = Category.objects.get(pk=gid)
-        sub_categories = Sub_Category.objects.filter(group=gid).values_list(
+        sub_categories_ids = Sub_Category.objects.filter(group=gid).values_list(
             'id', flat=True)
+        sub_categories_titles = Sub_Category.objects.filter(group=gid).values_list(
+            'title', flat=True)[:10]
 
         _entity_list = Entity.objects.filter(
-            category_id__in=list(sub_categories),
+            category_id__in=list(sub_categories_ids),
             status=Entity.selection).filter(buy_links__status=2)
         paginator = ExtentPaginator(_entity_list, 24)
         try:
@@ -69,7 +90,8 @@ class CategoryGroupListView(TemplateResponseMixin, ContextMixin, View):
         context = {
             'entities': _entities,
             'user_entity_likes': el,
-            'sub_category': category,
+            'category': category,
+            'sub_categories': sub_categories_titles
         }
         return self.render_to_response(context)
 

@@ -26,25 +26,20 @@
             <div class="row" id="sort_header-wrapper">
               {% include "web/category/detail_sort_header.html" %}
         </div>
-        </div>
     </div>
+
     <div class="container category-detail-container">
         <div class="row" id="top_article_tags_container">
+                {% for sub_catogory in sub_categories %}
             <div class="top-article-tag">
                     <a href="">
                         <div class="tag-element tag-current">
-                            便当盒
+                            {{ sub_catogory }}
                         </div>
                     </a>
                 </div>
-            <div class="top-article-tag">
-                    <a href="">
-                        <div class="tag-element">
-                            台灯
-                        </div>
-                    </a>
-                </div>
-            <a href="{% url 'web_category_list' %}" target="_blank" class="more-link">查看全部</a>
+                {% endfor %}
+            <a href="{% url 'web_subcategory_list' category.id %}" target="_blank" class="more-link">查看全部</a>
     </div>
         <div class="row selection_article_container" id="selection_article_list">
             {% for article in related_articles %}
