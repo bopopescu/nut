@@ -1158,6 +1158,7 @@ p.boolean-false {
 }
 #sort_header-wrapper .category-breadcrumb-wrapper {
   overflow: hidden;
+  float: left;
   font-size: 14px;
 }
 #sort_header-wrapper .category-breadcrumb-wrapper ul li {
