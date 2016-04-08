@@ -1140,6 +1140,7 @@ p.boolean-false {
   color: #999;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 13px;
   margin: 0px -10px 20px -10px;
   text-decoration: none;
@@ -1223,6 +1224,13 @@ p.boolean-false {
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
+  width: 100%;
+  color: #999;
+  font-size: 13px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 /* 搜索页面 */
 .navbar-search {
