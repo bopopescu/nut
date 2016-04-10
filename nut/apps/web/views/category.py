@@ -203,7 +203,7 @@ class CategoryDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
         context['entities'] = entities
         context['sort_method'] = order_by
         context['user_entity_likes'] = el
-        context['category'] = category,
+        context['category'] = category
         context['sub_category'] = sub_category
         context['refresh_datetime'] = self.get_refresh_time()
         context = self.add_related_article(context, sub_category.title)
