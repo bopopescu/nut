@@ -32,22 +32,23 @@
         <div class="row" id="top_article_tags_container">
                 {% for sub_catogory in sub_categories %}
             <div class="top-article-tag">
-                    <a href="">
+                    <a href="{% url 'web_category_detail' sub_catogory.id %}">
                         <div class="tag-element tag-current">
                             {{ sub_catogory }}
                         </div>
                     </a>
                 </div>
                 {% endfor %}
+        {% if sub_categories %}
             <a href="{% url 'web_subcategory_list' category.id %}" target="_blank" class="more-link">查看全部</a>
+        {% endif %}
     </div>
-        <div class="row selection_article_container" id="selection_article_list">
-            {% for article in related_articles %}
-             {% include 'web/article/partial/article_item_new.html' %}
-            {% endfor %}
-        </div>
+{#        <div class="row selection_article_container" id="selection_article_list">#}
+{#            {% for article in related_articles %}#}
+{#             {% include 'web/article/partial/article_item_new.html' %}#}
+{#            {% endfor %}#}
+{#        </div>#}
         <div class="row" id="category-entity-list" data-refresh="{{ refresh_datetime }}">
-
             {% for entity in entities %}
                 {% include 'web/main/partial/entity.html' with entity=entity %}
             {% endfor %}
