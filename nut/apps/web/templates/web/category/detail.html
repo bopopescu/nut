@@ -47,11 +47,15 @@
             </div>
         {% endif %}
     </div>
-{#        <div class="row selection_article_container" id="selection_article_list">#}
-{#            {% for article in related_articles %}#}
-{#             {% include 'web/article/partial/article_item_new.html' %}#}
-{#            {% endfor %}#}
-{#        </div>#}
+
+    {% if sub_category %}
+        <div class="row selection_article_container" id="selection_article_list">
+            {% for article in related_articles %}
+             {% include 'web/article/partial/article_item_new.html' %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
         <div class="row" id="category-entity-list" data-refresh="{{ refresh_datetime }}">
             {% for entity in entities %}
                 {% include 'web/main/partial/entity.html' with entity=entity %}
