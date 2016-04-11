@@ -18,7 +18,6 @@
                     <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
                         {{ entity.title|truncatechars:12 }}
                     </a>
-                    {{ entity.default_buy_link.price }}
                 </div>
                 <div class="price">
                     &#65509;{{ entity.default_buy_link.price }}
