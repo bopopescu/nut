@@ -33,7 +33,7 @@
                 {% for sub_catogory in sub_categories %}
             <div class="top-article-tag">
                     <a href="{% url 'web_category_detail' sub_catogory.id %}">
-                        <div class="tag-element tag-current">
+                        <div class="tag-element {% if tag.name == sub_catogory %}tag-current{% endif %}">
                             {{ sub_catogory }}
                         </div>
                     </a>

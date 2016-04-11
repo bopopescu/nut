@@ -12,18 +12,20 @@
             </li>
             <li>
                 <a href="{% url 'web_category_group' category.id %}">{{ category }}</a>
-                <i class="fa fa-angle-right fc_angle_right"></i>
             </li>
 
             {% if sub_category %}
             <li>
-                <a href="{% url 'web_category_detail' sub_category.id %}">{{ sub_category }}</a>
                 <i class="fa fa-angle-right fc_angle_right"></i>
+                <a href="{% url 'web_category_detail' sub_category.id %}">{{ sub_category }}</a>
             </li>
             {% endif %}
+            {% if entity %}
             <li >
+                <i class="fa fa-angle-right fc_angle_right"></i>
                 {{ entity.name }}
             </li>
+            {% endif %}
         </ul>
     </div>
 
