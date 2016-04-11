@@ -6,7 +6,7 @@ define(['libs/Class'], function (Class) {
                   var trigger = ele.trigger;
                   if (ele.wrapper) {
                       var wrapper = ele.wrapper;
-                      $(wrapper).on(trigger, selector, function(event){
+                      $(wrapper).delegate(selector, trigger, function(event){
                           return (function() {
                                   var target = event.currentTarget;
                                   var category = ele.category;
