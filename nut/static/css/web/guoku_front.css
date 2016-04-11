@@ -3565,7 +3565,7 @@ body.compact-body {
   height: 0;
   padding-bottom: 100%;
   background-position: center center;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 #detail_content_left #guess_list .guess-img .img-box {
@@ -3712,7 +3712,7 @@ body.compact-body {
   height: 0;
   padding-bottom: 100%;
   background-position: center center;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 #detail_content_right .section-list li.section .section-content .download-link i {
@@ -3757,7 +3757,7 @@ body.compact-body {
   height: 0;
   padding-bottom: 100%;
   background-position: center center;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 #detail_content_right .section-list li.section .pop-entity-list li .pop-entity-wrapper .entity-content {
@@ -3810,7 +3810,7 @@ body.compact-body {
   height: 0;
   padding-bottom: 100%;
   background-position: center center;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 #detail_content_right .section-list li.section .pop-article-list .pop-article .article-content {
@@ -4484,6 +4484,10 @@ body .for-mobile {
   height: 0;
   padding-bottom: 100%;
   background-position: center center;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
+}
+.guoku-content.user-page .user-info-wrapper .user-icon img {
+  padding-bottom: 100px;
+  background-size: contain;
 }

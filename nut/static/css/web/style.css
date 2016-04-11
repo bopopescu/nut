@@ -976,4 +976,6 @@ a:hover {
   color: red;
 }
 /*add by An End*/
-/*# sourceMappingURL=style.less.css.map */
+#settings .introduce .head .head_pic img#user-avatar {
+  background-size: contain;
+}

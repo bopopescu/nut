@@ -2,7 +2,7 @@
 {% load guoku %}
 
 <div class="head_pic">
-        <img class="img-responsive img-circle" id='user-avatar' src="{{ user_context.profile.avatar_url|resize:"120" }}" width="120" height="120">
+        <img class="img-responsive img-circle img-frame" id='user-avatar' style="background-image: url({{ user_context.profile.avatar_url|resize:"120" }})" width="120" height="120">
 </div>
 <div class="change_head bg_c_blue fs_16 fc_4">
     						点击选择图片
