@@ -136,8 +136,12 @@
 
 </div>
 {% endblock %}
-{% block script %}
+{#{% block script %}#}
+{##}
+{#    <script type="text/javascript" src="{% static 'thirdparty/slick/slick/slick.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'js/web/index_slider.js' %}"></script>#}
+{#{% endblock %}#}
 
-    <script type="text/javascript" src="{% static 'thirdparty/slick/slick/slick.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/web/index_slider.js' %}"></script>
+{% block basic_script %}
+    <script data-main="{% static 'js/web/jsbuild/index_page_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
 {% endblock %}
