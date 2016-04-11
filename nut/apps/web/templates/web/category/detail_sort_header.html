@@ -11,13 +11,13 @@
                 <i class="fa fa-angle-right fc_angle_right"></i>
             </li>
             <li>
-                <a href="">{{ category }}</a>
+                <a href="{% url 'web_category_group' category.id %}">{{ category }}</a>
                 <i class="fa fa-angle-right fc_angle_right"></i>
             </li>
 
             {% if sub_category %}
             <li>
-                <a href="">{{ sub_category }}</a>
+                <a href="{% url 'web_category_detail' sub_category.id %}">{{ sub_category }}</a>
                 <i class="fa fa-angle-right fc_angle_right"></i>
             </li>
             {% endif %}

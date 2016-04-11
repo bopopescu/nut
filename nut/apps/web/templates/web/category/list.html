@@ -26,14 +26,32 @@
         </div>
         <div class="row category-wrapper first-list-wrapper">
             {% for sub_category in sub_categories %}
+                {% if sub_category.icon %}
                 <div class="col-xs-3 col-sm-2 guoku-normal-col">
                     <div class="thumbnail category category-control">
-                        <a href="" target="_blank">
+                        <a href="{% url 'web_category_detail' sub_category.id %}" target="_blank">
                             <img class="img-responsive" alt="" src="http://imgcdn.guoku.com/{{ sub_category.icon }}" width="64" height="64">
                             <p>{{ sub_category }}</p>
                         </a>
                     </div>
                 </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="row category-wrapper second-list-wrapper">
+            {% for sub_category in sub_categories %}
+                {% if not sub_category.icon %}
+                <div class="col-xs-3 col-sm-2 guoku-normal-col">
+                     <div class="thumbnail category category-control">
+                        <a href="{% url 'web_category_detail' sub_category.id %}" target="_blank">
+                            <div class="img-responsive blank-rect">
+                            </div>
+                            <p>&nbsp;</p>
+                            <span class="category-item-name">{{ sub_category }}</span>
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
             {% endfor %}
         </div>
         <div class="row hidden-xs">

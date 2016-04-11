@@ -41,7 +41,7 @@ class SubCategoryListView(ListView):
 
     def get_queryset(self):
         id = self.kwargs.get('id')
-        sub_categories = Sub_Category.objects.filter(group=id)
+        sub_categories = Sub_Category.objects.filter(group=id).exclude(title='+')
         return sub_categories
 
     def get_context_data(self, *args, **kwargs):
@@ -69,7 +69,7 @@ class CategoryGroupListView(TemplateResponseMixin, ContextMixin, View):
         sub_categories_ids = Sub_Category.objects.filter(group=gid).values_list(
             'id', flat=True)
 
-        sub_categories = Sub_Category.objects.filter(group=gid)
+        sub_categories = Sub_Category.objects.filter(group=gid).exclude(title='+')
         if len(sub_categories) > 10:
             sub_categories = sub_categories[:10]
 
