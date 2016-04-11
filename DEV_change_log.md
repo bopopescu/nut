@@ -1,3 +1,11 @@
+
+
+2. baidu tracker selection page 
+1. kaola margin link generate   -- shuailong 
+==================================
+# merged to master 2016 3 - 31
+==================================
+
 8. good_store update, seller index page update --luoqian, zhaoxu 
 7. new cooperate static page         -- zuoning
 6. crawl article report update       -- shuailong , zuoning 

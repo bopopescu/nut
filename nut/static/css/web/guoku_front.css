@@ -1986,7 +1986,8 @@ textarea {
   padding: 5px;
 }
 /* 喜欢按钮 */
-.btn-like {
+.btn-like,
+.btn-unlike {
   display: inline-block;
   /*border-radius: 0;*/
   background-color: #fff;
@@ -3558,7 +3559,9 @@ body.compact-body {
   z-index: 1;
 }
 #selection .entity-selection.thumbnail .btn-like,
-#event .entity-selection.thumbnail .btn-like {
+#event .entity-selection.thumbnail .btn-like,
+#selection .entity-selection.thumbnail .btn-unlike,
+#event .entity-selection.thumbnail .btn-unlike {
   padding: 0px;
   padding-left: 3px;
   line-height: 14px;
