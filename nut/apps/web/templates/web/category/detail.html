@@ -42,7 +42,9 @@
                 </div>
                 {% endfor %}
         {% if sub_categories %}
-            <a href="{% url 'web_subcategory_list' category.id %}" target="_blank" class="more-link">查看全部</a>
+            <div class="top-article-tag">
+              <a href="{% url 'web_subcategory_list' category.id %}" target="_blank" class="more-link">查看全部</a>
+            </div>
         {% endif %}
     </div>
 {#        <div class="row selection_article_container" id="selection_article_list">#}
