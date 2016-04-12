@@ -26,12 +26,12 @@ from haystack.query import SearchQuerySet
 log = getLogger('django')
 
 
-# class CategoryListView(ListView):
-#     # model = Category
-#     http_method_names = ['get']
-#     queryset = Category.objects.filter(status=True)
-#     template_name = "web/category/list.html"
-#     context_object_name = "categories"
+class CategoryListView(ListView):
+    # model = Category
+    http_method_names = ['get']
+    queryset = Category.objects.filter(status=True)
+    template_name = "web/category/list.html"
+    context_object_name = "categories"
 
 
 class SubCategoryListView(ListView):
