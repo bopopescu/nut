@@ -2383,6 +2383,7 @@ body.compact-body {
   padding-bottom: 55.56%;
   background-size: cover;
   background-position: center center;
+  background-repeat: no-repeat;
 }
 #guoku_main_nav {
   backface-visibility: hidden;
