@@ -1,0 +1,53 @@
+{% load i18n staticfiles %}
+{% load common guoku %}
+{% url 'web_category_group' gid as sort_url %}
+{% url 'web_category_detail' cid as sub_sort_url %}
+
+<div class="col-md-12 tips hidden-xs ">
+    <div class="category-breadcrumb-wrapper">
+        <ul>
+            <li>
+                <a href="{% url 'web_selection' %}">{% trans 'selection' %}</a>
+                <i class="fa fa-angle-right fc_angle_right"></i>
+            </li>
+            <li>
+                <a href="{% url 'web_category_group' category.id %}">{{ category }}</a>
+            </li>
+
+            {% if sub_category %}
+                <li>
+                    <i class="fa fa-angle-right fc_angle_right"></i>
+                    {{ sub_category }}
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div class="select-sort-wrapper">
+        <span class="dropdown-toggle category-action pull-right">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+               aria-haspopup="false" role="button" aria-expanded="false">
+                {% if sort_method == 'pub_time' %}
+                    按时间
+                {% else %}
+                    按喜爱
+                {% endif %}
+                <span class="caret"></span>
+            </a>
+        {% if not sub_category %}
+            <ul id="sort_dropdown" class="dropdown-menu" role="menu"  >
+                <li><a href="{{ sort_url }}">按时间</a></li>
+                <li class="divider"></li>
+                <li><a href="{{ sort_url }}olike/">按喜爱</a></li>
+            </ul>
+        {% else %}
+            <ul id="sort_dropdown" class="dropdown-menu" role="menu"  >
+                <li><a href="{{ sub_sort_url }}">按时间</a></li>
+                <li class="divider"></li>
+                <li><a href="{{ sub_sort_url }}olike/">按喜爱</a></li>
+            </ul>
+        {% endif %}
+        </span>
+    </div>
+</div>
+

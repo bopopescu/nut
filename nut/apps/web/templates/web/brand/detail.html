@@ -1,6 +1,7 @@
 {% extends 'web/base.html' %}
 {% load i18n staticfiles %}
 {% load guoku %}
+{% block title %}{{ brand.name }} | 精英消费指南{% endblock %}
 {% block content %}
 
     <div class="guoku-content container brand-page">
@@ -18,7 +19,7 @@
             <div class="brand-basic-info">
                 <ul>
                     {% if brand.alias %}<li>又名:&nbsp;{{ brand.alias }}&nbsp;|</li>{% endif %}
-                    {% if brand.country %}<li>&nbsp;国家:&nbsp;{{ brand.country }}&nbsp;|</li>{% endif %}
+                    {% if brand.national %}<li>&nbsp;国家:&nbsp;{{ brand.national }}&nbsp;|</li>{% endif %}
                     {% if brand.website %}<li>&nbsp;官网:&nbsp;<a href="{{ brand.website }}" target="_blank">&nbsp;{{ brand.website }}</a></li>{% endif %}
                 </ul>
             </div>
