@@ -1,4 +1,5 @@
-6.  
+
+6.  article edit support chinese comma
 5.  recommend user count up to 16 
 4.  api article list page , add field 'digest' for short article digest
 3.  fix category display int entity page header and description 
