@@ -1986,7 +1986,8 @@ textarea {
   padding: 5px;
 }
 /* 喜欢按钮 */
-.btn-like {
+.btn-like,
+.btn-unlike {
   display: inline-block;
   /*border-radius: 0;*/
   background-color: #fff;
@@ -2926,6 +2927,17 @@ body.compact-body {
   float: right;
   font-size: 14px;
 }
+.authorized-seller-body .more-nav-wrapper {
+  margin: 40px 0;
+}
+.authorized-seller-body .more-nav-wrapper .more-nav {
+  font-size: 14px;
+  text-align: center;
+}
+.authorized-seller-body .more-nav-wrapper .more-nav .nav-list-item {
+  display: inline-block;
+  margin-right: 21px;
+}
 .guoku-content.user-page .user-info-wrapper,
 .entity-likers-body.user-page .user-info-wrapper,
 .guoku-content.index-page .user-info-wrapper,
@@ -3548,7 +3560,9 @@ body.compact-body {
   z-index: 1;
 }
 #selection .entity-selection.thumbnail .btn-like,
-#event .entity-selection.thumbnail .btn-like {
+#event .entity-selection.thumbnail .btn-like,
+#selection .entity-selection.thumbnail .btn-unlike,
+#event .entity-selection.thumbnail .btn-unlike {
   padding: 0px;
   padding-left: 3px;
   line-height: 14px;
@@ -4258,6 +4272,9 @@ body.compact-body {
   .authorized-seller-body .entity-four.new-thumbnail .entity-four-info .action {
     float: left;
   }
+  .authorized-seller-body .more-nav-wrapper .more-nav .nav-list-item {
+    margin-right: 3px;
+  }
 }
 @media (max-width: 767px) {
   .entity-selection-body {
@@ -4301,6 +4318,12 @@ body.compact-body {
   }
 }
 @media (max-width: 767px) {
+  .mail-result .check-icon-wrapper .big-check-icon {
+    font-size: 80px;
+  }
+  .mail-result .check-icon-wrapper .message {
+    font-size: 14px;
+  }
   #selection_article_list .selection-article-item .article-title {
     min-height: 0px!important;
   }
