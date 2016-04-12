@@ -990,6 +990,12 @@ p.boolean-false {
 .store-body .sellers-banner-container #index-banners {
   max-width: none;
 }
+.store-body .sellers-banner-container #index-banners .slick-prev {
+  left: 10%;
+}
+.store-body .sellers-banner-container #index-banners .slick-next {
+  right: 10%;
+}
 .store-body .sellers-banner-container #index-banners .banner-image-cell .banner-image-wrapper {
   padding-bottom: 40%;
 }
