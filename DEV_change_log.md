@@ -1,3 +1,37 @@
+
+6. reset password page refactor  --zhaoxu, luoqian 
+5. fix entity liker 500 bug (see bug discussion below) --anchen
+4. brand page style update    -- luoqian 
+3. hidden pink button when media widh< 768 -- luoqian 
+2. baidu tracker selection page -- zuoning (not finished)
+1. kaola margin link generate   -- shuailong 
+
+#action 
+
+#about entity liker page BUG 
+
+for some row in table core_entity_like, 
+    column 'user_id' has value , 
+    which can not find in core_gkuser;
+
+
+SELECT core_entity_like.* FROM core.core_entity_like where user_id not in ( select  id from core_gkuser)
+
+
+temp solution :
+
+    entity_liker_list.html  , skip those like entities;
+
+final solution: 
+
+    delete those entries in core_entity_like
+
+
+
+==================================
+# merged to master 2016 3 - 31
+==================================
+
 8. good_store update, seller index page update --luoqian, zhaoxu 
 7. new cooperate static page         -- zuoning
 6. crawl article report update       -- shuailong , zuoning 

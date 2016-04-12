@@ -4356,6 +4356,9 @@ body.compact-body {
   }
 }
 @media (max-width: 767px) {
+  .round-link {
+    display: none!important;
+  }
   .entity-selection-body {
     background-color: #F8F8F8;
   }
@@ -4757,5 +4760,6 @@ body .for-mobile {
   text-align: left;
 }
 .gk_test {
-  color: red;
+  color: black;
 }
+/*# sourceMappingURL=guoku_front.less.css.map */

@@ -978,6 +978,9 @@ p.boolean-false {
   }
 }
 @media (max-width: 767px) {
+  .round-link {
+    display: none!important;
+  }
   .entity-selection-body {
     background-color: #F8F8F8;
   }
@@ -1279,3 +1282,4 @@ p.boolean-false {
     max-width: 200px;
   }
 }
+/*# sourceMappingURL=xs.less.css.map */
