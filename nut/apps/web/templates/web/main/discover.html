@@ -62,7 +62,7 @@
              <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col dark-section-item">
                     <a href="{% url 'web_category_group' category.id %}" target="_blank">
                         <div class="section-panel">
-                            <div class="bg-pic" style="background-image: url('{{ category.cover_url }}')">
+                            <div class="bg-pic" style="background-image: url('{{ category.cover_url|resize:'200' }}')">
                             </div>
                              <div class="section-name">
                                  <p>{{ category.title_cn }}</p>
