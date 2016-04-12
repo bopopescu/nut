@@ -426,7 +426,12 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def main_shop_link(self):
-        return self.shops.all()[0].shop_link
+        link = ''
+        try:
+            link = self.shops.all()[0].shop_link
+        except Exception as e :
+            pass
+        return link
 
     def setSeller(self, isSeller):
         seller_group = self.get_seller_group()
@@ -1111,6 +1116,11 @@ class Buy_Link(BaseModel):
     def amazon_url(self):
         return "%s?tag=guoku-23" % self.link
 
+    @property
+    def kaola_url(self):
+        return "http://cps.kaola.com/cps/login?unionId=2919510050&uid=&trackingCode=&targetUrl=" \
+               "http://www.kaola.com/product/%s.html" % self.origin_id
+
     def __unicode__(self):
         return self.link
 
@@ -1221,7 +1231,6 @@ class Note(BaseModel):
             res['category_id'] = self.entity.category_id
 
         return res
-
 
 class Note_Comment(BaseModel):
     note = models.ForeignKey(Note, related_name='comments')

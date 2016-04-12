@@ -69,23 +69,48 @@
        {% endblock %}
 
 {% block user_content_detail %}
-    {% if seller_entities %}
+    <div class="row more-nav-wrapper">
+        <div class="col-sm-12 more-nav">
+            <ul>
+                 {% if recent_likes %}
+                <li class="nav-list-item">
+                    <a href="{% url 'web_user_entity_like' current_user.pk %}" target="_blank">{{ pronoun }}{% trans 'Like' %}&nbsp;<i class="fa fa-caret-right"></i></a>
+                </li>
+                {% endif %}
+
+            {% if recent_notes %}
+                <li class="nav-list-item">
+                    <a href="{% url 'web_user_post_note' current_user.pk %}" target="_blank">{{ pronoun }}{% trans 'Note' %}&nbsp;<i class="fa fa-caret-right"></i></a>
+                </li>
+            {% endif %}
+
+            {% if tags %}
+                <li class="nav-list-item">
+                    <a href="{% url 'web_user_tag' current_user.pk %}" target="_blank">参与的标签&nbsp;<i class="fa fa-caret-right"></i></a>
+                </li>
+            {% endif %}
+{#                <li class="nav-list-item">#}
+{#                    <a href="{% url 'web_user_article_like' current_user.pk %}" target="_blank">赞过的图文&nbsp;<i class="fa fa-caret-right"></i></a>#}
+{#                </li>#}
+            </ul>
+        </div>
+
+    </div>
+
     <div class="row section-title-wrapper">
       <div class="col-sm-12 section-title">
           <p class="section-name">商品</p>
+          {% if seller_entities %}
            <div class="more-link">
-{#               {% if recent_likes %}#}
-                   <a href="{% url 'web_user_entities' current_user.pk %}">
-                       {% trans 'All' %}&nbsp;<i class="fa fa-caret-right"></i>
-                   </a>
-{#               {% endif %}#}
-
+               <a href="{% url 'web_user_entities' current_user.pk %}">
+                   {% trans 'All' %}&nbsp;<i class="fa fa-caret-right"></i>
+               </a>
           </div>
+          {% endif %}
       </div>
     </div>
 
     <div class="row entity-wrapper">
-
         {% for entity in seller_entities %}
             <div class="col-xs-6 col-sm-3 search-entity-item">
                 <div class="new-thumbnail entity-four">
@@ -131,24 +156,30 @@
         {% endfor %}
     </div>
 
-    {% endif %}
+
     <div class="row section-title-wrapper">
       <div class="col-sm-12 section-title">
-          <p>图文</p>
+          <p class="section-name">图文</p>
+          {% if author_articles_main_page %}
+           <div class="more-link">
+               <a href="{% url 'web_user_article_published' current_user.pk %}">
+                   {% trans 'All' %}&nbsp;<i class="fa fa-caret-right"></i>
+               </a>
+           </div>
+          {% endif %}
       </div>
     </div>
-    <div class="row user-article-wrapper">
-     {% for article in author_articles  %}
-              {% include 'web/user/partial/author_article_item.html' %}
-     {% endfor %}
 
-{#        {% empty %}#}
-{#        <div class="col-xs-6 col-sm-3 search-entity-item new-empty-panel-content">#}
-{#            <span>暂无图文</span>#}
-{#        </div>#}
+    <div class="row user-article-wrapper">
+     {% for article in author_articles_main_page  %}
+         {% include 'web/user/partial/author_article_item.html' %}
+         {% empty %}
+            <div class="col-xs-6 col-sm-3 search-entity-item new-empty-panel-content">
+                <span>暂无图文</span>
+            </div>
+     {% endfor %}
     </div>
 
-    {% include 'web/main/partial/number_paginator.html' with objects=author_articles url=request.path %}
 {% endblock %}
 
 {% block basic_script %}

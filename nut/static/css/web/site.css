@@ -1065,6 +1065,16 @@ p.boolean-false {
   height: 40px;
   margin-bottom: 30px;
 }
+.category-header.category-header-control {
+  background-color: transparent;
+  border: none;
+}
+.category-header.category-header-control .dropdown-menu-control {
+  min-width: 120px;
+}
+.category-header.category-header-control .dropdown-menu-control li {
+  text-align: center;
+}
 .category-header > p {
   padding-left: 20px;
   font-size: 16px;
@@ -2384,5 +2394,5 @@ html {
   text-align: center;
 }
 .test {
-  color: black;
+  color: red;
 }
