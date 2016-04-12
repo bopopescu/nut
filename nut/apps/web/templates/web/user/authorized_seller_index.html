@@ -27,19 +27,19 @@
                     </div>
                     <div class="user-action">
                           {% if current_user.is_blocked %}
-                                <a  class="new-guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
+                                <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
                             {% elif current_user == request.user %}
-                                <a class="new-guoku-button newest-button-blue" href="{% url 'web_user_settings' %}">
+                                <a class="guoku-button new-guoku-button button-blue newest-button-blue" href="{% url 'web_user_settings' %}">
                                     <i class="fa fa-cog fa-lg"></i>&nbsp;{% trans _('Edit Profile') %}</a>
                             {% elif request.user.id in current_user.concren %}
-                                <a class="follow new-guoku-button new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                                <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
                             {% elif request.user.id in current_user.fans_list %}
-                                <a class="follow new-guoku-button new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                                <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
                             {% else %}
-                                <a class="follow new-guoku-button newest-button-blue" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+                                <a class="follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
                             {% endif %}
 
-                          <a class="new-guoku-button newest-button-blue" href="{{ current_user.main_shop_link }}" target="_blank">
+                          <a class="guoku-button new-guoku-button button-blue newest-button-blue" href="{{ current_user.main_shop_link }}" target="_blank">
                               去店铺
                           </a>
                     </div>
@@ -89,9 +89,9 @@
                     <a href="{% url 'web_user_tag' current_user.pk %}" target="_blank">参与的标签&nbsp;<i class="fa fa-caret-right"></i></a>
                 </li>
             {% endif %}
-                <li class="nav-list-item">
-                    <a href="" target="_blank">赞过的图文&nbsp;<i class="fa fa-caret-right"></i></a>
-                </li>
+{#                <li class="nav-list-item">#}
+{#                    <a href="{% url 'web_user_article_like' current_user.pk %}" target="_blank">赞过的图文&nbsp;<i class="fa fa-caret-right"></i></a>#}
+{#                </li>#}
             </ul>
         </div>
 
