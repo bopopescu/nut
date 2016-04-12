@@ -1,5 +1,5 @@
-3. 
-
+4.  
+3.  fix category display int entity page header and description 
 2.  new category detail page , 
     new subcategory page , 
     new subcategory list page        --zhaoxu , luoqian  
