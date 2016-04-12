@@ -55,7 +55,7 @@
     {#    </div>#}
 
     {#    main-content#}
-    <div class="container store-page-container">
+    <div class="sellers-banner-container">
         <div class="row good-store-row latest-actions-wrapper">
             <div id="user-latest-article" class="guoku-middle-col user-latest-article-wrapper col-sm-12">
                 <div class="user-article-panel">
@@ -115,6 +115,67 @@
 {#                </ul>#}
 {#            </div>#}
         </div>
+    </div>
+    <div class="container store-page-container">
+{#        <div class="row good-store-row latest-actions-wrapper">#}
+{#            <div id="user-latest-article" class="guoku-middle-col user-latest-article-wrapper col-sm-12">#}
+{#                <div class="user-article-panel">#}
+{#                    <div class="banner-wrapper" id="index-banners">#}
+{#                        {% for banner in banners %}#}
+{#                            <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}">#}
+{#                                <a href="{{ banner.link }}" target="_blank">#}
+{#                                    <div class="banner-image-wrapper" style="background-image: url({{ banner.image_url }})">#}
+{#                                    </div>#}
+{#                                    <div class="user-latest-article-intro-wrapper">#}
+{#                                        <div class="user-latest-article-title-wrapper">#}
+{#                                            <a class="user-latest-article-title" href="{{ banner.link }}" target="_blank">#}
+{#                                                {{ banner.banner_title }}#}
+{#                                            </a>#}
+{#                                            <div class="user-info-section-title">#}
+{#                                                {{ banner.banner_desc }}#}
+{#                                            </div>#}
+{#                                        </div>#}
+{##}
+{#                                    </div>#}
+{#                                </a>#}
+{#                            </div>#}
+{##}
+{##}
+{#                        {% endfor %}#}
+{#                    </div>#}
+                    {#                    </a>#}
+{##}
+{##}
+{#                </div>#}
+{#            </div>#}
+{#            <div id="latest-actions-sidebar" class="guoku-middle-col latest-actions-sidebar-wrapper col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">#}
+{#                <ul class="section-list user-right latest-actions-list">#}
+{#                    <li class="section user-tag-list">#}
+{#                        <div class="section-title section-title-control">#}
+{#                            最近更新#}
+{#                        </div>#}
+{#                        <div class="section-content">#}
+{#                            <ul class="tag-list">#}
+{#                                {% for article in recent_articles %}#}
+{##}
+{#                                    <li>#}
+{#                                        <div class="publish-time">#}
+{#                                            {{ article.created_datetime|format_time }}#}
+{#                                        </div>#}
+{#                                        <div class="publish-info">#}
+{#                                            <a href="{% url 'web_user_index' article.creator.pk %}">{{ article.creator.nickname }}</a>#}
+{#                                            发表了图文#}
+{#                                            <a href="{% url 'web_article_page' article.pk %}">{{ article.title }}</a>#}
+{#                                        </div>#}
+{#                                    </li>#}
+{#                                {% endfor %}#}
+{##}
+{#                            </ul>#}
+{#                        </div>#}
+{#                    </li>#}
+{#                </ul>#}
+{#            </div>#}
+{#        </div>#}
         <div class="row section-title-wrapper">
             <div class="col-sm-12">
                 <p>推荐关注</p>

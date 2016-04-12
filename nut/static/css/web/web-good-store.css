@@ -908,36 +908,20 @@ p.boolean-false {
 .store-body {
   padding-top: 51px;
 }
-.store-body .store-top-banner {
-  margin-top: -30px;
-  width: 100%;
-  height: 120px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  text-align: center;
+.store-body .sellers-banner-container #index-banners {
+  max-width: none;
 }
-.store-body .store-top-banner .store-banner-wrapper {
-  display: inline-block;
-  margin-top: 30px;
+.store-body .sellers-banner-container #index-banners .banner-image-cell .banner-image-wrapper {
+  padding-bottom: 35%;
 }
-.store-body .store-top-banner .store-banner-wrapper .banner-title-wrapper {
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 8px;
-}
-.store-body .store-top-banner .store-banner-wrapper .banner-slogan-wrapper {
-  margin-top: 8px;
-  font-size: 14px;
-  letter-spacing: 3px;
-}
-.store-body .latest-actions-wrapper {
+.store-body .sellers-banner-container .latest-actions-wrapper {
   margin-top: 0;
   margin-bottom: 23px;
 }
-.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper {
+.store-body .sellers-banner-container .latest-actions-wrapper .latest-actions-sidebar-wrapper {
   height: 100%;
 }
-.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list {
+.store-body .sellers-banner-container .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list {
   height: 100%;
   overflow-y: auto;
   background-color: #ffffff;
@@ -946,34 +930,34 @@ p.boolean-false {
   background-clip: padding-box;
   box-shadow: 0 0 2px #ddd;
 }
-.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list {
+.store-body .sellers-banner-container .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list {
   height: 100%;
   border-bottom: 0 !important;
 }
-.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-title.section-title-control {
+.store-body .sellers-banner-container .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-title.section-title-control {
   border-left-color: #ffffff;
 }
-.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-content .publish-time,
-.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-content .publish-info {
+.store-body .sellers-banner-container .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-content .publish-time,
+.store-body .sellers-banner-container .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-content .publish-info {
   display: table-cell;
 }
-.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-content .publish-time {
+.store-body .sellers-banner-container .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list .user-tag-list .section-content .publish-time {
   min-width: 81px;
   padding-right: 10px;
 }
-.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li {
+.store-body .sellers-banner-container .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li {
   margin-bottom: 10px;
   font-size: 14px;
 }
-.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li a {
+.store-body .sellers-banner-container .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li a {
   color: #9d9d9d;
 }
-.store-body .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li a:hover {
+.store-body .sellers-banner-container .latest-actions-wrapper .latest-actions-sidebar-wrapper .latest-actions-list ul li a:hover {
   cursor: pointer;
   color: #424242;
   text-decoration: underline;
 }
-.store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper {
+.store-body .sellers-banner-container .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -982,7 +966,7 @@ p.boolean-false {
   height: 102px;
   overflow: hidden;
 }
-.store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper {
+.store-body .sellers-banner-container .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper {
   padding: 25px 15px;
   margin-left: 5px;
   margin-right: 5px;
@@ -993,16 +977,16 @@ p.boolean-false {
   overflow: hidden;
   white-space: nowrap;
 }
-.store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper .user-info-section-title {
+.store-body .sellers-banner-container .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper .user-info-section-title {
   margin-top: 5px;
   font-size: 12px;
   color: #ffffff;
 }
-.store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a.user-latest-article-title {
+.store-body .sellers-banner-container .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a.user-latest-article-title {
   font-size: 18px;
   color: #ffffff;
 }
-.store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a:hover {
+.store-body .sellers-banner-container .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a:hover {
   cursor: pointer;
   text-decoration: none;
 }
