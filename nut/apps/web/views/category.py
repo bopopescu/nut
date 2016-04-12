@@ -30,7 +30,7 @@ class CategoryListView(ListView):
     # model = Category
     http_method_names = ['get']
     queryset = Category.objects.filter(status=True)
-    template_name = "web/category/list.html"
+    template_name = "web/category/all_list.html"
     context_object_name = "categories"
 
 
