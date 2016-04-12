@@ -25,7 +25,7 @@ class DiscoverView(TemplateResponseMixin, ContextMixin, View):
         # _categories = Sub_Category.objects.popular_random()
         _categories = Category.objects.filter(status=True)
         _selection_articles = Selection_Article.objects.discover()[:3]
-        _recommended_user = GKUser.objects.recommended_user()[:8]
+        _recommended_user = GKUser.objects.recommended_user()[:16]
 
         log.info(_categories)
 
