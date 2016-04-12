@@ -1,4 +1,6 @@
-4.  
+6.  
+5.  recommend user count up to 16 
+4.  api article list page , add field 'digest' for short article digest
 3.  fix category display int entity page header and description 
 2.  new category detail page , 
     new subcategory page , 
