@@ -1,3 +1,13 @@
+3. 
+
+2.  new category detail page , 
+    new subcategory page , 
+    new subcategory list page        --zhaoxu , luoqian  
+1.  discovery page  , category list  --zhaoxu , luoqian 
+
+==================================
+# merged to master 2016 4-7 
+==================================
 
 6. reset password page refactor  --zhaoxu, luoqian 
 5. fix entity liker 500 bug (see bug discussion below) --anchen
@@ -6,9 +16,9 @@
 2. baidu tracker selection page -- zuoning (not finished)
 1. kaola margin link generate   -- shuailong 
 
-#action 
+##action 
 
-#about entity liker page BUG 
+##about entity liker page BUG 
 
 for some row in table core_entity_like, 
     column 'user_id' has value , 
