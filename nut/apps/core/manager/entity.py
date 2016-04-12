@@ -23,11 +23,18 @@ class EntityQuerySet(models.query.QuerySet):
         return self.using('slave').filter(status__gte=-1)
 
     def new_or_selection(self, category_id):
-        if category_id:
+        if isinstance(category_id, int):
             return self.using('slave').filter(category_id=category_id,
                                               status__gte=0)
+
+        elif isinstance(category_id, list):
+            return self.using('slave').filter(category_id__in=category_id,
+                                              status__gte=0)
+
         else:
             return self.using('slave').filter(status__gte=0)
+
+
 
     def sort(self, category_id, like=False):
         _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -42,11 +49,30 @@ class EntityQuerySet(models.query.QuerySet):
                 selection_entity__pub_time__lte=_refresh_datetime,
                 buy_links__status=2).distinct() \
                 .order_by('-selection_entity__pub_time')
+
+
             # self.using('slave').filter(status=Entity.selection, selection_entity__pub_time__lte=_refresh_datetime, category=category_id)\
             # .order_by('-selection_entity__pub_time').filter(buy_links__status=2)
             # def get(self, *args, **kwargs):
             # # print kwargs, args
             # return super(EntityQuerySet, self).get(*args, **kwargs)
+
+
+    def sort_group(self, category_ids, like=False):
+        _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        if like:
+            return self.new_or_selection(category_ids).filter(
+                selection_entity__pub_time__lte=_refresh_datetime,
+                buy_links__status=2) \
+                .annotate(lnumber=Count('likes')) \
+                .order_by('-lnumber')
+        else:
+            return self.new_or_selection(category_ids).filter(
+                selection_entity__pub_time__lte=_refresh_datetime,
+                buy_links__status=2).distinct() \
+                .order_by('-selection_entity__pub_time')
+
+
 
 
 class EntityManager(models.Manager):
@@ -95,6 +121,10 @@ class EntityManager(models.Manager):
     def sort(self, category_id, like=False):
         assert category_id is not None
         return self.get_query_set().sort(category_id, like)
+
+    def sort_group(self, category_ids, like=False):
+        assert category_ids is not None
+        return self.get_query_set().sort_group(category_ids, like)
 
     def guess(self, category_id=None, count=5, exclude_id=None):
         size = count * 10

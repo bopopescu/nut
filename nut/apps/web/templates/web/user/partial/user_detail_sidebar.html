@@ -30,10 +30,10 @@
 {#                for authorized seller ,only show entities link and articles link temporarily#}
                 {% if current_user.is_authorized_seller %}
                     <li>
-                        <a href="{% url 'web_user_entities' current_user.pk %}">{% trans 'Entity' %}&nbsp;<i class="fa fa-caret-right"></i></a>
+                        <a href="{% url 'web_user_entities' current_user.pk %}">{% trans 'Seller Entity' %}&nbsp;<i class="fa fa-caret-right"></i></a>
                     </li>
                     <li>
-                        <a href="{% url 'web_user_article' current_user.pk %}">{% trans 'Article' %}&nbsp;<i class="fa fa-caret-right"></i></a>
+                        <a href="{% url 'web_user_article_published' current_user.pk %}">{% trans 'Published Article' %}&nbsp;<i class="fa fa-caret-right"></i></a>
                     </li>
                 {% endif %}
 

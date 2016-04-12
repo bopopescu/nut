@@ -30,13 +30,34 @@ class CategoryListView(ListView):
     # model = Category
     http_method_names = ['get']
     queryset = Category.objects.filter(status=True)
-    template_name = "web/category/list.html"
+    template_name = "web/category/all_list.html"
     context_object_name = "categories"
+
+
+class SubCategoryListView(ListView):
+    model = Sub_Category
+    template_name = "web/category/list.html"
+    context_object_name = "sub_categories"
+
+    def get_queryset(self):
+        id = self.kwargs.get('id')
+        sub_categories = Sub_Category.objects.filter(group=id).exclude(title='+')
+        return sub_categories
+
+    def get_context_data(self, *args, **kwargs):
+        id = self.kwargs.get('id')
+        context = super(SubCategoryListView, self).get_context_data(*args, **kwargs)
+        context['category'] = Category.objects.get(pk=id)
+        return context
 
 
 class CategoryGroupListView(TemplateResponseMixin, ContextMixin, View):
     http_method_names = ['get']
     template_name = 'web/category/detail.html'
+
+    def get_order_by(self):
+        order_by = self.kwargs.get('order_by', 'pub_time')
+        return order_by
 
     def get(self, request, *args, **kwargs):
         # log.info(kwargs)
@@ -44,12 +65,22 @@ class CategoryGroupListView(TemplateResponseMixin, ContextMixin, View):
         gid = kwargs.pop('gid', None)
         _page = request.GET.get('page', 1)
         category = Category.objects.get(pk=gid)
-        sub_categories = Sub_Category.objects.filter(group=gid).values_list(
+
+        sub_categories_ids = Sub_Category.objects.filter(group=gid).values_list(
             'id', flat=True)
 
-        _entity_list = Entity.objects.filter(
-            category_id__in=list(sub_categories),
-            status=Entity.selection).filter(buy_links__status=2)
+        sub_categories = Sub_Category.objects.filter(group=gid).exclude(title='+')
+        if len(sub_categories) > 10:
+            sub_categories = sub_categories[:10]
+
+        order_by_like = False
+        if self.get_order_by() == 'olike':
+            order_by_like = True
+
+        _entity_list = Entity.objects.sort_group(
+            category_ids=list(sub_categories_ids),
+            like=order_by_like,).filter(buy_links__status=2)
+
         paginator = ExtentPaginator(_entity_list, 24)
         try:
             _entities = paginator.page(_page)
@@ -69,7 +100,10 @@ class CategoryGroupListView(TemplateResponseMixin, ContextMixin, View):
         context = {
             'entities': _entities,
             'user_entity_likes': el,
-            'sub_category': category,
+            'category': category,
+            'sub_categories': sub_categories,
+            'gid': gid,
+            'sort_method': self.get_order_by()
         }
         return self.render_to_response(context)
 
@@ -155,6 +189,8 @@ class CategoryDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
         entities = context['page_obj']
         el = list()
         sub_category = Sub_Category.objects.get(pk=self.cid)
+        category = Category.objects.get(pk=sub_category.group_id)
+        # category = sub_category.group
         if self.request.user.is_authenticated():
             if order_by == 'olike':
                 e_ids = [r[0] for r in entities.object_list.values_list('id', 'lnumber')]
@@ -167,6 +203,7 @@ class CategoryDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
         context['entities'] = entities
         context['sort_method'] = order_by
         context['user_entity_likes'] = el
+        context['category'] = category
         context['sub_category'] = sub_category
         context['refresh_datetime'] = self.get_refresh_time()
         context = self.add_related_article(context, sub_category.title)
