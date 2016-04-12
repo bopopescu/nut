@@ -64,12 +64,6 @@
   //
   //}
   .sellers-banner-container{
-    #index-banners{
-      max-width:none;
-      .banner-image-cell .banner-image-wrapper{
-        padding-bottom: 40%;
-      }
-    }
     .latest-actions-wrapper{
     //40px - 17px(pannel's margin-bottom)
     //this may be not a good way
@@ -151,6 +145,10 @@
             margin-top:5px;
             font-size: @more-mini-size;
             color:#ffffff;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+
           }
           a{
             &.user-latest-article-title{
@@ -167,6 +165,12 @@
     }
 
   }
+    #index-banners{
+      max-width:none;
+      .banner-image-cell .banner-image-wrapper{
+        padding-bottom: 40%;
+      }
+    }
   }
 
   .hot-section-wrapper{
@@ -295,8 +299,15 @@
 
 }
 
-
-
+@media(max-width:1200px){
+  .store-body{
+    .sellers-banner-container{
+      #index-banners .banner-image-cell .banner-image-wrapper{
+        padding-bottom: 55.56%;
+      }
+    }
+  }
+}
 @media (min-width:768px){
   .user-latest-article-wrapper{
     .user-latest-article-intro-wrapper{
@@ -340,20 +351,22 @@
 
 @media (max-width:767px){
   .store-body{
-    .store-page-container{
-      .good-store-row.latest-actions-wrapper{
-        margin-top:10px;
-      }
-    }
-    .latest-actions-wrapper{
-      .user-latest-article-wrapper{
-        .user-latest-article-intro-wrapper{
-          height:60px;
-          .user-latest-article-title-wrapper{
-            min-height:60px;
-            max-height:60px;
-            margin:0;
-            padding:4px 15px;
+    //.store-page-container{
+    //  .good-store-row.latest-actions-wrapper{
+    //    margin-top:10px;
+    //  }
+    //}
+    .sellers-banner-container{
+      .latest-actions-wrapper{
+        .user-latest-article-wrapper{
+          .user-latest-article-intro-wrapper{
+            height:60px;
+            .user-latest-article-title-wrapper{
+              min-height:60px;
+              max-height:60px;
+              margin:0;
+              padding:4px 15px;
+            }
           }
         }
       }

@@ -908,12 +908,6 @@ p.boolean-false {
 .store-body {
   padding-top: 51px;
 }
-.store-body .sellers-banner-container #index-banners {
-  max-width: none;
-}
-.store-body .sellers-banner-container #index-banners .banner-image-cell .banner-image-wrapper {
-  padding-bottom: 40%;
-}
 .store-body .sellers-banner-container .latest-actions-wrapper {
   margin-top: 0;
   margin-bottom: 23px;
@@ -981,6 +975,9 @@ p.boolean-false {
   margin-top: 5px;
   font-size: 12px;
   color: #ffffff;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .store-body .sellers-banner-container .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a.user-latest-article-title {
   font-size: 18px;
@@ -989,6 +986,12 @@ p.boolean-false {
 .store-body .sellers-banner-container .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper a:hover {
   cursor: pointer;
   text-decoration: none;
+}
+.store-body .sellers-banner-container #index-banners {
+  max-width: none;
+}
+.store-body .sellers-banner-container #index-banners .banner-image-cell .banner-image-wrapper {
+  padding-bottom: 40%;
 }
 .store-body .hot-section-wrapper .hot-section-item .article-panel {
   position: relative;
@@ -1095,6 +1098,11 @@ p.boolean-false {
   text-decoration: none;
   cursor: pointer;
 }
+@media (max-width: 1200px) {
+  .store-body .sellers-banner-container #index-banners .banner-image-cell .banner-image-wrapper {
+    padding-bottom: 55.56%;
+  }
+}
 @media (min-width: 768px) {
   .user-latest-article-wrapper .user-latest-article-intro-wrapper {
     position: absolute;
@@ -1131,13 +1139,10 @@ p.boolean-false {
   }
 }
 @media (max-width: 767px) {
-  .store-body .store-page-container .good-store-row.latest-actions-wrapper {
-    margin-top: 10px;
-  }
-  .store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper {
+  .store-body .sellers-banner-container .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper {
     height: 60px;
   }
-  .store-body .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper {
+  .store-body .sellers-banner-container .latest-actions-wrapper .user-latest-article-wrapper .user-latest-article-intro-wrapper .user-latest-article-title-wrapper {
     min-height: 60px;
     max-height: 60px;
     margin: 0;
