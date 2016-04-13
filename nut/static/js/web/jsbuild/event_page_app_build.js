@@ -1507,8 +1507,8 @@ require(['jquery',
           'subapp/topmenu',
           'subapp/gotop',
           'subapp/event/event_entity_loader',
-          'bootstrap',
           'subapp/tracker',
+          'bootstrap',
           'snowFall'
 
     ],
