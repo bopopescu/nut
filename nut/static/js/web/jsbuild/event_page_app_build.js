@@ -1512,7 +1512,7 @@ require(['jquery',
           'snowFall'
 
     ],
-    function($,Menu,GoTop,EventEntityLoader,  Tracker,snowFall){
+    function($,Menu,GoTop,EventEntityLoader,Tracker,snowFall){
 
         var menu = new Menu();
         var gotop = new GoTop();
