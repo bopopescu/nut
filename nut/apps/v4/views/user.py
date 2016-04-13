@@ -231,7 +231,7 @@ def following_list(request, user_id):
 
     _key = request.GET.get('session')
     page = request.GET.get('page', 1)
-    size = request.GET.get('size', 1)
+    size = request.GET.get('size', 30)
 
     try:
         _session = Session_Key.objects.get(session_key=_key)
@@ -265,16 +265,11 @@ def following_list(request, user_id):
     return SuccessJsonResponse(res)
 
 
-
-
 @check_sign
 def fans_list(request, user_id):
 
-    _offset = int(request.GET.get('offset', '0'))
-    _count = int(request.GET.get('count', '30'))
-    if _offset > 0 and _offset < 30:
-        return ErrorJsonResponse(status=404)
-    _offset = _offset / _count + 1
+    page = request.GET.get('page', 1)
+    size = request.GET.get('size', 1)
 
     _key = request.GET.get('session')
     try:
@@ -283,15 +278,15 @@ def fans_list(request, user_id):
     except Session_Key.DoesNotExist:
         visitor = None
     try:
-        _user = GKUser.objects.get(pk = user_id)
+        _user = GKUser.objects.get(pk=user_id)
     except GKUser.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
     fans_list = _user.fans.all()
-    paginator = Paginator(fans_list, 30)
+    paginator = Paginator(fans_list, size)
 
     try:
-        _fans = paginator.page(_offset)
+        _fans = paginator.page(page)
     # except PageNotAnInteger:
     #     _fans = paginator.page(1)
     except EmptyPage:
