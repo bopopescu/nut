@@ -1,5 +1,6 @@
-
-7.  article edit (web) no permission to 403 page 
+9. 
+8.  optimize user like category list query , reduce 2000ms query time 
+7.  article edit (web) no permission  REDIRECT to 403 page 
 6.  article edit (mng) support chinese comma
 5.  recommend user count up to 16 
 4.  api article list page , add field 'digest' for short article digest
