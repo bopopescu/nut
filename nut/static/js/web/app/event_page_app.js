@@ -18,8 +18,8 @@ require(['jquery',
                 trigger: 'click',
                 category: 'event',
                 action: 'event_detail',
-                label: 'data-event-link',
-                value: 'data-event-link',
+                label: 'data-event-title',
+                value: 'data-event-id',
                 wrapper: '#event_list_page'
             }
         ];
