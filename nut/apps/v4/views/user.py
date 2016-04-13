@@ -229,13 +229,9 @@ def entity_note(request, user_id):
 @check_sign
 def following_list(request, user_id):
 
-    _offset = int(request.GET.get('offset', '0'))
-    _count = int(request.GET.get('count', '30'))
-    if _offset > 0 and _offset < 30:
-        return ErrorJsonResponse(status=404)
-    _offset = _offset / _count + 1
-
     _key = request.GET.get('session')
+    page = request.GET.get('page', 1)
+    size = request.GET.get('size', 1)
 
     try:
         _session = Session_Key.objects.get(session_key=_key)
@@ -244,16 +240,16 @@ def following_list(request, user_id):
         visitor = None
 
     try:
-        _user = APIUser.objects.get(pk = user_id)
+        _user = APIUser.objects.get(pk=user_id)
     except GKUser.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
     followings_list = _user.followings.all()
 
-    paginator = Paginator(followings_list, _count)
+    paginator = Paginator(followings_list, size)
 
     try:
-        _followings = paginator.page(_offset)
+        _followings = paginator.page(page)
     # except PageNotAnInteger:
     #     _followings = paginator.page(1)
     except EmptyPage:
@@ -267,6 +263,8 @@ def following_list(request, user_id):
         )
 
     return SuccessJsonResponse(res)
+
+
 
 
 @check_sign
