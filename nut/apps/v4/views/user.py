@@ -231,7 +231,7 @@ def following_list(request, user_id):
 
     _offset = int(request.GET.get('offset', '0'))
     _count = int(request.GET.get('count', '30'))
-    if _offset > 0 and _offset < 30:
+    if _offset > 0 and _offset < _count:
         return ErrorJsonResponse(status=404)
     _offset = _offset / _count + 1
 
@@ -249,7 +249,7 @@ def following_list(request, user_id):
         return ErrorJsonResponse(status=404)
 
     followings_list = _user.followings.all()
-    followings_list_length = len(followings_list)
+    total = len(followings_list)
     paginator = Paginator(followings_list, _count)
 
     try:
@@ -260,12 +260,15 @@ def following_list(request, user_id):
         return ErrorJsonResponse(status=404)
 
     res = []
-    if len(res) < followings_list_length:
-        for user in _followings.object_list:
-            log.info(user.followee.v3_toDict(visitor=visitor))
-            res.append(
-                user.followee.v3_toDict(visitor=visitor)
-            )
+    for user in _followings.object_list:
+        log.info(user.followee.v3_toDict(visitor=visitor))
+        res.append(
+            user.followee.v3_toDict(visitor=visitor)
+        )
+
+    res.append({
+        'total': total,
+    })
 
     return SuccessJsonResponse(res)
 
@@ -275,7 +278,7 @@ def fans_list(request, user_id):
 
     _offset = int(request.GET.get('offset', '0'))
     _count = int(request.GET.get('count', '30'))
-    if _offset > 0 and _offset < 30:
+    if _offset > 0 and _offset < _count:
         return ErrorJsonResponse(status=404)
     _offset = _offset / _count + 1
 
@@ -291,7 +294,7 @@ def fans_list(request, user_id):
         return ErrorJsonResponse(status=404)
 
     fans_list = _user.fans.all()
-    fans_list_length = len(fans_list)
+    total = len(fans_list)
     paginator = Paginator(fans_list, 30)
 
     try:
@@ -302,11 +305,15 @@ def fans_list(request, user_id):
         return ErrorJsonResponse(status=404)
 
     res = []
-    if len(res) < fans_list_length:
-        for user in _fans.object_list:
-            res.append(
-                user.follower.v3_toDict(visitor=visitor)
-            )
+    for user in _fans.object_list:
+        res.append(
+            user.follower.v3_toDict(visitor=visitor),
+        )
+
+    res.append({
+        'total': total,
+    })
+
     return SuccessJsonResponse(res)
 
 

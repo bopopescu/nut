@@ -248,6 +248,8 @@ def entity_sort(category_id, reverse, offset, count, key):
         entity_list = APIEntity.objects.sort(category_id, like=False)
     else:
         entity_list = APIEntity.objects.sort(category_id, like=False)
+
+    total = len(entity_list)
     paginator = Paginator(entity_list, count)
 
     print entity_list.count()
@@ -273,12 +275,16 @@ def entity_sort(category_id, reverse, offset, count, key):
         res.append(
             r
         )
+    res.append({
+        'total': total,
+    })
     return SuccessJsonResponse(res)
 
 # @require_GET
 # @check_sign
 def entity_sort_like(category_id, offset, count, key):
     entity_list = APIEntity.objects.sort(category_id, like=True)
+    total = len(entity_list)
     paginator = Paginator(entity_list, count)
     try:
         entities = paginator.page(offset)
@@ -297,6 +303,9 @@ def entity_sort_like(category_id, offset, count, key):
     for entity in entities.object_list:
         r = entity.v4_toDict(user_like_list=el)
         res.append(r)
+    res.append({
+        'total': total,
+    })
     return SuccessJsonResponse(res)
 
 
@@ -308,7 +317,7 @@ def entity(request, category_id):
 
     _count = int(request.GET.get('count', '30'))
 
-    if _offset > 0 and _offset < 30:
+    if _offset > 0 and _offset < _count:
         return ErrorJsonResponse(status=404)
     # print _offset, _count
     _offset = _offset / _count + 1
