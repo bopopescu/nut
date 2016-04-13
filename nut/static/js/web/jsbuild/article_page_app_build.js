@@ -2880,7 +2880,7 @@ define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(
                     console.log('mutual !!!');
                     $followButton.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关注');
                     $followButton.removeClass('button-blue').addClass('btn-cancel');
-                     $followButton.removeClass("newest-button-blue").addClass("new-btn-cancel");
+                    $followButton.removeClass("newest-button-blue").addClass("new-btn-cancel");
                     $followButton.attr('data-status', '1');
 
                 } else if (data.status == 0) {
@@ -3019,14 +3019,14 @@ require([
                 selector: '.dig',
                 trigger: 'click',
                 category: 'article-dig',
-                action: 'undig',
+                action: 'dig',
                 label: 'data-dig-title',
                 value: 'data-dig-id'
             }, {
                 selector: '.undig',
                 trigger: 'click',
                 category: 'article-dig',
-                action: 'dig',
+                action: 'undig',
                 label: 'data-dig-title',
                 value: 'data-dig-id'
             }, {

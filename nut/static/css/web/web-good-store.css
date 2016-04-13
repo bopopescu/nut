@@ -149,12 +149,12 @@
   cursor: default;
 }
 .button-disabled {
-  background-color: #9D9E9F;
+  background-color: #BDBDBD;
   color: #F8F8F8;
 }
 .button-disabled:hover,
 .button-disabled:focus {
-  background-color: #9D9E9F;
+  background-color: #BDBDBD;
   color: #F8F8F8;
 }
 .entity-report-button {
@@ -262,7 +262,6 @@
 }
 .entity-four .img-box img:hover,
 .entity-selection .img-box img:hover,
-.guoku-button:hover,
 #detail_content_right .section-list .section-banner img:hover,
 .guess_img .img-box img:hover,
 .article-wrapper .cover-wrapper a img:hover,
@@ -856,6 +855,17 @@ p.boolean-false {
 .new-button-cancel i.fa-plus {
   color: #ffffff;
 }
+.newest-btn-primary {
+  border: 1px solid #6192FF;
+  background-color: #6192FF;
+  color: #ffffff;
+}
+.newest-btn-primary:hover,
+.newest-btn-primary:focus {
+  border: 1px solid #3F6FF0;
+  background-color: #3F6FF0;
+  color: #ffffff;
+}
 .newest-button-blue {
   border: 1px solid #6192FF;
   background-color: #ffffff;
@@ -864,6 +874,7 @@ p.boolean-false {
 .newest-button-blue:hover {
   color: #3F6FF0;
   border: 1px solid #3F6FF0;
+  background-color: #ffffff;
 }
 .newest-button-blue:hover i.fa-plus {
   color: #3F6FF0;
@@ -874,6 +885,30 @@ p.boolean-false {
 }
 .newest-button-blue i.fa-plus {
   color: #6192FF;
+}
+.check-icon-wrapper {
+  text-align: center;
+  margin-top: 40px;
+}
+.check-icon-wrapper .check-well-icon {
+  color: #4FB832;
+}
+.check-icon-wrapper .check-wrong-icon {
+  color: #9D9E9F;
+}
+.check-icon-wrapper .big-check-icon {
+  font-size: 132px;
+}
+.check-icon-wrapper .small-check-icon {
+  font-size: 80px;
+}
+.check-icon-wrapper .message {
+  margin-top: 30px;
+  font-size: 32px;
+}
+.check-icon-wrapper .more-message {
+  font-size: 16px;
+  color: #9D9E9F;
 }
 .hidden {
   display: none;

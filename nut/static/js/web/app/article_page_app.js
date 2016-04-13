@@ -82,14 +82,14 @@ require([
                 selector: '.dig',
                 trigger: 'click',
                 category: 'article-dig',
-                action: 'undig',
+                action: 'dig',
                 label: 'data-dig-title',
                 value: 'data-dig-id'
             }, {
                 selector: '.undig',
                 trigger: 'click',
                 category: 'article-dig',
-                action: 'dig',
+                action: 'undig',
                 label: 'data-dig-title',
                 value: 'data-dig-id'
             }, {
