@@ -3,13 +3,28 @@ require(['jquery',
           'subapp/gotop',
           'subapp/event/event_entity_loader',
           'bootstrap',
+          'subapp/tracker',
           'snowFall'
+
     ],
-    function($,Menu,GoTop,EventEntityLoader, snowFall){
+    function($,Menu,GoTop,EventEntityLoader,  Tracker,snowFall){
 
         var menu = new Menu();
         var gotop = new GoTop();
         var eventEntityLoader = new EventEntityLoader();
+        var tracker_list = [
+            {
+                selector: '.event-link',
+                trigger: 'click',
+                category: 'event',
+                action: 'event_detail',
+                label: 'data-event-link',
+                value: 'data-event-link',
+                wrapper: '#event_list_page'
+            }
+        ];
+
+        var tracker = new Tracker(tracker_list);
 
         //snow();
         function snow(){

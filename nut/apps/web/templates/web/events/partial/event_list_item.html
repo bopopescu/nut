@@ -6,7 +6,7 @@
 <div class="event-item col-xs-6 col-sm-6 col-md-6 col-lg-4">
 {#{{ event.slug }}#}
 
-           <a href="{{ event.slug_url }}">
+           <a href="{{ event.slug_url }}" class=event-link data-event-title="{{ event.title }}{{ event.slug }}" data-event-id="{{ event.id }}" >
             <div class="event-item-banner" style="background-image:url({{ event.banner_urls.0|resize:'480'}})">
 {#         <img class="img-responsive" src="{{ event.banner_urls.0|resize:'480' }}" >#}
             </div>
