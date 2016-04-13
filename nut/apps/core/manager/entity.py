@@ -192,6 +192,9 @@ class EntityLikeManager(models.Manager):
     def get_query_set(self):
         return EntityLikeQuerySet(self.model, using=self._db)
 
+    def user_likes_id_list(self, user):
+        return self.get_queryset().using('slave').filter(user=user)
+
     def active_entity_likes(self):
         #TODO: maybe filter out some deactived user's like ?
         return self.get_queryset().filter(entity__status__gte=-1)
