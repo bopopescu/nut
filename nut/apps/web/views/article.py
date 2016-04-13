@@ -167,14 +167,15 @@ class EditorArticleCreate(UserPassesTestMixin, View):
         new_article.save()
         return redirect('web_editor_article_edit',new_article.pk)
 
-class EditorArticleEdit(AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,TemplateView):
+class EditorArticleEdit(LoginRequiredMixin, AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,TemplateView):
     fields = ['title']
     template_name = 'web/article/editor_edit.html'
     model = Article
+    raise_exception = True
 
     def test_func(self, user):
         the_article = self.get_article()
-        return user.can_write or (user.is_authorized_author and the_article.creator == user)
+        return  user.can_write or (user.is_authorized_author and the_article.creator == user)
 
     def get_article(self):
         pk = self.kwargs['pk']
