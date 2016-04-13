@@ -908,6 +908,9 @@ p.boolean-false {
 .store-body {
   padding-top: 51px;
 }
+.store-body .sellers-banner-container {
+  overflow: hidden;
+}
 .store-body .sellers-banner-container .latest-actions-wrapper {
   margin-top: 0;
   margin-bottom: 23px;
