@@ -1539,6 +1539,48 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 
     return GoTop;
 });
+define('subapp/tracker',['libs/Class'], function (Class) {
+    var Tracker = Class.extend({
+        init: function (tracker_list) {
+            tracker_list.map(function(ele){
+                  var selector = ele.selector;
+                  var trigger = ele.trigger;
+                  if (ele.wrapper) {
+                      var wrapper = ele.wrapper;
+                      $(wrapper).delegate(selector, trigger, function(event){
+                          return (function() {
+                                  var target = event.currentTarget;
+                                  var category = ele.category;
+                                  var action = ele.action;
+                                  var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
+                                  var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
+                                   //闭包
+                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
+                          })();
+
+                      });
+                  } else {
+                      $(selector).on(trigger, function(event){
+                          return (function() {
+                                  var target = event.currentTarget;
+                                  var category = ele.category;
+                                  var action = ele.action;
+                                  var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
+                                  var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
+                                   //闭包
+                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
+                          })();
+
+                      });
+                  }
+
+
+
+            });
+        }
+    });
+    return Tracker;
+});
 define('subapp/account',['libs/Class','jquery','bootstrap'],function(Class, $){
 
     var AccountApp = Class.extend({
@@ -2899,6 +2941,7 @@ require([
         'subapp/page',
         'subapp/topmenu',
         'subapp/gotop',
+        'subapp/tracker',
         'subapp/articledig',
         'subapp/articlepagecounter',
         'subapp/entitycard',
@@ -2909,12 +2952,14 @@ require([
         'libs/csrf'
 
 
+
     ],
     function (polyfill,
               jQuery,
               Page,
               Menu,
               GoTop,
+              Tracker,
               ArticleDig,
               ArticlePageCounter,
               EntityCardRender,
@@ -2934,6 +2979,95 @@ require([
         var relatedArticleLoader = new RelatedArticleLoader();
         var user_follow = new UserFollow();
         var shareApp = new ArticleShareApp();
+        var tracker_list = [
+            {
+                selector : '.avatar-wrapper img',
+                trigger: 'click',
+                category: 'article-user',
+                action: 'user-detail',
+                label: 'data-user-title',
+                value: 'data-user-id'
+            }, {
+                selector : '.writer-intro a',
+                trigger: 'click',
+                category: 'article-user',
+                action: 'user-detail',
+                label: 'data-user-title',
+                value: 'data-user-id'
+            }, {
+                selector : '.cate-list-all li',
+                trigger: 'click',
+                category: 'category-tag',
+                action: 'category-detail',
+                label: 'data-category-title',
+                value: 'data-category-id'
+            }, {
+                selector: '.pop-entity-wrapper',
+                trigger: 'click',
+                category: 'pop-entity',
+                action: 'pop-entity-detail',
+                label: 'data-pop-entity-title',
+                value: 'data-pop-entity-id'
+            }, {
+                selector: '.banner-holder',
+                trigger: 'click',
+                category: 'banner',
+                action: 'tm-detail',
+                label: 'data-banner-title',
+                value: 'data-banner-id'
+            }, {
+                selector: '.dig',
+                trigger: 'click',
+                category: 'article-dig',
+                action: 'undig',
+                label: 'data-dig-title',
+                value: 'data-dig-id'
+            }, {
+                selector: '.undig',
+                trigger: 'click',
+                category: 'article-dig',
+                action: 'dig',
+                label: 'data-dig-title',
+                value: 'data-dig-id'
+            }, {
+                selector: '.logo-wechat',
+                trigger: 'click',
+                category: 'article-share',
+                action: 'wechat-share',
+                label: 'data-article-title',
+                value: 'data-article-id'
+            }, {
+                selector: '.share-btn-weibo',
+                trigger: 'click',
+                category: 'article-share',
+                action: 'weibo-share',
+                label: 'data-article-title',
+                value: 'data-article-id'
+            }, {
+                selector: '.share-btn-qq',
+                trigger: 'click',
+                category: 'article-share',
+                action: 'qq-share',
+                label: 'data-article-title',
+                value: 'data-article-id'
+            }, {
+                selector: '.article-user-follow.button-blue ',
+                trigger: 'click',
+                category: 'writer-concern',
+                action: 'concern',
+                label: 'data-user-title',
+                value: 'data-user-id'
+            }, {
+                selector: '.article-user-follow.btn-cancel',
+                trigger: 'click',
+                category: 'writer-concern',
+                action: 'cancel-concern',
+                label: 'data-user-title',
+                value: 'data-user-id'
+            }
+        ];
+
+        var tracker = new Tracker(tracker_list);
 
 });
 
