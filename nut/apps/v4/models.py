@@ -311,9 +311,13 @@ class APIArticle(Article):
 
     @property
     def digest(self):
-        if len(h_parser.unescape(strip_tags(self.content))) > 50:
-            return h_parser.unescape(strip_tags(self.content))[:50]
-        return h_parser.unescape(strip_tags(self.content))
+        strip_content = h_parser.unescape(strip_tags(self.content))
+        if len(strip_content) > 50 :
+            return strip_content[:50]
+        else:
+            return strip_content
+
+
 
 
     @property
