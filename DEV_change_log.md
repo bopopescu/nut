@@ -1,4 +1,9 @@
-9.  
+
+
+12.  article craw report update 
+11.  article mng edit , tag ,add parent category words for selection
+10.  good store , new banner 
+9.  API , FAN , following  list , category entity list , bug fix 
 8.  optimize user like category list query , reduce 2000ms query time 
 7.  article edit (web) no permission  REDIRECT to 403 page 
 6.  article edit (mng) support chinese comma
