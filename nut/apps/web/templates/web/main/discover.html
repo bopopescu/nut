@@ -38,7 +38,7 @@
             <div class="col-sm-12">
                 <ul class="user-icon-list recommend-user-list">
                     {% for user in recommended_user %}
-                    <li>
+                    <li data-user-id="{{ user.pk }}" data-user-title="{{ user.nickname}}">
                         <a href="{{ user.absolute_url }}" target="_blank">
                             <img class="img-responsive img-frame" style="background-image: url({{ user.avatar_url|resize:'128' }})" />
                         </a>
@@ -71,7 +71,7 @@
 
             {% for category in categories %}
                 <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="thumbnail category category-control">
+                    <div class="thumbnail category category-control" data-category-id="{{ category.id }}" data-category-title="{{ category.title }}">
                         <a href="{% url 'web_category_detail' category.id %}">
                              <img class="img-responsive" alt="{{ category.title }}" src="{{ category.icon_large_url }}" width="64" height="64">
                             <p>{{ category.title|show_category }}</p>

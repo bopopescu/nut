@@ -1130,6 +1130,48 @@ define('subapp/topmenu',['bootstrap',
     return  Menu;
 
 });
+define('subapp/tracker',['libs/Class'], function (Class) {
+    var Tracker = Class.extend({
+        init: function (tracker_list) {
+            tracker_list.map(function(ele){
+                  var selector = ele.selector;
+                  var trigger = ele.trigger;
+                  if (ele.wrapper) {
+                      var wrapper = ele.wrapper;
+                      $(wrapper).delegate(selector, trigger, function(event){
+                          return (function() {
+                                  var target = event.currentTarget;
+                                  var category = ele.category;
+                                  var action = ele.action;
+                                  var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
+                                  var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
+                                   //闭包
+                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
+                          })();
+
+                      });
+                  } else {
+                      $(selector).on(trigger, function(event){
+                          return (function() {
+                                  var target = event.currentTarget;
+                                  var category = ele.category;
+                                  var action = ele.action;
+                                  var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
+                                  var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
+                                   //闭包
+                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
+                          })();
+
+                      });
+                  }
+
+
+
+            });
+        }
+    });
+    return Tracker;
+});
 requirejs.config({
     baseUrl:base_url,
     paths: {
@@ -1159,15 +1201,87 @@ require([
         'libs/polyfills',
         'jquery',
         'subapp/entitylike',
-        'subapp/topmenu'
+        'subapp/topmenu',
+        'subapp/tracker'
     ],
     function(polyfill,
              jQuery,
              AppEntityLike,
-             Menu
+             Menu,
+             Tracker
     ){
         var menu = new Menu();
         var app_like = new  AppEntityLike();
+
+        var tracker_list = [
+            {
+                selector: '.recommend-user-list li',
+                trigger: 'click',
+                category: 'recommend-user',
+                action: 'user-detail',
+                label: 'data-user-title',
+                value: 'data-user-id'
+            }, {
+            //    category
+                selector: '.category',
+                trigger: 'click',
+                category: 'category',
+                action: 'category-detail',
+                label: 'data-category-title',
+                value: 'data-category-id'
+            }, {
+            //    img-holder
+                selector: '.img-holder',
+                trigger: 'click',
+                category: 'hot-article',
+                action: 'article-detail',
+                label: 'data-article-title',
+                value: 'data-article-id'
+
+            }, {
+                selector: '.article-title',
+                trigger: 'click',
+                category: 'hot-article',
+                action: 'article-detail',
+                label: 'data-article-title',
+                value: 'data-article-id'
+            },{
+            //    discover_entity_list
+                selector: '.search-entity-item .img-box',
+                trigger: 'click',
+                category: 'hot-entity',
+                action: 'entity-detail',
+                label: 'data-entity-title',
+                value: 'data-entity-id',
+                wrapper: '#discover_entity_list'
+            }, {
+                selector: '.search-entity-item .title',
+                trigger: 'click',
+                category: 'hot-entity',
+                action: 'entity-detail',
+                label: 'data-entity-title',
+                value: 'data-entity-id',
+                wrapper: '#discover_entity_list'
+            }, {
+                selector: '.search-entity-item .btn-like',
+                trigger: 'click',
+                category: 'hot-entity',
+                action: 'entity-like',
+                label: 'data-entity-title',
+                value: 'data-entity',
+                wrapper: '#discover_entity_list'
+            }, {
+                 selector: '.search-entity-item .btn-unlike',
+                trigger: 'click',
+                category: 'hot-entity',
+                action: 'entity-unlike',
+                label: 'data-entity-title',
+                value: 'data-entity',
+                wrapper: '#discover_entity_list'
+            }
+        ];
+
+        var tracker = new Tracker(tracker_list);
     });
 
 define("discover_app", function(){});

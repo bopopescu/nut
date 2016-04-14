@@ -90,7 +90,7 @@
                             <div class="article-share for-browser ">
 
                              <span class="dig-wrapper">
-                                <span class="{% if dig_status %} digged dig-action" data-dig-title="dig" {% else %} undigged dig-action" data-dig-title="undig" {% endif %} data-dig-id={{ article.pk }}>
+                                <span class="{% if dig_status %} digged {% else %} undigged {% endif %} dig-action" data-article-title={{ article.title }}  data-article-id="{{ article.pk }}">
                                     <img class="dig-img dig" src="{% static 'images/article/dig.png' %}">
                                     <img class="dig-img undig" src="{% static 'images/article/undig.png' %}">
                                 </span>

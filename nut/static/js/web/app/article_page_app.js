@@ -83,15 +83,15 @@ require([
                 trigger: 'click',
                 category: 'article-dig',
                 action: 'dig',
-                label: 'data-dig-title',
-                value: 'data-dig-id'
+                label: 'data-article-title',
+                value: 'data-article-id'
             }, {
                 selector: '.undig',
                 trigger: 'click',
                 category: 'article-dig',
                 action: 'undig',
-                label: 'data-dig-title',
-                value: 'data-dig-id'
+                label: 'data-article-title',
+                value: 'data-article-id'
             }, {
                 selector: '.logo-wechat',
                 trigger: 'click',
@@ -114,14 +114,14 @@ require([
                 label: 'data-article-title',
                 value: 'data-article-id'
             }, {
-                selector: '.article-user-follow.button-blue ',
+                selector: '.button-blue ',
                 trigger: 'click',
                 category: 'writer-concern',
                 action: 'concern',
                 label: 'data-user-title',
                 value: 'data-user-id'
             }, {
-                selector: '.article-user-follow.btn-cancel',
+                selector: '.btn-cancel',
                 trigger: 'click',
                 category: 'writer-concern',
                 action: 'cancel-concern',
