@@ -231,7 +231,7 @@ def following_list(request, user_id):
 
     _offset = int(request.GET.get('offset', '0'))
     _count = int(request.GET.get('count', '30'))
-    if _offset > 0 and _offset < 30:
+    if _offset > 0 and _offset < _count:
         return ErrorJsonResponse(status=404)
     _offset = _offset / _count + 1
 
@@ -249,7 +249,7 @@ def following_list(request, user_id):
         return ErrorJsonResponse(status=404)
 
     followings_list = _user.followings.all()
-
+    total = len(followings_list)
     paginator = Paginator(followings_list, _count)
 
     try:
@@ -266,6 +266,10 @@ def following_list(request, user_id):
             user.followee.v3_toDict(visitor=visitor)
         )
 
+    res.append({
+        'total': total,
+    })
+
     return SuccessJsonResponse(res)
 
 
@@ -274,7 +278,7 @@ def fans_list(request, user_id):
 
     _offset = int(request.GET.get('offset', '0'))
     _count = int(request.GET.get('count', '30'))
-    if _offset > 0 and _offset < 30:
+    if _offset > 0 and _offset < _count:
         return ErrorJsonResponse(status=404)
     _offset = _offset / _count + 1
 
@@ -290,6 +294,7 @@ def fans_list(request, user_id):
         return ErrorJsonResponse(status=404)
 
     fans_list = _user.fans.all()
+    total = len(fans_list)
     paginator = Paginator(fans_list, 30)
 
     try:
@@ -302,9 +307,15 @@ def fans_list(request, user_id):
     res = []
     for user in _fans.object_list:
         res.append(
-            user.follower.v3_toDict(visitor=visitor)
+            user.follower.v3_toDict(visitor=visitor),
         )
+
+    res.append({
+        'total': total,
+    })
+
     return SuccessJsonResponse(res)
+
 
 
 @csrf_exempt

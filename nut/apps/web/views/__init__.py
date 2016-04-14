@@ -16,6 +16,8 @@ def page_error(request):
 def webpage_not_found(request):
     return page_not_found(request, template_name='web/404.html')
 
+def permission_denied(request):
+    return page_not_found(request, template_name='web/403.html')
 
 # class TestView(TemplateView):
 #     template_name = 'web/index.html'

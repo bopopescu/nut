@@ -20,7 +20,7 @@ urlpatterns = staticfiles_urlpatterns()
 
 handler500 = 'apps.web.views.page_error'
 handler404 = 'apps.web.views.webpage_not_found'
-handler403 = 'django.views.defaults.permission_denied'
+handler403 = 'apps.web.views.permission_denied'
 
 
 urlpatterns += patterns(

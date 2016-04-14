@@ -1620,6 +1620,48 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 
     return GoTop;
 });
+define('subapp/tracker',['libs/Class'], function (Class) {
+    var Tracker = Class.extend({
+        init: function (tracker_list) {
+            tracker_list.map(function(ele){
+                  var selector = ele.selector;
+                  var trigger = ele.trigger;
+                  if (ele.wrapper) {
+                      var wrapper = ele.wrapper;
+                      $(wrapper).delegate(selector, trigger, function(event){
+                          return (function() {
+                                  var target = event.currentTarget;
+                                  var category = ele.category;
+                                  var action = ele.action;
+                                  var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
+                                  var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
+                                   //闭包
+                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
+                          })();
+
+                      });
+                  } else {
+                      $(selector).on(trigger, function(event){
+                          return (function() {
+                                  var target = event.currentTarget;
+                                  var category = ele.category;
+                                  var action = ele.action;
+                                  var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
+                                  var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
+                                   //闭包
+                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
+                          })();
+
+                      });
+                  }
+
+
+
+            });
+        }
+    });
+    return Tracker;
+});
 define('subapp/loadentity',['jquery','libs/Class','libs/fastdom'],
     function($,Class,fastdom){
 
@@ -5145,43 +5187,27 @@ define('subapp/scrollview_selection',['jquery','libs/fastdom','subapp/loadentity
 });
 
 
-// singleton instance few.
-define('subapp/tracker',['libs/Class'], function (Class) {
-    //singleton for tracker
-
-    var Tracker = Class.extend({
-        init: function (tracker_list) {
-            //tracker_list.map(function(item){
-            //      var selector = item.selector;
-            //       var event = item.event;
-            //      $(selector).on(event, function(){
-            //         _hmt.push('_trackEvent', '')
-            //      })
-            //});
-        }
-    });
-    return Tracker;
-});
 require([
         'libs/polyfills',
         'jquery',
         'subapp/entitylike',
         'subapp/topmenu',
         'subapp/gotop',
+        'subapp/tracker',
         'subapp/scrollview_selection',
+        'subapp/tracker',
         'masonry',
         'jquery_bridget',
-        'images_loaded',
-        'subapp/tracker'
+        'images_loaded'
     ],
 
     function (polyfill,
               jQuery,
               AppEntityLike,
               Menu,
-              ScrollEntity,
               GoTop,
-              Tracker
+              Tracker,
+              ScrollEntity
     ) {
 // TODO : check if csrf work --
 // TODO : make sure bind is usable
@@ -5191,19 +5217,33 @@ require([
         var goto = new GoTop();
         var tracker_list = [
             {
-                selector : 'btn-like',
-                event:'click',
+                selector : '.fa-heart-o',
+                trigger: 'click',
                 category: 'entity',
                 action: 'like',
-                label: 'data-entity-name',
-                value: 'data-entity'
-            },
-            {
-                selector: 'btn-unlike'
+                label: 'data-entity-title',
+                value: 'data-entity',
+                wrapper: '#selection'
+            }, {
+                selector: '.fa-heart',
+                trigger: 'click',
+                category: 'entity',
+                action: 'unlike',
+                label: 'data-entity-title',
+                value: 'data-entity',
+                wrapper: '#selection'
+            }, {
+                selector: '.img-entity-link',
+                trigger: 'click',
+                category: 'entity',
+                action: 'entity_detail',
+                label: 'data-entity-title',
+                value: 'data-entity-id',
+                wrapper: '#selection'
             }
         ];
-// TODO: to be continued
-//        var tracer = new Tracker(tracker_list);
+
+        var tracker = new Tracker(tracker_list);
     });
 
 define("selection_entity_app", function(){});
