@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import datetime
 
 import os
 import sys
@@ -32,13 +33,33 @@ def crawl(spider, **parameters):
 links = Buy_Link.objects.filter(origin_source='taobao.com',
                                 entity__status__gt=Entity.new).\
     exclude(status=Buy_Link.remove).order_by('-id')
-# print links.count()
-for row in links:
-    print row.origin_id, crawl(item_id=row.origin_id,
-                               spider='taobao')
-    time.sleep(5)
+while True:
+    for index, row in enumerate(links):
+        print(index, crawl(item_id=row.origin_id,
+                                   spider='taobao'))
+        time.sleep(5)
+    else:
+        links = Buy_Link.objects.filter(origin_source='taobao.com',
+                                entity__status__gt=Entity.new).\
+            exclude(status=Buy_Link.remove).order_by('-id')
+
+# @app.task(name='check_item_status')
+# def check_item_status():
+#     global links
+#     if not links:
+#         links = list(Buy_Link.objects.filter(origin_source='taobao.com',
+#                                 entity__status__gt=Entity.new).\
+#                                 exclude(status=Buy_Link.remove).order_by('-id'))
+#     crawl(item_id=links.pop().origin_id, spider='taobao')
+#     print(datetime.datetime.now())
+#     print(len(links))
+#     print '-' * 80
 
 
+# if __name__ == '__main__':
+#     for i in range(3):
+#         check_item_status()
+#     print('*'*80)
 # Amazon
 # links = Buy_Link.objects.filter(origin_source__in=('www.amazon.com',
 #                                                    'www.amazon.cn'),

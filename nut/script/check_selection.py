@@ -3,15 +3,18 @@
 
 import os
 import sys
+
+from django.conf import settings
+import time
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(BASE_DIR)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
 
-import time
 import requests
 import datetime
 
-from django.conf import settings
+
 from apps.core.utils.commons import update_rate
 from apps.core.models import Buy_Link, Selection_Entity
 
@@ -38,7 +41,6 @@ def crawl(buy_link):
     res = requests.post('http://10.0.2.49:6800/schedule.json', data=data)
     return res.json()
 
-
 now = datetime.datetime.now()
 start_time = now - datetime.timedelta(hours=settings.INTERVAL_OF_SELECTION)
 end_time = now + datetime.timedelta(hours=settings.INTERVAL_OF_SELECTION)
@@ -46,6 +48,30 @@ selections_entity = Selection_Entity.objects.values_list('entity_id').filter(
     pub_time__gte=start_time, pub_time__lte=end_time)
 
 links = Buy_Link.objects.filter(entity_id__in=selections_entity)
-for buy_link in links:
-    print buy_link.origin_id, crawl(buy_link)
-    time.sleep(5)
+
+while True:
+
+    for index, buy_link in enumerate(links):
+        print(index, crawl(buy_link))
+        time.sleep(5)
+    else:
+        links = Buy_Link.objects.filter(entity_id__in=selections_entity)
+        time.sleep(60)
+
+
+
+# @app.task(name='check_selection')
+# def check_selection():
+#     global LINKS
+#     if not LINKS:
+#         LINKS = list(Buy_Link.objects.filter(entity_id__in=selections_entity))
+#     crawl(LINKS.pop())
+#     print(datetime.datetime.now())
+#     print(len(LINKS))
+#     print '-'*80
+
+
+
+
+
+
