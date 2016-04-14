@@ -1,3 +1,18 @@
+9.  
+8.  optimize user like category list query , reduce 2000ms query time 
+7.  article edit (web) no permission  REDIRECT to 403 page 
+6.  article edit (mng) support chinese comma
+5.  recommend user count up to 16 
+4.  api article list page , add field 'digest' for short article digest
+3.  fix category display int entity page header and description 
+2.  new category detail page , 
+    new subcategory page , 
+    new subcategory list page        --zhaoxu , luoqian  
+1.  discovery page  , category list  --zhaoxu , luoqian 
+
+==================================
+# merged to master 2016 4-7 
+==================================
 
 6. reset password page refactor  --zhaoxu, luoqian 
 5. fix entity liker 500 bug (see bug discussion below) --anchen
@@ -6,9 +21,9 @@
 2. baidu tracker selection page -- zuoning (not finished)
 1. kaola margin link generate   -- shuailong 
 
-#action 
+##action 
 
-#about entity liker page BUG 
+##about entity liker page BUG 
 
 for some row in table core_entity_like, 
     column 'user_id' has value , 

@@ -23,14 +23,13 @@
             <a class="btn btn-like pull-left" href="javascript:;"
                data-entity="{{ entity.id }}" data-entity-title="{{ entity.title }}" rel="nofollow"
                     {% if entity.id in user_entity_likes %}
-               onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', encodeURIComponent('{{ entity.title }}')]);"
                         >
                         <i class="fa fa-heart"></i>
                     {% else %}
-                        onclick="_hmt.push(['_trackEvent', 'entity', 'like', encodeURIComponent('{{ entity.title }}')]);">
+                        >
                         <i class="fa fa-heart-o"></i>
                     {% endif %}
-            <div class="bubble like-count">{{ entity.like_count | format_like_num }}</div>
+                 <div class="bubble like-count">{{ entity.like_count | format_like_num }}</div>
             </a>
 
             <div class="pull-right posttime">
