@@ -121,7 +121,16 @@ require([
                 action: 'entity_buy',
                 label: 'data-entity-title',
                 value: 'data-entity',
-                wrapper: '#detail_content'
+                wrapper: ''
+            }
+             , {
+                selector: '#report_trigger',
+                trigger: 'click',
+                category: 'entity-detail',
+                action: 'entity_report',
+                label: 'data-entity-title',
+                value: 'data-entity',
+                wrapper: ''
             }
         ];
 
