@@ -249,10 +249,12 @@ def following_list(request, user_id):
         return ErrorJsonResponse(status=404)
 
     followings_list = _user.followings.all()
-    total = len(followings_list)
     paginator = Paginator(followings_list, _count)
 
     try:
+        is_last_page = False
+        if not paginator.page(_offset).has_next():
+            is_last_page = True
         _followings = paginator.page(_offset)
     # except PageNotAnInteger:
     #     _followings = paginator.page(1)
@@ -260,15 +262,12 @@ def following_list(request, user_id):
         return ErrorJsonResponse(status=404)
 
     res = []
-    for user in _followings.object_list:
-        log.info(user.followee.v3_toDict(visitor=visitor))
-        res.append(
-            user.followee.v3_toDict(visitor=visitor)
-        )
-
-    res.append({
-        'total': total,
-    })
+    if not is_last_page:
+        for user in _followings.object_list:
+            log.info(user.followee.v3_toDict(visitor=visitor))
+            res.append(
+                user.followee.v3_toDict(visitor=visitor)
+            )
 
     return SuccessJsonResponse(res)
 
@@ -298,6 +297,9 @@ def fans_list(request, user_id):
     paginator = Paginator(fans_list, 30)
 
     try:
+        is_last_page = False
+        if not paginator.page(_offset).has_next():
+            is_last_page = True
         _fans = paginator.page(_offset)
     # except PageNotAnInteger:
     #     _fans = paginator.page(1)
@@ -305,14 +307,11 @@ def fans_list(request, user_id):
         return ErrorJsonResponse(status=404)
 
     res = []
-    for user in _fans.object_list:
-        res.append(
-            user.follower.v3_toDict(visitor=visitor),
-        )
-
-    res.append({
-        'total': total,
-    })
+    if not is_last_page:
+        for user in _fans.object_list:
+            res.append(
+                user.follower.v3_toDict(visitor=visitor),
+            )
 
     return SuccessJsonResponse(res)
 
