@@ -48,8 +48,7 @@ require(['jquery',
                 label: 'data-editor-recommendation-entity-title',
                 value: 'data-editor-recommendation-entity-id',
                 wrapper: '#recommendation_entity_wrapper'
-            }
-            ,
+            },
             {
                 selector: '.img-link',
                 trigger: 'click',
@@ -58,8 +57,7 @@ require(['jquery',
                 label: 'data-event-article-title',
                 value: 'data-event-article-id',
                 wrapper: '#selection_article_list'
-            }
-             ,
+            },
             {
                 selector: '.article-title',
                 trigger: 'click',
@@ -68,6 +66,24 @@ require(['jquery',
                 label: 'data-event-article-title',
                 value: 'data-event-article-id',
                 wrapper: '#selection_article_list'
+            },
+            {
+                selector: '.img-box',
+                trigger: 'click',
+                category: 'event-selection-entity',
+                action: 'event_selection_entity_detail',
+                label: 'data-selection-entity-title',
+                value: 'data-selection-entity-id',
+                wrapper: '#event'
+            },
+            {
+                selector: '.section-buy',
+                trigger: 'click',
+                category: 'event-selection-entity',
+                action: 'event_selection_entity_buy_detail',
+                label: 'data-selection-entity-title',
+                value: 'data-selection-entity-id',
+                wrapper: '#event'
             }
         ];
 
