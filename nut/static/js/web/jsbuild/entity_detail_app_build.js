@@ -3590,6 +3590,23 @@ require([
                 label: 'data-second-level-category-title',
                 value: 'data-second-level-category-id',
                 wrapper: '#detail_breadcrumb'
+            },
+              {
+                selector : '.fa-heart-o',
+                trigger: 'click',
+                category: 'entity-detail',
+                action: 'entity_like',
+                label: 'data-entity-title',
+                value: 'data-entity',
+                wrapper: '#detail_content'
+            }, {
+                selector: '.fa-heart',
+                trigger: 'click',
+                category: 'entity-detail',
+                action: 'entity_unlike',
+                label: 'data-entity-title',
+                value: 'data-entity',
+                wrapper: '#detail_content'
             }
         ];
 

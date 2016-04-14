@@ -28,11 +28,11 @@
    <div class="row">
        <div class="col-xs-12 col-sm-10 guoku-button like-btn">
            {% if like_status %}
-            <a class="like-action fc_333" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
+            <a class="like-action fc_333" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" data-entity-title="{{ entity.title }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
                 <i class="fa fa-heart fc_heart"></i>&nbsp;&nbsp;{% trans 'Like' %}&nbsp;
             </a>
         {% else %}
-            <a class="like-action fc_333" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
+            <a class="like-action fc_333" href="javascript:;" rel="nofollow" data-target-status="{{ like_status }}" data-entity="{{ entity.id }}" data-entity-title="{{ entity.title }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
                 <i class="fa fa-heart-o "></i>&nbsp;&nbsp;{% trans 'Like' %}&nbsp;
             </a>         {% endif %}
        </div>
