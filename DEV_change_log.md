@@ -1,5 +1,5 @@
-
-
+14.  API: discover page article , add digest 
+13.  API:  filter removed user in activity/message 
 12.  article craw report update 
 11.  article mng edit , tag ,add parent category words for selection
 10.  good store , new banner 
