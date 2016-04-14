@@ -4,20 +4,21 @@ require([
         'subapp/entitylike',
         'subapp/topmenu',
         'subapp/gotop',
+        'subapp/tracker',
         'subapp/scrollview_selection',
+        'subapp/tracker',
         'masonry',
         'jquery_bridget',
-        'images_loaded',
-        'subapp/tracker'
+        'images_loaded'
     ],
 
     function (polyfill,
               jQuery,
               AppEntityLike,
               Menu,
-              ScrollEntity,
               GoTop,
-              Tracker
+              Tracker,
+              ScrollEntity
     ) {
 // TODO : check if csrf work --
 // TODO : make sure bind is usable
@@ -27,17 +28,31 @@ require([
         var goto = new GoTop();
         var tracker_list = [
             {
-                selector : 'btn-like',
-                event:'click',
+                selector : '.fa-heart-o',
+                trigger: 'click',
                 category: 'entity',
                 action: 'like',
-                label: 'data-entity-name',
-                value: 'data-entity'
-            },
-            {
-                selector: 'btn-unlike'
+                label: 'data-entity-title',
+                value: 'data-entity',
+                wrapper: '#selection'
+            }, {
+                selector: '.fa-heart',
+                trigger: 'click',
+                category: 'entity',
+                action: 'unlike',
+                label: 'data-entity-title',
+                value: 'data-entity',
+                wrapper: '#selection'
+            }, {
+                selector: '.img-entity-link',
+                trigger: 'click',
+                category: 'entity',
+                action: 'entity_detail',
+                label: 'data-entity-title',
+                value: 'data-entity-id',
+                wrapper: '#selection'
             }
         ];
-// TODO: to be continued
-//        var tracer = new Tracker(tracker_list);
+
+        var tracker = new Tracker(tracker_list);
     });

@@ -73,7 +73,7 @@ _.extend(Tag_App.prototype, {
         this.add_article_tag(tag);
     },
     setup_tag_click_event:function(){
-        $('#tag_btn_list').on('click','.article-tag-btn', this.handle_tag_button_click.bind(this));
+        $('#tag_btn_list,.category-tag-list').on('click','.article-tag-btn', this.handle_tag_button_click.bind(this));
     },
 
     }

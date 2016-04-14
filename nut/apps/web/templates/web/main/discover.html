@@ -48,46 +48,33 @@
                 </ul>
             </div>
         </div>
-      {% endif %}
+        {% endif %}
 
         <div class="row category-wrapper">
             <div class="col-sm-12 section-title-wrapper">
                 <p>推荐品类</p>
             </div>
-
-{#            <div class="col-md-10 col-xs-12" >#}
-{#            {% for category in categories %}#}
-{#                <div class="col-xs-4 col-sm-2">#}
-{#                    <div class="thumbnail category category-control">#}
-{#                        <a href="{% url 'web_category_detail' category.id %}">#}
-{#                            <img class="img-responsive" alt="{{ category.title }}" src="{{ category.icon_large_url }}"  width="64" height="64">#}
-{#                            <p>{{ category.title|show_category }}</p>#}
-{##}
-{#                        </a>#}
-{#                    {{ category }}#}
-{#                    </div>#}
-{#                </div>#}
-{#            {% endfor %}#}
-
-            {% for category in categories %}
-                <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                    <div class="thumbnail category category-control">
-                        <a href="{% url 'web_category_detail' category.id %}">
-                             <img class="img-responsive" alt="{{ category.title }}" src="{{ category.icon_large_url }}" width="64" height="64">
-                            <p>{{ category.title|show_category }}</p>
-                        </a>
-                    </div>
-                </div>
-            {% endfor %}
-            <div class="col-xs-3 col-sm-2 guoku-normal-col">
-                <div class="thumbnail category category-control">
-                    <a href="{% url 'web_category_list' %}">
-                        <img class="img-responsive" src="{% static 'images/more.png' %}" width="64" height="64">
-                        <p>查看全部</p>
-                    </a>
-                </div>
-            </div>
         </div>
+
+
+        <div class="row dark-section-wrapper">
+            {% for category in categories %}
+             <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col dark-section-item">
+                    <a href="{% url 'web_category_group' category.id %}" target="_blank">
+                        <div class="section-panel">
+                            <div class="bg-pic" style="background-image: url('{{ category.cover_url|resize:'200' }}')">
+                            </div>
+                             <div class="section-name">
+                                 <p>{{ category.title_cn }}</p>
+                                 <span>{{ category.title_en }}</span>
+                            </div>
+                            <div class="bg-layer"></div>
+                        </div>
+                    </a>
+             </div>
+            {% endfor %}
+        </div>
+
 
         <div class="row hot-articles-wrapper" id="selection_article_list">
             <div class="col-sm-12 section-title-wrapper">

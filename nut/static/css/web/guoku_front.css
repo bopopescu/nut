@@ -1113,7 +1113,7 @@ p.boolean-false {
 }
 .guoku-middle-col {
   padding: 0 9px;
-  margin-bottom: 17px;
+  margin-bottom: 18px;
 }
 .normal-share-btn {
   display: inline-block;
@@ -1269,6 +1269,62 @@ p.boolean-false {
 .check-icon-wrapper .more-message {
   font-size: 16px;
   color: #9D9E9F;
+}
+.dark-section-wrapper .dark-section-item a {
+  color: #ffffff;
+}
+.dark-section-wrapper .dark-section-item ahover,
+.dark-section-wrapper .dark-section-item afocus {
+  color: #ffffff;
+}
+.dark-section-wrapper .dark-section-item a .section-panel {
+  background-color: #fff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 0px 2px #ddd;
+  -moz-box-shadow: 0px 0px 2px #ddd;
+  box-shadow: 0px 0px 2px #ddd;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+.dark-section-wrapper .dark-section-item a .section-panel:hover .bg-layer {
+  display: block;
+}
+.dark-section-wrapper .dark-section-item a .section-panel .bg-pic {
+  width: 100%;
+  height: 0;
+  padding-bottom: 55%;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.dark-section-wrapper .dark-section-item a .section-panel .section-name {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  text-align: center;
+}
+.dark-section-wrapper .dark-section-item a .section-panel .section-name p {
+  margin-bottom: 0;
+}
+.dark-section-wrapper .dark-section-item a .section-panel .section-name span {
+  font-size: 11px;
+}
+.dark-section-wrapper .dark-section-item a .section-panel .bg-layer {
+  display: none;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.18);
 }
 .message_page {
   width: 941px;
@@ -2021,7 +2077,8 @@ textarea {
   padding: 5px;
 }
 /* 喜欢按钮 */
-.btn-like {
+.btn-like,
+.btn-unlike {
   display: inline-block;
   /*border-radius: 0;*/
   background-color: #fff;
@@ -2407,6 +2464,7 @@ body.compact-body {
 }
 #index-banners .banner-image-cell {
   padding: 0 10px;
+  max-height: 300px;
 }
 #index-banners .banner-image-cell.banner-image-cell-control {
   padding: 0 5px;
@@ -2418,6 +2476,7 @@ body.compact-body {
   padding-bottom: 55.56%;
   background-size: cover;
   background-position: center center;
+  background-repeat: no-repeat;
 }
 #guoku_main_nav {
   backface-visibility: hidden;
@@ -3585,7 +3644,9 @@ body.compact-body {
   z-index: 1;
 }
 #selection .entity-selection.thumbnail .btn-like,
-#event .entity-selection.thumbnail .btn-like {
+#event .entity-selection.thumbnail .btn-like,
+#selection .entity-selection.thumbnail .btn-unlike,
+#event .entity-selection.thumbnail .btn-unlike {
   padding: 0px;
   padding-left: 3px;
   line-height: 14px;
@@ -4704,6 +4765,6 @@ body .for-mobile {
   text-align: left;
 }
 .gk_test {
-  color: black;
+  color: red;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */

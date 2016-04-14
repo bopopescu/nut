@@ -297,12 +297,19 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def entity_liked_categories(self):
+        # _entity_ids =  Entity_Like.objects.user_likes_id_list(user=self)
+        # _category_id_list = Entity.objects.using('slave').filter(id__in=_entity_ids)\
+        #                           .select_related('category__group')\
+        #                           .filter(status__gte=Entity.freeze)\
+        #                           .annotate(category_count=Count('category__group'))\
+        #                           .values_list('category__group', flat=True)
+
         _category_id_list = Entity_Like.objects.select_related('entity__category__group')\
                             .filter(user=self, entity__status__gte=Entity.freeze)\
                             .annotate(category_count=Count('entity__category__group'))\
                             .values_list('entity__category__group', flat=True)
 
-        _category_list = Category.objects.filter(pk__in=_category_id_list)
+        _category_list = Category.objects.using('slave').filter(pk__in=_category_id_list)
         return set(_category_list)
 
     @property
@@ -750,7 +757,7 @@ class Sub_Category(BaseModel):
         return res
 
     def __unicode__(self):
-        return self.title
+       return self.title
 
 
 # TODO: Production Brand
