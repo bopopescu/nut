@@ -14,7 +14,7 @@ from django.utils.log import getLogger
 # import binascii
 
 log = getLogger('django')
-today = datetime.today()
+today = datetime.today().date()
 
 
 @login_required
@@ -115,14 +115,26 @@ def dashboard(request, template='management/dashboard.html'):
 
 def get_update(author):
 
-    yesterday_finish_num = Article.objects.filter(creator=author.id,
-                                                  updated_datetime__range=(days_ago(1),today)).count()
-    last_week_num = Article.objects.filter(creator=author.id, updated_datetime__range=(days_ago(7),today)).count()
-    last_month_num = Article.objects.filter(creator=author.id, updated_datetime__range=(days_ago(30),today)).count()
-
+    yesterday_finish_num = get_update_num(author, 1)
+    last_week_num = get_update_num(author, 7)
+    last_month_num = get_update_num(author, 30)
     return yesterday_finish_num, last_week_num, last_month_num
 
 def days_ago(days_num):
     return date.today() - timedelta(days=days_num)
+
+def get_update_num(author, days_num):
+    try:
+        biggest_id = int(Article.objects.filter(creator=author.id,
+                                                updated_datetime__lt=days_ago(days_num)).order_by('-id').first().id)
+    except:
+        biggest_id = 0
+
+    update_num = Article.objects.filter(creator=author.id,
+                                        updated_datetime__range=(days_ago(days_num), today),
+                                        id__gt=biggest_id).count()
+
+
+    return update_num
 
 __author__ = 'edison7500'
