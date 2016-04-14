@@ -310,6 +310,11 @@ def entity(request, category_id):
 
     _count = int(request.GET.get('count', '30'))
 
+    try:
+       category_id = int(category_id)
+    except Exception as e :
+        pass
+
     if _offset > 0 and _offset < _count:
         return ErrorJsonResponse(status=404)
     # print _offset, _count
