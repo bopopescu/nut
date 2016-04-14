@@ -3680,6 +3680,14 @@ require([
                 label: 'data-content',
                 value: 'data-note',
                 wrapper: '#detail_content'
+            }, {
+                selector: '.add-comment',
+                trigger: 'click',
+                category: 'entity-detail',
+                action: 'guess-list-entity',
+                label: 'data-entity-title',
+                value: 'data-entity-id',
+                wrapper: '#guess_list'
             }
         ];
 

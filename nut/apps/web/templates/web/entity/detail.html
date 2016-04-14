@@ -161,7 +161,7 @@
 
                                 <div class="img-holder">
                                     <a href="{% url 'web_entity_detail' entity.entity_hash %}#from=recommend" target="_blank" class="">
-                                        <div class="img-frame" style="background-image:url({{ entity.chief_image|resize:'240' }})"></div>
+                                        <div class="img-frame" style="background-image:url({{ entity.chief_image|resize:'240' }})" data-entity-id="{{ entity.pk }}" data-entity-title="{{ entity.title }}"></div>
                                     </a>
                                 </div>
                             </div>
