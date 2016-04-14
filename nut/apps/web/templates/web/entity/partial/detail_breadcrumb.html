@@ -5,15 +5,15 @@
                    {% with group_pk=entity.category.group.pk category_title=entity.category.title %}
                    {% if entity.is_in_selection %}
                     <li >
-                        <a href="{% url 'web_selection' %}">
+                        <a class="detail-breadcrumd-link" href="{% url 'web_selection' %}" data-entity-id="{{ entity.id }}" data-entity-title="{% if entity.brand|length != 0 %}{{ entity.brand }} - {% endif %}{{ entity.title }}">
                             {% trans 'selection' %}
                         </a>&nbsp;&nbsp;
                         <i class="fa fa-angle-right fc_angle_right"></i>&nbsp;&nbsp;</li>
                     {% endif %}
                     {% if not group_pk == 23  %}
-                    <li><a href="{% url 'web_category_group' entity.category.group.pk %}">{{ entity.category.group.title_cn }}</a>&nbsp;&nbsp;<i class="fa fa-angle-right fc_angle_right"></i>&nbsp;&nbsp;</li>
+                    <li><a class="detail-breadcrumd-link" href="{% url 'web_category_group' entity.category.group.pk %}" data-first-level-category-id="{{ entity.category.group.pk }}" data-first-level-category-title="{{ entity.category.group.title_cn }}">{{ entity.category.group.title_cn }}</a>&nbsp;&nbsp;<i class="fa fa-angle-right fc_angle_right"></i>&nbsp;&nbsp;</li>
                           {% if not category_title == '+' %}
-                                <li><a href="{% url 'web_category_detail' entity.category_id %}">{{ entity.category.title|show_category }}</a>&nbsp;&nbsp;<i class="fa fa-angle-right fc_angle_right"></i>&nbsp;&nbsp;</li>
+                                <li><a class="detail-breadcrumd-link" href="{% url 'web_category_detail' entity.category_id %}" data-second-level-category-id="{{ entity.category_id }}" data-second-level-category-title="{{ entity.category.title|show_category }}">{{ entity.category.title|show_category }}</a>&nbsp;&nbsp;<i class="fa fa-angle-right fc_angle_right"></i>&nbsp;&nbsp;</li>
                           {% endif %}
                    {% endif %}
                     <li >
