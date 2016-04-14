@@ -62,11 +62,11 @@ class AmazonSpider(scrapy.Spider):
 
     def get_item_status(self, response):
         if response.status == 404:  # remove
-            return 2
+            return 0
         if len(response.xpath("//div[@id='outOfStock']")
                 .extract()) > 0:  # sold out
             return 1
-        return 0
+        return 2
 
     def get_price(self, response):
         price_xpath = response.xpath(
