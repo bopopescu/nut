@@ -42,11 +42,11 @@
                 {% if row.status == 2 %}
                      <div class="col-xs-12 col-sm-10  guoku-button buy-btn">
                      {% if row.origin_source == "taobao.com" or row.origin_source == "tmail.com" %}
-                        <a class="buy-button" rel="nofollow" href="http://detail.tmall.com/item.htm?id={{ row.origin_id }}" target="_blank" biz-itemid="{{ row.origin_id }}" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity.title }}-taobao'])">
+                        <a class="buy-button" rel="nofollow" href="http://detail.tmall.com/item.htm?id={{ row.origin_id }}" target="_blank" biz-itemid="{{ row.origin_id }}" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity.title }}-taobao'])" data-entity="{{ entity.id }}" data-entity-title="{{ entity.title }}">
                             <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;{% trans 'Buy' %}<span itemprop="price"></span>
                         </a>
                     {% else %}
-                        <a class="buy-button" rel="nofollow" href="{% url 'web_entity_buy_url' row.id %}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy', '{{ entity.title }}-{{ row.origin_souce }}'])">
+                        <a class="buy-button" rel="nofollow" href="{% url 'web_entity_buy_url' row.id %}" target="_blank" _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy', '{{ entity.title }}-{{ row.origin_souce }}'])" data-entity="{{ entity.id }}" data-entity-title="{{ entity.title }}">
                             <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;{% trans 'Buy' %}<span itemprop="price"></span>
                         </a>
                     {% endif %}
