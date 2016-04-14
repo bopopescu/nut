@@ -71,7 +71,7 @@ require([
          var tracker_list = [
 
             {
-                selector: '.detail-breadcrumd-link',
+                selector: '.selection-entity-link',
                 trigger: 'click',
                 category: 'entity-detail',
                 action: 'selection_entity_list',
@@ -80,7 +80,7 @@ require([
                 wrapper: '#detail_breadcrumb'
             },
              {
-                selector: '.detail-breadcrumd-link',
+                selector: '.first-category-link',
                 trigger: 'click',
                 category: 'entity-detail',
                 action: 'first_level_category_detail',
@@ -90,7 +90,7 @@ require([
             }
              ,
              {
-                selector: '.detail-breadcrumd-link',
+                selector: '.second-category-link',
                 trigger: 'click',
                 category: 'entity-detail',
                 action: 'second_level_category_detail',
