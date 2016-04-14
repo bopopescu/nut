@@ -172,10 +172,10 @@
                     </p>
                 </div>
             </div>
-            <div class="row " >
+            <div class="row " id="shop_recommendation_wrapper">
             {% for show_editor in show_editor_recommendations_shop %}
                 <div class="col-xs-6 col-sm-3 recommendation-wrapper">
-                    <div class="recommendation-item ">
+                    <div class="recommendation-item" data-editor-recommendation-shop-id="{{ show_editor.id }}" data-editor-recommendation-shop-event-id="{{ show_editor.event_id }}">
                         {% if isFromMobile %}
                         <a href="{{ show_editor.recommendation.link|mobile_link }}">
                             <img class="img-responsive" src="{{ show_editor.recommendation.image_url }}" >

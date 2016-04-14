@@ -1526,6 +1526,15 @@ require(['jquery',
                 label: 'data-event-title',
                 value: 'data-event-id',
                 wrapper: '#event_list_page'
+            },
+            {
+                selector: '.recommendation-item',
+                trigger: 'click',
+                category: 'event-shop-recommendation',
+                action: 'event_shop_recommendation_detail',
+                label: 'data-editor-recommendation-shop-event-id',
+                value: 'data-editor-recommendation-shop-id',
+                wrapper: '#shop_recommendation_wrapper'
             }
         ];
 
