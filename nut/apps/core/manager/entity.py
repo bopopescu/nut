@@ -23,7 +23,7 @@ class EntityQuerySet(models.query.QuerySet):
         return self.using('slave').filter(status__gte=-1)
 
     def new_or_selection(self, category_id):
-        if isinstance(category_id, int):
+        if isinstance(category_id, int) or isinstance(category_id ,str):
             return self.using('slave').filter(category_id=category_id,
                                               status__gte=0)
 
