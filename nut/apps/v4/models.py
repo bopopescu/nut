@@ -309,6 +309,13 @@ class APIArticle(Article):
     def strip_tags_content(self):
         return h_parser.unescape(strip_tags(self.content))
 
+    @property
+    def strip_tags_content_limit30(self):
+        article_digest = h_parser.unescape(strip_tags(self.content))
+        if len(article_digest) > 30:
+            return article_digest[:30]
+        return article_digest
+
     def v4_toDict(self, articles_list=list()):
         res = self.toDict()
         res.pop('id', None)
@@ -318,6 +325,7 @@ class APIArticle(Article):
         res['article_id'] = self.id
         res['tags'] = self.tag_list
         res['content'] = self.strip_tags_content
+        res['digest'] = self.strip_tags_content_limit30
         res['url'] = self.get_absolute_url()
         res['creator'] = self.creator.v3_toDict()
         res['dig_count'] = self.dig_count

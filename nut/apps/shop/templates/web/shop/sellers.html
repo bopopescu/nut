@@ -3,22 +3,22 @@
 {% load common guoku %}
 
 {% block meta-og %}
-    <meta property="og:title" content="好店 | 精英消费指南" >
+    <meta property="og:title" content="好店 | 精英消费指南 | 果库" >
     <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
-    <meta property="og:description" content="果库精选商品每日更新，恪守选品标准和美学格调，推荐有趣、有用、有价值的国内外优质优惠的网购商品。尽收世上好物。">
+    <meta property="og:description" content="果库好店页，追踪人气热门网店、搜罗热卖有趣商品、放送潮流引导图文，新品发布抢先看，店主深度专访细细品味，按照品类筛选好店，那些错过的，果库帮你找回来。">
 {% endblock %}
 
 {% block meta-common %}
-    <meta name="title"  content="好店 | 精英消费指南">
-    <meta name="keywords" content="好店推荐 精选店铺">
-    <meta name="description" content="果库精选商品每日更新，恪守选品标准和美学格调，推荐有趣、有用、有价值的国内外优质优惠的网购商品。尽收世上好物。">
+    <meta name="title"  content="好店 | 精英消费指南 | 果库">
+    <meta name="keywords" content="推荐好店、热门网店、热门网店列表、推荐图文、网店专访、新品发布、店主专访、店主访谈、果库访问、新品、新品发布会、果库新品发布会、网店搜索、网店列表、网店分类、网店筛选、消费图文、果库应用、精英消费指南、消费指南、精品导购应用、导购、购物指南、购物分享、淘宝网购物、淘宝网精选、精品推荐,精选商品,精选图文,热门商品,推荐品类,消费专题">
+    <meta name="description" content="果库好店页，追踪人气热门网店、搜罗热卖有趣商品、放送潮流引导图文，新品发布抢先看，店主深度专访细细品味，按照品类筛选好店，那些错过的，果库帮你找回来。">
 {% endblock %}
 
 {% load i18n %}
 
-{% block title %}好店 | 精英消费指南{% endblock %}
+{% block title %}好店 | 精英消费指南 | 果库{% endblock %}
 
-{% block h1 %}好店 | 精英消费指南{% endblock %}
+{% block h1 %}好店 | 精英消费指南 | 果库{% endblock %}
 
 
 {% block css %}
@@ -55,7 +55,7 @@
     {#    </div>#}
 
     {#    main-content#}
-    <div class="container store-page-container">
+    <div class="sellers-banner-container">
         <div class="row good-store-row latest-actions-wrapper">
             <div id="user-latest-article" class="guoku-middle-col user-latest-article-wrapper col-sm-12">
                 <div class="user-article-panel">
@@ -115,6 +115,67 @@
 {#                </ul>#}
 {#            </div>#}
         </div>
+    </div>
+    <div class="container store-page-container">
+{#        <div class="row good-store-row latest-actions-wrapper">#}
+{#            <div id="user-latest-article" class="guoku-middle-col user-latest-article-wrapper col-sm-12">#}
+{#                <div class="user-article-panel">#}
+{#                    <div class="banner-wrapper" id="index-banners">#}
+{#                        {% for banner in banners %}#}
+{#                            <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}">#}
+{#                                <a href="{{ banner.link }}" target="_blank">#}
+{#                                    <div class="banner-image-wrapper" style="background-image: url({{ banner.image_url }})">#}
+{#                                    </div>#}
+{#                                    <div class="user-latest-article-intro-wrapper">#}
+{#                                        <div class="user-latest-article-title-wrapper">#}
+{#                                            <a class="user-latest-article-title" href="{{ banner.link }}" target="_blank">#}
+{#                                                {{ banner.banner_title }}#}
+{#                                            </a>#}
+{#                                            <div class="user-info-section-title">#}
+{#                                                {{ banner.banner_desc }}#}
+{#                                            </div>#}
+{#                                        </div>#}
+{##}
+{#                                    </div>#}
+{#                                </a>#}
+{#                            </div>#}
+{##}
+{##}
+{#                        {% endfor %}#}
+{#                    </div>#}
+                    {#                    </a>#}
+{##}
+{##}
+{#                </div>#}
+{#            </div>#}
+{#            <div id="latest-actions-sidebar" class="guoku-middle-col latest-actions-sidebar-wrapper col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">#}
+{#                <ul class="section-list user-right latest-actions-list">#}
+{#                    <li class="section user-tag-list">#}
+{#                        <div class="section-title section-title-control">#}
+{#                            最近更新#}
+{#                        </div>#}
+{#                        <div class="section-content">#}
+{#                            <ul class="tag-list">#}
+{#                                {% for article in recent_articles %}#}
+{##}
+{#                                    <li>#}
+{#                                        <div class="publish-time">#}
+{#                                            {{ article.created_datetime|format_time }}#}
+{#                                        </div>#}
+{#                                        <div class="publish-info">#}
+{#                                            <a href="{% url 'web_user_index' article.creator.pk %}">{{ article.creator.nickname }}</a>#}
+{#                                            发表了图文#}
+{#                                            <a href="{% url 'web_article_page' article.pk %}">{{ article.title }}</a>#}
+{#                                        </div>#}
+{#                                    </li>#}
+{#                                {% endfor %}#}
+{##}
+{#                            </ul>#}
+{#                        </div>#}
+{#                    </li>#}
+{#                </ul>#}
+{#            </div>#}
+{#        </div>#}
         <div class="row section-title-wrapper">
             <div class="col-sm-12">
                 <p>推荐关注</p>
