@@ -171,6 +171,14 @@ require([
                 label: 'data-user-nickname',
                 value: 'data-user-id',
                 wrapper: '#detail_content'
+            }, {
+                selector: '.real-poke',
+                trigger: 'click',
+                category: 'entity-detail',
+                action: 'note_poke',
+                label: 'data-content',
+                value: 'data-note',
+                wrapper: '#detail_content'
             }
         ];
 

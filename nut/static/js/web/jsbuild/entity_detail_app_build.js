@@ -3648,6 +3648,30 @@ require([
                 label: 'data_entity_title',
                 value: 'data-entity',
                 wrapper: '#detail_content'
+            }, {
+                selector: '.note-user-logo',
+                trigger: 'click',
+                category: 'entity-detail',
+                action: 'note_user_index',
+                label: 'data-user-nickname',
+                value: 'data-user-id',
+                wrapper: '#detail_content'
+            }, {
+                selector: '.note-user-name',
+                trigger: 'click',
+                category: 'entity-detail',
+                action: 'note_user_index',
+                label: 'data-user-nickname',
+                value: 'data-user-id',
+                wrapper: '#detail_content'
+            }, {
+                selector: '.real-poke',
+                trigger: 'click',
+                category: 'entity-detail',
+                action: 'note_poke',
+                label: 'data-content',
+                value: 'data-note',
+                wrapper: '#detail_content'
             }
         ];
 

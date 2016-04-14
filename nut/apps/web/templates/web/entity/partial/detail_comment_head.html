@@ -39,7 +39,7 @@
                         <i class="fa fa-thumbs-up"></i>{% if the_top_note.poke_count > 0 %}<span class="poke-count">{{ the_top_note.poke_count }}</span>{% endif %}
                     </a>
                 {% else %}
-                    <a href="javascript:;" class="poke" data-note="{{ the_top_note.id }}">
+                    <a href="javascript:;" class="poke real-poke" data-note="{{ the_top_note.id }}" data-content="{{ the_top_note.note|escape }}">
                         <i class="fa fa-thumbs-o-up"></i>{% if the_top_note.poke_count > 0 %}<span class="poke-count">{{ the_top_note.poke_count }}</span>{% endif %}
                     </a>
                 {% endif %}
