@@ -3672,6 +3672,14 @@ require([
                 label: 'data-content',
                 value: 'data-note',
                 wrapper: '#detail_content'
+            }, {
+                selector: '.add-comment',
+                trigger: 'click',
+                category: 'entity-detail',
+                action: 'note_comment',
+                label: 'data-content',
+                value: 'data-note',
+                wrapper: '#detail_content'
             }
         ];
 

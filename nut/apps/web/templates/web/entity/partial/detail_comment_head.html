@@ -43,7 +43,7 @@
                         <i class="fa fa-thumbs-o-up"></i>{% if the_top_note.poke_count > 0 %}<span class="poke-count">{{ the_top_note.poke_count }}</span>{% endif %}
                     </a>
                 {% endif %}
-                <a href="javascript:;" class="fc_1 add-comment" data-note="{{ the_top_note.id }}" ><i class="fa fa-comment-o"></i>
+                <a href="javascript:;" class="fc_1 add-comment" data-note="{{ the_top_note.id }}" data-content="{{ the_top_note.note|escape }}"><i class="fa fa-comment-o"></i>
                     {% if the_top_note.comment_count > 0 %}
                         &nbsp;{{ the_top_note.comment_count }}
                     {% endif %}
