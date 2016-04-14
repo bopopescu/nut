@@ -1,3 +1,4 @@
+#coding=utf-8
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.log import getLogger
@@ -154,6 +155,7 @@ class BaseArticleForms(forms.Form):
     def clean_tags(self):
         _tags = self.cleaned_data.get('tags')
         _tags = _tags.strip()
+        _tags = _tags.replace(u'，', ',')
         _tmp_tags = re.split(',|\s', _tags)
         # _tags = _tags.split(', ')
         res = list()
