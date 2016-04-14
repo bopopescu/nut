@@ -263,11 +263,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def following_list(self):
-        return self.followings.all().values_list('followee_id', flat=True)
+        return self.followings.exclude(followee__is_active=-1).values_list('followee_id', flat=True)
 
     @property
     def fans_list(self):
-        return self.fans.all().values_list('follower_id', flat=True)
+        return self.fans.exclude(follower__is_active=-1).values_list('follower_id', flat=True)
 
     @property
     def concren(self):
@@ -275,11 +275,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def following_count(self):
-        return self.followings.count()
+        return self.followings.exclude(followee__is_active=-1).count()
 
     @property
     def fans_count(self):
-        return self.fans.count()
+        return self.fans.exclude(follower__is_active=-1).count()
 
     @property
     def bio(self):
