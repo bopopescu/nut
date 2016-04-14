@@ -310,9 +310,9 @@ def fans_list(request, user_id):
             user.follower.v3_toDict(visitor=visitor),
         )
 
-    res.append({
-        'total': total,
-    })
+    # res.append({
+    #     'total': total,
+    # })
 
     return SuccessJsonResponse(res)
 
