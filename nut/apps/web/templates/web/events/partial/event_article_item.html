@@ -7,7 +7,7 @@
             <div class="img-holder" style="background-image: url({{ article.cover_url|resize:'450' }})"></div>
             </a>
 
-            <div class="article-title">
+            <div class="article-title" data-event-article-id="{{ article.pk }}" data-event-article-title="{{ article.title|truncatechars:32  }}">
                 <a  href="{% url 'web_article_page' article.pk   %}">
                 {{ article.title|truncatechars:32 }}
                 </a>

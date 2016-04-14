@@ -59,6 +59,16 @@ require(['jquery',
                 value: 'data-event-article-id',
                 wrapper: '#selection_article_list'
             }
+             ,
+            {
+                selector: '.article-title',
+                trigger: 'click',
+                category: 'event-selection-article',
+                action: 'event_selection_article_detail',
+                label: 'data-event-article-title',
+                value: 'data-event-article-id',
+                wrapper: '#selection_article_list'
+            }
         ];
 
         var tracker = new Tracker(tracker_list);
