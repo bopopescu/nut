@@ -266,9 +266,9 @@ def following_list(request, user_id):
             user.followee.v3_toDict(visitor=visitor)
         )
 
-    res.append({
-        'total': total,
-    })
+    # res.append({
+    #     'total': total,
+    # })
 
     return SuccessJsonResponse(res)
 
