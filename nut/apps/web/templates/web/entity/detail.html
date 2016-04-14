@@ -73,7 +73,7 @@
                          <div class="entity-share-wrapper">
                                 <ul>
                                     <li class="list-item list-item-weixin img-holder">
-                                        <a class="logo-wechat normal-share-btn">
+                                        <a class="logo-wechat normal-share-btn" data-entity="{{ entity.id }}" data-entity-title="{{ entity.title }}">
                                             <i class="fa fa-wechat"></i>
                                             <div class="wechat-qrcode-wrapper display-toggle">
 {#                                                <img src="{%  static 'images/footer/QR-code.jpg' %}" class="wechat-qrcode-img">#}
@@ -85,12 +85,12 @@
                                         </a>
                                     </li>
                                     <li class="list-item list-item-weibo img-holder">
-                                        <a target="_blank" class="share-btn-weibo normal-share-btn" data_entity_brand="{{ entity.brand }}" data_entity_title="{{ entity.title }}" data_entity_pics="{{ entity.chief_image }}" data_entity_comment="{{ entity.top_note|truncatechars:45 }}">
+                                        <a target="_blank" class="share-btn-weibo normal-share-btn" data-entity="{{ entity.id }}" data_entity_brand="{{ entity.brand }}" data_entity_title="{{ entity.title }}" data_entity_pics="{{ entity.chief_image }}" data_entity_comment="{{ entity.top_note|truncatechars:45 }}">
                                             <i class="fa fa-weibo"></i>
                                         </a>
                                     </li>
                                     <li class="list-item list-item-qq img-holder">
-                                        <a target="_blank" class="share-btn-qq normal-share-btn" data_entity_brand="{{ entity.brand }}" data_entity_title="{{ entity.title }}" data_entity_pics="{{ entity.chief_image }}" data_entity_comment="{{ entity.top_note|truncatechars:45 }}">
+                                        <a target="_blank" class="share-btn-qq normal-share-btn" data-entity="{{ entity.id }}" data_entity_brand="{{ entity.brand }}" data_entity_title="{{ entity.title }}" data_entity_pics="{{ entity.chief_image }}" data_entity_comment="{{ entity.top_note|truncatechars:45 }}">
                                             <i class="fa fa-qq"></i>
                                         </a>
                                     </li>

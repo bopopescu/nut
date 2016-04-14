@@ -3624,6 +3624,30 @@ require([
                 label: 'data-entity-title',
                 value: 'data-entity',
                 wrapper: ''
+            }, {
+                selector: '.logo-wechat',
+                trigger: 'click',
+                category: 'entity-detail',
+                action: 'entity_wechat_share',
+                label: 'data-entity-title',
+                value: 'data-entity',
+                wrapper: '#detail_content'
+            }, {
+                selector: '.share-btn-weibo',
+                trigger: 'click',
+                category: 'entity-detail',
+                action: 'entity_weibo_share',
+                label: 'data_entity_title',
+                value: 'data-entity',
+                wrapper: '#detail_content'
+            }, {
+                selector: '.share-btn-qq',
+                trigger: 'click',
+                category: 'entity-detail',
+                action: 'entity_qq_share',
+                label: 'data_entity_title',
+                value: 'data-entity',
+                wrapper: '#detail_content'
             }
         ];
 
