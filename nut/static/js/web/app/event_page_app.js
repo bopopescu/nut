@@ -30,6 +30,24 @@ require(['jquery',
                 label: 'data-editor-recommendation-shop-event-id',
                 value: 'data-editor-recommendation-shop-id',
                 wrapper: '#shop_recommendation_wrapper'
+            },
+            {
+                selector: '.recommendation-item',
+                trigger: 'click',
+                category: 'event-recommendation-fair',
+                action: 'event_recommendation_fair_detail',
+                label: 'data-editor-recommendation-fair-title',
+                value: 'data-editor-recommendation-fair-id',
+                wrapper: '#recommendation_fair_wrapper'
+            },
+            {
+                selector: '.recommendation-item',
+                trigger: 'click',
+                category: 'event-recommendation-entity',
+                action: 'event_recommendation_entity_detail',
+                label: 'data-editor-recommendation-entity-title',
+                value: 'data-editor-recommendation-entity-id',
+                wrapper: '#recommendation_entity_wrapper'
             }
         ];
 

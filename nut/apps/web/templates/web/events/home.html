@@ -202,10 +202,10 @@
             </div>
         </div>
 
-        <div class="row " >
+        <div class="row " id="recommendation_fair_wrapper">
             {% for show_editor in show_editor_recommendations_fair %}
                 <div class="col-xs-6 col-sm-3 recommendation-wrapper">
-                    <div class="recommendation-item ">
+                    <div class="recommendation-item " data-editor-recommendation-fair-id="{{ show_editor.id }}" data-editor-recommendation-fair-title="{{ show_editor.event.id }}{{ show_editor.section }}">
                         {% if isFromMobile %}
                         <a href="{{ show_editor.recommendation.link|mobile_link }}">
                             <img class="img-responsive" src="{{ show_editor.recommendation.image_url }}" >
@@ -236,10 +236,10 @@
             </div>
         </div>
 
-        <div class="row " >
+        <div class="row " id="recommendation_entity_wrapper">
             {% for show_editor in show_editor_recommendations_entity %}
                 <div class="col-xs-6 col-sm-3 recommendation-wrapper">
-                    <div class="recommendation-item ">
+                    <div class="recommendation-item " data-editor-recommendation-entity-id="{{ show_editor.id }}" data-editor-recommendation-entity-title="{{ show_editor.event.id }}{{ show_editor.section }}">
                         {% if isFromMobile %}
                         <a href="{{ show_editor.recommendation.link|mobile_link }}">
                             <img class="img-responsive" src="{{ show_editor.recommendation.image_url }}" >
