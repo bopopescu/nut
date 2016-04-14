@@ -317,9 +317,6 @@ class APIArticle(Article):
         else:
             return strip_content
 
-
-
-
     @property
     def strip_tags_content_limit30(self):
         article_digest = h_parser.unescape(strip_tags(self.content))
