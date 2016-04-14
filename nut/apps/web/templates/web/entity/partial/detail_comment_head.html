@@ -3,12 +3,12 @@
 {% if entity.has_top_note %}
     {% with the_top_note=entity.top_note %}
     <li >
-        <a class="pull-left" href="{% url 'web_user_index' the_top_note.user.pk %}" target="_blank">
+        <a class="pull-left note-user-logo" href="{% url 'web_user_index' the_top_note.user.pk %}" target="_blank" data-user-id="{{ the_top_note.user.pk }}" data-user-nickname="{{ the_top_note.user.profile.nickname }}">
             <img src="{{ the_top_note.user.profile.avatar_url }}" alt="{{ the_top_note.user.profile.nickname }}" class="head_pic">
         </a>
         <div class="comment_detail note-content" data-note-id="{{ the_top_note.pk }}">
             <div class="user_name">
-                <a href="{% url 'web_user_index' the_top_note.user.pk %}" target="_blank">{{ the_top_note.user.profile.nickname }}</a>
+                <a href="{% url 'web_user_index' the_top_note.user.pk %}" target="_blank" class="note-user-name" data-user-id="{{ the_top_note.user.pk }}" data-user-nickname="{{ the_top_note.user.profile.nickname }}">{{ the_top_note.user.profile.nickname }}</a>
                 <a href="javascript:;" class="favorite fc_favor"><i class="fa fa-star"></i></a>
             </div>
             <span class="comment_word with-tag content">{{ the_top_note.note|escape }}</span>
