@@ -333,7 +333,7 @@ class APIArticle(Article):
         res['article_id'] = self.id
         res['tags'] = self.tag_list
         res['content'] = self.strip_tags_content
-        res['digest'] = self.strip_tags_content_limit30
+        res['digest'] = self.digest
         res['url'] = self.get_absolute_url()
         res['creator'] = self.creator.v3_toDict()
         res['dig_count'] = self.dig_count
