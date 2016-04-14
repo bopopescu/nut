@@ -1002,6 +1002,9 @@ p.boolean-false {
   margin-right: 18px;
   margin-bottom: 10px;
   margin-left: 0;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 40px;
 }
 .user-icon-list.recommend-user-list li a {
   display: block;
@@ -1020,6 +1023,12 @@ p.boolean-false {
   background-size: cover;
   background-position: center center;
 }
+.user-icon-list.recommend-user-list li img {
+  margin-bottom: 18px;
+}
+.user-icon-list.recommend-user-list li a {
+  color: #424242;
+}
 @media (max-width: 768px) {
   .user-icon-list.recommend-user-list li {
     float: left;
@@ -1030,6 +1039,7 @@ p.boolean-false {
     margin-right: 15px;
     margin-bottom: 10px;
     margin-left: 0;
+    text-align: center;
   }
   .user-icon-list.recommend-user-list li a {
     display: block;

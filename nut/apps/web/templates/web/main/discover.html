@@ -41,9 +41,15 @@
                     <li data-user-id="{{ user.pk }}" data-user-title="{{ user.nickname}}">
                         <a href="{{ user.absolute_url }}" target="_blank">
                             <img class="img-responsive img-frame" style="background-image: url({{ user.avatar_url|resize:'128' }})" />
+                            <span>{{ user.nickname }}</span>
                         </a>
                     </li>
                     {% endfor %}
+                    {% if recommended_user.count > 7 %}
+                    <li>
+                        <a href="web_recommender_user_list">查看更多&nbsp;<i class="fa fa-caret-right"></i></a>
+                    </li>
+                    {% endif %}
 
                 </ul>
             </div>
