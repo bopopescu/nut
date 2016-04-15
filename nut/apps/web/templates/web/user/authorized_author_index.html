@@ -51,11 +51,11 @@
                         {% endif %}
                     <div class="user-social-wrapper">
                         <p class="user-social">
-                        <a style="color: #414243" href="{{ web_user_followings_url }}">
+                        <a style="color: #414243" href="{{ web_user_followings_url }}" class="followings-list-link" data-user-id="{{ current_user.id }}" data-user-nickname="{{ current_user.nickname }}">
                         <span>{% trans 'Following' %}&nbsp; <span class="user-count">{{ current_user.following_count }}</span></span>
                          </a>
                         <span style="margin-left: 15px; margin-right: 15px;">|</span>
-                        <a style="color: #414243" href="{{ web_user_fans_url }}">
+                        <a style="color: #414243" href="{{ web_user_fans_url }}" class="fans-list-link" data-user-id="{{ current_user.id }}" data-user-nickname="{{ current_user.nickname }}">
                         <span>{% trans 'Fans' %}&nbsp; <span class="user-count">{{ current_user.fans_count }}</span></span>
                         </a>
                     </p>

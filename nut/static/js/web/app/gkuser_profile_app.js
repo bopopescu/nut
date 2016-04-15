@@ -20,7 +20,7 @@ require([
                 selector: '.follow.button-blue',
                 trigger: 'click',
                 category: 'user_detail',
-                action: 'follow',
+                action: 'user-follow',
                 label: 'data-user-nickname',
                 value: 'data-user-id',
                 wrapper: '.user-page'
@@ -29,7 +29,7 @@ require([
                 selector: '.follow.btn-cancel',
                 trigger: 'click',
                 category: 'user_detail',
-                action: 'unfollow',
+                action: 'user-unfollow',
                 label: 'data-user-nickname',
                 value: 'data-user-id',
                 wrapper: '.user-page'
@@ -44,10 +44,10 @@ require([
                 wrapper: '.user-page'
             },
             {
-                selector: '.following-list-link',
+                selector: '.followings-list-link',
                 trigger: 'click',
                 category: 'user_detail',
-                action: 'following-list-link',
+                action: 'followings-list-link',
                 label: 'data-user-nickname',
                 value: 'data-user-id',
                 wrapper: '.user-page'
@@ -78,15 +78,6 @@ require([
                 label: 'data-article-title',
                 value: 'data-article',
                 wrapper: '.user-article-wrapper'
-            },
-            {
-                selector: '.follow.newest-button-blue',
-                trigger: 'click',
-                category: 'authorized_seller_index',
-                action: 'follow',
-                label: 'data-shop-title',
-                value: 'data-user-id',
-                wrapper: '.user-page'
             }
         ];
 
