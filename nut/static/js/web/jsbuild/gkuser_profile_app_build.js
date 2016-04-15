@@ -1554,7 +1554,16 @@ require([
                 trigger: 'click',
                 category: 'user_detail',
                 action: 'follow',
-                label: 'data-current-user-nickname',
+                label: 'data-user-nickname',
+                value: 'data-user-id',
+                wrapper: '.user-info-wrapper'
+            },
+            {
+                selector: '.follow.btn-cancel',
+                trigger: 'click',
+                category: 'user_detail',
+                action: 'unfollow',
+                label: 'data-user-nickname',
                 value: 'data-user-id',
                 wrapper: '.user-info-wrapper'
             }
