@@ -1,7 +1,7 @@
 <div class="col-sm-12 col-xs-12 col-md-6 search-user-item">
     <div class="thumbnail" style="padding: 10px;padding-top:20px;height: 100px;">
         <div class="media">
-            <a class="pull-left" href="{% url 'web_user_index' user_context.pk %}" target="_blank">
+            <a class="pull-left" href="{% url 'web_user_index' user_context.pk %}" target="_blank" data-user="{{ user_context.pk }}" data-user-name="{{ user_context.profile.nickname }}">
                 <img class="media-object img-circle" src="{{ user_context.profile.avatar_url }}" width="60" height="60">
             </a>
 {#            {% if user_context.relation == 3 %}#}
