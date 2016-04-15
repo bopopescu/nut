@@ -1611,6 +1611,15 @@ require([
                 label: 'data-article-title',
                 value: 'data-article',
                 wrapper: '.user-article-wrapper'
+            },
+            {
+                selector: '.follow.newest-button-blue',
+                trigger: 'click',
+                category: 'authorized_seller_index',
+                action: 'follow',
+                label: 'data-shop-title',
+                value: 'data-user-id',
+                wrapper: '.user-page'
             }
         ];
 
