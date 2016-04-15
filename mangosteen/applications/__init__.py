@@ -37,11 +37,12 @@ def recommend():
 
     keyword = request.args.get('keyword', None)
     # itemId = request.args.get('itemid', None)
+    user_id = request.args.get('uid', None)
     istk = request.args.get('tk', True)
     ismall = request.args.get('mall', False)
     count = request.args.get('count', 20)
 
-    res = handel(keyword=keyword, istk=istk, ismall=ismall, count=count)
+    res = handel(keyword=keyword, istk=istk, ismall=ismall, count=count, user_id=user_id)
     if res is None:
         abort(404)
     return Response(res, mimetype="application/json")
