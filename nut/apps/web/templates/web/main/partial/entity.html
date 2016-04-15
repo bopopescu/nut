@@ -4,7 +4,7 @@
 
 <div class="col-xs-6 col-sm-3 search-entity-item">
     <div class="entity-four new-thumbnail">
-        <div class="img-box">
+        <div class="img-box" data-entity="{{ entity.pk }}" data-entity-title="{{ entity.title }}">
             <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
                 <img class="img-responsive" alt="{{ entity.title }}" title="{{ entity.title }}" src="{{ entity.chief_image|resize:'310' }}">
             </a>
@@ -14,7 +14,7 @@
                 <div class="brand">
                     {{ entity.brand|truncatechars:12 }}&nbsp;
                 </div>
-                <div class="title">
+                <div class="title" data-entity="{{ entity.pk }}" data-entity-title="{{ entity.title }}">
                     <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
                         {{ entity.title|truncatechars:12 }}
                     </a>
@@ -29,7 +29,7 @@
                         <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
                         <i class="fa fa-heart"></i>
                     {% else %}
-                        <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
+                        <a class="btn btn-like real-btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
                         <i class="fa fa-heart-o"></i>
                     {% endif %}
                     </a>

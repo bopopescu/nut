@@ -3,7 +3,7 @@ require([
         'subapp/topmenu',
         'subapp/gotop',
         'subapp/user_follow',
-        'subapp/tracker',
+        'subapp/tracker'
     ],
 
     function (
