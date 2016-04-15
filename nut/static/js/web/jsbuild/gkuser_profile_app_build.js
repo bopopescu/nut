@@ -1556,7 +1556,7 @@ require([
                 action: 'follow',
                 label: 'data-user-nickname',
                 value: 'data-user-id',
-                wrapper: '.user-info-wrapper'
+                wrapper: '.user-page'
             },
             {
                 selector: '.follow.btn-cancel',
@@ -1565,7 +1565,7 @@ require([
                 action: 'unfollow',
                 label: 'data-user-nickname',
                 value: 'data-user-id',
-                wrapper: '.user-info-wrapper'
+                wrapper: '.user-page'
             },
             {
                 selector: '.user-weibo-link',
@@ -1574,7 +1574,7 @@ require([
                 action: 'user-weibo-link',
                 label: 'data-user-nickname',
                 value: 'data-user-id',
-                wrapper: '.user-info-wrapper'
+                wrapper: '.user-page'
             },
             {
                 selector: '.following-list-link',
@@ -1583,7 +1583,7 @@ require([
                 action: 'following-list-link',
                 label: 'data-user-nickname',
                 value: 'data-user-id',
-                wrapper: '.user-info-wrapper'
+                wrapper: '.user-page'
             },
             {
                 selector: '.fans-list-link',
@@ -1592,7 +1592,25 @@ require([
                 action: 'fans-list-link',
                 label: 'data-user-nickname',
                 value: 'data-user-id',
-                wrapper: '.user-info-wrapper'
+                wrapper: '.user-page'
+            },
+            {
+                selector: '.article-banner-link',
+                trigger: 'click',
+                category: 'authorized_author_index',
+                action: 'authorized_author_index_article_banner',
+                label: 'data-article-title',
+                value: 'data-article',
+                wrapper: '.user-article-wrapper'
+            },
+            {
+                selector: '.article-title',
+                trigger: 'click',
+                category: 'authorized_author_index',
+                action: 'authorized_author_index_article_title',
+                label: 'data-article-title',
+                value: 'data-article',
+                wrapper: '.user-article-wrapper'
             }
         ];
 

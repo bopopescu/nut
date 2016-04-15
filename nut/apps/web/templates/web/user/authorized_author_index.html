@@ -31,11 +31,11 @@
                                 <a class="guoku-button button-blue" href="{% url 'web_user_settings' %}">
                                     <i class="fa fa-cog fa-lg"></i>&nbsp;{% trans _('Edit Profile') %}</a>
                             {% elif request.user.id in current_user.concren %}
-                                <a class="follow guoku-button btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                                <a class="follow guoku-button btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" data-user-nickname="{{ current_user.nickname }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
                             {% elif request.user.id in current_user.fans_list %}
-                                <a class="follow guoku-button btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                                <a class="follow guoku-button btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" data-user-nickname="{{ current_user.nickname }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
                             {% else %}
-                                <a class="follow guoku-button button-blue" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+                                <a class="follow guoku-button button-blue" data-status="0" data-user-id="{{ current_user.id }}" data-user-nickname="{{ current_user.nickname }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
                             {% endif %}
                     </div>
                     <div class="user-bio-wrapper">
@@ -46,16 +46,16 @@
 
                     {% if current_user.weibo %}
                      <div class="user-binding">
-                             <a href="{{ current_user.weibo.weibo_link }}" target="_blank"><i class="fa fa-weibo user-binding-icon"></i></a>
+                             <a href="{{ current_user.weibo.weibo_link }}" target="_blank" class="user-weibo-link" data-user-id="{{ current_user.id }}" data-user-nickname="{{ current_user.nickname }}"><i class="fa fa-weibo user-binding-icon"></i></a>
                      </div>
                         {% endif %}
                     <div class="user-social-wrapper">
                         <p class="user-social">
-                        <a style="color: #414243" href="{{ web_user_followings_url }}">
+                        <a style="color: #414243" href="{{ web_user_followings_url }}" class="following-list-link" data-user-id="{{ current_user.id }}" data-user-nickname="{{ current_user.nickname }}">
                         <span>{% trans 'Following' %}&nbsp; <span class="user-count">{{ current_user.following_count }}</span></span>
                          </a>
                         <span style="margin-left: 15px; margin-right: 15px;">|</span>
-                        <a style="color: #414243" href="{{ web_user_fans_url }}">
+                        <a style="color: #414243" href="{{ web_user_fans_url }}" class="fans-list-link" data-user-id="{{ current_user.id }}" data-user-nickname="{{ current_user.nickname }}">
                         <span>{% trans 'Fans' %}&nbsp; <span class="user-count">{{ current_user.fans_count }}</span></span>
                         </a>
                     </p>
