@@ -3681,13 +3681,21 @@ require([
                 value: 'data-note',
                 wrapper: '#detail_content'
             }, {
-                selector: '.add-comment',
+                selector: '.img-frame',
                 trigger: 'click',
                 category: 'entity-detail',
                 action: 'guess-list-entity',
                 label: 'data-entity-title',
                 value: 'data-entity-id',
                 wrapper: '#guess_list'
+            }, {
+                selector: '.link-all',
+                trigger: 'click',
+                category: 'entity-detail',
+                action: 'entity-like-user-list',
+                label: 'data-entity-title',
+                value: 'data-entity-id',
+                wrapper: '#detail_content_right'
             }
         ];
 
