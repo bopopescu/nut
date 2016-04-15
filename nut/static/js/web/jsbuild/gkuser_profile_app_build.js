@@ -1566,6 +1566,33 @@ require([
                 label: 'data-user-nickname',
                 value: 'data-user-id',
                 wrapper: '.user-info-wrapper'
+            },
+            {
+                selector: '.user-weibo-link',
+                trigger: 'click',
+                category: 'user_detail',
+                action: 'user-weibo-link',
+                label: 'data-user-nickname',
+                value: 'data-user-id',
+                wrapper: '.user-info-wrapper'
+            },
+            {
+                selector: '.following-list-link',
+                trigger: 'click',
+                category: 'user_detail',
+                action: 'following-list-link',
+                label: 'data-user-nickname',
+                value: 'data-user-id',
+                wrapper: '.user-info-wrapper'
+            },
+            {
+                selector: '.fans-list-link',
+                trigger: 'click',
+                category: 'user_detail',
+                action: 'fans-list-link',
+                label: 'data-user-nickname',
+                value: 'data-user-id',
+                wrapper: '.user-info-wrapper'
             }
         ];
 

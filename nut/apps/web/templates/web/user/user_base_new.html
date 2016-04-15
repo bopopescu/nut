@@ -45,16 +45,16 @@
                 <div class="user-bio"><span class="bio-text">{{ current_user.bio|truncatechars:200 }}</span></div>
                 {% if current_user.weibo %}
                 <div class="user-binding">
-                    <a href="{{ current_user.weibo.weibo_link }}" target="_blank"><i class="fa fa-weibo user-binding-icon"></i></a>
+                    <a href="{{ current_user.weibo.weibo_link }}" target="_blank" class="user-weibo-link" data-user-id="{{ current_user.id }}" data-user-nickname="{{ current_user.nickname }}"><i class="fa fa-weibo user-binding-icon"></i></a>
                 </div>
                 {% endif %}
                 <div class="user-social-info">
                     <p class="user-social">
-                        <a style="color: #414243" href="{{ web_user_followings_url }}">
+                        <a style="color: #414243" href="{{ web_user_followings_url }}" class="following-list-link" data-user-id="{{ current_user.id }}" data-user-nickname="{{ current_user.nickname }}">
                         <span>{% trans 'Following' %}&nbsp; <span class="count">{{ current_user.following_count }}</span></span>
                          </a>
                         <span style="margin-left: 15px; margin-right: 15px;">|</span>
-                        <a style="color: #414243" href="{{ web_user_fans_url }}">
+                        <a style="color: #414243" href="{{ web_user_fans_url }}" class="fans-list-link" data-user-id="{{ current_user.id }}" data-user-nickname="{{ current_user.nickname }}">
                         <span>{% trans 'Fans' %}&nbsp; <span class="count">{{ current_user.fans_count }}</span></span>
                         </a>
                     </p>
