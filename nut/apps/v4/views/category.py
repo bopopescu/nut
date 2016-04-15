@@ -251,8 +251,6 @@ def entity_sort(category_id, reverse, offset, count, key):
 
     paginator = Paginator(entity_list, count)
 
-    print entity_list.count()
-
     try:
         is_last_page = False
         if not paginator.page(offset).has_next():
