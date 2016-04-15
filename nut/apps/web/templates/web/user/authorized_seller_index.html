@@ -33,17 +33,13 @@
                                     <i class="fa fa-cog fa-lg"></i>&nbsp;{% trans _('Edit Profile') %}</a>
                             {% elif request.user.id in current_user.concren %}
                                 <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                                <a class="follow new-guoku-button new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" data-shop-title="{{ current_user.nickname }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
                             {% elif request.user.id in current_user.fans_list %}
                                 <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                                <a class="follow new-guoku-button new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" data-shop-title="{{ current_user.nickname }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
                             {% else %}
                                 <a class="follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
-                                <a class="follow new-guoku-button newest-button-blue" data-status="0" data-user-id="{{ current_user.id }}" data-shop-title="{{ current_user.nickname }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
                             {% endif %}
 
                           <a class="guoku-button new-guoku-button button-blue newest-button-blue" href="{{ current_user.main_shop_link }}" target="_blank">
-                          <a class="new-guoku-button newest-button-blue" href="{{ current_user.main_shop_link }}" target="_blank" data-user-id="{{ current_user.id }}" data-shop-title="{{ current_user.nickname }}">
                               去店铺
                           </a>
                     </div>
