@@ -3592,7 +3592,7 @@ require([
                 wrapper: '#detail_breadcrumb'
             },
               {
-                selector : '.fa-heart-o',
+                selector : '.real-like-action',
                 trigger: 'click',
                 category: 'entity-detail',
                 action: 'entity_like',
@@ -3600,7 +3600,7 @@ require([
                 value: 'data-entity',
                 wrapper: '#detail_content'
             }, {
-                selector: '.fa-heart',
+                selector: '.real-unlike-action',
                 trigger: 'click',
                 category: 'entity-detail',
                 action: 'entity_unlike',
