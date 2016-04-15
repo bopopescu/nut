@@ -26,18 +26,18 @@
                     <ul class="nav navbar-nav">
 {#                        {% for row in results %}#}
 
-                            <li {% if type == 'e' %}class="active"{% endif %}>
-                                <a href="{% url 'web_search' %}?q={{ query }}&t=e">{% trans 'entity' %}&nbsp;<strong>{{ entity_count }}</strong></a>
-                            </li>
-                            <li {% if type == 'a' %}class="active"{% endif %}>
-                                <a href="{% url 'web_search' %}?q={{ query }}&t=a">{% trans 'Articles' %}&nbsp;<strong>{{ article_count }}</strong></a>
-                            </li>
-                            <li {% if type == 'u' %}class="active"{% endif %}>
-                                <a href="{% url 'web_search' %}?q={{ query }}&t=u">{% trans 'user' %}&nbsp;<strong>{{ user_count }}</strong></a>
-                            </li>
-                            <li {% if type == 't' %}class="active"{% endif %}>
-                                <a href="{% url 'web_search' %}?q={{ query }}&t=t">{% trans 'tags' %}&nbsp;<strong>{{ tag_count }}</strong></a>
-                            </li>
+                        <li {% if type == 'e' %}class="active"{% endif %}>
+                            <a href="{% url 'web_search' %}?q={{ query }}&t=e">{% trans 'entity' %}&nbsp;<strong>{{ entity_count }}</strong></a>
+                        </li>
+                        <li {% if type == 'a' %}class="active"{% endif %}>
+                            <a href="{% url 'web_search' %}?q={{ query }}&t=a">{% trans 'Articles' %}&nbsp;<strong>{{ article_count }}</strong></a>
+                        </li>
+                        <li {% if type == 'u' %}class="active"{% endif %}>
+                            <a href="{% url 'web_search' %}?q={{ query }}&t=u">{% trans 'user' %}&nbsp;<strong>{{ user_count }}</strong></a>
+                        </li>
+                        <li {% if type == 't' %}class="active"{% endif %}>
+                            <a href="{% url 'web_search' %}?q={{ query }}&t=t">{% trans 'tags' %}&nbsp;<strong>{{ tag_count }}</strong></a>
+                        </li>
 
 {#                        {% endfor %}#}
                     </ul>

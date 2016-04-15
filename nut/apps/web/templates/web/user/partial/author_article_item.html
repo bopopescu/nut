@@ -3,12 +3,12 @@
 {% load static %}
 <div class="user-article-item-wrapper user-article-cell col-xs-12 col-sm-4 col-md-4 col-lg-4">
     <div class="user-article-panel">
-        <a href="{{ article.url }}" target="_blank">
+        <a href="{{ article.url }}" target="_blank" class="article-banner-link" data-article="{{ article.pk }}" data-article-title="{{ article.title }}">
             <div class="hover-light user-article-img" style="background-image: url({{ article.cover_url|resize:'450' }})">
             </div>
         </a>
         <div class="user-article-title-wrapper">
-            <a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
+            <a href="{{ article.url }}" target="_blank" class="article-title" data-article="{{ article.pk }}" data-article-title="{{ article.title }}">{{ article.title }}</a>
         </div>
 
         <div class="user-article-intro-wrapper">

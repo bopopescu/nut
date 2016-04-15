@@ -54,7 +54,7 @@
         <li class="section">
             <div class="section-title">
                 <span class="liker-counter"></span>人喜爱
-            <span class="pull-right link-all">
+            <span class="pull-right link-all" data-entity="{{ entity.pk }}" data-entity-title="{{ entity.title }}">
                 <a href="{% url 'web_entity_likers_list' entity.entity_hash %}">全部&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></span></div>
             <div class="section-content">
                 {#        bb stand for backbone     #}

@@ -6,9 +6,9 @@
 {#{% for entity in entities %}#}
  <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 selection-item event-entity-item">
         <div class="thumbnail entity-selection">
-            <div class="img-box">
+            <div class="img-box" data-selection-entity-id="{{ entity.id }}" data-selection-entity-title="{{ entity.selection_hover_word }}">
                 {% if isFromMobile %}
-                    <a  href="{{ entity.mobile_url }}" >
+                    <a  href="{{ entity.mobile_url }}">
                        <img class="img-responsive" alt=" {{ entity.title }}" title="{{ entity.selection_hover_word }}" src="{{ entity.chief_image|resize:'310' }}">
                    </a>
                 {% else %}
@@ -24,7 +24,7 @@
                 <div class="entity-title">{{ entity.title }}</div>
                 <div class="entity-price">￥{{ entity.price }}</div>
             </div>
-            <div class="section-buy">
+            <div class="section-buy" data-selection-entity-id="{{ entity.id }}" data-selection-entity-title="{{ entity.selection_hover_word }}">
               {% with row=entity.default_buy_link %}
                   {% if row.origin_source == "taobao.com" or row.origin_source == "tmail.com" %}
     {#                 <a href="http://detail.tmall.com/item.htm?id={{ entity.default_buy_link.origin_id }}">#}

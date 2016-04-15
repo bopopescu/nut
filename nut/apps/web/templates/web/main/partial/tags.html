@@ -1,9 +1,9 @@
 {% load guoku tags %}
 
 <div class="col-xs-6 col-sm-3 col-md-3 search-tag-item" >
-<a  href="{% if user_id == None %}{% url 'tag_entities_url' tag_context.hash %} {% else %}{% url 'web_user_tag_entity' user_id tag_context.name %}{% endif %}">
+<a  href="{% if user_id == None %}{% url 'tag_entities_url' tag_context.hash %} {% else %}{% url 'web_user_tag_entity' user_id tag_context.name %}{% endif %}" class="search-tag-item-link" data-tag="{{ tag_context.id }}" data-tag-name="{{ tag_context.name|truncatechars:'10' }}">
     <div class="thumbnail">
-        <p style="padding:10px;margin-bottom:0;"><strong>#{{ tag_context.name|truncatechars:'10' }}</strong></p>
+        <p style="padding:10px;margin-bottom:0;"><strong class="search-tag-name">#{{ tag_context.name|truncatechars:'10' }}</strong></p>
         <div class="img-box">
             {{ tag_context.tag_id }}
             {% display_tags_entity tag_context.id %}
