@@ -201,7 +201,7 @@ require([
                 category: 'entity-detail',
                 action: 'entity-like-user-list',
                 label: 'data-entity-title',
-                value: 'data-entity-id',
+                value: 'data-entity',
                 wrapper: '#detail_content_right'
             }
         ];
