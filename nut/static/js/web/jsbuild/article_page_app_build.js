@@ -1545,33 +1545,27 @@ define('subapp/tracker',['libs/Class'], function (Class) {
             tracker_list.map(function(ele){
                   var selector = ele.selector;
                   var trigger = ele.trigger;
+
+                  var reporter = (function(ele){
+
+                      return function(event){
+                                  var target = event.currentTarget;
+                                  var category = ele.category;
+                                  var action = ele.action;
+                                  var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
+                                  var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
+                                   //闭包
+                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
+                      }
+
+
+                  })(ele);
+
                   if (ele.wrapper) {
                       var wrapper = ele.wrapper;
-                      $(wrapper).delegate(selector, trigger, function(event){
-                          return (function() {
-                                  var target = event.currentTarget;
-                                  var category = ele.category;
-                                  var action = ele.action;
-                                  var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
-                                  var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
-                                   //闭包
-                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
-                          })();
-
-                      });
+                      $(wrapper).delegate(selector, trigger, reporter);
                   } else {
-                      $(selector).on(trigger, function(event){
-                          return (function() {
-                                  var target = event.currentTarget;
-                                  var category = ele.category;
-                                  var action = ele.action;
-                                  var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
-                                  var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
-                                   //闭包
-                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
-                          })();
-
-                      });
+                      $(selector).on(trigger, reporter);
                   }
 
 
@@ -3053,17 +3047,19 @@ require([
             }, {
                 selector: '.follow.newest-button-blue',
                 trigger: 'click',
-                category: 'writer-follow',
+                category: 'user-follow',
                 action: 'follow',
                 label: 'data-user-title',
-                value: 'data-user-id'
+                value: 'data-user-id',
+                wrapper: '.article-onepage #detail_content'
             }, {
                 selector: '.follow.new-btn-cancel',
                 trigger: 'click',
-                category: 'writer-follow',
+                category: 'user-follow',
                 action: 'unfollow',
                 label: 'data-user-title',
-                value: 'data-user-id'
+                value: 'data-user-id',
+                wrapper: '.article-onepage #detail_content'
             }
         ];
 

@@ -116,17 +116,19 @@ require([
             }, {
                 selector: '.follow.newest-button-blue',
                 trigger: 'click',
-                category: 'writer-follow',
+                category: 'user-follow',
                 action: 'follow',
                 label: 'data-user-title',
-                value: 'data-user-id'
+                value: 'data-user-id',
+                wrapper: '.article-onepage #detail_content'
             }, {
                 selector: '.follow.new-btn-cancel',
                 trigger: 'click',
-                category: 'writer-follow',
+                category: 'user-follow',
                 action: 'unfollow',
                 label: 'data-user-title',
-                value: 'data-user-id'
+                value: 'data-user-id',
+                wrapper: '.article-onepage #detail_content'
             }
         ];
 

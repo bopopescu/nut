@@ -1626,33 +1626,24 @@ define('subapp/tracker',['libs/Class'], function (Class) {
             tracker_list.map(function(ele){
                   var selector = ele.selector;
                   var trigger = ele.trigger;
+
+                  var reporter = (function(ele){
+                      return function(event){
+                                  var target = event.currentTarget;
+                                  var category = ele.category;
+                                  var action = ele.action;
+                                  var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
+                                  var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
+                                   //闭包
+                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
+                      }
+                  })(ele);
+
                   if (ele.wrapper) {
                       var wrapper = ele.wrapper;
-                      $(wrapper).delegate(selector, trigger, function(event){
-                          return (function() {
-                                  var target = event.currentTarget;
-                                  var category = ele.category;
-                                  var action = ele.action;
-                                  var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
-                                  var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
-                                   //闭包
-                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
-                          })();
-
-                      });
+                      $(wrapper).delegate(selector, trigger, reporter);
                   } else {
-                      $(selector).on(trigger, function(event){
-                          return (function() {
-                                  var target = event.currentTarget;
-                                  var category = ele.category;
-                                  var action = ele.action;
-                                  var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
-                                  var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
-                                   //闭包
-                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
-                          })();
-
-                      });
+                      $(selector).on(trigger, reporter);
                   }
 
 
@@ -5187,23 +5178,6 @@ define('subapp/scrollview_selection',['jquery','libs/fastdom','subapp/loadentity
 });
 
 
-// singleton instance few.
-define('subapp/tracker',['libs/Class'], function (Class) {
-    //singleton for tracker
-
-    var Tracker = Class.extend({
-        init: function (tracker_list) {
-            //tracker_list.map(function(item){
-            //      var selector = item.selector;
-            //       var event = item.event;
-            //      $(selector).on(event, function(){
-            //         _hmt.push('_trackEvent', '')
-            //      })
-            //});
-        }
-    });
-    return Tracker;
-});
 require([
         'libs/polyfills',
         'jquery',
@@ -5212,30 +5186,18 @@ require([
         'subapp/gotop',
         'subapp/tracker',
         'subapp/scrollview_selection',
-        'subapp/tracker',
         'masonry',
         'jquery_bridget',
-<<<<<<< HEAD
         'images_loaded'
-=======
-        'images_loaded',
-        'subapp/tracker'
->>>>>>> 30e45d0c7b58874533dd81011c863a95da73baa0
     ],
 
     function (polyfill,
               jQuery,
               AppEntityLike,
               Menu,
-<<<<<<< HEAD
               GoTop,
               Tracker,
               ScrollEntity
-=======
-              ScrollEntity,
-              GoTop,
-              Tracker
->>>>>>> 30e45d0c7b58874533dd81011c863a95da73baa0
     ) {
 // TODO : check if csrf work --
 // TODO : make sure bind is usable
@@ -5245,7 +5207,6 @@ require([
         var goto = new GoTop();
         var tracker_list = [
             {
-<<<<<<< HEAD
                 selector : '.fa-heart-o',
                 trigger: 'click',
                 category: 'entity',
@@ -5273,21 +5234,6 @@ require([
         ];
 
         var tracker = new Tracker(tracker_list);
-=======
-                selector : 'btn-like',
-                event:'click',
-                category: 'entity',
-                action: 'like',
-                label: 'data-entity-name',
-                value: 'data-entity'
-            },
-            {
-                selector: 'btn-unlike'
-            }
-        ];
-// TODO: to be continued
-//        var tracer = new Tracker(tracker_list);
->>>>>>> 30e45d0c7b58874533dd81011c863a95da73baa0
     });
 
 define("selection_entity_app", function(){});
