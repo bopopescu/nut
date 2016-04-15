@@ -78,6 +78,24 @@ require([
                 label: 'data-article-title',
                 value: 'data-article',
                 wrapper: '.user-article-wrapper'
+            },
+            {
+                selector: '.more-article-wrapper .article-cover',
+                trigger: 'click',
+                category: 'user_selection_article_list',
+                action: 'user_article_cover',
+                label: 'data-article-title',
+                value: 'data-article',
+                wrapper: '#user-main-content'
+            },
+            {
+                selector: '.more-article-wrapper .article-title-link',
+                trigger: 'click',
+                category: 'user_selection_article_list',
+                action: 'user_article_like',
+                label: 'data-article-title',
+                value: 'data-article',
+                wrapper: '#user-main-content'
             }
         ];
 
