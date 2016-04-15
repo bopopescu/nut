@@ -5,7 +5,7 @@ from django.db.models import Count
 from apps.core.models import Entity, Entity_Like, Sub_Category,\
                              Selection_Article, GKUser, Category
 from django.utils.log import getLogger
-
+from django.views.generic import ListView
 log = getLogger('django')
 
 class DiscoverView(TemplateResponseMixin, ContextMixin, View):
@@ -35,5 +35,16 @@ class DiscoverView(TemplateResponseMixin, ContextMixin, View):
             'recommended_user': _recommended_user
         }
         return self.render_to_response(context)
+
+
+class RecommendUserView(ListView):
+    template_name = 'web/main/recommend_user.html'
+    context_object_name = 'recommend_users'
+    def get_queryset(self):
+        return GKUser.objects.recommended_user()
+
+
+
+
 
 __author__ = 'edison'
