@@ -8,8 +8,6 @@ from django.utils.log import getLogger
 
 log = getLogger('django')
 
-
-
 class DiscoverView(TemplateResponseMixin, ContextMixin, View):
     template_name = "web/main/discover.html"
 
