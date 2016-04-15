@@ -1,7 +1,7 @@
 {% load i18n staticfiles %}
 {% load common guoku %}
 
-<div guoku_ele="True" class="guoku-card container-fluid hover-light" data_entity_hash="{{ entity.entity_hash }}">
+<div guoku_ele="True" class="guoku-card container-fluid hover-light" data_entity_hash="{{ entity.entity_hash }}" data-entity-id="{{ entity.id }}" data-entity-title="{{ entity.title }}">
     {% if isFromMobile %}
         <a class="mobile-entity-link" href="{{ entity.mobile_url }}">
     {% else %}

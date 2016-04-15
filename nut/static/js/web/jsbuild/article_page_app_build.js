@@ -3003,12 +3003,33 @@ require([
                 label: 'data-pop-entity-title',
                 value: 'data-pop-entity-id'
             }, {
-                selector: '.banner-holder',
+                selector: '.pop-article-list .pop-article .pop-article-wrapper .article-content .article-title',
+                trigger: 'click',
+                category: 'pop-article',
+                action: 'article-detail',
+                label: 'data-article-title',
+                value: 'data-article-id'
+            }, {
+                selector: '.pop-article-list .pop-article .pop-article-wrapper .img-holder a',
+                trigger: 'click',
+                category: 'pop-article',
+                action: 'article-detail',
+                label: 'data-article-title',
+                value: 'data-article-id'
+            }, {
+                selector: '#detail_content_right .section-list .banner-holder',
                 trigger: 'click',
                 category: 'banner',
                 action: 'tm-detail',
                 label: 'data-banner-title',
                 value: 'data-banner-id'
+            }, {
+                selector: '#detail_content_right .section-list .section.need-bottom-border .download-link a',
+                trigger: 'click',
+                category: 'download',
+                action: 'app-download-detail',
+                label: 'data-app-title',
+                value: 'data-app-id'
             }, {
                 selector: '.dig',
                 trigger: 'click',
@@ -3060,6 +3081,16 @@ require([
                 label: 'data-user-title',
                 value: 'data-user-id',
                 wrapper: '.article-onepage #detail_content'
+            }, {
+            //    guoku-card
+                selector: '.follow.new-btn-cancel .guoku-card',
+                trigger: 'click',
+                category: 'entity',
+                action: 'entity-detail',
+                label: 'data-entity-title',
+                value: 'data-entity-id',
+                wrapper: '.article-onepage #detail_content'
+
             }
         ];
 

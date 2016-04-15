@@ -150,7 +150,7 @@
 
                             <div class="article-content">
 
-                                <div class="article-title">
+                                <div class="article-title" data-article-id="{{ h_article.pk }}" data-article-title="{{ h_article.title }}">
                                     <a href="{% url 'web_article_page' h_article.pk %}">
                                         {{ h_article.title|truncatechars:32 }}
                                     </a>
@@ -161,7 +161,7 @@
                                 {#                                    {% endautoescape %}#}
                                 {#                                </div>#}
                             </div>
-                            <div class="img-holder">
+                            <div class="img-holder" data-article-id="{{ h_article.pk }}" data-article-title="{{ h_article.title }}">
                                 <a href="{% url 'web_article_page' h_article.pk %}">
                                     <div class="img-frame" style="background-image:url({{ h_article.cover_url|resize:'200' }})"></div>
                                     {#                                    <img width="269"  src="{{ h_article.cover|resize:'270' }}"/>#}
@@ -175,7 +175,7 @@
     </li>
 
     {% for banner in sidebar_banners %}
-        <li class="section banner-holder" data-banner-id={{ banner.image_url }} data-banner-title={{ banner.link }}>
+        <li class="section banner-holder" data-banner-id="" data-banner-title={{ banner.link }}>
             <div class="section-banner">
                 <a class="banner-link" href="{{ banner.link }}">
                     <img class="img-responsive" src="{{ banner.image_url }}">
@@ -206,7 +206,7 @@
             <div class="text-holder">
                 精英消费指南，生活不一样。
                  <span class="download-link">
-                     <a href="{% url "web_download" %}">
+                     <a href="{% url "web_download" %}" data-app-title="app-detail" data-app-id="">
                          查看详情&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
                      </a>
                  </span>
