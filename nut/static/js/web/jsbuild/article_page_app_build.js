@@ -3051,17 +3051,17 @@ require([
                 label: 'data-article-title',
                 value: 'data-article-id'
             }, {
-                selector: '.button-blue ',
+                selector: '.follow.newest-button-blue',
                 trigger: 'click',
-                category: 'writer-concern',
-                action: 'concern',
+                category: 'writer-follow',
+                action: 'follow',
                 label: 'data-user-title',
                 value: 'data-user-id'
             }, {
-                selector: '.btn-cancel',
+                selector: '.follow.new-btn-cancel',
                 trigger: 'click',
-                category: 'writer-concern',
-                action: 'cancel-concern',
+                category: 'writer-follow',
+                action: 'unfollow',
                 label: 'data-user-title',
                 value: 'data-user-id'
             }

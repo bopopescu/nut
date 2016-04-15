@@ -15,7 +15,7 @@
                     {{ entity.brand|truncatechars:12 }}&nbsp;
                 </div>
                 <div class="title">
-                    <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
+                    <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank" data-entity-id="{{ entity.id }}" data-entity-title="{{ entity.title }}">
                         {{ entity.title|truncatechars:12 }}
                     </a>
                 </div>
@@ -27,10 +27,10 @@
                 <div class="info">
                     {% if entity.id in user_entity_likes %}
                         <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" data-entity-title="{{ entity.title }}">
-                        <i class="fa fa-heart"></i>
+                        <i class="fa fa-heart" data-entity="{{ entity.id }}" data-entity-title="{{ entity.title }}"></i>
                     {% else %}
                         <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" data-entity-title="{{ entity.title }}">
-                        <i class="fa fa-heart-o"></i>
+                        <i class="fa fa-heart-o" data-entity="{{ entity.id }}" data-entity-title="{{ entity.title }}"></i>
                     {% endif %}
                     </a>
                 </div>

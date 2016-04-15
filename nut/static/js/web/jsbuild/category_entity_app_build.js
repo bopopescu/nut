@@ -1774,6 +1774,48 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 
     return GoTop;
 });
+define('subapp/tracker',['libs/Class'], function (Class) {
+    var Tracker = Class.extend({
+        init: function (tracker_list) {
+            tracker_list.map(function(ele){
+                  var selector = ele.selector;
+                  var trigger = ele.trigger;
+                  if (ele.wrapper) {
+                      var wrapper = ele.wrapper;
+                      $(wrapper).delegate(selector, trigger, function(event){
+                          return (function() {
+                                  var target = event.currentTarget;
+                                  var category = ele.category;
+                                  var action = ele.action;
+                                  var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
+                                  var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
+                                   //闭包
+                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
+                          })();
+
+                      });
+                  } else {
+                      $(selector).on(trigger, function(event){
+                          return (function() {
+                                  var target = event.currentTarget;
+                                  var category = ele.category;
+                                  var action = ele.action;
+                                  var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
+                                  var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
+                                   //闭包
+                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
+                          })();
+
+                      });
+                  }
+
+
+
+            });
+        }
+    });
+    return Tracker;
+});
 require([
         'libs/polyfills',
         'jquery',
@@ -1781,19 +1823,59 @@ require([
         'subapp/topmenu',
         'subapp/load_category_entity',
         'subapp/gotop',
+        'subapp/tracker'
     ],
     function (polyfill,
               jQuery,
               AppEntityLike,
               Menu,
               LoadCategoryEntity,
-              GoTop) {
+              GoTop,
+              Tracker) {
 // TODO : check if csrf work --
 // TODO : make sure bind is usable
         var menu = new Menu();
         var app_like = new AppEntityLike();
         var app_load_category_entity = new LoadCategoryEntity();
         var goto = new GoTop();
+        var tracker_list = [
+            {
+                selector : '.img-box',
+                trigger: 'click',
+                category: 'category-entity',
+                action: 'entity-detail',
+                label: 'data-entity-title',
+                value: 'data-entity-id',
+                wrapper: '#category-entity-list'
+            }, {
+            //    brand title
+                selector : '.title a',
+                trigger: 'click',
+                category: 'category-entity',
+                action: 'entity-detail',
+                label: 'data-entity-title',
+                value: 'data-entity-id',
+                wrapper: '#category-entity-list'
+            }, {
+                selector : '.fa-heart-o',
+                trigger: 'click',
+                category: 'category-entity',
+                action: 'entity-like',
+                label: 'data-entity-title',
+                value: 'data-entity',
+                wrapper: '#category-entity-list'
+            }, {
+                selector : '.fa-heart',
+                trigger: 'click',
+                category: 'category-entity',
+                action: 'entity-unlike',
+                label: 'data-entity-title',
+                value: 'data-entity',
+                wrapper: '#category-entity-list'
+            }
+        ];
+
+        var tracker = new Tracker(tracker_list);
     });
 
 define("category_entity_app", function(){});

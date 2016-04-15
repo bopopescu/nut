@@ -1263,7 +1263,7 @@ require([
                 value: 'data-entity-id',
                 wrapper: '#discover_entity_list'
             }, {
-                selector: '.search-entity-item .btn-like',
+                selector: '.fa-heart-o',
                 trigger: 'click',
                 category: 'hot-entity',
                 action: 'entity-like',
@@ -1271,7 +1271,7 @@ require([
                 value: 'data-entity',
                 wrapper: '#discover_entity_list'
             }, {
-                 selector: '.search-entity-item .btn-unlike',
+                 selector: '.fa-heart',
                 trigger: 'click',
                 category: 'hot-entity',
                 action: 'entity-unlike',

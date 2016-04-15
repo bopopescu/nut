@@ -1620,23 +1620,123 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 
     return GoTop;
 });
+define('subapp/tracker',['libs/Class'], function (Class) {
+    var Tracker = Class.extend({
+        init: function (tracker_list) {
+            tracker_list.map(function(ele){
+                  var selector = ele.selector;
+                  var trigger = ele.trigger;
+                  if (ele.wrapper) {
+                      var wrapper = ele.wrapper;
+                      $(wrapper).delegate(selector, trigger, function(event){
+                          return (function() {
+                                  var target = event.currentTarget;
+                                  var category = ele.category;
+                                  var action = ele.action;
+                                  var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
+                                  var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
+                                   //闭包
+                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
+                          })();
+
+                      });
+                  } else {
+                      $(selector).on(trigger, function(event){
+                          return (function() {
+                                  var target = event.currentTarget;
+                                  var category = ele.category;
+                                  var action = ele.action;
+                                  var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
+                                  var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
+                                   //闭包
+                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
+                          })();
+
+                      });
+                  }
+
+
+
+            });
+        }
+    });
+    return Tracker;
+});
 
 require([
         'libs/polyfills',
         'jquery',
         'subapp/entitylike',
         'subapp/topmenu',
-        'subapp/gotop'
+        'subapp/gotop',
+        'subapp/tracker'
     ],
     function(polyfill,
              jQuery,
              AppEntityLike,
              Menu,
-             GoTop
+             GoTop,
+             Tracker
     ){
         var app_like = new  AppEntityLike();
         var menu = new Menu();
         var goto = new GoTop();
+        var tracker_list = [
+            {
+            //    brand-basic-info
+                selector: '.brand-basic-info a',
+                trigger: 'click',
+                category: 'brand',
+                action: 'brand-website',
+                label: 'data-brand-title',
+                value: 'data-brand-id',
+
+            }, {
+                selector: '.img-box',
+                trigger: 'click',
+                category: 'entity',
+                action: 'entity-detail',
+                label: 'data-entity-title',
+                value: 'data-entity-id',
+
+            }, {
+                //    img-box
+                selector: '.img-box',
+                trigger: 'click',
+                category: 'entity',
+                action: 'entity-detail',
+                label: 'data-entity-title',
+                value: 'data-entity-id',
+                wrapper: '.entity-wrapper'
+            },{
+                selector: '.title a',
+                trigger: 'click',
+                category: 'entity',
+                action: 'entity-detail',
+                label: 'data-entity-title',
+                value: 'data-entity-id',
+                wrapper: '.entity-wrapper'
+
+            }, {
+                selector : '.fa-heart-o',
+                trigger: 'click',
+                category: 'entity',
+                action: 'like',
+                label: 'data-entity-title',
+                value: 'data-entity',
+                wrapper: '.entity-wrapper'
+            }, {
+                selector: '.fa-heart',
+                trigger: 'click',
+                category: 'entity',
+                action: 'unlike',
+                label: 'data-entity-title',
+                value: 'data-entity',
+                wrapper: '.entity-wrapper'
+            }
+        ];
+
+        var tracker = new Tracker(tracker_list);
     });
 
 define("brand_page_app", function(){});
