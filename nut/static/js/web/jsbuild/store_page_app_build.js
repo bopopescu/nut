@@ -3577,6 +3577,8 @@ define('subapp/store/store_banner',['jquery', 'libs/Class','libs/slick','fastdom
                         slidesToShow: 1,
                         centerPadding:'18%',
                         dots:false,
+                        autoplay: true,
+                        autoplaySpeed: 3000,
 
                         //centerPadding: '60px',
                         //slidesToShow: 3,

@@ -1249,6 +1249,10 @@ p.boolean-false {
     margin: 0;
     padding: 4px 15px;
   }
+  .store-body #index-banners .slick-prev:before,
+  .store-body #index-banners .slick-next:before {
+    display: none;
+  }
 }
 .banner-image-cell .user-latest-article-intro-wrapper {
   -webkit-transition: all 1s ease-in-out;
