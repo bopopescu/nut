@@ -60,19 +60,25 @@ class EntityQuerySet(models.query.QuerySet):
 
     def sort_group(self, category_ids, like=False):
         _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        like_key = 'entity:list:sort:like'
+
         if like:
-            return self.new_or_selection(category_ids).filter(
-                selection_entity__pub_time__lte=_refresh_datetime,
-                buy_links__status=2) \
-                .annotate(lnumber=Count('likes')) \
-                .order_by('-lnumber')
+            like_list = cache.get(like_key)
+            if like_list:
+                return like_list
+            else:
+                like_list = self.new_or_selection(category_ids).filter(
+                    selection_entity__pub_time__lte=_refresh_datetime,
+                    buy_links__status=2) \
+                    .annotate(lnumber=Count('likes')) \
+                    .order_by('-lnumber')
+                cache.set(like_key, like_list, timeout=3600*24)
+                return like_list
         else:
             return self.new_or_selection(category_ids).filter(
                 selection_entity__pub_time__lte=_refresh_datetime,
                 buy_links__status=2).distinct() \
                 .order_by('-selection_entity__pub_time')
-
-
 
 
 class EntityManager(models.Manager):

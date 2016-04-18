@@ -77,9 +77,10 @@ class CategoryGroupListView(TemplateResponseMixin, ContextMixin, View):
         if self.get_order_by() == 'olike':
             order_by_like = True
 
+
         _entity_list = Entity.objects.sort_group(
             category_ids=list(sub_categories_ids),
-            like=order_by_like,).filter(buy_links__status=2)
+            like=order_by_like,)
 
         paginator = ExtentPaginator(_entity_list, 24)
         try:
