@@ -252,9 +252,6 @@ def entity_sort(category_id, reverse, offset, count, key):
     paginator = Paginator(entity_list, count)
 
     try:
-        is_last_page = False
-        if not paginator.page(offset).has_next():
-            is_last_page = True
         entities = paginator.page(offset)
     # except PageNotAnInteger:
     #     entities = paginator.page(1)
@@ -268,14 +265,14 @@ def entity_sort(category_id, reverse, offset, count, key):
     except Session_Key.DoesNotExist:
         el = None
     res = []
-    if not is_last_page:
-        for row in entities:
-            r = row.v4_toDict(user_like_list=el)
-            r.pop('images', None)
-            r.pop('id', None)
-            res.append(
-                r
-            )
+
+    for row in entities:
+        r = row.v4_toDict(user_like_list=el)
+        r.pop('images', None)
+        r.pop('id', None)
+        res.append(
+            r
+        )
 
     return SuccessJsonResponse(res)
 
@@ -285,9 +282,6 @@ def entity_sort_like(category_id, offset, count, key):
     entity_list = APIEntity.objects.sort(category_id, like=True)
     paginator = Paginator(entity_list, count)
     try:
-        is_last_page = False
-        if not paginator.page(offset).has_next():
-            is_last_page = True
         entities = paginator.page(offset)
     except PageNotAnInteger:
         entities = paginator.page(1)
@@ -301,10 +295,9 @@ def entity_sort_like(category_id, offset, count, key):
         el = None
     log.info(entity_list)
     res = []
-    if not is_last_page:
-        for entity in entities.object_list:
-            r = entity.v4_toDict(user_like_list=el)
-            res.append(r)
+    for entity in entities.object_list:
+        r = entity.v4_toDict(user_like_list=el)
+        res.append(r)
 
     return SuccessJsonResponse(res)
 
