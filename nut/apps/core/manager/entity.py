@@ -23,7 +23,7 @@ class EntityQuerySet(models.query.QuerySet):
         return self.using('slave').filter(status__gte=-1)
 
     def new_or_selection(self, category_id):
-        if isinstance(category_id, int):
+        if isinstance(category_id, int) or isinstance(category_id ,str):
             return self.using('slave').filter(category_id=category_id,
                                               status__gte=0)
 
@@ -267,10 +267,10 @@ class SelectionEntityManager(models.Manager):
     def pending_and_removed(self):
         return self.get_queryset().pending_and_removed()
 
-    def set_user_refresh_datetime(self, session):
-        # log.info(datetime.now())
+    def set_user_refresh_datetime(self, session, refresh_datetime=datetime.now()):
+        log.info(refresh_datetime)
         # _key = "%s_selection" % session
-        cache.set(session, datetime.now())
+        cache.set(session, refresh_datetime, timeout=8640000)
 
     def get_user_unread(self, session):
         # _key = "%s_selection" % session

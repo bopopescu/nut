@@ -9,7 +9,7 @@ from django.utils.log import getLogger
 from django.utils.translation import gettext_lazy as _
 
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
-from apps.core.models import Article, GKUser
+from apps.core.models import Article, GKUser , Category
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.management.decorators import staff_only
 
@@ -411,6 +411,9 @@ def edit(request, article_id, template="management/article/edit.html"):
         "tags": tag_string,
     }
 
+    categories = Category.objects.active()
+
+
     if request.method == "POST":
         _forms = EditArticleForms(article=_article, data=request.POST, files=request.FILES)
         # log.info(request.POST)
@@ -428,7 +431,8 @@ def edit(request, article_id, template="management/article/edit.html"):
         {
             "article": _article,
             "forms": _forms,
-            "tag_url": reverse_lazy('web_article_textrank',args=[_article.pk])
+            "tag_url": reverse_lazy('web_article_textrank',args=[_article.pk]),
+            "categories": categories
         },
         context_instance = RequestContext(request)
     )
