@@ -1,6 +1,6 @@
 import jieba.analyse
 from model.article import Article
-from HTMLParser import HTMLParser
+# from HTMLParser import HTMLParser
 
 
 #
