@@ -309,22 +309,43 @@ class APIArticle(Article):
     def strip_tags_content(self):
         return h_parser.unescape(strip_tags(self.content))
 
+    @property
+    def digest(self):
+        strip_content = h_parser.unescape(strip_tags(self.content))
+        if len(strip_content) > 50 :
+            return strip_content[:50]
+        else:
+            return strip_content
+
+    @property
+    def strip_tags_content_limit30(self):
+        article_digest = h_parser.unescape(strip_tags(self.content))
+        if len(article_digest) > 30:
+            return article_digest[:30]
+        return article_digest
+
+
     def v4_toDict(self, articles_list=list()):
-        res = self.toDict()
-        res.pop('id', None)
-        res.pop('creator_id')
-        res.pop('created_datetime', None)
-        res.pop('updated_datetime', None)
-        res['article_id'] = self.id
-        res['tags'] = self.tag_list
+        res = super(APIArticle, self).v4_toDict(articles_list=articles_list)
+        # res = self.v4_toDict(articles_list=articles_list)
+        # res.pop('id', None)
+        # res.pop('creator_id')
+        # res.pop('created_datetime', None)
+        # res.pop('updated_datetime', None)
+        # res['article_id'] = self.id
+        # res['tags'] = self.tag_list
         res['content'] = self.strip_tags_content
-        res['url'] = self.get_absolute_url()
-        res['creator'] = self.creator.v3_toDict()
-        res['dig_count'] = self.dig_count
-        res['is_dig'] = False
-        if self.id in articles_list:
-            res['is_dig'] = True
+        res['digest'] = self.digest
+        # res['url'] = self.get_absolute_url()
+        # res['creator'] = self.creator.v3_toDict()
+        # res['dig_count'] = self.dig_count
+        # res['is_dig'] = False
+        # if self.id in articles_list:
+        #     res['is_dig'] = True
         return res
+
+
+
 
 
 class APIArticle_Dig(Article_Dig):

@@ -6,7 +6,7 @@ TESTING = len(sys.argv) > 0 and sys.argv[0].endswith('py.test')
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 # for article related celery task
-CELERY_ALWAYS_EAGER = False
+CELERY_ALWAYS_EAGER = True
 CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
 #
 IMAGE_HOST = 'http://imgcdn.guoku.com/'

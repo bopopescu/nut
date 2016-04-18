@@ -263,11 +263,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def following_list(self):
-        return self.followings.all().values_list('followee_id', flat=True)
+        return self.followings.exclude(followee__is_active=-1).values_list('followee_id', flat=True)
 
     @property
     def fans_list(self):
-        return self.fans.all().values_list('follower_id', flat=True)
+        return self.fans.exclude(follower__is_active=-1).values_list('follower_id', flat=True)
 
     @property
     def concren(self):
@@ -275,11 +275,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def following_count(self):
-        return self.followings.count()
+        return self.followings.exclude(followee__is_active=-1).count()
 
     @property
     def fans_count(self):
-        return self.fans.count()
+        return self.fans.exclude(follower__is_active=-1).count()
 
     @property
     def bio(self):
@@ -297,12 +297,19 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def entity_liked_categories(self):
+        # _entity_ids =  Entity_Like.objects.user_likes_id_list(user=self)
+        # _category_id_list = Entity.objects.using('slave').filter(id__in=_entity_ids)\
+        #                           .select_related('category__group')\
+        #                           .filter(status__gte=Entity.freeze)\
+        #                           .annotate(category_count=Count('category__group'))\
+        #                           .values_list('category__group', flat=True)
+
         _category_id_list = Entity_Like.objects.select_related('entity__category__group')\
                             .filter(user=self, entity__status__gte=Entity.freeze)\
                             .annotate(category_count=Count('entity__category__group'))\
                             .values_list('entity__category__group', flat=True)
 
-        _category_list = Category.objects.filter(pk__in=_category_id_list)
+        _category_list = Category.objects.using('slave').filter(pk__in=_category_id_list)
         return set(_category_list)
 
     @property
@@ -423,6 +430,15 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     @property
     def is_authorized_seller(self):
         return self.has_seller_group()
+
+    @property
+    def main_shop_link(self):
+        link = ''
+        try:
+            link = self.shops.all()[0].shop_link
+        except Exception as e :
+            pass
+        return link
 
     def setSeller(self, isSeller):
         seller_group = self.get_seller_group()
@@ -741,7 +757,7 @@ class Sub_Category(BaseModel):
         return res
 
     def __unicode__(self):
-        return self.title
+       return self.title
 
 
 # TODO: Production Brand
@@ -1107,6 +1123,11 @@ class Buy_Link(BaseModel):
     def amazon_url(self):
         return "%s?tag=guoku-23" % self.link
 
+    @property
+    def kaola_url(self):
+        return "http://cps.kaola.com/cps/login?unionId=2919510050&uid=&trackingCode=&targetUrl=" \
+               "http://www.kaola.com/product/%s.html" % self.origin_id
+
     def __unicode__(self):
         return self.link
 
@@ -1217,7 +1238,6 @@ class Note(BaseModel):
             res['category_id'] = self.entity.category_id
 
         return res
-
 
 class Note_Comment(BaseModel):
     note = models.ForeignKey(Note, related_name='comments')
@@ -1501,7 +1521,24 @@ class Article(BaseModel):
     def url(self):
         return self.get_absolute_url()
 
-        # will cause circuler reference
+# TODO: model to dict
+    def v4_toDict(self, articles_list=list()):
+        res = self.toDict()
+        res.pop('id', None)
+        res.pop('creator_id')
+        res.pop('created_datetime', None)
+        res.pop('updated_datetime', None)
+        res['article_id'] = self.id
+        res['tags'] = self.tag_list
+        res['content'] = self.content
+        res['url'] = self.get_absolute_url()
+        res['creator'] = self.creator.v3_toDict()
+        res['dig_count'] = self.dig_count
+        res['is_dig'] = False
+        if self.id in articles_list:
+            res['is_dig'] = True
+        return res
+    # will cause circuler reference
         # def tag_string(self):
         #     tids = Content_Tags.objects.filter(target_content_type=31, target_object_id=self.pk).values_list('tag_id', flat=True)
         #     tags = Tags.objects.filter(pk__in=tids)

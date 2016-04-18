@@ -10,47 +10,53 @@
 {% endblock %}
 
 {% block meta-common %}
-    <meta name="title"  content="{{ sub_category.title }} - {{ sub_category.group }} | 精英消费指南 | 果库">
-    <meta name="keywords" content="{{ sub_category.title }},{{ sub_category.group }},果库、guoku、果库网、果库应用、精英消费指南、消费指南、精品导购应用、导购、购物指南、购物分享、淘宝网购物、淘宝网精选、精品推荐">
-    <meta name="description" content="{{ sub_category.title }},{{ sub_category.group }},果库品类，按照类目细分商品，聚合单一品类的商品排行榜，寻找好物不再盲目。发现更好商品，一目了然。">
+    <meta name="title"  content="{% if sub_category %}{{ sub_category }} - {% endif %}{{ category }} | 精英消费指南 | 果库">
+    <meta name="keywords" content="{% if sub_category %}{{ sub_category }}{% endif %}{{ category }}，果库、guoku、果库网、果库应用、精英消费指南、消费指南、精品导购应用、导购、购物指南、购物分享、淘宝网购物、淘宝网精选、精品推荐">
+    <meta name="description" content="{% if sub_category %}{{ sub_category }}，{% endif %}{{ category }}，果库品类，按照类目细分商品，聚合单一品类的商品排行榜，寻找好物不再盲目。发现更好商品，一目了然。">
 {% endblock %}
-{% block title %}{{ sub_category.title }} - {{ sub_category.group }} | 精英消费指南 | 果库{% endblock %}
 
+{% block title %}{% if sub_category %}{{ sub_category }} - {% endif %}{{ category }} | 精英消费指南 | 果库{% endblock %}
+
+{# to avoid css pollution,I still give body element a more class temporarily#}
+{% block body_class %} gray-body category-detail-body {% endblock %}
 
 {% block content %}
     {% url 'web_category_detail' cid as sort_url %}
-
-    <div class="container">
-        <div class="row">
-             <div class="col-md-12">
-                <div class="category-header">
-                    <span class="category-name"> {{ sub_category.title|show_category }}</span>
-                    <span class="dropdown-toggle category-action pull-right">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                           aria-haspopup="false" role="button" aria-expanded="false">
-                            {% if sort_method == 'pub_time' %}
-                                时间
-                            {% else %}
-                                喜爱
-                            {% endif %}
-                            <span class="caret"></span>
-                        </a>
-                        <ul  id="sort_dropdown" class="dropdown-menu" role="menu"  >
-                            <li ><a href="{{ sort_url }}">时间</a></li>
-                            <li  class="divider"></li>
-                            <li ><a href="{{ sort_url }}olike/">喜爱</a></li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
+    <div class="category-sort-wrapper hidden-xs">
+        <div class="container">
+            <div class="row" id="sort_header-wrapper">
+              {% include "web/category/detail_sort_header.html" %}
         </div>
+    </div>
+    </div>
+
+    <div class="container category-detail-container">
+        <div class="row" id="top_article_tags_container">
+                {% for sub_catogory in sub_categories %}
+            <div class="top-article-tag">
+                    <a href="{% url 'web_category_detail' sub_catogory.id %}">
+                        <div class="tag-element {% if tag.name == sub_catogory %}tag-current{% endif %}">
+                            {{ sub_catogory }}
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+        {% if sub_categories %}
+            <div class="top-article-tag">
+              <a href="{% url 'web_subcategory_list' category.id %}" target="_blank" class="more-link">查看全部</a>
+            </div>
+        {% endif %}
+    </div>
+
+    {% if sub_category %}
         <div class="row selection_article_container" id="selection_article_list">
             {% for article in related_articles %}
              {% include 'web/article/partial/article_item_new.html' %}
             {% endfor %}
         </div>
-        <div class="row" id="category-entity-list" data-refresh="{{ refresh_datetime }}">
+    {% endif %}
 
+        <div class="row" id="category-entity-list" data-refresh="{{ refresh_datetime }}">
             {% for entity in entities %}
                 {% include 'web/main/partial/entity.html' with entity=entity %}
             {% endfor %}

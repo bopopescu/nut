@@ -39,8 +39,10 @@ class Kaola(Spider):
         optimgs = self.soup.select("#litimgUl li a img")
 
         for op in optimgs:
-            optimg = re.sub(IMG_POSTFIX, "", op.attrs.get('src'))
-            _images.append("%s.jpg" % optimg)
+            # optimg = re.sub(IMG_POSTFIX, "", op.attrs.get('src'))
+            optimg = re.sub(r'\?image.*', "", op.attrs.get('src'))
+            # optimg = op.attrs.get('src')
+            _images.append(optimg)
 
         return _images
 

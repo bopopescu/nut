@@ -344,7 +344,7 @@ from apps.web.forms.user import UserLikeEntityFilterForm
 class UserLikeView(UserDetailBase):
     paginate_by = 28
     template_name = 'web/user/user_like.html'
-    context_object_name = 'current_user_likes'
+    context_object_name = 'entities'
     def get_context_data(self, **kwargs):
         context_data = super(UserLikeView, self).get_context_data(**kwargs)
         context_data['entity_filter_form'] = UserLikeEntityFilterForm(initial={'entityCategory': '0', 'entityBuyLinkStatus':'3'})
@@ -355,13 +355,21 @@ class UserLikeView(UserDetailBase):
     def get_queryset(self):
         _user = self.get_showing_user()
         _category = self.get_current_category()
-        if _category is None:
-            _like_list = Entity_Like.objects.filter(user=_user, entity__status__gte=Entity.freeze)
-        else:
-            _like_list = Entity_Like.objects.filter(user=_user, entity__status__gte=Entity.freeze)\
-                                            .filter(entity__category__group=_category)
 
-        return _like_list
+
+        if _category is None:
+            _like_list = Entity_Like.objects.using('slave')\
+                                            .filter(user=_user, entity__status__gte=Entity.freeze)\
+                                            .values_list('entity_id', flat=True)
+        else:
+            _like_list = Entity_Like.objects.using('slave')\
+                                            .filter(user=_user, entity__status__gte=Entity.freeze)\
+                                            .filter(entity__category__group=_category)\
+                                            .values_list('entity_id',flat=True)
+
+        _entity_list = Entity.objects.using('slave').filter(id__in=_like_list)
+
+        return _entity_list
 
 
 class UserNoteView(UserDetailBase):
@@ -598,6 +606,13 @@ class UserIndex(UserPageMixin, DetailView):
         _entity_list = Entity.objects.get_user_added_entities(current_user)[:8]
 
         context_data['author_articles'] = self.get_author_articles(current_user)
+
+        if self.get_author_articles(current_user) and len(self.get_author_articles(current_user)) >= 12:
+            context_data['author_articles_main_page'] = self.get_author_articles(current_user)[:12]
+        else:
+            context_data['author_articles_main_page'] = self.get_author_articles(current_user)
+
+
 
         current_user_like_articles = Article_Dig.objects\
                                                .user_dig_list(user=current_user,\

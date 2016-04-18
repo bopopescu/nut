@@ -137,6 +137,85 @@
                 </div>
             </div>
             <div class="col-sm-4">
+                <div class="box box-info">
+                         <div class="box-header with-border">
+                            <h3 class="box-title">图文抓取统计</h3>
+                        </div>
+                        <ul class="nav nav-tabs" role="tablist">
+{#       {{ status }}#}
+                            <li class="active" role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab" href="#article_yesterday">{% trans 'yesterday' %}</a></li>
+                            <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab" href="#article_lastweek">{% trans 'lastweek' %}</a></li>
+                            <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab" href="#article_lastmonth">{% trans 'lastmonth' %}</a></li>
+                        </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="article_yesterday">
+                            <table class="table no-margin">
+                               <thead>
+                                   <tr>
+                                       <th>作者</th>
+                                       <th>数量</th>
+                                   </tr>
+                               </thead>
+                               <tbody>
+                               {% for item in yesterday_finish_detail %}
+                                   {% if item.2.0 > 0 %}
+                                       <tr >
+                                           <td class="col-sm-6"><a href="{% url 'management_author_article_person_list' item.0.id %}">{{ item.1 }}</a></td>
+                                           <td class="col-sm-6">{{ item.2.0 }}</td>
+
+                                       </tr>
+                                   {% endif %}
+                               {% endfor %}
+
+                               </tbody>
+                           </table>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="article_lastweek">
+                            <table class="table no-margin">
+                               <thead>
+                                   <tr>
+                                       <th>作者</th>
+                                       <th>数量</th>
+                                   </tr>
+                               </thead>
+                               <tbody>
+                                      {% for item in yesterday_finish_detail %}
+                                          {% if item.2.1 > 0 %}
+                                       <tr >
+                                           <td class="col-sm-6"><a href="{% url 'management_author_article_person_list' item.0.id %}">{{ item.1 }}</a></td>
+                                           <td class="col-sm-6">{{ item.2.1 }}</td>
+                                          {% endif %}
+
+                                       </tr>
+                               {% endfor %}
+
+                               </tbody>
+                           </table>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="article_lastmonth">
+                            <table class="table no-margin">
+                               <thead>
+                                   <tr>
+                                       <th>作者</th>
+                                       <th>数量</th>
+                                   </tr>
+                               </thead>
+                               <tbody>
+                               {% for item in yesterday_finish_detail %}
+                                   {% if item.2.2 > 0 %}
+                                       <tr >
+                                           <td class="col-sm-6"><a href="{% url 'management_author_article_person_list' item.0.id %}">{{ item.1 }}</a></td>
+                                           <td class="col-sm-6">{{ item.2.2 }}</td>
+
+                                       </tr>
+                                   {% endif %}
+                               {% endfor %}
+
+                               </tbody>
+                           </table>
+                        </div>
+                    </div>
+                </div>
                 <div class="box box-primary" id="recently-entities">
                     <div class="box-header with-border">
                         <h3 class="box-title">{% trans 'Recently Added Products' %}</h3>
@@ -146,12 +225,10 @@
                         </ul>
                     </div>
                     <div class="box-footer text-center" id="entities-footer" style="display: none;" >
-                        <a href="{% url 'management_entity_list' %}" class="uppercase">View All Products</a>
+                        <a href="" class="uppercase">View All Products</a>
                     </div><!-- /.box-footer -->
                 </div>
-
             </div>
-        </div>
     </section>
 
 {% endblock %}
