@@ -17,7 +17,8 @@ require([
 
         'subapp/entity/entity_share',
 
-        'libs/csrf'
+        'libs/csrf',
+         'subapp/tracker'
 
     ],
     function (polyfill,
@@ -51,7 +52,7 @@ require([
 
         // hide baichuan recommend , for service is down now
         // by an, 2016, 3-19 .
-        //var baichuanManager = new BaichuanManager();
+        var baichuanManager = new BaichuanManager();
 
          var shareApp = new EntityShareApp();
 

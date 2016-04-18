@@ -10,6 +10,7 @@ define(['libs/Class',
         init:function(){
             this.accountApp = new AccountApp();
             this.setupPokeEvents();
+            this.ispoking = false;
         },
             setupPokeEvents: function(ele){
             var that = this;
@@ -22,14 +23,16 @@ define(['libs/Class',
             this.setupPokeEvents(ele);
         },
         doPoke: function(event){
-
+            if (this.ispoking === true) {
+                return ;
+            }
             var $poke = $(event.currentTarget);
             var note_id =$poke.attr('data-note');
             var $counter = $poke.find('span.poke-count');
             var $poker_icon = $poke.find('i');
 
             var url  = '/note/' + note_id + '/poke/';
-
+            this.ispoking = true;
             $.when(
                 $.ajax({
                     method: 'POST',
@@ -43,9 +46,10 @@ define(['libs/Class',
 
         },
         pokeSuccess:function(data){
+            this.ispoking = false;
             var result = parseInt(data.result);
             var poked_note_id = data.note_id;
-
+            console.log('poke:', data);
             var $poke = $('.poke[data-note="'+ poked_note_id +'"]');
             var $count = $poke.find('span.poke-count');
             var numberCount  = parseInt($count.html()) || 0 ;
@@ -56,7 +60,6 @@ define(['libs/Class',
                 numberCount++;
                 $poke_icon.addClass('fa-thumbs-up');
                 $poke_icon.removeClass('fa-thumbs-o-up');
-
                 if(numberCount === 1){
                     $('<span class="poke-count">' + numberCount + '</span>').appendTo($poke);
 
@@ -85,6 +88,7 @@ define(['libs/Class',
 
         },
         pokeFail:function(data){
+            this.ispoking = false;
             var html = data.responseText;
                 this.accountApp.modalSignIn(html);
             }

@@ -22,6 +22,9 @@ class CategoryManager(models.Manager):
     def get_queryset(self):
         return CategoryQuerySet(self.model, using=self._db)
 
+    def active(self):
+        return self.get_queryset().filter(status=True)
+
     def toDict(self):
 
         res = []

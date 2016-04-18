@@ -2,21 +2,16 @@ require([
         'jquery',
         'subapp/topmenu',
         'subapp/store/store_banner',
-        'subapp/store/annual_report',
-        'subapp/user_follow'
+        'subapp/store/annual_report'
     ],
     function (
               jQuery,
               Menu,
               StoreBanner,
-              AnnualReport,
-              UserFollow
-
+              AnnualReport
     ){
         var menu = new Menu();
         var store_banner = new StoreBanner();
         var annual_report = new AnnualReport();
-        var user_follow = new UserFollow();
-
 });
 

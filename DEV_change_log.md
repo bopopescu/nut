@@ -1,3 +1,76 @@
+14.  API: discover page article , add digest 
+13.  API:  filter removed user in activity/message 
+12.  article craw report update 
+11.  article mng edit , tag ,add parent category words for selection
+10.  good store , new banner 
+9.  API , FAN , following  list , category entity list , bug fix 
+8.  optimize user like category list query , reduce 2000ms query time 
+7.  article edit (web) no permission  REDIRECT to 403 page 
+6.  article edit (mng) support chinese comma
+5.  recommend user count up to 16 
+4.  api article list page , add field 'digest' for short article digest
+3.  fix category display int entity page header and description 
+2.  new category detail page , 
+    new subcategory page , 
+    new subcategory list page        --zhaoxu , luoqian  
+1.  discovery page  , category list  --zhaoxu , luoqian 
+
+==================================
+# merged to master 2016 4-7 
+==================================
+
+6. reset password page refactor  --zhaoxu, luoqian 
+5. fix entity liker 500 bug (see bug discussion below) --anchen
+4. brand page style update    -- luoqian 
+3. hidden pink button when media widh< 768 -- luoqian 
+2. baidu tracker selection page -- zuoning (not finished)
+1. kaola margin link generate   -- shuailong 
+
+##action 
+
+##about entity liker page BUG 
+
+for some row in table core_entity_like, 
+    column 'user_id' has value , 
+    which can not find in core_gkuser;
+
+
+SELECT core_entity_like.* FROM core.core_entity_like where user_id not in ( select  id from core_gkuser)
+
+
+temp solution :
+
+    entity_liker_list.html  , skip those like entities;
+
+final solution: 
+
+    delete those entries in core_entity_like
+
+
+
+==================================
+# merged to master 2016 3 - 31
+==================================
+
+8. good_store update, seller index page update --luoqian, zhaoxu 
+7. new cooperate static page         -- zuoning
+6. crawl article report update       -- shuailong , zuoning 
+5. fix poke multi post bug           -- zuoning 
+4. reinstall baichuan recommend      -- An
+3. kaola image get fix               -- shuailong 
+2. bottom download bar for mobile access  -- Luoqian
+1. fix mng brand state page bug           -- Luoqian
+
+## action 
+
+   有翻译更新  需要 
+   ./manage.py compilemessages
+   
+   和重启SERVER 
+
+==================================
+# merged to master 2016 3 - 25
+==================================
 
 5. brand page (no entry)
 4. user digged article page 
