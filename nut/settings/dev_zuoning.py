@@ -6,7 +6,7 @@ TESTING = len(sys.argv) > 0 and sys.argv[0].endswith('py.test')
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 # for article related celery task
-CELERY_ALWAYS_EAGER = True
+CELERY_ALWAYS_EAGER = False
 CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
 #
 IMAGE_HOST = 'http://imgcdn.guoku.com/'
@@ -77,6 +77,7 @@ def removeDebugToolBar(theList):
 
 INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
 
+
 INSTALLED_APPS +=(
         'django.contrib.sessions',
         'django.contrib.admin'
@@ -90,10 +91,9 @@ INSTALLED_APPS +=(
 # )
 LOCAL_TEST_DB = True
 
-# Current_Dbhost = '192.168.1.243'
+Current_Dbhost = 'localhost'
 # Current_Dbhost = '10.0.1.110'
 # Current_Dbhost = '10.0.2.90'
-Current_Dbhost = 'localhost'
 
 DATABASES = {
     'default': {
@@ -105,7 +105,6 @@ DATABASES = {
         'PORT': '',
         'OPTIONS': {
             'use_unicode':'utf-8',
-            'init_command':'SET storage_engine=INNODB',
         }
     },
     'slave': {
@@ -117,7 +116,6 @@ DATABASES = {
         'PORT': '',
         'OPTIONS': {
             'use_unicode':'utf-8',
-            'init_command':'SET storage_engine=INNODB',
         }
     },
 }

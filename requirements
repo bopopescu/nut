@@ -15,9 +15,9 @@ django-redis==4.2.0
 django-mailgun==0.2.2
 djangorestframework==3.0.0
 ecdsa==0.11
-eventlet==0.15.0
-gevent==1.0.1
-greenlet==0.4.2
+#eventlet==0.15.0
+#gevent==1.0.1
+#greenlet==0.4.2
 gunicorn==18.0
 jieba==0.35
 kombu==2.5.16

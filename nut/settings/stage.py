@@ -12,13 +12,14 @@ TIME_ZONE = 'Asia/Shanghai'
 
 USE_TZ = False
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'core',
         'USER': 'guoku',
-        'PASSWORD': 'guoku1@#',
-        'HOST': '10.0.2.125',
+        'PASSWORD': 'guoku!@#',
+        'HOST': '10.0.2.90',
         'PORT': '',
         'OPTIONS': {
             # 'use_unicode':'utf-8',
@@ -26,12 +27,13 @@ DATABASES = {
             'init_command':'SET storage_engine=INNODB',
         }
     },
+
     'slave': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'core',
         'USER': 'guoku',
-        'PASSWORD': 'guoku1@#',
-        'HOST': '10.0.2.125',
+        'PASSWORD': 'guoku!@#',
+        'HOST': '10.0.2.95',
         'PORT': '',
         'OPTIONS': {
             # 'use_unicode':'utf-8',
@@ -40,6 +42,35 @@ DATABASES = {
         }
     },
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'core',
+#         'USER': 'guoku',
+#         'PASSWORD': 'guoku1@#',
+#         'HOST': '10.0.2.125',
+#         'PORT': '',
+#         'OPTIONS': {
+#             # 'use_unicode':'utf-8',
+#             'charset': 'utf8mb4',
+#             'init_command':'SET storage_engine=INNODB',
+#         }
+#     },
+#     'slave': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'core',
+#         'USER': 'guoku',
+#         'PASSWORD': 'guoku1@#',
+#         'HOST': '10.0.2.125',
+#         'PORT': '',
+#         'OPTIONS': {
+#             # 'use_unicode':'utf-8',
+#             'charset': 'utf8mb4',
+#             'init_command':'SET storage_engine=INNODB',
+#         }
+#     },
+# }
 
 # CELERY #################################
 BROKER_URL = 'redis://localhost:6379/0'
