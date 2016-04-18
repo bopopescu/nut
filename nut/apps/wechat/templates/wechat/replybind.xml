@@ -13,7 +13,7 @@
             <Title><![CDATA[去绑定果库帐号]]></Title>
             <Description><![CDATA[绑定果库帐号，查看自己的喜爱商品。]]></Description>
             <PicUrl><![CDATA[{{ images }}]]></PicUrl>
-            <Url><![CDATA[http://h.guoku.com{% url 'wechat_bind' msg.FromUserName %}]]></Url>
+            <Url><![CDATA[http://www.guoku.com{% url 'wechat_bind' msg.FromUserName %}]]></Url>
         </item>
 {#                {% endfor %}#}
     </Articles>
