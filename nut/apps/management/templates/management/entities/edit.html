@@ -67,7 +67,7 @@
                             <tbody id="buylinks">
                                 {% for buy_link in entity.buy_links.all %}
                                     <tr>
-                                        <td><a href="{{ buy_link }}" target="_blank">{{ buy_link }}</a></td>
+                                        <td class="max-link-width"><a href="{{ buy_link }}" target="_blank">{{ buy_link }}</a></td>
                                         <td><span class="label label-info">{{ buy_link.price }}</span></td>
                                         <td>{{ buy_link.origin_source }}</td>
                                         <td>

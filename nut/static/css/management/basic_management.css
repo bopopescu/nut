@@ -972,3 +972,8 @@ p.boolean-false {
 #test {
   color: black;
 }
+.max-link-width {
+  max-width: 181px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
