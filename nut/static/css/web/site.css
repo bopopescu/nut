@@ -1042,6 +1042,19 @@ p.boolean-false {
 #discover_container #discover_entity_list .section-title-wrapper {
   margin-top: -5px;
 }
+#category-container {
+  overflow: hidden;
+}
+#category-container #category-item-container {
+  width: 7400px;
+  overflow-x: scroll;
+}
+#category-container #category-item-container li {
+  overflow: hidden;
+  float: left;
+  width: 200px;
+  margin-right: 18px;
+}
 /*发现页-推荐用户*/
 .user-icon-list.recommend-user-list:after {
   content: " ";
