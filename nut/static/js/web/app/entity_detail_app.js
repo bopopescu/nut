@@ -78,8 +78,7 @@ require([
                 label: 'data-entity-title',
                 value: 'data-entity-id',
                 wrapper: '#detail_breadcrumb'
-            },
-             {
+            }, {
                 selector: '.first-category-link',
                 trigger: 'click',
                 category: 'entity-detail',
@@ -87,9 +86,7 @@ require([
                 label: 'data-first-level-category-title',
                 value: 'data-first-level-category-id',
                 wrapper: '#detail_breadcrumb'
-            }
-             ,
-             {
+            }, {
                 selector: '.second-category-link',
                 trigger: 'click',
                 category: 'entity-detail',
@@ -97,8 +94,7 @@ require([
                 label: 'data-second-level-category-title',
                 value: 'data-second-level-category-id',
                 wrapper: '#detail_breadcrumb'
-            },
-              {
+            }, {
                 selector : '.real-like-action',
                 trigger: 'click',
                 category: 'entity-detail',
@@ -122,8 +118,7 @@ require([
                 label: 'data-entity-title',
                 value: 'data-entity',
                 wrapper: ''
-            }
-             , {
+            }, {
                 selector: '#report_trigger',
                 trigger: 'click',
                 category: 'entity-detail',

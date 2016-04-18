@@ -1782,6 +1782,7 @@ define('subapp/tracker',['libs/Class'], function (Class) {
                   var trigger = ele.trigger;
 
                   var reporter = (function(ele){
+
                       return function(event){
                                   var target = event.currentTarget;
                                   var category = ele.category;
@@ -1791,6 +1792,8 @@ define('subapp/tracker',['libs/Class'], function (Class) {
                                    //闭包
                                  _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
                       }
+
+
                   })(ele);
 
                   if (ele.wrapper) {

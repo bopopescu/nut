@@ -97,7 +97,7 @@ require([
                 value: 'data-entity',
                 wrapper: '#discover_entity_list'
             }, {
-                 selector: '.fa-heart',
+                selector: '.fa-heart',
                 trigger: 'click',
                 category: 'hot-entity',
                 action: 'entity-unlike',
