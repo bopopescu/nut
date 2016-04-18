@@ -89,7 +89,6 @@
   }
 }
 
-
 .button-white{
   background-color: #fff;
   color: @common-gray;
@@ -142,7 +141,6 @@
   }
 }
 
-
 .button-sharp{
 
   .border-radius(0px);
@@ -152,10 +150,10 @@
 }
 
 .button-disabled{
-  background-color: @common-gray;
+  background-color: @gray-light;
   color:@very-light-gray;
   &:hover,&:focus{
-    background-color: @common-gray;
+    background-color: @gray-light;
     color:@very-light-gray;
   }
 }
@@ -274,7 +272,6 @@
 
 .entity-four .img-box img,
 .entity-selection .img-box img,
-.guoku-button,
 #detail_content_right .section-list .section-banner img,
 .guess_img .img-box img,
 .article-wrapper .cover-wrapper a img,
@@ -717,7 +714,7 @@ p.boolean-false{
 }
 .guoku-middle-col {
   padding: 0 9px;
-  margin-bottom: 17px;
+  margin-bottom: 18px;
 }
 
 .normal-share-btn{
@@ -814,7 +811,16 @@ p.boolean-false{
   }
 }
 
-
+.newest-btn-primary{
+   border:1px solid @btn-blue;
+  background-color: @btn-blue;
+  color: #ffffff;
+  &:hover,&:focus{
+    border:1px solid @btn-blue-dark;
+    background-color: @btn-blue-dark;
+    color:#ffffff;
+  }
+}
 .newest-button-blue{
   border:1px solid @btn-blue;
   background-color: #ffffff;
@@ -822,6 +828,7 @@ p.boolean-false{
   &:hover{
     color:@btn-blue-dark;
     border:1px solid @btn-blue-dark;
+    background-color: #ffffff;
     i.fa-plus{
       color: @btn-blue-dark;
     }
@@ -835,3 +842,85 @@ p.boolean-false{
     color: @btn-blue;
   }
 }
+
+.check-icon-wrapper{
+  text-align: center;
+  margin-top:40px;
+  .check-well-icon{
+     color:@check-well-green;
+  }
+  .check-wrong-icon{
+    color:@common-gray
+  }
+  .big-check-icon{
+    font-size:132px;
+  }
+  .small-check-icon{
+    font-size:80px;
+  }
+  .message{
+     margin-top:30px;
+     font-size:@primary-title-size;
+  }
+  .more-message{
+    font-size: @primary-size;
+    color:@common-gray;
+  }
+}
+
+//dark section item widget,but I don't delete the hot section style in good store page.
+//it is complex
+.dark-section-wrapper{
+    .dark-section-item{
+      a{
+        color:#ffffff;
+        &hover,&focus{
+          color:#ffffff;
+        }
+        .section-panel{
+        .panel-no-padding;
+
+        width:100%;
+        &:hover{
+          .bg-layer{
+            display: block;
+          }
+        }
+        position:relative;
+          .bg-pic{
+            width:100%;
+            height:0;
+            padding-bottom: 55%;
+            background-position: center center;
+            background-size: cover;
+            background-repeat:no-repeat;
+          }
+          .section-name{
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform: translateX(-50%) translateY(-50%);
+            text-align: center;
+            p{
+              margin-bottom:0;
+            }
+            span{
+              font-size:@most-mini-size;
+            }
+          }
+        .bg-layer{
+          display: none;
+          width:100%;
+          height:0;
+          padding-bottom: 100%;
+          position:absolute;
+          top:0;
+          left:0;
+          background-color: rgba(0,0,0,0.18);
+        }
+
+      }
+      }
+
+    }
+  }

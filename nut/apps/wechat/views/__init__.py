@@ -58,7 +58,7 @@ class WeChatView(View):
             msg = self.parseMsgXml(ET.fromstring(rawStr))
             log.info(msg)
             _timestamp = time.mktime(datetime.now().timetuple())
-            log.info(_timestamp)
+            # log.info(_timestamp)
             # _items = Robots.objects.filter(accept__contains=msg['Content']).first()
             if msg['MsgType'] == 'voice':
                 _items = handle_reply(msg['Recognition'])
@@ -76,8 +76,8 @@ class WeChatView(View):
                     )
                 _items = handle_event(msg)
                 if _items is None:
-                    # request.session['open_id'] = msg['FromUserName']
-                    # log.info("open id %s" % msg['FromUserName'])
+                    request.session['open_id'] = msg['FromUserName']
+                    log.info("open id %s" % msg['FromUserName'])
                     return render_to_response(
                         'wechat/replybind.xml',
                         {
