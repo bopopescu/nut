@@ -838,7 +838,6 @@ class Entity(BaseModel):
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
     status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=new)
 
-
     objects = EntityManager()
 
     class Meta:
