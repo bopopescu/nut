@@ -169,13 +169,13 @@
     #index-banners{
       max-width:none;
       .slick-prev{
-        left:10%;
+        left:12%;
       }
       .slick-next{
-        right:10%;
+        right:12%;
       }
       .banner-image-cell .banner-image-wrapper{
-        padding-bottom: 40%;
+        padding-bottom: 55.56%;
       }
     }
   }
@@ -306,11 +306,11 @@
 
 }
 
-@media(max-width:1200px){
+@media (min-width:1200px){
   .store-body{
-    .sellers-banner-container{
-      #index-banners .banner-image-cell .banner-image-wrapper{
-        padding-bottom: 55.56%;
+    #index-banners {
+      .slick-prev:before,.slick-next:before{
+        font-size:46px;
       }
     }
   }
