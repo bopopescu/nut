@@ -3785,7 +3785,7 @@ define('subapp/discover/category_slick',['jquery', 'libs/Class','libs/slick','fa
                 },
                 init_slick:function(){
                     $('#category-item-container').slick({
-                        centerMode: true,
+                        //centerMode: true,
                         arrows: true,
                         slidesToShow: 6,
                         slidesToScroll:6,

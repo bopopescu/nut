@@ -9,7 +9,7 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                 },
                 init_slick:function(){
                     $('#category-item-container').slick({
-                        centerMode: true,
+                        //centerMode: true,
                         arrows: true,
                         slidesToShow: 6,
                         slidesToScroll:6,
