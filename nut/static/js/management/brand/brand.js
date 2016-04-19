@@ -87,15 +87,17 @@ var BrandEntitySortApp = Class.extend({
     },
 
     getBrandEntityData:function(){
-        var eids = this.collect_eids();
         var request_url = this.get_entity_data_request_url();
         return $.when($.ajax({
             url: request_url,
             method:'GET',
-            dataType: 'json',
-            data: JSON.stringify({eids:eids})
         }));
     },
+
+    get_entity_data_request_url:function(){
+        return  '/manage/brand/'+brand_id+'/selected_entities/'
+    },
+
     getBrandEntityDataFail: function(data){
         console.log('get brand entity data failed');
         console.log(data)

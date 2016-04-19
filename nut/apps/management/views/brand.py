@@ -2,7 +2,7 @@
 from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views.generic import ListView, View
-from django.shortcuts import  redirect
+from django.shortcuts import  redirect, get_object_or_404
 from django.utils.log import getLogger
 
 from braces.views import StaffuserRequiredMixin
@@ -269,5 +269,22 @@ class AddBrandEntityView(AjaxResponseMixin,JSONRequestResponseMixin, View):
             return self.render_json_response({'result':'fail'}, status=500)
 
         return self.render_json_response({'result':'ok'})
+
+class BrandSelectedEntitiesView(AjaxResponseMixin, JSONRequestResponseMixin, View):
+
+    def get_ajax(self, request, *args, **kwargs):
+        brand_id = self.kwargs.get('brand_id')
+        brand = get_object_or_404(Brand, id=brand_id)
+        res = []
+        for entity in  brand.entities.all().order_by('entities__brand_order'):
+            entity_dic = {
+                'title': entity.entity.title,
+                'cover': entity.entity.chief_image,
+                'order': entity.brand_order
+            }
+            res.append(entity_dic)
+
+        return self.render_json_response({'entities': res})
+
 
 __author__ = 'edison'
