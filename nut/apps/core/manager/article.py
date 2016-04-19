@@ -84,7 +84,7 @@ class ArticleManager(models.Manager):
 class SelectionArticleQuerySet(models.query.QuerySet):
     def discover(self):
         start_date = datetime.now()
-        end_date = start_date - timedelta(days=50)
+        end_date = start_date - timedelta(days=3)
         return self.using('slave').filter(is_published=True, pub_time__range=(end_date, start_date)).order_by('-article__read_count')
 
     def published_from(self, from_time=None):
