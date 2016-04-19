@@ -23,14 +23,14 @@ class EntityQuerySet(models.query.QuerySet):
         return self.using('slave').filter(status__gte=-1)
 
     def new_or_selection(self, category_id):
-        if isinstance(category_id, int) or isinstance(category_id ,str):
-            return self.using('slave').filter(category_id=category_id,
-                                              status__gte=0)
 
-        elif isinstance(category_id, list):
+        if isinstance(category_id, list):
             return self.using('slave').filter(category_id__in=category_id,
                                               status__gte=0)
 
+        elif isinstance(category_id, int) or isinstance(category_id ,str) or isinstance(category_id , long):
+            return self.using('slave').filter(category_id=category_id,
+                                              status__gte=0)
         else:
             return self.using('slave').filter(status__gte=0)
 
