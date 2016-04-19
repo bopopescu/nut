@@ -14,7 +14,7 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                         slidesToShow: 6,
                         slidesToScroll:6,
                         autoplay:true,
-                        autoplaySpeed:2000,
+                        autoplaySpeed:3000,
                         //centerPadding:'18%',
                         dots:false
 

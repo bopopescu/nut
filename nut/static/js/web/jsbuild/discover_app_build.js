@@ -3790,7 +3790,7 @@ define('subapp/discover/category_slick',['jquery', 'libs/Class','libs/slick','fa
                         slidesToShow: 6,
                         slidesToScroll:6,
                         autoplay:true,
-                        autoplaySpeed:2000,
+                        autoplaySpeed:3000,
                         //centerPadding:'18%',
                         dots:false
 
