@@ -9,29 +9,26 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                 },
                 init_slick:function(){
                     $('#category-item-container').slick({
-                        //centerMode: true,
                         arrows: true,
+                        //on mobile,set slidesToshow and slidesToScroll like android
                         slidesToShow: 6,
                         slidesToScroll:6,
                         autoplay:true,
-                        autoplaySpeed:3000,
-                        //centerPadding:'18%',
-                        dots:false
+                        dots:false,
 
-                        //centerPadding: '60px',
-                        //slidesToShow: 3,
-                        //responsive: [
-                        //    {
-                        //        breakpoint: 768,
-                        //        settings: {
-                        //            centerMode:false,
-                        //            slidesToShow:1,
-                        //            slidesToScroll:1,
-                        //            infinite: true
-                        //        }
-                        //    },
-                        //]
+                        responsive: [
+                            {
+                                breakpoint: 768,
+                                settings: {
+                                    slidesToShow:3,
+                                    slidesToScroll:3,
+                                    autoplay:true,
+                                    dots:false
+                                }
+                            }
+                        ]
                     });
+
                 }
             });
     return CategorySlick;
