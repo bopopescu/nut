@@ -85,6 +85,7 @@ var BrandEntitySortApp = Class.extend({
         );
 
     },
+
     getBrandEntityData:function(){
         var eids = this.collect_eids();
         var request_url = this.get_entity_data_request_url();
@@ -103,7 +104,7 @@ var BrandEntitySortApp = Class.extend({
     showDialog: function(data){
         bootbox.dialog({
             title: '管理品牌商品排序',
-            message: this.render_content(data)
+            message: this.render_content(data),
             buttons:{
                 success: {
                     label: '更新排序',
