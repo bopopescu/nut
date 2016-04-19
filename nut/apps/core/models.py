@@ -1144,6 +1144,20 @@ class Entity_Like(models.Model):
         unique_together = ('entity', 'user')
 
 
+class Entity_Brand(BaseModel):
+    entity = models.OneToOneField(Entity, related_name='brand_link')
+    brand = models.ForeignKey(Brand, related_name='entities', null=True)
+    brand_order = models.IntegerField(default=9999)
+
+#
+# from apps.shop.models import  Shop
+# class Entity_Shop(BaseModel):
+#     entity = models.OneToOneField(Entity, related_name='shop_link')
+#     shop = models.ForeignKey(Shop)
+#
+
+
+
 class Note(BaseModel):
     (remove, normal, top) = (-1, 0, 1)
     NOTE_STATUS_CHOICES = [

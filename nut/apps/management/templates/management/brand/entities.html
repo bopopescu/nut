@@ -1,5 +1,5 @@
 {% extends 'management/management_base.html' %}
-{% load i18n %}
+{% load i18n static %}
 {% load guoku %}
 
 {% block content %}
@@ -41,7 +41,7 @@
                                     <th>{% trans 'price' %}</th>
                                     <th>{% trans 'image' %} <span class="info">点击图片看详情</span></th>
                                     <th>{% trans 'status' %} </th>
-
+                                    <th>{% trans '入选品牌商品' %} </th>
                                     <th>{% trans 'operation' %}</th>
 
 
@@ -79,6 +79,11 @@
                                         </td>
                                         <td class="product-status">
                                             {{ entity.object.get_status_display }}</td>
+
+                                        <td class="switch-holder">
+                                            <input type="checkbox" data-id="{{ entity.pk }}" class="js-switch"  {% if entity.brand_link %}checked{% endif %} />
+
+                                        </td>
                                         <td class="product-actions">
                                             <div class="btn-group">
                                                 <a class="btn btn-default" href="{% url 'management_entity_edit' entity.pk %}" target="_blank">{% trans 'edit' %}</a>
@@ -97,4 +102,11 @@
             </div>
         </div>
     </section>
+{% endblock %}
+
+
+{% block user_script %}
+     <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
+
+     <script src="{% static 'js/management/brand/brand.js' %}" type="application/javascript"></script>
 {% endblock %}
