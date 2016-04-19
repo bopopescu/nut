@@ -1036,6 +1036,10 @@ p.boolean-false {
     margin-bottom: 0px!important;
     padding-bottom: 0px!important;
   }
+  #category-container #category-item-container .slick-prev:before,
+  #category-container #category-item-container .slick-next:before {
+    display: none;
+  }
 }
 @media (max-width: 767px) {
   .check-icon-wrapper .big-check-icon {
