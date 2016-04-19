@@ -1054,10 +1054,6 @@ p.boolean-false {
   margin-left: 9px;
   margin-right: 9px;
 }
-#category-container #category-item-container li.category-item .category-item-pic {
-  width: 180px;
-  height: 180px;
-}
 /*发现页-推荐用户*/
 .user-icon-list.recommend-user-list:after {
   content: " ";
