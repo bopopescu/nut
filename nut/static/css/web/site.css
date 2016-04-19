@@ -1061,6 +1061,10 @@ p.boolean-false {
 #category-container {
   overflow: hidden;
 }
+#category-container #category-item-container {
+  margin-left: -12px;
+  margin-right: -12px;
+}
 #category-container #category-item-container li.category-item {
   overflow: hidden;
   float: left;
