@@ -1061,9 +1061,6 @@ p.boolean-false {
 #category-container {
   overflow: hidden;
 }
-#category-container #category-item-container {
-  overflow-x: scroll;
-}
 #category-container #category-item-container li.category-item {
   overflow: hidden;
   float: left;
@@ -1077,6 +1074,16 @@ p.boolean-false {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+#category-container #category-item-container .slick-prev:before,
+#category-container #category-item-container .slick-next:before {
+  font-family: FontAwesome;
+}
+#category-container #category-item-container .slick-prev:before {
+  content: "\f053";
+}
+#category-container #category-item-container .slick-next:before {
+  content: "\f054";
 }
 /*发现页-推荐用户*/
 .user-icon-list.recommend-user-list:after {

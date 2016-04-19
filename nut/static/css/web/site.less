@@ -110,7 +110,7 @@
   #category-item-container{
     //width:7400px;
     //overflow:hidden;
-    overflow-x: scroll;
+    //overflow-x: scroll;
     li.category-item{
       overflow: hidden;
       float:left;
@@ -127,6 +127,18 @@
         .square-scale-bg;
       }
     }
+  }
+}
+//发现页的推荐品类,横向滚动的icon
+#category-container #category-item-container{
+  .slick-prev:before,.slick-next:before{
+    font-family: FontAwesome;
+  }
+  .slick-prev:before{
+    content:"\f053";
+  }
+  .slick-next:before{
+    content:"\f054";
   }
 }
 
