@@ -1,4 +1,11 @@
-14.  API: discover page article , add digest 
+
+
+1. fix category  new_or_selection , sort bug , 
+==================================
+# merged to master 2016 4-14 
+==================================
+
+14.  API: disc嘚vover page article , add digest 
 13.  API:  filter removed user in activity/message 
 12.  article craw report update 
 11.  article mng edit , tag ,add parent category words for selection
