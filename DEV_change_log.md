@@ -1,3 +1,19 @@
+1.  brand page mangement 
+
+##action
+
+  need syncdb 
+  add Entity_Brand model 
+  
+  when excute  syncdb in local , 
+  encounter error :  cannot add foreign key constraint
+  
+  pls pay attention 
+
+==================================
+# merged to master 2016 4-14
+==================================
+
 14.  API: discover page article , add digest 
 13.  API:  filter removed user in activity/message 
 12.  article craw report update 
