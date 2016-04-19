@@ -35,7 +35,6 @@ class EntityQuerySet(models.query.QuerySet):
             return self.using('slave').filter(status__gte=0)
 
 
-
     def sort(self, category_id, like=False):
         _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         if like:
