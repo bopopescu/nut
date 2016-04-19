@@ -18,7 +18,7 @@
             <div class="col-xs-12">
                 <div class="box box-info">
                     <div class="box-header">
-
+                            <button class="btn btn-primary pull-right" id="mng_brand_entity_btn">管理显示排序</button>
                     </div>
 
                     <div class="box-body">
@@ -81,8 +81,7 @@
                                             {{ entity.object.get_status_display }}</td>
 
                                         <td class="switch-holder">
-                                            <input type="checkbox" data-id="{{ entity.pk }}" class="js-switch"  {% if entity.brand_link %}checked{% endif %} />
-
+                                            <input type="checkbox" data-id="{{ entity.pk }}" class="js-switch"  {% if entity.object.brand_link %}checked{% endif %} />
                                         </td>
                                         <td class="product-actions">
                                             <div class="btn-group">
@@ -106,7 +105,10 @@
 
 
 {% block user_script %}
+    <script language="javascript">
+         var brand_id  = {{ brand_id }};
+    </script>
+     <script src="{% static 'js/management/util.js' %}" type="application/javascript"></script>
      <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
-
      <script src="{% static 'js/management/brand/brand.js' %}" type="application/javascript"></script>
 {% endblock %}

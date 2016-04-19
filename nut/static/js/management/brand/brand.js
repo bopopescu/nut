@@ -41,21 +41,26 @@ function postFail(data){
 
 function get_request_url(entity_id){
 
-    return '/management/brand/add/entity/'+ entity_id + '/'
+    return '/management/brand/add/entity/'
 }
 function switchChange(){
     console.log(this);
     console.log(this['data-id']);
     console.log($(this).prop('checked'));
     console.log($(this).attr('data-id'));
-    var tag_id = $(this).attr('data-id');
+    var entity_id = $(this).attr('data-id');
     var url =  get_request_url(entity_id)
-    var data =  {id:tag_id ,isTopArticleTag: $(this).prop('checked')};
+    var data =  {
+        entity_id:entity_id ,
+        isBrandEntity: $(this).prop('checked'),
+        brand_id : brand_id
+    };
 
     $.when($.ajax({
         type:'POST',
         url: url,
-        data: data,
+        dataType:'json',
+        data: JSON.stringify(data),
     })).then(
         postSuccess,
         postFail
@@ -66,3 +71,62 @@ elems.forEach(function(ele) {
   var switchery = new Switchery(ele);
       ele.onchange = switchChange;
 });
+
+
+var BrandEntitySortApp = Class.extend({
+    init: function(){
+        $('#mng_brand_entity_btn').click(this.beginSort.bind(this));
+
+    },
+    beginSort: function(){
+        this.getBrandEntityData().then(
+            this.showDialog.bind(this),
+            this.getBrandEntityDataFail.bind(this)
+        );
+
+    },
+    getBrandEntityData:function(){
+        var eids = this.collect_eids();
+        var request_url = this.get_entity_data_request_url();
+        return $.when($.ajax({
+            url: request_url,
+            method:'GET',
+            dataType: 'json',
+            data: JSON.stringify({eids:eids})
+        }));
+    },
+    getBrandEntityDataFail: function(data){
+        console.log('get brand entity data failed');
+        console.log(data)
+    },
+
+    showDialog: function(data){
+        bootbox.dialog({
+            title: '管理品牌商品排序',
+            message: this.render_content(data)
+            buttons:{
+                success: {
+                    label: '更新排序',
+                    className: 'btn-success',
+                    callback: this.updateEntityOrder.bind(this)
+                },
+                fail: {
+                    label: '放弃操作',
+                    className: 'btn-danger',
+                    callback: this.quitOrder.bind(this)
+                }
+
+            }
+        });
+
+    },
+    updateEntityOrder: function(){
+
+    },
+    quitOrder:function(){
+
+    }
+});
+
+
+var brandEntitySortapp = new BrandEntitySortApp();
