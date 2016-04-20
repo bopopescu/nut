@@ -57,13 +57,15 @@ class EntityQuerySet(models.query.QuerySet):
             # # print kwargs, args
             # return super(EntityQuerySet, self).get(*args, **kwargs)
 
-    def sort_group(self, category_ids, like=False):
+    def sort_group(self, gid, category_ids, like=False):
         _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        like_key = 'entity:list:sort:like'
+        like_key = 'entity:list:sort:like:%s' % hash(gid)
 
         if like:
             like_list = cache.get(like_key)
             if like_list:
+                print like_list
+                print len(like_list)
                 return like_list
             else:
                 like_list = self.new_or_selection(category_ids).filter(
@@ -73,6 +75,7 @@ class EntityQuerySet(models.query.QuerySet):
                     .order_by('-lnumber')
                 cache.set(like_key, like_list, timeout=3600*24)
                 return like_list
+
         else:
             return self.new_or_selection(category_ids).filter(
                 selection_entity__pub_time__lte=_refresh_datetime,
@@ -127,9 +130,9 @@ class EntityManager(models.Manager):
         assert category_id is not None
         return self.get_query_set().sort(category_id, like)
 
-    def sort_group(self, category_ids, like=False):
+    def sort_group(self, gid, category_ids, like=False):
         assert category_ids is not None
-        return self.get_query_set().sort_group(category_ids, like)
+        return self.get_query_set().sort_group(gid, category_ids, like)
 
     def guess(self, category_id=None, count=5, exclude_id=None):
         size = count * 10
