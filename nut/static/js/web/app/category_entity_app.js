@@ -4,7 +4,7 @@ require([
         'subapp/entitylike',
         'subapp/topmenu',
         'subapp/load_category_entity',
-        'subapp/gotop',
+        'subapp/gotop'
     ],
     function (polyfill,
               jQuery,
