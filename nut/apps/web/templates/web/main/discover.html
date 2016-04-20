@@ -73,7 +73,7 @@
                 <div class="col-xs-3 col-sm-2 guoku-normal-col">
                     <div class="thumbnail category category-control" data-category-id="{{ category.id }}" data-category-title="{{ category.title }}">
                         <a href="{% url 'web_category_detail' category.id %}">
-                             <img class="img-responsive" alt="{{ category.title }}" src="{{ category.icon_large_url }}" width="64" height="64">
+                             <img class="img-responsive" alt="{{ category.title }}" src="{{ category.cover_url }}" width="64" height="64">
                             <p>{{ category.title|show_category }}</p>
                         </a>
                     </div>
@@ -107,7 +107,7 @@
                 <p>热门商品</p>
             </div>
             {% for entity in entities %}
-                {% include 'web/main/partial/entity.html' with entity=entity%}
+                {% include 'web/main/partial/entity.html' with entity=entity %}
             {% endfor %}
         </div>
     </div>
