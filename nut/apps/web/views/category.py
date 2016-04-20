@@ -89,6 +89,7 @@ class CategoryGroupListView(JSONResponseMixin, AjaxResponseMixin, ListView):
             order_by_like = True
 
         _entity_list = Entity.objects.sort_group(
+            gid=gid,
             category_ids=list(sub_categories_ids),
             like=order_by_like,).filter(buy_links__status=2)
 
