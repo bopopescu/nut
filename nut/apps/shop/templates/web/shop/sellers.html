@@ -178,8 +178,37 @@
 {#        </div>#}
          <div class="row section-title-wrapper">
             <div class="col-sm-12">
-                <p>推荐商品</p>
+                <p>推荐图文</p>
             </div>
+        </div>
+        <div class="row dark-section-wrapper" id="recommend_article_list">
+                <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 guoku-middle-col dark-section-item">
+                    <a href="" target="_blank">
+                        <div class="section-panel">
+                            <div class="bg-pic" style="background-image: url({% static 'images/year-seller/lifestyle.jpg' %})">
+                            </div>
+                            <div class="bg-layer"></div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 guoku-middle-col dark-section-item">
+                    <a href="" target="_blank">
+                        <div class="section-panel">
+                            <div class="bg-pic" style="background-image: url({% static 'images/year-seller/lifestyle.jpg' %})">
+                            </div>
+                            <div class="bg-layer"></div>
+                        </div>
+                    </a>
+                </div>
+            <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 guoku-middle-col dark-section-item">
+                    <a href="" target="_blank">
+                        <div class="section-panel">
+                            <div class="bg-pic" style="background-image: url({% static 'images/year-seller/lifestyle.jpg' %})">
+                            </div>
+                            <div class="bg-layer"></div>
+                        </div>
+                    </a>
+                </div>
         </div>
 
 
@@ -197,19 +226,19 @@
                             </div>
                             <div class="bg-layer"></div>
                             {# hidden temporarily #}
-                            <div class="new-user-action">
-                                {% if current_user.is_blocked %}
-
-                                {% elif current_user == request.user %}
-
-                                {% elif request.user.id in current_user.concren %}
-                                    <a class="square-follow-btn btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange"></i></a>
-                                {% elif request.user.id in current_user.fans_list %}
-                                    <a class="square-follow-btn btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check"></i></a>
-                                {% else %}
-                                    <a class="square-follow-btn" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i></a>
-                                {% endif %}
-                            </div>
+{#                            <div class="new-user-action">#}
+{#                                {% if current_user.is_blocked %}#}
+{##}
+{#                                {% elif current_user == request.user %}#}
+{##}
+{#                                {% elif request.user.id in current_user.concren %}#}
+{#                                    <a class="square-follow-btn btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange"></i></a>#}
+{#                                {% elif request.user.id in current_user.fans_list %}#}
+{#                                    <a class="square-follow-btn btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check"></i></a>#}
+{#                                {% else %}#}
+{#                                    <a class="square-follow-btn" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i></a>#}
+{#                                {% endif %}#}
+{#                            </div>#}
                         </div>
                     </a>
                 </div>
