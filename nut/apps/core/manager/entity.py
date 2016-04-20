@@ -235,13 +235,13 @@ class SelectionEntityQuerySet(models.query.QuerySet):
         return self.filter(is_published=True)
 
     def pending(self):
-        return self.filter(is_published=False).exclude(
-            entity__status__lt=1,
+        return self.filter(is_published=False).exclude(\
+            entity__status__lt=1,\
             entity__buy_links__status__in=(0, 1))
 
     def pending_and_removed(self):
-        return self.filter(is_published=False,
-                           entity__buy_links__status__in=(0, 1),
+        return self.filter(is_published=False,\
+                           entity__buy_links__status__in=(0, 1),\
                            entity__status__lt=1)
 
 
