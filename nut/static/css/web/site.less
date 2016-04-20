@@ -108,13 +108,11 @@
   .clearfix;
         li{
           .recommend-user-icon-widget(81px,0,18px,10px,0);
-          .img-frame{
-              width: 100%;
-              height: 0;
-              padding-bottom: 100%;
-              background-size:cover;
-              background-position: center center;
+          a {
+            img {
+              .img-frame(81px);
             }
+          }
         }
 }
 
@@ -1096,6 +1094,17 @@ a:hover{text-decoration:underline;}
     .note-wrapper{
       .panel;
       margin: 15px 0px;
+      .comment_list {
+        .common-note-list {
+          li {
+            a {
+              img {
+                 .img-frame(60px);
+              }
+            }
+          }
+        }
+      }
     }
 
     .detail-img-big{
@@ -1313,6 +1322,7 @@ a:hover{text-decoration:underline;}
           width: 40px!important;
           height: 40px!important;
           .border-radius(20px)!important;
+
         }
       }
     }
@@ -1335,6 +1345,7 @@ a:hover{text-decoration:underline;}
           width: 60px;
           height: 60px;
           .border-radius(30px);
+          .img-frame(60px);
         }
       }
     }
@@ -1557,3 +1568,9 @@ html { overflow-y: scroll; }
 .test{
   color: gray;
 }
+.img-frame(@height){
+    width: 100%;
+    padding-bottom: @height;
+    background-size:cover;
+    background-position: center center;
+  }

@@ -889,10 +889,9 @@ p.boolean-false {
 .user-icon-list.recommend-user-list li img {
   border-radius: 50%;
 }
-.user-icon-list.recommend-user-list li .img-frame {
+.user-icon-list.recommend-user-list li a img {
   width: 100%;
-  height: 0;
-  padding-bottom: 100%;
+  padding-bottom: 81px;
   background-size: cover;
   background-position: center center;
 }
@@ -1910,6 +1909,12 @@ a:hover {
     box-shadow: 0px 0px 2px #ddd;
     margin: 15px 0px;
   }
+  #detail_content_left .note-wrapper .comment_list .common-note-list li a img {
+    width: 100%;
+    padding-bottom: 60px;
+    background-size: cover;
+    background-position: center center;
+  }
   #detail_content_left .detail-img-big {
     height: 320px;
     white-space: nowrap;
@@ -2120,6 +2125,10 @@ a:hover {
     -moz-background-clip: padding;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
+    width: 100%;
+    padding-bottom: 60px;
+    background-size: cover;
+    background-position: center center;
   }
   .article-onepage .more-article-wrapper {
     background-color: #fff;

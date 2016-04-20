@@ -170,10 +170,10 @@
                                 <div class="writer-avatar col-xs-2 col-sm-2">
                                     <div class="avatar-wrapper">
                                         <a href="{% url 'web_user_index' article.creator.pk %}" class="for-browser">
-                                            <img class="user-avatar" src="{{ article.creator.profile.avatar_url|resize:'180' }}" />
+                                            <img class="user-avatar" style="background-image: url({{ article.creator.profile.avatar_url|resize:'180' }})" />
                                         </a>
                                          <a href="{{ article.creator.mobile_url }}" class="for-mobile mobile-user-link">
-                                            <img class="user-avatar" src="{{ article.creator.profile.avatar_url|resize:'180' }}" />
+                                            <img class="user-avatar" style="background-image: url({{ article.creator.profile.avatar_url|resize:'180' }})" />
                                         </a>
                                     </div>
                                 </div>

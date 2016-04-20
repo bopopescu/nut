@@ -4,7 +4,7 @@
     {% with the_top_note=entity.top_note %}
     <li >
         <a class="pull-left" href="{% url 'web_user_index' the_top_note.user.pk %}" target="_blank">
-            <img src="{{ the_top_note.user.profile.avatar_url }}" alt="{{ the_top_note.user.profile.nickname }}" class="head_pic">
+            <img style="background-image: url({{ the_top_note.user.profile.avatar_url }})" class="head_pic">
         </a>
         <div class="comment_detail note-content" data-note-id="{{ the_top_note.pk }}">
             <div class="user_name">
