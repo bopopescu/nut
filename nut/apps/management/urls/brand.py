@@ -4,7 +4,8 @@ from apps.management.views.brand import \
     BrandListView, BrandEntityListView, \
     BrandStatView, BrandEditView, \
     BrandCreateView, BrandNameEditView,\
-    AddBrandEntityView, BrandSelectedEntitiesView
+    AddBrandEntityView, BrandSelectedEntitiesView,\
+    SaveSortedEntityView
 
 urlpatterns = patterns(
     'apps.management.views.brand',
@@ -16,6 +17,7 @@ urlpatterns = patterns(
     url(r'^(?P<brand_name>.+)/edit/$', BrandNameEditView.as_view(), name='management_brand_name_edit'),
     url(r'^(?P<brand_id>\d+)/name/(?P<brand>.+)/$', BrandEntityListView.as_view(), name='management_brand_entity_list'),
     url(r'^add/entity/$', AddBrandEntityView.as_view(), name='management_brand_add_entity'),
+    url(r'^entities/sort/save/$', SaveSortedEntityView.as_view(), name='management_brand_sort_entity_save'),
     url(r'^(?P<brand_id>\d+)/selected_entity/$', BrandSelectedEntitiesView.as_view(), name='management_brand_selected_entity_json'),
 
 

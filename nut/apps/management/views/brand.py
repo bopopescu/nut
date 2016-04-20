@@ -276,8 +276,9 @@ class BrandSelectedEntitiesView(AjaxResponseMixin, JSONRequestResponseMixin, Vie
         brand_id = self.kwargs.get('brand_id')
         brand = get_object_or_404(Brand, id=brand_id)
         res = []
-        for entity in  brand.entities.all().order_by('entities__brand_order'):
+        for entity in  brand.entities.all().order_by('brand_order'):
             entity_dic = {
+                'entity_id': entity.entity.id,
                 'title': entity.entity.title,
                 'cover': entity.entity.chief_image,
                 'order': entity.brand_order
@@ -286,5 +287,24 @@ class BrandSelectedEntitiesView(AjaxResponseMixin, JSONRequestResponseMixin, Vie
 
         return self.render_json_response({'entities': res})
 
+
+class SaveSortedEntityView(AjaxResponseMixin, JSONRequestResponseMixin, View):
+    def post_ajax(self, request, *args, **kwargs):
+        post_data = self.get_request_json()
+        brand_id = post_data.get('brand_id')
+        ids = post_data.get('entity_ids')
+
+        try :
+            for index , id in enumerate(ids):
+                Entity_Brand.objects\
+                            .update_or_create(
+                                brand_id=brand_id,
+                                entity_id=id,
+                                default={'brand_order':index})
+        except Exception as e :
+
+            return self.render_json_response({'result':'error'}, status=500)
+
+        return self.render_json_response({'result': 'ok'}, status=200)
 
 __author__ = 'edison'

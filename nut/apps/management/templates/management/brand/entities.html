@@ -105,9 +105,46 @@
 
 
 {% block user_script %}
+    <style>
+        .brand_entity_wrapper:after{
+             content: " ";
+             display: block;
+             height: 0;
+             clear: both;
+        }
+        .brand_entity_wrapper ul{
+            list-style: none;
+        }
+        .brand_entity_wrapper li{
+            width: 100px;
+            height: 120px;
+            float: left;
+            margin: 5px 5px;
+            padding: 1px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+
+    </style>
+    <script type="text/html" id="mng_brand_entity_sort_item">
+         <div class="brand_entity_wrapper">
+             <ul id="entity_sort">
+                 <% for (i=0 ; i<entities.length ; i++){ %>
+                    <li class="" data-id="<%=entities[i].entity_id%>">
+                        <img src="<%=entities[i]['cover']%>" width="100px" height="100px">
+                        <div>
+                            <span><%=entities[i]['title']%></span>
+                        </div>
+                    </li>
+                 <% } %>
+             </ul>
+         </div>
+    </script>
     <script language="javascript">
          var brand_id  = {{ brand_id }};
     </script>
+
+     <script src="{% static 'js/jquery-ui/jquery-ui.min.js' %}" type="application/javascript"></script>
      <script src="{% static 'js/management/util.js' %}" type="application/javascript"></script>
      <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
      <script src="{% static 'js/management/brand/brand.js' %}" type="application/javascript"></script>
