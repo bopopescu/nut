@@ -101,6 +101,7 @@ class NewCategoryGroupListView(JSONResponseMixin,AjaxResponseMixin, ListView):
         gid = self.get_group_id()
         entities = context['entities']
         user_entity_likes = None
+        el = []
         if self.request.user.is_authenticated():
             e = entities
             el = Entity_Like.objects.filter(entity_id__in=tuple(e),user=self.request.user)\
