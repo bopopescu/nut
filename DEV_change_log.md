@@ -16,7 +16,7 @@ CREATE TABLE `core_entity_brand` (
 ALTER TABLE `core_entity_brand` ADD CONSTRAINT `entity_id_refs_id_baee5e01` FOREIGN KEY (`entity_id`) REFERENCES `core_entity` (`id`);
 
 
-WHY SKIP the following: 
+IMPORTANT  !!  WHY SKIP the following: 
 
   when  syncdb 
   for  Entity_Brand model 
@@ -26,16 +26,21 @@ WHY SKIP the following:
                    
   done a lot test 
                               
-  even defined model like this  :
+  even defined model like this to avoid naming conflict   :
   
 class Dog(BaseModel):
     cat = models.ForeignKey(Brand, related_name='ant')
     miao = models.IntegerField()    
                            
   still can not add brand_id constraint,
-  the id column in core_brand table must has somting wrong 
+  the id column in core_brand table must has something wrong 
   
-  so I creat table by hand instead.                           
+  so , for last resort  create table by hand instead.
+ 
+  without the brand_id constraint , when add data to entity_brand 
+  , database will not check if the brand_id in core_brand table 
+  , these is not a problem for now .
+  
                              
   pls pay attention 
 
