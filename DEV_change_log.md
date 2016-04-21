@@ -1,7 +1,7 @@
-2. 
 
+3. fix web group category page ajax refresh bug 
+2. fix api entity guess category id fail 
 1. add article mng edit author selection 
-
 0.  brand page mangement 
 
 ##action
@@ -11,7 +11,7 @@
   
   when excute  syncdb in local , 
   encounter error :  cannot add foreign key constraint
-  
+                             
   pls pay attention 
 
 
@@ -19,7 +19,8 @@
 # merged to master 2016 4-17
 =======================
 
-1. fix category  new_or_selection , sort bug , 
+1. fix category  new_or_selection , sort bug ,
+ 
 ==================================
 # merged to master 2016 4-14 
 ==================================
