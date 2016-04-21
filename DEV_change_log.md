@@ -6,11 +6,36 @@
 
 ##action
 
-  need syncdb 
-  add Entity_Brand model 
+CREATE TABLE `core_entity_brand` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `entity_id` integer NOT NULL UNIQUE,
+    `brand_id` integer NOT NULL,
+    `brand_order` integer NOT NULL
+)
+;
+ALTER TABLE `core_entity_brand` ADD CONSTRAINT `entity_id_refs_id_baee5e01` FOREIGN KEY (`entity_id`) REFERENCES `core_entity` (`id`);
+
+
+SKIP the following 
+
+  when  syncdb 
+  for  Entity_Brand model 
   
   when excute  syncdb in local , 
   encounter error :  cannot add foreign key constraint
+                   
+  done a lot test 
+                              
+  even defined model like this  :
+  
+class Dog(BaseModel):
+    cat = models.ForeignKey(Brand, related_name='ant')
+    miao = models.IntegerField()    
+                           
+  still can not add brand_id constraint,
+  the id column in core_brand table must has somting wrong 
+  
+  so I creat table by hand instead.                           
                              
   pls pay attention 
 

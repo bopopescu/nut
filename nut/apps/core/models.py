@@ -1146,12 +1146,19 @@ class Entity_Like(models.Model):
 
 class Entity_Brand(BaseModel):
     entity = models.OneToOneField(Entity, related_name='brand_link')
-    brand = models.ForeignKey(Brand, related_name='entities', null=True)
+    brand = models.ForeignKey(Brand, related_name='entities_link')
     brand_order = models.IntegerField(default=9999)
     class Meta:
         pass
         # unique_together = ('entity','brand')
 
+# class An(BaseModel):
+#     brand = models.ForeignKey(Brand, related_name='anchen')
+#     name = models.CharField(max_length=20)
+
+class Dog(BaseModel):
+    cat = models.ForeignKey(Brand, related_name='ant')
+    miao = models.IntegerField()
 
 class Note(BaseModel):
     (remove, normal, top) = (-1, 0, 1)
