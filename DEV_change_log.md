@@ -16,7 +16,7 @@ CREATE TABLE `core_entity_brand` (
 ALTER TABLE `core_entity_brand` ADD CONSTRAINT `entity_id_refs_id_baee5e01` FOREIGN KEY (`entity_id`) REFERENCES `core_entity` (`id`);
 
 
-SKIP the following 
+WHY SKIP the following: 
 
   when  syncdb 
   for  Entity_Brand model 

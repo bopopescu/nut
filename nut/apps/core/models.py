@@ -1152,13 +1152,6 @@ class Entity_Brand(BaseModel):
         pass
         # unique_together = ('entity','brand')
 
-# class An(BaseModel):
-#     brand = models.ForeignKey(Brand, related_name='anchen')
-#     name = models.CharField(max_length=20)
-
-class Dog(BaseModel):
-    cat = models.ForeignKey(Brand, related_name='ant')
-    miao = models.IntegerField()
 
 class Note(BaseModel):
     (remove, normal, top) = (-1, 0, 1)
