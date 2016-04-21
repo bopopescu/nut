@@ -1,4 +1,6 @@
-2. 
+
+3. fix web group category page ajax refresh bug 
+2. fix api entity guess category id fail 
 1. add article mng edit author selection 
 =======================
 # merged to master 2016 4-17
