@@ -1,4 +1,8 @@
-1.  brand page mangement 
+2. 
+
+1. add article mng edit author selection 
+
+0.  brand page mangement 
 
 ##action
 
@@ -10,15 +14,14 @@
   
   pls pay attention 
 
-==================================
+
+=======================
 # merged to master 2016 4-17
-==================================
+=======================
 
 1. fix category  new_or_selection , sort bug , 
-
-
 ==================================
-# merged to master 2016 4-14
+# merged to master 2016 4-14 
 ==================================
 
 14.  API: discover page article , add digest 
