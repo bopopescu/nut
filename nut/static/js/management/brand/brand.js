@@ -143,7 +143,7 @@ var BrandEntitySortApp = Class.extend({
     updateEntityOrder: function(){
 
         var ids = this.collectSortedIds();
-        var save_sort_url = 'management/brand/entities/sort/save/';
+        var save_sort_url = '/management/brand/entities/sort/save/';
         $.when($.ajax(
             {
                 url : save_sort_url,
@@ -166,7 +166,7 @@ var BrandEntitySortApp = Class.extend({
 
     collectSortedIds: function(){
         var ids = [];
-          $('#entity_sort li').map(function(ele){
+          $('#entity_sort li').map(function(index,ele){
               ids.push($(ele).attr('data-id'));
           });
         return ids;

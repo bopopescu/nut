@@ -1149,16 +1149,8 @@ class Entity_Brand(BaseModel):
     brand = models.ForeignKey(Brand, related_name='entities', null=True)
     brand_order = models.IntegerField(default=9999)
     class Meta:
-        unique_together = ('entity','brand')
-
-
-#
-# from apps.shop.models import  Shop
-# class Entity_Shop(BaseModel):
-#     entity = models.OneToOneField(Entity, related_name='shop_link')
-#     shop = models.ForeignKey(Shop)
-#
-
+        pass
+        # unique_together = ('entity','brand')
 
 
 class Note(BaseModel):
