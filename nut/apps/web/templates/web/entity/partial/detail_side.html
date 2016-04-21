@@ -107,7 +107,7 @@
         <ul class="pop-entity-list">
             {% for ent in pop_entities %}
                 <li>
-                    <div class="pop-entity-wrapper" data-pop-entity-id={{ ent.entity_hash }} data-pop-entity-title={{ ent.title }}>
+                    <div class="pop-entity-wrapper" data-pop-entity-id={{ ent.id }} data-pop-entity-title={{ ent.title }}>
                         <div class="entity-content">
                             <div class="entity-name">
                                 <a href="{% url 'web_entity_detail' ent.entity_hash %}">
