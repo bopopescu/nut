@@ -264,7 +264,7 @@ class CategoryDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
         try:
             if not context['entities'].has_next():
                 status = 0
-        except:
+        except Exception as e:
             pass
         _data = _t.render(_c)
         return JSONResponse(
