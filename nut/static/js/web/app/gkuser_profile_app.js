@@ -96,7 +96,31 @@ require([
                 label: 'data-article-title',
                 value: 'data-article',
                 wrapper: '#user-main-content'
+            }, {
+                selector: '#user-main-content .content-left #user-tag-panel .panel-content-wrapper .tag-cell a',
+                trigger: 'click',
+                category: 'user-tag',
+                action: 'user-tag-detail',
+                label: 'data-tag-title',
+                value: 'data-tag-id'
+            }, {
+                //
+                selector: '#user-note-panel .note-entity-img-wrapper .img-box',
+                trigger: 'click',
+                category: 'user-note',
+                action: 'entity-detail',
+                label: 'data-note-title',
+                value: 'data-note-id'
             }
+            //}, {
+            //    selector: '#user-note-panel .note-content-wrapper .note-text',
+            //    trigger: 'click',
+            //    category: 'user-note',
+            //    action: 'entity-detail',
+            //    label: 'data-note-title',
+            //    value: 'data-note-id',
+            //    wrapper: '#user-note-panel'
+            //}
         ];
 
         var tracker = new Tracker(tracker_list);

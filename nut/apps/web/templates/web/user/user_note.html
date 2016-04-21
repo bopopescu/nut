@@ -40,7 +40,7 @@
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 note-cell cell">
                                    <div class="note-wrapper">
                                        <div class="note-content-wrapper">
-                                           <div class="note-text">
+                                           <div class="note-text" data-note-id="{{noteObj.entity.id }}" data-note-title="{{noteObj.entity.title}}">
                                                {{ noteObj.note|truncatechars:46 }}
                                            </div>
                                            <div class="note-info">
@@ -48,7 +48,7 @@
                                            </div>
                                        </div>
                                        <div class="note-entity-img-wrapper">
-                                           <div class="img-box">
+                                           <div class="img-box" data-note-id="{{noteObj.entity.id }}" data-note-title="{{noteObj.entity.title}}">
                                                <a href="{{ noteObj.entity.absolute_url }}">
                                                    <img class="img-responsive" src="{{ noteObj.entity.chief_image|resize:'128'}}" />
                                                </a>
