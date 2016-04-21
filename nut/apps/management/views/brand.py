@@ -295,12 +295,18 @@ class SaveSortedEntityView(AjaxResponseMixin, JSONRequestResponseMixin, View):
         ids = post_data.get('entity_ids')
 
         try :
+
+            Entity_Brand.objects.filter(brand_id=brand_id).exclude(entity_id__in=ids).delete()
             for index , id in enumerate(ids):
-                Entity_Brand.objects\
-                            .update_or_create(
+
+                eb, created = Entity_Brand.objects\
+                            .get_or_create(
                                 brand_id=brand_id,
                                 entity_id=id,
-                                default={'brand_order':index})
+                            )
+                eb.brand_order = index
+                eb.save()
+
         except Exception as e :
 
             return self.render_json_response({'result':'error'}, status=500)
