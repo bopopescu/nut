@@ -136,7 +136,7 @@
 //发现页的推荐品类,横向滚动的icon
 #category-container #category-item-container{
   .slick-prev:before,.slick-next:before{
-    font-family: FontAwesome;
+    font-family: "FontAwesome";
   }
   .slick-prev:before{
     content:"\f053";
@@ -300,7 +300,9 @@
         position: absolute;
         top:50%;
         left:50%;
-        transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
         width:100%;
         color:#999;
         font-size:@mini-size;
