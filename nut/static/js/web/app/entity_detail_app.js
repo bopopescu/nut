@@ -198,6 +198,41 @@ require([
                 label: 'data-entity-title',
                 value: 'data-entity',
                 wrapper: '#detail_content_right'
+            }, {
+                selector : '.cate-list-all li',
+                trigger: 'click',
+                category: 'category-tag',
+                action: 'category-detail',
+                label: 'data-category-title',
+                value: 'data-category-id'
+            }, {
+                selector: '.pop-entity-wrapper',
+                trigger: 'click',
+                category: 'pop-entity',
+                action: 'pop-entity-detail',
+                label: 'data-pop-entity-title',
+                value: 'data-pop-entity-id'
+            }, {
+                selector: '.pop-article-list .pop-article .pop-article-wrapper .article-content .article-title',
+                trigger: 'click',
+                category: 'pop-article',
+                action: 'article-detail',
+                label: 'data-article-title',
+                value: 'data-article-id'
+            }, {
+                selector: '.pop-article-list .pop-article .pop-article-wrapper .img-holder a',
+                trigger: 'click',
+                category: 'pop-article',
+                action: 'article-detail',
+                label: 'data-article-title',
+                value: 'data-article-id'
+            }, {
+                selector: '#detail_content_right .section-list .banner-holder',
+                trigger: 'click',
+                category: 'banner',
+                action: 'tm-detail',
+                label: 'data-banner-title',
+                value: 'data-banner-id'
             }
         ];
 
