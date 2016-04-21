@@ -169,8 +169,9 @@ def guess(request):
 
     res = []
 
-    _category_id = request.GET.get('cid', None)
+    # _category_id = request.GET.get('cid', None)
     _entity_id = request.GET.get('eid', None)
+    _category_id = Entity.objects.get(pk=_entity_id).category.id
     _count = int(request.GET.get('count', '5'))
 
     entities = APIEntity.objects.guess(category_id=_category_id, count=_count, exclude_id=_entity_id)
