@@ -1,8 +1,8 @@
 
-3. fix web group category page ajax refresh bug 
-2. fix api entity guess category id fail 
-1. add article mng edit author selection 
-0.  brand page mangement 
+4. fix web group category page ajax refresh bug 
+3. fix api entity guess category id fail 
+2. add article mng edit author selection 
+1.  brand entity management  
 
 ##action
 
