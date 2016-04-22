@@ -2168,7 +2168,6 @@ define('subapp/note/usernote',[
             if (this.isPoking === true) {
                 return;
             }
-
             console.log(event.currentTarget);
             var $form = $(event.currentTarget);
             var url = $form.attr('action');
@@ -2188,8 +2187,7 @@ define('subapp/note/usernote',[
                         })
                      ).then(
                          this.postNoteSuccess.bind(this),
-                         this.postNoteFail.bind(this),
-                         console.info('loadhere: then')
+                         this.postNoteFail.bind(this)
                      );
              }
              event.preventDefault();
@@ -2198,7 +2196,7 @@ define('subapp/note/usernote',[
         },
 
         postNoteSuccess: function(result){
-            this.isPoking = false;
+
             var status = parseInt(result.status);
             if (status === 1){
                 var $html = $(result.data);
@@ -2209,6 +2207,7 @@ define('subapp/note/usernote',[
             }else{
                 this.postNoteFail(result);
             }
+            this.isPoking = false;
 
         },
         removePostNoteForm: function(){
