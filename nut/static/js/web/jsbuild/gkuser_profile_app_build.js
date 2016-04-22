@@ -1631,7 +1631,6 @@ require([
                 label: 'data-tag-title',
                 value: 'data-tag-id'
             }, {
-                //
                 selector: '#user-note-panel .note-entity-img-wrapper .img-box',
                 trigger: 'click',
                 category: 'user-note',
@@ -1648,6 +1647,39 @@ require([
             //    value: 'data-note-id',
             //    wrapper: '#user-note-panel'
             //}
+            ,{
+              selector: '#user-main-content .social-list .user-item .user-icon',
+                trigger: 'click',
+                category: 'user',
+                action: 'user-detail',
+                label: 'data-user-name',
+                value: 'data-user'
+            }
+            ,{
+              selector: '#user-main-content .social-list .user-item .user-info-wrapper .user-name a',
+                trigger: 'click',
+                category: 'user',
+                action: 'user-detail',
+                label: 'data-user-name',
+                value: 'data-user'
+            }
+            ,{
+              selector: '#user-main-content .social-list .user-item .user-info-wrapper .follow.newest-button-blue',
+                trigger: 'click',
+                category: 'user',
+                action: 'user-follow',
+                label: 'data-user-name',
+                value: 'data-user-id'
+            }
+             ,{
+              selector: '#user-main-content .social-list .user-item .user-info-wrapper .follow.new-btn-cancel',
+                trigger: 'click',
+                category: 'user',
+                action: 'user-unfollow',
+                label: 'data-user-name',
+                value: 'data-user-id'
+            }
+
         ];
 
         var tracker = new Tracker(tracker_list);
