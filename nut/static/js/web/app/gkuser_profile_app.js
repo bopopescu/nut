@@ -154,7 +154,7 @@ require([
             },{
               selector: '#user-like-panel .category-list-wrapper .category-list .category-filter-item a',
                 trigger: 'click',
-                category: 'user-like-category',
+                category: 'category',
                 action: 'category-detail',
                 label: 'data-category-title',
                 value: 'data-category',
@@ -168,6 +168,34 @@ require([
                 value: 'data-entity',
                 wrapper: '#user-main-content'
             }
+            // strange bad
+            //,{
+            //    selector:'.panel-content-wrapper .note-cell .note-wrapper .note-entity-img-wrapper .img-box',
+            //    trigger:'click',
+            //    category:'note-entity',
+            //    action:'entity-detail',
+            //    label:'data-entity-title',
+            //    value:'data-entity',
+            //    wrapper:'#user-note-panel'
+            //}
+            //,{
+            //  selector: '#user-article-panel .panel-content-wrapper .article-cell .article-cover',
+            //    trigger: 'click',
+            //    category: 'article',
+            //    action: 'article-detail',
+            //    label: 'data-article-title',
+            //    value: 'data-article',
+            //    wrapper: '#user-main-content'
+            //}
+            //,{
+            //  selector: '#user-article-panel .panel-content-wrapper .article-cell .article-title-link',
+            //    trigger: 'click',
+            //    category: 'article',
+            //    action: 'article-detail',
+            //    label: 'data-article-title',
+            //    value: 'data-article',
+            //    wrapper: '#user-main-content'
+            //}
 
         ];
 

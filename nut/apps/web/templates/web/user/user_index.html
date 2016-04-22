@@ -90,7 +90,7 @@
                                            </div>
                                        </div>
                                        <div class="note-entity-img-wrapper">
-                                           <div class="img-box">
+                                           <div class="img-box" data-entity="{{ noteObj.entity.id }}" data-entity-title="{{ noteObj.entity.title }}">
                                                <a href="{{ noteObj.entity.absolute_url }}">
                                                    <img class="img-responsive" src="{{ noteObj.entity.chief_image|resize:'128'}}" />
                                                </a>
