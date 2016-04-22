@@ -1145,7 +1145,7 @@ class Entity_Like(models.Model):
 
 
 class Entity_Brand(BaseModel):
-    entity = models.OneToOneField(Entity, related_name='brand_link')
+    entity = models.ForeignKey(Entity, related_name='brand_link')
     brand = models.ForeignKey(Brand, related_name='entities', null=True)
     brand_order = models.IntegerField(default=9999)
     # class Meta:
