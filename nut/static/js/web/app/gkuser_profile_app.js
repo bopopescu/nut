@@ -151,6 +151,22 @@ require([
                 action: 'user-unfollow',
                 label: 'data-user-name',
                 value: 'data-user-id'
+            },{
+              selector: '#user-like-panel .category-list-wrapper .category-list .category-filter-item a',
+                trigger: 'click',
+                category: 'user-like-category',
+                action: 'category-detail',
+                label: 'data-category-title',
+                value: 'data-category',
+                wrapper: '#user-main-content'
+            },{
+              selector: '#user-like-panel .panel-content-wrapper .entity-cell .img-box a',
+                trigger: 'click',
+                category: 'entity',
+                action: 'entity-detail',
+                label: 'data-entity-title',
+                value: 'data-entity',
+                wrapper: '#user-main-content'
             }
 
         ];
