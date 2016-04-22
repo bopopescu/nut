@@ -214,7 +214,24 @@ require([
                 value: 'data-user',
                 wrapper: '#user-main-content'
             }
-
+            ,{
+              selector: '#detail_content_right .user-dig-article-list .tag-list li a',
+                trigger: 'click',
+                category: 'article',
+                action: 'article-detail',
+                label: 'data-article-title',
+                value: 'data-article',
+                wrapper: '#user-main-content'
+            }
+            ,{
+              selector: '#detail_content_right .user-tag-list .tag-list li a',
+                trigger: 'click',
+                category: 'tag',
+                action: 'tag-detail',
+                label: 'data-tag-name',
+                value: 'data-tag',
+                wrapper: '#user-main-content'
+            }
         ];
 
         var tracker = new Tracker(tracker_list);
