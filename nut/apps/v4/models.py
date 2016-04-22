@@ -312,7 +312,9 @@ class APIArticle(Article):
     @property
     def digest(self):
         strip_content = h_parser.unescape(strip_tags(self.content))
-        if len(strip_content) > 50 :
+        strip_content = strip_content.replace('\n', ' ')
+
+        if len(strip_content) > 50:
             return strip_content[:50]
         else:
             return strip_content
