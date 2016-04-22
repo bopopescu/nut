@@ -1653,25 +1653,99 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 
     return GoTop;
 });
+define('subapp/tracker',['libs/Class'], function (Class) {
+    var Tracker = Class.extend({
+        init: function (tracker_list) {
+            tracker_list.map(function(ele){
+                  var selector = ele.selector;
+                  var trigger = ele.trigger;
+
+                  var reporter = (function(ele){
+
+                      return function(event){
+                                  var target = event.currentTarget;
+                                  var category = ele.category;
+                                  var action = ele.action;
+                                  var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
+                                  var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
+                                   //闭包
+                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
+                      }
+
+
+                  })(ele);
+
+                  if (ele.wrapper) {
+                      var wrapper = ele.wrapper;
+                      $(wrapper).delegate(selector, trigger, reporter);
+                  } else {
+                      $(selector).on(trigger, reporter);
+                  }
+
+
+
+            });
+        }
+    });
+    return Tracker;
+});
 require(
     [
         'jquery',
         'subapp/load_tag_entity',
         'subapp/entitylike',
         'subapp/topmenu',
-        'subapp/gotop'
+        'subapp/gotop',
+        'subapp/tracker'
     ],
     function (
         jQuery,
         LoadTagEntity,
         AppEntityLike,
         Menu,
-        GoTop
+        GoTop,
+        Tracker
     ){
         var app_load_tag_eneity = new LoadTagEntity();
         var app_like = new AppEntityLike();
         var menu = new Menu();
         var goto = new GoTop();
+        var tracker_list = [
+            {
+                selector: '.search-entity-item .thumbnail .img-box a',
+                trigger: 'click',
+                category: 'entity',
+                action: 'entity-detail',
+                label: 'data-entity-title',
+                value: 'data-entity',
+                wrapper: '#tag-entity-list'
+            },{
+                selector: '.search-entity-item .thumbnail .caption .title a',
+                trigger: 'click',
+                category: 'entity',
+                action: 'entity-detail',
+                label: 'data-entity-title',
+                value: 'data-entity',
+                wrapper: '#tag-entity-list'
+            },{
+                selector: '.search-entity-item .thumbnail .action .fa-heart-o',
+                trigger: 'click',
+                category: 'entity',
+                action: 'like',
+                label: 'data-entity-title',
+                value: 'data-entity',
+                wrapper: '#tag-entity-list'
+            },{
+                selector: '.search-entity-item .thumbnail .action .fa-heart',
+                trigger: 'click',
+                category: 'entity',
+                action: 'unlike',
+                label: 'data-entity-title',
+                value: 'data-entity',
+                wrapper: '#tag-entity-list'
+            }
+        ];
+        var tracker = new Tracker(tracker_list);
 
         console.log("Tag entity list init！");
 });
