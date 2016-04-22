@@ -34,7 +34,7 @@
         <div class="section-content">
             <ul class="tag-list">
                 {% for tag in tags %}
-                    <li><a href="{% url 'tag_entities_url' tag.hash %}">
+                    <li><a href="{% url 'tag_entities_url' tag.hash %}" data-tag="{{ tag.id }}" data-tag-name="{{ tag.name }}">
                         #{{ tag.name }}
                     </a></li>
                 {% endfor %}

@@ -1723,6 +1723,24 @@ require([
                 value: 'data-article',
                 wrapper: '#user-main-content'
             }
+            ,{
+              selector: '#detail_content_right .user-following .user-icon-list li a',
+                trigger: 'click',
+                category: 'user',
+                action: 'user-detail',
+                label: 'data-user-title',
+                value: 'data-user',
+                wrapper: '#user-main-content'
+            }
+            ,{
+              selector: '#detail_content_right .user-fans .user-icon-list li a',
+                trigger: 'click',
+                category: 'user',
+                action: 'user-detail',
+                label: 'data-user-title',
+                value: 'data-user',
+                wrapper: '#user-main-content'
+            }
 
         ];
 
