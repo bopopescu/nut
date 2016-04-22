@@ -62,7 +62,7 @@
                     <div class="banner-wrapper" id="index-banners">
                         {% for banner in banners %}
                             <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}">
-                                <a href="{{ banner.link }}" target="_blank">
+                                <a href="{{ banner.link }}" target="_blank" data-banner-title="{{ banner.nickname }}" data-banner="{{ banner.id }}">
                                     <div class="banner-image-wrapper" style="background-image: url({{ banner.image_url }})">
                                     </div>
                                     <div class="user-latest-article-intro-wrapper">
@@ -184,7 +184,7 @@
         <div class="row hot-section-wrapper" id="selection_article_list">
             {% for rec in recommends %}
                 <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 guoku-middle-col selection-article-item hot-section-item">
-                    <a href="{{ rec.link }}" target="_blank">
+                    <a href="{{ rec.link }}" target="_blank" data-rec-title="{{ rec.nickname }}" data-rec="{{ rec.id }}">
                         <div class="article-panel">
                             <div class="img-holder img-holder-control" style="background-image: url({{ rec.image_url }})">
                             </div>
@@ -235,7 +235,7 @@
                             {% if forloop.counter == 1 or forloop.counter == 9 or forloop.counter == 10  %}
 
                             {% else %}
-                                <div class="top-article-tag">
+                                <div class="top-article-tag" data-style-title="{{current_shop_style}}" data-style="">
                                     <a href="{{ base_url }}?{{ 'shop_type'|filter_builder:current_shop_type }}&{{ 'shop_style'|filter_builder:style.0 }}#sellers" data_filter="shop_style" data_value="{{ style.0 }}">
                                         <div class="tag-element {% if current_shop_style == style.0 %}tag-current{% endif %}">
                                             {{ style.1 }}
@@ -284,7 +284,7 @@
             {% for seller in sellers %}
                 <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 guoku-middle-col">
                     <div class="result-item-wrapper">
-                        <a href="{% url 'web_user_index' seller.pk %}" target="_blank">
+                        <a href="{% url 'web_user_index' seller.pk %}" target="_blank" data-seller-title="{{ seller.nickname }}" data-seller="{{ seller.id }}">
                             {{ seller.nickname }}
                         </a>
                     </div>
@@ -297,7 +297,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <a href="{% url 'year_store_2015' %}" class="consumption-report-item">
+                    <a href="{% url 'year_store_2015' %}" class="consumption-report-item" data-report="" data-report-title="consumption-report">
                         2015年度消费报告
                         <i class="fa fa-caret-right"></i>
                     </a>
@@ -309,7 +309,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <a href="{% url 'year_store_2015' %}" class="consumption-report-item">
+                    <a href="{% url 'year_store_2015' %}" class="consumption-report-item" data-report="" data-report-title="consumption-report">
                         2015年度消费报告
                         <i class="fa fa-caret-right"></i>
                     </a>
