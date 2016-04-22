@@ -9,7 +9,7 @@
         <div class="section-content">
             <ul class="following-list user-icon-list">
                 {% for f in followings %}
-                    <li><a href="{% url 'web_user_index' f.followee.id  %}"><img class="img-responsive" src="{{ f.followee.avatar_url|resize:'50'  }}"></a></li>
+                    <li><a href="{% url 'web_user_index' f.followee.id  %}" data-user="{{ f.followee.id }}" data-user-title="{{ f.followee.nickname }}"><img class="img-responsive" src="{{ f.followee.avatar_url|resize:'50'  }}"></a></li>
                 {% endfor %}
             </ul>
         </div>
@@ -21,7 +21,7 @@
         <div class="section-content">
             <ul class="fans-list user-icon-list">
                 {% for f in fans %}
-                    <li><a href="{% url 'web_user_index' f.follower.id %}"><img class="img-responsive" src="{{ f.follower.avatar_url|resize:'50'  }}"></a></li>
+                    <li><a href="{% url 'web_user_index' f.follower.id %}" data-user="{{ f.followee.id }}" data-user-title="{{ f.followee.nickname }}"><img class="img-responsive" src="{{ f.follower.avatar_url|resize:'50'  }}"></a></li>
                 {% endfor %}
             </ul>
         </div>

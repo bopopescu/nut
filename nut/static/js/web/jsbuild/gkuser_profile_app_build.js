@@ -1705,24 +1705,24 @@ require([
             //    value:'data-entity',
             //    wrapper:'#user-note-panel'
             //}
-            //,{
-            //  selector: '#user-article-panel .panel-content-wrapper .article-cell .article-cover',
-            //    trigger: 'click',
-            //    category: 'article',
-            //    action: 'article-detail',
-            //    label: 'data-article-title',
-            //    value: 'data-article',
-            //    wrapper: '#user-main-content'
-            //}
-            //,{
-            //  selector: '#user-article-panel .panel-content-wrapper .article-cell .article-title-link',
-            //    trigger: 'click',
-            //    category: 'article',
-            //    action: 'article-detail',
-            //    label: 'data-article-title',
-            //    value: 'data-article',
-            //    wrapper: '#user-main-content'
-            //}
+            ,{
+              selector: '#user-article-panel .panel-content-wrapper .article-cell .article-cover',
+                trigger: 'click',
+                category: 'article',
+                action: 'article-detail',
+                label: 'data-article-title',
+                value: 'data-article',
+                wrapper: '#user-main-content'
+            }
+            ,{
+              selector: '#user-article-panel .panel-content-wrapper .article-cell .article-title-link',
+                trigger: 'click',
+                category: 'article',
+                action: 'article-detail',
+                label: 'data-article-title',
+                value: 'data-article',
+                wrapper: '#user-main-content'
+            }
 
         ];
 
