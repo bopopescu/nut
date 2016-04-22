@@ -103,7 +103,21 @@ require([
                 action: 'user-tag-detail',
                 label: 'data-tag-title',
                 value: 'data-tag-id'
-            }, {
+            }
+             // strange bad
+
+            //,{
+            //    selector:'.panel-content-wrapper .note-cell .note-wrapper .note-entity-img-wrapper .img-box',
+            //    trigger:'click',
+            //    category:'note-entity',
+            //    action:'entity-detail',
+            //    label:'data-entity-title',
+            //    value:'data-entity',
+            //    wrapper:'#user-note-panel'
+            //}
+
+            //ths below codes have confclits with the above
+            , {
                 selector: '#user-note-panel .note-entity-img-wrapper .img-box',
                 trigger: 'click',
                 category: 'user-note',
@@ -159,7 +173,9 @@ require([
                 label: 'data-category-title',
                 value: 'data-category',
                 wrapper: '#user-main-content'
-            },{
+            }
+
+            ,{
               selector: '#user-like-panel .panel-content-wrapper .entity-cell .img-box a',
                 trigger: 'click',
                 category: 'entity',
@@ -168,16 +184,7 @@ require([
                 value: 'data-entity',
                 wrapper: '#user-main-content'
             }
-            // strange bad
-            //,{
-            //    selector:'.panel-content-wrapper .note-cell .note-wrapper .note-entity-img-wrapper .img-box',
-            //    trigger:'click',
-            //    category:'note-entity',
-            //    action:'entity-detail',
-            //    label:'data-entity-title',
-            //    value:'data-entity',
-            //    wrapper:'#user-note-panel'
-            //}
+
             ,{
               selector: '#user-article-panel .panel-content-wrapper .article-cell .article-cover',
                 trigger: 'click',
