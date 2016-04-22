@@ -29,9 +29,14 @@ define([
             this.initNoteUpdateDisplay();
             this.initNoteUpdateSubmit();
             this.displayTag();
+            this.isPoking = false;
         },
 
         submitNote: function(event){
+            if (this.isPoking === true) {
+                return;
+            }
+
             console.log(event.currentTarget);
             var $form = $(event.currentTarget);
             var url = $form.attr('action');
@@ -40,7 +45,9 @@ define([
              if ($.trim($textarea[0].value).length === 0) {
                     $textarea[0].value = '';
                     $textarea.focus();
-                }else{
+
+             } else {
+                     this.isPoking = true;
                      $.when(
                          $.ajax({
                          method: 'POST',
@@ -49,14 +56,17 @@ define([
                         })
                      ).then(
                          this.postNoteSuccess.bind(this),
-                         this.postNoteFail.bind(this)
+                         this.postNoteFail.bind(this),
+                         console.info('loadhere: then')
                      );
-                }
-            event.preventDefault();
-            return false;
+             }
+             event.preventDefault();
+             return false;
+
         },
 
         postNoteSuccess: function(result){
+            this.isPoking = false;
             var status = parseInt(result.status);
             if (status === 1){
                 var $html = $(result.data);
@@ -67,6 +77,7 @@ define([
             }else{
                 this.postNoteFail(result);
             }
+
         },
         removePostNoteForm: function(){
             $('.post-note').parent().remove();
@@ -105,7 +116,7 @@ define([
                         method: 'POST',
                         url : $form.attr('action'),
                         data: $form.serialize(),
-                        dataType: 'json',
+                        dataType: 'json'
                      })
                  ).then(
                      this._noteUpdateSuccess.bind(this),
@@ -118,7 +129,7 @@ define([
         },
 
         _noteUpdateSuccess: function(data){
-             var $noteEle = $noteEle || this.getCurrentUserNoteElement();
+            var $noteEle = $noteEle || this.getCurrentUserNoteElement();
             var $note_content = $noteEle.find(".comment_word.content");
             var $note_update_form = $noteEle.find(".update-note-form");
              if (parseInt(data.result) === 1) {
@@ -129,7 +140,7 @@ define([
              this.tagManager.displayTag($noteEle);
         },
         _noteUpdateFail:function(){
-
+            console.log('isthere?');
         },
         initNoteUpdateDisplay: function($noteEle){
 
@@ -170,7 +181,9 @@ define([
         },
 
         postNoteFail: function(data){
+            this.isPoking = false;
             console.log('post note fail!');
+
         },
         initUserNotePost: function(){
             var $note = $(".post-note");

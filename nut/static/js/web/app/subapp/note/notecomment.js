@@ -42,7 +42,7 @@ define(['libs/Class', 'jquery', 'subapp/account'],
             var $html = $(result.data);
             this.handleCommentAction($html);
 
-            console.log(note_id);
+            console.log(note_id, 'note_id');
             var $note = $('.note-content[data-note-id="'+ note_id + '"]');
             if($note[0]){
                 $html.appendTo($note);

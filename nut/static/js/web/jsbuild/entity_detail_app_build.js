@@ -1960,7 +1960,7 @@ define('subapp/note/notecomment',['libs/Class', 'jquery', 'subapp/account'],
             var $html = $(result.data);
             this.handleCommentAction($html);
 
-            console.log(note_id);
+            console.log(note_id, 'note_id');
             var $note = $('.note-content[data-note-id="'+ note_id + '"]');
             if($note[0]){
                 $html.appendTo($note);
@@ -2161,9 +2161,14 @@ define('subapp/note/usernote',[
             this.initNoteUpdateDisplay();
             this.initNoteUpdateSubmit();
             this.displayTag();
+            this.isPoking = false;
         },
 
         submitNote: function(event){
+            if (this.isPoking === true) {
+                return;
+            }
+
             console.log(event.currentTarget);
             var $form = $(event.currentTarget);
             var url = $form.attr('action');
@@ -2172,7 +2177,9 @@ define('subapp/note/usernote',[
              if ($.trim($textarea[0].value).length === 0) {
                     $textarea[0].value = '';
                     $textarea.focus();
-                }else{
+
+             } else {
+                     this.isPoking = true;
                      $.when(
                          $.ajax({
                          method: 'POST',
@@ -2181,14 +2188,17 @@ define('subapp/note/usernote',[
                         })
                      ).then(
                          this.postNoteSuccess.bind(this),
-                         this.postNoteFail.bind(this)
+                         this.postNoteFail.bind(this),
+                         console.info('loadhere: then')
                      );
-                }
-            event.preventDefault();
-            return false;
+             }
+             event.preventDefault();
+             return false;
+
         },
 
         postNoteSuccess: function(result){
+            this.isPoking = false;
             var status = parseInt(result.status);
             if (status === 1){
                 var $html = $(result.data);
@@ -2199,6 +2209,7 @@ define('subapp/note/usernote',[
             }else{
                 this.postNoteFail(result);
             }
+
         },
         removePostNoteForm: function(){
             $('.post-note').parent().remove();
@@ -2237,7 +2248,7 @@ define('subapp/note/usernote',[
                         method: 'POST',
                         url : $form.attr('action'),
                         data: $form.serialize(),
-                        dataType: 'json',
+                        dataType: 'json'
                      })
                  ).then(
                      this._noteUpdateSuccess.bind(this),
@@ -2250,7 +2261,7 @@ define('subapp/note/usernote',[
         },
 
         _noteUpdateSuccess: function(data){
-             var $noteEle = $noteEle || this.getCurrentUserNoteElement();
+            var $noteEle = $noteEle || this.getCurrentUserNoteElement();
             var $note_content = $noteEle.find(".comment_word.content");
             var $note_update_form = $noteEle.find(".update-note-form");
              if (parseInt(data.result) === 1) {
@@ -2261,7 +2272,7 @@ define('subapp/note/usernote',[
              this.tagManager.displayTag($noteEle);
         },
         _noteUpdateFail:function(){
-
+            console.log('isthere?');
         },
         initNoteUpdateDisplay: function($noteEle){
 
@@ -2302,7 +2313,9 @@ define('subapp/note/usernote',[
         },
 
         postNoteFail: function(data){
+            this.isPoking = false;
             console.log('post note fail!');
+
         },
         initUserNotePost: function(){
             var $note = $(".post-note");
