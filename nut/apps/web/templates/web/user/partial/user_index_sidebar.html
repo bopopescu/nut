@@ -9,7 +9,7 @@
         <div class="section-content">
             <ul class="following-list user-icon-list">
                 {% for f in followings %}
-                    <li><a href="{% url 'web_user_index' f.followee.id  %}"><img class="img-responsive" src="{{ f.followee.avatar_url|resize:'50'  }}"></a></li>
+                    <li><a href="{% url 'web_user_index' f.followee.id  %}" data-user="{{ f.followee.id }}" data-user-title="{{ f.followee.nickname }}"><img class="img-responsive" src="{{ f.followee.avatar_url|resize:'50'  }}"></a></li>
                 {% endfor %}
             </ul>
         </div>
@@ -21,7 +21,7 @@
         <div class="section-content">
             <ul class="fans-list user-icon-list">
                 {% for f in fans %}
-                    <li><a href="{% url 'web_user_index' f.follower.id %}"><img class="img-responsive" src="{{ f.follower.avatar_url|resize:'50'  }}"></a></li>
+                    <li><a href="{% url 'web_user_index' f.follower.id %}" data-user="{{ f.followee.id }}" data-user-title="{{ f.followee.nickname }}"><img class="img-responsive" src="{{ f.follower.avatar_url|resize:'50'  }}"></a></li>
                 {% endfor %}
             </ul>
         </div>
@@ -34,7 +34,7 @@
         <div class="section-content">
             <ul class="tag-list">
                 {% for tag in tags %}
-                    <li><a href="{% url 'tag_entities_url' tag.hash %}">
+                    <li><a href="{% url 'tag_entities_url' tag.hash %}" data-tag="{{ tag.id }}" data-tag-name="{{ tag.name }}">
                         #{{ tag.name }}
                     </a></li>
                 {% endfor %}
@@ -44,13 +44,13 @@
     {% endif %}
 {#like articles list#}
     {% if current_user_like_articles %}
-    <li class="section user-tag-list">
+    <li class="section user-tag-list user-dig-article-list">
         <div class="section-title">赞过的图文<span class="more-link"><a href="{% url 'web_user_article_like' current_user.pk %}">{% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></span></div>
         <div class="section-content">
             {% for article in current_user_like_articles %}
             <ul class="tag-list">
                 <li>
-                    <a href="{% url 'web_article_page' article.pk %}">
+                    <a href="{% url 'web_article_page' article.pk %}" data-article="{{ article.id }}" data-article-titile="{{ article.title|truncatechars:17 }}">
                         {{ article.title|truncatechars:17 }}
                     </a>
                 </li>

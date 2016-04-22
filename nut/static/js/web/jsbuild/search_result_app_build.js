@@ -1559,7 +1559,7 @@ require([
                 category: 'search_result',
                 action: 'entity-img-link',
                 label: 'data-entity-title',
-                value: 'data-entity',
+                value: 'data-entity-id',
                 wrapper: '#selection_article_list'
             },
             {
@@ -1568,7 +1568,7 @@ require([
                 category: 'search_result',
                 action: 'entity-name-link',
                 label: 'data-entity-title',
-                value: 'data-entity',
+                value: 'data-entity-id',
                 wrapper: '#selection_article_list'
             }
             ,
