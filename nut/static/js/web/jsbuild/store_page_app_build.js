@@ -4183,11 +4183,11 @@ require([
                 label: 'data-rec-title',
                 value: 'data-rec'
             }, {
-                selector: '#top_article_tags_container .top-article-tag a',
+                selector: '#top_article_tags_container .top-article-tag',
                 trigger: 'click',
                 category: 'category',
                 action: 'category_detail',
-                label: 'data-stye-title',
+                label: 'data-style-title',
                 value: 'data-style'
             }, {
                 selector: '.select-result-wrapper .result-item-wrapper a',
