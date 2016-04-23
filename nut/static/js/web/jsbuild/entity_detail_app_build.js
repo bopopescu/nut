@@ -2165,9 +2165,7 @@ define('subapp/note/usernote',[
         },
 
         submitNote: function(event){
-            if (this.isPoking === true) {
-                return;
-            }
+
             console.log(event.currentTarget);
             var $form = $(event.currentTarget);
             var url = $form.attr('action');
@@ -2178,6 +2176,9 @@ define('subapp/note/usernote',[
                     $textarea.focus();
 
              } else {
+                    if (this.isPoking === true) {
+                        return false;
+                    }
                      this.isPoking = true;
                      $.when(
                          $.ajax({
