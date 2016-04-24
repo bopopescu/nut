@@ -8,13 +8,19 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_anchen'
 # os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
 
 
-#only need run once on identity_code algorithm change!!!!
+
+# this script is for update identity_code
+
+# it can be run may times
+
 
 
 from apps.core.models import Article
 
 articles  = Article.objects.all()
 for article in articles:
+    if article.identity_code:
+        continue
     article.identity_code = article.caculate_identity_code()
     article.save(skip_updatetime=True)
 
