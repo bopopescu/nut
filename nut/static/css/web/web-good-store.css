@@ -1111,6 +1111,9 @@ p.boolean-false {
   overflow: hidden;
   float: left;
 }
+.store-body #recommend-entity-container #recommend-entity-wrapper li.recommend-entity-item .section-panel {
+  text-align: center;
+}
 .store-body #recommend-entity-container #recommend-entity-wrapper li.recommend-entity-item .section-panel .entity-pic {
   width: 100%;
   height: 0;
@@ -1118,6 +1121,11 @@ p.boolean-false {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+.store-body #recommend-entity-container #recommend-entity-wrapper li.recommend-entity-item .section-panel .seller-name {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #424242;
 }
 .store-body #recommend-entity-container #recommend-entity-wrapper .slick-prev:before,
 .store-body #recommend-entity-container #recommend-entity-wrapper .slick-next:before {
