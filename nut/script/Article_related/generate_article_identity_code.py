@@ -16,5 +16,6 @@ from apps.core.models import Article
 articles  = Article.objects.all()
 for article in articles:
     article.identity_code = article.caculate_identity_code()
+    print article.title
     article.save(skip_updatetime=True)
 
