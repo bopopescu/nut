@@ -59,7 +59,7 @@ class ActivityView(APIJsonView):
                     'type': 'user_follow',
                     'created_time': time.mktime(row.timestamp.timetuple()),
                     'content': {
-                        'user': row.actor.v3_toDict(visitor=self.user),
+                        'user': row.actor.v3_toDict(),
                         'target': row.target.v3_toDict(),
                     }
                 }
@@ -69,7 +69,7 @@ class ActivityView(APIJsonView):
                     'type': 'user_like',
                     'created_time': time.mktime(row.timestamp.timetuple()),
                     'content': {
-                        'liker': row.actor.v3_toDict(visitor=self.user),
+                        'liker': row.actor.v3_toDict(),
                         'entity': row.target.v3_toDict(),
                     }
                 }
@@ -80,7 +80,7 @@ class ActivityView(APIJsonView):
                     'type': 'article_dig',
                     'created_time': time.mktime(row.timestamp.timetuple()),
                     'content': {
-                        'digger': row.actor.v3_toDict(visitor=self.user),
+                        'digger': row.actor.v3_toDict(),
                         'article': row.target.v4_toDict(articles_list=da),
                     }
                 }
