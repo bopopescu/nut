@@ -229,16 +229,23 @@
   }
   //好店页推荐商品,横向滚动icon
   #recommend-entity-container #recommend-entity-wrapper{
+
     .slick-prev:before,.slick-next:before{
     font-family: FontAwesome;
       color:@common-text-color;
       font-size:@primary-size;
   }
-  .slick-prev:before{
+  .slick-prev{
+    left:0;
+    &:before{
     content:"\f053";
+    }
   }
-  .slick-next:before{
+  .slick-next {
+    right:0;
+    &:before{
     content:"\f054";
+    }
   }
   }
 
