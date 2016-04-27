@@ -1105,6 +1105,20 @@ p.boolean-false {
 .store-body #recommend_article_list {
   margin-bottom: 25px;
 }
+.store-body .middle-banner-wrapper .middle-banner-item a .section-panel {
+  -webkit-box-shadow: 0px 0px 2px #ddd;
+  -moz-box-shadow: 0px 0px 2px #ddd;
+  box-shadow: 0px 0px 2px #ddd;
+  width: 100%;
+}
+.store-body .middle-banner-wrapper .middle-banner-item a .section-panel .bg-pic {
+  width: 100%;
+  height: 0;
+  padding-bottom: 33%;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 .store-body #recommend-entity-container {
   overflow: hidden;
 }
