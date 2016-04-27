@@ -1176,7 +1176,14 @@ p.boolean-false {
 .store-body #recommend-entity-container #recommend-entity-wrapper .slick-next:before {
   content: "\f054";
 }
+.store-body #selection_article_list.hot-section-wrapper .selection-article-item .article-panel {
+  margin-bottom: 0;
+}
+.store-body .hot-section-wrapper {
+  margin-bottom: 23px;
+}
 .store-body .hot-section-wrapper .hot-section-item .article-panel {
+  margin-bottom: 0;
   position: relative;
 }
 .store-body .hot-section-wrapper .hot-section-item .article-panel:hover .bg-layer {
