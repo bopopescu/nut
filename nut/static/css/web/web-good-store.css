@@ -910,6 +910,9 @@ p.boolean-false {
   font-size: 16px;
   color: #9D9E9F;
 }
+.dark-section-wrapper {
+  margin-bottom: 10px;
+}
 .dark-section-wrapper .dark-section-item a {
   color: #ffffff;
 }
@@ -1104,6 +1107,9 @@ p.boolean-false {
 }
 .store-body #recommend_article_list {
   margin-bottom: 25px;
+}
+.store-body .middle-banner-wrapper {
+  margin-bottom: 23px;
 }
 .store-body .middle-banner-wrapper .middle-banner-item a .section-panel {
   -webkit-box-shadow: 0px 0px 2px #ddd;
