@@ -140,7 +140,8 @@
                     </div>
 
                     <div class="box-footer">
-                        {% include "management/entities/paginator_new.html" with page_obj=page_obj url=request.path %}
+{#                        {% include "management/entities/paginator_new.html" with page_obj=page_obj url=request.path %}#}
+                        {% include "management/paginator.html" with objects=page_obj url=request.path %}
                     </div>
                 </div>
             </div>

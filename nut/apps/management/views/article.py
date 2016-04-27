@@ -302,10 +302,19 @@ class AuthorArticleList(BaseManagementArticleListView):
     def get_context_data(self, *args, **kwargs):
         context = super(AuthorArticleList, self).get_context_data(*args, **kwargs)
         context['for_author'] = True
+        context['sort_by'] = self.get_sort_params()[0]
+        context['extra_query'] = 'sort_by='+context['sort_by']
         return context
 
 
 class ArticleList(BaseManagementArticleListView):
+    queryset = Article.objects.all()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ArticleList, self).get_context_data(*args, **kwargs)
+        context['sort_by'] = self.get_sort_params()[0]
+        context['extra_query'] = 'sort_by='+context['sort_by']
+        return context
 
     def sort_queryset(self, qs, sort_by, order):
         authorized_authors = GKUser.objects.authorized_author()
@@ -314,7 +323,7 @@ class ArticleList(BaseManagementArticleListView):
         elif sort_by == 'id':
             qs = qs.filter(publish=Article.published).exclude(creator__in=authorized_authors).order_by('-id')
         else:
-            pass
+            qs = qs.filter(publish=Article.published).exclude(creator__in=authorized_authors)
         return qs
 
 
