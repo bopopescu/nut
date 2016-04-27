@@ -9,12 +9,12 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 CELERY_ALWAYS_EAGER = False
 CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
 #
-# IMAGE_HOST = 'http://imgcdn.guoku.com/'
+IMAGE_HOST = 'http://imgcdn.guoku.com/'
 #
 
-LOCAL_IMG_DEBUG=True
-IMAGE_HOST = 'http://127.0.0.1:9766/'
-INTRANET_IMAGE_SERVER = 'http://images.hello.new/'
+# LOCAL_IMG_DEBUG=True
+# IMAGE_HOST = 'http://127.0.0.1:9766/'
+# INTRANET_IMAGE_SERVER = 'http://images.hello.new/'
 # MEDIA_ROOT='/media/upload/'
 # AVATAR_HOST = IMAGE_HOST
 
@@ -46,6 +46,7 @@ SESSION_CACHE_ALIAS = "default"
 # http://docs.celeryproject.org/en/2.5/getting-started/brokers/redis.html#broker-redis
 
 # CELERY #################################
+CELERY_ALWAYS_EAGER = True
 BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 #celery end  #############################
