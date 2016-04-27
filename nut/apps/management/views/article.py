@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.log import getLogger
 from django.utils.translation import gettext_lazy as _
+from django.db.models import Count
 
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.core.models import Article, GKUser , Category
@@ -287,10 +288,16 @@ class AuthorArticlePersonList(BaseManagementArticleListView):
 
 
 class AuthorArticleList(BaseManagementArticleListView):
-    def get_queryset(self):
+
+    def sort_queryset(self, qs, sort_by, order):
         authorized_authors = GKUser.objects.authorized_author()
-        return  Article.objects.filter(publish=Article.published, creator__in=authorized_authors)\
-                        .order_by('-updated_datetime')
+        if sort_by == 'created_datetime':
+            qs = qs.filter(publish=Article.published, creator__in=authorized_authors).order_by('-created_datetime')
+        elif sort_by == 'id':
+            qs = qs.filter(publish=Article.published, creator__in=authorized_authors).order_by('-id')
+        else:
+            pass
+        return qs
 
     def get_context_data(self, *args, **kwargs):
         context = super(AuthorArticleList, self).get_context_data(*args, **kwargs)
@@ -299,9 +306,17 @@ class AuthorArticleList(BaseManagementArticleListView):
 
 
 class ArticleList(BaseManagementArticleListView):
-    def get_queryset(self):
+
+    def sort_queryset(self, qs, sort_by, order):
         authorized_authors = GKUser.objects.authorized_author()
-        return Article.objects.filter(publish=Article.published).exclude(creator__in=authorized_authors)
+        if sort_by == 'created_datetime':
+            qs = qs.filter(publish=Article.published).exclude(creator__in=authorized_authors).order_by('-created_datetime')
+        elif sort_by == 'id':
+            qs = qs.filter(publish=Article.published).exclude(creator__in=authorized_authors).order_by('-id')
+        else:
+            pass
+        return qs
+
 
 
 class DraftArticleList(UserPassesTestMixin, SortMixin, ListView):
