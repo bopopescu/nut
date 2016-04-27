@@ -65,6 +65,9 @@
                             <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}">
                                 <a href="{{ banner.link }}" target="_blank">
                                     <div class="banner-image-wrapper" style="background-image: url({{ banner.image_url }})">
+                                        <div class="banner-image-cell-scrim">
+
+                                        </div>
                                     </div>
                                     <div class="user-latest-article-intro-wrapper">
                                         <div class="user-latest-article-title-wrapper">
@@ -79,13 +82,8 @@
                                     </div>
                                 </a>
                             </div>
-
-
                         {% endfor %}
                     </div>
-                    {#                    </a>#}
-
-
                 </div>
             </div>
 {#            <div id="latest-actions-sidebar" class="guoku-middle-col latest-actions-sidebar-wrapper col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">#}
