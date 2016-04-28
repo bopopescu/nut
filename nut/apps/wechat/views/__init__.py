@@ -94,6 +94,7 @@ class WeChatView(View):
                         'wechat/replymsg.xml',
                         {
                             'msg':msg,
+                            'content': _items,
                             'timestamp': int(_timestamp),
                         }
                     )
