@@ -1,4 +1,4 @@
-
+7. MNG - fix amazon book product can not get image bug -- along 
 6. WEB - discover page , category slider   -- 罗倩
 5. API - user dic  add nick field for shorten user nick name  -- 赵旭
 3. MNG  - mng article , sortable  , by id and publish time  -- 赵旭
