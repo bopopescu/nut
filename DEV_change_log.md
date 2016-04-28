@@ -1,4 +1,10 @@
 
+2. brand 
+1. move secret config into secret file  
+=======================
+# merged to master 2016 4-21
+=======================
+
 4. fix web group category page ajax refresh bug 
 3. fix api entity guess category id fail 
 2. add article mng edit author selection 
