@@ -1688,15 +1688,16 @@ define('subapp/load_category_entity',['jquery','libs/Class','libs/fastdom','suba
         var LoadCategoryEntity = LoadEntity.extend({
             init: function () {
                 this.$selection = $('#category-entity-list');
-                this.page = this.$selection.parent().find('.pager .next');
+                this.page = this.$selection.parent().find('.pager');
                 this.loading_icon = $('.loading-icon');
-                this.counter = 1;
-                this.page.hide();
-                this.read = null;
+                 this.counter = 1;
+                 this.page.hide();
+                 this.read = null;
                 this.write = null;
                 this.loading = false;
-                this.shouldLoad = true;
+                 this.shouldLoad = true;
                 this.setupLoadWatcher();
+
             }
         });
         return LoadCategoryEntity;
@@ -1780,7 +1781,7 @@ require([
         'subapp/entitylike',
         'subapp/topmenu',
         'subapp/load_category_entity',
-        'subapp/gotop',
+        'subapp/gotop'
     ],
     function (polyfill,
               jQuery,
