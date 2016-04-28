@@ -195,6 +195,8 @@ class Amazon(Spider):
                 images.append(res.replace('..', '.'))
             return images
 
+        return []
+
             # amazon jp
             # optimages = self.soup.select("#altImages .a-spacing-small ")
             # print optimages
