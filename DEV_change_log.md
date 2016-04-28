@@ -7,34 +7,7 @@
 
 
 #ACTION 
-
-    1. get secret_settings.py file
-        will sent via email 
-        
-    2. copy the file to {deploy dir}/settings/
-        
-        some thing like this
-        scp secret_settings jiaxin@114.113.154.48:/data/www/nut/settings/
-        
-    3. deploy code 
-    
-    4. reload server test  ()
-        1. db connection (test db / production db / slave master  )
-        2. webo login 
-        3. weixin login 
-        4. taobao login 
-        5. jpush functions 
-        
-    5. baichuan functions 
-    6. sendcloud functions 
-    
-    ** test db connection : 
-       sudo manage.py shell --settings='settings.production' 
-           from apps.core.models import Article 
-           aid = Article.objects.latest().id
-                
-       make sure the id is the newest artcle in target db 
-       
+none
     
     
     
