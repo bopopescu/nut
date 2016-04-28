@@ -3,6 +3,7 @@
 import time
 import requests
 import HTMLParser
+import hashlib
 
 from hashlib import md5
 from datetime import datetime
@@ -1391,6 +1392,14 @@ class Article(BaseModel):
 
     def get_dig_key(self):
         return 'article:dig:%d' % self.pk
+
+
+    def caculate_identity_code(self):
+        title = self.title
+        created_datetime = self.created_datetime
+        user_id = self.creator.id
+        title_hash =  hashlib.sha1(title.encode('utf-8')).hexdigest()
+        return '%s_%s_%s ' % (user_id,title_hash,created_datetime)
 
 
     @property
