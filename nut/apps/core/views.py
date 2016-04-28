@@ -27,7 +27,6 @@ class LoginRequiredMixin(object):
 class BaseListView(LoginRequiredMixin, TemplateResponseMixin, ContextMixin,
                    View):
     queryset = None
-
     def get_queryset(self):
         return self.queryset
 

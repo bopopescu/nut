@@ -46,6 +46,7 @@ SESSION_CACHE_ALIAS = "default"
 # http://docs.celeryproject.org/en/2.5/getting-started/brokers/redis.html#broker-redis
 
 # CELERY #################################
+CELERY_ALWAYS_EAGER = True
 BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 #celery end  #############################
@@ -75,13 +76,13 @@ CACHES = {
 def removeDebugToolBar(theList):
     return [x  for x in theList if x!='debug_toolbar']
 
-# INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
-#
-#
-# INSTALLED_APPS +=(
-#         'django.contrib.sessions',
-#         'django.contrib.admin'
-# )
+INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
+
+
+INSTALLED_APPS +=(
+        'django.contrib.sessions',
+        'django.contrib.admin'
+)
 
 #-------------------------debug end --------------------
 
@@ -94,6 +95,41 @@ LOCAL_TEST_DB = True
 Current_Dbhost = 'localhost'
 # Current_Dbhost = '10.0.1.110'
 # Current_Dbhost = '10.0.2.90'
+
+
+
+#
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'core',
+#         'USER': 'guoku',
+#         'PASSWORD': 'guoku!@#',
+#         'HOST': '10.0.2.90',
+#         'PORT': '',
+#         'OPTIONS': {
+#             # 'use_unicode':'utf-8',
+#             'charset': 'utf8mb4',
+#             'init_command':'SET storage_engine=INNODB',
+#         }
+#     },
+#
+#     'slave': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'core',
+#         'USER': 'guoku',
+#         'PASSWORD': 'guoku!@#',
+#         'HOST': '10.0.2.95',
+#         'PORT': '',
+#         'OPTIONS': {
+#             # 'use_unicode':'utf-8',
+#             'charset': 'utf8mb4',
+#             'init_command':'SET storage_engine=INNODB',
+#         }
+#     },
+# }
+
 
 DATABASES = {
     'default': {
@@ -121,6 +157,7 @@ DATABASES = {
         }
     },
 }
+
 
 # need this for popular category like back trace time
 #  the test server will have very little entity like data
