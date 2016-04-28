@@ -1,5 +1,5 @@
-
-2. brand 
+3. 
+2. brand mng update 
 1. move secret config into secret file  
 =======================
 # merged to master 2016 4-21
