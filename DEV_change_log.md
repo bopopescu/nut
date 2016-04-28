@@ -1,6 +1,34 @@
-3. 
+5. 
+4. discover_article_digest, 推荐文章 ADD DIGEST FIELD   -- 赵旭 
+3. mng article , sortable  , by id and publish time  -- 赵旭
 2. brand mng update 
 1. move secret config into secret file  
+
+#ACTION 
+    1. get secret_setting.py file 
+    2. copy the file to {deploy dir}/settings/
+    3. deploy code 
+    4. reload server test  ()
+        1. db connection (test db / production db / slave master  )
+        2. webo login 
+        3. weixin login 
+        4. taobao login 
+        5. jpush functions 
+        
+    5. baichuan functions 
+    6. sendcloud functions 
+    
+    ** test db connection : 
+       manage.py shell 
+           from apps.core.models import Article 
+                id = Article.objects.latest('id')
+                
+       make sure the id is the newest artcle in target db 
+       
+    
+    
+    
+    
 =======================
 # merged to master 2016 4-21
 =======================
