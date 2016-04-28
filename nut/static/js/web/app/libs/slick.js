@@ -2599,8 +2599,8 @@
         }).find('a, input, button, select').attr({
             'tabindex': '0'
         });
-
-        (_isSlideOnFocus) &&  _.$slideTrack.find('.slick-active').focus();
+         // comment it to clear the focus border style which cann't clear by css
+        //(_isSlideOnFocus) &&  _.$slideTrack.find('.slick-active').focus();
 
     };
 

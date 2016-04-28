@@ -103,6 +103,50 @@
   }
 
 }
+
+//发现页的推荐品类,横向滚动
+#category-container{
+  overflow: hidden;
+  #category-item-container{
+    //width:7400px;
+    //overflow:hidden;
+    //overflow-x: scroll;
+    //fix alignment bug
+    margin-left:-12px;
+    margin-right:-12px;
+
+    li.category-item{
+      overflow: hidden;
+      float:left;
+      //要在768以下设为130左右
+      //width:200px;
+      margin-left:9px;
+      margin-right:9px;
+      //.category-item-pic{
+      //  width:180px;
+      //  height:180px;
+      //}
+
+      .category-item-pic{
+        .square-scale-bg;
+      }
+    }
+  }
+}
+//发现页的推荐品类,横向滚动的icon
+#category-container #category-item-container{
+  .slick-prev:before,.slick-next:before{
+    font-family: "FontAwesome";
+  }
+  .slick-prev:before{
+    content:"\f053";
+  }
+  .slick-next:before{
+    content:"\f054";
+  }
+}
+
+
 /*发现页-推荐用户*/
 .user-icon-list.recommend-user-list{
   .clearfix;
@@ -173,7 +217,7 @@
   }
 }
 
-/* 分类页面 */
+/* 品类页面 */
 .category-detail-body{
   padding-top:51px;
 }
@@ -256,7 +300,9 @@
         position: absolute;
         top:50%;
         left:50%;
-        transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
         width:100%;
         color:#999;
         font-size:@mini-size;
