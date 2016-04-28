@@ -1,5 +1,5 @@
 {% extends 'management/management_base.html' %}
-{% load i18n %}
+{% load i18n static %}
 {% load guoku %}
 
 {% block content %}
@@ -18,7 +18,7 @@
             <div class="col-xs-12">
                 <div class="box box-info">
                     <div class="box-header">
-
+                            <button class="btn btn-primary pull-right" id="mng_brand_entity_btn">管理显示排序</button>
                     </div>
 
                     <div class="box-body">
@@ -41,7 +41,7 @@
                                     <th>{% trans 'price' %}</th>
                                     <th>{% trans 'image' %} <span class="info">点击图片看详情</span></th>
                                     <th>{% trans 'status' %} </th>
-
+                                    <th>{% trans '入选品牌商品' %} </th>
                                     <th>{% trans 'operation' %}</th>
 
 
@@ -79,6 +79,10 @@
                                         </td>
                                         <td class="product-status">
                                             {{ entity.object.get_status_display }}</td>
+
+                                        <td class="switch-holder">
+                                            <input type="checkbox" data-id="{{ entity.pk }}" class="js-switch"  {% if entity.object.brand_link %}checked{% endif %} />
+                                        </td>
                                         <td class="product-actions">
                                             <div class="btn-group">
                                                 <a class="btn btn-default" href="{% url 'management_entity_edit' entity.pk %}" target="_blank">{% trans 'edit' %}</a>
@@ -97,4 +101,51 @@
             </div>
         </div>
     </section>
+{% endblock %}
+
+
+{% block user_script %}
+    <style>
+        .brand_entity_wrapper:after{
+             content: " ";
+             display: block;
+             height: 0;
+             clear: both;
+        }
+        .brand_entity_wrapper ul{
+            list-style: none;
+        }
+        .brand_entity_wrapper li{
+            width: 100px;
+            height: 120px;
+            float: left;
+            margin: 5px 5px;
+            padding: 1px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+
+    </style>
+    <script type="text/html" id="mng_brand_entity_sort_item">
+         <div class="brand_entity_wrapper">
+             <ul id="entity_sort">
+                 <% for (i=0 ; i<entities.length ; i++){ %>
+                    <li class="" data-id="<%=entities[i].entity_id%>">
+                        <img src="<%=entities[i]['cover']%>" width="100px" height="100px">
+                        <div>
+                            <span><%=entities[i]['title']%></span>
+                        </div>
+                    </li>
+                 <% } %>
+             </ul>
+         </div>
+    </script>
+    <script language="javascript">
+         var brand_id  = {{ brand_id }};
+    </script>
+
+     <script src="{% static 'js/jquery-ui/jquery-ui.min.js' %}" type="application/javascript"></script>
+     <script src="{% static 'js/management/util.js' %}" type="application/javascript"></script>
+     <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
+     <script src="{% static 'js/management/brand/brand.js' %}" type="application/javascript"></script>
 {% endblock %}
