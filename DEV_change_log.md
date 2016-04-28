@@ -1,4 +1,5 @@
-5. 
+6. 
+5. user dic  add nick field for shorten user nick name  -- 赵旭
 4. discover_article_digest, 推荐文章 ADD DIGEST FIELD   -- 赵旭 
 3. mng article , sortable  , by id and publish time  -- 赵旭
 2. brand mng update 
