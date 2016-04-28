@@ -1,3 +1,4 @@
+
 6. WEB - discover page , category slider   -- 罗倩
 5. API - user dic  add nick field for shorten user nick name  -- 赵旭
 4. API - discover_article_digest, 推荐文章 ADD DIGEST FIELD   -- 赵旭 
@@ -7,9 +8,17 @@
 
 
 #ACTION 
-    1. get secret_setting.py file 
+
+    1. get secret_settings.py file
+        will sent via email 
+        
     2. copy the file to {deploy dir}/settings/
+        
+        some thing like this
+        scp secret_settings jiaxin@114.113.154.48:/data/www/nut/settings/
+        
     3. deploy code 
+    
     4. reload server test  ()
         1. db connection (test db / production db / slave master  )
         2. webo login 
@@ -21,9 +30,9 @@
     6. sendcloud functions 
     
     ** test db connection : 
-       manage.py shell 
+       sudo manage.py shell --settings='settings.production' 
            from apps.core.models import Article 
-                id = Article.objects.latest('id')
+           aid = Article.objects.latest().id
                 
        make sure the id is the newest artcle in target db 
        
