@@ -194,6 +194,7 @@ class Amazon(Spider):
                 res = "%s%s" % (array[0], array[-1])
                 images.append(res.replace('..', '.'))
             return images
+        # TODO : handle can not find image error
 
         return []
 
