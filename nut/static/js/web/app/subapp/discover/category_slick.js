@@ -12,7 +12,7 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                         arrows: true,
                         //on mobile,set slidesToshow and slidesToScroll like android
                         slidesToShow: 6,
-                        slidesToScroll:6,
+                        slidesToScroll:4,
                         autoplay:true,
                         dots:false,
 
