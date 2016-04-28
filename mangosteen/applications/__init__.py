@@ -6,11 +6,13 @@ from tbrecommend import handel
 import jieba.analyse
 from model.base import db
 from model import *
-import click
+# import click
 from flask_cli import FlaskCLI
 
-jieba.analyse.set_stop_words("stop_words.txt")
+# jieba.load_userdict("user_dict.txt")
+jieba.set_dictionary("dict.txt.small")
 jieba.analyse.set_idf_path("idf.txt.big")
+jieba.analyse.set_stop_words("stop_words.txt")
 
 app = Flask(__name__)
 
@@ -60,7 +62,8 @@ from textrank import get_textrank
 @app.route('/article/<int:article_id>', methods=['GET'])
 def article_textrank(article_id):
     title, content = get_textrank(article_id)
-
+    if title is None:
+        abort(404)
     return json_response(title=title, content = content)
     # return "ok"
 
