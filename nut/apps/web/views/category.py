@@ -84,7 +84,7 @@ class NewCategoryGroupListView(JSONResponseMixin,AjaxResponseMixin, ListView):
         if self.get_order_by() == 'olike':
             order_by_like = True
 
-        _entity_list = Entity.objects.sort_group(category_ids=list(sub_categories_ids),
+        _entity_list = Entity.objects.sort_group(gid ,category_ids=list(sub_categories_ids),
                                                  like=order_by_like,).filter(buy_links__status=2)
         return _entity_list
 
@@ -143,7 +143,7 @@ class NewCategoryGroupListView(JSONResponseMixin,AjaxResponseMixin, ListView):
         )
 
 
-
+#deprecated : ready to delete in next update
 class CategoryGroupListView(TemplateResponseMixin, ContextMixin, View):
     http_method_names = ['get']
     template_name = 'web/category/detail.html'
