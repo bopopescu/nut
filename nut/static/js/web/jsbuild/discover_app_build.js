@@ -3731,7 +3731,7 @@ define('subapp/topmenu',['bootstrap',
         }).find('a, input, button, select').attr({
             'tabindex': '0'
         });
-
+         // comment it to clear the focus border style which cann't clear by css
         //(_isSlideOnFocus) &&  _.$slideTrack.find('.slick-active').focus();
 
     };
