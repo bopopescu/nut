@@ -1,7 +1,6 @@
 
 6. WEB - discover page , category slider   -- 罗倩
 5. API - user dic  add nick field for shorten user nick name  -- 赵旭
-4. API - discover_article_digest, 推荐文章 ADD DIGEST FIELD   -- 赵旭 
 3. MNG  - mng article , sortable  , by id and publish time  -- 赵旭
 2. MNG  - brand mng update   - 安
 1. move secret config into secret file   - 安
