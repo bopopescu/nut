@@ -296,7 +296,7 @@ class AuthorArticleList(BaseManagementArticleListView):
         elif sort_by == 'id':
             qs = qs.filter(publish=Article.published, creator__in=authorized_authors).order_by('-id')
         else:
-            pass
+            qs = qs.filter(publish=Article.published, creator__in=authorized_authors)
         return qs
 
     def get_context_data(self, *args, **kwargs):
