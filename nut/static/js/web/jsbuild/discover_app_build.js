@@ -3788,7 +3788,7 @@ define('subapp/discover/category_slick',['jquery', 'libs/Class','libs/slick','fa
                         arrows: true,
                         //on mobile,set slidesToshow and slidesToScroll like android
                         slidesToShow: 6,
-                        slidesToScroll:6,
+                        slidesToScroll:4,
                         autoplay:true,
                         dots:false,
 
