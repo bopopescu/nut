@@ -939,7 +939,7 @@ p.boolean-false {
   width: 100%;
   height: 0;
   padding-bottom: 55%;
-  background-position: center center;
+  background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -947,7 +947,9 @@ p.boolean-false {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   text-align: center;
 }
 .dark-section-wrapper .dark-section-item a .section-panel .section-name p {
@@ -965,6 +967,22 @@ p.boolean-false {
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.18);
+}
+.normal-scale-bg {
+  width: 100%;
+  height: 0;
+  padding-bottom: 55%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.square-scale-bg {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
@@ -1041,6 +1059,37 @@ p.boolean-false {
 }
 #discover_container #discover_entity_list .section-title-wrapper {
   margin-top: -5px;
+}
+#category-container {
+  overflow: hidden;
+}
+#category-container #category-item-container {
+  margin-left: -12px;
+  margin-right: -12px;
+}
+#category-container #category-item-container li.category-item {
+  overflow: hidden;
+  float: left;
+  margin-left: 9px;
+  margin-right: 9px;
+}
+#category-container #category-item-container li.category-item .category-item-pic {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+#category-container #category-item-container .slick-prev:before,
+#category-container #category-item-container .slick-next:before {
+  font-family: "FontAwesome";
+}
+#category-container #category-item-container .slick-prev:before {
+  content: "\f053";
+}
+#category-container #category-item-container .slick-next:before {
+  content: "\f054";
 }
 /*发现页-推荐用户*/
 .user-icon-list.recommend-user-list:after {
@@ -1150,7 +1199,7 @@ p.boolean-false {
 .category > a > p:active {
   text-decoration: none;
 }
-/* 分类页面 */
+/* 品类页面 */
 .category-detail-body {
   padding-top: 51px;
 }
@@ -1227,7 +1276,9 @@ p.boolean-false {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   width: 100%;
   color: #999;
   font-size: 13px;

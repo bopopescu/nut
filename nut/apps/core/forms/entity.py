@@ -420,7 +420,7 @@ class CreateEntityForm(forms.Form):
         # else:
 
         self.initial = kwargs.get('initial')
-        img_count = len(self.initial['thumb_images'])
+        img_count = len(self.initial['thumb_images']) if self.initial['thumb_images'] else 0
 
         # log.info("id %s" % group_id)
 

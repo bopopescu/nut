@@ -69,12 +69,14 @@
             </div>
         {% endif %}
 
+        {% include "web/main/partial/paginator.html" with objects=entities url=request.path %}
+
         <div class="row hidden-xs">
             <div class="col-sm-offset-12">
                 <a class="btn-top" href="javascript:;"  title="回到顶部" target="_self"><i class="fa fa-angle-up fa-lg"></i></a>
             </div>
         </div>
-        {% include "web/main/partial/paginator.html" with objects=entities url=request.path %}
+
     </div>
 {% endblock %}
 {% block basic_script %}

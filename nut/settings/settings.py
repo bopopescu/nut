@@ -15,6 +15,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+from secret_settings import *
 from celery.schedules import crontab
 
 
@@ -25,8 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'zl4j09adh-*tv7-b5&(zu!nkudhry*yy1b9--$%)&yh^4caq_7'
-
+SECRET_KEY =  django_secret_key
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 TESTING = False
@@ -257,17 +257,6 @@ Avatar_Image_Path = 'avatar/'
 # CELERY_TASK_SERIALIZER = 'json'
 # CELERY_RESULT_SERIALIZER = 'json'
 
-CELERY_RESULT_BACKEND = "redis://10.0.2.125:6379/0"
-CELERY_IGNORE_RESULT = False
-CELERY_TIMEZONE = 'Asia/Shanghai'
-BROKER_TRANSPORT = "librabbitmq"
-BROKER_HOST = "10.0.2.125"
-BROKER_USER = "raspberry"
-BROKER_PASSWORD = "raspberry1@#"
-BROKER_VHOST = "raspberry"
-BROKER_POOL_LIMIT = 10
-CELERY_ACKS_LATE = True
-CELERYD_PREFETCH_MULTIPLIER = 1
 
 # Fetch articles.
 CELERY_DISABLE_RATE_LIMITS = False
@@ -298,42 +287,6 @@ CELERY_ROUTES = {
     'sogou.fetch_article_list': {'queue': 'sogou'},
 }
 
-
-# taobao
-APP_HOST = "http://www.guoku.com"
-TAOBAO_APP_KEY = '12313170'
-TAOBAO_APP_SECRET = '90797bd8d5859aac971f8cc9d4e51105'
-# TAOBAO_APP_KEY = '23145551'
-# TAOBAO_APP_SECRET = 'a6e96561f12f62515f7ed003b1652b94'
-TAOBAO_OAUTH_URL = 'https://oauth.taobao.com/authorize'
-TAOBAO_OAUTH_LOGOFF = 'https://oauth.taobao.com/logoff'
-TAOBAO_BACK_URL = APP_HOST + "/taobao/auth"
-TAOBAO_APP_INFO = {
-    "default_app_key" : "12313170",
-    "default_app_secret" : "90797bd8d5859aac971f8cc9d4e51105",
-    "web_app_key" : "21419640",
-    "web_app_secret" : "df91464ae934bacca326450f8ade67f7"
-}
-
-BAICHUAN_APP_KEY = '23093827'
-BAICHUAN_APP_SECRET = '5a9a26e067f33eea258510e3040caf17'
-
-
-# weibo
-SINA_APP_KEY = '2830558576'
-SINA_APP_SECRET = 'a4861c4ea9facd833eb5d828794a2fb2'
-SINA_BACK_URL = APP_HOST + '/sina/auth'
-# TAOBAO_BACK_URL = APP_HOST + "/taobao/auth"
-
-# wechat
-WECHAT_TOKEN = 'guokuinwechat'
-WECHAT_APP_ID = 'wx728e94cbff8094df'
-WECHAT_APP_SECRET = 'd841a90cf90d00f145ca22b82e12a500'
-
-
-# jpush
-JPUSH_KEY = 'f9e153a53791659b9541eb37'
-JPUSH_SECRET = 'a0529d3efa544d1da51405b7'
 
 
 # for django-simple-captcha

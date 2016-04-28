@@ -1,3 +1,47 @@
+7. MNG - fix amazon book product can not get image bug -- along 
+6. WEB - discover page , category slider   -- 罗倩
+5. API - user dic  add nick field for shorten user nick name  -- 赵旭
+3. MNG  - mng article , sortable  , by id and publish time  -- 赵旭
+2. MNG  - brand mng update   - 安
+1. move secret config into secret file   - 安
+
+
+#ACTION 
+
+    1. get secret_settings.py file
+        will sent via email 
+        
+    2. copy the file to {deploy dir}/settings/
+        
+        some thing like this
+        scp secret_settings jiaxin@114.113.154.48:/data/www/nut/settings/
+        
+    3. deploy code 
+    
+    4. reload server test  ()
+        1. db connection (test db / production db / slave master  )
+        2. webo login 
+        3. weixin login 
+        4. taobao login 
+        5. jpush functions 
+        
+    5. baichuan functions 
+    6. sendcloud functions 
+    
+    ** test db connection : 
+       sudo manage.py shell --settings='settings.production' 
+           from apps.core.models import Article 
+           aid = Article.objects.latest().id
+                
+       make sure the id is the newest artcle in target db 
+       
+    
+    
+    
+    
+=======================
+# merged to master 2016 4-21
+=======================
 
 4. fix web group category page ajax refresh bug 
 3. fix api entity guess category id fail 
@@ -16,7 +60,7 @@ CREATE TABLE `core_entity_brand` (
 ALTER TABLE `core_entity_brand` ADD CONSTRAINT `entity_id_refs_id_baee5e01` FOREIGN KEY (`entity_id`) REFERENCES `core_entity` (`id`);
 
 
-WHY SKIP the following: 
+IMPORTANT  !!  WHY SKIP the following: 
 
   when  syncdb 
   for  Entity_Brand model 
@@ -26,16 +70,21 @@ WHY SKIP the following:
                    
   done a lot test 
                               
-  even defined model like this  :
+  even defined model like this to avoid naming conflict   :
   
 class Dog(BaseModel):
     cat = models.ForeignKey(Brand, related_name='ant')
     miao = models.IntegerField()    
                            
   still can not add brand_id constraint,
-  the id column in core_brand table must has somting wrong 
+  the id column in core_brand table must has something wrong 
   
-  so I creat table by hand instead.                           
+  so , for last resort  create table by hand instead.
+ 
+  without the brand_id constraint , when add data to entity_brand 
+  , database will not check if the brand_id in core_brand table 
+  , these is not a problem for now .
+  
                              
   pls pay attention 
 

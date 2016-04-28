@@ -134,7 +134,11 @@ class Amazon(Spider):
 
     @property
     def url(self):
-        url = "http://%s%s" % (self.urlobj.hostname, self.urlobj.path)
+        try:
+            short_path = re.findall(r'(/(dp|gp)/\w{10})', self.urlobj.path)[0][0]
+            url = "http://%s%s" % (self.urlobj.hostname, short_path)
+        except:
+            url = "http://%s%s" % (self.urlobj.hostname, self.urlobj.path)
         if 'ref' in url:
             url = urljoin(url, ' ')
         url = url.rstrip()
@@ -159,6 +163,12 @@ class Amazon(Spider):
                     images = large_images
         else:
             images = self.get_medium_images()
+        if not images:
+            try:
+                images = self.soup.select("img#imgBlkFront")[0]['data-a-dynamic-image']
+                images = [re.findall(r'(http.+?\.jpg)', images)[0]]
+            except:
+                images = ['http://imgcdn.guoku.com/images/8c19d8cef88c36b0511c1b217512174d.jpeg']    # a default image for no picture
         return images
 
     def get_medium_images(self):
@@ -194,6 +204,9 @@ class Amazon(Spider):
                 res = "%s%s" % (array[0], array[-1])
                 images.append(res.replace('..', '.'))
             return images
+        # TODO : handle can not find image error
+
+        return []
 
             # amazon jp
             # optimages = self.soup.select("#altImages .a-spacing-small ")
