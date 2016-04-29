@@ -326,7 +326,7 @@ class UserDetailBase(UserPageMixin, ListView):
         abstract view for user views
     '''
     paginate_by = 30
-    paginator_class = AnPaginator
+    paginator_class = Jpaginator
     context_object_name = 'articles'
 
 
