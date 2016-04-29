@@ -1228,7 +1228,9 @@ p.boolean-false {
   clear: both;
 }
 .store-body .recommend-seller-wrapper .recommend-seller-item .seller-panel .seller-intro-wrapper .seller-logo-wrapper {
-  width: 30%;
+  width: 33%;
+  height: 0;
+  padding-bottom: 33%;
   float: left;
   margin-right: 10px;
 }
@@ -1262,6 +1264,12 @@ p.boolean-false {
 }
 .store-body .recommend-seller-wrapper .recommend-seller-item .seller-panel .seller-entity-wrapper img {
   border: 0;
+}
+.store-body .recommend-seller-wrapper .recommend-seller-item .seller-panel .user-action-wrapper .recommend-seller-follow {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  float: none;
 }
 .store-body .select-condition-wrapper .select-condition {
   padding: 0 10px;
