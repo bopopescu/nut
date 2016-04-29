@@ -1271,6 +1271,7 @@ p.boolean-false {
   border: 0;
 }
 .store-body .recommend-seller-wrapper .recommend-seller-item .seller-panel .user-action-wrapper .recommend-seller-follow {
+  padding: 0;
   width: 100%;
   height: 40px;
   line-height: 40px;
