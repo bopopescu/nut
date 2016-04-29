@@ -313,14 +313,14 @@
                 <p>推荐关注</p>
             </div>
         </div>
-        <div class="row hot-section-wrapper" id="selection_article_list">
-            {% for rec in recommends %}
-                <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 guoku-middle-col selection-article-item hot-section-item">
-                    <a href="{{ rec.link }}" target="_blank">
-                        <div class="article-panel">
-                            <div class="img-holder img-holder-control" style="background-image: url({{ rec.image_url }})">
-                            </div>
-                            <div class="bg-layer"></div>
+{#        <div class="row hot-section-wrapper" id="selection_article_list">#}
+{#            {% for rec in recommends %}#}
+{#                <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 guoku-middle-col selection-article-item hot-section-item">#}
+{#                    <a href="{{ rec.link }}" target="_blank">#}
+{#                        <div class="article-panel">#}
+{#                            <div class="img-holder img-holder-control" style="background-image: url({{ rec.image_url }})">#}
+{#                            </div>#}
+{#                            <div class="bg-layer"></div>#}
                             {# hidden temporarily #}
 {#                            <div class="new-user-action">#}
 {#                                {% if current_user.is_blocked %}#}
@@ -335,11 +335,36 @@
 {#                                    <a class="square-follow-btn" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i></a>#}
 {#                                {% endif %}#}
 {#                            </div>#}
-                        </div>
-                    </a>
-                </div>
-            {% endfor %}
-        </div>
+{#                        </div>#}
+{#                    </a>#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
+
+       <div class="row recommend-seller-wrapper">
+           <div class="col-xs-6 col-sm-3 guoku-middle-col recommend-seller-item">
+               <div class="row recommend-seller-intro">
+                   <div class="col-xs-4 col-sm-4 seller-logo">
+                       <img>
+                   </div>
+                   <div class="col-xs-8 col-sm-8 seller-info">
+                       <p>seller name</p>
+                       <span></span>
+                   </div>
+               </div>
+               <div class="row">
+                   <div class="col-xs-4">
+
+                   </div>
+               </div>
+               <div class="row">
+                   <div class="co-sm-12"></div>
+               </div>
+
+           </div>
+       </div>
+
+
         <div class="row section-title-wrapper">
             <a name="sellers" class="good-stores">
                 <div class="col-sm-12">
