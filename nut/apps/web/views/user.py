@@ -18,7 +18,7 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInte
 from apps.core.models import Entity, Entity_Like, \
     User_Follow,Article,User_Profile,Selection_Article
 
-from apps.core.extend.paginator import ExtentPaginator as Jpaginator
+from apps.core.extend.paginator import ExtentPaginator as Jpaginator , AnPaginator
 from apps.tag.models import Content_Tags
 # from apps.notifications import notify
 from django.views.generic import ListView, DetailView, FormView, View
@@ -326,7 +326,7 @@ class UserDetailBase(UserPageMixin, ListView):
         abstract view for user views
     '''
     paginate_by = 30
-    paginator_class = Jpaginator
+    paginator_class = AnPaginator
     context_object_name = 'articles'
 
 
@@ -358,7 +358,6 @@ class UserLikeView(UserDetailBase):
 
 
         if _category is None:
-
             _like_list = Entity_Like.objects.using('slave')\
                                             .filter(user=_user, entity__status__gte=Entity.freeze)\
                                             .values_list('entity_id', flat=True)
@@ -371,6 +370,7 @@ class UserLikeView(UserDetailBase):
                                             .values_list('entity_id',flat=True)
 
 
+        _like_list = list(_like_list)
         # _.likes.all()
         _entity_list = Entity.objects.using('slave').filter(id__in=_like_list)
 
