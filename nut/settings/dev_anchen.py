@@ -98,7 +98,7 @@ Current_Dbhost = 'localhost'
 
 
 
-#
+
 #
 # DATABASES = {
 #     'default': {
@@ -129,7 +129,7 @@ Current_Dbhost = 'localhost'
 #         }
 #     },
 # }
-
+#
 #
 DATABASES = {
     'default': {
