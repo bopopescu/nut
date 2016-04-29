@@ -9,7 +9,7 @@ production_master_database_host = '10.0.2.90'
 production_slave_database_name = 'core'
 production_slave_database_user = 'guoku'
 production_slave_database_pass = 'guoku!@#'
-production_slave_database_host = '10.0.2.95'
+production_slave_database_host = '10.0.2.90'
 
 test_master_database_name = 'core'
 test_master_database_user = 'guoku'
