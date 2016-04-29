@@ -56,14 +56,15 @@ def cal_entity_hash(hash_string):
             break
     return _hash
 
-
+from captcha.fields import CaptchaField
 class EntityURLFrom(forms.Form):
     cand_url = forms.URLField(
         label=_('links'),
         widget=forms.URLInput(attrs={'class': 'form-control', 'placeholder': _(
             'past the product link here')}),
-
     )
+
+    captcha = CaptchaField()
 
     def __init__(self, request, *args, **kwargs):
         self.request = request
