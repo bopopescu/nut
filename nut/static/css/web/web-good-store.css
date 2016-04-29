@@ -1221,6 +1221,9 @@ p.boolean-false {
 .store-body a.good-stores:hover {
   color: #424242;
 }
+.store-body .recommend-seller-wrapper .recommend-seller-item .seller-panel .seller-intro-wrapper {
+  position: relative;
+}
 .store-body .recommend-seller-wrapper .recommend-seller-item .seller-panel .seller-intro-wrapper:after {
   content: " ";
   display: block;
@@ -1232,13 +1235,15 @@ p.boolean-false {
   height: 0;
   padding-bottom: 33%;
   float: left;
-  margin-right: 10px;
 }
 .store-body .recommend-seller-wrapper .recommend-seller-item .seller-panel .seller-intro-wrapper .seller-logo-wrapper .seller-logo img {
   border-radius: 50%;
 }
 .store-body .recommend-seller-wrapper .recommend-seller-item .seller-panel .seller-intro-wrapper .seller-info {
-  float: left;
+  position: absolute;
+  top: 50%;
+  left: 37%;
+  transform: translateY(-50%);
 }
 .store-body .recommend-seller-wrapper .recommend-seller-item .seller-panel .seller-intro-wrapper .seller-info .seller-name {
   font-size: 24px;
