@@ -73,16 +73,16 @@ CACHES = {
 #
 
 # ----------------------- debug -----------------------
-def removeDebugToolBar(theList):
-    return [x  for x in theList if x!='debug_toolbar']
-
-INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
-
-
-INSTALLED_APPS +=(
-        'django.contrib.sessions',
-        'django.contrib.admin'
-)
+# def removeDebugToolBar(theList):
+#     return [x  for x in theList if x!='debug_toolbar']
+#
+# INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
+#
+#
+# INSTALLED_APPS +=(
+#         'django.contrib.sessions',
+#         'django.contrib.admin'
+# )
 
 #-------------------------debug end --------------------
 
