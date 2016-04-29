@@ -150,8 +150,8 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
     except Entity_Like.DoesNotExist:
         pass
 
-    # _guess_entities = Entity.objects.guess(category_id=_entity.category_id,
-    #                                        count=9, exclude_id=_entity.pk)
+    _guess_entities = Entity.objects.guess(category_id=_entity.category_id,
+                                           count=9, exclude_id=_entity.pk)
 
     context = {
         'entity': _entity,
@@ -160,7 +160,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
         'user_pokes': _user_pokes,
         'user_post_note': _user_post_note,
         'note_forms': _note_forms or NoteForm(),
-        'guess_entities': [],
+        'guess_entities': _guess_entities,
         # 'likers': _entity.likes.all()[:13],
         'is_entity_detail': True,
         'tags': tags,

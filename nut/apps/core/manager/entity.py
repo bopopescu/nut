@@ -137,6 +137,7 @@ class EntityManager(models.Manager):
         return self.get_query_set().sort_group(gid, category_ids, like)
 
     def guess(self, category_id=None, count=5, exclude_id=None):
+        return []
         size = count * 10
         if exclude_id:
             entity_list = self.new_or_selection(
