@@ -334,10 +334,17 @@
   .recommend-seller-wrapper{
     .recommend-seller-item .seller-panel{
       .seller-intro-wrapper{
+        .clearfix;
         .seller-logo-wrapper{
-
+          width:30%;
+          float:left;
+          margin-right:10px;
+          .seller-logo img{
+            border-radius: 50%;
+          }
         }
         .seller-info{
+          float:left;
           .seller-name{
             font-size:@big-title-size;
             font-weight: 600;
@@ -350,6 +357,17 @@
 
       }
       .seller-entity-wrapper{
+        margin:20px 0;
+        .clearfix;
+        .entity-item{
+          float:left;
+          padding:0 3px;
+          width:33%;
+
+        }
+        img{
+          border:0;
+        }
 
       }
       .user-action-wrapper{

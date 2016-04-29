@@ -742,6 +742,18 @@ p.boolean-false {
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
+.user-icon-medium img {
+  display: block;
+  margin: 0 auto ;
+  width: 72px;
+  height: 72px;
+  -webkit-border-radius: 36px;
+  -moz-border-radius: 36px;
+  border-radius: 36px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
 .user-nick-large {
   font-size: 32px;
   font-weight: 500;
