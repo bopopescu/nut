@@ -1217,6 +1217,14 @@ p.boolean-false {
 .store-body a.good-stores:hover {
   color: #424242;
 }
+.store-body .recommend-seller-wrapper .recommend-seller-item .seller-panel .seller-intro-wrapper .seller-info .seller-name {
+  font-size: 24px;
+  font-weight: 600;
+}
+.store-body .recommend-seller-wrapper .recommend-seller-item .seller-panel .seller-intro-wrapper .seller-info span {
+  font-size: 12px;
+  color: #757575;
+}
 .store-body .select-condition-wrapper .select-condition {
   padding: 0 10px;
   background-clip: content-box;
