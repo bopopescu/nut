@@ -47,6 +47,10 @@ class ExtentPaginator(Paginator):
 
 
 class AnPaginator(ExtentPaginator):
+    '''
+    DO NOT USE !!!
+    totally performance killer
+    '''
     def page(self, number):
         self.page_num = number
         return super(ExtentPaginator, self).page(number)
