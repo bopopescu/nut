@@ -98,7 +98,7 @@ Current_Dbhost = 'localhost'
 
 
 
-
+#
 #
 # DATABASES = {
 #     'default': {
@@ -129,8 +129,9 @@ Current_Dbhost = 'localhost'
 #         }
 #     },
 # }
-#
-#
+
+# DATABASES = TESTING_DATABASE
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
