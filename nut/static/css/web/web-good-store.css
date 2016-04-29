@@ -1223,6 +1223,7 @@ p.boolean-false {
 }
 .store-body .recommend-seller-wrapper .recommend-seller-item .seller-panel .seller-intro-wrapper {
   position: relative;
+  overflow: hidden;
 }
 .store-body .recommend-seller-wrapper .recommend-seller-item .seller-panel .seller-intro-wrapper:after {
   content: " ";
@@ -1258,6 +1259,9 @@ p.boolean-false {
   color: #424242;
   font-size: 24px;
   font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .store-body .recommend-seller-wrapper .recommend-seller-item .seller-panel .seller-intro-wrapper .seller-info span a {
   color: #757575;
