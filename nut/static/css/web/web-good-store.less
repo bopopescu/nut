@@ -350,14 +350,21 @@
           position: absolute;
           top:50%;
           left:37%;
-          transform: translateY(-50%);
+          //transform: translateY(-50%);
+          .transform(translateY(-50%));
+          a:link,a:visited,a:hover,a:focus{
+            text-decoration: none;
+          }
           .seller-name{
+            color:@common-text-color;
             font-size:@big-title-size;
             font-weight: 600;
           }
           span{
-            font-size: @more-mini-size;
-            color:@new-text-gray;
+            a{
+              color:@new-text-gray;
+               font-size: @more-mini-size;
+            }
           }
         }
       }
