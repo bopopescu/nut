@@ -72,9 +72,9 @@ class EntityQuerySet(models.query.QuerySet):
 
             like_list = self.new_or_selection(category_ids).filter(
                     selection_entity__pub_time__lte=_refresh_datetime,
-                    buy_links__status=2) \
-                    .annotate(lnumber=Count('likes')) \
-                    .order_by('-lnumber')
+                    buy_links__status=2)
+                    # .annotate(lnumber=Count('likes')) \
+                    # .order_by('-lnumber')
             # cache.set(like_key, like_list, timeout=3600*24)
             return like_list
 
