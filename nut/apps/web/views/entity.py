@@ -388,6 +388,7 @@ def entity_create(request, template="web/entity/new.html"):
 
 @login_required
 def entity_load(request):
+
     if request.method == "POST":
         _forms = EntityURLFrom(request=request, data=request.POST)
         if _forms.is_valid():
