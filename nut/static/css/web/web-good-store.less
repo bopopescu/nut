@@ -336,6 +336,7 @@
       .seller-intro-wrapper{
         .clearfix;
         position: relative;
+        overflow: hidden;
         .seller-logo-wrapper{
           width:33%;
           height:0;
@@ -350,7 +351,6 @@
           position: absolute;
           top:50%;
           left:37%;
-          //transform: translateY(-50%);
           .transform(translateY(-50%));
           a:link,a:visited,a:hover,a:focus{
             text-decoration: none;
@@ -359,6 +359,9 @@
             color:@common-text-color;
             font-size:@big-title-size;
             font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
           span{
             a{
