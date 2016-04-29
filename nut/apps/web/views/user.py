@@ -367,7 +367,7 @@ class UserLikeView(UserDetailBase):
                                             .filter(entity__category__group=_category)\
                                             .values_list('entity_id',flat=True)
 
-        _entity_list = Entity.objects.using('slave').filter(id__in=_like_list)
+        _entity_list = Entity.objects.using('slave').filter(id__in=list(_like_list))
 
         return _entity_list
 
