@@ -1418,6 +1418,9 @@ p.boolean-false {
   .store-body #index-banners .slick-next:before {
     display: none;
   }
+  .store-body .banner-image-cell .banner-image-cell-scrim {
+    display: none;
+  }
 }
 .banner-image-cell .user-latest-article-intro-wrapper {
   -webkit-transition: all 1s ease-in-out;
