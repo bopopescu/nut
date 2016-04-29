@@ -1223,7 +1223,6 @@ p.boolean-false {
 }
 .store-body .recommend-seller-wrapper .recommend-seller-item .seller-panel .seller-intro-wrapper {
   position: relative;
-  overflow: hidden;
 }
 .store-body .recommend-seller-wrapper .recommend-seller-item .seller-panel .seller-intro-wrapper:after {
   content: " ";
@@ -1241,6 +1240,7 @@ p.boolean-false {
   border-radius: 50%;
 }
 .store-body .recommend-seller-wrapper .recommend-seller-item .seller-panel .seller-intro-wrapper .seller-info {
+  width: 67%;
   position: absolute;
   top: 50%;
   left: 37%;
