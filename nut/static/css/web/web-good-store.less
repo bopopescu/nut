@@ -335,18 +335,22 @@
     .recommend-seller-item .seller-panel{
       .seller-intro-wrapper{
         .clearfix;
+        position: relative;
         .seller-logo-wrapper{
           width:33%;
           height:0;
           padding-bottom:33%;
           float:left;
-          margin-right:10px;
           .seller-logo img{
             border-radius: 50%;
           }
         }
         .seller-info{
-          float:left;
+          //float:left;
+          position: absolute;
+          top:50%;
+          left:37%;
+          transform: translateY(-50%);
           .seller-name{
             font-size:@big-title-size;
             font-weight: 600;
