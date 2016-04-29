@@ -64,7 +64,7 @@ class EntityURLFrom(forms.Form):
             'past the product link here')}),
     )
 
-    captcha = CaptchaField()
+    # captcha = CaptchaField()
 
     def __init__(self, request, *args, **kwargs):
         self.request = request

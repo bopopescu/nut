@@ -358,15 +358,20 @@ class UserLikeView(UserDetailBase):
 
 
         if _category is None:
+
             _like_list = Entity_Like.objects.using('slave')\
                                             .filter(user=_user, entity__status__gte=Entity.freeze)\
                                             .values_list('entity_id', flat=True)
         else:
+
+
             _like_list = Entity_Like.objects.using('slave')\
                                             .filter(user=_user, entity__status__gte=Entity.freeze)\
                                             .filter(entity__category__group=_category)\
                                             .values_list('entity_id',flat=True)
 
+
+        # _.likes.all()
         _entity_list = Entity.objects.using('slave').filter(id__in=_like_list)
 
         return _entity_list
