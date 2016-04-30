@@ -7,6 +7,7 @@ from django.template import RequestContext
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.core.cache import cache
 
 from apps.core.utils.http import JSONResponse
 from apps.core.views import BaseJsonView
@@ -391,7 +392,13 @@ def get_user_load_key(user):
 @login_required
 def entity_load(request):
     key = get_user_load_key(request.user)
-
+    # debouncing using cache timeout
+    if not cache.get(key) is None:
+        raise HttpResponseNotAllowed
+    else :
+        cache.set(key , timeout=7)
+        pass
+    #debouncing end
 
     if request.method == "POST":
         _forms = EntityURLFrom(request=request, data=request.POST)
