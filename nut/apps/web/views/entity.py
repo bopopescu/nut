@@ -386,8 +386,12 @@ def entity_create(request, template="web/entity/new.html"):
         )
 
 
+def get_user_load_key(user):
+    return 'timer:user:load_entity_url:%s' % user.id
 @login_required
 def entity_load(request):
+    key = get_user_load_key(request.user)
+
 
     if request.method == "POST":
         _forms = EntityURLFrom(request=request, data=request.POST)
