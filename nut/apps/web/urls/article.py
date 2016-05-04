@@ -8,7 +8,8 @@ from apps.web.views.article import  EditorDraftList,\
                                     ArticleRelated,\
                                     NewSelectionArticleList,\
                                     ArticleDig, ArticleUndig, \
-                                    ArticleTextRankView
+                                    ArticleTextRankView, \
+                                    ArticleRemarkCreate
 
 urlpatterns = patterns(
     'apps.web.views.article',
@@ -28,7 +29,11 @@ urlpatterns = patterns(
     url(r'^(?P<pk>\d+)/related/$', ArticleRelated.as_view(),name='web_article_related'),
 
 
-    url(r'^(?P<pk>\d+)/textrank/$', ArticleTextRankView.as_view(), name='web_article_textrank')
+    url(r'^(?P<pk>\d+)/textrank/$', ArticleTextRankView.as_view(), name='web_article_textrank'),
+
+    url(r'^(?P<pk>\d+)/remark/$', ArticleRemarkCreate.as_view(), name='web_article_remark'),
+
+
 )
 
 __author__ = 'edison'

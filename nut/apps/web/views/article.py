@@ -1,10 +1,13 @@
 # coding=utf-8
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.exceptions import ObjectDoesNotExist
-from django.views.generic import  ListView,\
-                                  View,\
-                                  TemplateView,\
-                                  DetailView
+from django.forms import forms
+from django.forms.models import BaseModelFormSet
+from django.views.generic import ListView,\
+                                View,\
+                                TemplateView,\
+                                DetailView,\
+                                CreateView
 from django.shortcuts import redirect, get_object_or_404,render
 from django.http import Http404
 from django.template import RequestContext, loader,Context
@@ -29,6 +32,8 @@ from apps.core.tasks.article import dig_task, undig_task
 from django import  http
 import requests
 
+from web.forms.remark import ArticleRemarkForm
+from core.models import Article_Remark
 
 textrank_url = getattr(settings, 'ARTICLE_TEXTRANK_URL', None)
 
@@ -266,8 +271,17 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
             return None
         return obj
 
+    def get_remark(self):
+        article_id = self.kwargs.get('pk')
+        remarks = Article_Remark.objects.filter(article_id=article_id)
+        return remarks
+
+
+
     def get_context_data(self,**kwargs):
         context = super(ArticleDetail, self).get_context_data(**kwargs)
+
+        article_remark_form = ArticleRemarkForm()
 
         article = context['article']
         context['from_app'] = self.request.GET.get('from','normal') == 'app'
@@ -275,7 +289,8 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
         context['is_article_creator'] = self.request.user == self.object.creator
         context['can_show_edit'] = (not article.is_selection) and (self.request.user == article.creator)
         context['share_url'] = self.request.build_absolute_uri().replace('m.guoku.com', 'www.guoku.com')
-
+        context['form'] = article_remark_form
+        context['remarks'] = self.get_remark()
         dig_status = 0
         if self.request.user.is_authenticated():
             try:
@@ -339,5 +354,33 @@ class ArticleTextRankView(BaseJsonView):
         assert self.article_id is not None
 
         return super(ArticleTextRankView, self).get(request, *args, **kwargs)
+
+
+class ArticleRemarkCreate(View):
+
+    def get_article(self):
+        self.article_id = self.kwargs.get('pk',None)
+        article = Article.objects.get(pk=self.article_id)
+        return article
+
+    def post(self, *args, **kwargs):
+        data = self.request.POST
+        print data
+
+        article_remark = Article_Remark(user=self.request.user, article=self.get_article())
+
+        arform = ArticleRemarkForm(self.request.POST, instance=article_remark)
+
+        if arform.is_valid():
+            try:
+                arform.save()
+
+            except Exception as e:
+                print e
+
+        return redirect('web_article_page', self.article_id)
+
+
+
 
 __author__ = 'edison'
