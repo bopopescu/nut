@@ -1,0 +1,44 @@
+{% load i18n static %}
+{% load  common guoku %}
+
+
+<head>
+    <script type="text/javascript" src="{% static 'js/jquery-1.11.1.js' %}"></script>
+    <script type="text/javascript" src="path/to/form.js"></script>
+
+    <script type="text/javascript">
+        // wait for the DOM to be loaded
+        $(document).ready(function() {
+            // bind 'myForm' and provide a simple callback function
+            $('#article_remark_form').ajaxForm(function() {
+                alert("Thank you for your comment!");
+            });
+        });
+    </script>
+</head>
+
+
+<div class="more-article-wrapper for-browser">
+
+     <div class="">
+         {% for remark in remarks %}
+          <div class="article-digest">
+              {{ remark.content }}
+          </div>
+        {% endfor %}
+     </div>
+
+    <div class="form-group">
+
+    <form id='article_remark_form' action="/articles/{{ article.id }}/remark/" method="POST">{% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+    <p><input type="submit" value="Submit"></p>
+
+
+
+    </div>
+
+
+</div>
