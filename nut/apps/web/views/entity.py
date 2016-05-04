@@ -393,10 +393,11 @@ def get_user_load_key(user):
 def entity_load(request):
     key = get_user_load_key(request.user)
     # debouncing using cache timeout
-    if not cache.get(key) is None:
-        raise HttpResponseNotAllowed
+    loading = cache.get(key)
+    if loading:
+        return JSONResponse(data={'error':'too many request'}, status=403)
     else :
-        cache.set(key , timeout=7)
+        cache.set(key ,True , timeout=7)
         pass
     #debouncing end
 
@@ -417,7 +418,7 @@ def entity_load(request):
                 }
             return JSONResponse(data=_res)
 
-    raise HttpResponseNotAllowed
+    return JSONResponse(data={'error':'request method not right'},status=403)
 
 
 @login_required

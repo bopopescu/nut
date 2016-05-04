@@ -1,4 +1,7 @@
+# coding=utf-8
+
 from django.core.paginator import Paginator, EmptyPage
+from django.core.cache import cache
 from math import ceil
 
 class InvalidPage(Exception):
@@ -57,7 +60,7 @@ class AnPaginator(ExtentPaginator):
 
     def _get_num_pages(self):
         """
-        Returns the total number of pages.
+        Retπurns the total number of pages.
         """
         if self._num_pages is None:
             if self.count == 0 and not self.allow_empty_first_page:
@@ -72,6 +75,13 @@ class AnPaginator(ExtentPaginator):
         """
         Returns the total number of objects, across all pages.
         """
+
+        query = self.object_list.query
+        key = 'count:cache:query:%s' % self.object_list.query
+        count = cache.get(key)
+        if not count is None:
+            return int(count)
+
         if self._count is None:
             try:
                 self._count = len(self.object_list)
@@ -80,6 +90,7 @@ class AnPaginator(ExtentPaginator):
                 # TypeError if object_list.count() requires arguments
                 # (i.e. is of type list).
                 self._count = len(self.object_list)
+        cache.set(key,self._count, timeout=3600*24)
         return self._count
     count = property(_get_count)
 

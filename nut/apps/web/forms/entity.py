@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.utils.translation import gettext_lazy as _
 
 from django.core.cache import cache
@@ -110,6 +110,8 @@ class EntityURLFrom(forms.Form):
                     # 'selected_category_id':
                 })
                 return _data
+            except MultipleObjectsReturned as e:
+                print buy_link
                 # print _data
                 # pass
                 # return jd_info(self.request, _link)

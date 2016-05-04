@@ -9,12 +9,12 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 CELERY_ALWAYS_EAGER = False
 CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
 #
-IMAGE_HOST = 'http://imgcdn.guoku.com/'
+# IMAGE_HOST = 'http://imgcdn.guoku.com/'
 #
 
-# LOCAL_IMG_DEBUG=True
-# IMAGE_HOST = 'http://127.0.0.1:9766/'
-# INTRANET_IMAGE_SERVER = 'http://images.hello.new/'
+LOCAL_IMG_DEBUG=True
+IMAGE_HOST = 'http://127.0.0.1:9766/'
+INTRANET_IMAGE_SERVER = 'http://images.hello.new/'
 # MEDIA_ROOT='/media/upload/'
 # AVATAR_HOST = IMAGE_HOST
 
@@ -73,16 +73,16 @@ CACHES = {
 #
 
 # ----------------------- debug -----------------------
-# def removeDebugToolBar(theList):
-#     return [x  for x in theList if x!='debug_toolbar']
-#
-# INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
-#
-#
-# INSTALLED_APPS +=(
-#         'django.contrib.sessions',
-#         'django.contrib.admin'
-# )
+def removeDebugToolBar(theList):
+    return [x  for x in theList if x!='debug_toolbar']
+
+INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
+
+
+INSTALLED_APPS +=(
+        'django.contrib.sessions',
+        'django.contrib.admin'
+)
 
 #-------------------------debug end --------------------
 
@@ -92,7 +92,7 @@ CACHES = {
 # )
 LOCAL_TEST_DB = True
 
-Current_Dbhost = 'localhost'
+Current_Dbhost = '127.0.0.1'
 # Current_Dbhost = '10.0.1.110'
 # Current_Dbhost = '10.0.2.90'
 
