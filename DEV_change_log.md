@@ -1,3 +1,9 @@
+
+=======================
+# merged to master 2016 4-21
+=======================
+
+
 7. MNG - fix amazon book product can not get image bug -- along 
 6. WEB - discover page , category slider   -- 罗倩
 5. API - user dic  add nick field for shorten user nick name  -- 赵旭
