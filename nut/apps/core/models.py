@@ -1392,6 +1392,8 @@ class Article(BaseModel):
     related_entities = models.ManyToManyField(Entity,
                                               related_name='related_articles')
 
+    origin_source = models.TextField(max_length=255, null=True, blank=True)
+    origin_url =   models.TextField(max_length=255, null=True, blank=True)
     source =  models.IntegerField(choices=ARTICLE_SOURCE_CHOICES, default=from_editor, null=True, blank=True)
 
 
