@@ -18,7 +18,7 @@ from apps.core.models import Entity, Entity_Like, Article,Selection_Article,Sele
 from apps.core.extend.paginator import EmptyPage
 from apps.core.extend.paginator import PageNotAnInteger
 from apps.core.extend.paginator import ExtentPaginator
-from apps.core.extend.paginator import ExtentPaginator as Jpaginator
+from apps.core.extend.paginator import ExtentPaginator as Jpaginator , AnPaginator
 from apps.core.utils.http import JSONResponse
 from haystack.query import SearchQuerySet
 
@@ -55,7 +55,7 @@ class NewCategoryGroupListView(JSONResponseMixin,AjaxResponseMixin, ListView):
     template_name = 'web/category/detail.html'
     model = Entity
     paginate_by = 36
-    paginator_class =  Jpaginator
+    paginator_class = AnPaginator
     ajax_template_name = 'web/category/cate_selection_ajax.html'
     context_object_name = 'entities'
 
@@ -76,8 +76,8 @@ class NewCategoryGroupListView(JSONResponseMixin,AjaxResponseMixin, ListView):
     def get_queryset(self):
         gid = self.get_group_id()
         parent_category = Category.objects.get(pk=gid)
-        sub_categories_ids = Sub_Category.objects.filter(group=gid)\
-                                       .values_list('id', flat=True)
+        sub_categories_ids = list(Sub_Category.objects.filter(group=gid)\
+                                       .values_list('id', flat=True))
 
 
         order_by_like = False
