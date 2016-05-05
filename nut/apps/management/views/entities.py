@@ -122,6 +122,7 @@ def edit(request, entity_id, template='management/entities/edit.html'):
     except Entity.DoesNotExist:
         raise Http404
 
+
     data = {
         # 'id':entity.pk,
         'creator': entity.user.profile.nickname,
@@ -132,6 +133,8 @@ def edit(request, entity_id, template='management/entities/edit.html'):
         'category': entity.category.group_id,
         'sub_category': entity.category_id,
     }
+
+
 
     if request.method == "POST":
         _forms = EditEntityForm(
