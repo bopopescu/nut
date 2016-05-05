@@ -32,7 +32,6 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
 
     # images = indexes.CharField(model_attr='chief_image')
 
-
     title_auto = indexes.EdgeNgramField(model_attr='title')
 
     def get_model(self):
