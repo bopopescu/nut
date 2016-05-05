@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.utils.translation import gettext_lazy as _
 
 from django.core.cache import cache
@@ -56,14 +56,15 @@ def cal_entity_hash(hash_string):
             break
     return _hash
 
-
+from captcha.fields import CaptchaField
 class EntityURLFrom(forms.Form):
     cand_url = forms.URLField(
         label=_('links'),
         widget=forms.URLInput(attrs={'class': 'form-control', 'placeholder': _(
             'past the product link here')}),
-
     )
+
+    # captcha = CaptchaField()
 
     def __init__(self, request, *args, **kwargs):
         self.request = request
@@ -109,6 +110,8 @@ class EntityURLFrom(forms.Form):
                     # 'selected_category_id':
                 })
                 return _data
+            except MultipleObjectsReturned as e:
+                print buy_link
                 # print _data
                 # pass
                 # return jd_info(self.request, _link)
