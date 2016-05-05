@@ -12,7 +12,7 @@ from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
 from apps.management.decorators import staff_only
 
-from apps.core.models import Entity, Buy_Link
+from apps.core.models import Entity, Buy_Link, GKUser
 from apps.core.forms.entity import EditEntityForm, EntityImageForm, \
     CreateEntityForm, load_entity_info, BuyLinkForm, EditBuyLinkForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, \
@@ -55,9 +55,18 @@ class EntityListView(FilterMixin, ListView):
             return qs
         elif status == '999':
             entity_list  = self.get_amazon_entities(qs)
+        elif status == '888':
+            entity_list = self.get_editor_frozen_entities(qs)
         else:
             entity_list = qs.filter(status=int(status)).order_by('-updated_time')
         return  entity_list
+
+    def get_editor_frozen_entities(self,qs):
+        editors = GKUser.objects.editor()
+        entity_frozen = Entity.objects\
+                              .filter(status=Entity.freeze, user__in=editors)\
+                              .order_by('-updated_time')
+        return entity_frozen
 
     # TODO: need clear input  in filter Mixin
     def filter_queryset(self, qs, filter_param):
