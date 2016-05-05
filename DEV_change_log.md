@@ -1,5 +1,7 @@
+6. 
+5. mng - entity list  - add editor frozen entity list 
 4. mng - entity edit - add link to selection time edit
-3. add origin_url and source field  into the Article model 
+3. add origin_url  field  into the Article model 
 2. add source field to Article model (0 for local , 1 for weixin , 2 for rss)
 1. block web user load entity request in 7 seconds
 
@@ -13,6 +15,9 @@ ADD COLUMN `source` TINYINT(2) NULL DEFAULT 0 AFTER `origin_source`;
 
 ALTER TABLE `core`.`core_article` 
 ADD COLUMN `origin_url` VARCHAR(255) NULL DEFAULT NULL AFTER `source`;
+
+
+MORE action 
 
 
 =======================
