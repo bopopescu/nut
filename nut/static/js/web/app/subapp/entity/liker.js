@@ -67,6 +67,5 @@ define([
 
     //_.extend(EntityLikerController.prototype, Backbone.Events);
 
-    return EntityLikerCont    //_.extend(EntityLikerController.prototype, Backbone.Events);
-roller;
+    return EntityLikerController;
 });
