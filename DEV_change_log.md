@@ -1,8 +1,9 @@
-6. 
 5. mng - entity list  - add editor frozen entity list 
 4. mng - entity edit - add link to selection time edit
-3. add origin_url  field  into the Article model 
+
 2. add source field to Article model (0 for local , 1 for weixin , 2 for rss)
+   add origin_url  field  into the Article model  
+   
 1. block web user load entity request in 7 seconds
 
 #action : 
