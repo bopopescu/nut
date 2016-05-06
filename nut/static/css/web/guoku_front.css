@@ -1872,6 +1872,9 @@ p.boolean-false {
   padding-bottom: 0px;
   padding-top: 0px;
 }
+.hidden-article-sidebar {
+  display: none;
+}
 .article-sidebar-wrapper {
   backface-visibility: hidden;
   -webkit-transform: translate3d(0, 0, 0);
