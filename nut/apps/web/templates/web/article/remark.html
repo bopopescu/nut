@@ -85,18 +85,14 @@
 
     $('.remark-user').click(function(){
 
-        alert($(this).attr("user_name"));
+{#        alert($(this).attr("user_name"));#}
         var remark_on = $(this).attr("user_name");
         var remark_id = $(this).attr("remark_id");
 
 {#        alert(remark_on);#}
 
         $('#id_content').text('回复 '+ remark_on + ":\n");
-        $('#id_reply_to').text(remark_id)
-
-
-
-
+        $('#id_reply_to').val(remark_id);
 
     })
 

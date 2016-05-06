@@ -373,11 +373,14 @@ class ArticleRemarkCreate(AjaxResponseMixin, LoginRequiredMixin, JSONResponseMix
             try:
                 data = arform.cleaned_data
                 content = data['content']
+                reply_to = data['reply_to']
+                print data.items()
+
                 arform.save()
                 res = {
                 'user': user.nickname,
                 'content': content,
-                # 'reply_to': reply_to,
+                'reply_to': reply_to,
                 'status': '1',
                 'error': 0
                 }
