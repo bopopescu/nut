@@ -1,0 +1,72 @@
+{% load i18n %}
+{% load guoku %}
+<table class="table table-bordered table-hover table-condensed" id="sellers-table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>主图</th>
+        <th>title/ desc </th>
+        <th>
+            <form action="{% url 'manage_sitebanners_active_list' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+            状态<br>
+        <label>
+            <input id="select-banner" type="checkbox" name="checks[]" {% if '0' in checked %}  checked {% endif %}  value="0" >
+        </label>
+        <label>
+            <input id="select-banner" type="checkbox" name="checks[]"  {% if '1' in checked %}  checked {% endif %} value="1">
+        </label>
+        <label>
+            <input id="select-banner" type="checkbox" name="checks[]" {% if '2' in checked %}  checked {% endif %} value="2">
+        </label>
+            <br>
+
+                <input type="submit"  class="btn btn-primary" value="Submit">
+                </form>
+        </th>
+
+        <th>排名/位置</th>
+
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {#            the first line datas#}
+
+    {% for banner in banners %}
+
+        <tr>
+            <td>{{ banner.id  }}</td>
+            <td><img src="{{  banner.image_url|resize:'200' }}" ></td>
+            <td>
+                title : {{ banner.banner_title  }}
+                <br>
+                description : {{ banner.banner_desc }}
+            </td>
+            <td>
+                <label>
+                    <input id="chk-app" type="checkbox" name="sitabanner" {% if banner.app_show_status %}  checked {% endif %} value="{{ banner.id }}" >
+                </label>
+                <label>
+                    <input id="chk-mainpage" type="checkbox" name="sitabanner" {% if banner.web_mainpage_show_status %}  checked {% endif %} value="{{ banner.id  }}" >
+                </label>
+                <label>
+                    <input id="chk-sidebar" type="checkbox" name="sitabanner" {% if banner.web_sidebar_show_status %}  checked {% endif %} value="{{ banner.id }}" >
+                </label>
+            </td>
+            <td><form>
+                <label></label>
+                <input id="position" type="text" name="position" value="{{ banner.position }}">
+            </form></td>
+            <td>
+                <a class="btn btn-success" href="{% url 'manage_sitebanners_update' banner.pk %}" target="">
+                    编辑
+                </a>
+                <a class="btn btn-danger" href="{% url 'manage_sitebanners_delete' banner.pk %}" target="">
+                    删除
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
