@@ -1,30 +1,41 @@
-5. 
-4. discover_article_digest, 推荐文章 ADD DIGEST FIELD   -- 赵旭 
-3. mng article , sortable  , by id and publish time  -- 赵旭
-2. brand mng update 
-1. move secret config into secret file  
+5. mng - entity list  - add editor frozen entity list 
+4. mng - entity edit - add link to selection time edit
+
+2. add source field to Article model (0 for local , 1 for weixin , 2 for rss)
+   add origin_url  field  into the Article model  
+   
+1. block web user load entity request in 7 seconds
+
+#action : 
+
+origin_source is add by huanghuang and not documented !!
+will not touch it . 
+
+ALTER TABLE `core`.`core_article` 
+ADD COLUMN `source` TINYINT(2) NULL DEFAULT 0 AFTER `origin_source`;
+
+ALTER TABLE `core`.`core_article` 
+ADD COLUMN `origin_url` VARCHAR(255) NULL DEFAULT NULL AFTER `source`;
+
+
+MORE action 
+
+
+=======================
+# merged to master 2016 4-28
+=======================
+
+
+7. MNG - fix amazon book product can not get image bug -- along 
+6. WEB - discover page , category slider   -- 罗倩
+5. API - user dic  add nick field for shorten user nick name  -- 赵旭
+3. MNG  - mng article , sortable  , by id and publish time  -- 赵旭
+2. MNG  - brand mng update   - 安
+1. move secret config into secret file   - 安
+
 
 #ACTION 
-    1. get secret_setting.py file 
-    2. copy the file to {deploy dir}/settings/
-    3. deploy code 
-    4. reload server test  ()
-        1. db connection (test db / production db / slave master  )
-        2. webo login 
-        3. weixin login 
-        4. taobao login 
-        5. jpush functions 
-        
-    5. baichuan functions 
-    6. sendcloud functions 
-    
-    ** test db connection : 
-       manage.py shell 
-           from apps.core.models import Article 
-                id = Article.objects.latest('id')
-                
-       make sure the id is the newest artcle in target db 
-       
+none
     
     
     

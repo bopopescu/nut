@@ -17,6 +17,11 @@
 
 {% block title %}发现 | 精英消费指南 | 果库{% endblock %}
 
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick-theme.css' %}"/>
+{% endblock %}
+
 {% block content %}
     <div class="container" id="discover_container">
         {% if recommended_user %}
@@ -57,22 +62,45 @@
         </div>
 
 
-        <div class="row dark-section-wrapper">
-            {% for category in categories %}
-             <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col dark-section-item">
-                    <a href="{% url 'web_category_group' category.id %}" target="_blank">
-                        <div class="section-panel">
-                            <div class="bg-pic" style="background-image: url('{{ category.cover_url|resize:'200' }}')">
-                            </div>
-                             <div class="section-name">
-                                 <p>{{ category.title_cn }}</p>
-                                 <span>{{ category.title_en }}</span>
-                            </div>
-                            <div class="bg-layer"></div>
-                        </div>
-                    </a>
-             </div>
-            {% endfor %}
+{#        <div class="row dark-section-wrapper">#}
+{#            {% for category in categories %}#}
+{#             <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col dark-section-item">#}
+{#                    <a href="{% url 'web_category_group' category.id %}" target="_blank">#}
+{#                        <div class="section-panel">#}
+{#                            <div class="bg-pic" style="background-image: url('{{ category.cover_url|resize:'200' }}')">#}
+{#                            </div>#}
+{#                             <div class="section-name">#}
+{#                                 <p>{{ category.title_cn }}</p>#}
+{#                                 <span>{{ category.title_en }}</span>#}
+{#                            </div>#}
+{#                            <div class="bg-layer"></div>#}
+{#                        </div>#}
+{#                    </a>#}
+{#             </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
+
+        <div class="row dark-section-wrapper" id="category-container">
+            <div class="col-sm-12">
+                <ul id="category-item-container">
+                    {% for category in categories %}
+                        <li class="category-item dark-section-item">
+                            <a href="{% url 'web_category_group' category.id %}" target="_blank">
+                                <div class="section-panel">
+                                    {#                                    <img class="category-item-pic" src="{{ category.cover_url|resize:'200' }}"/>#}
+                                    <div class="category-item-pic" style="background-image: url('{{ category.cover_url|resize:'200' }}')">
+                                    </div>
+                                    <div class="section-name">
+                                        <p>{{ category.title_cn }}</p>
+                                        <span>{{ category.title_en }}</span>
+                                    </div>
+                                    <div class="bg-layer"></div>
+                                </div>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
 
 

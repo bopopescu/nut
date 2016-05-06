@@ -91,5 +91,3 @@ spider/log.txt
 spider/dbs/
 spider/items/
 *.pid
-
-secret_settings.py
