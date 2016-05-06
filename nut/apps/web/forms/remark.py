@@ -1,4 +1,4 @@
-from django.forms import ModelForm, Textarea, HiddenInput
+from django.forms import ModelForm, Textarea, HiddenInput, NumberInput
 from apps.core.models import Article_Remark
 
 
