@@ -264,11 +264,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def following_list(self):
-        return self.followings.exclude(followee__is_active=-1).values_list('followee_id', flat=True)
+        return self.followings.filter(followee__is_active__gt=-1).values_list('followee_id', flat=True)
 
     @property
     def fans_list(self):
-        return self.fans.exclude(follower__is_active=-1).values_list('follower_id', flat=True)
+        return self.fans.filter(follower__is_active__gt=-1).values_list('follower_id', flat=True)
 
     @property
     def concren(self):
@@ -276,11 +276,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def following_count(self):
-        return self.followings.exclude(followee__is_active=-1).count()
+        return self.followings.filter(followee__is_active__gt=-1).count()
 
     @property
     def fans_count(self):
-        return self.fans.exclude(follower__is_active=-1).count()
+        return self.fans.filter(follower__is_active__gt=-1).count()
 
     @property
     def bio(self):
@@ -837,7 +837,7 @@ class Entity(BaseModel):
     images = ListObjectField()
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
-    status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=new)
+    status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=new, db_index=True)
 
     objects = EntityManager()
 
@@ -1364,12 +1364,19 @@ class WeChat_Token(BaseModel):
 from apps.tag.models import Content_Tags
 class Article(BaseModel):
     (remove, draft, published) = xrange(3)
+
     ARTICLE_STATUS_CHOICES = [
         (published, _("published")),
         (draft, _("draft")),
         (remove, _("remove")),
     ]
 
+    (from_editor, from_weixin , from_rss ) = xrange(3)
+    ARTICLE_SOURCE_CHOICES =[
+        (from_editor, _("from editor")),
+        (from_weixin, _("from weixin")),
+        (from_rss, _("from rss"))
+    ]
     creator = models.ForeignKey(GKUser, related_name="articles")
     title = models.CharField(max_length=64)
     identity_code = models.TextField(null=True, blank=True)
@@ -1384,6 +1391,11 @@ class Article(BaseModel):
     # entity cars in in article content
     related_entities = models.ManyToManyField(Entity,
                                               related_name='related_articles')
+
+    origin_source = models.TextField(max_length=255, null=True, blank=True)
+    origin_url =   models.TextField(max_length=255, null=True, blank=True)
+    source =  models.IntegerField(choices=ARTICLE_SOURCE_CHOICES, default=from_editor, null=True, blank=True)
+
 
     objects = ArticleManager()
 
