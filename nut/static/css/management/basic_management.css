@@ -291,6 +291,17 @@
   width: 100%;
   max-width: 100%;
 }
+.event-entity-item .img-box-control {
+  position: relative;
+}
+.event-entity-item .img-box-control a {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(50%);
+  -moz-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  -o-transform: translateY(50%);
+}
 .event-entity-item .img-box a {
   padding: 8px;
 }
