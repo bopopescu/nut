@@ -2103,6 +2103,8 @@ post_save.connect(user_follow_notification, sender=User_Follow,
 # post_save.connect(article_related_entity_update, sender=Article, dispatch_uid="article_related_product_update")
 
 
+
+#TODO :  move this close to Article
 class Article_Remark(models.Model):
     user = models.ForeignKey(GKUser)
     article = models.ForeignKey(Article)
