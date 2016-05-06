@@ -560,8 +560,6 @@ class UserIndex(UserPageMixin, DetailView):
 
         return profile.user
 
-
-
     def get_showing_user(self):
         user_domain = self.kwargs.get('user_domain', None)
         if user_domain is not None:
