@@ -1906,10 +1906,8 @@ p.boolean-false {
   text-align: center;
   border-radius: 2px;
 }
-.article-sidebar-wrapper .article-sidebar .list-item.list-item-dig {
-  border-bottom: 1px solid #EBEBEB;
-}
 .article-sidebar-wrapper .article-sidebar .list-item.list-item-dig .dig-wrapper {
+  border-bottom: 1px solid #EBEBEB;
   display: inline-block;
   font-size: 13px;
   color: #9D9E9F;
