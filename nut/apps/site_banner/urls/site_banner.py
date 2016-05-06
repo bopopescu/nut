@@ -3,6 +3,9 @@ from apps.site_banner.views.management import  SiteBannerCreateView, SiteBannerD
                                        SiteBannerUpdateView, SiteBannerSaveView, SiteBannerActiveListView, \
                                        SiteBannerInactiveListView
 
+
+# this file' name should be management.py, see shop app for reference
+
 urlpatterns = patterns(
     '',
     url(r'^banners/$', SiteBannerActiveListView.as_view(), name='manage_sitebanners'),

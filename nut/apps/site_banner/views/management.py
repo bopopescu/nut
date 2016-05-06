@@ -140,6 +140,10 @@ class SiteBannerActiveListView(StaffuserRequiredMixin, AjaxResponseMixin, Multip
                                                  '-web_sidebar_show_status', 'position')
 
     def get(self, request, *args, **kwargs):
+        #
+        # TODO : EXPLAIN  WHY USE COOKIE ?
+        #  1.       USE querystring to persist state, do not use cookie
+
         cookie_checked = request.COOKIES.get('checked')
         if cookie_checked is None:    #无cookie 首次访问
             checked = ['0', '1', '2']
@@ -166,6 +170,13 @@ class SiteBannerActiveListView(StaffuserRequiredMixin, AjaxResponseMixin, Multip
         return response
 
 def get_select(checked):
+    # 如果多一个 CHECK 怎么办?
+
+
+    # TODO  : REFACTTOR HERE
+    # 1. SHOULD NOT USE MAGIC NUMBER
+    # 2. LOGIC IS NOT CLEAR
+
     if len(checked) == 0:
         return SiteBanner.objects.get_active_banner().filter(app_show_status=False, web_mainpage_show_status=False,
                                                              web_sidebar_show_status=False)
