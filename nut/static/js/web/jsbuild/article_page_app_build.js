@@ -2795,6 +2795,17 @@ define('subapp/article/article_share',['jquery', 'libs/Class','underscore','boot
 
 
 
+define('subapp/article/article_sidebar',['jquery','libs/underscore','libs/Class','libs/fastdom'],
+    function($,_,Class,fastdom){
+
+        var ArticleSidebar = Class.extend({
+            init: function(){
+                console.log('article detail dig sidebar');
+
+            }
+        });
+        return ArticleSidebar;
+    });
 define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(Class,$,AccountApp){
     var UserFollow = Class.extend({
         init: function () {
@@ -2905,6 +2916,7 @@ require([
         'subapp/detailsidebar',
         'subapp/related_article_loader',
         'subapp/article/article_share',
+        'subapp/article/article_sidebar',
         'subapp/user_follow',
         'libs/csrf'
 

@@ -10,6 +10,7 @@ require([
         'subapp/detailsidebar',
         'subapp/related_article_loader',
         'subapp/article/article_share',
+        'subapp/article/article_sidebar',
         'subapp/user_follow',
         'libs/csrf'
 
