@@ -268,9 +268,20 @@
         <div class="article-sidebar">
             <ul>
                  <li class="list-item list-item-weixin">
-                    <a class="sidebar_weixin_share_btn">
-                        <i class="fa fa-wechat"></i>
-                    </a>
+                    <span class="dig-wrapper">
+                        <span class="{% if dig_status %} digged {% else %} undigged {% endif %} dig-action" data-article-id="{{ article.pk }}">
+                            <img class="dig-img dig" src="{% static 'images/article/dig.png' %}" >
+                            <img class="dig-img undig" src="{% static 'images/article/undig.png' %}" >
+                        </span>
+                        <span class="dig-info">
+                            <span class="dig-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>
+                            <span class="dig-word">
+                                {% if not article.dig_count %}
+                                    赞
+                                {% endif %}
+                            </span>
+                        </span>
+                    </span>
                 </li>
 
                 <li class="list-item list-item-weixin">
