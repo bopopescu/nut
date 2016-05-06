@@ -346,6 +346,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
             try:
                 res['nickname'] = self.profile.nickname
+                res['nick'] = self.profile.nick
                 res['bio'] = self.profile.bio
                 res['gender'] = self.profile.gender
                 res['location'] = self.profile.location
@@ -2113,6 +2114,17 @@ post_save.connect(user_follow_notification, sender=User_Follow,
 #         print(instance.content)
 #
 # post_save.connect(article_related_entity_update, sender=Article, dispatch_uid="article_related_product_update")
+
+
+
+#TODO :  move this close to Article
+class Article_Remark(models.Model):
+    user = models.ForeignKey(GKUser)
+    article = models.ForeignKey(Article)
+    content = models.CharField(max_length=512, null=False, blank=False)
+    reply_to = models.ForeignKey('self', null=True, blank=True)
+    create_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+    update_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
 
 
 __author__ = 'edison7500'
