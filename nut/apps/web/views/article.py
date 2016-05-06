@@ -273,7 +273,7 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
 
     def get_remark(self):
         article_id = self.kwargs.get('pk')
-        remarks = Article_Remark.objects.filter(article_id=article_id)
+        remarks = Article_Remark.objects.filter(article_id=int(article_id))
         return remarks
 
 
@@ -354,7 +354,6 @@ class ArticleTextRankView(BaseJsonView):
         assert self.article_id is not None
 
         return super(ArticleTextRankView, self).get(request, *args, **kwargs)
-
 
 class ArticleRemarkCreate(AjaxResponseMixin, LoginRequiredMixin, JSONResponseMixin, View):
 
