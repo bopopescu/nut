@@ -535,6 +535,51 @@
         line-height: 46px;
         text-align: center;
         border-radius: 2px;
+        &.list-item-dig{
+            .dig-wrapper{
+        display:inline-block;
+        font-size:@mini-size;
+        color:@common-gray;
+        div{
+          display: inline-block;
+        }
+        .dig-action{
+            positon:relative;
+            width: 30px;
+            height: 100%;
+            .dig-img{
+              position: relative;
+              left:0px;
+              top:-5px;
+              height:32px;
+              cursor: pointer;
+            }
+        }
+        .digged{
+           img.dig{
+              display: none;
+           }
+           img.undig{
+              display: inline;
+           }
+        }
+        .undigged{
+           img.undig{
+              display:none;
+           }
+           img.dig{
+             display: inline;
+           }
+        }
+        .dig-info{
+          .dig-count{
+            margin: 0px 6px;
+          }
+        }
+
+     }
+
+        }
         &.list-item-weixin{
           a{
             color:@wechat-hover-color;

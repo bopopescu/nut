@@ -1484,6 +1484,41 @@ p.boolean-false {
   text-align: center;
   border-radius: 2px;
 }
+.article-sidebar-wrapper .article-sidebar .list-item.list-item-dig .dig-wrapper {
+  display: inline-block;
+  font-size: 13px;
+  color: #9D9E9F;
+}
+.article-sidebar-wrapper .article-sidebar .list-item.list-item-dig .dig-wrapper div {
+  display: inline-block;
+}
+.article-sidebar-wrapper .article-sidebar .list-item.list-item-dig .dig-wrapper .dig-action {
+  positon: relative;
+  width: 30px;
+  height: 100%;
+}
+.article-sidebar-wrapper .article-sidebar .list-item.list-item-dig .dig-wrapper .dig-action .dig-img {
+  position: relative;
+  left: 0px;
+  top: -5px;
+  height: 32px;
+  cursor: pointer;
+}
+.article-sidebar-wrapper .article-sidebar .list-item.list-item-dig .dig-wrapper .digged img.dig {
+  display: none;
+}
+.article-sidebar-wrapper .article-sidebar .list-item.list-item-dig .dig-wrapper .digged img.undig {
+  display: inline;
+}
+.article-sidebar-wrapper .article-sidebar .list-item.list-item-dig .dig-wrapper .undigged img.undig {
+  display: none;
+}
+.article-sidebar-wrapper .article-sidebar .list-item.list-item-dig .dig-wrapper .undigged img.dig {
+  display: inline;
+}
+.article-sidebar-wrapper .article-sidebar .list-item.list-item-dig .dig-wrapper .dig-info .dig-count {
+  margin: 0px 6px;
+}
 .article-sidebar-wrapper .article-sidebar .list-item.list-item-weixin a {
   color: #51C332;
 }
