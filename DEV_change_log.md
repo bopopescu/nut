@@ -1,3 +1,9 @@
+2.  
+1.  add nick to core/model  -- 赵旭
+=======================
+# merged to master 2016 5-5
+=======================
+
 5. mng - entity list  - add editor frozen entity list 
 4. mng - entity edit - add link to selection time edit
 
