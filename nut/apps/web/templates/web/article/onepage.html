@@ -273,14 +273,7 @@
                             <img class="dig-img dig" src="{% static 'images/article/dig.png' %}" >
                             <img class="dig-img undig" src="{% static 'images/article/undig.png' %}" >
                         </span>
-                        <span class="dig-info">
-                            <span class="dig-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>
-                            <span class="dig-word">
-                                {% if not article.dig_count %}
-                                    赞
-                                {% endif %}
-                            </span>
-                        </span>
+
                     </span>
                 </li>
 
