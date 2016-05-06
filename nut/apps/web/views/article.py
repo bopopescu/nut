@@ -356,29 +356,47 @@ class ArticleTextRankView(BaseJsonView):
         return super(ArticleTextRankView, self).get(request, *args, **kwargs)
 
 
-class ArticleRemarkCreate(View):
+class ArticleRemarkCreate(AjaxResponseMixin, LoginRequiredMixin, JSONResponseMixin, View):
 
     def get_article(self):
         self.article_id = self.kwargs.get('pk',None)
         article = Article.objects.get(pk=self.article_id)
         return article
 
-    def post(self, *args, **kwargs):
-        data = self.request.POST
-        print data
-
+    def post_ajax(self, request, *args, **kwargs):
+        res = {}
         article_remark = Article_Remark(user=self.request.user, article=self.get_article())
-
         arform = ArticleRemarkForm(self.request.POST, instance=article_remark)
+        user = self.request.user
 
         if arform.is_valid():
             try:
+                data = arform.cleaned_data
+                content = data['content']
                 arform.save()
+                res = {
+                'user': user.nickname,
+                'content': content,
+                # 'reply_to': reply_to,
+                'status': '1',
+                'error': 0
+                }
 
             except Exception as e:
-                print e
+                log(e)
+                res = {
+                    'error': 1
+                }
 
-        return redirect('web_article_page', self.article_id)
+        else:
+            res = {
+                'status': '0',
+                'error': 1
+            }
+
+        return self.render_json_response(res)
+
+
 
 
 
