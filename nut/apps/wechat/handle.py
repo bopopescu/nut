@@ -31,8 +31,8 @@ def handle_reply(content):
     # elif regex(content, u'活动'):
     #     return u'感谢您的参与，请稍等一会儿，看福利和运气哪个先到。我们将在4月5日统一公布获奖名单'
     # elif content.decode('utf-8').lower() == u'id':
-    elif regex(content.lower(), u'id'):
-        return u'你的入群申请已经收到,请耐心等待结果,谢谢!'
+    elif regex(content.lower(), u'福利'):
+        return u'感谢您的参与，请耐心等待结果。我们将在5月3日统一公布获奖名单。'
     else:
         # _entities = Entity.search.query(content.decode('utf-8')).order_by('@weight', '-created_time')
         sqs = SearchQuerySet()
