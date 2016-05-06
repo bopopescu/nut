@@ -346,6 +346,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
             try:
                 res['nickname'] = self.profile.nickname
+                res['nick'] = self.profile.nick
                 res['bio'] = self.profile.bio
                 res['gender'] = self.profile.gender
                 res['location'] = self.profile.location
