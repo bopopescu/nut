@@ -968,8 +968,6 @@ p.boolean-false {
   left: 0;
   background-color: rgba(0, 0, 0, 0.18);
 }
-<<<<<<< HEAD
-=======
 .normal-scale-bg {
   width: 100%;
   height: 0;
@@ -986,5 +984,4 @@ p.boolean-false {
   background-size: cover;
   background-repeat: no-repeat;
 }
->>>>>>> dev
 /*# sourceMappingURL=widgets.less.css.map */
