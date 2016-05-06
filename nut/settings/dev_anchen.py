@@ -92,13 +92,13 @@ INSTALLED_APPS +=(
 # )
 LOCAL_TEST_DB = True
 
-Current_Dbhost = 'localhost'
+Current_Dbhost = '127.0.0.1'
 # Current_Dbhost = '10.0.1.110'
 # Current_Dbhost = '10.0.2.90'
 
 
 
-
+#
 #
 # DATABASES = {
 #     'default': {
@@ -129,8 +129,9 @@ Current_Dbhost = 'localhost'
 #         }
 #     },
 # }
-#
-#
+
+# DATABASES = TESTING_DATABASE
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
