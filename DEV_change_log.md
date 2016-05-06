@@ -1,3 +1,37 @@
+2.  
+1.  add nick to core/model  -- 赵旭
+=======================
+# merged to master 2016 5-5
+=======================
+
+5. mng - entity list  - add editor frozen entity list 
+4. mng - entity edit - add link to selection time edit
+
+2. add source field to Article model (0 for local , 1 for weixin , 2 for rss)
+   add origin_url  field  into the Article model  
+   
+1. block web user load entity request in 7 seconds
+
+#action : 
+
+origin_source is add by huanghuang and not documented !!
+will not touch it . 
+
+ALTER TABLE `core`.`core_article` 
+ADD COLUMN `source` TINYINT(2) NULL DEFAULT 0 AFTER `origin_source`;
+
+ALTER TABLE `core`.`core_article` 
+ADD COLUMN `origin_url` VARCHAR(255) NULL DEFAULT NULL AFTER `source`;
+
+
+MORE action 
+
+
+=======================
+# merged to master 2016 4-28
+=======================
+
+
 7. MNG - fix amazon book product can not get image bug -- along 
 6. WEB - discover page , category slider   -- 罗倩
 5. API - user dic  add nick field for shorten user nick name  -- 赵旭
