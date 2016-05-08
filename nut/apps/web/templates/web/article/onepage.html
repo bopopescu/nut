@@ -229,21 +229,14 @@
                 </div>
 
 
-
-
-
-
-
-
-                {% include 'web/article/remark.html' %}
-
-
-
-
-
-
-
-
+               {#article remark begin by luoqian#} 
+                <div class="article-section-title for-browser"> 
+                    <div>文章评论</div> 
+                </div>  
+                <div class="note-wrapper"> 
+                    {% include 'web/article/remark.html' %} 
+                </div>  
+                {#article remark end#}
 
 
                 {% if not isFromMobile %}
