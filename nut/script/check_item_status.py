@@ -29,7 +29,7 @@ def crawl(spider, **parameters):
 
 
 # Taobao
-links = Buy_Link.objects.filter(origin_source='taobao.com',
+    links = Buy_Link.objects.filter(origin_source='taobao.com',
                                 entity__status__gt=Entity.new).\
     exclude(status=Buy_Link.remove).order_by('-id')
 # print links.count()
