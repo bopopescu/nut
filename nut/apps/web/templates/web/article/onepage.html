@@ -234,8 +234,17 @@
                     <div>文章评论</div> 
                 </div>  
                 <div class="note-wrapper"> 
-                    {% include 'web/article/remark.html' %} 
+{#                    remark list datas from databases;#}
+                    <ul class="remark-list">
+                        {% include 'web/article/remark.html' %} 
+                    </ul>
+{#                    if user not login ,show 'I want to remark' button;
+                      if not,show remark form        #}
+                    <div id="login_user_remark">
+                        {% include "web/entity/partial/detail_user_comment.html" %}
+                    </div>
                 </div>  
+
                 {#article remark end#}
 
 
