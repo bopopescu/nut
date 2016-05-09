@@ -308,6 +308,9 @@ class AuthorArticleList(BaseManagementArticleListView):
 
 
 class ArticleList(BaseManagementArticleListView):
+    '''
+        get all articles write by guoku editor or guoku writer
+    '''
     queryset = Article.objects.all()
 
     def get_context_data(self, *args, **kwargs):
@@ -318,12 +321,15 @@ class ArticleList(BaseManagementArticleListView):
 
     def sort_queryset(self, qs, sort_by, order):
         authorized_authors = GKUser.objects.authorized_author()
+        gk_authors= GKUser.objects.author()
+        qs = qs.filter(publish=Article.published,creator__in=gk_authors).exclude(creator__in=authorized_authors)
+
         if sort_by == 'created_datetime':
-            qs = qs.filter(publish=Article.published).exclude(creator__in=authorized_authors).order_by('-created_datetime')
+            qs = qs.order_by('-created_datetime')
         elif sort_by == 'id':
-            qs = qs.filter(publish=Article.published).exclude(creator__in=authorized_authors).order_by('-id')
+            qs = qs.order_by('-id')
         else:
-            qs = qs.filter(publish=Article.published).exclude(creator__in=authorized_authors)
+            qs = qs.order_by('-id')
         return qs
 
 
