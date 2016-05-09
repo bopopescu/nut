@@ -581,8 +581,6 @@ class UserIndex(UserPageMixin, DetailView):
 
             return _author_articles
 
-
-
     def get_user_entity_likes(self, entities):
         like_list = list()
         if not self.request.user.is_authenticated():
@@ -754,8 +752,6 @@ def following(request, user_id, templates="web/user/following.html"):
         },
         context_instance = RequestContext(request),
     )
-
-
 
 
 
