@@ -1,4 +1,5 @@
-2.  
+3. 
+2.  editor user can use management , except user edit 
 1.  add nick to core/model  -- 赵旭
 =======================
 # merged to master 2016 5-5
