@@ -1,3 +1,12 @@
+5.  mng -  guoku editor/writer article list  -- anchen 
+4.  article page not found to 404 page , for searching engine consideration -- anchen
+3.  selection entity long pic css adjust , event entity pic vertical align  -- 罗倩
+2.  editor user can use management , except user edit --anchen 
+1.  add nick to core/model  -- 赵旭
+=======================
+# merged to master 2016 5-5
+=======================
+
 5. mng - entity list  - add editor frozen entity list 
 4. mng - entity edit - add link to selection time edit
 

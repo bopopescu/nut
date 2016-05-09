@@ -1,3 +1,5 @@
+# coding=utf-8
+
 # from django.conf import settings
 # from django.contrib.auth.tokens import default_token_generator
 # from django.core.mail import EmailMessage
@@ -13,6 +15,8 @@ from django.contrib.auth.models import Group, GroupManager
 
 
 class GKUserQuerySet(models.query.QuerySet):
+
+
     def author(self):
         return self.filter(is_active__gte = 2)
 
@@ -26,6 +30,10 @@ class GKUserQuerySet(models.query.QuerySet):
         return self.filter(Q(is_admin=1)| Q(is_active=2))
 
     def active(self):
+        '''
+         only for 活动用户
+        :return:
+        '''
         return self.filter(is_active=1)
 
     def visible(self):
