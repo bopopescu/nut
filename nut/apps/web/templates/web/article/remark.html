@@ -1,14 +1,16 @@
 {% load i18n static %}
 {% load  common guoku %}
 
-<li>
-    {% for remark in remarks %}#}
-        <div class="remark-item">
-            <span class="remark-user btn" user_name="{{ remark.user.nickname }}" remark_id="{{ remark.id }}">{{ remark.user.nickname }}</span>: <span class="remark-content">{{ remark.content }}</span>
-        </div>
+<ul class="remark-list">
+    {% for remark in remarks %}
+        <li class="remark-item-wrapper">
+            <div class="remark-item">
+                <span class="remark-user btn" user_name="{{ remark.user.nickname }}" remark_id="{{ remark.id }}">{{ remark.user.nickname }}</span>:
+                <span class="remark-content">{{ remark.content }}</span>
+            </div>
+        </li>
     {% endfor %}
-</li>
-
+</ul>
 
 <div id="login_user_remark">
     {% if request.user.is_blocked == True %}
@@ -27,7 +29,7 @@
                 <img class="media-object img-circle" src="{{ user.profile.avatar_url }}" alt="{{ user.profile.nickname }}" width="50" height="50">
             </div>
             <div class="media-body post-note">
-                <form id='article_remark_form' class="form-horizontal" action="" method="POST" role="form">
+                <form id='article_remark_form' class="form-horizontal" action="{% url 'web_article_remark' article.id %}" method="POST" role="form">
                     {% csrf_token %}
                     <fieldset>
                         {% for field in form %}
@@ -53,63 +55,6 @@
         </div>
     {% endif %}
 </div>
-
-
-
-
-
-{#old codes.#}
-
-
-
-{#<script>#}
-{##}
-{#    $("#submit_button").click(function () {#}
-{##}
-{#        $.ajax({#}
-{#            cache: true,#}
-{#            type: "POST",#}
-{#            url: "/articles/{{ article.id }}/remark/",#}
-{#            data: $('#article_remark_form').serialize(),#}
-{#            async: false,#}
-{#            error: function(res) {#}
-{#                alert(res[error]);#}
-{#            },#}
-{#            success: function(res) {#}
-{#                alert(res['user']);#}
-{#                alert(res['content']);#}
-{#                if(res['error'] == 0){#}
-{#                    $(".remark-article").append(#}
-{#                      '<div class="remark-item">' +#}
-{#                          '<span class="remark-user btn" user_name="'+ res['user'] +'">'+ res['user'] +'</span>: ' +#}
-{#                          '<span class="remark-content">'+res['content'] +'</span>' +#}
-{#                      '</div>'#}
-{#                    )#}
-{#                }#}
-{##}
-{#            }#}
-{#        });#}
-{#    });#}
-{##}
-{#    $('.remark-user').click(function(){#}
-{##}
-{#        alert($(this).attr("user_name"));#}
-{#        var remark_on = $(this).attr("user_name");#}
-{#        var remark_id = $(this).attr("remark_id");#}
-{##}
-{#        alert(remark_on);#}
-{##}
-{#        $('#id_content').text('回复 '+ remark_on + ":\n");#}
-{#        $('#id_reply_to').val(remark_id);#}
-{##}
-{#    })#}
-{##}
-{##}
-{##}
-{#</script>#}
-
-
-
 
 
 
