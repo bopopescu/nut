@@ -16,9 +16,14 @@ log = getLogger('django')
 class MessageView(APIJsonView):
 
     def get_data(self, context):
-        remove_user_list = []
-        _messages = self.user.notifications.filter(timestamp__lt=self.timestamp).exclude(
-            actor_object_id__in=remove_user_list)
+        # remove_user_list = []
+
+        _messages = self.user.notifications.filter(
+                                                    timestamp__lt=self.timestamp,\
+                                                    actor_content_type_id=12,
+                                                    actor__is_active__gt=0
+                                                   )
+
         da = Article_Dig.objects.filter(user=self.user).values_list('article_id', flat=True)
         res = []
         for row in _messages[:self.count]:
