@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import  login_required
 from apps.core.models import Show_Banner, GKUser, Entity, Note, Entity_Like, Selection_Entity, Article
 # from apps.core.utils.http import SuccessJsonResponse
 # from apps.report.models import Selection
-from apps.management.decorators import staff_only
+from apps.management.decorators import staff_only , staff_and_editor
 from datetime import datetime, timedelta, date, time
 
 from django.utils.log import getLogger
@@ -18,7 +18,7 @@ today = datetime.today().date()
 
 
 @login_required
-@staff_only
+@staff_and_editor
 def dashboard(request, template='management/dashboard.html'):
 
     # range_date = now - timedelta(days=1)

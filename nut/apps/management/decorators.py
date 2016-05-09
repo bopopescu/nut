@@ -1,6 +1,19 @@
 from django.http import Http404
 
 
+def staff_and_editor(func=None):
+    def staff_wrapped(*args, **kwargs):
+        if len(args) == 2:
+            request = args[1]
+        else:
+            request = args[0]
+        if not (request.user.is_staff or request.user.is_editor):
+            raise Http404
+        return func(*args, **kwargs)
+    return staff_wrapped
+
+
+
 def staff_only(func=None):
     def staff_wrapped(*args, **kwargs):
         if len(args) == 2:
