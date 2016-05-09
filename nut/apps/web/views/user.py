@@ -18,7 +18,7 @@ from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInte
 from apps.core.models import Entity, Entity_Like, \
     User_Follow,Article,User_Profile,Selection_Article
 
-from apps.core.extend.paginator import ExtentPaginator as Jpaginator
+from apps.core.extend.paginator import ExtentPaginator as Jpaginator, AnPaginator
 from apps.tag.models import Content_Tags
 # from apps.notifications import notify
 from django.views.generic import ListView, DetailView, FormView, View
@@ -343,6 +343,8 @@ class UserDetailBase(UserPageMixin, ListView):
 from apps.web.forms.user import UserLikeEntityFilterForm
 class UserLikeView(UserDetailBase):
     paginate_by = 28
+    # following line is a hitter , do not use
+    # paginator_class = AnPaginator
     template_name = 'web/user/user_like.html'
     context_object_name = 'entities'
     def get_context_data(self, **kwargs):
@@ -378,7 +380,8 @@ class UserNoteView(UserDetailBase):
     context_object_name = 'current_user_notes'
     def get_queryset(self):
         _user = self.get_showing_user()
-        _note_list = Note.objects.filter(user=_user, status__gte=0 ,entity__status__gt=Entity.remove).order_by("-post_time")
+        _note_list = Note.objects.filter(user=_user, status__gte=0,
+                                         entity__status__gt=Entity.remove).order_by("-post_time")
         return _note_list
 
 
@@ -401,6 +404,7 @@ class UserPublishedArticleView(UserDetailBase):
         _article_list = Article.objects.get_published_by_user(_user)
         return _article_list
 
+
 class UserPublishedSelectionArticleView(UserDetailBase):
     template_name =  'web/user/user_article.html'
     paginate_by = 12
@@ -408,8 +412,11 @@ class UserPublishedSelectionArticleView(UserDetailBase):
     def get_queryset(self):
         _user = self.get_showing_user()
         _selection_article_ids = Selection_Article.objects.published_by_user(_user).values_list("article__id", flat=True)
-        _article_list = Article.objects.get_published_by_user(_user).filter(selections__isnull = False).filter(pk__in=list(_selection_article_ids))
+        _article_list = Article.objects.get_published_by_user(_user).\
+            filter(selections__isnull = False).\
+            filter(pk__in=list(_selection_article_ids))
         return _article_list
+
 
 class UserLikeArticleView(UserDetailBase):
     model = Article
@@ -419,7 +426,8 @@ class UserLikeArticleView(UserDetailBase):
 
     def get_queryset(self):
         user = self.get_showing_user()
-        current_user_like_articles = Article_Dig.objects.get_queryset().user_dig_list(user=user, article_list=Article.objects.published()).order_by("-created_time")
+        current_user_like_articles = Article_Dig.objects.get_queryset().\
+            user_dig_list(user=user, article_list=Article.objects.published()).order_by("-created_time")
         articles = list()
         for id in current_user_like_articles:
             articles.append(Article.objects.get(pk=id))
@@ -551,8 +559,6 @@ class UserIndex(UserPageMixin, DetailView):
             raise HttpResponseServerError
 
         return profile.user
-
-
 
     def get_showing_user(self):
         user_domain = self.kwargs.get('user_domain', None)
