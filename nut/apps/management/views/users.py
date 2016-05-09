@@ -228,7 +228,7 @@ class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListVie
         return context
 
     def test_func(self, user):
-        return user.is_admin
+        return user.is_staff or user.is_editor
 
 
 # deprecated , prepare to remove

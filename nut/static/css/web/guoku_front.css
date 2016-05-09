@@ -583,9 +583,19 @@ ul li {
 }
 .img-box a img {
   background-color: #f6f6f6;
-  width: 100%;
   max-height: 100%;
   max-width: 100%;
+}
+.event-entity-item .img-box-control {
+  position: relative;
+}
+.event-entity-item .img-box-control a {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
 }
 .event-entity-item .img-box a {
   padding: 8px;
@@ -3590,6 +3600,7 @@ body.compact-body {
 #selection .entity-selection.thumbnail .img-box,
 #event .entity-selection.thumbnail .img-box {
   border: none;
+  max-height: 500px;
 }
 #selection .entity-selection.thumbnail .caption,
 #event .entity-selection.thumbnail .caption {
@@ -4801,6 +4812,6 @@ body .for-mobile {
   text-align: left;
 }
 .gk_test {
-  color: red;
+  color: black;
 }
 /*# sourceMappingURL=guoku_front.less.css.map */
