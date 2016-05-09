@@ -228,26 +228,18 @@
                     </div>
                 </div>
 
+                {#article remark begin by luoqian#} 
 
-
-
-
-               {#article remark begin by luoqian#} 
-
-            {% if not isFromMobile %}
-                <div class="article-section-title"> 
-                    <div class="info-text">文章评论</div> 
-                </div>  
-                <div class="note-wrapper"> 
-                    <ul class="remark-list">
+                {% if not isFromMobile %}
+                    <div class="article-section-title"> 
+                        <div class="info-text">文章评论</div> 
+                    </div>  
+                    <div class="note-wrapper"> 
                         {% include 'web/article/remark.html' %} 
-                    </ul>
-                </div>  
-            {% endif %}
+                    </div>  
+                {% endif %}
 
                 {#article remark end#}
-
-
 
                 {% if not isFromMobile %}
                 <div class="article-section-title for-browser">
