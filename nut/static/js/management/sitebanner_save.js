@@ -2,7 +2,7 @@ var BatchSiteBanners = Class.extend({
     init: function(){
         var that = this ;
 
-        $('#btn_batch_sitebanner_save').click(function(){
+        $('.btn.btn-warning').click(function(){
                 // console.log('save sitebanner');
                 var id_list = that.collectBannerId();
                 that.saveUpdateBatch(id_list);

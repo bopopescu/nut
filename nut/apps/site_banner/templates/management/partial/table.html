@@ -1,5 +1,19 @@
 {% load i18n %}
+{% load i18n static %}
 {% load guoku %}
+
+{#<script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>#}
+{#<script src="{% static 'js/jquery-ui/jquery-ui.min.js' %}"></script>#}
+{#<script src="{% static 'js/management/util.js' %}"></script>#}
+{#<script src="{% static 'js/management/moment.js' %}"></script>#}
+{#<script src="{% static 'js/management/sitebanner_save.js' %}"></script>#}
+
+{% block css %}
+        <link href="{% static 'js/jquery-ui/jquery-ui.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+
 <table class="table table-bordered table-hover table-condensed" id="sellers-table">
     <thead>
     <tr>
@@ -11,13 +25,13 @@
                 {% csrf_token %}
             状态<br>
         <label>
-            <input id="select-banner" type="checkbox" name="checks[]" {% if '0' in checked %}  checked {% endif %}  value="0" >
+            <input id="select-banner" type="checkbox" name="checks" {% if 'app_show_status' in checked %}  checked {% endif %}  value="app_show_status" >
         </label>
         <label>
-            <input id="select-banner" type="checkbox" name="checks[]"  {% if '1' in checked %}  checked {% endif %} value="1">
+            <input id="select-banner" type="checkbox" name="checks"  {% if 'web_mainpage_show_status' in checked %}  checked {% endif %} value="web_mainpage_show_status">
         </label>
         <label>
-            <input id="select-banner" type="checkbox" name="checks[]" {% if '2' in checked %}  checked {% endif %} value="2">
+            <input id="select-banner" type="checkbox" name="checks" {% if 'web_sidebar_show_status' in checked %}  checked {% endif %} value="web_sidebar_show_status">
         </label>
             <br>
 
@@ -37,7 +51,7 @@
 
         <tr>
             <td>{{ banner.id  }}</td>
-            <td><img src="{{  banner.image_url|resize:'200' }}" ></td>
+            <td><img src="{{  banner.image_url }}" ></td>
             <td>
                 title : {{ banner.banner_title  }}
                 <br>
@@ -59,9 +73,12 @@
                 <input id="position" type="text" name="position" value="{{ banner.position }}">
             </form></td>
             <td>
-                <a class="btn btn-success" href="{% url 'manage_sitebanners_update' banner.pk %}" target="">
+                <a class="btn btn-primary" href="{% url 'manage_sitebanners_update' banner.pk %}" target="">
                     编辑
                 </a>
+                <a href="#"  class="btn btn-warning"   batch_url="{% url 'manage_sitebanners_save' %}">
+                             保存
+                           </a>
                 <a class="btn btn-danger" href="{% url 'manage_sitebanners_delete' banner.pk %}" target="">
                     删除
                 </a>
@@ -70,3 +87,4 @@
     {% endfor %}
     </tbody>
 </table>
+

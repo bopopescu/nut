@@ -1,5 +1,7 @@
 # coding=utf-8
 
+
+from urlparse import urlparse, parse_qs
 from apps.site_banner.models import SiteBanner
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -21,37 +23,34 @@ from django.views.generic.list import MultipleObjectMixin, MultipleObjectTemplat
 class SiteBannerCreateForm(BaseBannerCreateForm):
     class Meta:
         model = SiteBanner
-        fields = BaseBannerForm.sitebanner_default_fields + ['active_status', 'banner_title', 'banner_desc',
-                                                        'content_type', 'app_show_status','web_mainpage_show_status',
-                                                        'web_sidebar_show_status',
-                                                         ]
+        fields = ['link', 'applink', 'content_type', 'position', 'img_file', 'active_status', 'banner_title',
+                                                'banner_desc','app_show_status','web_mainpage_show_status',
+                                                'web_sidebar_show_status']
 
 class SiteBannerUpdateForm(BaseBannerUpdateForm):
     class Meta:
         model = SiteBanner
-        fields = BaseBannerForm.sitebanner_default_fields + ['active_status', 'banner_title', 'banner_desc',
-                                                         'content_type', 'app_show_status','web_mainpage_show_status',
-                                                         'web_sidebar_show_status',
-                                                         ]
+        fields = ['link', 'applink', 'content_type', 'position', 'img_file', 'active_status', 'banner_title',
+                                                'banner_desc','app_show_status','web_mainpage_show_status',
+                                                'web_sidebar_show_status']
 
 
 class SiteBannerCreateView(StaffuserRequiredMixin,CreateView):
     form_class = SiteBannerCreateForm
     model = SiteBanner
     template_name = 'management/site_banner_create.html'
-    success_url = reverse_lazy('manage_sitebanners')
+    success_url = '/management/sitebanner/banners/?from=create'
 
 class SiteBannerUpdateView(StaffuserRequiredMixin, UpdateView):
     form_class  = SiteBannerUpdateForm
     model = SiteBanner
     template_name = 'management/site_banner_edit.html'
-    success_url = reverse_lazy('manage_sitebanners')
+    success_url = '/management/sitebanner/banners/?from=update'
 
 class SiteBannerDeleteView(StaffuserRequiredMixin,DeleteView):
     model = SiteBanner
     template_name = 'management/site_banner_delete.html'
-    success_url = reverse_lazy('manage_sitebanners')
-
+    success_url = '/management/sitebanner/banners/?from=delete'
     def delete(self, request, *args, **kwargs):
         '''override delete method, dont't actually delete the object, just
             set the active_status to false'''
@@ -143,16 +142,18 @@ class SiteBannerActiveListView(StaffuserRequiredMixin, AjaxResponseMixin, Multip
         #
         # TODO : EXPLAIN  WHY USE COOKIE ?
         #  1.       USE querystring to persist state, do not use cookie
+        url = request.GET.urlencode()
+
 
         cookie_checked = request.COOKIES.get('checked')
         if cookie_checked is None:    #无cookie 首次访问
-            checked = ['0', '1', '2']
+            checked = ['app_show_status', 'web_mainpage_show_status', 'web_sidebar_show_status']
         else:
-            checked = request.GET.getlist('checks[]')
+            checked = request.GET.getlist('checks')
             if not checked and request.GET.get('page'):       # 有cookie checked为空 翻页的情况
                 checked = cookie_checked.split('|')
             elif request.GET.get('from') or cookie_checked == '-1' and len(checked) == 0: #cookie为-1 checked为空
-                checked = ['0', '1', '2']
+                checked = ['app_show_status', 'web_mainpage_show_status', 'web_sidebar_show_status']
             else:                 # 有cookie 有checked 修改勾选的情况
                 checked = checked
 
@@ -170,38 +171,24 @@ class SiteBannerActiveListView(StaffuserRequiredMixin, AjaxResponseMixin, Multip
         return response
 
 def get_select(checked):
-    # 如果多一个 CHECK 怎么办?
-
 
     # TODO  : REFACTTOR HERE
     # 1. SHOULD NOT USE MAGIC NUMBER
     # 2. LOGIC IS NOT CLEAR
-
-    if len(checked) == 0:
+    if len(checked) == 0 or checked[0] == '' or checked[0] == '-1':
         return SiteBanner.objects.get_active_banner().filter(app_show_status=False, web_mainpage_show_status=False,
-                                                             web_sidebar_show_status=False)
-    elif len(checked) == 1:
-        if checked[0] == '' or int(checked[0]) == -1:
-            return SiteBanner.objects.get_active_banner().filter(app_show_status=False, web_mainpage_show_status=False,
-                                                             web_sidebar_show_status=False)
-        elif int(checked[0]) == 0:
-            return SiteBanner.objects.get_active_banner().filter(app_show_status=True)
-        elif int(checked[0]) == 1:
-            return SiteBanner.objects.get_active_banner().filter(web_mainpage_show_status=True)
-        else:
-            return SiteBanner.objects.get_active_banner().filter(web_sidebar_show_status=True)
-    elif len(checked) == 2:
+                                                  web_sidebar_show_status=False)
 
-        if not '0'  in checked:
-            return SiteBanner.objects.get_active_banner().filter(Q(web_mainpage_show_status=True) | Q(web_sidebar_show_status=True))
-        elif not '1' in checked:
-            return SiteBanner.objects.get_active_banner().filter(Q(app_show_status=True) | Q(web_sidebar_show_status=True))
+    fiter_condition = None
+    for select_field in checked:
+        q = Q(**{select_field: True})
+        if fiter_condition:
+            fiter_condition = fiter_condition | q  # or & for filtering
         else:
-            return SiteBanner.objects.get_active_banner().filter(Q(app_show_status=True) | Q(web_mainpage_show_status=True))
-    else:
-        return SiteBanner.objects.get_active_banner().filter(Q(app_show_status=True) | Q(web_mainpage_show_status=True) |
-                                                      Q(web_sidebar_show_status=True))
+            fiter_condition = q
 
+    result = SiteBanner.objects.get_active_banner().filter(fiter_condition)
+    return result
 
 class SiteBannerInactiveListView(StaffuserRequiredMixin,ListView):
     template_name = 'management/site_banner_list.html'
