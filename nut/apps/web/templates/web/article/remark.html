@@ -112,10 +112,7 @@
 {#    }#}
 {##}
 {#</style>#}
-{##}
-{##}
-{##}
-{##}
+
 <script>
 
     $("#submit_button").click(function () {
@@ -133,7 +130,6 @@
                 alert(res['user']);
                 alert(res['content']);
                 if(res['error'] == 0){
-
                     $(".remark-article").append(
                       '<div class="remark-item">' +
                           '<span class="remark-user btn" user_name="'+ res['user'] +'">'+ res['user'] +'</span>: ' +
