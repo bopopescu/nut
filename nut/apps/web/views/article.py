@@ -363,7 +363,7 @@ class ArticleRemarkCreate(AjaxResponseMixin, LoginRequiredMixin, JSONResponseMix
         return article
 
     def post_ajax(self, request, *args, **kwargs):
-        res = {}
+
         article_remark = Article_Remark(user=self.request.user, article=self.get_article())
         arform = ArticleRemarkForm(self.request.POST, instance=article_remark)
         user = self.request.user
@@ -379,7 +379,7 @@ class ArticleRemarkCreate(AjaxResponseMixin, LoginRequiredMixin, JSONResponseMix
                 res = {
                 'user': user.nickname,
                 'content': content,
-                'reply_to': reply_to,
+                'reply_to':  reply_to.id if reply_to is not None else '-1',
                 'status': '1',
                 'error': 0
                 }
