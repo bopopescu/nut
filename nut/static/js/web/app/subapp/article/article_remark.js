@@ -1,7 +1,6 @@
 define([
     'libs/Class',
     'subapp/account',
-    'subapp/article/article_user_comment',
     'libs/fastdom',
     'utils/io',
     'libs/csrf'
@@ -16,7 +15,23 @@ define([
         init: function(){
             console.log('article remark begin');
             this.accountApp = new AccountApp();
-            this.articleCommentManager = new ArticleCommentManager();
+             this.initVisitorNote();
+        },
+        initVisitorNote: function(){
+            var that = this;
+            $('#visitor_note').click(function(){
+                    $.when(
+                        $.ajax({
+                            url: '/login/'
+                        })
+                    ).then(
+                        function success(data){
+                            var html = $(data);
+                            that.accountApp.modalSignIn(html);
+                        },
+                        function fail(){}
+                    );
+            });
         }
     });
     return ArticleRemark;

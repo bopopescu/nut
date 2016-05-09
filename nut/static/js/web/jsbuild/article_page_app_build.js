@@ -2795,6 +2795,90 @@ define('subapp/article/article_share',['jquery', 'libs/Class','underscore','boot
 
 
 
+define('utils/io',[],function(){
+    var io={
+        clearUserInputString: function(str){
+            str = str.replace(/(\s+)/mg,' ');
+            str = str.replace(/([><:$*&%])/mg, '');
+            return str.trim();
+        },
+    };
+
+    return io;
+});
+define('libs/csrf',['jquery'],function($){
+
+    function getCookie(name) {
+    var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+});
+define('subapp/article/article_remark',[
+    'libs/Class',
+    'subapp/account',
+    'libs/fastdom',
+    'utils/io',
+    'libs/csrf'
+],function(
+    Class,
+    AccountApp,
+    ArticleCommentManager,
+    fastdom,
+    io
+){
+    var ArticleRemark = Class.extend({
+        init: function(){
+            console.log('article remark begin');
+            this.accountApp = new AccountApp();
+             this.initVisitorNote();
+        },
+        initVisitorNote: function(){
+            var that = this;
+            $('#visitor_note').click(function(){
+                    $.when(
+                        $.ajax({
+                            url: '/login/'
+                        })
+                    ).then(
+                        function success(data){
+                            var html = $(data);
+                            that.accountApp.modalSignIn(html);
+                        },
+                        function fail(){}
+                    );
+            });
+        }
+    });
+    return ArticleRemark;
+});
+
 define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(Class,$,AccountApp){
     var UserFollow = Class.extend({
         init: function () {
@@ -2859,40 +2943,6 @@ define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(
     return UserFollow;
 });
 
-define('libs/csrf',['jquery'],function($){
-
-    function getCookie(name) {
-    var cookieValue = null;
-        if (document.cookie && document.cookie != '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-
-    var csrftoken = getCookie('csrftoken');
-
-    function csrfSafeMethod(method) {
-        // these HTTP methods do not require CSRF protection
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-
-    $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
-            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            }
-        }
-    });
-
-});
 require([
         'libs/polyfills',
         'jquery',
@@ -2905,6 +2955,7 @@ require([
         'subapp/detailsidebar',
         'subapp/related_article_loader',
         'subapp/article/article_share',
+        'subapp/article/article_remark',
         'subapp/user_follow',
         'libs/csrf'
 
@@ -2920,6 +2971,7 @@ require([
               EntityCardRender,
               SideBarManager,
               RelatedArticleLoader,
+              ArticleRemark,
               UserFollow,
               ArticleShareApp
 
@@ -2932,6 +2984,7 @@ require([
         var entityCardRender = new EntityCardRender();
         var sidebar = new SideBarManager();
         var relatedArticleLoader = new RelatedArticleLoader();
+        var articleRemark = new ArticleRemark();
         var user_follow = new UserFollow();
         var shareApp = new ArticleShareApp();
 
