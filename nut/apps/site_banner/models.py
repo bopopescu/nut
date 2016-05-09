@@ -42,17 +42,16 @@ class SiteBanner(BaseBanner):
         (False, ('disabled')),
         (True, ('enabled'))
     ]
-    (entity, outlink, category, user, user_tag, other) = xrange(6)
     CONTENT_TYPE_CHOICES = (
-        (entity, ('entity')),
-        (outlink, ('outlink')),
-        (category, ('category')),
-        (user, ('user')),
-        (user_tag, ('user_tag')),
-        (other, ('other')),
+        ('entity', ('entity')),
+        ('outlink', ('outlink')),
+        ('category', ('category')),
+        ('user', ('user')),
+        ('user_tag', ('user_tag')),
+        ('other', ('other')),
     )
     active_status = models.BooleanField(choices=STATUS_CHOICE,default=True)
-    content_type = models.IntegerField(choices=CONTENT_TYPE_CHOICES, default=entity)
+    content_type = models.CharField(max_length=128, choices=CONTENT_TYPE_CHOICES, default='entity')
     banner_title = models.CharField(max_length=128, null=True, blank=True)
     banner_desc  = models.CharField(max_length=128, null=True, blank=True)
     app_show_status = models.BooleanField(choices=SHOW_STATUS_CHOICE,default=False)
@@ -61,17 +60,17 @@ class SiteBanner(BaseBanner):
 
     objects = SiteBannerManager()
 
-    # @property
-    # def url(self):
-    #     if 'outlink' == self.content_type:
-    #         return self.key
-    #     elif 'user_tag' == self.content_type:
-    #         type, key = self.key.split(':')
-    #         _url = "guoku://%s/tag/%s/" % (type, key)
-    #         return _url
-    #
-    #     _url = "guoku://%s/%s" % (self.content_type, self.key)
-    #     return _url
+    @property
+    def url(self):
+        if 'outlink' == self.content_type:
+            return self.applink
+        elif 'user_tag' == self.content_type:
+            type, key = self.applink.split(':')
+            _url = "guoku://%s/tag/%s/" % (type, key)
+            return _url
+
+        _url = "guoku://%s/%s" % (self.content_type, self.applink)
+        return _url
 
     class Meta:
         db_table = 'sitebanner'

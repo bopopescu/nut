@@ -42,13 +42,14 @@
                              <button class="btn btn-primary">+ 新建bannner</button>
                            </a>
 
-                            <a href="#"  class="btn btn-primary"  id="btn_batch_sitebanner_save" batch_url="{% url 'manage_sitebanners_save' %}">
+                            <a href="#"  class="btn btn-warning"  batch_url="{% url 'manage_sitebanners_save' %}">
                              保存
                            </a>
                            <hr>
                        </div>
 
                         {% include "management/partial/table.html"%}
+
 
                     </div>
 
