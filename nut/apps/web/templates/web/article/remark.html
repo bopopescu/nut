@@ -2,104 +2,112 @@
 {% load  common guoku %}
 {#TODO :   @luoqian   edit this file  #}
 
-<head>
-    <script type="text/javascript" src="{% static 'js/jquery-1.11.1.js' %}"></script>
+<li>
+    {% for remark in remarks %}#}
+        <div class="remark-item">
+            <span class="remark-user btn" user_name="{{ remark.user.nickname }}" remark_id="{{ remark.id }}">{{ remark.user.nickname }}</span>: <span class="remark-content">{{ remark.content }}</span>
+        </div>
+    {% endfor %}
+</li>
+
+{#<head>#}
+{#    <script type="text/javascript" src="{% static 'js/jquery-1.11.1.js' %}"></script>#}
 {#    <script type="text/javascript" src="path/to/form.js"></script>#}
-
-    <script type="text/javascript">
-        // wait for the DOM to be loaded
-        $(document).ready(function() {
-            // bind 'myForm' and provide a simple callback function
-            $('#article_remark_form').ajaxForm(function() {
-                alert("Thank you for your comment!");
-            });
-        });
-    </script>
-</head>
-
-
-<div class="more-article-wrapper for-browser">
-
-     <div class="remark-article">
-         {% for remark in remarks %}
-          <div class="remark-item">
-              <span class="remark-user btn" user_name="{{ remark.user.nickname }}" remark_id="{{ remark.id }}">{{ remark.user.nickname }}</span>: <span class="remark-content">{{ remark.content }}</span>
-          </div>
-        {% endfor %}
-     </div>
-
-    <div class="form-group">
-
-        <form id='article_remark_form' action="" method="POST">{% csrf_token %}
-            <table>
-                {{ form.as_table }}
-            </table>
-            <p><input id="submit_button" type="button" value="Submit"></p>
-        </form>
-
-    </div>
+{##}
+{#    <script type="text/javascript">#}
+{#        // wait for the DOM to be loaded#}
+{#        $(document).ready(function() {#}
+{#            // bind 'myForm' and provide a simple callback function#}
+{#            $('#article_remark_form').ajaxForm(function() {#}
+{#                alert("Thank you for your comment!");#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+{#</head>#}
 
 
-</div>
-
-
-<style type="text/css">
-    .remark-item{
-        padding: 10px;
-    }
-
-</style>
-
-
-
-
-<script>
+{#<div class="more-article-wrapper for-browser">#}
+{##}
+{#     <div class="remark-article">#}
+{#         {% for remark in remarks %}#}
+{#          <div class="remark-item">#}
+{#              <span class="remark-user btn" user_name="{{ remark.user.nickname }}" remark_id="{{ remark.id }}">{{ remark.user.nickname }}</span>: <span class="remark-content">{{ remark.content }}</span>#}
+{#          </div>#}
+{#        {% endfor %}#}
+{#     </div>#}
+{##}
+{#    <div class="form-group">#}
+{##}
+{#        <form id='article_remark_form' action="" method="POST">{% csrf_token %}#}
+{#            <table>#}
+{#                {{ form.as_table }}#}
+{#            </table>#}
+{#            <p><input id="submit_button" type="button" value="Submit"></p>#}
+{#        </form>#}
+{##}
+{#    </div>#}
+{##}
+{##}
+{#</div>#}
+{##}
+{##}
+{#<style type="text/css">#}
+{#    .remark-item{#}
+{#        padding: 10px;#}
+{#    }#}
+{##}
+{#</style>#}
+{##}
+{##}
+{##}
+{##}
+{#<script>#}
 {#    @罗倩 重构之 #}
-
-    $("#submit_button").click(function () {
-
-        $.ajax({
-            cache: true,
-            type: "POST",
-            url: "/articles/{{ article.id }}/remark/",
-            data: $('#article_remark_form').serialize(),
-            async: false,
-            error: function(res) {
-                alert(res[error]);
-            },
-            success: function(res) {
+{##}
+{#    $("#submit_button").click(function () {#}
+{##}
+{#        $.ajax({#}
+{#            cache: true,#}
+{#            type: "POST",#}
+{#            url: "/articles/{{ article.id }}/remark/",#}
+{#            data: $('#article_remark_form').serialize(),#}
+{#            async: false,#}
+{#            error: function(res) {#}
+{#                alert(res[error]);#}
+{#            },#}
+{#            success: function(res) {#}
 {#                alert(res['user']);#}
 {#                alert(res['content']);#}
-                if(res['error'] == 0){
-
-                    $(".remark-article").append(
-                      '<div class="remark-item">' +
-                          '<span class="remark-user btn" user_name="'+ res['user'] +'">'+ res['user'] +'</span>: ' +
-                          '<span class="remark-content">'+res['content'] +'</span>' +
-                      '</div>'
-                    )
-                }
-
-            }
-        });
-    });
-
-    $('.remark-user').click(function(){
-
+{#                if(res['error'] == 0){#}
+{##}
+{#                    $(".remark-article").append(#}
+{#                      '<div class="remark-item">' +#}
+{#                          '<span class="remark-user btn" user_name="'+ res['user'] +'">'+ res['user'] +'</span>: ' +#}
+{#                          '<span class="remark-content">'+res['content'] +'</span>' +#}
+{#                      '</div>'#}
+{#                    )#}
+{#                }#}
+{##}
+{#            }#}
+{#        });#}
+{#    });#}
+{##}
+{#    $('.remark-user').click(function(){#}
+{##}
 {#        alert($(this).attr("user_name"));#}
-        var remark_on = $(this).attr("user_name");
-        var remark_id = $(this).attr("remark_id");
-
+{#        var remark_on = $(this).attr("user_name");#}
+{#        var remark_id = $(this).attr("remark_id");#}
+{##}
 {#        alert(remark_on);#}
-
-        $('#id_content').text('回复 '+ remark_on + ":\n");
-        $('#id_reply_to').val(remark_id);
-
-    })
-
-
-
-</script>
+{##}
+{#        $('#id_content').text('回复 '+ remark_on + ":\n");#}
+{#        $('#id_reply_to').val(remark_id);#}
+{##}
+{#    })#}
+{##}
+{##}
+{##}
+{#</script>#}
 
 
 
