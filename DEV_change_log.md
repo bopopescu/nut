@@ -1,4 +1,5 @@
-3. 
+
+3.  selection entity long pic css adjust , event entity pic vertical align  -- 罗倩
 2.  editor user can use management , except user edit 
 1.  add nick to core/model  -- 赵旭
 =======================

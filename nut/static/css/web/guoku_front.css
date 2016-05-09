@@ -583,7 +583,6 @@ ul li {
 }
 .img-box a img {
   background-color: #f6f6f6;
-  width: 100%;
   max-height: 100%;
   max-width: 100%;
 }
@@ -4815,3 +4814,4 @@ body .for-mobile {
 .gk_test {
   color: red;
 }
+/*# sourceMappingURL=guoku_front.less.css.map */
