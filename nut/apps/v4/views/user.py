@@ -294,7 +294,7 @@ def fans_list(request, user_id):
         return ErrorJsonResponse(status=404)
 
     fans_list = _user.fans.all()
-    total = len(fans_list)
+    # total = len(fans_list)
     paginator = Paginator(fans_list, 30)
 
     try:
