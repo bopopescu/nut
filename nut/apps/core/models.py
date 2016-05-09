@@ -1580,6 +1580,15 @@ class Article(BaseModel):
         #     return tag_string
 
 
+class Article_Remark(models.Model):
+    user = models.ForeignKey(GKUser)
+    article = models.ForeignKey(Article)
+    content = models.CharField(max_length=512, null=False, blank=False)
+    reply_to = models.ForeignKey('self', null=True, blank=True)
+    create_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+    update_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+
+
 # use ForeignKey instead of  oneToOne for selection entity ,
 # this means , an article can be published many times , without first been removed from selection
 # this design is on propose
@@ -2116,15 +2125,19 @@ post_save.connect(user_follow_notification, sender=User_Follow,
 # post_save.connect(article_related_entity_update, sender=Article, dispatch_uid="article_related_product_update")
 
 
+def article_remark_notification(sender, instance, created, **kwargs):
+    if isinstance(sender, Article_Remark) and created:
+        log.info(instance)
+        notify.send(instance.user, recipient=instance.article.creator, verb=u'has remark on your article', action_object=instance, target=instance.article)
 
-#TODO :  move this close to Article
-class Article_Remark(models.Model):
-    user = models.ForeignKey(GKUser)
-    article = models.ForeignKey(Article)
-    content = models.CharField(max_length=512, null=False, blank=False)
-    reply_to = models.ForeignKey('self', null=True, blank=True)
-    create_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
-    update_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+
+post_save.connect(article_remark_notification, sender=Article_Remark, dispatch_uid="article_remark_notification")
+
+
+
+
+
+
 
 
 __author__ = 'edison7500'
