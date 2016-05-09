@@ -10,6 +10,52 @@
     {% endfor %}
 </li>
 
+
+<div id="login_user_remark">
+    {% if request.user.is_blocked %}
+    <div class="media" style="padding: 15px" class="blocked-user-notice">
+        <div class="pull-left ">
+            <i class="fa fa-exclamation-triangle"></i>
+        </div>
+        <div class="media-body post-note">
+            <p>果库倡导友好、宽容和理性的对待不同的看法和意见，尊重他人。</p>
+            <p>你的帐号因多次违规，已被禁言。可通过 hi@guoku.com 联系管理员。</p>
+        </div>
+    </div>
+{% elif request.user.is_authenticated and  not user_post_note %}
+    {% if not user_post_note %}
+        <div class="media" >
+            <div class="pull-left">
+                <img class="media-object img-circle" src="{{ user.profile.avatar_url }}" alt="{{ user.profile.nickname }}" width="50" height="50">
+            </div>
+            <div class="media-body post-note">
+                <form class="form-horizontal" action="{% url 'web_post_entity_note' entity.pk %}" method="POST" role="form">
+                    {% csrf_token %}
+                    <fieldset>
+                        {% for field in note_forms %}
+                            {{ field }}
+                        {% endfor %}
+                    </fieldset>
+                    <div class="action pull-right" style="margin-top:10px;">
+                        <button class="btn btn-primary btn-post" type="submit">点评</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+{% elif  not request.user.is_authenticated %}
+    <div class="media">
+        <div class="visitor-note-wrapper">
+            <div id="visitor_note" class="visitor-note-button blue-button guoku-button">
+                我来点评
+                <i class="fa fa-angle-right"></i>
+                <i class="fa fa-angle-right"></i>
+            </div>
+        </div>
+    </div>
+{% endif %}
+</div>
+
 {#<head>#}
 {#    <script type="text/javascript" src="{% static 'js/jquery-1.11.1.js' %}"></script>#}
 {#    <script type="text/javascript" src="path/to/form.js"></script>#}
