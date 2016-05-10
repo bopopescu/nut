@@ -29,10 +29,14 @@ class RobotDicManager(models.Manager):
         return self.get_queryset().filter(status=True)
 
 class RobotDic(models.Model):
+    '''
+        model for keyword and response dictionary
+    '''
     keyword = models.TextField(unique=True)
     resp = models.TextField()
     status = models.BooleanField(default=True)
     created_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
+
 
 class Token(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False, related_name='wechat')
