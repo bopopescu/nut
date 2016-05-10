@@ -2946,6 +2946,7 @@ define('subapp/article/article_remark',[
         },
         replyNotice:function(data){
             $('#article_remark_form').find('textarea').attr('placeholder','回复 '+data+':');
+            $('#article_remark_form').find('textarea').focus();
         },
         saveReplyToId:function(data){
             $('#id_reply_to').val(data);
