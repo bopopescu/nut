@@ -2860,7 +2860,7 @@ define('subapp/article/article_remark',[
              this.initVisitorRemark();
              this.initUserRemarkPost();
              this.initUserReply();
-            this.checkUserLogin();
+             this.checkUserLogin();
         },
         checkUserLogin:function(){
             var loginStatus = $('#user_dash_link').attr('href');
