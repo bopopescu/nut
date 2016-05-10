@@ -1550,8 +1550,36 @@ a:hover{text-decoration:underline;}
 }
 
 //article remark style
+
+  #remark-list{
+    padding:0 15px;
+    overflow: hidden;
+    .remark-list-item-wrapper{
+      margin-bottom:40px;
+      &:hover{
+        cursor:pointer;
+      }
+      .remark-item{
+        overflow: hidden;
+        .remark-detail{
+          margin-left:80px;
+          .remark-content{
+            margin-top:6px;
+          }
+          .remark-operate{
+            .remark-time{
+              font-size:@mini-size;
+              color:@common-gray;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
 @media (min-width: 768px){
-  .article-onepage .note-wrapper{
+  .article-onepage .remarks-wrapper{
     .panel;
     margin: 15px 0px;
   }
