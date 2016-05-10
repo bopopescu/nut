@@ -14,6 +14,15 @@
                         <a href="{% url 'web_user_index' remark.user.pk %}" target="_blank">
                             {{ remark.user.nickname }}
                         </a>
+                        {% if remark.reply_to.user.nickname %}
+                            <span>
+                                回复:
+                                <a href="{% url 'web_user_index' remark.reply_to.user.pk %}" target="_blank">
+                                    {{ remark.reply_to.user.nickname }}
+                                </a>
+                            </span>
+                        {% endif %}
+
                     </div>
                     <div class="remark-content">
                         <p>
