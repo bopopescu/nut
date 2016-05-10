@@ -1,3 +1,10 @@
+2. 
+1.  limite manage entity create editor choice to 8 and self 
+
+=======================
+# merged to master 2016 5-9
+=======================
+
 5.  mng -  guoku editor/writer article list  -- anchen 
 4.  article page not found to 404 page , for searching engine consideration -- anchen
 3.  selection entity long pic css adjust , event entity pic vertical align  -- 罗倩
