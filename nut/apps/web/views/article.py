@@ -373,7 +373,7 @@ class ArticleRemarkCreate(AjaxResponseMixin, LoginRequiredMixin, JSONResponseMix
                 data = arform.cleaned_data
                 content = data['content']
                 reply_to = data['reply_to']
-                print data.items()
+                # print data.items()
 
                 article_remark_obj = arform.save()
                 if reply_to is not None:
@@ -406,8 +406,6 @@ class ArticleRemarkCreate(AjaxResponseMixin, LoginRequiredMixin, JSONResponseMix
             }
 
         return self.render_json_response(res,status=200)
-
-
 
 
 

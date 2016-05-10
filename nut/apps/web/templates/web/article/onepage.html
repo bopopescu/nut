@@ -236,7 +236,9 @@
                     </div>  
                     <div class="remarks-wrapper"> 
                         <ul id="remark-list">
-                            {% include 'web/article/remark.html' %} 
+                            {% for remark in remarks %}
+                                {% include 'web/article/remark.html' %} 
+                            {% endfor %}
                         </ul>
                         <div id="login_user_remark">
                             {% if request.user.is_blocked == True %}
