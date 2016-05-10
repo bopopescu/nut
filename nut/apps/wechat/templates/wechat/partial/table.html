@@ -1,0 +1,41 @@
+{% load i18n %}
+{% load guoku %}
+<table class="table table-bordered table-hover table-condensed" id="sellers-table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>关键词 </th>
+        <th>回复</th>
+        <th>创建时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {#            the first line datas#}
+
+    {% for kw in keyword_list %}
+
+        <tr>
+            <td>{{ kw.id }}</td>
+            <td>{{ test }}</td>
+            <td>
+                title : {{ banner.banner_title  }}
+                <br>
+                description : {{ banner.banner_desc }}
+            </td>
+            <td>{{ banner.position  }}</td>
+            <td>{{ banner.link  }}</td>
+            <td>{{ banner.applink  }}</td>
+            <td>{{ banner.get_status_display  }}</td>
+            <td>
+                <a class="btn btn-success" href="{% url 'manage_store_banners_update' banner.pk %}" target="">
+                    编辑
+                </a>
+                <a class="btn btn-danger" href="{% url 'manage_store_banners_delete' banner.pk %}" target="">
+                    删除
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
