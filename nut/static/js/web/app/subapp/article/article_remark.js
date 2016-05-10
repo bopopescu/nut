@@ -17,6 +17,7 @@ define([
             this.accountApp = new AccountApp();
              this.initVisitorRemark();
              this.initUserRemarkPost();
+             this.initUserReply();
         },
         initVisitorRemark: function(){
             var that = this;
@@ -32,6 +33,12 @@ define([
                         },
                         function fail(){}
                     );
+            });
+        },
+        initUserReply:function(){
+            $('#remark-list').delegate('.remark-list-item-wrapper','click',function(){
+               console.log($(this).find('.remark-user').attr('user_name'));
+                console.log($(this));
             });
         },
         initUserRemarkPost: function(){
@@ -67,8 +74,8 @@ define([
         addNewRemark: function($ele){
 
             //$ele.appendTo($(".remark-list"));
-            $(".remark-list").append(
-                '<p>'+$ele['content']+'</p>'
+            $("#remark-list").append(
+                '<p class="remark-list-item-wrapper">'+$ele['content']+'</p>'
             );
         },
         postRemarkSuccess: function(result){
