@@ -18,14 +18,13 @@ define([
              this.initVisitorRemark();
              this.initUserRemarkPost();
              this.initUserReply();
-             this.checkUserLogin();
         },
         checkUserLogin:function(){
-            var loginStatus = $('#user_dash_link').attr('href');
-            if(loginStatus){
-                console.log('login in');
+            var loginData = $('#user_dash_link').attr('href');
+            if(loginData){
+                return true;
             }else{
-                console.log('no login');
+                return false;
             }
         },
         initVisitorRemark: function(){
@@ -43,6 +42,22 @@ define([
                         function fail(){}
                     );
             });
+            if(!that.checkUserLogin()){
+                console.log('no user login');
+                 $('#remark-list').delegate('.remark-list-item-wrapper','click',function(){
+                      $.when(
+                        $.ajax({
+                            url: '/login/'
+                        })
+                    ).then(
+                        function success(data){
+                            var html = $(data);
+                            that.accountApp.modalSignIn(html);
+                        },
+                        function fail(){}
+                    );
+            });
+            }
         },
 
         initUserReply:function(){
