@@ -62,14 +62,21 @@ define([
         initUserReply:function(){
             var that = this;
             //user login and request user is not remark user
-
             if(that.checkUserLogin){
-                console.log('user login');
                 $('#remark-list').delegate('.remark-list-item-wrapper','click',function(){
+                    var requestUser = $('#user_dash_link').data('user-id');
                     var replyTo = $(this).find('.remark-user').attr('user_name');
+                    var remarkUserId = $(this).find('.remark-user').attr('user_id');
                     var replyToId = $(this).find('.remark-user').attr('remark_id');
-                    that.replyNotice(replyTo);
-                    that.saveReplyToId(replyToId);
+                    console.log('login user:'+requestUser);
+                    console.log('remark user:'+remarkUserId);
+                    if(requestUser != remarkUserId){
+                        that.replyNotice(replyTo);
+                        that.saveReplyToId(replyToId);
+                    }else{
+                        alert('delete?');
+                    }
+
                 });
             }
         },
