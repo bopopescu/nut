@@ -49,7 +49,7 @@
                            <hr>
                        </div>
 
-                        {% include "management/partial/table.html"%}
+                        {% include "management/management_sitebanner/partial/table.html"%}
 
 
                     </div>
@@ -59,7 +59,7 @@
 {##}
 {#                    </div>#}
                     <div class="box-footer">
-                        {% include "management/paginator_banner.html" with objects=page_obj url=request.path %}
+                        {% include "management/management_sitebanner/paginator_banner.html" with objects=page_obj url=request.path %}
                     </div>
 
                 </div>
