@@ -1,4 +1,5 @@
 #coding=utf-8
+from apps.site_banner.models import SiteBanner
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator
 
@@ -127,11 +128,13 @@ class DiscoverView(APIJsonView):
         da = APIArticle_Dig.objects.filter(user=self.visitor).values_list('article_id', flat=True)
 
         res = dict()
-        shows = Show_Banner.objects.all()
+        shows = SiteBanner.objects.get_app_banner()
         res['banner'] = []
         for row in shows:
-            if row.banner.url.startswith('http://m.guoku.com/articles/'):
-                url = row.banner.url.split('?')
+            if row.applink in (None, ''):
+                pass
+            elif row.applink and row.applink.startswith('http://m.guoku.com/articles/'):
+                url = row.applink.split('?')
                 uri = url[0]
                 article_id = uri.split('/')[-2]
                 article = APIArticle.objects.get(pk = article_id)
@@ -139,17 +142,21 @@ class DiscoverView(APIJsonView):
 
                 res['banner'].append(
                     {
-                        'url':row.banner.url,
-                        'img':row.banner.image_url,
+
+                        'url': row.applink,
+                        'img':row.image_url,
                         'article': article.v4_toDict(da)
+
                     }
                 )
+
             else:
 
                 res['banner'].append(
                     {
-                        'url':row.banner.url,
-                        'img':row.banner.image_url
+
+                        'url': row.url,
+                        'img': row.image_url
                     }
                 )
 

@@ -21,22 +21,31 @@
         <th style="max-width: 200px">主图</th>
         <th>title/ desc </th>
         <th>
+        <table border="1">
             <form action="{% url 'manage_sitebanners_active_list' %}" enctype="multipart/form-data">
                 {% csrf_token %}
-            状态<br>
-        <label>
+{#            状态<br>#}
+            <td>
+        <label>App
             <input id="select-banner" type="checkbox" name="checks" {% if 'app_show_status' in checks %}  checked {% endif %}  value="app_show_status" >
         </label>
-        <label>
+            </td>
+            <td>
+        <label>主页
             <input id="select-banner" type="checkbox" name="checks"  {% if 'web_mainpage_show_status' in checks %}  checked {% endif %} value="web_mainpage_show_status">
         </label>
-        <label>
+            </td>
+            <td>
+        <label>侧边栏
             <input id="select-banner" type="checkbox" name="checks" {% if 'web_sidebar_show_status' in checks %}  checked {% endif %} value="web_sidebar_show_status">
         </label>
-            <br>
+            </td>
+            <td>
 
-                <input type="submit"  class="btn btn-primary" value="Submit">
+                <input type="submit"  class="btn btn-primary" value="筛选">
+            </td>
                 </form>
+        </table>
         </th>
 
         <th>排名/位置</th>
@@ -58,13 +67,13 @@
                 description : {{ banner.banner_desc }}
             </td>
             <td>
-                <label>
+                <label>App
                     <input id="chk-app" type="checkbox" name="sitabanner" {% if banner.app_show_status %}  checked {% endif %} value="{{ banner.id }}" >
                 </label>
-                <label>
+                <label>主页
                     <input id="chk-mainpage" type="checkbox" name="sitabanner" {% if banner.web_mainpage_show_status %}  checked {% endif %} value="{{ banner.id  }}" >
                 </label>
-                <label>
+                <label>侧边栏
                     <input id="chk-sidebar" type="checkbox" name="sitabanner" {% if banner.web_sidebar_show_status %}  checked {% endif %} value="{{ banner.id }}" >
                 </label>
             </td>
