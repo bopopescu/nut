@@ -10,7 +10,7 @@ from django.utils.log import getLogger
 from django.views.decorators.csrf import csrf_exempt
 from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
-from apps.management.decorators import staff_only
+from apps.management.decorators import staff_only, staff_and_editor
 
 from apps.core.models import Entity, Buy_Link, GKUser
 from apps.core.forms.entity import EditEntityForm, EntityImageForm, \
@@ -84,7 +84,7 @@ class EntityListView(FilterMixin, ListView):
         context['status'] =  self.request.GET.get('status', None)
         return context
 
-    @staff_only
+    @staff_and_editor
     def dispatch(self, request, *args, **kwargs):
         return super(EntityListView, self).dispatch(request, *args, **kwargs)
 # entity list view class end
@@ -123,7 +123,7 @@ class EntityListView(FilterMixin, ListView):
 
 
 @login_required
-@staff_only
+@staff_and_editor
 def edit(request, entity_id, template='management/entities/edit.html'):
     _update = None
     try:
@@ -176,7 +176,7 @@ def edit(request, entity_id, template='management/entities/edit.html'):
 
 
 @login_required
-@staff_only
+@staff_and_editor
 def create(request, template='management/entities/new.html'):
     _url = request.GET.get('url')
 
@@ -234,7 +234,7 @@ def create(request, template='management/entities/new.html'):
 
 
 @login_required
-@staff_only
+@staff_and_editor
 def buy_link(request, entity_id, template='management/entities/buy_link.html'):
     # _buy_link_list = Buy_Link.objects.filter(entity_id = entity_id)
     try:
@@ -265,6 +265,7 @@ def buy_link(request, entity_id, template='management/entities/buy_link.html'):
 
 @csrf_exempt
 @login_required
+@staff_and_editor
 def edit_buy_link(request, bid,
                   template='management/entities/edit_buy_link.html'):
     try:
@@ -296,7 +297,7 @@ def edit_buy_link(request, bid,
 
 @csrf_exempt
 @login_required
-@staff_only
+@staff_and_editor
 def remove_buy_link(request, bid):
     try:
         b = Buy_Link.objects.get(pk=bid)
@@ -359,7 +360,7 @@ class CheckBuyLinkView(View):
         assert self.bid is not None
         return self.get_context_data(**kwargs)
 
-    @staff_only
+    @staff_and_editor
     def dispatch(self, request, *args, **kwargs):
         return super(CheckBuyLinkView, self).dispatch(request, *args, **kwargs)
 
@@ -372,7 +373,7 @@ class CheckBuyLinkView(View):
 
 
 @login_required
-@staff_only
+@staff_and_editor
 def refetch_image(request, entity_id):
     try:
         _entity = Entity.objects.get(pk=entity_id)
@@ -386,6 +387,7 @@ def refetch_image(request, entity_id):
 
 
 @login_required
+@staff_and_editor
 def image(request, entity_id,
           template='management/entities/upload_image.html'):
     try:
@@ -413,6 +415,7 @@ def image(request, entity_id,
 
 @csrf_exempt
 @login_required
+@staff_and_editor
 def delete_image(request, entity_id):
     if request.method == 'POST':
         _index = request.POST.get('index', None)

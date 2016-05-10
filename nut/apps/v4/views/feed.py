@@ -24,6 +24,7 @@ class ActivityView(APIJsonView):
 
         da = Article_Dig.objects.filter(user=self.user).values_list('article_id', flat=True)
 
+
         feed_list = Notification.objects.filter(actor_object_id__in=self.user.following_list,
                                                 action_object_content_type__in=[note_model, entity_list_models,
                                                                                 user_follow, article_dig],

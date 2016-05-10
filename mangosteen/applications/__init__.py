@@ -9,8 +9,9 @@ from model import *
 # import click
 from flask_cli import FlaskCLI
 
-# jieba.load_userdict("user_dict.txt")
-jieba.set_dictionary("dict.txt.small")
+jieba.load_userdict("user_dict.txt")
+# jieba.set_dictionary("dict.txt.small")
+# jieba.set_dictionary("user_dict.txt")
 jieba.analyse.set_idf_path("idf.txt.big")
 jieba.analyse.set_stop_words("stop_words.txt")
 
