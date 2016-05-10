@@ -249,7 +249,7 @@ def following_list(request, user_id):
         return ErrorJsonResponse(status=404)
 
     followings_list = _user.followings.filter(followee__is_active__gte=0)
-    total = len(followings_list)
+    # total = len(followings_list)
     paginator = Paginator(followings_list, _count)
 
     try:
