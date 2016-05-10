@@ -65,13 +65,20 @@ define([
             return false;
         },
         addNewRemark: function($ele){
-            $ele.appendTo($(".remark-list"));
+
+            //$ele.appendTo($(".remark-list"));
+            $(".remark-list").append(
+                '<p>'+$ele['content']+'</p>'
+            );
         },
         postRemarkSuccess: function(result){
+
             var status = parseInt(result.status);
             if (status === 1){
-                var $html = $(result.data);
-                this.addNewRemark($html);
+                //var $html = $(result.data);
+
+                //this.addNewRemark($html);
+                this.addNewRemark(result);
             }else if(status === 0){
                 this.postRemarkFail(result);
             }else{
