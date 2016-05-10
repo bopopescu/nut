@@ -85,23 +85,17 @@ define([
             return false;
         },
         addNewRemark: function($ele){
-            //$("#remark-list").append(
-            //    '<p class="remark-list-item-wrapper">'+$ele['content']+'</p>'
-            //);
-
-            $ele.appendTo($(".remark-list"));
-
+            $("#remark-list").append(
+                '<p class="remark-list-item-wrapper">'+$ele['content']+'</p>'
+            );
         },
         postRemarkSuccess: function(result){
 
             var status = parseInt(result.status);
             if (status === 1){
-                var $html = $(result.data);
-                this.addNewRemark($html);
-                //this.addNewRemark(result);
+                this.addNewRemark(result);
                 this.cleanInput();
                 this.cleanReplyNotice();
-
             }else if(status === 0){
                 this.postRemarkFail(result);
             }else{
