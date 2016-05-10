@@ -25,13 +25,13 @@
                 {% csrf_token %}
             状态<br>
         <label>
-            <input id="select-banner" type="checkbox" name="checks" {% if 'app_show_status' in checked %}  checked {% endif %}  value="app_show_status" >
+            <input id="select-banner" type="checkbox" name="checks" {% if 'app_show_status' in checks %}  checked {% endif %}  value="app_show_status" >
         </label>
         <label>
-            <input id="select-banner" type="checkbox" name="checks"  {% if 'web_mainpage_show_status' in checked %}  checked {% endif %} value="web_mainpage_show_status">
+            <input id="select-banner" type="checkbox" name="checks"  {% if 'web_mainpage_show_status' in checks %}  checked {% endif %} value="web_mainpage_show_status">
         </label>
         <label>
-            <input id="select-banner" type="checkbox" name="checks" {% if 'web_sidebar_show_status' in checked %}  checked {% endif %} value="web_sidebar_show_status">
+            <input id="select-banner" type="checkbox" name="checks" {% if 'web_sidebar_show_status' in checks %}  checked {% endif %} value="web_sidebar_show_status">
         </label>
             <br>
 
