@@ -18,7 +18,7 @@
     <thead>
     <tr>
         <th>#</th>
-        <th>主图</th>
+        <th style="max-width: 200px">主图</th>
         <th>title/ desc </th>
         <th>
             <form action="{% url 'manage_sitebanners_active_list' %}" enctype="multipart/form-data">
@@ -51,7 +51,7 @@
 
         <tr>
             <td>{{ banner.id  }}</td>
-            <td><img src="{{  banner.image_url }}" ></td>
+            <td><img src="{{  banner.image_url|resize:'300' }}" ></td>
             <td>
                 title : {{ banner.banner_title  }}
                 <br>

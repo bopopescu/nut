@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 urlpatterns = patterns(
     'apps.management.views.entities',
     # url(r'^$', EntityListView.as_view(), name='management_entity_list'),
-    url(r'^$', login_required(EntityListView.as_view()), name='management_entity_list'),
+    url(r'^$', EntityListView.as_view(), name='management_entity_list'),
     # url(r'^list/$',EntityListView.as_view() , name='management_entity_list_new'),
     url(r'^new/$', 'create', name='management_entity_create'),
     url(r'^(?P<entity_id>\d+)/edit/$', 'edit', name='management_entity_edit'),

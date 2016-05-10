@@ -9,7 +9,7 @@ urlpatterns = patterns(
     url(r'^$', CategoryListView.as_view(), name='web_category_list'),
     url(r'^subcategory/(?P<id>\d+)/$', SubCategoryListView.as_view(), name='web_subcategory_list'),
     url(r'^group/(?P<gid>\d+)/$', NewCategoryGroupListView.as_view(), name='web_category_group'),
-    url(r'^group/(?P<gid>\d+)/(?P<order_by>[\w-]+)/$', CategoryGroupListView.as_view(), name='web_category_group'),
+    url(r'^group/(?P<gid>\d+)/(?P<order_by>[\w-]+)/$', NewCategoryGroupListView.as_view(), name='web_category_group'),
     url(r'^(?P<cid>\d+)/$', CategoryDetailView.as_view(), name='web_category_detail'),
     url(r'^(?P<cid>\d+)/(?P<order_by>[\w-]+)/$', CategoryDetailView.as_view(), name='web_category_detail_olike'),
 )
