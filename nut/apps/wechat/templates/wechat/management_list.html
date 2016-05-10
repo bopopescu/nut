@@ -5,13 +5,13 @@
 
   <section class="content-header">
         <h1>
-            {% trans 'Store Page Banner' %}
-            <small>{% trans 'Store Page Banner' %}</small>
+            {% trans '微信关键字回复管理' %}
+            <small>{% trans '关键字列表' %}</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{% url 'management_dashboard' %}"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
 {#            <li><a href="#">Tables</a></li>#}
-            <li class="active">{% trans 'event' %}</li>
+            <li class="active">{% trans '关键字列表' %}</li>
         </ol>
     </section>
 
@@ -29,7 +29,7 @@
                     <div class="box-body table-responsive">
                        <div class="">
                            <hr>
-                           <a href="{% url 'manage_store_banners_create' %}">
+                           <a href="{% url 'manage' %}">
                              <button class="btn btn-primary">+ 新建bannner</button>
                            </a>
                            <hr>
