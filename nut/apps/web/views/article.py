@@ -386,8 +386,8 @@ class ArticleRemarkCreate(AjaxResponseMixin, LoginRequiredMixin, JSONResponseMix
                     'user_avatar': user.avatar_url,
                     'content': content,
                     'user_reply_to':  user_reply_to,
-                    'create_time': article_remark_obj.create_time.strftime('%Y-%m-%d %H:%M:%S'),
-                    'update_time': article_remark_obj.update_time.strftime('%Y-%m-%d %H:%M:%S'),
+                    'create_time': article_remark_obj.create_time.strftime('%Y-%m-%d %H:%M'),
+                    'update_time': article_remark_obj.update_time.strftime('%Y-%m-%d %H:%M'),
                     'status': '1',
                     'error': 0
                 }
