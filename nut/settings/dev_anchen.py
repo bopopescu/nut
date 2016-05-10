@@ -46,6 +46,7 @@ SESSION_CACHE_ALIAS = "default"
 # http://docs.celeryproject.org/en/2.5/getting-started/brokers/redis.html#broker-redis
 
 # CELERY #################################
+CELERY_ALWAYS_EAGER = True
 BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 #celery end  #############################

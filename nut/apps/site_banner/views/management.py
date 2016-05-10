@@ -161,11 +161,12 @@ def get_select(checked):
     if len(checked) == 0 or checked[0] == '':
         return SiteBanner.objects.get_active_banner().filter(app_show_status=False, web_mainpage_show_status=False,
                                                   web_sidebar_show_status=False)
-
+    # ALWASY NONE ???
     fiter_condition = None
     for select_field in checked:
         q = Q(**{select_field: True})
-        if fiter_condition:
+
+        if fiter_condition: #ALWAYS NONE ?
             fiter_condition = fiter_condition | q  # or & for filtering
         else:
             fiter_condition = q
