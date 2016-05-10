@@ -2914,8 +2914,6 @@ define('subapp/article/article_remark',[
             return false;
         },
         addNewRemark: function($ele){
-
-            //$ele.appendTo($(".remark-list"));
             $("#remark-list").append(
                 '<p class="remark-list-item-wrapper">'+$ele['content']+'</p>'
             );
@@ -2924,10 +2922,8 @@ define('subapp/article/article_remark',[
 
             var status = parseInt(result.status);
             if (status === 1){
-                //var $html = $(result.data);
-
-                //this.addNewRemark($html);
                 this.addNewRemark(result);
+                this.cleanInput();
             }else if(status === 0){
                 this.postRemarkFail(result);
             }else{
@@ -2937,6 +2933,9 @@ define('subapp/article/article_remark',[
         postRemarkFail: function(data){
             //should add bootbox to notice current remarking user
             console.log('post remark fail!');
+        },
+        cleanInput:function(){
+            $('#article_remark_form').find('textarea').val('');
         }
 
     });
