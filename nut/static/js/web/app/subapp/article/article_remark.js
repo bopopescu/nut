@@ -15,9 +15,9 @@ define([
         init: function(){
             console.log('article remark begin');
             this.accountApp = new AccountApp();
-             this.initVisitorRemark();
-             this.initUserRemarkPost();
-             this.initUserReply();
+            this.initVisitorRemark();
+            this.initUserRemarkPost();
+            this.initUserReply();
         },
         checkUserLogin:function(){
             var loginData = $('#user_dash_link').attr('href');
@@ -30,6 +30,21 @@ define([
         initVisitorRemark: function(){
             var that = this;
             $('#visitor_note').click(function(){
+                $.when(
+                    $.ajax({
+                        url: '/login/'
+                    })
+                ).then(
+                    function success(data){
+                        var html = $(data);
+                        that.accountApp.modalSignIn(html);
+                    },
+                    function fail(){}
+                );
+            });
+            if(!that.checkUserLogin()){
+                console.log('no user login');
+                $('#remark-list').delegate('.remark-list-item-wrapper','click',function(){
                     $.when(
                         $.ajax({
                             url: '/login/'
@@ -41,33 +56,21 @@ define([
                         },
                         function fail(){}
                     );
-            });
-            if(!that.checkUserLogin()){
-                console.log('no user login');
-                 $('#remark-list').delegate('.remark-list-item-wrapper','click',function(){
-                      $.when(
-                        $.ajax({
-                            url: '/login/'
-                        })
-                    ).then(
-                        function success(data){
-                            var html = $(data);
-                            that.accountApp.modalSignIn(html);
-                        },
-                        function fail(){}
-                    );
-            });
+                });
             }
         },
 
         initUserReply:function(){
             var that = this;
-            $('#remark-list').delegate('.remark-list-item-wrapper','click',function(){
-                var replyTo = $(this).find('.remark-user').attr('user_name');
-                var replyToId = $(this).find('.remark-user').attr('remark_id');
-                that.replyNotice(replyTo);
-                that.saveReplyToId(replyToId);
-            });
+            if(that.checkUserLogin){
+                console.log('user login');
+                $('#remark-list').delegate('.remark-list-item-wrapper','click',function(){
+                    var replyTo = $(this).find('.remark-user').attr('user_name');
+                    var replyToId = $(this).find('.remark-user').attr('remark_id');
+                    that.replyNotice(replyTo);
+                    that.saveReplyToId(replyToId);
+                });
+            }
         },
         initUserRemarkPost: function(){
             var $remark = $(".post-note");
@@ -80,22 +83,22 @@ define([
             //var $form = $('#article_remark_form');
             var url = $form.attr('action');
             var $remarkContent = $form.find("textarea");
-             if ($.trim($remarkContent[0].value).length === 0) {
-                    $remarkContent[0].value = '';
-                    $remarkContent.focus();
-             }else{
-                 $.when(
-                     $.ajax({
-                         cache: true,
-                         type: "POST",
-                         url: url ,
-                         data: $form.serialize()
-                     })
-                 ).then(
-                     this.postRemarkSuccess.bind(this),
-                     this.postRemarkFail.bind(this)
-                 );
-                }
+            if ($.trim($remarkContent[0].value).length === 0) {
+                $remarkContent[0].value = '';
+                $remarkContent.focus();
+            }else{
+                $.when(
+                    $.ajax({
+                        cache: true,
+                        type: "POST",
+                        url: url ,
+                        data: $form.serialize()
+                    })
+                ).then(
+                    this.postRemarkSuccess.bind(this),
+                    this.postRemarkFail.bind(this)
+                );
+            }
             event.preventDefault();
             return false;
         },
@@ -125,7 +128,7 @@ define([
             $('#article_remark_form').find('textarea').val('');
         },
         cleanReplyNotice:function(){
-             $('#article_remark_form').find('textarea').attr('placeholder','');
+            $('#article_remark_form').find('textarea').attr('placeholder','');
         },
         replyNotice:function(data){
             $('#article_remark_form').find('textarea').attr('placeholder','回复 '+data+':');
