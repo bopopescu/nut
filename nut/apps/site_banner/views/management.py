@@ -10,7 +10,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, V
 from apps.core.extend.paginator import ExtentPaginator
 from braces.views import AjaxResponseMixin, JSONResponseMixin
 import json
-
+from apps.management.decorators import staff_only
 from django.core.urlresolvers import reverse_lazy
 from apps.banners.forms import BaseBannerForm,\
                                BaseBannerCreateForm,\
@@ -101,7 +101,7 @@ class SiteBannerSaveView(StaffuserRequiredMixin, AjaxResponseMixin, JSONResponse
         if not id_list_jsonstring:
             res = {
                 'error': 1,
-                'msg': 'can not get remove id list json string'
+                'msg': 'can not get  id list json string'
             }
             return self.render_json_response(res)
         id_list = json.loads(id_list_jsonstring)
@@ -138,44 +138,27 @@ class SiteBannerActiveListView(StaffuserRequiredMixin, AjaxResponseMixin, Multip
         return SiteBanner.objects.get_active_banner().order_by('-app_show_status', '-web_mainpage_show_status',
                                                  '-web_sidebar_show_status', 'position')
 
+
     def get(self, request, *args, **kwargs):
-        #
-        # TODO : EXPLAIN  WHY USE COOKIE ?
-        #  1.       USE querystring to persist state, do not use cookie
-        url = request.GET.urlencode()
-
-
-        cookie_checked = request.COOKIES.get('checked')
-        if cookie_checked is None:    #无cookie 首次访问
+        come_from = request.GET.get('from')
+        if come_from:
             checked = ['app_show_status', 'web_mainpage_show_status', 'web_sidebar_show_status']
         else:
             checked = request.GET.getlist('checks')
-            if not checked and request.GET.get('page'):       # 有cookie checked为空 翻页的情况
-                checked = cookie_checked.split('|')
-            elif request.GET.get('from') or cookie_checked == '-1' and len(checked) == 0: #cookie为-1 checked为空
-                checked = ['app_show_status', 'web_mainpage_show_status', 'web_sidebar_show_status']
-            else:                 # 有cookie 有checked 修改勾选的情况
-                checked = checked
 
         queryset = get_select(checked)
         self.object_list = queryset
         context = self.get_context_data()
-        context['checked'] = checked
-        response = self.render_to_response(context)
-        if isinstance(checked, list):
-            if len(checked) == 0:
-                cookie_checked = '-1'           # 勾选为空
-            else:
-                cookie_checked = '|'.join(checked)
-        response.set_cookie('checked', cookie_checked)
-        return response
+        context['checks'] = '&checks='.join(checked)
+
+        return self.render_to_response(context)
 
 def get_select(checked):
 
     # TODO  : REFACTTOR HERE
     # 1. SHOULD NOT USE MAGIC NUMBER
     # 2. LOGIC IS NOT CLEAR
-    if len(checked) == 0 or checked[0] == '' or checked[0] == '-1':
+    if len(checked) == 0 or checked[0] == '':
         return SiteBanner.objects.get_active_banner().filter(app_show_status=False, web_mainpage_show_status=False,
                                                   web_sidebar_show_status=False)
 
