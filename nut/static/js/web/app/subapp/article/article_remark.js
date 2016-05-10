@@ -36,9 +36,10 @@ define([
             });
         },
         initUserReply:function(){
+            var that = this;
             $('#remark-list').delegate('.remark-list-item-wrapper','click',function(){
-               console.log($(this).find('.remark-user').attr('user_name'));
-                console.log($(this));
+                var replyTo = $(this).find('.remark-user').attr('user_name');
+                that.replyNotice(replyTo);
             });
         },
         initUserRemarkPost: function(){
@@ -94,6 +95,9 @@ define([
         },
         cleanInput:function(){
             $('#article_remark_form').find('textarea').val('');
+        },
+        replyNotice:function(data){
+            $('#article_remark_form').find('textarea').attr('placeholder','回复 '+data+':');
         }
 
     });
