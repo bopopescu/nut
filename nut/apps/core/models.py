@@ -2126,10 +2126,9 @@ post_save.connect(user_follow_notification, sender=User_Follow,
 
 
 def article_remark_notification(sender, instance, created, **kwargs):
-    if isinstance(sender, Article_Remark) and created:
+    if issubclass(sender, Article_Remark) and created:
         log.info(instance)
-        notify.send(instance.user, recipient=instance.article.creator, verb=u'has remark on your article', action_object=instance, target=instance.article)
-
+        notify.send(instance.user, recipient=instance.article.creator, verb=u'has remark on article', action_object=instance, target=instance.article)
 
 post_save.connect(article_remark_notification, sender=Article_Remark, dispatch_uid="article_remark_notification")
 
