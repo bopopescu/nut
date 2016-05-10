@@ -235,7 +235,54 @@
                         <div class="info-text">文章评论</div> 
                     </div>  
                     <div class="remarks-wrapper"> 
-                        {% include 'web/article/remark.html' %} 
+                        <ul id="remark-list">
+                            {% for remark in remarks %}
+                                {% include 'web/article/remark.html' %} 
+                            {% endfor %}
+                        </ul>
+                        <div id="login_user_remark">
+                            {% if request.user.is_blocked == True %}
+                                <div class="media" style="padding: 15px" class="blocked-user-notice">
+                                    <div class="pull-left ">
+                                        <i class="fa fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="media-body post-note">
+                                        <p>果库倡导友好、宽容和理性的对待不同的看法和意见，尊重他人。</p>
+                                        <p>你的帐号因多次违规，已被禁言。可通过 hi@guoku.com 联系管理员。</p>
+                                    </div>
+                                </div>
+                            {% elif request.user.id %}
+                                <div class="media" >
+                                    <div class="pull-left">
+                                        <img class="media-object img-circle" src="{{ user.profile.avatar_url }}" alt="{{ user.profile.nickname }}" width="50" height="50">
+                                    </div>
+                                    <div class="media-body post-note">
+                                        <form id='article_remark_form' class="form-horizontal" action="{% url 'web_article_remark' article.id %}" method="POST" role="form">
+                                            {% csrf_token %}
+                                            <fieldset>
+                                                {% for field in form %}
+                                                    {{ field }}
+                                                {% endfor %}
+                                            </fieldset>
+                                            <div class="action pull-right" style="margin-top:10px;">
+                                                <button id="submit_button" class="btn btn-primary btn-post" type="submit" value="Submit">点评</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            {% elif not request.user.id %}
+                                <div class="media">
+                                    <div class="visitor-note-wrapper">
+                                        <div id="visitor_note" class="visitor-note-button blue-button guoku-button">
+                                            我来点评
+                                            <i class="fa fa-angle-right"></i>
+                                            <i class="fa fa-angle-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>  
                 {% endif %}
 

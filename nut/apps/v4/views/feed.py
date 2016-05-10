@@ -1,5 +1,5 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.models import Note, Entity_Like, User_Follow, Article_Dig
+from apps.core.models import Note, Entity_Like, User_Follow, Article_Dig, Article_Remark
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 # from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
@@ -21,12 +21,15 @@ class ActivityView(APIJsonView):
         entity_list_models = ContentType.objects.get_for_model(Entity_Like)
         user_follow = ContentType.objects.get_for_model(User_Follow)
         article_dig = ContentType.objects.get_for_model(Article_Dig)
+        article_remark = ContentType.objects.get_for_model(Article_Remark)
 
         da = Article_Dig.objects.filter(user=self.user).values_list('article_id', flat=True)
+        ra = Article_Remark.objects.filter(user=self.user).values_list('article_id', flat=True)
 
         feed_list = Notification.objects.filter(actor_object_id__in=self.user.following_list,
                                                 action_object_content_type__in=[note_model, entity_list_models,
-                                                                                user_follow, article_dig],
+                                                                                user_follow, article_dig,
+                                                                                article_remark],
                                                 timestamp__lt=self.timestamp)
 
         paginator = ExtentPaginator(feed_list, self.count)
@@ -75,7 +78,6 @@ class ActivityView(APIJsonView):
                 }
                 res.append(_context)
             elif isinstance(row.action_object, Article_Dig):
-
                 _context = {
                     'type': 'article_dig',
                     'created_time': time.mktime(row.timestamp.timetuple()),
@@ -85,6 +87,18 @@ class ActivityView(APIJsonView):
                     }
                 }
                 res.append(_context)
+
+            elif isinstance(row.action_object, Article_Remark):
+                _context = {
+                    'type': 'article_remark',
+                    'created_time': time.mktime(row.timestamp.timetuple()),
+                    'content': {
+                        'remark_user': row.actor.v3_toDict(),
+                        'article': row.target.v4_toDict(articles_list=ra),
+                    }
+                }
+                res.append(_context)
+
         return res
 
     def get(self, request, *args, **kwargs):
