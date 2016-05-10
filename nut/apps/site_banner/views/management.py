@@ -38,18 +38,18 @@ class SiteBannerUpdateForm(BaseBannerUpdateForm):
 class SiteBannerCreateView(StaffuserRequiredMixin,CreateView):
     form_class = SiteBannerCreateForm
     model = SiteBanner
-    template_name = 'management/site_banner_create.html'
+    template_name = 'management/management_sitebanner/site_banner_create.html'
     success_url = '/management/sitebanner/banners/?from=create'
 
 class SiteBannerUpdateView(StaffuserRequiredMixin, UpdateView):
     form_class  = SiteBannerUpdateForm
     model = SiteBanner
-    template_name = 'management/site_banner_edit.html'
+    template_name = 'management/management_sitebanner/site_banner_edit.html'
     success_url = '/management/sitebanner/banners/?from=update'
 
 class SiteBannerDeleteView(StaffuserRequiredMixin,DeleteView):
     model = SiteBanner
-    template_name = 'management/site_banner_delete.html'
+    template_name = 'management/management_sitebanner/site_banner_delete.html'
     success_url = '/management/sitebanner/banners/?from=delete'
     def delete(self, request, *args, **kwargs):
         '''override delete method, dont't actually delete the object, just
@@ -128,7 +128,7 @@ class SiteBannerSaveView(StaffuserRequiredMixin, AjaxResponseMixin, JSONResponse
             return self.render_json_response(res)
 
 class SiteBannerActiveListView(StaffuserRequiredMixin, AjaxResponseMixin, MultipleObjectTemplateResponseMixin, MultipleObjectMixin,  View):
-    template_name = 'management/site_banner_list.html'
+    template_name = 'management/management_sitebanner/site_banner_list.html'
     paginator_class = ExtentPaginator
     paginate_by = 10
     model =  SiteBanner
@@ -175,7 +175,7 @@ def get_select(checked):
     return result
 
 class SiteBannerInactiveListView(StaffuserRequiredMixin,ListView):
-    template_name = 'management/site_banner_list.html'
+    template_name = 'management/management_sitebanner/site_banner_list.html'
     paginator_class = ExtentPaginator
     paginate_by = 10
     model =  SiteBanner
