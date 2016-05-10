@@ -18,6 +18,15 @@ define([
              this.initVisitorRemark();
              this.initUserRemarkPost();
              this.initUserReply();
+            this.checkUserLogin();
+        },
+        checkUserLogin:function(){
+            var loginStatus = $('#user_dash_link').attr('href');
+            if(loginStatus){
+                console.log('login in');
+            }else{
+                console.log('no login');
+            }
         },
         initVisitorRemark: function(){
             var that = this;
@@ -35,6 +44,7 @@ define([
                     );
             });
         },
+
         initUserReply:function(){
             var that = this;
             $('#remark-list').delegate('.remark-list-item-wrapper','click',function(){
