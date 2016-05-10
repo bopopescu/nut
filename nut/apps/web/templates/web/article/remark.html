@@ -1,9 +1,9 @@
 {% load i18n static %}
 {% load  common guoku %}
 
-<ul class="remark-list">
+<ul id="remark-list">
     {% for remark in remarks %}
-        <li class="remark-item-wrapper">
+        <li class="remark-list-item-wrapper" style="border:1px solid lightskyblue;margin-bottom:15px;">
             <div class="remark-item">
                 <span class="remark-user btn" user_name="{{ remark.user.nickname }}" remark_id="{{ remark.id }}">{{ remark.user.nickname }}</span>:
                 <span class="remark-content">{{ remark.content }}</span>
