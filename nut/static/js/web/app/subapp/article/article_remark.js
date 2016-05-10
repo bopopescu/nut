@@ -43,7 +43,6 @@ define([
                 );
             });
             if(!that.checkUserLogin()){
-                console.log('no user login');
                 $('#remark-list').delegate('.remark-list-item-wrapper','click',function(){
                     $.when(
                         $.ajax({
@@ -62,6 +61,8 @@ define([
 
         initUserReply:function(){
             var that = this;
+            //user login and request user is not remark user
+
             if(that.checkUserLogin){
                 console.log('user login');
                 $('#remark-list').delegate('.remark-list-item-wrapper','click',function(){

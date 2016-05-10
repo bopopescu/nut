@@ -10,7 +10,7 @@
                 </a>
 
                 <div class="remark-detail">
-                    <div class="remark-user" user_name="{{ remark.user.nickname }}" remark_id="{{ remark.id }}">
+                    <div class="remark-user" user_id="{{ remark.user.pk }}" user_name="{{ remark.user.nickname }}" remark_id="{{ remark.id }}">
                         <a href="{% url 'web_user_index' remark.user.pk %}" target="_blank">
                             {{ remark.user.nickname }}
                         </a>
