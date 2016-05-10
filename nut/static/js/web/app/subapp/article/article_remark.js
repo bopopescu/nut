@@ -38,8 +38,10 @@ define([
         initUserReply:function(){
             var that = this;
             $('#remark-list').delegate('.remark-list-item-wrapper','click',function(){
+                console.log($(this));
                 var replyTo = $(this).find('.remark-user').attr('user_name');
                 that.replyNotice(replyTo);
+                that.saveReplyToName(replyTo);
             });
         },
         initUserRemarkPost: function(){
@@ -98,6 +100,11 @@ define([
         },
         replyNotice:function(data){
             $('#article_remark_form').find('textarea').attr('placeholder','回复 '+data+':');
+        },
+        saveReplyToName:function(data){
+            $('#id_reply_to').val(data);
+            console.log('save reply to name well');
+            console.log('reply name:'+$('#id_reply_to').val());
         }
 
     });
