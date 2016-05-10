@@ -38,10 +38,10 @@ define([
         initUserReply:function(){
             var that = this;
             $('#remark-list').delegate('.remark-list-item-wrapper','click',function(){
-                console.log($(this));
                 var replyTo = $(this).find('.remark-user').attr('user_name');
+                var replyToId = $(this).find('.remark-user').attr('remark_id');
                 that.replyNotice(replyTo);
-                that.saveReplyToName(replyTo);
+                that.saveReplyToId(replyToId);
             });
         },
         initUserRemarkPost: function(){
@@ -85,6 +85,7 @@ define([
             if (status === 1){
                 this.addNewRemark(result);
                 this.cleanInput();
+                this.cleanReplyNotice();
             }else if(status === 0){
                 this.postRemarkFail(result);
             }else{
@@ -98,13 +99,14 @@ define([
         cleanInput:function(){
             $('#article_remark_form').find('textarea').val('');
         },
+        cleanReplyNotice:function(){
+             $('#article_remark_form').find('textarea').attr('placeholder','');
+        },
         replyNotice:function(data){
             $('#article_remark_form').find('textarea').attr('placeholder','回复 '+data+':');
         },
-        saveReplyToName:function(data){
+        saveReplyToId:function(data){
             $('#id_reply_to').val(data);
-            console.log('save reply to name well');
-            console.log('reply name:'+$('#id_reply_to').val());
         }
 
     });
