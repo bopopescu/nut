@@ -24,6 +24,16 @@ from django.conf import settings
 #     class Meta:
 #         ordering = ['-created_datetime']
 
+class RobotDicManager(models.Manager):
+    def active_entries(self):
+        return self.get_queryset().filter(status=True)
+
+class RobotDic(models.Model):
+    keyword = models.TextField(unique=True)
+    resp = models.TextField()
+    status = models.BooleanField(default=True)
+    created_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
+
 class Token(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False, related_name='wechat')
     open_id = models.CharField(max_length=255)
