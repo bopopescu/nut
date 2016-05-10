@@ -2519,8 +2519,31 @@ a:hover {
   margin: 20px 0px;
   font-size: 18px;
 }
+#remark-list {
+  padding: 0 15px;
+  overflow: hidden;
+}
+#remark-list .remark-list-item-wrapper {
+  margin-bottom: 40px;
+}
+#remark-list .remark-list-item-wrapper:hover {
+  cursor: pointer;
+}
+#remark-list .remark-list-item-wrapper .remark-item {
+  overflow: hidden;
+}
+#remark-list .remark-list-item-wrapper .remark-item .remark-detail {
+  margin-left: 80px;
+}
+#remark-list .remark-list-item-wrapper .remark-item .remark-detail .remark-content {
+  margin-top: 6px;
+}
+#remark-list .remark-list-item-wrapper .remark-item .remark-detail .remark-operate .remark-time {
+  font-size: 13px;
+  color: #9D9E9F;
+}
 @media (min-width: 768px) {
-  .article-onepage .note-wrapper {
+  .article-onepage .remarks-wrapper {
     background-color: #fff;
     padding: 18px 18px;
     -webkit-border-radius: 4px;
