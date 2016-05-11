@@ -2,6 +2,10 @@
 2.  article page can not be zoom by user (bug fix)
 1.  limite manage entity create editor choice to 8 and self 
 
+#action need sync db 
+    add  RobotDic model for wechat robot 
+    
+ 
 =======================
 # merged to master 2016 5-9
 =======================
