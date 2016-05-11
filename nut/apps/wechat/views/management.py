@@ -22,6 +22,6 @@ class KeywordCreateView(CreateView):
 
 
 class KeywordDeleteView(DeleteView):
+    model = RobotDic
     template_name = 'management/wechat/management_delete.html'
-
-    pass
+    success_url = reverse_lazy('management_wechat_keyword_list')
