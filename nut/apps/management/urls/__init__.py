@@ -41,6 +41,8 @@ urlpatterns = patterns(
     url(r'^report/', include('apps.management.urls.report')),
 
     url(r'^shop/', include('apps.shop.urls.management')),
+    url(r'^wechat/', include('apps.wechat.urls.management')),
+
 
     # url(r'^wechat/', include('apps.management.urls.wechat')),
 
