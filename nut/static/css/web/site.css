@@ -2546,6 +2546,9 @@ a:hover {
   font-size: 13px;
   color: #9D9E9F;
 }
+#login_user_remark {
+  padding: 0 15px;
+}
 @media (min-width: 768px) {
   .article-onepage .remarks-wrapper {
     background-color: #fff;
