@@ -11,7 +11,7 @@ class KeywordListView(ListView):
     paginate_by = 20
     context_object_name = 'keyword_list'
     def get_queryset(self):
-        return RobotDic.objects.all()
+        return RobotDic.objects.all().order_by('-created_datetime')
 
 class KeywordCreateView(CreateView):
     form_class = BaseKeywordForm
