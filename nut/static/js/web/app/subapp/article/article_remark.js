@@ -70,8 +70,6 @@ define([
                     var replyTo = $(this).find('.remark-user').attr('user_name');
                     var remarkUserId = $(this).find('.remark-user').attr('user_id');
                     var replyToId = $(this).find('.remark-user').attr('remark_id');
-                    console.log('login user:'+requestUser);
-                    console.log('remark user:'+remarkUserId);
                     if(requestUser != remarkUserId){
                         that.replyNotice(replyTo);
                         that.saveReplyToId(replyToId);
@@ -113,22 +111,20 @@ define([
             return false;
         },
         addNewRemark: function($ele){
-            //$("#remark-list").append(
-            //    '<p class="remark-list-item-wrapper">'+$ele['content']+'</p>'
-            //);
             var ajaxDatas = $ele;
-            console.log('html:'+$('#article_remark_item').html());
-            var newRemarkItem = _.template($('#article_remark_item').html());
-            //var datas = [
-            //    {user:ajaxDatas['user']},
-            //    {user_avatar:ajaxDatas['user_avatar']},
-            //    {user_url:ajaxDatas['user_url']},
-            //    {content:ajaxDatas['content']},
-            //    {user_reply_to:ajaxDatas['user_reply_to']},
-            //    {user_reply_to_url:ajaxDatas['user_reply_to_url']},
-            //    {create_time:ajaxDatas['create_time']}
-            //];
-            $('#remark-list').append(newRemarkItem({user_avatar:ajaxDatas['user_avatar']}));
+            var newRemarkItem = _.template($('#new_remark_template').html());
+            var datas = {
+                remark_id:ajaxDatas['remark_id'],
+                user:ajaxDatas['user'],
+                user_id:ajaxDatas['user_id'],
+                user_avatar:ajaxDatas['user_avatar'],
+                user_url:ajaxDatas['user_url'],
+                content:ajaxDatas['content'],
+                user_reply_to:ajaxDatas['user_reply_to'],
+                user_reply_to_url:ajaxDatas['user_reply_to_url'],
+                create_time:ajaxDatas['create_time']
+            };
+            $('#remark-list').append(newRemarkItem(datas));
         },
         postRemarkSuccess: function(result){
 
