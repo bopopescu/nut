@@ -26,15 +26,14 @@ from django.conf import settings
 
 class RobotDicManager(models.Manager):
     def active_entries(self):
-        return self.get_queryset().filter(status=True)
+        return self.get_queryset().all()
 
 class RobotDic(models.Model):
     '''
         model for keyword and response dictionary
     '''
-    keyword = models.TextField(unique=True)
-    resp = models.TextField()
-    status = models.BooleanField(default=True)
+    keyword = models.CharField(unique=True, max_length=128)
+    resp = models.CharField(max_length=1024)
     created_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
 
 
