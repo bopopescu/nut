@@ -2972,6 +2972,7 @@ define('subapp/article/article_remark',[
                 this.addNewRemark(result);
                 this.cleanInput();
                 this.cleanReplyNotice();
+                this.cleanReplyToId();
             }else if(status === 0){
                 this.postRemarkFail(result);
             }else{
@@ -2994,6 +2995,9 @@ define('subapp/article/article_remark',[
         },
         saveReplyToId:function(data){
             $('#id_reply_to').val(data);
+        },
+        cleanReplyToId:function(){
+            $('#id_reply_to').val('');
         }
 
     });
