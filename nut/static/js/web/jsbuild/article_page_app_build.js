@@ -2845,13 +2845,15 @@ define('subapp/article/article_remark',[
     'subapp/account',
     'libs/fastdom',
     'utils/io',
-    'libs/csrf'
+    'libs/csrf',
+    'underscore'
 ],function(
     Class,
     AccountApp,
     ArticleCommentManager,
     fastdom,
-    io
+    io,
+    _
 ){
     var ArticleRemark = Class.extend({
         init: function(){
@@ -2953,9 +2955,21 @@ define('subapp/article/article_remark',[
             return false;
         },
         addNewRemark: function($ele){
-            $("#remark-list").append(
-                '<p class="remark-list-item-wrapper">'+$ele['content']+'</p>'
-            );
+            var ajaxDatas = $ele;
+            var newRemarkItem = _.template($('#new_remark_template').html());
+            console.log('newRemarkItem');
+            var datas = {
+                remark_id:ajaxDatas['remark_id'],
+                user:ajaxDatas['user'],
+                user_id:ajaxDatas['user_id'],
+                user_avatar:ajaxDatas['user_avatar'],
+                user_url:ajaxDatas['user_url'],
+                content:ajaxDatas['content'],
+                user_reply_to:ajaxDatas['user_reply_to'],
+                user_reply_to_url:ajaxDatas['user_reply_to_url'],
+                create_time:ajaxDatas['create_time']
+            };
+            $('#remark-list').append(newRemarkItem(datas));
         },
         postRemarkSuccess: function(result){
 
