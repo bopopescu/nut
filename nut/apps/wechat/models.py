@@ -4,25 +4,26 @@ from django.conf import settings
 # from apps.core.extend.fields.listfield import ListObjectField
 
 
-# class Robots(models.Model):
-#     text, image, voice, video, music, news = range(6)
-#     TYPE_CHOICES = (
-#         (text, _('text')),
-#         (image, _('image')),
-#         (voice, _('voice')),
-#         (video, _('video')),
-#         (music, _('music')),
-#         (news, _('news')),
-#     )
-#
-#     # token = models.CharField(max_length=64)
-#     accept = models.CharField(_('accept'), max_length=255, unique=True)
-#     type = models.IntegerField(choices=TYPE_CHOICES, default=text)
-#     content = models.TextField()
-#     created_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
-#
-#     class Meta:
-#         ordering = ['-created_datetime']
+class Robots(models.Model):
+    text, image, voice, video, music, news = range(6)
+    TYPE_CHOICES = (
+        (text, _('text')),
+        (image, _('image')),
+        (voice, _('voice')),
+        (video, _('video')),
+        (music, _('music')),
+        (news, _('news')),
+    )
+
+    # token = models.CharField(max_length=64)
+    accept = models.CharField(_('accept'), max_length=255, unique=True)
+    type = models.IntegerField(choices=TYPE_CHOICES, default=text)
+    content = models.TextField()
+    created_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    class Meta:
+        ordering = ['-created_datetime']
+
 
 class Token(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False, related_name='wechat')
