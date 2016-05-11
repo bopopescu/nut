@@ -2912,8 +2912,6 @@ define('subapp/article/article_remark',[
                     var replyTo = $(this).find('.remark-user').attr('user_name');
                     var remarkUserId = $(this).find('.remark-user').attr('user_id');
                     var replyToId = $(this).find('.remark-user').attr('remark_id');
-                    console.log('login user:'+requestUser);
-                    console.log('remark user:'+remarkUserId);
                     if(requestUser != remarkUserId){
                         that.replyNotice(replyTo);
                         that.saveReplyToId(replyToId);
@@ -2957,7 +2955,6 @@ define('subapp/article/article_remark',[
         addNewRemark: function($ele){
             var ajaxDatas = $ele;
             var newRemarkItem = _.template($('#new_remark_template').html());
-            console.log('newRemarkItem');
             var datas = {
                 remark_id:ajaxDatas['remark_id'],
                 user:ajaxDatas['user'],
