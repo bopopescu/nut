@@ -19,6 +19,7 @@ class Robots(models.Model):
     accept = models.CharField(_('accept'), max_length=255, unique=True)
     type = models.IntegerField(choices=TYPE_CHOICES, default=text)
     content = models.TextField()
+    # status
     created_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
 
     class Meta:
