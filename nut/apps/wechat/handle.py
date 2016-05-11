@@ -11,7 +11,7 @@ import re
 
 log = getLogger('django')
 
-robot_handler = RobotHandler
+robot_handler = RobotHandler()
 
 def regex(content, pattern):
     pobj = re.compile(pattern)

@@ -6,6 +6,17 @@
 #action need sync db 
     add  RobotDic model for wechat robot 
     
+after  syncdb on test server , on mng page 
+following error appears 
+
+ (1267, "Illegal mix of collations (latin1_swedish_ci,IMPLICIT) and (utf8mb4_general_ci,COERCIBLE) for operation '='")
+ 
+
+ALTER TABLE `core`.`wechat_robotdic` 
+CHANGE COLUMN `keyword` `keyword` VARCHAR(128) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
+CHANGE COLUMN `resp` `resp` VARCHAR(1024) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ;
+
+
  
 =======================
 # merged to master 2016 5-9
