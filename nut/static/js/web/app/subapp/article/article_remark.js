@@ -73,10 +73,7 @@ define([
                     if(requestUser != remarkUserId){
                         that.replyNotice(replyTo);
                         that.saveReplyToId(replyToId);
-                    }else{
-                        alert('delete?');
                     }
-
                 });
             }
         },
