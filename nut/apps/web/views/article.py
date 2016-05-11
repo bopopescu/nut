@@ -384,14 +384,16 @@ class ArticleRemarkCreate(AjaxResponseMixin, LoginRequiredMixin, JSONResponseMix
                     user_reply_to_url = ''
 
                 res = {
+                    'remark_id': article_remark_obj.id,
                     'user': user.nickname,
+                    'user_id': user.id,
                     'user_avatar': user.avatar_url,
                     'user_url': user.absolute_url,
                     'content': content,
                     'user_reply_to':  user_reply_to,
                     'user_reply_to_url': user_reply_to_url,
-                    'create_time': article_remark_obj.create_time.strftime('%Y-%m-%d %H:%M'),
-                    'update_time': article_remark_obj.update_time.strftime('%Y-%m-%d %H:%M'),
+                    'create_time': article_remark_obj.create_time.strftime('%Y-%m-%d'),
+                    'update_time': article_remark_obj.update_time.strftime('%Y-%m-%d'),
                     'status': '1',
                     'error': 0
                 }
