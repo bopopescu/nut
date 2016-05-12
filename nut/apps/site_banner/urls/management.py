@@ -8,6 +8,7 @@ from apps.site_banner.views.management import  SiteBannerCreateView, SiteBannerD
 
 urlpatterns = patterns(
     '',
+    # url(r'^$', SiteBannerActiveListView.as_view(), name='manage_sitebanners_list'),
     url(r'^banners/$', SiteBannerActiveListView.as_view(), name='manage_sitebanners'),
     url(r'^banners/new/$', SiteBannerCreateView.as_view(), name='manage_sitebanners_create'),
     url(r'^banners/(?P<pk>\d+)/update/$', SiteBannerUpdateView.as_view(), name='manage_sitebanners_update'),
