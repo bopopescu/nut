@@ -2859,6 +2859,7 @@ define('subapp/article/article_remark',[
         init: function(){
             console.log('article remark begin');
             this.accountApp = new AccountApp();
+            this.isPosting = false;
             this.initVisitorRemark();
             this.initUserRemarkPost();
             this.initUserReply();
@@ -2925,11 +2926,15 @@ define('subapp/article/article_remark',[
             $form.on('submit', this.submitRemark.bind(this));
         },
         submitRemark: function(event){
+            if(this.isPosting == true){
+                return ;
+            }
             console.log(event.currentTarget);
             var $form = $(event.currentTarget);
             //var $form = $('#article_remark_form');
             var url = $form.attr('action');
             var $remarkContent = $form.find("textarea");
+            this.isPosting = true;
             if ($.trim($remarkContent[0].value).length === 0) {
                 $remarkContent[0].value = '';
                 $remarkContent.focus();
@@ -2966,6 +2971,7 @@ define('subapp/article/article_remark',[
             $('#remark-list').append(newRemarkItem(datas));
         },
         postRemarkSuccess: function(result){
+            this.isPosting = false;
 
             var status = parseInt(result.status);
             if (status === 1){
@@ -2980,6 +2986,7 @@ define('subapp/article/article_remark',[
             }
         },
         postRemarkFail: function(data){
+            this.isPosting = false;
             //should add bootbox to notice current remarking user
             console.log('post remark fail!');
         },
