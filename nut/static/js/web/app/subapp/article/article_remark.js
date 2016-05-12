@@ -23,6 +23,7 @@ define([
             this.initVisitorRemark();
             this.initUserRemarkPost();
             this.initUserReply();
+            this.changePostBtn;
         },
         checkUserLogin:function(){
             var loginData = $('#user_dash_link').attr('href');
@@ -184,6 +185,18 @@ define([
         },
         cleanReplyToId:function(){
             $('#id_reply_to').val('');
+        },
+        changePostBtn:function(){
+            if(this.isPosting){
+                var postBtn = $('#submit_button');
+                postBtn.removeClass('btn-primary');
+                postBtn.addClass('button-disabled');
+                postBtn.addClass('disabled');
+            }else{
+                postBtn.removeClass('button-disabled');
+                postBtn.removeClass('disabled');
+                postBtn.addClass('btn-primary');
+            }
         }
 
     });
