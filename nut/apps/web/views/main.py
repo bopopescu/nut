@@ -184,15 +184,14 @@ class GKSearchView(SearchView):
     paginator_class = Jpaginator
 
     def form_valid(self, form):
-        self.queryset = form.search()
+        self.queryset = form.search(type=self.type)
         if 'u' in self.type:
             res = self.queryset.models(GKUser).order_by('-fans_count')
         elif 't' in self.type:
             res = self.queryset.models(Tags).order_by('-note_count')
         elif 'a' in self.type:
-            # res = self.queryset.models(Article).filter(
-            #     is_selection=True).order_by('-score', '-read_count')
             res = self.queryset.models(Article).order_by('-score', '-read_count')
+
         else:
             res = self.queryset.models(Entity).order_by('-like_count')
         # print self.queryset.models(Article).count()

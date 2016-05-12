@@ -11,10 +11,6 @@ class ReplyListView(ListView):
     template_name = "management/wechat/replylist.html"
     model = Robots
 
-    # def get(self, request, *args, **kwargs):
-    #
-    #     return super(ReplyListView, self).get(request, *args, **kwargs)
-
 
 class CreateReplyView(CreateView):
 
@@ -29,7 +25,6 @@ class CreateReplyView(CreateView):
 class EditReplyView(UpdateView):
 
     template_name = "management/wechat/reply_edit.html"
-    # form_class =
     form_class = ReplyForm
     model = Robots
 
