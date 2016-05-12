@@ -78,8 +78,12 @@ define([
                         that.replyNotice(replyTo);
                         that.saveReplyToId(replyToId);
                     }else{
-                        bootbox.confirm("Are you sure to delete your remark?",function(){
-                            $(target).remove();
+                        bootbox.confirm("Are you sure to delete your remark?",function(result){
+                            if(result){
+                                $(target).remove();
+                            }else{
+                                console.log('cancel delete.');
+                            }
                         });
                     }
                 });
