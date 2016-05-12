@@ -1202,12 +1202,18 @@ p.boolean-false {
   .guoku-content.user-page .content-panel .note-cell {
     margin-bottom: 10px;
   }
+  #detail_content {
+    overflow: hidden;
+  }
   #main_article .article-wrapper .content-wrapper img {
-    max-width: 110%;
-    width: 110%;
     position: relative;
-    left: -5%;
     display: block;
+    width: 110%;
+    max-width: 110%;
+    left: -5%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
   }
   #main_article .article-wrapper .guoku-card img {
     max-width: 100%;
