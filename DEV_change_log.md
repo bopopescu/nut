@@ -1,8 +1,8 @@
-5.  
-4.  banner management (api will update at next monday)
+5.  css update
+4.  site banner management (api will update at next monday, MNG first )  shu
 3.  wechat robot 
 2.  article page can not be zoom by user (bug fix)
-1.  limite manage entity create editor choice to 8 and self 
+1.  limit manage entity create editor choice to 8 and self 
 
 #action need sync db 
     add  RobotDic model for wechat robot 
