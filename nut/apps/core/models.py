@@ -1581,12 +1581,19 @@ class Article(BaseModel):
 
 
 class Article_Remark(models.Model):
+    (remove, normal) = (-1, 0)
+    STATUS_CHOICE = [
+        (normal, _("normal")),
+        (remove, _("remove")),
+    ]
+
     user = models.ForeignKey(GKUser)
     article = models.ForeignKey(Article)
     content = models.TextField(null=False, blank=False)
     reply_to = models.ForeignKey('self', null=True, blank=True)
     create_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
     update_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+    status = models.IntegerField(choices=STATUS_CHOICE, default=normal)
 
 
 # use ForeignKey instead of  oneToOne for selection entity ,

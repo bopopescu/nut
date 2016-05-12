@@ -273,7 +273,7 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
 
     def get_remark(self):
         article_id = self.kwargs.get('pk')
-        remarks = Article_Remark.objects.filter(article_id=int(article_id))
+        remarks = Article_Remark.objects.filter(article_id=int(article_id)).exclude(status=-1)
         return remarks
 
 
@@ -414,10 +414,26 @@ class ArticleRemarkCreate(AjaxResponseMixin, LoginRequiredMixin, JSONResponseMix
         return self.render_json_response(res,status=200)
 
 
-class ArticleRemarkDelete(UserPassesTestMixin, View):
-    pass
+class ArticleRemarkDelete(JSONResponseMixin, View):
 
+    def post(self, request, *args , **kwargs):
+        try:
+            article_remark_id = request.POST.get('deleteId')
+            article_remark_obj = Article_Remark.objects.get(pk=article_remark_id)
+            article_remark_obj.status = -1
+            article_remark_obj.save()
 
+            res = {
+                'success': True,
+            }
+
+            return self.render_json_response(res, status=200)
+
+        except Exception as e:
+            res = {
+                'success': False,
+            }
+            return self.render_json_response(res, status=500)
 
 
 __author__ = 'edison'
