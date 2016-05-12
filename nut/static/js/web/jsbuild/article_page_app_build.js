@@ -2846,22 +2846,26 @@ define('subapp/article/article_remark',[
     'libs/fastdom',
     'utils/io',
     'libs/csrf',
-    'underscore'
+    'underscore',
+    'bootbox'
 ],function(
     Class,
     AccountApp,
     ArticleCommentManager,
     fastdom,
     io,
-    _
+    _,
+    bootbox
 ){
     var ArticleRemark = Class.extend({
         init: function(){
             console.log('article remark begin');
             this.accountApp = new AccountApp();
+            this.isPosting = false;
             this.initVisitorRemark();
             this.initUserRemarkPost();
             this.initUserReply();
+            this.changePostBtn;
         },
         checkUserLogin:function(){
             var loginData = $('#user_dash_link').attr('href');
@@ -2912,9 +2916,28 @@ define('subapp/article/article_remark',[
                     var replyTo = $(this).find('.remark-user').attr('user_name');
                     var remarkUserId = $(this).find('.remark-user').attr('user_id');
                     var replyToId = $(this).find('.remark-user').attr('remark_id');
+                    var target = this;
                     if(requestUser != remarkUserId){
                         that.replyNotice(replyTo);
                         that.saveReplyToId(replyToId);
+                    }else{
+                        bootbox.confirm("Are you sure to delete your remark?",function(result){
+                            if(result){
+                                //$(target).remove();
+                                 var $form = $('#article_remark_form');
+                                 var url = $form.attr('action') + "delete/";
+                                console.log(url);
+                                $.post(url,{deleteId:replyToId},function(deleteStatus){
+                                    if(deleteStatus){
+                                        $(target).remove();
+                                    }else{
+                                        console.log(delete fail);
+                                    }
+                                })
+                            }else{
+                               return ;
+                            }
+                        });
                     }
                 });
             }
@@ -2925,11 +2948,15 @@ define('subapp/article/article_remark',[
             $form.on('submit', this.submitRemark.bind(this));
         },
         submitRemark: function(event){
+            if(this.isPosting == true){
+                return ;
+            }
             console.log(event.currentTarget);
             var $form = $(event.currentTarget);
             //var $form = $('#article_remark_form');
             var url = $form.attr('action');
             var $remarkContent = $form.find("textarea");
+            this.isPosting = true;
             if ($.trim($remarkContent[0].value).length === 0) {
                 $remarkContent[0].value = '';
                 $remarkContent.focus();
@@ -2966,6 +2993,7 @@ define('subapp/article/article_remark',[
             $('#remark-list').append(newRemarkItem(datas));
         },
         postRemarkSuccess: function(result){
+            this.isPosting = false;
 
             var status = parseInt(result.status);
             if (status === 1){
@@ -2980,6 +3008,7 @@ define('subapp/article/article_remark',[
             }
         },
         postRemarkFail: function(data){
+            this.isPosting = false;
             //should add bootbox to notice current remarking user
             console.log('post remark fail!');
         },
@@ -2998,6 +3027,18 @@ define('subapp/article/article_remark',[
         },
         cleanReplyToId:function(){
             $('#id_reply_to').val('');
+        },
+        changePostBtn:function(){
+            if(this.isPosting){
+                var postBtn = $('#submit_button');
+                postBtn.removeClass('btn-primary');
+                postBtn.addClass('button-disabled');
+                postBtn.addClass('disabled');
+            }else{
+                postBtn.removeClass('button-disabled');
+                postBtn.removeClass('disabled');
+                postBtn.addClass('btn-primary');
+            }
         }
 
     });
