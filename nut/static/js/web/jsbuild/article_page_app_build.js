@@ -2922,9 +2922,19 @@ define('subapp/article/article_remark',[
                     }else{
                         bootbox.confirm("Are you sure to delete your remark?",function(result){
                             if(result){
-                                $(target).remove();
+                                //$(target).remove();
+                                 var $form = $('#article_remark_form');
+                                 var url = $form.attr('action') + "delete/";
+                                console.log(url);
+                                $.post(url,{deleteId:replyToId},function(deleteStatus){
+                                    if(deleteStatus){
+                                        $(target).remove();
+                                    }else{
+                                        console.log(delete fail);
+                                    }
+                                })
                             }else{
-                                console.log('cancel delete.');
+                               return ;
                             }
                         });
                     }
