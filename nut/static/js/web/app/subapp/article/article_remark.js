@@ -4,14 +4,16 @@ define([
     'libs/fastdom',
     'utils/io',
     'libs/csrf',
-    'underscore'
+    'underscore',
+    'bootbox'
 ],function(
     Class,
     AccountApp,
     ArticleCommentManager,
     fastdom,
     io,
-    _
+    _,
+    bootbox
 ){
     var ArticleRemark = Class.extend({
         init: function(){
@@ -71,9 +73,14 @@ define([
                     var replyTo = $(this).find('.remark-user').attr('user_name');
                     var remarkUserId = $(this).find('.remark-user').attr('user_id');
                     var replyToId = $(this).find('.remark-user').attr('remark_id');
+                    var target = this;
                     if(requestUser != remarkUserId){
                         that.replyNotice(replyTo);
                         that.saveReplyToId(replyToId);
+                    }else{
+                        bootbox.confirm("Are you sure to delete your remark?",function(){
+                            $(target).remove();
+                        });
                     }
                 });
             }
