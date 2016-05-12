@@ -19,11 +19,9 @@ define([
         init: function(){
             console.log('article remark begin');
             this.accountApp = new AccountApp();
-            this.isPosting = false;
             this.initVisitorRemark();
             this.initUserRemarkPost();
             this.initUserReply();
-            this.changePostBtn;
         },
         checkUserLogin:function(){
             var loginData = $('#user_dash_link').attr('href');
@@ -106,15 +104,11 @@ define([
             $form.on('submit', this.submitRemark.bind(this));
         },
         submitRemark: function(event){
-            if(this.isPosting == true){
-                return ;
-            }
             console.log(event.currentTarget);
             var $form = $(event.currentTarget);
             //var $form = $('#article_remark_form');
             var url = $form.attr('action');
             var $remarkContent = $form.find("textarea");
-            this.isPosting = true;
             if ($.trim($remarkContent[0].value).length === 0) {
                 $remarkContent[0].value = '';
                 $remarkContent.focus();
@@ -151,8 +145,6 @@ define([
             $('#remark-list').append(newRemarkItem(datas));
         },
         postRemarkSuccess: function(result){
-            this.isPosting = false;
-
             var status = parseInt(result.status);
             if (status === 1){
                 this.addNewRemark(result);
@@ -166,7 +158,6 @@ define([
             }
         },
         postRemarkFail: function(data){
-            this.isPosting = false;
             //should add bootbox to notice current remarking user
             console.log('post remark fail!');
         },
@@ -185,18 +176,6 @@ define([
         },
         cleanReplyToId:function(){
             $('#id_reply_to').val('');
-        },
-        changePostBtn:function(){
-            if(this.isPosting){
-                var postBtn = $('#submit_button');
-                postBtn.removeClass('btn-primary');
-                postBtn.addClass('button-disabled');
-                postBtn.addClass('disabled');
-            }else{
-                postBtn.removeClass('button-disabled');
-                postBtn.removeClass('disabled');
-                postBtn.addClass('btn-primary');
-            }
         }
 
     });
