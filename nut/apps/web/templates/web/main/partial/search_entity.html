@@ -19,7 +19,8 @@
                 <div class="title">
                     {% if entity.entity_hash %}
                     <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
-                        {{ entity.title|truncatechars:12 }}
+{#                        {{ entity.title|truncatechars:12 }}#}
+                        {% highlight entity.title with query max_length 40 %}
                     </a>
                     {% endif %}
                 </div>
