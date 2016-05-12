@@ -1,7 +1,7 @@
 5.  search result highlight -- jiaxin 
 4.  site banner management (api will update at next monday, MNG first )  -- shuailong
 3.  wechat robot  -- anchen 
-2.  article page can not be zoom by user (bug fix) -- anchen
+2.  article page can not be zoom by user, mobile (bug fix) -- anchen
 1.  limit manage entity create editor choice to 8 and self  -- anchen
 
 #action need sync db 
