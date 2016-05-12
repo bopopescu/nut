@@ -129,6 +129,9 @@ Current_Dbhost = 'localhost'
 #         }
 #     },
 # }
+#
+#
+# DATABASES = PRODUCTION_DATABASES
 
 
 DATABASES = {
