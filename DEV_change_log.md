@@ -1,4 +1,5 @@
-
+5.  
+4.  banner management (api will update at next monday)
 3.  wechat robot 
 2.  article page can not be zoom by user (bug fix)
 1.  limite manage entity create editor choice to 8 and self 
