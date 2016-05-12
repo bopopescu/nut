@@ -85,8 +85,8 @@ define([
                                  var $form = $('#article_remark_form');
                                  var url = $form.attr('action') + "delete/";
                                 console.log(url);
-                                $.post(url,{deleteId:replyToId},function(deleteStatus){
-                                    if(deleteStatus){
+                                $.post(url,{deleteId:replyToId},function(res){
+                                    if(res['success']){
                                         $(target).remove();
                                     }else{
                                         console.log(delete fail);
