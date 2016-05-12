@@ -63,7 +63,7 @@
             {% else %}
                 {% for row in object_list %}
                     {% if row.object %}
-                        {% include 'web/main/partial/entity.html' with entity=row.object %}
+                        {% include 'web/main/partial/search_entity.html' with entity=row.object %}
                     {% endif %}
                 {% endfor %}
             {% endif %}

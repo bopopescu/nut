@@ -252,7 +252,7 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         if self.object is None:
-            return redirect('web_selection_articles')
+            raise Http404('你找的图文不在这里')
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
 

@@ -223,7 +223,6 @@
 }
 .img-box a img {
   background-color: #f6f6f6;
-  width: 100%;
   max-height: 100%;
   max-width: 100%;
 }
@@ -1548,3 +1547,4 @@ p.boolean-false {
     display: none;
   }
 }
+/*# sourceMappingURL=article.less.css.map */

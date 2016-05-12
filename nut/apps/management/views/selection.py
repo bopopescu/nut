@@ -22,12 +22,14 @@ from datetime import datetime, timedelta
 # import json
 
 from django.utils.log import getLogger
+from apps.management.decorators import staff_only, staff_and_editor
 
 
 log = getLogger('django')
 
 
 @login_required
+@staff_and_editor
 def published(request, template="management/selection/list.html"):
     _page = request.GET.get('page', 1)
 

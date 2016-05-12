@@ -8,11 +8,13 @@ from django.contrib.auth.decorators import login_required
 from apps.core.models import Note, Entity
 from apps.core.forms.note import NoteForm, CreateNoteForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
+from apps.management.decorators import staff_only, staff_and_editor
 
 log = getLogger('django')
 
 
 @login_required
+@staff_and_editor
 def list(request, template='management/notes/list.html'):
 
     status = request.GET.get('status', None)
@@ -41,6 +43,7 @@ def list(request, template='management/notes/list.html'):
 
 
 @login_required
+@staff_and_editor
 def edit(request, note_id, template='management/notes/edit.html'):
 
     try:
@@ -78,6 +81,7 @@ def edit(request, note_id, template='management/notes/edit.html'):
 
 
 @login_required
+@staff_and_editor
 def create(request, entity_id, template="management/notes/ajax_note_create.html"):
     template = template
     try:

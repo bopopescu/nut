@@ -248,8 +248,8 @@ def following_list(request, user_id):
     except GKUser.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
-    followings_list = _user.followings.all()
-    total = len(followings_list)
+    followings_list = _user.followings.filter(followee__is_active__gte=0)
+    # total = len(followings_list)
     paginator = Paginator(followings_list, _count)
 
     try:
@@ -293,8 +293,8 @@ def fans_list(request, user_id):
     except GKUser.DoesNotExist:
         return ErrorJsonResponse(status=404)
 
-    fans_list = _user.fans.all()
-    total = len(fans_list)
+    fans_list = _user.fans.filter(follower__is_active__gte=0)
+    # total = len(fans_list)
     paginator = Paginator(fans_list, 30)
 
     try:
