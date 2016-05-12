@@ -226,8 +226,6 @@ class EditArticleForms(BaseArticleForms):
             # initial=Article.draft,
         )
 
-        # user_choices = get_admin_user_choices()
-        # _origin_creator = self.article.creator
         user_choices = get_author_choices() + [(self.article.creator.pk , self.article.creator.nickname)]
         self.fields['author'] = forms.ChoiceField(
             label=_('author'),

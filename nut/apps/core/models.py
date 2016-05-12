@@ -264,11 +264,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def following_list(self):
-        return self.followings.filter(followee__is_active__gt=-1).values_list('followee_id', flat=True)
+        return self.followings.filter(followee__is_active__gt=0).values_list('followee_id', flat=True)
 
     @property
     def fans_list(self):
-        return self.fans.filter(follower__is_active__gt=-1).values_list('follower_id', flat=True)
+        return self.fans.filter(follower__is_active__gt=0).values_list('follower_id', flat=True)
 
     @property
     def concren(self):
