@@ -414,6 +414,9 @@ class ArticleRemarkCreate(AjaxResponseMixin, LoginRequiredMixin, JSONResponseMix
         return self.render_json_response(res,status=200)
 
 
+class ArticleRemarkDelete(UserPassesTestMixin, View):
+    pass
+
 
 
 

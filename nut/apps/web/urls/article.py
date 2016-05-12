@@ -9,7 +9,7 @@ from apps.web.views.article import  EditorDraftList,\
                                     NewSelectionArticleList,\
                                     ArticleDig, ArticleUndig, \
                                     ArticleTextRankView, \
-                                    ArticleRemarkCreate
+                                    ArticleRemarkCreate, ArticleRemarkDelete
 
 urlpatterns = patterns(
     'apps.web.views.article',
@@ -32,6 +32,7 @@ urlpatterns = patterns(
     url(r'^(?P<pk>\d+)/textrank/$', ArticleTextRankView.as_view(), name='web_article_textrank'),
 
     url(r'^(?P<pk>\d+)/remark/$', ArticleRemarkCreate.as_view(), name='web_article_remark'),
+    url(r'^(?P<pk>\d+)/remark/delete/$', ArticleRemarkDelete.as_view(), name='web_article_remark_delete'),
 
 
 )
