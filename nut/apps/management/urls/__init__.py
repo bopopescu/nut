@@ -44,7 +44,7 @@ urlpatterns = patterns(
     url(r'^wechat/', include('apps.wechat.urls.management')),
 
 
-    url(r'^sitebanner/', include('apps.site_banner.urls.site_banner')),
+    url(r'^sitebanner/', include('apps.site_banner.urls.management')),
 
     # url(r'^wechat/', include('apps.management.urls.wechat')),
 
