@@ -1,12 +1,14 @@
-5.  css update
-4.  site banner management (api will update at next monday, MNG first )  shu
-3.  wechat robot 
-2.  article page can not be zoom by user (bug fix)
-1.  limit manage entity create editor choice to 8 and self 
+5.  search result highlight -- jiaxin 
+4.  site banner management (api will update at next monday, MNG first )  -- shuailong
+3.  wechat robot  -- anchen 
+2.  article page can not be zoom by user (bug fix) -- anchen
+1.  limit manage entity create editor choice to 8 and self  -- anchen
 
 #action need sync db 
     add  RobotDic model for wechat robot 
     
+    
+ may have been some text problem-   
 after  syncdb on test server , on mng page 
 following error appears 
 

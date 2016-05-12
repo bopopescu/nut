@@ -83,6 +83,8 @@ HAYSTACK_CONNECTIONS = {
 # HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
+HAYSTACK_CUSTOM_HIGHLIGHTER = 'apps.web.highlighter.MyHighlighter'
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
