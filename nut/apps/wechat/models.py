@@ -26,6 +26,19 @@ class Robots(models.Model):
         ordering = ['-created_datetime']
 
 
+class RobotDicManager(models.Manager):
+    def active_entries(self):
+        return self.get_queryset().all()
+
+class RobotDic(models.Model):
+    '''
+        model for keyword and response dictionary
+    '''
+    keyword = models.CharField(unique=True, max_length=128)
+    resp = models.CharField(max_length=1024)
+    created_datetime = models.DateTimeField(auto_now_add=True, db_index=True)
+
+
 class Token(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False, related_name='wechat')
     open_id = models.CharField(max_length=255)

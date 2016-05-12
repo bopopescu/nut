@@ -1,0 +1,99 @@
+{% load i18n %}
+{% load i18n static %}
+{% load guoku %}
+
+{#<script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>#}
+{#<script src="{% static 'js/jquery-ui/jquery-ui.min.js' %}"></script>#}
+{#<script src="{% static 'js/management/util.js' %}"></script>#}
+{#<script src="{% static 'js/management/moment.js' %}"></script>#}
+{#<script src="{% static 'js/management/sitebanner_save.js' %}"></script>#}
+
+{% block css %}
+        <link href="{% static 'js/jquery-ui/jquery-ui.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+
+<table class="table table-bordered table-hover table-condensed" id="sellers-table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th style="max-width: 200px">主图</th>
+        <th>title/ desc </th>
+        <th>
+        <table border="1">
+            <form action="{% url 'manage_sitebanners_active_list' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+{#            状态<br>#}
+            <td>
+        <label>App
+            <input id="select-banner" type="checkbox" name="checks" {% if 'app_show_status' in checks %}  checked {% endif %}  value="app_show_status" >
+        </label>
+            </td>
+            <td>
+        <label>主页
+            <input id="select-banner" type="checkbox" name="checks"  {% if 'web_mainpage_show_status' in checks %}  checked {% endif %} value="web_mainpage_show_status">
+        </label>
+            </td>
+            <td>
+        <label>侧边栏
+            <input id="select-banner" type="checkbox" name="checks" {% if 'web_sidebar_show_status' in checks %}  checked {% endif %} value="web_sidebar_show_status">
+        </label>
+            </td>
+            <td>
+
+                <input type="submit"  class="btn btn-primary" value="筛选">
+            </td>
+                </form>
+        </table>
+        </th>
+
+        <th>排名/位置</th>
+
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {#            the first line datas#}
+
+    {% for banner in banners %}
+
+        <tr>
+            <td>{{ banner.id  }}</td>
+            <td><img src="{{  banner.image_url|resize:'300' }}" ></td>
+            <td>
+                title : {{ banner.banner_title  }}
+                <br>
+                description : {{ banner.banner_desc }}
+            </td>
+            <td>
+                <label>App
+                    <input id="chk-app" type="checkbox" name="sitabanner" {% if banner.app_show_status %}  checked {% endif %} value="{{ banner.id }}" >
+                </label>
+                <label>主页
+                    <input id="chk-mainpage" type="checkbox" name="sitabanner" {% if banner.web_mainpage_show_status %}  checked {% endif %} value="{{ banner.id  }}" >
+                </label>
+                <label>侧边栏
+                    <input id="chk-sidebar" type="checkbox" name="sitabanner" {% if banner.web_sidebar_show_status %}  checked {% endif %} value="{{ banner.id }}" >
+                </label>
+            </td>
+            <td><form>
+                <label></label>
+                <input id="position" type="text" name="position" value="{{ banner.position }}">
+            </form></td>
+            <td>
+                <a class="btn btn-primary" href="{% url 'manage_sitebanners_update' banner.pk %}" target="">
+                    编辑
+                </a>
+                <a href="#"  class="btn btn-warning"   batch_url="{% url 'manage_sitebanners_save' %}">
+                             保存
+                           </a>
+                <a class="btn btn-danger" href="{% url 'manage_sitebanners_delete' banner.pk %}" target="">
+                    删除
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
