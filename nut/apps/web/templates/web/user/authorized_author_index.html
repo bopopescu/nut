@@ -18,7 +18,7 @@
         {% block user_header %}
             <div class='authorized_author_info'>
                     <div class="user-icon">
-                        <img src="{{ current_user.avatar_url|resize:'180' }}"/>
+                        <img class="img-frame" style="background-image: url({{ current_user.avatar_url|resize:'180' }})"/>
                     </div>
                     <div class="user-nick">
                          <span class="nick">{{ current_user.nickname }}</span>

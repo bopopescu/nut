@@ -17,7 +17,7 @@
                     <div class="writer-avatar col-sm-2">
                         <div class="avatar-wrapper">
                             <a href="{% url 'web_user_index' article.creator.pk %}">
-                                <img src="{{ article.creator.profile.avatar_url|resize:'180' }}">
+                                <img style="background-image: url({{ article.creator.profile.avatar_url|resize:'180' }})">
                             </a>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                         </div>
                         <div class="img-holder">
                             <a href="{% url 'web_entity_detail' ent.entity_hash %}">
-                                <div class="img-frame" style="background-image:url({{ ent.chief_image|resize:'128' }})"></div>
+                                <div style="background-image:url({{ ent.chief_image|resize:'128' }})"></div>
                                 {#                                <img width="52px" height="52px" src="{{ ent.chief_image|resize:'128' }}"/>#}
                             </a>
                         </div>

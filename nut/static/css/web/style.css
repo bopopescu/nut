@@ -687,6 +687,10 @@ a:hover {
   width: 100%;
   padding-bottom: 40px;
 }
+.goods_detail .comment_list li > a {
+  display: block;
+  width: 60px;
+}
 .goods_detail .comment_list li .head_pic {
   width: 60px;
   height: 60px;
@@ -976,3 +980,9 @@ a:hover {
   color: red;
 }
 /*add by An End*/
+#settings .introduce .head .head_pic img#user-avatar {
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding-bottom: 118px;
+}

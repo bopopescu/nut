@@ -12,7 +12,7 @@
     {% if not user_post_note %}
         <div class="media" >
             <div class="pull-left">
-                <img class="media-object img-circle" src="{{ user.profile.avatar_url }}" alt="{{ user.profile.nickname }}" width="50" height="50">
+                <img class="media-object img-circle" style="background-image: url({{ user.profile.avatar_url }})" width="50" height="50">
             </div>
             <div class="media-body post-note">
                 <form class="form-horizontal" action="{% url 'web_post_entity_note' entity.pk %}" method="POST" role="form">

@@ -208,6 +208,9 @@ body.compact-body{
       &:hover, &:focus{
         background: none;
       }
+      img {
+        .img-frame(30px);
+      }
     }
     .user-menu{
       font-size: @primary-size;
@@ -593,6 +596,9 @@ body.compact-body{
       .user-icon{
           display: inline-block;
           .user-icon-large;
+          img {
+            .img-frame(100px);
+          }
 
       }
       .user-nick{
@@ -1210,6 +1216,9 @@ body.compact-body{
           }
         }
       }
+      .media-object {
+        .img-frame(60px);
+      }
     }
   }
   #guess_list{
@@ -1226,13 +1235,7 @@ body.compact-body{
           display: block;
           width: 100%;
           height:100%;
-          .img-frame{
-            heigth:0;
-            padding-bottom: 100%;
-            background-position: center center;
-            background-size: contain;
-            background-repeat:no-repeat;
-          }
+          .img-frame(0px);
         }
       }
       .img-box{
@@ -1287,6 +1290,7 @@ body.compact-body{
           width: 50px;
           height: 50px;
           .border-radius(25px);
+          .img-frame(50px);
         }
       }
 
@@ -1350,13 +1354,10 @@ body.compact-body{
             display :block;
             width: 100%;
             height:100%;
-            .img-frame{
-              width: 100%;
-              height: 0 ;
-              padding-bottom: 100%;
-              background-size:cover;
-              background-position: center center;
+            div {
+               .img-frame(100%);
             }
+
           }
         }
         .download-link{
@@ -1407,13 +1408,8 @@ body.compact-body{
                display: block;
                width:100%;
                height: 100%;
-
-                .img-frame{
-                    width: 100%;
-                    height: 0 ;
-                    padding-bottom: 100%;
-                    background-size:cover;
-                    background-position: center center;
+                div {
+                  .img-frame(100%);
                 }
              }
 
@@ -1469,14 +1465,9 @@ body.compact-body{
                display: block;
                width:100%;
                height: 100%;
-
-                .img-frame{
-                    width: 100%;
-                    height: 0 ;
-                    padding-bottom: 100%;
-                    background-size:cover;
-                    background-position: center center;
-                }
+               div {
+                  .img-frame(100%);
+               }
              }
           }
           .article-content{
@@ -1523,10 +1514,56 @@ body.compact-body{
         padding-right: 18px;
       }
     }
-
+    .section-content {
+      .user-like-list.user-icon-list {
+        li {
+            a {
+              img {
+                .img-frame(32px);
+              }
+            }
+          }
+      }
+    }
   }
 }
+//user-like-thumb-img
+@media (max-width: 767px){
+  #detail_content{
+    #detail_content_left {
+      .entity-wrapper {
+        .detail-info-center {
+          .button-wrapper {
+            .entity-liker-mobile-wrapper {}
+            .user-like-list.user-icon-list {
+              li {
+                a {
+                  img {
+                    .img-frame(32px);
+                  }
+                }
+              }
+             }
+          }
+        }
+      }
+      .note-wrapper {
+        .comment_list {
+          .common-note-list {
+            li {
+              a {
+                img {
+                  .img-frame(60px);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 
+}
 #discover_entity_list,#category-entity-list,
 .search-entity-item,.search-tag-item {
   padding:0px 9px;
@@ -1907,6 +1944,21 @@ body{
 .gk_test{
   color:black;
 }
+//add by zn for background-img
+.img-frame(@height){
+    background-position: center center;
+    background-size: cover;
+    background-repeat:no-repeat;
+    padding-bottom: @height;
+  }
 
-
-
+.guoku-content.user-page {
+  .user-info-wrapper {
+    .user-icon {
+      img {
+        .img-frame(100px);
+        background-size: contain;
+      }
+    }
+  }
+}
