@@ -16,14 +16,14 @@
                 <div class="row">
                     <div class="writer-avatar col-sm-2">
                         <div class="avatar-wrapper">
-                            <a href="{% url 'web_user_index' article.creator.pk %}" data-user-id={{ article.creator.pk }} data-user-title={{ article.creator.profile.nickname }}>
+                            <a href="{% url 'web_user_index' article.creator.pk %}">
                                 <img src="{{ article.creator.profile.avatar_url|resize:'180' }}">
                             </a>
                         </div>
                     </div>
                     <div class="writer-intro col-sm-10">
                         <div class="writer-nick">
-                            <a href="{% url 'web_user_index' article.creator.pk %}" data-user-id={{ article.creator.pk }} data-user-title={{ article.creator.profile.nickname }}>
+                            <a href="{% url 'web_user_index' article.creator.pk %}">
                                 {{ article.creator.profile.nickname }}
                             </a>
 
@@ -95,7 +95,7 @@
         <div class="section-content">
             <ul class="cate-list-all">
                 {% for cate in pop_categories %}
-                    <li data-category-id={{ cate.id }} data-category-title={{ cate.title_cn }}>
+                    <li>
                         <a href="{% url 'web_category_group' cate.id %}">{{ cate.title_cn }}</a>
                     </li>
                 {% endfor %}
@@ -107,7 +107,7 @@
         <ul class="pop-entity-list">
             {% for ent in pop_entities %}
                 <li>
-                    <div class="pop-entity-wrapper" data-pop-entity-id={{ ent.entity_hash }} data-pop-entity-title={{ ent.title }}>
+                    <div class="pop-entity-wrapper">
                         <div class="entity-content">
                             <div class="entity-name">
                                 <a href="{% url 'web_entity_detail' ent.entity_hash %}">
