@@ -28,21 +28,12 @@
         <div class="row recommend-user-wrapper">
 
             <div class="col-sm-12 section-title-wrapper">
-                <p class="col-sm-6">
+                <p class="col-sm-12">
                     推荐用户
-{#                    <span class="pull-right">#}
-{#                    <a href="" target="_blank">#}
-{#                        查看更多#}
-{#                        <i class="fa fa-angle-right"></i>#}
-{#                    </a>#}
-{#                </span>#}
+                    <span class="pull-right">
+                        <a class="more-users" href="{% url 'web_recommend_users' %}" target="_blank">查看更多&nbsp;<i class="fa fa-caret-right"></i></a>
+                    </span>
                 </p>
-                {% if recommended_user.count > 8 %}
-                    <p class="col-sm-2 col-sm-offset-4">
-                        <a href="{% url 'web_recommend_users' %}" class="more-users">查看更多&nbsp;<i class="fa fa-caret-right"></i></a>
-                    </p>
-
-                {% endif %}
             </div>
 
             <div class="col-sm-12">
