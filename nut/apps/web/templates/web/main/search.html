@@ -81,9 +81,9 @@
 {#                    </a>#}
 {#                </div>#}
                  <div class="top-article-tag">
-                    <a href="{% url 'web_search' %}?q={{ query }}&t=t">
-                        <div class="tag-element {% if type == 't' %}tag-current{% endif %}">
-                            {% trans 'tags' %}&nbsp;<span>{{ tag_count }}</span>
+                    <a href="{% url 'web_search' %}?q={{ query }}&t=u">
+                        <div class="tag-element {% if type == 'u' %}tag-current{% endif %}">
+                            {% trans 'user' %}&nbsp;<span>{{ user_count }}</span>
                         </div>
                     </a>
                 </div>
