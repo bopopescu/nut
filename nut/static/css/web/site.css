@@ -1126,6 +1126,7 @@ p.boolean-false {
   margin-right: 18px;
   margin-bottom: 40px;
   margin-left: 0;
+  height: 120px;
 }
 .user-icon-list.recommend-user-list li a {
   display: block;
@@ -1150,16 +1151,16 @@ p.boolean-false {
 .user-icon-list.recommend-user-list li a {
   color: #424242;
 }
-.user-icon-list.recommend-user-list .all-users {
-  height: 120px;
-}
-.user-icon-list.recommend-user-list .all-users span.user-name {
+.user-icon-list.recommend-user-list li span.user-name {
   display: block;
   width: 100%;
   height: auto;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.user-icon-list.recommend-user-list .all-users {
+  height: 120px;
 }
 @media (max-width: 768px) {
   .user-icon-list.recommend-user-list li {
@@ -1171,6 +1172,7 @@ p.boolean-false {
     margin-right: 15px;
     margin-bottom: 10px;
     margin-left: 0;
+    height: 120px;
     text-align: center;
   }
   .user-icon-list.recommend-user-list li a {
