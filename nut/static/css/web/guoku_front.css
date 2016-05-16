@@ -4377,6 +4377,9 @@ body.compact-body {
 .search-result-body {
   padding-top: 51px;
 }
+.search-result-body .category-sort-wrapper .search-title {
+  float: left;
+}
 .search-result-container {
   margin-top: 30px;
   min-height: 570px;
