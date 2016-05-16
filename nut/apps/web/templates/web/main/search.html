@@ -30,28 +30,28 @@
                 <div class="top-article-tag">
                     <a href="{% url 'web_search' %}?q={{ query }}&t=e">
                         <div class="tag-element {% if type == 'e' %}tag-current{% endif %}">
-                            {% trans 'entity' %}&nbsp;<strong>{{ entity_count }}</strong>
+                            {% trans 'entity' %}&nbsp;<span>{{ entity_count }}</span>
                         </div>
                     </a>
                 </div>
                 <div class="top-article-tag">
                     <a href="{% url 'web_search' %}?q={{ query }}&t=a">
                         <div class="tag-element {% if type == 'a' %}tag-current{% endif %}">
-                            {% trans 'Articles' %}&nbsp;<strong>{{ article_count }}</strong>
+                            {% trans 'Articles' %}&nbsp;<span>{{ article_count }}</span>
                         </div>
                     </a>
                 </div>
                 <div class="top-article-tag">
                     <a href="{% url 'web_search' %}?q={{ query }}&t=u">
                         <div class="tag-element {% if type == 'u' %}tag-current{% endif %}">
-                            {% trans 'user' %}&nbsp;<strong>{{ user_count }}</strong>
+                            {% trans 'user' %}&nbsp;<span>{{ user_count }}</span>
                         </div>
                     </a>
                 </div>
                 <div class="top-article-tag">
                     <a href="{% url 'web_search' %}?q={{ query }}&t=t">
                         <div class="tag-element {% if type == 't' %}tag-current{% endif %}">
-                            {% trans 'tags' %}&nbsp;<strong>{{ tag_count }}</strong>
+                            {% trans 'tags' %}&nbsp;<span>{{ tag_count }}</span>
                         </div>
                     </a>
                 </div>

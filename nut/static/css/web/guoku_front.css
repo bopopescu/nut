@@ -3576,6 +3576,9 @@ body.compact-body {
 #top_article_tags_container .tag-element.current {
   background-color: #ebebeb;
 }
+#top_article_tags_container .tag-element span {
+  color: #9D9E9F;
+}
 #top_article_tags_container .tag-current {
   background-color: #ebebeb;
 }
@@ -4375,6 +4378,7 @@ body.compact-body {
   padding-top: 51px;
 }
 .search-result-container {
+  margin-top: 30px;
   min-height: 570px;
 }
 #settings.edit_profile .action-alert {
