@@ -4371,6 +4371,9 @@ body.compact-body {
   color: #9D9E9F;
   margin-top: 10px;
 }
+.search-result-body {
+  padding-top: 51px;
+}
 .search-result-container {
   min-height: 570px;
 }

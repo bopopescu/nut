@@ -13,13 +13,22 @@
 {% endblock %}
 
 {% block title %}{{ keyword }}搜索结果 | 精英消费指南 | 果库{% endblock %}
-
+{% block body_class %} gray-body search-result-body {% endblock %}
 
 {% block content %}
-    <div class="container search-result-container">
-        <div class="row search-header">
-            <h2><span>「{{ query }}」</span>的搜索结果</h2>
+     <div class="category-sort-wrapper">
+        <div class="container">
+            <div class="row search-header">
+                <div class="col-sm-12">
+                     <p><span>「{{ query }}」</span>的搜索结果</p>
+                </div>
+            </div>
         </div>
+    </div>
+    <div class="container search-result-container">
+{#        <div class="row search-header">#}
+{#            <h2><span>「{{ query }}」</span>的搜索结果</h2>#}
+{#        </div>#}
         <nav class="navbar navbar-search navbar-static-top" role="navigation">
             <div class="container">
 {#                <div class="navbar-collapse collapse">#}
