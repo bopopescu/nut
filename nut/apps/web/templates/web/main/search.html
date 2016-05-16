@@ -37,7 +37,7 @@
                                 <span class="caret"></span>
                             </a>
                             <ul id="sort_dropdown" class="dropdown-menu" role="menu"  >
-                                <li><a href="">按时间</a></li>
+                                <li><a href="{% url 'web_search' %}?q={{ query }}&t=e">按时间</a></li>
                                 <li class="divider"></li>
                                 <li><a href="{% url 'web_search' %}?q={{ query }}&t=e">按喜爱</a></li>
                             </ul>
