@@ -686,6 +686,7 @@ ul li {
   line-height: 32px;
   display: inline-block;
   text-align: center;
+  background-color: #fff;
   border: 1px solid #e6e6e6;
   color: #424242;
   font-size: 14px;
@@ -696,7 +697,7 @@ ul li {
 }
 .normal-round-tag:hover,
 .normal-round-tag.current {
-  background-color: #ddd;
+  background-color: #ebebeb;
 }
 .bottom-bordered {
   border-bottom: 1px solid #e6e6e6;
@@ -3242,6 +3243,7 @@ body.compact-body {
   padding: 0 10px;
   display: inline-block;
   text-align: center;
+  background-color: #fff;
   border: 1px solid #e6e6e6;
   color: #424242;
   font-size: 14px;
@@ -3278,7 +3280,7 @@ body.compact-body {
 .entity-likers-body.index-page .content-panel .panel-row .category-list-wrapper .category-list .category-filter-item.current,
 .guoku-content .liker-page .content-panel .panel-row .category-list-wrapper .category-list .category-filter-item.current,
 .entity-likers-body .liker-page .content-panel .panel-row .category-list-wrapper .category-list .category-filter-item.current {
-  background-color: #ddd;
+  background-color: #ebebeb;
 }
 .guoku-content.user-page .content-panel .panel-row .category-list-wrapper .category-list .category-filter-item a,
 .entity-likers-body.user-page .content-panel .panel-row .category-list-wrapper .category-list .category-filter-item a,
@@ -3561,6 +3563,7 @@ body.compact-body {
   line-height: 32px;
   display: inline-block;
   text-align: center;
+  background-color: #fff;
   border: 1px solid #e6e6e6;
   color: #424242;
   font-size: 14px;
@@ -3571,10 +3574,10 @@ body.compact-body {
 }
 #top_article_tags_container .tag-element:hover,
 #top_article_tags_container .tag-element.current {
-  background-color: #ddd;
+  background-color: #ebebeb;
 }
 #top_article_tags_container .tag-current {
-  background-color: #ddd;
+  background-color: #ebebeb;
 }
 #selection .selection-item,
 #event .selection-item {

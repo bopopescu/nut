@@ -686,6 +686,7 @@ ul li {
   line-height: 32px;
   display: inline-block;
   text-align: center;
+  background-color: #fff;
   border: 1px solid #e6e6e6;
   color: #424242;
   font-size: 14px;
@@ -696,7 +697,7 @@ ul li {
 }
 .normal-round-tag:hover,
 .normal-round-tag.current {
-  background-color: #ddd;
+  background-color: #ebebeb;
 }
 .bottom-bordered {
   border-bottom: 1px solid #e6e6e6;
