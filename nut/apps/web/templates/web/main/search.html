@@ -24,7 +24,8 @@
                         <span>「{{ query }}」</span>的搜索结果
                     </div>
 
-                    <div class="select-sort-wrapper">
+                    {% if type == 'e' %}
+                        <div class="select-sort-wrapper">
                         <span class="dropdown-toggle category-action pull-right">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                                aria-haspopup="false" role="button" aria-expanded="false">
@@ -36,13 +37,13 @@
                                 <span class="caret"></span>
                             </a>
                             <ul id="sort_dropdown" class="dropdown-menu" role="menu"  >
-                                <li><a href="{{ sub_sort_url }}">按时间</a></li>
+                                <li><a href="">按时间</a></li>
                                 <li class="divider"></li>
-                                <li><a href="{{ sub_sort_url }}olike/">按喜爱</a></li>
+                                <li><a href="{% url 'web_search' %}?q={{ query }}&t=e">按喜爱</a></li>
                             </ul>
                         </span>
                     </div>
-
+                    {% endif %}
                 </div>
             </div>
         </div>
