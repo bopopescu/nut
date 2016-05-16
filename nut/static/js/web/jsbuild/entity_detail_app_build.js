@@ -2615,6 +2615,7 @@ define('subapp/entity/baichuan',['underscore','jquery', 'libs/Class'], function(
             this.template = this.get_template();
             this.entityListWrapper = $('#baichuan_list');
             this.retry = false ;
+            this.hideGuessTitle();
             this.initLoadEvent();
         },
         get_template: function(){
@@ -2654,6 +2655,7 @@ define('subapp/entity/baichuan',['underscore','jquery', 'libs/Class'], function(
                 this.hideGuessTitle();
                 return ;
             }else{
+                this.showGuessTitle();
                 this.entityListWrapper
                 .html(this.template({list: elist}));
             }
@@ -2663,7 +2665,11 @@ define('subapp/entity/baichuan',['underscore','jquery', 'libs/Class'], function(
         hideGuessTitle: function(){
             $('#baichuan_guess_title').hide();
         },
+        showGuessTitle: function(){
+            $('#baichuan_guess_title').hide();
+        },
         getFail: function(data){
+            this.hideGuessTitle();
             console.log(data);
         },
 

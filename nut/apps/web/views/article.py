@@ -32,8 +32,8 @@ from apps.core.tasks.article import dig_task, undig_task
 from django import  http
 import requests
 
-from web.forms.remark import ArticleRemarkForm
-from core.models import Article_Remark
+from apps.web.forms.remark import ArticleRemarkForm
+from apps.core.models import Article_Remark
 
 textrank_url = getattr(settings, 'ARTICLE_TEXTRANK_URL', None)
 
