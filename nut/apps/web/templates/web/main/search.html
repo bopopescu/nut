@@ -64,20 +64,30 @@
                         </div>
                     </a>
                 </div>
+{#                如果用户在搜索框里输入的是一个一级品类名称:比如:配饰,则显示品类标签,标签链接到全部二级品类页#}
                 <div class="top-article-tag">
-                    <a href="{% url 'web_search' %}?q={{ query }}&t=u">
-                        <div class="tag-element {% if type == 'u' %}tag-current{% endif %}">
-                            {% trans 'user' %}&nbsp;<span>{{ user_count }}</span>
+                    <a href="{% url 'web_subcategory_list' 18 %}">
+                        <div class="tag-element {% if true %}tag-current{% endif %}">
+                            品类&nbsp;<span>1</span>
                         </div>
                     </a>
                 </div>
-                <div class="top-article-tag">
+{#         标签的tag 设计稿里去掉了#}
+{#                <div class="top-article-tag">#}
+{#                    <a href="{% url 'web_search' %}?q={{ query }}&t=t">#}
+{#                        <div class="tag-element {% if type == 't' %}tag-current{% endif %}">#}
+{#                            {% trans 'tags' %}&nbsp;<span>{{ tag_count }}</span>#}
+{#                        </div>#}
+{#                    </a>#}
+{#                </div>#}
+                 <div class="top-article-tag">
                     <a href="{% url 'web_search' %}?q={{ query }}&t=t">
                         <div class="tag-element {% if type == 't' %}tag-current{% endif %}">
                             {% trans 'tags' %}&nbsp;<span>{{ tag_count }}</span>
                         </div>
                     </a>
                 </div>
+
         </div>
 
         <div class="row search-result-list" id="selection_article_list">
