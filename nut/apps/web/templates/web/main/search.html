@@ -26,33 +26,36 @@
         </div>
     </div>
     <div class="container search-result-container">
-{#        <div class="row search-header">#}
-{#            <h2><span>「{{ query }}」</span>的搜索结果</h2>#}
-{#        </div>#}
-        <nav class="navbar navbar-search navbar-static-top" role="navigation">
-            <div class="container">
-{#                <div class="navbar-collapse collapse">#}
-                    <ul class="nav navbar-nav">
-{#                        {% for row in results %}#}
-
-                        <li {% if type == 'e' %}class="active"{% endif %}>
-                            <a href="{% url 'web_search' %}?q={{ query }}&t=e">{% trans 'entity' %}&nbsp;<strong>{{ entity_count }}</strong></a>
-                        </li>
-                        <li {% if type == 'a' %}class="active"{% endif %}>
-                            <a href="{% url 'web_search' %}?q={{ query }}&t=a">{% trans 'Articles' %}&nbsp;<strong>{{ article_count }}</strong></a>
-                        </li>
-                        <li {% if type == 'u' %}class="active"{% endif %}>
-                            <a href="{% url 'web_search' %}?q={{ query }}&t=u">{% trans 'user' %}&nbsp;<strong>{{ user_count }}</strong></a>
-                        </li>
-                        <li {% if type == 't' %}class="active"{% endif %}>
-                            <a href="{% url 'web_search' %}?q={{ query }}&t=t">{% trans 'tags' %}&nbsp;<strong>{{ tag_count }}</strong></a>
-                        </li>
-
-{#                        {% endfor %}#}
-                    </ul>
-{#                </div>#}
-            </div>
-        </nav>
+        <div class="row" id="top_article_tags_container">
+                <div class="top-article-tag">
+                    <a href="{% url 'web_search' %}?q={{ query }}&t=e">
+                        <div class="tag-element {% if type == 'e' %}tag-current{% endif %}">
+                            {% trans 'entity' %}&nbsp;<strong>{{ entity_count }}</strong>
+                        </div>
+                    </a>
+                </div>
+                <div class="top-article-tag">
+                    <a href="{% url 'web_search' %}?q={{ query }}&t=a">
+                        <div class="tag-element {% if type == 'a' %}tag-current{% endif %}">
+                            {% trans 'Articles' %}&nbsp;<strong>{{ article_count }}</strong>
+                        </div>
+                    </a>
+                </div>
+                <div class="top-article-tag">
+                    <a href="{% url 'web_search' %}?q={{ query }}&t=u">
+                        <div class="tag-element {% if type == 'u' %}tag-current{% endif %}">
+                            {% trans 'user' %}&nbsp;<strong>{{ user_count }}</strong>
+                        </div>
+                    </a>
+                </div>
+                <div class="top-article-tag">
+                    <a href="{% url 'web_search' %}?q={{ query }}&t=t">
+                        <div class="tag-element {% if type == 't' %}tag-current{% endif %}">
+                            {% trans 'tags' %}&nbsp;<strong>{{ tag_count }}</strong>
+                        </div>
+                    </a>
+                </div>
+        </div>
 
         <div class="row search-result-list" id="selection_article_list">
             {% if type == 'u' %}
