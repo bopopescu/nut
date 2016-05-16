@@ -4783,9 +4783,6 @@ body .for-mobile {
   height: 43px;
   overflow: hidden;
 }
-.search-result-list .entity-four .action {
-  display: none;
-}
 #guoku_main_nav .guoku-logo {
   position: relative;
   top: -8px;
