@@ -994,6 +994,13 @@ p.boolean-false {
   background-size: cover;
   background-repeat: no-repeat;
 }
+.single-text-overflow {
+  width: 100%;
+  height: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 /* 商品详情页喜爱头像列表 */
 .like-user-list > div {
   padding: 0px;
@@ -1145,6 +1152,14 @@ p.boolean-false {
 }
 .user-icon-list.recommend-user-list .all-users {
   height: 120px;
+}
+.user-icon-list.recommend-user-list .all-users span.user-name {
+  display: block;
+  width: 100%;
+  height: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 @media (max-width: 768px) {
   .user-icon-list.recommend-user-list li {
