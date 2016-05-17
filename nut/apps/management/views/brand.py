@@ -172,7 +172,7 @@ class BrandEditView(BaseFormView):
         form = self.get_form_class(brand=brand)
         if form.is_valid():
             brand = form.save()
-            return redirect('management_brand_list')
+            # return redirect('management_brand_list')
 
 
         context = {
