@@ -29,6 +29,15 @@
                 <br>
             </div>
         </div>
+
+        {% if request.user.is_staff %}
+        <div class="row user-admin-link-wrapper">
+          <div class="col-sm-12 clearfix">
+              <a class="pull-right user-admin-link" href="{% url 'management_brand_edit' brand.id %}" target="_blank"><i class="fa fa-edit"></i></a>
+          </div>
+        </div>
+        {% endif %}
+
         <div class="row sorting-wrapper">
              <div class="col-md-12">
                 <div class="category-header category-header-control">
