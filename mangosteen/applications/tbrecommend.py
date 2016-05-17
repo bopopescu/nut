@@ -5,10 +5,9 @@ import top.api
 import top
 import json
 from werkzeug.contrib.cache import FileSystemCache
-# from werkzeug.contrib.cache import RedisCache
-# import time
 
 from model.taobao_token import TaobaoToken
+
 
 app = Flask(__name__)
 app.config.from_pyfile('../config/default.py')
@@ -43,7 +42,6 @@ def handel(keyword, **kwargs):
         item_key = "{0}:{1}".format(keyword.encode('utf-8'), user_id)
     else:
         item_key = "{0}".format(keyword.encode('utf-8'))
-
 
     params.update(
         {
