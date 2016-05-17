@@ -50,25 +50,3 @@ class BrandDetailView(ListView):
                                                     ).using('slave')
         context['user_entity_likes'] = el
         return context
-
-
-
-
-
-    # def get_queryset(self):
-    #     cid = self.get_category_id()
-    #     order_by_like = False
-    #     if self.get_order_by() == 'olike':
-    #         order_by_like = True
-    #     self.cid = cid
-    #     entity_list = Entity.objects.sort(category_id=cid,
-    #                                       like=order_by_like).exclude(
-    #         selection_entity__is_published=False)
-    #     return entity_list
-    #
-    #
-    #     order_by_like = False
-    #     if self.get_order_by() == 'olike':
-    #         order_by_like = True
-
-
