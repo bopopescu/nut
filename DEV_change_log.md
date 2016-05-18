@@ -1,3 +1,10 @@
+
+
+1. 
+=======================
+# merged to master 2016 5-12
+=======================
+
 5.  search result highlight -- jiaxin 
 4.  site banner management (api will update at next monday, MNG first )  -- shuailong
 3.  wechat robot  -- anchen 
