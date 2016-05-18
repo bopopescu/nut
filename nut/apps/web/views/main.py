@@ -65,7 +65,7 @@ class IndexView(TemplateView):
         context['categories'] = self.get_hot_categories()
         context['top_articles'] = self.get_top_articles()
         context['top_entities'] = self.get_top_entities()
-        context['brands'] = [];
+        context['brands'] = []
         return context
 
 
@@ -192,7 +192,6 @@ class GKSearchView(SearchView):
             res = self.queryset.models(Article).order_by('-score', '-read_count')
         else:
             res = self.queryset.models(Entity).order_by('-like_count')
-
         context = self.get_context_data(**{
             self.form_name: form,
             'query': form.cleaned_data.get(self.search_field),

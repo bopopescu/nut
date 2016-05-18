@@ -39,9 +39,9 @@ def handel(keyword, **kwargs):
             # 'userid': taobao.isv_uid
             })
 
-        item_key = "{0}:{1}".format(keyword.encode('utf-8'), user_id)
+        item_key = "item:{0}-user:{1}".format(keyword.encode('utf-8'), user_id)
     else:
-        item_key = "{0}".format(keyword.encode('utf-8'))
+        item_key = "item:{0}".format(keyword.encode('utf-8'))
 
     params.update(
         {
