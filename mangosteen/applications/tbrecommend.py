@@ -29,11 +29,12 @@ def handel(keyword, **kwargs):
 
     if user_id:
         taobao = TaobaoToken.query.filter_by(user_id=user_id).first()
-        print "taobao %s screen_name %s" %  (taobao.open_uid, taobao.screen_name)
-        params.update({
-            'userid': taobao.taobao_id,
+        # print "taobao %s screen_name %s" %  (taobao.open_uid, taobao.screen_name)
+        if taobao:
+            params.update({
+                'userid': taobao.taobao_id,
             # 'userid': taobao.isv_uid
-        })
+            })
 
 
     params.update(

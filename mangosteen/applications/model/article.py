@@ -11,7 +11,7 @@ class Article(db.Model):
     #     (draft, _("draft")),
     #     (remove, _("remove")),
     # ]
-    ARTICLE_STATUS_CHOICES = ("remove", "draft","published")
+    # ARTICLE_STATUS_CHOICES = ("remove", "draft","published")
 
     id                  = db.Column(db.Integer(), primary_key=True)
     creator_id          = db.Column(db.Integer())

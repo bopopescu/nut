@@ -1,5 +1,43 @@
-2.  
+
+2. 
+1. fix baichuan fail , still render baichuan guess title bug 
+=======================
+# merged to master 2016 5-12
+=======================
+
+5.  search result highlight -- jiaxin 
+4.  site banner management (api will update at next monday, MNG first )  -- shuailong
+3.  wechat robot  -- anchen 
+2.  article page can not be zoom by user, mobile (bug fix) -- anchen
+1.  limit manage entity create editor choice to 8 and self  -- anchen
+
+#action need sync db 
+    add  RobotDic model for wechat robot 
+    
+    
+ may have been some text problem-   
+after  syncdb on test server , on mng page 
+following error appears 
+
+ (1267, "Illegal mix of collations (latin1_swedish_ci,IMPLICIT) and (utf8mb4_general_ci,COERCIBLE) for operation '='")
+ 
+
+ALTER TABLE `core`.`wechat_robotdic` 
+CHANGE COLUMN `keyword` `keyword` VARCHAR(128) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
+CHANGE COLUMN `resp` `resp` VARCHAR(1024) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ;
+
+
+ 
+=======================
+# merged to master 2016 5-9
+=======================
+
+5.  mng -  guoku editor/writer article list  -- anchen 
+4.  article page not found to 404 page , for searching engine consideration -- anchen
+3.  selection entity long pic css adjust , event entity pic vertical align  -- 罗倩
+2.  editor user can use management , except user edit --anchen 
 1.  add nick to core/model  -- 赵旭
+
 =======================
 # merged to master 2016 5-5
 =======================

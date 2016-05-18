@@ -14,7 +14,7 @@ from hashlib import md5
 from datetime import datetime
 
 from apps.core.tasks.entity import fetch_image
-from apps.core.forms import get_admin_user_choices
+from apps.core.forms import get_admin_user_choices, get_entity_editor_choices
 from apps.core.utils.image import HandleImage
 from apps.core.utils.fetch.jd import JD
 from apps.core.utils.fetch.kaola import Kaola
@@ -472,7 +472,8 @@ class CreateEntityForm(forms.Form):
                                                   initial=Note.normal,
                                                   )
 
-        user_choices = get_admin_user_choices()
+        user_choices = [(request.user.pk, request.user.nickname)] + get_entity_editor_choices(request)
+
         self.fields['user'] = forms.ChoiceField(
             label=_('user'),
             choices=user_choices,
