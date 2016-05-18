@@ -10,9 +10,9 @@ from django.utils.log import getLogger
 from django.views.decorators.csrf import csrf_exempt
 from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
-from apps.management.decorators import staff_only
+from apps.management.decorators import staff_only, staff_and_editor
 
-from apps.core.models import Entity, Buy_Link
+from apps.core.models import Entity, Buy_Link, GKUser
 from apps.core.forms.entity import EditEntityForm, EntityImageForm, \
     CreateEntityForm, load_entity_info, BuyLinkForm, EditBuyLinkForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, \
@@ -55,9 +55,18 @@ class EntityListView(FilterMixin, ListView):
             return qs
         elif status == '999':
             entity_list  = self.get_amazon_entities(qs)
+        elif status == '888':
+            entity_list = self.get_editor_frozen_entities(qs)
         else:
             entity_list = qs.filter(status=int(status)).order_by('-updated_time')
         return  entity_list
+
+    def get_editor_frozen_entities(self,qs):
+        editors = GKUser.objects.editor()
+        entity_frozen = Entity.objects\
+                              .filter(status=Entity.freeze, user__in=editors)\
+                              .order_by('-updated_time')
+        return entity_frozen
 
     # TODO: need clear input  in filter Mixin
     def filter_queryset(self, qs, filter_param):
@@ -75,7 +84,7 @@ class EntityListView(FilterMixin, ListView):
         context['status'] =  self.request.GET.get('status', None)
         return context
 
-    @staff_only
+    @staff_and_editor
     def dispatch(self, request, *args, **kwargs):
         return super(EntityListView, self).dispatch(request, *args, **kwargs)
 # entity list view class end
@@ -114,13 +123,14 @@ class EntityListView(FilterMixin, ListView):
 
 
 @login_required
-@staff_only
+@staff_and_editor
 def edit(request, entity_id, template='management/entities/edit.html'):
     _update = None
     try:
         entity = Entity.objects.get(pk=entity_id)
     except Entity.DoesNotExist:
         raise Http404
+
 
     data = {
         # 'id':entity.pk,
@@ -132,6 +142,8 @@ def edit(request, entity_id, template='management/entities/edit.html'):
         'category': entity.category.group_id,
         'sub_category': entity.category_id,
     }
+
+
 
     if request.method == "POST":
         _forms = EditEntityForm(
@@ -164,7 +176,7 @@ def edit(request, entity_id, template='management/entities/edit.html'):
 
 
 @login_required
-@staff_only
+@staff_and_editor
 def create(request, template='management/entities/new.html'):
     _url = request.GET.get('url')
 
@@ -222,7 +234,7 @@ def create(request, template='management/entities/new.html'):
 
 
 @login_required
-@staff_only
+@staff_and_editor
 def buy_link(request, entity_id, template='management/entities/buy_link.html'):
     # _buy_link_list = Buy_Link.objects.filter(entity_id = entity_id)
     try:
@@ -253,6 +265,7 @@ def buy_link(request, entity_id, template='management/entities/buy_link.html'):
 
 @csrf_exempt
 @login_required
+@staff_and_editor
 def edit_buy_link(request, bid,
                   template='management/entities/edit_buy_link.html'):
     try:
@@ -284,7 +297,7 @@ def edit_buy_link(request, bid,
 
 @csrf_exempt
 @login_required
-@staff_only
+@staff_and_editor
 def remove_buy_link(request, bid):
     try:
         b = Buy_Link.objects.get(pk=bid)
@@ -347,7 +360,7 @@ class CheckBuyLinkView(View):
         assert self.bid is not None
         return self.get_context_data(**kwargs)
 
-    @staff_only
+    @staff_and_editor
     def dispatch(self, request, *args, **kwargs):
         return super(CheckBuyLinkView, self).dispatch(request, *args, **kwargs)
 
@@ -360,7 +373,7 @@ class CheckBuyLinkView(View):
 
 
 @login_required
-@staff_only
+@staff_and_editor
 def refetch_image(request, entity_id):
     try:
         _entity = Entity.objects.get(pk=entity_id)
@@ -374,6 +387,7 @@ def refetch_image(request, entity_id):
 
 
 @login_required
+@staff_and_editor
 def image(request, entity_id,
           template='management/entities/upload_image.html'):
     try:
@@ -401,6 +415,7 @@ def image(request, entity_id,
 
 @csrf_exempt
 @login_required
+@staff_and_editor
 def delete_image(request, entity_id):
     if request.method == 'POST':
         _index = request.POST.get('index', None)

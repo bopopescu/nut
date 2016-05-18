@@ -1,10 +1,11 @@
+from secret_settings import *
 from settings import *
 
 # DEBUG = True
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-STATIC_URL = 'http://static.guoku.com/static/v4/0c2219c115dd3b6830deb10becba783498b7370a/'
+STATIC_URL = 'http://static.guoku.com/static/v4/faec96f282516203a0126bdf16afc186c49a449b/'
 
 LANGUAGE_CODE = 'zh-cn'
 
@@ -12,35 +13,7 @@ TIME_ZONE = 'Asia/Shanghai'
 
 USE_TZ = False
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'core',
-        'USER': 'guoku',
-        'PASSWORD': 'guoku!@#',
-        'HOST': '10.0.2.90',
-        'PORT': '',
-        'OPTIONS': {
-            # 'use_unicode':'utf-8',
-            'charset': 'utf8mb4',
-            'init_command':'SET storage_engine=INNODB',
-        }
-    },
-
-    'slave': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'core',
-        'USER': 'guoku',
-        'PASSWORD': 'guoku!@#',
-        'HOST': '10.0.2.95',
-        'PORT': '',
-        'OPTIONS': {
-            # 'use_unicode':'utf-8',
-            'charset': 'utf8mb4',
-            'init_command':'SET storage_engine=INNODB',
-        }
-    },
-}
+DATABASES = PRODUCTION_DATABASES
 
 
 INSTALLED_APPS += (

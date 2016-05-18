@@ -26,7 +26,7 @@
             <div class="col-xs-12 col-sm-9 user-info">
                 <div class="user-nick-block">
                     <div class="center-wrapper">
-                        <span class="nick">{{ current_user.nickname }}</span>
+                        <span class="nick">{{ current_user.profile.nick }}</span>
                              {% if current_user.is_blocked %}
                                 <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
                             {% elif current_user == request.user %}

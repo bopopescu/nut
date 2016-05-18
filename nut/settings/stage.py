@@ -3,6 +3,12 @@ from settings import *
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+STATICFILES_DIRS = (
+    os.path.join(os.getcwd(), 'static'),
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+)
 
 # STATIC_URL = 'http://static.guoku.com/static/v4/d6d8bc3600a44816fbf1ebcfacd2de45c32cc359/'
 
@@ -12,65 +18,7 @@ TIME_ZONE = 'Asia/Shanghai'
 
 USE_TZ = False
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'core',
-        'USER': 'guoku',
-        'PASSWORD': 'guoku!@#',
-        'HOST': '10.0.2.90',
-        'PORT': '',
-        'OPTIONS': {
-            # 'use_unicode':'utf-8',
-            'charset': 'utf8mb4',
-            'init_command':'SET storage_engine=INNODB',
-        }
-    },
-
-    'slave': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'core',
-        'USER': 'guoku',
-        'PASSWORD': 'guoku!@#',
-        'HOST': '10.0.2.95',
-        'PORT': '',
-        'OPTIONS': {
-            # 'use_unicode':'utf-8',
-            'charset': 'utf8mb4',
-            'init_command':'SET storage_engine=INNODB',
-        }
-    },
-}
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'core',
-#         'USER': 'guoku',
-#         'PASSWORD': 'guoku1@#',
-#         'HOST': '10.0.2.125',
-#         'PORT': '',
-#         'OPTIONS': {
-#             # 'use_unicode':'utf-8',
-#             'charset': 'utf8mb4',
-#             'init_command':'SET storage_engine=INNODB',
-#         }
-#     },
-#     'slave': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'core',
-#         'USER': 'guoku',
-#         'PASSWORD': 'guoku1@#',
-#         'HOST': '10.0.2.125',
-#         'PORT': '',
-#         'OPTIONS': {
-#             # 'use_unicode':'utf-8',
-#             'charset': 'utf8mb4',
-#             'init_command':'SET storage_engine=INNODB',
-#         }
-#     },
-# }
+DATABASES = TESTING_DATABASE
 
 # CELERY #################################
 BROKER_URL = 'redis://localhost:6379/0'

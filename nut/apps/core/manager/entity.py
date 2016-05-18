@@ -22,18 +22,25 @@ class EntityQuerySet(models.query.QuerySet):
     def active(self):
         return self.using('slave').filter(status__gte=-1)
 
-    def new_or_selection(self, category_id):
-        if isinstance(category_id, int) or isinstance(category_id ,str):
-            return self.using('slave').filter(category_id=category_id,
+    def new_or_selection(self, category_id=None):
+
+        if isinstance(category_id, list):
+            return self.using('slave').filter(category_id__in=category_id,\
                                               status__gte=0)
 
-        elif isinstance(category_id, list):
-            return self.using('slave').filter(category_id__in=category_id,
+        elif isinstance(category_id, int) or isinstance(category_id ,str) or isinstance(category_id , long):
+            return self.using('slave').filter(category_id=category_id,\
                                               status__gte=0)
-
         else:
-            return self.using('slave').filter(status__gte=0)
+            #unicode
+            try :
+                category_id = int(category_id)
+                return self.using('slave').filter(category_id=category_id,\
+                                              status__gte=0)
+            except Exception as e:
+                pass
 
+            return self.using('slave').filter(status__gte=0)
 
 
     def sort(self, category_id, like=False):
@@ -41,9 +48,7 @@ class EntityQuerySet(models.query.QuerySet):
         if like:
             return self.new_or_selection(category_id).filter(
                 selection_entity__pub_time__lte=_refresh_datetime,
-                buy_links__status=2) \
-                .annotate(lnumber=Count('likes')) \
-                .order_by('-lnumber')
+                buy_links__status=2)
         else:
             return self.new_or_selection(category_id).filter(
                 selection_entity__pub_time__lte=_refresh_datetime,
@@ -57,22 +62,30 @@ class EntityQuerySet(models.query.QuerySet):
             # # print kwargs, args
             # return super(EntityQuerySet, self).get(*args, **kwargs)
 
-
-    def sort_group(self, category_ids, like=False):
+    def sort_group(self, gid, category_ids, like=False):
         _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        like_key = 'entity:list:sort:like:%s' % hash(gid)
+
         if like:
-            return self.new_or_selection(category_ids).filter(
-                selection_entity__pub_time__lte=_refresh_datetime,
-                buy_links__status=2) \
-                .annotate(lnumber=Count('likes')) \
-                .order_by('-lnumber')
+
+            like_list = self.new_or_selection(category_ids).filter(
+                    selection_entity__pub_time__lte=_refresh_datetime,
+                    buy_links__status=2)
+
+            # cache.set(like_key, like_list, timeout=3600*24)
+            return like_list
+
         else:
             return self.new_or_selection(category_ids).filter(
                 selection_entity__pub_time__lte=_refresh_datetime,
-                buy_links__status=2).distinct() \
+                buy_links__status=2)\
                 .order_by('-selection_entity__pub_time')
 
-
+    def random_seller_entities(self):
+        base_query = self.new_or_selection().order_by('-created_time')
+        sellers = list(get_user_model().objects.authorized_seller())
+        sample_space = base_query.filter(user__in=sellers)[:400]
+        return random.sample(sample_space, 18)
 
 
 class EntityManager(models.Manager):
@@ -89,6 +102,18 @@ class EntityManager(models.Manager):
 
     def get_query_set(self):
         return EntityQuerySet(self.model, using=self._db)
+
+    def random_seller_entities(self):
+        key = 'Entity:Authorized_Seller:Random'
+        rse = cache.get(key)
+        if rse is None:
+            rse =  list(self.get_queryset().random_seller_entities())
+            #TODO change timeout to 3600
+            cache.set(key, rse, timeout=10 )
+        else:
+            pass
+
+        return rse
 
     # def get(self, *args, **kwargs):
     # # print  kwargs
@@ -122,9 +147,9 @@ class EntityManager(models.Manager):
         assert category_id is not None
         return self.get_query_set().sort(category_id, like)
 
-    def sort_group(self, category_ids, like=False):
+    def sort_group(self, gid, category_ids, like=False):
         assert category_ids is not None
-        return self.get_query_set().sort_group(category_ids, like)
+        return self.get_query_set().sort_group(gid, category_ids, like)
 
     def guess(self, category_id=None, count=5, exclude_id=None):
         size = count * 10
@@ -236,13 +261,13 @@ class SelectionEntityQuerySet(models.query.QuerySet):
         return self.filter(is_published=True)
 
     def pending(self):
-        return self.filter(is_published=False).exclude(
-            entity__status__lt=1,
+        return self.filter(is_published=False).exclude(\
+            entity__status__lt=1,\
             entity__buy_links__status__in=(0, 1))
 
     def pending_and_removed(self):
-        return self.filter(is_published=False,
-                           entity__buy_links__status__in=(0, 1),
+        return self.filter(is_published=False,\
+                           entity__buy_links__status__in=(0, 1),\
                            entity__status__lt=1)
 
 

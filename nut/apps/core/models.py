@@ -3,6 +3,7 @@
 import time
 import requests
 import HTMLParser
+import hashlib
 
 from hashlib import md5
 from datetime import datetime
@@ -263,11 +264,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def following_list(self):
-        return self.followings.exclude(followee__is_active=-1).values_list('followee_id', flat=True)
+        return self.followings.filter(followee__is_active__gt=0).values_list('followee_id', flat=True)
 
     @property
     def fans_list(self):
-        return self.fans.exclude(follower__is_active=-1).values_list('follower_id', flat=True)
+        return self.fans.filter(follower__is_active__gt=0).values_list('follower_id', flat=True)
 
     @property
     def concren(self):
@@ -275,11 +276,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def following_count(self):
-        return self.followings.exclude(followee__is_active=-1).count()
+        return self.followings.filter(followee__is_active__gt=-1).count()
 
     @property
     def fans_count(self):
-        return self.fans.exclude(follower__is_active=-1).count()
+        return self.fans.filter(follower__is_active__gt=-1).count()
 
     @property
     def bio(self):
@@ -293,6 +294,13 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         if hasattr(self, 'profile'):
             if self.profile.nickname:
                 return self.profile.nickname
+        return ''
+
+    @property
+    def nick(self):
+        if hasattr(self, 'profile'):
+            if self.profile.nick:
+                return self.profile.nick
         return ''
 
     @property
@@ -345,6 +353,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
             try:
                 res['nickname'] = self.profile.nickname
+                res['nick'] = self.profile.nick
                 res['bio'] = self.profile.bio
                 res['gender'] = self.profile.gender
                 res['location'] = self.profile.location
@@ -836,7 +845,7 @@ class Entity(BaseModel):
     images = ListObjectField()
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
-    status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=new)
+    status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=new, db_index=True)
 
     objects = EntityManager()
 
@@ -1144,6 +1153,15 @@ class Entity_Like(models.Model):
         unique_together = ('entity', 'user')
 
 
+class Entity_Brand(BaseModel):
+    entity = models.OneToOneField(Entity, related_name='brand_link')
+    brand = models.ForeignKey(Brand, related_name='entities_link')
+    brand_order = models.IntegerField(default=9999)
+    class Meta:
+        pass
+        # unique_together = ('entity','brand')
+
+
 class Note(BaseModel):
     (remove, normal, top) = (-1, 0, 1)
     NOTE_STATUS_CHOICES = [
@@ -1354,12 +1372,19 @@ class WeChat_Token(BaseModel):
 from apps.tag.models import Content_Tags
 class Article(BaseModel):
     (remove, draft, published) = xrange(3)
+
     ARTICLE_STATUS_CHOICES = [
         (published, _("published")),
         (draft, _("draft")),
         (remove, _("remove")),
     ]
 
+    (from_editor, from_weixin , from_rss ) = xrange(3)
+    ARTICLE_SOURCE_CHOICES =[
+        (from_editor, _("from editor")),
+        (from_weixin, _("from weixin")),
+        (from_rss, _("from rss"))
+    ]
     creator = models.ForeignKey(GKUser, related_name="articles")
     title = models.CharField(max_length=64)
     identity_code = models.TextField(null=True, blank=True)
@@ -1375,6 +1400,11 @@ class Article(BaseModel):
     related_entities = models.ManyToManyField(Entity,
                                               related_name='related_articles')
 
+    origin_source = models.TextField(max_length=255, null=True, blank=True)
+    origin_url =   models.TextField(max_length=255, null=True, blank=True)
+    source =  models.IntegerField(choices=ARTICLE_SOURCE_CHOICES, default=from_editor, null=True, blank=True)
+
+
     objects = ArticleManager()
 
     class Meta:
@@ -1382,6 +1412,14 @@ class Article(BaseModel):
 
     def get_dig_key(self):
         return 'article:dig:%d' % self.pk
+
+
+    def caculate_identity_code(self):
+        title = self.title
+        created_datetime = self.created_datetime
+        user_id = self.creator.id
+        title_hash =  hashlib.sha1(title.encode('utf-8')).hexdigest()
+        return '%s_%s_%s ' % (user_id,title_hash,created_datetime)
 
 
     @property

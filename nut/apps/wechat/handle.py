@@ -5,18 +5,22 @@ from apps.wechat.models import Token
 from datetime import datetime
 from django.utils.log import getLogger
 from haystack.query import SearchQuerySet
+from apps.wechat.robot import RobotHandler
+
 import re
 
 log = getLogger('django')
 
+robot_handler = RobotHandler()
 
 def regex(content, pattern):
     pobj = re.compile(pattern)
     return pobj.search(content.decode('utf-8'))
 
 def handle_reply(content):
-    # log.info(content.decode('utf-8'))
+    log.error(content.decode('utf-8'))
     res = list()
+
 
     if content.decode('utf-8') == u'精选':
         _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -28,8 +32,13 @@ def handle_reply(content):
         popular_list = Entity_Like.objects.popular_random()
         entities = Entity.objects.filter(id__in=popular_list)
         res = entities[:5]
-    elif regex(content, u'活动'):
-        return u'感谢您的参与，请稍等一会儿，看福利和运气哪个先到。我们将在4月5日统一公布获奖名单'
+    # elif regex(content, u'活动'):
+    #     return u'感谢您的参与，请稍等一会儿，看福利和运气哪个先到。我们将在4月5日统一公布获奖名单'
+    # elif content.decode('utf-8').lower() == u'id':
+    elif regex(content.lower(), u'福利'):
+        return u'感谢您的参与，请耐心等待结果。我们将在5月3日统一公布获奖名单。'
+    elif robot_handler.can_handle(content.lower()):
+        return robot_handler.handle(content.lower())
     else:
         # _entities = Entity.search.query(content.decode('utf-8')).order_by('@weight', '-created_time')
         sqs = SearchQuerySet()
