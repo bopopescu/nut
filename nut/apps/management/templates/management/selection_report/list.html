@@ -1,0 +1,41 @@
+{% extends "management/management_base.html" %}
+{% load staticfiles i18n %}
+
+
+{% block content %}
+    <section class="content-header">
+        <h1>
+            {% trans '精选商品' %}
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+            <li class="active">{% trans 'entity' %}</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <ul class="nav nav-pills" role="tablist">
+                            <li {% if status == None or status == '0'  %}class="active"{% endif %}><a href="{% url 'management_selection_report' %}">{% trans '最多喜爱' %}</a></li>
+{#                            <li {% ifequal status '1' %}class="active"{% endifequal %}><a href="{% url 'management_selection_report' %}?status=1">{% trans '最多点击' %}</a></li>#}
+{#                            <li {% ifequal status '2' %}class="active"{% endifequal %}><a href="{% url 'management_selection_report' %}?status=2">{% trans '已售出' %}</a></li>#}
+
+                        </ul>
+                    </div>
+                    <div class="box-body table-responsive">
+                        {% include "management/selection_report/table.html" with selections=selections %}
+                    </div>
+                    <div class="box-footer">
+                        {% include "management/selection_report/paginator_new.html" with objects=selections url=request.path %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

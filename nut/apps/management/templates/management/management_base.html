@@ -157,6 +157,13 @@
                         </a>
                     </li>
 
+                    {% url 'management_selection_report' as management_selection_report %}
+                    <li {% if management_selection_report in request.path %}class="active"{% endif %}>
+                        <a href="{{ management_selection_report }}">
+                            <i class="fa fa-star"></i>&nbsp;<span>{% trans '精选商品效果报告' %}</span>
+                        </a>
+                    </li>
+
                     {% url 'management_event' as management_event_url %}
                     <li {% if management_event_url in request.path %}class="active"{% endif %}>
                         <a href="{{ management_event_url }}">
@@ -294,6 +301,7 @@
                             <i class="fa fa-life-ring"></i>&nbsp;<span>测试友链管理</span>
                         </a>
                     </li>
+
 
                 </ul>
             </section>
