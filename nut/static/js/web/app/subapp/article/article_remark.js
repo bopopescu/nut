@@ -19,6 +19,8 @@ define([
         init: function(){
             console.log('article remark begin');
             this.accountApp = new AccountApp();
+            this.firstPost = null;
+            this.secondPost = null;
             this.initVisitorRemark();
             this.initUserRemarkPost();
             this.initUserReply();
@@ -106,6 +108,22 @@ define([
             $form.on('submit', this.submitRemark.bind(this));
         },
         submitRemark: function(event){
+            if(this.firstPost == null){
+                this.firstPost = new Date();
+            }else{
+                this.secondPost = new Date();
+            }
+            if(this.secondPost && this.secondPost - this.firstPost < 30000){
+                bootbox.alert('you operates frequently,please operate later.');
+                this.firstPost = this.secondPost;
+                this.secondPost = null;
+                event.preventDefault();
+                return false;
+            }
+            if(this.firstPost && this.secondPost){
+                this.firstPost = this.secondPost;
+                this.secondPost = null;
+            }
             console.log(event.currentTarget);
             var $form = $(event.currentTarget);
             //var $form = $('#article_remark_form');
@@ -163,7 +181,6 @@ define([
         postRemarkFail: function(data){
             //should add bootbox to notice current remarking user
              bootbox.alert('remark fail');
-            console.log('post remark fail!');
         },
         cleanInput:function(){
             $('#article_remark_form').find('textarea').val('');
