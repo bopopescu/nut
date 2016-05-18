@@ -1173,6 +1173,7 @@ p.boolean-false {
 }
 .store-body #recommend-entity-container #recommend-entity-wrapper li.recommend-entity-item .section-panel {
   text-align: center;
+  box-shadow: 0 0 0 transparent;
 }
 .store-body #recommend-entity-container #recommend-entity-wrapper li.recommend-entity-item .section-panel .entity-pic {
   width: 100%;
