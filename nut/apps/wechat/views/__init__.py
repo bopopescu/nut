@@ -30,8 +30,13 @@ class WeChatView(View):
         list = [self.token, _timestamp, _nonce]
         list.sort()
         sha1 = hashlib.sha1()
-        map(sha1.update, list)
-        hashcode = sha1.hexdigest()
+        hashcode = ''
+        try :
+            #handle none input
+            map(sha1.update, list)
+            hashcode = sha1.hexdigest()
+        except Exception as e :
+            return False
         if hashcode == _signature:
             return True
         return False
@@ -94,6 +99,7 @@ class WeChatView(View):
                         'wechat/replymsg.xml',
                         {
                             'msg':msg,
+                            'content': _items,
                             'timestamp': int(_timestamp),
                         }
                     )
@@ -107,6 +113,20 @@ class WeChatView(View):
                 },
                 mimetype="application/xml",
             )
+        else :
+            _items = u'签名检查失败'
+            msg = self.parseMsgXml(ET.fromstring(rawStr))
+            _timestamp = time.mktime(datetime.now().timetuple())
+            if isinstance(_items, unicode):
+                    return render_to_response(
+                        'wechat/replymsg.xml',
+                        {
+                            'msg':msg,
+                            'content': _items,
+                            'timestamp': int(_timestamp),
+                        }
+                    )
+
 
     @csrf_exempt
     def dispatch(self, request, *args, **kwargs):

@@ -3,5 +3,5 @@
     <FromUserName><![CDATA[{{ msg.ToUserName }}]]></FromUserName>
     <CreateTime>{{ timestamp }}</CreateTime>
     <MsgType><![CDATA[text]]></MsgType>
-    <Content><![CDATA[感谢您的参与，请稍等一会儿，看福利和运气哪个先到。我们将在4月5日统一公布获奖名单。]]></Content>
+    <Content><![CDATA[{{ content }}]]></Content>
 </xml>

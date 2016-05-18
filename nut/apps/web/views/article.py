@@ -194,7 +194,8 @@ class EditorArticleEdit(LoginRequiredMixin, AjaxResponseMixin,JSONResponseMixin,
             'form':the_form,
             'pk': pk,
             'cover_url': the_article.cover_url,
-            'is_chief_editor': self.request.user.is_chief_editor
+            'is_chief_editor': self.request.user.is_chief_editor,
+            'article':self.get_article()
         })
 
     def post_ajax(self, request, *args, **kwargs):
@@ -247,7 +248,7 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         if self.object is None:
-            return redirect('web_selection_articles')
+            raise Http404('你找的图文不在这里')
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
 

@@ -27,13 +27,16 @@ require([
         'libs/polyfills',
         'jquery',
         'subapp/entitylike',
-        'subapp/topmenu'
+        'subapp/topmenu',
+        'subapp/discover/category_slick'
     ],
     function(polyfill,
              jQuery,
              AppEntityLike,
-             Menu
+             Menu,
+             CategorySlick
     ){
         var menu = new Menu();
         var app_like = new  AppEntityLike();
+        var category_slick = new CategorySlick();
     });

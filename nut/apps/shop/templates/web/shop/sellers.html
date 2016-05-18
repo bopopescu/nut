@@ -136,7 +136,7 @@
 {#        </div>#}
         <div class="row middle-banner-wrapper">
             <div class="col-sm-6 guoku-middle-col middle-banner-item">
-                <a href="" target="_blank">
+                <a href="/tag/articles/%25E6%2596%25B0%25E5%2593%2581%25E5%258F%2591%25E5%25B8%2583%25E4%25BC%259A/" target="_blank">
                     <div class="section-panel">
                          <div class="bg-pic" style="background-image: url({% static 'images/good-store/2cl-new-entity-event.jpg' %})">
                          </div>
@@ -144,7 +144,7 @@
                 </a>
             </div>
             <div class="col-sm-6 guoku-middle-col middle-banner-item">
-                <a href="" target="_blank">
+                <a href="/tag/articles/%25E4%25B8%2593%25E8%25AE%25BF/" target="_blank">
                     <div class="section-panel">
                          <div class="bg-pic" style="background-image: url({% static 'images/good-store/2cl-seller-profile.jpg' %})">
                          </div>
@@ -161,114 +161,17 @@
         <div class="row dark-section-wrapper" id="recommend-entity-container">
             <div class="col-sm-12">
                 <ul id="recommend-entity-wrapper">
+                    {% for entity in recent_entities %}
                     <li class="recommend-entity-item dark-section-item">
-                        <a href="http://www.guoku.com/detail/341080c8/" target="_blank">
+                        <a href="{{   entity.absolute_url }}" target="_blank">
                             <div class="section-panel">
-                                <div class="entity-pic" style="background-image: url('http://imgcdn.guoku.com/images/310/f8d1e75bbcaa33290189ed1f9d6aa8c7.jpg')">
+                                <div class="entity-pic" style="background-image: url('{{ entity.chief_image |resize:'240' }}')">
                                 </div>
-                                <span class="seller-name">J.ESTINA</span>
+                                <span class="seller-name">{{ entity.user.nick }}</span>
                             </div>
                         </a>
                     </li>
-                    <li class="recommend-entity-item dark-section-item">
-                        <a href="http://www.guoku.com/detail/f2f48139/" target="_blank">
-                            <div class="section-panel">
-                                <div class="entity-pic" style="background-image: url('http://imgcdn.guoku.com/images/310/f50f53f0e7ac1b4a0e3c7a8038c9c3dc.jpg')">
-                                </div>
-                                <span class="seller-name">一山半海食味铺</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="recommend-entity-item dark-section-item">
-                        <a href="http://www.guoku.com/detail/341080c8/" target="_blank">
-                            <div class="section-panel">
-                                <div class="entity-pic" style="background-image: url('http://imgcdn.guoku.com/images/310/f8d1e75bbcaa33290189ed1f9d6aa8c7.jpg')">
-                                </div>
-                                <span class="seller-name">LE_CREUSET酷彩官方旗舰店</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="recommend-entity-item dark-section-item">
-                        <a href="http://www.guoku.com/detail/f2f48139/" target="_blank">
-                            <div class="section-panel">
-                                <div class="entity-pic" style="background-image: url('http://imgcdn.guoku.com/images/310/f50f53f0e7ac1b4a0e3c7a8038c9c3dc.jpg')">
-                                </div>
-                                <span class="seller-name">一山半海食味铺</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="recommend-entity-item dark-section-item">
-                        <a href="http://www.guoku.com/detail/341080c8/" target="_blank">
-                            <div class="section-panel">
-                                <div class="entity-pic" style="background-image: url('http://imgcdn.guoku.com/images/310/f8d1e75bbcaa33290189ed1f9d6aa8c7.jpg')">
-                                </div>
-                                <span class="seller-name">J.ESTINA</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="recommend-entity-item dark-section-item">
-                        <a href="http://www.guoku.com/detail/f2f48139/" target="_blank">
-                            <div class="section-panel">
-                                <div class="entity-pic" style="background-image: url('http://imgcdn.guoku.com/images/310/f50f53f0e7ac1b4a0e3c7a8038c9c3dc.jpg')">
-                                </div>
-                                <span class="seller-name">TIKKITOKKI_Flagship_Store</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="recommend-entity-item dark-section-item">
-                        <a href="http://www.guoku.com/detail/341080c8/" target="_blank">
-                            <div class="section-panel">
-                                <div class="entity-pic" style="background-image: url('http://imgcdn.guoku.com/images/310/f8d1e75bbcaa33290189ed1f9d6aa8c7.jpg')">
-                                </div>
-                                <span class="seller-name">J.ESTINA</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="recommend-entity-item dark-section-item">
-                        <a href="http://www.guoku.com/detail/f2f48139/" target="_blank">
-                            <div class="section-panel">
-                                <div class="entity-pic" style="background-image: url('http://imgcdn.guoku.com/images/310/f50f53f0e7ac1b4a0e3c7a8038c9c3dc.jpg')">
-                                </div>
-                                <span class="seller-name">一山半海食味铺</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="recommend-entity-item dark-section-item">
-                        <a href="http://www.guoku.com/detail/341080c8/" target="_blank">
-                            <div class="section-panel">
-                                <div class="entity-pic" style="background-image: url('http://imgcdn.guoku.com/images/310/f8d1e75bbcaa33290189ed1f9d6aa8c7.jpg')">
-                                </div>
-                                <span class="seller-name">无印良品MUJI官方旗舰店</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="recommend-entity-item dark-section-item">
-                        <a href="http://www.guoku.com/detail/f2f48139/" target="_blank">
-                            <div class="section-panel">
-                                <div class="entity-pic" style="background-image: url('http://imgcdn.guoku.com/images/310/f50f53f0e7ac1b4a0e3c7a8038c9c3dc.jpg')">
-                                </div>
-                                <span class="seller-name">一山半海食味铺</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="recommend-entity-item dark-section-item">
-                        <a href="http://www.guoku.com/detail/341080c8/" target="_blank">
-                            <div class="section-panel">
-                                <div class="entity-pic" style="background-image: url('http://imgcdn.guoku.com/images/310/f8d1e75bbcaa33290189ed1f9d6aa8c7.jpg')">
-                                </div>
-                                <span class="seller-name">J.ESTINA</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="recommend-entity-item dark-section-item">
-                        <a href="http://www.guoku.com/detail/f2f48139/" target="_blank">
-                            <div class="section-panel">
-                                <div class="entity-pic" style="background-image: url('http://imgcdn.guoku.com/images/310/f50f53f0e7ac1b4a0e3c7a8038c9c3dc.jpg')">
-                                </div>
-                                <span class="seller-name">Lancome兰蔻官方旗舰店</span>
-                            </div>
-                        </a>
-                    </li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
@@ -308,20 +211,25 @@
 {#                </div>#}
 {#        </div>#}
 
-        <div class="row section-title-wrapper">
-            <div class="col-sm-12">
-                <p>推荐关注</p>
-            </div>
-        </div>
-{#        <div class="row hot-section-wrapper" id="selection_article_list">#}
-{#            {% for rec in recommends %}#}
-{#                <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 guoku-middle-col selection-article-item hot-section-item">#}
-{#                    <a href="{{ rec.link }}" target="_blank">#}
-{#                        <div class="article-panel">#}
-{#                            <div class="img-holder img-holder-control" style="background-image: url({{ rec.image_url }})">#}
-{#                            </div>#}
-{#                            <div class="bg-layer"></div>#}
-                            {# hidden temporarily #}
+
+{#   -----------  hide 推荐关注 ----- ##}
+{#        <div class="row section-title-wrapper">#}
+{#            <div class="col-sm-12">#}
+{#                <p>推荐关注</p>#}
+{#            </div>#}
+{#        </div>#}
+    {#   -----------  hide 推荐关注 ----- ##}
+
+
+        <div class="row hot-section-wrapper" id="selection_article_list">
+            {% for rec in recommends %}
+                <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 guoku-middle-col selection-article-item hot-section-item">
+                    <a href="{{ rec.link }}" target="_blank">
+                        <div class="article-panel">
+                            <div class="img-holder img-holder-control" style="background-image: url({{ rec.image_url }})">
+                            </div>
+                            <div class="bg-layer"></div>
+{#                             hidden temporarily#}
 {#                            <div class="new-user-action">#}
 {#                                {% if current_user.is_blocked %}#}
 {##}
@@ -335,54 +243,54 @@
 {#                                    <a class="square-follow-btn" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i></a>#}
 {#                                {% endif %}#}
 {#                            </div>#}
-{#                        </div>#}
-{#                    </a>#}
-{#                </div>#}
-{#            {% endfor %}#}
-{#        </div>#}
-
-       <div class="row recommend-seller-wrapper">
-           <div class="col-xs-12 col-sm-6 col-md-3 guoku-middle-col recommend-seller-item">
-                 <div class="new-thumbnail entity-four seller-panel">
-                     <div class="seller-intro-wrapper">
-                         <div class="seller-logo-wrapper">
-                             <a class="seller-logo" href="http://www.guoku.com/u/1980860/" target="_blank">
-                                <img class="img-responsive" src="http://imgcdn.guoku.com/avatar/180/0998bf960f98039c327b9d81c0deae14.jpg" alt="" title=""/>
-                             </a>
-                         </div>
-                         <div class="seller-info">
-
-                               <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                                    <p class="seller-name">
-                                   植觉
-                                   </p>
-                               </a>
-
-                            <span>
-                                <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                                    32 商品 · 326 关注
-                                </a>
-                            </span>
-                         </div>
-                       </div>
-                     <div class="seller-entity-wrapper">
-                       <div class="entity-item">
-                           <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>
-                           </a>
-                       </div>
-                       <div class="entity-item">
-                           <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>
-                           </a>
-                       </div>
-                       <div class="entity-item">
-                           <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>
-                           </a>
-                       </div>
-                   </div>
-                     <div class="user-action-wrapper">
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+{#   -----------  hide 推荐关注  start ----- ##}
+{#       <div class="row recommend-seller-wrapper">#}
+{#           <div class="col-xs-12 col-sm-6 col-md-3 guoku-middle-col recommend-seller-item">#}
+{#                 <div class="new-thumbnail entity-four seller-panel">#}
+{#                     <div class="seller-intro-wrapper">#}
+{#                         <div class="seller-logo-wrapper">#}
+{#                             <a class="seller-logo" href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                <img class="img-responsive" src="http://imgcdn.guoku.com/avatar/180/0998bf960f98039c327b9d81c0deae14.jpg" alt="" title=""/>#}
+{#                             </a>#}
+{#                         </div>#}
+{#                         <div class="seller-info">#}
+{##}
+{#                               <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                    <p class="seller-name">#}
+{#                                   植觉#}
+{#                                   </p>#}
+{#                               </a>#}
+{##}
+{#                            <span>#}
+{#                                <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                    32 商品 · 326 关注#}
+{#                                </a>#}
+{#                            </span>#}
+{#                         </div>#}
+{#                       </div>#}
+{#                     <div class="seller-entity-wrapper">#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                   </div>#}
+{#                     <div class="user-action-wrapper">#}
                        {#                                        关注按钮#}
 {#                       {% if article.creator.is_blocked %}#}
 {#                           <a  class="guoku-button button-disabled for-browser" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>#}
@@ -393,52 +301,52 @@
 {#                           {% elif request.user.id in article.creator.fans_list %}#}
 {#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button btn-cancel new-btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>#}
 {#                       {% else %}#}
-                           <a class="follow recommend-seller-follow guoku-button new-guoku-button button-blue newest-button-blue for-browser" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+{#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button button-blue newest-button-blue for-browser" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>#}
 {#                       {% endif %}#}
-                   </div>
-                 </div>
-           </div>
-           <div class="col-xs-12 col-sm-6 col-md-3 guoku-middle-col recommend-seller-item">
-                 <div class="new-thumbnail entity-four seller-panel">
-                     <div class="seller-intro-wrapper">
-                         <div class="seller-logo-wrapper">
-                             <a class="seller-logo" href="http://www.guoku.com/u/1980860/" target="_blank">
-                                <img class="img-responsive" src="http://imgcdn.guoku.com/avatar/180/0998bf960f98039c327b9d81c0deae14.jpg" alt="" title=""/>
-                             </a>
-                         </div>
-                         <div class="seller-info">
-
-                               <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                                    <p class="seller-name">
-                                   Hangout瀚奥咖啡事务
-                                   </p>
-                               </a>
-
-                            <span>
-                                <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                                    32 商品 · 326 关注
-                                </a>
-                            </span>
-                         </div>
-                       </div>
-                     <div class="seller-entity-wrapper">
-                       <div class="entity-item">
-                           <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>
-                           </a>
-                       </div>
-                       <div class="entity-item">
-                           <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>
-                           </a>
-                       </div>
-                       <div class="entity-item">
-                           <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>
-                           </a>
-                       </div>
-                   </div>
-                     <div class="user-action-wrapper">
+{#                   </div>#}
+{#                 </div>#}
+{#           </div>#}
+{#           <div class="col-xs-12 col-sm-6 col-md-3 guoku-middle-col recommend-seller-item">#}
+{#                 <div class="new-thumbnail entity-four seller-panel">#}
+{#                     <div class="seller-intro-wrapper">#}
+{#                         <div class="seller-logo-wrapper">#}
+{#                             <a class="seller-logo" href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                <img class="img-responsive" src="http://imgcdn.guoku.com/avatar/180/0998bf960f98039c327b9d81c0deae14.jpg" alt="" title=""/>#}
+{#                             </a>#}
+{#                         </div>#}
+{#                         <div class="seller-info">#}
+{##}
+{#                               <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                    <p class="seller-name">#}
+{#                                   Hangout瀚奥咖啡事务#}
+{#                                   </p>#}
+{#                               </a>#}
+{##}
+{#                            <span>#}
+{#                                <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                    32 商品 · 326 关注#}
+{#                                </a>#}
+{#                            </span>#}
+{#                         </div>#}
+{#                       </div>#}
+{#                     <div class="seller-entity-wrapper">#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                   </div>#}
+{#                     <div class="user-action-wrapper">#}
                        {#                                        关注按钮#}
 {#                       {% if article.creator.is_blocked %}#}
 {#                           <a  class="guoku-button button-disabled for-browser" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>#}
@@ -449,52 +357,52 @@
 {#                           {% elif request.user.id in article.creator.fans_list %}#}
 {#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button btn-cancel new-btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>#}
 {#                       {% else %}#}
-                           <a class="follow recommend-seller-follow guoku-button new-guoku-button button-blue newest-button-blue for-browser" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+{#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button button-blue newest-button-blue for-browser" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>#}
 {#                       {% endif %}#}
-                   </div>
-                 </div>
-           </div>
-           <div class="col-xs-12 col-sm-6 col-md-3 guoku-middle-col recommend-seller-item">
-                 <div class="new-thumbnail entity-four seller-panel">
-                     <div class="seller-intro-wrapper">
-                         <div class="seller-logo-wrapper">
-                             <a class="seller-logo" href="http://www.guoku.com/u/1980860/" target="_blank">
-                                <img class="img-responsive" src="http://imgcdn.guoku.com/avatar/180/0998bf960f98039c327b9d81c0deae14.jpg" alt="" title=""/>
-                             </a>
-                         </div>
-                         <div class="seller-info">
-
-                               <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                                    <p class="seller-name">
-                                    TIKKITOKKI_Flagship_Store
-                                   </p>
-                               </a>
-
-                            <span>
-                                <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                                    32 商品 · 326 关注
-                                </a>
-                            </span>
-                         </div>
-                       </div>
-                     <div class="seller-entity-wrapper">
-                       <div class="entity-item">
-                           <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>
-                           </a>
-                       </div>
-                       <div class="entity-item">
-                           <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>
-                           </a>
-                       </div>
-                       <div class="entity-item">
-                           <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>
-                           </a>
-                       </div>
-                   </div>
-                     <div class="user-action-wrapper">
+{#                   </div>#}
+{#                 </div>#}
+{#           </div>#}
+{#           <div class="col-xs-12 col-sm-6 col-md-3 guoku-middle-col recommend-seller-item">#}
+{#                 <div class="new-thumbnail entity-four seller-panel">#}
+{#                     <div class="seller-intro-wrapper">#}
+{#                         <div class="seller-logo-wrapper">#}
+{#                             <a class="seller-logo" href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                <img class="img-responsive" src="http://imgcdn.guoku.com/avatar/180/0998bf960f98039c327b9d81c0deae14.jpg" alt="" title=""/>#}
+{#                             </a>#}
+{#                         </div>#}
+{#                         <div class="seller-info">#}
+{##}
+{#                               <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                    <p class="seller-name">#}
+{#                                    TIKKITOKKI_Flagship_Store#}
+{#                                   </p>#}
+{#                               </a>#}
+{##}
+{#                            <span>#}
+{#                                <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                    32 商品 · 326 关注#}
+{#                                </a>#}
+{#                            </span>#}
+{#                         </div>#}
+{#                       </div>#}
+{#                     <div class="seller-entity-wrapper">#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                   </div>#}
+{#                     <div class="user-action-wrapper">#}
                        {#                                        关注按钮#}
 {#                       {% if article.creator.is_blocked %}#}
 {#                           <a  class="guoku-button button-disabled for-browser" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>#}
@@ -505,52 +413,52 @@
 {#                           {% elif request.user.id in article.creator.fans_list %}#}
 {#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button btn-cancel new-btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>#}
 {#                       {% else %}#}
-                           <a class="follow recommend-seller-follow guoku-button new-guoku-button button-blue newest-button-blue for-browser" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+{#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button button-blue newest-button-blue for-browser" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>#}
 {#                       {% endif %}#}
-                   </div>
-                 </div>
-           </div>
-           <div class="col-xs-12 col-sm-6 col-md-3 guoku-middle-col recommend-seller-item">
-                 <div class="new-thumbnail entity-four seller-panel">
-                     <div class="seller-intro-wrapper">
-                         <div class="seller-logo-wrapper">
-                             <a class="seller-logo" href="http://www.guoku.com/u/1980860/" target="_blank">
-                                <img class="img-responsive" src="http://imgcdn.guoku.com/avatar/180/0998bf960f98039c327b9d81c0deae14.jpg" alt="" title=""/>
-                             </a>
-                         </div>
-                         <div class="seller-info">
-
-                               <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                                    <p class="seller-name">
-                                   Hangout瀚奥咖啡事务
-                                   </p>
-                               </a>
-
-                            <span>
-                                <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                                    32 商品 · 326 关注
-                                </a>
-                            </span>
-                         </div>
-                       </div>
-                     <div class="seller-entity-wrapper">
-                       <div class="entity-item">
-                           <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>
-                           </a>
-                       </div>
-                       <div class="entity-item">
-                           <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>
-                           </a>
-                       </div>
-                       <div class="entity-item">
-                           <a href="http://www.guoku.com/u/1980860/" target="_blank">
-                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>
-                           </a>
-                       </div>
-                   </div>
-                     <div class="user-action-wrapper">
+{#                   </div>#}
+{#                 </div>#}
+{#           </div>#}
+{#           <div class="col-xs-12 col-sm-6 col-md-3 guoku-middle-col recommend-seller-item">#}
+{#                 <div class="new-thumbnail entity-four seller-panel">#}
+{#                     <div class="seller-intro-wrapper">#}
+{#                         <div class="seller-logo-wrapper">#}
+{#                             <a class="seller-logo" href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                <img class="img-responsive" src="http://imgcdn.guoku.com/avatar/180/0998bf960f98039c327b9d81c0deae14.jpg" alt="" title=""/>#}
+{#                             </a>#}
+{#                         </div>#}
+{#                         <div class="seller-info">#}
+{##}
+{#                               <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                    <p class="seller-name">#}
+{#                                   Hangout瀚奥咖啡事务#}
+{#                                   </p>#}
+{#                               </a>#}
+{##}
+{#                            <span>#}
+{#                                <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                    32 商品 · 326 关注#}
+{#                                </a>#}
+{#                            </span>#}
+{#                         </div>#}
+{#                       </div>#}
+{#                     <div class="seller-entity-wrapper">#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                   </div>#}
+{#                     <div class="user-action-wrapper">#}
                        {#                                        关注按钮#}
 {#                       {% if article.creator.is_blocked %}#}
 {#                           <a  class="guoku-button button-disabled for-browser" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>#}
@@ -561,13 +469,15 @@
 {#                           {% elif request.user.id in article.creator.fans_list %}#}
 {#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button btn-cancel new-btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>#}
 {#                       {% else %}#}
-                           <a class="follow recommend-seller-follow guoku-button new-guoku-button button-blue newest-button-blue for-browser" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+{#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button button-blue newest-button-blue for-browser" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>#}
 {#                       {% endif %}#}
-                   </div>
-                 </div>
-           </div>
+{#                   </div>#}
+{#                 </div>#}
+{#           </div>#}
+{##}
+{#       </div>#}
 
-       </div>
+    {#   -----------  hide 推荐关注 end ----- ##}
 
         <div class="row section-title-wrapper">
             <a name="sellers" class="good-stores">
