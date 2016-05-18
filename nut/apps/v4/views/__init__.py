@@ -1,4 +1,5 @@
 #coding=utf-8
+from apps.site_banner.models import SiteBanner
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator
 
@@ -127,6 +128,9 @@ class DiscoverView(APIJsonView):
         da = APIArticle_Dig.objects.filter(user=self.visitor).values_list('article_id', flat=True)
 
         res = dict()
+
+        #------------ old app banner api ---------------
+
         shows = Show_Banner.objects.all()
         res['banner'] = []
         for row in shows:
@@ -152,6 +156,43 @@ class DiscoverView(APIJsonView):
                         'img':row.banner.image_url
                     }
                 )
+
+        #------------     old app api end ------------------
+
+        # ------------------------------------ enable new sitebanner  api here ---------------
+        # shows = SiteBanner.objects.get_app_banner()
+        # res['banner'] = []
+        # for row in shows:
+        #     if row.applink in (None, ''):
+        #         pass
+        #     elif row.applink and row.applink.startswith('http://m.guoku.com/articles/'):
+        #         url = row.applink.split('?')
+        #         uri = url[0]
+        #         article_id = uri.split('/')[-2]
+        #         article = APIArticle.objects.get(pk = article_id)
+        #
+        #
+        #         res['banner'].append(
+        #             {
+        #
+        #                 'url': row.applink,
+        #                 'img':row.image_url,
+        #                 'article': article.v4_toDict(da)
+        #
+        #             }
+        #         )
+        #
+        #     else:
+        #
+        #         res['banner'].append(
+        #             {
+        #
+        #                 'url': row.url,
+        #                 'img': row.image_url
+        #             }
+        #         )
+
+        #--------------------- site banner api end ----------------
 
         # self.visitor = None
         # try:
