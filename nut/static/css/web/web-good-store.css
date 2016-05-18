@@ -1163,10 +1163,13 @@ p.boolean-false {
 .store-body #recommend-entity-container {
   overflow: hidden;
 }
+.store-body #recommend-entity-container #recommend-entity-wrapper {
+  padding: 0 15px;
+}
 .store-body #recommend-entity-container #recommend-entity-wrapper li.recommend-entity-item {
   overflow: hidden;
   float: left;
-  padding: 0 20px 0 0;
+  padding: 0 9px;
 }
 .store-body #recommend-entity-container #recommend-entity-wrapper li.recommend-entity-item .section-panel {
   text-align: center;
