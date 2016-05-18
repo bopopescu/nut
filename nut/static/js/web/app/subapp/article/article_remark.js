@@ -81,17 +81,14 @@ define([
                     }else{
                         bootbox.confirm("Are you sure to delete your remark?",function(result){
                             if(result){
-                                //$(target).remove();
                                  var $form = $('#article_remark_form');
                                  var url = $form.attr('action') + "delete/";
-                                console.log(url);
                                 $.post(url,{deleteId:replyToId},function(res){
                                     if(res['success']){
                                         bootbox.alert('delete successfully.');
                                         $(target).remove();
                                     }else{
                                         bootbox.alert('delete fail');
-                                        console.log(delete fail);
                                     }
                                 })
                             }else{
@@ -126,7 +123,6 @@ define([
             }
             console.log(event.currentTarget);
             var $form = $(event.currentTarget);
-            //var $form = $('#article_remark_form');
             var url = $form.attr('action');
             var $remarkContent = $form.find("textarea");
             if ($.trim($remarkContent[0].value).length === 0) {
