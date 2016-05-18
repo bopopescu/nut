@@ -1171,6 +1171,9 @@ p.boolean-false {
   float: left;
   padding: 0 9px;
 }
+.store-body #recommend-entity-container #recommend-entity-wrapper li.recommend-entity-item a:focus {
+  outline: 0;
+}
 .store-body #recommend-entity-container #recommend-entity-wrapper li.recommend-entity-item .section-panel {
   text-align: center;
   box-shadow: 0 0 0 transparent;
