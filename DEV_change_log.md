@@ -1,6 +1,6 @@
 
 
-1. 
+1.  hide baichuan title when load fail 
 =======================
 # merged to master 2016 5-12
 =======================
