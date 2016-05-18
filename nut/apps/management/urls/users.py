@@ -7,8 +7,7 @@ from apps.management.views.users import MediaListView, \
                                         SellerShopListView,\
                                         SellerShopCreateView,\
                                         SellerShopUpdateView,\
-                                        SellerShopDeleteView
-
+                                        SellerShopDeleteView, UserActiveUserSetView
 
 urlpatterns = patterns(
     'apps.management.views.users',
@@ -24,6 +23,7 @@ urlpatterns = patterns(
     # for user group setting ajax call
     url(r'^(?P<user_id>\d+)/setAuthor/$', UserAuthorSetView.as_view(), name='management_user_setAuthor'),
     url(r'^(?P<user_id>\d+)/setSeller/$', UserSellerSetView.as_view(), name='management_user_setSeller'),
+    url(r'^(?P<user_id>\d+)/setActiveUser/$', UserActiveUserSetView.as_view(), name='management_user_setActiveUser'),
 
     url(r'^(?P<user_id>\d+)/editAuthorInfo/$', UserAuthorInfoEditView.as_view(), name='management_user_editAuthor'),
 

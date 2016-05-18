@@ -420,6 +420,15 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         seller_group = self.get_seller_group()
         return seller_group in self.groups.all()
 
+    # for active user 积极用户
+    def get_active_user_group(self):
+        active_user_group, created = Group.objects.get_or_create(name="ActiveUser")
+        return active_user_group
+
+    def has_active_user_group(self):
+        active_user_group = self.get_active_user_group()
+        return active_user_group in self.groups.all()
+
 
     def refresh_user_permission(self):
         # TODO:  refresh user permission cache here
@@ -432,6 +441,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     @property
     def is_authorized_seller(self):
         return self.has_seller_group()
+
+    @property
+    def is_active_user(self):
+        return self.has_active_user_group()
 
     @property
     def main_shop_link(self):
@@ -456,6 +469,14 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             self.groups.add(author_group)
         else:
             self.groups.remove(author_group)
+        self.refresh_user_permission()
+
+    def setActiveUser(self, isActiveUser):
+        active_user_group = self.get_active_user_group()
+        if isActiveUser:
+            self.groups.add(active_user_group)
+        else:
+            self.groups.remove(active_user_group)
         self.refresh_user_permission()
     @property
     def is_authorized_user(self):
