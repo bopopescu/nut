@@ -2927,8 +2927,10 @@ define('subapp/article/article_remark',[
                                 console.log(url);
                                 $.post(url,{deleteId:replyToId},function(res){
                                     if(res['success']){
+                                        bootbox.alert('delete successfully.');
                                         $(target).remove();
                                     }else{
+                                        bootbox.alert('delete fail');
                                         console.log(delete fail);
                                     }
                                 })
@@ -2989,6 +2991,7 @@ define('subapp/article/article_remark',[
         postRemarkSuccess: function(result){
             var status = parseInt(result.status);
             if (status === 1){
+                bootbox.alert('remark successfully');
                 this.addNewRemark(result);
                 this.cleanInput();
                 this.cleanReplyNotice();
@@ -3001,6 +3004,7 @@ define('subapp/article/article_remark',[
         },
         postRemarkFail: function(data){
             //should add bootbox to notice current remarking user
+             bootbox.alert('remark fail');
             console.log('post remark fail!');
         },
         cleanInput:function(){
