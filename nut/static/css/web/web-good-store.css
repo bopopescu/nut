@@ -1160,13 +1160,10 @@ p.boolean-false {
 .store-body #recommend-entity-container {
   overflow: hidden;
 }
-.store-body #recommend-entity-container #recommend-entity-wrapper {
-  padding: 0 15px;
-}
 .store-body #recommend-entity-container #recommend-entity-wrapper li.recommend-entity-item {
   overflow: hidden;
   float: left;
-  padding: 0 9px;
+  padding: 0 18px 0 0;
 }
 .store-body #recommend-entity-container #recommend-entity-wrapper li.recommend-entity-item a:focus {
   outline: 0;
