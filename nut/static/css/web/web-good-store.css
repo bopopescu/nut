@@ -1147,9 +1147,6 @@ p.boolean-false {
   margin-bottom: 23px;
 }
 .store-body .middle-banner-wrapper .middle-banner-item a .section-panel {
-  -webkit-box-shadow: 0px 0px 2px #ddd;
-  -moz-box-shadow: 0px 0px 2px #ddd;
-  box-shadow: 0px 0px 2px #ddd;
   width: 100%;
 }
 .store-body .middle-banner-wrapper .middle-banner-item a .section-panel .bg-pic {
@@ -1490,5 +1487,5 @@ p.boolean-false {
   background-color: transparent;
 }
 .test {
-  color: black;
+  color: red;
 }
