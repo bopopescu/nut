@@ -39,11 +39,11 @@ def recommend():
     # return jsonify(res['alibaba_orp_recommend_response']['recommend'])
 
 
-@app.route('/textrank', methods=['POST'])
-def textrank():
-    text = request.form.get('text', None)
-    res = jieba.analyse.textrank(text.encode('utf-8'), topK=20, withWeight=True, allowPOS=('ns', 'n'))
-    return json_response(res = res)
+# @app.route('/textrank', methods=['POST'])
+# def textrank():
+#     text = request.form.get('text', None)
+#     res = jieba.analyse.textrank(text.encode('utf-8'), topK=20, withWeight=True, allowPOS=('ns', 'n'))
+#     return json_response(res = res)
 
 
 from textrank import get_textrank
