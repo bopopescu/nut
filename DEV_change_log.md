@@ -1,3 +1,15 @@
+7. 
+6. good store page update  -- lq , ac
+5. mng - tmall price    -- along 
+4. web - recommend user name   -- lq
+3. mng - add '积极用户' manage    --  along
+2. backend - limit guoku generated email address , verify mail and change pass mail sending
+1. web - hide baichuan title when load fail 
+
+=======================
+# merged to master 2016 5-12
+=======================
+
 5.  search result highlight -- jiaxin 
 4.  site banner management (api will update at next monday, MNG first )  -- shuailong
 3.  wechat robot  -- anchen 
