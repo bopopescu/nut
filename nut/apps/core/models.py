@@ -297,6 +297,13 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return ''
 
     @property
+    def nick(self):
+        if hasattr(self, 'profile'):
+            if self.profile.nick:
+                return self.profile.nick
+        return ''
+
+    @property
     def entity_liked_categories(self):
         # _entity_ids =  Entity_Like.objects.user_likes_id_list(user=self)
         # _category_id_list = Entity.objects.using('slave').filter(id__in=_entity_ids)\
