@@ -1,4 +1,5 @@
-3. 
+4. 
+3. add '积极用户' manage    --  帅龙
 2. limit guoku generated email address , verify mail and change pass mail sending
 1. hide baichuan title when load fail 
 =======================
