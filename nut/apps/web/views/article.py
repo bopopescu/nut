@@ -199,7 +199,8 @@ class EditorArticleEdit(LoginRequiredMixin, AjaxResponseMixin,JSONResponseMixin,
             'form':the_form,
             'pk': pk,
             'cover_url': the_article.cover_url,
-            'is_chief_editor': self.request.user.is_chief_editor
+            'is_chief_editor': self.request.user.is_chief_editor,
+            'article':self.get_article()
         })
 
     def post_ajax(self, request, *args, **kwargs):

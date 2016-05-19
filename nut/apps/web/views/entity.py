@@ -486,12 +486,14 @@ class TaobaoRecommendationView(BaseJsonView):
             payload.update({
                 'uid':self.user_id,
             })
+        print  payload
         r = requests.get(taobao_recommendation_url, params=payload)
         try:
             data = r.json()
         except ValueError, e:
-            print r.url
-            print e.message
+            log.error(e.message)
+            # print r.url
+            # print e.message
             data = {}
         return data
 
