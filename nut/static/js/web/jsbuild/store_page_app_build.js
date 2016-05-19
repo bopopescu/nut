@@ -3577,6 +3577,8 @@ define('subapp/store/store_banner',['jquery', 'libs/Class','libs/slick','fastdom
                         slidesToShow: 1,
                         centerPadding:'18%',
                         dots:false,
+                        autoplay: true,
+                        autoplaySpeed: 3000,
 
                         //centerPadding: '60px',
                         //slidesToShow: 3,
@@ -4114,21 +4116,143 @@ define('subapp/store/annual_report',['jquery','libs/underscore','libs/Class','li
         });
         return AnnualReport;
     });
+define('subapp/store/entity_slick',['jquery', 'libs/Class','libs/slick','fastdom'], function(
+    $, Class, slick , fastdom
+){
+            var CategorySlick= Class.extend({
+                init: function () {
+                    this.init_slick();
+                    console.log('entity horizontal scrolling starts !');
+                },
+                init_slick:function(){
+                    $('#recommend-entity-wrapper').slick({
+                        arrows: true,
+                        slidesToShow: 6,
+                        slidesToScroll:1,
+                        autoplay:true,
+                        dots:false,
+
+                        responsive: [
+                            {
+                                breakpoint: 768,
+                                settings: {
+                                    slidesToShow:3,
+                                    slidesToScroll:1,
+                                    autoplay:true,
+                                    dots:false
+                                }
+                            }
+                        ]
+                    });
+
+                }
+            });
+    return CategorySlick;
+});
+define('subapp/account',['libs/Class','jquery','bootstrap'],function(Class, $){
+
+    var AccountApp = Class.extend({
+        init: function(){
+
+        },
+        modalSignIn:function(html){
+            var signModal = $('#SignInModal');
+            var signContent = signModal.find('.modal-content');
+            if (signContent.find('.row')[0]) {
+                signModal.modal('show');
+            } else {
+                $(html).appendTo(signContent);
+                signModal.modal('show');
+            }
+        }
+    });
+    return AccountApp;
+});
+define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(Class,$,AccountApp){
+    var UserFollow = Class.extend({
+        init: function () {
+            this.$follow = $(".follow");
+            this.$follow.on('click', this.handleFollow.bind(this));
+        },
+
+        getAccountApp:function(){
+            this.AccountApp = this.AccountApp || new AccountApp();
+            return this.AccountApp;
+        },
+
+        handleFollow: function (e) {
+            var that = this;
+            var $followButton = $(e.currentTarget);
+            var uid = $followButton.attr('data-user-id');
+            var status = $followButton.attr('data-status');
+            var action_url = "/u/" + uid;
+
+            if (status == 1) {
+                action_url += "/unfollow/";
+
+            } else {
+                action_url += "/follow/";
+            }
+
+            $.when($.ajax({
+                url: action_url,
+                dataType: 'json',
+                method: 'POST'
+            })).then(function success(data) {
+                console.log('success');
+                console.log(data);
+                if (data.status == 1) {
+                    $followButton.html('<i class="fa fa-check fa-lg"></i>&nbsp; 取消关注');
+                    $followButton.attr('data-status', '1');
+                    $followButton.removeClass("button-blue").addClass("btn-cancel");
+                    $followButton.removeClass("newest-button-blue").addClass("new-btn-cancel");
+
+                } else if (data.status == 2) {
+                    console.log('mutual !!!');
+                    $followButton.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关注');
+                    $followButton.removeClass('button-blue').addClass('btn-cancel');
+                    $followButton.removeClass("newest-button-blue").addClass("new-btn-cancel");
+                    $followButton.attr('data-status', '1');
+
+                } else if (data.status == 0) {
+                    $followButton.html('<i class="fa fa-plus"></i>&nbsp; 关注');
+                    $followButton.removeClass("btn-cancel").addClass("button-blue");
+                    $followButton.removeClass("new-btn-cancel").addClass("newest-button-blue");
+                    $followButton.attr('data-status', '0');
+                } else {
+                    console.log('did not response with valid data');
+                }
+            }, function fail(error) {
+                console.log('failed' + error);
+                var html = $(error.responseText);
+                that.getAccountApp().modalSignIn(html);
+            });
+        }
+    });
+    return UserFollow;
+});
+
 require([
         'jquery',
         'subapp/topmenu',
         'subapp/store/store_banner',
-        'subapp/store/annual_report'
+        'subapp/store/annual_report',
+        'subapp/store/entity_slick',
+        'subapp/user_follow'
     ],
     function (
               jQuery,
               Menu,
               StoreBanner,
-              AnnualReport
+              AnnualReport,
+              EntitySlick,
+              UserFollow
     ){
         var menu = new Menu();
         var store_banner = new StoreBanner();
         var annual_report = new AnnualReport();
+        var entity_slick = new EntitySlick();
+         var user_follow = new UserFollow();
 });
 
 
