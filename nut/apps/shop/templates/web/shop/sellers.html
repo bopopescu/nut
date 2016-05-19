@@ -28,7 +28,8 @@
 {% endblock %}
 
 {# to avoid css pollution,I still give body element a more class temporarily#}
-{% block body_class %} gray-body store-body {% endblock %}
+{#{% block body_class %} gray-body store-body {% endblock %}#}
+{% block body_class %} store-body {% endblock %}
 
 {% block weixin_share_img %}
     {#    must be first img in body #}
@@ -40,20 +41,6 @@
 
 {% block content %}
 
-    {#    top banner#}
-    {#    <div class="cross-screen store-top-banner">#}
-    {#        <div class="row store-banner-wrapper">#}
-    {#            <div class="col-xs-12 banner-title-wrapper">#}
-    {#                好店#}
-    {#            </div>#}
-    {##}
-    {#            <div class="col-xs-12 banner-slogan-wrapper">#}
-    {#                在超过100家好店挑选好物#}
-    {#            </div>#}
-    {##}
-    {#        </div>#}
-    {#    </div>#}
-
     {#    main-content#}
     <div class="sellers-banner-container">
         <div class="row good-store-row latest-actions-wrapper">
@@ -64,6 +51,9 @@
                             <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}">
                                 <a href="{{ banner.link }}" target="_blank">
                                     <div class="banner-image-wrapper" style="background-image: url({{ banner.image_url }})">
+                                        <div class="banner-image-cell-scrim">
+
+                                        </div>
                                     </div>
                                     <div class="user-latest-article-intro-wrapper">
                                         <div class="user-latest-article-title-wrapper">
@@ -78,42 +68,10 @@
                                     </div>
                                 </a>
                             </div>
-
-
                         {% endfor %}
                     </div>
-                    {#                    </a>#}
-
-
                 </div>
             </div>
-{#            <div id="latest-actions-sidebar" class="guoku-middle-col latest-actions-sidebar-wrapper col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">#}
-{#                <ul class="section-list user-right latest-actions-list">#}
-{#                    <li class="section user-tag-list">#}
-{#                        <div class="section-title section-title-control">#}
-{#                            最近更新#}
-{#                        </div>#}
-{#                        <div class="section-content">#}
-{#                            <ul class="tag-list">#}
-{#                                {% for article in recent_articles %}#}
-{##}
-{#                                    <li>#}
-{#                                        <div class="publish-time">#}
-{#                                            {{ article.created_datetime|format_time }}#}
-{#                                        </div>#}
-{#                                        <div class="publish-info">#}
-{#                                            <a href="{% url 'web_user_index' article.creator.pk %}">{{ article.creator.nickname }}</a>#}
-{#                                            发表了图文#}
-{#                                            <a href="{% url 'web_article_page' article.pk %}">{{ article.title }}</a>#}
-{#                                        </div>#}
-{#                                    </li>#}
-{#                                {% endfor %}#}
-{##}
-{#                            </ul>#}
-{#                        </div>#}
-{#                    </li>#}
-{#                </ul>#}
-{#            </div>#}
         </div>
     </div>
     <div class="container store-page-container">
@@ -176,11 +134,93 @@
 {#                </ul>#}
 {#            </div>#}
 {#        </div>#}
-        <div class="row section-title-wrapper">
-            <div class="col-sm-12">
-                <p>推荐关注</p>
+        <div class="row middle-banner-wrapper">
+            <div class="col-sm-6 guoku-middle-col middle-banner-item">
+                <a href="/tag/articles/%25E6%2596%25B0%25E5%2593%2581%25E5%258F%2591%25E5%25B8%2583%25E4%25BC%259A/" target="_blank">
+                    <div class="section-panel">
+                         <div class="bg-pic" style="background-image: url({% static 'images/good-store/2cl-new-entity-event.jpg' %})">
+                         </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6 guoku-middle-col middle-banner-item">
+                <a href="/tag/articles/%25E4%25B8%2593%25E8%25AE%25BF/" target="_blank">
+                    <div class="section-panel">
+                         <div class="bg-pic" style="background-image: url({% static 'images/good-store/2cl-seller-profile.jpg' %})">
+                         </div>
+                    </div>
+                </a>
             </div>
         </div>
+
+        <div class="row section-title-wrapper">
+            <div class="col-sm-12">
+                <p>最新商品</p>
+            </div>
+        </div>
+        <div class="row dark-section-wrapper" id="recommend-entity-container">
+            <div class="col-sm-12">
+                <ul id="recommend-entity-wrapper">
+                    {% for entity in recent_entities %}
+                    <li class="recommend-entity-item dark-section-item">
+                        <a href="{{   entity.absolute_url }}" target="_blank">
+                            <div class="section-panel">
+                                <div class="entity-pic" style="background-image: url('{{ entity.chief_image |resize:'240' }}')">
+                                </div>
+                                <span class="seller-name">{{ entity.user.nick }}</span>
+                            </div>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+{#        <div class="row section-title-wrapper">#}
+{#            <div class="col-sm-12">#}
+{#                <p>推荐图文</p>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="row dark-section-wrapper" id="recommend_article_list">#}
+{#                <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 guoku-middle-col dark-section-item">#}
+{#                    <a href="" target="_blank">#}
+{#                        <div class="section-panel">#}
+{#                            <div class="bg-pic" style="background-image: url({% static 'images/year-seller/lifestyle.jpg' %})">#}
+{#                            </div>#}
+{#                            <div class="bg-layer"></div>#}
+{#                        </div>#}
+{#                    </a>#}
+{#                </div>#}
+{#                <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 guoku-middle-col dark-section-item">#}
+{#                    <a href="" target="_blank">#}
+{#                        <div class="section-panel">#}
+{#                            <div class="bg-pic" style="background-image: url({% static 'images/year-seller/lifestyle.jpg' %})">#}
+{#                            </div>#}
+{#                            <div class="bg-layer"></div>#}
+{#                        </div>#}
+{#                    </a>#}
+{#                </div>#}
+{#            <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 guoku-middle-col dark-section-item">#}
+{#                    <a href="" target="_blank">#}
+{#                        <div class="section-panel">#}
+{#                            <div class="bg-pic" style="background-image: url({% static 'images/year-seller/lifestyle.jpg' %})">#}
+{#                            </div>#}
+{#                            <div class="bg-layer"></div>#}
+{#                        </div>#}
+{#                    </a>#}
+{#                </div>#}
+{#        </div>#}
+
+
+{#   -----------  hide 推荐关注 ----- ##}
+{#        <div class="row section-title-wrapper">#}
+{#            <div class="col-sm-12">#}
+{#                <p>推荐关注</p>#}
+{#            </div>#}
+{#        </div>#}
+    {#   -----------  hide 推荐关注 ----- ##}
+
+
         <div class="row hot-section-wrapper" id="selection_article_list">
             {% for rec in recommends %}
                 <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 guoku-middle-col selection-article-item hot-section-item">
@@ -189,25 +229,256 @@
                             <div class="img-holder img-holder-control" style="background-image: url({{ rec.image_url }})">
                             </div>
                             <div class="bg-layer"></div>
-                            {# hidden temporarily #}
-                            <div class="new-user-action">
-                                {% if current_user.is_blocked %}
-
-                                {% elif current_user == request.user %}
-
-                                {% elif request.user.id in current_user.concren %}
-                                    <a class="square-follow-btn btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange"></i></a>
-                                {% elif request.user.id in current_user.fans_list %}
-                                    <a class="square-follow-btn btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check"></i></a>
-                                {% else %}
-                                    <a class="square-follow-btn" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i></a>
-                                {% endif %}
-                            </div>
+{#                             hidden temporarily#}
+{#                            <div class="new-user-action">#}
+{#                                {% if current_user.is_blocked %}#}
+{##}
+{#                                {% elif current_user == request.user %}#}
+{##}
+{#                                {% elif request.user.id in current_user.concren %}#}
+{#                                    <a class="square-follow-btn btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange"></i></a>#}
+{#                                {% elif request.user.id in current_user.fans_list %}#}
+{#                                    <a class="square-follow-btn btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check"></i></a>#}
+{#                                {% else %}#}
+{#                                    <a class="square-follow-btn" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i></a>#}
+{#                                {% endif %}#}
+{#                            </div>#}
                         </div>
                     </a>
                 </div>
             {% endfor %}
         </div>
+{#   -----------  hide 推荐关注  start ----- ##}
+{#       <div class="row recommend-seller-wrapper">#}
+{#           <div class="col-xs-12 col-sm-6 col-md-3 guoku-middle-col recommend-seller-item">#}
+{#                 <div class="new-thumbnail entity-four seller-panel">#}
+{#                     <div class="seller-intro-wrapper">#}
+{#                         <div class="seller-logo-wrapper">#}
+{#                             <a class="seller-logo" href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                <img class="img-responsive" src="http://imgcdn.guoku.com/avatar/180/0998bf960f98039c327b9d81c0deae14.jpg" alt="" title=""/>#}
+{#                             </a>#}
+{#                         </div>#}
+{#                         <div class="seller-info">#}
+{##}
+{#                               <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                    <p class="seller-name">#}
+{#                                   植觉#}
+{#                                   </p>#}
+{#                               </a>#}
+{##}
+{#                            <span>#}
+{#                                <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                    32 商品 · 326 关注#}
+{#                                </a>#}
+{#                            </span>#}
+{#                         </div>#}
+{#                       </div>#}
+{#                     <div class="seller-entity-wrapper">#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                   </div>#}
+{#                     <div class="user-action-wrapper">#}
+                       {#                                        关注按钮#}
+{#                       {% if article.creator.is_blocked %}#}
+{#                           <a  class="guoku-button button-disabled for-browser" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>#}
+{#                           {% elif article.creator == request.user %}#}
+{##}
+{#                       {% elif request.user.id in article.creator.concren %}#}
+{#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button btn-cancel new-btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>#}
+{#                           {% elif request.user.id in article.creator.fans_list %}#}
+{#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button btn-cancel new-btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>#}
+{#                       {% else %}#}
+{#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button button-blue newest-button-blue for-browser" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>#}
+{#                       {% endif %}#}
+{#                   </div>#}
+{#                 </div>#}
+{#           </div>#}
+{#           <div class="col-xs-12 col-sm-6 col-md-3 guoku-middle-col recommend-seller-item">#}
+{#                 <div class="new-thumbnail entity-four seller-panel">#}
+{#                     <div class="seller-intro-wrapper">#}
+{#                         <div class="seller-logo-wrapper">#}
+{#                             <a class="seller-logo" href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                <img class="img-responsive" src="http://imgcdn.guoku.com/avatar/180/0998bf960f98039c327b9d81c0deae14.jpg" alt="" title=""/>#}
+{#                             </a>#}
+{#                         </div>#}
+{#                         <div class="seller-info">#}
+{##}
+{#                               <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                    <p class="seller-name">#}
+{#                                   Hangout瀚奥咖啡事务#}
+{#                                   </p>#}
+{#                               </a>#}
+{##}
+{#                            <span>#}
+{#                                <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                    32 商品 · 326 关注#}
+{#                                </a>#}
+{#                            </span>#}
+{#                         </div>#}
+{#                       </div>#}
+{#                     <div class="seller-entity-wrapper">#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                   </div>#}
+{#                     <div class="user-action-wrapper">#}
+                       {#                                        关注按钮#}
+{#                       {% if article.creator.is_blocked %}#}
+{#                           <a  class="guoku-button button-disabled for-browser" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>#}
+{#                           {% elif article.creator == request.user %}#}
+{##}
+{#                       {% elif request.user.id in article.creator.concren %}#}
+{#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button btn-cancel new-btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>#}
+{#                           {% elif request.user.id in article.creator.fans_list %}#}
+{#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button btn-cancel new-btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>#}
+{#                       {% else %}#}
+{#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button button-blue newest-button-blue for-browser" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>#}
+{#                       {% endif %}#}
+{#                   </div>#}
+{#                 </div>#}
+{#           </div>#}
+{#           <div class="col-xs-12 col-sm-6 col-md-3 guoku-middle-col recommend-seller-item">#}
+{#                 <div class="new-thumbnail entity-four seller-panel">#}
+{#                     <div class="seller-intro-wrapper">#}
+{#                         <div class="seller-logo-wrapper">#}
+{#                             <a class="seller-logo" href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                <img class="img-responsive" src="http://imgcdn.guoku.com/avatar/180/0998bf960f98039c327b9d81c0deae14.jpg" alt="" title=""/>#}
+{#                             </a>#}
+{#                         </div>#}
+{#                         <div class="seller-info">#}
+{##}
+{#                               <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                    <p class="seller-name">#}
+{#                                    TIKKITOKKI_Flagship_Store#}
+{#                                   </p>#}
+{#                               </a>#}
+{##}
+{#                            <span>#}
+{#                                <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                    32 商品 · 326 关注#}
+{#                                </a>#}
+{#                            </span>#}
+{#                         </div>#}
+{#                       </div>#}
+{#                     <div class="seller-entity-wrapper">#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                   </div>#}
+{#                     <div class="user-action-wrapper">#}
+                       {#                                        关注按钮#}
+{#                       {% if article.creator.is_blocked %}#}
+{#                           <a  class="guoku-button button-disabled for-browser" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>#}
+{#                           {% elif article.creator == request.user %}#}
+{##}
+{#                       {% elif request.user.id in article.creator.concren %}#}
+{#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button btn-cancel new-btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>#}
+{#                           {% elif request.user.id in article.creator.fans_list %}#}
+{#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button btn-cancel new-btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>#}
+{#                       {% else %}#}
+{#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button button-blue newest-button-blue for-browser" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>#}
+{#                       {% endif %}#}
+{#                   </div>#}
+{#                 </div>#}
+{#           </div>#}
+{#           <div class="col-xs-12 col-sm-6 col-md-3 guoku-middle-col recommend-seller-item">#}
+{#                 <div class="new-thumbnail entity-four seller-panel">#}
+{#                     <div class="seller-intro-wrapper">#}
+{#                         <div class="seller-logo-wrapper">#}
+{#                             <a class="seller-logo" href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                <img class="img-responsive" src="http://imgcdn.guoku.com/avatar/180/0998bf960f98039c327b9d81c0deae14.jpg" alt="" title=""/>#}
+{#                             </a>#}
+{#                         </div>#}
+{#                         <div class="seller-info">#}
+{##}
+{#                               <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                    <p class="seller-name">#}
+{#                                   Hangout瀚奥咖啡事务#}
+{#                                   </p>#}
+{#                               </a>#}
+{##}
+{#                            <span>#}
+{#                                <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                                    32 商品 · 326 关注#}
+{#                                </a>#}
+{#                            </span>#}
+{#                         </div>#}
+{#                       </div>#}
+{#                     <div class="seller-entity-wrapper">#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                       <div class="entity-item">#}
+{#                           <a href="http://www.guoku.com/u/1980860/" target="_blank">#}
+{#                               <img class="img-responsive" src="http://imgcdn.guoku.com/images/310/e82c6b40c20cc04242e28dd8642e61d9.jpg" alt="" title=""/>#}
+{#                           </a>#}
+{#                       </div>#}
+{#                   </div>#}
+{#                     <div class="user-action-wrapper">#}
+                       {#                                        关注按钮#}
+{#                       {% if article.creator.is_blocked %}#}
+{#                           <a  class="guoku-button button-disabled for-browser" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>#}
+{#                           {% elif article.creator == request.user %}#}
+{##}
+{#                       {% elif request.user.id in article.creator.concren %}#}
+{#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button btn-cancel new-btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>#}
+{#                           {% elif request.user.id in article.creator.fans_list %}#}
+{#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button btn-cancel new-btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>#}
+{#                       {% else %}#}
+{#                           <a class="follow recommend-seller-follow guoku-button new-guoku-button button-blue newest-button-blue for-browser" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>#}
+{#                       {% endif %}#}
+{#                   </div>#}
+{#                 </div>#}
+{#           </div>#}
+{##}
+{#       </div>#}
+
+    {#   -----------  hide 推荐关注 end ----- ##}
+
         <div class="row section-title-wrapper">
             <a name="sellers" class="good-stores">
                 <div class="col-sm-12">
