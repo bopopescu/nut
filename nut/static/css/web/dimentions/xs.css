@@ -1001,6 +1001,13 @@ p.boolean-false {
   background-size: cover;
   background-repeat: no-repeat;
 }
+.single-text-overflow {
+  width: 100%;
+  height: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 @media (max-width: 768px) {
   #category-container #category-item-container .slick-prev:before,
   #category-container #category-item-container .slick-next:before {
