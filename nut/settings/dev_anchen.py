@@ -8,7 +8,7 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 # for article related celery task
 CELERY_ALWAYS_EAGER = False
 CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
-#
+
 # IMAGE_HOST = 'http://imgcdn.guoku.com/'
 #
 
@@ -129,6 +129,9 @@ Current_Dbhost = 'localhost'
 #         }
 #     },
 # }
+#
+#
+# DATABASES = PRODUCTION_DATABASES
 
 
 DATABASES = {
