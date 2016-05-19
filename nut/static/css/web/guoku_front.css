@@ -1354,6 +1354,13 @@ p.boolean-false {
   background-size: cover;
   background-repeat: no-repeat;
 }
+.single-text-overflow {
+  width: 100%;
+  height: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .message_page {
   width: 941px;
 }
