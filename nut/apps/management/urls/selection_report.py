@@ -1,6 +1,5 @@
 from apps.management.views.selection_report import SelectionReportListView
 from django.conf.urls import url, patterns
-from django.views.generic import RedirectView
 
 
 urlpatterns = patterns(
