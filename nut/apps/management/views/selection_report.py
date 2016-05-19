@@ -47,7 +47,7 @@ class SelectionReportListView(ListView):
         return  entity_list
 
     def get_like_best(self, today_selection):
-        like_best = filter(lambda x: x.entity.like_count>100, today_selection)
+        like_best = filter(lambda x: x.entity.like_count>10, today_selection)
         return like_best
 
     def get_sold(self, queryset):
