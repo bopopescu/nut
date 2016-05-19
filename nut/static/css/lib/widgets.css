@@ -757,6 +757,10 @@ p.boolean-false {
   font-weight: 500;
   margin-right: 12px;
 }
+.guoku-small-col {
+  padding: 0 2px;
+  margin-bottom: 4px;
+}
 .guoku-normal-col {
   padding: 0 5px;
   margin-bottom: 10px;
@@ -919,6 +923,9 @@ p.boolean-false {
 .check-icon-wrapper .more-message {
   font-size: 16px;
   color: #9D9E9F;
+}
+.dark-section-wrapper {
+  margin-bottom: 10px;
 }
 .dark-section-wrapper .dark-section-item a {
   color: #ffffff;
