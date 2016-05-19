@@ -1,6 +1,12 @@
+8. web - new article feed for editor selection article 
+7. web - good store page update  -- lq , ac
+6. web - entity detail , sold out entity add "去店铺" button
+5. web - recommended user name and all recommended user  page    -- lq
+4. mng - tmall price    -- along 
+3. mng - add '积极用户' manage    --  along
+2. backend - limit guoku generated email address , verify mail and change pass mail sending
+1. web - hide baichuan title when load fail 
 
-2. 
-1. fix baichuan fail , still render baichuan guess title bug 
 =======================
 # merged to master 2016 5-12
 =======================
