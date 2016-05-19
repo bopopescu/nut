@@ -83,6 +83,16 @@ class UserSellerSetForm(ModelForm):
         _user = self.instance
         _user.setSeller(self.cleaned_data.get('isSeller'))
 
+class UserActiveUserSetForm(ModelForm):
+    isActiveUser = BooleanField(required=False)
+    class Meta:
+        model = GKUser
+        fields = ['isActiveUser']
+
+    def save(self,commit=True):
+        _user = self.instance
+        _user.setActiveUser(self.cleaned_data.get('isActiveUser'))
+
 class SellerShopForm(ModelForm):
     owner =  CharField(required=True, widget=HiddenInput())
 

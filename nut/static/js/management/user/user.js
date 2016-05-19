@@ -81,7 +81,12 @@ AuthorizeManager.prototype={
              data = {
                  isSeller : state,
              }
-        }else{
+        }else if(group === 'ActiveUser'){
+            data = {
+                isActiveUser: state,
+            }
+        }
+        else{
             throw new Error('can not determine request data');
         }
         return data;
@@ -93,6 +98,8 @@ AuthorizeManager.prototype={
             ending = '/setAuthor/';
         }else if(group ==='seller' ){
             ending = '/setSeller/';
+        }else if(group ==='ActiveUser' ){
+            ending = '/setActiveUser/';
         }else{
             throw new Error('can not determin request url');
         }
