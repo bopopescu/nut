@@ -1,8 +1,7 @@
-9. 
-8. web - add feed for editor selection article 
+8. web - new article feed for editor selection article 
 7. web - good store page update  -- lq , ac
 6. web - entity detail , sold out entity add "去店铺" button
-5. web - recommend user name and all remcommend page    -- lq
+5. web - recommended user name and all recommended user  page    -- lq
 4. mng - tmall price    -- along 
 3. mng - add '积极用户' manage    --  along
 2. backend - limit guoku generated email address , verify mail and change pass mail sending
