@@ -30,14 +30,10 @@
             <div class="col-sm-12 section-title-wrapper">
                 <p>
                     推荐用户
-{#                    <span class="pull-right">#}
-{#                    <a href="" target="_blank">#}
-{#                        查看更多#}
-{#                        <i class="fa fa-angle-right"></i>#}
-{#                    </a>#}
-{#                </span>#}
+                    <span class="pull-right">
+                        <a class="more-users" href="{% url 'web_recommend_users' %}" target="_blank">查看更多&nbsp;<i class="fa fa-caret-right"></i></a>
+                    </span>
                 </p>
-
             </div>
 
             <div class="col-sm-12">
@@ -46,12 +42,14 @@
                     <li>
                         <a href="{{ user.absolute_url }}" target="_blank">
                             <img class="img-responsive img-frame" style="background-image: url({{ user.avatar_url|resize:'128' }})" />
+                             <span class="user-name">{{ user.nickname }}</span>
                         </a>
+
                     </li>
                     {% endfor %}
-
                 </ul>
             </div>
+
         </div>
         {% endif %}
 
@@ -131,4 +129,3 @@
 {% block basic_script %}
     <script data-main="{% static 'js/web/jsbuild/discover_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
 {% endblock %}
-
