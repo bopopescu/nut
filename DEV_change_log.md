@@ -1,6 +1,6 @@
 
-
-1.  hide baichuan title when load fail 
+2. limit guoku generated email address , verify mail and change pass mail sending
+1. hide baichuan title when load fail 
 =======================
 # merged to master 2016 5-12
 =======================
