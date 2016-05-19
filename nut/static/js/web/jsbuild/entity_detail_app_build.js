@@ -2666,7 +2666,7 @@ define('subapp/entity/baichuan',['underscore','jquery', 'libs/Class'], function(
             $('#baichuan_guess_title').hide();
         },
         showGuessTitle: function(){
-            $('#baichuan_guess_title').hide();
+            $('#baichuan_guess_title').show();
         },
         getFail: function(data){
             this.hideGuessTitle();
