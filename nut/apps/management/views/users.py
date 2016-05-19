@@ -230,6 +230,8 @@ class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListVie
             user_list = querySet.authorized_seller().using('slave')
         elif active == '789':
             user_list = querySet.authorized_user().using('slave')
+        elif active == '600':
+            user_list = querySet.active_user().using('slave')
         else:
             user_list= []
 
