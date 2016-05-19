@@ -57,9 +57,18 @@ class EntityListView(FilterMixin, ListView):
             entity_list  = self.get_amazon_entities(qs)
         elif status == '888':
             entity_list = self.get_editor_frozen_entities(qs)
+        elif status == '666':
+            entity_list = self.get_active_user_entities(qs)
         else:
             entity_list = qs.filter(status=int(status)).order_by('-updated_time')
         return  entity_list
+
+    def get_active_user_entities(self, qs):
+        active_users = GKUser.objects.active_user()
+        entity_list = Entity.objects \
+            .filter(user__in=active_users) \
+            .order_by('-updated_time')
+        return entity_list
 
     def get_editor_frozen_entities(self,qs):
         editors = GKUser.objects.editor()
