@@ -22,7 +22,7 @@ class EntityQuerySet(models.query.QuerySet):
     def active(self):
         return self.using('slave').filter(status__gte=-1)
 
-    def new_or_selection(self, category_id):
+    def new_or_selection(self, category_id=None):
 
         if isinstance(category_id, list):
             return self.using('slave').filter(category_id__in=category_id,\
@@ -81,6 +81,12 @@ class EntityQuerySet(models.query.QuerySet):
                 buy_links__status=2)\
                 .order_by('-selection_entity__pub_time')
 
+    def random_seller_entities(self):
+        base_query = self.new_or_selection().order_by('-created_time')
+        sellers = list(get_user_model().objects.authorized_seller())
+        sample_space = base_query.filter(user__in=sellers)[:100]
+        return random.sample(sample_space, 18)
+
 
 class EntityManager(models.Manager):
     # entity status: new:0,selection:1
@@ -96,6 +102,18 @@ class EntityManager(models.Manager):
 
     def get_query_set(self):
         return EntityQuerySet(self.model, using=self._db)
+
+    def random_seller_entities(self):
+        key = 'Entity:Authorized_Seller:Random'
+        rse = cache.get(key)
+        if rse is None:
+            rse =  list(self.get_queryset().random_seller_entities())
+            #TODO change timeout to 3600
+            cache.set(key, rse, timeout=10 )
+        else:
+            pass
+
+        return rse
 
     # def get(self, *args, **kwargs):
     # # print  kwargs
