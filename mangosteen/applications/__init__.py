@@ -6,7 +6,7 @@ from tbrecommend import handel
 import jieba.analyse
 from model import *
 
-jieba.load_userdict("user_dict.txt")
+# jieba.load_userdict("user_dict.txt")
 # jieba.set_dictionary("dict.txt.small")
 # jieba.set_dictionary("user_dict.txt")
 jieba.analyse.set_idf_path("idf.txt.big")
