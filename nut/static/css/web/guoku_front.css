@@ -4356,6 +4356,15 @@ body.compact-body {
   font-size: 18px;
   font-weight: 600;
 }
+#selection_article_list .xs-selection-article-item {
+  margin: 10px 0;
+}
+#selection_article_list .xs-selection-article-item .more-article-wrapper {
+  margin: 0;
+}
+#selection_article_list .xs-selection-article-item .more-article-wrapper .title-wrapper a {
+  text-decoration: none;
+}
 #sitemap #site_map_list {
   padding-left: 20px;
   padding-right: 40px;
