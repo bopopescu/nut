@@ -1,0 +1,55 @@
+@charset "utf-8";
+body,
+p {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+ul {
+  list-style: none;
+}
+ul#tag_list {
+  font-size: 16px;
+  overflow: auto;
+}
+ul#tag_list > li {
+  height: 100px;
+  width: 500px;
+  border: 1px solid black;
+  margin: 10px 10px;
+  float: left;
+}
+ul#tag_list > li .qr-code {
+  float: right;
+  width: 100px;
+  height: 100px;
+}
+ul#tag_list > li .qr-code img {
+  height: 100px;
+  width: 100px;
+}
+ul#tag_list > li .info .title {
+  font-size: 32px;
+  font-weight: 600;
+}
+ul#tag_list > li .info .store {
+  font-size: 14px;
+  color: #ccc;
+}
+ul#tag_list > li .info .store .store-name {
+  color: #000;
+}
+ul#tag_list > li .info .price-wrapper {
+  padding: 10px;
+}
+ul#tag_list > li .info .price-wrapper .dollar-sign {
+  font-size: 32px;
+  margin-right: -5px;
+  top: 3px;
+  left: 5px;
+  position: relative;
+}
+ul#tag_list > li .info .price-wrapper .price-number {
+  font-size: 32px;
+  letter-spacing: 1px;
+}
