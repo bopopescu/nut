@@ -1,0 +1,97 @@
+
+<html>
+<header>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+</header>
+<body>
+<ul id="tag_list">
+
+</ul>
+
+<script type="text/html" id="item_template">
+    <li>
+        <div class="tag-container">
+            <div class="qr-code" data-url=<%=item[3]%>>
+                <!--<img src="link.png">-->
+            </div>
+            <div class="info">
+                <p class="info-wrapper">
+                    <span class="title">
+                        <%=item[0]%>
+                    </span>
+                    <span class="store">
+                        From
+                        <span class="store-name"><%=item[1]%></span>
+                    </span>
+                </p>
+                <p class="price-wrapper">
+                    <span class="price">
+                       <span class="dollar-sign">￥</span>
+                       <span class="price-number"><%=item[2]%></span>
+
+                    </span>
+                </p>
+            </div>
+        </div>
+    </li>
+</script>
+<script src="jquery-2.2.3.min.js" language="javascript"></script>
+<script src="underscore.js" language="javascript"></script>
+<script src="qrcode.js" language="javascript"></script>
+<script language="javascript">
+
+    tag_list = [
+            ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+            ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+            ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+            ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+        ['耳环', '彼岸商店',234,'http://www.sina.com.cn'],
+
+    ]
+
+    template = _.template($('#item_template').html())
+
+    list_wrapper = $('#tag_list');
+    tag_list.map(function(item, index){
+        console.log(item);
+        list_wrapper.append(template({item: item }));
+
+    });
+
+    $('.qr-code').map(function(index, ele){
+        var url = $(ele).attr('data-url')
+        new QRCode(ele,
+                {
+                    text: url,
+                    width: 100,
+                    height: 100,
+                }
+        );
+    });
+
+
+
+
+</script>
+</body>
+</html>

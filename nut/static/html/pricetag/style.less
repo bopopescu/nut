@@ -1,0 +1,68 @@
+@charset "utf-8";
+
+body, p{
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+
+}
+
+ul{
+  list-style: none;
+}
+ul#tag_list{
+  font-size:16px;
+  overflow: auto;
+    &>li{
+      height:100px;
+      width:500px;
+      border: 1px solid black;
+      margin: 10px 10px;
+
+      float:left;
+
+      .qr-code{
+         float: right;
+         width:  100px;
+         height: 100px;
+         img{
+           height: 100px;
+           width: 100px;
+         }
+      }
+      .info{
+        .title{
+          font-size:32px;
+          font-weight: 600;
+
+        }
+        .store{
+          font-size:14px;
+          color: #ccc;
+          .store-name{
+             color:#000;
+          }
+        }
+        .price-wrapper{
+            padding:10px;
+          .dollar-sign{
+            font-size:32px;
+            margin-right:-5px;
+            top:3px;
+            left: 5px;
+            position: relative;
+
+          }
+          .price-number{
+            //          &:before{
+            //            content:'￥';
+            //          }
+            font-size:32px;
+            letter-spacing: 1px;
+          }
+        }
+
+      }
+
+    }
+}
