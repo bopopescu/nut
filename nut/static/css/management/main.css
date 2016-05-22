@@ -822,6 +822,10 @@ p.boolean-false {
   font-weight: 500;
   margin-right: 12px;
 }
+.guoku-small-col {
+  padding: 0 2px;
+  margin-bottom: 4px;
+}
 .guoku-normal-col {
   padding: 0 5px;
   margin-bottom: 10px;
@@ -985,6 +989,9 @@ p.boolean-false {
   font-size: 16px;
   color: #9D9E9F;
 }
+.dark-section-wrapper {
+  margin-bottom: 10px;
+}
 .dark-section-wrapper .dark-section-item a {
   color: #ffffff;
 }
@@ -1058,6 +1065,13 @@ p.boolean-false {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+.single-text-overflow {
+  width: 100%;
+  height: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 @-moz-document url-prefix() {
   fieldset {
