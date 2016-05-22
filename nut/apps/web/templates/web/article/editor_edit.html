@@ -27,6 +27,11 @@
             {% endif %}
                 <form id="article_form" method="post">
                     <div class="fix-operate">
+                        {% if request.user.is_editor or request.user.is_staff %}
+                            <a href="{% url 'management_article_edit' article.pk %}">
+                            <span class="guoku-btn-normal btn-cancel">去打标签</span>
+                            </a>
+                        {% endif %}
                         <span  id="return-list" class="guoku-btn-normal btn-cancel">返回草稿箱</span>
                        <span   id="save-draft"  class="guoku-btn-normal">保存草稿</span>
                        <span   id="save-publish" class="guoku-btn-normal">发布文章</span>

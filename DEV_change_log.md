@@ -1,11 +1,26 @@
+4. web -pop up store top banner
+3. api - article.digest filter blank
+2. other - price tag html
+1. mng - editor can  access brand list page and manage brand entity
 
-2. 
-1. fix baichuan fail , still render baichuan guess title bug 
+=======================
+# merged to master 2016 5-19
+=======================
+
+8. web - new article feed for editor selection article
+7. web - good store page update  -- lq , ac
+6. web - entity detail , sold out entity add "去店铺" button
+5. web - recommended user name and all recommended user  page    -- lq
+4. mng - tmall price    -- along
+3. mng - add '积极用户' manage    --  along
+2. backend - limit guoku generated email address , verify mail and change pass mail sending
+1. web - hide baichuan title when load fail
+
 =======================
 # merged to master 2016 5-12
 =======================
 
-5.  search result highlight -- jiaxin 
+5.  search result highlight -- jiaxin
 4.  site banner management (api will update at next monday, MNG first )  -- shuailong
 3.  wechat robot  -- anchen 
 2.  article page can not be zoom by user, mobile (bug fix) -- anchen
