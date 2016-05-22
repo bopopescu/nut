@@ -4,7 +4,7 @@ from django import template
 # from django.conf import settings
 from django.utils.log import getLogger
 from datetime import datetime
-from apps.tag.models import Tags, Content_Tags
+# from apps.tag.models import Tags, Content_Tags
 from apps.core.models import Entity
 import time
 import re
@@ -130,7 +130,6 @@ def get_mobile_link_by_hash(theHash):
         return entity.mobile_url
     except Exception as e:
         return None
-    return
 
 def mobile_link(value):
    _value = value.decode('utf-8')
