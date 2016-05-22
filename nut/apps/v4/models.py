@@ -1,4 +1,3 @@
-import re
 from apps.core.models import Selection_Article, Article, Article_Dig
 from apps.notifications.models import JpushToken
 from apps.notifications import notify
