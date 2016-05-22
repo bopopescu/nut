@@ -1,5 +1,6 @@
 
-
+3. article.digest filter blank 
+2. price tag html 
 1. editor can  access brand list page and manage brand entity
 
 =======================

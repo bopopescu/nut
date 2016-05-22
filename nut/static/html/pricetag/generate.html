@@ -2,8 +2,29 @@
 <header>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="http://formbuilder.online/assets/css/form-builder.min.css">
 </header>
 <body>
+
+<ul>
+ <li>
+     SHOP : <input name="shop" id="shop_input   " type="text">
+     </li>
+    <li>
+     TITLE : <input name="title" id="entity_input" type="text">
+    </li>
+    <li>
+
+     price : <input name="price" id="price_input" type="text">
+     </li>
+    <li>
+     link :<input name="link" id="link_input" type="text">
+
+ </li>
+ <li>
+     <button id="generate" name="generate">Generate</button>
+ </li>
+</ul>
 <ul id="tag_list">
 
 </ul>
@@ -39,42 +60,12 @@
     </li>
 </script>
 <script src="jquery-2.2.3.min.js" language="javascript"></script>
+
+
 <script src="underscore.js" language="javascript"></script>
 <script src="qrcode.js" language="javascript"></script>
 <script src="data.js" language="javascript"></script>
 <script language="javascript">
-
-    function fixTagList(tag_list){
-       return  _.map(tag_list,function(tag){
-            return [tag[0],tag[1], parseInt(tag[2]), parseInt(tag[3]), tag[4]]
-        })
-    }
-
-    var tag_list = fixTagList(tag_list)
-
-
-    var template = _.template($('#item_template').html())
-
-    var list_wrapper = $('#tag_list');
-    tag_list.map(function(item, index){
-        console.log(item);
-        list_wrapper.append(template({item: item }));
-
-    });
-
-    $('.qr-code').map(function(index, ele){
-        var url = $(ele).attr('data-url')
-        new QRCode(ele,
-                {
-                    text: url,
-                    width:  128,
-                    height: 128,
-                    correctLevel :0,
-                }
-        );
-    });
-
-
 
 
 </script>
