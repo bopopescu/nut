@@ -28,6 +28,7 @@ ul#tag_list > li .qr-code {
   float: right;
   width: 100px;
   height: 100px;
+  padding-left: 1em;
 }
 ul#tag_list > li .qr-code img {
   height: 100px;
@@ -72,6 +73,7 @@ ul#tag_list > li .info .price-wrapper .price .price-number {
     float: right;
     width: 2cm;
     height: 2cm;
+    padding-left: 1em;
   }
   ul#tag_list > li .qr-code img {
     height: 2cm;

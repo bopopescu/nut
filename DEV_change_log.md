@@ -1,7 +1,7 @@
-
-3. article.digest filter blank 
-2. price tag html 
-1. editor can  access brand list page and manage brand entity
+4. web -pop up store top banner 
+3. api - article.digest filter blank 
+2. other - price tag html 
+1. mng - editor can  access brand list page and manage brand entity
 
 =======================
 # merged to master 2016 5-19
