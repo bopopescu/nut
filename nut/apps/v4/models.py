@@ -1,3 +1,4 @@
+import re
 from apps.core.models import Selection_Article, Article, Article_Dig
 from apps.notifications.models import JpushToken
 from apps.notifications import notify
@@ -301,6 +302,8 @@ class APISeletion_Articles(Selection_Article):
 
 import HTMLParser
 h_parser = HTMLParser.HTMLParser()
+
+
 class APIArticle(Article):
 
     class Meta:
@@ -313,9 +316,9 @@ class APIArticle(Article):
     @property
     def digest(self):
         strip_content = h_parser.unescape(strip_tags(self.content))
-        strip_content = strip_content.replace('\n', ' ')
-        strip_content = strip_content.replace('\r', ' ')
-
+        strip_content = strip_content.replace('\n', '')
+        strip_content = strip_content.replace('\r', '')
+        strip_content = strip_content.replace(' ', '')
 
         if len(strip_content) > 50:
             return strip_content[:50]
