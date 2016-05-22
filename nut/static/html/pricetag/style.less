@@ -1,0 +1,139 @@
+@charset "utf-8";
+
+body, p{
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+
+}
+
+ul{
+  list-style: none;
+}
+ul#tag_list{
+  font-size:16px;
+  overflow: auto;
+  &>li{
+    height:100px;
+    width:400px;
+    margin: 10px 10px;
+    padding: 30px;
+    background: #fff;
+
+    float:left;
+
+    .store{
+      font-size: 16px;
+      margin-bottom:10px;
+    }
+    .qr-code{
+      float: right;
+      width:  100px;
+      height: 100px;
+      img{
+        height: 100px;
+        width: 100px;
+      }
+    }
+    .info{
+      .title{
+        font-size:22px;
+        font-weight: 600;
+
+      }
+
+      .price-wrapper{
+        padding:10px 0 0 0 ;
+        .price{
+          .dollar-sign{
+            font-size:22px;
+            position: relative;
+            top:1px;
+          }
+          .price-number{
+            //          &:before{
+            //            content:'￥';
+            //          }
+            font-family:Georgia,serif;
+            font-size:22px;
+            letter-spacing: 1px;
+            position:relative;
+            left:-5px;
+          }
+        }
+        .origin_price{
+
+        }
+
+      }
+
+
+    }
+
+  }
+}
+
+// print margin 0.1 inch 0 0 0
+@media print{
+  ul#tag_list{
+     font-size:0.3cm;
+     &>li{
+      height:3cm;
+      width:5cm;
+      margin: 0.13cm;
+      padding: 0.1cm;
+      background: #fff;
+
+      float:left;
+
+      .store{
+        font-size: 0.6em;
+        margin-bottom:0.1cm;
+      }
+      .qr-code{
+        float: right;
+        width:  2cm;
+        height: 2cm;
+        img{
+          height: 2cm;
+          width: 2cm;
+        }
+      }
+      .info{
+        .title{
+          font-size:1em;
+          font-weight: 600;
+
+        }
+
+        .price-wrapper{
+          padding: 0.1cm 0 0 0 ;
+          .price{
+            .dollar-sign{
+              font-size:1em;
+              position: relative;
+              top:1px;
+            }
+            .price-number{
+              //          &:before{
+              //            content:'￥';
+              //          }
+              font-family:Georgia,serif;
+              font-size: 1em;
+              letter-spacing:0;
+              position:relative;
+              left:-0.4em;
+            }
+          }
+          .origin_price{
+
+          }
+
+        }
+
+
+      }
+
+    }
+  }
+}
