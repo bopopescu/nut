@@ -341,14 +341,38 @@
     <script src="{% static 'js/backbone-min.js' %}" type="application/javascript"></script>
 {#    <script src="{% static 'js/management/category.js' %}"></script>#}
 {#    {% block js %}{% endblock %}#}
+
 <script type="text/javascript">
     $(".form_datetime").datetimepicker({
         language: 'zh-CN',
         format: "yyyy-mm-dd hh:ii",
         autoclose: true,
-        pickerPosition: "bottom-left"
+        pickerPosition: "bottom-left",
+        minview:2
     });
+
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+        language: 'zh-CN',
+        format: "yyyy-mm-dd 8:00:00",
+            disabledHours: "true",
+        autoclose: true,
+        pickerPosition: "bottom-left",
+            minView: '2'
+    });
+        $('#datetimepicker2').datetimepicker({
+            useCurrent: false, //Important! See issue #1075
+            language: 'zh-CN',
+            format: "yyyy-mm-dd 8:00:00",
+            disabledHours: "true",
+            autoclose: true,
+            pickerPosition: "bottom-left",
+            minView: '2'
+        });
+    });
+
 </script>
+
 {% endblock %}
 {% block user_script %}
 

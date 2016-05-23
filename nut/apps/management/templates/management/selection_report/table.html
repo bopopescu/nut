@@ -13,7 +13,7 @@
 
                     </th>
                     <th>{% trans '喜爱数' %}</th>
-                    <th>{% trans 'created_time' %}</th>
+                    <th>{% trans '发布时间' %}</th>
                     <th>{% trans 'price' %}</th>
                     <th>{% trans 'image' %} <span class="info"></span></th>
 
@@ -35,7 +35,7 @@
 
 
                         <td class="product-created-time">
-                            {{ selection.entity.created_time|date:'Y-m-d H:i:s' }}</td>
+                            {{ selection.pub_time|date:'Y-m-d H:i:s' }}</td>
                         <td class="product-price">
                             {{ selection.entity.price }}</td>
                         <td class="product-thumb-img">
