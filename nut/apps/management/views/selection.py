@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.models import Selection_Entity, Entity_Like
+from apps.core.models import Entity
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, \
     EmptyPage
 from apps.core.forms.selection import SelectionForm, SetPublishDatetimeForm
@@ -224,6 +225,46 @@ class RemoveBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
             res = {
                 'error': 1,
                 'msg': 'can not get remove list from json string'
+            }
+            return self.render_json_response(res)
+
+
+class FreezeBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
+
+    def doFreezeSelectionBatch(self, entity_id_list):
+        published_selections_to_freeze = Entity.objects.filter(entity__id__in=entity_id_list)
+        for sla in published_selections_to_freeze:
+            sla.status = Entity.freeze
+            sla.save()
+        return
+
+    def post_ajax(self, request, *args, **kwargs):
+        freeze_id_list_jsonstring = request.POST.get('entity_id_list', None)
+        if not freeze_id_list_jsonstring:
+            res = {
+                'error': 1,
+                'msg': 'can not get freeze id list json string'
+            }
+            return self.render_json_response(res)
+        freeze_list = json.loads(freeze_id_list_jsonstring)
+        if freeze_list:
+            try:
+                self.doFreezeSelectionBatch(freeze_list)
+            except Exception as e:
+                res = {
+                    'error': 1,
+                    'msg': 'error %s' % e.message
+                }
+                return self.render_json_response(res)
+            res = {
+                'error': 0,
+                'msg': 'freeze selection Success'
+            }
+            return self.render_json_response(res)
+        else:
+            res = {
+                'error': 1,
+                'msg': 'can not get freeze list from json string'
             }
             return self.render_json_response(res)
 

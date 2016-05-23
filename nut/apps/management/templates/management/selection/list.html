@@ -27,6 +27,12 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <div class="btn-group pull-right">
+
+                            {% if management_selection_published_url in request.path %}
+                                <a href="#" class="btn btn-danger" id="btn_batch_selection_freeze" batch_url="{% url 'management_batch_selection_freeze' %}">批量冻结</a>
+                            {% endif %}
+
+
                             <a href="{% url 'management_set_publish_datetime' %}" class="btn btn-primary" data-toggle="modal" data-target="#SelectionEntityModal">精选排时间</a>
                             <a href="#" class="btn btn-success" id="publish2u">发布到U站</a>
                             {% if management_selection_pending_url in request.path %}
