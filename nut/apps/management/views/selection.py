@@ -9,7 +9,6 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from apps.core.models import Selection_Entity, Entity_Like
-from apps.core.models import Entity
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, \
     EmptyPage
 from apps.core.forms.selection import SelectionForm, SetPublishDatetimeForm
@@ -232,9 +231,10 @@ class RemoveBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
 class FreezeBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
 
     def doFreezeSelectionBatch(self, entity_id_list):
-        published_selections_to_freeze = Entity.objects.filter(entity__id__in=entity_id_list)
+        published_selections_to_freeze = Selection_Entity.objects.published().filter(
+            entity__id__in=entity_id_list)
         for sla in published_selections_to_freeze:
-            sla.status = Entity.freeze
+            sla.status = -1
             sla.save()
         return
 
