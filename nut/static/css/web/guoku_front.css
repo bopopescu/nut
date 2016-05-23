@@ -4250,6 +4250,10 @@ body.compact-body {
 .mobile-body {
   padding-bottom: 40px;
 }
+.guoku-app .top-ad,
+.mobile-body .top-ad {
+  display: none;
+}
 .guoku-app #guoku_main_nav,
 .mobile-body #guoku_main_nav {
   display: none;
