@@ -16,6 +16,14 @@ var BatchSelectionApp = Class.extend({
                     that.removeSelectionBatch(eids);
                 }
         });
+
+        $('#btn_batch_selection_freeze').click(function(){
+                console.log('freeze selection in batch');
+                var eids = that.collectEntityId();
+                if(eids.length){
+                    that.freezeSelectionBatch(eids);
+                }
+        });
     },
 
     removeSelectionBatch: function(eids){
@@ -23,6 +31,17 @@ var BatchSelectionApp = Class.extend({
             bootbox.confirm('共 '+ eids.length +' 件商品，确定要移除精选吗？', function(result){
                 if(result){
                     that.sendRemoveMission(eids);
+                }else{
+                    return ;
+                }
+            });
+    },
+
+    freezeSelectionBatch: function(eids){
+            var that = this ;
+            bootbox.confirm('共 '+ eids.length +' 件商品，确定要freeze精选吗？', function(result){
+                if(result){
+                    that.sendFreezeMission(eids);
                 }else{
                     return ;
                 }
@@ -39,12 +58,31 @@ var BatchSelectionApp = Class.extend({
             this.removeSelectionBatchFail.bind(this)
         );
     },
+
+    sendFreezeMission:function(eids){
+        $.when($.ajax({
+            url: '/management/selection/set/freeze/batch/do/',
+            method: 'POST',
+            data:{'entity_id_list':JSON.stringify(eids)}
+        })).then(
+            this.freezeSelectionBatchSuccess.bind(this),
+            this.freezeSelectionBatchFail.bind(this)
+        );
+    },
     removeSelectionBatchSuccess:function(data){
         console.log('success removed ');
         window.location.reload();
     },
     removeSelectionBatchFail:function(data){
         console.log('remove failed');
+    },
+
+    freezeSelectionBatchSuccess:function(data){
+        console.log('success frozen ');
+        window.location.reload();
+    },
+    freezeSelectionBatchFail:function(data){
+        console.log('freeze failed');
     },
     collectEntityId: function(){
         console.log('begin collect pending selection entity id');
