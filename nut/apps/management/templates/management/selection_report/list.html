@@ -1,7 +1,6 @@
 {% extends "management/management_base.html" %}
 {% load staticfiles i18n %}
 
-
 {% block content %}
     <section class="content-header">
         <h1>
@@ -20,12 +19,47 @@
                 <div class="box box-info">
                     <div class="box-header">
                         <ul class="nav nav-pills" role="tablist">
-                            <li {% if status == None or status == '0'  %}class="active"{% endif %}><a href="{% url 'management_selection_report' %}">{% trans '最多喜爱' %}</a></li>
+                            <li {% if status == None or status == 'None'  %}class="active"{% endif %}><a href="{% url 'management_selection_report' %}">{% trans '最多喜爱' %}</a></li>
 {#                            <li {% ifequal status '1' %}class="active"{% endifequal %}><a href="{% url 'management_selection_report' %}?status=1">{% trans '最多点击' %}</a></li>#}
 {#                            <li {% ifequal status '2' %}class="active"{% endifequal %}><a href="{% url 'management_selection_report' %}?status=2">{% trans '已售出' %}</a></li>#}
 
                         </ul>
                     </div>
+                    <div class="box-header">
+                        <ul class="nav nav-pills" role="tablist">
+                            <li {% if start_time == 'yesterday' %}class="active"{% endif %}><a href="{% url 'management_selection_report' %}?status={{ status }}">{% trans '昨天' %}</a></li>
+                            <li {% if start_time == 'lastweek'  %}class="active"{% endif %}><a href="{% url 'management_selection_report' %}?status={{ status }}&start_date=lastweek">{% trans '上周' %}</a></li>
+                            <li {% if start_time == 'lastmonth'  %}class="active"{% endif %}><a href="{% url 'management_selection_report' %}?status={{ status }}&start_date=lastmonth">{% trans '上月' %}</a></li>
+
+                        <div class='col-sm-3'>
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        <input type='text' id="start_date" {% if start_date != None %} value="{{ start_date }}"{% endif %} class="form-control" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <div class='col-sm-3'>
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker2'>
+                                        <input type='text' id="end_date" {% if end_date != None %} value="{{ end_date }}"{% endif %} class="form-control" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <button type="submit" id="submit" class="btn btn-primary btn-lg">筛选</button>
+                        </ul>
+                    </div>
+
+
+
+
                     <div class="box-body table-responsive">
                         {% include "management/selection_report/table.html" with selections=selections %}
                     </div>
@@ -38,4 +72,11 @@
     </section>
 
 
+{% endblock %}
+
+{% block user_script %}
+    <script src="{% static 'js/jquery-ui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/management/util.js' %}"></script>
+    <script src="{% static 'js/management/moment.js' %}"></script>
+    <script src="{% static 'js/management/selection_report.js' %}"></script>
 {% endblock %}
