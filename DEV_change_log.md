@@ -1,3 +1,4 @@
+5. update google analysis code 
 4. web -pop up store top banner -- lq
 3. api - article.digest filter blank characters  
 2. other - price tag html 
