@@ -28,9 +28,12 @@ class BrandDetailView(ListView):
         brand = get_object_or_404(Brand, pk=brand_pk)
 
         if self.get_order_by() == 'olike':
-            sqs = SearchQuerySet().models(Entity).filter(brand=brand.name).order_by('like_count')
+            sqs = Entity.objects.filter(brand=brand.name)
+            sqs = sorted(sqs, key=lambda x: x.like_count, reverse=True)
+            # sqs = SearchQuerySet().models(Entity).filter(brand=brand.name).order_by('like_count')
         else:
-            sqs = SearchQuerySet().models(Entity).filter(brand=brand.name).order_by('-created_time')
+            # sqs = SearchQuerySet().models(Entity).filter(brand=brand.name).order_by('-created_time')
+            sqs = Entity.objects.filter(brand=brand.name).order_by('-created_time')
 
         return sqs
 
@@ -42,8 +45,9 @@ class BrandDetailView(ListView):
         context['sort_method'] = self.get_order_by()
 
         el = list()
-        sqs = self.get_queryset()
-        e_ids = [e.entity_id for e in sqs]
+        # sqs = self.get_queryset()
+        # e_ids = [e.entity_id for e in self.object_list]
+        e_ids = [e.id for e in self.object_list]
         if self.request.user.is_authenticated():
              el = Entity_Like.objects.user_like_list(user=self.request.user,
                                                     entity_list=e_ids
