@@ -20,7 +20,7 @@ var BatchSelectionApp = Class.extend({
         $('#btn_batch_selection_freeze').click(function(){
                 console.log('freeze selection in batch');
                 var eids = that.collectEntityId();
-                console.log('eids');
+                console.log(eids);
                 if(eids.length){
                     that.freezeSelectionBatch(eids);
                 }
