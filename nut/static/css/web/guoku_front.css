@@ -832,7 +832,7 @@ p .b_day {
   overflow: hidden;
 }
 .entity-four.new-thumbnail .entity-four-info .caption {
-  width: 60%;
+  width: 75%;
   height: 80px;
   float: left;
   margin: 0;
@@ -1117,6 +1117,10 @@ p.boolean-false {
   font-weight: 500;
   margin-right: 12px;
 }
+.guoku-small-col {
+  padding: 0 2px;
+  margin-bottom: 4px;
+}
 .guoku-normal-col {
   padding: 0 5px;
   margin-bottom: 10px;
@@ -1280,6 +1284,9 @@ p.boolean-false {
   font-size: 16px;
   color: #9D9E9F;
 }
+.dark-section-wrapper {
+  margin-bottom: 10px;
+}
 .dark-section-wrapper .dark-section-item a {
   color: #ffffff;
 }
@@ -1353,6 +1360,13 @@ p.boolean-false {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+.single-text-overflow {
+  width: 100%;
+  height: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .message_page {
   width: 941px;
@@ -2181,7 +2195,6 @@ textarea {
   text-align: center;
 }
 .top-ad .ad-wrapper a .top-ad-title-wrapper .top-ad-title-control {
-  width: 217px;
   height: 40px;
   margin: 5px auto;
 }
@@ -2493,7 +2506,7 @@ body.compact-body {
 }
 #index-banners .banner-image-cell {
   padding: 0 10px;
-  max-height: 300px;
+  max-height: 420px;
 }
 #index-banners .banner-image-cell.banner-image-cell-control {
   padding: 0 5px;
@@ -4238,6 +4251,10 @@ body.compact-body {
 .mobile-body {
   padding-bottom: 40px;
 }
+.guoku-app .top-ad,
+.mobile-body .top-ad {
+  display: none;
+}
 .guoku-app #guoku_main_nav,
 .mobile-body #guoku_main_nav {
   display: none;
@@ -4342,6 +4359,15 @@ body.compact-body {
 #selection_article_list .selection-article-item.article-compact .article-title {
   font-size: 18px;
   font-weight: 600;
+}
+#selection_article_list .xs-selection-article-item {
+  margin: 10px 0;
+}
+#selection_article_list .xs-selection-article-item .more-article-wrapper {
+  margin: 0;
+}
+#selection_article_list .xs-selection-article-item .more-article-wrapper .title-wrapper a {
+  text-decoration: none;
 }
 #sitemap #site_map_list {
   padding-left: 20px;
@@ -4450,6 +4476,10 @@ body.compact-body {
     border-bottom: none!important;
     margin-bottom: 0px!important;
     padding-bottom: 0px!important;
+  }
+  #recommend-entity-container #recommend-entity-wrapper .slick-prev:before,
+  #recommend-entity-container #recommend-entity-wrapper .slick-next:before {
+    display: none;
   }
 }
 @media (max-width: 767px) {
