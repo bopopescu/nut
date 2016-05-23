@@ -1,3 +1,12 @@
+4. web -pop up store top banner -- lq
+3. api - article.digest filter blank characters  
+2. other - price tag html 
+1. mng - editor can  access brand list page and manage brand entity
+
+=======================
+# merged to master 2016 5-19
+=======================
+
 8. web - new article feed for editor selection article 
 7. web - good store page update  -- lq , ac
 6. web - entity detail , sold out entity add "去店铺" button
