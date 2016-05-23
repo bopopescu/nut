@@ -1,8 +1,8 @@
 
 define(['libs/Class', 'jquery','cookie'], function(Class, $){
 
-    var  store2015UrlReg = /store2015/;
-    var store2015CookieKey = 'store_2015_cookie_key'
+    var  destiny_url_test_reg = /20160624/;
+    var  testing_cookie_key = 'pop_up_store_cookie'
     // here we use a global var isFromMobile, which is bootstraped in base.html (template)
 
     var TopAd = Class.extend({
@@ -16,14 +16,14 @@ define(['libs/Class', 'jquery','cookie'], function(Class, $){
         },
 
         handleTrackerCookie: function(){
-            if(store2015UrlReg.test(location.href)){
+            if(destiny_url_test_reg.test(location.href)){
                 console.log('access page');
-                $.cookie(store2015CookieKey, 'visited', { expires: 7, path: '/' });
+                $.cookie( testing_cookie_key, 'visited', { expires: 7, path: '/' });
             }
         },
 
         handleTopAdDisplay:function(){
-            if($.cookie(store2015CookieKey) === 'visited'){
+            if($.cookie( testing_cookie_key) === 'visited'){
                 return ;
                 //console.log('store 2015 page visited');
             }else{
@@ -32,7 +32,7 @@ define(['libs/Class', 'jquery','cookie'], function(Class, $){
         },
         displayTopAd: function(){
 
-            if (!isFromMobile){
+            if (!isFromMobile &&(!destiny_url_test_reg.test(location.href))){
                  $('.top-ad').slideDown();
             }
 
