@@ -1,5 +1,4 @@
 .top-ad {
-  display: none;
   height: 50px;
   width: 100%;
   background: none;
@@ -14,7 +13,6 @@
   text-align: center;
 }
 .top-ad .ad-wrapper a .top-ad-title-wrapper .top-ad-title-control {
-  width: 217px;
   height: 40px;
   margin: 5px auto;
 }
