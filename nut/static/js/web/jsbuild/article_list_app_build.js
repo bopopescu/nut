@@ -898,6 +898,7 @@ define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class,
         displayTopAd: function(){
 
             if (isFromMobile ||  test_url_reg.test(location.href)){
+                //$('.top-ad').hide();
                 return ;
             }else{
                  $('.top-ad').slideDown();
