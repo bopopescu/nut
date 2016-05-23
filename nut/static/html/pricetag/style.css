@@ -98,4 +98,13 @@ ul#tag_list > li .info .price-wrapper .price .price-number {
     position: relative;
     left: -0.4em;
   }
+  #input_container {
+    display: none;
+  }
+}
+#input_container li {
+  margin-top: 20px;
+}
+#input_container input {
+  with: 400px;
 }
