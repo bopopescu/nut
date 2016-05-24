@@ -4,7 +4,8 @@ from apps.management.views.selection import PrepareBatchSelection, \
                                             DoBatchSelection,\
                                             RemoveBatchSelection,\
                                             FreezeBatchSelection,\
-                                            NewBatchSelection
+                                            NewBatchSelection,\
+                                            deleteBatchSelection
 
 urlpatterns = patterns(
     'apps.management.views.selection',
@@ -20,7 +21,8 @@ urlpatterns = patterns(
     url(r'^set/publish/batch/do/$', DoBatchSelection.as_view(), name='management_batch_selection_do'),
     url(r'^set/remove/batch/do/$', RemoveBatchSelection.as_view(), name='management_batch_selection_remove'),
     url(r'^set/freeze/batch/do/$', FreezeBatchSelection.as_view(), name='management_batch_selection_freeze'),
-     url(r'^set/new/batch/do/$', NewBatchSelection.as_view(), name='management_batch_selection_new'),
+    url(r'^set/new/batch/do/$', NewBatchSelection.as_view(), name='management_batch_selection_new'),
+    url(r'^set/delete/batch/do/$', deleteBatchSelection.as_view(), name='management_batch_selection_delete'),
 
 
     url(r'^popular/$', 'popular', name='management_selection_popular'),
