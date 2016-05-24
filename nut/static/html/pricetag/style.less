@@ -19,6 +19,7 @@ ul#tag_list{
     margin: 10px 10px;
     padding: 30px;
     background: #fff;
+    border: 1px solid #e0e0e0;
 
     float:left;
 
@@ -76,15 +77,19 @@ ul#tag_list{
 
 // print margin 0.1 inch top 1.47 bottom 0 0 0
 @media print{
+  @page{
+    padding:0;
+    margin:0;
+  }
   ul#tag_list{
      font-size:0.3cm;
      &>li{
-      height:3cm;
-      width:5cm;
-      margin: 0.13cm;
-      padding: 0.1cm;
+      height:3.0cm;
+      width:7cm;
+       margin: 0 0 0 0;
+      padding: 0.3cm 0.3cm 0.3cm 0.3cm;
       background: #fff;
-
+      border: 1px solid #e0e0e0;
       float:left;
 
       .store{
