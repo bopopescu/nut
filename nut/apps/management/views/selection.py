@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
-from apps.core.models import Selection_Entity, Entity_Like,Entity
+from apps.core.models import Selection_Entity, Entity_Like,  Entity
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, \
     EmptyPage
 from apps.core.forms.selection import SelectionForm, SetPublishDatetimeForm
@@ -233,7 +233,7 @@ class FreezeBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
     def doFreezeSelectionBatch(self, entity_id_list):
         published_selections_to_freeze = Selection_Entity.objects.published().filter(entity__id__in=entity_id_list)
         for sla in published_selections_to_freeze:
-            sla.entity.status = -1
+            sla.entity.status = Entity.freeze
             sla.entity.save()
         return
 
@@ -273,7 +273,7 @@ class NewBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
     def doNewSelectionBatch(self, entity_id_list):
         published_selections_to_new = Selection_Entity.objects.published().filter(entity__id__in=entity_id_list)
         for sla in published_selections_to_new:
-            sla.entity.status = 0
+            sla.entity.status = Entity.new
             sla.entity.save()
         return
 
