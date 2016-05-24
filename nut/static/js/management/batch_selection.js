@@ -25,6 +25,15 @@ var BatchSelectionApp = Class.extend({
                     that.freezeSelectionBatch(eids);
                 }
         });
+
+         $('#btn_batch_selection_new').click(function(){
+                console.log('new selection in batch');
+                var eids = that.collectEntityId();
+                console.log(eids);
+                if(eids.length){
+                    that.newSelectionBatch(eids);
+                }
+        });
     },
 
     removeSelectionBatch: function(eids){
@@ -40,9 +49,20 @@ var BatchSelectionApp = Class.extend({
 
     freezeSelectionBatch: function(eids){
             var that = this ;
-            bootbox.confirm('共 '+ eids.length +' 件商品，确定要freeze精选吗？', function(result){
+            bootbox.confirm('共 '+ eids.length +' 件商品，确定要冻结精选吗？', function(result){
                 if(result){
                     that.sendFreezeMission(eids);
+                }else{
+                    return ;
+                }
+            });
+    },
+
+    newSelectionBatch: function(eids){
+            var that = this ;
+            bootbox.confirm('共 '+ eids.length +' 件商品，确定要设为新品吗？', function(result){
+                if(result){
+                    that.sendNewMission(eids);
                 }else{
                     return ;
                 }
@@ -70,6 +90,18 @@ var BatchSelectionApp = Class.extend({
             this.freezeSelectionBatchFail.bind(this)
         );
     },
+
+    sendNewMission:function(eids){
+        $.when($.ajax({
+            url: '/management/selection/set/new/batch/do/',
+            method: 'POST',
+            data:{'entity_id_list':JSON.stringify(eids)}
+        })).then(
+            this.newSelectionBatchSuccess.bind(this),
+            this.newSelectionBatchFail.bind(this)
+        );
+    },
+
     removeSelectionBatchSuccess:function(data){
         console.log('success removed ');
         window.location.reload();
@@ -84,6 +116,13 @@ var BatchSelectionApp = Class.extend({
     },
     freezeSelectionBatchFail:function(data){
         console.log('freeze failed');
+    },
+    newSelectionBatchSuccess:function(data){
+        console.log('success set new ');
+        window.location.reload();
+    },
+    newSelectionBatchFail:function(data){
+        console.log('set new failed');
     },
     collectEntityId: function(){
         console.log('begin collect pending selection entity id');

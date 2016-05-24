@@ -268,6 +268,46 @@ class FreezeBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
             return self.render_json_response(res)
 
 
+class NewBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
+
+    def doNewSelectionBatch(self, entity_id_list):
+        published_selections_to_new = Selection_Entity.objects.published().filter(entity__id__in=entity_id_list)
+        for sla in published_selections_to_new:
+            sla.entity.status = 0
+            sla.entity.save()
+        return
+
+    def post_ajax(self, request, *args, **kwargs):
+        new_id_list_jsonstring = request.POST.get('entity_id_list', None)
+        if not new_id_list_jsonstring:
+            res = {
+                'error': 1,
+                'msg': 'can not get new id list json string'
+            }
+            return self.render_json_response(res)
+        new_list = json.loads(new_id_list_jsonstring)
+        if new_list:
+            try:
+                self.doNewSelectionBatch(new_list)
+            except Exception as e:
+                res = {
+                    'error': 1,
+                    'msg': 'error %s' % e.message
+                }
+                return self.render_json_response(res)
+            res = {
+                'error': 0,
+                'msg': 'new selection Success'
+            }
+            return self.render_json_response(res)
+        else:
+            res = {
+                'error': 1,
+                'msg': 'can not get new list from json string'
+            }
+            return self.render_json_response(res)
+
+
 class DoBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
     def doBatchMission(self, batch_mission):
         for mission in batch_mission:
