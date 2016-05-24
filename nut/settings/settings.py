@@ -119,7 +119,7 @@ CACHES = {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": [
             "redis://10.0.2.46:6379/1",
-            "redis://10.0.2.47:6379/1",
+            "redis://10.0.2.120:6379/1",
             "redis://10.0.2.115:6379/1",
         ],
         "OPTIONS": {
