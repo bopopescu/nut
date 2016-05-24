@@ -308,6 +308,47 @@ class NewBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
             return self.render_json_response(res)
 
 
+class deleteBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
+
+    def doDeleteSelectionBatch(self, entity_id_list):
+        published_selections_to_delete = Selection_Entity.objects.published().filter(entity__id__in=entity_id_list)
+        for sla in published_selections_to_delete:
+            sla.entity.status = Entity.remove
+            sla.entity.save()
+        return
+
+    def post_ajax(self, request, *args, **kwargs):
+        delete_id_list_jsonstring = request.POST.get('entity_id_list', None)
+        if not delete_id_list_jsonstring:
+            res = {
+                'error': 1,
+                'msg': 'can not get delete id list json string'
+            }
+            return self.render_json_response(res)
+        delete_list = json.loads(delete_id_list_jsonstring)
+        if delete_list:
+            try:
+                self.doDeleteSelectionBatch(delete_list)
+            except Exception as e:
+                res = {
+                    'error': 1,
+                    'msg': 'error %s' % e.message
+                }
+                return self.render_json_response(res)
+            res = {
+                'error': 0,
+                'msg': 'delete selection Success'
+            }
+            return self.render_json_response(res)
+        else:
+            res = {
+                'error': 1,
+                'msg': 'can not get delete list from json string'
+            }
+            return self.render_json_response(res)
+
+
+
 class DoBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
     def doBatchMission(self, batch_mission):
         for mission in batch_mission:

@@ -34,6 +34,15 @@ var BatchSelectionApp = Class.extend({
                     that.newSelectionBatch(eids);
                 }
         });
+
+         $('#btn_batch_selection_delete').click(function(){
+                console.log('delete selection in batch');
+                var eids = that.collectEntityId();
+                console.log(eids);
+                if(eids.length){
+                    that.deleteSelectionBatch(eids);
+                }
+        });
     },
 
     removeSelectionBatch: function(eids){
@@ -63,6 +72,17 @@ var BatchSelectionApp = Class.extend({
             bootbox.confirm('共 '+ eids.length +' 件商品，确定要设为新品吗？', function(result){
                 if(result){
                     that.sendNewMission(eids);
+                }else{
+                    return ;
+                }
+            });
+    },
+
+    deleteSelectionBatch: function(eids){
+            var that = this ;
+            bootbox.confirm('共 '+ eids.length +' 件商品，确定要删除吗？', function(result){
+                if(result){
+                    that.sendDeleteMission(eids);
                 }else{
                     return ;
                 }
@@ -102,6 +122,17 @@ var BatchSelectionApp = Class.extend({
         );
     },
 
+    sendDeleteMission:function(eids){
+        $.when($.ajax({
+            url: '/management/selection/set/delete/batch/do/',
+            method: 'POST',
+            data:{'entity_id_list':JSON.stringify(eids)}
+        })).then(
+            this.deleteSelectionBatchSuccess.bind(this),
+            this.deleteSelectionBatchFail.bind(this)
+        );
+    },
+
     removeSelectionBatchSuccess:function(data){
         console.log('success removed ');
         window.location.reload();
@@ -123,6 +154,13 @@ var BatchSelectionApp = Class.extend({
     },
     newSelectionBatchFail:function(data){
         console.log('set new failed');
+    },
+    deleteSelectionBatchSuccess:function(data){
+        console.log('success set delete ');
+        window.location.reload();
+    },
+    deleteSelectionBatchFail:function(data){
+        console.log('set delete failed');
     },
     collectEntityId: function(){
         console.log('begin collect pending selection entity id');
