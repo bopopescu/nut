@@ -361,50 +361,50 @@ var tag_list = [[
 ],[
     "terra",
     "\u68ad\u7f16\u73ab\u7470\u8033\u9489 \u6e10\u7eef\u7ea2/\u7eff",
-    "368.00",
-    "368.00",
+    "368",
+    "368",
     "http://s.click.taobao.com/t?e=m%3D2%26s%3DzuEVQU7tawocQipKwQzePOeEDrYVVa64LKpWJ%2Bin0XJRAdhuF14FMXjd6ZRkTCdpRitN3%2FurF3xBDUe0XD%2FtoU8M7FpuGTL4P8nKybPIkaOdzx82Zdsk9FSKBmO7MTufwQC83tJvwT%2FLDDyZyBacaMYOae24fhW0&pvid=50_106.38.150.47_1119_1463637827040"
 ],[
     "terra",
     "\u68ad\u7f16\u73ab\u7470\u8033\u9489 \u6e10\u7d2b\u7ea2/\u7eff",
-    "368.00",
-    "368.00",
+    "368",
+    "368",
     "http://s.click.taobao.com/t?e=m%3D2%26s%3DzuEVQU7tawocQipKwQzePOeEDrYVVa64LKpWJ%2Bin0XJRAdhuF14FMXjd6ZRkTCdpRitN3%2FurF3xBDUe0XD%2FtoU8M7FpuGTL4P8nKybPIkaOdzx82Zdsk9FSKBmO7MTufwQC83tJvwT%2FLDDyZyBacaMYOae24fhW0&pvid=50_106.38.150.47_1119_1463637827040"
 ],[
     "terra",
     "\u68ad\u7f16\u73ab\u7470\u8033\u9489 \u6e10\u7d2b/\u7eff",
-    "368.00",
-    "368.00",
+    "368",
+    "368",
     "http://s.click.taobao.com/t?e=m%3D2%26s%3DzuEVQU7tawocQipKwQzePOeEDrYVVa64LKpWJ%2Bin0XJRAdhuF14FMXjd6ZRkTCdpRitN3%2FurF3xBDUe0XD%2FtoU8M7FpuGTL4P8nKybPIkaOdzx82Zdsk9FSKBmO7MTufwQC83tJvwT%2FLDDyZyBacaMYOae24fhW0&pvid=50_106.38.150.47_1119_1463637827040"
 ],[
     "terra",
     "\u68ad\u7f16\u73ab\u7470\u8033\u9489 \u6a59\u7ea2/\u7eff",
-    "368.00",
-    "368.00",
+    "368",
+    "368",
     "http://s.click.taobao.com/t?e=m%3D2%26s%3DzuEVQU7tawocQipKwQzePOeEDrYVVa64LKpWJ%2Bin0XJRAdhuF14FMXjd6ZRkTCdpRitN3%2FurF3xBDUe0XD%2FtoU8M7FpuGTL4P8nKybPIkaOdzx82Zdsk9FSKBmO7MTufwQC83tJvwT%2FLDDyZyBacaMYOae24fhW0&pvid=50_106.38.150.47_1119_1463637827040"
 ],[
     "terra",
     "\u68ad\u7f16\u73ab\u7470\u8033\u9489 \u7ea2/\u767d",
-    "368.00",
-    "368.00",
+    "368",
+    "368",
     "http://s.click.taobao.com/t?e=m%3D2%26s%3DzuEVQU7tawocQipKwQzePOeEDrYVVa64LKpWJ%2Bin0XJRAdhuF14FMXjd6ZRkTCdpRitN3%2FurF3xBDUe0XD%2FtoU8M7FpuGTL4P8nKybPIkaOdzx82Zdsk9FSKBmO7MTufwQC83tJvwT%2FLDDyZyBacaMYOae24fhW0&pvid=50_106.38.150.47_1119_1463637827040"
 ],[
     "terra",
     "\u68ad\u7f16\u73ab\u7470\u8033\u9489 \u7ea2/\u767d",
-    "398.00",
-    "398.00",
+    "398",
+    "398",
     "http://s.click.taobao.com/t?e=m%3D2%26s%3DNe0idxPdvKYcQipKwQzePDAVflQIoZepLKpWJ%2Bin0XJRAdhuF14FMSo1HDaJrCZs79%2FTFaMDK6RBDUe0XD%2FtoU8M7FpuGTL4P8nKybPIkaOdzx82Zdsk9CgaCCITGYsZIYULNg46oBA%3D"
 ],[
     "terra",
     "\u68ad\u7f16\u73ab\u7470\u8033\u9489 \u7ea2/\u767d",
-    "438.00",
-    "438.00",
+    "438",
+    "438",
     "http://s.click.taobao.com/t?e=m%3D2%26s%3DNe0idxPdvKYcQipKwQzePDAVflQIoZepLKpWJ%2Bin0XJRAdhuF14FMSo1HDaJrCZs79%2FTFaMDK6RBDUe0XD%2FtoU8M7FpuGTL4P8nKybPIkaOdzx82Zdsk9CgaCCITGYsZIYULNg46oBA%3D"
 ],[
     "terra",
     "\u68ad\u7f16\u73ab\u7470\u9879\u94fe tat1-2-1",
-    "328.00",
-    "328.00",
+    "328",
+    "328",
     "http://s.click.taobao.com/t?e=m%3D2%26s%3DNe0idxPdvKYcQipKwQzePDAVflQIoZepLKpWJ%2Bin0XJRAdhuF14FMSo1HDaJrCZs79%2FTFaMDK6RBDUe0XD%2FtoU8M7FpuGTL4P8nKybPIkaOdzx82Zdsk9CgaCCITGYsZIYULNg46oBA%3D"
 ],[
     "\u767d\u77ee\u661fWhiteDwarf",
@@ -998,61 +998,61 @@ var tag_list = [[
     "UMUTOPIA \u6709\u6c90",
     "\u771f\u4e1d\u540a\u5e26\u4e0d\u89c4\u5219\u8fde\u8863\u88d9",
     "1260",
-    "1260",
+    "756",
     "http://s.click.taobao.com/t?e=m%3D2%26s%3D5SZ0yN8HoAAcQipKwQzePOeEDrYVVa64LKpWJ%2Bin0XJRAdhuF14FMWdvLe46EaLdlovu%2FCElQOtBDUe0XD%2FtoU8M7FpuGTL4P8nKybPIkaPOcG5FtRV4mdBQ6EIweB2qu2xd93Dpeoy0XOwikzas8cYOae24fhW0&pvid=50_123.115.138.199_478_1463989222247"
 ],[
     "UMUTOPIA \u6709\u6c90",
     "\u771f\u4e1d\u4e0d\u89c4\u5219\u7ebf\u6761\u65e0\u8896\u8fde\u8863\u88d9 \u7d2b\u8272",
     "1380",
-    "1380",
+    "828",
     "http://s.click.taobao.com/t?e=m%3D2%26s%3DqhotIe6tIGUcQipKwQzePOeEDrYVVa64LKpWJ%2Bin0XJRAdhuF14FMddNV2ZK77bg8sviUM61dt1BDUe0XD%2FtoU8M7FpuGTL4P8nKybPIkaPOcG5FtRV4mdBQ6EIweB2qJ7FtFw8scvG0Edovx0O6ecYOae24fhW0&pvid=50_123.115.138.199_468_1463989248734"
 ],[
     "UMUTOPIA \u6709\u6c90",
     "\u771f\u4e1d\u4e0d\u89c4\u5219\u7ebf\u6761\u65e0\u8896\u8fde\u8863\u88d9 \u9152\u7ea2\u8272",
     "1380",
-    "1380",
+    "828",
     "http://s.click.taobao.com/t?e=m%3D2%26s%3D1sTpoAa%2B1NYcQipKwQzePOeEDrYVVa64LKpWJ%2Bin0XJRAdhuF14FMRsvHpbBb3E9RitN3%2FurF3xBDUe0XD%2FtoU8M7FpuGTL4P8nKybPIkaPOcG5FtRV4mdBQ6EIweB2qS0xR8EdckIq5IrSKXV5EMsYOae24fhW0&pvid=50_123.115.138.199_1515112_1463989267488"
 ],[
     "UMUTOPIA \u6709\u6c90",
     "\u771f\u4e1d\u83f1\u5f62\u62fc\u63a5\u65e0\u8896\u8fde\u8863\u88d9 \u9152\u7ea2\u8272",
     "1380",
-    "1380",
+    "828",
     "http://s.click.taobao.com/t?e=m%3D2%26s%3D0hfMUDkGEkAcQipKwQzePOeEDrYVVa64LKpWJ%2Bin0XJRAdhuF14FMUB5I3Rz2oOgRitN3%2FurF3xBDUe0XD%2FtoU8M7FpuGTL4P8nKybPIkaPOcG5FtRV4mdBQ6EIweB2q3mX3XCUp0RXWUVucfBdYp8YOae24fhW0&pvid=50_123.115.138.199_1515039_1463989287769"
 ],[
     "UMUTOPIA \u6709\u6c90",
     "\u771f\u4e1d\u83f1\u5f62\u62fc\u63a5\u65e0\u8896\u8fde\u8863\u88d9 \u7d2b\u8272",
     "1380",
-    "1380",
+    "828",
     "http://s.click.taobao.com/t?e=m%3D2%26s%3DAx%2BPhxb8DwAcQipKwQzePOeEDrYVVa64LKpWJ%2Bin0XJRAdhuF14FMRK%2Bgd6Xp%2Fv78sviUM61dt1BDUe0XD%2FtoU8M7FpuGTL4P8nKybPIkaPOcG5FtRV4mdBQ6EIweB2qK0eXOotscT35GFGuZJWcZcYOae24fhW0&pvid=50_123.115.138.199_475_1463990313014"
 ],[
     "UMUTOPIA \u6709\u6c90",
     "\u771f\u4e1d\u62fc\u63a5\u4e03\u5206\u8896\u8fde\u8863\u88d9",
     "1480",
-    "1480",
+    "888",
     "http://s.click.taobao.com/t?e=m%3D2%26s%3DH%2BKCPMO5DhEcQipKwQzePOeEDrYVVa64LKpWJ%2Bin0XJRAdhuF14FMaz03ZKU26Ql8sviUM61dt1BDUe0XD%2FtoU8M7FpuGTL4P8nKybPIkaPOcG5FtRV4mdBQ6EIweB2qLI92glq4pIeXdDuT8efakcYOae24fhW0&pvid=50_123.115.138.199_605_1463990418998"
 ],[
     "UMUTOPIA \u6709\u6c90",
     "\uff3b\u6c42\u667a\u5546\uff3d\u516d\u8033\u7315\u7334\u81ea\u5236\u84dd\u5f69\u5370\u82b1\u540a\u5e26",
     "1100",
-    "1100",
+    "880",
     "http://s.click.taobao.com/t?e=m%3D2%26s%3DhZDRU9Axhc4cQipKwQzePOeEDrYVVa64LKpWJ%2Bin0XJRAdhuF14FMVzf0ushy6oClovu%2FCElQOtBDUe0XD%2FtoU8M7FpuGTL4P8nKybPIkaPOcG5FtRV4mdBQ6EIweB2qlYlM5A6Ctmkq4YwB3%2Ff7x8YOae24fhW0&pvid=50_123.115.138.199_47126_1463990543065"
 ],[
     "UMUTOPIA \u6709\u6c90",
     "\uff3b\u6c42\u667a\u5546\uff3d\u516d\u8033\u7315\u7334\u81ea\u5236\u6a59\u5f69\u5370\u82b1TOP",
     "799",
-    "799",
+    "639",
     "http://s.click.taobao.com/t?e=m%3D2%26s%3DwTHpGZpCcEEcQipKwQzePOeEDrYVVa64LKpWJ%2Bin0XJRAdhuF14FMZ4VqqgXXpF%2Fxq3IhSJN6GRBDUe0XD%2FtoU8M7FpuGTL4P8nKybPIkaPOcG5FtRV4mdBQ6EIweB2qxFgyV5pPz8Hny6VBt%2FZZfcYOae24fhW0&pvid=50_123.115.138.199_236_1463990561746"
 ],[
     "UMUTOPIA \u6709\u6c90",
     "\uff3b\u6c42\u667a\u5546\uff3d\u516d\u8033\u7315\u7334\u81ea\u5236\u84dd\u5f69\u5370\u82b1\u8584\u7eb1\u5916\u5957",
     "1299",
-    "1299",
+    "1039",
     "http://s.click.taobao.com/t?e=m%3D2%26s%3DHjRppScaAJ0cQipKwQzePOeEDrYVVa64LKpWJ%2Bin0XJRAdhuF14FMS2%2FsJc5VVCCRitN3%2FurF3xBDUe0XD%2FtoU8M7FpuGTL4P8nKybPIkaPOcG5FtRV4mdBQ6EIweB2qAdm2z6%2BFtZYZvebOMIEDR8YOae24fhW0&pvid=50_123.115.138.199_895277_1463990607211"
 ],[
     "UMUTOPIA \u6709\u6c90",
     "\uff3b\u6c42\u667a\u5546\uff3d\u516d\u8033\u7315\u7334\u81ea\u5236\u6a59\u5f69\u5370\u82b1\u8584\u7eb1\u5916\u5957",
     "1199",
-    "1199",
+    "959",
     "http://s.click.taobao.com/t?e=m%3D2%26s%3DKyG5X8zgqQQcQipKwQzePOeEDrYVVa64LKpWJ%2Bin0XJRAdhuF14FMYvZbrCUY5Abt4hWD5k2kjNBDUe0XD%2FtoU8M7FpuGTL4P8nKybPIkaPOcG5FtRV4mdBQ6EIweB2qSbsD6svmD611aipF58russYOae24fhW0&pvid=50_123.115.138.199_218_1463990670299"
 ],[
     "YIN",
