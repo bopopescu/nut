@@ -71,13 +71,13 @@ ul#tag_list > li .info .price-wrapper .price .price-number {
   }
   ul#tag_list > li .qr-code {
     float: right;
-    width: 2cm;
-    height: 2cm;
+    width: 2.4cm;
+    height: 2.4cm;
     padding-left: 1em;
   }
   ul#tag_list > li .qr-code img {
-    height: 2cm;
-    width: 2cm;
+    height: 2.4cm;
+    width: 2.4cm;
   }
   ul#tag_list > li .info .title {
     font-size: 1em;
@@ -98,4 +98,13 @@ ul#tag_list > li .info .price-wrapper .price .price-number {
     position: relative;
     left: -0.4em;
   }
+  #input_container {
+    display: none;
+  }
+}
+#input_container li {
+  margin-top: 20px;
+}
+#input_container input {
+  with: 400px;
 }
