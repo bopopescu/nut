@@ -73,16 +73,16 @@ CACHES = {
 #
 
 # ----------------------- debug -----------------------
-def removeDebugToolBar(theList):
-    return [x  for x in theList if x!='debug_toolbar']
+# def removeDebugToolBar(theList):
+#     return [x  for x in theList if x!='debug_toolbar']
+#
+# INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
 
-INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
-
-
-INSTALLED_APPS +=(
-        'django.contrib.sessions',
-        'django.contrib.admin'
-)
+#
+# INSTALLED_APPS +=(
+#         'django.contrib.sessions',
+#         'django.contrib.admin'
+# )
 
 #-------------------------debug end --------------------
 
@@ -130,34 +130,34 @@ Current_Dbhost = 'localhost'
 #     },
 # }
 
-DATABASES = PRODUCTION_DATABASES
-#
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'core',
-#         'USER': 'guoku',
-#         'PASSWORD': 'guoku!@#',
-#         'HOST': Current_Dbhost,
-#         'PORT': '',
-#         'OPTIONS': {
-#             'use_unicode':'utf8mb4',
-#             'init_command':'SET storage_engine=INNODB',
-#         }
-#     },
-#     'slave': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'core',
-#         'USER': 'guoku',
-#         'PASSWORD': 'guoku!@#',
-#         'HOST': Current_Dbhost,
-#         'PORT': '',
-#         'OPTIONS': {
-#             'use_unicode':'utf8mb4',
-#             'init_command':'SET storage_engine=INNODB',
-#         }
-#     },
-# }
+# DATABASES = PRODUCTION_DATABASES
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'core',
+        'USER': 'guoku',
+        'PASSWORD': 'guoku!@#',
+        'HOST': Current_Dbhost,
+        'PORT': '',
+        'OPTIONS': {
+            'use_unicode':'utf8mb4',
+            'init_command':'SET storage_engine=INNODB',
+        }
+    },
+    'slave': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'core',
+        'USER': 'guoku',
+        'PASSWORD': 'guoku!@#',
+        'HOST': Current_Dbhost,
+        'PORT': '',
+        'OPTIONS': {
+            'use_unicode':'utf8mb4',
+            'init_command':'SET storage_engine=INNODB',
+        }
+    },
+}
 
 
 # need this for popular category like back trace time
