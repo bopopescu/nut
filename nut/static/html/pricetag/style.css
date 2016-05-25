@@ -18,7 +18,6 @@ ul#tag_list > li {
   margin: 10px 10px;
   padding: 30px;
   background: #fff;
-  border: 1px solid #e0e0e0;
   float: left;
 }
 ul#tag_list > li .store {
@@ -55,20 +54,15 @@ ul#tag_list > li .info .price-wrapper .price .price-number {
   left: -5px;
 }
 @media print {
-  @page {
-    padding: 0;
-    margin: 0;
-  }
   ul#tag_list {
     font-size: 0.3cm;
   }
   ul#tag_list > li {
-    height: 3.0cm;
-    width: 7cm;
-    margin: 0 0 0 0;
-    padding: 0.3cm 0.3cm 0.3cm 0.3cm;
+    height: 3cm;
+    width: 5cm;
+    margin: 0.13cm;
+    padding: 0.1cm;
     background: #fff;
-    border: 1px solid #e0e0e0;
     float: left;
   }
   ul#tag_list > li .store {
