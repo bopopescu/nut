@@ -1,4 +1,4 @@
-
+3.  
 2.  update recommend user discover page display count to 10 
 1.  price qr code update
 
