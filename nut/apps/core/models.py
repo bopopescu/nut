@@ -1137,6 +1137,8 @@ class Buy_Link(BaseModel):
     status = models.PositiveIntegerField(default=sale,
                                          choices=Buy_Link_STATUS_CHOICES)
 
+    last_update = models.DateTimeField(auto_now=True)
+
     class Meta:
         ordering = ['-default']
 
