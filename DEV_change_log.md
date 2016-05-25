@@ -1,3 +1,11 @@
+
+2.  update recommend user discover page display count to 10 
+1.  price qr code update
+
+=======================
+# merged to master 2016 5-23
+=======================
+
 5. update google analysis code 
 4. web -pop up store top banner -- lq
 3. api - article.digest filter blank characters  
