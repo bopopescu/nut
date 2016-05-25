@@ -84,7 +84,7 @@ class EntityQuerySet(models.query.QuerySet):
     def random_seller_entities(self):
         base_query = self.new_or_selection().order_by('-created_time')
         sellers = list(get_user_model().objects.authorized_seller())
-        sample_space = base_query.filter(user__in=sellers)[:400]
+        sample_space = base_query.filter(user__in=sellers)[:100]
         return random.sample(sample_space, 18)
 
 
