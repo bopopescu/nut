@@ -399,7 +399,7 @@ def selection(request):
 
     try:
         _session = Session_Key.objects.get(session_key=_key)
-        log.info("session %s" % _session)
+        # log.info("session %s" % _session)
         el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(ids))
         # log.info(_session.session_key)
         Selection_Entity.objects.set_user_refresh_datetime(session=_session.session_key)
