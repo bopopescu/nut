@@ -2509,6 +2509,7 @@ body.compact-body {
   max-height: 420px;
 }
 #index-banners .banner-image-cell.banner-image-cell-control {
+  display: inline-block;
   padding: 0 5px;
   position: relative;
 }
