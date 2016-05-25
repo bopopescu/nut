@@ -2180,6 +2180,7 @@ textarea {
   color: #fff;
 }
 .top-ad {
+  display: none;
   height: 50px;
   width: 100%;
   background: none;
@@ -4250,6 +4251,10 @@ body.compact-body {
 .mobile-body {
   padding-bottom: 40px;
 }
+.guoku-app .top-ad,
+.mobile-body .top-ad {
+  display: none;
+}
 .guoku-app #guoku_main_nav,
 .mobile-body #guoku_main_nav {
   display: none;
@@ -4847,5 +4852,5 @@ body .for-mobile {
   color: #357ebd;
 }
 .gk_test {
-  color: red;
+  color: black;
 }
