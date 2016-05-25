@@ -18,6 +18,8 @@ from settings import GUOKU_MAIL, GUOKU_NAME
 
 log = getLogger('django')
 
+def is_user_can_send_email(gk_user):
+    return  not ((len(gk_user.email) == 42) and ('@guoku.com' in gk_user.email))
 
 def send_forget_password_mail(gk_user, domain=None, template_invoke_name=None,
                               token_generator=None):
@@ -66,8 +68,11 @@ def _add_user_to_list(gk_user):
     addr_list.save()
 
 
+
 @task(base=BaseTask, name='send_verification_mail')
 def _send_activation_mail(gk_user):
+    if not is_user_can_send_email(gk_user):
+        return
     template_invoke_name = settings.VERFICATION_EMAIL_TEMPLATE
     mail_message = EmailMessage(to=(gk_user.email,),
                                 from_email=GUOKU_MAIL, )
@@ -87,6 +92,8 @@ def _send_activation_mail(gk_user):
 @task(base=BaseTask, name='send_forget_password_mail')
 def _send_forget_password_mail(gk_user, domain=None, token_generator=None,
                                template_invoke_name=None):
+    if not is_user_can_send_email(gk_user):
+        return
     domain = domain or settings.SITE_DOMAIN
     template_invoke_name = template_invoke_name or settings.RESET_PASSWORD_TEMPLATE
     token_generator = token_generator or default_token_generator

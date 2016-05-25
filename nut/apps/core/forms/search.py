@@ -1,7 +1,10 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from haystack.forms import SearchForm as haystackSearchForm
+from apps.core.models import Article, Entity, GKUser
+from apps.tag.models import Tags
 # from apps.core.models import Entity
+
 
 class SearchForm(forms.Form):
     q = forms.CharField(required=False, label=_('Search'),
@@ -32,5 +35,22 @@ class GKSearchForm(haystackSearchForm):
         if not self.is_valid():
             return self.no_query_found()
         return sqs
+
+    def get_article_count(self):
+
+        return self.searchqueryset.filter(content=self.cleaned_data['q'], is_selection=True).\
+            models(Article).count()
+
+    def get_entity_count(self):
+        return self.searchqueryset.filter(content=self.cleaned_data['q']).\
+            models(Entity).count()
+
+    def get_user_count(self):
+        return self.searchqueryset.filter(content=self.cleaned_data['q']).\
+            models(GKUser).count()
+
+    def get_tag_count(self):
+        return self.searchqueryset.filter(content=self.cleaned_data['q']).\
+            models(Tags).count()
 
 __author__ = 'edison'

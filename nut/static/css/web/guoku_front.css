@@ -1361,6 +1361,13 @@ p.boolean-false {
   background-size: cover;
   background-repeat: no-repeat;
 }
+.single-text-overflow {
+  width: 100%;
+  height: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .message_page {
   width: 941px;
 }
@@ -2188,7 +2195,6 @@ textarea {
   text-align: center;
 }
 .top-ad .ad-wrapper a .top-ad-title-wrapper .top-ad-title-control {
-  width: 217px;
   height: 40px;
   margin: 5px auto;
 }
@@ -4246,6 +4252,10 @@ body.compact-body {
 .mobile-body {
   padding-bottom: 40px;
 }
+.guoku-app .top-ad,
+.mobile-body .top-ad {
+  display: none;
+}
 .guoku-app #guoku_main_nav,
 .mobile-body #guoku_main_nav {
   display: none;
@@ -4350,6 +4360,15 @@ body.compact-body {
 #selection_article_list .selection-article-item.article-compact .article-title {
   font-size: 18px;
   font-weight: 600;
+}
+#selection_article_list .xs-selection-article-item {
+  margin: 10px 0;
+}
+#selection_article_list .xs-selection-article-item .more-article-wrapper {
+  margin: 0;
+}
+#selection_article_list .xs-selection-article-item .more-article-wrapper .title-wrapper a {
+  text-decoration: none;
 }
 #sitemap #site_map_list {
   padding-left: 20px;
@@ -4834,5 +4853,5 @@ body .for-mobile {
   color: #357ebd;
 }
 .gk_test {
-  color: red;
+  color: black;
 }
