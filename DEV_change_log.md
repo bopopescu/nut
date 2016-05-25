@@ -1,6 +1,7 @@
-4. web -pop up store top banner
-3. api - article.digest filter blank
-2. other - price tag html
+5. update google analysis code
+4. web -pop up store top banner -- lq
+3. api - article.digest filter blank characters
+2. other - price tag html 
 1. mng - editor can  access brand list page and manage brand entity
 
 =======================
