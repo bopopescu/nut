@@ -1,3 +1,4 @@
+8.  web - brand page update --along
 7.  web - user add entity tmall price fix --along 
 6.  web - fix event page bug  -- lq
 5.  mng - selection entity batch new/freeze/remove --lq
