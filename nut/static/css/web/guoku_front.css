@@ -599,6 +599,7 @@ ul li {
 }
 .event-entity-item .img-box a {
   padding: 8px;
+  width: 100%;
 }
 .event-entity-item .section-info div {
   font-size: 14px;
