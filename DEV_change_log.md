@@ -1,8 +1,35 @@
-9. 
-8. web - add feed for editor selection article 
+6.  web - fix event page bug 
+5.  mng - selection entity batch new/freeze/remove --lq
+4.  api - app banner api switch    -- anchen 
+3.  web  -good-store optimize  -- lq
+2.  web  -update recommend user discover page display count to 10 -an 
+1.  other - price qr code update  -- anchen
+
+####
+still on anchen_entity_spider branch
+
+ALTER TABLE `core`.`core_buy_link` 
+ADD COLUMN `last_update` DATETIME NOT NULL DEFAULT '2013-12-01T00:00:00.000' AFTER `foreign_price`;
+
+
+=======================
+# merged to master 2016 5-23
+=======================
+
+5. update google analysis code 
+4. web -pop up store top banner -- lq
+3. api - article.digest filter blank characters  
+2. other - price tag html 
+1. mng - editor can  access brand list page and manage brand entity
+
+=======================
+# merged to master 2016 5-19
+=======================
+
+8. web - new article feed for editor selection article 
 7. web - good store page update  -- lq , ac
 6. web - entity detail , sold out entity add "去店铺" button
-5. web - recommend user name and all remcommend page    -- lq
+5. web - recommended user name and all recommended user  page    -- lq
 4. mng - tmall price    -- along 
 3. mng - add '积极用户' manage    --  along
 2. backend - limit guoku generated email address , verify mail and change pass mail sending

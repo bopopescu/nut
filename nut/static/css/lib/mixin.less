@@ -166,3 +166,12 @@
           }
 }
 
+//multiple lines(lines > 1) text overflow add by lq
+//solve several lines'texts overflow
+//only support webkit browser
+.multiple-text-overflow(@lines-value){
+	display: -webkit-box;
+	-webkit-line-clamp: @lines-value;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
