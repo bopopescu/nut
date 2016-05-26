@@ -249,7 +249,7 @@
     }
   }
   .section-info{
-     height: 97px;
+     //height: 97px;
      div {
        font-size:@smaller-primary;
        margin-left: 30px;
@@ -260,10 +260,15 @@
      }
      .entity-brand{
         margin-top: 15px;
+       .single-text-overflow;
+
      }
     .entity-title{
        margin-bottom:0px;
        margin-top: 0px;
+      .multiple-text-overflow(2);
+      min-height:40px;
+      max-height:40px;
     }
     .entity-price{
         .price-tag-widget;
@@ -957,8 +962,8 @@ p.boolean-false{
 }
 
 .single-text-overflow{
-  width:100%;
-  height:auto;
+//  width:100%;
+  //height:auto;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
