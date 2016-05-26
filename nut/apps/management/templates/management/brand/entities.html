@@ -81,7 +81,7 @@
                                             {{ entity.object.get_status_display }}</td>
 
                                         <td class="switch-holder">
-                                            <input type="checkbox" data-id="{{ entity.pk }}" class="js-switch"  {% if entity.object.brand_link %}checked{% endif %} />
+                                            <input type="checkbox" data-id="{{ entity.pk }}" class="js-switch"  {% if entity.is_belong %}checked{% endif %} />
                                         </td>
                                         <td class="product-actions">
                                             <div class="btn-group">

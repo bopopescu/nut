@@ -124,6 +124,14 @@ class BrandEntityListView(BaseListView):
         except EmptyPage:
             raise Http404
 
+        for entity in _entities:
+            try:
+                entity_brand = Entity_Brand.objects.get(entity_id=entity.entity_id)
+                if entity_brand.brand_id == int(self._brand_id):
+                    entity.is_belong = True
+            except:
+                pass
+
         context = {
             'brand': self.brand,
             'entities': _entities,
