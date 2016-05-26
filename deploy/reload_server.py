@@ -10,7 +10,7 @@ Config = ConfigParser.ConfigParser()
 Config.read('config.ini')
 
 
-env.hosts = ['114.113.154.47', '114.113.154.46' ]
+env.hosts = ['114.113.154.46']
 env.user = Config.get('global', 'user')
 env.key = Config.get('global', 'key')
 env.password = 'jessie1@#'
