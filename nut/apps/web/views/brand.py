@@ -1,6 +1,6 @@
 from django.views.generic import ListView
 from django.shortcuts import get_object_or_404
-from apps.core.models import Brand, Entity_Like, Entity
+from apps.core.models import Brand, Entity_Like, Entity, Entity_Brand
 from haystack.query import SearchQuerySet
 
 
@@ -25,15 +25,12 @@ class BrandDetailView(ListView):
 
     def get_queryset(self):
         brand_pk = self.kwargs.get('pk')
-        brand = get_object_or_404(Brand, pk=brand_pk)
-
+        # brand = get_object_or_404(Brand, pk=brand_pk)
+        entity_brand = Entity_Brand.objects.filter(brand_id=int(brand_pk)).order_by('brand_order')
         if self.get_order_by() == 'olike':
-            sqs = Entity.objects.filter(brand=brand.name)
-            sqs = sorted(sqs, key=lambda x: x.like_count, reverse=True)
-            # sqs = SearchQuerySet().models(Entity).filter(brand=brand.name).order_by('like_count')
+            sqs = sorted(entity_brand, key=lambda x: x.entity.like_count, reverse=True)
         else:
-            # sqs = SearchQuerySet().models(Entity).filter(brand=brand.name).order_by('-created_time')
-            sqs = Entity.objects.filter(brand=brand.name).order_by('-created_time')
+            sqs = sorted(entity_brand, key=lambda x: (x.brand_order, x.entity.created_time))
 
         return sqs
 
