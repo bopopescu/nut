@@ -1,7 +1,10 @@
-4. 
-3.  good-store optimize  -- lq
-2.  update recommend user discover page display count to 10 
-1.  price qr code update
+7.  web - user add entity tmall price fix --along 
+6.  web - fix event page bug  -- lq
+5.  mng - selection entity batch new/freeze/remove --lq
+4.  api - app banner api switch    -- anchen 
+3.  web  -good-store optimize  -- lq
+2.  web  -update recommend user discover page display count to 10 -an 
+1.  other - price qr code update  -- anchen
 
 ####
 still on anchen_entity_spider branch

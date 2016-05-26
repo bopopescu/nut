@@ -599,9 +599,7 @@ ul li {
 }
 .event-entity-item .img-box a {
   padding: 8px;
-}
-.event-entity-item .section-info {
-  height: 97px;
+  width: 100%;
 }
 .event-entity-item .section-info div {
   font-size: 14px;
@@ -613,10 +611,19 @@ ul li {
 }
 .event-entity-item .section-info .entity-brand {
   margin-top: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .event-entity-item .section-info .entity-title {
   margin-bottom: 0px;
   margin-top: 0px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 40px;
+  max-height: 40px;
 }
 .event-entity-item .section-info .entity-price {
   font-size: 22px;
@@ -1362,8 +1369,6 @@ p.boolean-false {
   background-repeat: no-repeat;
 }
 .single-text-overflow {
-  width: 100%;
-  height: auto;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
