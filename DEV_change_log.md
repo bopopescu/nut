@@ -1,5 +1,5 @@
-7.  web - user add entity tmall price fix 
-6.  web - fix event page bug 
+7.  web - user add entity tmall price fix --along 
+6.  web - fix event page bug  -- lq
 5.  mng - selection entity batch new/freeze/remove --lq
 4.  api - app banner api switch    -- anchen 
 3.  web  -good-store optimize  -- lq
