@@ -1,3 +1,21 @@
+
+5.  mng - selection entity batch new/freeze/remove --lq
+4.  api - app banner api switch    -- anchen 
+3.  web  -good-store optimize  -- lq
+2.  web  -update recommend user discover page display count to 10 -an 
+1.  other - price qr code update  -- anchen
+
+####
+still on anchen_entity_spider branch
+
+ALTER TABLE `core`.`core_buy_link` 
+ADD COLUMN `last_update` DATETIME NOT NULL DEFAULT '2013-12-01T00:00:00.000' AFTER `foreign_price`;
+
+
+=======================
+# merged to master 2016 5-23
+=======================
+
 5. update google analysis code 
 4. web -pop up store top banner -- lq
 3. api - article.digest filter blank characters  

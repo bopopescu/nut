@@ -8,8 +8,11 @@ def handle_file(filename=None):
     product_list = []
     with open(filename, 'r') as fd:
         lines = fd.readlines()
-        for line in lines[2:202]:
+        for line in lines[2:]:
+
             items = line.split(',')
+            if len(items[9]) < 4 :
+                continue
             product_list.append([
                 items[1],
                 items[2],
@@ -35,4 +38,4 @@ def handle_file(filename=None):
 
 
 if __name__ == '__main__':
-    handle_file('product_list.csv')
+    handle_file('read_fail.csv')
