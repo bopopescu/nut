@@ -1,4 +1,4 @@
-
+6.  web - fix event page bug 
 5.  mng - selection entity batch new/freeze/remove --lq
 4.  api - app banner api switch    -- anchen 
 3.  web  -good-store optimize  -- lq
