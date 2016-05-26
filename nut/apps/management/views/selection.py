@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
-from apps.core.models import Selection_Entity, Entity_Like
+from apps.core.models import Selection_Entity, Entity_Like,  Entity
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, \
     EmptyPage
 from apps.core.forms.selection import SelectionForm, SetPublishDatetimeForm
@@ -226,6 +226,127 @@ class RemoveBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
                 'msg': 'can not get remove list from json string'
             }
             return self.render_json_response(res)
+
+
+class FreezeBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
+
+    def doFreezeSelectionBatch(self, entity_id_list):
+        published_selections_to_freeze = Selection_Entity.objects.filter(entity__id__in=entity_id_list)
+        for sla in published_selections_to_freeze:
+            sla.entity.status = Entity.freeze
+            sla.entity.save()
+        return
+
+    def post_ajax(self, request, *args, **kwargs):
+        freeze_id_list_jsonstring = request.POST.get('entity_id_list', None)
+        if not freeze_id_list_jsonstring:
+            res = {
+                'error': 1,
+                'msg': 'can not get freeze id list json string'
+            }
+            return self.render_json_response(res)
+        freeze_list = json.loads(freeze_id_list_jsonstring)
+        if freeze_list:
+            try:
+                self.doFreezeSelectionBatch(freeze_list)
+            except Exception as e:
+                res = {
+                    'error': 1,
+                    'msg': 'error %s' % e.message
+                }
+                return self.render_json_response(res)
+            res = {
+                'error': 0,
+                'msg': 'freeze selection Success'
+            }
+            return self.render_json_response(res)
+        else:
+            res = {
+                'error': 1,
+                'msg': 'can not get freeze list from json string'
+            }
+            return self.render_json_response(res)
+
+
+class NewBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
+
+    def doNewSelectionBatch(self, entity_id_list):
+        published_selections_to_new = Selection_Entity.objects.filter(entity__id__in=entity_id_list)
+        for sla in published_selections_to_new:
+            sla.entity.status = Entity.new
+            sla.entity.save()
+        return
+
+    def post_ajax(self, request, *args, **kwargs):
+        new_id_list_jsonstring = request.POST.get('entity_id_list', None)
+        if not new_id_list_jsonstring:
+            res = {
+                'error': 1,
+                'msg': 'can not get new id list json string'
+            }
+            return self.render_json_response(res)
+        new_list = json.loads(new_id_list_jsonstring)
+        if new_list:
+            try:
+                self.doNewSelectionBatch(new_list)
+            except Exception as e:
+                res = {
+                    'error': 1,
+                    'msg': 'error %s' % e.message
+                }
+                return self.render_json_response(res)
+            res = {
+                'error': 0,
+                'msg': 'new selection Success'
+            }
+            return self.render_json_response(res)
+        else:
+            res = {
+                'error': 1,
+                'msg': 'can not get new list from json string'
+            }
+            return self.render_json_response(res)
+
+
+class deleteBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
+
+    def doDeleteSelectionBatch(self, entity_id_list):
+        published_selections_to_delete = Selection_Entity.objects.filter(entity__id__in=entity_id_list)
+        for sla in published_selections_to_delete:
+            sla.entity.status = Entity.remove
+            sla.entity.save()
+        return
+
+    def post_ajax(self, request, *args, **kwargs):
+        delete_id_list_jsonstring = request.POST.get('entity_id_list', None)
+        if not delete_id_list_jsonstring:
+            res = {
+                'error': 1,
+                'msg': 'can not get delete id list json string'
+            }
+            return self.render_json_response(res)
+        delete_list = json.loads(delete_id_list_jsonstring)
+        if delete_list:
+            try:
+                self.doDeleteSelectionBatch(delete_list)
+            except Exception as e:
+                res = {
+                    'error': 1,
+                    'msg': 'error %s' % e.message
+                }
+                return self.render_json_response(res)
+            res = {
+                'error': 0,
+                'msg': 'delete selection Success'
+            }
+            return self.render_json_response(res)
+        else:
+            res = {
+                'error': 1,
+                'msg': 'can not get delete list from json string'
+            }
+            return self.render_json_response(res)
+
 
 
 class DoBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
