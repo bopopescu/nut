@@ -253,10 +253,17 @@
 }
 .event-entity-item .section-info .entity-brand {
   margin-top: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .event-entity-item .section-info .entity-title {
   margin-bottom: 0px;
   margin-top: 0px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .event-entity-item .section-info .entity-price {
   font-size: 22px;
@@ -1002,8 +1009,6 @@ p.boolean-false {
   background-repeat: no-repeat;
 }
 .single-text-overflow {
-  width: 100%;
-  height: auto;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1160,8 +1165,6 @@ p.boolean-false {
 }
 .user-icon-list.recommend-user-list li span.user-name {
   display: block;
-  width: 100%;
-  height: auto;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
