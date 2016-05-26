@@ -231,7 +231,7 @@ class RemoveBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
 class FreezeBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
 
     def doFreezeSelectionBatch(self, entity_id_list):
-        published_selections_to_freeze = Selection_Entity.objects.published().filter(entity__id__in=entity_id_list)
+        published_selections_to_freeze = Selection_Entity.objects.filter(entity__id__in=entity_id_list)
         for sla in published_selections_to_freeze:
             sla.entity.status = Entity.freeze
             sla.entity.save()
@@ -271,7 +271,7 @@ class FreezeBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
 class NewBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
 
     def doNewSelectionBatch(self, entity_id_list):
-        published_selections_to_new = Selection_Entity.objects.published().filter(entity__id__in=entity_id_list)
+        published_selections_to_new = Selection_Entity.objects.filter(entity__id__in=entity_id_list)
         for sla in published_selections_to_new:
             sla.entity.status = Entity.new
             sla.entity.save()
@@ -311,7 +311,7 @@ class NewBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
 class deleteBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
 
     def doDeleteSelectionBatch(self, entity_id_list):
-        published_selections_to_delete = Selection_Entity.objects.published().filter(entity__id__in=entity_id_list)
+        published_selections_to_delete = Selection_Entity.objects.filter(entity__id__in=entity_id_list)
         for sla in published_selections_to_delete:
             sla.entity.status = Entity.remove
             sla.entity.save()
