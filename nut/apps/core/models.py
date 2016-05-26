@@ -1295,6 +1295,12 @@ class Note_Comment(BaseModel):
     def __unicode__(self):
         return self.content
 
+    @property
+    def replied_user_nick(self):
+        profile = User_Profile.objects.get(user_id = self.replied_user_id)
+        return profile.nickname
+
+
     def v3_toDict(self):
         res = self.toDict()
         res.pop('user_id', None)
@@ -1431,9 +1437,11 @@ class Article(BaseModel):
     class Meta:
         ordering = ["-updated_datetime"]
 
+    def __unicode__(self):
+        return self.title
+
     def get_dig_key(self):
         return 'article:dig:%d' % self.pk
-
 
     def caculate_identity_code(self):
         title = self.title
@@ -1441,7 +1449,6 @@ class Article(BaseModel):
         user_id = self.creator.id
         title_hash =  hashlib.sha1(title.encode('utf-8')).hexdigest()
         return '%s_%s_%s ' % (user_id,title_hash,created_datetime)
-
 
     @property
     def dig_count(self):
@@ -1467,9 +1474,6 @@ class Article(BaseModel):
             cache.decr(key)
         except Exception:
             cache.set(key, self.digs.count())
-
-    def __unicode__(self):
-        return self.title
 
     def save(self, *args, **kwargs):
         if not kwargs.pop('skip_updatetime', False):

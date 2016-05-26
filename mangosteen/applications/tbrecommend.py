@@ -4,13 +4,16 @@ from flask import Flask
 import top.api
 import top
 import json
-# import time
+from werkzeug.contrib.cache import FileSystemCache
 
 from model.taobao_token import TaobaoToken
+
 
 app = Flask(__name__)
 app.config.from_pyfile('../config/default.py')
 
+# cache = SimpleCache()
+cache = FileSystemCache(cache_dir='/tmp/cache/')
 
 def handel(keyword, **kwargs):
     app_key = app.config.get('APP_KEY')
@@ -36,6 +39,9 @@ def handel(keyword, **kwargs):
             # 'userid': taobao.isv_uid
             })
 
+        item_key = "item:{0}-user:{1}".format(keyword.encode('utf-8'), user_id)
+    else:
+        item_key = "item:{0}".format(keyword.encode('utf-8'))
 
     params.update(
         {
@@ -49,15 +55,20 @@ def handel(keyword, **kwargs):
         params.update({
             'keyword':keyword,
         })
-    app.logger.info(params)
+    # app.logger.info(params)
     req.params = json.dumps( params )
 
-    try:
-        # access_time = time.time()
-        resp= req.getResponse(timeout=5)
-        res = resp['alibaba_orp_recommend_response']['recommend']
-        return res
-    except Exception, e:
-        app.logger.error(e)
-        return None
-
+    res = cache.get(item_key)
+    # print res
+    if res is None:
+        try:
+            # access_time = time.time()
+            resp= req.getResponse(timeout=5)
+            res = resp['alibaba_orp_recommend_response']['recommend']
+            cache.set(item_key, res, timeout=86400)
+            # return res
+        except Exception, e:
+            app.logger.error(e)
+            return None
+    # else:
+    return res

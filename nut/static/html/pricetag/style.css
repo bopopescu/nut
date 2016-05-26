@@ -1,0 +1,110 @@
+@charset "utf-8";
+body,
+p {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+ul {
+  list-style: none;
+}
+ul#tag_list {
+  font-size: 16px;
+  overflow: auto;
+}
+ul#tag_list > li {
+  height: 100px;
+  width: 400px;
+  margin: 10px 10px;
+  padding: 30px;
+  background: #fff;
+  float: left;
+}
+ul#tag_list > li .store {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+ul#tag_list > li .qr-code {
+  float: right;
+  width: 100px;
+  height: 100px;
+  padding-left: 1em;
+}
+ul#tag_list > li .qr-code img {
+  height: 100px;
+  width: 100px;
+}
+ul#tag_list > li .info .title {
+  font-size: 22px;
+  font-weight: 600;
+}
+ul#tag_list > li .info .price-wrapper {
+  padding: 10px 0 0 0 ;
+}
+ul#tag_list > li .info .price-wrapper .price .dollar-sign {
+  font-size: 22px;
+  position: relative;
+  top: 1px;
+}
+ul#tag_list > li .info .price-wrapper .price .price-number {
+  font-family: Georgia,serif;
+  font-size: 22px;
+  letter-spacing: 1px;
+  position: relative;
+  left: -5px;
+}
+@media print {
+  ul#tag_list {
+    font-size: 0.3cm;
+  }
+  ul#tag_list > li {
+    height: 3cm;
+    width: 5cm;
+    margin: 0.13cm;
+    padding: 0.1cm;
+    background: #fff;
+    float: left;
+  }
+  ul#tag_list > li .store {
+    font-size: 0.6em;
+    margin-bottom: 0.1cm;
+  }
+  ul#tag_list > li .qr-code {
+    float: right;
+    width: 2.4cm;
+    height: 2.4cm;
+    padding-left: 1em;
+  }
+  ul#tag_list > li .qr-code img {
+    height: 2.4cm;
+    width: 2.4cm;
+  }
+  ul#tag_list > li .info .title {
+    font-size: 1em;
+    font-weight: 600;
+  }
+  ul#tag_list > li .info .price-wrapper {
+    padding: 0.1cm 0 0 0 ;
+  }
+  ul#tag_list > li .info .price-wrapper .price .dollar-sign {
+    font-size: 1em;
+    position: relative;
+    top: 1px;
+  }
+  ul#tag_list > li .info .price-wrapper .price .price-number {
+    font-family: Georgia,serif;
+    font-size: 1em;
+    letter-spacing: 0;
+    position: relative;
+    left: -0.4em;
+  }
+  #input_container {
+    display: none;
+  }
+}
+#input_container li {
+  margin-top: 20px;
+}
+#input_container input {
+  with: 400px;
+}

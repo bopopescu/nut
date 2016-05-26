@@ -88,6 +88,7 @@ body.compact-body{
      padding: 0 10px;
      max-height:420px;
     &.banner-image-cell-control{
+      display: inline-block;
       padding:0 5px;
       position:relative;
       //border-top-left-radius: 4px;
@@ -1628,6 +1629,9 @@ body.compact-body{
 
 
 .guoku-app,.mobile-body{
+  .top-ad{
+    display:none;
+  }
    padding-bottom: 40px;
    #guoku_main_nav{
      display: none;
@@ -1740,6 +1744,15 @@ body.compact-body{
         font-weight: 600;
      }
    }
+   .xs-selection-article-item{
+     margin:10px 0;
+     .more-article-wrapper{
+       margin:0;
+       .title-wrapper a{
+         text-decoration: none;
+       }
+     }
+  }
 }
 
 #sitemap{
@@ -1905,7 +1918,7 @@ body{
 }
 
 .gk_test{
-  color:red;
+  color:black;
 }
 
 

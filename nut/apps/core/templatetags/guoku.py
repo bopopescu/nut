@@ -2,7 +2,7 @@ from django import template
 from django.utils.log import getLogger
 from django.conf import settings
 
-import hashlib
+# import hashlib
 import time
 import qrcode
 import StringIO

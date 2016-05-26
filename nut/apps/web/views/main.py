@@ -11,8 +11,7 @@ from haystack.generic_views import SearchView
 from apps.core.tasks.recorder import record_search
 from apps.core.utils.commons import get_client_ip, get_user_agent
 from apps.tag.models import Tags
-from apps.core.models import Entity, Search_History
-from apps.core.models import Entity_Like
+from apps.core.models import Entity, Entity_Like
 from apps.core.models import Selection_Entity
 from apps.core.models import GKUser
 from apps.core.models import Show_Banner
@@ -66,7 +65,7 @@ class IndexView(TemplateView):
         context['categories'] = self.get_hot_categories()
         context['top_articles'] = self.get_top_articles()
         context['top_entities'] = self.get_top_entities()
-        context['brands'] = [];
+        context['brands'] = []
         return context
 
 
@@ -193,16 +192,15 @@ class GKSearchView(SearchView):
             res = self.queryset.models(Article).order_by('-score', '-read_count')
         else:
             res = self.queryset.models(Entity).order_by('-like_count')
-
         context = self.get_context_data(**{
             self.form_name: form,
             'query': form.cleaned_data.get(self.search_field),
             'object_list': res,
             'type': self.type,
-            'entity_count': self.queryset.models(Entity).count(),
-            'user_count': self.queryset.models(GKUser).count(),
-            'tag_count': self.queryset.models(Tags).count(),
-            'article_count': self.queryset.models(Article).count(),
+            'entity_count': form.get_entity_count(),
+            'user_count': form.get_tag_count(),
+            'tag_count': form.get_user_count(),
+            'article_count': form.get_article_count(),
         })
         if self.type == "e" and self.request.user.is_authenticated():
             entity_id_list = map(lambda x: x.entity_id, context['page_obj'])

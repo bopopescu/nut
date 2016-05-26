@@ -1,5 +1,6 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.forms.account import UserPasswordResetForm
+# from apps.core.forms.account import UserPasswordResetForm
+from apps.v4.forms.accounts.account import APIUserPasswordResetForm
 from apps.mobile.forms.account import MobileUserSignInForm, MobileUserSignUpForm, MobileUserSignOutForm
 from apps.mobile.lib.sign import check_sign
 
@@ -85,7 +86,7 @@ def register(request):
 def forget_password(request):
     # if request.method == "POST":
     if request.method == 'POST':
-        _forms = UserPasswordResetForm(request.POST)
+        _forms = APIUserPasswordResetForm(request.POST)
         if _forms.is_valid():
             _forms.save(template_invoke_name=settings.RESET_PASSWORD_TEMPLATE,
                         domain_override=settings.SITE_DOMAIN)
