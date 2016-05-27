@@ -1,3 +1,22 @@
+1.  add a Entity property for is_pubed_selection 
+
+Action : 
+    add solr/haystack Entity index field 
+     1.  is_pubed_selection
+     2.  enter_selection_time    
+   
+    
+####
+still on anchen_entity_spider branch
+
+ALTER TABLE `core`.`core_buy_link` 
+ADD COLUMN `last_update` DATETIME NOT NULL DEFAULT '2013-12-01T00:00:00.000' AFTER `foreign_price`;
+
+=======================
+# merged to master 2016 5-26
+=======================
+
+
 8.  web - brand page update --along
 7.  web - user add entity tmall price fix --along 
 6.  web - fix event page bug  -- lq
@@ -7,11 +26,6 @@
 2.  web  -update recommend user discover page display count to 10 -an 
 1.  other - price qr code update  -- anchen
 
-####
-still on anchen_entity_spider branch
-
-ALTER TABLE `core`.`core_buy_link` 
-ADD COLUMN `last_update` DATETIME NOT NULL DEFAULT '2013-12-01T00:00:00.000' AFTER `foreign_price`;
 
 
 =======================

@@ -998,6 +998,13 @@ class Entity(BaseModel):
         return self.status == Entity.selection
 
     @property
+    def is_pubed_selection(self):
+        # a better way to judge if a entity is in published selection
+        return self.status == Entity.selection \
+               and self.selection \
+               and self.selection.is_published
+
+    @property
     def enter_selection_time(self):
         # _tm = None
         try:
