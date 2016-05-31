@@ -181,12 +181,14 @@ class DailyPush(models.Model):
         (link,_("链接"))
     ]
 
-    object =  DailyPushManager()
+
     push_text = models.CharField(max_length=64)
     push_type = models.IntegerField(Choices=CONTENT_TYPE_CHOICES)
     push_url  = models.CharField(max_length=256)
     send_time = models.DateTimeField(db_index=True)
     status = models.IntegerField(choices=PUSH_STATUS_CHOICES, default=disabled, db_index=True)
+
+    object =  DailyPushManager()
 
     def message_url(self):
         if self.push_type == self.user :
