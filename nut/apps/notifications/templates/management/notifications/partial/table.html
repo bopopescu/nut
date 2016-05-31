@@ -1,0 +1,48 @@
+{% load i18n %}
+{% load guoku %}
+<table class="table table-bordered table-hover table-condensed" id="sellers-table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>推送文字</th>
+        <th>推送目标类别 </th>
+        <th>类别参数/URL</th>
+        <th>发送时间 </th>
+        <th>推送状态</th>
+        <th>内容操作</th>
+        <th>发送操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {#            the first line datas#}
+
+    {% for push in push_list %}
+
+        <tr>
+            <td>{{ push.id  }}</td>
+            <td>
+                {{ push.push_text }}
+            </td>
+            <td>{{ push.get_push_type_display }}</td>
+            <td>{{ push.push_url }}</td>
+            <td>{{ push.send_time  }}</td>
+            <td>{{ banner.get_status_display  }}</td>
+
+            <td>
+
+                <a class="btn btn-danger" href="{% url 'management_push_delete' push.pk %}" target="">
+                    删除
+                </a>
+            </td>
+            <td>
+                <a class="btn btn-success" href="{% url 'management_push_send_test' push.pk %}" target="">
+                    测试发送
+                </a>
+                <a class="btn btn-danger" href="{% url 'management_push_send_production' push.pk %}" target="">
+                    发送
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

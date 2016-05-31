@@ -6,6 +6,7 @@ urlpatterns = patterns(
     # url(r'^$', 'messages', name='web_messages'),
     url(r'^$', DailyPushListView.as_view(), name='management_push_list'),
     url(r'^new/$', DailyPushCreateView.as_view(), name='management_push_create'),
+    url(r'^(?P<pk>\d+)/delete/$', DailyPushCreateView.as_view(), name='management_push_create'),
 )
 
 
