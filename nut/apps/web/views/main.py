@@ -198,8 +198,8 @@ class GKSearchView(SearchView):
             'object_list': res,
             'type': self.type,
             'entity_count': form.get_entity_count(),
-            'user_count': form.get_tag_count(),
-            'tag_count': form.get_user_count(),
+            'user_count': form.get_user_count,
+            'tag_count': form.get_tag_count(),
             'article_count': form.get_article_count(),
         })
         if self.type == "e" and self.request.user.is_authenticated():
