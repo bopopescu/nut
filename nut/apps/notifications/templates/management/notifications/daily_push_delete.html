@@ -4,22 +4,23 @@
 {% block content %}
  <section class="content-header">
         <h1>
-            添加 每日推送
+            删除推送
             <small></small>
         </h1>
 
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
-            <li class="active"></li>
+            <li class="active">删除推送</li>
         </ol>
     </section>
 
-    <section class="content" id="create-seller">
+    <section class="content" id="delete-banner">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">添加推送信息_test</h3>
+                        <h3 class="box-title">删除推送 </h3>
+                        {{ object.push_text }}:{{ object.message_url  }}"
                     </div>
 
                         <form class="form-horizontal" enctype="multipart/form-data" action="" method="post">

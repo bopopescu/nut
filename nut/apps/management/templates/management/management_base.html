@@ -304,6 +304,14 @@
                         </a>
                     </li>
 
+                    <li class="header">{% trans '每日APP推送' %}</li>
+                    {% url 'management_push_list' as management_push_list_url %}
+                    <li {% if management_push_list_url in request.path %}class="active" {% endif %}>
+                        <a href="{{ management_push_list_url }}">
+                            <i class="fa fa-user"></i>&nbsp;<span>{% trans '推送管理' %}</span>
+                        </a>
+                    </li>
+
                 </ul>
             </section>
         </aside>

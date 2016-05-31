@@ -165,31 +165,30 @@ class DailyPushManager(models.Manager):
 
 
 class DailyPush(models.Model):
-    (disabled, pending, sending, sent ) = range(4)
+    ( pending, sending, sent) = range(3)
     PUSH_STATUS_CHOICES = [
-        (disabled, _("未激活")),
-        (pending, _("未发送")),
-        (sending, _("发送中")),
-        (sent,_("发送完毕"))
+        (pending, _(u"未发送")),
+        (sending, _(u"发送中")),
+        (sent,_(u"发送完毕"))
     ]
 
-    (user, entity, article, link) = range(4)
+    (user, entity, link) = range(3)
     CONTENT_TYPE_CHOICES = [
-        (user, _("用户")),
-        (entity, _("商品")),
-        # (article, _("图文")),
-        (link,_("链接"))
+        (user, _(u"用户")),
+        (entity, _(u"商品")),
+        (link,_(u"链接"))
     ]
 
 
     push_text = models.CharField(max_length=64)
-    push_type = models.IntegerField(Choices=CONTENT_TYPE_CHOICES)
+    push_type = models.IntegerField(choices=CONTENT_TYPE_CHOICES, default=user)
     push_url  = models.CharField(max_length=256)
     send_time = models.DateTimeField(db_index=True)
-    status = models.IntegerField(choices=PUSH_STATUS_CHOICES, default=disabled, db_index=True)
+    status = models.IntegerField(choices=PUSH_STATUS_CHOICES, default=pending, db_index=True)
 
     object =  DailyPushManager()
 
+    @property
     def message_url(self):
         if self.push_type == self.user :
             return 'guoku://user/%s'%self.push_url
@@ -197,6 +196,9 @@ class DailyPush(models.Model):
             return 'guoku://entity/%s'%self.push_url
         else:
             return self.push_url
+
+    def __unicode__(self):
+        return '%s:%s'%(self.push_text, self.message_url() )
 
     def send(self):
         pass

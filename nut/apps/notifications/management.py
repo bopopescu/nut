@@ -15,10 +15,15 @@ class DailyPushCreateView(StaffuserRequiredMixin, CreateView):
 
 
 class DailyPushUpdateView(StaffuserRequiredMixin, UpdateView):
-    pass
+    model = DailyPush
+    form_class = BaseDailyPushForm
+    template_name = 'management/notifications/daily_push_edit.html'
+    success_url = reverse_lazy('management_push_list')
 
 class DailyPushDeleteView(StaffuserRequiredMixin, DeleteView):
-    pass
+    model = DailyPush
+    template_name = 'management/notifications/daily_push_delete.html'
+    success_url = reverse_lazy('management_push_list')
 
 class DailyPushSendTestView(StaffuserRequiredMixin, View):
     pass
