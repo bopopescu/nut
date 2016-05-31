@@ -25,12 +25,14 @@
             </td>
             <td>{{ push.get_push_type_display }}</td>
             <td>{{ push.push_url }}</td>
-            <td>{{ push.send_time  }}</td>
-            <td>{{ banner.get_status_display  }}</td>
+            <td>{{ push.send_time|date:"SHORT_DATE_FORMAT"}}:{{ push.send_time|time:"H:i" }}</td>
+            <td>{{ push.get_status_display }}</td>
 
             <td>
 
-                <a class="btn btn-danger" href="{% url 'management_push_delete' push.pk %}" target="">
+                <a class="btn btn-success" href="{% url 'management_push_update' push.pk %}" target="">
+                    编辑
+                </a><a class="btn btn-danger" href="{% url 'management_push_delete' push.pk %}" target="">
                     删除
                 </a>
             </td>
