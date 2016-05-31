@@ -1,4 +1,6 @@
-1.  add a Entity property for is_pubed_selection 
+3.  user push management 
+2.  jpush notification , add android push 
+1.  add a Entity property :  is_pubed_selection 
 
 Action : 
     add solr/haystack Entity index field 
