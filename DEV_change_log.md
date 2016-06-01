@@ -1,6 +1,6 @@
-3.  user push management , testing app
+3.  user broadcast  push management , testing app
 2.  jpush notification , add android push 
-1.  add a Entity property :  is_pubed_selection 
+1.  add a Entity property :  is_pubed_selection , need reindex solr
 
 Action : 
     1. add solr/haystack Entity index field (property) 
@@ -9,6 +9,11 @@ Action :
        
     2. need sync db 
         add DailyPush model    
+        
+    3. fix field encoding , if needed 
+        ALTER TABLE `core`.`notifications_dailypush` 
+CHANGE COLUMN `push_text` `push_text` VARCHAR(64) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ;
+
    
     
 ####
