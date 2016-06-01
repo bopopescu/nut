@@ -1,11 +1,14 @@
-3.  user push management 
+3.  user push management , testing app
 2.  jpush notification , add android push 
 1.  add a Entity property :  is_pubed_selection 
 
 Action : 
-    add solr/haystack Entity index field 
-     1.  is_pubed_selection
-     2.  enter_selection_time    
+    1. add solr/haystack Entity index field (property) 
+         1.  is_pubed_selection
+         2.  enter_selection_time  
+       
+    2. need sync db 
+        add DailyPush model    
    
     
 ####

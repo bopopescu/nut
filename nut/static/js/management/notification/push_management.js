@@ -33,6 +33,7 @@ $.ajaxSetup({
 
 function Test_Send(){
     this.init_test_send_button();
+    this.init_real_send_button();
     this.init_boot_box();
     this.request_url = $()
 
@@ -46,9 +47,13 @@ Test_Send.prototype = {
                 locale:'zh_CN'
             });
     },
+
+    init_real_send_button: function(){
+        $('.production_send_button').click(this.handleRealClick.bind(this));
+    },
     init_test_send_button: function(){
         console.log('init button ');
-        $('.test_send_button').click(this.handleClick.bind(this));
+        $('.test_send_button').click(this.handleTestClick.bind(this));
 
     },
 
@@ -57,7 +62,10 @@ Test_Send.prototype = {
         return $(target).attr('data-request-url');
 
     },
-    handleClick:function(event){
+    handleRealClick: function(event){
+        bootbox.alert('正式群发功能尚未开放');
+    },
+    handleTestClick:function(event){
         this.request_url = this.get_request_url(event);
         this.show_custom_dialog()
     },
@@ -102,18 +110,19 @@ Test_Send.prototype = {
             method: 'POST',
             dataType: 'json',
             data: JSON.stringify(data),
-        })).then(this.postSuccess.bind(this), this.postFail.bind(this));
+        })).then(this.testPostSuccess.bind(this), this.testPostFail.bind(this));
 
     },
 
-    postSuccess: function(data){
+    testPostSuccess: function(data){
         console.log(data);
-        console.log('test send push success!');
+        bootbox.alert('测试推送信息发送 成功 .');
+
 
     },
-    postFail:function(data){
+    testPostFail:function(data){
         console.log(data);
-        console.log('test send push fail');
+        bootbox.alert('测试推送信息发送  失败    !');
     },
     dialog_quit: function(){
         console.log('dialog quit sending ')
