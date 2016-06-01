@@ -37,10 +37,10 @@
                 </a>
             </td>
             <td>
-                <a class="btn btn-success" href="{% url 'management_push_send_test' push.pk %}" target="">
+                <a class="btn btn-success test_send_button"  data-request-url="{% url 'management_push_send_test' push.pk %}" target="">
                     测试发送
                 </a>
-                <a class="btn btn-danger" href="{% url 'management_push_send_production' push.pk %}" target="">
+                <a class="btn btn-danger production_send_button"  data-request-url="{% url 'management_push_send_production' push.pk %}" target="">
                     发送
                 </a>
             </td>
