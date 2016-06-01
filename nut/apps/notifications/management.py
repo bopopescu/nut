@@ -69,6 +69,6 @@ class DailyPushListView(StaffuserRequiredMixin, ListView):
     context_object_name = 'push_list'
     template_name = 'management/notifications/daily_push_list.html'
     def get_queryset(self):
-        return DailyPush.object.all()
+        return DailyPush.object.all().order_by('-id')
 
 
