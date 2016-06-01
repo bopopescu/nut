@@ -1,5 +1,5 @@
 {% extends 'management/management_base.html' %}
-{% load i18n %}
+{% load i18n static %}
 {% load guoku %}
 {% block content %}
 
@@ -50,4 +50,8 @@
     </section>
 
 
+{% endblock %}
+
+{% block user_script %}
+    <script language="javascript" src="{% static 'js/management/notification/push_management.js' %}"></script>
 {% endblock %}

@@ -112,7 +112,12 @@ msg_table = {
         }
 
 
-class PushMessageBase(object):
+
+class JPushMessageBase(object):
+    def __init__(self):
+        self._jpush = jpush.JPush(app_key, app_secret)
+        self._push = self._jpush.create_push()
+
     def get_audience(self):
         pass
     def get_message_dic(self):
@@ -122,22 +127,18 @@ class PushMessageBase(object):
     def create_message(self):
         pass
 
-class JPushMessageBase(PushMessageBase):
-    def __init__(self):
-        self._jpush = jpush.JPush(app_key, app_secret)
-        self.push = self._jpush.create_push()
-    pass
 
-class TestPushMessage(JPushMessageBase):
+class JPushMessage(JPushMessageBase):
     def __init__(self,rid, message, url):
+        super(JPushMessage, self).__init__()
         self._rid = rid
         self._message = message
-        self.url = url
-        super(TestPushMessage, self).__init__()
+        self._url = url
+        self.create_message()
 
     def get_message_dic(self):
         return {
-            'alert': self._message,
+            'alert': self._message.encode('utf-8'),
             'extras':{
                 'url':self._url
             }
@@ -150,7 +151,7 @@ class TestPushMessage(JPushMessageBase):
         android_msg = jpush.android(**msg_dic)
         push = self._push
         push.notification = jpush.notification(
-                        alert=self._message,
+                        alert=self._message.encode('utf-8'),
                         ios=ios_msg,
                         android=android_msg)
         push.platform = jpush.all_
@@ -161,11 +162,8 @@ class TestPushMessage(JPushMessageBase):
         return None
 
     def send_message(self):
-        self.push.audience  = jpush.registration_id('0815c850d66')
+        self._push.audience  = jpush.registration_id(self._rid)
         self._push.send()
-
-
-
 
 
 

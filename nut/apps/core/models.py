@@ -490,6 +490,9 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.is_authorized_author or self.is_authorized_seller
 
 
+    @property
+    def jpush_rids(self):
+        return self.jpush_token.all().values_list('rid', flat=True)
 
     def save(self, *args, **kwargs):
         #TODO  @huanghuang refactor following email related lines into a subroutine
