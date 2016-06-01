@@ -1826,7 +1826,7 @@ Switchery.prototype.handleChange = function() {
  * @api private
  */
 
-Switchery.prototype.handleTestClick = function() {
+Switchery.prototype.handleClick = function() {
   var switcher = this.switcher;
 
   fastclick(switcher);
