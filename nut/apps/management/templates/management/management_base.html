@@ -127,7 +127,7 @@
                 </form>
 
                 <ul class="sidebar-menu">
-                    <li class="header">{% trans 'main navigation' %}</li>
+                    <li class="header">{% trans '主导航栏' %}</li>
                     {% url 'management_dashboard' as management_dashboard_url %}
                     <li {% if management_dashboard_url == request.path %}class="active"{% endif %}>
                         <a href="{{ management_dashboard_url }}">
@@ -157,19 +157,14 @@
                         </a>
                     </li>
 
-                    {% url 'management_event' as management_event_url %}
-                    <li {% if management_event_url in request.path %}class="active"{% endif %}>
-                        <a href="{{ management_event_url }}">
-                            <i class="fa fa-eye"></i>&nbsp;<span>{% trans 'event' %}</span>
-                        </a>
-                    </li>
 
-                     {% url 'management_banner_list' as management_banner_list_url %}
-                    <li {% if management_banner_list_url in request.path %}class="active"{% endif %}>
-                        <a href="{{ management_banner_list_url }}">
-                            <i class="fa fa-photo"></i>&nbsp;<span>{% trans 'banner' %}</span>
-                        </a>
-                    </li>
+
+{#                     {% url 'management_banner_list' as management_banner_list_url %}#}
+{#                    <li {% if management_banner_list_url in request.path %}class="active"{% endif %}>#}
+{#                        <a href="{{ management_banner_list_url }}">#}
+{#                            <i class="fa fa-photo"></i>&nbsp;<span>{% trans 'banner' %}</span>#}
+{#                        </a>#}
+{#                    </li>#}
 
                     {% url 'management_entity_list' as management_entity_list_url %}
                     <li {% if management_entity_list_url in request.path %}class="active"{% endif %}>
@@ -243,26 +238,17 @@
                         </a>
                     </li>
 
-                    <li class="header">{% trans 'user manager' %}</li>
-                    {% url 'management_user_list' as management_user_list_url %}
-                    <li {% if management_user_list_url in request.path %}class="active" {% endif %}>
-                        <a href="{{ management_user_list_url }}">
-                            <i class="fa fa-user"></i>&nbsp;<span>{% trans 'user' %}</span>
+                    <li class="header"> {% trans '专题' %} </li>
+                    {% url 'management_event' as management_event_url %}
+                    <li {% if management_event_url in request.path %}class="active"{% endif %}>
+                        <a href="{{ management_event_url }}">
+                            <i class="fa fa-eye"></i>&nbsp;<span>{% trans 'event' %}</span>
                         </a>
                     </li>
 
-                    <li class="header">BETA {% trans 'test functions' %} </li>
-                      <li >
-                            <a href="{% url 'manage_sitebanners' %}?from=sidebar&checks=app_show_status|web_mainpage_show_status|web_sidebar_show_status">
-                                <i class="fa fa-life-ring"></i>&nbsp;<span>SiteBanner</span>
-                            </a>
-                        </li>
-                    <li >
-                         <a href="{% url 'management_wechat_keyword_list' %}">
-                            <i class="fa fa-life-ring"></i>&nbsp;<span>微信关键词回复</span>
-                        </a>
+{#                  --------------------------------------------#}
 
-                    </li>
+                    <li class="header"> {% trans '好店相关' %} </li>
                     <li >
                         <a href="{% url 'manage_store_banners' %}">
                             <i class="fa fa-life-ring"></i>&nbsp;<span>好店 Banner</span>
@@ -273,25 +259,56 @@
                             <i class="fa fa-life-ring"></i>&nbsp;<span>好店 推荐位</span>
                         </a>
                     </li>
-                     <li >
-                        <a href="{% url 'restful_app_sbbanner' %}">
-                            <i class="fa fa-life-ring"></i>&nbsp;<span>侧边栏管理</span>
+{#                ----------------------------------#}
+                    <li class="header">BETA {% trans 'test functions' %} </li>
+                      <li >
+                            <a href="{% url 'manage_sitebanners' %}?from=sidebar&checks=app_show_status|web_mainpage_show_status|web_sidebar_show_status">
+                                <i class="fa fa-life-ring"></i>&nbsp;<span>主图管理</span>
+                            </a>
+                        </li>
+                    <li >
+                         <a href="{% url 'management_wechat_keyword_list' %}">
+                            <i class="fa fa-life-ring"></i>&nbsp;<span>微信关键词回复</span>
                         </a>
+
                     </li>
+
+{#                     <li >#}
+{#                        <a href="{% url 'restful_app_sbbanner' %}">#}
+{#                            <i class="fa fa-life-ring"></i>&nbsp;<span>侧边栏管理</span>#}
+{#                        </a>#}
+{#                    </li>#}
                      <li >
                         <a href="{% url 'management_seller_list' %}">
                             <i class="fa fa-life-ring"></i>&nbsp;<span>大赏卖家管理</span>
                         </a>
                     </li>
                  <li class="header">{% trans 'ALPHA TEST FUNCTIONS' %} </li>
-                    <li >
-                        <a href="{% url 'restful_app_article' %}">
-                            <i class="fa fa-life-ring"></i>&nbsp;<span>测试文章管理</span>
-                        </a>
-                    </li>
+{#                    <li >#}
+{#                        <a href="{% url 'restful_app_article' %}">#}
+{#                            <i class="fa fa-life-ring"></i>&nbsp;<span>测试文章管理</span>#}
+{#                        </a>#}
+{#                    </li>#}
                     <li >
                         <a href="{% url 'restful_app_flink' %}">
                             <i class="fa fa-life-ring"></i>&nbsp;<span>测试友链管理</span>
+                        </a>
+                    </li>
+
+
+                    <li class="header">{% trans 'user manager' %}</li>
+                    {% url 'management_user_list' as management_user_list_url %}
+                    <li {% if management_user_list_url in request.path %}class="active" {% endif %}>
+                        <a href="{{ management_user_list_url }}">
+                            <i class="fa fa-user"></i>&nbsp;<span>{% trans 'user' %}</span>
+                        </a>
+                    </li>
+
+                    <li class="header">{% trans '每日APP推送' %}</li>
+                    {% url 'management_push_list' as management_push_list_url %}
+                    <li {% if management_push_list_url in request.path %}class="active" {% endif %}>
+                        <a href="{{ management_push_list_url }}">
+                            <i class="fa fa-user"></i>&nbsp;<span>{% trans '推送管理' %}</span>
                         </a>
                     </li>
 

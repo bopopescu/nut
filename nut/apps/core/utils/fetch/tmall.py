@@ -106,31 +106,37 @@ def get_price_by_entity_info(entity_info):
 
 
 def get_tmall_item_price(id):
-    entity_price  = 0
+    # entity_price  = 0
     start_url = get_start_url(id)
     with requests.Session() as s :
         r = s.get(start_url ,verify=False, headers=get_tmall_header(), cookies=get_tmall_cookie())
         # print r.text
-        try:
-            script_url = extract_url(r.text)
-            # print '--------------------'
-            # print script_url
-            script_url = fix_script_url(script_url)
-            # print script_url
-            r = s.get(script_url, headers=get_tmall_header())
-            # print '-------------------'
-            # print r.text
-            if  'window.location' in r.text:          # 价格为0时需要cookie中的账户登陆, 登陆之后就能取到价格
-                pass
-            entity_info = process_mdskip_response(r.text)
-            # print entity_info
-            entity_price = get_price_by_entity_info(entity_info)
-            # print entity_price
-        except Exception as e :
-            # TODO : log the exception
-            pass
-
+        entity_price = get_price(r.text, s)
         return entity_price
+
+def get_price(source_html, session):
+    entity_price = 0
+    try:
+        script_url = extract_url(source_html)
+        # print '--------------------'
+        # print script_url
+        script_url = fix_script_url(script_url)
+        # print script_url
+        r = session.get(script_url, headers=get_tmall_header())
+        # print '-------------------'
+        # print r.text
+        if 'window.location' in r.text:  # 价格为0时需要cookie中的账户登陆, 登陆之后就能取到价格
+            pass
+        entity_info = process_mdskip_response(r.text)
+        # print entity_info
+        entity_price = get_price_by_entity_info(entity_info)
+        # print entity_price
+    except Exception as e:
+        # TODO : log the exception
+        pass
+
+    return entity_price
+
 
 def test_final(id):
     print get_tmall_item_price(id)

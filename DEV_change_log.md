@@ -1,6 +1,42 @@
-3.  
-2.  update recommend user discover page display count to 10 
-1.  price qr code update
+3.  broadcast  push management , test send
+2.  jpush notification , add android push 
+1.  add a Entity property :  is_pubed_selection , need reindex solr
+
+Action : 
+    1. add solr/haystack Entity index field (property) 
+         1.  is_pubed_selection
+         2.  enter_selection_time  
+       
+    2. need sync db 
+        add DailyPush model    
+        
+    3. fix field encoding , if needed 
+        ALTER TABLE `core`.`notifications_dailypush` 
+CHANGE COLUMN `push_text` `push_text` VARCHAR(64) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ;
+
+   
+    
+####
+still on anchen_entity_spider branch
+
+ALTER TABLE `core`.`core_buy_link` 
+ADD COLUMN `last_update` DATETIME NOT NULL DEFAULT '2013-12-01T00:00:00.000' AFTER `foreign_price`;
+
+=======================
+# merged to master 2016 5-26
+=======================
+
+
+8.  web - brand page update --along
+7.  web - user add entity tmall price fix --along 
+6.  web - fix event page bug  -- lq
+5.  mng - selection entity batch new/freeze/remove --lq
+4.  api - app banner api switch    -- anchen 
+3.  web  -good-store optimize  -- lq
+2.  web  -update recommend user discover page display count to 10 -an 
+1.  other - price qr code update  -- anchen
+
+
 
 =======================
 # merged to master 2016 5-23

@@ -239,9 +239,7 @@
 }
 .event-entity-item .img-box a {
   padding: 8px;
-}
-.event-entity-item .section-info {
-  height: 97px;
+  width: 100%;
 }
 .event-entity-item .section-info div {
   font-size: 14px;
@@ -253,10 +251,19 @@
 }
 .event-entity-item .section-info .entity-brand {
   margin-top: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .event-entity-item .section-info .entity-title {
   margin-bottom: 0px;
   margin-top: 0px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 40px;
+  max-height: 40px;
 }
 .event-entity-item .section-info .entity-price {
   font-size: 22px;
@@ -472,7 +479,7 @@ p .b_day {
   overflow: hidden;
 }
 .entity-four.new-thumbnail .entity-four-info .caption {
-  width: 60%;
+  width: 75%;
   height: 80px;
   float: left;
   margin: 0;
@@ -1002,8 +1009,6 @@ p.boolean-false {
   background-repeat: no-repeat;
 }
 .single-text-overflow {
-  width: 100%;
-  height: auto;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1160,8 +1165,6 @@ p.boolean-false {
 }
 .user-icon-list.recommend-user-list li span.user-name {
   display: block;
-  width: 100%;
-  height: auto;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1794,6 +1797,9 @@ p.boolean-false {
 .category-header .category-action {
   line-height: 40px;
   margin-right: 15px;
+}
+.user-admin-link-wrapper .user-admin-link {
+  padding-right: 15px;
 }
 .category-action a:hover,
 .category-action a {
@@ -2656,5 +2662,5 @@ a.more-users {
   text-decoration: none;
 }
 .test {
-  color: red;
+  color: black;
 }
