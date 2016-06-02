@@ -10,7 +10,7 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                     $('#recommend-entity-wrapper').slick({
                         arrows: true,
                         slidesToShow: 6,
-                        slidesToScroll:1,
+                        slidesToScroll:3,
                         autoplay:true,
                         dots:false,
 
