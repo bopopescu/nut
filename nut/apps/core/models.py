@@ -490,6 +490,9 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.is_authorized_author or self.is_authorized_seller
 
 
+    @property
+    def jpush_rids(self):
+        return self.jpush_token.all().values_list('rid', flat=True)
 
     def save(self, *args, **kwargs):
         #TODO  @huanghuang refactor following email related lines into a subroutine
@@ -996,6 +999,13 @@ class Entity(BaseModel):
     @property
     def is_in_selection(self):
         return self.status == Entity.selection
+
+    @property
+    def is_pubed_selection(self):
+        # a better way to judge if a entity is in published selection
+        return self.status == Entity.selection \
+               and self.selection \
+               and self.selection.is_published
 
     @property
     def enter_selection_time(self):

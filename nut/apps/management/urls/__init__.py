@@ -45,6 +45,7 @@ urlpatterns = patterns(
 
 
     url(r'^sitebanner/', include('apps.site_banner.urls.management')),
+    url(r'^push/', include('apps.notifications.urls.management')),
 
 
 
