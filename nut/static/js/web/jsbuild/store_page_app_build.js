@@ -4137,7 +4137,7 @@ define('subapp/store/entity_slick',['jquery', 'libs/Class','libs/slick','fastdom
                     $('#recommend-entity-wrapper').slick({
                         arrows: true,
                         slidesToShow: 6,
-                        slidesToScroll:1,
+                        slidesToScroll:3,
                         autoplay:true,
                         dots:false,
 
