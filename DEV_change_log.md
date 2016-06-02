@@ -1,4 +1,4 @@
-3.  user broadcast  push management , testing app
+3.  broadcast  push management , test send
 2.  jpush notification , add android push 
 1.  add a Entity property :  is_pubed_selection , need reindex solr
 
