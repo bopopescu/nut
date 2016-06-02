@@ -1172,10 +1172,20 @@ p.boolean-false {
 .store-body #recommend-entity-container {
   overflow: hidden;
 }
+.store-body #recommend-entity-container .slick-prev,
+.store-body #recommend-entity-container .slick-next {
+  top: 40%;
+}
+.store-body #recommend-entity-container .slick-prev {
+  left: -5px;
+}
+.store-body #recommend-entity-container .slick-next {
+  right: -5px;
+}
 .store-body #recommend-entity-container #recommend-entity-wrapper li.recommend-entity-item {
   overflow: hidden;
   float: left;
-  padding: 0 18px 0 0;
+  padding: 0 18px 0 18px;
 }
 .store-body #recommend-entity-container #recommend-entity-wrapper li.recommend-entity-item a:focus {
   outline: 0;
@@ -1183,6 +1193,12 @@ p.boolean-false {
 .store-body #recommend-entity-container #recommend-entity-wrapper li.recommend-entity-item .section-panel {
   text-align: center;
   box-shadow: 0 0 0 transparent;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
 }
 .store-body #recommend-entity-container #recommend-entity-wrapper li.recommend-entity-item .section-panel .entity-pic {
   width: 100%;
@@ -1195,7 +1211,7 @@ p.boolean-false {
 .store-body #recommend-entity-container #recommend-entity-wrapper li.recommend-entity-item .section-panel .seller-name {
   display: inline-block;
   width: 100%;
-  margin-top: 5px;
+  margin-top: 18px;
   padding-left: 2px;
   padding-right: 2px;
   font-size: 12px;
@@ -1210,14 +1226,8 @@ p.boolean-false {
   color: #424242;
   font-size: 16px;
 }
-.store-body #recommend-entity-container #recommend-entity-wrapper .slick-prev {
-  left: 0;
-}
 .store-body #recommend-entity-container #recommend-entity-wrapper .slick-prev:before {
   content: "\f053";
-}
-.store-body #recommend-entity-container #recommend-entity-wrapper .slick-next {
-  right: 0;
 }
 .store-body #recommend-entity-container #recommend-entity-wrapper .slick-next:before {
   content: "\f054";
@@ -1496,5 +1506,5 @@ p.boolean-false {
   background-color: transparent;
 }
 .test {
-  color: red;
+  color: black;
 }

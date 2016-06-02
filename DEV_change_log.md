@@ -1,6 +1,7 @@
+4.  good store update 
 3.  broadcast  push management , test send
 2.  jpush notification , add android push 
-1.  add a Entity property :  is_pubed_selection , need reindex solr
+1.  add a Entity property :  is_pubed_selection 
 
 Action : 
     1. add solr/haystack Entity index field (property) 
@@ -15,9 +16,8 @@ Action :
 CHANGE COLUMN `push_text` `push_text` VARCHAR(64) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ;
 
    
-    
-####
-still on anchen_entity_spider branch
+   
+####  for  entity buylink update use 
 
 ALTER TABLE `core`.`core_buy_link` 
 ADD COLUMN `last_update` DATETIME NOT NULL DEFAULT '2013-12-01T00:00:00.000' AFTER `foreign_price`;
