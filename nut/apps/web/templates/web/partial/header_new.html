@@ -65,11 +65,11 @@
                 {% endif %}
 
                  {% if request.user.is_authenticated  %}
-                     <ul class="nav navbar-nav nav-add-product pull-right hidden-xs">
+                     <ul class="nav navbar-nav nav-notification-wrapper pull-right hidden-xs">
                         <li>
-                            <a href="{% url 'web_entity_create' %}" class="add_icon">
+                            <a href="{% url 'web_entity_create' %}" class="notification-icon">
                                 <i class="fa fa-bell" style="color: #9D9E9F;font-size:18px;"></i>
-                                <p class="add_goods"><span class="tip"></span>{% trans "Add Product"  %}</p>
+                                <ul class="notification-drop-list"><span class="tip"></span>{% trans "Add Product"  %}</ul>
                             </a>
                         </li>
                     </ul>
