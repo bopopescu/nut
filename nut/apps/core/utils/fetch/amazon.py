@@ -34,9 +34,9 @@ class Amazon(Spider):
         _desc = self.soup.select("#productTitle")
         # return _desc[0].string
         if len(_desc):
-            return _desc[0].string
+            return _desc[0].string.strip()
         _desc = self.soup.title.string.split(':')
-        return _desc[0]
+        return _desc[0].strip()
 
     @property
     def nick(self):
@@ -219,13 +219,13 @@ class Amazon(Spider):
         if optbrands:
             try:
                 brand = optbrands[0].string
-                return brand
+                return brand.strip()
             except IndexError:
                 return ''
         else:
             another_try = self.soup.select("a#brand")
             if another_try:
-                return another_try[0]
+                return another_try[0].strip()
 
 
 if __name__ == "__main__":
