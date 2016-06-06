@@ -161,6 +161,48 @@ body.compact-body{
        top: 5px;
     }
   }
+  .nav-notification-wrapper{
+     .notification-drop-list{
+
+      position: absolute;
+      top: 58px;
+      left: -28px;
+      z-index: 10;
+      background: #414243;
+      text-align: center;
+      height: 38px;
+      padding: 0 12px;
+      line-height: 38px;
+      font-size: 14px;
+      color: #ffffff;
+      min-width: 130px;
+      .border-radius(@global-box-radius);
+      .tip{
+        border-color: transparent transparent #414243 transparent;
+        border-style: solid;
+        border-width: 0 6px 6px 6px;
+        padding: 0;
+        width: 0;
+        height: 0;
+        font-size: 0;
+        line-height: 0;
+        overflow: hidden;
+        position: absolute;
+        top: -6px;
+        left: 45px;
+      }
+    }
+     a{
+      color: #000;
+      &:hover, &:focus{
+        background: none;
+        font-weight: 600;
+        .add_goods{
+          display: block;
+        }
+      }
+    }
+  }
   .nav-add-product{
     .add_goods{
       display: none;

@@ -2591,6 +2591,52 @@ body.compact-body {
   position: relative;
   top: 5px;
 }
+#guoku_main_nav .nav-notification-wrapper .notification-drop-list {
+  position: absolute;
+  top: 58px;
+  left: -28px;
+  z-index: 10;
+  background: #414243;
+  text-align: center;
+  height: 38px;
+  padding: 0 12px;
+  line-height: 38px;
+  font-size: 14px;
+  color: #ffffff;
+  min-width: 130px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+#guoku_main_nav .nav-notification-wrapper .notification-drop-list .tip {
+  border-color: transparent transparent #414243 transparent;
+  border-style: solid;
+  border-width: 0 6px 6px 6px;
+  padding: 0;
+  width: 0;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+  overflow: hidden;
+  position: absolute;
+  top: -6px;
+  left: 45px;
+}
+#guoku_main_nav .nav-notification-wrapper a {
+  color: #000;
+}
+#guoku_main_nav .nav-notification-wrapper a:hover,
+#guoku_main_nav .nav-notification-wrapper a:focus {
+  background: none;
+  font-weight: 600;
+}
+#guoku_main_nav .nav-notification-wrapper a:hover .add_goods,
+#guoku_main_nav .nav-notification-wrapper a:focus .add_goods {
+  display: block;
+}
 #guoku_main_nav .nav-add-product .add_goods {
   display: none;
   position: absolute;
