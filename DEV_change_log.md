@@ -1,3 +1,10 @@
+
+1. sub category sort buy like (bug fix )
+
+=======================
+# merged to master 2016 6-2
+=======================
+
 4.  good store update 
 3.  broadcast  push management , test send
 2.  jpush notification , add android push 
@@ -14,9 +21,7 @@ Action :
     3. fix field encoding , if needed 
         ALTER TABLE `core`.`notifications_dailypush` 
 CHANGE COLUMN `push_text` `push_text` VARCHAR(64) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ;
-
-   
-   
+     
 ####  for  entity buylink update use 
 
 ALTER TABLE `core`.`core_buy_link` 
