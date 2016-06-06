@@ -64,16 +64,27 @@
                     </ul>
                 {% endif %}
 
-                      {% if web_login_url not in request.path and web_register_url not in request.path %}
-                <ul class="nav navbar-nav nav-add-product navbar-right hidden-sm hidden-xs">
-                    <li>
-                        <a href="{% url 'web_entity_create' %}" class="add_icon">
-                            <i class="fa fa-plus" style="color: #9D9E9F; padding-right:40px;font-size:18px;"></i>
-                        <p class="add_goods"><span class="tip"></span>{% trans "Add Product"  %}</p>
-                        </a>
-                    </li>
 
-                </ul>
+
+                {% if web_login_url not in request.path and web_register_url not in request.path %}
+                    <ul class="nav navbar-nav nav-add-product pull-right hidden-xs">
+                        <li>
+                            <a href="{% url 'web_entity_create' %}" class="add_icon">
+                                <i class="fa fa-bell" style="color: #9D9E9F;font-size:18px;"></i>
+                                <p class="add_goods"><span class="tip"></span>{% trans "Add Product"  %}</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                    <ul class="nav navbar-nav nav-add-product navbar-right hidden-sm hidden-xs">
+                        <li>
+                            <a href="{% url 'web_entity_create' %}" class="add_icon">
+                                <i class="fa fa-plus" style="color: #9D9E9F;font-size:18px;"></i>
+                                <p class="add_goods"><span class="tip"></span>{% trans "Add Product"  %}</p>
+                            </a>
+                        </li>
+
+                    </ul>
                 {% endif %}
 
                 <form class="navbar-form navbar-right search-form" action="{% url 'web_search' %}" method="get" role="form" style="margin-top: 11px;">
