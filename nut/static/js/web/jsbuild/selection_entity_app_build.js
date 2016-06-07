@@ -1447,50 +1447,40 @@ define('subapp/top_notification/top_notification',[
                 this.postAjaxNotification();
             }
         },
-        //showNotificationDropList:function(){
-        //    var that = this;
-        //     $('.navbar-collapse .notification-drop-list-wrapper').toggle(that.flag++ % 2 == 0);
-        //
-        //}
-        //hiddenNotificationDropList:function(){
-        //     $('.navbar-collapse .notification-drop-list-wrapper').hide();
-        //     this.flag = false;
-        //     console.log('flag:'+this.flag);
-        //},
         postAjaxNotification:function(){
             console.log('post ajax request');
-             //$.when(
-             //       $.ajax({
-             //           cache:true,
-             //           type:"post",
-             //           url: '',
-             //           data:''
-             //       })
-             //   ).then(
-             //     this.postSuccess.bind(this),
-             //    this.postFail.bind(this)
-             //   );
+             $.when(
+                    $.ajax({
+                        cache:true,
+                        type:"post",
+                        url: '',
+                        data:''
+                    })
+                ).then(
+                  this.postSuccess.bind(this),
+                 this.postFail.bind(this)
+                );
         },
-        //postSuccess:function(result){
-        //    var status = parseInt(result.status);
-        //    if(status == 1){
-        //        this.showNotificationItems();
-        //    }else{
-        //        this.showFail();
-        //    }
-        //},
-        //showNotificationItems:function($ele){
-        //    var ajaxDatas = $ele;
-        //    var notificationItems = _.template($('#notification_item_template').html());
-        //    var datas = {
-        //        name:ajaxDatas['name'],
-        //        name:ajaxDatas['name']
-        //    };
-        //    $('.notification-drop-list').append(notificationItems(datas));
-        //},
-        //postFail:function(){
-        //    console.log('request failed.please try again');
-        //}
+        postSuccess:function(result){
+            var status = parseInt(result.status);
+            if(status == 1){
+                this.showNotificationItems();
+            }else{
+                this.showFail();
+            }
+        },
+        showNotificationItems:function($ele){
+            var ajaxDatas = $ele;
+            var notificationItems = _.template($('#notification_item_template').html());
+            var datas = {
+                name:ajaxDatas['name'],
+                name:ajaxDatas['name']
+            };
+            $('.notification-drop-list').append(notificationItems(datas));
+        },
+        postFail:function(){
+            console.log('request failed.please try again');
+        }
 
     });
 
