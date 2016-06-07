@@ -69,7 +69,12 @@
                          <li>
                              <a href="javascript:void(0);" class="notification-icon">
                                  <i class="fa fa-bell" style="color: #9D9E9F;font-size:18px;"></i>
-                                 {% inlcude "web/account/particial/notification_droplist.html" %}
+                                 <div class="notification-drop-list-wrapper">
+                                     <span class="tip"></span>
+                                     <ul class="notification-drop-list">
+                                         {% include "web/account/partial/ajax_notification_droplist.html" %}
+                                     </ul>
+                                 </div>
 
                              </a>
                          </li>
