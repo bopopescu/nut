@@ -996,15 +996,53 @@ define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class,
 
     return TopAd;
 });
+
+define('subapp/top_notification/top_notification',['libs/Class', 'jquery','cookie'], function(Class, $){
+
+
+    var TopNotification = Class.extend({
+        init: function(){
+            console.log('top notification begin');
+            this.flag = false;
+            console.log('flag:'+this.flag);
+            this.initClickBell();
+            this.ClickBell();
+        },
+        initClickBell: function(){
+                 $('.navbar-collapse .notification-icon').click(this.showNotificationDropList.bind(this));
+        },
+        ClickBell:function(){
+             if(!this.flag){
+                 $('.navbar-collapse .notification-icon').click(this.showNotificationDropList.bind(this));
+            }else{
+                 $('.navbar-collapse .notification-icon').click(this.hiddenNotificationDropList.bind(this));
+            }
+        },
+        showNotificationDropList:function(){
+             $('.navbar-collapse .notification-drop-list-wrapper').show();
+             this.flag = true;
+             console.log('flag:'+this.flag);
+        },
+        hiddenNotificationDropList:function(){
+             $('.navbar-collapse .notification-drop-list-wrapper').hide();
+             this.flag = false;
+             console.log('flag:'+this.flag);
+        }
+
+    });
+
+    return TopNotification;
+});
 define('subapp/topmenu',['bootstrap',
         'libs/Class',
         'underscore',
         'jquery',
         'fastdom',
         'cookie',
-        'subapp/top_ad/top_ad'
+        'subapp/top_ad/top_ad',
+        'subapp/top_notification/top_notification'
     ],
-    function(boot, Class,_,$,fastdom,cookie,TopAd){
+    function(boot, Class,_,$,fastdom,cookie,TopAd,TopNotification){
 
     // cookie is a shim resource , it will attch to jquery objects.
 
@@ -1036,6 +1074,7 @@ define('subapp/topmenu',['bootstrap',
             this.checkSNSBindVisit();
             this.checkEventRead();
             this.topAd = new TopAd();
+            this.topNotification = new TopNotification();
             this.setupBottomCloseButton();
 
         },
