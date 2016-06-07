@@ -2298,9 +2298,13 @@ a:hover {
   height: 70px;
 }
 #detail_content .share-wrapper .report-wrapper {
+  color: #9D9E9F;
   float: left ;
   display: inline-block;
   cursor: pointer;
+}
+#detail_content .share-wrapper .report-wrapper:hover {
+  color: #424242;
 }
 #detail_content .share-wrapper .share-intro {
   font-size: 13px;
