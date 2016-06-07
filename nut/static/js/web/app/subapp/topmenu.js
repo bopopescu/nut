@@ -4,9 +4,10 @@ define(['bootstrap',
         'jquery',
         'fastdom',
         'cookie',
-        'subapp/top_ad/top_ad'
+        'subapp/top_ad/top_ad',
+        'subapp/top_notification/top_notification'
     ],
-    function(boot, Class,_,$,fastdom,cookie,TopAd){
+    function(boot, Class,_,$,fastdom,cookie,TopAd,TopNotification){
 
     // cookie is a shim resource , it will attch to jquery objects.
 
@@ -38,6 +39,7 @@ define(['bootstrap',
             this.checkSNSBindVisit();
             this.checkEventRead();
             this.topAd = new TopAd();
+            this.topNotification = new TopNotification();
             this.setupBottomCloseButton();
 
         },
