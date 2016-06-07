@@ -131,42 +131,11 @@ class DiscoverView(APIJsonView):
 
         #------------ old app banner api ---------------
 
-        shows = Show_Banner.objects.all()
-        res['banner'] = []
-        for row in shows:
-            if row.banner.url.startswith('http://m.guoku.com/articles/'):
-                url = row.banner.url.split('?')
-                uri = url[0]
-                article_id = uri.split('/')[-2]
-                article = APIArticle.objects.get(pk = article_id)
-
-
-                res['banner'].append(
-                    {
-                        'url':row.banner.url,
-                        'img':row.banner.image_url,
-                        'article': article.v4_toDict(da)
-                    }
-                )
-            else:
-
-                res['banner'].append(
-                    {
-                        'url':row.banner.url,
-                        'img':row.banner.image_url
-                    }
-                )
-
-        #------------     old app api end ------------------
-
-        # ------------------------------------ enable new sitebanner  api here ---------------
-        # shows = SiteBanner.objects.get_app_banner()
+        # shows = Show_Banner.objects.all()
         # res['banner'] = []
         # for row in shows:
-        #     if row.applink in (None, ''):
-        #         pass
-        #     elif row.applink and row.applink.startswith('http://m.guoku.com/articles/'):
-        #         url = row.applink.split('?')
+        #     if row.banner.url.startswith('http://m.guoku.com/articles/'):
+        #         url = row.banner.url.split('?')
         #         uri = url[0]
         #         article_id = uri.split('/')[-2]
         #         article = APIArticle.objects.get(pk = article_id)
@@ -174,23 +143,54 @@ class DiscoverView(APIJsonView):
         #
         #         res['banner'].append(
         #             {
-        #
-        #                 'url': row.applink,
-        #                 'img':row.image_url,
+        #                 'url':row.banner.url,
+        #                 'img':row.banner.image_url,
         #                 'article': article.v4_toDict(da)
-        #
         #             }
         #         )
-        #
         #     else:
         #
         #         res['banner'].append(
         #             {
-        #
-        #                 'url': row.url,
-        #                 'img': row.image_url
+        #                 'url':row.banner.url,
+        #                 'img':row.banner.image_url
         #             }
         #         )
+
+        #------------     old app api end ------------------
+
+        # ------------------------------------ enable new sitebanner  api here ---------------
+        shows = SiteBanner.objects.get_app_banner()
+        res['banner'] = []
+        for row in shows:
+            if row.applink in (None, ''):
+                pass
+            elif row.applink and row.applink.startswith('http://m.guoku.com/articles/'):
+                url = row.applink.split('?')
+                uri = url[0]
+                article_id = uri.split('/')[-2]
+                article = APIArticle.objects.get(pk = article_id)
+
+
+                res['banner'].append(
+                    {
+
+                        'url': row.applink,
+                        'img':row.image_url,
+                        'article': article.v4_toDict(da)
+
+                    }
+                )
+
+            else:
+
+                res['banner'].append(
+                    {
+
+                        'url': row.url,
+                        'img': row.image_url
+                    }
+                )
 
         #--------------------- site banner api end ----------------
 
@@ -399,7 +399,7 @@ def selection(request):
 
     try:
         _session = Session_Key.objects.get(session_key=_key)
-        log.info("session %s" % _session)
+        # log.info("session %s" % _session)
         el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=list(ids))
         # log.info(_session.session_key)
         Selection_Entity.objects.set_user_refresh_datetime(session=_session.session_key)

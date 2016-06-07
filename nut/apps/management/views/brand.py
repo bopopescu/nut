@@ -14,6 +14,8 @@ from apps.management.forms.brand import EditBrandForm, CreateBrandForm
 
 from haystack.query import SearchQuerySet
 from apps.core.mixins.views import SortMixin, FilterMixin
+from apps.management.mixins.auth import EditorRequiredMixin
+
 from braces.views import JSONRequestResponseMixin,AjaxResponseMixin,StaffuserRequiredMixin
 
 
@@ -50,7 +52,7 @@ class BrandStatView(BaseListView):
         return self.render_to_response(context)
 
 
-class BrandListView(StaffuserRequiredMixin, FilterMixin, ListView):
+class BrandListView(EditorRequiredMixin, FilterMixin, ListView):
     template_name = "management/brand/list.html"
     context_object_name = 'brands'
     paginate_by = 30
@@ -122,6 +124,14 @@ class BrandEntityListView(BaseListView):
         except EmptyPage:
             raise Http404
 
+        # for entity in _entities:
+        #     try:
+        #         entity_brand = Entity_Brand.objects.get(entity_id=entity.entity_id)
+        #         if entity_brand.brand_id == int(self._brand_id):
+        #             entity.is_belong = True
+        #     except:
+        #         pass
+
         context = {
             'brand': self.brand,
             'entities': _entities,
@@ -172,7 +182,7 @@ class BrandEditView(BaseFormView):
         form = self.get_form_class(brand=brand)
         if form.is_valid():
             brand = form.save()
-            return redirect('management_brand_list')
+            # return redirect('management_brand_list')
 
 
         context = {
@@ -252,7 +262,7 @@ class BrandCreateView(BaseFormView):
         }
         return self.render_to_response(context)
 
-class AddBrandEntityView(StaffuserRequiredMixin,AjaxResponseMixin,JSONRequestResponseMixin, View):
+class AddBrandEntityView(EditorRequiredMixin,AjaxResponseMixin,JSONRequestResponseMixin, View):
 
     def post_ajax(self, request, *args, **kwargs):
         post_data = self.get_request_json()
@@ -270,7 +280,7 @@ class AddBrandEntityView(StaffuserRequiredMixin,AjaxResponseMixin,JSONRequestRes
 
         return self.render_json_response({'result':'ok'})
 
-class BrandSelectedEntitiesView(StaffuserRequiredMixin,AjaxResponseMixin, JSONRequestResponseMixin, View):
+class BrandSelectedEntitiesView(EditorRequiredMixin,AjaxResponseMixin, JSONRequestResponseMixin, View):
 
     def get_ajax(self, request, *args, **kwargs):
         brand_id = self.kwargs.get('brand_id')
@@ -288,7 +298,7 @@ class BrandSelectedEntitiesView(StaffuserRequiredMixin,AjaxResponseMixin, JSONRe
         return self.render_json_response({'entities': res})
 
 
-class SaveSortedEntityView(StaffuserRequiredMixin,AjaxResponseMixin, JSONRequestResponseMixin, View):
+class SaveSortedEntityView(EditorRequiredMixin,AjaxResponseMixin, JSONRequestResponseMixin, View):
     def post_ajax(self, request, *args, **kwargs):
         post_data = self.get_request_json()
         brand_id = post_data.get('brand_id')

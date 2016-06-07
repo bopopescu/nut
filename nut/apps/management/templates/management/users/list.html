@@ -26,6 +26,7 @@
                             <li {% if active == '3' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '3' %}">{% trans 'writer' %}</a></li>
                             <li {% if active == '2' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '2' %}">{% trans 'editor' %}</a></li>
                             <li {% if active == '1' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '1' %}">{% trans 'active' %}</a></li>
+                            <li {% if active == '600' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '600' %}">{% trans '积极用户' %}</a></li>
                             <li {% if active == '0' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '0' %}">{% trans 'blocked' %}</a></li>
                             <li {% if active == '999' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '999' %}">{% trans 'remove' %}</a></li>
                             <li {% if active == '888' %}class="active" {% endif %}><a href="{% url 'management_user_list_status' '888' %}">{% trans 'Authorized Author' %}</a></li>

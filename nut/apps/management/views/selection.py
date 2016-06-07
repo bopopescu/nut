@@ -8,13 +8,13 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
-from apps.core.models import Selection_Entity, Entity_Like
+from apps.core.models import Selection_Entity, Entity_Like,  Entity
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, \
     EmptyPage
 from apps.core.forms.selection import SelectionForm, SetPublishDatetimeForm
 from apps.management.decorators import admin_only
 from apps.core.utils.http import ErrorJsonResponse, SuccessJsonResponse
-
+from apps.management.mixins.auth import EditorRequiredMixin
 from braces.views import AjaxResponseMixin, JSONResponseMixin
 from django.views.generic import View
 
@@ -61,6 +61,7 @@ def published(request, template="management/selection/list.html"):
 
 
 @login_required
+@staff_and_editor
 def pending(request, template="management/selection/list.html"):
     _page = request.GET.get('page', 1)
     s = Selection_Entity.objects.pending()
@@ -88,7 +89,8 @@ def pending(request, template="management/selection/list.html"):
     )
 
 
-@login_required()
+@login_required
+@staff_and_editor
 def pending_and_removed(request, template="management/selection/list.html"):
     _page = request.GET.get('page', 1)
     s = Selection_Entity.objects.pending_and_removed()
@@ -113,6 +115,7 @@ def pending_and_removed(request, template="management/selection/list.html"):
 
 
 @login_required
+@staff_and_editor
 def edit_publish(request, sid,
                  template="management/selection/edit_publish.html"):
     # return HttpResponse("OK")
@@ -141,7 +144,7 @@ def edit_publish(request, sid,
     )
 
 
-class PrepareBatchSelection(JSONResponseMixin, AjaxResponseMixin, View):
+class PrepareBatchSelection(EditorRequiredMixin, JSONResponseMixin, AjaxResponseMixin, View):
     template_name = 'management/selection/batch_selection.html'
 
     def get_entity_list(self, id_list):
@@ -187,7 +190,7 @@ class PrepareBatchSelection(JSONResponseMixin, AjaxResponseMixin, View):
         return self.render_json_response(res)
 
 
-class RemoveBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
+class RemoveBatchSelection(EditorRequiredMixin, AjaxResponseMixin, JSONResponseMixin, View):
 
     def doRemoveSelectionBatch(self, entity_id_list):
         published_selections = Selection_Entity.objects.published().filter(
@@ -228,7 +231,128 @@ class RemoveBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
             return self.render_json_response(res)
 
 
-class DoBatchSelection(AjaxResponseMixin, JSONResponseMixin, View):
+class FreezeBatchSelection(EditorRequiredMixin, AjaxResponseMixin, JSONResponseMixin, View):
+
+    def doFreezeSelectionBatch(self, entity_id_list):
+        published_selections_to_freeze = Selection_Entity.objects.filter(entity__id__in=entity_id_list)
+        for sla in published_selections_to_freeze:
+            sla.entity.status = Entity.freeze
+            sla.entity.save()
+        return
+
+    def post_ajax(self, request, *args, **kwargs):
+        freeze_id_list_jsonstring = request.POST.get('entity_id_list', None)
+        if not freeze_id_list_jsonstring:
+            res = {
+                'error': 1,
+                'msg': 'can not get freeze id list json string'
+            }
+            return self.render_json_response(res)
+        freeze_list = json.loads(freeze_id_list_jsonstring)
+        if freeze_list:
+            try:
+                self.doFreezeSelectionBatch(freeze_list)
+            except Exception as e:
+                res = {
+                    'error': 1,
+                    'msg': 'error %s' % e.message
+                }
+                return self.render_json_response(res)
+            res = {
+                'error': 0,
+                'msg': 'freeze selection Success'
+            }
+            return self.render_json_response(res)
+        else:
+            res = {
+                'error': 1,
+                'msg': 'can not get freeze list from json string'
+            }
+            return self.render_json_response(res)
+
+
+class NewBatchSelection(EditorRequiredMixin, AjaxResponseMixin, JSONResponseMixin, View):
+
+    def doNewSelectionBatch(self, entity_id_list):
+        published_selections_to_new = Selection_Entity.objects.filter(entity__id__in=entity_id_list)
+        for sla in published_selections_to_new:
+            sla.entity.status = Entity.new
+            sla.entity.save()
+        return
+
+    def post_ajax(self, request, *args, **kwargs):
+        new_id_list_jsonstring = request.POST.get('entity_id_list', None)
+        if not new_id_list_jsonstring:
+            res = {
+                'error': 1,
+                'msg': 'can not get new id list json string'
+            }
+            return self.render_json_response(res)
+        new_list = json.loads(new_id_list_jsonstring)
+        if new_list:
+            try:
+                self.doNewSelectionBatch(new_list)
+            except Exception as e:
+                res = {
+                    'error': 1,
+                    'msg': 'error %s' % e.message
+                }
+                return self.render_json_response(res)
+            res = {
+                'error': 0,
+                'msg': 'new selection Success'
+            }
+            return self.render_json_response(res)
+        else:
+            res = {
+                'error': 1,
+                'msg': 'can not get new list from json string'
+            }
+            return self.render_json_response(res)
+
+
+class deleteBatchSelection(EditorRequiredMixin, AjaxResponseMixin, JSONResponseMixin, View):
+
+    def doDeleteSelectionBatch(self, entity_id_list):
+        published_selections_to_delete = Selection_Entity.objects.filter(entity__id__in=entity_id_list)
+        for sla in published_selections_to_delete:
+            sla.entity.status = Entity.remove
+            sla.entity.save()
+        return
+
+    def post_ajax(self, request, *args, **kwargs):
+        delete_id_list_jsonstring = request.POST.get('entity_id_list', None)
+        if not delete_id_list_jsonstring:
+            res = {
+                'error': 1,
+                'msg': 'can not get delete id list json string'
+            }
+            return self.render_json_response(res)
+        delete_list = json.loads(delete_id_list_jsonstring)
+        if delete_list:
+            try:
+                self.doDeleteSelectionBatch(delete_list)
+            except Exception as e:
+                res = {
+                    'error': 1,
+                    'msg': 'error %s' % e.message
+                }
+                return self.render_json_response(res)
+            res = {
+                'error': 0,
+                'msg': 'delete selection Success'
+            }
+            return self.render_json_response(res)
+        else:
+            res = {
+                'error': 1,
+                'msg': 'can not get delete list from json string'
+            }
+            return self.render_json_response(res)
+
+
+
+class DoBatchSelection(EditorRequiredMixin, AjaxResponseMixin, JSONResponseMixin, View):
     def doBatchMission(self, batch_mission):
         for mission in batch_mission:
             sla = Selection_Entity.objects.pending().filter(
@@ -280,6 +404,7 @@ def batch_selection(request,
 
 
 @login_required
+@staff_and_editor
 def set_publish_datetime(request,
                          template="management/selection/set_publish_datetime.html"):
     if request.is_ajax():
@@ -304,6 +429,7 @@ def set_publish_datetime(request,
 
 
 @login_required
+@staff_and_editor
 def popular(request, template="management/selection/popular.html"):
     days = timedelta(days=7)
     now_string = datetime.now().strftime("%Y-%m-%d")

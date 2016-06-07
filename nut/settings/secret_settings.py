@@ -125,7 +125,7 @@ SINA_BACK_URL = APP_HOST + '/sina/auth'
 
 # production.py will override weibo setting
 
-# wechat
+# wechatfi
 WECHAT_TOKEN = 'guokuinwechat'
 WECHAT_APP_ID = 'wx728e94cbff8094df'
 WECHAT_APP_SECRET = 'd841a90cf90d00f145ca22b82e12a500'
