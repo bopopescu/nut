@@ -1,5 +1,16 @@
 
-define(['libs/Class', 'jquery','cookie'], function(Class, $){
+define([
+    'libs/Class',
+    'jquery',
+    'libs/fastdom',
+    'underscore',
+     'cookie'
+], function(
+    Class,
+    $,
+    fastdom,
+    _
+){
 
 
     var TopNotification = Class.extend({
@@ -19,13 +30,48 @@ define(['libs/Class', 'jquery','cookie'], function(Class, $){
         },
         showNotificationDropList:function(){
              $('.navbar-collapse .notification-drop-list-wrapper').show();
+             this.postAjaxNotification();
              this.flag = true;
              console.log('flag:'+this.flag);
+
         },
         hiddenNotificationDropList:function(){
              $('.navbar-collapse .notification-drop-list-wrapper').hide();
              this.flag = false;
              console.log('flag:'+this.flag);
+        },
+        postAjaxNotification:function(){
+             $.when(
+                    $.ajax({
+                        cache:true,
+                        type:"post",
+                        url: '',
+                        data:''
+                    })
+                ).then(
+                  this.postSuccess.bind(this),
+                 this.postFail.bind(this)
+                );
+        },
+        postSuccess:function(result){
+            var status = parseInt(result.status);
+            if(status == 1){
+                this.showNotificationItems();
+            }else{
+                this.showFail();
+            }
+        },
+        showNotificationItems:function($ele){
+            var ajaxDatas = $ele;
+            var notificationItems = _.template($('#notification-items-wrapper').html());
+            var datas = {
+                name:ajaxDatas['name'],
+                name:ajaxDatas['name']
+            };
+            $('.notification-drop-list-wrapper').append(notificationItems(datas));
+        },
+        showFail:function(){
+            console.log('request failed.please try again');
         }
 
     });
