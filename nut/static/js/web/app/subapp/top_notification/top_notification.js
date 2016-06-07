@@ -41,6 +41,7 @@ define([
              console.log('flag:'+this.flag);
         },
         postAjaxNotification:function(){
+            console.log('post ajax request');
              $.when(
                     $.ajax({
                         cache:true,
@@ -63,14 +64,14 @@ define([
         },
         showNotificationItems:function($ele){
             var ajaxDatas = $ele;
-            var notificationItems = _.template($('#notification-items-wrapper').html());
+            var notificationItems = _.template($('#notification_item_template').html());
             var datas = {
                 name:ajaxDatas['name'],
                 name:ajaxDatas['name']
             };
-            $('.notification-drop-list-wrapper').append(notificationItems(datas));
+            $('.notification-drop-list').append(notificationItems(datas));
         },
-        showFail:function(){
+        postFail:function(){
             console.log('request failed.please try again');
         }
 

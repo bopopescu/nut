@@ -2,7 +2,8 @@
 {% load notifications_tags %}
 {% load guoku %}
 
-<li class="notification-list-item">
+<script type="text/html" id="notification_item_template">
+   <li class="notification-list-item">
 
     <div class="notification-user-logo-wrapper">
         <img src="{% static 'images/avatar/woman.png'%}" class="img-responsive img-circle">
@@ -167,3 +168,4 @@
 <li class="notification-list-item">
     <a href="" class="more-notification">更多&nbsp;&nbsp;<i class="fa fa-caret-down"></i></a>
 </li>
+</script>
