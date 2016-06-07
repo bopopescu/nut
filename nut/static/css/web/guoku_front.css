@@ -2591,6 +2591,9 @@ body.compact-body {
   position: relative;
   top: 5px;
 }
+#guoku_main_nav .nav-notification-wrapper .notification-icon:hover {
+  background-color: transparent;
+}
 #guoku_main_nav .nav-notification-wrapper .notification-drop-list-wrapper {
   display: none;
   position: absolute;
