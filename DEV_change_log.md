@@ -2,6 +2,12 @@
 2. removed entity page , add search button
 1. sub category sort buy like (bug fix )
 
+action : 
+  百度广告联盟 认证
+  GOOGLE ADSCENCE 认证
+  
+  
+
 =======================
 # merged to master 2016 6-2
 =======================
