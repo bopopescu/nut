@@ -15,20 +15,17 @@ define([
 
     var TopNotification = Class.extend({
         init: function(){
+            this.flag = 0;
             console.log('top notification begin');
             this.initClickBell();
         },
         initClickBell: function(){
-            var flag = 0;
-            var that = this;
-                 $('.navbar-collapse .notification-icon').click(function(){
-                    $('.navbar-collapse .notification-drop-list-wrapper').toggle(flag++ % 2 == 0);
-                     console.log('flag:'+flag);
-
-                 });
-
-
+            $('.navbar-collapse .notification-icon').click(this.handleClickBell.bind(this));
         },
+        handleClickBell:function(){
+            $('.navbar-collapse .notification-drop-list-wrapper').toggle(this.flag++ % 2 == 0);
+            console.log('flag:'+this.flag);
+        }
         //showNotificationDropList:function(){
         //    var that = this;
         //     $('.navbar-collapse .notification-drop-list-wrapper').toggle(that.flag++ % 2 == 0);
