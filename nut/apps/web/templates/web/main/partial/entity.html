@@ -19,7 +19,7 @@
                 <div class="title">
                     {% if entity.entity_hash %}
                     <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
-                        {{ entity.title|truncatechars:12 }}
+                        {{ entity.title|truncatechars:20 }}
                     </a>
                     {% endif %}
                 </div>

@@ -30,7 +30,7 @@ def get_today_Secelction():
 class SelectionReportListView(ListView):
     template_name = 'management/selection_report/list.html'
     model = Selection_Entity
-    paginate_by = 10
+    paginate_by = 40
     context_object_name = 'selections'
     paginator_class = ExtentPaginator
 

@@ -27,15 +27,15 @@ IMG_COUNTER_HOST = 'http://127.0.0.1:9766'
 
 #for local solr search
 
-# HAYSTACK_CONNECTIONS = {
-#     'default': {
-#         # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-#         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-#         'URL': 'http://10.0.2.115:8983/solr/',
-#         'INCLUDE_SPELLING': True,
-#         # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
-#     }
-# }
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://10.0.2.110:8983/solr/',
+        'INCLUDE_SPELLING': True,
+        # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
+    }
+}
 # # HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 # HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
@@ -73,16 +73,16 @@ CACHES = {
 #
 
 # ----------------------- debug -----------------------
-# def removeDebugToolBar(theList):
-#     return [x  for x in theList if x!='debug_toolbar']
-#
-# INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
+def removeDebugToolBar(theList):
+    return [x  for x in theList if x!='debug_toolbar']
 
-#
-# INSTALLED_APPS +=(
-#         'django.contrib.sessions',
-#         'django.contrib.admin'
-# )
+INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
+
+
+INSTALLED_APPS +=(
+        'django.contrib.sessions',
+        'django.contrib.admin'
+)
 
 #-------------------------debug end --------------------
 
@@ -96,8 +96,7 @@ Current_Dbhost = 'localhost'
 # Current_Dbhost = '10.0.1.110'
 # Current_Dbhost = '10.0.2.90'
 
-
-
+DATABASES = PRODUCTION_DATABASES
 #
 #
 # DATABASES = {
@@ -106,58 +105,26 @@ Current_Dbhost = 'localhost'
 #         'NAME': 'core',
 #         'USER': 'guoku',
 #         'PASSWORD': 'guoku!@#',
-#         'HOST': '10.0.2.90',
+#         'HOST': Current_Dbhost,
 #         'PORT': '',
 #         'OPTIONS': {
-#             # 'use_unicode':'utf-8',
-#             'charset': 'utf8mb4',
+#             'use_unicode':'utf8mb4',
 #             'init_command':'SET storage_engine=INNODB',
 #         }
 #     },
-#
 #     'slave': {
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'core',
 #         'USER': 'guoku',
 #         'PASSWORD': 'guoku!@#',
-#         'HOST': '10.0.2.95',
+#         'HOST': Current_Dbhost,
 #         'PORT': '',
 #         'OPTIONS': {
-#             # 'use_unicode':'utf-8',
-#             'charset': 'utf8mb4',
+#             'use_unicode':'utf8mb4',
 #             'init_command':'SET storage_engine=INNODB',
 #         }
 #     },
 # }
-
-# DATABASES = PRODUCTION_DATABASES
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'core',
-        'USER': 'guoku',
-        'PASSWORD': 'guoku!@#',
-        'HOST': Current_Dbhost,
-        'PORT': '',
-        'OPTIONS': {
-            'use_unicode':'utf8mb4',
-            'init_command':'SET storage_engine=INNODB',
-        }
-    },
-    'slave': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'core',
-        'USER': 'guoku',
-        'PASSWORD': 'guoku!@#',
-        'HOST': Current_Dbhost,
-        'PORT': '',
-        'OPTIONS': {
-            'use_unicode':'utf8mb4',
-            'init_command':'SET storage_engine=INNODB',
-        }
-    },
-}
 
 
 # need this for popular category like back trace time

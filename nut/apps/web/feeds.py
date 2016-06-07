@@ -7,7 +7,7 @@ from django.utils.feedgenerator import Rss201rev2Feed
 # from django.shortcuts import get_object_or_404
 # from xml.sax.saxutils import escape
 
-from apps.core.models import Selection_Entity, Selection_Article, Article
+from apps.core.models import Selection_Entity, Selection_Article, Article, GKUser
 from apps.tag.models import Content_Tags,Tags
 
 from django.utils.html import strip_tags, escape
@@ -119,6 +119,8 @@ class SelectionFeeds(Feed):
         return {'image':item.entity.chief_image}
 
 
+
+
 class ArticlesInterviewFeeds(Feed):
     feed_type = ArticlesFeedGenerator
     title = u'果库'
@@ -207,6 +209,16 @@ class ArticlesFeeds(Feed):
                 # 'content_encoded': "<![CDATA[%s]]>" % u'<p>test</p>',
                 }
         return extra
+
+
+class GKEditorSelectionFeed(ArticlesFeeds):
+    def items(self):
+        editors = list(GKUser.objects.editor())
+        return Selection_Article.objects\
+                    .published()\
+                    .filter(article__creator__in=editors)\
+                    .order_by('-pub_time')[0:50]
+
 
 
 __author__ = 'edison7500'

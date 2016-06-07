@@ -50,6 +50,11 @@
                                 <a href="{{ management_selection_popular_url }}">{% trans 'popular' %}</a>
                             </li>
                         </ul>
+                         <div class="btn-group pull-right">
+                            <a href="#" class="btn btn-primary" id="btn_batch_selection_new" batch_url="{% url 'management_batch_selection_new' %}">批量新品</a>
+                            <a href="#" class="btn btn-warning" id="btn_batch_selection_freeze" batch_url="{% url 'management_batch_selection_freeze' %}">批量冻结</a>
+                            <a href="#" class="btn btn-danger" id="btn_batch_selection_delete" batch_url="{% url 'management_batch_selection_delete' %}">批量删除</a>
+                        </div>
                     </div>
                     <div class="box-body table-responsive">
                         {% include "management/selection/table.html" with entities=selections %}

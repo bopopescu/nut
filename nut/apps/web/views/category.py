@@ -286,7 +286,8 @@ class CategoryDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
         # category = sub_category.group
         if self.request.user.is_authenticated():
             if order_by == 'olike':
-                e_ids = [r[0] for r in entities.object_list.values_list('id', 'lnumber')]
+                # e_ids = [r[0] for r in entities.object_list.values_list('id')]
+                e_ids = list(entities.object_list.values_list('id'))
             else:
                 e_ids = list(entities.object_list.values_list('id'))
             el = Entity_Like.objects.user_like_list(user=self.request.user,
