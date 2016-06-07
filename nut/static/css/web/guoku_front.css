@@ -2596,7 +2596,8 @@ body.compact-body {
   top: 58px;
   left: -227px;
   z-index: 10;
-  background: lightskyblue;
+  background: #fff;
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.13);
   width: 360px;
   height: auto;
   max-height: 500px;
@@ -2619,25 +2620,24 @@ body.compact-body {
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.13);
   content: ' ';
   height: 14px;
-  left: 6px;
+  left: 245px;
   position: absolute;
-  top: 8px;
+  top: -7px;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   width: 14px;
-  z-index: 1;
+  z-index: -10;
 }
 #guoku_main_nav .nav-notification-wrapper .notification-drop-list .tip {
-  border-color: transparent transparent red transparent;
-  border-style: solid;
-  border-width: 0 10px 10px 10px;
+  background: #fff;
   content: ' ';
-  height: 0;
+  height: 17px;
+  left: 244px;
   position: absolute;
-  top: 6px;
-  left: 3px;
-  width: 0;
-  z-index: 12;
+  top: -6px;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  width: 17px;
 }
 #guoku_main_nav .nav-notification-wrapper a:hover,
 #guoku_main_nav .nav-notification-wrapper a:focus {
