@@ -2639,14 +2639,56 @@ body.compact-body {
   transform: rotate(45deg);
   width: 17px;
 }
-#guoku_main_nav .nav-notification-wrapper a:hover,
-#guoku_main_nav .nav-notification-wrapper a:focus {
-  background: none;
-  font-weight: 600;
+#guoku_main_nav .nav-notification-wrapper .notification-drop-list .notification-list-item {
+  position: relative;
+  width: 100%;
+  min-height: 85px;
+  padding: 15px 10px;
+  border-bottom: 1px solid #F8F8F8;
+  font-size: 14px;
+  color: #424242;
 }
-#guoku_main_nav .nav-notification-wrapper a:hover .add_goods,
-#guoku_main_nav .nav-notification-wrapper a:focus .add_goods {
-  display: block;
+#guoku_main_nav .nav-notification-wrapper .notification-drop-list .notification-list-item .notification-user-logo-wrapper {
+  position: absolute;
+  top: 15px;
+  left: 10px;
+  width: 52px;
+  height: 52px;
+}
+#guoku_main_nav .nav-notification-wrapper .notification-drop-list .notification-list-item .main-notification {
+  margin-left: 62px;
+  margin-right: 62px;
+}
+#guoku_main_nav .nav-notification-wrapper .notification-drop-list .notification-list-item .main-notification .main-notification-title .notification-user-name:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
+#guoku_main_nav .nav-notification-wrapper .notification-drop-list .notification-list-item .main-notification .main-notification-title .notification-time {
+  padding-left: 5px;
+  color: #9D9E9F;
+}
+#guoku_main_nav .nav-notification-wrapper .notification-drop-list .notification-list-item .main-notification .main-notification-intro {
+  margin-top: 10px;
+}
+#guoku_main_nav .nav-notification-wrapper .notification-drop-list .notification-list-item .main-notification .main-notification-intro .notification-user-mark {
+  color: #424242;
+}
+#guoku_main_nav .nav-notification-wrapper .notification-drop-list .notification-list-item .main-notification .main-notification-intro .notification-user-mark:hover {
+  cursor: pointer;
+  color: #357ebd;
+  text-decoration: none;
+}
+#guoku_main_nav .nav-notification-wrapper .notification-drop-list .notification-list-item .main-notification .main-notification-intro .notification-user-mark i {
+  color: #ebebeb;
+}
+#guoku_main_nav .nav-notification-wrapper .notification-drop-list .notification-list-item .notification-goods-wrapper {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  width: 54px;
+  height: 54px;
+  border: 1px solid #f2f2f2;
+  background-color: #ffffff;
 }
 #guoku_main_nav .nav-add-product .add_goods {
   display: none;
