@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
 
-from apps.core.models import Selection_Entity
+from apps.core.models import Selection_Entity, Entity
 from apps.core.extend.paginator import ExtentPaginator
 from django.utils.log import getLogger
 from django.views.generic import ListView
 from datetime import datetime, timedelta
+
+from haystack.query import SearchQuerySet
 
 log = getLogger('django')
 
@@ -33,7 +35,6 @@ class SelectionReportListView(ListView):
     paginator_class = ExtentPaginator
 
 
-
     def get_queryset(self):
         self.status =  self.request.GET.get('status', None)
         start_date = self.request.GET.get('start_date', None)
@@ -50,28 +51,30 @@ class SelectionReportListView(ListView):
         else:
             self.start_time = 'yesterday'
             self.start_date, self.end_date = get_time_range()
-        queryset = Selection_Entity.objects.filter(pub_time__range=(self.start_date, self.end_date))
-        selections = self.status_filter(self.status, queryset)
+        selections = self.status_filter(self.status)
         return selections
 
-    def status_filter(self, status, queryset):
+    def status_filter(self, status):
         if status == '1':
-            entity_list = self.get_most_click(queryset)
+            entity_list = self.get_most_click()
         elif status == '2':
-            entity_list = self.get_sold(queryset)
+            entity_list = self.get_sold()
         else:
-            entity_list = self.get_like_best(queryset)
+            entity_list = self.get_like_best()
         return  entity_list
 
-    def get_like_best(self, queryset):
-        like_best = filter(lambda x: x.entity.like_count>100, queryset)
-        return like_best
-
-    def get_sold(self, queryset):  #Todo
+    def get_like_best(self):
+        queryset = SearchQuerySet().models(Entity).filter(
+            created_time__range=(datetime.strptime(self.start_date, '%Y-%m-%d %H:%M:%S'),datetime.strptime(self.end_date, '%Y-%m-%d %H:%M:%S')),
+            like_count__gte=100,
+            is_in_selection=True).order_by('-like_count')
         return queryset
 
-    def get_most_click(self, queryset):   #Todo
-        return queryset
+    def get_sold(self):  #Todo
+        pass
+
+    def get_most_click(self):   #Todo
+        pass
 
 
     def get_context_data(self, *args, **kwargs):
