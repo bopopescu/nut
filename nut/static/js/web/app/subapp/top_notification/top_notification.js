@@ -25,7 +25,12 @@ define([
         handleClickBell:function(){
             $('.navbar-collapse .notification-drop-list-wrapper').toggle(this.flag++ % 2 == 0);
             console.log('flag:'+this.flag);
-        }
+            if(this.flag % 2 == 0){
+                console.log('no request');
+            }else{
+                this.postAjaxNotification();
+            }
+        },
         //showNotificationDropList:function(){
         //    var that = this;
         //     $('.navbar-collapse .notification-drop-list-wrapper').toggle(that.flag++ % 2 == 0);
@@ -36,20 +41,20 @@ define([
         //     this.flag = false;
         //     console.log('flag:'+this.flag);
         //},
-        //postAjaxNotification:function(){
-        //    console.log('post ajax request');
-        //     $.when(
-        //            $.ajax({
-        //                cache:true,
-        //                type:"post",
-        //                url: '',
-        //                data:''
-        //            })
-        //        ).then(
-        //          this.postSuccess.bind(this),
-        //         this.postFail.bind(this)
-        //        );
-        //},
+        postAjaxNotification:function(){
+            console.log('post ajax request');
+             //$.when(
+             //       $.ajax({
+             //           cache:true,
+             //           type:"post",
+             //           url: '',
+             //           data:''
+             //       })
+             //   ).then(
+             //     this.postSuccess.bind(this),
+             //    this.postFail.bind(this)
+             //   );
+        },
         //postSuccess:function(result){
         //    var status = parseInt(result.status);
         //    if(status == 1){
