@@ -96,6 +96,24 @@
 
        <% } %>
 
+       <% if(objects[i].type == 'selection_entity'){ %>
+           <li class="notification-list-item">
+        <div class="main-notification">
+            <div class="main-notification-title">
+                你添加的商品被收录精选
+                <span class="notification-time">1天前</span>
+            </div>
+        </div>
+
+        <div class="notification-goods-wrapper">
+            <img src="<%=objects[i].target.entity_image%>" class="img-responsive img-circle">
+        </div>
+
+    </li>
+
+
+       <% } %>
+
        <% if(objects[i].type == 'note'){ %>
            <li class="notification-list-item">
 
