@@ -1464,14 +1464,6 @@ define('subapp/top_notification/top_notification',[
         postSuccess:function(result){
             var status = parseInt(result.status);
             if(status == 1){
-                //alert(result.data.length);
-                //alert(result.data[0].type);
-                // alert(result.data[0].actor.nick);
-                //alert(result.data[1].type);
-                // alert(result.data[1].actor.nick);
-                // alert(result.data[2].type);
-                // alert(result.data[2].actor.nick);
-
                 this.showNotificationItems(result);
             }else{
                 this.showFail(result);
