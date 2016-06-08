@@ -5,7 +5,11 @@
 <script type="text/html" id="notification_item_template">
 
 {#    if have notifications #}
-    <% if(notification_length){ %>
+<% if(objects[0].type == 'user_follow'){
+     alert('yes');
+%>
+
+
     <li class="notification-list-item">
 
         <div class="notification-user-logo-wrapper">
