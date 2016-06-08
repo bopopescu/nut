@@ -6,10 +6,12 @@
 
 {#    if have notifications #}
  <% if(notification_length){ %>
-     <% if(objects[0].type == 'user_follow'){ %>
+     <% for(var i=0;i<10;i++){ %>
+       <% if(objects[i].type == 'user_follow'){ %>
          <li class="notification-list-item">
              user follow
          </li>
+       <% } %>
      <% } %>
       <li class="notification-list-item">
 
