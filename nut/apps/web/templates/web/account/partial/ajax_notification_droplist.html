@@ -5,12 +5,13 @@
 <script type="text/html" id="notification_item_template">
 
 {#    if have notifications #}
-<% if(objects[0].type == 'user_follow'){
-     alert('yes');
-%>
-
-
-    <li class="notification-list-item">
+ <% if(notification_length){ %>
+     <% if(objects[0].type == 'user_follow'){ %>
+         <li class="notification-list-item">
+             user follow
+         </li>
+     <% } %>
+      <li class="notification-list-item">
 
         <div class="notification-user-logo-wrapper">
             <img src="{% static 'images/avatar/woman.png'%}" class="img-responsive img-circle">
@@ -176,7 +177,10 @@
     <li class="notification-list-item">
         <a href="{% url 'web_messages' %}" class="more-notification">更多&nbsp;&nbsp;<i class="fa fa-caret-down"></i></a>
     </li>
-    <% } %>
+
+ <% } %>
+
+
 
 {#    if empty notification #}
     <% if(!notification_length){ %>
