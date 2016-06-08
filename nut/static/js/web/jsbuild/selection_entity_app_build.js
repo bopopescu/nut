@@ -1463,8 +1463,11 @@ define('subapp/top_notification/top_notification',[
         },
         postSuccess:function(result){
             var status = parseInt(result.status);
-            alert(result.data[0].type);
+            //alert(result.data[0].type);
             if(status == 1){
+                alert(result.data.length);
+                alert(result.data[0].type);
+                 alert(result.data[0].actor.nick);
                 this.showNotificationItems();
             }else{
                 this.showFail();
@@ -1473,11 +1476,11 @@ define('subapp/top_notification/top_notification',[
         showNotificationItems:function($ele){
             var ajaxDatas = $ele;
             var notificationItems = _.template($('#notification_item_template').html());
-            var datas = {
-                name:ajaxDatas['name'],
-                name:ajaxDatas['name']
-            };
-            $('.notification-drop-list').append(notificationItems(datas));
+            //var datas = {
+            //    type:ajaxDatas[0].type,
+            //    name:ajaxDatas[0].actor.id
+            //};
+            //$('.notification-drop-list').append(notificationItems(datas));
         },
         postFail:function(){
             console.log('request failed.please try again');
