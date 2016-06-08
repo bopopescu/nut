@@ -138,21 +138,25 @@ class NewMessageListView(LoginRequiredMixin, AjaxResponseMixin,JSONResponseMixin
                                          'entity_image': m.target.entity.chief_image,
                                          'entity_title': m.target.entity.title},
                               'actor': {'id': m.actor.id, 'nick': m.actor.profile.nick, 'avatar': m.actor.avatar_url},
-                              'type': m.action_object_content_type.model})
+                              'type': m.action_object_content_type.model,
+                              'time': m.timestamp})
                 elif isinstance(m.target, Entity):
                     data.append({'target': {'type': 'entity', 'id': m.target.id, 'entity_hash': m.target.entity_hash,
                                          'entity_image': m.target.chief_image,
                                          'entity_title': m.target.title},
                               'actor': {'id': m.actor.id, 'nick': m.actor.profile.nick, 'avatar': m.actor.avatar_url},
-                              'type': m.action_object_content_type.model})
+                              'type': m.action_object_content_type.model,
+                              'time': m.timestamp})
                 elif isinstance(m.target, Article):
                     data.append({'target': {'type': 'article', 'id': m.target.id, 'article_cover': m.target.cover_url,
                                          'article_title': m.target.title},
                               'actor': {'id': m.actor.id, 'nick': m.actor.profile.nick, 'avatar': m.actor.avatar_url},
+                              'time': m.timestamp,
                               'type': m.action_object_content_type.model})
                 elif isinstance(m.target, GKUser):
                     data.append({'actor': {'id': m.actor.id, 'nick': m.actor.profile.nick, 'avatar': m.actor.avatar_url},
-                              'type': m.action_object_content_type.model})
+                              'type': m.action_object_content_type.model,
+                              'time': m.timestamp,})
 
             res = {'status': 1,
                     'data': data
