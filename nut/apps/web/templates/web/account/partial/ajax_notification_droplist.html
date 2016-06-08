@@ -65,7 +65,76 @@
         </div>
 
         <div class="notification-goods-wrapper">
-            <img src="{% static 'images/event/cal.jpg'%}" class="img-responsive img-circle">
+            <img src="<%=objects[i].target.entity_image%>" class="img-responsive img-circle">
+        </div>
+
+    </li>
+
+       <% } %>
+
+        <% if(objects[i].type == 'entity'){ %>
+           <li class="notification-list-item">
+
+        <div class="notification-user-logo-wrapper">
+            <img src="<%=objects[i].actor.avatar%>" class="img-responsive img-circle">
+        </div>
+
+        <div class="main-notification">
+            <div class="main-notification-title">
+                <a class="notification-user-name"><%=objects[i].actor.nick%></a>
+                喜爱了你添加的商品
+                <span class="notification-time">1天前</span>
+            </div>
+        </div>
+
+        <div class="notification-goods-wrapper">
+            <img src="<%=objects[i].target.entity_image%>" class="img-responsive img-circle">
+        </div>
+
+    </li>
+
+
+       <% } %>
+
+       <% if(objects[i].type == 'note'){ %>
+           <li class="notification-list-item">
+
+        <div class="notification-user-logo-wrapper">
+            <img src="<%=objects[i].actor.avatar%>" class="img-responsive img-circle">
+        </div>
+
+        <div class="main-notification">
+            <div class="main-notification-title">
+                <a class="notification-user-name"><%=objects[i].actor.nick%></a>
+                点评了你的商品
+                <span class="notification-time">1天前</span>
+            </div>
+        </div>
+
+        <div class="notification-goods-wrapper">
+            <img src="<%=objects[i].target.entity_image%>" class="img-responsive img-circle">
+        </div>
+
+    </li>
+       <% } %>
+
+       <% if(objects[i].type == 'article_dig'){ %>
+          <li class="notification-list-item">
+
+        <div class="notification-user-logo-wrapper">
+            <img src="<%=objects[i].actor.avatar%>" class="img-responsive img-circle">
+        </div>
+
+        <div class="main-notification">
+            <div class="main-notification-title">
+                <a class="notification-user-name"><%=objects[i].actor.nick%></a>
+                赞了你发表的图文
+                <span class="notification-time">1天前</span>
+            </div>
+        </div>
+
+        <div class="notification-goods-wrapper">
+            <img src="<%=objects[i].target.article_cover%>" class="img-responsive img-circle">
         </div>
 
     </li>
@@ -75,123 +144,10 @@
      <% } %>
 
     <li class="notification-list-item">
-
-        <div class="notification-user-logo-wrapper">
-            <img src="{% static 'images/avatar/woman.png'%}" class="img-responsive img-circle">
-        </div>
-
-        <div class="main-notification">
-            <div class="main-notification-title">
-                <a class="notification-user-name">Nothing</a>
-                点评了你的商品
-                <span class="notification-time">1天前</span>
-            </div>
-
-            <div class="main-notification-intro">
-                <a class="notification-user-mark">
-                    <p>
-                        <i class="fa fa-quote-left"></i>
-                        可以模仿的鸟音，类型有云雀、鹡鸰、绿头鸭、小猫头鹰、杜鹃、画眉、花园莺、
-                        鸫、黑水鸡、斑鸠…… 好的，从明天起你就是一个职业鸟人。
-                        <i class="fa fa-quote-right"></i>
-                    </p>
-                </a>
-
-            </div>
-
-        </div>
-
-        <div class="notification-goods-wrapper">
-            <img src="{% static 'images/event/cal.jpg'%}" class="img-responsive img-circle">
-        </div>
-
-    </li>
-    <li class="notification-list-item">
-
-        <div class="notification-user-logo-wrapper">
-            <img src="{% static 'images/avatar/woman.png'%}" class="img-responsive img-circle">
-        </div>
-
-        <div class="main-notification">
-            <div class="main-notification-title">
-                <a class="notification-user-name">AzureRay</a>
-                喜爱了你添加的商品
-                <span class="notification-time">1天前</span>
-            </div>
-        </div>
-
-        <div class="notification-goods-wrapper">
-            <img src="{% static 'images/event/cal.jpg'%}" class="img-responsive img-circle">
-        </div>
-
-    </li>
-
-
-    <li class="notification-list-item">
-
-        <div class="notification-user-logo-wrapper">
-            <img src="{% static 'images/avatar/woman.png'%}" class="img-responsive img-circle">
-        </div>
-
-        <div class="main-notification">
-            <div class="main-notification-title">
-                <a class="notification-user-name">AzureRay</a>
-                喜爱了1件商品
-                <span class="notification-time">1天前</span>
-            </div>
-        </div>
-
-        <div class="notification-goods-wrapper">
-            <img src="{% static 'images/event/cal.jpg'%}" class="img-responsive img-circle">
-        </div>
-
-    </li>
-    <li class="notification-list-item">
-
-        <div class="notification-user-logo-wrapper">
-            <img src="{% static 'images/avatar/woman.png'%}" class="img-responsive img-circle">
-        </div>
-
-        <div class="main-notification">
-            <div class="main-notification-title">
-                <a class="notification-user-name">AzureRay</a>
-                赞了1篇图文
-                <span class="notification-time">1天前</span>
-            </div>
-        </div>
-
-        <div class="notification-goods-wrapper">
-            <img src="{% static 'images/event/cal.jpg'%}" class="img-responsive img-circle">
-        </div>
-
-    </li>
-    <li class="notification-list-item">
-
-        <div class="notification-user-logo-wrapper">
-            <img src="{% static 'images/avatar/woman.png'%}" class="img-responsive img-circle">
-        </div>
-
-        <div class="main-notification">
-            <div class="main-notification-title">
-                <a class="notification-user-name">AzureRay</a>
-                赞了你发表的图文
-                <span class="notification-time">1天前</span>
-            </div>
-        </div>
-
-        <div class="notification-goods-wrapper">
-            <img src="{% static 'images/event/cal.jpg'%}" class="img-responsive img-circle">
-        </div>
-
-    </li>
-
-    <li class="notification-list-item">
         <a href="{% url 'web_messages' %}" class="more-notification">更多&nbsp;&nbsp;<i class="fa fa-caret-down"></i></a>
     </li>
 
  <% } %>
-
-
 
 {#    if empty notification #}
     <% if(!notification_length){ %>
