@@ -1443,6 +1443,8 @@ define('subapp/top_notification/top_notification',[
             console.log('flag:'+this.flag);
             if(this.flag % 2 == 0){
                 console.log('no request');
+            }else if($('.notification-drop-list').children('.notification-list-item').length){
+               console.log('no request');
             }else{
                 this.postAjaxNotification();
             }
