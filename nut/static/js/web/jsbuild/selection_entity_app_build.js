@@ -1452,8 +1452,8 @@ define('subapp/top_notification/top_notification',[
              $.when(
                     $.ajax({
                         cache:true,
-                        type:"post",
-                        url: '',
+                        type:"get",
+                        url: '/message/newmessage/',
                         data:''
                     })
                 ).then(
@@ -1463,6 +1463,7 @@ define('subapp/top_notification/top_notification',[
         },
         postSuccess:function(result){
             var status = parseInt(result.status);
+            alert(result.data[0].type);
             if(status == 1){
                 this.showNotificationItems();
             }else{

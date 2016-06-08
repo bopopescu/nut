@@ -36,8 +36,8 @@ define([
              $.when(
                     $.ajax({
                         cache:true,
-                        type:"post",
-                        url: '',
+                        type:"get",
+                        url: '/message/newmessage/',
                         data:''
                     })
                 ).then(
