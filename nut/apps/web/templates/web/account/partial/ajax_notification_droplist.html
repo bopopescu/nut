@@ -9,7 +9,7 @@
      <% for(var i=0;i<notification_length;i++){ %>
        <% if(objects[i].type == 'user_follow'){ %>
          <li class="notification-list-item">
-             user follow
+             <%=objects[i].actor.nick%>
          </li>
        <% } %>
      <% } %>
