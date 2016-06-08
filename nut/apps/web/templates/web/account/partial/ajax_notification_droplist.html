@@ -49,6 +49,29 @@
         </li>
        <% } %>
 
+        <% if(objects[i].type == 'note_comment'){ %>
+            <li class="notification-list-item">
+
+        <div class="notification-user-logo-wrapper">
+            <img src="<%=objects[i].actor.avatar%>" class="img-responsive img-circle">
+        </div>
+
+        <div class="main-notification">
+            <div class="main-notification-title">
+                <a class="notification-user-name"><%=objects[i].actor.nick%></a>
+                评论了你撰写的点评
+                <span class="notification-time">1天前</span>
+            </div>
+        </div>
+
+        <div class="notification-goods-wrapper">
+            <img src="{% static 'images/event/cal.jpg'%}" class="img-responsive img-circle">
+        </div>
+
+    </li>
+
+       <% } %>
+
      <% } %>
 
     <li class="notification-list-item">
@@ -103,25 +126,7 @@
 
     </li>
 
-    <li class="notification-list-item">
 
-        <div class="notification-user-logo-wrapper">
-            <img src="{% static 'images/avatar/woman.png'%}" class="img-responsive img-circle">
-        </div>
-
-        <div class="main-notification">
-            <div class="main-notification-title">
-                <a class="notification-user-name">AzureRay</a>
-                评论了你撰写的点评
-                <span class="notification-time">1天前</span>
-            </div>
-        </div>
-
-        <div class="notification-goods-wrapper">
-            <img src="{% static 'images/event/cal.jpg'%}" class="img-responsive img-circle">
-        </div>
-
-    </li>
     <li class="notification-list-item">
 
         <div class="notification-user-logo-wrapper">
