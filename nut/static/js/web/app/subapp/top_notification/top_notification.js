@@ -65,8 +65,7 @@ define([
             var ajaxDatas = $ele;
             var notificationItems = _.template($('#notification_item_template').html());
             var datas = {
-                //type:ajaxDatas[0].type,
-                //id:ajaxDatas[0].actor.id
+                objects:ajaxDatas.data,
                 notification_length:ajaxDatas.data.length
 
             };
