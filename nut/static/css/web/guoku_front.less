@@ -275,17 +275,22 @@ body.compact-body{
             background-color: #ffffff;
           }
           .more-notification{
+            background-color: @very-light-gray;
+            .border-radius (@radius: 4px);
+            &:hover{
+              background-color:@hover-dark-gray;
+              text-decoration: none;
+            }
+          }
+          .more-notification,.empty-notification{
             display: inline-block;
             width:100%;
             height:32px;
             line-height: 32px;
-            background-color: @very-light-gray;
-            .border-radius (@radius: 4px);
             text-align: center;
-              &:hover{
-                background-color:@hover-dark-gray;
-                text-decoration: none;
-              }
+          }
+          .empty-notification{
+             color:@common-gray;
           }
         }
       }

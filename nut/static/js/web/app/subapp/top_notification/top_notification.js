@@ -47,26 +47,32 @@ define([
         },
         postSuccess:function(result){
             var status = parseInt(result.status);
-            //alert(result.data[0].type);
             if(status == 1){
-                alert(result.data.length);
-                alert(result.data[0].type);
-                 alert(result.data[0].actor.nick);
-                this.showNotificationItems();
+                //alert(result.data.length);
+                //alert(result.data[0].type);
+                // alert(result.data[0].actor.nick);
+                //alert(result.data[1].type);
+                // alert(result.data[1].actor.nick);
+                // alert(result.data[2].type);
+                // alert(result.data[2].actor.nick);
+
+                this.showNotificationItems(result);
             }else{
-                this.showFail();
+                this.showFail(result);
             }
         },
         showNotificationItems:function($ele){
             var ajaxDatas = $ele;
             var notificationItems = _.template($('#notification_item_template').html());
-            //var datas = {
-            //    type:ajaxDatas[0].type,
-            //    name:ajaxDatas[0].actor.id
-            //};
-            //$('.notification-drop-list').append(notificationItems(datas));
+            var datas = {
+                //type:ajaxDatas[0].type,
+                //id:ajaxDatas[0].actor.id
+                notification_length:ajaxDatas.data.length
+
+            };
+            $('.notification-drop-list').append(notificationItems(datas));
         },
-        postFail:function(){
+        postFail:function(data){
             console.log('request failed.please try again');
         }
 
