@@ -130,31 +130,40 @@ class NewMessageListView(LoginRequiredMixin, AjaxResponseMixin,JSONResponseMixin
         context = self.get_context_data()
         messages = context.get('messages')
         data = []
+        if request.is_secure():
+            protocol = 'https'
+        else:
+            protocol = 'http'
+        host = protocol + '://' + request.get_host()
         try:
             for m in messages:
                 if isinstance(m.target, Note):
                     data.append({'target': {'type': 'note', 'id': m.target.entity.id,
                                          'entity_hash': m.target.entity.entity_hash,
                                          'entity_image': m.target.entity.chief_image,
-                                         'entity_title': m.target.entity.title},
-                              'actor': {'id': m.actor.id, 'nick': m.actor.profile.nick, 'avatar': m.actor.avatar_url},
+                                         'entity_title': m.target.entity.title, 'url': host+m.target.entity.get_absolute_url()},
+                              'actor': {'id': m.actor.id, 'nick': m.actor.profile.nick, 'avatar': m.actor.avatar_url,
+                                        'url': host + m.actor.absolute_url},
                               'type': m.action_object_content_type.model,
                               'time': m.timestamp})
                 elif isinstance(m.target, Entity):
                     data.append({'target': {'type': 'entity', 'id': m.target.id, 'entity_hash': m.target.entity_hash,
-                                         'entity_image': m.target.chief_image,
+                                         'entity_image': m.target.chief_image, 'url': host+m.target.get_absolute_url(),
                                          'entity_title': m.target.title},
-                              'actor': {'id': m.actor.id, 'nick': m.actor.profile.nick, 'avatar': m.actor.avatar_url},
+                              'actor': {'id': m.actor.id, 'nick': m.actor.profile.nick, 'avatar': m.actor.avatar_url,
+                                        'url': host+m.actor.absolute_url},
                               'type': m.action_object_content_type.model,
                               'time': m.timestamp})
                 elif isinstance(m.target, Article):
                     data.append({'target': {'type': 'article', 'id': m.target.id, 'article_cover': m.target.cover_url,
-                                         'article_title': m.target.title},
-                              'actor': {'id': m.actor.id, 'nick': m.actor.profile.nick, 'avatar': m.actor.avatar_url},
+                                         'article_title': m.target.title, 'url': host+m.target.get_absolute_url()},
+                              'actor': {'id': m.actor.id, 'nick': m.actor.profile.nick, 'avatar': m.actor.avatar_url,
+                                        'url': host + m.actor.absolute_url},
                               'time': m.timestamp,
                               'type': m.action_object_content_type.model})
                 elif isinstance(m.target, GKUser):
-                    data.append({'actor': {'id': m.actor.id, 'nick': m.actor.profile.nick, 'avatar': m.actor.avatar_url},
+                    data.append({'actor': {'id': m.actor.id, 'nick': m.actor.profile.nick, 'avatar': m.actor.avatar_url,
+                                           'url': host + m.actor.absolute_url},
                               'type': m.action_object_content_type.model,
                               'time': m.timestamp,})
 
