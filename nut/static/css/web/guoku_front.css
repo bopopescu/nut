@@ -2704,10 +2704,6 @@ body.compact-body {
   background-color: #ffffff;
 }
 #guoku_main_nav .nav-notification-wrapper .notification-drop-list-wrapper .notification-drop-list .notification-list-item .more-notification {
-  display: inline-block;
-  width: 100%;
-  height: 32px;
-  line-height: 32px;
   background-color: #F8F8F8;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -2715,11 +2711,21 @@ body.compact-body {
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  text-align: center;
 }
 #guoku_main_nav .nav-notification-wrapper .notification-drop-list-wrapper .notification-drop-list .notification-list-item .more-notification:hover {
   background-color: #f1f1f1;
   text-decoration: none;
+}
+#guoku_main_nav .nav-notification-wrapper .notification-drop-list-wrapper .notification-drop-list .notification-list-item .more-notification,
+#guoku_main_nav .nav-notification-wrapper .notification-drop-list-wrapper .notification-drop-list .notification-list-item .empty-notification {
+  display: inline-block;
+  width: 100%;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+}
+#guoku_main_nav .nav-notification-wrapper .notification-drop-list-wrapper .notification-drop-list .notification-list-item .empty-notification {
+  color: #9D9E9F;
 }
 #guoku_main_nav .nav-add-product .add_goods {
   display: none;
