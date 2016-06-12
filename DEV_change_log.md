@@ -6,7 +6,10 @@ action :
   百度广告联盟 认证
   GOOGLE ADSCENCE 认证
   
-  
+action : 
+  ALTER TABLE `core`.`shop_shop` 
+ADD COLUMN `tb_shop_id` VARCHAR(64) NULL DEFAULT NULL AFTER `shop_type`;
+
 
 =======================
 # merged to master 2016 6-2
