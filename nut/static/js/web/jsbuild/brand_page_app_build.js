@@ -1439,7 +1439,7 @@ define('subapp/top_notification/top_notification',[
             $('.navbar-collapse .notification-icon').click(this.handleClickBell.bind(this));
         },
         handleClickBell:function(){
-            $('.notification-icon .round').hide();
+
             $('.navbar-collapse .notification-drop-list-wrapper').toggle(this.flag++ % 2 == 0);
             console.log('flag:'+this.flag);
             if(this.flag % 2 == 0){
