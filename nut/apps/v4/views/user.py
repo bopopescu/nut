@@ -498,7 +498,7 @@ class APIUserNotesView(APIJsonView):
         last = len(notes) - 1
         log.info("last %s" % last)
         if last < 0:
-            return ErrorJsonResponse(status=404)
+            return res
             # return SuccessJsonResponse(res)
         res['timestamp'] = time.mktime(notes[last].post_time.timetuple())
         res['notes'] = []

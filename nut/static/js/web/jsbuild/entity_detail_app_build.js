@@ -954,7 +954,7 @@ define('subapp/topmenu',['bootstrap',
             this.setupScrollMenu();
             this.checkSNSBindVisit();
             this.checkEventRead();
-            this.topAd = new TopAd();
+            //this.topAd = new TopAd();
             this.setupBottomCloseButton();
 
         },
