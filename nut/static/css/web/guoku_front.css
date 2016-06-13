@@ -906,6 +906,7 @@ p .b_day {
   position: relative;
 }
 .gotop-wrapper ul li a.gk-wechat-share:hover {
+  cursor: pointer;
   color: #51C332;
 }
 .gotop-wrapper ul li a.gk-wechat-share:hover .wechat-qrcode-wrapper {

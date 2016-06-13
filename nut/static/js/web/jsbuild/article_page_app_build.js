@@ -3063,6 +3063,32 @@ define('subapp/article/article_remark',[
     return ArticleRemark;
 });
 
+define('subapp/article/article_sidebar_switch',[
+    'libs/Class',
+    'jquery',
+    'libs/fastdom'
+],function(
+    Class,
+    $,
+    fastdom
+){
+    var ArticleSidebarSwitch = Class.extend({
+        init: function(){
+            console.log('article sidebar switch begin');
+           if($('.sidebar-switch-wrapper').length > 0){
+               this.initClickSwitch();
+           }
+        },
+        initClickSwitch:function(){
+            $('.sidebar-switch-wrapper').click(this.handleClickSwitch.bind(this));
+        },
+        handleClickSwitch:function(){
+
+        }
+    });
+    return  ArticleSidebarSwitch;
+});
+
 define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(Class,$,AccountApp){
     var UserFollow = Class.extend({
         init: function () {
@@ -3140,6 +3166,7 @@ require([
         'subapp/related_article_loader',
         'subapp/article/article_share',
         'subapp/article/article_remark',
+        'subapp/article/article_sidebar_switch',
         'subapp/user_follow',
         'libs/csrf'
 
@@ -3156,6 +3183,7 @@ require([
               SideBarManager,
               RelatedArticleLoader,
               ArticleRemark,
+              ArticleSidebarSwitch,
               UserFollow,
               ArticleShareApp
 
@@ -3169,6 +3197,7 @@ require([
         var sidebar = new SideBarManager();
         var relatedArticleLoader = new RelatedArticleLoader();
         var articleRemark = new ArticleRemark();
+        var articleSidebarSwitch = new ArticleSidebarSwitch();
         var user_follow = new UserFollow();
         var shareApp = new ArticleShareApp();
 
