@@ -3096,6 +3096,7 @@ define('subapp/article/article_sidebar_switch',[
         handleClickSwitch:function(){
             console.log('hidden sidebar');
             $('#detail_content_right').css({opacity:'0'});
+            $('#detail_content .container-fluid').addClass('main-article-control');
         }
     });
     return  ArticleSidebarSwitch;
