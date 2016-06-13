@@ -21,6 +21,8 @@ define([
             console.log('hidden sidebar');
             $('#detail_content_right').css({opacity:'0'});
             $('#detail_content .container-fluid').addClass('main-article-control');
+            $('.sidebar-switch.close-switch').hide();
+            $('.sidebar-switch.open-switch').show();
         }
     });
     return  ArticleSidebarSwitch;

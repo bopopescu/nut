@@ -1438,6 +1438,9 @@ p.boolean-false {
 .main-article .sidebar-switch-wrapper:hover .sidebar-switch {
   color: #757575;
 }
+.main-article .sidebar-switch-wrapper .open-switch {
+  display: none;
+}
 .main-article .share-wrapper .dig-wrapper {
   display: inline-block;
   font-size: 13px;
