@@ -11,6 +11,7 @@ require([
         'subapp/related_article_loader',
         'subapp/article/article_share',
         'subapp/article/article_remark',
+        'subapp/article/article_sidebar_switch',
         'subapp/user_follow',
         'libs/csrf'
 
@@ -27,6 +28,7 @@ require([
               SideBarManager,
               RelatedArticleLoader,
               ArticleRemark,
+              ArticleSidebarSwitch,
               UserFollow,
               ArticleShareApp
 
@@ -40,6 +42,7 @@ require([
         var sidebar = new SideBarManager();
         var relatedArticleLoader = new RelatedArticleLoader();
         var articleRemark = new ArticleRemark();
+        var articleSidebarSwitch = new ArticleSidebarSwitch();
         var user_follow = new UserFollow();
         var shareApp = new ArticleShareApp();
 
