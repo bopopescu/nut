@@ -10,6 +10,7 @@ require([
         'subapp/detailsidebar',
         'subapp/related_article_loader',
         'subapp/article/article_share',
+        'subapp/article/article_remark',
         'subapp/user_follow',
         'libs/csrf'
 
@@ -25,6 +26,7 @@ require([
               EntityCardRender,
               SideBarManager,
               RelatedArticleLoader,
+              ArticleRemark,
               UserFollow,
               ArticleShareApp
 
@@ -37,6 +39,7 @@ require([
         var entityCardRender = new EntityCardRender();
         var sidebar = new SideBarManager();
         var relatedArticleLoader = new RelatedArticleLoader();
+        var articleRemark = new ArticleRemark();
         var user_follow = new UserFollow();
         var shareApp = new ArticleShareApp();
 

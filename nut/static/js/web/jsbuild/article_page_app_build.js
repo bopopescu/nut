@@ -2804,6 +2804,252 @@ define('subapp/article/article_share',['jquery', 'libs/Class','underscore','boot
 
 
 
+define('utils/io',[],function(){
+    var io={
+        clearUserInputString: function(str){
+            str = str.replace(/(\s+)/mg,' ');
+            str = str.replace(/([><:$*&%])/mg, '');
+            return str.trim();
+        },
+    };
+
+    return io;
+});
+define('libs/csrf',['jquery'],function($){
+
+    function getCookie(name) {
+    var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+});
+define('subapp/article/article_remark',[
+    'libs/Class',
+    'subapp/account',
+    'libs/fastdom',
+    'utils/io',
+    'libs/csrf',
+    'underscore',
+    'bootbox'
+],function(
+    Class,
+    AccountApp,
+    ArticleCommentManager,
+    fastdom,
+    io,
+    _,
+    bootbox
+){
+    var ArticleRemark = Class.extend({
+        init: function(){
+            console.log('article remark begin');
+            this.accountApp = new AccountApp();
+            this.firstPost = null;
+            this.secondPost = null;
+            this.initVisitorRemark();
+            this.initUserRemarkPost();
+            this.initUserReply();
+        },
+        checkUserLogin:function(){
+            var loginData = $('#user_dash_link').attr('href');
+            if(loginData){
+                return true;
+            }else{
+                return false;
+            }
+        },
+        initVisitorRemark: function(){
+            var that = this;
+            $('#visitor_note').click(function(){
+                $.when(
+                    $.ajax({
+                        url: '/login/'
+                    })
+                ).then(
+                    function success(data){
+                        var html = $(data);
+                        that.accountApp.modalSignIn(html);
+                    },
+                    function fail(){}
+                );
+            });
+            if(!that.checkUserLogin()){
+                $('#remark-list').delegate('.remark-list-item-wrapper','click',function(){
+                    $.when(
+                        $.ajax({
+                            url: '/login/'
+                        })
+                    ).then(
+                        function success(data){
+                            var html = $(data);
+                            that.accountApp.modalSignIn(html);
+                        },
+                        function fail(){}
+                    );
+                });
+            }
+        },
+
+        initUserReply:function(){
+            var that = this;
+            //user login and request user is not remark user
+            if(that.checkUserLogin){
+                $('#remark-list').delegate('.remark-list-item-wrapper','click',function(){
+                    var requestUser = $('#user_dash_link').data('user-id');
+                    var replyTo = $(this).find('.remark-user').attr('user_name');
+                    var remarkUserId = $(this).find('.remark-user').attr('user_id');
+                    var replyToId = $(this).find('.remark-user').attr('remark_id');
+                    var target = this;
+                    if(requestUser != remarkUserId){
+                        that.replyNotice(replyTo);
+                        that.saveReplyToId(replyToId);
+                    }else{
+                        bootbox.confirm("Are you sure to delete your remark?",function(result){
+                            if(result){
+                                 var $form = $('#article_remark_form');
+                                 var url = $form.attr('action') + "delete/";
+                                $.post(url,{deleteId:replyToId},function(res){
+                                    if(res['success']){
+                                        bootbox.alert('delete successfully.');
+                                        $(target).remove();
+                                    }else{
+                                        bootbox.alert('delete fail');
+                                    }
+                                })
+                            }else{
+                               return ;
+                            }
+                        });
+                    }
+                });
+            }
+        },
+        initUserRemarkPost: function(){
+            var $remark = $(".post-note");
+            var $form = $remark.find("form");
+            $form.on('submit', this.submitRemark.bind(this));
+        },
+        submitRemark: function(event){
+            if(this.firstPost == null){
+                this.firstPost = new Date();
+            }else{
+                this.secondPost = new Date();
+            }
+            if(this.secondPost && this.secondPost - this.firstPost < 30000){
+                bootbox.alert('you operates frequently,please operate later.');
+                this.firstPost = this.secondPost;
+                this.secondPost = null;
+                event.preventDefault();
+                return false;
+            }
+            if(this.firstPost && this.secondPost){
+                this.firstPost = this.secondPost;
+                this.secondPost = null;
+            }
+            console.log(event.currentTarget);
+            var $form = $(event.currentTarget);
+            var url = $form.attr('action');
+            var $remarkContent = $form.find("textarea");
+            if ($.trim($remarkContent[0].value).length === 0) {
+                $remarkContent[0].value = '';
+                $remarkContent.focus();
+            }else{
+                $.when(
+                    $.ajax({
+                        cache: true,
+                        type: "POST",
+                        url: url ,
+                        data: $form.serialize()
+                    })
+                ).then(
+                    this.postRemarkSuccess.bind(this),
+                    this.postRemarkFail.bind(this)
+                );
+            }
+            event.preventDefault();
+            return false;
+        },
+        addNewRemark: function($ele){
+            var ajaxDatas = $ele;
+            var newRemarkItem = _.template($('#new_remark_template').html());
+            var datas = {
+                remark_id:ajaxDatas['remark_id'],
+                user:ajaxDatas['user'],
+                user_id:ajaxDatas['user_id'],
+                user_avatar:ajaxDatas['user_avatar'],
+                user_url:ajaxDatas['user_url'],
+                content:ajaxDatas['content'],
+                user_reply_to:ajaxDatas['user_reply_to'],
+                user_reply_to_url:ajaxDatas['user_reply_to_url'],
+                create_time:ajaxDatas['create_time']
+            };
+            $('#remark-list').append(newRemarkItem(datas));
+        },
+        postRemarkSuccess: function(result){
+            var status = parseInt(result.status);
+            if (status === 1){
+                bootbox.alert('remark successfully');
+                this.addNewRemark(result);
+                this.cleanInput();
+                this.cleanReplyNotice();
+                this.cleanReplyToId();
+            }else if(status === 0){
+                this.postRemarkFail(result);
+            }else{
+                this.postRemarkFail(result);
+            }
+        },
+        postRemarkFail: function(data){
+            //should add bootbox to notice current remarking user
+             bootbox.alert('remark fail');
+        },
+        cleanInput:function(){
+            $('#article_remark_form').find('textarea').val('');
+        },
+        cleanReplyNotice:function(){
+            $('#article_remark_form').find('textarea').attr('placeholder','');
+        },
+        replyNotice:function(data){
+            $('#article_remark_form').find('textarea').attr('placeholder','回复 '+data+':');
+            $('#article_remark_form').find('textarea').focus();
+        },
+        saveReplyToId:function(data){
+            $('#id_reply_to').val(data);
+        },
+        cleanReplyToId:function(){
+            $('#id_reply_to').val('');
+        }
+
+    });
+    return ArticleRemark;
+});
+
 define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(Class,$,AccountApp){
     var UserFollow = Class.extend({
         init: function () {
@@ -2868,40 +3114,6 @@ define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(
     return UserFollow;
 });
 
-define('libs/csrf',['jquery'],function($){
-
-    function getCookie(name) {
-    var cookieValue = null;
-        if (document.cookie && document.cookie != '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-
-    var csrftoken = getCookie('csrftoken');
-
-    function csrfSafeMethod(method) {
-        // these HTTP methods do not require CSRF protection
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-
-    $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
-            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            }
-        }
-    });
-
-});
 require([
         'libs/polyfills',
         'jquery',
@@ -2914,6 +3126,7 @@ require([
         'subapp/detailsidebar',
         'subapp/related_article_loader',
         'subapp/article/article_share',
+        'subapp/article/article_remark',
         'subapp/user_follow',
         'libs/csrf'
 
@@ -2929,6 +3142,7 @@ require([
               EntityCardRender,
               SideBarManager,
               RelatedArticleLoader,
+              ArticleRemark,
               UserFollow,
               ArticleShareApp
 
@@ -2941,6 +3155,7 @@ require([
         var entityCardRender = new EntityCardRender();
         var sidebar = new SideBarManager();
         var relatedArticleLoader = new RelatedArticleLoader();
+        var articleRemark = new ArticleRemark();
         var user_follow = new UserFollow();
         var shareApp = new ArticleShareApp();
 

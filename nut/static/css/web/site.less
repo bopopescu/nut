@@ -1580,6 +1580,47 @@ a:hover{text-decoration:underline;}
 
 }
 
+//article remark style
+
+  #remark-list{
+    .remark-list-item-wrapper{
+      margin-bottom:40px;
+      padding: 15px 15px;
+      &:hover{
+        cursor:pointer;
+        .border-radius(@global-box-radius);
+        box-shadow: @panel-shaddow;
+
+      }
+      .remark-item{
+        overflow: hidden;
+        .remark-detail{
+          margin-left:80px;
+          .remark-content{
+            margin-top:6px;
+          }
+          .remark-operate{
+            .remark-time{
+              font-size:@mini-size;
+              color:@common-gray;
+            }
+          }
+        }
+      }
+    }
+  }
+  #login_user_remark{
+    padding:0 15px;
+  }
+
+
+@media (min-width: 768px){
+  .article-onepage .remarks-wrapper{
+    .panel;
+    margin: 15px 0px;
+  }
+}
+
 
 
 .download-link{
