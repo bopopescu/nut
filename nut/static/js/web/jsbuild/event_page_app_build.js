@@ -1355,7 +1355,8 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 
     var GoTop = Class.extend({
         init: function(){
-            this.topLink = $('.btn-top');
+            this.topLinkWrapper = $('.gotop-wrapper');
+            this.topLink = $('.new-btn-top');
             if (this.topLink.length > 0){
                 this.setupWatcher();
                 this.topLink.on('click', function(){
@@ -1394,8 +1395,10 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
             if (this.scrollTop > 400 ){
 
                 fastdom.write(function(){
-                        that.topLink.show();
+                        that.topLinkWrapper.show();
+                         that.topLink.show();
                         if (that.btnRect.bottom >= that.footerRect.top){
+                            that.topLinkWrapper.css({bottom:'370px'});
                             that.topLink.css({bottom:'370px'});
                         }else{
                             //that.topLink.css({bottom:'170px'});
@@ -1404,7 +1407,8 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 
             }else{
                 fastdom.write(function(){
-                    that.topLink.hide();
+                    that.topLinkWrapper.hide();
+                     that.topLink.hide();
                 });
             }
 
