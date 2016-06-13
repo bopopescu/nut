@@ -228,6 +228,19 @@
                     </div>
                 </div>
 
+                {#article remark begin by luoqian#} 
+
+                {% if not isFromMobile %}
+                    <div class="article-section-title">
+                        <div class="info-text">文章评论</div>
+                    </div>
+                    <div class="remarks-wrapper"> 
+                        {% include 'web/article/remark.html' %} 
+                    </div>  
+                {% endif %}
+
+                {#article remark end#}
+
                 {% if not isFromMobile %}
                 <div class="article-section-title for-browser">
                     <div class="info-text">大家都在看</div>
@@ -300,6 +313,43 @@
             </div>
         </div>
   </script>
+
+{#begin add new remark template#}
+<script type="text/html" id="new_remark_template">
+    <li class="remark-list-item-wrapper">
+        <div class="remark-item">
+            <a class="pull-left" href="<%=user_url%>" target="_blank">
+                <img class="media-object img-circle" src="<%=user_avatar%>" alt="<%=user%>" style="width:50px;height:50px;">
+            </a>
+            <div class="remark-detail">
+                <div class="remark-user" user_id="<%=user_id%>" user_name="<%=user%>" remark_id="<%=remark_id%>">
+                    <a href="<%=user_url%>" target="_blank"><%=user%></a>
+                        <% if(user_reply_to_url){ %>
+                            <span>
+                                回复:
+                                <a href="<%=user_reply_to_url%>" target="_blank">
+                                    <%=user_reply_to%>
+                                </a>
+                            </span>
+                        <% } %>
+                </div>
+                <div class="remark-content">
+                    <p>
+                        <%=content%>
+                    </p>
+                </div>
+                <div class="remark-operate">
+                    <div class="pull-right remark-time">
+                        <i class="fa fa-clock-o"></i>&nbsp;<%=create_time%>
+                    </div>
+                    <span class="pull-right my-note">我的点评</span>
+                </div>
+            </div>
+
+        </div>
+    </li>
+
+</script>
 
 
 {% endblock %}

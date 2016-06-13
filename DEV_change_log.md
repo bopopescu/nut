@@ -1,25 +1,25 @@
-4.  good store update 
+4.  good store update
 3.  broadcast  push management , test send
-2.  jpush notification , add android push 
-1.  add a Entity property :  is_pubed_selection 
+2.  jpush notification , add android push
+1.  add a Entity property :  is_pubed_selection
 
-Action : 
-    1. add solr/haystack Entity index field (property) 
+Action :
+    1. add solr/haystack Entity index field (property)
          1.  is_pubed_selection
-         2.  enter_selection_time  
-       
-    2. need sync db 
-        add DailyPush model    
-        
-    3. fix field encoding , if needed 
-        ALTER TABLE `core`.`notifications_dailypush` 
+         2.  enter_selection_time
+
+    2. need sync db
+        add DailyPush model
+
+    3. fix field encoding , if needed
+        ALTER TABLE `core`.`notifications_dailypush`
 CHANGE COLUMN `push_text` `push_text` VARCHAR(64) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ;
 
-   
-   
-####  for  entity buylink update use 
 
-ALTER TABLE `core`.`core_buy_link` 
+
+####  for  entity buylink update use
+
+ALTER TABLE `core`.`core_buy_link`
 ADD COLUMN `last_update` DATETIME NOT NULL DEFAULT '2013-12-01T00:00:00.000' AFTER `foreign_price`;
 
 =======================
@@ -28,12 +28,12 @@ ADD COLUMN `last_update` DATETIME NOT NULL DEFAULT '2013-12-01T00:00:00.000' AFT
 
 
 8.  web - brand page update --along
-7.  web - user add entity tmall price fix --along 
+7.  web - user add entity tmall price fix --along
 6.  web - fix event page bug  -- lq
 5.  mng - selection entity batch new/freeze/remove --lq
-4.  api - app banner api switch    -- anchen 
+4.  api - app banner api switch    -- anchen
 3.  web  -good-store optimize  -- lq
-2.  web  -update recommend user discover page display count to 10 -an 
+2.  web  -update recommend user discover page display count to 10 -an
 1.  other - price qr code update  -- anchen
 
 
@@ -42,7 +42,7 @@ ADD COLUMN `last_update` DATETIME NOT NULL DEFAULT '2013-12-01T00:00:00.000' AFT
 # merged to master 2016 5-23
 =======================
 
-5. update google analysis code 
+5. update google analysis code
 4. web -pop up store top banner -- lq
 3. api - article.digest filter blank characters  
 2. other - price tag html 
