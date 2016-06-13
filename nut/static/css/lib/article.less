@@ -328,6 +328,26 @@
 }
 
 .main-article{
+  position:relative;
+  .sidebar-switch-wrapper{
+    position: absolute;
+    top:60px;
+    right:0;
+    width:15px;
+    height:40px;
+    line-height: 40px;
+    text-align: center;
+    border:1px solid #ebebeb;
+    color:@gray-light;
+    border-right:transparent;
+    .border-radiuses(0,0,4px,4px);
+    &:hover{
+      cursor: pointer;
+      .sidebar-switch{
+        color:@new-text-gray;
+      }
+    }
+  }
   .share-wrapper{
      .dig-wrapper{
         display:inline-block;
