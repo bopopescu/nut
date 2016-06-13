@@ -545,6 +545,9 @@ p .b_day {
 .gotop-wrapper ul li a.gk-wechat-share {
   position: relative;
 }
+.gotop-wrapper ul li a.gk-wechat-share:hover {
+  color: #51C332;
+}
 .gotop-wrapper ul li a.gk-wechat-share:hover .wechat-qrcode-wrapper {
   display: block;
 }
