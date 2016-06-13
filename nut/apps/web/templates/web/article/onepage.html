@@ -50,16 +50,17 @@
                         </div>
                         <div class="info-wrapper">
                             <span class="editor">
-                                <i class="fa fa-pencil"></i>
-                                {{ article.creator.profile.nickname }}
+{#                                <i class="fa fa-pencil"></i>#}
+                                {{ article.creator.profile.nickname }}&nbsp;&nbsp;·&nbsp;&nbsp;<meta itemprop="datePublished" content="{{article.created_datetime|date:'Y-m-d H:i:s'}}"/>
+                                {{article.created_datetime|date:"Y-m-d"}}
                             </span>
-                            <span class="create-time">
-                                <meta itemprop="datePublished" content="{{article.created_datetime|date:'Y-m-d H:i:s'}}"/>
-                                <i class="fa fa-clock-o"></i>{{article.created_datetime|date:"Y-m-d"}}
-                            </span>
+                           <span class="remark-count">
+                               <i class="fa fa-comment-o"></i>21
+                           </span>
                             <span class="read" style="display:none">
                                 <i class="fa fa-eye"></i>
                                 <span id="read_counter">
+
 
                                 </span>
                             </span>
