@@ -524,12 +524,51 @@ p .b_day{
         border-bottom: none;
       }
       a{
+        display: inline-block;
+        width:100%;
+        height:100%;
         color:@new-text-gray;
         font-size:@primary-size;
       }
-      //a.new-btn-top{
-      //  font-size:@more-mini-size;
-      //}
+      a.gk-wechat-share{
+         position:relative;
+        &:hover{
+        .wechat-qrcode-wrapper{
+          display:block;
+        }
+      }
+      }
+      .wechat-qrcode-wrapper{
+              position:absolute;
+              bottom:-56px;
+              left:-116px;
+              padding:10px 9px;
+              background-color: #fff;
+              box-shadow: @panel-shaddow;
+              display: none;
+              .wechat-qrcode-img{
+                width:80px;
+              }
+              .wechat-qr-text{
+                font-size:@mini-size;
+                color:#414243;
+                width:100%;
+                text-align: center;
+                margin-top:10px;
+              }
+              .bottom-bot{
+                position:absolute;
+                bottom:50%;
+                left:100%;
+
+                width:0;
+                height:0;
+                border-width:5px;
+                border-style:solid;
+                border-color:transparent transparent transparent #ffffff;
+              }
+            }
+
     }
   }
 }
