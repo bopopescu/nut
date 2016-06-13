@@ -18,6 +18,8 @@ define([
             $('.sidebar-switch-wrapper').click(this.handleClickSwitch.bind(this));
         },
         handleClickSwitch:function(){
+            console.log('hidden sidebar');
+            $('#detail_content_right').css({opacity:'0'});
 
         }
     });
