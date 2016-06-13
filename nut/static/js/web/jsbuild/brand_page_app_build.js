@@ -1570,8 +1570,9 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
     var GoTop = Class.extend({
         init: function(){
             this.topLinkWrapper = $('.gotop-wrapper');
-            this.topLink = $('.new-btn-top');
-            if (this.topLink.length > 0){
+            this.topLink = $('.btn-top');
+            this.newTopLink = $('.new-btn-top');
+            if (this.topLink.length > 0 || this.newTopLink.length > 0){
                 this.setupWatcher();
                 this.topLink.on('click', function(){
                     $("html, body").animate(
@@ -1579,6 +1580,14 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
                     );
                     return false;
                 });
+
+                 this.newTopLink.on('click', function(){
+                    $("html, body").animate(
+                    {scrollTop : 0}, 800
+                    );
+                    return false;
+                });
+
             }else{
                 return ;
             }
@@ -1598,8 +1607,8 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
         },
         doRead: function(){
             this.scrollTop = $(window).scrollTop();
-            this.btnRect = this.topLink[0].getBoundingClientRect()
-            this.footerRect = $('#guoku_footer')[0].getBoundingClientRect()
+            this.btnRect = this.topLink[0].getBoundingClientRect();
+            this.footerRect = $('#guoku_footer')[0].getBoundingClientRect();
 
 
         },
@@ -1610,7 +1619,7 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 
                 fastdom.write(function(){
                         that.topLinkWrapper.show();
-                         that.topLink.show();
+                        that.topLink.show();
                         if (that.btnRect.bottom >= that.footerRect.top){
                             that.topLinkWrapper.css({bottom:'370px'});
                             that.topLink.css({bottom:'370px'});
