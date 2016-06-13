@@ -1395,6 +1395,13 @@ p.boolean-false {
 .article-wrapper .content-wrapper {
   line-height: 2;
 }
+.main-article-control {
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+}
 .main-article {
   position: relative;
 }
