@@ -502,6 +502,37 @@ p .b_day{
 }
 
 
+.gotop-wrapper{
+  width:40px;
+  height:120px;
+  position:fixed;
+  bottom:150px;
+  right:40px;
+  background-color: @panel-background-color;
+  border:1px solid @divider-color;
+  .drop-shadow();
+  ul{
+    width:100%;
+    height:100%;
+    li{
+      width:100%;
+      height:40px;
+      line-height: 40px;
+      text-align: center;
+      border-bottom:1px solid @divider-color;
+      &:last-child{
+        border-bottom: none;
+      }
+      a{
+        color:@new-text-gray;
+        font-size:@primary-size;
+      }
+      //a.new-btn-top{
+      //  font-size:@more-mini-size;
+      //}
+    }
+  }
+}
 .btn-top {
   .acc-layer;
 
