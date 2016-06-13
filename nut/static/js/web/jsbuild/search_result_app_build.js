@@ -1313,15 +1313,15 @@ define('subapp/top_notification/top_notification',[
         init: function(){
             this.flag = 0;
             console.log('top notification begin');
-            //this.initClickBell();
-            this.initAjax();
+            this.initClickBell();
+            //this.initAjax();
             this.checkBadge();
         },
-        initAjax:function(){
-        if($('.notification-drop-list-wrapper').length > 0){
-            this.postAjaxNotification();
-        }
-    },
+    //    initAjax:function(){
+    //    if($('.notification-drop-list-wrapper').length > 0){
+    //        this.postAjaxNotification();
+    //    }
+    //},
         initClickBell: function(){
             $('.navbar-collapse .notification-icon').click(this.handleClickBell.bind(this));
         },

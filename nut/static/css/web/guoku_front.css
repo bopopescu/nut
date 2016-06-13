@@ -2597,9 +2597,6 @@ body.compact-body {
 #guoku_main_nav .nav-notification-wrapper .notification-icon:active {
   background-color: transparent;
 }
-#guoku_main_nav .nav-notification-wrapper .notification-icon:hover .notification-drop-list-wrapper {
-  display: block;
-}
 #guoku_main_nav .nav-notification-wrapper .notification-icon .round.notification-round {
   position: absolute;
   top: 10px;

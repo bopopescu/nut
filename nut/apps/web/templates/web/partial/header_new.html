@@ -67,19 +67,17 @@
                  {% if request.user.is_authenticated  %}
                      <ul class="nav navbar-nav nav-notification-wrapper pull-right hidden-xs">
                          <li>
-                             <a href="javascript:void(0);" class="notification-icon">
+                             <a href="javascript:void(0);" alt="「消息」" title="「消息」" class="notification-icon">
                                  <i class="fa fa-bell" style="color: #9D9E9F;font-size:18px;"></i>
-{#                                 need add if statements here #}
+                                 {#                                 need add if statements here #}
                                  <span class="round notification-round"></span>
-
-                                 <div class="notification-drop-list-wrapper">
-                                     <span class="tip"></span>
-                                     <ul class="notification-drop-list">
-                                         {% include "web/account/partial/ajax_notification_droplist.html" %}
-                                     </ul>
-                                 </div>
-                              </a>
-
+                             </a>
+                             <div class="notification-drop-list-wrapper">
+                                 <span class="tip"></span>
+                                 <ul class="notification-drop-list">
+                                     {% include "web/account/partial/ajax_notification_droplist.html" %}
+                                 </ul>
+                             </div>
                          </li>
                      </ul>
                  {% endif %}
