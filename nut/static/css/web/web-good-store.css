@@ -510,6 +510,7 @@ p .b_day {
   font-size: 14px;
 }
 .gotop-wrapper {
+  display: none;
   width: 40px;
   height: 120px;
   position: fixed;
