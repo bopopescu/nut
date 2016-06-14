@@ -63,10 +63,11 @@
                                 <i class="fa fa-thumbs-o-up"></i>{{ article.dig_count }}
                             </span>
                         {% endif %}
-{#                        if have no the remark count = 0,then,hidden this info#}
+                        {% if remark_count %}
                            <span class="remark-count">
-                               <i class="fa fa-comment-o"></i>21
+                               <i class="fa fa-comment-o"></i>{{ remark_count }}
                            </span>
+                        {% endif %}
                             <span class="read" style="display:none">
                                 <i class="fa fa-eye"></i>
                                 <span id="read_counter">
@@ -115,13 +116,12 @@
                                 </span>
                             </span>
 
-{#                           如果文章评论数量为0,则显示[评论],不为0,则显示评论数量 #}
                             <span class="remark-wrapper">
                                 <a href="#login_user_remark" class="remark-info">
                                     <img class="remark-icon" src="{% static 'images/article/comment.png' %}" >
-                                    <span class="remark-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>
+                                    <span class="remark-count">{% if remark_count %}{{ remark_count }}{% endif %}</span>
                                     <span class="remark-word">
-                                    {% if not article.dig_count %}
+                                    {% if not remark_count %}
                                         评论
                                     {% endif %}
                                     </span>
@@ -380,9 +380,9 @@
                             <span class="remark-wrapper">
                                 <a href="#login_user_remark" class="remark-info">
                                     <img class="remark-icon" src="{% static 'images/article/comment.png' %}" >
-                                    <span class="remark-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>
+                                    <span class="remark-count">{% if remark_count %}{{ remark_count }}{% endif %}</span>
                                     <span class="remark-word">
-                                    {% if not article.dig_count %}
+                                    {% if not remark_count %}
                                         评论
                                     {% endif %}
                                     </span>
