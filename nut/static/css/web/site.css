@@ -2459,6 +2459,8 @@ a:hover {
   padding-top: 0;
 }
 #detail_content .divider {
+  margin-left: -40px;
+  margin-right: -40px;
   margin-bottom: 20px;
   height: 2px;
   border-bottom: 1px solid #F8F8F8;
