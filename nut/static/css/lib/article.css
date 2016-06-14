@@ -1441,128 +1441,6 @@ p.boolean-false {
 .main-article .sidebar-switch-wrapper .open-switch {
   display: none;
 }
-.main-article .share-wrapper .dig-wrapper {
-  display: inline-block;
-  font-size: 13px;
-  color: #9D9E9F;
-}
-.main-article .share-wrapper .dig-wrapper div {
-  display: inline-block;
-}
-.main-article .share-wrapper .dig-wrapper .dig-action {
-  positon: relative;
-  width: 30px;
-  height: 100%;
-}
-.main-article .share-wrapper .dig-wrapper .dig-action .dig-img {
-  position: relative;
-  left: 0px;
-  top: -5px;
-  height: 32px;
-  cursor: pointer;
-}
-.main-article .share-wrapper .dig-wrapper .digged img.dig {
-  display: none;
-}
-.main-article .share-wrapper .dig-wrapper .digged img.undig {
-  display: inline;
-}
-.main-article .share-wrapper .dig-wrapper .undigged img.undig {
-  display: none;
-}
-.main-article .share-wrapper .dig-wrapper .undigged img.dig {
-  display: inline;
-}
-.main-article .share-wrapper .dig-wrapper .dig-info .dig-count {
-  margin: 0px 6px;
-}
-.main-article .share-wrapper .article-share .dig-wrapper {
-  float: left;
-  line-height: 40px;
-  padding-top: 4px;
-}
-.main-article .share-wrapper .article-share .remark-wrapper {
-  float: left;
-  margin-left: 25px;
-  padding-top: 0;
-  line-height: 45px;
-  font-size: 13px;
-}
-.main-article .share-wrapper .article-share .remark-wrapper a {
-  color: #9D9E9F;
-}
-.main-article .share-wrapper .article-share .remark-wrapper .remark-icon {
-  width: 32px;
-  height: 32px;
-}
-.main-article .share-wrapper .article-share .remark-wrapper .remark-count {
-  margin-left: 5px;
-}
-.main-article .share-wrapper .article-share ul.share-bt-list {
-  text-align: right;
-}
-.main-article .share-wrapper .article-share ul.share-bt-list li.share-text {
-  color: #9D9E9F;
-}
-.main-article .share-wrapper .article-share ul.share-bt-list li.list-item {
-  display: inline-block;
-  text-decoration: none;
-  margin-left: 0px;
-}
-.main-article .share-wrapper .article-share ul.share-bt-list li.list-item a {
-  color: #757575;
-}
-.main-article .share-wrapper .article-share ul.share-bt-list li.list-item a:hover {
-  cursor: pointer;
-}
-.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weixin {
-  position: relative;
-}
-.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weixin a:hover {
-  color: #51C332;
-}
-.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weixin a:hover .display-toggle {
-  display: block;
-}
-.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weixin a .wechat-qrcode-wrapper {
-  position: absolute;
-  bottom: 47px;
-  left: -50%;
-  transform: translateX(-20%);
-  padding: 10px 9px;
-  background-color: #fff;
-  box-shadow: 0px 0px 2px #ddd;
-  display: none;
-}
-.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weixin a .wechat-qrcode-wrapper:after {
-  content: "";
-  position: absolute;
-  bottom: -9px;
-  left: 46%;
-  transform: translateX(-20%);
-  width: 0;
-  height: 0;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #ffffff transparent transparent transparent;
-}
-.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weixin a .wechat-qrcode-wrapper .bottom-bot {
-  position: absolute;
-  bottom: -10px;
-  left: 46%;
-  transform: translateX(-20%);
-  width: 0;
-  height: 0;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #ddd transparent transparent transparent;
-}
-.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-weibo a:hover {
-  color: #E90D24;
-}
-.main-article .share-wrapper .article-share ul.share-bt-list li.list-item-qq a:hover {
-  color: #3199DD;
-}
 .main-article .writer-wrapper .author-info .user-icon img {
   display: block;
   margin: 0 auto ;
@@ -1736,6 +1614,126 @@ p.boolean-false {
 }
 .article-share-wx-dialog .modal-dialog .qr-code-wrapper.qr-code-control {
   text-align: center;
+}
+.article-share .dig-wrapper {
+  display: inline-block;
+  font-size: 13px;
+  color: #9D9E9F;
+  float: left;
+  line-height: 40px;
+  padding-top: 4px;
+}
+.article-share .dig-wrapper div {
+  display: inline-block;
+}
+.article-share .dig-wrapper .dig-action {
+  positon: relative;
+  width: 30px;
+  height: 100%;
+}
+.article-share .dig-wrapper .dig-action .dig-img {
+  position: relative;
+  left: 0px;
+  top: -5px;
+  height: 32px;
+  cursor: pointer;
+}
+.article-share .dig-wrapper .digged img.dig {
+  display: none;
+}
+.article-share .dig-wrapper .digged img.undig {
+  display: inline;
+}
+.article-share .dig-wrapper .undigged img.undig {
+  display: none;
+}
+.article-share .dig-wrapper .undigged img.dig {
+  display: inline;
+}
+.article-share .dig-wrapper .dig-info .dig-count {
+  margin: 0px 6px;
+}
+.article-share .remark-wrapper {
+  float: left;
+  margin-left: 25px;
+  padding-top: 0;
+  line-height: 45px;
+  font-size: 13px;
+}
+.article-share .remark-wrapper a {
+  color: #9D9E9F;
+}
+.article-share .remark-wrapper .remark-icon {
+  width: 32px;
+  height: 32px;
+}
+.article-share .remark-wrapper .remark-count {
+  margin-left: 5px;
+}
+.article-share ul.share-bt-list {
+  text-align: right;
+}
+.article-share ul.share-bt-list li.share-text {
+  color: #9D9E9F;
+}
+.article-share ul.share-bt-list li.list-item {
+  display: inline-block;
+  text-decoration: none;
+  margin-left: 0px;
+}
+.article-share ul.share-bt-list li.list-item a {
+  color: #757575;
+}
+.article-share ul.share-bt-list li.list-item a:hover {
+  cursor: pointer;
+}
+.article-share ul.share-bt-list li.list-item-weixin {
+  position: relative;
+}
+.article-share ul.share-bt-list li.list-item-weixin a:hover {
+  color: #51C332;
+}
+.article-share ul.share-bt-list li.list-item-weixin a:hover .display-toggle {
+  display: block;
+}
+.article-share ul.share-bt-list li.list-item-weixin a .wechat-qrcode-wrapper {
+  position: absolute;
+  bottom: 47px;
+  left: -50%;
+  transform: translateX(-20%);
+  padding: 10px 9px;
+  background-color: #fff;
+  box-shadow: 0px 0px 2px #ddd;
+  display: none;
+}
+.article-share ul.share-bt-list li.list-item-weixin a .wechat-qrcode-wrapper:after {
+  content: "";
+  position: absolute;
+  bottom: -9px;
+  left: 46%;
+  transform: translateX(-20%);
+  width: 0;
+  height: 0;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
+}
+.article-share ul.share-bt-list li.list-item-weixin a .wechat-qrcode-wrapper .bottom-bot {
+  position: absolute;
+  bottom: -10px;
+  left: 46%;
+  transform: translateX(-20%);
+  width: 0;
+  height: 0;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #ddd transparent transparent transparent;
+}
+.article-share ul.share-bt-list li.list-item-weibo a:hover {
+  color: #E90D24;
+}
+.article-share ul.share-bt-list li.list-item-qq a:hover {
+  color: #3199DD;
 }
 @media screen and (max-width: 768px) {
   .article-sidebar-wrapper.article-sidebar-hidden {

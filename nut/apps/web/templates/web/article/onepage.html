@@ -359,7 +359,62 @@
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                    <div class="bottom-article-share">
-                       123
+                        <div class="article-share for-browser ">
+
+                             <span class="dig-wrapper">
+                                <span class="{% if dig_status %} digged {% else %} undigged {% endif %} dig-action" data-article-id="{{ article.pk }}">
+                                    <img class="dig-img dig" src="{% static 'images/article/dig.png' %}" >
+                                    <img class="dig-img undig" src="{% static 'images/article/undig.png' %}" >
+                                </span>
+                                <span class="dig-info">
+                                    <span class="dig-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>
+
+                                    <span class="dig-word">
+                                    {% if not article.dig_count %}
+                                        赞
+                                    {% endif %}
+                                    </span>
+                                </span>
+                            </span>
+
+                            <span class="remark-wrapper">
+                                <a href="#login_user_remark" class="remark-info">
+                                    <img class="remark-icon" src="{% static 'images/article/comment.png' %}" >
+                                    <span class="remark-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>
+                                    <span class="remark-word">
+                                    {% if not article.dig_count %}
+                                        评论
+                                    {% endif %}
+                                    </span>
+                                </a>
+                            </span>
+
+                                <ul class="share-bt-list">
+
+                                    <li class="list-item list-item-weixin">
+                                        <a class="logo-wechat normal-share-btn">
+                                            <i class="fa fa-wechat"></i>
+                                            <div class="wechat-qrcode-wrapper display-toggle">
+                                                <div id="qr_code">
+
+                                                </div>
+
+                                                <span class="bottom-bot"></span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="list-item list-item-weibo">
+                                        <a target="_blank" class="share-btn-weibo normal-share-btn" data_article_title="{{ article.title }}" data_article_summary="{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}}" data_article_cover="{{ article.cover_url }}">
+                                            <i class="fa fa-weibo"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-item list-item-qq">
+                                        <a target="_blank" class="share-btn-qq normal-share-btn" data_article_title="{{ article.title }}" data_article_summary="{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}}" data_article_cover="{{ article.cover_url }}">
+                                            <i class="fa fa-qq"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                    </div>
                 </div>
             </div>
