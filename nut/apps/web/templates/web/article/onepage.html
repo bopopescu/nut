@@ -58,10 +58,11 @@
                                 {{ article.creator.profile.nickname }}&nbsp;&nbsp;·&nbsp;&nbsp;<meta itemprop="datePublished" content="{{article.created_datetime|date:'Y-m-d H:i:s'}}"/>
                                 {{article.created_datetime|date:"Y-m-d"}}
                             </span>
-{#                        if have no the article dig count = 0,then,hidden this info#}
+                        {% if article.dig_count  %}
                             <span class="article-dig-count">
-                                <i class="fa fa-thumbs-o-up"></i>726
+                                <i class="fa fa-thumbs-o-up"></i>{{ article.dig_count }}
                             </span>
+                        {% endif %}
 {#                        if have no the remark count = 0,then,hidden this info#}
                            <span class="remark-count">
                                <i class="fa fa-comment-o"></i>21
@@ -116,7 +117,7 @@
 
 {#                           如果文章评论数量为0,则显示[评论],不为0,则显示评论数量 #}
                             <span class="remark-wrapper">
-                                <a href="" class="remark-info">
+                                <a href="#login_user_remark" class="remark-info">
                                     <img class="remark-icon" src="{% static 'images/article/comment.png' %}" >
                                     <span class="remark-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>
                                     <span class="remark-word">
