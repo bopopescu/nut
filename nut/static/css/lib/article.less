@@ -499,9 +499,9 @@
   height:auto;
   line-height: 52px;
   z-index:1000;
-  .transition(all 1s ease-in-out);
+  .transition(all 0.4s ease-in-out);
   &.hidden-animation{
-    .transform(translateY(62px));
+    .transform(translateY(52px));
   }
   .bottom-article-share{
     .panel-no-padding;
@@ -598,6 +598,7 @@
       }
       ul.share-bt-list{
         text-align: right;
+        margin-bottom:0;
         li.share-text{
           color:@common-gray;
         }
