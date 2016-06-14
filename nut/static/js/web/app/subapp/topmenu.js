@@ -80,6 +80,12 @@ define(['bootstrap',
             if (!this.read){
                 this.read = fastdom.read(function(){
                     that.scrollTop = $(window).scrollTop();
+                    that.screenHeight = window.screen.height;
+                    that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
+                    that.pageHeight = document.body.scrollHeight;
+                    that.hiddenLeftCondition = that.screenHeight + that.scrollTop;
+                    that.hiddenRightCondition = that.articleHeight + 102;
+
                 });
             }
 
@@ -91,6 +97,15 @@ define(['bootstrap',
         },
         moveHeader:function(){
             //console.log('move header');
+            //console.log('articleHeight:'+this.articleHeight);
+            //console.log('share wrapper height:'+this.shareWrapperHeight);
+            //console.log('writerInfoHeight:'+this.writerInfoHeight);
+            //console.log('screen height:'+this.screenHeight);
+            //console.log('shareWrapperHeight:'+this.shareWrapperHeight);
+            //console.log('hidden share condition:'+this.hiddenShareCondition);
+            //console.log('scrollTop:'+this.scrollTop);
+            console.log('left condition:'+this.hiddenLeftCondition);
+            console.log('right condition:'+this.hiddenRightCondition);
 
             if (_.isNull(this.scrollTop)) {
                 return ;
@@ -110,6 +125,9 @@ define(['bootstrap',
                      this.hideHeader(this.scrollTop);
                 }
 
+            }
+            if(this.hiddenLeftCondition > this.hiddenRightCondition){
+                this.hideHeader();
             }
 
             this.read = null;
