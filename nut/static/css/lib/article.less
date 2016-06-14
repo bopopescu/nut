@@ -406,6 +406,7 @@
         padding-top: 4px;
       }
       .remark-wrapper{
+        float:left;
         margin-left:25px;
         padding-top:0;
         line-height: 45px;
@@ -431,9 +432,8 @@
           text-decoration: none;
           margin-left:0px;
           a{
-            color:#ffffff;
+            color:@new-text-gray;
             &:hover{
-              //color:#ffffff;
               cursor: pointer;
             }
           }
@@ -442,11 +442,12 @@
           position: relative;
           a{
             &:hover{
+               color: @wechat-hover-color;
               .display-toggle{
                 display: block;
               }
             }
-             background-color: @wechat-hover-color;
+
             .wechat-qrcode-wrapper{
                //暂时无法给三角形添加box-shadow,所以又画了一个三角形,设置了border颜色和阴影颜色相同.但是设计感觉不好...
                &:after{
@@ -487,13 +488,16 @@
         }
 
         li.list-item-weibo a{
-            background-color: @weibo-hover-color;
+          &:hover{
+            color: @weibo-hover-color;
+          }
+
         }
         li.list-item-qq a{
-            background-color: @qq-hover-color;
+          &:hover{
+           color: @qq-hover-color;
+          }
         }
-
-
       }
     }
   }
