@@ -1042,6 +1042,8 @@ define('subapp/topmenu',['bootstrap',
             this.$menu.addClass('shown-header');
             $('.round-link').show();
             $('.bottom-ad').addClass('showing');
+            $('.bottom-article-share-wrapper').removeClass('hidden-animation');
+
             //console.log((new Date()).getMilliseconds());
 
         },
@@ -1051,6 +1053,8 @@ define('subapp/topmenu',['bootstrap',
             this.$menu.addClass('hidden-header');
             $('.round-link').hide();
             $('.bottom-ad').removeClass('showing');
+            $('.bottom-article-share-wrapper').addClass('hidden-animation');
+
             //console.log((new Date()).getMilliseconds());
         }
     });
