@@ -255,6 +255,7 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
         if self.object is None:
             raise Http404('你找的图文不在这里')
         context = self.get_context_data(object=self.object)
+        context['remark_count'] = context['remarks'].count()
         return self.render_to_response(context)
 
     def get_queryset(self):
