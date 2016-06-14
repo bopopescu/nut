@@ -113,6 +113,20 @@
                                     </span>
                                 </span>
                             </span>
+
+{#                           如果文章评论数量为0,则显示[评论],不为0,则显示评论数量 #}
+                            <span class="remark-wrapper">
+                                <a href="" class="remark-info">
+                                    <img class="remark-icon" src="{% static 'images/article/comment.png' %}" >
+                                    <span class="remark-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>
+                                    <span class="remark-word">
+                                    {% if not article.dig_count %}
+                                        评论
+                                    {% endif %}
+                                    </span>
+                                </a>
+                            </span>
+
                                 <ul class="share-bt-list">
 
                                     <li class="list-item list-item-weixin img-holder">

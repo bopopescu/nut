@@ -1900,6 +1900,22 @@ p.boolean-false {
   line-height: 40px;
   padding-top: 4px;
 }
+.main-article .share-wrapper .article-share .remark-wrapper {
+  margin-left: 25px;
+  padding-top: 0;
+  line-height: 45px;
+  font-size: 13px;
+}
+.main-article .share-wrapper .article-share .remark-wrapper a {
+  color: #9D9E9F;
+}
+.main-article .share-wrapper .article-share .remark-wrapper .remark-icon {
+  width: 32px;
+  height: 32px;
+}
+.main-article .share-wrapper .article-share .remark-wrapper .remark-count {
+  margin-left: 5px;
+}
 .main-article .share-wrapper .article-share ul.share-bt-list {
   text-align: right;
 }
