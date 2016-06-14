@@ -2079,9 +2079,6 @@ p.boolean-false {
 .article-share .dig-wrapper .undigged img.dig {
   display: inline;
 }
-.article-share .dig-wrapper .dig-info .dig-count {
-  margin: 0px 6px;
-}
 .article-share .remark-wrapper {
   float: left;
   margin-left: 25px;
@@ -2095,9 +2092,6 @@ p.boolean-false {
 .article-share .remark-wrapper .remark-icon {
   width: 32px;
   height: 32px;
-}
-.article-share .remark-wrapper .remark-count {
-  margin-left: 5px;
 }
 .article-share ul.share-bt-list {
   text-align: right;
