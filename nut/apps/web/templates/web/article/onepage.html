@@ -58,6 +58,11 @@
                                 {{ article.creator.profile.nickname }}&nbsp;&nbsp;·&nbsp;&nbsp;<meta itemprop="datePublished" content="{{article.created_datetime|date:'Y-m-d H:i:s'}}"/>
                                 {{article.created_datetime|date:"Y-m-d"}}
                             </span>
+{#                        if have no the article dig count = 0,then,hidden this info#}
+                            <span class="article-dig-count">
+                                <i class="fa fa-thumbs-o-up"></i>726
+                            </span>
+{#                        if have no the remark count = 0,then,hidden this info#}
                            <span class="remark-count">
                                <i class="fa fa-comment-o"></i>21
                            </span>
