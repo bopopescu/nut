@@ -543,6 +543,15 @@ p .b_day {
   color: #757575;
   font-size: 16px;
 }
+.gotop-wrapper ul li a.gk-download {
+  position: relative;
+}
+.gotop-wrapper ul li a.gk-download:hover {
+  color: #3F6FF0;
+}
+.gotop-wrapper ul li a.gk-download:hover .download-qrcode-wrapper {
+  display: block;
+}
 .gotop-wrapper ul li a.gk-wechat-share {
   position: relative;
 }
@@ -553,7 +562,7 @@ p .b_day {
 .gotop-wrapper ul li a.gk-wechat-share:hover .wechat-qrcode-wrapper {
   display: block;
 }
-.gotop-wrapper ul li .wechat-qrcode-wrapper {
+.gotop-wrapper ul li .qrcode-wrapper {
   position: absolute;
   bottom: -56px;
   left: -116px;
@@ -562,17 +571,17 @@ p .b_day {
   box-shadow: 0px 0px 2px #ddd;
   display: none;
 }
-.gotop-wrapper ul li .wechat-qrcode-wrapper .wechat-qrcode-img {
+.gotop-wrapper ul li .qrcode-wrapper .qrcode-img {
   width: 80px;
 }
-.gotop-wrapper ul li .wechat-qrcode-wrapper .wechat-qr-text {
+.gotop-wrapper ul li .qrcode-wrapper .qr-text {
   font-size: 13px;
   color: #414243;
   width: 100%;
   text-align: center;
   margin-top: 10px;
 }
-.gotop-wrapper ul li .wechat-qrcode-wrapper .bottom-bot {
+.gotop-wrapper ul li .qrcode-wrapper .bottom-bot {
   position: absolute;
   bottom: 50%;
   left: 100%;
