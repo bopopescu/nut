@@ -266,21 +266,21 @@
                 {#article remark end#}
 
                 {% if not isFromMobile %}
-                <div class="article-section-title for-browser">
-                    <div class="info-text">大家都在看</div>
-                </div>
-                {% for sla in article.related_articles %}
-                    {% with sla.article as r_article %}
-                      {% include 'web/article/partial/article_recommend_item.html' %}
-                    {% endwith %}
-                {% endfor %}
-
-                <div class="row" id="main_loading_indicator">
-                        <div class="col-xs-12 loading-icon">
-                <img src="{% static 'images/widgets/loading.gif' %}" height="32px" width="32px">
-                </div>
-
-        </div>
+                    <div class="article-section-title for-browser">
+                        <div class="info-text">相关推荐</div>
+                    </div>
+{#                    {% for sla in article.related_articles %}#}
+{#                        {% with sla.article as r_article %}#}
+{#                            {% include 'web/article/partial/article_recommend_item.html' %}#}
+{#                        {% endwith %}#}
+{#                    {% endfor %}#}
+{##}
+{#                    <div class="row" id="main_loading_indicator">#}
+{#                        <div class="col-xs-12 loading-icon">#}
+{#                            <img src="{% static 'images/widgets/loading.gif' %}" height="32px" width="32px">#}
+{#                        </div>#}
+{##}
+{#                    </div>#}
 
                 {% endif %}
 
