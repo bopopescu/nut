@@ -2225,6 +2225,11 @@ p.boolean-false {
     overflow: hidden;
   }
 }
+@media screen and (max-width: 580px) {
+  #related-article-container li.article-item .article-title {
+    font-size: 12px;
+  }
+}
 @-moz-document url-prefix() {
   fieldset {
     display: table-cell;
