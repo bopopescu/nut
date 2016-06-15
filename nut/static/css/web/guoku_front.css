@@ -1414,9 +1414,9 @@ p.boolean-false {
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  text-align: center;
+  -o-transform: translate(-50%, -50%);
 }
 .dark-section-wrapper .dark-section-item a .section-panel .section-name p {
   margin-bottom: 0;
@@ -2189,6 +2189,16 @@ p.boolean-false {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+.related-article-wrapper #related-article-container li.article-item .article-title {
+  left: 0;
+  bottom: 0;
+  text-align: left;
+  padding: 0 16px 16px 16px;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
 }
 .related-article-wrapper #related-article-container .slick-prev:before,
 .related-article-wrapper #related-article-container .slick-next:before {
