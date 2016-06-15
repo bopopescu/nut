@@ -1596,13 +1596,6 @@ p.boolean-false {
   -ms-transform: translateY(52px);
   -o-transform: translateY(52px);
 }
-.bottom-article-share-wrapper .bottom-article-share-control {
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
-}
 .bottom-article-share-wrapper .bottom-article-share {
   background-color: #fff;
   -webkit-border-radius: 4px;
