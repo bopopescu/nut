@@ -11,6 +11,7 @@ require([
         'subapp/related_article_loader',
         'subapp/article/article_share',
         'subapp/article/article_remark',
+        'subapp/article/article_related_slick',
         'subapp/article/article_sidebar_switch',
         'subapp/user_follow',
         'libs/csrf'

@@ -676,6 +676,37 @@
       }
     }
 
+
+//related article scroll
+.related-article-wrapper{
+  overflow: hidden;
+  #related-article-container{
+    margin-left:-12px;
+    margin-right:-12px;
+
+    li.article-item{
+      overflow: hidden;
+      float:left;
+      margin-left:9px;
+      margin-right:9px;
+      .article-item-pic{
+        .normal-scale-bg;
+      }
+    }
+    .slick-prev:before,.slick-next:before{
+      font-family: "FontAwesome";
+      font-size: @primary-size;
+    }
+    .slick-prev:before{
+      content:"\f053";
+    }
+    .slick-next:before{
+      content:"\f054";
+    }
+
+  }
+}
+
 @media screen and (max-width:768px){
   .article-sidebar-wrapper{
       &.article-sidebar-hidden{
