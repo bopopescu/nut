@@ -20,6 +20,10 @@ class StorePageRecommend(BaseBanner):
 
 
 class Shop(BaseModel):
+    '''
+    ONLY SUPPORT TAOBAO SHOP NOW !!!
+
+    '''
     (other_style, dress, home, culture, sport, tec, food, mother, cosmetic, health) = range(10)
     SHOP_STYLE_CHOICES = [
         (other_style , '其他'),
@@ -43,12 +47,16 @@ class Shop(BaseModel):
         (tinter, '天猫国际'),
     ]
 
-
     owner = models.ForeignKey(GKUser, related_name='shops')
     shop_title = models.CharField(max_length=255)
     shop_link = models.URLField(max_length=255)
     shop_style = models.IntegerField(choices=SHOP_STYLE_CHOICES, default=dress )
     shop_type = models.IntegerField(choices=SHOP_TYPE_CHOICES, default=taobao)
+    tb_shop_id = models.CharField(max_length=64, null=True, blank=True)
+
+    @property
+    def tb_shop_link(self):
+        return 'https://shop%s.taobao.com'%self.tb_shop_id
 
     def __unicode__(self):
         return '%s:%s'%(self.owner, self.shop_title)

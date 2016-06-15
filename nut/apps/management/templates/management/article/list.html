@@ -53,7 +53,11 @@
                             <tr>
                                 <th class="id">
                                     {% if for_author %}
-                                        <a href="{% url 'management_author_article_list' %}?sort_by=id">
+                                        {% if for_person %}
+                                            <a href="{% url 'management_author_article_person_list' current_author.pk %}?sort_by=id">
+                                        {% else %}
+                                            <a href="{% url 'management_author_article_list' %}?sort_by=id">
+                                        {% endif %}
                                     {% else %}
                                         <a href="{% url 'management_article_list' %}?sort_by=id">
                                     {% endif %}
@@ -70,7 +74,11 @@
 
                                 <th class="cell-datetime">
                                     {% if for_author %}
-                                        <a href="{% url 'management_author_article_list' %}?sort_by=created_datetime">
+                                        {% if for_person %}
+                                            <a href="{% url 'management_author_article_person_list' current_author.pk %}?sort_by=created_datetime">
+                                        {% else %}
+                                              <a href="{% url 'management_author_article_list' %}?sort_by=created_datetime">
+                                        {% endif %}
                                     {% else %}
                                         <a href="{% url 'management_article_list' %}?sort_by=created_datetime">
                                     {% endif %}
