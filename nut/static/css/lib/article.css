@@ -1801,3 +1801,8 @@ p.boolean-false {
     display: none;
   }
 }
+@media screen and (max-width: 992px) {
+  #related-article-container {
+    overflow: hidden;
+  }
+}
