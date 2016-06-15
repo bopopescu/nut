@@ -1406,10 +1406,10 @@ p.boolean-false {
   line-height: 2;
 }
 .main-article-control {
-  -webkit-transition: transform 2000ms;
-  -moz-transition: transform 2000ms;
-  -ms-transition: transform 2000ms;
-  -o-transition: transform 2000ms;
+  -webkit-transition: transform 1000ms;
+  -moz-transition: transform 1000ms;
+  -ms-transition: transform 1000ms;
+  -o-transition: transform 1000ms;
 }
 .main-article {
   position: relative;
