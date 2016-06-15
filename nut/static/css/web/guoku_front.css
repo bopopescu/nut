@@ -2169,6 +2169,38 @@ p.boolean-false {
 .article-share ul.share-bt-list li.list-item-qq a:hover {
   color: #3199DD;
 }
+.related-article-wrapper {
+  overflow: hidden;
+}
+.related-article-wrapper #related-article-container {
+  margin-left: -12px;
+  margin-right: -12px;
+}
+.related-article-wrapper #related-article-container li.article-item {
+  overflow: hidden;
+  float: left;
+  margin-left: 9px;
+  margin-right: 9px;
+}
+.related-article-wrapper #related-article-container li.article-item .article-item-pic {
+  width: 100%;
+  height: 0;
+  padding-bottom: 55%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.related-article-wrapper #related-article-container .slick-prev:before,
+.related-article-wrapper #related-article-container .slick-next:before {
+  font-family: "FontAwesome";
+  font-size: 16px;
+}
+.related-article-wrapper #related-article-container .slick-prev:before {
+  content: "\f053";
+}
+.related-article-wrapper #related-article-container .slick-next:before {
+  content: "\f054";
+}
 @media screen and (max-width: 768px) {
   .article-sidebar-wrapper.article-sidebar-hidden {
     display: none;
