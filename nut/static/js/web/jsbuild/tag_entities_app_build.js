@@ -1529,6 +1529,12 @@ define('subapp/topmenu',['bootstrap',
             if (!this.read){
                 this.read = fastdom.read(function(){
                     that.scrollTop = $(window).scrollTop();
+                    that.screenHeight = window.screen.height;
+                    that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
+                    that.pageHeight = document.body.scrollHeight;
+                    that.hiddenLeftCondition = that.screenHeight + that.scrollTop;
+                    that.hiddenRightCondition = that.articleHeight + 102;
+
                 });
             }
 
@@ -1560,6 +1566,9 @@ define('subapp/topmenu',['bootstrap',
                 }
 
             }
+            if(this.hiddenLeftCondition > this.hiddenRightCondition){
+                this.hideHeader();
+            }
 
             this.read = null;
             this.write= null;
@@ -1574,6 +1583,8 @@ define('subapp/topmenu',['bootstrap',
             this.$menu.addClass('shown-header');
             $('.round-link').show();
             $('.bottom-ad').addClass('showing');
+            $('.bottom-article-share-wrapper').removeClass('hidden-animation');
+
             //console.log((new Date()).getMilliseconds());
 
         },
@@ -1583,6 +1594,8 @@ define('subapp/topmenu',['bootstrap',
             this.$menu.addClass('hidden-header');
             $('.round-link').hide();
             $('.bottom-ad').removeClass('showing');
+            $('.bottom-article-share-wrapper').addClass('hidden-animation');
+
             //console.log((new Date()).getMilliseconds());
         }
     });
