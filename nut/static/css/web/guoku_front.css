@@ -2597,6 +2597,11 @@ body.compact-body {
 #guoku_main_nav .nav-notification-wrapper .notification-icon:active {
   background-color: transparent;
 }
+#guoku_main_nav .nav-notification-wrapper .notification-icon .round.notification-round {
+  position: absolute;
+  top: 10px;
+  right: 5px;
+}
 #guoku_main_nav .nav-notification-wrapper .notification-drop-list-wrapper {
   display: none;
   position: absolute;
@@ -2643,13 +2648,16 @@ body.compact-body {
   transform: rotate(45deg);
   width: 17px;
 }
+#guoku_main_nav .nav-notification-wrapper .notification-drop-list-wrapper .img-control {
+  width: 52px;
+  height: 52px;
+}
 #guoku_main_nav .nav-notification-wrapper .notification-drop-list-wrapper .notification-drop-list {
   width: 100%;
   height: auto;
   min-height: 32px;
   max-height: 500px;
   overflow-y: auto;
-  padding: 0 12px;
 }
 #guoku_main_nav .nav-notification-wrapper .notification-drop-list-wrapper .notification-drop-list .notification-list-item {
   position: relative;
