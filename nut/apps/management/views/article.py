@@ -275,6 +275,15 @@ class AuthorArticlePersonList(BaseManagementArticleListView):
             return Article.objects.filter(publish=Article.published,creator__id=_user_id)\
                     .order_by('-updated_datetime', '-created_datetime')
 
+    def sort_queryset(self, qs, sort_by, order):
+        if sort_by == 'created_datetime':
+            qs = qs.order_by('-created_datetime')
+        elif sort_by == 'id':
+            qs = qs.order_by('-id')
+        else:
+            qs = qs.order_by('-created_datetime')
+        return qs
+
     def get_current_author(self):
         _user_id = self.kwargs.get('pk', None)
         return get_object_or_404(GKUser, pk=_user_id)
@@ -283,6 +292,7 @@ class AuthorArticlePersonList(BaseManagementArticleListView):
     def get_context_data(self, *args, **kwargs):
         context = super(AuthorArticlePersonList, self).get_context_data(*args, **kwargs)
         context['for_author'] = True
+        context['for_person'] = True
         context['current_author'] = self.get_current_author()
         return context
 

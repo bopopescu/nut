@@ -996,162 +996,6 @@ define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class,
 
     return TopAd;
 });
-define('subapp/topmenu',['bootstrap',
-        'libs/Class',
-        'underscore',
-        'jquery',
-        'fastdom',
-        'cookie',
-        'subapp/top_ad/top_ad'
-    ],
-    function(boot, Class,_,$,fastdom,cookie,TopAd){
-
-    // cookie is a shim resource , it will attch to jquery objects.
-
-     function show_sns_page_dot(){
-            $('.nav-user-actions .round').css({display:'inline-block'});
-            $('.setting-list .round').css({display: 'inline-block'});
-    };
-    function hide_sns_page_dot(){
-            $('.nav-user-actions .round').css({display:'none'});
-            $('.setting-list .round').css({display: 'none'});
-
-    };
-
-
-    var Menu = Class.extend({
-        init: function(){
-
-            ///////////////////////////
-            //console.log('in Menu init, ');
-            //console.log(jQuery);
-            ////////////////////////////
-
-            this.$menu = $('#guoku_main_nav');
-            this.scrollTop = null;
-            this.lastScrollTop = null;
-            this.read = this.write = null;
-
-            this.setupScrollMenu();
-            this.checkSNSBindVisit();
-            this.checkEventRead();
-            this.topAd = new TopAd();
-            this.setupBottomCloseButton();
-
-        },
-        setupBottomCloseButton: function(){
-            $('.bottom-ad .close-button').click(function(){
-                $('.bottom-ad').addClass('hidden');
-            });
-        },
-        checkEventRead:function(){
-            // add by an , for event link status check , remove the red dot if event is read.
-            // the key is defined in 2 places!  DRY...
-            var viewed_event_slug_cookie_key = 'viewed_event_slug_cookie_key';
-            if(!newest_event_slug){
-                return ;
-            }
-            if ($.cookie(viewed_event_slug_cookie_key) === newest_event_slug){
-                //console.log('event is read!');
-                jQuery('.nav [href="/event/"] .round').css({display:'none'});
-            }else{
-                jQuery('.nav [href="/event/"] .round').css({display:'inline-block'});
-            }
-
-            return ;
-        },
-        checkSNSBindVisit: function(){
-            var sns_bind_page_visited_key = 'SNS_BIND_PAGE_VISITED';
-            if ($.cookie(sns_bind_page_visited_key) === 'visited'){
-                hide_sns_page_dot();
-            }else{
-                show_sns_page_dot();
-            }
-        },
-
-        setupScrollMenu: function(){
-            $(window).scroll(this.scheduleHeaderMove.bind(this));
-            //$(window).scroll(_.debounce(this.show.bind(this), 100));
-        },
-        scheduleHeaderMove:function(){
-            var that = this;
-            if (!this.read){
-                this.read = fastdom.read(function(){
-                    that.scrollTop = $(window).scrollTop();
-                    that.screenHeight = window.screen.height;
-                    that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
-                    that.pageHeight = document.body.scrollHeight;
-                    that.hiddenLeftCondition = that.screenHeight + that.scrollTop;
-                    that.hiddenRightCondition = that.articleHeight + 102;
-
-                });
-            }
-
-            if(this.write) {
-                fastdom.clear(this.write);
-            }
-
-            this.write = fastdom.write(this.moveHeader.bind(this));
-        },
-        moveHeader:function(){
-            //console.log('move header');
-
-            if (_.isNull(this.scrollTop)) {
-                return ;
-            }
-
-            if (_.isNull(this.lastScrollTop)){
-                this.lastScrollTop = this.scrollTop;
-                return ;
-            }
-
-            if(this.lastScrollTop > this.scrollTop){
-                this.showHeader();
-            }else{
-                if (this.scrollTop < 140){
-                    this.showHeader();
-                }else{
-                     this.hideHeader(this.scrollTop);
-                }
-
-            }
-            if(this.hiddenLeftCondition > this.hiddenRightCondition){
-                this.hideHeader();
-            }
-
-            this.read = null;
-            this.write= null;
-            this.lastScrollTop = this.scrollTop;
-        },
-
-
-
-        showHeader: function(){
-            //console.log('show header');
-            this.$menu.removeClass('hidden-header');
-            this.$menu.addClass('shown-header');
-            $('.round-link').show();
-            $('.bottom-ad').addClass('showing');
-            $('.bottom-article-share-wrapper').removeClass('hidden-animation');
-
-            //console.log((new Date()).getMilliseconds());
-
-        },
-        hideHeader: function(){
-            //console.log('hideHeader');
-            this.$menu.removeClass('shown-header');
-            this.$menu.addClass('hidden-header');
-            $('.round-link').hide();
-            $('.bottom-ad').removeClass('showing');
-            $('.bottom-article-share-wrapper').addClass('hidden-animation');
-
-            //console.log((new Date()).getMilliseconds());
-        }
-    });
-
-    return  Menu;
-
-});
 /**
  * FastDom
  *
@@ -1570,6 +1414,241 @@ define('subapp/topmenu',['bootstrap',
 })(window.fastdom);
 
 
+
+define('subapp/top_notification/top_notification',[
+    'libs/Class',
+    'jquery',
+    'libs/fastdom',
+    'underscore',
+     'cookie'
+], function(
+    Class,
+    $,
+    fastdom,
+    _
+){
+
+
+    var TopNotification = Class.extend({
+        init: function(){
+            this.flag = 0;
+            console.log('top notification begin');
+            this.initClickBell();
+            //this.initAjax();
+            this.checkBadge();
+        },
+    //    initAjax:function(){
+    //    if($('.notification-drop-list-wrapper').length > 0){
+    //        this.postAjaxNotification();
+    //    }
+    //},
+        initClickBell: function(){
+            $('.navbar-collapse .notification-icon').click(this.handleClickBell.bind(this));
+        },
+        checkBadge:function(){
+            if($('.nav-user-actions .badge').length > 0){
+                $('.nav-notification-wrapper .notification-round').css({display:'inline-block'});
+            }else{
+                 $('.nav-notification-wrapper .notification-round').css({display:'none'});
+            }
+        },
+        handleClickBell:function(){
+
+            $('.navbar-collapse .notification-drop-list-wrapper').toggle(this.flag++ % 2 == 0);
+            console.log('flag:'+this.flag);
+            if(this.flag % 2 == 0){
+                console.log('no request');
+            }else if($('.notification-drop-list').children('.notification-list-item').length){
+               console.log('no request');
+            }else{
+                this.postAjaxNotification();
+            }
+        },
+        postAjaxNotification:function(){
+            console.log('post ajax request');
+             $.when(
+                    $.ajax({
+                        cache:true,
+                        type:"get",
+                        url: '/message/newmessage/',
+                        data:''
+                    })
+                ).then(
+                  this.postSuccess.bind(this),
+                 this.postFail.bind(this)
+                );
+        },
+        postSuccess:function(result){
+            var status = parseInt(result.status);
+            if(status == 1){
+                this.showNotificationItems(result);
+            }else{
+                this.showFail(result);
+            }
+        },
+        showNotificationItems:function($ele){
+            var ajaxDatas = $ele;
+            var notificationItems = _.template($('#notification_item_template').html());
+            var datas = {
+                objects:ajaxDatas.data,
+                notification_length:ajaxDatas.data.length
+
+            };
+            $('.notification-drop-list').append(notificationItems(datas));
+        },
+        postFail:function(data){
+            console.log('request failed.please try again');
+        }
+
+    });
+
+    return TopNotification;
+});
+define('subapp/topmenu',['bootstrap',
+        'libs/Class',
+        'underscore',
+        'jquery',
+        'fastdom',
+        'cookie',
+        'subapp/top_ad/top_ad',
+        'subapp/top_notification/top_notification'
+    ],
+    function(boot, Class,_,$,fastdom,cookie,TopAd,TopNotification){
+
+    // cookie is a shim resource , it will attch to jquery objects.
+
+     function show_sns_page_dot(){
+            $('.nav-user-actions .round').css({display:'inline-block'});
+            $('.setting-list .round').css({display: 'inline-block'});
+    };
+    function hide_sns_page_dot(){
+            $('.nav-user-actions .round').css({display:'none'});
+            $('.setting-list .round').css({display: 'none'});
+
+    };
+
+
+    var Menu = Class.extend({
+        init: function(){
+
+            ///////////////////////////
+            //console.log('in Menu init, ');
+            //console.log(jQuery);
+            ////////////////////////////
+
+            this.$menu = $('#guoku_main_nav');
+            this.scrollTop = null;
+            this.lastScrollTop = null;
+            this.read = this.write = null;
+
+            this.setupScrollMenu();
+            this.checkSNSBindVisit();
+            this.checkEventRead();
+            //this.topAd = new TopAd();
+            this.topNotification = new TopNotification();
+            this.setupBottomCloseButton();
+
+        },
+        setupBottomCloseButton: function(){
+            $('.bottom-ad .close-button').click(function(){
+                $('.bottom-ad').addClass('hidden');
+            });
+        },
+        checkEventRead:function(){
+            // add by an , for event link status check , remove the red dot if event is read.
+            // the key is defined in 2 places!  DRY...
+            var viewed_event_slug_cookie_key = 'viewed_event_slug_cookie_key';
+            if(!newest_event_slug){
+                return ;
+            }
+            if ($.cookie(viewed_event_slug_cookie_key) === newest_event_slug){
+                //console.log('event is read!');
+                jQuery('.nav [href="/event/"] .round').css({display:'none'});
+            }else{
+                jQuery('.nav [href="/event/"] .round').css({display:'inline-block'});
+            }
+
+            return ;
+        },
+        checkSNSBindVisit: function(){
+            var sns_bind_page_visited_key = 'SNS_BIND_PAGE_VISITED';
+            if ($.cookie(sns_bind_page_visited_key) === 'visited'){
+                hide_sns_page_dot();
+            }else{
+                show_sns_page_dot();
+            }
+        },
+
+        setupScrollMenu: function(){
+            $(window).scroll(this.scheduleHeaderMove.bind(this));
+            //$(window).scroll(_.debounce(this.show.bind(this), 100));
+        },
+        scheduleHeaderMove:function(){
+            var that = this;
+            if (!this.read){
+                this.read = fastdom.read(function(){
+                    that.scrollTop = $(window).scrollTop();
+                });
+            }
+
+            if(this.write) {
+                fastdom.clear(this.write);
+            }
+
+            this.write = fastdom.write(this.moveHeader.bind(this));
+        },
+        moveHeader:function(){
+            //console.log('move header');
+
+            if (_.isNull(this.scrollTop)) {
+                return ;
+            }
+
+            if (_.isNull(this.lastScrollTop)){
+                this.lastScrollTop = this.scrollTop;
+                return ;
+            }
+
+            if(this.lastScrollTop > this.scrollTop){
+                this.showHeader();
+            }else{
+                if (this.scrollTop < 140){
+                    this.showHeader();
+                }else{
+                     this.hideHeader(this.scrollTop);
+                }
+
+            }
+
+            this.read = null;
+            this.write= null;
+            this.lastScrollTop = this.scrollTop;
+        },
+
+
+
+        showHeader: function(){
+            //console.log('show header');
+            this.$menu.removeClass('hidden-header');
+            this.$menu.addClass('shown-header');
+            $('.round-link').show();
+            $('.bottom-ad').addClass('showing');
+            //console.log((new Date()).getMilliseconds());
+
+        },
+        hideHeader: function(){
+            //console.log('hideHeader');
+            this.$menu.removeClass('shown-header');
+            this.$menu.addClass('hidden-header');
+            $('.round-link').hide();
+            $('.bottom-ad').removeClass('showing');
+            //console.log((new Date()).getMilliseconds());
+        }
+    });
+
+    return  Menu;
+
+});
 define('subapp/loadentity',['jquery','libs/Class','libs/fastdom'],
     function($,Class,fastdom){
 
@@ -1735,92 +1814,68 @@ define("libs/underscore", function(){});
 define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
     function($,_,Class,fastdom){
 
-        var GoTop = Class.extend({
-            init: function(){
-                this.topLinkWrapper = $('.gotop-wrapper');
-                this.topLink = $('.btn-top');
-                this.newTopLink = $('.new-btn-top');
-                if(this.topLink.length > 0){
-                    this.topLinkExist = true;
-                }
-                if(this.newTopLink.length > 0){
-                    this.newTopLinkExist = true;
-
-                }
-                if ( this.topLinkExist|| this.newTopLinkExist){
-                    this.setupWatcher();
-                    if(this.topLinkExist){
-                        this.topLink.on('click', function(){
-                            $("html, body").animate(
-                                {scrollTop : 0}, 800
-                            );
-                            return false;
-                        });
-                    }
-                    if(this.newTopLinkExist){
-                        this.newTopLink.on('click', function(){
-                            $("html, body").animate(
-                                {scrollTop : 0}, 800
-                            );
-                            return false;
-                        });
-                    }
-                }else{
-                    return ;
-                }
-            },
-            setupWatcher:function(){
-                $(window).scroll(this.onScroll.bind(this));
-            },
-            onScroll:function(){
-                if(this.read){
-                    fastdom.clear(this.read);
-                }
-                this.read = fastdom.read(this.doRead.bind(this));
-                if(this.write){
-                    fastdom.clear(this.write);
-                }
-                this.write = fastdom.write(this.doWrite.bind(this));
-            },
-            doRead: function(){
-                this.scrollTop = $(window).scrollTop();
-                if(this.topLinkExist){
-                    this.btnRect = this.topLink[0].getBoundingClientRect();
-                }
-                this.footerRect = $('#guoku_footer')[0].getBoundingClientRect();
-            },
-            doWrite: function(){
-                var that = this ;
-                if (!this.scrollTop){return ;}
-                if (this.scrollTop > 400 ){
-
-                    fastdom.write(function(){
-                        that.topLinkWrapper.show();
-                        if(that.topLinkExist){
-                            that.topLink.show();
-                            if (that.btnRect.bottom >= that.footerRect.top){
-                                that.topLink.css({bottom:'370px'});
-                            }else{
-                                //that.topLink.css({bottom:'170px'});
-                            }
-                        }
-
-                    });
-
-                }else{
-                    fastdom.write(function(){
-                        that.topLinkWrapper.hide();
-                        that.topLink.hide();
-                    });
-                }
-
-
-
+    var GoTop = Class.extend({
+        init: function(){
+            this.topLink = $('.btn-top');
+            if (this.topLink.length > 0){
+                this.setupWatcher();
+                this.topLink.on('click', function(){
+                    $("html, body").animate(
+                    {scrollTop : 0}, 800
+                    );
+                    return false;
+                });
+            }else{
+                return ;
             }
-        });
+        },
+        setupWatcher:function(){
+            $(window).scroll(this.onScroll.bind(this));
+        },
+        onScroll:function(){
+            if(this.read){
+                fastdom.clear(this.read);
+            }
+            this.read = fastdom.read(this.doRead.bind(this));
+            if(this.write){
+                fastdom.clear(this.write);
+            }
+            this.write = fastdom.write(this.doWrite.bind(this));
+        },
+        doRead: function(){
+            this.scrollTop = $(window).scrollTop();
+            this.btnRect = this.topLink[0].getBoundingClientRect()
+            this.footerRect = $('#guoku_footer')[0].getBoundingClientRect()
 
-        return GoTop;
+
+        },
+        doWrite: function(){
+            var that = this ;
+            if (!this.scrollTop){return ;}
+            if (this.scrollTop > 400 ){
+
+                fastdom.write(function(){
+                        that.topLink.show();
+                        if (that.btnRect.bottom >= that.footerRect.top){
+                            that.topLink.css({bottom:'370px'});
+                        }else{
+                            //that.topLink.css({bottom:'170px'});
+                        }
+                });
+
+            }else{
+                fastdom.write(function(){
+                    that.topLink.hide();
+                });
+            }
+
+
+
+        }
     });
+
+    return GoTop;
+});
 require([
         'libs/polyfills',
         'jquery',
