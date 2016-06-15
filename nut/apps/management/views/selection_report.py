@@ -70,6 +70,7 @@ class SelectionReportListView(ListView):
             for selection_entity in queryset:
                 selection_entity.object = selection_entity.entity
         else:
+            #Todo add index enter_selection_time, now use created_time is wrong
             queryset = SearchQuerySet().models(Entity).filter(
                 created_time__range=(datetime.strptime(self.start_date, '%Y-%m-%d %H:%M:%S'),datetime.strptime(self.end_date, '%Y-%m-%d %H:%M:%S')),
                 like_count__gte=100,
