@@ -679,7 +679,6 @@
 
 //related article scroll
 .related-article-wrapper{
-  overflow: hidden;
   #related-article-container{
     margin-left:-12px;
     margin-right:-12px;
@@ -703,14 +702,20 @@
     .slick-prev:before,.slick-next:before{
       font-family: "FontAwesome";
       font-size: @primary-size;
+      color:@common-text-color;
     }
-    .slick-prev:before{
-      content:"\f053";
+    .slick-prev{
+      left:-11px;
+      &:before{
+        content:"\f053";
+      }
     }
-    .slick-next:before{
-      content:"\f054";
+    .slick-next{
+      right:-11px;
+      &:before{
+        content:"\f054";
+      }
     }
-
   }
 }
 
