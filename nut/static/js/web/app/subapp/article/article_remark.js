@@ -85,10 +85,10 @@ define([
                                  var url = $form.attr('action') + "delete/";
                                 $.post(url,{deleteId:replyToId},function(res){
                                     if(res['success']){
-                                        bootbox.alert('delete successfully.');
+                                        bootbox.alert('删除成功!');
                                         $(target).remove();
                                     }else{
-                                        bootbox.alert('delete fail');
+                                        bootbox.alert('删除失败!请稍后尝试。');
                                     }
                                 })
                             }else{
@@ -111,7 +111,7 @@ define([
                 this.secondPost = new Date();
             }
             if(this.secondPost && this.secondPost - this.firstPost < 30000){
-                bootbox.alert('you operates frequently,please operate later.');
+                bootbox.alert('您的操作频繁,请稍后再尝试操作。');
                 this.firstPost = this.secondPost;
                 this.secondPost = null;
                 event.preventDefault();
@@ -163,7 +163,7 @@ define([
         postRemarkSuccess: function(result){
             var status = parseInt(result.status);
             if (status === 1){
-                bootbox.alert('remark successfully');
+                bootbox.alert('评论成功!');
                 this.addNewRemark(result);
                 this.cleanInput();
                 this.cleanReplyNotice();
@@ -176,7 +176,7 @@ define([
         },
         postRemarkFail: function(data){
             //should add bootbox to notice current remarking user
-             bootbox.alert('remark fail');
+             bootbox.alert('评论失败!');
         },
         cleanInput:function(){
             $('#article_remark_form').find('textarea').val('');
