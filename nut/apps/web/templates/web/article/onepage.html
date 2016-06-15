@@ -383,7 +383,8 @@
         </div>
     </div>
     {#    fixed share sidebar end --- #}
-    <div class="bottom-article-share-wrapper">
+    {% if not isFromMobile %}
+        <div class="bottom-article-share-wrapper">
          <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
@@ -449,8 +450,7 @@
             </div>
         </div>
     </div>
-
-
+    {% endif %}
 
   <script type="text/html" id="share_weixin_modal_content">
         <div class="share-modal-wrapper share-modal-wrapper-control">
