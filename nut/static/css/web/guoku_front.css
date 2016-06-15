@@ -2169,9 +2169,6 @@ p.boolean-false {
 .article-share ul.share-bt-list li.list-item-qq a:hover {
   color: #3199DD;
 }
-.related-article-wrapper {
-  overflow: hidden;
-}
 .related-article-wrapper #related-article-container {
   margin-left: -12px;
   margin-right: -12px;
@@ -2204,9 +2201,16 @@ p.boolean-false {
 .related-article-wrapper #related-article-container .slick-next:before {
   font-family: "FontAwesome";
   font-size: 16px;
+  color: #424242;
+}
+.related-article-wrapper #related-article-container .slick-prev {
+  left: -11px;
 }
 .related-article-wrapper #related-article-container .slick-prev:before {
   content: "\f053";
+}
+.related-article-wrapper #related-article-container .slick-next {
+  right: -11px;
 }
 .related-article-wrapper #related-article-container .slick-next:before {
   content: "\f054";
