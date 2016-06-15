@@ -1,5 +1,6 @@
-3. 
-2. removed entity page , add search button
+4. 
+3. notification 
+2. removed entity's detail page , add search button
 1. sub category sort buy like (bug fix )
 
 action : 
