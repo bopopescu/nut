@@ -1250,7 +1250,6 @@ body.compact-body{
 
 #detail_content_right{
   padding-left: 10px;
-  //.transition(transform 2000ms);
   .sidebar-follow-wrapper{
     overflow:auto;
   }
@@ -1531,10 +1530,10 @@ body.compact-body{
 
 .content-right-hidden{
   opacity: 0;
-  animation:sidebar-hidden-animation 2000ms ease;
-  -webkit-animation:sidebar-hidden-animation 2000ms ease;
-  -moz-animation:sidebar-hidden-animation 2000ms ease;
-  -o-animation:sidebar-hidden-animation 2000ms ease;
+  animation:sidebar-hidden-animation 1000ms ease;
+  -webkit-animation:sidebar-hidden-animation 1000ms ease;
+  -moz-animation:sidebar-hidden-animation 1000ms ease;
+  -o-animation:sidebar-hidden-animation 1000ms ease;
   animation-fill-mode :  forwards ;
 }
 @keyframes sidebar-hidden-animation
@@ -1546,7 +1545,6 @@ from {
 to {
   transform: translate(162px,30px);
   opacity: 0;
-  //.transform(translateX(162px));
 }
 }
 
@@ -1559,7 +1557,6 @@ from {
 to {
   transform: translate(162px,30px);
   opacity: 0;
-  //.transform(translateX(162px));
 }
 }
 
@@ -1572,7 +1569,6 @@ from {
 to {
   transform: translate(162px,30px);
   opacity: 0;
-  //.transform(translateX(162px));
 }
 }
 
@@ -1585,8 +1581,70 @@ from {
 to {
   transform: translate(162px,30px);
   opacity: 0;
-  //.transform(translateX(162px));
 }
+}
+
+.content-right-show{
+  opacity: 1;
+  animation:sidebar-show-animation 1000ms ease;
+  -webkit-animation:sidebar-show-animation 1000ms ease;
+  -moz-animation:sidebar-show-animation 1000ms ease;
+  -o-animation:sidebar-show-animation 1000ms ease;
+  animation-fill-mode :  forwards ;
+}
+@keyframes sidebar-show-animation
+{
+  from {
+    transform: translate(162px,30px);
+    opacity: 0;
+
+  }
+  to {
+    transform: translate(0,0);
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes sidebar-show-animation /* Firefox */
+{
+from {
+    transform: translate(162px,30px);
+    opacity: 0;
+
+  }
+  to {
+    transform: translate(0,0);
+    opacity: 1;
+    //.transform(translateX(162px));
+  }
+}
+
+@-webkit-keyframes sidebar-show-animation /* Safari 和 Chrome */
+{
+from {
+    transform: translate(162px,30px);
+    opacity: 0;
+
+  }
+  to {
+    transform: translate(0,0);
+    opacity: 1;
+    //.transform(translateX(162px));
+  }
+}
+
+@-o-keyframes sidebar-show-animation /* Opera */
+{
+from {
+    transform: translate(162px,30px);
+    opacity: 0;
+
+  }
+  to {
+    transform: translate(0,0);
+    opacity: 1;
+    //.transform(translateX(162px));
+  }
 }
 
 
