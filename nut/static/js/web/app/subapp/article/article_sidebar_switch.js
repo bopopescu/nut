@@ -9,8 +9,7 @@ define([
         init: function(){
             console.log('article sidebar switch begin');
             this.initClickSwitch();
-            console.log('article width:'+this.getArticleContainerWidth());
-            console.log('screen width:'+this.getScreenWidth());
+            console.log('sidebar width:'+this.getSidebarWidth());
         },
         initClickSwitch:function(){
             $('.sidebar-switch-wrapper').click(this.handleClickSwitch.bind(this));
@@ -23,30 +22,25 @@ define([
             }
         },
         hiddenSideBar:function(){
-            //$('#detail_content_right').css({opacity:'0'});
-            $('#detail_content_right').hide();
-            $('#detail_content .container-fluid').first().addClass('main-article-control');
-             $('#detail_content .container-fluid').first().css('transform','translateX('+this.getArticleMoveDistance()+'px)');
-            $('.bottom-article-share').parent('.col-xs-12').addClass('bottom-article-share-control');
+            //$('#detail_content_right').hide();
+            $('#detail_content_right').addClass('content-right-hidden');
+             $('.main-article-control').css('transform','translateX('+this.getArticleMoveDistance()+'px)');
+             $('.bottom-article-share').parent('.col-xs-12').css('transform','translateX('+this.getArticleMoveDistance()+'px)');
             $('.sidebar-switch.close-switch').hide();
             $('.sidebar-switch.open-switch').show();
         },
         showSidebar:function(){
-            //$('#detail_content_right').css({opacity:'1'});
             $('#detail_content_right').show();
-            $('#detail_content .container-fluid').first().removeClass('main-article-control');
-            $('.bottom-article-share').parent('.col-xs-12').removeClass('bottom-article-share-control');
+            $('.main-article-control').css('transform','translateX(0)');
+            $('.bottom-article-share').parent('.col-xs-12').css('transform','translateX(0)');
             $('.sidebar-switch.close-switch').show();
             $('.sidebar-switch.open-switch').hide();
         },
         getArticleMoveDistance:function(){
-            return (this.getScreenWidth()-this.getArticleContainerWidth())/2;
+            return this.getSidebarWidth()/2;
         },
-        getArticleContainerWidth:function(){
-            return $('#detail_content .container-fluid').first().width();
-        },
-        getScreenWidth:function(){
-            return window.screen.width;
+        getSidebarWidth:function(){
+            return $('#detail_content_right').innerWidth();
         }
     });
     return  ArticleSidebarSwitch;
