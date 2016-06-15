@@ -1530,7 +1530,12 @@ body.compact-body{
 }
 
 .content-right-hidden{
-  .animation(sidebar-hidden-animation,2000ms);
+  opacity: 0;
+  animation:sidebar-hidden-animation 2000ms ease;
+  -webkit-animation:sidebar-hidden-animation 2000ms ease;
+  -moz-animation:sidebar-hidden-animation 2000ms ease;
+  -o-animation:sidebar-hidden-animation 2000ms ease;
+  animation-fill-mode :  forwards ;
 }
 @keyframes sidebar-hidden-animation
 {
@@ -1545,7 +1550,7 @@ to {
 }
 }
 
-@-moz-keyframes myfirst /* Firefox */
+@-moz-keyframes sidebar-hidden-animation /* Firefox */
 {
 from {
     transform: translate(0,0);
@@ -1558,7 +1563,7 @@ to {
 }
 }
 
-@-webkit-keyframes myfirst /* Safari 和 Chrome */
+@-webkit-keyframes sidebar-hidden-animation /* Safari 和 Chrome */
 {
 from {
     transform: translate(0,0);
@@ -1571,7 +1576,7 @@ to {
 }
 }
 
-@-o-keyframes myfirst /* Opera */
+@-o-keyframes sidebar-hidden-animation /* Opera */
 {
 from {
     transform: translate(0,0);
