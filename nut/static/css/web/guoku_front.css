@@ -4417,9 +4417,12 @@ body.compact-body {
   padding-right: 18px;
 }
 .content-right-hidden {
-  -webkit-animation: sidebar-hidden-animation 2000ms 0 ease;
-  -moz-animation: sidebar-hidden-animation 2000ms 0 ease;
-  -ms-animation: sidebar-hidden-animation 2000ms 0 ease;
+  opacity: 0;
+  animation: sidebar-hidden-animation 2000ms ease;
+  -webkit-animation: sidebar-hidden-animation 2000ms ease;
+  -moz-animation: sidebar-hidden-animation 2000ms ease;
+  -o-animation: sidebar-hidden-animation 2000ms ease;
+  animation-fill-mode: forwards ;
 }
 @keyframes sidebar-hidden-animation {
   from {
@@ -4431,7 +4434,7 @@ body.compact-body {
     opacity: 0;
   }
 }
-@-moz-keyframes myfirst {
+@-moz-keyframes sidebar-hidden-animation {
   /* Firefox */
   from {
     transform: translate(0, 0);
@@ -4442,7 +4445,7 @@ body.compact-body {
     opacity: 0;
   }
 }
-@-webkit-keyframes myfirst {
+@-webkit-keyframes sidebar-hidden-animation {
   /* Safari 和 Chrome */
   from {
     transform: translate(0, 0);
@@ -4453,7 +4456,7 @@ body.compact-body {
     opacity: 0;
   }
 }
-@-o-keyframes myfirst {
+@-o-keyframes sidebar-hidden-animation {
   /* Opera */
   from {
     transform: translate(0, 0);
