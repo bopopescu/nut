@@ -509,6 +509,88 @@ p .b_day {
   text-align: center;
   font-size: 14px;
 }
+.gotop-wrapper {
+  display: none;
+  width: 40px;
+  height: 120px;
+  position: fixed;
+  bottom: 150px;
+  right: 40px;
+  background-color: #fff;
+  border: 1px solid #ebebeb;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+}
+.gotop-wrapper ul {
+  width: 100%;
+  height: 100%;
+}
+.gotop-wrapper ul li {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-bottom: 1px solid #ebebeb;
+}
+.gotop-wrapper ul li:last-child {
+  border-bottom: none;
+}
+.gotop-wrapper ul li a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  color: #757575;
+  font-size: 16px;
+}
+.gotop-wrapper ul li a.gk-download {
+  position: relative;
+}
+.gotop-wrapper ul li a.gk-download:hover {
+  color: #3F6FF0;
+}
+.gotop-wrapper ul li a.gk-download:hover .download-qrcode-wrapper {
+  display: block;
+}
+.gotop-wrapper ul li a.gk-wechat-share {
+  position: relative;
+}
+.gotop-wrapper ul li a.gk-wechat-share:hover {
+  cursor: pointer;
+  color: #51C332;
+}
+.gotop-wrapper ul li a.gk-wechat-share:hover .wechat-qrcode-wrapper {
+  display: block;
+}
+.gotop-wrapper ul li .qrcode-wrapper {
+  position: absolute;
+  bottom: -56px;
+  left: -116px;
+  padding: 10px 9px;
+  background-color: #fff;
+  box-shadow: 0px 0px 2px #ddd;
+  display: none;
+}
+.gotop-wrapper ul li .qrcode-wrapper .qrcode-img {
+  width: 80px;
+}
+.gotop-wrapper ul li .qrcode-wrapper .qr-text {
+  font-size: 13px;
+  color: #414243;
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+.gotop-wrapper ul li .qrcode-wrapper .bottom-bot {
+  position: absolute;
+  bottom: 50%;
+  left: 100%;
+  width: 0;
+  height: 0;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent #ffffff;
+}
 .btn-top {
   backface-visibility: hidden;
   -webkit-transform: translate3d(0, 0, 0);
@@ -972,9 +1054,9 @@ p.boolean-false {
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  text-align: center;
+  -o-transform: translate(-50%, -50%);
 }
 .dark-section-wrapper .dark-section-item a .section-panel .section-name p {
   margin-bottom: 0;

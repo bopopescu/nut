@@ -63,6 +63,37 @@
                         {% endif %}
                     </ul>
                 {% endif %}
+{#                 notification droplist begin#}
+                 {% if request.user.is_authenticated  %}
+                     <ul class="nav navbar-nav nav-notification-wrapper pull-right hidden-xs">
+                         <li>
+                             <a href="javascript:void(0);" alt="「消息」" title="「消息」" class="notification-icon">
+                                 <i class="fa fa-bell" style="color: #9D9E9F;font-size:18px;"></i>
+                                 {#                                 need add if statements here #}
+                                 <span class="round notification-round"></span>
+                             </a>
+                             <div class="notification-drop-list-wrapper">
+                                 <span class="tip"></span>
+                                 <ul class="notification-drop-list">
+                                     {% include "web/account/partial/ajax_notification_droplist.html" %}
+                                 </ul>
+                             </div>
+                         </li>
+                     </ul>
+                 {% endif %}
+{#                 notification droplist end#}
+                {% if web_login_url not in request.path and web_register_url not in request.path %}
+
+                    <ul class="nav navbar-nav nav-add-product navbar-right hidden-sm hidden-xs">
+                        <li>
+                            <a href="{% url 'web_entity_create' %}" class="add_icon">
+                                <i class="fa fa-plus" style="color: #9D9E9F;font-size:18px;"></i>
+                                <p class="add_goods"><span class="tip"></span>{% trans "Add Product"  %}</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                {% endif %}
 
                 <form class="navbar-form navbar-right search-form" action="{% url 'web_search' %}" method="get" role="form" style="margin-top: 11px;">
                     <div class="input-group search">
@@ -71,17 +102,6 @@
                     </div>
                 </form>
 
-                {% if web_login_url not in request.path and web_register_url not in request.path %}
-                <ul class="nav navbar-nav nav-add-product navbar-right hidden-sm hidden-xs">
-                    <li>
-                        <a href="{% url 'web_entity_create' %}" class="add_icon">
-                            <i class="fa fa-plus" style="color: #9D9E9F; padding-right:40px;font-size:18px;"></i>
-                        <p class="add_goods"><span class="tip"></span>{% trans "Add Product"  %}</p>
-                        </a>
-                    </li>
-
-                </ul>
-                {% endif %}
             </div>
         </div>
     </header>

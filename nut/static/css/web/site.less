@@ -1404,6 +1404,8 @@ a:hover{text-decoration:underline;}
     padding-top:0;
   }
   .divider{
+    margin-left:-40px;
+    margin-right:-40px;
     margin-bottom: 20px;
     height:2px;
     border-bottom: 1px solid @very-light-gray;
@@ -1421,7 +1423,6 @@ a:hover{text-decoration:underline;}
 }
 
 .main-article{
-
   .writer-wrapper.writer-wrapper-control{
     position:relative;
     .article-user-follow{
@@ -1482,6 +1483,7 @@ a:hover{text-decoration:underline;}
 @media (min-width: 768px){
   .main-article{
     .panel;
+    padding:40px 40px;
     .writer-intro{
       padding-top: 0px;
       .writer-bio{
@@ -1563,25 +1565,63 @@ a:hover{text-decoration:underline;}
     }
   }
 
-  .article-section-title{
-    padding-top: 30px;
-    .info-text{
-      padding-left: 15px;
-      border-left: 4px solid @common-gray;
-      position: relative;
-      left : -15px;
-      font-size:@mini-size;
-      color: @common-gray;
-    }
-  }
+  //.article-section-title{
+  //  padding-top: 30px;
+  //  .info-text{
+  //    padding-left: 15px;
+  //    border-left: 4px solid @common-gray;
+  //    position: relative;
+  //    left : -15px;
+  //    font-size:@mini-size;
+  //    color: @common-gray;
+  //  }
+  //}
 }
 
 
 .article-section-title{
-
   margin: 20px 0px;
-  font-size: @subtitle-size;
+}
 
+//article remark style
+
+  #remark-list{
+    .remark-list-item-wrapper{
+      margin-bottom:40px;
+      padding: 15px 15px;
+      &:hover{
+        cursor:pointer;
+        .border-radius(@global-box-radius);
+        box-shadow: @panel-shaddow;
+
+      }
+      .remark-item{
+        overflow: hidden;
+        .remark-detail{
+          margin-left:80px;
+          .remark-content{
+            margin-top:6px;
+          }
+          .remark-operate{
+            .remark-time{
+              font-size:@mini-size;
+              color:@common-gray;
+            }
+          }
+        }
+      }
+    }
+  }
+  #login_user_remark{
+    padding:0 15px;
+  }
+
+
+@media (min-width: 768px){
+  .article-onepage .remarks-wrapper{
+    .panel;
+    margin: 15px 0px;
+  }
 }
 
 
