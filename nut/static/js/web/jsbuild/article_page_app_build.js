@@ -5817,6 +5817,7 @@ define('subapp/article/article_sidebar_switch',[
             //$('#detail_content_right').css({opacity:'0'});
             $('#detail_content_right').hide();
             $('#detail_content .container-fluid').addClass('main-article-control');
+            $('.bottom-article-share').parent('.col-xs-12').addClass('bottom-article-share-control');
             $('.sidebar-switch.close-switch').hide();
             $('.sidebar-switch.open-switch').show();
         },
@@ -5824,6 +5825,7 @@ define('subapp/article/article_sidebar_switch',[
             //$('#detail_content_right').css({opacity:'1'});
             $('#detail_content_right').show();
             $('#detail_content .container-fluid').removeClass('main-article-control');
+            $('.bottom-article-share').parent('.col-xs-12').removeClass('bottom-article-share-control');
             $('.sidebar-switch.close-switch').show();
             $('.sidebar-switch.open-switch').hide();
         }
