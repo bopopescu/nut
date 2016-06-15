@@ -1434,11 +1434,26 @@ define('subapp/top_notification/top_notification',[
             this.flag = 0;
             console.log('top notification begin');
             this.initClickBell();
+            //this.initAjax();
+            this.checkBadge();
         },
+    //    initAjax:function(){
+    //    if($('.notification-drop-list-wrapper').length > 0){
+    //        this.postAjaxNotification();
+    //    }
+    //},
         initClickBell: function(){
             $('.navbar-collapse .notification-icon').click(this.handleClickBell.bind(this));
         },
+        checkBadge:function(){
+            if($('.nav-user-actions .badge').length > 0){
+                $('.nav-notification-wrapper .notification-round').css({display:'inline-block'});
+            }else{
+                 $('.nav-notification-wrapper .notification-round').css({display:'none'});
+            }
+        },
         handleClickBell:function(){
+
             $('.navbar-collapse .notification-drop-list-wrapper').toggle(this.flag++ % 2 == 0);
             console.log('flag:'+this.flag);
             if(this.flag % 2 == 0){
