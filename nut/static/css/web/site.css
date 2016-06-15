@@ -2629,21 +2629,9 @@ a:hover {
   .more-article-wrapper .title-wrapper .article-digest {
     display: none;
   }
-  .article-section-title {
-    padding-top: 30px;
-  }
-  .article-section-title .info-text {
-    padding-left: 15px;
-    border-left: 4px solid #9D9E9F;
-    position: relative;
-    left: -15px;
-    font-size: 13px;
-    color: #9D9E9F;
-  }
 }
 .article-section-title {
   margin: 20px 0px;
-  font-size: 18px;
 }
 #remark-list .remark-list-item-wrapper {
   margin-bottom: 40px;
