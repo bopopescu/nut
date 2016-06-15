@@ -1540,7 +1540,7 @@ define('subapp/topmenu',['bootstrap',
             this.scrollTop = null;
             this.lastScrollTop = null;
             this.read = this.write = null;
-
+            this.initHiddenBottomAd();
             this.setupScrollMenu();
             this.checkSNSBindVisit();
             this.checkEventRead();
@@ -1588,6 +1588,12 @@ define('subapp/topmenu',['bootstrap',
             if (!this.read){
                 this.read = fastdom.read(function(){
                     that.scrollTop = $(window).scrollTop();
+                    that.screenHeight = window.screen.height;
+                    that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
+                    that.pageHeight = document.body.scrollHeight;
+                    that.hiddenLeftCondition = that.screenHeight + that.scrollTop;
+                    that.hiddenRightCondition = that.articleHeight + 102;
+
                 });
             }
 
@@ -1611,13 +1617,20 @@ define('subapp/topmenu',['bootstrap',
 
             if(this.lastScrollTop > this.scrollTop){
                 this.showHeader();
+                this.showBottomAd();
             }else{
                 if (this.scrollTop < 140){
                     this.showHeader();
+                    this.showBottomAd();
                 }else{
                      this.hideHeader(this.scrollTop);
+                    this.hiddenBottomAd();
                 }
 
+            }
+            if(this.hiddenLeftCondition > this.hiddenRightCondition){
+                this.hideHeader();
+                 this.hiddenBottomAd();
             }
 
             this.read = null;
@@ -1626,13 +1639,32 @@ define('subapp/topmenu',['bootstrap',
         },
 
 
-
+        checkArticleDetailUrl:function(){
+             var testUrl = /articles\/\d+/.test(location.href);
+             return testUrl;
+        },
+        initHiddenBottomAd:function(){
+            if(this.checkArticleDetailUrl){
+                 $('.bottom-ad').removeClass('showing');
+            }
+        },
+        showBottomAd:function(){
+            if(!this.checkArticleDetailUrl()){
+                 $('.bottom-ad').addClass('showing');
+            }
+        },
+        hiddenBottomAd:function(){
+            if(!this.checkArticleDetailUrl){
+                 $('.bottom-ad').removeClass('showing');
+            }
+        },
         showHeader: function(){
             //console.log('show header');
             this.$menu.removeClass('hidden-header');
             this.$menu.addClass('shown-header');
             $('.round-link').show();
-            $('.bottom-ad').addClass('showing');
+            $('.bottom-article-share-wrapper').removeClass('hidden-animation');
+
             //console.log((new Date()).getMilliseconds());
 
         },
@@ -1641,7 +1673,8 @@ define('subapp/topmenu',['bootstrap',
             this.$menu.removeClass('shown-header');
             this.$menu.addClass('hidden-header');
             $('.round-link').hide();
-            $('.bottom-ad').removeClass('showing');
+            $('.bottom-article-share-wrapper').addClass('hidden-animation');
+
             //console.log((new Date()).getMilliseconds());
         }
     });
@@ -1659,68 +1692,92 @@ define("libs/underscore", function(){});
 define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
     function($,_,Class,fastdom){
 
-    var GoTop = Class.extend({
-        init: function(){
-            this.topLink = $('.btn-top');
-            if (this.topLink.length > 0){
-                this.setupWatcher();
-                this.topLink.on('click', function(){
-                    $("html, body").animate(
-                    {scrollTop : 0}, 800
-                    );
-                    return false;
-                });
-            }else{
-                return ;
-            }
-        },
-        setupWatcher:function(){
-            $(window).scroll(this.onScroll.bind(this));
-        },
-        onScroll:function(){
-            if(this.read){
-                fastdom.clear(this.read);
-            }
-            this.read = fastdom.read(this.doRead.bind(this));
-            if(this.write){
-                fastdom.clear(this.write);
-            }
-            this.write = fastdom.write(this.doWrite.bind(this));
-        },
-        doRead: function(){
-            this.scrollTop = $(window).scrollTop();
-            this.btnRect = this.topLink[0].getBoundingClientRect()
-            this.footerRect = $('#guoku_footer')[0].getBoundingClientRect()
+        var GoTop = Class.extend({
+            init: function(){
+                this.topLinkWrapper = $('.gotop-wrapper');
+                this.topLink = $('.btn-top');
+                this.newTopLink = $('.new-btn-top');
+                if(this.topLink.length > 0){
+                    this.topLinkExist = true;
+                }
+                if(this.newTopLink.length > 0){
+                    this.newTopLinkExist = true;
 
+                }
+                if ( this.topLinkExist|| this.newTopLinkExist){
+                    this.setupWatcher();
+                    if(this.topLinkExist){
+                        this.topLink.on('click', function(){
+                            $("html, body").animate(
+                                {scrollTop : 0}, 800
+                            );
+                            return false;
+                        });
+                    }
+                    if(this.newTopLinkExist){
+                        this.newTopLink.on('click', function(){
+                            $("html, body").animate(
+                                {scrollTop : 0}, 800
+                            );
+                            return false;
+                        });
+                    }
+                }else{
+                    return ;
+                }
+            },
+            setupWatcher:function(){
+                $(window).scroll(this.onScroll.bind(this));
+            },
+            onScroll:function(){
+                if(this.read){
+                    fastdom.clear(this.read);
+                }
+                this.read = fastdom.read(this.doRead.bind(this));
+                if(this.write){
+                    fastdom.clear(this.write);
+                }
+                this.write = fastdom.write(this.doWrite.bind(this));
+            },
+            doRead: function(){
+                this.scrollTop = $(window).scrollTop();
+                if(this.topLinkExist){
+                    this.btnRect = this.topLink[0].getBoundingClientRect();
+                }
+                this.footerRect = $('#guoku_footer')[0].getBoundingClientRect();
+            },
+            doWrite: function(){
+                var that = this ;
+                if (!this.scrollTop){return ;}
+                if (this.scrollTop > 400 ){
 
-        },
-        doWrite: function(){
-            var that = this ;
-            if (!this.scrollTop){return ;}
-            if (this.scrollTop > 400 ){
-
-                fastdom.write(function(){
-                        that.topLink.show();
-                        if (that.btnRect.bottom >= that.footerRect.top){
-                            that.topLink.css({bottom:'370px'});
-                        }else{
-                            //that.topLink.css({bottom:'170px'});
+                    fastdom.write(function(){
+                        that.topLinkWrapper.show();
+                        if(that.topLinkExist){
+                            that.topLink.show();
+                            if (that.btnRect.bottom >= that.footerRect.top){
+                                that.topLink.css({bottom:'370px'});
+                            }else{
+                                //that.topLink.css({bottom:'170px'});
+                            }
                         }
-                });
 
-            }else{
-                fastdom.write(function(){
-                    that.topLink.hide();
-                });
+                    });
+
+                }else{
+                    fastdom.write(function(){
+                        that.topLinkWrapper.hide();
+                        that.topLink.hide();
+                    });
+                }
+
+
+
             }
+        });
 
-
-
-        }
+        return GoTop;
     });
-
-    return GoTop;
-});
 
 require([
         'libs/polyfills',
