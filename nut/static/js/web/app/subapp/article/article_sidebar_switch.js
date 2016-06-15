@@ -25,7 +25,7 @@ define([
         hiddenSideBar:function(){
             //$('#detail_content_right').css({opacity:'0'});
             $('#detail_content_right').hide();
-            $('#detail_content .container-fluid').addClass('main-article-control');
+            $('#detail_content .container-fluid:first-child').addClass('main-article-control');
             $('.bottom-article-share').parent('.col-xs-12').addClass('bottom-article-share-control');
             $('.sidebar-switch.close-switch').hide();
             $('.sidebar-switch.open-switch').show();
@@ -33,7 +33,7 @@ define([
         showSidebar:function(){
             //$('#detail_content_right').css({opacity:'1'});
             $('#detail_content_right').show();
-            $('#detail_content .container-fluid').removeClass('main-article-control');
+            $('#detail_content .container-fluid:first-child').removeClass('main-article-control');
             $('.bottom-article-share').parent('.col-xs-12').removeClass('bottom-article-share-control');
             $('.sidebar-switch.close-switch').show();
             $('.sidebar-switch.open-switch').hide();
