@@ -30,9 +30,15 @@
                         </p>
                     </div>
                     <div class="remark-operate">
-                        <div class="pull-right remark-time">
+                        <div class="pull-left remark-time">
                             <i class="fa fa-clock-o"></i>&nbsp;{{ remark.create_time|date:"Y-m-d" }}
                         </div>
+                         {% if remark.user != request.user %}
+                             <div class="pull-left remark-reply">
+{#                                 <i class="fa fa-mail-reply"></i>&nbsp;#}
+                                 回复
+                             </div>
+                         {% endif %}
                         {% if remark.user == request.user %}
                             <span class="pull-right my-note">我的点评</span>
                         {% endif %}

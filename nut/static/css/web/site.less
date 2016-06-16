@@ -1588,7 +1588,9 @@ a:hover{text-decoration:underline;}
         cursor:pointer;
         .border-radius(@global-box-radius);
         box-shadow: @panel-shaddow;
-
+        .remark-item .remark-detail .remark-operate .remark-reply{
+          display: block;
+        }
       }
       .remark-item{
         overflow: hidden;
@@ -1598,9 +1600,14 @@ a:hover{text-decoration:underline;}
             margin-top:6px;
           }
           .remark-operate{
-            .remark-time{
+            overflow: hidden;
+            .remark-time,.remark-reply{
               font-size:@mini-size;
               color:@common-gray;
+            }
+            .remark-reply{
+              display: none;
+              margin-left:15px;
             }
           }
         }
