@@ -78,7 +78,7 @@ class SelectionReportListView(ListView):
             queryset = SearchQuerySet().models(Entity).filter(
                 created_time__range=(datetime.strptime(self.start_date, '%Y-%m-%d %H:%M:%S'),datetime.strptime(self.end_date, '%Y-%m-%d %H:%M:%S')),
                 like_count__gte=100,
-              :  is_in_selection=True).order_by('-like_count')
+                is_in_selection=True).order_by('-like_count')
         return queryset
 
     def get_sold(self):  #Todo
