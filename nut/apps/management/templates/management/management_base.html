@@ -158,7 +158,12 @@
                     </li>
 
 
-
+                    {% url 'management_selection_report' as management_selection_report %}
+                    <li {% if management_selection_report in request.path %}class="active"{% endif %}>
+                        <a href="{{ management_selection_report }}">
+                            <i class="fa fa-star"></i>&nbsp;<span>{% trans '用户喜爱报告(BETA)' %}</span>
+                        </a>
+                    </li>
 {#                     {% url 'management_banner_list' as management_banner_list_url %}#}
 {#                    <li {% if management_banner_list_url in request.path %}class="active"{% endif %}>#}
 {#                        <a href="{{ management_banner_list_url }}">#}
@@ -237,6 +242,8 @@
                             <i class="fa fa-tag"></i>&nbsp;<span>{% trans 'tag' %}</span>
                         </a>
                     </li>
+
+
 
                     <li class="header"> {% trans '专题' %} </li>
                     {% url 'management_event' as management_event_url %}

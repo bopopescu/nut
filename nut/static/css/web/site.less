@@ -1300,9 +1300,13 @@ a:hover{text-decoration:underline;}
     margin-top: 60px;
     height: 70px;
     .report-wrapper{
+      color:@common-gray;
       float:left ;
       display: inline-block;
       cursor:pointer;
+      &:hover{
+        color: @common-text-color;
+      }
     }
     .share-intro{
       font-size: @mini-size;
@@ -1400,6 +1404,8 @@ a:hover{text-decoration:underline;}
     padding-top:0;
   }
   .divider{
+    margin-left:-40px;
+    margin-right:-40px;
     margin-bottom: 20px;
     height:2px;
     border-bottom: 1px solid @very-light-gray;
@@ -1417,7 +1423,6 @@ a:hover{text-decoration:underline;}
 }
 
 .main-article{
-
   .writer-wrapper.writer-wrapper-control{
     position:relative;
     .article-user-follow{
@@ -1478,6 +1483,7 @@ a:hover{text-decoration:underline;}
 @media (min-width: 768px){
   .main-article{
     .panel;
+    padding:40px 40px;
     .writer-intro{
       padding-top: 0px;
       .writer-bio{
@@ -1559,25 +1565,70 @@ a:hover{text-decoration:underline;}
     }
   }
 
-  .article-section-title{
-    padding-top: 30px;
-    .info-text{
-      padding-left: 15px;
-      border-left: 4px solid @common-gray;
-      position: relative;
-      left : -15px;
-      font-size:@mini-size;
-      color: @common-gray;
-    }
-  }
+  //.article-section-title{
+  //  padding-top: 30px;
+  //  .info-text{
+  //    padding-left: 15px;
+  //    border-left: 4px solid @common-gray;
+  //    position: relative;
+  //    left : -15px;
+  //    font-size:@mini-size;
+  //    color: @common-gray;
+  //  }
+  //}
 }
 
 
 .article-section-title{
-
   margin: 20px 0px;
-  font-size: @subtitle-size;
+}
 
+//article remark style
+
+  #remark-list{
+    .remark-list-item-wrapper{
+      padding: 10px 15px;
+      &:hover{
+        cursor:pointer;
+        .border-radius(@global-box-radius);
+        box-shadow: @panel-shaddow;
+        .remark-item .remark-detail .remark-operate .remark-reply{
+          display: block;
+        }
+      }
+      .remark-item{
+        overflow: hidden;
+        .remark-detail{
+          margin-left:80px;
+          .remark-content{
+            margin-top:6px;
+          }
+          .remark-operate{
+            overflow: hidden;
+
+            .remark-time,.remark-reply{
+              font-size:@more-mini-size;
+              color:@common-gray;
+            }
+            .remark-reply{
+              display: none;
+              margin-left:15px;
+            }
+          }
+        }
+      }
+    }
+  }
+  #login_user_remark{
+    padding:0 15px;
+  }
+
+
+@media (min-width: 768px){
+  .article-onepage .remarks-wrapper{
+    .panel;
+    margin: 15px 0px;
+  }
 }
 
 

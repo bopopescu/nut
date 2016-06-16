@@ -1,3 +1,20 @@
+5. mng - like entity report 
+4. web - new article detail page 
+3. web - top menu notification 
+2. web - in removed entity's detail page , add search button
+1. web - sub category sort buy like (bug fix )
+
+
+  
+action : 
+  ALTER TABLE `core`.`shop_shop` 
+ADD COLUMN `tb_shop_id` VARCHAR(64) NULL DEFAULT NULL AFTER `shop_type`;
+
+
+=======================
+# merged to master 2016 6-2
+=======================
+
 4.  good store update 
 3.  broadcast  push management , test send
 2.  jpush notification , add android push 
@@ -14,9 +31,7 @@ Action :
     3. fix field encoding , if needed 
         ALTER TABLE `core`.`notifications_dailypush` 
 CHANGE COLUMN `push_text` `push_text` VARCHAR(64) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ;
-
-   
-   
+     
 ####  for  entity buylink update use 
 
 ALTER TABLE `core`.`core_buy_link` 

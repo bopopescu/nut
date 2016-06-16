@@ -94,7 +94,9 @@ register.filter(entity_qr)
 
 
 
-
+def tbsearch_url(word):
+    return 'https://s.taobao.com/search?q=%s'%word
+register.filter(tbsearch_url)
 
 
 
