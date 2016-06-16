@@ -15,8 +15,6 @@ require([
         'subapp/article/article_sidebar_switch',
         'subapp/user_follow',
         'libs/csrf'
-
-
     ],
     function (polyfill,
               jQuery,
