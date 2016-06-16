@@ -166,6 +166,10 @@ class NewMessageListView(LoginRequiredMixin, AjaxResponseMixin,JSONResponseMixin
                                            'url': host + m.actor.absolute_url},
                               'type': m.action_object_content_type.model,
                               'time': m.timesince().split(u'，')[0]})
+            for item in data:
+                item['time'] = item['time'].replace(u'\xa0', u'')    # replace a white space
+                if item['time'][-1] == u'日':
+                    item['time'] = item['time'].replace(u'日', u'天')
 
             res = {'status': 1,
                     'data': data
