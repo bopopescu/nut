@@ -1637,7 +1637,7 @@ p.boolean-false {
 .article-share .dig-wrapper {
   display: inline-block;
   font-size: 13px;
-  color: #9D9E9F;
+  color: #757575;
   float: left;
   line-height: 40px;
   padding-top: 4px;
@@ -1677,7 +1677,7 @@ p.boolean-false {
   font-size: 13px;
 }
 .article-share .remark-wrapper a {
-  color: #9D9E9F;
+  color: #757575;
 }
 .article-share .remark-wrapper .remark-icon {
   width: 32px;
