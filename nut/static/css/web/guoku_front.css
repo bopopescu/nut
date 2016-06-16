@@ -2229,6 +2229,9 @@ p.boolean-false {
     font-size: 12px;
   }
 }
+.test {
+  color: red;
+}
 @-moz-document url-prefix() {
   fieldset {
     display: table-cell;
@@ -5215,7 +5218,6 @@ body.compact-body {
   }
   #detail_content_right {
     max-width: 330px;
-    opacity: 1;
   }
   .more-article-wrapper .cover-wrapper a {
     display: block;
