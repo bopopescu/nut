@@ -27,11 +27,12 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
     created_time = indexes.DateTimeField(model_attr='created_time')
     price = indexes.FloatField(model_attr='price')
     like_count = indexes.IntegerField(model_attr='like_count')
+
+    # selection index
     is_in_selection = indexes.BooleanField(model_attr='is_in_selection')
+    enter_selection_time = indexes.DateTimeField(model_attr='enter_selection_time')
 
     # category_name = indexes.CharField(model_attr='category_name',boost=1.50, faceted=True)
-
-    # images = indexes.CharField(model_attr='chief_image')
 
     title_auto = indexes.EdgeNgramField(model_attr='title')
 
