@@ -817,7 +817,7 @@ define('subapp/topmenu',['bootstrap',
             this.scrollTop = null;
             this.lastScrollTop = null;
             this.read = this.write = null;
-
+            this.initHiddenBottomAd();
             this.setupScrollMenu();
             this.checkSNSBindVisit();
             this.checkEventRead();
@@ -893,16 +893,20 @@ define('subapp/topmenu',['bootstrap',
 
             if(this.lastScrollTop > this.scrollTop){
                 this.showHeader();
+                this.showBottomAd();
             }else{
                 if (this.scrollTop < 140){
                     this.showHeader();
+                    this.showBottomAd();
                 }else{
                      this.hideHeader(this.scrollTop);
+                    this.hiddenBottomAd();
                 }
 
             }
             if(this.hiddenLeftCondition > this.hiddenRightCondition){
                 this.hideHeader();
+                 this.hiddenBottomAd();
             }
 
             this.read = null;
@@ -911,13 +915,30 @@ define('subapp/topmenu',['bootstrap',
         },
 
 
-
+        checkArticleDetailUrl:function(){
+             var testUrl = /articles\/\d+/.test(location.href);
+             return testUrl;
+        },
+        initHiddenBottomAd:function(){
+            if(this.checkArticleDetailUrl){
+                 $('.bottom-ad').removeClass('showing');
+            }
+        },
+        showBottomAd:function(){
+            if(!this.checkArticleDetailUrl()){
+                 $('.bottom-ad').addClass('showing');
+            }
+        },
+        hiddenBottomAd:function(){
+            if(!this.checkArticleDetailUrl){
+                 $('.bottom-ad').removeClass('showing');
+            }
+        },
         showHeader: function(){
             //console.log('show header');
             this.$menu.removeClass('hidden-header');
             this.$menu.addClass('shown-header');
             $('.round-link').show();
-            $('.bottom-ad').addClass('showing');
             $('.bottom-article-share-wrapper').removeClass('hidden-animation');
 
             //console.log((new Date()).getMilliseconds());
@@ -928,7 +949,6 @@ define('subapp/topmenu',['bootstrap',
             this.$menu.removeClass('shown-header');
             this.$menu.addClass('hidden-header');
             $('.round-link').hide();
-            $('.bottom-ad').removeClass('showing');
             $('.bottom-article-share-wrapper').addClass('hidden-animation');
 
             //console.log((new Date()).getMilliseconds());
