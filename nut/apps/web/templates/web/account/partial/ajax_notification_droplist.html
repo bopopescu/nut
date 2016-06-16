@@ -1,0 +1,207 @@
+{% load i18n staticfiles %}
+{% load notifications_tags %}
+{% load guoku %}
+
+<script type="text/html" id="notification_item_template">
+
+{#    if have notifications #}
+ <% if(notification_length){ %>
+     <% for(var i=0;i<notification_length;i++){ %>
+       <% if(objects[i].type == 'user_follow'){ %>
+
+         <li class="notification-list-item">
+
+        <div class="notification-user-logo-wrapper">
+            <a href="<%=objects[i].actor.url%>">
+                <img src="<%=objects[i].actor.avatar%>" class="img-circle img-control">
+            </a>
+        </div>
+
+        <div class="main-notification">
+
+            <div class="main-notification-title">
+                <a class="notification-user-name" href="<%=objects[i].actor.url%>"><%=objects[i].actor.nick%></a>
+                开始关注你了
+                <span class="notification-time"><%=objects[i].time%>前</span>
+            </div>
+        </div>
+    </li>
+       <% } %>
+
+       <% if(objects[i].type == 'note_poke'){ %>
+
+        <li class="notification-list-item">
+
+        <div class="notification-user-logo-wrapper">
+            <a href="<%=objects[i].actor.url%>">
+                 <img src="<%=objects[i].actor.avatar%>" class="img-circle img-control">
+            </a>
+        </div>
+
+        <div class="main-notification">
+            <div class="main-notification-title">
+                <a class="notification-user-name" href="<%=objects[i].actor.url%>"><%=objects[i].actor.nick%></a>
+                赞了你撰写的点评
+                <span class="notification-time"><%=objects[i].time%>前</span>
+            </div>
+        </div>
+
+        <div class="notification-goods-wrapper">
+            <a href="<%=objects[i].target.url%>">
+                 <img src="<%=objects[i].target.entity_image%>" class="img-control">
+            </a>
+        </div>
+
+        </li>
+       <% } %>
+
+        <% if(objects[i].type == 'note_comment'){ %>
+            <li class="notification-list-item">
+
+        <div class="notification-user-logo-wrapper">
+            <a href="<%=objects[i].actor.url%>">
+            <img src="<%=objects[i].actor.avatar%>" class="img-circle img-control">
+                </a>
+        </div>
+
+        <div class="main-notification">
+            <div class="main-notification-title">
+                <a class="notification-user-name" href="<%=objects[i].actor.url%>"><%=objects[i].actor.nick%></a>
+                评论了你撰写的点评
+                <span class="notification-time"><%=objects[i].time%>前</span>
+            </div>
+        </div>
+
+        <div class="notification-goods-wrapper">
+            <a href="<%=objects[i].target.url%>">
+                 <img src="<%=objects[i].target.entity_image%>" class="img-control">
+            </a>
+
+        </div>
+
+    </li>
+
+       <% } %>
+
+        <% if(objects[i].type == 'entity_like'){ %>
+           <li class="notification-list-item">
+
+        <div class="notification-user-logo-wrapper">
+            <a href="<%=objects[i].actor.url%>">
+                 <img src="<%=objects[i].actor.avatar%>" class="img-circle img-control">
+            </a>
+
+        </div>
+
+        <div class="main-notification">
+            <div class="main-notification-title">
+                <a class="notification-user-name" href="<%=objects[i].actor.url%>"><%=objects[i].actor.nick%></a>
+                喜爱了你添加的商品
+                <span class="notification-time"><%=objects[i].time%>前</span>
+            </div>
+        </div>
+
+        <div class="notification-goods-wrapper">
+            <a href="<%=objects[i].target.url%>">
+                <img src="<%=objects[i].target.entity_image%>" class="img-control">
+            </a>
+
+        </div>
+
+    </li>
+
+
+       <% } %>
+
+       <% if(objects[i].type == 'selection_entity'){ %>
+           <li class="notification-list-item">
+        <div class="main-notification">
+            <div class="main-notification-title">
+                你添加的商品被收录精选
+                <span class="notification-time"><%=objects[i].time%>前</span>
+            </div>
+        </div>
+
+        <div class="notification-goods-wrapper">
+            <a href="<%=objects[i].target.url%>">
+                 <img src="<%=objects[i].target.entity_image%>" class="img-control">
+            </a>
+
+        </div>
+
+    </li>
+
+
+       <% } %>
+
+       <% if(objects[i].type == 'note'){ %>
+           <li class="notification-list-item">
+
+        <div class="notification-user-logo-wrapper">
+            <a href="<%=objects[i].actor.url%>">
+                 <img src="<%=objects[i].actor.avatar%>" class="img-circle img-control">
+            </a>
+
+        </div>
+
+        <div class="main-notification">
+            <div class="main-notification-title">
+                <a class="notification-user-name" href="<%=objects[i].actor.url%>"><%=objects[i].actor.nick%></a>
+                点评了你的商品
+                <span class="notification-time"><%=objects[i].time%>前</span>
+            </div>
+        </div>
+
+        <div class="notification-goods-wrapper">
+            <a href="<%=objects[i].target.url%>">
+                 <img src="<%=objects[i].target.entity_image%>" class="img-control">
+            </a>
+
+        </div>
+
+    </li>
+       <% } %>
+
+       <% if(objects[i].type == 'article_dig'){ %>
+          <li class="notification-list-item">
+
+        <div class="notification-user-logo-wrapper">
+            <a href="<%=objects[i].actor.url%>">
+            <img src="<%=objects[i].actor.avatar%>" class="img-circle img-control">
+            </a>
+        </div>
+
+        <div class="main-notification">
+            <div class="main-notification-title">
+                <a class="notification-user-name" href="<%=objects[i].actor.ur%>"><%=objects[i].actor.nick%></a>
+                赞了你发表的图文
+                <span class="notification-time"><%=objects[i].time%>前</span>
+            </div>
+        </div>
+
+        <div class="notification-goods-wrapper">
+            <a href="<%=objects[i].target.url%>">
+                <img src="<%=objects[i].target.article_cover%>" class="img-control">
+            </a>
+        </div>
+
+    </li>
+
+       <% } %>
+
+     <% } %>
+
+    <li class="notification-list-item">
+        <a href="{% url 'web_messages' %}" class="more-notification">更多&nbsp;&nbsp;<i class="fa fa-caret-down"></i></a>
+    </li>
+
+ <% } %>
+
+{#    if empty notification #}
+    <% if(!notification_length){ %>
+    <li class="notification-list-item">
+        <div class="empty-notification">「暂无消息」</div>
+    </li>
+    <% } %>
+
+</script>
