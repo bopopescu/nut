@@ -43,7 +43,7 @@
 {#         {% include "web/article/partial/article_breadcrumb.html" %}#}
 {#     </div>#}
         <div class="row" id="detail_content" >
-            <div class="container-fluid col-lg-8 col-md-8 col-sm-12  col-xs-12 " itemscope itemtype="http://schema.org/NewsArticle">
+            <div class="container-fluid main-article-control col-lg-8 col-md-8 col-sm-12  col-xs-12 " itemscope itemtype="http://schema.org/NewsArticle">
                 <div class="main-article" id="main_article">
                     {% if not isFromMobile %}
                         <div class="sidebar-switch-wrapper hidden-sm hidden-xs">
@@ -295,11 +295,11 @@
                                             <div class="section-panel">
                                                 <div class="article-item-pic" style="background-image: url('{{ r_article.cover_url|resize:'200' }}')">
                                                 </div>
+                                                <div class="bg-layer related-article-bg-layer"></div>
                                                 <div class="section-name article-title">
                                                     <p>{{ r_article.title|truncatechars:22 }}</p>
 {#                                                    <span>{{ category.title_en }}</span>#}
                                                 </div>
-                                                <div class="bg-layer"></div>
                                             </div>
                                         </a>
                                     </li>
@@ -389,7 +389,7 @@
         <div class="bottom-article-share-wrapper">
          <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <div class="main-article-control col-lg-8 col-md-8 col-sm-12 col-xs-12">
                    <div class="bottom-article-share">
                         <div class="article-share for-browser ">
 
@@ -487,10 +487,9 @@
                     </p>
                 </div>
                 <div class="remark-operate">
-                    <div class="pull-right remark-time">
+                    <div class="pull-left remark-time">
                         <i class="fa fa-clock-o"></i>&nbsp;<%=create_time%>
                     </div>
-                    <span class="pull-right my-note">我的点评</span>
                 </div>
             </div>
 

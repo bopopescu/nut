@@ -1508,7 +1508,9 @@ define('subapp/topmenu',['bootstrap',
                 this.read = fastdom.read(function(){
                     that.scrollTop = $(window).scrollTop();
                     that.screenHeight = window.screen.height;
-                    that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
+                    if($('#main_article').length){
+                          that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
+                    }
                     that.pageHeight = document.body.scrollHeight;
                     that.hiddenLeftCondition = that.screenHeight + that.scrollTop;
                     that.hiddenRightCondition = that.articleHeight + 102;
@@ -3079,7 +3081,7 @@ define('subapp/article/article_remark',[
                         that.replyNotice(replyTo);
                         that.saveReplyToId(replyToId);
                     }else{
-                        bootbox.confirm("Are you sure to delete your remark?",function(result){
+                        bootbox.confirm("确认删除评论?",function(result){
                             if(result){
                                  var $form = $('#article_remark_form');
                                  var url = $form.attr('action') + "delete/";
@@ -3097,6 +3099,15 @@ define('subapp/article/article_remark',[
                         });
                     }
                 });
+                $('.remark-operate .remark-reply').click(function(){
+                    //var requestUser = $('#user_dash_link').data('user-id');
+                    var replyTo = $(this).find('.remark-user').attr('user_name');
+                    //var remarkUserId = $(this).find('.remark-user').attr('user_id');
+                    var replyToId = $(this).find('.remark-user').attr('remark_id');
+                    var target = this;
+                    that.replyNotice(replyTo);
+                    that.saveReplyToId(replyToId);
+                })
             }
         },
         initUserRemarkPost: function(){
@@ -3110,7 +3121,7 @@ define('subapp/article/article_remark',[
             }else{
                 this.secondPost = new Date();
             }
-            if(this.secondPost && this.secondPost - this.firstPost < 30000){
+            if(this.secondPost && this.secondPost - this.firstPost < 3000){
                 bootbox.alert('您的操作频繁,请稍后再尝试操作。');
                 this.firstPost = this.secondPost;
                 this.secondPost = null;
@@ -5883,12 +5894,10 @@ define('subapp/article/article_related_slick',['jquery', 'libs/Class','libs/slic
 
 define('subapp/article/article_sidebar_switch',[
     'libs/Class',
-    'jquery',
-    'libs/fastdom'
+    'jquery'
 ],function(
     Class,
-    $,
-    fastdom
+    $
 ){
     var ArticleSidebarSwitch = Class.extend({
         init: function(){
@@ -5906,18 +5915,32 @@ define('subapp/article/article_sidebar_switch',[
             }
         },
         hiddenSideBar:function(){
-            //$('#detail_content_right').css({opacity:'0'});
-            $('#detail_content_right').hide();
-            $('#detail_content .container-fluid').addClass('main-article-control');
+            $('#detail_content_right').removeClass('content-right-show');
+            $('#detail_content_right').addClass('content-right-hidden');
+            $('.main-article-control').css({
+                                             'transform':'translateX('+this.getArticleMoveDistance()+'px)',
+                                             '-webkit-transform':'translateX('+this.getArticleMoveDistance()+'px)'
+            });
+            $('.bottom-article-share').parent('.col-xs-12').css('transform','translateX('+this.getArticleMoveDistance()+'px)');
             $('.sidebar-switch.close-switch').hide();
             $('.sidebar-switch.open-switch').show();
         },
         showSidebar:function(){
-            //$('#detail_content_right').css({opacity:'1'});
-            $('#detail_content_right').show();
-            $('#detail_content .container-fluid').removeClass('main-article-control');
+            $('#detail_content_right').removeClass('content-right-hidden');
+            $('#detail_content_right').addClass('content-right-show');
+            $('.main-article-control').css({
+                                            'transform':'translateX(0)',
+                                            '-webkit-transform':'translateX(0)'
+            });
+            $('.bottom-article-share').parent('.col-xs-12').css('transform','translateX(0)');
             $('.sidebar-switch.close-switch').show();
             $('.sidebar-switch.open-switch').hide();
+        },
+        getArticleMoveDistance:function(){
+            return this.getSidebarWidth()/2;
+        },
+        getSidebarWidth:function(){
+            return $('#detail_content_right').innerWidth();
         }
     });
     return  ArticleSidebarSwitch;
@@ -5997,6 +6020,7 @@ require([
         'subapp/articlepagecounter',
         'subapp/entitycard',
         'subapp/detailsidebar',
+
         'subapp/related_article_loader',
         'subapp/article/article_share',
         'subapp/article/article_remark',
@@ -6004,8 +6028,6 @@ require([
         'subapp/article/article_sidebar_switch',
         'subapp/user_follow',
         'libs/csrf'
-
-
     ],
     function (polyfill,
               jQuery,
@@ -6016,11 +6038,13 @@ require([
               ArticlePageCounter,
               EntityCardRender,
               SideBarManager,
+
               RelatedArticleLoader,
+              ArticleShareApp,
               ArticleRemark,
+              ArticleRelatedSlick,
               ArticleSidebarSwitch,
-              UserFollow,
-              ArticleShareApp
+              UserFollow
 
     ){
         var page = new Page();
@@ -6035,6 +6059,7 @@ require([
         var articleSidebarSwitch = new ArticleSidebarSwitch();
         var user_follow = new UserFollow();
         var shareApp = new ArticleShareApp();
+        var related_slick = new ArticleRelatedSlick();
 
 });
 

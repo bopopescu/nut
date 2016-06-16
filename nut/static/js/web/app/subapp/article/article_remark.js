@@ -79,7 +79,7 @@ define([
                         that.replyNotice(replyTo);
                         that.saveReplyToId(replyToId);
                     }else{
-                        bootbox.confirm("Are you sure to delete your remark?",function(result){
+                        bootbox.confirm("确认删除评论?",function(result){
                             if(result){
                                  var $form = $('#article_remark_form');
                                  var url = $form.attr('action') + "delete/";
@@ -97,6 +97,15 @@ define([
                         });
                     }
                 });
+                $('.remark-operate .remark-reply').click(function(){
+                    //var requestUser = $('#user_dash_link').data('user-id');
+                    var replyTo = $(this).find('.remark-user').attr('user_name');
+                    //var remarkUserId = $(this).find('.remark-user').attr('user_id');
+                    var replyToId = $(this).find('.remark-user').attr('remark_id');
+                    var target = this;
+                    that.replyNotice(replyTo);
+                    that.saveReplyToId(replyToId);
+                })
             }
         },
         initUserRemarkPost: function(){
@@ -110,7 +119,7 @@ define([
             }else{
                 this.secondPost = new Date();
             }
-            if(this.secondPost && this.secondPost - this.firstPost < 30000){
+            if(this.secondPost && this.secondPost - this.firstPost < 3000){
                 bootbox.alert('您的操作频繁,请稍后再尝试操作。');
                 this.firstPost = this.secondPost;
                 this.secondPost = null;

@@ -1825,11 +1825,10 @@ p.boolean-false {
   line-height: 2;
 }
 .main-article-control {
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
+  -webkit-transition: transform 1000ms;
+  -moz-transition: transform 1000ms;
+  -ms-transition: transform 1000ms;
+  -o-transition: transform 1000ms;
 }
 .main-article {
   position: relative;
@@ -2057,7 +2056,7 @@ p.boolean-false {
 .article-share .dig-wrapper {
   display: inline-block;
   font-size: 13px;
-  color: #9D9E9F;
+  color: #757575;
   float: left;
   line-height: 40px;
   padding-top: 4px;
@@ -2097,7 +2096,7 @@ p.boolean-false {
   font-size: 13px;
 }
 .article-share .remark-wrapper a {
-  color: #9D9E9F;
+  color: #757575;
 }
 .article-share .remark-wrapper .remark-icon {
   width: 32px;
@@ -2188,6 +2187,7 @@ p.boolean-false {
   background-repeat: no-repeat;
 }
 .related-article-wrapper #related-article-container li.article-item .article-title {
+  line-height: 1.3;
   left: 0;
   bottom: 0;
   text-align: left;
@@ -2196,6 +2196,12 @@ p.boolean-false {
   -moz-transform: none;
   -ms-transform: none;
   -o-transform: none;
+}
+.related-article-wrapper #related-article-container li.article-item a:hover .related-article-bg-layer {
+  display: none;
+}
+.related-article-wrapper #related-article-container li.article-item .related-article-bg-layer {
+  display: block;
 }
 .related-article-wrapper #related-article-container .slick-prev:before,
 .related-article-wrapper #related-article-container .slick-next:before {
@@ -2229,6 +2235,9 @@ p.boolean-false {
   #related-article-container li.article-item .article-title {
     font-size: 12px;
   }
+}
+.test {
+  color: red;
 }
 @-moz-document url-prefix() {
   fieldset {
@@ -4561,6 +4570,107 @@ body.compact-body {
   vertical-align: middle;
   padding-right: 18px;
 }
+.content-right-hidden {
+  opacity: 0;
+  z-index: -10;
+  animation: sidebar-hidden-animation 1000ms;
+  -webkit-animation: sidebar-hidden-animation 1000ms;
+  -moz-animation: sidebar-hidden-animation 1000ms;
+  -o-animation: sidebar-hidden-animation 1000ms;
+}
+@keyframes sidebar-hidden-animation {
+  from {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(162px, 30px);
+    opacity: 0;
+  }
+}
+@-moz-keyframes sidebar-hidden-animation {
+  /* Firefox */
+  from {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(162px, 30px);
+    opacity: 0;
+  }
+}
+@-webkit-keyframes sidebar-hidden-animation {
+  /* Safari 和 Chrome */
+  from {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(162px, 30px);
+    opacity: 0;
+  }
+}
+@-o-keyframes sidebar-hidden-animation {
+  /* Opera */
+  from {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(162px, 30px);
+    opacity: 0;
+  }
+}
+.content-right-show {
+  opacity: 1;
+  animation: sidebar-show-animation 1000ms;
+  -webkit-animation: sidebar-show-animation 1000ms;
+  -moz-animation: sidebar-show-animation 1000ms;
+  -o-animation: sidebar-show-animation 1000ms;
+}
+@keyframes sidebar-show-animation {
+  from {
+    transform: translate(162px, 30px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+@-moz-keyframes sidebar-show-animation {
+  /* Firefox */
+  from {
+    transform: translate(162px, 30px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+@-webkit-keyframes sidebar-show-animation {
+  /* Safari 和 Chrome */
+  from {
+    transform: translate(162px, 30px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+@-o-keyframes sidebar-show-animation {
+  /* Opera */
+  from {
+    transform: translate(162px, 30px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
 #discover_entity_list,
 #category-entity-list,
 .search-entity-item,
@@ -5069,6 +5179,9 @@ body.compact-body {
   .more-article-wrapper .title-wrapper .article-digest {
     display: none;
   }
+  .article-share-wx-dialog .modal-dialog {
+    margin: 150px auto;
+  }
 }
 @media (min-width: 768px) and (max-width: 991px) {
   #guoku_main_nav .main-list.left-list li > a {
@@ -5111,7 +5224,6 @@ body.compact-body {
   }
   #detail_content_right {
     max-width: 330px;
-    opacity: 1;
   }
   .more-article-wrapper .cover-wrapper a {
     display: block;
