@@ -1768,6 +1768,7 @@ p.boolean-false {
   background-repeat: no-repeat;
 }
 .related-article-wrapper #related-article-container li.article-item .article-title {
+  line-height: 1.3;
   left: 0;
   bottom: 0;
   text-align: left;
