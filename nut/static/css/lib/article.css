@@ -1406,11 +1406,10 @@ p.boolean-false {
   line-height: 2;
 }
 .main-article-control {
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
+  -webkit-transition: transform 1000ms;
+  -moz-transition: transform 1000ms;
+  -ms-transition: transform 1000ms;
+  -o-transition: transform 1000ms;
 }
 .main-article {
   position: relative;

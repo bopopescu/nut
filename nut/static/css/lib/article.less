@@ -328,9 +328,7 @@
 }
 
 .main-article-control{
-  left:50%;
-  .transform(translateX(-50%));
-   //.transition(transform 2000ms);
+   .transition(transform 1000ms);
 }
 .main-article{
   position:relative;
@@ -503,6 +501,7 @@
   &.hidden-animation{
     .transform(translateY(52px));
   }
+
   .bottom-article-share{
     .panel-no-padding;
     .border-radiuses(@global-box-radius,0,0,@global-box-radius);

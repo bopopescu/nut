@@ -1677,6 +1677,126 @@ body.compact-body{
   }
 }
 
+.content-right-hidden{
+  opacity: 0;
+  animation:sidebar-hidden-animation 1000ms ease;
+  -webkit-animation:sidebar-hidden-animation 1000ms ease;
+  -moz-animation:sidebar-hidden-animation 1000ms ease;
+  -o-animation:sidebar-hidden-animation 1000ms ease;
+  animation-fill-mode :  forwards ;
+}
+@keyframes sidebar-hidden-animation
+{
+from {
+    transform: translate(0,0);
+    opacity: 1;
+}
+to {
+  transform: translate(162px,30px);
+  opacity: 0;
+}
+}
+
+@-moz-keyframes sidebar-hidden-animation /* Firefox */
+{
+from {
+    transform: translate(0,0);
+    opacity: 1;
+}
+to {
+  transform: translate(162px,30px);
+  opacity: 0;
+}
+}
+
+@-webkit-keyframes sidebar-hidden-animation /* Safari 和 Chrome */
+{
+from {
+    transform: translate(0,0);
+    opacity: 1;
+}
+to {
+  transform: translate(162px,30px);
+  opacity: 0;
+}
+}
+
+@-o-keyframes sidebar-hidden-animation /* Opera */
+{
+from {
+    transform: translate(0,0);
+    opacity: 1;
+}
+to {
+  transform: translate(162px,30px);
+  opacity: 0;
+}
+}
+
+.content-right-show{
+  opacity: 1;
+  animation:sidebar-show-animation 1000ms ease;
+  -webkit-animation:sidebar-show-animation 1000ms ease;
+  -moz-animation:sidebar-show-animation 1000ms ease;
+  -o-animation:sidebar-show-animation 1000ms ease;
+  animation-fill-mode :  forwards ;
+}
+@keyframes sidebar-show-animation
+{
+  from {
+    transform: translate(162px,30px);
+    opacity: 0;
+
+  }
+  to {
+    transform: translate(0,0);
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes sidebar-show-animation /* Firefox */
+{
+from {
+    transform: translate(162px,30px);
+    opacity: 0;
+
+  }
+  to {
+    transform: translate(0,0);
+    opacity: 1;
+    //.transform(translateX(162px));
+  }
+}
+
+@-webkit-keyframes sidebar-show-animation /* Safari 和 Chrome */
+{
+from {
+    transform: translate(162px,30px);
+    opacity: 0;
+
+  }
+  to {
+    transform: translate(0,0);
+    opacity: 1;
+    //.transform(translateX(162px));
+  }
+}
+
+@-o-keyframes sidebar-show-animation /* Opera */
+{
+from {
+    transform: translate(162px,30px);
+    opacity: 0;
+
+  }
+  to {
+    transform: translate(0,0);
+    opacity: 1;
+    //.transform(translateX(162px));
+  }
+}
+
+
 #discover_entity_list,#category-entity-list,
 .search-entity-item,.search-tag-item {
   padding:0px 9px;
