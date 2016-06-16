@@ -269,11 +269,15 @@ class BaseManagementArticleListView(UserPassesTestMixin, SortMixin, ListView):
 class AuthorArticlePersonList(BaseManagementArticleListView):
     def get_queryset(self):
         _user_id = self.kwargs.get('pk', None)
+        qs = None
         if _user_id is None :
             raise  Http404
         else:
-            return Article.objects.filter(publish=Article.published,creator__id=_user_id)\
-                    .order_by('-updated_datetime', '-created_datetime')
+            qs = Article.objects.filter(publish=Article.published,creator__id=_user_id)
+
+        return  self.sort_queryset(
+            qs,
+            *self.get_sort_params())
 
     def sort_queryset(self, qs, sort_by, order):
         if sort_by == 'created_datetime':

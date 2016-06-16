@@ -3099,6 +3099,15 @@ define('subapp/article/article_remark',[
                         });
                     }
                 });
+                $('.remark-operate .remark-reply').click(function(){
+                    //var requestUser = $('#user_dash_link').data('user-id');
+                    var replyTo = $(this).find('.remark-user').attr('user_name');
+                    //var remarkUserId = $(this).find('.remark-user').attr('user_id');
+                    var replyToId = $(this).find('.remark-user').attr('remark_id');
+                    var target = this;
+                    that.replyNotice(replyTo);
+                    that.saveReplyToId(replyToId);
+                })
             }
         },
         initUserRemarkPost: function(){
@@ -6011,6 +6020,7 @@ require([
         'subapp/articlepagecounter',
         'subapp/entitycard',
         'subapp/detailsidebar',
+
         'subapp/related_article_loader',
         'subapp/article/article_share',
         'subapp/article/article_remark',
@@ -6028,11 +6038,13 @@ require([
               ArticlePageCounter,
               EntityCardRender,
               SideBarManager,
+
               RelatedArticleLoader,
+              ArticleShareApp,
               ArticleRemark,
+              ArticleRelatedSlick,
               ArticleSidebarSwitch,
-              UserFollow,
-              ArticleShareApp
+              UserFollow
 
     ){
         var page = new Page();
@@ -6047,6 +6059,7 @@ require([
         var articleSidebarSwitch = new ArticleSidebarSwitch();
         var user_follow = new UserFollow();
         var shareApp = new ArticleShareApp();
+        var related_slick = new ArticleRelatedSlick();
 
 });
 

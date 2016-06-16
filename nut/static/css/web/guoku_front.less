@@ -1682,11 +1682,11 @@ body.compact-body{
 
 .content-right-hidden{
   opacity: 0;
-  animation:sidebar-hidden-animation 1000ms ease;
-  -webkit-animation:sidebar-hidden-animation 1000ms ease;
-  -moz-animation:sidebar-hidden-animation 1000ms ease;
-  -o-animation:sidebar-hidden-animation 1000ms ease;
-  animation-fill-mode :  forwards ;
+  z-index:-10;
+  animation:sidebar-hidden-animation 1000ms;
+  -webkit-animation:sidebar-hidden-animation 1000ms;
+  -moz-animation:sidebar-hidden-animation 1000ms;
+  -o-animation:sidebar-hidden-animation 1000ms;
 }
 @keyframes sidebar-hidden-animation
 {
@@ -1738,11 +1738,10 @@ to {
 
 .content-right-show{
   opacity: 1;
-  animation:sidebar-show-animation 1000ms ease;
-  -webkit-animation:sidebar-show-animation 1000ms ease;
-  -moz-animation:sidebar-show-animation 1000ms ease;
-  -o-animation:sidebar-show-animation 1000ms ease;
-  animation-fill-mode :  forwards ;
+  animation:sidebar-show-animation 1000ms;
+  -webkit-animation:sidebar-show-animation 1000ms;
+  -moz-animation:sidebar-show-animation 1000ms;
+  -o-animation:sidebar-show-animation 1000ms;
 }
 @keyframes sidebar-show-animation
 {
