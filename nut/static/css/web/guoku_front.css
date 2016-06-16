@@ -2197,6 +2197,12 @@ p.boolean-false {
   -ms-transform: none;
   -o-transform: none;
 }
+.related-article-wrapper #related-article-container li.article-item a:hover .related-article-bg-layer {
+  display: none;
+}
+.related-article-wrapper #related-article-container li.article-item .related-article-bg-layer {
+  display: block;
+}
 .related-article-wrapper #related-article-container .slick-prev:before,
 .related-article-wrapper #related-article-container .slick-next:before {
   font-family: "FontAwesome";
