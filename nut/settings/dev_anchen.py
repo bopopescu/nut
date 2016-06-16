@@ -98,7 +98,7 @@ Current_Dbhost = 'localhost'
 
 # DATABASES = PRODUCTION_DATABASES
 #
-#
+# #
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -125,7 +125,7 @@ DATABASES = {
         }
     },
 }
-
+#
 
 # need this for popular category like back trace time
 #  the test server will have very little entity like data
