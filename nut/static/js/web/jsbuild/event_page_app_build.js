@@ -865,7 +865,9 @@ define('subapp/topmenu',['bootstrap',
                 this.read = fastdom.read(function(){
                     that.scrollTop = $(window).scrollTop();
                     that.screenHeight = window.screen.height;
-                    that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
+                    if($('#main_article').length){
+                          that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
+                    }
                     that.pageHeight = document.body.scrollHeight;
                     that.hiddenLeftCondition = that.screenHeight + that.scrollTop;
                     that.hiddenRightCondition = that.articleHeight + 102;
