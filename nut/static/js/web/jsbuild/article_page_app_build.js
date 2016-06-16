@@ -5800,7 +5800,6 @@ define('subapp/article/article_sidebar_switch',[
         init: function(){
             console.log('article sidebar switch begin');
             this.initClickSwitch();
-            console.log('sidebar width:'+this.getSidebarWidth());
         },
         initClickSwitch:function(){
             $('.sidebar-switch-wrapper').click(this.handleClickSwitch.bind(this));
