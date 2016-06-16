@@ -75,8 +75,17 @@
         {% if row.status != 2   and   row.shop_link  and row.origin_source == 'taobao.com' %}
             <div class="row">
                   <div class="col-xs-12 col-sm-10  guoku-button buy-btn">
-                      <a class="buy-button" rel="nofollow" href="{{ row.shop_link }}" target="_blank"  _hover-ignore="1" id="buy-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity.title }}-taobao'])">
+                      <a class="buy-button" rel="nofollow" href="{{ row.shop_link }}" target="_blank"  _hover-ignore="1" id="goto-shop-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity.title }}-taobao'])">
                           <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;{% trans '去店铺' %}
+                      </a>
+                  </div>
+            </div>
+
+         {% elif row.status != 2 and  not row.shop_link and  row.origin_source == 'taobao.com' %}
+            <div class="row">
+                <div class="col-xs-12 col-sm-10  guoku-button buy-btn">
+                      <a class="buy-button" rel="nofollow" href="{{ entity.title|tbsearch_url }}" target="_blank"  _hover-ignore="1" id="search-tb-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity.title }}-taobao'])">
+                          <i class="fa fa-search"></i>&nbsp;&nbsp;{% trans '搜同款' %}
                       </a>
                   </div>
             </div>
@@ -104,13 +113,4 @@
 
   {% endif %}
 
-
-
-{#    <div class="row">#}
-{#        {% for row in entity.buy_links.all %}#}
-{#            {% if "taobao" in row.origin_source %}#}
-{#                <a class="btn btn-success"  biz-sellerid="{{ row.seller }}" data-type="1" href="{{ row.shop_link }}" target="_blank" >店铺</a>#}
-{#            {% endif %}#}
-{#        {% endfor %}#}
-{#    </div>#}
 </div>
