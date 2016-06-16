@@ -1352,6 +1352,9 @@ p.boolean-false {
   .more-article-wrapper .title-wrapper .article-digest {
     display: none;
   }
+  .article-share-wx-dialog .modal-dialog {
+    margin: 150px auto;
+  }
 }
 @media (min-width: 768px) and (max-width: 991px) {
   #guoku_main_nav .main-list.left-list li > a {
@@ -1394,7 +1397,6 @@ p.boolean-false {
   }
   #detail_content_right {
     max-width: 330px;
-    opacity: 1;
   }
   .more-article-wrapper .cover-wrapper a {
     display: block;

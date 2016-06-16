@@ -1406,11 +1406,10 @@ p.boolean-false {
   line-height: 2;
 }
 .main-article-control {
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
+  -webkit-transition: transform 1000ms;
+  -moz-transition: transform 1000ms;
+  -ms-transition: transform 1000ms;
+  -o-transition: transform 1000ms;
 }
 .main-article {
   position: relative;
@@ -1638,7 +1637,7 @@ p.boolean-false {
 .article-share .dig-wrapper {
   display: inline-block;
   font-size: 13px;
-  color: #9D9E9F;
+  color: #757575;
   float: left;
   line-height: 40px;
   padding-top: 4px;
@@ -1678,7 +1677,7 @@ p.boolean-false {
   font-size: 13px;
 }
 .article-share .remark-wrapper a {
-  color: #9D9E9F;
+  color: #757575;
 }
 .article-share .remark-wrapper .remark-icon {
   width: 32px;
@@ -1769,6 +1768,7 @@ p.boolean-false {
   background-repeat: no-repeat;
 }
 .related-article-wrapper #related-article-container li.article-item .article-title {
+  line-height: 1.3;
   left: 0;
   bottom: 0;
   text-align: left;
@@ -1777,6 +1777,12 @@ p.boolean-false {
   -moz-transform: none;
   -ms-transform: none;
   -o-transform: none;
+}
+.related-article-wrapper #related-article-container li.article-item a:hover .related-article-bg-layer {
+  display: none;
+}
+.related-article-wrapper #related-article-container li.article-item .related-article-bg-layer {
+  display: block;
 }
 .related-article-wrapper #related-article-container .slick-prev:before,
 .related-article-wrapper #related-article-container .slick-next:before {
@@ -1810,4 +1816,7 @@ p.boolean-false {
   #related-article-container li.article-item .article-title {
     font-size: 12px;
   }
+}
+.test {
+  color: red;
 }

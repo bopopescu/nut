@@ -1587,13 +1587,14 @@ a:hover{text-decoration:underline;}
 
   #remark-list{
     .remark-list-item-wrapper{
-      margin-bottom:40px;
-      padding: 15px 15px;
+      padding: 10px 15px;
       &:hover{
         cursor:pointer;
         .border-radius(@global-box-radius);
         box-shadow: @panel-shaddow;
-
+        .remark-item .remark-detail .remark-operate .remark-reply{
+          display: block;
+        }
       }
       .remark-item{
         overflow: hidden;
@@ -1603,9 +1604,15 @@ a:hover{text-decoration:underline;}
             margin-top:6px;
           }
           .remark-operate{
-            .remark-time{
-              font-size:@mini-size;
+            overflow: hidden;
+
+            .remark-time,.remark-reply{
+              font-size:@more-mini-size;
               color:@common-gray;
+            }
+            .remark-reply{
+              display: none;
+              margin-left:15px;
             }
           }
         }
@@ -1773,5 +1780,5 @@ a.more-users {
 }
 
 .test{
-  color: black;
+  color: red;
 }
