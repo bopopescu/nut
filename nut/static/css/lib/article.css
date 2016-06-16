@@ -1810,3 +1810,6 @@ p.boolean-false {
     font-size: 12px;
   }
 }
+.test {
+  color: red;
+}
