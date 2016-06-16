@@ -1,4 +1,5 @@
-4. 
+5. 
+4. new article detail page 
 3. notification 
 2. removed entity's detail page , add search button
 1. sub category sort buy like (bug fix )
