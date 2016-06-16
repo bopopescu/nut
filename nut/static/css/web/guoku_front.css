@@ -2979,6 +2979,9 @@ body.compact-body {
 #guoku_main_nav .nav-notification-wrapper .notification-drop-list-wrapper .notification-drop-list .notification-list-item .empty-notification {
   color: #9D9E9F;
 }
+#guoku_main_nav .nav-notification-wrapper .notification-drop-list-wrapper .notification-drop-list .notification-list-item.more-notification-item {
+  min-height: initial;
+}
 #guoku_main_nav .nav-add-product .add_goods {
   display: none;
   position: absolute;
