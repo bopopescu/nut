@@ -36,6 +36,9 @@
                          {% if remark.user != request.user %}
                              <div class="pull-left remark-reply">
 {#                                 <i class="fa fa-mail-reply"></i>&nbsp;#}
+                                 <span class="reply-icon">
+                                     <img src="{% static 'images/article/reply.png' %}" style="width:16px;height:16px;">
+                                 </span>
                                  回复
                              </div>
                          {% endif %}
