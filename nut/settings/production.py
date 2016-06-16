@@ -1,11 +1,11 @@
 from secret_settings import *
 from settings import *
 
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-STATIC_URL = 'http://static.guoku.com/static/v4/63bb41554a56e78193ef2fcaa4a5af6d5e8b2154/'
+STATIC_URL = 'http://static.guoku.com/static/v4/50144a9c97b0e16a1f41882a8d0f51d849619e62/'
 
 LANGUAGE_CODE = 'zh-cn'
 

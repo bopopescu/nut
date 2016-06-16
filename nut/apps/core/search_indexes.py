@@ -30,7 +30,7 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
 
     # selection index
     is_in_selection = indexes.BooleanField(model_attr='is_in_selection')
-    enter_selection_time = indexes.DateTimeField(model_attr='enter_selection_time')
+    # enter_selection_time = indexes.DateTimeField(model_attr='enter_selection_time')
 
     # category_name = indexes.CharField(model_attr='category_name',boost=1.50, faceted=True)
 
