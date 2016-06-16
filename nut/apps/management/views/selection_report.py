@@ -65,8 +65,12 @@ class SelectionReportListView(ListView):
 
     def get_like_best(self):
         if self.start_time == 'yesterday':
-            queryset = Selection_Entity.objects.filter(pub_time__range=(self.start_date, self.end_date))
-            queryset = [item for item in queryset if item.entity.like_count>100]
+            result = Selection_Entity.objects.filter(pub_time__range=(self.start_date, self.end_date))
+            queryset = [item for item in result if item.entity.like_count>100]
+            queryset = sorted(queryset, key=lambda x: x.entity.like_count, reverse=True)
+            if len(queryset) == 0:
+                queryset = [item for item in result if item.entity.like_count > 20]
+                queryset = sorted(queryset, key=lambda x: x.entity.like_count, reverse=True)
             for selection_entity in queryset:
                 selection_entity.object = selection_entity.entity
         else:
