@@ -2646,6 +2646,9 @@ a:hover {
   background-clip: padding-box;
   box-shadow: 0px 0px 2px #ddd;
 }
+#remark-list .remark-list-item-wrapper:hover .remark-item .remark-detail .remark-operate .remark-reply {
+  display: block;
+}
 #remark-list .remark-list-item-wrapper .remark-item {
   overflow: hidden;
 }
@@ -2655,9 +2658,17 @@ a:hover {
 #remark-list .remark-list-item-wrapper .remark-item .remark-detail .remark-content {
   margin-top: 6px;
 }
-#remark-list .remark-list-item-wrapper .remark-item .remark-detail .remark-operate .remark-time {
+#remark-list .remark-list-item-wrapper .remark-item .remark-detail .remark-operate {
+  overflow: hidden;
+}
+#remark-list .remark-list-item-wrapper .remark-item .remark-detail .remark-operate .remark-time,
+#remark-list .remark-list-item-wrapper .remark-item .remark-detail .remark-operate .remark-reply {
   font-size: 13px;
   color: #9D9E9F;
+}
+#remark-list .remark-list-item-wrapper .remark-item .remark-detail .remark-operate .remark-reply {
+  display: none;
+  margin-left: 15px;
 }
 #login_user_remark {
   padding: 0 15px;
