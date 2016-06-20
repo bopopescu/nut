@@ -1192,14 +1192,14 @@ p.boolean-false {
   background-size: cover;
   background-repeat: no-repeat;
 }
-#category-container #category-item-container .slick-prev:before,
-#category-container #category-item-container .slick-next:before {
+#category-item-container .slick-prev:before,
+#category-item-container .slick-next:before {
   font-family: "FontAwesome";
 }
-#category-container #category-item-container .slick-prev:before {
+#category-item-container .slick-prev:before {
   content: "\f053";
 }
-#category-container #category-item-container .slick-next:before {
+#category-item-container .slick-next:before {
   content: "\f054";
 }
 /*发现页-推荐用户*/
