@@ -4358,10 +4358,46 @@ define('subapp/discover/category_slick',['jquery', 'libs/Class','libs/slick','fa
                             }
                         ]
                     });
-
                 }
             });
     return CategorySlick;
+});
+
+
+
+
+
+define('subapp/discover/recommend_user_slick',['jquery', 'libs/Class','libs/slick','fastdom'], function(
+    $, Class, slick , fastdom
+){
+            var RecommendUserSlick= Class.extend({
+                init: function () {
+                    this.init_slick();
+                    console.log('recommend user slick in discover page begin');
+                },
+                init_slick:function(){
+                    $('.recommend-user-list').slick({
+                        arrows: true,
+                        slidesToShow: 10,
+                        slidesToScroll:4,
+                        autoplay:true,
+                        dots:false,
+
+                        responsive: [
+                            {
+                                breakpoint: 768,
+                                settings: {
+                                    slidesToShow:10,
+                                    slidesToScroll:3,
+                                    autoplay:true,
+                                    dots:false
+                                }
+                            }
+                        ]
+                    });
+                }
+            });
+    return RecommendUserSlick;
 });
 
 
@@ -4397,17 +4433,20 @@ require([
         'jquery',
         'subapp/entitylike',
         'subapp/topmenu',
-        'subapp/discover/category_slick'
+        'subapp/discover/category_slick',
+        'subapp/discover/recommend_user_slick'
     ],
     function(polyfill,
              jQuery,
              AppEntityLike,
              Menu,
-             CategorySlick
+             CategorySlick,
+             RecommendUserSlick
     ){
         var menu = new Menu();
         var app_like = new  AppEntityLike();
         var category_slick = new CategorySlick();
+        var recommend_user_slick = new RecommendUserSlick();
     });
 
 define("discover_app", function(){});
