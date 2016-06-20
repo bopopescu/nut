@@ -2058,8 +2058,7 @@ p.boolean-false {
   font-size: 13px;
   color: #757575;
   float: left;
-  line-height: 40px;
-  padding-top: 4px;
+  line-height: 44px;
 }
 .article-share .dig-wrapper div {
   display: inline-block;
@@ -2092,8 +2091,8 @@ p.boolean-false {
   float: left;
   margin-left: 25px;
   padding-top: 0;
-  line-height: 45px;
-  font-size: 13px;
+  line-height: 36px;
+  font-size: 12px;
 }
 .article-share .remark-wrapper a {
   color: #757575;
