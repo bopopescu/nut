@@ -1192,6 +1192,9 @@ p.boolean-false {
   background-size: cover;
   background-repeat: no-repeat;
 }
+#category-container #category-item-container li.category-item .category-name {
+  text-align: center;
+}
 #category-item-container .slick-prev:before,
 .recommend-user-list .slick-prev:before,
 #category-item-container .slick-next:before,
