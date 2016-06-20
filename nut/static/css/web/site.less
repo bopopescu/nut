@@ -109,7 +109,7 @@
 
 //发现页的推荐品类,横向滚动
 #category-container{
-  overflow: hidden;
+  //overflow: hidden;
   #category-item-container{
     //width:7400px;
     //overflow:hidden;
@@ -140,6 +140,8 @@
 #category-item-container,.recommend-user-list{
   .slick-prev:before,.slick-next:before{
     font-family: "FontAwesome";
+    font-size: @primary-size;
+    color:@common-text-color;
   }
   .slick-prev:before{
     content:"\f053";
@@ -148,13 +150,16 @@
     content:"\f054";
   }
 }
+#category-item-container{
+    .slick-prev{
+      left:-11px;
+    }
+    .slick-next{
+      right:-11px;
+    }
+}
 //recommend user section in discover page
 #discover_container .recommend-user-list{
-    .slick-prev:before,.slick-next:before{
-      //display: none;
-      font-size: @primary-size;
-      color:@common-text-color;
-    }
     .slick-prev{
       left:-15px;
       top:39px;

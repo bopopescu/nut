@@ -1096,10 +1096,8 @@ p.boolean-false {
   text-overflow: ellipsis;
 }
 @media (max-width: 768px) {
-  #category-container #category-item-container .slick-prev:before,
-  .recommend-user-list .slick-prev:before,
-  #category-container #category-item-container .slick-next:before,
-  .recommend-user-list .slick-next:before {
+  #category-item-container .slick-prev:before,
+  #category-item-container .slick-next:before {
     display: none;
   }
 }
