@@ -103,36 +103,37 @@
 
 {#                            add article share button begin#}
                             <div class="article-share for-browser ">
-
-                             <span class="dig-wrapper">
-                                <span class="{% if dig_status %} digged {% else %} undigged {% endif %} dig-action" data-article-id="{{ article.pk }}">
-                                    <img class="dig-img dig" src="{% static 'images/article/dig.png' %}" >
-                                    <img class="dig-img undig" src="{% static 'images/article/undig.png' %}" >
-                                </span>
-                                <span class="dig-info">
-                                    <span class="dig-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>
-
-                                    <span class="dig-word">
-                                    {% if not article.dig_count %}
-                                        赞
-                                    {% endif %}
-                                    </span>
-                                </span>
-                            </span>
-
-                            <span class="remark-wrapper">
-                                <a href="#login_user_remark" class="remark-info">
-                                    <img class="remark-icon" src="{% static 'images/article/comment.png' %}" >
-                                    <span class="remark-count">{% if remark_count %}{{ remark_count }}{% endif %}</span>
-                                    <span class="remark-word">
-                                    {% if not remark_count %}
-                                        评论
-                                    {% endif %}
-                                    </span>
-                                </a>
-                            </span>
-
                                 <ul class="share-bt-list">
+                                    <li class="list-item">
+                                        <div class="dig-wrapper">
+                                            <span class="{% if dig_status %} digged {% else %} undigged {% endif %} dig-action" data-article-id="{{ article.pk }}">
+                                                <img class="dig-img dig" src="{% static 'images/article/dig.png' %}" >
+                                                <img class="dig-img undig" src="{% static 'images/article/undig.png' %}" >
+                                            </span>
+                                            <span class="dig-info">
+                                                <span class="dig-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>
+                                                <span class="dig-word">
+                                                    {% if not article.dig_count %}
+                                                        赞
+                                                    {% endif %}
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-item">
+                                        <div class="remark-wrapper">
+                                            <a href="#login_user_remark" class="remark-info">
+                                                <img class="remark-icon" src="{% static 'images/article/comment.png' %}" >
+                                                <span class="remark-count">{% if remark_count %}{{ remark_count }}{% endif %}</span>
+                                                <span class="remark-word">
+                                                    {% if not remark_count %}
+                                                        评论
+                                                    {% endif %}
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </li>
 
                                     <li class="list-item list-item-weixin">
                                         <a class="logo-wechat normal-share-btn">
@@ -392,8 +393,10 @@
                 <div class="main-article-control col-lg-8 col-md-8 col-sm-12 col-xs-12">
                    <div class="bottom-article-share">
                         <div class="article-share for-browser ">
+                                <ul class="share-bt-list">
 
-                             <span class="dig-wrapper">
+                                    <li class="list-item">
+                                              <div class="dig-wrapper">
                                 <span class="{% if dig_status %} digged {% else %} undigged {% endif %} dig-action" data-article-id="{{ article.pk }}">
                                     <img class="dig-img dig" src="{% static 'images/article/dig.png' %}" >
                                     <img class="dig-img undig" src="{% static 'images/article/undig.png' %}" >
@@ -407,9 +410,12 @@
                                     {% endif %}
                                     </span>
                                 </span>
-                            </span>
+                            </div>
 
-                            <span class="remark-wrapper">
+                                    </li>
+
+                                    <li class="list-item">
+                                               <div class="remark-wrapper">
                                 <a href="#login_user_remark" class="remark-info">
                                     <img class="remark-icon" src="{% static 'images/article/comment.png' %}" >
                                     <span class="remark-count">{% if remark_count %}{{ remark_count }}{% endif %}</span>
@@ -419,9 +425,8 @@
                                     {% endif %}
                                     </span>
                                 </a>
-                            </span>
-
-                                <ul class="share-bt-list">
+                            </div>
+                                    </li>
 
                                     <li class="list-item list-item-weixin">
                                         <a class="logo-wechat normal-share-btn">

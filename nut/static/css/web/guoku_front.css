@@ -2053,28 +2053,6 @@ p.boolean-false {
 .article-share-wx-dialog .modal-dialog .qr-code-wrapper.qr-code-control {
   text-align: center;
 }
-.article-share .dig-wrapper {
-  display: inline-block;
-  font-size: 13px;
-  color: #757575;
-  float: left;
-  line-height: 44px;
-}
-.article-share .dig-wrapper div {
-  display: inline-block;
-}
-.article-share .dig-wrapper .dig-action {
-  positon: relative;
-  width: 30px;
-  height: 100%;
-}
-.article-share .dig-wrapper .dig-action .dig-img {
-  position: relative;
-  left: 0px;
-  top: -5px;
-  height: 24px;
-  cursor: pointer;
-}
 .article-share .dig-wrapper .digged img.dig {
   display: none;
 }
@@ -2086,13 +2064,6 @@ p.boolean-false {
 }
 .article-share .dig-wrapper .undigged img.dig {
   display: inline;
-}
-.article-share .remark-wrapper {
-  float: left;
-  margin-left: 25px;
-  padding-top: 0;
-  line-height: 36px;
-  font-size: 12px;
 }
 .article-share .remark-wrapper a {
   color: #757575;
@@ -2118,6 +2089,19 @@ p.boolean-false {
 }
 .article-share ul.share-bt-list li.list-item a:hover {
   cursor: pointer;
+}
+.article-share ul.share-bt-list li.list-item .dig-wrapper,
+.article-share ul.share-bt-list li.list-item .remark-wrapper {
+  width: auto;
+  height: 40px;
+  line-height: 40px;
+  font-size: 12px;
+  color: #757575;
+}
+.article-share ul.share-bt-list li.list-item .dig-wrapper img,
+.article-share ul.share-bt-list li.list-item .remark-wrapper img {
+  width: 24px;
+  height: 24px;
 }
 .article-share ul.share-bt-list li.list-item-weixin {
   position: relative;
