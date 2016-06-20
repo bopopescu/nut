@@ -535,24 +535,6 @@
 //article dig,remark,share, may be put it to witgets
 .article-share{
       .dig-wrapper{
-        display:inline-block;
-        font-size:@mini-size;
-        color:@new-text-gray;
-        div{
-          display: inline-block;
-        }
-        .dig-action{
-            positon:relative;
-            width: 30px;
-            height: 100%;
-            .dig-img{
-              position: relative;
-              left:0px;
-              top:-5px;
-              height:24px;
-              cursor: pointer;
-            }
-        }
         .digged{
            img.dig{
               display: none;
@@ -569,29 +551,14 @@
              display: inline;
            }
         }
-        .dig-info{
-          .dig-count{
-            //margin: 0px 6px;
-          }
-        }
-        float: left;
-        line-height: 44px;
       }
       .remark-wrapper{
-        float:left;
-        margin-left:25px;
-        padding-top:0;
-        line-height: 36px;
-        font-size: @more-mini-size;
         a{
           color:@new-text-gray;
         }
         .remark-icon{
           width:24px;
           height:24px;
-        }
-        .remark-count{
-          //margin-left:5px;
         }
       }
       ul.share-bt-list{
@@ -608,6 +575,17 @@
             color:@new-text-gray;
             &:hover{
               cursor: pointer;
+            }
+          }
+          .dig-wrapper,.remark-wrapper{
+            width:auto;
+            height:40px;
+            line-height: 40px;
+            font-size: @more-mini-size;
+            color:@new-text-gray;
+            img{
+              width:24px;
+              height:24px;
             }
           }
         }
@@ -659,7 +637,6 @@
 
           }
         }
-
         li.list-item-weibo a{
           &:hover{
             color: @weibo-hover-color;
