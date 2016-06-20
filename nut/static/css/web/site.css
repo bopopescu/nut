@@ -1174,9 +1174,6 @@ p.boolean-false {
 #discover_container .recommend-user-wrapper {
   overflow: hidden;
 }
-#category-container {
-  overflow: hidden;
-}
 #category-container #category-item-container {
   margin-left: -12px;
   margin-right: -12px;
@@ -1200,6 +1197,8 @@ p.boolean-false {
 #category-item-container .slick-next:before,
 .recommend-user-list .slick-next:before {
   font-family: "FontAwesome";
+  font-size: 16px;
+  color: #424242;
 }
 #category-item-container .slick-prev:before,
 .recommend-user-list .slick-prev:before {
@@ -1209,10 +1208,11 @@ p.boolean-false {
 .recommend-user-list .slick-next:before {
   content: "\f054";
 }
-#discover_container .recommend-user-list .slick-prev:before,
-#discover_container .recommend-user-list .slick-next:before {
-  font-size: 16px;
-  color: #424242;
+#category-item-container .slick-prev {
+  left: -11px;
+}
+#category-item-container .slick-next {
+  right: -11px;
 }
 #discover_container .recommend-user-list .slick-prev {
   left: -15px;

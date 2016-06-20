@@ -1,4 +1,3 @@
-/*(node) util.print is deprecated. Use console.log instead.*/
 @media (max-width: 991px) {
   .guoku-content.user-page .user-info .user-nick-block {
     margin: 0 auto ;
@@ -16,4 +15,9 @@
     width: 80px!important;
   }
 }
-/*# sourceMappingURL=sm.less.css.map */
+@media (max-width: 992px) {
+  #discover_container .recommend-user-list .slick-prev:before,
+  #discover_container .recommend-user-list .slick-next:before {
+    display: none;
+  }
+}
