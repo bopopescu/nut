@@ -1654,7 +1654,7 @@ p.boolean-false {
   position: relative;
   left: 0px;
   top: -5px;
-  height: 32px;
+  height: 24px;
   cursor: pointer;
 }
 .article-share .dig-wrapper .digged img.dig {
@@ -1680,8 +1680,8 @@ p.boolean-false {
   color: #757575;
 }
 .article-share .remark-wrapper .remark-icon {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
 }
 .article-share ul.share-bt-list {
   text-align: right;
