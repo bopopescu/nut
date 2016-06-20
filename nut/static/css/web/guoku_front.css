@@ -2103,6 +2103,13 @@ p.boolean-false {
   width: 24px;
   height: 24px;
 }
+.article-share ul.share-bt-list li.dig-item,
+.article-share ul.share-bt-list li.remark-item {
+  float: left;
+}
+.article-share ul.share-bt-list li.remark-item {
+  margin-left: 20px;
+}
 .article-share ul.share-bt-list li.list-item-weixin {
   position: relative;
 }
