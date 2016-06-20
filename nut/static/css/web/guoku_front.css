@@ -4922,12 +4922,6 @@ body.compact-body {
   font-size: 13px;
   height: auto;
 }
-@media (max-width: 768px) {
-  #category-item-container .slick-prev:before,
-  #category-item-container .slick-next:before {
-    display: none;
-  }
-}
 @media (max-width: 580px) {
   .authorized-seller-body .entity-four.new-thumbnail .entity-four-info .caption {
     width: 100%;
@@ -5275,8 +5269,8 @@ body.compact-body {
   }
 }
 @media (max-width: 992px) {
-  #discover_container .recommend-user-list .slick-prev:before,
-  #discover_container .recommend-user-list .slick-next:before {
+  #discover_container .slick-prev:before,
+  #discover_container .slick-next:before {
     display: none;
   }
 }
