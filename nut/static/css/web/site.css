@@ -1171,6 +1171,9 @@ p.boolean-false {
 #discover_container #discover_entity_list .section-title-wrapper {
   margin-top: -5px;
 }
+#discover_container .recommend-user-wrapper {
+  overflow: hidden;
+}
 #category-container {
   overflow: hidden;
 }
@@ -1193,14 +1196,31 @@ p.boolean-false {
   background-repeat: no-repeat;
 }
 #category-item-container .slick-prev:before,
-#category-item-container .slick-next:before {
+.recommend-user-list .slick-prev:before,
+#category-item-container .slick-next:before,
+.recommend-user-list .slick-next:before {
   font-family: "FontAwesome";
 }
-#category-item-container .slick-prev:before {
+#category-item-container .slick-prev:before,
+.recommend-user-list .slick-prev:before {
   content: "\f053";
 }
-#category-item-container .slick-next:before {
+#category-item-container .slick-next:before,
+.recommend-user-list .slick-next:before {
   content: "\f054";
+}
+#discover_container .recommend-user-list .slick-prev:before,
+#discover_container .recommend-user-list .slick-next:before {
+  font-size: 16px;
+  color: #424242;
+}
+#discover_container .recommend-user-list .slick-prev {
+  left: -15px;
+  top: 39px;
+}
+#discover_container .recommend-user-list .slick-next {
+  right: -11px;
+  top: 39px;
 }
 /*发现页-推荐用户*/
 .user-icon-list.recommend-user-list:after {
