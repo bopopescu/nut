@@ -102,6 +102,9 @@
     margin-top:-5px;
   }
 
+  .recommend-user-wrapper{
+    overflow: hidden;
+  }
 }
 
 //发现页的推荐品类,横向滚动
@@ -134,7 +137,7 @@
   }
 }
 //发现页的推荐品类,横向滚动的icon
-#category-item-container{
+#category-item-container,.recommend-user-list{
   .slick-prev:before,.slick-next:before{
     font-family: "FontAwesome";
   }
@@ -145,7 +148,22 @@
     content:"\f054";
   }
 }
-
+//recommend user section in discover page
+#discover_container .recommend-user-list{
+    .slick-prev:before,.slick-next:before{
+      //display: none;
+      font-size: @primary-size;
+      color:@common-text-color;
+    }
+    .slick-prev{
+      left:-15px;
+      top:39px;
+    }
+    .slick-next{
+      right:-11px;
+      top:39px;
+    }
+}
 
 /*发现页-推荐用户*/
 .user-icon-list.recommend-user-list{

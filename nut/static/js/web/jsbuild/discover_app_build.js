@@ -4343,7 +4343,7 @@ define('subapp/discover/category_slick',['jquery', 'libs/Class','libs/slick','fa
                         //on mobile,set slidesToshow and slidesToScroll like android
                         slidesToShow: 6,
                         slidesToScroll:4,
-                        autoplay:true,
+                        autoplay:false,
                         dots:false,
 
                         responsive: [
@@ -4352,7 +4352,7 @@ define('subapp/discover/category_slick',['jquery', 'libs/Class','libs/slick','fa
                                 settings: {
                                     slidesToShow:3,
                                     slidesToScroll:3,
-                                    autoplay:true,
+                                    autoplay:false,
                                     dots:false
                                 }
                             }
@@ -4378,18 +4378,27 @@ define('subapp/discover/recommend_user_slick',['jquery', 'libs/Class','libs/slic
                 init_slick:function(){
                     $('.recommend-user-list').slick({
                         arrows: true,
-                        slidesToShow: 10,
+                        slidesToShow: 11,
                         slidesToScroll:4,
-                        autoplay:true,
+                        autoplay:false,
                         dots:false,
 
                         responsive: [
                             {
                                 breakpoint: 768,
                                 settings: {
-                                    slidesToShow:10,
+                                    slidesToShow:8,
                                     slidesToScroll:3,
-                                    autoplay:true,
+                                    autoplay:false,
+                                    dots:false
+                                }
+                            },
+                             {
+                                breakpoint: 580,
+                                settings: {
+                                    slidesToShow:5,
+                                    slidesToScroll:2,
+                                    autoplay:false,
                                     dots:false
                                 }
                             }

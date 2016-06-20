@@ -13,7 +13,7 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                         //on mobile,set slidesToshow and slidesToScroll like android
                         slidesToShow: 6,
                         slidesToScroll:4,
-                        autoplay:true,
+                        autoplay:false,
                         dots:false,
 
                         responsive: [
@@ -22,7 +22,7 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                                 settings: {
                                     slidesToShow:3,
                                     slidesToScroll:3,
-                                    autoplay:true,
+                                    autoplay:false,
                                     dots:false
                                 }
                             }
