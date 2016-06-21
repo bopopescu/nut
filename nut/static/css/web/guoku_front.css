@@ -4927,6 +4927,12 @@ body.compact-body {
   #category-container #category-item-container .slick-next:before {
     display: none;
   }
+  .tag-intro-wrapper {
+    height: 240px;
+  }
+  .tag-intro-wrapper .tag-desc {
+    display: none;
+  }
 }
 @media (max-width: 580px) {
   .authorized-seller-body .entity-four.new-thumbnail .entity-four-info .caption {
