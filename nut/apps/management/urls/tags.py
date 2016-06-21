@@ -11,7 +11,9 @@ urlpatterns = patterns(
     url(r'^(?P<tag_id>\d+)/edit/$', 'EditTagFormView', name='management_tag_edit'),
     url(r'^(?P<tag_id>\d+)/topArticleTag/$', SwitchTopArticleTagView.as_view(), name='management_tag_top_article_tags'),
     url(r'^(?P<tag_id>\d+)/publishedEntityTag/$', SwitchPublishedEnttityTagView.as_view(), name='management_tag_published_entity_tags'),
+    url(r'^(?P<tag_id>.*)/detail/$', 'tag_entity_detail', name='management_tag_entities_detail'),
     url(r'^(?P<tag_name>.*)/$', TagEntitiesView.as_view(), name='management_tag_entities'),
+
 )
 
 __author__ = 'edison'
