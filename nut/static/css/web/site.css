@@ -2642,13 +2642,6 @@ a:hover {
 }
 #remark-list .remark-list-item-wrapper:hover {
   cursor: pointer;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  box-shadow: 0px 0px 2px #ddd;
 }
 #remark-list .remark-list-item-wrapper:hover .remark-item .remark-detail .remark-operate .remark-reply,
 #remark-list .remark-list-item-wrapper:hover .remark-item .remark-detail .remark-operate .remark-delete {
