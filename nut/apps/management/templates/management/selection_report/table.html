@@ -1,0 +1,56 @@
+{% load i18n %}
+{% load guoku %}
+
+{#<div class="row">#}
+{#    <div class="table-responsive product-table">#}
+        <table class="table table-small-font table-hover table-bordered">
+            <thead>
+                <tr>
+{#                    <th>#</th>#}
+
+                    <th>
+                        {% trans 'title' %}
+
+                    </th>
+                    <th>{% trans '喜爱数' %}</th>
+                    <th>{% trans '发布时间' %}</th>
+                    <th>{% trans 'price' %}</th>
+                    <th>{% trans 'image' %} <span class="info"></span></th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for selection in selections %}
+                    {% if selection.object %}
+                    <tr>
+
+{#                        <td class="product-id">{{ entity.id }}</td>#}
+
+                        <td class="product-title">
+                            {% if selection.object.entity_hash %}
+                            <a href="{% url 'web_entity_detail' selection.object.entity_hash %}" target="_blank">
+                            {{ selection.object.title }}
+                            </a>
+                            {% else %}{{ selection.object.title }}
+                            {% endif %}
+                        </td>
+                        <td>{{ selection.object.like_count }}</td>
+
+
+                        <td class="product-created-time">
+                            {{ selection.object.created_time|date:'Y-m-d H:i:s' }}</td>
+                        <td class="product-price">
+                            {{ selection.object.price }}</td>
+                        <td class="product-thumb-img">
+                                <img class="img-thumbnail img-responsive" src="{{ selection.object.chief_image|resize:'310' }}" width="128" height="128">
+                        </td>
+
+
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+{#    </div>#}
+{# </div>#}

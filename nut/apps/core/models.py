@@ -883,19 +883,11 @@ class Entity(BaseModel):
                 return self.images[0]
             else:
                 return "%s%s" % (image_host, self.images[0])
-                # return "%s%s" % ('http://image.guoku.com/', self.images[0])
 
     @property
     def detail_images(self):
         if len(self.images) > 1:
             return self.images[1:]
-            # res = list()
-            # for row in self.images[1:]:
-            # if image_host in row:
-            # res.append(row.replace('imgcdn', 'image'))
-            #     else:
-            #         res.append(row)
-            # return res
         return []
 
     @property
@@ -943,6 +935,7 @@ class Entity(BaseModel):
 
     def get_top_note_cache_key(self):
         return 'entity:%s:topnote' % self.pk
+
     @property
     def top_note(self):
         # try:
@@ -954,7 +947,6 @@ class Entity(BaseModel):
                 _tn =  notes[0]
                 cache.set(cache_key, _tn , 24*3600)
         return _tn
-
 
     @property
     def top_note_string(self):
