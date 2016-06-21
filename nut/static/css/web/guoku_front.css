@@ -2106,6 +2106,7 @@ p.boolean-false {
 .article-share ul.share-bt-list li.list-item .remark-wrapper img {
   width: 24px;
   height: 24px;
+  cursor: pointer;
 }
 .article-share ul.share-bt-list li.dig-item,
 .article-share ul.share-bt-list li.remark-item {
