@@ -3169,7 +3169,13 @@ define('subapp/article/article_remark',[
                 user_reply_to_url:ajaxDatas['user_reply_to_url'],
                 create_time:ajaxDatas['create_time']
             };
-            $('#remark-list').append(newRemarkItem(datas));
+            if($('#remark-list .remark-list-item-wrapper').length){
+                alert('has children');
+                 $(newRemarkItem(datas)).insertBefore($('#remark-list').children().first());
+            }else{
+                alert('no child');
+                $('#remark-list').append(newRemarkItem(datas));
+            }
         },
         postRemarkSuccess: function(result){
             var status = parseInt(result.status);
