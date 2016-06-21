@@ -8,6 +8,7 @@ require([
         'subapp/articlepagecounter',
         'subapp/entitycard',
         'subapp/detailsidebar',
+
         'subapp/related_article_loader',
         'subapp/article/article_share',
         'subapp/article/article_remark',
@@ -25,11 +26,13 @@ require([
               ArticlePageCounter,
               EntityCardRender,
               SideBarManager,
+
               RelatedArticleLoader,
+              ArticleShareApp,
               ArticleRemark,
+              ArticleRelatedSlick,
               ArticleSidebarSwitch,
-              UserFollow,
-              ArticleShareApp
+              UserFollow
 
     ){
         var page = new Page();
@@ -44,6 +47,7 @@ require([
         var articleSidebarSwitch = new ArticleSidebarSwitch();
         var user_follow = new UserFollow();
         var shareApp = new ArticleShareApp();
+        var related_slick = new ArticleRelatedSlick();
 
 });
 
