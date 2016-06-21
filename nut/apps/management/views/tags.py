@@ -1,3 +1,6 @@
+from apps.management.forms.tag import  SwitchTopArticleTagForm, SwitchPublishedEntityTagForm
+from django.shortcuts import  get_object_or_404, render_to_response
+from braces.views import CsrfExemptMixin,UserPassesTestMixin
 from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
@@ -199,10 +202,16 @@ def EditTagFormView(request, tag_id):
     #     return super(EditTagFormView, self).post(request, *args, **kwargs)
 
 
+def tag_entity_detail(request, tag_id):
+    try:
+        tag = Tags.objects.get(id=tag_id)
+    except Tags.DoesNotExist:
+        raise Http404
+    queryset = Content_Tags.objects.filter(tag=tag, target_content_type_id=24)
+    host = request.get_host()
+    return render_to_response('management/tags/entity_detail.html', {'queryset': queryset, 'tag': tag, 'host': host,
+                                                                     'request': request})
 
-from apps.management.forms.tag import  SwitchTopArticleTagForm, SwitchPublishedEntityTagForm
-from django.shortcuts import  get_object_or_404, render_to_response
-from braces.views import CsrfExemptMixin,UserPassesTestMixin
 
 class SwitchTopArticleTagView(UserPassesTestMixin,JSONResponseMixin, UpdateView):
     form_class = SwitchTopArticleTagForm
