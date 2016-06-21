@@ -3012,6 +3012,9 @@ body.compact-body {
   line-height: 85px;
   text-align: center;
 }
+#guoku_main_nav .nav-notification-wrapper .notification-drop-list-wrapper .notification-drop-list .notification-list-item.unread-list-item {
+  background-color: #f1f1f1;
+}
 #guoku_main_nav .nav-add-product .add_goods {
   display: none;
   position: absolute;

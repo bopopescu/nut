@@ -9,7 +9,7 @@
      <% for(var i=0;i<notification_length;i++){ %>
        <% if(objects[i].type == 'user_follow'){ %>
 
-         <li class="notification-list-item">
+         <li class="notification-list-item <% if(!objects[i].unread){ %> unread-list-item<% } %>">
 
         <div class="notification-user-logo-wrapper">
             <a href="<%=objects[i].actor.url%>">
