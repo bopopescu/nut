@@ -44,17 +44,6 @@
                                 <img class="img-responsive img-frame" style="background-image: url({{ user.avatar_url|resize:'128' }})" />
                                 <span class="user-name">{{ user.nickname }}</span>
                             </a>
-
-                        </li>
-                    {% endfor %}
-
-                    {% for user in recommended_user %}
-                        <li>
-                            <a href="{{ user.absolute_url }}" target="_blank">
-                                <img class="img-responsive img-frame" style="background-image: url({{ user.avatar_url|resize:'128' }})" />
-                                <span class="user-name">{{ user.nickname }}</span>
-                            </a>
-
                         </li>
                     {% endfor %}
                 </ul>

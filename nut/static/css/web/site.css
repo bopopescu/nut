@@ -1222,7 +1222,7 @@ p.boolean-false {
   top: 39px;
 }
 #discover_container .recommend-user-list .slick-next {
-  right: -11px;
+  right: -15px;
   top: 39px;
 }
 /*发现页-推荐用户*/
@@ -1240,9 +1240,9 @@ p.boolean-false {
   width: 81px;
   height: 81px;
   margin-top: 0;
-  margin-right: 18px;
+  margin-right: 9px;
   margin-bottom: 40px;
-  margin-left: 0;
+  margin-left: 9px;
   height: 120px;
 }
 .user-icon-list.recommend-user-list li a {
