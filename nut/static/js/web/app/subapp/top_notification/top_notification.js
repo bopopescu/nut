@@ -65,8 +65,10 @@ define([
         postSuccess:function(result){
             var status = parseInt(result.status);
             if(status == 1){
+                this.hiddenLoadingIcon();
                 this.showNotificationItems(result);
             }else{
+                this.hiddenLoadingIcon();
                 this.showFail(result);
             }
         },
@@ -80,8 +82,14 @@ define([
             };
             $('.notification-drop-list').append(notificationItems(datas));
         },
+        showFail:function($ele){
+            console.log('ajax data failed.');
+        },
         postFail:function(data){
             console.log('request failed.please try again');
+        },
+        hiddenLoadingIcon:function(){
+            $('.notification-loading-icon').hide();
         }
 
     });

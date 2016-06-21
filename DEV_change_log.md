@@ -1,12 +1,10 @@
-5. 
-4. new article detail page 
-3. notification 
-2. removed entity's detail page , add search button
-1. sub category sort buy like (bug fix )
+5. mng - like entity report 
+4. web - new article detail page 
+3. web - top menu notification 
+2. web - in removed entity's detail page , add search button
+1. web - sub category sort buy like (bug fix )
 
-action : 
-  百度广告联盟 认证
-  GOOGLE ADSCENCE 认证
+
   
 action : 
   ALTER TABLE `core`.`shop_shop` 
