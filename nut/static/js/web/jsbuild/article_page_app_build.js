@@ -3170,10 +3170,8 @@ define('subapp/article/article_remark',[
                 create_time:ajaxDatas['create_time']
             };
             if($('#remark-list .remark-list-item-wrapper').length){
-                alert('has children');
                  $(newRemarkItem(datas)).insertBefore($('#remark-list').children().first());
             }else{
-                alert('no child');
                 $('#remark-list').append(newRemarkItem(datas));
             }
         },
