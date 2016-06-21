@@ -1203,6 +1203,10 @@ p.boolean-false {
 .article-wrapper .info-wrapper span {
   margin-right: 10px;
 }
+.article-wrapper .info-wrapper .article-dig-count,
+.article-wrapper .info-wrapper .remark-count {
+  display: none;
+}
 .article-wrapper .info-wrapper .create-time {
   float: right;
 }
