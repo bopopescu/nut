@@ -6,6 +6,7 @@ from django.db.models import Count
 from django.utils.log import getLogger
 from django.views.generic import ListView
 from django.shortcuts import get_object_or_404
+from django.conf import settings
 from django.template import loader, RequestContext
 from braces.views import JSONResponseMixin, AjaxResponseMixin
 
@@ -17,6 +18,7 @@ from apps.counter.utils.data import RedisCounterMachine
 
 
 log = getLogger('django')
+image_host = getattr(settings, 'IMAGE_HOST', None)
 
 
 class TagListView(ListView):
@@ -31,6 +33,7 @@ class TagEntitiesByHashView(AjaxResponseMixin, JSONResponseMixin, ListView):
     template_name = 'tag/entities.html'
     ajax_template_name = 'tag/partial/ajax_entities.html'
     context_object_name = 'entities'
+
 
     def get_queryset(self):
         self.tag_hash = self.kwargs.pop('tag_hash', None)
@@ -80,7 +83,8 @@ class TagEntitiesByHashView(AjaxResponseMixin, JSONResponseMixin, ListView):
         context.update({
             'tag': self.tag,
             'user_entity_likes': el,
-            'entities': entities
+            'entities': entities,
+            'image_host': image_host,
         })
         return context
 
