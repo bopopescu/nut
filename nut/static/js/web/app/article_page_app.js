@@ -31,6 +31,7 @@ require([
 
               ArticleLinkScroll,
               ArticleDig,
+
               ArticlePageCounter,
 
               EntityCardRender,
