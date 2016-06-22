@@ -257,6 +257,21 @@ class BaseManagementArticleListView(UserPassesTestMixin, SortMixin, ListView):
     context_object_name = 'articles'
     default_sort_params = ('updated_datetime', 'desc')
 
+    def __init__(self):
+        super(BaseManagementArticleListView, self).__init__()
+        authorized_authors = GKUser.objects.authorized_author()
+        self.authorized_weixin_authors = []
+        self.authorized_rss_authors = []
+        for author in authorized_authors:
+            try:
+                if author.authorized_profile and author.authorized_profile.weixin_id:
+                    self.authorized_weixin_authors.append(author)
+                elif author.authorized_profile.rss_url:
+                    self.authorized_rss_authors.append(author)
+            except:
+                pass
+
+
     def test_func(self, user):
         return user.is_editor or user.is_staff
 
@@ -268,12 +283,12 @@ class BaseManagementArticleListView(UserPassesTestMixin, SortMixin, ListView):
 
 class AuthorArticlePersonList(BaseManagementArticleListView):
     def get_queryset(self):
-        _user_id = self.kwargs.get('pk', None)
+        self._user_id = self.kwargs.get('pk', None)
         qs = None
-        if _user_id is None :
+        if self._user_id is None :
             raise  Http404
         else:
-            qs = Article.objects.filter(publish=Article.published,creator__id=_user_id)
+            qs = Article.objects.filter(publish=Article.published,creator__id=self._user_id)
 
         return  self.sort_queryset(
             qs,
@@ -295,29 +310,54 @@ class AuthorArticlePersonList(BaseManagementArticleListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(AuthorArticlePersonList, self).get_context_data(*args, **kwargs)
+        user = GKUser.objects.get(id=self._user_id)
+        if user.authorized_profile.rss_url:
+            context['authorized_authors'] = self.authorized_rss_authors
+        else:
+            context['authorized_authors'] = self.authorized_weixin_authors
         context['for_author'] = True
         context['for_person'] = True
         context['current_author'] = self.get_current_author()
+        context['sort_by'] = self.get_sort_params()[0]
+        context['extra_query'] = 'sort_by=' + context['sort_by']
         return context
 
 
-class AuthorArticleList(BaseManagementArticleListView):
+
+
+class WeixinAuthorArticleList(BaseManagementArticleListView):
+
+    def sort_help(self, qs, sort_by, creator_list):
+        if sort_by == 'created_datetime':
+            qs = qs.filter(publish=Article.published, creator__in=creator_list).order_by(
+                '-created_datetime')
+        elif sort_by == 'id':
+            qs = qs.filter(publish=Article.published, creator__in=creator_list).order_by('-id')
+        else:
+            qs = qs.filter(publish=Article.published, creator__in=creator_list)
+        return qs
 
     def sort_queryset(self, qs, sort_by, order):
-        authorized_authors = GKUser.objects.authorized_author()
-        if sort_by == 'created_datetime':
-            qs = qs.filter(publish=Article.published, creator__in=authorized_authors).order_by('-created_datetime')
-        elif sort_by == 'id':
-            qs = qs.filter(publish=Article.published, creator__in=authorized_authors).order_by('-id')
-        else:
-            qs = qs.filter(publish=Article.published, creator__in=authorized_authors)
+        qs = self.sort_help(qs, sort_by, self.authorized_weixin_authors)
         return qs
 
     def get_context_data(self, *args, **kwargs):
-        context = super(AuthorArticleList, self).get_context_data(*args, **kwargs)
+        context = super(WeixinAuthorArticleList, self).get_context_data(*args, **kwargs)
+        context['authorized_authors'] = self.authorized_weixin_authors
         context['for_author'] = True
         context['sort_by'] = self.get_sort_params()[0]
         context['extra_query'] = 'sort_by='+context['sort_by']
+        return context
+
+class RssAuthorArticleList(WeixinAuthorArticleList):
+
+    def sort_queryset(self, qs, sort_by, order):
+        qs = self.sort_help(qs, sort_by, self.authorized_rss_authors)
+        return qs
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(RssAuthorArticleList, self).get_context_data(*args, **kwargs)
+        context['authorized_authors'] = self.authorized_rss_authors
         return context
 
 
