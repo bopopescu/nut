@@ -5,7 +5,6 @@ define(['jquery','libs/Class','jqueryeasing'], function($,Class){
             console.log('link scroll');
             $(selector).click(function(event){
                 $('html,body').animate({scrollTop: $(this.hash).offset().top - 50}, 1000, 'easeInOutExpo');
-
                 event.preventDefault();
                 event.stopPropagation();
                 return false;
