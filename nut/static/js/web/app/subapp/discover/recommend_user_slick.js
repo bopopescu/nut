@@ -2,16 +2,15 @@
 define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
     $, Class, slick , fastdom
 ){
-            var CategorySlick= Class.extend({
+            var RecommendUserSlick= Class.extend({
                 init: function () {
                     this.init_slick();
-                    console.log('category horizontal scrolling starts !');
+                    console.log('recommend user slick in discover page begin');
                 },
                 init_slick:function(){
-                    $('#category-item-container').slick({
+                    $('.recommend-user-list').slick({
                         arrows: true,
-                        //on mobile,set slidesToshow and slidesToScroll like android
-                        slidesToShow: 6,
+                        slidesToShow: 11,
                         slidesToScroll:4,
                         autoplay:false,
                         dots:false,
@@ -20,8 +19,17 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                             {
                                 breakpoint: 768,
                                 settings: {
-                                    slidesToShow:3,
+                                    slidesToShow:8,
                                     slidesToScroll:3,
+                                    autoplay:false,
+                                    dots:false
+                                }
+                            },
+                             {
+                                breakpoint: 580,
+                                settings: {
+                                    slidesToShow:5,
+                                    slidesToScroll:2,
                                     autoplay:false,
                                     dots:false
                                 }
@@ -30,7 +38,7 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                     });
                 }
             });
-    return CategorySlick;
+    return RecommendUserSlick;
 });
 
 
