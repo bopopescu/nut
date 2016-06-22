@@ -38,15 +38,6 @@
                         </a>
                     </li>
                     {% endfor %}
-                    {% for user in recommend_users %}
-                    <li class="all-users">
-                        <a href="{{ user.absolute_url }}" target="_blank">
-                            <img class="img-responsive img-frame" style="background-image: url({{ user.avatar_url|resize:'128' }})" />
-                            <span class="user-name">{{ user.nickname }}</span>
-                        </a>
-                    </li>
-                    {% endfor %}
-
                 </ul>
             </div>
         </div>
