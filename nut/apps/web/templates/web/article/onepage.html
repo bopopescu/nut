@@ -258,7 +258,7 @@
                 {#article remark begin by luoqian#} 
 
                 {% if not isFromMobile %}
-                    <div class="article-section-title">
+                    <div class="article-section-title" id="article-remark-title">
                         <div class="info-text">文章评论</div>
                     </div>
                     <div class="remarks-wrapper"> 
@@ -410,7 +410,7 @@
                                     </li>
                                     <li class="list-item remark-item">
                                         <div class="remark-wrapper">
-                                            <a href="#login_user_remark" class="remark-info">
+                                            <a href="#article-remark-title" class="remark-info">
                                                 <img class="remark-icon" src="{% static 'images/article/comment.png' %}" >
                                                 <span class="remark-count">{% if remark_count %}{{ remark_count }}{% endif %}</span>
                                                 <span class="remark-word">
