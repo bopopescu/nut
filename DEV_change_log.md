@@ -1,11 +1,13 @@
+=======================
+# merged to master 2016 6-16
+=======================
+
 5. mng - like entity report 
 4. web - new article detail page 
 3. web - top menu notification 
 2. web - in removed entity's detail page , add search button
 1. web - sub category sort buy like (bug fix )
 
-
-  
 action : 
   ALTER TABLE `core`.`shop_shop` 
 ADD COLUMN `tb_shop_id` VARCHAR(64) NULL DEFAULT NULL AFTER `shop_type`;
