@@ -4,7 +4,7 @@ require([
         'subapp/page',
         'subapp/topmenu',
         'subapp/gotop',
-        'subapp/yearseller/linkscroll',
+        'subapp/article/article_link_scroll',
         'subapp/articledig',
         'subapp/articlepagecounter',
         'subapp/entitycard',
@@ -23,7 +23,7 @@ require([
               Page,
               Menu,
               GoTop,
-              AnchorScroller,
+              ArticleLinkScroll,
               ArticleDig,
               ArticlePageCounter,
               EntityCardRender,
@@ -39,7 +39,7 @@ require([
         var page = new Page();
         var menu = new Menu();
         var goto = new GoTop();
-        var anchorScroller = new AnchorScroller('.share-bt-list .remark-item .remark-info');
+        var anchorScroller = new ArticleLinkScroll('.share-bt-list .remark-item .remark-info');
         var articleDig = new ArticleDig();
         var articlePageCounter = new ArticlePageCounter();
         var entityCardRender = new EntityCardRender();
@@ -49,7 +49,7 @@ require([
         var articleSidebarSwitch = new ArticleSidebarSwitch();
         var user_follow = new UserFollow();
         var shareApp = new ArticleShareApp();
-          FastClick.attach(document.body);
+        FastClick.attach(document.body);
 
 });
 

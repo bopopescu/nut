@@ -1911,13 +1911,13 @@ define("jqueryeasing", ["jquery"], (function (global) {
     };
 }(this)));
 
-define('subapp/yearseller/linkscroll',['jquery','libs/Class','jqueryeasing'], function($,Class){
+define('subapp/article/article_link_scroll',['jquery','libs/Class','jqueryeasing'], function($,Class){
 
-    var AnchorScroller = Class.extend({
+    var ArticleLinkScroll = Class.extend({
         init: function(selector){
-            console.log('link scroll');
+            console.log('article remark link scroll');
             $(selector).click(function(event){
-                $('html,body').animate({scrollTop: $(this.hash).offset().top - 50}, 1000, 'easeInOutExpo');
+                $('html,body').animate({scrollTop: $(this.hash).offset().top - 40}, 1000, 'easeInOutExpo');
                 event.preventDefault();
                 event.stopPropagation();
                 return false;
@@ -1925,7 +1925,7 @@ define('subapp/yearseller/linkscroll',['jquery','libs/Class','jqueryeasing'], fu
         }
     });
 
-    return AnchorScroller;
+    return ArticleLinkScroll;
 });
 define('subapp/account',['libs/Class','jquery','bootstrap'],function(Class, $){
 
@@ -7089,7 +7089,7 @@ require([
         'subapp/page',
         'subapp/topmenu',
         'subapp/gotop',
-        'subapp/yearseller/linkscroll',
+        'subapp/article/article_link_scroll',
         'subapp/articledig',
         'subapp/articlepagecounter',
         'subapp/entitycard',
@@ -7108,7 +7108,7 @@ require([
               Page,
               Menu,
               GoTop,
-              AnchorScroller,
+              ArticleLinkScroll,
               ArticleDig,
               ArticlePageCounter,
               EntityCardRender,
@@ -7124,7 +7124,7 @@ require([
         var page = new Page();
         var menu = new Menu();
         var goto = new GoTop();
-        var anchorScroller = new AnchorScroller('.share-bt-list .remark-item .remark-info');
+        var anchorScroller = new ArticleLinkScroll('.share-bt-list .remark-item .remark-info');
         var articleDig = new ArticleDig();
         var articlePageCounter = new ArticlePageCounter();
         var entityCardRender = new EntityCardRender();
@@ -7134,7 +7134,7 @@ require([
         var articleSidebarSwitch = new ArticleSidebarSwitch();
         var user_follow = new UserFollow();
         var shareApp = new ArticleShareApp();
-          FastClick.attach(document.body);
+        FastClick.attach(document.body);
 
 });
 
