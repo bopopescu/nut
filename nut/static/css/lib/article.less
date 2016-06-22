@@ -153,7 +153,10 @@
     span{
       margin-right: 10px;
     }
-
+    //the datas need binds,hidden them temporarily
+    .article-dig-count,.remark-count{
+      display: none;
+    }
     .create-time{
       float:right;
     }
@@ -507,6 +510,11 @@
     .border-radiuses(@global-box-radius,0,0,@global-box-radius);
     margin:0 -25px;
     padding:0 25px;
+    .article-share li.list-item{
+      .dig-wrapper,.remark-wrapper{
+        line-height: 52px;
+      }
+    }
   }
 }
 
@@ -535,24 +543,6 @@
 //article dig,remark,share, may be put it to witgets
 .article-share{
       .dig-wrapper{
-        display:inline-block;
-        font-size:@mini-size;
-        color:@new-text-gray;
-        div{
-          display: inline-block;
-        }
-        .dig-action{
-            positon:relative;
-            width: 30px;
-            height: 100%;
-            .dig-img{
-              position: relative;
-              left:0px;
-              top:-5px;
-              height:32px;
-              cursor: pointer;
-            }
-        }
         .digged{
            img.dig{
               display: none;
@@ -569,30 +559,15 @@
              display: inline;
            }
         }
-        .dig-info{
-          .dig-count{
-            //margin: 0px 6px;
-          }
-        }
-        float: left;
-        line-height: 40px;
-        padding-top: 4px;
       }
       .remark-wrapper{
-        float:left;
-        margin-left:25px;
-        padding-top:0;
-        line-height: 45px;
-        font-size: @mini-size;
         a{
           color:@new-text-gray;
+           text-decoration: none;
         }
         .remark-icon{
-          width:32px;
-          height:32px;
-        }
-        .remark-count{
-          //margin-left:5px;
+          width:24px;
+          height:24px;
         }
       }
       ul.share-bt-list{
@@ -611,6 +586,24 @@
               cursor: pointer;
             }
           }
+          .dig-wrapper,.remark-wrapper{
+            width:auto;
+            height:40px;
+            line-height: 40px;
+            font-size: @more-mini-size;
+            color:@new-text-gray;
+            img{
+              width:24px;
+              height:24px;
+              cursor:pointer;
+            }
+          }
+        }
+        li.dig-item,li.remark-item{
+          float:left;
+        }
+        li.remark-item{
+          margin-left:20px;
         }
         li.list-item-weixin{
           position: relative;
@@ -660,7 +653,6 @@
 
           }
         }
-
         li.list-item-weibo a{
           &:hover{
             color: @weibo-hover-color;
