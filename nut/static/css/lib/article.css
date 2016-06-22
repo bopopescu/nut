@@ -1652,6 +1652,7 @@ p.boolean-false {
 }
 .article-share .remark-wrapper a {
   color: #757575;
+  text-decoration: none;
 }
 .article-share .remark-wrapper .remark-icon {
   width: 24px;
