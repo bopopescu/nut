@@ -1617,10 +1617,12 @@ a:hover{text-decoration:underline;}
       padding: 10px 15px;
       &:hover{
         cursor:pointer;
-        .border-radius(@global-box-radius);
-        box-shadow: @panel-shaddow;
-        .remark-item .remark-detail .remark-operate .remark-reply{
-          display: block;
+        //.border-radius(@global-box-radius);
+        //box-shadow: @panel-shaddow;
+        .remark-item .remark-detail .remark-operate{
+          .remark-reply,.remark-delete{
+            display: block;
+          }
         }
       }
       .remark-item{
@@ -1632,12 +1634,9 @@ a:hover{text-decoration:underline;}
           }
           .remark-operate{
             overflow: hidden;
-
-            .remark-time,.remark-reply{
-              font-size:@more-mini-size;
-              color:@common-gray;
-            }
-            .remark-reply{
+            font-size:@more-mini-size;
+            color:@common-gray;
+            .remark-reply,.remark-delete{
               display: none;
               margin-left:15px;
             }
