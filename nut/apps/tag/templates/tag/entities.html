@@ -20,6 +20,11 @@
     </div>
 
     <div class="container">
+          {% if request.user.is_staff %}
+        <div class="row user-admin-link-wrapper">
+            <a class="pull-right" href="" target="_blank"><i class="fa fa-edit"></i></a>
+        </div>
+        {% endif %}
         <div class="row" id="tag-entity-list" data-refresh="{{ refresh_time }}">
             <div class="col-md-12">
 {#                <div class="category-header">#}
