@@ -1627,6 +1627,10 @@ p.boolean-false {
   margin: 0 -25px;
   padding: 0 25px;
 }
+.bottom-article-share-wrapper .bottom-article-share .article-share li.list-item .dig-wrapper,
+.bottom-article-share-wrapper .bottom-article-share .article-share li.list-item .remark-wrapper {
+  line-height: 52px;
+}
 .article-share-wx-dialog .modal-dialog {
   width: 250px;
   height: auto;
