@@ -39,13 +39,12 @@
             <div class="col-sm-12">
                 <ul class="user-icon-list recommend-user-list">
                     {% for user in recommended_user %}
-                    <li>
-                        <a href="{{ user.absolute_url }}" target="_blank">
-                            <img class="img-responsive img-frame" style="background-image: url({{ user.avatar_url|resize:'128' }})" />
-                             <span class="user-name">{{ user.nickname }}</span>
-                        </a>
-
-                    </li>
+                        <li>
+                            <a href="{{ user.absolute_url }}" target="_blank">
+                                <img class="img-responsive img-frame" style="background-image: url({{ user.avatar_url|resize:'128' }})" />
+                                <span class="user-name">{{ user.nickname }}</span>
+                            </a>
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
@@ -88,7 +87,7 @@
                                     {#                                    <img class="category-item-pic" src="{{ category.cover_url|resize:'200' }}"/>#}
                                     <div class="category-item-pic" style="background-image: url('{{ category.cover_url|resize:'200' }}')">
                                     </div>
-                                    <div class="section-name">
+                                    <div class="section-name category-name">
                                         <p>{{ category.title_cn }}</p>
                                         <span>{{ category.title_en }}</span>
                                     </div>
