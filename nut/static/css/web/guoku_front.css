@@ -4922,12 +4922,6 @@ body.compact-body {
   font-size: 13px;
   height: auto;
 }
-@media (max-width: 768px) {
-  #category-container #category-item-container .slick-prev:before,
-  #category-container #category-item-container .slick-next:before {
-    display: none;
-  }
-}
 @media (max-width: 580px) {
   .authorized-seller-body .entity-four.new-thumbnail .entity-four-info .caption {
     width: 100%;
@@ -5272,6 +5266,12 @@ body.compact-body {
   .social-list .social-cell .entity-list .entity-item {
     height: 80px!important;
     width: 80px!important;
+  }
+}
+@media (max-width: 992px) {
+  #discover_container .slick-prev:before,
+  #discover_container .slick-next:before {
+    display: none;
   }
 }
 @media (max-width: 1199px) {

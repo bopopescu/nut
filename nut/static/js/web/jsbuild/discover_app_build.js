@@ -4343,7 +4343,7 @@ define('subapp/discover/category_slick',['jquery', 'libs/Class','libs/slick','fa
                         //on mobile,set slidesToshow and slidesToScroll like android
                         slidesToShow: 6,
                         slidesToScroll:4,
-                        autoplay:true,
+                        autoplay:false,
                         dots:false,
 
                         responsive: [
@@ -4352,16 +4352,61 @@ define('subapp/discover/category_slick',['jquery', 'libs/Class','libs/slick','fa
                                 settings: {
                                     slidesToShow:3,
                                     slidesToScroll:3,
-                                    autoplay:true,
+                                    autoplay:false,
                                     dots:false
                                 }
                             }
                         ]
                     });
-
                 }
             });
     return CategorySlick;
+});
+
+
+
+
+
+define('subapp/discover/recommend_user_slick',['jquery', 'libs/Class','libs/slick','fastdom'], function(
+    $, Class, slick , fastdom
+){
+            var RecommendUserSlick= Class.extend({
+                init: function () {
+                    this.init_slick();
+                    console.log('recommend user slick in discover page begin');
+                },
+                init_slick:function(){
+                    $('.recommend-user-list').slick({
+                        arrows: true,
+                        slidesToShow: 11,
+                        slidesToScroll:4,
+                        autoplay:false,
+                        dots:false,
+
+                        responsive: [
+                            {
+                                breakpoint: 768,
+                                settings: {
+                                    slidesToShow:8,
+                                    slidesToScroll:3,
+                                    autoplay:false,
+                                    dots:false
+                                }
+                            },
+                             {
+                                breakpoint: 580,
+                                settings: {
+                                    slidesToShow:5,
+                                    slidesToScroll:2,
+                                    autoplay:false,
+                                    dots:false
+                                }
+                            }
+                        ]
+                    });
+                }
+            });
+    return RecommendUserSlick;
 });
 
 
@@ -4397,17 +4442,20 @@ require([
         'jquery',
         'subapp/entitylike',
         'subapp/topmenu',
-        'subapp/discover/category_slick'
+        'subapp/discover/category_slick',
+        'subapp/discover/recommend_user_slick'
     ],
     function(polyfill,
              jQuery,
              AppEntityLike,
              Menu,
-             CategorySlick
+             CategorySlick,
+             RecommendUserSlick
     ){
         var menu = new Menu();
         var app_like = new  AppEntityLike();
         var category_slick = new CategorySlick();
+        var recommend_user_slick = new RecommendUserSlick();
     });
 
 define("discover_app", function(){});
