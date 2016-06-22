@@ -6,27 +6,21 @@
 
 {% block content %}
 
+{% if tag.image %}
     <div class="tag-intro-wrapper">
-
-        {% if tag.image %}
-            <div class="tag-bg-layer" style="background-image: url({{ image_host }}{{ tag.image }})"></div>
-
-        {% else %}
-        <div class="tag-bg-layer" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">
-            </div>
-            {% endif %}
+        <div class="tag-bg-layer" style="background-image: url({{ image_host }}{{ tag.image }})"></div>
         <div class="tag-title">
             <h3>#{{ tag }}</h3>
         </div>
         <div class="tag-desc">
             <p>
                 {% if tag.description %}
-                {{ tag.description }}
+                    {{ tag.description }}
                 {% endif %}
             </p>
         </div>
     </div>
-
+{% endif %}
     <div class="container">
         {% if request.user.is_staff %}
             <div class="row user-admin-link-wrapper">
@@ -35,9 +29,11 @@
         {% endif %}
         <div class="row" id="tag-entity-list" data-refresh="{{ refresh_time }}">
 {#            <div class="col-md-12">#}
-{#                <div class="category-header">#}
-{#                    <p>#{{ tag }}</p>#}
-{#                </div>#}
+            {% if not tag.image %}
+                <div class="category-header">
+                    <p>#{{ tag }}</p>
+                </div>
+            {% endif %}
                 {% include 'tag/partial/ajax_entities.html' with object_list=entities %}
 {#            </div>#}
         </div>
