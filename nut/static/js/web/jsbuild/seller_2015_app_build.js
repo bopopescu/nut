@@ -1041,9 +1041,9 @@ define('subapp/yearseller/linkscroll',['jquery','libs/Class','jqueryeasing'], fu
 
     var AnchorScroller = Class.extend({
         init: function(selector){
+            console.log('link scroll');
             $(selector).click(function(event){
                 $('html,body').animate({scrollTop: $(this.hash).offset().top - 50}, 1000, 'easeInOutExpo');
-
                 event.preventDefault();
                 event.stopPropagation();
                 return false;

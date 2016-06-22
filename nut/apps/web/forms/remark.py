@@ -9,7 +9,7 @@ class ArticleRemarkForm(ModelForm):
 
         localized_fields = '__all__'
         widgets = {
-            'content': Textarea(attrs={'class': 'form-control', 'cols': 60, 'rows': 6}),
+            'content': Textarea(attrs={'class': 'form-control', 'cols': 60, 'rows': 3}),
             'reply_to': HiddenInput
         }
 
