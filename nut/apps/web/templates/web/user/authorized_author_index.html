@@ -50,19 +50,11 @@
 {#                     </div>#}
                         {% endif %}
                     {% if authorized_user_info.weibo_id %}
-                    <span class="weibo-icon">{{ authorized_user_info.weibo_id }}</span>
-                    {% endif %}
-
-                    {% if authorized_user_info.weixin_nick %}
-                    <span class="weibo-icon">{{ authorized_user_info.weixin_nick }}</span>
+                        <a href="http://weibo.com/u/{{ authorized_user_info.weibo_id}}" target="_blank"><i class="fa fa-weibo user-binding-icon"></i></a>
                     {% endif %}
 
                     {% if authorized_user_info.weixin_qrcode_img %}
                     <span class="weibo-icon">{{ authorized_user_info.weibo_qrcode_img }}</span>
-                    {% endif %}
-
-                    {% if authorized_user_info.personal_domain_name %}
-                    <span class="weibo-icon">{{ authorized_user_info.personal_domain_name }}</span>
                     {% endif %}
 
                     <div class="user-social-wrapper">
