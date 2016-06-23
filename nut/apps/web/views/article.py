@@ -275,7 +275,7 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
 
     def get_remark(self):
         article_id = self.kwargs.get('pk')
-        remarks = Article_Remark.objects.filter(article_id=int(article_id)).exclude(status=-1)
+        remarks = Article_Remark.objects.filter(article_id=int(article_id)).exclude(status=-1).order_by('-create_time')
         return remarks
 
 
