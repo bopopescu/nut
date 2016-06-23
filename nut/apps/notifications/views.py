@@ -145,7 +145,7 @@ class NewMessageListView(LoginRequiredMixin, AjaxResponseMixin,JSONResponseMixin
                               'actor': {'id': m.actor.id, 'nick': m.actor.profile.nick, 'avatar': m.actor.avatar_url,
                                         'url': host + m.actor.absolute_url},
                               'type': m.action_object_content_type.model,
-                              'time': m.timesince().split(u'，')[0]})
+                              'time': m.timesince().split(u'，')[0], 'unread': m.unread})
                 elif isinstance(m.target, Entity):
                     data.append({'target': {'type': 'entity', 'id': m.target.id, 'entity_hash': m.target.entity_hash,
                                          'entity_image': m.target.chief_image, 'url': host+m.target.get_absolute_url(),
@@ -153,19 +153,23 @@ class NewMessageListView(LoginRequiredMixin, AjaxResponseMixin,JSONResponseMixin
                               'actor': {'id': m.actor.id, 'nick': m.actor.profile.nick, 'avatar': m.actor.avatar_url,
                                         'url': host+m.actor.absolute_url},
                               'type': m.action_object_content_type.model,
-                              'time': m.timesince().split(u'，')[0]})
+                              'time': m.timesince().split(u'，')[0], 'unread': m.unread})
                 elif isinstance(m.target, Article):
                     data.append({'target': {'type': 'article', 'id': m.target.id, 'article_cover': m.target.cover_url,
                                          'article_title': m.target.title, 'url': host+m.target.get_absolute_url()},
                               'actor': {'id': m.actor.id, 'nick': m.actor.profile.nick, 'avatar': m.actor.avatar_url,
                                         'url': host + m.actor.absolute_url},
                               'time': m.timesince().split(u'，')[0],
-                              'type': m.action_object_content_type.model})
+                              'type': m.action_object_content_type.model, 'unread': m.unread})
                 elif isinstance(m.target, GKUser):
                     data.append({'actor': {'id': m.actor.id, 'nick': m.actor.profile.nick, 'avatar': m.actor.avatar_url,
                                            'url': host + m.actor.absolute_url},
                               'type': m.action_object_content_type.model,
-                              'time': m.timesince().split(u'，')[0]})
+                              'time': m.timesince().split(u'，')[0], 'unread': m.unread})
+            for item in data:
+                item['time'] = item['time'].replace(u'\xa0', u'')    # replace a white space
+                if item['time'][-1] == u'日':
+                    item['time'] = item['time'].replace(u'日', u'天')
 
             res = {'status': 1,
                     'data': data
