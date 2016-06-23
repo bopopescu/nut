@@ -1,4 +1,5 @@
 from apps.management.forms.tag import  SwitchTopArticleTagForm, SwitchPublishedEntityTagForm
+from django.conf import settings
 from django.shortcuts import  get_object_or_404, render_to_response
 from braces.views import CsrfExemptMixin,UserPassesTestMixin
 from django.http import Http404, HttpResponseRedirect
@@ -22,6 +23,7 @@ from braces.views import AjaxResponseMixin,JSONResponseMixin
 
 from urllib import  unquote
 
+image_host = getattr(settings, 'IMAGE_HOST', None)
 
 class TagListView(LoginRequiredMixin,SortMixin, ListView ):
     default_sort_params = ('id', 'desc')
@@ -132,7 +134,8 @@ def EditTagFormView(request, tag_id):
     return render_to_response(
             template,
             {'form': form,
-             'title': tag.name,
+             'tag': tag,
+             'image_host': image_host,
              'button': _('update'),
              },
             context_instance=RequestContext(request),
