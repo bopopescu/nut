@@ -1,4 +1,6 @@
-5. 
+
+5.  mng - article list seperate rss author
+          article author list sort bug fix 
 4.  mng - tag mng , publish , raw data page 
 3.  notification  loading pic 
 2.  article  detail page  update
