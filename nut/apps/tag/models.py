@@ -161,6 +161,8 @@ class Tags(BaseModel):
     image = models.URLField(max_length=255, null=True)
     # state fields
     isTopArticleTag = models.BooleanField(default=False, db_index=True)
+    isPubishedEntityTag = models.BooleanField(default=False)
+    description = models.CharField(max_length=1024, null=True, blank=True)
 
     objects = TagsManager()
 

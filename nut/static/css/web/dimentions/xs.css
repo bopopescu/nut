@@ -1095,6 +1095,18 @@ p.boolean-false {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+@media (max-width: 768px) {
+  #category-container #category-item-container .slick-prev:before,
+  #category-container #category-item-container .slick-next:before {
+    display: none;
+  }
+  .tag-intro-wrapper {
+    height: 240px;
+  }
+  .tag-intro-wrapper .tag-desc {
+    display: none;
+  }
+}
 @media (max-width: 580px) {
   .authorized-seller-body .entity-four.new-thumbnail .entity-four-info .caption {
     width: 100%;
