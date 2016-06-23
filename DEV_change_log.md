@@ -1,10 +1,10 @@
-
+6.  other add new index field for article enter selection time 
 5.  mng - article list seperate rss author
           article author list sort bug fix 
 4.  mng - tag mng , publish , raw data page 
-3.  notification  loading pic 
-2.  article  detail page  update
-1.  发现页－推荐用户 - 滚动 - LQ
+3.  web - notification  loading pic 
+2.  web - article  detail page  update
+1.  web - 发现页－推荐用户 - 滚动 - LQ
 
 action: 
 
