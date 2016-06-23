@@ -64,10 +64,21 @@ class SelectionReportListView(ListView):
         return  entity_list
 
     def get_like_best(self):
-        queryset = SearchQuerySet().models(Entity).filter(
-            created_time__range=(datetime.strptime(self.start_date, '%Y-%m-%d %H:%M:%S'),datetime.strptime(self.end_date, '%Y-%m-%d %H:%M:%S')),
-            like_count__gte=100,
-            is_in_selection=True).order_by('-like_count')
+        if self.start_time == 'yesterday':
+            result = Selection_Entity.objects.filter(pub_time__range=(self.start_date, self.end_date))
+            queryset = [item for item in result if item.entity.like_count>20]
+            queryset = sorted(queryset, key=lambda x: x.entity.like_count, reverse=True)
+            if len(queryset) == 0:
+                queryset = [item for item in result if item.entity.like_count > 20]
+                queryset = sorted(queryset, key=lambda x: x.entity.like_count, reverse=True)
+            for selection_entity in queryset:
+                selection_entity.object = selection_entity.entity
+        else:
+            #Todo add index enter_selection_time, now use created_time is wrong
+            queryset = SearchQuerySet().models(Entity).filter(
+                created_time__range=(datetime.strptime(self.start_date, '%Y-%m-%d %H:%M:%S'),datetime.strptime(self.end_date, '%Y-%m-%d %H:%M:%S')),
+                like_count__gte=100,
+                is_in_selection=True).order_by('-like_count')
         return queryset
 
     def get_sold(self):  #Todo

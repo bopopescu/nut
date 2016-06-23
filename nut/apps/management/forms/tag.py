@@ -6,3 +6,8 @@ class SwitchTopArticleTagForm(ModelForm):
     class Meta:
         model = Tags
         fields = ['isTopArticleTag']
+
+class SwitchPublishedEntityTagForm(ModelForm):
+    class Meta:
+        model = Tags
+        fields = ['isPubishedEntityTag']
