@@ -102,11 +102,14 @@
     margin-top:-5px;
   }
 
+  .recommend-user-wrapper{
+    overflow: hidden;
+  }
 }
 
 //发现页的推荐品类,横向滚动
 #category-container{
-  overflow: hidden;
+  //overflow: hidden;
   #category-item-container{
     //width:7400px;
     //overflow:hidden;
@@ -130,13 +133,18 @@
       .category-item-pic{
         .square-scale-bg;
       }
+      .category-name{
+        text-align:center;
+      }
     }
   }
 }
 //发现页的推荐品类,横向滚动的icon
-#category-container #category-item-container{
+#category-item-container,.recommend-user-list{
   .slick-prev:before,.slick-next:before{
     font-family: "FontAwesome";
+    font-size: @primary-size;
+    color:@common-text-color;
   }
   .slick-prev:before{
     content:"\f053";
@@ -145,7 +153,25 @@
     content:"\f054";
   }
 }
-
+#category-item-container{
+    .slick-prev{
+      left:-11px;
+    }
+    .slick-next{
+      right:-11px;
+    }
+}
+//recommend user section in discover page
+#discover_container .recommend-user-list{
+    .slick-prev{
+      left:-15px;
+      top:39px;
+    }
+    .slick-next{
+      right:-15px;
+      top:39px;
+    }
+}
 
 /*发现页-推荐用户*/
 .user-icon-list.recommend-user-list{
@@ -154,7 +180,7 @@
           text-align: center;
           font-size: 14px;
           margin-bottom: 40px;
-          .recommend-user-icon-widget(81px,0,18px,40px,0);
+          .recommend-user-icon-widget(81px,0,9px,40px,9px);
           height:120px;
           .img-frame{
               width: 100%;
@@ -167,7 +193,8 @@
               margin-bottom: 18px;
             }
             a {
-              color: #424242;
+              color: @common-text-color;
+              outline: none;
             }
             span.user-name{
             display:block;
@@ -302,6 +329,42 @@
       }
     }
   }
+}
+.tag-intro-wrapper{
+  position:relative;
+  margin-top:-30px;
+  margin-bottom:30px;
+  width:100%;
+  height:400px;
+  overflow:hidden;
+  text-align: center;
+  color:#ffffff;
+  .tag-bg-layer{
+     position: absolute;
+         left: 0;
+         top: 0;
+         width: 100%;
+         height:100%;
+         z-index:-10;
+     .acc-layer;
+         background-position: center;
+         background-size:150%;
+         background-repeat: no-repeat;
+         background-position-y: 0px;
+  }
+  .tag-title,.tag-desc{
+    width:100%;
+    max-width:400px;
+    margin:0 auto;
+    height:auto;
+  }
+  .tag-title{
+    margin-top:100px;
+  }
+  .tag-desc{
+    margin-top:50px;
+  }
+
 }
 .category-header > p {
   padding-left: 20px;
@@ -1590,10 +1653,12 @@ a:hover{text-decoration:underline;}
       padding: 10px 15px;
       &:hover{
         cursor:pointer;
-        .border-radius(@global-box-radius);
-        box-shadow: @panel-shaddow;
-        .remark-item .remark-detail .remark-operate .remark-reply{
-          display: block;
+        //.border-radius(@global-box-radius);
+        //box-shadow: @panel-shaddow;
+        .remark-item .remark-detail .remark-operate{
+          .remark-reply,.remark-delete{
+            display: block;
+          }
         }
       }
       .remark-item{
@@ -1605,12 +1670,9 @@ a:hover{text-decoration:underline;}
           }
           .remark-operate{
             overflow: hidden;
-
-            .remark-time,.remark-reply{
-              font-size:@more-mini-size;
-              color:@common-gray;
-            }
-            .remark-reply{
+            font-size:@more-mini-size;
+            color:@common-gray;
+            .remark-reply,.remark-delete{
               display: none;
               margin-left:15px;
             }
@@ -1780,5 +1842,5 @@ a.more-users {
 }
 
 .test{
-  color: black;
+  color: red;
 }

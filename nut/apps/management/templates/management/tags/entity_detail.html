@@ -1,0 +1,63 @@
+{% extends 'management/management_base.html' %}
+{% load i18n %}
+{% load guoku %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            {{ tag.name }}
+        </h1>
+        {{ tag.description }}
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+            <li><a href="#"><i class="fa fa-tags"></i>{% trans 'tag' %}</a></li>
+            <li class="active">{% trans 'entities' %}</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="table-responsive product-table">
+                                <table class="table table-small-font table-hover table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>{% trans '链接' %}</th>
+                                            <th>{% trans 'entity' %} <span class="info"></span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for obj in queryset %}
+                                            <tr>
+                                                <td>
+{#                                                    <a href="{% url 'web_entity_detail' obj.target.entity.entity_hash %}" target="_blank">#}
+                                                        {{ host }}{{ obj.target.entity.absolute_url }}
+{#                                                    </a>#}
+                                                </td>
+
+                                                <td class="product-thumb-img">
+{#                                                    <a href="{% url 'web_entity_detail' obj.target.entity.entity_hash %}" target="_blank">#}
+                                                        {{ obj.target.entity }}
+{#                                                    </a>#}
+                                                </td>
+
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+{#                    <div class="box-footer">#}
+{#                        {% include "management/paginator.html" with objects=queryset url=request.path %}#}
+{#                    </div>#}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
