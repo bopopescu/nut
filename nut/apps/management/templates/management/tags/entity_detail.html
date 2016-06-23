@@ -26,25 +26,25 @@
                                 <table class="table table-small-font table-hover table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>{% trans 'entity' %} <span class="info"></span></th>
-
                                             <th>{% trans '链接' %}</th>
+                                            <th>{% trans 'entity' %} <span class="info"></span></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for obj in queryset %}
                                             <tr>
+                                                <td>
+{#                                                    <a href="{% url 'web_entity_detail' obj.target.entity.entity_hash %}" target="_blank">#}
+                                                        {{ host }}{{ obj.target.entity.absolute_url }}
+{#                                                    </a>#}
+                                                </td>
 
                                                 <td class="product-thumb-img">
 {#                                                    <a href="{% url 'web_entity_detail' obj.target.entity.entity_hash %}" target="_blank">#}
                                                         {{ obj.target.entity }}
 {#                                                    </a>#}
                                                 </td>
-                                                <td>
-{#                                                    <a href="{% url 'web_entity_detail' obj.target.entity.entity_hash %}" target="_blank">#}
-                                                        {{ host }}{{ obj.target.entity.absolute_url }}
-{#                                                    </a>#}
-                                                </td>
+
                                             </tr>
                                         {% endfor %}
                                     </tbody>

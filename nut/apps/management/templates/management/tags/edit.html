@@ -4,8 +4,13 @@
 {% block content %}
     <section class="content-header">
         <h1>
-            {{ title }}
+            {{ tag.name }}
         </h1>
+        {% if tag.image %}
+            <div class="col-xs-6 col-sm-3 col-sm-offset-3 placeholders">
+                           <img class="img-responsive img-thumbnail" alt="300x300"  src="{{ image_host }}{{ tag.image }}">
+                       </div>
+        {% endif %}
         <ol class="breadcrumb">
             <li><a href="{% url 'management_dashboard' %}"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
             <li><a href="#"><i class="fa fa-tags"></i>{% trans 'tags' %}</a></li>
