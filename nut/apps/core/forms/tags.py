@@ -20,7 +20,7 @@ class EditTagForms(TagForms):
         required=False
     )
     description = forms.CharField(
-        label=_('description'),
+        label=_('引言'),
         widget=forms.Textarea(attrs={'class': 'form-control'}),
         required=False
     )
