@@ -1006,7 +1006,6 @@ class Entity(BaseModel):
             _tm = self.selection_entity.pub_time
         except Exception:
             _tm = self.created_time
-
         return _tm
 
     @property
