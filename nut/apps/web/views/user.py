@@ -594,7 +594,7 @@ class UserIndex(UserPageMixin, DetailView):
 
     def get_authorized_user_weibo(self):
         if self._current_user.is_authorized_author:
-            authorized_user = Authorized_User_Profile.objects.get(user_id=1964551)
+            authorized_user = Authorized_User_Profile.objects.get(user_id=self._current_user.pk)
             authorized_user_weibo_id = authorized_user.weibo_id
             return authorized_user_weibo_id
 
