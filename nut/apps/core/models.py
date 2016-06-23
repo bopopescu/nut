@@ -1577,12 +1577,9 @@ class Article(BaseModel):
     def enter_selection_time(self):
         '''used for solr index'''
         try:
-            enter_selection_time = self.selections.filter(is_published=True).order_by('-pub_time').first().pub_time or \
-                self.selections.filter(is_published=True).order_by('-pub_time').first().create_time
-            return enter_selection_time
-
+            return self.selections.filter(is_published=True).order_by('-pub_time').first().pub_time
         except Exception as e:
-            log.warning('get enter_selection_time failed, %s' % e.message)
+            # log.warning('get enter_selection_time failed, %s' % e.message)
             return self.created_datetime
 
     @property
