@@ -377,7 +377,7 @@ class ArticleRemarkCreate(AjaxResponseMixin, LoginRequiredMixin, JSONResponseMix
         if stopping :
             return self.render_json_response({'error':1 , 'message': 'too many request'}, status=500)
         else:
-            cache.set(key, True, timeout=4)
+            cache.set(key, True, timeout=3)
             pass
 
 
