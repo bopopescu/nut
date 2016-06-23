@@ -177,6 +177,7 @@ define([
             var status = parseInt(result.status);
             if (status === 1){
                 bootbox.alert('评论成功!');
+                window.setTimeout( function(){ bootbox.hideAll();}, 2000);
                 this.addNewRemark(result);
                 this.cleanInput();
                 this.cleanReplyNotice();
