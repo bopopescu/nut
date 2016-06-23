@@ -8,9 +8,10 @@
 
 action: 
 
+ALTER TABLE `core`.`tag_tags` 
 ADD COLUMN `isPubishedEntityTag` TINYINT(1) NOT NULL DEFAULT 0;
-ALTER TABLE `core`.`tag_tags` ADD COLUMN `description` varchar(1024) COLLATE utf8mb4_unicode_ci DEFAULT NULL;
 
+ALTER TABLE `core`.`tag_tags` ADD COLUMN `description` varchar(1024) COLLATE utf8mb4_unicode_ci DEFAULT NULL;
 =======================
 # merged to master 2016 6-16
 =======================
