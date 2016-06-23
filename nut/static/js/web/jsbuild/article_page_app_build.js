@@ -3407,6 +3407,7 @@ define('subapp/article/article_remark',[
             var status = parseInt(result.status);
             if (status === 1){
                 bootbox.alert('评论成功!');
+                window.setTimeout( function(){ bootbox.hideAll();}, 1000);
                 this.addNewRemark(result);
                 this.cleanInput();
                 this.cleanReplyNotice();
