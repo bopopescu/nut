@@ -31,6 +31,7 @@ require([
 
               ArticleLinkScroll,
               ArticleDig,
+
               ArticlePageCounter,
 
               EntityCardRender,
@@ -55,11 +56,12 @@ require([
         var articlePageCounter = new ArticlePageCounter();
         var entityCardRender = new EntityCardRender();
         var sidebar = new SideBarManager();
-        var relatedArticleLoader = new RelatedArticleLoader();
+        //var relatedArticleLoader = new RelatedArticleLoader();
         var articleRemark = new ArticleRemark();
         var articleSidebarSwitch = new ArticleSidebarSwitch();
         var user_follow = new UserFollow();
         var shareApp = new ArticleShareApp();
+        var related_slick = new ArticleRelatedSlick();
         FastClick.attach(document.body);
 
 });
