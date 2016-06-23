@@ -1,13 +1,24 @@
 5. 
-4. new article detail page 
-3. notification 
-2. removed entity's detail page , add search button
-1. sub category sort buy like (bug fix )
+4.  mng - tag mng , publish , raw data page 
+3.  notification  loading pic 
+2.  article  detail page  update
+1.  发现页－推荐用户 - 滚动 - LQ
 
-action : 
-  百度广告联盟 认证
-  GOOGLE ADSCENCE 认证
-  
+action: 
+
+ADD COLUMN `isPubishedEntityTag` TINYINT(1) NOT NULL DEFAULT 0;
+ALTER TABLE `core`.`tag_tags` ADD COLUMN `description` varchar(1024) COLLATE utf8mb4_unicode_ci DEFAULT NULL;
+
+=======================
+# merged to master 2016 6-16
+=======================
+
+5. mng - like entity report 
+4. web - new article detail page 
+3. web - top menu notification 
+2. web - in removed entity's detail page , add search button
+1. web - sub category sort buy like (bug fix )
+
 action : 
   ALTER TABLE `core`.`shop_shop` 
 ADD COLUMN `tb_shop_id` VARCHAR(64) NULL DEFAULT NULL AFTER `shop_type`;
@@ -55,7 +66,7 @@ ADD COLUMN `last_update` DATETIME NOT NULL DEFAULT '2013-12-01T00:00:00.000' AFT
 
 
 
-=======================
+git =======================
 # merged to master 2016 5-23
 =======================
 

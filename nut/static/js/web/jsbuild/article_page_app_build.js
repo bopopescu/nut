@@ -1346,21 +1346,13 @@ define('subapp/top_notification/top_notification',[
     fastdom,
     _
 ){
-
-
     var TopNotification = Class.extend({
         init: function(){
             this.flag = 0;
             console.log('top notification begin');
             this.initClickBell();
-            //this.initAjax();
             this.checkBadge();
         },
-    //    initAjax:function(){
-    //    if($('.notification-drop-list-wrapper').length > 0){
-    //        this.postAjaxNotification();
-    //    }
-    //},
         initClickBell: function(){
             $('.navbar-collapse .notification-icon').click(this.handleClickBell.bind(this));
         },
@@ -1400,8 +1392,10 @@ define('subapp/top_notification/top_notification',[
         postSuccess:function(result){
             var status = parseInt(result.status);
             if(status == 1){
+                this.hiddenLoadingIcon();
                 this.showNotificationItems(result);
             }else{
+                this.hiddenLoadingIcon();
                 this.showFail(result);
             }
         },
@@ -1415,8 +1409,14 @@ define('subapp/top_notification/top_notification',[
             };
             $('.notification-drop-list').append(notificationItems(datas));
         },
+        showFail:function($ele){
+            console.log('ajax data failed.');
+        },
         postFail:function(data){
             console.log('request failed.please try again');
+        },
+        hiddenLoadingIcon:function(){
+            $('.notification-loading-icon').hide();
         }
 
     });
@@ -7094,35 +7094,47 @@ require([
         'subapp/page',
         'subapp/topmenu',
         'subapp/gotop',
+
         'subapp/article/article_link_scroll',
         'subapp/articledig',
         'subapp/articlepagecounter',
+
         'subapp/entitycard',
         'subapp/detailsidebar',
         'subapp/related_article_loader',
+
         'subapp/article/article_share',
         'subapp/article/article_remark',
         'subapp/article/article_related_slick',
+
         'subapp/article/article_sidebar_switch',
         'subapp/user_follow',
+        'libs/fastclick',
         'libs/csrf',
-        'libs/fastclick'
+
     ],
     function (polyfill,
               jQuery,
               Page,
               Menu,
               GoTop,
+
               ArticleLinkScroll,
               ArticleDig,
+
               ArticlePageCounter,
+
               EntityCardRender,
               SideBarManager,
               RelatedArticleLoader,
+
+              ArticleShareApp,
               ArticleRemark,
+              ArticleRelatedSlick,
+
               ArticleSidebarSwitch,
               UserFollow,
-              ArticleShareApp,
+
               FastClick
 
     ){
@@ -7134,11 +7146,12 @@ require([
         var articlePageCounter = new ArticlePageCounter();
         var entityCardRender = new EntityCardRender();
         var sidebar = new SideBarManager();
-        var relatedArticleLoader = new RelatedArticleLoader();
+        //var relatedArticleLoader = new RelatedArticleLoader();
         var articleRemark = new ArticleRemark();
         var articleSidebarSwitch = new ArticleSidebarSwitch();
         var user_follow = new UserFollow();
         var shareApp = new ArticleShareApp();
+        var related_slick = new ArticleRelatedSlick();
         FastClick.attach(document.body);
 
 });

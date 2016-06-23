@@ -11,21 +11,13 @@ define([
     fastdom,
     _
 ){
-
-
     var TopNotification = Class.extend({
         init: function(){
             this.flag = 0;
             console.log('top notification begin');
             this.initClickBell();
-            //this.initAjax();
             this.checkBadge();
         },
-    //    initAjax:function(){
-    //    if($('.notification-drop-list-wrapper').length > 0){
-    //        this.postAjaxNotification();
-    //    }
-    //},
         initClickBell: function(){
             $('.navbar-collapse .notification-icon').click(this.handleClickBell.bind(this));
         },
@@ -65,8 +57,10 @@ define([
         postSuccess:function(result){
             var status = parseInt(result.status);
             if(status == 1){
+                this.hiddenLoadingIcon();
                 this.showNotificationItems(result);
             }else{
+                this.hiddenLoadingIcon();
                 this.showFail(result);
             }
         },
@@ -80,8 +74,14 @@ define([
             };
             $('.notification-drop-list').append(notificationItems(datas));
         },
+        showFail:function($ele){
+            console.log('ajax data failed.');
+        },
         postFail:function(data){
             console.log('request failed.please try again');
+        },
+        hiddenLoadingIcon:function(){
+            $('.notification-loading-icon').hide();
         }
 
     });
