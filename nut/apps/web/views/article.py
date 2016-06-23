@@ -34,6 +34,8 @@ import requests
 
 from apps.web.forms.remark import ArticleRemarkForm
 from apps.core.models import Article_Remark
+from django.core.cache import cache
+
 
 textrank_url = getattr(settings, 'ARTICLE_TEXTRANK_URL', None)
 
@@ -364,7 +366,20 @@ class ArticleRemarkCreate(AjaxResponseMixin, LoginRequiredMixin, JSONResponseMix
         article = Article.objects.get(pk=self.article_id)
         return article
 
+    def get_user_remark_timer_key(self):
+        return 'timer:user:create_remark:%s'%self.request.user.id
+
+
     def post_ajax(self, request, *args, **kwargs):
+        # timer , to avoid automation submit
+        key = self.get_user_remark_timer_key()
+        stopping = cache.get(key)
+        if stopping :
+            return self.render_json_response({'error':1 , 'message': 'too many request'}, status=500)
+        else:
+            cache.set(key, True, timeout=4)
+            pass
+
 
         article_remark = Article_Remark(user=self.request.user, article=self.get_article())
         arform = ArticleRemarkForm(self.request.POST, instance=article_remark)
