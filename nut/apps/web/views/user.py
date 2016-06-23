@@ -592,11 +592,10 @@ class UserIndex(UserPageMixin, DetailView):
                                     .values_list('entity_id', flat=True)
             return el
 
-    def get_authorized_user_weibo(self):
+    def get_authorized_user_info(self):
         if self._current_user.is_authorized_author:
-            authorized_user = Authorized_User_Profile.objects.get(user_id=self._current_user.pk)
-            authorized_user_weibo_id = authorized_user.weibo_id
-            return authorized_user_weibo_id
+            authorized_user_info = Authorized_User_Profile.objects.get(user_id=self._current_user.pk)
+            return authorized_user_info
 
     def get_context_data(self,**kwargs):
         context_data = super(UserIndex, self).get_context_data(**kwargs)
@@ -646,7 +645,7 @@ class UserIndex(UserPageMixin, DetailView):
         context_data['user_like_top_categories']= self.get_user_like_categories()
         context_data['current_category'] =  self.get_current_category()
 
-        context_data['user_weibo_id'] = self.get_authorized_user_weibo()
+        context_data['authorized_user_info'] = self.get_authorized_user_info()
 
         return context_data
 
