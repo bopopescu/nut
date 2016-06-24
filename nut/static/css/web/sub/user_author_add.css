@@ -1190,6 +1190,7 @@ p.boolean-false {
 }
 .authorized_author_info .user-media-wrapper .media-item a.media-link.media-wechat:hover {
   color: #51C332;
+  cursor: pointer;
 }
 .authorized_author_info .user-media-wrapper .media-item a.media-link.media-weibo:hover {
   color: #E90D24;
