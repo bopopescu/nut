@@ -3316,6 +3316,7 @@ define('subapp/article/article_remark',[
                                 $.post(url,{deleteId:replyToId},function(res){
                                     if(res['success']){
                                         bootbox.alert('删除成功!');
+                                        that.autoHideDialog();
                                         $(target).remove();
                                     }else{
                                         bootbox.alert('删除失败!请稍后尝试。');
@@ -3407,6 +3408,7 @@ define('subapp/article/article_remark',[
             var status = parseInt(result.status);
             if (status === 1){
                 bootbox.alert('评论成功!');
+                this.autoHideDialog();
                 this.addNewRemark(result);
                 this.cleanInput();
                 this.cleanReplyNotice();
@@ -3436,6 +3438,9 @@ define('subapp/article/article_remark',[
         },
         cleanReplyToId:function(){
             $('#id_reply_to').val('');
+        },
+        autoHideDialog:function(){
+            window.setTimeout( function(){ bootbox.hideAll();}, 1000);
         }
 
     });
