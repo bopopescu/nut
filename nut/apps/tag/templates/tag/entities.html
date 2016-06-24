@@ -23,8 +23,13 @@
 {% endif %}
     <div class="container">
         {% if request.user.is_staff %}
+
             <div class="row user-admin-link-wrapper">
-                <a class="pull-right" href="{% url 'management_tag_edit' tag.id %}" target="_blank"><i class="fa fa-edit"></i></a>
+                <a class="pull-right" href="{% url 'management_tag_entities_detail' tag.id %}" target="_blank">TAG数据列表<i class="fa fa-edit"></i></a>
+            </div>
+
+            <div class="row user-admin-link-wrapper">
+                <a class="pull-right" href="{% url 'management_tag_edit' tag.id %}" target="_blank"> 编辑TAG<i class="fa fa-edit"></i></a>
             </div>
         {% endif %}
         <div class="row" id="tag-entity-list" data-refresh="{{ refresh_time }}">
