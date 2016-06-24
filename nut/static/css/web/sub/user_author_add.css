@@ -1197,6 +1197,17 @@ p.boolean-false {
 .authorized_author_info .user-media-wrapper .media-item a.media-link.media-website:hover {
   color: #3F6FF0;
 }
+.media-wx-share-dialog .modal-dialog {
+  width: 250px;
+  height: auto;
+  margin-top: 150px;
+}
+.media-wx-share-dialog .modal-dialog .modal-header {
+  display: none;
+}
+.media-wx-share-dialog .modal-dialog .qr-code-wrapper.qr-code-control {
+  text-align: center;
+}
 .guoku-content.user-page .user-latest-actions-wrapper .latest-actions-sidebar-wrapper {
   height: 100%;
 }

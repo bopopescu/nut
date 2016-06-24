@@ -1,4 +1,4 @@
-define(['jquery', 'libs/Class','underscore','bootbox', 'libs/qrcode'], function(
+define(['jquery', 'libs/Class','underscore','bootbox'], function(
     $, Class,_,bootbox
 ){
 
