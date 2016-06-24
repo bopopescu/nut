@@ -48,23 +48,32 @@
 {#                     <div class="user-binding">#}
 {#                             <a href="{{ current_user.weibo.weibo_link }}" target="_blank"><i class="fa fa-weibo user-binding-icon"></i></a>#}
 {#                     </div>#}
+                    {% endif %}
+                    <ul class="user-media-wrapper">
+                         {% if authorized_user_info.weibo_id %}
+                             <li class="media-item">
+                                 <a class="media-link media-weibo" href="http://weibo.com/u/{{ authorized_user_info.weibo_id}}" target="_blank">
+                                     <i class="fa fa-weibo"></i>
+                                 </a>
+                             </li>
                         {% endif %}
-                    {% if authorized_user_info.weibo_id %}
-                        <a href="http://weibo.com/u/{{ authorized_user_info.weibo_id}}" target="_blank">
-                            <i class="fa fa-weibo user-binding-icon"></i>
-                        </a>
-                    {% endif %}
-                    {% if authorized_user_info.weixin_qrcode_img %}
-                        <a href="" target="_blank">
-                            <i class="fa fa-wechat user-binding-icon"></i>
-                        </a>
-                    {% endif %}
-                    {% if authorized_user_info.author_website %}
-                        <a href="{{ authorized_user_info.author_website }}" target="_blank">
-                            <i class="fa fa-home user-binding-icon"></i>
-                        </a>
-                    {% endif %}
 
+                        {% if authorized_user_info.weixin_qrcode_img %}
+                            <li class="media-item">
+                                <a class="media-link media-wechat" href="" target="_blank">
+                                    <i class="fa fa-wechat"></i>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        {% if authorized_user_info.author_website %}
+                             <li class="media-item">
+                                 <a class="media-link media-website" href="{{ authorized_user_info.author_website }}" target="_blank">
+                                     <i class="fa fa-home"></i>
+                                 </a>
+                            </li>
+                        {% endif %}
+                    </ul>
                     <div class="user-social-wrapper">
                         <p class="user-social">
                         <a style="color: #414243" href="{{ web_user_followings_url }}">

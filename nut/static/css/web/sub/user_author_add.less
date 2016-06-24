@@ -81,6 +81,39 @@
 
 //--------------------------
 //user-author-page style
+.authorized_author_info .user-media-wrapper{
+  margin:15px auto 5px;
+  .media-item{
+    display:inline-block;
+    width:28px;
+    height:28px;
+    line-height: 28px;
+    border-radius: 50%;
+    background-color: @default-background;
+    text-align: center;
+    a.media-link{
+      display: inline-block;
+      width:100%;
+      height:100%;
+      color:@new-text-gray;
+      &.media-wechat{
+        &:hover{
+          color:@wechat-hover-color;
+        }
+      }
+      &.media-weibo{
+         &:hover {
+           color: @weibo-hover-color;
+         }
+      }
+      &.media-website{
+         &:hover {
+           color: @btn-blue-dark;
+         }
+      }
+    }
+  }
+}
 
 .guoku-content.user-page{
   .user-latest-actions-wrapper{
