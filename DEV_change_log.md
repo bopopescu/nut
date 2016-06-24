@@ -1,3 +1,12 @@
+
+
+3. tag page raw list link , show buy link
+2. tag page add raw list link , only for staff user 
+1. fix web user add entity bug 
+=======================
+# merged to master 2016 6-24
+=======================
+
 6.  other add new index field for article enter selection time 
 5.  mng - article list seperate rss author
           article author list sort bug fix 
