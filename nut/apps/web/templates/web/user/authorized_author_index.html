@@ -60,7 +60,7 @@
 
                         {% if authorized_user_info.weixin_qrcode_img %}
                             <li class="media-item">
-                                <a class="media-link media-wechat" href="" target="_blank">
+                                <a class="media-link media-wechat">
                                     <i class="fa fa-wechat"></i>
                                 </a>
                             </li>
@@ -107,4 +107,12 @@
 
 
     {% include 'web/main/partial/number_paginator.html' with objects=author_articles url=request.path %}
+
+    <script type="text/html" id="share_weixin_modal_content">
+        <div class="share-modal-wrapper share-modal-wrapper-control">
+            <div class="qr-code-wrapper qr-code-control">
+                <img src="{{ authorized_user_info.weixin_qrcode_img|resize:'200' }}" width="200px" height="200px"/>
+            </div>
+        </div>
+    </script>
 {% endblock %}
