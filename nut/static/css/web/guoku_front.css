@@ -2754,6 +2754,9 @@ body.compact-body {
 .new-index-body #index-banners .slick-next {
   right: 12%;
 }
+.new-index-body .guoku-content.index-page {
+  margin-top: 32px;
+}
 #index-banners {
   width: 100%;
   margin: 0 auto;
