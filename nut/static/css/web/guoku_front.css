@@ -2755,7 +2755,13 @@ body.compact-body {
   right: 12%;
 }
 .new-index-body .guoku-content.index-page {
-  margin-top: 32px;
+  margin-top: 0;
+}
+.new-index-body .new-section-title-wrapper {
+  margin: 32px 0 16px;
+}
+.new-index-body .latest-entity-wrapper {
+  margin-bottom: -18px;
 }
 #index-banners {
   width: 100%;
