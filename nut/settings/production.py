@@ -5,7 +5,7 @@ from settings import *
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-STATIC_URL = 'http://static.guoku.com/static/v4/5565bdff5d3ae959b026726d16e142cf6113914e/'
+STATIC_URL = 'http://static.guoku.com/static/v4/c0fa129f83cd60ced925a7715db28be462198c41/'
 
 LANGUAGE_CODE = 'zh-cn'
 
@@ -86,7 +86,7 @@ LOGGING = {
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://10.0.2.110:8983/solr/',
+        'URL': 'http://10.0.2.115:8983/solr/',
         'INCLUDE_SPELLING': True,
     }
 }

@@ -86,7 +86,6 @@ class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
     read_count              = indexes.IntegerField(model_attr='read_count')
     dig_count               = indexes.IntegerField(model_attr='dig_count')
     is_selection            = indexes.BooleanField(model_attr='is_selection')
-    last_selection_time     = indexes.DateTimeField(model_attr='last_selection_time')
     enter_selection_time    = indexes.DateTimeField(model_attr='enter_selection_time')
     title_auto              = indexes.EdgeNgramField(model_attr='title')
 
