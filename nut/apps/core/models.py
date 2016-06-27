@@ -1583,16 +1583,17 @@ class Article(BaseModel):
     def enter_selection_time(self):
         '''used for solr index'''
         try:
-            enter_selection_time = self.selections.filter(is_published=True)\
-                                                  .order_by('-pub_time')\
-                                                  .first().pub_time or \
-                                    self.selections.filter(is_published=True)\
-                                                  .order_by('-pub_time')\
-                                                  .first().create_time
+            enter_selection_time = self.selections.filter(is_published=True) \
+                                       .order_by('-pub_time') \
+                                       .first().pub_time or \
+                                   self.selections.filter(is_published=True) \
+                                       .order_by('-create_time') \
+                                       .first().create_time
             return enter_selection_time
+        except AttributeError:
+            return self.created_datetime
         except Exception as e:
-            # log.warning('get enter_selection_time failed, %s' % e.message)
-            # no need to log that warning , for most article won't get into selection articles
+            log.warning('get enter_selection_time failed, %s' % e.message)
             return self.created_datetime
 
     @property
