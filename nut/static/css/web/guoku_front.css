@@ -2748,6 +2748,12 @@ body > .container {
 body.compact-body {
   padding-top: 51px;
 }
+.new-index-body #index-banners .slick-prev {
+  left: 12%;
+}
+.new-index-body #index-banners .slick-next {
+  right: 12%;
+}
 #index-banners {
   width: 100%;
   margin: 0 auto;
@@ -5395,5 +5401,5 @@ body .for-mobile {
   color: #357ebd;
 }
 .gk_test {
-  color: black;
+  color: red;
 }

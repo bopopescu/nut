@@ -21,7 +21,7 @@
    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick-theme.css' %}"/>
  {% endblock %}
 {#set body class here to disable body padding-top#}
-{% block body_class %} gray-body compact-body {% endblock %}
+{% block body_class %} compact-body new-index-body{% endblock %}
 
 
 {% block content %}
@@ -29,7 +29,7 @@
 
 <div class="banner-wrapper" id="index-banners">
     {% for banner in banners %}
-    <div class="banner-image-cell">
+    <div class="banner-image-cell banner-image-cell-control">
           <div class="banner-image-wrapper" style="background-image: url('{{ banner.img }}')">
 {#              <img class="img-responsive" src="{{ banner.img }}"/>#}
           </div>

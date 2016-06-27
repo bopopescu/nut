@@ -4249,7 +4249,9 @@ define('subapp/index/banner',['jquery', 'libs/Class','libs/slick','fastdom'], fu
                         arrows: true,
                         slidesToShow: 1,
                         centerPadding:'18%',
-                        dots:true,
+                        dots:false,
+                        autoplay: true,
+                        autoplaySpeed: 3000,
 
                         //centerPadding: '60px',
                         //slidesToShow: 3,
