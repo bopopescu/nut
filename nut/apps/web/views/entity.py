@@ -7,6 +7,7 @@ from django.template import RequestContext
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.core.cache import cache
 
 from apps.core.utils.http import JSONResponse
 from apps.core.views import BaseJsonView
@@ -386,8 +387,20 @@ def entity_create(request, template="web/entity/new.html"):
         )
 
 
+def get_user_load_key(user):
+    return 'timer:user:load_entity_url:%s' % user.id
 @login_required
 def entity_load(request):
+    key = get_user_load_key(request.user)
+    # debouncing using cache timeout
+    loading = cache.get(key)
+    if loading:
+        return JSONResponse(data={'error':'too many request'}, status=403)
+    else :
+        cache.set(key ,True , timeout=7)
+        pass
+    #debouncing end
+
     if request.method == "POST":
         _forms = EntityURLFrom(request=request, data=request.POST)
         if _forms.is_valid():
@@ -405,7 +418,7 @@ def entity_load(request):
                 }
             return JSONResponse(data=_res)
 
-    raise HttpResponseNotAllowed
+    return JSONResponse(data={'error':'request method not right'},status=403)
 
 
 @login_required
@@ -442,6 +455,8 @@ class gotoBuyView(RedirectView):
 
         if "amazon" in b.origin_source:
             return b.amazon_url
+        elif "kaola" in b.origin_source:
+            return b.kaola_url
         return b.link
 
     def get(self, request, *args, **kwargs):
@@ -465,9 +480,21 @@ class TaobaoRecommendationView(BaseJsonView):
             'keyword': self.keyword,
             'mall':self.mall,
             'count': self.count,
+            # 'user_id': self.user_id,
         }
+        if self.user_id:
+            payload.update({
+                'uid':self.user_id,
+            })
+        print  payload
         r = requests.get(taobao_recommendation_url, params=payload)
-        data = r.json()
+        try:
+            data = r.json()
+        except ValueError, e:
+            log.error(e.message)
+            # print r.url
+            # print e.message
+            data = {}
         return data
 
     def get(self, request, *args, **kwargs):
@@ -476,6 +503,10 @@ class TaobaoRecommendationView(BaseJsonView):
         assert self.keyword is not None
         self.mall = request.GET.get('mall', False)
         self.count = request.GET.get('count', 12)
+        if request.user.is_authenticated():
+            self.user_id = request.user.id
+        else:
+            self.user_id = None
         # self.mall = kwargs.pop('mall', False)
         return super(TaobaoRecommendationView, self).get(requests, *args, **kwargs)
 

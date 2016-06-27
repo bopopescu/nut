@@ -2,6 +2,7 @@
 
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.core.models import  Entity_Like, Entity, Selection_Article, Category, Sidebar_Banner
+from apps.site_banner.models import SiteBanner
 from django.http import Http404
 
 
@@ -83,6 +84,7 @@ def add_side_bar_context_data(context):
     context['pop_entities'] = _pop_entities
     context['pop_categories'] = Category.objects.filter(status=True)
     context['pop_articles'] = popular_articles
-    context['sidebar_banners'] = Sidebar_Banner.objects.active_sbbanners()
+    # context['sidebar_banners'] = Sidebar_Banner.objects.active_sbbanners()
+    context['sidebar_banners'] = SiteBanner.objects.get_sidebar_banner()
 
     return context

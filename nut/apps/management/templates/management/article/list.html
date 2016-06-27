@@ -51,7 +51,20 @@
 
                             <thead>
                             <tr>
-                                <th class="id">#</th>
+                                <th class="id">
+                                    {% if for_author %}
+                                        {% if for_person %}
+                                            <a href="{% url 'management_author_article_person_list' current_author.pk %}?sort_by=id">
+                                        {% else %}
+                                            <a href="{% url 'management_author_article_list' %}?sort_by=id">
+                                        {% endif %}
+                                    {% else %}
+                                        <a href="{% url 'management_article_list' %}?sort_by=id">
+                                    {% endif %}
+                                    # {%  if sort_by == 'id' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}
+                                        </a>
+
+                                </th>
                                 <th class="cover">{% trans 'cover' %}</th>
                                 <th class="title">{% trans 'title' %}</th>
                                 <th class="person-link" >{% trans 'author' %}</th>
@@ -59,7 +72,19 @@
                                 <th class="read-count">文章标签</th>
                                 <th class="edit-operation">{% trans 'operation' %}</th>
 
-                                <th class="cell-datetime">创建时间 </th>
+                                <th class="cell-datetime">
+                                    {% if for_author %}
+                                        {% if for_person %}
+                                            <a href="{% url 'management_author_article_person_list' current_author.pk %}?sort_by=created_datetime">
+                                        {% else %}
+                                              <a href="{% url 'management_author_article_list' %}?sort_by=created_datetime">
+                                        {% endif %}
+                                    {% else %}
+                                        <a href="{% url 'management_article_list' %}?sort_by=created_datetime">
+                                    {% endif %}
+                                    创建时间 {%  if sort_by == 'created_datetime' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}
+                                        </a>
+                                </th>
                                 <th class="cell-number">加入精选次数</th>
                                 <th class="date-time" >上次精选发布时间</th>
                                 <th class="edit-operation">精选操作</th>
@@ -123,7 +148,8 @@
                     </div>
 
                     <div class="box-footer">
-                        {% include "management/entities/paginator_new.html" with page_obj=page_obj url=request.path %}
+{#                        {% include "management/entities/paginator_new.html" with page_obj=page_obj url=request.path %}#}
+                        {% include "management/paginator.html" with objects=page_obj url=request.path %}
                     </div>
                 </div>
             </div>

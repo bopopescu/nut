@@ -18,7 +18,7 @@ from apps.core.mixins.views import SortMixin, FilterMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
 from apps.management.forms.users import UserAuthorInfoForm , UserAuthorSetForm ,\
-                                        UserSellerSetForm
+                                        UserSellerSetForm, UserActiveUserSetForm
 
 from django.utils.log import getLogger
 log = getLogger('django')
@@ -88,6 +88,20 @@ class UserAuthorSetView(UserPassesTestMixin,JSONResponseMixin, UpdateView):
 class UserSellerSetView(UserPassesTestMixin, JSONResponseMixin, UpdateView):
     pk_url_kwarg = 'user_id'
     form_class = UserSellerSetForm
+    model = GKUser
+    def form_valid(self, form):
+        form.save()
+        return self.render_json_response({'error': 0},status=200)
+
+    def form_invalid(self, form):
+        return self.render_json_response({'error':1, 'message':'invalid form'}, status=500)
+
+    def test_func(self, user):
+        return user.is_admin
+
+class UserActiveUserSetView(UserPassesTestMixin, JSONResponseMixin, UpdateView):
+    pk_url_kwarg = 'user_id'
+    form_class = UserActiveUserSetForm
     model = GKUser
     def form_valid(self, form):
         form.save()
@@ -216,6 +230,8 @@ class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListVie
             user_list = querySet.authorized_seller().using('slave')
         elif active == '789':
             user_list = querySet.authorized_user().using('slave')
+        elif active == '600':
+            user_list = querySet.active_user().using('slave')
         else:
             user_list= []
 
@@ -228,7 +244,7 @@ class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListVie
         return context
 
     def test_func(self, user):
-        return user.is_admin
+        return user.is_staff or user.is_editor
 
 
 # deprecated , prepare to remove

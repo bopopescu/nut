@@ -102,12 +102,86 @@
     margin-top:-5px;
   }
 
+  .recommend-user-wrapper{
+    overflow: hidden;
+  }
 }
+
+//发现页的推荐品类,横向滚动
+#category-container{
+  //overflow: hidden;
+  #category-item-container{
+    //width:7400px;
+    //overflow:hidden;
+    //overflow-x: scroll;
+    //fix alignment bug
+    margin-left:-12px;
+    margin-right:-12px;
+
+    li.category-item{
+      overflow: hidden;
+      float:left;
+      //要在768以下设为130左右
+      //width:200px;
+      margin-left:9px;
+      margin-right:9px;
+      //.category-item-pic{
+      //  width:180px;
+      //  height:180px;
+      //}
+
+      .category-item-pic{
+        .square-scale-bg;
+      }
+      .category-name{
+        text-align:center;
+      }
+    }
+  }
+}
+//发现页的推荐品类,横向滚动的icon
+#category-item-container,.recommend-user-list{
+  .slick-prev:before,.slick-next:before{
+    font-family: "FontAwesome";
+    font-size: @primary-size;
+    color:@common-text-color;
+  }
+  .slick-prev:before{
+    content:"\f053";
+  }
+  .slick-next:before{
+    content:"\f054";
+  }
+}
+#category-item-container{
+    .slick-prev{
+      left:-11px;
+    }
+    .slick-next{
+      right:-11px;
+    }
+}
+//recommend user section in discover page
+#discover_container .recommend-user-list{
+    .slick-prev{
+      left:-15px;
+      top:39px;
+    }
+    .slick-next{
+      right:-15px;
+      top:39px;
+    }
+}
+
 /*发现页-推荐用户*/
 .user-icon-list.recommend-user-list{
   .clearfix;
         li{
-          .recommend-user-icon-widget(81px,0,18px,10px,0);
+          text-align: center;
+          font-size: 14px;
+          margin-bottom: 40px;
+          .recommend-user-icon-widget(81px,0,9px,40px,9px);
+          height:120px;
           .img-frame{
               width: 100%;
               height: 0;
@@ -115,13 +189,31 @@
               background-size:cover;
               background-position: center center;
             }
+            img {
+              margin-bottom: 18px;
+            }
+            a {
+              color: @common-text-color;
+              outline: none;
+            }
+            span.user-name{
+            display:block;
+            .single-text-overflow;
+          }
+
         }
+        .all-users {
+            height: 120px;
+        }
+
 }
 
 @media (max-width:768px){
   .user-icon-list.recommend-user-list{
         li{
           .recommend-user-icon-widget(70px,0,15px,10px,0);
+          height:120px;
+          text-align: center;
         }
   }
 
@@ -164,6 +256,7 @@
   color: #999;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 13px;
   margin: 0px -10px 20px -10px;
   text-decoration: none;
@@ -172,7 +265,55 @@
   }
 }
 
-/* 分类页面 */
+/* 品类页面 */
+.category-detail-body{
+  padding-top:51px;
+}
+.category-detail-container{
+  margin-top:30px;
+  #top_article_tags_container{
+    a.more-link{
+      font-size:@smaller-primary;
+      &:hover{
+        text-decoration: none;
+      }
+    }
+  }
+}
+#sort_header-wrapper{
+  .category-breadcrumb-wrapper{
+    overflow:hidden;
+    float:left;
+    font-size: @smaller-primary;
+    ul li{
+      float:left;
+      a:hover{
+        text-decoration: none;
+      }
+      .fa{
+         margin-left:10px;
+        margin-right:10px;
+      }
+    }
+    ul li:last-child,.fa{
+      color:@common-gray;
+    }
+  }
+  .select-sort-wrapper{
+    font-size: @smaller-primary;
+  }
+
+}
+.category-sort-wrapper{
+  .box-shadow(@global-box-shadow);
+  width:100%;
+  height:50px;
+  line-height:50px;
+  background-color: #ffffff;
+  //position:fixed;
+  //top:51px;
+  //left:0;
+}
 .category-header {
   background-color: #FBFBFB;
   border: 1px solid #eee;
@@ -189,14 +330,74 @@
     }
   }
 }
+.tag-intro-wrapper{
+  position:relative;
+  margin-top:-30px;
+  margin-bottom:30px;
+  width:100%;
+  height:400px;
+  overflow:hidden;
+  text-align: center;
+  color:#ffffff;
+  .tag-bg-layer{
+     position: absolute;
+         left: 0;
+         top: 0;
+         width: 100%;
+         height:100%;
+         z-index:-10;
+     .acc-layer;
+         background-position: center;
+         background-size:150%;
+         background-repeat: no-repeat;
+         background-position-y: 0px;
+  }
+  .tag-title,.tag-desc{
+    width:100%;
+    max-width:400px;
+    margin:0 auto;
+    height:auto;
+  }
+  .tag-title{
+    margin-top:100px;
+  }
+  .tag-desc{
+    margin-top:50px;
+  }
 
+}
 .category-header > p {
   padding-left: 20px;
   font-size: 16px;
   line-height: 38px;
   /*color: rgb(102, 102, 102);*/
 }
-
+.second-level-category-wrapper{
+  .second-list-wrapper{
+    .category{
+      posiiton:relative;
+      .blank-rect{
+        width:56px;
+        height:56px;
+      }
+      .category-item-name{
+        position: absolute;
+        top:50%;
+        left:50%;
+        -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+        width:100%;
+        color:#999;
+        font-size:@mini-size;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+}
 /* 搜索页面 */
 .navbar-search {
   background-color: #F8F8F8;
@@ -698,6 +899,13 @@
   margin-right:15px;
 }
 
+.user-admin-link-wrapper{
+  .user-admin-link{
+    padding-right:15px;
+  }
+}
+
+
 .category-action a:hover,.category-action a{
   color:#414243;
   text-decoration: none;
@@ -1155,9 +1363,13 @@ a:hover{text-decoration:underline;}
     margin-top: 60px;
     height: 70px;
     .report-wrapper{
+      color:@common-gray;
       float:left ;
       display: inline-block;
       cursor:pointer;
+      &:hover{
+        color: @common-text-color;
+      }
     }
     .share-intro{
       font-size: @mini-size;
@@ -1255,6 +1467,8 @@ a:hover{text-decoration:underline;}
     padding-top:0;
   }
   .divider{
+    margin-left:-40px;
+    margin-right:-40px;
     margin-bottom: 20px;
     height:2px;
     border-bottom: 1px solid @very-light-gray;
@@ -1272,7 +1486,6 @@ a:hover{text-decoration:underline;}
 }
 
 .main-article{
-
   .writer-wrapper.writer-wrapper-control{
     position:relative;
     .article-user-follow{
@@ -1333,6 +1546,7 @@ a:hover{text-decoration:underline;}
 @media (min-width: 768px){
   .main-article{
     .panel;
+    padding:40px 40px;
     .writer-intro{
       padding-top: 0px;
       .writer-bio{
@@ -1382,6 +1596,9 @@ a:hover{text-decoration:underline;}
 }
 
 @media (max-width: 767px){
+  .article-onepage{
+
+  }
   .main-article{
     .writer-intro{
       padding-top: 0px;
@@ -1411,25 +1628,69 @@ a:hover{text-decoration:underline;}
     }
   }
 
-  .article-section-title{
-    padding-top: 30px;
-    .info-text{
-      padding-left: 15px;
-      border-left: 4px solid @common-gray;
-      position: relative;
-      left : -15px;
-      font-size:@mini-size;
-      color: @common-gray;
-    }
-  }
+  //.article-section-title{
+  //  padding-top: 30px;
+  //  .info-text{
+  //    padding-left: 15px;
+  //    border-left: 4px solid @common-gray;
+  //    position: relative;
+  //    left : -15px;
+  //    font-size:@mini-size;
+  //    color: @common-gray;
+  //  }
+  //}
 }
 
 
 .article-section-title{
-
   margin: 20px 0px;
-  font-size: @subtitle-size;
+}
 
+//article remark style
+
+  #remark-list{
+    .remark-list-item-wrapper{
+      padding: 10px 15px;
+      &:hover{
+        cursor:pointer;
+        //.border-radius(@global-box-radius);
+        //box-shadow: @panel-shaddow;
+        .remark-item .remark-detail .remark-operate{
+          .remark-reply,.remark-delete{
+            display: block;
+          }
+        }
+      }
+      .remark-item{
+        overflow: hidden;
+        .remark-detail{
+          margin-left:80px;
+          .remark-content{
+            margin-top:6px;
+          }
+          .remark-operate{
+            overflow: hidden;
+            font-size:@more-mini-size;
+            color:@common-gray;
+            .remark-reply,.remark-delete{
+              display: none;
+              margin-left:15px;
+            }
+          }
+        }
+      }
+    }
+  }
+  #login_user_remark{
+    padding:0 15px;
+  }
+
+
+@media (min-width: 768px){
+  .article-onepage .remarks-wrapper{
+    .panel;
+    margin: 15px 0px;
+  }
 }
 
 
@@ -1563,6 +1824,21 @@ html { overflow-y: scroll; }
      }
   }
 
+}
+
+//reset password page
+.form-title{
+  margin-bottom: 30px;
+}
+
+.form-horizontal .form-group .input-control{
+  max-width: 400px;
+}
+
+
+a.more-users {
+  font-size: 14px;
+  text-decoration: none;
 }
 
 .test{

@@ -7,9 +7,10 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.log import getLogger
 from django.utils.translation import gettext_lazy as _
+from django.db.models import Count
 
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
-from apps.core.models import Article, GKUser
+from apps.core.models import Article, GKUser , Category
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.management.decorators import staff_only
 
@@ -256,6 +257,21 @@ class BaseManagementArticleListView(UserPassesTestMixin, SortMixin, ListView):
     context_object_name = 'articles'
     default_sort_params = ('updated_datetime', 'desc')
 
+    def __init__(self):
+        super(BaseManagementArticleListView, self).__init__()
+        authorized_authors = GKUser.objects.authorized_author()
+        self.authorized_weixin_authors = []
+        self.authorized_rss_authors = []
+        for author in authorized_authors:
+            try:
+                if author.authorized_profile and author.authorized_profile.weixin_id:
+                    self.authorized_weixin_authors.append(author)
+                elif author.authorized_profile.rss_url:
+                    self.authorized_rss_authors.append(author)
+            except:
+                pass
+
+
     def test_func(self, user):
         return user.is_editor or user.is_staff
 
@@ -267,12 +283,25 @@ class BaseManagementArticleListView(UserPassesTestMixin, SortMixin, ListView):
 
 class AuthorArticlePersonList(BaseManagementArticleListView):
     def get_queryset(self):
-        _user_id = self.kwargs.get('pk', None)
-        if _user_id is None :
+        self._user_id = self.kwargs.get('pk', None)
+        qs = None
+        if self._user_id is None :
             raise  Http404
         else:
-            return Article.objects.filter(publish=Article.published,creator__id=_user_id)\
-                    .order_by('-updated_datetime', '-created_datetime')
+            qs = Article.objects.filter(publish=Article.published,creator__id=self._user_id)
+
+        return  self.sort_queryset(
+            qs,
+            *self.get_sort_params())
+
+    def sort_queryset(self, qs, sort_by, order):
+        if sort_by == 'created_datetime':
+            qs = qs.order_by('-created_datetime')
+        elif sort_by == 'id':
+            qs = qs.order_by('-id')
+        else:
+            qs = qs.order_by('-created_datetime')
+        return qs
 
     def get_current_author(self):
         _user_id = self.kwargs.get('pk', None)
@@ -281,27 +310,82 @@ class AuthorArticlePersonList(BaseManagementArticleListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(AuthorArticlePersonList, self).get_context_data(*args, **kwargs)
+        user = GKUser.objects.get(id=self._user_id)
+        if user.authorized_profile.rss_url:
+            context['authorized_authors'] = self.authorized_rss_authors
+        else:
+            context['authorized_authors'] = self.authorized_weixin_authors
         context['for_author'] = True
+        context['for_person'] = True
         context['current_author'] = self.get_current_author()
+        context['sort_by'] = self.get_sort_params()[0]
+        context['extra_query'] = 'sort_by=' + context['sort_by']
         return context
 
 
-class AuthorArticleList(BaseManagementArticleListView):
-    def get_queryset(self):
-        authorized_authors = GKUser.objects.authorized_author()
-        return  Article.objects.filter(publish=Article.published, creator__in=authorized_authors)\
-                        .order_by('-updated_datetime')
+
+
+class WeixinAuthorArticleList(BaseManagementArticleListView):
+
+    def sort_help(self, qs, sort_by, creator_list):
+        if sort_by == 'created_datetime':
+            qs = qs.filter(publish=Article.published, creator__in=creator_list).order_by(
+                '-created_datetime')
+        elif sort_by == 'id':
+            qs = qs.filter(publish=Article.published, creator__in=creator_list).order_by('-id')
+        else:
+            qs = qs.filter(publish=Article.published, creator__in=creator_list)
+        return qs
+
+    def sort_queryset(self, qs, sort_by, order):
+        qs = self.sort_help(qs, sort_by, self.authorized_weixin_authors)
+        return qs
 
     def get_context_data(self, *args, **kwargs):
-        context = super(AuthorArticleList, self).get_context_data(*args, **kwargs)
+        context = super(WeixinAuthorArticleList, self).get_context_data(*args, **kwargs)
+        context['authorized_authors'] = self.authorized_weixin_authors
         context['for_author'] = True
+        context['sort_by'] = self.get_sort_params()[0]
+        context['extra_query'] = 'sort_by='+context['sort_by']
+        return context
+
+class RssAuthorArticleList(WeixinAuthorArticleList):
+
+    def sort_queryset(self, qs, sort_by, order):
+        qs = self.sort_help(qs, sort_by, self.authorized_rss_authors)
+        return qs
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(RssAuthorArticleList, self).get_context_data(*args, **kwargs)
+        context['authorized_authors'] = self.authorized_rss_authors
         return context
 
 
 class ArticleList(BaseManagementArticleListView):
-    def get_queryset(self):
+    '''
+        get all articles write by guoku editor or guoku writer
+    '''
+    queryset = Article.objects.all()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ArticleList, self).get_context_data(*args, **kwargs)
+        context['sort_by'] = self.get_sort_params()[0]
+        context['extra_query'] = 'sort_by='+context['sort_by']
+        return context
+
+    def sort_queryset(self, qs, sort_by, order):
         authorized_authors = GKUser.objects.authorized_author()
-        return Article.objects.filter(publish=Article.published).exclude(creator__in=authorized_authors)
+        gk_authors= GKUser.objects.author()
+        qs = qs.filter(publish=Article.published,creator__in=gk_authors).exclude(creator__in=authorized_authors)
+
+        if sort_by == 'created_datetime':
+            qs = qs.order_by('-created_datetime')
+        elif sort_by == 'id':
+            qs = qs.order_by('-id')
+        else:
+            qs = qs.order_by('-id')
+        return qs
+
 
 
 class DraftArticleList(UserPassesTestMixin, SortMixin, ListView):
@@ -411,6 +495,9 @@ def edit(request, article_id, template="management/article/edit.html"):
         "tags": tag_string,
     }
 
+    categories = Category.objects.active()
+
+
     if request.method == "POST":
         _forms = EditArticleForms(article=_article, data=request.POST, files=request.FILES)
         # log.info(request.POST)
@@ -428,7 +515,8 @@ def edit(request, article_id, template="management/article/edit.html"):
         {
             "article": _article,
             "forms": _forms,
-            "tag_url": reverse_lazy('web_article_textrank',args=[_article.pk])
+            "tag_url": reverse_lazy('web_article_textrank',args=[_article.pk]),
+            "categories": categories
         },
         context_instance = RequestContext(request)
     )

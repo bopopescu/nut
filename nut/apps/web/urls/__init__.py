@@ -1,7 +1,7 @@
 from django.conf.urls import url, include, patterns
 from django.views.generic import RedirectView
 from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, DownloadView, CooperateView
-from apps.web.views.discover import DiscoverView
+from apps.web.views.discover import DiscoverView, RecommendUserView
 from apps.web.views.main import SelectionEntityList, SiteMapView
 from apps.web.views.entity import EntityCard, EntityLikersView
 from apps.web.views.main import GKSearchView, PopularView,IndexView
@@ -20,6 +20,8 @@ urlpatterns = patterns(
 
     url(r'^popular/$', PopularView.as_view(), name='web_popular'),
     url(r'^discover/$', DiscoverView.as_view(), name='web_discover'),
+    url(r'^discover/users/$', RecommendUserView.as_view(), name='web_recommend_users'),
+
     url(r'^search/?$', GKSearchView.as_view(), name='web_search'),
 
     url(r'^sitemap/$', SiteMapView.as_view(), name='web_sitemap_url'),

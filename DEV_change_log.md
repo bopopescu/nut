@@ -1,3 +1,303 @@
+
+
+3. tag page raw list link , show buy link
+2. tag page add raw list link , only for staff user 
+1. fix web user add entity bug 
+=======================
+# merged to master 2016 6-24
+=======================
+
+6.  other add new index field for article enter selection time 
+5.  mng - article list seperate rss author
+          article author list sort bug fix 
+4.  mng - tag mng , publish , raw data page 
+3.  web - notification  loading pic 
+2.  web - article  detail page  update, limit new remark rate , in view. 
+1.  web - 发现页－推荐用户 - 滚动 - LQ
+
+action: 
+
+ALTER TABLE `core`.`tag_tags` 
+ADD COLUMN `isPubishedEntityTag` TINYINT(1) NOT NULL DEFAULT 0;
+
+ALTER TABLE `core`.`tag_tags` ADD COLUMN `description` varchar(1024) COLLATE utf8mb4_unicode_ci DEFAULT NULL;
+=======================
+# merged to master 2016 6-16
+=======================
+
+5. mng - like entity report 
+4. web - new article detail page 
+3. web - top menu notification 
+2. web - in removed entity's detail page , add search button
+1. web - sub category sort buy like (bug fix )
+
+action : 
+  ALTER TABLE `core`.`shop_shop` 
+ADD COLUMN `tb_shop_id` VARCHAR(64) NULL DEFAULT NULL AFTER `shop_type`;
+
+
+=======================
+# merged to master 2016 6-2
+=======================
+
+4.  good store update 
+3.  broadcast  push management , test send
+2.  jpush notification , add android push 
+1.  add a Entity property :  is_pubed_selection 
+
+Action : 
+    1. add solr/haystack Entity index field (property) 
+         1.  is_pubed_selection
+         2.  enter_selection_time  
+       
+    2. need sync db 
+        add DailyPush model    
+        
+    3. fix field encoding , if needed 
+        ALTER TABLE `core`.`notifications_dailypush` 
+CHANGE COLUMN `push_text` `push_text` VARCHAR(64) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ;
+     
+####  for  entity buylink update use 
+
+ALTER TABLE `core`.`core_buy_link` 
+ADD COLUMN `last_update` DATETIME NOT NULL DEFAULT '2013-12-01T00:00:00.000' AFTER `foreign_price`;
+
+=======================
+# merged to master 2016 5-26
+=======================
+
+
+8.  web - brand page update --along
+7.  web - user add entity tmall price fix --along 
+6.  web - fix event page bug  -- lq
+5.  mng - selection entity batch new/freeze/remove --lq
+4.  api - app banner api switch    -- anchen 
+3.  web  -good-store optimize  -- lq
+2.  web  -update recommend user discover page display count to 10 -an 
+1.  other - price qr code update  -- anchen
+
+
+
+git =======================
+# merged to master 2016 5-23
+=======================
+
+5. update google analysis code 
+4. web -pop up store top banner -- lq
+3. api - article.digest filter blank characters  
+2. other - price tag html 
+1. mng - editor can  access brand list page and manage brand entity
+
+=======================
+# merged to master 2016 5-19
+=======================
+
+8. web - new article feed for editor selection article 
+7. web - good store page update  -- lq , ac
+6. web - entity detail , sold out entity add "去店铺" button
+5. web - recommended user name and all recommended user  page    -- lq
+4. mng - tmall price    -- along 
+3. mng - add '积极用户' manage    --  along
+2. backend - limit guoku generated email address , verify mail and change pass mail sending
+1. web - hide baichuan title when load fail 
+
+=======================
+# merged to master 2016 5-12
+=======================
+
+5.  search result highlight -- jiaxin 
+4.  site banner management (api will update at next monday, MNG first )  -- shuailong
+3.  wechat robot  -- anchen 
+2.  article page can not be zoom by user, mobile (bug fix) -- anchen
+1.  limit manage entity create editor choice to 8 and self  -- anchen
+
+#action need sync db 
+    add  RobotDic model for wechat robot 
+    
+    
+ may have been some text problem-   
+after  syncdb on test server , on mng page 
+following error appears 
+
+ (1267, "Illegal mix of collations (latin1_swedish_ci,IMPLICIT) and (utf8mb4_general_ci,COERCIBLE) for operation '='")
+ 
+
+ALTER TABLE `core`.`wechat_robotdic` 
+CHANGE COLUMN `keyword` `keyword` VARCHAR(128) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
+CHANGE COLUMN `resp` `resp` VARCHAR(1024) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ;
+
+
+ 
+=======================
+# merged to master 2016 5-9
+=======================
+
+5.  mng -  guoku editor/writer article list  -- anchen 
+4.  article page not found to 404 page , for searching engine consideration -- anchen
+3.  selection entity long pic css adjust , event entity pic vertical align  -- 罗倩
+2.  editor user can use management , except user edit --anchen 
+1.  add nick to core/model  -- 赵旭
+
+=======================
+# merged to master 2016 5-5
+=======================
+
+5. mng - entity list  - add editor frozen entity list 
+4. mng - entity edit - add link to selection time edit
+
+2. add source field to Article model (0 for local , 1 for weixin , 2 for rss)
+   add origin_url  field  into the Article model  
+   
+1. block web user load entity request in 7 seconds
+
+#action : 
+
+origin_source is add by huanghuang and not documented !!
+will not touch it . 
+
+ALTER TABLE `core`.`core_article` 
+ADD COLUMN `source` TINYINT(2) NULL DEFAULT 0 AFTER `origin_source`;
+
+ALTER TABLE `core`.`core_article` 
+ADD COLUMN `origin_url` VARCHAR(255) NULL DEFAULT NULL AFTER `source`;
+
+
+MORE action 
+
+
+=======================
+# merged to master 2016 4-28
+=======================
+
+
+7. MNG - fix amazon book product can not get image bug -- along 
+6. WEB - discover page , category slider   -- 罗倩
+5. API - user dic  add nick field for shorten user nick name  -- 赵旭
+3. MNG  - mng article , sortable  , by id and publish time  -- 赵旭
+2. MNG  - brand mng update   - 安
+1. move secret config into secret file   - 安
+
+
+#ACTION 
+none
+    
+    
+    
+    
+=======================
+# merged to master 2016 4-21
+=======================
+
+4. fix web group category page ajax refresh bug 
+3. fix api entity guess category id fail 
+2. add article mng edit author selection 
+1. brand entity management  
+
+##action
+
+CREATE TABLE `core_entity_brand` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `entity_id` integer NOT NULL UNIQUE,
+    `brand_id` integer NOT NULL,
+    `brand_order` integer NOT NULL
+)
+;
+ALTER TABLE `core_entity_brand` ADD CONSTRAINT `entity_id_refs_id_baee5e01` FOREIGN KEY (`entity_id`) REFERENCES `core_entity` (`id`);
+
+
+IMPORTANT  !!  WHY SKIP the following: 
+
+  when  syncdb 
+  for  Entity_Brand model 
+  
+  when excute  syncdb in local , 
+  encounter error :  cannot add foreign key constraint
+                   
+  done a lot test 
+                              
+  even defined model like this to avoid naming conflict   :
+  
+class Dog(BaseModel):
+    cat = models.ForeignKey(Brand, related_name='ant')
+    miao = models.IntegerField()    
+                           
+  still can not add brand_id constraint,
+  the id column in core_brand table must has something wrong 
+  
+  so , for last resort  create table by hand instead.
+ 
+  without the brand_id constraint , when add data to entity_brand 
+  , database will not check if the brand_id in core_brand table 
+  , these is not a problem for now .
+  
+                             
+  pls pay attention 
+
+
+=======================
+# merged to master 2016 4-17
+=======================
+
+1. fix category  new_or_selection , sort bug ,
+ 
+==================================
+# merged to master 2016 4-14 
+==================================
+
+14.  API: discover page article , add digest 
+13.  API:  filter removed user in activity/message 
+12.  article craw report update 
+11.  article mng edit , tag ,add parent category words for selection
+10.  good store , new banner 
+9.  API , FAN , following  list , category entity list , bug fix 
+8.  optimize user like category list query , reduce 2000ms query time 
+7.  article edit (web) no permission  REDIRECT to 403 page 
+6.  article edit (mng) support chinese comma
+5.  recommend user count up to 16 
+4.  api article list page , add field 'digest' for short article digest
+3.  fix category display int entity page header and description 
+2.  new category detail page , 
+    new subcategory page , 
+    new subcategory list page        --zhaoxu , luoqian  
+1.  discovery page  , category list  --zhaoxu , luoqian 
+
+==================================
+# merged to master 2016 4-7 
+==================================
+
+6. reset password page refactor  --zhaoxu, luoqian 
+5. fix entity liker 500 bug (see bug discussion below) --anchen
+4. brand page style update    -- luoqian 
+3. hidden pink button when media widh< 768 -- luoqian 
+2. baidu tracker selection page -- zuoning (not finished)
+1. kaola margin link generate   -- shuailong 
+
+##action 
+
+##about entity liker page BUG 
+
+for some row in table core_entity_like, 
+    column 'user_id' has value , 
+    which can not find in core_gkuser;
+
+
+SELECT core_entity_like.* FROM core.core_entity_like where user_id not in ( select  id from core_gkuser)
+
+
+temp solution :
+
+    entity_liker_list.html  , skip those like entities;
+
+final solution: 
+
+    delete those entries in core_entity_like
+
+
+
+==================================
+# merged to master 2016 3 - 31
+==================================
+
 8. good_store update, seller index page update --luoqian, zhaoxu 
 7. new cooperate static page         -- zuoning
 6. crawl article report update       -- shuailong , zuoning 

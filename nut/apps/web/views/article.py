@@ -1,10 +1,13 @@
 # coding=utf-8
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.exceptions import ObjectDoesNotExist
-from django.views.generic import  ListView,\
-                                  View,\
-                                  TemplateView,\
-                                  DetailView
+from django.forms import forms
+from django.forms.models import BaseModelFormSet
+from django.views.generic import ListView,\
+                                View,\
+                                TemplateView,\
+                                DetailView,\
+                                CreateView
 from django.shortcuts import redirect, get_object_or_404,render
 from django.http import Http404
 from django.template import RequestContext, loader,Context
@@ -28,6 +31,10 @@ from datetime import datetime
 from apps.core.tasks.article import dig_task, undig_task
 from django import  http
 import requests
+
+from apps.web.forms.remark import ArticleRemarkForm
+from apps.core.models import Article_Remark
+from django.core.cache import cache
 
 
 textrank_url = getattr(settings, 'ARTICLE_TEXTRANK_URL', None)
@@ -167,14 +174,15 @@ class EditorArticleCreate(UserPassesTestMixin, View):
         new_article.save()
         return redirect('web_editor_article_edit',new_article.pk)
 
-class EditorArticleEdit(AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,TemplateView):
+class EditorArticleEdit(LoginRequiredMixin, AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,TemplateView):
     fields = ['title']
     template_name = 'web/article/editor_edit.html'
     model = Article
+    raise_exception = True
 
     def test_func(self, user):
         the_article = self.get_article()
-        return user.can_write or (user.is_authorized_author and the_article.creator == user)
+        return  user.can_write or (user.is_authorized_author and the_article.creator == user)
 
     def get_article(self):
         pk = self.kwargs['pk']
@@ -193,7 +201,8 @@ class EditorArticleEdit(AjaxResponseMixin,JSONResponseMixin,UserPassesTestMixin,
             'form':the_form,
             'pk': pk,
             'cover_url': the_article.cover_url,
-            'is_chief_editor': self.request.user.is_chief_editor
+            'is_chief_editor': self.request.user.is_chief_editor,
+            'article':self.get_article()
         })
 
     def post_ajax(self, request, *args, **kwargs):
@@ -246,8 +255,9 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         if self.object is None:
-            return redirect('web_selection_articles')
+            raise Http404('你找的图文不在这里')
         context = self.get_context_data(object=self.object)
+        context['remark_count'] = context['remarks'].count()
         return self.render_to_response(context)
 
     def get_queryset(self):
@@ -265,8 +275,17 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
             return None
         return obj
 
+    def get_remark(self):
+        article_id = self.kwargs.get('pk')
+        remarks = Article_Remark.objects.filter(article_id=int(article_id)).exclude(status=-1).order_by('-create_time')
+        return remarks
+
+
+
     def get_context_data(self,**kwargs):
         context = super(ArticleDetail, self).get_context_data(**kwargs)
+
+        article_remark_form = ArticleRemarkForm()
 
         article = context['article']
         context['from_app'] = self.request.GET.get('from','normal') == 'app'
@@ -274,7 +293,8 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
         context['is_article_creator'] = self.request.user == self.object.creator
         context['can_show_edit'] = (not article.is_selection) and (self.request.user == article.creator)
         context['share_url'] = self.request.build_absolute_uri().replace('m.guoku.com', 'www.guoku.com')
-
+        context['form'] = article_remark_form
+        context['remarks'] = self.get_remark()
         dig_status = 0
         if self.request.user.is_authenticated():
             try:
@@ -338,5 +358,99 @@ class ArticleTextRankView(BaseJsonView):
         assert self.article_id is not None
 
         return super(ArticleTextRankView, self).get(request, *args, **kwargs)
+
+class ArticleRemarkCreate(AjaxResponseMixin, LoginRequiredMixin, JSONResponseMixin, View):
+
+    def get_article(self):
+        self.article_id = self.kwargs.get('pk',None)
+        article = Article.objects.get(pk=self.article_id)
+        return article
+
+    def get_user_remark_timer_key(self):
+        return 'timer:user:create_remark:%s'%self.request.user.id
+
+
+    def post_ajax(self, request, *args, **kwargs):
+        # timer , to avoid automation submit
+        key = self.get_user_remark_timer_key()
+        stopping = cache.get(key)
+        if stopping :
+            return self.render_json_response({'error':1 , 'message': 'too many request'}, status=500)
+        else:
+            cache.set(key, True, timeout=3)
+            pass
+
+
+        article_remark = Article_Remark(user=self.request.user, article=self.get_article())
+        arform = ArticleRemarkForm(self.request.POST, instance=article_remark)
+        user = self.request.user
+
+        if arform.is_valid():
+            try:
+                data = arform.cleaned_data
+                content = data['content']
+                reply_to = data['reply_to']
+                # print data.items()
+
+                article_remark_obj = arform.save()
+                if reply_to is not None:
+                    user_reply_to = Article_Remark.objects.get(pk=reply_to.id).user.nickname
+                    user_reply_to_url = Article_Remark.objects.get(pk=reply_to.id).user.absolute_url
+                else:
+                    user_reply_to = ''
+                    user_reply_to_url = ''
+
+                res = {
+                    'remark_id': article_remark_obj.id,
+                    'user': user.nickname,
+                    'user_id': user.id,
+                    'user_avatar': user.avatar_url,
+                    'user_url': user.absolute_url,
+                    'content': content,
+                    'user_reply_to':  user_reply_to,
+                    'user_reply_to_url': user_reply_to_url,
+                    'create_time': article_remark_obj.create_time.strftime('%Y-%m-%d'),
+                    'update_time': article_remark_obj.update_time.strftime('%Y-%m-%d'),
+                    'status': '1',
+                    'error': 0
+                }
+
+            except Exception as e:
+                log(e)
+                res = {
+                    'error': 1
+                }
+                self.render_json_response(res, status=500)
+
+        else:
+            res = {
+                'status': '0',
+                'error': 1
+            }
+
+        return self.render_json_response(res,status=200)
+
+
+class ArticleRemarkDelete(JSONResponseMixin, View):
+
+    def post(self, request, *args , **kwargs):
+        try:
+            article_remark_id = request.POST.get('deleteId')
+            article_remark_obj = Article_Remark.objects.get(pk=article_remark_id)
+            article_remark_obj.status = -1
+            article_remark_obj.save()
+
+            res = {
+                'success': True,
+            }
+
+            return self.render_json_response(res, status=200)
+
+        except Exception as e:
+            res = {
+                'success': False,
+            }
+            return self.render_json_response(res, status=500)
+
 
 __author__ = 'edison'

@@ -1,27 +1,29 @@
 import jieba.analyse
 from model.article import Article
-from HTMLParser import HTMLParser
+from werkzeug.contrib.cache import FileSystemCache
+# from HTMLParser import HTMLParser
 
+cache = FileSystemCache(cache_dir='/tmp/text_cache/')
 
-#
-# def strip_tags(html_string):
-#     html_string = html_string.strip()
-#     html_string = html_string.strip('\n')
-#     res = []
-#     parser = HTMLParser()
-#     parser.handle_data = res.append
-#     parser.feed(html_string)
-#     parser.close()
-#
-#     return ''.join(res)
 
 def get_textrank(article_id):
 
     article = Article.query.get(article_id)
     # print article
-    title = jieba.analyse.textrank(article.title, topK=3, withWeight=True)
-    print title
-    content = jieba.analyse.textrank(article.strip_content, topK=20, withWeight=True, allowPOS=('ns', 'n'))
+    try:
+        title = jieba.analyse.textrank(article.title, topK=3, withWeight=True,
+                                       allowPOS=('nz', 'ns', 'vn', 'an', 'n'))
+    except :
+        return None, None
+    # print title
+
+    key = "article:{0}".format(article_id)
+    content = cache.get(key)
+    # content = None
+    if content is None:
+        content = jieba.analyse.textrank(article.strip_content, topK=10, withWeight=True,
+                                     allowPOS=('nz', 'ns', 'vn', 'an', 'n'))
+        cache.set(key, content, timeout=86400)
 
     return title, content
 

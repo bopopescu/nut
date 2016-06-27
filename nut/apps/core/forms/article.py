@@ -1,3 +1,4 @@
+#coding=utf-8
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.log import getLogger
@@ -154,6 +155,7 @@ class BaseArticleForms(forms.Form):
     def clean_tags(self):
         _tags = self.cleaned_data.get('tags')
         _tags = _tags.strip()
+        _tags = _tags.replace(u'，', ',')
         _tmp_tags = re.split(',|\s', _tags)
         # _tags = _tags.split(', ')
         res = list()
@@ -224,8 +226,6 @@ class EditArticleForms(BaseArticleForms):
             # initial=Article.draft,
         )
 
-        # user_choices = get_admin_user_choices()
-        # _origin_creator = self.article.creator
         user_choices = get_author_choices() + [(self.article.creator.pk , self.article.creator.nickname)]
         self.fields['author'] = forms.ChoiceField(
             label=_('author'),

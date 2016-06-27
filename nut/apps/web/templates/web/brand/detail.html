@@ -1,6 +1,7 @@
 {% extends 'web/base.html' %}
 {% load i18n staticfiles %}
 {% load guoku %}
+{% block title %}{{ brand.name }} | 精英消费指南{% endblock %}
 {% block content %}
 
     <div class="guoku-content container brand-page">
@@ -18,7 +19,7 @@
             <div class="brand-basic-info">
                 <ul>
                     {% if brand.alias %}<li>又名:&nbsp;{{ brand.alias }}&nbsp;|</li>{% endif %}
-                    {% if brand.country %}<li>&nbsp;国家:&nbsp;{{ brand.country }}&nbsp;|</li>{% endif %}
+                    {% if brand.national %}<li>&nbsp;国家:&nbsp;{{ brand.national }}&nbsp;|</li>{% endif %}
                     {% if brand.website %}<li>&nbsp;官网:&nbsp;<a href="{{ brand.website }}" target="_blank">&nbsp;{{ brand.website }}</a></li>{% endif %}
                 </ul>
             </div>
@@ -28,6 +29,15 @@
                 <br>
             </div>
         </div>
+
+        {% if request.user.is_staff %}
+        <div class="row user-admin-link-wrapper">
+          <div class="col-sm-12 clearfix">
+              <a class="pull-right user-admin-link" href="{% url 'management_brand_edit' brand.id %}" target="_blank"><i class="fa fa-edit"></i></a>
+          </div>
+        </div>
+        {% endif %}
+
         <div class="row sorting-wrapper">
              <div class="col-md-12">
                 <div class="category-header category-header-control">
@@ -53,7 +63,7 @@
 
         <div class="row entity-wrapper">
             {% for entity in entities %}
-                {% include 'web/main/partial/entity.html' with entity=entity.object %}
+                {% include 'web/brand/entity.html' with entity=entity %}
             {% endfor %}
         </div>
 
