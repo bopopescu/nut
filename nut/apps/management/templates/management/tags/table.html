@@ -9,7 +9,8 @@
                             #  {%  if sort_by == 'id' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}
                             </a>
                         </th>
-                        <th>{% trans 'name' %}</th>
+                        <th>{% trans 'name' %}
+                        <input class="guoku_search_input" data-search-field="tag_name" type="text" ></th>
                         <th>
                             {% trans '商品<br>数量' %}{%  if sort_by == 'entity' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}
                         </th>
