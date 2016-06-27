@@ -164,6 +164,13 @@
                             <i class="fa fa-star"></i>&nbsp;<span>{% trans '用户喜爱报告(BETA)' %}</span>
                         </a>
                     </li>
+
+                 {% url 'management_editor_report' as management_editor_report %}
+                    <li {% if management_editor_report in request.path %}class="active"{% endif %}>
+                        <a href="{{ management_editor_report }}">
+                            <i class="fa fa-pencil"></i>&nbsp;<span>{% trans '编辑绩效报告' %}</span>
+                        </a>
+                    </li>
 {#                     {% url 'management_banner_list' as management_banner_list_url %}#}
 {#                    <li {% if management_banner_list_url in request.path %}class="active"{% endif %}>#}
 {#                        <a href="{{ management_banner_list_url }}">#}
