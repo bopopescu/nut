@@ -1,7 +1,7 @@
-4. 
+
 3. mng  tag page search function 
-2. fix message page refress bug 
-1. add article enter selection time  for solor index 
+2. fix message page refresh bug 
+1. add article enter selection time  for solr index 
 
 =======================
 # merged to master 2016 6-24
