@@ -27,16 +27,21 @@
 {% block content %}
 
 
-<div class="banner-wrapper" id="index-banners">
-    {% for banner in banners %}
-    <div class="banner-image-cell banner-image-cell-control">
-          <div class="banner-image-wrapper" style="background-image: url('{{ banner.img }}')">
-{#              <img class="img-responsive" src="{{ banner.img }}"/>#}
-          </div>
-    </div>
-    {% endfor %}
-</div>
+
 <div class="guoku-content index-page new-index-page container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="banner-wrapper" id="index-banners">
+                {% for banner in banners %}
+                    <div class="banner-image-cell banner-image-cell-control">
+                        <div class="banner-image-wrapper" style="background-image: url('{{ banner.img }}')">
+                            {#              <img class="img-responsive" src="{{ banner.img }}"/>#}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     <div class="row new-section-title-wrapper">
         <div class="col-sm-12">
             <div class="section-title">
